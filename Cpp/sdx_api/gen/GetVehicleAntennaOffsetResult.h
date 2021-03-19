@@ -1,0 +1,83 @@
+#pragma once
+
+#include <memory>
+#include "command_result.h"
+#include <string>
+#include "sdx_optional.h"
+
+namespace Sdx
+{
+  namespace Cmd
+  {
+    ///
+    /// Result of GetVehicleAntennaOffset
+    ///
+    /// Name  Type            Description
+    /// ----- --------------- --------------------------------------------
+    /// X     double          Antenna X offset in the body frame (meter)
+    /// Y     double          Antenna Y offset in the body frame (meter)
+    /// Z     double          Antenna Z offset in the body frame (meter)
+    /// Yaw   double          Antenna Yaw offset in the body frame (rad)
+    /// Pitch double          Antenna Pitch offset in the body frame (rad)
+    /// Roll  double          Antenna Roll offset in the body frame (rad)
+    /// Name  optional string Unique vehicle antenna name
+    ///
+
+    class GetVehicleAntennaOffsetResult;
+    typedef std::shared_ptr<GetVehicleAntennaOffsetResult> GetVehicleAntennaOffsetResultPtr;
+    
+    
+    class GetVehicleAntennaOffsetResult : public CommandResult
+    {
+    public:
+      static const char* const CmdName;
+      static const char* const Documentation;
+
+
+      GetVehicleAntennaOffsetResult();
+
+      GetVehicleAntennaOffsetResult(CommandBasePtr relatedCommand, double x, double y, double z, double yaw, double pitch, double roll, const Sdx::optional<std::string>& name = {});
+  
+      static GetVehicleAntennaOffsetResultPtr create(CommandBasePtr relatedCommand, double x, double y, double z, double yaw, double pitch, double roll, const Sdx::optional<std::string>& name = {});
+      static GetVehicleAntennaOffsetResultPtr dynamicCast(CommandBasePtr ptr);
+      virtual bool isValid() const override;
+      virtual std::string documentation() const override;
+
+
+      // **** x ****
+      double x() const;
+      void setX(double x);
+
+
+      // **** y ****
+      double y() const;
+      void setY(double y);
+
+
+      // **** z ****
+      double z() const;
+      void setZ(double z);
+
+
+      // **** yaw ****
+      double yaw() const;
+      void setYaw(double yaw);
+
+
+      // **** pitch ****
+      double pitch() const;
+      void setPitch(double pitch);
+
+
+      // **** roll ****
+      double roll() const;
+      void setRoll(double roll);
+
+
+      // **** name ****
+      Sdx::optional<std::string> name() const;
+      void setName(const Sdx::optional<std::string>& name);
+    };
+  }
+}
+

@@ -1,0 +1,90 @@
+#pragma once
+
+#include <memory>
+#include "command_base.h"
+#include <string>
+
+namespace Sdx
+{
+  namespace Cmd
+  {
+    ///
+    /// Set orbit perturbations (Crs, Crc, Cis, Cic, Cus and Cuc) for the specified constellation.
+    ///
+    /// Name   Type   Description
+    /// ------ ------ ---------------------------------------------
+    /// System string "GPS", "Galileo", "BeiDou", "QZSS" or "NavIC"
+    /// SvId   int    The satellite's SV ID.
+    /// Crs    double Crs (meter)
+    /// Crc    double Crc (meter)
+    /// Cis    double Crs (rad)
+    /// Cic    double Crc (rad)
+    /// Cus    double Cus (rad)
+    /// Cuc    double Cuc (rad)
+    ///
+
+    class SetPerturbations;
+    typedef std::shared_ptr<SetPerturbations> SetPerturbationsPtr;
+    
+    
+    class SetPerturbations : public CommandBase
+    {
+    public:
+      static const char* const CmdName;
+      static const char* const Documentation;
+
+
+      SetPerturbations();
+
+      SetPerturbations(const std::string& system, int svId, double crs, double crc, double cis, double cic, double cus, double cuc);
+  
+      static SetPerturbationsPtr create(const std::string& system, int svId, double crs, double crc, double cis, double cic, double cus, double cuc);
+      static SetPerturbationsPtr dynamicCast(CommandBasePtr ptr);
+      virtual bool isValid() const override;
+      virtual std::string documentation() const override;
+
+      virtual int executePermission() const override;
+
+
+      // **** system ****
+      std::string system() const;
+      void setSystem(const std::string& system);
+
+
+      // **** svId ****
+      int svId() const;
+      void setSvId(int svId);
+
+
+      // **** crs ****
+      double crs() const;
+      void setCrs(double crs);
+
+
+      // **** crc ****
+      double crc() const;
+      void setCrc(double crc);
+
+
+      // **** cis ****
+      double cis() const;
+      void setCis(double cis);
+
+
+      // **** cic ****
+      double cic() const;
+      void setCic(double cic);
+
+
+      // **** cus ****
+      double cus() const;
+      void setCus(double cus);
+
+
+      // **** cuc ****
+      double cuc() const;
+      void setCuc(double cuc);
+    };
+  }
+}
+

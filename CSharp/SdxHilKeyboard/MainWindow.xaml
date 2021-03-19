@@ -1,0 +1,74 @@
+﻿<Window x:Class="SdxKeyboard.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:SdxKeyboard"
+        xmlns:prop="clr-namespace:SdxKeyboard.Properties"
+        mc:Ignorable="d"
+        SizeToContent="Height"
+        Width="250"
+        Title="SDX HIL Keyboard"
+        FontFamily="Lucida Console"
+        DataContext="{Binding Source={x:Static prop:Settings.Default}}">
+  <Window.Resources>
+    <Style x:Key="UHDOnlyStyle" TargetType="Control">
+      <Style.Triggers>
+        <DataTrigger Binding="{Binding Path=TargetType}" Value="N210">
+          <Setter Property="IsEnabled" Value="True" />
+        </DataTrigger>
+        <DataTrigger Binding="{Binding Path=TargetType}" Value="X300">
+          <Setter Property="IsEnabled" Value="True" />
+        </DataTrigger>
+      </Style.Triggers>
+      <Setter Property="IsEnabled" Value="False" />
+    </Style>
+  </Window.Resources>
+  <StackPanel Orientation="Vertical">
+    <GroupBox Header="Settings">
+      <Grid>
+        <Grid.ColumnDefinitions>
+          <ColumnDefinition Width="Auto" />
+          <ColumnDefinition />
+        </Grid.ColumnDefinitions>
+        <Grid.RowDefinitions>
+          <RowDefinition />
+          <RowDefinition />
+          <RowDefinition />
+          <RowDefinition />
+          <RowDefinition />
+          <RowDefinition />
+        </Grid.RowDefinitions>
+
+        <Label Grid.Row="0" Grid.Column="0" Content="SDX Address:" Margin="3"/>
+        <TextBox Grid.Row="0" Grid.Column="1" Text="{Binding Path=SdxAddress}" VerticalAlignment="Center" Margin="3" />
+
+        <Label Grid.Row="1" Grid.Column="0" Content="Target Type:" Margin="3"/>
+        <ComboBox Grid.Row="1" Grid.Column="1" VerticalAlignment="Center" Margin="3" SelectedValuePath="Content" SelectedValue="{Binding Path=TargetType}">
+          <ComboBoxItem Content="NoneRT" />
+          <ComboBoxItem Content="BladeRF" />
+          <ComboBoxItem Content="N210" />
+          <ComboBoxItem Content="X300" />
+        </ComboBox>
+
+        <Label Grid.Row="2" Grid.Column="0" Content="Target Address:" Margin="3"/>
+        <TextBox Grid.Row="2" Grid.Column="1" Text="{Binding Path=TargetAddress}" VerticalAlignment="Center" Margin="3" Style="{StaticResource ResourceKey=UHDOnlyStyle}" />
+
+        <Label Grid.Row="3" Grid.Column="0" Content="External Clock:" Margin="3"/>
+        <CheckBox Grid.Row="3" Grid.Column="1" IsChecked="{Binding Path=ClockIsExternal}" HorizontalAlignment="Center" VerticalAlignment="Center" Style="{StaticResource ResourceKey=UHDOnlyStyle}" />
+
+        <Label Grid.Row="4" Grid.Column="0" Content="Raw Logging (csv):" Margin="3"/>
+        <CheckBox x:Name="rawLoggingCheckBox" Grid.Row="4" Grid.Column="1" IsChecked="{Binding Path=RawLogging}" HorizontalAlignment="Center" VerticalAlignment="Center"/>
+
+        <Label Grid.Row="5" Grid.Column="0" Content="Raw Logging Rate (Hz):" Margin="3"/>
+        <ComboBox Grid.Row="5" Grid.Column="1" IsEnabled="{Binding ElementName=rawLoggingCheckBox, Path=IsChecked}" VerticalAlignment="Center" Margin="3" SelectedValuePath="Content" SelectedValue="{Binding Path=LoggingRate}">
+          <ComboBoxItem Content="10" />
+          <ComboBoxItem Content="100" />
+          <ComboBoxItem Content="1000" />
+        </ComboBox>
+
+      </Grid>
+    </GroupBox>
+    <Button Content="Start Simulation" HorizontalAlignment="Center" Margin="54,3,53.6,3" Click="StartSimulation_Click"/>
+  </StackPanel>
+</Window>

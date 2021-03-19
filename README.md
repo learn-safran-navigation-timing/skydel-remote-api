@@ -1,1 +1,0 @@
-Skydel Remote API

@@ -1,0 +1,58 @@
+#pragma once
+
+#include <memory>
+#include "command_base.h"
+#include <string>
+#include <vector>
+
+namespace Sdx
+{
+  namespace Cmd
+  {
+    ///
+    /// Get the PRNs transmitted by the SV ID for these signals.
+    ///
+    /// Name        Type         Description
+    /// ----------- ------------ --------------------------------------------------------------------------------
+    /// SvId        int          Satellite SV ID.
+    /// SignalArray array string An array of signals.
+    ///                          Accepted values are: "L1CA", "L1C", "L2C", "L5", "G1", "G2", "E1", "E6BC", "B1",
+    ///                                               "B2", "B1C", "B2a", "QZSSL1CA", "QZSSL1C", "QZSSL5",
+    ///                                               "QZSSL1S", "QZSSL5S" and "NAVICL5"
+    ///
+
+    class GetTransmittedPrnForSV;
+    typedef std::shared_ptr<GetTransmittedPrnForSV> GetTransmittedPrnForSVPtr;
+    
+    
+    class GetTransmittedPrnForSV : public CommandBase
+    {
+    public:
+      static const char* const CmdName;
+      static const char* const Documentation;
+
+
+      GetTransmittedPrnForSV();
+
+      GetTransmittedPrnForSV(int svId, const std::vector<std::string>& signalArray);
+  
+      static GetTransmittedPrnForSVPtr create(int svId, const std::vector<std::string>& signalArray);
+      static GetTransmittedPrnForSVPtr dynamicCast(CommandBasePtr ptr);
+      virtual bool isValid() const override;
+      virtual std::string documentation() const override;
+
+      virtual int executePermission() const override;
+
+
+      // **** svId ****
+      int svId() const;
+      void setSvId(int svId);
+
+
+      // **** signalArray ****
+      std::vector<std::string> signalArray() const;
+      void setSignalArray(const std::vector<std::string>& signalArray);
+    };
+  }
+}
+

@@ -1,0 +1,39 @@
+#pragma once
+
+#include <memory>
+#include "command_base.h"
+
+
+namespace Sdx
+{
+  namespace Cmd
+  {
+    ///
+    /// Ask Skydel to reset its PPS counter.
+    ///
+    /// 
+    ///
+
+    class WaitAndResetPPS;
+    typedef std::shared_ptr<WaitAndResetPPS> WaitAndResetPPSPtr;
+    
+    
+    class WaitAndResetPPS : public CommandBase
+    {
+    public:
+      static const char* const CmdName;
+      static const char* const Documentation;
+
+
+      WaitAndResetPPS();
+  
+      static WaitAndResetPPSPtr create();
+      static WaitAndResetPPSPtr dynamicCast(CommandBasePtr ptr);
+      virtual bool isValid() const override;
+      virtual std::string documentation() const override;
+
+      virtual int executePermission() const override;
+    };
+  }
+}
+
