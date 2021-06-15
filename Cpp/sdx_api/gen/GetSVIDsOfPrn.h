@@ -9,7 +9,7 @@ namespace Sdx
   namespace Cmd
   {
     ///
-    /// Mapping PRN to the corresponding SV ID. Get a list of SV IDs based on a specific signal. Accepted signal keys: "GPS_L1_CA", "GPS_L1C", "GPS_L2C", "GPS_L5", "GLONASS_G1", "GLONASS_G2", "GALILEO_E1", "GALILEO_E5a", "GALILEO_E5b", "GALILEO_E6", "BEIDOU_B1", "BEIDOU_B2", "BEIDOU_B1C", "BEIDOU_B2a", "SBAS_L1", "SBAS_L5", "QZSS_L1_CA", "QZSS_L1C", "QZSS_L5", "QZSS_L1S", "QZSS_L5S", "NAVIC_L5", "CS1", "CS2", "CS3", "CS4", "CS5", "CS6", "CS7", "CS8", "SIGNAL_COUNT"
+    /// Mapping PRN to the corresponding SV ID. Get a list of SV IDs based on a specific signal. Accepted signal keys: "L1CA", "L1C", "L1P", "L1M", "L2C", "L2P", "L5", "G1", "G2", "E1", "E1PRS", "E5a", "E5b", "E6BC", "E6PRS", "B1", "B2", "B2a", "B1C", "SBASL1", "SBASL5", "QZSSL1CA", "QZSSL1C", "QZSSL5", "QZSSL1S", "QZSSL5S" and "NAVICL5"
     ///
     /// Name   Type   Description
     /// ------ ------ --------------------------------------------------------

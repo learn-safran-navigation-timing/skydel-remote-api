@@ -2,9 +2,9 @@
 
 #include <memory>
 #include "command_base.h"
-#include <string>
 #include "gen/GNSSBand.h"
 #include "sdx_optional.h"
+#include <string>
 
 namespace Sdx
 {

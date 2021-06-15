@@ -12,8 +12,8 @@ namespace Sdx
     /// Get the PRN for each satellite for specified signals.
     ///
     /// Name   Type   Description
-    /// ------ ------ --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
-    /// Signal string Accepted signal keys: "L1CA", "L1C", "L2C", "L5", "G1", "G2", "E1", "E5a", "E5b", "E6BC", "B1", "B2", "B1C", "B2a", "SBASL1", "SBASL5", "QZSSL1CA", "QZSSL1C", "QZSSL5", "QZSSL1S", "QZSSL5S", "NAVICL5"
+    /// ------ ------ ----------------------------------------------------------------------------------------------------------------------------------------------------------
+    /// Signal string Accepted signal keys: "L1CA", "L1C", "L2C", "L5", "E1", "E6BC", "B1", "B2", "B1C", "B2a", "QZSSL1CA", "QZSSL1C", "QZSSL5", "QZSSL1S", "QZSSL5S", "NAVICL5"
     ///
 
     class GetPrnForEachSV;

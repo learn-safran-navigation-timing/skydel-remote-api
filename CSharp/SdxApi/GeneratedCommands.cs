@@ -27,7 +27,7 @@ namespace Sdx.Cmd
   /// The simulator sub-state.
   ///
   
-  public enum SimulatorSubState { SubStateNone, Idle_ConfigNotValid, Idle_ConfigValid, Started_InitHardware, Started_Streaming, Started_SyncInit, Started_SlaveSync, Started_Armed, Started_SyncStartTime, Error, Started_HILSync, Started_SyncPPSReset, Started_SyncStart, Started_WFSlaveInit, Started_WFMasterInit }
+  public enum SimulatorSubState { SubStateNone, Idle_ConfigNotValid, Idle_ConfigValid, Started_InitPlugins, Started_InitHardware, Started_Streaming, Started_SyncInit, Started_SlaveSync, Started_Armed, Started_SyncStartTime, Error, Started_HILSync, Started_SyncPPSReset, Started_SyncStart, Started_WFSlaveInit, Started_WFMasterInit }
 
 
   ///
@@ -145,38 +145,6 @@ namespace Sdx.Cmd
     internal const string CmdName = "UndoCmd";
 
     public UndoCmd()
-      : base(CmdName)
-    {}
-      
-    public override bool IsValid
-    {
-      get
-      {
-        return base.IsValid
-      ;
-      }
-    }
-
-    public override int ExecutePermission { get { return EXECUTE_IF_IDLE; } }
-  }
-
-
-  ///
-  /// Redo the last undone command like Ctrl+Shift+Z in the UI
-  ///
-  /// 
-  ///
-
-  public class RedoCmd : CommandBase
-  {
-    public override string Documentation
-    {
-      get { return "Redo the last undone command like Ctrl+Shift+Z in the UI"; }
-    }
-
-    internal const string CmdName = "RedoCmd";
-
-    public RedoCmd()
       : base(CmdName)
     {}
       
@@ -22017,12 +21985,12 @@ namespace Sdx.Cmd
   /// Set the PRNs transmitted by the SV ID for these signals.
   ///
   /// Name          Type            Description
-  /// ------------- --------------- ------------------------------------------------------------------------------
+  /// ------------- --------------- -------------------------------------------------------------------------------
   /// SvId          int             Satellite SV ID.
   /// SignalPrnDict dict string:int A dictionary of signal prn pairs.
-  ///                               Accepted keys are: "L1CA", "L1C", "L2C", "L5", "G1", "G2", "E1", "E6BC", "B1",
-  ///                                                  "B2", "B1C", "B2a", "QZSSL1CA", "QZSSL1C", "QZSSL5",
-  ///                                                  "QZSSL1S", "QZSSL5S" and "NAVICL5"
+  ///                               Accepted keys are: "L1CA", "L1C", "L2C", "L5", "E1", "E6BC", "B1", "B2", "B1C",
+  ///                                                  "B2a", "QZSSL1CA", "QZSSL1C", "QZSSL5", "QZSSL1S", "QZSSL5S"
+  ///                                                  and "NAVICL5"
   ///
 
   public class SetTransmittedPrnForSV : CommandBase
@@ -22082,12 +22050,12 @@ namespace Sdx.Cmd
   /// Get the PRNs transmitted by the SV ID for these signals.
   ///
   /// Name        Type         Description
-  /// ----------- ------------ --------------------------------------------------------------------------------
+  /// ----------- ------------ ------------------------------------------------------------------------------
   /// SvId        int          Satellite SV ID.
   /// SignalArray array string An array of signals.
-  ///                          Accepted values are: "L1CA", "L1C", "L2C", "L5", "G1", "G2", "E1", "E6BC", "B1",
-  ///                                               "B2", "B1C", "B2a", "QZSSL1CA", "QZSSL1C", "QZSSL5",
-  ///                                               "QZSSL1S", "QZSSL5S" and "NAVICL5"
+  ///                          Accepted values are: "L1CA", "L1C", "L2C", "L5", "E1", "E6BC", "B1", "B2",
+  ///                                               "B1C", "B2a", "QZSSL1CA", "QZSSL1C", "QZSSL5", "QZSSL1S",
+  ///                                               "QZSSL5S" and "NAVICL5"
   ///
 
   public class GetTransmittedPrnForSV : CommandBase
@@ -22147,12 +22115,12 @@ namespace Sdx.Cmd
   /// Result of GetTransmittedPrnForSV
   ///
   /// Name          Type            Description
-  /// ------------- --------------- ------------------------------------------------------------------------------
+  /// ------------- --------------- -------------------------------------------------------------------------------
   /// SvId          int             Satellite SV ID.
   /// SignalPrnDict dict string:int A dictionary of signal prn pairs.
-  ///                               Accepted keys are: "L1CA", "L1C", "L2C", "L5", "G1", "G2", "E1", "E6BC", "B1",
-  ///                                                  "B2", "B1C", "B2a", "QZSSL1CA", "QZSSL1C", "QZSSL5",
-  ///                                                  "QZSSL1S", "QZSSL5S" and "NAVICL5"
+  ///                               Accepted keys are: "L1CA", "L1C", "L2C", "L5", "E1", "E6BC", "B1", "B2", "B1C",
+  ///                                                  "B2a", "QZSSL1CA", "QZSSL1C", "QZSSL5", "QZSSL1S", "QZSSL5S"
+  ///                                                  and "NAVICL5"
   ///
 
   public class GetTransmittedPrnForSVResult : CommandResult
@@ -22210,8 +22178,8 @@ namespace Sdx.Cmd
   /// Set the PRN transmitted by the SV ID for this signal.
   ///
   /// Name   Type   Description
-  /// ------ ------ ----------------------------------------------------------------------------------------------------------------------------------------------------------------------
-  /// Signal string Accepted signal keys: "L1CA", "L1C", "L2C", "L5", "G1", "G2", "E1", "E6BC", "B1", "B2", "B1C", "B2a", "QZSSL1CA", "QZSSL1C", "QZSSL5", "QZSSL1S", "QZSSL5S", "NAVICL5"
+  /// ------ ------ ----------------------------------------------------------------------------------------------------------------------------------------------------------
+  /// Signal string Accepted signal keys: "L1CA", "L1C", "L2C", "L5", "E1", "E6BC", "B1", "B2", "B1C", "B2a", "QZSSL1CA", "QZSSL1C", "QZSSL5", "QZSSL1S", "QZSSL5S", "NAVICL5"
   /// SvId   int    Satellite SV ID.
   /// Prn    int    PRN number.
   ///
@@ -22284,8 +22252,8 @@ namespace Sdx.Cmd
   /// Get the PRN transmitted by the SV ID for this signal.
   ///
   /// Name   Type   Description
-  /// ------ ------ ----------------------------------------------------------------------------------------------------------------------------------------------------------------------
-  /// Signal string Accepted signal keys: "L1CA", "L1C", "L2C", "L5", "G1", "G2", "E1", "E6BC", "B1", "B2", "B1C", "B2a", "QZSSL1CA", "QZSSL1C", "QZSSL5", "QZSSL1S", "QZSSL5S", "NAVICL5"
+  /// ------ ------ ----------------------------------------------------------------------------------------------------------------------------------------------------------
+  /// Signal string Accepted signal keys: "L1CA", "L1C", "L2C", "L5", "E1", "E6BC", "B1", "B2", "B1C", "B2a", "QZSSL1CA", "QZSSL1C", "QZSSL5", "QZSSL1S", "QZSSL5S", "NAVICL5"
   /// SvId   int    Satellite SV ID.
   ///
 
@@ -22346,8 +22314,8 @@ namespace Sdx.Cmd
   /// Result of GetPrnOfSVID
   ///
   /// Name   Type   Description
-  /// ------ ------ ----------------------------------------------------------------------------------------------------------------------------------------------------------------------
-  /// Signal string Accepted signal keys: "L1CA", "L1C", "L2C", "L5", "G1", "G2", "E1", "E6BC", "B1", "B2", "B1C", "B2a", "QZSSL1CA", "QZSSL1C", "QZSSL5", "QZSSL1S", "QZSSL5S", "NAVICL5"
+  /// ------ ------ ----------------------------------------------------------------------------------------------------------------------------------------------------------
+  /// Signal string Accepted signal keys: "L1CA", "L1C", "L2C", "L5", "E1", "E6BC", "B1", "B2", "B1C", "B2a", "QZSSL1CA", "QZSSL1C", "QZSSL5", "QZSSL1S", "QZSSL5S", "NAVICL5"
   /// SvId   int    Satellite SV ID.
   /// Prn    int    PRN number.
   ///
@@ -22418,8 +22386,8 @@ namespace Sdx.Cmd
   /// Set the PRN for each satellite for specified signals.
   ///
   /// Name   Type      Description
-  /// ------ --------- --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
-  /// Signal string    Accepted signal keys: "L1CA", "L1C", "L2C", "L5", "G1", "G2", "E1", "E5a", "E5b", "E6BC", "B1", "B2", "B1C", "B2a", "SBASL1", "SBASL5", "QZSSL1CA", "QZSSL1C", "QZSSL5", "QZSSL1S", "QZSSL5S", "NAVICL5"
+  /// ------ --------- ----------------------------------------------------------------------------------------------------------------------------------------------------------
+  /// Signal string    Accepted signal keys: "L1CA", "L1C", "L2C", "L5", "E1", "E6BC", "B1", "B2", "B1C", "B2a", "QZSSL1CA", "QZSSL1C", "QZSSL5", "QZSSL1S", "QZSSL5S", "NAVICL5"
   /// Prn    array int PRN value to set for each satellite. Zero based index (index 0 => PRN for SV ID 1, index 1 => PRN for SV ID 2, etc)
   ///
 
@@ -22480,8 +22448,8 @@ namespace Sdx.Cmd
   /// Get the PRN for each satellite for specified signals.
   ///
   /// Name   Type   Description
-  /// ------ ------ --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
-  /// Signal string Accepted signal keys: "L1CA", "L1C", "L2C", "L5", "G1", "G2", "E1", "E5a", "E5b", "E6BC", "B1", "B2", "B1C", "B2a", "SBASL1", "SBASL5", "QZSSL1CA", "QZSSL1C", "QZSSL5", "QZSSL1S", "QZSSL5S", "NAVICL5"
+  /// ------ ------ ----------------------------------------------------------------------------------------------------------------------------------------------------------
+  /// Signal string Accepted signal keys: "L1CA", "L1C", "L2C", "L5", "E1", "E6BC", "B1", "B2", "B1C", "B2a", "QZSSL1CA", "QZSSL1C", "QZSSL5", "QZSSL1S", "QZSSL5S", "NAVICL5"
   ///
 
   public class GetPrnForEachSV : CommandBase
@@ -22530,8 +22498,8 @@ namespace Sdx.Cmd
   /// Result of GetPrnForEachSV
   ///
   /// Name   Type      Description
-  /// ------ --------- --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
-  /// Signal string    Accepted signal keys: "L1CA", "L1C", "L2C", "L5", "G1", "G2", "E1", "E5a", "E5b", "E6BC", "B1", "B2", "B1C", "B2a", "SBASL1", "SBASL5", "QZSSL1CA", "QZSSL1C", "QZSSL5", "QZSSL1S", "QZSSL5S", "NAVICL5"
+  /// ------ --------- ----------------------------------------------------------------------------------------------------------------------------------------------------------
+  /// Signal string    Accepted signal keys: "L1CA", "L1C", "L2C", "L5", "E1", "E6BC", "B1", "B2", "B1C", "B2a", "QZSSL1CA", "QZSSL1C", "QZSSL5", "QZSSL1S", "QZSSL5S", "NAVICL5"
   /// Prn    array int PRN value to set for each satellite. Zero based index (index 0 => PRN for SV ID 1, index 1 => PRN for SV ID 2, etc)
   ///
 
@@ -28530,6 +28498,86 @@ namespace Sdx.Cmd
       : base(relatedCommand, paramName, val)
     {
       Name = CmdName;
+    }
+  }
+
+
+  ///
+  /// Get GLONASS frequency number for all satellites. Return values range from -7 to 13. Value -8 is an invalid value, it indicates that the almanac for the satellite is invalid.
+  ///
+  /// 
+  ///
+
+  public class GetGlonassFrequencyNumberForEachSV : CommandBase
+  {
+    public override string Documentation
+    {
+      get { return "Get GLONASS frequency number for all satellites. Return values range from -7 to 13. Value -8 is an invalid value, it indicates that the almanac for the satellite is invalid."; }
+    }
+
+    internal const string CmdName = "GetGlonassFrequencyNumberForEachSV";
+
+    public GetGlonassFrequencyNumberForEachSV()
+      : base(CmdName)
+    {}
+      
+    public override bool IsValid
+    {
+      get
+      {
+        return base.IsValid
+      ;
+      }
+    }
+
+    public override int ExecutePermission { get { return EXECUTE_IF_IDLE; } }
+  }
+
+
+  ///
+  /// Result of GetGlonassFrequencyNumberForEachSV
+  ///
+  /// Name            Type      Description
+  /// --------------- --------- --------------------------------------------------------------------------------------------------
+  /// FrequencyNumber array int Frequency number of each satellite. Zero based index (index 0 => SV ID 1, index 1 => SV ID 2, etc)
+  ///
+
+  public class GetGlonassFrequencyNumberForEachSVResult : CommandResult
+  {
+    public override string Documentation
+    {
+      get { return "Result of GetGlonassFrequencyNumberForEachSV"; }
+    }
+
+    internal const string CmdName = "GetGlonassFrequencyNumberForEachSVResult";
+
+    public GetGlonassFrequencyNumberForEachSVResult()
+      : base(CmdName)
+    {}
+
+    public GetGlonassFrequencyNumberForEachSVResult(CommandBase relatedCommand, List<int> frequencyNumber)
+      : base(CmdName, relatedCommand)
+    {
+      FrequencyNumber = frequencyNumber;
+    }
+      
+    public override bool IsValid
+    {
+      get
+      {
+        return base.IsValid
+        && Contains("FrequencyNumber")
+      ;
+      }
+    }
+
+    public List<int> FrequencyNumber
+    {
+      get { return GetValue("FrequencyNumber").ToObject<List<int>>(CommandBase.Serializer); }
+      set
+      {
+          SetValue("FrequencyNumber", JToken.FromObject(value, CommandBase.Serializer));
+      }
     }
   }
 
@@ -42342,6 +42390,178 @@ namespace Sdx.Cmd
       set
       {
           SetValue("Ignore", JToken.FromObject(value, CommandBase.Serializer));
+      }
+    }
+
+    public string Id
+    {
+      get { return GetValue("Id").ToObject<string>(CommandBase.Serializer); }
+      set
+      {
+          SetValue("Id", JToken.FromObject(value, CommandBase.Serializer));
+      }
+    }
+  }
+
+
+  ///
+  /// Set whether a transmitter should be hidden on the map.
+  ///
+  /// Name        Type   Description
+  /// ----------- ------ -----------------------------------------------
+  /// HiddenOnMap bool   If true, transmitter will be hidden on the map.
+  /// Id          string Transmitter unique identifier.
+  ///
+
+  public class SetIntTxHiddenOnMap : CommandBase
+  {
+    public override string Documentation
+    {
+      get { return "Set whether a transmitter should be hidden on the map."; }
+    }
+
+    internal const string CmdName = "SetIntTxHiddenOnMap";
+
+    public SetIntTxHiddenOnMap()
+      : base(CmdName)
+    {}
+
+    public SetIntTxHiddenOnMap(bool hiddenOnMap, string id)
+      : base(CmdName)
+    {
+      HiddenOnMap = hiddenOnMap;
+      Id = id;
+    }
+      
+    public override bool IsValid
+    {
+      get
+      {
+        return base.IsValid
+        && Contains("HiddenOnMap")
+        && Contains("Id")
+      ;
+      }
+    }
+
+    public override int ExecutePermission { get { return EXECUTE_IF_SIMULATING | EXECUTE_IF_IDLE; } }
+
+    public bool HiddenOnMap
+    {
+      get { return GetValue("HiddenOnMap").ToObject<bool>(CommandBase.Serializer); }
+      set
+      {
+          SetValue("HiddenOnMap", JToken.FromObject(value, CommandBase.Serializer));
+      }
+    }
+
+    public string Id
+    {
+      get { return GetValue("Id").ToObject<string>(CommandBase.Serializer); }
+      set
+      {
+          SetValue("Id", JToken.FromObject(value, CommandBase.Serializer));
+      }
+    }
+  }
+
+
+  ///
+  /// Get whether a transmitter should be hidden on the map.
+  ///
+  /// Name Type   Description
+  /// ---- ------ ------------------------------
+  /// Id   string Transmitter unique identifier.
+  ///
+
+  public class GetIntTxHiddenOnMap : CommandBase
+  {
+    public override string Documentation
+    {
+      get { return "Get whether a transmitter should be hidden on the map."; }
+    }
+
+    internal const string CmdName = "GetIntTxHiddenOnMap";
+
+    public GetIntTxHiddenOnMap()
+      : base(CmdName)
+    {}
+
+    public GetIntTxHiddenOnMap(string id)
+      : base(CmdName)
+    {
+      Id = id;
+    }
+      
+    public override bool IsValid
+    {
+      get
+      {
+        return base.IsValid
+        && Contains("Id")
+      ;
+      }
+    }
+
+    public override int ExecutePermission { get { return EXECUTE_IF_IDLE; } }
+
+    public string Id
+    {
+      get { return GetValue("Id").ToObject<string>(CommandBase.Serializer); }
+      set
+      {
+          SetValue("Id", JToken.FromObject(value, CommandBase.Serializer));
+      }
+    }
+  }
+
+
+  ///
+  /// Result of GetIntTxHiddenOnMap
+  ///
+  /// Name        Type   Description
+  /// ----------- ------ -----------------------------------------------
+  /// HiddenOnMap bool   If true, transmitter will be hidden on the map.
+  /// Id          string Transmitter unique identifier.
+  ///
+
+  public class GetIntTxHiddenOnMapResult : CommandResult
+  {
+    public override string Documentation
+    {
+      get { return "Result of GetIntTxHiddenOnMap"; }
+    }
+
+    internal const string CmdName = "GetIntTxHiddenOnMapResult";
+
+    public GetIntTxHiddenOnMapResult()
+      : base(CmdName)
+    {}
+
+    public GetIntTxHiddenOnMapResult(CommandBase relatedCommand, bool hiddenOnMap, string id)
+      : base(CmdName, relatedCommand)
+    {
+      HiddenOnMap = hiddenOnMap;
+      Id = id;
+    }
+      
+    public override bool IsValid
+    {
+      get
+      {
+        return base.IsValid
+        && Contains("HiddenOnMap")
+        && Contains("Id")
+      ;
+      }
+    }
+
+    public bool HiddenOnMap
+    {
+      get { return GetValue("HiddenOnMap").ToObject<bool>(CommandBase.Serializer); }
+      set
+      {
+          SetValue("HiddenOnMap", JToken.FromObject(value, CommandBase.Serializer));
       }
     }
 
@@ -61598,7 +61818,7 @@ namespace Sdx.Cmd
 
 
   ///
-  /// Mapping PRN to the corresponding SV ID. Get a list of SV IDs based on a specific signal. Accepted signal keys: "GPS_L1_CA", "GPS_L1C", "GPS_L2C", "GPS_L5", "GLONASS_G1", "GLONASS_G2", "GALILEO_E1", "GALILEO_E5a", "GALILEO_E5b", "GALILEO_E6", "BEIDOU_B1", "BEIDOU_B2", "BEIDOU_B1C", "BEIDOU_B2a", "SBAS_L1", "SBAS_L5", "QZSS_L1_CA", "QZSS_L1C", "QZSS_L5", "QZSS_L1S", "QZSS_L5S", "NAVIC_L5", "CS1", "CS2", "CS3", "CS4", "CS5", "CS6", "CS7", "CS8", "SIGNAL_COUNT"
+  /// Mapping PRN to the corresponding SV ID. Get a list of SV IDs based on a specific signal. Accepted signal keys: "L1CA", "L1C", "L1P", "L1M", "L2C", "L2P", "L5", "G1", "G2", "E1", "E1PRS", "E5a", "E5b", "E6BC", "E6PRS", "B1", "B2", "B2a", "B1C", "SBASL1", "SBASL5", "QZSSL1CA", "QZSSL1C", "QZSSL5", "QZSSL1S", "QZSSL5S" and "NAVICL5"
   ///
   /// Name   Type   Description
   /// ------ ------ --------------------------------------------------------
@@ -61610,7 +61830,7 @@ namespace Sdx.Cmd
   {
     public override string Documentation
     {
-      get { return "Mapping PRN to the corresponding SV ID. Get a list of SV IDs based on a specific signal. Accepted signal keys: \"GPS_L1_CA\", \"GPS_L1C\", \"GPS_L2C\", \"GPS_L5\", \"GLONASS_G1\", \"GLONASS_G2\", \"GALILEO_E1\", \"GALILEO_E5a\", \"GALILEO_E5b\", \"GALILEO_E6\", \"BEIDOU_B1\", \"BEIDOU_B2\", \"BEIDOU_B1C\", \"BEIDOU_B2a\", \"SBAS_L1\", \"SBAS_L5\", \"QZSS_L1_CA\", \"QZSS_L1C\", \"QZSS_L5\", \"QZSS_L1S\", \"QZSS_L5S\", \"NAVIC_L5\", \"CS1\", \"CS2\", \"CS3\", \"CS4\", \"CS5\", \"CS6\", \"CS7\", \"CS8\", \"SIGNAL_COUNT\""; }
+      get { return "Mapping PRN to the corresponding SV ID. Get a list of SV IDs based on a specific signal. Accepted signal keys: \"L1CA\", \"L1C\", \"L1P\", \"L1M\", \"L2C\", \"L2P\", \"L5\", \"G1\", \"G2\", \"E1\", \"E1PRS\", \"E5a\", \"E5b\", \"E6BC\", \"E6PRS\", \"B1\", \"B2\", \"B2a\", \"B1C\", \"SBASL1\", \"SBASL5\", \"QZSSL1CA\", \"QZSSL1C\", \"QZSSL5\", \"QZSSL1S\", \"QZSSL5S\" and \"NAVICL5\""; }
     }
 
     internal const string CmdName = "GetSVIDsOfPrn";

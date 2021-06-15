@@ -169,58 +169,6 @@ namespace Sdx
 
 
 ///
-/// Definition of RedoCmd
-///
-#include "gen/RedoCmd.h"
-
-namespace Sdx
-{
-  namespace Cmd
-  {
-    const char* const RedoCmd::CmdName = "RedoCmd";
-    const char* const RedoCmd::Documentation = "Redo the last undone command like Ctrl+Shift+Z in the UI";
-
-    REGISTER_COMMAND_FACTORY(RedoCmd);
-
-
-    RedoCmd::RedoCmd()
-      : CommandBase(CmdName)
-    {
-
-    }
-
-
-    RedoCmdPtr RedoCmd::create()
-    {
-      return RedoCmdPtr(new RedoCmd());
-    }
-
-    RedoCmdPtr RedoCmd::dynamicCast(CommandBasePtr ptr)
-    {
-      return std::dynamic_pointer_cast<RedoCmd>(ptr);
-    }
-
-    bool RedoCmd::isValid() const
-    {
-      
-        return m_values.IsObject()
-        ;
-
-    }
-
-    std::string RedoCmd::documentation() const { return Documentation; }
-
-
-    int RedoCmd::executePermission() const
-    {
-      return EXECUTE_IF_IDLE;
-    }
-
-  }
-}
-
-
-///
 /// Definition of GetDataFolder
 ///
 #include "gen/GetDataFolder.h"
@@ -37273,6 +37221,122 @@ namespace Sdx
 
 
 ///
+/// Definition of GetGlonassFrequencyNumberForEachSV
+///
+#include "gen/GetGlonassFrequencyNumberForEachSV.h"
+
+namespace Sdx
+{
+  namespace Cmd
+  {
+    const char* const GetGlonassFrequencyNumberForEachSV::CmdName = "GetGlonassFrequencyNumberForEachSV";
+    const char* const GetGlonassFrequencyNumberForEachSV::Documentation = "Get GLONASS frequency number for all satellites. Return values range from -7 to 13. Value -8 is an invalid value, it indicates that the almanac for the satellite is invalid.";
+
+    REGISTER_COMMAND_FACTORY(GetGlonassFrequencyNumberForEachSV);
+
+
+    GetGlonassFrequencyNumberForEachSV::GetGlonassFrequencyNumberForEachSV()
+      : CommandBase(CmdName)
+    {
+
+    }
+
+
+    GetGlonassFrequencyNumberForEachSVPtr GetGlonassFrequencyNumberForEachSV::create()
+    {
+      return GetGlonassFrequencyNumberForEachSVPtr(new GetGlonassFrequencyNumberForEachSV());
+    }
+
+    GetGlonassFrequencyNumberForEachSVPtr GetGlonassFrequencyNumberForEachSV::dynamicCast(CommandBasePtr ptr)
+    {
+      return std::dynamic_pointer_cast<GetGlonassFrequencyNumberForEachSV>(ptr);
+    }
+
+    bool GetGlonassFrequencyNumberForEachSV::isValid() const
+    {
+      
+        return m_values.IsObject()
+        ;
+
+    }
+
+    std::string GetGlonassFrequencyNumberForEachSV::documentation() const { return Documentation; }
+
+
+    int GetGlonassFrequencyNumberForEachSV::executePermission() const
+    {
+      return EXECUTE_IF_IDLE;
+    }
+
+  }
+}
+
+
+///
+/// Definition of GetGlonassFrequencyNumberForEachSVResult
+///
+#include "gen/GetGlonassFrequencyNumberForEachSVResult.h"
+
+namespace Sdx
+{
+  namespace Cmd
+  {
+    const char* const GetGlonassFrequencyNumberForEachSVResult::CmdName = "GetGlonassFrequencyNumberForEachSVResult";
+    const char* const GetGlonassFrequencyNumberForEachSVResult::Documentation = "Result of GetGlonassFrequencyNumberForEachSV";
+
+    REGISTER_COMMAND_RESULT_FACTORY(GetGlonassFrequencyNumberForEachSVResult);
+
+
+    GetGlonassFrequencyNumberForEachSVResult::GetGlonassFrequencyNumberForEachSVResult()
+      : CommandResult(CmdName)
+    {}
+
+    GetGlonassFrequencyNumberForEachSVResult::GetGlonassFrequencyNumberForEachSVResult(CommandBasePtr relatedCommand, const std::vector<int>& frequencyNumber)
+      : CommandResult(CmdName, relatedCommand)
+    {
+
+      setFrequencyNumber(frequencyNumber);
+    }
+
+
+    GetGlonassFrequencyNumberForEachSVResultPtr GetGlonassFrequencyNumberForEachSVResult::create(CommandBasePtr relatedCommand, const std::vector<int>& frequencyNumber)
+    {
+      return GetGlonassFrequencyNumberForEachSVResultPtr(new GetGlonassFrequencyNumberForEachSVResult(relatedCommand, frequencyNumber));
+    }
+
+    GetGlonassFrequencyNumberForEachSVResultPtr GetGlonassFrequencyNumberForEachSVResult::dynamicCast(CommandBasePtr ptr)
+    {
+      return std::dynamic_pointer_cast<GetGlonassFrequencyNumberForEachSVResult>(ptr);
+    }
+
+    bool GetGlonassFrequencyNumberForEachSVResult::isValid() const
+    {
+      
+        return m_values.IsObject()
+          && parse_json<std::vector<int>>::is_valid(m_values["FrequencyNumber"])
+        ;
+
+    }
+
+    std::string GetGlonassFrequencyNumberForEachSVResult::documentation() const { return Documentation; }
+
+
+    std::vector<int> GetGlonassFrequencyNumberForEachSVResult::frequencyNumber() const
+    {
+      return parse_json<std::vector<int>>::parse(m_values["FrequencyNumber"]);
+    }
+
+    void GetGlonassFrequencyNumberForEachSVResult::setFrequencyNumber(const std::vector<int>& frequencyNumber)
+    {
+      m_values.AddMember("FrequencyNumber", parse_json<std::vector<int>>::format(frequencyNumber, m_values.GetAllocator()), m_values.GetAllocator());
+    }
+
+
+  }
+}
+
+
+///
 /// Definition of SetQzssEphDoubleParamForEachSV
 ///
 #include "gen/SetQzssEphDoubleParamForEachSV.h"
@@ -54529,6 +54593,238 @@ namespace Sdx
     }
 
     void SetIntTxIgnoreVehicleAntennaPattern::setId(const std::string& id)
+    {
+      m_values.AddMember("Id", parse_json<std::string>::format(id, m_values.GetAllocator()), m_values.GetAllocator());
+    }
+
+
+  }
+}
+
+
+///
+/// Definition of SetIntTxHiddenOnMap
+///
+#include "gen/SetIntTxHiddenOnMap.h"
+
+namespace Sdx
+{
+  namespace Cmd
+  {
+    const char* const SetIntTxHiddenOnMap::CmdName = "SetIntTxHiddenOnMap";
+    const char* const SetIntTxHiddenOnMap::Documentation = "Set whether a transmitter should be hidden on the map.";
+
+    REGISTER_COMMAND_FACTORY(SetIntTxHiddenOnMap);
+
+
+    SetIntTxHiddenOnMap::SetIntTxHiddenOnMap()
+      : CommandBase(CmdName)
+    {}
+
+    SetIntTxHiddenOnMap::SetIntTxHiddenOnMap(bool hiddenOnMap, const std::string& id)
+      : CommandBase(CmdName)
+    {
+
+      setHiddenOnMap(hiddenOnMap);
+      setId(id);
+    }
+
+
+    SetIntTxHiddenOnMapPtr SetIntTxHiddenOnMap::create(bool hiddenOnMap, const std::string& id)
+    {
+      return SetIntTxHiddenOnMapPtr(new SetIntTxHiddenOnMap(hiddenOnMap, id));
+    }
+
+    SetIntTxHiddenOnMapPtr SetIntTxHiddenOnMap::dynamicCast(CommandBasePtr ptr)
+    {
+      return std::dynamic_pointer_cast<SetIntTxHiddenOnMap>(ptr);
+    }
+
+    bool SetIntTxHiddenOnMap::isValid() const
+    {
+      
+        return m_values.IsObject()
+          && parse_json<bool>::is_valid(m_values["HiddenOnMap"])
+          && parse_json<std::string>::is_valid(m_values["Id"])
+        ;
+
+    }
+
+    std::string SetIntTxHiddenOnMap::documentation() const { return Documentation; }
+
+
+    int SetIntTxHiddenOnMap::executePermission() const
+    {
+      return EXECUTE_IF_SIMULATING | EXECUTE_IF_IDLE;
+    }
+
+
+    bool SetIntTxHiddenOnMap::hiddenOnMap() const
+    {
+      return parse_json<bool>::parse(m_values["HiddenOnMap"]);
+    }
+
+    void SetIntTxHiddenOnMap::setHiddenOnMap(bool hiddenOnMap)
+    {
+      m_values.AddMember("HiddenOnMap", parse_json<bool>::format(hiddenOnMap, m_values.GetAllocator()), m_values.GetAllocator());
+    }
+
+
+
+    std::string SetIntTxHiddenOnMap::id() const
+    {
+      return parse_json<std::string>::parse(m_values["Id"]);
+    }
+
+    void SetIntTxHiddenOnMap::setId(const std::string& id)
+    {
+      m_values.AddMember("Id", parse_json<std::string>::format(id, m_values.GetAllocator()), m_values.GetAllocator());
+    }
+
+
+  }
+}
+
+
+///
+/// Definition of GetIntTxHiddenOnMap
+///
+#include "gen/GetIntTxHiddenOnMap.h"
+
+namespace Sdx
+{
+  namespace Cmd
+  {
+    const char* const GetIntTxHiddenOnMap::CmdName = "GetIntTxHiddenOnMap";
+    const char* const GetIntTxHiddenOnMap::Documentation = "Get whether a transmitter should be hidden on the map.";
+
+    REGISTER_COMMAND_FACTORY(GetIntTxHiddenOnMap);
+
+
+    GetIntTxHiddenOnMap::GetIntTxHiddenOnMap()
+      : CommandBase(CmdName)
+    {}
+
+    GetIntTxHiddenOnMap::GetIntTxHiddenOnMap(const std::string& id)
+      : CommandBase(CmdName)
+    {
+
+      setId(id);
+    }
+
+
+    GetIntTxHiddenOnMapPtr GetIntTxHiddenOnMap::create(const std::string& id)
+    {
+      return GetIntTxHiddenOnMapPtr(new GetIntTxHiddenOnMap(id));
+    }
+
+    GetIntTxHiddenOnMapPtr GetIntTxHiddenOnMap::dynamicCast(CommandBasePtr ptr)
+    {
+      return std::dynamic_pointer_cast<GetIntTxHiddenOnMap>(ptr);
+    }
+
+    bool GetIntTxHiddenOnMap::isValid() const
+    {
+      
+        return m_values.IsObject()
+          && parse_json<std::string>::is_valid(m_values["Id"])
+        ;
+
+    }
+
+    std::string GetIntTxHiddenOnMap::documentation() const { return Documentation; }
+
+
+    int GetIntTxHiddenOnMap::executePermission() const
+    {
+      return EXECUTE_IF_IDLE;
+    }
+
+
+    std::string GetIntTxHiddenOnMap::id() const
+    {
+      return parse_json<std::string>::parse(m_values["Id"]);
+    }
+
+    void GetIntTxHiddenOnMap::setId(const std::string& id)
+    {
+      m_values.AddMember("Id", parse_json<std::string>::format(id, m_values.GetAllocator()), m_values.GetAllocator());
+    }
+
+
+  }
+}
+
+
+///
+/// Definition of GetIntTxHiddenOnMapResult
+///
+#include "gen/GetIntTxHiddenOnMapResult.h"
+
+namespace Sdx
+{
+  namespace Cmd
+  {
+    const char* const GetIntTxHiddenOnMapResult::CmdName = "GetIntTxHiddenOnMapResult";
+    const char* const GetIntTxHiddenOnMapResult::Documentation = "Result of GetIntTxHiddenOnMap";
+
+    REGISTER_COMMAND_RESULT_FACTORY(GetIntTxHiddenOnMapResult);
+
+
+    GetIntTxHiddenOnMapResult::GetIntTxHiddenOnMapResult()
+      : CommandResult(CmdName)
+    {}
+
+    GetIntTxHiddenOnMapResult::GetIntTxHiddenOnMapResult(CommandBasePtr relatedCommand, bool hiddenOnMap, const std::string& id)
+      : CommandResult(CmdName, relatedCommand)
+    {
+
+      setHiddenOnMap(hiddenOnMap);
+      setId(id);
+    }
+
+
+    GetIntTxHiddenOnMapResultPtr GetIntTxHiddenOnMapResult::create(CommandBasePtr relatedCommand, bool hiddenOnMap, const std::string& id)
+    {
+      return GetIntTxHiddenOnMapResultPtr(new GetIntTxHiddenOnMapResult(relatedCommand, hiddenOnMap, id));
+    }
+
+    GetIntTxHiddenOnMapResultPtr GetIntTxHiddenOnMapResult::dynamicCast(CommandBasePtr ptr)
+    {
+      return std::dynamic_pointer_cast<GetIntTxHiddenOnMapResult>(ptr);
+    }
+
+    bool GetIntTxHiddenOnMapResult::isValid() const
+    {
+      
+        return m_values.IsObject()
+          && parse_json<bool>::is_valid(m_values["HiddenOnMap"])
+          && parse_json<std::string>::is_valid(m_values["Id"])
+        ;
+
+    }
+
+    std::string GetIntTxHiddenOnMapResult::documentation() const { return Documentation; }
+
+
+    bool GetIntTxHiddenOnMapResult::hiddenOnMap() const
+    {
+      return parse_json<bool>::parse(m_values["HiddenOnMap"]);
+    }
+
+    void GetIntTxHiddenOnMapResult::setHiddenOnMap(bool hiddenOnMap)
+    {
+      m_values.AddMember("HiddenOnMap", parse_json<bool>::format(hiddenOnMap, m_values.GetAllocator()), m_values.GetAllocator());
+    }
+
+
+
+    std::string GetIntTxHiddenOnMapResult::id() const
+    {
+      return parse_json<std::string>::parse(m_values["Id"]);
+    }
+
+    void GetIntTxHiddenOnMapResult::setId(const std::string& id)
     {
       m_values.AddMember("Id", parse_json<std::string>::format(id, m_values.GetAllocator()), m_values.GetAllocator());
     }
@@ -79838,7 +80134,7 @@ namespace Sdx
   namespace Cmd
   {
     const char* const GetSVIDsOfPrn::CmdName = "GetSVIDsOfPrn";
-    const char* const GetSVIDsOfPrn::Documentation = "Mapping PRN to the corresponding SV ID. Get a list of SV IDs based on a specific signal. Accepted signal keys: \"GPS_L1_CA\", \"GPS_L1C\", \"GPS_L2C\", \"GPS_L5\", \"GLONASS_G1\", \"GLONASS_G2\", \"GALILEO_E1\", \"GALILEO_E5a\", \"GALILEO_E5b\", \"GALILEO_E6\", \"BEIDOU_B1\", \"BEIDOU_B2\", \"BEIDOU_B1C\", \"BEIDOU_B2a\", \"SBAS_L1\", \"SBAS_L5\", \"QZSS_L1_CA\", \"QZSS_L1C\", \"QZSS_L5\", \"QZSS_L1S\", \"QZSS_L5S\", \"NAVIC_L5\", \"CS1\", \"CS2\", \"CS3\", \"CS4\", \"CS5\", \"CS6\", \"CS7\", \"CS8\", \"SIGNAL_COUNT\"";
+    const char* const GetSVIDsOfPrn::Documentation = "Mapping PRN to the corresponding SV ID. Get a list of SV IDs based on a specific signal. Accepted signal keys: \"L1CA\", \"L1C\", \"L1P\", \"L1M\", \"L2C\", \"L2P\", \"L5\", \"G1\", \"G2\", \"E1\", \"E1PRS\", \"E5a\", \"E5b\", \"E6BC\", \"E6PRS\", \"B1\", \"B2\", \"B2a\", \"B1C\", \"SBASL1\", \"SBASL5\", \"QZSSL1CA\", \"QZSSL1C\", \"QZSSL5\", \"QZSSL1S\", \"QZSSL5S\" and \"NAVICL5\"";
 
     REGISTER_COMMAND_FACTORY(GetSVIDsOfPrn);
 

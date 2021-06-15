@@ -2,9 +2,9 @@
 
 #include <memory>
 #include "command_result.h"
-#include <string>
-#include "gen/SimulatorSubState.h"
 #include "gen/SimulatorState.h"
+#include "gen/SimulatorSubState.h"
+#include <string>
 
 namespace Sdx
 {

@@ -2,8 +2,8 @@
 
 #include <memory>
 #include "command_result.h"
-#include <string>
 #include "sdx_optional.h"
+#include <string>
 
 namespace Sdx
 {

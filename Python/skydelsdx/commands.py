@@ -32,18 +32,19 @@ class SimulatorSubState:
   SubStateNone = 0
   Idle_ConfigNotValid = 1
   Idle_ConfigValid = 2
-  Started_InitHardware = 3
-  Started_Streaming = 4
-  Started_SyncInit = 5
-  Started_SlaveSync = 6
-  Started_Armed = 7
-  Started_SyncStartTime = 8
-  Error = 9
-  Started_HILSync = 10
-  Started_SyncPPSReset = 11
-  Started_SyncStart = 12
-  Started_WFSlaveInit = 13
-  Started_WFMasterInit = 14
+  Started_InitPlugins = 3
+  Started_InitHardware = 4
+  Started_Streaming = 5
+  Started_SyncInit = 6
+  Started_SlaveSync = 7
+  Started_Armed = 8
+  Started_SyncStartTime = 9
+  Error = 10
+  Started_HILSync = 11
+  Started_SyncPPSReset = 12
+  Started_SyncStart = 13
+  Started_WFSlaveInit = 14
+  Started_WFMasterInit = 15
 
 #
 # The Parity scheme used by a serial port.
@@ -110,19 +111,6 @@ class UndoCmd(CommandBase):
 
   def __init__(self):
     CommandBase.__init__(self, "UndoCmd")
-
-  def executePermission(self):
-    return ExecutePermission.EXECUTE_IF_IDLE
-
-#
-# Redo the last undone command like Ctrl+Shift+Z in the UI
-#
-#
-
-class RedoCmd(CommandBase):
-
-  def __init__(self):
-    CommandBase.__init__(self, "RedoCmd")
 
   def executePermission(self):
     return ExecutePermission.EXECUTE_IF_IDLE
@@ -11079,12 +11067,12 @@ class GetSVTypeResult(CommandResult):
 # Set the PRNs transmitted by the SV ID for these signals.
 #
 # Name          Type            Description
-# ------------- --------------- ------------------------------------------------------------------------------
+# ------------- --------------- -------------------------------------------------------------------------------
 # SvId          int             Satellite SV ID.
 # SignalPrnDict dict string:int A dictionary of signal prn pairs.
-#                               Accepted keys are: "L1CA", "L1C", "L2C", "L5", "G1", "G2", "E1", "E6BC", "B1",
-#                                                  "B2", "B1C", "B2a", "QZSSL1CA", "QZSSL1C", "QZSSL5",
-#                                                  "QZSSL1S", "QZSSL5S" and "NAVICL5"
+#                               Accepted keys are: "L1CA", "L1C", "L2C", "L5", "E1", "E6BC", "B1", "B2", "B1C",
+#                                                  "B2a", "QZSSL1CA", "QZSSL1C", "QZSSL5", "QZSSL1S", "QZSSL5S"
+#                                                  and "NAVICL5"
 #
 
 class SetTransmittedPrnForSV(CommandBase):
@@ -11113,12 +11101,12 @@ class SetTransmittedPrnForSV(CommandBase):
 # Get the PRNs transmitted by the SV ID for these signals.
 #
 # Name        Type         Description
-# ----------- ------------ --------------------------------------------------------------------------------
+# ----------- ------------ ------------------------------------------------------------------------------
 # SvId        int          Satellite SV ID.
 # SignalArray array string An array of signals.
-#                          Accepted values are: "L1CA", "L1C", "L2C", "L5", "G1", "G2", "E1", "E6BC", "B1",
-#                                               "B2", "B1C", "B2a", "QZSSL1CA", "QZSSL1C", "QZSSL5",
-#                                               "QZSSL1S", "QZSSL5S" and "NAVICL5"
+#                          Accepted values are: "L1CA", "L1C", "L2C", "L5", "E1", "E6BC", "B1", "B2",
+#                                               "B1C", "B2a", "QZSSL1CA", "QZSSL1C", "QZSSL5", "QZSSL1S",
+#                                               "QZSSL5S" and "NAVICL5"
 #
 
 class GetTransmittedPrnForSV(CommandBase):
@@ -11147,12 +11135,12 @@ class GetTransmittedPrnForSV(CommandBase):
 # Result of GetTransmittedPrnForSV
 #
 # Name          Type            Description
-# ------------- --------------- ------------------------------------------------------------------------------
+# ------------- --------------- -------------------------------------------------------------------------------
 # SvId          int             Satellite SV ID.
 # SignalPrnDict dict string:int A dictionary of signal prn pairs.
-#                               Accepted keys are: "L1CA", "L1C", "L2C", "L5", "G1", "G2", "E1", "E6BC", "B1",
-#                                                  "B2", "B1C", "B2a", "QZSSL1CA", "QZSSL1C", "QZSSL5",
-#                                                  "QZSSL1S", "QZSSL5S" and "NAVICL5"
+#                               Accepted keys are: "L1CA", "L1C", "L2C", "L5", "E1", "E6BC", "B1", "B2", "B1C",
+#                                                  "B2a", "QZSSL1CA", "QZSSL1C", "QZSSL5", "QZSSL1S", "QZSSL5S"
+#                                                  and "NAVICL5"
 #
 
 class GetTransmittedPrnForSVResult(CommandResult):
@@ -11181,8 +11169,8 @@ class GetTransmittedPrnForSVResult(CommandResult):
 # Set the PRN transmitted by the SV ID for this signal.
 #
 # Name   Type   Description
-# ------ ------ ----------------------------------------------------------------------------------------------------------------------------------------------------------------------
-# Signal string Accepted signal keys: "L1CA", "L1C", "L2C", "L5", "G1", "G2", "E1", "E6BC", "B1", "B2", "B1C", "B2a", "QZSSL1CA", "QZSSL1C", "QZSSL5", "QZSSL1S", "QZSSL5S", "NAVICL5"
+# ------ ------ ----------------------------------------------------------------------------------------------------------------------------------------------------------
+# Signal string Accepted signal keys: "L1CA", "L1C", "L2C", "L5", "E1", "E6BC", "B1", "B2", "B1C", "B2a", "QZSSL1CA", "QZSSL1C", "QZSSL5", "QZSSL1S", "QZSSL5S", "NAVICL5"
 # SvId   int    Satellite SV ID.
 # Prn    int    PRN number.
 #
@@ -11220,8 +11208,8 @@ class SetPrnOfSVID(CommandBase):
 # Get the PRN transmitted by the SV ID for this signal.
 #
 # Name   Type   Description
-# ------ ------ ----------------------------------------------------------------------------------------------------------------------------------------------------------------------
-# Signal string Accepted signal keys: "L1CA", "L1C", "L2C", "L5", "G1", "G2", "E1", "E6BC", "B1", "B2", "B1C", "B2a", "QZSSL1CA", "QZSSL1C", "QZSSL5", "QZSSL1S", "QZSSL5S", "NAVICL5"
+# ------ ------ ----------------------------------------------------------------------------------------------------------------------------------------------------------
+# Signal string Accepted signal keys: "L1CA", "L1C", "L2C", "L5", "E1", "E6BC", "B1", "B2", "B1C", "B2a", "QZSSL1CA", "QZSSL1C", "QZSSL5", "QZSSL1S", "QZSSL5S", "NAVICL5"
 # SvId   int    Satellite SV ID.
 #
 
@@ -11251,8 +11239,8 @@ class GetPrnOfSVID(CommandBase):
 # Result of GetPrnOfSVID
 #
 # Name   Type   Description
-# ------ ------ ----------------------------------------------------------------------------------------------------------------------------------------------------------------------
-# Signal string Accepted signal keys: "L1CA", "L1C", "L2C", "L5", "G1", "G2", "E1", "E6BC", "B1", "B2", "B1C", "B2a", "QZSSL1CA", "QZSSL1C", "QZSSL5", "QZSSL1S", "QZSSL5S", "NAVICL5"
+# ------ ------ ----------------------------------------------------------------------------------------------------------------------------------------------------------
+# Signal string Accepted signal keys: "L1CA", "L1C", "L2C", "L5", "E1", "E6BC", "B1", "B2", "B1C", "B2a", "QZSSL1CA", "QZSSL1C", "QZSSL5", "QZSSL1S", "QZSSL5S", "NAVICL5"
 # SvId   int    Satellite SV ID.
 # Prn    int    PRN number.
 #
@@ -11290,8 +11278,8 @@ class GetPrnOfSVIDResult(CommandResult):
 # Set the PRN for each satellite for specified signals.
 #
 # Name   Type      Description
-# ------ --------- --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
-# Signal string    Accepted signal keys: "L1CA", "L1C", "L2C", "L5", "G1", "G2", "E1", "E5a", "E5b", "E6BC", "B1", "B2", "B1C", "B2a", "SBASL1", "SBASL5", "QZSSL1CA", "QZSSL1C", "QZSSL5", "QZSSL1S", "QZSSL5S", "NAVICL5"
+# ------ --------- ----------------------------------------------------------------------------------------------------------------------------------------------------------
+# Signal string    Accepted signal keys: "L1CA", "L1C", "L2C", "L5", "E1", "E6BC", "B1", "B2", "B1C", "B2a", "QZSSL1CA", "QZSSL1C", "QZSSL5", "QZSSL1S", "QZSSL5S", "NAVICL5"
 # Prn    array int PRN value to set for each satellite. Zero based index (index 0 => PRN for SV ID 1, index 1 => PRN for SV ID 2, etc)
 #
 
@@ -11321,8 +11309,8 @@ class SetPrnForEachSV(CommandBase):
 # Get the PRN for each satellite for specified signals.
 #
 # Name   Type   Description
-# ------ ------ --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
-# Signal string Accepted signal keys: "L1CA", "L1C", "L2C", "L5", "G1", "G2", "E1", "E5a", "E5b", "E6BC", "B1", "B2", "B1C", "B2a", "SBASL1", "SBASL5", "QZSSL1CA", "QZSSL1C", "QZSSL5", "QZSSL1S", "QZSSL5S", "NAVICL5"
+# ------ ------ ----------------------------------------------------------------------------------------------------------------------------------------------------------
+# Signal string Accepted signal keys: "L1CA", "L1C", "L2C", "L5", "E1", "E6BC", "B1", "B2", "B1C", "B2a", "QZSSL1CA", "QZSSL1C", "QZSSL5", "QZSSL1S", "QZSSL5S", "NAVICL5"
 #
 
 class GetPrnForEachSV(CommandBase):
@@ -11344,8 +11332,8 @@ class GetPrnForEachSV(CommandBase):
 # Result of GetPrnForEachSV
 #
 # Name   Type      Description
-# ------ --------- --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
-# Signal string    Accepted signal keys: "L1CA", "L1C", "L2C", "L5", "G1", "G2", "E1", "E5a", "E5b", "E6BC", "B1", "B2", "B1C", "B2a", "SBASL1", "SBASL5", "QZSSL1CA", "QZSSL1C", "QZSSL5", "QZSSL1S", "QZSSL5S", "NAVICL5"
+# ------ --------- ----------------------------------------------------------------------------------------------------------------------------------------------------------
+# Signal string    Accepted signal keys: "L1CA", "L1C", "L2C", "L5", "E1", "E6BC", "B1", "B2", "B1C", "B2a", "QZSSL1CA", "QZSSL1C", "QZSSL5", "QZSSL1S", "QZSSL5S", "NAVICL5"
 # Prn    array int PRN value to set for each satellite. Zero based index (index 0 => PRN for SV ID 1, index 1 => PRN for SV ID 2, etc)
 #
 
@@ -14525,6 +14513,42 @@ class GetGlonassEphDoubleParamForEachSVResult(CommandResult):
 
   def setVal(self, value):
     return self.set("Val", value)
+
+#
+# Get GLONASS frequency number for all satellites. Return values range from -7 to 13. Value -8 is an invalid value, it indicates that the almanac for the satellite is invalid.
+#
+#
+
+class GetGlonassFrequencyNumberForEachSV(CommandBase):
+
+  def __init__(self):
+    CommandBase.__init__(self, "GetGlonassFrequencyNumberForEachSV")
+
+  def executePermission(self):
+    return ExecutePermission.EXECUTE_IF_IDLE
+
+#
+# Result of GetGlonassFrequencyNumberForEachSV
+#
+# Name            Type      Description
+# --------------- --------- --------------------------------------------------------------------------------------------------
+# FrequencyNumber array int Frequency number of each satellite. Zero based index (index 0 => SV ID 1, index 1 => SV ID 2, etc)
+#
+
+class GetGlonassFrequencyNumberForEachSVResult(CommandResult):
+
+  def __init__(self, frequencyNumber):
+    CommandResult.__init__(self, "GetGlonassFrequencyNumberForEachSVResult")
+    self.setFrequencyNumber(frequencyNumber)
+
+  def isSuccess(self):
+    return True
+
+  def frequencyNumber(self):
+    return self.get("FrequencyNumber")
+
+  def setFrequencyNumber(self, value):
+    return self.set("FrequencyNumber", value)
 
 #
 # Set QZSS ephemeris parameter value for all satellites
@@ -22146,6 +22170,91 @@ class SetIntTxIgnoreVehicleAntennaPattern(CommandBase):
 
   def setIgnore(self, value):
     return self.set("Ignore", value)
+
+  def id(self):
+    return self.get("Id")
+
+  def setId(self, value):
+    return self.set("Id", value)
+
+#
+# Set whether a transmitter should be hidden on the map.
+#
+# Name        Type   Description
+# ----------- ------ -----------------------------------------------
+# HiddenOnMap bool   If true, transmitter will be hidden on the map.
+# Id          string Transmitter unique identifier.
+#
+
+class SetIntTxHiddenOnMap(CommandBase):
+
+  def __init__(self, hiddenOnMap, id):
+    CommandBase.__init__(self, "SetIntTxHiddenOnMap")
+    self.setHiddenOnMap(hiddenOnMap)
+    self.setId(id)
+
+  def executePermission(self):
+    return ExecutePermission.EXECUTE_IF_SIMULATING | ExecutePermission.EXECUTE_IF_IDLE
+
+  def hiddenOnMap(self):
+    return self.get("HiddenOnMap")
+
+  def setHiddenOnMap(self, value):
+    return self.set("HiddenOnMap", value)
+
+  def id(self):
+    return self.get("Id")
+
+  def setId(self, value):
+    return self.set("Id", value)
+
+#
+# Get whether a transmitter should be hidden on the map.
+#
+# Name Type   Description
+# ---- ------ ------------------------------
+# Id   string Transmitter unique identifier.
+#
+
+class GetIntTxHiddenOnMap(CommandBase):
+
+  def __init__(self, id):
+    CommandBase.__init__(self, "GetIntTxHiddenOnMap")
+    self.setId(id)
+
+  def executePermission(self):
+    return ExecutePermission.EXECUTE_IF_IDLE
+
+  def id(self):
+    return self.get("Id")
+
+  def setId(self, value):
+    return self.set("Id", value)
+
+#
+# Result of GetIntTxHiddenOnMap
+#
+# Name        Type   Description
+# ----------- ------ -----------------------------------------------
+# HiddenOnMap bool   If true, transmitter will be hidden on the map.
+# Id          string Transmitter unique identifier.
+#
+
+class GetIntTxHiddenOnMapResult(CommandResult):
+
+  def __init__(self, hiddenOnMap, id):
+    CommandResult.__init__(self, "GetIntTxHiddenOnMapResult")
+    self.setHiddenOnMap(hiddenOnMap)
+    self.setId(id)
+
+  def isSuccess(self):
+    return True
+
+  def hiddenOnMap(self):
+    return self.get("HiddenOnMap")
+
+  def setHiddenOnMap(self, value):
+    return self.set("HiddenOnMap", value)
 
   def id(self):
     return self.get("Id")
@@ -32199,7 +32308,7 @@ class SetExternalChannelsPath(CommandBase):
     return self.set("Path", value)
 
 #
-# Mapping PRN to the corresponding SV ID. Get a list of SV IDs based on a specific signal. Accepted signal keys: "GPS_L1_CA", "GPS_L1C", "GPS_L2C", "GPS_L5", "GLONASS_G1", "GLONASS_G2", "GALILEO_E1", "GALILEO_E5a", "GALILEO_E5b", "GALILEO_E6", "BEIDOU_B1", "BEIDOU_B2", "BEIDOU_B1C", "BEIDOU_B2a", "SBAS_L1", "SBAS_L5", "QZSS_L1_CA", "QZSS_L1C", "QZSS_L5", "QZSS_L1S", "QZSS_L5S", "NAVIC_L5", "CS1", "CS2", "CS3", "CS4", "CS5", "CS6", "CS7", "CS8", "SIGNAL_COUNT"
+# Mapping PRN to the corresponding SV ID. Get a list of SV IDs based on a specific signal. Accepted signal keys: "L1CA", "L1C", "L1P", "L1M", "L2C", "L2P", "L5", "G1", "G2", "E1", "E1PRS", "E5a", "E5b", "E6BC", "E6PRS", "B1", "B2", "B2a", "B1C", "SBASL1", "SBASL5", "QZSSL1CA", "QZSSL1C", "QZSSL5", "QZSSL1S", "QZSSL5S" and "NAVICL5"
 #
 # Name   Type   Description
 # ------ ------ --------------------------------------------------------

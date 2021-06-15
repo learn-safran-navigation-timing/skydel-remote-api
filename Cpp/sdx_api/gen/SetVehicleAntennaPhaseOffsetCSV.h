@@ -2,11 +2,11 @@
 
 #include <memory>
 #include "command_base.h"
-#include <string>
+#include "gen/AntennaPatternFileType.h"
 #include "gen/AntennaPatternType.h"
 #include "gen/GNSSBand.h"
-#include "gen/AntennaPatternFileType.h"
 #include "sdx_optional.h"
+#include <string>
 
 namespace Sdx
 {

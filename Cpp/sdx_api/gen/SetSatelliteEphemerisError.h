@@ -2,8 +2,8 @@
 
 #include <memory>
 #include "command_base.h"
-#include <string>
 #include "gen/RIC.h"
+#include <string>
 
 namespace Sdx
 {

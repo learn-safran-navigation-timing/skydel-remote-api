@@ -2,9 +2,9 @@
 
 #include <memory>
 #include "command_base.h"
+#include "sdx_optional.h"
 #include <string>
 #include <vector>
-#include "sdx_optional.h"
 
 namespace Sdx
 {

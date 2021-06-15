@@ -2,9 +2,9 @@
 
 #include <memory>
 #include "command_base.h"
+#include "gen/AntennaPatternType.h"
 #include <string>
 #include <vector>
-#include "gen/AntennaPatternType.h"
 
 namespace Sdx
 {
