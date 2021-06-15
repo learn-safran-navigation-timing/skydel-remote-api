@@ -1,8 +1,8 @@
 #pragma once
 
 #include <map>
-#include <vector>
 #include <stdexcept>
+#include <vector>
 
 #include "rapidjson/document.h"
 #include "sdx_optional.h"
