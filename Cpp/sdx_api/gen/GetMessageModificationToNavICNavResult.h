@@ -10,7 +10,7 @@ namespace Sdx
   namespace Cmd
   {
     ///
-    /// Result of GetMessageModificationToNavICNav
+    /// Result of GetMessageModificationToNavICNav.
     ///
     /// Name             Type         Description
     /// ---------------- ------------ ----------------------------------------------------------------------------------------

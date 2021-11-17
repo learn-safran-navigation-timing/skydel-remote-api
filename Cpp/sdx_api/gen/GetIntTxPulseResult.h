@@ -10,7 +10,7 @@ namespace Sdx
   namespace Cmd
   {
     ///
-    /// Result of GetIntTxPulse
+    /// Result of GetIntTxPulse.
     ///
     /// Name          Type         Description
     /// ------------- ------------ --------------------------------------------------------------

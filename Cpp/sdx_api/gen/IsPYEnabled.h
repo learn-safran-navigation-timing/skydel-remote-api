@@ -9,9 +9,9 @@ namespace Sdx
   namespace Cmd
   {
     ///
-    /// Please note the command EnablePY is deprecated since 21.3. You may use EnablePYCodeForSV.
+    /// Please note the command IsPYEnabled is deprecated since 21.3. You may use IsPYCodeEnabledForSV.
     /// 
-    /// Tells if P(Y)-Code is enabled for the specified satellite PRN. See EnablePY description for allowed signals.
+    /// Tells if P(Y)-Code is enabled for the specified satellite PRN. See IsPYEnabled description for allowed signals.
     ///
     /// Name   Type   Description
     /// ------ ------ --------------------------------------------------------

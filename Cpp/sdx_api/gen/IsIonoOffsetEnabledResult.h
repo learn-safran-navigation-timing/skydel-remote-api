@@ -9,7 +9,7 @@ namespace Sdx
   namespace Cmd
   {
     ///
-    /// Result of IsIonoOffsetEnabled
+    /// Result of IsIonoOffsetEnabled.
     ///
     /// Name      Type Description
     /// --------- ---- ---------------------------------------------

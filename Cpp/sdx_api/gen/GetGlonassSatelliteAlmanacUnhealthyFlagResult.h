@@ -9,7 +9,7 @@ namespace Sdx
   namespace Cmd
   {
     ///
-    /// Result of GetGlonassSatelliteAlmanacUnhealthyFlag
+    /// Result of GetGlonassSatelliteAlmanacUnhealthyFlag.
     ///
     /// Name   Type Description
     /// ------ ---- ----------------------------------------------------------

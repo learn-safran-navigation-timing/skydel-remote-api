@@ -9,7 +9,7 @@ namespace Sdx
   namespace Cmd
   {
     ///
-    /// Result of GetIonoGridMask
+    /// Result of GetIonoGridMask.
     ///
     /// Name            Type   Description
     /// --------------- ------ -------------------------------

@@ -9,7 +9,7 @@ namespace Sdx
   namespace Cmd
   {
     ///
-    /// Please note the command ModificationToBeiDouCNav1Message is deprecated since 21.3. You may use MessageModificationToBeiDouCNav1.
+    /// Please note the command SetModificationToBeiDouCNav1Message is deprecated since 21.3. You may use SetMessageModificationToBeiDouCNav1.
     /// 
     /// Set (or Modify) event to change CNAV1 message bits. If you send this command without setting the Id
     /// parameter, or if you set the Id with a value never used before, a new Modification event will be

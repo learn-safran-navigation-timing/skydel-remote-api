@@ -169,6 +169,58 @@ namespace Sdx
 
 
 ///
+/// Definition of RedoCmd
+///
+#include "gen/RedoCmd.h"
+
+namespace Sdx
+{
+  namespace Cmd
+  {
+    const char* const RedoCmd::CmdName = "RedoCmd";
+    const char* const RedoCmd::Documentation = "Redo the last undone command like Ctrl+Shift+Z in the UI";
+
+    REGISTER_COMMAND_FACTORY(RedoCmd);
+
+
+    RedoCmd::RedoCmd()
+      : CommandBase(CmdName)
+    {
+
+    }
+
+
+    RedoCmdPtr RedoCmd::create()
+    {
+      return RedoCmdPtr(new RedoCmd());
+    }
+
+    RedoCmdPtr RedoCmd::dynamicCast(CommandBasePtr ptr)
+    {
+      return std::dynamic_pointer_cast<RedoCmd>(ptr);
+    }
+
+    bool RedoCmd::isValid() const
+    {
+      
+        return m_values.IsObject()
+        ;
+
+    }
+
+    std::string RedoCmd::documentation() const { return Documentation; }
+
+
+    int RedoCmd::executePermission() const
+    {
+      return EXECUTE_IF_IDLE;
+    }
+
+  }
+}
+
+
+///
 /// Definition of GetDataFolder
 ///
 #include "gen/GetDataFolder.h"
@@ -178,7 +230,7 @@ namespace Sdx
   namespace Cmd
   {
     const char* const GetDataFolder::CmdName = "GetDataFolder";
-    const char* const GetDataFolder::Documentation = "Ask Skydel's Data Folder. The user can changed it in the GUI's Preferences.";
+    const char* const GetDataFolder::Documentation = "Get Skydel's Data Folder. The user can changed it in the GUI's Preferences.";
 
     REGISTER_COMMAND_FACTORY(GetDataFolder);
 
@@ -230,7 +282,7 @@ namespace Sdx
   namespace Cmd
   {
     const char* const DataFolderResult::CmdName = "DataFolderResult";
-    const char* const DataFolderResult::Documentation = "Result of the command \"GetDataFolder\"";
+    const char* const DataFolderResult::Documentation = "Result of GetDataFolder.";
 
     REGISTER_COMMAND_RESULT_FACTORY(DataFolderResult);
 
@@ -294,7 +346,7 @@ namespace Sdx
   namespace Cmd
   {
     const char* const GetVersion::CmdName = "GetVersion";
-    const char* const GetVersion::Documentation = "Ask Skydel version.";
+    const char* const GetVersion::Documentation = "Get Skydel version.";
 
     REGISTER_COMMAND_FACTORY(GetVersion);
 
@@ -346,7 +398,7 @@ namespace Sdx
   namespace Cmd
   {
     const char* const VersionResult::CmdName = "VersionResult";
-    const char* const VersionResult::Documentation = "Result of the command \"GetVersion\"";
+    const char* const VersionResult::Documentation = "Result of GetVersion.";
 
     REGISTER_COMMAND_RESULT_FACTORY(VersionResult);
 
@@ -410,7 +462,7 @@ namespace Sdx
   namespace Cmd
   {
     const char* const GetSimulationElapsedTime::CmdName = "GetSimulationElapsedTime";
-    const char* const GetSimulationElapsedTime::Documentation = "Return simulation elapsed time in milliseconds.";
+    const char* const GetSimulationElapsedTime::Documentation = "Get simulation elapsed time in milliseconds.";
 
     REGISTER_COMMAND_FACTORY(GetSimulationElapsedTime);
 
@@ -462,7 +514,7 @@ namespace Sdx
   namespace Cmd
   {
     const char* const SimulationElapsedTimeResult::CmdName = "SimulationElapsedTimeResult";
-    const char* const SimulationElapsedTimeResult::Documentation = "Result of the command \"GetSimulationElapsedTime\"";
+    const char* const SimulationElapsedTimeResult::Documentation = "Result of GetSimulationElapsedTime.";
 
     REGISTER_COMMAND_RESULT_FACTORY(SimulationElapsedTimeResult);
 
@@ -1602,7 +1654,7 @@ namespace Sdx
   namespace Cmd
   {
     const char* const IsRFOutputEnabledResult::CmdName = "IsRFOutputEnabledResult";
-    const char* const IsRFOutputEnabledResult::Documentation = "Result of IsRFOutputEnabled";
+    const char* const IsRFOutputEnabledResult::Documentation = "Result of IsRFOutputEnabled.";
 
     REGISTER_COMMAND_RESULT_FACTORY(IsRFOutputEnabledResult);
 
@@ -1848,7 +1900,7 @@ namespace Sdx
   namespace Cmd
   {
     const char* const IsRFOutputEnabledForEachSVResult::CmdName = "IsRFOutputEnabledForEachSVResult";
-    const char* const IsRFOutputEnabledForEachSVResult::Documentation = "Result of IsRFOutputEnabledForEachSV";
+    const char* const IsRFOutputEnabledForEachSVResult::Documentation = "Result of IsRFOutputEnabledForEachSV.";
 
     REGISTER_COMMAND_RESULT_FACTORY(IsRFOutputEnabledForEachSVResult);
 
@@ -2108,7 +2160,7 @@ namespace Sdx
   namespace Cmd
   {
     const char* const IsSignalEnabledForSVResult::CmdName = "IsSignalEnabledForSVResult";
-    const char* const IsSignalEnabledForSVResult::Documentation = "Result of IsSignalEnabledForSV";
+    const char* const IsSignalEnabledForSVResult::Documentation = "Result of IsSignalEnabledForSV.";
 
     REGISTER_COMMAND_RESULT_FACTORY(IsSignalEnabledForSVResult);
 
@@ -2354,7 +2406,7 @@ namespace Sdx
   namespace Cmd
   {
     const char* const IsSignalEnabledForEachSVResult::CmdName = "IsSignalEnabledForEachSVResult";
-    const char* const IsSignalEnabledForEachSVResult::Documentation = "Result of IsSignalEnabledForEachSV";
+    const char* const IsSignalEnabledForEachSVResult::Documentation = "Result of IsSignalEnabledForEachSV.";
 
     REGISTER_COMMAND_RESULT_FACTORY(IsSignalEnabledForEachSVResult);
 
@@ -2614,7 +2666,7 @@ namespace Sdx
   namespace Cmd
   {
     const char* const IsPYCodeEnabledForSVResult::CmdName = "IsPYCodeEnabledForSVResult";
-    const char* const IsPYCodeEnabledForSVResult::Documentation = "Result of IsPYCodeEnabledForSV";
+    const char* const IsPYCodeEnabledForSVResult::Documentation = "Result of IsPYCodeEnabledForSV.";
 
     REGISTER_COMMAND_RESULT_FACTORY(IsPYCodeEnabledForSVResult);
 
@@ -2860,7 +2912,7 @@ namespace Sdx
   namespace Cmd
   {
     const char* const IsPYCodeEnabledForEachSVResult::CmdName = "IsPYCodeEnabledForEachSVResult";
-    const char* const IsPYCodeEnabledForEachSVResult::Documentation = "Result of IsPYCodeEnabledForEachSV";
+    const char* const IsPYCodeEnabledForEachSVResult::Documentation = "Result of IsPYCodeEnabledForEachSV.";
 
     REGISTER_COMMAND_RESULT_FACTORY(IsPYCodeEnabledForEachSVResult);
 
@@ -3050,7 +3102,7 @@ namespace Sdx
   namespace Cmd
   {
     const char* const GetPowerForSV::CmdName = "GetPowerForSV";
-    const char* const GetPowerForSV::Documentation = "Get power offset for specified satellite SV ID.";
+    const char* const GetPowerForSV::Documentation = "Get the power offset for specified satellite SV ID.";
 
     REGISTER_COMMAND_FACTORY(GetPowerForSV);
 
@@ -3520,7 +3572,7 @@ namespace Sdx
   namespace Cmd
   {
     const char* const IsPropagationDelayEnabledResult::CmdName = "IsPropagationDelayEnabledResult";
-    const char* const IsPropagationDelayEnabledResult::Documentation = "Result of IsPropagationDelayEnabled";
+    const char* const IsPropagationDelayEnabledResult::Documentation = "Result of IsPropagationDelayEnabled.";
 
     REGISTER_COMMAND_RESULT_FACTORY(IsPropagationDelayEnabledResult);
 
@@ -3780,7 +3832,7 @@ namespace Sdx
   namespace Cmd
   {
     const char* const IsSatMotionFixedResult::CmdName = "IsSatMotionFixedResult";
-    const char* const IsSatMotionFixedResult::Documentation = "Result of IsSatMotionFixed";
+    const char* const IsSatMotionFixedResult::Documentation = "Result of IsSatMotionFixed.";
 
     REGISTER_COMMAND_RESULT_FACTORY(IsSatMotionFixedResult);
 
@@ -4026,7 +4078,7 @@ namespace Sdx
   namespace Cmd
   {
     const char* const GetIonoAlphaResult::CmdName = "GetIonoAlphaResult";
-    const char* const GetIonoAlphaResult::Documentation = "Result of GetIonoAlpha";
+    const char* const GetIonoAlphaResult::Documentation = "Result of GetIonoAlpha.";
 
     REGISTER_COMMAND_RESULT_FACTORY(GetIonoAlphaResult);
 
@@ -4258,7 +4310,7 @@ namespace Sdx
   namespace Cmd
   {
     const char* const GetIonoBetaResult::CmdName = "GetIonoBetaResult";
-    const char* const GetIonoBetaResult::Documentation = "Result of GetIonoBeta";
+    const char* const GetIonoBetaResult::Documentation = "Result of GetIonoBeta.";
 
     REGISTER_COMMAND_RESULT_FACTORY(GetIonoBetaResult);
 
@@ -4490,7 +4542,7 @@ namespace Sdx
   namespace Cmd
   {
     const char* const GetIonoBdgimAlphaResult::CmdName = "GetIonoBdgimAlphaResult";
-    const char* const GetIonoBdgimAlphaResult::Documentation = "Result of GetIonoBdgimAlpha";
+    const char* const GetIonoBdgimAlphaResult::Documentation = "Result of GetIonoBdgimAlpha.";
 
     REGISTER_COMMAND_RESULT_FACTORY(GetIonoBdgimAlphaResult);
 
@@ -4690,7 +4742,7 @@ namespace Sdx
   namespace Cmd
   {
     const char* const GetIonoModelResult::CmdName = "GetIonoModelResult";
-    const char* const GetIonoModelResult::Documentation = "Result of GetIonoModel";
+    const char* const GetIonoModelResult::Documentation = "Result of GetIonoModel.";
 
     REGISTER_COMMAND_RESULT_FACTORY(GetIonoModelResult);
 
@@ -4876,7 +4928,7 @@ namespace Sdx
   namespace Cmd
   {
     const char* const GetTropoModelResult::CmdName = "GetTropoModelResult";
-    const char* const GetTropoModelResult::Documentation = "Result of GetTropoModel";
+    const char* const GetTropoModelResult::Documentation = "Result of GetTropoModel.";
 
     REGISTER_COMMAND_RESULT_FACTORY(GetTropoModelResult);
 
@@ -5062,7 +5114,7 @@ namespace Sdx
   namespace Cmd
   {
     const char* const GetStartTimeModeResult::CmdName = "GetStartTimeModeResult";
-    const char* const GetStartTimeModeResult::Documentation = "Result of GetStartTimeMode";
+    const char* const GetStartTimeModeResult::Documentation = "Result of GetStartTimeMode.";
 
     REGISTER_COMMAND_RESULT_FACTORY(GetStartTimeModeResult);
 
@@ -5318,7 +5370,7 @@ namespace Sdx
   namespace Cmd
   {
     const char* const GetGpsTimingReceiverResult::CmdName = "GetGpsTimingReceiverResult";
-    const char* const GetGpsTimingReceiverResult::Documentation = "Result of GetGpsTimingReceiver";
+    const char* const GetGpsTimingReceiverResult::Documentation = "Result of GetGpsTimingReceiver.";
 
     REGISTER_COMMAND_RESULT_FACTORY(GetGpsTimingReceiverResult);
 
@@ -5574,7 +5626,7 @@ namespace Sdx
   namespace Cmd
   {
     const char* const GetStartTimeOffsetResult::CmdName = "GetStartTimeOffsetResult";
-    const char* const GetStartTimeOffsetResult::Documentation = "Result of GetStartTimeOffset";
+    const char* const GetStartTimeOffsetResult::Documentation = "Result of GetStartTimeOffset.";
 
     REGISTER_COMMAND_RESULT_FACTORY(GetStartTimeOffsetResult);
 
@@ -5830,7 +5882,7 @@ namespace Sdx
   namespace Cmd
   {
     const char* const GetGpsStartTimeResult::CmdName = "GetGpsStartTimeResult";
-    const char* const GetGpsStartTimeResult::Documentation = "Result for GetGpsStartTime";
+    const char* const GetGpsStartTimeResult::Documentation = "Result of GetGpsStartTime.";
 
     REGISTER_COMMAND_RESULT_FACTORY(GetGpsStartTimeResult);
 
@@ -6030,7 +6082,7 @@ namespace Sdx
   namespace Cmd
   {
     const char* const GetDurationResult::CmdName = "GetDurationResult";
-    const char* const GetDurationResult::Documentation = "Result of GetDuration";
+    const char* const GetDurationResult::Documentation = "Result of GetDuration.";
 
     REGISTER_COMMAND_RESULT_FACTORY(GetDurationResult);
 
@@ -6216,7 +6268,7 @@ namespace Sdx
   namespace Cmd
   {
     const char* const IsLogRawEnabledResult::CmdName = "IsLogRawEnabledResult";
-    const char* const IsLogRawEnabledResult::Documentation = "Result of IsLogRawEnabled";
+    const char* const IsLogRawEnabledResult::Documentation = "Result of IsLogRawEnabled.";
 
     REGISTER_COMMAND_RESULT_FACTORY(IsLogRawEnabledResult);
 
@@ -6430,7 +6482,7 @@ namespace Sdx
   namespace Cmd
   {
     const char* const IsLogDownlinkEnabledResult::CmdName = "IsLogDownlinkEnabledResult";
-    const char* const IsLogDownlinkEnabledResult::Documentation = "Result of IsLogDownlinkEnabled";
+    const char* const IsLogDownlinkEnabledResult::Documentation = "Result of IsLogDownlinkEnabled.";
 
     REGISTER_COMMAND_RESULT_FACTORY(IsLogDownlinkEnabledResult);
 
@@ -6644,7 +6696,7 @@ namespace Sdx
   namespace Cmd
   {
     const char* const IsLogRinexEnabledResult::CmdName = "IsLogRinexEnabledResult";
-    const char* const IsLogRinexEnabledResult::Documentation = "Result of IsLogRinexEnabled";
+    const char* const IsLogRinexEnabledResult::Documentation = "Result of IsLogRinexEnabled.";
 
     REGISTER_COMMAND_RESULT_FACTORY(IsLogRinexEnabledResult);
 
@@ -6830,7 +6882,7 @@ namespace Sdx
   namespace Cmd
   {
     const char* const IsLogHILInputEnabledResult::CmdName = "IsLogHILInputEnabledResult";
-    const char* const IsLogHILInputEnabledResult::Documentation = "Result of IsLogHILInputEnabled";
+    const char* const IsLogHILInputEnabledResult::Documentation = "Result of IsLogHILInputEnabled.";
 
     REGISTER_COMMAND_RESULT_FACTORY(IsLogHILInputEnabledResult);
 
@@ -7016,7 +7068,7 @@ namespace Sdx
   namespace Cmd
   {
     const char* const LogRawRateResult::CmdName = "LogRawRateResult";
-    const char* const LogRawRateResult::Documentation = "Result of GetLogRawRate";
+    const char* const LogRawRateResult::Documentation = "Result of GetLogRawRate.";
 
     REGISTER_COMMAND_RESULT_FACTORY(LogRawRateResult);
 
@@ -7202,7 +7254,7 @@ namespace Sdx
   namespace Cmd
   {
     const char* const IsLogNmeaEnabledResult::CmdName = "IsLogNmeaEnabledResult";
-    const char* const IsLogNmeaEnabledResult::Documentation = "Result of IsLogNmeaEnabled";
+    const char* const IsLogNmeaEnabledResult::Documentation = "Result of IsLogNmeaEnabled.";
 
     REGISTER_COMMAND_RESULT_FACTORY(IsLogNmeaEnabledResult);
 
@@ -7388,7 +7440,7 @@ namespace Sdx
   namespace Cmd
   {
     const char* const LogNmeaRateResult::CmdName = "LogNmeaRateResult";
-    const char* const LogNmeaRateResult::Documentation = "Result of GetLogNmeaRate";
+    const char* const LogNmeaRateResult::Documentation = "Result of GetLogNmeaRate.";
 
     REGISTER_COMMAND_RESULT_FACTORY(LogNmeaRateResult);
 
@@ -7574,7 +7626,7 @@ namespace Sdx
   namespace Cmd
   {
     const char* const GetMasterStatusResult::CmdName = "GetMasterStatusResult";
-    const char* const GetMasterStatusResult::Documentation = "Result of GetMasterStatus";
+    const char* const GetMasterStatusResult::Documentation = "Result of GetMasterStatus.";
 
     REGISTER_COMMAND_RESULT_FACTORY(GetMasterStatusResult);
 
@@ -7788,7 +7840,7 @@ namespace Sdx
   namespace Cmd
   {
     const char* const GetSlaveStatusResult::CmdName = "GetSlaveStatusResult";
-    const char* const GetSlaveStatusResult::Documentation = "Result of GetSlaveStatus";
+    const char* const GetSlaveStatusResult::Documentation = "Result of GetSlaveStatus.";
 
     REGISTER_COMMAND_RESULT_FACTORY(GetSlaveStatusResult);
 
@@ -8044,7 +8096,7 @@ namespace Sdx
   namespace Cmd
   {
     const char* const GetLeapSecondFutureResult::CmdName = "GetLeapSecondFutureResult";
-    const char* const GetLeapSecondFutureResult::Documentation = "Result of GetLeapSecondFuture";
+    const char* const GetLeapSecondFutureResult::Documentation = "Result of GetLeapSecondFuture.";
 
     REGISTER_COMMAND_RESULT_FACTORY(GetLeapSecondFutureResult);
 
@@ -8258,7 +8310,7 @@ namespace Sdx
   namespace Cmd
   {
     const char* const IsSignalStrengthModelEnabledResult::CmdName = "IsSignalStrengthModelEnabledResult";
-    const char* const IsSignalStrengthModelEnabledResult::Documentation = "Result of IsSignalStrengthModelEnabled";
+    const char* const IsSignalStrengthModelEnabledResult::Documentation = "Result of IsSignalStrengthModelEnabled.";
 
     REGISTER_COMMAND_RESULT_FACTORY(IsSignalStrengthModelEnabledResult);
 
@@ -8444,7 +8496,7 @@ namespace Sdx
   namespace Cmd
   {
     const char* const IsElevationMaskBelowEnabledResult::CmdName = "IsElevationMaskBelowEnabledResult";
-    const char* const IsElevationMaskBelowEnabledResult::Documentation = "Result of IsElevationMaskBelowEnabled";
+    const char* const IsElevationMaskBelowEnabledResult::Documentation = "Result of IsElevationMaskBelowEnabled.";
 
     REGISTER_COMMAND_RESULT_FACTORY(IsElevationMaskBelowEnabledResult);
 
@@ -8630,7 +8682,7 @@ namespace Sdx
   namespace Cmd
   {
     const char* const IsElevationMaskAboveEnabledResult::CmdName = "IsElevationMaskAboveEnabledResult";
-    const char* const IsElevationMaskAboveEnabledResult::Documentation = "Result of IsElevationMaskAboveEnabled";
+    const char* const IsElevationMaskAboveEnabledResult::Documentation = "Result of IsElevationMaskAboveEnabled.";
 
     REGISTER_COMMAND_RESULT_FACTORY(IsElevationMaskAboveEnabledResult);
 
@@ -8816,7 +8868,7 @@ namespace Sdx
   namespace Cmd
   {
     const char* const GetElevationMaskBelowResult::CmdName = "GetElevationMaskBelowResult";
-    const char* const GetElevationMaskBelowResult::Documentation = "Result of GetElevationMaskBelow";
+    const char* const GetElevationMaskBelowResult::Documentation = "Result of GetElevationMaskBelow.";
 
     REGISTER_COMMAND_RESULT_FACTORY(GetElevationMaskBelowResult);
 
@@ -9002,7 +9054,7 @@ namespace Sdx
   namespace Cmd
   {
     const char* const GetElevationMaskAboveResult::CmdName = "GetElevationMaskAboveResult";
-    const char* const GetElevationMaskAboveResult::Documentation = "Result of GetElevationMaskAbove";
+    const char* const GetElevationMaskAboveResult::Documentation = "Result of GetElevationMaskAbove.";
 
     REGISTER_COMMAND_RESULT_FACTORY(GetElevationMaskAboveResult);
 
@@ -9216,7 +9268,7 @@ namespace Sdx
   namespace Cmd
   {
     const char* const GetIssueOfDataResult::CmdName = "GetIssueOfDataResult";
-    const char* const GetIssueOfDataResult::Documentation = "Result of GetIssueOfData";
+    const char* const GetIssueOfDataResult::Documentation = "Result of GetIssueOfData.";
 
     REGISTER_COMMAND_RESULT_FACTORY(GetIssueOfDataResult);
 
@@ -9458,7 +9510,7 @@ namespace Sdx
   namespace Cmd
   {
     const char* const GetIssueOfDataGalileoResult::CmdName = "GetIssueOfDataGalileoResult";
-    const char* const GetIssueOfDataGalileoResult::Documentation = "Result of GetIssueOfDataGalileo";
+    const char* const GetIssueOfDataGalileoResult::Documentation = "Result of GetIssueOfDataGalileo.";
 
     REGISTER_COMMAND_RESULT_FACTORY(GetIssueOfDataGalileoResult);
 
@@ -9700,7 +9752,7 @@ namespace Sdx
   namespace Cmd
   {
     const char* const GetAgeOfDataBeiDouResult::CmdName = "GetAgeOfDataBeiDouResult";
-    const char* const GetAgeOfDataBeiDouResult::Documentation = "Result of GetAgeOfDataBeiDou";
+    const char* const GetAgeOfDataBeiDouResult::Documentation = "Result of GetAgeOfDataBeiDou.";
 
     REGISTER_COMMAND_RESULT_FACTORY(GetAgeOfDataBeiDouResult);
 
@@ -9928,7 +9980,7 @@ namespace Sdx
   namespace Cmd
   {
     const char* const GetIssueOfDataBeiDouResult::CmdName = "GetIssueOfDataBeiDouResult";
-    const char* const GetIssueOfDataBeiDouResult::Documentation = "Result of GetIssueOfDataBeiDou";
+    const char* const GetIssueOfDataBeiDouResult::Documentation = "Result of GetIssueOfDataBeiDou.";
 
     REGISTER_COMMAND_RESULT_FACTORY(GetIssueOfDataBeiDouResult);
 
@@ -10156,7 +10208,7 @@ namespace Sdx
   namespace Cmd
   {
     const char* const GetIssueOfDataQzssResult::CmdName = "GetIssueOfDataQzssResult";
-    const char* const GetIssueOfDataQzssResult::Documentation = "Result of GetIssueOfDataQzss";
+    const char* const GetIssueOfDataQzssResult::Documentation = "Result of GetIssueOfDataQzss.";
 
     REGISTER_COMMAND_RESULT_FACTORY(GetIssueOfDataQzssResult);
 
@@ -10384,7 +10436,7 @@ namespace Sdx
   namespace Cmd
   {
     const char* const GetIssueOfDataNavICResult::CmdName = "GetIssueOfDataNavICResult";
-    const char* const GetIssueOfDataNavICResult::Documentation = "Result of GetIssueOfDataNavIC";
+    const char* const GetIssueOfDataNavICResult::Documentation = "Result of GetIssueOfDataNavIC.";
 
     REGISTER_COMMAND_RESULT_FACTORY(GetIssueOfDataNavICResult);
 
@@ -10616,7 +10668,7 @@ namespace Sdx
   namespace Cmd
   {
     const char* const GetGpsConfigurationCodeForSVResult::CmdName = "GetGpsConfigurationCodeForSVResult";
-    const char* const GetGpsConfigurationCodeForSVResult::Documentation = "Result of GetGpsConfigurationCodeForSV";
+    const char* const GetGpsConfigurationCodeForSVResult::Documentation = "Result of GetGpsConfigurationCodeForSV.";
 
     REGISTER_COMMAND_RESULT_FACTORY(GetGpsConfigurationCodeForSVResult);
 
@@ -10938,7 +10990,7 @@ namespace Sdx
   namespace Cmd
   {
     const char* const GetGpsConfigurationForEachSVResult::CmdName = "GetGpsConfigurationForEachSVResult";
-    const char* const GetGpsConfigurationForEachSVResult::Documentation = "Result of GetGpsConfigurationForEachSV";
+    const char* const GetGpsConfigurationForEachSVResult::Documentation = "Result of GetGpsConfigurationForEachSV.";
 
     REGISTER_COMMAND_RESULT_FACTORY(GetGpsConfigurationForEachSVResult);
 
@@ -11156,7 +11208,7 @@ namespace Sdx
   namespace Cmd
   {
     const char* const GetGpsDataHealthForSVResult::CmdName = "GetGpsDataHealthForSVResult";
-    const char* const GetGpsDataHealthForSVResult::Documentation = "Result of GetGpsDataHealthForSV";
+    const char* const GetGpsDataHealthForSVResult::Documentation = "Result of GetGpsDataHealthForSV.";
 
     REGISTER_COMMAND_RESULT_FACTORY(GetGpsDataHealthForSVResult);
 
@@ -11388,7 +11440,7 @@ namespace Sdx
   namespace Cmd
   {
     const char* const GetGpsSignalHealthForSVResult::CmdName = "GetGpsSignalHealthForSVResult";
-    const char* const GetGpsSignalHealthForSVResult::Documentation = "Result of GetGpsSignalHealthForSV";
+    const char* const GetGpsSignalHealthForSVResult::Documentation = "Result of GetGpsSignalHealthForSV.";
 
     REGISTER_COMMAND_RESULT_FACTORY(GetGpsSignalHealthForSVResult);
 
@@ -11648,7 +11700,7 @@ namespace Sdx
   namespace Cmd
   {
     const char* const GetGalileoDataHealthForSVResult::CmdName = "GetGalileoDataHealthForSVResult";
-    const char* const GetGalileoDataHealthForSVResult::Documentation = "Result of GetGalileoDataHealthForSV";
+    const char* const GetGalileoDataHealthForSVResult::Documentation = "Result of GetGalileoDataHealthForSV.";
 
     REGISTER_COMMAND_RESULT_FACTORY(GetGalileoDataHealthForSVResult);
 
@@ -11922,7 +11974,7 @@ namespace Sdx
   namespace Cmd
   {
     const char* const GetGalileoSignalHealthForSVResult::CmdName = "GetGalileoSignalHealthForSVResult";
-    const char* const GetGalileoSignalHealthForSVResult::Documentation = "Result of GetGalileoSignalHealthForSV";
+    const char* const GetGalileoSignalHealthForSVResult::Documentation = "Result of GetGalileoSignalHealthForSV.";
 
     REGISTER_COMMAND_RESULT_FACTORY(GetGalileoSignalHealthForSVResult);
 
@@ -12168,7 +12220,7 @@ namespace Sdx
   namespace Cmd
   {
     const char* const GetGpsL1HealthForSVResult::CmdName = "GetGpsL1HealthForSVResult";
-    const char* const GetGpsL1HealthForSVResult::Documentation = "Result of GetGpsL1HealthForSV";
+    const char* const GetGpsL1HealthForSVResult::Documentation = "Result of GetGpsL1HealthForSV.";
 
     REGISTER_COMMAND_RESULT_FACTORY(GetGpsL1HealthForSVResult);
 
@@ -12400,7 +12452,7 @@ namespace Sdx
   namespace Cmd
   {
     const char* const GetGpsL2HealthForSVResult::CmdName = "GetGpsL2HealthForSVResult";
-    const char* const GetGpsL2HealthForSVResult::Documentation = "Result of GetGpsL2HealthForSV";
+    const char* const GetGpsL2HealthForSVResult::Documentation = "Result of GetGpsL2HealthForSV.";
 
     REGISTER_COMMAND_RESULT_FACTORY(GetGpsL2HealthForSVResult);
 
@@ -12632,7 +12684,7 @@ namespace Sdx
   namespace Cmd
   {
     const char* const GetGpsL5HealthForSVResult::CmdName = "GetGpsL5HealthForSVResult";
-    const char* const GetGpsL5HealthForSVResult::Documentation = "Result of GetGpsL5HealthForSV";
+    const char* const GetGpsL5HealthForSVResult::Documentation = "Result of GetGpsL5HealthForSV.";
 
     REGISTER_COMMAND_RESULT_FACTORY(GetGpsL5HealthForSVResult);
 
@@ -12864,7 +12916,7 @@ namespace Sdx
   namespace Cmd
   {
     const char* const GetGpsL1cHealthForSVResult::CmdName = "GetGpsL1cHealthForSVResult";
-    const char* const GetGpsL1cHealthForSVResult::Documentation = "Result of GetGpsL1cHealthForSV";
+    const char* const GetGpsL1cHealthForSVResult::Documentation = "Result of GetGpsL1cHealthForSV.";
 
     REGISTER_COMMAND_RESULT_FACTORY(GetGpsL1cHealthForSVResult);
 
@@ -13096,7 +13148,7 @@ namespace Sdx
   namespace Cmd
   {
     const char* const GetGpsAntiSpoofingFlagForSVResult::CmdName = "GetGpsAntiSpoofingFlagForSVResult";
-    const char* const GetGpsAntiSpoofingFlagForSVResult::Documentation = "Result of GetGpsAntiSpoofingFlagForSV";
+    const char* const GetGpsAntiSpoofingFlagForSVResult::Documentation = "Result of GetGpsAntiSpoofingFlagForSV.";
 
     REGISTER_COMMAND_RESULT_FACTORY(GetGpsAntiSpoofingFlagForSVResult);
 
@@ -13328,7 +13380,7 @@ namespace Sdx
   namespace Cmd
   {
     const char* const GetGpsNavAlertFlagForSVResult::CmdName = "GetGpsNavAlertFlagForSVResult";
-    const char* const GetGpsNavAlertFlagForSVResult::Documentation = "Result of GetGpsNavAlertFlagForSV";
+    const char* const GetGpsNavAlertFlagForSVResult::Documentation = "Result of GetGpsNavAlertFlagForSV.";
 
     REGISTER_COMMAND_RESULT_FACTORY(GetGpsNavAlertFlagForSVResult);
 
@@ -13560,7 +13612,7 @@ namespace Sdx
   namespace Cmd
   {
     const char* const GetGpsCNavAlertFlagToSVResult::CmdName = "GetGpsCNavAlertFlagToSVResult";
-    const char* const GetGpsCNavAlertFlagToSVResult::Documentation = "Result of GetGpsCNavAlertFlagToSV";
+    const char* const GetGpsCNavAlertFlagToSVResult::Documentation = "Result of GetGpsCNavAlertFlagToSV.";
 
     REGISTER_COMMAND_RESULT_FACTORY(GetGpsCNavAlertFlagToSVResult);
 
@@ -13792,7 +13844,7 @@ namespace Sdx
   namespace Cmd
   {
     const char* const GetBeiDouHealthInfoForSVResult::CmdName = "GetBeiDouHealthInfoForSVResult";
-    const char* const GetBeiDouHealthInfoForSVResult::Documentation = "Result of GetBeiDouHealthInfoForSV";
+    const char* const GetBeiDouHealthInfoForSVResult::Documentation = "Result of GetBeiDouHealthInfoForSV.";
 
     REGISTER_COMMAND_RESULT_FACTORY(GetBeiDouHealthInfoForSVResult);
 
@@ -14024,7 +14076,7 @@ namespace Sdx
   namespace Cmd
   {
     const char* const GetBeiDouAutonomousHealthForSVResult::CmdName = "GetBeiDouAutonomousHealthForSVResult";
-    const char* const GetBeiDouAutonomousHealthForSVResult::Documentation = "Result of GetBeiDouAutonomousHealthForSV";
+    const char* const GetBeiDouAutonomousHealthForSVResult::Documentation = "Result of GetBeiDouAutonomousHealthForSV.";
 
     REGISTER_COMMAND_RESULT_FACTORY(GetBeiDouAutonomousHealthForSVResult);
 
@@ -14256,7 +14308,7 @@ namespace Sdx
   namespace Cmd
   {
     const char* const GetBeiDouCNavHealthInfoForSVResult::CmdName = "GetBeiDouCNavHealthInfoForSVResult";
-    const char* const GetBeiDouCNavHealthInfoForSVResult::Documentation = "Result of GetBeiDouCNavHealthInfoForSV";
+    const char* const GetBeiDouCNavHealthInfoForSVResult::Documentation = "Result of GetBeiDouCNavHealthInfoForSV.";
 
     REGISTER_COMMAND_RESULT_FACTORY(GetBeiDouCNavHealthInfoForSVResult);
 
@@ -14488,7 +14540,7 @@ namespace Sdx
   namespace Cmd
   {
     const char* const GetBeiDouHealthStatusForSVResult::CmdName = "GetBeiDouHealthStatusForSVResult";
-    const char* const GetBeiDouHealthStatusForSVResult::Documentation = "Result of GetBeiDouHealthStatusForSV";
+    const char* const GetBeiDouHealthStatusForSVResult::Documentation = "Result of GetBeiDouHealthStatusForSV.";
 
     REGISTER_COMMAND_RESULT_FACTORY(GetBeiDouHealthStatusForSVResult);
 
@@ -14720,7 +14772,7 @@ namespace Sdx
   namespace Cmd
   {
     const char* const GetGlonassEphemerisHealthFlagForSVResult::CmdName = "GetGlonassEphemerisHealthFlagForSVResult";
-    const char* const GetGlonassEphemerisHealthFlagForSVResult::Documentation = "Result of GetGlonassEphemerisHealthFlagForSV";
+    const char* const GetGlonassEphemerisHealthFlagForSVResult::Documentation = "Result of GetGlonassEphemerisHealthFlagForSV.";
 
     REGISTER_COMMAND_RESULT_FACTORY(GetGlonassEphemerisHealthFlagForSVResult);
 
@@ -14952,7 +15004,7 @@ namespace Sdx
   namespace Cmd
   {
     const char* const GetGlonassAlmanacUnhealthyFlagForSVResult::CmdName = "GetGlonassAlmanacUnhealthyFlagForSVResult";
-    const char* const GetGlonassAlmanacUnhealthyFlagForSVResult::Documentation = "Result of GetGlonassAlmanacUnhealthyFlagForSV";
+    const char* const GetGlonassAlmanacUnhealthyFlagForSVResult::Documentation = "Result of GetGlonassAlmanacUnhealthyFlagForSV.";
 
     REGISTER_COMMAND_RESULT_FACTORY(GetGlonassAlmanacUnhealthyFlagForSVResult);
 
@@ -15338,7 +15390,7 @@ namespace Sdx
   namespace Cmd
   {
     const char* const GetQzssL1DataHealthForSVResult::CmdName = "GetQzssL1DataHealthForSVResult";
-    const char* const GetQzssL1DataHealthForSVResult::Documentation = "Result of GetQzssL1DataHealthForSV";
+    const char* const GetQzssL1DataHealthForSVResult::Documentation = "Result of GetQzssL1DataHealthForSV.";
 
     REGISTER_COMMAND_RESULT_FACTORY(GetQzssL1DataHealthForSVResult);
 
@@ -15724,7 +15776,7 @@ namespace Sdx
   namespace Cmd
   {
     const char* const GetQzssL1HealthForSVResult::CmdName = "GetQzssL1HealthForSVResult";
-    const char* const GetQzssL1HealthForSVResult::Documentation = "Result of GetQzssL1HealthForSV";
+    const char* const GetQzssL1HealthForSVResult::Documentation = "Result of GetQzssL1HealthForSV.";
 
     REGISTER_COMMAND_RESULT_FACTORY(GetQzssL1HealthForSVResult);
 
@@ -16110,7 +16162,7 @@ namespace Sdx
   namespace Cmd
   {
     const char* const GetQzssL2HealthForSVResult::CmdName = "GetQzssL2HealthForSVResult";
-    const char* const GetQzssL2HealthForSVResult::Documentation = "Result of GetQzssL2HealthForSV";
+    const char* const GetQzssL2HealthForSVResult::Documentation = "Result of GetQzssL2HealthForSV.";
 
     REGISTER_COMMAND_RESULT_FACTORY(GetQzssL2HealthForSVResult);
 
@@ -16496,7 +16548,7 @@ namespace Sdx
   namespace Cmd
   {
     const char* const GetQzssL5HealthForSVResult::CmdName = "GetQzssL5HealthForSVResult";
-    const char* const GetQzssL5HealthForSVResult::Documentation = "Result of GetQzssL5HealthForSV";
+    const char* const GetQzssL5HealthForSVResult::Documentation = "Result of GetQzssL5HealthForSV.";
 
     REGISTER_COMMAND_RESULT_FACTORY(GetQzssL5HealthForSVResult);
 
@@ -16882,7 +16934,7 @@ namespace Sdx
   namespace Cmd
   {
     const char* const GetQzssL1cHealthForSVResult::CmdName = "GetQzssL1cHealthForSVResult";
-    const char* const GetQzssL1cHealthForSVResult::Documentation = "Result of GetQzssL1cHealthForSV";
+    const char* const GetQzssL1cHealthForSVResult::Documentation = "Result of GetQzssL1cHealthForSV.";
 
     REGISTER_COMMAND_RESULT_FACTORY(GetQzssL1cHealthForSVResult);
 
@@ -17268,7 +17320,7 @@ namespace Sdx
   namespace Cmd
   {
     const char* const GetQzssNavAlertFlagForSVResult::CmdName = "GetQzssNavAlertFlagForSVResult";
-    const char* const GetQzssNavAlertFlagForSVResult::Documentation = "Result of GetQzssNavAlertFlagForSV";
+    const char* const GetQzssNavAlertFlagForSVResult::Documentation = "Result of GetQzssNavAlertFlagForSV.";
 
     REGISTER_COMMAND_RESULT_FACTORY(GetQzssNavAlertFlagForSVResult);
 
@@ -17654,7 +17706,7 @@ namespace Sdx
   namespace Cmd
   {
     const char* const GetNavICL5HealthForSVResult::CmdName = "GetNavICL5HealthForSVResult";
-    const char* const GetNavICL5HealthForSVResult::Documentation = "Result of GetNavICL5HealthForSV";
+    const char* const GetNavICL5HealthForSVResult::Documentation = "Result of GetNavICL5HealthForSV.";
 
     REGISTER_COMMAND_RESULT_FACTORY(GetNavICL5HealthForSVResult);
 
@@ -18040,7 +18092,7 @@ namespace Sdx
   namespace Cmd
   {
     const char* const GetNavICNavAlertFlagForSVResult::CmdName = "GetNavICNavAlertFlagForSVResult";
-    const char* const GetNavICNavAlertFlagForSVResult::Documentation = "Result of GetNavICNavAlertFlagForSV";
+    const char* const GetNavICNavAlertFlagForSVResult::Documentation = "Result of GetNavICNavAlertFlagForSV.";
 
     REGISTER_COMMAND_RESULT_FACTORY(GetNavICNavAlertFlagForSVResult);
 
@@ -18240,7 +18292,7 @@ namespace Sdx
   namespace Cmd
   {
     const char* const GetPowerGlobalOffsetResult::CmdName = "GetPowerGlobalOffsetResult";
-    const char* const GetPowerGlobalOffsetResult::Documentation = "Result of GetPowerGlobalOffset";
+    const char* const GetPowerGlobalOffsetResult::Documentation = "Result of GetPowerGlobalOffset.";
 
     REGISTER_COMMAND_RESULT_FACTORY(GetPowerGlobalOffsetResult);
 
@@ -18458,7 +18510,7 @@ namespace Sdx
   namespace Cmd
   {
     const char* const GetPowerOffsetResult::CmdName = "GetPowerOffsetResult";
-    const char* const GetPowerOffsetResult::Documentation = "Result of GetPowerOffset";
+    const char* const GetPowerOffsetResult::Documentation = "Result of GetPowerOffset.";
 
     REGISTER_COMMAND_RESULT_FACTORY(GetPowerOffsetResult);
 
@@ -18690,7 +18742,7 @@ namespace Sdx
   namespace Cmd
   {
     const char* const GetPowerSbasOffsetResult::CmdName = "GetPowerSbasOffsetResult";
-    const char* const GetPowerSbasOffsetResult::Documentation = "Result of GetPowerSbasOffset";
+    const char* const GetPowerSbasOffsetResult::Documentation = "Result of GetPowerSbasOffset.";
 
     REGISTER_COMMAND_RESULT_FACTORY(GetPowerSbasOffsetResult);
 
@@ -18964,7 +19016,7 @@ namespace Sdx
   namespace Cmd
   {
     const char* const GetModulationTargetResult::CmdName = "GetModulationTargetResult";
-    const char* const GetModulationTargetResult::Documentation = "Result of GetModulationTarget";
+    const char* const GetModulationTargetResult::Documentation = "Result of GetModulationTarget.";
 
     REGISTER_COMMAND_RESULT_FACTORY(GetModulationTargetResult);
 
@@ -19266,7 +19318,7 @@ namespace Sdx
   namespace Cmd
   {
     const char* const GetGpuResult::CmdName = "GetGpuResult";
-    const char* const GetGpuResult::Documentation = "Result of GetGpu";
+    const char* const GetGpuResult::Documentation = "Result of GetGpu.";
 
     REGISTER_COMMAND_RESULT_FACTORY(GetGpuResult);
 
@@ -19410,7 +19462,7 @@ namespace Sdx
   namespace Cmd
   {
     const char* const GetAllModulationTargetsResult::CmdName = "GetAllModulationTargetsResult";
-    const char* const GetAllModulationTargetsResult::Documentation = "Result of GetModulationTargets";
+    const char* const GetAllModulationTargetsResult::Documentation = "Result of GetAllModulationTargets.";
 
     REGISTER_COMMAND_RESULT_FACTORY(GetAllModulationTargetsResult);
 
@@ -19946,7 +19998,7 @@ namespace Sdx
   namespace Cmd
   {
     const char* const GetModulationTargetSignalsResult::CmdName = "GetModulationTargetSignalsResult";
-    const char* const GetModulationTargetSignalsResult::Documentation = "Result of GetModulationTargetSignals";
+    const char* const GetModulationTargetSignalsResult::Documentation = "Result of GetModulationTargetSignals.";
 
     REGISTER_COMMAND_RESULT_FACTORY(GetModulationTargetSignalsResult);
 
@@ -20374,7 +20426,7 @@ namespace Sdx
   namespace Cmd
   {
     const char* const GetModulationTargetInterferencesResult::CmdName = "GetModulationTargetInterferencesResult";
-    const char* const GetModulationTargetInterferencesResult::Documentation = "Result of GetModulationTargetInterferences";
+    const char* const GetModulationTargetInterferencesResult::Documentation = "Result of GetModulationTargetInterferences.";
 
     REGISTER_COMMAND_RESULT_FACTORY(GetModulationTargetInterferencesResult);
 
@@ -21284,7 +21336,7 @@ namespace Sdx
   namespace Cmd
   {
     const char* const GetDefaultVehicleAntennaModelResult::CmdName = "GetDefaultVehicleAntennaModelResult";
-    const char* const GetDefaultVehicleAntennaModelResult::Documentation = "Result of GetDefaultVehicleAntennaModel";
+    const char* const GetDefaultVehicleAntennaModelResult::Documentation = "Result of GetDefaultVehicleAntennaModel.";
 
     REGISTER_COMMAND_RESULT_FACTORY(GetDefaultVehicleAntennaModelResult);
 
@@ -21400,7 +21452,7 @@ namespace Sdx
   namespace Cmd
   {
     const char* const GetAllVehicleAntennaNamesResult::CmdName = "GetAllVehicleAntennaNamesResult";
-    const char* const GetAllVehicleAntennaNamesResult::Documentation = "Result of GetAllVehicleAntennaNames";
+    const char* const GetAllVehicleAntennaNamesResult::Documentation = "Result of GetAllVehicleAntennaNames.";
 
     REGISTER_COMMAND_RESULT_FACTORY(GetAllVehicleAntennaNamesResult);
 
@@ -21660,7 +21712,7 @@ namespace Sdx
   namespace Cmd
   {
     const char* const GetVehicleAntennaGainResult::CmdName = "GetVehicleAntennaGainResult";
-    const char* const GetVehicleAntennaGainResult::Documentation = "Result of GetVehicleAntennaGain";
+    const char* const GetVehicleAntennaGainResult::Documentation = "Result of GetVehicleAntennaGain.";
 
     REGISTER_COMMAND_RESULT_FACTORY(GetVehicleAntennaGainResult);
 
@@ -21962,7 +22014,7 @@ namespace Sdx
   namespace Cmd
   {
     const char* const GetVehicleAntennaPhaseOffsetResult::CmdName = "GetVehicleAntennaPhaseOffsetResult";
-    const char* const GetVehicleAntennaPhaseOffsetResult::Documentation = "Result of GetVehicleAntennaPhaseOffset";
+    const char* const GetVehicleAntennaPhaseOffsetResult::Documentation = "Result of GetVehicleAntennaPhaseOffset.";
 
     REGISTER_COMMAND_RESULT_FACTORY(GetVehicleAntennaPhaseOffsetResult);
 
@@ -22488,7 +22540,7 @@ namespace Sdx
   namespace Cmd
   {
     const char* const GetVehicleGainPatternOffsetResult::CmdName = "GetVehicleGainPatternOffsetResult";
-    const char* const GetVehicleGainPatternOffsetResult::Documentation = "Result of GetVehicleGainPatternOffset";
+    const char* const GetVehicleGainPatternOffsetResult::Documentation = "Result of GetVehicleGainPatternOffset.";
 
     REGISTER_COMMAND_RESULT_FACTORY(GetVehicleGainPatternOffsetResult);
 
@@ -22762,7 +22814,7 @@ namespace Sdx
   namespace Cmd
   {
     const char* const GetVehiclePhasePatternOffsetResult::CmdName = "GetVehiclePhasePatternOffsetResult";
-    const char* const GetVehiclePhasePatternOffsetResult::Documentation = "Result of GetVehiclePhasePatternOffset";
+    const char* const GetVehiclePhasePatternOffsetResult::Documentation = "Result of GetVehiclePhasePatternOffset.";
 
     REGISTER_COMMAND_RESULT_FACTORY(GetVehiclePhasePatternOffsetResult);
 
@@ -23074,7 +23126,7 @@ namespace Sdx
   namespace Cmd
   {
     const char* const GetVehicleAntennaOffsetResult::CmdName = "GetVehicleAntennaOffsetResult";
-    const char* const GetVehicleAntennaOffsetResult::Documentation = "Result of GetVehicleAntennaOffset";
+    const char* const GetVehicleAntennaOffsetResult::Documentation = "Result of GetVehicleAntennaOffset.";
 
     REGISTER_COMMAND_RESULT_FACTORY(GetVehicleAntennaOffsetResult);
 
@@ -24420,7 +24472,7 @@ namespace Sdx
   namespace Cmd
   {
     const char* const GetAntennaChangeResult::CmdName = "GetAntennaChangeResult";
-    const char* const GetAntennaChangeResult::Documentation = "Result of GetAntennaChange";
+    const char* const GetAntennaChangeResult::Documentation = "Result of GetAntennaChange.";
 
     REGISTER_COMMAND_RESULT_FACTORY(GetAntennaChangeResult);
 
@@ -24826,7 +24878,7 @@ namespace Sdx
   namespace Cmd
   {
     const char* const GetWFAntennaOffsetResult::CmdName = "GetWFAntennaOffsetResult";
-    const char* const GetWFAntennaOffsetResult::Documentation = "Result of GetWFAntennaOffset";
+    const char* const GetWFAntennaOffsetResult::Documentation = "Result of GetWFAntennaOffset.";
 
     REGISTER_COMMAND_RESULT_FACTORY(GetWFAntennaOffsetResult);
 
@@ -25184,7 +25236,7 @@ namespace Sdx
   namespace Cmd
   {
     const char* const GetWFAntennaElementOffsetResult::CmdName = "GetWFAntennaElementOffsetResult";
-    const char* const GetWFAntennaElementOffsetResult::Documentation = "Result of GetWFAntennaElementOffset";
+    const char* const GetWFAntennaElementOffsetResult::Documentation = "Result of GetWFAntennaElementOffset.";
 
     REGISTER_COMMAND_RESULT_FACTORY(GetWFAntennaElementOffsetResult);
 
@@ -25486,7 +25538,7 @@ namespace Sdx
   namespace Cmd
   {
     const char* const GetWFAntennaElementModelResult::CmdName = "GetWFAntennaElementModelResult";
-    const char* const GetWFAntennaElementModelResult::Documentation = "Result of GetWFAntennaElementModel";
+    const char* const GetWFAntennaElementModelResult::Documentation = "Result of GetWFAntennaElementModel.";
 
     REGISTER_COMMAND_RESULT_FACTORY(GetWFAntennaElementModelResult);
 
@@ -25718,7 +25770,7 @@ namespace Sdx
   namespace Cmd
   {
     const char* const GetWFAntennaElementPhasePatternOffsetResult::CmdName = "GetWFAntennaElementPhasePatternOffsetResult";
-    const char* const GetWFAntennaElementPhasePatternOffsetResult::Documentation = "Result of GetWFAntennaElementPhasePatternOffset";
+    const char* const GetWFAntennaElementPhasePatternOffsetResult::Documentation = "Result of GetWFAntennaElementPhasePatternOffset.";
 
     REGISTER_COMMAND_RESULT_FACTORY(GetWFAntennaElementPhasePatternOffsetResult);
 
@@ -25950,7 +26002,7 @@ namespace Sdx
   namespace Cmd
   {
     const char* const IsWFAntennaElementEnabledResult::CmdName = "IsWFAntennaElementEnabledResult";
-    const char* const IsWFAntennaElementEnabledResult::Documentation = "Result of IsWFAntennaElementEnabled";
+    const char* const IsWFAntennaElementEnabledResult::Documentation = "Result of IsWFAntennaElementEnabled.";
 
     REGISTER_COMMAND_RESULT_FACTORY(IsWFAntennaElementEnabledResult);
 
@@ -26098,7 +26150,7 @@ namespace Sdx
   namespace Cmd
   {
     const char* const GetAllSVAntennaNamesResult::CmdName = "GetAllSVAntennaNamesResult";
-    const char* const GetAllSVAntennaNamesResult::Documentation = "Result of GetAllSVNames";
+    const char* const GetAllSVAntennaNamesResult::Documentation = "Result of GetAllSVAntennaNames.";
 
     REGISTER_COMMAND_RESULT_FACTORY(GetAllSVAntennaNamesResult);
 
@@ -26386,7 +26438,7 @@ namespace Sdx
   namespace Cmd
   {
     const char* const GetSVGainPatternOffsetResult::CmdName = "GetSVGainPatternOffsetResult";
-    const char* const GetSVGainPatternOffsetResult::Documentation = "Result of GetSVGainPatternOffset";
+    const char* const GetSVGainPatternOffsetResult::Documentation = "Result of GetSVGainPatternOffset.";
 
     REGISTER_COMMAND_RESULT_FACTORY(GetSVGainPatternOffsetResult);
 
@@ -26702,7 +26754,7 @@ namespace Sdx
   namespace Cmd
   {
     const char* const GetSVPhasePatternOffsetResult::CmdName = "GetSVPhasePatternOffsetResult";
-    const char* const GetSVPhasePatternOffsetResult::Documentation = "Result of GetSVPhasePatternOffset";
+    const char* const GetSVPhasePatternOffsetResult::Documentation = "Result of GetSVPhasePatternOffset.";
 
     REGISTER_COMMAND_RESULT_FACTORY(GetSVPhasePatternOffsetResult);
 
@@ -27032,7 +27084,7 @@ namespace Sdx
   namespace Cmd
   {
     const char* const GetSVAntennaGainResult::CmdName = "GetSVAntennaGainResult";
-    const char* const GetSVAntennaGainResult::Documentation = "Result of GetSVAntennaGain";
+    const char* const GetSVAntennaGainResult::Documentation = "Result of GetSVAntennaGain.";
 
     REGISTER_COMMAND_RESULT_FACTORY(GetSVAntennaGainResult);
 
@@ -27376,7 +27428,7 @@ namespace Sdx
   namespace Cmd
   {
     const char* const GetSVAntennaPhaseOffsetResult::CmdName = "GetSVAntennaPhaseOffsetResult";
-    const char* const GetSVAntennaPhaseOffsetResult::Documentation = "Result of GetSVAntennaPhaseOffset";
+    const char* const GetSVAntennaPhaseOffsetResult::Documentation = "Result of GetSVAntennaPhaseOffset.";
 
     REGISTER_COMMAND_RESULT_FACTORY(GetSVAntennaPhaseOffsetResult);
 
@@ -28504,7 +28556,7 @@ namespace Sdx
   namespace Cmd
   {
     const char* const GetSVAntennaModelForSVResult::CmdName = "GetSVAntennaModelForSVResult";
-    const char* const GetSVAntennaModelForSVResult::Documentation = "Result of GetSVAntennaModelForSV";
+    const char* const GetSVAntennaModelForSVResult::Documentation = "Result of GetSVAntennaModelForSV.";
 
     REGISTER_COMMAND_RESULT_FACTORY(GetSVAntennaModelForSVResult);
 
@@ -28750,7 +28802,7 @@ namespace Sdx
   namespace Cmd
   {
     const char* const GetSVAntennaModelForEachSVResult::CmdName = "GetSVAntennaModelForEachSVResult";
-    const char* const GetSVAntennaModelForEachSVResult::Documentation = "Result of GetSVAntennaModelForEachSV";
+    const char* const GetSVAntennaModelForEachSVResult::Documentation = "Result of GetSVAntennaModelForEachSV.";
 
     REGISTER_COMMAND_RESULT_FACTORY(GetSVAntennaModelForEachSVResult);
 
@@ -29010,7 +29062,7 @@ namespace Sdx
   namespace Cmd
   {
     const char* const GetSVTypeResult::CmdName = "GetSVTypeResult";
-    const char* const GetSVTypeResult::Documentation = "Result of GetSVType";
+    const char* const GetSVTypeResult::Documentation = "Result of GetSVType.";
 
     REGISTER_COMMAND_RESULT_FACTORY(GetSVTypeResult);
 
@@ -29270,7 +29322,7 @@ namespace Sdx
   namespace Cmd
   {
     const char* const GetTransmittedPrnForSVResult::CmdName = "GetTransmittedPrnForSVResult";
-    const char* const GetTransmittedPrnForSVResult::Documentation = "Result of GetTransmittedPrnForSV";
+    const char* const GetTransmittedPrnForSVResult::Documentation = "Result of GetTransmittedPrnForSV.";
 
     REGISTER_COMMAND_RESULT_FACTORY(GetTransmittedPrnForSVResult);
 
@@ -29530,7 +29582,7 @@ namespace Sdx
   namespace Cmd
   {
     const char* const GetPrnOfSVIDResult::CmdName = "GetPrnOfSVIDResult";
-    const char* const GetPrnOfSVIDResult::Documentation = "Result of GetPrnOfSVID";
+    const char* const GetPrnOfSVIDResult::Documentation = "Result of GetPrnOfSVID.";
 
     REGISTER_COMMAND_RESULT_FACTORY(GetPrnOfSVIDResult);
 
@@ -29776,7 +29828,7 @@ namespace Sdx
   namespace Cmd
   {
     const char* const GetPrnForEachSVResult::CmdName = "GetPrnForEachSVResult";
-    const char* const GetPrnForEachSVResult::Documentation = "Result of GetPrnForEachSV";
+    const char* const GetPrnForEachSVResult::Documentation = "Result of GetPrnForEachSV.";
 
     REGISTER_COMMAND_RESULT_FACTORY(GetPrnForEachSVResult);
 
@@ -30046,7 +30098,7 @@ namespace Sdx
   namespace Cmd
   {
     const char* const IsTrajectorySmoothingEnabledResult::CmdName = "IsTrajectorySmoothingEnabledResult";
-    const char* const IsTrajectorySmoothingEnabledResult::Documentation = "Result of IsTrajectorySmoothingEnabled";
+    const char* const IsTrajectorySmoothingEnabledResult::Documentation = "Result of IsTrajectorySmoothingEnabled.";
 
     REGISTER_COMMAND_RESULT_FACTORY(IsTrajectorySmoothingEnabledResult);
 
@@ -30232,7 +30284,7 @@ namespace Sdx
   namespace Cmd
   {
     const char* const IsSimulationStopAtTrajectoryEndEnabledResult::CmdName = "IsSimulationStopAtTrajectoryEndEnabledResult";
-    const char* const IsSimulationStopAtTrajectoryEndEnabledResult::Documentation = "Result of IsSimulationStopAtTrajectoryEndEnabled";
+    const char* const IsSimulationStopAtTrajectoryEndEnabledResult::Documentation = "Result of IsSimulationStopAtTrajectoryEndEnabled.";
 
     REGISTER_COMMAND_RESULT_FACTORY(IsSimulationStopAtTrajectoryEndEnabledResult);
 
@@ -30418,7 +30470,7 @@ namespace Sdx
   namespace Cmd
   {
     const char* const IsAttitudeToZeroForcedResult::CmdName = "IsAttitudeToZeroForcedResult";
-    const char* const IsAttitudeToZeroForcedResult::Documentation = "Result of IsAttitudeToZeroForced";
+    const char* const IsAttitudeToZeroForcedResult::Documentation = "Result of IsAttitudeToZeroForced.";
 
     REGISTER_COMMAND_RESULT_FACTORY(IsAttitudeToZeroForcedResult);
 
@@ -30604,7 +30656,7 @@ namespace Sdx
   namespace Cmd
   {
     const char* const GetVehicleTrajectoryResult::CmdName = "GetVehicleTrajectoryResult";
-    const char* const GetVehicleTrajectoryResult::Documentation = "Result of GetVehicleTrajectory";
+    const char* const GetVehicleTrajectoryResult::Documentation = "Result of GetVehicleTrajectory.";
 
     REGISTER_COMMAND_RESULT_FACTORY(GetVehicleTrajectoryResult);
 
@@ -30719,6 +30771,122 @@ namespace Sdx
     }
 
     void SetVehicleType::setType(const std::string& type)
+    {
+      m_values.AddMember("Type", parse_json<std::string>::format(type, m_values.GetAllocator()), m_values.GetAllocator());
+    }
+
+
+  }
+}
+
+
+///
+/// Definition of GetVehicleType
+///
+#include "gen/GetVehicleType.h"
+
+namespace Sdx
+{
+  namespace Cmd
+  {
+    const char* const GetVehicleType::CmdName = "GetVehicleType";
+    const char* const GetVehicleType::Documentation = "Get vehicle type for Route Trajectory";
+
+    REGISTER_COMMAND_FACTORY(GetVehicleType);
+
+
+    GetVehicleType::GetVehicleType()
+      : CommandBase(CmdName)
+    {
+
+    }
+
+
+    GetVehicleTypePtr GetVehicleType::create()
+    {
+      return GetVehicleTypePtr(new GetVehicleType());
+    }
+
+    GetVehicleTypePtr GetVehicleType::dynamicCast(CommandBasePtr ptr)
+    {
+      return std::dynamic_pointer_cast<GetVehicleType>(ptr);
+    }
+
+    bool GetVehicleType::isValid() const
+    {
+      
+        return m_values.IsObject()
+        ;
+
+    }
+
+    std::string GetVehicleType::documentation() const { return Documentation; }
+
+
+    int GetVehicleType::executePermission() const
+    {
+      return EXECUTE_IF_IDLE;
+    }
+
+  }
+}
+
+
+///
+/// Definition of GetVehicleTypeResult
+///
+#include "gen/GetVehicleTypeResult.h"
+
+namespace Sdx
+{
+  namespace Cmd
+  {
+    const char* const GetVehicleTypeResult::CmdName = "GetVehicleTypeResult";
+    const char* const GetVehicleTypeResult::Documentation = "Result of GetVehicleType.";
+
+    REGISTER_COMMAND_RESULT_FACTORY(GetVehicleTypeResult);
+
+
+    GetVehicleTypeResult::GetVehicleTypeResult()
+      : CommandResult(CmdName)
+    {}
+
+    GetVehicleTypeResult::GetVehicleTypeResult(CommandBasePtr relatedCommand, const std::string& type)
+      : CommandResult(CmdName, relatedCommand)
+    {
+
+      setType(type);
+    }
+
+
+    GetVehicleTypeResultPtr GetVehicleTypeResult::create(CommandBasePtr relatedCommand, const std::string& type)
+    {
+      return GetVehicleTypeResultPtr(new GetVehicleTypeResult(relatedCommand, type));
+    }
+
+    GetVehicleTypeResultPtr GetVehicleTypeResult::dynamicCast(CommandBasePtr ptr)
+    {
+      return std::dynamic_pointer_cast<GetVehicleTypeResult>(ptr);
+    }
+
+    bool GetVehicleTypeResult::isValid() const
+    {
+      
+        return m_values.IsObject()
+          && parse_json<std::string>::is_valid(m_values["Type"])
+        ;
+
+    }
+
+    std::string GetVehicleTypeResult::documentation() const { return Documentation; }
+
+
+    std::string GetVehicleTypeResult::type() const
+    {
+      return parse_json<std::string>::parse(m_values["Type"]);
+    }
+
+    void GetVehicleTypeResult::setType(const std::string& type)
     {
       m_values.AddMember("Type", parse_json<std::string>::format(type, m_values.GetAllocator()), m_values.GetAllocator());
     }
@@ -31658,7 +31826,7 @@ namespace Sdx
   namespace Cmd
   {
     const char* const GetVehicleTrajectoryFixResult::CmdName = "GetVehicleTrajectoryFixResult";
-    const char* const GetVehicleTrajectoryFixResult::Documentation = "Result of GetVehicleTrajectoryFix";
+    const char* const GetVehicleTrajectoryFixResult::Documentation = "Result of GetVehicleTrajectoryFix.";
 
     REGISTER_COMMAND_RESULT_FACTORY(GetVehicleTrajectoryFixResult);
 
@@ -32012,7 +32180,7 @@ namespace Sdx
   namespace Cmd
   {
     const char* const GetVehicleTrajectoryFixEcefResult::CmdName = "GetVehicleTrajectoryFixEcefResult";
-    const char* const GetVehicleTrajectoryFixEcefResult::Documentation = "Result of GetVehicleTrajectoryFixEcef";
+    const char* const GetVehicleTrajectoryFixEcefResult::Documentation = "Result of GetVehicleTrajectoryFixEcef.";
 
     REGISTER_COMMAND_RESULT_FACTORY(GetVehicleTrajectoryFixEcefResult);
 
@@ -32380,7 +32548,7 @@ namespace Sdx
   namespace Cmd
   {
     const char* const GetVehicleTrajectoryCircularResult::CmdName = "GetVehicleTrajectoryCircularResult";
-    const char* const GetVehicleTrajectoryCircularResult::Documentation = "Result of GetVehicleTrajectoryCircular";
+    const char* const GetVehicleTrajectoryCircularResult::Documentation = "Result of GetVehicleTrajectoryCircular.";
 
     REGISTER_COMMAND_RESULT_FACTORY(GetVehicleTrajectoryCircularResult);
 
@@ -32762,7 +32930,7 @@ namespace Sdx
   namespace Cmd
   {
     const char* const GetVehicleTrajectoryOrbitResult::CmdName = "GetVehicleTrajectoryOrbitResult";
-    const char* const GetVehicleTrajectoryOrbitResult::Documentation = "Result of GetVehicleTrajectoryOrbit";
+    const char* const GetVehicleTrajectoryOrbitResult::Documentation = "Result of GetVehicleTrajectoryOrbit.";
 
     REGISTER_COMMAND_RESULT_FACTORY(GetVehicleTrajectoryOrbitResult);
 
@@ -32924,7 +33092,7 @@ namespace Sdx
   namespace Cmd
   {
     const char* const GetHilPort::CmdName = "GetHilPort";
-    const char* const GetHilPort::Documentation = "Get Hardware in the loop trajectory server port. Returns HilPortResult.";
+    const char* const GetHilPort::Documentation = "Get Hardware in the loop trajectory server port.";
 
     REGISTER_COMMAND_FACTORY(GetHilPort);
 
@@ -32976,7 +33144,7 @@ namespace Sdx
   namespace Cmd
   {
     const char* const HilPortResult::CmdName = "HilPortResult";
-    const char* const HilPortResult::Documentation = "Hardware in the loop server port.";
+    const char* const HilPortResult::Documentation = "Result of GetHilPort.";
 
     REGISTER_COMMAND_RESULT_FACTORY(HilPortResult);
 
@@ -33025,58 +33193,6 @@ namespace Sdx
       m_values.AddMember("Port", parse_json<int>::format(port, m_values.GetAllocator()), m_values.GetAllocator());
     }
 
-
-  }
-}
-
-
-///
-/// Definition of GetLastHilWarning
-///
-#include "gen/GetLastHilWarning.h"
-
-namespace Sdx
-{
-  namespace Cmd
-  {
-    const char* const GetLastHilWarning::CmdName = "GetLastHilWarning";
-    const char* const GetLastHilWarning::Documentation = "Get last Hardware in the loop trajectory server warning message. Returns HilWarningResult.";
-
-    REGISTER_COMMAND_FACTORY(GetLastHilWarning);
-
-
-    GetLastHilWarning::GetLastHilWarning()
-      : CommandBase(CmdName)
-    {
-
-    }
-
-
-    GetLastHilWarningPtr GetLastHilWarning::create()
-    {
-      return GetLastHilWarningPtr(new GetLastHilWarning());
-    }
-
-    GetLastHilWarningPtr GetLastHilWarning::dynamicCast(CommandBasePtr ptr)
-    {
-      return std::dynamic_pointer_cast<GetLastHilWarning>(ptr);
-    }
-
-    bool GetLastHilWarning::isValid() const
-    {
-      
-        return m_values.IsObject()
-        ;
-
-    }
-
-    std::string GetLastHilWarning::documentation() const { return Documentation; }
-
-
-    int GetLastHilWarning::executePermission() const
-    {
-      return EXECUTE_IF_SIMULATING;
-    }
 
   }
 }
@@ -33135,6 +33251,58 @@ namespace Sdx
 
 
 ///
+/// Definition of GetLastHilWarning
+///
+#include "gen/GetLastHilWarning.h"
+
+namespace Sdx
+{
+  namespace Cmd
+  {
+    const char* const GetLastHilWarning::CmdName = "GetLastHilWarning";
+    const char* const GetLastHilWarning::Documentation = "Get last Hardware in the loop trajectory server warning message. Returns HilWarningResult.";
+
+    REGISTER_COMMAND_FACTORY(GetLastHilWarning);
+
+
+    GetLastHilWarning::GetLastHilWarning()
+      : CommandBase(CmdName)
+    {
+
+    }
+
+
+    GetLastHilWarningPtr GetLastHilWarning::create()
+    {
+      return GetLastHilWarningPtr(new GetLastHilWarning());
+    }
+
+    GetLastHilWarningPtr GetLastHilWarning::dynamicCast(CommandBasePtr ptr)
+    {
+      return std::dynamic_pointer_cast<GetLastHilWarning>(ptr);
+    }
+
+    bool GetLastHilWarning::isValid() const
+    {
+      
+        return m_values.IsObject()
+        ;
+
+    }
+
+    std::string GetLastHilWarning::documentation() const { return Documentation; }
+
+
+    int GetLastHilWarning::executePermission() const
+    {
+      return EXECUTE_IF_SIMULATING;
+    }
+
+  }
+}
+
+
+///
 /// Definition of HilWarningResult
 ///
 #include "gen/HilWarningResult.h"
@@ -33144,7 +33312,7 @@ namespace Sdx
   namespace Cmd
   {
     const char* const HilWarningResult::CmdName = "HilWarningResult";
-    const char* const HilWarningResult::Documentation = "Hardware in the loop server warning result ";
+    const char* const HilWarningResult::Documentation = "Result of GetLastHilWarning.";
 
     REGISTER_COMMAND_RESULT_FACTORY(HilWarningResult);
 
@@ -33586,7 +33754,7 @@ namespace Sdx
   namespace Cmd
   {
     const char* const GetEphemerisReferenceTimeForSVResult::CmdName = "GetEphemerisReferenceTimeForSVResult";
-    const char* const GetEphemerisReferenceTimeForSVResult::Documentation = "Result of GetEphemerisReferenceTimeForSV";
+    const char* const GetEphemerisReferenceTimeForSVResult::Documentation = "Result of GetEphemerisReferenceTimeForSV.";
 
     REGISTER_COMMAND_RESULT_FACTORY(GetEphemerisReferenceTimeForSVResult);
 
@@ -33860,7 +34028,7 @@ namespace Sdx
   namespace Cmd
   {
     const char* const GetGpsEphDoubleParamForSVResult::CmdName = "GetGpsEphDoubleParamForSVResult";
-    const char* const GetGpsEphDoubleParamForSVResult::Documentation = "Result of GetGpsEphDoubleParamForSV";
+    const char* const GetGpsEphDoubleParamForSVResult::Documentation = "Result of GetGpsEphDoubleParamForSV.";
 
     REGISTER_COMMAND_RESULT_FACTORY(GetGpsEphDoubleParamForSVResult);
 
@@ -34134,7 +34302,7 @@ namespace Sdx
   namespace Cmd
   {
     const char* const GetGalileoEphDoubleParamForSVResult::CmdName = "GetGalileoEphDoubleParamForSVResult";
-    const char* const GetGalileoEphDoubleParamForSVResult::Documentation = "Result of GetGalileoEphDoubleParamForSV";
+    const char* const GetGalileoEphDoubleParamForSVResult::Documentation = "Result of GetGalileoEphDoubleParamForSV.";
 
     REGISTER_COMMAND_RESULT_FACTORY(GetGalileoEphDoubleParamForSVResult);
 
@@ -34408,7 +34576,7 @@ namespace Sdx
   namespace Cmd
   {
     const char* const GetBeiDouEphDoubleParamForSVResult::CmdName = "GetBeiDouEphDoubleParamForSVResult";
-    const char* const GetBeiDouEphDoubleParamForSVResult::Documentation = "Result of GetBeiDouEphDoubleParamForSV";
+    const char* const GetBeiDouEphDoubleParamForSVResult::Documentation = "Result of GetBeiDouEphDoubleParamForSV.";
 
     REGISTER_COMMAND_RESULT_FACTORY(GetBeiDouEphDoubleParamForSVResult);
 
@@ -34682,7 +34850,7 @@ namespace Sdx
   namespace Cmd
   {
     const char* const GetGlonassEphDoubleParamForSVResult::CmdName = "GetGlonassEphDoubleParamForSVResult";
-    const char* const GetGlonassEphDoubleParamForSVResult::Documentation = "Result of GetGlonassEphDoubleParamForSV";
+    const char* const GetGlonassEphDoubleParamForSVResult::Documentation = "Result of GetGlonassEphDoubleParamForSV.";
 
     REGISTER_COMMAND_RESULT_FACTORY(GetGlonassEphDoubleParamForSVResult);
 
@@ -35138,7 +35306,7 @@ namespace Sdx
   namespace Cmd
   {
     const char* const GetQzssEphDoubleParamForSVResult::CmdName = "GetQzssEphDoubleParamForSVResult";
-    const char* const GetQzssEphDoubleParamForSVResult::Documentation = "Result of GetQzssEphDoubleParamForSV";
+    const char* const GetQzssEphDoubleParamForSVResult::Documentation = "Result of GetQzssEphDoubleParamForSV.";
 
     REGISTER_COMMAND_RESULT_FACTORY(GetQzssEphDoubleParamForSVResult);
 
@@ -35594,7 +35762,7 @@ namespace Sdx
   namespace Cmd
   {
     const char* const GetNavICEphDoubleParamForSVResult::CmdName = "GetNavICEphDoubleParamForSVResult";
-    const char* const GetNavICEphDoubleParamForSVResult::Documentation = "Result of GetNavICEphDoubleParamForSV";
+    const char* const GetNavICEphDoubleParamForSVResult::Documentation = "Result of GetNavICEphDoubleParamForSV.";
 
     REGISTER_COMMAND_RESULT_FACTORY(GetNavICEphDoubleParamForSVResult);
 
@@ -35994,7 +36162,7 @@ namespace Sdx
   namespace Cmd
   {
     const char* const GetGpsEphDoubleParamForEachSVResult::CmdName = "GetGpsEphDoubleParamForEachSVResult";
-    const char* const GetGpsEphDoubleParamForEachSVResult::Documentation = "Result of GetGpsEphDoubleParamForEachSV";
+    const char* const GetGpsEphDoubleParamForEachSVResult::Documentation = "Result of GetGpsEphDoubleParamForEachSV.";
 
     REGISTER_COMMAND_RESULT_FACTORY(GetGpsEphDoubleParamForEachSVResult);
 
@@ -36380,7 +36548,7 @@ namespace Sdx
   namespace Cmd
   {
     const char* const GetGalileoEphDoubleParamForEachSVResult::CmdName = "GetGalileoEphDoubleParamForEachSVResult";
-    const char* const GetGalileoEphDoubleParamForEachSVResult::Documentation = "Result of GetGalileoEphDoubleParamForEachSV";
+    const char* const GetGalileoEphDoubleParamForEachSVResult::Documentation = "Result of GetGalileoEphDoubleParamForEachSV.";
 
     REGISTER_COMMAND_RESULT_FACTORY(GetGalileoEphDoubleParamForEachSVResult);
 
@@ -36766,7 +36934,7 @@ namespace Sdx
   namespace Cmd
   {
     const char* const GetBeiDouEphDoubleParamForEachSVResult::CmdName = "GetBeiDouEphDoubleParamForEachSVResult";
-    const char* const GetBeiDouEphDoubleParamForEachSVResult::Documentation = "Result of GetBeiDouEphDoubleParamForEachSV";
+    const char* const GetBeiDouEphDoubleParamForEachSVResult::Documentation = "Result of GetBeiDouEphDoubleParamForEachSV.";
 
     REGISTER_COMMAND_RESULT_FACTORY(GetBeiDouEphDoubleParamForEachSVResult);
 
@@ -37152,7 +37320,7 @@ namespace Sdx
   namespace Cmd
   {
     const char* const GetGlonassEphDoubleParamForEachSVResult::CmdName = "GetGlonassEphDoubleParamForEachSVResult";
-    const char* const GetGlonassEphDoubleParamForEachSVResult::Documentation = "Result of GetGlonassEphDoubleParamForEachSV";
+    const char* const GetGlonassEphDoubleParamForEachSVResult::Documentation = "Result of GetGlonassEphDoubleParamForEachSV.";
 
     REGISTER_COMMAND_RESULT_FACTORY(GetGlonassEphDoubleParamForEachSVResult);
 
@@ -37654,7 +37822,7 @@ namespace Sdx
   namespace Cmd
   {
     const char* const GetQzssEphDoubleParamForEachSVResult::CmdName = "GetQzssEphDoubleParamForEachSVResult";
-    const char* const GetQzssEphDoubleParamForEachSVResult::Documentation = "Result of GetQzssEphDoubleParamForEachSV";
+    const char* const GetQzssEphDoubleParamForEachSVResult::Documentation = "Result of GetQzssEphDoubleParamForEachSV.";
 
     REGISTER_COMMAND_RESULT_FACTORY(GetQzssEphDoubleParamForEachSVResult);
 
@@ -38040,7 +38208,7 @@ namespace Sdx
   namespace Cmd
   {
     const char* const GetNavICEphDoubleParamForEachSVResult::CmdName = "GetNavICEphDoubleParamForEachSVResult";
-    const char* const GetNavICEphDoubleParamForEachSVResult::Documentation = "Result of GetNavICEphDoubleParamForEachSV";
+    const char* const GetNavICEphDoubleParamForEachSVResult::Documentation = "Result of GetNavICEphDoubleParamForEachSV.";
 
     REGISTER_COMMAND_RESULT_FACTORY(GetNavICEphDoubleParamForEachSVResult);
 
@@ -38300,7 +38468,7 @@ namespace Sdx
   namespace Cmd
   {
     const char* const GetGpsEphBoolParamForSVResult::CmdName = "GetGpsEphBoolParamForSVResult";
-    const char* const GetGpsEphBoolParamForSVResult::Documentation = "Result of GetGpsEphBoolParamForSV";
+    const char* const GetGpsEphBoolParamForSVResult::Documentation = "Result of GetGpsEphBoolParamForSV.";
 
     REGISTER_COMMAND_RESULT_FACTORY(GetGpsEphBoolParamForSVResult);
 
@@ -38700,7 +38868,7 @@ namespace Sdx
   namespace Cmd
   {
     const char* const GetGpsEphBoolParamForEachSVResult::CmdName = "GetGpsEphBoolParamForEachSVResult";
-    const char* const GetGpsEphBoolParamForEachSVResult::Documentation = "Result of GetGpsEphBoolParamForEachSV";
+    const char* const GetGpsEphBoolParamForEachSVResult::Documentation = "Result of GetGpsEphBoolParamForEachSV.";
 
     REGISTER_COMMAND_RESULT_FACTORY(GetGpsEphBoolParamForEachSVResult);
 
@@ -38960,7 +39128,7 @@ namespace Sdx
   namespace Cmd
   {
     const char* const GetBeiDouEphBoolParamForSVResult::CmdName = "GetBeiDouEphBoolParamForSVResult";
-    const char* const GetBeiDouEphBoolParamForSVResult::Documentation = "Result of GetBeiDouEphBoolParamForSV";
+    const char* const GetBeiDouEphBoolParamForSVResult::Documentation = "Result of GetBeiDouEphBoolParamForSV.";
 
     REGISTER_COMMAND_RESULT_FACTORY(GetBeiDouEphBoolParamForSVResult);
 
@@ -39360,7 +39528,7 @@ namespace Sdx
   namespace Cmd
   {
     const char* const GetBeiDouEphBoolParamForEachSVResult::CmdName = "GetBeiDouEphBoolParamForEachSVResult";
-    const char* const GetBeiDouEphBoolParamForEachSVResult::Documentation = "Result of GetBeiDouEphBoolParamForEachSV";
+    const char* const GetBeiDouEphBoolParamForEachSVResult::Documentation = "Result of GetBeiDouEphBoolParamForEachSV.";
 
     REGISTER_COMMAND_RESULT_FACTORY(GetBeiDouEphBoolParamForEachSVResult);
 
@@ -39802,7 +39970,7 @@ namespace Sdx
   namespace Cmd
   {
     const char* const GetQzssEphBoolParamForSVResult::CmdName = "GetQzssEphBoolParamForSVResult";
-    const char* const GetQzssEphBoolParamForSVResult::Documentation = "Result of GetQzssEphBoolParamForSV";
+    const char* const GetQzssEphBoolParamForSVResult::Documentation = "Result of GetQzssEphBoolParamForSV.";
 
     REGISTER_COMMAND_RESULT_FACTORY(GetQzssEphBoolParamForSVResult);
 
@@ -40202,7 +40370,7 @@ namespace Sdx
   namespace Cmd
   {
     const char* const GetQzssEphBoolParamForEachSVResult::CmdName = "GetQzssEphBoolParamForEachSVResult";
-    const char* const GetQzssEphBoolParamForEachSVResult::Documentation = "Result of GetQzssEphBoolParamForEachSV";
+    const char* const GetQzssEphBoolParamForEachSVResult::Documentation = "Result of GetQzssEphBoolParamForEachSV.";
 
     REGISTER_COMMAND_RESULT_FACTORY(GetQzssEphBoolParamForEachSVResult);
 
@@ -40448,7 +40616,7 @@ namespace Sdx
   namespace Cmd
   {
     const char* const GetSbasEphParamsForSVResult::CmdName = "GetSbasEphParamsForSVResult";
-    const char* const GetSbasEphParamsForSVResult::Documentation = "Result of GetSbasEphParamsForSV";
+    const char* const GetSbasEphParamsForSVResult::Documentation = "Result of GetSbasEphParamsForSV.";
 
     REGISTER_COMMAND_RESULT_FACTORY(GetSbasEphParamsForSVResult);
 
@@ -41282,7 +41450,7 @@ namespace Sdx
   namespace Cmd
   {
     const char* const GetPerturbationsResult::CmdName = "GetPerturbationsResult";
-    const char* const GetPerturbationsResult::Documentation = "Result of GetPerturbations";
+    const char* const GetPerturbationsResult::Documentation = "Result of GetPerturbations.";
 
     REGISTER_COMMAND_RESULT_FACTORY(GetPerturbationsResult);
 
@@ -41668,7 +41836,7 @@ namespace Sdx
   namespace Cmd
   {
     const char* const GetPerturbationsForAllSatResult::CmdName = "GetPerturbationsForAllSatResult";
-    const char* const GetPerturbationsForAllSatResult::Documentation = "Result of GetPerturbationsForAllSat";
+    const char* const GetPerturbationsForAllSatResult::Documentation = "Result of GetPerturbationsForAllSat.";
 
     REGISTER_COMMAND_RESULT_FACTORY(GetPerturbationsForAllSatResult);
 
@@ -42068,7 +42236,7 @@ namespace Sdx
   namespace Cmd
   {
     const char* const GetMessageModificationToGpsCNavResult::CmdName = "GetMessageModificationToGpsCNavResult";
-    const char* const GetMessageModificationToGpsCNavResult::Documentation = "Result of GetMessageModificationToGpsCNav";
+    const char* const GetMessageModificationToGpsCNavResult::Documentation = "Result of GetMessageModificationToGpsCNav.";
 
     REGISTER_COMMAND_RESULT_FACTORY(GetMessageModificationToGpsCNavResult);
 
@@ -42496,7 +42664,7 @@ namespace Sdx
   namespace Cmd
   {
     const char* const GetMessageModificationToGpsMNavResult::CmdName = "GetMessageModificationToGpsMNavResult";
-    const char* const GetMessageModificationToGpsMNavResult::Documentation = "Result of GetMessageModificationToGpsMNav";
+    const char* const GetMessageModificationToGpsMNavResult::Documentation = "Result of GetMessageModificationToGpsMNav.";
 
     REGISTER_COMMAND_RESULT_FACTORY(GetMessageModificationToGpsMNavResult);
 
@@ -42924,7 +43092,7 @@ namespace Sdx
   namespace Cmd
   {
     const char* const GetMessageModificationToGpsCNav2Result::CmdName = "GetMessageModificationToGpsCNav2Result";
-    const char* const GetMessageModificationToGpsCNav2Result::Documentation = "Result of GetMessageModificationToGpsCNav2";
+    const char* const GetMessageModificationToGpsCNav2Result::Documentation = "Result of GetMessageModificationToGpsCNav2.";
 
     REGISTER_COMMAND_RESULT_FACTORY(GetMessageModificationToGpsCNav2Result);
 
@@ -43366,7 +43534,7 @@ namespace Sdx
   namespace Cmd
   {
     const char* const GetMessageModificationToGpsLNavResult::CmdName = "GetMessageModificationToGpsLNavResult";
-    const char* const GetMessageModificationToGpsLNavResult::Documentation = "Result of GetMessageModificationToGpsLNav";
+    const char* const GetMessageModificationToGpsLNavResult::Documentation = "Result of GetMessageModificationToGpsLNav.";
 
     REGISTER_COMMAND_RESULT_FACTORY(GetMessageModificationToGpsLNavResult);
 
@@ -43537,6 +43705,378 @@ namespace Sdx
     }
 
     void GetMessageModificationToGpsLNavResult::setId(const std::string& id)
+    {
+      m_values.AddMember("Id", parse_json<std::string>::format(id, m_values.GetAllocator()), m_values.GetAllocator());
+    }
+
+
+  }
+}
+
+
+///
+/// Definition of SetMessageModificationToGalileoCNav
+///
+#include "gen/SetMessageModificationToGalileoCNav.h"
+
+namespace Sdx
+{
+  namespace Cmd
+  {
+    const char* const SetMessageModificationToGalileoCNav::CmdName = "SetMessageModificationToGalileoCNav";
+    const char* const SetMessageModificationToGalileoCNav::Documentation = "Set (or Modify) event to change Galileo C/NAV message bits. If you send this command without setting the ID\nparameter, or if you set the ID with a value never used before, a new Modification event will be\ncreated. If you reuse the same event ID, it will modify the existing event.\n\nNote that start and stop time are automatically extended to beginning and ending of overlapped\nmessages.\n\nBitModifications can be an empty string. The Modification will have no effect until you modify it with at\nleast one bits mod.\n\nA bits mod is represented with a string using the following format: \"I:Bits\" where I is a bit\nindex (1 refers to the first transmitted bit) and Bits is a modification mask where each\ncharacter describes a modification to a single bit. The allowed characters are:\n   0 : force bit to 0\n   1 : force bit to 1\n   - : leave bit unchanged\n   X : revert bit (0 becomes 1 and 1 becomes 0)\n\nFor example: \"24:X---10XX\" will: revert bits 24, 30 and 31\n                 set bit 28 to 1\n                 set bit 29 to 0\nThe other bits are not affected.\n\nYou can add multiple bit modifications using commas. For example: \"24:X---10XX,127:100X,231:01\"";
+
+    REGISTER_COMMAND_FACTORY(SetMessageModificationToGalileoCNav);
+
+
+    SetMessageModificationToGalileoCNav::SetMessageModificationToGalileoCNav()
+      : CommandBase(CmdName)
+    {}
+
+    SetMessageModificationToGalileoCNav::SetMessageModificationToGalileoCNav(const std::vector<std::string>& signalArray, int svId, int startTime, int stopTime, bool updateCRC, const std::string& bitModifications, const std::string& id)
+      : CommandBase(CmdName)
+    {
+
+      setSignalArray(signalArray);
+      setSvId(svId);
+      setStartTime(startTime);
+      setStopTime(stopTime);
+      setUpdateCRC(updateCRC);
+      setBitModifications(bitModifications);
+      setId(id);
+    }
+
+
+    SetMessageModificationToGalileoCNavPtr SetMessageModificationToGalileoCNav::create(const std::vector<std::string>& signalArray, int svId, int startTime, int stopTime, bool updateCRC, const std::string& bitModifications, const std::string& id)
+    {
+      return SetMessageModificationToGalileoCNavPtr(new SetMessageModificationToGalileoCNav(signalArray, svId, startTime, stopTime, updateCRC, bitModifications, id));
+    }
+
+    SetMessageModificationToGalileoCNavPtr SetMessageModificationToGalileoCNav::dynamicCast(CommandBasePtr ptr)
+    {
+      return std::dynamic_pointer_cast<SetMessageModificationToGalileoCNav>(ptr);
+    }
+
+    bool SetMessageModificationToGalileoCNav::isValid() const
+    {
+      
+        return m_values.IsObject()
+          && parse_json<std::vector<std::string>>::is_valid(m_values["SignalArray"])
+          && parse_json<int>::is_valid(m_values["SvId"])
+          && parse_json<int>::is_valid(m_values["StartTime"])
+          && parse_json<int>::is_valid(m_values["StopTime"])
+          && parse_json<bool>::is_valid(m_values["UpdateCRC"])
+          && parse_json<std::string>::is_valid(m_values["BitModifications"])
+          && parse_json<std::string>::is_valid(m_values["Id"])
+        ;
+
+    }
+
+    std::string SetMessageModificationToGalileoCNav::documentation() const { return Documentation; }
+
+
+    int SetMessageModificationToGalileoCNav::executePermission() const
+    {
+      return EXECUTE_IF_SIMULATING | EXECUTE_IF_IDLE;
+    }
+
+
+    std::vector<std::string> SetMessageModificationToGalileoCNav::signalArray() const
+    {
+      return parse_json<std::vector<std::string>>::parse(m_values["SignalArray"]);
+    }
+
+    void SetMessageModificationToGalileoCNav::setSignalArray(const std::vector<std::string>& signalArray)
+    {
+      m_values.AddMember("SignalArray", parse_json<std::vector<std::string>>::format(signalArray, m_values.GetAllocator()), m_values.GetAllocator());
+    }
+
+
+
+    int SetMessageModificationToGalileoCNav::svId() const
+    {
+      return parse_json<int>::parse(m_values["SvId"]);
+    }
+
+    void SetMessageModificationToGalileoCNav::setSvId(int svId)
+    {
+      m_values.AddMember("SvId", parse_json<int>::format(svId, m_values.GetAllocator()), m_values.GetAllocator());
+    }
+
+
+
+    int SetMessageModificationToGalileoCNav::startTime() const
+    {
+      return parse_json<int>::parse(m_values["StartTime"]);
+    }
+
+    void SetMessageModificationToGalileoCNav::setStartTime(int startTime)
+    {
+      m_values.AddMember("StartTime", parse_json<int>::format(startTime, m_values.GetAllocator()), m_values.GetAllocator());
+    }
+
+
+
+    int SetMessageModificationToGalileoCNav::stopTime() const
+    {
+      return parse_json<int>::parse(m_values["StopTime"]);
+    }
+
+    void SetMessageModificationToGalileoCNav::setStopTime(int stopTime)
+    {
+      m_values.AddMember("StopTime", parse_json<int>::format(stopTime, m_values.GetAllocator()), m_values.GetAllocator());
+    }
+
+
+
+    bool SetMessageModificationToGalileoCNav::updateCRC() const
+    {
+      return parse_json<bool>::parse(m_values["UpdateCRC"]);
+    }
+
+    void SetMessageModificationToGalileoCNav::setUpdateCRC(bool updateCRC)
+    {
+      m_values.AddMember("UpdateCRC", parse_json<bool>::format(updateCRC, m_values.GetAllocator()), m_values.GetAllocator());
+    }
+
+
+
+    std::string SetMessageModificationToGalileoCNav::bitModifications() const
+    {
+      return parse_json<std::string>::parse(m_values["BitModifications"]);
+    }
+
+    void SetMessageModificationToGalileoCNav::setBitModifications(const std::string& bitModifications)
+    {
+      m_values.AddMember("BitModifications", parse_json<std::string>::format(bitModifications, m_values.GetAllocator()), m_values.GetAllocator());
+    }
+
+
+
+    std::string SetMessageModificationToGalileoCNav::id() const
+    {
+      return parse_json<std::string>::parse(m_values["Id"]);
+    }
+
+    void SetMessageModificationToGalileoCNav::setId(const std::string& id)
+    {
+      m_values.AddMember("Id", parse_json<std::string>::format(id, m_values.GetAllocator()), m_values.GetAllocator());
+    }
+
+
+  }
+}
+
+
+///
+/// Definition of GetMessageModificationToGalileoCNav
+///
+#include "gen/GetMessageModificationToGalileoCNav.h"
+
+namespace Sdx
+{
+  namespace Cmd
+  {
+    const char* const GetMessageModificationToGalileoCNav::CmdName = "GetMessageModificationToGalileoCNav";
+    const char* const GetMessageModificationToGalileoCNav::Documentation = "Get infos about the Galileo C/NAV message modification with this ID.";
+
+    REGISTER_COMMAND_FACTORY(GetMessageModificationToGalileoCNav);
+
+
+    GetMessageModificationToGalileoCNav::GetMessageModificationToGalileoCNav()
+      : CommandBase(CmdName)
+    {}
+
+    GetMessageModificationToGalileoCNav::GetMessageModificationToGalileoCNav(const std::string& id)
+      : CommandBase(CmdName)
+    {
+
+      setId(id);
+    }
+
+
+    GetMessageModificationToGalileoCNavPtr GetMessageModificationToGalileoCNav::create(const std::string& id)
+    {
+      return GetMessageModificationToGalileoCNavPtr(new GetMessageModificationToGalileoCNav(id));
+    }
+
+    GetMessageModificationToGalileoCNavPtr GetMessageModificationToGalileoCNav::dynamicCast(CommandBasePtr ptr)
+    {
+      return std::dynamic_pointer_cast<GetMessageModificationToGalileoCNav>(ptr);
+    }
+
+    bool GetMessageModificationToGalileoCNav::isValid() const
+    {
+      
+        return m_values.IsObject()
+          && parse_json<std::string>::is_valid(m_values["Id"])
+        ;
+
+    }
+
+    std::string GetMessageModificationToGalileoCNav::documentation() const { return Documentation; }
+
+
+    int GetMessageModificationToGalileoCNav::executePermission() const
+    {
+      return EXECUTE_IF_IDLE;
+    }
+
+
+    std::string GetMessageModificationToGalileoCNav::id() const
+    {
+      return parse_json<std::string>::parse(m_values["Id"]);
+    }
+
+    void GetMessageModificationToGalileoCNav::setId(const std::string& id)
+    {
+      m_values.AddMember("Id", parse_json<std::string>::format(id, m_values.GetAllocator()), m_values.GetAllocator());
+    }
+
+
+  }
+}
+
+
+///
+/// Definition of GetMessageModificationToGalileoCNavResult
+///
+#include "gen/GetMessageModificationToGalileoCNavResult.h"
+
+namespace Sdx
+{
+  namespace Cmd
+  {
+    const char* const GetMessageModificationToGalileoCNavResult::CmdName = "GetMessageModificationToGalileoCNavResult";
+    const char* const GetMessageModificationToGalileoCNavResult::Documentation = "Result of GetMessageModificationToGalileoCNav.";
+
+    REGISTER_COMMAND_RESULT_FACTORY(GetMessageModificationToGalileoCNavResult);
+
+
+    GetMessageModificationToGalileoCNavResult::GetMessageModificationToGalileoCNavResult()
+      : CommandResult(CmdName)
+    {}
+
+    GetMessageModificationToGalileoCNavResult::GetMessageModificationToGalileoCNavResult(CommandBasePtr relatedCommand, const std::vector<std::string>& signalArray, int svId, int startTime, int stopTime, bool updateCRC, const std::string& bitModifications, const std::string& id)
+      : CommandResult(CmdName, relatedCommand)
+    {
+
+      setSignalArray(signalArray);
+      setSvId(svId);
+      setStartTime(startTime);
+      setStopTime(stopTime);
+      setUpdateCRC(updateCRC);
+      setBitModifications(bitModifications);
+      setId(id);
+    }
+
+
+    GetMessageModificationToGalileoCNavResultPtr GetMessageModificationToGalileoCNavResult::create(CommandBasePtr relatedCommand, const std::vector<std::string>& signalArray, int svId, int startTime, int stopTime, bool updateCRC, const std::string& bitModifications, const std::string& id)
+    {
+      return GetMessageModificationToGalileoCNavResultPtr(new GetMessageModificationToGalileoCNavResult(relatedCommand, signalArray, svId, startTime, stopTime, updateCRC, bitModifications, id));
+    }
+
+    GetMessageModificationToGalileoCNavResultPtr GetMessageModificationToGalileoCNavResult::dynamicCast(CommandBasePtr ptr)
+    {
+      return std::dynamic_pointer_cast<GetMessageModificationToGalileoCNavResult>(ptr);
+    }
+
+    bool GetMessageModificationToGalileoCNavResult::isValid() const
+    {
+      
+        return m_values.IsObject()
+          && parse_json<std::vector<std::string>>::is_valid(m_values["SignalArray"])
+          && parse_json<int>::is_valid(m_values["SvId"])
+          && parse_json<int>::is_valid(m_values["StartTime"])
+          && parse_json<int>::is_valid(m_values["StopTime"])
+          && parse_json<bool>::is_valid(m_values["UpdateCRC"])
+          && parse_json<std::string>::is_valid(m_values["BitModifications"])
+          && parse_json<std::string>::is_valid(m_values["Id"])
+        ;
+
+    }
+
+    std::string GetMessageModificationToGalileoCNavResult::documentation() const { return Documentation; }
+
+
+    std::vector<std::string> GetMessageModificationToGalileoCNavResult::signalArray() const
+    {
+      return parse_json<std::vector<std::string>>::parse(m_values["SignalArray"]);
+    }
+
+    void GetMessageModificationToGalileoCNavResult::setSignalArray(const std::vector<std::string>& signalArray)
+    {
+      m_values.AddMember("SignalArray", parse_json<std::vector<std::string>>::format(signalArray, m_values.GetAllocator()), m_values.GetAllocator());
+    }
+
+
+
+    int GetMessageModificationToGalileoCNavResult::svId() const
+    {
+      return parse_json<int>::parse(m_values["SvId"]);
+    }
+
+    void GetMessageModificationToGalileoCNavResult::setSvId(int svId)
+    {
+      m_values.AddMember("SvId", parse_json<int>::format(svId, m_values.GetAllocator()), m_values.GetAllocator());
+    }
+
+
+
+    int GetMessageModificationToGalileoCNavResult::startTime() const
+    {
+      return parse_json<int>::parse(m_values["StartTime"]);
+    }
+
+    void GetMessageModificationToGalileoCNavResult::setStartTime(int startTime)
+    {
+      m_values.AddMember("StartTime", parse_json<int>::format(startTime, m_values.GetAllocator()), m_values.GetAllocator());
+    }
+
+
+
+    int GetMessageModificationToGalileoCNavResult::stopTime() const
+    {
+      return parse_json<int>::parse(m_values["StopTime"]);
+    }
+
+    void GetMessageModificationToGalileoCNavResult::setStopTime(int stopTime)
+    {
+      m_values.AddMember("StopTime", parse_json<int>::format(stopTime, m_values.GetAllocator()), m_values.GetAllocator());
+    }
+
+
+
+    bool GetMessageModificationToGalileoCNavResult::updateCRC() const
+    {
+      return parse_json<bool>::parse(m_values["UpdateCRC"]);
+    }
+
+    void GetMessageModificationToGalileoCNavResult::setUpdateCRC(bool updateCRC)
+    {
+      m_values.AddMember("UpdateCRC", parse_json<bool>::format(updateCRC, m_values.GetAllocator()), m_values.GetAllocator());
+    }
+
+
+
+    std::string GetMessageModificationToGalileoCNavResult::bitModifications() const
+    {
+      return parse_json<std::string>::parse(m_values["BitModifications"]);
+    }
+
+    void GetMessageModificationToGalileoCNavResult::setBitModifications(const std::string& bitModifications)
+    {
+      m_values.AddMember("BitModifications", parse_json<std::string>::format(bitModifications, m_values.GetAllocator()), m_values.GetAllocator());
+    }
+
+
+
+    std::string GetMessageModificationToGalileoCNavResult::id() const
+    {
+      return parse_json<std::string>::parse(m_values["Id"]);
+    }
+
+    void GetMessageModificationToGalileoCNavResult::setId(const std::string& id)
     {
       m_values.AddMember("Id", parse_json<std::string>::format(id, m_values.GetAllocator()), m_values.GetAllocator());
     }
@@ -43822,7 +44362,7 @@ namespace Sdx
   namespace Cmd
   {
     const char* const GetMessageModificationToGalileoFNavResult::CmdName = "GetMessageModificationToGalileoFNavResult";
-    const char* const GetMessageModificationToGalileoFNavResult::Documentation = "Result of GetMessageModificationToGalileoFNav";
+    const char* const GetMessageModificationToGalileoFNavResult::Documentation = "Result of GetMessageModificationToGalileoFNav.";
 
     REGISTER_COMMAND_RESULT_FACTORY(GetMessageModificationToGalileoFNavResult);
 
@@ -44278,7 +44818,7 @@ namespace Sdx
   namespace Cmd
   {
     const char* const GetMessageModificationToGalileoINavResult::CmdName = "GetMessageModificationToGalileoINavResult";
-    const char* const GetMessageModificationToGalileoINavResult::Documentation = "Result of GetMessageModificationToGalileoINav";
+    const char* const GetMessageModificationToGalileoINavResult::Documentation = "Result of GetMessageModificationToGalileoINav.";
 
     REGISTER_COMMAND_RESULT_FACTORY(GetMessageModificationToGalileoINavResult);
 
@@ -44720,7 +45260,7 @@ namespace Sdx
   namespace Cmd
   {
     const char* const GetMessageModificationToGlonassNavResult::CmdName = "GetMessageModificationToGlonassNavResult";
-    const char* const GetMessageModificationToGlonassNavResult::Documentation = "Result of GetMessageModificationToGlonassNav";
+    const char* const GetMessageModificationToGlonassNavResult::Documentation = "Result of GetMessageModificationToGlonassNav.";
 
     REGISTER_COMMAND_RESULT_FACTORY(GetMessageModificationToGlonassNavResult);
 
@@ -45162,7 +45702,7 @@ namespace Sdx
   namespace Cmd
   {
     const char* const GetMessageModificationToBeiDouD1NavResult::CmdName = "GetMessageModificationToBeiDouD1NavResult";
-    const char* const GetMessageModificationToBeiDouD1NavResult::Documentation = "Result of GetMessageModificationToBeiDouD1Nav";
+    const char* const GetMessageModificationToBeiDouD1NavResult::Documentation = "Result of GetMessageModificationToBeiDouD1Nav.";
 
     REGISTER_COMMAND_RESULT_FACTORY(GetMessageModificationToBeiDouD1NavResult);
 
@@ -45618,7 +46158,7 @@ namespace Sdx
   namespace Cmd
   {
     const char* const GetMessageModificationToBeiDouD2NavResult::CmdName = "GetMessageModificationToBeiDouD2NavResult";
-    const char* const GetMessageModificationToBeiDouD2NavResult::Documentation = "Result of GetMessageModificationToBeiDouD2Nav";
+    const char* const GetMessageModificationToBeiDouD2NavResult::Documentation = "Result of GetMessageModificationToBeiDouD2Nav.";
 
     REGISTER_COMMAND_RESULT_FACTORY(GetMessageModificationToBeiDouD2NavResult);
 
@@ -46060,7 +46600,7 @@ namespace Sdx
   namespace Cmd
   {
     const char* const GetMessageModificationToBeiDouCNav1Result::CmdName = "GetMessageModificationToBeiDouCNav1Result";
-    const char* const GetMessageModificationToBeiDouCNav1Result::Documentation = "Result of GetMessageModificationToBeiDouCNav1";
+    const char* const GetMessageModificationToBeiDouCNav1Result::Documentation = "Result of GetMessageModificationToBeiDouCNav1.";
 
     REGISTER_COMMAND_RESULT_FACTORY(GetMessageModificationToBeiDouCNav1Result);
 
@@ -46488,7 +47028,7 @@ namespace Sdx
   namespace Cmd
   {
     const char* const GetMessageModificationToBeiDouCNav2Result::CmdName = "GetMessageModificationToBeiDouCNav2Result";
-    const char* const GetMessageModificationToBeiDouCNav2Result::Documentation = "Result of GetMessageModificationToBeiDouCNav2";
+    const char* const GetMessageModificationToBeiDouCNav2Result::Documentation = "Result of GetMessageModificationToBeiDouCNav2.";
 
     REGISTER_COMMAND_RESULT_FACTORY(GetMessageModificationToBeiDouCNav2Result);
 
@@ -46930,7 +47470,7 @@ namespace Sdx
   namespace Cmd
   {
     const char* const GetMessageModificationToQzssLNavResult::CmdName = "GetMessageModificationToQzssLNavResult";
-    const char* const GetMessageModificationToQzssLNavResult::Documentation = "Result of GetMessageModificationToQzssLNav";
+    const char* const GetMessageModificationToQzssLNavResult::Documentation = "Result of GetMessageModificationToQzssLNav.";
 
     REGISTER_COMMAND_RESULT_FACTORY(GetMessageModificationToQzssLNavResult);
 
@@ -47372,7 +47912,7 @@ namespace Sdx
   namespace Cmd
   {
     const char* const GetMessageModificationToQzssSlasResult::CmdName = "GetMessageModificationToQzssSlasResult";
-    const char* const GetMessageModificationToQzssSlasResult::Documentation = "Result of GetMessageModificationToQzssSlas";
+    const char* const GetMessageModificationToQzssSlasResult::Documentation = "Result of GetMessageModificationToQzssSlas.";
 
     REGISTER_COMMAND_RESULT_FACTORY(GetMessageModificationToQzssSlasResult);
 
@@ -47800,7 +48340,7 @@ namespace Sdx
   namespace Cmd
   {
     const char* const GetMessageModificationToQzssCNav2Result::CmdName = "GetMessageModificationToQzssCNav2Result";
-    const char* const GetMessageModificationToQzssCNav2Result::Documentation = "Result of GetMessageModificationToQzssCNav2";
+    const char* const GetMessageModificationToQzssCNav2Result::Documentation = "Result of GetMessageModificationToQzssCNav2.";
 
     REGISTER_COMMAND_RESULT_FACTORY(GetMessageModificationToQzssCNav2Result);
 
@@ -48242,7 +48782,7 @@ namespace Sdx
   namespace Cmd
   {
     const char* const GetMessageModificationToNavICNavResult::CmdName = "GetMessageModificationToNavICNavResult";
-    const char* const GetMessageModificationToNavICNavResult::Documentation = "Result of GetMessageModificationToNavICNav";
+    const char* const GetMessageModificationToNavICNavResult::Documentation = "Result of GetMessageModificationToNavICNav.";
 
     REGISTER_COMMAND_RESULT_FACTORY(GetMessageModificationToNavICNavResult);
 
@@ -49858,7 +50398,7 @@ namespace Sdx
   namespace Cmd
   {
     const char* const GetPseudorangeRampForSVResult::CmdName = "GetPseudorangeRampForSVResult";
-    const char* const GetPseudorangeRampForSVResult::Documentation = "Result of GetPseudorangeRampForSV";
+    const char* const GetPseudorangeRampForSVResult::Documentation = "Result of GetPseudorangeRampForSV.";
 
     REGISTER_COMMAND_RESULT_FACTORY(GetPseudorangeRampForSVResult);
 
@@ -50104,7 +50644,7 @@ namespace Sdx
   namespace Cmd
   {
     const char* const GetAllPseudorangeRampForSVResult::CmdName = "GetAllPseudorangeRampForSVResult";
-    const char* const GetAllPseudorangeRampForSVResult::Documentation = "result of GetAllPseudorangeRampForSV";
+    const char* const GetAllPseudorangeRampForSVResult::Documentation = "Result of GetAllPseudorangeRampForSV.";
 
     REGISTER_COMMAND_RESULT_FACTORY(GetAllPseudorangeRampForSVResult);
 
@@ -50640,7 +51180,7 @@ namespace Sdx
   namespace Cmd
   {
     const char* const GetAlmanacInitialUploadTimeOffsetResult::CmdName = "GetAlmanacInitialUploadTimeOffsetResult";
-    const char* const GetAlmanacInitialUploadTimeOffsetResult::Documentation = "Result of GetAlmanacInitialUploadTimeOffset";
+    const char* const GetAlmanacInitialUploadTimeOffsetResult::Documentation = "Result of GetAlmanacInitialUploadTimeOffset.";
 
     REGISTER_COMMAND_RESULT_FACTORY(GetAlmanacInitialUploadTimeOffsetResult);
 
@@ -50854,7 +51394,7 @@ namespace Sdx
   namespace Cmd
   {
     const char* const GetAlmanacUploadTimeIntervalResult::CmdName = "GetAlmanacUploadTimeIntervalResult";
-    const char* const GetAlmanacUploadTimeIntervalResult::Documentation = "Result of GetAlmanacUploadTimeInterval";
+    const char* const GetAlmanacUploadTimeIntervalResult::Documentation = "Result of GetAlmanacUploadTimeInterval.";
 
     REGISTER_COMMAND_RESULT_FACTORY(GetAlmanacUploadTimeIntervalResult);
 
@@ -51590,7 +52130,7 @@ namespace Sdx
   namespace Cmd
   {
     const char* const GetMultipathForIDResult::CmdName = "GetMultipathForIDResult";
-    const char* const GetMultipathForIDResult::Documentation = "Result of GetMultipathForIDResult.";
+    const char* const GetMultipathForIDResult::Documentation = "Result of GetMultipathForID.";
 
     REGISTER_COMMAND_RESULT_FACTORY(GetMultipathForIDResult);
 
@@ -52236,7 +52776,7 @@ namespace Sdx
   namespace Cmd
   {
     const char* const IsLosEnabledForSVResult::CmdName = "IsLosEnabledForSVResult";
-    const char* const IsLosEnabledForSVResult::Documentation = "Result of IsLosEnabledForSV";
+    const char* const IsLosEnabledForSVResult::Documentation = "Result of IsLosEnabledForSV.";
 
     REGISTER_COMMAND_RESULT_FACTORY(IsLosEnabledForSVResult);
 
@@ -52552,7 +53092,7 @@ namespace Sdx
   namespace Cmd
   {
     const char* const IsLOSEnabledForEachSVResult::CmdName = "IsLOSEnabledForEachSVResult";
-    const char* const IsLOSEnabledForEachSVResult::Documentation = "Result of IsLOSEnabledForEachSV";
+    const char* const IsLOSEnabledForEachSVResult::Documentation = "Result of IsLOSEnabledForEachSV.";
 
     REGISTER_COMMAND_RESULT_FACTORY(IsLOSEnabledForEachSVResult);
 
@@ -52766,7 +53306,7 @@ namespace Sdx
   namespace Cmd
   {
     const char* const GetPlugInInstanceResult::CmdName = "GetPlugInInstanceResult";
-    const char* const GetPlugInInstanceResult::Documentation = "Result of GetPlugInInstance";
+    const char* const GetPlugInInstanceResult::Documentation = "Result of GetPlugInInstance.";
 
     REGISTER_COMMAND_RESULT_FACTORY(GetPlugInInstanceResult);
 
@@ -53036,7 +53576,7 @@ namespace Sdx
   namespace Cmd
   {
     const char* const GetDefaultIntTxPersistenceResult::CmdName = "GetDefaultIntTxPersistenceResult";
-    const char* const GetDefaultIntTxPersistenceResult::Documentation = "Result of GetDefaultIntTxPersistence";
+    const char* const GetDefaultIntTxPersistenceResult::Documentation = "Result of GetDefaultIntTxPersistence.";
 
     REGISTER_COMMAND_RESULT_FACTORY(GetDefaultIntTxPersistenceResult);
 
@@ -53100,7 +53640,7 @@ namespace Sdx
   namespace Cmd
   {
     const char* const GetAllIntTxID::CmdName = "GetAllIntTxID";
-    const char* const GetAllIntTxID::Documentation = "get the ID of all interferences transmitters.";
+    const char* const GetAllIntTxID::Documentation = "Get the ID of all interferences transmitters.";
 
     REGISTER_COMMAND_FACTORY(GetAllIntTxID);
 
@@ -53152,7 +53692,7 @@ namespace Sdx
   namespace Cmd
   {
     const char* const GetAllIntTxIDResult::CmdName = "GetAllIntTxIDResult";
-    const char* const GetAllIntTxIDResult::Documentation = "Result of GetAllIntTxID";
+    const char* const GetAllIntTxIDResult::Documentation = "Result of GetAllIntTxID.";
 
     REGISTER_COMMAND_RESULT_FACTORY(GetAllIntTxIDResult);
 
@@ -53426,7 +53966,7 @@ namespace Sdx
   namespace Cmd
   {
     const char* const GetIntTxResult::CmdName = "GetIntTxResult";
-    const char* const GetIntTxResult::Documentation = "Result of GetIntTx";
+    const char* const GetIntTxResult::Documentation = "Result of GetIntTx.";
 
     REGISTER_COMMAND_RESULT_FACTORY(GetIntTxResult);
 
@@ -53798,7 +54338,7 @@ namespace Sdx
   namespace Cmd
   {
     const char* const GetIntTxColorResult::CmdName = "GetIntTxColorResult";
-    const char* const GetIntTxColorResult::Documentation = "Result of GetIntTxColor";
+    const char* const GetIntTxColorResult::Documentation = "Result of GetIntTxColor.";
 
     REGISTER_COMMAND_RESULT_FACTORY(GetIntTxColorResult);
 
@@ -54282,7 +54822,7 @@ namespace Sdx
   namespace Cmd
   {
     const char* const GetIntTxPersistenceResult::CmdName = "GetIntTxPersistenceResult";
-    const char* const GetIntTxPersistenceResult::Documentation = "Result of GetIntTxPersistence";
+    const char* const GetIntTxPersistenceResult::Documentation = "Result of GetIntTxPersistence.";
 
     REGISTER_COMMAND_RESULT_FACTORY(GetIntTxPersistenceResult);
 
@@ -54766,7 +55306,7 @@ namespace Sdx
   namespace Cmd
   {
     const char* const GetIntTxHiddenOnMapResult::CmdName = "GetIntTxHiddenOnMapResult";
-    const char* const GetIntTxHiddenOnMapResult::Documentation = "Result of GetIntTxHiddenOnMap";
+    const char* const GetIntTxHiddenOnMapResult::Documentation = "Result of GetIntTxHiddenOnMap.";
 
     REGISTER_COMMAND_RESULT_FACTORY(GetIntTxHiddenOnMapResult);
 
@@ -54998,7 +55538,7 @@ namespace Sdx
   namespace Cmd
   {
     const char* const IsIntTxIgnoreRxAntennaGainPatternResult::CmdName = "IsIntTxIgnoreRxAntennaGainPatternResult";
-    const char* const IsIntTxIgnoreRxAntennaGainPatternResult::Documentation = "Result of IsIntTxIgnoreRxAntennaGainPattern";
+    const char* const IsIntTxIgnoreRxAntennaGainPatternResult::Documentation = "Result of IsIntTxIgnoreRxAntennaGainPattern.";
 
     REGISTER_COMMAND_RESULT_FACTORY(IsIntTxIgnoreRxAntennaGainPatternResult);
 
@@ -55230,7 +55770,7 @@ namespace Sdx
   namespace Cmd
   {
     const char* const IsIntTxIgnoreRxAntennaPhasePatternResult::CmdName = "IsIntTxIgnoreRxAntennaPhasePatternResult";
-    const char* const IsIntTxIgnoreRxAntennaPhasePatternResult::Documentation = "Result of IsIntTxIgnoreRxAntennaPhasePattern";
+    const char* const IsIntTxIgnoreRxAntennaPhasePatternResult::Documentation = "Result of IsIntTxIgnoreRxAntennaPhasePattern.";
 
     REGISTER_COMMAND_RESULT_FACTORY(IsIntTxIgnoreRxAntennaPhasePatternResult);
 
@@ -55602,7 +56142,7 @@ namespace Sdx
   namespace Cmd
   {
     const char* const GetIntTxFixResult::CmdName = "GetIntTxFixResult";
-    const char* const GetIntTxFixResult::Documentation = "Result of GetIntTxFix";
+    const char* const GetIntTxFixResult::Documentation = "Result of GetIntTxFix.";
 
     REGISTER_COMMAND_RESULT_FACTORY(GetIntTxFixResult);
 
@@ -55974,7 +56514,7 @@ namespace Sdx
   namespace Cmd
   {
     const char* const GetIntTxFixEcefResult::CmdName = "GetIntTxFixEcefResult";
-    const char* const GetIntTxFixEcefResult::Documentation = "Result of GetIntTxFixEcef";
+    const char* const GetIntTxFixEcefResult::Documentation = "Result of GetIntTxFixEcef.";
 
     REGISTER_COMMAND_RESULT_FACTORY(GetIntTxFixEcefResult);
 
@@ -56360,7 +56900,7 @@ namespace Sdx
   namespace Cmd
   {
     const char* const GetIntTxCircularResult::CmdName = "GetIntTxCircularResult";
-    const char* const GetIntTxCircularResult::Documentation = "Result of GetIntTxCircular";
+    const char* const GetIntTxCircularResult::Documentation = "Result of GetIntTxCircular.";
 
     REGISTER_COMMAND_RESULT_FACTORY(GetIntTxCircularResult);
 
@@ -57342,7 +57882,7 @@ namespace Sdx
   namespace Cmd
   {
     const char* const IsIntTxTrajectorySmoothingEnabledResult::CmdName = "IsIntTxTrajectorySmoothingEnabledResult";
-    const char* const IsIntTxTrajectorySmoothingEnabledResult::Documentation = "Result of IsIntTxTrajectorySmoothingEnabled";
+    const char* const IsIntTxTrajectorySmoothingEnabledResult::Documentation = "Result of IsIntTxTrajectorySmoothingEnabled.";
 
     REGISTER_COMMAND_RESULT_FACTORY(IsIntTxTrajectorySmoothingEnabledResult);
 
@@ -57574,7 +58114,7 @@ namespace Sdx
   namespace Cmd
   {
     const char* const IsIntTxAttitudeToZeroForcedResult::CmdName = "IsIntTxAttitudeToZeroForcedResult";
-    const char* const IsIntTxAttitudeToZeroForcedResult::Documentation = "Result of IsIntTxAttitudeToZeroForced";
+    const char* const IsIntTxAttitudeToZeroForcedResult::Documentation = "Result of IsIntTxAttitudeToZeroForced.";
 
     REGISTER_COMMAND_RESULT_FACTORY(IsIntTxAttitudeToZeroForcedResult);
 
@@ -57806,7 +58346,7 @@ namespace Sdx
   namespace Cmd
   {
     const char* const GetIntTxVehicleTypeResult::CmdName = "GetIntTxVehicleTypeResult";
-    const char* const GetIntTxVehicleTypeResult::Documentation = "Result of GetIntTxVehicleType";
+    const char* const GetIntTxVehicleTypeResult::Documentation = "Result of GetIntTxVehicleType.";
 
     REGISTER_COMMAND_RESULT_FACTORY(GetIntTxVehicleTypeResult);
 
@@ -57884,7 +58424,7 @@ namespace Sdx
   namespace Cmd
   {
     const char* const GetIntTxTrajectory::CmdName = "GetIntTxTrajectory";
-    const char* const GetIntTxTrajectory::Documentation = "Get interference transmitter trajectory";
+    const char* const GetIntTxTrajectory::Documentation = "Get interference transmitter trajectory.";
 
     REGISTER_COMMAND_FACTORY(GetIntTxTrajectory);
 
@@ -57954,7 +58494,7 @@ namespace Sdx
   namespace Cmd
   {
     const char* const GetIntTxTrajectoryResult::CmdName = "GetIntTxTrajectoryResult";
-    const char* const GetIntTxTrajectoryResult::Documentation = "Result of GetIntTxTrajectory";
+    const char* const GetIntTxTrajectoryResult::Documentation = "Result of GetIntTxTrajectory.";
 
     REGISTER_COMMAND_RESULT_FACTORY(GetIntTxTrajectoryResult);
 
@@ -58200,7 +58740,7 @@ namespace Sdx
   namespace Cmd
   {
     const char* const GetIntTxAntennaResult::CmdName = "GetIntTxAntennaResult";
-    const char* const GetIntTxAntennaResult::Documentation = "Result of GetIntTxAntenna";
+    const char* const GetIntTxAntennaResult::Documentation = "Result of GetIntTxAntenna.";
 
     REGISTER_COMMAND_RESULT_FACTORY(GetIntTxAntennaResult);
 
@@ -58516,7 +59056,7 @@ namespace Sdx
   namespace Cmd
   {
     const char* const GetIntTxAntennaOffsetResult::CmdName = "GetIntTxAntennaOffsetResult";
-    const char* const GetIntTxAntennaOffsetResult::Documentation = "Result of GetIntTxAntennaOffset";
+    const char* const GetIntTxAntennaOffsetResult::Documentation = "Result of GetIntTxAntennaOffset.";
 
     REGISTER_COMMAND_RESULT_FACTORY(GetIntTxAntennaOffsetResult);
 
@@ -59348,7 +59888,7 @@ namespace Sdx
   namespace Cmd
   {
     const char* const GetIntTxCWResult::CmdName = "GetIntTxCWResult";
-    const char* const GetIntTxCWResult::Documentation = "Result of GetIntTxCW";
+    const char* const GetIntTxCWResult::Documentation = "Result of GetIntTxCW.";
 
     REGISTER_COMMAND_RESULT_FACTORY(GetIntTxCWResult);
 
@@ -59748,7 +60288,7 @@ namespace Sdx
   namespace Cmd
   {
     const char* const GetIntTxChirpResult::CmdName = "GetIntTxChirpResult";
-    const char* const GetIntTxChirpResult::Documentation = "Result of GetIntTxChirp";
+    const char* const GetIntTxChirpResult::Documentation = "Result of GetIntTxChirp.";
 
     REGISTER_COMMAND_RESULT_FACTORY(GetIntTxChirpResult);
 
@@ -60162,7 +60702,7 @@ namespace Sdx
   namespace Cmd
   {
     const char* const GetIntTxPulseResult::CmdName = "GetIntTxPulseResult";
-    const char* const GetIntTxPulseResult::Documentation = "Result of GetIntTxPulse";
+    const char* const GetIntTxPulseResult::Documentation = "Result of GetIntTxPulse.";
 
     REGISTER_COMMAND_RESULT_FACTORY(GetIntTxPulseResult);
 
@@ -60576,7 +61116,7 @@ namespace Sdx
   namespace Cmd
   {
     const char* const GetIntTxBPSKResult::CmdName = "GetIntTxBPSKResult";
-    const char* const GetIntTxBPSKResult::Documentation = "Result of GetIntTxBPSK";
+    const char* const GetIntTxBPSKResult::Documentation = "Result of GetIntTxBPSK.";
 
     REGISTER_COMMAND_RESULT_FACTORY(GetIntTxBPSKResult);
 
@@ -61018,7 +61558,7 @@ namespace Sdx
   namespace Cmd
   {
     const char* const GetIntTxBOCResult::CmdName = "GetIntTxBOCResult";
-    const char* const GetIntTxBOCResult::Documentation = "Result of GetIntTxBOC";
+    const char* const GetIntTxBOCResult::Documentation = "Result of GetIntTxBOC.";
 
     REGISTER_COMMAND_RESULT_FACTORY(GetIntTxBOCResult);
 
@@ -61460,7 +62000,7 @@ namespace Sdx
   namespace Cmd
   {
     const char* const GetIntTxAWGNResult::CmdName = "GetIntTxAWGNResult";
-    const char* const GetIntTxAWGNResult::Documentation = "Result of GetIntTxAWGN";
+    const char* const GetIntTxAWGNResult::Documentation = "Result of GetIntTxAWGN.";
 
     REGISTER_COMMAND_RESULT_FACTORY(GetIntTxAWGNResult);
 
@@ -61860,7 +62400,7 @@ namespace Sdx
   namespace Cmd
   {
     const char* const GetIntTxIqFileResult::CmdName = "GetIntTxIqFileResult";
-    const char* const GetIntTxIqFileResult::Documentation = "Result of GetIntTxIqFile";
+    const char* const GetIntTxIqFileResult::Documentation = "Result of GetIntTxIqFile.";
 
     REGISTER_COMMAND_RESULT_FACTORY(GetIntTxIqFileResult);
 
@@ -62321,6 +62861,76 @@ namespace Sdx
 
 
 ///
+/// Definition of SetEngineLatency
+///
+#include "gen/SetEngineLatency.h"
+
+namespace Sdx
+{
+  namespace Cmd
+  {
+    const char* const SetEngineLatency::CmdName = "SetEngineLatency";
+    const char* const SetEngineLatency::Documentation = "Set engine latency.";
+
+    REGISTER_COMMAND_FACTORY(SetEngineLatency);
+
+
+    SetEngineLatency::SetEngineLatency()
+      : CommandBase(CmdName)
+    {}
+
+    SetEngineLatency::SetEngineLatency(int latency)
+      : CommandBase(CmdName)
+    {
+
+      setLatency(latency);
+    }
+
+
+    SetEngineLatencyPtr SetEngineLatency::create(int latency)
+    {
+      return SetEngineLatencyPtr(new SetEngineLatency(latency));
+    }
+
+    SetEngineLatencyPtr SetEngineLatency::dynamicCast(CommandBasePtr ptr)
+    {
+      return std::dynamic_pointer_cast<SetEngineLatency>(ptr);
+    }
+
+    bool SetEngineLatency::isValid() const
+    {
+      
+        return m_values.IsObject()
+          && parse_json<int>::is_valid(m_values["Latency"])
+        ;
+
+    }
+
+    std::string SetEngineLatency::documentation() const { return Documentation; }
+
+
+    int SetEngineLatency::executePermission() const
+    {
+      return EXECUTE_IF_NO_CONFIG | EXECUTE_IF_IDLE;
+    }
+
+
+    int SetEngineLatency::latency() const
+    {
+      return parse_json<int>::parse(m_values["Latency"]);
+    }
+
+    void SetEngineLatency::setLatency(int latency)
+    {
+      m_values.AddMember("Latency", parse_json<int>::format(latency, m_values.GetAllocator()), m_values.GetAllocator());
+    }
+
+
+  }
+}
+
+
+///
 /// Definition of SetSyncServer
 ///
 #include "gen/SetSyncServer.h"
@@ -62606,7 +63216,7 @@ namespace Sdx
   namespace Cmd
   {
     const char* const GetSyncTimeResult::CmdName = "GetSyncTimeResult";
-    const char* const GetSyncTimeResult::Documentation = "Result of GetSyncTime";
+    const char* const GetSyncTimeResult::Documentation = "Result of GetSyncTime.";
 
     REGISTER_COMMAND_RESULT_FACTORY(GetSyncTimeResult);
 
@@ -62792,7 +63402,7 @@ namespace Sdx
   namespace Cmd
   {
     const char* const GetSyncTimeMasterResult::CmdName = "GetSyncTimeMasterResult";
-    const char* const GetSyncTimeMasterResult::Documentation = "Result of GetSyncTimeMaster";
+    const char* const GetSyncTimeMasterResult::Documentation = "Result of GetSyncTimeMaster.";
 
     REGISTER_COMMAND_RESULT_FACTORY(GetSyncTimeMasterResult);
 
@@ -62978,7 +63588,7 @@ namespace Sdx
   namespace Cmd
   {
     const char* const IsSimStopWhenCommandFailEnabledResult::CmdName = "IsSimStopWhenCommandFailEnabledResult";
-    const char* const IsSimStopWhenCommandFailEnabledResult::Documentation = "Result of IsSimStopWhenCommandFailEnabled";
+    const char* const IsSimStopWhenCommandFailEnabledResult::Documentation = "Result of IsSimStopWhenCommandFailEnabled.";
 
     REGISTER_COMMAND_RESULT_FACTORY(IsSimStopWhenCommandFailEnabledResult);
 
@@ -63164,7 +63774,7 @@ namespace Sdx
   namespace Cmd
   {
     const char* const IsStopMasterWhenSlaveStopResult::CmdName = "IsStopMasterWhenSlaveStopResult";
-    const char* const IsStopMasterWhenSlaveStopResult::Documentation = "Result of IsStopMasterWhenSlaveStop";
+    const char* const IsStopMasterWhenSlaveStopResult::Documentation = "Result of IsStopMasterWhenSlaveStop.";
 
     REGISTER_COMMAND_RESULT_FACTORY(IsStopMasterWhenSlaveStopResult);
 
@@ -63350,7 +63960,7 @@ namespace Sdx
   namespace Cmd
   {
     const char* const IsMapAnalysisEnabledResult::CmdName = "IsMapAnalysisEnabledResult";
-    const char* const IsMapAnalysisEnabledResult::Documentation = "Result of IsMapAnalysisEnabled";
+    const char* const IsMapAnalysisEnabledResult::Documentation = "Result of IsMapAnalysisEnabled.";
 
     REGISTER_COMMAND_RESULT_FACTORY(IsMapAnalysisEnabledResult);
 
@@ -63536,7 +64146,7 @@ namespace Sdx
   namespace Cmd
   {
     const char* const IsSpectrumVisibleResult::CmdName = "IsSpectrumVisibleResult";
-    const char* const IsSpectrumVisibleResult::Documentation = "Result of IsSpectrumVisible";
+    const char* const IsSpectrumVisibleResult::Documentation = "Result of IsSpectrumVisible.";
 
     REGISTER_COMMAND_RESULT_FACTORY(IsSpectrumVisibleResult);
 
@@ -64432,7 +65042,7 @@ namespace Sdx
   namespace Cmd
   {
     const char* const GetMessageSequenceResult::CmdName = "GetMessageSequenceResult";
-    const char* const GetMessageSequenceResult::Documentation = "Result of GetMessageSequence";
+    const char* const GetMessageSequenceResult::Documentation = "Result of GetMessageSequence.";
 
     REGISTER_COMMAND_RESULT_FACTORY(GetMessageSequenceResult);
 
@@ -64664,7 +65274,7 @@ namespace Sdx
   namespace Cmd
   {
     const char* const GetGalileoFnavSatelliteKResult::CmdName = "GetGalileoFnavSatelliteKResult";
-    const char* const GetGalileoFnavSatelliteKResult::Documentation = "Result of GetGalileoFnavSatelliteK";
+    const char* const GetGalileoFnavSatelliteKResult::Documentation = "Result of GetGalileoFnavSatelliteK.";
 
     REGISTER_COMMAND_RESULT_FACTORY(GetGalileoFnavSatelliteKResult);
 
@@ -64972,7 +65582,7 @@ namespace Sdx
   namespace Cmd
   {
     const char* const GetStatusLogResult::CmdName = "GetStatusLogResult";
-    const char* const GetStatusLogResult::Documentation = "Represents a log, each element of the same record share the same index";
+    const char* const GetStatusLogResult::Documentation = "Result of GetStatusLog.";
 
     REGISTER_COMMAND_RESULT_FACTORY(GetStatusLogResult);
 
@@ -65176,7 +65786,7 @@ namespace Sdx
   namespace Cmd
   {
     const char* const GetVisibleSVResult::CmdName = "GetVisibleSVResult";
-    const char* const GetVisibleSVResult::Documentation = "Result of GetVisibleSV";
+    const char* const GetVisibleSVResult::Documentation = "Result of GetVisibleSV.";
 
     REGISTER_COMMAND_RESULT_FACTORY(GetVisibleSVResult);
 
@@ -65610,7 +66220,7 @@ namespace Sdx
   namespace Cmd
   {
     const char* const IsSVEnabledResult::CmdName = "IsSVEnabledResult";
-    const char* const IsSVEnabledResult::Documentation = "Result of IsSVEnabled";
+    const char* const IsSVEnabledResult::Documentation = "Result of IsSVEnabled.";
 
     REGISTER_COMMAND_RESULT_FACTORY(IsSVEnabledResult);
 
@@ -65856,7 +66466,7 @@ namespace Sdx
   namespace Cmd
   {
     const char* const IsEachSVEnabledResult::CmdName = "IsEachSVEnabledResult";
-    const char* const IsEachSVEnabledResult::Documentation = "Result of IsEachSVEnabled";
+    const char* const IsEachSVEnabledResult::Documentation = "Result of IsEachSVEnabled.";
 
     REGISTER_COMMAND_RESULT_FACTORY(IsEachSVEnabledResult);
 
@@ -66056,7 +66666,7 @@ namespace Sdx
   namespace Cmd
   {
     const char* const GetCnav2PagesEnabledResult::CmdName = "GetCnav2PagesEnabledResult";
-    const char* const GetCnav2PagesEnabledResult::Documentation = "Result of GetCnav2PagesEnabled";
+    const char* const GetCnav2PagesEnabledResult::Documentation = "Result of GetCnav2PagesEnabled.";
 
     REGISTER_COMMAND_RESULT_FACTORY(GetCnav2PagesEnabledResult);
 
@@ -66242,7 +66852,7 @@ namespace Sdx
   namespace Cmd
   {
     const char* const GetSbasMessagesEnabledResult::CmdName = "GetSbasMessagesEnabledResult";
-    const char* const GetSbasMessagesEnabledResult::Documentation = "Result of GetSbasMessagesEnabled";
+    const char* const GetSbasMessagesEnabledResult::Documentation = "Result of GetSbasMessagesEnabled.";
 
     REGISTER_COMMAND_RESULT_FACTORY(GetSbasMessagesEnabledResult);
 
@@ -66428,7 +67038,7 @@ namespace Sdx
   namespace Cmd
   {
     const char* const GetSbasMonitoredSystemsResult::CmdName = "GetSbasMonitoredSystemsResult";
-    const char* const GetSbasMonitoredSystemsResult::Documentation = "Result of GetSbasMonitoredSystems";
+    const char* const GetSbasMonitoredSystemsResult::Documentation = "Result of GetSbasMonitoredSystems.";
 
     REGISTER_COMMAND_RESULT_FACTORY(GetSbasMonitoredSystemsResult);
 
@@ -66614,7 +67224,7 @@ namespace Sdx
   namespace Cmd
   {
     const char* const GetSbasUdreiResult::CmdName = "GetSbasUdreiResult";
-    const char* const GetSbasUdreiResult::Documentation = "Result of GetSbasUdrei";
+    const char* const GetSbasUdreiResult::Documentation = "Result of GetSbasUdrei.";
 
     REGISTER_COMMAND_RESULT_FACTORY(GetSbasUdreiResult);
 
@@ -66904,7 +67514,7 @@ namespace Sdx
   namespace Cmd
   {
     const char* const GetConfigBroadcastOnStartResult::CmdName = "GetConfigBroadcastOnStartResult";
-    const char* const GetConfigBroadcastOnStartResult::Documentation = "Result of GetConfigBroadcastOnStart";
+    const char* const GetConfigBroadcastOnStartResult::Documentation = "Result of GetConfigBroadcastOnStart.";
 
     REGISTER_COMMAND_RESULT_FACTORY(GetConfigBroadcastOnStartResult);
 
@@ -67090,7 +67700,7 @@ namespace Sdx
   namespace Cmd
   {
     const char* const GetConfigBroadcastFilterResult::CmdName = "GetConfigBroadcastFilterResult";
-    const char* const GetConfigBroadcastFilterResult::Documentation = "Result of GetConfigBroadcastFilter";
+    const char* const GetConfigBroadcastFilterResult::Documentation = "Result of GetConfigBroadcastFilter.";
 
     REGISTER_COMMAND_RESULT_FACTORY(GetConfigBroadcastFilterResult);
 
@@ -67350,7 +67960,7 @@ namespace Sdx
   namespace Cmd
   {
     const char* const GetPseudorangeNoiseOffsetForSVResult::CmdName = "GetPseudorangeNoiseOffsetForSVResult";
-    const char* const GetPseudorangeNoiseOffsetForSVResult::Documentation = "Result of GetPseudorangeNoiseOffsetForSV";
+    const char* const GetPseudorangeNoiseOffsetForSVResult::Documentation = "Result of GetPseudorangeNoiseOffsetForSV.";
 
     REGISTER_COMMAND_RESULT_FACTORY(GetPseudorangeNoiseOffsetForSVResult);
 
@@ -67792,7 +68402,7 @@ namespace Sdx
   namespace Cmd
   {
     const char* const GetPseudorangeNoiseOffsetForEachSVResult::CmdName = "GetPseudorangeNoiseOffsetForEachSVResult";
-    const char* const GetPseudorangeNoiseOffsetForEachSVResult::Documentation = "Result of GetPseudorangeNoiseOffsetForEachSV";
+    const char* const GetPseudorangeNoiseOffsetForEachSVResult::Documentation = "Result of GetPseudorangeNoiseOffsetForEachSV.";
 
     REGISTER_COMMAND_RESULT_FACTORY(GetPseudorangeNoiseOffsetForEachSVResult);
 
@@ -68136,7 +68746,7 @@ namespace Sdx
   namespace Cmd
   {
     const char* const GetPseudorangeNoiseSineWaveForSVResult::CmdName = "GetPseudorangeNoiseSineWaveForSVResult";
-    const char* const GetPseudorangeNoiseSineWaveForSVResult::Documentation = "Result of GetPseudorangeNoiseSineWaveForSV";
+    const char* const GetPseudorangeNoiseSineWaveForSVResult::Documentation = "Result of GetPseudorangeNoiseSineWaveForSV.";
 
     REGISTER_COMMAND_RESULT_FACTORY(GetPseudorangeNoiseSineWaveForSVResult);
 
@@ -68732,7 +69342,7 @@ namespace Sdx
   namespace Cmd
   {
     const char* const GetPseudorangeNoiseSineWaveForEachSVResult::CmdName = "GetPseudorangeNoiseSineWaveForEachSVResult";
-    const char* const GetPseudorangeNoiseSineWaveForEachSVResult::Documentation = "Result of GetPseudorangeNoiseSineWaveForEachSV";
+    const char* const GetPseudorangeNoiseSineWaveForEachSVResult::Documentation = "Result of GetPseudorangeNoiseSineWaveForEachSV.";
 
     REGISTER_COMMAND_RESULT_FACTORY(GetPseudorangeNoiseSineWaveForEachSVResult);
 
@@ -69118,7 +69728,7 @@ namespace Sdx
   namespace Cmd
   {
     const char* const GetPseudorangeNoiseGaussMarkovForSVResult::CmdName = "GetPseudorangeNoiseGaussMarkovForSVResult";
-    const char* const GetPseudorangeNoiseGaussMarkovForSVResult::Documentation = "Result of GetPseudorangeNoiseGaussMarkovForSV";
+    const char* const GetPseudorangeNoiseGaussMarkovForSVResult::Documentation = "Result of GetPseudorangeNoiseGaussMarkovForSV.";
 
     REGISTER_COMMAND_RESULT_FACTORY(GetPseudorangeNoiseGaussMarkovForSVResult);
 
@@ -69714,7 +70324,7 @@ namespace Sdx
   namespace Cmd
   {
     const char* const GetPseudorangeNoiseGaussMarkovForEachSVResult::CmdName = "GetPseudorangeNoiseGaussMarkovForEachSVResult";
-    const char* const GetPseudorangeNoiseGaussMarkovForEachSVResult::Documentation = "Result of GetPseudorangeNoiseGaussMarkovForEachSV";
+    const char* const GetPseudorangeNoiseGaussMarkovForEachSVResult::Documentation = "Result of GetPseudorangeNoiseGaussMarkovForEachSV.";
 
     REGISTER_COMMAND_RESULT_FACTORY(GetPseudorangeNoiseGaussMarkovForEachSVResult);
 
@@ -70198,7 +70808,7 @@ namespace Sdx
   namespace Cmd
   {
     const char* const GetEphemerisErrorForSVResult::CmdName = "GetEphemerisErrorForSVResult";
-    const char* const GetEphemerisErrorForSVResult::Documentation = "Result of GetEphemerisErrorForSV";
+    const char* const GetEphemerisErrorForSVResult::Documentation = "Result of GetEphemerisErrorForSV.";
 
     REGISTER_COMMAND_RESULT_FACTORY(GetEphemerisErrorForSVResult);
 
@@ -70440,7 +71050,7 @@ namespace Sdx
   namespace Cmd
   {
     const char* const IsUsingVelocityInSbasMessage25Result::CmdName = "IsUsingVelocityInSbasMessage25Result";
-    const char* const IsUsingVelocityInSbasMessage25Result::Documentation = "Result of IsUsingVelocityInSbasMessage25";
+    const char* const IsUsingVelocityInSbasMessage25Result::Documentation = "Result of IsUsingVelocityInSbasMessage25.";
 
     REGISTER_COMMAND_RESULT_FACTORY(IsUsingVelocityInSbasMessage25Result);
 
@@ -70700,7 +71310,7 @@ namespace Sdx
   namespace Cmd
   {
     const char* const IsSVForcedGeoResult::CmdName = "IsSVForcedGeoResult";
-    const char* const IsSVForcedGeoResult::Documentation = "Result of IsSVForcedGeo";
+    const char* const IsSVForcedGeoResult::Documentation = "Result of IsSVForcedGeo.";
 
     REGISTER_COMMAND_RESULT_FACTORY(IsSVForcedGeoResult);
 
@@ -70960,7 +71570,7 @@ namespace Sdx
   namespace Cmd
   {
     const char* const IsSbasFastCorrectionsEnabledForResult::CmdName = "IsSbasFastCorrectionsEnabledForResult";
-    const char* const IsSbasFastCorrectionsEnabledForResult::Documentation = "Result of IsSbasFastCorrectionsEnabledFor";
+    const char* const IsSbasFastCorrectionsEnabledForResult::Documentation = "Result of IsSbasFastCorrectionsEnabledFor.";
 
     REGISTER_COMMAND_RESULT_FACTORY(IsSbasFastCorrectionsEnabledForResult);
 
@@ -71160,7 +71770,7 @@ namespace Sdx
   namespace Cmd
   {
     const char* const IsDelayAppliedInSbasResult::CmdName = "IsDelayAppliedInSbasResult";
-    const char* const IsDelayAppliedInSbasResult::Documentation = "Result of IsDelayAppliedInSbas";
+    const char* const IsDelayAppliedInSbasResult::Documentation = "Result of IsDelayAppliedInSbas.";
 
     REGISTER_COMMAND_RESULT_FACTORY(IsDelayAppliedInSbasResult);
 
@@ -71346,7 +71956,7 @@ namespace Sdx
   namespace Cmd
   {
     const char* const IsIonoOffsetEnabledResult::CmdName = "IsIonoOffsetEnabledResult";
-    const char* const IsIonoOffsetEnabledResult::Documentation = "Result of IsIonoOffsetEnabled";
+    const char* const IsIonoOffsetEnabledResult::Documentation = "Result of IsIonoOffsetEnabled.";
 
     REGISTER_COMMAND_RESULT_FACTORY(IsIonoOffsetEnabledResult);
 
@@ -71564,7 +72174,7 @@ namespace Sdx
   namespace Cmd
   {
     const char* const IsSbasLongTermCorrectionsEnabledForResult::CmdName = "IsSbasLongTermCorrectionsEnabledForResult";
-    const char* const IsSbasLongTermCorrectionsEnabledForResult::Documentation = "Result of IsSbasLongTermCorrectionsEnabledFor";
+    const char* const IsSbasLongTermCorrectionsEnabledForResult::Documentation = "Result of IsSbasLongTermCorrectionsEnabledFor.";
 
     REGISTER_COMMAND_RESULT_FACTORY(IsSbasLongTermCorrectionsEnabledForResult);
 
@@ -72922,7 +73532,7 @@ namespace Sdx
   namespace Cmd
   {
     const char* const IsTrajectoryCompletedResult::CmdName = "IsTrajectoryCompletedResult";
-    const char* const IsTrajectoryCompletedResult::Documentation = "Result of IsTrajectoryCompleted";
+    const char* const IsTrajectoryCompletedResult::Documentation = "Result of IsTrajectoryCompleted.";
 
     REGISTER_COMMAND_RESULT_FACTORY(IsTrajectoryCompletedResult);
 
@@ -73168,7 +73778,7 @@ namespace Sdx
   namespace Cmd
   {
     const char* const GetIonoGridErrorResult::CmdName = "GetIonoGridErrorResult";
-    const char* const GetIonoGridErrorResult::Documentation = "Result of GetIonoGridError";
+    const char* const GetIonoGridErrorResult::Documentation = "Result of GetIonoGridError.";
 
     REGISTER_COMMAND_RESULT_FACTORY(GetIonoGridErrorResult);
 
@@ -73470,7 +74080,7 @@ namespace Sdx
   namespace Cmd
   {
     const char* const GetIonoGridGIVEIResult::CmdName = "GetIonoGridGIVEIResult";
-    const char* const GetIonoGridGIVEIResult::Documentation = "Result of GetIonoGridGIVEI";
+    const char* const GetIonoGridGIVEIResult::Documentation = "Result of GetIonoGridGIVEI.";
 
     REGISTER_COMMAND_RESULT_FACTORY(GetIonoGridGIVEIResult);
 
@@ -73698,7 +74308,7 @@ namespace Sdx
   namespace Cmd
   {
     const char* const GetIonoGridErrorAllResult::CmdName = "GetIonoGridErrorAllResult";
-    const char* const GetIonoGridErrorAllResult::Documentation = "Result of GetIonoGridErrorAll";
+    const char* const GetIonoGridErrorAllResult::Documentation = "Result of GetIonoGridErrorAll.";
 
     REGISTER_COMMAND_RESULT_FACTORY(GetIonoGridErrorAllResult);
 
@@ -73912,7 +74522,7 @@ namespace Sdx
   namespace Cmd
   {
     const char* const GetIonoGridGIVEIAllResult::CmdName = "GetIonoGridGIVEIAllResult";
-    const char* const GetIonoGridGIVEIAllResult::Documentation = "Result of GetIonoGridGIVEIAll";
+    const char* const GetIonoGridGIVEIAllResult::Documentation = "Result of GetIonoGridGIVEIAll.";
 
     REGISTER_COMMAND_RESULT_FACTORY(GetIonoGridGIVEIAllResult);
 
@@ -74200,7 +74810,7 @@ namespace Sdx
   namespace Cmd
   {
     const char* const GetIonoGridMaskResult::CmdName = "GetIonoGridMaskResult";
-    const char* const GetIonoGridMaskResult::Documentation = "Result of GetIonoGridMask";
+    const char* const GetIonoGridMaskResult::Documentation = "Result of GetIonoGridMask.";
 
     REGISTER_COMMAND_RESULT_FACTORY(GetIonoGridMaskResult);
 
@@ -74460,7 +75070,7 @@ namespace Sdx
   namespace Cmd
   {
     const char* const GetIonoGridMaskAllResult::CmdName = "GetIonoGridMaskAllResult";
-    const char* const GetIonoGridMaskAllResult::Documentation = "Result of GetIonoGridMaskAll";
+    const char* const GetIonoGridMaskAllResult::Documentation = "Result of GetIonoGridMaskAll.";
 
     REGISTER_COMMAND_RESULT_FACTORY(GetIonoGridMaskAllResult);
 
@@ -75098,7 +75708,7 @@ namespace Sdx
   namespace Cmd
   {
     const char* const GetConfigPaths::CmdName = "GetConfigPaths";
-    const char* const GetConfigPaths::Documentation = "Returns a list of paths for all the files in the Configurations folder.";
+    const char* const GetConfigPaths::Documentation = "Get a list of paths for all the files in the Configurations folder.";
 
     REGISTER_COMMAND_FACTORY(GetConfigPaths);
 
@@ -75150,7 +75760,7 @@ namespace Sdx
   namespace Cmd
   {
     const char* const GetConfigPathsResult::CmdName = "GetConfigPathsResult";
-    const char* const GetConfigPathsResult::Documentation = "Result of GetConfigPaths";
+    const char* const GetConfigPathsResult::Documentation = "Result of GetConfigPaths.";
 
     REGISTER_COMMAND_RESULT_FACTORY(GetConfigPathsResult);
 
@@ -75470,7 +76080,7 @@ namespace Sdx
   namespace Cmd
   {
     const char* const GetLastLeapSecondDateResult::CmdName = "GetLastLeapSecondDateResult";
-    const char* const GetLastLeapSecondDateResult::Documentation = "Result of GetLastLeapSecondDate";
+    const char* const GetLastLeapSecondDateResult::Documentation = "Result of GetLastLeapSecondDate.";
 
     REGISTER_COMMAND_RESULT_FACTORY(GetLastLeapSecondDateResult);
 
@@ -75656,7 +76266,7 @@ namespace Sdx
   namespace Cmd
   {
     const char* const GetWFAntennaGainResult::CmdName = "GetWFAntennaGainResult";
-    const char* const GetWFAntennaGainResult::Documentation = "Result of GetWFAntennaGain";
+    const char* const GetWFAntennaGainResult::Documentation = "Result of GetWFAntennaGain.";
 
     REGISTER_COMMAND_RESULT_FACTORY(GetWFAntennaGainResult);
 
@@ -76062,7 +76672,7 @@ namespace Sdx
   namespace Cmd
   {
     const char* const GetAllSpoofTxIDResult::CmdName = "GetAllSpoofTxIDResult";
-    const char* const GetAllSpoofTxIDResult::Documentation = "Result of GetAllSpoofTxID";
+    const char* const GetAllSpoofTxIDResult::Documentation = "Result of GetAllSpoofTxID.";
 
     REGISTER_COMMAND_RESULT_FACTORY(GetAllSpoofTxIDResult);
 
@@ -76322,7 +76932,7 @@ namespace Sdx
   namespace Cmd
   {
     const char* const GetSpoofTxResult::CmdName = "GetSpoofTxResult";
-    const char* const GetSpoofTxResult::Documentation = "Result of GetSpoofTx";
+    const char* const GetSpoofTxResult::Documentation = "Result of GetSpoofTx.";
 
     REGISTER_COMMAND_RESULT_FACTORY(GetSpoofTxResult);
 
@@ -76750,7 +77360,7 @@ namespace Sdx
   namespace Cmd
   {
     const char* const GetSpoofTxColorResult::CmdName = "GetSpoofTxColorResult";
-    const char* const GetSpoofTxColorResult::Documentation = "Result of GetSpoofTxColor";
+    const char* const GetSpoofTxColorResult::Documentation = "Result of GetSpoofTxColor.";
 
     REGISTER_COMMAND_RESULT_FACTORY(GetSpoofTxColorResult);
 
@@ -77234,7 +77844,7 @@ namespace Sdx
   namespace Cmd
   {
     const char* const IsSpoofTxIgnoreRxAntennaGainPatternResult::CmdName = "IsSpoofTxIgnoreRxAntennaGainPatternResult";
-    const char* const IsSpoofTxIgnoreRxAntennaGainPatternResult::Documentation = "Result of IsSpoofTxIgnoreRxAntennaGainPattern";
+    const char* const IsSpoofTxIgnoreRxAntennaGainPatternResult::Documentation = "Result of IsSpoofTxIgnoreRxAntennaGainPattern.";
 
     REGISTER_COMMAND_RESULT_FACTORY(IsSpoofTxIgnoreRxAntennaGainPatternResult);
 
@@ -77466,7 +78076,7 @@ namespace Sdx
   namespace Cmd
   {
     const char* const IsSpoofTxIgnoreRxAntennaPhasePatternResult::CmdName = "IsSpoofTxIgnoreRxAntennaPhasePatternResult";
-    const char* const IsSpoofTxIgnoreRxAntennaPhasePatternResult::Documentation = "Result of IsSpoofTxIgnoreRxAntennaPhasePattern";
+    const char* const IsSpoofTxIgnoreRxAntennaPhasePatternResult::Documentation = "Result of IsSpoofTxIgnoreRxAntennaPhasePattern.";
 
     REGISTER_COMMAND_RESULT_FACTORY(IsSpoofTxIgnoreRxAntennaPhasePatternResult);
 
@@ -77768,7 +78378,7 @@ namespace Sdx
   namespace Cmd
   {
     const char* const GetSpoofTxFixResult::CmdName = "GetSpoofTxFixResult";
-    const char* const GetSpoofTxFixResult::Documentation = "Result of GetSpoofTxFix";
+    const char* const GetSpoofTxFixResult::Documentation = "Result of GetSpoofTxFix.";
 
     REGISTER_COMMAND_RESULT_FACTORY(GetSpoofTxFixResult);
 
@@ -78140,7 +78750,7 @@ namespace Sdx
   namespace Cmd
   {
     const char* const GetSpoofTxFixEcefResult::CmdName = "GetSpoofTxFixEcefResult";
-    const char* const GetSpoofTxFixEcefResult::Documentation = "Result of GetSpoofTxFixEcef";
+    const char* const GetSpoofTxFixEcefResult::Documentation = "Result of GetSpoofTxFixEcef.";
 
     REGISTER_COMMAND_RESULT_FACTORY(GetSpoofTxFixEcefResult);
 
@@ -78526,7 +79136,7 @@ namespace Sdx
   namespace Cmd
   {
     const char* const GetSpoofTxCircularResult::CmdName = "GetSpoofTxCircularResult";
-    const char* const GetSpoofTxCircularResult::Documentation = "Result of GetSpoofTxCircular";
+    const char* const GetSpoofTxCircularResult::Documentation = "Result of GetSpoofTxCircular.";
 
     REGISTER_COMMAND_RESULT_FACTORY(GetSpoofTxCircularResult);
 
@@ -78828,7 +79438,7 @@ namespace Sdx
   namespace Cmd
   {
     const char* const GetSpoofTxTrajectoryResult::CmdName = "GetSpoofTxTrajectoryResult";
-    const char* const GetSpoofTxTrajectoryResult::Documentation = "Result of GetSpoofTxTrajectory";
+    const char* const GetSpoofTxTrajectoryResult::Documentation = "Result of GetSpoofTxTrajectory.";
 
     REGISTER_COMMAND_RESULT_FACTORY(GetSpoofTxTrajectoryResult);
 
@@ -79074,7 +79684,7 @@ namespace Sdx
   namespace Cmd
   {
     const char* const GetSpoofTxAntennaResult::CmdName = "GetSpoofTxAntennaResult";
-    const char* const GetSpoofTxAntennaResult::Documentation = "Result of GetSpoofTxAntenna";
+    const char* const GetSpoofTxAntennaResult::Documentation = "Result of GetSpoofTxAntenna.";
 
     REGISTER_COMMAND_RESULT_FACTORY(GetSpoofTxAntennaResult);
 
@@ -79390,7 +80000,7 @@ namespace Sdx
   namespace Cmd
   {
     const char* const GetSpoofTxAntennaOffsetResult::CmdName = "GetSpoofTxAntennaOffsetResult";
-    const char* const GetSpoofTxAntennaOffsetResult::Documentation = "Result of GetSpoofTxAntennaOffset";
+    const char* const GetSpoofTxAntennaOffsetResult::Documentation = "Result of GetSpoofTxAntennaOffset.";
 
     REGISTER_COMMAND_RESULT_FACTORY(GetSpoofTxAntennaOffsetResult);
 
@@ -79706,7 +80316,7 @@ namespace Sdx
   namespace Cmd
   {
     const char* const GetSpoofTxRemoteAddressResult::CmdName = "GetSpoofTxRemoteAddressResult";
-    const char* const GetSpoofTxRemoteAddressResult::Documentation = "Result of GetSpoofTxRemoteAddress";
+    const char* const GetSpoofTxRemoteAddressResult::Documentation = "Result of GetSpoofTxRemoteAddress.";
 
     REGISTER_COMMAND_RESULT_FACTORY(GetSpoofTxRemoteAddressResult);
 
@@ -80218,7 +80828,7 @@ namespace Sdx
   namespace Cmd
   {
     const char* const GetSVIDsOfPrnResult::CmdName = "GetSVIDsOfPrnResult";
-    const char* const GetSVIDsOfPrnResult::Documentation = "Result of GetSVIDsOfPrn";
+    const char* const GetSVIDsOfPrnResult::Documentation = "Result of GetSVIDsOfPrn.";
 
     REGISTER_COMMAND_RESULT_FACTORY(GetSVIDsOfPrnResult);
 
@@ -80520,7 +81130,7 @@ namespace Sdx
   namespace Cmd
   {
     const char* const GetQzssL1SAugmentationResult::CmdName = "GetQzssL1SAugmentationResult";
-    const char* const GetQzssL1SAugmentationResult::Documentation = "Result of GetQzssL1SAugmentation";
+    const char* const GetQzssL1SAugmentationResult::Documentation = "Result of GetQzssL1SAugmentation.";
 
     REGISTER_COMMAND_RESULT_FACTORY(GetQzssL1SAugmentationResult);
 
@@ -80828,7 +81438,7 @@ namespace Sdx
   namespace Cmd
   {
     const char* const GetQzssL1SAugmentationsResult::CmdName = "GetQzssL1SAugmentationsResult";
-    const char* const GetQzssL1SAugmentationsResult::Documentation = "Result of GetQzssL1SAugmentations";
+    const char* const GetQzssL1SAugmentationsResult::Documentation = "Result of GetQzssL1SAugmentations.";
 
     REGISTER_COMMAND_RESULT_FACTORY(GetQzssL1SAugmentationsResult);
 
@@ -80962,7 +81572,7 @@ namespace Sdx
   namespace Cmd
   {
     const char* const SetQzssSatMotionFixed::CmdName = "SetQzssSatMotionFixed";
-    const char* const SetQzssSatMotionFixed::Documentation = "Please note the command QzssSatMotionFixed is deprecated since 20.9. You may use SatMotionFixed.\n\nIf IsFixed is set to true, the satellite will not move during the simulation and keep its initial position calculated at the beginning of the simulation.";
+    const char* const SetQzssSatMotionFixed::Documentation = "Please note the command SetQzssSatMotionFixed is deprecated since 20.9. You may use SetSatMotionFixed.\n\nIf IsFixed is set to true, the satellite will not move during the simulation and keep its initial position calculated at the beginning of the simulation.";
 
     REGISTER_COMMAND_FACTORY(SetQzssSatMotionFixed);
 
@@ -81046,7 +81656,7 @@ namespace Sdx
   namespace Cmd
   {
     const char* const IsQzssSatMotionFixed::CmdName = "IsQzssSatMotionFixed";
-    const char* const IsQzssSatMotionFixed::Documentation = "Please note the command QzssSatMotionFixed is deprecated since 20.9. You may use SatMotionFixed.\n\nTells if the satellite is fixed (True) or not fixed (false).";
+    const char* const IsQzssSatMotionFixed::Documentation = "Please note the command IsQzssSatMotionFixed is deprecated since 20.9. You may use IsSatMotionFixed.\n\nTells if the satellite is fixed (True) or not fixed (false).";
 
     REGISTER_COMMAND_FACTORY(IsQzssSatMotionFixed);
 
@@ -81116,7 +81726,7 @@ namespace Sdx
   namespace Cmd
   {
     const char* const IsQzssSatMotionFixedResult::CmdName = "IsQzssSatMotionFixedResult";
-    const char* const IsQzssSatMotionFixedResult::Documentation = "Result of IsQzssSatMotionFixed";
+    const char* const IsQzssSatMotionFixedResult::Documentation = "Result of IsQzssSatMotionFixed.";
 
     REGISTER_COMMAND_RESULT_FACTORY(IsQzssSatMotionFixedResult);
 
@@ -81194,7 +81804,7 @@ namespace Sdx
   namespace Cmd
   {
     const char* const SetQzssEphemerisReferenceTime::CmdName = "SetQzssEphemerisReferenceTime";
-    const char* const SetQzssEphemerisReferenceTime::Documentation = "Please note the command QzssEphemerisReferenceTime is deprecated since 20.9. You may use EphemerisReferenceTimeForSV.\n\nSet the QZSS ephemeris reference time";
+    const char* const SetQzssEphemerisReferenceTime::Documentation = "Please note the command SetQzssEphemerisReferenceTime is deprecated since 20.9. You may use SetEphemerisReferenceTimeForSV.\n\nSet the QZSS ephemeris reference time";
 
     REGISTER_COMMAND_FACTORY(SetQzssEphemerisReferenceTime);
 
@@ -81278,7 +81888,7 @@ namespace Sdx
   namespace Cmd
   {
     const char* const GetQzssEphemerisReferenceTime::CmdName = "GetQzssEphemerisReferenceTime";
-    const char* const GetQzssEphemerisReferenceTime::Documentation = "Please note the command QzssEphemerisReferenceTime is deprecated since 20.9. You may use EphemerisReferenceTimeForSV.\n\nGet the QZSS ephemeris reference time";
+    const char* const GetQzssEphemerisReferenceTime::Documentation = "Please note the command GetQzssEphemerisReferenceTime is deprecated since 20.9. You may use GetEphemerisReferenceTimeForSV.\n\nGet the QZSS ephemeris reference time";
 
     REGISTER_COMMAND_FACTORY(GetQzssEphemerisReferenceTime);
 
@@ -81348,7 +81958,7 @@ namespace Sdx
   namespace Cmd
   {
     const char* const GetQzssEphemerisReferenceTimeResult::CmdName = "GetQzssEphemerisReferenceTimeResult";
-    const char* const GetQzssEphemerisReferenceTimeResult::Documentation = "Result of GetQzssEphemerisReferenceTime";
+    const char* const GetQzssEphemerisReferenceTimeResult::Documentation = "Result of GetQzssEphemerisReferenceTime.";
 
     REGISTER_COMMAND_RESULT_FACTORY(GetQzssEphemerisReferenceTimeResult);
 
@@ -81426,7 +82036,7 @@ namespace Sdx
   namespace Cmd
   {
     const char* const SetQzssPerturbations::CmdName = "SetQzssPerturbations";
-    const char* const SetQzssPerturbations::Documentation = "Please note the command QzssPerturbations is deprecated since 20.9. You may use Perturbations.\n\nSet QZSS orbit perturbations (Crs, Crc, Cis, Cic, Cus and Cuc)";
+    const char* const SetQzssPerturbations::Documentation = "Please note the command SetQzssPerturbations is deprecated since 20.9. You may use SetPerturbations.\n\nSet QZSS orbit perturbations (Crs, Crc, Cis, Cic, Cus and Cuc)";
 
     REGISTER_COMMAND_FACTORY(SetQzssPerturbations);
 
@@ -81580,7 +82190,7 @@ namespace Sdx
   namespace Cmd
   {
     const char* const GetQzssPerturbations::CmdName = "GetQzssPerturbations";
-    const char* const GetQzssPerturbations::Documentation = "Please note the command QzssPerturbations is deprecated since 20.9. You may use Perturbations.\n\nGet QZSS orbit perturbations (Crs, Crc, Cis, Cic, Cus and Cuc)";
+    const char* const GetQzssPerturbations::Documentation = "Please note the command GetQzssPerturbations is deprecated since 20.9. You may use GetPerturbations.\n\nGet QZSS orbit perturbations (Crs, Crc, Cis, Cic, Cus and Cuc)";
 
     REGISTER_COMMAND_FACTORY(GetQzssPerturbations);
 
@@ -81650,7 +82260,7 @@ namespace Sdx
   namespace Cmd
   {
     const char* const GetQzssPerturbationsResult::CmdName = "GetQzssPerturbationsResult";
-    const char* const GetQzssPerturbationsResult::Documentation = "Result of GetQzssPerturbations";
+    const char* const GetQzssPerturbationsResult::Documentation = "Result of GetQzssPerturbations.";
 
     REGISTER_COMMAND_RESULT_FACTORY(GetQzssPerturbationsResult);
 
@@ -81798,7 +82408,7 @@ namespace Sdx
   namespace Cmd
   {
     const char* const SetQzssPerturbationsForAllSat::CmdName = "SetQzssPerturbationsForAllSat";
-    const char* const SetQzssPerturbationsForAllSat::Documentation = "Please note the command QzssPerturbationsForAllSat is deprecated since 20.9. You may use PerturbationsForAllSat.\n\nSet QZSS orbit perturbations (Crs, Crc, Cis, Cic, Cus and Cuc) for all satellites.\nAll parameters are zero based index (index 0 => SV ID 1, index 1 => SV ID 2, etc)";
+    const char* const SetQzssPerturbationsForAllSat::Documentation = "Please note the command SetQzssPerturbationsForAllSat is deprecated since 20.9. You may use SetPerturbationsForAllSat.\n\nSet QZSS orbit perturbations (Crs, Crc, Cis, Cic, Cus and Cuc) for all satellites.\nAll parameters are zero based index (index 0 => SV ID 1, index 1 => SV ID 2, etc)";
 
     REGISTER_COMMAND_FACTORY(SetQzssPerturbationsForAllSat);
 
@@ -81938,7 +82548,7 @@ namespace Sdx
   namespace Cmd
   {
     const char* const GetQzssPerturbationsForAllSat::CmdName = "GetQzssPerturbationsForAllSat";
-    const char* const GetQzssPerturbationsForAllSat::Documentation = "Please note the command QzssPerturbationsForAllSat is deprecated since 20.9. You may use PerturbationsForAllSat.\n\nGet QZSS orbit perturbations (Crs, Crc, Cis, Cic, Cus and Cuc) for all satellites.\nAll parameters are zero based index (index 0 => SV ID 1, index 1 => SV ID 2, etc)";
+    const char* const GetQzssPerturbationsForAllSat::Documentation = "Please note the command GetQzssPerturbationsForAllSat is deprecated since 20.9. You may use GetPerturbationsForAllSat.\n\nGet QZSS orbit perturbations (Crs, Crc, Cis, Cic, Cus and Cuc) for all satellites.\nAll parameters are zero based index (index 0 => SV ID 1, index 1 => SV ID 2, etc)";
 
     REGISTER_COMMAND_FACTORY(GetQzssPerturbationsForAllSat);
 
@@ -81990,7 +82600,7 @@ namespace Sdx
   namespace Cmd
   {
     const char* const GetQzssPerturbationsForAllSatResult::CmdName = "GetQzssPerturbationsForAllSatResult";
-    const char* const GetQzssPerturbationsForAllSatResult::Documentation = "Result of GetQzssPerturbationsForAllSat";
+    const char* const GetQzssPerturbationsForAllSatResult::Documentation = "Result of GetQzssPerturbationsForAllSat.";
 
     REGISTER_COMMAND_RESULT_FACTORY(GetQzssPerturbationsForAllSatResult);
 
@@ -82292,7 +82902,7 @@ namespace Sdx
   namespace Cmd
   {
     const char* const IsRFEnabled::CmdName = "IsRFEnabled";
-    const char* const IsRFEnabled::Documentation = "Please note the command EnableRF is deprecated since 21.3. You may use EnableRFOutputForSV.\n\nTells if the RF is enabled or disabled for the specified satellite.";
+    const char* const IsRFEnabled::Documentation = "Please note the command IsRFEnabled is deprecated since 21.3. You may use IsRFOutputEnabled.\n\nTells if the RF is enabled or disabled for the specified satellite.";
 
     REGISTER_COMMAND_FACTORY(IsRFEnabled);
 
@@ -82376,7 +82986,7 @@ namespace Sdx
   namespace Cmd
   {
     const char* const IsRFEnabledResult::CmdName = "IsRFEnabledResult";
-    const char* const IsRFEnabledResult::Documentation = "Result of IsRFEnabled";
+    const char* const IsRFEnabledResult::Documentation = "Result of IsRFEnabled.";
 
     REGISTER_COMMAND_RESULT_FACTORY(IsRFEnabledResult);
 
@@ -82552,7 +83162,7 @@ namespace Sdx
   namespace Cmd
   {
     const char* const GetRFEnabledForEachPrn::CmdName = "GetRFEnabledForEachPrn";
-    const char* const GetRFEnabledForEachPrn::Documentation = "Please note the command EnableRFForEachPrn is deprecated since 21.3. You may use EnableRFOutputForEachSV.\n\nTells if the RF is enabled or disabled for each satellite.";
+    const char* const GetRFEnabledForEachPrn::Documentation = "Please note the command GetRFEnabledForEachPrn is deprecated since 21.3. You may use IsRFOutputEnabledForEachSV.\n\nTells if the RF is enabled or disabled for each satellite.";
 
     REGISTER_COMMAND_FACTORY(GetRFEnabledForEachPrn);
 
@@ -82622,7 +83232,7 @@ namespace Sdx
   namespace Cmd
   {
     const char* const GetRFEnabledForEachPrnResult::CmdName = "GetRFEnabledForEachPrnResult";
-    const char* const GetRFEnabledForEachPrnResult::Documentation = "Result of GetRFEnabledForEachPrn";
+    const char* const GetRFEnabledForEachPrnResult::Documentation = "Result of GetRFEnabledForEachPrn.";
 
     REGISTER_COMMAND_RESULT_FACTORY(GetRFEnabledForEachPrnResult);
 
@@ -82798,7 +83408,7 @@ namespace Sdx
   namespace Cmd
   {
     const char* const IsSignalEnabled::CmdName = "IsSignalEnabled";
-    const char* const IsSignalEnabled::Documentation = "Please note the command EnableSignal is deprecated since 21.3. You may use EnableSignalForSV.\n\nTells if the signal is enabled or disabled. See EnableSignal description for allowed signals.";
+    const char* const IsSignalEnabled::Documentation = "Please note the command IsSignalEnabled is deprecated since 21.3. You may use IsSignalEnabledForSV.\n\nTells if the signal is enabled or disabled. See IsSignalEnabled description for allowed signals.";
 
     REGISTER_COMMAND_FACTORY(IsSignalEnabled);
 
@@ -82882,7 +83492,7 @@ namespace Sdx
   namespace Cmd
   {
     const char* const IsSignalEnabledResult::CmdName = "IsSignalEnabledResult";
-    const char* const IsSignalEnabledResult::Documentation = "Result of IsSignalEnabled";
+    const char* const IsSignalEnabledResult::Documentation = "Result of IsSignalEnabled.";
 
     REGISTER_COMMAND_RESULT_FACTORY(IsSignalEnabledResult);
 
@@ -83058,7 +83668,7 @@ namespace Sdx
   namespace Cmd
   {
     const char* const GetSignalEnabledForEachPrn::CmdName = "GetSignalEnabledForEachPrn";
-    const char* const GetSignalEnabledForEachPrn::Documentation = "Please note the command EnableSignalForEachPrn is deprecated since 21.3. You may use EnableSignalForEachSV.\n\nTells if the signal is enabled or disabled for each satellite. See EnableSignalForEachPrn description for allowed signals.";
+    const char* const GetSignalEnabledForEachPrn::Documentation = "Please note the command GetSignalEnabledForEachPrn is deprecated since 21.3. You may use IsSignalEnabledForEachSV.\n\nTells if the signal is enabled or disabled for each satellite. See GetSignalEnabledForEachPrn description for allowed signals.";
 
     REGISTER_COMMAND_FACTORY(GetSignalEnabledForEachPrn);
 
@@ -83128,7 +83738,7 @@ namespace Sdx
   namespace Cmd
   {
     const char* const GetSignalEnabledForEachPrnResult::CmdName = "GetSignalEnabledForEachPrnResult";
-    const char* const GetSignalEnabledForEachPrnResult::Documentation = "Result of GetSignalEnabledForEachPrn";
+    const char* const GetSignalEnabledForEachPrnResult::Documentation = "Result of GetSignalEnabledForEachPrn.";
 
     REGISTER_COMMAND_RESULT_FACTORY(GetSignalEnabledForEachPrnResult);
 
@@ -83206,7 +83816,7 @@ namespace Sdx
   namespace Cmd
   {
     const char* const SetGpsSatMotionFixed::CmdName = "SetGpsSatMotionFixed";
-    const char* const SetGpsSatMotionFixed::Documentation = "Please note the command GpsSatMotionFixed is deprecated since 21.3. You may use SatMotionFixed.\n\nIf IsFixed is set to true, the satellite will not move during the simulation and keep its initial position calculated at the beginning of the simulation.";
+    const char* const SetGpsSatMotionFixed::Documentation = "Please note the command SetGpsSatMotionFixed is deprecated since 21.3. You may use SetSatMotionFixed.\n\nIf IsFixed is set to true, the satellite will not move during the simulation and keep its initial position calculated at the beginning of the simulation.";
 
     REGISTER_COMMAND_FACTORY(SetGpsSatMotionFixed);
 
@@ -83290,7 +83900,7 @@ namespace Sdx
   namespace Cmd
   {
     const char* const IsGpsSatMotionFixed::CmdName = "IsGpsSatMotionFixed";
-    const char* const IsGpsSatMotionFixed::Documentation = "Please note the command GpsSatMotionFixed is deprecated since 21.3. You may use SatMotionFixed.\n\nTells if the satellite is fixed (True) or not fixed (false).";
+    const char* const IsGpsSatMotionFixed::Documentation = "Please note the command IsGpsSatMotionFixed is deprecated since 21.3. You may use IsSatMotionFixed.\n\nTells if the satellite is fixed (True) or not fixed (false).";
 
     REGISTER_COMMAND_FACTORY(IsGpsSatMotionFixed);
 
@@ -83360,7 +83970,7 @@ namespace Sdx
   namespace Cmd
   {
     const char* const IsGpsSatMotionFixedResult::CmdName = "IsGpsSatMotionFixedResult";
-    const char* const IsGpsSatMotionFixedResult::Documentation = "Result of IsGpsSatMotionFixed";
+    const char* const IsGpsSatMotionFixedResult::Documentation = "Result of IsGpsSatMotionFixed.";
 
     REGISTER_COMMAND_RESULT_FACTORY(IsGpsSatMotionFixedResult);
 
@@ -83438,7 +84048,7 @@ namespace Sdx
   namespace Cmd
   {
     const char* const SetGalileoSatMotionFixed::CmdName = "SetGalileoSatMotionFixed";
-    const char* const SetGalileoSatMotionFixed::Documentation = "Please note the command GalileoSatMotionFixed is deprecated since 21.3. You may use SatMotionFixed.\n\nIf IsFixed is set to true, the satellite will not move during the simulation and keep its initial position calculated at the beginning of the simulation.";
+    const char* const SetGalileoSatMotionFixed::Documentation = "Please note the command SetGalileoSatMotionFixed is deprecated since 21.3. You may use SetSatMotionFixed.\n\nIf IsFixed is set to true, the satellite will not move during the simulation and keep its initial position calculated at the beginning of the simulation.";
 
     REGISTER_COMMAND_FACTORY(SetGalileoSatMotionFixed);
 
@@ -83522,7 +84132,7 @@ namespace Sdx
   namespace Cmd
   {
     const char* const IsGalileoSatMotionFixed::CmdName = "IsGalileoSatMotionFixed";
-    const char* const IsGalileoSatMotionFixed::Documentation = "Please note the command GalileoSatMotionFixed is deprecated since 21.3. You may use SatMotionFixed.\n\nTells if the satellite is fixed (True) or not fixed (false).";
+    const char* const IsGalileoSatMotionFixed::Documentation = "Please note the command IsGalileoSatMotionFixed is deprecated since 21.3. You may use IsSatMotionFixed.\n\nTells if the satellite is fixed (True) or not fixed (false).";
 
     REGISTER_COMMAND_FACTORY(IsGalileoSatMotionFixed);
 
@@ -83592,7 +84202,7 @@ namespace Sdx
   namespace Cmd
   {
     const char* const IsGalileoSatMotionFixedResult::CmdName = "IsGalileoSatMotionFixedResult";
-    const char* const IsGalileoSatMotionFixedResult::Documentation = "Result of IsGalileoSatMotionFixed";
+    const char* const IsGalileoSatMotionFixedResult::Documentation = "Result of IsGalileoSatMotionFixed.";
 
     REGISTER_COMMAND_RESULT_FACTORY(IsGalileoSatMotionFixedResult);
 
@@ -83670,7 +84280,7 @@ namespace Sdx
   namespace Cmd
   {
     const char* const SetBeiDouSatMotionFixed::CmdName = "SetBeiDouSatMotionFixed";
-    const char* const SetBeiDouSatMotionFixed::Documentation = "Please note the command BeiDouSatMotionFixed is deprecated since 21.3. You may use SatMotionFixed.\n\nIf IsFixed is set to true, the satellite will not move during the simulation and keep its initial position calculated at the beginning of the simulation.";
+    const char* const SetBeiDouSatMotionFixed::Documentation = "Please note the command SetBeiDouSatMotionFixed is deprecated since 21.3. You may use SetSatMotionFixed.\n\nIf IsFixed is set to true, the satellite will not move during the simulation and keep its initial position calculated at the beginning of the simulation.";
 
     REGISTER_COMMAND_FACTORY(SetBeiDouSatMotionFixed);
 
@@ -83754,7 +84364,7 @@ namespace Sdx
   namespace Cmd
   {
     const char* const IsBeiDouSatMotionFixed::CmdName = "IsBeiDouSatMotionFixed";
-    const char* const IsBeiDouSatMotionFixed::Documentation = "Please note the command BeiDouSatMotionFixed is deprecated since 21.3. You may use SatMotionFixed.\n\nTells if the satellite is fixed (True) or not fixed (false).";
+    const char* const IsBeiDouSatMotionFixed::Documentation = "Please note the command IsBeiDouSatMotionFixed is deprecated since 21.3. You may use IsSatMotionFixed.\n\nTells if the satellite is fixed (True) or not fixed (false).";
 
     REGISTER_COMMAND_FACTORY(IsBeiDouSatMotionFixed);
 
@@ -83824,7 +84434,7 @@ namespace Sdx
   namespace Cmd
   {
     const char* const IsBeiDouSatMotionFixedResult::CmdName = "IsBeiDouSatMotionFixedResult";
-    const char* const IsBeiDouSatMotionFixedResult::Documentation = "Result of IsBeiDouSatMotionFixed";
+    const char* const IsBeiDouSatMotionFixedResult::Documentation = "Result of IsBeiDouSatMotionFixed.";
 
     REGISTER_COMMAND_RESULT_FACTORY(IsBeiDouSatMotionFixedResult);
 
@@ -83902,7 +84512,7 @@ namespace Sdx
   namespace Cmd
   {
     const char* const SetGpsEphemerisReferenceTime::CmdName = "SetGpsEphemerisReferenceTime";
-    const char* const SetGpsEphemerisReferenceTime::Documentation = "Please note the command GpsEphemerisReferenceTime is deprecated since 21.3. You may use EphemerisReferenceTimeForSV.\n\nSet the GPS ephemeris reference time";
+    const char* const SetGpsEphemerisReferenceTime::Documentation = "Please note the command SetGpsEphemerisReferenceTime is deprecated since 21.3. You may use SetEphemerisReferenceTimeForSV.\n\nSet the GPS ephemeris reference time";
 
     REGISTER_COMMAND_FACTORY(SetGpsEphemerisReferenceTime);
 
@@ -83986,7 +84596,7 @@ namespace Sdx
   namespace Cmd
   {
     const char* const GetGpsEphemerisReferenceTime::CmdName = "GetGpsEphemerisReferenceTime";
-    const char* const GetGpsEphemerisReferenceTime::Documentation = "Please note the command GpsEphemerisReferenceTime is deprecated since 21.3. You may use EphemerisReferenceTimeForSV.\n\nGet the GPS ephemeris reference time";
+    const char* const GetGpsEphemerisReferenceTime::Documentation = "Please note the command GetGpsEphemerisReferenceTime is deprecated since 21.3. You may use GetEphemerisReferenceTimeForSV.\n\nGet the GPS ephemeris reference time";
 
     REGISTER_COMMAND_FACTORY(GetGpsEphemerisReferenceTime);
 
@@ -84056,7 +84666,7 @@ namespace Sdx
   namespace Cmd
   {
     const char* const GetGpsEphemerisReferenceTimeResult::CmdName = "GetGpsEphemerisReferenceTimeResult";
-    const char* const GetGpsEphemerisReferenceTimeResult::Documentation = "Result of GetGpsEphemerisReferenceTime";
+    const char* const GetGpsEphemerisReferenceTimeResult::Documentation = "Result of GetGpsEphemerisReferenceTime.";
 
     REGISTER_COMMAND_RESULT_FACTORY(GetGpsEphemerisReferenceTimeResult);
 
@@ -84134,7 +84744,7 @@ namespace Sdx
   namespace Cmd
   {
     const char* const SetGalileoEphemerisReferenceTime::CmdName = "SetGalileoEphemerisReferenceTime";
-    const char* const SetGalileoEphemerisReferenceTime::Documentation = "Please note the command GalileoEphemerisReferenceTime is deprecated since 21.3. You may use EphemerisReferenceTimeForSV.\n\nSet the Galileo ephemeris reference time";
+    const char* const SetGalileoEphemerisReferenceTime::Documentation = "Please note the command SetGalileoEphemerisReferenceTime is deprecated since 21.3. You may use SetEphemerisReferenceTimeForSV.\n\nSet the Galileo ephemeris reference time";
 
     REGISTER_COMMAND_FACTORY(SetGalileoEphemerisReferenceTime);
 
@@ -84218,7 +84828,7 @@ namespace Sdx
   namespace Cmd
   {
     const char* const GetGalileoEphemerisReferenceTime::CmdName = "GetGalileoEphemerisReferenceTime";
-    const char* const GetGalileoEphemerisReferenceTime::Documentation = "Please note the command GalileoEphemerisReferenceTime is deprecated since 21.3. You may use EphemerisReferenceTimeForSV.\n\nGet the Galileo ephemeris reference time";
+    const char* const GetGalileoEphemerisReferenceTime::Documentation = "Please note the command GetGalileoEphemerisReferenceTime is deprecated since 21.3. You may use GetEphemerisReferenceTimeForSV.\n\nGet the Galileo ephemeris reference time";
 
     REGISTER_COMMAND_FACTORY(GetGalileoEphemerisReferenceTime);
 
@@ -84288,7 +84898,7 @@ namespace Sdx
   namespace Cmd
   {
     const char* const GetGalileoEphemerisReferenceTimeResult::CmdName = "GetGalileoEphemerisReferenceTimeResult";
-    const char* const GetGalileoEphemerisReferenceTimeResult::Documentation = "Result of GetGalileoEphemerisReferenceTime";
+    const char* const GetGalileoEphemerisReferenceTimeResult::Documentation = "Result of GetGalileoEphemerisReferenceTime.";
 
     REGISTER_COMMAND_RESULT_FACTORY(GetGalileoEphemerisReferenceTimeResult);
 
@@ -84366,7 +84976,7 @@ namespace Sdx
   namespace Cmd
   {
     const char* const SetBeiDouEphemerisReferenceTime::CmdName = "SetBeiDouEphemerisReferenceTime";
-    const char* const SetBeiDouEphemerisReferenceTime::Documentation = "Please note the command BeiDouEphemerisReferenceTime is deprecated since 21.3. You may use EphemerisReferenceTimeForSV.\n\nSet the BeiDou ephemeris reference time";
+    const char* const SetBeiDouEphemerisReferenceTime::Documentation = "Please note the command SetBeiDouEphemerisReferenceTime is deprecated since 21.3. You may use SetEphemerisReferenceTimeForSV.\n\nSet the BeiDou ephemeris reference time";
 
     REGISTER_COMMAND_FACTORY(SetBeiDouEphemerisReferenceTime);
 
@@ -84450,7 +85060,7 @@ namespace Sdx
   namespace Cmd
   {
     const char* const GetBeiDouEphemerisReferenceTime::CmdName = "GetBeiDouEphemerisReferenceTime";
-    const char* const GetBeiDouEphemerisReferenceTime::Documentation = "Please note the command BeiDouEphemerisReferenceTime is deprecated since 21.3. You may use EphemerisReferenceTimeForSV.\n\nGet the BeiDou ephemeris reference time";
+    const char* const GetBeiDouEphemerisReferenceTime::Documentation = "Please note the command GetBeiDouEphemerisReferenceTime is deprecated since 21.3. You may use GetEphemerisReferenceTimeForSV.\n\nGet the BeiDou ephemeris reference time";
 
     REGISTER_COMMAND_FACTORY(GetBeiDouEphemerisReferenceTime);
 
@@ -84520,7 +85130,7 @@ namespace Sdx
   namespace Cmd
   {
     const char* const GetBeiDouEphemerisReferenceTimeResult::CmdName = "GetBeiDouEphemerisReferenceTimeResult";
-    const char* const GetBeiDouEphemerisReferenceTimeResult::Documentation = "Result of GetBeiDouEphemerisReferenceTime";
+    const char* const GetBeiDouEphemerisReferenceTimeResult::Documentation = "Result of GetBeiDouEphemerisReferenceTime.";
 
     REGISTER_COMMAND_RESULT_FACTORY(GetBeiDouEphemerisReferenceTimeResult);
 
@@ -84808,7 +85418,7 @@ namespace Sdx
   namespace Cmd
   {
     const char* const SetGpsPerturbations::CmdName = "SetGpsPerturbations";
-    const char* const SetGpsPerturbations::Documentation = "Please note the command GpsPerturbations is deprecated since 21.3. You may use Perturbations.\n\nSet GPS orbit perturbations (Crs, Crc, Cis, Cic, Cus and Cuc)";
+    const char* const SetGpsPerturbations::Documentation = "Please note the command SetGpsPerturbations is deprecated since 21.3. You may use SetPerturbations.\n\nSet GPS orbit perturbations (Crs, Crc, Cis, Cic, Cus and Cuc)";
 
     REGISTER_COMMAND_FACTORY(SetGpsPerturbations);
 
@@ -84962,7 +85572,7 @@ namespace Sdx
   namespace Cmd
   {
     const char* const GetGpsPerturbations::CmdName = "GetGpsPerturbations";
-    const char* const GetGpsPerturbations::Documentation = "Please note the command GpsPerturbations is deprecated since 21.3. You may use Perturbations.\n\nGet GPS orbit perturbations (Crs, Crc, Cis, Cic, Cus and Cuc)";
+    const char* const GetGpsPerturbations::Documentation = "Please note the command GetGpsPerturbations is deprecated since 21.3. You may use GetPerturbations.\n\nGet GPS orbit perturbations (Crs, Crc, Cis, Cic, Cus and Cuc)";
 
     REGISTER_COMMAND_FACTORY(GetGpsPerturbations);
 
@@ -85032,7 +85642,7 @@ namespace Sdx
   namespace Cmd
   {
     const char* const GetGpsPerturbationsResult::CmdName = "GetGpsPerturbationsResult";
-    const char* const GetGpsPerturbationsResult::Documentation = "Result of GetGpsPerturbations";
+    const char* const GetGpsPerturbationsResult::Documentation = "Result of GetGpsPerturbations.";
 
     REGISTER_COMMAND_RESULT_FACTORY(GetGpsPerturbationsResult);
 
@@ -85180,7 +85790,7 @@ namespace Sdx
   namespace Cmd
   {
     const char* const SetGalileoPerturbations::CmdName = "SetGalileoPerturbations";
-    const char* const SetGalileoPerturbations::Documentation = "Please note the command GalileoPerturbations is deprecated since 21.3. You may use Perturbations.\n\nSet GPS orbit perturbations (Crs, Crc, Cis, Cic, Cus and Cuc)";
+    const char* const SetGalileoPerturbations::Documentation = "Please note the command SetGalileoPerturbations is deprecated since 21.3. You may use SetPerturbations.\n\nSet GPS orbit perturbations (Crs, Crc, Cis, Cic, Cus and Cuc)";
 
     REGISTER_COMMAND_FACTORY(SetGalileoPerturbations);
 
@@ -85334,7 +85944,7 @@ namespace Sdx
   namespace Cmd
   {
     const char* const GetGalileoPerturbations::CmdName = "GetGalileoPerturbations";
-    const char* const GetGalileoPerturbations::Documentation = "Please note the command GalileoPerturbations is deprecated since 21.3. You may use Perturbations.\n\nGet GPS orbit perturbations (Crs, Crc, Cis, Cic, Cus and Cuc)";
+    const char* const GetGalileoPerturbations::Documentation = "Please note the command GetGalileoPerturbations is deprecated since 21.3. You may use GetPerturbations.\n\nGet GPS orbit perturbations (Crs, Crc, Cis, Cic, Cus and Cuc)";
 
     REGISTER_COMMAND_FACTORY(GetGalileoPerturbations);
 
@@ -85404,7 +86014,7 @@ namespace Sdx
   namespace Cmd
   {
     const char* const GetGalileoPerturbationsResult::CmdName = "GetGalileoPerturbationsResult";
-    const char* const GetGalileoPerturbationsResult::Documentation = "Result of GetGalileoPerturbations";
+    const char* const GetGalileoPerturbationsResult::Documentation = "Result of GetGalileoPerturbations.";
 
     REGISTER_COMMAND_RESULT_FACTORY(GetGalileoPerturbationsResult);
 
@@ -85552,7 +86162,7 @@ namespace Sdx
   namespace Cmd
   {
     const char* const SetBeiDouPerturbations::CmdName = "SetBeiDouPerturbations";
-    const char* const SetBeiDouPerturbations::Documentation = "Please note the command BeiDouPerturbations is deprecated since 21.3. You may use Perturbations.\n\nSet BeiDou orbit perturbations (Crs, Crc, Cis, Cic, Cus and Cuc)";
+    const char* const SetBeiDouPerturbations::Documentation = "Please note the command SetBeiDouPerturbations is deprecated since 21.3. You may use SetPerturbations.\n\nSet BeiDou orbit perturbations (Crs, Crc, Cis, Cic, Cus and Cuc)";
 
     REGISTER_COMMAND_FACTORY(SetBeiDouPerturbations);
 
@@ -85706,7 +86316,7 @@ namespace Sdx
   namespace Cmd
   {
     const char* const GetBeiDouPerturbations::CmdName = "GetBeiDouPerturbations";
-    const char* const GetBeiDouPerturbations::Documentation = "Please note the command BeiDouPerturbations is deprecated since 21.3. You may use Perturbations.\n\nGet BeiDou orbit perturbations (Crs, Crc, Cis, Cic, Cus and Cuc)";
+    const char* const GetBeiDouPerturbations::Documentation = "Please note the command GetBeiDouPerturbations is deprecated since 21.3. You may use GetPerturbations.\n\nGet BeiDou orbit perturbations (Crs, Crc, Cis, Cic, Cus and Cuc)";
 
     REGISTER_COMMAND_FACTORY(GetBeiDouPerturbations);
 
@@ -85776,7 +86386,7 @@ namespace Sdx
   namespace Cmd
   {
     const char* const GetBeiDouPerturbationsResult::CmdName = "GetBeiDouPerturbationsResult";
-    const char* const GetBeiDouPerturbationsResult::Documentation = "Result of GetBeiDouPerturbations";
+    const char* const GetBeiDouPerturbationsResult::Documentation = "Result of GetBeiDouPerturbations.";
 
     REGISTER_COMMAND_RESULT_FACTORY(GetBeiDouPerturbationsResult);
 
@@ -85924,7 +86534,7 @@ namespace Sdx
   namespace Cmd
   {
     const char* const SetGpsPerturbationsForAllSat::CmdName = "SetGpsPerturbationsForAllSat";
-    const char* const SetGpsPerturbationsForAllSat::Documentation = "Please note the command GpsPerturbationsForAllSat is deprecated since 21.3. You may use PerturbationsForAllSat.\n\nSet GPS orbit perturbations (Crs, Crc, Cis, Cic, Cus and Cuc) for all satellites.\nAll parameters are zero based index (index 0 => PRN 1, index 1 => PRN 2, etc)";
+    const char* const SetGpsPerturbationsForAllSat::Documentation = "Please note the command SetGpsPerturbationsForAllSat is deprecated since 21.3. You may use SetPerturbationsForAllSat.\n\nSet GPS orbit perturbations (Crs, Crc, Cis, Cic, Cus and Cuc) for all satellites.\nAll parameters are zero based index (index 0 => PRN 1, index 1 => PRN 2, etc)";
 
     REGISTER_COMMAND_FACTORY(SetGpsPerturbationsForAllSat);
 
@@ -86064,7 +86674,7 @@ namespace Sdx
   namespace Cmd
   {
     const char* const GetGpsPerturbationsForAllSat::CmdName = "GetGpsPerturbationsForAllSat";
-    const char* const GetGpsPerturbationsForAllSat::Documentation = "Please note the command GpsPerturbationsForAllSat is deprecated since 21.3. You may use PerturbationsForAllSat.\n\nGet GPS orbit perturbations (Crs, Crc, Cis, Cic, Cus and Cuc) for all satellites.\nAll parameters are zero based index (index 0 => PRN 1, index 1 => PRN 2, etc)";
+    const char* const GetGpsPerturbationsForAllSat::Documentation = "Please note the command GetGpsPerturbationsForAllSat is deprecated since 21.3. You may use GetPerturbationsForAllSat.\n\nGet GPS orbit perturbations (Crs, Crc, Cis, Cic, Cus and Cuc) for all satellites.\nAll parameters are zero based index (index 0 => PRN 1, index 1 => PRN 2, etc)";
 
     REGISTER_COMMAND_FACTORY(GetGpsPerturbationsForAllSat);
 
@@ -86116,7 +86726,7 @@ namespace Sdx
   namespace Cmd
   {
     const char* const GetGpsPerturbationsForAllSatResult::CmdName = "GetGpsPerturbationsForAllSatResult";
-    const char* const GetGpsPerturbationsForAllSatResult::Documentation = "Result of GetGpsPerturbationsForAllSat";
+    const char* const GetGpsPerturbationsForAllSatResult::Documentation = "Result of GetGpsPerturbationsForAllSat.";
 
     REGISTER_COMMAND_RESULT_FACTORY(GetGpsPerturbationsForAllSatResult);
 
@@ -86250,7 +86860,7 @@ namespace Sdx
   namespace Cmd
   {
     const char* const SetGalileoPerturbationsForAllSat::CmdName = "SetGalileoPerturbationsForAllSat";
-    const char* const SetGalileoPerturbationsForAllSat::Documentation = "Please note the command GalileoPerturbationsForAllSat is deprecated since 21.3. You may use PerturbationsForAllSat.\n\nSet Galileo orbit perturbations (Crs, Crc, Cis, Cic, Cus and Cuc) for all satellites.\nAll parameters are zero based index (index 0 => PRN 1, index 1 => PRN 2, etc)";
+    const char* const SetGalileoPerturbationsForAllSat::Documentation = "Please note the command SetGalileoPerturbationsForAllSat is deprecated since 21.3. You may use SetPerturbationsForAllSat.\n\nSet Galileo orbit perturbations (Crs, Crc, Cis, Cic, Cus and Cuc) for all satellites.\nAll parameters are zero based index (index 0 => PRN 1, index 1 => PRN 2, etc)";
 
     REGISTER_COMMAND_FACTORY(SetGalileoPerturbationsForAllSat);
 
@@ -86390,7 +87000,7 @@ namespace Sdx
   namespace Cmd
   {
     const char* const GetGalileoPerturbationsForAllSat::CmdName = "GetGalileoPerturbationsForAllSat";
-    const char* const GetGalileoPerturbationsForAllSat::Documentation = "Please note the command GalileoPerturbationsForAllSat is deprecated since 21.3. You may use PerturbationsForAllSat.\n\nGet Galileo orbit perturbations (Crs, Crc, Cis, Cic, Cus and Cuc) for all satellites.\nAll parameters are zero based index (index 0 => PRN 1, index 1 => PRN 2, etc)";
+    const char* const GetGalileoPerturbationsForAllSat::Documentation = "Please note the command GetGalileoPerturbationsForAllSat is deprecated since 21.3. You may use GetPerturbationsForAllSat.\n\nGet Galileo orbit perturbations (Crs, Crc, Cis, Cic, Cus and Cuc) for all satellites.\nAll parameters are zero based index (index 0 => PRN 1, index 1 => PRN 2, etc)";
 
     REGISTER_COMMAND_FACTORY(GetGalileoPerturbationsForAllSat);
 
@@ -86442,7 +87052,7 @@ namespace Sdx
   namespace Cmd
   {
     const char* const GetGalileoPerturbationsForAllSatResult::CmdName = "GetGalileoPerturbationsForAllSatResult";
-    const char* const GetGalileoPerturbationsForAllSatResult::Documentation = "Result of GetGalileoPerturbationsForAllSat";
+    const char* const GetGalileoPerturbationsForAllSatResult::Documentation = "Result of GetGalileoPerturbationsForAllSat.";
 
     REGISTER_COMMAND_RESULT_FACTORY(GetGalileoPerturbationsForAllSatResult);
 
@@ -86576,7 +87186,7 @@ namespace Sdx
   namespace Cmd
   {
     const char* const SetBeiDouPerturbationsForAllSat::CmdName = "SetBeiDouPerturbationsForAllSat";
-    const char* const SetBeiDouPerturbationsForAllSat::Documentation = "Please note the command BeiDouPerturbationsForAllSat is deprecated since 21.3. You may use PerturbationsForAllSat.\n\nSet BeiDou orbit perturbations (Crs, Crc, Cis, Cic, Cus and Cuc) for all satellites.\nAll parameters are zero based index (index 0 => PRN 1, index 1 => PRN 2, etc)";
+    const char* const SetBeiDouPerturbationsForAllSat::Documentation = "Please note the command SetBeiDouPerturbationsForAllSat is deprecated since 21.3. You may use SetPerturbationsForAllSat.\n\nSet BeiDou orbit perturbations (Crs, Crc, Cis, Cic, Cus and Cuc) for all satellites.\nAll parameters are zero based index (index 0 => PRN 1, index 1 => PRN 2, etc)";
 
     REGISTER_COMMAND_FACTORY(SetBeiDouPerturbationsForAllSat);
 
@@ -86716,7 +87326,7 @@ namespace Sdx
   namespace Cmd
   {
     const char* const GetBeiDouPerturbationsForAllSat::CmdName = "GetBeiDouPerturbationsForAllSat";
-    const char* const GetBeiDouPerturbationsForAllSat::Documentation = "Please note the command BeiDouPerturbationsForAllSat is deprecated since 21.3. You may use PerturbationsForAllSat.\n\nGet BeiDou orbit perturbations (Crs, Crc, Cis, Cic, Cus and Cuc) for all satellites.\nAll parameters are zero based index (index 0 => PRN 1, index 1 => PRN 2, etc)";
+    const char* const GetBeiDouPerturbationsForAllSat::Documentation = "Please note the command GetBeiDouPerturbationsForAllSat is deprecated since 21.3. You may use GetPerturbationsForAllSat.\n\nGet BeiDou orbit perturbations (Crs, Crc, Cis, Cic, Cus and Cuc) for all satellites.\nAll parameters are zero based index (index 0 => PRN 1, index 1 => PRN 2, etc)";
 
     REGISTER_COMMAND_FACTORY(GetBeiDouPerturbationsForAllSat);
 
@@ -86768,7 +87378,7 @@ namespace Sdx
   namespace Cmd
   {
     const char* const GetBeiDouPerturbationsForAllSatResult::CmdName = "GetBeiDouPerturbationsForAllSatResult";
-    const char* const GetBeiDouPerturbationsForAllSatResult::Documentation = "Result of GetBeiDouPerturbationsForAllSat";
+    const char* const GetBeiDouPerturbationsForAllSatResult::Documentation = "Result of GetBeiDouPerturbationsForAllSat.";
 
     REGISTER_COMMAND_RESULT_FACTORY(GetBeiDouPerturbationsForAllSatResult);
 
@@ -87610,7 +88220,7 @@ namespace Sdx
   namespace Cmd
   {
     const char* const IsPrnEnabled::CmdName = "IsPrnEnabled";
-    const char* const IsPrnEnabled::Documentation = "Please note the command EnablePrn is deprecated since 21.3. You may use EnableSV.\n\nGet  enabled or disabled satellite for this constellation.";
+    const char* const IsPrnEnabled::Documentation = "Please note the command IsPrnEnabled is deprecated since 21.3. You may use IsSVEnabled.\n\nGet  enabled or disabled satellite for this constellation.";
 
     REGISTER_COMMAND_FACTORY(IsPrnEnabled);
 
@@ -87694,7 +88304,7 @@ namespace Sdx
   namespace Cmd
   {
     const char* const IsPrnEnabledResult::CmdName = "IsPrnEnabledResult";
-    const char* const IsPrnEnabledResult::Documentation = "Result of IsPrnEnabled";
+    const char* const IsPrnEnabledResult::Documentation = "Result of IsPrnEnabled.";
 
     REGISTER_COMMAND_RESULT_FACTORY(IsPrnEnabledResult);
 
@@ -87786,7 +88396,7 @@ namespace Sdx
   namespace Cmd
   {
     const char* const EnablePrns::CmdName = "EnablePrns";
-    const char* const EnablePrns::Documentation = "Please note the command PrnsEnabled is deprecated since 21.3. You may use EnableEachSV.\n\nSet  enabled or disabled satellites for this constellation.";
+    const char* const EnablePrns::Documentation = "Please note the command EnablePrns is deprecated since 21.3. You may use EnableEachSV.\n\nSet  enabled or disabled satellites for this constellation.";
 
     REGISTER_COMMAND_FACTORY(EnablePrns);
 
@@ -87870,7 +88480,7 @@ namespace Sdx
   namespace Cmd
   {
     const char* const GetPrnsEnabled::CmdName = "GetPrnsEnabled";
-    const char* const GetPrnsEnabled::Documentation = "Please note the command PrnsEnabled is deprecated since 21.3. You may use EnableEachSV.\n\nGet  enabled or disabled satellites for this constellation.";
+    const char* const GetPrnsEnabled::Documentation = "Please note the command GetPrnsEnabled is deprecated since 21.3. You may use IsEachSVEnabled.\n\nGet  enabled or disabled satellites for this constellation.";
 
     REGISTER_COMMAND_FACTORY(GetPrnsEnabled);
 
@@ -87940,7 +88550,7 @@ namespace Sdx
   namespace Cmd
   {
     const char* const GetPrnsEnabledResult::CmdName = "GetPrnsEnabledResult";
-    const char* const GetPrnsEnabledResult::Documentation = "Result of GetPrnsEnabled";
+    const char* const GetPrnsEnabledResult::Documentation = "Result of GetPrnsEnabled.";
 
     REGISTER_COMMAND_RESULT_FACTORY(GetPrnsEnabledResult);
 
@@ -88018,7 +88628,7 @@ namespace Sdx
   namespace Cmd
   {
     const char* const SetGpsEphemerisDoubleParam::CmdName = "SetGpsEphemerisDoubleParam";
-    const char* const SetGpsEphemerisDoubleParam::Documentation = "Please note the command GpsEphemerisDoubleParam is deprecated since 21.3. You may use GpsEphDoubleParamForSV.\n\nSet various parameters in the GPS ephemeris\n\n  ParamName         Unit\n  \"ClockBias\"       sec\n  \"ClockDrift\"      sec/sec\n  \"ClockDriftRate\"  sec/sec^2\n  \"Crs\"             meter\n  \"Crc\"             meter\n  \"Cis\"             rad\n  \"Cic\"             rad\n  \"Cus\"             rad\n  \"Cuc\"             rad\n  \"DeltaN\"          rad/sec\n  \"M0\"              rad\n  \"Eccentricity\"    -\n  \"SqrtA\"           sqrt(meter)\n  \"BigOmega\"        rad\n  \"I0\"              rad\n  \"LittleOmega\"     rad\n  \"BigOmegaDot\"     rad/sec\n  \"Idot\"            rad/sec\n  \"Accuracy\"        meter\n  \"Adot\"            meters/sec\n  \"DeltaN0dot\"      rad/sec^2\n  \"Tgd\"             sec\n  \"IscL1Ca\"         sec\n  \"IscL2C\"          sec\n  \"IscL5I5\"         sec\n  \"IscL5Q5\"         sec\n  \"IscL1CP\"         sec\n  \"IscL1CD\"         sec";
+    const char* const SetGpsEphemerisDoubleParam::Documentation = "Please note the command SetGpsEphemerisDoubleParam is deprecated since 21.3. You may use SetGpsEphDoubleParamForSV.\n\nSet various parameters in the GPS ephemeris\n\n  ParamName         Unit\n  \"ClockBias\"       sec\n  \"ClockDrift\"      sec/sec\n  \"ClockDriftRate\"  sec/sec^2\n  \"Crs\"             meter\n  \"Crc\"             meter\n  \"Cis\"             rad\n  \"Cic\"             rad\n  \"Cus\"             rad\n  \"Cuc\"             rad\n  \"DeltaN\"          rad/sec\n  \"M0\"              rad\n  \"Eccentricity\"    -\n  \"SqrtA\"           sqrt(meter)\n  \"BigOmega\"        rad\n  \"I0\"              rad\n  \"LittleOmega\"     rad\n  \"BigOmegaDot\"     rad/sec\n  \"Idot\"            rad/sec\n  \"Accuracy\"        meter\n  \"Adot\"            meters/sec\n  \"DeltaN0dot\"      rad/sec^2\n  \"Tgd\"             sec\n  \"IscL1Ca\"         sec\n  \"IscL2C\"          sec\n  \"IscL5I5\"         sec\n  \"IscL5Q5\"         sec\n  \"IscL1CP\"         sec\n  \"IscL1CD\"         sec";
 
     REGISTER_COMMAND_FACTORY(SetGpsEphemerisDoubleParam);
 
@@ -88116,7 +88726,7 @@ namespace Sdx
   namespace Cmd
   {
     const char* const GetGpsEphemerisDoubleParam::CmdName = "GetGpsEphemerisDoubleParam";
-    const char* const GetGpsEphemerisDoubleParam::Documentation = "Please note the command GpsEphemerisDoubleParam is deprecated since 21.3. You may use GpsEphDoubleParamForSV.\n\nGet various parameters in the GPS ephemeris\n\n  ParamName         Unit\n  \"ClockBias\"       sec\n  \"ClockDrift\"      sec/sec\n  \"ClockDriftRate\"  sec/sec^2\n  \"Crs\"             meter\n  \"Crc\"             meter\n  \"Cis\"             rad\n  \"Cic\"             rad\n  \"Cus\"             rad\n  \"Cuc\"             rad\n  \"DeltaN\"          rad/sec\n  \"M0\"              rad\n  \"Eccentricity\"    -\n  \"SqrtA\"           sqrt(meter)\n  \"BigOmega\"        rad\n  \"I0\"              rad\n  \"LittleOmega\"     rad\n  \"BigOmegaDot\"     rad/sec\n  \"Idot\"            rad/sec\n  \"Accuracy\"        meter\n  \"Adot\"            meters/sec\n  \"DeltaN0dot\"      rad/sec^2\n  \"Tgd\"             sec\n  \"IscL1Ca\"         sec\n  \"IscL2C\"          sec\n  \"IscL5I5\"         sec\n  \"IscL5Q5\"         sec\n  \"IscL1CP\"         sec\n  \"IscL1CD\"         sec";
+    const char* const GetGpsEphemerisDoubleParam::Documentation = "Please note the command GetGpsEphemerisDoubleParam is deprecated since 21.3. You may use GetGpsEphDoubleParamForSV.\n\nGet various parameters in the GPS ephemeris\n\n  ParamName         Unit\n  \"ClockBias\"       sec\n  \"ClockDrift\"      sec/sec\n  \"ClockDriftRate\"  sec/sec^2\n  \"Crs\"             meter\n  \"Crc\"             meter\n  \"Cis\"             rad\n  \"Cic\"             rad\n  \"Cus\"             rad\n  \"Cuc\"             rad\n  \"DeltaN\"          rad/sec\n  \"M0\"              rad\n  \"Eccentricity\"    -\n  \"SqrtA\"           sqrt(meter)\n  \"BigOmega\"        rad\n  \"I0\"              rad\n  \"LittleOmega\"     rad\n  \"BigOmegaDot\"     rad/sec\n  \"Idot\"            rad/sec\n  \"Accuracy\"        meter\n  \"Adot\"            meters/sec\n  \"DeltaN0dot\"      rad/sec^2\n  \"Tgd\"             sec\n  \"IscL1Ca\"         sec\n  \"IscL2C\"          sec\n  \"IscL5I5\"         sec\n  \"IscL5Q5\"         sec\n  \"IscL1CP\"         sec\n  \"IscL1CD\"         sec";
 
     REGISTER_COMMAND_FACTORY(GetGpsEphemerisDoubleParam);
 
@@ -88200,7 +88810,7 @@ namespace Sdx
   namespace Cmd
   {
     const char* const GetGpsEphemerisDoubleParamResult::CmdName = "GetGpsEphemerisDoubleParamResult";
-    const char* const GetGpsEphemerisDoubleParamResult::Documentation = "Result of GetGpsEphemerisDoubleParam";
+    const char* const GetGpsEphemerisDoubleParamResult::Documentation = "Result of GetGpsEphemerisDoubleParam.";
 
     REGISTER_COMMAND_RESULT_FACTORY(GetGpsEphemerisDoubleParamResult);
 
@@ -88292,7 +88902,7 @@ namespace Sdx
   namespace Cmd
   {
     const char* const SetGalileoEphemerisDoubleParam::CmdName = "SetGalileoEphemerisDoubleParam";
-    const char* const SetGalileoEphemerisDoubleParam::Documentation = "Please note the command GalileoEphemerisDoubleParam is deprecated since 21.3. You may use GalileoEphDoubleParamForSV.\n\nSet various parameters in the Galileo ephemeris\n\n  ParamName         Unit\n  \"ClockBias\"       sec\n  \"ClockDrift\"      sec/sec\n  \"ClockDriftRate\"  sec/sec^2\n  \"Crs\"             meter\n  \"Crc\"             meter\n  \"Cis\"             rad\n  \"Cic\"             rad\n  \"Cus\"             rad\n  \"Cuc\"             rad\n  \"DeltaN\"          rad/sec\n  \"M0\"              rad\n  \"Eccentricity\"    -\n  \"SqrtA\"           sqrt(meter)\n  \"BigOmega\"        rad\n  \"I0\"              rad\n  \"LittleOmega\"     rad\n  \"BigOmegaDot\"     rad/sec\n  \"Idot\"            rad/sec\n  \"Accuracy\"        meter\n  \"Adot\"            meters/sec\n  \"DeltaN0dot\"      rad/sec^2\n  \"Tgd\"             sec\n  \"BgdE1E5a\"        ns\n  \"BgdE1E5b\"        ns";
+    const char* const SetGalileoEphemerisDoubleParam::Documentation = "Please note the command SetGalileoEphemerisDoubleParam is deprecated since 21.3. You may use SetGalileoEphDoubleParamForSV.\n\nSet various parameters in the Galileo ephemeris\n\n  ParamName         Unit\n  \"ClockBias\"       sec\n  \"ClockDrift\"      sec/sec\n  \"ClockDriftRate\"  sec/sec^2\n  \"Crs\"             meter\n  \"Crc\"             meter\n  \"Cis\"             rad\n  \"Cic\"             rad\n  \"Cus\"             rad\n  \"Cuc\"             rad\n  \"DeltaN\"          rad/sec\n  \"M0\"              rad\n  \"Eccentricity\"    -\n  \"SqrtA\"           sqrt(meter)\n  \"BigOmega\"        rad\n  \"I0\"              rad\n  \"LittleOmega\"     rad\n  \"BigOmegaDot\"     rad/sec\n  \"Idot\"            rad/sec\n  \"Accuracy\"        meter\n  \"Adot\"            meters/sec\n  \"DeltaN0dot\"      rad/sec^2\n  \"Tgd\"             sec\n  \"BgdE1E5a\"        ns\n  \"BgdE1E5b\"        ns";
 
     REGISTER_COMMAND_FACTORY(SetGalileoEphemerisDoubleParam);
 
@@ -88390,7 +89000,7 @@ namespace Sdx
   namespace Cmd
   {
     const char* const GetGalileoEphemerisDoubleParam::CmdName = "GetGalileoEphemerisDoubleParam";
-    const char* const GetGalileoEphemerisDoubleParam::Documentation = "Please note the command GalileoEphemerisDoubleParam is deprecated since 21.3. You may use GalileoEphDoubleParamForSV.\n\nGet various parameters in the Galileo ephemeris\n\n  ParamName         Unit\n  \"ClockBias\"       sec\n  \"ClockDrift\"      sec/sec\n  \"ClockDriftRate\"  sec/sec^2\n  \"Crs\"             meter\n  \"Crc\"             meter\n  \"Cis\"             rad\n  \"Cic\"             rad\n  \"Cus\"             rad\n  \"Cuc\"             rad\n  \"DeltaN\"          rad/sec\n  \"M0\"              rad\n  \"Eccentricity\"    -\n  \"SqrtA\"           sqrt(meter)\n  \"BigOmega\"        rad\n  \"I0\"              rad\n  \"LittleOmega\"     rad\n  \"BigOmegaDot\"     rad/sec\n  \"Idot\"            rad/sec\n  \"Accuracy\"        meter\n  \"Adot\"            meters/sec\n  \"DeltaN0dot\"      rad/sec^2\n  \"Tgd\"             sec\n  \"BgdE1E5a\"        ns\n  \"BgdE1E5b\"        ns";
+    const char* const GetGalileoEphemerisDoubleParam::Documentation = "Please note the command GetGalileoEphemerisDoubleParam is deprecated since 21.3. You may use GetGalileoEphDoubleParamForSV.\n\nGet various parameters in the Galileo ephemeris\n\n  ParamName         Unit\n  \"ClockBias\"       sec\n  \"ClockDrift\"      sec/sec\n  \"ClockDriftRate\"  sec/sec^2\n  \"Crs\"             meter\n  \"Crc\"             meter\n  \"Cis\"             rad\n  \"Cic\"             rad\n  \"Cus\"             rad\n  \"Cuc\"             rad\n  \"DeltaN\"          rad/sec\n  \"M0\"              rad\n  \"Eccentricity\"    -\n  \"SqrtA\"           sqrt(meter)\n  \"BigOmega\"        rad\n  \"I0\"              rad\n  \"LittleOmega\"     rad\n  \"BigOmegaDot\"     rad/sec\n  \"Idot\"            rad/sec\n  \"Accuracy\"        meter\n  \"Adot\"            meters/sec\n  \"DeltaN0dot\"      rad/sec^2\n  \"Tgd\"             sec\n  \"BgdE1E5a\"        ns\n  \"BgdE1E5b\"        ns";
 
     REGISTER_COMMAND_FACTORY(GetGalileoEphemerisDoubleParam);
 
@@ -88474,7 +89084,7 @@ namespace Sdx
   namespace Cmd
   {
     const char* const GetGalileoEphemerisDoubleParamResult::CmdName = "GetGalileoEphemerisDoubleParamResult";
-    const char* const GetGalileoEphemerisDoubleParamResult::Documentation = "Result of GetGalileoEphemerisDoubleParam";
+    const char* const GetGalileoEphemerisDoubleParamResult::Documentation = "Result of GetGalileoEphemerisDoubleParam.";
 
     REGISTER_COMMAND_RESULT_FACTORY(GetGalileoEphemerisDoubleParamResult);
 
@@ -88566,7 +89176,7 @@ namespace Sdx
   namespace Cmd
   {
     const char* const SetBeiDouEphemerisDoubleParam::CmdName = "SetBeiDouEphemerisDoubleParam";
-    const char* const SetBeiDouEphemerisDoubleParam::Documentation = "Please note the command BeiDouEphemerisDoubleParam is deprecated since 21.3. You may use BeiDouEphDoubleParamForSV.\n\nSet various parameters in the BeiDou ephemeris\n\n  ParamName         Unit\n  \"ClockBias\"       sec\n  \"ClockDrift\"      sec/sec\n  \"ClockDriftRate\"  sec/sec^2\n  \"Crs\"             meter\n  \"Crc\"             meter\n  \"Cis\"             rad\n  \"Cic\"             rad\n  \"Cus\"             rad\n  \"Cuc\"             rad\n  \"DeltaN\"          rad/sec\n  \"M0\"              rad\n  \"Eccentricity\"    -\n  \"SqrtA\"           sqrt(meter)\n  \"BigOmega\"        rad\n  \"I0\"              rad\n  \"LittleOmega\"     rad\n  \"BigOmegaDot\"     rad/sec\n  \"Idot\"            rad/sec\n  \"Accuracy\"        meter\n  \"Adot\"            meters/sec\n  \"DeltaN0dot\"      rad/sec^2\n  \"Tgd1\"            sec\n  \"Tgd2\"            sec\n  \"TgdB1Cp\"         sec\n  \"TgdB2Ap\"         sec";
+    const char* const SetBeiDouEphemerisDoubleParam::Documentation = "Please note the command SetBeiDouEphemerisDoubleParam is deprecated since 21.3. You may use SetBeiDouEphDoubleParamForSV.\n\nSet various parameters in the BeiDou ephemeris\n\n  ParamName         Unit\n  \"ClockBias\"       sec\n  \"ClockDrift\"      sec/sec\n  \"ClockDriftRate\"  sec/sec^2\n  \"Crs\"             meter\n  \"Crc\"             meter\n  \"Cis\"             rad\n  \"Cic\"             rad\n  \"Cus\"             rad\n  \"Cuc\"             rad\n  \"DeltaN\"          rad/sec\n  \"M0\"              rad\n  \"Eccentricity\"    -\n  \"SqrtA\"           sqrt(meter)\n  \"BigOmega\"        rad\n  \"I0\"              rad\n  \"LittleOmega\"     rad\n  \"BigOmegaDot\"     rad/sec\n  \"Idot\"            rad/sec\n  \"Accuracy\"        meter\n  \"Adot\"            meters/sec\n  \"DeltaN0dot\"      rad/sec^2\n  \"Tgd1\"            sec\n  \"Tgd2\"            sec\n  \"TgdB1Cp\"         sec\n  \"TgdB2Ap\"         sec";
 
     REGISTER_COMMAND_FACTORY(SetBeiDouEphemerisDoubleParam);
 
@@ -88664,7 +89274,7 @@ namespace Sdx
   namespace Cmd
   {
     const char* const GetBeiDouEphemerisDoubleParam::CmdName = "GetBeiDouEphemerisDoubleParam";
-    const char* const GetBeiDouEphemerisDoubleParam::Documentation = "Please note the command BeiDouEphemerisDoubleParam is deprecated since 21.3. You may use BeiDouEphDoubleParamForSV.\n\nGet various parameters in the BeiDou ephemeris\n\n  ParamName         Unit\n  \"ClockBias\"       sec\n  \"ClockDrift\"      sec/sec\n  \"ClockDriftRate\"  sec/sec^2\n  \"Crs\"             meter\n  \"Crc\"             meter\n  \"Cis\"             rad\n  \"Cic\"             rad\n  \"Cus\"             rad\n  \"Cuc\"             rad\n  \"DeltaN\"          rad/sec\n  \"M0\"              rad\n  \"Eccentricity\"    -\n  \"SqrtA\"           sqrt(meter)\n  \"BigOmega\"        rad\n  \"I0\"              rad\n  \"LittleOmega\"     rad\n  \"BigOmegaDot\"     rad/sec\n  \"Idot\"            rad/sec\n  \"Accuracy\"        meter\n  \"Adot\"            meters/sec\n  \"DeltaN0dot\"      rad/sec^2\n  \"Tgd1\"            sec\n  \"Tgd2\"            sec\n  \"TgdB1Cp\"         sec\n  \"TgdB2Ap\"         sec";
+    const char* const GetBeiDouEphemerisDoubleParam::Documentation = "Please note the command GetBeiDouEphemerisDoubleParam is deprecated since 21.3. You may use GetBeiDouEphDoubleParamForSV.\n\nGet various parameters in the BeiDou ephemeris\n\n  ParamName         Unit\n  \"ClockBias\"       sec\n  \"ClockDrift\"      sec/sec\n  \"ClockDriftRate\"  sec/sec^2\n  \"Crs\"             meter\n  \"Crc\"             meter\n  \"Cis\"             rad\n  \"Cic\"             rad\n  \"Cus\"             rad\n  \"Cuc\"             rad\n  \"DeltaN\"          rad/sec\n  \"M0\"              rad\n  \"Eccentricity\"    -\n  \"SqrtA\"           sqrt(meter)\n  \"BigOmega\"        rad\n  \"I0\"              rad\n  \"LittleOmega\"     rad\n  \"BigOmegaDot\"     rad/sec\n  \"Idot\"            rad/sec\n  \"Accuracy\"        meter\n  \"Adot\"            meters/sec\n  \"DeltaN0dot\"      rad/sec^2\n  \"Tgd1\"            sec\n  \"Tgd2\"            sec\n  \"TgdB1Cp\"         sec\n  \"TgdB2Ap\"         sec";
 
     REGISTER_COMMAND_FACTORY(GetBeiDouEphemerisDoubleParam);
 
@@ -88748,7 +89358,7 @@ namespace Sdx
   namespace Cmd
   {
     const char* const GetBeiDouEphemerisDoubleParamResult::CmdName = "GetBeiDouEphemerisDoubleParamResult";
-    const char* const GetBeiDouEphemerisDoubleParamResult::Documentation = "Result of GetBeiDouEphemerisDoubleParam";
+    const char* const GetBeiDouEphemerisDoubleParamResult::Documentation = "Result of GetBeiDouEphemerisDoubleParam.";
 
     REGISTER_COMMAND_RESULT_FACTORY(GetBeiDouEphemerisDoubleParamResult);
 
@@ -88840,7 +89450,7 @@ namespace Sdx
   namespace Cmd
   {
     const char* const SetGlonassDoubleParam::CmdName = "SetGlonassDoubleParam";
-    const char* const SetGlonassDoubleParam::Documentation = "Please note the command GlonassDoubleParam is deprecated since 21.3. You may use GlonassEphDoubleParamForSV.\n\nSet various parameters for GLONASS\n\n  ParamName       Unit               Range          Description\n  \"TauC\"          sec                +/- 1          GLONASS time scale correction to UTC(SU) time\n  \"TauGps\"        day                +/- 1.9x10^-3  Correction to GPS time relative to GLONASS time\n  \"TauN\"          sec                +/- 1.9x10^-3  Coarse value of satellite time correction to GLONASS time\n  \"TLambda\"       sec                0..44100       Time of the first ascending node passage\n  \"Lambda\"        semicircle         +/- 1          Longitude of the first ascending node\n  \"DeltaI\"        semicircle         +/- 0.067      Correction to the mean value of inclination\n  \"Omega\"         semicircle         +/- 1          Argument of perigee\n  \"Eccentricity\"  -                  0..0.03        Eccentricity\n  \"DeltaT\"        sec/orb. period    +/- 3.6x10^3   Correction to the mean value of Draconian period\n  \"DeltaTRate\"    sec/orb. period^2  +/- 2^-8       Rate of change of Draconian period";
+    const char* const SetGlonassDoubleParam::Documentation = "Please note the command SetGlonassDoubleParam is deprecated since 21.3. You may use SetGlonassEphDoubleParamForSV.\n\nSet various parameters for GLONASS\n\n  ParamName       Unit               Range          Description\n  \"TauC\"          sec                +/- 1          GLONASS time scale correction to UTC(SU) time\n  \"TauGps\"        day                +/- 1.9x10^-3  Correction to GPS time relative to GLONASS time\n  \"TauN\"          sec                +/- 1.9x10^-3  Coarse value of satellite time correction to GLONASS time\n  \"TLambda\"       sec                0..44100       Time of the first ascending node passage\n  \"Lambda\"        semicircle         +/- 1          Longitude of the first ascending node\n  \"DeltaI\"        semicircle         +/- 0.067      Correction to the mean value of inclination\n  \"Omega\"         semicircle         +/- 1          Argument of perigee\n  \"Eccentricity\"  -                  0..0.03        Eccentricity\n  \"DeltaT\"        sec/orb. period    +/- 3.6x10^3   Correction to the mean value of Draconian period\n  \"DeltaTRate\"    sec/orb. period^2  +/- 2^-8       Rate of change of Draconian period";
 
     REGISTER_COMMAND_FACTORY(SetGlonassDoubleParam);
 
@@ -88938,7 +89548,7 @@ namespace Sdx
   namespace Cmd
   {
     const char* const GetGlonassDoubleParam::CmdName = "GetGlonassDoubleParam";
-    const char* const GetGlonassDoubleParam::Documentation = "Please note the command GlonassDoubleParam is deprecated since 21.3. You may use GlonassEphDoubleParamForSV.\n\nGet various parameters for GLONASS\n\n  ParamName       Unit               Range          Description\n  \"TauC\"          sec                +/- 1          GLONASS time scale correction to UTC(SU) time\n  \"TauGps\"        day                +/- 1.9x10^-3  Correction to GPS time relative to GLONASS time\n  \"TauN\"          sec                +/- 1.9x10^-3  Coarse value of satellite time correction to GLONASS time\n  \"TLambda\"       sec                0..44100       Time of the first ascending node passage\n  \"Lambda\"        semicircle         +/- 1          Longitude of the first ascending node\n  \"DeltaI\"        semicircle         +/- 0.067      Correction to the mean value of inclination\n  \"Omega\"         semicircle         +/- 1          Argument of perigee\n  \"Eccentricity\"  -                  0..0.03        Eccentricity\n  \"DeltaT\"        sec/orb. period    +/- 3.6x10^3   Correction to the mean value of Draconian period\n  \"DeltaTRate\"    sec/orb. period^2  +/- 2^-8       Rate of change of Draconian period";
+    const char* const GetGlonassDoubleParam::Documentation = "Please note the command GetGlonassDoubleParam is deprecated since 21.3. You may use GetGlonassEphDoubleParamForSV.\n\nGet various parameters for GLONASS\n\n  ParamName       Unit               Range          Description\n  \"TauC\"          sec                +/- 1          GLONASS time scale correction to UTC(SU) time\n  \"TauGps\"        day                +/- 1.9x10^-3  Correction to GPS time relative to GLONASS time\n  \"TauN\"          sec                +/- 1.9x10^-3  Coarse value of satellite time correction to GLONASS time\n  \"TLambda\"       sec                0..44100       Time of the first ascending node passage\n  \"Lambda\"        semicircle         +/- 1          Longitude of the first ascending node\n  \"DeltaI\"        semicircle         +/- 0.067      Correction to the mean value of inclination\n  \"Omega\"         semicircle         +/- 1          Argument of perigee\n  \"Eccentricity\"  -                  0..0.03        Eccentricity\n  \"DeltaT\"        sec/orb. period    +/- 3.6x10^3   Correction to the mean value of Draconian period\n  \"DeltaTRate\"    sec/orb. period^2  +/- 2^-8       Rate of change of Draconian period";
 
     REGISTER_COMMAND_FACTORY(GetGlonassDoubleParam);
 
@@ -89022,7 +89632,7 @@ namespace Sdx
   namespace Cmd
   {
     const char* const GetGlonassDoubleParamResult::CmdName = "GetGlonassDoubleParamResult";
-    const char* const GetGlonassDoubleParamResult::Documentation = "Result of GetGlonassDoubleParam";
+    const char* const GetGlonassDoubleParamResult::Documentation = "Result of GetGlonassDoubleParam.";
 
     REGISTER_COMMAND_RESULT_FACTORY(GetGlonassDoubleParamResult);
 
@@ -89114,7 +89724,7 @@ namespace Sdx
   namespace Cmd
   {
     const char* const SetGlonassSatelliteEphemerisHealthFlag::CmdName = "SetGlonassSatelliteEphemerisHealthFlag";
-    const char* const SetGlonassSatelliteEphemerisHealthFlag::Documentation = "Please note the command GlonassSatelliteEphemerisHealthFlag is deprecated since 21.3. You may use GlonassEphemerisHealthFlagForSV.\n\nSet GLONASS satellite Ephemeris Health Flag Bn(ln)";
+    const char* const SetGlonassSatelliteEphemerisHealthFlag::Documentation = "Please note the command SetGlonassSatelliteEphemerisHealthFlag is deprecated since 21.3. You may use SetGlonassEphemerisHealthFlagForSV.\n\nSet GLONASS satellite Ephemeris Health Flag Bn(ln)";
 
     REGISTER_COMMAND_FACTORY(SetGlonassSatelliteEphemerisHealthFlag);
 
@@ -89198,7 +89808,7 @@ namespace Sdx
   namespace Cmd
   {
     const char* const GetGlonassSatelliteEphemerisHealthFlag::CmdName = "GetGlonassSatelliteEphemerisHealthFlag";
-    const char* const GetGlonassSatelliteEphemerisHealthFlag::Documentation = "Please note the command GlonassSatelliteEphemerisHealthFlag is deprecated since 21.3. You may use GlonassEphemerisHealthFlagForSV.\n\nGet GLONASS satellite Ephemeris Health Flag Bn(ln)";
+    const char* const GetGlonassSatelliteEphemerisHealthFlag::Documentation = "Please note the command GetGlonassSatelliteEphemerisHealthFlag is deprecated since 21.3. You may use GetGlonassEphemerisHealthFlagForSV.\n\nGet GLONASS satellite Ephemeris Health Flag Bn(ln)";
 
     REGISTER_COMMAND_FACTORY(GetGlonassSatelliteEphemerisHealthFlag);
 
@@ -89268,7 +89878,7 @@ namespace Sdx
   namespace Cmd
   {
     const char* const GetGlonassSatelliteEphemerisHealthFlagResult::CmdName = "GetGlonassSatelliteEphemerisHealthFlagResult";
-    const char* const GetGlonassSatelliteEphemerisHealthFlagResult::Documentation = "Result of GetGlonassSatelliteEphemerisHealthFlag";
+    const char* const GetGlonassSatelliteEphemerisHealthFlagResult::Documentation = "Result of GetGlonassSatelliteEphemerisHealthFlag.";
 
     REGISTER_COMMAND_RESULT_FACTORY(GetGlonassSatelliteEphemerisHealthFlagResult);
 
@@ -89346,7 +89956,7 @@ namespace Sdx
   namespace Cmd
   {
     const char* const SetGlonassSatelliteAlmanacUnhealthyFlag::CmdName = "SetGlonassSatelliteAlmanacUnhealthyFlag";
-    const char* const SetGlonassSatelliteAlmanacUnhealthyFlag::Documentation = "Please note the command GlonassSatelliteAlmanacUnhealthyFlag is deprecated since 21.3. You may use GlonassAlmanacUnhealthyFlagForSV.\n\nSet GLONASS satellite Almanac Unhealthy Flag Cn";
+    const char* const SetGlonassSatelliteAlmanacUnhealthyFlag::Documentation = "Please note the command SetGlonassSatelliteAlmanacUnhealthyFlag is deprecated since 21.3. You may use SetGlonassAlmanacUnhealthyFlagForSV.\n\nSet GLONASS satellite Almanac Unhealthy Flag Cn";
 
     REGISTER_COMMAND_FACTORY(SetGlonassSatelliteAlmanacUnhealthyFlag);
 
@@ -89430,7 +90040,7 @@ namespace Sdx
   namespace Cmd
   {
     const char* const GetGlonassSatelliteAlmanacUnhealthyFlag::CmdName = "GetGlonassSatelliteAlmanacUnhealthyFlag";
-    const char* const GetGlonassSatelliteAlmanacUnhealthyFlag::Documentation = "Please note the command GlonassSatelliteAlmanacUnhealthyFlag is deprecated since 21.3. You may use GlonassAlmanacUnhealthyFlagForSV.\n\nGet GLONASS satellite Almanac Unhealthy Flag Cn";
+    const char* const GetGlonassSatelliteAlmanacUnhealthyFlag::Documentation = "Please note the command GetGlonassSatelliteAlmanacUnhealthyFlag is deprecated since 21.3. You may use GetGlonassAlmanacUnhealthyFlagForSV.\n\nGet GLONASS satellite Almanac Unhealthy Flag Cn";
 
     REGISTER_COMMAND_FACTORY(GetGlonassSatelliteAlmanacUnhealthyFlag);
 
@@ -89500,7 +90110,7 @@ namespace Sdx
   namespace Cmd
   {
     const char* const GetGlonassSatelliteAlmanacUnhealthyFlagResult::CmdName = "GetGlonassSatelliteAlmanacUnhealthyFlagResult";
-    const char* const GetGlonassSatelliteAlmanacUnhealthyFlagResult::Documentation = "Result of GetGlonassSatelliteAlmanacUnhealthyFlag";
+    const char* const GetGlonassSatelliteAlmanacUnhealthyFlagResult::Documentation = "Result of GetGlonassSatelliteAlmanacUnhealthyFlag.";
 
     REGISTER_COMMAND_RESULT_FACTORY(GetGlonassSatelliteAlmanacUnhealthyFlagResult);
 
@@ -89578,7 +90188,7 @@ namespace Sdx
   namespace Cmd
   {
     const char* const SetGalileoSatelliteSignalHealth::CmdName = "SetGalileoSatelliteSignalHealth";
-    const char* const SetGalileoSatelliteSignalHealth::Documentation = "Please note the command GalileoSatelliteSignalHealth is deprecated since 21.3. You may use GalileoSignalHealthForSV.\n\nSet Galileo signal health for I/NAV and F/NAV message";
+    const char* const SetGalileoSatelliteSignalHealth::Documentation = "Please note the command SetGalileoSatelliteSignalHealth is deprecated since 21.3. You may use SetGalileoSignalHealthForSV.\n\nSet Galileo signal health for I/NAV and F/NAV message";
 
     REGISTER_COMMAND_FACTORY(SetGalileoSatelliteSignalHealth);
 
@@ -89676,7 +90286,7 @@ namespace Sdx
   namespace Cmd
   {
     const char* const GetGalileoSatelliteSignalHealth::CmdName = "GetGalileoSatelliteSignalHealth";
-    const char* const GetGalileoSatelliteSignalHealth::Documentation = "Please note the command GalileoSatelliteSignalHealth is deprecated since 21.3. You may use GalileoSignalHealthForSV.\n\nGet Galileo signal health for I/NAV and F/NAV message";
+    const char* const GetGalileoSatelliteSignalHealth::Documentation = "Please note the command GetGalileoSatelliteSignalHealth is deprecated since 21.3. You may use GetGalileoSignalHealthForSV.\n\nGet Galileo signal health for I/NAV and F/NAV message";
 
     REGISTER_COMMAND_FACTORY(GetGalileoSatelliteSignalHealth);
 
@@ -89760,7 +90370,7 @@ namespace Sdx
   namespace Cmd
   {
     const char* const GetGalileoSatelliteSignalHealthResult::CmdName = "GetGalileoSatelliteSignalHealthResult";
-    const char* const GetGalileoSatelliteSignalHealthResult::Documentation = "Result of GetGalileoSatelliteSignalHealth";
+    const char* const GetGalileoSatelliteSignalHealthResult::Documentation = "Result of GetGalileoSatelliteSignalHealth.";
 
     REGISTER_COMMAND_RESULT_FACTORY(GetGalileoSatelliteSignalHealthResult);
 
@@ -89852,7 +90462,7 @@ namespace Sdx
   namespace Cmd
   {
     const char* const SetGalileoSatelliteDataHealth::CmdName = "SetGalileoSatelliteDataHealth";
-    const char* const SetGalileoSatelliteDataHealth::Documentation = "Please note the command GalileoSatelliteDataHealth is deprecated since 21.3. You may use GalileoDataHealthForSV.\n\nSet Galileo data health for I/NAV and F/NAV message";
+    const char* const SetGalileoSatelliteDataHealth::Documentation = "Please note the command SetGalileoSatelliteDataHealth is deprecated since 21.3. You may use SetGalileoDataHealthForSV.\n\nSet Galileo data health for I/NAV and F/NAV message";
 
     REGISTER_COMMAND_FACTORY(SetGalileoSatelliteDataHealth);
 
@@ -89950,7 +90560,7 @@ namespace Sdx
   namespace Cmd
   {
     const char* const GetGalileoSatelliteDataHealth::CmdName = "GetGalileoSatelliteDataHealth";
-    const char* const GetGalileoSatelliteDataHealth::Documentation = "Please note the command GalileoSatelliteDataHealth is deprecated since 21.3. You may use GalileoDataHealthForSV.\n\nGet Galileo data health for I/NAV and F/NAV message";
+    const char* const GetGalileoSatelliteDataHealth::Documentation = "Please note the command GetGalileoSatelliteDataHealth is deprecated since 21.3. You may use GetGalileoDataHealthForSV.\n\nGet Galileo data health for I/NAV and F/NAV message";
 
     REGISTER_COMMAND_FACTORY(GetGalileoSatelliteDataHealth);
 
@@ -90034,7 +90644,7 @@ namespace Sdx
   namespace Cmd
   {
     const char* const GetGalileoSatelliteDataHealthResult::CmdName = "GetGalileoSatelliteDataHealthResult";
-    const char* const GetGalileoSatelliteDataHealthResult::Documentation = "Result of GetGalileoSatelliteDataHealth";
+    const char* const GetGalileoSatelliteDataHealthResult::Documentation = "Result of GetGalileoSatelliteDataHealth.";
 
     REGISTER_COMMAND_RESULT_FACTORY(GetGalileoSatelliteDataHealthResult);
 
@@ -90126,7 +90736,7 @@ namespace Sdx
   namespace Cmd
   {
     const char* const SetSVAntennaModelToPrn::CmdName = "SetSVAntennaModelToPrn";
-    const char* const SetSVAntennaModelToPrn::Documentation = "Please note the command SVAntennaModelToPrn is deprecated since 21.3. You may use SVAntennaModelForSV.\n\nSet the antenna model used by the PRN.";
+    const char* const SetSVAntennaModelToPrn::Documentation = "Please note the command SetSVAntennaModelToPrn is deprecated since 21.3. You may use SetSVAntennaModelForSV.\n\nSet the antenna model used by the PRN.";
 
     REGISTER_COMMAND_FACTORY(SetSVAntennaModelToPrn);
 
@@ -90224,7 +90834,7 @@ namespace Sdx
   namespace Cmd
   {
     const char* const GetSVAntennaModelToPrn::CmdName = "GetSVAntennaModelToPrn";
-    const char* const GetSVAntennaModelToPrn::Documentation = "Please note the command SVAntennaModelToPrn is deprecated since 21.3. You may use SVAntennaModelForSV.\n\nGet the antenna model used by the PRN.";
+    const char* const GetSVAntennaModelToPrn::Documentation = "Please note the command GetSVAntennaModelToPrn is deprecated since 21.3. You may use GetSVAntennaModelForSV.\n\nGet the antenna model used by the PRN.";
 
     REGISTER_COMMAND_FACTORY(GetSVAntennaModelToPrn);
 
@@ -90308,7 +90918,7 @@ namespace Sdx
   namespace Cmd
   {
     const char* const GetSVAntennaModelToPrnResult::CmdName = "GetSVAntennaModelToPrnResult";
-    const char* const GetSVAntennaModelToPrnResult::Documentation = "Result of GetSVAntennaModelToPrn";
+    const char* const GetSVAntennaModelToPrnResult::Documentation = "Result of GetSVAntennaModelToPrn.";
 
     REGISTER_COMMAND_RESULT_FACTORY(GetSVAntennaModelToPrnResult);
 
@@ -90400,7 +91010,7 @@ namespace Sdx
   namespace Cmd
   {
     const char* const SetGpsEphemerisBoolParam::CmdName = "SetGpsEphemerisBoolParam";
-    const char* const SetGpsEphemerisBoolParam::Documentation = "Please note the command GpsEphemerisBoolParam is deprecated since 21.3. You may use GpsEphBoolParamForSV.\n\nSet various boolean parameters in the GPS ephemeris\n\n  ParamName\n\"IscL1CaAvailable\"\n\"IscL2CAvailable\"\n\"IscL5I5Available\"\n\"IscL5Q5Available\"\n\"IscL1CPAvailable\"\n\"IscL1CDAvailable\"";
+    const char* const SetGpsEphemerisBoolParam::Documentation = "Please note the command SetGpsEphemerisBoolParam is deprecated since 21.3. You may use SetGpsEphBoolParamForSV.\n\nSet various boolean parameters in the GPS ephemeris\n\n  ParamName\n\"IscL1CaAvailable\"\n\"IscL2CAvailable\"\n\"IscL5I5Available\"\n\"IscL5Q5Available\"\n\"IscL1CPAvailable\"\n\"IscL1CDAvailable\"";
 
     REGISTER_COMMAND_FACTORY(SetGpsEphemerisBoolParam);
 
@@ -90498,7 +91108,7 @@ namespace Sdx
   namespace Cmd
   {
     const char* const GetGpsEphemerisBoolParam::CmdName = "GetGpsEphemerisBoolParam";
-    const char* const GetGpsEphemerisBoolParam::Documentation = "Please note the command GpsEphemerisBoolParam is deprecated since 21.3. You may use GpsEphBoolParamForSV.\n\nGet various boolean parameters in the GPS ephemeris\n\n  ParamName\n\"IscL1CaAvailable\"\n\"IscL2CAvailable\"\n\"IscL5I5Available\"\n\"IscL5Q5Available\"\n\"IscL1CPAvailable\"\n\"IscL1CDAvailable\"";
+    const char* const GetGpsEphemerisBoolParam::Documentation = "Please note the command GetGpsEphemerisBoolParam is deprecated since 21.3. You may use GetGpsEphBoolParamForSV.\n\nGet various boolean parameters in the GPS ephemeris\n\n  ParamName\n\"IscL1CaAvailable\"\n\"IscL2CAvailable\"\n\"IscL5I5Available\"\n\"IscL5Q5Available\"\n\"IscL1CPAvailable\"\n\"IscL1CDAvailable\"";
 
     REGISTER_COMMAND_FACTORY(GetGpsEphemerisBoolParam);
 
@@ -90582,7 +91192,7 @@ namespace Sdx
   namespace Cmd
   {
     const char* const GetGpsEphemerisBoolParamResult::CmdName = "GetGpsEphemerisBoolParamResult";
-    const char* const GetGpsEphemerisBoolParamResult::Documentation = "Result of GetGpsEphemerisBoolParam";
+    const char* const GetGpsEphemerisBoolParamResult::Documentation = "Result of GetGpsEphemerisBoolParam.";
 
     REGISTER_COMMAND_RESULT_FACTORY(GetGpsEphemerisBoolParamResult);
 
@@ -90674,7 +91284,7 @@ namespace Sdx
   namespace Cmd
   {
     const char* const SetBeiDouEphemerisBoolParam::CmdName = "SetBeiDouEphemerisBoolParam";
-    const char* const SetBeiDouEphemerisBoolParam::Documentation = "Please note the command BeiDouEphemerisBoolParam is deprecated since 21.3. You may use BeiDouEphBoolParamForSV.\n\nSet various boolean parameters in the BeiDou ephemeris\n\n  ParamName\n\"IscB1CdAvailable\"\n\"IscB2adAvailable\"";
+    const char* const SetBeiDouEphemerisBoolParam::Documentation = "Please note the command SetBeiDouEphemerisBoolParam is deprecated since 21.3. You may use SetBeiDouEphBoolParamForSV.\n\nSet various boolean parameters in the BeiDou ephemeris\n\n  ParamName\n\"IscB1CdAvailable\"\n\"IscB2adAvailable\"";
 
     REGISTER_COMMAND_FACTORY(SetBeiDouEphemerisBoolParam);
 
@@ -90772,7 +91382,7 @@ namespace Sdx
   namespace Cmd
   {
     const char* const GetBeiDouEphemerisBoolParam::CmdName = "GetBeiDouEphemerisBoolParam";
-    const char* const GetBeiDouEphemerisBoolParam::Documentation = "Please note the command BeiDouEphemerisBoolParam is deprecated since 21.3. You may use BeiDouEphBoolParamForSV.\n\nGet various boolean parameters in the BeiDou ephemeris\n\n  ParamName\n\"IscB1CdAvailable\"\n\"IscB2adAvailable\"";
+    const char* const GetBeiDouEphemerisBoolParam::Documentation = "Please note the command GetBeiDouEphemerisBoolParam is deprecated since 21.3. You may use GetBeiDouEphBoolParamForSV.\n\nGet various boolean parameters in the BeiDou ephemeris\n\n  ParamName\n\"IscB1CdAvailable\"\n\"IscB2adAvailable\"";
 
     REGISTER_COMMAND_FACTORY(GetBeiDouEphemerisBoolParam);
 
@@ -90856,7 +91466,7 @@ namespace Sdx
   namespace Cmd
   {
     const char* const GetBeiDouEphemerisBoolParamResult::CmdName = "GetBeiDouEphemerisBoolParamResult";
-    const char* const GetBeiDouEphemerisBoolParamResult::Documentation = "Result of GetBeiDouEphemerisBoolParam";
+    const char* const GetBeiDouEphemerisBoolParamResult::Documentation = "Result of GetBeiDouEphemerisBoolParam.";
 
     REGISTER_COMMAND_RESULT_FACTORY(GetBeiDouEphemerisBoolParamResult);
 
@@ -91208,7 +91818,7 @@ namespace Sdx
   namespace Cmd
   {
     const char* const SetGpsSVConfiguration::CmdName = "SetGpsSVConfiguration";
-    const char* const SetGpsSVConfiguration::Documentation = "Please note the command GpsSVConfiguration is deprecated since 21.3. You may use GpsConfigurationCodeForSV.\n\nSet GPS SV configuration flag for one PRN";
+    const char* const SetGpsSVConfiguration::Documentation = "Please note the command SetGpsSVConfiguration is deprecated since 21.3. You may use SetGpsConfigurationCodeForSV.\n\nSet GPS SV configuration flag for one PRN";
 
     REGISTER_COMMAND_FACTORY(SetGpsSVConfiguration);
 
@@ -91292,7 +91902,7 @@ namespace Sdx
   namespace Cmd
   {
     const char* const GetGpsSVConfiguration::CmdName = "GetGpsSVConfiguration";
-    const char* const GetGpsSVConfiguration::Documentation = "Please note the command GpsSVConfiguration is deprecated since 21.3. You may use GpsConfigurationCodeForSV.\n\nGet GPS SV configuration flag for one PRN";
+    const char* const GetGpsSVConfiguration::Documentation = "Please note the command GetGpsSVConfiguration is deprecated since 21.3. You may use GetGpsConfigurationCodeForSV.\n\nGet GPS SV configuration flag for one PRN";
 
     REGISTER_COMMAND_FACTORY(GetGpsSVConfiguration);
 
@@ -91362,7 +91972,7 @@ namespace Sdx
   namespace Cmd
   {
     const char* const GetGpsSVConfigurationResult::CmdName = "GetGpsSVConfigurationResult";
-    const char* const GetGpsSVConfigurationResult::Documentation = "Result of GetGpsSVConfiguration";
+    const char* const GetGpsSVConfigurationResult::Documentation = "Result of GetGpsSVConfiguration.";
 
     REGISTER_COMMAND_RESULT_FACTORY(GetGpsSVConfigurationResult);
 
@@ -91440,7 +92050,7 @@ namespace Sdx
   namespace Cmd
   {
     const char* const SetGpsSatelliteDataHealth::CmdName = "SetGpsSatelliteDataHealth";
-    const char* const SetGpsSatelliteDataHealth::Documentation = "Please note the command GpsSatelliteDataHealth is deprecated since 21.3. You may use GpsDataHealthForSV.\n\nSet GPS nav data health";
+    const char* const SetGpsSatelliteDataHealth::Documentation = "Please note the command SetGpsSatelliteDataHealth is deprecated since 21.3. You may use SetGpsDataHealthForSV.\n\nSet GPS nav data health";
 
     REGISTER_COMMAND_FACTORY(SetGpsSatelliteDataHealth);
 
@@ -91524,7 +92134,7 @@ namespace Sdx
   namespace Cmd
   {
     const char* const GetGpsSatelliteDataHealth::CmdName = "GetGpsSatelliteDataHealth";
-    const char* const GetGpsSatelliteDataHealth::Documentation = "Please note the command GpsSatelliteDataHealth is deprecated since 21.3. You may use GpsDataHealthForSV.\n\nGet GPS nav data health";
+    const char* const GetGpsSatelliteDataHealth::Documentation = "Please note the command GetGpsSatelliteDataHealth is deprecated since 21.3. You may use GetGpsDataHealthForSV.\n\nGet GPS nav data health";
 
     REGISTER_COMMAND_FACTORY(GetGpsSatelliteDataHealth);
 
@@ -91594,7 +92204,7 @@ namespace Sdx
   namespace Cmd
   {
     const char* const GetGpsSatelliteDataHealthResult::CmdName = "GetGpsSatelliteDataHealthResult";
-    const char* const GetGpsSatelliteDataHealthResult::Documentation = "Result of GetGpsSatelliteDataHealth";
+    const char* const GetGpsSatelliteDataHealthResult::Documentation = "Result of GetGpsSatelliteDataHealth.";
 
     REGISTER_COMMAND_RESULT_FACTORY(GetGpsSatelliteDataHealthResult);
 
@@ -91672,7 +92282,7 @@ namespace Sdx
   namespace Cmd
   {
     const char* const SetGpsSatelliteSignalHealth::CmdName = "SetGpsSatelliteSignalHealth";
-    const char* const SetGpsSatelliteSignalHealth::Documentation = "Please note the command GpsSatelliteSignalHealth is deprecated since 21.3. You may use GpsSignalHealthForSV.\n\nSet GPS signal health";
+    const char* const SetGpsSatelliteSignalHealth::Documentation = "Please note the command SetGpsSatelliteSignalHealth is deprecated since 21.3. You may use SetGpsSignalHealthForSV.\n\nSet GPS signal health";
 
     REGISTER_COMMAND_FACTORY(SetGpsSatelliteSignalHealth);
 
@@ -91756,7 +92366,7 @@ namespace Sdx
   namespace Cmd
   {
     const char* const GetGpsSatelliteSignalHealth::CmdName = "GetGpsSatelliteSignalHealth";
-    const char* const GetGpsSatelliteSignalHealth::Documentation = "Please note the command GpsSatelliteSignalHealth is deprecated since 21.3. You may use GpsSignalHealthForSV.\n\nGet GPS signal health";
+    const char* const GetGpsSatelliteSignalHealth::Documentation = "Please note the command GetGpsSatelliteSignalHealth is deprecated since 21.3. You may use GetGpsSignalHealthForSV.\n\nGet GPS signal health";
 
     REGISTER_COMMAND_FACTORY(GetGpsSatelliteSignalHealth);
 
@@ -91826,7 +92436,7 @@ namespace Sdx
   namespace Cmd
   {
     const char* const GetGpsSatelliteSignalHealthResult::CmdName = "GetGpsSatelliteSignalHealthResult";
-    const char* const GetGpsSatelliteSignalHealthResult::Documentation = "Result of GetGpsSatelliteSignalHealth";
+    const char* const GetGpsSatelliteSignalHealthResult::Documentation = "Result of GetGpsSatelliteSignalHealth.";
 
     REGISTER_COMMAND_RESULT_FACTORY(GetGpsSatelliteSignalHealthResult);
 
@@ -91904,7 +92514,7 @@ namespace Sdx
   namespace Cmd
   {
     const char* const SetGpsSatelliteL1Health::CmdName = "SetGpsSatelliteL1Health";
-    const char* const SetGpsSatelliteL1Health::Documentation = "Please note the command GpsSatelliteL1Health is deprecated since 21.3. You may use GpsL1HealthForSV.\n\nSet GPS L1 health (used with CNAV and CNAV2)";
+    const char* const SetGpsSatelliteL1Health::Documentation = "Please note the command SetGpsSatelliteL1Health is deprecated since 21.3. You may use SetGpsL1HealthForSV.\n\nSet GPS L1 health (used with CNAV and CNAV2)";
 
     REGISTER_COMMAND_FACTORY(SetGpsSatelliteL1Health);
 
@@ -91988,7 +92598,7 @@ namespace Sdx
   namespace Cmd
   {
     const char* const GetGpsSatelliteL1Health::CmdName = "GetGpsSatelliteL1Health";
-    const char* const GetGpsSatelliteL1Health::Documentation = "Please note the command GpsSatelliteL1Health is deprecated since 21.3. You may use GpsL1HealthForSV.\n\nGet GPS L1 health (used with CNAV and CNAV2)";
+    const char* const GetGpsSatelliteL1Health::Documentation = "Please note the command GetGpsSatelliteL1Health is deprecated since 21.3. You may use GetGpsL1HealthForSV.\n\nGet GPS L1 health (used with CNAV and CNAV2)";
 
     REGISTER_COMMAND_FACTORY(GetGpsSatelliteL1Health);
 
@@ -92058,7 +92668,7 @@ namespace Sdx
   namespace Cmd
   {
     const char* const GetGpsSatelliteL1HealthResult::CmdName = "GetGpsSatelliteL1HealthResult";
-    const char* const GetGpsSatelliteL1HealthResult::Documentation = "Result of GetGpsSatelliteL1Health";
+    const char* const GetGpsSatelliteL1HealthResult::Documentation = "Result of GetGpsSatelliteL1Health.";
 
     REGISTER_COMMAND_RESULT_FACTORY(GetGpsSatelliteL1HealthResult);
 
@@ -92136,7 +92746,7 @@ namespace Sdx
   namespace Cmd
   {
     const char* const SetGpsSatelliteL2Health::CmdName = "SetGpsSatelliteL2Health";
-    const char* const SetGpsSatelliteL2Health::Documentation = "Please note the command GpsSatelliteL2Health is deprecated since 21.3. You may use GpsL2HealthForSV.\n\nSet GPS L2 health (used with CNAV and CNAV2)";
+    const char* const SetGpsSatelliteL2Health::Documentation = "Please note the command SetGpsSatelliteL2Health is deprecated since 21.3. You may use SetGpsL2HealthForSV.\n\nSet GPS L2 health (used with CNAV and CNAV2)";
 
     REGISTER_COMMAND_FACTORY(SetGpsSatelliteL2Health);
 
@@ -92220,7 +92830,7 @@ namespace Sdx
   namespace Cmd
   {
     const char* const GetGpsSatelliteL2Health::CmdName = "GetGpsSatelliteL2Health";
-    const char* const GetGpsSatelliteL2Health::Documentation = "Please note the command GpsSatelliteL2Health is deprecated since 21.3. You may use GpsL2HealthForSV.\n\nGet GPS L2 health (used with CNAV and CNAV2)";
+    const char* const GetGpsSatelliteL2Health::Documentation = "Please note the command GetGpsSatelliteL2Health is deprecated since 21.3. You may use GetGpsL2HealthForSV.\n\nGet GPS L2 health (used with CNAV and CNAV2)";
 
     REGISTER_COMMAND_FACTORY(GetGpsSatelliteL2Health);
 
@@ -92290,7 +92900,7 @@ namespace Sdx
   namespace Cmd
   {
     const char* const GetGpsSatelliteL2HealthResult::CmdName = "GetGpsSatelliteL2HealthResult";
-    const char* const GetGpsSatelliteL2HealthResult::Documentation = "Result of GetGpsSatelliteL2Health";
+    const char* const GetGpsSatelliteL2HealthResult::Documentation = "Result of GetGpsSatelliteL2Health.";
 
     REGISTER_COMMAND_RESULT_FACTORY(GetGpsSatelliteL2HealthResult);
 
@@ -92368,7 +92978,7 @@ namespace Sdx
   namespace Cmd
   {
     const char* const SetGpsSatelliteL5Health::CmdName = "SetGpsSatelliteL5Health";
-    const char* const SetGpsSatelliteL5Health::Documentation = "Please note the command GpsSatelliteL5Health is deprecated since 21.3. You may use GpsL5HealthForSV.\n\nSet GPS L5 health (used with CNAV and CNAV2)";
+    const char* const SetGpsSatelliteL5Health::Documentation = "Please note the command SetGpsSatelliteL5Health is deprecated since 21.3. You may use SetGpsL5HealthForSV.\n\nSet GPS L5 health (used with CNAV and CNAV2)";
 
     REGISTER_COMMAND_FACTORY(SetGpsSatelliteL5Health);
 
@@ -92452,7 +93062,7 @@ namespace Sdx
   namespace Cmd
   {
     const char* const GetGpsSatelliteL5Health::CmdName = "GetGpsSatelliteL5Health";
-    const char* const GetGpsSatelliteL5Health::Documentation = "Please note the command GpsSatelliteL5Health is deprecated since 21.3. You may use GpsL5HealthForSV.\n\nGet GPS L5 health (used with CNAV and CNAV2)";
+    const char* const GetGpsSatelliteL5Health::Documentation = "Please note the command GetGpsSatelliteL5Health is deprecated since 21.3. You may use GetGpsL5HealthForSV.\n\nGet GPS L5 health (used with CNAV and CNAV2)";
 
     REGISTER_COMMAND_FACTORY(GetGpsSatelliteL5Health);
 
@@ -92522,7 +93132,7 @@ namespace Sdx
   namespace Cmd
   {
     const char* const GetGpsSatelliteL5HealthResult::CmdName = "GetGpsSatelliteL5HealthResult";
-    const char* const GetGpsSatelliteL5HealthResult::Documentation = "Result of GetGpsSatelliteL5Health";
+    const char* const GetGpsSatelliteL5HealthResult::Documentation = "Result of GetGpsSatelliteL5Health.";
 
     REGISTER_COMMAND_RESULT_FACTORY(GetGpsSatelliteL5HealthResult);
 
@@ -92600,7 +93210,7 @@ namespace Sdx
   namespace Cmd
   {
     const char* const SetGpsSatelliteL1cHealth::CmdName = "SetGpsSatelliteL1cHealth";
-    const char* const SetGpsSatelliteL1cHealth::Documentation = "Please note the command GpsSatelliteL1cHealth is deprecated since 21.3. You may use GpsL1cHealthForSV.\n\nSet GPS L1C health (used in CNAV2 only)";
+    const char* const SetGpsSatelliteL1cHealth::Documentation = "Please note the command SetGpsSatelliteL1cHealth is deprecated since 21.3. You may use SetGpsL1cHealthForSV.\n\nSet GPS L1C health (used in CNAV2 only)";
 
     REGISTER_COMMAND_FACTORY(SetGpsSatelliteL1cHealth);
 
@@ -92684,7 +93294,7 @@ namespace Sdx
   namespace Cmd
   {
     const char* const GetGpsSatelliteL1cHealth::CmdName = "GetGpsSatelliteL1cHealth";
-    const char* const GetGpsSatelliteL1cHealth::Documentation = "Please note the command GpsSatelliteL1cHealth is deprecated since 21.3. You may use GpsL1cHealthForSV.\n\nGet GPS L1C health (used in CNAV2 only)";
+    const char* const GetGpsSatelliteL1cHealth::Documentation = "Please note the command GetGpsSatelliteL1cHealth is deprecated since 21.3. You may use GetGpsL1cHealthForSV.\n\nGet GPS L1C health (used in CNAV2 only)";
 
     REGISTER_COMMAND_FACTORY(GetGpsSatelliteL1cHealth);
 
@@ -92754,7 +93364,7 @@ namespace Sdx
   namespace Cmd
   {
     const char* const GetGpsSatelliteL1cHealthResult::CmdName = "GetGpsSatelliteL1cHealthResult";
-    const char* const GetGpsSatelliteL1cHealthResult::Documentation = "Result of GetGpsSatelliteL1cHealth";
+    const char* const GetGpsSatelliteL1cHealthResult::Documentation = "Result of GetGpsSatelliteL1cHealth.";
 
     REGISTER_COMMAND_RESULT_FACTORY(GetGpsSatelliteL1cHealthResult);
 
@@ -92832,7 +93442,7 @@ namespace Sdx
   namespace Cmd
   {
     const char* const SetGpsSatelliteAntiSpoofingFlag::CmdName = "SetGpsSatelliteAntiSpoofingFlag";
-    const char* const SetGpsSatelliteAntiSpoofingFlag::Documentation = "Please note the command GpsSatelliteAntiSpoofingFlag is deprecated since 21.3. You may use GpsAntiSpoofingFlagForSV.\n\nSet GPS Anti-Spoofing Flag";
+    const char* const SetGpsSatelliteAntiSpoofingFlag::Documentation = "Please note the command SetGpsSatelliteAntiSpoofingFlag is deprecated since 21.3. You may use SetGpsAntiSpoofingFlagForSV.\n\nSet GPS Anti-Spoofing Flag";
 
     REGISTER_COMMAND_FACTORY(SetGpsSatelliteAntiSpoofingFlag);
 
@@ -92916,7 +93526,7 @@ namespace Sdx
   namespace Cmd
   {
     const char* const GetGpsSatelliteAntiSpoofingFlag::CmdName = "GetGpsSatelliteAntiSpoofingFlag";
-    const char* const GetGpsSatelliteAntiSpoofingFlag::Documentation = "Please note the command GpsSatelliteAntiSpoofingFlag is deprecated since 21.3. You may use GpsAntiSpoofingFlagForSV.\n\nGet GPS Anti-Spoofing Flag";
+    const char* const GetGpsSatelliteAntiSpoofingFlag::Documentation = "Please note the command GetGpsSatelliteAntiSpoofingFlag is deprecated since 21.3. You may use GetGpsAntiSpoofingFlagForSV.\n\nGet GPS Anti-Spoofing Flag";
 
     REGISTER_COMMAND_FACTORY(GetGpsSatelliteAntiSpoofingFlag);
 
@@ -92986,7 +93596,7 @@ namespace Sdx
   namespace Cmd
   {
     const char* const GetGpsSatelliteAntiSpoofingFlagResult::CmdName = "GetGpsSatelliteAntiSpoofingFlagResult";
-    const char* const GetGpsSatelliteAntiSpoofingFlagResult::Documentation = "Result of GetGpsSatelliteAntiSpoofingFlag";
+    const char* const GetGpsSatelliteAntiSpoofingFlagResult::Documentation = "Result of GetGpsSatelliteAntiSpoofingFlag.";
 
     REGISTER_COMMAND_RESULT_FACTORY(GetGpsSatelliteAntiSpoofingFlagResult);
 
@@ -93064,7 +93674,7 @@ namespace Sdx
   namespace Cmd
   {
     const char* const SetGpsSatelliteNavAlertFlag::CmdName = "SetGpsSatelliteNavAlertFlag";
-    const char* const SetGpsSatelliteNavAlertFlag::Documentation = "Please note the command GpsSatelliteNavAlertFlag is deprecated since 21.3. You may use GpsNavAlertFlagForSV.\n\nSet GPS NAV Alert Flag";
+    const char* const SetGpsSatelliteNavAlertFlag::Documentation = "Please note the command SetGpsSatelliteNavAlertFlag is deprecated since 21.3. You may use SetGpsNavAlertFlagForSV.\n\nSet GPS NAV Alert Flag";
 
     REGISTER_COMMAND_FACTORY(SetGpsSatelliteNavAlertFlag);
 
@@ -93148,7 +93758,7 @@ namespace Sdx
   namespace Cmd
   {
     const char* const GetGpsSatelliteNavAlertFlag::CmdName = "GetGpsSatelliteNavAlertFlag";
-    const char* const GetGpsSatelliteNavAlertFlag::Documentation = "Please note the command GpsSatelliteNavAlertFlag is deprecated since 21.3. You may use GpsNavAlertFlagForSV.\n\nGet GPS NAV Alert Flag";
+    const char* const GetGpsSatelliteNavAlertFlag::Documentation = "Please note the command GetGpsSatelliteNavAlertFlag is deprecated since 21.3. You may use GetGpsNavAlertFlagForSV.\n\nGet GPS NAV Alert Flag";
 
     REGISTER_COMMAND_FACTORY(GetGpsSatelliteNavAlertFlag);
 
@@ -93218,7 +93828,7 @@ namespace Sdx
   namespace Cmd
   {
     const char* const GetGpsSatelliteNavAlertFlagResult::CmdName = "GetGpsSatelliteNavAlertFlagResult";
-    const char* const GetGpsSatelliteNavAlertFlagResult::Documentation = "Result of GetGpsSatelliteNavAlertFlag";
+    const char* const GetGpsSatelliteNavAlertFlagResult::Documentation = "Result of GetGpsSatelliteNavAlertFlag.";
 
     REGISTER_COMMAND_RESULT_FACTORY(GetGpsSatelliteNavAlertFlagResult);
 
@@ -93296,7 +93906,7 @@ namespace Sdx
   namespace Cmd
   {
     const char* const SetGpsSatelliteCNavAlertFlag::CmdName = "SetGpsSatelliteCNavAlertFlag";
-    const char* const SetGpsSatelliteCNavAlertFlag::Documentation = "Please note the command GpsSatelliteCNavAlertFlag is deprecated since 21.3. You may use GpsCNavAlertFlagToSV.\n\nSet GPS CNAV Alert Flag";
+    const char* const SetGpsSatelliteCNavAlertFlag::Documentation = "Please note the command SetGpsSatelliteCNavAlertFlag is deprecated since 21.3. You may use SetGpsCNavAlertFlagToSV.\n\nSet GPS CNAV Alert Flag";
 
     REGISTER_COMMAND_FACTORY(SetGpsSatelliteCNavAlertFlag);
 
@@ -93380,7 +93990,7 @@ namespace Sdx
   namespace Cmd
   {
     const char* const GetGpsSatelliteCNavAlertFlag::CmdName = "GetGpsSatelliteCNavAlertFlag";
-    const char* const GetGpsSatelliteCNavAlertFlag::Documentation = "Please note the command GpsSatelliteCNavAlertFlag is deprecated since 21.3. You may use GpsCNavAlertFlagToSV.\n\nGet GPS CNAV Alert Flag";
+    const char* const GetGpsSatelliteCNavAlertFlag::Documentation = "Please note the command GetGpsSatelliteCNavAlertFlag is deprecated since 21.3. You may use GetGpsCNavAlertFlagToSV.\n\nGet GPS CNAV Alert Flag";
 
     REGISTER_COMMAND_FACTORY(GetGpsSatelliteCNavAlertFlag);
 
@@ -93450,7 +94060,7 @@ namespace Sdx
   namespace Cmd
   {
     const char* const GetGpsSatelliteCNavAlertFlagResult::CmdName = "GetGpsSatelliteCNavAlertFlagResult";
-    const char* const GetGpsSatelliteCNavAlertFlagResult::Documentation = "Result of GetGpsSatelliteCNavAlertFlag";
+    const char* const GetGpsSatelliteCNavAlertFlagResult::Documentation = "Result of GetGpsSatelliteCNavAlertFlag.";
 
     REGISTER_COMMAND_RESULT_FACTORY(GetGpsSatelliteCNavAlertFlagResult);
 
@@ -93626,7 +94236,7 @@ namespace Sdx
   namespace Cmd
   {
     const char* const IsLOSEnabled::CmdName = "IsLOSEnabled";
-    const char* const IsLOSEnabled::Documentation = "Please note the command EnableLOS is deprecated since 21.3. You may use EnableLosForSV.\n\nGet Direct Line Of Sight signal from satellite enabled or disabled. Generally used when only multipaths signal is visible.";
+    const char* const IsLOSEnabled::Documentation = "Please note the command IsLOSEnabled is deprecated since 21.3. You may use IsLosEnabledForSV.\n\nGet Direct Line Of Sight signal from satellite enabled or disabled. Generally used when only multipaths signal is visible.";
 
     REGISTER_COMMAND_FACTORY(IsLOSEnabled);
 
@@ -93710,7 +94320,7 @@ namespace Sdx
   namespace Cmd
   {
     const char* const IsLOSEnabledResult::CmdName = "IsLOSEnabledResult";
-    const char* const IsLOSEnabledResult::Documentation = "Result of IsLOSEnabled";
+    const char* const IsLOSEnabledResult::Documentation = "Result of IsLOSEnabled.";
 
     REGISTER_COMMAND_RESULT_FACTORY(IsLOSEnabledResult);
 
@@ -93886,7 +94496,7 @@ namespace Sdx
   namespace Cmd
   {
     const char* const IsLOSEnabledForEachPrn::CmdName = "IsLOSEnabledForEachPrn";
-    const char* const IsLOSEnabledForEachPrn::Documentation = "Please note the command EnableLOSForEachPrn is deprecated since 21.3. You may use EnableLosForEachSV.\n\nGet Direct Line Of Sight signal from satellite disabled or enabled. Generally used when only multipaths signal is visible.";
+    const char* const IsLOSEnabledForEachPrn::Documentation = "Please note the command IsLOSEnabledForEachPrn is deprecated since 21.3. You may use IsLOSEnabledForEachSV.\n\nGet Direct Line Of Sight signal from satellite disabled or enabled. Generally used when only multipaths signal is visible.";
 
     REGISTER_COMMAND_FACTORY(IsLOSEnabledForEachPrn);
 
@@ -93956,7 +94566,7 @@ namespace Sdx
   namespace Cmd
   {
     const char* const IsLOSEnabledForEachPrnResult::CmdName = "IsLOSEnabledForEachPrnResult";
-    const char* const IsLOSEnabledForEachPrnResult::Documentation = "Result of IsLOSEnabledForEachPrn";
+    const char* const IsLOSEnabledForEachPrnResult::Documentation = "Result of IsLOSEnabledForEachPrn.";
 
     REGISTER_COMMAND_RESULT_FACTORY(IsLOSEnabledForEachPrnResult);
 
@@ -94034,7 +94644,7 @@ namespace Sdx
   namespace Cmd
   {
     const char* const SetBeiDouSatelliteHealthInfo::CmdName = "SetBeiDouSatelliteHealthInfo";
-    const char* const SetBeiDouSatelliteHealthInfo::Documentation = "Please note the command BeiDouSatelliteHealthInfo is deprecated since 21.3. You may use BeiDouHealthInfoForSV.\n\nSet BeiDou satellite health info";
+    const char* const SetBeiDouSatelliteHealthInfo::Documentation = "Please note the command SetBeiDouSatelliteHealthInfo is deprecated since 21.3. You may use SetBeiDouHealthInfoForSV.\n\nSet BeiDou satellite health info";
 
     REGISTER_COMMAND_FACTORY(SetBeiDouSatelliteHealthInfo);
 
@@ -94118,7 +94728,7 @@ namespace Sdx
   namespace Cmd
   {
     const char* const GetBeiDouSatelliteHealthInfo::CmdName = "GetBeiDouSatelliteHealthInfo";
-    const char* const GetBeiDouSatelliteHealthInfo::Documentation = "Please note the command BeiDouSatelliteHealthInfo is deprecated since 21.3. You may use BeiDouHealthInfoForSV.\n\nGet BeiDou satellite health info";
+    const char* const GetBeiDouSatelliteHealthInfo::Documentation = "Please note the command GetBeiDouSatelliteHealthInfo is deprecated since 21.3. You may use GetBeiDouHealthInfoForSV.\n\nGet BeiDou satellite health info";
 
     REGISTER_COMMAND_FACTORY(GetBeiDouSatelliteHealthInfo);
 
@@ -94188,7 +94798,7 @@ namespace Sdx
   namespace Cmd
   {
     const char* const GetBeiDouSatelliteHealthInfoResult::CmdName = "GetBeiDouSatelliteHealthInfoResult";
-    const char* const GetBeiDouSatelliteHealthInfoResult::Documentation = "Result of GetBeiDouSatelliteHealthInfo";
+    const char* const GetBeiDouSatelliteHealthInfoResult::Documentation = "Result of GetBeiDouSatelliteHealthInfo.";
 
     REGISTER_COMMAND_RESULT_FACTORY(GetBeiDouSatelliteHealthInfoResult);
 
@@ -94266,7 +94876,7 @@ namespace Sdx
   namespace Cmd
   {
     const char* const SetBeiDouSatelliteAutonomousHealth::CmdName = "SetBeiDouSatelliteAutonomousHealth";
-    const char* const SetBeiDouSatelliteAutonomousHealth::Documentation = "Please note the command BeiDouSatelliteAutonomousHealth is deprecated since 21.3. You may use BeiDouAutonomousHealthForSV.\n\nSet BeiDou satellite autonomous health";
+    const char* const SetBeiDouSatelliteAutonomousHealth::Documentation = "Please note the command SetBeiDouSatelliteAutonomousHealth is deprecated since 21.3. You may use SetBeiDouAutonomousHealthForSV.\n\nSet BeiDou satellite autonomous health";
 
     REGISTER_COMMAND_FACTORY(SetBeiDouSatelliteAutonomousHealth);
 
@@ -94350,7 +94960,7 @@ namespace Sdx
   namespace Cmd
   {
     const char* const GetBeiDouSatelliteAutonomousHealth::CmdName = "GetBeiDouSatelliteAutonomousHealth";
-    const char* const GetBeiDouSatelliteAutonomousHealth::Documentation = "Please note the command BeiDouSatelliteAutonomousHealth is deprecated since 21.3. You may use BeiDouAutonomousHealthForSV.\n\nGet BeiDou satellite autonomous health";
+    const char* const GetBeiDouSatelliteAutonomousHealth::Documentation = "Please note the command GetBeiDouSatelliteAutonomousHealth is deprecated since 21.3. You may use GetBeiDouAutonomousHealthForSV.\n\nGet BeiDou satellite autonomous health";
 
     REGISTER_COMMAND_FACTORY(GetBeiDouSatelliteAutonomousHealth);
 
@@ -94420,7 +95030,7 @@ namespace Sdx
   namespace Cmd
   {
     const char* const GetBeiDouSatelliteAutonomousHealthResult::CmdName = "GetBeiDouSatelliteAutonomousHealthResult";
-    const char* const GetBeiDouSatelliteAutonomousHealthResult::Documentation = "Result of GetBeiDouSatelliteAutonomousHealth";
+    const char* const GetBeiDouSatelliteAutonomousHealthResult::Documentation = "Result of GetBeiDouSatelliteAutonomousHealth.";
 
     REGISTER_COMMAND_RESULT_FACTORY(GetBeiDouSatelliteAutonomousHealthResult);
 
@@ -94498,7 +95108,7 @@ namespace Sdx
   namespace Cmd
   {
     const char* const SetBeiDouCNavSatelliteHealthInfo::CmdName = "SetBeiDouCNavSatelliteHealthInfo";
-    const char* const SetBeiDouCNavSatelliteHealthInfo::Documentation = "Please note the command BeiDouCNavSatelliteHealthInfo is deprecated since 21.3. You may use BeiDouCNavHealthInfoForSV.\n\nSet BeiDou CNav satellite health info";
+    const char* const SetBeiDouCNavSatelliteHealthInfo::Documentation = "Please note the command SetBeiDouCNavSatelliteHealthInfo is deprecated since 21.3. You may use SetBeiDouCNavHealthInfoForSV.\n\nSet BeiDou CNav satellite health info";
 
     REGISTER_COMMAND_FACTORY(SetBeiDouCNavSatelliteHealthInfo);
 
@@ -94582,7 +95192,7 @@ namespace Sdx
   namespace Cmd
   {
     const char* const GetBeiDouCNavSatelliteHealthInfo::CmdName = "GetBeiDouCNavSatelliteHealthInfo";
-    const char* const GetBeiDouCNavSatelliteHealthInfo::Documentation = "Please note the command BeiDouCNavSatelliteHealthInfo is deprecated since 21.3. You may use BeiDouCNavHealthInfoForSV.\n\nGet BeiDou CNav satellite health info";
+    const char* const GetBeiDouCNavSatelliteHealthInfo::Documentation = "Please note the command GetBeiDouCNavSatelliteHealthInfo is deprecated since 21.3. You may use GetBeiDouCNavHealthInfoForSV.\n\nGet BeiDou CNav satellite health info";
 
     REGISTER_COMMAND_FACTORY(GetBeiDouCNavSatelliteHealthInfo);
 
@@ -94652,7 +95262,7 @@ namespace Sdx
   namespace Cmd
   {
     const char* const GetBeiDouCNavSatelliteHealthInfoResult::CmdName = "GetBeiDouCNavSatelliteHealthInfoResult";
-    const char* const GetBeiDouCNavSatelliteHealthInfoResult::Documentation = "Result of GetBeiDouCNavSatelliteHealthInfo";
+    const char* const GetBeiDouCNavSatelliteHealthInfoResult::Documentation = "Result of GetBeiDouCNavSatelliteHealthInfo.";
 
     REGISTER_COMMAND_RESULT_FACTORY(GetBeiDouCNavSatelliteHealthInfoResult);
 
@@ -94730,7 +95340,7 @@ namespace Sdx
   namespace Cmd
   {
     const char* const SetBeiDouSatelliteHealthStatus::CmdName = "SetBeiDouSatelliteHealthStatus";
-    const char* const SetBeiDouSatelliteHealthStatus::Documentation = "Please note the command BeiDouSatelliteHealthStatus is deprecated since 21.3. You may use BeiDouHealthStatusForSV.\n\nSet BeiDou satellite health status";
+    const char* const SetBeiDouSatelliteHealthStatus::Documentation = "Please note the command SetBeiDouSatelliteHealthStatus is deprecated since 21.3. You may use SetBeiDouHealthStatusForSV.\n\nSet BeiDou satellite health status";
 
     REGISTER_COMMAND_FACTORY(SetBeiDouSatelliteHealthStatus);
 
@@ -94814,7 +95424,7 @@ namespace Sdx
   namespace Cmd
   {
     const char* const GetBeiDouSatelliteHealthStatus::CmdName = "GetBeiDouSatelliteHealthStatus";
-    const char* const GetBeiDouSatelliteHealthStatus::Documentation = "Please note the command BeiDouSatelliteHealthStatus is deprecated since 21.3. You may use BeiDouHealthStatusForSV.\n\nGet BeiDou satellite health status";
+    const char* const GetBeiDouSatelliteHealthStatus::Documentation = "Please note the command GetBeiDouSatelliteHealthStatus is deprecated since 21.3. You may use GetBeiDouHealthStatusForSV.\n\nGet BeiDou satellite health status";
 
     REGISTER_COMMAND_FACTORY(GetBeiDouSatelliteHealthStatus);
 
@@ -94884,7 +95494,7 @@ namespace Sdx
   namespace Cmd
   {
     const char* const GetBeiDouSatelliteHealthStatusResult::CmdName = "GetBeiDouSatelliteHealthStatusResult";
-    const char* const GetBeiDouSatelliteHealthStatusResult::Documentation = "Result of GetBeiDouSatelliteHealthStatus";
+    const char* const GetBeiDouSatelliteHealthStatusResult::Documentation = "Result of GetBeiDouSatelliteHealthStatus.";
 
     REGISTER_COMMAND_RESULT_FACTORY(GetBeiDouSatelliteHealthStatusResult);
 
@@ -95130,7 +95740,7 @@ namespace Sdx
   namespace Cmd
   {
     const char* const SetModificationToGpsCNavMessage::CmdName = "SetModificationToGpsCNavMessage";
-    const char* const SetModificationToGpsCNavMessage::Documentation = "Please note the command ModificationToGpsCNavMessage is deprecated since 21.3. You may use MessageModificationToGpsCNav.\n\nSet (or Modify) event to change CNAV message bits. If you send this command without setting the Id\nparameter, or if you set the Id with a value never used before, a new Modification event will be\ncreated. If you reuse the same event Id, it will modify the existing event.\n\nNote that start and stop time are automatically extended to beginning and ending of overlapped\nmessages.\n\nThe Condition parameter is optional and allows you to add content matching condition before applying\nbits mods.\n\nBitsMods can be an empty string. The Modification will have no effect until you modify it with at\nleast one bits mod.\n\nA bits mod is represented with a string using the following format: \"I:Bits\" where I is a bit\nindex (1 refers to the first transmitted bit) and Bits is a modification mask where each\ncharacter describes a modification to a single bit. The allowed characters are:\n   0 : force bit to 0\n   1 : force bit to 1\n   - : leave bit unchanged\n   X : revert bit (0 becomes 1 and 1 becomes 0)\n\nFor example: \"24:X---10XX\" will: revert bits 24, 30 and 31\n                 set bit 28 to 1\n                 set bit 29 to 0\nThe other bits are not affected.\n\nYou can add multiple bits mods using commas. For example: \"24:X---10XX,127:100X,231:01\"";
+    const char* const SetModificationToGpsCNavMessage::Documentation = "Please note the command SetModificationToGpsCNavMessage is deprecated since 21.3. You may use SetMessageModificationToGpsCNav.\n\nSet (or Modify) event to change CNAV message bits. If you send this command without setting the Id\nparameter, or if you set the Id with a value never used before, a new Modification event will be\ncreated. If you reuse the same event Id, it will modify the existing event.\n\nNote that start and stop time are automatically extended to beginning and ending of overlapped\nmessages.\n\nThe Condition parameter is optional and allows you to add content matching condition before applying\nbits mods.\n\nBitsMods can be an empty string. The Modification will have no effect until you modify it with at\nleast one bits mod.\n\nA bits mod is represented with a string using the following format: \"I:Bits\" where I is a bit\nindex (1 refers to the first transmitted bit) and Bits is a modification mask where each\ncharacter describes a modification to a single bit. The allowed characters are:\n   0 : force bit to 0\n   1 : force bit to 1\n   - : leave bit unchanged\n   X : revert bit (0 becomes 1 and 1 becomes 0)\n\nFor example: \"24:X---10XX\" will: revert bits 24, 30 and 31\n                 set bit 28 to 1\n                 set bit 29 to 0\nThe other bits are not affected.\n\nYou can add multiple bits mods using commas. For example: \"24:X---10XX,127:100X,231:01\"";
 
     REGISTER_COMMAND_FACTORY(SetModificationToGpsCNavMessage);
 
@@ -95298,7 +95908,7 @@ namespace Sdx
   namespace Cmd
   {
     const char* const GetGpsCNavMessage::CmdName = "GetGpsCNavMessage";
-    const char* const GetGpsCNavMessage::Documentation = "Please note the command ModificationToGpsCNavMessage is deprecated since 21.3. You may use MessageModificationToGpsCNav.\n\nGet infos about the CNAV Message with this id";
+    const char* const GetGpsCNavMessage::Documentation = "Please note the command GetGpsCNavMessage is deprecated since 21.3. You may use GetMessageModificationToGpsCNav.\n\nGet infos about the CNAV Message with this id";
 
     REGISTER_COMMAND_FACTORY(GetGpsCNavMessage);
 
@@ -95368,7 +95978,7 @@ namespace Sdx
   namespace Cmd
   {
     const char* const GetGpsCNavMessageResult::CmdName = "GetGpsCNavMessageResult";
-    const char* const GetGpsCNavMessageResult::Documentation = "Result of GetGpsCNavMessage";
+    const char* const GetGpsCNavMessageResult::Documentation = "Result of GetGpsCNavMessage.";
 
     REGISTER_COMMAND_RESULT_FACTORY(GetGpsCNavMessageResult);
 
@@ -96442,7 +97052,7 @@ namespace Sdx
   namespace Cmd
   {
     const char* const SetModificationToGpsCNav2Message::CmdName = "SetModificationToGpsCNav2Message";
-    const char* const SetModificationToGpsCNav2Message::Documentation = "Please note the command ModificationToGpsCNav2Message is deprecated since 21.3. You may use MessageModificationToGpsCNav2.\n\nSet (or Modify) event to change CNAV2 message bits. If you send this command without setting the Id\nparameter, or if you set the Id with a value never used before, a new Modification event will be\ncreated. If you reuse the same event Id, it will modify the existing event.\n\nNote that start and stop time are automatically extended to beginning and ending of overlapped\nmessages.\n\nThe Condition parameter is optional and allows you to add content matching condition before applying\nbits mods.\n\nBitsMods can be an empty string. The Modification will have no effect until you modify it with at\nleast one bits mod.\n\nA bits mod is represented with a string using the following format: \"I:Bits\" where I is a bit\nindex (1 refers to the first transmitted bit) and Bits is a modification mask where each\ncharacter describes a modification to a single bit. The allowed characters are:\n   0 : force bit to 0\n   1 : force bit to 1\n   - : leave bit unchanged\n   X : revert bit (0 becomes 1 and 1 becomes 0)\n\nFor example: \"24:X---10XX\" will: revert bits 24, 30 and 31\n                 set bit 28 to 1\n                 set bit 29 to 0\nThe other bits are not affected.\n\nYou can add multiple bits mods using commas. For example: \"24:X---10XX,127:100X,231:01\"";
+    const char* const SetModificationToGpsCNav2Message::Documentation = "Please note the command SetModificationToGpsCNav2Message is deprecated since 21.3. You may use SetMessageModificationToGpsCNav2.\n\nSet (or Modify) event to change CNAV2 message bits. If you send this command without setting the Id\nparameter, or if you set the Id with a value never used before, a new Modification event will be\ncreated. If you reuse the same event Id, it will modify the existing event.\n\nNote that start and stop time are automatically extended to beginning and ending of overlapped\nmessages.\n\nThe Condition parameter is optional and allows you to add content matching condition before applying\nbits mods.\n\nBitsMods can be an empty string. The Modification will have no effect until you modify it with at\nleast one bits mod.\n\nA bits mod is represented with a string using the following format: \"I:Bits\" where I is a bit\nindex (1 refers to the first transmitted bit) and Bits is a modification mask where each\ncharacter describes a modification to a single bit. The allowed characters are:\n   0 : force bit to 0\n   1 : force bit to 1\n   - : leave bit unchanged\n   X : revert bit (0 becomes 1 and 1 becomes 0)\n\nFor example: \"24:X---10XX\" will: revert bits 24, 30 and 31\n                 set bit 28 to 1\n                 set bit 29 to 0\nThe other bits are not affected.\n\nYou can add multiple bits mods using commas. For example: \"24:X---10XX,127:100X,231:01\"";
 
     REGISTER_COMMAND_FACTORY(SetModificationToGpsCNav2Message);
 
@@ -96610,7 +97220,7 @@ namespace Sdx
   namespace Cmd
   {
     const char* const GetGpsCNav2Message::CmdName = "GetGpsCNav2Message";
-    const char* const GetGpsCNav2Message::Documentation = "Please note the command ModificationToGpsCNav2Message is deprecated since 21.3. You may use MessageModificationToGpsCNav2.\n\nGet infos about the CNAV2 Message with this id";
+    const char* const GetGpsCNav2Message::Documentation = "Please note the command GetGpsCNav2Message is deprecated since 21.3. You may use GetMessageModificationToGpsCNav2.\n\nGet infos about the CNAV2 Message with this id";
 
     REGISTER_COMMAND_FACTORY(GetGpsCNav2Message);
 
@@ -96680,7 +97290,7 @@ namespace Sdx
   namespace Cmd
   {
     const char* const GetGpsCNav2MessageResult::CmdName = "GetGpsCNav2MessageResult";
-    const char* const GetGpsCNav2MessageResult::Documentation = "Result of GetGpsCNav2Message";
+    const char* const GetGpsCNav2MessageResult::Documentation = "Result of GetGpsCNav2Message.";
 
     REGISTER_COMMAND_RESULT_FACTORY(GetGpsCNav2MessageResult);
 
@@ -97098,7 +97708,7 @@ namespace Sdx
   namespace Cmd
   {
     const char* const SetModificationToGpsNavigationMessage::CmdName = "SetModificationToGpsNavigationMessage";
-    const char* const SetModificationToGpsNavigationMessage::Documentation = "Please note the command ModificationToGpsNavigationMessage is deprecated since 21.3. You may use MessageModificationToGpsLNav.\n\nSet (or Modify) event to change navigation message bits.\n\nNote that start and stop time are automatically extended to beginning and ending of overlapped\nsubframes. The Modification parameter is a string where the first character applies to the first\nbit of subframe word and last character applies to last bit of subframe word.\n   '0' will force bit to zero\n   '1' will for bit to one\n   'X' will negate bit value\n   any other byte value will have no effect\n\nExample: \"-00------------------1-X------\" will force bits 1 and 2 to zero and bit 22 to one\n                      and negate bit 24\n\nNote: if UpdateParity is true, any modification to bits 25..30 will have no effect.\n\nThe Id parameter is automatically updated with a unique id by the simulator for future reference.\nIf the Id is set with a value other than an empty string, the simulator will try to find a match\nwith previously added events. If there is a match, the event is updated with this message\ninstead of adding a new event. If there is no match, the event is added and the id is not\nchanged.";
+    const char* const SetModificationToGpsNavigationMessage::Documentation = "Please note the command SetModificationToGpsNavigationMessage is deprecated since 21.3. You may use SetMessageModificationToGpsLNav.\n\nSet (or Modify) event to change navigation message bits.\n\nNote that start and stop time are automatically extended to beginning and ending of overlapped\nsubframes. The Modification parameter is a string where the first character applies to the first\nbit of subframe word and last character applies to last bit of subframe word.\n   '0' will force bit to zero\n   '1' will for bit to one\n   'X' will negate bit value\n   any other byte value will have no effect\n\nExample: \"-00------------------1-X------\" will force bits 1 and 2 to zero and bit 22 to one\n                      and negate bit 24\n\nNote: if UpdateParity is true, any modification to bits 25..30 will have no effect.\n\nThe Id parameter is automatically updated with a unique id by the simulator for future reference.\nIf the Id is set with a value other than an empty string, the simulator will try to find a match\nwith previously added events. If there is a match, the event is updated with this message\ninstead of adding a new event. If there is no match, the event is added and the id is not\nchanged.";
 
     REGISTER_COMMAND_FACTORY(SetModificationToGpsNavigationMessage);
 
@@ -97280,7 +97890,7 @@ namespace Sdx
   namespace Cmd
   {
     const char* const GetGpsNavigationMessage::CmdName = "GetGpsNavigationMessage";
-    const char* const GetGpsNavigationMessage::Documentation = "Please note the command ModificationToGpsNavigationMessage is deprecated since 21.3. You may use MessageModificationToGpsLNav.\n\nGet infos about this modification gps navigation message event.";
+    const char* const GetGpsNavigationMessage::Documentation = "Please note the command GetGpsNavigationMessage is deprecated since 21.3. You may use GetMessageModificationToGpsLNav.\n\nGet infos about this modification gps navigation message event.";
 
     REGISTER_COMMAND_FACTORY(GetGpsNavigationMessage);
 
@@ -97350,7 +97960,7 @@ namespace Sdx
   namespace Cmd
   {
     const char* const GetGpsNavigationMessageResult::CmdName = "GetGpsNavigationMessageResult";
-    const char* const GetGpsNavigationMessageResult::Documentation = "Result of GetGpsNavigationMessage";
+    const char* const GetGpsNavigationMessageResult::Documentation = "Result of GetGpsNavigationMessage.";
 
     REGISTER_COMMAND_RESULT_FACTORY(GetGpsNavigationMessageResult);
 
@@ -97782,7 +98392,7 @@ namespace Sdx
   namespace Cmd
   {
     const char* const SetModificationToGalileoFNavMessage::CmdName = "SetModificationToGalileoFNavMessage";
-    const char* const SetModificationToGalileoFNavMessage::Documentation = "Please note the command ModificationToGalileoFNavMessage is deprecated since 21.3. You may use MessageModificationToGalileoFNav.\n\nSet (or Modify) event to change FNAV message bits. If you send this command without setting the Id\nparameter, or if you set the Id with a value never used before, a new Modification event will be\ncreated. If you reuse the same event Id, it will modify the existing event.\n\nNote that start and stop time are automatically extended to beginning and ending of overlapped\nmessages.\n\nBitsMods can be an empty string. The Modification will have no effect until you modify it with at\nleast one bits mod.\n\nA bits mod is represented with a string using the following format: \"I:Bits\" where I is a bit\nindex (1 refers to the first transmitted bit) and Bits is a modification mask where each\ncharacter describes a modification to a single bit. The allowed characters are:\n   0 : force bit to 0\n   1 : force bit to 1\n   - : leave bit unchanged\n   X : revert bit (0 becomes 1 and 1 becomes 0)\n\nFor example: \"24:X---10XX\" will: revert bits 24, 30 and 31\n                 set bit 28 to 1\n                 set bit 29 to 0\nThe other bits are not affected.\n\nYou can add multiple bits mods using commas. For example: \"24:X---10XX,127:100X,231:01\"";
+    const char* const SetModificationToGalileoFNavMessage::Documentation = "Please note the command SetModificationToGalileoFNavMessage is deprecated since 21.3. You may use SetMessageModificationToGalileoFNav.\n\nSet (or Modify) event to change FNAV message bits. If you send this command without setting the Id\nparameter, or if you set the Id with a value never used before, a new Modification event will be\ncreated. If you reuse the same event Id, it will modify the existing event.\n\nNote that start and stop time are automatically extended to beginning and ending of overlapped\nmessages.\n\nBitsMods can be an empty string. The Modification will have no effect until you modify it with at\nleast one bits mod.\n\nA bits mod is represented with a string using the following format: \"I:Bits\" where I is a bit\nindex (1 refers to the first transmitted bit) and Bits is a modification mask where each\ncharacter describes a modification to a single bit. The allowed characters are:\n   0 : force bit to 0\n   1 : force bit to 1\n   - : leave bit unchanged\n   X : revert bit (0 becomes 1 and 1 becomes 0)\n\nFor example: \"24:X---10XX\" will: revert bits 24, 30 and 31\n                 set bit 28 to 1\n                 set bit 29 to 0\nThe other bits are not affected.\n\nYou can add multiple bits mods using commas. For example: \"24:X---10XX,127:100X,231:01\"";
 
     REGISTER_COMMAND_FACTORY(SetModificationToGalileoFNavMessage);
 
@@ -97950,7 +98560,7 @@ namespace Sdx
   namespace Cmd
   {
     const char* const GetGalileoFNavMessage::CmdName = "GetGalileoFNavMessage";
-    const char* const GetGalileoFNavMessage::Documentation = "Please note the command ModificationToGalileoFNavMessage is deprecated since 21.3. You may use MessageModificationToGalileoFNav.\n\nGet infos about the FNAV Message with this id";
+    const char* const GetGalileoFNavMessage::Documentation = "Please note the command GetGalileoFNavMessage is deprecated since 21.3. You may use GetMessageModificationToGalileoFNav.\n\nGet infos about the FNAV Message with this id";
 
     REGISTER_COMMAND_FACTORY(GetGalileoFNavMessage);
 
@@ -98020,7 +98630,7 @@ namespace Sdx
   namespace Cmd
   {
     const char* const GetGalileoFNavMessageResult::CmdName = "GetGalileoFNavMessageResult";
-    const char* const GetGalileoFNavMessageResult::Documentation = "Result of GetGalileoFNavMessage";
+    const char* const GetGalileoFNavMessageResult::Documentation = "Result of GetGalileoFNavMessage.";
 
     REGISTER_COMMAND_RESULT_FACTORY(GetGalileoFNavMessageResult);
 
@@ -98438,7 +99048,7 @@ namespace Sdx
   namespace Cmd
   {
     const char* const SetModificationToGalileoINavMessage::CmdName = "SetModificationToGalileoINavMessage";
-    const char* const SetModificationToGalileoINavMessage::Documentation = "Please note the command ModificationToGalileoINavMessage is deprecated since 21.3. You may use MessageModificationToGalileoINav.\n\nSet (or Modify) event to change INAV message bits. If you send this command without setting the Id\nparameter, or if you set the Id with a value never used before, a new Modification event will be\ncreated. If you reuse the same event Id, it will modify the existing event.\n\nNote that start and stop time are automatically extended to beginning and ending of overlapped\nmessages.\n\nBitsMods can be an empty string. The Modification will have no effect until you modify it with at\nleast one bits mod.\n\nA bits mod is represented with a string using the following format: \"I:Bits\" where I is a bit\nindex (1 refers to the first transmitted bit) and Bits is a modification mask where each\ncharacter describes a modification to a single bit. The allowed characters are:\n   0 : force bit to 0\n   1 : force bit to 1\n   - : leave bit unchanged\n   X : revert bit (0 becomes 1 and 1 becomes 0)\n\nFor example: \"24:X---10XX\" will: revert bits 24, 30 and 31\n                 set bit 28 to 1\n                 set bit 29 to 0\nThe other bits are not affected.\n\nYou can add multiple bits mods using commas. For example: \"24:X---10XX,127:100X,231:01\"";
+    const char* const SetModificationToGalileoINavMessage::Documentation = "Please note the command SetModificationToGalileoINavMessage is deprecated since 21.3. You may use SetMessageModificationToGalileoINav.\n\nSet (or Modify) event to change INAV message bits. If you send this command without setting the Id\nparameter, or if you set the Id with a value never used before, a new Modification event will be\ncreated. If you reuse the same event Id, it will modify the existing event.\n\nNote that start and stop time are automatically extended to beginning and ending of overlapped\nmessages.\n\nBitsMods can be an empty string. The Modification will have no effect until you modify it with at\nleast one bits mod.\n\nA bits mod is represented with a string using the following format: \"I:Bits\" where I is a bit\nindex (1 refers to the first transmitted bit) and Bits is a modification mask where each\ncharacter describes a modification to a single bit. The allowed characters are:\n   0 : force bit to 0\n   1 : force bit to 1\n   - : leave bit unchanged\n   X : revert bit (0 becomes 1 and 1 becomes 0)\n\nFor example: \"24:X---10XX\" will: revert bits 24, 30 and 31\n                 set bit 28 to 1\n                 set bit 29 to 0\nThe other bits are not affected.\n\nYou can add multiple bits mods using commas. For example: \"24:X---10XX,127:100X,231:01\"";
 
     REGISTER_COMMAND_FACTORY(SetModificationToGalileoINavMessage);
 
@@ -98634,7 +99244,7 @@ namespace Sdx
   namespace Cmd
   {
     const char* const GetGalileoINavMessage::CmdName = "GetGalileoINavMessage";
-    const char* const GetGalileoINavMessage::Documentation = "Please note the command ModificationToGalileoINavMessage is deprecated since 21.3. You may use MessageModificationToGalileoINav.\n\nGet infos about the INAV Message with this id";
+    const char* const GetGalileoINavMessage::Documentation = "Please note the command GetGalileoINavMessage is deprecated since 21.3. You may use GetMessageModificationToGalileoINav.\n\nGet infos about the INAV Message with this id";
 
     REGISTER_COMMAND_FACTORY(GetGalileoINavMessage);
 
@@ -98704,7 +99314,7 @@ namespace Sdx
   namespace Cmd
   {
     const char* const GetGalileoINavMessageResult::CmdName = "GetGalileoINavMessageResult";
-    const char* const GetGalileoINavMessageResult::Documentation = "Result of GetGalileoINavMessage";
+    const char* const GetGalileoINavMessageResult::Documentation = "Result of GetGalileoINavMessage.";
 
     REGISTER_COMMAND_RESULT_FACTORY(GetGalileoINavMessageResult);
 
@@ -99150,7 +99760,7 @@ namespace Sdx
   namespace Cmd
   {
     const char* const SetModificationToGlonassNavigationMessage::CmdName = "SetModificationToGlonassNavigationMessage";
-    const char* const SetModificationToGlonassNavigationMessage::Documentation = "Please note the command ModificationToGlonassNavigationMessage is deprecated since 21.3. You may use MessageModificationToGlonassNav.\n\nSet (or Modify) event to change navigation message bits.\n\nNote that start and stop time are automatically extended to beginning and ending of overlapped\nmessage strings. The Modification parameter is a string where the first character applies to bit\n85 of frame string and last character applies to Hamming Code bit 1.\n   '0' will force bit to zero\n   '1' will for bit to one\n   'X' will negate bit value\n   ' ' white space are ignored (use them to separate the string into bytes to help reading)\n   '-' or any other byte value will have no effect\n\nExample:\n\n\"-0--- 1------- -------- -------- -------- -------- -------- -------- -------- -------- ---1--X-\"\n  |  |                                           |  |\n  |  +- Force bit 80 to '1'               Force Hamming code bit 5 to '1' -+  |\n  |                                               |\n  +------ Force bit 84 to 0                   Negate Hamming code bit 2 ----+\n\nNote: if UpdateHammingCode is true, any modification to bits 1..8 will have no effect.\n\nThe Id parameter is automatically updated with a unique id by the simulator for future reference.\nIf the Id is set with a value other than an empty string, the simulator will try to find a match\nwith previously added events. If there is a match, the event is updated with this message\ninstead of adding a new event. If there is no match, the event is added and the id is not\nchanged.";
+    const char* const SetModificationToGlonassNavigationMessage::Documentation = "Please note the command SetModificationToGlonassNavigationMessage is deprecated since 21.3. You may use SetMessageModificationToGlonassNav.\n\nSet (or Modify) event to change navigation message bits.\n\nNote that start and stop time are automatically extended to beginning and ending of overlapped\nmessage strings. The Modification parameter is a string where the first character applies to bit\n85 of frame string and last character applies to Hamming Code bit 1.\n   '0' will force bit to zero\n   '1' will for bit to one\n   'X' will negate bit value\n   ' ' white space are ignored (use them to separate the string into bytes to help reading)\n   '-' or any other byte value will have no effect\n\nExample:\n\n\"-0--- 1------- -------- -------- -------- -------- -------- -------- -------- -------- ---1--X-\"\n  |  |                                           |  |\n  |  +- Force bit 80 to '1'               Force Hamming code bit 5 to '1' -+  |\n  |                                               |\n  +------ Force bit 84 to 0                   Negate Hamming code bit 2 ----+\n\nNote: if UpdateHammingCode is true, any modification to bits 1..8 will have no effect.\n\nThe Id parameter is automatically updated with a unique id by the simulator for future reference.\nIf the Id is set with a value other than an empty string, the simulator will try to find a match\nwith previously added events. If there is a match, the event is updated with this message\ninstead of adding a new event. If there is no match, the event is added and the id is not\nchanged.";
 
     REGISTER_COMMAND_FACTORY(SetModificationToGlonassNavigationMessage);
 
@@ -99318,7 +99928,7 @@ namespace Sdx
   namespace Cmd
   {
     const char* const GetGlonassNavigationMessage::CmdName = "GetGlonassNavigationMessage";
-    const char* const GetGlonassNavigationMessage::Documentation = "Please note the command ModificationToGlonassNavigationMessage is deprecated since 21.3. You may use MessageModificationToGlonassNav.\n\nGet infos about this modification Glonass navigation message event";
+    const char* const GetGlonassNavigationMessage::Documentation = "Please note the command GetGlonassNavigationMessage is deprecated since 21.3. You may use GetMessageModificationToGlonassNav.\n\nGet infos about this modification Glonass navigation message event";
 
     REGISTER_COMMAND_FACTORY(GetGlonassNavigationMessage);
 
@@ -99388,7 +99998,7 @@ namespace Sdx
   namespace Cmd
   {
     const char* const GetGlonassNavigationMessageResult::CmdName = "GetGlonassNavigationMessageResult";
-    const char* const GetGlonassNavigationMessageResult::Documentation = "Result of GetGlonassNavigationMessage";
+    const char* const GetGlonassNavigationMessageResult::Documentation = "Result of GetGlonassNavigationMessage.";
 
     REGISTER_COMMAND_RESULT_FACTORY(GetGlonassNavigationMessageResult);
 
@@ -99806,7 +100416,7 @@ namespace Sdx
   namespace Cmd
   {
     const char* const SetModificationToBeiDouD1NavigationMessage::CmdName = "SetModificationToBeiDouD1NavigationMessage";
-    const char* const SetModificationToBeiDouD1NavigationMessage::Documentation = "Please note the command ModificationToBeiDouD1NavigationMessage is deprecated since 21.3. You may use MessageModificationToBeiDouD1Nav.\n\nSet (or Modify) event to change navigation message bits.\n\nNote that start and stop time are automatically extended to beginning and ending of overlapped\nsubframes. The Modification parameter is a string where the first character applies to the first\nbit of subframe word and last character applies to last bit of subframe word.\n   '0' will force bit to zero\n   '1' will for bit to one\n   'X' will negate bit value\n   any other byte value will have no effect\n\nExample: \"-00------------------1-X------\" will force bits 1 and 2 to zero and bit 22 to one\n                      and negate bit 24\n\nNote: if UpdateParity is true, any modification to parity bits will have no effect.\n\nThe Id parameter is automatically updated with a unique id by the simulator for future reference.\nIf the Id is set with a value other than an empty string, the simulator will try to find a match\nwith previously added events. If there is a match, the event is updated with this message\ninstead of adding a new event. If there is no match, the event is added and the id is not\nchanged.";
+    const char* const SetModificationToBeiDouD1NavigationMessage::Documentation = "Please note the command SetModificationToBeiDouD1NavigationMessage is deprecated since 21.3. You may use SetMessageModificationToBeiDouD1Nav.\n\nSet (or Modify) event to change navigation message bits.\n\nNote that start and stop time are automatically extended to beginning and ending of overlapped\nsubframes. The Modification parameter is a string where the first character applies to the first\nbit of subframe word and last character applies to last bit of subframe word.\n   '0' will force bit to zero\n   '1' will for bit to one\n   'X' will negate bit value\n   any other byte value will have no effect\n\nExample: \"-00------------------1-X------\" will force bits 1 and 2 to zero and bit 22 to one\n                      and negate bit 24\n\nNote: if UpdateParity is true, any modification to parity bits will have no effect.\n\nThe Id parameter is automatically updated with a unique id by the simulator for future reference.\nIf the Id is set with a value other than an empty string, the simulator will try to find a match\nwith previously added events. If there is a match, the event is updated with this message\ninstead of adding a new event. If there is no match, the event is added and the id is not\nchanged.";
 
     REGISTER_COMMAND_FACTORY(SetModificationToBeiDouD1NavigationMessage);
 
@@ -99988,7 +100598,7 @@ namespace Sdx
   namespace Cmd
   {
     const char* const GetBeiDouD1NavigationMessage::CmdName = "GetBeiDouD1NavigationMessage";
-    const char* const GetBeiDouD1NavigationMessage::Documentation = "Please note the command ModificationToBeiDouD1NavigationMessage is deprecated since 21.3. You may use MessageModificationToBeiDouD1Nav.\n\nGet infos about this modification BeiDou D1 navigation message event";
+    const char* const GetBeiDouD1NavigationMessage::Documentation = "Please note the command GetBeiDouD1NavigationMessage is deprecated since 21.3. You may use GetMessageModificationToBeiDouD1Nav.\n\nGet infos about this modification BeiDou D1 navigation message event";
 
     REGISTER_COMMAND_FACTORY(GetBeiDouD1NavigationMessage);
 
@@ -100058,7 +100668,7 @@ namespace Sdx
   namespace Cmd
   {
     const char* const GetBeiDouD1NavigationMessageResult::CmdName = "GetBeiDouD1NavigationMessageResult";
-    const char* const GetBeiDouD1NavigationMessageResult::Documentation = "Result of GetBeiDouD1NavigationMessage";
+    const char* const GetBeiDouD1NavigationMessageResult::Documentation = "Result of GetBeiDouD1NavigationMessage.";
 
     REGISTER_COMMAND_RESULT_FACTORY(GetBeiDouD1NavigationMessageResult);
 
@@ -100490,7 +101100,7 @@ namespace Sdx
   namespace Cmd
   {
     const char* const SetModificationToBeiDouD2NavigationMessage::CmdName = "SetModificationToBeiDouD2NavigationMessage";
-    const char* const SetModificationToBeiDouD2NavigationMessage::Documentation = "Please note the command ModificationToBeiDouD2NavigationMessage is deprecated since 21.3. You may use MessageModificationToBeiDouD2Nav.\n\nSet (or Modify) event to change navigation message bits.\n\nNote that start and stop time are automatically extended to beginning and ending of overlapped\nsubframes. The Modification parameter is a string where the first character applies to the first\nbit of subframe word and last character applies to last bit of subframe word.\n   '0' will force bit to zero\n   '1' will for bit to one\n   'X' will negate bit value\n   any other byte value will have no effect\n\nExample: \"-00------------------1-X------\" will force bits 1 and 2 to zero and bit 22 to one\n                      and negate bit 24\n\nNote: if UpdateParity is true, any modification to parity bits will have no effect.\n\nThe Id parameter is automatically updated with a unique id by the simulator for future reference.\nIf the Id is set with a value other than an empty string, the simulator will try to find a match\nwith previously added events. If there is a match, the event is updated with this message\ninstead of adding a new event. If there is no match, the event is added and the id is not\nchanged.";
+    const char* const SetModificationToBeiDouD2NavigationMessage::Documentation = "Please note the command SetModificationToBeiDouD2NavigationMessage is deprecated since 21.3. You may use SetMessageModificationToBeiDouD2Nav.\n\nSet (or Modify) event to change navigation message bits.\n\nNote that start and stop time are automatically extended to beginning and ending of overlapped\nsubframes. The Modification parameter is a string where the first character applies to the first\nbit of subframe word and last character applies to last bit of subframe word.\n   '0' will force bit to zero\n   '1' will for bit to one\n   'X' will negate bit value\n   any other byte value will have no effect\n\nExample: \"-00------------------1-X------\" will force bits 1 and 2 to zero and bit 22 to one\n                      and negate bit 24\n\nNote: if UpdateParity is true, any modification to parity bits will have no effect.\n\nThe Id parameter is automatically updated with a unique id by the simulator for future reference.\nIf the Id is set with a value other than an empty string, the simulator will try to find a match\nwith previously added events. If there is a match, the event is updated with this message\ninstead of adding a new event. If there is no match, the event is added and the id is not\nchanged.";
 
     REGISTER_COMMAND_FACTORY(SetModificationToBeiDouD2NavigationMessage);
 
@@ -100672,7 +101282,7 @@ namespace Sdx
   namespace Cmd
   {
     const char* const GetBeiDouD2NavigationMessage::CmdName = "GetBeiDouD2NavigationMessage";
-    const char* const GetBeiDouD2NavigationMessage::Documentation = "Please note the command ModificationToBeiDouD2NavigationMessage is deprecated since 21.3. You may use MessageModificationToBeiDouD2Nav.\n\nGet infos about this modification BeiDou D2 navigation message event";
+    const char* const GetBeiDouD2NavigationMessage::Documentation = "Please note the command GetBeiDouD2NavigationMessage is deprecated since 21.3. You may use GetMessageModificationToBeiDouD2Nav.\n\nGet infos about this modification BeiDou D2 navigation message event";
 
     REGISTER_COMMAND_FACTORY(GetBeiDouD2NavigationMessage);
 
@@ -100742,7 +101352,7 @@ namespace Sdx
   namespace Cmd
   {
     const char* const GetBeiDouD2NavigationMessageResult::CmdName = "GetBeiDouD2NavigationMessageResult";
-    const char* const GetBeiDouD2NavigationMessageResult::Documentation = "Result of GetBeiDouD2NavigationMessage";
+    const char* const GetBeiDouD2NavigationMessageResult::Documentation = "Result of GetBeiDouD2NavigationMessage.";
 
     REGISTER_COMMAND_RESULT_FACTORY(GetBeiDouD2NavigationMessageResult);
 
@@ -101174,7 +101784,7 @@ namespace Sdx
   namespace Cmd
   {
     const char* const SetModificationToBeiDouCNav1Message::CmdName = "SetModificationToBeiDouCNav1Message";
-    const char* const SetModificationToBeiDouCNav1Message::Documentation = "Please note the command ModificationToBeiDouCNav1Message is deprecated since 21.3. You may use MessageModificationToBeiDouCNav1.\n\nSet (or Modify) event to change CNAV1 message bits. If you send this command without setting the Id\nparameter, or if you set the Id with a value never used before, a new Modification event will be\ncreated. If you reuse the same event Id, it will modify the existing event.\n\nNote that start and stop time are automatically extended to beginning and ending of overlapped\nmessages.\n\nThe Condition parameter is optional and allows you to add content matching condition before applying\nbits mods.\n\nBitsMods can be an empty string. The Modification will have no effect until you modify it with at\nleast one bits mod.\n\nA bits mod is represented with a string using the following format: \"I:Bits\" where I is a bit\nindex (1 refers to the first transmitted bit) and Bits is a modification mask where each\ncharacter describes a modification to a single bit. The allowed characters are:\n   0 : force bit to 0\n   1 : force bit to 1\n   - : leave bit unchanged\n   X : revert bit (0 becomes 1 and 1 becomes 0)\n\nFor example: \"24:X---10XX\" will: revert bits 24, 30 and 31\n                 set bit 28 to 1\n                 set bit 29 to 0\nThe other bits are not affected.\n\nYou can add multiple bits mods using commas. For example: \"24:X---10XX,127:100X,231:01\"";
+    const char* const SetModificationToBeiDouCNav1Message::Documentation = "Please note the command SetModificationToBeiDouCNav1Message is deprecated since 21.3. You may use SetMessageModificationToBeiDouCNav1.\n\nSet (or Modify) event to change CNAV1 message bits. If you send this command without setting the Id\nparameter, or if you set the Id with a value never used before, a new Modification event will be\ncreated. If you reuse the same event Id, it will modify the existing event.\n\nNote that start and stop time are automatically extended to beginning and ending of overlapped\nmessages.\n\nThe Condition parameter is optional and allows you to add content matching condition before applying\nbits mods.\n\nBitsMods can be an empty string. The Modification will have no effect until you modify it with at\nleast one bits mod.\n\nA bits mod is represented with a string using the following format: \"I:Bits\" where I is a bit\nindex (1 refers to the first transmitted bit) and Bits is a modification mask where each\ncharacter describes a modification to a single bit. The allowed characters are:\n   0 : force bit to 0\n   1 : force bit to 1\n   - : leave bit unchanged\n   X : revert bit (0 becomes 1 and 1 becomes 0)\n\nFor example: \"24:X---10XX\" will: revert bits 24, 30 and 31\n                 set bit 28 to 1\n                 set bit 29 to 0\nThe other bits are not affected.\n\nYou can add multiple bits mods using commas. For example: \"24:X---10XX,127:100X,231:01\"";
 
     REGISTER_COMMAND_FACTORY(SetModificationToBeiDouCNav1Message);
 
@@ -101342,7 +101952,7 @@ namespace Sdx
   namespace Cmd
   {
     const char* const GetBeiDouCNav1Message::CmdName = "GetBeiDouCNav1Message";
-    const char* const GetBeiDouCNav1Message::Documentation = "Please note the command ModificationToBeiDouCNav1Message is deprecated since 21.3. You may use MessageModificationToBeiDouCNav1.\n\nGet infos about the CNAV1 Message with this id";
+    const char* const GetBeiDouCNav1Message::Documentation = "Please note the command GetBeiDouCNav1Message is deprecated since 21.3. You may use GetMessageModificationToBeiDouCNav1.\n\nGet infos about the CNAV1 Message with this id";
 
     REGISTER_COMMAND_FACTORY(GetBeiDouCNav1Message);
 
@@ -101412,7 +102022,7 @@ namespace Sdx
   namespace Cmd
   {
     const char* const GetBeiDouCNav1MessageResult::CmdName = "GetBeiDouCNav1MessageResult";
-    const char* const GetBeiDouCNav1MessageResult::Documentation = "Result of GetBeiDouCNav1Message";
+    const char* const GetBeiDouCNav1MessageResult::Documentation = "Result of GetBeiDouCNav1Message.";
 
     REGISTER_COMMAND_RESULT_FACTORY(GetBeiDouCNav1MessageResult);
 
@@ -101830,7 +102440,7 @@ namespace Sdx
   namespace Cmd
   {
     const char* const SetModificationToBeiDouCNav2Message::CmdName = "SetModificationToBeiDouCNav2Message";
-    const char* const SetModificationToBeiDouCNav2Message::Documentation = "Please note the command ModificationToBeiDouCNav2Message is deprecated since 21.3. You may use MessageModificationToBeiDouCNav2.\n\nSet (or Modify) event to change CNAV2 message bits. If you send this command without setting the Id\nparameter, or if you set the Id with a value never used before, a new Modification event will be\ncreated. If you reuse the same event Id, it will modify the existing event.\n\nNote that start and stop time are automatically extended to beginning and ending of overlapped\nmessages.\n\nThe Condition parameter is optional and allows you to add content matching condition before applying\nbits mods.\n\nBitsMods can be an empty string. The Modification will have no effect until you modify it with at\nleast one bits mod.\n\nA bits mod is represented with a string using the following format: \"I:Bits\" where I is a bit\nindex (1 refers to the first transmitted bit) and Bits is a modification mask where each\ncharacter describes a modification to a single bit. The allowed characters are:\n   0 : force bit to 0\n   1 : force bit to 1\n   - : leave bit unchanged\n   X : revert bit (0 becomes 1 and 1 becomes 0)\n\nFor example: \"24:X---10XX\" will: revert bits 24, 30 and 31\n                 set bit 28 to 1\n                 set bit 29 to 0\nThe other bits are not affected.\n\nYou can add multiple bits mods using commas. For example: \"24:X---10XX,127:100X,231:01\"";
+    const char* const SetModificationToBeiDouCNav2Message::Documentation = "Please note the command SetModificationToBeiDouCNav2Message is deprecated since 21.3. You may use SetMessageModificationToBeiDouCNav2.\n\nSet (or Modify) event to change CNAV2 message bits. If you send this command without setting the Id\nparameter, or if you set the Id with a value never used before, a new Modification event will be\ncreated. If you reuse the same event Id, it will modify the existing event.\n\nNote that start and stop time are automatically extended to beginning and ending of overlapped\nmessages.\n\nThe Condition parameter is optional and allows you to add content matching condition before applying\nbits mods.\n\nBitsMods can be an empty string. The Modification will have no effect until you modify it with at\nleast one bits mod.\n\nA bits mod is represented with a string using the following format: \"I:Bits\" where I is a bit\nindex (1 refers to the first transmitted bit) and Bits is a modification mask where each\ncharacter describes a modification to a single bit. The allowed characters are:\n   0 : force bit to 0\n   1 : force bit to 1\n   - : leave bit unchanged\n   X : revert bit (0 becomes 1 and 1 becomes 0)\n\nFor example: \"24:X---10XX\" will: revert bits 24, 30 and 31\n                 set bit 28 to 1\n                 set bit 29 to 0\nThe other bits are not affected.\n\nYou can add multiple bits mods using commas. For example: \"24:X---10XX,127:100X,231:01\"";
 
     REGISTER_COMMAND_FACTORY(SetModificationToBeiDouCNav2Message);
 
@@ -101998,7 +102608,7 @@ namespace Sdx
   namespace Cmd
   {
     const char* const GetBeiDouCNav2Message::CmdName = "GetBeiDouCNav2Message";
-    const char* const GetBeiDouCNav2Message::Documentation = "Please note the command ModificationToBeiDouCNav2Message is deprecated since 21.3. You may use MessageModificationToBeiDouCNav2.\n\nGet infos about the modifications of CNAV2 Message with this id";
+    const char* const GetBeiDouCNav2Message::Documentation = "Please note the command GetBeiDouCNav2Message is deprecated since 21.3. You may use GetMessageModificationToBeiDouCNav2.\n\nGet infos about the modifications of CNAV2 Message with this id";
 
     REGISTER_COMMAND_FACTORY(GetBeiDouCNav2Message);
 
@@ -102068,7 +102678,7 @@ namespace Sdx
   namespace Cmd
   {
     const char* const GetBeiDouCNav2MessageResult::CmdName = "GetBeiDouCNav2MessageResult";
-    const char* const GetBeiDouCNav2MessageResult::Documentation = "Result of GetBeiDouCNav2Message";
+    const char* const GetBeiDouCNav2MessageResult::Documentation = "Result of GetBeiDouCNav2Message.";
 
     REGISTER_COMMAND_RESULT_FACTORY(GetBeiDouCNav2MessageResult);
 
@@ -102486,7 +103096,7 @@ namespace Sdx
   namespace Cmd
   {
     const char* const SetModificationToQzssLNAVNavigationMessage::CmdName = "SetModificationToQzssLNAVNavigationMessage";
-    const char* const SetModificationToQzssLNAVNavigationMessage::Documentation = "Please note the command ModificationToQzssLNAVNavigationMessage is deprecated since 21.3. You may use MessageModificationToQzssLNav.\n\nSet (or Modify) event to change navigation message bits.\n\nNote that start and stop time are automatically extended to beginning and ending of overlapped\nsubframes. The Modification parameter is a string where the first character applies to the first\nbit of subframe word and last character applies to last bit of subframe word.\n   '0' will force bit to zero\n   '1' will for bit to one\n   'X' will negate bit value\n   any other byte value will have no effect\n\nExample: \"-00------------------1-X------\" will force bits 1 and 2 to zero and bit 22 to one\n                      and negate bit 24\n\nNote: if UpdateParity is true, any modification to bits 25..30 will have no effect.\n\nThe Id parameter is automatically updated with a unique id by the simulator for future reference.\nIf the ID is set with a value other than an empty string, the simulator will try to find a match\nwith previously added events. If there is a match, the event is updated with this message\ninstead of adding a new event. If there is no match, the event is added and the ID is not\nchanged.";
+    const char* const SetModificationToQzssLNAVNavigationMessage::Documentation = "Please note the command SetModificationToQzssLNAVNavigationMessage is deprecated since 21.3. You may use SetMessageModificationToQzssLNav.\n\nSet (or Modify) event to change navigation message bits.\n\nNote that start and stop time are automatically extended to beginning and ending of overlapped\nsubframes. The Modification parameter is a string where the first character applies to the first\nbit of subframe word and last character applies to last bit of subframe word.\n   '0' will force bit to zero\n   '1' will for bit to one\n   'X' will negate bit value\n   any other byte value will have no effect\n\nExample: \"-00------------------1-X------\" will force bits 1 and 2 to zero and bit 22 to one\n                      and negate bit 24\n\nNote: if UpdateParity is true, any modification to bits 25..30 will have no effect.\n\nThe Id parameter is automatically updated with a unique id by the simulator for future reference.\nIf the ID is set with a value other than an empty string, the simulator will try to find a match\nwith previously added events. If there is a match, the event is updated with this message\ninstead of adding a new event. If there is no match, the event is added and the ID is not\nchanged.";
 
     REGISTER_COMMAND_FACTORY(SetModificationToQzssLNAVNavigationMessage);
 
@@ -102668,7 +103278,7 @@ namespace Sdx
   namespace Cmd
   {
     const char* const GetQzssLNAVNavigationMessage::CmdName = "GetQzssLNAVNavigationMessage";
-    const char* const GetQzssLNAVNavigationMessage::Documentation = "Please note the command ModificationToQzssLNAVNavigationMessage is deprecated since 21.3. You may use MessageModificationToQzssLNav.\n\nGet infos about this modification QZSS navigation message event.";
+    const char* const GetQzssLNAVNavigationMessage::Documentation = "Please note the command GetQzssLNAVNavigationMessage is deprecated since 21.3. You may use GetMessageModificationToQzssLNav.\n\nGet infos about this modification QZSS navigation message event.";
 
     REGISTER_COMMAND_FACTORY(GetQzssLNAVNavigationMessage);
 
@@ -102738,7 +103348,7 @@ namespace Sdx
   namespace Cmd
   {
     const char* const GetQzssLNAVNavigationMessageResult::CmdName = "GetQzssLNAVNavigationMessageResult";
-    const char* const GetQzssLNAVNavigationMessageResult::Documentation = "Result of GetQzssLNAVNavigationMessage";
+    const char* const GetQzssLNAVNavigationMessageResult::Documentation = "Result of GetQzssLNAVNavigationMessage.";
 
     REGISTER_COMMAND_RESULT_FACTORY(GetQzssLNAVNavigationMessageResult);
 
@@ -103170,7 +103780,7 @@ namespace Sdx
   namespace Cmd
   {
     const char* const SetModificationToQzssL1SMessage::CmdName = "SetModificationToQzssL1SMessage";
-    const char* const SetModificationToQzssL1SMessage::Documentation = "Please note the command ModificationToQzssL1SMessage is deprecated since 21.3. You may use MessageModificationToQzssSlas.\n\nSet (or Modify) event to change L1S message bits. If you send this command without setting the Id\nparameter, or if you set the Id with a value never used before, a new Modification event will be\ncreated. If you reuse the same event Id, it will modify the existing event.\n\nNote that start and stop time are automatically extended to beginning and ending of overlapped\nmessages.\n\nThe Condition parameter is optional and allows you to add content matching condition before applying\nbits mods.\n\nBitsMods can be an empty string. The Modification will have no effect until you modify it with at\nleast one bits mod.\n\nA bits mod is represented with a string using the following format: \"I:Bits\" where I is a bit\nindex (1 refers to the first transmitted bit) and Bits is a modification mask where each\ncharacter describes a modification to a single bit. The allowed characters are:\n   0 : force bit to 0\n   1 : force bit to 1\n   - : leave bit unchanged\n   X : revert bit (0 becomes 1 and 1 becomes 0)\n\nFor example: \"24:X---10XX\" will: revert bits 24, 30 and 31\n                 set bit 28 to 1\n                 set bit 29 to 0\nThe other bits are not affected.\n\nYou can add multiple bits mods using commas. For example: \"24:X---10XX,127:100X,231:01\"";
+    const char* const SetModificationToQzssL1SMessage::Documentation = "Please note the command SetModificationToQzssL1SMessage is deprecated since 21.3. You may use SetMessageModificationToQzssSlas.\n\nSet (or Modify) event to change L1S message bits. If you send this command without setting the Id\nparameter, or if you set the Id with a value never used before, a new Modification event will be\ncreated. If you reuse the same event Id, it will modify the existing event.\n\nNote that start and stop time are automatically extended to beginning and ending of overlapped\nmessages.\n\nThe Condition parameter is optional and allows you to add content matching condition before applying\nbits mods.\n\nBitsMods can be an empty string. The Modification will have no effect until you modify it with at\nleast one bits mod.\n\nA bits mod is represented with a string using the following format: \"I:Bits\" where I is a bit\nindex (1 refers to the first transmitted bit) and Bits is a modification mask where each\ncharacter describes a modification to a single bit. The allowed characters are:\n   0 : force bit to 0\n   1 : force bit to 1\n   - : leave bit unchanged\n   X : revert bit (0 becomes 1 and 1 becomes 0)\n\nFor example: \"24:X---10XX\" will: revert bits 24, 30 and 31\n                 set bit 28 to 1\n                 set bit 29 to 0\nThe other bits are not affected.\n\nYou can add multiple bits mods using commas. For example: \"24:X---10XX,127:100X,231:01\"";
 
     REGISTER_COMMAND_FACTORY(SetModificationToQzssL1SMessage);
 
@@ -103338,7 +103948,7 @@ namespace Sdx
   namespace Cmd
   {
     const char* const GetQzssL1SMessage::CmdName = "GetQzssL1SMessage";
-    const char* const GetQzssL1SMessage::Documentation = "Please note the command ModificationToQzssL1SMessage is deprecated since 21.3. You may use MessageModificationToQzssSlas.\n\nGet infos about the L1S Message with this id";
+    const char* const GetQzssL1SMessage::Documentation = "Please note the command GetQzssL1SMessage is deprecated since 21.3. You may use GetMessageModificationToQzssSlas.\n\nGet infos about the L1S Message with this id";
 
     REGISTER_COMMAND_FACTORY(GetQzssL1SMessage);
 
@@ -103408,7 +104018,7 @@ namespace Sdx
   namespace Cmd
   {
     const char* const GetQzssL1SMessageResult::CmdName = "GetQzssL1SMessageResult";
-    const char* const GetQzssL1SMessageResult::Documentation = "Result of GetQzssL1SMessage";
+    const char* const GetQzssL1SMessageResult::Documentation = "Result of GetQzssL1SMessage.";
 
     REGISTER_COMMAND_RESULT_FACTORY(GetQzssL1SMessageResult);
 
@@ -103570,7 +104180,7 @@ namespace Sdx
   namespace Cmd
   {
     const char* const SetModificationToNavICL5Message::CmdName = "SetModificationToNavICL5Message";
-    const char* const SetModificationToNavICL5Message::Documentation = "Please note the command ModificationToNavICL5Message is deprecated since 21.3. You may use MessageModificationToNavICNav.\n\nSet (or Modify) event to change NavIC L5 message bits. If you send this command without setting the Id\nparameter, or if you set the Id with a value never used before, a new Modification event will be\ncreated. If you reuse the same event Id, it will modify the existing event.\n\nNote that start and stop time are automatically extended to beginning and ending of overlapped\nmessages.\n\nThe Condition parameter is optional and allows you to add content matching condition before applying\nbits mods.\n\nBitsMods can be an empty string. The Modification will have no effect until you modify it with at\nleast one bits mod.\n\nA bits mod is represented with a string using the following format: \"I:Bits\" where I is a bit\nindex (1 refers to the first transmitted bit) and Bits is a modification mask where each\ncharacter describes a modification to a single bit. The allowed characters are:\n   0 : force bit to 0\n   1 : force bit to 1\n   - : leave bit unchanged\n   X : revert bit (0 becomes 1 and 1 becomes 0)\n\nFor example: \"24:X---10XX\" will: revert bits 24, 30 and 31\n                 set bit 28 to 1\n                 set bit 29 to 0\nThe other bits are not affected.\n\nYou can add multiple bits mods using commas. For example: \"24:X---10XX,127:100X,231:01\"";
+    const char* const SetModificationToNavICL5Message::Documentation = "Please note the command SetModificationToNavICL5Message is deprecated since 21.3. You may use SetMessageModificationToNavICNav.\n\nSet (or Modify) event to change NavIC L5 message bits. If you send this command without setting the Id\nparameter, or if you set the Id with a value never used before, a new Modification event will be\ncreated. If you reuse the same event Id, it will modify the existing event.\n\nNote that start and stop time are automatically extended to beginning and ending of overlapped\nmessages.\n\nThe Condition parameter is optional and allows you to add content matching condition before applying\nbits mods.\n\nBitsMods can be an empty string. The Modification will have no effect until you modify it with at\nleast one bits mod.\n\nA bits mod is represented with a string using the following format: \"I:Bits\" where I is a bit\nindex (1 refers to the first transmitted bit) and Bits is a modification mask where each\ncharacter describes a modification to a single bit. The allowed characters are:\n   0 : force bit to 0\n   1 : force bit to 1\n   - : leave bit unchanged\n   X : revert bit (0 becomes 1 and 1 becomes 0)\n\nFor example: \"24:X---10XX\" will: revert bits 24, 30 and 31\n                 set bit 28 to 1\n                 set bit 29 to 0\nThe other bits are not affected.\n\nYou can add multiple bits mods using commas. For example: \"24:X---10XX,127:100X,231:01\"";
 
     REGISTER_COMMAND_FACTORY(SetModificationToNavICL5Message);
 
@@ -103752,7 +104362,7 @@ namespace Sdx
   namespace Cmd
   {
     const char* const GetNavICL5Message::CmdName = "GetNavICL5Message";
-    const char* const GetNavICL5Message::Documentation = "Please note the command ModificationToNavICL5Message is deprecated since 21.3. You may use MessageModificationToNavICNav.\n\nGet infos about the NAV Message with this id";
+    const char* const GetNavICL5Message::Documentation = "Please note the command GetNavICL5Message is deprecated since 21.3. You may use GetMessageModificationToNavICNav.\n\nGet infos about the NAV Message with this id";
 
     REGISTER_COMMAND_FACTORY(GetNavICL5Message);
 
@@ -103822,7 +104432,7 @@ namespace Sdx
   namespace Cmd
   {
     const char* const GetNavICL5MessageResult::CmdName = "GetNavICL5MessageResult";
-    const char* const GetNavICL5MessageResult::Documentation = "Result of GetNavICL5Message";
+    const char* const GetNavICL5MessageResult::Documentation = "Result of GetNavICL5Message.";
 
     REGISTER_COMMAND_RESULT_FACTORY(GetNavICL5MessageResult);
 
@@ -104146,7 +104756,7 @@ namespace Sdx
   namespace Cmd
   {
     const char* const SetSbasHealthRanging::CmdName = "SetSbasHealthRanging";
-    const char* const SetSbasHealthRanging::Documentation = "Apply ranging flag for a SBAS satellite";
+    const char* const SetSbasHealthRanging::Documentation = "Please note the command SetSbasHealthRanging is deprecated since 21.9. You may use SetSbasSVRangingHealth.\n\nApply ranging flag for a SBAS satellite";
 
     REGISTER_COMMAND_FACTORY(SetSbasHealthRanging);
 
@@ -104230,7 +104840,7 @@ namespace Sdx
   namespace Cmd
   {
     const char* const SetSbasHealthCorrections::CmdName = "SetSbasHealthCorrections";
-    const char* const SetSbasHealthCorrections::Documentation = "Apply correction flag for a SBAS satellite";
+    const char* const SetSbasHealthCorrections::Documentation = "Please note the command SetSbasHealthCorrections is deprecated since 21.9. You may use SetSbasSVCorrectionsHealth.\n\nApply correction flag for a SBAS satellite";
 
     REGISTER_COMMAND_FACTORY(SetSbasHealthCorrections);
 
@@ -104314,7 +104924,7 @@ namespace Sdx
   namespace Cmd
   {
     const char* const SetSbasHealthIntegrity::CmdName = "SetSbasHealthIntegrity";
-    const char* const SetSbasHealthIntegrity::Documentation = "Apply integrity flag for a SBAS satellite";
+    const char* const SetSbasHealthIntegrity::Documentation = "Please note the command SetSbasHealthIntegrity is deprecated since 21.9. You may use SetSbasSVIntegrityHealth.\n\nApply integrity flag for a SBAS satellite";
 
     REGISTER_COMMAND_FACTORY(SetSbasHealthIntegrity);
 
@@ -104398,7 +105008,7 @@ namespace Sdx
   namespace Cmd
   {
     const char* const SetSbasHealthReserved::CmdName = "SetSbasHealthReserved";
-    const char* const SetSbasHealthReserved::Documentation = "Apply reserved flag for a SBAS satellite";
+    const char* const SetSbasHealthReserved::Documentation = "Please note the command SetSbasHealthReserved is deprecated since 21.9. You may use SetSbasSVReservedHealth.\n\nApply reserved flag for a SBAS satellite";
 
     REGISTER_COMMAND_FACTORY(SetSbasHealthReserved);
 
@@ -104482,7 +105092,7 @@ namespace Sdx
   namespace Cmd
   {
     const char* const SetSbasHealthService::CmdName = "SetSbasHealthService";
-    const char* const SetSbasHealthService::Documentation = "Apply service provider for a satellite";
+    const char* const SetSbasHealthService::Documentation = "Please note the command SetSbasHealthService is deprecated since 21.9. You may use SetSbasSVServiceHealth.\n\nApply service provider for a satellite";
 
     REGISTER_COMMAND_FACTORY(SetSbasHealthService);
 
@@ -105198,7 +105808,7 @@ namespace Sdx
   namespace Cmd
   {
     const char* const SetSatGeo::CmdName = "SetSatGeo";
-    const char* const SetSatGeo::Documentation = "Please note the command SatGeo is deprecated since 21.3. You may use ForceSVGeo.\n\nSet whether a satellite is geostationary";
+    const char* const SetSatGeo::Documentation = "Please note the command SetSatGeo is deprecated since 21.3. You may use ForceSVGeo.\n\nSet whether a satellite is geostationary";
 
     REGISTER_COMMAND_FACTORY(SetSatGeo);
 
@@ -105310,7 +105920,7 @@ namespace Sdx
   namespace Cmd
   {
     const char* const IsSatGeo::CmdName = "IsSatGeo";
-    const char* const IsSatGeo::Documentation = "Please note the command SatGeo is deprecated since 21.3. You may use ForceSVGeo.\n\nGet whether a satellite is geostationary";
+    const char* const IsSatGeo::Documentation = "Please note the command IsSatGeo is deprecated since 21.3. You may use IsSVForcedGeo.\n\nGet whether a satellite is geostationary";
 
     REGISTER_COMMAND_FACTORY(IsSatGeo);
 
@@ -105394,7 +106004,7 @@ namespace Sdx
   namespace Cmd
   {
     const char* const IsSatGeoResult::CmdName = "IsSatGeoResult";
-    const char* const IsSatGeoResult::Documentation = "Result of IsSatGeo";
+    const char* const IsSatGeoResult::Documentation = "Result of IsSatGeo.";
 
     REGISTER_COMMAND_RESULT_FACTORY(IsSatGeoResult);
 
@@ -105598,7 +106208,7 @@ namespace Sdx
   namespace Cmd
   {
     const char* const IsPYEnabled::CmdName = "IsPYEnabled";
-    const char* const IsPYEnabled::Documentation = "Please note the command EnablePY is deprecated since 21.3. You may use EnablePYCodeForSV.\n\nTells if P(Y)-Code is enabled for the specified satellite PRN. See EnablePY description for allowed signals.";
+    const char* const IsPYEnabled::Documentation = "Please note the command IsPYEnabled is deprecated since 21.3. You may use IsPYCodeEnabledForSV.\n\nTells if P(Y)-Code is enabled for the specified satellite PRN. See IsPYEnabled description for allowed signals.";
 
     REGISTER_COMMAND_FACTORY(IsPYEnabled);
 
@@ -105682,7 +106292,7 @@ namespace Sdx
   namespace Cmd
   {
     const char* const IsPYEnabledResult::CmdName = "IsPYEnabledResult";
-    const char* const IsPYEnabledResult::Documentation = "Result of IsPYEnabled";
+    const char* const IsPYEnabledResult::Documentation = "Result of IsPYEnabled.";
 
     REGISTER_COMMAND_RESULT_FACTORY(IsPYEnabledResult);
 
@@ -105858,7 +106468,7 @@ namespace Sdx
   namespace Cmd
   {
     const char* const GetPYEnabledForEachPrn::CmdName = "GetPYEnabledForEachPrn";
-    const char* const GetPYEnabledForEachPrn::Documentation = "Please note the command EnablePYForEachPrn is deprecated since 21.3. You may use EnablePYCodeForEachSV.\n\nTells if the P(Y)-Code is enabled or disabled for each satellite. See EnablePYForEachPrn description for allowed signals.";
+    const char* const GetPYEnabledForEachPrn::Documentation = "Please note the command GetPYEnabledForEachPrn is deprecated since 21.3. You may use IsPYCodeEnabledForEachSV.\n\nTells if the P(Y)-Code is enabled or disabled for each satellite. See GetPYEnabledForEachPrn description for allowed signals.";
 
     REGISTER_COMMAND_FACTORY(GetPYEnabledForEachPrn);
 
@@ -105928,7 +106538,7 @@ namespace Sdx
   namespace Cmd
   {
     const char* const GetPYEnabledForEachPrnResult::CmdName = "GetPYEnabledForEachPrnResult";
-    const char* const GetPYEnabledForEachPrnResult::Documentation = "Result of GetPYEnabledForEachPrn";
+    const char* const GetPYEnabledForEachPrnResult::Documentation = "Result of GetPYEnabledForEachPrn.";
 
     REGISTER_COMMAND_RESULT_FACTORY(GetPYEnabledForEachPrnResult);
 
@@ -106006,7 +106616,7 @@ namespace Sdx
   namespace Cmd
   {
     const char* const SetSatellitePseudorangeNoiseOffset::CmdName = "SetSatellitePseudorangeNoiseOffset";
-    const char* const SetSatellitePseudorangeNoiseOffset::Documentation = "Please note the command SatellitePseudorangeNoiseOffset is deprecated since 21.3. You may use PseudorangeNoiseOffsetForSV.\n\nSet the satellite pseudorange noise constant offset.";
+    const char* const SetSatellitePseudorangeNoiseOffset::Documentation = "Please note the command SetSatellitePseudorangeNoiseOffset is deprecated since 21.3. You may use SetPseudorangeNoiseOffsetForSV.\n\nSet the satellite pseudorange noise constant offset.";
 
     REGISTER_COMMAND_FACTORY(SetSatellitePseudorangeNoiseOffset);
 
@@ -106118,7 +106728,7 @@ namespace Sdx
   namespace Cmd
   {
     const char* const GetSatellitePseudorangeNoiseOffset::CmdName = "GetSatellitePseudorangeNoiseOffset";
-    const char* const GetSatellitePseudorangeNoiseOffset::Documentation = "Please note the command SatellitePseudorangeNoiseOffset is deprecated since 21.3. You may use PseudorangeNoiseOffsetForSV.\n\nGet the satellite pseudorange noise constant offset.";
+    const char* const GetSatellitePseudorangeNoiseOffset::Documentation = "Please note the command GetSatellitePseudorangeNoiseOffset is deprecated since 21.3. You may use GetPseudorangeNoiseOffsetForSV.\n\nGet the satellite pseudorange noise constant offset.";
 
     REGISTER_COMMAND_FACTORY(GetSatellitePseudorangeNoiseOffset);
 
@@ -106202,7 +106812,7 @@ namespace Sdx
   namespace Cmd
   {
     const char* const GetSatellitePseudorangeNoiseOffsetResult::CmdName = "GetSatellitePseudorangeNoiseOffsetResult";
-    const char* const GetSatellitePseudorangeNoiseOffsetResult::Documentation = "Result of GetSatellitePseudorangeNoiseOffset";
+    const char* const GetSatellitePseudorangeNoiseOffsetResult::Documentation = "Result of GetSatellitePseudorangeNoiseOffset.";
 
     REGISTER_COMMAND_RESULT_FACTORY(GetSatellitePseudorangeNoiseOffsetResult);
 
@@ -106308,7 +106918,7 @@ namespace Sdx
   namespace Cmd
   {
     const char* const SetSatellitePseudorangeNoiseSineWave::CmdName = "SetSatellitePseudorangeNoiseSineWave";
-    const char* const SetSatellitePseudorangeNoiseSineWave::Documentation = "Please note the command SatellitePseudorangeNoiseSineWave is deprecated since 21.3. You may use PseudorangeNoiseSineWaveForSV.\n\nSet the satellite pseudorange noise sine wave attributes.";
+    const char* const SetSatellitePseudorangeNoiseSineWave::Documentation = "Please note the command SetSatellitePseudorangeNoiseSineWave is deprecated since 21.3. You may use SetPseudorangeNoiseSineWaveForSV.\n\nSet the satellite pseudorange noise sine wave attributes.";
 
     REGISTER_COMMAND_FACTORY(SetSatellitePseudorangeNoiseSineWave);
 
@@ -106462,7 +107072,7 @@ namespace Sdx
   namespace Cmd
   {
     const char* const GetSatellitePseudorangeNoiseSineWave::CmdName = "GetSatellitePseudorangeNoiseSineWave";
-    const char* const GetSatellitePseudorangeNoiseSineWave::Documentation = "Please note the command SatellitePseudorangeNoiseSineWave is deprecated since 21.3. You may use PseudorangeNoiseSineWaveForSV.\n\nGet the satellite pseudorange noise sine wave attributes.";
+    const char* const GetSatellitePseudorangeNoiseSineWave::Documentation = "Please note the command GetSatellitePseudorangeNoiseSineWave is deprecated since 21.3. You may use GetPseudorangeNoiseSineWaveForSV.\n\nGet the satellite pseudorange noise sine wave attributes.";
 
     REGISTER_COMMAND_FACTORY(GetSatellitePseudorangeNoiseSineWave);
 
@@ -106560,7 +107170,7 @@ namespace Sdx
   namespace Cmd
   {
     const char* const GetSatellitePseudorangeNoiseSineWaveResult::CmdName = "GetSatellitePseudorangeNoiseSineWaveResult";
-    const char* const GetSatellitePseudorangeNoiseSineWaveResult::Documentation = "Result of GetSatellitePseudorangeNoiseSineWave";
+    const char* const GetSatellitePseudorangeNoiseSineWaveResult::Documentation = "Result of GetSatellitePseudorangeNoiseSineWave.";
 
     REGISTER_COMMAND_RESULT_FACTORY(GetSatellitePseudorangeNoiseSineWaveResult);
 
@@ -106708,7 +107318,7 @@ namespace Sdx
   namespace Cmd
   {
     const char* const SetSatellitePseudorangeNoiseGaussMarkov::CmdName = "SetSatellitePseudorangeNoiseGaussMarkov";
-    const char* const SetSatellitePseudorangeNoiseGaussMarkov::Documentation = "Please note the command SatellitePseudorangeNoiseGaussMarkov is deprecated since 21.3. You may use PseudorangeNoiseGaussMarkovForSV.\n\nSet the satellite pseudorange noise Gauss-Markov process attributes.";
+    const char* const SetSatellitePseudorangeNoiseGaussMarkov::Documentation = "Please note the command SetSatellitePseudorangeNoiseGaussMarkov is deprecated since 21.3. You may use SetPseudorangeNoiseGaussMarkovForSV.\n\nSet the satellite pseudorange noise Gauss-Markov process attributes.";
 
     REGISTER_COMMAND_FACTORY(SetSatellitePseudorangeNoiseGaussMarkov);
 
@@ -106862,7 +107472,7 @@ namespace Sdx
   namespace Cmd
   {
     const char* const GetSatellitePseudorangeNoiseGaussMarkov::CmdName = "GetSatellitePseudorangeNoiseGaussMarkov";
-    const char* const GetSatellitePseudorangeNoiseGaussMarkov::Documentation = "Please note the command SatellitePseudorangeNoiseGaussMarkov is deprecated since 21.3. You may use PseudorangeNoiseGaussMarkovForSV.\n\nGet the satellite pseudorange noise Gauss-Markov process attributes.";
+    const char* const GetSatellitePseudorangeNoiseGaussMarkov::Documentation = "Please note the command GetSatellitePseudorangeNoiseGaussMarkov is deprecated since 21.3. You may use GetPseudorangeNoiseGaussMarkovForSV.\n\nGet the satellite pseudorange noise Gauss-Markov process attributes.";
 
     REGISTER_COMMAND_FACTORY(GetSatellitePseudorangeNoiseGaussMarkov);
 
@@ -106960,7 +107570,7 @@ namespace Sdx
   namespace Cmd
   {
     const char* const GetSatellitePseudorangeNoiseGaussMarkovResult::CmdName = "GetSatellitePseudorangeNoiseGaussMarkovResult";
-    const char* const GetSatellitePseudorangeNoiseGaussMarkovResult::Documentation = "Result of GetSatellitePseudorangeNoiseGaussMarkov";
+    const char* const GetSatellitePseudorangeNoiseGaussMarkovResult::Documentation = "Result of GetSatellitePseudorangeNoiseGaussMarkov.";
 
     REGISTER_COMMAND_RESULT_FACTORY(GetSatellitePseudorangeNoiseGaussMarkovResult);
 
@@ -107108,7 +107718,7 @@ namespace Sdx
   namespace Cmd
   {
     const char* const SetSatelliteEphemerisError::CmdName = "SetSatelliteEphemerisError";
-    const char* const SetSatelliteEphemerisError::Documentation = "Please note the command SatelliteEphemerisError is deprecated since 21.3. You may use EphemerisErrorForSV.\n\nSet the satellite ephemeris error.";
+    const char* const SetSatelliteEphemerisError::Documentation = "Please note the command SetSatelliteEphemerisError is deprecated since 21.3. You may use SetEphemerisErrorForSV.\n\nSet the satellite ephemeris error.";
 
     REGISTER_COMMAND_FACTORY(SetSatelliteEphemerisError);
 
@@ -107234,7 +107844,7 @@ namespace Sdx
   namespace Cmd
   {
     const char* const GetSatelliteEphemerisError::CmdName = "GetSatelliteEphemerisError";
-    const char* const GetSatelliteEphemerisError::Documentation = "Please note the command SatelliteEphemerisError is deprecated since 21.3. You may use EphemerisErrorForSV.\n\nGet the satellite ephemeris error.";
+    const char* const GetSatelliteEphemerisError::Documentation = "Please note the command GetSatelliteEphemerisError is deprecated since 21.3. You may use GetEphemerisErrorForSV.\n\nGet the satellite ephemeris error.";
 
     REGISTER_COMMAND_FACTORY(GetSatelliteEphemerisError);
 
@@ -107318,7 +107928,7 @@ namespace Sdx
   namespace Cmd
   {
     const char* const GetSatelliteEphemerisErrorResult::CmdName = "GetSatelliteEphemerisErrorResult";
-    const char* const GetSatelliteEphemerisErrorResult::Documentation = "Result of GetSatelliteEphemerisError";
+    const char* const GetSatelliteEphemerisErrorResult::Documentation = "Result of GetSatelliteEphemerisError.";
 
     REGISTER_COMMAND_RESULT_FACTORY(GetSatelliteEphemerisErrorResult);
 
@@ -107438,7 +108048,7 @@ namespace Sdx
   namespace Cmd
   {
     const char* const SetGpsCodePrn::CmdName = "SetGpsCodePrn";
-    const char* const SetGpsCodePrn::Documentation = "Please note the command GpsCodePrn is deprecated since 21.3. You may use PrnOfSVID.\n\nSet the transmitted PRN code for the specified satellite";
+    const char* const SetGpsCodePrn::Documentation = "Please note the command SetGpsCodePrn is deprecated since 21.3. You may use SetPrnOfSVID.\n\nSet the transmitted PRN code for the specified satellite";
 
     REGISTER_COMMAND_FACTORY(SetGpsCodePrn);
 
@@ -107522,7 +108132,7 @@ namespace Sdx
   namespace Cmd
   {
     const char* const GetGpsCodePrn::CmdName = "GetGpsCodePrn";
-    const char* const GetGpsCodePrn::Documentation = "Please note the command GpsCodePrn is deprecated since 21.3. You may use PrnOfSVID.\n\nGet the transmitted PRN code for the specified satellite";
+    const char* const GetGpsCodePrn::Documentation = "Please note the command GetGpsCodePrn is deprecated since 21.3. You may use GetPrnOfSVID.\n\nGet the transmitted PRN code for the specified satellite";
 
     REGISTER_COMMAND_FACTORY(GetGpsCodePrn);
 
@@ -107592,7 +108202,7 @@ namespace Sdx
   namespace Cmd
   {
     const char* const GetGpsCodePrnResult::CmdName = "GetGpsCodePrnResult";
-    const char* const GetGpsCodePrnResult::Documentation = "Result of GetGpsCodePrn";
+    const char* const GetGpsCodePrnResult::Documentation = "Result of GetGpsCodePrn.";
 
     REGISTER_COMMAND_RESULT_FACTORY(GetGpsCodePrnResult);
 
@@ -107670,7 +108280,7 @@ namespace Sdx
   namespace Cmd
   {
     const char* const SetPseudorangeRamp::CmdName = "SetPseudorangeRamp";
-    const char* const SetPseudorangeRamp::Documentation = "Please note the command PseudorangeRamp is deprecated since 21.3. You may use PseudorangeRampForSV.\n\nSet PSR ramp event. This function lets user change the pseudorange of any satellite.\nIf PRN is set to 0, the change is applied to all satellites.\n\n         Hold Start Time\n         |     Hold Stop Time\n         |     |\n         ...........\n       ..       ...\n       ..        ...\n  .......           .........> Time\n      |           |\n      Start Time      Stop Time\n";
+    const char* const SetPseudorangeRamp::Documentation = "Please note the command SetPseudorangeRamp is deprecated since 21.3. You may use SetPseudorangeRampForSV.\n\nSet PSR ramp event. This function lets user change the pseudorange of any satellite.\nIf PRN is set to 0, the change is applied to all satellites.\n\n         Hold Start Time\n         |     Hold Stop Time\n         |     |\n         ...........\n       ..       ...\n       ..        ...\n  .......           .........> Time\n      |           |\n      Start Time      Stop Time\n";
 
     REGISTER_COMMAND_FACTORY(SetPseudorangeRamp);
 
@@ -107838,7 +108448,7 @@ namespace Sdx
   namespace Cmd
   {
     const char* const GetPseudorangeRamp::CmdName = "GetPseudorangeRamp";
-    const char* const GetPseudorangeRamp::Documentation = "Please note the command PseudorangeRamp is deprecated since 21.3. You may use PseudorangeRampForSV.\n\nGet PSR ramp event. This function lets user change the pseudorange of any satellite.\nIf PRN is set to 0, the change is applied to all satellites.\n\n         Hold Start Time\n         |     Hold Stop Time\n         |     |\n         ...........\n       ..       ...\n       ..        ...\n  .......           .........> Time\n      |           |\n      Start Time      Stop Time\n";
+    const char* const GetPseudorangeRamp::Documentation = "Please note the command GetPseudorangeRamp is deprecated since 21.3. You may use GetPseudorangeRampForSV.\n\nGet PSR ramp event. This function lets user change the pseudorange of any satellite.\nIf PRN is set to 0, the change is applied to all satellites.\n\n         Hold Start Time\n         |     Hold Stop Time\n         |     |\n         ...........\n       ..       ...\n       ..        ...\n  .......           .........> Time\n      |           |\n      Start Time      Stop Time\n";
 
     REGISTER_COMMAND_FACTORY(GetPseudorangeRamp);
 
@@ -107908,7 +108518,7 @@ namespace Sdx
   namespace Cmd
   {
     const char* const GetPseudorangeRampResult::CmdName = "GetPseudorangeRampResult";
-    const char* const GetPseudorangeRampResult::Documentation = "Result of GetPseudorangeRamp";
+    const char* const GetPseudorangeRampResult::Documentation = "Result of GetPseudorangeRamp.";
 
     REGISTER_COMMAND_RESULT_FACTORY(GetPseudorangeRampResult);
 
@@ -108246,7 +108856,7 @@ namespace Sdx
   namespace Cmd
   {
     const char* const SetSVAntennaModelForAllSat::CmdName = "SetSVAntennaModelForAllSat";
-    const char* const SetSVAntennaModelForAllSat::Documentation = "Please note the command SVAntennaModelForAllSat is deprecated since 21.3. You may use SVAntennaModelForEachSV.\n\nSet the antenna model for all satellites.";
+    const char* const SetSVAntennaModelForAllSat::Documentation = "Please note the command SetSVAntennaModelForAllSat is deprecated since 21.3. You may use SetSVAntennaModelForEachSV.\n\nSet the antenna model for all satellites.";
 
     REGISTER_COMMAND_FACTORY(SetSVAntennaModelForAllSat);
 
@@ -108330,7 +108940,7 @@ namespace Sdx
   namespace Cmd
   {
     const char* const GetSVAntennaModelForAllSat::CmdName = "GetSVAntennaModelForAllSat";
-    const char* const GetSVAntennaModelForAllSat::Documentation = "Please note the command SVAntennaModelForAllSat is deprecated since 21.3. You may use SVAntennaModelForEachSV.\n\nGet the antenna model for all satellites.";
+    const char* const GetSVAntennaModelForAllSat::Documentation = "Please note the command GetSVAntennaModelForAllSat is deprecated since 21.3. You may use GetSVAntennaModelForEachSV.\n\nGet the antenna model for all satellites.";
 
     REGISTER_COMMAND_FACTORY(GetSVAntennaModelForAllSat);
 
@@ -108400,7 +109010,7 @@ namespace Sdx
   namespace Cmd
   {
     const char* const GetSVAntennaModelForAllSatResult::CmdName = "GetSVAntennaModelForAllSatResult";
-    const char* const GetSVAntennaModelForAllSatResult::Documentation = "Result of GetSVAntennaModelForAllSat";
+    const char* const GetSVAntennaModelForAllSatResult::Documentation = "Result of GetSVAntennaModelForAllSat.";
 
     REGISTER_COMMAND_RESULT_FACTORY(GetSVAntennaModelForAllSatResult);
 

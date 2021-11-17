@@ -9,7 +9,7 @@ namespace Sdx
   namespace Cmd
   {
     ///
-    /// Result of IsStopMasterWhenSlaveStop
+    /// Result of IsStopMasterWhenSlaveStop.
     ///
     /// Name    Type Description
     /// ------- ---- ---------------------------------------

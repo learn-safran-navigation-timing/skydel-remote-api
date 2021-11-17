@@ -10,7 +10,7 @@ namespace Sdx
   namespace Cmd
   {
     ///
-    /// Result of IsRFOutputEnabledForEachSV
+    /// Result of IsRFOutputEnabledForEachSV.
     ///
     /// Name    Type       Description
     /// ------- ---------- -------------------------------------------------------------------------------------------------

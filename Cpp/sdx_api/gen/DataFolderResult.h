@@ -9,7 +9,7 @@ namespace Sdx
   namespace Cmd
   {
     ///
-    /// Result of the command "GetDataFolder"
+    /// Result of GetDataFolder.
     ///
     /// Name   Type   Description
     /// ------ ------ ------------------

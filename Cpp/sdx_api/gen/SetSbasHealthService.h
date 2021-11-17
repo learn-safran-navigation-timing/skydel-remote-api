@@ -9,6 +9,8 @@ namespace Sdx
   namespace Cmd
   {
     ///
+    /// Please note the command SetSbasHealthService is deprecated since 21.9. You may use SetSbasSVServiceHealth.
+    /// 
     /// Apply service provider for a satellite
     ///
     /// Name   Type Description

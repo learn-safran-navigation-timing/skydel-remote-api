@@ -9,7 +9,7 @@ namespace Sdx
   namespace Cmd
   {
     ///
-    /// Get power offset for specified satellite SV ID.
+    /// Get the power offset for specified satellite SV ID.
     ///
     /// Name   Type   Description
     /// ------ ------ -----------------------------------------------------------------------------------

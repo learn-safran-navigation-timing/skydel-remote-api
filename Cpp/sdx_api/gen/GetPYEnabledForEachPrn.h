@@ -9,9 +9,9 @@ namespace Sdx
   namespace Cmd
   {
     ///
-    /// Please note the command EnablePYForEachPrn is deprecated since 21.3. You may use EnablePYCodeForEachSV.
+    /// Please note the command GetPYEnabledForEachPrn is deprecated since 21.3. You may use IsPYCodeEnabledForEachSV.
     /// 
-    /// Tells if the P(Y)-Code is enabled or disabled for each satellite. See EnablePYForEachPrn description for allowed signals.
+    /// Tells if the P(Y)-Code is enabled or disabled for each satellite. See GetPYEnabledForEachPrn description for allowed signals.
     ///
     /// Name   Type   Description
     /// ------ ------ --------------------------------------------------------

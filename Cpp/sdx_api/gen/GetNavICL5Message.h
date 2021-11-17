@@ -9,7 +9,7 @@ namespace Sdx
   namespace Cmd
   {
     ///
-    /// Please note the command ModificationToNavICL5Message is deprecated since 21.3. You may use MessageModificationToNavICNav.
+    /// Please note the command GetNavICL5Message is deprecated since 21.3. You may use GetMessageModificationToNavICNav.
     /// 
     /// Get infos about the NAV Message with this id
     ///

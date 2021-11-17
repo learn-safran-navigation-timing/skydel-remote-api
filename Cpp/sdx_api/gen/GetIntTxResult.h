@@ -9,7 +9,7 @@ namespace Sdx
   namespace Cmd
   {
     ///
-    /// Result of GetIntTx
+    /// Result of GetIntTx.
     ///
     /// Name      Type   Description
     /// --------- ------ ----------------------------------------------------------------------------------------

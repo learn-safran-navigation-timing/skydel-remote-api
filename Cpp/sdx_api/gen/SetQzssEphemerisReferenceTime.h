@@ -9,7 +9,7 @@ namespace Sdx
   namespace Cmd
   {
     ///
-    /// Please note the command QzssEphemerisReferenceTime is deprecated since 20.9. You may use EphemerisReferenceTimeForSV.
+    /// Please note the command SetQzssEphemerisReferenceTime is deprecated since 20.9. You may use SetEphemerisReferenceTimeForSV.
     /// 
     /// Set the QZSS ephemeris reference time
     ///

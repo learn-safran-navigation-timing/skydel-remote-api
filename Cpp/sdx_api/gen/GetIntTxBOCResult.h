@@ -10,7 +10,7 @@ namespace Sdx
   namespace Cmd
   {
     ///
-    /// Result of GetIntTxBOC
+    /// Result of GetIntTxBOC.
     ///
     /// Name           Type         Description
     /// -------------- ------------ -------------------------------------------------------------------------

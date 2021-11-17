@@ -9,7 +9,7 @@ namespace Sdx
   namespace Cmd
   {
     ///
-    /// Result of GetIssueOfData
+    /// Result of GetIssueOfData.
     ///
     /// Name          Type          Description
     /// ------------- ------------- ---------------------------------------------------

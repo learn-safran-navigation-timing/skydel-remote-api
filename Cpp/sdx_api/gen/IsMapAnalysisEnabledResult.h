@@ -9,7 +9,7 @@ namespace Sdx
   namespace Cmd
   {
     ///
-    /// Result of IsMapAnalysisEnabled
+    /// Result of IsMapAnalysisEnabled.
     ///
     /// Name Type Description
     /// ---- ---- -------------

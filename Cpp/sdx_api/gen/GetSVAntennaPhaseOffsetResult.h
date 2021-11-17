@@ -13,7 +13,7 @@ namespace Sdx
   namespace Cmd
   {
     ///
-    /// Result of GetSVAntennaPhaseOffset
+    /// Result of GetSVAntennaPhaseOffset.
     ///
     /// Name        Type               Description
     /// ----------- ------------------ ----------------------------------------------------------------------------------------------------------------------------------

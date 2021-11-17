@@ -9,6 +9,8 @@ namespace Sdx
   namespace Cmd
   {
     ///
+    /// Please note the command SetSbasHealthIntegrity is deprecated since 21.9. You may use SetSbasSVIntegrityHealth.
+    /// 
     /// Apply integrity flag for a SBAS satellite
     ///
     /// Name   Type Description

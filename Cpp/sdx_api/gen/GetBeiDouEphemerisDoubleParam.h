@@ -9,7 +9,7 @@ namespace Sdx
   namespace Cmd
   {
     ///
-    /// Please note the command BeiDouEphemerisDoubleParam is deprecated since 21.3. You may use BeiDouEphDoubleParamForSV.
+    /// Please note the command GetBeiDouEphemerisDoubleParam is deprecated since 21.3. You may use GetBeiDouEphDoubleParamForSV.
     /// 
     /// Get various parameters in the BeiDou ephemeris
     /// 

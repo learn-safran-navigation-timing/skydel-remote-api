@@ -9,7 +9,7 @@ namespace Sdx
   namespace Cmd
   {
     ///
-    /// Result of IsPrnEnabled
+    /// Result of IsPrnEnabled.
     ///
     /// Name    Type   Description
     /// ------- ------ ----------------------------------------------------------------------------------------------------------

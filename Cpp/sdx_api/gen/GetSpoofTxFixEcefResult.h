@@ -9,7 +9,7 @@ namespace Sdx
   namespace Cmd
   {
     ///
-    /// Result of GetSpoofTxFixEcef
+    /// Result of GetSpoofTxFixEcef.
     ///
     /// Name  Type   Description
     /// ----- ------ ------------------------------

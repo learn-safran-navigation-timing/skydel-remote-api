@@ -9,7 +9,7 @@ namespace Sdx
   namespace Cmd
   {
     ///
-    /// Please note the command GpsSatelliteAntiSpoofingFlag is deprecated since 21.3. You may use GpsAntiSpoofingFlagForSV.
+    /// Please note the command GetGpsSatelliteAntiSpoofingFlag is deprecated since 21.3. You may use GetGpsAntiSpoofingFlagForSV.
     /// 
     /// Get GPS Anti-Spoofing Flag
     ///

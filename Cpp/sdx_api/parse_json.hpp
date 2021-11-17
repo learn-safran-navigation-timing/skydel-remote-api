@@ -3,6 +3,7 @@
 #include <map>
 #include <stdexcept>
 #include <vector>
+#include <stdexcept>
 
 #include "rapidjson/document.h"
 #include "sdx_optional.h"

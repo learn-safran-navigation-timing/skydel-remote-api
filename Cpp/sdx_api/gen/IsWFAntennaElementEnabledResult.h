@@ -9,7 +9,7 @@ namespace Sdx
   namespace Cmd
   {
     ///
-    /// Result of IsWFAntennaElementEnabled
+    /// Result of IsWFAntennaElementEnabled.
     ///
     /// Name    Type Description
     /// ------- ---- -------------------------------------------------

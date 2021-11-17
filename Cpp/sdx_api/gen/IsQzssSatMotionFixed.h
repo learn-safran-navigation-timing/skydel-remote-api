@@ -9,7 +9,7 @@ namespace Sdx
   namespace Cmd
   {
     ///
-    /// Please note the command QzssSatMotionFixed is deprecated since 20.9. You may use SatMotionFixed.
+    /// Please note the command IsQzssSatMotionFixed is deprecated since 20.9. You may use IsSatMotionFixed.
     /// 
     /// Tells if the satellite is fixed (True) or not fixed (false).
     ///

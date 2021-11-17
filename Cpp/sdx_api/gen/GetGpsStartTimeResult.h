@@ -9,7 +9,7 @@ namespace Sdx
   namespace Cmd
   {
     ///
-    /// Result for GetGpsStartTime
+    /// Result of GetGpsStartTime.
     ///
     /// Name       Type     Description
     /// ---------- -------- ------------------------------------------------------------------------------------------------

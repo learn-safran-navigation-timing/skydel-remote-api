@@ -9,7 +9,7 @@ namespace Sdx
   namespace Cmd
   {
     ///
-    /// Please note the command ModificationToGalileoINavMessage is deprecated since 21.3. You may use MessageModificationToGalileoINav.
+    /// Please note the command GetGalileoINavMessage is deprecated since 21.3. You may use GetMessageModificationToGalileoINav.
     /// 
     /// Get infos about the INAV Message with this id
     ///

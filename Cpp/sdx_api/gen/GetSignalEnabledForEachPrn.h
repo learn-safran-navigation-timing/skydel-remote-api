@@ -9,9 +9,9 @@ namespace Sdx
   namespace Cmd
   {
     ///
-    /// Please note the command EnableSignalForEachPrn is deprecated since 21.3. You may use EnableSignalForEachSV.
+    /// Please note the command GetSignalEnabledForEachPrn is deprecated since 21.3. You may use IsSignalEnabledForEachSV.
     /// 
-    /// Tells if the signal is enabled or disabled for each satellite. See EnableSignalForEachPrn description for allowed signals.
+    /// Tells if the signal is enabled or disabled for each satellite. See GetSignalEnabledForEachPrn description for allowed signals.
     ///
     /// Name   Type   Description
     /// ------ ------ --------------------------------------------------------

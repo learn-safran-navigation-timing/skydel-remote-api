@@ -10,7 +10,7 @@ namespace Sdx
   namespace Cmd
   {
     ///
-    /// Result of GetSbasEphParamsForSV
+    /// Result of GetSbasEphParamsForSV.
     ///
     /// Name           Type               Description
     /// -------------- ------------------ --------------------------------------------------------------------------

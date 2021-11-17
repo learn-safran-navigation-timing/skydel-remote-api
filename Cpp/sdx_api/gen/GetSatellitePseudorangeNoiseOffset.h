@@ -9,7 +9,7 @@ namespace Sdx
   namespace Cmd
   {
     ///
-    /// Please note the command SatellitePseudorangeNoiseOffset is deprecated since 21.3. You may use PseudorangeNoiseOffsetForSV.
+    /// Please note the command GetSatellitePseudorangeNoiseOffset is deprecated since 21.3. You may use GetPseudorangeNoiseOffsetForSV.
     /// 
     /// Get the satellite pseudorange noise constant offset.
     ///

@@ -10,7 +10,7 @@ namespace Sdx
   namespace Cmd
   {
     ///
-    /// Result of GetSatelliteEphemerisError
+    /// Result of GetSatelliteEphemerisError.
     ///
     /// Name     Type   Description
     /// -------- ------ ----------------------------------------------------------------------------------------------------------

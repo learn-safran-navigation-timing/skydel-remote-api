@@ -9,7 +9,7 @@ namespace Sdx
   namespace Cmd
   {
     ///
-    /// Result of IsIntTxIgnoreRxAntennaPhasePattern
+    /// Result of IsIntTxIgnoreRxAntennaPhasePattern.
     ///
     /// Name   Type   Description
     /// ------ ------ --------------------------------------------------------------

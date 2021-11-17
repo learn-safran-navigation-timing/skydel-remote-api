@@ -9,7 +9,7 @@ namespace Sdx
   namespace Cmd
   {
     ///
-    /// Result of GetGpsNavigationMessage
+    /// Result of GetGpsNavigationMessage.
     ///
     /// Name         Type   Description
     /// ------------ ------ -----------------------------------------------------------

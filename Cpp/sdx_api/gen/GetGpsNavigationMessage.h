@@ -9,7 +9,7 @@ namespace Sdx
   namespace Cmd
   {
     ///
-    /// Please note the command ModificationToGpsNavigationMessage is deprecated since 21.3. You may use MessageModificationToGpsLNav.
+    /// Please note the command GetGpsNavigationMessage is deprecated since 21.3. You may use GetMessageModificationToGpsLNav.
     /// 
     /// Get infos about this modification gps navigation message event.
     ///

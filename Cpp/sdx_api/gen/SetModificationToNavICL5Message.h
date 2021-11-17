@@ -9,7 +9,7 @@ namespace Sdx
   namespace Cmd
   {
     ///
-    /// Please note the command ModificationToNavICL5Message is deprecated since 21.3. You may use MessageModificationToNavICNav.
+    /// Please note the command SetModificationToNavICL5Message is deprecated since 21.3. You may use SetMessageModificationToNavICNav.
     /// 
     /// Set (or Modify) event to change NavIC L5 message bits. If you send this command without setting the Id
     /// parameter, or if you set the Id with a value never used before, a new Modification event will be

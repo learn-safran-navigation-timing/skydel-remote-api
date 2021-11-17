@@ -9,7 +9,7 @@ namespace Sdx
   namespace Cmd
   {
     ///
-    /// Result of GetQzssPerturbations
+    /// Result of GetQzssPerturbations.
     ///
     /// Name Type   Description
     /// ---- ------ ---------------------

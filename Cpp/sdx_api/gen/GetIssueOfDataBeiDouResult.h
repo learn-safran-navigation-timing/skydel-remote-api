@@ -9,7 +9,7 @@ namespace Sdx
   namespace Cmd
   {
     ///
-    /// Result of GetIssueOfDataBeiDou
+    /// Result of GetIssueOfDataBeiDou.
     ///
     /// Name      Type Description
     /// --------- ---- ------------------------

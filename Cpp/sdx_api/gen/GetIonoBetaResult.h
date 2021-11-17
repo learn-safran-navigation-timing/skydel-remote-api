@@ -9,7 +9,7 @@ namespace Sdx
   namespace Cmd
   {
     ///
-    /// Result of GetIonoBeta
+    /// Result of GetIonoBeta.
     ///
     /// Name  Type   Description
     /// ----- ------ ------------------------

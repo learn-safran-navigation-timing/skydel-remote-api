@@ -10,7 +10,7 @@ namespace Sdx
   namespace Cmd
   {
     ///
-    /// Result of GetAllSVNames
+    /// Result of GetAllSVAntennaNames.
     ///
     /// Name         Type         Description
     /// ------------ ------------ ----------------------------------------------------------------

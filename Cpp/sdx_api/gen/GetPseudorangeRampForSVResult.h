@@ -9,7 +9,7 @@ namespace Sdx
   namespace Cmd
   {
     ///
-    /// Result of GetPseudorangeRampForSV
+    /// Result of GetPseudorangeRampForSV.
     ///
     /// Name          Type   Description
     /// ------------- ------ ----------------------------------------------------------------------------------

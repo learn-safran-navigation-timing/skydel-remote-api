@@ -9,7 +9,7 @@ namespace Sdx
   namespace Cmd
   {
     ///
-    /// Result of IsSignalEnabledForSV
+    /// Result of IsSignalEnabledForSV.
     ///
     /// Name    Type   Description
     /// ------- ------ -------------------------------------------------------------------------------

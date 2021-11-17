@@ -10,7 +10,7 @@ namespace Sdx
   namespace Cmd
   {
     ///
-    /// Result of GetIntTxIqFile
+    /// Result of GetIntTxIqFile.
     ///
     /// Name          Type         Description
     /// ------------- ------------ ---------------------------------------------------

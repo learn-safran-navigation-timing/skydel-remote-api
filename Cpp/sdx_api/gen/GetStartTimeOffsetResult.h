@@ -9,7 +9,7 @@ namespace Sdx
   namespace Cmd
   {
     ///
-    /// Result of GetStartTimeOffset
+    /// Result of GetStartTimeOffset.
     ///
     /// Name   Type Description
     /// ------ ---- -----------------------------------------------------------------------------------------

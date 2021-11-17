@@ -9,7 +9,7 @@ namespace Sdx
   namespace Cmd
   {
     ///
-    /// Result of IsElevationMaskAboveEnabled
+    /// Result of IsElevationMaskAboveEnabled.
     ///
     /// Name    Type Description
     /// ------- ---- ------------------------------------------------------------------

@@ -9,7 +9,7 @@ namespace Sdx
   namespace Cmd
   {
     ///
-    /// Please note the command BeiDouSatelliteHealthInfo is deprecated since 21.3. You may use BeiDouHealthInfoForSV.
+    /// Please note the command SetBeiDouSatelliteHealthInfo is deprecated since 21.3. You may use SetBeiDouHealthInfoForSV.
     /// 
     /// Set BeiDou satellite health info
     ///

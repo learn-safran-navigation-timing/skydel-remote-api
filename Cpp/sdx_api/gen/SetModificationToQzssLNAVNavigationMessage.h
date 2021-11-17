@@ -9,7 +9,7 @@ namespace Sdx
   namespace Cmd
   {
     ///
-    /// Please note the command ModificationToQzssLNAVNavigationMessage is deprecated since 21.3. You may use MessageModificationToQzssLNav.
+    /// Please note the command SetModificationToQzssLNAVNavigationMessage is deprecated since 21.3. You may use SetMessageModificationToQzssLNav.
     /// 
     /// Set (or Modify) event to change navigation message bits.
     /// 

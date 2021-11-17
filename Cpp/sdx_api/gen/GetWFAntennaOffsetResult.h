@@ -9,7 +9,7 @@ namespace Sdx
   namespace Cmd
   {
     ///
-    /// Result of GetWFAntennaOffset
+    /// Result of GetWFAntennaOffset.
     ///
     /// Name  Type   Description
     /// ----- ------ -----------------------------------------------

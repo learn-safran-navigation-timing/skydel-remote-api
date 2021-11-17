@@ -9,7 +9,7 @@ namespace Sdx
   namespace Cmd
   {
     ///
-    /// Result of GetIssueOfDataQzss
+    /// Result of GetIssueOfDataQzss.
     ///
     /// Name          Type          Description
     /// ------------- ------------- ---------------------------------------------------

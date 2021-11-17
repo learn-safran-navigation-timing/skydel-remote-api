@@ -9,7 +9,7 @@ namespace Sdx
   namespace Cmd
   {
     ///
-    /// Result of GetNavICEphDoubleParamForSV
+    /// Result of GetNavICEphDoubleParamForSV.
     ///
     /// Name      Type   Description
     /// --------- ------ --------------------------------------------------------------------

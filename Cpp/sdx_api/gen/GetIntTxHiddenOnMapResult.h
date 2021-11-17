@@ -9,7 +9,7 @@ namespace Sdx
   namespace Cmd
   {
     ///
-    /// Result of GetIntTxHiddenOnMap
+    /// Result of GetIntTxHiddenOnMap.
     ///
     /// Name        Type   Description
     /// ----------- ------ -----------------------------------------------

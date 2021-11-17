@@ -9,7 +9,7 @@ namespace Sdx
   namespace Cmd
   {
     ///
-    /// Ask Skydel's Data Folder. The user can changed it in the GUI's Preferences.
+    /// Get Skydel's Data Folder. The user can changed it in the GUI's Preferences.
     ///
     /// 
     ///

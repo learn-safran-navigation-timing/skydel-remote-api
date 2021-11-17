@@ -9,7 +9,7 @@ namespace Sdx
   namespace Cmd
   {
     ///
-    /// Result of GetDefaultIntTxPersistence
+    /// Result of GetDefaultIntTxPersistence.
     ///
     /// Name         Type Description
     /// ------------ ---- --------------------------------------------------------------------------------

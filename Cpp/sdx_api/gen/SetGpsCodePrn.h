@@ -9,7 +9,7 @@ namespace Sdx
   namespace Cmd
   {
     ///
-    /// Please note the command GpsCodePrn is deprecated since 21.3. You may use PrnOfSVID.
+    /// Please note the command SetGpsCodePrn is deprecated since 21.3. You may use SetPrnOfSVID.
     /// 
     /// Set the transmitted PRN code for the specified satellite
     ///

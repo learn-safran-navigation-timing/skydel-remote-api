@@ -9,7 +9,7 @@ namespace Sdx
   namespace Cmd
   {
     ///
-    /// Result of GetAgeOfDataBeiDou
+    /// Result of GetAgeOfDataBeiDou.
     ///
     /// Name          Type          Description
     /// ------------- ------------- ---------------------------------------------------

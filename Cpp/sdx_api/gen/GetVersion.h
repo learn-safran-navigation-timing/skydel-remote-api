@@ -9,7 +9,7 @@ namespace Sdx
   namespace Cmd
   {
     ///
-    /// Ask Skydel version.
+    /// Get Skydel version.
     ///
     /// 
     ///

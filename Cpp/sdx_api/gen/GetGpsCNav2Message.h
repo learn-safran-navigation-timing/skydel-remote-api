@@ -9,7 +9,7 @@ namespace Sdx
   namespace Cmd
   {
     ///
-    /// Please note the command ModificationToGpsCNav2Message is deprecated since 21.3. You may use MessageModificationToGpsCNav2.
+    /// Please note the command GetGpsCNav2Message is deprecated since 21.3. You may use GetMessageModificationToGpsCNav2.
     /// 
     /// Get infos about the CNAV2 Message with this id
     ///

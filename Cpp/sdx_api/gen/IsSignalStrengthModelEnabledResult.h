@@ -9,7 +9,7 @@ namespace Sdx
   namespace Cmd
   {
     ///
-    /// Result of IsSignalStrengthModelEnabled
+    /// Result of IsSignalStrengthModelEnabled.
     ///
     /// Name    Type Description
     /// ------- ---- -----------------------------------------------------------

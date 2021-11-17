@@ -12,8 +12,8 @@ namespace Sdx
     /// Set tropospheric model
     ///
     /// Name  Type   Description
-    /// ----- ------ -------------------------------------------------------
-    /// Model string Tropospheric model ("None", "Saastamoinen" or "Stanag")
+    /// ----- ------ -----------------------------------------------------------------
+    /// Model string Tropospheric model ("None", "Saastamoinen", "Stanag" or "DO-229")
     ///
 
     class SetTropoModel;

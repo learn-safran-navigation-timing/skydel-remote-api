@@ -9,7 +9,7 @@ namespace Sdx
   namespace Cmd
   {
     ///
-    /// Return simulation elapsed time in milliseconds.
+    /// Get simulation elapsed time in milliseconds.
     ///
     /// 
     ///

@@ -9,7 +9,7 @@ namespace Sdx
   namespace Cmd
   {
     ///
-    /// Result of GetBeiDouEphBoolParamForSV
+    /// Result of GetBeiDouEphBoolParamForSV.
     ///
     /// Name      Type   Description
     /// --------- ------ --------------------------------------------------------------------

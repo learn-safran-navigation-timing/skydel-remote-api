@@ -9,7 +9,7 @@ namespace Sdx
   namespace Cmd
   {
     ///
-    /// Result of GetSpoofTxTrajectory
+    /// Result of GetSpoofTxTrajectory.
     ///
     /// Name           Type   Description
     /// -------------- ------ ---------------------------------------------------

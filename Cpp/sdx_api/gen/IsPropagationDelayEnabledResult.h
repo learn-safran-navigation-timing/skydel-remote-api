@@ -9,7 +9,7 @@ namespace Sdx
   namespace Cmd
   {
     ///
-    /// Result of IsPropagationDelayEnabled
+    /// Result of IsPropagationDelayEnabled.
     ///
     /// Name    Type   Description
     /// ------- ------ -------------------------------------------------------------------------------------------------

@@ -9,7 +9,7 @@ namespace Sdx
   namespace Cmd
   {
     ///
-    /// Please note the command GalileoSatelliteSignalHealth is deprecated since 21.3. You may use GalileoSignalHealthForSV.
+    /// Please note the command SetGalileoSatelliteSignalHealth is deprecated since 21.3. You may use SetGalileoSignalHealthForSV.
     /// 
     /// Set Galileo signal health for I/NAV and F/NAV message
     ///

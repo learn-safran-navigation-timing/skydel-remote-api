@@ -9,7 +9,7 @@ namespace Sdx
   namespace Cmd
   {
     ///
-    /// Result of GetVehicleTrajectoryFixEcef
+    /// Result of GetVehicleTrajectoryFixEcef.
     ///
     /// Name  Type   Description
     /// ----- ------ -----------------------

@@ -9,7 +9,7 @@ namespace Sdx
   namespace Cmd
   {
     ///
-    /// Please note the command GpsPerturbationsForAllSat is deprecated since 21.3. You may use PerturbationsForAllSat.
+    /// Please note the command SetGpsPerturbationsForAllSat is deprecated since 21.3. You may use SetPerturbationsForAllSat.
     /// 
     /// Set GPS orbit perturbations (Crs, Crc, Cis, Cic, Cus and Cuc) for all satellites.
     /// All parameters are zero based index (index 0 => PRN 1, index 1 => PRN 2, etc)

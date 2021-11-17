@@ -9,7 +9,7 @@ namespace Sdx
   namespace Cmd
   {
     ///
-    /// Result of IsLogRinexEnabled
+    /// Result of IsLogRinexEnabled.
     ///
     /// Name    Type Description
     /// ------- ---- ------------------------------------------------

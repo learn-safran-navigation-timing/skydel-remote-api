@@ -9,7 +9,7 @@ namespace Sdx
   namespace Cmd
   {
     ///
-    /// Please note the command ModificationToGlonassNavigationMessage is deprecated since 21.3. You may use MessageModificationToGlonassNav.
+    /// Please note the command SetModificationToGlonassNavigationMessage is deprecated since 21.3. You may use SetMessageModificationToGlonassNav.
     /// 
     /// Set (or Modify) event to change navigation message bits.
     /// 

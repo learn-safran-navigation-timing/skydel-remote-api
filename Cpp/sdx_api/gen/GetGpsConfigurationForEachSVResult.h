@@ -9,7 +9,7 @@ namespace Sdx
   namespace Cmd
   {
     ///
-    /// Result of GetGpsConfigurationForEachSV
+    /// Result of GetGpsConfigurationForEachSV.
     ///
     /// Name      Type      Description
     /// --------- --------- --------------------------

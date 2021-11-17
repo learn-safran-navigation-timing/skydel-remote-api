@@ -9,11 +9,11 @@ namespace Sdx
   namespace Cmd
   {
     ///
-    /// Result of GetTropoModel
+    /// Result of GetTropoModel.
     ///
     /// Name  Type   Description
-    /// ----- ------ -------------------------------------------------------
-    /// Model string Tropospheric model ("None", "Saastamoinen" or "Stanag")
+    /// ----- ------ -----------------------------------------------------------------
+    /// Model string Tropospheric model ("None", "Saastamoinen", "Stanag" or "DO-229")
     ///
 
     class GetTropoModelResult;

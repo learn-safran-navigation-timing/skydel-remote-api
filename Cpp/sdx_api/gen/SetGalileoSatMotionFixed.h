@@ -9,7 +9,7 @@ namespace Sdx
   namespace Cmd
   {
     ///
-    /// Please note the command GalileoSatMotionFixed is deprecated since 21.3. You may use SatMotionFixed.
+    /// Please note the command SetGalileoSatMotionFixed is deprecated since 21.3. You may use SetSatMotionFixed.
     /// 
     /// If IsFixed is set to true, the satellite will not move during the simulation and keep its initial position calculated at the beginning of the simulation.
     ///

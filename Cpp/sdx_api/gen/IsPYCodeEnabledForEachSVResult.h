@@ -10,7 +10,7 @@ namespace Sdx
   namespace Cmd
   {
     ///
-    /// Result of IsPYCodeEnabledForEachSV
+    /// Result of IsPYCodeEnabledForEachSV.
     ///
     /// Name    Type       Description
     /// ------- ---------- ----------------------------------------------------------------------------------------

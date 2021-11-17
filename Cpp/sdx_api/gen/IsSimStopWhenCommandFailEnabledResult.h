@@ -9,7 +9,7 @@ namespace Sdx
   namespace Cmd
   {
     ///
-    /// Result of IsSimStopWhenCommandFailEnabled
+    /// Result of IsSimStopWhenCommandFailEnabled.
     ///
     /// Name    Type Description
     /// ------- ---- ----------------------------------

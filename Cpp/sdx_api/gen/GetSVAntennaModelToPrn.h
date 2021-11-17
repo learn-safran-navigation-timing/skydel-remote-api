@@ -9,7 +9,7 @@ namespace Sdx
   namespace Cmd
   {
     ///
-    /// Please note the command SVAntennaModelToPrn is deprecated since 21.3. You may use SVAntennaModelForSV.
+    /// Please note the command GetSVAntennaModelToPrn is deprecated since 21.3. You may use GetSVAntennaModelForSV.
     /// 
     /// Get the antenna model used by the PRN.
     ///

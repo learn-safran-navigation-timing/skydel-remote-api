@@ -9,7 +9,7 @@ namespace Sdx
   namespace Cmd
   {
     ///
-    /// Result of IsTrajectoryCompleted
+    /// Result of IsTrajectoryCompleted.
     ///
     /// Name        Type Description
     /// ----------- ---- ------------------------------------------

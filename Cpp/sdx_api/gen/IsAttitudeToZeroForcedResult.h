@@ -9,7 +9,7 @@ namespace Sdx
   namespace Cmd
   {
     ///
-    /// Result of IsAttitudeToZeroForced
+    /// Result of IsAttitudeToZeroForced.
     ///
     /// Name    Type Description
     /// ------- ---- -----------------------------------------------

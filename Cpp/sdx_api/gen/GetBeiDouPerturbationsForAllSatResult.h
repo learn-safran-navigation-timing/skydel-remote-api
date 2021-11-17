@@ -9,7 +9,7 @@ namespace Sdx
   namespace Cmd
   {
     ///
-    /// Result of GetBeiDouPerturbationsForAllSat
+    /// Result of GetBeiDouPerturbationsForAllSat.
     ///
     /// Name Type         Description
     /// ---- ------------ -----------

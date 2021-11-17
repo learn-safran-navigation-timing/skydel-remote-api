@@ -9,7 +9,7 @@ namespace Sdx
   namespace Cmd
   {
     ///
-    /// Result of IsSVEnabled
+    /// Result of IsSVEnabled.
     ///
     /// Name    Type   Description
     /// ------- ------ ------------------------------------------------------------------------------------------------------

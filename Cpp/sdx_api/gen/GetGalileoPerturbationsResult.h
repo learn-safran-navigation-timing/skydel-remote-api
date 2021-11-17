@@ -9,7 +9,7 @@ namespace Sdx
   namespace Cmd
   {
     ///
-    /// Result of GetGalileoPerturbations
+    /// Result of GetGalileoPerturbations.
     ///
     /// Name Type   Description
     /// ---- ------ --------------------------

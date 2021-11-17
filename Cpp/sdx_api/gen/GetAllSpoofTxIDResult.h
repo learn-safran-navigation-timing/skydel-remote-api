@@ -10,7 +10,7 @@ namespace Sdx
   namespace Cmd
   {
     ///
-    /// Result of GetAllSpoofTxID
+    /// Result of GetAllSpoofTxID.
     ///
     /// Name Type         Description
     /// ---- ------------ ------------------------------------

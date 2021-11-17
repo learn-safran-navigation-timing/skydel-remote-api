@@ -9,7 +9,7 @@ namespace Sdx
   namespace Cmd
   {
     ///
-    /// Result of IsIntTxTrajectorySmoothingEnabled
+    /// Result of IsIntTxTrajectorySmoothingEnabled.
     ///
     /// Name    Type   Description
     /// ------- ------ -------------------------------------------------------------------

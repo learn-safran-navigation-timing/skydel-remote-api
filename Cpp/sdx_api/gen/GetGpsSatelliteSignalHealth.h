@@ -9,7 +9,7 @@ namespace Sdx
   namespace Cmd
   {
     ///
-    /// Please note the command GpsSatelliteSignalHealth is deprecated since 21.3. You may use GpsSignalHealthForSV.
+    /// Please note the command GetGpsSatelliteSignalHealth is deprecated since 21.3. You may use GetGpsSignalHealthForSV.
     /// 
     /// Get GPS signal health
     ///

@@ -9,7 +9,7 @@ namespace Sdx
   namespace Cmd
   {
     ///
-    /// Result of the command "GetVersion"
+    /// Result of GetVersion.
     ///
     /// Name    Type   Description
     /// ------- ------ --------------

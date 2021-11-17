@@ -10,7 +10,7 @@ namespace Sdx
   namespace Cmd
   {
     ///
-    /// Result of GetMessageModificationToQzssCNav2
+    /// Result of GetMessageModificationToQzssCNav2.
     ///
     /// Name             Type         Description
     /// ---------------- ------------ ----------------------------------------------------------------------------------------

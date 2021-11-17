@@ -11,7 +11,7 @@ namespace Sdx
   namespace Cmd
   {
     ///
-    /// Result of GetSVPhasePatternOffset
+    /// Result of GetSVPhasePatternOffset.
     ///
     /// Name        Type            Description
     /// ----------- --------------- ------------------------------------------------------------------------------------

@@ -9,7 +9,7 @@ namespace Sdx
   namespace Cmd
   {
     ///
-    /// Result of GetAntennaChange
+    /// Result of GetAntennaChange.
     ///
     /// Name      Type   Description
     /// --------- ------ --------------------------------------------------

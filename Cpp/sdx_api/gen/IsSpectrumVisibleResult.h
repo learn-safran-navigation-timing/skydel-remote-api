@@ -9,7 +9,7 @@ namespace Sdx
   namespace Cmd
   {
     ///
-    /// Result of IsSpectrumVisible
+    /// Result of IsSpectrumVisible.
     ///
     /// Name    Type Description
     /// ------- ---- ------------------

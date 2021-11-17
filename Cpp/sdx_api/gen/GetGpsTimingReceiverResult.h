@@ -12,7 +12,7 @@ namespace Sdx
   namespace Cmd
   {
     ///
-    /// Result of GetGpsTimingReceiver
+    /// Result of GetGpsTimingReceiver.
     ///
     /// Name        Type                           Description
     /// ----------- ------------------------------ -----------------------------------------------------------------------------------------

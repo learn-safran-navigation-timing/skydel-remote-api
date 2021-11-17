@@ -9,7 +9,7 @@ namespace Sdx
   namespace Cmd
   {
     ///
-    /// Result of GetBeiDouEphemerisReferenceTime
+    /// Result of GetBeiDouEphemerisReferenceTime.
     ///
     /// Name Type     Description
     /// ---- -------- --------------------------------------------------------------

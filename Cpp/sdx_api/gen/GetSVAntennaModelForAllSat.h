@@ -9,7 +9,7 @@ namespace Sdx
   namespace Cmd
   {
     ///
-    /// Please note the command SVAntennaModelForAllSat is deprecated since 21.3. You may use SVAntennaModelForEachSV.
+    /// Please note the command GetSVAntennaModelForAllSat is deprecated since 21.3. You may use GetSVAntennaModelForEachSV.
     /// 
     /// Get the antenna model for all satellites.
     ///

@@ -9,7 +9,7 @@ namespace Sdx
   namespace Cmd
   {
     ///
-    /// Result of GetQzssEphemerisReferenceTime
+    /// Result of GetQzssEphemerisReferenceTime.
     ///
     /// Name Type     Description
     /// ---- -------- --------------------------------------------------------------

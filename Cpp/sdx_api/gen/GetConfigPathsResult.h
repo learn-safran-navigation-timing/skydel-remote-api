@@ -10,7 +10,7 @@ namespace Sdx
   namespace Cmd
   {
     ///
-    /// Result of GetConfigPaths
+    /// Result of GetConfigPaths.
     ///
     /// Name  Type         Description
     /// ----- ------------ --------------------------------

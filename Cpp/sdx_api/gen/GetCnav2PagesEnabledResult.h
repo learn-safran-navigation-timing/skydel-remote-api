@@ -9,7 +9,7 @@ namespace Sdx
   namespace Cmd
   {
     ///
-    /// Result of GetCnav2PagesEnabled
+    /// Result of GetCnav2PagesEnabled.
     ///
     /// Name     Type      Description
     /// -------- --------- -----------------

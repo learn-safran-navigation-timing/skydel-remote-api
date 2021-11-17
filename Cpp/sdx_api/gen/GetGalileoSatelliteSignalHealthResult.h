@@ -9,7 +9,7 @@ namespace Sdx
   namespace Cmd
   {
     ///
-    /// Result of GetGalileoSatelliteSignalHealth
+    /// Result of GetGalileoSatelliteSignalHealth.
     ///
     /// Name      Type   Description
     /// --------- ------ ------------------------------------------

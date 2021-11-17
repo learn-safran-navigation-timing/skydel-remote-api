@@ -9,7 +9,7 @@ namespace Sdx
   namespace Cmd
   {
     ///
-    /// Please note the command SatellitePseudorangeNoiseGaussMarkov is deprecated since 21.3. You may use PseudorangeNoiseGaussMarkovForSV.
+    /// Please note the command GetSatellitePseudorangeNoiseGaussMarkov is deprecated since 21.3. You may use GetPseudorangeNoiseGaussMarkovForSV.
     /// 
     /// Get the satellite pseudorange noise Gauss-Markov process attributes.
     ///

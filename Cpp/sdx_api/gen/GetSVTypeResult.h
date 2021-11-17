@@ -9,7 +9,7 @@ namespace Sdx
   namespace Cmd
   {
     ///
-    /// Result of GetSVType
+    /// Result of GetSVType.
     ///
     /// Name   Type   Description
     /// ------ ------ -------------------------------------------------------------

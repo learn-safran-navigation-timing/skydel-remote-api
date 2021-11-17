@@ -9,7 +9,7 @@ namespace Sdx
   namespace Cmd
   {
     ///
-    /// Result of IsLogDownlinkEnabled
+    /// Result of IsLogDownlinkEnabled.
     ///
     /// Name           Type          Description
     /// -------------- ------------- ----------------------------------------------------------------------------------------------------------------------

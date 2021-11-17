@@ -9,7 +9,7 @@ namespace Sdx
   namespace Cmd
   {
     ///
-    /// Result of IsSbasFastCorrectionsEnabledFor
+    /// Result of IsSbasFastCorrectionsEnabledFor.
     ///
     /// Name      Type   Description
     /// --------- ------ -------------------------------

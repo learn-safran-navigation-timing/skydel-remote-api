@@ -9,7 +9,7 @@ namespace Sdx
   namespace Cmd
   {
     ///
-    /// get the ID of all interferences transmitters.
+    /// Get the ID of all interferences transmitters.
     ///
     /// 
     ///

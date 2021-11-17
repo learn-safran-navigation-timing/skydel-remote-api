@@ -9,7 +9,7 @@ namespace Sdx
   namespace Cmd
   {
     ///
-    /// Please note the command GpsSatelliteNavAlertFlag is deprecated since 21.3. You may use GpsNavAlertFlagForSV.
+    /// Please note the command GetGpsSatelliteNavAlertFlag is deprecated since 21.3. You may use GetGpsNavAlertFlagForSV.
     /// 
     /// Get GPS NAV Alert Flag
     ///

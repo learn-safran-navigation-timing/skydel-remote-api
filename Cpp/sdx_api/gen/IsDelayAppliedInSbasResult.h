@@ -9,7 +9,7 @@ namespace Sdx
   namespace Cmd
   {
     ///
-    /// Result of IsDelayAppliedInSbas
+    /// Result of IsDelayAppliedInSbas.
     ///
     /// Name      Type Description
     /// --------- ---- --------------------------------------------

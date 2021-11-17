@@ -10,7 +10,7 @@ namespace Sdx
   namespace Cmd
   {
     ///
-    /// Result of GetSVIDsOfPrn
+    /// Result of GetSVIDsOfPrn.
     ///
     /// Name     Type      Description
     /// -------- --------- ----------------------------------------------------------------------

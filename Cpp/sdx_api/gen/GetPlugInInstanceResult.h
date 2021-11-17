@@ -9,7 +9,7 @@ namespace Sdx
   namespace Cmd
   {
     ///
-    /// Result of GetPlugInInstance
+    /// Result of GetPlugInInstance.
     ///
     /// Name Type   Description
     /// ---- ------ -------------------------------------

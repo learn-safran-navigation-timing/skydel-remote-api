@@ -9,7 +9,7 @@ namespace Sdx
   namespace Cmd
   {
     ///
-    /// Result of IsUsingVelocityInSbasMessage25
+    /// Result of IsUsingVelocityInSbasMessage25.
     ///
     /// Name        Type Description
     /// ----------- ---- --------------------------------------------------------

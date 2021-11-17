@@ -9,7 +9,7 @@ namespace Sdx
   namespace Cmd
   {
     ///
-    /// Get interference transmitter trajectory
+    /// Get interference transmitter trajectory.
     ///
     /// Name Type   Description
     /// ---- ------ ------------------------------

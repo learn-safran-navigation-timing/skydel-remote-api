@@ -9,7 +9,7 @@ namespace Sdx
   namespace Cmd
   {
     ///
-    /// Result of IsLogHILInputEnabled
+    /// Result of IsLogHILInputEnabled.
     ///
     /// Name    Type Description
     /// ------- ---- ------------------------------------------------

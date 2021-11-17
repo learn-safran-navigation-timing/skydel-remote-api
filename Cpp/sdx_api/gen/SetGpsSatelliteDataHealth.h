@@ -9,7 +9,7 @@ namespace Sdx
   namespace Cmd
   {
     ///
-    /// Please note the command GpsSatelliteDataHealth is deprecated since 21.3. You may use GpsDataHealthForSV.
+    /// Please note the command SetGpsSatelliteDataHealth is deprecated since 21.3. You may use SetGpsDataHealthForSV.
     /// 
     /// Set GPS nav data health
     ///

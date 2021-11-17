@@ -9,7 +9,7 @@ namespace Sdx
   namespace Cmd
   {
     ///
-    /// Please note the command BeiDouSatelliteAutonomousHealth is deprecated since 21.3. You may use BeiDouAutonomousHealthForSV.
+    /// Please note the command SetBeiDouSatelliteAutonomousHealth is deprecated since 21.3. You may use SetBeiDouAutonomousHealthForSV.
     /// 
     /// Set BeiDou satellite autonomous health
     ///

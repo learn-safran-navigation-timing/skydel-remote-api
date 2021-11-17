@@ -9,7 +9,7 @@ namespace Sdx
   namespace Cmd
   {
     ///
-    /// Please note the command GalileoSatMotionFixed is deprecated since 21.3. You may use SatMotionFixed.
+    /// Please note the command IsGalileoSatMotionFixed is deprecated since 21.3. You may use IsSatMotionFixed.
     /// 
     /// Tells if the satellite is fixed (True) or not fixed (false).
     ///

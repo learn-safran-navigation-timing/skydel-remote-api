@@ -9,7 +9,7 @@ namespace Sdx
   namespace Cmd
   {
     ///
-    /// Result of GetLastLeapSecondDate
+    /// Result of GetLastLeapSecondDate.
     ///
     /// Name Type Description
     /// ---- ---- ----------------

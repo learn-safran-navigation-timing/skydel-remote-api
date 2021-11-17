@@ -9,7 +9,7 @@ namespace Sdx
   namespace Cmd
   {
     ///
-    /// Please note the command QzssSatMotionFixed is deprecated since 20.9. You may use SatMotionFixed.
+    /// Please note the command SetQzssSatMotionFixed is deprecated since 20.9. You may use SetSatMotionFixed.
     /// 
     /// If IsFixed is set to true, the satellite will not move during the simulation and keep its initial position calculated at the beginning of the simulation.
     ///

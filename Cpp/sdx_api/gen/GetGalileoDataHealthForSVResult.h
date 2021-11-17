@@ -9,7 +9,7 @@ namespace Sdx
   namespace Cmd
   {
     ///
-    /// Result of GetGalileoDataHealthForSV
+    /// Result of GetGalileoDataHealthForSV.
     ///
     /// Name      Type   Description
     /// --------- ------ -----------------------------------------------------------------------

@@ -10,7 +10,7 @@ namespace Sdx
   namespace Cmd
   {
     ///
-    /// Result of GetGlonassEphDoubleParamForEachSV
+    /// Result of GetGlonassEphDoubleParamForEachSV.
     ///
     /// Name      Type         Description
     /// --------- ------------ --------------------------------------------------------------------------------------------------

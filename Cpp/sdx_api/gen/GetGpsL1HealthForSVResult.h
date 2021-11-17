@@ -9,7 +9,7 @@ namespace Sdx
   namespace Cmd
   {
     ///
-    /// Result of GetGpsL1HealthForSV
+    /// Result of GetGpsL1HealthForSV.
     ///
     /// Name   Type Description
     /// ------ ---- --------------------------------------------------------------

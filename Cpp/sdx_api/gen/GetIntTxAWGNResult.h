@@ -10,7 +10,7 @@ namespace Sdx
   namespace Cmd
   {
     ///
-    /// Result of GetIntTxAWGN
+    /// Result of GetIntTxAWGN.
     ///
     /// Name          Type         Description
     /// ------------- ------------ ------------------------------------------------------------------------------------------

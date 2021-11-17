@@ -9,7 +9,7 @@ namespace Sdx
   namespace Cmd
   {
     ///
-    /// Please note the command ModificationToGalileoFNavMessage is deprecated since 21.3. You may use MessageModificationToGalileoFNav.
+    /// Please note the command GetGalileoFNavMessage is deprecated since 21.3. You may use GetMessageModificationToGalileoFNav.
     /// 
     /// Get infos about the FNAV Message with this id
     ///

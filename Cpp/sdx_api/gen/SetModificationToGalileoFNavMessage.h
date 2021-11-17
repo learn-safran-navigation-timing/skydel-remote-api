@@ -9,7 +9,7 @@ namespace Sdx
   namespace Cmd
   {
     ///
-    /// Please note the command ModificationToGalileoFNavMessage is deprecated since 21.3. You may use MessageModificationToGalileoFNav.
+    /// Please note the command SetModificationToGalileoFNavMessage is deprecated since 21.3. You may use SetMessageModificationToGalileoFNav.
     /// 
     /// Set (or Modify) event to change FNAV message bits. If you send this command without setting the Id
     /// parameter, or if you set the Id with a value never used before, a new Modification event will be

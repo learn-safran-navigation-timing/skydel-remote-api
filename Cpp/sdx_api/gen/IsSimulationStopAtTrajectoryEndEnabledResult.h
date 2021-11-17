@@ -9,7 +9,7 @@ namespace Sdx
   namespace Cmd
   {
     ///
-    /// Result of IsSimulationStopAtTrajectoryEndEnabled
+    /// Result of IsSimulationStopAtTrajectoryEndEnabled.
     ///
     /// Name    Type Description
     /// ------- ---- ------------------------------------------------------------------------

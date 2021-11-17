@@ -1,4 +1,4 @@
-Skydel Remote API Version 32
+Skydel Remote API Version 33
 
 Command execution permission flags:
   EXECUTE_IF_NO_CONFIG  : executed even if there is no config
@@ -103,17 +103,25 @@ Undo the last command like Ctrl+Z in the UI
 
 ***************************************************************************************************************************
 
+Command RedoCmd()
+Permission: EXECUTE_IF_IDLE
+
+Redo the last undone command like Ctrl+Shift+Z in the UI
+
+
+***************************************************************************************************************************
+
 Command GetDataFolder()
 Permission: EXECUTE_IF_NO_CONFIG | EXECUTE_IF_IDLE | EXECUTE_IF_SIMULATING
 
-Ask Skydel's Data Folder. The user can changed it in the GUI's Preferences.
+Get Skydel's Data Folder. The user can changed it in the GUI's Preferences.
 
 
 ***************************************************************************************************************************
 
 Result DataFolderResult(folder)
 
-Result of the command "GetDataFolder"
+Result of GetDataFolder.
 
 Name   Type   Description
 ------ ------ ------------------
@@ -124,14 +132,14 @@ Folder string Skydel Data Folder
 Command GetVersion()
 Permission: EXECUTE_IF_NO_CONFIG | EXECUTE_IF_IDLE | EXECUTE_IF_SIMULATING
 
-Ask Skydel version.
+Get Skydel version.
 
 
 ***************************************************************************************************************************
 
 Result VersionResult(version)
 
-Result of the command "GetVersion"
+Result of GetVersion.
 
 Name    Type   Description
 ------- ------ --------------
@@ -142,14 +150,14 @@ Version string Skydel version
 Command GetSimulationElapsedTime()
 Permission: EXECUTE_IF_SIMULATING
 
-Return simulation elapsed time in milliseconds.
+Get simulation elapsed time in milliseconds.
 
 
 ***************************************************************************************************************************
 
 Result SimulationElapsedTimeResult(milliseconds)
 
-Result of the command "GetSimulationElapsedTime"
+Result of GetSimulationElapsedTime.
 
 Name         Type Description
 ------------ ---- -----------------------------------------------------------------------------
@@ -320,7 +328,7 @@ SvId   int    The satellite's SV ID
 
 Result IsRFOutputEnabledResult(system, svId, enabled)
 
-Result of IsRFOutputEnabled
+Result of IsRFOutputEnabled.
 
 Name    Type   Description
 ------- ------ ----------------------------------------------------------------
@@ -355,7 +363,7 @@ System string "GPS", "GLONASS", "Galileo", "BeiDou", "SBAS", "QZSS" or "NavIC"
 
 Result IsRFOutputEnabledForEachSVResult(system, enabled)
 
-Result of IsRFOutputEnabledForEachSV
+Result of IsRFOutputEnabledForEachSV.
 
 Name    Type       Description
 ------- ---------- -------------------------------------------------------------------------------------------------
@@ -397,7 +405,7 @@ SvId   int    The satellite's SV ID (use 0 for all constellation's satellites)
 
 Result IsSignalEnabledForSVResult(signal, svId, enabled)
 
-Result of IsSignalEnabledForSV
+Result of IsSignalEnabledForSV.
 
 Name    Type   Description
 ------- ------ -------------------------------------------------------------------------------
@@ -441,7 +449,7 @@ Signal string Accepted signal keys: "L1CA", "L1C", "L1P", "L1M", "L2C", "L2P", "
 
 Result IsSignalEnabledForEachSVResult(signal, enabled)
 
-Result of IsSignalEnabledForEachSV
+Result of IsSignalEnabledForEachSV.
 
 Name    Type       Description
 ------- ---------- --------------------------------------------------------------------------------------------------------------
@@ -480,7 +488,7 @@ SvId   int    The satellite's SV ID 1..32 (use 0 for all SVs)
 
 Result IsPYCodeEnabledForSVResult(signal, svId, enabled)
 
-Result of IsPYCodeEnabledForSV
+Result of IsPYCodeEnabledForSV.
 
 Name    Type   Description
 ------- ------ -----------------------------------------------
@@ -515,7 +523,7 @@ Signal string Accepted signal keys: "L1P", "L2P"
 
 Result IsPYCodeEnabledForEachSVResult(signal, enabled)
 
-Result of IsPYCodeEnabledForEachSV
+Result of IsPYCodeEnabledForEachSV.
 
 Name    Type       Description
 ------- ---------- ----------------------------------------------------------------------------------------
@@ -541,7 +549,7 @@ OtherSatsFollow bool   If true, other sats power will be adjusted to maintain cu
 Command GetPowerForSV(system, svId)
 Permission: EXECUTE_IF_SIMULATING
 
-Get power offset for specified satellite SV ID.
+Get the power offset for specified satellite SV ID.
 
 Name   Type   Description
 ------ ------ -----------------------------------------------------------------------------------
@@ -604,7 +612,7 @@ System string "GPS", "GLONASS", "Galileo", "BeiDou", "SBAS", "QZSS" or "NavIC"
 
 Result IsPropagationDelayEnabledResult(system, enabled)
 
-Result of IsPropagationDelayEnabled
+Result of IsPropagationDelayEnabled.
 
 Name    Type   Description
 ------- ------ -------------------------------------------------------------------------------------------------
@@ -640,7 +648,7 @@ SvId   int    The satellite's SV ID.
 
 Result IsSatMotionFixedResult(system, svId, isFixed)
 
-Result of IsSatMotionFixed
+Result of IsSatMotionFixed.
 
 Name    Type   Description
 ------- ------ --------------------------------------------------------------------------------------------------------------
@@ -683,7 +691,7 @@ Index int  Coefficient index [0..3]
 
 Result GetIonoAlphaResult(index, val)
 
-Result of GetIonoAlpha
+Result of GetIonoAlpha.
 
 Name  Type   Description
 ----- ------ ------------------------
@@ -725,7 +733,7 @@ Index int  Coefficient index [0..3]
 
 Result GetIonoBetaResult(index, val)
 
-Result of GetIonoBeta
+Result of GetIonoBeta.
 
 Name  Type   Description
 ----- ------ ------------------------
@@ -759,7 +767,7 @@ Index int  Coefficient index [1..9]
 
 Result GetIonoBdgimAlphaResult(index, val)
 
-Result of GetIonoBdgimAlpha
+Result of GetIonoBdgimAlpha.
 
 Name  Type   Description
 ----- ------ ------------------------
@@ -789,7 +797,7 @@ Get ionospheric model
 
 Result GetIonoModelResult(model)
 
-Result of GetIonoModel
+Result of GetIonoModel.
 
 Name  Type   Description
 ----- ------ -------------------------------------------------------
@@ -803,8 +811,8 @@ Permission: EXECUTE_IF_IDLE
 Set tropospheric model
 
 Name  Type   Description
------ ------ -------------------------------------------------------
-Model string Tropospheric model ("None", "Saastamoinen" or "Stanag")
+----- ------ -----------------------------------------------------------------
+Model string Tropospheric model ("None", "Saastamoinen", "Stanag" or "DO-229")
 
 ***************************************************************************************************************************
 
@@ -818,11 +826,11 @@ Get tropospheric model
 
 Result GetTropoModelResult(model)
 
-Result of GetTropoModel
+Result of GetTropoModel.
 
 Name  Type   Description
------ ------ -------------------------------------------------------
-Model string Tropospheric model ("None", "Saastamoinen" or "Stanag")
+----- ------ -----------------------------------------------------------------
+Model string Tropospheric model ("None", "Saastamoinen", "Stanag" or "DO-229")
 
 ***************************************************************************************************************************
 
@@ -847,7 +855,7 @@ Get the simulation start time mode.
 
 Result GetStartTimeModeResult(mode)
 
-Result of GetStartTimeMode
+Result of GetStartTimeMode.
 
 Name Type   Description
 ---- ------ --------------------------------------------
@@ -881,7 +889,7 @@ Get the connection parameters to the GPS Receiver from which the simulator will 
 
 Result GetGpsTimingReceiverResult(port, baudRate, dataBits, parity, stopBits, flowControl)
 
-Result of GetGpsTimingReceiver
+Result of GetGpsTimingReceiver.
 
 Name        Type                           Description
 ----------- ------------------------------ -----------------------------------------------------------------------------------------
@@ -917,7 +925,7 @@ This value has no effect when GPS start time is "custom" or "computer".
 
 Result GetStartTimeOffsetResult(offset)
 
-Result of GetStartTimeOffset
+Result of GetStartTimeOffset.
 
 Name   Type Description
 ------ ---- -----------------------------------------------------------------------------------------
@@ -957,7 +965,7 @@ Get the simulation GPS start date and time and leap second to convert into UTC t
 
 Result GetGpsStartTimeResult(startTime, leapSecond)
 
-Result for GetGpsStartTime
+Result of GetGpsStartTime.
 
 Name       Type     Description
 ---------- -------- ------------------------------------------------------------------------------------------------
@@ -987,7 +995,7 @@ Get the simulation duration.
 
 Result GetDurationResult(second)
 
-Result of GetDuration
+Result of GetDuration.
 
 Name   Type Description
 ------ ---- -----------------------
@@ -1016,7 +1024,7 @@ Tells if raw data logging is enabled.
 
 Result IsLogRawEnabledResult(enabled)
 
-Result of IsLogRawEnabled
+Result of IsLogRawEnabled.
 
 Name    Type Description
 ------- ---- -----------------------------------------------
@@ -1047,7 +1055,7 @@ Tells if downlink data Logging is enabled
 
 Result IsLogDownlinkEnabledResult(enabled, beforeEncoding, afterEncoding)
 
-Result of IsLogDownlinkEnabled
+Result of IsLogDownlinkEnabled.
 
 Name           Type          Description
 -------------- ------------- ----------------------------------------------------------------------------------------------------------------------
@@ -1078,7 +1086,7 @@ Tells if ephemeris data Logging is enabled
 
 Result IsLogRinexEnabledResult(enabled)
 
-Result of IsLogRinexEnabled
+Result of IsLogRinexEnabled.
 
 Name    Type Description
 ------- ---- ------------------------------------------------
@@ -1107,7 +1115,7 @@ Tells if data received on the HIL API logging is enabled
 
 Result IsLogHILInputEnabledResult(enabled)
 
-Result of IsLogHILInputEnabled
+Result of IsLogHILInputEnabled.
 
 Name    Type Description
 ------- ---- ------------------------------------------------
@@ -1136,7 +1144,7 @@ Get Rate logging of raw data
 
 Result LogRawRateResult(rate)
 
-Result of GetLogRawRate
+Result of GetLogRawRate.
 
 Name Type Description
 ---- ---- --------------------------------------
@@ -1167,7 +1175,7 @@ If a receiver is connected, that NMEA is saved as well.
 
 Result IsLogNmeaEnabledResult(enabled)
 
-Result of IsLogNmeaEnabled
+Result of IsLogNmeaEnabled.
 
 Name    Type Description
 ------- ---- --------------------------------------------------
@@ -1196,7 +1204,7 @@ Get Rate logging of NMEA data
 
 Result LogNmeaRateResult(rate)
 
-Result of GetLogNmeaRate
+Result of GetLogNmeaRate.
 
 Name Type Description
 ---- ---- ------------------------------
@@ -1226,7 +1234,7 @@ Request for the master status, returns a GetMasterStatusResult
 
 Result GetMasterStatusResult(isMaster, slaveConnected, port)
 
-Result of GetMasterStatus
+Result of GetMasterStatus.
 
 Name           Type Description
 -------------- ---- -------------------------------------
@@ -1258,7 +1266,7 @@ Request for the slave status, returns a GetSlaveStatusResult
 
 Result GetSlaveStatusResult(isSlave, isConnected, hostName, hostPort)
 
-Result of GetSlaveStatus
+Result of GetSlaveStatus.
 
 Name        Type   Description
 ----------- ------ ---------------------------------------
@@ -1292,7 +1300,7 @@ Get the next leap second event
 
 Result GetLeapSecondFutureResult(enabled, seconds, date)
 
-Result of GetLeapSecondFuture
+Result of GetLeapSecondFuture.
 
 Name    Type Description
 ------- ---- ----------------------------------------------------------------------
@@ -1323,7 +1331,7 @@ Get signal strength model Enable/Disable which affect satellite transmission str
 
 Result IsSignalStrengthModelEnabledResult(enabled)
 
-Result of IsSignalStrengthModelEnabled
+Result of IsSignalStrengthModelEnabled.
 
 Name    Type Description
 ------- ---- -----------------------------------------------------------
@@ -1352,7 +1360,7 @@ Get GNSS satellite mask based on elevation enabled or disabled (See SetElevation
 
 Result IsElevationMaskBelowEnabledResult(enabled)
 
-Result of IsElevationMaskBelowEnabled
+Result of IsElevationMaskBelowEnabled.
 
 Name    Type Description
 ------- ---- ------------------------------------------------------------------
@@ -1381,7 +1389,7 @@ Get GNSS satellite mask based on elevation enabled or disabled (See SetElevation
 
 Result IsElevationMaskAboveEnabledResult(enabled)
 
-Result of IsElevationMaskAboveEnabled
+Result of IsElevationMaskAboveEnabled.
 
 Name    Type Description
 ------- ---- ------------------------------------------------------------------
@@ -1410,7 +1418,7 @@ Get elevation mask angle. See command EnableElevationMaskBelow
 
 Result GetElevationMaskBelowResult(angle)
 
-Result of GetElevationMaskBelow
+Result of GetElevationMaskBelow.
 
 Name  Type   Description
 ----- ------ ---------------------------
@@ -1439,7 +1447,7 @@ Get elevation mask angle. See command EnableElevationMaskAbove
 
 Result GetElevationMaskAboveResult(angle)
 
-Result of GetElevationMaskAbove
+Result of GetElevationMaskAbove.
 
 Name  Type   Description
 ----- ------ ---------------------------
@@ -1470,7 +1478,7 @@ Get GPS Issue of data, Ephemeris (IODE) and Issue of data, Clock (IODC)
 
 Result GetIssueOfDataResult(clock, ephemeris, overrideRinex)
 
-Result of GetIssueOfData
+Result of GetIssueOfData.
 
 Name          Type          Description
 ------------- ------------- ---------------------------------------------------
@@ -1503,7 +1511,7 @@ Get Galileo Issue of data, Navigation (IODNAV) and Issue of data, Almanac (IODA)
 
 Result GetIssueOfDataGalileoResult(navigation, almanac, overrideRinex)
 
-Result of GetIssueOfDataGalileo
+Result of GetIssueOfDataGalileo.
 
 Name          Type          Description
 ------------- ------------- ---------------------------------------------------------
@@ -1536,7 +1544,7 @@ Get BeiDou Age of data, Ephemeris (AODE) and Age of data, Clock (AODC)
 
 Result GetAgeOfDataBeiDouResult(clock, ephemeris, overrideRinex)
 
-Result of GetAgeOfDataBeiDou
+Result of GetAgeOfDataBeiDou.
 
 Name          Type          Description
 ------------- ------------- ---------------------------------------------------
@@ -1568,7 +1576,7 @@ Get BeiDou Issue of data, Ephemeris (IODE) and Issue of data, Clock (IODC)
 
 Result GetIssueOfDataBeiDouResult(clock, ephemeris)
 
-Result of GetIssueOfDataBeiDou
+Result of GetIssueOfDataBeiDou.
 
 Name      Type Description
 --------- ---- ------------------------
@@ -1600,7 +1608,7 @@ Get QZSS Issue of data, Ephemeris (IODE) and Issue of data, Clock (IODC)
 
 Result GetIssueOfDataQzssResult(clock, ephemeris, overrideRinex)
 
-Result of GetIssueOfDataQzss
+Result of GetIssueOfDataQzss.
 
 Name          Type          Description
 ------------- ------------- ---------------------------------------------------
@@ -1632,7 +1640,7 @@ Get NavIC Issue of data, Ephemeris and Clock (IODEC)
 
 Result GetIssueOfDataNavICResult(ephemerisAndClock, overrideRinex)
 
-Result of GetIssueOfDataNavIC
+Result of GetIssueOfDataNavIC.
 
 Name              Type          Description
 ----------------- ------------- -------------------------------------------------------
@@ -1666,7 +1674,7 @@ SvId int  Satellite SV ID 1..32
 
 Result GetGpsConfigurationCodeForSVResult(svId, svConfig)
 
-Result of GetGpsConfigurationCodeForSV
+Result of GetGpsConfigurationCodeForSV.
 
 Name     Type Description
 -------- ---- ---------------------
@@ -1719,7 +1727,7 @@ Get GPS SV configuration flag for each SVs
 
 Result GetGpsConfigurationForEachSVResult(svConfigs)
 
-Result of GetGpsConfigurationForEachSV
+Result of GetGpsConfigurationForEachSV.
 
 Name      Type      Description
 --------- --------- --------------------------
@@ -1752,7 +1760,7 @@ SvId int  Satellite's SV ID 1..32
 
 Result GetGpsDataHealthForSVResult(svId, health)
 
-Result of GetGpsDataHealthForSV
+Result of GetGpsDataHealthForSV.
 
 Name   Type Description
 ------ ---- -----------------------
@@ -1786,7 +1794,7 @@ SvId int  Satellite's SV ID 1..32
 
 Result GetGpsSignalHealthForSVResult(svId, health)
 
-Result of GetGpsSignalHealthForSV
+Result of GetGpsSignalHealthForSV.
 
 Name   Type Description
 ------ ---- -----------------------
@@ -1822,7 +1830,7 @@ Component string Component is either "E5a", "E5b", or "E1B"
 
 Result GetGalileoDataHealthForSVResult(svId, component, health)
 
-Result of GetGalileoDataHealthForSV
+Result of GetGalileoDataHealthForSV.
 
 Name      Type   Description
 --------- ------ -----------------------------------------------------------------------
@@ -1859,7 +1867,7 @@ Component string Component is either "E5a", "E5b", or "E1B"
 
 Result GetGalileoSignalHealthForSVResult(svId, component, health)
 
-Result of GetGalileoSignalHealthForSV
+Result of GetGalileoSignalHealthForSV.
 
 Name      Type   Description
 --------- ------ ------------------------------------------
@@ -1894,7 +1902,7 @@ SvId int  Satellite's SV ID 1..32
 
 Result GetGpsL1HealthForSVResult(svId, health)
 
-Result of GetGpsL1HealthForSV
+Result of GetGpsL1HealthForSV.
 
 Name   Type Description
 ------ ---- --------------------------------------------------------------
@@ -1928,7 +1936,7 @@ SvId int  Satellite's SV ID 1..32
 
 Result GetGpsL2HealthForSVResult(svId, health)
 
-Result of GetGpsL2HealthForSV
+Result of GetGpsL2HealthForSV.
 
 Name   Type Description
 ------ ---- --------------------------------------------------------------
@@ -1962,7 +1970,7 @@ SvId int  Satellite's SV ID 1..32
 
 Result GetGpsL5HealthForSVResult(svId, health)
 
-Result of GetGpsL5HealthForSV
+Result of GetGpsL5HealthForSV.
 
 Name   Type Description
 ------ ---- --------------------------------------------------------------
@@ -1996,7 +2004,7 @@ SvId int  Satellite's SV ID 1..32
 
 Result GetGpsL1cHealthForSVResult(svId, health)
 
-Result of GetGpsL1cHealthForSV
+Result of GetGpsL1cHealthForSV.
 
 Name   Type Description
 ------ ---- ---------------------------------------------------------------
@@ -2030,7 +2038,7 @@ SvId int  Satellite's SV ID 1..32
 
 Result GetGpsAntiSpoofingFlagForSVResult(svId, antiSpoofing)
 
-Result of GetGpsAntiSpoofingFlagForSV
+Result of GetGpsAntiSpoofingFlagForSV.
 
 Name         Type      Description
 ------------ --------- -----------------------
@@ -2064,7 +2072,7 @@ SvId int  Satellite's SV ID 1..32
 
 Result GetGpsNavAlertFlagForSVResult(svId, alert)
 
-Result of GetGpsNavAlertFlagForSV
+Result of GetGpsNavAlertFlagForSV.
 
 Name  Type Description
 ----- ---- --------------------------------------------------
@@ -2098,7 +2106,7 @@ SvId int  Satellite's SV ID 1..32
 
 Result GetGpsCNavAlertFlagToSVResult(svId, alert)
 
-Result of GetGpsCNavAlertFlagToSV
+Result of GetGpsCNavAlertFlagToSV.
 
 Name  Type Description
 ----- ---- ---------------------------------------------------
@@ -2132,7 +2140,7 @@ SvId int  Satellite SV ID 1..35
 
 Result GetBeiDouHealthInfoForSVResult(svId, health)
 
-Result of GetBeiDouHealthInfoForSV
+Result of GetBeiDouHealthInfoForSV.
 
 Name   Type Description
 ------ ---- -------------------------------------------------------------------------
@@ -2166,7 +2174,7 @@ SvId int  Satellite SV ID 1..35
 
 Result GetBeiDouAutonomousHealthForSVResult(svId, health)
 
-Result of GetBeiDouAutonomousHealthForSV
+Result of GetBeiDouAutonomousHealthForSV.
 
 Name   Type Description
 ------ ---- -------------------------------------
@@ -2200,7 +2208,7 @@ SvId int  Satellite SV ID 1..35
 
 Result GetBeiDouCNavHealthInfoForSVResult(svId, health)
 
-Result of GetBeiDouCNavHealthInfoForSV
+Result of GetBeiDouCNavHealthInfoForSV.
 
 Name   Type Description
 ------ ---- ------------------------------------------------------
@@ -2234,7 +2242,7 @@ SvId int  Satellite SV ID 1..35
 
 Result GetBeiDouHealthStatusForSVResult(svId, health)
 
-Result of GetBeiDouHealthStatusForSV
+Result of GetBeiDouHealthStatusForSV.
 
 Name   Type Description
 ------ ---- -----------------------------------------
@@ -2268,7 +2276,7 @@ SvId int  The satellite's SV ID 1..24
 
 Result GetGlonassEphemerisHealthFlagForSVResult(svId, health)
 
-Result of GetGlonassEphemerisHealthFlagForSV
+Result of GetGlonassEphemerisHealthFlagForSV.
 
 Name   Type Description
 ------ ---- --------------------------------------
@@ -2302,7 +2310,7 @@ SvId int  The satellite's SV ID 1..24
 
 Result GetGlonassAlmanacUnhealthyFlagForSVResult(svId, health)
 
-Result of GetGlonassAlmanacUnhealthyFlagForSV
+Result of GetGlonassAlmanacUnhealthyFlagForSV.
 
 Name   Type Description
 ------ ---- ----------------------------------------------------------
@@ -2363,7 +2371,7 @@ SvId int  Satellite SV ID 1..10
 
 Result GetQzssL1DataHealthForSVResult(svId, health)
 
-Result of GetQzssL1DataHealthForSV
+Result of GetQzssL1DataHealthForSV.
 
 Name   Type Description
 ------ ---- ---------------------
@@ -2424,7 +2432,7 @@ SvId int  Satellite SV ID 1..10
 
 Result GetQzssL1HealthForSVResult(svId, health)
 
-Result of GetQzssL1HealthForSV
+Result of GetQzssL1HealthForSV.
 
 Name   Type Description
 ------ ---- -----------------------------------------------
@@ -2485,7 +2493,7 @@ SvId int  Satellite SV ID 1..10
 
 Result GetQzssL2HealthForSVResult(svId, health)
 
-Result of GetQzssL2HealthForSV
+Result of GetQzssL2HealthForSV.
 
 Name   Type Description
 ------ ---- -----------------------------------------------
@@ -2546,7 +2554,7 @@ SvId int  Satellite SV ID 1..10
 
 Result GetQzssL5HealthForSVResult(svId, health)
 
-Result of GetQzssL5HealthForSV
+Result of GetQzssL5HealthForSV.
 
 Name   Type Description
 ------ ---- -----------------------------------------------
@@ -2607,7 +2615,7 @@ SvId int  Satellite SV ID 1..10
 
 Result GetQzssL1cHealthForSVResult(svId, health)
 
-Result of GetQzssL1cHealthForSV
+Result of GetQzssL1cHealthForSV.
 
 Name   Type Description
 ------ ---- ------------------------------------------------
@@ -2668,7 +2676,7 @@ SvId int  Satellite SV ID 1..10
 
 Result GetQzssNavAlertFlagForSVResult(svId, alert)
 
-Result of GetQzssNavAlertFlagForSV
+Result of GetQzssNavAlertFlagForSV.
 
 Name  Type Description
 ----- ---- ---------------------------------------------------
@@ -2729,7 +2737,7 @@ SvId int  Satellite SV ID 1..14
 
 Result GetNavICL5HealthForSVResult(svId, health)
 
-Result of GetNavICL5HealthForSV
+Result of GetNavICL5HealthForSV.
 
 Name   Type Description
 ------ ---- -----------------------------------------------
@@ -2790,7 +2798,7 @@ SvId int  Satellite SV ID 1..14
 
 Result GetNavICNavAlertFlagForSVResult(svId, alert)
 
-Result of GetNavICNavAlertFlagForSV
+Result of GetNavICNavAlertFlagForSV.
 
 Name  Type Description
 ----- ---- ----------------------------------------------------
@@ -2820,7 +2828,7 @@ Get global power offset default value for all signals and all systems
 
 Result GetPowerGlobalOffsetResult(offset)
 
-Result of GetPowerGlobalOffset
+Result of GetPowerGlobalOffset.
 
 Name   Type   Description
 ------ ------ ---------------------------------------------------
@@ -2859,7 +2867,7 @@ Signal string Accepted signal keys: "L1CA", "L1C", "L1P", "L1M", "L2C", "L2P", "
 
 Result GetPowerOffsetResult(signal, offset)
 
-Result of GetPowerOffset
+Result of GetPowerOffset.
 
 Name   Type   Description
 ------ ------ -------------------------------------------------------------------------------
@@ -2896,7 +2904,7 @@ ServiceProvider string Service Provider key, allowed values: "WAAS", "EGNOS", "M
 
 Result GetPowerSbasOffsetResult(serviceProvider, offset)
 
-Result of GetPowerSbasOffset
+Result of GetPowerSbasOffset.
 
 Name            Type   Description
 --------------- ------ -------------------------------------------------------------
@@ -2937,7 +2945,7 @@ Id   string Unique identifier automatically set by simulator
 
 Result GetModulationTargetResult(type, path, address, clockIsExternal, id)
 
-Result of GetModulationTarget
+Result of GetModulationTarget.
 
 Name            Type   Description
 --------------- ------ ------------------------------------------------------------------------------------------------------------------------------------
@@ -2976,7 +2984,7 @@ Id     string Target identifier
 
 Result GetGpuResult(gpuIdx, output, id)
 
-Result of GetGpu
+Result of GetGpu.
 
 Name   Type   Description
 ------ ------ --------------------------------------
@@ -2996,7 +3004,7 @@ Get all the modulation targets IDs
 
 Result GetAllModulationTargetsResult(ids)
 
-Result of GetModulationTargets
+Result of GetAllModulationTargets.
 
 Name Type         Description
 ---- ------------ ---------------
@@ -3072,7 +3080,7 @@ Id     string Target identifier
 
 Result GetModulationTargetSignalsResult(output, minRate, maxRate, band, signal, gain, gaussianNoise, id, centralFrequency)
 
-Result of GetModulationTargetSignals
+Result of GetModulationTargetSignals.
 
 Name             Type            Description
 ---------------- --------------- -----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
@@ -3126,7 +3134,7 @@ Id     string Target identifier
 
 Result GetModulationTargetInterferencesResult(output, minRate, maxRate, group, centralFreq, gain, id, signal)
 
-Result of GetModulationTargetInterferences
+Result of GetModulationTargetInterferences.
 
 Name        Type            Description
 ----------- --------------- ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
@@ -3255,7 +3263,7 @@ Get the default vehicle antenna model.
 
 Result GetDefaultVehicleAntennaModelResult(name)
 
-Result of GetDefaultVehicleAntennaModel
+Result of GetDefaultVehicleAntennaModel.
 
 Name Type   Description
 ---- ------ ---------------------------
@@ -3273,7 +3281,7 @@ Get a list of all vehicle antenna names
 
 Result GetAllVehicleAntennaNamesResult(antennaNames)
 
-Result of GetAllVehicleAntennaNames
+Result of GetAllVehicleAntennaNames.
 
 Name         Type         Description
 ------------ ------------ -----------------------------
@@ -3309,7 +3317,7 @@ Name optional string Vehicle antenna name
 
 Result GetVehicleAntennaGainResult(gain, type, band, name)
 
-Result of GetVehicleAntennaGain
+Result of GetVehicleAntennaGain.
 
 Name Type               Description
 ---- ------------------ -------------------------------------------------------------------------------------------------------------------------
@@ -3348,7 +3356,7 @@ Name optional string Vehicle antenna name
 
 Result GetVehicleAntennaPhaseOffsetResult(phaseOffset, type, band, name)
 
-Result of GetVehicleAntennaPhaseOffset
+Result of GetVehicleAntennaPhaseOffset.
 
 Name        Type               Description
 ----------- ------------------ ----------------------------------------------------------------------------------------------------------------------------------
@@ -3415,7 +3423,7 @@ AntennaName optional string Vehicle antenna name. If no name is specified, apply
 
 Result GetVehicleGainPatternOffsetResult(band, offset, antennaName)
 
-Result of GetVehicleGainPatternOffset
+Result of GetVehicleGainPatternOffset.
 
 Name        Type            Description
 ----------- --------------- ------------------------------------------------------------------------------------
@@ -3452,7 +3460,7 @@ AntennaName optional string Vehicle antenna name. If no name is specified, apply
 
 Result GetVehiclePhasePatternOffsetResult(band, offset, antennaName)
 
-Result of GetVehiclePhasePatternOffset
+Result of GetVehiclePhasePatternOffset.
 
 Name        Type            Description
 ----------- --------------- ------------------------------------------------------------------------------------
@@ -3510,7 +3518,7 @@ Name optional string Unique vehicle antenna name
 
 Result GetVehicleAntennaOffsetResult(x, y, z, yaw, pitch, roll, name)
 
-Result of GetVehicleAntennaOffset
+Result of GetVehicleAntennaOffset.
 
 Name  Type            Description
 ----- --------------- --------------------------------------------
@@ -3671,7 +3679,7 @@ Id   string Unique identifier of the event
 
 Result GetAntennaChangeResult(startTime, antenna, id)
 
-Result of GetAntennaChange
+Result of GetAntennaChange.
 
 Name      Type   Description
 --------- ------ --------------------------------------------------
@@ -3732,7 +3740,7 @@ Get the WF antenna offset infos.
 
 Result GetWFAntennaOffsetResult(x, y, z, yaw, pitch, roll)
 
-Result of GetWFAntennaOffset
+Result of GetWFAntennaOffset.
 
 Name  Type   Description
 ----- ------ -----------------------------------------------
@@ -3775,7 +3783,7 @@ Element int  One-based index for element in antenna.
 
 Result GetWFAntennaElementOffsetResult(x, y, z, yaw, pitch, roll, element)
 
-Result of GetWFAntennaElementOffset
+Result of GetWFAntennaElementOffset.
 
 Name    Type   Description
 ------- ------ -------------------------------------------------------
@@ -3814,7 +3822,7 @@ Element int  One-based index for element in antenna.
 
 Result GetWFAntennaElementModelResult(antennaModelName, element)
 
-Result of GetWFAntennaElementModel
+Result of GetWFAntennaElementModel.
 
 Name             Type   Description
 ---------------- ------ ----------------------------------------------------------------------------------------------------
@@ -3848,7 +3856,7 @@ Element int  One-based index for element in antenna.
 
 Result GetWFAntennaElementPhasePatternOffsetResult(phaseOffset, element)
 
-Result of GetWFAntennaElementPhasePatternOffset
+Result of GetWFAntennaElementPhasePatternOffset.
 
 Name        Type   Description
 ----------- ------ -------------------------------------------------------------------------
@@ -3882,7 +3890,7 @@ Element int  One-based index for element in antenna.
 
 Result IsWFAntennaElementEnabledResult(element, enabled)
 
-Result of IsWFAntennaElementEnabled
+Result of IsWFAntennaElementEnabled.
 
 Name    Type Description
 ------- ---- -------------------------------------------------
@@ -3904,7 +3912,7 @@ System string "GPS", "GLONASS", "Galileo", "BeiDou", "SBAS", "QZSS" or "NavIC"
 
 Result GetAllSVAntennaNamesResult(system, antennaNames)
 
-Result of GetAllSVNames
+Result of GetAllSVAntennaNames.
 
 Name         Type         Description
 ------------ ------------ ----------------------------------------------------------------
@@ -3942,7 +3950,7 @@ AntennaName optional string Vehicle antenna name. If no name is specified, apply
 
 Result GetSVGainPatternOffsetResult(band, system, offset, antennaName)
 
-Result of GetSVGainPatternOffset
+Result of GetSVGainPatternOffset.
 
 Name        Type            Description
 ----------- --------------- ------------------------------------------------------------------------------------
@@ -3982,7 +3990,7 @@ AntennaName optional string Vehicle antenna name. If no name is specified, apply
 
 Result GetSVPhasePatternOffsetResult(band, system, offset, antennaName)
 
-Result of GetSVPhasePatternOffset
+Result of GetSVPhasePatternOffset.
 
 Name        Type            Description
 ----------- --------------- ------------------------------------------------------------------------------------
@@ -4023,7 +4031,7 @@ Name   optional string SV antenna name
 
 Result GetSVAntennaGainResult(gain, type, band, system, name)
 
-Result of GetSVAntennaGain
+Result of GetSVAntennaGain.
 
 Name   Type               Description
 ------ ------------------ -------------------------------------------------------------------------------------------------------------------------
@@ -4065,7 +4073,7 @@ Name   optional string SV antenna name
 
 Result GetSVAntennaPhaseOffsetResult(phaseOffset, type, band, system, name)
 
-Result of GetSVAntennaPhaseOffset
+Result of GetSVAntennaPhaseOffset.
 
 Name        Type               Description
 ----------- ------------------ ----------------------------------------------------------------------------------------------------------------------------------
@@ -4211,7 +4219,7 @@ SvId   int    The satellite's SV ID.
 
 Result GetSVAntennaModelForSVResult(system, svId, antennaModelName)
 
-Result of GetSVAntennaModelForSV
+Result of GetSVAntennaModelForSV.
 
 Name             Type   Description
 ---------------- ------ -----------------------------------------------------------------
@@ -4246,7 +4254,7 @@ System string "GPS", "GLONASS", "Galileo", "BeiDou", "SBAS", "QZSS" or "NavIC"
 
 Result GetSVAntennaModelForEachSVResult(system, antennaModelNames)
 
-Result of GetSVAntennaModelForEachSV
+Result of GetSVAntennaModelForEachSV.
 
 Name              Type         Description
 ----------------- ------------ -----------------------------------------------------------------------------------------------------
@@ -4286,7 +4294,7 @@ SvId   int    Satellite SV ID, see command description for accepted values.
 
 Result GetSVTypeResult(system, svId, svType)
 
-Result of GetSVType
+Result of GetSVType.
 
 Name   Type   Description
 ------ ------ -------------------------------------------------------------
@@ -4328,7 +4336,7 @@ SignalArray array string An array of signals.
 
 Result GetTransmittedPrnForSVResult(svId, signalPrnDict)
 
-Result of GetTransmittedPrnForSV
+Result of GetTransmittedPrnForSV.
 
 Name          Type            Description
 ------------- --------------- -------------------------------------------------------------------------------
@@ -4367,7 +4375,7 @@ SvId   int    Satellite SV ID.
 
 Result GetPrnOfSVIDResult(signal, svId, prn)
 
-Result of GetPrnOfSVID
+Result of GetPrnOfSVID.
 
 Name   Type   Description
 ------ ------ ----------------------------------------------------------------------------------------------------------------------------------------------------------
@@ -4402,7 +4410,7 @@ Signal string Accepted signal keys: "L1CA", "L1C", "L2C", "L5", "E1", "E6BC", "B
 
 Result GetPrnForEachSVResult(signal, prn)
 
-Result of GetPrnForEachSV
+Result of GetPrnForEachSV.
 
 Name   Type      Description
 ------ --------- ----------------------------------------------------------------------------------------------------------------------------------------------------------
@@ -4443,7 +4451,7 @@ Get trajectory smoothing for Track or Route enabled or disabled
 
 Result IsTrajectorySmoothingEnabledResult(enabled)
 
-Result of IsTrajectorySmoothingEnabled
+Result of IsTrajectorySmoothingEnabled.
 
 Name    Type Description
 ------- ---- ------------------------------------------------------
@@ -4472,7 +4480,7 @@ Get simulation automatic stop when the vehicle reaches trajectory end enabled or
 
 Result IsSimulationStopAtTrajectoryEndEnabledResult(enabled)
 
-Result of IsSimulationStopAtTrajectoryEndEnabled
+Result of IsSimulationStopAtTrajectoryEndEnabled.
 
 Name    Type Description
 ------- ---- ------------------------------------------------------------------------
@@ -4501,7 +4509,7 @@ Get force vehicle yaw, pitch and roll to zero enabled or disabled
 
 Result IsAttitudeToZeroForcedResult(enabled)
 
-Result of IsAttitudeToZeroForced
+Result of IsAttitudeToZeroForced.
 
 Name    Type Description
 ------- ---- -----------------------------------------------
@@ -4530,7 +4538,7 @@ Get vehicle trajectory type
 
 Result GetVehicleTrajectoryResult(type)
 
-Result of GetVehicleTrajectory
+Result of GetVehicleTrajectory.
 
 Name Type   Description
 ---- ------ -----------------------------------------------------------------------
@@ -4542,6 +4550,24 @@ Command SetVehicleType(type)
 Permission: EXECUTE_IF_IDLE
 
 Set vehicle type for Route Trajectory
+
+Name Type   Description
+---- ------ ----------------------------------------------------------
+Type string Vehicle type ("Ground / Water" or "Airborne / Spaceborne")
+
+***************************************************************************************************************************
+
+Command GetVehicleType()
+Permission: EXECUTE_IF_IDLE
+
+Get vehicle type for Route Trajectory
+
+
+***************************************************************************************************************************
+
+Result GetVehicleTypeResult(type)
+
+Result of GetVehicleType.
 
 Name Type   Description
 ---- ------ ----------------------------------------------------------
@@ -4685,7 +4711,7 @@ Get vehicle static position and orientation
 
 Result GetVehicleTrajectoryFixResult(type, lat, lon, alt, yaw, pitch, roll)
 
-Result of GetVehicleTrajectoryFix
+Result of GetVehicleTrajectoryFix.
 
 Name  Type   Description
 ----- ------ -----------------------
@@ -4726,7 +4752,7 @@ Get vehicle static position and orientation
 
 Result GetVehicleTrajectoryFixEcefResult(type, x, y, z, yaw, pitch, roll)
 
-Result of GetVehicleTrajectoryFixEcef
+Result of GetVehicleTrajectoryFixEcef.
 
 Name  Type   Description
 ----- ------ -----------------------
@@ -4768,7 +4794,7 @@ Get vehicle circular trajectory
 
 Result GetVehicleTrajectoryCircularResult(type, lat, lon, alt, radius, speed, clockwise, originAngle)
 
-Result of GetVehicleTrajectoryCircular
+Result of GetVehicleTrajectoryCircular.
 
 Name        Type            Description
 ----------- --------------- --------------------------------
@@ -4811,7 +4837,7 @@ Get earth-orbiting spacecraft trajectory.
 
 Result GetVehicleTrajectoryOrbitResult(type, reference, semiMajorAxis, inclination, rightAscension, eccentricity, meanAnomaly, argumentOfPerigee)
 
-Result of GetVehicleTrajectoryOrbit
+Result of GetVehicleTrajectoryOrbit.
 
 Name              Type     Description
 ----------------- -------- ---------------------------------------------------------------------
@@ -4829,26 +4855,18 @@ ArgumentOfPerigee double   Argument of perigee (rad)
 Command GetHilPort()
 Permission: EXECUTE_IF_NO_CONFIG | EXECUTE_IF_IDLE | EXECUTE_IF_SIMULATING
 
-Get Hardware in the loop trajectory server port. Returns HilPortResult.
+Get Hardware in the loop trajectory server port.
 
 
 ***************************************************************************************************************************
 
 Result HilPortResult(port)
 
-Hardware in the loop server port.
+Result of GetHilPort.
 
 Name Type Description
 ---- ---- ---------------
 Port int  Hil Server Port
-
-***************************************************************************************************************************
-
-Command GetLastHilWarning()
-Permission: EXECUTE_IF_SIMULATING
-
-Get last Hardware in the loop trajectory server warning message. Returns HilWarningResult.
-
 
 ***************************************************************************************************************************
 
@@ -4860,9 +4878,17 @@ Reset Hardware in the loop trajectory server warning message.
 
 ***************************************************************************************************************************
 
+Command GetLastHilWarning()
+Permission: EXECUTE_IF_SIMULATING
+
+Get last Hardware in the loop trajectory server warning message. Returns HilWarningResult.
+
+
+***************************************************************************************************************************
+
 Result HilWarningResult(isExtrapolated, extrapolationTime)
 
-Hardware in the loop server warning result 
+Result of GetLastHilWarning.
 
 Name              Type Description
 ----------------- ---- -----------------------------------------------------------------------------------------------------------------------------------
@@ -4927,7 +4953,7 @@ SvId   int    The satellite's SV ID.
 
 Result GetEphemerisReferenceTimeForSVResult(system, svId, time)
 
-Result of GetEphemerisReferenceTimeForSV
+Result of GetEphemerisReferenceTimeForSV.
 
 Name   Type     Description
 ------ -------- --------------------------------------------------------------
@@ -5024,7 +5050,7 @@ ParamName string Parameter name (see table above for accepted names)
 
 Result GetGpsEphDoubleParamForSVResult(svId, paramName, val)
 
-Result of GetGpsEphDoubleParamForSV
+Result of GetGpsEphDoubleParamForSV.
 
 Name      Type   Description
 --------- ------ --------------------------------------------------------------------
@@ -5113,7 +5139,7 @@ ParamName string Parameter name (see table above for accepted names)
 
 Result GetGalileoEphDoubleParamForSVResult(svId, paramName, val)
 
-Result of GetGalileoEphDoubleParamForSV
+Result of GetGalileoEphDoubleParamForSV.
 
 Name      Type   Description
 --------- ------ --------------------------------------------------------------------
@@ -5204,7 +5230,7 @@ ParamName string Parameter name (see table above for accepted names)
 
 Result GetBeiDouEphDoubleParamForSVResult(svId, paramName, val)
 
-Result of GetBeiDouEphDoubleParamForSV
+Result of GetBeiDouEphDoubleParamForSV.
 
 Name      Type   Description
 --------- ------ --------------------------------------------------------------------
@@ -5265,7 +5291,7 @@ ParamName string Parameter name (see table above for accepted names)
 
 Result GetGlonassEphDoubleParamForSVResult(svId, paramName, val)
 
-Result of GetGlonassEphDoubleParamForSV
+Result of GetGlonassEphDoubleParamForSV.
 
 Name      Type   Description
 --------- ------ --------------------------------------------------------------------
@@ -5339,7 +5365,7 @@ ParamName string In meters:  "Crs", "Crc"
 
 Result GetQzssEphDoubleParamForSVResult(svId, paramName, val)
 
-Result of GetQzssEphDoubleParamForSV
+Result of GetQzssEphDoubleParamForSV.
 
 Name      Type   Description
 --------- ------ ----------------------------------------------------------------------------------
@@ -5503,7 +5529,7 @@ ParamName string Parameter name (see table above for accepted names)
 
 Result GetNavICEphDoubleParamForSVResult(svId, paramName, val)
 
-Result of GetNavICEphDoubleParamForSV
+Result of GetNavICEphDoubleParamForSV.
 
 Name      Type   Description
 --------- ------ --------------------------------------------------------------------
@@ -5565,7 +5591,7 @@ ParamName string Refer to SetGpsEphDoubleParamForSV for accepted names
 
 Result GetGpsEphDoubleParamForEachSVResult(paramName, val)
 
-Result of GetGpsEphDoubleParamForEachSV
+Result of GetGpsEphDoubleParamForEachSV.
 
 Name      Type         Description
 --------- ------------ --------------------------------------------------------------------------------------------------
@@ -5626,7 +5652,7 @@ ParamName string Refer to SetGalileoEphDoubleParamForSV for accepted names
 
 Result GetGalileoEphDoubleParamForEachSVResult(paramName, val)
 
-Result of GetGalileoEphDoubleParamForEachSV
+Result of GetGalileoEphDoubleParamForEachSV.
 
 Name      Type         Description
 --------- ------------ --------------------------------------------------------------------------------------------------
@@ -5687,7 +5713,7 @@ ParamName string Refer to SetBeiDouEphDoubleParamForSV for accepted names
 
 Result GetBeiDouEphDoubleParamForEachSVResult(paramName, val)
 
-Result of GetBeiDouEphDoubleParamForEachSV
+Result of GetBeiDouEphDoubleParamForEachSV.
 
 Name      Type         Description
 --------- ------------ --------------------------------------------------------------------------------------------------
@@ -5748,7 +5774,7 @@ ParamName string Refer to SetGlonassEphDoubleParamForSV for accepted names
 
 Result GetGlonassEphDoubleParamForEachSVResult(paramName, val)
 
-Result of GetGlonassEphDoubleParamForEachSV
+Result of GetGlonassEphDoubleParamForEachSV.
 
 Name      Type         Description
 --------- ------------ --------------------------------------------------------------------------------------------------
@@ -5827,7 +5853,7 @@ ParamName string Refer to SetQzssEphDoubleParamForSV for accepted names
 
 Result GetQzssEphDoubleParamForEachSVResult(paramName, val)
 
-Result of GetQzssEphDoubleParamForEachSV
+Result of GetQzssEphDoubleParamForEachSV.
 
 Name      Type         Description
 --------- ------------ --------------------------------------------------------------------------------------------------
@@ -5888,7 +5914,7 @@ ParamName string Refer to SetNavICEphDoubleParamForSV for accepted names
 
 Result GetNavICEphDoubleParamForEachSVResult(paramName, val)
 
-Result of GetNavICEphDoubleParamForEachSV
+Result of GetNavICEphDoubleParamForEachSV.
 
 Name      Type         Description
 --------- ------------ --------------------------------------------------------------------------------------------------
@@ -5940,7 +5966,7 @@ ParamName string Parameter name (see table above for accepted names)
 
 Result GetGpsEphBoolParamForSVResult(svId, paramName, val)
 
-Result of GetGpsEphBoolParamForSV
+Result of GetGpsEphBoolParamForSV.
 
 Name      Type   Description
 --------- ------ --------------------------------------------------------------------
@@ -6002,7 +6028,7 @@ ParamName string Refer to SetGpsEphBoolParamForSV for accepted names
 
 Result GetGpsEphBoolParamForEachSVResult(paramName, val)
 
-Result of GetGpsEphBoolParamForEachSV
+Result of GetGpsEphBoolParamForEachSV.
 
 Name      Type       Description
 --------- ---------- --------------------------------------------------------------------------------------------------
@@ -6046,7 +6072,7 @@ ParamName string Parameter name (see table above for accepted names)
 
 Result GetBeiDouEphBoolParamForSVResult(svId, paramName, val)
 
-Result of GetBeiDouEphBoolParamForSV
+Result of GetBeiDouEphBoolParamForSV.
 
 Name      Type   Description
 --------- ------ --------------------------------------------------------------------
@@ -6108,7 +6134,7 @@ ParamName string Refer to SetBeiDouEphBoolParamForSV for accepted names
 
 Result GetBeiDouEphBoolParamForEachSVResult(paramName, val)
 
-Result of GetBeiDouEphBoolParamForEachSV
+Result of GetBeiDouEphBoolParamForEachSV.
 
 Name      Type       Description
 --------- ---------- --------------------------------------------------------------------------------------------------
@@ -6205,7 +6231,7 @@ ParamName string Parameter name (see table above for accepted names)
 
 Result GetQzssEphBoolParamForSVResult(svId, paramName, val)
 
-Result of GetQzssEphBoolParamForSV
+Result of GetQzssEphBoolParamForSV.
 
 Name      Type   Description
 --------- ------ --------------------------------------------------------------------
@@ -6267,7 +6293,7 @@ ParamName string Refer to SetQzssEphemerisBoolParam for accepted names
 
 Result GetQzssEphBoolParamForEachSVResult(paramName, val)
 
-Result of GetQzssEphBoolParamForEachSV
+Result of GetQzssEphBoolParamForEachSV.
 
 Name      Type       Description
 --------- ---------- --------------------------------------------------------------------------------------------------
@@ -6310,7 +6336,7 @@ ParamArray array string An array of params.
 
 Result GetSbasEphParamsForSVResult(svId, paramValueDict)
 
-Result of GetSbasEphParamsForSV
+Result of GetSbasEphParamsForSV.
 
 Name           Type               Description
 -------------- ------------------ --------------------------------------------------------------------------
@@ -6427,7 +6453,7 @@ SvId   int    The satellite's SV ID.
 
 Result GetPerturbationsResult(system, svId, crs, crc, cis, cic, cus, cuc)
 
-Result of GetPerturbations
+Result of GetPerturbations.
 
 Name   Type   Description
 ------ ------ ---------------------------------------------
@@ -6474,7 +6500,7 @@ System string "GPS", "Galileo", "BeiDou", "QZSS" or "NavIC"
 
 Result GetPerturbationsForAllSatResult(system, crs, crc, cis, cic, cus, cuc)
 
-Result of GetPerturbationsForAllSat
+Result of GetPerturbationsForAllSat.
 
 Name   Type         Description
 ------ ------------ ---------------------------------------------
@@ -6546,7 +6572,7 @@ Id   string Unique identifier of the event
 
 Result GetMessageModificationToGpsCNavResult(signalArray, svId, startTime, stopTime, messageType, condition, updateCRC, bitModifications, id)
 
-Result of GetMessageModificationToGpsCNav
+Result of GetMessageModificationToGpsCNav.
 
 Name             Type         Description
 ---------------- ------------ ---------------------------------------------------------------------------------------------
@@ -6620,7 +6646,7 @@ Id   string Unique identifier automatically set by simulator
 
 Result GetMessageModificationToGpsMNavResult(signalArray, svId, startTime, stopTime, messageType, occurrence, condition, bitModifications, id)
 
-Result of GetMessageModificationToGpsMNav
+Result of GetMessageModificationToGpsMNav.
 
 Name             Type         Description
 ---------------- ------------ ----------------------------------------------------------------------------------------------
@@ -6694,7 +6720,7 @@ Id   string Unique identifier of the event
 
 Result GetMessageModificationToGpsCNav2Result(signalArray, svId, startTime, stopTime, page, condition, updateCRC, bitModifications, id)
 
-Result of GetMessageModificationToGpsCNav2
+Result of GetMessageModificationToGpsCNav2.
 
 Name             Type         Description
 ---------------- ------------ ------------------------------------------------------------------------------------
@@ -6762,7 +6788,7 @@ Id   string Unique identifier of the event
 
 Result GetMessageModificationToGpsLNavResult(signalArray, svId, startTime, stopTime, subframe, page, word, updateParity, wordModification, id)
 
-Result of GetMessageModificationToGpsLNav
+Result of GetMessageModificationToGpsLNav.
 
 Name             Type         Description
 ---------------- ------------ ------------------------------------------------------------------------------------------------------
@@ -6775,6 +6801,73 @@ Page             int          Page 1..25 (use 0 to apply modification to all pag
 Word             int          Word 1..10 (use 0 to apply modification to all words)
 UpdateParity     bool         Recalculate parity after making modification
 WordModification string       Modification string must be 30 bits long
+Id               string       Unique identifier of the event
+
+***************************************************************************************************************************
+
+Command SetMessageModificationToGalileoCNav(signalArray, svId, startTime, stopTime, updateCRC, bitModifications, id)
+Permission: EXECUTE_IF_SIMULATING | EXECUTE_IF_IDLE
+
+Set (or Modify) event to change Galileo C/NAV message bits. If you send this command without setting the ID
+parameter, or if you set the ID with a value never used before, a new Modification event will be
+created. If you reuse the same event ID, it will modify the existing event.
+
+Note that start and stop time are automatically extended to beginning and ending of overlapped
+messages.
+
+BitModifications can be an empty string. The Modification will have no effect until you modify it with at
+least one bits mod.
+
+A bits mod is represented with a string using the following format: "I:Bits" where I is a bit
+index (1 refers to the first transmitted bit) and Bits is a modification mask where each
+character describes a modification to a single bit. The allowed characters are:
+   0 : force bit to 0
+   1 : force bit to 1
+   - : leave bit unchanged
+   X : revert bit (0 becomes 1 and 1 becomes 0)
+
+For example: "24:X---10XX" will: revert bits 24, 30 and 31
+                 set bit 28 to 1
+                 set bit 29 to 0
+The other bits are not affected.
+
+You can add multiple bit modifications using commas. For example: "24:X---10XX,127:100X,231:01"
+
+Name             Type         Description
+---------------- ------------ -------------------------------------------------------------------------------------
+SignalArray      array string Array of signals to apply the message modification to, accepts "E6BC" (empty for all)
+SvId             int          The satellite's SV ID 1..36 (use 0 to apply modification to all SVs)
+StartTime        int          Elapsed time in seconds since start of simulation
+StopTime         int          Elapsed time in seconds since start of simulation (use 0 for no stop time)
+UpdateCRC        bool         Recalculate CRC after making modification
+BitModifications string       Comma separated bit modifications
+Id               string       Unique identifier of the event
+
+***************************************************************************************************************************
+
+Command GetMessageModificationToGalileoCNav(id)
+Permission: EXECUTE_IF_IDLE
+
+Get infos about the Galileo C/NAV message modification with this ID.
+
+Name Type   Description
+---- ------ ------------------------------
+Id   string Unique identifier of the event
+
+***************************************************************************************************************************
+
+Result GetMessageModificationToGalileoCNavResult(signalArray, svId, startTime, stopTime, updateCRC, bitModifications, id)
+
+Result of GetMessageModificationToGalileoCNav.
+
+Name             Type         Description
+---------------- ------------ -------------------------------------------------------------------------------------
+SignalArray      array string Array of signals to apply the message modification to, accepts "E6BC" (empty for all)
+SvId             int          The satellite's SV ID 1..36 (use 0 to apply modification to all SVs)
+StartTime        int          Elapsed time in seconds since start of simulation
+StopTime         int          Elapsed time in seconds since start of simulation (use 0 for no stop time)
+UpdateCRC        bool         Recalculate CRC after making modification
+BitModifications string       Comma separated bit modifications
 Id               string       Unique identifier of the event
 
 ***************************************************************************************************************************
@@ -6835,7 +6928,7 @@ Id   string Unique identifier of the event
 
 Result GetMessageModificationToGalileoFNavResult(signalArray, svId, startTime, stopTime, subframe, page, condition, updateCRC, bitModifications, id)
 
-Result of GetMessageModificationToGalileoFNav
+Result of GetMessageModificationToGalileoFNav.
 
 Name             Type         Description
 ---------------- ------------ ------------------------------------------------------------------------------------
@@ -6908,7 +7001,7 @@ Id   string Unique identifier of the event
 
 Result GetMessageModificationToGalileoINavResult(signalArray, svId, startTime, stopTime, subframe, page, condition, updateCRC, bitModifications, id)
 
-Result of GetMessageModificationToGalileoINav
+Result of GetMessageModificationToGalileoINav.
 
 Name             Type         Description
 ---------------- ------------ ---------------------------------------------------------------------------------------------
@@ -6982,7 +7075,7 @@ Id   string Unique identifier of the event
 
 Result GetMessageModificationToGlonassNavResult(signalArray, svId, startTime, stopTime, frame, stringNumber, updateHammingCode, stringModification, id)
 
-Result of GetMessageModificationToGlonassNav
+Result of GetMessageModificationToGlonassNav.
 
 Name               Type         Description
 ------------------ ------------ --------------------------------------------------------------------------------------------
@@ -7050,7 +7143,7 @@ Id   string Unique identifier of the event
 
 Result GetMessageModificationToBeiDouD1NavResult(signalArray, svId, startTime, stopTime, subframe, page, word, updateParity, wordModification, id)
 
-Result of GetMessageModificationToBeiDouD1Nav
+Result of GetMessageModificationToBeiDouD1Nav.
 
 Name             Type         Description
 ---------------- ------------ --------------------------------------------------------------------------------------------
@@ -7119,7 +7212,7 @@ Id   string Unique identifier of the event
 
 Result GetMessageModificationToBeiDouD2NavResult(signalArray, svId, startTime, stopTime, subframe, page, word, updateParity, wordModification, id)
 
-Result of GetMessageModificationToBeiDouD2Nav
+Result of GetMessageModificationToBeiDouD2Nav.
 
 Name             Type         Description
 ---------------- ------------ --------------------------------------------------------------------------------------------
@@ -7194,7 +7287,7 @@ Id   string Unique identifier of the event
 
 Result GetMessageModificationToBeiDouCNav1Result(signalArray, svId, startTime, stopTime, page, condition, updateCRC, bitModifications, id)
 
-Result of GetMessageModificationToBeiDouCNav1
+Result of GetMessageModificationToBeiDouCNav1.
 
 Name             Type         Description
 ---------------- ------------ ------------------------------------------------------------------------------------
@@ -7268,7 +7361,7 @@ Id   string Unique identifier of the event
 
 Result GetMessageModificationToBeiDouCNav2Result(signalArray, svId, startTime, stopTime, messageType, condition, updateCRC, bitModifications, id)
 
-Result of GetMessageModificationToBeiDouCNav2
+Result of GetMessageModificationToBeiDouCNav2.
 
 Name             Type         Description
 ---------------- ------------ ------------------------------------------------------------------------------------
@@ -7336,7 +7429,7 @@ Id   string Unique identifier of the event
 
 Result GetMessageModificationToQzssLNavResult(signalArray, svId, startTime, stopTime, subframe, lNavSvId, word, updateParity, wordModification, id)
 
-Result of GetMessageModificationToQzssLNav
+Result of GetMessageModificationToQzssLNav.
 
 Name             Type         Description
 ---------------- ------------ -----------------------------------------------------------------------------------------
@@ -7411,7 +7504,7 @@ Id   string Unique identifier of the event
 
 Result GetMessageModificationToQzssSlasResult(signalArray, svId, startTime, stopTime, messageType, condition, updateCRC, bitModifications, id)
 
-Result of GetMessageModificationToQzssSlas
+Result of GetMessageModificationToQzssSlas.
 
 Name             Type         Description
 ---------------- ------------ ----------------------------------------------------------------------------------------
@@ -7485,7 +7578,7 @@ Id   string Unique identifier of the event
 
 Result GetMessageModificationToQzssCNav2Result(signalArray, svId, startTime, stopTime, page, condition, updateCRC, bitModifications, id)
 
-Result of GetMessageModificationToQzssCNav2
+Result of GetMessageModificationToQzssCNav2.
 
 Name             Type         Description
 ---------------- ------------ ----------------------------------------------------------------------------------------
@@ -7560,7 +7653,7 @@ Id   string Unique identifier of the event
 
 Result GetMessageModificationToNavICNavResult(signalArray, svId, startTime, stopTime, subframe, messageType, condition, updateCRC, bitModifications, id)
 
-Result of GetMessageModificationToNavICNav
+Result of GetMessageModificationToNavICNav.
 
 Name             Type         Description
 ---------------- ------------ ----------------------------------------------------------------------------------------
@@ -7801,7 +7894,7 @@ Id   string Unique identifier automatically set by simulator.
 
 Result GetPseudorangeRampForSVResult(system, svId, offset, startTime, holdStartTime, holdStopTime, stopTime, id)
 
-Result of GetPseudorangeRampForSV
+Result of GetPseudorangeRampForSV.
 
 Name          Type   Description
 ------------- ------ ----------------------------------------------------------------------------------
@@ -7830,7 +7923,7 @@ SvId   int    The satellite's SV ID.
 
 Result GetAllPseudorangeRampForSVResult(system, svId, ids)
 
-result of GetAllPseudorangeRampForSV
+Result of GetAllPseudorangeRampForSV.
 
 Name   Type         Description
 ------ ------------ ------------------------------------------------------------------
@@ -7911,7 +8004,7 @@ Get next almanac upload time relative to simulation start time.
 
 Result GetAlmanacInitialUploadTimeOffsetResult(system, offset)
 
-Result of GetAlmanacInitialUploadTimeOffset
+Result of GetAlmanacInitialUploadTimeOffset.
 
 Name   Type   Description
 ------ ------ -------------------------------------------------------------------------------------------
@@ -7944,7 +8037,7 @@ SetAlmanacInitialUploadTimeOffset, the almanac will automatically update at each
 
 Result GetAlmanacUploadTimeIntervalResult(system, interval)
 
-Result of GetAlmanacUploadTimeInterval
+Result of GetAlmanacUploadTimeInterval.
 
 Name     Type   Description
 -------- ------ ----------------------------------------------------------
@@ -8045,11 +8138,11 @@ Id   string A multipath ID
 
 Result GetMultipathForIDResult(id, system, signal, svId, powerLoss, pseudorange, doppler, carrierPhase, echo)
 
-Result of GetMultipathForIDResult.
+Result of GetMultipathForID.
 
 Name         Type   Description
 ------------ ------ ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
-Id           string Unique identifier.
+Id           string A multipath ID
 System       string "GPS", "GLONASS", "Galileo", "BeiDou", "SBAS", "QZSS" or "NavIC"
 Signal       string Accepted signal keys: "L1CA", "L1C", "L1P", "L1M", "L2C", "L2P", "L2M", "L5", "G1", "G2", "E1", "E5a", "E5b", "B1", "B2", "B1C", "B2a", "SBASL1", "QZSSL1CA", "QZSSL1C", "QZSSL5", "QZSSL1S", "QZSSL5S", "NAVICL5"
 SvId         int    The satellite's SV ID
@@ -8132,7 +8225,7 @@ SvId   int    The satellite's SV ID
 
 Result IsLosEnabledForSVResult(system, svId, enabled)
 
-Result of IsLosEnabledForSV
+Result of IsLosEnabledForSV.
 
 Name    Type   Description
 ------- ------ ----------------------------------------------------------------
@@ -8178,7 +8271,7 @@ System string "GPS", "GLONASS", "Galileo", "BeiDou", "SBAS", "QZSS" or "NavIC"
 
 Result IsLOSEnabledForEachSVResult(system, enabled)
 
-Result of IsLOSEnabledForEachSV
+Result of IsLOSEnabledForEachSV.
 
 Name    Type       Description
 ------- ---------- -----------------------------------------------------------------------------------------------------------
@@ -8209,7 +8302,7 @@ Get Add a plug-in instance of specified type.
 
 Result GetPlugInInstanceResult(name, type)
 
-Result of GetPlugInInstance
+Result of GetPlugInInstance.
 
 Name Type   Description
 ---- ------ -------------------------------------
@@ -8250,7 +8343,7 @@ Get wether by default transmitters should keep the modification done during simu
 
 Result GetDefaultIntTxPersistenceResult(defaultValue)
 
-Result of GetDefaultIntTxPersistence
+Result of GetDefaultIntTxPersistence.
 
 Name         Type Description
 ------------ ---- --------------------------------------------------------------------------------
@@ -8261,14 +8354,14 @@ DefaultValue bool True if jammers should keep the modifications done during simu
 Command GetAllIntTxID()
 Permission: EXECUTE_IF_IDLE
 
-get the ID of all interferences transmitters.
+Get the ID of all interferences transmitters.
 
 
 ***************************************************************************************************************************
 
 Result GetAllIntTxIDResult(ids)
 
-Result of GetAllIntTxID
+Result of GetAllIntTxID.
 
 Name Type         Description
 ---- ------------ ------------------------------------------
@@ -8309,7 +8402,7 @@ Id   string Transmitter unique identifier.
 
 Result GetIntTxResult(usualName, enabled, group, dynamic, power, id)
 
-Result of GetIntTx
+Result of GetIntTx.
 
 Name      Type   Description
 --------- ------ ----------------------------------------------------------------------------------------
@@ -8359,7 +8452,7 @@ Id   string Transmitter unique identifier.
 
 Result GetIntTxColorResult(color, id)
 
-Result of GetIntTxColor
+Result of GetIntTxColor.
 
 Name  Type   Description
 ----- ------ -------------------------------------------------------------------------------
@@ -8429,7 +8522,7 @@ Id   string Transmitter unique identifier.
 
 Result GetIntTxPersistenceResult(persistence, id)
 
-Result of GetIntTxPersistence
+Result of GetIntTxPersistence.
 
 Name        Type   Description
 ----------- ------ ------------------------------------------------------
@@ -8501,7 +8594,7 @@ Id   string Transmitter unique identifier.
 
 Result GetIntTxHiddenOnMapResult(hiddenOnMap, id)
 
-Result of GetIntTxHiddenOnMap
+Result of GetIntTxHiddenOnMap.
 
 Name        Type   Description
 ----------- ------ -----------------------------------------------
@@ -8535,7 +8628,7 @@ Id   string Transmitter unique identifier.
 
 Result IsIntTxIgnoreRxAntennaGainPatternResult(ignore, id)
 
-Result of IsIntTxIgnoreRxAntennaGainPattern
+Result of IsIntTxIgnoreRxAntennaGainPattern.
 
 Name   Type   Description
 ------ ------ -------------------------------------------------------------
@@ -8569,7 +8662,7 @@ Id   string Transmitter unique identifier.
 
 Result IsIntTxIgnoreRxAntennaPhasePatternResult(ignore, id)
 
-Result of IsIntTxIgnoreRxAntennaPhasePattern
+Result of IsIntTxIgnoreRxAntennaPhasePattern.
 
 Name   Type   Description
 ------ ------ --------------------------------------------------------------
@@ -8619,7 +8712,7 @@ Id   string Transmitter unique identifier.
 
 Result GetIntTxFixResult(lat, lon, alt, yaw, pitch, roll, id)
 
-Result of GetIntTxFix
+Result of GetIntTxFix.
 
 Name  Type   Description
 ----- ------ ------------------------------
@@ -8663,7 +8756,7 @@ Id   string Transmitter unique identifier.
 
 Result GetIntTxFixEcefResult(x, y, z, yaw, pitch, roll, id)
 
-Result of GetIntTxFixEcef
+Result of GetIntTxFixEcef.
 
 Name  Type   Description
 ----- ------ ------------------------------
@@ -8708,7 +8801,7 @@ Id   string Transmitter unique identifier.
 
 Result GetIntTxCircularResult(lat, lon, alt, radius, speed, clockwise, id, originAngle)
 
-Result of GetIntTxCircular
+Result of GetIntTxCircular.
 
 Name        Type            Description
 ----------- --------------- --------------------------------
@@ -8843,7 +8936,7 @@ Id   string Transmitter unique identifier.
 
 Result IsIntTxTrajectorySmoothingEnabledResult(enabled, id)
 
-Result of IsIntTxTrajectorySmoothingEnabled
+Result of IsIntTxTrajectorySmoothingEnabled.
 
 Name    Type   Description
 ------- ------ -------------------------------------------------------------------
@@ -8877,7 +8970,7 @@ Id   string Transmitter unique identifier.
 
 Result IsIntTxAttitudeToZeroForcedResult(enabled, id)
 
-Result of IsIntTxAttitudeToZeroForced
+Result of IsIntTxAttitudeToZeroForced.
 
 Name    Type   Description
 ------- ------ ------------------------------------------------------------
@@ -8911,7 +9004,7 @@ Id   string Transmitter unique identifier.
 
 Result GetIntTxVehicleTypeResult(type, id)
 
-Result of GetIntTxVehicleType
+Result of GetIntTxVehicleType.
 
 Name Type   Description
 ---- ------ ----------------------------------------------------------
@@ -8923,7 +9016,7 @@ Id   string Transmitter unique identifier.
 Command GetIntTxTrajectory(id)
 Permission: EXECUTE_IF_IDLE
 
-Get interference transmitter trajectory
+Get interference transmitter trajectory.
 
 Name Type   Description
 ---- ------ ------------------------------
@@ -8933,7 +9026,7 @@ Id   string Transmitter unique identifier.
 
 Result GetIntTxTrajectoryResult(trajectoryType, id)
 
-Result of GetIntTxTrajectory
+Result of GetIntTxTrajectory.
 
 Name           Type   Description
 -------------- ------ ---------------------------------------------------------
@@ -8968,7 +9061,7 @@ Id   string Transmitter unique identifier.
 
 Result GetIntTxAntennaResult(gain, type, id)
 
-Result of GetIntTxAntenna
+Result of GetIntTxAntenna.
 
 Name Type               Description
 ---- ------------------ -------------------------------------------------------------------------------------------------------------------------
@@ -9020,7 +9113,7 @@ Id   string Transmitter unique identifier.
 
 Result GetIntTxAntennaOffsetResult(x, y, z, yaw, pitch, roll, id)
 
-Result of GetIntTxAntennaOffset
+Result of GetIntTxAntennaOffset.
 
 Name  Type   Description
 ----- ------ --------------------------------------
@@ -9082,9 +9175,9 @@ Permission: EXECUTE_IF_IDLE
 Get all signal ID from this interference transmitters and this signal type. If the signal type is invalid, get the IDs of CW type.
 
 Name          Type   Description
-------------- ------ --------------------------------------------------------------------------------------
+------------- ------ ------------------------------------------------------------------------------------
 IdTransmitter string Transmitter unique identifier.
-SignalType    string Type of signal. Authorized signals are : "CW", "Chirp", "Pulse", "BPSK", "BOC", "AWGN"
+SignalType    string Type of signal. Accepted signals are : "CW", "Chirp", "Pulse", "BPSK", "BOC", "AWGN"
 
 ***************************************************************************************************************************
 
@@ -9093,9 +9186,9 @@ Result GetSignalFromIntTxResult(idTransmitter, signalType, idsSignal)
 Result of GetSignalFromIntTx.
 
 Name          Type         Description
-------------- ------------ --------------------------------------------------------------------------------------
+------------- ------------ ------------------------------------------------------------------------------------
 IdTransmitter string       Transmitter unique identifier.
-SignalType    string       Type of signal. Authorized signals are : "CW", "Chirp", "Pulse", "BPSK", "BOC", "AWGN"
+SignalType    string       Type of signal. Accepted signals are : "CW", "Chirp", "Pulse", "BPSK", "BOC", "AWGN"
 IdsSignal     array string List of signal ID for this interferences transmitter and this signal type.
 
 ***************************************************************************************************************************
@@ -9134,7 +9227,7 @@ SignalId      string CW unique identifier.
 
 Result GetIntTxCWResult(enabled, centralFreq, power, transmitterId, signalId, initialPhaseOffset, group)
 
-Result of GetIntTxCW
+Result of GetIntTxCW.
 
 Name               Type            Description
 ------------------ --------------- ---------------------------------------------------
@@ -9183,7 +9276,7 @@ SignalId      string Chirp unique identifier.
 
 Result GetIntTxChirpResult(enabled, centralFreq, power, bandwidth, sweepTime, transmitterId, signalId, group)
 
-Result of GetIntTxChirp
+Result of GetIntTxChirp.
 
 Name          Type         Description
 ------------- ------------ ---------------------------------------------------
@@ -9230,7 +9323,7 @@ SignalId      string Pulse unique identifier.
 
 Result GetIntTxPulseResult(enabled, centralFreq, power, dutyCycle, pulseRate, transmitterId, signalId, group)
 
-Result of GetIntTxPulse
+Result of GetIntTxPulse.
 
 Name          Type         Description
 ------------- ------------ --------------------------------------------------------------
@@ -9277,7 +9370,7 @@ SignalId      string BPSK unique identifier.
 
 Result GetIntTxBPSKResult(enabled, centralFreq, power, codeRate, codeLengthMs, transmitterId, signalId, group)
 
-Result of GetIntTxBPSK
+Result of GetIntTxBPSK.
 
 Name          Type         Description
 ------------- ------------ -------------------------------------------------------------------------
@@ -9326,7 +9419,7 @@ SignalId      string BOC unique identifier.
 
 Result GetIntTxBOCResult(enabled, centralFreq, power, codeRate, codeLengthMs, subCarrierRate, cosinePhaseBoc, transmitterId, signalId, group)
 
-Result of GetIntTxBOC
+Result of GetIntTxBOC.
 
 Name           Type         Description
 -------------- ------------ -------------------------------------------------------------------------
@@ -9375,7 +9468,7 @@ SignalId      string AWGN unique identifier.
 
 Result GetIntTxAWGNResult(enabled, centralFreq, power, bandwidth, transmitterId, signalId, seed, group)
 
-Result of GetIntTxAWGN
+Result of GetIntTxAWGN.
 
 Name          Type         Description
 ------------- ------------ ------------------------------------------------------------------------------------------
@@ -9421,7 +9514,7 @@ SignalId      string AWGN unique identifier.
 
 Result GetIntTxIqFileResult(enabled, centralFreq, power, path, transmitterId, signalId, group)
 
-Result of GetIntTxIqFile
+Result of GetIntTxIqFile.
 
 Name          Type         Description
 ------------- ------------ ---------------------------------------------------
@@ -9482,6 +9575,17 @@ Size int  Streaming buffer size in msec
 
 ***************************************************************************************************************************
 
+Command SetEngineLatency(latency)
+Permission: EXECUTE_IF_NO_CONFIG | EXECUTE_IF_IDLE
+
+Set engine latency.
+
+Name    Type Description
+------- ---- ----------------------
+Latency int  Engine latency in msec
+
+***************************************************************************************************************************
+
 Command SetSyncServer(port)
 Permission: EXECUTE_IF_NO_CONFIG | EXECUTE_IF_IDLE
 
@@ -9528,7 +9632,7 @@ Get time delay to start streaming, in order to allign PPS out Signal with RF.
 
 Result GetSyncTimeResult(time)
 
-Result of GetSyncTime
+Result of GetSyncTime.
 
 Name Type   Description
 ---- ------ ----------------------------------------
@@ -9561,7 +9665,7 @@ synchornization.
 
 Result GetSyncTimeMasterResult(time)
 
-Result of GetSyncTimeMaster
+Result of GetSyncTimeMaster.
 
 Name Type   Description
 ---- ------ ----------------------------------------
@@ -9590,7 +9694,7 @@ Get If enabled, simulation stops when a command result fail.
 
 Result IsSimStopWhenCommandFailEnabledResult(enabled)
 
-Result of IsSimStopWhenCommandFailEnabled
+Result of IsSimStopWhenCommandFailEnabled.
 
 Name    Type Description
 ------- ---- ----------------------------------
@@ -9619,7 +9723,7 @@ Get If enabled, master and all the slaves will stop if a slave stop.
 
 Result IsStopMasterWhenSlaveStopResult(enabled)
 
-Result of IsStopMasterWhenSlaveStop
+Result of IsStopMasterWhenSlaveStop.
 
 Name    Type Description
 ------- ---- ---------------------------------------
@@ -9648,7 +9752,7 @@ Get if map is show/hide in Analysis tab.
 
 Result IsMapAnalysisEnabledResult(show)
 
-Result of IsMapAnalysisEnabled
+Result of IsMapAnalysisEnabled.
 
 Name Type Description
 ---- ---- -------------
@@ -9677,7 +9781,7 @@ Get if spectrums are show/hide.
 
 Result IsSpectrumVisibleResult(visible)
 
-Result of IsSpectrumVisible
+Result of IsSpectrumVisible.
 
 Name    Type Description
 ------- ---- ------------------
@@ -9839,7 +9943,7 @@ Signal string Signal Name ("L2C" for example)
 
 Result GetMessageSequenceResult(signal, sequence)
 
-Result of GetMessageSequence
+Result of GetMessageSequence.
 
 Name     Type      Description
 -------- --------- -------------------------------
@@ -9873,7 +9977,7 @@ Prn  int  Satellite PRN number
 
 Result GetGalileoFnavSatelliteKResult(prn, k)
 
-Result of GetGalileoFnavSatelliteK
+Result of GetGalileoFnavSatelliteK.
 
 Name Type Description
 ---- ---- -----------------------
@@ -9940,7 +10044,7 @@ Returns the status log in a GetStatusLogResult and clears it
 
 Result GetStatusLogResult(records)
 
-Represents a log, each element of the same record share the same index
+Result of GetStatusLog.
 
 Name    Type            Description
 ------- --------------- ----------------
@@ -9972,7 +10076,7 @@ System string The system, can be "GPS", "GLONASS", "Galileo", "BeiDou", "SBAS", 
 
 Result GetVisibleSVResult(system, svId)
 
-Result of GetVisibleSV
+Result of GetVisibleSV.
 
 Name   Type      Description
 ------ --------- -----------------------------------------------------------------------------------
@@ -10035,7 +10139,7 @@ SvId   int    The satellite's SV ID
 
 Result IsSVEnabledResult(system, svId, enabled)
 
-Result of IsSVEnabled
+Result of IsSVEnabled.
 
 Name    Type   Description
 ------- ------ ------------------------------------------------------------------------------------------------------
@@ -10070,7 +10174,7 @@ System string The satellites' constellation. Can be "GPS", "GLONASS", "Galileo",
 
 Result IsEachSVEnabledResult(system, enabled)
 
-Result of IsEachSVEnabled
+Result of IsEachSVEnabled.
 
 Name    Type       Description
 ------- ---------- ------------------------------------------------------------------------------------------------------
@@ -10100,7 +10204,7 @@ Get the enabled L1C CNAV2 pages
 
 Result GetCnav2PagesEnabledResult(messages)
 
-Result of GetCnav2PagesEnabled
+Result of GetCnav2PagesEnabled.
 
 Name     Type      Description
 -------- --------- -----------------
@@ -10129,7 +10233,7 @@ Get the enabled SBAS messages. Message 63 is always enabled
 
 Result GetSbasMessagesEnabledResult(messages)
 
-Result of GetSbasMessagesEnabled
+Result of GetSbasMessagesEnabled.
 
 Name     Type      Description
 -------- --------- --------------------
@@ -10158,7 +10262,7 @@ Get the systems monitored by SBAS.
 
 Result GetSbasMonitoredSystemsResult(systems)
 
-Result of GetSbasMonitoredSystems
+Result of GetSbasMonitoredSystems.
 
 Name    Type         Description
 ------- ------------ ------------------------------------------------------------------------------------
@@ -10187,7 +10291,7 @@ Get the global UDREI value transmitted by SBAS
 
 Result GetSbasUdreiResult(udrei)
 
-Result of GetSbasUdrei
+Result of GetSbasUdrei.
 
 Name  Type Description
 ----- ---- ---------------
@@ -10255,7 +10359,7 @@ Get wether the master should send its configuration to every slave when simulati
 
 Result GetConfigBroadcastOnStartResult(broadcastOnStart)
 
-Result of GetConfigBroadcastOnStart
+Result of GetConfigBroadcastOnStart.
 
 Name             Type Description
 ---------------- ---- --------------------------------------------------------------
@@ -10298,7 +10402,7 @@ Get the filter for configuration broadcast.
 
 Result GetConfigBroadcastFilterResult(filter)
 
-Result of GetConfigBroadcastFilter
+Result of GetConfigBroadcastFilter.
 
 Name   Type               Description
 ------ ------------------ ------------------------------------------------------------------------------
@@ -10334,7 +10438,7 @@ SvId   int    Satellite SV ID.
 
 Result GetPseudorangeNoiseOffsetForSVResult(system, svId, enabled, offset)
 
-Result of GetPseudorangeNoiseOffsetForSV
+Result of GetPseudorangeNoiseOffsetForSV.
 
 Name    Type   Description
 ------- ------ ----------------------------------------------------------------
@@ -10399,7 +10503,7 @@ System string "GPS", "GLONASS", "Galileo", "BeiDou", "SBAS", "QZSS" or "NavIC"
 
 Result GetPseudorangeNoiseOffsetForEachSVResult(system, enabled, offset)
 
-Result of GetPseudorangeNoiseOffsetForEachSV
+Result of GetPseudorangeNoiseOffsetForEachSV.
 
 Name    Type         Description
 ------- ------------ ----------------------------------------------------------------
@@ -10441,7 +10545,7 @@ SineWave int    Sine wave number (0 or 1)
 
 Result GetPseudorangeNoiseSineWaveForSVResult(system, svId, sineWave, enabled, amplitude, period, offset)
 
-Result of GetPseudorangeNoiseSineWaveForSV
+Result of GetPseudorangeNoiseSineWaveForSV.
 
 Name      Type   Description
 --------- ------ ----------------------------------------------------------------
@@ -10517,7 +10621,7 @@ SineWave int    Sine wave number (0 or 1)
 
 Result GetPseudorangeNoiseSineWaveForEachSVResult(system, sineWave, enabled, amplitude, period, offset)
 
-Result of GetPseudorangeNoiseSineWaveForEachSV
+Result of GetPseudorangeNoiseSineWaveForEachSV.
 
 Name      Type         Description
 --------- ------------ ----------------------------------------------------------------
@@ -10562,7 +10666,7 @@ Process int    Gauss-Markov Process number (0 or 1)
 
 Result GetPseudorangeNoiseGaussMarkovForSVResult(system, svId, process, enabled, sigma, time, seed)
 
-Result of GetPseudorangeNoiseGaussMarkovForSV
+Result of GetPseudorangeNoiseGaussMarkovForSV.
 
 Name    Type   Description
 ------- ------ ----------------------------------------------------------------
@@ -10638,7 +10742,7 @@ Process int    Gauss-Markov Process number (0 or 1)
 
 Result GetPseudorangeNoiseGaussMarkovForEachSVResult(system, process, enabled, sigma, time, seed)
 
-Result of GetPseudorangeNoiseGaussMarkovForEachSV
+Result of GetPseudorangeNoiseGaussMarkovForEachSV.
 
 Name    Type         Description
 ------- ------------ ----------------------------------------------------------------
@@ -10716,7 +10820,7 @@ SvId   int    Satellite SV ID.
 
 Result GetEphemerisErrorForSVResult(system, svId, orbit, deltaAf0, deltaAf1)
 
-Result of GetEphemerisErrorForSV
+Result of GetEphemerisErrorForSV.
 
 Name     Type   Description
 -------- ------ -----------------------------------------------------------------------------------
@@ -10749,7 +10853,7 @@ Get whether SBAS message 25 should send velocity corrections
 
 Result IsUsingVelocityInSbasMessage25Result(useVelocity)
 
-Result of IsUsingVelocityInSbasMessage25
+Result of IsUsingVelocityInSbasMessage25.
 
 Name        Type Description
 ----------- ---- --------------------------------------------------------
@@ -10785,7 +10889,7 @@ SvId   int    The satellite SV ID
 
 Result IsSVForcedGeoResult(system, svId, isGeo, longitude)
 
-Result of IsSVForcedGeo
+Result of IsSVForcedGeo.
 
 Name      Type   Description
 --------- ------ ---------------------------------------------
@@ -10821,7 +10925,7 @@ System string "GPS" or "SBAS"
 
 Result IsSbasFastCorrectionsEnabledForResult(system, isEnabled)
 
-Result of IsSbasFastCorrectionsEnabledFor
+Result of IsSbasFastCorrectionsEnabledFor.
 
 Name      Type   Description
 --------- ------ -------------------------------
@@ -10851,7 +10955,7 @@ Get whether the ionospheric offsets grid should be used for SBAS corrections in 
 
 Result IsDelayAppliedInSbasResult(isEnabled)
 
-Result of IsDelayAppliedInSbas
+Result of IsDelayAppliedInSbas.
 
 Name      Type Description
 --------- ---- --------------------------------------------
@@ -10880,7 +10984,7 @@ Get whether the ionospheric offsets grid should be applied to the ionosphere
 
 Result IsIonoOffsetEnabledResult(isEnabled)
 
-Result of IsIonoOffsetEnabled
+Result of IsIonoOffsetEnabled.
 
 Name      Type Description
 --------- ---- ---------------------------------------------
@@ -10913,7 +11017,7 @@ System string As of today, only "GPS" is supported
 
 Result IsSbasLongTermCorrectionsEnabledForResult(system, isEnabled)
 
-Result of IsSbasLongTermCorrectionsEnabledFor
+Result of IsSbasLongTermCorrectionsEnabledFor.
 
 Name      Type   Description
 --------- ------ ------------------------------------
@@ -11103,7 +11207,7 @@ The value is unreliable for HIL trajectories.
 
 Result IsTrajectoryCompletedResult(isCompleted)
 
-Result of IsTrajectoryCompleted
+Result of IsTrajectoryCompleted.
 
 Name        Type Description
 ----------- ---- ------------------------------------------
@@ -11138,7 +11242,7 @@ Point int  The IGP index
 
 Result GetIonoGridErrorResult(band, point, error)
 
-Result of GetIonoGridError
+Result of GetIonoGridError.
 
 Name  Type   Description
 ----- ------ -------------------------------
@@ -11177,7 +11281,7 @@ ServiceProvider optional string The service provider (optional)
 
 Result GetIonoGridGIVEIResult(band, point, giveI, serviceProvider)
 
-Result of GetIonoGridGIVEI
+Result of GetIonoGridGIVEI.
 
 Name            Type            Description
 --------------- --------------- -------------------------------
@@ -11209,7 +11313,7 @@ Get Error offsets in the ionospheric grid.  The array is zero based, the index 0
 
 Result GetIonoGridErrorAllResult(grid)
 
-Result of GetIonoGridErrorAll
+Result of GetIonoGridErrorAll.
 
 Name Type               Description
 ---- ------------------ -----------------------------------------------------------------------
@@ -11242,7 +11346,7 @@ ServiceProvider optional string The service provider (optional)
 
 Result GetIonoGridGIVEIAllResult(grid, serviceProvider)
 
-Result of GetIonoGridGIVEIAll
+Result of GetIonoGridGIVEIAll.
 
 Name            Type            Description
 --------------- --------------- ----------------------------------------------------------------------
@@ -11280,7 +11384,7 @@ Point           int    The IGP index
 
 Result GetIonoGridMaskResult(serviceProvider, band, point, flag)
 
-Result of GetIonoGridMask
+Result of GetIonoGridMask.
 
 Name            Type   Description
 --------------- ------ -------------------------------
@@ -11316,7 +11420,7 @@ ServiceProvider string The service provider
 
 Result GetIonoGridMaskAllResult(serviceProvider, grid)
 
-Result of GetIonoGridMaskAll
+Result of GetIonoGridMaskAll.
 
 Name            Type             Description
 --------------- ---------------- ----------------------------------------------------------------------
@@ -11404,14 +11508,14 @@ Path            string Grid file path
 Command GetConfigPaths()
 Permission: EXECUTE_IF_IDLE | EXECUTE_IF_SIMULATING
 
-Returns a list of paths for all the files in the Configurations folder.
+Get a list of paths for all the files in the Configurations folder.
 
 
 ***************************************************************************************************************************
 
 Result GetConfigPathsResult(paths)
 
-Result of GetConfigPaths
+Result of GetConfigPaths.
 
 Name  Type         Description
 ----- ------------ --------------------------------
@@ -11461,7 +11565,7 @@ Returns the last known leap second date
 
 Result GetLastLeapSecondDateResult(date)
 
-Result of GetLastLeapSecondDate
+Result of GetLastLeapSecondDate.
 
 Name Type Description
 ---- ---- ----------------
@@ -11490,7 +11594,7 @@ Get The CRPA LNA gain
 
 Result GetWFAntennaGainResult(gain)
 
-Result of GetWFAntennaGain
+Result of GetWFAntennaGain.
 
 Name Type Description
 ---- ---- -----------------
@@ -11551,7 +11655,7 @@ Get the ID of all spoofer transmitters.
 
 Result GetAllSpoofTxIDResult(ids)
 
-Result of GetAllSpoofTxID
+Result of GetAllSpoofTxID.
 
 Name Type         Description
 ---- ------------ ------------------------------------
@@ -11591,7 +11695,7 @@ Id   string Transmitter unique identifier.
 
 Result GetSpoofTxResult(usualName, enabled, address, instanceId, id)
 
-Result of GetSpoofTx
+Result of GetSpoofTx.
 
 Name       Type   Description
 ---------- ------ ------------------------------------------------
@@ -11652,7 +11756,7 @@ Id   string Transmitter unique identifier.
 
 Result GetSpoofTxColorResult(color, id)
 
-Result of GetSpoofTxColor
+Result of GetSpoofTxColor.
 
 Name  Type   Description
 ----- ------ -------------------------------------------------------------------------------
@@ -11722,7 +11826,7 @@ Id   string Transmitter unique identifier.
 
 Result IsSpoofTxIgnoreRxAntennaGainPatternResult(ignore, id)
 
-Result of IsSpoofTxIgnoreRxAntennaGainPattern
+Result of IsSpoofTxIgnoreRxAntennaGainPattern.
 
 Name   Type   Description
 ------ ------ -------------------------------------------------------------
@@ -11756,7 +11860,7 @@ Id   string Transmitter unique identifier.
 
 Result IsSpoofTxIgnoreRxAntennaPhasePatternResult(ignore, id)
 
-Result of IsSpoofTxIgnoreRxAntennaPhasePattern
+Result of IsSpoofTxIgnoreRxAntennaPhasePattern.
 
 Name   Type   Description
 ------ ------ --------------------------------------------------------------
@@ -11795,7 +11899,7 @@ Id   string Transmitter unique identifier.
 
 Result GetSpoofTxFixResult(lat, lon, alt, yaw, pitch, roll, id)
 
-Result of GetSpoofTxFix
+Result of GetSpoofTxFix.
 
 Name  Type   Description
 ----- ------ ------------------------------
@@ -11839,7 +11943,7 @@ Id   string Transmitter unique identifier.
 
 Result GetSpoofTxFixEcefResult(x, y, z, yaw, pitch, roll, id)
 
-Result of GetSpoofTxFixEcef
+Result of GetSpoofTxFixEcef.
 
 Name  Type   Description
 ----- ------ ------------------------------
@@ -11884,7 +11988,7 @@ Id   string Transmitter unique identifier.
 
 Result GetSpoofTxCircularResult(lat, lon, alt, radius, speed, clockwise, id, originAngle)
 
-Result of GetSpoofTxCircular
+Result of GetSpoofTxCircular.
 
 Name        Type            Description
 ----------- --------------- --------------------------------
@@ -11923,7 +12027,7 @@ Id   string Transmitter unique identifier.
 
 Result GetSpoofTxTrajectoryResult(trajectoryType, id)
 
-Result of GetSpoofTxTrajectory
+Result of GetSpoofTxTrajectory.
 
 Name           Type   Description
 -------------- ------ ---------------------------------------------------
@@ -11958,7 +12062,7 @@ Id   string Transmitter unique identifier.
 
 Result GetSpoofTxAntennaResult(gain, type, id)
 
-Result of GetSpoofTxAntenna
+Result of GetSpoofTxAntenna.
 
 Name Type               Description
 ---- ------------------ -------------------------------------------------------------------------------------------------------------------------
@@ -12010,7 +12114,7 @@ Id   string Transmitter unique identifier.
 
 Result GetSpoofTxAntennaOffsetResult(x, y, z, yaw, pitch, roll, id)
 
-Result of GetSpoofTxAntennaOffset
+Result of GetSpoofTxAntennaOffset.
 
 Name  Type   Description
 ----- ------ --------------------------------------
@@ -12052,7 +12156,7 @@ Id   string Transmitter unique identifier.
 
 Result GetSpoofTxRemoteAddressResult(address, instanceId, id)
 
-Result of GetSpoofTxRemoteAddress
+Result of GetSpoofTxRemoteAddress.
 
 Name       Type   Description
 ---------- ------ ------------------------------
@@ -12116,15 +12220,15 @@ Permission: EXECUTE_IF_IDLE
 Mapping PRN to the corresponding SV ID. Get a list of SV IDs based on a specific signal. Accepted signal keys: "L1CA", "L1C", "L1P", "L1M", "L2C", "L2P", "L5", "G1", "G2", "E1", "E1PRS", "E5a", "E5b", "E6BC", "E6PRS", "B1", "B2", "B2a", "B1C", "SBASL1", "SBASL5", "QZSSL1CA", "QZSSL1C", "QZSSL5", "QZSSL1S", "QZSSL5S" and "NAVICL5"
 
 Name   Type   Description
------- ------ --------------------------------------------------------
-Signal string Signal key - see command description for possible values
+------ ------ ----------------------------------------------------------------------
+Signal string Signal key - see GetSVIDsOfPrn command description for possible values
 Prn    int    Satellite PRN number
 
 ***************************************************************************************************************************
 
 Result GetSVIDsOfPrnResult(signal, prn, svIdList)
 
-Result of GetSVIDsOfPrn
+Result of GetSVIDsOfPrn.
 
 Name     Type      Description
 -------- --------- ----------------------------------------------------------------------
@@ -12163,7 +12267,7 @@ Id   string Unique identifier of the augmentation.
 
 Result GetQzssL1SAugmentationResult(system, prn, augmentIOD, augmentPRC, prc, id)
 
-Result of GetQzssL1SAugmentation
+Result of GetQzssL1SAugmentation.
 
 Name       Type   Description
 ---------- ------ ----------------------------------------------------------------------------------
@@ -12205,7 +12309,7 @@ Get all QZSS L1S augmentation's IDs.
 
 Result GetQzssL1SAugmentationsResult(ids)
 
-Result of GetQzssL1SAugmentations
+Result of GetQzssL1SAugmentations.
 
 Name Type         Description
 ---- ------------ --------------------------------------
@@ -12238,7 +12342,7 @@ Second string Second string in pair
 Command SetQzssSatMotionFixed(svId, isFixed)
 Permission: EXECUTE_IF_IDLE
 
-Please note the command QzssSatMotionFixed is deprecated since 20.9. You may use SatMotionFixed.
+Please note the command SetQzssSatMotionFixed is deprecated since 20.9. You may use SetSatMotionFixed.
 
 If IsFixed is set to true, the satellite will not move during the simulation and keep its initial position calculated at the beginning of the simulation.
 
@@ -12252,7 +12356,7 @@ IsFixed bool If true, the satellite relative position is fixed, if false, the sa
 Command IsQzssSatMotionFixed(svId)
 Permission: EXECUTE_IF_IDLE
 
-Please note the command QzssSatMotionFixed is deprecated since 20.9. You may use SatMotionFixed.
+Please note the command IsQzssSatMotionFixed is deprecated since 20.9. You may use IsSatMotionFixed.
 
 Tells if the satellite is fixed (True) or not fixed (false).
 
@@ -12264,7 +12368,7 @@ SvId int  Satellite SV ID number
 
 Result IsQzssSatMotionFixedResult(svId, isFixed)
 
-Result of IsQzssSatMotionFixed
+Result of IsQzssSatMotionFixed.
 
 Name    Type Description
 ------- ---- --------------------------------------------------------------------------------------------------------------
@@ -12276,7 +12380,7 @@ IsFixed bool If true, the satellite relative position is fixed, if false, the sa
 Command SetQzssEphemerisReferenceTime(svId, time)
 Permission: EXECUTE_IF_IDLE
 
-Please note the command QzssEphemerisReferenceTime is deprecated since 20.9. You may use EphemerisReferenceTimeForSV.
+Please note the command SetQzssEphemerisReferenceTime is deprecated since 20.9. You may use SetEphemerisReferenceTimeForSV.
 
 Set the QZSS ephemeris reference time
 
@@ -12290,7 +12394,7 @@ Time datetime GPS date and time (it is the GPS time expressed in UTC format)
 Command GetQzssEphemerisReferenceTime(svId)
 Permission: EXECUTE_IF_IDLE
 
-Please note the command QzssEphemerisReferenceTime is deprecated since 20.9. You may use EphemerisReferenceTimeForSV.
+Please note the command GetQzssEphemerisReferenceTime is deprecated since 20.9. You may use GetEphemerisReferenceTimeForSV.
 
 Get the QZSS ephemeris reference time
 
@@ -12302,7 +12406,7 @@ SvId int  Satellite SV ID 1..10
 
 Result GetQzssEphemerisReferenceTimeResult(svId, time)
 
-Result of GetQzssEphemerisReferenceTime
+Result of GetQzssEphemerisReferenceTime.
 
 Name Type     Description
 ---- -------- --------------------------------------------------------------
@@ -12314,7 +12418,7 @@ Time datetime GPS date and time (it is the GPS time expressed in UTC format)
 Command SetQzssPerturbations(svId, crs, crc, cis, cic, cus, cuc)
 Permission: EXECUTE_IF_IDLE
 
-Please note the command QzssPerturbations is deprecated since 20.9. You may use Perturbations.
+Please note the command SetQzssPerturbations is deprecated since 20.9. You may use SetPerturbations.
 
 Set QZSS orbit perturbations (Crs, Crc, Cis, Cic, Cus and Cuc)
 
@@ -12333,7 +12437,7 @@ Cuc  double Cuc (rad)
 Command GetQzssPerturbations(svId)
 Permission: EXECUTE_IF_IDLE
 
-Please note the command QzssPerturbations is deprecated since 20.9. You may use Perturbations.
+Please note the command GetQzssPerturbations is deprecated since 20.9. You may use GetPerturbations.
 
 Get QZSS orbit perturbations (Crs, Crc, Cis, Cic, Cus and Cuc)
 
@@ -12345,7 +12449,7 @@ SvId int  Satellite SV ID 1..10
 
 Result GetQzssPerturbationsResult(svId, crs, crc, cis, cic, cus, cuc)
 
-Result of GetQzssPerturbations
+Result of GetQzssPerturbations.
 
 Name Type   Description
 ---- ------ ---------------------
@@ -12362,7 +12466,7 @@ Cuc  double Cuc (rad)
 Command SetQzssPerturbationsForAllSat(crs, crc, cis, cic, cus, cuc)
 Permission: EXECUTE_IF_IDLE
 
-Please note the command QzssPerturbationsForAllSat is deprecated since 20.9. You may use PerturbationsForAllSat.
+Please note the command SetQzssPerturbationsForAllSat is deprecated since 20.9. You may use SetPerturbationsForAllSat.
 
 Set QZSS orbit perturbations (Crs, Crc, Cis, Cic, Cus and Cuc) for all satellites.
 All parameters are zero based index (index 0 => SV ID 1, index 1 => SV ID 2, etc)
@@ -12381,7 +12485,7 @@ Cuc  array double Cuc (rad)
 Command GetQzssPerturbationsForAllSat()
 Permission: EXECUTE_IF_IDLE
 
-Please note the command QzssPerturbationsForAllSat is deprecated since 20.9. You may use PerturbationsForAllSat.
+Please note the command GetQzssPerturbationsForAllSat is deprecated since 20.9. You may use GetPerturbationsForAllSat.
 
 Get QZSS orbit perturbations (Crs, Crc, Cis, Cic, Cus and Cuc) for all satellites.
 All parameters are zero based index (index 0 => SV ID 1, index 1 => SV ID 2, etc)
@@ -12391,7 +12495,7 @@ All parameters are zero based index (index 0 => SV ID 1, index 1 => SV ID 2, etc
 
 Result GetQzssPerturbationsForAllSatResult(crs, crc, cis, cic, cus, cuc)
 
-Result of GetQzssPerturbationsForAllSat
+Result of GetQzssPerturbationsForAllSat.
 
 Name Type         Description
 ---- ------------ -----------
@@ -12435,7 +12539,7 @@ Enabled bool   RF is enabled when value is True
 Command IsRFEnabled(system, prn)
 Permission: EXECUTE_IF_IDLE
 
-Please note the command EnableRF is deprecated since 21.3. You may use EnableRFOutputForSV.
+Please note the command IsRFEnabled is deprecated since 21.3. You may use IsRFOutputEnabled.
 
 Tells if the RF is enabled or disabled for the specified satellite.
 
@@ -12448,7 +12552,7 @@ Prn    int    Satellite PRN number for GPS, Galileo, BeiDou and SBAS. Slot numbe
 
 Result IsRFEnabledResult(system, prn, enabled)
 
-Result of IsRFEnabled
+Result of IsRFEnabled.
 
 Name    Type   Description
 ------- ------ ----------------------------------------------------------------------------------------------------------
@@ -12475,7 +12579,7 @@ Enabled array bool RF is enabled when value is True. Zero based index (index 0 =
 Command GetRFEnabledForEachPrn(system)
 Permission: EXECUTE_IF_IDLE
 
-Please note the command EnableRFForEachPrn is deprecated since 21.3. You may use EnableRFOutputForEachSV.
+Please note the command GetRFEnabledForEachPrn is deprecated since 21.3. You may use IsRFOutputEnabledForEachSV.
 
 Tells if the RF is enabled or disabled for each satellite.
 
@@ -12487,7 +12591,7 @@ System string "GPS", "GLONASS", "Galileo", "BeiDou", "SBAS", "QZSS" or "NavIC"
 
 Result GetRFEnabledForEachPrnResult(system, enabled)
 
-Result of GetRFEnabledForEachPrn
+Result of GetRFEnabledForEachPrn.
 
 Name    Type       Description
 ------- ---------- ------------------------------------------------------------------------------------------------------
@@ -12519,9 +12623,9 @@ Enabled bool   Signal is enabled when value is True
 Command IsSignalEnabled(prn, signal)
 Permission: EXECUTE_IF_IDLE
 
-Please note the command EnableSignal is deprecated since 21.3. You may use EnableSignalForSV.
+Please note the command IsSignalEnabled is deprecated since 21.3. You may use IsSignalEnabledForSV.
 
-Tells if the signal is enabled or disabled. See EnableSignal description for allowed signals.
+Tells if the signal is enabled or disabled. See IsSignalEnabled description for allowed signals.
 
 Name   Type   Description
 ------ ------ ----------------------------------------------------------------------------------------------------------
@@ -12532,7 +12636,7 @@ Signal string Signal key - see command description for possible values
 
 Result IsSignalEnabledResult(prn, signal, enabled)
 
-Result of IsSignalEnabled
+Result of IsSignalEnabled.
 
 Name    Type   Description
 ------- ------ ----------------------------------------------------------------------------------------------------------
@@ -12563,9 +12667,9 @@ Enabled array bool Signal is enabled when value is True. Zero based index (index
 Command GetSignalEnabledForEachPrn(signal)
 Permission: EXECUTE_IF_IDLE
 
-Please note the command EnableSignalForEachPrn is deprecated since 21.3. You may use EnableSignalForEachSV.
+Please note the command GetSignalEnabledForEachPrn is deprecated since 21.3. You may use IsSignalEnabledForEachSV.
 
-Tells if the signal is enabled or disabled for each satellite. See EnableSignalForEachPrn description for allowed signals.
+Tells if the signal is enabled or disabled for each satellite. See GetSignalEnabledForEachPrn description for allowed signals.
 
 Name   Type   Description
 ------ ------ --------------------------------------------------------
@@ -12575,7 +12679,7 @@ Signal string Signal key - see command description for possible values
 
 Result GetSignalEnabledForEachPrnResult(signal, enabled)
 
-Result of GetSignalEnabledForEachPrn
+Result of GetSignalEnabledForEachPrn.
 
 Name    Type       Description
 ------- ---------- ----------------------------------------------------------------------------------------------------------
@@ -12587,7 +12691,7 @@ Enabled array bool Signal is enabled when value is True. Zero based index (index
 Command SetGpsSatMotionFixed(prn, isFixed)
 Permission: EXECUTE_IF_IDLE
 
-Please note the command GpsSatMotionFixed is deprecated since 21.3. You may use SatMotionFixed.
+Please note the command SetGpsSatMotionFixed is deprecated since 21.3. You may use SetSatMotionFixed.
 
 If IsFixed is set to true, the satellite will not move during the simulation and keep its initial position calculated at the beginning of the simulation.
 
@@ -12601,7 +12705,7 @@ IsFixed bool If true, the satellite relative position is fixed, if false, the sa
 Command IsGpsSatMotionFixed(prn)
 Permission: EXECUTE_IF_IDLE
 
-Please note the command GpsSatMotionFixed is deprecated since 21.3. You may use SatMotionFixed.
+Please note the command IsGpsSatMotionFixed is deprecated since 21.3. You may use IsSatMotionFixed.
 
 Tells if the satellite is fixed (True) or not fixed (false).
 
@@ -12613,7 +12717,7 @@ Prn  int  Satellite PRN number
 
 Result IsGpsSatMotionFixedResult(prn, isFixed)
 
-Result of IsGpsSatMotionFixed
+Result of IsGpsSatMotionFixed.
 
 Name    Type Description
 ------- ---- --------------------------------------------------------------------------------------------------------------
@@ -12625,7 +12729,7 @@ IsFixed bool If true, the satellite relative position is fixed, if false, the sa
 Command SetGalileoSatMotionFixed(prn, isFixed)
 Permission: EXECUTE_IF_IDLE
 
-Please note the command GalileoSatMotionFixed is deprecated since 21.3. You may use SatMotionFixed.
+Please note the command SetGalileoSatMotionFixed is deprecated since 21.3. You may use SetSatMotionFixed.
 
 If IsFixed is set to true, the satellite will not move during the simulation and keep its initial position calculated at the beginning of the simulation.
 
@@ -12639,7 +12743,7 @@ IsFixed bool If true, the satellite relative position is fixed, if false, the sa
 Command IsGalileoSatMotionFixed(prn)
 Permission: EXECUTE_IF_IDLE
 
-Please note the command GalileoSatMotionFixed is deprecated since 21.3. You may use SatMotionFixed.
+Please note the command IsGalileoSatMotionFixed is deprecated since 21.3. You may use IsSatMotionFixed.
 
 Tells if the satellite is fixed (True) or not fixed (false).
 
@@ -12651,7 +12755,7 @@ Prn  int  Satellite PRN number
 
 Result IsGalileoSatMotionFixedResult(prn, isFixed)
 
-Result of IsGalileoSatMotionFixed
+Result of IsGalileoSatMotionFixed.
 
 Name    Type Description
 ------- ---- --------------------------------------------------------------------------------------------------------------
@@ -12663,7 +12767,7 @@ IsFixed bool If true, the satellite relative position is fixed, if false, the sa
 Command SetBeiDouSatMotionFixed(prn, isFixed)
 Permission: EXECUTE_IF_IDLE
 
-Please note the command BeiDouSatMotionFixed is deprecated since 21.3. You may use SatMotionFixed.
+Please note the command SetBeiDouSatMotionFixed is deprecated since 21.3. You may use SetSatMotionFixed.
 
 If IsFixed is set to true, the satellite will not move during the simulation and keep its initial position calculated at the beginning of the simulation.
 
@@ -12677,7 +12781,7 @@ IsFixed bool If true, the satellite relative position is fixed, if false, the sa
 Command IsBeiDouSatMotionFixed(prn)
 Permission: EXECUTE_IF_IDLE
 
-Please note the command BeiDouSatMotionFixed is deprecated since 21.3. You may use SatMotionFixed.
+Please note the command IsBeiDouSatMotionFixed is deprecated since 21.3. You may use IsSatMotionFixed.
 
 Tells if the satellite is fixed (True) or not fixed (false).
 
@@ -12689,7 +12793,7 @@ Prn  int  Satellite PRN number
 
 Result IsBeiDouSatMotionFixedResult(prn, isFixed)
 
-Result of IsBeiDouSatMotionFixed
+Result of IsBeiDouSatMotionFixed.
 
 Name    Type Description
 ------- ---- --------------------------------------------------------------------------------------------------------------
@@ -12701,7 +12805,7 @@ IsFixed bool If true, the satellite relative position is fixed, if false, the sa
 Command SetGpsEphemerisReferenceTime(prn, time)
 Permission: EXECUTE_IF_IDLE
 
-Please note the command GpsEphemerisReferenceTime is deprecated since 21.3. You may use EphemerisReferenceTimeForSV.
+Please note the command SetGpsEphemerisReferenceTime is deprecated since 21.3. You may use SetEphemerisReferenceTimeForSV.
 
 Set the GPS ephemeris reference time
 
@@ -12715,7 +12819,7 @@ Time datetime GPS date and time (it is the GPS time expressed in UTC format)
 Command GetGpsEphemerisReferenceTime(prn)
 Permission: EXECUTE_IF_IDLE
 
-Please note the command GpsEphemerisReferenceTime is deprecated since 21.3. You may use EphemerisReferenceTimeForSV.
+Please note the command GetGpsEphemerisReferenceTime is deprecated since 21.3. You may use GetEphemerisReferenceTimeForSV.
 
 Get the GPS ephemeris reference time
 
@@ -12727,7 +12831,7 @@ Prn  int  Satellite PRN number 1..32
 
 Result GetGpsEphemerisReferenceTimeResult(prn, time)
 
-Result of GetGpsEphemerisReferenceTime
+Result of GetGpsEphemerisReferenceTime.
 
 Name Type     Description
 ---- -------- --------------------------------------------------------------
@@ -12739,7 +12843,7 @@ Time datetime GPS date and time (it is the GPS time expressed in UTC format)
 Command SetGalileoEphemerisReferenceTime(prn, time)
 Permission: EXECUTE_IF_IDLE
 
-Please note the command GalileoEphemerisReferenceTime is deprecated since 21.3. You may use EphemerisReferenceTimeForSV.
+Please note the command SetGalileoEphemerisReferenceTime is deprecated since 21.3. You may use SetEphemerisReferenceTimeForSV.
 
 Set the Galileo ephemeris reference time
 
@@ -12753,7 +12857,7 @@ Time datetime GPS date and time (it is the GPS time expressed in UTC format)
 Command GetGalileoEphemerisReferenceTime(prn)
 Permission: EXECUTE_IF_IDLE
 
-Please note the command GalileoEphemerisReferenceTime is deprecated since 21.3. You may use EphemerisReferenceTimeForSV.
+Please note the command GetGalileoEphemerisReferenceTime is deprecated since 21.3. You may use GetEphemerisReferenceTimeForSV.
 
 Get the Galileo ephemeris reference time
 
@@ -12765,7 +12869,7 @@ Prn  int  Satellite PRN number 1..36
 
 Result GetGalileoEphemerisReferenceTimeResult(prn, time)
 
-Result of GetGalileoEphemerisReferenceTime
+Result of GetGalileoEphemerisReferenceTime.
 
 Name Type     Description
 ---- -------- --------------------------------------------------------------
@@ -12777,7 +12881,7 @@ Time datetime GPS date and time (it is the GPS time expressed in UTC format)
 Command SetBeiDouEphemerisReferenceTime(prn, time)
 Permission: EXECUTE_IF_IDLE
 
-Please note the command BeiDouEphemerisReferenceTime is deprecated since 21.3. You may use EphemerisReferenceTimeForSV.
+Please note the command SetBeiDouEphemerisReferenceTime is deprecated since 21.3. You may use SetEphemerisReferenceTimeForSV.
 
 Set the BeiDou ephemeris reference time
 
@@ -12791,7 +12895,7 @@ Time datetime GPS date and time (it is the GPS time expressed in UTC format)
 Command GetBeiDouEphemerisReferenceTime(prn)
 Permission: EXECUTE_IF_IDLE
 
-Please note the command BeiDouEphemerisReferenceTime is deprecated since 21.3. You may use EphemerisReferenceTimeForSV.
+Please note the command GetBeiDouEphemerisReferenceTime is deprecated since 21.3. You may use GetEphemerisReferenceTimeForSV.
 
 Get the BeiDou ephemeris reference time
 
@@ -12803,7 +12907,7 @@ Prn  int  Satellite PRN number 1..30
 
 Result GetBeiDouEphemerisReferenceTimeResult(prn, time)
 
-Result of GetBeiDouEphemerisReferenceTime
+Result of GetBeiDouEphemerisReferenceTime.
 
 Name Type     Description
 ---- -------- --------------------------------------------------------------
@@ -12854,7 +12958,7 @@ Prn  int  Satellite PRN number 1..30, or use 0 to apply new value to all satelli
 Command SetGpsPerturbations(prn, crs, crc, cis, cic, cus, cuc)
 Permission: EXECUTE_IF_IDLE
 
-Please note the command GpsPerturbations is deprecated since 21.3. You may use Perturbations.
+Please note the command SetGpsPerturbations is deprecated since 21.3. You may use SetPerturbations.
 
 Set GPS orbit perturbations (Crs, Crc, Cis, Cic, Cus and Cuc)
 
@@ -12873,7 +12977,7 @@ Cuc  double Cuc (rad)
 Command GetGpsPerturbations(prn)
 Permission: EXECUTE_IF_IDLE
 
-Please note the command GpsPerturbations is deprecated since 21.3. You may use Perturbations.
+Please note the command GetGpsPerturbations is deprecated since 21.3. You may use GetPerturbations.
 
 Get GPS orbit perturbations (Crs, Crc, Cis, Cic, Cus and Cuc)
 
@@ -12885,7 +12989,7 @@ Prn  int  Satellite PRN number 1..32
 
 Result GetGpsPerturbationsResult(prn, crs, crc, cis, cic, cus, cuc)
 
-Result of GetGpsPerturbations
+Result of GetGpsPerturbations.
 
 Name Type   Description
 ---- ------ --------------------------
@@ -12902,7 +13006,7 @@ Cuc  double Cuc (rad)
 Command SetGalileoPerturbations(prn, crs, crc, cis, cic, cus, cuc)
 Permission: EXECUTE_IF_IDLE
 
-Please note the command GalileoPerturbations is deprecated since 21.3. You may use Perturbations.
+Please note the command SetGalileoPerturbations is deprecated since 21.3. You may use SetPerturbations.
 
 Set GPS orbit perturbations (Crs, Crc, Cis, Cic, Cus and Cuc)
 
@@ -12921,7 +13025,7 @@ Cuc  double Cuc (rad)
 Command GetGalileoPerturbations(prn)
 Permission: EXECUTE_IF_IDLE
 
-Please note the command GalileoPerturbations is deprecated since 21.3. You may use Perturbations.
+Please note the command GetGalileoPerturbations is deprecated since 21.3. You may use GetPerturbations.
 
 Get GPS orbit perturbations (Crs, Crc, Cis, Cic, Cus and Cuc)
 
@@ -12933,7 +13037,7 @@ Prn  int  Satellite PRN number 1..36
 
 Result GetGalileoPerturbationsResult(prn, crs, crc, cis, cic, cus, cuc)
 
-Result of GetGalileoPerturbations
+Result of GetGalileoPerturbations.
 
 Name Type   Description
 ---- ------ --------------------------
@@ -12950,7 +13054,7 @@ Cuc  double Cuc (rad)
 Command SetBeiDouPerturbations(prn, crs, crc, cis, cic, cus, cuc)
 Permission: EXECUTE_IF_IDLE
 
-Please note the command BeiDouPerturbations is deprecated since 21.3. You may use Perturbations.
+Please note the command SetBeiDouPerturbations is deprecated since 21.3. You may use SetPerturbations.
 
 Set BeiDou orbit perturbations (Crs, Crc, Cis, Cic, Cus and Cuc)
 
@@ -12969,7 +13073,7 @@ Cuc  double Cuc (rad)
 Command GetBeiDouPerturbations(prn)
 Permission: EXECUTE_IF_IDLE
 
-Please note the command BeiDouPerturbations is deprecated since 21.3. You may use Perturbations.
+Please note the command GetBeiDouPerturbations is deprecated since 21.3. You may use GetPerturbations.
 
 Get BeiDou orbit perturbations (Crs, Crc, Cis, Cic, Cus and Cuc)
 
@@ -12981,7 +13085,7 @@ Prn  int  Satellite PRN number 1..30
 
 Result GetBeiDouPerturbationsResult(prn, crs, crc, cis, cic, cus, cuc)
 
-Result of GetBeiDouPerturbations
+Result of GetBeiDouPerturbations.
 
 Name Type   Description
 ---- ------ --------------------------
@@ -12998,7 +13102,7 @@ Cuc  double Cuc (rad)
 Command SetGpsPerturbationsForAllSat(crs, crc, cis, cic, cus, cuc)
 Permission: EXECUTE_IF_IDLE
 
-Please note the command GpsPerturbationsForAllSat is deprecated since 21.3. You may use PerturbationsForAllSat.
+Please note the command SetGpsPerturbationsForAllSat is deprecated since 21.3. You may use SetPerturbationsForAllSat.
 
 Set GPS orbit perturbations (Crs, Crc, Cis, Cic, Cus and Cuc) for all satellites.
 All parameters are zero based index (index 0 => PRN 1, index 1 => PRN 2, etc)
@@ -13017,7 +13121,7 @@ Cuc  array double Cuc (rad)
 Command GetGpsPerturbationsForAllSat()
 Permission: EXECUTE_IF_IDLE
 
-Please note the command GpsPerturbationsForAllSat is deprecated since 21.3. You may use PerturbationsForAllSat.
+Please note the command GetGpsPerturbationsForAllSat is deprecated since 21.3. You may use GetPerturbationsForAllSat.
 
 Get GPS orbit perturbations (Crs, Crc, Cis, Cic, Cus and Cuc) for all satellites.
 All parameters are zero based index (index 0 => PRN 1, index 1 => PRN 2, etc)
@@ -13027,7 +13131,7 @@ All parameters are zero based index (index 0 => PRN 1, index 1 => PRN 2, etc)
 
 Result GetGpsPerturbationsForAllSatResult(crs, crc, cis, cic, cus, cuc)
 
-Result of GetGpsPerturbationsForAllSat
+Result of GetGpsPerturbationsForAllSat.
 
 Name Type         Description
 ---- ------------ -----------
@@ -13043,7 +13147,7 @@ Cuc  array double Cuc (rad)
 Command SetGalileoPerturbationsForAllSat(crs, crc, cis, cic, cus, cuc)
 Permission: EXECUTE_IF_IDLE
 
-Please note the command GalileoPerturbationsForAllSat is deprecated since 21.3. You may use PerturbationsForAllSat.
+Please note the command SetGalileoPerturbationsForAllSat is deprecated since 21.3. You may use SetPerturbationsForAllSat.
 
 Set Galileo orbit perturbations (Crs, Crc, Cis, Cic, Cus and Cuc) for all satellites.
 All parameters are zero based index (index 0 => PRN 1, index 1 => PRN 2, etc)
@@ -13062,7 +13166,7 @@ Cuc  array double Cuc (rad)
 Command GetGalileoPerturbationsForAllSat()
 Permission: EXECUTE_IF_IDLE
 
-Please note the command GalileoPerturbationsForAllSat is deprecated since 21.3. You may use PerturbationsForAllSat.
+Please note the command GetGalileoPerturbationsForAllSat is deprecated since 21.3. You may use GetPerturbationsForAllSat.
 
 Get Galileo orbit perturbations (Crs, Crc, Cis, Cic, Cus and Cuc) for all satellites.
 All parameters are zero based index (index 0 => PRN 1, index 1 => PRN 2, etc)
@@ -13072,7 +13176,7 @@ All parameters are zero based index (index 0 => PRN 1, index 1 => PRN 2, etc)
 
 Result GetGalileoPerturbationsForAllSatResult(crs, crc, cis, cic, cus, cuc)
 
-Result of GetGalileoPerturbationsForAllSat
+Result of GetGalileoPerturbationsForAllSat.
 
 Name Type         Description
 ---- ------------ -----------
@@ -13088,7 +13192,7 @@ Cuc  array double Cuc (rad)
 Command SetBeiDouPerturbationsForAllSat(crs, crc, cis, cic, cus, cuc)
 Permission: EXECUTE_IF_IDLE
 
-Please note the command BeiDouPerturbationsForAllSat is deprecated since 21.3. You may use PerturbationsForAllSat.
+Please note the command SetBeiDouPerturbationsForAllSat is deprecated since 21.3. You may use SetPerturbationsForAllSat.
 
 Set BeiDou orbit perturbations (Crs, Crc, Cis, Cic, Cus and Cuc) for all satellites.
 All parameters are zero based index (index 0 => PRN 1, index 1 => PRN 2, etc)
@@ -13107,7 +13211,7 @@ Cuc  array double Cuc (rad)
 Command GetBeiDouPerturbationsForAllSat()
 Permission: EXECUTE_IF_IDLE
 
-Please note the command BeiDouPerturbationsForAllSat is deprecated since 21.3. You may use PerturbationsForAllSat.
+Please note the command GetBeiDouPerturbationsForAllSat is deprecated since 21.3. You may use GetPerturbationsForAllSat.
 
 Get BeiDou orbit perturbations (Crs, Crc, Cis, Cic, Cus and Cuc) for all satellites.
 All parameters are zero based index (index 0 => PRN 1, index 1 => PRN 2, etc)
@@ -13117,7 +13221,7 @@ All parameters are zero based index (index 0 => PRN 1, index 1 => PRN 2, etc)
 
 Result GetBeiDouPerturbationsForAllSatResult(crs, crc, cis, cic, cus, cuc)
 
-Result of GetBeiDouPerturbationsForAllSat
+Result of GetBeiDouPerturbationsForAllSat.
 
 Name Type         Description
 ---- ------------ -----------
@@ -13230,7 +13334,7 @@ Enabled bool   The satellite will be present/absent from the constellation
 Command IsPrnEnabled(system, prn)
 Permission: EXECUTE_IF_IDLE
 
-Please note the command EnablePrn is deprecated since 21.3. You may use EnableSV.
+Please note the command IsPrnEnabled is deprecated since 21.3. You may use IsSVEnabled.
 
 Get  enabled or disabled satellite for this constellation.
 
@@ -13243,7 +13347,7 @@ Prn    int    Satellite PRN number for GPS, Galileo, BeiDou and SBAS. Slot numbe
 
 Result IsPrnEnabledResult(system, prn, enabled)
 
-Result of IsPrnEnabled
+Result of IsPrnEnabled.
 
 Name    Type   Description
 ------- ------ ----------------------------------------------------------------------------------------------------------
@@ -13256,7 +13360,7 @@ Enabled bool   The satellite will be present/absent from the constellation
 Command EnablePrns(system, enabled)
 Permission: EXECUTE_IF_IDLE
 
-Please note the command PrnsEnabled is deprecated since 21.3. You may use EnableEachSV.
+Please note the command EnablePrns is deprecated since 21.3. You may use EnableEachSV.
 
 Set  enabled or disabled satellites for this constellation.
 
@@ -13270,7 +13374,7 @@ Enabled array bool Array of present/absent flags for the constellation
 Command GetPrnsEnabled(system)
 Permission: EXECUTE_IF_IDLE
 
-Please note the command PrnsEnabled is deprecated since 21.3. You may use EnableEachSV.
+Please note the command GetPrnsEnabled is deprecated since 21.3. You may use IsEachSVEnabled.
 
 Get  enabled or disabled satellites for this constellation.
 
@@ -13282,7 +13386,7 @@ System string The satellites' constellation. Can be "GPS", "GLONASS", "Galileo",
 
 Result GetPrnsEnabledResult(system, enabled)
 
-Result of GetPrnsEnabled
+Result of GetPrnsEnabled.
 
 Name    Type       Description
 ------- ---------- ------------------------------------------------------------------------------------------------------
@@ -13294,7 +13398,7 @@ Enabled array bool Array of present/absent flags for the constellation
 Command SetGpsEphemerisDoubleParam(prn, paramName, val)
 Permission: EXECUTE_IF_IDLE
 
-Please note the command GpsEphemerisDoubleParam is deprecated since 21.3. You may use GpsEphDoubleParamForSV.
+Please note the command SetGpsEphemerisDoubleParam is deprecated since 21.3. You may use SetGpsEphDoubleParamForSV.
 
 Set various parameters in the GPS ephemeris
 
@@ -13339,7 +13443,7 @@ Val       double Parameter value (see table above for unit)
 Command GetGpsEphemerisDoubleParam(prn, paramName)
 Permission: EXECUTE_IF_IDLE
 
-Please note the command GpsEphemerisDoubleParam is deprecated since 21.3. You may use GpsEphDoubleParamForSV.
+Please note the command GetGpsEphemerisDoubleParam is deprecated since 21.3. You may use GetGpsEphDoubleParamForSV.
 
 Get various parameters in the GPS ephemeris
 
@@ -13382,7 +13486,7 @@ ParamName string Parameter name (see table above for accepted names)
 
 Result GetGpsEphemerisDoubleParamResult(prn, paramName, val)
 
-Result of GetGpsEphemerisDoubleParam
+Result of GetGpsEphemerisDoubleParam.
 
 Name      Type   Description
 --------- ------ -------------------------------------------------------------------------
@@ -13395,7 +13499,7 @@ Val       double Parameter value (see table above for unit)
 Command SetGalileoEphemerisDoubleParam(prn, paramName, val)
 Permission: EXECUTE_IF_IDLE
 
-Please note the command GalileoEphemerisDoubleParam is deprecated since 21.3. You may use GalileoEphDoubleParamForSV.
+Please note the command SetGalileoEphemerisDoubleParam is deprecated since 21.3. You may use SetGalileoEphDoubleParamForSV.
 
 Set various parameters in the Galileo ephemeris
 
@@ -13436,7 +13540,7 @@ Val       double Parameter value (see table above for unit)
 Command GetGalileoEphemerisDoubleParam(prn, paramName)
 Permission: EXECUTE_IF_IDLE
 
-Please note the command GalileoEphemerisDoubleParam is deprecated since 21.3. You may use GalileoEphDoubleParamForSV.
+Please note the command GetGalileoEphemerisDoubleParam is deprecated since 21.3. You may use GetGalileoEphDoubleParamForSV.
 
 Get various parameters in the Galileo ephemeris
 
@@ -13475,7 +13579,7 @@ ParamName string Parameter name (see table above for accepted names)
 
 Result GetGalileoEphemerisDoubleParamResult(prn, paramName, val)
 
-Result of GetGalileoEphemerisDoubleParam
+Result of GetGalileoEphemerisDoubleParam.
 
 Name      Type   Description
 --------- ------ -------------------------------------------------------------------------
@@ -13488,7 +13592,7 @@ Val       double Parameter value (see table above for unit)
 Command SetBeiDouEphemerisDoubleParam(prn, paramName, val)
 Permission: EXECUTE_IF_IDLE
 
-Please note the command BeiDouEphemerisDoubleParam is deprecated since 21.3. You may use BeiDouEphDoubleParamForSV.
+Please note the command SetBeiDouEphemerisDoubleParam is deprecated since 21.3. You may use SetBeiDouEphDoubleParamForSV.
 
 Set various parameters in the BeiDou ephemeris
 
@@ -13530,7 +13634,7 @@ Val       double Parameter value (see table above for unit)
 Command GetBeiDouEphemerisDoubleParam(prn, paramName)
 Permission: EXECUTE_IF_IDLE
 
-Please note the command BeiDouEphemerisDoubleParam is deprecated since 21.3. You may use BeiDouEphDoubleParamForSV.
+Please note the command GetBeiDouEphemerisDoubleParam is deprecated since 21.3. You may use GetBeiDouEphDoubleParamForSV.
 
 Get various parameters in the BeiDou ephemeris
 
@@ -13570,7 +13674,7 @@ ParamName string Parameter name (see table above for accepted names)
 
 Result GetBeiDouEphemerisDoubleParamResult(prn, paramName, val)
 
-Result of GetBeiDouEphemerisDoubleParam
+Result of GetBeiDouEphemerisDoubleParam.
 
 Name      Type   Description
 --------- ------ -------------------------------------------------------------------------
@@ -13583,7 +13687,7 @@ Val       double Parameter value (see table above for unit)
 Command SetGlonassDoubleParam(prn, paramName, val)
 Permission: EXECUTE_IF_IDLE
 
-Please note the command GlonassDoubleParam is deprecated since 21.3. You may use GlonassEphDoubleParamForSV.
+Please note the command SetGlonassDoubleParam is deprecated since 21.3. You may use SetGlonassEphDoubleParamForSV.
 
 Set various parameters for GLONASS
 
@@ -13610,7 +13714,7 @@ Val       double Parameter value (see table above for unit)
 Command GetGlonassDoubleParam(prn, paramName)
 Permission: EXECUTE_IF_IDLE
 
-Please note the command GlonassDoubleParam is deprecated since 21.3. You may use GlonassEphDoubleParamForSV.
+Please note the command GetGlonassDoubleParam is deprecated since 21.3. You may use GetGlonassEphDoubleParamForSV.
 
 Get various parameters for GLONASS
 
@@ -13635,7 +13739,7 @@ ParamName string Parameter name (see table above for accepted names)
 
 Result GetGlonassDoubleParamResult(prn, paramName, val)
 
-Result of GetGlonassDoubleParam
+Result of GetGlonassDoubleParam.
 
 Name      Type   Description
 --------- ------ --------------------------------------------------------------------------------
@@ -13648,7 +13752,7 @@ Val       double Parameter value (see table above for unit)
 Command SetGlonassSatelliteEphemerisHealthFlag(prn, health)
 Permission: EXECUTE_IF_SIMULATING | EXECUTE_IF_IDLE
 
-Please note the command GlonassSatelliteEphemerisHealthFlag is deprecated since 21.3. You may use GlonassEphemerisHealthFlagForSV.
+Please note the command SetGlonassSatelliteEphemerisHealthFlag is deprecated since 21.3. You may use SetGlonassEphemerisHealthFlagForSV.
 
 Set GLONASS satellite Ephemeris Health Flag Bn(ln)
 
@@ -13662,7 +13766,7 @@ Health bool Status, false = OK, true = Malfunction
 Command GetGlonassSatelliteEphemerisHealthFlag(prn)
 Permission: EXECUTE_IF_IDLE
 
-Please note the command GlonassSatelliteEphemerisHealthFlag is deprecated since 21.3. You may use GlonassEphemerisHealthFlagForSV.
+Please note the command GetGlonassSatelliteEphemerisHealthFlag is deprecated since 21.3. You may use GetGlonassEphemerisHealthFlagForSV.
 
 Get GLONASS satellite Ephemeris Health Flag Bn(ln)
 
@@ -13674,7 +13778,7 @@ Prn  int  Satellite PRN number 1..24
 
 Result GetGlonassSatelliteEphemerisHealthFlagResult(prn, health)
 
-Result of GetGlonassSatelliteEphemerisHealthFlag
+Result of GetGlonassSatelliteEphemerisHealthFlag.
 
 Name   Type Description
 ------ ---- --------------------------------------
@@ -13686,7 +13790,7 @@ Health bool Status, false = OK, true = Malfunction
 Command SetGlonassSatelliteAlmanacUnhealthyFlag(prn, health)
 Permission: EXECUTE_IF_SIMULATING | EXECUTE_IF_IDLE
 
-Please note the command GlonassSatelliteAlmanacUnhealthyFlag is deprecated since 21.3. You may use GlonassAlmanacUnhealthyFlagForSV.
+Please note the command SetGlonassSatelliteAlmanacUnhealthyFlag is deprecated since 21.3. You may use SetGlonassAlmanacUnhealthyFlagForSV.
 
 Set GLONASS satellite Almanac Unhealthy Flag Cn
 
@@ -13700,7 +13804,7 @@ Health bool Status, false = Non-operability, true = Operability (Good)
 Command GetGlonassSatelliteAlmanacUnhealthyFlag(prn)
 Permission: EXECUTE_IF_IDLE
 
-Please note the command GlonassSatelliteAlmanacUnhealthyFlag is deprecated since 21.3. You may use GlonassAlmanacUnhealthyFlagForSV.
+Please note the command GetGlonassSatelliteAlmanacUnhealthyFlag is deprecated since 21.3. You may use GetGlonassAlmanacUnhealthyFlagForSV.
 
 Get GLONASS satellite Almanac Unhealthy Flag Cn
 
@@ -13712,7 +13816,7 @@ Prn  int  Satellite PRN number 1..24
 
 Result GetGlonassSatelliteAlmanacUnhealthyFlagResult(prn, health)
 
-Result of GetGlonassSatelliteAlmanacUnhealthyFlag
+Result of GetGlonassSatelliteAlmanacUnhealthyFlag.
 
 Name   Type Description
 ------ ---- ----------------------------------------------------------
@@ -13724,7 +13828,7 @@ Health bool Status, false = Non-operability, true = Operability (Good)
 Command SetGalileoSatelliteSignalHealth(prn, component, health)
 Permission: EXECUTE_IF_SIMULATING | EXECUTE_IF_IDLE
 
-Please note the command GalileoSatelliteSignalHealth is deprecated since 21.3. You may use GalileoSignalHealthForSV.
+Please note the command SetGalileoSatelliteSignalHealth is deprecated since 21.3. You may use SetGalileoSignalHealthForSV.
 
 Set Galileo signal health for I/NAV and F/NAV message
 
@@ -13739,7 +13843,7 @@ Health    int    Signal health 0..3
 Command GetGalileoSatelliteSignalHealth(prn, component)
 Permission: EXECUTE_IF_IDLE
 
-Please note the command GalileoSatelliteSignalHealth is deprecated since 21.3. You may use GalileoSignalHealthForSV.
+Please note the command GetGalileoSatelliteSignalHealth is deprecated since 21.3. You may use GetGalileoSignalHealthForSV.
 
 Get Galileo signal health for I/NAV and F/NAV message
 
@@ -13752,7 +13856,7 @@ Component string Component is either "E5a", "E5b", or "E1B"
 
 Result GetGalileoSatelliteSignalHealthResult(prn, component, health)
 
-Result of GetGalileoSatelliteSignalHealth
+Result of GetGalileoSatelliteSignalHealth.
 
 Name      Type   Description
 --------- ------ ------------------------------------------
@@ -13765,7 +13869,7 @@ Health    int    Signal health 0..3
 Command SetGalileoSatelliteDataHealth(prn, component, health)
 Permission: EXECUTE_IF_SIMULATING | EXECUTE_IF_IDLE
 
-Please note the command GalileoSatelliteDataHealth is deprecated since 21.3. You may use GalileoDataHealthForSV.
+Please note the command SetGalileoSatelliteDataHealth is deprecated since 21.3. You may use SetGalileoDataHealthForSV.
 
 Set Galileo data health for I/NAV and F/NAV message
 
@@ -13780,7 +13884,7 @@ Health    bool   False means Navigation data valid; True means Working without g
 Command GetGalileoSatelliteDataHealth(prn, component)
 Permission: EXECUTE_IF_IDLE
 
-Please note the command GalileoSatelliteDataHealth is deprecated since 21.3. You may use GalileoDataHealthForSV.
+Please note the command GetGalileoSatelliteDataHealth is deprecated since 21.3. You may use GetGalileoDataHealthForSV.
 
 Get Galileo data health for I/NAV and F/NAV message
 
@@ -13793,7 +13897,7 @@ Component string Component is either "E5a", "E5b", or "E1B"
 
 Result GetGalileoSatelliteDataHealthResult(prn, component, health)
 
-Result of GetGalileoSatelliteDataHealth
+Result of GetGalileoSatelliteDataHealth.
 
 Name      Type   Description
 --------- ------ -----------------------------------------------------------------------
@@ -13806,7 +13910,7 @@ Health    bool   False means Navigation data valid; True means Working without g
 Command SetSVAntennaModelToPrn(prn, system, antennaModelName)
 Permission: EXECUTE_IF_IDLE
 
-Please note the command SVAntennaModelToPrn is deprecated since 21.3. You may use SVAntennaModelForSV.
+Please note the command SetSVAntennaModelToPrn is deprecated since 21.3. You may use SetSVAntennaModelForSV.
 
 Set the antenna model used by the PRN.
 
@@ -13821,7 +13925,7 @@ AntennaModelName string SV antenna model name
 Command GetSVAntennaModelToPrn(prn, system)
 Permission: EXECUTE_IF_IDLE
 
-Please note the command SVAntennaModelToPrn is deprecated since 21.3. You may use SVAntennaModelForSV.
+Please note the command GetSVAntennaModelToPrn is deprecated since 21.3. You may use GetSVAntennaModelForSV.
 
 Get the antenna model used by the PRN.
 
@@ -13834,7 +13938,7 @@ System string "GPS", "GLONASS", "Galileo", "BeiDou", "SBAS", "QZSS" or "NavIC"
 
 Result GetSVAntennaModelToPrnResult(prn, system, antennaModelName)
 
-Result of GetSVAntennaModelToPrn
+Result of GetSVAntennaModelToPrn.
 
 Name             Type   Description
 ---------------- ------ ----------------------------------------------------------------------------------------------------------
@@ -13847,7 +13951,7 @@ AntennaModelName string SV antenna model name
 Command SetGpsEphemerisBoolParam(prn, paramName, val)
 Permission: EXECUTE_IF_IDLE
 
-Please note the command GpsEphemerisBoolParam is deprecated since 21.3. You may use GpsEphBoolParamForSV.
+Please note the command SetGpsEphemerisBoolParam is deprecated since 21.3. You may use SetGpsEphBoolParamForSV.
 
 Set various boolean parameters in the GPS ephemeris
 
@@ -13870,7 +13974,7 @@ Val       bool   Parameter value (see table above for unit)
 Command GetGpsEphemerisBoolParam(prn, paramName)
 Permission: EXECUTE_IF_IDLE
 
-Please note the command GpsEphemerisBoolParam is deprecated since 21.3. You may use GpsEphBoolParamForSV.
+Please note the command GetGpsEphemerisBoolParam is deprecated since 21.3. You may use GetGpsEphBoolParamForSV.
 
 Get various boolean parameters in the GPS ephemeris
 
@@ -13891,7 +13995,7 @@ ParamName string Parameter name (see table above for accepted names)
 
 Result GetGpsEphemerisBoolParamResult(prn, paramName, val)
 
-Result of GetGpsEphemerisBoolParam
+Result of GetGpsEphemerisBoolParam.
 
 Name      Type   Description
 --------- ------ -------------------------------------------------------------------------
@@ -13904,7 +14008,7 @@ Val       bool   Parameter value (see table above for unit)
 Command SetBeiDouEphemerisBoolParam(prn, paramName, val)
 Permission: EXECUTE_IF_IDLE
 
-Please note the command BeiDouEphemerisBoolParam is deprecated since 21.3. You may use BeiDouEphBoolParamForSV.
+Please note the command SetBeiDouEphemerisBoolParam is deprecated since 21.3. You may use SetBeiDouEphBoolParamForSV.
 
 Set various boolean parameters in the BeiDou ephemeris
 
@@ -13923,7 +14027,7 @@ Val       bool   Parameter value (see table above for unit)
 Command GetBeiDouEphemerisBoolParam(prn, paramName)
 Permission: EXECUTE_IF_IDLE
 
-Please note the command BeiDouEphemerisBoolParam is deprecated since 21.3. You may use BeiDouEphBoolParamForSV.
+Please note the command GetBeiDouEphemerisBoolParam is deprecated since 21.3. You may use GetBeiDouEphBoolParamForSV.
 
 Get various boolean parameters in the BeiDou ephemeris
 
@@ -13940,7 +14044,7 @@ ParamName string Parameter name (see table above for accepted names)
 
 Result GetBeiDouEphemerisBoolParamResult(prn, paramName, val)
 
-Result of GetBeiDouEphemerisBoolParam
+Result of GetBeiDouEphemerisBoolParam.
 
 Name      Type   Description
 --------- ------ -------------------------------------------------------------------------
@@ -13993,7 +14097,7 @@ ValueParam string Parameter's value.
 Command SetGpsSVConfiguration(prn, svConfig)
 Permission: EXECUTE_IF_IDLE | EXECUTE_IF_SIMULATING
 
-Please note the command GpsSVConfiguration is deprecated since 21.3. You may use GpsConfigurationCodeForSV.
+Please note the command SetGpsSVConfiguration is deprecated since 21.3. You may use SetGpsConfigurationCodeForSV.
 
 Set GPS SV configuration flag for one PRN
 
@@ -14007,7 +14111,7 @@ SvConfig int  SV Config 0..4
 Command GetGpsSVConfiguration(prn)
 Permission: EXECUTE_IF_IDLE
 
-Please note the command GpsSVConfiguration is deprecated since 21.3. You may use GpsConfigurationCodeForSV.
+Please note the command GetGpsSVConfiguration is deprecated since 21.3. You may use GetGpsConfigurationCodeForSV.
 
 Get GPS SV configuration flag for one PRN
 
@@ -14019,7 +14123,7 @@ Prn  int  Satellite PRN number 1..32
 
 Result GetGpsSVConfigurationResult(prn, svConfig)
 
-Result of GetGpsSVConfiguration
+Result of GetGpsSVConfiguration.
 
 Name     Type Description
 -------- ---- --------------------------
@@ -14031,7 +14135,7 @@ SvConfig int  SV Config 0..4
 Command SetGpsSatelliteDataHealth(prn, health)
 Permission: EXECUTE_IF_SIMULATING | EXECUTE_IF_IDLE
 
-Please note the command GpsSatelliteDataHealth is deprecated since 21.3. You may use GpsDataHealthForSV.
+Please note the command SetGpsSatelliteDataHealth is deprecated since 21.3. You may use SetGpsDataHealthForSV.
 
 Set GPS nav data health
 
@@ -14045,7 +14149,7 @@ Health int  Data health 0..7
 Command GetGpsSatelliteDataHealth(prn)
 Permission: EXECUTE_IF_IDLE
 
-Please note the command GpsSatelliteDataHealth is deprecated since 21.3. You may use GpsDataHealthForSV.
+Please note the command GetGpsSatelliteDataHealth is deprecated since 21.3. You may use GetGpsDataHealthForSV.
 
 Get GPS nav data health
 
@@ -14057,7 +14161,7 @@ Prn  int  Satellite PRN number 1..32
 
 Result GetGpsSatelliteDataHealthResult(prn, health)
 
-Result of GetGpsSatelliteDataHealth
+Result of GetGpsSatelliteDataHealth.
 
 Name   Type Description
 ------ ---- --------------------------
@@ -14069,7 +14173,7 @@ Health int  Data health 0..7
 Command SetGpsSatelliteSignalHealth(prn, health)
 Permission: EXECUTE_IF_SIMULATING | EXECUTE_IF_IDLE
 
-Please note the command GpsSatelliteSignalHealth is deprecated since 21.3. You may use GpsSignalHealthForSV.
+Please note the command SetGpsSatelliteSignalHealth is deprecated since 21.3. You may use SetGpsSignalHealthForSV.
 
 Set GPS signal health
 
@@ -14083,7 +14187,7 @@ Health int  Signal health 0..31
 Command GetGpsSatelliteSignalHealth(prn)
 Permission: EXECUTE_IF_IDLE
 
-Please note the command GpsSatelliteSignalHealth is deprecated since 21.3. You may use GpsSignalHealthForSV.
+Please note the command GetGpsSatelliteSignalHealth is deprecated since 21.3. You may use GetGpsSignalHealthForSV.
 
 Get GPS signal health
 
@@ -14095,7 +14199,7 @@ Prn  int  Satellite PRN number 1..32
 
 Result GetGpsSatelliteSignalHealthResult(prn, health)
 
-Result of GetGpsSatelliteSignalHealth
+Result of GetGpsSatelliteSignalHealth.
 
 Name   Type Description
 ------ ---- --------------------------
@@ -14107,7 +14211,7 @@ Health int  Signal health 0..31
 Command SetGpsSatelliteL1Health(prn, health)
 Permission: EXECUTE_IF_SIMULATING | EXECUTE_IF_IDLE
 
-Please note the command GpsSatelliteL1Health is deprecated since 21.3. You may use GpsL1HealthForSV.
+Please note the command SetGpsSatelliteL1Health is deprecated since 21.3. You may use SetGpsL1HealthForSV.
 
 Set GPS L1 health (used with CNAV and CNAV2)
 
@@ -14121,7 +14225,7 @@ Health bool L1 health, false = signal OK, true = signal bad or unavailable
 Command GetGpsSatelliteL1Health(prn)
 Permission: EXECUTE_IF_IDLE
 
-Please note the command GpsSatelliteL1Health is deprecated since 21.3. You may use GpsL1HealthForSV.
+Please note the command GetGpsSatelliteL1Health is deprecated since 21.3. You may use GetGpsL1HealthForSV.
 
 Get GPS L1 health (used with CNAV and CNAV2)
 
@@ -14133,7 +14237,7 @@ Prn  int  Satellite PRN number 1..32
 
 Result GetGpsSatelliteL1HealthResult(prn, health)
 
-Result of GetGpsSatelliteL1Health
+Result of GetGpsSatelliteL1Health.
 
 Name   Type Description
 ------ ---- --------------------------------------------------------------
@@ -14145,7 +14249,7 @@ Health bool L1 health, false = signal OK, true = signal bad or unavailable
 Command SetGpsSatelliteL2Health(prn, health)
 Permission: EXECUTE_IF_SIMULATING | EXECUTE_IF_IDLE
 
-Please note the command GpsSatelliteL2Health is deprecated since 21.3. You may use GpsL2HealthForSV.
+Please note the command SetGpsSatelliteL2Health is deprecated since 21.3. You may use SetGpsL2HealthForSV.
 
 Set GPS L2 health (used with CNAV and CNAV2)
 
@@ -14159,7 +14263,7 @@ Health bool L2 health, false = signal OK, true = signal bad or unavailable
 Command GetGpsSatelliteL2Health(prn)
 Permission: EXECUTE_IF_IDLE
 
-Please note the command GpsSatelliteL2Health is deprecated since 21.3. You may use GpsL2HealthForSV.
+Please note the command GetGpsSatelliteL2Health is deprecated since 21.3. You may use GetGpsL2HealthForSV.
 
 Get GPS L2 health (used with CNAV and CNAV2)
 
@@ -14171,7 +14275,7 @@ Prn  int  Satellite PRN number 1..32
 
 Result GetGpsSatelliteL2HealthResult(prn, health)
 
-Result of GetGpsSatelliteL2Health
+Result of GetGpsSatelliteL2Health.
 
 Name   Type Description
 ------ ---- --------------------------------------------------------------
@@ -14183,7 +14287,7 @@ Health bool L2 health, false = signal OK, true = signal bad or unavailable
 Command SetGpsSatelliteL5Health(prn, health)
 Permission: EXECUTE_IF_SIMULATING | EXECUTE_IF_IDLE
 
-Please note the command GpsSatelliteL5Health is deprecated since 21.3. You may use GpsL5HealthForSV.
+Please note the command SetGpsSatelliteL5Health is deprecated since 21.3. You may use SetGpsL5HealthForSV.
 
 Set GPS L5 health (used with CNAV and CNAV2)
 
@@ -14197,7 +14301,7 @@ Health bool L5 health, false = signal OK, true = signal bad or unavailable
 Command GetGpsSatelliteL5Health(prn)
 Permission: EXECUTE_IF_IDLE
 
-Please note the command GpsSatelliteL5Health is deprecated since 21.3. You may use GpsL5HealthForSV.
+Please note the command GetGpsSatelliteL5Health is deprecated since 21.3. You may use GetGpsL5HealthForSV.
 
 Get GPS L5 health (used with CNAV and CNAV2)
 
@@ -14209,7 +14313,7 @@ Prn  int  Satellite PRN number 1..32
 
 Result GetGpsSatelliteL5HealthResult(prn, health)
 
-Result of GetGpsSatelliteL5Health
+Result of GetGpsSatelliteL5Health.
 
 Name   Type Description
 ------ ---- --------------------------------------------------------------
@@ -14221,7 +14325,7 @@ Health bool L5 health, false = signal OK, true = signal bad or unavailable
 Command SetGpsSatelliteL1cHealth(prn, health)
 Permission: EXECUTE_IF_SIMULATING | EXECUTE_IF_IDLE
 
-Please note the command GpsSatelliteL1cHealth is deprecated since 21.3. You may use GpsL1cHealthForSV.
+Please note the command SetGpsSatelliteL1cHealth is deprecated since 21.3. You may use SetGpsL1cHealthForSV.
 
 Set GPS L1C health (used in CNAV2 only)
 
@@ -14235,7 +14339,7 @@ Health bool L1C health, false = signal OK, true = signal bad or unavailable
 Command GetGpsSatelliteL1cHealth(prn)
 Permission: EXECUTE_IF_IDLE
 
-Please note the command GpsSatelliteL1cHealth is deprecated since 21.3. You may use GpsL1cHealthForSV.
+Please note the command GetGpsSatelliteL1cHealth is deprecated since 21.3. You may use GetGpsL1cHealthForSV.
 
 Get GPS L1C health (used in CNAV2 only)
 
@@ -14247,7 +14351,7 @@ Prn  int  Satellite PRN number 1..32
 
 Result GetGpsSatelliteL1cHealthResult(prn, health)
 
-Result of GetGpsSatelliteL1cHealth
+Result of GetGpsSatelliteL1cHealth.
 
 Name   Type Description
 ------ ---- ---------------------------------------------------------------
@@ -14259,7 +14363,7 @@ Health bool L1C health, false = signal OK, true = signal bad or unavailable
 Command SetGpsSatelliteAntiSpoofingFlag(prn, antiSpoofing)
 Permission: EXECUTE_IF_SIMULATING | EXECUTE_IF_IDLE
 
-Please note the command GpsSatelliteAntiSpoofingFlag is deprecated since 21.3. You may use GpsAntiSpoofingFlagForSV.
+Please note the command SetGpsSatelliteAntiSpoofingFlag is deprecated since 21.3. You may use SetGpsAntiSpoofingFlagForSV.
 
 Set GPS Anti-Spoofing Flag
 
@@ -14273,7 +14377,7 @@ AntiSpoofing GpsASFlag GPS Anti-Spoofing Flag.
 Command GetGpsSatelliteAntiSpoofingFlag(prn)
 Permission: EXECUTE_IF_IDLE
 
-Please note the command GpsSatelliteAntiSpoofingFlag is deprecated since 21.3. You may use GpsAntiSpoofingFlagForSV.
+Please note the command GetGpsSatelliteAntiSpoofingFlag is deprecated since 21.3. You may use GetGpsAntiSpoofingFlagForSV.
 
 Get GPS Anti-Spoofing Flag
 
@@ -14285,7 +14389,7 @@ Prn  int  Satellite PRN number 1..32
 
 Result GetGpsSatelliteAntiSpoofingFlagResult(prn, antiSpoofing)
 
-Result of GetGpsSatelliteAntiSpoofingFlag
+Result of GetGpsSatelliteAntiSpoofingFlag.
 
 Name         Type      Description
 ------------ --------- --------------------------
@@ -14297,7 +14401,7 @@ AntiSpoofing GpsASFlag GPS Anti-Spoofing Flag.
 Command SetGpsSatelliteNavAlertFlag(prn, alert)
 Permission: EXECUTE_IF_SIMULATING | EXECUTE_IF_IDLE
 
-Please note the command GpsSatelliteNavAlertFlag is deprecated since 21.3. You may use GpsNavAlertFlagForSV.
+Please note the command SetGpsSatelliteNavAlertFlag is deprecated since 21.3. You may use SetGpsNavAlertFlagForSV.
 
 Set GPS NAV Alert Flag
 
@@ -14311,7 +14415,7 @@ Alert bool GPS NAV Alert Flag, false = No Alert, true = Alert
 Command GetGpsSatelliteNavAlertFlag(prn)
 Permission: EXECUTE_IF_IDLE
 
-Please note the command GpsSatelliteNavAlertFlag is deprecated since 21.3. You may use GpsNavAlertFlagForSV.
+Please note the command GetGpsSatelliteNavAlertFlag is deprecated since 21.3. You may use GetGpsNavAlertFlagForSV.
 
 Get GPS NAV Alert Flag
 
@@ -14323,7 +14427,7 @@ Prn  int  Satellite PRN number 1..32
 
 Result GetGpsSatelliteNavAlertFlagResult(prn, alert)
 
-Result of GetGpsSatelliteNavAlertFlag
+Result of GetGpsSatelliteNavAlertFlag.
 
 Name  Type Description
 ----- ---- --------------------------------------------------
@@ -14335,7 +14439,7 @@ Alert bool GPS NAV Alert Flag, false = No Alert, true = Alert
 Command SetGpsSatelliteCNavAlertFlag(prn, alert)
 Permission: EXECUTE_IF_SIMULATING | EXECUTE_IF_IDLE
 
-Please note the command GpsSatelliteCNavAlertFlag is deprecated since 21.3. You may use GpsCNavAlertFlagToSV.
+Please note the command SetGpsSatelliteCNavAlertFlag is deprecated since 21.3. You may use SetGpsCNavAlertFlagToSV.
 
 Set GPS CNAV Alert Flag
 
@@ -14349,7 +14453,7 @@ Alert bool GPS CNAV Alert Flag, false = No Alert, true = Alert
 Command GetGpsSatelliteCNavAlertFlag(prn)
 Permission: EXECUTE_IF_IDLE
 
-Please note the command GpsSatelliteCNavAlertFlag is deprecated since 21.3. You may use GpsCNavAlertFlagToSV.
+Please note the command GetGpsSatelliteCNavAlertFlag is deprecated since 21.3. You may use GetGpsCNavAlertFlagToSV.
 
 Get GPS CNAV Alert Flag
 
@@ -14361,7 +14465,7 @@ Prn  int  Satellite PRN number 1..32
 
 Result GetGpsSatelliteCNavAlertFlagResult(prn, alert)
 
-Result of GetGpsSatelliteCNavAlertFlag
+Result of GetGpsSatelliteCNavAlertFlag.
 
 Name  Type Description
 ----- ---- ---------------------------------------------------
@@ -14388,7 +14492,7 @@ Enabled bool   Direct Line of Sight enabled or not
 Command IsLOSEnabled(prn, system)
 Permission: EXECUTE_IF_IDLE
 
-Please note the command EnableLOS is deprecated since 21.3. You may use EnableLosForSV.
+Please note the command IsLOSEnabled is deprecated since 21.3. You may use IsLosEnabledForSV.
 
 Get Direct Line Of Sight signal from satellite enabled or disabled. Generally used when only multipaths signal is visible.
 
@@ -14401,7 +14505,7 @@ System string "GPS", "GLONASS", "Galileo", "BeiDou", "SBAS", "QZSS" or "NavIC"
 
 Result IsLOSEnabledResult(prn, system, enabled)
 
-Result of IsLOSEnabled
+Result of IsLOSEnabled.
 
 Name    Type   Description
 ------- ------ -------------------------------------------------------------------------------------------------------------
@@ -14428,7 +14532,7 @@ Enabled array bool Direct Line of Sight enabled or not. Zero based index (index 
 Command IsLOSEnabledForEachPrn(system)
 Permission: EXECUTE_IF_IDLE
 
-Please note the command EnableLOSForEachPrn is deprecated since 21.3. You may use EnableLosForEachSV.
+Please note the command IsLOSEnabledForEachPrn is deprecated since 21.3. You may use IsLOSEnabledForEachSV.
 
 Get Direct Line Of Sight signal from satellite disabled or enabled. Generally used when only multipaths signal is visible.
 
@@ -14440,7 +14544,7 @@ System string "GPS", "GLONASS", "Galileo", "BeiDou", "SBAS", "QZSS" or "NavIC"
 
 Result IsLOSEnabledForEachPrnResult(system, enabled)
 
-Result of IsLOSEnabledForEachPrn
+Result of IsLOSEnabledForEachPrn.
 
 Name    Type       Description
 ------- ---------- -----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
@@ -14452,7 +14556,7 @@ Enabled array bool Direct Line of Sight enabled or not. Zero based index (index 
 Command SetBeiDouSatelliteHealthInfo(prn, health)
 Permission: EXECUTE_IF_SIMULATING | EXECUTE_IF_IDLE
 
-Please note the command BeiDouSatelliteHealthInfo is deprecated since 21.3. You may use BeiDouHealthInfoForSV.
+Please note the command SetBeiDouSatelliteHealthInfo is deprecated since 21.3. You may use SetBeiDouHealthInfoForSV.
 
 Set BeiDou satellite health info
 
@@ -14466,7 +14570,7 @@ Health int  Health Info, 9-bit integer : 0, 2, 64, 66, 128, 130, 192, 194, 256 o
 Command GetBeiDouSatelliteHealthInfo(prn)
 Permission: EXECUTE_IF_IDLE
 
-Please note the command BeiDouSatelliteHealthInfo is deprecated since 21.3. You may use BeiDouHealthInfoForSV.
+Please note the command GetBeiDouSatelliteHealthInfo is deprecated since 21.3. You may use GetBeiDouHealthInfoForSV.
 
 Get BeiDou satellite health info
 
@@ -14478,7 +14582,7 @@ Prn  int  Satellite PRN number 1..30
 
 Result GetBeiDouSatelliteHealthInfoResult(prn, health)
 
-Result of GetBeiDouSatelliteHealthInfo
+Result of GetBeiDouSatelliteHealthInfo.
 
 Name   Type Description
 ------ ---- -------------------------------------------------------------------------
@@ -14490,7 +14594,7 @@ Health int  Health Info, 9-bit integer : 0, 2, 64, 66, 128, 130, 192, 194, 256 o
 Command SetBeiDouSatelliteAutonomousHealth(prn, health)
 Permission: EXECUTE_IF_SIMULATING | EXECUTE_IF_IDLE
 
-Please note the command BeiDouSatelliteAutonomousHealth is deprecated since 21.3. You may use BeiDouAutonomousHealthForSV.
+Please note the command SetBeiDouSatelliteAutonomousHealth is deprecated since 21.3. You may use SetBeiDouAutonomousHealthForSV.
 
 Set BeiDou satellite autonomous health
 
@@ -14504,7 +14608,7 @@ Health bool Status, false = Good, true = Not Good
 Command GetBeiDouSatelliteAutonomousHealth(prn)
 Permission: EXECUTE_IF_IDLE
 
-Please note the command BeiDouSatelliteAutonomousHealth is deprecated since 21.3. You may use BeiDouAutonomousHealthForSV.
+Please note the command GetBeiDouSatelliteAutonomousHealth is deprecated since 21.3. You may use GetBeiDouAutonomousHealthForSV.
 
 Get BeiDou satellite autonomous health
 
@@ -14516,7 +14620,7 @@ Prn  int  Satellite PRN number 1..30
 
 Result GetBeiDouSatelliteAutonomousHealthResult(prn, health)
 
-Result of GetBeiDouSatelliteAutonomousHealth
+Result of GetBeiDouSatelliteAutonomousHealth.
 
 Name   Type Description
 ------ ---- -------------------------------------
@@ -14528,7 +14632,7 @@ Health bool Status, false = Good, true = Not Good
 Command SetBeiDouCNavSatelliteHealthInfo(prn, health)
 Permission: EXECUTE_IF_SIMULATING | EXECUTE_IF_IDLE
 
-Please note the command BeiDouCNavSatelliteHealthInfo is deprecated since 21.3. You may use BeiDouCNavHealthInfoForSV.
+Please note the command SetBeiDouCNavSatelliteHealthInfo is deprecated since 21.3. You may use SetBeiDouCNavHealthInfoForSV.
 
 Set BeiDou CNav satellite health info
 
@@ -14542,7 +14646,7 @@ Health int  Health Info, 8-bit integer : 0, 32, 64, 96, 128 or 255
 Command GetBeiDouCNavSatelliteHealthInfo(prn)
 Permission: EXECUTE_IF_IDLE
 
-Please note the command BeiDouCNavSatelliteHealthInfo is deprecated since 21.3. You may use BeiDouCNavHealthInfoForSV.
+Please note the command GetBeiDouCNavSatelliteHealthInfo is deprecated since 21.3. You may use GetBeiDouCNavHealthInfoForSV.
 
 Get BeiDou CNav satellite health info
 
@@ -14554,7 +14658,7 @@ Prn  int  Satellite PRN number 1..30
 
 Result GetBeiDouCNavSatelliteHealthInfoResult(prn, health)
 
-Result of GetBeiDouCNavSatelliteHealthInfo
+Result of GetBeiDouCNavSatelliteHealthInfo.
 
 Name   Type Description
 ------ ---- ------------------------------------------------------
@@ -14566,7 +14670,7 @@ Health int  Health Info, 8-bit integer : 0, 32, 64, 96, 128 or 255
 Command SetBeiDouSatelliteHealthStatus(prn, health)
 Permission: EXECUTE_IF_SIMULATING | EXECUTE_IF_IDLE
 
-Please note the command BeiDouSatelliteHealthStatus is deprecated since 21.3. You may use BeiDouHealthStatusForSV.
+Please note the command SetBeiDouSatelliteHealthStatus is deprecated since 21.3. You may use SetBeiDouHealthStatusForSV.
 
 Set BeiDou satellite health status
 
@@ -14580,7 +14684,7 @@ Health int  Health Info, 2-bit integer : 0, 1, 2 or 3
 Command GetBeiDouSatelliteHealthStatus(prn)
 Permission: EXECUTE_IF_IDLE
 
-Please note the command BeiDouSatelliteHealthStatus is deprecated since 21.3. You may use BeiDouHealthStatusForSV.
+Please note the command GetBeiDouSatelliteHealthStatus is deprecated since 21.3. You may use GetBeiDouHealthStatusForSV.
 
 Get BeiDou satellite health status
 
@@ -14592,7 +14696,7 @@ Prn  int  Satellite PRN number 1..30
 
 Result GetBeiDouSatelliteHealthStatusResult(prn, health)
 
-Result of GetBeiDouSatelliteHealthStatus
+Result of GetBeiDouSatelliteHealthStatus.
 
 Name   Type Description
 ------ ---- -----------------------------------------
@@ -14632,7 +14736,7 @@ Urai int  URA index.
 Command SetModificationToGpsCNavMessage(prn, startTime, stopTime, msgTypeId, condition, updateCRC, bitsMods, id)
 Permission: EXECUTE_IF_SIMULATING | EXECUTE_IF_IDLE
 
-Please note the command ModificationToGpsCNavMessage is deprecated since 21.3. You may use MessageModificationToGpsCNav.
+Please note the command SetModificationToGpsCNavMessage is deprecated since 21.3. You may use SetMessageModificationToGpsCNav.
 
 Set (or Modify) event to change CNAV message bits. If you send this command without setting the Id
 parameter, or if you set the Id with a value never used before, a new Modification event will be
@@ -14678,7 +14782,7 @@ Id        string Unique identifier of the event
 Command GetGpsCNavMessage(id)
 Permission: EXECUTE_IF_IDLE
 
-Please note the command ModificationToGpsCNavMessage is deprecated since 21.3. You may use MessageModificationToGpsCNav.
+Please note the command GetGpsCNavMessage is deprecated since 21.3. You may use GetMessageModificationToGpsCNav.
 
 Get infos about the CNAV Message with this id
 
@@ -14690,7 +14794,7 @@ Id   string Unique identifier of the event
 
 Result GetGpsCNavMessageResult(prn, startTime, stopTime, msgTypeId, condition, updateCRC, bitsMods, id)
 
-Result of GetGpsCNavMessage
+Result of GetGpsCNavMessage.
 
 Name      Type   Description
 --------- ------ --------------------------------------------------------------------
@@ -14876,7 +14980,7 @@ Ids  array string List of IDs of Gps MNAV Messages for this PRN
 Command SetModificationToGpsCNav2Message(prn, startTime, stopTime, pageId, condition, updateCRC, bitsMods, id)
 Permission: EXECUTE_IF_SIMULATING | EXECUTE_IF_IDLE
 
-Please note the command ModificationToGpsCNav2Message is deprecated since 21.3. You may use MessageModificationToGpsCNav2.
+Please note the command SetModificationToGpsCNav2Message is deprecated since 21.3. You may use SetMessageModificationToGpsCNav2.
 
 Set (or Modify) event to change CNAV2 message bits. If you send this command without setting the Id
 parameter, or if you set the Id with a value never used before, a new Modification event will be
@@ -14922,7 +15026,7 @@ Id        string Unique identifier of the event
 Command GetGpsCNav2Message(id)
 Permission: EXECUTE_IF_IDLE
 
-Please note the command ModificationToGpsCNav2Message is deprecated since 21.3. You may use MessageModificationToGpsCNav2.
+Please note the command GetGpsCNav2Message is deprecated since 21.3. You may use GetMessageModificationToGpsCNav2.
 
 Get infos about the CNAV2 Message with this id
 
@@ -14934,7 +15038,7 @@ Id   string Unique identifier of the event
 
 Result GetGpsCNav2MessageResult(prn, startTime, stopTime, pageId, condition, updateCRC, bitsMods, id)
 
-Result of GetGpsCNav2Message
+Result of GetGpsCNav2Message.
 
 Name      Type   Description
 --------- ------ --------------------------------------------------------------------
@@ -14998,7 +15102,7 @@ Ids  array string List of IDs of Gps CNAV2 Messages for this PRN
 Command SetModificationToGpsNavigationMessage(prn, startTime, stopTime, subFrame, page, word, updateParity, modification, id)
 Permission: EXECUTE_IF_SIMULATING | EXECUTE_IF_IDLE
 
-Please note the command ModificationToGpsNavigationMessage is deprecated since 21.3. You may use MessageModificationToGpsLNav.
+Please note the command SetModificationToGpsNavigationMessage is deprecated since 21.3. You may use SetMessageModificationToGpsLNav.
 
 Set (or Modify) event to change navigation message bits.
 
@@ -15038,7 +15142,7 @@ Id           string Unique identifier of the event
 Command GetGpsNavigationMessage(id)
 Permission: EXECUTE_IF_IDLE
 
-Please note the command ModificationToGpsNavigationMessage is deprecated since 21.3. You may use MessageModificationToGpsLNav.
+Please note the command GetGpsNavigationMessage is deprecated since 21.3. You may use GetMessageModificationToGpsLNav.
 
 Get infos about this modification gps navigation message event.
 
@@ -15050,7 +15154,7 @@ Id   string Unique identifier of the event
 
 Result GetGpsNavigationMessageResult(prn, startTime, stopTime, subFrame, page, word, updateParity, modification, id)
 
-Result of GetGpsNavigationMessage
+Result of GetGpsNavigationMessage.
 
 Name         Type   Description
 ------------ ------ -----------------------------------------------------------
@@ -15116,7 +15220,7 @@ Ids  array string List of ids event whose will affect the PRN
 Command SetModificationToGalileoFNavMessage(prn, startTime, stopTime, subFrame, page, updateCRC, bitsMods, id)
 Permission: EXECUTE_IF_SIMULATING | EXECUTE_IF_IDLE
 
-Please note the command ModificationToGalileoFNavMessage is deprecated since 21.3. You may use MessageModificationToGalileoFNav.
+Please note the command SetModificationToGalileoFNavMessage is deprecated since 21.3. You may use SetMessageModificationToGalileoFNav.
 
 Set (or Modify) event to change FNAV message bits. If you send this command without setting the Id
 parameter, or if you set the Id with a value never used before, a new Modification event will be
@@ -15159,7 +15263,7 @@ Id        string Unique identifier of the event
 Command GetGalileoFNavMessage(id)
 Permission: EXECUTE_IF_IDLE
 
-Please note the command ModificationToGalileoFNavMessage is deprecated since 21.3. You may use MessageModificationToGalileoFNav.
+Please note the command GetGalileoFNavMessage is deprecated since 21.3. You may use GetMessageModificationToGalileoFNav.
 
 Get infos about the FNAV Message with this id
 
@@ -15171,7 +15275,7 @@ Id   string Unique identifier of the event
 
 Result GetGalileoFNavMessageResult(prn, startTime, stopTime, subFrame, page, updateCRC, bitsMods, id)
 
-Result of GetGalileoFNavMessage
+Result of GetGalileoFNavMessage.
 
 Name      Type   Description
 --------- ------ --------------------------------------------------------------------
@@ -15235,7 +15339,7 @@ Ids  array string List of IDs of GALILEO FNAV Messages for this PRN
 Command SetModificationToGalileoINavMessage(prn, startTime, stopTime, subFrame, page, updateCRC, bitsMods, e1, e5b, id)
 Permission: EXECUTE_IF_SIMULATING | EXECUTE_IF_IDLE
 
-Please note the command ModificationToGalileoINavMessage is deprecated since 21.3. You may use MessageModificationToGalileoINav.
+Please note the command SetModificationToGalileoINavMessage is deprecated since 21.3. You may use SetMessageModificationToGalileoINav.
 
 Set (or Modify) event to change INAV message bits. If you send this command without setting the Id
 parameter, or if you set the Id with a value never used before, a new Modification event will be
@@ -15280,7 +15384,7 @@ Id        string Unique identifier of the event
 Command GetGalileoINavMessage(id)
 Permission: EXECUTE_IF_IDLE
 
-Please note the command ModificationToGalileoINavMessage is deprecated since 21.3. You may use MessageModificationToGalileoINav.
+Please note the command GetGalileoINavMessage is deprecated since 21.3. You may use GetMessageModificationToGalileoINav.
 
 Get infos about the INAV Message with this id
 
@@ -15292,7 +15396,7 @@ Id   string Unique identifier of the event
 
 Result GetGalileoINavMessageResult(prn, startTime, stopTime, subFrame, page, updateCRC, bitsMods, e1, e5b, id)
 
-Result of GetGalileoINavMessage
+Result of GetGalileoINavMessage.
 
 Name      Type   Description
 --------- ------ --------------------------------------------------------------------
@@ -15358,7 +15462,7 @@ Ids  array string List of IDs of GALILEO INAV Messages for this PRN
 Command SetModificationToGlonassNavigationMessage(prn, startTime, stopTime, frame, stringNumber, updateHammingCode, modification, id)
 Permission: EXECUTE_IF_SIMULATING | EXECUTE_IF_IDLE
 
-Please note the command ModificationToGlonassNavigationMessage is deprecated since 21.3. You may use MessageModificationToGlonassNav.
+Please note the command SetModificationToGlonassNavigationMessage is deprecated since 21.3. You may use SetMessageModificationToGlonassNav.
 
 Set (or Modify) event to change navigation message bits.
 
@@ -15403,7 +15507,7 @@ Id                string Unique identifier of the event
 Command GetGlonassNavigationMessage(id)
 Permission: EXECUTE_IF_IDLE
 
-Please note the command ModificationToGlonassNavigationMessage is deprecated since 21.3. You may use MessageModificationToGlonassNav.
+Please note the command GetGlonassNavigationMessage is deprecated since 21.3. You may use GetMessageModificationToGlonassNav.
 
 Get infos about this modification Glonass navigation message event
 
@@ -15415,7 +15519,7 @@ Id   string Unique identifier of the event
 
 Result GetGlonassNavigationMessageResult(prn, startTime, stopTime, frame, stringNumber, updateHammingCode, modification, id)
 
-Result of GetGlonassNavigationMessage
+Result of GetGlonassNavigationMessage.
 
 Name              Type   Description
 ----------------- ------ -------------------------------------------------------------------------
@@ -15480,7 +15584,7 @@ Ids  array string List of ids event whose will affect the PRN
 Command SetModificationToBeiDouD1NavigationMessage(prn, startTime, stopTime, subFrame, page, word, updateParity, modification, id)
 Permission: EXECUTE_IF_SIMULATING | EXECUTE_IF_IDLE
 
-Please note the command ModificationToBeiDouD1NavigationMessage is deprecated since 21.3. You may use MessageModificationToBeiDouD1Nav.
+Please note the command SetModificationToBeiDouD1NavigationMessage is deprecated since 21.3. You may use SetMessageModificationToBeiDouD1Nav.
 
 Set (or Modify) event to change navigation message bits.
 
@@ -15520,7 +15624,7 @@ Id           string Unique identifier of the event
 Command GetBeiDouD1NavigationMessage(id)
 Permission: EXECUTE_IF_IDLE
 
-Please note the command ModificationToBeiDouD1NavigationMessage is deprecated since 21.3. You may use MessageModificationToBeiDouD1Nav.
+Please note the command GetBeiDouD1NavigationMessage is deprecated since 21.3. You may use GetMessageModificationToBeiDouD1Nav.
 
 Get infos about this modification BeiDou D1 navigation message event
 
@@ -15532,7 +15636,7 @@ Id   string Unique identifier of the event
 
 Result GetBeiDouD1NavigationMessageResult(prn, startTime, stopTime, subFrame, page, word, updateParity, modification, id)
 
-Result of GetBeiDouD1NavigationMessage
+Result of GetBeiDouD1NavigationMessage.
 
 Name         Type   Description
 ------------ ------ ------------------------------------------------------------
@@ -15598,7 +15702,7 @@ Ids  array string List of ids event whose will affect the PRN
 Command SetModificationToBeiDouD2NavigationMessage(prn, startTime, stopTime, subFrame, page, word, updateParity, modification, id)
 Permission: EXECUTE_IF_SIMULATING | EXECUTE_IF_IDLE
 
-Please note the command ModificationToBeiDouD2NavigationMessage is deprecated since 21.3. You may use MessageModificationToBeiDouD2Nav.
+Please note the command SetModificationToBeiDouD2NavigationMessage is deprecated since 21.3. You may use SetMessageModificationToBeiDouD2Nav.
 
 Set (or Modify) event to change navigation message bits.
 
@@ -15638,7 +15742,7 @@ Id           string Unique identifier of the event
 Command GetBeiDouD2NavigationMessage(id)
 Permission: EXECUTE_IF_IDLE
 
-Please note the command ModificationToBeiDouD2NavigationMessage is deprecated since 21.3. You may use MessageModificationToBeiDouD2Nav.
+Please note the command GetBeiDouD2NavigationMessage is deprecated since 21.3. You may use GetMessageModificationToBeiDouD2Nav.
 
 Get infos about this modification BeiDou D2 navigation message event
 
@@ -15650,7 +15754,7 @@ Id   string Unique identifier of the event
 
 Result GetBeiDouD2NavigationMessageResult(prn, startTime, stopTime, subFrame, page, word, updateParity, modification, id)
 
-Result of GetBeiDouD2NavigationMessage
+Result of GetBeiDouD2NavigationMessage.
 
 Name         Type   Description
 ------------ ------ -----------------------------------------------------------
@@ -15716,7 +15820,7 @@ Ids  array string List of ids event whose will affect the PRN
 Command SetModificationToBeiDouCNav1Message(prn, startTime, stopTime, pageId, condition, updateCRC, bitsMods, id)
 Permission: EXECUTE_IF_SIMULATING | EXECUTE_IF_IDLE
 
-Please note the command ModificationToBeiDouCNav1Message is deprecated since 21.3. You may use MessageModificationToBeiDouCNav1.
+Please note the command SetModificationToBeiDouCNav1Message is deprecated since 21.3. You may use SetMessageModificationToBeiDouCNav1.
 
 Set (or Modify) event to change CNAV1 message bits. If you send this command without setting the Id
 parameter, or if you set the Id with a value never used before, a new Modification event will be
@@ -15762,7 +15866,7 @@ Id        string Unique identifier of the event
 Command GetBeiDouCNav1Message(id)
 Permission: EXECUTE_IF_IDLE
 
-Please note the command ModificationToBeiDouCNav1Message is deprecated since 21.3. You may use MessageModificationToBeiDouCNav1.
+Please note the command GetBeiDouCNav1Message is deprecated since 21.3. You may use GetMessageModificationToBeiDouCNav1.
 
 Get infos about the CNAV1 Message with this id
 
@@ -15774,7 +15878,7 @@ Id   string Unique identifier of the event
 
 Result GetBeiDouCNav1MessageResult(prn, startTime, stopTime, pageId, condition, updateCRC, bitsMods, id)
 
-Result of GetBeiDouCNav1Message
+Result of GetBeiDouCNav1Message.
 
 Name      Type   Description
 --------- ------ --------------------------------------------------------------------
@@ -15838,7 +15942,7 @@ Ids  array string List of IDs of BeiDou CNAV1 Messages for this PRN
 Command SetModificationToBeiDouCNav2Message(prn, startTime, stopTime, messageType, condition, updateCRC, bitsMods, id)
 Permission: EXECUTE_IF_SIMULATING | EXECUTE_IF_IDLE
 
-Please note the command ModificationToBeiDouCNav2Message is deprecated since 21.3. You may use MessageModificationToBeiDouCNav2.
+Please note the command SetModificationToBeiDouCNav2Message is deprecated since 21.3. You may use SetMessageModificationToBeiDouCNav2.
 
 Set (or Modify) event to change CNAV2 message bits. If you send this command without setting the Id
 parameter, or if you set the Id with a value never used before, a new Modification event will be
@@ -15884,7 +15988,7 @@ Id          string Unique identifier of the event
 Command GetBeiDouCNav2Message(id)
 Permission: EXECUTE_IF_IDLE
 
-Please note the command ModificationToBeiDouCNav2Message is deprecated since 21.3. You may use MessageModificationToBeiDouCNav2.
+Please note the command GetBeiDouCNav2Message is deprecated since 21.3. You may use GetMessageModificationToBeiDouCNav2.
 
 Get infos about the modifications of CNAV2 Message with this id
 
@@ -15896,7 +16000,7 @@ Id   string Unique identifier of the event
 
 Result GetBeiDouCNav2MessageResult(prn, startTime, stopTime, messageType, condition, updateCRC, bitsMods, id)
 
-Result of GetBeiDouCNav2Message
+Result of GetBeiDouCNav2Message.
 
 Name        Type   Description
 ----------- ------ --------------------------------------------------------------------
@@ -15960,7 +16064,7 @@ Ids  array string List of IDs of BeiDou CNAV2 Messages modifications for this PR
 Command SetModificationToQzssLNAVNavigationMessage(svId, startTime, stopTime, subFrame, transmittedSvId, word, updateParity, modification, id)
 Permission: EXECUTE_IF_SIMULATING | EXECUTE_IF_IDLE
 
-Please note the command ModificationToQzssLNAVNavigationMessage is deprecated since 21.3. You may use MessageModificationToQzssLNav.
+Please note the command SetModificationToQzssLNAVNavigationMessage is deprecated since 21.3. You may use SetMessageModificationToQzssLNav.
 
 Set (or Modify) event to change navigation message bits.
 
@@ -16000,7 +16104,7 @@ Id              string Unique identifier of the event
 Command GetQzssLNAVNavigationMessage(id)
 Permission: EXECUTE_IF_IDLE
 
-Please note the command ModificationToQzssLNAVNavigationMessage is deprecated since 21.3. You may use MessageModificationToQzssLNav.
+Please note the command GetQzssLNAVNavigationMessage is deprecated since 21.3. You may use GetMessageModificationToQzssLNav.
 
 Get infos about this modification QZSS navigation message event.
 
@@ -16012,7 +16116,7 @@ Id   string Unique identifier of the event
 
 Result GetQzssLNAVNavigationMessageResult(svId, startTime, stopTime, subFrame, transmittedSvId, word, updateParity, modification, id)
 
-Result of GetQzssLNAVNavigationMessage
+Result of GetQzssLNAVNavigationMessage.
 
 Name            Type   Description
 --------------- ------ -------------------------------------------------------------------------
@@ -16078,7 +16182,7 @@ Ids  array string List of ids event whose will affect the SV ID
 Command SetModificationToQzssL1SMessage(svId, startTime, stopTime, messageType, condition, updateCRC, bitsMods, id)
 Permission: EXECUTE_IF_SIMULATING | EXECUTE_IF_IDLE
 
-Please note the command ModificationToQzssL1SMessage is deprecated since 21.3. You may use MessageModificationToQzssSlas.
+Please note the command SetModificationToQzssL1SMessage is deprecated since 21.3. You may use SetMessageModificationToQzssSlas.
 
 Set (or Modify) event to change L1S message bits. If you send this command without setting the Id
 parameter, or if you set the Id with a value never used before, a new Modification event will be
@@ -16124,7 +16228,7 @@ Id          string Unique identifier of the event
 Command GetQzssL1SMessage(id)
 Permission: EXECUTE_IF_IDLE
 
-Please note the command ModificationToQzssL1SMessage is deprecated since 21.3. You may use MessageModificationToQzssSlas.
+Please note the command GetQzssL1SMessage is deprecated since 21.3. You may use GetMessageModificationToQzssSlas.
 
 Get infos about the L1S Message with this id
 
@@ -16136,7 +16240,7 @@ Id   string Unique identifier of the event
 
 Result GetQzssL1SMessageResult(svId, startTime, stopTime, messageType, condition, updateCRC, bitsMods, id)
 
-Result of GetQzssL1SMessage
+Result of GetQzssL1SMessage.
 
 Name        Type   Description
 ----------- ------ --------------------------------------------------------------------
@@ -16154,7 +16258,7 @@ Id          string Unique identifier of the event
 Command SetModificationToNavICL5Message(svId, startTime, stopTime, subframe, messageType, condition, updateCRC, bitsMods, id)
 Permission: EXECUTE_IF_SIMULATING | EXECUTE_IF_IDLE
 
-Please note the command ModificationToNavICL5Message is deprecated since 21.3. You may use MessageModificationToNavICNav.
+Please note the command SetModificationToNavICL5Message is deprecated since 21.3. You may use SetMessageModificationToNavICNav.
 
 Set (or Modify) event to change NavIC L5 message bits. If you send this command without setting the Id
 parameter, or if you set the Id with a value never used before, a new Modification event will be
@@ -16201,7 +16305,7 @@ Id          string Unique identifier of the event
 Command GetNavICL5Message(id)
 Permission: EXECUTE_IF_IDLE
 
-Please note the command ModificationToNavICL5Message is deprecated since 21.3. You may use MessageModificationToNavICNav.
+Please note the command GetNavICL5Message is deprecated since 21.3. You may use GetMessageModificationToNavICNav.
 
 Get infos about the NAV Message with this id
 
@@ -16213,7 +16317,7 @@ Id   string Unique identifier of the event
 
 Result GetNavICL5MessageResult(svId, startTime, stopTime, subframe, messageType, condition, updateCRC, bitsMods, id)
 
-Result of GetNavICL5Message
+Result of GetNavICL5Message.
 
 Name        Type   Description
 ----------- ------ --------------------------------------------------------------------
@@ -16256,6 +16360,8 @@ Ids  array string Signal
 Command SetSbasHealthRanging(prn, health)
 Permission: EXECUTE_IF_SIMULATING | EXECUTE_IF_IDLE
 
+Please note the command SetSbasHealthRanging is deprecated since 21.9. You may use SetSbasSVRangingHealth.
+
 Apply ranging flag for a SBAS satellite
 
 Name   Type Description
@@ -16267,6 +16373,8 @@ Health bool The ranging unhealthy flag
 
 Command SetSbasHealthCorrections(prn, health)
 Permission: EXECUTE_IF_SIMULATING | EXECUTE_IF_IDLE
+
+Please note the command SetSbasHealthCorrections is deprecated since 21.9. You may use SetSbasSVCorrectionsHealth.
 
 Apply correction flag for a SBAS satellite
 
@@ -16280,6 +16388,8 @@ Health bool The correction unhealthy flag
 Command SetSbasHealthIntegrity(prn, health)
 Permission: EXECUTE_IF_SIMULATING | EXECUTE_IF_IDLE
 
+Please note the command SetSbasHealthIntegrity is deprecated since 21.9. You may use SetSbasSVIntegrityHealth.
+
 Apply integrity flag for a SBAS satellite
 
 Name   Type Description
@@ -16292,6 +16402,8 @@ Health bool The integrity unhealthy flag
 Command SetSbasHealthReserved(prn, health)
 Permission: EXECUTE_IF_SIMULATING | EXECUTE_IF_IDLE
 
+Please note the command SetSbasHealthReserved is deprecated since 21.9. You may use SetSbasSVReservedHealth.
+
 Apply reserved flag for a SBAS satellite
 
 Name   Type Description
@@ -16303,6 +16415,8 @@ Health bool The reserved unhealthy flag
 
 Command SetSbasHealthService(prn, health)
 Permission: EXECUTE_IF_IDLE
+
+Please note the command SetSbasHealthService is deprecated since 21.9. You may use SetSbasSVServiceHealth.
 
 Apply service provider for a satellite
 
@@ -16412,7 +16526,7 @@ Prns array int A list containing the visible satellites' PRNs
 Command SetSatGeo(system, prn, isGeo, longitude)
 Permission: EXECUTE_IF_IDLE
 
-Please note the command SatGeo is deprecated since 21.3. You may use ForceSVGeo.
+Please note the command SetSatGeo is deprecated since 21.3. You may use ForceSVGeo.
 
 Set whether a satellite is geostationary
 
@@ -16428,7 +16542,7 @@ Longitude double The longitude to use, in degree
 Command IsSatGeo(system, prn)
 Permission: EXECUTE_IF_IDLE
 
-Please note the command SatGeo is deprecated since 21.3. You may use ForceSVGeo.
+Please note the command IsSatGeo is deprecated since 21.3. You may use IsSVForcedGeo.
 
 Get whether a satellite is geostationary
 
@@ -16441,7 +16555,7 @@ Prn    int    The satellite to make geostationary. Satellite PRN number for GPS,
 
 Result IsSatGeoResult(system, prn, isGeo, longitude)
 
-Result of IsSatGeo
+Result of IsSatGeo.
 
 Name      Type   Description
 --------- ------ -----------------------------------------------------------------------------------------------------------------------------------------------
@@ -16471,9 +16585,9 @@ Enabled bool   Enable P(Y)-Code if True.
 Command IsPYEnabled(prn, signal)
 Permission: EXECUTE_IF_IDLE
 
-Please note the command EnablePY is deprecated since 21.3. You may use EnablePYCodeForSV.
+Please note the command IsPYEnabled is deprecated since 21.3. You may use IsPYCodeEnabledForSV.
 
-Tells if P(Y)-Code is enabled for the specified satellite PRN. See EnablePY description for allowed signals.
+Tells if P(Y)-Code is enabled for the specified satellite PRN. See IsPYEnabled description for allowed signals.
 
 Name   Type   Description
 ------ ------ --------------------------------------------------------
@@ -16484,7 +16598,7 @@ Signal string Signal key - see command description for possible values
 
 Result IsPYEnabledResult(prn, signal, enabled)
 
-Result of IsPYEnabled
+Result of IsPYEnabled.
 
 Name    Type   Description
 ------- ------ --------------------------------------------------------
@@ -16512,9 +16626,9 @@ Enabled array bool Enable P(Y)-Code if True, otherwise it is P-Code only. Zero b
 Command GetPYEnabledForEachPrn(signal)
 Permission: EXECUTE_IF_IDLE
 
-Please note the command EnablePYForEachPrn is deprecated since 21.3. You may use EnablePYCodeForEachSV.
+Please note the command GetPYEnabledForEachPrn is deprecated since 21.3. You may use IsPYCodeEnabledForEachSV.
 
-Tells if the P(Y)-Code is enabled or disabled for each satellite. See EnablePYForEachPrn description for allowed signals.
+Tells if the P(Y)-Code is enabled or disabled for each satellite. See GetPYEnabledForEachPrn description for allowed signals.
 
 Name   Type   Description
 ------ ------ --------------------------------------------------------
@@ -16524,7 +16638,7 @@ Signal string Signal key - see command description for possible values
 
 Result GetPYEnabledForEachPrnResult(signal, enabled)
 
-Result of GetPYEnabledForEachPrn
+Result of GetPYEnabledForEachPrn.
 
 Name    Type       Description
 ------- ---------- ------------------------------------------------------------------------------------------------------------------
@@ -16536,7 +16650,7 @@ Enabled array bool Enable P(Y)-Code if True, otherwise it is P-Code only. Zero b
 Command SetSatellitePseudorangeNoiseOffset(system, prn, enabled, offset)
 Permission: EXECUTE_IF_IDLE
 
-Please note the command SatellitePseudorangeNoiseOffset is deprecated since 21.3. You may use PseudorangeNoiseOffsetForSV.
+Please note the command SetSatellitePseudorangeNoiseOffset is deprecated since 21.3. You may use SetPseudorangeNoiseOffsetForSV.
 
 Set the satellite pseudorange noise constant offset.
 
@@ -16552,7 +16666,7 @@ Offset  double The constant offset in metters
 Command GetSatellitePseudorangeNoiseOffset(system, prn)
 Permission: EXECUTE_IF_IDLE
 
-Please note the command SatellitePseudorangeNoiseOffset is deprecated since 21.3. You may use PseudorangeNoiseOffsetForSV.
+Please note the command GetSatellitePseudorangeNoiseOffset is deprecated since 21.3. You may use GetPseudorangeNoiseOffsetForSV.
 
 Get the satellite pseudorange noise constant offset.
 
@@ -16565,7 +16679,7 @@ Prn    int    Satellite PRN number for GPS, Galileo, BeiDou and SBAS. Slot numbe
 
 Result GetSatellitePseudorangeNoiseOffsetResult(system, prn, enabled, offset)
 
-Result of GetSatellitePseudorangeNoiseOffset
+Result of GetSatellitePseudorangeNoiseOffset.
 
 Name    Type   Description
 ------- ------ ----------------------------------------------------------------------------------------------------------
@@ -16579,7 +16693,7 @@ Offset  double The constant offset in metters
 Command SetSatellitePseudorangeNoiseSineWave(system, prn, sineWave, enabled, amplitude, period, offset)
 Permission: EXECUTE_IF_IDLE
 
-Please note the command SatellitePseudorangeNoiseSineWave is deprecated since 21.3. You may use PseudorangeNoiseSineWaveForSV.
+Please note the command SetSatellitePseudorangeNoiseSineWave is deprecated since 21.3. You may use SetPseudorangeNoiseSineWaveForSV.
 
 Set the satellite pseudorange noise sine wave attributes.
 
@@ -16598,7 +16712,7 @@ Offset    double Phase offset in radians
 Command GetSatellitePseudorangeNoiseSineWave(system, prn, sineWave)
 Permission: EXECUTE_IF_IDLE
 
-Please note the command SatellitePseudorangeNoiseSineWave is deprecated since 21.3. You may use PseudorangeNoiseSineWaveForSV.
+Please note the command GetSatellitePseudorangeNoiseSineWave is deprecated since 21.3. You may use GetPseudorangeNoiseSineWaveForSV.
 
 Get the satellite pseudorange noise sine wave attributes.
 
@@ -16612,7 +16726,7 @@ SineWave int    Sine wave number (0 or 1)
 
 Result GetSatellitePseudorangeNoiseSineWaveResult(system, prn, sineWave, enabled, amplitude, period, offset)
 
-Result of GetSatellitePseudorangeNoiseSineWave
+Result of GetSatellitePseudorangeNoiseSineWave.
 
 Name      Type   Description
 --------- ------ ----------------------------------------------------------------------------------------------------------
@@ -16629,7 +16743,7 @@ Offset    double Phase offset in radians
 Command SetSatellitePseudorangeNoiseGaussMarkov(system, prn, process, enabled, sigma, time, seed)
 Permission: EXECUTE_IF_IDLE
 
-Please note the command SatellitePseudorangeNoiseGaussMarkov is deprecated since 21.3. You may use PseudorangeNoiseGaussMarkovForSV.
+Please note the command SetSatellitePseudorangeNoiseGaussMarkov is deprecated since 21.3. You may use SetPseudorangeNoiseGaussMarkovForSV.
 
 Set the satellite pseudorange noise Gauss-Markov process attributes.
 
@@ -16648,7 +16762,7 @@ Seed    int    Random seed
 Command GetSatellitePseudorangeNoiseGaussMarkov(system, prn, process)
 Permission: EXECUTE_IF_IDLE
 
-Please note the command SatellitePseudorangeNoiseGaussMarkov is deprecated since 21.3. You may use PseudorangeNoiseGaussMarkovForSV.
+Please note the command GetSatellitePseudorangeNoiseGaussMarkov is deprecated since 21.3. You may use GetPseudorangeNoiseGaussMarkovForSV.
 
 Get the satellite pseudorange noise Gauss-Markov process attributes.
 
@@ -16662,7 +16776,7 @@ Process int    Gauss-Markov Process number (0 or 1)
 
 Result GetSatellitePseudorangeNoiseGaussMarkovResult(system, prn, process, enabled, sigma, time, seed)
 
-Result of GetSatellitePseudorangeNoiseGaussMarkov
+Result of GetSatellitePseudorangeNoiseGaussMarkov.
 
 Name    Type   Description
 ------- ------ ----------------------------------------------------------------------------------------------------------
@@ -16679,7 +16793,7 @@ Seed    int    Random seed
 Command SetSatelliteEphemerisError(system, prn, orbit, deltaAf0, deltaAf1)
 Permission: EXECUTE_IF_IDLE
 
-Please note the command SatelliteEphemerisError is deprecated since 21.3. You may use EphemerisErrorForSV.
+Please note the command SetSatelliteEphemerisError is deprecated since 21.3. You may use SetEphemerisErrorForSV.
 
 Set the satellite ephemeris error.
 
@@ -16696,7 +16810,7 @@ DeltaAf1 double The clock drift error, in second/second. Not available for GLONA
 Command GetSatelliteEphemerisError(system, prn)
 Permission: EXECUTE_IF_IDLE
 
-Please note the command SatelliteEphemerisError is deprecated since 21.3. You may use EphemerisErrorForSV.
+Please note the command GetSatelliteEphemerisError is deprecated since 21.3. You may use GetEphemerisErrorForSV.
 
 Get the satellite ephemeris error.
 
@@ -16709,7 +16823,7 @@ Prn    int    Satellite PRN number for GPS, Galileo, BeiDou and SBAS. Slot numbe
 
 Result GetSatelliteEphemerisErrorResult(system, prn, orbit, deltaAf0, deltaAf1)
 
-Result of GetSatelliteEphemerisError
+Result of GetSatelliteEphemerisError.
 
 Name     Type   Description
 -------- ------ ----------------------------------------------------------------------------------------------------------
@@ -16724,7 +16838,7 @@ DeltaAf1 double The clock drift error, in second/second. Not available for GLONA
 Command SetGpsCodePrn(satPrn, transmittedPrn)
 Permission: EXECUTE_IF_IDLE
 
-Please note the command GpsCodePrn is deprecated since 21.3. You may use PrnOfSVID.
+Please note the command SetGpsCodePrn is deprecated since 21.3. You may use SetPrnOfSVID.
 
 Set the transmitted PRN code for the specified satellite
 
@@ -16738,7 +16852,7 @@ TransmittedPrn int  The PRN to transmit [1..210]
 Command GetGpsCodePrn(satPrn)
 Permission: EXECUTE_IF_IDLE
 
-Please note the command GpsCodePrn is deprecated since 21.3. You may use PrnOfSVID.
+Please note the command GetGpsCodePrn is deprecated since 21.3. You may use GetPrnOfSVID.
 
 Get the transmitted PRN code for the specified satellite
 
@@ -16750,7 +16864,7 @@ SatPrn int  The GPS satellite PRN [1..32]
 
 Result GetGpsCodePrnResult(satPrn, transmittedPrn)
 
-Result of GetGpsCodePrn
+Result of GetGpsCodePrn.
 
 Name           Type Description
 -------------- ---- -----------------------------
@@ -16762,7 +16876,7 @@ TransmittedPrn int  The PRN to transmit [1..210]
 Command SetPseudorangeRamp(system, prn, offset, startTime, holdStartTime, holdStopTime, stopTime, id)
 Permission: EXECUTE_IF_SIMULATING | EXECUTE_IF_IDLE
 
-Please note the command PseudorangeRamp is deprecated since 21.3. You may use PseudorangeRampForSV.
+Please note the command SetPseudorangeRamp is deprecated since 21.3. You may use SetPseudorangeRampForSV.
 
 Set PSR ramp event. This function lets user change the pseudorange of any satellite.
 If PRN is set to 0, the change is applied to all satellites.
@@ -16793,7 +16907,7 @@ Id            string Unique identifier automatically set by simulator.
 Command GetPseudorangeRamp(id)
 Permission: EXECUTE_IF_IDLE
 
-Please note the command PseudorangeRamp is deprecated since 21.3. You may use PseudorangeRampForSV.
+Please note the command GetPseudorangeRamp is deprecated since 21.3. You may use GetPseudorangeRampForSV.
 
 Get PSR ramp event. This function lets user change the pseudorange of any satellite.
 If PRN is set to 0, the change is applied to all satellites.
@@ -16816,7 +16930,7 @@ Id   string Unique identifier automatically set by simulator.
 
 Result GetPseudorangeRampResult(system, prn, offset, startTime, holdStartTime, holdStopTime, stopTime, id)
 
-Result of GetPseudorangeRamp
+Result of GetPseudorangeRamp.
 
 Name          Type   Description
 ------------- ------ ----------------------------------------------------------------------------------------------------------
@@ -16860,7 +16974,7 @@ Ids    array string List of all the pseudorange ramps IDs for this satellite of 
 Command SetSVAntennaModelForAllSat(antennaModelNames, system)
 Permission: EXECUTE_IF_IDLE
 
-Please note the command SVAntennaModelForAllSat is deprecated since 21.3. You may use SVAntennaModelForEachSV.
+Please note the command SetSVAntennaModelForAllSat is deprecated since 21.3. You may use SetSVAntennaModelForEachSV.
 
 Set the antenna model for all satellites.
 
@@ -16874,7 +16988,7 @@ System            string       "GPS", "GLONASS", "Galileo", "BeiDou", "SBAS", "Q
 Command GetSVAntennaModelForAllSat(system)
 Permission: EXECUTE_IF_IDLE
 
-Please note the command SVAntennaModelForAllSat is deprecated since 21.3. You may use SVAntennaModelForEachSV.
+Please note the command GetSVAntennaModelForAllSat is deprecated since 21.3. You may use GetSVAntennaModelForEachSV.
 
 Get the antenna model for all satellites.
 
@@ -16886,7 +17000,7 @@ System string "GPS", "GLONASS", "Galileo", "BeiDou", "SBAS", "QZSS" or "NavIC"
 
 Result GetSVAntennaModelForAllSatResult(antennaModelNames, system)
 
-Result of GetSVAntennaModelForAllSat
+Result of GetSVAntennaModelForAllSat.
 
 Name              Type         Description
 ----------------- ------------ --------------------------------------------------------------------------------------------------------------------------------------------------

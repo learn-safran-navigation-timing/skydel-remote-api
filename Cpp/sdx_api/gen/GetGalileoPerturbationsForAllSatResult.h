@@ -9,7 +9,7 @@ namespace Sdx
   namespace Cmd
   {
     ///
-    /// Result of GetGalileoPerturbationsForAllSat
+    /// Result of GetGalileoPerturbationsForAllSat.
     ///
     /// Name Type         Description
     /// ---- ------------ -----------

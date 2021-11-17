@@ -9,7 +9,7 @@ namespace Sdx
   namespace Cmd
   {
     ///
-    /// Result of GetSpoofTxRemoteAddress
+    /// Result of GetSpoofTxRemoteAddress.
     ///
     /// Name       Type   Description
     /// ---------- ------ ------------------------------

@@ -9,7 +9,7 @@ namespace Sdx
   namespace Cmd
   {
     ///
-    /// Please note the command BeiDouEphemerisBoolParam is deprecated since 21.3. You may use BeiDouEphBoolParamForSV.
+    /// Please note the command SetBeiDouEphemerisBoolParam is deprecated since 21.3. You may use SetBeiDouEphBoolParamForSV.
     /// 
     /// Set various boolean parameters in the BeiDou ephemeris
     /// 

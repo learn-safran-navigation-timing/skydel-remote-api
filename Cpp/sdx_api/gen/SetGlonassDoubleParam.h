@@ -9,7 +9,7 @@ namespace Sdx
   namespace Cmd
   {
     ///
-    /// Please note the command GlonassDoubleParam is deprecated since 21.3. You may use GlonassEphDoubleParamForSV.
+    /// Please note the command SetGlonassDoubleParam is deprecated since 21.3. You may use SetGlonassEphDoubleParamForSV.
     /// 
     /// Set various parameters for GLONASS
     /// 

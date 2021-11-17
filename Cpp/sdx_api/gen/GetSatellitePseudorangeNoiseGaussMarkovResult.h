@@ -9,7 +9,7 @@ namespace Sdx
   namespace Cmd
   {
     ///
-    /// Result of GetSatellitePseudorangeNoiseGaussMarkov
+    /// Result of GetSatellitePseudorangeNoiseGaussMarkov.
     ///
     /// Name    Type   Description
     /// ------- ------ ----------------------------------------------------------------------------------------------------------

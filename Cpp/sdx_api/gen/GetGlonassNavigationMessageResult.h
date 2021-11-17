@@ -9,7 +9,7 @@ namespace Sdx
   namespace Cmd
   {
     ///
-    /// Result of GetGlonassNavigationMessage
+    /// Result of GetGlonassNavigationMessage.
     ///
     /// Name              Type   Description
     /// ----------------- ------ -------------------------------------------------------------------------

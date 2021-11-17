@@ -9,7 +9,7 @@ namespace Sdx
   namespace Cmd
   {
     ///
-    /// Result of GetLogRawRate
+    /// Result of GetLogRawRate.
     ///
     /// Name Type Description
     /// ---- ---- --------------------------------------

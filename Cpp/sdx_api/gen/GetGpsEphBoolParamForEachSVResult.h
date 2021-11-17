@@ -10,7 +10,7 @@ namespace Sdx
   namespace Cmd
   {
     ///
-    /// Result of GetGpsEphBoolParamForEachSV
+    /// Result of GetGpsEphBoolParamForEachSV.
     ///
     /// Name      Type       Description
     /// --------- ---------- --------------------------------------------------------------------------------------------------

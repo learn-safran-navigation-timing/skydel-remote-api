@@ -10,7 +10,7 @@ namespace Sdx
   namespace Cmd
   {
     ///
-    /// Result of GetEphemerisErrorForSV
+    /// Result of GetEphemerisErrorForSV.
     ///
     /// Name     Type   Description
     /// -------- ------ -----------------------------------------------------------------------------------

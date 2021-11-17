@@ -9,7 +9,7 @@ namespace Sdx
   namespace Cmd
   {
     ///
-    /// Result of GetGalileoFNavMessage
+    /// Result of GetGalileoFNavMessage.
     ///
     /// Name      Type   Description
     /// --------- ------ --------------------------------------------------------------------

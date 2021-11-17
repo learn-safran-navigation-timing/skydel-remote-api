@@ -9,7 +9,7 @@ namespace Sdx
   namespace Cmd
   {
     ///
-    /// Result of the command "GetSimulationElapsedTime"
+    /// Result of GetSimulationElapsedTime.
     ///
     /// Name         Type Description
     /// ------------ ---- -----------------------------------------------------------------------------

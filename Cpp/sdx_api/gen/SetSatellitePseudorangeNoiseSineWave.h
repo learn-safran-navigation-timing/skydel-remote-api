@@ -9,7 +9,7 @@ namespace Sdx
   namespace Cmd
   {
     ///
-    /// Please note the command SatellitePseudorangeNoiseSineWave is deprecated since 21.3. You may use PseudorangeNoiseSineWaveForSV.
+    /// Please note the command SetSatellitePseudorangeNoiseSineWave is deprecated since 21.3. You may use SetPseudorangeNoiseSineWaveForSV.
     /// 
     /// Set the satellite pseudorange noise sine wave attributes.
     ///

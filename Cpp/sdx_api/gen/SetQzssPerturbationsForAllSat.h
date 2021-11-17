@@ -9,7 +9,7 @@ namespace Sdx
   namespace Cmd
   {
     ///
-    /// Please note the command QzssPerturbationsForAllSat is deprecated since 20.9. You may use PerturbationsForAllSat.
+    /// Please note the command SetQzssPerturbationsForAllSat is deprecated since 20.9. You may use SetPerturbationsForAllSat.
     /// 
     /// Set QZSS orbit perturbations (Crs, Crc, Cis, Cic, Cus and Cuc) for all satellites.
     /// All parameters are zero based index (index 0 => SV ID 1, index 1 => SV ID 2, etc)

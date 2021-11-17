@@ -9,7 +9,7 @@ namespace Sdx
   namespace Cmd
   {
     ///
-    /// Please note the command GpsEphemerisBoolParam is deprecated since 21.3. You may use GpsEphBoolParamForSV.
+    /// Please note the command GetGpsEphemerisBoolParam is deprecated since 21.3. You may use GetGpsEphBoolParamForSV.
     /// 
     /// Get various boolean parameters in the GPS ephemeris
     /// 

@@ -9,7 +9,7 @@ namespace Sdx
   namespace Cmd
   {
     ///
-    /// Result of GetBeiDouCNavSatelliteHealthInfo
+    /// Result of GetBeiDouCNavSatelliteHealthInfo.
     ///
     /// Name   Type Description
     /// ------ ---- ------------------------------------------------------

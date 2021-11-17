@@ -9,7 +9,7 @@ namespace Sdx
   namespace Cmd
   {
     ///
-    /// Result of GetGpsSatelliteAntiSpoofingFlag
+    /// Result of GetGpsSatelliteAntiSpoofingFlag.
     ///
     /// Name         Type      Description
     /// ------------ --------- --------------------------

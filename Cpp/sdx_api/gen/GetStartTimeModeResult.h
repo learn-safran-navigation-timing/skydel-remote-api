@@ -9,7 +9,7 @@ namespace Sdx
   namespace Cmd
   {
     ///
-    /// Result of GetStartTimeMode
+    /// Result of GetStartTimeMode.
     ///
     /// Name Type   Description
     /// ---- ------ --------------------------------------------

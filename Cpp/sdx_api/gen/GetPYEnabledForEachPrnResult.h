@@ -10,7 +10,7 @@ namespace Sdx
   namespace Cmd
   {
     ///
-    /// Result of GetPYEnabledForEachPrn
+    /// Result of GetPYEnabledForEachPrn.
     ///
     /// Name    Type       Description
     /// ------- ---------- ------------------------------------------------------------------------------------------------------------------

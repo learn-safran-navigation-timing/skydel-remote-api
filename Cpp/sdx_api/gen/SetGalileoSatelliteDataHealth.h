@@ -9,7 +9,7 @@ namespace Sdx
   namespace Cmd
   {
     ///
-    /// Please note the command GalileoSatelliteDataHealth is deprecated since 21.3. You may use GalileoDataHealthForSV.
+    /// Please note the command SetGalileoSatelliteDataHealth is deprecated since 21.3. You may use SetGalileoDataHealthForSV.
     /// 
     /// Set Galileo data health for I/NAV and F/NAV message
     ///

@@ -9,7 +9,7 @@ namespace Sdx
   namespace Cmd
   {
     ///
-    /// Result of GetMasterStatus
+    /// Result of GetMasterStatus.
     ///
     /// Name           Type Description
     /// -------------- ---- -------------------------------------

@@ -10,7 +10,7 @@ namespace Sdx
   namespace Cmd
   {
     ///
-    /// Result of GetVisibleSV
+    /// Result of GetVisibleSV.
     ///
     /// Name   Type      Description
     /// ------ --------- -----------------------------------------------------------------------------------

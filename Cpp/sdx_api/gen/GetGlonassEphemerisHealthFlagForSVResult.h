@@ -9,7 +9,7 @@ namespace Sdx
   namespace Cmd
   {
     ///
-    /// Result of GetGlonassEphemerisHealthFlagForSV
+    /// Result of GetGlonassEphemerisHealthFlagForSV.
     ///
     /// Name   Type Description
     /// ------ ---- --------------------------------------

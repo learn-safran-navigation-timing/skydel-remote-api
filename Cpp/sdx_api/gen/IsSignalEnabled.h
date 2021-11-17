@@ -9,9 +9,9 @@ namespace Sdx
   namespace Cmd
   {
     ///
-    /// Please note the command EnableSignal is deprecated since 21.3. You may use EnableSignalForSV.
+    /// Please note the command IsSignalEnabled is deprecated since 21.3. You may use IsSignalEnabledForSV.
     /// 
-    /// Tells if the signal is enabled or disabled. See EnableSignal description for allowed signals.
+    /// Tells if the signal is enabled or disabled. See IsSignalEnabled description for allowed signals.
     ///
     /// Name   Type   Description
     /// ------ ------ ----------------------------------------------------------------------------------------------------------

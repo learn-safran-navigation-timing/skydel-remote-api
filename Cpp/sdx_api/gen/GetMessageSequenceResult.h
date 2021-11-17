@@ -10,7 +10,7 @@ namespace Sdx
   namespace Cmd
   {
     ///
-    /// Result of GetMessageSequence
+    /// Result of GetMessageSequence.
     ///
     /// Name     Type      Description
     /// -------- --------- -------------------------------

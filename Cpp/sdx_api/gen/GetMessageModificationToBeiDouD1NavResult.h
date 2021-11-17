@@ -10,7 +10,7 @@ namespace Sdx
   namespace Cmd
   {
     ///
-    /// Result of GetMessageModificationToBeiDouD1Nav
+    /// Result of GetMessageModificationToBeiDouD1Nav.
     ///
     /// Name             Type         Description
     /// ---------------- ------------ --------------------------------------------------------------------------------------------

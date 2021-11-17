@@ -10,7 +10,7 @@ namespace Sdx
   namespace Cmd
   {
     ///
-    /// Result of GetSignalEnabledForEachPrn
+    /// Result of GetSignalEnabledForEachPrn.
     ///
     /// Name    Type       Description
     /// ------- ---------- ----------------------------------------------------------------------------------------------------------

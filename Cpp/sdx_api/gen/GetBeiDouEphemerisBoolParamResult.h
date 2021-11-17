@@ -9,7 +9,7 @@ namespace Sdx
   namespace Cmd
   {
     ///
-    /// Result of GetBeiDouEphemerisBoolParam
+    /// Result of GetBeiDouEphemerisBoolParam.
     ///
     /// Name      Type   Description
     /// --------- ------ -------------------------------------------------------------------------

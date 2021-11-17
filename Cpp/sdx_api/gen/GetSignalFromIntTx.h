@@ -12,9 +12,9 @@ namespace Sdx
     /// Get all signal ID from this interference transmitters and this signal type. If the signal type is invalid, get the IDs of CW type.
     ///
     /// Name          Type   Description
-    /// ------------- ------ --------------------------------------------------------------------------------------
+    /// ------------- ------ ------------------------------------------------------------------------------------
     /// IdTransmitter string Transmitter unique identifier.
-    /// SignalType    string Type of signal. Authorized signals are : "CW", "Chirp", "Pulse", "BPSK", "BOC", "AWGN"
+    /// SignalType    string Type of signal. Accepted signals are : "CW", "Chirp", "Pulse", "BPSK", "BOC", "AWGN"
     ///
 
     class GetSignalFromIntTx;

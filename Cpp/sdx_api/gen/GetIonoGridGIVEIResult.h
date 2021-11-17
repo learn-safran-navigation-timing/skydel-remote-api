@@ -10,7 +10,7 @@ namespace Sdx
   namespace Cmd
   {
     ///
-    /// Result of GetIonoGridGIVEI
+    /// Result of GetIonoGridGIVEI.
     ///
     /// Name            Type            Description
     /// --------------- --------------- -------------------------------

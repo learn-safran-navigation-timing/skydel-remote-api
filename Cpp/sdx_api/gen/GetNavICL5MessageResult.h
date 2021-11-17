@@ -9,7 +9,7 @@ namespace Sdx
   namespace Cmd
   {
     ///
-    /// Result of GetNavICL5Message
+    /// Result of GetNavICL5Message.
     ///
     /// Name        Type   Description
     /// ----------- ------ --------------------------------------------------------------------

@@ -9,7 +9,7 @@ namespace Sdx
   namespace Cmd
   {
     ///
-    /// Result of GetGpsSatelliteCNavAlertFlag
+    /// Result of GetGpsSatelliteCNavAlertFlag.
     ///
     /// Name  Type Description
     /// ----- ---- ---------------------------------------------------

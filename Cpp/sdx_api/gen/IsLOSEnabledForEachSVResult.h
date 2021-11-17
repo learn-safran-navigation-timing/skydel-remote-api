@@ -10,7 +10,7 @@ namespace Sdx
   namespace Cmd
   {
     ///
-    /// Result of IsLOSEnabledForEachSV
+    /// Result of IsLOSEnabledForEachSV.
     ///
     /// Name    Type       Description
     /// ------- ---------- -----------------------------------------------------------------------------------------------------------

@@ -9,7 +9,7 @@ namespace Sdx
   namespace Cmd
   {
     ///
-    /// Please note the command ModificationToBeiDouD2NavigationMessage is deprecated since 21.3. You may use MessageModificationToBeiDouD2Nav.
+    /// Please note the command SetModificationToBeiDouD2NavigationMessage is deprecated since 21.3. You may use SetMessageModificationToBeiDouD2Nav.
     /// 
     /// Set (or Modify) event to change navigation message bits.
     /// 

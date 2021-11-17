@@ -10,7 +10,7 @@ namespace Sdx
   namespace Cmd
   {
     ///
-    /// Result of GetPrnsEnabled
+    /// Result of GetPrnsEnabled.
     ///
     /// Name    Type       Description
     /// ------- ---------- ------------------------------------------------------------------------------------------------------

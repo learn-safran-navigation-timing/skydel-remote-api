@@ -9,7 +9,7 @@ namespace Sdx
   namespace Cmd
   {
     ///
-    /// Result of GetSbasUdrei
+    /// Result of GetSbasUdrei.
     ///
     /// Name  Type Description
     /// ----- ---- ---------------

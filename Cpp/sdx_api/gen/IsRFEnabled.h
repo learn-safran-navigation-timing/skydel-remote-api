@@ -9,7 +9,7 @@ namespace Sdx
   namespace Cmd
   {
     ///
-    /// Please note the command EnableRF is deprecated since 21.3. You may use EnableRFOutputForSV.
+    /// Please note the command IsRFEnabled is deprecated since 21.3. You may use IsRFOutputEnabled.
     /// 
     /// Tells if the RF is enabled or disabled for the specified satellite.
     ///

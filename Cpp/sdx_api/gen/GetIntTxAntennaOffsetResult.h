@@ -9,7 +9,7 @@ namespace Sdx
   namespace Cmd
   {
     ///
-    /// Result of GetIntTxAntennaOffset
+    /// Result of GetIntTxAntennaOffset.
     ///
     /// Name  Type   Description
     /// ----- ------ --------------------------------------

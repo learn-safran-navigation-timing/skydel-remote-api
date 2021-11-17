@@ -10,7 +10,7 @@ namespace Sdx
   namespace Cmd
   {
     ///
-    /// Result of GetSbasMonitoredSystems
+    /// Result of GetSbasMonitoredSystems.
     ///
     /// Name    Type         Description
     /// ------- ------------ ------------------------------------------------------------------------------------

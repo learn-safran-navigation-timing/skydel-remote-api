@@ -10,7 +10,7 @@ namespace Sdx
   namespace Cmd
   {
     ///
-    /// Result of GetPseudorangeNoiseOffsetForEachSV
+    /// Result of GetPseudorangeNoiseOffsetForEachSV.
     ///
     /// Name    Type         Description
     /// ------- ------------ ----------------------------------------------------------------

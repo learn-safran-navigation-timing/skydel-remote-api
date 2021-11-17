@@ -9,7 +9,7 @@ namespace Sdx
   namespace Cmd
   {
     ///
-    /// Result of GetQzssL1SAugmentation
+    /// Result of GetQzssL1SAugmentation.
     ///
     /// Name       Type   Description
     /// ---------- ------ ----------------------------------------------------------------------------------

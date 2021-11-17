@@ -9,7 +9,7 @@ namespace Sdx
   namespace Cmd
   {
     ///
-    /// Please note the command GpsEphemerisReferenceTime is deprecated since 21.3. You may use EphemerisReferenceTimeForSV.
+    /// Please note the command SetGpsEphemerisReferenceTime is deprecated since 21.3. You may use SetEphemerisReferenceTimeForSV.
     /// 
     /// Set the GPS ephemeris reference time
     ///

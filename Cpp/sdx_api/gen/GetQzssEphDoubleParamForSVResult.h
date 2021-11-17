@@ -9,7 +9,7 @@ namespace Sdx
   namespace Cmd
   {
     ///
-    /// Result of GetQzssEphDoubleParamForSV
+    /// Result of GetQzssEphDoubleParamForSV.
     ///
     /// Name      Type   Description
     /// --------- ------ ----------------------------------------------------------------------------------

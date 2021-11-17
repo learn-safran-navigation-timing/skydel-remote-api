@@ -9,7 +9,7 @@ namespace Sdx
   namespace Cmd
   {
     ///
-    /// Please note the command ModificationToBeiDouCNav1Message is deprecated since 21.3. You may use MessageModificationToBeiDouCNav1.
+    /// Please note the command GetBeiDouCNav1Message is deprecated since 21.3. You may use GetMessageModificationToBeiDouCNav1.
     /// 
     /// Get infos about the CNAV1 Message with this id
     ///

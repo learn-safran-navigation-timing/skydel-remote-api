@@ -10,7 +10,7 @@ namespace Sdx
   namespace Cmd
   {
     ///
-    /// Result of IsLOSEnabledForEachPrn
+    /// Result of IsLOSEnabledForEachPrn.
     ///
     /// Name    Type       Description
     /// ------- ---------- -----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------

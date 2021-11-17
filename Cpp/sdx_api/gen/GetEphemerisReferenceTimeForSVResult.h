@@ -10,7 +10,7 @@ namespace Sdx
   namespace Cmd
   {
     ///
-    /// Result of GetEphemerisReferenceTimeForSV
+    /// Result of GetEphemerisReferenceTimeForSV.
     ///
     /// Name   Type     Description
     /// ------ -------- --------------------------------------------------------------

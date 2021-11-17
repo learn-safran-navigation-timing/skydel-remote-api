@@ -9,7 +9,7 @@ namespace Sdx
   namespace Cmd
   {
     ///
-    /// Result of GetGpsSatelliteL1cHealth
+    /// Result of GetGpsSatelliteL1cHealth.
     ///
     /// Name   Type Description
     /// ------ ---- ---------------------------------------------------------------

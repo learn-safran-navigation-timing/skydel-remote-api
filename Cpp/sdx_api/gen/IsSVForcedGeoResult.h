@@ -9,7 +9,7 @@ namespace Sdx
   namespace Cmd
   {
     ///
-    /// Result of IsSVForcedGeo
+    /// Result of IsSVForcedGeo.
     ///
     /// Name      Type   Description
     /// --------- ------ ---------------------------------------------

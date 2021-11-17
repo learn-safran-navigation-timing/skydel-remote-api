@@ -9,7 +9,7 @@ namespace Sdx
   namespace Cmd
   {
     ///
-    /// Hardware in the loop server port.
+    /// Result of GetHilPort.
     ///
     /// Name Type Description
     /// ---- ---- ---------------

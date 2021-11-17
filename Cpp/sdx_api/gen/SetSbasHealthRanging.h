@@ -9,6 +9,8 @@ namespace Sdx
   namespace Cmd
   {
     ///
+    /// Please note the command SetSbasHealthRanging is deprecated since 21.9. You may use SetSbasSVRangingHealth.
+    /// 
     /// Apply ranging flag for a SBAS satellite
     ///
     /// Name   Type Description

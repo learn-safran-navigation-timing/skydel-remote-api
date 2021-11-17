@@ -10,7 +10,7 @@ namespace Sdx
   namespace Cmd
   {
     ///
-    /// Result of GetVehicleTrajectoryOrbit
+    /// Result of GetVehicleTrajectoryOrbit.
     ///
     /// Name              Type     Description
     /// ----------------- -------- ---------------------------------------------------------------------

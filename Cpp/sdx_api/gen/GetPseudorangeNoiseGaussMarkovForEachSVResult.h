@@ -10,7 +10,7 @@ namespace Sdx
   namespace Cmd
   {
     ///
-    /// Result of GetPseudorangeNoiseGaussMarkovForEachSV
+    /// Result of GetPseudorangeNoiseGaussMarkovForEachSV.
     ///
     /// Name    Type         Description
     /// ------- ------------ ----------------------------------------------------------------

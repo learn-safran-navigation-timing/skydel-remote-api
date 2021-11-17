@@ -10,7 +10,7 @@ namespace Sdx
   namespace Cmd
   {
     ///
-    /// Result of GetIntTxChirp
+    /// Result of GetIntTxChirp.
     ///
     /// Name          Type         Description
     /// ------------- ------------ ---------------------------------------------------

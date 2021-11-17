@@ -9,7 +9,7 @@ namespace Sdx
   namespace Cmd
   {
     ///
-    /// Please note the command GalileoEphemerisReferenceTime is deprecated since 21.3. You may use EphemerisReferenceTimeForSV.
+    /// Please note the command GetGalileoEphemerisReferenceTime is deprecated since 21.3. You may use GetEphemerisReferenceTimeForSV.
     /// 
     /// Get the Galileo ephemeris reference time
     ///

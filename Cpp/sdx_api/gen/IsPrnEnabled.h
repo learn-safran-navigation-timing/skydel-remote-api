@@ -9,7 +9,7 @@ namespace Sdx
   namespace Cmd
   {
     ///
-    /// Please note the command EnablePrn is deprecated since 21.3. You may use EnableSV.
+    /// Please note the command IsPrnEnabled is deprecated since 21.3. You may use IsSVEnabled.
     /// 
     /// Get  enabled or disabled satellite for this constellation.
     ///

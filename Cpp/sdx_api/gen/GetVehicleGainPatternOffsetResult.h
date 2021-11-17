@@ -11,7 +11,7 @@ namespace Sdx
   namespace Cmd
   {
     ///
-    /// Result of GetVehicleGainPatternOffset
+    /// Result of GetVehicleGainPatternOffset.
     ///
     /// Name        Type            Description
     /// ----------- --------------- ------------------------------------------------------------------------------------

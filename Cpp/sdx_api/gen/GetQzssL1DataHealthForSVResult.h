@@ -9,7 +9,7 @@ namespace Sdx
   namespace Cmd
   {
     ///
-    /// Result of GetQzssL1DataHealthForSV
+    /// Result of GetQzssL1DataHealthForSV.
     ///
     /// Name   Type Description
     /// ------ ---- ---------------------

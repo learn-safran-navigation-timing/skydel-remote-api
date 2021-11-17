@@ -9,7 +9,7 @@ namespace Sdx
   namespace Cmd
   {
     ///
-    /// Please note the command GpsSatelliteL5Health is deprecated since 21.3. You may use GpsL5HealthForSV.
+    /// Please note the command GetGpsSatelliteL5Health is deprecated since 21.3. You may use GetGpsL5HealthForSV.
     /// 
     /// Get GPS L5 health (used with CNAV and CNAV2)
     ///

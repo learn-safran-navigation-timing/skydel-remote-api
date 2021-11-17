@@ -9,7 +9,7 @@ namespace Sdx
   namespace Cmd
   {
     ///
-    /// Please note the command GpsSVConfiguration is deprecated since 21.3. You may use GpsConfigurationCodeForSV.
+    /// Please note the command GetGpsSVConfiguration is deprecated since 21.3. You may use GetGpsConfigurationCodeForSV.
     /// 
     /// Get GPS SV configuration flag for one PRN
     ///

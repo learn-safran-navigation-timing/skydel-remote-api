@@ -9,7 +9,7 @@ namespace Sdx
   namespace Cmd
   {
     ///
-    /// Result of GetAlmanacUploadTimeInterval
+    /// Result of GetAlmanacUploadTimeInterval.
     ///
     /// Name     Type   Description
     /// -------- ------ ----------------------------------------------------------

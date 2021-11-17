@@ -9,7 +9,7 @@ namespace Sdx
   namespace Cmd
   {
     ///
-    /// Please note the command BeiDouPerturbations is deprecated since 21.3. You may use Perturbations.
+    /// Please note the command GetBeiDouPerturbations is deprecated since 21.3. You may use GetPerturbations.
     /// 
     /// Get BeiDou orbit perturbations (Crs, Crc, Cis, Cic, Cus and Cuc)
     ///

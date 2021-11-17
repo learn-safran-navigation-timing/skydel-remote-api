@@ -9,7 +9,7 @@ namespace Sdx
   namespace Cmd
   {
     ///
-    /// Result of IsSatMotionFixed
+    /// Result of IsSatMotionFixed.
     ///
     /// Name    Type   Description
     /// ------- ------ --------------------------------------------------------------------------------------------------------------

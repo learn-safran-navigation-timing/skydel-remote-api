@@ -9,7 +9,7 @@ namespace Sdx
   namespace Cmd
   {
     ///
-    /// Please note the command BeiDouEphemerisReferenceTime is deprecated since 21.3. You may use EphemerisReferenceTimeForSV.
+    /// Please note the command GetBeiDouEphemerisReferenceTime is deprecated since 21.3. You may use GetEphemerisReferenceTimeForSV.
     /// 
     /// Get the BeiDou ephemeris reference time
     ///

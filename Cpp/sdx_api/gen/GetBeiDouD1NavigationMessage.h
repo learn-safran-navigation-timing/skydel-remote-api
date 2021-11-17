@@ -9,7 +9,7 @@ namespace Sdx
   namespace Cmd
   {
     ///
-    /// Please note the command ModificationToBeiDouD1NavigationMessage is deprecated since 21.3. You may use MessageModificationToBeiDouD1Nav.
+    /// Please note the command GetBeiDouD1NavigationMessage is deprecated since 21.3. You may use GetMessageModificationToBeiDouD1Nav.
     /// 
     /// Get infos about this modification BeiDou D1 navigation message event
     ///

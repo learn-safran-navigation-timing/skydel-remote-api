@@ -9,7 +9,7 @@ namespace Sdx
   namespace Cmd
   {
     ///
-    /// Please note the command ModificationToGpsCNav2Message is deprecated since 21.3. You may use MessageModificationToGpsCNav2.
+    /// Please note the command SetModificationToGpsCNav2Message is deprecated since 21.3. You may use SetMessageModificationToGpsCNav2.
     /// 
     /// Set (or Modify) event to change CNAV2 message bits. If you send this command without setting the Id
     /// parameter, or if you set the Id with a value never used before, a new Modification event will be

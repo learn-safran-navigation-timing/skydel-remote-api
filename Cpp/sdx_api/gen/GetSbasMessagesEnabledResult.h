@@ -9,7 +9,7 @@ namespace Sdx
   namespace Cmd
   {
     ///
-    /// Result of GetSbasMessagesEnabled
+    /// Result of GetSbasMessagesEnabled.
     ///
     /// Name     Type      Description
     /// -------- --------- --------------------

@@ -9,7 +9,7 @@ namespace Sdx
   namespace Cmd
   {
     ///
-    /// Result of IsLogRawEnabled
+    /// Result of IsLogRawEnabled.
     ///
     /// Name    Type Description
     /// ------- ---- -----------------------------------------------

@@ -10,7 +10,7 @@ namespace Sdx
   namespace Cmd
   {
     ///
-    /// Result of GetGpsEphDoubleParamForEachSV
+    /// Result of GetGpsEphDoubleParamForEachSV.
     ///
     /// Name      Type         Description
     /// --------- ------------ --------------------------------------------------------------------------------------------------

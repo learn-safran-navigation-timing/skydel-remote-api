@@ -9,7 +9,7 @@ namespace Sdx
   namespace Cmd
   {
     ///
-    /// Result of GetPowerSbasOffset
+    /// Result of GetPowerSbasOffset.
     ///
     /// Name            Type   Description
     /// --------------- ------ -------------------------------------------------------------

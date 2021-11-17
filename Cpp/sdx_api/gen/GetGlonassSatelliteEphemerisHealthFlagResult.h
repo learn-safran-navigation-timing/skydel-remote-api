@@ -9,7 +9,7 @@ namespace Sdx
   namespace Cmd
   {
     ///
-    /// Result of GetGlonassSatelliteEphemerisHealthFlag
+    /// Result of GetGlonassSatelliteEphemerisHealthFlag.
     ///
     /// Name   Type Description
     /// ------ ---- --------------------------------------

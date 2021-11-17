@@ -9,7 +9,7 @@ namespace Sdx
   namespace Cmd
   {
     ///
-    /// Result of GetWFAntennaElementPhasePatternOffset
+    /// Result of GetWFAntennaElementPhasePatternOffset.
     ///
     /// Name        Type   Description
     /// ----------- ------ -------------------------------------------------------------------------

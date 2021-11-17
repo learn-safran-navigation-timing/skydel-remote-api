@@ -9,7 +9,7 @@ namespace Sdx
   namespace Cmd
   {
     ///
-    /// Please note the command GlonassSatelliteEphemerisHealthFlag is deprecated since 21.3. You may use GlonassEphemerisHealthFlagForSV.
+    /// Please note the command GetGlonassSatelliteEphemerisHealthFlag is deprecated since 21.3. You may use GetGlonassEphemerisHealthFlagForSV.
     /// 
     /// Get GLONASS satellite Ephemeris Health Flag Bn(ln)
     ///

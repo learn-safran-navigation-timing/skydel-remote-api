@@ -9,7 +9,7 @@ namespace Sdx
   namespace Cmd
   {
     ///
-    /// Please note the command QzssPerturbations is deprecated since 20.9. You may use Perturbations.
+    /// Please note the command SetQzssPerturbations is deprecated since 20.9. You may use SetPerturbations.
     /// 
     /// Set QZSS orbit perturbations (Crs, Crc, Cis, Cic, Cus and Cuc)
     ///

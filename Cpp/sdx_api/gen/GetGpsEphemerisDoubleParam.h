@@ -9,7 +9,7 @@ namespace Sdx
   namespace Cmd
   {
     ///
-    /// Please note the command GpsEphemerisDoubleParam is deprecated since 21.3. You may use GpsEphDoubleParamForSV.
+    /// Please note the command GetGpsEphemerisDoubleParam is deprecated since 21.3. You may use GetGpsEphDoubleParamForSV.
     /// 
     /// Get various parameters in the GPS ephemeris
     /// 

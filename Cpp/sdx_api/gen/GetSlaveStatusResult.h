@@ -9,7 +9,7 @@ namespace Sdx
   namespace Cmd
   {
     ///
-    /// Result of GetSlaveStatus
+    /// Result of GetSlaveStatus.
     ///
     /// Name        Type   Description
     /// ----------- ------ ---------------------------------------

@@ -9,7 +9,7 @@ namespace Sdx
   namespace Cmd
   {
     ///
-    /// Please note the command ModificationToQzssL1SMessage is deprecated since 21.3. You may use MessageModificationToQzssSlas.
+    /// Please note the command GetQzssL1SMessage is deprecated since 21.3. You may use GetMessageModificationToQzssSlas.
     /// 
     /// Get infos about the L1S Message with this id
     ///

@@ -9,7 +9,7 @@ namespace Sdx
   namespace Cmd
   {
     ///
-    /// Please note the command SatGeo is deprecated since 21.3. You may use ForceSVGeo.
+    /// Please note the command SetSatGeo is deprecated since 21.3. You may use ForceSVGeo.
     /// 
     /// Set whether a satellite is geostationary
     ///

@@ -3,7 +3,7 @@ from .commandbase import CommandBase
 from .commandresult import CommandResult
 from .commandbase import ExecutePermission
 
-ApiVersion = 32
+ApiVersion = 33
 
 #
 # The GPS AS flag value.
@@ -116,7 +116,20 @@ class UndoCmd(CommandBase):
     return ExecutePermission.EXECUTE_IF_IDLE
 
 #
-# Ask Skydel's Data Folder. The user can changed it in the GUI's Preferences.
+# Redo the last undone command like Ctrl+Shift+Z in the UI
+#
+#
+
+class RedoCmd(CommandBase):
+
+  def __init__(self):
+    CommandBase.__init__(self, "RedoCmd")
+
+  def executePermission(self):
+    return ExecutePermission.EXECUTE_IF_IDLE
+
+#
+# Get Skydel's Data Folder. The user can changed it in the GUI's Preferences.
 #
 #
 
@@ -129,7 +142,7 @@ class GetDataFolder(CommandBase):
     return ExecutePermission.EXECUTE_IF_NO_CONFIG | ExecutePermission.EXECUTE_IF_IDLE | ExecutePermission.EXECUTE_IF_SIMULATING
 
 #
-# Result of the command "GetDataFolder"
+# Result of GetDataFolder.
 #
 # Name   Type   Description
 # ------ ------ ------------------
@@ -152,7 +165,7 @@ class DataFolderResult(CommandResult):
     return self.set("Folder", value)
 
 #
-# Ask Skydel version.
+# Get Skydel version.
 #
 #
 
@@ -165,7 +178,7 @@ class GetVersion(CommandBase):
     return ExecutePermission.EXECUTE_IF_NO_CONFIG | ExecutePermission.EXECUTE_IF_IDLE | ExecutePermission.EXECUTE_IF_SIMULATING
 
 #
-# Result of the command "GetVersion"
+# Result of GetVersion.
 #
 # Name    Type   Description
 # ------- ------ --------------
@@ -188,7 +201,7 @@ class VersionResult(CommandResult):
     return self.set("Version", value)
 
 #
-# Return simulation elapsed time in milliseconds.
+# Get simulation elapsed time in milliseconds.
 #
 #
 
@@ -201,7 +214,7 @@ class GetSimulationElapsedTime(CommandBase):
     return ExecutePermission.EXECUTE_IF_SIMULATING
 
 #
-# Result of the command "GetSimulationElapsedTime"
+# Result of GetSimulationElapsedTime.
 #
 # Name         Type Description
 # ------------ ---- -----------------------------------------------------------------------------
@@ -554,7 +567,7 @@ class IsRFOutputEnabled(CommandBase):
     return self.set("SvId", value)
 
 #
-# Result of IsRFOutputEnabled
+# Result of IsRFOutputEnabled.
 #
 # Name    Type   Description
 # ------- ------ ----------------------------------------------------------------
@@ -647,7 +660,7 @@ class IsRFOutputEnabledForEachSV(CommandBase):
     return self.set("System", value)
 
 #
-# Result of IsRFOutputEnabledForEachSV
+# Result of IsRFOutputEnabledForEachSV.
 #
 # Name    Type       Description
 # ------- ---------- -------------------------------------------------------------------------------------------------
@@ -754,7 +767,7 @@ class IsSignalEnabledForSV(CommandBase):
     return self.set("SvId", value)
 
 #
-# Result of IsSignalEnabledForSV
+# Result of IsSignalEnabledForSV.
 #
 # Name    Type   Description
 # ------- ------ -------------------------------------------------------------------------------
@@ -856,7 +869,7 @@ class IsSignalEnabledForEachSV(CommandBase):
     return self.set("Signal", value)
 
 #
-# Result of IsSignalEnabledForEachSV
+# Result of IsSignalEnabledForEachSV.
 #
 # Name    Type       Description
 # ------- ---------- --------------------------------------------------------------------------------------------------------------
@@ -960,7 +973,7 @@ class IsPYCodeEnabledForSV(CommandBase):
     return self.set("SvId", value)
 
 #
-# Result of IsPYCodeEnabledForSV
+# Result of IsPYCodeEnabledForSV.
 #
 # Name    Type   Description
 # ------- ------ -----------------------------------------------
@@ -1053,7 +1066,7 @@ class IsPYCodeEnabledForEachSV(CommandBase):
     return self.set("Signal", value)
 
 #
-# Result of IsPYCodeEnabledForEachSV
+# Result of IsPYCodeEnabledForEachSV.
 #
 # Name    Type       Description
 # ------- ---------- ----------------------------------------------------------------------------------------
@@ -1131,7 +1144,7 @@ class SetPowerForSV(CommandBase):
     return self.set("OtherSatsFollow", value)
 
 #
-# Get power offset for specified satellite SV ID.
+# Get the power offset for specified satellite SV ID.
 #
 # Name   Type   Description
 # ------ ------ -----------------------------------------------------------------------------------
@@ -1319,7 +1332,7 @@ class IsPropagationDelayEnabled(CommandBase):
     return self.set("System", value)
 
 #
-# Result of IsPropagationDelayEnabled
+# Result of IsPropagationDelayEnabled.
 #
 # Name    Type   Description
 # ------- ------ -------------------------------------------------------------------------------------------------
@@ -1420,7 +1433,7 @@ class IsSatMotionFixed(CommandBase):
     return self.set("SvId", value)
 
 #
-# Result of IsSatMotionFixed
+# Result of IsSatMotionFixed.
 #
 # Name    Type   Description
 # ------- ------ --------------------------------------------------------------------------------------------------------------
@@ -1521,7 +1534,7 @@ class GetIonoAlpha(CommandBase):
     return self.set("Index", value)
 
 #
-# Result of GetIonoAlpha
+# Result of GetIonoAlpha.
 #
 # Name  Type   Description
 # ----- ------ ------------------------
@@ -1614,7 +1627,7 @@ class GetIonoBeta(CommandBase):
     return self.set("Index", value)
 
 #
-# Result of GetIonoBeta
+# Result of GetIonoBeta.
 #
 # Name  Type   Description
 # ----- ------ ------------------------
@@ -1699,7 +1712,7 @@ class GetIonoBdgimAlpha(CommandBase):
     return self.set("Index", value)
 
 #
-# Result of GetIonoBdgimAlpha
+# Result of GetIonoBdgimAlpha.
 #
 # Name  Type   Description
 # ----- ------ ------------------------
@@ -1766,7 +1779,7 @@ class GetIonoModel(CommandBase):
     return ExecutePermission.EXECUTE_IF_IDLE
 
 #
-# Result of GetIonoModel
+# Result of GetIonoModel.
 #
 # Name  Type   Description
 # ----- ------ -------------------------------------------------------
@@ -1792,8 +1805,8 @@ class GetIonoModelResult(CommandResult):
 # Set tropospheric model
 #
 # Name  Type   Description
-# ----- ------ -------------------------------------------------------
-# Model string Tropospheric model ("None", "Saastamoinen" or "Stanag")
+# ----- ------ -----------------------------------------------------------------
+# Model string Tropospheric model ("None", "Saastamoinen", "Stanag" or "DO-229")
 #
 
 class SetTropoModel(CommandBase):
@@ -1825,11 +1838,11 @@ class GetTropoModel(CommandBase):
     return ExecutePermission.EXECUTE_IF_IDLE
 
 #
-# Result of GetTropoModel
+# Result of GetTropoModel.
 #
 # Name  Type   Description
-# ----- ------ -------------------------------------------------------
-# Model string Tropospheric model ("None", "Saastamoinen" or "Stanag")
+# ----- ------ -----------------------------------------------------------------
+# Model string Tropospheric model ("None", "Saastamoinen", "Stanag" or "DO-229")
 #
 
 class GetTropoModelResult(CommandResult):
@@ -1884,7 +1897,7 @@ class GetStartTimeMode(CommandBase):
     return ExecutePermission.EXECUTE_IF_IDLE
 
 #
-# Result of GetStartTimeMode
+# Result of GetStartTimeMode.
 #
 # Name Type   Description
 # ---- ------ --------------------------------------------
@@ -1983,7 +1996,7 @@ class GetGpsTimingReceiver(CommandBase):
     return ExecutePermission.EXECUTE_IF_IDLE
 
 #
-# Result of GetGpsTimingReceiver
+# Result of GetGpsTimingReceiver.
 #
 # Name        Type                           Description
 # ----------- ------------------------------ -----------------------------------------------------------------------------------------
@@ -2084,7 +2097,7 @@ class GetStartTimeOffset(CommandBase):
     return ExecutePermission.EXECUTE_IF_IDLE
 
 #
-# Result of GetStartTimeOffset
+# Result of GetStartTimeOffset.
 #
 # Name   Type Description
 # ------ ---- -----------------------------------------------------------------------------------------
@@ -2166,7 +2179,7 @@ class GetGpsStartTime(CommandBase):
     return ExecutePermission.EXECUTE_IF_SIMULATING | ExecutePermission.EXECUTE_IF_IDLE
 
 #
-# Result for GetGpsStartTime
+# Result of GetGpsStartTime.
 #
 # Name       Type     Description
 # ---------- -------- ------------------------------------------------------------------------------------------------
@@ -2233,7 +2246,7 @@ class GetDuration(CommandBase):
     return ExecutePermission.EXECUTE_IF_IDLE
 
 #
-# Result of GetDuration
+# Result of GetDuration.
 #
 # Name   Type Description
 # ------ ---- -----------------------
@@ -2292,7 +2305,7 @@ class IsLogRawEnabled(CommandBase):
     return ExecutePermission.EXECUTE_IF_IDLE
 
 #
-# Result of IsLogRawEnabled
+# Result of IsLogRawEnabled.
 #
 # Name    Type Description
 # ------- ---- -----------------------------------------------
@@ -2367,7 +2380,7 @@ class IsLogDownlinkEnabled(CommandBase):
     return ExecutePermission.EXECUTE_IF_IDLE
 
 #
-# Result of IsLogDownlinkEnabled
+# Result of IsLogDownlinkEnabled.
 #
 # Name           Type          Description
 # -------------- ------------- ----------------------------------------------------------------------------------------------------------------------
@@ -2442,7 +2455,7 @@ class IsLogRinexEnabled(CommandBase):
     return ExecutePermission.EXECUTE_IF_IDLE
 
 #
-# Result of IsLogRinexEnabled
+# Result of IsLogRinexEnabled.
 #
 # Name    Type Description
 # ------- ---- ------------------------------------------------
@@ -2501,7 +2514,7 @@ class IsLogHILInputEnabled(CommandBase):
     return ExecutePermission.EXECUTE_IF_IDLE
 
 #
-# Result of IsLogHILInputEnabled
+# Result of IsLogHILInputEnabled.
 #
 # Name    Type Description
 # ------- ---- ------------------------------------------------
@@ -2560,7 +2573,7 @@ class GetLogRawRate(CommandBase):
     return ExecutePermission.EXECUTE_IF_IDLE
 
 #
-# Result of GetLogRawRate
+# Result of GetLogRawRate.
 #
 # Name Type Description
 # ---- ---- --------------------------------------
@@ -2621,7 +2634,7 @@ class IsLogNmeaEnabled(CommandBase):
     return ExecutePermission.EXECUTE_IF_IDLE
 
 #
-# Result of IsLogNmeaEnabled
+# Result of IsLogNmeaEnabled.
 #
 # Name    Type Description
 # ------- ---- --------------------------------------------------
@@ -2680,7 +2693,7 @@ class GetLogNmeaRate(CommandBase):
     return ExecutePermission.EXECUTE_IF_IDLE
 
 #
-# Result of GetLogNmeaRate
+# Result of GetLogNmeaRate.
 #
 # Name Type Description
 # ---- ---- ------------------------------
@@ -2740,7 +2753,7 @@ class GetMasterStatus(CommandBase):
     return ExecutePermission.EXECUTE_IF_IDLE | ExecutePermission.EXECUTE_IF_SIMULATING
 
 #
-# Result of GetMasterStatus
+# Result of GetMasterStatus.
 #
 # Name           Type Description
 # -------------- ---- -------------------------------------
@@ -2816,7 +2829,7 @@ class GetSlaveStatus(CommandBase):
     return ExecutePermission.EXECUTE_IF_IDLE | ExecutePermission.EXECUTE_IF_SIMULATING
 
 #
-# Result of GetSlaveStatus
+# Result of GetSlaveStatus.
 #
 # Name        Type   Description
 # ----------- ------ ---------------------------------------
@@ -2915,7 +2928,7 @@ class GetLeapSecondFuture(CommandBase):
     return ExecutePermission.EXECUTE_IF_IDLE
 
 #
-# Result of GetLeapSecondFuture
+# Result of GetLeapSecondFuture.
 #
 # Name    Type Description
 # ------- ---- ----------------------------------------------------------------------
@@ -2990,7 +3003,7 @@ class IsSignalStrengthModelEnabled(CommandBase):
     return ExecutePermission.EXECUTE_IF_IDLE
 
 #
-# Result of IsSignalStrengthModelEnabled
+# Result of IsSignalStrengthModelEnabled.
 #
 # Name    Type Description
 # ------- ---- -----------------------------------------------------------
@@ -3049,7 +3062,7 @@ class IsElevationMaskBelowEnabled(CommandBase):
     return ExecutePermission.EXECUTE_IF_IDLE
 
 #
-# Result of IsElevationMaskBelowEnabled
+# Result of IsElevationMaskBelowEnabled.
 #
 # Name    Type Description
 # ------- ---- ------------------------------------------------------------------
@@ -3108,7 +3121,7 @@ class IsElevationMaskAboveEnabled(CommandBase):
     return ExecutePermission.EXECUTE_IF_IDLE
 
 #
-# Result of IsElevationMaskAboveEnabled
+# Result of IsElevationMaskAboveEnabled.
 #
 # Name    Type Description
 # ------- ---- ------------------------------------------------------------------
@@ -3167,7 +3180,7 @@ class GetElevationMaskBelow(CommandBase):
     return ExecutePermission.EXECUTE_IF_IDLE
 
 #
-# Result of GetElevationMaskBelow
+# Result of GetElevationMaskBelow.
 #
 # Name  Type   Description
 # ----- ------ ---------------------------
@@ -3226,7 +3239,7 @@ class GetElevationMaskAbove(CommandBase):
     return ExecutePermission.EXECUTE_IF_IDLE
 
 #
-# Result of GetElevationMaskAbove
+# Result of GetElevationMaskAbove.
 #
 # Name  Type   Description
 # ----- ------ ---------------------------
@@ -3301,7 +3314,7 @@ class GetIssueOfData(CommandBase):
     return ExecutePermission.EXECUTE_IF_IDLE
 
 #
-# Result of GetIssueOfData
+# Result of GetIssueOfData.
 #
 # Name          Type          Description
 # ------------- ------------- ---------------------------------------------------
@@ -3392,7 +3405,7 @@ class GetIssueOfDataGalileo(CommandBase):
     return ExecutePermission.EXECUTE_IF_IDLE
 
 #
-# Result of GetIssueOfDataGalileo
+# Result of GetIssueOfDataGalileo.
 #
 # Name          Type          Description
 # ------------- ------------- ---------------------------------------------------------
@@ -3483,7 +3496,7 @@ class GetAgeOfDataBeiDou(CommandBase):
     return ExecutePermission.EXECUTE_IF_IDLE
 
 #
-# Result of GetAgeOfDataBeiDou
+# Result of GetAgeOfDataBeiDou.
 #
 # Name          Type          Description
 # ------------- ------------- ---------------------------------------------------
@@ -3566,7 +3579,7 @@ class GetIssueOfDataBeiDou(CommandBase):
     return ExecutePermission.EXECUTE_IF_IDLE
 
 #
-# Result of GetIssueOfDataBeiDou
+# Result of GetIssueOfDataBeiDou.
 #
 # Name      Type Description
 # --------- ---- ------------------------
@@ -3649,7 +3662,7 @@ class GetIssueOfDataQzss(CommandBase):
     return ExecutePermission.EXECUTE_IF_IDLE
 
 #
-# Result of GetIssueOfDataQzss
+# Result of GetIssueOfDataQzss.
 #
 # Name          Type          Description
 # ------------- ------------- ---------------------------------------------------
@@ -3732,7 +3745,7 @@ class GetIssueOfDataNavIC(CommandBase):
     return ExecutePermission.EXECUTE_IF_IDLE
 
 #
-# Result of GetIssueOfDataNavIC
+# Result of GetIssueOfDataNavIC.
 #
 # Name              Type          Description
 # ----------------- ------------- -------------------------------------------------------
@@ -3817,7 +3830,7 @@ class GetGpsConfigurationCodeForSV(CommandBase):
     return self.set("SvId", value)
 
 #
-# Result of GetGpsConfigurationCodeForSV
+# Result of GetGpsConfigurationCodeForSV.
 #
 # Name     Type Description
 # -------- ---- ---------------------
@@ -3924,7 +3937,7 @@ class GetGpsSVConfigurationForAllSat(CommandBase):
     return ExecutePermission.EXECUTE_IF_IDLE
 
 #
-# Result of GetGpsConfigurationForEachSV
+# Result of GetGpsConfigurationForEachSV.
 #
 # Name      Type      Description
 # --------- --------- --------------------------
@@ -4001,7 +4014,7 @@ class GetGpsDataHealthForSV(CommandBase):
     return self.set("SvId", value)
 
 #
-# Result of GetGpsDataHealthForSV
+# Result of GetGpsDataHealthForSV.
 #
 # Name   Type Description
 # ------ ---- -----------------------
@@ -4086,7 +4099,7 @@ class GetGpsSignalHealthForSV(CommandBase):
     return self.set("SvId", value)
 
 #
-# Result of GetGpsSignalHealthForSV
+# Result of GetGpsSignalHealthForSV.
 #
 # Name   Type Description
 # ------ ---- -----------------------
@@ -4187,7 +4200,7 @@ class GetGalileoDataHealthForSV(CommandBase):
     return self.set("Component", value)
 
 #
-# Result of GetGalileoDataHealthForSV
+# Result of GetGalileoDataHealthForSV.
 #
 # Name      Type   Description
 # --------- ------ -----------------------------------------------------------------------
@@ -4296,7 +4309,7 @@ class GetGalileoSignalHealthForSV(CommandBase):
     return self.set("Component", value)
 
 #
-# Result of GetGalileoSignalHealthForSV
+# Result of GetGalileoSignalHealthForSV.
 #
 # Name      Type   Description
 # --------- ------ ------------------------------------------
@@ -4389,7 +4402,7 @@ class GetGpsL1HealthForSV(CommandBase):
     return self.set("SvId", value)
 
 #
-# Result of GetGpsL1HealthForSV
+# Result of GetGpsL1HealthForSV.
 #
 # Name   Type Description
 # ------ ---- --------------------------------------------------------------
@@ -4474,7 +4487,7 @@ class GetGpsL2HealthForSV(CommandBase):
     return self.set("SvId", value)
 
 #
-# Result of GetGpsL2HealthForSV
+# Result of GetGpsL2HealthForSV.
 #
 # Name   Type Description
 # ------ ---- --------------------------------------------------------------
@@ -4559,7 +4572,7 @@ class GetGpsL5HealthForSV(CommandBase):
     return self.set("SvId", value)
 
 #
-# Result of GetGpsL5HealthForSV
+# Result of GetGpsL5HealthForSV.
 #
 # Name   Type Description
 # ------ ---- --------------------------------------------------------------
@@ -4644,7 +4657,7 @@ class GetGpsL1cHealthForSV(CommandBase):
     return self.set("SvId", value)
 
 #
-# Result of GetGpsL1cHealthForSV
+# Result of GetGpsL1cHealthForSV.
 #
 # Name   Type Description
 # ------ ---- ---------------------------------------------------------------
@@ -4729,7 +4742,7 @@ class GetGpsAntiSpoofingFlagForSV(CommandBase):
     return self.set("SvId", value)
 
 #
-# Result of GetGpsAntiSpoofingFlagForSV
+# Result of GetGpsAntiSpoofingFlagForSV.
 #
 # Name         Type      Description
 # ------------ --------- -----------------------
@@ -4814,7 +4827,7 @@ class GetGpsNavAlertFlagForSV(CommandBase):
     return self.set("SvId", value)
 
 #
-# Result of GetGpsNavAlertFlagForSV
+# Result of GetGpsNavAlertFlagForSV.
 #
 # Name  Type Description
 # ----- ---- --------------------------------------------------
@@ -4899,7 +4912,7 @@ class GetGpsCNavAlertFlagToSV(CommandBase):
     return self.set("SvId", value)
 
 #
-# Result of GetGpsCNavAlertFlagToSV
+# Result of GetGpsCNavAlertFlagToSV.
 #
 # Name  Type Description
 # ----- ---- ---------------------------------------------------
@@ -4984,7 +4997,7 @@ class GetBeiDouHealthInfoForSV(CommandBase):
     return self.set("SvId", value)
 
 #
-# Result of GetBeiDouHealthInfoForSV
+# Result of GetBeiDouHealthInfoForSV.
 #
 # Name   Type Description
 # ------ ---- -------------------------------------------------------------------------
@@ -5069,7 +5082,7 @@ class GetBeiDouAutonomousHealthForSV(CommandBase):
     return self.set("SvId", value)
 
 #
-# Result of GetBeiDouAutonomousHealthForSV
+# Result of GetBeiDouAutonomousHealthForSV.
 #
 # Name   Type Description
 # ------ ---- -------------------------------------
@@ -5154,7 +5167,7 @@ class GetBeiDouCNavHealthInfoForSV(CommandBase):
     return self.set("SvId", value)
 
 #
-# Result of GetBeiDouCNavHealthInfoForSV
+# Result of GetBeiDouCNavHealthInfoForSV.
 #
 # Name   Type Description
 # ------ ---- ------------------------------------------------------
@@ -5239,7 +5252,7 @@ class GetBeiDouHealthStatusForSV(CommandBase):
     return self.set("SvId", value)
 
 #
-# Result of GetBeiDouHealthStatusForSV
+# Result of GetBeiDouHealthStatusForSV.
 #
 # Name   Type Description
 # ------ ---- -----------------------------------------
@@ -5324,7 +5337,7 @@ class GetGlonassEphemerisHealthFlagForSV(CommandBase):
     return self.set("SvId", value)
 
 #
-# Result of GetGlonassEphemerisHealthFlagForSV
+# Result of GetGlonassEphemerisHealthFlagForSV.
 #
 # Name   Type Description
 # ------ ---- --------------------------------------
@@ -5409,7 +5422,7 @@ class GetGlonassAlmanacUnhealthyFlagForSV(CommandBase):
     return self.set("SvId", value)
 
 #
-# Result of GetGlonassAlmanacUnhealthyFlagForSV
+# Result of GetGlonassAlmanacUnhealthyFlagForSV.
 #
 # Name   Type Description
 # ------ ---- ----------------------------------------------------------
@@ -5552,7 +5565,7 @@ class GetQzssSatelliteL1DataHealth(CommandBase):
     return self.set("SvId", value)
 
 #
-# Result of GetQzssL1DataHealthForSV
+# Result of GetQzssL1DataHealthForSV.
 #
 # Name   Type Description
 # ------ ---- ---------------------
@@ -5695,7 +5708,7 @@ class GetQzssSatelliteL1Health(CommandBase):
     return self.set("SvId", value)
 
 #
-# Result of GetQzssL1HealthForSV
+# Result of GetQzssL1HealthForSV.
 #
 # Name   Type Description
 # ------ ---- -----------------------------------------------
@@ -5838,7 +5851,7 @@ class GetQzssSatelliteL2Health(CommandBase):
     return self.set("SvId", value)
 
 #
-# Result of GetQzssL2HealthForSV
+# Result of GetQzssL2HealthForSV.
 #
 # Name   Type Description
 # ------ ---- -----------------------------------------------
@@ -5981,7 +5994,7 @@ class GetQzssSatelliteL5Health(CommandBase):
     return self.set("SvId", value)
 
 #
-# Result of GetQzssL5HealthForSV
+# Result of GetQzssL5HealthForSV.
 #
 # Name   Type Description
 # ------ ---- -----------------------------------------------
@@ -6124,7 +6137,7 @@ class GetQzssSatelliteL1cHealth(CommandBase):
     return self.set("SvId", value)
 
 #
-# Result of GetQzssL1cHealthForSV
+# Result of GetQzssL1cHealthForSV.
 #
 # Name   Type Description
 # ------ ---- ------------------------------------------------
@@ -6267,7 +6280,7 @@ class GetQzssSatelliteNavAlertFlag(CommandBase):
     return self.set("SvId", value)
 
 #
-# Result of GetQzssNavAlertFlagForSV
+# Result of GetQzssNavAlertFlagForSV.
 #
 # Name  Type Description
 # ----- ---- ---------------------------------------------------
@@ -6410,7 +6423,7 @@ class GetNavICSatelliteL5Health(CommandBase):
     return self.set("SvId", value)
 
 #
-# Result of GetNavICL5HealthForSV
+# Result of GetNavICL5HealthForSV.
 #
 # Name   Type Description
 # ------ ---- -----------------------------------------------
@@ -6553,7 +6566,7 @@ class GetNavICSatelliteNavAlertFlag(CommandBase):
     return self.set("SvId", value)
 
 #
-# Result of GetNavICNavAlertFlagForSV
+# Result of GetNavICNavAlertFlagForSV.
 #
 # Name  Type Description
 # ----- ---- ----------------------------------------------------
@@ -6620,7 +6633,7 @@ class GetPowerGlobalOffset(CommandBase):
     return ExecutePermission.EXECUTE_IF_IDLE
 
 #
-# Result of GetPowerGlobalOffset
+# Result of GetPowerGlobalOffset.
 #
 # Name   Type   Description
 # ------ ------ ---------------------------------------------------
@@ -6703,7 +6716,7 @@ class GetPowerOffset(CommandBase):
     return self.set("Signal", value)
 
 #
-# Result of GetPowerOffset
+# Result of GetPowerOffset.
 #
 # Name   Type   Description
 # ------ ------ -------------------------------------------------------------------------------
@@ -6791,7 +6804,7 @@ class GetPowerSbasOffset(CommandBase):
     return self.set("ServiceProvider", value)
 
 #
-# Result of GetPowerSbasOffset
+# Result of GetPowerSbasOffset.
 #
 # Name            Type   Description
 # --------------- ------ -------------------------------------------------------------
@@ -6904,7 +6917,7 @@ class GetModulationTarget(CommandBase):
     return self.set("Id", value)
 
 #
-# Result of GetModulationTarget
+# Result of GetModulationTarget.
 #
 # Name            Type   Description
 # --------------- ------ ------------------------------------------------------------------------------------------------------------------------------------
@@ -7029,7 +7042,7 @@ class GetGpu(CommandBase):
     return self.set("Id", value)
 
 #
-# Result of GetGpu
+# Result of GetGpu.
 #
 # Name   Type   Description
 # ------ ------ --------------------------------------
@@ -7081,7 +7094,7 @@ class GetAllModulationTargets(CommandBase):
     return ExecutePermission.EXECUTE_IF_IDLE
 
 #
-# Result of GetModulationTargets
+# Result of GetAllModulationTargets.
 #
 # Name Type         Description
 # ---- ------------ ---------------
@@ -7293,7 +7306,7 @@ class GetModulationTargetSignals(CommandBase):
     return self.set("Id", value)
 
 #
-# Result of GetModulationTargetSignals
+# Result of GetModulationTargetSignals.
 #
 # Name             Type            Description
 # ---------------- --------------- -----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
@@ -7496,7 +7509,7 @@ class GetModulationTargetInterferences(CommandBase):
     return self.set("Id", value)
 
 #
-# Result of GetModulationTargetInterferences
+# Result of GetModulationTargetInterferences.
 #
 # Name        Type            Description
 # ----------- --------------- ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
@@ -7835,7 +7848,7 @@ class GetDefaultVehicleAntennaModel(CommandBase):
     return ExecutePermission.EXECUTE_IF_IDLE
 
 #
-# Result of GetDefaultVehicleAntennaModel
+# Result of GetDefaultVehicleAntennaModel.
 #
 # Name Type   Description
 # ---- ------ ---------------------------
@@ -7871,7 +7884,7 @@ class GetAllVehicleAntennaNames(CommandBase):
     return ExecutePermission.EXECUTE_IF_IDLE
 
 #
-# Result of GetAllVehicleAntennaNames
+# Result of GetAllVehicleAntennaNames.
 #
 # Name         Type         Description
 # ------------ ------------ -----------------------------
@@ -7972,7 +7985,7 @@ class GetVehicleAntennaGain(CommandBase):
     return self.set("Name", value)
 
 #
-# Result of GetVehicleAntennaGain
+# Result of GetVehicleAntennaGain.
 #
 # Name Type               Description
 # ---- ------------------ -------------------------------------------------------------------------------------------------------------------------
@@ -8097,7 +8110,7 @@ class GetVehicleAntennaPhaseOffset(CommandBase):
     return self.set("Name", value)
 
 #
-# Result of GetVehicleAntennaPhaseOffset
+# Result of GetVehicleAntennaPhaseOffset.
 #
 # Name        Type               Description
 # ----------- ------------------ ----------------------------------------------------------------------------------------------------------------------------------
@@ -8316,7 +8329,7 @@ class GetVehicleGainPatternOffset(CommandBase):
     return self.set("AntennaName", value)
 
 #
-# Result of GetVehicleGainPatternOffset
+# Result of GetVehicleGainPatternOffset.
 #
 # Name        Type            Description
 # ----------- --------------- ------------------------------------------------------------------------------------
@@ -8425,7 +8438,7 @@ class GetVehiclePhasePatternOffset(CommandBase):
     return self.set("AntennaName", value)
 
 #
-# Result of GetVehiclePhasePatternOffset
+# Result of GetVehiclePhasePatternOffset.
 #
 # Name        Type            Description
 # ----------- --------------- ------------------------------------------------------------------------------------
@@ -8574,7 +8587,7 @@ class GetVehicleAntennaOffset(CommandBase):
     return self.set("Name", value)
 
 #
-# Result of GetVehicleAntennaOffset
+# Result of GetVehicleAntennaOffset.
 #
 # Name  Type            Description
 # ----- --------------- --------------------------------------------
@@ -9163,7 +9176,7 @@ class GetAntennaChange(CommandBase):
     return self.set("Id", value)
 
 #
-# Result of GetAntennaChange
+# Result of GetAntennaChange.
 #
 # Name      Type   Description
 # --------- ------ --------------------------------------------------
@@ -9320,7 +9333,7 @@ class GetWFAntennaOffset(CommandBase):
     return ExecutePermission.EXECUTE_IF_IDLE
 
 #
-# Result of GetWFAntennaOffset
+# Result of GetWFAntennaOffset.
 #
 # Name  Type   Description
 # ----- ------ -----------------------------------------------
@@ -9477,7 +9490,7 @@ class GetWFAntennaElementOffset(CommandBase):
     return self.set("Element", value)
 
 #
-# Result of GetWFAntennaElementOffset
+# Result of GetWFAntennaElementOffset.
 #
 # Name    Type   Description
 # ------- ------ -------------------------------------------------------
@@ -9602,7 +9615,7 @@ class GetWFAntennaElementModel(CommandBase):
     return self.set("Element", value)
 
 #
-# Result of GetWFAntennaElementModel
+# Result of GetWFAntennaElementModel.
 #
 # Name             Type   Description
 # ---------------- ------ ----------------------------------------------------------------------------------------------------
@@ -9687,7 +9700,7 @@ class GetWFAntennaElementPhasePatternOffset(CommandBase):
     return self.set("Element", value)
 
 #
-# Result of GetWFAntennaElementPhasePatternOffset
+# Result of GetWFAntennaElementPhasePatternOffset.
 #
 # Name        Type   Description
 # ----------- ------ -------------------------------------------------------------------------
@@ -9772,7 +9785,7 @@ class IsWFAntennaElementEnabled(CommandBase):
     return self.set("Element", value)
 
 #
-# Result of IsWFAntennaElementEnabled
+# Result of IsWFAntennaElementEnabled.
 #
 # Name    Type Description
 # ------- ---- -------------------------------------------------
@@ -9826,7 +9839,7 @@ class GetAllSVAntennaNames(CommandBase):
     return self.set("System", value)
 
 #
-# Result of GetAllSVNames
+# Result of GetAllSVAntennaNames.
 #
 # Name         Type         Description
 # ------------ ------------ ----------------------------------------------------------------
@@ -9943,7 +9956,7 @@ class GetSVGainPatternOffset(CommandBase):
     return self.set("AntennaName", value)
 
 #
-# Result of GetSVGainPatternOffset
+# Result of GetSVGainPatternOffset.
 #
 # Name        Type            Description
 # ----------- --------------- ------------------------------------------------------------------------------------
@@ -10076,7 +10089,7 @@ class GetSVPhasePatternOffset(CommandBase):
     return self.set("AntennaName", value)
 
 #
-# Result of GetSVPhasePatternOffset
+# Result of GetSVPhasePatternOffset.
 #
 # Name        Type            Description
 # ----------- --------------- ------------------------------------------------------------------------------------
@@ -10217,7 +10230,7 @@ class GetSVAntennaGain(CommandBase):
     return self.set("Name", value)
 
 #
-# Result of GetSVAntennaGain
+# Result of GetSVAntennaGain.
 #
 # Name   Type               Description
 # ------ ------------------ -------------------------------------------------------------------------------------------------------------------------
@@ -10366,7 +10379,7 @@ class GetSVAntennaPhaseOffset(CommandBase):
     return self.set("Name", value)
 
 #
-# Result of GetSVAntennaPhaseOffset
+# Result of GetSVAntennaPhaseOffset.
 #
 # Name        Type               Description
 # ----------- ------------------ ----------------------------------------------------------------------------------------------------------------------------------
@@ -10827,7 +10840,7 @@ class GetSVAntennaModelForSV(CommandBase):
     return self.set("SvId", value)
 
 #
-# Result of GetSVAntennaModelForSV
+# Result of GetSVAntennaModelForSV.
 #
 # Name             Type   Description
 # ---------------- ------ -----------------------------------------------------------------
@@ -10920,7 +10933,7 @@ class GetSVAntennaModelForEachSV(CommandBase):
     return self.set("System", value)
 
 #
-# Result of GetSVAntennaModelForEachSV
+# Result of GetSVAntennaModelForEachSV.
 #
 # Name              Type         Description
 # ----------------- ------------ -----------------------------------------------------------------------------------------------------
@@ -11025,7 +11038,7 @@ class GetSVType(CommandBase):
     return self.set("SvId", value)
 
 #
-# Result of GetSVType
+# Result of GetSVType.
 #
 # Name   Type   Description
 # ------ ------ -------------------------------------------------------------
@@ -11132,7 +11145,7 @@ class GetTransmittedPrnForSV(CommandBase):
     return self.set("SignalArray", value)
 
 #
-# Result of GetTransmittedPrnForSV
+# Result of GetTransmittedPrnForSV.
 #
 # Name          Type            Description
 # ------------- --------------- -------------------------------------------------------------------------------
@@ -11236,7 +11249,7 @@ class GetPrnOfSVID(CommandBase):
     return self.set("SvId", value)
 
 #
-# Result of GetPrnOfSVID
+# Result of GetPrnOfSVID.
 #
 # Name   Type   Description
 # ------ ------ ----------------------------------------------------------------------------------------------------------------------------------------------------------
@@ -11329,7 +11342,7 @@ class GetPrnForEachSV(CommandBase):
     return self.set("Signal", value)
 
 #
-# Result of GetPrnForEachSV
+# Result of GetPrnForEachSV.
 #
 # Name   Type      Description
 # ------ --------- ----------------------------------------------------------------------------------------------------------------------------------------------------------
@@ -11419,7 +11432,7 @@ class IsTrajectorySmoothingEnabled(CommandBase):
     return ExecutePermission.EXECUTE_IF_IDLE
 
 #
-# Result of IsTrajectorySmoothingEnabled
+# Result of IsTrajectorySmoothingEnabled.
 #
 # Name    Type Description
 # ------- ---- ------------------------------------------------------
@@ -11478,7 +11491,7 @@ class IsSimulationStopAtTrajectoryEndEnabled(CommandBase):
     return ExecutePermission.EXECUTE_IF_IDLE
 
 #
-# Result of IsSimulationStopAtTrajectoryEndEnabled
+# Result of IsSimulationStopAtTrajectoryEndEnabled.
 #
 # Name    Type Description
 # ------- ---- ------------------------------------------------------------------------
@@ -11537,7 +11550,7 @@ class IsAttitudeToZeroForced(CommandBase):
     return ExecutePermission.EXECUTE_IF_IDLE
 
 #
-# Result of IsAttitudeToZeroForced
+# Result of IsAttitudeToZeroForced.
 #
 # Name    Type Description
 # ------- ---- -----------------------------------------------
@@ -11596,7 +11609,7 @@ class GetVehicleTrajectory(CommandBase):
     return ExecutePermission.EXECUTE_IF_SIMULATING | ExecutePermission.EXECUTE_IF_IDLE
 
 #
-# Result of GetVehicleTrajectory
+# Result of GetVehicleTrajectory.
 #
 # Name Type   Description
 # ---- ------ -----------------------------------------------------------------------
@@ -11634,6 +11647,42 @@ class SetVehicleType(CommandBase):
 
   def executePermission(self):
     return ExecutePermission.EXECUTE_IF_IDLE
+
+  def type(self):
+    return self.get("Type")
+
+  def setType(self, value):
+    return self.set("Type", value)
+
+#
+# Get vehicle type for Route Trajectory
+#
+#
+
+class GetVehicleType(CommandBase):
+
+  def __init__(self):
+    CommandBase.__init__(self, "GetVehicleType")
+
+  def executePermission(self):
+    return ExecutePermission.EXECUTE_IF_IDLE
+
+#
+# Result of GetVehicleType.
+#
+# Name Type   Description
+# ---- ------ ----------------------------------------------------------
+# Type string Vehicle type ("Ground / Water" or "Airborne / Spaceborne")
+#
+
+class GetVehicleTypeResult(CommandResult):
+
+  def __init__(self, type):
+    CommandResult.__init__(self, "GetVehicleTypeResult")
+    self.setType(type)
+
+  def isSuccess(self):
+    return True
 
   def type(self):
     return self.get("Type")
@@ -12001,7 +12050,7 @@ class GetVehicleTrajectoryFix(CommandBase):
     return ExecutePermission.EXECUTE_IF_IDLE
 
 #
-# Result of GetVehicleTrajectoryFix
+# Result of GetVehicleTrajectoryFix.
 #
 # Name  Type   Description
 # ----- ------ -----------------------
@@ -12156,7 +12205,7 @@ class GetVehicleTrajectoryFixEcef(CommandBase):
     return ExecutePermission.EXECUTE_IF_IDLE
 
 #
-# Result of GetVehicleTrajectoryFixEcef
+# Result of GetVehicleTrajectoryFixEcef.
 #
 # Name  Type   Description
 # ----- ------ -----------------------
@@ -12319,7 +12368,7 @@ class GetVehicleTrajectoryCircular(CommandBase):
     return ExecutePermission.EXECUTE_IF_IDLE
 
 #
-# Result of GetVehicleTrajectoryCircular
+# Result of GetVehicleTrajectoryCircular.
 #
 # Name        Type            Description
 # ----------- --------------- --------------------------------
@@ -12490,7 +12539,7 @@ class GetVehicleTrajectoryOrbit(CommandBase):
     return ExecutePermission.EXECUTE_IF_IDLE
 
 #
-# Result of GetVehicleTrajectoryOrbit
+# Result of GetVehicleTrajectoryOrbit.
 #
 # Name              Type     Description
 # ----------------- -------- ---------------------------------------------------------------------
@@ -12569,7 +12618,7 @@ class GetVehicleTrajectoryOrbitResult(CommandResult):
     return self.set("ArgumentOfPerigee", value)
 
 #
-# Get Hardware in the loop trajectory server port. Returns HilPortResult.
+# Get Hardware in the loop trajectory server port.
 #
 #
 
@@ -12582,7 +12631,7 @@ class GetHilPort(CommandBase):
     return ExecutePermission.EXECUTE_IF_NO_CONFIG | ExecutePermission.EXECUTE_IF_IDLE | ExecutePermission.EXECUTE_IF_SIMULATING
 
 #
-# Hardware in the loop server port.
+# Result of GetHilPort.
 #
 # Name Type Description
 # ---- ---- ---------------
@@ -12605,19 +12654,6 @@ class HilPortResult(CommandResult):
     return self.set("Port", value)
 
 #
-# Get last Hardware in the loop trajectory server warning message. Returns HilWarningResult.
-#
-#
-
-class GetLastHilWarning(CommandBase):
-
-  def __init__(self):
-    CommandBase.__init__(self, "GetLastHilWarning")
-
-  def executePermission(self):
-    return ExecutePermission.EXECUTE_IF_SIMULATING
-
-#
 # Reset Hardware in the loop trajectory server warning message.
 #
 #
@@ -12631,7 +12667,20 @@ class ResetHilWarning(CommandBase):
     return ExecutePermission.EXECUTE_IF_SIMULATING
 
 #
-# Hardware in the loop server warning result 
+# Get last Hardware in the loop trajectory server warning message. Returns HilWarningResult.
+#
+#
+
+class GetLastHilWarning(CommandBase):
+
+  def __init__(self):
+    CommandBase.__init__(self, "GetLastHilWarning")
+
+  def executePermission(self):
+    return ExecutePermission.EXECUTE_IF_SIMULATING
+
+#
+# Result of GetLastHilWarning.
 #
 # Name              Type Description
 # ----------------- ---- -----------------------------------------------------------------------------------------------------------------------------------
@@ -12806,7 +12855,7 @@ class GetEphemerisReferenceTime(CommandBase):
     return self.set("SvId", value)
 
 #
-# Result of GetEphemerisReferenceTimeForSV
+# Result of GetEphemerisReferenceTimeForSV.
 #
 # Name   Type     Description
 # ------ -------- --------------------------------------------------------------
@@ -12975,7 +13024,7 @@ class GetGpsEphDoubleParamForSV(CommandBase):
     return self.set("ParamName", value)
 
 #
-# Result of GetGpsEphDoubleParamForSV
+# Result of GetGpsEphDoubleParamForSV.
 #
 # Name      Type   Description
 # --------- ------ --------------------------------------------------------------------
@@ -13136,7 +13185,7 @@ class GetGalileoEphDoubleParamForSV(CommandBase):
     return self.set("ParamName", value)
 
 #
-# Result of GetGalileoEphDoubleParamForSV
+# Result of GetGalileoEphDoubleParamForSV.
 #
 # Name      Type   Description
 # --------- ------ --------------------------------------------------------------------
@@ -13299,7 +13348,7 @@ class GetBeiDouEphDoubleParamForSV(CommandBase):
     return self.set("ParamName", value)
 
 #
-# Result of GetBeiDouEphDoubleParamForSV
+# Result of GetBeiDouEphDoubleParamForSV.
 #
 # Name      Type   Description
 # --------- ------ --------------------------------------------------------------------
@@ -13432,7 +13481,7 @@ class GetGlonassEphDoubleParamForSV(CommandBase):
     return self.set("ParamName", value)
 
 #
-# Result of GetGlonassEphDoubleParamForSV
+# Result of GetGlonassEphDoubleParamForSV.
 #
 # Name      Type   Description
 # --------- ------ --------------------------------------------------------------------
@@ -13623,7 +13672,7 @@ class GetQzssEphemerisDoubleParam(CommandBase):
     return self.set("ParamName", value)
 
 #
-# Result of GetQzssEphDoubleParamForSV
+# Result of GetQzssEphDoubleParamForSV.
 #
 # Name      Type   Description
 # --------- ------ ----------------------------------------------------------------------------------
@@ -13904,7 +13953,7 @@ class GetNavICEphemerisDoubleParam(CommandBase):
     return self.set("ParamName", value)
 
 #
-# Result of GetNavICEphDoubleParamForSV
+# Result of GetNavICEphDoubleParamForSV.
 #
 # Name      Type   Description
 # --------- ------ --------------------------------------------------------------------
@@ -14055,7 +14104,7 @@ class GetGpsEphemerisDoubleParams(CommandBase):
     return self.set("ParamName", value)
 
 #
-# Result of GetGpsEphDoubleParamForEachSV
+# Result of GetGpsEphDoubleParamForEachSV.
 #
 # Name      Type         Description
 # --------- ------------ --------------------------------------------------------------------------------------------------
@@ -14198,7 +14247,7 @@ class GetGalileoEphemerisDoubleParams(CommandBase):
     return self.set("ParamName", value)
 
 #
-# Result of GetGalileoEphDoubleParamForEachSV
+# Result of GetGalileoEphDoubleParamForEachSV.
 #
 # Name      Type         Description
 # --------- ------------ --------------------------------------------------------------------------------------------------
@@ -14341,7 +14390,7 @@ class GetBeiDouEphemerisDoubleParams(CommandBase):
     return self.set("ParamName", value)
 
 #
-# Result of GetBeiDouEphDoubleParamForEachSV
+# Result of GetBeiDouEphDoubleParamForEachSV.
 #
 # Name      Type         Description
 # --------- ------------ --------------------------------------------------------------------------------------------------
@@ -14484,7 +14533,7 @@ class GetGlonassDoubleParams(CommandBase):
     return self.set("ParamName", value)
 
 #
-# Result of GetGlonassEphDoubleParamForEachSV
+# Result of GetGlonassEphDoubleParamForEachSV.
 #
 # Name      Type         Description
 # --------- ------------ --------------------------------------------------------------------------------------------------
@@ -14663,7 +14712,7 @@ class GetQzssEphemerisDoubleParams(CommandBase):
     return self.set("ParamName", value)
 
 #
-# Result of GetQzssEphDoubleParamForEachSV
+# Result of GetQzssEphDoubleParamForEachSV.
 #
 # Name      Type         Description
 # --------- ------------ --------------------------------------------------------------------------------------------------
@@ -14806,7 +14855,7 @@ class GetNavICEphemerisDoubleParams(CommandBase):
     return self.set("ParamName", value)
 
 #
-# Result of GetNavICEphDoubleParamForEachSV
+# Result of GetNavICEphDoubleParamForEachSV.
 #
 # Name      Type         Description
 # --------- ------------ --------------------------------------------------------------------------------------------------
@@ -14923,7 +14972,7 @@ class GetGpsEphBoolParamForSV(CommandBase):
     return self.set("ParamName", value)
 
 #
-# Result of GetGpsEphBoolParamForSV
+# Result of GetGpsEphBoolParamForSV.
 #
 # Name      Type   Description
 # --------- ------ --------------------------------------------------------------------
@@ -15074,7 +15123,7 @@ class GetGpsEphemerisBoolParams(CommandBase):
     return self.set("ParamName", value)
 
 #
-# Result of GetGpsEphBoolParamForEachSV
+# Result of GetGpsEphBoolParamForEachSV.
 #
 # Name      Type       Description
 # --------- ---------- --------------------------------------------------------------------------------------------------
@@ -15183,7 +15232,7 @@ class GetBeiDouEphBoolParamForSV(CommandBase):
     return self.set("ParamName", value)
 
 #
-# Result of GetBeiDouEphBoolParamForSV
+# Result of GetBeiDouEphBoolParamForSV.
 #
 # Name      Type   Description
 # --------- ------ --------------------------------------------------------------------
@@ -15334,7 +15383,7 @@ class GetBeiDouEphemerisBoolParams(CommandBase):
     return self.set("ParamName", value)
 
 #
-# Result of GetBeiDouEphBoolParamForEachSV
+# Result of GetBeiDouEphBoolParamForEachSV.
 #
 # Name      Type       Description
 # --------- ---------- --------------------------------------------------------------------------------------------------
@@ -15541,7 +15590,7 @@ class GetQzssEphemerisBoolParam(CommandBase):
     return self.set("ParamName", value)
 
 #
-# Result of GetQzssEphBoolParamForSV
+# Result of GetQzssEphBoolParamForSV.
 #
 # Name      Type   Description
 # --------- ------ --------------------------------------------------------------------
@@ -15692,7 +15741,7 @@ class GetQzssEphemerisBoolParams(CommandBase):
     return self.set("ParamName", value)
 
 #
-# Result of GetQzssEphBoolParamForEachSV
+# Result of GetQzssEphBoolParamForEachSV.
 #
 # Name      Type       Description
 # --------- ---------- --------------------------------------------------------------------------------------------------
@@ -15793,7 +15842,7 @@ class GetSbasEphParamsForSV(CommandBase):
     return self.set("ParamArray", value)
 
 #
-# Result of GetSbasEphParamsForSV
+# Result of GetSbasEphParamsForSV.
 #
 # Name           Type               Description
 # -------------- ------------------ --------------------------------------------------------------------------
@@ -16124,7 +16173,7 @@ class GetPerturbations(CommandBase):
     return self.set("SvId", value)
 
 #
-# Result of GetPerturbations
+# Result of GetPerturbations.
 #
 # Name   Type   Description
 # ------ ------ ---------------------------------------------
@@ -16299,7 +16348,7 @@ class GetPerturbationsForAllSat(CommandBase):
     return self.set("System", value)
 
 #
-# Result of GetPerturbationsForAllSat
+# Result of GetPerturbationsForAllSat.
 #
 # Name   Type         Description
 # ------ ------------ ---------------------------------------------
@@ -16506,7 +16555,7 @@ class GetMessageModificationToGpsCNav(CommandBase):
     return self.set("Id", value)
 
 #
-# Result of GetMessageModificationToGpsCNav
+# Result of GetMessageModificationToGpsCNav.
 #
 # Name             Type         Description
 # ---------------- ------------ ---------------------------------------------------------------------------------------------
@@ -16729,7 +16778,7 @@ class GetMessageModificationToGpsMNav(CommandBase):
     return self.set("Id", value)
 
 #
-# Result of GetMessageModificationToGpsMNav
+# Result of GetMessageModificationToGpsMNav.
 #
 # Name             Type         Description
 # ---------------- ------------ ----------------------------------------------------------------------------------------------
@@ -16952,7 +17001,7 @@ class GetMessageModificationToGpsCNav2(CommandBase):
     return self.set("Id", value)
 
 #
-# Result of GetMessageModificationToGpsCNav2
+# Result of GetMessageModificationToGpsCNav2.
 #
 # Name             Type         Description
 # ---------------- ------------ ------------------------------------------------------------------------------------
@@ -17176,7 +17225,7 @@ class GetMessageModificationToGpsLNav(CommandBase):
     return self.set("Id", value)
 
 #
-# Result of GetMessageModificationToGpsLNav
+# Result of GetMessageModificationToGpsLNav.
 #
 # Name             Type         Description
 # ---------------- ------------ ------------------------------------------------------------------------------------------------------
@@ -17263,6 +17312,194 @@ class GetMessageModificationToGpsLNavResult(CommandResult):
 
   def setWordModification(self, value):
     return self.set("WordModification", value)
+
+  def id(self):
+    return self.get("Id")
+
+  def setId(self, value):
+    return self.set("Id", value)
+
+#
+# Set (or Modify) event to change Galileo C/NAV message bits. If you send this command without setting the ID
+# parameter, or if you set the ID with a value never used before, a new Modification event will be
+# created. If you reuse the same event ID, it will modify the existing event.
+# 
+# Note that start and stop time are automatically extended to beginning and ending of overlapped
+# messages.
+# 
+# BitModifications can be an empty string. The Modification will have no effect until you modify it with at
+# least one bits mod.
+# 
+# A bits mod is represented with a string using the following format: "I:Bits" where I is a bit
+# index (1 refers to the first transmitted bit) and Bits is a modification mask where each
+# character describes a modification to a single bit. The allowed characters are:
+#    0 : force bit to 0
+#    1 : force bit to 1
+#    - : leave bit unchanged
+#    X : revert bit (0 becomes 1 and 1 becomes 0)
+# 
+# For example: "24:X---10XX" will: revert bits 24, 30 and 31
+#                  set bit 28 to 1
+#                  set bit 29 to 0
+# The other bits are not affected.
+# 
+# You can add multiple bit modifications using commas. For example: "24:X---10XX,127:100X,231:01"
+#
+# Name             Type         Description
+# ---------------- ------------ -------------------------------------------------------------------------------------
+# SignalArray      array string Array of signals to apply the message modification to, accepts "E6BC" (empty for all)
+# SvId             int          The satellite's SV ID 1..36 (use 0 to apply modification to all SVs)
+# StartTime        int          Elapsed time in seconds since start of simulation
+# StopTime         int          Elapsed time in seconds since start of simulation (use 0 for no stop time)
+# UpdateCRC        bool         Recalculate CRC after making modification
+# BitModifications string       Comma separated bit modifications
+# Id               string       Unique identifier of the event
+#
+
+class SetMessageModificationToGalileoCNav(CommandBase):
+
+  def __init__(self, signalArray, svId, startTime, stopTime, updateCRC, bitModifications, id):
+    CommandBase.__init__(self, "SetMessageModificationToGalileoCNav")
+    self.setSignalArray(signalArray)
+    self.setSvId(svId)
+    self.setStartTime(startTime)
+    self.setStopTime(stopTime)
+    self.setUpdateCRC(updateCRC)
+    self.setBitModifications(bitModifications)
+    self.setId(id)
+
+  def executePermission(self):
+    return ExecutePermission.EXECUTE_IF_SIMULATING | ExecutePermission.EXECUTE_IF_IDLE
+
+  def signalArray(self):
+    return self.get("SignalArray")
+
+  def setSignalArray(self, value):
+    return self.set("SignalArray", value)
+
+  def svId(self):
+    return self.get("SvId")
+
+  def setSvId(self, value):
+    return self.set("SvId", value)
+
+  def startTime(self):
+    return self.get("StartTime")
+
+  def setStartTime(self, value):
+    return self.set("StartTime", value)
+
+  def stopTime(self):
+    return self.get("StopTime")
+
+  def setStopTime(self, value):
+    return self.set("StopTime", value)
+
+  def updateCRC(self):
+    return self.get("UpdateCRC")
+
+  def setUpdateCRC(self, value):
+    return self.set("UpdateCRC", value)
+
+  def bitModifications(self):
+    return self.get("BitModifications")
+
+  def setBitModifications(self, value):
+    return self.set("BitModifications", value)
+
+  def id(self):
+    return self.get("Id")
+
+  def setId(self, value):
+    return self.set("Id", value)
+
+#
+# Get infos about the Galileo C/NAV message modification with this ID.
+#
+# Name Type   Description
+# ---- ------ ------------------------------
+# Id   string Unique identifier of the event
+#
+
+class GetMessageModificationToGalileoCNav(CommandBase):
+
+  def __init__(self, id):
+    CommandBase.__init__(self, "GetMessageModificationToGalileoCNav")
+    self.setId(id)
+
+  def executePermission(self):
+    return ExecutePermission.EXECUTE_IF_IDLE
+
+  def id(self):
+    return self.get("Id")
+
+  def setId(self, value):
+    return self.set("Id", value)
+
+#
+# Result of GetMessageModificationToGalileoCNav.
+#
+# Name             Type         Description
+# ---------------- ------------ -------------------------------------------------------------------------------------
+# SignalArray      array string Array of signals to apply the message modification to, accepts "E6BC" (empty for all)
+# SvId             int          The satellite's SV ID 1..36 (use 0 to apply modification to all SVs)
+# StartTime        int          Elapsed time in seconds since start of simulation
+# StopTime         int          Elapsed time in seconds since start of simulation (use 0 for no stop time)
+# UpdateCRC        bool         Recalculate CRC after making modification
+# BitModifications string       Comma separated bit modifications
+# Id               string       Unique identifier of the event
+#
+
+class GetMessageModificationToGalileoCNavResult(CommandResult):
+
+  def __init__(self, signalArray, svId, startTime, stopTime, updateCRC, bitModifications, id):
+    CommandResult.__init__(self, "GetMessageModificationToGalileoCNavResult")
+    self.setSignalArray(signalArray)
+    self.setSvId(svId)
+    self.setStartTime(startTime)
+    self.setStopTime(stopTime)
+    self.setUpdateCRC(updateCRC)
+    self.setBitModifications(bitModifications)
+    self.setId(id)
+
+  def isSuccess(self):
+    return True
+
+  def signalArray(self):
+    return self.get("SignalArray")
+
+  def setSignalArray(self, value):
+    return self.set("SignalArray", value)
+
+  def svId(self):
+    return self.get("SvId")
+
+  def setSvId(self, value):
+    return self.set("SvId", value)
+
+  def startTime(self):
+    return self.get("StartTime")
+
+  def setStartTime(self, value):
+    return self.set("StartTime", value)
+
+  def stopTime(self):
+    return self.get("StopTime")
+
+  def setStopTime(self, value):
+    return self.set("StopTime", value)
+
+  def updateCRC(self):
+    return self.get("UpdateCRC")
+
+  def setUpdateCRC(self, value):
+    return self.set("UpdateCRC", value)
+
+  def bitModifications(self):
+    return self.get("BitModifications")
+
+  def setBitModifications(self, value):
+    return self.set("BitModifications", value)
 
   def id(self):
     return self.get("Id")
@@ -17412,7 +17649,7 @@ class GetMessageModificationToGalileoFNav(CommandBase):
     return self.set("Id", value)
 
 #
-# Result of GetMessageModificationToGalileoFNav
+# Result of GetMessageModificationToGalileoFNav.
 #
 # Name             Type         Description
 # ---------------- ------------ ------------------------------------------------------------------------------------
@@ -17648,7 +17885,7 @@ class GetMessageModificationToGalileoINav(CommandBase):
     return self.set("Id", value)
 
 #
-# Result of GetMessageModificationToGalileoINav
+# Result of GetMessageModificationToGalileoINav.
 #
 # Name             Type         Description
 # ---------------- ------------ ---------------------------------------------------------------------------------------------
@@ -17878,7 +18115,7 @@ class GetMessageModificationToGlonassNav(CommandBase):
     return self.set("Id", value)
 
 #
-# Result of GetMessageModificationToGlonassNav
+# Result of GetMessageModificationToGlonassNav.
 #
 # Name               Type         Description
 # ------------------ ------------ --------------------------------------------------------------------------------------------
@@ -18102,7 +18339,7 @@ class GetMessageModificationToBeiDouD1Nav(CommandBase):
     return self.set("Id", value)
 
 #
-# Result of GetMessageModificationToBeiDouD1Nav
+# Result of GetMessageModificationToBeiDouD1Nav.
 #
 # Name             Type         Description
 # ---------------- ------------ --------------------------------------------------------------------------------------------
@@ -18334,7 +18571,7 @@ class GetMessageModificationToBeiDouD2Nav(CommandBase):
     return self.set("Id", value)
 
 #
-# Result of GetMessageModificationToBeiDouD2Nav
+# Result of GetMessageModificationToBeiDouD2Nav.
 #
 # Name             Type         Description
 # ---------------- ------------ --------------------------------------------------------------------------------------------
@@ -18565,7 +18802,7 @@ class GetMessageModificationToBeiDouCNav1(CommandBase):
     return self.set("Id", value)
 
 #
-# Result of GetMessageModificationToBeiDouCNav1
+# Result of GetMessageModificationToBeiDouCNav1.
 #
 # Name             Type         Description
 # ---------------- ------------ ------------------------------------------------------------------------------------
@@ -18788,7 +19025,7 @@ class GetMessageModificationToBeiDouCNav2(CommandBase):
     return self.set("Id", value)
 
 #
-# Result of GetMessageModificationToBeiDouCNav2
+# Result of GetMessageModificationToBeiDouCNav2.
 #
 # Name             Type         Description
 # ---------------- ------------ ------------------------------------------------------------------------------------
@@ -19012,7 +19249,7 @@ class GetMessageModificationToQzssLNav(CommandBase):
     return self.set("Id", value)
 
 #
-# Result of GetMessageModificationToQzssLNav
+# Result of GetMessageModificationToQzssLNav.
 #
 # Name             Type         Description
 # ---------------- ------------ -----------------------------------------------------------------------------------------
@@ -19243,7 +19480,7 @@ class GetMessageModificationToQzssSlas(CommandBase):
     return self.set("Id", value)
 
 #
-# Result of GetMessageModificationToQzssSlas
+# Result of GetMessageModificationToQzssSlas.
 #
 # Name             Type         Description
 # ---------------- ------------ ----------------------------------------------------------------------------------------
@@ -19466,7 +19703,7 @@ class GetMessageModificationToQzssCNav2(CommandBase):
     return self.set("Id", value)
 
 #
-# Result of GetMessageModificationToQzssCNav2
+# Result of GetMessageModificationToQzssCNav2.
 #
 # Name             Type         Description
 # ---------------- ------------ ----------------------------------------------------------------------------------------
@@ -19697,7 +19934,7 @@ class GetMessageModificationToNavICNav(CommandBase):
     return self.set("Id", value)
 
 #
-# Result of GetMessageModificationToNavICNav
+# Result of GetMessageModificationToNavICNav.
 #
 # Name             Type         Description
 # ---------------- ------------ ----------------------------------------------------------------------------------------
@@ -20369,7 +20606,7 @@ class GetPseudorangeRampForSV(CommandBase):
     return self.set("Id", value)
 
 #
-# Result of GetPseudorangeRampForSV
+# Result of GetPseudorangeRampForSV.
 #
 # Name          Type   Description
 # ------------- ------ ----------------------------------------------------------------------------------
@@ -20479,7 +20716,7 @@ class GetAllPseudorangeRampForSV(CommandBase):
     return self.set("SvId", value)
 
 #
-# result of GetAllPseudorangeRampForSV
+# Result of GetAllPseudorangeRampForSV.
 #
 # Name   Type         Description
 # ------ ------------ ------------------------------------------------------------------
@@ -20673,7 +20910,7 @@ class GetAlmanacInitialUploadTimeOffset(CommandBase):
     return ExecutePermission.EXECUTE_IF_IDLE
 
 #
-# Result of GetAlmanacInitialUploadTimeOffset
+# Result of GetAlmanacInitialUploadTimeOffset.
 #
 # Name   Type   Description
 # ------ ------ -------------------------------------------------------------------------------------------
@@ -20750,7 +20987,7 @@ class GetAlmanacUploadTimeInterval(CommandBase):
     return ExecutePermission.EXECUTE_IF_IDLE
 
 #
-# Result of GetAlmanacUploadTimeInterval
+# Result of GetAlmanacUploadTimeInterval.
 #
 # Name     Type   Description
 # -------- ------ ----------------------------------------------------------
@@ -21039,11 +21276,11 @@ class GetMultipathForID(CommandBase):
     return self.set("Id", value)
 
 #
-# Result of GetMultipathForIDResult.
+# Result of GetMultipathForID.
 #
 # Name         Type   Description
 # ------------ ------ ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
-# Id           string Unique identifier.
+# Id           string A multipath ID
 # System       string "GPS", "GLONASS", "Galileo", "BeiDou", "SBAS", "QZSS" or "NavIC"
 # Signal       string Accepted signal keys: "L1CA", "L1C", "L1P", "L1M", "L2C", "L2P", "L2M", "L5", "G1", "G2", "E1", "E5a", "E5b", "B1", "B2", "B1C", "B2a", "SBASL1", "QZSSL1CA", "QZSSL1C", "QZSSL5", "QZSSL1S", "QZSSL5S", "NAVICL5"
 # SvId         int    The satellite's SV ID
@@ -21296,7 +21533,7 @@ class IsLosEnabledForSV(CommandBase):
     return self.set("SvId", value)
 
 #
-# Result of IsLosEnabledForSV
+# Result of IsLosEnabledForSV.
 #
 # Name    Type   Description
 # ------- ------ ----------------------------------------------------------------
@@ -21412,7 +21649,7 @@ class IsLOSEnabledForEachSV(CommandBase):
     return self.set("System", value)
 
 #
-# Result of IsLOSEnabledForEachSV
+# Result of IsLOSEnabledForEachSV.
 #
 # Name    Type       Description
 # ------- ---------- -----------------------------------------------------------------------------------------------------------
@@ -21487,7 +21724,7 @@ class GetPlugInInstance(CommandBase):
     return ExecutePermission.EXECUTE_IF_IDLE
 
 #
-# Result of GetPlugInInstance
+# Result of GetPlugInInstance.
 #
 # Name Type   Description
 # ---- ------ -------------------------------------
@@ -21577,7 +21814,7 @@ class GetDefaultIntTxPersistence(CommandBase):
     return ExecutePermission.EXECUTE_IF_IDLE
 
 #
-# Result of GetDefaultIntTxPersistence
+# Result of GetDefaultIntTxPersistence.
 #
 # Name         Type Description
 # ------------ ---- --------------------------------------------------------------------------------
@@ -21600,7 +21837,7 @@ class GetDefaultIntTxPersistenceResult(CommandResult):
     return self.set("DefaultValue", value)
 
 #
-# get the ID of all interferences transmitters.
+# Get the ID of all interferences transmitters.
 #
 #
 
@@ -21613,7 +21850,7 @@ class GetAllIntTxID(CommandBase):
     return ExecutePermission.EXECUTE_IF_IDLE
 
 #
-# Result of GetAllIntTxID
+# Result of GetAllIntTxID.
 #
 # Name Type         Description
 # ---- ------------ ------------------------------------------
@@ -21726,7 +21963,7 @@ class GetIntTx(CommandBase):
     return self.set("Id", value)
 
 #
-# Result of GetIntTx
+# Result of GetIntTx.
 #
 # Name      Type   Description
 # --------- ------ ----------------------------------------------------------------------------------------
@@ -21874,7 +22111,7 @@ class GetIntTxColor(CommandBase):
     return self.set("Id", value)
 
 #
-# Result of GetIntTxColor
+# Result of GetIntTxColor.
 #
 # Name  Type   Description
 # ----- ------ -------------------------------------------------------------------------------
@@ -22052,7 +22289,7 @@ class GetIntTxPersistence(CommandBase):
     return self.set("Id", value)
 
 #
-# Result of GetIntTxPersistence
+# Result of GetIntTxPersistence.
 #
 # Name        Type   Description
 # ----------- ------ ------------------------------------------------------
@@ -22232,7 +22469,7 @@ class GetIntTxHiddenOnMap(CommandBase):
     return self.set("Id", value)
 
 #
-# Result of GetIntTxHiddenOnMap
+# Result of GetIntTxHiddenOnMap.
 #
 # Name        Type   Description
 # ----------- ------ -----------------------------------------------
@@ -22317,7 +22554,7 @@ class IsIntTxIgnoreRxAntennaGainPattern(CommandBase):
     return self.set("Id", value)
 
 #
-# Result of IsIntTxIgnoreRxAntennaGainPattern
+# Result of IsIntTxIgnoreRxAntennaGainPattern.
 #
 # Name   Type   Description
 # ------ ------ -------------------------------------------------------------
@@ -22402,7 +22639,7 @@ class IsIntTxIgnoreRxAntennaPhasePattern(CommandBase):
     return self.set("Id", value)
 
 #
-# Result of IsIntTxIgnoreRxAntennaPhasePattern
+# Result of IsIntTxIgnoreRxAntennaPhasePattern.
 #
 # Name   Type   Description
 # ------ ------ --------------------------------------------------------------
@@ -22550,7 +22787,7 @@ class GetIntTxFix(CommandBase):
     return self.set("Id", value)
 
 #
-# Result of GetIntTxFix
+# Result of GetIntTxFix.
 #
 # Name  Type   Description
 # ----- ------ ------------------------------
@@ -22715,7 +22952,7 @@ class GetIntTxFixEcef(CommandBase):
     return self.set("Id", value)
 
 #
-# Result of GetIntTxFixEcef
+# Result of GetIntTxFixEcef.
 #
 # Name  Type   Description
 # ----- ------ ------------------------------
@@ -22888,7 +23125,7 @@ class GetIntTxCircular(CommandBase):
     return self.set("Id", value)
 
 #
-# Result of GetIntTxCircular
+# Result of GetIntTxCircular.
 #
 # Name        Type            Description
 # ----------- --------------- --------------------------------
@@ -23292,7 +23529,7 @@ class IsIntTxTrajectorySmoothingEnabled(CommandBase):
     return self.set("Id", value)
 
 #
-# Result of IsIntTxTrajectorySmoothingEnabled
+# Result of IsIntTxTrajectorySmoothingEnabled.
 #
 # Name    Type   Description
 # ------- ------ -------------------------------------------------------------------
@@ -23377,7 +23614,7 @@ class IsIntTxAttitudeToZeroForced(CommandBase):
     return self.set("Id", value)
 
 #
-# Result of IsIntTxAttitudeToZeroForced
+# Result of IsIntTxAttitudeToZeroForced.
 #
 # Name    Type   Description
 # ------- ------ ------------------------------------------------------------
@@ -23462,7 +23699,7 @@ class GetIntTxVehicleType(CommandBase):
     return self.set("Id", value)
 
 #
-# Result of GetIntTxVehicleType
+# Result of GetIntTxVehicleType.
 #
 # Name Type   Description
 # ---- ------ ----------------------------------------------------------
@@ -23493,7 +23730,7 @@ class GetIntTxVehicleTypeResult(CommandResult):
     return self.set("Id", value)
 
 #
-# Get interference transmitter trajectory
+# Get interference transmitter trajectory.
 #
 # Name Type   Description
 # ---- ------ ------------------------------
@@ -23516,7 +23753,7 @@ class GetIntTxTrajectory(CommandBase):
     return self.set("Id", value)
 
 #
-# Result of GetIntTxTrajectory
+# Result of GetIntTxTrajectory.
 #
 # Name           Type   Description
 # -------------- ------ ---------------------------------------------------------
@@ -23609,7 +23846,7 @@ class GetIntTxAntenna(CommandBase):
     return self.set("Id", value)
 
 #
-# Result of GetIntTxAntenna
+# Result of GetIntTxAntenna.
 #
 # Name Type               Description
 # ---- ------------------ -------------------------------------------------------------------------------------------------------------------------
@@ -23754,7 +23991,7 @@ class GetIntTxAntennaOffset(CommandBase):
     return self.set("Id", value)
 
 #
-# Result of GetIntTxAntennaOffset
+# Result of GetIntTxAntennaOffset.
 #
 # Name  Type   Description
 # ----- ------ --------------------------------------
@@ -23919,9 +24156,9 @@ class GetAllSignalsFromIntTxResult(CommandResult):
 # Get all signal ID from this interference transmitters and this signal type. If the signal type is invalid, get the IDs of CW type.
 #
 # Name          Type   Description
-# ------------- ------ --------------------------------------------------------------------------------------
+# ------------- ------ ------------------------------------------------------------------------------------
 # IdTransmitter string Transmitter unique identifier.
-# SignalType    string Type of signal. Authorized signals are : "CW", "Chirp", "Pulse", "BPSK", "BOC", "AWGN"
+# SignalType    string Type of signal. Accepted signals are : "CW", "Chirp", "Pulse", "BPSK", "BOC", "AWGN"
 #
 
 class GetSignalFromIntTx(CommandBase):
@@ -23950,9 +24187,9 @@ class GetSignalFromIntTx(CommandBase):
 # Result of GetSignalFromIntTx.
 #
 # Name          Type         Description
-# ------------- ------------ --------------------------------------------------------------------------------------
+# ------------- ------------ ------------------------------------------------------------------------------------
 # IdTransmitter string       Transmitter unique identifier.
-# SignalType    string       Type of signal. Authorized signals are : "CW", "Chirp", "Pulse", "BPSK", "BOC", "AWGN"
+# SignalType    string       Type of signal. Accepted signals are : "CW", "Chirp", "Pulse", "BPSK", "BOC", "AWGN"
 # IdsSignal     array string List of signal ID for this interferences transmitter and this signal type.
 #
 
@@ -24091,7 +24328,7 @@ class GetIntTxCW(CommandBase):
     return self.set("SignalId", value)
 
 #
-# Result of GetIntTxCW
+# Result of GetIntTxCW.
 #
 # Name               Type            Description
 # ------------------ --------------- ---------------------------------------------------
@@ -24275,7 +24512,7 @@ class GetIntTxChirp(CommandBase):
     return self.set("SignalId", value)
 
 #
-# Result of GetIntTxChirp
+# Result of GetIntTxChirp.
 #
 # Name          Type         Description
 # ------------- ------------ ---------------------------------------------------
@@ -24464,7 +24701,7 @@ class GetIntTxPulse(CommandBase):
     return self.set("SignalId", value)
 
 #
-# Result of GetIntTxPulse
+# Result of GetIntTxPulse.
 #
 # Name          Type         Description
 # ------------- ------------ --------------------------------------------------------------
@@ -24653,7 +24890,7 @@ class GetIntTxBPSK(CommandBase):
     return self.set("SignalId", value)
 
 #
-# Result of GetIntTxBPSK
+# Result of GetIntTxBPSK.
 #
 # Name          Type         Description
 # ------------- ------------ -------------------------------------------------------------------------
@@ -24858,7 +25095,7 @@ class GetIntTxBOC(CommandBase):
     return self.set("SignalId", value)
 
 #
-# Result of GetIntTxBOC
+# Result of GetIntTxBOC.
 #
 # Name           Type         Description
 # -------------- ------------ -------------------------------------------------------------------------
@@ -25063,7 +25300,7 @@ class GetIntTxAWGN(CommandBase):
     return self.set("SignalId", value)
 
 #
-# Result of GetIntTxAWGN
+# Result of GetIntTxAWGN.
 #
 # Name          Type         Description
 # ------------- ------------ ------------------------------------------------------------------------------------------
@@ -25244,7 +25481,7 @@ class GetIntTxIqFile(CommandBase):
     return self.set("SignalId", value)
 
 #
-# Result of GetIntTxIqFile
+# Result of GetIntTxIqFile.
 #
 # Name          Type         Description
 # ------------- ------------ ---------------------------------------------------
@@ -25431,6 +25668,29 @@ class SetStreamingBuffer(CommandBase):
     return self.set("Size", value)
 
 #
+# Set engine latency.
+#
+# Name    Type Description
+# ------- ---- ----------------------
+# Latency int  Engine latency in msec
+#
+
+class SetEngineLatency(CommandBase):
+
+  def __init__(self, latency):
+    CommandBase.__init__(self, "SetEngineLatency")
+    self.setLatency(latency)
+
+  def executePermission(self):
+    return ExecutePermission.EXECUTE_IF_NO_CONFIG | ExecutePermission.EXECUTE_IF_IDLE
+
+  def latency(self):
+    return self.get("Latency")
+
+  def setLatency(self, value):
+    return self.set("Latency", value)
+
+#
 # Set listening port for sync time server.
 #
 # Name Type Description
@@ -25523,7 +25783,7 @@ class GetSyncTime(CommandBase):
     return ExecutePermission.EXECUTE_IF_IDLE
 
 #
-# Result of GetSyncTime
+# Result of GetSyncTime.
 #
 # Name Type   Description
 # ---- ------ ----------------------------------------
@@ -25586,7 +25846,7 @@ class GetSyncTimeMaster(CommandBase):
     return ExecutePermission.EXECUTE_IF_IDLE
 
 #
-# Result of GetSyncTimeMaster
+# Result of GetSyncTimeMaster.
 #
 # Name Type   Description
 # ---- ------ ----------------------------------------
@@ -25645,7 +25905,7 @@ class IsSimStopWhenCommandFailEnabled(CommandBase):
     return ExecutePermission.EXECUTE_IF_IDLE
 
 #
-# Result of IsSimStopWhenCommandFailEnabled
+# Result of IsSimStopWhenCommandFailEnabled.
 #
 # Name    Type Description
 # ------- ---- ----------------------------------
@@ -25704,7 +25964,7 @@ class IsStopMasterWhenSlaveStop(CommandBase):
     return ExecutePermission.EXECUTE_IF_IDLE
 
 #
-# Result of IsStopMasterWhenSlaveStop
+# Result of IsStopMasterWhenSlaveStop.
 #
 # Name    Type Description
 # ------- ---- ---------------------------------------
@@ -25763,7 +26023,7 @@ class IsMapAnalysisEnabled(CommandBase):
     return ExecutePermission.EXECUTE_IF_IDLE
 
 #
-# Result of IsMapAnalysisEnabled
+# Result of IsMapAnalysisEnabled.
 #
 # Name Type Description
 # ---- ---- -------------
@@ -25822,7 +26082,7 @@ class IsSpectrumVisible(CommandBase):
     return ExecutePermission.EXECUTE_IF_IDLE
 
 #
-# Result of IsSpectrumVisible
+# Result of IsSpectrumVisible.
 #
 # Name    Type Description
 # ------- ---- ------------------
@@ -26172,7 +26432,7 @@ class GetMessageSequence(CommandBase):
     return self.set("Signal", value)
 
 #
-# Result of GetMessageSequence
+# Result of GetMessageSequence.
 #
 # Name     Type      Description
 # -------- --------- -------------------------------
@@ -26257,7 +26517,7 @@ class GetGalileoFnavSatelliteK(CommandBase):
     return self.set("Prn", value)
 
 #
-# Result of GetGalileoFnavSatelliteK
+# Result of GetGalileoFnavSatelliteK.
 #
 # Name Type Description
 # ---- ---- -----------------------
@@ -26399,7 +26659,7 @@ class GetStatusLog(CommandBase):
     return ExecutePermission.EXECUTE_IF_NO_CONFIG | ExecutePermission.EXECUTE_IF_IDLE | ExecutePermission.EXECUTE_IF_SIMULATING
 
 #
-# Represents a log, each element of the same record share the same index
+# Result of GetStatusLog.
 #
 # Name    Type            Description
 # ------- --------------- ----------------
@@ -26468,7 +26728,7 @@ class GetVisibleSV(CommandBase):
     return self.set("System", value)
 
 #
-# Result of GetVisibleSV
+# Result of GetVisibleSV.
 #
 # Name   Type      Description
 # ------ --------- -----------------------------------------------------------------------------------
@@ -26618,7 +26878,7 @@ class IsSVEnabled(CommandBase):
     return self.set("SvId", value)
 
 #
-# Result of IsSVEnabled
+# Result of IsSVEnabled.
 #
 # Name    Type   Description
 # ------- ------ ------------------------------------------------------------------------------------------------------
@@ -26711,7 +26971,7 @@ class IsEachSVEnabled(CommandBase):
     return self.set("System", value)
 
 #
-# Result of IsEachSVEnabled
+# Result of IsEachSVEnabled.
 #
 # Name    Type       Description
 # ------- ---------- ------------------------------------------------------------------------------------------------------
@@ -26778,7 +27038,7 @@ class GetCnav2PagesEnabled(CommandBase):
     return ExecutePermission.EXECUTE_IF_IDLE
 
 #
-# Result of GetCnav2PagesEnabled
+# Result of GetCnav2PagesEnabled.
 #
 # Name     Type      Description
 # -------- --------- -----------------
@@ -26837,7 +27097,7 @@ class GetSbasMessagesEnabled(CommandBase):
     return ExecutePermission.EXECUTE_IF_IDLE
 
 #
-# Result of GetSbasMessagesEnabled
+# Result of GetSbasMessagesEnabled.
 #
 # Name     Type      Description
 # -------- --------- --------------------
@@ -26896,7 +27156,7 @@ class GetSbasMonitoredSystems(CommandBase):
     return ExecutePermission.EXECUTE_IF_IDLE
 
 #
-# Result of GetSbasMonitoredSystems
+# Result of GetSbasMonitoredSystems.
 #
 # Name    Type         Description
 # ------- ------------ ------------------------------------------------------------------------------------
@@ -26955,7 +27215,7 @@ class GetSbasUdrei(CommandBase):
     return ExecutePermission.EXECUTE_IF_IDLE
 
 #
-# Result of GetSbasUdrei
+# Result of GetSbasUdrei.
 #
 # Name  Type Description
 # ----- ---- ---------------
@@ -27059,7 +27319,7 @@ class GetConfigBroadcastOnStart(CommandBase):
     return ExecutePermission.EXECUTE_IF_IDLE
 
 #
-# Result of GetConfigBroadcastOnStart
+# Result of GetConfigBroadcastOnStart.
 #
 # Name             Type Description
 # ---------------- ---- --------------------------------------------------------------
@@ -27130,7 +27390,7 @@ class GetConfigBroadcastFilter(CommandBase):
     return ExecutePermission.EXECUTE_IF_IDLE
 
 #
-# Result of GetConfigBroadcastFilter
+# Result of GetConfigBroadcastFilter.
 #
 # Name   Type               Description
 # ------ ------------------ ------------------------------------------------------------------------------
@@ -27231,7 +27491,7 @@ class GetPseudorangeNoiseOffsetForSV(CommandBase):
     return self.set("SvId", value)
 
 #
-# Result of GetPseudorangeNoiseOffsetForSV
+# Result of GetPseudorangeNoiseOffsetForSV.
 #
 # Name    Type   Description
 # ------- ------ ----------------------------------------------------------------
@@ -27406,7 +27666,7 @@ class GetAllSatellitesPseudorangeNoiseOffset(CommandBase):
     return self.set("System", value)
 
 #
-# Result of GetPseudorangeNoiseOffsetForEachSV
+# Result of GetPseudorangeNoiseOffsetForEachSV.
 #
 # Name    Type         Description
 # ------- ------------ ----------------------------------------------------------------
@@ -27555,7 +27815,7 @@ class GetPseudorangeNoiseSineWaveForSV(CommandBase):
     return self.set("SineWave", value)
 
 #
-# Result of GetPseudorangeNoiseSineWaveForSV
+# Result of GetPseudorangeNoiseSineWaveForSV.
 #
 # Name      Type   Description
 # --------- ------ ----------------------------------------------------------------
@@ -27818,7 +28078,7 @@ class GetAllSatellitesPseudorangeNoiseSineWave(CommandBase):
     return self.set("SineWave", value)
 
 #
-# Result of GetPseudorangeNoiseSineWaveForEachSV
+# Result of GetPseudorangeNoiseSineWaveForEachSV.
 #
 # Name      Type         Description
 # --------- ------------ ----------------------------------------------------------------
@@ -27991,7 +28251,7 @@ class GetPseudorangeNoiseGaussMarkovForSV(CommandBase):
     return self.set("Process", value)
 
 #
-# Result of GetPseudorangeNoiseGaussMarkovForSV
+# Result of GetPseudorangeNoiseGaussMarkovForSV.
 #
 # Name    Type   Description
 # ------- ------ ----------------------------------------------------------------
@@ -28254,7 +28514,7 @@ class GetAllSatellitesPseudorangeNoiseGaussMarkov(CommandBase):
     return self.set("Process", value)
 
 #
-# Result of GetPseudorangeNoiseGaussMarkovForEachSV
+# Result of GetPseudorangeNoiseGaussMarkovForEachSV.
 #
 # Name    Type         Description
 # ------- ------------ ----------------------------------------------------------------
@@ -28468,7 +28728,7 @@ class GetEphemerisErrorForSV(CommandBase):
     return self.set("SvId", value)
 
 #
-# Result of GetEphemerisErrorForSV
+# Result of GetEphemerisErrorForSV.
 #
 # Name     Type   Description
 # -------- ------ -----------------------------------------------------------------------------------
@@ -28559,7 +28819,7 @@ class IsUsingVelocityInSbasMessage25(CommandBase):
     return ExecutePermission.EXECUTE_IF_IDLE
 
 #
-# Result of IsUsingVelocityInSbasMessage25
+# Result of IsUsingVelocityInSbasMessage25.
 #
 # Name        Type Description
 # ----------- ---- --------------------------------------------------------
@@ -28660,7 +28920,7 @@ class IsSVForcedGeo(CommandBase):
     return self.set("SvId", value)
 
 #
-# Result of IsSVForcedGeo
+# Result of IsSVForcedGeo.
 #
 # Name      Type   Description
 # --------- ------ ---------------------------------------------
@@ -28761,7 +29021,7 @@ class IsSbasFastCorrectionsEnabledFor(CommandBase):
     return self.set("System", value)
 
 #
-# Result of IsSbasFastCorrectionsEnabledFor
+# Result of IsSbasFastCorrectionsEnabledFor.
 #
 # Name      Type   Description
 # --------- ------ -------------------------------
@@ -28828,7 +29088,7 @@ class IsDelayAppliedInSbas(CommandBase):
     return ExecutePermission.EXECUTE_IF_IDLE
 
 #
-# Result of IsDelayAppliedInSbas
+# Result of IsDelayAppliedInSbas.
 #
 # Name      Type Description
 # --------- ---- --------------------------------------------
@@ -28887,7 +29147,7 @@ class IsIonoOffsetEnabled(CommandBase):
     return ExecutePermission.EXECUTE_IF_IDLE
 
 #
-# Result of IsIonoOffsetEnabled
+# Result of IsIonoOffsetEnabled.
 #
 # Name      Type Description
 # --------- ---- ---------------------------------------------
@@ -28964,7 +29224,7 @@ class IsSbasLongTermCorrectionsEnabledFor(CommandBase):
     return self.set("System", value)
 
 #
-# Result of IsSbasLongTermCorrectionsEnabledFor
+# Result of IsSbasLongTermCorrectionsEnabledFor.
 #
 # Name      Type   Description
 # --------- ------ ------------------------------------
@@ -29496,7 +29756,7 @@ class IsTrajectoryCompleted(CommandBase):
     return ExecutePermission.EXECUTE_IF_SIMULATING
 
 #
-# Result of IsTrajectoryCompleted
+# Result of IsTrajectoryCompleted.
 #
 # Name        Type Description
 # ----------- ---- ------------------------------------------
@@ -29589,7 +29849,7 @@ class GetIonoGridError(CommandBase):
     return self.set("Point", value)
 
 #
-# Result of GetIonoGridError
+# Result of GetIonoGridError.
 #
 # Name  Type   Description
 # ----- ------ -------------------------------
@@ -29714,7 +29974,7 @@ class GetIonoGridGIVEI(CommandBase):
     return self.set("ServiceProvider", value)
 
 #
-# Result of GetIonoGridGIVEI
+# Result of GetIonoGridGIVEI.
 #
 # Name            Type            Description
 # --------------- --------------- -------------------------------
@@ -29797,7 +30057,7 @@ class GetIonoGridErrorAll(CommandBase):
     return ExecutePermission.EXECUTE_IF_IDLE
 
 #
-# Result of GetIonoGridErrorAll
+# Result of GetIonoGridErrorAll.
 #
 # Name Type               Description
 # ---- ------------------ -----------------------------------------------------------------------
@@ -29874,7 +30134,7 @@ class GetIonoGridGIVEIAll(CommandBase):
     return self.set("ServiceProvider", value)
 
 #
-# Result of GetIonoGridGIVEIAll
+# Result of GetIonoGridGIVEIAll.
 #
 # Name            Type            Description
 # --------------- --------------- ----------------------------------------------------------------------
@@ -29991,7 +30251,7 @@ class GetIonoGridMask(CommandBase):
     return self.set("Point", value)
 
 #
-# Result of GetIonoGridMask
+# Result of GetIonoGridMask.
 #
 # Name            Type   Description
 # --------------- ------ -------------------------------
@@ -30092,7 +30352,7 @@ class GetIonoGridMaskAll(CommandBase):
     return self.set("ServiceProvider", value)
 
 #
-# Result of GetIonoGridMaskAll
+# Result of GetIonoGridMaskAll.
 #
 # Name            Type             Description
 # --------------- ---------------- ----------------------------------------------------------------------
@@ -30341,7 +30601,7 @@ class ExportIonoGridMask(CommandBase):
     return self.set("Path", value)
 
 #
-# Returns a list of paths for all the files in the Configurations folder.
+# Get a list of paths for all the files in the Configurations folder.
 #
 #
 
@@ -30354,7 +30614,7 @@ class GetConfigPaths(CommandBase):
     return ExecutePermission.EXECUTE_IF_IDLE | ExecutePermission.EXECUTE_IF_SIMULATING
 
 #
-# Result of GetConfigPaths
+# Result of GetConfigPaths.
 #
 # Name  Type         Description
 # ----- ------------ --------------------------------
@@ -30459,7 +30719,7 @@ class GetLastLeapSecondDate(CommandBase):
     return ExecutePermission.EXECUTE_IF_IDLE | ExecutePermission.EXECUTE_IF_SIMULATING
 
 #
-# Result of GetLastLeapSecondDate
+# Result of GetLastLeapSecondDate.
 #
 # Name Type Description
 # ---- ---- ----------------
@@ -30518,7 +30778,7 @@ class GetWFAntennaGain(CommandBase):
     return ExecutePermission.EXECUTE_IF_IDLE
 
 #
-# Result of GetWFAntennaGain
+# Result of GetWFAntennaGain.
 #
 # Name Type Description
 # ---- ---- -----------------
@@ -30652,7 +30912,7 @@ class GetAllSpoofTxID(CommandBase):
     return ExecutePermission.EXECUTE_IF_IDLE | ExecutePermission.EXECUTE_IF_SIMULATING
 
 #
-# Result of GetAllSpoofTxID
+# Result of GetAllSpoofTxID.
 #
 # Name Type         Description
 # ---- ------------ ------------------------------------
@@ -30757,7 +31017,7 @@ class GetSpoofTx(CommandBase):
     return self.set("Id", value)
 
 #
-# Result of GetSpoofTx
+# Result of GetSpoofTx.
 #
 # Name       Type   Description
 # ---------- ------ ------------------------------------------------
@@ -30921,7 +31181,7 @@ class GetSpoofTxColor(CommandBase):
     return self.set("Id", value)
 
 #
-# Result of GetSpoofTxColor
+# Result of GetSpoofTxColor.
 #
 # Name  Type   Description
 # ----- ------ -------------------------------------------------------------------------------
@@ -31099,7 +31359,7 @@ class IsSpoofTxIgnoreRxAntennaGainPattern(CommandBase):
     return self.set("Id", value)
 
 #
-# Result of IsSpoofTxIgnoreRxAntennaGainPattern
+# Result of IsSpoofTxIgnoreRxAntennaGainPattern.
 #
 # Name   Type   Description
 # ------ ------ -------------------------------------------------------------
@@ -31184,7 +31444,7 @@ class IsSpoofTxIgnoreRxAntennaPhasePattern(CommandBase):
     return self.set("Id", value)
 
 #
-# Result of IsSpoofTxIgnoreRxAntennaPhasePattern
+# Result of IsSpoofTxIgnoreRxAntennaPhasePattern.
 #
 # Name   Type   Description
 # ------ ------ --------------------------------------------------------------
@@ -31309,7 +31569,7 @@ class GetSpoofTxFix(CommandBase):
     return self.set("Id", value)
 
 #
-# Result of GetSpoofTxFix
+# Result of GetSpoofTxFix.
 #
 # Name  Type   Description
 # ----- ------ ------------------------------
@@ -31474,7 +31734,7 @@ class GetSpoofTxFixEcef(CommandBase):
     return self.set("Id", value)
 
 #
-# Result of GetSpoofTxFixEcef
+# Result of GetSpoofTxFixEcef.
 #
 # Name  Type   Description
 # ----- ------ ------------------------------
@@ -31647,7 +31907,7 @@ class GetSpoofTxCircular(CommandBase):
     return self.set("Id", value)
 
 #
-# Result of GetSpoofTxCircular
+# Result of GetSpoofTxCircular.
 #
 # Name        Type            Description
 # ----------- --------------- --------------------------------
@@ -31772,7 +32032,7 @@ class GetSpoofTxTrajectory(CommandBase):
     return self.set("Id", value)
 
 #
-# Result of GetSpoofTxTrajectory
+# Result of GetSpoofTxTrajectory.
 #
 # Name           Type   Description
 # -------------- ------ ---------------------------------------------------
@@ -31865,7 +32125,7 @@ class GetSpoofTxAntenna(CommandBase):
     return self.set("Id", value)
 
 #
-# Result of GetSpoofTxAntenna
+# Result of GetSpoofTxAntenna.
 #
 # Name Type               Description
 # ---- ------------------ -------------------------------------------------------------------------------------------------------------------------
@@ -32010,7 +32270,7 @@ class GetSpoofTxAntennaOffset(CommandBase):
     return self.set("Id", value)
 
 #
-# Result of GetSpoofTxAntennaOffset
+# Result of GetSpoofTxAntennaOffset.
 #
 # Name  Type   Description
 # ----- ------ --------------------------------------
@@ -32145,7 +32405,7 @@ class GetSpoofTxRemoteAddress(CommandBase):
     return self.set("Id", value)
 
 #
-# Result of GetSpoofTxRemoteAddress
+# Result of GetSpoofTxRemoteAddress.
 #
 # Name       Type   Description
 # ---------- ------ ------------------------------
@@ -32311,8 +32571,8 @@ class SetExternalChannelsPath(CommandBase):
 # Mapping PRN to the corresponding SV ID. Get a list of SV IDs based on a specific signal. Accepted signal keys: "L1CA", "L1C", "L1P", "L1M", "L2C", "L2P", "L5", "G1", "G2", "E1", "E1PRS", "E5a", "E5b", "E6BC", "E6PRS", "B1", "B2", "B2a", "B1C", "SBASL1", "SBASL5", "QZSSL1CA", "QZSSL1C", "QZSSL5", "QZSSL1S", "QZSSL5S" and "NAVICL5"
 #
 # Name   Type   Description
-# ------ ------ --------------------------------------------------------
-# Signal string Signal key - see command description for possible values
+# ------ ------ ----------------------------------------------------------------------
+# Signal string Signal key - see GetSVIDsOfPrn command description for possible values
 # Prn    int    Satellite PRN number
 #
 
@@ -32339,7 +32599,7 @@ class GetSVIDsOfPrn(CommandBase):
     return self.set("Prn", value)
 
 #
-# Result of GetSVIDsOfPrn
+# Result of GetSVIDsOfPrn.
 #
 # Name     Type      Description
 # -------- --------- ----------------------------------------------------------------------
@@ -32464,7 +32724,7 @@ class GetQzssL1SAugmentation(CommandBase):
     return self.set("Id", value)
 
 #
-# Result of GetQzssL1SAugmentation
+# Result of GetQzssL1SAugmentation.
 #
 # Name       Type   Description
 # ---------- ------ ----------------------------------------------------------------------------------
@@ -32576,7 +32836,7 @@ class GetQzssL1SAugmentations(CommandBase):
     return ExecutePermission.EXECUTE_IF_IDLE
 
 #
-# Result of GetQzssL1SAugmentations
+# Result of GetQzssL1SAugmentations.
 #
 # Name Type         Description
 # ---- ------------ --------------------------------------
@@ -32637,7 +32897,7 @@ class StringPair:
     self.Second = second
 
 #
-# Please note the command QzssSatMotionFixed is deprecated since 20.9. You may use SatMotionFixed.
+# Please note the command SetQzssSatMotionFixed is deprecated since 20.9. You may use SetSatMotionFixed.
 # 
 # If IsFixed is set to true, the satellite will not move during the simulation and keep its initial position calculated at the beginning of the simulation.
 #
@@ -32670,7 +32930,7 @@ class SetQzssSatMotionFixed(CommandBase):
     return self.set("IsFixed", value)
 
 #
-# Please note the command QzssSatMotionFixed is deprecated since 20.9. You may use SatMotionFixed.
+# Please note the command IsQzssSatMotionFixed is deprecated since 20.9. You may use IsSatMotionFixed.
 # 
 # Tells if the satellite is fixed (True) or not fixed (false).
 #
@@ -32695,7 +32955,7 @@ class IsQzssSatMotionFixed(CommandBase):
     return self.set("SvId", value)
 
 #
-# Result of IsQzssSatMotionFixed
+# Result of IsQzssSatMotionFixed.
 #
 # Name    Type Description
 # ------- ---- --------------------------------------------------------------------------------------------------------------
@@ -32726,7 +32986,7 @@ class IsQzssSatMotionFixedResult(CommandResult):
     return self.set("IsFixed", value)
 
 #
-# Please note the command QzssEphemerisReferenceTime is deprecated since 20.9. You may use EphemerisReferenceTimeForSV.
+# Please note the command SetQzssEphemerisReferenceTime is deprecated since 20.9. You may use SetEphemerisReferenceTimeForSV.
 # 
 # Set the QZSS ephemeris reference time
 #
@@ -32759,7 +33019,7 @@ class SetQzssEphemerisReferenceTime(CommandBase):
     return self.set("Time", value)
 
 #
-# Please note the command QzssEphemerisReferenceTime is deprecated since 20.9. You may use EphemerisReferenceTimeForSV.
+# Please note the command GetQzssEphemerisReferenceTime is deprecated since 20.9. You may use GetEphemerisReferenceTimeForSV.
 # 
 # Get the QZSS ephemeris reference time
 #
@@ -32784,7 +33044,7 @@ class GetQzssEphemerisReferenceTime(CommandBase):
     return self.set("SvId", value)
 
 #
-# Result of GetQzssEphemerisReferenceTime
+# Result of GetQzssEphemerisReferenceTime.
 #
 # Name Type     Description
 # ---- -------- --------------------------------------------------------------
@@ -32815,7 +33075,7 @@ class GetQzssEphemerisReferenceTimeResult(CommandResult):
     return self.set("Time", value)
 
 #
-# Please note the command QzssPerturbations is deprecated since 20.9. You may use Perturbations.
+# Please note the command SetQzssPerturbations is deprecated since 20.9. You may use SetPerturbations.
 # 
 # Set QZSS orbit perturbations (Crs, Crc, Cis, Cic, Cus and Cuc)
 #
@@ -32888,7 +33148,7 @@ class SetQzssPerturbations(CommandBase):
     return self.set("Cuc", value)
 
 #
-# Please note the command QzssPerturbations is deprecated since 20.9. You may use Perturbations.
+# Please note the command GetQzssPerturbations is deprecated since 20.9. You may use GetPerturbations.
 # 
 # Get QZSS orbit perturbations (Crs, Crc, Cis, Cic, Cus and Cuc)
 #
@@ -32913,7 +33173,7 @@ class GetQzssPerturbations(CommandBase):
     return self.set("SvId", value)
 
 #
-# Result of GetQzssPerturbations
+# Result of GetQzssPerturbations.
 #
 # Name Type   Description
 # ---- ------ ---------------------
@@ -32984,7 +33244,7 @@ class GetQzssPerturbationsResult(CommandResult):
     return self.set("Cuc", value)
 
 #
-# Please note the command QzssPerturbationsForAllSat is deprecated since 20.9. You may use PerturbationsForAllSat.
+# Please note the command SetQzssPerturbationsForAllSat is deprecated since 20.9. You may use SetPerturbationsForAllSat.
 # 
 # Set QZSS orbit perturbations (Crs, Crc, Cis, Cic, Cus and Cuc) for all satellites.
 # All parameters are zero based index (index 0 => SV ID 1, index 1 => SV ID 2, etc)
@@ -33050,7 +33310,7 @@ class SetQzssPerturbationsForAllSat(CommandBase):
     return self.set("Cuc", value)
 
 #
-# Please note the command QzssPerturbationsForAllSat is deprecated since 20.9. You may use PerturbationsForAllSat.
+# Please note the command GetQzssPerturbationsForAllSat is deprecated since 20.9. You may use GetPerturbationsForAllSat.
 # 
 # Get QZSS orbit perturbations (Crs, Crc, Cis, Cic, Cus and Cuc) for all satellites.
 # All parameters are zero based index (index 0 => SV ID 1, index 1 => SV ID 2, etc)
@@ -33066,7 +33326,7 @@ class GetQzssPerturbationsForAllSat(CommandBase):
     return ExecutePermission.EXECUTE_IF_IDLE
 
 #
-# Result of GetQzssPerturbationsForAllSat
+# Result of GetQzssPerturbationsForAllSat.
 #
 # Name Type         Description
 # ---- ------------ -----------
@@ -33195,7 +33455,7 @@ class EnableRF(CommandBase):
     return self.set("Enabled", value)
 
 #
-# Please note the command EnableRF is deprecated since 21.3. You may use EnableRFOutputForSV.
+# Please note the command IsRFEnabled is deprecated since 21.3. You may use IsRFOutputEnabled.
 # 
 # Tells if the RF is enabled or disabled for the specified satellite.
 #
@@ -33228,7 +33488,7 @@ class IsRFEnabled(CommandBase):
     return self.set("Prn", value)
 
 #
-# Result of IsRFEnabled
+# Result of IsRFEnabled.
 #
 # Name    Type   Description
 # ------- ------ ----------------------------------------------------------------------------------------------------------
@@ -33300,7 +33560,7 @@ class EnableRFForEachPrn(CommandBase):
     return self.set("Enabled", value)
 
 #
-# Please note the command EnableRFForEachPrn is deprecated since 21.3. You may use EnableRFOutputForEachSV.
+# Please note the command GetRFEnabledForEachPrn is deprecated since 21.3. You may use IsRFOutputEnabledForEachSV.
 # 
 # Tells if the RF is enabled or disabled for each satellite.
 #
@@ -33325,7 +33585,7 @@ class GetRFEnabledForEachPrn(CommandBase):
     return self.set("System", value)
 
 #
-# Result of GetRFEnabledForEachPrn
+# Result of GetRFEnabledForEachPrn.
 #
 # Name    Type       Description
 # ------- ---------- ------------------------------------------------------------------------------------------------------
@@ -33402,9 +33662,9 @@ class EnableSignal(CommandBase):
     return self.set("Enabled", value)
 
 #
-# Please note the command EnableSignal is deprecated since 21.3. You may use EnableSignalForSV.
+# Please note the command IsSignalEnabled is deprecated since 21.3. You may use IsSignalEnabledForSV.
 # 
-# Tells if the signal is enabled or disabled. See EnableSignal description for allowed signals.
+# Tells if the signal is enabled or disabled. See IsSignalEnabled description for allowed signals.
 #
 # Name   Type   Description
 # ------ ------ ----------------------------------------------------------------------------------------------------------
@@ -33435,7 +33695,7 @@ class IsSignalEnabled(CommandBase):
     return self.set("Signal", value)
 
 #
-# Result of IsSignalEnabled
+# Result of IsSignalEnabled.
 #
 # Name    Type   Description
 # ------- ------ ----------------------------------------------------------------------------------------------------------
@@ -33511,9 +33771,9 @@ class EnableSignalForEachPrn(CommandBase):
     return self.set("Enabled", value)
 
 #
-# Please note the command EnableSignalForEachPrn is deprecated since 21.3. You may use EnableSignalForEachSV.
+# Please note the command GetSignalEnabledForEachPrn is deprecated since 21.3. You may use IsSignalEnabledForEachSV.
 # 
-# Tells if the signal is enabled or disabled for each satellite. See EnableSignalForEachPrn description for allowed signals.
+# Tells if the signal is enabled or disabled for each satellite. See GetSignalEnabledForEachPrn description for allowed signals.
 #
 # Name   Type   Description
 # ------ ------ --------------------------------------------------------
@@ -33536,7 +33796,7 @@ class GetSignalEnabledForEachPrn(CommandBase):
     return self.set("Signal", value)
 
 #
-# Result of GetSignalEnabledForEachPrn
+# Result of GetSignalEnabledForEachPrn.
 #
 # Name    Type       Description
 # ------- ---------- ----------------------------------------------------------------------------------------------------------
@@ -33567,7 +33827,7 @@ class GetSignalEnabledForEachPrnResult(CommandResult):
     return self.set("Enabled", value)
 
 #
-# Please note the command GpsSatMotionFixed is deprecated since 21.3. You may use SatMotionFixed.
+# Please note the command SetGpsSatMotionFixed is deprecated since 21.3. You may use SetSatMotionFixed.
 # 
 # If IsFixed is set to true, the satellite will not move during the simulation and keep its initial position calculated at the beginning of the simulation.
 #
@@ -33600,7 +33860,7 @@ class SetGpsSatMotionFixed(CommandBase):
     return self.set("IsFixed", value)
 
 #
-# Please note the command GpsSatMotionFixed is deprecated since 21.3. You may use SatMotionFixed.
+# Please note the command IsGpsSatMotionFixed is deprecated since 21.3. You may use IsSatMotionFixed.
 # 
 # Tells if the satellite is fixed (True) or not fixed (false).
 #
@@ -33625,7 +33885,7 @@ class IsGpsSatMotionFixed(CommandBase):
     return self.set("Prn", value)
 
 #
-# Result of IsGpsSatMotionFixed
+# Result of IsGpsSatMotionFixed.
 #
 # Name    Type Description
 # ------- ---- --------------------------------------------------------------------------------------------------------------
@@ -33656,7 +33916,7 @@ class IsGpsSatMotionFixedResult(CommandResult):
     return self.set("IsFixed", value)
 
 #
-# Please note the command GalileoSatMotionFixed is deprecated since 21.3. You may use SatMotionFixed.
+# Please note the command SetGalileoSatMotionFixed is deprecated since 21.3. You may use SetSatMotionFixed.
 # 
 # If IsFixed is set to true, the satellite will not move during the simulation and keep its initial position calculated at the beginning of the simulation.
 #
@@ -33689,7 +33949,7 @@ class SetGalileoSatMotionFixed(CommandBase):
     return self.set("IsFixed", value)
 
 #
-# Please note the command GalileoSatMotionFixed is deprecated since 21.3. You may use SatMotionFixed.
+# Please note the command IsGalileoSatMotionFixed is deprecated since 21.3. You may use IsSatMotionFixed.
 # 
 # Tells if the satellite is fixed (True) or not fixed (false).
 #
@@ -33714,7 +33974,7 @@ class IsGalileoSatMotionFixed(CommandBase):
     return self.set("Prn", value)
 
 #
-# Result of IsGalileoSatMotionFixed
+# Result of IsGalileoSatMotionFixed.
 #
 # Name    Type Description
 # ------- ---- --------------------------------------------------------------------------------------------------------------
@@ -33745,7 +34005,7 @@ class IsGalileoSatMotionFixedResult(CommandResult):
     return self.set("IsFixed", value)
 
 #
-# Please note the command BeiDouSatMotionFixed is deprecated since 21.3. You may use SatMotionFixed.
+# Please note the command SetBeiDouSatMotionFixed is deprecated since 21.3. You may use SetSatMotionFixed.
 # 
 # If IsFixed is set to true, the satellite will not move during the simulation and keep its initial position calculated at the beginning of the simulation.
 #
@@ -33778,7 +34038,7 @@ class SetBeiDouSatMotionFixed(CommandBase):
     return self.set("IsFixed", value)
 
 #
-# Please note the command BeiDouSatMotionFixed is deprecated since 21.3. You may use SatMotionFixed.
+# Please note the command IsBeiDouSatMotionFixed is deprecated since 21.3. You may use IsSatMotionFixed.
 # 
 # Tells if the satellite is fixed (True) or not fixed (false).
 #
@@ -33803,7 +34063,7 @@ class IsBeiDouSatMotionFixed(CommandBase):
     return self.set("Prn", value)
 
 #
-# Result of IsBeiDouSatMotionFixed
+# Result of IsBeiDouSatMotionFixed.
 #
 # Name    Type Description
 # ------- ---- --------------------------------------------------------------------------------------------------------------
@@ -33834,7 +34094,7 @@ class IsBeiDouSatMotionFixedResult(CommandResult):
     return self.set("IsFixed", value)
 
 #
-# Please note the command GpsEphemerisReferenceTime is deprecated since 21.3. You may use EphemerisReferenceTimeForSV.
+# Please note the command SetGpsEphemerisReferenceTime is deprecated since 21.3. You may use SetEphemerisReferenceTimeForSV.
 # 
 # Set the GPS ephemeris reference time
 #
@@ -33867,7 +34127,7 @@ class SetGpsEphemerisReferenceTime(CommandBase):
     return self.set("Time", value)
 
 #
-# Please note the command GpsEphemerisReferenceTime is deprecated since 21.3. You may use EphemerisReferenceTimeForSV.
+# Please note the command GetGpsEphemerisReferenceTime is deprecated since 21.3. You may use GetEphemerisReferenceTimeForSV.
 # 
 # Get the GPS ephemeris reference time
 #
@@ -33892,7 +34152,7 @@ class GetGpsEphemerisReferenceTime(CommandBase):
     return self.set("Prn", value)
 
 #
-# Result of GetGpsEphemerisReferenceTime
+# Result of GetGpsEphemerisReferenceTime.
 #
 # Name Type     Description
 # ---- -------- --------------------------------------------------------------
@@ -33923,7 +34183,7 @@ class GetGpsEphemerisReferenceTimeResult(CommandResult):
     return self.set("Time", value)
 
 #
-# Please note the command GalileoEphemerisReferenceTime is deprecated since 21.3. You may use EphemerisReferenceTimeForSV.
+# Please note the command SetGalileoEphemerisReferenceTime is deprecated since 21.3. You may use SetEphemerisReferenceTimeForSV.
 # 
 # Set the Galileo ephemeris reference time
 #
@@ -33956,7 +34216,7 @@ class SetGalileoEphemerisReferenceTime(CommandBase):
     return self.set("Time", value)
 
 #
-# Please note the command GalileoEphemerisReferenceTime is deprecated since 21.3. You may use EphemerisReferenceTimeForSV.
+# Please note the command GetGalileoEphemerisReferenceTime is deprecated since 21.3. You may use GetEphemerisReferenceTimeForSV.
 # 
 # Get the Galileo ephemeris reference time
 #
@@ -33981,7 +34241,7 @@ class GetGalileoEphemerisReferenceTime(CommandBase):
     return self.set("Prn", value)
 
 #
-# Result of GetGalileoEphemerisReferenceTime
+# Result of GetGalileoEphemerisReferenceTime.
 #
 # Name Type     Description
 # ---- -------- --------------------------------------------------------------
@@ -34012,7 +34272,7 @@ class GetGalileoEphemerisReferenceTimeResult(CommandResult):
     return self.set("Time", value)
 
 #
-# Please note the command BeiDouEphemerisReferenceTime is deprecated since 21.3. You may use EphemerisReferenceTimeForSV.
+# Please note the command SetBeiDouEphemerisReferenceTime is deprecated since 21.3. You may use SetEphemerisReferenceTimeForSV.
 # 
 # Set the BeiDou ephemeris reference time
 #
@@ -34045,7 +34305,7 @@ class SetBeiDouEphemerisReferenceTime(CommandBase):
     return self.set("Time", value)
 
 #
-# Please note the command BeiDouEphemerisReferenceTime is deprecated since 21.3. You may use EphemerisReferenceTimeForSV.
+# Please note the command GetBeiDouEphemerisReferenceTime is deprecated since 21.3. You may use GetEphemerisReferenceTimeForSV.
 # 
 # Get the BeiDou ephemeris reference time
 #
@@ -34070,7 +34330,7 @@ class GetBeiDouEphemerisReferenceTime(CommandBase):
     return self.set("Prn", value)
 
 #
-# Result of GetBeiDouEphemerisReferenceTime
+# Result of GetBeiDouEphemerisReferenceTime.
 #
 # Name Type     Description
 # ---- -------- --------------------------------------------------------------
@@ -34176,7 +34436,7 @@ class ResetBeiDouPerturbations(CommandBase):
     return self.set("Prn", value)
 
 #
-# Please note the command GpsPerturbations is deprecated since 21.3. You may use Perturbations.
+# Please note the command SetGpsPerturbations is deprecated since 21.3. You may use SetPerturbations.
 # 
 # Set GPS orbit perturbations (Crs, Crc, Cis, Cic, Cus and Cuc)
 #
@@ -34249,7 +34509,7 @@ class SetGpsPerturbations(CommandBase):
     return self.set("Cuc", value)
 
 #
-# Please note the command GpsPerturbations is deprecated since 21.3. You may use Perturbations.
+# Please note the command GetGpsPerturbations is deprecated since 21.3. You may use GetPerturbations.
 # 
 # Get GPS orbit perturbations (Crs, Crc, Cis, Cic, Cus and Cuc)
 #
@@ -34274,7 +34534,7 @@ class GetGpsPerturbations(CommandBase):
     return self.set("Prn", value)
 
 #
-# Result of GetGpsPerturbations
+# Result of GetGpsPerturbations.
 #
 # Name Type   Description
 # ---- ------ --------------------------
@@ -34345,7 +34605,7 @@ class GetGpsPerturbationsResult(CommandResult):
     return self.set("Cuc", value)
 
 #
-# Please note the command GalileoPerturbations is deprecated since 21.3. You may use Perturbations.
+# Please note the command SetGalileoPerturbations is deprecated since 21.3. You may use SetPerturbations.
 # 
 # Set GPS orbit perturbations (Crs, Crc, Cis, Cic, Cus and Cuc)
 #
@@ -34418,7 +34678,7 @@ class SetGalileoPerturbations(CommandBase):
     return self.set("Cuc", value)
 
 #
-# Please note the command GalileoPerturbations is deprecated since 21.3. You may use Perturbations.
+# Please note the command GetGalileoPerturbations is deprecated since 21.3. You may use GetPerturbations.
 # 
 # Get GPS orbit perturbations (Crs, Crc, Cis, Cic, Cus and Cuc)
 #
@@ -34443,7 +34703,7 @@ class GetGalileoPerturbations(CommandBase):
     return self.set("Prn", value)
 
 #
-# Result of GetGalileoPerturbations
+# Result of GetGalileoPerturbations.
 #
 # Name Type   Description
 # ---- ------ --------------------------
@@ -34514,7 +34774,7 @@ class GetGalileoPerturbationsResult(CommandResult):
     return self.set("Cuc", value)
 
 #
-# Please note the command BeiDouPerturbations is deprecated since 21.3. You may use Perturbations.
+# Please note the command SetBeiDouPerturbations is deprecated since 21.3. You may use SetPerturbations.
 # 
 # Set BeiDou orbit perturbations (Crs, Crc, Cis, Cic, Cus and Cuc)
 #
@@ -34587,7 +34847,7 @@ class SetBeiDouPerturbations(CommandBase):
     return self.set("Cuc", value)
 
 #
-# Please note the command BeiDouPerturbations is deprecated since 21.3. You may use Perturbations.
+# Please note the command GetBeiDouPerturbations is deprecated since 21.3. You may use GetPerturbations.
 # 
 # Get BeiDou orbit perturbations (Crs, Crc, Cis, Cic, Cus and Cuc)
 #
@@ -34612,7 +34872,7 @@ class GetBeiDouPerturbations(CommandBase):
     return self.set("Prn", value)
 
 #
-# Result of GetBeiDouPerturbations
+# Result of GetBeiDouPerturbations.
 #
 # Name Type   Description
 # ---- ------ --------------------------
@@ -34683,7 +34943,7 @@ class GetBeiDouPerturbationsResult(CommandResult):
     return self.set("Cuc", value)
 
 #
-# Please note the command GpsPerturbationsForAllSat is deprecated since 21.3. You may use PerturbationsForAllSat.
+# Please note the command SetGpsPerturbationsForAllSat is deprecated since 21.3. You may use SetPerturbationsForAllSat.
 # 
 # Set GPS orbit perturbations (Crs, Crc, Cis, Cic, Cus and Cuc) for all satellites.
 # All parameters are zero based index (index 0 => PRN 1, index 1 => PRN 2, etc)
@@ -34749,7 +35009,7 @@ class SetGpsPerturbationsForAllSat(CommandBase):
     return self.set("Cuc", value)
 
 #
-# Please note the command GpsPerturbationsForAllSat is deprecated since 21.3. You may use PerturbationsForAllSat.
+# Please note the command GetGpsPerturbationsForAllSat is deprecated since 21.3. You may use GetPerturbationsForAllSat.
 # 
 # Get GPS orbit perturbations (Crs, Crc, Cis, Cic, Cus and Cuc) for all satellites.
 # All parameters are zero based index (index 0 => PRN 1, index 1 => PRN 2, etc)
@@ -34765,7 +35025,7 @@ class GetGpsPerturbationsForAllSat(CommandBase):
     return ExecutePermission.EXECUTE_IF_IDLE
 
 #
-# Result of GetGpsPerturbationsForAllSat
+# Result of GetGpsPerturbationsForAllSat.
 #
 # Name Type         Description
 # ---- ------------ -----------
@@ -34828,7 +35088,7 @@ class GetGpsPerturbationsForAllSatResult(CommandResult):
     return self.set("Cuc", value)
 
 #
-# Please note the command GalileoPerturbationsForAllSat is deprecated since 21.3. You may use PerturbationsForAllSat.
+# Please note the command SetGalileoPerturbationsForAllSat is deprecated since 21.3. You may use SetPerturbationsForAllSat.
 # 
 # Set Galileo orbit perturbations (Crs, Crc, Cis, Cic, Cus and Cuc) for all satellites.
 # All parameters are zero based index (index 0 => PRN 1, index 1 => PRN 2, etc)
@@ -34894,7 +35154,7 @@ class SetGalileoPerturbationsForAllSat(CommandBase):
     return self.set("Cuc", value)
 
 #
-# Please note the command GalileoPerturbationsForAllSat is deprecated since 21.3. You may use PerturbationsForAllSat.
+# Please note the command GetGalileoPerturbationsForAllSat is deprecated since 21.3. You may use GetPerturbationsForAllSat.
 # 
 # Get Galileo orbit perturbations (Crs, Crc, Cis, Cic, Cus and Cuc) for all satellites.
 # All parameters are zero based index (index 0 => PRN 1, index 1 => PRN 2, etc)
@@ -34910,7 +35170,7 @@ class GetGalileoPerturbationsForAllSat(CommandBase):
     return ExecutePermission.EXECUTE_IF_IDLE
 
 #
-# Result of GetGalileoPerturbationsForAllSat
+# Result of GetGalileoPerturbationsForAllSat.
 #
 # Name Type         Description
 # ---- ------------ -----------
@@ -34973,7 +35233,7 @@ class GetGalileoPerturbationsForAllSatResult(CommandResult):
     return self.set("Cuc", value)
 
 #
-# Please note the command BeiDouPerturbationsForAllSat is deprecated since 21.3. You may use PerturbationsForAllSat.
+# Please note the command SetBeiDouPerturbationsForAllSat is deprecated since 21.3. You may use SetPerturbationsForAllSat.
 # 
 # Set BeiDou orbit perturbations (Crs, Crc, Cis, Cic, Cus and Cuc) for all satellites.
 # All parameters are zero based index (index 0 => PRN 1, index 1 => PRN 2, etc)
@@ -35039,7 +35299,7 @@ class SetBeiDouPerturbationsForAllSat(CommandBase):
     return self.set("Cuc", value)
 
 #
-# Please note the command BeiDouPerturbationsForAllSat is deprecated since 21.3. You may use PerturbationsForAllSat.
+# Please note the command GetBeiDouPerturbationsForAllSat is deprecated since 21.3. You may use GetPerturbationsForAllSat.
 # 
 # Get BeiDou orbit perturbations (Crs, Crc, Cis, Cic, Cus and Cuc) for all satellites.
 # All parameters are zero based index (index 0 => PRN 1, index 1 => PRN 2, etc)
@@ -35055,7 +35315,7 @@ class GetBeiDouPerturbationsForAllSat(CommandBase):
     return ExecutePermission.EXECUTE_IF_IDLE
 
 #
-# Result of GetBeiDouPerturbationsForAllSat
+# Result of GetBeiDouPerturbationsForAllSat.
 #
 # Name Type         Description
 # ---- ------------ -----------
@@ -35435,7 +35695,7 @@ class EnablePrn(CommandBase):
     return self.set("Enabled", value)
 
 #
-# Please note the command EnablePrn is deprecated since 21.3. You may use EnableSV.
+# Please note the command IsPrnEnabled is deprecated since 21.3. You may use IsSVEnabled.
 # 
 # Get  enabled or disabled satellite for this constellation.
 #
@@ -35468,7 +35728,7 @@ class IsPrnEnabled(CommandBase):
     return self.set("Prn", value)
 
 #
-# Result of IsPrnEnabled
+# Result of IsPrnEnabled.
 #
 # Name    Type   Description
 # ------- ------ ----------------------------------------------------------------------------------------------------------
@@ -35507,7 +35767,7 @@ class IsPrnEnabledResult(CommandResult):
     return self.set("Enabled", value)
 
 #
-# Please note the command PrnsEnabled is deprecated since 21.3. You may use EnableEachSV.
+# Please note the command EnablePrns is deprecated since 21.3. You may use EnableEachSV.
 # 
 # Set  enabled or disabled satellites for this constellation.
 #
@@ -35540,7 +35800,7 @@ class EnablePrns(CommandBase):
     return self.set("Enabled", value)
 
 #
-# Please note the command PrnsEnabled is deprecated since 21.3. You may use EnableEachSV.
+# Please note the command GetPrnsEnabled is deprecated since 21.3. You may use IsEachSVEnabled.
 # 
 # Get  enabled or disabled satellites for this constellation.
 #
@@ -35565,7 +35825,7 @@ class GetPrnsEnabled(CommandBase):
     return self.set("System", value)
 
 #
-# Result of GetPrnsEnabled
+# Result of GetPrnsEnabled.
 #
 # Name    Type       Description
 # ------- ---------- ------------------------------------------------------------------------------------------------------
@@ -35596,7 +35856,7 @@ class GetPrnsEnabledResult(CommandResult):
     return self.set("Enabled", value)
 
 #
-# Please note the command GpsEphemerisDoubleParam is deprecated since 21.3. You may use GpsEphDoubleParamForSV.
+# Please note the command SetGpsEphemerisDoubleParam is deprecated since 21.3. You may use SetGpsEphDoubleParamForSV.
 # 
 # Set various parameters in the GPS ephemeris
 # 
@@ -35667,7 +35927,7 @@ class SetGpsEphemerisDoubleParam(CommandBase):
     return self.set("Val", value)
 
 #
-# Please note the command GpsEphemerisDoubleParam is deprecated since 21.3. You may use GpsEphDoubleParamForSV.
+# Please note the command GetGpsEphemerisDoubleParam is deprecated since 21.3. You may use GetGpsEphDoubleParamForSV.
 # 
 # Get various parameters in the GPS ephemeris
 # 
@@ -35730,7 +35990,7 @@ class GetGpsEphemerisDoubleParam(CommandBase):
     return self.set("ParamName", value)
 
 #
-# Result of GetGpsEphemerisDoubleParam
+# Result of GetGpsEphemerisDoubleParam.
 #
 # Name      Type   Description
 # --------- ------ -------------------------------------------------------------------------
@@ -35769,7 +36029,7 @@ class GetGpsEphemerisDoubleParamResult(CommandResult):
     return self.set("Val", value)
 
 #
-# Please note the command GalileoEphemerisDoubleParam is deprecated since 21.3. You may use GalileoEphDoubleParamForSV.
+# Please note the command SetGalileoEphemerisDoubleParam is deprecated since 21.3. You may use SetGalileoEphDoubleParamForSV.
 # 
 # Set various parameters in the Galileo ephemeris
 # 
@@ -35836,7 +36096,7 @@ class SetGalileoEphemerisDoubleParam(CommandBase):
     return self.set("Val", value)
 
 #
-# Please note the command GalileoEphemerisDoubleParam is deprecated since 21.3. You may use GalileoEphDoubleParamForSV.
+# Please note the command GetGalileoEphemerisDoubleParam is deprecated since 21.3. You may use GetGalileoEphDoubleParamForSV.
 # 
 # Get various parameters in the Galileo ephemeris
 # 
@@ -35895,7 +36155,7 @@ class GetGalileoEphemerisDoubleParam(CommandBase):
     return self.set("ParamName", value)
 
 #
-# Result of GetGalileoEphemerisDoubleParam
+# Result of GetGalileoEphemerisDoubleParam.
 #
 # Name      Type   Description
 # --------- ------ -------------------------------------------------------------------------
@@ -35934,7 +36194,7 @@ class GetGalileoEphemerisDoubleParamResult(CommandResult):
     return self.set("Val", value)
 
 #
-# Please note the command BeiDouEphemerisDoubleParam is deprecated since 21.3. You may use BeiDouEphDoubleParamForSV.
+# Please note the command SetBeiDouEphemerisDoubleParam is deprecated since 21.3. You may use SetBeiDouEphDoubleParamForSV.
 # 
 # Set various parameters in the BeiDou ephemeris
 # 
@@ -36002,7 +36262,7 @@ class SetBeiDouEphemerisDoubleParam(CommandBase):
     return self.set("Val", value)
 
 #
-# Please note the command BeiDouEphemerisDoubleParam is deprecated since 21.3. You may use BeiDouEphDoubleParamForSV.
+# Please note the command GetBeiDouEphemerisDoubleParam is deprecated since 21.3. You may use GetBeiDouEphDoubleParamForSV.
 # 
 # Get various parameters in the BeiDou ephemeris
 # 
@@ -36062,7 +36322,7 @@ class GetBeiDouEphemerisDoubleParam(CommandBase):
     return self.set("ParamName", value)
 
 #
-# Result of GetBeiDouEphemerisDoubleParam
+# Result of GetBeiDouEphemerisDoubleParam.
 #
 # Name      Type   Description
 # --------- ------ -------------------------------------------------------------------------
@@ -36101,7 +36361,7 @@ class GetBeiDouEphemerisDoubleParamResult(CommandResult):
     return self.set("Val", value)
 
 #
-# Please note the command GlonassDoubleParam is deprecated since 21.3. You may use GlonassEphDoubleParamForSV.
+# Please note the command SetGlonassDoubleParam is deprecated since 21.3. You may use SetGlonassEphDoubleParamForSV.
 # 
 # Set various parameters for GLONASS
 # 
@@ -36154,7 +36414,7 @@ class SetGlonassDoubleParam(CommandBase):
     return self.set("Val", value)
 
 #
-# Please note the command GlonassDoubleParam is deprecated since 21.3. You may use GlonassEphDoubleParamForSV.
+# Please note the command GetGlonassDoubleParam is deprecated since 21.3. You may use GetGlonassEphDoubleParamForSV.
 # 
 # Get various parameters for GLONASS
 # 
@@ -36199,7 +36459,7 @@ class GetGlonassDoubleParam(CommandBase):
     return self.set("ParamName", value)
 
 #
-# Result of GetGlonassDoubleParam
+# Result of GetGlonassDoubleParam.
 #
 # Name      Type   Description
 # --------- ------ --------------------------------------------------------------------------------
@@ -36238,7 +36498,7 @@ class GetGlonassDoubleParamResult(CommandResult):
     return self.set("Val", value)
 
 #
-# Please note the command GlonassSatelliteEphemerisHealthFlag is deprecated since 21.3. You may use GlonassEphemerisHealthFlagForSV.
+# Please note the command SetGlonassSatelliteEphemerisHealthFlag is deprecated since 21.3. You may use SetGlonassEphemerisHealthFlagForSV.
 # 
 # Set GLONASS satellite Ephemeris Health Flag Bn(ln)
 #
@@ -36271,7 +36531,7 @@ class SetGlonassSatelliteEphemerisHealthFlag(CommandBase):
     return self.set("Health", value)
 
 #
-# Please note the command GlonassSatelliteEphemerisHealthFlag is deprecated since 21.3. You may use GlonassEphemerisHealthFlagForSV.
+# Please note the command GetGlonassSatelliteEphemerisHealthFlag is deprecated since 21.3. You may use GetGlonassEphemerisHealthFlagForSV.
 # 
 # Get GLONASS satellite Ephemeris Health Flag Bn(ln)
 #
@@ -36296,7 +36556,7 @@ class GetGlonassSatelliteEphemerisHealthFlag(CommandBase):
     return self.set("Prn", value)
 
 #
-# Result of GetGlonassSatelliteEphemerisHealthFlag
+# Result of GetGlonassSatelliteEphemerisHealthFlag.
 #
 # Name   Type Description
 # ------ ---- --------------------------------------
@@ -36327,7 +36587,7 @@ class GetGlonassSatelliteEphemerisHealthFlagResult(CommandResult):
     return self.set("Health", value)
 
 #
-# Please note the command GlonassSatelliteAlmanacUnhealthyFlag is deprecated since 21.3. You may use GlonassAlmanacUnhealthyFlagForSV.
+# Please note the command SetGlonassSatelliteAlmanacUnhealthyFlag is deprecated since 21.3. You may use SetGlonassAlmanacUnhealthyFlagForSV.
 # 
 # Set GLONASS satellite Almanac Unhealthy Flag Cn
 #
@@ -36360,7 +36620,7 @@ class SetGlonassSatelliteAlmanacUnhealthyFlag(CommandBase):
     return self.set("Health", value)
 
 #
-# Please note the command GlonassSatelliteAlmanacUnhealthyFlag is deprecated since 21.3. You may use GlonassAlmanacUnhealthyFlagForSV.
+# Please note the command GetGlonassSatelliteAlmanacUnhealthyFlag is deprecated since 21.3. You may use GetGlonassAlmanacUnhealthyFlagForSV.
 # 
 # Get GLONASS satellite Almanac Unhealthy Flag Cn
 #
@@ -36385,7 +36645,7 @@ class GetGlonassSatelliteAlmanacUnhealthyFlag(CommandBase):
     return self.set("Prn", value)
 
 #
-# Result of GetGlonassSatelliteAlmanacUnhealthyFlag
+# Result of GetGlonassSatelliteAlmanacUnhealthyFlag.
 #
 # Name   Type Description
 # ------ ---- ----------------------------------------------------------
@@ -36416,7 +36676,7 @@ class GetGlonassSatelliteAlmanacUnhealthyFlagResult(CommandResult):
     return self.set("Health", value)
 
 #
-# Please note the command GalileoSatelliteSignalHealth is deprecated since 21.3. You may use GalileoSignalHealthForSV.
+# Please note the command SetGalileoSatelliteSignalHealth is deprecated since 21.3. You may use SetGalileoSignalHealthForSV.
 # 
 # Set Galileo signal health for I/NAV and F/NAV message
 #
@@ -36457,7 +36717,7 @@ class SetGalileoSatelliteSignalHealth(CommandBase):
     return self.set("Health", value)
 
 #
-# Please note the command GalileoSatelliteSignalHealth is deprecated since 21.3. You may use GalileoSignalHealthForSV.
+# Please note the command GetGalileoSatelliteSignalHealth is deprecated since 21.3. You may use GetGalileoSignalHealthForSV.
 # 
 # Get Galileo signal health for I/NAV and F/NAV message
 #
@@ -36490,7 +36750,7 @@ class GetGalileoSatelliteSignalHealth(CommandBase):
     return self.set("Component", value)
 
 #
-# Result of GetGalileoSatelliteSignalHealth
+# Result of GetGalileoSatelliteSignalHealth.
 #
 # Name      Type   Description
 # --------- ------ ------------------------------------------
@@ -36529,7 +36789,7 @@ class GetGalileoSatelliteSignalHealthResult(CommandResult):
     return self.set("Health", value)
 
 #
-# Please note the command GalileoSatelliteDataHealth is deprecated since 21.3. You may use GalileoDataHealthForSV.
+# Please note the command SetGalileoSatelliteDataHealth is deprecated since 21.3. You may use SetGalileoDataHealthForSV.
 # 
 # Set Galileo data health for I/NAV and F/NAV message
 #
@@ -36570,7 +36830,7 @@ class SetGalileoSatelliteDataHealth(CommandBase):
     return self.set("Health", value)
 
 #
-# Please note the command GalileoSatelliteDataHealth is deprecated since 21.3. You may use GalileoDataHealthForSV.
+# Please note the command GetGalileoSatelliteDataHealth is deprecated since 21.3. You may use GetGalileoDataHealthForSV.
 # 
 # Get Galileo data health for I/NAV and F/NAV message
 #
@@ -36603,7 +36863,7 @@ class GetGalileoSatelliteDataHealth(CommandBase):
     return self.set("Component", value)
 
 #
-# Result of GetGalileoSatelliteDataHealth
+# Result of GetGalileoSatelliteDataHealth.
 #
 # Name      Type   Description
 # --------- ------ -----------------------------------------------------------------------
@@ -36642,7 +36902,7 @@ class GetGalileoSatelliteDataHealthResult(CommandResult):
     return self.set("Health", value)
 
 #
-# Please note the command SVAntennaModelToPrn is deprecated since 21.3. You may use SVAntennaModelForSV.
+# Please note the command SetSVAntennaModelToPrn is deprecated since 21.3. You may use SetSVAntennaModelForSV.
 # 
 # Set the antenna model used by the PRN.
 #
@@ -36683,7 +36943,7 @@ class SetSVAntennaModelToPrn(CommandBase):
     return self.set("AntennaModelName", value)
 
 #
-# Please note the command SVAntennaModelToPrn is deprecated since 21.3. You may use SVAntennaModelForSV.
+# Please note the command GetSVAntennaModelToPrn is deprecated since 21.3. You may use GetSVAntennaModelForSV.
 # 
 # Get the antenna model used by the PRN.
 #
@@ -36716,7 +36976,7 @@ class GetSVAntennaModelToPrn(CommandBase):
     return self.set("System", value)
 
 #
-# Result of GetSVAntennaModelToPrn
+# Result of GetSVAntennaModelToPrn.
 #
 # Name             Type   Description
 # ---------------- ------ ----------------------------------------------------------------------------------------------------------
@@ -36755,7 +37015,7 @@ class GetSVAntennaModelToPrnResult(CommandResult):
     return self.set("AntennaModelName", value)
 
 #
-# Please note the command GpsEphemerisBoolParam is deprecated since 21.3. You may use GpsEphBoolParamForSV.
+# Please note the command SetGpsEphemerisBoolParam is deprecated since 21.3. You may use SetGpsEphBoolParamForSV.
 # 
 # Set various boolean parameters in the GPS ephemeris
 # 
@@ -36804,7 +37064,7 @@ class SetGpsEphemerisBoolParam(CommandBase):
     return self.set("Val", value)
 
 #
-# Please note the command GpsEphemerisBoolParam is deprecated since 21.3. You may use GpsEphBoolParamForSV.
+# Please note the command GetGpsEphemerisBoolParam is deprecated since 21.3. You may use GetGpsEphBoolParamForSV.
 # 
 # Get various boolean parameters in the GPS ephemeris
 # 
@@ -36845,7 +37105,7 @@ class GetGpsEphemerisBoolParam(CommandBase):
     return self.set("ParamName", value)
 
 #
-# Result of GetGpsEphemerisBoolParam
+# Result of GetGpsEphemerisBoolParam.
 #
 # Name      Type   Description
 # --------- ------ -------------------------------------------------------------------------
@@ -36884,7 +37144,7 @@ class GetGpsEphemerisBoolParamResult(CommandResult):
     return self.set("Val", value)
 
 #
-# Please note the command BeiDouEphemerisBoolParam is deprecated since 21.3. You may use BeiDouEphBoolParamForSV.
+# Please note the command SetBeiDouEphemerisBoolParam is deprecated since 21.3. You may use SetBeiDouEphBoolParamForSV.
 # 
 # Set various boolean parameters in the BeiDou ephemeris
 # 
@@ -36929,7 +37189,7 @@ class SetBeiDouEphemerisBoolParam(CommandBase):
     return self.set("Val", value)
 
 #
-# Please note the command BeiDouEphemerisBoolParam is deprecated since 21.3. You may use BeiDouEphBoolParamForSV.
+# Please note the command GetBeiDouEphemerisBoolParam is deprecated since 21.3. You may use GetBeiDouEphBoolParamForSV.
 # 
 # Get various boolean parameters in the BeiDou ephemeris
 # 
@@ -36966,7 +37226,7 @@ class GetBeiDouEphemerisBoolParam(CommandBase):
     return self.set("ParamName", value)
 
 #
-# Result of GetBeiDouEphemerisBoolParam
+# Result of GetBeiDouEphemerisBoolParam.
 #
 # Name      Type   Description
 # --------- ------ -------------------------------------------------------------------------
@@ -37110,7 +37370,7 @@ class GetSbasEphemerisParamResult(CommandResult):
     return self.set("ValueParam", value)
 
 #
-# Please note the command GpsSVConfiguration is deprecated since 21.3. You may use GpsConfigurationCodeForSV.
+# Please note the command SetGpsSVConfiguration is deprecated since 21.3. You may use SetGpsConfigurationCodeForSV.
 # 
 # Set GPS SV configuration flag for one PRN
 #
@@ -37143,7 +37403,7 @@ class SetGpsSVConfiguration(CommandBase):
     return self.set("SvConfig", value)
 
 #
-# Please note the command GpsSVConfiguration is deprecated since 21.3. You may use GpsConfigurationCodeForSV.
+# Please note the command GetGpsSVConfiguration is deprecated since 21.3. You may use GetGpsConfigurationCodeForSV.
 # 
 # Get GPS SV configuration flag for one PRN
 #
@@ -37168,7 +37428,7 @@ class GetGpsSVConfiguration(CommandBase):
     return self.set("Prn", value)
 
 #
-# Result of GetGpsSVConfiguration
+# Result of GetGpsSVConfiguration.
 #
 # Name     Type Description
 # -------- ---- --------------------------
@@ -37199,7 +37459,7 @@ class GetGpsSVConfigurationResult(CommandResult):
     return self.set("SvConfig", value)
 
 #
-# Please note the command GpsSatelliteDataHealth is deprecated since 21.3. You may use GpsDataHealthForSV.
+# Please note the command SetGpsSatelliteDataHealth is deprecated since 21.3. You may use SetGpsDataHealthForSV.
 # 
 # Set GPS nav data health
 #
@@ -37232,7 +37492,7 @@ class SetGpsSatelliteDataHealth(CommandBase):
     return self.set("Health", value)
 
 #
-# Please note the command GpsSatelliteDataHealth is deprecated since 21.3. You may use GpsDataHealthForSV.
+# Please note the command GetGpsSatelliteDataHealth is deprecated since 21.3. You may use GetGpsDataHealthForSV.
 # 
 # Get GPS nav data health
 #
@@ -37257,7 +37517,7 @@ class GetGpsSatelliteDataHealth(CommandBase):
     return self.set("Prn", value)
 
 #
-# Result of GetGpsSatelliteDataHealth
+# Result of GetGpsSatelliteDataHealth.
 #
 # Name   Type Description
 # ------ ---- --------------------------
@@ -37288,7 +37548,7 @@ class GetGpsSatelliteDataHealthResult(CommandResult):
     return self.set("Health", value)
 
 #
-# Please note the command GpsSatelliteSignalHealth is deprecated since 21.3. You may use GpsSignalHealthForSV.
+# Please note the command SetGpsSatelliteSignalHealth is deprecated since 21.3. You may use SetGpsSignalHealthForSV.
 # 
 # Set GPS signal health
 #
@@ -37321,7 +37581,7 @@ class SetGpsSatelliteSignalHealth(CommandBase):
     return self.set("Health", value)
 
 #
-# Please note the command GpsSatelliteSignalHealth is deprecated since 21.3. You may use GpsSignalHealthForSV.
+# Please note the command GetGpsSatelliteSignalHealth is deprecated since 21.3. You may use GetGpsSignalHealthForSV.
 # 
 # Get GPS signal health
 #
@@ -37346,7 +37606,7 @@ class GetGpsSatelliteSignalHealth(CommandBase):
     return self.set("Prn", value)
 
 #
-# Result of GetGpsSatelliteSignalHealth
+# Result of GetGpsSatelliteSignalHealth.
 #
 # Name   Type Description
 # ------ ---- --------------------------
@@ -37377,7 +37637,7 @@ class GetGpsSatelliteSignalHealthResult(CommandResult):
     return self.set("Health", value)
 
 #
-# Please note the command GpsSatelliteL1Health is deprecated since 21.3. You may use GpsL1HealthForSV.
+# Please note the command SetGpsSatelliteL1Health is deprecated since 21.3. You may use SetGpsL1HealthForSV.
 # 
 # Set GPS L1 health (used with CNAV and CNAV2)
 #
@@ -37410,7 +37670,7 @@ class SetGpsSatelliteL1Health(CommandBase):
     return self.set("Health", value)
 
 #
-# Please note the command GpsSatelliteL1Health is deprecated since 21.3. You may use GpsL1HealthForSV.
+# Please note the command GetGpsSatelliteL1Health is deprecated since 21.3. You may use GetGpsL1HealthForSV.
 # 
 # Get GPS L1 health (used with CNAV and CNAV2)
 #
@@ -37435,7 +37695,7 @@ class GetGpsSatelliteL1Health(CommandBase):
     return self.set("Prn", value)
 
 #
-# Result of GetGpsSatelliteL1Health
+# Result of GetGpsSatelliteL1Health.
 #
 # Name   Type Description
 # ------ ---- --------------------------------------------------------------
@@ -37466,7 +37726,7 @@ class GetGpsSatelliteL1HealthResult(CommandResult):
     return self.set("Health", value)
 
 #
-# Please note the command GpsSatelliteL2Health is deprecated since 21.3. You may use GpsL2HealthForSV.
+# Please note the command SetGpsSatelliteL2Health is deprecated since 21.3. You may use SetGpsL2HealthForSV.
 # 
 # Set GPS L2 health (used with CNAV and CNAV2)
 #
@@ -37499,7 +37759,7 @@ class SetGpsSatelliteL2Health(CommandBase):
     return self.set("Health", value)
 
 #
-# Please note the command GpsSatelliteL2Health is deprecated since 21.3. You may use GpsL2HealthForSV.
+# Please note the command GetGpsSatelliteL2Health is deprecated since 21.3. You may use GetGpsL2HealthForSV.
 # 
 # Get GPS L2 health (used with CNAV and CNAV2)
 #
@@ -37524,7 +37784,7 @@ class GetGpsSatelliteL2Health(CommandBase):
     return self.set("Prn", value)
 
 #
-# Result of GetGpsSatelliteL2Health
+# Result of GetGpsSatelliteL2Health.
 #
 # Name   Type Description
 # ------ ---- --------------------------------------------------------------
@@ -37555,7 +37815,7 @@ class GetGpsSatelliteL2HealthResult(CommandResult):
     return self.set("Health", value)
 
 #
-# Please note the command GpsSatelliteL5Health is deprecated since 21.3. You may use GpsL5HealthForSV.
+# Please note the command SetGpsSatelliteL5Health is deprecated since 21.3. You may use SetGpsL5HealthForSV.
 # 
 # Set GPS L5 health (used with CNAV and CNAV2)
 #
@@ -37588,7 +37848,7 @@ class SetGpsSatelliteL5Health(CommandBase):
     return self.set("Health", value)
 
 #
-# Please note the command GpsSatelliteL5Health is deprecated since 21.3. You may use GpsL5HealthForSV.
+# Please note the command GetGpsSatelliteL5Health is deprecated since 21.3. You may use GetGpsL5HealthForSV.
 # 
 # Get GPS L5 health (used with CNAV and CNAV2)
 #
@@ -37613,7 +37873,7 @@ class GetGpsSatelliteL5Health(CommandBase):
     return self.set("Prn", value)
 
 #
-# Result of GetGpsSatelliteL5Health
+# Result of GetGpsSatelliteL5Health.
 #
 # Name   Type Description
 # ------ ---- --------------------------------------------------------------
@@ -37644,7 +37904,7 @@ class GetGpsSatelliteL5HealthResult(CommandResult):
     return self.set("Health", value)
 
 #
-# Please note the command GpsSatelliteL1cHealth is deprecated since 21.3. You may use GpsL1cHealthForSV.
+# Please note the command SetGpsSatelliteL1cHealth is deprecated since 21.3. You may use SetGpsL1cHealthForSV.
 # 
 # Set GPS L1C health (used in CNAV2 only)
 #
@@ -37677,7 +37937,7 @@ class SetGpsSatelliteL1cHealth(CommandBase):
     return self.set("Health", value)
 
 #
-# Please note the command GpsSatelliteL1cHealth is deprecated since 21.3. You may use GpsL1cHealthForSV.
+# Please note the command GetGpsSatelliteL1cHealth is deprecated since 21.3. You may use GetGpsL1cHealthForSV.
 # 
 # Get GPS L1C health (used in CNAV2 only)
 #
@@ -37702,7 +37962,7 @@ class GetGpsSatelliteL1cHealth(CommandBase):
     return self.set("Prn", value)
 
 #
-# Result of GetGpsSatelliteL1cHealth
+# Result of GetGpsSatelliteL1cHealth.
 #
 # Name   Type Description
 # ------ ---- ---------------------------------------------------------------
@@ -37733,7 +37993,7 @@ class GetGpsSatelliteL1cHealthResult(CommandResult):
     return self.set("Health", value)
 
 #
-# Please note the command GpsSatelliteAntiSpoofingFlag is deprecated since 21.3. You may use GpsAntiSpoofingFlagForSV.
+# Please note the command SetGpsSatelliteAntiSpoofingFlag is deprecated since 21.3. You may use SetGpsAntiSpoofingFlagForSV.
 # 
 # Set GPS Anti-Spoofing Flag
 #
@@ -37766,7 +38026,7 @@ class SetGpsSatelliteAntiSpoofingFlag(CommandBase):
     return self.set("AntiSpoofing", value)
 
 #
-# Please note the command GpsSatelliteAntiSpoofingFlag is deprecated since 21.3. You may use GpsAntiSpoofingFlagForSV.
+# Please note the command GetGpsSatelliteAntiSpoofingFlag is deprecated since 21.3. You may use GetGpsAntiSpoofingFlagForSV.
 # 
 # Get GPS Anti-Spoofing Flag
 #
@@ -37791,7 +38051,7 @@ class GetGpsSatelliteAntiSpoofingFlag(CommandBase):
     return self.set("Prn", value)
 
 #
-# Result of GetGpsSatelliteAntiSpoofingFlag
+# Result of GetGpsSatelliteAntiSpoofingFlag.
 #
 # Name         Type      Description
 # ------------ --------- --------------------------
@@ -37822,7 +38082,7 @@ class GetGpsSatelliteAntiSpoofingFlagResult(CommandResult):
     return self.set("AntiSpoofing", value)
 
 #
-# Please note the command GpsSatelliteNavAlertFlag is deprecated since 21.3. You may use GpsNavAlertFlagForSV.
+# Please note the command SetGpsSatelliteNavAlertFlag is deprecated since 21.3. You may use SetGpsNavAlertFlagForSV.
 # 
 # Set GPS NAV Alert Flag
 #
@@ -37855,7 +38115,7 @@ class SetGpsSatelliteNavAlertFlag(CommandBase):
     return self.set("Alert", value)
 
 #
-# Please note the command GpsSatelliteNavAlertFlag is deprecated since 21.3. You may use GpsNavAlertFlagForSV.
+# Please note the command GetGpsSatelliteNavAlertFlag is deprecated since 21.3. You may use GetGpsNavAlertFlagForSV.
 # 
 # Get GPS NAV Alert Flag
 #
@@ -37880,7 +38140,7 @@ class GetGpsSatelliteNavAlertFlag(CommandBase):
     return self.set("Prn", value)
 
 #
-# Result of GetGpsSatelliteNavAlertFlag
+# Result of GetGpsSatelliteNavAlertFlag.
 #
 # Name  Type Description
 # ----- ---- --------------------------------------------------
@@ -37911,7 +38171,7 @@ class GetGpsSatelliteNavAlertFlagResult(CommandResult):
     return self.set("Alert", value)
 
 #
-# Please note the command GpsSatelliteCNavAlertFlag is deprecated since 21.3. You may use GpsCNavAlertFlagToSV.
+# Please note the command SetGpsSatelliteCNavAlertFlag is deprecated since 21.3. You may use SetGpsCNavAlertFlagToSV.
 # 
 # Set GPS CNAV Alert Flag
 #
@@ -37944,7 +38204,7 @@ class SetGpsSatelliteCNavAlertFlag(CommandBase):
     return self.set("Alert", value)
 
 #
-# Please note the command GpsSatelliteCNavAlertFlag is deprecated since 21.3. You may use GpsCNavAlertFlagToSV.
+# Please note the command GetGpsSatelliteCNavAlertFlag is deprecated since 21.3. You may use GetGpsCNavAlertFlagToSV.
 # 
 # Get GPS CNAV Alert Flag
 #
@@ -37969,7 +38229,7 @@ class GetGpsSatelliteCNavAlertFlag(CommandBase):
     return self.set("Prn", value)
 
 #
-# Result of GetGpsSatelliteCNavAlertFlag
+# Result of GetGpsSatelliteCNavAlertFlag.
 #
 # Name  Type Description
 # ----- ---- ---------------------------------------------------
@@ -38041,7 +38301,7 @@ class EnableLOS(CommandBase):
     return self.set("Enabled", value)
 
 #
-# Please note the command EnableLOS is deprecated since 21.3. You may use EnableLosForSV.
+# Please note the command IsLOSEnabled is deprecated since 21.3. You may use IsLosEnabledForSV.
 # 
 # Get Direct Line Of Sight signal from satellite enabled or disabled. Generally used when only multipaths signal is visible.
 #
@@ -38074,7 +38334,7 @@ class IsLOSEnabled(CommandBase):
     return self.set("System", value)
 
 #
-# Result of IsLOSEnabled
+# Result of IsLOSEnabled.
 #
 # Name    Type   Description
 # ------- ------ -------------------------------------------------------------------------------------------------------------
@@ -38146,7 +38406,7 @@ class EnableLOSForEachPrn(CommandBase):
     return self.set("Enabled", value)
 
 #
-# Please note the command EnableLOSForEachPrn is deprecated since 21.3. You may use EnableLosForEachSV.
+# Please note the command IsLOSEnabledForEachPrn is deprecated since 21.3. You may use IsLOSEnabledForEachSV.
 # 
 # Get Direct Line Of Sight signal from satellite disabled or enabled. Generally used when only multipaths signal is visible.
 #
@@ -38171,7 +38431,7 @@ class IsLOSEnabledForEachPrn(CommandBase):
     return self.set("System", value)
 
 #
-# Result of IsLOSEnabledForEachPrn
+# Result of IsLOSEnabledForEachPrn.
 #
 # Name    Type       Description
 # ------- ---------- -----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
@@ -38202,7 +38462,7 @@ class IsLOSEnabledForEachPrnResult(CommandResult):
     return self.set("Enabled", value)
 
 #
-# Please note the command BeiDouSatelliteHealthInfo is deprecated since 21.3. You may use BeiDouHealthInfoForSV.
+# Please note the command SetBeiDouSatelliteHealthInfo is deprecated since 21.3. You may use SetBeiDouHealthInfoForSV.
 # 
 # Set BeiDou satellite health info
 #
@@ -38235,7 +38495,7 @@ class SetBeiDouSatelliteHealthInfo(CommandBase):
     return self.set("Health", value)
 
 #
-# Please note the command BeiDouSatelliteHealthInfo is deprecated since 21.3. You may use BeiDouHealthInfoForSV.
+# Please note the command GetBeiDouSatelliteHealthInfo is deprecated since 21.3. You may use GetBeiDouHealthInfoForSV.
 # 
 # Get BeiDou satellite health info
 #
@@ -38260,7 +38520,7 @@ class GetBeiDouSatelliteHealthInfo(CommandBase):
     return self.set("Prn", value)
 
 #
-# Result of GetBeiDouSatelliteHealthInfo
+# Result of GetBeiDouSatelliteHealthInfo.
 #
 # Name   Type Description
 # ------ ---- -------------------------------------------------------------------------
@@ -38291,7 +38551,7 @@ class GetBeiDouSatelliteHealthInfoResult(CommandResult):
     return self.set("Health", value)
 
 #
-# Please note the command BeiDouSatelliteAutonomousHealth is deprecated since 21.3. You may use BeiDouAutonomousHealthForSV.
+# Please note the command SetBeiDouSatelliteAutonomousHealth is deprecated since 21.3. You may use SetBeiDouAutonomousHealthForSV.
 # 
 # Set BeiDou satellite autonomous health
 #
@@ -38324,7 +38584,7 @@ class SetBeiDouSatelliteAutonomousHealth(CommandBase):
     return self.set("Health", value)
 
 #
-# Please note the command BeiDouSatelliteAutonomousHealth is deprecated since 21.3. You may use BeiDouAutonomousHealthForSV.
+# Please note the command GetBeiDouSatelliteAutonomousHealth is deprecated since 21.3. You may use GetBeiDouAutonomousHealthForSV.
 # 
 # Get BeiDou satellite autonomous health
 #
@@ -38349,7 +38609,7 @@ class GetBeiDouSatelliteAutonomousHealth(CommandBase):
     return self.set("Prn", value)
 
 #
-# Result of GetBeiDouSatelliteAutonomousHealth
+# Result of GetBeiDouSatelliteAutonomousHealth.
 #
 # Name   Type Description
 # ------ ---- -------------------------------------
@@ -38380,7 +38640,7 @@ class GetBeiDouSatelliteAutonomousHealthResult(CommandResult):
     return self.set("Health", value)
 
 #
-# Please note the command BeiDouCNavSatelliteHealthInfo is deprecated since 21.3. You may use BeiDouCNavHealthInfoForSV.
+# Please note the command SetBeiDouCNavSatelliteHealthInfo is deprecated since 21.3. You may use SetBeiDouCNavHealthInfoForSV.
 # 
 # Set BeiDou CNav satellite health info
 #
@@ -38413,7 +38673,7 @@ class SetBeiDouCNavSatelliteHealthInfo(CommandBase):
     return self.set("Health", value)
 
 #
-# Please note the command BeiDouCNavSatelliteHealthInfo is deprecated since 21.3. You may use BeiDouCNavHealthInfoForSV.
+# Please note the command GetBeiDouCNavSatelliteHealthInfo is deprecated since 21.3. You may use GetBeiDouCNavHealthInfoForSV.
 # 
 # Get BeiDou CNav satellite health info
 #
@@ -38438,7 +38698,7 @@ class GetBeiDouCNavSatelliteHealthInfo(CommandBase):
     return self.set("Prn", value)
 
 #
-# Result of GetBeiDouCNavSatelliteHealthInfo
+# Result of GetBeiDouCNavSatelliteHealthInfo.
 #
 # Name   Type Description
 # ------ ---- ------------------------------------------------------
@@ -38469,7 +38729,7 @@ class GetBeiDouCNavSatelliteHealthInfoResult(CommandResult):
     return self.set("Health", value)
 
 #
-# Please note the command BeiDouSatelliteHealthStatus is deprecated since 21.3. You may use BeiDouHealthStatusForSV.
+# Please note the command SetBeiDouSatelliteHealthStatus is deprecated since 21.3. You may use SetBeiDouHealthStatusForSV.
 # 
 # Set BeiDou satellite health status
 #
@@ -38502,7 +38762,7 @@ class SetBeiDouSatelliteHealthStatus(CommandBase):
     return self.set("Health", value)
 
 #
-# Please note the command BeiDouSatelliteHealthStatus is deprecated since 21.3. You may use BeiDouHealthStatusForSV.
+# Please note the command GetBeiDouSatelliteHealthStatus is deprecated since 21.3. You may use GetBeiDouHealthStatusForSV.
 # 
 # Get BeiDou satellite health status
 #
@@ -38527,7 +38787,7 @@ class GetBeiDouSatelliteHealthStatus(CommandBase):
     return self.set("Prn", value)
 
 #
-# Result of GetBeiDouSatelliteHealthStatus
+# Result of GetBeiDouSatelliteHealthStatus.
 #
 # Name   Type Description
 # ------ ---- -----------------------------------------
@@ -38624,7 +38884,7 @@ class SetBeiDouUraIndex(CommandBase):
     return self.set("Urai", value)
 
 #
-# Please note the command ModificationToGpsCNavMessage is deprecated since 21.3. You may use MessageModificationToGpsCNav.
+# Please note the command SetModificationToGpsCNavMessage is deprecated since 21.3. You may use SetMessageModificationToGpsCNav.
 # 
 # Set (or Modify) event to change CNAV message bits. If you send this command without setting the Id
 # parameter, or if you set the Id with a value never used before, a new Modification event will be
@@ -38731,7 +38991,7 @@ class SetModificationToGpsCNavMessage(CommandBase):
     return self.set("Id", value)
 
 #
-# Please note the command ModificationToGpsCNavMessage is deprecated since 21.3. You may use MessageModificationToGpsCNav.
+# Please note the command GetGpsCNavMessage is deprecated since 21.3. You may use GetMessageModificationToGpsCNav.
 # 
 # Get infos about the CNAV Message with this id
 #
@@ -38756,7 +39016,7 @@ class GetGpsCNavMessage(CommandBase):
     return self.set("Id", value)
 
 #
-# Result of GetGpsCNavMessage
+# Result of GetGpsCNavMessage.
 #
 # Name      Type   Description
 # --------- ------ --------------------------------------------------------------------
@@ -39222,7 +39482,7 @@ class GetGpsMNavMessagesResult(CommandResult):
     return self.set("Ids", value)
 
 #
-# Please note the command ModificationToGpsCNav2Message is deprecated since 21.3. You may use MessageModificationToGpsCNav2.
+# Please note the command SetModificationToGpsCNav2Message is deprecated since 21.3. You may use SetMessageModificationToGpsCNav2.
 # 
 # Set (or Modify) event to change CNAV2 message bits. If you send this command without setting the Id
 # parameter, or if you set the Id with a value never used before, a new Modification event will be
@@ -39329,7 +39589,7 @@ class SetModificationToGpsCNav2Message(CommandBase):
     return self.set("Id", value)
 
 #
-# Please note the command ModificationToGpsCNav2Message is deprecated since 21.3. You may use MessageModificationToGpsCNav2.
+# Please note the command GetGpsCNav2Message is deprecated since 21.3. You may use GetMessageModificationToGpsCNav2.
 # 
 # Get infos about the CNAV2 Message with this id
 #
@@ -39354,7 +39614,7 @@ class GetGpsCNav2Message(CommandBase):
     return self.set("Id", value)
 
 #
-# Result of GetGpsCNav2Message
+# Result of GetGpsCNav2Message.
 #
 # Name      Type   Description
 # --------- ------ --------------------------------------------------------------------
@@ -39521,7 +39781,7 @@ class GetGpsCNav2MessagesResult(CommandResult):
     return self.set("Ids", value)
 
 #
-# Please note the command ModificationToGpsNavigationMessage is deprecated since 21.3. You may use MessageModificationToGpsLNav.
+# Please note the command SetModificationToGpsNavigationMessage is deprecated since 21.3. You may use SetMessageModificationToGpsLNav.
 # 
 # Set (or Modify) event to change navigation message bits.
 # 
@@ -39629,7 +39889,7 @@ class SetModificationToGpsNavigationMessage(CommandBase):
     return self.set("Id", value)
 
 #
-# Please note the command ModificationToGpsNavigationMessage is deprecated since 21.3. You may use MessageModificationToGpsLNav.
+# Please note the command GetGpsNavigationMessage is deprecated since 21.3. You may use GetMessageModificationToGpsLNav.
 # 
 # Get infos about this modification gps navigation message event.
 #
@@ -39654,7 +39914,7 @@ class GetGpsNavigationMessage(CommandBase):
     return self.set("Id", value)
 
 #
-# Result of GetGpsNavigationMessage
+# Result of GetGpsNavigationMessage.
 #
 # Name         Type   Description
 # ------------ ------ -----------------------------------------------------------
@@ -39830,7 +40090,7 @@ class GetGpsNavigationMessagesResult(CommandResult):
     return self.set("Ids", value)
 
 #
-# Please note the command ModificationToGalileoFNavMessage is deprecated since 21.3. You may use MessageModificationToGalileoFNav.
+# Please note the command SetModificationToGalileoFNavMessage is deprecated since 21.3. You may use SetMessageModificationToGalileoFNav.
 # 
 # Set (or Modify) event to change FNAV message bits. If you send this command without setting the Id
 # parameter, or if you set the Id with a value never used before, a new Modification event will be
@@ -39934,7 +40194,7 @@ class SetModificationToGalileoFNavMessage(CommandBase):
     return self.set("Id", value)
 
 #
-# Please note the command ModificationToGalileoFNavMessage is deprecated since 21.3. You may use MessageModificationToGalileoFNav.
+# Please note the command GetGalileoFNavMessage is deprecated since 21.3. You may use GetMessageModificationToGalileoFNav.
 # 
 # Get infos about the FNAV Message with this id
 #
@@ -39959,7 +40219,7 @@ class GetGalileoFNavMessage(CommandBase):
     return self.set("Id", value)
 
 #
-# Result of GetGalileoFNavMessage
+# Result of GetGalileoFNavMessage.
 #
 # Name      Type   Description
 # --------- ------ --------------------------------------------------------------------
@@ -40126,7 +40386,7 @@ class GetGalileoFNavMessagesResult(CommandResult):
     return self.set("Ids", value)
 
 #
-# Please note the command ModificationToGalileoINavMessage is deprecated since 21.3. You may use MessageModificationToGalileoINav.
+# Please note the command SetModificationToGalileoINavMessage is deprecated since 21.3. You may use SetMessageModificationToGalileoINav.
 # 
 # Set (or Modify) event to change INAV message bits. If you send this command without setting the Id
 # parameter, or if you set the Id with a value never used before, a new Modification event will be
@@ -40246,7 +40506,7 @@ class SetModificationToGalileoINavMessage(CommandBase):
     return self.set("Id", value)
 
 #
-# Please note the command ModificationToGalileoINavMessage is deprecated since 21.3. You may use MessageModificationToGalileoINav.
+# Please note the command GetGalileoINavMessage is deprecated since 21.3. You may use GetMessageModificationToGalileoINav.
 # 
 # Get infos about the INAV Message with this id
 #
@@ -40271,7 +40531,7 @@ class GetGalileoINavMessage(CommandBase):
     return self.set("Id", value)
 
 #
-# Result of GetGalileoINavMessage
+# Result of GetGalileoINavMessage.
 #
 # Name      Type   Description
 # --------- ------ --------------------------------------------------------------------
@@ -40454,7 +40714,7 @@ class GetGalileoINavMessagesResult(CommandResult):
     return self.set("Ids", value)
 
 #
-# Please note the command ModificationToGlonassNavigationMessage is deprecated since 21.3. You may use MessageModificationToGlonassNav.
+# Please note the command SetModificationToGlonassNavigationMessage is deprecated since 21.3. You may use SetMessageModificationToGlonassNav.
 # 
 # Set (or Modify) event to change navigation message bits.
 # 
@@ -40560,7 +40820,7 @@ class SetModificationToGlonassNavigationMessage(CommandBase):
     return self.set("Id", value)
 
 #
-# Please note the command ModificationToGlonassNavigationMessage is deprecated since 21.3. You may use MessageModificationToGlonassNav.
+# Please note the command GetGlonassNavigationMessage is deprecated since 21.3. You may use GetMessageModificationToGlonassNav.
 # 
 # Get infos about this modification Glonass navigation message event
 #
@@ -40585,7 +40845,7 @@ class GetGlonassNavigationMessage(CommandBase):
     return self.set("Id", value)
 
 #
-# Result of GetGlonassNavigationMessage
+# Result of GetGlonassNavigationMessage.
 #
 # Name              Type   Description
 # ----------------- ------ -------------------------------------------------------------------------
@@ -40753,7 +41013,7 @@ class GetGlonassNavigationMessagesResult(CommandResult):
     return self.set("Ids", value)
 
 #
-# Please note the command ModificationToBeiDouD1NavigationMessage is deprecated since 21.3. You may use MessageModificationToBeiDouD1Nav.
+# Please note the command SetModificationToBeiDouD1NavigationMessage is deprecated since 21.3. You may use SetMessageModificationToBeiDouD1Nav.
 # 
 # Set (or Modify) event to change navigation message bits.
 # 
@@ -40861,7 +41121,7 @@ class SetModificationToBeiDouD1NavigationMessage(CommandBase):
     return self.set("Id", value)
 
 #
-# Please note the command ModificationToBeiDouD1NavigationMessage is deprecated since 21.3. You may use MessageModificationToBeiDouD1Nav.
+# Please note the command GetBeiDouD1NavigationMessage is deprecated since 21.3. You may use GetMessageModificationToBeiDouD1Nav.
 # 
 # Get infos about this modification BeiDou D1 navigation message event
 #
@@ -40886,7 +41146,7 @@ class GetBeiDouD1NavigationMessage(CommandBase):
     return self.set("Id", value)
 
 #
-# Result of GetBeiDouD1NavigationMessage
+# Result of GetBeiDouD1NavigationMessage.
 #
 # Name         Type   Description
 # ------------ ------ ------------------------------------------------------------
@@ -41062,7 +41322,7 @@ class GetBeiDouD1NavigationMessagesResult(CommandResult):
     return self.set("Ids", value)
 
 #
-# Please note the command ModificationToBeiDouD2NavigationMessage is deprecated since 21.3. You may use MessageModificationToBeiDouD2Nav.
+# Please note the command SetModificationToBeiDouD2NavigationMessage is deprecated since 21.3. You may use SetMessageModificationToBeiDouD2Nav.
 # 
 # Set (or Modify) event to change navigation message bits.
 # 
@@ -41170,7 +41430,7 @@ class SetModificationToBeiDouD2NavigationMessage(CommandBase):
     return self.set("Id", value)
 
 #
-# Please note the command ModificationToBeiDouD2NavigationMessage is deprecated since 21.3. You may use MessageModificationToBeiDouD2Nav.
+# Please note the command GetBeiDouD2NavigationMessage is deprecated since 21.3. You may use GetMessageModificationToBeiDouD2Nav.
 # 
 # Get infos about this modification BeiDou D2 navigation message event
 #
@@ -41195,7 +41455,7 @@ class GetBeiDouD2NavigationMessage(CommandBase):
     return self.set("Id", value)
 
 #
-# Result of GetBeiDouD2NavigationMessage
+# Result of GetBeiDouD2NavigationMessage.
 #
 # Name         Type   Description
 # ------------ ------ -----------------------------------------------------------
@@ -41371,7 +41631,7 @@ class GetBeiDouD2NavigationMessagesResult(CommandResult):
     return self.set("Ids", value)
 
 #
-# Please note the command ModificationToBeiDouCNav1Message is deprecated since 21.3. You may use MessageModificationToBeiDouCNav1.
+# Please note the command SetModificationToBeiDouCNav1Message is deprecated since 21.3. You may use SetMessageModificationToBeiDouCNav1.
 # 
 # Set (or Modify) event to change CNAV1 message bits. If you send this command without setting the Id
 # parameter, or if you set the Id with a value never used before, a new Modification event will be
@@ -41478,7 +41738,7 @@ class SetModificationToBeiDouCNav1Message(CommandBase):
     return self.set("Id", value)
 
 #
-# Please note the command ModificationToBeiDouCNav1Message is deprecated since 21.3. You may use MessageModificationToBeiDouCNav1.
+# Please note the command GetBeiDouCNav1Message is deprecated since 21.3. You may use GetMessageModificationToBeiDouCNav1.
 # 
 # Get infos about the CNAV1 Message with this id
 #
@@ -41503,7 +41763,7 @@ class GetBeiDouCNav1Message(CommandBase):
     return self.set("Id", value)
 
 #
-# Result of GetBeiDouCNav1Message
+# Result of GetBeiDouCNav1Message.
 #
 # Name      Type   Description
 # --------- ------ --------------------------------------------------------------------
@@ -41670,7 +41930,7 @@ class GetBeiDouCNav1MessagesResult(CommandResult):
     return self.set("Ids", value)
 
 #
-# Please note the command ModificationToBeiDouCNav2Message is deprecated since 21.3. You may use MessageModificationToBeiDouCNav2.
+# Please note the command SetModificationToBeiDouCNav2Message is deprecated since 21.3. You may use SetMessageModificationToBeiDouCNav2.
 # 
 # Set (or Modify) event to change CNAV2 message bits. If you send this command without setting the Id
 # parameter, or if you set the Id with a value never used before, a new Modification event will be
@@ -41777,7 +42037,7 @@ class SetModificationToBeiDouCNav2Message(CommandBase):
     return self.set("Id", value)
 
 #
-# Please note the command ModificationToBeiDouCNav2Message is deprecated since 21.3. You may use MessageModificationToBeiDouCNav2.
+# Please note the command GetBeiDouCNav2Message is deprecated since 21.3. You may use GetMessageModificationToBeiDouCNav2.
 # 
 # Get infos about the modifications of CNAV2 Message with this id
 #
@@ -41802,7 +42062,7 @@ class GetBeiDouCNav2Message(CommandBase):
     return self.set("Id", value)
 
 #
-# Result of GetBeiDouCNav2Message
+# Result of GetBeiDouCNav2Message.
 #
 # Name        Type   Description
 # ----------- ------ --------------------------------------------------------------------
@@ -41969,7 +42229,7 @@ class GetBeiDouCNav2MessagesResult(CommandResult):
     return self.set("Ids", value)
 
 #
-# Please note the command ModificationToQzssLNAVNavigationMessage is deprecated since 21.3. You may use MessageModificationToQzssLNav.
+# Please note the command SetModificationToQzssLNAVNavigationMessage is deprecated since 21.3. You may use SetMessageModificationToQzssLNav.
 # 
 # Set (or Modify) event to change navigation message bits.
 # 
@@ -42077,7 +42337,7 @@ class SetModificationToQzssLNAVNavigationMessage(CommandBase):
     return self.set("Id", value)
 
 #
-# Please note the command ModificationToQzssLNAVNavigationMessage is deprecated since 21.3. You may use MessageModificationToQzssLNav.
+# Please note the command GetQzssLNAVNavigationMessage is deprecated since 21.3. You may use GetMessageModificationToQzssLNav.
 # 
 # Get infos about this modification QZSS navigation message event.
 #
@@ -42102,7 +42362,7 @@ class GetQzssLNAVNavigationMessage(CommandBase):
     return self.set("Id", value)
 
 #
-# Result of GetQzssLNAVNavigationMessage
+# Result of GetQzssLNAVNavigationMessage.
 #
 # Name            Type   Description
 # --------------- ------ -------------------------------------------------------------------------
@@ -42278,7 +42538,7 @@ class GetQzssLNAVNavigationMessagesResult(CommandResult):
     return self.set("Ids", value)
 
 #
-# Please note the command ModificationToQzssL1SMessage is deprecated since 21.3. You may use MessageModificationToQzssSlas.
+# Please note the command SetModificationToQzssL1SMessage is deprecated since 21.3. You may use SetMessageModificationToQzssSlas.
 # 
 # Set (or Modify) event to change L1S message bits. If you send this command without setting the Id
 # parameter, or if you set the Id with a value never used before, a new Modification event will be
@@ -42385,7 +42645,7 @@ class SetModificationToQzssL1SMessage(CommandBase):
     return self.set("Id", value)
 
 #
-# Please note the command ModificationToQzssL1SMessage is deprecated since 21.3. You may use MessageModificationToQzssSlas.
+# Please note the command GetQzssL1SMessage is deprecated since 21.3. You may use GetMessageModificationToQzssSlas.
 # 
 # Get infos about the L1S Message with this id
 #
@@ -42410,7 +42670,7 @@ class GetQzssL1SMessage(CommandBase):
     return self.set("Id", value)
 
 #
-# Result of GetQzssL1SMessage
+# Result of GetQzssL1SMessage.
 #
 # Name        Type   Description
 # ----------- ------ --------------------------------------------------------------------
@@ -42489,7 +42749,7 @@ class GetQzssL1SMessageResult(CommandResult):
     return self.set("Id", value)
 
 #
-# Please note the command ModificationToNavICL5Message is deprecated since 21.3. You may use MessageModificationToNavICNav.
+# Please note the command SetModificationToNavICL5Message is deprecated since 21.3. You may use SetMessageModificationToNavICNav.
 # 
 # Set (or Modify) event to change NavIC L5 message bits. If you send this command without setting the Id
 # parameter, or if you set the Id with a value never used before, a new Modification event will be
@@ -42604,7 +42864,7 @@ class SetModificationToNavICL5Message(CommandBase):
     return self.set("Id", value)
 
 #
-# Please note the command ModificationToNavICL5Message is deprecated since 21.3. You may use MessageModificationToNavICNav.
+# Please note the command GetNavICL5Message is deprecated since 21.3. You may use GetMessageModificationToNavICNav.
 # 
 # Get infos about the NAV Message with this id
 #
@@ -42629,7 +42889,7 @@ class GetNavICL5Message(CommandBase):
     return self.set("Id", value)
 
 #
-# Result of GetNavICL5Message
+# Result of GetNavICL5Message.
 #
 # Name        Type   Description
 # ----------- ------ --------------------------------------------------------------------
@@ -42772,6 +43032,8 @@ class GetMessageModificationsResult(CommandResult):
     return self.set("Ids", value)
 
 #
+# Please note the command SetSbasHealthRanging is deprecated since 21.9. You may use SetSbasSVRangingHealth.
+# 
 # Apply ranging flag for a SBAS satellite
 #
 # Name   Type Description
@@ -42803,6 +43065,8 @@ class SetSbasHealthRanging(CommandBase):
     return self.set("Health", value)
 
 #
+# Please note the command SetSbasHealthCorrections is deprecated since 21.9. You may use SetSbasSVCorrectionsHealth.
+# 
 # Apply correction flag for a SBAS satellite
 #
 # Name   Type Description
@@ -42834,6 +43098,8 @@ class SetSbasHealthCorrections(CommandBase):
     return self.set("Health", value)
 
 #
+# Please note the command SetSbasHealthIntegrity is deprecated since 21.9. You may use SetSbasSVIntegrityHealth.
+# 
 # Apply integrity flag for a SBAS satellite
 #
 # Name   Type Description
@@ -42865,6 +43131,8 @@ class SetSbasHealthIntegrity(CommandBase):
     return self.set("Health", value)
 
 #
+# Please note the command SetSbasHealthReserved is deprecated since 21.9. You may use SetSbasSVReservedHealth.
+# 
 # Apply reserved flag for a SBAS satellite
 #
 # Name   Type Description
@@ -42896,6 +43164,8 @@ class SetSbasHealthReserved(CommandBase):
     return self.set("Health", value)
 
 #
+# Please note the command SetSbasHealthService is deprecated since 21.9. You may use SetSbasSVServiceHealth.
+# 
 # Apply service provider for a satellite
 #
 # Name   Type Description
@@ -43186,7 +43456,7 @@ class GetVisibleSatellitesResult(CommandResult):
     return self.set("Prns", value)
 
 #
-# Please note the command SatGeo is deprecated since 21.3. You may use ForceSVGeo.
+# Please note the command SetSatGeo is deprecated since 21.3. You may use ForceSVGeo.
 # 
 # Set whether a satellite is geostationary
 #
@@ -43235,7 +43505,7 @@ class SetSatGeo(CommandBase):
     return self.set("Longitude", value)
 
 #
-# Please note the command SatGeo is deprecated since 21.3. You may use ForceSVGeo.
+# Please note the command IsSatGeo is deprecated since 21.3. You may use IsSVForcedGeo.
 # 
 # Get whether a satellite is geostationary
 #
@@ -43268,7 +43538,7 @@ class IsSatGeo(CommandBase):
     return self.set("Prn", value)
 
 #
-# Result of IsSatGeo
+# Result of IsSatGeo.
 #
 # Name      Type   Description
 # --------- ------ -----------------------------------------------------------------------------------------------------------------------------------------------
@@ -43357,9 +43627,9 @@ class EnablePY(CommandBase):
     return self.set("Enabled", value)
 
 #
-# Please note the command EnablePY is deprecated since 21.3. You may use EnablePYCodeForSV.
+# Please note the command IsPYEnabled is deprecated since 21.3. You may use IsPYCodeEnabledForSV.
 # 
-# Tells if P(Y)-Code is enabled for the specified satellite PRN. See EnablePY description for allowed signals.
+# Tells if P(Y)-Code is enabled for the specified satellite PRN. See IsPYEnabled description for allowed signals.
 #
 # Name   Type   Description
 # ------ ------ --------------------------------------------------------
@@ -43390,7 +43660,7 @@ class IsPYEnabled(CommandBase):
     return self.set("Signal", value)
 
 #
-# Result of IsPYEnabled
+# Result of IsPYEnabled.
 #
 # Name    Type   Description
 # ------- ------ --------------------------------------------------------
@@ -43463,9 +43733,9 @@ class EnablePYForEachPrn(CommandBase):
     return self.set("Enabled", value)
 
 #
-# Please note the command EnablePYForEachPrn is deprecated since 21.3. You may use EnablePYCodeForEachSV.
+# Please note the command GetPYEnabledForEachPrn is deprecated since 21.3. You may use IsPYCodeEnabledForEachSV.
 # 
-# Tells if the P(Y)-Code is enabled or disabled for each satellite. See EnablePYForEachPrn description for allowed signals.
+# Tells if the P(Y)-Code is enabled or disabled for each satellite. See GetPYEnabledForEachPrn description for allowed signals.
 #
 # Name   Type   Description
 # ------ ------ --------------------------------------------------------
@@ -43488,7 +43758,7 @@ class GetPYEnabledForEachPrn(CommandBase):
     return self.set("Signal", value)
 
 #
-# Result of GetPYEnabledForEachPrn
+# Result of GetPYEnabledForEachPrn.
 #
 # Name    Type       Description
 # ------- ---------- ------------------------------------------------------------------------------------------------------------------
@@ -43519,7 +43789,7 @@ class GetPYEnabledForEachPrnResult(CommandResult):
     return self.set("Enabled", value)
 
 #
-# Please note the command SatellitePseudorangeNoiseOffset is deprecated since 21.3. You may use PseudorangeNoiseOffsetForSV.
+# Please note the command SetSatellitePseudorangeNoiseOffset is deprecated since 21.3. You may use SetPseudorangeNoiseOffsetForSV.
 # 
 # Set the satellite pseudorange noise constant offset.
 #
@@ -43568,7 +43838,7 @@ class SetSatellitePseudorangeNoiseOffset(CommandBase):
     return self.set("Offset", value)
 
 #
-# Please note the command SatellitePseudorangeNoiseOffset is deprecated since 21.3. You may use PseudorangeNoiseOffsetForSV.
+# Please note the command GetSatellitePseudorangeNoiseOffset is deprecated since 21.3. You may use GetPseudorangeNoiseOffsetForSV.
 # 
 # Get the satellite pseudorange noise constant offset.
 #
@@ -43601,7 +43871,7 @@ class GetSatellitePseudorangeNoiseOffset(CommandBase):
     return self.set("Prn", value)
 
 #
-# Result of GetSatellitePseudorangeNoiseOffset
+# Result of GetSatellitePseudorangeNoiseOffset.
 #
 # Name    Type   Description
 # ------- ------ ----------------------------------------------------------------------------------------------------------
@@ -43648,7 +43918,7 @@ class GetSatellitePseudorangeNoiseOffsetResult(CommandResult):
     return self.set("Offset", value)
 
 #
-# Please note the command SatellitePseudorangeNoiseSineWave is deprecated since 21.3. You may use PseudorangeNoiseSineWaveForSV.
+# Please note the command SetSatellitePseudorangeNoiseSineWave is deprecated since 21.3. You may use SetPseudorangeNoiseSineWaveForSV.
 # 
 # Set the satellite pseudorange noise sine wave attributes.
 #
@@ -43721,7 +43991,7 @@ class SetSatellitePseudorangeNoiseSineWave(CommandBase):
     return self.set("Offset", value)
 
 #
-# Please note the command SatellitePseudorangeNoiseSineWave is deprecated since 21.3. You may use PseudorangeNoiseSineWaveForSV.
+# Please note the command GetSatellitePseudorangeNoiseSineWave is deprecated since 21.3. You may use GetPseudorangeNoiseSineWaveForSV.
 # 
 # Get the satellite pseudorange noise sine wave attributes.
 #
@@ -43762,7 +44032,7 @@ class GetSatellitePseudorangeNoiseSineWave(CommandBase):
     return self.set("SineWave", value)
 
 #
-# Result of GetSatellitePseudorangeNoiseSineWave
+# Result of GetSatellitePseudorangeNoiseSineWave.
 #
 # Name      Type   Description
 # --------- ------ ----------------------------------------------------------------------------------------------------------
@@ -43833,7 +44103,7 @@ class GetSatellitePseudorangeNoiseSineWaveResult(CommandResult):
     return self.set("Offset", value)
 
 #
-# Please note the command SatellitePseudorangeNoiseGaussMarkov is deprecated since 21.3. You may use PseudorangeNoiseGaussMarkovForSV.
+# Please note the command SetSatellitePseudorangeNoiseGaussMarkov is deprecated since 21.3. You may use SetPseudorangeNoiseGaussMarkovForSV.
 # 
 # Set the satellite pseudorange noise Gauss-Markov process attributes.
 #
@@ -43906,7 +44176,7 @@ class SetSatellitePseudorangeNoiseGaussMarkov(CommandBase):
     return self.set("Seed", value)
 
 #
-# Please note the command SatellitePseudorangeNoiseGaussMarkov is deprecated since 21.3. You may use PseudorangeNoiseGaussMarkovForSV.
+# Please note the command GetSatellitePseudorangeNoiseGaussMarkov is deprecated since 21.3. You may use GetPseudorangeNoiseGaussMarkovForSV.
 # 
 # Get the satellite pseudorange noise Gauss-Markov process attributes.
 #
@@ -43947,7 +44217,7 @@ class GetSatellitePseudorangeNoiseGaussMarkov(CommandBase):
     return self.set("Process", value)
 
 #
-# Result of GetSatellitePseudorangeNoiseGaussMarkov
+# Result of GetSatellitePseudorangeNoiseGaussMarkov.
 #
 # Name    Type   Description
 # ------- ------ ----------------------------------------------------------------------------------------------------------
@@ -44018,7 +44288,7 @@ class GetSatellitePseudorangeNoiseGaussMarkovResult(CommandResult):
     return self.set("Seed", value)
 
 #
-# Please note the command SatelliteEphemerisError is deprecated since 21.3. You may use EphemerisErrorForSV.
+# Please note the command SetSatelliteEphemerisError is deprecated since 21.3. You may use SetEphemerisErrorForSV.
 # 
 # Set the satellite ephemeris error.
 #
@@ -44075,7 +44345,7 @@ class SetSatelliteEphemerisError(CommandBase):
     return self.set("DeltaAf1", value)
 
 #
-# Please note the command SatelliteEphemerisError is deprecated since 21.3. You may use EphemerisErrorForSV.
+# Please note the command GetSatelliteEphemerisError is deprecated since 21.3. You may use GetEphemerisErrorForSV.
 # 
 # Get the satellite ephemeris error.
 #
@@ -44108,7 +44378,7 @@ class GetSatelliteEphemerisError(CommandBase):
     return self.set("Prn", value)
 
 #
-# Result of GetSatelliteEphemerisError
+# Result of GetSatelliteEphemerisError.
 #
 # Name     Type   Description
 # -------- ------ ----------------------------------------------------------------------------------------------------------
@@ -44163,7 +44433,7 @@ class GetSatelliteEphemerisErrorResult(CommandResult):
     return self.set("DeltaAf1", value)
 
 #
-# Please note the command GpsCodePrn is deprecated since 21.3. You may use PrnOfSVID.
+# Please note the command SetGpsCodePrn is deprecated since 21.3. You may use SetPrnOfSVID.
 # 
 # Set the transmitted PRN code for the specified satellite
 #
@@ -44196,7 +44466,7 @@ class SetGpsCodePrn(CommandBase):
     return self.set("TransmittedPrn", value)
 
 #
-# Please note the command GpsCodePrn is deprecated since 21.3. You may use PrnOfSVID.
+# Please note the command GetGpsCodePrn is deprecated since 21.3. You may use GetPrnOfSVID.
 # 
 # Get the transmitted PRN code for the specified satellite
 #
@@ -44221,7 +44491,7 @@ class GetGpsCodePrn(CommandBase):
     return self.set("SatPrn", value)
 
 #
-# Result of GetGpsCodePrn
+# Result of GetGpsCodePrn.
 #
 # Name           Type Description
 # -------------- ---- -----------------------------
@@ -44252,7 +44522,7 @@ class GetGpsCodePrnResult(CommandResult):
     return self.set("TransmittedPrn", value)
 
 #
-# Please note the command PseudorangeRamp is deprecated since 21.3. You may use PseudorangeRampForSV.
+# Please note the command SetPseudorangeRamp is deprecated since 21.3. You may use SetPseudorangeRampForSV.
 # 
 # Set PSR ramp event. This function lets user change the pseudorange of any satellite.
 # If PRN is set to 0, the change is applied to all satellites.
@@ -44344,7 +44614,7 @@ class SetPseudorangeRamp(CommandBase):
     return self.set("Id", value)
 
 #
-# Please note the command PseudorangeRamp is deprecated since 21.3. You may use PseudorangeRampForSV.
+# Please note the command GetPseudorangeRamp is deprecated since 21.3. You may use GetPseudorangeRampForSV.
 # 
 # Get PSR ramp event. This function lets user change the pseudorange of any satellite.
 # If PRN is set to 0, the change is applied to all satellites.
@@ -44380,7 +44650,7 @@ class GetPseudorangeRamp(CommandBase):
     return self.set("Id", value)
 
 #
-# Result of GetPseudorangeRamp
+# Result of GetPseudorangeRamp.
 #
 # Name          Type   Description
 # ------------- ------ ----------------------------------------------------------------------------------------------------------
@@ -44531,7 +44801,7 @@ class GetPseudorangeRampsResult(CommandResult):
     return self.set("Ids", value)
 
 #
-# Please note the command SVAntennaModelForAllSat is deprecated since 21.3. You may use SVAntennaModelForEachSV.
+# Please note the command SetSVAntennaModelForAllSat is deprecated since 21.3. You may use SetSVAntennaModelForEachSV.
 # 
 # Set the antenna model for all satellites.
 #
@@ -44564,7 +44834,7 @@ class SetSVAntennaModelForAllSat(CommandBase):
     return self.set("System", value)
 
 #
-# Please note the command SVAntennaModelForAllSat is deprecated since 21.3. You may use SVAntennaModelForEachSV.
+# Please note the command GetSVAntennaModelForAllSat is deprecated since 21.3. You may use GetSVAntennaModelForEachSV.
 # 
 # Get the antenna model for all satellites.
 #
@@ -44589,7 +44859,7 @@ class GetSVAntennaModelForAllSat(CommandBase):
     return self.set("System", value)
 
 #
-# Result of GetSVAntennaModelForAllSat
+# Result of GetSVAntennaModelForAllSat.
 #
 # Name              Type         Description
 # ----------------- ------------ --------------------------------------------------------------------------------------------------------------------------------------------------

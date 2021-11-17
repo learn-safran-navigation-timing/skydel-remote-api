@@ -6,7 +6,7 @@ namespace Sdx.Cmd
 
   public static class ApiInfo
   {
-    public const int COMMANDS_API_VERSION = 32;
+    public const int COMMANDS_API_VERSION = 33;
   }
 
   ///
@@ -162,7 +162,39 @@ namespace Sdx.Cmd
 
 
   ///
-  /// Ask Skydel's Data Folder. The user can changed it in the GUI's Preferences.
+  /// Redo the last undone command like Ctrl+Shift+Z in the UI
+  ///
+  /// 
+  ///
+
+  public class RedoCmd : CommandBase
+  {
+    public override string Documentation
+    {
+      get { return "Redo the last undone command like Ctrl+Shift+Z in the UI"; }
+    }
+
+    internal const string CmdName = "RedoCmd";
+
+    public RedoCmd()
+      : base(CmdName)
+    {}
+      
+    public override bool IsValid
+    {
+      get
+      {
+        return base.IsValid
+      ;
+      }
+    }
+
+    public override int ExecutePermission { get { return EXECUTE_IF_IDLE; } }
+  }
+
+
+  ///
+  /// Get Skydel's Data Folder. The user can changed it in the GUI's Preferences.
   ///
   /// 
   ///
@@ -171,7 +203,7 @@ namespace Sdx.Cmd
   {
     public override string Documentation
     {
-      get { return "Ask Skydel's Data Folder. The user can changed it in the GUI's Preferences."; }
+      get { return "Get Skydel's Data Folder. The user can changed it in the GUI's Preferences."; }
     }
 
     internal const string CmdName = "GetDataFolder";
@@ -194,7 +226,7 @@ namespace Sdx.Cmd
 
 
   ///
-  /// Result of the command "GetDataFolder"
+  /// Result of GetDataFolder.
   ///
   /// Name   Type   Description
   /// ------ ------ ------------------
@@ -205,7 +237,7 @@ namespace Sdx.Cmd
   {
     public override string Documentation
     {
-      get { return "Result of the command \"GetDataFolder\""; }
+      get { return "Result of GetDataFolder."; }
     }
 
     internal const string CmdName = "DataFolderResult";
@@ -242,7 +274,7 @@ namespace Sdx.Cmd
 
 
   ///
-  /// Ask Skydel version.
+  /// Get Skydel version.
   ///
   /// 
   ///
@@ -251,7 +283,7 @@ namespace Sdx.Cmd
   {
     public override string Documentation
     {
-      get { return "Ask Skydel version."; }
+      get { return "Get Skydel version."; }
     }
 
     internal const string CmdName = "GetVersion";
@@ -274,7 +306,7 @@ namespace Sdx.Cmd
 
 
   ///
-  /// Result of the command "GetVersion"
+  /// Result of GetVersion.
   ///
   /// Name    Type   Description
   /// ------- ------ --------------
@@ -285,7 +317,7 @@ namespace Sdx.Cmd
   {
     public override string Documentation
     {
-      get { return "Result of the command \"GetVersion\""; }
+      get { return "Result of GetVersion."; }
     }
 
     internal const string CmdName = "VersionResult";
@@ -322,7 +354,7 @@ namespace Sdx.Cmd
 
 
   ///
-  /// Return simulation elapsed time in milliseconds.
+  /// Get simulation elapsed time in milliseconds.
   ///
   /// 
   ///
@@ -331,7 +363,7 @@ namespace Sdx.Cmd
   {
     public override string Documentation
     {
-      get { return "Return simulation elapsed time in milliseconds."; }
+      get { return "Get simulation elapsed time in milliseconds."; }
     }
 
     internal const string CmdName = "GetSimulationElapsedTime";
@@ -354,7 +386,7 @@ namespace Sdx.Cmd
 
 
   ///
-  /// Result of the command "GetSimulationElapsedTime"
+  /// Result of GetSimulationElapsedTime.
   ///
   /// Name         Type Description
   /// ------------ ---- -----------------------------------------------------------------------------
@@ -365,7 +397,7 @@ namespace Sdx.Cmd
   {
     public override string Documentation
     {
-      get { return "Result of the command \"GetSimulationElapsedTime\""; }
+      get { return "Result of GetSimulationElapsedTime."; }
     }
 
     internal const string CmdName = "SimulationElapsedTimeResult";
@@ -1129,7 +1161,7 @@ namespace Sdx.Cmd
 
 
   ///
-  /// Result of IsRFOutputEnabled
+  /// Result of IsRFOutputEnabled.
   ///
   /// Name    Type   Description
   /// ------- ------ ----------------------------------------------------------------
@@ -1142,7 +1174,7 @@ namespace Sdx.Cmd
   {
     public override string Documentation
     {
-      get { return "Result of IsRFOutputEnabled"; }
+      get { return "Result of IsRFOutputEnabled."; }
     }
 
     internal const string CmdName = "IsRFOutputEnabledResult";
@@ -1313,7 +1345,7 @@ namespace Sdx.Cmd
 
 
   ///
-  /// Result of IsRFOutputEnabledForEachSV
+  /// Result of IsRFOutputEnabledForEachSV.
   ///
   /// Name    Type       Description
   /// ------- ---------- -------------------------------------------------------------------------------------------------
@@ -1325,7 +1357,7 @@ namespace Sdx.Cmd
   {
     public override string Documentation
     {
-      get { return "Result of IsRFOutputEnabledForEachSV"; }
+      get { return "Result of IsRFOutputEnabledForEachSV."; }
     }
 
     internal const string CmdName = "IsRFOutputEnabledForEachSVResult";
@@ -1515,7 +1547,7 @@ namespace Sdx.Cmd
 
 
   ///
-  /// Result of IsSignalEnabledForSV
+  /// Result of IsSignalEnabledForSV.
   ///
   /// Name    Type   Description
   /// ------- ------ -------------------------------------------------------------------------------
@@ -1531,7 +1563,7 @@ namespace Sdx.Cmd
   {
     public override string Documentation
     {
-      get { return "Result of IsSignalEnabledForSV"; }
+      get { return "Result of IsSignalEnabledForSV."; }
     }
 
     internal const string CmdName = "IsSignalEnabledForSVResult";
@@ -1708,7 +1740,7 @@ namespace Sdx.Cmd
 
 
   ///
-  /// Result of IsSignalEnabledForEachSV
+  /// Result of IsSignalEnabledForEachSV.
   ///
   /// Name    Type       Description
   /// ------- ---------- --------------------------------------------------------------------------------------------------------------
@@ -1723,7 +1755,7 @@ namespace Sdx.Cmd
   {
     public override string Documentation
     {
-      get { return "Result of IsSignalEnabledForEachSV"; }
+      get { return "Result of IsSignalEnabledForEachSV."; }
     }
 
     internal const string CmdName = "IsSignalEnabledForEachSVResult";
@@ -1907,7 +1939,7 @@ namespace Sdx.Cmd
 
 
   ///
-  /// Result of IsPYCodeEnabledForSV
+  /// Result of IsPYCodeEnabledForSV.
   ///
   /// Name    Type   Description
   /// ------- ------ -----------------------------------------------
@@ -1920,7 +1952,7 @@ namespace Sdx.Cmd
   {
     public override string Documentation
     {
-      get { return "Result of IsPYCodeEnabledForSV"; }
+      get { return "Result of IsPYCodeEnabledForSV."; }
     }
 
     internal const string CmdName = "IsPYCodeEnabledForSVResult";
@@ -2091,7 +2123,7 @@ namespace Sdx.Cmd
 
 
   ///
-  /// Result of IsPYCodeEnabledForEachSV
+  /// Result of IsPYCodeEnabledForEachSV.
   ///
   /// Name    Type       Description
   /// ------- ---------- ----------------------------------------------------------------------------------------
@@ -2103,7 +2135,7 @@ namespace Sdx.Cmd
   {
     public override string Documentation
     {
-      get { return "Result of IsPYCodeEnabledForEachSV"; }
+      get { return "Result of IsPYCodeEnabledForEachSV."; }
     }
 
     internal const string CmdName = "IsPYCodeEnabledForEachSVResult";
@@ -2237,7 +2269,7 @@ namespace Sdx.Cmd
 
 
   ///
-  /// Get power offset for specified satellite SV ID.
+  /// Get the power offset for specified satellite SV ID.
   ///
   /// Name   Type   Description
   /// ------ ------ -----------------------------------------------------------------------------------
@@ -2249,7 +2281,7 @@ namespace Sdx.Cmd
   {
     public override string Documentation
     {
-      get { return "Get power offset for specified satellite SV ID."; }
+      get { return "Get the power offset for specified satellite SV ID."; }
     }
 
     internal const string CmdName = "GetPowerForSV";
@@ -2594,7 +2626,7 @@ namespace Sdx.Cmd
 
 
   ///
-  /// Result of IsPropagationDelayEnabled
+  /// Result of IsPropagationDelayEnabled.
   ///
   /// Name    Type   Description
   /// ------- ------ -------------------------------------------------------------------------------------------------
@@ -2606,7 +2638,7 @@ namespace Sdx.Cmd
   {
     public override string Documentation
     {
-      get { return "Result of IsPropagationDelayEnabled"; }
+      get { return "Result of IsPropagationDelayEnabled."; }
     }
 
     internal const string CmdName = "IsPropagationDelayEnabledResult";
@@ -2790,7 +2822,7 @@ namespace Sdx.Cmd
 
 
   ///
-  /// Result of IsSatMotionFixed
+  /// Result of IsSatMotionFixed.
   ///
   /// Name    Type   Description
   /// ------- ------ --------------------------------------------------------------------------------------------------------------
@@ -2803,7 +2835,7 @@ namespace Sdx.Cmd
   {
     public override string Documentation
     {
-      get { return "Result of IsSatMotionFixed"; }
+      get { return "Result of IsSatMotionFixed."; }
     }
 
     internal const string CmdName = "IsSatMotionFixedResult";
@@ -2982,7 +3014,7 @@ namespace Sdx.Cmd
 
 
   ///
-  /// Result of GetIonoAlpha
+  /// Result of GetIonoAlpha.
   ///
   /// Name  Type   Description
   /// ----- ------ ------------------------
@@ -2994,7 +3026,7 @@ namespace Sdx.Cmd
   {
     public override string Documentation
     {
-      get { return "Result of GetIonoAlpha"; }
+      get { return "Result of GetIonoAlpha."; }
     }
 
     internal const string CmdName = "GetIonoAlphaResult";
@@ -3162,7 +3194,7 @@ namespace Sdx.Cmd
 
 
   ///
-  /// Result of GetIonoBeta
+  /// Result of GetIonoBeta.
   ///
   /// Name  Type   Description
   /// ----- ------ ------------------------
@@ -3174,7 +3206,7 @@ namespace Sdx.Cmd
   {
     public override string Documentation
     {
-      get { return "Result of GetIonoBeta"; }
+      get { return "Result of GetIonoBeta."; }
     }
 
     internal const string CmdName = "GetIonoBetaResult";
@@ -3334,7 +3366,7 @@ namespace Sdx.Cmd
 
 
   ///
-  /// Result of GetIonoBdgimAlpha
+  /// Result of GetIonoBdgimAlpha.
   ///
   /// Name  Type   Description
   /// ----- ------ ------------------------
@@ -3346,7 +3378,7 @@ namespace Sdx.Cmd
   {
     public override string Documentation
     {
-      get { return "Result of GetIonoBdgimAlpha"; }
+      get { return "Result of GetIonoBdgimAlpha."; }
     }
 
     internal const string CmdName = "GetIonoBdgimAlphaResult";
@@ -3476,7 +3508,7 @@ namespace Sdx.Cmd
 
 
   ///
-  /// Result of GetIonoModel
+  /// Result of GetIonoModel.
   ///
   /// Name  Type   Description
   /// ----- ------ -------------------------------------------------------
@@ -3487,7 +3519,7 @@ namespace Sdx.Cmd
   {
     public override string Documentation
     {
-      get { return "Result of GetIonoModel"; }
+      get { return "Result of GetIonoModel."; }
     }
 
     internal const string CmdName = "GetIonoModelResult";
@@ -3527,8 +3559,8 @@ namespace Sdx.Cmd
   /// Set tropospheric model
   ///
   /// Name  Type   Description
-  /// ----- ------ -------------------------------------------------------
-  /// Model string Tropospheric model ("None", "Saastamoinen" or "Stanag")
+  /// ----- ------ -----------------------------------------------------------------
+  /// Model string Tropospheric model ("None", "Saastamoinen", "Stanag" or "DO-229")
   ///
 
   public class SetTropoModel : CommandBase
@@ -3606,18 +3638,18 @@ namespace Sdx.Cmd
 
 
   ///
-  /// Result of GetTropoModel
+  /// Result of GetTropoModel.
   ///
   /// Name  Type   Description
-  /// ----- ------ -------------------------------------------------------
-  /// Model string Tropospheric model ("None", "Saastamoinen" or "Stanag")
+  /// ----- ------ -----------------------------------------------------------------
+  /// Model string Tropospheric model ("None", "Saastamoinen", "Stanag" or "DO-229")
   ///
 
   public class GetTropoModelResult : CommandResult
   {
     public override string Documentation
     {
-      get { return "Result of GetTropoModel"; }
+      get { return "Result of GetTropoModel."; }
     }
 
     internal const string CmdName = "GetTropoModelResult";
@@ -3736,7 +3768,7 @@ namespace Sdx.Cmd
 
 
   ///
-  /// Result of GetStartTimeMode
+  /// Result of GetStartTimeMode.
   ///
   /// Name Type   Description
   /// ---- ------ --------------------------------------------
@@ -3747,7 +3779,7 @@ namespace Sdx.Cmd
   {
     public override string Documentation
     {
-      get { return "Result of GetStartTimeMode"; }
+      get { return "Result of GetStartTimeMode."; }
     }
 
     internal const string CmdName = "GetStartTimeModeResult";
@@ -3936,7 +3968,7 @@ namespace Sdx.Cmd
 
 
   ///
-  /// Result of GetGpsTimingReceiver
+  /// Result of GetGpsTimingReceiver.
   ///
   /// Name        Type                           Description
   /// ----------- ------------------------------ -----------------------------------------------------------------------------------------
@@ -3952,7 +3984,7 @@ namespace Sdx.Cmd
   {
     public override string Documentation
     {
-      get { return "Result of GetGpsTimingReceiver"; }
+      get { return "Result of GetGpsTimingReceiver."; }
     }
 
     internal const string CmdName = "GetGpsTimingReceiverResult";
@@ -4138,7 +4170,7 @@ namespace Sdx.Cmd
 
 
   ///
-  /// Result of GetStartTimeOffset
+  /// Result of GetStartTimeOffset.
   ///
   /// Name   Type Description
   /// ------ ---- -----------------------------------------------------------------------------------------
@@ -4149,7 +4181,7 @@ namespace Sdx.Cmd
   {
     public override string Documentation
     {
-      get { return "Result of GetStartTimeOffset"; }
+      get { return "Result of GetStartTimeOffset."; }
     }
 
     internal const string CmdName = "GetStartTimeOffsetResult";
@@ -4318,7 +4350,7 @@ namespace Sdx.Cmd
 
 
   ///
-  /// Result for GetGpsStartTime
+  /// Result of GetGpsStartTime.
   ///
   /// Name       Type     Description
   /// ---------- -------- ------------------------------------------------------------------------------------------------
@@ -4330,7 +4362,7 @@ namespace Sdx.Cmd
   {
     public override string Documentation
     {
-      get { return "Result for GetGpsStartTime"; }
+      get { return "Result of GetGpsStartTime."; }
     }
 
     internal const string CmdName = "GetGpsStartTimeResult";
@@ -4460,7 +4492,7 @@ namespace Sdx.Cmd
 
 
   ///
-  /// Result of GetDuration
+  /// Result of GetDuration.
   ///
   /// Name   Type Description
   /// ------ ---- -----------------------
@@ -4471,7 +4503,7 @@ namespace Sdx.Cmd
   {
     public override string Documentation
     {
-      get { return "Result of GetDuration"; }
+      get { return "Result of GetDuration."; }
     }
 
     internal const string CmdName = "GetDurationResult";
@@ -4590,7 +4622,7 @@ namespace Sdx.Cmd
 
 
   ///
-  /// Result of IsLogRawEnabled
+  /// Result of IsLogRawEnabled.
   ///
   /// Name    Type Description
   /// ------- ---- -----------------------------------------------
@@ -4601,7 +4633,7 @@ namespace Sdx.Cmd
   {
     public override string Documentation
     {
-      get { return "Result of IsLogRawEnabled"; }
+      get { return "Result of IsLogRawEnabled."; }
     }
 
     internal const string CmdName = "IsLogRawEnabledResult";
@@ -4748,7 +4780,7 @@ namespace Sdx.Cmd
 
 
   ///
-  /// Result of IsLogDownlinkEnabled
+  /// Result of IsLogDownlinkEnabled.
   ///
   /// Name           Type          Description
   /// -------------- ------------- ----------------------------------------------------------------------------------------------------------------------
@@ -4761,7 +4793,7 @@ namespace Sdx.Cmd
   {
     public override string Documentation
     {
-      get { return "Result of IsLogDownlinkEnabled"; }
+      get { return "Result of IsLogDownlinkEnabled."; }
     }
 
     internal const string CmdName = "IsLogDownlinkEnabledResult";
@@ -4906,7 +4938,7 @@ namespace Sdx.Cmd
 
 
   ///
-  /// Result of IsLogRinexEnabled
+  /// Result of IsLogRinexEnabled.
   ///
   /// Name    Type Description
   /// ------- ---- ------------------------------------------------
@@ -4917,7 +4949,7 @@ namespace Sdx.Cmd
   {
     public override string Documentation
     {
-      get { return "Result of IsLogRinexEnabled"; }
+      get { return "Result of IsLogRinexEnabled."; }
     }
 
     internal const string CmdName = "IsLogRinexEnabledResult";
@@ -5036,7 +5068,7 @@ namespace Sdx.Cmd
 
 
   ///
-  /// Result of IsLogHILInputEnabled
+  /// Result of IsLogHILInputEnabled.
   ///
   /// Name    Type Description
   /// ------- ---- ------------------------------------------------
@@ -5047,7 +5079,7 @@ namespace Sdx.Cmd
   {
     public override string Documentation
     {
-      get { return "Result of IsLogHILInputEnabled"; }
+      get { return "Result of IsLogHILInputEnabled."; }
     }
 
     internal const string CmdName = "IsLogHILInputEnabledResult";
@@ -5166,7 +5198,7 @@ namespace Sdx.Cmd
 
 
   ///
-  /// Result of GetLogRawRate
+  /// Result of GetLogRawRate.
   ///
   /// Name Type Description
   /// ---- ---- --------------------------------------
@@ -5177,7 +5209,7 @@ namespace Sdx.Cmd
   {
     public override string Documentation
     {
-      get { return "Result of GetLogRawRate"; }
+      get { return "Result of GetLogRawRate."; }
     }
 
     internal const string CmdName = "LogRawRateResult";
@@ -5298,7 +5330,7 @@ namespace Sdx.Cmd
 
 
   ///
-  /// Result of IsLogNmeaEnabled
+  /// Result of IsLogNmeaEnabled.
   ///
   /// Name    Type Description
   /// ------- ---- --------------------------------------------------
@@ -5309,7 +5341,7 @@ namespace Sdx.Cmd
   {
     public override string Documentation
     {
-      get { return "Result of IsLogNmeaEnabled"; }
+      get { return "Result of IsLogNmeaEnabled."; }
     }
 
     internal const string CmdName = "IsLogNmeaEnabledResult";
@@ -5428,7 +5460,7 @@ namespace Sdx.Cmd
 
 
   ///
-  /// Result of GetLogNmeaRate
+  /// Result of GetLogNmeaRate.
   ///
   /// Name Type Description
   /// ---- ---- ------------------------------
@@ -5439,7 +5471,7 @@ namespace Sdx.Cmd
   {
     public override string Documentation
     {
-      get { return "Result of GetLogNmeaRate"; }
+      get { return "Result of GetLogNmeaRate."; }
     }
 
     internal const string CmdName = "LogNmeaRateResult";
@@ -5559,7 +5591,7 @@ namespace Sdx.Cmd
 
 
   ///
-  /// Result of GetMasterStatus
+  /// Result of GetMasterStatus.
   ///
   /// Name           Type Description
   /// -------------- ---- -------------------------------------
@@ -5572,7 +5604,7 @@ namespace Sdx.Cmd
   {
     public override string Documentation
     {
-      get { return "Result of GetMasterStatus"; }
+      get { return "Result of GetMasterStatus."; }
     }
 
     internal const string CmdName = "GetMasterStatusResult";
@@ -5714,7 +5746,7 @@ namespace Sdx.Cmd
 
 
   ///
-  /// Result of GetSlaveStatus
+  /// Result of GetSlaveStatus.
   ///
   /// Name        Type   Description
   /// ----------- ------ ---------------------------------------
@@ -5728,7 +5760,7 @@ namespace Sdx.Cmd
   {
     public override string Documentation
     {
-      get { return "Result of GetSlaveStatus"; }
+      get { return "Result of GetSlaveStatus."; }
     }
 
     internal const string CmdName = "GetSlaveStatusResult";
@@ -5904,7 +5936,7 @@ namespace Sdx.Cmd
 
 
   ///
-  /// Result of GetLeapSecondFuture
+  /// Result of GetLeapSecondFuture.
   ///
   /// Name    Type Description
   /// ------- ---- ----------------------------------------------------------------------
@@ -5917,7 +5949,7 @@ namespace Sdx.Cmd
   {
     public override string Documentation
     {
-      get { return "Result of GetLeapSecondFuture"; }
+      get { return "Result of GetLeapSecondFuture."; }
     }
 
     internal const string CmdName = "GetLeapSecondFutureResult";
@@ -6058,7 +6090,7 @@ namespace Sdx.Cmd
 
 
   ///
-  /// Result of IsSignalStrengthModelEnabled
+  /// Result of IsSignalStrengthModelEnabled.
   ///
   /// Name    Type Description
   /// ------- ---- -----------------------------------------------------------
@@ -6069,7 +6101,7 @@ namespace Sdx.Cmd
   {
     public override string Documentation
     {
-      get { return "Result of IsSignalStrengthModelEnabled"; }
+      get { return "Result of IsSignalStrengthModelEnabled."; }
     }
 
     internal const string CmdName = "IsSignalStrengthModelEnabledResult";
@@ -6188,7 +6220,7 @@ namespace Sdx.Cmd
 
 
   ///
-  /// Result of IsElevationMaskBelowEnabled
+  /// Result of IsElevationMaskBelowEnabled.
   ///
   /// Name    Type Description
   /// ------- ---- ------------------------------------------------------------------
@@ -6199,7 +6231,7 @@ namespace Sdx.Cmd
   {
     public override string Documentation
     {
-      get { return "Result of IsElevationMaskBelowEnabled"; }
+      get { return "Result of IsElevationMaskBelowEnabled."; }
     }
 
     internal const string CmdName = "IsElevationMaskBelowEnabledResult";
@@ -6318,7 +6350,7 @@ namespace Sdx.Cmd
 
 
   ///
-  /// Result of IsElevationMaskAboveEnabled
+  /// Result of IsElevationMaskAboveEnabled.
   ///
   /// Name    Type Description
   /// ------- ---- ------------------------------------------------------------------
@@ -6329,7 +6361,7 @@ namespace Sdx.Cmd
   {
     public override string Documentation
     {
-      get { return "Result of IsElevationMaskAboveEnabled"; }
+      get { return "Result of IsElevationMaskAboveEnabled."; }
     }
 
     internal const string CmdName = "IsElevationMaskAboveEnabledResult";
@@ -6448,7 +6480,7 @@ namespace Sdx.Cmd
 
 
   ///
-  /// Result of GetElevationMaskBelow
+  /// Result of GetElevationMaskBelow.
   ///
   /// Name  Type   Description
   /// ----- ------ ---------------------------
@@ -6459,7 +6491,7 @@ namespace Sdx.Cmd
   {
     public override string Documentation
     {
-      get { return "Result of GetElevationMaskBelow"; }
+      get { return "Result of GetElevationMaskBelow."; }
     }
 
     internal const string CmdName = "GetElevationMaskBelowResult";
@@ -6578,7 +6610,7 @@ namespace Sdx.Cmd
 
 
   ///
-  /// Result of GetElevationMaskAbove
+  /// Result of GetElevationMaskAbove.
   ///
   /// Name  Type   Description
   /// ----- ------ ---------------------------
@@ -6589,7 +6621,7 @@ namespace Sdx.Cmd
   {
     public override string Documentation
     {
-      get { return "Result of GetElevationMaskAbove"; }
+      get { return "Result of GetElevationMaskAbove."; }
     }
 
     internal const string CmdName = "GetElevationMaskAboveResult";
@@ -6734,7 +6766,7 @@ namespace Sdx.Cmd
 
 
   ///
-  /// Result of GetIssueOfData
+  /// Result of GetIssueOfData.
   ///
   /// Name          Type          Description
   /// ------------- ------------- ---------------------------------------------------
@@ -6747,7 +6779,7 @@ namespace Sdx.Cmd
   {
     public override string Documentation
     {
-      get { return "Result of GetIssueOfData"; }
+      get { return "Result of GetIssueOfData."; }
     }
 
     internal const string CmdName = "GetIssueOfDataResult";
@@ -6916,7 +6948,7 @@ namespace Sdx.Cmd
 
 
   ///
-  /// Result of GetIssueOfDataGalileo
+  /// Result of GetIssueOfDataGalileo.
   ///
   /// Name          Type          Description
   /// ------------- ------------- ---------------------------------------------------------
@@ -6929,7 +6961,7 @@ namespace Sdx.Cmd
   {
     public override string Documentation
     {
-      get { return "Result of GetIssueOfDataGalileo"; }
+      get { return "Result of GetIssueOfDataGalileo."; }
     }
 
     internal const string CmdName = "GetIssueOfDataGalileoResult";
@@ -7098,7 +7130,7 @@ namespace Sdx.Cmd
 
 
   ///
-  /// Result of GetAgeOfDataBeiDou
+  /// Result of GetAgeOfDataBeiDou.
   ///
   /// Name          Type          Description
   /// ------------- ------------- ---------------------------------------------------
@@ -7111,7 +7143,7 @@ namespace Sdx.Cmd
   {
     public override string Documentation
     {
-      get { return "Result of GetAgeOfDataBeiDou"; }
+      get { return "Result of GetAgeOfDataBeiDou."; }
     }
 
     internal const string CmdName = "GetAgeOfDataBeiDouResult";
@@ -7266,7 +7298,7 @@ namespace Sdx.Cmd
 
 
   ///
-  /// Result of GetIssueOfDataBeiDou
+  /// Result of GetIssueOfDataBeiDou.
   ///
   /// Name      Type Description
   /// --------- ---- ------------------------
@@ -7278,7 +7310,7 @@ namespace Sdx.Cmd
   {
     public override string Documentation
     {
-      get { return "Result of GetIssueOfDataBeiDou"; }
+      get { return "Result of GetIssueOfDataBeiDou."; }
     }
 
     internal const string CmdName = "GetIssueOfDataBeiDouResult";
@@ -7434,7 +7466,7 @@ namespace Sdx.Cmd
 
 
   ///
-  /// Result of GetIssueOfDataQzss
+  /// Result of GetIssueOfDataQzss.
   ///
   /// Name          Type          Description
   /// ------------- ------------- ---------------------------------------------------
@@ -7447,7 +7479,7 @@ namespace Sdx.Cmd
   {
     public override string Documentation
     {
-      get { return "Result of GetIssueOfDataQzss"; }
+      get { return "Result of GetIssueOfDataQzss."; }
     }
 
     internal const string CmdName = "GetIssueOfDataQzssResult";
@@ -7604,7 +7636,7 @@ namespace Sdx.Cmd
 
 
   ///
-  /// Result of GetIssueOfDataNavIC
+  /// Result of GetIssueOfDataNavIC.
   ///
   /// Name              Type          Description
   /// ----------------- ------------- -------------------------------------------------------
@@ -7616,7 +7648,7 @@ namespace Sdx.Cmd
   {
     public override string Documentation
     {
-      get { return "Result of GetIssueOfDataNavIC"; }
+      get { return "Result of GetIssueOfDataNavIC."; }
     }
 
     internal const string CmdName = "GetIssueOfDataNavICResult";
@@ -7778,7 +7810,7 @@ namespace Sdx.Cmd
 
 
   ///
-  /// Result of GetGpsConfigurationCodeForSV
+  /// Result of GetGpsConfigurationCodeForSV.
   ///
   /// Name     Type Description
   /// -------- ---- ---------------------
@@ -7790,7 +7822,7 @@ namespace Sdx.Cmd
   {
     public override string Documentation
     {
-      get { return "Result of GetGpsConfigurationCodeForSV"; }
+      get { return "Result of GetGpsConfigurationCodeForSV."; }
     }
 
     internal const string CmdName = "GetGpsConfigurationCodeForSVResult";
@@ -8006,7 +8038,7 @@ namespace Sdx.Cmd
 
 
   ///
-  /// Result of GetGpsConfigurationForEachSV
+  /// Result of GetGpsConfigurationForEachSV.
   ///
   /// Name      Type      Description
   /// --------- --------- --------------------------
@@ -8017,7 +8049,7 @@ namespace Sdx.Cmd
   {
     public override string Documentation
     {
-      get { return "Result of GetGpsConfigurationForEachSV"; }
+      get { return "Result of GetGpsConfigurationForEachSV."; }
     }
   
     internal const string CmdName = "GetGpsSVConfigurationForAllSatResult";
@@ -8186,7 +8218,7 @@ namespace Sdx.Cmd
 
 
   ///
-  /// Result of GetGpsDataHealthForSV
+  /// Result of GetGpsDataHealthForSV.
   ///
   /// Name   Type Description
   /// ------ ---- -----------------------
@@ -8198,7 +8230,7 @@ namespace Sdx.Cmd
   {
     public override string Documentation
     {
-      get { return "Result of GetGpsDataHealthForSV"; }
+      get { return "Result of GetGpsDataHealthForSV."; }
     }
 
     internal const string CmdName = "GetGpsDataHealthForSVResult";
@@ -8358,7 +8390,7 @@ namespace Sdx.Cmd
 
 
   ///
-  /// Result of GetGpsSignalHealthForSV
+  /// Result of GetGpsSignalHealthForSV.
   ///
   /// Name   Type Description
   /// ------ ---- -----------------------
@@ -8370,7 +8402,7 @@ namespace Sdx.Cmd
   {
     public override string Documentation
     {
-      get { return "Result of GetGpsSignalHealthForSV"; }
+      get { return "Result of GetGpsSignalHealthForSV."; }
     }
 
     internal const string CmdName = "GetGpsSignalHealthForSVResult";
@@ -8554,7 +8586,7 @@ namespace Sdx.Cmd
 
 
   ///
-  /// Result of GetGalileoDataHealthForSV
+  /// Result of GetGalileoDataHealthForSV.
   ///
   /// Name      Type   Description
   /// --------- ------ -----------------------------------------------------------------------
@@ -8567,7 +8599,7 @@ namespace Sdx.Cmd
   {
     public override string Documentation
     {
-      get { return "Result of GetGalileoDataHealthForSV"; }
+      get { return "Result of GetGalileoDataHealthForSV."; }
     }
 
     internal const string CmdName = "GetGalileoDataHealthForSVResult";
@@ -8762,7 +8794,7 @@ namespace Sdx.Cmd
 
 
   ///
-  /// Result of GetGalileoSignalHealthForSV
+  /// Result of GetGalileoSignalHealthForSV.
   ///
   /// Name      Type   Description
   /// --------- ------ ------------------------------------------
@@ -8775,7 +8807,7 @@ namespace Sdx.Cmd
   {
     public override string Documentation
     {
-      get { return "Result of GetGalileoSignalHealthForSV"; }
+      get { return "Result of GetGalileoSignalHealthForSV."; }
     }
 
     internal const string CmdName = "GetGalileoSignalHealthForSVResult";
@@ -8946,7 +8978,7 @@ namespace Sdx.Cmd
 
 
   ///
-  /// Result of GetGpsL1HealthForSV
+  /// Result of GetGpsL1HealthForSV.
   ///
   /// Name   Type Description
   /// ------ ---- --------------------------------------------------------------
@@ -8958,7 +8990,7 @@ namespace Sdx.Cmd
   {
     public override string Documentation
     {
-      get { return "Result of GetGpsL1HealthForSV"; }
+      get { return "Result of GetGpsL1HealthForSV."; }
     }
 
     internal const string CmdName = "GetGpsL1HealthForSVResult";
@@ -9118,7 +9150,7 @@ namespace Sdx.Cmd
 
 
   ///
-  /// Result of GetGpsL2HealthForSV
+  /// Result of GetGpsL2HealthForSV.
   ///
   /// Name   Type Description
   /// ------ ---- --------------------------------------------------------------
@@ -9130,7 +9162,7 @@ namespace Sdx.Cmd
   {
     public override string Documentation
     {
-      get { return "Result of GetGpsL2HealthForSV"; }
+      get { return "Result of GetGpsL2HealthForSV."; }
     }
 
     internal const string CmdName = "GetGpsL2HealthForSVResult";
@@ -9290,7 +9322,7 @@ namespace Sdx.Cmd
 
 
   ///
-  /// Result of GetGpsL5HealthForSV
+  /// Result of GetGpsL5HealthForSV.
   ///
   /// Name   Type Description
   /// ------ ---- --------------------------------------------------------------
@@ -9302,7 +9334,7 @@ namespace Sdx.Cmd
   {
     public override string Documentation
     {
-      get { return "Result of GetGpsL5HealthForSV"; }
+      get { return "Result of GetGpsL5HealthForSV."; }
     }
 
     internal const string CmdName = "GetGpsL5HealthForSVResult";
@@ -9462,7 +9494,7 @@ namespace Sdx.Cmd
 
 
   ///
-  /// Result of GetGpsL1cHealthForSV
+  /// Result of GetGpsL1cHealthForSV.
   ///
   /// Name   Type Description
   /// ------ ---- ---------------------------------------------------------------
@@ -9474,7 +9506,7 @@ namespace Sdx.Cmd
   {
     public override string Documentation
     {
-      get { return "Result of GetGpsL1cHealthForSV"; }
+      get { return "Result of GetGpsL1cHealthForSV."; }
     }
 
     internal const string CmdName = "GetGpsL1cHealthForSVResult";
@@ -9634,7 +9666,7 @@ namespace Sdx.Cmd
 
 
   ///
-  /// Result of GetGpsAntiSpoofingFlagForSV
+  /// Result of GetGpsAntiSpoofingFlagForSV.
   ///
   /// Name         Type      Description
   /// ------------ --------- -----------------------
@@ -9646,7 +9678,7 @@ namespace Sdx.Cmd
   {
     public override string Documentation
     {
-      get { return "Result of GetGpsAntiSpoofingFlagForSV"; }
+      get { return "Result of GetGpsAntiSpoofingFlagForSV."; }
     }
 
     internal const string CmdName = "GetGpsAntiSpoofingFlagForSVResult";
@@ -9806,7 +9838,7 @@ namespace Sdx.Cmd
 
 
   ///
-  /// Result of GetGpsNavAlertFlagForSV
+  /// Result of GetGpsNavAlertFlagForSV.
   ///
   /// Name  Type Description
   /// ----- ---- --------------------------------------------------
@@ -9818,7 +9850,7 @@ namespace Sdx.Cmd
   {
     public override string Documentation
     {
-      get { return "Result of GetGpsNavAlertFlagForSV"; }
+      get { return "Result of GetGpsNavAlertFlagForSV."; }
     }
 
     internal const string CmdName = "GetGpsNavAlertFlagForSVResult";
@@ -9978,7 +10010,7 @@ namespace Sdx.Cmd
 
 
   ///
-  /// Result of GetGpsCNavAlertFlagToSV
+  /// Result of GetGpsCNavAlertFlagToSV.
   ///
   /// Name  Type Description
   /// ----- ---- ---------------------------------------------------
@@ -9990,7 +10022,7 @@ namespace Sdx.Cmd
   {
     public override string Documentation
     {
-      get { return "Result of GetGpsCNavAlertFlagToSV"; }
+      get { return "Result of GetGpsCNavAlertFlagToSV."; }
     }
 
     internal const string CmdName = "GetGpsCNavAlertFlagToSVResult";
@@ -10150,7 +10182,7 @@ namespace Sdx.Cmd
 
 
   ///
-  /// Result of GetBeiDouHealthInfoForSV
+  /// Result of GetBeiDouHealthInfoForSV.
   ///
   /// Name   Type Description
   /// ------ ---- -------------------------------------------------------------------------
@@ -10162,7 +10194,7 @@ namespace Sdx.Cmd
   {
     public override string Documentation
     {
-      get { return "Result of GetBeiDouHealthInfoForSV"; }
+      get { return "Result of GetBeiDouHealthInfoForSV."; }
     }
 
     internal const string CmdName = "GetBeiDouHealthInfoForSVResult";
@@ -10322,7 +10354,7 @@ namespace Sdx.Cmd
 
 
   ///
-  /// Result of GetBeiDouAutonomousHealthForSV
+  /// Result of GetBeiDouAutonomousHealthForSV.
   ///
   /// Name   Type Description
   /// ------ ---- -------------------------------------
@@ -10334,7 +10366,7 @@ namespace Sdx.Cmd
   {
     public override string Documentation
     {
-      get { return "Result of GetBeiDouAutonomousHealthForSV"; }
+      get { return "Result of GetBeiDouAutonomousHealthForSV."; }
     }
 
     internal const string CmdName = "GetBeiDouAutonomousHealthForSVResult";
@@ -10494,7 +10526,7 @@ namespace Sdx.Cmd
 
 
   ///
-  /// Result of GetBeiDouCNavHealthInfoForSV
+  /// Result of GetBeiDouCNavHealthInfoForSV.
   ///
   /// Name   Type Description
   /// ------ ---- ------------------------------------------------------
@@ -10506,7 +10538,7 @@ namespace Sdx.Cmd
   {
     public override string Documentation
     {
-      get { return "Result of GetBeiDouCNavHealthInfoForSV"; }
+      get { return "Result of GetBeiDouCNavHealthInfoForSV."; }
     }
 
     internal const string CmdName = "GetBeiDouCNavHealthInfoForSVResult";
@@ -10666,7 +10698,7 @@ namespace Sdx.Cmd
 
 
   ///
-  /// Result of GetBeiDouHealthStatusForSV
+  /// Result of GetBeiDouHealthStatusForSV.
   ///
   /// Name   Type Description
   /// ------ ---- -----------------------------------------
@@ -10678,7 +10710,7 @@ namespace Sdx.Cmd
   {
     public override string Documentation
     {
-      get { return "Result of GetBeiDouHealthStatusForSV"; }
+      get { return "Result of GetBeiDouHealthStatusForSV."; }
     }
 
     internal const string CmdName = "GetBeiDouHealthStatusForSVResult";
@@ -10838,7 +10870,7 @@ namespace Sdx.Cmd
 
 
   ///
-  /// Result of GetGlonassEphemerisHealthFlagForSV
+  /// Result of GetGlonassEphemerisHealthFlagForSV.
   ///
   /// Name   Type Description
   /// ------ ---- --------------------------------------
@@ -10850,7 +10882,7 @@ namespace Sdx.Cmd
   {
     public override string Documentation
     {
-      get { return "Result of GetGlonassEphemerisHealthFlagForSV"; }
+      get { return "Result of GetGlonassEphemerisHealthFlagForSV."; }
     }
 
     internal const string CmdName = "GetGlonassEphemerisHealthFlagForSVResult";
@@ -11010,7 +11042,7 @@ namespace Sdx.Cmd
 
 
   ///
-  /// Result of GetGlonassAlmanacUnhealthyFlagForSV
+  /// Result of GetGlonassAlmanacUnhealthyFlagForSV.
   ///
   /// Name   Type Description
   /// ------ ---- ----------------------------------------------------------
@@ -11022,7 +11054,7 @@ namespace Sdx.Cmd
   {
     public override string Documentation
     {
-      get { return "Result of GetGlonassAlmanacUnhealthyFlagForSV"; }
+      get { return "Result of GetGlonassAlmanacUnhealthyFlagForSV."; }
     }
 
     internal const string CmdName = "GetGlonassAlmanacUnhealthyFlagForSVResult";
@@ -11298,7 +11330,7 @@ namespace Sdx.Cmd
 
 
   ///
-  /// Result of GetQzssL1DataHealthForSV
+  /// Result of GetQzssL1DataHealthForSV.
   ///
   /// Name   Type Description
   /// ------ ---- ---------------------
@@ -11310,7 +11342,7 @@ namespace Sdx.Cmd
   {
     public override string Documentation
     {
-      get { return "Result of GetQzssL1DataHealthForSV"; }
+      get { return "Result of GetQzssL1DataHealthForSV."; }
     }
   
     internal const string CmdName = "GetQzssSatelliteL1DataHealthResult";
@@ -11604,7 +11636,7 @@ namespace Sdx.Cmd
 
 
   ///
-  /// Result of GetQzssL1HealthForSV
+  /// Result of GetQzssL1HealthForSV.
   ///
   /// Name   Type Description
   /// ------ ---- -----------------------------------------------
@@ -11616,7 +11648,7 @@ namespace Sdx.Cmd
   {
     public override string Documentation
     {
-      get { return "Result of GetQzssL1HealthForSV"; }
+      get { return "Result of GetQzssL1HealthForSV."; }
     }
   
     internal const string CmdName = "GetQzssSatelliteL1HealthResult";
@@ -11910,7 +11942,7 @@ namespace Sdx.Cmd
 
 
   ///
-  /// Result of GetQzssL2HealthForSV
+  /// Result of GetQzssL2HealthForSV.
   ///
   /// Name   Type Description
   /// ------ ---- -----------------------------------------------
@@ -11922,7 +11954,7 @@ namespace Sdx.Cmd
   {
     public override string Documentation
     {
-      get { return "Result of GetQzssL2HealthForSV"; }
+      get { return "Result of GetQzssL2HealthForSV."; }
     }
   
     internal const string CmdName = "GetQzssSatelliteL2HealthResult";
@@ -12216,7 +12248,7 @@ namespace Sdx.Cmd
 
 
   ///
-  /// Result of GetQzssL5HealthForSV
+  /// Result of GetQzssL5HealthForSV.
   ///
   /// Name   Type Description
   /// ------ ---- -----------------------------------------------
@@ -12228,7 +12260,7 @@ namespace Sdx.Cmd
   {
     public override string Documentation
     {
-      get { return "Result of GetQzssL5HealthForSV"; }
+      get { return "Result of GetQzssL5HealthForSV."; }
     }
   
     internal const string CmdName = "GetQzssSatelliteL5HealthResult";
@@ -12522,7 +12554,7 @@ namespace Sdx.Cmd
 
 
   ///
-  /// Result of GetQzssL1cHealthForSV
+  /// Result of GetQzssL1cHealthForSV.
   ///
   /// Name   Type Description
   /// ------ ---- ------------------------------------------------
@@ -12534,7 +12566,7 @@ namespace Sdx.Cmd
   {
     public override string Documentation
     {
-      get { return "Result of GetQzssL1cHealthForSV"; }
+      get { return "Result of GetQzssL1cHealthForSV."; }
     }
   
     internal const string CmdName = "GetQzssSatelliteL1cHealthResult";
@@ -12828,7 +12860,7 @@ namespace Sdx.Cmd
 
 
   ///
-  /// Result of GetQzssNavAlertFlagForSV
+  /// Result of GetQzssNavAlertFlagForSV.
   ///
   /// Name  Type Description
   /// ----- ---- ---------------------------------------------------
@@ -12840,7 +12872,7 @@ namespace Sdx.Cmd
   {
     public override string Documentation
     {
-      get { return "Result of GetQzssNavAlertFlagForSV"; }
+      get { return "Result of GetQzssNavAlertFlagForSV."; }
     }
   
     internal const string CmdName = "GetQzssSatelliteNavAlertFlagResult";
@@ -13134,7 +13166,7 @@ namespace Sdx.Cmd
 
 
   ///
-  /// Result of GetNavICL5HealthForSV
+  /// Result of GetNavICL5HealthForSV.
   ///
   /// Name   Type Description
   /// ------ ---- -----------------------------------------------
@@ -13146,7 +13178,7 @@ namespace Sdx.Cmd
   {
     public override string Documentation
     {
-      get { return "Result of GetNavICL5HealthForSV"; }
+      get { return "Result of GetNavICL5HealthForSV."; }
     }
   
     internal const string CmdName = "GetNavICSatelliteL5HealthResult";
@@ -13440,7 +13472,7 @@ namespace Sdx.Cmd
 
 
   ///
-  /// Result of GetNavICNavAlertFlagForSV
+  /// Result of GetNavICNavAlertFlagForSV.
   ///
   /// Name  Type Description
   /// ----- ---- ----------------------------------------------------
@@ -13452,7 +13484,7 @@ namespace Sdx.Cmd
   {
     public override string Documentation
     {
-      get { return "Result of GetNavICNavAlertFlagForSV"; }
+      get { return "Result of GetNavICNavAlertFlagForSV."; }
     }
   
     internal const string CmdName = "GetNavICSatelliteNavAlertFlagResult";
@@ -13600,7 +13632,7 @@ namespace Sdx.Cmd
 
 
   ///
-  /// Result of GetPowerGlobalOffset
+  /// Result of GetPowerGlobalOffset.
   ///
   /// Name   Type   Description
   /// ------ ------ ---------------------------------------------------
@@ -13611,7 +13643,7 @@ namespace Sdx.Cmd
   {
     public override string Documentation
     {
-      get { return "Result of GetPowerGlobalOffset"; }
+      get { return "Result of GetPowerGlobalOffset."; }
     }
 
     internal const string CmdName = "GetPowerGlobalOffsetResult";
@@ -13766,7 +13798,7 @@ namespace Sdx.Cmd
 
 
   ///
-  /// Result of GetPowerOffset
+  /// Result of GetPowerOffset.
   ///
   /// Name   Type   Description
   /// ------ ------ -------------------------------------------------------------------------------
@@ -13781,7 +13813,7 @@ namespace Sdx.Cmd
   {
     public override string Documentation
     {
-      get { return "Result of GetPowerOffset"; }
+      get { return "Result of GetPowerOffset."; }
     }
 
     internal const string CmdName = "GetPowerOffsetResult";
@@ -13941,7 +13973,7 @@ namespace Sdx.Cmd
 
 
   ///
-  /// Result of GetPowerSbasOffset
+  /// Result of GetPowerSbasOffset.
   ///
   /// Name            Type   Description
   /// --------------- ------ -------------------------------------------------------------
@@ -13953,7 +13985,7 @@ namespace Sdx.Cmd
   {
     public override string Documentation
     {
-      get { return "Result of GetPowerSbasOffset"; }
+      get { return "Result of GetPowerSbasOffset."; }
     }
 
     internal const string CmdName = "GetPowerSbasOffsetResult";
@@ -14153,7 +14185,7 @@ namespace Sdx.Cmd
 
 
   ///
-  /// Result of GetModulationTarget
+  /// Result of GetModulationTarget.
   ///
   /// Name            Type   Description
   /// --------------- ------ ------------------------------------------------------------------------------------------------------------------------------------
@@ -14168,7 +14200,7 @@ namespace Sdx.Cmd
   {
     public override string Documentation
     {
-      get { return "Result of GetModulationTarget"; }
+      get { return "Result of GetModulationTarget."; }
     }
 
     internal const string CmdName = "GetModulationTargetResult";
@@ -14385,7 +14417,7 @@ namespace Sdx.Cmd
 
 
   ///
-  /// Result of GetGpu
+  /// Result of GetGpu.
   ///
   /// Name   Type   Description
   /// ------ ------ --------------------------------------
@@ -14398,7 +14430,7 @@ namespace Sdx.Cmd
   {
     public override string Documentation
     {
-      get { return "Result of GetGpu"; }
+      get { return "Result of GetGpu."; }
     }
 
     internal const string CmdName = "GetGpuResult";
@@ -14489,7 +14521,7 @@ namespace Sdx.Cmd
 
 
   ///
-  /// Result of GetModulationTargets
+  /// Result of GetAllModulationTargets.
   ///
   /// Name Type         Description
   /// ---- ------------ ---------------
@@ -14500,7 +14532,7 @@ namespace Sdx.Cmd
   {
     public override string Documentation
     {
-      get { return "Result of GetModulationTargets"; }
+      get { return "Result of GetAllModulationTargets."; }
     }
 
     internal const string CmdName = "GetAllModulationTargetsResult";
@@ -14895,7 +14927,7 @@ namespace Sdx.Cmd
 
 
   ///
-  /// Result of GetModulationTargetSignals
+  /// Result of GetModulationTargetSignals.
   ///
   /// Name             Type            Description
   /// ---------------- --------------- -----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
@@ -14914,7 +14946,7 @@ namespace Sdx.Cmd
   {
     public override string Documentation
     {
-      get { return "Result of GetModulationTargetSignals"; }
+      get { return "Result of GetModulationTargetSignals."; }
     }
 
     internal const string CmdName = "GetModulationTargetSignalsResult";
@@ -15245,7 +15277,7 @@ namespace Sdx.Cmd
 
 
   ///
-  /// Result of GetModulationTargetInterferences
+  /// Result of GetModulationTargetInterferences.
   ///
   /// Name        Type            Description
   /// ----------- --------------- ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
@@ -15263,7 +15295,7 @@ namespace Sdx.Cmd
   {
     public override string Documentation
     {
-      get { return "Result of GetModulationTargetInterferences"; }
+      get { return "Result of GetModulationTargetInterferences."; }
     }
 
     internal const string CmdName = "GetModulationTargetInterferencesResult";
@@ -15921,7 +15953,7 @@ namespace Sdx.Cmd
 
 
   ///
-  /// Result of GetDefaultVehicleAntennaModel
+  /// Result of GetDefaultVehicleAntennaModel.
   ///
   /// Name Type   Description
   /// ---- ------ ---------------------------
@@ -15932,7 +15964,7 @@ namespace Sdx.Cmd
   {
     public override string Documentation
     {
-      get { return "Result of GetDefaultVehicleAntennaModel"; }
+      get { return "Result of GetDefaultVehicleAntennaModel."; }
     }
 
     internal const string CmdName = "GetDefaultVehicleAntennaModelResult";
@@ -16001,7 +16033,7 @@ namespace Sdx.Cmd
 
 
   ///
-  /// Result of GetAllVehicleAntennaNames
+  /// Result of GetAllVehicleAntennaNames.
   ///
   /// Name         Type         Description
   /// ------------ ------------ -----------------------------
@@ -16012,7 +16044,7 @@ namespace Sdx.Cmd
   {
     public override string Documentation
     {
-      get { return "Result of GetAllVehicleAntennaNames"; }
+      get { return "Result of GetAllVehicleAntennaNames."; }
     }
 
     internal const string CmdName = "GetAllVehicleAntennaNamesResult";
@@ -16201,7 +16233,7 @@ namespace Sdx.Cmd
 
 
   ///
-  /// Result of GetVehicleAntennaGain
+  /// Result of GetVehicleAntennaGain.
   ///
   /// Name Type               Description
   /// ---- ------------------ -------------------------------------------------------------------------------------------------------------------------
@@ -16215,7 +16247,7 @@ namespace Sdx.Cmd
   {
     public override string Documentation
     {
-      get { return "Result of GetVehicleAntennaGain"; }
+      get { return "Result of GetVehicleAntennaGain."; }
     }
 
     internal const string CmdName = "GetVehicleAntennaGainResult";
@@ -16439,7 +16471,7 @@ namespace Sdx.Cmd
 
 
   ///
-  /// Result of GetVehicleAntennaPhaseOffset
+  /// Result of GetVehicleAntennaPhaseOffset.
   ///
   /// Name        Type               Description
   /// ----------- ------------------ ----------------------------------------------------------------------------------------------------------------------------------
@@ -16453,7 +16485,7 @@ namespace Sdx.Cmd
   {
     public override string Documentation
     {
-      get { return "Result of GetVehicleAntennaPhaseOffset"; }
+      get { return "Result of GetVehicleAntennaPhaseOffset."; }
     }
 
     internal const string CmdName = "GetVehicleAntennaPhaseOffsetResult";
@@ -16853,7 +16885,7 @@ namespace Sdx.Cmd
 
 
   ///
-  /// Result of GetVehicleGainPatternOffset
+  /// Result of GetVehicleGainPatternOffset.
   ///
   /// Name        Type            Description
   /// ----------- --------------- ------------------------------------------------------------------------------------
@@ -16866,7 +16898,7 @@ namespace Sdx.Cmd
   {
     public override string Documentation
     {
-      get { return "Result of GetVehicleGainPatternOffset"; }
+      get { return "Result of GetVehicleGainPatternOffset."; }
     }
 
     internal const string CmdName = "GetVehicleGainPatternOffsetResult";
@@ -17067,7 +17099,7 @@ namespace Sdx.Cmd
 
 
   ///
-  /// Result of GetVehiclePhasePatternOffset
+  /// Result of GetVehiclePhasePatternOffset.
   ///
   /// Name        Type            Description
   /// ----------- --------------- ------------------------------------------------------------------------------------
@@ -17080,7 +17112,7 @@ namespace Sdx.Cmd
   {
     public override string Documentation
     {
-      get { return "Result of GetVehiclePhasePatternOffset"; }
+      get { return "Result of GetVehiclePhasePatternOffset."; }
     }
 
     internal const string CmdName = "GetVehiclePhasePatternOffsetResult";
@@ -17330,7 +17362,7 @@ namespace Sdx.Cmd
 
 
   ///
-  /// Result of GetVehicleAntennaOffset
+  /// Result of GetVehicleAntennaOffset.
   ///
   /// Name  Type            Description
   /// ----- --------------- --------------------------------------------
@@ -17347,7 +17379,7 @@ namespace Sdx.Cmd
   {
     public override string Documentation
     {
-      get { return "Result of GetVehicleAntennaOffset"; }
+      get { return "Result of GetVehicleAntennaOffset."; }
     }
 
     internal const string CmdName = "GetVehicleAntennaOffsetResult";
@@ -18382,7 +18414,7 @@ namespace Sdx.Cmd
 
 
   ///
-  /// Result of GetAntennaChange
+  /// Result of GetAntennaChange.
   ///
   /// Name      Type   Description
   /// --------- ------ --------------------------------------------------
@@ -18395,7 +18427,7 @@ namespace Sdx.Cmd
   {
     public override string Documentation
     {
-      get { return "Result of GetAntennaChange"; }
+      get { return "Result of GetAntennaChange."; }
     }
 
     internal const string CmdName = "GetAntennaChangeResult";
@@ -18684,7 +18716,7 @@ namespace Sdx.Cmd
 
 
   ///
-  /// Result of GetWFAntennaOffset
+  /// Result of GetWFAntennaOffset.
   ///
   /// Name  Type   Description
   /// ----- ------ -----------------------------------------------
@@ -18700,7 +18732,7 @@ namespace Sdx.Cmd
   {
     public override string Documentation
     {
-      get { return "Result of GetWFAntennaOffset"; }
+      get { return "Result of GetWFAntennaOffset."; }
     }
 
     internal const string CmdName = "GetWFAntennaOffsetResult";
@@ -18964,7 +18996,7 @@ namespace Sdx.Cmd
 
 
   ///
-  /// Result of GetWFAntennaElementOffset
+  /// Result of GetWFAntennaElementOffset.
   ///
   /// Name    Type   Description
   /// ------- ------ -------------------------------------------------------
@@ -18981,7 +19013,7 @@ namespace Sdx.Cmd
   {
     public override string Documentation
     {
-      get { return "Result of GetWFAntennaElementOffset"; }
+      get { return "Result of GetWFAntennaElementOffset."; }
     }
 
     internal const string CmdName = "GetWFAntennaElementOffsetResult";
@@ -19196,7 +19228,7 @@ namespace Sdx.Cmd
 
 
   ///
-  /// Result of GetWFAntennaElementModel
+  /// Result of GetWFAntennaElementModel.
   ///
   /// Name             Type   Description
   /// ---------------- ------ ----------------------------------------------------------------------------------------------------
@@ -19208,7 +19240,7 @@ namespace Sdx.Cmd
   {
     public override string Documentation
     {
-      get { return "Result of GetWFAntennaElementModel"; }
+      get { return "Result of GetWFAntennaElementModel."; }
     }
 
     internal const string CmdName = "GetWFAntennaElementModelResult";
@@ -19368,7 +19400,7 @@ namespace Sdx.Cmd
 
 
   ///
-  /// Result of GetWFAntennaElementPhasePatternOffset
+  /// Result of GetWFAntennaElementPhasePatternOffset.
   ///
   /// Name        Type   Description
   /// ----------- ------ -------------------------------------------------------------------------
@@ -19380,7 +19412,7 @@ namespace Sdx.Cmd
   {
     public override string Documentation
     {
-      get { return "Result of GetWFAntennaElementPhasePatternOffset"; }
+      get { return "Result of GetWFAntennaElementPhasePatternOffset."; }
     }
 
     internal const string CmdName = "GetWFAntennaElementPhasePatternOffsetResult";
@@ -19540,7 +19572,7 @@ namespace Sdx.Cmd
 
 
   ///
-  /// Result of IsWFAntennaElementEnabled
+  /// Result of IsWFAntennaElementEnabled.
   ///
   /// Name    Type Description
   /// ------- ---- -------------------------------------------------
@@ -19552,7 +19584,7 @@ namespace Sdx.Cmd
   {
     public override string Documentation
     {
-      get { return "Result of IsWFAntennaElementEnabled"; }
+      get { return "Result of IsWFAntennaElementEnabled."; }
     }
 
     internal const string CmdName = "IsWFAntennaElementEnabledResult";
@@ -19650,7 +19682,7 @@ namespace Sdx.Cmd
 
 
   ///
-  /// Result of GetAllSVNames
+  /// Result of GetAllSVAntennaNames.
   ///
   /// Name         Type         Description
   /// ------------ ------------ ----------------------------------------------------------------
@@ -19662,7 +19694,7 @@ namespace Sdx.Cmd
   {
     public override string Documentation
     {
-      get { return "Result of GetAllSVNames"; }
+      get { return "Result of GetAllSVAntennaNames."; }
     }
 
     internal const string CmdName = "GetAllSVAntennaNamesResult";
@@ -19874,7 +19906,7 @@ namespace Sdx.Cmd
 
 
   ///
-  /// Result of GetSVGainPatternOffset
+  /// Result of GetSVGainPatternOffset.
   ///
   /// Name        Type            Description
   /// ----------- --------------- ------------------------------------------------------------------------------------
@@ -19888,7 +19920,7 @@ namespace Sdx.Cmd
   {
     public override string Documentation
     {
-      get { return "Result of GetSVGainPatternOffset"; }
+      get { return "Result of GetSVGainPatternOffset."; }
     }
 
     internal const string CmdName = "GetSVGainPatternOffsetResult";
@@ -20124,7 +20156,7 @@ namespace Sdx.Cmd
 
 
   ///
-  /// Result of GetSVPhasePatternOffset
+  /// Result of GetSVPhasePatternOffset.
   ///
   /// Name        Type            Description
   /// ----------- --------------- ------------------------------------------------------------------------------------
@@ -20138,7 +20170,7 @@ namespace Sdx.Cmd
   {
     public override string Documentation
     {
-      get { return "Result of GetSVPhasePatternOffset"; }
+      get { return "Result of GetSVPhasePatternOffset."; }
     }
 
     internal const string CmdName = "GetSVPhasePatternOffsetResult";
@@ -20386,7 +20418,7 @@ namespace Sdx.Cmd
 
 
   ///
-  /// Result of GetSVAntennaGain
+  /// Result of GetSVAntennaGain.
   ///
   /// Name   Type               Description
   /// ------ ------------------ -------------------------------------------------------------------------------------------------------------------------
@@ -20401,7 +20433,7 @@ namespace Sdx.Cmd
   {
     public override string Documentation
     {
-      get { return "Result of GetSVAntennaGain"; }
+      get { return "Result of GetSVAntennaGain."; }
     }
 
     internal const string CmdName = "GetSVAntennaGainResult";
@@ -20660,7 +20692,7 @@ namespace Sdx.Cmd
 
 
   ///
-  /// Result of GetSVAntennaPhaseOffset
+  /// Result of GetSVAntennaPhaseOffset.
   ///
   /// Name        Type               Description
   /// ----------- ------------------ ----------------------------------------------------------------------------------------------------------------------------------
@@ -20675,7 +20707,7 @@ namespace Sdx.Cmd
   {
     public override string Documentation
     {
-      get { return "Result of GetSVAntennaPhaseOffset"; }
+      get { return "Result of GetSVAntennaPhaseOffset."; }
     }
 
     internal const string CmdName = "GetSVAntennaPhaseOffsetResult";
@@ -21526,7 +21558,7 @@ namespace Sdx.Cmd
 
 
   ///
-  /// Result of GetSVAntennaModelForSV
+  /// Result of GetSVAntennaModelForSV.
   ///
   /// Name             Type   Description
   /// ---------------- ------ -----------------------------------------------------------------
@@ -21539,7 +21571,7 @@ namespace Sdx.Cmd
   {
     public override string Documentation
     {
-      get { return "Result of GetSVAntennaModelForSV"; }
+      get { return "Result of GetSVAntennaModelForSV."; }
     }
 
     internal const string CmdName = "GetSVAntennaModelForSVResult";
@@ -21710,7 +21742,7 @@ namespace Sdx.Cmd
 
 
   ///
-  /// Result of GetSVAntennaModelForEachSV
+  /// Result of GetSVAntennaModelForEachSV.
   ///
   /// Name              Type         Description
   /// ----------------- ------------ -----------------------------------------------------------------------------------------------------
@@ -21722,7 +21754,7 @@ namespace Sdx.Cmd
   {
     public override string Documentation
     {
-      get { return "Result of GetSVAntennaModelForEachSV"; }
+      get { return "Result of GetSVAntennaModelForEachSV."; }
     }
 
     internal const string CmdName = "GetSVAntennaModelForEachSVResult";
@@ -21910,7 +21942,7 @@ namespace Sdx.Cmd
 
 
   ///
-  /// Result of GetSVType
+  /// Result of GetSVType.
   ///
   /// Name   Type   Description
   /// ------ ------ -------------------------------------------------------------
@@ -21923,7 +21955,7 @@ namespace Sdx.Cmd
   {
     public override string Documentation
     {
-      get { return "Result of GetSVType"; }
+      get { return "Result of GetSVType."; }
     }
 
     internal const string CmdName = "GetSVTypeResult";
@@ -22112,7 +22144,7 @@ namespace Sdx.Cmd
 
 
   ///
-  /// Result of GetTransmittedPrnForSV
+  /// Result of GetTransmittedPrnForSV.
   ///
   /// Name          Type            Description
   /// ------------- --------------- -------------------------------------------------------------------------------
@@ -22127,7 +22159,7 @@ namespace Sdx.Cmd
   {
     public override string Documentation
     {
-      get { return "Result of GetTransmittedPrnForSV"; }
+      get { return "Result of GetTransmittedPrnForSV."; }
     }
 
     internal const string CmdName = "GetTransmittedPrnForSVResult";
@@ -22311,7 +22343,7 @@ namespace Sdx.Cmd
 
 
   ///
-  /// Result of GetPrnOfSVID
+  /// Result of GetPrnOfSVID.
   ///
   /// Name   Type   Description
   /// ------ ------ ----------------------------------------------------------------------------------------------------------------------------------------------------------
@@ -22324,7 +22356,7 @@ namespace Sdx.Cmd
   {
     public override string Documentation
     {
-      get { return "Result of GetPrnOfSVID"; }
+      get { return "Result of GetPrnOfSVID."; }
     }
 
     internal const string CmdName = "GetPrnOfSVIDResult";
@@ -22495,7 +22527,7 @@ namespace Sdx.Cmd
 
 
   ///
-  /// Result of GetPrnForEachSV
+  /// Result of GetPrnForEachSV.
   ///
   /// Name   Type      Description
   /// ------ --------- ----------------------------------------------------------------------------------------------------------------------------------------------------------
@@ -22507,7 +22539,7 @@ namespace Sdx.Cmd
   {
     public override string Documentation
     {
-      get { return "Result of GetPrnForEachSV"; }
+      get { return "Result of GetPrnForEachSV."; }
     }
 
     internal const string CmdName = "GetPrnForEachSVResult";
@@ -22687,7 +22719,7 @@ namespace Sdx.Cmd
 
 
   ///
-  /// Result of IsTrajectorySmoothingEnabled
+  /// Result of IsTrajectorySmoothingEnabled.
   ///
   /// Name    Type Description
   /// ------- ---- ------------------------------------------------------
@@ -22698,7 +22730,7 @@ namespace Sdx.Cmd
   {
     public override string Documentation
     {
-      get { return "Result of IsTrajectorySmoothingEnabled"; }
+      get { return "Result of IsTrajectorySmoothingEnabled."; }
     }
 
     internal const string CmdName = "IsTrajectorySmoothingEnabledResult";
@@ -22817,7 +22849,7 @@ namespace Sdx.Cmd
 
 
   ///
-  /// Result of IsSimulationStopAtTrajectoryEndEnabled
+  /// Result of IsSimulationStopAtTrajectoryEndEnabled.
   ///
   /// Name    Type Description
   /// ------- ---- ------------------------------------------------------------------------
@@ -22828,7 +22860,7 @@ namespace Sdx.Cmd
   {
     public override string Documentation
     {
-      get { return "Result of IsSimulationStopAtTrajectoryEndEnabled"; }
+      get { return "Result of IsSimulationStopAtTrajectoryEndEnabled."; }
     }
 
     internal const string CmdName = "IsSimulationStopAtTrajectoryEndEnabledResult";
@@ -22947,7 +22979,7 @@ namespace Sdx.Cmd
 
 
   ///
-  /// Result of IsAttitudeToZeroForced
+  /// Result of IsAttitudeToZeroForced.
   ///
   /// Name    Type Description
   /// ------- ---- -----------------------------------------------
@@ -22958,7 +22990,7 @@ namespace Sdx.Cmd
   {
     public override string Documentation
     {
-      get { return "Result of IsAttitudeToZeroForced"; }
+      get { return "Result of IsAttitudeToZeroForced."; }
     }
 
     internal const string CmdName = "IsAttitudeToZeroForcedResult";
@@ -23077,7 +23109,7 @@ namespace Sdx.Cmd
 
 
   ///
-  /// Result of GetVehicleTrajectory
+  /// Result of GetVehicleTrajectory.
   ///
   /// Name Type   Description
   /// ---- ------ -----------------------------------------------------------------------
@@ -23088,7 +23120,7 @@ namespace Sdx.Cmd
   {
     public override string Documentation
     {
-      get { return "Result of GetVehicleTrajectory"; }
+      get { return "Result of GetVehicleTrajectory."; }
     }
 
     internal const string CmdName = "GetVehicleTrajectoryResult";
@@ -23162,6 +23194,86 @@ namespace Sdx.Cmd
     }
 
     public override int ExecutePermission { get { return EXECUTE_IF_IDLE; } }
+
+    public string Type
+    {
+      get { return GetValue("Type").ToObject<string>(CommandBase.Serializer); }
+      set
+      {
+          SetValue("Type", JToken.FromObject(value, CommandBase.Serializer));
+      }
+    }
+  }
+
+
+  ///
+  /// Get vehicle type for Route Trajectory
+  ///
+  /// 
+  ///
+
+  public class GetVehicleType : CommandBase
+  {
+    public override string Documentation
+    {
+      get { return "Get vehicle type for Route Trajectory"; }
+    }
+
+    internal const string CmdName = "GetVehicleType";
+
+    public GetVehicleType()
+      : base(CmdName)
+    {}
+      
+    public override bool IsValid
+    {
+      get
+      {
+        return base.IsValid
+      ;
+      }
+    }
+
+    public override int ExecutePermission { get { return EXECUTE_IF_IDLE; } }
+  }
+
+
+  ///
+  /// Result of GetVehicleType.
+  ///
+  /// Name Type   Description
+  /// ---- ------ ----------------------------------------------------------
+  /// Type string Vehicle type ("Ground / Water" or "Airborne / Spaceborne")
+  ///
+
+  public class GetVehicleTypeResult : CommandResult
+  {
+    public override string Documentation
+    {
+      get { return "Result of GetVehicleType."; }
+    }
+
+    internal const string CmdName = "GetVehicleTypeResult";
+
+    public GetVehicleTypeResult()
+      : base(CmdName)
+    {}
+
+    public GetVehicleTypeResult(CommandBase relatedCommand, string type)
+      : base(CmdName, relatedCommand)
+    {
+      Type = type;
+    }
+      
+    public override bool IsValid
+    {
+      get
+      {
+        return base.IsValid
+        && Contains("Type")
+      ;
+      }
+    }
 
     public string Type
     {
@@ -23859,7 +23971,7 @@ namespace Sdx.Cmd
 
 
   ///
-  /// Result of GetVehicleTrajectoryFix
+  /// Result of GetVehicleTrajectoryFix.
   ///
   /// Name  Type   Description
   /// ----- ------ -----------------------
@@ -23876,7 +23988,7 @@ namespace Sdx.Cmd
   {
     public override string Documentation
     {
-      get { return "Result of GetVehicleTrajectoryFix"; }
+      get { return "Result of GetVehicleTrajectoryFix."; }
     }
 
     internal const string CmdName = "GetVehicleTrajectoryFixResult";
@@ -24133,7 +24245,7 @@ namespace Sdx.Cmd
 
 
   ///
-  /// Result of GetVehicleTrajectoryFixEcef
+  /// Result of GetVehicleTrajectoryFixEcef.
   ///
   /// Name  Type   Description
   /// ----- ------ -----------------------
@@ -24150,7 +24262,7 @@ namespace Sdx.Cmd
   {
     public override string Documentation
     {
-      get { return "Result of GetVehicleTrajectoryFixEcef"; }
+      get { return "Result of GetVehicleTrajectoryFixEcef."; }
     }
 
     internal const string CmdName = "GetVehicleTrajectoryFixEcefResult";
@@ -24421,7 +24533,7 @@ namespace Sdx.Cmd
 
 
   ///
-  /// Result of GetVehicleTrajectoryCircular
+  /// Result of GetVehicleTrajectoryCircular.
   ///
   /// Name        Type            Description
   /// ----------- --------------- --------------------------------
@@ -24439,7 +24551,7 @@ namespace Sdx.Cmd
   {
     public override string Documentation
     {
-      get { return "Result of GetVehicleTrajectoryCircular"; }
+      get { return "Result of GetVehicleTrajectoryCircular."; }
     }
 
     internal const string CmdName = "GetVehicleTrajectoryCircularResult";
@@ -24721,7 +24833,7 @@ namespace Sdx.Cmd
 
 
   ///
-  /// Result of GetVehicleTrajectoryOrbit
+  /// Result of GetVehicleTrajectoryOrbit.
   ///
   /// Name              Type     Description
   /// ----------------- -------- ---------------------------------------------------------------------
@@ -24739,7 +24851,7 @@ namespace Sdx.Cmd
   {
     public override string Documentation
     {
-      get { return "Result of GetVehicleTrajectoryOrbit"; }
+      get { return "Result of GetVehicleTrajectoryOrbit."; }
     }
 
     internal const string CmdName = "GetVehicleTrajectoryOrbitResult";
@@ -24853,7 +24965,7 @@ namespace Sdx.Cmd
 
 
   ///
-  /// Get Hardware in the loop trajectory server port. Returns HilPortResult.
+  /// Get Hardware in the loop trajectory server port.
   ///
   /// 
   ///
@@ -24862,7 +24974,7 @@ namespace Sdx.Cmd
   {
     public override string Documentation
     {
-      get { return "Get Hardware in the loop trajectory server port. Returns HilPortResult."; }
+      get { return "Get Hardware in the loop trajectory server port."; }
     }
 
     internal const string CmdName = "GetHilPort";
@@ -24885,7 +24997,7 @@ namespace Sdx.Cmd
 
 
   ///
-  /// Hardware in the loop server port.
+  /// Result of GetHilPort.
   ///
   /// Name Type Description
   /// ---- ---- ---------------
@@ -24896,7 +25008,7 @@ namespace Sdx.Cmd
   {
     public override string Documentation
     {
-      get { return "Hardware in the loop server port."; }
+      get { return "Result of GetHilPort."; }
     }
 
     internal const string CmdName = "HilPortResult";
@@ -24933,38 +25045,6 @@ namespace Sdx.Cmd
 
 
   ///
-  /// Get last Hardware in the loop trajectory server warning message. Returns HilWarningResult.
-  ///
-  /// 
-  ///
-
-  public class GetLastHilWarning : CommandBase
-  {
-    public override string Documentation
-    {
-      get { return "Get last Hardware in the loop trajectory server warning message. Returns HilWarningResult."; }
-    }
-
-    internal const string CmdName = "GetLastHilWarning";
-
-    public GetLastHilWarning()
-      : base(CmdName)
-    {}
-      
-    public override bool IsValid
-    {
-      get
-      {
-        return base.IsValid
-      ;
-      }
-    }
-
-    public override int ExecutePermission { get { return EXECUTE_IF_SIMULATING; } }
-  }
-
-
-  ///
   /// Reset Hardware in the loop trajectory server warning message.
   ///
   /// 
@@ -24997,7 +25077,39 @@ namespace Sdx.Cmd
 
 
   ///
-  /// Hardware in the loop server warning result 
+  /// Get last Hardware in the loop trajectory server warning message. Returns HilWarningResult.
+  ///
+  /// 
+  ///
+
+  public class GetLastHilWarning : CommandBase
+  {
+    public override string Documentation
+    {
+      get { return "Get last Hardware in the loop trajectory server warning message. Returns HilWarningResult."; }
+    }
+
+    internal const string CmdName = "GetLastHilWarning";
+
+    public GetLastHilWarning()
+      : base(CmdName)
+    {}
+      
+    public override bool IsValid
+    {
+      get
+      {
+        return base.IsValid
+      ;
+      }
+    }
+
+    public override int ExecutePermission { get { return EXECUTE_IF_SIMULATING; } }
+  }
+
+
+  ///
+  /// Result of GetLastHilWarning.
   ///
   /// Name              Type Description
   /// ----------------- ---- -----------------------------------------------------------------------------------------------------------------------------------
@@ -25009,7 +25121,7 @@ namespace Sdx.Cmd
   {
     public override string Documentation
     {
-      get { return "Hardware in the loop server warning result "; }
+      get { return "Result of GetLastHilWarning."; }
     }
 
     internal const string CmdName = "HilWarningResult";
@@ -25333,7 +25445,7 @@ namespace Sdx.Cmd
 
 
   ///
-  /// Result of GetEphemerisReferenceTimeForSV
+  /// Result of GetEphemerisReferenceTimeForSV.
   ///
   /// Name   Type     Description
   /// ------ -------- --------------------------------------------------------------
@@ -25346,7 +25458,7 @@ namespace Sdx.Cmd
   {
     public override string Documentation
     {
-      get { return "Result of GetEphemerisReferenceTimeForSV"; }
+      get { return "Result of GetEphemerisReferenceTimeForSV."; }
     }
   
     internal const string CmdName = "GetEphemerisReferenceTimeResult";
@@ -25617,7 +25729,7 @@ namespace Sdx.Cmd
 
 
   ///
-  /// Result of GetGpsEphDoubleParamForSV
+  /// Result of GetGpsEphDoubleParamForSV.
   ///
   /// Name      Type   Description
   /// --------- ------ --------------------------------------------------------------------
@@ -25630,7 +25742,7 @@ namespace Sdx.Cmd
   {
     public override string Documentation
     {
-      get { return "Result of GetGpsEphDoubleParamForSV"; }
+      get { return "Result of GetGpsEphDoubleParamForSV."; }
     }
 
     internal const string CmdName = "GetGpsEphDoubleParamForSVResult";
@@ -25877,7 +25989,7 @@ namespace Sdx.Cmd
 
 
   ///
-  /// Result of GetGalileoEphDoubleParamForSV
+  /// Result of GetGalileoEphDoubleParamForSV.
   ///
   /// Name      Type   Description
   /// --------- ------ --------------------------------------------------------------------
@@ -25890,7 +26002,7 @@ namespace Sdx.Cmd
   {
     public override string Documentation
     {
-      get { return "Result of GetGalileoEphDoubleParamForSV"; }
+      get { return "Result of GetGalileoEphDoubleParamForSV."; }
     }
 
     internal const string CmdName = "GetGalileoEphDoubleParamForSVResult";
@@ -26139,7 +26251,7 @@ namespace Sdx.Cmd
 
 
   ///
-  /// Result of GetBeiDouEphDoubleParamForSV
+  /// Result of GetBeiDouEphDoubleParamForSV.
   ///
   /// Name      Type   Description
   /// --------- ------ --------------------------------------------------------------------
@@ -26152,7 +26264,7 @@ namespace Sdx.Cmd
   {
     public override string Documentation
     {
-      get { return "Result of GetBeiDouEphDoubleParamForSV"; }
+      get { return "Result of GetBeiDouEphDoubleParamForSV."; }
     }
 
     internal const string CmdName = "GetBeiDouEphDoubleParamForSVResult";
@@ -26371,7 +26483,7 @@ namespace Sdx.Cmd
 
 
   ///
-  /// Result of GetGlonassEphDoubleParamForSV
+  /// Result of GetGlonassEphDoubleParamForSV.
   ///
   /// Name      Type   Description
   /// --------- ------ --------------------------------------------------------------------
@@ -26384,7 +26496,7 @@ namespace Sdx.Cmd
   {
     public override string Documentation
     {
-      get { return "Result of GetGlonassEphDoubleParamForSV"; }
+      get { return "Result of GetGlonassEphDoubleParamForSV."; }
     }
 
     internal const string CmdName = "GetGlonassEphDoubleParamForSVResult";
@@ -26727,7 +26839,7 @@ namespace Sdx.Cmd
 
 
   ///
-  /// Result of GetQzssEphDoubleParamForSV
+  /// Result of GetQzssEphDoubleParamForSV.
   ///
   /// Name      Type   Description
   /// --------- ------ ----------------------------------------------------------------------------------
@@ -26742,7 +26854,7 @@ namespace Sdx.Cmd
   {
     public override string Documentation
     {
-      get { return "Result of GetQzssEphDoubleParamForSV"; }
+      get { return "Result of GetQzssEphDoubleParamForSV."; }
     }
   
     internal const string CmdName = "GetQzssEphemerisDoubleParamResult";
@@ -27191,7 +27303,7 @@ namespace Sdx.Cmd
 
 
   ///
-  /// Result of GetNavICEphDoubleParamForSV
+  /// Result of GetNavICEphDoubleParamForSV.
   ///
   /// Name      Type   Description
   /// --------- ------ --------------------------------------------------------------------
@@ -27204,7 +27316,7 @@ namespace Sdx.Cmd
   {
     public override string Documentation
     {
-      get { return "Result of GetNavICEphDoubleParamForSV"; }
+      get { return "Result of GetNavICEphDoubleParamForSV."; }
     }
   
     internal const string CmdName = "GetNavICEphemerisDoubleParamResult";
@@ -27507,7 +27619,7 @@ namespace Sdx.Cmd
 
 
   ///
-  /// Result of GetGpsEphDoubleParamForEachSV
+  /// Result of GetGpsEphDoubleParamForEachSV.
   ///
   /// Name      Type         Description
   /// --------- ------------ --------------------------------------------------------------------------------------------------
@@ -27519,7 +27631,7 @@ namespace Sdx.Cmd
   {
     public override string Documentation
     {
-      get { return "Result of GetGpsEphDoubleParamForEachSV"; }
+      get { return "Result of GetGpsEphDoubleParamForEachSV."; }
     }
   
     internal const string CmdName = "GetGpsEphemerisDoubleParamsResult";
@@ -27813,7 +27925,7 @@ namespace Sdx.Cmd
 
 
   ///
-  /// Result of GetGalileoEphDoubleParamForEachSV
+  /// Result of GetGalileoEphDoubleParamForEachSV.
   ///
   /// Name      Type         Description
   /// --------- ------------ --------------------------------------------------------------------------------------------------
@@ -27825,7 +27937,7 @@ namespace Sdx.Cmd
   {
     public override string Documentation
     {
-      get { return "Result of GetGalileoEphDoubleParamForEachSV"; }
+      get { return "Result of GetGalileoEphDoubleParamForEachSV."; }
     }
   
     internal const string CmdName = "GetGalileoEphemerisDoubleParamsResult";
@@ -28119,7 +28231,7 @@ namespace Sdx.Cmd
 
 
   ///
-  /// Result of GetBeiDouEphDoubleParamForEachSV
+  /// Result of GetBeiDouEphDoubleParamForEachSV.
   ///
   /// Name      Type         Description
   /// --------- ------------ --------------------------------------------------------------------------------------------------
@@ -28131,7 +28243,7 @@ namespace Sdx.Cmd
   {
     public override string Documentation
     {
-      get { return "Result of GetBeiDouEphDoubleParamForEachSV"; }
+      get { return "Result of GetBeiDouEphDoubleParamForEachSV."; }
     }
   
     internal const string CmdName = "GetBeiDouEphemerisDoubleParamsResult";
@@ -28425,7 +28537,7 @@ namespace Sdx.Cmd
 
 
   ///
-  /// Result of GetGlonassEphDoubleParamForEachSV
+  /// Result of GetGlonassEphDoubleParamForEachSV.
   ///
   /// Name      Type         Description
   /// --------- ------------ --------------------------------------------------------------------------------------------------
@@ -28437,7 +28549,7 @@ namespace Sdx.Cmd
   {
     public override string Documentation
     {
-      get { return "Result of GetGlonassEphDoubleParamForEachSV"; }
+      get { return "Result of GetGlonassEphDoubleParamForEachSV."; }
     }
   
     internal const string CmdName = "GetGlonassDoubleParamsResult";
@@ -28811,7 +28923,7 @@ namespace Sdx.Cmd
 
 
   ///
-  /// Result of GetQzssEphDoubleParamForEachSV
+  /// Result of GetQzssEphDoubleParamForEachSV.
   ///
   /// Name      Type         Description
   /// --------- ------------ --------------------------------------------------------------------------------------------------
@@ -28823,7 +28935,7 @@ namespace Sdx.Cmd
   {
     public override string Documentation
     {
-      get { return "Result of GetQzssEphDoubleParamForEachSV"; }
+      get { return "Result of GetQzssEphDoubleParamForEachSV."; }
     }
   
     internal const string CmdName = "GetQzssEphemerisDoubleParamsResult";
@@ -29117,7 +29229,7 @@ namespace Sdx.Cmd
 
 
   ///
-  /// Result of GetNavICEphDoubleParamForEachSV
+  /// Result of GetNavICEphDoubleParamForEachSV.
   ///
   /// Name      Type         Description
   /// --------- ------------ --------------------------------------------------------------------------------------------------
@@ -29129,7 +29241,7 @@ namespace Sdx.Cmd
   {
     public override string Documentation
     {
-      get { return "Result of GetNavICEphDoubleParamForEachSV"; }
+      get { return "Result of GetNavICEphDoubleParamForEachSV."; }
     }
   
     internal const string CmdName = "GetNavICEphemerisDoubleParamsResult";
@@ -29347,7 +29459,7 @@ namespace Sdx.Cmd
 
 
   ///
-  /// Result of GetGpsEphBoolParamForSV
+  /// Result of GetGpsEphBoolParamForSV.
   ///
   /// Name      Type   Description
   /// --------- ------ --------------------------------------------------------------------
@@ -29360,7 +29472,7 @@ namespace Sdx.Cmd
   {
     public override string Documentation
     {
-      get { return "Result of GetGpsEphBoolParamForSV"; }
+      get { return "Result of GetGpsEphBoolParamForSV."; }
     }
 
     internal const string CmdName = "GetGpsEphBoolParamForSVResult";
@@ -29647,7 +29759,7 @@ namespace Sdx.Cmd
 
 
   ///
-  /// Result of GetGpsEphBoolParamForEachSV
+  /// Result of GetGpsEphBoolParamForEachSV.
   ///
   /// Name      Type       Description
   /// --------- ---------- --------------------------------------------------------------------------------------------------
@@ -29659,7 +29771,7 @@ namespace Sdx.Cmd
   {
     public override string Documentation
     {
-      get { return "Result of GetGpsEphBoolParamForEachSV"; }
+      get { return "Result of GetGpsEphBoolParamForEachSV."; }
     }
   
     internal const string CmdName = "GetGpsEphemerisBoolParamsResult";
@@ -29869,7 +29981,7 @@ namespace Sdx.Cmd
 
 
   ///
-  /// Result of GetBeiDouEphBoolParamForSV
+  /// Result of GetBeiDouEphBoolParamForSV.
   ///
   /// Name      Type   Description
   /// --------- ------ --------------------------------------------------------------------
@@ -29882,7 +29994,7 @@ namespace Sdx.Cmd
   {
     public override string Documentation
     {
-      get { return "Result of GetBeiDouEphBoolParamForSV"; }
+      get { return "Result of GetBeiDouEphBoolParamForSV."; }
     }
 
     internal const string CmdName = "GetBeiDouEphBoolParamForSVResult";
@@ -30169,7 +30281,7 @@ namespace Sdx.Cmd
 
 
   ///
-  /// Result of GetBeiDouEphBoolParamForEachSV
+  /// Result of GetBeiDouEphBoolParamForEachSV.
   ///
   /// Name      Type       Description
   /// --------- ---------- --------------------------------------------------------------------------------------------------
@@ -30181,7 +30293,7 @@ namespace Sdx.Cmd
   {
     public override string Documentation
     {
-      get { return "Result of GetBeiDouEphBoolParamForEachSV"; }
+      get { return "Result of GetBeiDouEphBoolParamForEachSV."; }
     }
   
     internal const string CmdName = "GetBeiDouEphemerisBoolParamsResult";
@@ -30555,7 +30667,7 @@ namespace Sdx.Cmd
 
 
   ///
-  /// Result of GetQzssEphBoolParamForSV
+  /// Result of GetQzssEphBoolParamForSV.
   ///
   /// Name      Type   Description
   /// --------- ------ --------------------------------------------------------------------
@@ -30568,7 +30680,7 @@ namespace Sdx.Cmd
   {
     public override string Documentation
     {
-      get { return "Result of GetQzssEphBoolParamForSV"; }
+      get { return "Result of GetQzssEphBoolParamForSV."; }
     }
   
     internal const string CmdName = "GetQzssEphemerisBoolParamResult";
@@ -30871,7 +30983,7 @@ namespace Sdx.Cmd
 
 
   ///
-  /// Result of GetQzssEphBoolParamForEachSV
+  /// Result of GetQzssEphBoolParamForEachSV.
   ///
   /// Name      Type       Description
   /// --------- ---------- --------------------------------------------------------------------------------------------------
@@ -30883,7 +30995,7 @@ namespace Sdx.Cmd
   {
     public override string Documentation
     {
-      get { return "Result of GetQzssEphBoolParamForEachSV"; }
+      get { return "Result of GetQzssEphBoolParamForEachSV."; }
     }
   
     internal const string CmdName = "GetQzssEphemerisBoolParamsResult";
@@ -31081,7 +31193,7 @@ namespace Sdx.Cmd
 
 
   ///
-  /// Result of GetSbasEphParamsForSV
+  /// Result of GetSbasEphParamsForSV.
   ///
   /// Name           Type               Description
   /// -------------- ------------------ --------------------------------------------------------------------------
@@ -31097,7 +31209,7 @@ namespace Sdx.Cmd
   {
     public override string Documentation
     {
-      get { return "Result of GetSbasEphParamsForSV"; }
+      get { return "Result of GetSbasEphParamsForSV."; }
     }
 
     internal const string CmdName = "GetSbasEphParamsForSVResult";
@@ -31713,7 +31825,7 @@ namespace Sdx.Cmd
 
 
   ///
-  /// Result of GetPerturbations
+  /// Result of GetPerturbations.
   ///
   /// Name   Type   Description
   /// ------ ------ ---------------------------------------------
@@ -31731,7 +31843,7 @@ namespace Sdx.Cmd
   {
     public override string Documentation
     {
-      get { return "Result of GetPerturbations"; }
+      get { return "Result of GetPerturbations."; }
     }
 
     internal const string CmdName = "GetPerturbationsResult";
@@ -32019,7 +32131,7 @@ namespace Sdx.Cmd
 
 
   ///
-  /// Result of GetPerturbationsForAllSat
+  /// Result of GetPerturbationsForAllSat.
   ///
   /// Name   Type         Description
   /// ------ ------------ ---------------------------------------------
@@ -32036,7 +32148,7 @@ namespace Sdx.Cmd
   {
     public override string Documentation
     {
-      get { return "Result of GetPerturbationsForAllSat"; }
+      get { return "Result of GetPerturbationsForAllSat."; }
     }
 
     internal const string CmdName = "GetPerturbationsForAllSatResult";
@@ -32361,7 +32473,7 @@ namespace Sdx.Cmd
 
 
   ///
-  /// Result of GetMessageModificationToGpsCNav
+  /// Result of GetMessageModificationToGpsCNav.
   ///
   /// Name             Type         Description
   /// ---------------- ------------ ---------------------------------------------------------------------------------------------
@@ -32380,7 +32492,7 @@ namespace Sdx.Cmd
   {
     public override string Documentation
     {
-      get { return "Result of GetMessageModificationToGpsCNav"; }
+      get { return "Result of GetMessageModificationToGpsCNav."; }
     }
 
     internal const string CmdName = "GetMessageModificationToGpsCNavResult";
@@ -32727,7 +32839,7 @@ namespace Sdx.Cmd
 
 
   ///
-  /// Result of GetMessageModificationToGpsMNav
+  /// Result of GetMessageModificationToGpsMNav.
   ///
   /// Name             Type         Description
   /// ---------------- ------------ ----------------------------------------------------------------------------------------------
@@ -32746,7 +32858,7 @@ namespace Sdx.Cmd
   {
     public override string Documentation
     {
-      get { return "Result of GetMessageModificationToGpsMNav"; }
+      get { return "Result of GetMessageModificationToGpsMNav."; }
     }
 
     internal const string CmdName = "GetMessageModificationToGpsMNavResult";
@@ -33093,7 +33205,7 @@ namespace Sdx.Cmd
 
 
   ///
-  /// Result of GetMessageModificationToGpsCNav2
+  /// Result of GetMessageModificationToGpsCNav2.
   ///
   /// Name             Type         Description
   /// ---------------- ------------ ------------------------------------------------------------------------------------
@@ -33112,7 +33224,7 @@ namespace Sdx.Cmd
   {
     public override string Documentation
     {
-      get { return "Result of GetMessageModificationToGpsCNav2"; }
+      get { return "Result of GetMessageModificationToGpsCNav2."; }
     }
 
     internal const string CmdName = "GetMessageModificationToGpsCNav2Result";
@@ -33464,7 +33576,7 @@ namespace Sdx.Cmd
 
 
   ///
-  /// Result of GetMessageModificationToGpsLNav
+  /// Result of GetMessageModificationToGpsLNav.
   ///
   /// Name             Type         Description
   /// ---------------- ------------ ------------------------------------------------------------------------------------------------------
@@ -33484,7 +33596,7 @@ namespace Sdx.Cmd
   {
     public override string Documentation
     {
-      get { return "Result of GetMessageModificationToGpsLNav"; }
+      get { return "Result of GetMessageModificationToGpsLNav."; }
     }
 
     internal const string CmdName = "GetMessageModificationToGpsLNavResult";
@@ -33605,6 +33717,321 @@ namespace Sdx.Cmd
       set
       {
           SetValue("WordModification", JToken.FromObject(value, CommandBase.Serializer));
+      }
+    }
+
+    public string Id
+    {
+      get { return GetValue("Id").ToObject<string>(CommandBase.Serializer); }
+      set
+      {
+          SetValue("Id", JToken.FromObject(value, CommandBase.Serializer));
+      }
+    }
+  }
+
+
+  ///
+  /// Set (or Modify) event to change Galileo C/NAV message bits. If you send this command without setting the ID
+  /// parameter, or if you set the ID with a value never used before, a new Modification event will be
+  /// created. If you reuse the same event ID, it will modify the existing event.
+  /// 
+  /// Note that start and stop time are automatically extended to beginning and ending of overlapped
+  /// messages.
+  /// 
+  /// BitModifications can be an empty string. The Modification will have no effect until you modify it with at
+  /// least one bits mod.
+  /// 
+  /// A bits mod is represented with a string using the following format: "I:Bits" where I is a bit
+  /// index (1 refers to the first transmitted bit) and Bits is a modification mask where each
+  /// character describes a modification to a single bit. The allowed characters are:
+  ///    0 : force bit to 0
+  ///    1 : force bit to 1
+  ///    - : leave bit unchanged
+  ///    X : revert bit (0 becomes 1 and 1 becomes 0)
+  /// 
+  /// For example: "24:X---10XX" will: revert bits 24, 30 and 31
+  ///                  set bit 28 to 1
+  ///                  set bit 29 to 0
+  /// The other bits are not affected.
+  /// 
+  /// You can add multiple bit modifications using commas. For example: "24:X---10XX,127:100X,231:01"
+  ///
+  /// Name             Type         Description
+  /// ---------------- ------------ -------------------------------------------------------------------------------------
+  /// SignalArray      array string Array of signals to apply the message modification to, accepts "E6BC" (empty for all)
+  /// SvId             int          The satellite's SV ID 1..36 (use 0 to apply modification to all SVs)
+  /// StartTime        int          Elapsed time in seconds since start of simulation
+  /// StopTime         int          Elapsed time in seconds since start of simulation (use 0 for no stop time)
+  /// UpdateCRC        bool         Recalculate CRC after making modification
+  /// BitModifications string       Comma separated bit modifications
+  /// Id               string       Unique identifier of the event
+  ///
+
+  public class SetMessageModificationToGalileoCNav : CommandBase
+  {
+    public override string Documentation
+    {
+      get { return "Set (or Modify) event to change Galileo C/NAV message bits. If you send this command without setting the ID\nparameter, or if you set the ID with a value never used before, a new Modification event will be\ncreated. If you reuse the same event ID, it will modify the existing event.\n\nNote that start and stop time are automatically extended to beginning and ending of overlapped\nmessages.\n\nBitModifications can be an empty string. The Modification will have no effect until you modify it with at\nleast one bits mod.\n\nA bits mod is represented with a string using the following format: \"I:Bits\" where I is a bit\nindex (1 refers to the first transmitted bit) and Bits is a modification mask where each\ncharacter describes a modification to a single bit. The allowed characters are:\n   0 : force bit to 0\n   1 : force bit to 1\n   - : leave bit unchanged\n   X : revert bit (0 becomes 1 and 1 becomes 0)\n\nFor example: \"24:X---10XX\" will: revert bits 24, 30 and 31\n                 set bit 28 to 1\n                 set bit 29 to 0\nThe other bits are not affected.\n\nYou can add multiple bit modifications using commas. For example: \"24:X---10XX,127:100X,231:01\""; }
+    }
+
+    internal const string CmdName = "SetMessageModificationToGalileoCNav";
+
+    public SetMessageModificationToGalileoCNav()
+      : base(CmdName)
+    {}
+
+    public SetMessageModificationToGalileoCNav(List<string> signalArray, int svId, int startTime, int stopTime, bool updateCRC, string bitModifications, string id)
+      : base(CmdName)
+    {
+      SignalArray = signalArray;
+      SvId = svId;
+      StartTime = startTime;
+      StopTime = stopTime;
+      UpdateCRC = updateCRC;
+      BitModifications = bitModifications;
+      Id = id;
+    }
+      
+    public override bool IsValid
+    {
+      get
+      {
+        return base.IsValid
+        && Contains("SignalArray")
+        && Contains("SvId")
+        && Contains("StartTime")
+        && Contains("StopTime")
+        && Contains("UpdateCRC")
+        && Contains("BitModifications")
+        && Contains("Id")
+      ;
+      }
+    }
+
+    public override int ExecutePermission { get { return EXECUTE_IF_SIMULATING | EXECUTE_IF_IDLE; } }
+
+    public List<string> SignalArray
+    {
+      get { return GetValue("SignalArray").ToObject<List<string>>(CommandBase.Serializer); }
+      set
+      {
+          SetValue("SignalArray", JToken.FromObject(value, CommandBase.Serializer));
+      }
+    }
+
+    public int SvId
+    {
+      get { return GetValue("SvId").ToObject<int>(CommandBase.Serializer); }
+      set
+      {
+          SetValue("SvId", JToken.FromObject(value, CommandBase.Serializer));
+      }
+    }
+
+    public int StartTime
+    {
+      get { return GetValue("StartTime").ToObject<int>(CommandBase.Serializer); }
+      set
+      {
+          SetValue("StartTime", JToken.FromObject(value, CommandBase.Serializer));
+      }
+    }
+
+    public int StopTime
+    {
+      get { return GetValue("StopTime").ToObject<int>(CommandBase.Serializer); }
+      set
+      {
+          SetValue("StopTime", JToken.FromObject(value, CommandBase.Serializer));
+      }
+    }
+
+    public bool UpdateCRC
+    {
+      get { return GetValue("UpdateCRC").ToObject<bool>(CommandBase.Serializer); }
+      set
+      {
+          SetValue("UpdateCRC", JToken.FromObject(value, CommandBase.Serializer));
+      }
+    }
+
+    public string BitModifications
+    {
+      get { return GetValue("BitModifications").ToObject<string>(CommandBase.Serializer); }
+      set
+      {
+          SetValue("BitModifications", JToken.FromObject(value, CommandBase.Serializer));
+      }
+    }
+
+    public string Id
+    {
+      get { return GetValue("Id").ToObject<string>(CommandBase.Serializer); }
+      set
+      {
+          SetValue("Id", JToken.FromObject(value, CommandBase.Serializer));
+      }
+    }
+  }
+
+
+  ///
+  /// Get infos about the Galileo C/NAV message modification with this ID.
+  ///
+  /// Name Type   Description
+  /// ---- ------ ------------------------------
+  /// Id   string Unique identifier of the event
+  ///
+
+  public class GetMessageModificationToGalileoCNav : CommandBase
+  {
+    public override string Documentation
+    {
+      get { return "Get infos about the Galileo C/NAV message modification with this ID."; }
+    }
+
+    internal const string CmdName = "GetMessageModificationToGalileoCNav";
+
+    public GetMessageModificationToGalileoCNav()
+      : base(CmdName)
+    {}
+
+    public GetMessageModificationToGalileoCNav(string id)
+      : base(CmdName)
+    {
+      Id = id;
+    }
+      
+    public override bool IsValid
+    {
+      get
+      {
+        return base.IsValid
+        && Contains("Id")
+      ;
+      }
+    }
+
+    public override int ExecutePermission { get { return EXECUTE_IF_IDLE; } }
+
+    public string Id
+    {
+      get { return GetValue("Id").ToObject<string>(CommandBase.Serializer); }
+      set
+      {
+          SetValue("Id", JToken.FromObject(value, CommandBase.Serializer));
+      }
+    }
+  }
+
+
+  ///
+  /// Result of GetMessageModificationToGalileoCNav.
+  ///
+  /// Name             Type         Description
+  /// ---------------- ------------ -------------------------------------------------------------------------------------
+  /// SignalArray      array string Array of signals to apply the message modification to, accepts "E6BC" (empty for all)
+  /// SvId             int          The satellite's SV ID 1..36 (use 0 to apply modification to all SVs)
+  /// StartTime        int          Elapsed time in seconds since start of simulation
+  /// StopTime         int          Elapsed time in seconds since start of simulation (use 0 for no stop time)
+  /// UpdateCRC        bool         Recalculate CRC after making modification
+  /// BitModifications string       Comma separated bit modifications
+  /// Id               string       Unique identifier of the event
+  ///
+
+  public class GetMessageModificationToGalileoCNavResult : CommandResult
+  {
+    public override string Documentation
+    {
+      get { return "Result of GetMessageModificationToGalileoCNav."; }
+    }
+
+    internal const string CmdName = "GetMessageModificationToGalileoCNavResult";
+
+    public GetMessageModificationToGalileoCNavResult()
+      : base(CmdName)
+    {}
+
+    public GetMessageModificationToGalileoCNavResult(CommandBase relatedCommand, List<string> signalArray, int svId, int startTime, int stopTime, bool updateCRC, string bitModifications, string id)
+      : base(CmdName, relatedCommand)
+    {
+      SignalArray = signalArray;
+      SvId = svId;
+      StartTime = startTime;
+      StopTime = stopTime;
+      UpdateCRC = updateCRC;
+      BitModifications = bitModifications;
+      Id = id;
+    }
+      
+    public override bool IsValid
+    {
+      get
+      {
+        return base.IsValid
+        && Contains("SignalArray")
+        && Contains("SvId")
+        && Contains("StartTime")
+        && Contains("StopTime")
+        && Contains("UpdateCRC")
+        && Contains("BitModifications")
+        && Contains("Id")
+      ;
+      }
+    }
+
+    public List<string> SignalArray
+    {
+      get { return GetValue("SignalArray").ToObject<List<string>>(CommandBase.Serializer); }
+      set
+      {
+          SetValue("SignalArray", JToken.FromObject(value, CommandBase.Serializer));
+      }
+    }
+
+    public int SvId
+    {
+      get { return GetValue("SvId").ToObject<int>(CommandBase.Serializer); }
+      set
+      {
+          SetValue("SvId", JToken.FromObject(value, CommandBase.Serializer));
+      }
+    }
+
+    public int StartTime
+    {
+      get { return GetValue("StartTime").ToObject<int>(CommandBase.Serializer); }
+      set
+      {
+          SetValue("StartTime", JToken.FromObject(value, CommandBase.Serializer));
+      }
+    }
+
+    public int StopTime
+    {
+      get { return GetValue("StopTime").ToObject<int>(CommandBase.Serializer); }
+      set
+      {
+          SetValue("StopTime", JToken.FromObject(value, CommandBase.Serializer));
+      }
+    }
+
+    public bool UpdateCRC
+    {
+      get { return GetValue("UpdateCRC").ToObject<bool>(CommandBase.Serializer); }
+      set
+      {
+          SetValue("UpdateCRC", JToken.FromObject(value, CommandBase.Serializer));
+      }
+    }
+
+    public string BitModifications
+    {
+      get { return GetValue("BitModifications").ToObject<string>(CommandBase.Serializer); }
+      set
+      {
+          SetValue("BitModifications", JToken.FromObject(value, CommandBase.Serializer));
       }
     }
 
@@ -33851,7 +34278,7 @@ namespace Sdx.Cmd
 
 
   ///
-  /// Result of GetMessageModificationToGalileoFNav
+  /// Result of GetMessageModificationToGalileoFNav.
   ///
   /// Name             Type         Description
   /// ---------------- ------------ ------------------------------------------------------------------------------------
@@ -33871,7 +34298,7 @@ namespace Sdx.Cmd
   {
     public override string Documentation
     {
-      get { return "Result of GetMessageModificationToGalileoFNav"; }
+      get { return "Result of GetMessageModificationToGalileoFNav."; }
     }
 
     internal const string CmdName = "GetMessageModificationToGalileoFNavResult";
@@ -34238,7 +34665,7 @@ namespace Sdx.Cmd
 
 
   ///
-  /// Result of GetMessageModificationToGalileoINav
+  /// Result of GetMessageModificationToGalileoINav.
   ///
   /// Name             Type         Description
   /// ---------------- ------------ ---------------------------------------------------------------------------------------------
@@ -34258,7 +34685,7 @@ namespace Sdx.Cmd
   {
     public override string Documentation
     {
-      get { return "Result of GetMessageModificationToGalileoINav"; }
+      get { return "Result of GetMessageModificationToGalileoINav."; }
     }
 
     internal const string CmdName = "GetMessageModificationToGalileoINavResult";
@@ -34615,7 +35042,7 @@ namespace Sdx.Cmd
 
 
   ///
-  /// Result of GetMessageModificationToGlonassNav
+  /// Result of GetMessageModificationToGlonassNav.
   ///
   /// Name               Type         Description
   /// ------------------ ------------ --------------------------------------------------------------------------------------------
@@ -34634,7 +35061,7 @@ namespace Sdx.Cmd
   {
     public override string Documentation
     {
-      get { return "Result of GetMessageModificationToGlonassNav"; }
+      get { return "Result of GetMessageModificationToGlonassNav."; }
     }
 
     internal const string CmdName = "GetMessageModificationToGlonassNavResult";
@@ -34986,7 +35413,7 @@ namespace Sdx.Cmd
 
 
   ///
-  /// Result of GetMessageModificationToBeiDouD1Nav
+  /// Result of GetMessageModificationToBeiDouD1Nav.
   ///
   /// Name             Type         Description
   /// ---------------- ------------ --------------------------------------------------------------------------------------------
@@ -35006,7 +35433,7 @@ namespace Sdx.Cmd
   {
     public override string Documentation
     {
-      get { return "Result of GetMessageModificationToBeiDouD1Nav"; }
+      get { return "Result of GetMessageModificationToBeiDouD1Nav."; }
     }
 
     internal const string CmdName = "GetMessageModificationToBeiDouD1NavResult";
@@ -35369,7 +35796,7 @@ namespace Sdx.Cmd
 
 
   ///
-  /// Result of GetMessageModificationToBeiDouD2Nav
+  /// Result of GetMessageModificationToBeiDouD2Nav.
   ///
   /// Name             Type         Description
   /// ---------------- ------------ --------------------------------------------------------------------------------------------
@@ -35389,7 +35816,7 @@ namespace Sdx.Cmd
   {
     public override string Documentation
     {
-      get { return "Result of GetMessageModificationToBeiDouD2Nav"; }
+      get { return "Result of GetMessageModificationToBeiDouD2Nav."; }
     }
 
     internal const string CmdName = "GetMessageModificationToBeiDouD2NavResult";
@@ -35747,7 +36174,7 @@ namespace Sdx.Cmd
 
 
   ///
-  /// Result of GetMessageModificationToBeiDouCNav1
+  /// Result of GetMessageModificationToBeiDouCNav1.
   ///
   /// Name             Type         Description
   /// ---------------- ------------ ------------------------------------------------------------------------------------
@@ -35766,7 +36193,7 @@ namespace Sdx.Cmd
   {
     public override string Documentation
     {
-      get { return "Result of GetMessageModificationToBeiDouCNav1"; }
+      get { return "Result of GetMessageModificationToBeiDouCNav1."; }
     }
 
     internal const string CmdName = "GetMessageModificationToBeiDouCNav1Result";
@@ -36113,7 +36540,7 @@ namespace Sdx.Cmd
 
 
   ///
-  /// Result of GetMessageModificationToBeiDouCNav2
+  /// Result of GetMessageModificationToBeiDouCNav2.
   ///
   /// Name             Type         Description
   /// ---------------- ------------ ------------------------------------------------------------------------------------
@@ -36132,7 +36559,7 @@ namespace Sdx.Cmd
   {
     public override string Documentation
     {
-      get { return "Result of GetMessageModificationToBeiDouCNav2"; }
+      get { return "Result of GetMessageModificationToBeiDouCNav2."; }
     }
 
     internal const string CmdName = "GetMessageModificationToBeiDouCNav2Result";
@@ -36484,7 +36911,7 @@ namespace Sdx.Cmd
 
 
   ///
-  /// Result of GetMessageModificationToQzssLNav
+  /// Result of GetMessageModificationToQzssLNav.
   ///
   /// Name             Type         Description
   /// ---------------- ------------ -----------------------------------------------------------------------------------------
@@ -36504,7 +36931,7 @@ namespace Sdx.Cmd
   {
     public override string Documentation
     {
-      get { return "Result of GetMessageModificationToQzssLNav"; }
+      get { return "Result of GetMessageModificationToQzssLNav."; }
     }
 
     internal const string CmdName = "GetMessageModificationToQzssLNavResult";
@@ -36862,7 +37289,7 @@ namespace Sdx.Cmd
 
 
   ///
-  /// Result of GetMessageModificationToQzssSlas
+  /// Result of GetMessageModificationToQzssSlas.
   ///
   /// Name             Type         Description
   /// ---------------- ------------ ----------------------------------------------------------------------------------------
@@ -36881,7 +37308,7 @@ namespace Sdx.Cmd
   {
     public override string Documentation
     {
-      get { return "Result of GetMessageModificationToQzssSlas"; }
+      get { return "Result of GetMessageModificationToQzssSlas."; }
     }
 
     internal const string CmdName = "GetMessageModificationToQzssSlasResult";
@@ -37228,7 +37655,7 @@ namespace Sdx.Cmd
 
 
   ///
-  /// Result of GetMessageModificationToQzssCNav2
+  /// Result of GetMessageModificationToQzssCNav2.
   ///
   /// Name             Type         Description
   /// ---------------- ------------ ----------------------------------------------------------------------------------------
@@ -37247,7 +37674,7 @@ namespace Sdx.Cmd
   {
     public override string Documentation
     {
-      get { return "Result of GetMessageModificationToQzssCNav2"; }
+      get { return "Result of GetMessageModificationToQzssCNav2."; }
     }
 
     internal const string CmdName = "GetMessageModificationToQzssCNav2Result";
@@ -37606,7 +38033,7 @@ namespace Sdx.Cmd
 
 
   ///
-  /// Result of GetMessageModificationToNavICNav
+  /// Result of GetMessageModificationToNavICNav.
   ///
   /// Name             Type         Description
   /// ---------------- ------------ ----------------------------------------------------------------------------------------
@@ -37626,7 +38053,7 @@ namespace Sdx.Cmd
   {
     public override string Documentation
     {
-      get { return "Result of GetMessageModificationToNavICNav"; }
+      get { return "Result of GetMessageModificationToNavICNav."; }
     }
 
     internal const string CmdName = "GetMessageModificationToNavICNavResult";
@@ -38857,7 +39284,7 @@ namespace Sdx.Cmd
 
 
   ///
-  /// Result of GetPseudorangeRampForSV
+  /// Result of GetPseudorangeRampForSV.
   ///
   /// Name          Type   Description
   /// ------------- ------ ----------------------------------------------------------------------------------
@@ -38875,7 +39302,7 @@ namespace Sdx.Cmd
   {
     public override string Documentation
     {
-      get { return "Result of GetPseudorangeRampForSV"; }
+      get { return "Result of GetPseudorangeRampForSV."; }
     }
 
     internal const string CmdName = "GetPseudorangeRampForSVResult";
@@ -39051,7 +39478,7 @@ namespace Sdx.Cmd
 
 
   ///
-  /// result of GetAllPseudorangeRampForSV
+  /// Result of GetAllPseudorangeRampForSV.
   ///
   /// Name   Type         Description
   /// ------ ------------ ------------------------------------------------------------------
@@ -39064,7 +39491,7 @@ namespace Sdx.Cmd
   {
     public override string Documentation
     {
-      get { return "result of GetAllPseudorangeRampForSV"; }
+      get { return "Result of GetAllPseudorangeRampForSV."; }
     }
 
     internal const string CmdName = "GetAllPseudorangeRampForSVResult";
@@ -39444,7 +39871,7 @@ namespace Sdx.Cmd
 
 
   ///
-  /// Result of GetAlmanacInitialUploadTimeOffset
+  /// Result of GetAlmanacInitialUploadTimeOffset.
   ///
   /// Name   Type   Description
   /// ------ ------ -------------------------------------------------------------------------------------------
@@ -39456,7 +39883,7 @@ namespace Sdx.Cmd
   {
     public override string Documentation
     {
-      get { return "Result of GetAlmanacInitialUploadTimeOffset"; }
+      get { return "Result of GetAlmanacInitialUploadTimeOffset."; }
     }
 
     internal const string CmdName = "GetAlmanacInitialUploadTimeOffsetResult";
@@ -39600,7 +40027,7 @@ namespace Sdx.Cmd
 
 
   ///
-  /// Result of GetAlmanacUploadTimeInterval
+  /// Result of GetAlmanacUploadTimeInterval.
   ///
   /// Name     Type   Description
   /// -------- ------ ----------------------------------------------------------
@@ -39612,7 +40039,7 @@ namespace Sdx.Cmd
   {
     public override string Documentation
     {
-      get { return "Result of GetAlmanacUploadTimeInterval"; }
+      get { return "Result of GetAlmanacUploadTimeInterval."; }
     }
 
     internal const string CmdName = "GetAlmanacUploadTimeIntervalResult";
@@ -40155,11 +40582,11 @@ namespace Sdx.Cmd
 
 
   ///
-  /// Result of GetMultipathForIDResult.
+  /// Result of GetMultipathForID.
   ///
   /// Name         Type   Description
   /// ------------ ------ ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
-  /// Id           string Unique identifier.
+  /// Id           string A multipath ID
   /// System       string "GPS", "GLONASS", "Galileo", "BeiDou", "SBAS", "QZSS" or "NavIC"
   /// Signal       string Accepted signal keys: "L1CA", "L1C", "L1P", "L1M", "L2C", "L2P", "L2M", "L5", "G1", "G2", "E1", "E5a", "E5b", "B1", "B2", "B1C", "B2a", "SBASL1", "QZSSL1CA", "QZSSL1C", "QZSSL5", "QZSSL1S", "QZSSL5S", "NAVICL5"
   /// SvId         int    The satellite's SV ID
@@ -40174,7 +40601,7 @@ namespace Sdx.Cmd
   {
     public override string Documentation
     {
-      get { return "Result of GetMultipathForIDResult."; }
+      get { return "Result of GetMultipathForID."; }
     }
 
     internal const string CmdName = "GetMultipathForIDResult";
@@ -40645,7 +41072,7 @@ namespace Sdx.Cmd
 
 
   ///
-  /// Result of IsLosEnabledForSV
+  /// Result of IsLosEnabledForSV.
   ///
   /// Name    Type   Description
   /// ------- ------ ----------------------------------------------------------------
@@ -40658,7 +41085,7 @@ namespace Sdx.Cmd
   {
     public override string Documentation
     {
-      get { return "Result of IsLosEnabledForSV"; }
+      get { return "Result of IsLosEnabledForSV."; }
     }
 
     internal const string CmdName = "IsLosEnabledForSVResult";
@@ -40879,7 +41306,7 @@ namespace Sdx.Cmd
 
 
   ///
-  /// Result of IsLOSEnabledForEachSV
+  /// Result of IsLOSEnabledForEachSV.
   ///
   /// Name    Type       Description
   /// ------- ---------- -----------------------------------------------------------------------------------------------------------
@@ -40891,7 +41318,7 @@ namespace Sdx.Cmd
   {
     public override string Documentation
     {
-      get { return "Result of IsLOSEnabledForEachSV"; }
+      get { return "Result of IsLOSEnabledForEachSV."; }
     }
 
     internal const string CmdName = "IsLOSEnabledForEachSVResult";
@@ -41033,7 +41460,7 @@ namespace Sdx.Cmd
 
 
   ///
-  /// Result of GetPlugInInstance
+  /// Result of GetPlugInInstance.
   ///
   /// Name Type   Description
   /// ---- ------ -------------------------------------
@@ -41045,7 +41472,7 @@ namespace Sdx.Cmd
   {
     public override string Documentation
     {
-      get { return "Result of GetPlugInInstance"; }
+      get { return "Result of GetPlugInInstance."; }
     }
 
     internal const string CmdName = "GetPlugInInstanceResult";
@@ -41225,7 +41652,7 @@ namespace Sdx.Cmd
 
 
   ///
-  /// Result of GetDefaultIntTxPersistence
+  /// Result of GetDefaultIntTxPersistence.
   ///
   /// Name         Type Description
   /// ------------ ---- --------------------------------------------------------------------------------
@@ -41236,7 +41663,7 @@ namespace Sdx.Cmd
   {
     public override string Documentation
     {
-      get { return "Result of GetDefaultIntTxPersistence"; }
+      get { return "Result of GetDefaultIntTxPersistence."; }
     }
 
     internal const string CmdName = "GetDefaultIntTxPersistenceResult";
@@ -41273,7 +41700,7 @@ namespace Sdx.Cmd
 
 
   ///
-  /// get the ID of all interferences transmitters.
+  /// Get the ID of all interferences transmitters.
   ///
   /// 
   ///
@@ -41282,7 +41709,7 @@ namespace Sdx.Cmd
   {
     public override string Documentation
     {
-      get { return "get the ID of all interferences transmitters."; }
+      get { return "Get the ID of all interferences transmitters."; }
     }
 
     internal const string CmdName = "GetAllIntTxID";
@@ -41305,7 +41732,7 @@ namespace Sdx.Cmd
 
 
   ///
-  /// Result of GetAllIntTxID
+  /// Result of GetAllIntTxID.
   ///
   /// Name Type         Description
   /// ---- ------------ ------------------------------------------
@@ -41316,7 +41743,7 @@ namespace Sdx.Cmd
   {
     public override string Documentation
     {
-      get { return "Result of GetAllIntTxID"; }
+      get { return "Result of GetAllIntTxID."; }
     }
 
     internal const string CmdName = "GetAllIntTxIDResult";
@@ -41517,7 +41944,7 @@ namespace Sdx.Cmd
 
 
   ///
-  /// Result of GetIntTx
+  /// Result of GetIntTx.
   ///
   /// Name      Type   Description
   /// --------- ------ ----------------------------------------------------------------------------------------
@@ -41533,7 +41960,7 @@ namespace Sdx.Cmd
   {
     public override string Documentation
     {
-      get { return "Result of GetIntTx"; }
+      get { return "Result of GetIntTx."; }
     }
 
     internal const string CmdName = "GetIntTxResult";
@@ -41799,7 +42226,7 @@ namespace Sdx.Cmd
 
 
   ///
-  /// Result of GetIntTxColor
+  /// Result of GetIntTxColor.
   ///
   /// Name  Type   Description
   /// ----- ------ -------------------------------------------------------------------------------
@@ -41811,7 +42238,7 @@ namespace Sdx.Cmd
   {
     public override string Documentation
     {
-      get { return "Result of GetIntTxColor"; }
+      get { return "Result of GetIntTxColor."; }
     }
 
     internal const string CmdName = "GetIntTxColorResult";
@@ -42157,7 +42584,7 @@ namespace Sdx.Cmd
 
 
   ///
-  /// Result of GetIntTxPersistence
+  /// Result of GetIntTxPersistence.
   ///
   /// Name        Type   Description
   /// ----------- ------ ------------------------------------------------------
@@ -42169,7 +42596,7 @@ namespace Sdx.Cmd
   {
     public override string Documentation
     {
-      get { return "Result of GetIntTxPersistence"; }
+      get { return "Result of GetIntTxPersistence."; }
     }
 
     internal const string CmdName = "GetIntTxPersistenceResult";
@@ -42517,7 +42944,7 @@ namespace Sdx.Cmd
 
 
   ///
-  /// Result of GetIntTxHiddenOnMap
+  /// Result of GetIntTxHiddenOnMap.
   ///
   /// Name        Type   Description
   /// ----------- ------ -----------------------------------------------
@@ -42529,7 +42956,7 @@ namespace Sdx.Cmd
   {
     public override string Documentation
     {
-      get { return "Result of GetIntTxHiddenOnMap"; }
+      get { return "Result of GetIntTxHiddenOnMap."; }
     }
 
     internal const string CmdName = "GetIntTxHiddenOnMapResult";
@@ -42689,7 +43116,7 @@ namespace Sdx.Cmd
 
 
   ///
-  /// Result of IsIntTxIgnoreRxAntennaGainPattern
+  /// Result of IsIntTxIgnoreRxAntennaGainPattern.
   ///
   /// Name   Type   Description
   /// ------ ------ -------------------------------------------------------------
@@ -42701,7 +43128,7 @@ namespace Sdx.Cmd
   {
     public override string Documentation
     {
-      get { return "Result of IsIntTxIgnoreRxAntennaGainPattern"; }
+      get { return "Result of IsIntTxIgnoreRxAntennaGainPattern."; }
     }
 
     internal const string CmdName = "IsIntTxIgnoreRxAntennaGainPatternResult";
@@ -42861,7 +43288,7 @@ namespace Sdx.Cmd
 
 
   ///
-  /// Result of IsIntTxIgnoreRxAntennaPhasePattern
+  /// Result of IsIntTxIgnoreRxAntennaPhasePattern.
   ///
   /// Name   Type   Description
   /// ------ ------ --------------------------------------------------------------
@@ -42873,7 +43300,7 @@ namespace Sdx.Cmd
   {
     public override string Documentation
     {
-      get { return "Result of IsIntTxIgnoreRxAntennaPhasePattern"; }
+      get { return "Result of IsIntTxIgnoreRxAntennaPhasePattern."; }
     }
 
     internal const string CmdName = "IsIntTxIgnoreRxAntennaPhasePatternResult";
@@ -43143,7 +43570,7 @@ namespace Sdx.Cmd
 
 
   ///
-  /// Result of GetIntTxFix
+  /// Result of GetIntTxFix.
   ///
   /// Name  Type   Description
   /// ----- ------ ------------------------------
@@ -43160,7 +43587,7 @@ namespace Sdx.Cmd
   {
     public override string Documentation
     {
-      get { return "Result of GetIntTxFix"; }
+      get { return "Result of GetIntTxFix."; }
     }
 
     internal const string CmdName = "GetIntTxFixResult";
@@ -43435,7 +43862,7 @@ namespace Sdx.Cmd
 
 
   ///
-  /// Result of GetIntTxFixEcef
+  /// Result of GetIntTxFixEcef.
   ///
   /// Name  Type   Description
   /// ----- ------ ------------------------------
@@ -43452,7 +43879,7 @@ namespace Sdx.Cmd
   {
     public override string Documentation
     {
-      get { return "Result of GetIntTxFixEcef"; }
+      get { return "Result of GetIntTxFixEcef."; }
     }
 
     internal const string CmdName = "GetIntTxFixEcefResult";
@@ -43741,7 +44168,7 @@ namespace Sdx.Cmd
 
 
   ///
-  /// Result of GetIntTxCircular
+  /// Result of GetIntTxCircular.
   ///
   /// Name        Type            Description
   /// ----------- --------------- --------------------------------
@@ -43759,7 +44186,7 @@ namespace Sdx.Cmd
   {
     public override string Documentation
     {
-      get { return "Result of GetIntTxCircular"; }
+      get { return "Result of GetIntTxCircular."; }
     }
 
     internal const string CmdName = "GetIntTxCircularResult";
@@ -44497,7 +44924,7 @@ namespace Sdx.Cmd
 
 
   ///
-  /// Result of IsIntTxTrajectorySmoothingEnabled
+  /// Result of IsIntTxTrajectorySmoothingEnabled.
   ///
   /// Name    Type   Description
   /// ------- ------ -------------------------------------------------------------------
@@ -44509,7 +44936,7 @@ namespace Sdx.Cmd
   {
     public override string Documentation
     {
-      get { return "Result of IsIntTxTrajectorySmoothingEnabled"; }
+      get { return "Result of IsIntTxTrajectorySmoothingEnabled."; }
     }
 
     internal const string CmdName = "IsIntTxTrajectorySmoothingEnabledResult";
@@ -44669,7 +45096,7 @@ namespace Sdx.Cmd
 
 
   ///
-  /// Result of IsIntTxAttitudeToZeroForced
+  /// Result of IsIntTxAttitudeToZeroForced.
   ///
   /// Name    Type   Description
   /// ------- ------ ------------------------------------------------------------
@@ -44681,7 +45108,7 @@ namespace Sdx.Cmd
   {
     public override string Documentation
     {
-      get { return "Result of IsIntTxAttitudeToZeroForced"; }
+      get { return "Result of IsIntTxAttitudeToZeroForced."; }
     }
 
     internal const string CmdName = "IsIntTxAttitudeToZeroForcedResult";
@@ -44841,7 +45268,7 @@ namespace Sdx.Cmd
 
 
   ///
-  /// Result of GetIntTxVehicleType
+  /// Result of GetIntTxVehicleType.
   ///
   /// Name Type   Description
   /// ---- ------ ----------------------------------------------------------
@@ -44853,7 +45280,7 @@ namespace Sdx.Cmd
   {
     public override string Documentation
     {
-      get { return "Result of GetIntTxVehicleType"; }
+      get { return "Result of GetIntTxVehicleType."; }
     }
 
     internal const string CmdName = "GetIntTxVehicleTypeResult";
@@ -44901,7 +45328,7 @@ namespace Sdx.Cmd
 
 
   ///
-  /// Get interference transmitter trajectory
+  /// Get interference transmitter trajectory.
   ///
   /// Name Type   Description
   /// ---- ------ ------------------------------
@@ -44912,7 +45339,7 @@ namespace Sdx.Cmd
   {
     public override string Documentation
     {
-      get { return "Get interference transmitter trajectory"; }
+      get { return "Get interference transmitter trajectory."; }
     }
 
     internal const string CmdName = "GetIntTxTrajectory";
@@ -44951,7 +45378,7 @@ namespace Sdx.Cmd
 
 
   ///
-  /// Result of GetIntTxTrajectory
+  /// Result of GetIntTxTrajectory.
   ///
   /// Name           Type   Description
   /// -------------- ------ ---------------------------------------------------------
@@ -44963,7 +45390,7 @@ namespace Sdx.Cmd
   {
     public override string Documentation
     {
-      get { return "Result of GetIntTxTrajectory"; }
+      get { return "Result of GetIntTxTrajectory."; }
     }
 
     internal const string CmdName = "GetIntTxTrajectoryResult";
@@ -45135,7 +45562,7 @@ namespace Sdx.Cmd
 
 
   ///
-  /// Result of GetIntTxAntenna
+  /// Result of GetIntTxAntenna.
   ///
   /// Name Type               Description
   /// ---- ------------------ -------------------------------------------------------------------------------------------------------------------------
@@ -45148,7 +45575,7 @@ namespace Sdx.Cmd
   {
     public override string Documentation
     {
-      get { return "Result of GetIntTxAntenna"; }
+      get { return "Result of GetIntTxAntenna."; }
     }
 
     internal const string CmdName = "GetIntTxAntennaResult";
@@ -45391,7 +45818,7 @@ namespace Sdx.Cmd
 
 
   ///
-  /// Result of GetIntTxAntennaOffset
+  /// Result of GetIntTxAntennaOffset.
   ///
   /// Name  Type   Description
   /// ----- ------ --------------------------------------
@@ -45408,7 +45835,7 @@ namespace Sdx.Cmd
   {
     public override string Documentation
     {
-      get { return "Result of GetIntTxAntennaOffset"; }
+      get { return "Result of GetIntTxAntennaOffset."; }
     }
 
     internal const string CmdName = "GetIntTxAntennaOffsetResult";
@@ -45707,9 +46134,9 @@ namespace Sdx.Cmd
   /// Get all signal ID from this interference transmitters and this signal type. If the signal type is invalid, get the IDs of CW type.
   ///
   /// Name          Type   Description
-  /// ------------- ------ --------------------------------------------------------------------------------------
+  /// ------------- ------ ------------------------------------------------------------------------------------
   /// IdTransmitter string Transmitter unique identifier.
-  /// SignalType    string Type of signal. Authorized signals are : "CW", "Chirp", "Pulse", "BPSK", "BOC", "AWGN"
+  /// SignalType    string Type of signal. Accepted signals are : "CW", "Chirp", "Pulse", "BPSK", "BOC", "AWGN"
   ///
 
   public class GetSignalFromIntTx : CommandBase
@@ -45769,9 +46196,9 @@ namespace Sdx.Cmd
   /// Result of GetSignalFromIntTx.
   ///
   /// Name          Type         Description
-  /// ------------- ------------ --------------------------------------------------------------------------------------
+  /// ------------- ------------ ------------------------------------------------------------------------------------
   /// IdTransmitter string       Transmitter unique identifier.
-  /// SignalType    string       Type of signal. Authorized signals are : "CW", "Chirp", "Pulse", "BPSK", "BOC", "AWGN"
+  /// SignalType    string       Type of signal. Accepted signals are : "CW", "Chirp", "Pulse", "BPSK", "BOC", "AWGN"
   /// IdsSignal     array string List of signal ID for this interferences transmitter and this signal type.
   ///
 
@@ -46029,7 +46456,7 @@ namespace Sdx.Cmd
 
 
   ///
-  /// Result of GetIntTxCW
+  /// Result of GetIntTxCW.
   ///
   /// Name               Type            Description
   /// ------------------ --------------- ---------------------------------------------------
@@ -46046,7 +46473,7 @@ namespace Sdx.Cmd
   {
     public override string Documentation
     {
-      get { return "Result of GetIntTxCW"; }
+      get { return "Result of GetIntTxCW."; }
     }
 
     internal const string CmdName = "GetIntTxCWResult";
@@ -46354,7 +46781,7 @@ namespace Sdx.Cmd
 
 
   ///
-  /// Result of GetIntTxChirp
+  /// Result of GetIntTxChirp.
   ///
   /// Name          Type         Description
   /// ------------- ------------ ---------------------------------------------------
@@ -46372,7 +46799,7 @@ namespace Sdx.Cmd
   {
     public override string Documentation
     {
-      get { return "Result of GetIntTxChirp"; }
+      get { return "Result of GetIntTxChirp."; }
     }
 
     internal const string CmdName = "GetIntTxChirpResult";
@@ -46686,7 +47113,7 @@ namespace Sdx.Cmd
 
 
   ///
-  /// Result of GetIntTxPulse
+  /// Result of GetIntTxPulse.
   ///
   /// Name          Type         Description
   /// ------------- ------------ --------------------------------------------------------------
@@ -46704,7 +47131,7 @@ namespace Sdx.Cmd
   {
     public override string Documentation
     {
-      get { return "Result of GetIntTxPulse"; }
+      get { return "Result of GetIntTxPulse."; }
     }
 
     internal const string CmdName = "GetIntTxPulseResult";
@@ -47018,7 +47445,7 @@ namespace Sdx.Cmd
 
 
   ///
-  /// Result of GetIntTxBPSK
+  /// Result of GetIntTxBPSK.
   ///
   /// Name          Type         Description
   /// ------------- ------------ -------------------------------------------------------------------------
@@ -47036,7 +47463,7 @@ namespace Sdx.Cmd
   {
     public override string Documentation
     {
-      get { return "Result of GetIntTxBPSK"; }
+      get { return "Result of GetIntTxBPSK."; }
     }
 
     internal const string CmdName = "GetIntTxBPSKResult";
@@ -47374,7 +47801,7 @@ namespace Sdx.Cmd
 
 
   ///
-  /// Result of GetIntTxBOC
+  /// Result of GetIntTxBOC.
   ///
   /// Name           Type         Description
   /// -------------- ------------ -------------------------------------------------------------------------
@@ -47394,7 +47821,7 @@ namespace Sdx.Cmd
   {
     public override string Documentation
     {
-      get { return "Result of GetIntTxBOC"; }
+      get { return "Result of GetIntTxBOC."; }
     }
 
     internal const string CmdName = "GetIntTxBOCResult";
@@ -47732,7 +48159,7 @@ namespace Sdx.Cmd
 
 
   ///
-  /// Result of GetIntTxAWGN
+  /// Result of GetIntTxAWGN.
   ///
   /// Name          Type         Description
   /// ------------- ------------ ------------------------------------------------------------------------------------------
@@ -47750,7 +48177,7 @@ namespace Sdx.Cmd
   {
     public override string Documentation
     {
-      get { return "Result of GetIntTxAWGN"; }
+      get { return "Result of GetIntTxAWGN."; }
     }
 
     internal const string CmdName = "GetIntTxAWGNResult";
@@ -48054,7 +48481,7 @@ namespace Sdx.Cmd
 
 
   ///
-  /// Result of GetIntTxIqFile
+  /// Result of GetIntTxIqFile.
   ///
   /// Name          Type         Description
   /// ------------- ------------ ---------------------------------------------------
@@ -48071,7 +48498,7 @@ namespace Sdx.Cmd
   {
     public override string Documentation
     {
-      get { return "Result of GetIntTxIqFile"; }
+      get { return "Result of GetIntTxIqFile."; }
     }
 
     internal const string CmdName = "GetIntTxIqFileResult";
@@ -48412,6 +48839,56 @@ namespace Sdx.Cmd
 
 
   ///
+  /// Set engine latency.
+  ///
+  /// Name    Type Description
+  /// ------- ---- ----------------------
+  /// Latency int  Engine latency in msec
+  ///
+
+  public class SetEngineLatency : CommandBase
+  {
+    public override string Documentation
+    {
+      get { return "Set engine latency."; }
+    }
+
+    internal const string CmdName = "SetEngineLatency";
+
+    public SetEngineLatency()
+      : base(CmdName)
+    {}
+
+    public SetEngineLatency(int latency)
+      : base(CmdName)
+    {
+      Latency = latency;
+    }
+      
+    public override bool IsValid
+    {
+      get
+      {
+        return base.IsValid
+        && Contains("Latency")
+      ;
+      }
+    }
+
+    public override int ExecutePermission { get { return EXECUTE_IF_NO_CONFIG | EXECUTE_IF_IDLE; } }
+
+    public int Latency
+    {
+      get { return GetValue("Latency").ToObject<int>(CommandBase.Serializer); }
+      set
+      {
+          SetValue("Latency", JToken.FromObject(value, CommandBase.Serializer));
+      }
+    }
+  }
+
+
+  ///
   /// Set listening port for sync time server.
   ///
   /// Name Type Description
@@ -48608,7 +49085,7 @@ namespace Sdx.Cmd
 
 
   ///
-  /// Result of GetSyncTime
+  /// Result of GetSyncTime.
   ///
   /// Name Type   Description
   /// ---- ------ ----------------------------------------
@@ -48619,7 +49096,7 @@ namespace Sdx.Cmd
   {
     public override string Documentation
     {
-      get { return "Result of GetSyncTime"; }
+      get { return "Result of GetSyncTime."; }
     }
 
     internal const string CmdName = "GetSyncTimeResult";
@@ -48742,7 +49219,7 @@ namespace Sdx.Cmd
 
 
   ///
-  /// Result of GetSyncTimeMaster
+  /// Result of GetSyncTimeMaster.
   ///
   /// Name Type   Description
   /// ---- ------ ----------------------------------------
@@ -48753,7 +49230,7 @@ namespace Sdx.Cmd
   {
     public override string Documentation
     {
-      get { return "Result of GetSyncTimeMaster"; }
+      get { return "Result of GetSyncTimeMaster."; }
     }
 
     internal const string CmdName = "GetSyncTimeMasterResult";
@@ -48872,7 +49349,7 @@ namespace Sdx.Cmd
 
 
   ///
-  /// Result of IsSimStopWhenCommandFailEnabled
+  /// Result of IsSimStopWhenCommandFailEnabled.
   ///
   /// Name    Type Description
   /// ------- ---- ----------------------------------
@@ -48883,7 +49360,7 @@ namespace Sdx.Cmd
   {
     public override string Documentation
     {
-      get { return "Result of IsSimStopWhenCommandFailEnabled"; }
+      get { return "Result of IsSimStopWhenCommandFailEnabled."; }
     }
 
     internal const string CmdName = "IsSimStopWhenCommandFailEnabledResult";
@@ -49002,7 +49479,7 @@ namespace Sdx.Cmd
 
 
   ///
-  /// Result of IsStopMasterWhenSlaveStop
+  /// Result of IsStopMasterWhenSlaveStop.
   ///
   /// Name    Type Description
   /// ------- ---- ---------------------------------------
@@ -49013,7 +49490,7 @@ namespace Sdx.Cmd
   {
     public override string Documentation
     {
-      get { return "Result of IsStopMasterWhenSlaveStop"; }
+      get { return "Result of IsStopMasterWhenSlaveStop."; }
     }
 
     internal const string CmdName = "IsStopMasterWhenSlaveStopResult";
@@ -49132,7 +49609,7 @@ namespace Sdx.Cmd
 
 
   ///
-  /// Result of IsMapAnalysisEnabled
+  /// Result of IsMapAnalysisEnabled.
   ///
   /// Name Type Description
   /// ---- ---- -------------
@@ -49143,7 +49620,7 @@ namespace Sdx.Cmd
   {
     public override string Documentation
     {
-      get { return "Result of IsMapAnalysisEnabled"; }
+      get { return "Result of IsMapAnalysisEnabled."; }
     }
 
     internal const string CmdName = "IsMapAnalysisEnabledResult";
@@ -49262,7 +49739,7 @@ namespace Sdx.Cmd
 
 
   ///
-  /// Result of IsSpectrumVisible
+  /// Result of IsSpectrumVisible.
   ///
   /// Name    Type Description
   /// ------- ---- ------------------
@@ -49273,7 +49750,7 @@ namespace Sdx.Cmd
   {
     public override string Documentation
     {
-      get { return "Result of IsSpectrumVisible"; }
+      get { return "Result of IsSpectrumVisible."; }
     }
 
     internal const string CmdName = "IsSpectrumVisibleResult";
@@ -49940,7 +50417,7 @@ namespace Sdx.Cmd
 
 
   ///
-  /// Result of GetMessageSequence
+  /// Result of GetMessageSequence.
   ///
   /// Name     Type      Description
   /// -------- --------- -------------------------------
@@ -49952,7 +50429,7 @@ namespace Sdx.Cmd
   {
     public override string Documentation
     {
-      get { return "Result of GetMessageSequence"; }
+      get { return "Result of GetMessageSequence."; }
     }
 
     internal const string CmdName = "GetMessageSequenceResult";
@@ -50112,7 +50589,7 @@ namespace Sdx.Cmd
 
 
   ///
-  /// Result of GetGalileoFnavSatelliteK
+  /// Result of GetGalileoFnavSatelliteK.
   ///
   /// Name Type Description
   /// ---- ---- -----------------------
@@ -50124,7 +50601,7 @@ namespace Sdx.Cmd
   {
     public override string Documentation
     {
-      get { return "Result of GetGalileoFnavSatelliteK"; }
+      get { return "Result of GetGalileoFnavSatelliteK."; }
     }
 
     internal const string CmdName = "GetGalileoFnavSatelliteKResult";
@@ -50363,7 +50840,7 @@ namespace Sdx.Cmd
 
 
   ///
-  /// Represents a log, each element of the same record share the same index
+  /// Result of GetStatusLog.
   ///
   /// Name    Type            Description
   /// ------- --------------- ----------------
@@ -50374,7 +50851,7 @@ namespace Sdx.Cmd
   {
     public override string Documentation
     {
-      get { return "Represents a log, each element of the same record share the same index"; }
+      get { return "Result of GetStatusLog."; }
     }
 
     internal const string CmdName = "GetStatusLogResult";
@@ -50511,7 +50988,7 @@ namespace Sdx.Cmd
 
 
   ///
-  /// Result of GetVisibleSV
+  /// Result of GetVisibleSV.
   ///
   /// Name   Type      Description
   /// ------ --------- -----------------------------------------------------------------------------------
@@ -50523,7 +51000,7 @@ namespace Sdx.Cmd
   {
     public override string Documentation
     {
-      get { return "Result of GetVisibleSV"; }
+      get { return "Result of GetVisibleSV."; }
     }
 
     internal const string CmdName = "GetVisibleSVResult";
@@ -50821,7 +51298,7 @@ namespace Sdx.Cmd
 
 
   ///
-  /// Result of IsSVEnabled
+  /// Result of IsSVEnabled.
   ///
   /// Name    Type   Description
   /// ------- ------ ------------------------------------------------------------------------------------------------------
@@ -50834,7 +51311,7 @@ namespace Sdx.Cmd
   {
     public override string Documentation
     {
-      get { return "Result of IsSVEnabled"; }
+      get { return "Result of IsSVEnabled."; }
     }
 
     internal const string CmdName = "IsSVEnabledResult";
@@ -51005,7 +51482,7 @@ namespace Sdx.Cmd
 
 
   ///
-  /// Result of IsEachSVEnabled
+  /// Result of IsEachSVEnabled.
   ///
   /// Name    Type       Description
   /// ------- ---------- ------------------------------------------------------------------------------------------------------
@@ -51017,7 +51494,7 @@ namespace Sdx.Cmd
   {
     public override string Documentation
     {
-      get { return "Result of IsEachSVEnabled"; }
+      get { return "Result of IsEachSVEnabled."; }
     }
 
     internal const string CmdName = "IsEachSVEnabledResult";
@@ -51147,7 +51624,7 @@ namespace Sdx.Cmd
 
 
   ///
-  /// Result of GetCnav2PagesEnabled
+  /// Result of GetCnav2PagesEnabled.
   ///
   /// Name     Type      Description
   /// -------- --------- -----------------
@@ -51158,7 +51635,7 @@ namespace Sdx.Cmd
   {
     public override string Documentation
     {
-      get { return "Result of GetCnav2PagesEnabled"; }
+      get { return "Result of GetCnav2PagesEnabled."; }
     }
 
     internal const string CmdName = "GetCnav2PagesEnabledResult";
@@ -51277,7 +51754,7 @@ namespace Sdx.Cmd
 
 
   ///
-  /// Result of GetSbasMessagesEnabled
+  /// Result of GetSbasMessagesEnabled.
   ///
   /// Name     Type      Description
   /// -------- --------- --------------------
@@ -51288,7 +51765,7 @@ namespace Sdx.Cmd
   {
     public override string Documentation
     {
-      get { return "Result of GetSbasMessagesEnabled"; }
+      get { return "Result of GetSbasMessagesEnabled."; }
     }
 
     internal const string CmdName = "GetSbasMessagesEnabledResult";
@@ -51407,7 +51884,7 @@ namespace Sdx.Cmd
 
 
   ///
-  /// Result of GetSbasMonitoredSystems
+  /// Result of GetSbasMonitoredSystems.
   ///
   /// Name    Type         Description
   /// ------- ------------ ------------------------------------------------------------------------------------
@@ -51418,7 +51895,7 @@ namespace Sdx.Cmd
   {
     public override string Documentation
     {
-      get { return "Result of GetSbasMonitoredSystems"; }
+      get { return "Result of GetSbasMonitoredSystems."; }
     }
 
     internal const string CmdName = "GetSbasMonitoredSystemsResult";
@@ -51537,7 +52014,7 @@ namespace Sdx.Cmd
 
 
   ///
-  /// Result of GetSbasUdrei
+  /// Result of GetSbasUdrei.
   ///
   /// Name  Type Description
   /// ----- ---- ---------------
@@ -51548,7 +52025,7 @@ namespace Sdx.Cmd
   {
     public override string Documentation
     {
-      get { return "Result of GetSbasUdrei"; }
+      get { return "Result of GetSbasUdrei."; }
     }
 
     internal const string CmdName = "GetSbasUdreiResult";
@@ -51745,7 +52222,7 @@ namespace Sdx.Cmd
 
 
   ///
-  /// Result of GetConfigBroadcastOnStart
+  /// Result of GetConfigBroadcastOnStart.
   ///
   /// Name             Type Description
   /// ---------------- ---- --------------------------------------------------------------
@@ -51756,7 +52233,7 @@ namespace Sdx.Cmd
   {
     public override string Documentation
     {
-      get { return "Result of GetConfigBroadcastOnStart"; }
+      get { return "Result of GetConfigBroadcastOnStart."; }
     }
 
     internal const string CmdName = "GetConfigBroadcastOnStartResult";
@@ -51882,7 +52359,7 @@ namespace Sdx.Cmd
 
 
   ///
-  /// Result of GetConfigBroadcastFilter
+  /// Result of GetConfigBroadcastFilter.
   ///
   /// Name   Type               Description
   /// ------ ------------------ ------------------------------------------------------------------------------
@@ -51893,7 +52370,7 @@ namespace Sdx.Cmd
   {
     public override string Documentation
     {
-      get { return "Result of GetConfigBroadcastFilter"; }
+      get { return "Result of GetConfigBroadcastFilter."; }
     }
 
     internal const string CmdName = "GetConfigBroadcastFilterResult";
@@ -52078,7 +52555,7 @@ namespace Sdx.Cmd
 
 
   ///
-  /// Result of GetPseudorangeNoiseOffsetForSV
+  /// Result of GetPseudorangeNoiseOffsetForSV.
   ///
   /// Name    Type   Description
   /// ------- ------ ----------------------------------------------------------------
@@ -52092,7 +52569,7 @@ namespace Sdx.Cmd
   {
     public override string Documentation
     {
-      get { return "Result of GetPseudorangeNoiseOffsetForSV"; }
+      get { return "Result of GetPseudorangeNoiseOffsetForSV."; }
     }
 
     internal const string CmdName = "GetPseudorangeNoiseOffsetForSVResult";
@@ -52414,7 +52891,7 @@ namespace Sdx.Cmd
 
 
   ///
-  /// Result of GetPseudorangeNoiseOffsetForEachSV
+  /// Result of GetPseudorangeNoiseOffsetForEachSV.
   ///
   /// Name    Type         Description
   /// ------- ------------ ----------------------------------------------------------------
@@ -52427,7 +52904,7 @@ namespace Sdx.Cmd
   {
     public override string Documentation
     {
-      get { return "Result of GetPseudorangeNoiseOffsetForEachSV"; }
+      get { return "Result of GetPseudorangeNoiseOffsetForEachSV."; }
     }
   
     internal const string CmdName = "GetAllSatellitesPseudorangeNoiseOffsetResult";
@@ -52698,7 +53175,7 @@ namespace Sdx.Cmd
 
 
   ///
-  /// Result of GetPseudorangeNoiseSineWaveForSV
+  /// Result of GetPseudorangeNoiseSineWaveForSV.
   ///
   /// Name      Type   Description
   /// --------- ------ ----------------------------------------------------------------
@@ -52715,7 +53192,7 @@ namespace Sdx.Cmd
   {
     public override string Documentation
     {
-      get { return "Result of GetPseudorangeNoiseSineWaveForSV"; }
+      get { return "Result of GetPseudorangeNoiseSineWaveForSV."; }
     }
 
     internal const string CmdName = "GetPseudorangeNoiseSineWaveForSVResult";
@@ -53166,7 +53643,7 @@ namespace Sdx.Cmd
 
 
   ///
-  /// Result of GetPseudorangeNoiseSineWaveForEachSV
+  /// Result of GetPseudorangeNoiseSineWaveForEachSV.
   ///
   /// Name      Type         Description
   /// --------- ------------ ----------------------------------------------------------------
@@ -53182,7 +53659,7 @@ namespace Sdx.Cmd
   {
     public override string Documentation
     {
-      get { return "Result of GetPseudorangeNoiseSineWaveForEachSV"; }
+      get { return "Result of GetPseudorangeNoiseSineWaveForEachSV."; }
     }
   
     internal const string CmdName = "GetAllSatellitesPseudorangeNoiseSineWaveResult";
@@ -53480,7 +53957,7 @@ namespace Sdx.Cmd
 
 
   ///
-  /// Result of GetPseudorangeNoiseGaussMarkovForSV
+  /// Result of GetPseudorangeNoiseGaussMarkovForSV.
   ///
   /// Name    Type   Description
   /// ------- ------ ----------------------------------------------------------------
@@ -53497,7 +53974,7 @@ namespace Sdx.Cmd
   {
     public override string Documentation
     {
-      get { return "Result of GetPseudorangeNoiseGaussMarkovForSV"; }
+      get { return "Result of GetPseudorangeNoiseGaussMarkovForSV."; }
     }
 
     internal const string CmdName = "GetPseudorangeNoiseGaussMarkovForSVResult";
@@ -53948,7 +54425,7 @@ namespace Sdx.Cmd
 
 
   ///
-  /// Result of GetPseudorangeNoiseGaussMarkovForEachSV
+  /// Result of GetPseudorangeNoiseGaussMarkovForEachSV.
   ///
   /// Name    Type         Description
   /// ------- ------------ ----------------------------------------------------------------
@@ -53964,7 +54441,7 @@ namespace Sdx.Cmd
   {
     public override string Documentation
     {
-      get { return "Result of GetPseudorangeNoiseGaussMarkovForEachSV"; }
+      get { return "Result of GetPseudorangeNoiseGaussMarkovForEachSV."; }
     }
   
     internal const string CmdName = "GetAllSatellitesPseudorangeNoiseGaussMarkovResult";
@@ -54346,7 +54823,7 @@ namespace Sdx.Cmd
 
 
   ///
-  /// Result of GetEphemerisErrorForSV
+  /// Result of GetEphemerisErrorForSV.
   ///
   /// Name     Type   Description
   /// -------- ------ -----------------------------------------------------------------------------------
@@ -54361,7 +54838,7 @@ namespace Sdx.Cmd
   {
     public override string Documentation
     {
-      get { return "Result of GetEphemerisErrorForSV"; }
+      get { return "Result of GetEphemerisErrorForSV."; }
     }
 
     internal const string CmdName = "GetEphemerisErrorForSVResult";
@@ -54524,7 +55001,7 @@ namespace Sdx.Cmd
 
 
   ///
-  /// Result of IsUsingVelocityInSbasMessage25
+  /// Result of IsUsingVelocityInSbasMessage25.
   ///
   /// Name        Type Description
   /// ----------- ---- --------------------------------------------------------
@@ -54535,7 +55012,7 @@ namespace Sdx.Cmd
   {
     public override string Documentation
     {
-      get { return "Result of IsUsingVelocityInSbasMessage25"; }
+      get { return "Result of IsUsingVelocityInSbasMessage25."; }
     }
 
     internal const string CmdName = "IsUsingVelocityInSbasMessage25Result";
@@ -54720,7 +55197,7 @@ namespace Sdx.Cmd
 
 
   ///
-  /// Result of IsSVForcedGeo
+  /// Result of IsSVForcedGeo.
   ///
   /// Name      Type   Description
   /// --------- ------ ---------------------------------------------
@@ -54734,7 +55211,7 @@ namespace Sdx.Cmd
   {
     public override string Documentation
     {
-      get { return "Result of IsSVForcedGeo"; }
+      get { return "Result of IsSVForcedGeo."; }
     }
 
     internal const string CmdName = "IsSVForcedGeoResult";
@@ -54916,7 +55393,7 @@ namespace Sdx.Cmd
 
 
   ///
-  /// Result of IsSbasFastCorrectionsEnabledFor
+  /// Result of IsSbasFastCorrectionsEnabledFor.
   ///
   /// Name      Type   Description
   /// --------- ------ -------------------------------
@@ -54928,7 +55405,7 @@ namespace Sdx.Cmd
   {
     public override string Documentation
     {
-      get { return "Result of IsSbasFastCorrectionsEnabledFor"; }
+      get { return "Result of IsSbasFastCorrectionsEnabledFor."; }
     }
 
     internal const string CmdName = "IsSbasFastCorrectionsEnabledForResult";
@@ -55058,7 +55535,7 @@ namespace Sdx.Cmd
 
 
   ///
-  /// Result of IsDelayAppliedInSbas
+  /// Result of IsDelayAppliedInSbas.
   ///
   /// Name      Type Description
   /// --------- ---- --------------------------------------------
@@ -55069,7 +55546,7 @@ namespace Sdx.Cmd
   {
     public override string Documentation
     {
-      get { return "Result of IsDelayAppliedInSbas"; }
+      get { return "Result of IsDelayAppliedInSbas."; }
     }
 
     internal const string CmdName = "IsDelayAppliedInSbasResult";
@@ -55188,7 +55665,7 @@ namespace Sdx.Cmd
 
 
   ///
-  /// Result of IsIonoOffsetEnabled
+  /// Result of IsIonoOffsetEnabled.
   ///
   /// Name      Type Description
   /// --------- ---- ---------------------------------------------
@@ -55199,7 +55676,7 @@ namespace Sdx.Cmd
   {
     public override string Documentation
     {
-      get { return "Result of IsIonoOffsetEnabled"; }
+      get { return "Result of IsIonoOffsetEnabled."; }
     }
 
     internal const string CmdName = "IsIonoOffsetEnabledResult";
@@ -55348,7 +55825,7 @@ namespace Sdx.Cmd
 
 
   ///
-  /// Result of IsSbasLongTermCorrectionsEnabledFor
+  /// Result of IsSbasLongTermCorrectionsEnabledFor.
   ///
   /// Name      Type   Description
   /// --------- ------ ------------------------------------
@@ -55360,7 +55837,7 @@ namespace Sdx.Cmd
   {
     public override string Documentation
     {
-      get { return "Result of IsSbasLongTermCorrectionsEnabledFor"; }
+      get { return "Result of IsSbasLongTermCorrectionsEnabledFor."; }
     }
 
     internal const string CmdName = "IsSbasLongTermCorrectionsEnabledForResult";
@@ -56367,7 +56844,7 @@ namespace Sdx.Cmd
 
 
   ///
-  /// Result of IsTrajectoryCompleted
+  /// Result of IsTrajectoryCompleted.
   ///
   /// Name        Type Description
   /// ----------- ---- ------------------------------------------
@@ -56378,7 +56855,7 @@ namespace Sdx.Cmd
   {
     public override string Documentation
     {
-      get { return "Result of IsTrajectoryCompleted"; }
+      get { return "Result of IsTrajectoryCompleted."; }
     }
 
     internal const string CmdName = "IsTrajectoryCompletedResult";
@@ -56551,7 +57028,7 @@ namespace Sdx.Cmd
 
 
   ///
-  /// Result of GetIonoGridError
+  /// Result of GetIonoGridError.
   ///
   /// Name  Type   Description
   /// ----- ------ -------------------------------
@@ -56564,7 +57041,7 @@ namespace Sdx.Cmd
   {
     public override string Documentation
     {
-      get { return "Result of GetIonoGridError"; }
+      get { return "Result of GetIonoGridError."; }
     }
 
     internal const string CmdName = "GetIonoGridErrorResult";
@@ -56787,7 +57264,7 @@ namespace Sdx.Cmd
 
 
   ///
-  /// Result of GetIonoGridGIVEI
+  /// Result of GetIonoGridGIVEI.
   ///
   /// Name            Type            Description
   /// --------------- --------------- -------------------------------
@@ -56801,7 +57278,7 @@ namespace Sdx.Cmd
   {
     public override string Documentation
     {
-      get { return "Result of GetIonoGridGIVEI"; }
+      get { return "Result of GetIonoGridGIVEI."; }
     }
 
     internal const string CmdName = "GetIonoGridGIVEIResult";
@@ -56955,7 +57432,7 @@ namespace Sdx.Cmd
 
 
   ///
-  /// Result of GetIonoGridErrorAll
+  /// Result of GetIonoGridErrorAll.
   ///
   /// Name Type               Description
   /// ---- ------------------ -----------------------------------------------------------------------
@@ -56966,7 +57443,7 @@ namespace Sdx.Cmd
   {
     public override string Documentation
     {
-      get { return "Result of GetIonoGridErrorAll"; }
+      get { return "Result of GetIonoGridErrorAll."; }
     }
 
     internal const string CmdName = "GetIonoGridErrorAllResult";
@@ -57119,7 +57596,7 @@ namespace Sdx.Cmd
 
 
   ///
-  /// Result of GetIonoGridGIVEIAll
+  /// Result of GetIonoGridGIVEIAll.
   ///
   /// Name            Type            Description
   /// --------------- --------------- ----------------------------------------------------------------------
@@ -57131,7 +57608,7 @@ namespace Sdx.Cmd
   {
     public override string Documentation
     {
-      get { return "Result of GetIonoGridGIVEIAll"; }
+      get { return "Result of GetIonoGridGIVEIAll."; }
     }
 
     internal const string CmdName = "GetIonoGridGIVEIAllResult";
@@ -57341,7 +57818,7 @@ namespace Sdx.Cmd
 
 
   ///
-  /// Result of GetIonoGridMask
+  /// Result of GetIonoGridMask.
   ///
   /// Name            Type   Description
   /// --------------- ------ -------------------------------
@@ -57355,7 +57832,7 @@ namespace Sdx.Cmd
   {
     public override string Documentation
     {
-      get { return "Result of GetIonoGridMask"; }
+      get { return "Result of GetIonoGridMask."; }
     }
 
     internal const string CmdName = "GetIonoGridMaskResult";
@@ -57537,7 +58014,7 @@ namespace Sdx.Cmd
 
 
   ///
-  /// Result of GetIonoGridMaskAll
+  /// Result of GetIonoGridMaskAll.
   ///
   /// Name            Type             Description
   /// --------------- ---------------- ----------------------------------------------------------------------
@@ -57549,7 +58026,7 @@ namespace Sdx.Cmd
   {
     public override string Documentation
     {
-      get { return "Result of GetIonoGridMaskAll"; }
+      get { return "Result of GetIonoGridMaskAll."; }
     }
 
     internal const string CmdName = "GetIonoGridMaskAllResult";
@@ -58021,7 +58498,7 @@ namespace Sdx.Cmd
 
 
   ///
-  /// Returns a list of paths for all the files in the Configurations folder.
+  /// Get a list of paths for all the files in the Configurations folder.
   ///
   /// 
   ///
@@ -58030,7 +58507,7 @@ namespace Sdx.Cmd
   {
     public override string Documentation
     {
-      get { return "Returns a list of paths for all the files in the Configurations folder."; }
+      get { return "Get a list of paths for all the files in the Configurations folder."; }
     }
 
     internal const string CmdName = "GetConfigPaths";
@@ -58053,7 +58530,7 @@ namespace Sdx.Cmd
 
 
   ///
-  /// Result of GetConfigPaths
+  /// Result of GetConfigPaths.
   ///
   /// Name  Type         Description
   /// ----- ------------ --------------------------------
@@ -58064,7 +58541,7 @@ namespace Sdx.Cmd
   {
     public override string Documentation
     {
-      get { return "Result of GetConfigPaths"; }
+      get { return "Result of GetConfigPaths."; }
     }
 
     internal const string CmdName = "GetConfigPathsResult";
@@ -58281,7 +58758,7 @@ namespace Sdx.Cmd
 
 
   ///
-  /// Result of GetLastLeapSecondDate
+  /// Result of GetLastLeapSecondDate.
   ///
   /// Name Type Description
   /// ---- ---- ----------------
@@ -58292,7 +58769,7 @@ namespace Sdx.Cmd
   {
     public override string Documentation
     {
-      get { return "Result of GetLastLeapSecondDate"; }
+      get { return "Result of GetLastLeapSecondDate."; }
     }
 
     internal const string CmdName = "GetLastLeapSecondDateResult";
@@ -58411,7 +58888,7 @@ namespace Sdx.Cmd
 
 
   ///
-  /// Result of GetWFAntennaGain
+  /// Result of GetWFAntennaGain.
   ///
   /// Name Type Description
   /// ---- ---- -----------------
@@ -58422,7 +58899,7 @@ namespace Sdx.Cmd
   {
     public override string Documentation
     {
-      get { return "Result of GetWFAntennaGain"; }
+      get { return "Result of GetWFAntennaGain."; }
     }
 
     internal const string CmdName = "GetWFAntennaGainResult";
@@ -58697,7 +59174,7 @@ namespace Sdx.Cmd
 
 
   ///
-  /// Result of GetAllSpoofTxID
+  /// Result of GetAllSpoofTxID.
   ///
   /// Name Type         Description
   /// ---- ------------ ------------------------------------
@@ -58708,7 +59185,7 @@ namespace Sdx.Cmd
   {
     public override string Documentation
     {
-      get { return "Result of GetAllSpoofTxID"; }
+      get { return "Result of GetAllSpoofTxID."; }
     }
 
     internal const string CmdName = "GetAllSpoofTxIDResult";
@@ -58897,7 +59374,7 @@ namespace Sdx.Cmd
 
 
   ///
-  /// Result of GetSpoofTx
+  /// Result of GetSpoofTx.
   ///
   /// Name       Type   Description
   /// ---------- ------ ------------------------------------------------
@@ -58912,7 +59389,7 @@ namespace Sdx.Cmd
   {
     public override string Documentation
     {
-      get { return "Result of GetSpoofTx"; }
+      get { return "Result of GetSpoofTx."; }
     }
 
     internal const string CmdName = "GetSpoofTxResult";
@@ -59218,7 +59695,7 @@ namespace Sdx.Cmd
 
 
   ///
-  /// Result of GetSpoofTxColor
+  /// Result of GetSpoofTxColor.
   ///
   /// Name  Type   Description
   /// ----- ------ -------------------------------------------------------------------------------
@@ -59230,7 +59707,7 @@ namespace Sdx.Cmd
   {
     public override string Documentation
     {
-      get { return "Result of GetSpoofTxColor"; }
+      get { return "Result of GetSpoofTxColor."; }
     }
 
     internal const string CmdName = "GetSpoofTxColorResult";
@@ -59576,7 +60053,7 @@ namespace Sdx.Cmd
 
 
   ///
-  /// Result of IsSpoofTxIgnoreRxAntennaGainPattern
+  /// Result of IsSpoofTxIgnoreRxAntennaGainPattern.
   ///
   /// Name   Type   Description
   /// ------ ------ -------------------------------------------------------------
@@ -59588,7 +60065,7 @@ namespace Sdx.Cmd
   {
     public override string Documentation
     {
-      get { return "Result of IsSpoofTxIgnoreRxAntennaGainPattern"; }
+      get { return "Result of IsSpoofTxIgnoreRxAntennaGainPattern."; }
     }
 
     internal const string CmdName = "IsSpoofTxIgnoreRxAntennaGainPatternResult";
@@ -59748,7 +60225,7 @@ namespace Sdx.Cmd
 
 
   ///
-  /// Result of IsSpoofTxIgnoreRxAntennaPhasePattern
+  /// Result of IsSpoofTxIgnoreRxAntennaPhasePattern.
   ///
   /// Name   Type   Description
   /// ------ ------ --------------------------------------------------------------
@@ -59760,7 +60237,7 @@ namespace Sdx.Cmd
   {
     public override string Documentation
     {
-      get { return "Result of IsSpoofTxIgnoreRxAntennaPhasePattern"; }
+      get { return "Result of IsSpoofTxIgnoreRxAntennaPhasePattern."; }
     }
 
     internal const string CmdName = "IsSpoofTxIgnoreRxAntennaPhasePatternResult";
@@ -59980,7 +60457,7 @@ namespace Sdx.Cmd
 
 
   ///
-  /// Result of GetSpoofTxFix
+  /// Result of GetSpoofTxFix.
   ///
   /// Name  Type   Description
   /// ----- ------ ------------------------------
@@ -59997,7 +60474,7 @@ namespace Sdx.Cmd
   {
     public override string Documentation
     {
-      get { return "Result of GetSpoofTxFix"; }
+      get { return "Result of GetSpoofTxFix."; }
     }
 
     internal const string CmdName = "GetSpoofTxFixResult";
@@ -60272,7 +60749,7 @@ namespace Sdx.Cmd
 
 
   ///
-  /// Result of GetSpoofTxFixEcef
+  /// Result of GetSpoofTxFixEcef.
   ///
   /// Name  Type   Description
   /// ----- ------ ------------------------------
@@ -60289,7 +60766,7 @@ namespace Sdx.Cmd
   {
     public override string Documentation
     {
-      get { return "Result of GetSpoofTxFixEcef"; }
+      get { return "Result of GetSpoofTxFixEcef."; }
     }
 
     internal const string CmdName = "GetSpoofTxFixEcefResult";
@@ -60578,7 +61055,7 @@ namespace Sdx.Cmd
 
 
   ///
-  /// Result of GetSpoofTxCircular
+  /// Result of GetSpoofTxCircular.
   ///
   /// Name        Type            Description
   /// ----------- --------------- --------------------------------
@@ -60596,7 +61073,7 @@ namespace Sdx.Cmd
   {
     public override string Documentation
     {
-      get { return "Result of GetSpoofTxCircular"; }
+      get { return "Result of GetSpoofTxCircular."; }
     }
 
     internal const string CmdName = "GetSpoofTxCircularResult";
@@ -60812,7 +61289,7 @@ namespace Sdx.Cmd
 
 
   ///
-  /// Result of GetSpoofTxTrajectory
+  /// Result of GetSpoofTxTrajectory.
   ///
   /// Name           Type   Description
   /// -------------- ------ ---------------------------------------------------
@@ -60824,7 +61301,7 @@ namespace Sdx.Cmd
   {
     public override string Documentation
     {
-      get { return "Result of GetSpoofTxTrajectory"; }
+      get { return "Result of GetSpoofTxTrajectory."; }
     }
 
     internal const string CmdName = "GetSpoofTxTrajectoryResult";
@@ -60996,7 +61473,7 @@ namespace Sdx.Cmd
 
 
   ///
-  /// Result of GetSpoofTxAntenna
+  /// Result of GetSpoofTxAntenna.
   ///
   /// Name Type               Description
   /// ---- ------------------ -------------------------------------------------------------------------------------------------------------------------
@@ -61009,7 +61486,7 @@ namespace Sdx.Cmd
   {
     public override string Documentation
     {
-      get { return "Result of GetSpoofTxAntenna"; }
+      get { return "Result of GetSpoofTxAntenna."; }
     }
 
     internal const string CmdName = "GetSpoofTxAntennaResult";
@@ -61252,7 +61729,7 @@ namespace Sdx.Cmd
 
 
   ///
-  /// Result of GetSpoofTxAntennaOffset
+  /// Result of GetSpoofTxAntennaOffset.
   ///
   /// Name  Type   Description
   /// ----- ------ --------------------------------------
@@ -61269,7 +61746,7 @@ namespace Sdx.Cmd
   {
     public override string Documentation
     {
-      get { return "Result of GetSpoofTxAntennaOffset"; }
+      get { return "Result of GetSpoofTxAntennaOffset."; }
     }
 
     internal const string CmdName = "GetSpoofTxAntennaOffsetResult";
@@ -61498,7 +61975,7 @@ namespace Sdx.Cmd
 
 
   ///
-  /// Result of GetSpoofTxRemoteAddress
+  /// Result of GetSpoofTxRemoteAddress.
   ///
   /// Name       Type   Description
   /// ---------- ------ ------------------------------
@@ -61511,7 +61988,7 @@ namespace Sdx.Cmd
   {
     public override string Documentation
     {
-      get { return "Result of GetSpoofTxRemoteAddress"; }
+      get { return "Result of GetSpoofTxRemoteAddress."; }
     }
 
     internal const string CmdName = "GetSpoofTxRemoteAddressResult";
@@ -61821,8 +62298,8 @@ namespace Sdx.Cmd
   /// Mapping PRN to the corresponding SV ID. Get a list of SV IDs based on a specific signal. Accepted signal keys: "L1CA", "L1C", "L1P", "L1M", "L2C", "L2P", "L5", "G1", "G2", "E1", "E1PRS", "E5a", "E5b", "E6BC", "E6PRS", "B1", "B2", "B2a", "B1C", "SBASL1", "SBASL5", "QZSSL1CA", "QZSSL1C", "QZSSL5", "QZSSL1S", "QZSSL5S" and "NAVICL5"
   ///
   /// Name   Type   Description
-  /// ------ ------ --------------------------------------------------------
-  /// Signal string Signal key - see command description for possible values
+  /// ------ ------ ----------------------------------------------------------------------
+  /// Signal string Signal key - see GetSVIDsOfPrn command description for possible values
   /// Prn    int    Satellite PRN number
   ///
 
@@ -61880,7 +62357,7 @@ namespace Sdx.Cmd
 
 
   ///
-  /// Result of GetSVIDsOfPrn
+  /// Result of GetSVIDsOfPrn.
   ///
   /// Name     Type      Description
   /// -------- --------- ----------------------------------------------------------------------
@@ -61893,7 +62370,7 @@ namespace Sdx.Cmd
   {
     public override string Documentation
     {
-      get { return "Result of GetSVIDsOfPrn"; }
+      get { return "Result of GetSVIDsOfPrn."; }
     }
 
     internal const string CmdName = "GetSVIDsOfPrnResult";
@@ -62112,7 +62589,7 @@ namespace Sdx.Cmd
 
 
   ///
-  /// Result of GetQzssL1SAugmentation
+  /// Result of GetQzssL1SAugmentation.
   ///
   /// Name       Type   Description
   /// ---------- ------ ----------------------------------------------------------------------------------
@@ -62128,7 +62605,7 @@ namespace Sdx.Cmd
   {
     public override string Documentation
     {
-      get { return "Result of GetQzssL1SAugmentation"; }
+      get { return "Result of GetQzssL1SAugmentation."; }
     }
 
     internal const string CmdName = "GetQzssL1SAugmentationResult";
@@ -62334,7 +62811,7 @@ namespace Sdx.Cmd
 
 
   ///
-  /// Result of GetQzssL1SAugmentations
+  /// Result of GetQzssL1SAugmentations.
   ///
   /// Name Type         Description
   /// ---- ------------ --------------------------------------
@@ -62345,7 +62822,7 @@ namespace Sdx.Cmd
   {
     public override string Documentation
     {
-      get { return "Result of GetQzssL1SAugmentations"; }
+      get { return "Result of GetQzssL1SAugmentations."; }
     }
 
     internal const string CmdName = "GetQzssL1SAugmentationsResult";
@@ -62448,7 +62925,7 @@ namespace Sdx.Cmd
 
 
   ///
-  /// Please note the command QzssSatMotionFixed is deprecated since 20.9. You may use SatMotionFixed.
+  /// Please note the command SetQzssSatMotionFixed is deprecated since 20.9. You may use SetSatMotionFixed.
   /// 
   /// If IsFixed is set to true, the satellite will not move during the simulation and keep its initial position calculated at the beginning of the simulation.
   ///
@@ -62462,7 +62939,7 @@ namespace Sdx.Cmd
   {
     public override string Documentation
     {
-      get { return "Please note the command QzssSatMotionFixed is deprecated since 20.9. You may use SatMotionFixed.\n\nIf IsFixed is set to true, the satellite will not move during the simulation and keep its initial position calculated at the beginning of the simulation."; }
+      get { return "Please note the command SetQzssSatMotionFixed is deprecated since 20.9. You may use SetSatMotionFixed.\n\nIf IsFixed is set to true, the satellite will not move during the simulation and keep its initial position calculated at the beginning of the simulation."; }
     }
 
     internal const string CmdName = "SetQzssSatMotionFixed";
@@ -62512,7 +62989,7 @@ namespace Sdx.Cmd
 
 
   ///
-  /// Please note the command QzssSatMotionFixed is deprecated since 20.9. You may use SatMotionFixed.
+  /// Please note the command IsQzssSatMotionFixed is deprecated since 20.9. You may use IsSatMotionFixed.
   /// 
   /// Tells if the satellite is fixed (True) or not fixed (false).
   ///
@@ -62525,7 +63002,7 @@ namespace Sdx.Cmd
   {
     public override string Documentation
     {
-      get { return "Please note the command QzssSatMotionFixed is deprecated since 20.9. You may use SatMotionFixed.\n\nTells if the satellite is fixed (True) or not fixed (false)."; }
+      get { return "Please note the command IsQzssSatMotionFixed is deprecated since 20.9. You may use IsSatMotionFixed.\n\nTells if the satellite is fixed (True) or not fixed (false)."; }
     }
 
     internal const string CmdName = "IsQzssSatMotionFixed";
@@ -62564,7 +63041,7 @@ namespace Sdx.Cmd
 
 
   ///
-  /// Result of IsQzssSatMotionFixed
+  /// Result of IsQzssSatMotionFixed.
   ///
   /// Name    Type Description
   /// ------- ---- --------------------------------------------------------------------------------------------------------------
@@ -62576,7 +63053,7 @@ namespace Sdx.Cmd
   {
     public override string Documentation
     {
-      get { return "Result of IsQzssSatMotionFixed"; }
+      get { return "Result of IsQzssSatMotionFixed."; }
     }
 
     internal const string CmdName = "IsQzssSatMotionFixedResult";
@@ -62624,7 +63101,7 @@ namespace Sdx.Cmd
 
 
   ///
-  /// Please note the command QzssEphemerisReferenceTime is deprecated since 20.9. You may use EphemerisReferenceTimeForSV.
+  /// Please note the command SetQzssEphemerisReferenceTime is deprecated since 20.9. You may use SetEphemerisReferenceTimeForSV.
   /// 
   /// Set the QZSS ephemeris reference time
   ///
@@ -62638,7 +63115,7 @@ namespace Sdx.Cmd
   {
     public override string Documentation
     {
-      get { return "Please note the command QzssEphemerisReferenceTime is deprecated since 20.9. You may use EphemerisReferenceTimeForSV.\n\nSet the QZSS ephemeris reference time"; }
+      get { return "Please note the command SetQzssEphemerisReferenceTime is deprecated since 20.9. You may use SetEphemerisReferenceTimeForSV.\n\nSet the QZSS ephemeris reference time"; }
     }
 
     internal const string CmdName = "SetQzssEphemerisReferenceTime";
@@ -62688,7 +63165,7 @@ namespace Sdx.Cmd
 
 
   ///
-  /// Please note the command QzssEphemerisReferenceTime is deprecated since 20.9. You may use EphemerisReferenceTimeForSV.
+  /// Please note the command GetQzssEphemerisReferenceTime is deprecated since 20.9. You may use GetEphemerisReferenceTimeForSV.
   /// 
   /// Get the QZSS ephemeris reference time
   ///
@@ -62701,7 +63178,7 @@ namespace Sdx.Cmd
   {
     public override string Documentation
     {
-      get { return "Please note the command QzssEphemerisReferenceTime is deprecated since 20.9. You may use EphemerisReferenceTimeForSV.\n\nGet the QZSS ephemeris reference time"; }
+      get { return "Please note the command GetQzssEphemerisReferenceTime is deprecated since 20.9. You may use GetEphemerisReferenceTimeForSV.\n\nGet the QZSS ephemeris reference time"; }
     }
 
     internal const string CmdName = "GetQzssEphemerisReferenceTime";
@@ -62740,7 +63217,7 @@ namespace Sdx.Cmd
 
 
   ///
-  /// Result of GetQzssEphemerisReferenceTime
+  /// Result of GetQzssEphemerisReferenceTime.
   ///
   /// Name Type     Description
   /// ---- -------- --------------------------------------------------------------
@@ -62752,7 +63229,7 @@ namespace Sdx.Cmd
   {
     public override string Documentation
     {
-      get { return "Result of GetQzssEphemerisReferenceTime"; }
+      get { return "Result of GetQzssEphemerisReferenceTime."; }
     }
 
     internal const string CmdName = "GetQzssEphemerisReferenceTimeResult";
@@ -62800,7 +63277,7 @@ namespace Sdx.Cmd
 
 
   ///
-  /// Please note the command QzssPerturbations is deprecated since 20.9. You may use Perturbations.
+  /// Please note the command SetQzssPerturbations is deprecated since 20.9. You may use SetPerturbations.
   /// 
   /// Set QZSS orbit perturbations (Crs, Crc, Cis, Cic, Cus and Cuc)
   ///
@@ -62819,7 +63296,7 @@ namespace Sdx.Cmd
   {
     public override string Documentation
     {
-      get { return "Please note the command QzssPerturbations is deprecated since 20.9. You may use Perturbations.\n\nSet QZSS orbit perturbations (Crs, Crc, Cis, Cic, Cus and Cuc)"; }
+      get { return "Please note the command SetQzssPerturbations is deprecated since 20.9. You may use SetPerturbations.\n\nSet QZSS orbit perturbations (Crs, Crc, Cis, Cic, Cus and Cuc)"; }
     }
 
     internal const string CmdName = "SetQzssPerturbations";
@@ -62924,7 +63401,7 @@ namespace Sdx.Cmd
 
 
   ///
-  /// Please note the command QzssPerturbations is deprecated since 20.9. You may use Perturbations.
+  /// Please note the command GetQzssPerturbations is deprecated since 20.9. You may use GetPerturbations.
   /// 
   /// Get QZSS orbit perturbations (Crs, Crc, Cis, Cic, Cus and Cuc)
   ///
@@ -62937,7 +63414,7 @@ namespace Sdx.Cmd
   {
     public override string Documentation
     {
-      get { return "Please note the command QzssPerturbations is deprecated since 20.9. You may use Perturbations.\n\nGet QZSS orbit perturbations (Crs, Crc, Cis, Cic, Cus and Cuc)"; }
+      get { return "Please note the command GetQzssPerturbations is deprecated since 20.9. You may use GetPerturbations.\n\nGet QZSS orbit perturbations (Crs, Crc, Cis, Cic, Cus and Cuc)"; }
     }
 
     internal const string CmdName = "GetQzssPerturbations";
@@ -62976,7 +63453,7 @@ namespace Sdx.Cmd
 
 
   ///
-  /// Result of GetQzssPerturbations
+  /// Result of GetQzssPerturbations.
   ///
   /// Name Type   Description
   /// ---- ------ ---------------------
@@ -62993,7 +63470,7 @@ namespace Sdx.Cmd
   {
     public override string Documentation
     {
-      get { return "Result of GetQzssPerturbations"; }
+      get { return "Result of GetQzssPerturbations."; }
     }
 
     internal const string CmdName = "GetQzssPerturbationsResult";
@@ -63096,7 +63573,7 @@ namespace Sdx.Cmd
 
 
   ///
-  /// Please note the command QzssPerturbationsForAllSat is deprecated since 20.9. You may use PerturbationsForAllSat.
+  /// Please note the command SetQzssPerturbationsForAllSat is deprecated since 20.9. You may use SetPerturbationsForAllSat.
   /// 
   /// Set QZSS orbit perturbations (Crs, Crc, Cis, Cic, Cus and Cuc) for all satellites.
   /// All parameters are zero based index (index 0 => SV ID 1, index 1 => SV ID 2, etc)
@@ -63115,7 +63592,7 @@ namespace Sdx.Cmd
   {
     public override string Documentation
     {
-      get { return "Please note the command QzssPerturbationsForAllSat is deprecated since 20.9. You may use PerturbationsForAllSat.\n\nSet QZSS orbit perturbations (Crs, Crc, Cis, Cic, Cus and Cuc) for all satellites.\nAll parameters are zero based index (index 0 => SV ID 1, index 1 => SV ID 2, etc)"; }
+      get { return "Please note the command SetQzssPerturbationsForAllSat is deprecated since 20.9. You may use SetPerturbationsForAllSat.\n\nSet QZSS orbit perturbations (Crs, Crc, Cis, Cic, Cus and Cuc) for all satellites.\nAll parameters are zero based index (index 0 => SV ID 1, index 1 => SV ID 2, etc)"; }
     }
 
     internal const string CmdName = "SetQzssPerturbationsForAllSat";
@@ -63209,7 +63686,7 @@ namespace Sdx.Cmd
 
 
   ///
-  /// Please note the command QzssPerturbationsForAllSat is deprecated since 20.9. You may use PerturbationsForAllSat.
+  /// Please note the command GetQzssPerturbationsForAllSat is deprecated since 20.9. You may use GetPerturbationsForAllSat.
   /// 
   /// Get QZSS orbit perturbations (Crs, Crc, Cis, Cic, Cus and Cuc) for all satellites.
   /// All parameters are zero based index (index 0 => SV ID 1, index 1 => SV ID 2, etc)
@@ -63221,7 +63698,7 @@ namespace Sdx.Cmd
   {
     public override string Documentation
     {
-      get { return "Please note the command QzssPerturbationsForAllSat is deprecated since 20.9. You may use PerturbationsForAllSat.\n\nGet QZSS orbit perturbations (Crs, Crc, Cis, Cic, Cus and Cuc) for all satellites.\nAll parameters are zero based index (index 0 => SV ID 1, index 1 => SV ID 2, etc)"; }
+      get { return "Please note the command GetQzssPerturbationsForAllSat is deprecated since 20.9. You may use GetPerturbationsForAllSat.\n\nGet QZSS orbit perturbations (Crs, Crc, Cis, Cic, Cus and Cuc) for all satellites.\nAll parameters are zero based index (index 0 => SV ID 1, index 1 => SV ID 2, etc)"; }
     }
 
     internal const string CmdName = "GetQzssPerturbationsForAllSat";
@@ -63244,7 +63721,7 @@ namespace Sdx.Cmd
 
 
   ///
-  /// Result of GetQzssPerturbationsForAllSat
+  /// Result of GetQzssPerturbationsForAllSat.
   ///
   /// Name Type         Description
   /// ---- ------------ -----------
@@ -63260,7 +63737,7 @@ namespace Sdx.Cmd
   {
     public override string Documentation
     {
-      get { return "Result of GetQzssPerturbationsForAllSat"; }
+      get { return "Result of GetQzssPerturbationsForAllSat."; }
     }
 
     internal const string CmdName = "GetQzssPerturbationsForAllSatResult";
@@ -63480,7 +63957,7 @@ namespace Sdx.Cmd
 
 
   ///
-  /// Please note the command EnableRF is deprecated since 21.3. You may use EnableRFOutputForSV.
+  /// Please note the command IsRFEnabled is deprecated since 21.3. You may use IsRFOutputEnabled.
   /// 
   /// Tells if the RF is enabled or disabled for the specified satellite.
   ///
@@ -63494,7 +63971,7 @@ namespace Sdx.Cmd
   {
     public override string Documentation
     {
-      get { return "Please note the command EnableRF is deprecated since 21.3. You may use EnableRFOutputForSV.\n\nTells if the RF is enabled or disabled for the specified satellite."; }
+      get { return "Please note the command IsRFEnabled is deprecated since 21.3. You may use IsRFOutputEnabled.\n\nTells if the RF is enabled or disabled for the specified satellite."; }
     }
 
     internal const string CmdName = "IsRFEnabled";
@@ -63544,7 +64021,7 @@ namespace Sdx.Cmd
 
 
   ///
-  /// Result of IsRFEnabled
+  /// Result of IsRFEnabled.
   ///
   /// Name    Type   Description
   /// ------- ------ ----------------------------------------------------------------------------------------------------------
@@ -63557,7 +64034,7 @@ namespace Sdx.Cmd
   {
     public override string Documentation
     {
-      get { return "Result of IsRFEnabled"; }
+      get { return "Result of IsRFEnabled."; }
     }
 
     internal const string CmdName = "IsRFEnabledResult";
@@ -63680,7 +64157,7 @@ namespace Sdx.Cmd
 
 
   ///
-  /// Please note the command EnableRFForEachPrn is deprecated since 21.3. You may use EnableRFOutputForEachSV.
+  /// Please note the command GetRFEnabledForEachPrn is deprecated since 21.3. You may use IsRFOutputEnabledForEachSV.
   /// 
   /// Tells if the RF is enabled or disabled for each satellite.
   ///
@@ -63693,7 +64170,7 @@ namespace Sdx.Cmd
   {
     public override string Documentation
     {
-      get { return "Please note the command EnableRFForEachPrn is deprecated since 21.3. You may use EnableRFOutputForEachSV.\n\nTells if the RF is enabled or disabled for each satellite."; }
+      get { return "Please note the command GetRFEnabledForEachPrn is deprecated since 21.3. You may use IsRFOutputEnabledForEachSV.\n\nTells if the RF is enabled or disabled for each satellite."; }
     }
 
     internal const string CmdName = "GetRFEnabledForEachPrn";
@@ -63732,7 +64209,7 @@ namespace Sdx.Cmd
 
 
   ///
-  /// Result of GetRFEnabledForEachPrn
+  /// Result of GetRFEnabledForEachPrn.
   ///
   /// Name    Type       Description
   /// ------- ---------- ------------------------------------------------------------------------------------------------------
@@ -63744,7 +64221,7 @@ namespace Sdx.Cmd
   {
     public override string Documentation
     {
-      get { return "Result of GetRFEnabledForEachPrn"; }
+      get { return "Result of GetRFEnabledForEachPrn."; }
     }
 
     internal const string CmdName = "GetRFEnabledForEachPrnResult";
@@ -63873,9 +64350,9 @@ namespace Sdx.Cmd
 
 
   ///
-  /// Please note the command EnableSignal is deprecated since 21.3. You may use EnableSignalForSV.
+  /// Please note the command IsSignalEnabled is deprecated since 21.3. You may use IsSignalEnabledForSV.
   /// 
-  /// Tells if the signal is enabled or disabled. See EnableSignal description for allowed signals.
+  /// Tells if the signal is enabled or disabled. See IsSignalEnabled description for allowed signals.
   ///
   /// Name   Type   Description
   /// ------ ------ ----------------------------------------------------------------------------------------------------------
@@ -63887,7 +64364,7 @@ namespace Sdx.Cmd
   {
     public override string Documentation
     {
-      get { return "Please note the command EnableSignal is deprecated since 21.3. You may use EnableSignalForSV.\n\nTells if the signal is enabled or disabled. See EnableSignal description for allowed signals."; }
+      get { return "Please note the command IsSignalEnabled is deprecated since 21.3. You may use IsSignalEnabledForSV.\n\nTells if the signal is enabled or disabled. See IsSignalEnabled description for allowed signals."; }
     }
 
     internal const string CmdName = "IsSignalEnabled";
@@ -63937,7 +64414,7 @@ namespace Sdx.Cmd
 
 
   ///
-  /// Result of IsSignalEnabled
+  /// Result of IsSignalEnabled.
   ///
   /// Name    Type   Description
   /// ------- ------ ----------------------------------------------------------------------------------------------------------
@@ -63950,7 +64427,7 @@ namespace Sdx.Cmd
   {
     public override string Documentation
     {
-      get { return "Result of IsSignalEnabled"; }
+      get { return "Result of IsSignalEnabled."; }
     }
 
     internal const string CmdName = "IsSignalEnabledResult";
@@ -64077,9 +64554,9 @@ namespace Sdx.Cmd
 
 
   ///
-  /// Please note the command EnableSignalForEachPrn is deprecated since 21.3. You may use EnableSignalForEachSV.
+  /// Please note the command GetSignalEnabledForEachPrn is deprecated since 21.3. You may use IsSignalEnabledForEachSV.
   /// 
-  /// Tells if the signal is enabled or disabled for each satellite. See EnableSignalForEachPrn description for allowed signals.
+  /// Tells if the signal is enabled or disabled for each satellite. See GetSignalEnabledForEachPrn description for allowed signals.
   ///
   /// Name   Type   Description
   /// ------ ------ --------------------------------------------------------
@@ -64090,7 +64567,7 @@ namespace Sdx.Cmd
   {
     public override string Documentation
     {
-      get { return "Please note the command EnableSignalForEachPrn is deprecated since 21.3. You may use EnableSignalForEachSV.\n\nTells if the signal is enabled or disabled for each satellite. See EnableSignalForEachPrn description for allowed signals."; }
+      get { return "Please note the command GetSignalEnabledForEachPrn is deprecated since 21.3. You may use IsSignalEnabledForEachSV.\n\nTells if the signal is enabled or disabled for each satellite. See GetSignalEnabledForEachPrn description for allowed signals."; }
     }
 
     internal const string CmdName = "GetSignalEnabledForEachPrn";
@@ -64129,7 +64606,7 @@ namespace Sdx.Cmd
 
 
   ///
-  /// Result of GetSignalEnabledForEachPrn
+  /// Result of GetSignalEnabledForEachPrn.
   ///
   /// Name    Type       Description
   /// ------- ---------- ----------------------------------------------------------------------------------------------------------
@@ -64141,7 +64618,7 @@ namespace Sdx.Cmd
   {
     public override string Documentation
     {
-      get { return "Result of GetSignalEnabledForEachPrn"; }
+      get { return "Result of GetSignalEnabledForEachPrn."; }
     }
 
     internal const string CmdName = "GetSignalEnabledForEachPrnResult";
@@ -64189,7 +64666,7 @@ namespace Sdx.Cmd
 
 
   ///
-  /// Please note the command GpsSatMotionFixed is deprecated since 21.3. You may use SatMotionFixed.
+  /// Please note the command SetGpsSatMotionFixed is deprecated since 21.3. You may use SetSatMotionFixed.
   /// 
   /// If IsFixed is set to true, the satellite will not move during the simulation and keep its initial position calculated at the beginning of the simulation.
   ///
@@ -64203,7 +64680,7 @@ namespace Sdx.Cmd
   {
     public override string Documentation
     {
-      get { return "Please note the command GpsSatMotionFixed is deprecated since 21.3. You may use SatMotionFixed.\n\nIf IsFixed is set to true, the satellite will not move during the simulation and keep its initial position calculated at the beginning of the simulation."; }
+      get { return "Please note the command SetGpsSatMotionFixed is deprecated since 21.3. You may use SetSatMotionFixed.\n\nIf IsFixed is set to true, the satellite will not move during the simulation and keep its initial position calculated at the beginning of the simulation."; }
     }
 
     internal const string CmdName = "SetGpsSatMotionFixed";
@@ -64253,7 +64730,7 @@ namespace Sdx.Cmd
 
 
   ///
-  /// Please note the command GpsSatMotionFixed is deprecated since 21.3. You may use SatMotionFixed.
+  /// Please note the command IsGpsSatMotionFixed is deprecated since 21.3. You may use IsSatMotionFixed.
   /// 
   /// Tells if the satellite is fixed (True) or not fixed (false).
   ///
@@ -64266,7 +64743,7 @@ namespace Sdx.Cmd
   {
     public override string Documentation
     {
-      get { return "Please note the command GpsSatMotionFixed is deprecated since 21.3. You may use SatMotionFixed.\n\nTells if the satellite is fixed (True) or not fixed (false)."; }
+      get { return "Please note the command IsGpsSatMotionFixed is deprecated since 21.3. You may use IsSatMotionFixed.\n\nTells if the satellite is fixed (True) or not fixed (false)."; }
     }
 
     internal const string CmdName = "IsGpsSatMotionFixed";
@@ -64305,7 +64782,7 @@ namespace Sdx.Cmd
 
 
   ///
-  /// Result of IsGpsSatMotionFixed
+  /// Result of IsGpsSatMotionFixed.
   ///
   /// Name    Type Description
   /// ------- ---- --------------------------------------------------------------------------------------------------------------
@@ -64317,7 +64794,7 @@ namespace Sdx.Cmd
   {
     public override string Documentation
     {
-      get { return "Result of IsGpsSatMotionFixed"; }
+      get { return "Result of IsGpsSatMotionFixed."; }
     }
 
     internal const string CmdName = "IsGpsSatMotionFixedResult";
@@ -64365,7 +64842,7 @@ namespace Sdx.Cmd
 
 
   ///
-  /// Please note the command GalileoSatMotionFixed is deprecated since 21.3. You may use SatMotionFixed.
+  /// Please note the command SetGalileoSatMotionFixed is deprecated since 21.3. You may use SetSatMotionFixed.
   /// 
   /// If IsFixed is set to true, the satellite will not move during the simulation and keep its initial position calculated at the beginning of the simulation.
   ///
@@ -64379,7 +64856,7 @@ namespace Sdx.Cmd
   {
     public override string Documentation
     {
-      get { return "Please note the command GalileoSatMotionFixed is deprecated since 21.3. You may use SatMotionFixed.\n\nIf IsFixed is set to true, the satellite will not move during the simulation and keep its initial position calculated at the beginning of the simulation."; }
+      get { return "Please note the command SetGalileoSatMotionFixed is deprecated since 21.3. You may use SetSatMotionFixed.\n\nIf IsFixed is set to true, the satellite will not move during the simulation and keep its initial position calculated at the beginning of the simulation."; }
     }
 
     internal const string CmdName = "SetGalileoSatMotionFixed";
@@ -64429,7 +64906,7 @@ namespace Sdx.Cmd
 
 
   ///
-  /// Please note the command GalileoSatMotionFixed is deprecated since 21.3. You may use SatMotionFixed.
+  /// Please note the command IsGalileoSatMotionFixed is deprecated since 21.3. You may use IsSatMotionFixed.
   /// 
   /// Tells if the satellite is fixed (True) or not fixed (false).
   ///
@@ -64442,7 +64919,7 @@ namespace Sdx.Cmd
   {
     public override string Documentation
     {
-      get { return "Please note the command GalileoSatMotionFixed is deprecated since 21.3. You may use SatMotionFixed.\n\nTells if the satellite is fixed (True) or not fixed (false)."; }
+      get { return "Please note the command IsGalileoSatMotionFixed is deprecated since 21.3. You may use IsSatMotionFixed.\n\nTells if the satellite is fixed (True) or not fixed (false)."; }
     }
 
     internal const string CmdName = "IsGalileoSatMotionFixed";
@@ -64481,7 +64958,7 @@ namespace Sdx.Cmd
 
 
   ///
-  /// Result of IsGalileoSatMotionFixed
+  /// Result of IsGalileoSatMotionFixed.
   ///
   /// Name    Type Description
   /// ------- ---- --------------------------------------------------------------------------------------------------------------
@@ -64493,7 +64970,7 @@ namespace Sdx.Cmd
   {
     public override string Documentation
     {
-      get { return "Result of IsGalileoSatMotionFixed"; }
+      get { return "Result of IsGalileoSatMotionFixed."; }
     }
 
     internal const string CmdName = "IsGalileoSatMotionFixedResult";
@@ -64541,7 +65018,7 @@ namespace Sdx.Cmd
 
 
   ///
-  /// Please note the command BeiDouSatMotionFixed is deprecated since 21.3. You may use SatMotionFixed.
+  /// Please note the command SetBeiDouSatMotionFixed is deprecated since 21.3. You may use SetSatMotionFixed.
   /// 
   /// If IsFixed is set to true, the satellite will not move during the simulation and keep its initial position calculated at the beginning of the simulation.
   ///
@@ -64555,7 +65032,7 @@ namespace Sdx.Cmd
   {
     public override string Documentation
     {
-      get { return "Please note the command BeiDouSatMotionFixed is deprecated since 21.3. You may use SatMotionFixed.\n\nIf IsFixed is set to true, the satellite will not move during the simulation and keep its initial position calculated at the beginning of the simulation."; }
+      get { return "Please note the command SetBeiDouSatMotionFixed is deprecated since 21.3. You may use SetSatMotionFixed.\n\nIf IsFixed is set to true, the satellite will not move during the simulation and keep its initial position calculated at the beginning of the simulation."; }
     }
 
     internal const string CmdName = "SetBeiDouSatMotionFixed";
@@ -64605,7 +65082,7 @@ namespace Sdx.Cmd
 
 
   ///
-  /// Please note the command BeiDouSatMotionFixed is deprecated since 21.3. You may use SatMotionFixed.
+  /// Please note the command IsBeiDouSatMotionFixed is deprecated since 21.3. You may use IsSatMotionFixed.
   /// 
   /// Tells if the satellite is fixed (True) or not fixed (false).
   ///
@@ -64618,7 +65095,7 @@ namespace Sdx.Cmd
   {
     public override string Documentation
     {
-      get { return "Please note the command BeiDouSatMotionFixed is deprecated since 21.3. You may use SatMotionFixed.\n\nTells if the satellite is fixed (True) or not fixed (false)."; }
+      get { return "Please note the command IsBeiDouSatMotionFixed is deprecated since 21.3. You may use IsSatMotionFixed.\n\nTells if the satellite is fixed (True) or not fixed (false)."; }
     }
 
     internal const string CmdName = "IsBeiDouSatMotionFixed";
@@ -64657,7 +65134,7 @@ namespace Sdx.Cmd
 
 
   ///
-  /// Result of IsBeiDouSatMotionFixed
+  /// Result of IsBeiDouSatMotionFixed.
   ///
   /// Name    Type Description
   /// ------- ---- --------------------------------------------------------------------------------------------------------------
@@ -64669,7 +65146,7 @@ namespace Sdx.Cmd
   {
     public override string Documentation
     {
-      get { return "Result of IsBeiDouSatMotionFixed"; }
+      get { return "Result of IsBeiDouSatMotionFixed."; }
     }
 
     internal const string CmdName = "IsBeiDouSatMotionFixedResult";
@@ -64717,7 +65194,7 @@ namespace Sdx.Cmd
 
 
   ///
-  /// Please note the command GpsEphemerisReferenceTime is deprecated since 21.3. You may use EphemerisReferenceTimeForSV.
+  /// Please note the command SetGpsEphemerisReferenceTime is deprecated since 21.3. You may use SetEphemerisReferenceTimeForSV.
   /// 
   /// Set the GPS ephemeris reference time
   ///
@@ -64731,7 +65208,7 @@ namespace Sdx.Cmd
   {
     public override string Documentation
     {
-      get { return "Please note the command GpsEphemerisReferenceTime is deprecated since 21.3. You may use EphemerisReferenceTimeForSV.\n\nSet the GPS ephemeris reference time"; }
+      get { return "Please note the command SetGpsEphemerisReferenceTime is deprecated since 21.3. You may use SetEphemerisReferenceTimeForSV.\n\nSet the GPS ephemeris reference time"; }
     }
 
     internal const string CmdName = "SetGpsEphemerisReferenceTime";
@@ -64781,7 +65258,7 @@ namespace Sdx.Cmd
 
 
   ///
-  /// Please note the command GpsEphemerisReferenceTime is deprecated since 21.3. You may use EphemerisReferenceTimeForSV.
+  /// Please note the command GetGpsEphemerisReferenceTime is deprecated since 21.3. You may use GetEphemerisReferenceTimeForSV.
   /// 
   /// Get the GPS ephemeris reference time
   ///
@@ -64794,7 +65271,7 @@ namespace Sdx.Cmd
   {
     public override string Documentation
     {
-      get { return "Please note the command GpsEphemerisReferenceTime is deprecated since 21.3. You may use EphemerisReferenceTimeForSV.\n\nGet the GPS ephemeris reference time"; }
+      get { return "Please note the command GetGpsEphemerisReferenceTime is deprecated since 21.3. You may use GetEphemerisReferenceTimeForSV.\n\nGet the GPS ephemeris reference time"; }
     }
 
     internal const string CmdName = "GetGpsEphemerisReferenceTime";
@@ -64833,7 +65310,7 @@ namespace Sdx.Cmd
 
 
   ///
-  /// Result of GetGpsEphemerisReferenceTime
+  /// Result of GetGpsEphemerisReferenceTime.
   ///
   /// Name Type     Description
   /// ---- -------- --------------------------------------------------------------
@@ -64845,7 +65322,7 @@ namespace Sdx.Cmd
   {
     public override string Documentation
     {
-      get { return "Result of GetGpsEphemerisReferenceTime"; }
+      get { return "Result of GetGpsEphemerisReferenceTime."; }
     }
 
     internal const string CmdName = "GetGpsEphemerisReferenceTimeResult";
@@ -64893,7 +65370,7 @@ namespace Sdx.Cmd
 
 
   ///
-  /// Please note the command GalileoEphemerisReferenceTime is deprecated since 21.3. You may use EphemerisReferenceTimeForSV.
+  /// Please note the command SetGalileoEphemerisReferenceTime is deprecated since 21.3. You may use SetEphemerisReferenceTimeForSV.
   /// 
   /// Set the Galileo ephemeris reference time
   ///
@@ -64907,7 +65384,7 @@ namespace Sdx.Cmd
   {
     public override string Documentation
     {
-      get { return "Please note the command GalileoEphemerisReferenceTime is deprecated since 21.3. You may use EphemerisReferenceTimeForSV.\n\nSet the Galileo ephemeris reference time"; }
+      get { return "Please note the command SetGalileoEphemerisReferenceTime is deprecated since 21.3. You may use SetEphemerisReferenceTimeForSV.\n\nSet the Galileo ephemeris reference time"; }
     }
 
     internal const string CmdName = "SetGalileoEphemerisReferenceTime";
@@ -64957,7 +65434,7 @@ namespace Sdx.Cmd
 
 
   ///
-  /// Please note the command GalileoEphemerisReferenceTime is deprecated since 21.3. You may use EphemerisReferenceTimeForSV.
+  /// Please note the command GetGalileoEphemerisReferenceTime is deprecated since 21.3. You may use GetEphemerisReferenceTimeForSV.
   /// 
   /// Get the Galileo ephemeris reference time
   ///
@@ -64970,7 +65447,7 @@ namespace Sdx.Cmd
   {
     public override string Documentation
     {
-      get { return "Please note the command GalileoEphemerisReferenceTime is deprecated since 21.3. You may use EphemerisReferenceTimeForSV.\n\nGet the Galileo ephemeris reference time"; }
+      get { return "Please note the command GetGalileoEphemerisReferenceTime is deprecated since 21.3. You may use GetEphemerisReferenceTimeForSV.\n\nGet the Galileo ephemeris reference time"; }
     }
 
     internal const string CmdName = "GetGalileoEphemerisReferenceTime";
@@ -65009,7 +65486,7 @@ namespace Sdx.Cmd
 
 
   ///
-  /// Result of GetGalileoEphemerisReferenceTime
+  /// Result of GetGalileoEphemerisReferenceTime.
   ///
   /// Name Type     Description
   /// ---- -------- --------------------------------------------------------------
@@ -65021,7 +65498,7 @@ namespace Sdx.Cmd
   {
     public override string Documentation
     {
-      get { return "Result of GetGalileoEphemerisReferenceTime"; }
+      get { return "Result of GetGalileoEphemerisReferenceTime."; }
     }
 
     internal const string CmdName = "GetGalileoEphemerisReferenceTimeResult";
@@ -65069,7 +65546,7 @@ namespace Sdx.Cmd
 
 
   ///
-  /// Please note the command BeiDouEphemerisReferenceTime is deprecated since 21.3. You may use EphemerisReferenceTimeForSV.
+  /// Please note the command SetBeiDouEphemerisReferenceTime is deprecated since 21.3. You may use SetEphemerisReferenceTimeForSV.
   /// 
   /// Set the BeiDou ephemeris reference time
   ///
@@ -65083,7 +65560,7 @@ namespace Sdx.Cmd
   {
     public override string Documentation
     {
-      get { return "Please note the command BeiDouEphemerisReferenceTime is deprecated since 21.3. You may use EphemerisReferenceTimeForSV.\n\nSet the BeiDou ephemeris reference time"; }
+      get { return "Please note the command SetBeiDouEphemerisReferenceTime is deprecated since 21.3. You may use SetEphemerisReferenceTimeForSV.\n\nSet the BeiDou ephemeris reference time"; }
     }
 
     internal const string CmdName = "SetBeiDouEphemerisReferenceTime";
@@ -65133,7 +65610,7 @@ namespace Sdx.Cmd
 
 
   ///
-  /// Please note the command BeiDouEphemerisReferenceTime is deprecated since 21.3. You may use EphemerisReferenceTimeForSV.
+  /// Please note the command GetBeiDouEphemerisReferenceTime is deprecated since 21.3. You may use GetEphemerisReferenceTimeForSV.
   /// 
   /// Get the BeiDou ephemeris reference time
   ///
@@ -65146,7 +65623,7 @@ namespace Sdx.Cmd
   {
     public override string Documentation
     {
-      get { return "Please note the command BeiDouEphemerisReferenceTime is deprecated since 21.3. You may use EphemerisReferenceTimeForSV.\n\nGet the BeiDou ephemeris reference time"; }
+      get { return "Please note the command GetBeiDouEphemerisReferenceTime is deprecated since 21.3. You may use GetEphemerisReferenceTimeForSV.\n\nGet the BeiDou ephemeris reference time"; }
     }
 
     internal const string CmdName = "GetBeiDouEphemerisReferenceTime";
@@ -65185,7 +65662,7 @@ namespace Sdx.Cmd
 
 
   ///
-  /// Result of GetBeiDouEphemerisReferenceTime
+  /// Result of GetBeiDouEphemerisReferenceTime.
   ///
   /// Name Type     Description
   /// ---- -------- --------------------------------------------------------------
@@ -65197,7 +65674,7 @@ namespace Sdx.Cmd
   {
     public override string Documentation
     {
-      get { return "Result of GetBeiDouEphemerisReferenceTime"; }
+      get { return "Result of GetBeiDouEphemerisReferenceTime."; }
     }
 
     internal const string CmdName = "GetBeiDouEphemerisReferenceTimeResult";
@@ -65401,7 +65878,7 @@ namespace Sdx.Cmd
 
 
   ///
-  /// Please note the command GpsPerturbations is deprecated since 21.3. You may use Perturbations.
+  /// Please note the command SetGpsPerturbations is deprecated since 21.3. You may use SetPerturbations.
   /// 
   /// Set GPS orbit perturbations (Crs, Crc, Cis, Cic, Cus and Cuc)
   ///
@@ -65420,7 +65897,7 @@ namespace Sdx.Cmd
   {
     public override string Documentation
     {
-      get { return "Please note the command GpsPerturbations is deprecated since 21.3. You may use Perturbations.\n\nSet GPS orbit perturbations (Crs, Crc, Cis, Cic, Cus and Cuc)"; }
+      get { return "Please note the command SetGpsPerturbations is deprecated since 21.3. You may use SetPerturbations.\n\nSet GPS orbit perturbations (Crs, Crc, Cis, Cic, Cus and Cuc)"; }
     }
 
     internal const string CmdName = "SetGpsPerturbations";
@@ -65525,7 +66002,7 @@ namespace Sdx.Cmd
 
 
   ///
-  /// Please note the command GpsPerturbations is deprecated since 21.3. You may use Perturbations.
+  /// Please note the command GetGpsPerturbations is deprecated since 21.3. You may use GetPerturbations.
   /// 
   /// Get GPS orbit perturbations (Crs, Crc, Cis, Cic, Cus and Cuc)
   ///
@@ -65538,7 +66015,7 @@ namespace Sdx.Cmd
   {
     public override string Documentation
     {
-      get { return "Please note the command GpsPerturbations is deprecated since 21.3. You may use Perturbations.\n\nGet GPS orbit perturbations (Crs, Crc, Cis, Cic, Cus and Cuc)"; }
+      get { return "Please note the command GetGpsPerturbations is deprecated since 21.3. You may use GetPerturbations.\n\nGet GPS orbit perturbations (Crs, Crc, Cis, Cic, Cus and Cuc)"; }
     }
 
     internal const string CmdName = "GetGpsPerturbations";
@@ -65577,7 +66054,7 @@ namespace Sdx.Cmd
 
 
   ///
-  /// Result of GetGpsPerturbations
+  /// Result of GetGpsPerturbations.
   ///
   /// Name Type   Description
   /// ---- ------ --------------------------
@@ -65594,7 +66071,7 @@ namespace Sdx.Cmd
   {
     public override string Documentation
     {
-      get { return "Result of GetGpsPerturbations"; }
+      get { return "Result of GetGpsPerturbations."; }
     }
 
     internal const string CmdName = "GetGpsPerturbationsResult";
@@ -65697,7 +66174,7 @@ namespace Sdx.Cmd
 
 
   ///
-  /// Please note the command GalileoPerturbations is deprecated since 21.3. You may use Perturbations.
+  /// Please note the command SetGalileoPerturbations is deprecated since 21.3. You may use SetPerturbations.
   /// 
   /// Set GPS orbit perturbations (Crs, Crc, Cis, Cic, Cus and Cuc)
   ///
@@ -65716,7 +66193,7 @@ namespace Sdx.Cmd
   {
     public override string Documentation
     {
-      get { return "Please note the command GalileoPerturbations is deprecated since 21.3. You may use Perturbations.\n\nSet GPS orbit perturbations (Crs, Crc, Cis, Cic, Cus and Cuc)"; }
+      get { return "Please note the command SetGalileoPerturbations is deprecated since 21.3. You may use SetPerturbations.\n\nSet GPS orbit perturbations (Crs, Crc, Cis, Cic, Cus and Cuc)"; }
     }
 
     internal const string CmdName = "SetGalileoPerturbations";
@@ -65821,7 +66298,7 @@ namespace Sdx.Cmd
 
 
   ///
-  /// Please note the command GalileoPerturbations is deprecated since 21.3. You may use Perturbations.
+  /// Please note the command GetGalileoPerturbations is deprecated since 21.3. You may use GetPerturbations.
   /// 
   /// Get GPS orbit perturbations (Crs, Crc, Cis, Cic, Cus and Cuc)
   ///
@@ -65834,7 +66311,7 @@ namespace Sdx.Cmd
   {
     public override string Documentation
     {
-      get { return "Please note the command GalileoPerturbations is deprecated since 21.3. You may use Perturbations.\n\nGet GPS orbit perturbations (Crs, Crc, Cis, Cic, Cus and Cuc)"; }
+      get { return "Please note the command GetGalileoPerturbations is deprecated since 21.3. You may use GetPerturbations.\n\nGet GPS orbit perturbations (Crs, Crc, Cis, Cic, Cus and Cuc)"; }
     }
 
     internal const string CmdName = "GetGalileoPerturbations";
@@ -65873,7 +66350,7 @@ namespace Sdx.Cmd
 
 
   ///
-  /// Result of GetGalileoPerturbations
+  /// Result of GetGalileoPerturbations.
   ///
   /// Name Type   Description
   /// ---- ------ --------------------------
@@ -65890,7 +66367,7 @@ namespace Sdx.Cmd
   {
     public override string Documentation
     {
-      get { return "Result of GetGalileoPerturbations"; }
+      get { return "Result of GetGalileoPerturbations."; }
     }
 
     internal const string CmdName = "GetGalileoPerturbationsResult";
@@ -65993,7 +66470,7 @@ namespace Sdx.Cmd
 
 
   ///
-  /// Please note the command BeiDouPerturbations is deprecated since 21.3. You may use Perturbations.
+  /// Please note the command SetBeiDouPerturbations is deprecated since 21.3. You may use SetPerturbations.
   /// 
   /// Set BeiDou orbit perturbations (Crs, Crc, Cis, Cic, Cus and Cuc)
   ///
@@ -66012,7 +66489,7 @@ namespace Sdx.Cmd
   {
     public override string Documentation
     {
-      get { return "Please note the command BeiDouPerturbations is deprecated since 21.3. You may use Perturbations.\n\nSet BeiDou orbit perturbations (Crs, Crc, Cis, Cic, Cus and Cuc)"; }
+      get { return "Please note the command SetBeiDouPerturbations is deprecated since 21.3. You may use SetPerturbations.\n\nSet BeiDou orbit perturbations (Crs, Crc, Cis, Cic, Cus and Cuc)"; }
     }
 
     internal const string CmdName = "SetBeiDouPerturbations";
@@ -66117,7 +66594,7 @@ namespace Sdx.Cmd
 
 
   ///
-  /// Please note the command BeiDouPerturbations is deprecated since 21.3. You may use Perturbations.
+  /// Please note the command GetBeiDouPerturbations is deprecated since 21.3. You may use GetPerturbations.
   /// 
   /// Get BeiDou orbit perturbations (Crs, Crc, Cis, Cic, Cus and Cuc)
   ///
@@ -66130,7 +66607,7 @@ namespace Sdx.Cmd
   {
     public override string Documentation
     {
-      get { return "Please note the command BeiDouPerturbations is deprecated since 21.3. You may use Perturbations.\n\nGet BeiDou orbit perturbations (Crs, Crc, Cis, Cic, Cus and Cuc)"; }
+      get { return "Please note the command GetBeiDouPerturbations is deprecated since 21.3. You may use GetPerturbations.\n\nGet BeiDou orbit perturbations (Crs, Crc, Cis, Cic, Cus and Cuc)"; }
     }
 
     internal const string CmdName = "GetBeiDouPerturbations";
@@ -66169,7 +66646,7 @@ namespace Sdx.Cmd
 
 
   ///
-  /// Result of GetBeiDouPerturbations
+  /// Result of GetBeiDouPerturbations.
   ///
   /// Name Type   Description
   /// ---- ------ --------------------------
@@ -66186,7 +66663,7 @@ namespace Sdx.Cmd
   {
     public override string Documentation
     {
-      get { return "Result of GetBeiDouPerturbations"; }
+      get { return "Result of GetBeiDouPerturbations."; }
     }
 
     internal const string CmdName = "GetBeiDouPerturbationsResult";
@@ -66289,7 +66766,7 @@ namespace Sdx.Cmd
 
 
   ///
-  /// Please note the command GpsPerturbationsForAllSat is deprecated since 21.3. You may use PerturbationsForAllSat.
+  /// Please note the command SetGpsPerturbationsForAllSat is deprecated since 21.3. You may use SetPerturbationsForAllSat.
   /// 
   /// Set GPS orbit perturbations (Crs, Crc, Cis, Cic, Cus and Cuc) for all satellites.
   /// All parameters are zero based index (index 0 => PRN 1, index 1 => PRN 2, etc)
@@ -66308,7 +66785,7 @@ namespace Sdx.Cmd
   {
     public override string Documentation
     {
-      get { return "Please note the command GpsPerturbationsForAllSat is deprecated since 21.3. You may use PerturbationsForAllSat.\n\nSet GPS orbit perturbations (Crs, Crc, Cis, Cic, Cus and Cuc) for all satellites.\nAll parameters are zero based index (index 0 => PRN 1, index 1 => PRN 2, etc)"; }
+      get { return "Please note the command SetGpsPerturbationsForAllSat is deprecated since 21.3. You may use SetPerturbationsForAllSat.\n\nSet GPS orbit perturbations (Crs, Crc, Cis, Cic, Cus and Cuc) for all satellites.\nAll parameters are zero based index (index 0 => PRN 1, index 1 => PRN 2, etc)"; }
     }
 
     internal const string CmdName = "SetGpsPerturbationsForAllSat";
@@ -66402,7 +66879,7 @@ namespace Sdx.Cmd
 
 
   ///
-  /// Please note the command GpsPerturbationsForAllSat is deprecated since 21.3. You may use PerturbationsForAllSat.
+  /// Please note the command GetGpsPerturbationsForAllSat is deprecated since 21.3. You may use GetPerturbationsForAllSat.
   /// 
   /// Get GPS orbit perturbations (Crs, Crc, Cis, Cic, Cus and Cuc) for all satellites.
   /// All parameters are zero based index (index 0 => PRN 1, index 1 => PRN 2, etc)
@@ -66414,7 +66891,7 @@ namespace Sdx.Cmd
   {
     public override string Documentation
     {
-      get { return "Please note the command GpsPerturbationsForAllSat is deprecated since 21.3. You may use PerturbationsForAllSat.\n\nGet GPS orbit perturbations (Crs, Crc, Cis, Cic, Cus and Cuc) for all satellites.\nAll parameters are zero based index (index 0 => PRN 1, index 1 => PRN 2, etc)"; }
+      get { return "Please note the command GetGpsPerturbationsForAllSat is deprecated since 21.3. You may use GetPerturbationsForAllSat.\n\nGet GPS orbit perturbations (Crs, Crc, Cis, Cic, Cus and Cuc) for all satellites.\nAll parameters are zero based index (index 0 => PRN 1, index 1 => PRN 2, etc)"; }
     }
 
     internal const string CmdName = "GetGpsPerturbationsForAllSat";
@@ -66437,7 +66914,7 @@ namespace Sdx.Cmd
 
 
   ///
-  /// Result of GetGpsPerturbationsForAllSat
+  /// Result of GetGpsPerturbationsForAllSat.
   ///
   /// Name Type         Description
   /// ---- ------------ -----------
@@ -66453,7 +66930,7 @@ namespace Sdx.Cmd
   {
     public override string Documentation
     {
-      get { return "Result of GetGpsPerturbationsForAllSat"; }
+      get { return "Result of GetGpsPerturbationsForAllSat."; }
     }
 
     internal const string CmdName = "GetGpsPerturbationsForAllSatResult";
@@ -66545,7 +67022,7 @@ namespace Sdx.Cmd
 
 
   ///
-  /// Please note the command GalileoPerturbationsForAllSat is deprecated since 21.3. You may use PerturbationsForAllSat.
+  /// Please note the command SetGalileoPerturbationsForAllSat is deprecated since 21.3. You may use SetPerturbationsForAllSat.
   /// 
   /// Set Galileo orbit perturbations (Crs, Crc, Cis, Cic, Cus and Cuc) for all satellites.
   /// All parameters are zero based index (index 0 => PRN 1, index 1 => PRN 2, etc)
@@ -66564,7 +67041,7 @@ namespace Sdx.Cmd
   {
     public override string Documentation
     {
-      get { return "Please note the command GalileoPerturbationsForAllSat is deprecated since 21.3. You may use PerturbationsForAllSat.\n\nSet Galileo orbit perturbations (Crs, Crc, Cis, Cic, Cus and Cuc) for all satellites.\nAll parameters are zero based index (index 0 => PRN 1, index 1 => PRN 2, etc)"; }
+      get { return "Please note the command SetGalileoPerturbationsForAllSat is deprecated since 21.3. You may use SetPerturbationsForAllSat.\n\nSet Galileo orbit perturbations (Crs, Crc, Cis, Cic, Cus and Cuc) for all satellites.\nAll parameters are zero based index (index 0 => PRN 1, index 1 => PRN 2, etc)"; }
     }
 
     internal const string CmdName = "SetGalileoPerturbationsForAllSat";
@@ -66658,7 +67135,7 @@ namespace Sdx.Cmd
 
 
   ///
-  /// Please note the command GalileoPerturbationsForAllSat is deprecated since 21.3. You may use PerturbationsForAllSat.
+  /// Please note the command GetGalileoPerturbationsForAllSat is deprecated since 21.3. You may use GetPerturbationsForAllSat.
   /// 
   /// Get Galileo orbit perturbations (Crs, Crc, Cis, Cic, Cus and Cuc) for all satellites.
   /// All parameters are zero based index (index 0 => PRN 1, index 1 => PRN 2, etc)
@@ -66670,7 +67147,7 @@ namespace Sdx.Cmd
   {
     public override string Documentation
     {
-      get { return "Please note the command GalileoPerturbationsForAllSat is deprecated since 21.3. You may use PerturbationsForAllSat.\n\nGet Galileo orbit perturbations (Crs, Crc, Cis, Cic, Cus and Cuc) for all satellites.\nAll parameters are zero based index (index 0 => PRN 1, index 1 => PRN 2, etc)"; }
+      get { return "Please note the command GetGalileoPerturbationsForAllSat is deprecated since 21.3. You may use GetPerturbationsForAllSat.\n\nGet Galileo orbit perturbations (Crs, Crc, Cis, Cic, Cus and Cuc) for all satellites.\nAll parameters are zero based index (index 0 => PRN 1, index 1 => PRN 2, etc)"; }
     }
 
     internal const string CmdName = "GetGalileoPerturbationsForAllSat";
@@ -66693,7 +67170,7 @@ namespace Sdx.Cmd
 
 
   ///
-  /// Result of GetGalileoPerturbationsForAllSat
+  /// Result of GetGalileoPerturbationsForAllSat.
   ///
   /// Name Type         Description
   /// ---- ------------ -----------
@@ -66709,7 +67186,7 @@ namespace Sdx.Cmd
   {
     public override string Documentation
     {
-      get { return "Result of GetGalileoPerturbationsForAllSat"; }
+      get { return "Result of GetGalileoPerturbationsForAllSat."; }
     }
 
     internal const string CmdName = "GetGalileoPerturbationsForAllSatResult";
@@ -66801,7 +67278,7 @@ namespace Sdx.Cmd
 
 
   ///
-  /// Please note the command BeiDouPerturbationsForAllSat is deprecated since 21.3. You may use PerturbationsForAllSat.
+  /// Please note the command SetBeiDouPerturbationsForAllSat is deprecated since 21.3. You may use SetPerturbationsForAllSat.
   /// 
   /// Set BeiDou orbit perturbations (Crs, Crc, Cis, Cic, Cus and Cuc) for all satellites.
   /// All parameters are zero based index (index 0 => PRN 1, index 1 => PRN 2, etc)
@@ -66820,7 +67297,7 @@ namespace Sdx.Cmd
   {
     public override string Documentation
     {
-      get { return "Please note the command BeiDouPerturbationsForAllSat is deprecated since 21.3. You may use PerturbationsForAllSat.\n\nSet BeiDou orbit perturbations (Crs, Crc, Cis, Cic, Cus and Cuc) for all satellites.\nAll parameters are zero based index (index 0 => PRN 1, index 1 => PRN 2, etc)"; }
+      get { return "Please note the command SetBeiDouPerturbationsForAllSat is deprecated since 21.3. You may use SetPerturbationsForAllSat.\n\nSet BeiDou orbit perturbations (Crs, Crc, Cis, Cic, Cus and Cuc) for all satellites.\nAll parameters are zero based index (index 0 => PRN 1, index 1 => PRN 2, etc)"; }
     }
 
     internal const string CmdName = "SetBeiDouPerturbationsForAllSat";
@@ -66914,7 +67391,7 @@ namespace Sdx.Cmd
 
 
   ///
-  /// Please note the command BeiDouPerturbationsForAllSat is deprecated since 21.3. You may use PerturbationsForAllSat.
+  /// Please note the command GetBeiDouPerturbationsForAllSat is deprecated since 21.3. You may use GetPerturbationsForAllSat.
   /// 
   /// Get BeiDou orbit perturbations (Crs, Crc, Cis, Cic, Cus and Cuc) for all satellites.
   /// All parameters are zero based index (index 0 => PRN 1, index 1 => PRN 2, etc)
@@ -66926,7 +67403,7 @@ namespace Sdx.Cmd
   {
     public override string Documentation
     {
-      get { return "Please note the command BeiDouPerturbationsForAllSat is deprecated since 21.3. You may use PerturbationsForAllSat.\n\nGet BeiDou orbit perturbations (Crs, Crc, Cis, Cic, Cus and Cuc) for all satellites.\nAll parameters are zero based index (index 0 => PRN 1, index 1 => PRN 2, etc)"; }
+      get { return "Please note the command GetBeiDouPerturbationsForAllSat is deprecated since 21.3. You may use GetPerturbationsForAllSat.\n\nGet BeiDou orbit perturbations (Crs, Crc, Cis, Cic, Cus and Cuc) for all satellites.\nAll parameters are zero based index (index 0 => PRN 1, index 1 => PRN 2, etc)"; }
     }
 
     internal const string CmdName = "GetBeiDouPerturbationsForAllSat";
@@ -66949,7 +67426,7 @@ namespace Sdx.Cmd
 
 
   ///
-  /// Result of GetBeiDouPerturbationsForAllSat
+  /// Result of GetBeiDouPerturbationsForAllSat.
   ///
   /// Name Type         Description
   /// ---- ------------ -----------
@@ -66965,7 +67442,7 @@ namespace Sdx.Cmd
   {
     public override string Documentation
     {
-      get { return "Result of GetBeiDouPerturbationsForAllSat"; }
+      get { return "Result of GetBeiDouPerturbationsForAllSat."; }
     }
 
     internal const string CmdName = "GetBeiDouPerturbationsForAllSatResult";
@@ -67618,7 +68095,7 @@ namespace Sdx.Cmd
 
 
   ///
-  /// Please note the command EnablePrn is deprecated since 21.3. You may use EnableSV.
+  /// Please note the command IsPrnEnabled is deprecated since 21.3. You may use IsSVEnabled.
   /// 
   /// Get  enabled or disabled satellite for this constellation.
   ///
@@ -67632,7 +68109,7 @@ namespace Sdx.Cmd
   {
     public override string Documentation
     {
-      get { return "Please note the command EnablePrn is deprecated since 21.3. You may use EnableSV.\n\nGet  enabled or disabled satellite for this constellation."; }
+      get { return "Please note the command IsPrnEnabled is deprecated since 21.3. You may use IsSVEnabled.\n\nGet  enabled or disabled satellite for this constellation."; }
     }
 
     internal const string CmdName = "IsPrnEnabled";
@@ -67682,7 +68159,7 @@ namespace Sdx.Cmd
 
 
   ///
-  /// Result of IsPrnEnabled
+  /// Result of IsPrnEnabled.
   ///
   /// Name    Type   Description
   /// ------- ------ ----------------------------------------------------------------------------------------------------------
@@ -67695,7 +68172,7 @@ namespace Sdx.Cmd
   {
     public override string Documentation
     {
-      get { return "Result of IsPrnEnabled"; }
+      get { return "Result of IsPrnEnabled."; }
     }
 
     internal const string CmdName = "IsPrnEnabledResult";
@@ -67754,7 +68231,7 @@ namespace Sdx.Cmd
 
 
   ///
-  /// Please note the command PrnsEnabled is deprecated since 21.3. You may use EnableEachSV.
+  /// Please note the command EnablePrns is deprecated since 21.3. You may use EnableEachSV.
   /// 
   /// Set  enabled or disabled satellites for this constellation.
   ///
@@ -67768,7 +68245,7 @@ namespace Sdx.Cmd
   {
     public override string Documentation
     {
-      get { return "Please note the command PrnsEnabled is deprecated since 21.3. You may use EnableEachSV.\n\nSet  enabled or disabled satellites for this constellation."; }
+      get { return "Please note the command EnablePrns is deprecated since 21.3. You may use EnableEachSV.\n\nSet  enabled or disabled satellites for this constellation."; }
     }
 
     internal const string CmdName = "EnablePrns";
@@ -67818,7 +68295,7 @@ namespace Sdx.Cmd
 
 
   ///
-  /// Please note the command PrnsEnabled is deprecated since 21.3. You may use EnableEachSV.
+  /// Please note the command GetPrnsEnabled is deprecated since 21.3. You may use IsEachSVEnabled.
   /// 
   /// Get  enabled or disabled satellites for this constellation.
   ///
@@ -67831,7 +68308,7 @@ namespace Sdx.Cmd
   {
     public override string Documentation
     {
-      get { return "Please note the command PrnsEnabled is deprecated since 21.3. You may use EnableEachSV.\n\nGet  enabled or disabled satellites for this constellation."; }
+      get { return "Please note the command GetPrnsEnabled is deprecated since 21.3. You may use IsEachSVEnabled.\n\nGet  enabled or disabled satellites for this constellation."; }
     }
 
     internal const string CmdName = "GetPrnsEnabled";
@@ -67870,7 +68347,7 @@ namespace Sdx.Cmd
 
 
   ///
-  /// Result of GetPrnsEnabled
+  /// Result of GetPrnsEnabled.
   ///
   /// Name    Type       Description
   /// ------- ---------- ------------------------------------------------------------------------------------------------------
@@ -67882,7 +68359,7 @@ namespace Sdx.Cmd
   {
     public override string Documentation
     {
-      get { return "Result of GetPrnsEnabled"; }
+      get { return "Result of GetPrnsEnabled."; }
     }
 
     internal const string CmdName = "GetPrnsEnabledResult";
@@ -67930,7 +68407,7 @@ namespace Sdx.Cmd
 
 
   ///
-  /// Please note the command GpsEphemerisDoubleParam is deprecated since 21.3. You may use GpsEphDoubleParamForSV.
+  /// Please note the command SetGpsEphemerisDoubleParam is deprecated since 21.3. You may use SetGpsEphDoubleParamForSV.
   /// 
   /// Set various parameters in the GPS ephemeris
   /// 
@@ -67975,7 +68452,7 @@ namespace Sdx.Cmd
   {
     public override string Documentation
     {
-      get { return "Please note the command GpsEphemerisDoubleParam is deprecated since 21.3. You may use GpsEphDoubleParamForSV.\n\nSet various parameters in the GPS ephemeris\n\n  ParamName         Unit\n  \"ClockBias\"       sec\n  \"ClockDrift\"      sec/sec\n  \"ClockDriftRate\"  sec/sec^2\n  \"Crs\"             meter\n  \"Crc\"             meter\n  \"Cis\"             rad\n  \"Cic\"             rad\n  \"Cus\"             rad\n  \"Cuc\"             rad\n  \"DeltaN\"          rad/sec\n  \"M0\"              rad\n  \"Eccentricity\"    -\n  \"SqrtA\"           sqrt(meter)\n  \"BigOmega\"        rad\n  \"I0\"              rad\n  \"LittleOmega\"     rad\n  \"BigOmegaDot\"     rad/sec\n  \"Idot\"            rad/sec\n  \"Accuracy\"        meter\n  \"Adot\"            meters/sec\n  \"DeltaN0dot\"      rad/sec^2\n  \"Tgd\"             sec\n  \"IscL1Ca\"         sec\n  \"IscL2C\"          sec\n  \"IscL5I5\"         sec\n  \"IscL5Q5\"         sec\n  \"IscL1CP\"         sec\n  \"IscL1CD\"         sec"; }
+      get { return "Please note the command SetGpsEphemerisDoubleParam is deprecated since 21.3. You may use SetGpsEphDoubleParamForSV.\n\nSet various parameters in the GPS ephemeris\n\n  ParamName         Unit\n  \"ClockBias\"       sec\n  \"ClockDrift\"      sec/sec\n  \"ClockDriftRate\"  sec/sec^2\n  \"Crs\"             meter\n  \"Crc\"             meter\n  \"Cis\"             rad\n  \"Cic\"             rad\n  \"Cus\"             rad\n  \"Cuc\"             rad\n  \"DeltaN\"          rad/sec\n  \"M0\"              rad\n  \"Eccentricity\"    -\n  \"SqrtA\"           sqrt(meter)\n  \"BigOmega\"        rad\n  \"I0\"              rad\n  \"LittleOmega\"     rad\n  \"BigOmegaDot\"     rad/sec\n  \"Idot\"            rad/sec\n  \"Accuracy\"        meter\n  \"Adot\"            meters/sec\n  \"DeltaN0dot\"      rad/sec^2\n  \"Tgd\"             sec\n  \"IscL1Ca\"         sec\n  \"IscL2C\"          sec\n  \"IscL5I5\"         sec\n  \"IscL5Q5\"         sec\n  \"IscL1CP\"         sec\n  \"IscL1CD\"         sec"; }
     }
 
     internal const string CmdName = "SetGpsEphemerisDoubleParam";
@@ -68036,7 +68513,7 @@ namespace Sdx.Cmd
 
 
   ///
-  /// Please note the command GpsEphemerisDoubleParam is deprecated since 21.3. You may use GpsEphDoubleParamForSV.
+  /// Please note the command GetGpsEphemerisDoubleParam is deprecated since 21.3. You may use GetGpsEphDoubleParamForSV.
   /// 
   /// Get various parameters in the GPS ephemeris
   /// 
@@ -68080,7 +68557,7 @@ namespace Sdx.Cmd
   {
     public override string Documentation
     {
-      get { return "Please note the command GpsEphemerisDoubleParam is deprecated since 21.3. You may use GpsEphDoubleParamForSV.\n\nGet various parameters in the GPS ephemeris\n\n  ParamName         Unit\n  \"ClockBias\"       sec\n  \"ClockDrift\"      sec/sec\n  \"ClockDriftRate\"  sec/sec^2\n  \"Crs\"             meter\n  \"Crc\"             meter\n  \"Cis\"             rad\n  \"Cic\"             rad\n  \"Cus\"             rad\n  \"Cuc\"             rad\n  \"DeltaN\"          rad/sec\n  \"M0\"              rad\n  \"Eccentricity\"    -\n  \"SqrtA\"           sqrt(meter)\n  \"BigOmega\"        rad\n  \"I0\"              rad\n  \"LittleOmega\"     rad\n  \"BigOmegaDot\"     rad/sec\n  \"Idot\"            rad/sec\n  \"Accuracy\"        meter\n  \"Adot\"            meters/sec\n  \"DeltaN0dot\"      rad/sec^2\n  \"Tgd\"             sec\n  \"IscL1Ca\"         sec\n  \"IscL2C\"          sec\n  \"IscL5I5\"         sec\n  \"IscL5Q5\"         sec\n  \"IscL1CP\"         sec\n  \"IscL1CD\"         sec"; }
+      get { return "Please note the command GetGpsEphemerisDoubleParam is deprecated since 21.3. You may use GetGpsEphDoubleParamForSV.\n\nGet various parameters in the GPS ephemeris\n\n  ParamName         Unit\n  \"ClockBias\"       sec\n  \"ClockDrift\"      sec/sec\n  \"ClockDriftRate\"  sec/sec^2\n  \"Crs\"             meter\n  \"Crc\"             meter\n  \"Cis\"             rad\n  \"Cic\"             rad\n  \"Cus\"             rad\n  \"Cuc\"             rad\n  \"DeltaN\"          rad/sec\n  \"M0\"              rad\n  \"Eccentricity\"    -\n  \"SqrtA\"           sqrt(meter)\n  \"BigOmega\"        rad\n  \"I0\"              rad\n  \"LittleOmega\"     rad\n  \"BigOmegaDot\"     rad/sec\n  \"Idot\"            rad/sec\n  \"Accuracy\"        meter\n  \"Adot\"            meters/sec\n  \"DeltaN0dot\"      rad/sec^2\n  \"Tgd\"             sec\n  \"IscL1Ca\"         sec\n  \"IscL2C\"          sec\n  \"IscL5I5\"         sec\n  \"IscL5Q5\"         sec\n  \"IscL1CP\"         sec\n  \"IscL1CD\"         sec"; }
     }
 
     internal const string CmdName = "GetGpsEphemerisDoubleParam";
@@ -68130,7 +68607,7 @@ namespace Sdx.Cmd
 
 
   ///
-  /// Result of GetGpsEphemerisDoubleParam
+  /// Result of GetGpsEphemerisDoubleParam.
   ///
   /// Name      Type   Description
   /// --------- ------ -------------------------------------------------------------------------
@@ -68143,7 +68620,7 @@ namespace Sdx.Cmd
   {
     public override string Documentation
     {
-      get { return "Result of GetGpsEphemerisDoubleParam"; }
+      get { return "Result of GetGpsEphemerisDoubleParam."; }
     }
 
     internal const string CmdName = "GetGpsEphemerisDoubleParamResult";
@@ -68202,7 +68679,7 @@ namespace Sdx.Cmd
 
 
   ///
-  /// Please note the command GalileoEphemerisDoubleParam is deprecated since 21.3. You may use GalileoEphDoubleParamForSV.
+  /// Please note the command SetGalileoEphemerisDoubleParam is deprecated since 21.3. You may use SetGalileoEphDoubleParamForSV.
   /// 
   /// Set various parameters in the Galileo ephemeris
   /// 
@@ -68243,7 +68720,7 @@ namespace Sdx.Cmd
   {
     public override string Documentation
     {
-      get { return "Please note the command GalileoEphemerisDoubleParam is deprecated since 21.3. You may use GalileoEphDoubleParamForSV.\n\nSet various parameters in the Galileo ephemeris\n\n  ParamName         Unit\n  \"ClockBias\"       sec\n  \"ClockDrift\"      sec/sec\n  \"ClockDriftRate\"  sec/sec^2\n  \"Crs\"             meter\n  \"Crc\"             meter\n  \"Cis\"             rad\n  \"Cic\"             rad\n  \"Cus\"             rad\n  \"Cuc\"             rad\n  \"DeltaN\"          rad/sec\n  \"M0\"              rad\n  \"Eccentricity\"    -\n  \"SqrtA\"           sqrt(meter)\n  \"BigOmega\"        rad\n  \"I0\"              rad\n  \"LittleOmega\"     rad\n  \"BigOmegaDot\"     rad/sec\n  \"Idot\"            rad/sec\n  \"Accuracy\"        meter\n  \"Adot\"            meters/sec\n  \"DeltaN0dot\"      rad/sec^2\n  \"Tgd\"             sec\n  \"BgdE1E5a\"        ns\n  \"BgdE1E5b\"        ns"; }
+      get { return "Please note the command SetGalileoEphemerisDoubleParam is deprecated since 21.3. You may use SetGalileoEphDoubleParamForSV.\n\nSet various parameters in the Galileo ephemeris\n\n  ParamName         Unit\n  \"ClockBias\"       sec\n  \"ClockDrift\"      sec/sec\n  \"ClockDriftRate\"  sec/sec^2\n  \"Crs\"             meter\n  \"Crc\"             meter\n  \"Cis\"             rad\n  \"Cic\"             rad\n  \"Cus\"             rad\n  \"Cuc\"             rad\n  \"DeltaN\"          rad/sec\n  \"M0\"              rad\n  \"Eccentricity\"    -\n  \"SqrtA\"           sqrt(meter)\n  \"BigOmega\"        rad\n  \"I0\"              rad\n  \"LittleOmega\"     rad\n  \"BigOmegaDot\"     rad/sec\n  \"Idot\"            rad/sec\n  \"Accuracy\"        meter\n  \"Adot\"            meters/sec\n  \"DeltaN0dot\"      rad/sec^2\n  \"Tgd\"             sec\n  \"BgdE1E5a\"        ns\n  \"BgdE1E5b\"        ns"; }
     }
 
     internal const string CmdName = "SetGalileoEphemerisDoubleParam";
@@ -68304,7 +68781,7 @@ namespace Sdx.Cmd
 
 
   ///
-  /// Please note the command GalileoEphemerisDoubleParam is deprecated since 21.3. You may use GalileoEphDoubleParamForSV.
+  /// Please note the command GetGalileoEphemerisDoubleParam is deprecated since 21.3. You may use GetGalileoEphDoubleParamForSV.
   /// 
   /// Get various parameters in the Galileo ephemeris
   /// 
@@ -68344,7 +68821,7 @@ namespace Sdx.Cmd
   {
     public override string Documentation
     {
-      get { return "Please note the command GalileoEphemerisDoubleParam is deprecated since 21.3. You may use GalileoEphDoubleParamForSV.\n\nGet various parameters in the Galileo ephemeris\n\n  ParamName         Unit\n  \"ClockBias\"       sec\n  \"ClockDrift\"      sec/sec\n  \"ClockDriftRate\"  sec/sec^2\n  \"Crs\"             meter\n  \"Crc\"             meter\n  \"Cis\"             rad\n  \"Cic\"             rad\n  \"Cus\"             rad\n  \"Cuc\"             rad\n  \"DeltaN\"          rad/sec\n  \"M0\"              rad\n  \"Eccentricity\"    -\n  \"SqrtA\"           sqrt(meter)\n  \"BigOmega\"        rad\n  \"I0\"              rad\n  \"LittleOmega\"     rad\n  \"BigOmegaDot\"     rad/sec\n  \"Idot\"            rad/sec\n  \"Accuracy\"        meter\n  \"Adot\"            meters/sec\n  \"DeltaN0dot\"      rad/sec^2\n  \"Tgd\"             sec\n  \"BgdE1E5a\"        ns\n  \"BgdE1E5b\"        ns"; }
+      get { return "Please note the command GetGalileoEphemerisDoubleParam is deprecated since 21.3. You may use GetGalileoEphDoubleParamForSV.\n\nGet various parameters in the Galileo ephemeris\n\n  ParamName         Unit\n  \"ClockBias\"       sec\n  \"ClockDrift\"      sec/sec\n  \"ClockDriftRate\"  sec/sec^2\n  \"Crs\"             meter\n  \"Crc\"             meter\n  \"Cis\"             rad\n  \"Cic\"             rad\n  \"Cus\"             rad\n  \"Cuc\"             rad\n  \"DeltaN\"          rad/sec\n  \"M0\"              rad\n  \"Eccentricity\"    -\n  \"SqrtA\"           sqrt(meter)\n  \"BigOmega\"        rad\n  \"I0\"              rad\n  \"LittleOmega\"     rad\n  \"BigOmegaDot\"     rad/sec\n  \"Idot\"            rad/sec\n  \"Accuracy\"        meter\n  \"Adot\"            meters/sec\n  \"DeltaN0dot\"      rad/sec^2\n  \"Tgd\"             sec\n  \"BgdE1E5a\"        ns\n  \"BgdE1E5b\"        ns"; }
     }
 
     internal const string CmdName = "GetGalileoEphemerisDoubleParam";
@@ -68394,7 +68871,7 @@ namespace Sdx.Cmd
 
 
   ///
-  /// Result of GetGalileoEphemerisDoubleParam
+  /// Result of GetGalileoEphemerisDoubleParam.
   ///
   /// Name      Type   Description
   /// --------- ------ -------------------------------------------------------------------------
@@ -68407,7 +68884,7 @@ namespace Sdx.Cmd
   {
     public override string Documentation
     {
-      get { return "Result of GetGalileoEphemerisDoubleParam"; }
+      get { return "Result of GetGalileoEphemerisDoubleParam."; }
     }
 
     internal const string CmdName = "GetGalileoEphemerisDoubleParamResult";
@@ -68466,7 +68943,7 @@ namespace Sdx.Cmd
 
 
   ///
-  /// Please note the command BeiDouEphemerisDoubleParam is deprecated since 21.3. You may use BeiDouEphDoubleParamForSV.
+  /// Please note the command SetBeiDouEphemerisDoubleParam is deprecated since 21.3. You may use SetBeiDouEphDoubleParamForSV.
   /// 
   /// Set various parameters in the BeiDou ephemeris
   /// 
@@ -68508,7 +68985,7 @@ namespace Sdx.Cmd
   {
     public override string Documentation
     {
-      get { return "Please note the command BeiDouEphemerisDoubleParam is deprecated since 21.3. You may use BeiDouEphDoubleParamForSV.\n\nSet various parameters in the BeiDou ephemeris\n\n  ParamName         Unit\n  \"ClockBias\"       sec\n  \"ClockDrift\"      sec/sec\n  \"ClockDriftRate\"  sec/sec^2\n  \"Crs\"             meter\n  \"Crc\"             meter\n  \"Cis\"             rad\n  \"Cic\"             rad\n  \"Cus\"             rad\n  \"Cuc\"             rad\n  \"DeltaN\"          rad/sec\n  \"M0\"              rad\n  \"Eccentricity\"    -\n  \"SqrtA\"           sqrt(meter)\n  \"BigOmega\"        rad\n  \"I0\"              rad\n  \"LittleOmega\"     rad\n  \"BigOmegaDot\"     rad/sec\n  \"Idot\"            rad/sec\n  \"Accuracy\"        meter\n  \"Adot\"            meters/sec\n  \"DeltaN0dot\"      rad/sec^2\n  \"Tgd1\"            sec\n  \"Tgd2\"            sec\n  \"TgdB1Cp\"         sec\n  \"TgdB2Ap\"         sec"; }
+      get { return "Please note the command SetBeiDouEphemerisDoubleParam is deprecated since 21.3. You may use SetBeiDouEphDoubleParamForSV.\n\nSet various parameters in the BeiDou ephemeris\n\n  ParamName         Unit\n  \"ClockBias\"       sec\n  \"ClockDrift\"      sec/sec\n  \"ClockDriftRate\"  sec/sec^2\n  \"Crs\"             meter\n  \"Crc\"             meter\n  \"Cis\"             rad\n  \"Cic\"             rad\n  \"Cus\"             rad\n  \"Cuc\"             rad\n  \"DeltaN\"          rad/sec\n  \"M0\"              rad\n  \"Eccentricity\"    -\n  \"SqrtA\"           sqrt(meter)\n  \"BigOmega\"        rad\n  \"I0\"              rad\n  \"LittleOmega\"     rad\n  \"BigOmegaDot\"     rad/sec\n  \"Idot\"            rad/sec\n  \"Accuracy\"        meter\n  \"Adot\"            meters/sec\n  \"DeltaN0dot\"      rad/sec^2\n  \"Tgd1\"            sec\n  \"Tgd2\"            sec\n  \"TgdB1Cp\"         sec\n  \"TgdB2Ap\"         sec"; }
     }
 
     internal const string CmdName = "SetBeiDouEphemerisDoubleParam";
@@ -68569,7 +69046,7 @@ namespace Sdx.Cmd
 
 
   ///
-  /// Please note the command BeiDouEphemerisDoubleParam is deprecated since 21.3. You may use BeiDouEphDoubleParamForSV.
+  /// Please note the command GetBeiDouEphemerisDoubleParam is deprecated since 21.3. You may use GetBeiDouEphDoubleParamForSV.
   /// 
   /// Get various parameters in the BeiDou ephemeris
   /// 
@@ -68610,7 +69087,7 @@ namespace Sdx.Cmd
   {
     public override string Documentation
     {
-      get { return "Please note the command BeiDouEphemerisDoubleParam is deprecated since 21.3. You may use BeiDouEphDoubleParamForSV.\n\nGet various parameters in the BeiDou ephemeris\n\n  ParamName         Unit\n  \"ClockBias\"       sec\n  \"ClockDrift\"      sec/sec\n  \"ClockDriftRate\"  sec/sec^2\n  \"Crs\"             meter\n  \"Crc\"             meter\n  \"Cis\"             rad\n  \"Cic\"             rad\n  \"Cus\"             rad\n  \"Cuc\"             rad\n  \"DeltaN\"          rad/sec\n  \"M0\"              rad\n  \"Eccentricity\"    -\n  \"SqrtA\"           sqrt(meter)\n  \"BigOmega\"        rad\n  \"I0\"              rad\n  \"LittleOmega\"     rad\n  \"BigOmegaDot\"     rad/sec\n  \"Idot\"            rad/sec\n  \"Accuracy\"        meter\n  \"Adot\"            meters/sec\n  \"DeltaN0dot\"      rad/sec^2\n  \"Tgd1\"            sec\n  \"Tgd2\"            sec\n  \"TgdB1Cp\"         sec\n  \"TgdB2Ap\"         sec"; }
+      get { return "Please note the command GetBeiDouEphemerisDoubleParam is deprecated since 21.3. You may use GetBeiDouEphDoubleParamForSV.\n\nGet various parameters in the BeiDou ephemeris\n\n  ParamName         Unit\n  \"ClockBias\"       sec\n  \"ClockDrift\"      sec/sec\n  \"ClockDriftRate\"  sec/sec^2\n  \"Crs\"             meter\n  \"Crc\"             meter\n  \"Cis\"             rad\n  \"Cic\"             rad\n  \"Cus\"             rad\n  \"Cuc\"             rad\n  \"DeltaN\"          rad/sec\n  \"M0\"              rad\n  \"Eccentricity\"    -\n  \"SqrtA\"           sqrt(meter)\n  \"BigOmega\"        rad\n  \"I0\"              rad\n  \"LittleOmega\"     rad\n  \"BigOmegaDot\"     rad/sec\n  \"Idot\"            rad/sec\n  \"Accuracy\"        meter\n  \"Adot\"            meters/sec\n  \"DeltaN0dot\"      rad/sec^2\n  \"Tgd1\"            sec\n  \"Tgd2\"            sec\n  \"TgdB1Cp\"         sec\n  \"TgdB2Ap\"         sec"; }
     }
 
     internal const string CmdName = "GetBeiDouEphemerisDoubleParam";
@@ -68660,7 +69137,7 @@ namespace Sdx.Cmd
 
 
   ///
-  /// Result of GetBeiDouEphemerisDoubleParam
+  /// Result of GetBeiDouEphemerisDoubleParam.
   ///
   /// Name      Type   Description
   /// --------- ------ -------------------------------------------------------------------------
@@ -68673,7 +69150,7 @@ namespace Sdx.Cmd
   {
     public override string Documentation
     {
-      get { return "Result of GetBeiDouEphemerisDoubleParam"; }
+      get { return "Result of GetBeiDouEphemerisDoubleParam."; }
     }
 
     internal const string CmdName = "GetBeiDouEphemerisDoubleParamResult";
@@ -68732,7 +69209,7 @@ namespace Sdx.Cmd
 
 
   ///
-  /// Please note the command GlonassDoubleParam is deprecated since 21.3. You may use GlonassEphDoubleParamForSV.
+  /// Please note the command SetGlonassDoubleParam is deprecated since 21.3. You may use SetGlonassEphDoubleParamForSV.
   /// 
   /// Set various parameters for GLONASS
   /// 
@@ -68759,7 +69236,7 @@ namespace Sdx.Cmd
   {
     public override string Documentation
     {
-      get { return "Please note the command GlonassDoubleParam is deprecated since 21.3. You may use GlonassEphDoubleParamForSV.\n\nSet various parameters for GLONASS\n\n  ParamName       Unit               Range          Description\n  \"TauC\"          sec                +/- 1          GLONASS time scale correction to UTC(SU) time\n  \"TauGps\"        day                +/- 1.9x10^-3  Correction to GPS time relative to GLONASS time\n  \"TauN\"          sec                +/- 1.9x10^-3  Coarse value of satellite time correction to GLONASS time\n  \"TLambda\"       sec                0..44100       Time of the first ascending node passage\n  \"Lambda\"        semicircle         +/- 1          Longitude of the first ascending node\n  \"DeltaI\"        semicircle         +/- 0.067      Correction to the mean value of inclination\n  \"Omega\"         semicircle         +/- 1          Argument of perigee\n  \"Eccentricity\"  -                  0..0.03        Eccentricity\n  \"DeltaT\"        sec/orb. period    +/- 3.6x10^3   Correction to the mean value of Draconian period\n  \"DeltaTRate\"    sec/orb. period^2  +/- 2^-8       Rate of change of Draconian period"; }
+      get { return "Please note the command SetGlonassDoubleParam is deprecated since 21.3. You may use SetGlonassEphDoubleParamForSV.\n\nSet various parameters for GLONASS\n\n  ParamName       Unit               Range          Description\n  \"TauC\"          sec                +/- 1          GLONASS time scale correction to UTC(SU) time\n  \"TauGps\"        day                +/- 1.9x10^-3  Correction to GPS time relative to GLONASS time\n  \"TauN\"          sec                +/- 1.9x10^-3  Coarse value of satellite time correction to GLONASS time\n  \"TLambda\"       sec                0..44100       Time of the first ascending node passage\n  \"Lambda\"        semicircle         +/- 1          Longitude of the first ascending node\n  \"DeltaI\"        semicircle         +/- 0.067      Correction to the mean value of inclination\n  \"Omega\"         semicircle         +/- 1          Argument of perigee\n  \"Eccentricity\"  -                  0..0.03        Eccentricity\n  \"DeltaT\"        sec/orb. period    +/- 3.6x10^3   Correction to the mean value of Draconian period\n  \"DeltaTRate\"    sec/orb. period^2  +/- 2^-8       Rate of change of Draconian period"; }
     }
 
     internal const string CmdName = "SetGlonassDoubleParam";
@@ -68820,7 +69297,7 @@ namespace Sdx.Cmd
 
 
   ///
-  /// Please note the command GlonassDoubleParam is deprecated since 21.3. You may use GlonassEphDoubleParamForSV.
+  /// Please note the command GetGlonassDoubleParam is deprecated since 21.3. You may use GetGlonassEphDoubleParamForSV.
   /// 
   /// Get various parameters for GLONASS
   /// 
@@ -68846,7 +69323,7 @@ namespace Sdx.Cmd
   {
     public override string Documentation
     {
-      get { return "Please note the command GlonassDoubleParam is deprecated since 21.3. You may use GlonassEphDoubleParamForSV.\n\nGet various parameters for GLONASS\n\n  ParamName       Unit               Range          Description\n  \"TauC\"          sec                +/- 1          GLONASS time scale correction to UTC(SU) time\n  \"TauGps\"        day                +/- 1.9x10^-3  Correction to GPS time relative to GLONASS time\n  \"TauN\"          sec                +/- 1.9x10^-3  Coarse value of satellite time correction to GLONASS time\n  \"TLambda\"       sec                0..44100       Time of the first ascending node passage\n  \"Lambda\"        semicircle         +/- 1          Longitude of the first ascending node\n  \"DeltaI\"        semicircle         +/- 0.067      Correction to the mean value of inclination\n  \"Omega\"         semicircle         +/- 1          Argument of perigee\n  \"Eccentricity\"  -                  0..0.03        Eccentricity\n  \"DeltaT\"        sec/orb. period    +/- 3.6x10^3   Correction to the mean value of Draconian period\n  \"DeltaTRate\"    sec/orb. period^2  +/- 2^-8       Rate of change of Draconian period"; }
+      get { return "Please note the command GetGlonassDoubleParam is deprecated since 21.3. You may use GetGlonassEphDoubleParamForSV.\n\nGet various parameters for GLONASS\n\n  ParamName       Unit               Range          Description\n  \"TauC\"          sec                +/- 1          GLONASS time scale correction to UTC(SU) time\n  \"TauGps\"        day                +/- 1.9x10^-3  Correction to GPS time relative to GLONASS time\n  \"TauN\"          sec                +/- 1.9x10^-3  Coarse value of satellite time correction to GLONASS time\n  \"TLambda\"       sec                0..44100       Time of the first ascending node passage\n  \"Lambda\"        semicircle         +/- 1          Longitude of the first ascending node\n  \"DeltaI\"        semicircle         +/- 0.067      Correction to the mean value of inclination\n  \"Omega\"         semicircle         +/- 1          Argument of perigee\n  \"Eccentricity\"  -                  0..0.03        Eccentricity\n  \"DeltaT\"        sec/orb. period    +/- 3.6x10^3   Correction to the mean value of Draconian period\n  \"DeltaTRate\"    sec/orb. period^2  +/- 2^-8       Rate of change of Draconian period"; }
     }
 
     internal const string CmdName = "GetGlonassDoubleParam";
@@ -68896,7 +69373,7 @@ namespace Sdx.Cmd
 
 
   ///
-  /// Result of GetGlonassDoubleParam
+  /// Result of GetGlonassDoubleParam.
   ///
   /// Name      Type   Description
   /// --------- ------ --------------------------------------------------------------------------------
@@ -68909,7 +69386,7 @@ namespace Sdx.Cmd
   {
     public override string Documentation
     {
-      get { return "Result of GetGlonassDoubleParam"; }
+      get { return "Result of GetGlonassDoubleParam."; }
     }
 
     internal const string CmdName = "GetGlonassDoubleParamResult";
@@ -68968,7 +69445,7 @@ namespace Sdx.Cmd
 
 
   ///
-  /// Please note the command GlonassSatelliteEphemerisHealthFlag is deprecated since 21.3. You may use GlonassEphemerisHealthFlagForSV.
+  /// Please note the command SetGlonassSatelliteEphemerisHealthFlag is deprecated since 21.3. You may use SetGlonassEphemerisHealthFlagForSV.
   /// 
   /// Set GLONASS satellite Ephemeris Health Flag Bn(ln)
   ///
@@ -68982,7 +69459,7 @@ namespace Sdx.Cmd
   {
     public override string Documentation
     {
-      get { return "Please note the command GlonassSatelliteEphemerisHealthFlag is deprecated since 21.3. You may use GlonassEphemerisHealthFlagForSV.\n\nSet GLONASS satellite Ephemeris Health Flag Bn(ln)"; }
+      get { return "Please note the command SetGlonassSatelliteEphemerisHealthFlag is deprecated since 21.3. You may use SetGlonassEphemerisHealthFlagForSV.\n\nSet GLONASS satellite Ephemeris Health Flag Bn(ln)"; }
     }
 
     internal const string CmdName = "SetGlonassSatelliteEphemerisHealthFlag";
@@ -69032,7 +69509,7 @@ namespace Sdx.Cmd
 
 
   ///
-  /// Please note the command GlonassSatelliteEphemerisHealthFlag is deprecated since 21.3. You may use GlonassEphemerisHealthFlagForSV.
+  /// Please note the command GetGlonassSatelliteEphemerisHealthFlag is deprecated since 21.3. You may use GetGlonassEphemerisHealthFlagForSV.
   /// 
   /// Get GLONASS satellite Ephemeris Health Flag Bn(ln)
   ///
@@ -69045,7 +69522,7 @@ namespace Sdx.Cmd
   {
     public override string Documentation
     {
-      get { return "Please note the command GlonassSatelliteEphemerisHealthFlag is deprecated since 21.3. You may use GlonassEphemerisHealthFlagForSV.\n\nGet GLONASS satellite Ephemeris Health Flag Bn(ln)"; }
+      get { return "Please note the command GetGlonassSatelliteEphemerisHealthFlag is deprecated since 21.3. You may use GetGlonassEphemerisHealthFlagForSV.\n\nGet GLONASS satellite Ephemeris Health Flag Bn(ln)"; }
     }
 
     internal const string CmdName = "GetGlonassSatelliteEphemerisHealthFlag";
@@ -69084,7 +69561,7 @@ namespace Sdx.Cmd
 
 
   ///
-  /// Result of GetGlonassSatelliteEphemerisHealthFlag
+  /// Result of GetGlonassSatelliteEphemerisHealthFlag.
   ///
   /// Name   Type Description
   /// ------ ---- --------------------------------------
@@ -69096,7 +69573,7 @@ namespace Sdx.Cmd
   {
     public override string Documentation
     {
-      get { return "Result of GetGlonassSatelliteEphemerisHealthFlag"; }
+      get { return "Result of GetGlonassSatelliteEphemerisHealthFlag."; }
     }
 
     internal const string CmdName = "GetGlonassSatelliteEphemerisHealthFlagResult";
@@ -69144,7 +69621,7 @@ namespace Sdx.Cmd
 
 
   ///
-  /// Please note the command GlonassSatelliteAlmanacUnhealthyFlag is deprecated since 21.3. You may use GlonassAlmanacUnhealthyFlagForSV.
+  /// Please note the command SetGlonassSatelliteAlmanacUnhealthyFlag is deprecated since 21.3. You may use SetGlonassAlmanacUnhealthyFlagForSV.
   /// 
   /// Set GLONASS satellite Almanac Unhealthy Flag Cn
   ///
@@ -69158,7 +69635,7 @@ namespace Sdx.Cmd
   {
     public override string Documentation
     {
-      get { return "Please note the command GlonassSatelliteAlmanacUnhealthyFlag is deprecated since 21.3. You may use GlonassAlmanacUnhealthyFlagForSV.\n\nSet GLONASS satellite Almanac Unhealthy Flag Cn"; }
+      get { return "Please note the command SetGlonassSatelliteAlmanacUnhealthyFlag is deprecated since 21.3. You may use SetGlonassAlmanacUnhealthyFlagForSV.\n\nSet GLONASS satellite Almanac Unhealthy Flag Cn"; }
     }
 
     internal const string CmdName = "SetGlonassSatelliteAlmanacUnhealthyFlag";
@@ -69208,7 +69685,7 @@ namespace Sdx.Cmd
 
 
   ///
-  /// Please note the command GlonassSatelliteAlmanacUnhealthyFlag is deprecated since 21.3. You may use GlonassAlmanacUnhealthyFlagForSV.
+  /// Please note the command GetGlonassSatelliteAlmanacUnhealthyFlag is deprecated since 21.3. You may use GetGlonassAlmanacUnhealthyFlagForSV.
   /// 
   /// Get GLONASS satellite Almanac Unhealthy Flag Cn
   ///
@@ -69221,7 +69698,7 @@ namespace Sdx.Cmd
   {
     public override string Documentation
     {
-      get { return "Please note the command GlonassSatelliteAlmanacUnhealthyFlag is deprecated since 21.3. You may use GlonassAlmanacUnhealthyFlagForSV.\n\nGet GLONASS satellite Almanac Unhealthy Flag Cn"; }
+      get { return "Please note the command GetGlonassSatelliteAlmanacUnhealthyFlag is deprecated since 21.3. You may use GetGlonassAlmanacUnhealthyFlagForSV.\n\nGet GLONASS satellite Almanac Unhealthy Flag Cn"; }
     }
 
     internal const string CmdName = "GetGlonassSatelliteAlmanacUnhealthyFlag";
@@ -69260,7 +69737,7 @@ namespace Sdx.Cmd
 
 
   ///
-  /// Result of GetGlonassSatelliteAlmanacUnhealthyFlag
+  /// Result of GetGlonassSatelliteAlmanacUnhealthyFlag.
   ///
   /// Name   Type Description
   /// ------ ---- ----------------------------------------------------------
@@ -69272,7 +69749,7 @@ namespace Sdx.Cmd
   {
     public override string Documentation
     {
-      get { return "Result of GetGlonassSatelliteAlmanacUnhealthyFlag"; }
+      get { return "Result of GetGlonassSatelliteAlmanacUnhealthyFlag."; }
     }
 
     internal const string CmdName = "GetGlonassSatelliteAlmanacUnhealthyFlagResult";
@@ -69320,7 +69797,7 @@ namespace Sdx.Cmd
 
 
   ///
-  /// Please note the command GalileoSatelliteSignalHealth is deprecated since 21.3. You may use GalileoSignalHealthForSV.
+  /// Please note the command SetGalileoSatelliteSignalHealth is deprecated since 21.3. You may use SetGalileoSignalHealthForSV.
   /// 
   /// Set Galileo signal health for I/NAV and F/NAV message
   ///
@@ -69335,7 +69812,7 @@ namespace Sdx.Cmd
   {
     public override string Documentation
     {
-      get { return "Please note the command GalileoSatelliteSignalHealth is deprecated since 21.3. You may use GalileoSignalHealthForSV.\n\nSet Galileo signal health for I/NAV and F/NAV message"; }
+      get { return "Please note the command SetGalileoSatelliteSignalHealth is deprecated since 21.3. You may use SetGalileoSignalHealthForSV.\n\nSet Galileo signal health for I/NAV and F/NAV message"; }
     }
 
     internal const string CmdName = "SetGalileoSatelliteSignalHealth";
@@ -69396,7 +69873,7 @@ namespace Sdx.Cmd
 
 
   ///
-  /// Please note the command GalileoSatelliteSignalHealth is deprecated since 21.3. You may use GalileoSignalHealthForSV.
+  /// Please note the command GetGalileoSatelliteSignalHealth is deprecated since 21.3. You may use GetGalileoSignalHealthForSV.
   /// 
   /// Get Galileo signal health for I/NAV and F/NAV message
   ///
@@ -69410,7 +69887,7 @@ namespace Sdx.Cmd
   {
     public override string Documentation
     {
-      get { return "Please note the command GalileoSatelliteSignalHealth is deprecated since 21.3. You may use GalileoSignalHealthForSV.\n\nGet Galileo signal health for I/NAV and F/NAV message"; }
+      get { return "Please note the command GetGalileoSatelliteSignalHealth is deprecated since 21.3. You may use GetGalileoSignalHealthForSV.\n\nGet Galileo signal health for I/NAV and F/NAV message"; }
     }
 
     internal const string CmdName = "GetGalileoSatelliteSignalHealth";
@@ -69460,7 +69937,7 @@ namespace Sdx.Cmd
 
 
   ///
-  /// Result of GetGalileoSatelliteSignalHealth
+  /// Result of GetGalileoSatelliteSignalHealth.
   ///
   /// Name      Type   Description
   /// --------- ------ ------------------------------------------
@@ -69473,7 +69950,7 @@ namespace Sdx.Cmd
   {
     public override string Documentation
     {
-      get { return "Result of GetGalileoSatelliteSignalHealth"; }
+      get { return "Result of GetGalileoSatelliteSignalHealth."; }
     }
 
     internal const string CmdName = "GetGalileoSatelliteSignalHealthResult";
@@ -69532,7 +70009,7 @@ namespace Sdx.Cmd
 
 
   ///
-  /// Please note the command GalileoSatelliteDataHealth is deprecated since 21.3. You may use GalileoDataHealthForSV.
+  /// Please note the command SetGalileoSatelliteDataHealth is deprecated since 21.3. You may use SetGalileoDataHealthForSV.
   /// 
   /// Set Galileo data health for I/NAV and F/NAV message
   ///
@@ -69547,7 +70024,7 @@ namespace Sdx.Cmd
   {
     public override string Documentation
     {
-      get { return "Please note the command GalileoSatelliteDataHealth is deprecated since 21.3. You may use GalileoDataHealthForSV.\n\nSet Galileo data health for I/NAV and F/NAV message"; }
+      get { return "Please note the command SetGalileoSatelliteDataHealth is deprecated since 21.3. You may use SetGalileoDataHealthForSV.\n\nSet Galileo data health for I/NAV and F/NAV message"; }
     }
 
     internal const string CmdName = "SetGalileoSatelliteDataHealth";
@@ -69608,7 +70085,7 @@ namespace Sdx.Cmd
 
 
   ///
-  /// Please note the command GalileoSatelliteDataHealth is deprecated since 21.3. You may use GalileoDataHealthForSV.
+  /// Please note the command GetGalileoSatelliteDataHealth is deprecated since 21.3. You may use GetGalileoDataHealthForSV.
   /// 
   /// Get Galileo data health for I/NAV and F/NAV message
   ///
@@ -69622,7 +70099,7 @@ namespace Sdx.Cmd
   {
     public override string Documentation
     {
-      get { return "Please note the command GalileoSatelliteDataHealth is deprecated since 21.3. You may use GalileoDataHealthForSV.\n\nGet Galileo data health for I/NAV and F/NAV message"; }
+      get { return "Please note the command GetGalileoSatelliteDataHealth is deprecated since 21.3. You may use GetGalileoDataHealthForSV.\n\nGet Galileo data health for I/NAV and F/NAV message"; }
     }
 
     internal const string CmdName = "GetGalileoSatelliteDataHealth";
@@ -69672,7 +70149,7 @@ namespace Sdx.Cmd
 
 
   ///
-  /// Result of GetGalileoSatelliteDataHealth
+  /// Result of GetGalileoSatelliteDataHealth.
   ///
   /// Name      Type   Description
   /// --------- ------ -----------------------------------------------------------------------
@@ -69685,7 +70162,7 @@ namespace Sdx.Cmd
   {
     public override string Documentation
     {
-      get { return "Result of GetGalileoSatelliteDataHealth"; }
+      get { return "Result of GetGalileoSatelliteDataHealth."; }
     }
 
     internal const string CmdName = "GetGalileoSatelliteDataHealthResult";
@@ -69744,7 +70221,7 @@ namespace Sdx.Cmd
 
 
   ///
-  /// Please note the command SVAntennaModelToPrn is deprecated since 21.3. You may use SVAntennaModelForSV.
+  /// Please note the command SetSVAntennaModelToPrn is deprecated since 21.3. You may use SetSVAntennaModelForSV.
   /// 
   /// Set the antenna model used by the PRN.
   ///
@@ -69759,7 +70236,7 @@ namespace Sdx.Cmd
   {
     public override string Documentation
     {
-      get { return "Please note the command SVAntennaModelToPrn is deprecated since 21.3. You may use SVAntennaModelForSV.\n\nSet the antenna model used by the PRN."; }
+      get { return "Please note the command SetSVAntennaModelToPrn is deprecated since 21.3. You may use SetSVAntennaModelForSV.\n\nSet the antenna model used by the PRN."; }
     }
 
     internal const string CmdName = "SetSVAntennaModelToPrn";
@@ -69820,7 +70297,7 @@ namespace Sdx.Cmd
 
 
   ///
-  /// Please note the command SVAntennaModelToPrn is deprecated since 21.3. You may use SVAntennaModelForSV.
+  /// Please note the command GetSVAntennaModelToPrn is deprecated since 21.3. You may use GetSVAntennaModelForSV.
   /// 
   /// Get the antenna model used by the PRN.
   ///
@@ -69834,7 +70311,7 @@ namespace Sdx.Cmd
   {
     public override string Documentation
     {
-      get { return "Please note the command SVAntennaModelToPrn is deprecated since 21.3. You may use SVAntennaModelForSV.\n\nGet the antenna model used by the PRN."; }
+      get { return "Please note the command GetSVAntennaModelToPrn is deprecated since 21.3. You may use GetSVAntennaModelForSV.\n\nGet the antenna model used by the PRN."; }
     }
 
     internal const string CmdName = "GetSVAntennaModelToPrn";
@@ -69884,7 +70361,7 @@ namespace Sdx.Cmd
 
 
   ///
-  /// Result of GetSVAntennaModelToPrn
+  /// Result of GetSVAntennaModelToPrn.
   ///
   /// Name             Type   Description
   /// ---------------- ------ ----------------------------------------------------------------------------------------------------------
@@ -69897,7 +70374,7 @@ namespace Sdx.Cmd
   {
     public override string Documentation
     {
-      get { return "Result of GetSVAntennaModelToPrn"; }
+      get { return "Result of GetSVAntennaModelToPrn."; }
     }
 
     internal const string CmdName = "GetSVAntennaModelToPrnResult";
@@ -69956,7 +70433,7 @@ namespace Sdx.Cmd
 
 
   ///
-  /// Please note the command GpsEphemerisBoolParam is deprecated since 21.3. You may use GpsEphBoolParamForSV.
+  /// Please note the command SetGpsEphemerisBoolParam is deprecated since 21.3. You may use SetGpsEphBoolParamForSV.
   /// 
   /// Set various boolean parameters in the GPS ephemeris
   /// 
@@ -69979,7 +70456,7 @@ namespace Sdx.Cmd
   {
     public override string Documentation
     {
-      get { return "Please note the command GpsEphemerisBoolParam is deprecated since 21.3. You may use GpsEphBoolParamForSV.\n\nSet various boolean parameters in the GPS ephemeris\n\n  ParamName\n\"IscL1CaAvailable\"\n\"IscL2CAvailable\"\n\"IscL5I5Available\"\n\"IscL5Q5Available\"\n\"IscL1CPAvailable\"\n\"IscL1CDAvailable\""; }
+      get { return "Please note the command SetGpsEphemerisBoolParam is deprecated since 21.3. You may use SetGpsEphBoolParamForSV.\n\nSet various boolean parameters in the GPS ephemeris\n\n  ParamName\n\"IscL1CaAvailable\"\n\"IscL2CAvailable\"\n\"IscL5I5Available\"\n\"IscL5Q5Available\"\n\"IscL1CPAvailable\"\n\"IscL1CDAvailable\""; }
     }
 
     internal const string CmdName = "SetGpsEphemerisBoolParam";
@@ -70040,7 +70517,7 @@ namespace Sdx.Cmd
 
 
   ///
-  /// Please note the command GpsEphemerisBoolParam is deprecated since 21.3. You may use GpsEphBoolParamForSV.
+  /// Please note the command GetGpsEphemerisBoolParam is deprecated since 21.3. You may use GetGpsEphBoolParamForSV.
   /// 
   /// Get various boolean parameters in the GPS ephemeris
   /// 
@@ -70062,7 +70539,7 @@ namespace Sdx.Cmd
   {
     public override string Documentation
     {
-      get { return "Please note the command GpsEphemerisBoolParam is deprecated since 21.3. You may use GpsEphBoolParamForSV.\n\nGet various boolean parameters in the GPS ephemeris\n\n  ParamName\n\"IscL1CaAvailable\"\n\"IscL2CAvailable\"\n\"IscL5I5Available\"\n\"IscL5Q5Available\"\n\"IscL1CPAvailable\"\n\"IscL1CDAvailable\""; }
+      get { return "Please note the command GetGpsEphemerisBoolParam is deprecated since 21.3. You may use GetGpsEphBoolParamForSV.\n\nGet various boolean parameters in the GPS ephemeris\n\n  ParamName\n\"IscL1CaAvailable\"\n\"IscL2CAvailable\"\n\"IscL5I5Available\"\n\"IscL5Q5Available\"\n\"IscL1CPAvailable\"\n\"IscL1CDAvailable\""; }
     }
 
     internal const string CmdName = "GetGpsEphemerisBoolParam";
@@ -70112,7 +70589,7 @@ namespace Sdx.Cmd
 
 
   ///
-  /// Result of GetGpsEphemerisBoolParam
+  /// Result of GetGpsEphemerisBoolParam.
   ///
   /// Name      Type   Description
   /// --------- ------ -------------------------------------------------------------------------
@@ -70125,7 +70602,7 @@ namespace Sdx.Cmd
   {
     public override string Documentation
     {
-      get { return "Result of GetGpsEphemerisBoolParam"; }
+      get { return "Result of GetGpsEphemerisBoolParam."; }
     }
 
     internal const string CmdName = "GetGpsEphemerisBoolParamResult";
@@ -70184,7 +70661,7 @@ namespace Sdx.Cmd
 
 
   ///
-  /// Please note the command BeiDouEphemerisBoolParam is deprecated since 21.3. You may use BeiDouEphBoolParamForSV.
+  /// Please note the command SetBeiDouEphemerisBoolParam is deprecated since 21.3. You may use SetBeiDouEphBoolParamForSV.
   /// 
   /// Set various boolean parameters in the BeiDou ephemeris
   /// 
@@ -70203,7 +70680,7 @@ namespace Sdx.Cmd
   {
     public override string Documentation
     {
-      get { return "Please note the command BeiDouEphemerisBoolParam is deprecated since 21.3. You may use BeiDouEphBoolParamForSV.\n\nSet various boolean parameters in the BeiDou ephemeris\n\n  ParamName\n\"IscB1CdAvailable\"\n\"IscB2adAvailable\""; }
+      get { return "Please note the command SetBeiDouEphemerisBoolParam is deprecated since 21.3. You may use SetBeiDouEphBoolParamForSV.\n\nSet various boolean parameters in the BeiDou ephemeris\n\n  ParamName\n\"IscB1CdAvailable\"\n\"IscB2adAvailable\""; }
     }
 
     internal const string CmdName = "SetBeiDouEphemerisBoolParam";
@@ -70264,7 +70741,7 @@ namespace Sdx.Cmd
 
 
   ///
-  /// Please note the command BeiDouEphemerisBoolParam is deprecated since 21.3. You may use BeiDouEphBoolParamForSV.
+  /// Please note the command GetBeiDouEphemerisBoolParam is deprecated since 21.3. You may use GetBeiDouEphBoolParamForSV.
   /// 
   /// Get various boolean parameters in the BeiDou ephemeris
   /// 
@@ -70282,7 +70759,7 @@ namespace Sdx.Cmd
   {
     public override string Documentation
     {
-      get { return "Please note the command BeiDouEphemerisBoolParam is deprecated since 21.3. You may use BeiDouEphBoolParamForSV.\n\nGet various boolean parameters in the BeiDou ephemeris\n\n  ParamName\n\"IscB1CdAvailable\"\n\"IscB2adAvailable\""; }
+      get { return "Please note the command GetBeiDouEphemerisBoolParam is deprecated since 21.3. You may use GetBeiDouEphBoolParamForSV.\n\nGet various boolean parameters in the BeiDou ephemeris\n\n  ParamName\n\"IscB1CdAvailable\"\n\"IscB2adAvailable\""; }
     }
 
     internal const string CmdName = "GetBeiDouEphemerisBoolParam";
@@ -70332,7 +70809,7 @@ namespace Sdx.Cmd
 
 
   ///
-  /// Result of GetBeiDouEphemerisBoolParam
+  /// Result of GetBeiDouEphemerisBoolParam.
   ///
   /// Name      Type   Description
   /// --------- ------ -------------------------------------------------------------------------
@@ -70345,7 +70822,7 @@ namespace Sdx.Cmd
   {
     public override string Documentation
     {
-      get { return "Result of GetBeiDouEphemerisBoolParam"; }
+      get { return "Result of GetBeiDouEphemerisBoolParam."; }
     }
 
     internal const string CmdName = "GetBeiDouEphemerisBoolParamResult";
@@ -70604,7 +71081,7 @@ namespace Sdx.Cmd
 
 
   ///
-  /// Please note the command GpsSVConfiguration is deprecated since 21.3. You may use GpsConfigurationCodeForSV.
+  /// Please note the command SetGpsSVConfiguration is deprecated since 21.3. You may use SetGpsConfigurationCodeForSV.
   /// 
   /// Set GPS SV configuration flag for one PRN
   ///
@@ -70618,7 +71095,7 @@ namespace Sdx.Cmd
   {
     public override string Documentation
     {
-      get { return "Please note the command GpsSVConfiguration is deprecated since 21.3. You may use GpsConfigurationCodeForSV.\n\nSet GPS SV configuration flag for one PRN"; }
+      get { return "Please note the command SetGpsSVConfiguration is deprecated since 21.3. You may use SetGpsConfigurationCodeForSV.\n\nSet GPS SV configuration flag for one PRN"; }
     }
 
     internal const string CmdName = "SetGpsSVConfiguration";
@@ -70668,7 +71145,7 @@ namespace Sdx.Cmd
 
 
   ///
-  /// Please note the command GpsSVConfiguration is deprecated since 21.3. You may use GpsConfigurationCodeForSV.
+  /// Please note the command GetGpsSVConfiguration is deprecated since 21.3. You may use GetGpsConfigurationCodeForSV.
   /// 
   /// Get GPS SV configuration flag for one PRN
   ///
@@ -70681,7 +71158,7 @@ namespace Sdx.Cmd
   {
     public override string Documentation
     {
-      get { return "Please note the command GpsSVConfiguration is deprecated since 21.3. You may use GpsConfigurationCodeForSV.\n\nGet GPS SV configuration flag for one PRN"; }
+      get { return "Please note the command GetGpsSVConfiguration is deprecated since 21.3. You may use GetGpsConfigurationCodeForSV.\n\nGet GPS SV configuration flag for one PRN"; }
     }
 
     internal const string CmdName = "GetGpsSVConfiguration";
@@ -70720,7 +71197,7 @@ namespace Sdx.Cmd
 
 
   ///
-  /// Result of GetGpsSVConfiguration
+  /// Result of GetGpsSVConfiguration.
   ///
   /// Name     Type Description
   /// -------- ---- --------------------------
@@ -70732,7 +71209,7 @@ namespace Sdx.Cmd
   {
     public override string Documentation
     {
-      get { return "Result of GetGpsSVConfiguration"; }
+      get { return "Result of GetGpsSVConfiguration."; }
     }
 
     internal const string CmdName = "GetGpsSVConfigurationResult";
@@ -70780,7 +71257,7 @@ namespace Sdx.Cmd
 
 
   ///
-  /// Please note the command GpsSatelliteDataHealth is deprecated since 21.3. You may use GpsDataHealthForSV.
+  /// Please note the command SetGpsSatelliteDataHealth is deprecated since 21.3. You may use SetGpsDataHealthForSV.
   /// 
   /// Set GPS nav data health
   ///
@@ -70794,7 +71271,7 @@ namespace Sdx.Cmd
   {
     public override string Documentation
     {
-      get { return "Please note the command GpsSatelliteDataHealth is deprecated since 21.3. You may use GpsDataHealthForSV.\n\nSet GPS nav data health"; }
+      get { return "Please note the command SetGpsSatelliteDataHealth is deprecated since 21.3. You may use SetGpsDataHealthForSV.\n\nSet GPS nav data health"; }
     }
 
     internal const string CmdName = "SetGpsSatelliteDataHealth";
@@ -70844,7 +71321,7 @@ namespace Sdx.Cmd
 
 
   ///
-  /// Please note the command GpsSatelliteDataHealth is deprecated since 21.3. You may use GpsDataHealthForSV.
+  /// Please note the command GetGpsSatelliteDataHealth is deprecated since 21.3. You may use GetGpsDataHealthForSV.
   /// 
   /// Get GPS nav data health
   ///
@@ -70857,7 +71334,7 @@ namespace Sdx.Cmd
   {
     public override string Documentation
     {
-      get { return "Please note the command GpsSatelliteDataHealth is deprecated since 21.3. You may use GpsDataHealthForSV.\n\nGet GPS nav data health"; }
+      get { return "Please note the command GetGpsSatelliteDataHealth is deprecated since 21.3. You may use GetGpsDataHealthForSV.\n\nGet GPS nav data health"; }
     }
 
     internal const string CmdName = "GetGpsSatelliteDataHealth";
@@ -70896,7 +71373,7 @@ namespace Sdx.Cmd
 
 
   ///
-  /// Result of GetGpsSatelliteDataHealth
+  /// Result of GetGpsSatelliteDataHealth.
   ///
   /// Name   Type Description
   /// ------ ---- --------------------------
@@ -70908,7 +71385,7 @@ namespace Sdx.Cmd
   {
     public override string Documentation
     {
-      get { return "Result of GetGpsSatelliteDataHealth"; }
+      get { return "Result of GetGpsSatelliteDataHealth."; }
     }
 
     internal const string CmdName = "GetGpsSatelliteDataHealthResult";
@@ -70956,7 +71433,7 @@ namespace Sdx.Cmd
 
 
   ///
-  /// Please note the command GpsSatelliteSignalHealth is deprecated since 21.3. You may use GpsSignalHealthForSV.
+  /// Please note the command SetGpsSatelliteSignalHealth is deprecated since 21.3. You may use SetGpsSignalHealthForSV.
   /// 
   /// Set GPS signal health
   ///
@@ -70970,7 +71447,7 @@ namespace Sdx.Cmd
   {
     public override string Documentation
     {
-      get { return "Please note the command GpsSatelliteSignalHealth is deprecated since 21.3. You may use GpsSignalHealthForSV.\n\nSet GPS signal health"; }
+      get { return "Please note the command SetGpsSatelliteSignalHealth is deprecated since 21.3. You may use SetGpsSignalHealthForSV.\n\nSet GPS signal health"; }
     }
 
     internal const string CmdName = "SetGpsSatelliteSignalHealth";
@@ -71020,7 +71497,7 @@ namespace Sdx.Cmd
 
 
   ///
-  /// Please note the command GpsSatelliteSignalHealth is deprecated since 21.3. You may use GpsSignalHealthForSV.
+  /// Please note the command GetGpsSatelliteSignalHealth is deprecated since 21.3. You may use GetGpsSignalHealthForSV.
   /// 
   /// Get GPS signal health
   ///
@@ -71033,7 +71510,7 @@ namespace Sdx.Cmd
   {
     public override string Documentation
     {
-      get { return "Please note the command GpsSatelliteSignalHealth is deprecated since 21.3. You may use GpsSignalHealthForSV.\n\nGet GPS signal health"; }
+      get { return "Please note the command GetGpsSatelliteSignalHealth is deprecated since 21.3. You may use GetGpsSignalHealthForSV.\n\nGet GPS signal health"; }
     }
 
     internal const string CmdName = "GetGpsSatelliteSignalHealth";
@@ -71072,7 +71549,7 @@ namespace Sdx.Cmd
 
 
   ///
-  /// Result of GetGpsSatelliteSignalHealth
+  /// Result of GetGpsSatelliteSignalHealth.
   ///
   /// Name   Type Description
   /// ------ ---- --------------------------
@@ -71084,7 +71561,7 @@ namespace Sdx.Cmd
   {
     public override string Documentation
     {
-      get { return "Result of GetGpsSatelliteSignalHealth"; }
+      get { return "Result of GetGpsSatelliteSignalHealth."; }
     }
 
     internal const string CmdName = "GetGpsSatelliteSignalHealthResult";
@@ -71132,7 +71609,7 @@ namespace Sdx.Cmd
 
 
   ///
-  /// Please note the command GpsSatelliteL1Health is deprecated since 21.3. You may use GpsL1HealthForSV.
+  /// Please note the command SetGpsSatelliteL1Health is deprecated since 21.3. You may use SetGpsL1HealthForSV.
   /// 
   /// Set GPS L1 health (used with CNAV and CNAV2)
   ///
@@ -71146,7 +71623,7 @@ namespace Sdx.Cmd
   {
     public override string Documentation
     {
-      get { return "Please note the command GpsSatelliteL1Health is deprecated since 21.3. You may use GpsL1HealthForSV.\n\nSet GPS L1 health (used with CNAV and CNAV2)"; }
+      get { return "Please note the command SetGpsSatelliteL1Health is deprecated since 21.3. You may use SetGpsL1HealthForSV.\n\nSet GPS L1 health (used with CNAV and CNAV2)"; }
     }
 
     internal const string CmdName = "SetGpsSatelliteL1Health";
@@ -71196,7 +71673,7 @@ namespace Sdx.Cmd
 
 
   ///
-  /// Please note the command GpsSatelliteL1Health is deprecated since 21.3. You may use GpsL1HealthForSV.
+  /// Please note the command GetGpsSatelliteL1Health is deprecated since 21.3. You may use GetGpsL1HealthForSV.
   /// 
   /// Get GPS L1 health (used with CNAV and CNAV2)
   ///
@@ -71209,7 +71686,7 @@ namespace Sdx.Cmd
   {
     public override string Documentation
     {
-      get { return "Please note the command GpsSatelliteL1Health is deprecated since 21.3. You may use GpsL1HealthForSV.\n\nGet GPS L1 health (used with CNAV and CNAV2)"; }
+      get { return "Please note the command GetGpsSatelliteL1Health is deprecated since 21.3. You may use GetGpsL1HealthForSV.\n\nGet GPS L1 health (used with CNAV and CNAV2)"; }
     }
 
     internal const string CmdName = "GetGpsSatelliteL1Health";
@@ -71248,7 +71725,7 @@ namespace Sdx.Cmd
 
 
   ///
-  /// Result of GetGpsSatelliteL1Health
+  /// Result of GetGpsSatelliteL1Health.
   ///
   /// Name   Type Description
   /// ------ ---- --------------------------------------------------------------
@@ -71260,7 +71737,7 @@ namespace Sdx.Cmd
   {
     public override string Documentation
     {
-      get { return "Result of GetGpsSatelliteL1Health"; }
+      get { return "Result of GetGpsSatelliteL1Health."; }
     }
 
     internal const string CmdName = "GetGpsSatelliteL1HealthResult";
@@ -71308,7 +71785,7 @@ namespace Sdx.Cmd
 
 
   ///
-  /// Please note the command GpsSatelliteL2Health is deprecated since 21.3. You may use GpsL2HealthForSV.
+  /// Please note the command SetGpsSatelliteL2Health is deprecated since 21.3. You may use SetGpsL2HealthForSV.
   /// 
   /// Set GPS L2 health (used with CNAV and CNAV2)
   ///
@@ -71322,7 +71799,7 @@ namespace Sdx.Cmd
   {
     public override string Documentation
     {
-      get { return "Please note the command GpsSatelliteL2Health is deprecated since 21.3. You may use GpsL2HealthForSV.\n\nSet GPS L2 health (used with CNAV and CNAV2)"; }
+      get { return "Please note the command SetGpsSatelliteL2Health is deprecated since 21.3. You may use SetGpsL2HealthForSV.\n\nSet GPS L2 health (used with CNAV and CNAV2)"; }
     }
 
     internal const string CmdName = "SetGpsSatelliteL2Health";
@@ -71372,7 +71849,7 @@ namespace Sdx.Cmd
 
 
   ///
-  /// Please note the command GpsSatelliteL2Health is deprecated since 21.3. You may use GpsL2HealthForSV.
+  /// Please note the command GetGpsSatelliteL2Health is deprecated since 21.3. You may use GetGpsL2HealthForSV.
   /// 
   /// Get GPS L2 health (used with CNAV and CNAV2)
   ///
@@ -71385,7 +71862,7 @@ namespace Sdx.Cmd
   {
     public override string Documentation
     {
-      get { return "Please note the command GpsSatelliteL2Health is deprecated since 21.3. You may use GpsL2HealthForSV.\n\nGet GPS L2 health (used with CNAV and CNAV2)"; }
+      get { return "Please note the command GetGpsSatelliteL2Health is deprecated since 21.3. You may use GetGpsL2HealthForSV.\n\nGet GPS L2 health (used with CNAV and CNAV2)"; }
     }
 
     internal const string CmdName = "GetGpsSatelliteL2Health";
@@ -71424,7 +71901,7 @@ namespace Sdx.Cmd
 
 
   ///
-  /// Result of GetGpsSatelliteL2Health
+  /// Result of GetGpsSatelliteL2Health.
   ///
   /// Name   Type Description
   /// ------ ---- --------------------------------------------------------------
@@ -71436,7 +71913,7 @@ namespace Sdx.Cmd
   {
     public override string Documentation
     {
-      get { return "Result of GetGpsSatelliteL2Health"; }
+      get { return "Result of GetGpsSatelliteL2Health."; }
     }
 
     internal const string CmdName = "GetGpsSatelliteL2HealthResult";
@@ -71484,7 +71961,7 @@ namespace Sdx.Cmd
 
 
   ///
-  /// Please note the command GpsSatelliteL5Health is deprecated since 21.3. You may use GpsL5HealthForSV.
+  /// Please note the command SetGpsSatelliteL5Health is deprecated since 21.3. You may use SetGpsL5HealthForSV.
   /// 
   /// Set GPS L5 health (used with CNAV and CNAV2)
   ///
@@ -71498,7 +71975,7 @@ namespace Sdx.Cmd
   {
     public override string Documentation
     {
-      get { return "Please note the command GpsSatelliteL5Health is deprecated since 21.3. You may use GpsL5HealthForSV.\n\nSet GPS L5 health (used with CNAV and CNAV2)"; }
+      get { return "Please note the command SetGpsSatelliteL5Health is deprecated since 21.3. You may use SetGpsL5HealthForSV.\n\nSet GPS L5 health (used with CNAV and CNAV2)"; }
     }
 
     internal const string CmdName = "SetGpsSatelliteL5Health";
@@ -71548,7 +72025,7 @@ namespace Sdx.Cmd
 
 
   ///
-  /// Please note the command GpsSatelliteL5Health is deprecated since 21.3. You may use GpsL5HealthForSV.
+  /// Please note the command GetGpsSatelliteL5Health is deprecated since 21.3. You may use GetGpsL5HealthForSV.
   /// 
   /// Get GPS L5 health (used with CNAV and CNAV2)
   ///
@@ -71561,7 +72038,7 @@ namespace Sdx.Cmd
   {
     public override string Documentation
     {
-      get { return "Please note the command GpsSatelliteL5Health is deprecated since 21.3. You may use GpsL5HealthForSV.\n\nGet GPS L5 health (used with CNAV and CNAV2)"; }
+      get { return "Please note the command GetGpsSatelliteL5Health is deprecated since 21.3. You may use GetGpsL5HealthForSV.\n\nGet GPS L5 health (used with CNAV and CNAV2)"; }
     }
 
     internal const string CmdName = "GetGpsSatelliteL5Health";
@@ -71600,7 +72077,7 @@ namespace Sdx.Cmd
 
 
   ///
-  /// Result of GetGpsSatelliteL5Health
+  /// Result of GetGpsSatelliteL5Health.
   ///
   /// Name   Type Description
   /// ------ ---- --------------------------------------------------------------
@@ -71612,7 +72089,7 @@ namespace Sdx.Cmd
   {
     public override string Documentation
     {
-      get { return "Result of GetGpsSatelliteL5Health"; }
+      get { return "Result of GetGpsSatelliteL5Health."; }
     }
 
     internal const string CmdName = "GetGpsSatelliteL5HealthResult";
@@ -71660,7 +72137,7 @@ namespace Sdx.Cmd
 
 
   ///
-  /// Please note the command GpsSatelliteL1cHealth is deprecated since 21.3. You may use GpsL1cHealthForSV.
+  /// Please note the command SetGpsSatelliteL1cHealth is deprecated since 21.3. You may use SetGpsL1cHealthForSV.
   /// 
   /// Set GPS L1C health (used in CNAV2 only)
   ///
@@ -71674,7 +72151,7 @@ namespace Sdx.Cmd
   {
     public override string Documentation
     {
-      get { return "Please note the command GpsSatelliteL1cHealth is deprecated since 21.3. You may use GpsL1cHealthForSV.\n\nSet GPS L1C health (used in CNAV2 only)"; }
+      get { return "Please note the command SetGpsSatelliteL1cHealth is deprecated since 21.3. You may use SetGpsL1cHealthForSV.\n\nSet GPS L1C health (used in CNAV2 only)"; }
     }
 
     internal const string CmdName = "SetGpsSatelliteL1cHealth";
@@ -71724,7 +72201,7 @@ namespace Sdx.Cmd
 
 
   ///
-  /// Please note the command GpsSatelliteL1cHealth is deprecated since 21.3. You may use GpsL1cHealthForSV.
+  /// Please note the command GetGpsSatelliteL1cHealth is deprecated since 21.3. You may use GetGpsL1cHealthForSV.
   /// 
   /// Get GPS L1C health (used in CNAV2 only)
   ///
@@ -71737,7 +72214,7 @@ namespace Sdx.Cmd
   {
     public override string Documentation
     {
-      get { return "Please note the command GpsSatelliteL1cHealth is deprecated since 21.3. You may use GpsL1cHealthForSV.\n\nGet GPS L1C health (used in CNAV2 only)"; }
+      get { return "Please note the command GetGpsSatelliteL1cHealth is deprecated since 21.3. You may use GetGpsL1cHealthForSV.\n\nGet GPS L1C health (used in CNAV2 only)"; }
     }
 
     internal const string CmdName = "GetGpsSatelliteL1cHealth";
@@ -71776,7 +72253,7 @@ namespace Sdx.Cmd
 
 
   ///
-  /// Result of GetGpsSatelliteL1cHealth
+  /// Result of GetGpsSatelliteL1cHealth.
   ///
   /// Name   Type Description
   /// ------ ---- ---------------------------------------------------------------
@@ -71788,7 +72265,7 @@ namespace Sdx.Cmd
   {
     public override string Documentation
     {
-      get { return "Result of GetGpsSatelliteL1cHealth"; }
+      get { return "Result of GetGpsSatelliteL1cHealth."; }
     }
 
     internal const string CmdName = "GetGpsSatelliteL1cHealthResult";
@@ -71836,7 +72313,7 @@ namespace Sdx.Cmd
 
 
   ///
-  /// Please note the command GpsSatelliteAntiSpoofingFlag is deprecated since 21.3. You may use GpsAntiSpoofingFlagForSV.
+  /// Please note the command SetGpsSatelliteAntiSpoofingFlag is deprecated since 21.3. You may use SetGpsAntiSpoofingFlagForSV.
   /// 
   /// Set GPS Anti-Spoofing Flag
   ///
@@ -71850,7 +72327,7 @@ namespace Sdx.Cmd
   {
     public override string Documentation
     {
-      get { return "Please note the command GpsSatelliteAntiSpoofingFlag is deprecated since 21.3. You may use GpsAntiSpoofingFlagForSV.\n\nSet GPS Anti-Spoofing Flag"; }
+      get { return "Please note the command SetGpsSatelliteAntiSpoofingFlag is deprecated since 21.3. You may use SetGpsAntiSpoofingFlagForSV.\n\nSet GPS Anti-Spoofing Flag"; }
     }
 
     internal const string CmdName = "SetGpsSatelliteAntiSpoofingFlag";
@@ -71900,7 +72377,7 @@ namespace Sdx.Cmd
 
 
   ///
-  /// Please note the command GpsSatelliteAntiSpoofingFlag is deprecated since 21.3. You may use GpsAntiSpoofingFlagForSV.
+  /// Please note the command GetGpsSatelliteAntiSpoofingFlag is deprecated since 21.3. You may use GetGpsAntiSpoofingFlagForSV.
   /// 
   /// Get GPS Anti-Spoofing Flag
   ///
@@ -71913,7 +72390,7 @@ namespace Sdx.Cmd
   {
     public override string Documentation
     {
-      get { return "Please note the command GpsSatelliteAntiSpoofingFlag is deprecated since 21.3. You may use GpsAntiSpoofingFlagForSV.\n\nGet GPS Anti-Spoofing Flag"; }
+      get { return "Please note the command GetGpsSatelliteAntiSpoofingFlag is deprecated since 21.3. You may use GetGpsAntiSpoofingFlagForSV.\n\nGet GPS Anti-Spoofing Flag"; }
     }
 
     internal const string CmdName = "GetGpsSatelliteAntiSpoofingFlag";
@@ -71952,7 +72429,7 @@ namespace Sdx.Cmd
 
 
   ///
-  /// Result of GetGpsSatelliteAntiSpoofingFlag
+  /// Result of GetGpsSatelliteAntiSpoofingFlag.
   ///
   /// Name         Type      Description
   /// ------------ --------- --------------------------
@@ -71964,7 +72441,7 @@ namespace Sdx.Cmd
   {
     public override string Documentation
     {
-      get { return "Result of GetGpsSatelliteAntiSpoofingFlag"; }
+      get { return "Result of GetGpsSatelliteAntiSpoofingFlag."; }
     }
 
     internal const string CmdName = "GetGpsSatelliteAntiSpoofingFlagResult";
@@ -72012,7 +72489,7 @@ namespace Sdx.Cmd
 
 
   ///
-  /// Please note the command GpsSatelliteNavAlertFlag is deprecated since 21.3. You may use GpsNavAlertFlagForSV.
+  /// Please note the command SetGpsSatelliteNavAlertFlag is deprecated since 21.3. You may use SetGpsNavAlertFlagForSV.
   /// 
   /// Set GPS NAV Alert Flag
   ///
@@ -72026,7 +72503,7 @@ namespace Sdx.Cmd
   {
     public override string Documentation
     {
-      get { return "Please note the command GpsSatelliteNavAlertFlag is deprecated since 21.3. You may use GpsNavAlertFlagForSV.\n\nSet GPS NAV Alert Flag"; }
+      get { return "Please note the command SetGpsSatelliteNavAlertFlag is deprecated since 21.3. You may use SetGpsNavAlertFlagForSV.\n\nSet GPS NAV Alert Flag"; }
     }
 
     internal const string CmdName = "SetGpsSatelliteNavAlertFlag";
@@ -72076,7 +72553,7 @@ namespace Sdx.Cmd
 
 
   ///
-  /// Please note the command GpsSatelliteNavAlertFlag is deprecated since 21.3. You may use GpsNavAlertFlagForSV.
+  /// Please note the command GetGpsSatelliteNavAlertFlag is deprecated since 21.3. You may use GetGpsNavAlertFlagForSV.
   /// 
   /// Get GPS NAV Alert Flag
   ///
@@ -72089,7 +72566,7 @@ namespace Sdx.Cmd
   {
     public override string Documentation
     {
-      get { return "Please note the command GpsSatelliteNavAlertFlag is deprecated since 21.3. You may use GpsNavAlertFlagForSV.\n\nGet GPS NAV Alert Flag"; }
+      get { return "Please note the command GetGpsSatelliteNavAlertFlag is deprecated since 21.3. You may use GetGpsNavAlertFlagForSV.\n\nGet GPS NAV Alert Flag"; }
     }
 
     internal const string CmdName = "GetGpsSatelliteNavAlertFlag";
@@ -72128,7 +72605,7 @@ namespace Sdx.Cmd
 
 
   ///
-  /// Result of GetGpsSatelliteNavAlertFlag
+  /// Result of GetGpsSatelliteNavAlertFlag.
   ///
   /// Name  Type Description
   /// ----- ---- --------------------------------------------------
@@ -72140,7 +72617,7 @@ namespace Sdx.Cmd
   {
     public override string Documentation
     {
-      get { return "Result of GetGpsSatelliteNavAlertFlag"; }
+      get { return "Result of GetGpsSatelliteNavAlertFlag."; }
     }
 
     internal const string CmdName = "GetGpsSatelliteNavAlertFlagResult";
@@ -72188,7 +72665,7 @@ namespace Sdx.Cmd
 
 
   ///
-  /// Please note the command GpsSatelliteCNavAlertFlag is deprecated since 21.3. You may use GpsCNavAlertFlagToSV.
+  /// Please note the command SetGpsSatelliteCNavAlertFlag is deprecated since 21.3. You may use SetGpsCNavAlertFlagToSV.
   /// 
   /// Set GPS CNAV Alert Flag
   ///
@@ -72202,7 +72679,7 @@ namespace Sdx.Cmd
   {
     public override string Documentation
     {
-      get { return "Please note the command GpsSatelliteCNavAlertFlag is deprecated since 21.3. You may use GpsCNavAlertFlagToSV.\n\nSet GPS CNAV Alert Flag"; }
+      get { return "Please note the command SetGpsSatelliteCNavAlertFlag is deprecated since 21.3. You may use SetGpsCNavAlertFlagToSV.\n\nSet GPS CNAV Alert Flag"; }
     }
 
     internal const string CmdName = "SetGpsSatelliteCNavAlertFlag";
@@ -72252,7 +72729,7 @@ namespace Sdx.Cmd
 
 
   ///
-  /// Please note the command GpsSatelliteCNavAlertFlag is deprecated since 21.3. You may use GpsCNavAlertFlagToSV.
+  /// Please note the command GetGpsSatelliteCNavAlertFlag is deprecated since 21.3. You may use GetGpsCNavAlertFlagToSV.
   /// 
   /// Get GPS CNAV Alert Flag
   ///
@@ -72265,7 +72742,7 @@ namespace Sdx.Cmd
   {
     public override string Documentation
     {
-      get { return "Please note the command GpsSatelliteCNavAlertFlag is deprecated since 21.3. You may use GpsCNavAlertFlagToSV.\n\nGet GPS CNAV Alert Flag"; }
+      get { return "Please note the command GetGpsSatelliteCNavAlertFlag is deprecated since 21.3. You may use GetGpsCNavAlertFlagToSV.\n\nGet GPS CNAV Alert Flag"; }
     }
 
     internal const string CmdName = "GetGpsSatelliteCNavAlertFlag";
@@ -72304,7 +72781,7 @@ namespace Sdx.Cmd
 
 
   ///
-  /// Result of GetGpsSatelliteCNavAlertFlag
+  /// Result of GetGpsSatelliteCNavAlertFlag.
   ///
   /// Name  Type Description
   /// ----- ---- ---------------------------------------------------
@@ -72316,7 +72793,7 @@ namespace Sdx.Cmd
   {
     public override string Documentation
     {
-      get { return "Result of GetGpsSatelliteCNavAlertFlag"; }
+      get { return "Result of GetGpsSatelliteCNavAlertFlag."; }
     }
 
     internal const string CmdName = "GetGpsSatelliteCNavAlertFlagResult";
@@ -72440,7 +72917,7 @@ namespace Sdx.Cmd
 
 
   ///
-  /// Please note the command EnableLOS is deprecated since 21.3. You may use EnableLosForSV.
+  /// Please note the command IsLOSEnabled is deprecated since 21.3. You may use IsLosEnabledForSV.
   /// 
   /// Get Direct Line Of Sight signal from satellite enabled or disabled. Generally used when only multipaths signal is visible.
   ///
@@ -72454,7 +72931,7 @@ namespace Sdx.Cmd
   {
     public override string Documentation
     {
-      get { return "Please note the command EnableLOS is deprecated since 21.3. You may use EnableLosForSV.\n\nGet Direct Line Of Sight signal from satellite enabled or disabled. Generally used when only multipaths signal is visible."; }
+      get { return "Please note the command IsLOSEnabled is deprecated since 21.3. You may use IsLosEnabledForSV.\n\nGet Direct Line Of Sight signal from satellite enabled or disabled. Generally used when only multipaths signal is visible."; }
     }
 
     internal const string CmdName = "IsLOSEnabled";
@@ -72504,7 +72981,7 @@ namespace Sdx.Cmd
 
 
   ///
-  /// Result of IsLOSEnabled
+  /// Result of IsLOSEnabled.
   ///
   /// Name    Type   Description
   /// ------- ------ -------------------------------------------------------------------------------------------------------------
@@ -72517,7 +72994,7 @@ namespace Sdx.Cmd
   {
     public override string Documentation
     {
-      get { return "Result of IsLOSEnabled"; }
+      get { return "Result of IsLOSEnabled."; }
     }
 
     internal const string CmdName = "IsLOSEnabledResult";
@@ -72640,7 +73117,7 @@ namespace Sdx.Cmd
 
 
   ///
-  /// Please note the command EnableLOSForEachPrn is deprecated since 21.3. You may use EnableLosForEachSV.
+  /// Please note the command IsLOSEnabledForEachPrn is deprecated since 21.3. You may use IsLOSEnabledForEachSV.
   /// 
   /// Get Direct Line Of Sight signal from satellite disabled or enabled. Generally used when only multipaths signal is visible.
   ///
@@ -72653,7 +73130,7 @@ namespace Sdx.Cmd
   {
     public override string Documentation
     {
-      get { return "Please note the command EnableLOSForEachPrn is deprecated since 21.3. You may use EnableLosForEachSV.\n\nGet Direct Line Of Sight signal from satellite disabled or enabled. Generally used when only multipaths signal is visible."; }
+      get { return "Please note the command IsLOSEnabledForEachPrn is deprecated since 21.3. You may use IsLOSEnabledForEachSV.\n\nGet Direct Line Of Sight signal from satellite disabled or enabled. Generally used when only multipaths signal is visible."; }
     }
 
     internal const string CmdName = "IsLOSEnabledForEachPrn";
@@ -72692,7 +73169,7 @@ namespace Sdx.Cmd
 
 
   ///
-  /// Result of IsLOSEnabledForEachPrn
+  /// Result of IsLOSEnabledForEachPrn.
   ///
   /// Name    Type       Description
   /// ------- ---------- -----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
@@ -72704,7 +73181,7 @@ namespace Sdx.Cmd
   {
     public override string Documentation
     {
-      get { return "Result of IsLOSEnabledForEachPrn"; }
+      get { return "Result of IsLOSEnabledForEachPrn."; }
     }
 
     internal const string CmdName = "IsLOSEnabledForEachPrnResult";
@@ -72752,7 +73229,7 @@ namespace Sdx.Cmd
 
 
   ///
-  /// Please note the command BeiDouSatelliteHealthInfo is deprecated since 21.3. You may use BeiDouHealthInfoForSV.
+  /// Please note the command SetBeiDouSatelliteHealthInfo is deprecated since 21.3. You may use SetBeiDouHealthInfoForSV.
   /// 
   /// Set BeiDou satellite health info
   ///
@@ -72766,7 +73243,7 @@ namespace Sdx.Cmd
   {
     public override string Documentation
     {
-      get { return "Please note the command BeiDouSatelliteHealthInfo is deprecated since 21.3. You may use BeiDouHealthInfoForSV.\n\nSet BeiDou satellite health info"; }
+      get { return "Please note the command SetBeiDouSatelliteHealthInfo is deprecated since 21.3. You may use SetBeiDouHealthInfoForSV.\n\nSet BeiDou satellite health info"; }
     }
 
     internal const string CmdName = "SetBeiDouSatelliteHealthInfo";
@@ -72816,7 +73293,7 @@ namespace Sdx.Cmd
 
 
   ///
-  /// Please note the command BeiDouSatelliteHealthInfo is deprecated since 21.3. You may use BeiDouHealthInfoForSV.
+  /// Please note the command GetBeiDouSatelliteHealthInfo is deprecated since 21.3. You may use GetBeiDouHealthInfoForSV.
   /// 
   /// Get BeiDou satellite health info
   ///
@@ -72829,7 +73306,7 @@ namespace Sdx.Cmd
   {
     public override string Documentation
     {
-      get { return "Please note the command BeiDouSatelliteHealthInfo is deprecated since 21.3. You may use BeiDouHealthInfoForSV.\n\nGet BeiDou satellite health info"; }
+      get { return "Please note the command GetBeiDouSatelliteHealthInfo is deprecated since 21.3. You may use GetBeiDouHealthInfoForSV.\n\nGet BeiDou satellite health info"; }
     }
 
     internal const string CmdName = "GetBeiDouSatelliteHealthInfo";
@@ -72868,7 +73345,7 @@ namespace Sdx.Cmd
 
 
   ///
-  /// Result of GetBeiDouSatelliteHealthInfo
+  /// Result of GetBeiDouSatelliteHealthInfo.
   ///
   /// Name   Type Description
   /// ------ ---- -------------------------------------------------------------------------
@@ -72880,7 +73357,7 @@ namespace Sdx.Cmd
   {
     public override string Documentation
     {
-      get { return "Result of GetBeiDouSatelliteHealthInfo"; }
+      get { return "Result of GetBeiDouSatelliteHealthInfo."; }
     }
 
     internal const string CmdName = "GetBeiDouSatelliteHealthInfoResult";
@@ -72928,7 +73405,7 @@ namespace Sdx.Cmd
 
 
   ///
-  /// Please note the command BeiDouSatelliteAutonomousHealth is deprecated since 21.3. You may use BeiDouAutonomousHealthForSV.
+  /// Please note the command SetBeiDouSatelliteAutonomousHealth is deprecated since 21.3. You may use SetBeiDouAutonomousHealthForSV.
   /// 
   /// Set BeiDou satellite autonomous health
   ///
@@ -72942,7 +73419,7 @@ namespace Sdx.Cmd
   {
     public override string Documentation
     {
-      get { return "Please note the command BeiDouSatelliteAutonomousHealth is deprecated since 21.3. You may use BeiDouAutonomousHealthForSV.\n\nSet BeiDou satellite autonomous health"; }
+      get { return "Please note the command SetBeiDouSatelliteAutonomousHealth is deprecated since 21.3. You may use SetBeiDouAutonomousHealthForSV.\n\nSet BeiDou satellite autonomous health"; }
     }
 
     internal const string CmdName = "SetBeiDouSatelliteAutonomousHealth";
@@ -72992,7 +73469,7 @@ namespace Sdx.Cmd
 
 
   ///
-  /// Please note the command BeiDouSatelliteAutonomousHealth is deprecated since 21.3. You may use BeiDouAutonomousHealthForSV.
+  /// Please note the command GetBeiDouSatelliteAutonomousHealth is deprecated since 21.3. You may use GetBeiDouAutonomousHealthForSV.
   /// 
   /// Get BeiDou satellite autonomous health
   ///
@@ -73005,7 +73482,7 @@ namespace Sdx.Cmd
   {
     public override string Documentation
     {
-      get { return "Please note the command BeiDouSatelliteAutonomousHealth is deprecated since 21.3. You may use BeiDouAutonomousHealthForSV.\n\nGet BeiDou satellite autonomous health"; }
+      get { return "Please note the command GetBeiDouSatelliteAutonomousHealth is deprecated since 21.3. You may use GetBeiDouAutonomousHealthForSV.\n\nGet BeiDou satellite autonomous health"; }
     }
 
     internal const string CmdName = "GetBeiDouSatelliteAutonomousHealth";
@@ -73044,7 +73521,7 @@ namespace Sdx.Cmd
 
 
   ///
-  /// Result of GetBeiDouSatelliteAutonomousHealth
+  /// Result of GetBeiDouSatelliteAutonomousHealth.
   ///
   /// Name   Type Description
   /// ------ ---- -------------------------------------
@@ -73056,7 +73533,7 @@ namespace Sdx.Cmd
   {
     public override string Documentation
     {
-      get { return "Result of GetBeiDouSatelliteAutonomousHealth"; }
+      get { return "Result of GetBeiDouSatelliteAutonomousHealth."; }
     }
 
     internal const string CmdName = "GetBeiDouSatelliteAutonomousHealthResult";
@@ -73104,7 +73581,7 @@ namespace Sdx.Cmd
 
 
   ///
-  /// Please note the command BeiDouCNavSatelliteHealthInfo is deprecated since 21.3. You may use BeiDouCNavHealthInfoForSV.
+  /// Please note the command SetBeiDouCNavSatelliteHealthInfo is deprecated since 21.3. You may use SetBeiDouCNavHealthInfoForSV.
   /// 
   /// Set BeiDou CNav satellite health info
   ///
@@ -73118,7 +73595,7 @@ namespace Sdx.Cmd
   {
     public override string Documentation
     {
-      get { return "Please note the command BeiDouCNavSatelliteHealthInfo is deprecated since 21.3. You may use BeiDouCNavHealthInfoForSV.\n\nSet BeiDou CNav satellite health info"; }
+      get { return "Please note the command SetBeiDouCNavSatelliteHealthInfo is deprecated since 21.3. You may use SetBeiDouCNavHealthInfoForSV.\n\nSet BeiDou CNav satellite health info"; }
     }
 
     internal const string CmdName = "SetBeiDouCNavSatelliteHealthInfo";
@@ -73168,7 +73645,7 @@ namespace Sdx.Cmd
 
 
   ///
-  /// Please note the command BeiDouCNavSatelliteHealthInfo is deprecated since 21.3. You may use BeiDouCNavHealthInfoForSV.
+  /// Please note the command GetBeiDouCNavSatelliteHealthInfo is deprecated since 21.3. You may use GetBeiDouCNavHealthInfoForSV.
   /// 
   /// Get BeiDou CNav satellite health info
   ///
@@ -73181,7 +73658,7 @@ namespace Sdx.Cmd
   {
     public override string Documentation
     {
-      get { return "Please note the command BeiDouCNavSatelliteHealthInfo is deprecated since 21.3. You may use BeiDouCNavHealthInfoForSV.\n\nGet BeiDou CNav satellite health info"; }
+      get { return "Please note the command GetBeiDouCNavSatelliteHealthInfo is deprecated since 21.3. You may use GetBeiDouCNavHealthInfoForSV.\n\nGet BeiDou CNav satellite health info"; }
     }
 
     internal const string CmdName = "GetBeiDouCNavSatelliteHealthInfo";
@@ -73220,7 +73697,7 @@ namespace Sdx.Cmd
 
 
   ///
-  /// Result of GetBeiDouCNavSatelliteHealthInfo
+  /// Result of GetBeiDouCNavSatelliteHealthInfo.
   ///
   /// Name   Type Description
   /// ------ ---- ------------------------------------------------------
@@ -73232,7 +73709,7 @@ namespace Sdx.Cmd
   {
     public override string Documentation
     {
-      get { return "Result of GetBeiDouCNavSatelliteHealthInfo"; }
+      get { return "Result of GetBeiDouCNavSatelliteHealthInfo."; }
     }
 
     internal const string CmdName = "GetBeiDouCNavSatelliteHealthInfoResult";
@@ -73280,7 +73757,7 @@ namespace Sdx.Cmd
 
 
   ///
-  /// Please note the command BeiDouSatelliteHealthStatus is deprecated since 21.3. You may use BeiDouHealthStatusForSV.
+  /// Please note the command SetBeiDouSatelliteHealthStatus is deprecated since 21.3. You may use SetBeiDouHealthStatusForSV.
   /// 
   /// Set BeiDou satellite health status
   ///
@@ -73294,7 +73771,7 @@ namespace Sdx.Cmd
   {
     public override string Documentation
     {
-      get { return "Please note the command BeiDouSatelliteHealthStatus is deprecated since 21.3. You may use BeiDouHealthStatusForSV.\n\nSet BeiDou satellite health status"; }
+      get { return "Please note the command SetBeiDouSatelliteHealthStatus is deprecated since 21.3. You may use SetBeiDouHealthStatusForSV.\n\nSet BeiDou satellite health status"; }
     }
 
     internal const string CmdName = "SetBeiDouSatelliteHealthStatus";
@@ -73344,7 +73821,7 @@ namespace Sdx.Cmd
 
 
   ///
-  /// Please note the command BeiDouSatelliteHealthStatus is deprecated since 21.3. You may use BeiDouHealthStatusForSV.
+  /// Please note the command GetBeiDouSatelliteHealthStatus is deprecated since 21.3. You may use GetBeiDouHealthStatusForSV.
   /// 
   /// Get BeiDou satellite health status
   ///
@@ -73357,7 +73834,7 @@ namespace Sdx.Cmd
   {
     public override string Documentation
     {
-      get { return "Please note the command BeiDouSatelliteHealthStatus is deprecated since 21.3. You may use BeiDouHealthStatusForSV.\n\nGet BeiDou satellite health status"; }
+      get { return "Please note the command GetBeiDouSatelliteHealthStatus is deprecated since 21.3. You may use GetBeiDouHealthStatusForSV.\n\nGet BeiDou satellite health status"; }
     }
 
     internal const string CmdName = "GetBeiDouSatelliteHealthStatus";
@@ -73396,7 +73873,7 @@ namespace Sdx.Cmd
 
 
   ///
-  /// Result of GetBeiDouSatelliteHealthStatus
+  /// Result of GetBeiDouSatelliteHealthStatus.
   ///
   /// Name   Type Description
   /// ------ ---- -----------------------------------------
@@ -73408,7 +73885,7 @@ namespace Sdx.Cmd
   {
     public override string Documentation
     {
-      get { return "Result of GetBeiDouSatelliteHealthStatus"; }
+      get { return "Result of GetBeiDouSatelliteHealthStatus."; }
     }
 
     internal const string CmdName = "GetBeiDouSatelliteHealthStatusResult";
@@ -73584,7 +74061,7 @@ namespace Sdx.Cmd
 
 
   ///
-  /// Please note the command ModificationToGpsCNavMessage is deprecated since 21.3. You may use MessageModificationToGpsCNav.
+  /// Please note the command SetModificationToGpsCNavMessage is deprecated since 21.3. You may use SetMessageModificationToGpsCNav.
   /// 
   /// Set (or Modify) event to change CNAV message bits. If you send this command without setting the Id
   /// parameter, or if you set the Id with a value never used before, a new Modification event will be
@@ -73630,7 +74107,7 @@ namespace Sdx.Cmd
   {
     public override string Documentation
     {
-      get { return "Please note the command ModificationToGpsCNavMessage is deprecated since 21.3. You may use MessageModificationToGpsCNav.\n\nSet (or Modify) event to change CNAV message bits. If you send this command without setting the Id\nparameter, or if you set the Id with a value never used before, a new Modification event will be\ncreated. If you reuse the same event Id, it will modify the existing event.\n\nNote that start and stop time are automatically extended to beginning and ending of overlapped\nmessages.\n\nThe Condition parameter is optional and allows you to add content matching condition before applying\nbits mods.\n\nBitsMods can be an empty string. The Modification will have no effect until you modify it with at\nleast one bits mod.\n\nA bits mod is represented with a string using the following format: \"I:Bits\" where I is a bit\nindex (1 refers to the first transmitted bit) and Bits is a modification mask where each\ncharacter describes a modification to a single bit. The allowed characters are:\n   0 : force bit to 0\n   1 : force bit to 1\n   - : leave bit unchanged\n   X : revert bit (0 becomes 1 and 1 becomes 0)\n\nFor example: \"24:X---10XX\" will: revert bits 24, 30 and 31\n                 set bit 28 to 1\n                 set bit 29 to 0\nThe other bits are not affected.\n\nYou can add multiple bits mods using commas. For example: \"24:X---10XX,127:100X,231:01\""; }
+      get { return "Please note the command SetModificationToGpsCNavMessage is deprecated since 21.3. You may use SetMessageModificationToGpsCNav.\n\nSet (or Modify) event to change CNAV message bits. If you send this command without setting the Id\nparameter, or if you set the Id with a value never used before, a new Modification event will be\ncreated. If you reuse the same event Id, it will modify the existing event.\n\nNote that start and stop time are automatically extended to beginning and ending of overlapped\nmessages.\n\nThe Condition parameter is optional and allows you to add content matching condition before applying\nbits mods.\n\nBitsMods can be an empty string. The Modification will have no effect until you modify it with at\nleast one bits mod.\n\nA bits mod is represented with a string using the following format: \"I:Bits\" where I is a bit\nindex (1 refers to the first transmitted bit) and Bits is a modification mask where each\ncharacter describes a modification to a single bit. The allowed characters are:\n   0 : force bit to 0\n   1 : force bit to 1\n   - : leave bit unchanged\n   X : revert bit (0 becomes 1 and 1 becomes 0)\n\nFor example: \"24:X---10XX\" will: revert bits 24, 30 and 31\n                 set bit 28 to 1\n                 set bit 29 to 0\nThe other bits are not affected.\n\nYou can add multiple bits mods using commas. For example: \"24:X---10XX,127:100X,231:01\""; }
     }
 
     internal const string CmdName = "SetModificationToGpsCNavMessage";
@@ -73746,7 +74223,7 @@ namespace Sdx.Cmd
 
 
   ///
-  /// Please note the command ModificationToGpsCNavMessage is deprecated since 21.3. You may use MessageModificationToGpsCNav.
+  /// Please note the command GetGpsCNavMessage is deprecated since 21.3. You may use GetMessageModificationToGpsCNav.
   /// 
   /// Get infos about the CNAV Message with this id
   ///
@@ -73759,7 +74236,7 @@ namespace Sdx.Cmd
   {
     public override string Documentation
     {
-      get { return "Please note the command ModificationToGpsCNavMessage is deprecated since 21.3. You may use MessageModificationToGpsCNav.\n\nGet infos about the CNAV Message with this id"; }
+      get { return "Please note the command GetGpsCNavMessage is deprecated since 21.3. You may use GetMessageModificationToGpsCNav.\n\nGet infos about the CNAV Message with this id"; }
     }
 
     internal const string CmdName = "GetGpsCNavMessage";
@@ -73798,7 +74275,7 @@ namespace Sdx.Cmd
 
 
   ///
-  /// Result of GetGpsCNavMessage
+  /// Result of GetGpsCNavMessage.
   ///
   /// Name      Type   Description
   /// --------- ------ --------------------------------------------------------------------
@@ -73816,7 +74293,7 @@ namespace Sdx.Cmd
   {
     public override string Documentation
     {
-      get { return "Result of GetGpsCNavMessage"; }
+      get { return "Result of GetGpsCNavMessage."; }
     }
 
     internal const string CmdName = "GetGpsCNavMessageResult";
@@ -74648,7 +75125,7 @@ namespace Sdx.Cmd
 
 
   ///
-  /// Please note the command ModificationToGpsCNav2Message is deprecated since 21.3. You may use MessageModificationToGpsCNav2.
+  /// Please note the command SetModificationToGpsCNav2Message is deprecated since 21.3. You may use SetMessageModificationToGpsCNav2.
   /// 
   /// Set (or Modify) event to change CNAV2 message bits. If you send this command without setting the Id
   /// parameter, or if you set the Id with a value never used before, a new Modification event will be
@@ -74694,7 +75171,7 @@ namespace Sdx.Cmd
   {
     public override string Documentation
     {
-      get { return "Please note the command ModificationToGpsCNav2Message is deprecated since 21.3. You may use MessageModificationToGpsCNav2.\n\nSet (or Modify) event to change CNAV2 message bits. If you send this command without setting the Id\nparameter, or if you set the Id with a value never used before, a new Modification event will be\ncreated. If you reuse the same event Id, it will modify the existing event.\n\nNote that start and stop time are automatically extended to beginning and ending of overlapped\nmessages.\n\nThe Condition parameter is optional and allows you to add content matching condition before applying\nbits mods.\n\nBitsMods can be an empty string. The Modification will have no effect until you modify it with at\nleast one bits mod.\n\nA bits mod is represented with a string using the following format: \"I:Bits\" where I is a bit\nindex (1 refers to the first transmitted bit) and Bits is a modification mask where each\ncharacter describes a modification to a single bit. The allowed characters are:\n   0 : force bit to 0\n   1 : force bit to 1\n   - : leave bit unchanged\n   X : revert bit (0 becomes 1 and 1 becomes 0)\n\nFor example: \"24:X---10XX\" will: revert bits 24, 30 and 31\n                 set bit 28 to 1\n                 set bit 29 to 0\nThe other bits are not affected.\n\nYou can add multiple bits mods using commas. For example: \"24:X---10XX,127:100X,231:01\""; }
+      get { return "Please note the command SetModificationToGpsCNav2Message is deprecated since 21.3. You may use SetMessageModificationToGpsCNav2.\n\nSet (or Modify) event to change CNAV2 message bits. If you send this command without setting the Id\nparameter, or if you set the Id with a value never used before, a new Modification event will be\ncreated. If you reuse the same event Id, it will modify the existing event.\n\nNote that start and stop time are automatically extended to beginning and ending of overlapped\nmessages.\n\nThe Condition parameter is optional and allows you to add content matching condition before applying\nbits mods.\n\nBitsMods can be an empty string. The Modification will have no effect until you modify it with at\nleast one bits mod.\n\nA bits mod is represented with a string using the following format: \"I:Bits\" where I is a bit\nindex (1 refers to the first transmitted bit) and Bits is a modification mask where each\ncharacter describes a modification to a single bit. The allowed characters are:\n   0 : force bit to 0\n   1 : force bit to 1\n   - : leave bit unchanged\n   X : revert bit (0 becomes 1 and 1 becomes 0)\n\nFor example: \"24:X---10XX\" will: revert bits 24, 30 and 31\n                 set bit 28 to 1\n                 set bit 29 to 0\nThe other bits are not affected.\n\nYou can add multiple bits mods using commas. For example: \"24:X---10XX,127:100X,231:01\""; }
     }
 
     internal const string CmdName = "SetModificationToGpsCNav2Message";
@@ -74810,7 +75287,7 @@ namespace Sdx.Cmd
 
 
   ///
-  /// Please note the command ModificationToGpsCNav2Message is deprecated since 21.3. You may use MessageModificationToGpsCNav2.
+  /// Please note the command GetGpsCNav2Message is deprecated since 21.3. You may use GetMessageModificationToGpsCNav2.
   /// 
   /// Get infos about the CNAV2 Message with this id
   ///
@@ -74823,7 +75300,7 @@ namespace Sdx.Cmd
   {
     public override string Documentation
     {
-      get { return "Please note the command ModificationToGpsCNav2Message is deprecated since 21.3. You may use MessageModificationToGpsCNav2.\n\nGet infos about the CNAV2 Message with this id"; }
+      get { return "Please note the command GetGpsCNav2Message is deprecated since 21.3. You may use GetMessageModificationToGpsCNav2.\n\nGet infos about the CNAV2 Message with this id"; }
     }
 
     internal const string CmdName = "GetGpsCNav2Message";
@@ -74862,7 +75339,7 @@ namespace Sdx.Cmd
 
 
   ///
-  /// Result of GetGpsCNav2Message
+  /// Result of GetGpsCNav2Message.
   ///
   /// Name      Type   Description
   /// --------- ------ --------------------------------------------------------------------
@@ -74880,7 +75357,7 @@ namespace Sdx.Cmd
   {
     public override string Documentation
     {
-      get { return "Result of GetGpsCNav2Message"; }
+      get { return "Result of GetGpsCNav2Message."; }
     }
 
     internal const string CmdName = "GetGpsCNav2MessageResult";
@@ -75180,7 +75657,7 @@ namespace Sdx.Cmd
 
 
   ///
-  /// Please note the command ModificationToGpsNavigationMessage is deprecated since 21.3. You may use MessageModificationToGpsLNav.
+  /// Please note the command SetModificationToGpsNavigationMessage is deprecated since 21.3. You may use SetMessageModificationToGpsLNav.
   /// 
   /// Set (or Modify) event to change navigation message bits.
   /// 
@@ -75220,7 +75697,7 @@ namespace Sdx.Cmd
   {
     public override string Documentation
     {
-      get { return "Please note the command ModificationToGpsNavigationMessage is deprecated since 21.3. You may use MessageModificationToGpsLNav.\n\nSet (or Modify) event to change navigation message bits.\n\nNote that start and stop time are automatically extended to beginning and ending of overlapped\nsubframes. The Modification parameter is a string where the first character applies to the first\nbit of subframe word and last character applies to last bit of subframe word.\n   '0' will force bit to zero\n   '1' will for bit to one\n   'X' will negate bit value\n   any other byte value will have no effect\n\nExample: \"-00------------------1-X------\" will force bits 1 and 2 to zero and bit 22 to one\n                      and negate bit 24\n\nNote: if UpdateParity is true, any modification to bits 25..30 will have no effect.\n\nThe Id parameter is automatically updated with a unique id by the simulator for future reference.\nIf the Id is set with a value other than an empty string, the simulator will try to find a match\nwith previously added events. If there is a match, the event is updated with this message\ninstead of adding a new event. If there is no match, the event is added and the id is not\nchanged."; }
+      get { return "Please note the command SetModificationToGpsNavigationMessage is deprecated since 21.3. You may use SetMessageModificationToGpsLNav.\n\nSet (or Modify) event to change navigation message bits.\n\nNote that start and stop time are automatically extended to beginning and ending of overlapped\nsubframes. The Modification parameter is a string where the first character applies to the first\nbit of subframe word and last character applies to last bit of subframe word.\n   '0' will force bit to zero\n   '1' will for bit to one\n   'X' will negate bit value\n   any other byte value will have no effect\n\nExample: \"-00------------------1-X------\" will force bits 1 and 2 to zero and bit 22 to one\n                      and negate bit 24\n\nNote: if UpdateParity is true, any modification to bits 25..30 will have no effect.\n\nThe Id parameter is automatically updated with a unique id by the simulator for future reference.\nIf the Id is set with a value other than an empty string, the simulator will try to find a match\nwith previously added events. If there is a match, the event is updated with this message\ninstead of adding a new event. If there is no match, the event is added and the id is not\nchanged."; }
     }
 
     internal const string CmdName = "SetModificationToGpsNavigationMessage";
@@ -75347,7 +75824,7 @@ namespace Sdx.Cmd
 
 
   ///
-  /// Please note the command ModificationToGpsNavigationMessage is deprecated since 21.3. You may use MessageModificationToGpsLNav.
+  /// Please note the command GetGpsNavigationMessage is deprecated since 21.3. You may use GetMessageModificationToGpsLNav.
   /// 
   /// Get infos about this modification gps navigation message event.
   ///
@@ -75360,7 +75837,7 @@ namespace Sdx.Cmd
   {
     public override string Documentation
     {
-      get { return "Please note the command ModificationToGpsNavigationMessage is deprecated since 21.3. You may use MessageModificationToGpsLNav.\n\nGet infos about this modification gps navigation message event."; }
+      get { return "Please note the command GetGpsNavigationMessage is deprecated since 21.3. You may use GetMessageModificationToGpsLNav.\n\nGet infos about this modification gps navigation message event."; }
     }
 
     internal const string CmdName = "GetGpsNavigationMessage";
@@ -75399,7 +75876,7 @@ namespace Sdx.Cmd
 
 
   ///
-  /// Result of GetGpsNavigationMessage
+  /// Result of GetGpsNavigationMessage.
   ///
   /// Name         Type   Description
   /// ------------ ------ -----------------------------------------------------------
@@ -75418,7 +75895,7 @@ namespace Sdx.Cmd
   {
     public override string Documentation
     {
-      get { return "Result of GetGpsNavigationMessage"; }
+      get { return "Result of GetGpsNavigationMessage."; }
     }
 
     internal const string CmdName = "GetGpsNavigationMessageResult";
@@ -75730,7 +76207,7 @@ namespace Sdx.Cmd
 
 
   ///
-  /// Please note the command ModificationToGalileoFNavMessage is deprecated since 21.3. You may use MessageModificationToGalileoFNav.
+  /// Please note the command SetModificationToGalileoFNavMessage is deprecated since 21.3. You may use SetMessageModificationToGalileoFNav.
   /// 
   /// Set (or Modify) event to change FNAV message bits. If you send this command without setting the Id
   /// parameter, or if you set the Id with a value never used before, a new Modification event will be
@@ -75773,7 +76250,7 @@ namespace Sdx.Cmd
   {
     public override string Documentation
     {
-      get { return "Please note the command ModificationToGalileoFNavMessage is deprecated since 21.3. You may use MessageModificationToGalileoFNav.\n\nSet (or Modify) event to change FNAV message bits. If you send this command without setting the Id\nparameter, or if you set the Id with a value never used before, a new Modification event will be\ncreated. If you reuse the same event Id, it will modify the existing event.\n\nNote that start and stop time are automatically extended to beginning and ending of overlapped\nmessages.\n\nBitsMods can be an empty string. The Modification will have no effect until you modify it with at\nleast one bits mod.\n\nA bits mod is represented with a string using the following format: \"I:Bits\" where I is a bit\nindex (1 refers to the first transmitted bit) and Bits is a modification mask where each\ncharacter describes a modification to a single bit. The allowed characters are:\n   0 : force bit to 0\n   1 : force bit to 1\n   - : leave bit unchanged\n   X : revert bit (0 becomes 1 and 1 becomes 0)\n\nFor example: \"24:X---10XX\" will: revert bits 24, 30 and 31\n                 set bit 28 to 1\n                 set bit 29 to 0\nThe other bits are not affected.\n\nYou can add multiple bits mods using commas. For example: \"24:X---10XX,127:100X,231:01\""; }
+      get { return "Please note the command SetModificationToGalileoFNavMessage is deprecated since 21.3. You may use SetMessageModificationToGalileoFNav.\n\nSet (or Modify) event to change FNAV message bits. If you send this command without setting the Id\nparameter, or if you set the Id with a value never used before, a new Modification event will be\ncreated. If you reuse the same event Id, it will modify the existing event.\n\nNote that start and stop time are automatically extended to beginning and ending of overlapped\nmessages.\n\nBitsMods can be an empty string. The Modification will have no effect until you modify it with at\nleast one bits mod.\n\nA bits mod is represented with a string using the following format: \"I:Bits\" where I is a bit\nindex (1 refers to the first transmitted bit) and Bits is a modification mask where each\ncharacter describes a modification to a single bit. The allowed characters are:\n   0 : force bit to 0\n   1 : force bit to 1\n   - : leave bit unchanged\n   X : revert bit (0 becomes 1 and 1 becomes 0)\n\nFor example: \"24:X---10XX\" will: revert bits 24, 30 and 31\n                 set bit 28 to 1\n                 set bit 29 to 0\nThe other bits are not affected.\n\nYou can add multiple bits mods using commas. For example: \"24:X---10XX,127:100X,231:01\""; }
     }
 
     internal const string CmdName = "SetModificationToGalileoFNavMessage";
@@ -75889,7 +76366,7 @@ namespace Sdx.Cmd
 
 
   ///
-  /// Please note the command ModificationToGalileoFNavMessage is deprecated since 21.3. You may use MessageModificationToGalileoFNav.
+  /// Please note the command GetGalileoFNavMessage is deprecated since 21.3. You may use GetMessageModificationToGalileoFNav.
   /// 
   /// Get infos about the FNAV Message with this id
   ///
@@ -75902,7 +76379,7 @@ namespace Sdx.Cmd
   {
     public override string Documentation
     {
-      get { return "Please note the command ModificationToGalileoFNavMessage is deprecated since 21.3. You may use MessageModificationToGalileoFNav.\n\nGet infos about the FNAV Message with this id"; }
+      get { return "Please note the command GetGalileoFNavMessage is deprecated since 21.3. You may use GetMessageModificationToGalileoFNav.\n\nGet infos about the FNAV Message with this id"; }
     }
 
     internal const string CmdName = "GetGalileoFNavMessage";
@@ -75941,7 +76418,7 @@ namespace Sdx.Cmd
 
 
   ///
-  /// Result of GetGalileoFNavMessage
+  /// Result of GetGalileoFNavMessage.
   ///
   /// Name      Type   Description
   /// --------- ------ --------------------------------------------------------------------
@@ -75959,7 +76436,7 @@ namespace Sdx.Cmd
   {
     public override string Documentation
     {
-      get { return "Result of GetGalileoFNavMessage"; }
+      get { return "Result of GetGalileoFNavMessage."; }
     }
 
     internal const string CmdName = "GetGalileoFNavMessageResult";
@@ -76259,7 +76736,7 @@ namespace Sdx.Cmd
 
 
   ///
-  /// Please note the command ModificationToGalileoINavMessage is deprecated since 21.3. You may use MessageModificationToGalileoINav.
+  /// Please note the command SetModificationToGalileoINavMessage is deprecated since 21.3. You may use SetMessageModificationToGalileoINav.
   /// 
   /// Set (or Modify) event to change INAV message bits. If you send this command without setting the Id
   /// parameter, or if you set the Id with a value never used before, a new Modification event will be
@@ -76304,7 +76781,7 @@ namespace Sdx.Cmd
   {
     public override string Documentation
     {
-      get { return "Please note the command ModificationToGalileoINavMessage is deprecated since 21.3. You may use MessageModificationToGalileoINav.\n\nSet (or Modify) event to change INAV message bits. If you send this command without setting the Id\nparameter, or if you set the Id with a value never used before, a new Modification event will be\ncreated. If you reuse the same event Id, it will modify the existing event.\n\nNote that start and stop time are automatically extended to beginning and ending of overlapped\nmessages.\n\nBitsMods can be an empty string. The Modification will have no effect until you modify it with at\nleast one bits mod.\n\nA bits mod is represented with a string using the following format: \"I:Bits\" where I is a bit\nindex (1 refers to the first transmitted bit) and Bits is a modification mask where each\ncharacter describes a modification to a single bit. The allowed characters are:\n   0 : force bit to 0\n   1 : force bit to 1\n   - : leave bit unchanged\n   X : revert bit (0 becomes 1 and 1 becomes 0)\n\nFor example: \"24:X---10XX\" will: revert bits 24, 30 and 31\n                 set bit 28 to 1\n                 set bit 29 to 0\nThe other bits are not affected.\n\nYou can add multiple bits mods using commas. For example: \"24:X---10XX,127:100X,231:01\""; }
+      get { return "Please note the command SetModificationToGalileoINavMessage is deprecated since 21.3. You may use SetMessageModificationToGalileoINav.\n\nSet (or Modify) event to change INAV message bits. If you send this command without setting the Id\nparameter, or if you set the Id with a value never used before, a new Modification event will be\ncreated. If you reuse the same event Id, it will modify the existing event.\n\nNote that start and stop time are automatically extended to beginning and ending of overlapped\nmessages.\n\nBitsMods can be an empty string. The Modification will have no effect until you modify it with at\nleast one bits mod.\n\nA bits mod is represented with a string using the following format: \"I:Bits\" where I is a bit\nindex (1 refers to the first transmitted bit) and Bits is a modification mask where each\ncharacter describes a modification to a single bit. The allowed characters are:\n   0 : force bit to 0\n   1 : force bit to 1\n   - : leave bit unchanged\n   X : revert bit (0 becomes 1 and 1 becomes 0)\n\nFor example: \"24:X---10XX\" will: revert bits 24, 30 and 31\n                 set bit 28 to 1\n                 set bit 29 to 0\nThe other bits are not affected.\n\nYou can add multiple bits mods using commas. For example: \"24:X---10XX,127:100X,231:01\""; }
     }
 
     internal const string CmdName = "SetModificationToGalileoINavMessage";
@@ -76442,7 +76919,7 @@ namespace Sdx.Cmd
 
 
   ///
-  /// Please note the command ModificationToGalileoINavMessage is deprecated since 21.3. You may use MessageModificationToGalileoINav.
+  /// Please note the command GetGalileoINavMessage is deprecated since 21.3. You may use GetMessageModificationToGalileoINav.
   /// 
   /// Get infos about the INAV Message with this id
   ///
@@ -76455,7 +76932,7 @@ namespace Sdx.Cmd
   {
     public override string Documentation
     {
-      get { return "Please note the command ModificationToGalileoINavMessage is deprecated since 21.3. You may use MessageModificationToGalileoINav.\n\nGet infos about the INAV Message with this id"; }
+      get { return "Please note the command GetGalileoINavMessage is deprecated since 21.3. You may use GetMessageModificationToGalileoINav.\n\nGet infos about the INAV Message with this id"; }
     }
 
     internal const string CmdName = "GetGalileoINavMessage";
@@ -76494,7 +76971,7 @@ namespace Sdx.Cmd
 
 
   ///
-  /// Result of GetGalileoINavMessage
+  /// Result of GetGalileoINavMessage.
   ///
   /// Name      Type   Description
   /// --------- ------ --------------------------------------------------------------------
@@ -76514,7 +76991,7 @@ namespace Sdx.Cmd
   {
     public override string Documentation
     {
-      get { return "Result of GetGalileoINavMessage"; }
+      get { return "Result of GetGalileoINavMessage."; }
     }
 
     internal const string CmdName = "GetGalileoINavMessageResult";
@@ -76836,7 +77313,7 @@ namespace Sdx.Cmd
 
 
   ///
-  /// Please note the command ModificationToGlonassNavigationMessage is deprecated since 21.3. You may use MessageModificationToGlonassNav.
+  /// Please note the command SetModificationToGlonassNavigationMessage is deprecated since 21.3. You may use SetMessageModificationToGlonassNav.
   /// 
   /// Set (or Modify) event to change navigation message bits.
   /// 
@@ -76881,7 +77358,7 @@ namespace Sdx.Cmd
   {
     public override string Documentation
     {
-      get { return "Please note the command ModificationToGlonassNavigationMessage is deprecated since 21.3. You may use MessageModificationToGlonassNav.\n\nSet (or Modify) event to change navigation message bits.\n\nNote that start and stop time are automatically extended to beginning and ending of overlapped\nmessage strings. The Modification parameter is a string where the first character applies to bit\n85 of frame string and last character applies to Hamming Code bit 1.\n   '0' will force bit to zero\n   '1' will for bit to one\n   'X' will negate bit value\n   ' ' white space are ignored (use them to separate the string into bytes to help reading)\n   '-' or any other byte value will have no effect\n\nExample:\n\n\"-0--- 1------- -------- -------- -------- -------- -------- -------- -------- -------- ---1--X-\"\n  |  |                                           |  |\n  |  +- Force bit 80 to '1'               Force Hamming code bit 5 to '1' -+  |\n  |                                               |\n  +------ Force bit 84 to 0                   Negate Hamming code bit 2 ----+\n\nNote: if UpdateHammingCode is true, any modification to bits 1..8 will have no effect.\n\nThe Id parameter is automatically updated with a unique id by the simulator for future reference.\nIf the Id is set with a value other than an empty string, the simulator will try to find a match\nwith previously added events. If there is a match, the event is updated with this message\ninstead of adding a new event. If there is no match, the event is added and the id is not\nchanged."; }
+      get { return "Please note the command SetModificationToGlonassNavigationMessage is deprecated since 21.3. You may use SetMessageModificationToGlonassNav.\n\nSet (or Modify) event to change navigation message bits.\n\nNote that start and stop time are automatically extended to beginning and ending of overlapped\nmessage strings. The Modification parameter is a string where the first character applies to bit\n85 of frame string and last character applies to Hamming Code bit 1.\n   '0' will force bit to zero\n   '1' will for bit to one\n   'X' will negate bit value\n   ' ' white space are ignored (use them to separate the string into bytes to help reading)\n   '-' or any other byte value will have no effect\n\nExample:\n\n\"-0--- 1------- -------- -------- -------- -------- -------- -------- -------- -------- ---1--X-\"\n  |  |                                           |  |\n  |  +- Force bit 80 to '1'               Force Hamming code bit 5 to '1' -+  |\n  |                                               |\n  +------ Force bit 84 to 0                   Negate Hamming code bit 2 ----+\n\nNote: if UpdateHammingCode is true, any modification to bits 1..8 will have no effect.\n\nThe Id parameter is automatically updated with a unique id by the simulator for future reference.\nIf the Id is set with a value other than an empty string, the simulator will try to find a match\nwith previously added events. If there is a match, the event is updated with this message\ninstead of adding a new event. If there is no match, the event is added and the id is not\nchanged."; }
     }
 
     internal const string CmdName = "SetModificationToGlonassNavigationMessage";
@@ -76997,7 +77474,7 @@ namespace Sdx.Cmd
 
 
   ///
-  /// Please note the command ModificationToGlonassNavigationMessage is deprecated since 21.3. You may use MessageModificationToGlonassNav.
+  /// Please note the command GetGlonassNavigationMessage is deprecated since 21.3. You may use GetMessageModificationToGlonassNav.
   /// 
   /// Get infos about this modification Glonass navigation message event
   ///
@@ -77010,7 +77487,7 @@ namespace Sdx.Cmd
   {
     public override string Documentation
     {
-      get { return "Please note the command ModificationToGlonassNavigationMessage is deprecated since 21.3. You may use MessageModificationToGlonassNav.\n\nGet infos about this modification Glonass navigation message event"; }
+      get { return "Please note the command GetGlonassNavigationMessage is deprecated since 21.3. You may use GetMessageModificationToGlonassNav.\n\nGet infos about this modification Glonass navigation message event"; }
     }
 
     internal const string CmdName = "GetGlonassNavigationMessage";
@@ -77049,7 +77526,7 @@ namespace Sdx.Cmd
 
 
   ///
-  /// Result of GetGlonassNavigationMessage
+  /// Result of GetGlonassNavigationMessage.
   ///
   /// Name              Type   Description
   /// ----------------- ------ -------------------------------------------------------------------------
@@ -77067,7 +77544,7 @@ namespace Sdx.Cmd
   {
     public override string Documentation
     {
-      get { return "Result of GetGlonassNavigationMessage"; }
+      get { return "Result of GetGlonassNavigationMessage."; }
     }
 
     internal const string CmdName = "GetGlonassNavigationMessageResult";
@@ -77368,7 +77845,7 @@ namespace Sdx.Cmd
 
 
   ///
-  /// Please note the command ModificationToBeiDouD1NavigationMessage is deprecated since 21.3. You may use MessageModificationToBeiDouD1Nav.
+  /// Please note the command SetModificationToBeiDouD1NavigationMessage is deprecated since 21.3. You may use SetMessageModificationToBeiDouD1Nav.
   /// 
   /// Set (or Modify) event to change navigation message bits.
   /// 
@@ -77408,7 +77885,7 @@ namespace Sdx.Cmd
   {
     public override string Documentation
     {
-      get { return "Please note the command ModificationToBeiDouD1NavigationMessage is deprecated since 21.3. You may use MessageModificationToBeiDouD1Nav.\n\nSet (or Modify) event to change navigation message bits.\n\nNote that start and stop time are automatically extended to beginning and ending of overlapped\nsubframes. The Modification parameter is a string where the first character applies to the first\nbit of subframe word and last character applies to last bit of subframe word.\n   '0' will force bit to zero\n   '1' will for bit to one\n   'X' will negate bit value\n   any other byte value will have no effect\n\nExample: \"-00------------------1-X------\" will force bits 1 and 2 to zero and bit 22 to one\n                      and negate bit 24\n\nNote: if UpdateParity is true, any modification to parity bits will have no effect.\n\nThe Id parameter is automatically updated with a unique id by the simulator for future reference.\nIf the Id is set with a value other than an empty string, the simulator will try to find a match\nwith previously added events. If there is a match, the event is updated with this message\ninstead of adding a new event. If there is no match, the event is added and the id is not\nchanged."; }
+      get { return "Please note the command SetModificationToBeiDouD1NavigationMessage is deprecated since 21.3. You may use SetMessageModificationToBeiDouD1Nav.\n\nSet (or Modify) event to change navigation message bits.\n\nNote that start and stop time are automatically extended to beginning and ending of overlapped\nsubframes. The Modification parameter is a string where the first character applies to the first\nbit of subframe word and last character applies to last bit of subframe word.\n   '0' will force bit to zero\n   '1' will for bit to one\n   'X' will negate bit value\n   any other byte value will have no effect\n\nExample: \"-00------------------1-X------\" will force bits 1 and 2 to zero and bit 22 to one\n                      and negate bit 24\n\nNote: if UpdateParity is true, any modification to parity bits will have no effect.\n\nThe Id parameter is automatically updated with a unique id by the simulator for future reference.\nIf the Id is set with a value other than an empty string, the simulator will try to find a match\nwith previously added events. If there is a match, the event is updated with this message\ninstead of adding a new event. If there is no match, the event is added and the id is not\nchanged."; }
     }
 
     internal const string CmdName = "SetModificationToBeiDouD1NavigationMessage";
@@ -77535,7 +78012,7 @@ namespace Sdx.Cmd
 
 
   ///
-  /// Please note the command ModificationToBeiDouD1NavigationMessage is deprecated since 21.3. You may use MessageModificationToBeiDouD1Nav.
+  /// Please note the command GetBeiDouD1NavigationMessage is deprecated since 21.3. You may use GetMessageModificationToBeiDouD1Nav.
   /// 
   /// Get infos about this modification BeiDou D1 navigation message event
   ///
@@ -77548,7 +78025,7 @@ namespace Sdx.Cmd
   {
     public override string Documentation
     {
-      get { return "Please note the command ModificationToBeiDouD1NavigationMessage is deprecated since 21.3. You may use MessageModificationToBeiDouD1Nav.\n\nGet infos about this modification BeiDou D1 navigation message event"; }
+      get { return "Please note the command GetBeiDouD1NavigationMessage is deprecated since 21.3. You may use GetMessageModificationToBeiDouD1Nav.\n\nGet infos about this modification BeiDou D1 navigation message event"; }
     }
 
     internal const string CmdName = "GetBeiDouD1NavigationMessage";
@@ -77587,7 +78064,7 @@ namespace Sdx.Cmd
 
 
   ///
-  /// Result of GetBeiDouD1NavigationMessage
+  /// Result of GetBeiDouD1NavigationMessage.
   ///
   /// Name         Type   Description
   /// ------------ ------ ------------------------------------------------------------
@@ -77606,7 +78083,7 @@ namespace Sdx.Cmd
   {
     public override string Documentation
     {
-      get { return "Result of GetBeiDouD1NavigationMessage"; }
+      get { return "Result of GetBeiDouD1NavigationMessage."; }
     }
 
     internal const string CmdName = "GetBeiDouD1NavigationMessageResult";
@@ -77918,7 +78395,7 @@ namespace Sdx.Cmd
 
 
   ///
-  /// Please note the command ModificationToBeiDouD2NavigationMessage is deprecated since 21.3. You may use MessageModificationToBeiDouD2Nav.
+  /// Please note the command SetModificationToBeiDouD2NavigationMessage is deprecated since 21.3. You may use SetMessageModificationToBeiDouD2Nav.
   /// 
   /// Set (or Modify) event to change navigation message bits.
   /// 
@@ -77958,7 +78435,7 @@ namespace Sdx.Cmd
   {
     public override string Documentation
     {
-      get { return "Please note the command ModificationToBeiDouD2NavigationMessage is deprecated since 21.3. You may use MessageModificationToBeiDouD2Nav.\n\nSet (or Modify) event to change navigation message bits.\n\nNote that start and stop time are automatically extended to beginning and ending of overlapped\nsubframes. The Modification parameter is a string where the first character applies to the first\nbit of subframe word and last character applies to last bit of subframe word.\n   '0' will force bit to zero\n   '1' will for bit to one\n   'X' will negate bit value\n   any other byte value will have no effect\n\nExample: \"-00------------------1-X------\" will force bits 1 and 2 to zero and bit 22 to one\n                      and negate bit 24\n\nNote: if UpdateParity is true, any modification to parity bits will have no effect.\n\nThe Id parameter is automatically updated with a unique id by the simulator for future reference.\nIf the Id is set with a value other than an empty string, the simulator will try to find a match\nwith previously added events. If there is a match, the event is updated with this message\ninstead of adding a new event. If there is no match, the event is added and the id is not\nchanged."; }
+      get { return "Please note the command SetModificationToBeiDouD2NavigationMessage is deprecated since 21.3. You may use SetMessageModificationToBeiDouD2Nav.\n\nSet (or Modify) event to change navigation message bits.\n\nNote that start and stop time are automatically extended to beginning and ending of overlapped\nsubframes. The Modification parameter is a string where the first character applies to the first\nbit of subframe word and last character applies to last bit of subframe word.\n   '0' will force bit to zero\n   '1' will for bit to one\n   'X' will negate bit value\n   any other byte value will have no effect\n\nExample: \"-00------------------1-X------\" will force bits 1 and 2 to zero and bit 22 to one\n                      and negate bit 24\n\nNote: if UpdateParity is true, any modification to parity bits will have no effect.\n\nThe Id parameter is automatically updated with a unique id by the simulator for future reference.\nIf the Id is set with a value other than an empty string, the simulator will try to find a match\nwith previously added events. If there is a match, the event is updated with this message\ninstead of adding a new event. If there is no match, the event is added and the id is not\nchanged."; }
     }
 
     internal const string CmdName = "SetModificationToBeiDouD2NavigationMessage";
@@ -78085,7 +78562,7 @@ namespace Sdx.Cmd
 
 
   ///
-  /// Please note the command ModificationToBeiDouD2NavigationMessage is deprecated since 21.3. You may use MessageModificationToBeiDouD2Nav.
+  /// Please note the command GetBeiDouD2NavigationMessage is deprecated since 21.3. You may use GetMessageModificationToBeiDouD2Nav.
   /// 
   /// Get infos about this modification BeiDou D2 navigation message event
   ///
@@ -78098,7 +78575,7 @@ namespace Sdx.Cmd
   {
     public override string Documentation
     {
-      get { return "Please note the command ModificationToBeiDouD2NavigationMessage is deprecated since 21.3. You may use MessageModificationToBeiDouD2Nav.\n\nGet infos about this modification BeiDou D2 navigation message event"; }
+      get { return "Please note the command GetBeiDouD2NavigationMessage is deprecated since 21.3. You may use GetMessageModificationToBeiDouD2Nav.\n\nGet infos about this modification BeiDou D2 navigation message event"; }
     }
 
     internal const string CmdName = "GetBeiDouD2NavigationMessage";
@@ -78137,7 +78614,7 @@ namespace Sdx.Cmd
 
 
   ///
-  /// Result of GetBeiDouD2NavigationMessage
+  /// Result of GetBeiDouD2NavigationMessage.
   ///
   /// Name         Type   Description
   /// ------------ ------ -----------------------------------------------------------
@@ -78156,7 +78633,7 @@ namespace Sdx.Cmd
   {
     public override string Documentation
     {
-      get { return "Result of GetBeiDouD2NavigationMessage"; }
+      get { return "Result of GetBeiDouD2NavigationMessage."; }
     }
 
     internal const string CmdName = "GetBeiDouD2NavigationMessageResult";
@@ -78468,7 +78945,7 @@ namespace Sdx.Cmd
 
 
   ///
-  /// Please note the command ModificationToBeiDouCNav1Message is deprecated since 21.3. You may use MessageModificationToBeiDouCNav1.
+  /// Please note the command SetModificationToBeiDouCNav1Message is deprecated since 21.3. You may use SetMessageModificationToBeiDouCNav1.
   /// 
   /// Set (or Modify) event to change CNAV1 message bits. If you send this command without setting the Id
   /// parameter, or if you set the Id with a value never used before, a new Modification event will be
@@ -78514,7 +78991,7 @@ namespace Sdx.Cmd
   {
     public override string Documentation
     {
-      get { return "Please note the command ModificationToBeiDouCNav1Message is deprecated since 21.3. You may use MessageModificationToBeiDouCNav1.\n\nSet (or Modify) event to change CNAV1 message bits. If you send this command without setting the Id\nparameter, or if you set the Id with a value never used before, a new Modification event will be\ncreated. If you reuse the same event Id, it will modify the existing event.\n\nNote that start and stop time are automatically extended to beginning and ending of overlapped\nmessages.\n\nThe Condition parameter is optional and allows you to add content matching condition before applying\nbits mods.\n\nBitsMods can be an empty string. The Modification will have no effect until you modify it with at\nleast one bits mod.\n\nA bits mod is represented with a string using the following format: \"I:Bits\" where I is a bit\nindex (1 refers to the first transmitted bit) and Bits is a modification mask where each\ncharacter describes a modification to a single bit. The allowed characters are:\n   0 : force bit to 0\n   1 : force bit to 1\n   - : leave bit unchanged\n   X : revert bit (0 becomes 1 and 1 becomes 0)\n\nFor example: \"24:X---10XX\" will: revert bits 24, 30 and 31\n                 set bit 28 to 1\n                 set bit 29 to 0\nThe other bits are not affected.\n\nYou can add multiple bits mods using commas. For example: \"24:X---10XX,127:100X,231:01\""; }
+      get { return "Please note the command SetModificationToBeiDouCNav1Message is deprecated since 21.3. You may use SetMessageModificationToBeiDouCNav1.\n\nSet (or Modify) event to change CNAV1 message bits. If you send this command without setting the Id\nparameter, or if you set the Id with a value never used before, a new Modification event will be\ncreated. If you reuse the same event Id, it will modify the existing event.\n\nNote that start and stop time are automatically extended to beginning and ending of overlapped\nmessages.\n\nThe Condition parameter is optional and allows you to add content matching condition before applying\nbits mods.\n\nBitsMods can be an empty string. The Modification will have no effect until you modify it with at\nleast one bits mod.\n\nA bits mod is represented with a string using the following format: \"I:Bits\" where I is a bit\nindex (1 refers to the first transmitted bit) and Bits is a modification mask where each\ncharacter describes a modification to a single bit. The allowed characters are:\n   0 : force bit to 0\n   1 : force bit to 1\n   - : leave bit unchanged\n   X : revert bit (0 becomes 1 and 1 becomes 0)\n\nFor example: \"24:X---10XX\" will: revert bits 24, 30 and 31\n                 set bit 28 to 1\n                 set bit 29 to 0\nThe other bits are not affected.\n\nYou can add multiple bits mods using commas. For example: \"24:X---10XX,127:100X,231:01\""; }
     }
 
     internal const string CmdName = "SetModificationToBeiDouCNav1Message";
@@ -78630,7 +79107,7 @@ namespace Sdx.Cmd
 
 
   ///
-  /// Please note the command ModificationToBeiDouCNav1Message is deprecated since 21.3. You may use MessageModificationToBeiDouCNav1.
+  /// Please note the command GetBeiDouCNav1Message is deprecated since 21.3. You may use GetMessageModificationToBeiDouCNav1.
   /// 
   /// Get infos about the CNAV1 Message with this id
   ///
@@ -78643,7 +79120,7 @@ namespace Sdx.Cmd
   {
     public override string Documentation
     {
-      get { return "Please note the command ModificationToBeiDouCNav1Message is deprecated since 21.3. You may use MessageModificationToBeiDouCNav1.\n\nGet infos about the CNAV1 Message with this id"; }
+      get { return "Please note the command GetBeiDouCNav1Message is deprecated since 21.3. You may use GetMessageModificationToBeiDouCNav1.\n\nGet infos about the CNAV1 Message with this id"; }
     }
 
     internal const string CmdName = "GetBeiDouCNav1Message";
@@ -78682,7 +79159,7 @@ namespace Sdx.Cmd
 
 
   ///
-  /// Result of GetBeiDouCNav1Message
+  /// Result of GetBeiDouCNav1Message.
   ///
   /// Name      Type   Description
   /// --------- ------ --------------------------------------------------------------------
@@ -78700,7 +79177,7 @@ namespace Sdx.Cmd
   {
     public override string Documentation
     {
-      get { return "Result of GetBeiDouCNav1Message"; }
+      get { return "Result of GetBeiDouCNav1Message."; }
     }
 
     internal const string CmdName = "GetBeiDouCNav1MessageResult";
@@ -79000,7 +79477,7 @@ namespace Sdx.Cmd
 
 
   ///
-  /// Please note the command ModificationToBeiDouCNav2Message is deprecated since 21.3. You may use MessageModificationToBeiDouCNav2.
+  /// Please note the command SetModificationToBeiDouCNav2Message is deprecated since 21.3. You may use SetMessageModificationToBeiDouCNav2.
   /// 
   /// Set (or Modify) event to change CNAV2 message bits. If you send this command without setting the Id
   /// parameter, or if you set the Id with a value never used before, a new Modification event will be
@@ -79046,7 +79523,7 @@ namespace Sdx.Cmd
   {
     public override string Documentation
     {
-      get { return "Please note the command ModificationToBeiDouCNav2Message is deprecated since 21.3. You may use MessageModificationToBeiDouCNav2.\n\nSet (or Modify) event to change CNAV2 message bits. If you send this command without setting the Id\nparameter, or if you set the Id with a value never used before, a new Modification event will be\ncreated. If you reuse the same event Id, it will modify the existing event.\n\nNote that start and stop time are automatically extended to beginning and ending of overlapped\nmessages.\n\nThe Condition parameter is optional and allows you to add content matching condition before applying\nbits mods.\n\nBitsMods can be an empty string. The Modification will have no effect until you modify it with at\nleast one bits mod.\n\nA bits mod is represented with a string using the following format: \"I:Bits\" where I is a bit\nindex (1 refers to the first transmitted bit) and Bits is a modification mask where each\ncharacter describes a modification to a single bit. The allowed characters are:\n   0 : force bit to 0\n   1 : force bit to 1\n   - : leave bit unchanged\n   X : revert bit (0 becomes 1 and 1 becomes 0)\n\nFor example: \"24:X---10XX\" will: revert bits 24, 30 and 31\n                 set bit 28 to 1\n                 set bit 29 to 0\nThe other bits are not affected.\n\nYou can add multiple bits mods using commas. For example: \"24:X---10XX,127:100X,231:01\""; }
+      get { return "Please note the command SetModificationToBeiDouCNav2Message is deprecated since 21.3. You may use SetMessageModificationToBeiDouCNav2.\n\nSet (or Modify) event to change CNAV2 message bits. If you send this command without setting the Id\nparameter, or if you set the Id with a value never used before, a new Modification event will be\ncreated. If you reuse the same event Id, it will modify the existing event.\n\nNote that start and stop time are automatically extended to beginning and ending of overlapped\nmessages.\n\nThe Condition parameter is optional and allows you to add content matching condition before applying\nbits mods.\n\nBitsMods can be an empty string. The Modification will have no effect until you modify it with at\nleast one bits mod.\n\nA bits mod is represented with a string using the following format: \"I:Bits\" where I is a bit\nindex (1 refers to the first transmitted bit) and Bits is a modification mask where each\ncharacter describes a modification to a single bit. The allowed characters are:\n   0 : force bit to 0\n   1 : force bit to 1\n   - : leave bit unchanged\n   X : revert bit (0 becomes 1 and 1 becomes 0)\n\nFor example: \"24:X---10XX\" will: revert bits 24, 30 and 31\n                 set bit 28 to 1\n                 set bit 29 to 0\nThe other bits are not affected.\n\nYou can add multiple bits mods using commas. For example: \"24:X---10XX,127:100X,231:01\""; }
     }
 
     internal const string CmdName = "SetModificationToBeiDouCNav2Message";
@@ -79162,7 +79639,7 @@ namespace Sdx.Cmd
 
 
   ///
-  /// Please note the command ModificationToBeiDouCNav2Message is deprecated since 21.3. You may use MessageModificationToBeiDouCNav2.
+  /// Please note the command GetBeiDouCNav2Message is deprecated since 21.3. You may use GetMessageModificationToBeiDouCNav2.
   /// 
   /// Get infos about the modifications of CNAV2 Message with this id
   ///
@@ -79175,7 +79652,7 @@ namespace Sdx.Cmd
   {
     public override string Documentation
     {
-      get { return "Please note the command ModificationToBeiDouCNav2Message is deprecated since 21.3. You may use MessageModificationToBeiDouCNav2.\n\nGet infos about the modifications of CNAV2 Message with this id"; }
+      get { return "Please note the command GetBeiDouCNav2Message is deprecated since 21.3. You may use GetMessageModificationToBeiDouCNav2.\n\nGet infos about the modifications of CNAV2 Message with this id"; }
     }
 
     internal const string CmdName = "GetBeiDouCNav2Message";
@@ -79214,7 +79691,7 @@ namespace Sdx.Cmd
 
 
   ///
-  /// Result of GetBeiDouCNav2Message
+  /// Result of GetBeiDouCNav2Message.
   ///
   /// Name        Type   Description
   /// ----------- ------ --------------------------------------------------------------------
@@ -79232,7 +79709,7 @@ namespace Sdx.Cmd
   {
     public override string Documentation
     {
-      get { return "Result of GetBeiDouCNav2Message"; }
+      get { return "Result of GetBeiDouCNav2Message."; }
     }
 
     internal const string CmdName = "GetBeiDouCNav2MessageResult";
@@ -79532,7 +80009,7 @@ namespace Sdx.Cmd
 
 
   ///
-  /// Please note the command ModificationToQzssLNAVNavigationMessage is deprecated since 21.3. You may use MessageModificationToQzssLNav.
+  /// Please note the command SetModificationToQzssLNAVNavigationMessage is deprecated since 21.3. You may use SetMessageModificationToQzssLNav.
   /// 
   /// Set (or Modify) event to change navigation message bits.
   /// 
@@ -79572,7 +80049,7 @@ namespace Sdx.Cmd
   {
     public override string Documentation
     {
-      get { return "Please note the command ModificationToQzssLNAVNavigationMessage is deprecated since 21.3. You may use MessageModificationToQzssLNav.\n\nSet (or Modify) event to change navigation message bits.\n\nNote that start and stop time are automatically extended to beginning and ending of overlapped\nsubframes. The Modification parameter is a string where the first character applies to the first\nbit of subframe word and last character applies to last bit of subframe word.\n   '0' will force bit to zero\n   '1' will for bit to one\n   'X' will negate bit value\n   any other byte value will have no effect\n\nExample: \"-00------------------1-X------\" will force bits 1 and 2 to zero and bit 22 to one\n                      and negate bit 24\n\nNote: if UpdateParity is true, any modification to bits 25..30 will have no effect.\n\nThe Id parameter is automatically updated with a unique id by the simulator for future reference.\nIf the ID is set with a value other than an empty string, the simulator will try to find a match\nwith previously added events. If there is a match, the event is updated with this message\ninstead of adding a new event. If there is no match, the event is added and the ID is not\nchanged."; }
+      get { return "Please note the command SetModificationToQzssLNAVNavigationMessage is deprecated since 21.3. You may use SetMessageModificationToQzssLNav.\n\nSet (or Modify) event to change navigation message bits.\n\nNote that start and stop time are automatically extended to beginning and ending of overlapped\nsubframes. The Modification parameter is a string where the first character applies to the first\nbit of subframe word and last character applies to last bit of subframe word.\n   '0' will force bit to zero\n   '1' will for bit to one\n   'X' will negate bit value\n   any other byte value will have no effect\n\nExample: \"-00------------------1-X------\" will force bits 1 and 2 to zero and bit 22 to one\n                      and negate bit 24\n\nNote: if UpdateParity is true, any modification to bits 25..30 will have no effect.\n\nThe Id parameter is automatically updated with a unique id by the simulator for future reference.\nIf the ID is set with a value other than an empty string, the simulator will try to find a match\nwith previously added events. If there is a match, the event is updated with this message\ninstead of adding a new event. If there is no match, the event is added and the ID is not\nchanged."; }
     }
 
     internal const string CmdName = "SetModificationToQzssLNAVNavigationMessage";
@@ -79699,7 +80176,7 @@ namespace Sdx.Cmd
 
 
   ///
-  /// Please note the command ModificationToQzssLNAVNavigationMessage is deprecated since 21.3. You may use MessageModificationToQzssLNav.
+  /// Please note the command GetQzssLNAVNavigationMessage is deprecated since 21.3. You may use GetMessageModificationToQzssLNav.
   /// 
   /// Get infos about this modification QZSS navigation message event.
   ///
@@ -79712,7 +80189,7 @@ namespace Sdx.Cmd
   {
     public override string Documentation
     {
-      get { return "Please note the command ModificationToQzssLNAVNavigationMessage is deprecated since 21.3. You may use MessageModificationToQzssLNav.\n\nGet infos about this modification QZSS navigation message event."; }
+      get { return "Please note the command GetQzssLNAVNavigationMessage is deprecated since 21.3. You may use GetMessageModificationToQzssLNav.\n\nGet infos about this modification QZSS navigation message event."; }
     }
 
     internal const string CmdName = "GetQzssLNAVNavigationMessage";
@@ -79751,7 +80228,7 @@ namespace Sdx.Cmd
 
 
   ///
-  /// Result of GetQzssLNAVNavigationMessage
+  /// Result of GetQzssLNAVNavigationMessage.
   ///
   /// Name            Type   Description
   /// --------------- ------ -------------------------------------------------------------------------
@@ -79770,7 +80247,7 @@ namespace Sdx.Cmd
   {
     public override string Documentation
     {
-      get { return "Result of GetQzssLNAVNavigationMessage"; }
+      get { return "Result of GetQzssLNAVNavigationMessage."; }
     }
 
     internal const string CmdName = "GetQzssLNAVNavigationMessageResult";
@@ -80082,7 +80559,7 @@ namespace Sdx.Cmd
 
 
   ///
-  /// Please note the command ModificationToQzssL1SMessage is deprecated since 21.3. You may use MessageModificationToQzssSlas.
+  /// Please note the command SetModificationToQzssL1SMessage is deprecated since 21.3. You may use SetMessageModificationToQzssSlas.
   /// 
   /// Set (or Modify) event to change L1S message bits. If you send this command without setting the Id
   /// parameter, or if you set the Id with a value never used before, a new Modification event will be
@@ -80128,7 +80605,7 @@ namespace Sdx.Cmd
   {
     public override string Documentation
     {
-      get { return "Please note the command ModificationToQzssL1SMessage is deprecated since 21.3. You may use MessageModificationToQzssSlas.\n\nSet (or Modify) event to change L1S message bits. If you send this command without setting the Id\nparameter, or if you set the Id with a value never used before, a new Modification event will be\ncreated. If you reuse the same event Id, it will modify the existing event.\n\nNote that start and stop time are automatically extended to beginning and ending of overlapped\nmessages.\n\nThe Condition parameter is optional and allows you to add content matching condition before applying\nbits mods.\n\nBitsMods can be an empty string. The Modification will have no effect until you modify it with at\nleast one bits mod.\n\nA bits mod is represented with a string using the following format: \"I:Bits\" where I is a bit\nindex (1 refers to the first transmitted bit) and Bits is a modification mask where each\ncharacter describes a modification to a single bit. The allowed characters are:\n   0 : force bit to 0\n   1 : force bit to 1\n   - : leave bit unchanged\n   X : revert bit (0 becomes 1 and 1 becomes 0)\n\nFor example: \"24:X---10XX\" will: revert bits 24, 30 and 31\n                 set bit 28 to 1\n                 set bit 29 to 0\nThe other bits are not affected.\n\nYou can add multiple bits mods using commas. For example: \"24:X---10XX,127:100X,231:01\""; }
+      get { return "Please note the command SetModificationToQzssL1SMessage is deprecated since 21.3. You may use SetMessageModificationToQzssSlas.\n\nSet (or Modify) event to change L1S message bits. If you send this command without setting the Id\nparameter, or if you set the Id with a value never used before, a new Modification event will be\ncreated. If you reuse the same event Id, it will modify the existing event.\n\nNote that start and stop time are automatically extended to beginning and ending of overlapped\nmessages.\n\nThe Condition parameter is optional and allows you to add content matching condition before applying\nbits mods.\n\nBitsMods can be an empty string. The Modification will have no effect until you modify it with at\nleast one bits mod.\n\nA bits mod is represented with a string using the following format: \"I:Bits\" where I is a bit\nindex (1 refers to the first transmitted bit) and Bits is a modification mask where each\ncharacter describes a modification to a single bit. The allowed characters are:\n   0 : force bit to 0\n   1 : force bit to 1\n   - : leave bit unchanged\n   X : revert bit (0 becomes 1 and 1 becomes 0)\n\nFor example: \"24:X---10XX\" will: revert bits 24, 30 and 31\n                 set bit 28 to 1\n                 set bit 29 to 0\nThe other bits are not affected.\n\nYou can add multiple bits mods using commas. For example: \"24:X---10XX,127:100X,231:01\""; }
     }
 
     internal const string CmdName = "SetModificationToQzssL1SMessage";
@@ -80244,7 +80721,7 @@ namespace Sdx.Cmd
 
 
   ///
-  /// Please note the command ModificationToQzssL1SMessage is deprecated since 21.3. You may use MessageModificationToQzssSlas.
+  /// Please note the command GetQzssL1SMessage is deprecated since 21.3. You may use GetMessageModificationToQzssSlas.
   /// 
   /// Get infos about the L1S Message with this id
   ///
@@ -80257,7 +80734,7 @@ namespace Sdx.Cmd
   {
     public override string Documentation
     {
-      get { return "Please note the command ModificationToQzssL1SMessage is deprecated since 21.3. You may use MessageModificationToQzssSlas.\n\nGet infos about the L1S Message with this id"; }
+      get { return "Please note the command GetQzssL1SMessage is deprecated since 21.3. You may use GetMessageModificationToQzssSlas.\n\nGet infos about the L1S Message with this id"; }
     }
 
     internal const string CmdName = "GetQzssL1SMessage";
@@ -80296,7 +80773,7 @@ namespace Sdx.Cmd
 
 
   ///
-  /// Result of GetQzssL1SMessage
+  /// Result of GetQzssL1SMessage.
   ///
   /// Name        Type   Description
   /// ----------- ------ --------------------------------------------------------------------
@@ -80314,7 +80791,7 @@ namespace Sdx.Cmd
   {
     public override string Documentation
     {
-      get { return "Result of GetQzssL1SMessage"; }
+      get { return "Result of GetQzssL1SMessage."; }
     }
 
     internal const string CmdName = "GetQzssL1SMessageResult";
@@ -80428,7 +80905,7 @@ namespace Sdx.Cmd
 
 
   ///
-  /// Please note the command ModificationToNavICL5Message is deprecated since 21.3. You may use MessageModificationToNavICNav.
+  /// Please note the command SetModificationToNavICL5Message is deprecated since 21.3. You may use SetMessageModificationToNavICNav.
   /// 
   /// Set (or Modify) event to change NavIC L5 message bits. If you send this command without setting the Id
   /// parameter, or if you set the Id with a value never used before, a new Modification event will be
@@ -80475,7 +80952,7 @@ namespace Sdx.Cmd
   {
     public override string Documentation
     {
-      get { return "Please note the command ModificationToNavICL5Message is deprecated since 21.3. You may use MessageModificationToNavICNav.\n\nSet (or Modify) event to change NavIC L5 message bits. If you send this command without setting the Id\nparameter, or if you set the Id with a value never used before, a new Modification event will be\ncreated. If you reuse the same event Id, it will modify the existing event.\n\nNote that start and stop time are automatically extended to beginning and ending of overlapped\nmessages.\n\nThe Condition parameter is optional and allows you to add content matching condition before applying\nbits mods.\n\nBitsMods can be an empty string. The Modification will have no effect until you modify it with at\nleast one bits mod.\n\nA bits mod is represented with a string using the following format: \"I:Bits\" where I is a bit\nindex (1 refers to the first transmitted bit) and Bits is a modification mask where each\ncharacter describes a modification to a single bit. The allowed characters are:\n   0 : force bit to 0\n   1 : force bit to 1\n   - : leave bit unchanged\n   X : revert bit (0 becomes 1 and 1 becomes 0)\n\nFor example: \"24:X---10XX\" will: revert bits 24, 30 and 31\n                 set bit 28 to 1\n                 set bit 29 to 0\nThe other bits are not affected.\n\nYou can add multiple bits mods using commas. For example: \"24:X---10XX,127:100X,231:01\""; }
+      get { return "Please note the command SetModificationToNavICL5Message is deprecated since 21.3. You may use SetMessageModificationToNavICNav.\n\nSet (or Modify) event to change NavIC L5 message bits. If you send this command without setting the Id\nparameter, or if you set the Id with a value never used before, a new Modification event will be\ncreated. If you reuse the same event Id, it will modify the existing event.\n\nNote that start and stop time are automatically extended to beginning and ending of overlapped\nmessages.\n\nThe Condition parameter is optional and allows you to add content matching condition before applying\nbits mods.\n\nBitsMods can be an empty string. The Modification will have no effect until you modify it with at\nleast one bits mod.\n\nA bits mod is represented with a string using the following format: \"I:Bits\" where I is a bit\nindex (1 refers to the first transmitted bit) and Bits is a modification mask where each\ncharacter describes a modification to a single bit. The allowed characters are:\n   0 : force bit to 0\n   1 : force bit to 1\n   - : leave bit unchanged\n   X : revert bit (0 becomes 1 and 1 becomes 0)\n\nFor example: \"24:X---10XX\" will: revert bits 24, 30 and 31\n                 set bit 28 to 1\n                 set bit 29 to 0\nThe other bits are not affected.\n\nYou can add multiple bits mods using commas. For example: \"24:X---10XX,127:100X,231:01\""; }
     }
 
     internal const string CmdName = "SetModificationToNavICL5Message";
@@ -80602,7 +81079,7 @@ namespace Sdx.Cmd
 
 
   ///
-  /// Please note the command ModificationToNavICL5Message is deprecated since 21.3. You may use MessageModificationToNavICNav.
+  /// Please note the command GetNavICL5Message is deprecated since 21.3. You may use GetMessageModificationToNavICNav.
   /// 
   /// Get infos about the NAV Message with this id
   ///
@@ -80615,7 +81092,7 @@ namespace Sdx.Cmd
   {
     public override string Documentation
     {
-      get { return "Please note the command ModificationToNavICL5Message is deprecated since 21.3. You may use MessageModificationToNavICNav.\n\nGet infos about the NAV Message with this id"; }
+      get { return "Please note the command GetNavICL5Message is deprecated since 21.3. You may use GetMessageModificationToNavICNav.\n\nGet infos about the NAV Message with this id"; }
     }
 
     internal const string CmdName = "GetNavICL5Message";
@@ -80654,7 +81131,7 @@ namespace Sdx.Cmd
 
 
   ///
-  /// Result of GetNavICL5Message
+  /// Result of GetNavICL5Message.
   ///
   /// Name        Type   Description
   /// ----------- ------ --------------------------------------------------------------------
@@ -80673,7 +81150,7 @@ namespace Sdx.Cmd
   {
     public override string Documentation
     {
-      get { return "Result of GetNavICL5Message"; }
+      get { return "Result of GetNavICL5Message."; }
     }
 
     internal const string CmdName = "GetNavICL5MessageResult";
@@ -80910,6 +81387,8 @@ namespace Sdx.Cmd
 
 
   ///
+  /// Please note the command SetSbasHealthRanging is deprecated since 21.9. You may use SetSbasSVRangingHealth.
+  /// 
   /// Apply ranging flag for a SBAS satellite
   ///
   /// Name   Type Description
@@ -80922,7 +81401,7 @@ namespace Sdx.Cmd
   {
     public override string Documentation
     {
-      get { return "Apply ranging flag for a SBAS satellite"; }
+      get { return "Please note the command SetSbasHealthRanging is deprecated since 21.9. You may use SetSbasSVRangingHealth.\n\nApply ranging flag for a SBAS satellite"; }
     }
 
     internal const string CmdName = "SetSbasHealthRanging";
@@ -80972,6 +81451,8 @@ namespace Sdx.Cmd
 
 
   ///
+  /// Please note the command SetSbasHealthCorrections is deprecated since 21.9. You may use SetSbasSVCorrectionsHealth.
+  /// 
   /// Apply correction flag for a SBAS satellite
   ///
   /// Name   Type Description
@@ -80984,7 +81465,7 @@ namespace Sdx.Cmd
   {
     public override string Documentation
     {
-      get { return "Apply correction flag for a SBAS satellite"; }
+      get { return "Please note the command SetSbasHealthCorrections is deprecated since 21.9. You may use SetSbasSVCorrectionsHealth.\n\nApply correction flag for a SBAS satellite"; }
     }
 
     internal const string CmdName = "SetSbasHealthCorrections";
@@ -81034,6 +81515,8 @@ namespace Sdx.Cmd
 
 
   ///
+  /// Please note the command SetSbasHealthIntegrity is deprecated since 21.9. You may use SetSbasSVIntegrityHealth.
+  /// 
   /// Apply integrity flag for a SBAS satellite
   ///
   /// Name   Type Description
@@ -81046,7 +81529,7 @@ namespace Sdx.Cmd
   {
     public override string Documentation
     {
-      get { return "Apply integrity flag for a SBAS satellite"; }
+      get { return "Please note the command SetSbasHealthIntegrity is deprecated since 21.9. You may use SetSbasSVIntegrityHealth.\n\nApply integrity flag for a SBAS satellite"; }
     }
 
     internal const string CmdName = "SetSbasHealthIntegrity";
@@ -81096,6 +81579,8 @@ namespace Sdx.Cmd
 
 
   ///
+  /// Please note the command SetSbasHealthReserved is deprecated since 21.9. You may use SetSbasSVReservedHealth.
+  /// 
   /// Apply reserved flag for a SBAS satellite
   ///
   /// Name   Type Description
@@ -81108,7 +81593,7 @@ namespace Sdx.Cmd
   {
     public override string Documentation
     {
-      get { return "Apply reserved flag for a SBAS satellite"; }
+      get { return "Please note the command SetSbasHealthReserved is deprecated since 21.9. You may use SetSbasSVReservedHealth.\n\nApply reserved flag for a SBAS satellite"; }
     }
 
     internal const string CmdName = "SetSbasHealthReserved";
@@ -81158,6 +81643,8 @@ namespace Sdx.Cmd
 
 
   ///
+  /// Please note the command SetSbasHealthService is deprecated since 21.9. You may use SetSbasSVServiceHealth.
+  /// 
   /// Apply service provider for a satellite
   ///
   /// Name   Type Description
@@ -81170,7 +81657,7 @@ namespace Sdx.Cmd
   {
     public override string Documentation
     {
-      get { return "Apply service provider for a satellite"; }
+      get { return "Please note the command SetSbasHealthService is deprecated since 21.9. You may use SetSbasSVServiceHealth.\n\nApply service provider for a satellite"; }
     }
 
     internal const string CmdName = "SetSbasHealthService";
@@ -81708,7 +82195,7 @@ namespace Sdx.Cmd
 
 
   ///
-  /// Please note the command SatGeo is deprecated since 21.3. You may use ForceSVGeo.
+  /// Please note the command SetSatGeo is deprecated since 21.3. You may use ForceSVGeo.
   /// 
   /// Set whether a satellite is geostationary
   ///
@@ -81724,7 +82211,7 @@ namespace Sdx.Cmd
   {
     public override string Documentation
     {
-      get { return "Please note the command SatGeo is deprecated since 21.3. You may use ForceSVGeo.\n\nSet whether a satellite is geostationary"; }
+      get { return "Please note the command SetSatGeo is deprecated since 21.3. You may use ForceSVGeo.\n\nSet whether a satellite is geostationary"; }
     }
 
     internal const string CmdName = "SetSatGeo";
@@ -81796,7 +82283,7 @@ namespace Sdx.Cmd
 
 
   ///
-  /// Please note the command SatGeo is deprecated since 21.3. You may use ForceSVGeo.
+  /// Please note the command IsSatGeo is deprecated since 21.3. You may use IsSVForcedGeo.
   /// 
   /// Get whether a satellite is geostationary
   ///
@@ -81810,7 +82297,7 @@ namespace Sdx.Cmd
   {
     public override string Documentation
     {
-      get { return "Please note the command SatGeo is deprecated since 21.3. You may use ForceSVGeo.\n\nGet whether a satellite is geostationary"; }
+      get { return "Please note the command IsSatGeo is deprecated since 21.3. You may use IsSVForcedGeo.\n\nGet whether a satellite is geostationary"; }
     }
 
     internal const string CmdName = "IsSatGeo";
@@ -81860,7 +82347,7 @@ namespace Sdx.Cmd
 
 
   ///
-  /// Result of IsSatGeo
+  /// Result of IsSatGeo.
   ///
   /// Name      Type   Description
   /// --------- ------ -----------------------------------------------------------------------------------------------------------------------------------------------
@@ -81874,7 +82361,7 @@ namespace Sdx.Cmd
   {
     public override string Documentation
     {
-      get { return "Result of IsSatGeo"; }
+      get { return "Result of IsSatGeo."; }
     }
 
     internal const string CmdName = "IsSatGeoResult";
@@ -82021,9 +82508,9 @@ namespace Sdx.Cmd
 
 
   ///
-  /// Please note the command EnablePY is deprecated since 21.3. You may use EnablePYCodeForSV.
+  /// Please note the command IsPYEnabled is deprecated since 21.3. You may use IsPYCodeEnabledForSV.
   /// 
-  /// Tells if P(Y)-Code is enabled for the specified satellite PRN. See EnablePY description for allowed signals.
+  /// Tells if P(Y)-Code is enabled for the specified satellite PRN. See IsPYEnabled description for allowed signals.
   ///
   /// Name   Type   Description
   /// ------ ------ --------------------------------------------------------
@@ -82035,7 +82522,7 @@ namespace Sdx.Cmd
   {
     public override string Documentation
     {
-      get { return "Please note the command EnablePY is deprecated since 21.3. You may use EnablePYCodeForSV.\n\nTells if P(Y)-Code is enabled for the specified satellite PRN. See EnablePY description for allowed signals."; }
+      get { return "Please note the command IsPYEnabled is deprecated since 21.3. You may use IsPYCodeEnabledForSV.\n\nTells if P(Y)-Code is enabled for the specified satellite PRN. See IsPYEnabled description for allowed signals."; }
     }
 
     internal const string CmdName = "IsPYEnabled";
@@ -82085,7 +82572,7 @@ namespace Sdx.Cmd
 
 
   ///
-  /// Result of IsPYEnabled
+  /// Result of IsPYEnabled.
   ///
   /// Name    Type   Description
   /// ------- ------ --------------------------------------------------------
@@ -82098,7 +82585,7 @@ namespace Sdx.Cmd
   {
     public override string Documentation
     {
-      get { return "Result of IsPYEnabled"; }
+      get { return "Result of IsPYEnabled."; }
     }
 
     internal const string CmdName = "IsPYEnabledResult";
@@ -82222,9 +82709,9 @@ namespace Sdx.Cmd
 
 
   ///
-  /// Please note the command EnablePYForEachPrn is deprecated since 21.3. You may use EnablePYCodeForEachSV.
+  /// Please note the command GetPYEnabledForEachPrn is deprecated since 21.3. You may use IsPYCodeEnabledForEachSV.
   /// 
-  /// Tells if the P(Y)-Code is enabled or disabled for each satellite. See EnablePYForEachPrn description for allowed signals.
+  /// Tells if the P(Y)-Code is enabled or disabled for each satellite. See GetPYEnabledForEachPrn description for allowed signals.
   ///
   /// Name   Type   Description
   /// ------ ------ --------------------------------------------------------
@@ -82235,7 +82722,7 @@ namespace Sdx.Cmd
   {
     public override string Documentation
     {
-      get { return "Please note the command EnablePYForEachPrn is deprecated since 21.3. You may use EnablePYCodeForEachSV.\n\nTells if the P(Y)-Code is enabled or disabled for each satellite. See EnablePYForEachPrn description for allowed signals."; }
+      get { return "Please note the command GetPYEnabledForEachPrn is deprecated since 21.3. You may use IsPYCodeEnabledForEachSV.\n\nTells if the P(Y)-Code is enabled or disabled for each satellite. See GetPYEnabledForEachPrn description for allowed signals."; }
     }
 
     internal const string CmdName = "GetPYEnabledForEachPrn";
@@ -82274,7 +82761,7 @@ namespace Sdx.Cmd
 
 
   ///
-  /// Result of GetPYEnabledForEachPrn
+  /// Result of GetPYEnabledForEachPrn.
   ///
   /// Name    Type       Description
   /// ------- ---------- ------------------------------------------------------------------------------------------------------------------
@@ -82286,7 +82773,7 @@ namespace Sdx.Cmd
   {
     public override string Documentation
     {
-      get { return "Result of GetPYEnabledForEachPrn"; }
+      get { return "Result of GetPYEnabledForEachPrn."; }
     }
 
     internal const string CmdName = "GetPYEnabledForEachPrnResult";
@@ -82334,7 +82821,7 @@ namespace Sdx.Cmd
 
 
   ///
-  /// Please note the command SatellitePseudorangeNoiseOffset is deprecated since 21.3. You may use PseudorangeNoiseOffsetForSV.
+  /// Please note the command SetSatellitePseudorangeNoiseOffset is deprecated since 21.3. You may use SetPseudorangeNoiseOffsetForSV.
   /// 
   /// Set the satellite pseudorange noise constant offset.
   ///
@@ -82350,7 +82837,7 @@ namespace Sdx.Cmd
   {
     public override string Documentation
     {
-      get { return "Please note the command SatellitePseudorangeNoiseOffset is deprecated since 21.3. You may use PseudorangeNoiseOffsetForSV.\n\nSet the satellite pseudorange noise constant offset."; }
+      get { return "Please note the command SetSatellitePseudorangeNoiseOffset is deprecated since 21.3. You may use SetPseudorangeNoiseOffsetForSV.\n\nSet the satellite pseudorange noise constant offset."; }
     }
 
     internal const string CmdName = "SetSatellitePseudorangeNoiseOffset";
@@ -82422,7 +82909,7 @@ namespace Sdx.Cmd
 
 
   ///
-  /// Please note the command SatellitePseudorangeNoiseOffset is deprecated since 21.3. You may use PseudorangeNoiseOffsetForSV.
+  /// Please note the command GetSatellitePseudorangeNoiseOffset is deprecated since 21.3. You may use GetPseudorangeNoiseOffsetForSV.
   /// 
   /// Get the satellite pseudorange noise constant offset.
   ///
@@ -82436,7 +82923,7 @@ namespace Sdx.Cmd
   {
     public override string Documentation
     {
-      get { return "Please note the command SatellitePseudorangeNoiseOffset is deprecated since 21.3. You may use PseudorangeNoiseOffsetForSV.\n\nGet the satellite pseudorange noise constant offset."; }
+      get { return "Please note the command GetSatellitePseudorangeNoiseOffset is deprecated since 21.3. You may use GetPseudorangeNoiseOffsetForSV.\n\nGet the satellite pseudorange noise constant offset."; }
     }
 
     internal const string CmdName = "GetSatellitePseudorangeNoiseOffset";
@@ -82486,7 +82973,7 @@ namespace Sdx.Cmd
 
 
   ///
-  /// Result of GetSatellitePseudorangeNoiseOffset
+  /// Result of GetSatellitePseudorangeNoiseOffset.
   ///
   /// Name    Type   Description
   /// ------- ------ ----------------------------------------------------------------------------------------------------------
@@ -82500,7 +82987,7 @@ namespace Sdx.Cmd
   {
     public override string Documentation
     {
-      get { return "Result of GetSatellitePseudorangeNoiseOffset"; }
+      get { return "Result of GetSatellitePseudorangeNoiseOffset."; }
     }
 
     internal const string CmdName = "GetSatellitePseudorangeNoiseOffsetResult";
@@ -82570,7 +83057,7 @@ namespace Sdx.Cmd
 
 
   ///
-  /// Please note the command SatellitePseudorangeNoiseSineWave is deprecated since 21.3. You may use PseudorangeNoiseSineWaveForSV.
+  /// Please note the command SetSatellitePseudorangeNoiseSineWave is deprecated since 21.3. You may use SetPseudorangeNoiseSineWaveForSV.
   /// 
   /// Set the satellite pseudorange noise sine wave attributes.
   ///
@@ -82589,7 +83076,7 @@ namespace Sdx.Cmd
   {
     public override string Documentation
     {
-      get { return "Please note the command SatellitePseudorangeNoiseSineWave is deprecated since 21.3. You may use PseudorangeNoiseSineWaveForSV.\n\nSet the satellite pseudorange noise sine wave attributes."; }
+      get { return "Please note the command SetSatellitePseudorangeNoiseSineWave is deprecated since 21.3. You may use SetPseudorangeNoiseSineWaveForSV.\n\nSet the satellite pseudorange noise sine wave attributes."; }
     }
 
     internal const string CmdName = "SetSatellitePseudorangeNoiseSineWave";
@@ -82694,7 +83181,7 @@ namespace Sdx.Cmd
 
 
   ///
-  /// Please note the command SatellitePseudorangeNoiseSineWave is deprecated since 21.3. You may use PseudorangeNoiseSineWaveForSV.
+  /// Please note the command GetSatellitePseudorangeNoiseSineWave is deprecated since 21.3. You may use GetPseudorangeNoiseSineWaveForSV.
   /// 
   /// Get the satellite pseudorange noise sine wave attributes.
   ///
@@ -82709,7 +83196,7 @@ namespace Sdx.Cmd
   {
     public override string Documentation
     {
-      get { return "Please note the command SatellitePseudorangeNoiseSineWave is deprecated since 21.3. You may use PseudorangeNoiseSineWaveForSV.\n\nGet the satellite pseudorange noise sine wave attributes."; }
+      get { return "Please note the command GetSatellitePseudorangeNoiseSineWave is deprecated since 21.3. You may use GetPseudorangeNoiseSineWaveForSV.\n\nGet the satellite pseudorange noise sine wave attributes."; }
     }
 
     internal const string CmdName = "GetSatellitePseudorangeNoiseSineWave";
@@ -82770,7 +83257,7 @@ namespace Sdx.Cmd
 
 
   ///
-  /// Result of GetSatellitePseudorangeNoiseSineWave
+  /// Result of GetSatellitePseudorangeNoiseSineWave.
   ///
   /// Name      Type   Description
   /// --------- ------ ----------------------------------------------------------------------------------------------------------
@@ -82787,7 +83274,7 @@ namespace Sdx.Cmd
   {
     public override string Documentation
     {
-      get { return "Result of GetSatellitePseudorangeNoiseSineWave"; }
+      get { return "Result of GetSatellitePseudorangeNoiseSineWave."; }
     }
 
     internal const string CmdName = "GetSatellitePseudorangeNoiseSineWaveResult";
@@ -82890,7 +83377,7 @@ namespace Sdx.Cmd
 
 
   ///
-  /// Please note the command SatellitePseudorangeNoiseGaussMarkov is deprecated since 21.3. You may use PseudorangeNoiseGaussMarkovForSV.
+  /// Please note the command SetSatellitePseudorangeNoiseGaussMarkov is deprecated since 21.3. You may use SetPseudorangeNoiseGaussMarkovForSV.
   /// 
   /// Set the satellite pseudorange noise Gauss-Markov process attributes.
   ///
@@ -82909,7 +83396,7 @@ namespace Sdx.Cmd
   {
     public override string Documentation
     {
-      get { return "Please note the command SatellitePseudorangeNoiseGaussMarkov is deprecated since 21.3. You may use PseudorangeNoiseGaussMarkovForSV.\n\nSet the satellite pseudorange noise Gauss-Markov process attributes."; }
+      get { return "Please note the command SetSatellitePseudorangeNoiseGaussMarkov is deprecated since 21.3. You may use SetPseudorangeNoiseGaussMarkovForSV.\n\nSet the satellite pseudorange noise Gauss-Markov process attributes."; }
     }
 
     internal const string CmdName = "SetSatellitePseudorangeNoiseGaussMarkov";
@@ -83014,7 +83501,7 @@ namespace Sdx.Cmd
 
 
   ///
-  /// Please note the command SatellitePseudorangeNoiseGaussMarkov is deprecated since 21.3. You may use PseudorangeNoiseGaussMarkovForSV.
+  /// Please note the command GetSatellitePseudorangeNoiseGaussMarkov is deprecated since 21.3. You may use GetPseudorangeNoiseGaussMarkovForSV.
   /// 
   /// Get the satellite pseudorange noise Gauss-Markov process attributes.
   ///
@@ -83029,7 +83516,7 @@ namespace Sdx.Cmd
   {
     public override string Documentation
     {
-      get { return "Please note the command SatellitePseudorangeNoiseGaussMarkov is deprecated since 21.3. You may use PseudorangeNoiseGaussMarkovForSV.\n\nGet the satellite pseudorange noise Gauss-Markov process attributes."; }
+      get { return "Please note the command GetSatellitePseudorangeNoiseGaussMarkov is deprecated since 21.3. You may use GetPseudorangeNoiseGaussMarkovForSV.\n\nGet the satellite pseudorange noise Gauss-Markov process attributes."; }
     }
 
     internal const string CmdName = "GetSatellitePseudorangeNoiseGaussMarkov";
@@ -83090,7 +83577,7 @@ namespace Sdx.Cmd
 
 
   ///
-  /// Result of GetSatellitePseudorangeNoiseGaussMarkov
+  /// Result of GetSatellitePseudorangeNoiseGaussMarkov.
   ///
   /// Name    Type   Description
   /// ------- ------ ----------------------------------------------------------------------------------------------------------
@@ -83107,7 +83594,7 @@ namespace Sdx.Cmd
   {
     public override string Documentation
     {
-      get { return "Result of GetSatellitePseudorangeNoiseGaussMarkov"; }
+      get { return "Result of GetSatellitePseudorangeNoiseGaussMarkov."; }
     }
 
     internal const string CmdName = "GetSatellitePseudorangeNoiseGaussMarkovResult";
@@ -83210,7 +83697,7 @@ namespace Sdx.Cmd
 
 
   ///
-  /// Please note the command SatelliteEphemerisError is deprecated since 21.3. You may use EphemerisErrorForSV.
+  /// Please note the command SetSatelliteEphemerisError is deprecated since 21.3. You may use SetEphemerisErrorForSV.
   /// 
   /// Set the satellite ephemeris error.
   ///
@@ -83227,7 +83714,7 @@ namespace Sdx.Cmd
   {
     public override string Documentation
     {
-      get { return "Please note the command SatelliteEphemerisError is deprecated since 21.3. You may use EphemerisErrorForSV.\n\nSet the satellite ephemeris error."; }
+      get { return "Please note the command SetSatelliteEphemerisError is deprecated since 21.3. You may use SetEphemerisErrorForSV.\n\nSet the satellite ephemeris error."; }
     }
 
     internal const string CmdName = "SetSatelliteEphemerisError";
@@ -83310,7 +83797,7 @@ namespace Sdx.Cmd
 
 
   ///
-  /// Please note the command SatelliteEphemerisError is deprecated since 21.3. You may use EphemerisErrorForSV.
+  /// Please note the command GetSatelliteEphemerisError is deprecated since 21.3. You may use GetEphemerisErrorForSV.
   /// 
   /// Get the satellite ephemeris error.
   ///
@@ -83324,7 +83811,7 @@ namespace Sdx.Cmd
   {
     public override string Documentation
     {
-      get { return "Please note the command SatelliteEphemerisError is deprecated since 21.3. You may use EphemerisErrorForSV.\n\nGet the satellite ephemeris error."; }
+      get { return "Please note the command GetSatelliteEphemerisError is deprecated since 21.3. You may use GetEphemerisErrorForSV.\n\nGet the satellite ephemeris error."; }
     }
 
     internal const string CmdName = "GetSatelliteEphemerisError";
@@ -83374,7 +83861,7 @@ namespace Sdx.Cmd
 
 
   ///
-  /// Result of GetSatelliteEphemerisError
+  /// Result of GetSatelliteEphemerisError.
   ///
   /// Name     Type   Description
   /// -------- ------ ----------------------------------------------------------------------------------------------------------
@@ -83389,7 +83876,7 @@ namespace Sdx.Cmd
   {
     public override string Documentation
     {
-      get { return "Result of GetSatelliteEphemerisError"; }
+      get { return "Result of GetSatelliteEphemerisError."; }
     }
 
     internal const string CmdName = "GetSatelliteEphemerisErrorResult";
@@ -83470,7 +83957,7 @@ namespace Sdx.Cmd
 
 
   ///
-  /// Please note the command GpsCodePrn is deprecated since 21.3. You may use PrnOfSVID.
+  /// Please note the command SetGpsCodePrn is deprecated since 21.3. You may use SetPrnOfSVID.
   /// 
   /// Set the transmitted PRN code for the specified satellite
   ///
@@ -83484,7 +83971,7 @@ namespace Sdx.Cmd
   {
     public override string Documentation
     {
-      get { return "Please note the command GpsCodePrn is deprecated since 21.3. You may use PrnOfSVID.\n\nSet the transmitted PRN code for the specified satellite"; }
+      get { return "Please note the command SetGpsCodePrn is deprecated since 21.3. You may use SetPrnOfSVID.\n\nSet the transmitted PRN code for the specified satellite"; }
     }
 
     internal const string CmdName = "SetGpsCodePrn";
@@ -83534,7 +84021,7 @@ namespace Sdx.Cmd
 
 
   ///
-  /// Please note the command GpsCodePrn is deprecated since 21.3. You may use PrnOfSVID.
+  /// Please note the command GetGpsCodePrn is deprecated since 21.3. You may use GetPrnOfSVID.
   /// 
   /// Get the transmitted PRN code for the specified satellite
   ///
@@ -83547,7 +84034,7 @@ namespace Sdx.Cmd
   {
     public override string Documentation
     {
-      get { return "Please note the command GpsCodePrn is deprecated since 21.3. You may use PrnOfSVID.\n\nGet the transmitted PRN code for the specified satellite"; }
+      get { return "Please note the command GetGpsCodePrn is deprecated since 21.3. You may use GetPrnOfSVID.\n\nGet the transmitted PRN code for the specified satellite"; }
     }
 
     internal const string CmdName = "GetGpsCodePrn";
@@ -83586,7 +84073,7 @@ namespace Sdx.Cmd
 
 
   ///
-  /// Result of GetGpsCodePrn
+  /// Result of GetGpsCodePrn.
   ///
   /// Name           Type Description
   /// -------------- ---- -----------------------------
@@ -83598,7 +84085,7 @@ namespace Sdx.Cmd
   {
     public override string Documentation
     {
-      get { return "Result of GetGpsCodePrn"; }
+      get { return "Result of GetGpsCodePrn."; }
     }
 
     internal const string CmdName = "GetGpsCodePrnResult";
@@ -83646,7 +84133,7 @@ namespace Sdx.Cmd
 
 
   ///
-  /// Please note the command PseudorangeRamp is deprecated since 21.3. You may use PseudorangeRampForSV.
+  /// Please note the command SetPseudorangeRamp is deprecated since 21.3. You may use SetPseudorangeRampForSV.
   /// 
   /// Set PSR ramp event. This function lets user change the pseudorange of any satellite.
   /// If PRN is set to 0, the change is applied to all satellites.
@@ -83678,7 +84165,7 @@ namespace Sdx.Cmd
   {
     public override string Documentation
     {
-      get { return "Please note the command PseudorangeRamp is deprecated since 21.3. You may use PseudorangeRampForSV.\n\nSet PSR ramp event. This function lets user change the pseudorange of any satellite.\nIf PRN is set to 0, the change is applied to all satellites.\n\n         Hold Start Time\n         |     Hold Stop Time\n         |     |\n         ...........\n       ..       ...\n       ..        ...\n  .......           .........> Time\n      |           |\n      Start Time      Stop Time\n"; }
+      get { return "Please note the command SetPseudorangeRamp is deprecated since 21.3. You may use SetPseudorangeRampForSV.\n\nSet PSR ramp event. This function lets user change the pseudorange of any satellite.\nIf PRN is set to 0, the change is applied to all satellites.\n\n         Hold Start Time\n         |     Hold Stop Time\n         |     |\n         ...........\n       ..       ...\n       ..        ...\n  .......           .........> Time\n      |           |\n      Start Time      Stop Time\n"; }
     }
 
     internal const string CmdName = "SetPseudorangeRamp";
@@ -83794,7 +84281,7 @@ namespace Sdx.Cmd
 
 
   ///
-  /// Please note the command PseudorangeRamp is deprecated since 21.3. You may use PseudorangeRampForSV.
+  /// Please note the command GetPseudorangeRamp is deprecated since 21.3. You may use GetPseudorangeRampForSV.
   /// 
   /// Get PSR ramp event. This function lets user change the pseudorange of any satellite.
   /// If PRN is set to 0, the change is applied to all satellites.
@@ -83819,7 +84306,7 @@ namespace Sdx.Cmd
   {
     public override string Documentation
     {
-      get { return "Please note the command PseudorangeRamp is deprecated since 21.3. You may use PseudorangeRampForSV.\n\nGet PSR ramp event. This function lets user change the pseudorange of any satellite.\nIf PRN is set to 0, the change is applied to all satellites.\n\n         Hold Start Time\n         |     Hold Stop Time\n         |     |\n         ...........\n       ..       ...\n       ..        ...\n  .......           .........> Time\n      |           |\n      Start Time      Stop Time\n"; }
+      get { return "Please note the command GetPseudorangeRamp is deprecated since 21.3. You may use GetPseudorangeRampForSV.\n\nGet PSR ramp event. This function lets user change the pseudorange of any satellite.\nIf PRN is set to 0, the change is applied to all satellites.\n\n         Hold Start Time\n         |     Hold Stop Time\n         |     |\n         ...........\n       ..       ...\n       ..        ...\n  .......           .........> Time\n      |           |\n      Start Time      Stop Time\n"; }
     }
 
     internal const string CmdName = "GetPseudorangeRamp";
@@ -83858,7 +84345,7 @@ namespace Sdx.Cmd
 
 
   ///
-  /// Result of GetPseudorangeRamp
+  /// Result of GetPseudorangeRamp.
   ///
   /// Name          Type   Description
   /// ------------- ------ ----------------------------------------------------------------------------------------------------------
@@ -83876,7 +84363,7 @@ namespace Sdx.Cmd
   {
     public override string Documentation
     {
-      get { return "Result of GetPseudorangeRamp"; }
+      get { return "Result of GetPseudorangeRamp."; }
     }
 
     internal const string CmdName = "GetPseudorangeRampResult";
@@ -84126,7 +84613,7 @@ namespace Sdx.Cmd
 
 
   ///
-  /// Please note the command SVAntennaModelForAllSat is deprecated since 21.3. You may use SVAntennaModelForEachSV.
+  /// Please note the command SetSVAntennaModelForAllSat is deprecated since 21.3. You may use SetSVAntennaModelForEachSV.
   /// 
   /// Set the antenna model for all satellites.
   ///
@@ -84140,7 +84627,7 @@ namespace Sdx.Cmd
   {
     public override string Documentation
     {
-      get { return "Please note the command SVAntennaModelForAllSat is deprecated since 21.3. You may use SVAntennaModelForEachSV.\n\nSet the antenna model for all satellites."; }
+      get { return "Please note the command SetSVAntennaModelForAllSat is deprecated since 21.3. You may use SetSVAntennaModelForEachSV.\n\nSet the antenna model for all satellites."; }
     }
 
     internal const string CmdName = "SetSVAntennaModelForAllSat";
@@ -84190,7 +84677,7 @@ namespace Sdx.Cmd
 
 
   ///
-  /// Please note the command SVAntennaModelForAllSat is deprecated since 21.3. You may use SVAntennaModelForEachSV.
+  /// Please note the command GetSVAntennaModelForAllSat is deprecated since 21.3. You may use GetSVAntennaModelForEachSV.
   /// 
   /// Get the antenna model for all satellites.
   ///
@@ -84203,7 +84690,7 @@ namespace Sdx.Cmd
   {
     public override string Documentation
     {
-      get { return "Please note the command SVAntennaModelForAllSat is deprecated since 21.3. You may use SVAntennaModelForEachSV.\n\nGet the antenna model for all satellites."; }
+      get { return "Please note the command GetSVAntennaModelForAllSat is deprecated since 21.3. You may use GetSVAntennaModelForEachSV.\n\nGet the antenna model for all satellites."; }
     }
 
     internal const string CmdName = "GetSVAntennaModelForAllSat";
@@ -84242,7 +84729,7 @@ namespace Sdx.Cmd
 
 
   ///
-  /// Result of GetSVAntennaModelForAllSat
+  /// Result of GetSVAntennaModelForAllSat.
   ///
   /// Name              Type         Description
   /// ----------------- ------------ --------------------------------------------------------------------------------------------------------------------------------------------------
@@ -84254,7 +84741,7 @@ namespace Sdx.Cmd
   {
     public override string Documentation
     {
-      get { return "Result of GetSVAntennaModelForAllSat"; }
+      get { return "Result of GetSVAntennaModelForAllSat."; }
     }
 
     internal const string CmdName = "GetSVAntennaModelForAllSatResult";

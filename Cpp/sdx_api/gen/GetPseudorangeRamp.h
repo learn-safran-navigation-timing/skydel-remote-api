@@ -9,7 +9,7 @@ namespace Sdx
   namespace Cmd
   {
     ///
-    /// Please note the command PseudorangeRamp is deprecated since 21.3. You may use PseudorangeRampForSV.
+    /// Please note the command GetPseudorangeRamp is deprecated since 21.3. You may use GetPseudorangeRampForSV.
     /// 
     /// Get PSR ramp event. This function lets user change the pseudorange of any satellite.
     /// If PRN is set to 0, the change is applied to all satellites.

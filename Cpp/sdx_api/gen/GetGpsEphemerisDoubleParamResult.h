@@ -9,7 +9,7 @@ namespace Sdx
   namespace Cmd
   {
     ///
-    /// Result of GetGpsEphemerisDoubleParam
+    /// Result of GetGpsEphemerisDoubleParam.
     ///
     /// Name      Type   Description
     /// --------- ------ -------------------------------------------------------------------------

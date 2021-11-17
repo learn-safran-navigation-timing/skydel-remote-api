@@ -10,7 +10,7 @@ namespace Sdx
   namespace Cmd
   {
     ///
-    /// Result of GetGalileoEphDoubleParamForEachSV
+    /// Result of GetGalileoEphDoubleParamForEachSV.
     ///
     /// Name      Type         Description
     /// --------- ------------ --------------------------------------------------------------------------------------------------

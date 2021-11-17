@@ -9,7 +9,7 @@ namespace Sdx
   namespace Cmd
   {
     ///
-    /// Result of GetQzssPerturbationsForAllSat
+    /// Result of GetQzssPerturbationsForAllSat.
     ///
     /// Name Type         Description
     /// ---- ------------ -----------

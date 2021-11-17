@@ -9,7 +9,7 @@ namespace Sdx
   namespace Cmd
   {
     ///
-    /// Result of GetGpu
+    /// Result of GetGpu.
     ///
     /// Name   Type   Description
     /// ------ ------ --------------------------------------

@@ -302,9 +302,414 @@ D1DictPlaceholder = [
     {'name':"Rev2",  'range':[42,42]},
     {'name':"Pnum",  'range':[43,49]},
     {'name':"Rev3",  'range':[50,227]},
-    {'name':"P8",    'range':[278,299]}]
+    {'name':"P8",    'range':[228,299]}]
 
 D1DictEphemeris = {1:D1DictEphemeris1, 2:D1DictEphemeris2, 3:D1DictEphemeris3, 4:D1DictAlmanac}
+
+"""
+    Information for decoding BeiDou D2 navigation messages.
+"""
+
+D2DictSf1Page1 = [
+    {'name':"Pre",   'range':[0,10]},
+    {'name':"Rev",   'range':[11,14]},
+    {'name':"FraID", 'range':[15,17]},
+    {'name':"SOW",   'range':[[18,25],[30,41]],                                       'unit':utility.SECOND},
+    {'name':"P1",    'range':[26,29]},
+    #        SOW             [30,41]
+    {'name':"Pnum1", 'range':[42,45]},
+    {'name':"SatH1", 'range':[46,46]},
+    {'name':"AODC",  'range':[47,51]},
+    {'name':"P2",    'range':[52,59]},
+    {'name':"URAI",  'range':[60,63]},
+    {'name':"WN",    'range':[64,76]},
+    {'name':"toc",   'range':[[77,81], [90,101]],                   'factor':2**3,   'unit':utility.SECOND},
+    {'name':"P3",    'range':[82,89]},
+    #        toc             [90,101]
+    {'name':"TGD1",  'range':[102,111],              'signed':True, 'factor':10**-1, 'unit':utility.NANO_SECOND},
+    {'name':"P4",    'range':[112,119]},
+    {'name':"TGD2",  'range':[120,129],              'signed':True, 'factor':10**-1, 'unit':utility.NANO_SECOND},
+    {'name':"Rev2",  'range':[130,141]},
+    {'name':"P5",    'range':[142,149]}
+]
+
+D2DictSf1Page2 = [
+    {'name':"Pre",   'range':[0,10]},
+    {'name':"Rev",   'range':[11,14]},
+    {'name':"FraID", 'range':[15,17]},
+    {'name':"SOW",   'range':[[18,25],[30,41]],                                       'unit':utility.SECOND},
+    {'name':"P1",    'range':[26,29]},
+    #        SOW             [30,41]
+    {'name':"Pnum1", 'range':[42,45]},
+    {'name':"Alpha0",'range':[[46,51], [60,61]],      'signed':True, 'factor':2**-30, 'unit':utility.SECOND},
+    {'name':"P2",    'range':[52,59]},
+    #        Alpha0          [60,61]
+    {'name':"Alpha1",'range':[62,69],                 'signed':True, 'factor':2**-27, 'unit':utility.SECOND_PER_SEMICIRCLE},
+    {'name':"Alpha2",'range':[70,77],                 'signed':True, 'factor':2**-24, 'unit':utility.SECOND_PER_SEMICIRCLE_SQUARED},
+    {'name':"Alpha3",'range':[[78,81], [90,93]],      'signed':True, 'factor':2**-24, 'unit':utility.SECOND_PER_SEMICIRCLE_CUBE},
+    {'name':"P3",    'range':[82,89]},
+    #        Alpha3          [90,93]
+    {'name':"Beta0", 'range':[94,101],                'signed':True, 'factor':2**11,  'unit':utility.SECOND},
+    {'name':"Beta1", 'range':[102,109],               'signed':True, 'factor':2**14,  'unit':utility.SECOND_PER_SEMICIRCLE},
+    {'name':"Beta2", 'range':[[110,111], [120,125]],  'signed':True, 'factor':2**16,  'unit':utility.SECOND_PER_SEMICIRCLE_SQUARED},
+    {'name':"P4",    'range':[112,119]},
+    #        Beta2           [120,125]
+    {'name':"Beta3", 'range':[126,133],               'signed':True, 'factor':2**16,  'unit':utility.SECOND_PER_SEMICIRCLE_CUBE},
+    {'name':"Rev2",  'range':[134,141]},
+    {'name':"P5",    'range':[142,149]}
+]
+
+D2DictSf1Page3 = [
+    {'name':"Pre",   'range':[0,10]},
+    {'name':"Rev",   'range':[11,14]},
+    {'name':"FraID", 'range':[15,17]},
+    {'name':"SOW",   'range':[[18,25],[30,41]],                                       'unit':utility.SECOND},
+    {'name':"P1",    'range':[26,29]},
+    #        SOW             [30,41]
+    {'name':"Pnum1", 'range':[42,45]},
+    {'name':"Rev2",  'range':[[46,51], [60,81], [90,99]]},
+    {'name':"P2",    'range':[52,59]},
+    #        Rev2            [60,81]
+    {'name':"P3",    'range':[82,89]},
+    #        Alpha3          [90,99]
+    {'name':"a0",    'range':[[100,111], [120,131]],  'signed':True, 'factor':2**-33, 'unit':utility.SECOND},
+    {'name':"P4",    'range':[112,119]},
+    #        a0              [120,131]
+    {'name':"a1",    'range':[132,135],               'signed':True, 'factor':2**-50, 'unit':utility.SECOND_PER_SECOND},
+    {'name':"Rev3",  'range':[136,141]},
+    {'name':"P5",    'range':[142,149]}
+]
+
+D2DictSf1Page4 = [
+    {'name':"Pre",   'range':[0,10]},
+    {'name':"Rev",   'range':[11,14]},
+    {'name':"FraID", 'range':[15,17]},
+    {'name':"SOW",   'range':[[18,25], [30,41]],                                    'unit':utility.SECOND},
+    {'name':"P1",    'range':[26,29]},
+    #        SOW             [30,41]
+    {'name':"Pnum1", 'range':[42,45]},
+    {'name':"a1",    'range':[[46,51],  [60,71]],   'signed':True, 'factor':2**-50, 'unit':utility.SECOND_PER_SECOND},
+    {'name':"P2",    'range':[52,59]},
+    #        a1              [60,71]
+    {'name':"a2",    'range':[[72,81],  [90,90]],   'signed':True, 'factor':2**-66, 'unit':utility.SECOND_PER_SECOND_SQUARED},
+    {'name':"P3",    'range':[82,89]},
+    #        a2              [90,90]
+    {'name':"AODE",  'range':[91,95]},
+    {'name':"DeltaN",'range':[96,111]},
+    {'name':"P4",    'range':[112,119]},
+    {'name':"Cuc",   'range':[120,133],             'signed':True, 'factor':2**-31, 'unit':utility.RADIAN},      
+    {'name':"Rev2",  'range':[134,141]},
+    {'name':"P5",    'range':[142,149]}
+]
+
+D2DictSf1Page5 = [
+    {'name':"Pre",   'range':[0,10]},
+    {'name':"Rev",   'range':[11,14]},
+    {'name':"FraID", 'range':[15,17]},
+    {'name':"SOW",   'range':[[18,25], [30,41]],                                           'unit':utility.SECOND},
+    {'name':"P1",    'range':[26,29]},
+    #        SOW             [30,41]
+    {'name':"Pnum1", 'range':[42,45]},
+    {'name':"Cuc",   'range':[46,49],                      'signed':True, 'factor':2**-31, 'unit':utility.RADIAN}, 
+    {'name':"M0",    'range':[[50,51], [60,81], [90,97]],  'signed':True, 'factor':2**-31, 'unit':utility.SEMICIRCLE},   
+    {'name':"P2",    'range':[52,59]},
+    #        M0              [60,81]
+    {'name':"P3",    'range':[82,89]},
+    #        M0              [90,97]
+    {'name':"Cus",   'range':[[98,111], [120,123]],        'signed':True, 'factor':2**-31, 'unit':utility.RADIAN},
+    {'name':"P4",    'range':[112,119]},
+    #        Cus             [120,123]
+    {'name':"e",     'range':[124,133],                                   'factor':2**-33},
+    {'name':"Rev2",  'range':[134,141]},
+    {'name':"P5",    'range':[142,149]}
+]
+
+D2DictSf1Page6 = [
+    {'name':"Pre",   'range':[0,10]},
+    {'name':"Rev",   'range':[11,14]},
+    {'name':"FraID", 'range':[15,17]},
+    {'name':"SOW",   'range':[[18,25], [30,41]],                                               'unit':utility.SECOND},
+    {'name':"P1",    'range':[26,29]},
+    #        SOW             [30,41]
+    {'name':"Pnum1", 'range':[42,45]},
+    {'name':"e",     'range':[[46,51], [60,75]],                             'factor':2**-33},
+    {'name':"P2",    'range':[52,59]},
+    #        e               [60,75]
+    {'name':"SqrtA", 'range':[[76,81], [90,111], [120,123]],                 'factor':2**-19,  'unit':utility.METER_SQUARE_ROOT},
+    {'name':"P3",    'range':[82,89]},
+    #        SqrtA           [90,111]
+    {'name':"P4",    'range':[112,119]},
+    #        SqrtA           [120,123]
+    {'name':"Cic",   'range':[124,133],                      'signed':True,  'factor':2**-31,  'unit':utility.RADIAN},
+    {'name':"Rev2",  'range':[134,141]},
+    {'name':"P5",    'range':[142,149]}
+]
+
+D2DictSf1Page7 = [
+    {'name':"Pre",   'range':[0,10]},
+    {'name':"Rev",   'range':[11,14]},
+    {'name':"FraID", 'range':[15,17]},
+    {'name':"SOW",   'range':[[18,25], [30,41]],                                               'unit':utility.SECOND},
+    {'name':"P1",    'range':[26,29]},
+    #        SOW             [30,41]
+    {'name':"Pnum1", 'range':[42,45]},
+    {'name':"Cic",   'range':[[46,51], [60,61]],             'signed':True,  'factor':2**-31,  'unit':utility.RADIAN},
+    {'name':"P2",    'range':[52,59]},
+    #        Cic             [60,61]
+    {'name':"Cis",   'range':[62,79],                        'signed':True,  'factor':2**-31,  'unit':utility.RADIAN},
+    {'name':"toe",   'range':[[80,81], [90,104]],                            'factor':2**3,    'unit':utility.SECOND},
+    {'name':"P3",    'range':[82,89]},
+    #        toe             [90,104]
+    {'name':"i0",    'range':[[105,111], [120,133]],         'signed':True, 'factor':2**-31,   'unit':utility.SEMICIRCLE},
+    {'name':"P4",    'range':[112,119]},
+    #        i0              [120,133]
+    {'name':"Rev2",  'range':[134,141]},
+    {'name':"P5",    'range':[142,149]}
+]
+
+D2DictSf1Page8 = [
+    {'name':"Pre",         'range':[0,10]},
+    {'name':"Rev",         'range':[11,14]},
+    {'name':"FraID",       'range':[15,17]},
+    {'name':"SOW",         'range':[[18,25], [30,41]],                                       'unit':utility.SECOND},
+    {'name':"P1",          'range':[26,29]},
+    #        SOW                   [30,41]
+    {'name':"Pnum1",       'range':[42,45]},
+    {'name':"i0",          'range':[[46,51], [60,64]],       'signed':True, 'factor':2**-31, 'unit':utility.SEMICIRCLE},
+    {'name':"P2",          'range':[52,59]},
+    #        i0                    [60,64]
+    {'name':"Crc",         'range':[[65,81], [90,90]],       'signed':True, 'factor':2**-6,  'unit':utility.METER},
+    {'name':"P3",          'range':[82,89]},
+    #        toe                   [90,90]
+    {'name':"Crs",         'range':[91,108],                 'signed':True, 'factor':2**-6,  'unit':utility.METER},
+    {'name':"BigOmegaDot", 'range':[[109,111], [120,135]],   'signed':True, 'factor':2**-43, 'unit':utility.SEMICIRCLE_PER_SECOND},
+    {'name':"P4",          'range':[112,119]},
+    #        BigOmegaDot           [120,135]
+    {'name':"Rev2",        'range':[136,141]},
+    {'name':"P5",          'range':[142,149]}
+]
+
+D2DictSf1Page9 = [
+    {'name':"Pre",         'range':[0,10]},
+    {'name':"Rev",         'range':[11,14]},
+    {'name':"FraID",       'range':[15,17]},
+    {'name':"SOW",         'range':[[18,25], [30,41]],                                           'unit':utility.SECOND},
+    {'name':"P1",          'range':[26,29]},
+    #        SOW                   [30,41]
+    {'name':"Pnum1",       'range':[42,45]},
+    {'name':"BigOmegaDot", 'range':[46,50],                      'signed':True, 'factor':2**-43, 'unit':utility.SEMICIRCLE_PER_SECOND},
+    {'name':"BigOmega",    'range':[[51,51], [60,81], [90,98]],  'signed':True, 'factor':2**-31, 'unit':utility.SEMICIRCLE},
+    {'name':"P2",          'range':[52,59]},
+    #        BigOmega              [60,81]
+    {'name':"P3",          'range':[82,89]},
+    #        BigOmega              [90,98]
+    {'name':"LittleOmega", 'range':[[99,111], [120,133]],        'signed':True, 'factor':2**-31, 'unit':utility.SEMICIRCLE},
+    {'name':"P4",          'range':[112,119]},
+    #        LittleOmega           [120,133]
+    {'name':"Rev2",        'range':[134,141]},
+    {'name':"P5",          'range':[142,149]}
+]
+
+D2DictSf1Page10 = [
+    {'name':"Pre",         'range':[0,10]},
+    {'name':"Rev",         'range':[11,14]},
+    {'name':"FraID",       'range':[15,17]},
+    {'name':"SOW",         'range':[[18,25], [30,41]],                                             'unit':utility.SECOND},
+    {'name':"P1",          'range':[26,29]},
+    #        SOW                   [30,41]
+    {'name':"Pnum1",       'range':[42,45]},
+    {'name':"LittleOmega", 'range':[46,50],                        'signed':True, 'factor':2**-31, 'unit':utility.SEMICIRCLE},
+    {'name':"IDOT",        'range':[[51,51], [60,72]],             'signed':True, 'factor':2**-43, 'unit':utility.SEMICIRCLE_PER_SECOND},
+    {'name':"P2",          'range':[52,59]},
+    #        IDOT                  [60,72]
+    {'name':"Rev2",        'range':[[73,81], [90,111], [120,141]]},
+    {'name':"P3",          'range':[82,89]},
+    #        Rev2                  [90,111]
+    {'name':"P4",          'range':[112,119]},
+    #        Rev2                  [120, 141]
+    {'name':"P5",          'range':[142,149]}
+]
+
+D2DictSf2 = [
+    {'name':"Pre",         'range':[0,10]},
+    {'name':"Rev",         'range':[11,14]},
+    {'name':"FraID",       'range':[15,17]},
+    {'name':"SOW",         'range':[[18,25], [30,41]],                                     'unit':utility.SECOND},
+    {'name':"P1",          'range':[26,29]},
+    #        SOW                   [30,41]
+    {'name':"Rev2",        'range':[42,42]},
+    {'name':"Pnum2",       'range':[43,46]},
+    {'name':"SatH2",       'range':[47,48]},
+    {'name':"BDID",        'range':[[49,51], [60,81], [90,94]]},
+    {'name':"P2",          'range':[52,59]},
+    #        BDID                  [60,81]
+    {'name':"P3",          'range':[82,89]},
+    #        BDID                  [90,94]
+    {'name':"Rev3",        'range':[[95,111], [120,141], [150,170]]},
+    {'name':"P4",          'range':[112,119]},
+    #        Rev2                  [120, 141]
+    {'name':"P5",          'range':[142,149]},
+    #        Rev2                  [150,170]
+    {'name':"UDREI1",      'range':[[171,171], [180,182]]},
+    {'name':"P6",          'range':[172,179]},
+    #        UDREI1                [180, 182]
+    {'name':"UDREI2",      'range':[183,186]},
+    {'name':"UDREI3",      'range':[187,190]},
+    {'name':"UDREI4",      'range':[191,194]},
+    {'name':"UDREI5",      'range':[195,198]},
+    {'name':"UDREI6",      'range':[[199,201], [210,210]]},
+    {'name':"P7",          'range':[202,209]},
+    #        UDREI6                [210, 210]
+    {'name':"UDREI7",      'range':[211,214]},
+    {'name':"UDREI8",      'range':[215,218]},
+    {'name':"UDREI9",      'range':[219,222]},
+    {'name':"UDREI10",     'range':[223,226]},
+    {'name':"UDREI11",     'range':[227,230]},
+    {'name':"UDREI12",     'range':[[231,231], [240,242]]},
+    {'name':"P8",          'range':[232,239]},
+    #        UDREI12               [240,242]
+    {'name':"UDREI13",     'range':[243,246]},
+    {'name':"UDREI14",     'range':[247,250]},
+    {'name':"UDREI15",     'range':[251,254]},
+    {'name':"UDREI16",     'range':[255,258]},
+    {'name':"UDREI17",     'range':[[259,261], [270,270]]},
+    {'name':"P9",          'range':[262,269]},
+    #        UDREI17               [270,270]
+    {'name':"UDREI18",     'range':[271,274]},
+    {'name':"RUREII1",     'range':[275,278]},
+    {'name':"DeltaTi1",    'range':[279,291],                  'signed':True, 'factor':10**-1, 'unit':utility.SEMICIRCLE},
+    {'name':"P10",         'range':[292,299]}
+]
+
+D2DictSf3 = [
+    {'name':"Pre",         'range':[0,10]},
+    {'name':"Rev",         'range':[11,14]},
+    {'name':"FraID",       'range':[15,17]},
+    {'name':"SOW",         'range':[[18,25], [30,41]],                                                          'unit':utility.SECOND},
+    {'name':"P1",          'range':[26,29]},
+    #        SOW                   [30,41]
+    {'name':"Rev2",        'range':[42,42]},
+    {'name':"RUREII2",     'range':[43,46]},
+    {'name':"DeltaTi2",    'range':[[47,51], [60,67]],                          'signed':True, 'factor':10**-1, 'unit':utility.SEMICIRCLE},
+    {'name':"P2",          'range':[52,59]},
+    #        DeltaTi2              [60,67]
+    {'name':"RUREII3",     'range':[68,71]},
+    {'name':"DeltaTi3",    'range':[[72,81], [90,92]],                          'signed':True, 'factor':10**-1, 'unit':utility.SEMICIRCLE},
+    {'name':"P3",          'range':[82,89]},
+    #        DeltaTi3              [90,92]
+    {'name':"Rev3",        'range':[[93,111], [120,141], [150,171], [180,180]]},
+    {'name':"P4",          'range':[112,119]},
+    #        Rev3                  [120, 141]
+    {'name':"P5",          'range':[142,149]},
+    #        Rev3                  [150,171]
+    {'name':"P6",          'range':[172,179]},
+    #        Rev3                  [180,180]
+    {'name':"Rev4",        'range':[[181,201], [210,231], [240,260]]},
+    {'name':"P7",          'range':[202,209]},
+    #        Rev4                  [210, 231]
+    {'name':"P8",          'range':[232,239]},
+    #        Rev4                  [240,260]
+    {'name':"Rev5",        'range':[[261,261], [270,291]]},
+    {'name':"P9",          'range':[262,269]},
+    #        Rev5                  [270,291]
+    {'name':"P10",         'range':[292,299]}
+]
+
+D2DictSf4 = [
+    {'name':"Pre",      'range':[0,10]},
+    {'name':"Rev",      'range':[11,14]},
+    {'name':"FraID",    'range':[15,17]},
+    {'name':"SOW",      'range':[[18,25],[30,41]],                             'unit':utility.SECOND},
+    {'name':"P1",       'range':[26,29]},
+    #        SOW                [30,41]
+    {'name':"Rev2",     'range':[42,42]},
+    {'name':"Rev3",     'range':[43,106]},
+    {'name':"Rev4",     'range':[107,170]},
+    {'name':"Rev5",     'range':[171,227]},
+    {'name':"P2",       'range':[228,299]}
+]
+
+D2DictSf5IonoGridA  = [
+    {'name':"Pre",         'range':[0,10]},
+    {'name':"Rev",         'range':[11,14]},
+    {'name':"FraID",       'range':[15,17]},
+    {'name':"SOW",         'range':[[18,25], [30,41]],                         'unit':utility.SECOND},
+    {'name':"P1",          'range':[26,29]},
+    #        SOW                   [30,41]
+    {'name':"Rev2",        'range':[42,42]},
+    {'name':"Pnum",        'range':[43,49]},
+    {'name':"IonoA",       'range':[[50,51], [60,70]]},
+    {'name':"P2",          'range':[52,59]},
+    #        IonoA                 [60,70]
+    {'name':"IonoB",       'range':[[71,81], [90,91]]},
+    {'name':"P3",          'range':[82,89]},
+    #        IonoB                [90,91]
+    {'name':"IonoC",       'range':[92,104]},
+    {'name':"IonoD",       'range':[[105,111], [120,125]]},
+    {'name':"P4",          'range':[112,119]},
+    #        IonoD                 [120, 125]
+    {'name':"IonoE",       'range':[126,138]},
+    {'name':"IonoF",       'range':[[139,141], [150,159]]},
+    {'name':"P5",          'range':[142,149]},
+    #        IonoF                 [150,159]
+    {'name':"IonoG",       'range':[[160,171], [180,180]]},
+    {'name':"P6",          'range':[172,179]},
+    #        IonoG                 [180,180]
+    {'name':"IonoH",       'range':[181,193]},
+    {'name':"IonoI",       'range':[[194,201], [210,214]]},
+    {'name':"P7",          'range':[202,209]},
+    #        IonoI                 [210, 214]
+    {'name':"IonoJ",       'range':[215,227]},
+    {'name':"IonoK",       'range':[[228,231], [240,248]]},
+    {'name':"P8",          'range':[232,239]},
+    #        IonoK                 [240,248]
+    {'name':"IonoL",       'range':[249,261]},
+    {'name':"P9",          'range':[262,269]},
+    {'name':"IonoM",       'range':[270,282]},
+    {'name':"Rev3",        'range':[283,291]},
+    {'name':"P10",         'range':[292,299]}
+]
+
+D2DictSf5IonoGridB  = [
+    {'name':"Pre",         'range':[0,10]},
+    {'name':"Rev",         'range':[11,14]},
+    {'name':"FraID",       'range':[15,17]},
+    {'name':"SOW",         'range':[[18,25], [30,41]],                         'unit':utility.SECOND},
+    {'name':"P1",          'range':[26,29]},
+    #        SOW                   [30,41]
+    {'name':"Rev2",        'range':[42,42]},
+    {'name':"Pnum",        'range':[43,49]},
+    {'name':"IonoA",       'range':[[50,51], [60,70]]},
+    {'name':"P2",          'range':[52,59]},
+    #        IonoA                 [60,70]
+    {'name':"IonoB",       'range':[[71,81], [90,91]]},
+    {'name':"P3",          'range':[82,89]},
+    #        IonoB                [90,91]
+    {'name':"IonoC",       'range':[92,104]},
+    {'name':"IonoD",       'range':[[105,111], [120,125]]},
+    {'name':"P4",          'range':[112,119]},
+    #        IonoD                 [120, 125]
+    {'name':"Rev3",        'range':[[126,141], [150,171], [180,201], [210,213]]},
+    {'name':"P5",          'range':[142,149]},
+    #        Rev3                  [150,171]
+    {'name':"P6",          'range':[172,179]},
+    #        Rev3                  [180,201]
+    {'name':"P7",          'range':[202,209]},
+    #        Rev3                  [210, 213]
+    {'name':"Rev4",        'range':[[214,231], [240,261], [270,291]]},
+    {'name':"P8",          'range':[232,239]},
+    #        Rev4                  [240,261]
+    {'name':"P9",          'range':[262,269]},
+    #        Rev4                  [270,291]
+    {'name':"P10",         'range':[292,299]}
+]
+
+D2DictSf5Almanac  = D1DictAlmanac
+D2DictSf5HealthA  = D1DictHealthA
+D2DictSf5HealthB  = D1DictHealthB
+D2DictSf5GNSSTime = D1DictGNSSTime
+D2DictSf5UTCTime  = D1DictUTCTime
+D2DictSf5Reserved = D1DictPlaceholder
 
 """
     Informations for decoding BeiDou CNAV1 navigation messages.
@@ -926,6 +1331,14 @@ def decodeBeiDouNavigationMessageInBinary(message):
         decodedMessage = decodedMessage + word[2:23:2] + word[3:24:2] + word[24:31:2] +  word[25:32:2]
     return decodedMessage
 
+def getBeiDouNavigationMessageInBinary(message):
+    words = message.split(" ")
+    decodedMessage = ''
+    for word in words[0:]:
+        word = bin(int(word, 16))[2:].zfill(utility.WORD_SIZE)
+        decodedMessage = decodedMessage + word[2:] # Remove padding at the start of the word
+    return decodedMessage
+
 def decodeBeiDouCNAV1NavigationMessageInBinary(message):
     # Total message length : 1800 bits
     # Closest multiple of 32 : 1824
@@ -968,8 +1381,7 @@ def decodeBeiDouCNAV2NavigationMessageInBinary(message):
     #     return LDPCmsg
     return LDPCmsg
 
-def getDictBeiDouB1NavigationMessage(message):
-    binaryMessage = decodeBeiDouNavigationMessageInBinary(message)
+def getDictBeiDouB1D1NavigationMessage(binaryMessage):
     dictToUse = {}
     sfID = int(binaryMessage[15:18], 2)
     if sfID in D1DictEphemeris:
@@ -992,6 +1404,76 @@ def getDictBeiDouB1NavigationMessage(message):
         return dictToUse
 
     return utility.fillDict(binaryMessage, dictToUse)
+
+def getDictBeiDouB1D2NavigationMessage(binaryMessage):
+    dictToUse = {}
+    sfID = int(binaryMessage[15:18], 2)
+    if sfID == 1:
+        pageID = int(binaryMessage[42:46], 2)
+        if pageID == 1:
+            dictToUse = D2DictSf1Page1
+        elif pageID == 2:
+            dictToUse = D2DictSf1Page2
+        elif pageID == 3:
+            dictToUse = D2DictSf1Page3
+        elif pageID == 4:
+            dictToUse = D2DictSf1Page4
+        elif pageID == 5:
+            dictToUse = D2DictSf1Page5
+        elif pageID == 6:
+            dictToUse = D2DictSf1Page6
+        elif pageID == 7:
+            dictToUse = D2DictSf1Page7
+        elif pageID == 8:
+            dictToUse = D2DictSf1Page8
+        elif pageID == 9:
+            dictToUse = D2DictSf1Page9
+        elif pageID == 10:
+            dictToUse = D2DictSf1Page10
+    elif sfID == 2:
+        dictToUse = D2DictSf2
+    elif sfID == 3:
+        dictToUse = D2DictSf3
+    elif sfID == 4:
+        dictToUse = D2DictSf4
+    elif sfID == 5:
+        pageID = int(binaryMessage[43:50], 2)
+        if pageID in range(1, 13) or pageID in range(61, 73):
+            dictToUse = D2DictSf5IonoGridA
+        elif pageID in [13, 73]:
+            dictToUse = D2DictSf5IonoGridB
+        elif pageID in range(37, 61) or pageID in range(95, 101):
+            dictToUse = D2DictSf5Almanac
+        elif pageID == 35:
+            dictToUse = D2DictSf5HealthA
+        elif pageID == 36:
+            dictToUse = D2DictSf5HealthB
+        elif pageID == 101:
+            dictToUse = D2DictSf5GNSSTime
+        elif pageID == 102:
+            dictToUse = D2DictSf5UTCTime
+        elif pageID in range(14, 35) or pageID in range(74, 95) or pageID in range(103, 121):
+            dictToUse = D2DictSf5Reserved
+    else:
+        return dictToUse
+
+    return utility.fillDict(binaryMessage, dictToUse)
+
+def getDictBeiDouB1D1EncodedNavigationMessage(message):
+    binaryMessage = decodeBeiDouNavigationMessageInBinary(message)
+    return getDictBeiDouB1D1NavigationMessage(binaryMessage)
+
+def getDictBeiDouB1D1DecodedNavigationMessage(message):
+    binaryMessage = getBeiDouNavigationMessageInBinary(message)
+    return getDictBeiDouB1D1NavigationMessage(binaryMessage)
+
+def getDictBeiDouB1D2EncodedNavigationMessage(message):
+    binaryMessage = decodeBeiDouNavigationMessageInBinary(message)
+    return getDictBeiDouB1D2NavigationMessage(binaryMessage)
+
+def getDictBeiDouB1D2DecodedNavigationMessage(message):
+    binaryMessage = getBeiDouNavigationMessageInBinary(message)
+    return getDictBeiDouB1D2NavigationMessage(binaryMessage)
 
 def getDictBeiDouCNAV1DecodedNavigationMessage(message):
     msg = utility.convertToBinaryNavigationMessage(message, 896)

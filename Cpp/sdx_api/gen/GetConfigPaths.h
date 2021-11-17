@@ -9,7 +9,7 @@ namespace Sdx
   namespace Cmd
   {
     ///
-    /// Returns a list of paths for all the files in the Configurations folder.
+    /// Get a list of paths for all the files in the Configurations folder.
     ///
     /// 
     ///

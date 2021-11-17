@@ -11,7 +11,7 @@ namespace Sdx
   namespace Cmd
   {
     ///
-    /// Result of GetIntTxAntenna
+    /// Result of GetIntTxAntenna.
     ///
     /// Name Type               Description
     /// ---- ------------------ -------------------------------------------------------------------------------------------------------------------------

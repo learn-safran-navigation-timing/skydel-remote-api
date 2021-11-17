@@ -9,7 +9,7 @@ namespace Sdx
   namespace Cmd
   {
     ///
-    /// Result of IsRFEnabled
+    /// Result of IsRFEnabled.
     ///
     /// Name    Type   Description
     /// ------- ------ ----------------------------------------------------------------------------------------------------------

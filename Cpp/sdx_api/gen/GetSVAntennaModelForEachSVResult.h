@@ -10,7 +10,7 @@ namespace Sdx
   namespace Cmd
   {
     ///
-    /// Result of GetSVAntennaModelForEachSV
+    /// Result of GetSVAntennaModelForEachSV.
     ///
     /// Name              Type         Description
     /// ----------------- ------------ -----------------------------------------------------------------------------------------------------

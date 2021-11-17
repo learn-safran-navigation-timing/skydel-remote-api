@@ -11,7 +11,7 @@ namespace Sdx
   namespace Cmd
   {
     ///
-    /// Result of GetSVGainPatternOffset
+    /// Result of GetSVGainPatternOffset.
     ///
     /// Name        Type            Description
     /// ----------- --------------- ------------------------------------------------------------------------------------

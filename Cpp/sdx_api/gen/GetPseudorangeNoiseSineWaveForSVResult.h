@@ -9,7 +9,7 @@ namespace Sdx
   namespace Cmd
   {
     ///
-    /// Result of GetPseudorangeNoiseSineWaveForSV
+    /// Result of GetPseudorangeNoiseSineWaveForSV.
     ///
     /// Name      Type   Description
     /// --------- ------ ----------------------------------------------------------------

@@ -9,7 +9,7 @@ namespace Sdx
   namespace Cmd
   {
     ///
-    /// Hardware in the loop server warning result 
+    /// Result of GetLastHilWarning.
     ///
     /// Name              Type Description
     /// ----------------- ---- -----------------------------------------------------------------------------------------------------------------------------------

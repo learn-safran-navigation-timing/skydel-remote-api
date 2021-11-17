@@ -10,7 +10,7 @@ namespace Sdx
   namespace Cmd
   {
     ///
-    /// Result of GetModulationTargets
+    /// Result of GetAllModulationTargets.
     ///
     /// Name Type         Description
     /// ---- ------------ ---------------

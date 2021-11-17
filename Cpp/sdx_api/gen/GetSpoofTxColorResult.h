@@ -9,7 +9,7 @@ namespace Sdx
   namespace Cmd
   {
     ///
-    /// Result of GetSpoofTxColor
+    /// Result of GetSpoofTxColor.
     ///
     /// Name  Type   Description
     /// ----- ------ -------------------------------------------------------------------------------

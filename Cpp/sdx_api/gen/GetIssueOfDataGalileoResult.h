@@ -9,7 +9,7 @@ namespace Sdx
   namespace Cmd
   {
     ///
-    /// Result of GetIssueOfDataGalileo
+    /// Result of GetIssueOfDataGalileo.
     ///
     /// Name          Type          Description
     /// ------------- ------------- ---------------------------------------------------------

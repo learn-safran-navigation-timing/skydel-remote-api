@@ -9,7 +9,7 @@ namespace Sdx
   namespace Cmd
   {
     ///
-    /// Result of GetDuration
+    /// Result of GetDuration.
     ///
     /// Name   Type Description
     /// ------ ---- -----------------------

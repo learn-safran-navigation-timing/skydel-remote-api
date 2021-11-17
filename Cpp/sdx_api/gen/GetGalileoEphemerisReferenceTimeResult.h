@@ -9,7 +9,7 @@ namespace Sdx
   namespace Cmd
   {
     ///
-    /// Result of GetGalileoEphemerisReferenceTime
+    /// Result of GetGalileoEphemerisReferenceTime.
     ///
     /// Name Type     Description
     /// ---- -------- --------------------------------------------------------------

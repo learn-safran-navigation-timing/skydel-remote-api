@@ -9,7 +9,7 @@ namespace Sdx
   namespace Cmd
   {
     ///
-    /// Result of GetGpsCNav2Message
+    /// Result of GetGpsCNav2Message.
     ///
     /// Name      Type   Description
     /// --------- ------ --------------------------------------------------------------------

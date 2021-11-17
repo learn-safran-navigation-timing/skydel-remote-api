@@ -9,7 +9,7 @@ namespace Sdx
   namespace Cmd
   {
     ///
-    /// Result of GetConfigBroadcastOnStart
+    /// Result of GetConfigBroadcastOnStart.
     ///
     /// Name             Type Description
     /// ---------------- ---- --------------------------------------------------------------

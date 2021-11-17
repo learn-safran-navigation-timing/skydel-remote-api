@@ -11,7 +11,7 @@ namespace Sdx
   namespace Cmd
   {
     ///
-    /// Result of GetSpoofTxAntenna
+    /// Result of GetSpoofTxAntenna.
     ///
     /// Name Type               Description
     /// ---- ------------------ -------------------------------------------------------------------------------------------------------------------------

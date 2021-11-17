@@ -9,7 +9,7 @@ namespace Sdx
   namespace Cmd
   {
     ///
-    /// Result of GetGpsPerturbationsForAllSat
+    /// Result of GetGpsPerturbationsForAllSat.
     ///
     /// Name Type         Description
     /// ---- ------------ -----------

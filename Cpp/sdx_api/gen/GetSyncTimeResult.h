@@ -9,7 +9,7 @@ namespace Sdx
   namespace Cmd
   {
     ///
-    /// Result of GetSyncTime
+    /// Result of GetSyncTime.
     ///
     /// Name Type   Description
     /// ---- ------ ----------------------------------------

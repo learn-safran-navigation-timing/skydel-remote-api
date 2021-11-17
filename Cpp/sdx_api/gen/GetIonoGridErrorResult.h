@@ -9,7 +9,7 @@ namespace Sdx
   namespace Cmd
   {
     ///
-    /// Result of GetIonoGridError
+    /// Result of GetIonoGridError.
     ///
     /// Name  Type   Description
     /// ----- ------ -------------------------------

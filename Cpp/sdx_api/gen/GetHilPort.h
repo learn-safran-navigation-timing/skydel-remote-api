@@ -9,7 +9,7 @@ namespace Sdx
   namespace Cmd
   {
     ///
-    /// Get Hardware in the loop trajectory server port. Returns HilPortResult.
+    /// Get Hardware in the loop trajectory server port.
     ///
     /// 
     ///

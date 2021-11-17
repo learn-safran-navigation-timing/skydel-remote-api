@@ -9,7 +9,7 @@ namespace Sdx
   namespace Cmd
   {
     ///
-    /// Result of GetGpsCodePrn
+    /// Result of GetGpsCodePrn.
     ///
     /// Name           Type Description
     /// -------------- ---- -----------------------------

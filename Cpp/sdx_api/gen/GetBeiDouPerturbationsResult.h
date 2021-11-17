@@ -9,7 +9,7 @@ namespace Sdx
   namespace Cmd
   {
     ///
-    /// Result of GetBeiDouPerturbations
+    /// Result of GetBeiDouPerturbations.
     ///
     /// Name Type   Description
     /// ---- ------ --------------------------

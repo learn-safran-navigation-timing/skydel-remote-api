@@ -10,7 +10,7 @@ namespace Sdx
   namespace Cmd
   {
     ///
-    /// Result of GetPrnForEachSV
+    /// Result of GetPrnForEachSV.
     ///
     /// Name   Type      Description
     /// ------ --------- ----------------------------------------------------------------------------------------------------------------------------------------------------------

@@ -9,7 +9,7 @@ namespace Sdx
   namespace Cmd
   {
     ///
-    /// Please note the command EnableLOS is deprecated since 21.3. You may use EnableLosForSV.
+    /// Please note the command IsLOSEnabled is deprecated since 21.3. You may use IsLosEnabledForSV.
     /// 
     /// Get Direct Line Of Sight signal from satellite enabled or disabled. Generally used when only multipaths signal is visible.
     ///

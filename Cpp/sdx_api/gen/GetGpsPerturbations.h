@@ -9,7 +9,7 @@ namespace Sdx
   namespace Cmd
   {
     ///
-    /// Please note the command GpsPerturbations is deprecated since 21.3. You may use Perturbations.
+    /// Please note the command GetGpsPerturbations is deprecated since 21.3. You may use GetPerturbations.
     /// 
     /// Get GPS orbit perturbations (Crs, Crc, Cis, Cic, Cus and Cuc)
     ///

@@ -10,7 +10,7 @@ namespace Sdx
   namespace Cmd
   {
     ///
-    /// Result of GetSpoofTxCircular
+    /// Result of GetSpoofTxCircular.
     ///
     /// Name        Type            Description
     /// ----------- --------------- --------------------------------

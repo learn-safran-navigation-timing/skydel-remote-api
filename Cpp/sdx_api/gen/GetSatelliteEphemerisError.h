@@ -9,7 +9,7 @@ namespace Sdx
   namespace Cmd
   {
     ///
-    /// Please note the command SatelliteEphemerisError is deprecated since 21.3. You may use EphemerisErrorForSV.
+    /// Please note the command GetSatelliteEphemerisError is deprecated since 21.3. You may use GetEphemerisErrorForSV.
     /// 
     /// Get the satellite ephemeris error.
     ///
