@@ -2,7 +2,8 @@
 
 #include <memory>
 #include "command_base.h"
-
+#include "sdx_optional.h"
+#include <string>
 
 namespace Sdx
 {
@@ -13,10 +14,11 @@ namespace Sdx
     /// 
     /// Set QZSS L5 health (Health of L5 signal)
     ///
-    /// Name   Type Description
-    /// ------ ---- -----------------------------------------------
-    /// SvId   int  Satellite SV ID 1..10
-    /// Health bool L5 health, false = signal OK, true = signal bad
+    /// Name        Type            Description
+    /// ----------- --------------- -------------------------------------------------------------------------------------------
+    /// SvId        int             Satellite SV ID 1..10, or use 0 to apply new value to all satellites.
+    /// Health      bool            L5 health, false = signal OK, true = signal bad
+    /// DataSetName optional string Optional name of the data set to use. If no value is provided, the active data set is used.
     ///
 
     class SetQzssSatelliteL5Health;
@@ -32,9 +34,9 @@ namespace Sdx
 
       SetQzssSatelliteL5Health();
 
-      SetQzssSatelliteL5Health(int svId, bool health);
+      SetQzssSatelliteL5Health(int svId, bool health, const Sdx::optional<std::string>& dataSetName = {});
   
-      static SetQzssSatelliteL5HealthPtr create(int svId, bool health);
+      static SetQzssSatelliteL5HealthPtr create(int svId, bool health, const Sdx::optional<std::string>& dataSetName = {});
       static SetQzssSatelliteL5HealthPtr dynamicCast(CommandBasePtr ptr);
       virtual bool isValid() const override;
       virtual std::string documentation() const override;
@@ -50,6 +52,11 @@ namespace Sdx
       // **** health ****
       bool health() const;
       void setHealth(bool health);
+
+
+      // **** dataSetName ****
+      Sdx::optional<std::string> dataSetName() const;
+      void setDataSetName(const Sdx::optional<std::string>& dataSetName);
     };
   }
 }

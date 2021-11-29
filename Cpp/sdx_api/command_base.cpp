@@ -70,6 +70,17 @@ std::string CommandBase::documentation() const
   return "Documentation not available.";
 }
 
+void CommandBase::setHidden(bool isHidden)
+{
+  rapidjson::Value value(isHidden);
+  setValue(CmdHidden, value);
+}
+
+bool CommandBase::isHidden() const
+{
+  return value(CmdHidden).GetBool();
+}
+
 bool CommandBase::hasTimestamp() const
 {
   return m_values.HasMember(CmdTimestampKey.c_str()) && hasExecutePermission(EXECUTE_IF_SIMULATING);

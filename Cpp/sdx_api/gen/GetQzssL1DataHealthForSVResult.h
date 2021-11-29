@@ -2,7 +2,8 @@
 
 #include <memory>
 #include "command_result.h"
-
+#include "sdx_optional.h"
+#include <string>
 
 namespace Sdx
 {
@@ -11,10 +12,11 @@ namespace Sdx
     ///
     /// Result of GetQzssL1DataHealthForSV.
     ///
-    /// Name   Type Description
-    /// ------ ---- ---------------------
-    /// SvId   int  Satellite SV ID 1..10
-    /// Health int  Data health 0..7
+    /// Name        Type            Description
+    /// ----------- --------------- -------------------------------------------------------------------------------------------
+    /// SvId        int             Satellite SV ID 1..10, or use 0 to apply new value to all satellites.
+    /// Health      int             Data health 0..7
+    /// DataSetName optional string Optional name of the data set to use. If no value is provided, the active data set is used.
     ///
 
     class GetQzssL1DataHealthForSVResult;
@@ -31,9 +33,9 @@ namespace Sdx
 
       GetQzssL1DataHealthForSVResult();
 
-      GetQzssL1DataHealthForSVResult(CommandBasePtr relatedCommand, int svId, int health);
+      GetQzssL1DataHealthForSVResult(CommandBasePtr relatedCommand, int svId, int health, const Sdx::optional<std::string>& dataSetName = {});
   
-      static GetQzssL1DataHealthForSVResultPtr create(CommandBasePtr relatedCommand, int svId, int health);
+      static GetQzssL1DataHealthForSVResultPtr create(CommandBasePtr relatedCommand, int svId, int health, const Sdx::optional<std::string>& dataSetName = {});
       static GetQzssL1DataHealthForSVResultPtr dynamicCast(CommandBasePtr ptr);
       virtual bool isValid() const override;
       virtual std::string documentation() const override;
@@ -47,6 +49,11 @@ namespace Sdx
       // **** health ****
       int health() const;
       void setHealth(int health);
+
+
+      // **** dataSetName ****
+      Sdx::optional<std::string> dataSetName() const;
+      void setDataSetName(const Sdx::optional<std::string>& dataSetName);
     };
   }
 }

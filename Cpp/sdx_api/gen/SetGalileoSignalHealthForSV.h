@@ -2,6 +2,7 @@
 
 #include <memory>
 #include "command_base.h"
+#include "sdx_optional.h"
 #include <string>
 
 namespace Sdx
@@ -11,11 +12,12 @@ namespace Sdx
     ///
     /// Set Galileo signal health for I/NAV and F/NAV message
     ///
-    /// Name      Type   Description
-    /// --------- ------ ------------------------------------------
-    /// SvId      int    The satellite's SV ID 1..36
-    /// Component string Component is either "E5a", "E5b", or "E1B"
-    /// Health    int    Signal health 0..3
+    /// Name        Type            Description
+    /// ----------- --------------- -------------------------------------------------------------------------------------------
+    /// SvId        int             The satellite's SV ID 1..36
+    /// Component   string          Component is either "E5a", "E5b", or "E1B"
+    /// Health      int             Signal health 0..3
+    /// DataSetName optional string Optional name of the data set to use. If no value is provided, the active data set is used.
     ///
 
     class SetGalileoSignalHealthForSV;
@@ -31,9 +33,9 @@ namespace Sdx
 
       SetGalileoSignalHealthForSV();
 
-      SetGalileoSignalHealthForSV(int svId, const std::string& component, int health);
+      SetGalileoSignalHealthForSV(int svId, const std::string& component, int health, const Sdx::optional<std::string>& dataSetName = {});
   
-      static SetGalileoSignalHealthForSVPtr create(int svId, const std::string& component, int health);
+      static SetGalileoSignalHealthForSVPtr create(int svId, const std::string& component, int health, const Sdx::optional<std::string>& dataSetName = {});
       static SetGalileoSignalHealthForSVPtr dynamicCast(CommandBasePtr ptr);
       virtual bool isValid() const override;
       virtual std::string documentation() const override;
@@ -54,6 +56,11 @@ namespace Sdx
       // **** health ****
       int health() const;
       void setHealth(int health);
+
+
+      // **** dataSetName ****
+      Sdx::optional<std::string> dataSetName() const;
+      void setDataSetName(const Sdx::optional<std::string>& dataSetName);
     };
   }
 }

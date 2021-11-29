@@ -3,7 +3,7 @@ from .commandbase import CommandBase
 from .commandresult import CommandResult
 from .commandbase import ExecutePermission
 
-ApiVersion = 33
+ApiVersion = 34
 
 #
 # The GPS AS flag value.
@@ -694,11 +694,11 @@ class IsRFOutputEnabledForEachSVResult(CommandResult):
 # Enable (or disable) signal for specified satellite.
 #
 # Name    Type   Description
-# ------- ------ -------------------------------------------------------------------------------
+# ------- ------ -------------------------------------------------------------------------------------
 # Signal  string Accepted signal keys: "L1CA", "L1C", "L1P", "L1M", "L2C", "L2P", "L2M", "L5",
 #                                      "G1", "G2", "E1", "E1PRS", "E5a", "E5b", "E6BC", "E6PRS",
 #                                      "B1", "B2", "B1C", "B2a", "SBASL1", "SBASL5", "QZSSL1CA"
-#                                      "QZSSL1C", "QZSSL5", "QZSSL1S", "QZSSL5S", "NAVICL5"
+#                                      "QZSSL1C", "QZSSL2C", "QZSSL5", "QZSSL1S", "QZSSL5S", "NAVICL5"
 # SvId    int    The satellite's SV ID (use 0 for all constellation's satellites)
 # Enabled bool   Signal is enabled when value is True
 #
@@ -736,11 +736,11 @@ class EnableSignalForSV(CommandBase):
 # Tells if the signal is enabled or disabled.
 #
 # Name   Type   Description
-# ------ ------ -------------------------------------------------------------------------------
+# ------ ------ -------------------------------------------------------------------------------------
 # Signal string Accepted signal keys: "L1CA", "L1C", "L1P", "L1M", "L2C", "L2P", "L2M", "L5",
 #                                     "G1", "G2", "E1", "E1PRS", "E5a", "E5b", "E6BC", "E6PRS",
 #                                     "B1", "B2", "B1C", "B2a", "SBASL1", "SBASL5", "QZSSL1CA"
-#                                     "QZSSL1C", "QZSSL5", "QZSSL1S", "QZSSL5S", "NAVICL5"
+#                                     "QZSSL1C", "QZSSL2C", "QZSSL5", "QZSSL1S", "QZSSL5S", "NAVICL5"
 # SvId   int    The satellite's SV ID (use 0 for all constellation's satellites)
 #
 
@@ -770,11 +770,11 @@ class IsSignalEnabledForSV(CommandBase):
 # Result of IsSignalEnabledForSV.
 #
 # Name    Type   Description
-# ------- ------ -------------------------------------------------------------------------------
+# ------- ------ -------------------------------------------------------------------------------------
 # Signal  string Accepted signal keys: "L1CA", "L1C", "L1P", "L1M", "L2C", "L2P", "L2M", "L5",
 #                                      "G1", "G2", "E1", "E1PRS", "E5a", "E5b", "E6BC", "E6PRS",
 #                                      "B1", "B2", "B1C", "B2a", "SBASL1", "SBASL5", "QZSSL1CA"
-#                                      "QZSSL1C", "QZSSL5", "QZSSL1S", "QZSSL5S", "NAVICL5"
+#                                      "QZSSL1C", "QZSSL2C", "QZSSL5", "QZSSL1S", "QZSSL5S", "NAVICL5"
 # SvId    int    The satellite's SV ID (use 0 for all constellation's satellites)
 # Enabled bool   Signal is enabled when value is True
 #
@@ -816,7 +816,7 @@ class IsSignalEnabledForSVResult(CommandResult):
 # Signal  string     Accepted signal keys: "L1CA", "L1C", "L1P", "L1M", "L2C", "L2P", "L2M", "L5",
 #                                          "G1", "G2", "E1", "E1PRS", "E5a", "E5b", "E6BC", "E6PRS",
 #                                          "B1", "B2", "B1C", "B2a", "SBASL1", "SBASL5", "QZSSL1CA",
-#                                          "QZSSL1C", "QZSSL5", "QZSSL1S", "QZSSL5S", "NAVICL5"
+#                                          "QZSSL1C", "QZSSL2C", "QZSSL5", "QZSSL1S", "QZSSL5S", "NAVICL5"
 # Enabled array bool Signal is enabled when value is True. Zero based index (index 0 => first SV ID, index 1 => second SV ID, etc).
 #
 
@@ -846,11 +846,11 @@ class EnableSignalForEachSV(CommandBase):
 # Tells if the signal is enabled or disabled for each satellite.
 #
 # Name   Type   Description
-# ------ ------ -------------------------------------------------------------------------------
+# ------ ------ -------------------------------------------------------------------------------------
 # Signal string Accepted signal keys: "L1CA", "L1C", "L1P", "L1M", "L2C", "L2P", "L2M", "L5",
 #                                     "G1", "G2", "E1", "E1PRS", "E5a", "E5b", "E6BC", "E6PRS",
 #                                     "B1", "B2", "B1C", "B2a", "SBASL1", "SBASL5", "QZSSL1CA",
-#                                     "QZSSL1C", "QZSSL5", "QZSSL1S", "QZSSL5S", "NAVICL5"
+#                                     "QZSSL1C", "QZSSL2C", "QZSSL5", "QZSSL1S", "QZSSL5S", "NAVICL5"
 #
 
 class IsSignalEnabledForEachSV(CommandBase):
@@ -876,7 +876,7 @@ class IsSignalEnabledForEachSV(CommandBase):
 # Signal  string     Accepted signal keys: "L1CA", "L1C", "L1P", "L1M", "L2C", "L2P", "L2M", "L5",
 #                                          "G1", "G2", "E1", "E1PRS", "E5a", "E5b", "E6BC", "E6PRS",
 #                                          "B1", "B2", "B1C", "B2a", "SBASL1", "SBASL5", "QZSSL1CA",
-#                                          "QZSSL1C", "QZSSL5", "QZSSL1S", "QZSSL5S", "NAVICL5"
+#                                          "QZSSL1C", "QZSSL2C", "QZSSL5", "QZSSL1S", "QZSSL5S", "NAVICL5"
 # Enabled array bool Signal is enabled when value is True. Zero based index (index 0 => first SV ID, index 1 => second SV ID, etc).
 #
 
@@ -3778,18 +3778,20 @@ class GetIssueOfDataNavICResult(CommandResult):
 #
 # Set GPS SV configuration flag for one satellite
 #
-# Name     Type Description
-# -------- ---- ---------------------
-# SvId     int  Satellite SV ID 1..32
-# SvConfig int  SV Config 0..4
+# Name        Type            Description
+# ----------- --------------- -------------------------------------------------------------------------------------------
+# SvId        int             Satellite SV ID 1..32
+# SvConfig    int             SV Config 0..4
+# DataSetName optional string Optional name of the data set to use. If no value is provided, the active data set is used.
 #
 
 class SetGpsConfigurationCodeForSV(CommandBase):
 
-  def __init__(self, svId, svConfig):
+  def __init__(self, svId, svConfig, dataSetName = None):
     CommandBase.__init__(self, "SetGpsConfigurationCodeForSV")
     self.setSvId(svId)
     self.setSvConfig(svConfig)
+    self.setDataSetName(dataSetName)
 
   def executePermission(self):
     return ExecutePermission.EXECUTE_IF_IDLE | ExecutePermission.EXECUTE_IF_SIMULATING
@@ -3806,19 +3808,27 @@ class SetGpsConfigurationCodeForSV(CommandBase):
   def setSvConfig(self, value):
     return self.set("SvConfig", value)
 
+  def dataSetName(self):
+    return self.get("DataSetName")
+
+  def setDataSetName(self, value):
+    return self.set("DataSetName", value)
+
 #
 # Get GPS SV configuration flag for one satellite
 #
-# Name Type Description
-# ---- ---- ---------------------
-# SvId int  Satellite SV ID 1..32
+# Name        Type            Description
+# ----------- --------------- -------------------------------------------------------------------------------------------
+# SvId        int             Satellite SV ID 1..32
+# DataSetName optional string Optional name of the data set to use. If no value is provided, the active data set is used.
 #
 
 class GetGpsConfigurationCodeForSV(CommandBase):
 
-  def __init__(self, svId):
+  def __init__(self, svId, dataSetName = None):
     CommandBase.__init__(self, "GetGpsConfigurationCodeForSV")
     self.setSvId(svId)
+    self.setDataSetName(dataSetName)
 
   def executePermission(self):
     return ExecutePermission.EXECUTE_IF_IDLE
@@ -3829,21 +3839,29 @@ class GetGpsConfigurationCodeForSV(CommandBase):
   def setSvId(self, value):
     return self.set("SvId", value)
 
+  def dataSetName(self):
+    return self.get("DataSetName")
+
+  def setDataSetName(self, value):
+    return self.set("DataSetName", value)
+
 #
 # Result of GetGpsConfigurationCodeForSV.
 #
-# Name     Type Description
-# -------- ---- ---------------------
-# SvId     int  Satellite SV ID 1..32
-# SvConfig int  SV Config 0..4
+# Name        Type            Description
+# ----------- --------------- -------------------------------------------------------------------------------------------
+# SvId        int             Satellite SV ID 1..32
+# SvConfig    int             SV Config 0..4
+# DataSetName optional string Optional name of the data set to use. If no value is provided, the active data set is used.
 #
 
 class GetGpsConfigurationCodeForSVResult(CommandResult):
 
-  def __init__(self, svId, svConfig):
+  def __init__(self, svId, svConfig, dataSetName = None):
     CommandResult.__init__(self, "GetGpsConfigurationCodeForSVResult")
     self.setSvId(svId)
     self.setSvConfig(svConfig)
+    self.setDataSetName(dataSetName)
 
   def isSuccess(self):
     return True
@@ -3860,19 +3878,27 @@ class GetGpsConfigurationCodeForSVResult(CommandResult):
   def setSvConfig(self, value):
     return self.set("SvConfig", value)
 
+  def dataSetName(self):
+    return self.get("DataSetName")
+
+  def setDataSetName(self, value):
+    return self.set("DataSetName", value)
+
 #
 # Set GPS SV configuration flag for each SVs
 #
-# Name      Type      Description
-# --------- --------- --------------------------
-# SvConfigs array int SV Config of all satellite
+# Name        Type            Description
+# ----------- --------------- -------------------------------------------------------------------------------------------
+# SvConfigs   array int       SV Config of all satellite
+# DataSetName optional string Optional name of the data set to use. If no value is provided, the active data set is used.
 #
 
 class SetGpsConfigurationForEachSV(CommandBase):
 
-  def __init__(self, svConfigs):
+  def __init__(self, svConfigs, dataSetName = None):
     CommandBase.__init__(self, "SetGpsConfigurationForEachSV")
     self.setSvConfigs(svConfigs)
+    self.setDataSetName(dataSetName)
 
   def executePermission(self):
     return ExecutePermission.EXECUTE_IF_IDLE | ExecutePermission.EXECUTE_IF_SIMULATING
@@ -3882,22 +3908,30 @@ class SetGpsConfigurationForEachSV(CommandBase):
 
   def setSvConfigs(self, value):
     return self.set("SvConfigs", value)
+
+  def dataSetName(self):
+    return self.get("DataSetName")
+
+  def setDataSetName(self, value):
+    return self.set("DataSetName", value)
 
 #
 # Please note the command SetGpsSVConfigurationForAllSat is deprecated since 21.3. You may use SetGpsConfigurationForEachSV.
 # 
 # Set GPS SV configuration flag for each SVs
 #
-# Name      Type      Description
-# --------- --------- --------------------------
-# SvConfigs array int SV Config of all satellite
+# Name        Type            Description
+# ----------- --------------- -------------------------------------------------------------------------------------------
+# SvConfigs   array int       SV Config of all satellite
+# DataSetName optional string Optional name of the data set to use. If no value is provided, the active data set is used.
 #
 
 class SetGpsSVConfigurationForAllSat(CommandBase):
 
-  def __init__(self, svConfigs):
+  def __init__(self, svConfigs, dataSetName = None):
     CommandBase.__init__(self, "SetGpsSVConfigurationForAllSat")
     self.setSvConfigs(svConfigs)
+    self.setDataSetName(dataSetName)
 
   def executePermission(self):
     return ExecutePermission.EXECUTE_IF_IDLE | ExecutePermission.EXECUTE_IF_SIMULATING
@@ -3908,47 +3942,75 @@ class SetGpsSVConfigurationForAllSat(CommandBase):
   def setSvConfigs(self, value):
     return self.set("SvConfigs", value)
 
+  def dataSetName(self):
+    return self.get("DataSetName")
+
+  def setDataSetName(self, value):
+    return self.set("DataSetName", value)
+
 #
 # Get GPS SV configuration flag for each SVs
 #
+# Name        Type            Description
+# ----------- --------------- -------------------------------------------------------------------------------------------
+# DataSetName optional string Optional name of the data set to use. If no value is provided, the active data set is used.
 #
 
 class GetGpsConfigurationForEachSV(CommandBase):
 
-  def __init__(self):
+  def __init__(self, dataSetName = None):
     CommandBase.__init__(self, "GetGpsConfigurationForEachSV")
+    self.setDataSetName(dataSetName)
 
   def executePermission(self):
     return ExecutePermission.EXECUTE_IF_IDLE
+
+  def dataSetName(self):
+    return self.get("DataSetName")
+
+  def setDataSetName(self, value):
+    return self.set("DataSetName", value)
 
 #
 # Please note the command GetGpsSVConfigurationForAllSat is deprecated since 21.3. You may use GetGpsConfigurationForEachSV.
 # 
 # Get GPS SV configuration flag for each SVs
 #
+# Name        Type            Description
+# ----------- --------------- -------------------------------------------------------------------------------------------
+# DataSetName optional string Optional name of the data set to use. If no value is provided, the active data set is used.
 #
 
 class GetGpsSVConfigurationForAllSat(CommandBase):
 
-  def __init__(self):
+  def __init__(self, dataSetName = None):
     CommandBase.__init__(self, "GetGpsSVConfigurationForAllSat")
+    self.setDataSetName(dataSetName)
 
   def executePermission(self):
     return ExecutePermission.EXECUTE_IF_IDLE
 
+  def dataSetName(self):
+    return self.get("DataSetName")
+
+  def setDataSetName(self, value):
+    return self.set("DataSetName", value)
+
 #
 # Result of GetGpsConfigurationForEachSV.
 #
-# Name      Type      Description
-# --------- --------- --------------------------
-# SvConfigs array int SV Config of all satellite
+# Name        Type            Description
+# ----------- --------------- -------------------------------------------------------------------------------------------
+# SvConfigs   array int       SV Config of all satellite
+# DataSetName optional string Optional name of the data set to use. If no value is provided, the active data set is used.
 #
 
 class GetGpsConfigurationForEachSVResult(CommandResult):
 
-  def __init__(self, svConfigs):
+  def __init__(self, svConfigs, dataSetName = None):
     CommandResult.__init__(self, "GetGpsConfigurationForEachSVResult")
     self.setSvConfigs(svConfigs)
+    self.setDataSetName(dataSetName)
 
   def isSuccess(self):
     return True
@@ -3959,21 +4021,29 @@ class GetGpsConfigurationForEachSVResult(CommandResult):
   def setSvConfigs(self, value):
     return self.set("SvConfigs", value)
 
+  def dataSetName(self):
+    return self.get("DataSetName")
+
+  def setDataSetName(self, value):
+    return self.set("DataSetName", value)
+
 #
 # Set GPS nav data health
 #
-# Name   Type Description
-# ------ ---- -----------------------
-# SvId   int  Satellite's SV ID 1..32
-# Health int  Data health 0..7
+# Name        Type            Description
+# ----------- --------------- -------------------------------------------------------------------------------------------
+# SvId        int             Satellite's SV ID 1..32
+# Health      int             Data health 0..7
+# DataSetName optional string Optional name of the data set to use. If no value is provided, the active data set is used.
 #
 
 class SetGpsDataHealthForSV(CommandBase):
 
-  def __init__(self, svId, health):
+  def __init__(self, svId, health, dataSetName = None):
     CommandBase.__init__(self, "SetGpsDataHealthForSV")
     self.setSvId(svId)
     self.setHealth(health)
+    self.setDataSetName(dataSetName)
 
   def executePermission(self):
     return ExecutePermission.EXECUTE_IF_SIMULATING | ExecutePermission.EXECUTE_IF_IDLE
@@ -3989,20 +4059,28 @@ class SetGpsDataHealthForSV(CommandBase):
 
   def setHealth(self, value):
     return self.set("Health", value)
+
+  def dataSetName(self):
+    return self.get("DataSetName")
+
+  def setDataSetName(self, value):
+    return self.set("DataSetName", value)
 
 #
 # Get GPS nav data health
 #
-# Name Type Description
-# ---- ---- -----------------------
-# SvId int  Satellite's SV ID 1..32
+# Name        Type            Description
+# ----------- --------------- -------------------------------------------------------------------------------------------
+# SvId        int             Satellite's SV ID 1..32
+# DataSetName optional string Optional name of the data set to use. If no value is provided, the active data set is used.
 #
 
 class GetGpsDataHealthForSV(CommandBase):
 
-  def __init__(self, svId):
+  def __init__(self, svId, dataSetName = None):
     CommandBase.__init__(self, "GetGpsDataHealthForSV")
     self.setSvId(svId)
+    self.setDataSetName(dataSetName)
 
   def executePermission(self):
     return ExecutePermission.EXECUTE_IF_IDLE
@@ -4012,22 +4090,30 @@ class GetGpsDataHealthForSV(CommandBase):
 
   def setSvId(self, value):
     return self.set("SvId", value)
+
+  def dataSetName(self):
+    return self.get("DataSetName")
+
+  def setDataSetName(self, value):
+    return self.set("DataSetName", value)
 
 #
 # Result of GetGpsDataHealthForSV.
 #
-# Name   Type Description
-# ------ ---- -----------------------
-# SvId   int  Satellite's SV ID 1..32
-# Health int  Data health 0..7
+# Name        Type            Description
+# ----------- --------------- -------------------------------------------------------------------------------------------
+# SvId        int             Satellite's SV ID 1..32
+# Health      int             Data health 0..7
+# DataSetName optional string Optional name of the data set to use. If no value is provided, the active data set is used.
 #
 
 class GetGpsDataHealthForSVResult(CommandResult):
 
-  def __init__(self, svId, health):
+  def __init__(self, svId, health, dataSetName = None):
     CommandResult.__init__(self, "GetGpsDataHealthForSVResult")
     self.setSvId(svId)
     self.setHealth(health)
+    self.setDataSetName(dataSetName)
 
   def isSuccess(self):
     return True
@@ -4043,22 +4129,30 @@ class GetGpsDataHealthForSVResult(CommandResult):
 
   def setHealth(self, value):
     return self.set("Health", value)
+
+  def dataSetName(self):
+    return self.get("DataSetName")
+
+  def setDataSetName(self, value):
+    return self.set("DataSetName", value)
 
 #
 # Set GPS signal health
 #
-# Name   Type Description
-# ------ ---- -----------------------
-# SvId   int  Satellite's SV ID 1..32
-# Health int  Signal health 0..31
+# Name        Type            Description
+# ----------- --------------- -------------------------------------------------------------------------------------------
+# SvId        int             Satellite's SV ID 1..32
+# Health      int             Signal health 0..31
+# DataSetName optional string Optional name of the data set to use. If no value is provided, the active data set is used.
 #
 
 class SetGpsSignalHealthForSV(CommandBase):
 
-  def __init__(self, svId, health):
+  def __init__(self, svId, health, dataSetName = None):
     CommandBase.__init__(self, "SetGpsSignalHealthForSV")
     self.setSvId(svId)
     self.setHealth(health)
+    self.setDataSetName(dataSetName)
 
   def executePermission(self):
     return ExecutePermission.EXECUTE_IF_SIMULATING | ExecutePermission.EXECUTE_IF_IDLE
@@ -4074,20 +4168,28 @@ class SetGpsSignalHealthForSV(CommandBase):
 
   def setHealth(self, value):
     return self.set("Health", value)
+
+  def dataSetName(self):
+    return self.get("DataSetName")
+
+  def setDataSetName(self, value):
+    return self.set("DataSetName", value)
 
 #
 # Get GPS signal health
 #
-# Name Type Description
-# ---- ---- -----------------------
-# SvId int  Satellite's SV ID 1..32
+# Name        Type            Description
+# ----------- --------------- -------------------------------------------------------------------------------------------
+# SvId        int             Satellite's SV ID 1..32
+# DataSetName optional string Optional name of the data set to use. If no value is provided, the active data set is used.
 #
 
 class GetGpsSignalHealthForSV(CommandBase):
 
-  def __init__(self, svId):
+  def __init__(self, svId, dataSetName = None):
     CommandBase.__init__(self, "GetGpsSignalHealthForSV")
     self.setSvId(svId)
+    self.setDataSetName(dataSetName)
 
   def executePermission(self):
     return ExecutePermission.EXECUTE_IF_IDLE
@@ -4097,22 +4199,30 @@ class GetGpsSignalHealthForSV(CommandBase):
 
   def setSvId(self, value):
     return self.set("SvId", value)
+
+  def dataSetName(self):
+    return self.get("DataSetName")
+
+  def setDataSetName(self, value):
+    return self.set("DataSetName", value)
 
 #
 # Result of GetGpsSignalHealthForSV.
 #
-# Name   Type Description
-# ------ ---- -----------------------
-# SvId   int  Satellite's SV ID 1..32
-# Health int  Signal health 0..31
+# Name        Type            Description
+# ----------- --------------- -------------------------------------------------------------------------------------------
+# SvId        int             Satellite's SV ID 1..32
+# Health      int             Signal health 0..31
+# DataSetName optional string Optional name of the data set to use. If no value is provided, the active data set is used.
 #
 
 class GetGpsSignalHealthForSVResult(CommandResult):
 
-  def __init__(self, svId, health):
+  def __init__(self, svId, health, dataSetName = None):
     CommandResult.__init__(self, "GetGpsSignalHealthForSVResult")
     self.setSvId(svId)
     self.setHealth(health)
+    self.setDataSetName(dataSetName)
 
   def isSuccess(self):
     return True
@@ -4128,24 +4238,32 @@ class GetGpsSignalHealthForSVResult(CommandResult):
 
   def setHealth(self, value):
     return self.set("Health", value)
+
+  def dataSetName(self):
+    return self.get("DataSetName")
+
+  def setDataSetName(self, value):
+    return self.set("DataSetName", value)
 
 #
 # Set Galileo data health for I/NAV and F/NAV message
 #
-# Name      Type   Description
-# --------- ------ -----------------------------------------------------------------------
-# SvId      int    Satellite SV ID number 1..36
-# Component string Component is either "E5a", "E5b", or "E1B"
-# Health    bool   False means Navigation data valid; True means Working without guarantee
+# Name        Type            Description
+# ----------- --------------- -------------------------------------------------------------------------------------------
+# SvId        int             Satellite SV ID number 1..36.
+# Component   string          Component is either "E5a", "E5b", or "E1B"
+# Health      bool            False means Navigation data valid; True means Working without guarantee
+# DataSetName optional string Optional name of the data set to use. If no value is provided, the active data set is used.
 #
 
 class SetGalileoDataHealthForSV(CommandBase):
 
-  def __init__(self, svId, component, health):
+  def __init__(self, svId, component, health, dataSetName = None):
     CommandBase.__init__(self, "SetGalileoDataHealthForSV")
     self.setSvId(svId)
     self.setComponent(component)
     self.setHealth(health)
+    self.setDataSetName(dataSetName)
 
   def executePermission(self):
     return ExecutePermission.EXECUTE_IF_SIMULATING | ExecutePermission.EXECUTE_IF_IDLE
@@ -4167,22 +4285,30 @@ class SetGalileoDataHealthForSV(CommandBase):
 
   def setHealth(self, value):
     return self.set("Health", value)
+
+  def dataSetName(self):
+    return self.get("DataSetName")
+
+  def setDataSetName(self, value):
+    return self.set("DataSetName", value)
 
 #
 # Get Galileo data health for I/NAV and F/NAV message
 #
-# Name      Type   Description
-# --------- ------ ------------------------------------------
-# SvId      int    Satellite SV ID number 1..36
-# Component string Component is either "E5a", "E5b", or "E1B"
+# Name        Type            Description
+# ----------- --------------- -------------------------------------------------------------------------------------------
+# SvId        int             Satellite SV ID number 1..36.
+# Component   string          Component is either "E5a", "E5b", or "E1B"
+# DataSetName optional string Optional name of the data set to use. If no value is provided, the active data set is used.
 #
 
 class GetGalileoDataHealthForSV(CommandBase):
 
-  def __init__(self, svId, component):
+  def __init__(self, svId, component, dataSetName = None):
     CommandBase.__init__(self, "GetGalileoDataHealthForSV")
     self.setSvId(svId)
     self.setComponent(component)
+    self.setDataSetName(dataSetName)
 
   def executePermission(self):
     return ExecutePermission.EXECUTE_IF_IDLE
@@ -4198,24 +4324,32 @@ class GetGalileoDataHealthForSV(CommandBase):
 
   def setComponent(self, value):
     return self.set("Component", value)
+
+  def dataSetName(self):
+    return self.get("DataSetName")
+
+  def setDataSetName(self, value):
+    return self.set("DataSetName", value)
 
 #
 # Result of GetGalileoDataHealthForSV.
 #
-# Name      Type   Description
-# --------- ------ -----------------------------------------------------------------------
-# SvId      int    Satellite SV ID number 1..36
-# Component string Component is either "E5a", "E5b", or "E1B"
-# Health    bool   False means Navigation data valid; True means Working without guarantee
+# Name        Type            Description
+# ----------- --------------- -------------------------------------------------------------------------------------------
+# SvId        int             Satellite SV ID number 1..36.
+# Component   string          Component is either "E5a", "E5b", or "E1B"
+# Health      bool            False means Navigation data valid; True means Working without guarantee
+# DataSetName optional string Optional name of the data set to use. If no value is provided, the active data set is used.
 #
 
 class GetGalileoDataHealthForSVResult(CommandResult):
 
-  def __init__(self, svId, component, health):
+  def __init__(self, svId, component, health, dataSetName = None):
     CommandResult.__init__(self, "GetGalileoDataHealthForSVResult")
     self.setSvId(svId)
     self.setComponent(component)
     self.setHealth(health)
+    self.setDataSetName(dataSetName)
 
   def isSuccess(self):
     return True
@@ -4237,24 +4371,32 @@ class GetGalileoDataHealthForSVResult(CommandResult):
 
   def setHealth(self, value):
     return self.set("Health", value)
+
+  def dataSetName(self):
+    return self.get("DataSetName")
+
+  def setDataSetName(self, value):
+    return self.set("DataSetName", value)
 
 #
 # Set Galileo signal health for I/NAV and F/NAV message
 #
-# Name      Type   Description
-# --------- ------ ------------------------------------------
-# SvId      int    The satellite's SV ID 1..36
-# Component string Component is either "E5a", "E5b", or "E1B"
-# Health    int    Signal health 0..3
+# Name        Type            Description
+# ----------- --------------- -------------------------------------------------------------------------------------------
+# SvId        int             The satellite's SV ID 1..36
+# Component   string          Component is either "E5a", "E5b", or "E1B"
+# Health      int             Signal health 0..3
+# DataSetName optional string Optional name of the data set to use. If no value is provided, the active data set is used.
 #
 
 class SetGalileoSignalHealthForSV(CommandBase):
 
-  def __init__(self, svId, component, health):
+  def __init__(self, svId, component, health, dataSetName = None):
     CommandBase.__init__(self, "SetGalileoSignalHealthForSV")
     self.setSvId(svId)
     self.setComponent(component)
     self.setHealth(health)
+    self.setDataSetName(dataSetName)
 
   def executePermission(self):
     return ExecutePermission.EXECUTE_IF_SIMULATING | ExecutePermission.EXECUTE_IF_IDLE
@@ -4276,22 +4418,30 @@ class SetGalileoSignalHealthForSV(CommandBase):
 
   def setHealth(self, value):
     return self.set("Health", value)
+
+  def dataSetName(self):
+    return self.get("DataSetName")
+
+  def setDataSetName(self, value):
+    return self.set("DataSetName", value)
 
 #
 # Get Galileo signal health for I/NAV and F/NAV message
 #
-# Name      Type   Description
-# --------- ------ ------------------------------------------
-# SvId      int    The satellite's SV ID 1..36
-# Component string Component is either "E5a", "E5b", or "E1B"
+# Name        Type            Description
+# ----------- --------------- -------------------------------------------------------------------------------------------
+# SvId        int             The satellite's SV ID 1..36
+# Component   string          Component is either "E5a", "E5b", or "E1B"
+# DataSetName optional string Optional name of the data set to use. If no value is provided, the active data set is used.
 #
 
 class GetGalileoSignalHealthForSV(CommandBase):
 
-  def __init__(self, svId, component):
+  def __init__(self, svId, component, dataSetName = None):
     CommandBase.__init__(self, "GetGalileoSignalHealthForSV")
     self.setSvId(svId)
     self.setComponent(component)
+    self.setDataSetName(dataSetName)
 
   def executePermission(self):
     return ExecutePermission.EXECUTE_IF_IDLE
@@ -4307,24 +4457,32 @@ class GetGalileoSignalHealthForSV(CommandBase):
 
   def setComponent(self, value):
     return self.set("Component", value)
+
+  def dataSetName(self):
+    return self.get("DataSetName")
+
+  def setDataSetName(self, value):
+    return self.set("DataSetName", value)
 
 #
 # Result of GetGalileoSignalHealthForSV.
 #
-# Name      Type   Description
-# --------- ------ ------------------------------------------
-# SvId      int    The satellite's SV ID 1..36
-# Component string Component is either "E5a", "E5b", or "E1B"
-# Health    int    Signal health 0..3
+# Name        Type            Description
+# ----------- --------------- -------------------------------------------------------------------------------------------
+# SvId        int             The satellite's SV ID 1..36
+# Component   string          Component is either "E5a", "E5b", or "E1B"
+# Health      int             Signal health 0..3
+# DataSetName optional string Optional name of the data set to use. If no value is provided, the active data set is used.
 #
 
 class GetGalileoSignalHealthForSVResult(CommandResult):
 
-  def __init__(self, svId, component, health):
+  def __init__(self, svId, component, health, dataSetName = None):
     CommandResult.__init__(self, "GetGalileoSignalHealthForSVResult")
     self.setSvId(svId)
     self.setComponent(component)
     self.setHealth(health)
+    self.setDataSetName(dataSetName)
 
   def isSuccess(self):
     return True
@@ -4347,21 +4505,29 @@ class GetGalileoSignalHealthForSVResult(CommandResult):
   def setHealth(self, value):
     return self.set("Health", value)
 
+  def dataSetName(self):
+    return self.get("DataSetName")
+
+  def setDataSetName(self, value):
+    return self.set("DataSetName", value)
+
 #
 # Set GPS L1 health (used with CNAV and CNAV2)
 #
-# Name   Type Description
-# ------ ---- --------------------------------------------------------------
-# SvId   int  Satellite's SV ID 1..32
-# Health bool L1 health, false = signal OK, true = signal bad or unavailable
+# Name        Type            Description
+# ----------- --------------- -------------------------------------------------------------------------------------------
+# SvId        int             Satellite's SV ID 1..32
+# Health      bool            L1 health, false = signal OK, true = signal bad or unavailable
+# DataSetName optional string Optional name of the data set to use. If no value is provided, the active data set is used.
 #
 
 class SetGpsL1HealthForSV(CommandBase):
 
-  def __init__(self, svId, health):
+  def __init__(self, svId, health, dataSetName = None):
     CommandBase.__init__(self, "SetGpsL1HealthForSV")
     self.setSvId(svId)
     self.setHealth(health)
+    self.setDataSetName(dataSetName)
 
   def executePermission(self):
     return ExecutePermission.EXECUTE_IF_SIMULATING | ExecutePermission.EXECUTE_IF_IDLE
@@ -4377,20 +4543,28 @@ class SetGpsL1HealthForSV(CommandBase):
 
   def setHealth(self, value):
     return self.set("Health", value)
+
+  def dataSetName(self):
+    return self.get("DataSetName")
+
+  def setDataSetName(self, value):
+    return self.set("DataSetName", value)
 
 #
 # Get GPS L1 health (used with CNAV and CNAV2)
 #
-# Name Type Description
-# ---- ---- -----------------------
-# SvId int  Satellite's SV ID 1..32
+# Name        Type            Description
+# ----------- --------------- -------------------------------------------------------------------------------------------
+# SvId        int             Satellite's SV ID 1..32
+# DataSetName optional string Optional name of the data set to use. If no value is provided, the active data set is used.
 #
 
 class GetGpsL1HealthForSV(CommandBase):
 
-  def __init__(self, svId):
+  def __init__(self, svId, dataSetName = None):
     CommandBase.__init__(self, "GetGpsL1HealthForSV")
     self.setSvId(svId)
+    self.setDataSetName(dataSetName)
 
   def executePermission(self):
     return ExecutePermission.EXECUTE_IF_IDLE
@@ -4400,22 +4574,30 @@ class GetGpsL1HealthForSV(CommandBase):
 
   def setSvId(self, value):
     return self.set("SvId", value)
+
+  def dataSetName(self):
+    return self.get("DataSetName")
+
+  def setDataSetName(self, value):
+    return self.set("DataSetName", value)
 
 #
 # Result of GetGpsL1HealthForSV.
 #
-# Name   Type Description
-# ------ ---- --------------------------------------------------------------
-# SvId   int  Satellite's SV ID 1..32
-# Health bool L1 health, false = signal OK, true = signal bad or unavailable
+# Name        Type            Description
+# ----------- --------------- -------------------------------------------------------------------------------------------
+# SvId        int             Satellite's SV ID 1..32
+# Health      bool            L1 health, false = signal OK, true = signal bad or unavailable
+# DataSetName optional string Optional name of the data set to use. If no value is provided, the active data set is used.
 #
 
 class GetGpsL1HealthForSVResult(CommandResult):
 
-  def __init__(self, svId, health):
+  def __init__(self, svId, health, dataSetName = None):
     CommandResult.__init__(self, "GetGpsL1HealthForSVResult")
     self.setSvId(svId)
     self.setHealth(health)
+    self.setDataSetName(dataSetName)
 
   def isSuccess(self):
     return True
@@ -4431,22 +4613,30 @@ class GetGpsL1HealthForSVResult(CommandResult):
 
   def setHealth(self, value):
     return self.set("Health", value)
+
+  def dataSetName(self):
+    return self.get("DataSetName")
+
+  def setDataSetName(self, value):
+    return self.set("DataSetName", value)
 
 #
 # Set GPS L2 health (used with CNAV and CNAV2)
 #
-# Name   Type Description
-# ------ ---- --------------------------------------------------------------
-# SvId   int  Satellite's SV ID 1..32
-# Health bool L2 health, false = signal OK, true = signal bad or unavailable
+# Name        Type            Description
+# ----------- --------------- -------------------------------------------------------------------------------------------
+# SvId        int             Satellite's SV ID 1..32, or use 0 to apply new value to all satellites.
+# Health      bool            L2 health, false = signal OK, true = signal bad or unavailable
+# DataSetName optional string Optional name of the data set to use. If no value is provided, the active data set is used.
 #
 
 class SetGpsL2HealthForSV(CommandBase):
 
-  def __init__(self, svId, health):
+  def __init__(self, svId, health, dataSetName = None):
     CommandBase.__init__(self, "SetGpsL2HealthForSV")
     self.setSvId(svId)
     self.setHealth(health)
+    self.setDataSetName(dataSetName)
 
   def executePermission(self):
     return ExecutePermission.EXECUTE_IF_SIMULATING | ExecutePermission.EXECUTE_IF_IDLE
@@ -4462,20 +4652,28 @@ class SetGpsL2HealthForSV(CommandBase):
 
   def setHealth(self, value):
     return self.set("Health", value)
+
+  def dataSetName(self):
+    return self.get("DataSetName")
+
+  def setDataSetName(self, value):
+    return self.set("DataSetName", value)
 
 #
 # Get GPS L2 health (used with CNAV and CNAV2)
 #
-# Name Type Description
-# ---- ---- -----------------------
-# SvId int  Satellite's SV ID 1..32
+# Name        Type            Description
+# ----------- --------------- -------------------------------------------------------------------------------------------
+# SvId        int             Satellite's SV ID 1..32, or use 0 to apply new value to all satellites.
+# DataSetName optional string Optional name of the data set to use. If no value is provided, the active data set is used.
 #
 
 class GetGpsL2HealthForSV(CommandBase):
 
-  def __init__(self, svId):
+  def __init__(self, svId, dataSetName = None):
     CommandBase.__init__(self, "GetGpsL2HealthForSV")
     self.setSvId(svId)
+    self.setDataSetName(dataSetName)
 
   def executePermission(self):
     return ExecutePermission.EXECUTE_IF_IDLE
@@ -4485,22 +4683,30 @@ class GetGpsL2HealthForSV(CommandBase):
 
   def setSvId(self, value):
     return self.set("SvId", value)
+
+  def dataSetName(self):
+    return self.get("DataSetName")
+
+  def setDataSetName(self, value):
+    return self.set("DataSetName", value)
 
 #
 # Result of GetGpsL2HealthForSV.
 #
-# Name   Type Description
-# ------ ---- --------------------------------------------------------------
-# SvId   int  Satellite's SV ID 1..32
-# Health bool L2 health, false = signal OK, true = signal bad or unavailable
+# Name        Type            Description
+# ----------- --------------- -------------------------------------------------------------------------------------------
+# SvId        int             Satellite's SV ID 1..32, or use 0 to apply new value to all satellites.
+# Health      bool            L2 health, false = signal OK, true = signal bad or unavailable
+# DataSetName optional string Optional name of the data set to use. If no value is provided, the active data set is used.
 #
 
 class GetGpsL2HealthForSVResult(CommandResult):
 
-  def __init__(self, svId, health):
+  def __init__(self, svId, health, dataSetName = None):
     CommandResult.__init__(self, "GetGpsL2HealthForSVResult")
     self.setSvId(svId)
     self.setHealth(health)
+    self.setDataSetName(dataSetName)
 
   def isSuccess(self):
     return True
@@ -4516,22 +4722,30 @@ class GetGpsL2HealthForSVResult(CommandResult):
 
   def setHealth(self, value):
     return self.set("Health", value)
+
+  def dataSetName(self):
+    return self.get("DataSetName")
+
+  def setDataSetName(self, value):
+    return self.set("DataSetName", value)
 
 #
 # Set GPS L5 health (used with CNAV and CNAV2)
 #
-# Name   Type Description
-# ------ ---- --------------------------------------------------------------
-# SvId   int  Satellite's SV ID 1..32
-# Health bool L5 health, false = signal OK, true = signal bad or unavailable
+# Name        Type            Description
+# ----------- --------------- -------------------------------------------------------------------------------------------
+# SvId        int             Satellite's SV ID 1..32, or use 0 to apply new value to all satellites.
+# Health      bool            L5 health, false = signal OK, true = signal bad or unavailable
+# DataSetName optional string Optional name of the data set to use. If no value is provided, the active data set is used.
 #
 
 class SetGpsL5HealthForSV(CommandBase):
 
-  def __init__(self, svId, health):
+  def __init__(self, svId, health, dataSetName = None):
     CommandBase.__init__(self, "SetGpsL5HealthForSV")
     self.setSvId(svId)
     self.setHealth(health)
+    self.setDataSetName(dataSetName)
 
   def executePermission(self):
     return ExecutePermission.EXECUTE_IF_SIMULATING | ExecutePermission.EXECUTE_IF_IDLE
@@ -4547,20 +4761,28 @@ class SetGpsL5HealthForSV(CommandBase):
 
   def setHealth(self, value):
     return self.set("Health", value)
+
+  def dataSetName(self):
+    return self.get("DataSetName")
+
+  def setDataSetName(self, value):
+    return self.set("DataSetName", value)
 
 #
 # Get GPS L5 health (used with CNAV and CNAV2)
 #
-# Name Type Description
-# ---- ---- -----------------------
-# SvId int  Satellite's SV ID 1..32
+# Name        Type            Description
+# ----------- --------------- -------------------------------------------------------------------------------------------
+# SvId        int             Satellite's SV ID 1..32, or use 0 to apply new value to all satellites.
+# DataSetName optional string Optional name of the data set to use. If no value is provided, the active data set is used.
 #
 
 class GetGpsL5HealthForSV(CommandBase):
 
-  def __init__(self, svId):
+  def __init__(self, svId, dataSetName = None):
     CommandBase.__init__(self, "GetGpsL5HealthForSV")
     self.setSvId(svId)
+    self.setDataSetName(dataSetName)
 
   def executePermission(self):
     return ExecutePermission.EXECUTE_IF_IDLE
@@ -4570,22 +4792,30 @@ class GetGpsL5HealthForSV(CommandBase):
 
   def setSvId(self, value):
     return self.set("SvId", value)
+
+  def dataSetName(self):
+    return self.get("DataSetName")
+
+  def setDataSetName(self, value):
+    return self.set("DataSetName", value)
 
 #
 # Result of GetGpsL5HealthForSV.
 #
-# Name   Type Description
-# ------ ---- --------------------------------------------------------------
-# SvId   int  Satellite's SV ID 1..32
-# Health bool L5 health, false = signal OK, true = signal bad or unavailable
+# Name        Type            Description
+# ----------- --------------- -------------------------------------------------------------------------------------------
+# SvId        int             Satellite's SV ID 1..32, or use 0 to apply new value to all satellites.
+# Health      bool            L5 health, false = signal OK, true = signal bad or unavailable
+# DataSetName optional string Optional name of the data set to use. If no value is provided, the active data set is used.
 #
 
 class GetGpsL5HealthForSVResult(CommandResult):
 
-  def __init__(self, svId, health):
+  def __init__(self, svId, health, dataSetName = None):
     CommandResult.__init__(self, "GetGpsL5HealthForSVResult")
     self.setSvId(svId)
     self.setHealth(health)
+    self.setDataSetName(dataSetName)
 
   def isSuccess(self):
     return True
@@ -4601,22 +4831,30 @@ class GetGpsL5HealthForSVResult(CommandResult):
 
   def setHealth(self, value):
     return self.set("Health", value)
+
+  def dataSetName(self):
+    return self.get("DataSetName")
+
+  def setDataSetName(self, value):
+    return self.set("DataSetName", value)
 
 #
 # Set GPS L1C health (used in CNAV2 only)
 #
-# Name   Type Description
-# ------ ---- ---------------------------------------------------------------
-# SvId   int  Satellite's SV ID 1..32
-# Health bool L1C health, false = signal OK, true = signal bad or unavailable
+# Name        Type            Description
+# ----------- --------------- -------------------------------------------------------------------------------------------
+# SvId        int             Satellite's SV ID 1..32, or use 0 to apply new value to all satellites.
+# Health      bool            L1C health, false = signal OK, true = signal bad or unavailable
+# DataSetName optional string Optional name of the data set to use. If no value is provided, the active data set is used.
 #
 
 class SetGpsL1cHealthForSV(CommandBase):
 
-  def __init__(self, svId, health):
+  def __init__(self, svId, health, dataSetName = None):
     CommandBase.__init__(self, "SetGpsL1cHealthForSV")
     self.setSvId(svId)
     self.setHealth(health)
+    self.setDataSetName(dataSetName)
 
   def executePermission(self):
     return ExecutePermission.EXECUTE_IF_SIMULATING | ExecutePermission.EXECUTE_IF_IDLE
@@ -4632,20 +4870,28 @@ class SetGpsL1cHealthForSV(CommandBase):
 
   def setHealth(self, value):
     return self.set("Health", value)
+
+  def dataSetName(self):
+    return self.get("DataSetName")
+
+  def setDataSetName(self, value):
+    return self.set("DataSetName", value)
 
 #
 # Get GPS L1C health (used in CNAV2 only)
 #
-# Name Type Description
-# ---- ---- -----------------------
-# SvId int  Satellite's SV ID 1..32
+# Name        Type            Description
+# ----------- --------------- -------------------------------------------------------------------------------------------
+# SvId        int             Satellite's SV ID 1..32, or use 0 to apply new value to all satellites.
+# DataSetName optional string Optional name of the data set to use. If no value is provided, the active data set is used.
 #
 
 class GetGpsL1cHealthForSV(CommandBase):
 
-  def __init__(self, svId):
+  def __init__(self, svId, dataSetName = None):
     CommandBase.__init__(self, "GetGpsL1cHealthForSV")
     self.setSvId(svId)
+    self.setDataSetName(dataSetName)
 
   def executePermission(self):
     return ExecutePermission.EXECUTE_IF_IDLE
@@ -4655,22 +4901,30 @@ class GetGpsL1cHealthForSV(CommandBase):
 
   def setSvId(self, value):
     return self.set("SvId", value)
+
+  def dataSetName(self):
+    return self.get("DataSetName")
+
+  def setDataSetName(self, value):
+    return self.set("DataSetName", value)
 
 #
 # Result of GetGpsL1cHealthForSV.
 #
-# Name   Type Description
-# ------ ---- ---------------------------------------------------------------
-# SvId   int  Satellite's SV ID 1..32
-# Health bool L1C health, false = signal OK, true = signal bad or unavailable
+# Name        Type            Description
+# ----------- --------------- -------------------------------------------------------------------------------------------
+# SvId        int             Satellite's SV ID 1..32, or use 0 to apply new value to all satellites.
+# Health      bool            L1C health, false = signal OK, true = signal bad or unavailable
+# DataSetName optional string Optional name of the data set to use. If no value is provided, the active data set is used.
 #
 
 class GetGpsL1cHealthForSVResult(CommandResult):
 
-  def __init__(self, svId, health):
+  def __init__(self, svId, health, dataSetName = None):
     CommandResult.__init__(self, "GetGpsL1cHealthForSVResult")
     self.setSvId(svId)
     self.setHealth(health)
+    self.setDataSetName(dataSetName)
 
   def isSuccess(self):
     return True
@@ -4686,22 +4940,30 @@ class GetGpsL1cHealthForSVResult(CommandResult):
 
   def setHealth(self, value):
     return self.set("Health", value)
+
+  def dataSetName(self):
+    return self.get("DataSetName")
+
+  def setDataSetName(self, value):
+    return self.set("DataSetName", value)
 
 #
 # Set GPS Anti-Spoofing Flag
 #
-# Name         Type      Description
-# ------------ --------- -----------------------
-# SvId         int       Satellite's SV ID 1..32
-# AntiSpoofing GpsASFlag GPS Anti-Spoofing Flag.
+# Name         Type            Description
+# ------------ --------------- -------------------------------------------------------------------------------------------
+# SvId         int             Satellite's SV ID 1..32, or use 0 to apply new value to all satellites.
+# AntiSpoofing GpsASFlag       GPS Anti-Spoofing Flag.
+# DataSetName  optional string Optional name of the data set to use. If no value is provided, the active data set is used.
 #
 
 class SetGpsAntiSpoofingFlagForSV(CommandBase):
 
-  def __init__(self, svId, antiSpoofing):
+  def __init__(self, svId, antiSpoofing, dataSetName = None):
     CommandBase.__init__(self, "SetGpsAntiSpoofingFlagForSV")
     self.setSvId(svId)
     self.setAntiSpoofing(antiSpoofing)
+    self.setDataSetName(dataSetName)
 
   def executePermission(self):
     return ExecutePermission.EXECUTE_IF_SIMULATING | ExecutePermission.EXECUTE_IF_IDLE
@@ -4717,20 +4979,28 @@ class SetGpsAntiSpoofingFlagForSV(CommandBase):
 
   def setAntiSpoofing(self, value):
     return self.set("AntiSpoofing", value)
+
+  def dataSetName(self):
+    return self.get("DataSetName")
+
+  def setDataSetName(self, value):
+    return self.set("DataSetName", value)
 
 #
 # Get GPS Anti-Spoofing Flag
 #
-# Name Type Description
-# ---- ---- -----------------------
-# SvId int  Satellite's SV ID 1..32
+# Name        Type            Description
+# ----------- --------------- -------------------------------------------------------------------------------------------
+# SvId        int             Satellite's SV ID 1..32, or use 0 to apply new value to all satellites.
+# DataSetName optional string Optional name of the data set to use. If no value is provided, the active data set is used.
 #
 
 class GetGpsAntiSpoofingFlagForSV(CommandBase):
 
-  def __init__(self, svId):
+  def __init__(self, svId, dataSetName = None):
     CommandBase.__init__(self, "GetGpsAntiSpoofingFlagForSV")
     self.setSvId(svId)
+    self.setDataSetName(dataSetName)
 
   def executePermission(self):
     return ExecutePermission.EXECUTE_IF_IDLE
@@ -4741,21 +5011,29 @@ class GetGpsAntiSpoofingFlagForSV(CommandBase):
   def setSvId(self, value):
     return self.set("SvId", value)
 
+  def dataSetName(self):
+    return self.get("DataSetName")
+
+  def setDataSetName(self, value):
+    return self.set("DataSetName", value)
+
 #
 # Result of GetGpsAntiSpoofingFlagForSV.
 #
-# Name         Type      Description
-# ------------ --------- -----------------------
-# SvId         int       Satellite's SV ID 1..32
-# AntiSpoofing GpsASFlag GPS Anti-Spoofing Flag.
+# Name         Type            Description
+# ------------ --------------- -------------------------------------------------------------------------------------------
+# SvId         int             Satellite's SV ID 1..32, or use 0 to apply new value to all satellites.
+# AntiSpoofing GpsASFlag       GPS Anti-Spoofing Flag.
+# DataSetName  optional string Optional name of the data set to use. If no value is provided, the active data set is used.
 #
 
 class GetGpsAntiSpoofingFlagForSVResult(CommandResult):
 
-  def __init__(self, svId, antiSpoofing):
+  def __init__(self, svId, antiSpoofing, dataSetName = None):
     CommandResult.__init__(self, "GetGpsAntiSpoofingFlagForSVResult")
     self.setSvId(svId)
     self.setAntiSpoofing(antiSpoofing)
+    self.setDataSetName(dataSetName)
 
   def isSuccess(self):
     return True
@@ -4772,21 +5050,29 @@ class GetGpsAntiSpoofingFlagForSVResult(CommandResult):
   def setAntiSpoofing(self, value):
     return self.set("AntiSpoofing", value)
 
+  def dataSetName(self):
+    return self.get("DataSetName")
+
+  def setDataSetName(self, value):
+    return self.set("DataSetName", value)
+
 #
 # Set GPS NAV Alert Flag
 #
-# Name  Type Description
-# ----- ---- --------------------------------------------------
-# SvId  int  Satellite's SV ID 1..32
-# Alert bool GPS NAV Alert Flag, false = No Alert, true = Alert
+# Name        Type            Description
+# ----------- --------------- -------------------------------------------------------------------------------------------
+# SvId        int             Satellite's SV ID 1..32, or use 0 to apply new value to all satellites.
+# Alert       bool            GPS NAV Alert Flag, false = No Alert, true = Alert
+# DataSetName optional string Optional name of the data set to use. If no value is provided, the active data set is used.
 #
 
 class SetGpsNavAlertFlagForSV(CommandBase):
 
-  def __init__(self, svId, alert):
+  def __init__(self, svId, alert, dataSetName = None):
     CommandBase.__init__(self, "SetGpsNavAlertFlagForSV")
     self.setSvId(svId)
     self.setAlert(alert)
+    self.setDataSetName(dataSetName)
 
   def executePermission(self):
     return ExecutePermission.EXECUTE_IF_SIMULATING | ExecutePermission.EXECUTE_IF_IDLE
@@ -4802,20 +5088,28 @@ class SetGpsNavAlertFlagForSV(CommandBase):
 
   def setAlert(self, value):
     return self.set("Alert", value)
+
+  def dataSetName(self):
+    return self.get("DataSetName")
+
+  def setDataSetName(self, value):
+    return self.set("DataSetName", value)
 
 #
 # Get GPS NAV Alert Flag
 #
-# Name Type Description
-# ---- ---- -----------------------
-# SvId int  Satellite's SV ID 1..32
+# Name        Type            Description
+# ----------- --------------- -------------------------------------------------------------------------------------------
+# SvId        int             Satellite's SV ID 1..32, or use 0 to apply new value to all satellites.
+# DataSetName optional string Optional name of the data set to use. If no value is provided, the active data set is used.
 #
 
 class GetGpsNavAlertFlagForSV(CommandBase):
 
-  def __init__(self, svId):
+  def __init__(self, svId, dataSetName = None):
     CommandBase.__init__(self, "GetGpsNavAlertFlagForSV")
     self.setSvId(svId)
+    self.setDataSetName(dataSetName)
 
   def executePermission(self):
     return ExecutePermission.EXECUTE_IF_IDLE
@@ -4825,22 +5119,30 @@ class GetGpsNavAlertFlagForSV(CommandBase):
 
   def setSvId(self, value):
     return self.set("SvId", value)
+
+  def dataSetName(self):
+    return self.get("DataSetName")
+
+  def setDataSetName(self, value):
+    return self.set("DataSetName", value)
 
 #
 # Result of GetGpsNavAlertFlagForSV.
 #
-# Name  Type Description
-# ----- ---- --------------------------------------------------
-# SvId  int  Satellite's SV ID 1..32
-# Alert bool GPS NAV Alert Flag, false = No Alert, true = Alert
+# Name        Type            Description
+# ----------- --------------- -------------------------------------------------------------------------------------------
+# SvId        int             Satellite's SV ID 1..32, or use 0 to apply new value to all satellites.
+# Alert       bool            GPS NAV Alert Flag, false = No Alert, true = Alert
+# DataSetName optional string Optional name of the data set to use. If no value is provided, the active data set is used.
 #
 
 class GetGpsNavAlertFlagForSVResult(CommandResult):
 
-  def __init__(self, svId, alert):
+  def __init__(self, svId, alert, dataSetName = None):
     CommandResult.__init__(self, "GetGpsNavAlertFlagForSVResult")
     self.setSvId(svId)
     self.setAlert(alert)
+    self.setDataSetName(dataSetName)
 
   def isSuccess(self):
     return True
@@ -4856,22 +5158,30 @@ class GetGpsNavAlertFlagForSVResult(CommandResult):
 
   def setAlert(self, value):
     return self.set("Alert", value)
+
+  def dataSetName(self):
+    return self.get("DataSetName")
+
+  def setDataSetName(self, value):
+    return self.set("DataSetName", value)
 
 #
 # Set GPS CNAV Alert Flag
 #
-# Name  Type Description
-# ----- ---- ---------------------------------------------------
-# SvId  int  Satellite's SV ID 1..32
-# Alert bool GPS CNAV Alert Flag, false = No Alert, true = Alert
+# Name        Type            Description
+# ----------- --------------- -------------------------------------------------------------------------------------------
+# SvId        int             Satellite's SV ID 1..32, or use 0 to apply new value to all satellites.
+# Alert       bool            GPS CNAV Alert Flag, false = No Alert, true = Alert
+# DataSetName optional string Optional name of the data set to use. If no value is provided, the active data set is used.
 #
 
 class SetGpsCNavAlertFlagToSV(CommandBase):
 
-  def __init__(self, svId, alert):
+  def __init__(self, svId, alert, dataSetName = None):
     CommandBase.__init__(self, "SetGpsCNavAlertFlagToSV")
     self.setSvId(svId)
     self.setAlert(alert)
+    self.setDataSetName(dataSetName)
 
   def executePermission(self):
     return ExecutePermission.EXECUTE_IF_SIMULATING | ExecutePermission.EXECUTE_IF_IDLE
@@ -4887,20 +5197,28 @@ class SetGpsCNavAlertFlagToSV(CommandBase):
 
   def setAlert(self, value):
     return self.set("Alert", value)
+
+  def dataSetName(self):
+    return self.get("DataSetName")
+
+  def setDataSetName(self, value):
+    return self.set("DataSetName", value)
 
 #
 # Get GPS CNAV Alert Flag
 #
-# Name Type Description
-# ---- ---- -----------------------
-# SvId int  Satellite's SV ID 1..32
+# Name        Type            Description
+# ----------- --------------- -------------------------------------------------------------------------------------------
+# SvId        int             Satellite's SV ID 1..32, or use 0 to apply new value to all satellites.
+# DataSetName optional string Optional name of the data set to use. If no value is provided, the active data set is used.
 #
 
 class GetGpsCNavAlertFlagToSV(CommandBase):
 
-  def __init__(self, svId):
+  def __init__(self, svId, dataSetName = None):
     CommandBase.__init__(self, "GetGpsCNavAlertFlagToSV")
     self.setSvId(svId)
+    self.setDataSetName(dataSetName)
 
   def executePermission(self):
     return ExecutePermission.EXECUTE_IF_IDLE
@@ -4911,21 +5229,29 @@ class GetGpsCNavAlertFlagToSV(CommandBase):
   def setSvId(self, value):
     return self.set("SvId", value)
 
+  def dataSetName(self):
+    return self.get("DataSetName")
+
+  def setDataSetName(self, value):
+    return self.set("DataSetName", value)
+
 #
 # Result of GetGpsCNavAlertFlagToSV.
 #
-# Name  Type Description
-# ----- ---- ---------------------------------------------------
-# SvId  int  Satellite's SV ID 1..32
-# Alert bool GPS CNAV Alert Flag, false = No Alert, true = Alert
+# Name        Type            Description
+# ----------- --------------- -------------------------------------------------------------------------------------------
+# SvId        int             Satellite's SV ID 1..32, or use 0 to apply new value to all satellites.
+# Alert       bool            GPS CNAV Alert Flag, false = No Alert, true = Alert
+# DataSetName optional string Optional name of the data set to use. If no value is provided, the active data set is used.
 #
 
 class GetGpsCNavAlertFlagToSVResult(CommandResult):
 
-  def __init__(self, svId, alert):
+  def __init__(self, svId, alert, dataSetName = None):
     CommandResult.__init__(self, "GetGpsCNavAlertFlagToSVResult")
     self.setSvId(svId)
     self.setAlert(alert)
+    self.setDataSetName(dataSetName)
 
   def isSuccess(self):
     return True
@@ -4942,21 +5268,29 @@ class GetGpsCNavAlertFlagToSVResult(CommandResult):
   def setAlert(self, value):
     return self.set("Alert", value)
 
+  def dataSetName(self):
+    return self.get("DataSetName")
+
+  def setDataSetName(self, value):
+    return self.set("DataSetName", value)
+
 #
 # Set BeiDou satellite health info
 #
-# Name   Type Description
-# ------ ---- -------------------------------------------------------------------------
-# SvId   int  Satellite SV ID 1..35
-# Health int  Health Info, 9-bit integer : 0, 2, 64, 66, 128, 130, 192, 194, 256 or 511
+# Name        Type            Description
+# ----------- --------------- -------------------------------------------------------------------------------------------
+# SvId        int             Satellite SV ID 1..35, or use 0 to apply new value to all satellites.
+# Health      int             Health Info, 9-bit integer : 0, 2, 64, 66, 128, 130, 192, 194, 256 or 511
+# DataSetName optional string Optional name of the data set to use. If no value is provided, the active data set is used.
 #
 
 class SetBeiDouHealthInfoForSV(CommandBase):
 
-  def __init__(self, svId, health):
+  def __init__(self, svId, health, dataSetName = None):
     CommandBase.__init__(self, "SetBeiDouHealthInfoForSV")
     self.setSvId(svId)
     self.setHealth(health)
+    self.setDataSetName(dataSetName)
 
   def executePermission(self):
     return ExecutePermission.EXECUTE_IF_SIMULATING | ExecutePermission.EXECUTE_IF_IDLE
@@ -4972,20 +5306,28 @@ class SetBeiDouHealthInfoForSV(CommandBase):
 
   def setHealth(self, value):
     return self.set("Health", value)
+
+  def dataSetName(self):
+    return self.get("DataSetName")
+
+  def setDataSetName(self, value):
+    return self.set("DataSetName", value)
 
 #
 # Get BeiDou satellite health info
 #
-# Name Type Description
-# ---- ---- ---------------------
-# SvId int  Satellite SV ID 1..35
+# Name        Type            Description
+# ----------- --------------- -------------------------------------------------------------------------------------------
+# SvId        int             Satellite SV ID 1..35, or use 0 to apply new value to all satellites.
+# DataSetName optional string Optional name of the data set to use. If no value is provided, the active data set is used.
 #
 
 class GetBeiDouHealthInfoForSV(CommandBase):
 
-  def __init__(self, svId):
+  def __init__(self, svId, dataSetName = None):
     CommandBase.__init__(self, "GetBeiDouHealthInfoForSV")
     self.setSvId(svId)
+    self.setDataSetName(dataSetName)
 
   def executePermission(self):
     return ExecutePermission.EXECUTE_IF_IDLE
@@ -4995,22 +5337,30 @@ class GetBeiDouHealthInfoForSV(CommandBase):
 
   def setSvId(self, value):
     return self.set("SvId", value)
+
+  def dataSetName(self):
+    return self.get("DataSetName")
+
+  def setDataSetName(self, value):
+    return self.set("DataSetName", value)
 
 #
 # Result of GetBeiDouHealthInfoForSV.
 #
-# Name   Type Description
-# ------ ---- -------------------------------------------------------------------------
-# SvId   int  Satellite SV ID 1..35
-# Health int  Health Info, 9-bit integer : 0, 2, 64, 66, 128, 130, 192, 194, 256 or 511
+# Name        Type            Description
+# ----------- --------------- -------------------------------------------------------------------------------------------
+# SvId        int             Satellite SV ID 1..35, or use 0 to apply new value to all satellites.
+# Health      int             Health Info, 9-bit integer : 0, 2, 64, 66, 128, 130, 192, 194, 256 or 511
+# DataSetName optional string Optional name of the data set to use. If no value is provided, the active data set is used.
 #
 
 class GetBeiDouHealthInfoForSVResult(CommandResult):
 
-  def __init__(self, svId, health):
+  def __init__(self, svId, health, dataSetName = None):
     CommandResult.__init__(self, "GetBeiDouHealthInfoForSVResult")
     self.setSvId(svId)
     self.setHealth(health)
+    self.setDataSetName(dataSetName)
 
   def isSuccess(self):
     return True
@@ -5026,22 +5376,30 @@ class GetBeiDouHealthInfoForSVResult(CommandResult):
 
   def setHealth(self, value):
     return self.set("Health", value)
+
+  def dataSetName(self):
+    return self.get("DataSetName")
+
+  def setDataSetName(self, value):
+    return self.set("DataSetName", value)
 
 #
 # Set BeiDou satellite autonomous health
 #
-# Name   Type Description
-# ------ ---- -------------------------------------
-# SvId   int  Satellite SV ID 1..35
-# Health bool Status, false = Good, true = Not Good
+# Name        Type            Description
+# ----------- --------------- -------------------------------------------------------------------------------------------
+# SvId        int             Satellite SV ID 1..35, or use 0 to apply new value to all satellites.
+# Health      bool            Status, false = Good, true = Not Good
+# DataSetName optional string Optional name of the data set to use. If no value is provided, the active data set is used.
 #
 
 class SetBeiDouAutonomousHealthForSV(CommandBase):
 
-  def __init__(self, svId, health):
+  def __init__(self, svId, health, dataSetName = None):
     CommandBase.__init__(self, "SetBeiDouAutonomousHealthForSV")
     self.setSvId(svId)
     self.setHealth(health)
+    self.setDataSetName(dataSetName)
 
   def executePermission(self):
     return ExecutePermission.EXECUTE_IF_SIMULATING | ExecutePermission.EXECUTE_IF_IDLE
@@ -5057,20 +5415,28 @@ class SetBeiDouAutonomousHealthForSV(CommandBase):
 
   def setHealth(self, value):
     return self.set("Health", value)
+
+  def dataSetName(self):
+    return self.get("DataSetName")
+
+  def setDataSetName(self, value):
+    return self.set("DataSetName", value)
 
 #
 # Get BeiDou satellite autonomous health
 #
-# Name Type Description
-# ---- ---- ---------------------
-# SvId int  Satellite SV ID 1..35
+# Name        Type            Description
+# ----------- --------------- -------------------------------------------------------------------------------------------
+# SvId        int             Satellite SV ID 1..35, or use 0 to apply new value to all satellites.
+# DataSetName optional string Optional name of the data set to use. If no value is provided, the active data set is used.
 #
 
 class GetBeiDouAutonomousHealthForSV(CommandBase):
 
-  def __init__(self, svId):
+  def __init__(self, svId, dataSetName = None):
     CommandBase.__init__(self, "GetBeiDouAutonomousHealthForSV")
     self.setSvId(svId)
+    self.setDataSetName(dataSetName)
 
   def executePermission(self):
     return ExecutePermission.EXECUTE_IF_IDLE
@@ -5080,22 +5446,30 @@ class GetBeiDouAutonomousHealthForSV(CommandBase):
 
   def setSvId(self, value):
     return self.set("SvId", value)
+
+  def dataSetName(self):
+    return self.get("DataSetName")
+
+  def setDataSetName(self, value):
+    return self.set("DataSetName", value)
 
 #
 # Result of GetBeiDouAutonomousHealthForSV.
 #
-# Name   Type Description
-# ------ ---- -------------------------------------
-# SvId   int  Satellite SV ID 1..35
-# Health bool Status, false = Good, true = Not Good
+# Name        Type            Description
+# ----------- --------------- -------------------------------------------------------------------------------------------
+# SvId        int             Satellite SV ID 1..35, or use 0 to apply new value to all satellites.
+# Health      bool            Status, false = Good, true = Not Good
+# DataSetName optional string Optional name of the data set to use. If no value is provided, the active data set is used.
 #
 
 class GetBeiDouAutonomousHealthForSVResult(CommandResult):
 
-  def __init__(self, svId, health):
+  def __init__(self, svId, health, dataSetName = None):
     CommandResult.__init__(self, "GetBeiDouAutonomousHealthForSVResult")
     self.setSvId(svId)
     self.setHealth(health)
+    self.setDataSetName(dataSetName)
 
   def isSuccess(self):
     return True
@@ -5111,22 +5485,30 @@ class GetBeiDouAutonomousHealthForSVResult(CommandResult):
 
   def setHealth(self, value):
     return self.set("Health", value)
+
+  def dataSetName(self):
+    return self.get("DataSetName")
+
+  def setDataSetName(self, value):
+    return self.set("DataSetName", value)
 
 #
 # Set BeiDou CNav satellite health info
 #
-# Name   Type Description
-# ------ ---- ------------------------------------------------------
-# SvId   int  Satellite SV ID 1..35
-# Health int  Health Info, 8-bit integer : 0, 32, 64, 96, 128 or 255
+# Name        Type            Description
+# ----------- --------------- -------------------------------------------------------------------------------------------
+# SvId        int             Satellite SV ID 1..35, or use 0 to apply new value to all satellites.
+# Health      int             Health Info, 8-bit integer : 0, 32, 64, 96, 128 or 255
+# DataSetName optional string Optional name of the data set to use. If no value is provided, the active data set is used.
 #
 
 class SetBeiDouCNavHealthInfoForSV(CommandBase):
 
-  def __init__(self, svId, health):
+  def __init__(self, svId, health, dataSetName = None):
     CommandBase.__init__(self, "SetBeiDouCNavHealthInfoForSV")
     self.setSvId(svId)
     self.setHealth(health)
+    self.setDataSetName(dataSetName)
 
   def executePermission(self):
     return ExecutePermission.EXECUTE_IF_SIMULATING | ExecutePermission.EXECUTE_IF_IDLE
@@ -5142,20 +5524,28 @@ class SetBeiDouCNavHealthInfoForSV(CommandBase):
 
   def setHealth(self, value):
     return self.set("Health", value)
+
+  def dataSetName(self):
+    return self.get("DataSetName")
+
+  def setDataSetName(self, value):
+    return self.set("DataSetName", value)
 
 #
 # Get BeiDou CNav satellite health info
 #
-# Name Type Description
-# ---- ---- ---------------------
-# SvId int  Satellite SV ID 1..35
+# Name        Type            Description
+# ----------- --------------- -------------------------------------------------------------------------------------------
+# SvId        int             Satellite SV ID 1..35, or use 0 to apply new value to all satellites.
+# DataSetName optional string Optional name of the data set to use. If no value is provided, the active data set is used.
 #
 
 class GetBeiDouCNavHealthInfoForSV(CommandBase):
 
-  def __init__(self, svId):
+  def __init__(self, svId, dataSetName = None):
     CommandBase.__init__(self, "GetBeiDouCNavHealthInfoForSV")
     self.setSvId(svId)
+    self.setDataSetName(dataSetName)
 
   def executePermission(self):
     return ExecutePermission.EXECUTE_IF_IDLE
@@ -5166,21 +5556,29 @@ class GetBeiDouCNavHealthInfoForSV(CommandBase):
   def setSvId(self, value):
     return self.set("SvId", value)
 
+  def dataSetName(self):
+    return self.get("DataSetName")
+
+  def setDataSetName(self, value):
+    return self.set("DataSetName", value)
+
 #
 # Result of GetBeiDouCNavHealthInfoForSV.
 #
-# Name   Type Description
-# ------ ---- ------------------------------------------------------
-# SvId   int  Satellite SV ID 1..35
-# Health int  Health Info, 8-bit integer : 0, 32, 64, 96, 128 or 255
+# Name        Type            Description
+# ----------- --------------- -------------------------------------------------------------------------------------------
+# SvId        int             Satellite SV ID 1..35, or use 0 to apply new value to all satellites.
+# Health      int             Health Info, 8-bit integer : 0, 32, 64, 96, 128 or 255
+# DataSetName optional string Optional name of the data set to use. If no value is provided, the active data set is used.
 #
 
 class GetBeiDouCNavHealthInfoForSVResult(CommandResult):
 
-  def __init__(self, svId, health):
+  def __init__(self, svId, health, dataSetName = None):
     CommandResult.__init__(self, "GetBeiDouCNavHealthInfoForSVResult")
     self.setSvId(svId)
     self.setHealth(health)
+    self.setDataSetName(dataSetName)
 
   def isSuccess(self):
     return True
@@ -5197,21 +5595,29 @@ class GetBeiDouCNavHealthInfoForSVResult(CommandResult):
   def setHealth(self, value):
     return self.set("Health", value)
 
+  def dataSetName(self):
+    return self.get("DataSetName")
+
+  def setDataSetName(self, value):
+    return self.set("DataSetName", value)
+
 #
 # Set BeiDou satellite health status
 #
-# Name   Type Description
-# ------ ---- -----------------------------------------
-# SvId   int  Satellite SV ID 1..35
-# Health int  Health Info, 2-bit integer : 0, 1, 2 or 3
+# Name        Type            Description
+# ----------- --------------- -------------------------------------------------------------------------------------------
+# SvId        int             Satellite SV ID 1..35, or use 0 to apply new value to all satellites.
+# Health      int             Health Info, 2-bit integer : 0, 1, 2 or 3
+# DataSetName optional string Optional name of the data set to use. If no value is provided, the active data set is used.
 #
 
 class SetBeiDouHealthStatusForSV(CommandBase):
 
-  def __init__(self, svId, health):
+  def __init__(self, svId, health, dataSetName = None):
     CommandBase.__init__(self, "SetBeiDouHealthStatusForSV")
     self.setSvId(svId)
     self.setHealth(health)
+    self.setDataSetName(dataSetName)
 
   def executePermission(self):
     return ExecutePermission.EXECUTE_IF_SIMULATING | ExecutePermission.EXECUTE_IF_IDLE
@@ -5228,19 +5634,27 @@ class SetBeiDouHealthStatusForSV(CommandBase):
   def setHealth(self, value):
     return self.set("Health", value)
 
+  def dataSetName(self):
+    return self.get("DataSetName")
+
+  def setDataSetName(self, value):
+    return self.set("DataSetName", value)
+
 #
 # Get BeiDou satellite health status
 #
-# Name Type Description
-# ---- ---- ---------------------
-# SvId int  Satellite SV ID 1..35
+# Name        Type            Description
+# ----------- --------------- -------------------------------------------------------------------------------------------
+# SvId        int             Satellite SV ID 1..35, or use 0 to apply new value to all satellites.
+# DataSetName optional string Optional name of the data set to use. If no value is provided, the active data set is used.
 #
 
 class GetBeiDouHealthStatusForSV(CommandBase):
 
-  def __init__(self, svId):
+  def __init__(self, svId, dataSetName = None):
     CommandBase.__init__(self, "GetBeiDouHealthStatusForSV")
     self.setSvId(svId)
+    self.setDataSetName(dataSetName)
 
   def executePermission(self):
     return ExecutePermission.EXECUTE_IF_IDLE
@@ -5251,21 +5665,29 @@ class GetBeiDouHealthStatusForSV(CommandBase):
   def setSvId(self, value):
     return self.set("SvId", value)
 
+  def dataSetName(self):
+    return self.get("DataSetName")
+
+  def setDataSetName(self, value):
+    return self.set("DataSetName", value)
+
 #
 # Result of GetBeiDouHealthStatusForSV.
 #
-# Name   Type Description
-# ------ ---- -----------------------------------------
-# SvId   int  Satellite SV ID 1..35
-# Health int  Health Info, 2-bit integer : 0, 1, 2 or 3
+# Name        Type            Description
+# ----------- --------------- -------------------------------------------------------------------------------------------
+# SvId        int             Satellite SV ID 1..35, or use 0 to apply new value to all satellites.
+# Health      int             Health Info, 2-bit integer : 0, 1, 2 or 3
+# DataSetName optional string Optional name of the data set to use. If no value is provided, the active data set is used.
 #
 
 class GetBeiDouHealthStatusForSVResult(CommandResult):
 
-  def __init__(self, svId, health):
+  def __init__(self, svId, health, dataSetName = None):
     CommandResult.__init__(self, "GetBeiDouHealthStatusForSVResult")
     self.setSvId(svId)
     self.setHealth(health)
+    self.setDataSetName(dataSetName)
 
   def isSuccess(self):
     return True
@@ -5281,6 +5703,12 @@ class GetBeiDouHealthStatusForSVResult(CommandResult):
 
   def setHealth(self, value):
     return self.set("Health", value)
+
+  def dataSetName(self):
+    return self.get("DataSetName")
+
+  def setDataSetName(self, value):
+    return self.set("DataSetName", value)
 
 #
 # Set GLONASS satellite Ephemeris Health Flag Bn(ln)
@@ -5455,18 +5883,20 @@ class GetGlonassAlmanacUnhealthyFlagForSVResult(CommandResult):
 #
 # Set QZSS L1 C/A nav data health
 #
-# Name   Type Description
-# ------ ---- ---------------------
-# SvId   int  Satellite SV ID 1..10
-# Health int  Data health 0..7
+# Name        Type            Description
+# ----------- --------------- -------------------------------------------------------------------------------------------
+# SvId        int             Satellite SV ID 1..10, or use 0 to apply new value to all satellites.
+# Health      int             Data health 0..7
+# DataSetName optional string Optional name of the data set to use. If no value is provided, the active data set is used.
 #
 
 class SetQzssL1DataHealthForSV(CommandBase):
 
-  def __init__(self, svId, health):
+  def __init__(self, svId, health, dataSetName = None):
     CommandBase.__init__(self, "SetQzssL1DataHealthForSV")
     self.setSvId(svId)
     self.setHealth(health)
+    self.setDataSetName(dataSetName)
 
   def executePermission(self):
     return ExecutePermission.EXECUTE_IF_SIMULATING | ExecutePermission.EXECUTE_IF_IDLE
@@ -5482,24 +5912,32 @@ class SetQzssL1DataHealthForSV(CommandBase):
 
   def setHealth(self, value):
     return self.set("Health", value)
+
+  def dataSetName(self):
+    return self.get("DataSetName")
+
+  def setDataSetName(self, value):
+    return self.set("DataSetName", value)
 
 #
 # Please note the command SetQzssSatelliteL1DataHealth is deprecated since 21.3. You may use SetQzssL1DataHealthForSV.
 # 
 # Set QZSS L1 C/A nav data health
 #
-# Name   Type Description
-# ------ ---- ---------------------
-# SvId   int  Satellite SV ID 1..10
-# Health int  Data health 0..7
+# Name        Type            Description
+# ----------- --------------- -------------------------------------------------------------------------------------------
+# SvId        int             Satellite SV ID 1..10, or use 0 to apply new value to all satellites.
+# Health      int             Data health 0..7
+# DataSetName optional string Optional name of the data set to use. If no value is provided, the active data set is used.
 #
 
 class SetQzssSatelliteL1DataHealth(CommandBase):
 
-  def __init__(self, svId, health):
+  def __init__(self, svId, health, dataSetName = None):
     CommandBase.__init__(self, "SetQzssSatelliteL1DataHealth")
     self.setSvId(svId)
     self.setHealth(health)
+    self.setDataSetName(dataSetName)
 
   def executePermission(self):
     return ExecutePermission.EXECUTE_IF_SIMULATING | ExecutePermission.EXECUTE_IF_IDLE
@@ -5516,19 +5954,27 @@ class SetQzssSatelliteL1DataHealth(CommandBase):
   def setHealth(self, value):
     return self.set("Health", value)
 
+  def dataSetName(self):
+    return self.get("DataSetName")
+
+  def setDataSetName(self, value):
+    return self.set("DataSetName", value)
+
 #
 # Get QZSS L1 C/A nav data health
 #
-# Name Type Description
-# ---- ---- ---------------------
-# SvId int  Satellite SV ID 1..10
+# Name        Type            Description
+# ----------- --------------- -------------------------------------------------------------------------------------------
+# SvId        int             Satellite SV ID 1..10, or use 0 to apply new value to all satellites.
+# DataSetName optional string Optional name of the data set to use. If no value is provided, the active data set is used.
 #
 
 class GetQzssL1DataHealthForSV(CommandBase):
 
-  def __init__(self, svId):
+  def __init__(self, svId, dataSetName = None):
     CommandBase.__init__(self, "GetQzssL1DataHealthForSV")
     self.setSvId(svId)
+    self.setDataSetName(dataSetName)
 
   def executePermission(self):
     return ExecutePermission.EXECUTE_IF_IDLE
@@ -5538,22 +5984,30 @@ class GetQzssL1DataHealthForSV(CommandBase):
 
   def setSvId(self, value):
     return self.set("SvId", value)
+
+  def dataSetName(self):
+    return self.get("DataSetName")
+
+  def setDataSetName(self, value):
+    return self.set("DataSetName", value)
 
 #
 # Please note the command GetQzssSatelliteL1DataHealth is deprecated since 21.3. You may use GetQzssL1DataHealthForSV.
 # 
 # Get QZSS L1 C/A nav data health
 #
-# Name Type Description
-# ---- ---- ---------------------
-# SvId int  Satellite SV ID 1..10
+# Name        Type            Description
+# ----------- --------------- -------------------------------------------------------------------------------------------
+# SvId        int             Satellite SV ID 1..10, or use 0 to apply new value to all satellites.
+# DataSetName optional string Optional name of the data set to use. If no value is provided, the active data set is used.
 #
 
 class GetQzssSatelliteL1DataHealth(CommandBase):
 
-  def __init__(self, svId):
+  def __init__(self, svId, dataSetName = None):
     CommandBase.__init__(self, "GetQzssSatelliteL1DataHealth")
     self.setSvId(svId)
+    self.setDataSetName(dataSetName)
 
   def executePermission(self):
     return ExecutePermission.EXECUTE_IF_IDLE
@@ -5564,21 +6018,29 @@ class GetQzssSatelliteL1DataHealth(CommandBase):
   def setSvId(self, value):
     return self.set("SvId", value)
 
+  def dataSetName(self):
+    return self.get("DataSetName")
+
+  def setDataSetName(self, value):
+    return self.set("DataSetName", value)
+
 #
 # Result of GetQzssL1DataHealthForSV.
 #
-# Name   Type Description
-# ------ ---- ---------------------
-# SvId   int  Satellite SV ID 1..10
-# Health int  Data health 0..7
+# Name        Type            Description
+# ----------- --------------- -------------------------------------------------------------------------------------------
+# SvId        int             Satellite SV ID 1..10, or use 0 to apply new value to all satellites.
+# Health      int             Data health 0..7
+# DataSetName optional string Optional name of the data set to use. If no value is provided, the active data set is used.
 #
 
 class GetQzssL1DataHealthForSVResult(CommandResult):
 
-  def __init__(self, svId, health):
+  def __init__(self, svId, health, dataSetName = None):
     CommandResult.__init__(self, "GetQzssL1DataHealthForSVResult")
     self.setSvId(svId)
     self.setHealth(health)
+    self.setDataSetName(dataSetName)
 
   def isSuccess(self):
     return True
@@ -5595,21 +6057,29 @@ class GetQzssL1DataHealthForSVResult(CommandResult):
   def setHealth(self, value):
     return self.set("Health", value)
 
+  def dataSetName(self):
+    return self.get("DataSetName")
+
+  def setDataSetName(self, value):
+    return self.set("DataSetName", value)
+
 #
 # Set QZSS L1 health (Health of L1C/A signal)
 #
-# Name   Type Description
-# ------ ---- -----------------------------------------------
-# SvId   int  Satellite SV ID 1..10
-# Health bool L1 health, false = signal OK, true = signal bad
+# Name        Type            Description
+# ----------- --------------- -------------------------------------------------------------------------------------------
+# SvId        int             Satellite SV ID 1..10, or use 0 to apply new value to all satellites.
+# Health      bool            L1 health, false = signal OK, true = signal bad
+# DataSetName optional string Optional name of the data set to use. If no value is provided, the active data set is used.
 #
 
 class SetQzssL1HealthForSV(CommandBase):
 
-  def __init__(self, svId, health):
+  def __init__(self, svId, health, dataSetName = None):
     CommandBase.__init__(self, "SetQzssL1HealthForSV")
     self.setSvId(svId)
     self.setHealth(health)
+    self.setDataSetName(dataSetName)
 
   def executePermission(self):
     return ExecutePermission.EXECUTE_IF_SIMULATING | ExecutePermission.EXECUTE_IF_IDLE
@@ -5625,24 +6095,32 @@ class SetQzssL1HealthForSV(CommandBase):
 
   def setHealth(self, value):
     return self.set("Health", value)
+
+  def dataSetName(self):
+    return self.get("DataSetName")
+
+  def setDataSetName(self, value):
+    return self.set("DataSetName", value)
 
 #
 # Please note the command SetQzssSatelliteL1Health is deprecated since 21.3. You may use SetQzssL1HealthForSV.
 # 
 # Set QZSS L1 health (Health of L1C/A signal)
 #
-# Name   Type Description
-# ------ ---- -----------------------------------------------
-# SvId   int  Satellite SV ID 1..10
-# Health bool L1 health, false = signal OK, true = signal bad
+# Name        Type            Description
+# ----------- --------------- -------------------------------------------------------------------------------------------
+# SvId        int             Satellite SV ID 1..10, or use 0 to apply new value to all satellites.
+# Health      bool            L1 health, false = signal OK, true = signal bad
+# DataSetName optional string Optional name of the data set to use. If no value is provided, the active data set is used.
 #
 
 class SetQzssSatelliteL1Health(CommandBase):
 
-  def __init__(self, svId, health):
+  def __init__(self, svId, health, dataSetName = None):
     CommandBase.__init__(self, "SetQzssSatelliteL1Health")
     self.setSvId(svId)
     self.setHealth(health)
+    self.setDataSetName(dataSetName)
 
   def executePermission(self):
     return ExecutePermission.EXECUTE_IF_SIMULATING | ExecutePermission.EXECUTE_IF_IDLE
@@ -5659,19 +6137,27 @@ class SetQzssSatelliteL1Health(CommandBase):
   def setHealth(self, value):
     return self.set("Health", value)
 
+  def dataSetName(self):
+    return self.get("DataSetName")
+
+  def setDataSetName(self, value):
+    return self.set("DataSetName", value)
+
 #
 # Get QZSS L1 health (Health of L1C/A signal)
 #
-# Name Type Description
-# ---- ---- ---------------------
-# SvId int  Satellite SV ID 1..10
+# Name        Type            Description
+# ----------- --------------- -------------------------------------------------------------------------------------------
+# SvId        int             Satellite SV ID 1..10, or use 0 to apply new value to all satellites.
+# DataSetName optional string Optional name of the data set to use. If no value is provided, the active data set is used.
 #
 
 class GetQzssL1HealthForSV(CommandBase):
 
-  def __init__(self, svId):
+  def __init__(self, svId, dataSetName = None):
     CommandBase.__init__(self, "GetQzssL1HealthForSV")
     self.setSvId(svId)
+    self.setDataSetName(dataSetName)
 
   def executePermission(self):
     return ExecutePermission.EXECUTE_IF_IDLE
@@ -5681,22 +6167,30 @@ class GetQzssL1HealthForSV(CommandBase):
 
   def setSvId(self, value):
     return self.set("SvId", value)
+
+  def dataSetName(self):
+    return self.get("DataSetName")
+
+  def setDataSetName(self, value):
+    return self.set("DataSetName", value)
 
 #
 # Please note the command GetQzssSatelliteL1Health is deprecated since 21.3. You may use GetQzssL1HealthForSV.
 # 
 # Get QZSS L1 health (Health of L1C/A signal)
 #
-# Name Type Description
-# ---- ---- ---------------------
-# SvId int  Satellite SV ID 1..10
+# Name        Type            Description
+# ----------- --------------- -------------------------------------------------------------------------------------------
+# SvId        int             Satellite SV ID 1..10, or use 0 to apply new value to all satellites.
+# DataSetName optional string Optional name of the data set to use. If no value is provided, the active data set is used.
 #
 
 class GetQzssSatelliteL1Health(CommandBase):
 
-  def __init__(self, svId):
+  def __init__(self, svId, dataSetName = None):
     CommandBase.__init__(self, "GetQzssSatelliteL1Health")
     self.setSvId(svId)
+    self.setDataSetName(dataSetName)
 
   def executePermission(self):
     return ExecutePermission.EXECUTE_IF_IDLE
@@ -5707,21 +6201,29 @@ class GetQzssSatelliteL1Health(CommandBase):
   def setSvId(self, value):
     return self.set("SvId", value)
 
+  def dataSetName(self):
+    return self.get("DataSetName")
+
+  def setDataSetName(self, value):
+    return self.set("DataSetName", value)
+
 #
 # Result of GetQzssL1HealthForSV.
 #
-# Name   Type Description
-# ------ ---- -----------------------------------------------
-# SvId   int  Satellite SV ID 1..10
-# Health bool L1 health, false = signal OK, true = signal bad
+# Name        Type            Description
+# ----------- --------------- -------------------------------------------------------------------------------------------
+# SvId        int             Satellite SV ID 1..10, or use 0 to apply new value to all satellites.
+# Health      bool            L1 health, false = signal OK, true = signal bad
+# DataSetName optional string Optional name of the data set to use. If no value is provided, the active data set is used.
 #
 
 class GetQzssL1HealthForSVResult(CommandResult):
 
-  def __init__(self, svId, health):
+  def __init__(self, svId, health, dataSetName = None):
     CommandResult.__init__(self, "GetQzssL1HealthForSVResult")
     self.setSvId(svId)
     self.setHealth(health)
+    self.setDataSetName(dataSetName)
 
   def isSuccess(self):
     return True
@@ -5738,21 +6240,29 @@ class GetQzssL1HealthForSVResult(CommandResult):
   def setHealth(self, value):
     return self.set("Health", value)
 
+  def dataSetName(self):
+    return self.get("DataSetName")
+
+  def setDataSetName(self, value):
+    return self.set("DataSetName", value)
+
 #
 # Set QZSS L2 health (Health of L2C signal)
 #
-# Name   Type Description
-# ------ ---- -----------------------------------------------
-# SvId   int  Satellite SV ID 1..10
-# Health bool L2 health, false = signal OK, true = signal bad
+# Name        Type            Description
+# ----------- --------------- -------------------------------------------------------------------------------------------
+# SvId        int             Satellite SV ID 1..10, or use 0 to apply new value to all satellites.
+# Health      bool            L2 health, false = signal OK, true = signal bad
+# DataSetName optional string Optional name of the data set to use. If no value is provided, the active data set is used.
 #
 
 class SetQzssL2HealthForSV(CommandBase):
 
-  def __init__(self, svId, health):
+  def __init__(self, svId, health, dataSetName = None):
     CommandBase.__init__(self, "SetQzssL2HealthForSV")
     self.setSvId(svId)
     self.setHealth(health)
+    self.setDataSetName(dataSetName)
 
   def executePermission(self):
     return ExecutePermission.EXECUTE_IF_SIMULATING | ExecutePermission.EXECUTE_IF_IDLE
@@ -5768,24 +6278,32 @@ class SetQzssL2HealthForSV(CommandBase):
 
   def setHealth(self, value):
     return self.set("Health", value)
+
+  def dataSetName(self):
+    return self.get("DataSetName")
+
+  def setDataSetName(self, value):
+    return self.set("DataSetName", value)
 
 #
 # Please note the command SetQzssSatelliteL2Health is deprecated since 21.3. You may use SetQzssL2HealthForSV.
 # 
 # Set QZSS L2 health (Health of L2C signal)
 #
-# Name   Type Description
-# ------ ---- -----------------------------------------------
-# SvId   int  Satellite SV ID 1..10
-# Health bool L2 health, false = signal OK, true = signal bad
+# Name        Type            Description
+# ----------- --------------- -------------------------------------------------------------------------------------------
+# SvId        int             Satellite SV ID 1..10, or use 0 to apply new value to all satellites.
+# Health      bool            L2 health, false = signal OK, true = signal bad
+# DataSetName optional string Optional name of the data set to use. If no value is provided, the active data set is used.
 #
 
 class SetQzssSatelliteL2Health(CommandBase):
 
-  def __init__(self, svId, health):
+  def __init__(self, svId, health, dataSetName = None):
     CommandBase.__init__(self, "SetQzssSatelliteL2Health")
     self.setSvId(svId)
     self.setHealth(health)
+    self.setDataSetName(dataSetName)
 
   def executePermission(self):
     return ExecutePermission.EXECUTE_IF_SIMULATING | ExecutePermission.EXECUTE_IF_IDLE
@@ -5802,19 +6320,27 @@ class SetQzssSatelliteL2Health(CommandBase):
   def setHealth(self, value):
     return self.set("Health", value)
 
+  def dataSetName(self):
+    return self.get("DataSetName")
+
+  def setDataSetName(self, value):
+    return self.set("DataSetName", value)
+
 #
 # Get QZSS L2 health (Health of L2C signal)
 #
-# Name Type Description
-# ---- ---- ---------------------
-# SvId int  Satellite SV ID 1..10
+# Name        Type            Description
+# ----------- --------------- -------------------------------------------------------------------------------------------
+# SvId        int             Satellite SV ID 1..10, or use 0 to apply new value to all satellites.
+# DataSetName optional string Optional name of the data set to use. If no value is provided, the active data set is used.
 #
 
 class GetQzssL2HealthForSV(CommandBase):
 
-  def __init__(self, svId):
+  def __init__(self, svId, dataSetName = None):
     CommandBase.__init__(self, "GetQzssL2HealthForSV")
     self.setSvId(svId)
+    self.setDataSetName(dataSetName)
 
   def executePermission(self):
     return ExecutePermission.EXECUTE_IF_IDLE
@@ -5824,22 +6350,30 @@ class GetQzssL2HealthForSV(CommandBase):
 
   def setSvId(self, value):
     return self.set("SvId", value)
+
+  def dataSetName(self):
+    return self.get("DataSetName")
+
+  def setDataSetName(self, value):
+    return self.set("DataSetName", value)
 
 #
 # Please note the command GetQzssSatelliteL2Health is deprecated since 21.3. You may use GetQzssL2HealthForSV.
 # 
 # Get QZSS L2 health (Health of L2C signal)
 #
-# Name Type Description
-# ---- ---- ---------------------
-# SvId int  Satellite SV ID 1..10
+# Name        Type            Description
+# ----------- --------------- -------------------------------------------------------------------------------------------
+# SvId        int             Satellite SV ID 1..10, or use 0 to apply new value to all satellites.
+# DataSetName optional string Optional name of the data set to use. If no value is provided, the active data set is used.
 #
 
 class GetQzssSatelliteL2Health(CommandBase):
 
-  def __init__(self, svId):
+  def __init__(self, svId, dataSetName = None):
     CommandBase.__init__(self, "GetQzssSatelliteL2Health")
     self.setSvId(svId)
+    self.setDataSetName(dataSetName)
 
   def executePermission(self):
     return ExecutePermission.EXECUTE_IF_IDLE
@@ -5850,21 +6384,29 @@ class GetQzssSatelliteL2Health(CommandBase):
   def setSvId(self, value):
     return self.set("SvId", value)
 
+  def dataSetName(self):
+    return self.get("DataSetName")
+
+  def setDataSetName(self, value):
+    return self.set("DataSetName", value)
+
 #
 # Result of GetQzssL2HealthForSV.
 #
-# Name   Type Description
-# ------ ---- -----------------------------------------------
-# SvId   int  Satellite SV ID 1..10
-# Health bool L2 health, false = signal OK, true = signal bad
+# Name        Type            Description
+# ----------- --------------- -------------------------------------------------------------------------------------------
+# SvId        int             Satellite SV ID 1..10, or use 0 to apply new value to all satellites.
+# Health      bool            L2 health, false = signal OK, true = signal bad
+# DataSetName optional string Optional name of the data set to use. If no value is provided, the active data set is used.
 #
 
 class GetQzssL2HealthForSVResult(CommandResult):
 
-  def __init__(self, svId, health):
+  def __init__(self, svId, health, dataSetName = None):
     CommandResult.__init__(self, "GetQzssL2HealthForSVResult")
     self.setSvId(svId)
     self.setHealth(health)
+    self.setDataSetName(dataSetName)
 
   def isSuccess(self):
     return True
@@ -5881,21 +6423,29 @@ class GetQzssL2HealthForSVResult(CommandResult):
   def setHealth(self, value):
     return self.set("Health", value)
 
+  def dataSetName(self):
+    return self.get("DataSetName")
+
+  def setDataSetName(self, value):
+    return self.set("DataSetName", value)
+
 #
 # Set QZSS L5 health (Health of L5 signal)
 #
-# Name   Type Description
-# ------ ---- -----------------------------------------------
-# SvId   int  Satellite SV ID 1..10
-# Health bool L5 health, false = signal OK, true = signal bad
+# Name        Type            Description
+# ----------- --------------- -------------------------------------------------------------------------------------------
+# SvId        int             Satellite SV ID 1..10, or use 0 to apply new value to all satellites.
+# Health      bool            L5 health, false = signal OK, true = signal bad
+# DataSetName optional string Optional name of the data set to use. If no value is provided, the active data set is used.
 #
 
 class SetQzssL5HealthForSV(CommandBase):
 
-  def __init__(self, svId, health):
+  def __init__(self, svId, health, dataSetName = None):
     CommandBase.__init__(self, "SetQzssL5HealthForSV")
     self.setSvId(svId)
     self.setHealth(health)
+    self.setDataSetName(dataSetName)
 
   def executePermission(self):
     return ExecutePermission.EXECUTE_IF_SIMULATING | ExecutePermission.EXECUTE_IF_IDLE
@@ -5911,24 +6461,32 @@ class SetQzssL5HealthForSV(CommandBase):
 
   def setHealth(self, value):
     return self.set("Health", value)
+
+  def dataSetName(self):
+    return self.get("DataSetName")
+
+  def setDataSetName(self, value):
+    return self.set("DataSetName", value)
 
 #
 # Please note the command SetQzssSatelliteL5Health is deprecated since 21.3. You may use SetQzssL5HealthForSV.
 # 
 # Set QZSS L5 health (Health of L5 signal)
 #
-# Name   Type Description
-# ------ ---- -----------------------------------------------
-# SvId   int  Satellite SV ID 1..10
-# Health bool L5 health, false = signal OK, true = signal bad
+# Name        Type            Description
+# ----------- --------------- -------------------------------------------------------------------------------------------
+# SvId        int             Satellite SV ID 1..10, or use 0 to apply new value to all satellites.
+# Health      bool            L5 health, false = signal OK, true = signal bad
+# DataSetName optional string Optional name of the data set to use. If no value is provided, the active data set is used.
 #
 
 class SetQzssSatelliteL5Health(CommandBase):
 
-  def __init__(self, svId, health):
+  def __init__(self, svId, health, dataSetName = None):
     CommandBase.__init__(self, "SetQzssSatelliteL5Health")
     self.setSvId(svId)
     self.setHealth(health)
+    self.setDataSetName(dataSetName)
 
   def executePermission(self):
     return ExecutePermission.EXECUTE_IF_SIMULATING | ExecutePermission.EXECUTE_IF_IDLE
@@ -5945,19 +6503,27 @@ class SetQzssSatelliteL5Health(CommandBase):
   def setHealth(self, value):
     return self.set("Health", value)
 
+  def dataSetName(self):
+    return self.get("DataSetName")
+
+  def setDataSetName(self, value):
+    return self.set("DataSetName", value)
+
 #
 # Get QZSS L5 health (Health of L5 signal)
 #
-# Name Type Description
-# ---- ---- ---------------------
-# SvId int  Satellite SV ID 1..10
+# Name        Type            Description
+# ----------- --------------- -------------------------------------------------------------------------------------------
+# SvId        int             Satellite SV ID 1..10, or use 0 to apply new value to all satellites.
+# DataSetName optional string Optional name of the data set to use. If no value is provided, the active data set is used.
 #
 
 class GetQzssL5HealthForSV(CommandBase):
 
-  def __init__(self, svId):
+  def __init__(self, svId, dataSetName = None):
     CommandBase.__init__(self, "GetQzssL5HealthForSV")
     self.setSvId(svId)
+    self.setDataSetName(dataSetName)
 
   def executePermission(self):
     return ExecutePermission.EXECUTE_IF_IDLE
@@ -5967,22 +6533,30 @@ class GetQzssL5HealthForSV(CommandBase):
 
   def setSvId(self, value):
     return self.set("SvId", value)
+
+  def dataSetName(self):
+    return self.get("DataSetName")
+
+  def setDataSetName(self, value):
+    return self.set("DataSetName", value)
 
 #
 # Please note the command GetQzssSatelliteL5Health is deprecated since 21.3. You may use GetQzssL5HealthForSV.
 # 
 # Get QZSS L5 health (Health of L5 signal)
 #
-# Name Type Description
-# ---- ---- ---------------------
-# SvId int  Satellite SV ID 1..10
+# Name        Type            Description
+# ----------- --------------- -------------------------------------------------------------------------------------------
+# SvId        int             Satellite SV ID 1..10, or use 0 to apply new value to all satellites.
+# DataSetName optional string Optional name of the data set to use. If no value is provided, the active data set is used.
 #
 
 class GetQzssSatelliteL5Health(CommandBase):
 
-  def __init__(self, svId):
+  def __init__(self, svId, dataSetName = None):
     CommandBase.__init__(self, "GetQzssSatelliteL5Health")
     self.setSvId(svId)
+    self.setDataSetName(dataSetName)
 
   def executePermission(self):
     return ExecutePermission.EXECUTE_IF_IDLE
@@ -5993,21 +6567,29 @@ class GetQzssSatelliteL5Health(CommandBase):
   def setSvId(self, value):
     return self.set("SvId", value)
 
+  def dataSetName(self):
+    return self.get("DataSetName")
+
+  def setDataSetName(self, value):
+    return self.set("DataSetName", value)
+
 #
 # Result of GetQzssL5HealthForSV.
 #
-# Name   Type Description
-# ------ ---- -----------------------------------------------
-# SvId   int  Satellite SV ID 1..10
-# Health bool L5 health, false = signal OK, true = signal bad
+# Name        Type            Description
+# ----------- --------------- -------------------------------------------------------------------------------------------
+# SvId        int             Satellite SV ID 1..10, or use 0 to apply new value to all satellites.
+# Health      bool            L5 health, false = signal OK, true = signal bad
+# DataSetName optional string Optional name of the data set to use. If no value is provided, the active data set is used.
 #
 
 class GetQzssL5HealthForSVResult(CommandResult):
 
-  def __init__(self, svId, health):
+  def __init__(self, svId, health, dataSetName = None):
     CommandResult.__init__(self, "GetQzssL5HealthForSVResult")
     self.setSvId(svId)
     self.setHealth(health)
+    self.setDataSetName(dataSetName)
 
   def isSuccess(self):
     return True
@@ -6024,21 +6606,29 @@ class GetQzssL5HealthForSVResult(CommandResult):
   def setHealth(self, value):
     return self.set("Health", value)
 
+  def dataSetName(self):
+    return self.get("DataSetName")
+
+  def setDataSetName(self, value):
+    return self.set("DataSetName", value)
+
 #
 # Set QZSS L1C health (Health of L1C signal)
 #
-# Name   Type Description
-# ------ ---- ------------------------------------------------
-# SvId   int  Satellite SV ID 1..10
-# Health bool L1C health, false = signal OK, true = signal bad
+# Name        Type            Description
+# ----------- --------------- -------------------------------------------------------------------------------------------
+# SvId        int             Satellite SV ID 1..10, or use 0 to apply new value to all satellites.
+# Health      bool            L1C health, false = signal OK, true = signal bad
+# DataSetName optional string Optional name of the data set to use. If no value is provided, the active data set is used.
 #
 
 class SetQzssL1cHealthForSV(CommandBase):
 
-  def __init__(self, svId, health):
+  def __init__(self, svId, health, dataSetName = None):
     CommandBase.__init__(self, "SetQzssL1cHealthForSV")
     self.setSvId(svId)
     self.setHealth(health)
+    self.setDataSetName(dataSetName)
 
   def executePermission(self):
     return ExecutePermission.EXECUTE_IF_SIMULATING | ExecutePermission.EXECUTE_IF_IDLE
@@ -6054,24 +6644,32 @@ class SetQzssL1cHealthForSV(CommandBase):
 
   def setHealth(self, value):
     return self.set("Health", value)
+
+  def dataSetName(self):
+    return self.get("DataSetName")
+
+  def setDataSetName(self, value):
+    return self.set("DataSetName", value)
 
 #
 # Please note the command SetQzssSatelliteL1cHealth is deprecated since 21.3. You may use SetQzssL1cHealthForSV.
 # 
 # Set QZSS L1C health (Health of L1C signal)
 #
-# Name   Type Description
-# ------ ---- ------------------------------------------------
-# SvId   int  Satellite SV ID 1..10
-# Health bool L1C health, false = signal OK, true = signal bad
+# Name        Type            Description
+# ----------- --------------- -------------------------------------------------------------------------------------------
+# SvId        int             Satellite SV ID 1..10, or use 0 to apply new value to all satellites.
+# Health      bool            L1C health, false = signal OK, true = signal bad
+# DataSetName optional string Optional name of the data set to use. If no value is provided, the active data set is used.
 #
 
 class SetQzssSatelliteL1cHealth(CommandBase):
 
-  def __init__(self, svId, health):
+  def __init__(self, svId, health, dataSetName = None):
     CommandBase.__init__(self, "SetQzssSatelliteL1cHealth")
     self.setSvId(svId)
     self.setHealth(health)
+    self.setDataSetName(dataSetName)
 
   def executePermission(self):
     return ExecutePermission.EXECUTE_IF_SIMULATING | ExecutePermission.EXECUTE_IF_IDLE
@@ -6088,19 +6686,27 @@ class SetQzssSatelliteL1cHealth(CommandBase):
   def setHealth(self, value):
     return self.set("Health", value)
 
+  def dataSetName(self):
+    return self.get("DataSetName")
+
+  def setDataSetName(self, value):
+    return self.set("DataSetName", value)
+
 #
 # Get QZSS L1C health (Health of L1C signal)
 #
-# Name Type Description
-# ---- ---- ---------------------
-# SvId int  Satellite SV ID 1..10
+# Name        Type            Description
+# ----------- --------------- -------------------------------------------------------------------------------------------
+# SvId        int             Satellite SV ID 1..10, or use 0 to apply new value to all satellites.
+# DataSetName optional string Optional name of the data set to use. If no value is provided, the active data set is used.
 #
 
 class GetQzssL1cHealthForSV(CommandBase):
 
-  def __init__(self, svId):
+  def __init__(self, svId, dataSetName = None):
     CommandBase.__init__(self, "GetQzssL1cHealthForSV")
     self.setSvId(svId)
+    self.setDataSetName(dataSetName)
 
   def executePermission(self):
     return ExecutePermission.EXECUTE_IF_IDLE
@@ -6110,22 +6716,30 @@ class GetQzssL1cHealthForSV(CommandBase):
 
   def setSvId(self, value):
     return self.set("SvId", value)
+
+  def dataSetName(self):
+    return self.get("DataSetName")
+
+  def setDataSetName(self, value):
+    return self.set("DataSetName", value)
 
 #
 # Please note the command GetQzssSatelliteL1cHealth is deprecated since 21.3. You may use GetQzssL1cHealthForSV.
 # 
 # Get QZSS L1C health (Health of L1C signal)
 #
-# Name Type Description
-# ---- ---- ---------------------
-# SvId int  Satellite SV ID 1..10
+# Name        Type            Description
+# ----------- --------------- -------------------------------------------------------------------------------------------
+# SvId        int             Satellite SV ID 1..10, or use 0 to apply new value to all satellites.
+# DataSetName optional string Optional name of the data set to use. If no value is provided, the active data set is used.
 #
 
 class GetQzssSatelliteL1cHealth(CommandBase):
 
-  def __init__(self, svId):
+  def __init__(self, svId, dataSetName = None):
     CommandBase.__init__(self, "GetQzssSatelliteL1cHealth")
     self.setSvId(svId)
+    self.setDataSetName(dataSetName)
 
   def executePermission(self):
     return ExecutePermission.EXECUTE_IF_IDLE
@@ -6136,21 +6750,29 @@ class GetQzssSatelliteL1cHealth(CommandBase):
   def setSvId(self, value):
     return self.set("SvId", value)
 
+  def dataSetName(self):
+    return self.get("DataSetName")
+
+  def setDataSetName(self, value):
+    return self.set("DataSetName", value)
+
 #
 # Result of GetQzssL1cHealthForSV.
 #
-# Name   Type Description
-# ------ ---- ------------------------------------------------
-# SvId   int  Satellite SV ID 1..10
-# Health bool L1C health, false = signal OK, true = signal bad
+# Name        Type            Description
+# ----------- --------------- -------------------------------------------------------------------------------------------
+# SvId        int             Satellite SV ID 1..10, or use 0 to apply new value to all satellites.
+# Health      bool            L1C health, false = signal OK, true = signal bad
+# DataSetName optional string Optional name of the data set to use. If no value is provided, the active data set is used.
 #
 
 class GetQzssL1cHealthForSVResult(CommandResult):
 
-  def __init__(self, svId, health):
+  def __init__(self, svId, health, dataSetName = None):
     CommandResult.__init__(self, "GetQzssL1cHealthForSVResult")
     self.setSvId(svId)
     self.setHealth(health)
+    self.setDataSetName(dataSetName)
 
   def isSuccess(self):
     return True
@@ -6167,21 +6789,29 @@ class GetQzssL1cHealthForSVResult(CommandResult):
   def setHealth(self, value):
     return self.set("Health", value)
 
+  def dataSetName(self):
+    return self.get("DataSetName")
+
+  def setDataSetName(self, value):
+    return self.set("DataSetName", value)
+
 #
 # Set QZSS NAV Alert Flag
 #
-# Name  Type Description
-# ----- ---- ---------------------------------------------------
-# SvId  int  Satellite SV ID 1..10
-# Alert bool QZSS NAV Alert Flag, false = No Alert, true = Alert
+# Name        Type            Description
+# ----------- --------------- -------------------------------------------------------------------------------------------
+# SvId        int             Satellite SV ID 1..10, or use 0 to apply new value to all satellites.
+# Alert       bool            QZSS NAV Alert Flag, false = No Alert, true = Alert
+# DataSetName optional string Optional name of the data set to use. If no value is provided, the active data set is used.
 #
 
 class SetQzssNavAlertFlagForSV(CommandBase):
 
-  def __init__(self, svId, alert):
+  def __init__(self, svId, alert, dataSetName = None):
     CommandBase.__init__(self, "SetQzssNavAlertFlagForSV")
     self.setSvId(svId)
     self.setAlert(alert)
+    self.setDataSetName(dataSetName)
 
   def executePermission(self):
     return ExecutePermission.EXECUTE_IF_SIMULATING | ExecutePermission.EXECUTE_IF_IDLE
@@ -6197,24 +6827,32 @@ class SetQzssNavAlertFlagForSV(CommandBase):
 
   def setAlert(self, value):
     return self.set("Alert", value)
+
+  def dataSetName(self):
+    return self.get("DataSetName")
+
+  def setDataSetName(self, value):
+    return self.set("DataSetName", value)
 
 #
 # Please note the command SetQzssSatelliteNavAlertFlag is deprecated since 21.3. You may use SetQzssNavAlertFlagForSV.
 # 
 # Set QZSS NAV Alert Flag
 #
-# Name  Type Description
-# ----- ---- ---------------------------------------------------
-# SvId  int  Satellite SV ID 1..10
-# Alert bool QZSS NAV Alert Flag, false = No Alert, true = Alert
+# Name        Type            Description
+# ----------- --------------- -------------------------------------------------------------------------------------------
+# SvId        int             Satellite SV ID 1..10, or use 0 to apply new value to all satellites.
+# Alert       bool            QZSS NAV Alert Flag, false = No Alert, true = Alert
+# DataSetName optional string Optional name of the data set to use. If no value is provided, the active data set is used.
 #
 
 class SetQzssSatelliteNavAlertFlag(CommandBase):
 
-  def __init__(self, svId, alert):
+  def __init__(self, svId, alert, dataSetName = None):
     CommandBase.__init__(self, "SetQzssSatelliteNavAlertFlag")
     self.setSvId(svId)
     self.setAlert(alert)
+    self.setDataSetName(dataSetName)
 
   def executePermission(self):
     return ExecutePermission.EXECUTE_IF_SIMULATING | ExecutePermission.EXECUTE_IF_IDLE
@@ -6231,19 +6869,27 @@ class SetQzssSatelliteNavAlertFlag(CommandBase):
   def setAlert(self, value):
     return self.set("Alert", value)
 
+  def dataSetName(self):
+    return self.get("DataSetName")
+
+  def setDataSetName(self, value):
+    return self.set("DataSetName", value)
+
 #
 # Get QZSS NAV Alert Flag
 #
-# Name Type Description
-# ---- ---- ---------------------
-# SvId int  Satellite SV ID 1..10
+# Name        Type            Description
+# ----------- --------------- -------------------------------------------------------------------------------------------
+# SvId        int             Satellite SV ID 1..10, or use 0 to apply new value to all satellites.
+# DataSetName optional string Optional name of the data set to use. If no value is provided, the active data set is used.
 #
 
 class GetQzssNavAlertFlagForSV(CommandBase):
 
-  def __init__(self, svId):
+  def __init__(self, svId, dataSetName = None):
     CommandBase.__init__(self, "GetQzssNavAlertFlagForSV")
     self.setSvId(svId)
+    self.setDataSetName(dataSetName)
 
   def executePermission(self):
     return ExecutePermission.EXECUTE_IF_IDLE
@@ -6253,22 +6899,30 @@ class GetQzssNavAlertFlagForSV(CommandBase):
 
   def setSvId(self, value):
     return self.set("SvId", value)
+
+  def dataSetName(self):
+    return self.get("DataSetName")
+
+  def setDataSetName(self, value):
+    return self.set("DataSetName", value)
 
 #
 # Please note the command GetQzssSatelliteNavAlertFlag is deprecated since 21.3. You may use GetQzssNavAlertFlagForSV.
 # 
 # Get QZSS NAV Alert Flag
 #
-# Name Type Description
-# ---- ---- ---------------------
-# SvId int  Satellite SV ID 1..10
+# Name        Type            Description
+# ----------- --------------- -------------------------------------------------------------------------------------------
+# SvId        int             Satellite SV ID 1..10, or use 0 to apply new value to all satellites.
+# DataSetName optional string Optional name of the data set to use. If no value is provided, the active data set is used.
 #
 
 class GetQzssSatelliteNavAlertFlag(CommandBase):
 
-  def __init__(self, svId):
+  def __init__(self, svId, dataSetName = None):
     CommandBase.__init__(self, "GetQzssSatelliteNavAlertFlag")
     self.setSvId(svId)
+    self.setDataSetName(dataSetName)
 
   def executePermission(self):
     return ExecutePermission.EXECUTE_IF_IDLE
@@ -6279,21 +6933,29 @@ class GetQzssSatelliteNavAlertFlag(CommandBase):
   def setSvId(self, value):
     return self.set("SvId", value)
 
+  def dataSetName(self):
+    return self.get("DataSetName")
+
+  def setDataSetName(self, value):
+    return self.set("DataSetName", value)
+
 #
 # Result of GetQzssNavAlertFlagForSV.
 #
-# Name  Type Description
-# ----- ---- ---------------------------------------------------
-# SvId  int  Satellite SV ID 1..10
-# Alert bool QZSS NAV Alert Flag, false = No Alert, true = Alert
+# Name        Type            Description
+# ----------- --------------- -------------------------------------------------------------------------------------------
+# SvId        int             Satellite SV ID 1..10, or use 0 to apply new value to all satellites.
+# Alert       bool            QZSS NAV Alert Flag, false = No Alert, true = Alert
+# DataSetName optional string Optional name of the data set to use. If no value is provided, the active data set is used.
 #
 
 class GetQzssNavAlertFlagForSVResult(CommandResult):
 
-  def __init__(self, svId, alert):
+  def __init__(self, svId, alert, dataSetName = None):
     CommandResult.__init__(self, "GetQzssNavAlertFlagForSVResult")
     self.setSvId(svId)
     self.setAlert(alert)
+    self.setDataSetName(dataSetName)
 
   def isSuccess(self):
     return True
@@ -6310,21 +6972,29 @@ class GetQzssNavAlertFlagForSVResult(CommandResult):
   def setAlert(self, value):
     return self.set("Alert", value)
 
+  def dataSetName(self):
+    return self.get("DataSetName")
+
+  def setDataSetName(self, value):
+    return self.set("DataSetName", value)
+
 #
 # Set NavIC L5 health (Health of L5 signal)
 #
-# Name   Type Description
-# ------ ---- -----------------------------------------------
-# SvId   int  Satellite SV ID 1..14
-# Health bool L5 health, false = signal OK, true = signal bad
+# Name        Type            Description
+# ----------- --------------- -------------------------------------------------------------------------------------------
+# SvId        int             Satellite SV ID 1..14, or use 0 to apply new value to all satellites.
+# Health      bool            L5 health, false = signal OK, true = signal bad
+# DataSetName optional string Optional name of the data set to use. If no value is provided, the active data set is used.
 #
 
 class SetNavICL5HealthForSV(CommandBase):
 
-  def __init__(self, svId, health):
+  def __init__(self, svId, health, dataSetName = None):
     CommandBase.__init__(self, "SetNavICL5HealthForSV")
     self.setSvId(svId)
     self.setHealth(health)
+    self.setDataSetName(dataSetName)
 
   def executePermission(self):
     return ExecutePermission.EXECUTE_IF_SIMULATING | ExecutePermission.EXECUTE_IF_IDLE
@@ -6340,24 +7010,32 @@ class SetNavICL5HealthForSV(CommandBase):
 
   def setHealth(self, value):
     return self.set("Health", value)
+
+  def dataSetName(self):
+    return self.get("DataSetName")
+
+  def setDataSetName(self, value):
+    return self.set("DataSetName", value)
 
 #
 # Please note the command SetNavICSatelliteL5Health is deprecated since 21.3. You may use SetNavICL5HealthForSV.
 # 
 # Set NavIC L5 health (Health of L5 signal)
 #
-# Name   Type Description
-# ------ ---- -----------------------------------------------
-# SvId   int  Satellite SV ID 1..14
-# Health bool L5 health, false = signal OK, true = signal bad
+# Name        Type            Description
+# ----------- --------------- -------------------------------------------------------------------------------------------
+# SvId        int             Satellite SV ID 1..14, or use 0 to apply new value to all satellites.
+# Health      bool            L5 health, false = signal OK, true = signal bad
+# DataSetName optional string Optional name of the data set to use. If no value is provided, the active data set is used.
 #
 
 class SetNavICSatelliteL5Health(CommandBase):
 
-  def __init__(self, svId, health):
+  def __init__(self, svId, health, dataSetName = None):
     CommandBase.__init__(self, "SetNavICSatelliteL5Health")
     self.setSvId(svId)
     self.setHealth(health)
+    self.setDataSetName(dataSetName)
 
   def executePermission(self):
     return ExecutePermission.EXECUTE_IF_SIMULATING | ExecutePermission.EXECUTE_IF_IDLE
@@ -6374,19 +7052,27 @@ class SetNavICSatelliteL5Health(CommandBase):
   def setHealth(self, value):
     return self.set("Health", value)
 
+  def dataSetName(self):
+    return self.get("DataSetName")
+
+  def setDataSetName(self, value):
+    return self.set("DataSetName", value)
+
 #
 # Get NavIC L5 health (Health of L5 signal)
 #
-# Name Type Description
-# ---- ---- ---------------------
-# SvId int  Satellite SV ID 1..14
+# Name        Type            Description
+# ----------- --------------- -------------------------------------------------------------------------------------------
+# SvId        int             Satellite SV ID 1..14, or use 0 to apply new value to all satellites.
+# DataSetName optional string Optional name of the data set to use. If no value is provided, the active data set is used.
 #
 
 class GetNavICL5HealthForSV(CommandBase):
 
-  def __init__(self, svId):
+  def __init__(self, svId, dataSetName = None):
     CommandBase.__init__(self, "GetNavICL5HealthForSV")
     self.setSvId(svId)
+    self.setDataSetName(dataSetName)
 
   def executePermission(self):
     return ExecutePermission.EXECUTE_IF_IDLE
@@ -6396,22 +7082,30 @@ class GetNavICL5HealthForSV(CommandBase):
 
   def setSvId(self, value):
     return self.set("SvId", value)
+
+  def dataSetName(self):
+    return self.get("DataSetName")
+
+  def setDataSetName(self, value):
+    return self.set("DataSetName", value)
 
 #
 # Please note the command GetNavICSatelliteL5Health is deprecated since 21.3. You may use GetNavICL5HealthForSV.
 # 
 # Get NavIC L5 health (Health of L5 signal)
 #
-# Name Type Description
-# ---- ---- ---------------------
-# SvId int  Satellite SV ID 1..14
+# Name        Type            Description
+# ----------- --------------- -------------------------------------------------------------------------------------------
+# SvId        int             Satellite SV ID 1..14, or use 0 to apply new value to all satellites.
+# DataSetName optional string Optional name of the data set to use. If no value is provided, the active data set is used.
 #
 
 class GetNavICSatelliteL5Health(CommandBase):
 
-  def __init__(self, svId):
+  def __init__(self, svId, dataSetName = None):
     CommandBase.__init__(self, "GetNavICSatelliteL5Health")
     self.setSvId(svId)
+    self.setDataSetName(dataSetName)
 
   def executePermission(self):
     return ExecutePermission.EXECUTE_IF_IDLE
@@ -6422,21 +7116,29 @@ class GetNavICSatelliteL5Health(CommandBase):
   def setSvId(self, value):
     return self.set("SvId", value)
 
+  def dataSetName(self):
+    return self.get("DataSetName")
+
+  def setDataSetName(self, value):
+    return self.set("DataSetName", value)
+
 #
 # Result of GetNavICL5HealthForSV.
 #
-# Name   Type Description
-# ------ ---- -----------------------------------------------
-# SvId   int  Satellite SV ID 1..14
-# Health bool L5 health, false = signal OK, true = signal bad
+# Name        Type            Description
+# ----------- --------------- -------------------------------------------------------------------------------------------
+# SvId        int             Satellite SV ID 1..14, or use 0 to apply new value to all satellites.
+# Health      bool            L5 health, false = signal OK, true = signal bad
+# DataSetName optional string Optional name of the data set to use. If no value is provided, the active data set is used.
 #
 
 class GetNavICL5HealthForSVResult(CommandResult):
 
-  def __init__(self, svId, health):
+  def __init__(self, svId, health, dataSetName = None):
     CommandResult.__init__(self, "GetNavICL5HealthForSVResult")
     self.setSvId(svId)
     self.setHealth(health)
+    self.setDataSetName(dataSetName)
 
   def isSuccess(self):
     return True
@@ -6453,21 +7155,29 @@ class GetNavICL5HealthForSVResult(CommandResult):
   def setHealth(self, value):
     return self.set("Health", value)
 
+  def dataSetName(self):
+    return self.get("DataSetName")
+
+  def setDataSetName(self, value):
+    return self.set("DataSetName", value)
+
 #
 # Set NavIC NAV Alert Flag
 #
-# Name  Type Description
-# ----- ---- ----------------------------------------------------
-# SvId  int  Satellite SV ID 1..14
-# Alert bool NavIC NAV Alert Flag, false = No Alert, true = Alert
+# Name        Type            Description
+# ----------- --------------- -------------------------------------------------------------------------------------------
+# SvId        int             Satellite SV ID 1..14, or use 0 to apply new value to all satellites.
+# Alert       bool            NavIC NAV Alert Flag, false = No Alert, true = Alert
+# DataSetName optional string Optional name of the data set to use. If no value is provided, the active data set is used.
 #
 
 class SetNavICNavAlertFlagForSV(CommandBase):
 
-  def __init__(self, svId, alert):
+  def __init__(self, svId, alert, dataSetName = None):
     CommandBase.__init__(self, "SetNavICNavAlertFlagForSV")
     self.setSvId(svId)
     self.setAlert(alert)
+    self.setDataSetName(dataSetName)
 
   def executePermission(self):
     return ExecutePermission.EXECUTE_IF_SIMULATING | ExecutePermission.EXECUTE_IF_IDLE
@@ -6483,24 +7193,32 @@ class SetNavICNavAlertFlagForSV(CommandBase):
 
   def setAlert(self, value):
     return self.set("Alert", value)
+
+  def dataSetName(self):
+    return self.get("DataSetName")
+
+  def setDataSetName(self, value):
+    return self.set("DataSetName", value)
 
 #
 # Please note the command SetNavICSatelliteNavAlertFlag is deprecated since 21.3. You may use SetNavICNavAlertFlagForSV.
 # 
 # Set NavIC NAV Alert Flag
 #
-# Name  Type Description
-# ----- ---- ----------------------------------------------------
-# SvId  int  Satellite SV ID 1..14
-# Alert bool NavIC NAV Alert Flag, false = No Alert, true = Alert
+# Name        Type            Description
+# ----------- --------------- -------------------------------------------------------------------------------------------
+# SvId        int             Satellite SV ID 1..14, or use 0 to apply new value to all satellites.
+# Alert       bool            NavIC NAV Alert Flag, false = No Alert, true = Alert
+# DataSetName optional string Optional name of the data set to use. If no value is provided, the active data set is used.
 #
 
 class SetNavICSatelliteNavAlertFlag(CommandBase):
 
-  def __init__(self, svId, alert):
+  def __init__(self, svId, alert, dataSetName = None):
     CommandBase.__init__(self, "SetNavICSatelliteNavAlertFlag")
     self.setSvId(svId)
     self.setAlert(alert)
+    self.setDataSetName(dataSetName)
 
   def executePermission(self):
     return ExecutePermission.EXECUTE_IF_SIMULATING | ExecutePermission.EXECUTE_IF_IDLE
@@ -6517,19 +7235,27 @@ class SetNavICSatelliteNavAlertFlag(CommandBase):
   def setAlert(self, value):
     return self.set("Alert", value)
 
+  def dataSetName(self):
+    return self.get("DataSetName")
+
+  def setDataSetName(self, value):
+    return self.set("DataSetName", value)
+
 #
 # Get NavIC NAV Alert Flag
 #
-# Name Type Description
-# ---- ---- ---------------------
-# SvId int  Satellite SV ID 1..14
+# Name        Type            Description
+# ----------- --------------- -------------------------------------------------------------------------------------------
+# SvId        int             Satellite SV ID 1..14, or use 0 to apply new value to all satellites.
+# DataSetName optional string Optional name of the data set to use. If no value is provided, the active data set is used.
 #
 
 class GetNavICNavAlertFlagForSV(CommandBase):
 
-  def __init__(self, svId):
+  def __init__(self, svId, dataSetName = None):
     CommandBase.__init__(self, "GetNavICNavAlertFlagForSV")
     self.setSvId(svId)
+    self.setDataSetName(dataSetName)
 
   def executePermission(self):
     return ExecutePermission.EXECUTE_IF_IDLE
@@ -6539,22 +7265,30 @@ class GetNavICNavAlertFlagForSV(CommandBase):
 
   def setSvId(self, value):
     return self.set("SvId", value)
+
+  def dataSetName(self):
+    return self.get("DataSetName")
+
+  def setDataSetName(self, value):
+    return self.set("DataSetName", value)
 
 #
 # Please note the command GetNavICSatelliteNavAlertFlag is deprecated since 21.3. You may use GetNavICNavAlertFlagForSV.
 # 
 # Get NavIC NAV Alert Flag
 #
-# Name Type Description
-# ---- ---- ---------------------
-# SvId int  Satellite SV ID 1..14
+# Name        Type            Description
+# ----------- --------------- -------------------------------------------------------------------------------------------
+# SvId        int             Satellite SV ID 1..14, or use 0 to apply new value to all satellites.
+# DataSetName optional string Optional name of the data set to use. If no value is provided, the active data set is used.
 #
 
 class GetNavICSatelliteNavAlertFlag(CommandBase):
 
-  def __init__(self, svId):
+  def __init__(self, svId, dataSetName = None):
     CommandBase.__init__(self, "GetNavICSatelliteNavAlertFlag")
     self.setSvId(svId)
+    self.setDataSetName(dataSetName)
 
   def executePermission(self):
     return ExecutePermission.EXECUTE_IF_IDLE
@@ -6565,21 +7299,29 @@ class GetNavICSatelliteNavAlertFlag(CommandBase):
   def setSvId(self, value):
     return self.set("SvId", value)
 
+  def dataSetName(self):
+    return self.get("DataSetName")
+
+  def setDataSetName(self, value):
+    return self.set("DataSetName", value)
+
 #
 # Result of GetNavICNavAlertFlagForSV.
 #
-# Name  Type Description
-# ----- ---- ----------------------------------------------------
-# SvId  int  Satellite SV ID 1..14
-# Alert bool NavIC NAV Alert Flag, false = No Alert, true = Alert
+# Name        Type            Description
+# ----------- --------------- -------------------------------------------------------------------------------------------
+# SvId        int             Satellite SV ID 1..14, or use 0 to apply new value to all satellites.
+# Alert       bool            NavIC NAV Alert Flag, false = No Alert, true = Alert
+# DataSetName optional string Optional name of the data set to use. If no value is provided, the active data set is used.
 #
 
 class GetNavICNavAlertFlagForSVResult(CommandResult):
 
-  def __init__(self, svId, alert):
+  def __init__(self, svId, alert, dataSetName = None):
     CommandResult.__init__(self, "GetNavICNavAlertFlagForSVResult")
     self.setSvId(svId)
     self.setAlert(alert)
+    self.setDataSetName(dataSetName)
 
   def isSuccess(self):
     return True
@@ -6595,6 +7337,12 @@ class GetNavICNavAlertFlagForSVResult(CommandResult):
 
   def setAlert(self, value):
     return self.set("Alert", value)
+
+  def dataSetName(self):
+    return self.get("DataSetName")
+
+  def setDataSetName(self, value):
+    return self.set("DataSetName", value)
 
 #
 # Set global power offset default value for all signals and all systems
@@ -6663,7 +7411,7 @@ class GetPowerGlobalOffsetResult(CommandResult):
 # Signal string Accepted signal keys: "L1CA", "L1C", "L1P", "L1M", "L2C", "L2P", "L2M", "L5",
 #                                     "G1", "G2", "E1", "E1PRS", "E5a", "E5b", "E6BC", "E6PRS",
 #                                     "B1", "B2", "B1C", "B2a", "QZSSL1CA", "QZSSL1C",
-#                                     "QZSSL5", "QZSSL1S", "QZSSL5S", "NAVICL5"
+#                                     "QZSSL2C", "QZSSL5", "QZSSL1S", "QZSSL5S", "NAVICL5"
 # Offset double Offset in dB (negative value will attenuate signal)
 #
 
@@ -6697,7 +7445,7 @@ class SetPowerOffset(CommandBase):
 # Signal string Accepted signal keys: "L1CA", "L1C", "L1P", "L1M", "L2C", "L2P", "L2M", "L5",
 #                                     "G1", "G2", "E1", "E1PRS", "E5a", "E5b", "E6BC", "E6PRS",
 #                                     "B1", "B2", "B1C", "B2a", "QZSSL1CA", "QZSSL1C",
-#                                     "QZSSL5", "QZSSL1S", "QZSSL5S", "NAVICL5"
+#                                     "QZSSL2C", "QZSSL5", "QZSSL1S", "QZSSL5S", "NAVICL5"
 #
 
 class GetPowerOffset(CommandBase):
@@ -6723,7 +7471,7 @@ class GetPowerOffset(CommandBase):
 # Signal string Accepted signal keys: "L1CA", "L1C", "L1P", "L1M", "L2C", "L2P", "L2M", "L5",
 #                                     "G1", "G2", "E1", "E1PRS", "E5a", "E5b", "E6BC", "E6PRS",
 #                                     "B1", "B2", "B1C", "B2a", "QZSSL1CA", "QZSSL1C",
-#                                     "QZSSL5", "QZSSL1S", "QZSSL5S", "NAVICL5"
+#                                     "QZSSL2C", "QZSSL5", "QZSSL1S", "QZSSL5S", "NAVICL5"
 # Offset double Offset in dB (negative value will attenuate signal)
 #
 
@@ -6753,8 +7501,8 @@ class GetPowerOffsetResult(CommandResult):
 # Set power offset default value for the SBAS Service Provider given in argument
 #
 # Name            Type   Description
-# --------------- ------ -------------------------------------------------------------
-# ServiceProvider string Service Provider key, allowed values: "WAAS", "EGNOS", "MSAS"
+# --------------- ------ ------------------------------------------------------------------------------
+# ServiceProvider string Service Provider key, allowed values: "WAAS", "EGNOS", "MSAS", "GAGAN", "SDCM"
 # Offset          double Offset in dB (negative value will attenuate signal)
 #
 
@@ -6784,8 +7532,8 @@ class SetPowerSbasOffset(CommandBase):
 # Get power offset default value for the SBAS Service Provider given in argument
 #
 # Name            Type   Description
-# --------------- ------ -------------------------------------------------------------
-# ServiceProvider string Service Provider key, allowed values: "WAAS", "EGNOS", "MSAS"
+# --------------- ------ ------------------------------------------------------------------------------
+# ServiceProvider string Service Provider key, allowed values: "WAAS", "EGNOS", "MSAS", "GAGAN", "SDCM"
 #
 
 class GetPowerSbasOffset(CommandBase):
@@ -6807,8 +7555,8 @@ class GetPowerSbasOffset(CommandBase):
 # Result of GetPowerSbasOffset.
 #
 # Name            Type   Description
-# --------------- ------ -------------------------------------------------------------
-# ServiceProvider string Service Provider key, allowed values: "WAAS", "EGNOS", "MSAS"
+# --------------- ------ ------------------------------------------------------------------------------
+# ServiceProvider string Service Provider key, allowed values: "WAAS", "EGNOS", "MSAS", "GAGAN", "SDCM"
 # Offset          double Offset in dB (negative value will attenuate signal)
 #
 
@@ -7194,7 +7942,7 @@ class ChangeModulationTargetName(CommandBase):
 # MinRate          int             Minimum sampling rate (12500000, 25000000, 50000000, 60000000, 100000000)
 # MaxRate          int             Maximum sampling rate (12500000, 25000000, 50000000, 60000000, 100000000)
 # Band             string          Frequency band is "LowerL" or "UpperL"
-# Signal           string          Comma separated signal keys, accepted signal keys: "L1CA", "L1C", "L1P", "L1M", "L2C", "L2P", "L2M", "L5", "G1", "G2", "E1", "E5a", "E5b", "B1", "B2", "B1C", "B2a", "SBASL1", "QZSSL1CA", "QZSSL1C", "QZSSL5", "QZSSL1S", "QZSSL5S", "NAVICL5"
+# Signal           string          Comma separated signal keys, accepted signal keys: "L1CA", "L1C", "L1P", "L1M", "L2C", "L2P", "L2M", "L5", "G1", "G2", "E1", "E5a", "E5b", "B1", "B2", "B1C", "B2a", "SBASL1", "QZSSL1CA", "QZSSL1C", "QZSSL2C", "QZSSL5", "QZSSL1S", "QZSSL5S", "NAVICL5"
 # Gain             int             The gain associated to this output (dB). This value has to be between the radio minimum value and 115. A negative value means to use the radio default value.
 # GaussianNoise    bool            If true, add Gaussian noise to ensure realistic signal to noise ratio. When combining multiple outputs, only one should have Gaussian noise enabled.
 # Id               string          Target identifier
@@ -7314,7 +8062,7 @@ class GetModulationTargetSignals(CommandBase):
 # MinRate          int             Minimum sampling rate (12500000, 25000000, 50000000, 60000000, 100000000)
 # MaxRate          int             Maximum sampling rate (12500000, 25000000, 50000000, 60000000, 100000000)
 # Band             string          Frequency band is "LowerL" or "UpperL"
-# Signal           string          Comma separated signal keys, accepted signal keys: "L1CA", "L1C", "L1P", "L1M", "L2C", "L2P", "L2M", "L5", "G1", "G2", "E1", "E5a", "E5b", "B1", "B2", "B1C", "B2a", "SBASL1", "QZSSL1CA", "QZSSL1C", "QZSSL5", "QZSSL1S", "QZSSL5S", "NAVICL5"
+# Signal           string          Comma separated signal keys, accepted signal keys: "L1CA", "L1C", "L1P", "L1M", "L2C", "L2P", "L2M", "L5", "G1", "G2", "E1", "E5a", "E5b", "B1", "B2", "B1C", "B2a", "SBASL1", "QZSSL1CA", "QZSSL1C", "QZSSL2C", "QZSSL5", "QZSSL1S", "QZSSL5S", "NAVICL5"
 # Gain             int             The gain associated to this output (dB). This value has to be between the radio minimum value and 115. A negative value means to use the radio default value.
 # GaussianNoise    bool            If true, add Gaussian noise to ensure realistic signal to noise ratio. When combining multiple outputs, only one should have Gaussian noise enabled.
 # Id               string          Target identifier
@@ -7399,7 +8147,7 @@ class GetModulationTargetSignalsResult(CommandResult):
 # but it is possible to set constaints with MinRate and MaxRate.
 #
 # Name        Type            Description
-# ----------- --------------- ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+# ----------- --------------- -----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 # Output      int             Output index (zero based)
 # MinRate     int             Minimum sampling rate (12500000, 25000000, 50000000, 60000000, 100000000)
 # MaxRate     int             Maximum sampling rate (12500000, 25000000, 50000000. 60000000, 100000000)
@@ -7407,7 +8155,7 @@ class GetModulationTargetSignalsResult(CommandResult):
 # CentralFreq double          Central frequency (Hz). Put 0.0 and complete signal list to let Skydel choose automaticly the central frequency.
 # Gain        int             The gain associated to this output (dB). As of today, accepted values are 0, 20, 40, 60 and 80. Values at 40 and under are not recommended. Use a negative value to use the default value (60).
 # Id          string          Target identifier
-# Signal      optional string Comma separated signal keys if you want to match central frequency and sampling rate with a particular list of signals. Accepted signal keys: "L1CA", "L1C", "L1P", "L1M", "L2C", "L2P", "L2M", "L5", "G1", "G2", "E1", "E5a", "E5b", "B1", "B2", "B1C", "B2a", "SBASL1", "QZSSL1CA", "QZSSL1C", "QZSSL5", "QZSSL1S", "QZSSL5S", "NAVICL5"
+# Signal      optional string Comma separated signal keys if you want to match central frequency and sampling rate with a particular list of signals. Accepted signal keys: "L1CA", "L1C", "L1P", "L1M", "L2C", "L2P", "L2M", "L5", "G1", "G2", "E1", "E5a", "E5b", "B1", "B2", "B1C", "B2a", "SBASL1", "QZSSL1CA", "QZSSL1C", "QZSSL2C", "QZSSL5", "QZSSL1S", "QZSSL5S", "NAVICL5"
 #
 
 class ChangeModulationTargetInterference(CommandBase):
@@ -7512,7 +8260,7 @@ class GetModulationTargetInterferences(CommandBase):
 # Result of GetModulationTargetInterferences.
 #
 # Name        Type            Description
-# ----------- --------------- ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+# ----------- --------------- -----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 # Output      int             Output index (zero based)
 # MinRate     int             Minimum sampling rate (12500000, 25000000, 50000000, 60000000, 100000000)
 # MaxRate     int             Maximum sampling rate (12500000, 25000000, 50000000. 60000000, 100000000)
@@ -7520,7 +8268,7 @@ class GetModulationTargetInterferences(CommandBase):
 # CentralFreq double          Central frequency (Hz). Put 0.0 and complete signal list to let Skydel choose automaticly the central frequency.
 # Gain        int             The gain associated to this output (dB). As of today, accepted values are 0, 20, 40, 60 and 80. Values at 40 and under are not recommended. Use a negative value to use the default value (60).
 # Id          string          Target identifier
-# Signal      optional string Comma separated signal keys if you want to match central frequency and sampling rate with a particular list of signals. Accepted signal keys: "L1CA", "L1C", "L1P", "L1M", "L2C", "L2P", "L2M", "L5", "G1", "G2", "E1", "E5a", "E5b", "B1", "B2", "B1C", "B2a", "SBASL1", "QZSSL1CA", "QZSSL1C", "QZSSL5", "QZSSL1S", "QZSSL5S", "NAVICL5"
+# Signal      optional string Comma separated signal keys if you want to match central frequency and sampling rate with a particular list of signals. Accepted signal keys: "L1CA", "L1C", "L1P", "L1M", "L2C", "L2P", "L2M", "L5", "G1", "G2", "E1", "E5a", "E5b", "B1", "B2", "B1C", "B2a", "SBASL1", "QZSSL1CA", "QZSSL1C", "QZSSL2C", "QZSSL5", "QZSSL1S", "QZSSL5S", "NAVICL5"
 #
 
 class GetModulationTargetInterferencesResult(CommandResult):
@@ -7685,20 +8433,22 @@ class SetRfGain(CommandBase):
 #
 # Import navigation message file for the specified constellation. This could be Rinex, SEM or YUMA file for GPS. Only Rinex for the others.
 #
-# Name     Type         Description
-# -------- ------------ ----------------------------------------------------------------------------------------------------
-# System   string       "GPS", "GLONASS", "Galileo", "SBAS", "BeiDou", "QZSS" or "NavIC"
-# Path     string       File path
-# Rollover optional int Rollover for file types that does not precise it (YUMA, SEM). Default value is the current rollover.
+# Name        Type            Description
+# ----------- --------------- -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+# System      string          "GPS", "GLONASS", "Galileo", "SBAS", "BeiDou", "QZSS" or "NavIC"
+# Path        string          File path
+# Rollover    optional int    Rollover for file types that does not precise it (YUMA, SEM). Default value is the current rollover.
+# DataSetName optional string Name of the data set to import. This parameter is optional, the default value will be the name of the imported file. Constellations that support this parameter are  "GPS", "Galileo", "BeiDou", "QZSS" and "NavIC"
 #
 
 class ImportConstellationParameters(CommandBase):
 
-  def __init__(self, system, path, rollover = None):
+  def __init__(self, system, path, rollover = None, dataSetName = None):
     CommandBase.__init__(self, "ImportConstellationParameters")
     self.setSystem(system)
     self.setPath(path)
     self.setRollover(rollover)
+    self.setDataSetName(dataSetName)
 
   def executePermission(self):
     return ExecutePermission.EXECUTE_IF_IDLE
@@ -7720,6 +8470,12 @@ class ImportConstellationParameters(CommandBase):
 
   def setRollover(self, value):
     return self.set("Rollover", value)
+
+  def dataSetName(self):
+    return self.get("DataSetName")
+
+  def setDataSetName(self, value):
+    return self.set("DataSetName", value)
 
 #
 # Import ionospheric parameters from a Rinex file.
@@ -11080,12 +11836,12 @@ class GetSVTypeResult(CommandResult):
 # Set the PRNs transmitted by the SV ID for these signals.
 #
 # Name          Type            Description
-# ------------- --------------- -------------------------------------------------------------------------------
+# ------------- --------------- --------------------------------------------------------------------------------
 # SvId          int             Satellite SV ID.
 # SignalPrnDict dict string:int A dictionary of signal prn pairs.
 #                               Accepted keys are: "L1CA", "L1C", "L2C", "L5", "E1", "E6BC", "B1", "B2", "B1C",
-#                                                  "B2a", "QZSSL1CA", "QZSSL1C", "QZSSL5", "QZSSL1S", "QZSSL5S"
-#                                                  and "NAVICL5"
+#                                                  "B2a", "QZSSL1CA", "QZSSL1C", "QZSSL2C", "QZSSL5", "QZSSL1S",
+#                                                  "QZSSL5S" and "NAVICL5"
 #
 
 class SetTransmittedPrnForSV(CommandBase):
@@ -11118,8 +11874,8 @@ class SetTransmittedPrnForSV(CommandBase):
 # SvId        int          Satellite SV ID.
 # SignalArray array string An array of signals.
 #                          Accepted values are: "L1CA", "L1C", "L2C", "L5", "E1", "E6BC", "B1", "B2",
-#                                               "B1C", "B2a", "QZSSL1CA", "QZSSL1C", "QZSSL5", "QZSSL1S",
-#                                               "QZSSL5S" and "NAVICL5"
+#                                               "B1C", "B2a", "QZSSL1CA", "QZSSL1C", "QZSSL2C", "QZSSL5",
+#                                               "QZSSL1S", "QZSSL5S" and "NAVICL5"
 #
 
 class GetTransmittedPrnForSV(CommandBase):
@@ -11148,12 +11904,12 @@ class GetTransmittedPrnForSV(CommandBase):
 # Result of GetTransmittedPrnForSV.
 #
 # Name          Type            Description
-# ------------- --------------- -------------------------------------------------------------------------------
+# ------------- --------------- --------------------------------------------------------------------------------
 # SvId          int             Satellite SV ID.
 # SignalPrnDict dict string:int A dictionary of signal prn pairs.
 #                               Accepted keys are: "L1CA", "L1C", "L2C", "L5", "E1", "E6BC", "B1", "B2", "B1C",
-#                                                  "B2a", "QZSSL1CA", "QZSSL1C", "QZSSL5", "QZSSL1S", "QZSSL5S"
-#                                                  and "NAVICL5"
+#                                                  "B2a", "QZSSL1CA", "QZSSL1C", "QZSSL2C", "QZSSL5", "QZSSL1S",
+#                                                  "QZSSL5S" and "NAVICL5"
 #
 
 class GetTransmittedPrnForSVResult(CommandResult):
@@ -11182,8 +11938,8 @@ class GetTransmittedPrnForSVResult(CommandResult):
 # Set the PRN transmitted by the SV ID for this signal.
 #
 # Name   Type   Description
-# ------ ------ ----------------------------------------------------------------------------------------------------------------------------------------------------------
-# Signal string Accepted signal keys: "L1CA", "L1C", "L2C", "L5", "E1", "E6BC", "B1", "B2", "B1C", "B2a", "QZSSL1CA", "QZSSL1C", "QZSSL5", "QZSSL1S", "QZSSL5S", "NAVICL5"
+# ------ ------ ---------------------------------------------------------------------------------------------------------------------------------------------------------------------
+# Signal string Accepted signal keys: "L1CA", "L1C", "L2C", "L5", "E1", "E6BC", "B1", "B2", "B1C", "B2a", "QZSSL1CA", "QZSSL1C", "QZSSL2C", "QZSSL5", "QZSSL1S", "QZSSL5S", "NAVICL5"
 # SvId   int    Satellite SV ID.
 # Prn    int    PRN number.
 #
@@ -11221,8 +11977,8 @@ class SetPrnOfSVID(CommandBase):
 # Get the PRN transmitted by the SV ID for this signal.
 #
 # Name   Type   Description
-# ------ ------ ----------------------------------------------------------------------------------------------------------------------------------------------------------
-# Signal string Accepted signal keys: "L1CA", "L1C", "L2C", "L5", "E1", "E6BC", "B1", "B2", "B1C", "B2a", "QZSSL1CA", "QZSSL1C", "QZSSL5", "QZSSL1S", "QZSSL5S", "NAVICL5"
+# ------ ------ ---------------------------------------------------------------------------------------------------------------------------------------------------------------------
+# Signal string Accepted signal keys: "L1CA", "L1C", "L2C", "L5", "E1", "E6BC", "B1", "B2", "B1C", "B2a", "QZSSL1CA", "QZSSL1C", "QZSSL2C", "QZSSL5", "QZSSL1S", "QZSSL5S", "NAVICL5"
 # SvId   int    Satellite SV ID.
 #
 
@@ -11252,8 +12008,8 @@ class GetPrnOfSVID(CommandBase):
 # Result of GetPrnOfSVID.
 #
 # Name   Type   Description
-# ------ ------ ----------------------------------------------------------------------------------------------------------------------------------------------------------
-# Signal string Accepted signal keys: "L1CA", "L1C", "L2C", "L5", "E1", "E6BC", "B1", "B2", "B1C", "B2a", "QZSSL1CA", "QZSSL1C", "QZSSL5", "QZSSL1S", "QZSSL5S", "NAVICL5"
+# ------ ------ ---------------------------------------------------------------------------------------------------------------------------------------------------------------------
+# Signal string Accepted signal keys: "L1CA", "L1C", "L2C", "L5", "E1", "E6BC", "B1", "B2", "B1C", "B2a", "QZSSL1CA", "QZSSL1C", "QZSSL2C", "QZSSL5", "QZSSL1S", "QZSSL5S", "NAVICL5"
 # SvId   int    Satellite SV ID.
 # Prn    int    PRN number.
 #
@@ -11291,8 +12047,8 @@ class GetPrnOfSVIDResult(CommandResult):
 # Set the PRN for each satellite for specified signals.
 #
 # Name   Type      Description
-# ------ --------- ----------------------------------------------------------------------------------------------------------------------------------------------------------
-# Signal string    Accepted signal keys: "L1CA", "L1C", "L2C", "L5", "E1", "E6BC", "B1", "B2", "B1C", "B2a", "QZSSL1CA", "QZSSL1C", "QZSSL5", "QZSSL1S", "QZSSL5S", "NAVICL5"
+# ------ --------- ---------------------------------------------------------------------------------------------------------------------------------------------------------------------
+# Signal string    Accepted signal keys: "L1CA", "L1C", "L2C", "L5", "E1", "E6BC", "B1", "B2", "B1C", "B2a", "QZSSL1CA", "QZSSL1C", "QZSSL2C", "QZSSL5", "QZSSL1S", "QZSSL5S", "NAVICL5"
 # Prn    array int PRN value to set for each satellite. Zero based index (index 0 => PRN for SV ID 1, index 1 => PRN for SV ID 2, etc)
 #
 
@@ -11322,8 +12078,8 @@ class SetPrnForEachSV(CommandBase):
 # Get the PRN for each satellite for specified signals.
 #
 # Name   Type   Description
-# ------ ------ ----------------------------------------------------------------------------------------------------------------------------------------------------------
-# Signal string Accepted signal keys: "L1CA", "L1C", "L2C", "L5", "E1", "E6BC", "B1", "B2", "B1C", "B2a", "QZSSL1CA", "QZSSL1C", "QZSSL5", "QZSSL1S", "QZSSL5S", "NAVICL5"
+# ------ ------ ---------------------------------------------------------------------------------------------------------------------------------------------------------------------
+# Signal string Accepted signal keys: "L1CA", "L1C", "L2C", "L5", "E1", "E6BC", "B1", "B2", "B1C", "B2a", "QZSSL1CA", "QZSSL1C", "QZSSL2C", "QZSSL5", "QZSSL1S", "QZSSL5S", "NAVICL5"
 #
 
 class GetPrnForEachSV(CommandBase):
@@ -11345,8 +12101,8 @@ class GetPrnForEachSV(CommandBase):
 # Result of GetPrnForEachSV.
 #
 # Name   Type      Description
-# ------ --------- ----------------------------------------------------------------------------------------------------------------------------------------------------------
-# Signal string    Accepted signal keys: "L1CA", "L1C", "L2C", "L5", "E1", "E6BC", "B1", "B2", "B1C", "B2a", "QZSSL1CA", "QZSSL1C", "QZSSL5", "QZSSL1S", "QZSSL5S", "NAVICL5"
+# ------ --------- ---------------------------------------------------------------------------------------------------------------------------------------------------------------------
+# Signal string    Accepted signal keys: "L1CA", "L1C", "L2C", "L5", "E1", "E6BC", "B1", "B2", "B1C", "B2a", "QZSSL1CA", "QZSSL1C", "QZSSL2C", "QZSSL5", "QZSSL1S", "QZSSL5S", "NAVICL5"
 # Prn    array int PRN value to set for each satellite. Zero based index (index 0 => PRN for SV ID 1, index 1 => PRN for SV ID 2, etc)
 #
 
@@ -12713,20 +13469,22 @@ class HilWarningResult(CommandResult):
 #
 # Set the ephemeris reference time for the specified constellation.
 #
-# Name   Type     Description
-# ------ -------- --------------------------------------------------------------
-# System string   "GPS", "Galileo", "BeiDou", "QZSS" or "NavIC"
-# SvId   int      The satellite's SV ID.
-# Time   datetime GPS date and time (it is the GPS time expressed in UTC format)
+# Name        Type            Description
+# ----------- --------------- -------------------------------------------------------------------------------------------
+# System      string          "GPS", "Galileo", "BeiDou", "QZSS" or "NavIC"
+# SvId        int             The satellite's SV ID.
+# Time        datetime        GPS date and time (it is the GPS time expressed in UTC format)
+# DataSetName optional string Optional name of the data set to use. If no value is provided, the active data set is used.
 #
 
 class SetEphemerisReferenceTimeForSV(CommandBase):
 
-  def __init__(self, system, svId, time):
+  def __init__(self, system, svId, time, dataSetName = None):
     CommandBase.__init__(self, "SetEphemerisReferenceTimeForSV")
     self.setSystem(system)
     self.setSvId(svId)
     self.setTime(time)
+    self.setDataSetName(dataSetName)
 
   def executePermission(self):
     return ExecutePermission.EXECUTE_IF_IDLE
@@ -12748,26 +13506,34 @@ class SetEphemerisReferenceTimeForSV(CommandBase):
 
   def setTime(self, value):
     return self.set("Time", value)
+
+  def dataSetName(self):
+    return self.get("DataSetName")
+
+  def setDataSetName(self, value):
+    return self.set("DataSetName", value)
 
 #
 # Please note the command SetEphemerisReferenceTime is deprecated since 21.3. You may use SetEphemerisReferenceTimeForSV.
 # 
 # Set the ephemeris reference time for the specified constellation.
 #
-# Name   Type     Description
-# ------ -------- --------------------------------------------------------------
-# System string   "GPS", "Galileo", "BeiDou", "QZSS" or "NavIC"
-# SvId   int      The satellite's SV ID.
-# Time   datetime GPS date and time (it is the GPS time expressed in UTC format)
+# Name        Type            Description
+# ----------- --------------- -------------------------------------------------------------------------------------------
+# System      string          "GPS", "Galileo", "BeiDou", "QZSS" or "NavIC"
+# SvId        int             The satellite's SV ID.
+# Time        datetime        GPS date and time (it is the GPS time expressed in UTC format)
+# DataSetName optional string Optional name of the data set to use. If no value is provided, the active data set is used.
 #
 
 class SetEphemerisReferenceTime(CommandBase):
 
-  def __init__(self, system, svId, time):
+  def __init__(self, system, svId, time, dataSetName = None):
     CommandBase.__init__(self, "SetEphemerisReferenceTime")
     self.setSystem(system)
     self.setSvId(svId)
     self.setTime(time)
+    self.setDataSetName(dataSetName)
 
   def executePermission(self):
     return ExecutePermission.EXECUTE_IF_IDLE
@@ -12790,21 +13556,29 @@ class SetEphemerisReferenceTime(CommandBase):
   def setTime(self, value):
     return self.set("Time", value)
 
+  def dataSetName(self):
+    return self.get("DataSetName")
+
+  def setDataSetName(self, value):
+    return self.set("DataSetName", value)
+
 #
 # Get the ephemeris reference time for the specified constellation.
 #
-# Name   Type   Description
-# ------ ------ ---------------------------------------------
-# System string "GPS", "Galileo", "BeiDou", "QZSS" or "NavIC"
-# SvId   int    The satellite's SV ID.
+# Name        Type            Description
+# ----------- --------------- -------------------------------------------------------------------------------------------
+# System      string          "GPS", "Galileo", "BeiDou", "QZSS" or "NavIC"
+# SvId        int             The satellite's SV ID.
+# DataSetName optional string Optional name of the data set to use. If no value is provided, the active data set is used.
 #
 
 class GetEphemerisReferenceTimeForSV(CommandBase):
 
-  def __init__(self, system, svId):
+  def __init__(self, system, svId, dataSetName = None):
     CommandBase.__init__(self, "GetEphemerisReferenceTimeForSV")
     self.setSystem(system)
     self.setSvId(svId)
+    self.setDataSetName(dataSetName)
 
   def executePermission(self):
     return ExecutePermission.EXECUTE_IF_IDLE
@@ -12820,24 +13594,32 @@ class GetEphemerisReferenceTimeForSV(CommandBase):
 
   def setSvId(self, value):
     return self.set("SvId", value)
+
+  def dataSetName(self):
+    return self.get("DataSetName")
+
+  def setDataSetName(self, value):
+    return self.set("DataSetName", value)
 
 #
 # Please note the command GetEphemerisReferenceTime is deprecated since 21.3. You may use GetEphemerisReferenceTimeForSV.
 # 
 # Get the ephemeris reference time for the specified constellation.
 #
-# Name   Type   Description
-# ------ ------ ---------------------------------------------
-# System string "GPS", "Galileo", "BeiDou", "QZSS" or "NavIC"
-# SvId   int    The satellite's SV ID.
+# Name        Type            Description
+# ----------- --------------- -------------------------------------------------------------------------------------------
+# System      string          "GPS", "Galileo", "BeiDou", "QZSS" or "NavIC"
+# SvId        int             The satellite's SV ID.
+# DataSetName optional string Optional name of the data set to use. If no value is provided, the active data set is used.
 #
 
 class GetEphemerisReferenceTime(CommandBase):
 
-  def __init__(self, system, svId):
+  def __init__(self, system, svId, dataSetName = None):
     CommandBase.__init__(self, "GetEphemerisReferenceTime")
     self.setSystem(system)
     self.setSvId(svId)
+    self.setDataSetName(dataSetName)
 
   def executePermission(self):
     return ExecutePermission.EXECUTE_IF_IDLE
@@ -12854,23 +13636,31 @@ class GetEphemerisReferenceTime(CommandBase):
   def setSvId(self, value):
     return self.set("SvId", value)
 
+  def dataSetName(self):
+    return self.get("DataSetName")
+
+  def setDataSetName(self, value):
+    return self.set("DataSetName", value)
+
 #
 # Result of GetEphemerisReferenceTimeForSV.
 #
-# Name   Type     Description
-# ------ -------- --------------------------------------------------------------
-# System string   "GPS", "Galileo", "BeiDou", "QZSS" or "NavIC"
-# SvId   int      The satellite's SV ID.
-# Time   datetime GPS date and time (it is the GPS time expressed in UTC format)
+# Name        Type            Description
+# ----------- --------------- -------------------------------------------------------------------------------------------
+# System      string          "GPS", "Galileo", "BeiDou", "QZSS" or "NavIC"
+# SvId        int             The satellite's SV ID.
+# Time        datetime        GPS date and time (it is the GPS time expressed in UTC format)
+# DataSetName optional string Optional name of the data set to use. If no value is provided, the active data set is used.
 #
 
 class GetEphemerisReferenceTimeForSVResult(CommandResult):
 
-  def __init__(self, system, svId, time):
+  def __init__(self, system, svId, time, dataSetName = None):
     CommandResult.__init__(self, "GetEphemerisReferenceTimeForSVResult")
     self.setSystem(system)
     self.setSvId(svId)
     self.setTime(time)
+    self.setDataSetName(dataSetName)
 
   def isSuccess(self):
     return True
@@ -12892,6 +13682,12 @@ class GetEphemerisReferenceTimeForSVResult(CommandResult):
 
   def setTime(self, value):
     return self.set("Time", value)
+
+  def dataSetName(self):
+    return self.get("DataSetName")
+
+  def setDataSetName(self, value):
+    return self.set("DataSetName", value)
 
 #
 # Set various parameters in the GPS ephemeris
@@ -12926,20 +13722,22 @@ class GetEphemerisReferenceTimeForSVResult(CommandResult):
 #   "IscL1CP"         sec
 #   "IscL1CD"         sec
 #
-# Name      Type   Description
-# --------- ------ --------------------------------------------------------------------
-# SvId      int    Satellite SV ID 1..32, or use 0 to apply new value to all satellites
-# ParamName string Parameter name (see table above for accepted names)
-# Val       double Parameter value (see table above for unit)
+# Name        Type            Description
+# ----------- --------------- -------------------------------------------------------------------------------------------
+# SvId        int             Satellite SV ID 1..32, or use 0 to apply new value to all satellites.
+# ParamName   string          Parameter name (see table above for accepted names)
+# Val         double          Parameter value (see table above for unit)
+# DataSetName optional string Optional name of the data set to use. If no value is provided, the active data set is used.
 #
 
 class SetGpsEphDoubleParamForSV(CommandBase):
 
-  def __init__(self, svId, paramName, val):
+  def __init__(self, svId, paramName, val, dataSetName = None):
     CommandBase.__init__(self, "SetGpsEphDoubleParamForSV")
     self.setSvId(svId)
     self.setParamName(paramName)
     self.setVal(val)
+    self.setDataSetName(dataSetName)
 
   def executePermission(self):
     return ExecutePermission.EXECUTE_IF_IDLE
@@ -12961,6 +13759,12 @@ class SetGpsEphDoubleParamForSV(CommandBase):
 
   def setVal(self, value):
     return self.set("Val", value)
+
+  def dataSetName(self):
+    return self.get("DataSetName")
+
+  def setDataSetName(self, value):
+    return self.set("DataSetName", value)
 
 #
 # Get various parameters in the GPS ephemeris
@@ -12995,18 +13799,20 @@ class SetGpsEphDoubleParamForSV(CommandBase):
 #   "IscL1CP"         sec
 #   "IscL1CD"         sec
 #
-# Name      Type   Description
-# --------- ------ --------------------------------------------------------------------
-# SvId      int    Satellite SV ID 1..32, or use 0 to apply new value to all satellites
-# ParamName string Parameter name (see table above for accepted names)
+# Name        Type            Description
+# ----------- --------------- -------------------------------------------------------------------------------------------
+# SvId        int             Satellite SV ID 1..32, or use 0 to apply new value to all satellites.
+# ParamName   string          Parameter name (see table above for accepted names)
+# DataSetName optional string Optional name of the data set to use. If no value is provided, the active data set is used.
 #
 
 class GetGpsEphDoubleParamForSV(CommandBase):
 
-  def __init__(self, svId, paramName):
+  def __init__(self, svId, paramName, dataSetName = None):
     CommandBase.__init__(self, "GetGpsEphDoubleParamForSV")
     self.setSvId(svId)
     self.setParamName(paramName)
+    self.setDataSetName(dataSetName)
 
   def executePermission(self):
     return ExecutePermission.EXECUTE_IF_IDLE
@@ -13023,23 +13829,31 @@ class GetGpsEphDoubleParamForSV(CommandBase):
   def setParamName(self, value):
     return self.set("ParamName", value)
 
+  def dataSetName(self):
+    return self.get("DataSetName")
+
+  def setDataSetName(self, value):
+    return self.set("DataSetName", value)
+
 #
 # Result of GetGpsEphDoubleParamForSV.
 #
-# Name      Type   Description
-# --------- ------ --------------------------------------------------------------------
-# SvId      int    Satellite SV ID 1..32, or use 0 to apply new value to all satellites
-# ParamName string Parameter name (see table above for accepted names)
-# Val       double Parameter value (see table above for unit)
+# Name        Type            Description
+# ----------- --------------- -------------------------------------------------------------------------------------------
+# SvId        int             Satellite SV ID 1..32, or use 0 to apply new value to all satellites.
+# ParamName   string          Parameter name (see table above for accepted names)
+# Val         double          Parameter value (see table above for unit)
+# DataSetName optional string Optional name of the data set to use. If no value is provided, the active data set is used.
 #
 
 class GetGpsEphDoubleParamForSVResult(CommandResult):
 
-  def __init__(self, svId, paramName, val):
+  def __init__(self, svId, paramName, val, dataSetName = None):
     CommandResult.__init__(self, "GetGpsEphDoubleParamForSVResult")
     self.setSvId(svId)
     self.setParamName(paramName)
     self.setVal(val)
+    self.setDataSetName(dataSetName)
 
   def isSuccess(self):
     return True
@@ -13061,6 +13875,12 @@ class GetGpsEphDoubleParamForSVResult(CommandResult):
 
   def setVal(self, value):
     return self.set("Val", value)
+
+  def dataSetName(self):
+    return self.get("DataSetName")
+
+  def setDataSetName(self, value):
+    return self.set("DataSetName", value)
 
 #
 # Set various parameters in the Galileo ephemeris
@@ -13091,20 +13911,22 @@ class GetGpsEphDoubleParamForSVResult(CommandResult):
 #   "BgdE1E5a"        ns
 #   "BgdE1E5b"        ns
 #
-# Name      Type   Description
-# --------- ------ --------------------------------------------------------------------
-# SvId      int    Satellite SV ID 1..36, or use 0 to apply new value to all satellites
-# ParamName string Parameter name (see table above for accepted names)
-# Val       double Parameter value (see table above for unit)
+# Name        Type            Description
+# ----------- --------------- -------------------------------------------------------------------------------------------
+# SvId        int             Satellite SV ID 1..36, or use 0 to apply new value to all satellites
+# ParamName   string          Parameter name (see table above for accepted names)
+# Val         double          Parameter value (see table above for unit)
+# DataSetName optional string Optional name of the data set to use. If no value is provided, the active data set is used.
 #
 
 class SetGalileoEphDoubleParamForSV(CommandBase):
 
-  def __init__(self, svId, paramName, val):
+  def __init__(self, svId, paramName, val, dataSetName = None):
     CommandBase.__init__(self, "SetGalileoEphDoubleParamForSV")
     self.setSvId(svId)
     self.setParamName(paramName)
     self.setVal(val)
+    self.setDataSetName(dataSetName)
 
   def executePermission(self):
     return ExecutePermission.EXECUTE_IF_IDLE
@@ -13126,6 +13948,12 @@ class SetGalileoEphDoubleParamForSV(CommandBase):
 
   def setVal(self, value):
     return self.set("Val", value)
+
+  def dataSetName(self):
+    return self.get("DataSetName")
+
+  def setDataSetName(self, value):
+    return self.set("DataSetName", value)
 
 #
 # Get various parameters in the Galileo ephemeris
@@ -13156,18 +13984,20 @@ class SetGalileoEphDoubleParamForSV(CommandBase):
 #   "BgdE1E5a"        ns
 #   "BgdE1E5b"        ns
 #
-# Name      Type   Description
-# --------- ------ --------------------------------------------------------------------
-# SvId      int    Satellite SV ID 1..36, or use 0 to apply new value to all satellites
-# ParamName string Parameter name (see table above for accepted names)
+# Name        Type            Description
+# ----------- --------------- -------------------------------------------------------------------------------------------
+# SvId        int             Satellite SV ID 1..36, or use 0 to apply new value to all satellites
+# ParamName   string          Parameter name (see table above for accepted names)
+# DataSetName optional string Optional name of the data set to use. If no value is provided, the active data set is used.
 #
 
 class GetGalileoEphDoubleParamForSV(CommandBase):
 
-  def __init__(self, svId, paramName):
+  def __init__(self, svId, paramName, dataSetName = None):
     CommandBase.__init__(self, "GetGalileoEphDoubleParamForSV")
     self.setSvId(svId)
     self.setParamName(paramName)
+    self.setDataSetName(dataSetName)
 
   def executePermission(self):
     return ExecutePermission.EXECUTE_IF_IDLE
@@ -13184,23 +14014,31 @@ class GetGalileoEphDoubleParamForSV(CommandBase):
   def setParamName(self, value):
     return self.set("ParamName", value)
 
+  def dataSetName(self):
+    return self.get("DataSetName")
+
+  def setDataSetName(self, value):
+    return self.set("DataSetName", value)
+
 #
 # Result of GetGalileoEphDoubleParamForSV.
 #
-# Name      Type   Description
-# --------- ------ --------------------------------------------------------------------
-# SvId      int    Satellite SV ID 1..36, or use 0 to apply new value to all satellites
-# ParamName string Parameter name (see table above for accepted names)
-# Val       double Parameter value (see table above for unit)
+# Name        Type            Description
+# ----------- --------------- -------------------------------------------------------------------------------------------
+# SvId        int             Satellite SV ID 1..36, or use 0 to apply new value to all satellites
+# ParamName   string          Parameter name (see table above for accepted names)
+# Val         double          Parameter value (see table above for unit)
+# DataSetName optional string Optional name of the data set to use. If no value is provided, the active data set is used.
 #
 
 class GetGalileoEphDoubleParamForSVResult(CommandResult):
 
-  def __init__(self, svId, paramName, val):
+  def __init__(self, svId, paramName, val, dataSetName = None):
     CommandResult.__init__(self, "GetGalileoEphDoubleParamForSVResult")
     self.setSvId(svId)
     self.setParamName(paramName)
     self.setVal(val)
+    self.setDataSetName(dataSetName)
 
   def isSuccess(self):
     return True
@@ -13222,6 +14060,12 @@ class GetGalileoEphDoubleParamForSVResult(CommandResult):
 
   def setVal(self, value):
     return self.set("Val", value)
+
+  def dataSetName(self):
+    return self.get("DataSetName")
+
+  def setDataSetName(self, value):
+    return self.set("DataSetName", value)
 
 #
 # Set various parameters in the BeiDou ephemeris
@@ -13253,20 +14097,22 @@ class GetGalileoEphDoubleParamForSVResult(CommandResult):
 #   "TgdB1Cp"         sec
 #   "TgdB2Ap"         sec
 #
-# Name      Type   Description
-# --------- ------ --------------------------------------------------------------------
-# SvId      int    Satellite SV ID 1..35, or use 0 to apply new value to all satellites
-# ParamName string Parameter name (see table above for accepted names)
-# Val       double Parameter value (see table above for unit)
+# Name        Type            Description
+# ----------- --------------- -------------------------------------------------------------------------------------------
+# SvId        int             Satellite SV ID 1..35, or use 0 to apply new value to all satellites
+# ParamName   string          Parameter name (see table above for accepted names)
+# Val         double          Parameter value (see table above for unit)
+# DataSetName optional string Optional name of the data set to use. If no value is provided, the active data set is used.
 #
 
 class SetBeiDouEphDoubleParamForSV(CommandBase):
 
-  def __init__(self, svId, paramName, val):
+  def __init__(self, svId, paramName, val, dataSetName = None):
     CommandBase.__init__(self, "SetBeiDouEphDoubleParamForSV")
     self.setSvId(svId)
     self.setParamName(paramName)
     self.setVal(val)
+    self.setDataSetName(dataSetName)
 
   def executePermission(self):
     return ExecutePermission.EXECUTE_IF_IDLE
@@ -13288,6 +14134,12 @@ class SetBeiDouEphDoubleParamForSV(CommandBase):
 
   def setVal(self, value):
     return self.set("Val", value)
+
+  def dataSetName(self):
+    return self.get("DataSetName")
+
+  def setDataSetName(self, value):
+    return self.set("DataSetName", value)
 
 #
 # Get various parameters in the BeiDou ephemeris
@@ -13319,18 +14171,20 @@ class SetBeiDouEphDoubleParamForSV(CommandBase):
 #   "TgdB1Cp"         sec
 #   "TgdB2Ap"         sec
 #
-# Name      Type   Description
-# --------- ------ --------------------------------------------------------------------
-# SvId      int    Satellite SV ID 1..35, or use 0 to apply new value to all satellites
-# ParamName string Parameter name (see table above for accepted names)
+# Name        Type            Description
+# ----------- --------------- -------------------------------------------------------------------------------------------
+# SvId        int             Satellite SV ID 1..35, or use 0 to apply new value to all satellites
+# ParamName   string          Parameter name (see table above for accepted names)
+# DataSetName optional string Optional name of the data set to use. If no value is provided, the active data set is used.
 #
 
 class GetBeiDouEphDoubleParamForSV(CommandBase):
 
-  def __init__(self, svId, paramName):
+  def __init__(self, svId, paramName, dataSetName = None):
     CommandBase.__init__(self, "GetBeiDouEphDoubleParamForSV")
     self.setSvId(svId)
     self.setParamName(paramName)
+    self.setDataSetName(dataSetName)
 
   def executePermission(self):
     return ExecutePermission.EXECUTE_IF_IDLE
@@ -13347,23 +14201,31 @@ class GetBeiDouEphDoubleParamForSV(CommandBase):
   def setParamName(self, value):
     return self.set("ParamName", value)
 
+  def dataSetName(self):
+    return self.get("DataSetName")
+
+  def setDataSetName(self, value):
+    return self.set("DataSetName", value)
+
 #
 # Result of GetBeiDouEphDoubleParamForSV.
 #
-# Name      Type   Description
-# --------- ------ --------------------------------------------------------------------
-# SvId      int    Satellite SV ID 1..35, or use 0 to apply new value to all satellites
-# ParamName string Parameter name (see table above for accepted names)
-# Val       double Parameter value (see table above for unit)
+# Name        Type            Description
+# ----------- --------------- -------------------------------------------------------------------------------------------
+# SvId        int             Satellite SV ID 1..35, or use 0 to apply new value to all satellites
+# ParamName   string          Parameter name (see table above for accepted names)
+# Val         double          Parameter value (see table above for unit)
+# DataSetName optional string Optional name of the data set to use. If no value is provided, the active data set is used.
 #
 
 class GetBeiDouEphDoubleParamForSVResult(CommandResult):
 
-  def __init__(self, svId, paramName, val):
+  def __init__(self, svId, paramName, val, dataSetName = None):
     CommandResult.__init__(self, "GetBeiDouEphDoubleParamForSVResult")
     self.setSvId(svId)
     self.setParamName(paramName)
     self.setVal(val)
+    self.setDataSetName(dataSetName)
 
   def isSuccess(self):
     return True
@@ -13385,6 +14247,12 @@ class GetBeiDouEphDoubleParamForSVResult(CommandResult):
 
   def setVal(self, value):
     return self.set("Val", value)
+
+  def dataSetName(self):
+    return self.get("DataSetName")
+
+  def setDataSetName(self, value):
+    return self.set("DataSetName", value)
 
 #
 # Set various parameters for GLONASS
@@ -13522,22 +14390,24 @@ class GetGlonassEphDoubleParamForSVResult(CommandResult):
 #
 # Set various parameters in the QZSS ephemeris.
 #
-# Name      Type   Description
-# --------- ------ ----------------------------------------------------------------------------------
-# SvId      int    The satellite's SV ID 1..10 (use 0 to apply to all satellites)
-# ParamName string In meters:  "Crs", "Crc"
-#                  In radians: "Cis", "Cic", "Cus", "Cuc"
-#                  In seconds: "Tgd", "IscL1Ca", "IscL2C", "IscL5I5", "IscL5Q5", "IscL1CP", "IscL1CD"
-# Val       double Parameter value (see ParamName above for unit)
+# Name        Type            Description
+# ----------- --------------- -------------------------------------------------------------------------------------------
+# SvId        int             The satellite's SV ID 1..10 (use 0 to apply to all satellites)
+# ParamName   string          In meters:  "Crs", "Crc"
+#                             In radians: "Cis", "Cic", "Cus", "Cuc"
+#                             In seconds: "Tgd", "IscL1Ca", "IscL2C", "IscL5I5", "IscL5Q5", "IscL1CP", "IscL1CD"
+# Val         double          Parameter value (see ParamName above for unit)
+# DataSetName optional string Optional name of the data set to use. If no value is provided, the active data set is used.
 #
 
 class SetQzssEphDoubleParamForSV(CommandBase):
 
-  def __init__(self, svId, paramName, val):
+  def __init__(self, svId, paramName, val, dataSetName = None):
     CommandBase.__init__(self, "SetQzssEphDoubleParamForSV")
     self.setSvId(svId)
     self.setParamName(paramName)
     self.setVal(val)
+    self.setDataSetName(dataSetName)
 
   def executePermission(self):
     return ExecutePermission.EXECUTE_IF_IDLE
@@ -13559,28 +14429,36 @@ class SetQzssEphDoubleParamForSV(CommandBase):
 
   def setVal(self, value):
     return self.set("Val", value)
+
+  def dataSetName(self):
+    return self.get("DataSetName")
+
+  def setDataSetName(self, value):
+    return self.set("DataSetName", value)
 
 #
 # Please note the command SetQzssEphemerisDoubleParam is deprecated since 21.3. You may use SetQzssEphDoubleParamForSV.
 # 
 # Set various parameters in the QZSS ephemeris.
 #
-# Name      Type   Description
-# --------- ------ ----------------------------------------------------------------------------------
-# SvId      int    The satellite's SV ID 1..10 (use 0 to apply to all satellites)
-# ParamName string In meters:  "Crs", "Crc"
-#                  In radians: "Cis", "Cic", "Cus", "Cuc"
-#                  In seconds: "Tgd", "IscL1Ca", "IscL2C", "IscL5I5", "IscL5Q5", "IscL1CP", "IscL1CD"
-# Val       double Parameter value (see ParamName above for unit)
+# Name        Type            Description
+# ----------- --------------- -------------------------------------------------------------------------------------------
+# SvId        int             The satellite's SV ID 1..10 (use 0 to apply to all satellites)
+# ParamName   string          In meters:  "Crs", "Crc"
+#                             In radians: "Cis", "Cic", "Cus", "Cuc"
+#                             In seconds: "Tgd", "IscL1Ca", "IscL2C", "IscL5I5", "IscL5Q5", "IscL1CP", "IscL1CD"
+# Val         double          Parameter value (see ParamName above for unit)
+# DataSetName optional string Optional name of the data set to use. If no value is provided, the active data set is used.
 #
 
 class SetQzssEphemerisDoubleParam(CommandBase):
 
-  def __init__(self, svId, paramName, val):
+  def __init__(self, svId, paramName, val, dataSetName = None):
     CommandBase.__init__(self, "SetQzssEphemerisDoubleParam")
     self.setSvId(svId)
     self.setParamName(paramName)
     self.setVal(val)
+    self.setDataSetName(dataSetName)
 
   def executePermission(self):
     return ExecutePermission.EXECUTE_IF_IDLE
@@ -13603,23 +14481,31 @@ class SetQzssEphemerisDoubleParam(CommandBase):
   def setVal(self, value):
     return self.set("Val", value)
 
+  def dataSetName(self):
+    return self.get("DataSetName")
+
+  def setDataSetName(self, value):
+    return self.set("DataSetName", value)
+
 #
 # Get various parameters in the QZSS ephemeris.
 #
-# Name      Type   Description
-# --------- ------ ----------------------------------------------------------------------------------
-# SvId      int    The satellite's SV ID 1..10 (use 0 to apply to all satellites)
-# ParamName string In meters:  "Crs", "Crc"
-#                  In radians: "Cis", "Cic", "Cus", "Cuc"
-#                  In seconds: "Tgd", "IscL1Ca", "IscL2C", "IscL5I5", "IscL5Q5", "IscL1CP", "IscL1CD"
+# Name        Type            Description
+# ----------- --------------- -------------------------------------------------------------------------------------------
+# SvId        int             The satellite's SV ID 1..10 (use 0 to apply to all satellites)
+# ParamName   string          In meters:  "Crs", "Crc"
+#                             In radians: "Cis", "Cic", "Cus", "Cuc"
+#                             In seconds: "Tgd", "IscL1Ca", "IscL2C", "IscL5I5", "IscL5Q5", "IscL1CP", "IscL1CD"
+# DataSetName optional string Optional name of the data set to use. If no value is provided, the active data set is used.
 #
 
 class GetQzssEphDoubleParamForSV(CommandBase):
 
-  def __init__(self, svId, paramName):
+  def __init__(self, svId, paramName, dataSetName = None):
     CommandBase.__init__(self, "GetQzssEphDoubleParamForSV")
     self.setSvId(svId)
     self.setParamName(paramName)
+    self.setDataSetName(dataSetName)
 
   def executePermission(self):
     return ExecutePermission.EXECUTE_IF_IDLE
@@ -13635,26 +14521,34 @@ class GetQzssEphDoubleParamForSV(CommandBase):
 
   def setParamName(self, value):
     return self.set("ParamName", value)
+
+  def dataSetName(self):
+    return self.get("DataSetName")
+
+  def setDataSetName(self, value):
+    return self.set("DataSetName", value)
 
 #
 # Please note the command GetQzssEphemerisDoubleParam is deprecated since 21.3. You may use GetQzssEphDoubleParamForSV.
 # 
 # Get various parameters in the QZSS ephemeris.
 #
-# Name      Type   Description
-# --------- ------ ----------------------------------------------------------------------------------
-# SvId      int    The satellite's SV ID 1..10 (use 0 to apply to all satellites)
-# ParamName string In meters:  "Crs", "Crc"
-#                  In radians: "Cis", "Cic", "Cus", "Cuc"
-#                  In seconds: "Tgd", "IscL1Ca", "IscL2C", "IscL5I5", "IscL5Q5", "IscL1CP", "IscL1CD"
+# Name        Type            Description
+# ----------- --------------- -------------------------------------------------------------------------------------------
+# SvId        int             The satellite's SV ID 1..10 (use 0 to apply to all satellites)
+# ParamName   string          In meters:  "Crs", "Crc"
+#                             In radians: "Cis", "Cic", "Cus", "Cuc"
+#                             In seconds: "Tgd", "IscL1Ca", "IscL2C", "IscL5I5", "IscL5Q5", "IscL1CP", "IscL1CD"
+# DataSetName optional string Optional name of the data set to use. If no value is provided, the active data set is used.
 #
 
 class GetQzssEphemerisDoubleParam(CommandBase):
 
-  def __init__(self, svId, paramName):
+  def __init__(self, svId, paramName, dataSetName = None):
     CommandBase.__init__(self, "GetQzssEphemerisDoubleParam")
     self.setSvId(svId)
     self.setParamName(paramName)
+    self.setDataSetName(dataSetName)
 
   def executePermission(self):
     return ExecutePermission.EXECUTE_IF_IDLE
@@ -13671,25 +14565,33 @@ class GetQzssEphemerisDoubleParam(CommandBase):
   def setParamName(self, value):
     return self.set("ParamName", value)
 
+  def dataSetName(self):
+    return self.get("DataSetName")
+
+  def setDataSetName(self, value):
+    return self.set("DataSetName", value)
+
 #
 # Result of GetQzssEphDoubleParamForSV.
 #
-# Name      Type   Description
-# --------- ------ ----------------------------------------------------------------------------------
-# SvId      int    The satellite's SV ID 1..10 (use 0 to apply to all satellites)
-# ParamName string In meters:  "Crs", "Crc"
-#                  In radians: "Cis", "Cic", "Cus", "Cuc"
-#                  In seconds: "Tgd", "IscL1Ca", "IscL2C", "IscL5I5", "IscL5Q5", "IscL1CP", "IscL1CD"
-# Val       double Parameter value (see ParamName above for unit)
+# Name        Type            Description
+# ----------- --------------- -------------------------------------------------------------------------------------------
+# SvId        int             The satellite's SV ID 1..10 (use 0 to apply to all satellites)
+# ParamName   string          In meters:  "Crs", "Crc"
+#                             In radians: "Cis", "Cic", "Cus", "Cuc"
+#                             In seconds: "Tgd", "IscL1Ca", "IscL2C", "IscL5I5", "IscL5Q5", "IscL1CP", "IscL1CD"
+# Val         double          Parameter value (see ParamName above for unit)
+# DataSetName optional string Optional name of the data set to use. If no value is provided, the active data set is used.
 #
 
 class GetQzssEphDoubleParamForSVResult(CommandResult):
 
-  def __init__(self, svId, paramName, val):
+  def __init__(self, svId, paramName, val, dataSetName = None):
     CommandResult.__init__(self, "GetQzssEphDoubleParamForSVResult")
     self.setSvId(svId)
     self.setParamName(paramName)
     self.setVal(val)
+    self.setDataSetName(dataSetName)
 
   def isSuccess(self):
     return True
@@ -13711,6 +14613,12 @@ class GetQzssEphDoubleParamForSVResult(CommandResult):
 
   def setVal(self, value):
     return self.set("Val", value)
+
+  def dataSetName(self):
+    return self.get("DataSetName")
+
+  def setDataSetName(self, value):
+    return self.set("DataSetName", value)
 
 #
 # Set various parameters in the NavIC ephemeris
@@ -13739,20 +14647,22 @@ class GetQzssEphDoubleParamForSVResult(CommandResult):
 #   "DeltaN0dot"      rad/sec^2
 #   "Tgd"             sec
 #
-# Name      Type   Description
-# --------- ------ --------------------------------------------------------------------
-# SvId      int    Satellite SV ID 1..14, or use 0 to apply new value to all satellites
-# ParamName string Parameter name (see table above for accepted names)
-# Val       double Parameter value (see table above for unit)
+# Name        Type            Description
+# ----------- --------------- -------------------------------------------------------------------------------------------
+# SvId        int             Satellite SV ID 1..14, or use 0 to apply new value to all satellites
+# ParamName   string          Parameter name (see table above for accepted names)
+# Val         double          Parameter value (see table above for unit)
+# DataSetName optional string Optional name of the data set to use. If no value is provided, the active data set is used.
 #
 
 class SetNavICEphDoubleParamForSV(CommandBase):
 
-  def __init__(self, svId, paramName, val):
+  def __init__(self, svId, paramName, val, dataSetName = None):
     CommandBase.__init__(self, "SetNavICEphDoubleParamForSV")
     self.setSvId(svId)
     self.setParamName(paramName)
     self.setVal(val)
+    self.setDataSetName(dataSetName)
 
   def executePermission(self):
     return ExecutePermission.EXECUTE_IF_IDLE
@@ -13774,6 +14684,12 @@ class SetNavICEphDoubleParamForSV(CommandBase):
 
   def setVal(self, value):
     return self.set("Val", value)
+
+  def dataSetName(self):
+    return self.get("DataSetName")
+
+  def setDataSetName(self, value):
+    return self.set("DataSetName", value)
 
 #
 # Please note the command SetNavICEphemerisDoubleParam is deprecated since 21.3. You may use SetNavICEphDoubleParamForSV.
@@ -13804,20 +14720,22 @@ class SetNavICEphDoubleParamForSV(CommandBase):
 #   "DeltaN0dot"      rad/sec^2
 #   "Tgd"             sec
 #
-# Name      Type   Description
-# --------- ------ --------------------------------------------------------------------
-# SvId      int    Satellite SV ID 1..14, or use 0 to apply new value to all satellites
-# ParamName string Parameter name (see table above for accepted names)
-# Val       double Parameter value (see table above for unit)
+# Name        Type            Description
+# ----------- --------------- -------------------------------------------------------------------------------------------
+# SvId        int             Satellite SV ID 1..14, or use 0 to apply new value to all satellites
+# ParamName   string          Parameter name (see table above for accepted names)
+# Val         double          Parameter value (see table above for unit)
+# DataSetName optional string Optional name of the data set to use. If no value is provided, the active data set is used.
 #
 
 class SetNavICEphemerisDoubleParam(CommandBase):
 
-  def __init__(self, svId, paramName, val):
+  def __init__(self, svId, paramName, val, dataSetName = None):
     CommandBase.__init__(self, "SetNavICEphemerisDoubleParam")
     self.setSvId(svId)
     self.setParamName(paramName)
     self.setVal(val)
+    self.setDataSetName(dataSetName)
 
   def executePermission(self):
     return ExecutePermission.EXECUTE_IF_IDLE
@@ -13839,6 +14757,12 @@ class SetNavICEphemerisDoubleParam(CommandBase):
 
   def setVal(self, value):
     return self.set("Val", value)
+
+  def dataSetName(self):
+    return self.get("DataSetName")
+
+  def setDataSetName(self, value):
+    return self.set("DataSetName", value)
 
 #
 # Get various parameters in the NavIC ephemeris
@@ -13867,18 +14791,20 @@ class SetNavICEphemerisDoubleParam(CommandBase):
 #   "DeltaN0dot"      rad/sec^2
 #   "Tgd"             sec
 #
-# Name      Type   Description
-# --------- ------ --------------------------------------------------------------------
-# SvId      int    Satellite SV ID 1..14, or use 0 to apply new value to all satellites
-# ParamName string Parameter name (see table above for accepted names)
+# Name        Type            Description
+# ----------- --------------- -------------------------------------------------------------------------------------------
+# SvId        int             Satellite SV ID 1..14, or use 0 to apply new value to all satellites
+# ParamName   string          Parameter name (see table above for accepted names)
+# DataSetName optional string Optional name of the data set to use. If no value is provided, the active data set is used.
 #
 
 class GetNavICEphDoubleParamForSV(CommandBase):
 
-  def __init__(self, svId, paramName):
+  def __init__(self, svId, paramName, dataSetName = None):
     CommandBase.__init__(self, "GetNavICEphDoubleParamForSV")
     self.setSvId(svId)
     self.setParamName(paramName)
+    self.setDataSetName(dataSetName)
 
   def executePermission(self):
     return ExecutePermission.EXECUTE_IF_IDLE
@@ -13894,6 +14820,12 @@ class GetNavICEphDoubleParamForSV(CommandBase):
 
   def setParamName(self, value):
     return self.set("ParamName", value)
+
+  def dataSetName(self):
+    return self.get("DataSetName")
+
+  def setDataSetName(self, value):
+    return self.set("DataSetName", value)
 
 #
 # Please note the command GetNavICEphemerisDoubleParam is deprecated since 21.3. You may use GetNavICEphDoubleParamForSV.
@@ -13924,18 +14856,20 @@ class GetNavICEphDoubleParamForSV(CommandBase):
 #   "DeltaN0dot"      rad/sec^2
 #   "Tgd"             sec
 #
-# Name      Type   Description
-# --------- ------ --------------------------------------------------------------------
-# SvId      int    Satellite SV ID 1..14, or use 0 to apply new value to all satellites
-# ParamName string Parameter name (see table above for accepted names)
+# Name        Type            Description
+# ----------- --------------- -------------------------------------------------------------------------------------------
+# SvId        int             Satellite SV ID 1..14, or use 0 to apply new value to all satellites
+# ParamName   string          Parameter name (see table above for accepted names)
+# DataSetName optional string Optional name of the data set to use. If no value is provided, the active data set is used.
 #
 
 class GetNavICEphemerisDoubleParam(CommandBase):
 
-  def __init__(self, svId, paramName):
+  def __init__(self, svId, paramName, dataSetName = None):
     CommandBase.__init__(self, "GetNavICEphemerisDoubleParam")
     self.setSvId(svId)
     self.setParamName(paramName)
+    self.setDataSetName(dataSetName)
 
   def executePermission(self):
     return ExecutePermission.EXECUTE_IF_IDLE
@@ -13952,23 +14886,31 @@ class GetNavICEphemerisDoubleParam(CommandBase):
   def setParamName(self, value):
     return self.set("ParamName", value)
 
+  def dataSetName(self):
+    return self.get("DataSetName")
+
+  def setDataSetName(self, value):
+    return self.set("DataSetName", value)
+
 #
 # Result of GetNavICEphDoubleParamForSV.
 #
-# Name      Type   Description
-# --------- ------ --------------------------------------------------------------------
-# SvId      int    Satellite SV ID 1..14, or use 0 to apply new value to all satellites
-# ParamName string Parameter name (see table above for accepted names)
-# Val       double Parameter value (see table above for unit)
+# Name        Type            Description
+# ----------- --------------- -------------------------------------------------------------------------------------------
+# SvId        int             Satellite SV ID 1..14, or use 0 to apply new value to all satellites
+# ParamName   string          Parameter name (see table above for accepted names)
+# Val         double          Parameter value (see table above for unit)
+# DataSetName optional string Optional name of the data set to use. If no value is provided, the active data set is used.
 #
 
 class GetNavICEphDoubleParamForSVResult(CommandResult):
 
-  def __init__(self, svId, paramName, val):
+  def __init__(self, svId, paramName, val, dataSetName = None):
     CommandResult.__init__(self, "GetNavICEphDoubleParamForSVResult")
     self.setSvId(svId)
     self.setParamName(paramName)
     self.setVal(val)
+    self.setDataSetName(dataSetName)
 
   def isSuccess(self):
     return True
@@ -13991,21 +14933,29 @@ class GetNavICEphDoubleParamForSVResult(CommandResult):
   def setVal(self, value):
     return self.set("Val", value)
 
+  def dataSetName(self):
+    return self.get("DataSetName")
+
+  def setDataSetName(self, value):
+    return self.set("DataSetName", value)
+
 #
 # Set GPS ephemeris parameter value for all satellites
 #
-# Name      Type         Description
-# --------- ------------ --------------------------------------------------------------------------------------------------
-# ParamName string       Refer to SetGpsEphDoubleParamForSV for accepted names
-# Val       array double Parameter value for each satellite. Zero based index (index 0 => SV ID 1, index 1 => SV ID 2, etc)
+# Name        Type            Description
+# ----------- --------------- --------------------------------------------------------------------------------------------------
+# ParamName   string          Refer to SetGpsEphDoubleParamForSV for accepted names
+# Val         array double    Parameter value for each satellite. Zero based index (index 0 => SV ID 1, index 1 => SV ID 2, etc)
+# DataSetName optional string Optional name of the data set to use. If no value is provided, the active data set is used.
 #
 
 class SetGpsEphDoubleParamForEachSV(CommandBase):
 
-  def __init__(self, paramName, val):
+  def __init__(self, paramName, val, dataSetName = None):
     CommandBase.__init__(self, "SetGpsEphDoubleParamForEachSV")
     self.setParamName(paramName)
     self.setVal(val)
+    self.setDataSetName(dataSetName)
 
   def executePermission(self):
     return ExecutePermission.EXECUTE_IF_IDLE
@@ -14021,24 +14971,32 @@ class SetGpsEphDoubleParamForEachSV(CommandBase):
 
   def setVal(self, value):
     return self.set("Val", value)
+
+  def dataSetName(self):
+    return self.get("DataSetName")
+
+  def setDataSetName(self, value):
+    return self.set("DataSetName", value)
 
 #
 # Please note the command SetGpsEphemerisDoubleParams is deprecated since 21.3. You may use SetGpsEphDoubleParamForEachSV.
 # 
 # Set GPS ephemeris parameter value for all satellites
 #
-# Name      Type         Description
-# --------- ------------ --------------------------------------------------------------------------------------------------
-# ParamName string       Refer to SetGpsEphDoubleParamForSV for accepted names
-# Val       array double Parameter value for each satellite. Zero based index (index 0 => SV ID 1, index 1 => SV ID 2, etc)
+# Name        Type            Description
+# ----------- --------------- --------------------------------------------------------------------------------------------------
+# ParamName   string          Refer to SetGpsEphDoubleParamForSV for accepted names
+# Val         array double    Parameter value for each satellite. Zero based index (index 0 => SV ID 1, index 1 => SV ID 2, etc)
+# DataSetName optional string Optional name of the data set to use. If no value is provided, the active data set is used.
 #
 
 class SetGpsEphemerisDoubleParams(CommandBase):
 
-  def __init__(self, paramName, val):
+  def __init__(self, paramName, val, dataSetName = None):
     CommandBase.__init__(self, "SetGpsEphemerisDoubleParams")
     self.setParamName(paramName)
     self.setVal(val)
+    self.setDataSetName(dataSetName)
 
   def executePermission(self):
     return ExecutePermission.EXECUTE_IF_IDLE
@@ -14055,19 +15013,27 @@ class SetGpsEphemerisDoubleParams(CommandBase):
   def setVal(self, value):
     return self.set("Val", value)
 
+  def dataSetName(self):
+    return self.get("DataSetName")
+
+  def setDataSetName(self, value):
+    return self.set("DataSetName", value)
+
 #
 # Get GPS ephemeris parameter value for all satellites
 #
-# Name      Type   Description
-# --------- ------ -----------------------------------------------------
-# ParamName string Refer to SetGpsEphDoubleParamForSV for accepted names
+# Name        Type            Description
+# ----------- --------------- -------------------------------------------------------------------------------------------
+# ParamName   string          Refer to SetGpsEphDoubleParamForSV for accepted names
+# DataSetName optional string Optional name of the data set to use. If no value is provided, the active data set is used.
 #
 
 class GetGpsEphDoubleParamForEachSV(CommandBase):
 
-  def __init__(self, paramName):
+  def __init__(self, paramName, dataSetName = None):
     CommandBase.__init__(self, "GetGpsEphDoubleParamForEachSV")
     self.setParamName(paramName)
+    self.setDataSetName(dataSetName)
 
   def executePermission(self):
     return ExecutePermission.EXECUTE_IF_IDLE
@@ -14077,22 +15043,30 @@ class GetGpsEphDoubleParamForEachSV(CommandBase):
 
   def setParamName(self, value):
     return self.set("ParamName", value)
+
+  def dataSetName(self):
+    return self.get("DataSetName")
+
+  def setDataSetName(self, value):
+    return self.set("DataSetName", value)
 
 #
 # Please note the command GetGpsEphemerisDoubleParams is deprecated since 21.3. You may use GetGpsEphDoubleParamForEachSV.
 # 
 # Get GPS ephemeris parameter value for all satellites
 #
-# Name      Type   Description
-# --------- ------ -----------------------------------------------------
-# ParamName string Refer to SetGpsEphDoubleParamForSV for accepted names
+# Name        Type            Description
+# ----------- --------------- -------------------------------------------------------------------------------------------
+# ParamName   string          Refer to SetGpsEphDoubleParamForSV for accepted names
+# DataSetName optional string Optional name of the data set to use. If no value is provided, the active data set is used.
 #
 
 class GetGpsEphemerisDoubleParams(CommandBase):
 
-  def __init__(self, paramName):
+  def __init__(self, paramName, dataSetName = None):
     CommandBase.__init__(self, "GetGpsEphemerisDoubleParams")
     self.setParamName(paramName)
+    self.setDataSetName(dataSetName)
 
   def executePermission(self):
     return ExecutePermission.EXECUTE_IF_IDLE
@@ -14103,21 +15077,29 @@ class GetGpsEphemerisDoubleParams(CommandBase):
   def setParamName(self, value):
     return self.set("ParamName", value)
 
+  def dataSetName(self):
+    return self.get("DataSetName")
+
+  def setDataSetName(self, value):
+    return self.set("DataSetName", value)
+
 #
 # Result of GetGpsEphDoubleParamForEachSV.
 #
-# Name      Type         Description
-# --------- ------------ --------------------------------------------------------------------------------------------------
-# ParamName string       Refer to SetGpsEphDoubleParamForSV for accepted names
-# Val       array double Parameter value for each satellite. Zero based index (index 0 => SV ID 1, index 1 => SV ID 2, etc)
+# Name        Type            Description
+# ----------- --------------- --------------------------------------------------------------------------------------------------
+# ParamName   string          Refer to SetGpsEphDoubleParamForSV for accepted names
+# Val         array double    Parameter value for each satellite. Zero based index (index 0 => SV ID 1, index 1 => SV ID 2, etc)
+# DataSetName optional string Optional name of the data set to use. If no value is provided, the active data set is used.
 #
 
 class GetGpsEphDoubleParamForEachSVResult(CommandResult):
 
-  def __init__(self, paramName, val):
+  def __init__(self, paramName, val, dataSetName = None):
     CommandResult.__init__(self, "GetGpsEphDoubleParamForEachSVResult")
     self.setParamName(paramName)
     self.setVal(val)
+    self.setDataSetName(dataSetName)
 
   def isSuccess(self):
     return True
@@ -14134,21 +15116,29 @@ class GetGpsEphDoubleParamForEachSVResult(CommandResult):
   def setVal(self, value):
     return self.set("Val", value)
 
+  def dataSetName(self):
+    return self.get("DataSetName")
+
+  def setDataSetName(self, value):
+    return self.set("DataSetName", value)
+
 #
 # Set Galileo ephemeris parameter value for all satellites
 #
-# Name      Type         Description
-# --------- ------------ --------------------------------------------------------------------------------------------------
-# ParamName string       Refer to SetGalileoEphDoubleParamForSV for accepted names
-# Val       array double Parameter value for each satellite. Zero based index (index 0 => SV ID 1, index 1 => SV ID 2, etc)
+# Name        Type            Description
+# ----------- --------------- --------------------------------------------------------------------------------------------------
+# ParamName   string          Refer to SetGalileoEphDoubleParamForSV for accepted names
+# Val         array double    Parameter value for each satellite. Zero based index (index 0 => SV ID 1, index 1 => SV ID 2, etc)
+# DataSetName optional string Optional name of the data set to use. If no value is provided, the active data set is used.
 #
 
 class SetGalileoEphDoubleParamForEachSV(CommandBase):
 
-  def __init__(self, paramName, val):
+  def __init__(self, paramName, val, dataSetName = None):
     CommandBase.__init__(self, "SetGalileoEphDoubleParamForEachSV")
     self.setParamName(paramName)
     self.setVal(val)
+    self.setDataSetName(dataSetName)
 
   def executePermission(self):
     return ExecutePermission.EXECUTE_IF_IDLE
@@ -14164,24 +15154,32 @@ class SetGalileoEphDoubleParamForEachSV(CommandBase):
 
   def setVal(self, value):
     return self.set("Val", value)
+
+  def dataSetName(self):
+    return self.get("DataSetName")
+
+  def setDataSetName(self, value):
+    return self.set("DataSetName", value)
 
 #
 # Please note the command SetGalileoEphemerisDoubleParams is deprecated since 21.3. You may use SetGalileoEphDoubleParamForEachSV.
 # 
 # Set Galileo ephemeris parameter value for all satellites
 #
-# Name      Type         Description
-# --------- ------------ --------------------------------------------------------------------------------------------------
-# ParamName string       Refer to SetGalileoEphDoubleParamForSV for accepted names
-# Val       array double Parameter value for each satellite. Zero based index (index 0 => SV ID 1, index 1 => SV ID 2, etc)
+# Name        Type            Description
+# ----------- --------------- --------------------------------------------------------------------------------------------------
+# ParamName   string          Refer to SetGalileoEphDoubleParamForSV for accepted names
+# Val         array double    Parameter value for each satellite. Zero based index (index 0 => SV ID 1, index 1 => SV ID 2, etc)
+# DataSetName optional string Optional name of the data set to use. If no value is provided, the active data set is used.
 #
 
 class SetGalileoEphemerisDoubleParams(CommandBase):
 
-  def __init__(self, paramName, val):
+  def __init__(self, paramName, val, dataSetName = None):
     CommandBase.__init__(self, "SetGalileoEphemerisDoubleParams")
     self.setParamName(paramName)
     self.setVal(val)
+    self.setDataSetName(dataSetName)
 
   def executePermission(self):
     return ExecutePermission.EXECUTE_IF_IDLE
@@ -14198,19 +15196,27 @@ class SetGalileoEphemerisDoubleParams(CommandBase):
   def setVal(self, value):
     return self.set("Val", value)
 
+  def dataSetName(self):
+    return self.get("DataSetName")
+
+  def setDataSetName(self, value):
+    return self.set("DataSetName", value)
+
 #
 # Get Galileo ephemeris parameter value for all satellites
 #
-# Name      Type   Description
-# --------- ------ ---------------------------------------------------------
-# ParamName string Refer to SetGalileoEphDoubleParamForSV for accepted names
+# Name        Type            Description
+# ----------- --------------- -------------------------------------------------------------------------------------------
+# ParamName   string          Refer to SetGalileoEphDoubleParamForSV for accepted names
+# DataSetName optional string Optional name of the data set to use. If no value is provided, the active data set is used.
 #
 
 class GetGalileoEphDoubleParamForEachSV(CommandBase):
 
-  def __init__(self, paramName):
+  def __init__(self, paramName, dataSetName = None):
     CommandBase.__init__(self, "GetGalileoEphDoubleParamForEachSV")
     self.setParamName(paramName)
+    self.setDataSetName(dataSetName)
 
   def executePermission(self):
     return ExecutePermission.EXECUTE_IF_IDLE
@@ -14220,22 +15226,30 @@ class GetGalileoEphDoubleParamForEachSV(CommandBase):
 
   def setParamName(self, value):
     return self.set("ParamName", value)
+
+  def dataSetName(self):
+    return self.get("DataSetName")
+
+  def setDataSetName(self, value):
+    return self.set("DataSetName", value)
 
 #
 # Please note the command GetGalileoEphemerisDoubleParams is deprecated since 21.3. You may use GetGalileoEphDoubleParamForEachSV.
 # 
 # Get Galileo ephemeris parameter value for all satellites
 #
-# Name      Type   Description
-# --------- ------ ---------------------------------------------------------
-# ParamName string Refer to SetGalileoEphDoubleParamForSV for accepted names
+# Name        Type            Description
+# ----------- --------------- -------------------------------------------------------------------------------------------
+# ParamName   string          Refer to SetGalileoEphDoubleParamForSV for accepted names
+# DataSetName optional string Optional name of the data set to use. If no value is provided, the active data set is used.
 #
 
 class GetGalileoEphemerisDoubleParams(CommandBase):
 
-  def __init__(self, paramName):
+  def __init__(self, paramName, dataSetName = None):
     CommandBase.__init__(self, "GetGalileoEphemerisDoubleParams")
     self.setParamName(paramName)
+    self.setDataSetName(dataSetName)
 
   def executePermission(self):
     return ExecutePermission.EXECUTE_IF_IDLE
@@ -14246,21 +15260,29 @@ class GetGalileoEphemerisDoubleParams(CommandBase):
   def setParamName(self, value):
     return self.set("ParamName", value)
 
+  def dataSetName(self):
+    return self.get("DataSetName")
+
+  def setDataSetName(self, value):
+    return self.set("DataSetName", value)
+
 #
 # Result of GetGalileoEphDoubleParamForEachSV.
 #
-# Name      Type         Description
-# --------- ------------ --------------------------------------------------------------------------------------------------
-# ParamName string       Refer to SetGalileoEphDoubleParamForSV for accepted names
-# Val       array double Parameter value for each satellite. Zero based index (index 0 => SV ID 1, index 1 => SV ID 2, etc)
+# Name        Type            Description
+# ----------- --------------- --------------------------------------------------------------------------------------------------
+# ParamName   string          Refer to SetGalileoEphDoubleParamForSV for accepted names
+# Val         array double    Parameter value for each satellite. Zero based index (index 0 => SV ID 1, index 1 => SV ID 2, etc)
+# DataSetName optional string Optional name of the data set to use. If no value is provided, the active data set is used.
 #
 
 class GetGalileoEphDoubleParamForEachSVResult(CommandResult):
 
-  def __init__(self, paramName, val):
+  def __init__(self, paramName, val, dataSetName = None):
     CommandResult.__init__(self, "GetGalileoEphDoubleParamForEachSVResult")
     self.setParamName(paramName)
     self.setVal(val)
+    self.setDataSetName(dataSetName)
 
   def isSuccess(self):
     return True
@@ -14277,21 +15299,29 @@ class GetGalileoEphDoubleParamForEachSVResult(CommandResult):
   def setVal(self, value):
     return self.set("Val", value)
 
+  def dataSetName(self):
+    return self.get("DataSetName")
+
+  def setDataSetName(self, value):
+    return self.set("DataSetName", value)
+
 #
 # Set BeiDou ephemeris parameter value for all satellites
 #
-# Name      Type         Description
-# --------- ------------ --------------------------------------------------------------------------------------------------
-# ParamName string       Refer to SetBeiDouEphDoubleParamForSV for accepted names
-# Val       array double Parameter value for each satellite. Zero based index (index 0 => SV ID 1, index 1 => SV ID 2, etc)
+# Name        Type            Description
+# ----------- --------------- --------------------------------------------------------------------------------------------------
+# ParamName   string          Refer to SetBeiDouEphDoubleParamForSV for accepted names
+# Val         array double    Parameter value for each satellite. Zero based index (index 0 => SV ID 1, index 1 => SV ID 2, etc)
+# DataSetName optional string Optional name of the data set to use. If no value is provided, the active data set is used.
 #
 
 class SetBeiDouEphDoubleParamForEachSV(CommandBase):
 
-  def __init__(self, paramName, val):
+  def __init__(self, paramName, val, dataSetName = None):
     CommandBase.__init__(self, "SetBeiDouEphDoubleParamForEachSV")
     self.setParamName(paramName)
     self.setVal(val)
+    self.setDataSetName(dataSetName)
 
   def executePermission(self):
     return ExecutePermission.EXECUTE_IF_IDLE
@@ -14307,24 +15337,32 @@ class SetBeiDouEphDoubleParamForEachSV(CommandBase):
 
   def setVal(self, value):
     return self.set("Val", value)
+
+  def dataSetName(self):
+    return self.get("DataSetName")
+
+  def setDataSetName(self, value):
+    return self.set("DataSetName", value)
 
 #
 # Please note the command SetBeiDouEphemerisDoubleParams is deprecated since 21.3. You may use SetBeiDouEphDoubleParamForEachSV.
 # 
 # Set BeiDou ephemeris parameter value for all satellites
 #
-# Name      Type         Description
-# --------- ------------ --------------------------------------------------------------------------------------------------
-# ParamName string       Refer to SetBeiDouEphDoubleParamForSV for accepted names
-# Val       array double Parameter value for each satellite. Zero based index (index 0 => SV ID 1, index 1 => SV ID 2, etc)
+# Name        Type            Description
+# ----------- --------------- --------------------------------------------------------------------------------------------------
+# ParamName   string          Refer to SetBeiDouEphDoubleParamForSV for accepted names
+# Val         array double    Parameter value for each satellite. Zero based index (index 0 => SV ID 1, index 1 => SV ID 2, etc)
+# DataSetName optional string Optional name of the data set to use. If no value is provided, the active data set is used.
 #
 
 class SetBeiDouEphemerisDoubleParams(CommandBase):
 
-  def __init__(self, paramName, val):
+  def __init__(self, paramName, val, dataSetName = None):
     CommandBase.__init__(self, "SetBeiDouEphemerisDoubleParams")
     self.setParamName(paramName)
     self.setVal(val)
+    self.setDataSetName(dataSetName)
 
   def executePermission(self):
     return ExecutePermission.EXECUTE_IF_IDLE
@@ -14341,19 +15379,27 @@ class SetBeiDouEphemerisDoubleParams(CommandBase):
   def setVal(self, value):
     return self.set("Val", value)
 
+  def dataSetName(self):
+    return self.get("DataSetName")
+
+  def setDataSetName(self, value):
+    return self.set("DataSetName", value)
+
 #
 # Get BeiDou ephemeris parameter value for all satellites
 #
-# Name      Type   Description
-# --------- ------ --------------------------------------------------------
-# ParamName string Refer to SetBeiDouEphDoubleParamForSV for accepted names
+# Name        Type            Description
+# ----------- --------------- -------------------------------------------------------------------------------------------
+# ParamName   string          Refer to SetBeiDouEphDoubleParamForSV for accepted names
+# DataSetName optional string Optional name of the data set to use. If no value is provided, the active data set is used.
 #
 
 class GetBeiDouEphDoubleParamForEachSV(CommandBase):
 
-  def __init__(self, paramName):
+  def __init__(self, paramName, dataSetName = None):
     CommandBase.__init__(self, "GetBeiDouEphDoubleParamForEachSV")
     self.setParamName(paramName)
+    self.setDataSetName(dataSetName)
 
   def executePermission(self):
     return ExecutePermission.EXECUTE_IF_IDLE
@@ -14363,22 +15409,30 @@ class GetBeiDouEphDoubleParamForEachSV(CommandBase):
 
   def setParamName(self, value):
     return self.set("ParamName", value)
+
+  def dataSetName(self):
+    return self.get("DataSetName")
+
+  def setDataSetName(self, value):
+    return self.set("DataSetName", value)
 
 #
 # Please note the command GetBeiDouEphemerisDoubleParams is deprecated since 21.3. You may use GetBeiDouEphDoubleParamForEachSV.
 # 
 # Get BeiDou ephemeris parameter value for all satellites
 #
-# Name      Type   Description
-# --------- ------ --------------------------------------------------------
-# ParamName string Refer to SetBeiDouEphDoubleParamForSV for accepted names
+# Name        Type            Description
+# ----------- --------------- -------------------------------------------------------------------------------------------
+# ParamName   string          Refer to SetBeiDouEphDoubleParamForSV for accepted names
+# DataSetName optional string Optional name of the data set to use. If no value is provided, the active data set is used.
 #
 
 class GetBeiDouEphemerisDoubleParams(CommandBase):
 
-  def __init__(self, paramName):
+  def __init__(self, paramName, dataSetName = None):
     CommandBase.__init__(self, "GetBeiDouEphemerisDoubleParams")
     self.setParamName(paramName)
+    self.setDataSetName(dataSetName)
 
   def executePermission(self):
     return ExecutePermission.EXECUTE_IF_IDLE
@@ -14389,21 +15443,29 @@ class GetBeiDouEphemerisDoubleParams(CommandBase):
   def setParamName(self, value):
     return self.set("ParamName", value)
 
+  def dataSetName(self):
+    return self.get("DataSetName")
+
+  def setDataSetName(self, value):
+    return self.set("DataSetName", value)
+
 #
 # Result of GetBeiDouEphDoubleParamForEachSV.
 #
-# Name      Type         Description
-# --------- ------------ --------------------------------------------------------------------------------------------------
-# ParamName string       Refer to SetBeiDouEphDoubleParamForSV for accepted names
-# Val       array double Parameter value for each satellite. Zero based index (index 0 => SV ID 1, index 1 => SV ID 2, etc)
+# Name        Type            Description
+# ----------- --------------- --------------------------------------------------------------------------------------------------
+# ParamName   string          Refer to SetBeiDouEphDoubleParamForSV for accepted names
+# Val         array double    Parameter value for each satellite. Zero based index (index 0 => SV ID 1, index 1 => SV ID 2, etc)
+# DataSetName optional string Optional name of the data set to use. If no value is provided, the active data set is used.
 #
 
 class GetBeiDouEphDoubleParamForEachSVResult(CommandResult):
 
-  def __init__(self, paramName, val):
+  def __init__(self, paramName, val, dataSetName = None):
     CommandResult.__init__(self, "GetBeiDouEphDoubleParamForEachSVResult")
     self.setParamName(paramName)
     self.setVal(val)
+    self.setDataSetName(dataSetName)
 
   def isSuccess(self):
     return True
@@ -14419,6 +15481,12 @@ class GetBeiDouEphDoubleParamForEachSVResult(CommandResult):
 
   def setVal(self, value):
     return self.set("Val", value)
+
+  def dataSetName(self):
+    return self.get("DataSetName")
+
+  def setDataSetName(self, value):
+    return self.set("DataSetName", value)
 
 #
 # Set GLONASS parameter value for all satellites
@@ -14602,18 +15670,20 @@ class GetGlonassFrequencyNumberForEachSVResult(CommandResult):
 #
 # Set QZSS ephemeris parameter value for all satellites
 #
-# Name      Type         Description
-# --------- ------------ --------------------------------------------------------------------------------------------------
-# ParamName string       Refer to SetQzssEphDoubleParamForSV for accepted names
-# Val       array double Parameter value for each satellite. Zero based index (index 0 => SV ID 1, index 1 => SV ID 2, etc)
+# Name        Type            Description
+# ----------- --------------- --------------------------------------------------------------------------------------------------
+# ParamName   string          Refer to SetQzssEphDoubleParamForSV for accepted names
+# Val         array double    Parameter value for each satellite. Zero based index (index 0 => SV ID 1, index 1 => SV ID 2, etc)
+# DataSetName optional string Optional name of the data set to use. If no value is provided, the active data set is used.
 #
 
 class SetQzssEphDoubleParamForEachSV(CommandBase):
 
-  def __init__(self, paramName, val):
+  def __init__(self, paramName, val, dataSetName = None):
     CommandBase.__init__(self, "SetQzssEphDoubleParamForEachSV")
     self.setParamName(paramName)
     self.setVal(val)
+    self.setDataSetName(dataSetName)
 
   def executePermission(self):
     return ExecutePermission.EXECUTE_IF_IDLE
@@ -14629,24 +15699,32 @@ class SetQzssEphDoubleParamForEachSV(CommandBase):
 
   def setVal(self, value):
     return self.set("Val", value)
+
+  def dataSetName(self):
+    return self.get("DataSetName")
+
+  def setDataSetName(self, value):
+    return self.set("DataSetName", value)
 
 #
 # Please note the command SetQzssEphemerisDoubleParams is deprecated since 21.3. You may use SetQzssEphDoubleParamForEachSV.
 # 
 # Set QZSS ephemeris parameter value for all satellites
 #
-# Name      Type         Description
-# --------- ------------ --------------------------------------------------------------------------------------------------
-# ParamName string       Refer to SetQzssEphDoubleParamForSV for accepted names
-# Val       array double Parameter value for each satellite. Zero based index (index 0 => SV ID 1, index 1 => SV ID 2, etc)
+# Name        Type            Description
+# ----------- --------------- --------------------------------------------------------------------------------------------------
+# ParamName   string          Refer to SetQzssEphDoubleParamForSV for accepted names
+# Val         array double    Parameter value for each satellite. Zero based index (index 0 => SV ID 1, index 1 => SV ID 2, etc)
+# DataSetName optional string Optional name of the data set to use. If no value is provided, the active data set is used.
 #
 
 class SetQzssEphemerisDoubleParams(CommandBase):
 
-  def __init__(self, paramName, val):
+  def __init__(self, paramName, val, dataSetName = None):
     CommandBase.__init__(self, "SetQzssEphemerisDoubleParams")
     self.setParamName(paramName)
     self.setVal(val)
+    self.setDataSetName(dataSetName)
 
   def executePermission(self):
     return ExecutePermission.EXECUTE_IF_IDLE
@@ -14663,19 +15741,27 @@ class SetQzssEphemerisDoubleParams(CommandBase):
   def setVal(self, value):
     return self.set("Val", value)
 
+  def dataSetName(self):
+    return self.get("DataSetName")
+
+  def setDataSetName(self, value):
+    return self.set("DataSetName", value)
+
 #
 # Get QZSS ephemeris parameter value for all satellites
 #
-# Name      Type   Description
-# --------- ------ ------------------------------------------------------
-# ParamName string Refer to SetQzssEphDoubleParamForSV for accepted names
+# Name        Type            Description
+# ----------- --------------- -------------------------------------------------------------------------------------------
+# ParamName   string          Refer to SetQzssEphDoubleParamForSV for accepted names
+# DataSetName optional string Optional name of the data set to use. If no value is provided, the active data set is used.
 #
 
 class GetQzssEphDoubleParamForEachSV(CommandBase):
 
-  def __init__(self, paramName):
+  def __init__(self, paramName, dataSetName = None):
     CommandBase.__init__(self, "GetQzssEphDoubleParamForEachSV")
     self.setParamName(paramName)
+    self.setDataSetName(dataSetName)
 
   def executePermission(self):
     return ExecutePermission.EXECUTE_IF_IDLE
@@ -14685,22 +15771,30 @@ class GetQzssEphDoubleParamForEachSV(CommandBase):
 
   def setParamName(self, value):
     return self.set("ParamName", value)
+
+  def dataSetName(self):
+    return self.get("DataSetName")
+
+  def setDataSetName(self, value):
+    return self.set("DataSetName", value)
 
 #
 # Please note the command GetQzssEphemerisDoubleParams is deprecated since 21.3. You may use GetQzssEphDoubleParamForEachSV.
 # 
 # Get QZSS ephemeris parameter value for all satellites
 #
-# Name      Type   Description
-# --------- ------ ------------------------------------------------------
-# ParamName string Refer to SetQzssEphDoubleParamForSV for accepted names
+# Name        Type            Description
+# ----------- --------------- -------------------------------------------------------------------------------------------
+# ParamName   string          Refer to SetQzssEphDoubleParamForSV for accepted names
+# DataSetName optional string Optional name of the data set to use. If no value is provided, the active data set is used.
 #
 
 class GetQzssEphemerisDoubleParams(CommandBase):
 
-  def __init__(self, paramName):
+  def __init__(self, paramName, dataSetName = None):
     CommandBase.__init__(self, "GetQzssEphemerisDoubleParams")
     self.setParamName(paramName)
+    self.setDataSetName(dataSetName)
 
   def executePermission(self):
     return ExecutePermission.EXECUTE_IF_IDLE
@@ -14711,21 +15805,29 @@ class GetQzssEphemerisDoubleParams(CommandBase):
   def setParamName(self, value):
     return self.set("ParamName", value)
 
+  def dataSetName(self):
+    return self.get("DataSetName")
+
+  def setDataSetName(self, value):
+    return self.set("DataSetName", value)
+
 #
 # Result of GetQzssEphDoubleParamForEachSV.
 #
-# Name      Type         Description
-# --------- ------------ --------------------------------------------------------------------------------------------------
-# ParamName string       Refer to SetQzssEphDoubleParamForSV for accepted names
-# Val       array double Parameter value for each satellite. Zero based index (index 0 => SV ID 1, index 1 => SV ID 2, etc)
+# Name        Type            Description
+# ----------- --------------- --------------------------------------------------------------------------------------------------
+# ParamName   string          Refer to SetQzssEphDoubleParamForSV for accepted names
+# Val         array double    Parameter value for each satellite. Zero based index (index 0 => SV ID 1, index 1 => SV ID 2, etc)
+# DataSetName optional string Optional name of the data set to use. If no value is provided, the active data set is used.
 #
 
 class GetQzssEphDoubleParamForEachSVResult(CommandResult):
 
-  def __init__(self, paramName, val):
+  def __init__(self, paramName, val, dataSetName = None):
     CommandResult.__init__(self, "GetQzssEphDoubleParamForEachSVResult")
     self.setParamName(paramName)
     self.setVal(val)
+    self.setDataSetName(dataSetName)
 
   def isSuccess(self):
     return True
@@ -14742,21 +15844,29 @@ class GetQzssEphDoubleParamForEachSVResult(CommandResult):
   def setVal(self, value):
     return self.set("Val", value)
 
+  def dataSetName(self):
+    return self.get("DataSetName")
+
+  def setDataSetName(self, value):
+    return self.set("DataSetName", value)
+
 #
 # Set NavIC ephemeris parameter value for all satellites
 #
-# Name      Type         Description
-# --------- ------------ --------------------------------------------------------------------------------------------------
-# ParamName string       Refer to SetNavICEphDoubleParamForSV for accepted names
-# Val       array double Parameter value for each satellite. Zero based index (index 0 => SV ID 1, index 1 => SV ID 2, etc)
+# Name        Type            Description
+# ----------- --------------- --------------------------------------------------------------------------------------------------
+# ParamName   string          Refer to SetNavICEphDoubleParamForSV for accepted names
+# Val         array double    Parameter value for each satellite. Zero based index (index 0 => SV ID 1, index 1 => SV ID 2, etc)
+# DataSetName optional string Optional name of the data set to use. If no value is provided, the active data set is used.
 #
 
 class SetNavICEphDoubleParamForEachSV(CommandBase):
 
-  def __init__(self, paramName, val):
+  def __init__(self, paramName, val, dataSetName = None):
     CommandBase.__init__(self, "SetNavICEphDoubleParamForEachSV")
     self.setParamName(paramName)
     self.setVal(val)
+    self.setDataSetName(dataSetName)
 
   def executePermission(self):
     return ExecutePermission.EXECUTE_IF_IDLE
@@ -14772,24 +15882,32 @@ class SetNavICEphDoubleParamForEachSV(CommandBase):
 
   def setVal(self, value):
     return self.set("Val", value)
+
+  def dataSetName(self):
+    return self.get("DataSetName")
+
+  def setDataSetName(self, value):
+    return self.set("DataSetName", value)
 
 #
 # Please note the command SetNavICEphemerisDoubleParams is deprecated since 21.3. You may use SetNavICEphDoubleParamForEachSV.
 # 
 # Set NavIC ephemeris parameter value for all satellites
 #
-# Name      Type         Description
-# --------- ------------ --------------------------------------------------------------------------------------------------
-# ParamName string       Refer to SetNavICEphDoubleParamForSV for accepted names
-# Val       array double Parameter value for each satellite. Zero based index (index 0 => SV ID 1, index 1 => SV ID 2, etc)
+# Name        Type            Description
+# ----------- --------------- --------------------------------------------------------------------------------------------------
+# ParamName   string          Refer to SetNavICEphDoubleParamForSV for accepted names
+# Val         array double    Parameter value for each satellite. Zero based index (index 0 => SV ID 1, index 1 => SV ID 2, etc)
+# DataSetName optional string Optional name of the data set to use. If no value is provided, the active data set is used.
 #
 
 class SetNavICEphemerisDoubleParams(CommandBase):
 
-  def __init__(self, paramName, val):
+  def __init__(self, paramName, val, dataSetName = None):
     CommandBase.__init__(self, "SetNavICEphemerisDoubleParams")
     self.setParamName(paramName)
     self.setVal(val)
+    self.setDataSetName(dataSetName)
 
   def executePermission(self):
     return ExecutePermission.EXECUTE_IF_IDLE
@@ -14806,19 +15924,27 @@ class SetNavICEphemerisDoubleParams(CommandBase):
   def setVal(self, value):
     return self.set("Val", value)
 
+  def dataSetName(self):
+    return self.get("DataSetName")
+
+  def setDataSetName(self, value):
+    return self.set("DataSetName", value)
+
 #
 # Get NavIC ephemeris parameter value for all satellites
 #
-# Name      Type   Description
-# --------- ------ -------------------------------------------------------
-# ParamName string Refer to SetNavICEphDoubleParamForSV for accepted names
+# Name        Type            Description
+# ----------- --------------- -------------------------------------------------------------------------------------------
+# ParamName   string          Refer to SetNavICEphDoubleParamForSV for accepted names
+# DataSetName optional string Optional name of the data set to use. If no value is provided, the active data set is used.
 #
 
 class GetNavICEphDoubleParamForEachSV(CommandBase):
 
-  def __init__(self, paramName):
+  def __init__(self, paramName, dataSetName = None):
     CommandBase.__init__(self, "GetNavICEphDoubleParamForEachSV")
     self.setParamName(paramName)
+    self.setDataSetName(dataSetName)
 
   def executePermission(self):
     return ExecutePermission.EXECUTE_IF_IDLE
@@ -14828,22 +15954,30 @@ class GetNavICEphDoubleParamForEachSV(CommandBase):
 
   def setParamName(self, value):
     return self.set("ParamName", value)
+
+  def dataSetName(self):
+    return self.get("DataSetName")
+
+  def setDataSetName(self, value):
+    return self.set("DataSetName", value)
 
 #
 # Please note the command GetNavICEphemerisDoubleParams is deprecated since 21.3. You may use GetNavICEphDoubleParamForEachSV.
 # 
 # Get NavIC ephemeris parameter value for all satellites
 #
-# Name      Type   Description
-# --------- ------ -------------------------------------------------------
-# ParamName string Refer to SetNavICEphDoubleParamForSV for accepted names
+# Name        Type            Description
+# ----------- --------------- -------------------------------------------------------------------------------------------
+# ParamName   string          Refer to SetNavICEphDoubleParamForSV for accepted names
+# DataSetName optional string Optional name of the data set to use. If no value is provided, the active data set is used.
 #
 
 class GetNavICEphemerisDoubleParams(CommandBase):
 
-  def __init__(self, paramName):
+  def __init__(self, paramName, dataSetName = None):
     CommandBase.__init__(self, "GetNavICEphemerisDoubleParams")
     self.setParamName(paramName)
+    self.setDataSetName(dataSetName)
 
   def executePermission(self):
     return ExecutePermission.EXECUTE_IF_IDLE
@@ -14854,21 +15988,29 @@ class GetNavICEphemerisDoubleParams(CommandBase):
   def setParamName(self, value):
     return self.set("ParamName", value)
 
+  def dataSetName(self):
+    return self.get("DataSetName")
+
+  def setDataSetName(self, value):
+    return self.set("DataSetName", value)
+
 #
 # Result of GetNavICEphDoubleParamForEachSV.
 #
-# Name      Type         Description
-# --------- ------------ --------------------------------------------------------------------------------------------------
-# ParamName string       Refer to SetNavICEphDoubleParamForSV for accepted names
-# Val       array double Parameter value for each satellite. Zero based index (index 0 => SV ID 1, index 1 => SV ID 2, etc)
+# Name        Type            Description
+# ----------- --------------- --------------------------------------------------------------------------------------------------
+# ParamName   string          Refer to SetNavICEphDoubleParamForSV for accepted names
+# Val         array double    Parameter value for each satellite. Zero based index (index 0 => SV ID 1, index 1 => SV ID 2, etc)
+# DataSetName optional string Optional name of the data set to use. If no value is provided, the active data set is used.
 #
 
 class GetNavICEphDoubleParamForEachSVResult(CommandResult):
 
-  def __init__(self, paramName, val):
+  def __init__(self, paramName, val, dataSetName = None):
     CommandResult.__init__(self, "GetNavICEphDoubleParamForEachSVResult")
     self.setParamName(paramName)
     self.setVal(val)
+    self.setDataSetName(dataSetName)
 
   def isSuccess(self):
     return True
@@ -14884,6 +16026,12 @@ class GetNavICEphDoubleParamForEachSVResult(CommandResult):
 
   def setVal(self, value):
     return self.set("Val", value)
+
+  def dataSetName(self):
+    return self.get("DataSetName")
+
+  def setDataSetName(self, value):
+    return self.set("DataSetName", value)
 
 #
 # Set various boolean parameters in the GPS ephemeris
@@ -14896,20 +16044,22 @@ class GetNavICEphDoubleParamForEachSVResult(CommandResult):
 # "IscL1CPAvailable"
 # "IscL1CDAvailable"
 #
-# Name      Type   Description
-# --------- ------ --------------------------------------------------------------------
-# SvId      int    Satellite SV ID 1..32, or use 0 to apply new value to all satellites
-# ParamName string Parameter name (see table above for accepted names)
-# Val       bool   Parameter value (see table above for unit)
+# Name        Type            Description
+# ----------- --------------- -------------------------------------------------------------------------------------------
+# SvId        int             Satellite SV ID 1..32, or use 0 to apply new value to all satellites
+# ParamName   string          Parameter name (see table above for accepted names)
+# Val         bool            Parameter value (see table above for unit)
+# DataSetName optional string Optional name of the data set to use. If no value is provided, the active data set is used.
 #
 
 class SetGpsEphBoolParamForSV(CommandBase):
 
-  def __init__(self, svId, paramName, val):
+  def __init__(self, svId, paramName, val, dataSetName = None):
     CommandBase.__init__(self, "SetGpsEphBoolParamForSV")
     self.setSvId(svId)
     self.setParamName(paramName)
     self.setVal(val)
+    self.setDataSetName(dataSetName)
 
   def executePermission(self):
     return ExecutePermission.EXECUTE_IF_IDLE
@@ -14931,6 +16081,12 @@ class SetGpsEphBoolParamForSV(CommandBase):
 
   def setVal(self, value):
     return self.set("Val", value)
+
+  def dataSetName(self):
+    return self.get("DataSetName")
+
+  def setDataSetName(self, value):
+    return self.set("DataSetName", value)
 
 #
 # Get various boolean parameters in the GPS ephemeris
@@ -14943,18 +16099,20 @@ class SetGpsEphBoolParamForSV(CommandBase):
 # "IscL1CPAvailable"
 # "IscL1CDAvailable"
 #
-# Name      Type   Description
-# --------- ------ --------------------------------------------------------------------
-# SvId      int    Satellite SV ID 1..32, or use 0 to apply new value to all satellites
-# ParamName string Parameter name (see table above for accepted names)
+# Name        Type            Description
+# ----------- --------------- -------------------------------------------------------------------------------------------
+# SvId        int             Satellite SV ID 1..32, or use 0 to apply new value to all satellites
+# ParamName   string          Parameter name (see table above for accepted names)
+# DataSetName optional string Optional name of the data set to use. If no value is provided, the active data set is used.
 #
 
 class GetGpsEphBoolParamForSV(CommandBase):
 
-  def __init__(self, svId, paramName):
+  def __init__(self, svId, paramName, dataSetName = None):
     CommandBase.__init__(self, "GetGpsEphBoolParamForSV")
     self.setSvId(svId)
     self.setParamName(paramName)
+    self.setDataSetName(dataSetName)
 
   def executePermission(self):
     return ExecutePermission.EXECUTE_IF_IDLE
@@ -14971,23 +16129,31 @@ class GetGpsEphBoolParamForSV(CommandBase):
   def setParamName(self, value):
     return self.set("ParamName", value)
 
+  def dataSetName(self):
+    return self.get("DataSetName")
+
+  def setDataSetName(self, value):
+    return self.set("DataSetName", value)
+
 #
 # Result of GetGpsEphBoolParamForSV.
 #
-# Name      Type   Description
-# --------- ------ --------------------------------------------------------------------
-# SvId      int    Satellite SV ID 1..32, or use 0 to apply new value to all satellites
-# ParamName string Parameter name (see table above for accepted names)
-# Val       bool   Parameter value (see table above for unit)
+# Name        Type            Description
+# ----------- --------------- -------------------------------------------------------------------------------------------
+# SvId        int             Satellite SV ID 1..32, or use 0 to apply new value to all satellites
+# ParamName   string          Parameter name (see table above for accepted names)
+# Val         bool            Parameter value (see table above for unit)
+# DataSetName optional string Optional name of the data set to use. If no value is provided, the active data set is used.
 #
 
 class GetGpsEphBoolParamForSVResult(CommandResult):
 
-  def __init__(self, svId, paramName, val):
+  def __init__(self, svId, paramName, val, dataSetName = None):
     CommandResult.__init__(self, "GetGpsEphBoolParamForSVResult")
     self.setSvId(svId)
     self.setParamName(paramName)
     self.setVal(val)
+    self.setDataSetName(dataSetName)
 
   def isSuccess(self):
     return True
@@ -15010,21 +16176,29 @@ class GetGpsEphBoolParamForSVResult(CommandResult):
   def setVal(self, value):
     return self.set("Val", value)
 
+  def dataSetName(self):
+    return self.get("DataSetName")
+
+  def setDataSetName(self, value):
+    return self.set("DataSetName", value)
+
 #
 # Set GPS ephemeris boolean parameter value for all satellites
 #
-# Name      Type       Description
-# --------- ---------- --------------------------------------------------------------------------------------------------
-# ParamName string     Refer to SetGpsEphBoolParamForSV for accepted names
-# Val       array bool Parameter value for each satellite. Zero based index (index 0 => SV ID 1, index 1 => SV ID 2, etc)
+# Name        Type            Description
+# ----------- --------------- --------------------------------------------------------------------------------------------------
+# ParamName   string          Refer to SetGpsEphBoolParamForSV for accepted names
+# Val         array bool      Parameter value for each satellite. Zero based index (index 0 => SV ID 1, index 1 => SV ID 2, etc)
+# DataSetName optional string Optional name of the data set to use. If no value is provided, the active data set is used.
 #
 
 class SetGpsEphBoolParamForEachSV(CommandBase):
 
-  def __init__(self, paramName, val):
+  def __init__(self, paramName, val, dataSetName = None):
     CommandBase.__init__(self, "SetGpsEphBoolParamForEachSV")
     self.setParamName(paramName)
     self.setVal(val)
+    self.setDataSetName(dataSetName)
 
   def executePermission(self):
     return ExecutePermission.EXECUTE_IF_IDLE
@@ -15040,24 +16214,32 @@ class SetGpsEphBoolParamForEachSV(CommandBase):
 
   def setVal(self, value):
     return self.set("Val", value)
+
+  def dataSetName(self):
+    return self.get("DataSetName")
+
+  def setDataSetName(self, value):
+    return self.set("DataSetName", value)
 
 #
 # Please note the command SetGpsEphemerisBoolParams is deprecated since 21.3. You may use SetGpsEphBoolParamForEachSV.
 # 
 # Set GPS ephemeris boolean parameter value for all satellites
 #
-# Name      Type       Description
-# --------- ---------- --------------------------------------------------------------------------------------------------
-# ParamName string     Refer to SetGpsEphBoolParamForSV for accepted names
-# Val       array bool Parameter value for each satellite. Zero based index (index 0 => SV ID 1, index 1 => SV ID 2, etc)
+# Name        Type            Description
+# ----------- --------------- --------------------------------------------------------------------------------------------------
+# ParamName   string          Refer to SetGpsEphBoolParamForSV for accepted names
+# Val         array bool      Parameter value for each satellite. Zero based index (index 0 => SV ID 1, index 1 => SV ID 2, etc)
+# DataSetName optional string Optional name of the data set to use. If no value is provided, the active data set is used.
 #
 
 class SetGpsEphemerisBoolParams(CommandBase):
 
-  def __init__(self, paramName, val):
+  def __init__(self, paramName, val, dataSetName = None):
     CommandBase.__init__(self, "SetGpsEphemerisBoolParams")
     self.setParamName(paramName)
     self.setVal(val)
+    self.setDataSetName(dataSetName)
 
   def executePermission(self):
     return ExecutePermission.EXECUTE_IF_IDLE
@@ -15074,19 +16256,27 @@ class SetGpsEphemerisBoolParams(CommandBase):
   def setVal(self, value):
     return self.set("Val", value)
 
+  def dataSetName(self):
+    return self.get("DataSetName")
+
+  def setDataSetName(self, value):
+    return self.set("DataSetName", value)
+
 #
 # Get GPS ephemeris boolean parameter value for all satellites
 #
-# Name      Type   Description
-# --------- ------ ---------------------------------------------------
-# ParamName string Refer to SetGpsEphBoolParamForSV for accepted names
+# Name        Type            Description
+# ----------- --------------- -------------------------------------------------------------------------------------------
+# ParamName   string          Refer to SetGpsEphBoolParamForSV for accepted names
+# DataSetName optional string Optional name of the data set to use. If no value is provided, the active data set is used.
 #
 
 class GetGpsEphBoolParamForEachSV(CommandBase):
 
-  def __init__(self, paramName):
+  def __init__(self, paramName, dataSetName = None):
     CommandBase.__init__(self, "GetGpsEphBoolParamForEachSV")
     self.setParamName(paramName)
+    self.setDataSetName(dataSetName)
 
   def executePermission(self):
     return ExecutePermission.EXECUTE_IF_IDLE
@@ -15096,22 +16286,30 @@ class GetGpsEphBoolParamForEachSV(CommandBase):
 
   def setParamName(self, value):
     return self.set("ParamName", value)
+
+  def dataSetName(self):
+    return self.get("DataSetName")
+
+  def setDataSetName(self, value):
+    return self.set("DataSetName", value)
 
 #
 # Please note the command GetGpsEphemerisBoolParams is deprecated since 21.3. You may use GetGpsEphBoolParamForEachSV.
 # 
 # Get GPS ephemeris boolean parameter value for all satellites
 #
-# Name      Type   Description
-# --------- ------ ---------------------------------------------------
-# ParamName string Refer to SetGpsEphBoolParamForSV for accepted names
+# Name        Type            Description
+# ----------- --------------- -------------------------------------------------------------------------------------------
+# ParamName   string          Refer to SetGpsEphBoolParamForSV for accepted names
+# DataSetName optional string Optional name of the data set to use. If no value is provided, the active data set is used.
 #
 
 class GetGpsEphemerisBoolParams(CommandBase):
 
-  def __init__(self, paramName):
+  def __init__(self, paramName, dataSetName = None):
     CommandBase.__init__(self, "GetGpsEphemerisBoolParams")
     self.setParamName(paramName)
+    self.setDataSetName(dataSetName)
 
   def executePermission(self):
     return ExecutePermission.EXECUTE_IF_IDLE
@@ -15122,21 +16320,29 @@ class GetGpsEphemerisBoolParams(CommandBase):
   def setParamName(self, value):
     return self.set("ParamName", value)
 
+  def dataSetName(self):
+    return self.get("DataSetName")
+
+  def setDataSetName(self, value):
+    return self.set("DataSetName", value)
+
 #
 # Result of GetGpsEphBoolParamForEachSV.
 #
-# Name      Type       Description
-# --------- ---------- --------------------------------------------------------------------------------------------------
-# ParamName string     Refer to SetGpsEphBoolParamForSV for accepted names
-# Val       array bool Parameter value for each satellite. Zero based index (index 0 => SV ID 1, index 1 => SV ID 2, etc)
+# Name        Type            Description
+# ----------- --------------- --------------------------------------------------------------------------------------------------
+# ParamName   string          Refer to SetGpsEphBoolParamForSV for accepted names
+# Val         array bool      Parameter value for each satellite. Zero based index (index 0 => SV ID 1, index 1 => SV ID 2, etc)
+# DataSetName optional string Optional name of the data set to use. If no value is provided, the active data set is used.
 #
 
 class GetGpsEphBoolParamForEachSVResult(CommandResult):
 
-  def __init__(self, paramName, val):
+  def __init__(self, paramName, val, dataSetName = None):
     CommandResult.__init__(self, "GetGpsEphBoolParamForEachSVResult")
     self.setParamName(paramName)
     self.setVal(val)
+    self.setDataSetName(dataSetName)
 
   def isSuccess(self):
     return True
@@ -15152,6 +16358,12 @@ class GetGpsEphBoolParamForEachSVResult(CommandResult):
 
   def setVal(self, value):
     return self.set("Val", value)
+
+  def dataSetName(self):
+    return self.get("DataSetName")
+
+  def setDataSetName(self, value):
+    return self.set("DataSetName", value)
 
 #
 # Set various boolean parameters in the BeiDou ephemeris
@@ -15160,20 +16372,22 @@ class GetGpsEphBoolParamForEachSVResult(CommandResult):
 # "IscB1CdAvailable"
 # "IscB2adAvailable"
 #
-# Name      Type   Description
-# --------- ------ --------------------------------------------------------------------
-# SvId      int    Satellite SV ID 1..35, or use 0 to apply new value to all satellites
-# ParamName string Parameter name (see table above for accepted names)
-# Val       bool   Parameter value (see table above for unit)
+# Name        Type            Description
+# ----------- --------------- -------------------------------------------------------------------------------------------
+# SvId        int             Satellite SV ID 1..35, or use 0 to apply new value to all satellites
+# ParamName   string          Parameter name (see table above for accepted names)
+# Val         bool            Parameter value (see table above for unit)
+# DataSetName optional string Optional name of the data set to use. If no value is provided, the active data set is used.
 #
 
 class SetBeiDouEphBoolParamForSV(CommandBase):
 
-  def __init__(self, svId, paramName, val):
+  def __init__(self, svId, paramName, val, dataSetName = None):
     CommandBase.__init__(self, "SetBeiDouEphBoolParamForSV")
     self.setSvId(svId)
     self.setParamName(paramName)
     self.setVal(val)
+    self.setDataSetName(dataSetName)
 
   def executePermission(self):
     return ExecutePermission.EXECUTE_IF_IDLE
@@ -15195,6 +16409,12 @@ class SetBeiDouEphBoolParamForSV(CommandBase):
 
   def setVal(self, value):
     return self.set("Val", value)
+
+  def dataSetName(self):
+    return self.get("DataSetName")
+
+  def setDataSetName(self, value):
+    return self.set("DataSetName", value)
 
 #
 # Get various boolean parameters in the BeiDou ephemeris
@@ -15203,18 +16423,20 @@ class SetBeiDouEphBoolParamForSV(CommandBase):
 # "IscB1CdAvailable"
 # "IscB2adAvailable"
 #
-# Name      Type   Description
-# --------- ------ --------------------------------------------------------------------
-# SvId      int    Satellite SV ID 1..35, or use 0 to apply new value to all satellites
-# ParamName string Parameter name (see table above for accepted names)
+# Name        Type            Description
+# ----------- --------------- -------------------------------------------------------------------------------------------
+# SvId        int             Satellite SV ID 1..35, or use 0 to apply new value to all satellites
+# ParamName   string          Parameter name (see table above for accepted names)
+# DataSetName optional string Optional name of the data set to use. If no value is provided, the active data set is used.
 #
 
 class GetBeiDouEphBoolParamForSV(CommandBase):
 
-  def __init__(self, svId, paramName):
+  def __init__(self, svId, paramName, dataSetName = None):
     CommandBase.__init__(self, "GetBeiDouEphBoolParamForSV")
     self.setSvId(svId)
     self.setParamName(paramName)
+    self.setDataSetName(dataSetName)
 
   def executePermission(self):
     return ExecutePermission.EXECUTE_IF_IDLE
@@ -15231,23 +16453,31 @@ class GetBeiDouEphBoolParamForSV(CommandBase):
   def setParamName(self, value):
     return self.set("ParamName", value)
 
+  def dataSetName(self):
+    return self.get("DataSetName")
+
+  def setDataSetName(self, value):
+    return self.set("DataSetName", value)
+
 #
 # Result of GetBeiDouEphBoolParamForSV.
 #
-# Name      Type   Description
-# --------- ------ --------------------------------------------------------------------
-# SvId      int    Satellite SV ID 1..35, or use 0 to apply new value to all satellites
-# ParamName string Parameter name (see table above for accepted names)
-# Val       bool   Parameter value (see table above for unit)
+# Name        Type            Description
+# ----------- --------------- -------------------------------------------------------------------------------------------
+# SvId        int             Satellite SV ID 1..35, or use 0 to apply new value to all satellites
+# ParamName   string          Parameter name (see table above for accepted names)
+# Val         bool            Parameter value (see table above for unit)
+# DataSetName optional string Optional name of the data set to use. If no value is provided, the active data set is used.
 #
 
 class GetBeiDouEphBoolParamForSVResult(CommandResult):
 
-  def __init__(self, svId, paramName, val):
+  def __init__(self, svId, paramName, val, dataSetName = None):
     CommandResult.__init__(self, "GetBeiDouEphBoolParamForSVResult")
     self.setSvId(svId)
     self.setParamName(paramName)
     self.setVal(val)
+    self.setDataSetName(dataSetName)
 
   def isSuccess(self):
     return True
@@ -15270,21 +16500,29 @@ class GetBeiDouEphBoolParamForSVResult(CommandResult):
   def setVal(self, value):
     return self.set("Val", value)
 
+  def dataSetName(self):
+    return self.get("DataSetName")
+
+  def setDataSetName(self, value):
+    return self.set("DataSetName", value)
+
 #
 # Set BeiDou ephemeris boolean parameter value for all satellites
 #
-# Name      Type       Description
-# --------- ---------- --------------------------------------------------------------------------------------------------
-# ParamName string     Refer to SetBeiDouEphBoolParamForSV for accepted names
-# Val       array bool Parameter value for each satellite. Zero based index (index 0 => SV ID 1, index 1 => SV ID 2, etc)
+# Name        Type            Description
+# ----------- --------------- --------------------------------------------------------------------------------------------------
+# ParamName   string          Refer to SetBeiDouEphBoolParamForSV for accepted names
+# Val         array bool      Parameter value for each satellite. Zero based index (index 0 => SV ID 1, index 1 => SV ID 2, etc)
+# DataSetName optional string Optional name of the data set to use. If no value is provided, the active data set is used.
 #
 
 class SetBeiDouEphBoolParamForEachSV(CommandBase):
 
-  def __init__(self, paramName, val):
+  def __init__(self, paramName, val, dataSetName = None):
     CommandBase.__init__(self, "SetBeiDouEphBoolParamForEachSV")
     self.setParamName(paramName)
     self.setVal(val)
+    self.setDataSetName(dataSetName)
 
   def executePermission(self):
     return ExecutePermission.EXECUTE_IF_IDLE
@@ -15300,24 +16538,32 @@ class SetBeiDouEphBoolParamForEachSV(CommandBase):
 
   def setVal(self, value):
     return self.set("Val", value)
+
+  def dataSetName(self):
+    return self.get("DataSetName")
+
+  def setDataSetName(self, value):
+    return self.set("DataSetName", value)
 
 #
 # Please note the command SetBeiDouEphemerisBoolParams is deprecated since 21.3. You may use SetBeiDouEphBoolParamForEachSV.
 # 
 # Set BeiDou ephemeris boolean parameter value for all satellites
 #
-# Name      Type       Description
-# --------- ---------- --------------------------------------------------------------------------------------------------
-# ParamName string     Refer to SetBeiDouEphBoolParamForSV for accepted names
-# Val       array bool Parameter value for each satellite. Zero based index (index 0 => SV ID 1, index 1 => SV ID 2, etc)
+# Name        Type            Description
+# ----------- --------------- --------------------------------------------------------------------------------------------------
+# ParamName   string          Refer to SetBeiDouEphBoolParamForSV for accepted names
+# Val         array bool      Parameter value for each satellite. Zero based index (index 0 => SV ID 1, index 1 => SV ID 2, etc)
+# DataSetName optional string Optional name of the data set to use. If no value is provided, the active data set is used.
 #
 
 class SetBeiDouEphemerisBoolParams(CommandBase):
 
-  def __init__(self, paramName, val):
+  def __init__(self, paramName, val, dataSetName = None):
     CommandBase.__init__(self, "SetBeiDouEphemerisBoolParams")
     self.setParamName(paramName)
     self.setVal(val)
+    self.setDataSetName(dataSetName)
 
   def executePermission(self):
     return ExecutePermission.EXECUTE_IF_IDLE
@@ -15334,19 +16580,27 @@ class SetBeiDouEphemerisBoolParams(CommandBase):
   def setVal(self, value):
     return self.set("Val", value)
 
+  def dataSetName(self):
+    return self.get("DataSetName")
+
+  def setDataSetName(self, value):
+    return self.set("DataSetName", value)
+
 #
 # Get BeiDou ephemeris boolean parameter value for all satellites
 #
-# Name      Type   Description
-# --------- ------ ------------------------------------------------------
-# ParamName string Refer to SetBeiDouEphBoolParamForSV for accepted names
+# Name        Type            Description
+# ----------- --------------- -------------------------------------------------------------------------------------------
+# ParamName   string          Refer to SetBeiDouEphBoolParamForSV for accepted names
+# DataSetName optional string Optional name of the data set to use. If no value is provided, the active data set is used.
 #
 
 class GetBeiDouEphBoolParamForEachSV(CommandBase):
 
-  def __init__(self, paramName):
+  def __init__(self, paramName, dataSetName = None):
     CommandBase.__init__(self, "GetBeiDouEphBoolParamForEachSV")
     self.setParamName(paramName)
+    self.setDataSetName(dataSetName)
 
   def executePermission(self):
     return ExecutePermission.EXECUTE_IF_IDLE
@@ -15356,22 +16610,30 @@ class GetBeiDouEphBoolParamForEachSV(CommandBase):
 
   def setParamName(self, value):
     return self.set("ParamName", value)
+
+  def dataSetName(self):
+    return self.get("DataSetName")
+
+  def setDataSetName(self, value):
+    return self.set("DataSetName", value)
 
 #
 # Please note the command GetBeiDouEphemerisBoolParams is deprecated since 21.3. You may use GetBeiDouEphBoolParamForEachSV.
 # 
 # Get BeiDou ephemeris boolean parameter value for all satellites
 #
-# Name      Type   Description
-# --------- ------ ------------------------------------------------------
-# ParamName string Refer to SetBeiDouEphBoolParamForSV for accepted names
+# Name        Type            Description
+# ----------- --------------- -------------------------------------------------------------------------------------------
+# ParamName   string          Refer to SetBeiDouEphBoolParamForSV for accepted names
+# DataSetName optional string Optional name of the data set to use. If no value is provided, the active data set is used.
 #
 
 class GetBeiDouEphemerisBoolParams(CommandBase):
 
-  def __init__(self, paramName):
+  def __init__(self, paramName, dataSetName = None):
     CommandBase.__init__(self, "GetBeiDouEphemerisBoolParams")
     self.setParamName(paramName)
+    self.setDataSetName(dataSetName)
 
   def executePermission(self):
     return ExecutePermission.EXECUTE_IF_IDLE
@@ -15382,21 +16644,29 @@ class GetBeiDouEphemerisBoolParams(CommandBase):
   def setParamName(self, value):
     return self.set("ParamName", value)
 
+  def dataSetName(self):
+    return self.get("DataSetName")
+
+  def setDataSetName(self, value):
+    return self.set("DataSetName", value)
+
 #
 # Result of GetBeiDouEphBoolParamForEachSV.
 #
-# Name      Type       Description
-# --------- ---------- --------------------------------------------------------------------------------------------------
-# ParamName string     Refer to SetBeiDouEphBoolParamForSV for accepted names
-# Val       array bool Parameter value for each satellite. Zero based index (index 0 => SV ID 1, index 1 => SV ID 2, etc)
+# Name        Type            Description
+# ----------- --------------- --------------------------------------------------------------------------------------------------
+# ParamName   string          Refer to SetBeiDouEphBoolParamForSV for accepted names
+# Val         array bool      Parameter value for each satellite. Zero based index (index 0 => SV ID 1, index 1 => SV ID 2, etc)
+# DataSetName optional string Optional name of the data set to use. If no value is provided, the active data set is used.
 #
 
 class GetBeiDouEphBoolParamForEachSVResult(CommandResult):
 
-  def __init__(self, paramName, val):
+  def __init__(self, paramName, val, dataSetName = None):
     CommandResult.__init__(self, "GetBeiDouEphBoolParamForEachSVResult")
     self.setParamName(paramName)
     self.setVal(val)
+    self.setDataSetName(dataSetName)
 
   def isSuccess(self):
     return True
@@ -15412,6 +16682,12 @@ class GetBeiDouEphBoolParamForEachSVResult(CommandResult):
 
   def setVal(self, value):
     return self.set("Val", value)
+
+  def dataSetName(self):
+    return self.get("DataSetName")
+
+  def setDataSetName(self, value):
+    return self.set("DataSetName", value)
 
 #
 # Set various boolean parameters in the QZSS ephemeris
@@ -15424,20 +16700,22 @@ class GetBeiDouEphBoolParamForEachSVResult(CommandResult):
 # "IscL1CPAvailable"
 # "IscL1CDAvailable"
 #
-# Name      Type   Description
-# --------- ------ --------------------------------------------------------------------
-# SvId      int    Satellite SV ID 1..10, or use 0 to apply new value to all satellites
-# ParamName string Parameter name (see table above for accepted names)
-# Val       bool   Parameter value (see table above for unit)
+# Name        Type            Description
+# ----------- --------------- -------------------------------------------------------------------------------------------
+# SvId        int             Satellite SV ID 1..10, or use 0 to apply new value to all satellites
+# ParamName   string          Parameter name (see table above for accepted names)
+# Val         bool            Parameter value (see table above for unit)
+# DataSetName optional string Optional name of the data set to use. If no value is provided, the active data set is used.
 #
 
 class SetQzssEphBoolParamForSV(CommandBase):
 
-  def __init__(self, svId, paramName, val):
+  def __init__(self, svId, paramName, val, dataSetName = None):
     CommandBase.__init__(self, "SetQzssEphBoolParamForSV")
     self.setSvId(svId)
     self.setParamName(paramName)
     self.setVal(val)
+    self.setDataSetName(dataSetName)
 
   def executePermission(self):
     return ExecutePermission.EXECUTE_IF_IDLE
@@ -15459,6 +16737,12 @@ class SetQzssEphBoolParamForSV(CommandBase):
 
   def setVal(self, value):
     return self.set("Val", value)
+
+  def dataSetName(self):
+    return self.get("DataSetName")
+
+  def setDataSetName(self, value):
+    return self.set("DataSetName", value)
 
 #
 # Please note the command SetQzssEphemerisBoolParam is deprecated since 21.3. You may use SetQzssEphBoolParamForSV.
@@ -15473,20 +16757,22 @@ class SetQzssEphBoolParamForSV(CommandBase):
 # "IscL1CPAvailable"
 # "IscL1CDAvailable"
 #
-# Name      Type   Description
-# --------- ------ --------------------------------------------------------------------
-# SvId      int    Satellite SV ID 1..10, or use 0 to apply new value to all satellites
-# ParamName string Parameter name (see table above for accepted names)
-# Val       bool   Parameter value (see table above for unit)
+# Name        Type            Description
+# ----------- --------------- -------------------------------------------------------------------------------------------
+# SvId        int             Satellite SV ID 1..10, or use 0 to apply new value to all satellites
+# ParamName   string          Parameter name (see table above for accepted names)
+# Val         bool            Parameter value (see table above for unit)
+# DataSetName optional string Optional name of the data set to use. If no value is provided, the active data set is used.
 #
 
 class SetQzssEphemerisBoolParam(CommandBase):
 
-  def __init__(self, svId, paramName, val):
+  def __init__(self, svId, paramName, val, dataSetName = None):
     CommandBase.__init__(self, "SetQzssEphemerisBoolParam")
     self.setSvId(svId)
     self.setParamName(paramName)
     self.setVal(val)
+    self.setDataSetName(dataSetName)
 
   def executePermission(self):
     return ExecutePermission.EXECUTE_IF_IDLE
@@ -15509,6 +16795,12 @@ class SetQzssEphemerisBoolParam(CommandBase):
   def setVal(self, value):
     return self.set("Val", value)
 
+  def dataSetName(self):
+    return self.get("DataSetName")
+
+  def setDataSetName(self, value):
+    return self.set("DataSetName", value)
+
 #
 # Get various boolean parameters in the QZSS ephemeris
 # 
@@ -15520,18 +16812,20 @@ class SetQzssEphemerisBoolParam(CommandBase):
 # "IscL1CPAvailable"
 # "IscL1CDAvailable"
 #
-# Name      Type   Description
-# --------- ------ --------------------------------------------------------------------
-# SvId      int    Satellite SV ID 1..10, or use 0 to apply new value to all satellites
-# ParamName string Parameter name (see table above for accepted names)
+# Name        Type            Description
+# ----------- --------------- -------------------------------------------------------------------------------------------
+# SvId        int             Satellite SV ID 1..10, or use 0 to apply new value to all satellites
+# ParamName   string          Parameter name (see table above for accepted names)
+# DataSetName optional string Optional name of the data set to use. If no value is provided, the active data set is used.
 #
 
 class GetQzssEphBoolParamForSV(CommandBase):
 
-  def __init__(self, svId, paramName):
+  def __init__(self, svId, paramName, dataSetName = None):
     CommandBase.__init__(self, "GetQzssEphBoolParamForSV")
     self.setSvId(svId)
     self.setParamName(paramName)
+    self.setDataSetName(dataSetName)
 
   def executePermission(self):
     return ExecutePermission.EXECUTE_IF_IDLE
@@ -15547,6 +16841,12 @@ class GetQzssEphBoolParamForSV(CommandBase):
 
   def setParamName(self, value):
     return self.set("ParamName", value)
+
+  def dataSetName(self):
+    return self.get("DataSetName")
+
+  def setDataSetName(self, value):
+    return self.set("DataSetName", value)
 
 #
 # Please note the command GetQzssEphemerisBoolParam is deprecated since 21.3. You may use GetQzssEphBoolParamForSV.
@@ -15561,18 +16861,20 @@ class GetQzssEphBoolParamForSV(CommandBase):
 # "IscL1CPAvailable"
 # "IscL1CDAvailable"
 #
-# Name      Type   Description
-# --------- ------ --------------------------------------------------------------------
-# SvId      int    Satellite SV ID 1..10, or use 0 to apply new value to all satellites
-# ParamName string Parameter name (see table above for accepted names)
+# Name        Type            Description
+# ----------- --------------- -------------------------------------------------------------------------------------------
+# SvId        int             Satellite SV ID 1..10, or use 0 to apply new value to all satellites
+# ParamName   string          Parameter name (see table above for accepted names)
+# DataSetName optional string Optional name of the data set to use. If no value is provided, the active data set is used.
 #
 
 class GetQzssEphemerisBoolParam(CommandBase):
 
-  def __init__(self, svId, paramName):
+  def __init__(self, svId, paramName, dataSetName = None):
     CommandBase.__init__(self, "GetQzssEphemerisBoolParam")
     self.setSvId(svId)
     self.setParamName(paramName)
+    self.setDataSetName(dataSetName)
 
   def executePermission(self):
     return ExecutePermission.EXECUTE_IF_IDLE
@@ -15589,23 +16891,31 @@ class GetQzssEphemerisBoolParam(CommandBase):
   def setParamName(self, value):
     return self.set("ParamName", value)
 
+  def dataSetName(self):
+    return self.get("DataSetName")
+
+  def setDataSetName(self, value):
+    return self.set("DataSetName", value)
+
 #
 # Result of GetQzssEphBoolParamForSV.
 #
-# Name      Type   Description
-# --------- ------ --------------------------------------------------------------------
-# SvId      int    Satellite SV ID 1..10, or use 0 to apply new value to all satellites
-# ParamName string Parameter name (see table above for accepted names)
-# Val       bool   Parameter value (see table above for unit)
+# Name        Type            Description
+# ----------- --------------- -------------------------------------------------------------------------------------------
+# SvId        int             Satellite SV ID 1..10, or use 0 to apply new value to all satellites
+# ParamName   string          Parameter name (see table above for accepted names)
+# Val         bool            Parameter value (see table above for unit)
+# DataSetName optional string Optional name of the data set to use. If no value is provided, the active data set is used.
 #
 
 class GetQzssEphBoolParamForSVResult(CommandResult):
 
-  def __init__(self, svId, paramName, val):
+  def __init__(self, svId, paramName, val, dataSetName = None):
     CommandResult.__init__(self, "GetQzssEphBoolParamForSVResult")
     self.setSvId(svId)
     self.setParamName(paramName)
     self.setVal(val)
+    self.setDataSetName(dataSetName)
 
   def isSuccess(self):
     return True
@@ -15628,21 +16938,29 @@ class GetQzssEphBoolParamForSVResult(CommandResult):
   def setVal(self, value):
     return self.set("Val", value)
 
+  def dataSetName(self):
+    return self.get("DataSetName")
+
+  def setDataSetName(self, value):
+    return self.set("DataSetName", value)
+
 #
 # Set QZSS ephemeris boolean parameter value for all satellites
 #
-# Name      Type       Description
-# --------- ---------- --------------------------------------------------------------------------------------------------
-# ParamName string     Refer to SetQzssEphemerisBoolParam for accepted names
-# Val       array bool Parameter value for each satellite. Zero based index (index 0 => SV ID 1, index 1 => SV ID 2, etc)
+# Name        Type            Description
+# ----------- --------------- --------------------------------------------------------------------------------------------------
+# ParamName   string          Refer to SetQzssEphemerisBoolParam for accepted names
+# Val         array bool      Parameter value for each satellite. Zero based index (index 0 => SV ID 1, index 1 => SV ID 2, etc)
+# DataSetName optional string Optional name of the data set to use. If no value is provided, the active data set is used.
 #
 
 class SetQzssEphBoolParamForEachSV(CommandBase):
 
-  def __init__(self, paramName, val):
+  def __init__(self, paramName, val, dataSetName = None):
     CommandBase.__init__(self, "SetQzssEphBoolParamForEachSV")
     self.setParamName(paramName)
     self.setVal(val)
+    self.setDataSetName(dataSetName)
 
   def executePermission(self):
     return ExecutePermission.EXECUTE_IF_IDLE
@@ -15658,24 +16976,32 @@ class SetQzssEphBoolParamForEachSV(CommandBase):
 
   def setVal(self, value):
     return self.set("Val", value)
+
+  def dataSetName(self):
+    return self.get("DataSetName")
+
+  def setDataSetName(self, value):
+    return self.set("DataSetName", value)
 
 #
 # Please note the command SetQzssEphemerisBoolParams is deprecated since 21.3. You may use SetQzssEphBoolParamForEachSV.
 # 
 # Set QZSS ephemeris boolean parameter value for all satellites
 #
-# Name      Type       Description
-# --------- ---------- --------------------------------------------------------------------------------------------------
-# ParamName string     Refer to SetQzssEphemerisBoolParam for accepted names
-# Val       array bool Parameter value for each satellite. Zero based index (index 0 => SV ID 1, index 1 => SV ID 2, etc)
+# Name        Type            Description
+# ----------- --------------- --------------------------------------------------------------------------------------------------
+# ParamName   string          Refer to SetQzssEphemerisBoolParam for accepted names
+# Val         array bool      Parameter value for each satellite. Zero based index (index 0 => SV ID 1, index 1 => SV ID 2, etc)
+# DataSetName optional string Optional name of the data set to use. If no value is provided, the active data set is used.
 #
 
 class SetQzssEphemerisBoolParams(CommandBase):
 
-  def __init__(self, paramName, val):
+  def __init__(self, paramName, val, dataSetName = None):
     CommandBase.__init__(self, "SetQzssEphemerisBoolParams")
     self.setParamName(paramName)
     self.setVal(val)
+    self.setDataSetName(dataSetName)
 
   def executePermission(self):
     return ExecutePermission.EXECUTE_IF_IDLE
@@ -15692,19 +17018,27 @@ class SetQzssEphemerisBoolParams(CommandBase):
   def setVal(self, value):
     return self.set("Val", value)
 
+  def dataSetName(self):
+    return self.get("DataSetName")
+
+  def setDataSetName(self, value):
+    return self.set("DataSetName", value)
+
 #
 # Get QZSS ephemeris boolean parameter value for all satellites
 #
-# Name      Type   Description
-# --------- ------ -----------------------------------------------------
-# ParamName string Refer to SetQzssEphemerisBoolParam for accepted names
+# Name        Type            Description
+# ----------- --------------- -------------------------------------------------------------------------------------------
+# ParamName   string          Refer to SetQzssEphemerisBoolParam for accepted names
+# DataSetName optional string Optional name of the data set to use. If no value is provided, the active data set is used.
 #
 
 class GetQzssEphBoolParamForEachSV(CommandBase):
 
-  def __init__(self, paramName):
+  def __init__(self, paramName, dataSetName = None):
     CommandBase.__init__(self, "GetQzssEphBoolParamForEachSV")
     self.setParamName(paramName)
+    self.setDataSetName(dataSetName)
 
   def executePermission(self):
     return ExecutePermission.EXECUTE_IF_IDLE
@@ -15714,22 +17048,30 @@ class GetQzssEphBoolParamForEachSV(CommandBase):
 
   def setParamName(self, value):
     return self.set("ParamName", value)
+
+  def dataSetName(self):
+    return self.get("DataSetName")
+
+  def setDataSetName(self, value):
+    return self.set("DataSetName", value)
 
 #
 # Please note the command GetQzssEphemerisBoolParams is deprecated since 21.3. You may use GetQzssEphBoolParamForEachSV.
 # 
 # Get QZSS ephemeris boolean parameter value for all satellites
 #
-# Name      Type   Description
-# --------- ------ -----------------------------------------------------
-# ParamName string Refer to SetQzssEphemerisBoolParam for accepted names
+# Name        Type            Description
+# ----------- --------------- -------------------------------------------------------------------------------------------
+# ParamName   string          Refer to SetQzssEphemerisBoolParam for accepted names
+# DataSetName optional string Optional name of the data set to use. If no value is provided, the active data set is used.
 #
 
 class GetQzssEphemerisBoolParams(CommandBase):
 
-  def __init__(self, paramName):
+  def __init__(self, paramName, dataSetName = None):
     CommandBase.__init__(self, "GetQzssEphemerisBoolParams")
     self.setParamName(paramName)
+    self.setDataSetName(dataSetName)
 
   def executePermission(self):
     return ExecutePermission.EXECUTE_IF_IDLE
@@ -15740,21 +17082,29 @@ class GetQzssEphemerisBoolParams(CommandBase):
   def setParamName(self, value):
     return self.set("ParamName", value)
 
+  def dataSetName(self):
+    return self.get("DataSetName")
+
+  def setDataSetName(self, value):
+    return self.set("DataSetName", value)
+
 #
 # Result of GetQzssEphBoolParamForEachSV.
 #
-# Name      Type       Description
-# --------- ---------- --------------------------------------------------------------------------------------------------
-# ParamName string     Refer to SetQzssEphemerisBoolParam for accepted names
-# Val       array bool Parameter value for each satellite. Zero based index (index 0 => SV ID 1, index 1 => SV ID 2, etc)
+# Name        Type            Description
+# ----------- --------------- --------------------------------------------------------------------------------------------------
+# ParamName   string          Refer to SetQzssEphemerisBoolParam for accepted names
+# Val         array bool      Parameter value for each satellite. Zero based index (index 0 => SV ID 1, index 1 => SV ID 2, etc)
+# DataSetName optional string Optional name of the data set to use. If no value is provided, the active data set is used.
 #
 
 class GetQzssEphBoolParamForEachSVResult(CommandResult):
 
-  def __init__(self, paramName, val):
+  def __init__(self, paramName, val, dataSetName = None):
     CommandResult.__init__(self, "GetQzssEphBoolParamForEachSVResult")
     self.setParamName(paramName)
     self.setVal(val)
+    self.setDataSetName(dataSetName)
 
   def isSuccess(self):
     return True
@@ -15770,6 +17120,12 @@ class GetQzssEphBoolParamForEachSVResult(CommandResult):
 
   def setVal(self, value):
     return self.set("Val", value)
+
+  def dataSetName(self):
+    return self.get("DataSetName")
+
+  def setDataSetName(self, value):
+    return self.set("DataSetName", value)
 
 #
 # Set parameters for a SBAS satellite ephemeris (runtime modification only available for health parameter)
@@ -16034,18 +17390,20 @@ class SetSbasServiceHealthForSV(CommandBase):
 #
 # Set orbit perturbations (Crs, Crc, Cis, Cic, Cus and Cuc) to zero for the specified constellation.
 #
-# Name   Type   Description
-# ------ ------ ---------------------------------------------------------------------------------------
-# System string "GPS", "Galileo", "BeiDou", "QZSS" or "NavIC"
-# SvId   int    The satellite's SV ID. Use 0 to apply new value to all satellites in the constellation.
+# Name        Type            Description
+# ----------- --------------- -------------------------------------------------------------------------------------------
+# System      string          "GPS", "Galileo", "BeiDou", "QZSS" or "NavIC"
+# SvId        int             The satellite's SV ID. Use 0 to apply new value to all satellites in the constellation.
+# DataSetName optional string Optional name of the data set to use. If no value is provided, the active data set is used.
 #
 
 class ResetPerturbations(CommandBase):
 
-  def __init__(self, system, svId):
+  def __init__(self, system, svId, dataSetName = None):
     CommandBase.__init__(self, "ResetPerturbations")
     self.setSystem(system)
     self.setSvId(svId)
+    self.setDataSetName(dataSetName)
 
   def executePermission(self):
     return ExecutePermission.EXECUTE_IF_IDLE
@@ -16062,24 +17420,31 @@ class ResetPerturbations(CommandBase):
   def setSvId(self, value):
     return self.set("SvId", value)
 
+  def dataSetName(self):
+    return self.get("DataSetName")
+
+  def setDataSetName(self, value):
+    return self.set("DataSetName", value)
+
 #
 # Set orbit perturbations (Crs, Crc, Cis, Cic, Cus and Cuc) for the specified constellation.
 #
-# Name   Type   Description
-# ------ ------ ---------------------------------------------
-# System string "GPS", "Galileo", "BeiDou", "QZSS" or "NavIC"
-# SvId   int    The satellite's SV ID.
-# Crs    double Crs (meter)
-# Crc    double Crc (meter)
-# Cis    double Crs (rad)
-# Cic    double Crc (rad)
-# Cus    double Cus (rad)
-# Cuc    double Cuc (rad)
+# Name        Type            Description
+# ----------- --------------- -------------------------------------------------------------------------------------------
+# System      string          "GPS", "Galileo", "BeiDou", "QZSS" or "NavIC"
+# SvId        int             The satellite's SV ID.
+# Crs         double          Crs (meter)
+# Crc         double          Crc (meter)
+# Cis         double          Cis (rad)
+# Cic         double          Cic (rad)
+# Cus         double          Cus (rad)
+# Cuc         double          Cuc (rad)
+# DataSetName optional string Optional name of the data set to use. If no value is provided, the active data set is used.
 #
 
 class SetPerturbations(CommandBase):
 
-  def __init__(self, system, svId, crs, crc, cis, cic, cus, cuc):
+  def __init__(self, system, svId, crs, crc, cis, cic, cus, cuc, dataSetName = None):
     CommandBase.__init__(self, "SetPerturbations")
     self.setSystem(system)
     self.setSvId(svId)
@@ -16089,6 +17454,7 @@ class SetPerturbations(CommandBase):
     self.setCic(cic)
     self.setCus(cus)
     self.setCuc(cuc)
+    self.setDataSetName(dataSetName)
 
   def executePermission(self):
     return ExecutePermission.EXECUTE_IF_IDLE
@@ -16141,21 +17507,29 @@ class SetPerturbations(CommandBase):
   def setCuc(self, value):
     return self.set("Cuc", value)
 
+  def dataSetName(self):
+    return self.get("DataSetName")
+
+  def setDataSetName(self, value):
+    return self.set("DataSetName", value)
+
 #
 # Get orbit perturbations (Crs, Crc, Cis, Cic, Cus and Cuc) for the specified constellation.
 #
-# Name   Type   Description
-# ------ ------ ---------------------------------------------
-# System string "GPS", "Galileo", "BeiDou", "QZSS" or "NavIC"
-# SvId   int    The satellite's SV ID.
+# Name        Type            Description
+# ----------- --------------- -------------------------------------------------------------------------------------------
+# System      string          "GPS", "Galileo", "BeiDou", "QZSS" or "NavIC"
+# SvId        int             The satellite's SV ID.
+# DataSetName optional string Optional name of the data set to use. If no value is provided, the active data set is used.
 #
 
 class GetPerturbations(CommandBase):
 
-  def __init__(self, system, svId):
+  def __init__(self, system, svId, dataSetName = None):
     CommandBase.__init__(self, "GetPerturbations")
     self.setSystem(system)
     self.setSvId(svId)
+    self.setDataSetName(dataSetName)
 
   def executePermission(self):
     return ExecutePermission.EXECUTE_IF_IDLE
@@ -16172,24 +17546,31 @@ class GetPerturbations(CommandBase):
   def setSvId(self, value):
     return self.set("SvId", value)
 
+  def dataSetName(self):
+    return self.get("DataSetName")
+
+  def setDataSetName(self, value):
+    return self.set("DataSetName", value)
+
 #
 # Result of GetPerturbations.
 #
-# Name   Type   Description
-# ------ ------ ---------------------------------------------
-# System string "GPS", "Galileo", "BeiDou", "QZSS" or "NavIC"
-# SvId   int    The satellite's SV ID.
-# Crs    double Crs (meter)
-# Crc    double Crc (meter)
-# Cis    double Crs (rad)
-# Cic    double Crc (rad)
-# Cus    double Cus (rad)
-# Cuc    double Cuc (rad)
+# Name        Type            Description
+# ----------- --------------- -------------------------------------------------------------------------------------------
+# System      string          "GPS", "Galileo", "BeiDou", "QZSS" or "NavIC"
+# SvId        int             The satellite's SV ID.
+# Crs         double          Crs (meter)
+# Crc         double          Crc (meter)
+# Cis         double          Cis (rad)
+# Cic         double          Cic (rad)
+# Cus         double          Cus (rad)
+# Cuc         double          Cuc (rad)
+# DataSetName optional string Optional name of the data set to use. If no value is provided, the active data set is used.
 #
 
 class GetPerturbationsResult(CommandResult):
 
-  def __init__(self, system, svId, crs, crc, cis, cic, cus, cuc):
+  def __init__(self, system, svId, crs, crc, cis, cic, cus, cuc, dataSetName = None):
     CommandResult.__init__(self, "GetPerturbationsResult")
     self.setSystem(system)
     self.setSvId(svId)
@@ -16199,6 +17580,7 @@ class GetPerturbationsResult(CommandResult):
     self.setCic(cic)
     self.setCus(cus)
     self.setCuc(cuc)
+    self.setDataSetName(dataSetName)
 
   def isSuccess(self):
     return True
@@ -16251,24 +17633,31 @@ class GetPerturbationsResult(CommandResult):
   def setCuc(self, value):
     return self.set("Cuc", value)
 
+  def dataSetName(self):
+    return self.get("DataSetName")
+
+  def setDataSetName(self, value):
+    return self.set("DataSetName", value)
+
 #
 # Set orbit perturbations (Crs, Crc, Cis, Cic, Cus and Cuc) for all satellites of the specified constellation..
 # All parameters are zero based index (index 0 => SV ID 1, index 1 => SV ID 2, etc)
 #
-# Name   Type         Description
-# ------ ------------ ---------------------------------------------
-# System string       "GPS", "Galileo", "BeiDou", "QZSS" or "NavIC"
-# Crs    array double Crs (meter)
-# Crc    array double Crc (meter)
-# Cis    array double Cis (rad)
-# Cic    array double Cic (rad)
-# Cus    array double Cus (rad)
-# Cuc    array double Cuc (rad)
+# Name        Type            Description
+# ----------- --------------- -------------------------------------------------------------------------------------------
+# System      string          "GPS", "Galileo", "BeiDou", "QZSS" or "NavIC"
+# Crs         array double    Crs (meter)
+# Crc         array double    Crc (meter)
+# Cis         array double    Cis (rad)
+# Cic         array double    Cic (rad)
+# Cus         array double    Cus (rad)
+# Cuc         array double    Cuc (rad)
+# DataSetName optional string Optional name of the data set to use. If no value is provided, the active data set is used.
 #
 
 class SetPerturbationsForAllSat(CommandBase):
 
-  def __init__(self, system, crs, crc, cis, cic, cus, cuc):
+  def __init__(self, system, crs, crc, cis, cic, cus, cuc, dataSetName = None):
     CommandBase.__init__(self, "SetPerturbationsForAllSat")
     self.setSystem(system)
     self.setCrs(crs)
@@ -16277,6 +17666,7 @@ class SetPerturbationsForAllSat(CommandBase):
     self.setCic(cic)
     self.setCus(cus)
     self.setCuc(cuc)
+    self.setDataSetName(dataSetName)
 
   def executePermission(self):
     return ExecutePermission.EXECUTE_IF_IDLE
@@ -16323,20 +17713,28 @@ class SetPerturbationsForAllSat(CommandBase):
   def setCuc(self, value):
     return self.set("Cuc", value)
 
+  def dataSetName(self):
+    return self.get("DataSetName")
+
+  def setDataSetName(self, value):
+    return self.set("DataSetName", value)
+
 #
 # Get orbit perturbations (Crs, Crc, Cis, Cic, Cus and Cuc) for all satellites of the specified constellation..
 # All parameters are zero based index (index 0 => SV ID 1, index 1 => SV ID 2, etc)
 #
-# Name   Type   Description
-# ------ ------ ---------------------------------------------
-# System string "GPS", "Galileo", "BeiDou", "QZSS" or "NavIC"
+# Name        Type            Description
+# ----------- --------------- -------------------------------------------------------------------------------------------
+# System      string          "GPS", "Galileo", "BeiDou", "QZSS" or "NavIC"
+# DataSetName optional string Optional name of the data set to use. If no value is provided, the active data set is used.
 #
 
 class GetPerturbationsForAllSat(CommandBase):
 
-  def __init__(self, system):
+  def __init__(self, system, dataSetName = None):
     CommandBase.__init__(self, "GetPerturbationsForAllSat")
     self.setSystem(system)
+    self.setDataSetName(dataSetName)
 
   def executePermission(self):
     return ExecutePermission.EXECUTE_IF_IDLE
@@ -16347,23 +17745,30 @@ class GetPerturbationsForAllSat(CommandBase):
   def setSystem(self, value):
     return self.set("System", value)
 
+  def dataSetName(self):
+    return self.get("DataSetName")
+
+  def setDataSetName(self, value):
+    return self.set("DataSetName", value)
+
 #
 # Result of GetPerturbationsForAllSat.
 #
-# Name   Type         Description
-# ------ ------------ ---------------------------------------------
-# System string       "GPS", "Galileo", "BeiDou", "QZSS" or "NavIC"
-# Crs    array double Crs (meter)
-# Crc    array double Crc (meter)
-# Cis    array double Cis (rad)
-# Cic    array double Cic (rad)
-# Cus    array double Cus (rad)
-# Cuc    array double Cuc (rad)
+# Name        Type            Description
+# ----------- --------------- -------------------------------------------------------------------------------------------
+# System      string          "GPS", "Galileo", "BeiDou", "QZSS" or "NavIC"
+# Crs         array double    Crs (meter)
+# Crc         array double    Crc (meter)
+# Cis         array double    Cis (rad)
+# Cic         array double    Cic (rad)
+# Cus         array double    Cus (rad)
+# Cuc         array double    Cuc (rad)
+# DataSetName optional string Optional name of the data set to use. If no value is provided, the active data set is used.
 #
 
 class GetPerturbationsForAllSatResult(CommandResult):
 
-  def __init__(self, system, crs, crc, cis, cic, cus, cuc):
+  def __init__(self, system, crs, crc, cis, cic, cus, cuc, dataSetName = None):
     CommandResult.__init__(self, "GetPerturbationsForAllSatResult")
     self.setSystem(system)
     self.setCrs(crs)
@@ -16372,6 +17777,7 @@ class GetPerturbationsForAllSatResult(CommandResult):
     self.setCic(cic)
     self.setCus(cus)
     self.setCuc(cuc)
+    self.setDataSetName(dataSetName)
 
   def isSuccess(self):
     return True
@@ -16417,6 +17823,12 @@ class GetPerturbationsForAllSatResult(CommandResult):
 
   def setCuc(self, value):
     return self.set("Cuc", value)
+
+  def dataSetName(self):
+    return self.get("DataSetName")
+
+  def setDataSetName(self, value):
+    return self.set("DataSetName", value)
 
 #
 # Set (or Modify) event to change GPS CNAV message bits. If you send this command without setting the ID
@@ -19567,6 +20979,229 @@ class GetMessageModificationToQzssSlasResult(CommandResult):
     return self.set("Id", value)
 
 #
+# Set (or Modify) event to change QZSS CNAV message bits. If you send this command without setting the ID
+# parameter, or if you set the ID with a value never used before, a new Modification event will be
+# created. If you reuse the same event ID, it will modify the existing event.
+# 
+# Note that start and stop time are automatically extended to beginning and ending of overlapped
+# messages.
+# 
+# The Condition parameter is optional and allows you to add content matching condition before applying
+# bit modifications.
+# 
+# BitModifications can be an empty string. The Modification will have no effect until you modify it with at
+# least one bits mod.
+# 
+# A bits mod is represented with a string using the following format: "I:Bits" where I is a bit
+# index (1 refers to the first transmitted bit) and Bits is a modification mask where each
+# character describes a modification to a single bit. The allowed characters are:
+#    0 : force bit to 0
+#    1 : force bit to 1
+#    - : leave bit unchanged
+#    X : revert bit (0 becomes 1 and 1 becomes 0)
+# 
+# For example: "24:X---10XX" will: revert bits 24, 30 and 31
+#                  set bit 28 to 1
+#                  set bit 29 to 0
+# The other bits are not affected.
+# 
+# You can add multiple bit modifications using commas. For example: "24:X---10XX,127:100X,231:01"
+#
+# Name             Type         Description
+# ---------------- ------------ -----------------------------------------------------------------------------------------------------
+# SignalArray      array string Array of signals to apply the message modification to, accepts "QZSSL2C" and "QZSSL5" (empty for all)
+# SvId             int          The satellite's SV ID 1..10 (use 0 to apply modification to all SVs)
+# StartTime        int          Elapsed time in seconds since start of simulation
+# StopTime         int          Elapsed time in seconds since start of simulation (use 0 for no stop time)
+# MessageType      int          CNAV Message type (use -1 to apply modification to all message types)
+# Condition        string       Optional condition to match message content, ex: "EQUAL(45, 10, 0x3f)"
+# UpdateCRC        bool         Recalculate CRC after making modification
+# BitModifications string       Comma separated bit modifications
+# Id               string       Unique identifier of the event
+#
+
+class SetMessageModificationToQzssCNav(CommandBase):
+
+  def __init__(self, signalArray, svId, startTime, stopTime, messageType, condition, updateCRC, bitModifications, id):
+    CommandBase.__init__(self, "SetMessageModificationToQzssCNav")
+    self.setSignalArray(signalArray)
+    self.setSvId(svId)
+    self.setStartTime(startTime)
+    self.setStopTime(stopTime)
+    self.setMessageType(messageType)
+    self.setCondition(condition)
+    self.setUpdateCRC(updateCRC)
+    self.setBitModifications(bitModifications)
+    self.setId(id)
+
+  def executePermission(self):
+    return ExecutePermission.EXECUTE_IF_SIMULATING | ExecutePermission.EXECUTE_IF_IDLE
+
+  def signalArray(self):
+    return self.get("SignalArray")
+
+  def setSignalArray(self, value):
+    return self.set("SignalArray", value)
+
+  def svId(self):
+    return self.get("SvId")
+
+  def setSvId(self, value):
+    return self.set("SvId", value)
+
+  def startTime(self):
+    return self.get("StartTime")
+
+  def setStartTime(self, value):
+    return self.set("StartTime", value)
+
+  def stopTime(self):
+    return self.get("StopTime")
+
+  def setStopTime(self, value):
+    return self.set("StopTime", value)
+
+  def messageType(self):
+    return self.get("MessageType")
+
+  def setMessageType(self, value):
+    return self.set("MessageType", value)
+
+  def condition(self):
+    return self.get("Condition")
+
+  def setCondition(self, value):
+    return self.set("Condition", value)
+
+  def updateCRC(self):
+    return self.get("UpdateCRC")
+
+  def setUpdateCRC(self, value):
+    return self.set("UpdateCRC", value)
+
+  def bitModifications(self):
+    return self.get("BitModifications")
+
+  def setBitModifications(self, value):
+    return self.set("BitModifications", value)
+
+  def id(self):
+    return self.get("Id")
+
+  def setId(self, value):
+    return self.set("Id", value)
+
+#
+# Get infos about the QZSS CNAV message modification with this ID.
+#
+# Name Type   Description
+# ---- ------ ------------------------------
+# Id   string Unique identifier of the event
+#
+
+class GetMessageModificationToQzssCNav(CommandBase):
+
+  def __init__(self, id):
+    CommandBase.__init__(self, "GetMessageModificationToQzssCNav")
+    self.setId(id)
+
+  def executePermission(self):
+    return ExecutePermission.EXECUTE_IF_IDLE
+
+  def id(self):
+    return self.get("Id")
+
+  def setId(self, value):
+    return self.set("Id", value)
+
+#
+# Result of GetMessageModificationToQzssCNav.
+#
+# Name             Type         Description
+# ---------------- ------------ -----------------------------------------------------------------------------------------------------
+# SignalArray      array string Array of signals to apply the message modification to, accepts "QZSSL2C" and "QZSSL5" (empty for all)
+# SvId             int          The satellite's SV ID 1..10 (use 0 to apply modification to all SVs)
+# StartTime        int          Elapsed time in seconds since start of simulation
+# StopTime         int          Elapsed time in seconds since start of simulation (use 0 for no stop time)
+# MessageType      int          CNAV Message type (use -1 to apply modification to all message types)
+# Condition        string       Optional condition to match message content, ex: "EQUAL(45, 10, 0x3f)"
+# UpdateCRC        bool         Recalculate CRC after making modification
+# BitModifications string       Comma separated bit modifications
+# Id               string       Unique identifier of the event
+#
+
+class GetMessageModificationToQzssCNavResult(CommandResult):
+
+  def __init__(self, signalArray, svId, startTime, stopTime, messageType, condition, updateCRC, bitModifications, id):
+    CommandResult.__init__(self, "GetMessageModificationToQzssCNavResult")
+    self.setSignalArray(signalArray)
+    self.setSvId(svId)
+    self.setStartTime(startTime)
+    self.setStopTime(stopTime)
+    self.setMessageType(messageType)
+    self.setCondition(condition)
+    self.setUpdateCRC(updateCRC)
+    self.setBitModifications(bitModifications)
+    self.setId(id)
+
+  def isSuccess(self):
+    return True
+
+  def signalArray(self):
+    return self.get("SignalArray")
+
+  def setSignalArray(self, value):
+    return self.set("SignalArray", value)
+
+  def svId(self):
+    return self.get("SvId")
+
+  def setSvId(self, value):
+    return self.set("SvId", value)
+
+  def startTime(self):
+    return self.get("StartTime")
+
+  def setStartTime(self, value):
+    return self.set("StartTime", value)
+
+  def stopTime(self):
+    return self.get("StopTime")
+
+  def setStopTime(self, value):
+    return self.set("StopTime", value)
+
+  def messageType(self):
+    return self.get("MessageType")
+
+  def setMessageType(self, value):
+    return self.set("MessageType", value)
+
+  def condition(self):
+    return self.get("Condition")
+
+  def setCondition(self, value):
+    return self.set("Condition", value)
+
+  def updateCRC(self):
+    return self.get("UpdateCRC")
+
+  def setUpdateCRC(self, value):
+    return self.set("UpdateCRC", value)
+
+  def bitModifications(self):
+    return self.get("BitModifications")
+
+  def setBitModifications(self, value):
+    return self.set("BitModifications", value)
+
+  def id(self):
+    return self.get("Id")
+
+  def setId(self, value):
+    return self.set("Id", value)
+
+#
 # Set (or Modify) event to change QZSS CNAV2 message bits. If you send this command without setting the ID
 # parameter, or if you set the ID with a value never used before, a new Modification event will be
 # created. If you reuse the same event ID, it will modify the existing event.
@@ -21022,8 +22657,8 @@ class GetAlmanacUploadTimeIntervalResult(CommandResult):
 # If Id is not set, or unknown to Skydel, a new echo will be added. Otherwise, existing echo will be updated.
 #
 # Name         Type   Description
-# ------------ ------ ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
-# Signal       string Accepted signal keys: "L1CA", "L1C", "L1P", "L1M", "L2C", "L2P", "L2M", "L5", "G1", "G2", "E1", "E5a", "E5b", "B1", "B2", "B1C", "B2a", "SBASL1", "QZSSL1CA", "QZSSL1C", "QZSSL5", "QZSSL1S", "QZSSL5S", "NAVICL5"
+# ------------ ------ -----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+# Signal       string Accepted signal keys: "L1CA", "L1C", "L1P", "L1M", "L2C", "L2P", "L2M", "L5", "G1", "G2", "E1", "E5a", "E5b", "B1", "B2", "B1C", "B2a", "SBASL1", "QZSSL1CA", "QZSSL1C", "QZSSL2C", "QZSSL5", "QZSSL1S", "QZSSL5S", "NAVICL5"
 # SvId         int    The satellite's SV ID
 # PowerLoss    double Power loss in dB (value must be positive)
 # Pseudorange  double Pseudorange offset in meters (value must be positive)
@@ -21155,8 +22790,8 @@ class RemoveMultipath(CommandBase):
 # Disable all multipath in all satellites but only for the specified signal.
 #
 # Name   Type   Description
-# ------ ------ ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
-# Signal string Accepted signal keys: "L1CA", "L1C", "L1P", "L1M", "L2C", "L2P", "L2M", "L5", "G1", "G2", "E1", "E5a", "E5b", "B1", "B2", "B1C", "B2a", "SBASL1", "QZSSL1CA", "QZSSL1C", "QZSSL5", "QZSSL1S", "QZSSL5S", "NAVICL5"
+# ------ ------ -----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+# Signal string Accepted signal keys: "L1CA", "L1C", "L1P", "L1M", "L2C", "L2P", "L2M", "L5", "G1", "G2", "E1", "E5a", "E5b", "B1", "B2", "B1C", "B2a", "SBASL1", "QZSSL1CA", "QZSSL1C", "QZSSL2C", "QZSSL5", "QZSSL1S", "QZSSL5S", "NAVICL5"
 # Reset  bool   Reset attributes (PSR offset, power loss, Doppler shift and carrier phase offset are set to zero)
 #
 
@@ -21279,10 +22914,10 @@ class GetMultipathForID(CommandBase):
 # Result of GetMultipathForID.
 #
 # Name         Type   Description
-# ------------ ------ ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+# ------------ ------ -----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 # Id           string A multipath ID
 # System       string "GPS", "GLONASS", "Galileo", "BeiDou", "SBAS", "QZSS" or "NavIC"
-# Signal       string Accepted signal keys: "L1CA", "L1C", "L1P", "L1M", "L2C", "L2P", "L2M", "L5", "G1", "G2", "E1", "E5a", "E5b", "B1", "B2", "B1C", "B2a", "SBASL1", "QZSSL1CA", "QZSSL1C", "QZSSL5", "QZSSL1S", "QZSSL5S", "NAVICL5"
+# Signal       string Accepted signal keys: "L1CA", "L1C", "L1P", "L1M", "L2C", "L2P", "L2M", "L5", "G1", "G2", "E1", "E5a", "E5b", "B1", "B2", "B1C", "B2a", "SBASL1", "QZSSL1CA", "QZSSL1C", "QZSSL2C", "QZSSL5", "QZSSL1S", "QZSSL5S", "NAVICL5"
 # SvId         int    The satellite's SV ID
 # PowerLoss    double Power loss in dB (value must be positive)
 # Pseudorange  double Pseudorange offset in meters (value must be positive)
@@ -21420,8 +23055,8 @@ class GetAllMultipathForSV(CommandBase):
 # Get all multipath ID for the specified signal.
 #
 # Name   Type   Description
-# ------ ------ ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
-# Signal string Accepted signal keys: "L1CA", "L1C", "L1P", "L1M", "L2C", "L2P", "L2M", "L5", "G1", "G2", "E1", "E5a", "E5b", "B1", "B2", "B1C", "B2a", "SBASL1", "QZSSL1CA", "QZSSL1C", "QZSSL5", "QZSSL1S", "QZSSL5S", "NAVICL5"
+# ------ ------ -----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+# Signal string Accepted signal keys: "L1CA", "L1C", "L1P", "L1M", "L2C", "L2P", "L2M", "L5", "G1", "G2", "E1", "E5a", "E5b", "B1", "B2", "B1C", "B2a", "SBASL1", "QZSSL1CA", "QZSSL1C", "QZSSL2C", "QZSSL5", "QZSSL1S", "QZSSL5S", "NAVICL5"
 #
 
 class GetAllMultipathForSignal(CommandBase):
@@ -22312,6 +23947,76 @@ class GetIntTxPersistenceResult(CommandResult):
 
   def setPersistence(self, value):
     return self.set("Persistence", value)
+
+  def id(self):
+    return self.get("Id")
+
+  def setId(self, value):
+    return self.set("Id", value)
+
+#
+# Set the manual propagation loss for the given interference signal. Value is used only if SetIntTxUseManualPropagationLoss has been set on the corresponding transmitter. This value is not preserved after simulation end.
+#
+# Name            Type   Description
+# --------------- ------ --------------------------------------------------------------------------------------------------------
+# PropagationLoss double The propagation loss in dB to use until the next call of this command, or until manual mode is disabled.
+# TransmitterId   string Transmitter unique identifier.
+# SignalId        string Signal unique identifier.
+#
+
+class SetIntTxSignalManualPropagationLoss(CommandBase):
+
+  def __init__(self, propagationLoss, transmitterId, signalId):
+    CommandBase.__init__(self, "SetIntTxSignalManualPropagationLoss")
+    self.setPropagationLoss(propagationLoss)
+    self.setTransmitterId(transmitterId)
+    self.setSignalId(signalId)
+
+  def executePermission(self):
+    return ExecutePermission.EXECUTE_IF_SIMULATING | ExecutePermission.EXECUTE_IF_IDLE
+
+  def propagationLoss(self):
+    return self.get("PropagationLoss")
+
+  def setPropagationLoss(self, value):
+    return self.set("PropagationLoss", value)
+
+  def transmitterId(self):
+    return self.get("TransmitterId")
+
+  def setTransmitterId(self, value):
+    return self.set("TransmitterId", value)
+
+  def signalId(self):
+    return self.get("SignalId")
+
+  def setSignalId(self, value):
+    return self.set("SignalId", value)
+
+#
+# Set whether a dynamic transmitter should only use user-provided propagation loss values. Propagation loss will not update automatically if set. This state is not preserved after simulation end.
+#
+# Name   Type   Description
+# ------ ------ -------------------------------------------------------------
+# Manual bool   If true, propagation loss will be 1000 dB until set manually.
+# Id     string Interference transmitter unique identifier.
+#
+
+class SetIntTxUseManualPropagationLoss(CommandBase):
+
+  def __init__(self, manual, id):
+    CommandBase.__init__(self, "SetIntTxUseManualPropagationLoss")
+    self.setManual(manual)
+    self.setId(id)
+
+  def executePermission(self):
+    return ExecutePermission.EXECUTE_IF_SIMULATING | ExecutePermission.EXECUTE_IF_IDLE
+
+  def manual(self):
+    return self.get("Manual")
+
+  def setManual(self, value):
+    return self.set("Manual", value)
 
   def id(self):
     return self.get("Id")
@@ -25869,7 +27574,7 @@ class GetSyncTimeMasterResult(CommandResult):
     return self.set("Time", value)
 
 #
-# Set If enabled, simulation stops when a command result fail.
+# If enabled, simulation stops when a command result fail.
 #
 # Name    Type Description
 # ------- ---- ----------------------------------
@@ -25892,7 +27597,7 @@ class StopWhenCommandFail(CommandBase):
     return self.set("Enabled", value)
 
 #
-# Get If enabled, simulation stops when a command result fail.
+# If enabled, simulation stops when a command result fail.
 #
 #
 
@@ -25928,7 +27633,7 @@ class IsSimStopWhenCommandFailEnabledResult(CommandResult):
     return self.set("Enabled", value)
 
 #
-# Set If enabled, master and all the slaves will stop if a slave stop.
+# If enabled, master and all the slaves will stop if a slave stop.
 #
 # Name    Type Description
 # ------- ---- ---------------------------------------
@@ -25951,7 +27656,7 @@ class StopMasterWhenSlaveStop(CommandBase):
     return self.set("Enabled", value)
 
 #
-# Get If enabled, master and all the slaves will stop if a slave stop.
+# If enabled, master and all the slaves will stop if a slave stop.
 #
 #
 
@@ -26551,9 +28256,9 @@ class GetGalileoFnavSatelliteKResult(CommandResult):
 # Skydel special calibration function, internal use only
 #
 # Name          Type   Description
-# ------------- ------ -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+# ------------- ------ ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 # SvId          int    SV ID for GPS, Galileo, BeiDou, GLONASS, QZSS and SBAS.
-# Signal        string Accepted signal keys: "L1CA", "L1C", "L1P", "L1M", "L2C", "L2P", "L2M", "L5", "G1", "G2", "E1", "E5a", "E5b", "B1", "B2", "B1C", "B2a", "SBASL1", "QZSSL1CA", "QZSSL1C", "QZSSL5", "QZSSL1S", "QZSSL5S"
+# Signal        string Accepted signal keys: "L1CA", "L1C", "L1P", "L1M", "L2C", "L2P", "L2M", "L5", "G1", "G2", "E1", "E5a", "E5b", "B1", "B2", "B1C", "B2a", "SBASL1", "QZSSL1CA", "QZSSL1C", "QZSSL2C", "QZSSL5", "QZSSL1S", "QZSSL5S"
 # EnableSV      bool   Enable/Disable multiplication by satellite and Navigation Message
 # EnableDoppler bool   Enable/Disable Doppler Frequency and Phase offset
 # PhaseOffet    double Carrier Phase Offset applied to Line Of Sight
@@ -26813,7 +28518,7 @@ class StartPPS(CommandBase):
 # Name    Type   Description
 # ------- ------ ------------------------------------------------------------------------------------------------------
 # System  string The satellite's constellation. Can be "GPS", "GLONASS", "Galileo", "BeiDou", "SBAS", "QZSS" or "NavIC"
-# SvId    int    The satellite's SV ID
+# SvId    int    The satellite's SV ID (use 0 for all SVs).
 # Enabled bool   The satellite will be present/absent from the constellation
 #
 
@@ -26852,7 +28557,7 @@ class EnableSV(CommandBase):
 # Name   Type   Description
 # ------ ------ ------------------------------------------------------------------------------------------------------
 # System string The satellite's constellation. Can be "GPS", "GLONASS", "Galileo", "BeiDou", "SBAS", "QZSS" or "NavIC"
-# SvId   int    The satellite's SV ID
+# SvId   int    The satellite's SV ID (use 0 for all SVs).
 #
 
 class IsSVEnabled(CommandBase):
@@ -26883,7 +28588,7 @@ class IsSVEnabled(CommandBase):
 # Name    Type   Description
 # ------- ------ ------------------------------------------------------------------------------------------------------
 # System  string The satellite's constellation. Can be "GPS", "GLONASS", "Galileo", "BeiDou", "SBAS", "QZSS" or "NavIC"
-# SvId    int    The satellite's SV ID
+# SvId    int    The satellite's SV ID (use 0 for all SVs).
 # Enabled bool   The satellite will be present/absent from the constellation
 #
 
@@ -28844,22 +30549,24 @@ class IsUsingVelocityInSbasMessage25Result(CommandResult):
 #
 # Set whether a satellite is geostationary
 #
-# Name      Type   Description
-# --------- ------ ---------------------------------------------
-# System    string "GPS", "Galileo", "BeiDou", "QZSS" or "NavIC"
-# SvId      int    The satellite SV ID
-# IsGeo     bool   True for geostationary satellite
-# Longitude double The longitude to use, in degree
+# Name        Type            Description
+# ----------- --------------- -------------------------------------------------------------------------------------------
+# System      string          "GPS", "Galileo", "BeiDou", "QZSS" or "NavIC"
+# SvId        int             The satellite SV ID
+# IsGeo       bool            True for geostationary satellite
+# Longitude   double          The longitude to use, in degree
+# DataSetName optional string Optional name of the data set to use. If no value is provided, the active data set is used.
 #
 
 class ForceSVGeo(CommandBase):
 
-  def __init__(self, system, svId, isGeo, longitude):
+  def __init__(self, system, svId, isGeo, longitude, dataSetName = None):
     CommandBase.__init__(self, "ForceSVGeo")
     self.setSystem(system)
     self.setSvId(svId)
     self.setIsGeo(isGeo)
     self.setLongitude(longitude)
+    self.setDataSetName(dataSetName)
 
   def executePermission(self):
     return ExecutePermission.EXECUTE_IF_IDLE
@@ -28888,21 +30595,29 @@ class ForceSVGeo(CommandBase):
   def setLongitude(self, value):
     return self.set("Longitude", value)
 
+  def dataSetName(self):
+    return self.get("DataSetName")
+
+  def setDataSetName(self, value):
+    return self.set("DataSetName", value)
+
 #
 # Get whether a satellite is geostationary
 #
-# Name   Type   Description
-# ------ ------ ---------------------------------------------
-# System string "GPS", "Galileo", "BeiDou", "QZSS" or "NavIC"
-# SvId   int    The satellite SV ID
+# Name        Type            Description
+# ----------- --------------- -------------------------------------------------------------------------------------------
+# System      string          "GPS", "Galileo", "BeiDou", "QZSS" or "NavIC"
+# SvId        int             The satellite SV ID
+# DataSetName optional string Optional name of the data set to use. If no value is provided, the active data set is used.
 #
 
 class IsSVForcedGeo(CommandBase):
 
-  def __init__(self, system, svId):
+  def __init__(self, system, svId, dataSetName = None):
     CommandBase.__init__(self, "IsSVForcedGeo")
     self.setSystem(system)
     self.setSvId(svId)
+    self.setDataSetName(dataSetName)
 
   def executePermission(self):
     return ExecutePermission.EXECUTE_IF_IDLE
@@ -28919,25 +30634,33 @@ class IsSVForcedGeo(CommandBase):
   def setSvId(self, value):
     return self.set("SvId", value)
 
+  def dataSetName(self):
+    return self.get("DataSetName")
+
+  def setDataSetName(self, value):
+    return self.set("DataSetName", value)
+
 #
 # Result of IsSVForcedGeo.
 #
-# Name      Type   Description
-# --------- ------ ---------------------------------------------
-# System    string "GPS", "Galileo", "BeiDou", "QZSS" or "NavIC"
-# SvId      int    The satellite SV ID
-# IsGeo     bool   True for geostationary satellite
-# Longitude double The longitude to use, in degree
+# Name        Type            Description
+# ----------- --------------- -------------------------------------------------------------------------------------------
+# System      string          "GPS", "Galileo", "BeiDou", "QZSS" or "NavIC"
+# SvId        int             The satellite SV ID
+# IsGeo       bool            True for geostationary satellite
+# Longitude   double          The longitude to use, in degree
+# DataSetName optional string Optional name of the data set to use. If no value is provided, the active data set is used.
 #
 
 class IsSVForcedGeoResult(CommandResult):
 
-  def __init__(self, system, svId, isGeo, longitude):
+  def __init__(self, system, svId, isGeo, longitude, dataSetName = None):
     CommandResult.__init__(self, "IsSVForcedGeoResult")
     self.setSystem(system)
     self.setSvId(svId)
     self.setIsGeo(isGeo)
     self.setLongitude(longitude)
+    self.setDataSetName(dataSetName)
 
   def isSuccess(self):
     return True
@@ -28965,6 +30688,12 @@ class IsSVForcedGeoResult(CommandResult):
 
   def setLongitude(self, value):
     return self.set("Longitude", value)
+
+  def dataSetName(self):
+    return self.get("DataSetName")
+
+  def setDataSetName(self, value):
+    return self.set("DataSetName", value)
 
 #
 # Set whether pseudorange errors for this constellation should be compensated in SBAS fast corrections
@@ -29257,18 +30986,20 @@ class IsSbasLongTermCorrectionsEnabledForResult(CommandResult):
 #
 # Set the ura index of a GPS satellite
 #
-# Name Type Description
-# ---- ---- -------------------
-# SvId int  The satellite SV ID
-# Urai int  URA index.
+# Name        Type            Description
+# ----------- --------------- -------------------------------------------------------------------------------------------
+# SvId        int             The satellite SV ID, or use 0 to apply new value to all satellites.
+# Urai        int             URA index.
+# DataSetName optional string Optional name of the data set to use. If no value is provided, the active data set is used.
 #
 
 class SetGpsUraIndexForSV(CommandBase):
 
-  def __init__(self, svId, urai):
+  def __init__(self, svId, urai, dataSetName = None):
     CommandBase.__init__(self, "SetGpsUraIndexForSV")
     self.setSvId(svId)
     self.setUrai(urai)
+    self.setDataSetName(dataSetName)
 
   def executePermission(self):
     return ExecutePermission.EXECUTE_IF_IDLE | ExecutePermission.EXECUTE_IF_SIMULATING
@@ -29284,22 +31015,30 @@ class SetGpsUraIndexForSV(CommandBase):
 
   def setUrai(self, value):
     return self.set("Urai", value)
+
+  def dataSetName(self):
+    return self.get("DataSetName")
+
+  def setDataSetName(self, value):
+    return self.set("DataSetName", value)
 
 #
 # Set the ura index of a BeiDou satellite
 #
-# Name Type Description
-# ---- ---- -------------------
-# SvId int  The satellite SV ID
-# Urai int  URA index.
+# Name        Type            Description
+# ----------- --------------- -------------------------------------------------------------------------------------------
+# SvId        int             The satellite SV ID, or use 0 to apply new value to all satellites.
+# Urai        int             URA index.
+# DataSetName optional string Optional name of the data set to use. If no value is provided, the active data set is used.
 #
 
 class SetBeiDouUraIndexForSV(CommandBase):
 
-  def __init__(self, svId, urai):
+  def __init__(self, svId, urai, dataSetName = None):
     CommandBase.__init__(self, "SetBeiDouUraIndexForSV")
     self.setSvId(svId)
     self.setUrai(urai)
+    self.setDataSetName(dataSetName)
 
   def executePermission(self):
     return ExecutePermission.EXECUTE_IF_IDLE | ExecutePermission.EXECUTE_IF_SIMULATING
@@ -29315,22 +31054,30 @@ class SetBeiDouUraIndexForSV(CommandBase):
 
   def setUrai(self, value):
     return self.set("Urai", value)
+
+  def dataSetName(self):
+    return self.get("DataSetName")
+
+  def setDataSetName(self, value):
+    return self.set("DataSetName", value)
 
 #
 # Set the URA index of a QZSS satellite
 #
-# Name Type Description
-# ---- ---- -------------------
-# SvId int  The satellite SV ID
-# Urai int  URA index.
+# Name        Type            Description
+# ----------- --------------- -------------------------------------------------------------------------------------------
+# SvId        int             The satellite SV ID, or use 0 to apply new value to all satellites.
+# Urai        int             URA index.
+# DataSetName optional string Optional name of the data set to use. If no value is provided, the active data set is used.
 #
 
 class SetQzssUraIndexForSV(CommandBase):
 
-  def __init__(self, svId, urai):
+  def __init__(self, svId, urai, dataSetName = None):
     CommandBase.__init__(self, "SetQzssUraIndexForSV")
     self.setSvId(svId)
     self.setUrai(urai)
+    self.setDataSetName(dataSetName)
 
   def executePermission(self):
     return ExecutePermission.EXECUTE_IF_IDLE | ExecutePermission.EXECUTE_IF_SIMULATING
@@ -29346,24 +31093,32 @@ class SetQzssUraIndexForSV(CommandBase):
 
   def setUrai(self, value):
     return self.set("Urai", value)
+
+  def dataSetName(self):
+    return self.get("DataSetName")
+
+  def setDataSetName(self, value):
+    return self.set("DataSetName", value)
 
 #
 # Please note the command SetQzssUraIndex is deprecated since 21.3. You may use SetQzssUraIndexForSV.
 # 
 # Set the URA index of a QZSS satellite
 #
-# Name Type Description
-# ---- ---- -------------------
-# SvId int  The satellite SV ID
-# Urai int  URA index.
+# Name        Type            Description
+# ----------- --------------- -------------------------------------------------------------------------------------------
+# SvId        int             The satellite SV ID, or use 0 to apply new value to all satellites.
+# Urai        int             URA index.
+# DataSetName optional string Optional name of the data set to use. If no value is provided, the active data set is used.
 #
 
 class SetQzssUraIndex(CommandBase):
 
-  def __init__(self, svId, urai):
+  def __init__(self, svId, urai, dataSetName = None):
     CommandBase.__init__(self, "SetQzssUraIndex")
     self.setSvId(svId)
     self.setUrai(urai)
+    self.setDataSetName(dataSetName)
 
   def executePermission(self):
     return ExecutePermission.EXECUTE_IF_IDLE | ExecutePermission.EXECUTE_IF_SIMULATING
@@ -29379,22 +31134,30 @@ class SetQzssUraIndex(CommandBase):
 
   def setUrai(self, value):
     return self.set("Urai", value)
+
+  def dataSetName(self):
+    return self.get("DataSetName")
+
+  def setDataSetName(self, value):
+    return self.set("DataSetName", value)
 
 #
 # Set the URA index of a NavIC satellite
 #
-# Name Type Description
-# ---- ---- -------------------
-# SvId int  The satellite SV ID
-# Urai int  URA index.
+# Name        Type            Description
+# ----------- --------------- -------------------------------------------------------------------------------------------
+# SvId        int             The satellite SV ID, or use 0 to apply new value to all satellites.
+# Urai        int             URA index.
+# DataSetName optional string Optional name of the data set to use. If no value is provided, the active data set is used.
 #
 
 class SetNavICUraIndexForSV(CommandBase):
 
-  def __init__(self, svId, urai):
+  def __init__(self, svId, urai, dataSetName = None):
     CommandBase.__init__(self, "SetNavICUraIndexForSV")
     self.setSvId(svId)
     self.setUrai(urai)
+    self.setDataSetName(dataSetName)
 
   def executePermission(self):
     return ExecutePermission.EXECUTE_IF_IDLE | ExecutePermission.EXECUTE_IF_SIMULATING
@@ -29410,24 +31173,32 @@ class SetNavICUraIndexForSV(CommandBase):
 
   def setUrai(self, value):
     return self.set("Urai", value)
+
+  def dataSetName(self):
+    return self.get("DataSetName")
+
+  def setDataSetName(self, value):
+    return self.set("DataSetName", value)
 
 #
 # Please note the command SetNavICUraIndex is deprecated since 21.3. You may use SetNavICUraIndexForSV.
 # 
 # Set the URA index of a NavIC satellite
 #
-# Name Type Description
-# ---- ---- -------------------
-# SvId int  The satellite SV ID
-# Urai int  URA index.
+# Name        Type            Description
+# ----------- --------------- -------------------------------------------------------------------------------------------
+# SvId        int             The satellite SV ID, or use 0 to apply new value to all satellites.
+# Urai        int             URA index.
+# DataSetName optional string Optional name of the data set to use. If no value is provided, the active data set is used.
 #
 
 class SetNavICUraIndex(CommandBase):
 
-  def __init__(self, svId, urai):
+  def __init__(self, svId, urai, dataSetName = None):
     CommandBase.__init__(self, "SetNavICUraIndex")
     self.setSvId(svId)
     self.setUrai(urai)
+    self.setDataSetName(dataSetName)
 
   def executePermission(self):
     return ExecutePermission.EXECUTE_IF_IDLE | ExecutePermission.EXECUTE_IF_SIMULATING
@@ -29444,21 +31215,29 @@ class SetNavICUraIndex(CommandBase):
   def setUrai(self, value):
     return self.set("Urai", value)
 
+  def dataSetName(self):
+    return self.get("DataSetName")
+
+  def setDataSetName(self, value):
+    return self.set("DataSetName", value)
+
 #
 # Set the SISA(E1,E5a) index of a Galileo satellite
 #
-# Name  Type Description
-# ----- ---- -------------------
-# SvId  int  The satellite SV ID
-# Sisai int  SISA index.
+# Name        Type            Description
+# ----------- --------------- -------------------------------------------------------------------------------------------
+# SvId        int             The satellite SV ID, or use 0 to apply new value to all satellites.
+# Sisai       int             SISA index.
+# DataSetName optional string Optional name of the data set to use. If no value is provided, the active data set is used.
 #
 
 class SetGalileoSisaE1E5aIndexForSV(CommandBase):
 
-  def __init__(self, svId, sisai):
+  def __init__(self, svId, sisai, dataSetName = None):
     CommandBase.__init__(self, "SetGalileoSisaE1E5aIndexForSV")
     self.setSvId(svId)
     self.setSisai(sisai)
+    self.setDataSetName(dataSetName)
 
   def executePermission(self):
     return ExecutePermission.EXECUTE_IF_IDLE | ExecutePermission.EXECUTE_IF_SIMULATING
@@ -29474,22 +31253,30 @@ class SetGalileoSisaE1E5aIndexForSV(CommandBase):
 
   def setSisai(self, value):
     return self.set("Sisai", value)
+
+  def dataSetName(self):
+    return self.get("DataSetName")
+
+  def setDataSetName(self, value):
+    return self.set("DataSetName", value)
 
 #
 # Set the SISA(E1,E5b) index of a Galileo satellite
 #
-# Name  Type Description
-# ----- ---- -------------------
-# SvId  int  The satellite SV ID
-# Sisai int  SISA index.
+# Name        Type            Description
+# ----------- --------------- -------------------------------------------------------------------------------------------
+# SvId        int             The satellite SV ID, or use 0 to apply new value to all satellites.
+# Sisai       int             SISA index.
+# DataSetName optional string Optional name of the data set to use. If no value is provided, the active data set is used.
 #
 
 class SetGalileoSisaE1E5bIndexForSV(CommandBase):
 
-  def __init__(self, svId, sisai):
+  def __init__(self, svId, sisai, dataSetName = None):
     CommandBase.__init__(self, "SetGalileoSisaE1E5bIndexForSV")
     self.setSvId(svId)
     self.setSisai(sisai)
+    self.setDataSetName(dataSetName)
 
   def executePermission(self):
     return ExecutePermission.EXECUTE_IF_IDLE | ExecutePermission.EXECUTE_IF_SIMULATING
@@ -29505,6 +31292,12 @@ class SetGalileoSisaE1E5bIndexForSV(CommandBase):
 
   def setSisai(self, value):
     return self.set("Sisai", value)
+
+  def dataSetName(self):
+    return self.get("DataSetName")
+
+  def setDataSetName(self, value):
+    return self.set("DataSetName", value)
 
 #
 # Set CW pilot added to signal
@@ -31243,6 +33036,76 @@ class EnableSpoofTx(CommandBase):
     return self.set("Id", value)
 
 #
+# Set the manual propagation loss for the given spoofer signal. Value is used only if SetSpoofTxUseManualPropagationLoss has been set on the corresponding spoofer. This value is not preserved after simulation end.
+#
+# Name            Type   Description
+# --------------- ------ --------------------------------------------------------------------------------------------------------
+# PropagationLoss double The propagation loss in dB to use until the next call of this command, or until manual mode is disabled.
+# TransmitterId   string Transmitter unique identifier.
+# SignalId        string Signal unique identifier.
+#
+
+class SetSpoofSignalManualPropagationLoss(CommandBase):
+
+  def __init__(self, propagationLoss, transmitterId, signalId):
+    CommandBase.__init__(self, "SetSpoofSignalManualPropagationLoss")
+    self.setPropagationLoss(propagationLoss)
+    self.setTransmitterId(transmitterId)
+    self.setSignalId(signalId)
+
+  def executePermission(self):
+    return ExecutePermission.EXECUTE_IF_SIMULATING | ExecutePermission.EXECUTE_IF_IDLE
+
+  def propagationLoss(self):
+    return self.get("PropagationLoss")
+
+  def setPropagationLoss(self, value):
+    return self.set("PropagationLoss", value)
+
+  def transmitterId(self):
+    return self.get("TransmitterId")
+
+  def setTransmitterId(self, value):
+    return self.set("TransmitterId", value)
+
+  def signalId(self):
+    return self.get("SignalId")
+
+  def setSignalId(self, value):
+    return self.set("SignalId", value)
+
+#
+# Set whether a spoofer should only use user-provided propagation loss values. Propagation loss will not update automatically if set. This state is not preserved after simulation end.
+#
+# Name   Type   Description
+# ------ ------ -------------------------------------------------------------
+# Manual bool   If true, propagation loss will be 1000 dB until set manually.
+# Id     string Spoofing transmitter unique identifier.
+#
+
+class SetSpoofTxUseManualPropagationLoss(CommandBase):
+
+  def __init__(self, manual, id):
+    CommandBase.__init__(self, "SetSpoofTxUseManualPropagationLoss")
+    self.setManual(manual)
+    self.setId(id)
+
+  def executePermission(self):
+    return ExecutePermission.EXECUTE_IF_SIMULATING | ExecutePermission.EXECUTE_IF_IDLE
+
+  def manual(self):
+    return self.get("Manual")
+
+  def setManual(self, value):
+    return self.set("Manual", value)
+
+  def id(self):
+    return self.get("Id")
+
+  def setId(self, value):
+    return self.set("Id", value)
+
+#
 # Set whether a spoofer should ignore propagation loss or not.
 #
 # Name   Type   Description
@@ -32568,7 +34431,7 @@ class SetExternalChannelsPath(CommandBase):
     return self.set("Path", value)
 
 #
-# Mapping PRN to the corresponding SV ID. Get a list of SV IDs based on a specific signal. Accepted signal keys: "L1CA", "L1C", "L1P", "L1M", "L2C", "L2P", "L5", "G1", "G2", "E1", "E1PRS", "E5a", "E5b", "E6BC", "E6PRS", "B1", "B2", "B2a", "B1C", "SBASL1", "SBASL5", "QZSSL1CA", "QZSSL1C", "QZSSL5", "QZSSL1S", "QZSSL5S" and "NAVICL5"
+# Mapping PRN to the corresponding SV ID. Get a list of SV IDs based on a specific signal. Accepted signal keys: "L1CA", "L1C", "L1P", "L1M", "L2C", "L2P", "L5", "G1", "G2", "E1", "E1PRS", "E5a", "E5b", "E6BC", "E6PRS", "B1", "B2", "B2a", "B1C", "SBASL1", "SBASL5", "QZSSL1CA", "QZSSL1C", "QZSSL2C", "QZSSL5", "QZSSL1S", "QZSSL5S" and "NAVICL5"
 #
 # Name   Type   Description
 # ------ ------ ----------------------------------------------------------------------
@@ -32882,6 +34745,356 @@ class SetWavefrontJamCalibrationState(CommandBase):
     return self.set("State", value)
 
 #
+# Add a new data set for the specified constellation. This could come from a Rinex, SEM or YUMA file for GPS. Only Rinex for the others.
+#
+# Name        Type            Description
+# ----------- --------------- --------------------------------------------------------------------------------------------------------------------
+# System      string          "GPS", "Galileo", "BeiDou", "NavIC" or "QZSS"
+# Path        string          Data set file path
+# Rollover    optional int    Rollover for file types that does not precise it (YUMA, SEM). Default value is the current rollover.
+# DataSetName optional string Name of the data set to import. This parameter is optional, the default value will be the name of the imported file.
+#
+
+class AddDataSet(CommandBase):
+
+  def __init__(self, system, path, rollover = None, dataSetName = None):
+    CommandBase.__init__(self, "AddDataSet")
+    self.setSystem(system)
+    self.setPath(path)
+    self.setRollover(rollover)
+    self.setDataSetName(dataSetName)
+
+  def executePermission(self):
+    return ExecutePermission.EXECUTE_IF_IDLE
+
+  def system(self):
+    return self.get("System")
+
+  def setSystem(self, value):
+    return self.set("System", value)
+
+  def path(self):
+    return self.get("Path")
+
+  def setPath(self, value):
+    return self.set("Path", value)
+
+  def rollover(self):
+    return self.get("Rollover")
+
+  def setRollover(self, value):
+    return self.set("Rollover", value)
+
+  def dataSetName(self):
+    return self.get("DataSetName")
+
+  def setDataSetName(self, value):
+    return self.set("DataSetName", value)
+
+#
+# Set data set assignation for the specified constellation.
+#
+# Name        Type   Description
+# ----------- ------ ---------------------------------------------
+# System      string "GPS", "Galileo", "BeiDou", "NavIC" or "QZSS"
+# DataSetType string "Almanac", "Ephemeris" or "Orbit"
+# DataSetName string The name of the assigned data set.
+#
+
+class SetDataSetAssignation(CommandBase):
+
+  def __init__(self, system, dataSetType, dataSetName):
+    CommandBase.__init__(self, "SetDataSetAssignation")
+    self.setSystem(system)
+    self.setDataSetType(dataSetType)
+    self.setDataSetName(dataSetName)
+
+  def executePermission(self):
+    return ExecutePermission.EXECUTE_IF_IDLE
+
+  def system(self):
+    return self.get("System")
+
+  def setSystem(self, value):
+    return self.set("System", value)
+
+  def dataSetType(self):
+    return self.get("DataSetType")
+
+  def setDataSetType(self, value):
+    return self.set("DataSetType", value)
+
+  def dataSetName(self):
+    return self.get("DataSetName")
+
+  def setDataSetName(self, value):
+    return self.set("DataSetName", value)
+
+#
+# Get data set assignation for the specified constellation.
+#
+# Name        Type   Description
+# ----------- ------ ---------------------------------------------
+# System      string "GPS", "Galileo", "BeiDou", "NavIC" or "QZSS"
+# DataSetType string "Almanac", "Ephemeris" or "Orbit"
+#
+
+class GetDataSetAssignation(CommandBase):
+
+  def __init__(self, system, dataSetType):
+    CommandBase.__init__(self, "GetDataSetAssignation")
+    self.setSystem(system)
+    self.setDataSetType(dataSetType)
+
+  def executePermission(self):
+    return ExecutePermission.EXECUTE_IF_IDLE
+
+  def system(self):
+    return self.get("System")
+
+  def setSystem(self, value):
+    return self.set("System", value)
+
+  def dataSetType(self):
+    return self.get("DataSetType")
+
+  def setDataSetType(self, value):
+    return self.set("DataSetType", value)
+
+#
+# Result of GetDataSetAssignation.
+#
+# Name        Type   Description
+# ----------- ------ ---------------------------------------------
+# System      string "GPS", "Galileo", "BeiDou", "NavIC" or "QZSS"
+# DataSetType string "Almanac", "Ephemeris" or "Orbit"
+# DataSetName string The name of the assigned data set.
+#
+
+class GetDataSetAssignationResult(CommandResult):
+
+  def __init__(self, system, dataSetType, dataSetName):
+    CommandResult.__init__(self, "GetDataSetAssignationResult")
+    self.setSystem(system)
+    self.setDataSetType(dataSetType)
+    self.setDataSetName(dataSetName)
+
+  def isSuccess(self):
+    return True
+
+  def system(self):
+    return self.get("System")
+
+  def setSystem(self, value):
+    return self.set("System", value)
+
+  def dataSetType(self):
+    return self.get("DataSetType")
+
+  def setDataSetType(self, value):
+    return self.set("DataSetType", value)
+
+  def dataSetName(self):
+    return self.get("DataSetName")
+
+  def setDataSetName(self, value):
+    return self.set("DataSetName", value)
+
+#
+# Rename data set.
+#
+# Name           Type   Description
+# -------------- ------ ---------------------------------------------
+# System         string "GPS", "Galileo", "BeiDou", "NavIC" or "QZSS"
+# DataSetName    string The name of the data set to rename.
+# NewDataSetName string The new name to be given to the data set.
+#
+
+class RenameDataSet(CommandBase):
+
+  def __init__(self, system, dataSetName, newDataSetName):
+    CommandBase.__init__(self, "RenameDataSet")
+    self.setSystem(system)
+    self.setDataSetName(dataSetName)
+    self.setNewDataSetName(newDataSetName)
+
+  def executePermission(self):
+    return ExecutePermission.EXECUTE_IF_IDLE
+
+  def system(self):
+    return self.get("System")
+
+  def setSystem(self, value):
+    return self.set("System", value)
+
+  def dataSetName(self):
+    return self.get("DataSetName")
+
+  def setDataSetName(self, value):
+    return self.set("DataSetName", value)
+
+  def newDataSetName(self):
+    return self.get("NewDataSetName")
+
+  def setNewDataSetName(self, value):
+    return self.set("NewDataSetName", value)
+
+#
+# Delete data set.
+#
+# Name        Type   Description
+# ----------- ------ ---------------------------------------------
+# System      string "GPS", "Galileo", "BeiDou", "NavIC" or "QZSS"
+# DataSetName string The name of the data set to delete.
+#
+
+class DeleteDataSet(CommandBase):
+
+  def __init__(self, system, dataSetName):
+    CommandBase.__init__(self, "DeleteDataSet")
+    self.setSystem(system)
+    self.setDataSetName(dataSetName)
+
+  def executePermission(self):
+    return ExecutePermission.EXECUTE_IF_IDLE
+
+  def system(self):
+    return self.get("System")
+
+  def setSystem(self, value):
+    return self.set("System", value)
+
+  def dataSetName(self):
+    return self.get("DataSetName")
+
+  def setDataSetName(self, value):
+    return self.set("DataSetName", value)
+
+#
+# Set active data set.
+#
+# Name        Type   Description
+# ----------- ------ ---------------------------------------------
+# System      string "GPS", "Galileo", "BeiDou", "NavIC" or "QZSS"
+# DataSetName string The name of the data set to set as active.
+#
+
+class SetActiveDataSet(CommandBase):
+
+  def __init__(self, system, dataSetName):
+    CommandBase.__init__(self, "SetActiveDataSet")
+    self.setSystem(system)
+    self.setDataSetName(dataSetName)
+
+  def executePermission(self):
+    return ExecutePermission.EXECUTE_IF_IDLE | ExecutePermission.EXECUTE_IF_SIMULATING
+
+  def system(self):
+    return self.get("System")
+
+  def setSystem(self, value):
+    return self.set("System", value)
+
+  def dataSetName(self):
+    return self.get("DataSetName")
+
+  def setDataSetName(self, value):
+    return self.set("DataSetName", value)
+
+#
+# Get active data set.
+#
+# Name   Type   Description
+# ------ ------ ---------------------------------------------
+# System string "GPS", "Galileo", "BeiDou", "NavIC" or "QZSS"
+#
+
+class GetActiveDataSet(CommandBase):
+
+  def __init__(self, system):
+    CommandBase.__init__(self, "GetActiveDataSet")
+    self.setSystem(system)
+
+  def executePermission(self):
+    return ExecutePermission.EXECUTE_IF_IDLE
+
+  def system(self):
+    return self.get("System")
+
+  def setSystem(self, value):
+    return self.set("System", value)
+
+#
+# Result of GetActiveDataSet.
+#
+# Name        Type   Description
+# ----------- ------ ---------------------------------------------
+# System      string "GPS", "Galileo", "BeiDou", "NavIC" or "QZSS"
+# DataSetName string The name of the data set to set as active.
+#
+
+class GetActiveDataSetResult(CommandResult):
+
+  def __init__(self, system, dataSetName):
+    CommandResult.__init__(self, "GetActiveDataSetResult")
+    self.setSystem(system)
+    self.setDataSetName(dataSetName)
+
+  def isSuccess(self):
+    return True
+
+  def system(self):
+    return self.get("System")
+
+  def setSystem(self, value):
+    return self.set("System", value)
+
+  def dataSetName(self):
+    return self.get("DataSetName")
+
+  def setDataSetName(self, value):
+    return self.set("DataSetName", value)
+
+#
+# Duplicate an existing data set.
+#
+# Name           Type            Description
+# -------------- --------------- ----------------------------------------------------------------------------------
+# System         string          "GPS", "Galileo", "BeiDou", "NavIC" or "QZSS"
+# DataSetName    string          The name of the data set to duplicate.
+# NewDataSetName optional string The name of the new duplicate data set. If omitted, a copy name will be generated.
+#
+
+class DuplicateDataSet(CommandBase):
+
+  def __init__(self, system, dataSetName, newDataSetName = None):
+    CommandBase.__init__(self, "DuplicateDataSet")
+    self.setSystem(system)
+    self.setDataSetName(dataSetName)
+    self.setNewDataSetName(newDataSetName)
+
+  def executePermission(self):
+    return ExecutePermission.EXECUTE_IF_IDLE
+
+  def system(self):
+    return self.get("System")
+
+  def setSystem(self, value):
+    return self.set("System", value)
+
+  def dataSetName(self):
+    return self.get("DataSetName")
+
+  def setDataSetName(self, value):
+    return self.set("DataSetName", value)
+
+  def newDataSetName(self):
+    return self.get("NewDataSetName")
+
+  def setNewDataSetName(self, value):
+    return self.set("NewDataSetName", value)
+
+#
 # A pair of string
 #
 # Name   Type   Description
@@ -32895,10141 +35108,6 @@ class StringPair:
   def __init__(self, first, second):
     self.First = first
     self.Second = second
-
-#
-# Please note the command SetQzssSatMotionFixed is deprecated since 20.9. You may use SetSatMotionFixed.
-# 
-# If IsFixed is set to true, the satellite will not move during the simulation and keep its initial position calculated at the beginning of the simulation.
-#
-# Name    Type Description
-# ------- ---- --------------------------------------------------------------------------------------------------------------
-# SvId    int  Satellite SV ID number
-# IsFixed bool If true, the satellite relative position is fixed, if false, the satellite motion follows a normal trajectory.
-#
-
-class SetQzssSatMotionFixed(CommandBase):
-
-  def __init__(self, svId, isFixed):
-    CommandBase.__init__(self, "SetQzssSatMotionFixed")
-    self.setSvId(svId)
-    self.setIsFixed(isFixed)
-
-  def executePermission(self):
-    return ExecutePermission.EXECUTE_IF_IDLE
-
-  def svId(self):
-    return self.get("SvId")
-
-  def setSvId(self, value):
-    return self.set("SvId", value)
-
-  def isFixed(self):
-    return self.get("IsFixed")
-
-  def setIsFixed(self, value):
-    return self.set("IsFixed", value)
-
-#
-# Please note the command IsQzssSatMotionFixed is deprecated since 20.9. You may use IsSatMotionFixed.
-# 
-# Tells if the satellite is fixed (True) or not fixed (false).
-#
-# Name Type Description
-# ---- ---- ----------------------
-# SvId int  Satellite SV ID number
-#
-
-class IsQzssSatMotionFixed(CommandBase):
-
-  def __init__(self, svId):
-    CommandBase.__init__(self, "IsQzssSatMotionFixed")
-    self.setSvId(svId)
-
-  def executePermission(self):
-    return ExecutePermission.EXECUTE_IF_IDLE
-
-  def svId(self):
-    return self.get("SvId")
-
-  def setSvId(self, value):
-    return self.set("SvId", value)
-
-#
-# Result of IsQzssSatMotionFixed.
-#
-# Name    Type Description
-# ------- ---- --------------------------------------------------------------------------------------------------------------
-# SvId    int  Satellite SV ID number
-# IsFixed bool If true, the satellite relative position is fixed, if false, the satellite motion follows a normal trajectory.
-#
-
-class IsQzssSatMotionFixedResult(CommandResult):
-
-  def __init__(self, svId, isFixed):
-    CommandResult.__init__(self, "IsQzssSatMotionFixedResult")
-    self.setSvId(svId)
-    self.setIsFixed(isFixed)
-
-  def isSuccess(self):
-    return True
-
-  def svId(self):
-    return self.get("SvId")
-
-  def setSvId(self, value):
-    return self.set("SvId", value)
-
-  def isFixed(self):
-    return self.get("IsFixed")
-
-  def setIsFixed(self, value):
-    return self.set("IsFixed", value)
-
-#
-# Please note the command SetQzssEphemerisReferenceTime is deprecated since 20.9. You may use SetEphemerisReferenceTimeForSV.
-# 
-# Set the QZSS ephemeris reference time
-#
-# Name Type     Description
-# ---- -------- --------------------------------------------------------------
-# SvId int      Satellite SV ID 1..10
-# Time datetime GPS date and time (it is the GPS time expressed in UTC format)
-#
-
-class SetQzssEphemerisReferenceTime(CommandBase):
-
-  def __init__(self, svId, time):
-    CommandBase.__init__(self, "SetQzssEphemerisReferenceTime")
-    self.setSvId(svId)
-    self.setTime(time)
-
-  def executePermission(self):
-    return ExecutePermission.EXECUTE_IF_IDLE
-
-  def svId(self):
-    return self.get("SvId")
-
-  def setSvId(self, value):
-    return self.set("SvId", value)
-
-  def time(self):
-    return self.get("Time")
-
-  def setTime(self, value):
-    return self.set("Time", value)
-
-#
-# Please note the command GetQzssEphemerisReferenceTime is deprecated since 20.9. You may use GetEphemerisReferenceTimeForSV.
-# 
-# Get the QZSS ephemeris reference time
-#
-# Name Type Description
-# ---- ---- ---------------------
-# SvId int  Satellite SV ID 1..10
-#
-
-class GetQzssEphemerisReferenceTime(CommandBase):
-
-  def __init__(self, svId):
-    CommandBase.__init__(self, "GetQzssEphemerisReferenceTime")
-    self.setSvId(svId)
-
-  def executePermission(self):
-    return ExecutePermission.EXECUTE_IF_IDLE
-
-  def svId(self):
-    return self.get("SvId")
-
-  def setSvId(self, value):
-    return self.set("SvId", value)
-
-#
-# Result of GetQzssEphemerisReferenceTime.
-#
-# Name Type     Description
-# ---- -------- --------------------------------------------------------------
-# SvId int      Satellite SV ID 1..10
-# Time datetime GPS date and time (it is the GPS time expressed in UTC format)
-#
-
-class GetQzssEphemerisReferenceTimeResult(CommandResult):
-
-  def __init__(self, svId, time):
-    CommandResult.__init__(self, "GetQzssEphemerisReferenceTimeResult")
-    self.setSvId(svId)
-    self.setTime(time)
-
-  def isSuccess(self):
-    return True
-
-  def svId(self):
-    return self.get("SvId")
-
-  def setSvId(self, value):
-    return self.set("SvId", value)
-
-  def time(self):
-    return self.get("Time")
-
-  def setTime(self, value):
-    return self.set("Time", value)
-
-#
-# Please note the command SetQzssPerturbations is deprecated since 20.9. You may use SetPerturbations.
-# 
-# Set QZSS orbit perturbations (Crs, Crc, Cis, Cic, Cus and Cuc)
-#
-# Name Type   Description
-# ---- ------ ---------------------
-# SvId int    Satellite SV ID 1..10
-# Crs  double Crs (meter)
-# Crc  double Crc (meter)
-# Cis  double Crs (rad)
-# Cic  double Crc (rad)
-# Cus  double Cus (rad)
-# Cuc  double Cuc (rad)
-#
-
-class SetQzssPerturbations(CommandBase):
-
-  def __init__(self, svId, crs, crc, cis, cic, cus, cuc):
-    CommandBase.__init__(self, "SetQzssPerturbations")
-    self.setSvId(svId)
-    self.setCrs(crs)
-    self.setCrc(crc)
-    self.setCis(cis)
-    self.setCic(cic)
-    self.setCus(cus)
-    self.setCuc(cuc)
-
-  def executePermission(self):
-    return ExecutePermission.EXECUTE_IF_IDLE
-
-  def svId(self):
-    return self.get("SvId")
-
-  def setSvId(self, value):
-    return self.set("SvId", value)
-
-  def crs(self):
-    return self.get("Crs")
-
-  def setCrs(self, value):
-    return self.set("Crs", value)
-
-  def crc(self):
-    return self.get("Crc")
-
-  def setCrc(self, value):
-    return self.set("Crc", value)
-
-  def cis(self):
-    return self.get("Cis")
-
-  def setCis(self, value):
-    return self.set("Cis", value)
-
-  def cic(self):
-    return self.get("Cic")
-
-  def setCic(self, value):
-    return self.set("Cic", value)
-
-  def cus(self):
-    return self.get("Cus")
-
-  def setCus(self, value):
-    return self.set("Cus", value)
-
-  def cuc(self):
-    return self.get("Cuc")
-
-  def setCuc(self, value):
-    return self.set("Cuc", value)
-
-#
-# Please note the command GetQzssPerturbations is deprecated since 20.9. You may use GetPerturbations.
-# 
-# Get QZSS orbit perturbations (Crs, Crc, Cis, Cic, Cus and Cuc)
-#
-# Name Type Description
-# ---- ---- ---------------------
-# SvId int  Satellite SV ID 1..10
-#
-
-class GetQzssPerturbations(CommandBase):
-
-  def __init__(self, svId):
-    CommandBase.__init__(self, "GetQzssPerturbations")
-    self.setSvId(svId)
-
-  def executePermission(self):
-    return ExecutePermission.EXECUTE_IF_IDLE
-
-  def svId(self):
-    return self.get("SvId")
-
-  def setSvId(self, value):
-    return self.set("SvId", value)
-
-#
-# Result of GetQzssPerturbations.
-#
-# Name Type   Description
-# ---- ------ ---------------------
-# SvId int    Satellite SV ID 1..10
-# Crs  double Crs (meter)
-# Crc  double Crc (meter)
-# Cis  double Crs (rad)
-# Cic  double Crc (rad)
-# Cus  double Cus (rad)
-# Cuc  double Cuc (rad)
-#
-
-class GetQzssPerturbationsResult(CommandResult):
-
-  def __init__(self, svId, crs, crc, cis, cic, cus, cuc):
-    CommandResult.__init__(self, "GetQzssPerturbationsResult")
-    self.setSvId(svId)
-    self.setCrs(crs)
-    self.setCrc(crc)
-    self.setCis(cis)
-    self.setCic(cic)
-    self.setCus(cus)
-    self.setCuc(cuc)
-
-  def isSuccess(self):
-    return True
-
-  def svId(self):
-    return self.get("SvId")
-
-  def setSvId(self, value):
-    return self.set("SvId", value)
-
-  def crs(self):
-    return self.get("Crs")
-
-  def setCrs(self, value):
-    return self.set("Crs", value)
-
-  def crc(self):
-    return self.get("Crc")
-
-  def setCrc(self, value):
-    return self.set("Crc", value)
-
-  def cis(self):
-    return self.get("Cis")
-
-  def setCis(self, value):
-    return self.set("Cis", value)
-
-  def cic(self):
-    return self.get("Cic")
-
-  def setCic(self, value):
-    return self.set("Cic", value)
-
-  def cus(self):
-    return self.get("Cus")
-
-  def setCus(self, value):
-    return self.set("Cus", value)
-
-  def cuc(self):
-    return self.get("Cuc")
-
-  def setCuc(self, value):
-    return self.set("Cuc", value)
-
-#
-# Please note the command SetQzssPerturbationsForAllSat is deprecated since 20.9. You may use SetPerturbationsForAllSat.
-# 
-# Set QZSS orbit perturbations (Crs, Crc, Cis, Cic, Cus and Cuc) for all satellites.
-# All parameters are zero based index (index 0 => SV ID 1, index 1 => SV ID 2, etc)
-#
-# Name Type         Description
-# ---- ------------ -----------
-# Crs  array double Crs (meter)
-# Crc  array double Crc (meter)
-# Cis  array double Cis (rad)
-# Cic  array double Cic (rad)
-# Cus  array double Cus (rad)
-# Cuc  array double Cuc (rad)
-#
-
-class SetQzssPerturbationsForAllSat(CommandBase):
-
-  def __init__(self, crs, crc, cis, cic, cus, cuc):
-    CommandBase.__init__(self, "SetQzssPerturbationsForAllSat")
-    self.setCrs(crs)
-    self.setCrc(crc)
-    self.setCis(cis)
-    self.setCic(cic)
-    self.setCus(cus)
-    self.setCuc(cuc)
-
-  def executePermission(self):
-    return ExecutePermission.EXECUTE_IF_IDLE
-
-  def crs(self):
-    return self.get("Crs")
-
-  def setCrs(self, value):
-    return self.set("Crs", value)
-
-  def crc(self):
-    return self.get("Crc")
-
-  def setCrc(self, value):
-    return self.set("Crc", value)
-
-  def cis(self):
-    return self.get("Cis")
-
-  def setCis(self, value):
-    return self.set("Cis", value)
-
-  def cic(self):
-    return self.get("Cic")
-
-  def setCic(self, value):
-    return self.set("Cic", value)
-
-  def cus(self):
-    return self.get("Cus")
-
-  def setCus(self, value):
-    return self.set("Cus", value)
-
-  def cuc(self):
-    return self.get("Cuc")
-
-  def setCuc(self, value):
-    return self.set("Cuc", value)
-
-#
-# Please note the command GetQzssPerturbationsForAllSat is deprecated since 20.9. You may use GetPerturbationsForAllSat.
-# 
-# Get QZSS orbit perturbations (Crs, Crc, Cis, Cic, Cus and Cuc) for all satellites.
-# All parameters are zero based index (index 0 => SV ID 1, index 1 => SV ID 2, etc)
-#
-#
-
-class GetQzssPerturbationsForAllSat(CommandBase):
-
-  def __init__(self):
-    CommandBase.__init__(self, "GetQzssPerturbationsForAllSat")
-
-  def executePermission(self):
-    return ExecutePermission.EXECUTE_IF_IDLE
-
-#
-# Result of GetQzssPerturbationsForAllSat.
-#
-# Name Type         Description
-# ---- ------------ -----------
-# Crs  array double Crs (meter)
-# Crc  array double Crc (meter)
-# Cis  array double Cis (rad)
-# Cic  array double Cic (rad)
-# Cus  array double Cus (rad)
-# Cuc  array double Cuc (rad)
-#
-
-class GetQzssPerturbationsForAllSatResult(CommandResult):
-
-  def __init__(self, crs, crc, cis, cic, cus, cuc):
-    CommandResult.__init__(self, "GetQzssPerturbationsForAllSatResult")
-    self.setCrs(crs)
-    self.setCrc(crc)
-    self.setCis(cis)
-    self.setCic(cic)
-    self.setCus(cus)
-    self.setCuc(cuc)
-
-  def isSuccess(self):
-    return True
-
-  def crs(self):
-    return self.get("Crs")
-
-  def setCrs(self, value):
-    return self.set("Crs", value)
-
-  def crc(self):
-    return self.get("Crc")
-
-  def setCrc(self, value):
-    return self.set("Crc", value)
-
-  def cis(self):
-    return self.get("Cis")
-
-  def setCis(self, value):
-    return self.set("Cis", value)
-
-  def cic(self):
-    return self.get("Cic")
-
-  def setCic(self, value):
-    return self.set("Cic", value)
-
-  def cus(self):
-    return self.get("Cus")
-
-  def setCus(self, value):
-    return self.set("Cus", value)
-
-  def cuc(self):
-    return self.get("Cuc")
-
-  def setCuc(self, value):
-    return self.set("Cuc", value)
-
-#
-# Please note the command ResetQzssPerturbations is deprecated since 20.9. You may use ResetPerturbations.
-# 
-# Set QZSS orbit perturbations (Crs, Crc, Cis, Cic, Cus and Cuc) to zero
-#
-# Name Type Description
-# ---- ---- --------------------------------------------------------------------
-# SvId int  Satellite SV ID 1..10, or use 0 to apply new value to all satellites
-#
-
-class ResetQzssPerturbations(CommandBase):
-
-  def __init__(self, svId):
-    CommandBase.__init__(self, "ResetQzssPerturbations")
-    self.setSvId(svId)
-
-  def executePermission(self):
-    return ExecutePermission.EXECUTE_IF_IDLE
-
-  def svId(self):
-    return self.get("SvId")
-
-  def setSvId(self, value):
-    return self.set("SvId", value)
-
-#
-# Please note the command EnableRF is deprecated since 21.3. You may use EnableRFOutputForSV.
-# 
-# Enable (or disable) RF output for specified satellite PRN. Use PRN 0 to enabled/disable all satellites.
-#
-# Name    Type   Description
-# ------- ------ ----------------------------------------------------------------------------------------------------------
-# System  string "GPS", "GLONASS", "Galileo", "BeiDou", "SBAS", "QZSS" or "NavIC"
-# Prn     int    Satellite PRN number for GPS, Galileo, BeiDou and SBAS. Slot number for GLONASS. SV ID for QZSS and NavIC.
-# Enabled bool   RF is enabled when value is True
-#
-
-class EnableRF(CommandBase):
-
-  def __init__(self, system, prn, enabled):
-    CommandBase.__init__(self, "EnableRF")
-    self.setSystem(system)
-    self.setPrn(prn)
-    self.setEnabled(enabled)
-
-  def executePermission(self):
-    return ExecutePermission.EXECUTE_IF_SIMULATING | ExecutePermission.EXECUTE_IF_IDLE
-
-  def system(self):
-    return self.get("System")
-
-  def setSystem(self, value):
-    return self.set("System", value)
-
-  def prn(self):
-    return self.get("Prn")
-
-  def setPrn(self, value):
-    return self.set("Prn", value)
-
-  def enabled(self):
-    return self.get("Enabled")
-
-  def setEnabled(self, value):
-    return self.set("Enabled", value)
-
-#
-# Please note the command IsRFEnabled is deprecated since 21.3. You may use IsRFOutputEnabled.
-# 
-# Tells if the RF is enabled or disabled for the specified satellite.
-#
-# Name   Type   Description
-# ------ ------ ----------------------------------------------------------------------------------------------------------
-# System string "GPS", "GLONASS", "Galileo", "BeiDou", "SBAS", "QZSS" or "NavIC"
-# Prn    int    Satellite PRN number for GPS, Galileo, BeiDou and SBAS. Slot number for GLONASS. SV ID for QZSS and NavIC.
-#
-
-class IsRFEnabled(CommandBase):
-
-  def __init__(self, system, prn):
-    CommandBase.__init__(self, "IsRFEnabled")
-    self.setSystem(system)
-    self.setPrn(prn)
-
-  def executePermission(self):
-    return ExecutePermission.EXECUTE_IF_IDLE
-
-  def system(self):
-    return self.get("System")
-
-  def setSystem(self, value):
-    return self.set("System", value)
-
-  def prn(self):
-    return self.get("Prn")
-
-  def setPrn(self, value):
-    return self.set("Prn", value)
-
-#
-# Result of IsRFEnabled.
-#
-# Name    Type   Description
-# ------- ------ ----------------------------------------------------------------------------------------------------------
-# System  string "GPS", "GLONASS", "Galileo", "BeiDou", "SBAS", "QZSS" or "NavIC"
-# Prn     int    Satellite PRN number for GPS, Galileo, BeiDou and SBAS. Slot number for GLONASS. SV ID for QZSS and NavIC.
-# Enabled bool   RF is enabled when value is True
-#
-
-class IsRFEnabledResult(CommandResult):
-
-  def __init__(self, system, prn, enabled):
-    CommandResult.__init__(self, "IsRFEnabledResult")
-    self.setSystem(system)
-    self.setPrn(prn)
-    self.setEnabled(enabled)
-
-  def isSuccess(self):
-    return True
-
-  def system(self):
-    return self.get("System")
-
-  def setSystem(self, value):
-    return self.set("System", value)
-
-  def prn(self):
-    return self.get("Prn")
-
-  def setPrn(self, value):
-    return self.set("Prn", value)
-
-  def enabled(self):
-    return self.get("Enabled")
-
-  def setEnabled(self, value):
-    return self.set("Enabled", value)
-
-#
-# Please note the command EnableRFForEachPrn is deprecated since 21.3. You may use EnableRFOutputForEachSV.
-# 
-# Enable (or disable) RF for each satellite individually.
-#
-# Name    Type       Description
-# ------- ---------- ------------------------------------------------------------------------------------------------------
-# System  string     "GPS", "GLONASS", "Galileo", "BeiDou", "SBAS", "QZSS" or "NavIC"
-# Enabled array bool RF is enabled when value is True. Zero based index (index 0 => first PRN, index 1 => second PRN, etc).
-#
-
-class EnableRFForEachPrn(CommandBase):
-
-  def __init__(self, system, enabled):
-    CommandBase.__init__(self, "EnableRFForEachPrn")
-    self.setSystem(system)
-    self.setEnabled(enabled)
-
-  def executePermission(self):
-    return ExecutePermission.EXECUTE_IF_SIMULATING | ExecutePermission.EXECUTE_IF_IDLE
-
-  def system(self):
-    return self.get("System")
-
-  def setSystem(self, value):
-    return self.set("System", value)
-
-  def enabled(self):
-    return self.get("Enabled")
-
-  def setEnabled(self, value):
-    return self.set("Enabled", value)
-
-#
-# Please note the command GetRFEnabledForEachPrn is deprecated since 21.3. You may use IsRFOutputEnabledForEachSV.
-# 
-# Tells if the RF is enabled or disabled for each satellite.
-#
-# Name   Type   Description
-# ------ ------ ----------------------------------------------------------------
-# System string "GPS", "GLONASS", "Galileo", "BeiDou", "SBAS", "QZSS" or "NavIC"
-#
-
-class GetRFEnabledForEachPrn(CommandBase):
-
-  def __init__(self, system):
-    CommandBase.__init__(self, "GetRFEnabledForEachPrn")
-    self.setSystem(system)
-
-  def executePermission(self):
-    return ExecutePermission.EXECUTE_IF_IDLE
-
-  def system(self):
-    return self.get("System")
-
-  def setSystem(self, value):
-    return self.set("System", value)
-
-#
-# Result of GetRFEnabledForEachPrn.
-#
-# Name    Type       Description
-# ------- ---------- ------------------------------------------------------------------------------------------------------
-# System  string     "GPS", "GLONASS", "Galileo", "BeiDou", "SBAS", "QZSS" or "NavIC"
-# Enabled array bool RF is enabled when value is True. Zero based index (index 0 => first PRN, index 1 => second PRN, etc).
-#
-
-class GetRFEnabledForEachPrnResult(CommandResult):
-
-  def __init__(self, system, enabled):
-    CommandResult.__init__(self, "GetRFEnabledForEachPrnResult")
-    self.setSystem(system)
-    self.setEnabled(enabled)
-
-  def isSuccess(self):
-    return True
-
-  def system(self):
-    return self.get("System")
-
-  def setSystem(self, value):
-    return self.set("System", value)
-
-  def enabled(self):
-    return self.get("Enabled")
-
-  def setEnabled(self, value):
-    return self.set("Enabled", value)
-
-#
-# Please note the command EnableSignal is deprecated since 21.3. You may use EnableSignalForSV.
-# 
-# Enable (or disable) signal for specified satellite. Use PRN 0 to enabled/disable all satellites.
-# QZSS uses SVID instead of PRN.
-# Allowed signal keys: "L1CA", "L1C", "L1P", "L1M", "L2C", "L2P", "L2M", "L5",
-#                      "G1", "G2", "E1", "E5a", "E5b", "B1", "B2", "B1C", "B2a",
-#                      "SBAS", "QZSSL1CA", "QZSSL1C", "QZSSL5", "QZSSL1S", "QZSSL5S",
-#                      "NAVICL5"
-#
-# Name    Type   Description
-# ------- ------ ----------------------------------------------------------------------------------------------------------
-# Prn     int    Satellite PRN number for GPS, Galileo, BeiDou and SBAS. Slot number for GLONASS. SV ID for QZSS and NavIC.
-# Signal  string Signal key - see command description for possible values
-# Enabled bool   Signal is enabled when value is True
-#
-
-class EnableSignal(CommandBase):
-
-  def __init__(self, prn, signal, enabled):
-    CommandBase.__init__(self, "EnableSignal")
-    self.setPrn(prn)
-    self.setSignal(signal)
-    self.setEnabled(enabled)
-
-  def executePermission(self):
-    return ExecutePermission.EXECUTE_IF_SIMULATING | ExecutePermission.EXECUTE_IF_IDLE
-
-  def prn(self):
-    return self.get("Prn")
-
-  def setPrn(self, value):
-    return self.set("Prn", value)
-
-  def signal(self):
-    return self.get("Signal")
-
-  def setSignal(self, value):
-    return self.set("Signal", value)
-
-  def enabled(self):
-    return self.get("Enabled")
-
-  def setEnabled(self, value):
-    return self.set("Enabled", value)
-
-#
-# Please note the command IsSignalEnabled is deprecated since 21.3. You may use IsSignalEnabledForSV.
-# 
-# Tells if the signal is enabled or disabled. See IsSignalEnabled description for allowed signals.
-#
-# Name   Type   Description
-# ------ ------ ----------------------------------------------------------------------------------------------------------
-# Prn    int    Satellite PRN number for GPS, Galileo, BeiDou and SBAS. Slot number for GLONASS. SV ID for QZSS and NavIC.
-# Signal string Signal key - see command description for possible values
-#
-
-class IsSignalEnabled(CommandBase):
-
-  def __init__(self, prn, signal):
-    CommandBase.__init__(self, "IsSignalEnabled")
-    self.setPrn(prn)
-    self.setSignal(signal)
-
-  def executePermission(self):
-    return ExecutePermission.EXECUTE_IF_IDLE
-
-  def prn(self):
-    return self.get("Prn")
-
-  def setPrn(self, value):
-    return self.set("Prn", value)
-
-  def signal(self):
-    return self.get("Signal")
-
-  def setSignal(self, value):
-    return self.set("Signal", value)
-
-#
-# Result of IsSignalEnabled.
-#
-# Name    Type   Description
-# ------- ------ ----------------------------------------------------------------------------------------------------------
-# Prn     int    Satellite PRN number for GPS, Galileo, BeiDou and SBAS. Slot number for GLONASS. SV ID for QZSS and NavIC.
-# Signal  string Signal key - see command description for possible values
-# Enabled bool   Signal is enabled when value is True
-#
-
-class IsSignalEnabledResult(CommandResult):
-
-  def __init__(self, prn, signal, enabled):
-    CommandResult.__init__(self, "IsSignalEnabledResult")
-    self.setPrn(prn)
-    self.setSignal(signal)
-    self.setEnabled(enabled)
-
-  def isSuccess(self):
-    return True
-
-  def prn(self):
-    return self.get("Prn")
-
-  def setPrn(self, value):
-    return self.set("Prn", value)
-
-  def signal(self):
-    return self.get("Signal")
-
-  def setSignal(self, value):
-    return self.set("Signal", value)
-
-  def enabled(self):
-    return self.get("Enabled")
-
-  def setEnabled(self, value):
-    return self.set("Enabled", value)
-
-#
-# Please note the command EnableSignalForEachPrn is deprecated since 21.3. You may use EnableSignalForEachSV.
-# 
-# Enable (or disable) signal for each satellite individually.
-# Allowed signal keys: "L1CA", "L1C", "L1P", "L1M", "L2C", "L2P", "L2M", "L5",
-#                      "G1", "G2", "E1", "E5a", "E5b", "B1", "B2", "B1C", "B2a",
-#                      "SBASL1", "QZSSL1CA", "QZSSL1C", "QZSSL5", "QZSSL1S", "QZSSL5S",
-#                      "NAVICL5"
-#
-# Name    Type       Description
-# ------- ---------- ----------------------------------------------------------------------------------------------------------
-# Signal  string     Signal key - see command description for possible values
-# Enabled array bool Signal is enabled when value is True. Zero based index (index 0 => first PRN, index 1 => second PRN, etc).
-#
-
-class EnableSignalForEachPrn(CommandBase):
-
-  def __init__(self, signal, enabled):
-    CommandBase.__init__(self, "EnableSignalForEachPrn")
-    self.setSignal(signal)
-    self.setEnabled(enabled)
-
-  def executePermission(self):
-    return ExecutePermission.EXECUTE_IF_SIMULATING | ExecutePermission.EXECUTE_IF_IDLE
-
-  def signal(self):
-    return self.get("Signal")
-
-  def setSignal(self, value):
-    return self.set("Signal", value)
-
-  def enabled(self):
-    return self.get("Enabled")
-
-  def setEnabled(self, value):
-    return self.set("Enabled", value)
-
-#
-# Please note the command GetSignalEnabledForEachPrn is deprecated since 21.3. You may use IsSignalEnabledForEachSV.
-# 
-# Tells if the signal is enabled or disabled for each satellite. See GetSignalEnabledForEachPrn description for allowed signals.
-#
-# Name   Type   Description
-# ------ ------ --------------------------------------------------------
-# Signal string Signal key - see command description for possible values
-#
-
-class GetSignalEnabledForEachPrn(CommandBase):
-
-  def __init__(self, signal):
-    CommandBase.__init__(self, "GetSignalEnabledForEachPrn")
-    self.setSignal(signal)
-
-  def executePermission(self):
-    return ExecutePermission.EXECUTE_IF_IDLE
-
-  def signal(self):
-    return self.get("Signal")
-
-  def setSignal(self, value):
-    return self.set("Signal", value)
-
-#
-# Result of GetSignalEnabledForEachPrn.
-#
-# Name    Type       Description
-# ------- ---------- ----------------------------------------------------------------------------------------------------------
-# Signal  string     Signal key - see command description for possible values
-# Enabled array bool Signal is enabled when value is True. Zero based index (index 0 => first PRN, index 1 => second PRN, etc).
-#
-
-class GetSignalEnabledForEachPrnResult(CommandResult):
-
-  def __init__(self, signal, enabled):
-    CommandResult.__init__(self, "GetSignalEnabledForEachPrnResult")
-    self.setSignal(signal)
-    self.setEnabled(enabled)
-
-  def isSuccess(self):
-    return True
-
-  def signal(self):
-    return self.get("Signal")
-
-  def setSignal(self, value):
-    return self.set("Signal", value)
-
-  def enabled(self):
-    return self.get("Enabled")
-
-  def setEnabled(self, value):
-    return self.set("Enabled", value)
-
-#
-# Please note the command SetGpsSatMotionFixed is deprecated since 21.3. You may use SetSatMotionFixed.
-# 
-# If IsFixed is set to true, the satellite will not move during the simulation and keep its initial position calculated at the beginning of the simulation.
-#
-# Name    Type Description
-# ------- ---- --------------------------------------------------------------------------------------------------------------
-# Prn     int  Satellite PRN number
-# IsFixed bool If true, the satellite relative position is fixed, if false, the satellite motion follows a normal trajectory.
-#
-
-class SetGpsSatMotionFixed(CommandBase):
-
-  def __init__(self, prn, isFixed):
-    CommandBase.__init__(self, "SetGpsSatMotionFixed")
-    self.setPrn(prn)
-    self.setIsFixed(isFixed)
-
-  def executePermission(self):
-    return ExecutePermission.EXECUTE_IF_IDLE
-
-  def prn(self):
-    return self.get("Prn")
-
-  def setPrn(self, value):
-    return self.set("Prn", value)
-
-  def isFixed(self):
-    return self.get("IsFixed")
-
-  def setIsFixed(self, value):
-    return self.set("IsFixed", value)
-
-#
-# Please note the command IsGpsSatMotionFixed is deprecated since 21.3. You may use IsSatMotionFixed.
-# 
-# Tells if the satellite is fixed (True) or not fixed (false).
-#
-# Name Type Description
-# ---- ---- --------------------
-# Prn  int  Satellite PRN number
-#
-
-class IsGpsSatMotionFixed(CommandBase):
-
-  def __init__(self, prn):
-    CommandBase.__init__(self, "IsGpsSatMotionFixed")
-    self.setPrn(prn)
-
-  def executePermission(self):
-    return ExecutePermission.EXECUTE_IF_IDLE
-
-  def prn(self):
-    return self.get("Prn")
-
-  def setPrn(self, value):
-    return self.set("Prn", value)
-
-#
-# Result of IsGpsSatMotionFixed.
-#
-# Name    Type Description
-# ------- ---- --------------------------------------------------------------------------------------------------------------
-# Prn     int  Satellite PRN number
-# IsFixed bool If true, the satellite relative position is fixed, if false, the satellite motion follows a normal trajectory.
-#
-
-class IsGpsSatMotionFixedResult(CommandResult):
-
-  def __init__(self, prn, isFixed):
-    CommandResult.__init__(self, "IsGpsSatMotionFixedResult")
-    self.setPrn(prn)
-    self.setIsFixed(isFixed)
-
-  def isSuccess(self):
-    return True
-
-  def prn(self):
-    return self.get("Prn")
-
-  def setPrn(self, value):
-    return self.set("Prn", value)
-
-  def isFixed(self):
-    return self.get("IsFixed")
-
-  def setIsFixed(self, value):
-    return self.set("IsFixed", value)
-
-#
-# Please note the command SetGalileoSatMotionFixed is deprecated since 21.3. You may use SetSatMotionFixed.
-# 
-# If IsFixed is set to true, the satellite will not move during the simulation and keep its initial position calculated at the beginning of the simulation.
-#
-# Name    Type Description
-# ------- ---- --------------------------------------------------------------------------------------------------------------
-# Prn     int  Satellite PRN number
-# IsFixed bool If true, the satellite relative position is fixed, if false, the satellite motion follows a normal trajectory.
-#
-
-class SetGalileoSatMotionFixed(CommandBase):
-
-  def __init__(self, prn, isFixed):
-    CommandBase.__init__(self, "SetGalileoSatMotionFixed")
-    self.setPrn(prn)
-    self.setIsFixed(isFixed)
-
-  def executePermission(self):
-    return ExecutePermission.EXECUTE_IF_IDLE
-
-  def prn(self):
-    return self.get("Prn")
-
-  def setPrn(self, value):
-    return self.set("Prn", value)
-
-  def isFixed(self):
-    return self.get("IsFixed")
-
-  def setIsFixed(self, value):
-    return self.set("IsFixed", value)
-
-#
-# Please note the command IsGalileoSatMotionFixed is deprecated since 21.3. You may use IsSatMotionFixed.
-# 
-# Tells if the satellite is fixed (True) or not fixed (false).
-#
-# Name Type Description
-# ---- ---- --------------------
-# Prn  int  Satellite PRN number
-#
-
-class IsGalileoSatMotionFixed(CommandBase):
-
-  def __init__(self, prn):
-    CommandBase.__init__(self, "IsGalileoSatMotionFixed")
-    self.setPrn(prn)
-
-  def executePermission(self):
-    return ExecutePermission.EXECUTE_IF_IDLE
-
-  def prn(self):
-    return self.get("Prn")
-
-  def setPrn(self, value):
-    return self.set("Prn", value)
-
-#
-# Result of IsGalileoSatMotionFixed.
-#
-# Name    Type Description
-# ------- ---- --------------------------------------------------------------------------------------------------------------
-# Prn     int  Satellite PRN number
-# IsFixed bool If true, the satellite relative position is fixed, if false, the satellite motion follows a normal trajectory.
-#
-
-class IsGalileoSatMotionFixedResult(CommandResult):
-
-  def __init__(self, prn, isFixed):
-    CommandResult.__init__(self, "IsGalileoSatMotionFixedResult")
-    self.setPrn(prn)
-    self.setIsFixed(isFixed)
-
-  def isSuccess(self):
-    return True
-
-  def prn(self):
-    return self.get("Prn")
-
-  def setPrn(self, value):
-    return self.set("Prn", value)
-
-  def isFixed(self):
-    return self.get("IsFixed")
-
-  def setIsFixed(self, value):
-    return self.set("IsFixed", value)
-
-#
-# Please note the command SetBeiDouSatMotionFixed is deprecated since 21.3. You may use SetSatMotionFixed.
-# 
-# If IsFixed is set to true, the satellite will not move during the simulation and keep its initial position calculated at the beginning of the simulation.
-#
-# Name    Type Description
-# ------- ---- --------------------------------------------------------------------------------------------------------------
-# Prn     int  Satellite PRN number
-# IsFixed bool If true, the satellite relative position is fixed, if false, the satellite motion follows a normal trajectory.
-#
-
-class SetBeiDouSatMotionFixed(CommandBase):
-
-  def __init__(self, prn, isFixed):
-    CommandBase.__init__(self, "SetBeiDouSatMotionFixed")
-    self.setPrn(prn)
-    self.setIsFixed(isFixed)
-
-  def executePermission(self):
-    return ExecutePermission.EXECUTE_IF_IDLE
-
-  def prn(self):
-    return self.get("Prn")
-
-  def setPrn(self, value):
-    return self.set("Prn", value)
-
-  def isFixed(self):
-    return self.get("IsFixed")
-
-  def setIsFixed(self, value):
-    return self.set("IsFixed", value)
-
-#
-# Please note the command IsBeiDouSatMotionFixed is deprecated since 21.3. You may use IsSatMotionFixed.
-# 
-# Tells if the satellite is fixed (True) or not fixed (false).
-#
-# Name Type Description
-# ---- ---- --------------------
-# Prn  int  Satellite PRN number
-#
-
-class IsBeiDouSatMotionFixed(CommandBase):
-
-  def __init__(self, prn):
-    CommandBase.__init__(self, "IsBeiDouSatMotionFixed")
-    self.setPrn(prn)
-
-  def executePermission(self):
-    return ExecutePermission.EXECUTE_IF_IDLE
-
-  def prn(self):
-    return self.get("Prn")
-
-  def setPrn(self, value):
-    return self.set("Prn", value)
-
-#
-# Result of IsBeiDouSatMotionFixed.
-#
-# Name    Type Description
-# ------- ---- --------------------------------------------------------------------------------------------------------------
-# Prn     int  Satellite PRN number
-# IsFixed bool If true, the satellite relative position is fixed, if false, the satellite motion follows a normal trajectory.
-#
-
-class IsBeiDouSatMotionFixedResult(CommandResult):
-
-  def __init__(self, prn, isFixed):
-    CommandResult.__init__(self, "IsBeiDouSatMotionFixedResult")
-    self.setPrn(prn)
-    self.setIsFixed(isFixed)
-
-  def isSuccess(self):
-    return True
-
-  def prn(self):
-    return self.get("Prn")
-
-  def setPrn(self, value):
-    return self.set("Prn", value)
-
-  def isFixed(self):
-    return self.get("IsFixed")
-
-  def setIsFixed(self, value):
-    return self.set("IsFixed", value)
-
-#
-# Please note the command SetGpsEphemerisReferenceTime is deprecated since 21.3. You may use SetEphemerisReferenceTimeForSV.
-# 
-# Set the GPS ephemeris reference time
-#
-# Name Type     Description
-# ---- -------- --------------------------------------------------------------
-# Prn  int      Satellite PRN number 1..32
-# Time datetime GPS date and time (it is the GPS time expressed in UTC format)
-#
-
-class SetGpsEphemerisReferenceTime(CommandBase):
-
-  def __init__(self, prn, time):
-    CommandBase.__init__(self, "SetGpsEphemerisReferenceTime")
-    self.setPrn(prn)
-    self.setTime(time)
-
-  def executePermission(self):
-    return ExecutePermission.EXECUTE_IF_IDLE
-
-  def prn(self):
-    return self.get("Prn")
-
-  def setPrn(self, value):
-    return self.set("Prn", value)
-
-  def time(self):
-    return self.get("Time")
-
-  def setTime(self, value):
-    return self.set("Time", value)
-
-#
-# Please note the command GetGpsEphemerisReferenceTime is deprecated since 21.3. You may use GetEphemerisReferenceTimeForSV.
-# 
-# Get the GPS ephemeris reference time
-#
-# Name Type Description
-# ---- ---- --------------------------
-# Prn  int  Satellite PRN number 1..32
-#
-
-class GetGpsEphemerisReferenceTime(CommandBase):
-
-  def __init__(self, prn):
-    CommandBase.__init__(self, "GetGpsEphemerisReferenceTime")
-    self.setPrn(prn)
-
-  def executePermission(self):
-    return ExecutePermission.EXECUTE_IF_IDLE
-
-  def prn(self):
-    return self.get("Prn")
-
-  def setPrn(self, value):
-    return self.set("Prn", value)
-
-#
-# Result of GetGpsEphemerisReferenceTime.
-#
-# Name Type     Description
-# ---- -------- --------------------------------------------------------------
-# Prn  int      Satellite PRN number 1..32
-# Time datetime GPS date and time (it is the GPS time expressed in UTC format)
-#
-
-class GetGpsEphemerisReferenceTimeResult(CommandResult):
-
-  def __init__(self, prn, time):
-    CommandResult.__init__(self, "GetGpsEphemerisReferenceTimeResult")
-    self.setPrn(prn)
-    self.setTime(time)
-
-  def isSuccess(self):
-    return True
-
-  def prn(self):
-    return self.get("Prn")
-
-  def setPrn(self, value):
-    return self.set("Prn", value)
-
-  def time(self):
-    return self.get("Time")
-
-  def setTime(self, value):
-    return self.set("Time", value)
-
-#
-# Please note the command SetGalileoEphemerisReferenceTime is deprecated since 21.3. You may use SetEphemerisReferenceTimeForSV.
-# 
-# Set the Galileo ephemeris reference time
-#
-# Name Type     Description
-# ---- -------- --------------------------------------------------------------
-# Prn  int      Satellite PRN number 1..36
-# Time datetime GPS date and time (it is the GPS time expressed in UTC format)
-#
-
-class SetGalileoEphemerisReferenceTime(CommandBase):
-
-  def __init__(self, prn, time):
-    CommandBase.__init__(self, "SetGalileoEphemerisReferenceTime")
-    self.setPrn(prn)
-    self.setTime(time)
-
-  def executePermission(self):
-    return ExecutePermission.EXECUTE_IF_IDLE
-
-  def prn(self):
-    return self.get("Prn")
-
-  def setPrn(self, value):
-    return self.set("Prn", value)
-
-  def time(self):
-    return self.get("Time")
-
-  def setTime(self, value):
-    return self.set("Time", value)
-
-#
-# Please note the command GetGalileoEphemerisReferenceTime is deprecated since 21.3. You may use GetEphemerisReferenceTimeForSV.
-# 
-# Get the Galileo ephemeris reference time
-#
-# Name Type Description
-# ---- ---- --------------------------
-# Prn  int  Satellite PRN number 1..36
-#
-
-class GetGalileoEphemerisReferenceTime(CommandBase):
-
-  def __init__(self, prn):
-    CommandBase.__init__(self, "GetGalileoEphemerisReferenceTime")
-    self.setPrn(prn)
-
-  def executePermission(self):
-    return ExecutePermission.EXECUTE_IF_IDLE
-
-  def prn(self):
-    return self.get("Prn")
-
-  def setPrn(self, value):
-    return self.set("Prn", value)
-
-#
-# Result of GetGalileoEphemerisReferenceTime.
-#
-# Name Type     Description
-# ---- -------- --------------------------------------------------------------
-# Prn  int      Satellite PRN number 1..36
-# Time datetime GPS date and time (it is the GPS time expressed in UTC format)
-#
-
-class GetGalileoEphemerisReferenceTimeResult(CommandResult):
-
-  def __init__(self, prn, time):
-    CommandResult.__init__(self, "GetGalileoEphemerisReferenceTimeResult")
-    self.setPrn(prn)
-    self.setTime(time)
-
-  def isSuccess(self):
-    return True
-
-  def prn(self):
-    return self.get("Prn")
-
-  def setPrn(self, value):
-    return self.set("Prn", value)
-
-  def time(self):
-    return self.get("Time")
-
-  def setTime(self, value):
-    return self.set("Time", value)
-
-#
-# Please note the command SetBeiDouEphemerisReferenceTime is deprecated since 21.3. You may use SetEphemerisReferenceTimeForSV.
-# 
-# Set the BeiDou ephemeris reference time
-#
-# Name Type     Description
-# ---- -------- --------------------------------------------------------------
-# Prn  int      Satellite PRN number 1..30
-# Time datetime GPS date and time (it is the GPS time expressed in UTC format)
-#
-
-class SetBeiDouEphemerisReferenceTime(CommandBase):
-
-  def __init__(self, prn, time):
-    CommandBase.__init__(self, "SetBeiDouEphemerisReferenceTime")
-    self.setPrn(prn)
-    self.setTime(time)
-
-  def executePermission(self):
-    return ExecutePermission.EXECUTE_IF_IDLE
-
-  def prn(self):
-    return self.get("Prn")
-
-  def setPrn(self, value):
-    return self.set("Prn", value)
-
-  def time(self):
-    return self.get("Time")
-
-  def setTime(self, value):
-    return self.set("Time", value)
-
-#
-# Please note the command GetBeiDouEphemerisReferenceTime is deprecated since 21.3. You may use GetEphemerisReferenceTimeForSV.
-# 
-# Get the BeiDou ephemeris reference time
-#
-# Name Type Description
-# ---- ---- --------------------------
-# Prn  int  Satellite PRN number 1..30
-#
-
-class GetBeiDouEphemerisReferenceTime(CommandBase):
-
-  def __init__(self, prn):
-    CommandBase.__init__(self, "GetBeiDouEphemerisReferenceTime")
-    self.setPrn(prn)
-
-  def executePermission(self):
-    return ExecutePermission.EXECUTE_IF_IDLE
-
-  def prn(self):
-    return self.get("Prn")
-
-  def setPrn(self, value):
-    return self.set("Prn", value)
-
-#
-# Result of GetBeiDouEphemerisReferenceTime.
-#
-# Name Type     Description
-# ---- -------- --------------------------------------------------------------
-# Prn  int      Satellite PRN number 1..30
-# Time datetime GPS date and time (it is the GPS time expressed in UTC format)
-#
-
-class GetBeiDouEphemerisReferenceTimeResult(CommandResult):
-
-  def __init__(self, prn, time):
-    CommandResult.__init__(self, "GetBeiDouEphemerisReferenceTimeResult")
-    self.setPrn(prn)
-    self.setTime(time)
-
-  def isSuccess(self):
-    return True
-
-  def prn(self):
-    return self.get("Prn")
-
-  def setPrn(self, value):
-    return self.set("Prn", value)
-
-  def time(self):
-    return self.get("Time")
-
-  def setTime(self, value):
-    return self.set("Time", value)
-
-#
-# Please note the command ResetGpsPerturbations is deprecated since 21.3. You may use ResetPerturbations.
-# 
-# Set GPS orbit perturbations (Crs, Crc, Cis, Cic, Cus and Cuc) to zero
-#
-# Name Type Description
-# ---- ---- -------------------------------------------------------------------------
-# Prn  int  Satellite PRN number 1..32, or use 0 to apply new value to all satellites
-#
-
-class ResetGpsPerturbations(CommandBase):
-
-  def __init__(self, prn):
-    CommandBase.__init__(self, "ResetGpsPerturbations")
-    self.setPrn(prn)
-
-  def executePermission(self):
-    return ExecutePermission.EXECUTE_IF_IDLE
-
-  def prn(self):
-    return self.get("Prn")
-
-  def setPrn(self, value):
-    return self.set("Prn", value)
-
-#
-# Please note the command ResetGalileoPerturbations is deprecated since 21.3. You may use ResetPerturbations.
-# 
-# Set Galileo orbit perturbations (Crs, Crc, Cis, Cic, Cus and Cuc) to zero
-#
-# Name Type Description
-# ---- ---- -------------------------------------------------------------------------
-# Prn  int  Satellite PRN number 1..36, or use 0 to apply new value to all satellites
-#
-
-class ResetGalileoPerturbations(CommandBase):
-
-  def __init__(self, prn):
-    CommandBase.__init__(self, "ResetGalileoPerturbations")
-    self.setPrn(prn)
-
-  def executePermission(self):
-    return ExecutePermission.EXECUTE_IF_IDLE
-
-  def prn(self):
-    return self.get("Prn")
-
-  def setPrn(self, value):
-    return self.set("Prn", value)
-
-#
-# Please note the command ResetBeiDouPerturbations is deprecated since 21.3. You may use ResetPerturbations.
-# 
-# Set BeiDou orbit perturbations (Crs, Crc, Cis, Cic, Cus and Cuc) to zero
-#
-# Name Type Description
-# ---- ---- -------------------------------------------------------------------------
-# Prn  int  Satellite PRN number 1..30, or use 0 to apply new value to all satellites
-#
-
-class ResetBeiDouPerturbations(CommandBase):
-
-  def __init__(self, prn):
-    CommandBase.__init__(self, "ResetBeiDouPerturbations")
-    self.setPrn(prn)
-
-  def executePermission(self):
-    return ExecutePermission.EXECUTE_IF_IDLE
-
-  def prn(self):
-    return self.get("Prn")
-
-  def setPrn(self, value):
-    return self.set("Prn", value)
-
-#
-# Please note the command SetGpsPerturbations is deprecated since 21.3. You may use SetPerturbations.
-# 
-# Set GPS orbit perturbations (Crs, Crc, Cis, Cic, Cus and Cuc)
-#
-# Name Type   Description
-# ---- ------ --------------------------
-# Prn  int    Satellite PRN number 1..32
-# Crs  double Crs (meter)
-# Crc  double Crc (meter)
-# Cis  double Crs (rad)
-# Cic  double Crc (rad)
-# Cus  double Cus (rad)
-# Cuc  double Cuc (rad)
-#
-
-class SetGpsPerturbations(CommandBase):
-
-  def __init__(self, prn, crs, crc, cis, cic, cus, cuc):
-    CommandBase.__init__(self, "SetGpsPerturbations")
-    self.setPrn(prn)
-    self.setCrs(crs)
-    self.setCrc(crc)
-    self.setCis(cis)
-    self.setCic(cic)
-    self.setCus(cus)
-    self.setCuc(cuc)
-
-  def executePermission(self):
-    return ExecutePermission.EXECUTE_IF_IDLE
-
-  def prn(self):
-    return self.get("Prn")
-
-  def setPrn(self, value):
-    return self.set("Prn", value)
-
-  def crs(self):
-    return self.get("Crs")
-
-  def setCrs(self, value):
-    return self.set("Crs", value)
-
-  def crc(self):
-    return self.get("Crc")
-
-  def setCrc(self, value):
-    return self.set("Crc", value)
-
-  def cis(self):
-    return self.get("Cis")
-
-  def setCis(self, value):
-    return self.set("Cis", value)
-
-  def cic(self):
-    return self.get("Cic")
-
-  def setCic(self, value):
-    return self.set("Cic", value)
-
-  def cus(self):
-    return self.get("Cus")
-
-  def setCus(self, value):
-    return self.set("Cus", value)
-
-  def cuc(self):
-    return self.get("Cuc")
-
-  def setCuc(self, value):
-    return self.set("Cuc", value)
-
-#
-# Please note the command GetGpsPerturbations is deprecated since 21.3. You may use GetPerturbations.
-# 
-# Get GPS orbit perturbations (Crs, Crc, Cis, Cic, Cus and Cuc)
-#
-# Name Type Description
-# ---- ---- --------------------------
-# Prn  int  Satellite PRN number 1..32
-#
-
-class GetGpsPerturbations(CommandBase):
-
-  def __init__(self, prn):
-    CommandBase.__init__(self, "GetGpsPerturbations")
-    self.setPrn(prn)
-
-  def executePermission(self):
-    return ExecutePermission.EXECUTE_IF_IDLE
-
-  def prn(self):
-    return self.get("Prn")
-
-  def setPrn(self, value):
-    return self.set("Prn", value)
-
-#
-# Result of GetGpsPerturbations.
-#
-# Name Type   Description
-# ---- ------ --------------------------
-# Prn  int    Satellite PRN number 1..32
-# Crs  double Crs (meter)
-# Crc  double Crc (meter)
-# Cis  double Crs (rad)
-# Cic  double Crc (rad)
-# Cus  double Cus (rad)
-# Cuc  double Cuc (rad)
-#
-
-class GetGpsPerturbationsResult(CommandResult):
-
-  def __init__(self, prn, crs, crc, cis, cic, cus, cuc):
-    CommandResult.__init__(self, "GetGpsPerturbationsResult")
-    self.setPrn(prn)
-    self.setCrs(crs)
-    self.setCrc(crc)
-    self.setCis(cis)
-    self.setCic(cic)
-    self.setCus(cus)
-    self.setCuc(cuc)
-
-  def isSuccess(self):
-    return True
-
-  def prn(self):
-    return self.get("Prn")
-
-  def setPrn(self, value):
-    return self.set("Prn", value)
-
-  def crs(self):
-    return self.get("Crs")
-
-  def setCrs(self, value):
-    return self.set("Crs", value)
-
-  def crc(self):
-    return self.get("Crc")
-
-  def setCrc(self, value):
-    return self.set("Crc", value)
-
-  def cis(self):
-    return self.get("Cis")
-
-  def setCis(self, value):
-    return self.set("Cis", value)
-
-  def cic(self):
-    return self.get("Cic")
-
-  def setCic(self, value):
-    return self.set("Cic", value)
-
-  def cus(self):
-    return self.get("Cus")
-
-  def setCus(self, value):
-    return self.set("Cus", value)
-
-  def cuc(self):
-    return self.get("Cuc")
-
-  def setCuc(self, value):
-    return self.set("Cuc", value)
-
-#
-# Please note the command SetGalileoPerturbations is deprecated since 21.3. You may use SetPerturbations.
-# 
-# Set GPS orbit perturbations (Crs, Crc, Cis, Cic, Cus and Cuc)
-#
-# Name Type   Description
-# ---- ------ --------------------------
-# Prn  int    Satellite PRN number 1..36
-# Crs  double Crs (meter)
-# Crc  double Crc (meter)
-# Cis  double Crs (rad)
-# Cic  double Crc (rad)
-# Cus  double Cus (rad)
-# Cuc  double Cuc (rad)
-#
-
-class SetGalileoPerturbations(CommandBase):
-
-  def __init__(self, prn, crs, crc, cis, cic, cus, cuc):
-    CommandBase.__init__(self, "SetGalileoPerturbations")
-    self.setPrn(prn)
-    self.setCrs(crs)
-    self.setCrc(crc)
-    self.setCis(cis)
-    self.setCic(cic)
-    self.setCus(cus)
-    self.setCuc(cuc)
-
-  def executePermission(self):
-    return ExecutePermission.EXECUTE_IF_IDLE
-
-  def prn(self):
-    return self.get("Prn")
-
-  def setPrn(self, value):
-    return self.set("Prn", value)
-
-  def crs(self):
-    return self.get("Crs")
-
-  def setCrs(self, value):
-    return self.set("Crs", value)
-
-  def crc(self):
-    return self.get("Crc")
-
-  def setCrc(self, value):
-    return self.set("Crc", value)
-
-  def cis(self):
-    return self.get("Cis")
-
-  def setCis(self, value):
-    return self.set("Cis", value)
-
-  def cic(self):
-    return self.get("Cic")
-
-  def setCic(self, value):
-    return self.set("Cic", value)
-
-  def cus(self):
-    return self.get("Cus")
-
-  def setCus(self, value):
-    return self.set("Cus", value)
-
-  def cuc(self):
-    return self.get("Cuc")
-
-  def setCuc(self, value):
-    return self.set("Cuc", value)
-
-#
-# Please note the command GetGalileoPerturbations is deprecated since 21.3. You may use GetPerturbations.
-# 
-# Get GPS orbit perturbations (Crs, Crc, Cis, Cic, Cus and Cuc)
-#
-# Name Type Description
-# ---- ---- --------------------------
-# Prn  int  Satellite PRN number 1..36
-#
-
-class GetGalileoPerturbations(CommandBase):
-
-  def __init__(self, prn):
-    CommandBase.__init__(self, "GetGalileoPerturbations")
-    self.setPrn(prn)
-
-  def executePermission(self):
-    return ExecutePermission.EXECUTE_IF_IDLE
-
-  def prn(self):
-    return self.get("Prn")
-
-  def setPrn(self, value):
-    return self.set("Prn", value)
-
-#
-# Result of GetGalileoPerturbations.
-#
-# Name Type   Description
-# ---- ------ --------------------------
-# Prn  int    Satellite PRN number 1..36
-# Crs  double Crs (meter)
-# Crc  double Crc (meter)
-# Cis  double Crs (rad)
-# Cic  double Crc (rad)
-# Cus  double Cus (rad)
-# Cuc  double Cuc (rad)
-#
-
-class GetGalileoPerturbationsResult(CommandResult):
-
-  def __init__(self, prn, crs, crc, cis, cic, cus, cuc):
-    CommandResult.__init__(self, "GetGalileoPerturbationsResult")
-    self.setPrn(prn)
-    self.setCrs(crs)
-    self.setCrc(crc)
-    self.setCis(cis)
-    self.setCic(cic)
-    self.setCus(cus)
-    self.setCuc(cuc)
-
-  def isSuccess(self):
-    return True
-
-  def prn(self):
-    return self.get("Prn")
-
-  def setPrn(self, value):
-    return self.set("Prn", value)
-
-  def crs(self):
-    return self.get("Crs")
-
-  def setCrs(self, value):
-    return self.set("Crs", value)
-
-  def crc(self):
-    return self.get("Crc")
-
-  def setCrc(self, value):
-    return self.set("Crc", value)
-
-  def cis(self):
-    return self.get("Cis")
-
-  def setCis(self, value):
-    return self.set("Cis", value)
-
-  def cic(self):
-    return self.get("Cic")
-
-  def setCic(self, value):
-    return self.set("Cic", value)
-
-  def cus(self):
-    return self.get("Cus")
-
-  def setCus(self, value):
-    return self.set("Cus", value)
-
-  def cuc(self):
-    return self.get("Cuc")
-
-  def setCuc(self, value):
-    return self.set("Cuc", value)
-
-#
-# Please note the command SetBeiDouPerturbations is deprecated since 21.3. You may use SetPerturbations.
-# 
-# Set BeiDou orbit perturbations (Crs, Crc, Cis, Cic, Cus and Cuc)
-#
-# Name Type   Description
-# ---- ------ --------------------------
-# Prn  int    Satellite PRN number 1..30
-# Crs  double Crs (meter)
-# Crc  double Crc (meter)
-# Cis  double Crs (rad)
-# Cic  double Crc (rad)
-# Cus  double Cus (rad)
-# Cuc  double Cuc (rad)
-#
-
-class SetBeiDouPerturbations(CommandBase):
-
-  def __init__(self, prn, crs, crc, cis, cic, cus, cuc):
-    CommandBase.__init__(self, "SetBeiDouPerturbations")
-    self.setPrn(prn)
-    self.setCrs(crs)
-    self.setCrc(crc)
-    self.setCis(cis)
-    self.setCic(cic)
-    self.setCus(cus)
-    self.setCuc(cuc)
-
-  def executePermission(self):
-    return ExecutePermission.EXECUTE_IF_IDLE
-
-  def prn(self):
-    return self.get("Prn")
-
-  def setPrn(self, value):
-    return self.set("Prn", value)
-
-  def crs(self):
-    return self.get("Crs")
-
-  def setCrs(self, value):
-    return self.set("Crs", value)
-
-  def crc(self):
-    return self.get("Crc")
-
-  def setCrc(self, value):
-    return self.set("Crc", value)
-
-  def cis(self):
-    return self.get("Cis")
-
-  def setCis(self, value):
-    return self.set("Cis", value)
-
-  def cic(self):
-    return self.get("Cic")
-
-  def setCic(self, value):
-    return self.set("Cic", value)
-
-  def cus(self):
-    return self.get("Cus")
-
-  def setCus(self, value):
-    return self.set("Cus", value)
-
-  def cuc(self):
-    return self.get("Cuc")
-
-  def setCuc(self, value):
-    return self.set("Cuc", value)
-
-#
-# Please note the command GetBeiDouPerturbations is deprecated since 21.3. You may use GetPerturbations.
-# 
-# Get BeiDou orbit perturbations (Crs, Crc, Cis, Cic, Cus and Cuc)
-#
-# Name Type Description
-# ---- ---- --------------------------
-# Prn  int  Satellite PRN number 1..30
-#
-
-class GetBeiDouPerturbations(CommandBase):
-
-  def __init__(self, prn):
-    CommandBase.__init__(self, "GetBeiDouPerturbations")
-    self.setPrn(prn)
-
-  def executePermission(self):
-    return ExecutePermission.EXECUTE_IF_IDLE
-
-  def prn(self):
-    return self.get("Prn")
-
-  def setPrn(self, value):
-    return self.set("Prn", value)
-
-#
-# Result of GetBeiDouPerturbations.
-#
-# Name Type   Description
-# ---- ------ --------------------------
-# Prn  int    Satellite PRN number 1..30
-# Crs  double Crs (meter)
-# Crc  double Crc (meter)
-# Cis  double Crs (rad)
-# Cic  double Crc (rad)
-# Cus  double Cus (rad)
-# Cuc  double Cuc (rad)
-#
-
-class GetBeiDouPerturbationsResult(CommandResult):
-
-  def __init__(self, prn, crs, crc, cis, cic, cus, cuc):
-    CommandResult.__init__(self, "GetBeiDouPerturbationsResult")
-    self.setPrn(prn)
-    self.setCrs(crs)
-    self.setCrc(crc)
-    self.setCis(cis)
-    self.setCic(cic)
-    self.setCus(cus)
-    self.setCuc(cuc)
-
-  def isSuccess(self):
-    return True
-
-  def prn(self):
-    return self.get("Prn")
-
-  def setPrn(self, value):
-    return self.set("Prn", value)
-
-  def crs(self):
-    return self.get("Crs")
-
-  def setCrs(self, value):
-    return self.set("Crs", value)
-
-  def crc(self):
-    return self.get("Crc")
-
-  def setCrc(self, value):
-    return self.set("Crc", value)
-
-  def cis(self):
-    return self.get("Cis")
-
-  def setCis(self, value):
-    return self.set("Cis", value)
-
-  def cic(self):
-    return self.get("Cic")
-
-  def setCic(self, value):
-    return self.set("Cic", value)
-
-  def cus(self):
-    return self.get("Cus")
-
-  def setCus(self, value):
-    return self.set("Cus", value)
-
-  def cuc(self):
-    return self.get("Cuc")
-
-  def setCuc(self, value):
-    return self.set("Cuc", value)
-
-#
-# Please note the command SetGpsPerturbationsForAllSat is deprecated since 21.3. You may use SetPerturbationsForAllSat.
-# 
-# Set GPS orbit perturbations (Crs, Crc, Cis, Cic, Cus and Cuc) for all satellites.
-# All parameters are zero based index (index 0 => PRN 1, index 1 => PRN 2, etc)
-#
-# Name Type         Description
-# ---- ------------ -----------
-# Crs  array double Crs (meter)
-# Crc  array double Crc (meter)
-# Cis  array double Cis (rad)
-# Cic  array double Cic (rad)
-# Cus  array double Cus (rad)
-# Cuc  array double Cuc (rad)
-#
-
-class SetGpsPerturbationsForAllSat(CommandBase):
-
-  def __init__(self, crs, crc, cis, cic, cus, cuc):
-    CommandBase.__init__(self, "SetGpsPerturbationsForAllSat")
-    self.setCrs(crs)
-    self.setCrc(crc)
-    self.setCis(cis)
-    self.setCic(cic)
-    self.setCus(cus)
-    self.setCuc(cuc)
-
-  def executePermission(self):
-    return ExecutePermission.EXECUTE_IF_IDLE
-
-  def crs(self):
-    return self.get("Crs")
-
-  def setCrs(self, value):
-    return self.set("Crs", value)
-
-  def crc(self):
-    return self.get("Crc")
-
-  def setCrc(self, value):
-    return self.set("Crc", value)
-
-  def cis(self):
-    return self.get("Cis")
-
-  def setCis(self, value):
-    return self.set("Cis", value)
-
-  def cic(self):
-    return self.get("Cic")
-
-  def setCic(self, value):
-    return self.set("Cic", value)
-
-  def cus(self):
-    return self.get("Cus")
-
-  def setCus(self, value):
-    return self.set("Cus", value)
-
-  def cuc(self):
-    return self.get("Cuc")
-
-  def setCuc(self, value):
-    return self.set("Cuc", value)
-
-#
-# Please note the command GetGpsPerturbationsForAllSat is deprecated since 21.3. You may use GetPerturbationsForAllSat.
-# 
-# Get GPS orbit perturbations (Crs, Crc, Cis, Cic, Cus and Cuc) for all satellites.
-# All parameters are zero based index (index 0 => PRN 1, index 1 => PRN 2, etc)
-#
-#
-
-class GetGpsPerturbationsForAllSat(CommandBase):
-
-  def __init__(self):
-    CommandBase.__init__(self, "GetGpsPerturbationsForAllSat")
-
-  def executePermission(self):
-    return ExecutePermission.EXECUTE_IF_IDLE
-
-#
-# Result of GetGpsPerturbationsForAllSat.
-#
-# Name Type         Description
-# ---- ------------ -----------
-# Crs  array double Crs (meter)
-# Crc  array double Crc (meter)
-# Cis  array double Cis (rad)
-# Cic  array double Cic (rad)
-# Cus  array double Cus (rad)
-# Cuc  array double Cuc (rad)
-#
-
-class GetGpsPerturbationsForAllSatResult(CommandResult):
-
-  def __init__(self, crs, crc, cis, cic, cus, cuc):
-    CommandResult.__init__(self, "GetGpsPerturbationsForAllSatResult")
-    self.setCrs(crs)
-    self.setCrc(crc)
-    self.setCis(cis)
-    self.setCic(cic)
-    self.setCus(cus)
-    self.setCuc(cuc)
-
-  def isSuccess(self):
-    return True
-
-  def crs(self):
-    return self.get("Crs")
-
-  def setCrs(self, value):
-    return self.set("Crs", value)
-
-  def crc(self):
-    return self.get("Crc")
-
-  def setCrc(self, value):
-    return self.set("Crc", value)
-
-  def cis(self):
-    return self.get("Cis")
-
-  def setCis(self, value):
-    return self.set("Cis", value)
-
-  def cic(self):
-    return self.get("Cic")
-
-  def setCic(self, value):
-    return self.set("Cic", value)
-
-  def cus(self):
-    return self.get("Cus")
-
-  def setCus(self, value):
-    return self.set("Cus", value)
-
-  def cuc(self):
-    return self.get("Cuc")
-
-  def setCuc(self, value):
-    return self.set("Cuc", value)
-
-#
-# Please note the command SetGalileoPerturbationsForAllSat is deprecated since 21.3. You may use SetPerturbationsForAllSat.
-# 
-# Set Galileo orbit perturbations (Crs, Crc, Cis, Cic, Cus and Cuc) for all satellites.
-# All parameters are zero based index (index 0 => PRN 1, index 1 => PRN 2, etc)
-#
-# Name Type         Description
-# ---- ------------ -----------
-# Crs  array double Crs (meter)
-# Crc  array double Crc (meter)
-# Cis  array double Crs (rad)
-# Cic  array double Crc (rad)
-# Cus  array double Cus (rad)
-# Cuc  array double Cuc (rad)
-#
-
-class SetGalileoPerturbationsForAllSat(CommandBase):
-
-  def __init__(self, crs, crc, cis, cic, cus, cuc):
-    CommandBase.__init__(self, "SetGalileoPerturbationsForAllSat")
-    self.setCrs(crs)
-    self.setCrc(crc)
-    self.setCis(cis)
-    self.setCic(cic)
-    self.setCus(cus)
-    self.setCuc(cuc)
-
-  def executePermission(self):
-    return ExecutePermission.EXECUTE_IF_IDLE
-
-  def crs(self):
-    return self.get("Crs")
-
-  def setCrs(self, value):
-    return self.set("Crs", value)
-
-  def crc(self):
-    return self.get("Crc")
-
-  def setCrc(self, value):
-    return self.set("Crc", value)
-
-  def cis(self):
-    return self.get("Cis")
-
-  def setCis(self, value):
-    return self.set("Cis", value)
-
-  def cic(self):
-    return self.get("Cic")
-
-  def setCic(self, value):
-    return self.set("Cic", value)
-
-  def cus(self):
-    return self.get("Cus")
-
-  def setCus(self, value):
-    return self.set("Cus", value)
-
-  def cuc(self):
-    return self.get("Cuc")
-
-  def setCuc(self, value):
-    return self.set("Cuc", value)
-
-#
-# Please note the command GetGalileoPerturbationsForAllSat is deprecated since 21.3. You may use GetPerturbationsForAllSat.
-# 
-# Get Galileo orbit perturbations (Crs, Crc, Cis, Cic, Cus and Cuc) for all satellites.
-# All parameters are zero based index (index 0 => PRN 1, index 1 => PRN 2, etc)
-#
-#
-
-class GetGalileoPerturbationsForAllSat(CommandBase):
-
-  def __init__(self):
-    CommandBase.__init__(self, "GetGalileoPerturbationsForAllSat")
-
-  def executePermission(self):
-    return ExecutePermission.EXECUTE_IF_IDLE
-
-#
-# Result of GetGalileoPerturbationsForAllSat.
-#
-# Name Type         Description
-# ---- ------------ -----------
-# Crs  array double Crs (meter)
-# Crc  array double Crc (meter)
-# Cis  array double Crs (rad)
-# Cic  array double Crc (rad)
-# Cus  array double Cus (rad)
-# Cuc  array double Cuc (rad)
-#
-
-class GetGalileoPerturbationsForAllSatResult(CommandResult):
-
-  def __init__(self, crs, crc, cis, cic, cus, cuc):
-    CommandResult.__init__(self, "GetGalileoPerturbationsForAllSatResult")
-    self.setCrs(crs)
-    self.setCrc(crc)
-    self.setCis(cis)
-    self.setCic(cic)
-    self.setCus(cus)
-    self.setCuc(cuc)
-
-  def isSuccess(self):
-    return True
-
-  def crs(self):
-    return self.get("Crs")
-
-  def setCrs(self, value):
-    return self.set("Crs", value)
-
-  def crc(self):
-    return self.get("Crc")
-
-  def setCrc(self, value):
-    return self.set("Crc", value)
-
-  def cis(self):
-    return self.get("Cis")
-
-  def setCis(self, value):
-    return self.set("Cis", value)
-
-  def cic(self):
-    return self.get("Cic")
-
-  def setCic(self, value):
-    return self.set("Cic", value)
-
-  def cus(self):
-    return self.get("Cus")
-
-  def setCus(self, value):
-    return self.set("Cus", value)
-
-  def cuc(self):
-    return self.get("Cuc")
-
-  def setCuc(self, value):
-    return self.set("Cuc", value)
-
-#
-# Please note the command SetBeiDouPerturbationsForAllSat is deprecated since 21.3. You may use SetPerturbationsForAllSat.
-# 
-# Set BeiDou orbit perturbations (Crs, Crc, Cis, Cic, Cus and Cuc) for all satellites.
-# All parameters are zero based index (index 0 => PRN 1, index 1 => PRN 2, etc)
-#
-# Name Type         Description
-# ---- ------------ -----------
-# Crs  array double Crs (meter)
-# Crc  array double Crc (meter)
-# Cis  array double Crs (rad)
-# Cic  array double Crc (rad)
-# Cus  array double Cus (rad)
-# Cuc  array double Cuc (rad)
-#
-
-class SetBeiDouPerturbationsForAllSat(CommandBase):
-
-  def __init__(self, crs, crc, cis, cic, cus, cuc):
-    CommandBase.__init__(self, "SetBeiDouPerturbationsForAllSat")
-    self.setCrs(crs)
-    self.setCrc(crc)
-    self.setCis(cis)
-    self.setCic(cic)
-    self.setCus(cus)
-    self.setCuc(cuc)
-
-  def executePermission(self):
-    return ExecutePermission.EXECUTE_IF_IDLE
-
-  def crs(self):
-    return self.get("Crs")
-
-  def setCrs(self, value):
-    return self.set("Crs", value)
-
-  def crc(self):
-    return self.get("Crc")
-
-  def setCrc(self, value):
-    return self.set("Crc", value)
-
-  def cis(self):
-    return self.get("Cis")
-
-  def setCis(self, value):
-    return self.set("Cis", value)
-
-  def cic(self):
-    return self.get("Cic")
-
-  def setCic(self, value):
-    return self.set("Cic", value)
-
-  def cus(self):
-    return self.get("Cus")
-
-  def setCus(self, value):
-    return self.set("Cus", value)
-
-  def cuc(self):
-    return self.get("Cuc")
-
-  def setCuc(self, value):
-    return self.set("Cuc", value)
-
-#
-# Please note the command GetBeiDouPerturbationsForAllSat is deprecated since 21.3. You may use GetPerturbationsForAllSat.
-# 
-# Get BeiDou orbit perturbations (Crs, Crc, Cis, Cic, Cus and Cuc) for all satellites.
-# All parameters are zero based index (index 0 => PRN 1, index 1 => PRN 2, etc)
-#
-#
-
-class GetBeiDouPerturbationsForAllSat(CommandBase):
-
-  def __init__(self):
-    CommandBase.__init__(self, "GetBeiDouPerturbationsForAllSat")
-
-  def executePermission(self):
-    return ExecutePermission.EXECUTE_IF_IDLE
-
-#
-# Result of GetBeiDouPerturbationsForAllSat.
-#
-# Name Type         Description
-# ---- ------------ -----------
-# Crs  array double Crs (meter)
-# Crc  array double Crc (meter)
-# Cis  array double Crs (rad)
-# Cic  array double Crc (rad)
-# Cus  array double Cus (rad)
-# Cuc  array double Cuc (rad)
-#
-
-class GetBeiDouPerturbationsForAllSatResult(CommandResult):
-
-  def __init__(self, crs, crc, cis, cic, cus, cuc):
-    CommandResult.__init__(self, "GetBeiDouPerturbationsForAllSatResult")
-    self.setCrs(crs)
-    self.setCrc(crc)
-    self.setCis(cis)
-    self.setCic(cic)
-    self.setCus(cus)
-    self.setCuc(cuc)
-
-  def isSuccess(self):
-    return True
-
-  def crs(self):
-    return self.get("Crs")
-
-  def setCrs(self, value):
-    return self.set("Crs", value)
-
-  def crc(self):
-    return self.get("Crc")
-
-  def setCrc(self, value):
-    return self.set("Crc", value)
-
-  def cis(self):
-    return self.get("Cis")
-
-  def setCis(self, value):
-    return self.set("Cis", value)
-
-  def cic(self):
-    return self.get("Cic")
-
-  def setCic(self, value):
-    return self.set("Cic", value)
-
-  def cus(self):
-    return self.get("Cus")
-
-  def setCus(self, value):
-    return self.set("Cus", value)
-
-  def cuc(self):
-    return self.get("Cuc")
-
-  def setCuc(self, value):
-    return self.set("Cuc", value)
-
-#
-# Please note the command SetMultipath is deprecated since 21.3. You may use SetMultipathForSV.
-# 
-# Add or update signal echo (multipath). Offsets (power loss, pseudorange, Doppler and carrier phase) are all relative to line-of-sight signal.
-# If Id is not set, or unknown to Skydel, a new echo will be added. Otherwise, existing echo will be updated.
-#
-# Name         Type   Description
-# ------------ ------ -----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
-# Prn          int    Satellite PRN number for GPS, Galileo, BeiDou and SBAS. Slot number for GLONASS and SV ID for QZSS.
-# System       string "GPS", "GLONASS", "Galileo", "BeiDou", "SBAS", "QZSS" or "NavIC"
-# Signal       string Allowed signal keys: "L1CA", "L1C", "L1P", "L1M", "L2C", "L2P", "L2M", "L5", "G1", "G2", "E1", "E5a", "E5b", "B1", "B2", "B1C", "B2a", "SBASL1", "QZSSL1CA", "QZSSL1C", "QZSSL5", "QZSSL1S", "QZSSL5S", "NAVICL5"
-# PowerLoss    double Power loss in dB (value must be positive)
-# Pseudorange  double Pseudorange offset in meters (value must be positive)
-# Doppler      double Doppler frequency offset in Hz
-# CarrierPhase double Carrier phase offset in radians
-# Echo         int    Echo number [1..3], or use zero to let Skydel assign an echo number.
-# Id           string Unique identifier.
-#
-
-class SetMultipath(CommandBase):
-
-  def __init__(self, prn, system, signal, powerLoss, pseudorange, doppler, carrierPhase, echo, id):
-    CommandBase.__init__(self, "SetMultipath")
-    self.setPrn(prn)
-    self.setSystem(system)
-    self.setSignal(signal)
-    self.setPowerLoss(powerLoss)
-    self.setPseudorange(pseudorange)
-    self.setDoppler(doppler)
-    self.setCarrierPhase(carrierPhase)
-    self.setEcho(echo)
-    self.setId(id)
-
-  def executePermission(self):
-    return ExecutePermission.EXECUTE_IF_SIMULATING | ExecutePermission.EXECUTE_IF_IDLE
-
-  def prn(self):
-    return self.get("Prn")
-
-  def setPrn(self, value):
-    return self.set("Prn", value)
-
-  def system(self):
-    return self.get("System")
-
-  def setSystem(self, value):
-    return self.set("System", value)
-
-  def signal(self):
-    return self.get("Signal")
-
-  def setSignal(self, value):
-    return self.set("Signal", value)
-
-  def powerLoss(self):
-    return self.get("PowerLoss")
-
-  def setPowerLoss(self, value):
-    return self.set("PowerLoss", value)
-
-  def pseudorange(self):
-    return self.get("Pseudorange")
-
-  def setPseudorange(self, value):
-    return self.set("Pseudorange", value)
-
-  def doppler(self):
-    return self.get("Doppler")
-
-  def setDoppler(self, value):
-    return self.set("Doppler", value)
-
-  def carrierPhase(self):
-    return self.get("CarrierPhase")
-
-  def setCarrierPhase(self, value):
-    return self.set("CarrierPhase", value)
-
-  def echo(self):
-    return self.get("Echo")
-
-  def setEcho(self, value):
-    return self.set("Echo", value)
-
-  def id(self):
-    return self.get("Id")
-
-  def setId(self, value):
-    return self.set("Id", value)
-
-#
-# Please note the command GetMultipath is deprecated since 21.3. You may use GetMultipathForID.
-# 
-# Get multipath infos for the specified multipath ID.
-#
-# Name Type   Description
-# ---- ------ --------------
-# Id   string A multipath ID
-#
-
-class GetMultipath(CommandBase):
-
-  def __init__(self, id):
-    CommandBase.__init__(self, "GetMultipath")
-    self.setId(id)
-
-  def executePermission(self):
-    return ExecutePermission.EXECUTE_IF_IDLE
-
-  def id(self):
-    return self.get("Id")
-
-  def setId(self, value):
-    return self.set("Id", value)
-
-#
-# Result of GetMultipathResult.
-#
-# Name         Type   Description
-# ------------ ------ -----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
-# Prn          int    Satellite PRN number for GPS, Galileo, BeiDou and SBAS. Slot number for GLONASS and SV ID for QZSS and NavIC.
-# System       string "GPS", "GLONASS", "Galileo", "BeiDou", "SBAS", "QZSS" or "NavIC"
-# Signal       string Allowed signal keys: "L1CA", "L1C", "L1P", "L1M", "L2C", "L2P", "L2M", "L5", "G1", "G2", "E1", "E5a", "E5b", "B1", "B2", "B1C", "B2a", "SBASL1", "QZSSL1CA", "QZSSL1C", "QZSSL5", "QZSSL1S", "QZSSL5S", "NAVICL5"
-# PowerLoss    double Power loss in dB (value must be positive)
-# Pseudorange  double Pseudorange offset in meters (value must be positive)
-# Doppler      double Doppler frequency offset in Hz
-# CarrierPhase double Carrier phase offset in radians
-# Echo         int    Echo number [1..3], or use zero to let Skydel assign an echo number.
-# Id           string Unique identifier.
-#
-
-class GetMultipathResult(CommandResult):
-
-  def __init__(self, prn, system, signal, powerLoss, pseudorange, doppler, carrierPhase, echo, id):
-    CommandResult.__init__(self, "GetMultipathResult")
-    self.setPrn(prn)
-    self.setSystem(system)
-    self.setSignal(signal)
-    self.setPowerLoss(powerLoss)
-    self.setPseudorange(pseudorange)
-    self.setDoppler(doppler)
-    self.setCarrierPhase(carrierPhase)
-    self.setEcho(echo)
-    self.setId(id)
-
-  def isSuccess(self):
-    return True
-
-  def prn(self):
-    return self.get("Prn")
-
-  def setPrn(self, value):
-    return self.set("Prn", value)
-
-  def system(self):
-    return self.get("System")
-
-  def setSystem(self, value):
-    return self.set("System", value)
-
-  def signal(self):
-    return self.get("Signal")
-
-  def setSignal(self, value):
-    return self.set("Signal", value)
-
-  def powerLoss(self):
-    return self.get("PowerLoss")
-
-  def setPowerLoss(self, value):
-    return self.set("PowerLoss", value)
-
-  def pseudorange(self):
-    return self.get("Pseudorange")
-
-  def setPseudorange(self, value):
-    return self.set("Pseudorange", value)
-
-  def doppler(self):
-    return self.get("Doppler")
-
-  def setDoppler(self, value):
-    return self.set("Doppler", value)
-
-  def carrierPhase(self):
-    return self.get("CarrierPhase")
-
-  def setCarrierPhase(self, value):
-    return self.set("CarrierPhase", value)
-
-  def echo(self):
-    return self.get("Echo")
-
-  def setEcho(self, value):
-    return self.set("Echo", value)
-
-  def id(self):
-    return self.get("Id")
-
-  def setId(self, value):
-    return self.set("Id", value)
-
-#
-# Please note the command RemoveAllMultipathForPrn is deprecated since 21.3. You may use RemoveAllMultipathForSV.
-# 
-# Disable all multipath for the specified satellite.
-#
-# Name   Type   Description
-# ------ ------ -------------------------------------------------------------------------------------------------------------
-# Prn    int    Satellite PRN number for GPS, Galileo, BeiDou and SBAS. Slot number for GLONASS and SV ID for QZSS and NavIC.
-# System string "GPS", "GLONASS", "Galileo", "BeiDou", "SBAS", "QZSS" or "NavIC"
-# Reset  bool   Reset attributes (PSR offset, power loss, Doppler shift and carrier phase offset are set to zero)
-#
-
-class RemoveAllMultipathForPrn(CommandBase):
-
-  def __init__(self, prn, system, reset):
-    CommandBase.__init__(self, "RemoveAllMultipathForPrn")
-    self.setPrn(prn)
-    self.setSystem(system)
-    self.setReset(reset)
-
-  def executePermission(self):
-    return ExecutePermission.EXECUTE_IF_IDLE
-
-  def prn(self):
-    return self.get("Prn")
-
-  def setPrn(self, value):
-    return self.set("Prn", value)
-
-  def system(self):
-    return self.get("System")
-
-  def setSystem(self, value):
-    return self.set("System", value)
-
-  def reset(self):
-    return self.get("Reset")
-
-  def setReset(self, value):
-    return self.set("Reset", value)
-
-#
-# Please note the command GetAllMultipathForPrn is deprecated since 21.3. You may use GetAllMultipathForSV.
-# 
-# Get all multipath ID for the specified satellite of the constellation.
-#
-# Name   Type   Description
-# ------ ------ -------------------------------------------------------------------------------------------------------------
-# System string "GPS", "GLONASS", "Galileo", "BeiDou", "SBAS", "QZSS" or "NavIC"
-# Prn    int    Satellite PRN number for GPS, Galileo, BeiDou and SBAS. Slot number for GLONASS and SV ID for QZSS and NavIC.
-#
-
-class GetAllMultipathForPrn(CommandBase):
-
-  def __init__(self, system, prn):
-    CommandBase.__init__(self, "GetAllMultipathForPrn")
-    self.setSystem(system)
-    self.setPrn(prn)
-
-  def executePermission(self):
-    return ExecutePermission.EXECUTE_IF_IDLE
-
-  def system(self):
-    return self.get("System")
-
-  def setSystem(self, value):
-    return self.set("System", value)
-
-  def prn(self):
-    return self.get("Prn")
-
-  def setPrn(self, value):
-    return self.set("Prn", value)
-
-#
-# Please note the command EnablePrn is deprecated since 21.3. You may use EnableSV.
-# 
-# Set  enabled or disabled satellite for this constellation.
-#
-# Name    Type   Description
-# ------- ------ ----------------------------------------------------------------------------------------------------------
-# System  string The satellite's constellation. Can be "GPS", "GLONASS", "Galileo", "BeiDou", "SBAS", "QZSS" or "NavIC"
-# Prn     int    Satellite PRN number for GPS, Galileo, BeiDou and SBAS. Slot number for GLONASS. SV ID for QZSS and NavIC.
-# Enabled bool   The satellite will be present/absent from the constellation
-#
-
-class EnablePrn(CommandBase):
-
-  def __init__(self, system, prn, enabled):
-    CommandBase.__init__(self, "EnablePrn")
-    self.setSystem(system)
-    self.setPrn(prn)
-    self.setEnabled(enabled)
-
-  def executePermission(self):
-    return ExecutePermission.EXECUTE_IF_IDLE
-
-  def system(self):
-    return self.get("System")
-
-  def setSystem(self, value):
-    return self.set("System", value)
-
-  def prn(self):
-    return self.get("Prn")
-
-  def setPrn(self, value):
-    return self.set("Prn", value)
-
-  def enabled(self):
-    return self.get("Enabled")
-
-  def setEnabled(self, value):
-    return self.set("Enabled", value)
-
-#
-# Please note the command IsPrnEnabled is deprecated since 21.3. You may use IsSVEnabled.
-# 
-# Get  enabled or disabled satellite for this constellation.
-#
-# Name   Type   Description
-# ------ ------ ----------------------------------------------------------------------------------------------------------
-# System string The satellite's constellation. Can be "GPS", "GLONASS", "Galileo", "BeiDou", "SBAS", "QZSS" or "NavIC"
-# Prn    int    Satellite PRN number for GPS, Galileo, BeiDou and SBAS. Slot number for GLONASS. SV ID for QZSS and NavIC.
-#
-
-class IsPrnEnabled(CommandBase):
-
-  def __init__(self, system, prn):
-    CommandBase.__init__(self, "IsPrnEnabled")
-    self.setSystem(system)
-    self.setPrn(prn)
-
-  def executePermission(self):
-    return ExecutePermission.EXECUTE_IF_IDLE
-
-  def system(self):
-    return self.get("System")
-
-  def setSystem(self, value):
-    return self.set("System", value)
-
-  def prn(self):
-    return self.get("Prn")
-
-  def setPrn(self, value):
-    return self.set("Prn", value)
-
-#
-# Result of IsPrnEnabled.
-#
-# Name    Type   Description
-# ------- ------ ----------------------------------------------------------------------------------------------------------
-# System  string The satellite's constellation. Can be "GPS", "GLONASS", "Galileo", "BeiDou", "SBAS", "QZSS" or "NavIC"
-# Prn     int    Satellite PRN number for GPS, Galileo, BeiDou and SBAS. Slot number for GLONASS. SV ID for QZSS and NavIC.
-# Enabled bool   The satellite will be present/absent from the constellation
-#
-
-class IsPrnEnabledResult(CommandResult):
-
-  def __init__(self, system, prn, enabled):
-    CommandResult.__init__(self, "IsPrnEnabledResult")
-    self.setSystem(system)
-    self.setPrn(prn)
-    self.setEnabled(enabled)
-
-  def isSuccess(self):
-    return True
-
-  def system(self):
-    return self.get("System")
-
-  def setSystem(self, value):
-    return self.set("System", value)
-
-  def prn(self):
-    return self.get("Prn")
-
-  def setPrn(self, value):
-    return self.set("Prn", value)
-
-  def enabled(self):
-    return self.get("Enabled")
-
-  def setEnabled(self, value):
-    return self.set("Enabled", value)
-
-#
-# Please note the command EnablePrns is deprecated since 21.3. You may use EnableEachSV.
-# 
-# Set  enabled or disabled satellites for this constellation.
-#
-# Name    Type       Description
-# ------- ---------- ------------------------------------------------------------------------------------------------------
-# System  string     The satellites' constellation. Can be "GPS", "GLONASS", "Galileo", "BeiDou", "SBAS", "QZSS" or "NavIC"
-# Enabled array bool Array of present/absent flags for the constellation
-#
-
-class EnablePrns(CommandBase):
-
-  def __init__(self, system, enabled):
-    CommandBase.__init__(self, "EnablePrns")
-    self.setSystem(system)
-    self.setEnabled(enabled)
-
-  def executePermission(self):
-    return ExecutePermission.EXECUTE_IF_IDLE
-
-  def system(self):
-    return self.get("System")
-
-  def setSystem(self, value):
-    return self.set("System", value)
-
-  def enabled(self):
-    return self.get("Enabled")
-
-  def setEnabled(self, value):
-    return self.set("Enabled", value)
-
-#
-# Please note the command GetPrnsEnabled is deprecated since 21.3. You may use IsEachSVEnabled.
-# 
-# Get  enabled or disabled satellites for this constellation.
-#
-# Name   Type   Description
-# ------ ------ ------------------------------------------------------------------------------------------------------
-# System string The satellites' constellation. Can be "GPS", "GLONASS", "Galileo", "BeiDou", "SBAS", "QZSS" or "NavIC"
-#
-
-class GetPrnsEnabled(CommandBase):
-
-  def __init__(self, system):
-    CommandBase.__init__(self, "GetPrnsEnabled")
-    self.setSystem(system)
-
-  def executePermission(self):
-    return ExecutePermission.EXECUTE_IF_IDLE
-
-  def system(self):
-    return self.get("System")
-
-  def setSystem(self, value):
-    return self.set("System", value)
-
-#
-# Result of GetPrnsEnabled.
-#
-# Name    Type       Description
-# ------- ---------- ------------------------------------------------------------------------------------------------------
-# System  string     The satellites' constellation. Can be "GPS", "GLONASS", "Galileo", "BeiDou", "SBAS", "QZSS" or "NavIC"
-# Enabled array bool Array of present/absent flags for the constellation
-#
-
-class GetPrnsEnabledResult(CommandResult):
-
-  def __init__(self, system, enabled):
-    CommandResult.__init__(self, "GetPrnsEnabledResult")
-    self.setSystem(system)
-    self.setEnabled(enabled)
-
-  def isSuccess(self):
-    return True
-
-  def system(self):
-    return self.get("System")
-
-  def setSystem(self, value):
-    return self.set("System", value)
-
-  def enabled(self):
-    return self.get("Enabled")
-
-  def setEnabled(self, value):
-    return self.set("Enabled", value)
-
-#
-# Please note the command SetGpsEphemerisDoubleParam is deprecated since 21.3. You may use SetGpsEphDoubleParamForSV.
-# 
-# Set various parameters in the GPS ephemeris
-# 
-#   ParamName         Unit
-#   "ClockBias"       sec
-#   "ClockDrift"      sec/sec
-#   "ClockDriftRate"  sec/sec^2
-#   "Crs"             meter
-#   "Crc"             meter
-#   "Cis"             rad
-#   "Cic"             rad
-#   "Cus"             rad
-#   "Cuc"             rad
-#   "DeltaN"          rad/sec
-#   "M0"              rad
-#   "Eccentricity"    -
-#   "SqrtA"           sqrt(meter)
-#   "BigOmega"        rad
-#   "I0"              rad
-#   "LittleOmega"     rad
-#   "BigOmegaDot"     rad/sec
-#   "Idot"            rad/sec
-#   "Accuracy"        meter
-#   "Adot"            meters/sec
-#   "DeltaN0dot"      rad/sec^2
-#   "Tgd"             sec
-#   "IscL1Ca"         sec
-#   "IscL2C"          sec
-#   "IscL5I5"         sec
-#   "IscL5Q5"         sec
-#   "IscL1CP"         sec
-#   "IscL1CD"         sec
-#
-# Name      Type   Description
-# --------- ------ -------------------------------------------------------------------------
-# Prn       int    Satellite PRN number 1..32, or use 0 to apply new value to all satellites
-# ParamName string Parameter name (see table above for accepted names)
-# Val       double Parameter value (see table above for unit)
-#
-
-class SetGpsEphemerisDoubleParam(CommandBase):
-
-  def __init__(self, prn, paramName, val):
-    CommandBase.__init__(self, "SetGpsEphemerisDoubleParam")
-    self.setPrn(prn)
-    self.setParamName(paramName)
-    self.setVal(val)
-
-  def executePermission(self):
-    return ExecutePermission.EXECUTE_IF_IDLE
-
-  def prn(self):
-    return self.get("Prn")
-
-  def setPrn(self, value):
-    return self.set("Prn", value)
-
-  def paramName(self):
-    return self.get("ParamName")
-
-  def setParamName(self, value):
-    return self.set("ParamName", value)
-
-  def val(self):
-    return self.get("Val")
-
-  def setVal(self, value):
-    return self.set("Val", value)
-
-#
-# Please note the command GetGpsEphemerisDoubleParam is deprecated since 21.3. You may use GetGpsEphDoubleParamForSV.
-# 
-# Get various parameters in the GPS ephemeris
-# 
-#   ParamName         Unit
-#   "ClockBias"       sec
-#   "ClockDrift"      sec/sec
-#   "ClockDriftRate"  sec/sec^2
-#   "Crs"             meter
-#   "Crc"             meter
-#   "Cis"             rad
-#   "Cic"             rad
-#   "Cus"             rad
-#   "Cuc"             rad
-#   "DeltaN"          rad/sec
-#   "M0"              rad
-#   "Eccentricity"    -
-#   "SqrtA"           sqrt(meter)
-#   "BigOmega"        rad
-#   "I0"              rad
-#   "LittleOmega"     rad
-#   "BigOmegaDot"     rad/sec
-#   "Idot"            rad/sec
-#   "Accuracy"        meter
-#   "Adot"            meters/sec
-#   "DeltaN0dot"      rad/sec^2
-#   "Tgd"             sec
-#   "IscL1Ca"         sec
-#   "IscL2C"          sec
-#   "IscL5I5"         sec
-#   "IscL5Q5"         sec
-#   "IscL1CP"         sec
-#   "IscL1CD"         sec
-#
-# Name      Type   Description
-# --------- ------ -------------------------------------------------------------------------
-# Prn       int    Satellite PRN number 1..32, or use 0 to apply new value to all satellites
-# ParamName string Parameter name (see table above for accepted names)
-#
-
-class GetGpsEphemerisDoubleParam(CommandBase):
-
-  def __init__(self, prn, paramName):
-    CommandBase.__init__(self, "GetGpsEphemerisDoubleParam")
-    self.setPrn(prn)
-    self.setParamName(paramName)
-
-  def executePermission(self):
-    return ExecutePermission.EXECUTE_IF_IDLE
-
-  def prn(self):
-    return self.get("Prn")
-
-  def setPrn(self, value):
-    return self.set("Prn", value)
-
-  def paramName(self):
-    return self.get("ParamName")
-
-  def setParamName(self, value):
-    return self.set("ParamName", value)
-
-#
-# Result of GetGpsEphemerisDoubleParam.
-#
-# Name      Type   Description
-# --------- ------ -------------------------------------------------------------------------
-# Prn       int    Satellite PRN number 1..32, or use 0 to apply new value to all satellites
-# ParamName string Parameter name (see table above for accepted names)
-# Val       double Parameter value (see table above for unit)
-#
-
-class GetGpsEphemerisDoubleParamResult(CommandResult):
-
-  def __init__(self, prn, paramName, val):
-    CommandResult.__init__(self, "GetGpsEphemerisDoubleParamResult")
-    self.setPrn(prn)
-    self.setParamName(paramName)
-    self.setVal(val)
-
-  def isSuccess(self):
-    return True
-
-  def prn(self):
-    return self.get("Prn")
-
-  def setPrn(self, value):
-    return self.set("Prn", value)
-
-  def paramName(self):
-    return self.get("ParamName")
-
-  def setParamName(self, value):
-    return self.set("ParamName", value)
-
-  def val(self):
-    return self.get("Val")
-
-  def setVal(self, value):
-    return self.set("Val", value)
-
-#
-# Please note the command SetGalileoEphemerisDoubleParam is deprecated since 21.3. You may use SetGalileoEphDoubleParamForSV.
-# 
-# Set various parameters in the Galileo ephemeris
-# 
-#   ParamName         Unit
-#   "ClockBias"       sec
-#   "ClockDrift"      sec/sec
-#   "ClockDriftRate"  sec/sec^2
-#   "Crs"             meter
-#   "Crc"             meter
-#   "Cis"             rad
-#   "Cic"             rad
-#   "Cus"             rad
-#   "Cuc"             rad
-#   "DeltaN"          rad/sec
-#   "M0"              rad
-#   "Eccentricity"    -
-#   "SqrtA"           sqrt(meter)
-#   "BigOmega"        rad
-#   "I0"              rad
-#   "LittleOmega"     rad
-#   "BigOmegaDot"     rad/sec
-#   "Idot"            rad/sec
-#   "Accuracy"        meter
-#   "Adot"            meters/sec
-#   "DeltaN0dot"      rad/sec^2
-#   "Tgd"             sec
-#   "BgdE1E5a"        ns
-#   "BgdE1E5b"        ns
-#
-# Name      Type   Description
-# --------- ------ -------------------------------------------------------------------------
-# Prn       int    Satellite PRN number 1..36, or use 0 to apply new value to all satellites
-# ParamName string Parameter name (see table above for accepted names)
-# Val       double Parameter value (see table above for unit)
-#
-
-class SetGalileoEphemerisDoubleParam(CommandBase):
-
-  def __init__(self, prn, paramName, val):
-    CommandBase.__init__(self, "SetGalileoEphemerisDoubleParam")
-    self.setPrn(prn)
-    self.setParamName(paramName)
-    self.setVal(val)
-
-  def executePermission(self):
-    return ExecutePermission.EXECUTE_IF_IDLE
-
-  def prn(self):
-    return self.get("Prn")
-
-  def setPrn(self, value):
-    return self.set("Prn", value)
-
-  def paramName(self):
-    return self.get("ParamName")
-
-  def setParamName(self, value):
-    return self.set("ParamName", value)
-
-  def val(self):
-    return self.get("Val")
-
-  def setVal(self, value):
-    return self.set("Val", value)
-
-#
-# Please note the command GetGalileoEphemerisDoubleParam is deprecated since 21.3. You may use GetGalileoEphDoubleParamForSV.
-# 
-# Get various parameters in the Galileo ephemeris
-# 
-#   ParamName         Unit
-#   "ClockBias"       sec
-#   "ClockDrift"      sec/sec
-#   "ClockDriftRate"  sec/sec^2
-#   "Crs"             meter
-#   "Crc"             meter
-#   "Cis"             rad
-#   "Cic"             rad
-#   "Cus"             rad
-#   "Cuc"             rad
-#   "DeltaN"          rad/sec
-#   "M0"              rad
-#   "Eccentricity"    -
-#   "SqrtA"           sqrt(meter)
-#   "BigOmega"        rad
-#   "I0"              rad
-#   "LittleOmega"     rad
-#   "BigOmegaDot"     rad/sec
-#   "Idot"            rad/sec
-#   "Accuracy"        meter
-#   "Adot"            meters/sec
-#   "DeltaN0dot"      rad/sec^2
-#   "Tgd"             sec
-#   "BgdE1E5a"        ns
-#   "BgdE1E5b"        ns
-#
-# Name      Type   Description
-# --------- ------ -------------------------------------------------------------------------
-# Prn       int    Satellite PRN number 1..36, or use 0 to apply new value to all satellites
-# ParamName string Parameter name (see table above for accepted names)
-#
-
-class GetGalileoEphemerisDoubleParam(CommandBase):
-
-  def __init__(self, prn, paramName):
-    CommandBase.__init__(self, "GetGalileoEphemerisDoubleParam")
-    self.setPrn(prn)
-    self.setParamName(paramName)
-
-  def executePermission(self):
-    return ExecutePermission.EXECUTE_IF_IDLE
-
-  def prn(self):
-    return self.get("Prn")
-
-  def setPrn(self, value):
-    return self.set("Prn", value)
-
-  def paramName(self):
-    return self.get("ParamName")
-
-  def setParamName(self, value):
-    return self.set("ParamName", value)
-
-#
-# Result of GetGalileoEphemerisDoubleParam.
-#
-# Name      Type   Description
-# --------- ------ -------------------------------------------------------------------------
-# Prn       int    Satellite PRN number 1..36, or use 0 to apply new value to all satellites
-# ParamName string Parameter name (see table above for accepted names)
-# Val       double Parameter value (see table above for unit)
-#
-
-class GetGalileoEphemerisDoubleParamResult(CommandResult):
-
-  def __init__(self, prn, paramName, val):
-    CommandResult.__init__(self, "GetGalileoEphemerisDoubleParamResult")
-    self.setPrn(prn)
-    self.setParamName(paramName)
-    self.setVal(val)
-
-  def isSuccess(self):
-    return True
-
-  def prn(self):
-    return self.get("Prn")
-
-  def setPrn(self, value):
-    return self.set("Prn", value)
-
-  def paramName(self):
-    return self.get("ParamName")
-
-  def setParamName(self, value):
-    return self.set("ParamName", value)
-
-  def val(self):
-    return self.get("Val")
-
-  def setVal(self, value):
-    return self.set("Val", value)
-
-#
-# Please note the command SetBeiDouEphemerisDoubleParam is deprecated since 21.3. You may use SetBeiDouEphDoubleParamForSV.
-# 
-# Set various parameters in the BeiDou ephemeris
-# 
-#   ParamName         Unit
-#   "ClockBias"       sec
-#   "ClockDrift"      sec/sec
-#   "ClockDriftRate"  sec/sec^2
-#   "Crs"             meter
-#   "Crc"             meter
-#   "Cis"             rad
-#   "Cic"             rad
-#   "Cus"             rad
-#   "Cuc"             rad
-#   "DeltaN"          rad/sec
-#   "M0"              rad
-#   "Eccentricity"    -
-#   "SqrtA"           sqrt(meter)
-#   "BigOmega"        rad
-#   "I0"              rad
-#   "LittleOmega"     rad
-#   "BigOmegaDot"     rad/sec
-#   "Idot"            rad/sec
-#   "Accuracy"        meter
-#   "Adot"            meters/sec
-#   "DeltaN0dot"      rad/sec^2
-#   "Tgd1"            sec
-#   "Tgd2"            sec
-#   "TgdB1Cp"         sec
-#   "TgdB2Ap"         sec
-#
-# Name      Type   Description
-# --------- ------ -------------------------------------------------------------------------
-# Prn       int    Satellite PRN number 1..30, or use 0 to apply new value to all satellites
-# ParamName string Parameter name (see table above for accepted names)
-# Val       double Parameter value (see table above for unit)
-#
-
-class SetBeiDouEphemerisDoubleParam(CommandBase):
-
-  def __init__(self, prn, paramName, val):
-    CommandBase.__init__(self, "SetBeiDouEphemerisDoubleParam")
-    self.setPrn(prn)
-    self.setParamName(paramName)
-    self.setVal(val)
-
-  def executePermission(self):
-    return ExecutePermission.EXECUTE_IF_IDLE
-
-  def prn(self):
-    return self.get("Prn")
-
-  def setPrn(self, value):
-    return self.set("Prn", value)
-
-  def paramName(self):
-    return self.get("ParamName")
-
-  def setParamName(self, value):
-    return self.set("ParamName", value)
-
-  def val(self):
-    return self.get("Val")
-
-  def setVal(self, value):
-    return self.set("Val", value)
-
-#
-# Please note the command GetBeiDouEphemerisDoubleParam is deprecated since 21.3. You may use GetBeiDouEphDoubleParamForSV.
-# 
-# Get various parameters in the BeiDou ephemeris
-# 
-#   ParamName         Unit
-#   "ClockBias"       sec
-#   "ClockDrift"      sec/sec
-#   "ClockDriftRate"  sec/sec^2
-#   "Crs"             meter
-#   "Crc"             meter
-#   "Cis"             rad
-#   "Cic"             rad
-#   "Cus"             rad
-#   "Cuc"             rad
-#   "DeltaN"          rad/sec
-#   "M0"              rad
-#   "Eccentricity"    -
-#   "SqrtA"           sqrt(meter)
-#   "BigOmega"        rad
-#   "I0"              rad
-#   "LittleOmega"     rad
-#   "BigOmegaDot"     rad/sec
-#   "Idot"            rad/sec
-#   "Accuracy"        meter
-#   "Adot"            meters/sec
-#   "DeltaN0dot"      rad/sec^2
-#   "Tgd1"            sec
-#   "Tgd2"            sec
-#   "TgdB1Cp"         sec
-#   "TgdB2Ap"         sec
-#
-# Name      Type   Description
-# --------- ------ -------------------------------------------------------------------------
-# Prn       int    Satellite PRN number 1..30, or use 0 to apply new value to all satellites
-# ParamName string Parameter name (see table above for accepted names)
-#
-
-class GetBeiDouEphemerisDoubleParam(CommandBase):
-
-  def __init__(self, prn, paramName):
-    CommandBase.__init__(self, "GetBeiDouEphemerisDoubleParam")
-    self.setPrn(prn)
-    self.setParamName(paramName)
-
-  def executePermission(self):
-    return ExecutePermission.EXECUTE_IF_IDLE
-
-  def prn(self):
-    return self.get("Prn")
-
-  def setPrn(self, value):
-    return self.set("Prn", value)
-
-  def paramName(self):
-    return self.get("ParamName")
-
-  def setParamName(self, value):
-    return self.set("ParamName", value)
-
-#
-# Result of GetBeiDouEphemerisDoubleParam.
-#
-# Name      Type   Description
-# --------- ------ -------------------------------------------------------------------------
-# Prn       int    Satellite PRN number 1..30, or use 0 to apply new value to all satellites
-# ParamName string Parameter name (see table above for accepted names)
-# Val       double Parameter value (see table above for unit)
-#
-
-class GetBeiDouEphemerisDoubleParamResult(CommandResult):
-
-  def __init__(self, prn, paramName, val):
-    CommandResult.__init__(self, "GetBeiDouEphemerisDoubleParamResult")
-    self.setPrn(prn)
-    self.setParamName(paramName)
-    self.setVal(val)
-
-  def isSuccess(self):
-    return True
-
-  def prn(self):
-    return self.get("Prn")
-
-  def setPrn(self, value):
-    return self.set("Prn", value)
-
-  def paramName(self):
-    return self.get("ParamName")
-
-  def setParamName(self, value):
-    return self.set("ParamName", value)
-
-  def val(self):
-    return self.get("Val")
-
-  def setVal(self, value):
-    return self.set("Val", value)
-
-#
-# Please note the command SetGlonassDoubleParam is deprecated since 21.3. You may use SetGlonassEphDoubleParamForSV.
-# 
-# Set various parameters for GLONASS
-# 
-#   ParamName       Unit               Range          Description
-#   "TauC"          sec                +/- 1          GLONASS time scale correction to UTC(SU) time
-#   "TauGps"        day                +/- 1.9x10^-3  Correction to GPS time relative to GLONASS time
-#   "TauN"          sec                +/- 1.9x10^-3  Coarse value of satellite time correction to GLONASS time
-#   "TLambda"       sec                0..44100       Time of the first ascending node passage
-#   "Lambda"        semicircle         +/- 1          Longitude of the first ascending node
-#   "DeltaI"        semicircle         +/- 0.067      Correction to the mean value of inclination
-#   "Omega"         semicircle         +/- 1          Argument of perigee
-#   "Eccentricity"  -                  0..0.03        Eccentricity
-#   "DeltaT"        sec/orb. period    +/- 3.6x10^3   Correction to the mean value of Draconian period
-#   "DeltaTRate"    sec/orb. period^2  +/- 2^-8       Rate of change of Draconian period
-#
-# Name      Type   Description
-# --------- ------ --------------------------------------------------------------------------------
-# Prn       int    Satellite PRN (slot number) 1..24, or use 0 to apply new value to all satellites
-# ParamName string Parameter name (see table above for accepted names)
-# Val       double Parameter value (see table above for unit)
-#
-
-class SetGlonassDoubleParam(CommandBase):
-
-  def __init__(self, prn, paramName, val):
-    CommandBase.__init__(self, "SetGlonassDoubleParam")
-    self.setPrn(prn)
-    self.setParamName(paramName)
-    self.setVal(val)
-
-  def executePermission(self):
-    return ExecutePermission.EXECUTE_IF_IDLE
-
-  def prn(self):
-    return self.get("Prn")
-
-  def setPrn(self, value):
-    return self.set("Prn", value)
-
-  def paramName(self):
-    return self.get("ParamName")
-
-  def setParamName(self, value):
-    return self.set("ParamName", value)
-
-  def val(self):
-    return self.get("Val")
-
-  def setVal(self, value):
-    return self.set("Val", value)
-
-#
-# Please note the command GetGlonassDoubleParam is deprecated since 21.3. You may use GetGlonassEphDoubleParamForSV.
-# 
-# Get various parameters for GLONASS
-# 
-#   ParamName       Unit               Range          Description
-#   "TauC"          sec                +/- 1          GLONASS time scale correction to UTC(SU) time
-#   "TauGps"        day                +/- 1.9x10^-3  Correction to GPS time relative to GLONASS time
-#   "TauN"          sec                +/- 1.9x10^-3  Coarse value of satellite time correction to GLONASS time
-#   "TLambda"       sec                0..44100       Time of the first ascending node passage
-#   "Lambda"        semicircle         +/- 1          Longitude of the first ascending node
-#   "DeltaI"        semicircle         +/- 0.067      Correction to the mean value of inclination
-#   "Omega"         semicircle         +/- 1          Argument of perigee
-#   "Eccentricity"  -                  0..0.03        Eccentricity
-#   "DeltaT"        sec/orb. period    +/- 3.6x10^3   Correction to the mean value of Draconian period
-#   "DeltaTRate"    sec/orb. period^2  +/- 2^-8       Rate of change of Draconian period
-#
-# Name      Type   Description
-# --------- ------ --------------------------------------------------------------------------------
-# Prn       int    Satellite PRN (slot number) 1..24, or use 0 to apply new value to all satellites
-# ParamName string Parameter name (see table above for accepted names)
-#
-
-class GetGlonassDoubleParam(CommandBase):
-
-  def __init__(self, prn, paramName):
-    CommandBase.__init__(self, "GetGlonassDoubleParam")
-    self.setPrn(prn)
-    self.setParamName(paramName)
-
-  def executePermission(self):
-    return ExecutePermission.EXECUTE_IF_IDLE
-
-  def prn(self):
-    return self.get("Prn")
-
-  def setPrn(self, value):
-    return self.set("Prn", value)
-
-  def paramName(self):
-    return self.get("ParamName")
-
-  def setParamName(self, value):
-    return self.set("ParamName", value)
-
-#
-# Result of GetGlonassDoubleParam.
-#
-# Name      Type   Description
-# --------- ------ --------------------------------------------------------------------------------
-# Prn       int    Satellite PRN (slot number) 1..24, or use 0 to apply new value to all satellites
-# ParamName string Parameter name (see table above for accepted names)
-# Val       double Parameter value (see table above for unit)
-#
-
-class GetGlonassDoubleParamResult(CommandResult):
-
-  def __init__(self, prn, paramName, val):
-    CommandResult.__init__(self, "GetGlonassDoubleParamResult")
-    self.setPrn(prn)
-    self.setParamName(paramName)
-    self.setVal(val)
-
-  def isSuccess(self):
-    return True
-
-  def prn(self):
-    return self.get("Prn")
-
-  def setPrn(self, value):
-    return self.set("Prn", value)
-
-  def paramName(self):
-    return self.get("ParamName")
-
-  def setParamName(self, value):
-    return self.set("ParamName", value)
-
-  def val(self):
-    return self.get("Val")
-
-  def setVal(self, value):
-    return self.set("Val", value)
-
-#
-# Please note the command SetGlonassSatelliteEphemerisHealthFlag is deprecated since 21.3. You may use SetGlonassEphemerisHealthFlagForSV.
-# 
-# Set GLONASS satellite Ephemeris Health Flag Bn(ln)
-#
-# Name   Type Description
-# ------ ---- --------------------------------------
-# Prn    int  Satellite PRN number 1..24
-# Health bool Status, false = OK, true = Malfunction
-#
-
-class SetGlonassSatelliteEphemerisHealthFlag(CommandBase):
-
-  def __init__(self, prn, health):
-    CommandBase.__init__(self, "SetGlonassSatelliteEphemerisHealthFlag")
-    self.setPrn(prn)
-    self.setHealth(health)
-
-  def executePermission(self):
-    return ExecutePermission.EXECUTE_IF_SIMULATING | ExecutePermission.EXECUTE_IF_IDLE
-
-  def prn(self):
-    return self.get("Prn")
-
-  def setPrn(self, value):
-    return self.set("Prn", value)
-
-  def health(self):
-    return self.get("Health")
-
-  def setHealth(self, value):
-    return self.set("Health", value)
-
-#
-# Please note the command GetGlonassSatelliteEphemerisHealthFlag is deprecated since 21.3. You may use GetGlonassEphemerisHealthFlagForSV.
-# 
-# Get GLONASS satellite Ephemeris Health Flag Bn(ln)
-#
-# Name Type Description
-# ---- ---- --------------------------
-# Prn  int  Satellite PRN number 1..24
-#
-
-class GetGlonassSatelliteEphemerisHealthFlag(CommandBase):
-
-  def __init__(self, prn):
-    CommandBase.__init__(self, "GetGlonassSatelliteEphemerisHealthFlag")
-    self.setPrn(prn)
-
-  def executePermission(self):
-    return ExecutePermission.EXECUTE_IF_IDLE
-
-  def prn(self):
-    return self.get("Prn")
-
-  def setPrn(self, value):
-    return self.set("Prn", value)
-
-#
-# Result of GetGlonassSatelliteEphemerisHealthFlag.
-#
-# Name   Type Description
-# ------ ---- --------------------------------------
-# Prn    int  Satellite PRN number 1..24
-# Health bool Status, false = OK, true = Malfunction
-#
-
-class GetGlonassSatelliteEphemerisHealthFlagResult(CommandResult):
-
-  def __init__(self, prn, health):
-    CommandResult.__init__(self, "GetGlonassSatelliteEphemerisHealthFlagResult")
-    self.setPrn(prn)
-    self.setHealth(health)
-
-  def isSuccess(self):
-    return True
-
-  def prn(self):
-    return self.get("Prn")
-
-  def setPrn(self, value):
-    return self.set("Prn", value)
-
-  def health(self):
-    return self.get("Health")
-
-  def setHealth(self, value):
-    return self.set("Health", value)
-
-#
-# Please note the command SetGlonassSatelliteAlmanacUnhealthyFlag is deprecated since 21.3. You may use SetGlonassAlmanacUnhealthyFlagForSV.
-# 
-# Set GLONASS satellite Almanac Unhealthy Flag Cn
-#
-# Name   Type Description
-# ------ ---- ----------------------------------------------------------
-# Prn    int  Satellite PRN number 1..24
-# Health bool Status, false = Non-operability, true = Operability (Good)
-#
-
-class SetGlonassSatelliteAlmanacUnhealthyFlag(CommandBase):
-
-  def __init__(self, prn, health):
-    CommandBase.__init__(self, "SetGlonassSatelliteAlmanacUnhealthyFlag")
-    self.setPrn(prn)
-    self.setHealth(health)
-
-  def executePermission(self):
-    return ExecutePermission.EXECUTE_IF_SIMULATING | ExecutePermission.EXECUTE_IF_IDLE
-
-  def prn(self):
-    return self.get("Prn")
-
-  def setPrn(self, value):
-    return self.set("Prn", value)
-
-  def health(self):
-    return self.get("Health")
-
-  def setHealth(self, value):
-    return self.set("Health", value)
-
-#
-# Please note the command GetGlonassSatelliteAlmanacUnhealthyFlag is deprecated since 21.3. You may use GetGlonassAlmanacUnhealthyFlagForSV.
-# 
-# Get GLONASS satellite Almanac Unhealthy Flag Cn
-#
-# Name Type Description
-# ---- ---- --------------------------
-# Prn  int  Satellite PRN number 1..24
-#
-
-class GetGlonassSatelliteAlmanacUnhealthyFlag(CommandBase):
-
-  def __init__(self, prn):
-    CommandBase.__init__(self, "GetGlonassSatelliteAlmanacUnhealthyFlag")
-    self.setPrn(prn)
-
-  def executePermission(self):
-    return ExecutePermission.EXECUTE_IF_IDLE
-
-  def prn(self):
-    return self.get("Prn")
-
-  def setPrn(self, value):
-    return self.set("Prn", value)
-
-#
-# Result of GetGlonassSatelliteAlmanacUnhealthyFlag.
-#
-# Name   Type Description
-# ------ ---- ----------------------------------------------------------
-# Prn    int  Satellite PRN number 1..24
-# Health bool Status, false = Non-operability, true = Operability (Good)
-#
-
-class GetGlonassSatelliteAlmanacUnhealthyFlagResult(CommandResult):
-
-  def __init__(self, prn, health):
-    CommandResult.__init__(self, "GetGlonassSatelliteAlmanacUnhealthyFlagResult")
-    self.setPrn(prn)
-    self.setHealth(health)
-
-  def isSuccess(self):
-    return True
-
-  def prn(self):
-    return self.get("Prn")
-
-  def setPrn(self, value):
-    return self.set("Prn", value)
-
-  def health(self):
-    return self.get("Health")
-
-  def setHealth(self, value):
-    return self.set("Health", value)
-
-#
-# Please note the command SetGalileoSatelliteSignalHealth is deprecated since 21.3. You may use SetGalileoSignalHealthForSV.
-# 
-# Set Galileo signal health for I/NAV and F/NAV message
-#
-# Name      Type   Description
-# --------- ------ ------------------------------------------
-# Prn       int    Satellite PRN number 1..36
-# Component string Component is either "E5a", "E5b", or "E1B"
-# Health    int    Signal health 0..3
-#
-
-class SetGalileoSatelliteSignalHealth(CommandBase):
-
-  def __init__(self, prn, component, health):
-    CommandBase.__init__(self, "SetGalileoSatelliteSignalHealth")
-    self.setPrn(prn)
-    self.setComponent(component)
-    self.setHealth(health)
-
-  def executePermission(self):
-    return ExecutePermission.EXECUTE_IF_SIMULATING | ExecutePermission.EXECUTE_IF_IDLE
-
-  def prn(self):
-    return self.get("Prn")
-
-  def setPrn(self, value):
-    return self.set("Prn", value)
-
-  def component(self):
-    return self.get("Component")
-
-  def setComponent(self, value):
-    return self.set("Component", value)
-
-  def health(self):
-    return self.get("Health")
-
-  def setHealth(self, value):
-    return self.set("Health", value)
-
-#
-# Please note the command GetGalileoSatelliteSignalHealth is deprecated since 21.3. You may use GetGalileoSignalHealthForSV.
-# 
-# Get Galileo signal health for I/NAV and F/NAV message
-#
-# Name      Type   Description
-# --------- ------ ------------------------------------------
-# Prn       int    Satellite PRN number 1..36
-# Component string Component is either "E5a", "E5b", or "E1B"
-#
-
-class GetGalileoSatelliteSignalHealth(CommandBase):
-
-  def __init__(self, prn, component):
-    CommandBase.__init__(self, "GetGalileoSatelliteSignalHealth")
-    self.setPrn(prn)
-    self.setComponent(component)
-
-  def executePermission(self):
-    return ExecutePermission.EXECUTE_IF_IDLE
-
-  def prn(self):
-    return self.get("Prn")
-
-  def setPrn(self, value):
-    return self.set("Prn", value)
-
-  def component(self):
-    return self.get("Component")
-
-  def setComponent(self, value):
-    return self.set("Component", value)
-
-#
-# Result of GetGalileoSatelliteSignalHealth.
-#
-# Name      Type   Description
-# --------- ------ ------------------------------------------
-# Prn       int    Satellite PRN number 1..36
-# Component string Component is either "E5a", "E5b", or "E1B"
-# Health    int    Signal health 0..3
-#
-
-class GetGalileoSatelliteSignalHealthResult(CommandResult):
-
-  def __init__(self, prn, component, health):
-    CommandResult.__init__(self, "GetGalileoSatelliteSignalHealthResult")
-    self.setPrn(prn)
-    self.setComponent(component)
-    self.setHealth(health)
-
-  def isSuccess(self):
-    return True
-
-  def prn(self):
-    return self.get("Prn")
-
-  def setPrn(self, value):
-    return self.set("Prn", value)
-
-  def component(self):
-    return self.get("Component")
-
-  def setComponent(self, value):
-    return self.set("Component", value)
-
-  def health(self):
-    return self.get("Health")
-
-  def setHealth(self, value):
-    return self.set("Health", value)
-
-#
-# Please note the command SetGalileoSatelliteDataHealth is deprecated since 21.3. You may use SetGalileoDataHealthForSV.
-# 
-# Set Galileo data health for I/NAV and F/NAV message
-#
-# Name      Type   Description
-# --------- ------ -----------------------------------------------------------------------
-# Prn       int    Satellite PRN number 1..36
-# Component string Component is either "E5a", "E5b", or "E1B"
-# Health    bool   False means Navigation data valid; True means Working without guarantee
-#
-
-class SetGalileoSatelliteDataHealth(CommandBase):
-
-  def __init__(self, prn, component, health):
-    CommandBase.__init__(self, "SetGalileoSatelliteDataHealth")
-    self.setPrn(prn)
-    self.setComponent(component)
-    self.setHealth(health)
-
-  def executePermission(self):
-    return ExecutePermission.EXECUTE_IF_SIMULATING | ExecutePermission.EXECUTE_IF_IDLE
-
-  def prn(self):
-    return self.get("Prn")
-
-  def setPrn(self, value):
-    return self.set("Prn", value)
-
-  def component(self):
-    return self.get("Component")
-
-  def setComponent(self, value):
-    return self.set("Component", value)
-
-  def health(self):
-    return self.get("Health")
-
-  def setHealth(self, value):
-    return self.set("Health", value)
-
-#
-# Please note the command GetGalileoSatelliteDataHealth is deprecated since 21.3. You may use GetGalileoDataHealthForSV.
-# 
-# Get Galileo data health for I/NAV and F/NAV message
-#
-# Name      Type   Description
-# --------- ------ ------------------------------------------
-# Prn       int    Satellite PRN number 1..36
-# Component string Component is either "E5a", "E5b", or "E1B"
-#
-
-class GetGalileoSatelliteDataHealth(CommandBase):
-
-  def __init__(self, prn, component):
-    CommandBase.__init__(self, "GetGalileoSatelliteDataHealth")
-    self.setPrn(prn)
-    self.setComponent(component)
-
-  def executePermission(self):
-    return ExecutePermission.EXECUTE_IF_IDLE
-
-  def prn(self):
-    return self.get("Prn")
-
-  def setPrn(self, value):
-    return self.set("Prn", value)
-
-  def component(self):
-    return self.get("Component")
-
-  def setComponent(self, value):
-    return self.set("Component", value)
-
-#
-# Result of GetGalileoSatelliteDataHealth.
-#
-# Name      Type   Description
-# --------- ------ -----------------------------------------------------------------------
-# Prn       int    Satellite PRN number 1..36
-# Component string Component is either "E5a", "E5b", or "E1B"
-# Health    bool   False means Navigation data valid; True means Working without guarantee
-#
-
-class GetGalileoSatelliteDataHealthResult(CommandResult):
-
-  def __init__(self, prn, component, health):
-    CommandResult.__init__(self, "GetGalileoSatelliteDataHealthResult")
-    self.setPrn(prn)
-    self.setComponent(component)
-    self.setHealth(health)
-
-  def isSuccess(self):
-    return True
-
-  def prn(self):
-    return self.get("Prn")
-
-  def setPrn(self, value):
-    return self.set("Prn", value)
-
-  def component(self):
-    return self.get("Component")
-
-  def setComponent(self, value):
-    return self.set("Component", value)
-
-  def health(self):
-    return self.get("Health")
-
-  def setHealth(self, value):
-    return self.set("Health", value)
-
-#
-# Please note the command SetSVAntennaModelToPrn is deprecated since 21.3. You may use SetSVAntennaModelForSV.
-# 
-# Set the antenna model used by the PRN.
-#
-# Name             Type   Description
-# ---------------- ------ ----------------------------------------------------------------------------------------------------------
-# Prn              int    Satellite PRN number for GPS, Galileo, BeiDou and SBAS. Slot number for GLONASS. SV ID for QZSS and NavIC.
-# System           string "GPS", "GLONASS", "Galileo", "BeiDou", "SBAS", "QZSS" or "NavIC"
-# AntennaModelName string SV antenna model name
-#
-
-class SetSVAntennaModelToPrn(CommandBase):
-
-  def __init__(self, prn, system, antennaModelName):
-    CommandBase.__init__(self, "SetSVAntennaModelToPrn")
-    self.setPrn(prn)
-    self.setSystem(system)
-    self.setAntennaModelName(antennaModelName)
-
-  def executePermission(self):
-    return ExecutePermission.EXECUTE_IF_IDLE
-
-  def prn(self):
-    return self.get("Prn")
-
-  def setPrn(self, value):
-    return self.set("Prn", value)
-
-  def system(self):
-    return self.get("System")
-
-  def setSystem(self, value):
-    return self.set("System", value)
-
-  def antennaModelName(self):
-    return self.get("AntennaModelName")
-
-  def setAntennaModelName(self, value):
-    return self.set("AntennaModelName", value)
-
-#
-# Please note the command GetSVAntennaModelToPrn is deprecated since 21.3. You may use GetSVAntennaModelForSV.
-# 
-# Get the antenna model used by the PRN.
-#
-# Name   Type   Description
-# ------ ------ ----------------------------------------------------------------------------------------------------------
-# Prn    int    Satellite PRN number for GPS, Galileo, BeiDou and SBAS. Slot number for GLONASS. SV ID for QZSS and NavIC.
-# System string "GPS", "GLONASS", "Galileo", "BeiDou", "SBAS", "QZSS" or "NavIC"
-#
-
-class GetSVAntennaModelToPrn(CommandBase):
-
-  def __init__(self, prn, system):
-    CommandBase.__init__(self, "GetSVAntennaModelToPrn")
-    self.setPrn(prn)
-    self.setSystem(system)
-
-  def executePermission(self):
-    return ExecutePermission.EXECUTE_IF_IDLE
-
-  def prn(self):
-    return self.get("Prn")
-
-  def setPrn(self, value):
-    return self.set("Prn", value)
-
-  def system(self):
-    return self.get("System")
-
-  def setSystem(self, value):
-    return self.set("System", value)
-
-#
-# Result of GetSVAntennaModelToPrn.
-#
-# Name             Type   Description
-# ---------------- ------ ----------------------------------------------------------------------------------------------------------
-# Prn              int    Satellite PRN number for GPS, Galileo, BeiDou and SBAS. Slot number for GLONASS. SV ID for QZSS and NavIC.
-# System           string "GPS", "GLONASS", "Galileo", "BeiDou", "SBAS", "QZSS" or "NavIC"
-# AntennaModelName string SV antenna model name
-#
-
-class GetSVAntennaModelToPrnResult(CommandResult):
-
-  def __init__(self, prn, system, antennaModelName):
-    CommandResult.__init__(self, "GetSVAntennaModelToPrnResult")
-    self.setPrn(prn)
-    self.setSystem(system)
-    self.setAntennaModelName(antennaModelName)
-
-  def isSuccess(self):
-    return True
-
-  def prn(self):
-    return self.get("Prn")
-
-  def setPrn(self, value):
-    return self.set("Prn", value)
-
-  def system(self):
-    return self.get("System")
-
-  def setSystem(self, value):
-    return self.set("System", value)
-
-  def antennaModelName(self):
-    return self.get("AntennaModelName")
-
-  def setAntennaModelName(self, value):
-    return self.set("AntennaModelName", value)
-
-#
-# Please note the command SetGpsEphemerisBoolParam is deprecated since 21.3. You may use SetGpsEphBoolParamForSV.
-# 
-# Set various boolean parameters in the GPS ephemeris
-# 
-#   ParamName
-# "IscL1CaAvailable"
-# "IscL2CAvailable"
-# "IscL5I5Available"
-# "IscL5Q5Available"
-# "IscL1CPAvailable"
-# "IscL1CDAvailable"
-#
-# Name      Type   Description
-# --------- ------ -------------------------------------------------------------------------
-# Prn       int    Satellite PRN number 1..32, or use 0 to apply new value to all satellites
-# ParamName string Parameter name (see table above for accepted names)
-# Val       bool   Parameter value (see table above for unit)
-#
-
-class SetGpsEphemerisBoolParam(CommandBase):
-
-  def __init__(self, prn, paramName, val):
-    CommandBase.__init__(self, "SetGpsEphemerisBoolParam")
-    self.setPrn(prn)
-    self.setParamName(paramName)
-    self.setVal(val)
-
-  def executePermission(self):
-    return ExecutePermission.EXECUTE_IF_IDLE
-
-  def prn(self):
-    return self.get("Prn")
-
-  def setPrn(self, value):
-    return self.set("Prn", value)
-
-  def paramName(self):
-    return self.get("ParamName")
-
-  def setParamName(self, value):
-    return self.set("ParamName", value)
-
-  def val(self):
-    return self.get("Val")
-
-  def setVal(self, value):
-    return self.set("Val", value)
-
-#
-# Please note the command GetGpsEphemerisBoolParam is deprecated since 21.3. You may use GetGpsEphBoolParamForSV.
-# 
-# Get various boolean parameters in the GPS ephemeris
-# 
-#   ParamName
-# "IscL1CaAvailable"
-# "IscL2CAvailable"
-# "IscL5I5Available"
-# "IscL5Q5Available"
-# "IscL1CPAvailable"
-# "IscL1CDAvailable"
-#
-# Name      Type   Description
-# --------- ------ -------------------------------------------------------------------------
-# Prn       int    Satellite PRN number 1..32, or use 0 to apply new value to all satellites
-# ParamName string Parameter name (see table above for accepted names)
-#
-
-class GetGpsEphemerisBoolParam(CommandBase):
-
-  def __init__(self, prn, paramName):
-    CommandBase.__init__(self, "GetGpsEphemerisBoolParam")
-    self.setPrn(prn)
-    self.setParamName(paramName)
-
-  def executePermission(self):
-    return ExecutePermission.EXECUTE_IF_IDLE
-
-  def prn(self):
-    return self.get("Prn")
-
-  def setPrn(self, value):
-    return self.set("Prn", value)
-
-  def paramName(self):
-    return self.get("ParamName")
-
-  def setParamName(self, value):
-    return self.set("ParamName", value)
-
-#
-# Result of GetGpsEphemerisBoolParam.
-#
-# Name      Type   Description
-# --------- ------ -------------------------------------------------------------------------
-# Prn       int    Satellite PRN number 1..32, or use 0 to apply new value to all satellites
-# ParamName string Parameter name (see table above for accepted names)
-# Val       bool   Parameter value (see table above for unit)
-#
-
-class GetGpsEphemerisBoolParamResult(CommandResult):
-
-  def __init__(self, prn, paramName, val):
-    CommandResult.__init__(self, "GetGpsEphemerisBoolParamResult")
-    self.setPrn(prn)
-    self.setParamName(paramName)
-    self.setVal(val)
-
-  def isSuccess(self):
-    return True
-
-  def prn(self):
-    return self.get("Prn")
-
-  def setPrn(self, value):
-    return self.set("Prn", value)
-
-  def paramName(self):
-    return self.get("ParamName")
-
-  def setParamName(self, value):
-    return self.set("ParamName", value)
-
-  def val(self):
-    return self.get("Val")
-
-  def setVal(self, value):
-    return self.set("Val", value)
-
-#
-# Please note the command SetBeiDouEphemerisBoolParam is deprecated since 21.3. You may use SetBeiDouEphBoolParamForSV.
-# 
-# Set various boolean parameters in the BeiDou ephemeris
-# 
-#   ParamName
-# "IscB1CdAvailable"
-# "IscB2adAvailable"
-#
-# Name      Type   Description
-# --------- ------ -------------------------------------------------------------------------
-# Prn       int    Satellite PRN number 1..30, or use 0 to apply new value to all satellites
-# ParamName string Parameter name (see table above for accepted names)
-# Val       bool   Parameter value (see table above for unit)
-#
-
-class SetBeiDouEphemerisBoolParam(CommandBase):
-
-  def __init__(self, prn, paramName, val):
-    CommandBase.__init__(self, "SetBeiDouEphemerisBoolParam")
-    self.setPrn(prn)
-    self.setParamName(paramName)
-    self.setVal(val)
-
-  def executePermission(self):
-    return ExecutePermission.EXECUTE_IF_IDLE
-
-  def prn(self):
-    return self.get("Prn")
-
-  def setPrn(self, value):
-    return self.set("Prn", value)
-
-  def paramName(self):
-    return self.get("ParamName")
-
-  def setParamName(self, value):
-    return self.set("ParamName", value)
-
-  def val(self):
-    return self.get("Val")
-
-  def setVal(self, value):
-    return self.set("Val", value)
-
-#
-# Please note the command GetBeiDouEphemerisBoolParam is deprecated since 21.3. You may use GetBeiDouEphBoolParamForSV.
-# 
-# Get various boolean parameters in the BeiDou ephemeris
-# 
-#   ParamName
-# "IscB1CdAvailable"
-# "IscB2adAvailable"
-#
-# Name      Type   Description
-# --------- ------ -------------------------------------------------------------------------
-# Prn       int    Satellite PRN number 1..30, or use 0 to apply new value to all satellites
-# ParamName string Parameter name (see table above for accepted names)
-#
-
-class GetBeiDouEphemerisBoolParam(CommandBase):
-
-  def __init__(self, prn, paramName):
-    CommandBase.__init__(self, "GetBeiDouEphemerisBoolParam")
-    self.setPrn(prn)
-    self.setParamName(paramName)
-
-  def executePermission(self):
-    return ExecutePermission.EXECUTE_IF_IDLE
-
-  def prn(self):
-    return self.get("Prn")
-
-  def setPrn(self, value):
-    return self.set("Prn", value)
-
-  def paramName(self):
-    return self.get("ParamName")
-
-  def setParamName(self, value):
-    return self.set("ParamName", value)
-
-#
-# Result of GetBeiDouEphemerisBoolParam.
-#
-# Name      Type   Description
-# --------- ------ -------------------------------------------------------------------------
-# Prn       int    Satellite PRN number 1..30, or use 0 to apply new value to all satellites
-# ParamName string Parameter name (see table above for accepted names)
-# Val       bool   Parameter value (see table above for unit)
-#
-
-class GetBeiDouEphemerisBoolParamResult(CommandResult):
-
-  def __init__(self, prn, paramName, val):
-    CommandResult.__init__(self, "GetBeiDouEphemerisBoolParamResult")
-    self.setPrn(prn)
-    self.setParamName(paramName)
-    self.setVal(val)
-
-  def isSuccess(self):
-    return True
-
-  def prn(self):
-    return self.get("Prn")
-
-  def setPrn(self, value):
-    return self.set("Prn", value)
-
-  def paramName(self):
-    return self.get("ParamName")
-
-  def setParamName(self, value):
-    return self.set("ParamName", value)
-
-  def val(self):
-    return self.get("Val")
-
-  def setVal(self, value):
-    return self.set("Val", value)
-
-#
-# Please note the command SetSbasEphemerisParams is deprecated since 21.3. You may use SetSbasEphParamForSV.
-# 
-# Set parameters for a SBAS satellite ephemeris (runtime modification only available for health parameter)
-#
-# Name       Type             Description
-# ---------- ---------------- -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
-# Prn        int              The satellite's PRN
-# Parameters array StringPair A list of pair of strings. The first will be the key and has to be from this list: "ClockBias", "RelativeFrequencyBias", "X", "Y", "Z", "VelocityX", "VelocityY", "VelocityZ", "AccelerationX", "AccelerationY", "AccelerationZ", "Health", "URA". The Second argument will be the corresponding value.
-#
-
-class SetSbasEphemerisParams(CommandBase):
-
-  def __init__(self, prn, parameters):
-    CommandBase.__init__(self, "SetSbasEphemerisParams")
-    self.setPrn(prn)
-    self.setParameters(parameters)
-
-  def executePermission(self):
-    return ExecutePermission.EXECUTE_IF_IDLE | ExecutePermission.EXECUTE_IF_SIMULATING
-
-  def prn(self):
-    return self.get("Prn")
-
-  def setPrn(self, value):
-    return self.set("Prn", value)
-
-  def parameters(self):
-    return self.get("Parameters")
-
-  def setParameters(self, value):
-    return self.set("Parameters", value)
-
-#
-# Please note the command GetSbasEphemerisParam is deprecated since 21.3. You may use GetSbasEphParamsForSV.
-# 
-# Get parameters for a SBAS satellite ephemeris
-#
-# Name      Type   Description
-# --------- ------ -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
-# Prn       int    The satellite's PRN
-# Parameter string Parameter's names. Can be : "ClockBias", "RelativeFrequencyBias", "X", "Y", "Z", "VelocityX", "VelocityY", "VelocityZ", "AccelerationX", "AccelerationY", "AccelerationZ", "Health", "URA".
-#
-
-class GetSbasEphemerisParam(CommandBase):
-
-  def __init__(self, prn, parameter):
-    CommandBase.__init__(self, "GetSbasEphemerisParam")
-    self.setPrn(prn)
-    self.setParameter(parameter)
-
-  def executePermission(self):
-    return ExecutePermission.EXECUTE_IF_IDLE
-
-  def prn(self):
-    return self.get("Prn")
-
-  def setPrn(self, value):
-    return self.set("Prn", value)
-
-  def parameter(self):
-    return self.get("Parameter")
-
-  def setParameter(self, value):
-    return self.set("Parameter", value)
-
-#
-# Result of GetSbasEphemerisParam.
-#
-# Name       Type   Description
-# ---------- ------ ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
-# Prn        int    The satellite's PRN number
-# Parameter  string A list of pair of strings. The first will be the key and be from this list: "ClockBias", "RelativeFrequencyBias", "X", "Y", "Z", "VelocityX", "VelocityY", "VelocityZ", "AccelerationX", "AccelerationY", "AccelerationZ", "Health", URA. The Second argument will be the corresponding value.
-# ValueParam string Parameter's value.
-#
-
-class GetSbasEphemerisParamResult(CommandResult):
-
-  def __init__(self, prn, parameter, valueParam):
-    CommandResult.__init__(self, "GetSbasEphemerisParamResult")
-    self.setPrn(prn)
-    self.setParameter(parameter)
-    self.setValueParam(valueParam)
-
-  def isSuccess(self):
-    return True
-
-  def prn(self):
-    return self.get("Prn")
-
-  def setPrn(self, value):
-    return self.set("Prn", value)
-
-  def parameter(self):
-    return self.get("Parameter")
-
-  def setParameter(self, value):
-    return self.set("Parameter", value)
-
-  def valueParam(self):
-    return self.get("ValueParam")
-
-  def setValueParam(self, value):
-    return self.set("ValueParam", value)
-
-#
-# Please note the command SetGpsSVConfiguration is deprecated since 21.3. You may use SetGpsConfigurationCodeForSV.
-# 
-# Set GPS SV configuration flag for one PRN
-#
-# Name     Type Description
-# -------- ---- --------------------------
-# Prn      int  Satellite PRN number 1..32
-# SvConfig int  SV Config 0..4
-#
-
-class SetGpsSVConfiguration(CommandBase):
-
-  def __init__(self, prn, svConfig):
-    CommandBase.__init__(self, "SetGpsSVConfiguration")
-    self.setPrn(prn)
-    self.setSvConfig(svConfig)
-
-  def executePermission(self):
-    return ExecutePermission.EXECUTE_IF_IDLE | ExecutePermission.EXECUTE_IF_SIMULATING
-
-  def prn(self):
-    return self.get("Prn")
-
-  def setPrn(self, value):
-    return self.set("Prn", value)
-
-  def svConfig(self):
-    return self.get("SvConfig")
-
-  def setSvConfig(self, value):
-    return self.set("SvConfig", value)
-
-#
-# Please note the command GetGpsSVConfiguration is deprecated since 21.3. You may use GetGpsConfigurationCodeForSV.
-# 
-# Get GPS SV configuration flag for one PRN
-#
-# Name Type Description
-# ---- ---- --------------------------
-# Prn  int  Satellite PRN number 1..32
-#
-
-class GetGpsSVConfiguration(CommandBase):
-
-  def __init__(self, prn):
-    CommandBase.__init__(self, "GetGpsSVConfiguration")
-    self.setPrn(prn)
-
-  def executePermission(self):
-    return ExecutePermission.EXECUTE_IF_IDLE
-
-  def prn(self):
-    return self.get("Prn")
-
-  def setPrn(self, value):
-    return self.set("Prn", value)
-
-#
-# Result of GetGpsSVConfiguration.
-#
-# Name     Type Description
-# -------- ---- --------------------------
-# Prn      int  Satellite PRN number 1..32
-# SvConfig int  SV Config 0..4
-#
-
-class GetGpsSVConfigurationResult(CommandResult):
-
-  def __init__(self, prn, svConfig):
-    CommandResult.__init__(self, "GetGpsSVConfigurationResult")
-    self.setPrn(prn)
-    self.setSvConfig(svConfig)
-
-  def isSuccess(self):
-    return True
-
-  def prn(self):
-    return self.get("Prn")
-
-  def setPrn(self, value):
-    return self.set("Prn", value)
-
-  def svConfig(self):
-    return self.get("SvConfig")
-
-  def setSvConfig(self, value):
-    return self.set("SvConfig", value)
-
-#
-# Please note the command SetGpsSatelliteDataHealth is deprecated since 21.3. You may use SetGpsDataHealthForSV.
-# 
-# Set GPS nav data health
-#
-# Name   Type Description
-# ------ ---- --------------------------
-# Prn    int  Satellite PRN number 1..32
-# Health int  Data health 0..7
-#
-
-class SetGpsSatelliteDataHealth(CommandBase):
-
-  def __init__(self, prn, health):
-    CommandBase.__init__(self, "SetGpsSatelliteDataHealth")
-    self.setPrn(prn)
-    self.setHealth(health)
-
-  def executePermission(self):
-    return ExecutePermission.EXECUTE_IF_SIMULATING | ExecutePermission.EXECUTE_IF_IDLE
-
-  def prn(self):
-    return self.get("Prn")
-
-  def setPrn(self, value):
-    return self.set("Prn", value)
-
-  def health(self):
-    return self.get("Health")
-
-  def setHealth(self, value):
-    return self.set("Health", value)
-
-#
-# Please note the command GetGpsSatelliteDataHealth is deprecated since 21.3. You may use GetGpsDataHealthForSV.
-# 
-# Get GPS nav data health
-#
-# Name Type Description
-# ---- ---- --------------------------
-# Prn  int  Satellite PRN number 1..32
-#
-
-class GetGpsSatelliteDataHealth(CommandBase):
-
-  def __init__(self, prn):
-    CommandBase.__init__(self, "GetGpsSatelliteDataHealth")
-    self.setPrn(prn)
-
-  def executePermission(self):
-    return ExecutePermission.EXECUTE_IF_IDLE
-
-  def prn(self):
-    return self.get("Prn")
-
-  def setPrn(self, value):
-    return self.set("Prn", value)
-
-#
-# Result of GetGpsSatelliteDataHealth.
-#
-# Name   Type Description
-# ------ ---- --------------------------
-# Prn    int  Satellite PRN number 1..32
-# Health int  Data health 0..7
-#
-
-class GetGpsSatelliteDataHealthResult(CommandResult):
-
-  def __init__(self, prn, health):
-    CommandResult.__init__(self, "GetGpsSatelliteDataHealthResult")
-    self.setPrn(prn)
-    self.setHealth(health)
-
-  def isSuccess(self):
-    return True
-
-  def prn(self):
-    return self.get("Prn")
-
-  def setPrn(self, value):
-    return self.set("Prn", value)
-
-  def health(self):
-    return self.get("Health")
-
-  def setHealth(self, value):
-    return self.set("Health", value)
-
-#
-# Please note the command SetGpsSatelliteSignalHealth is deprecated since 21.3. You may use SetGpsSignalHealthForSV.
-# 
-# Set GPS signal health
-#
-# Name   Type Description
-# ------ ---- --------------------------
-# Prn    int  Satellite PRN number 1..32
-# Health int  Signal health 0..31
-#
-
-class SetGpsSatelliteSignalHealth(CommandBase):
-
-  def __init__(self, prn, health):
-    CommandBase.__init__(self, "SetGpsSatelliteSignalHealth")
-    self.setPrn(prn)
-    self.setHealth(health)
-
-  def executePermission(self):
-    return ExecutePermission.EXECUTE_IF_SIMULATING | ExecutePermission.EXECUTE_IF_IDLE
-
-  def prn(self):
-    return self.get("Prn")
-
-  def setPrn(self, value):
-    return self.set("Prn", value)
-
-  def health(self):
-    return self.get("Health")
-
-  def setHealth(self, value):
-    return self.set("Health", value)
-
-#
-# Please note the command GetGpsSatelliteSignalHealth is deprecated since 21.3. You may use GetGpsSignalHealthForSV.
-# 
-# Get GPS signal health
-#
-# Name Type Description
-# ---- ---- --------------------------
-# Prn  int  Satellite PRN number 1..32
-#
-
-class GetGpsSatelliteSignalHealth(CommandBase):
-
-  def __init__(self, prn):
-    CommandBase.__init__(self, "GetGpsSatelliteSignalHealth")
-    self.setPrn(prn)
-
-  def executePermission(self):
-    return ExecutePermission.EXECUTE_IF_IDLE
-
-  def prn(self):
-    return self.get("Prn")
-
-  def setPrn(self, value):
-    return self.set("Prn", value)
-
-#
-# Result of GetGpsSatelliteSignalHealth.
-#
-# Name   Type Description
-# ------ ---- --------------------------
-# Prn    int  Satellite PRN number 1..32
-# Health int  Signal health 0..31
-#
-
-class GetGpsSatelliteSignalHealthResult(CommandResult):
-
-  def __init__(self, prn, health):
-    CommandResult.__init__(self, "GetGpsSatelliteSignalHealthResult")
-    self.setPrn(prn)
-    self.setHealth(health)
-
-  def isSuccess(self):
-    return True
-
-  def prn(self):
-    return self.get("Prn")
-
-  def setPrn(self, value):
-    return self.set("Prn", value)
-
-  def health(self):
-    return self.get("Health")
-
-  def setHealth(self, value):
-    return self.set("Health", value)
-
-#
-# Please note the command SetGpsSatelliteL1Health is deprecated since 21.3. You may use SetGpsL1HealthForSV.
-# 
-# Set GPS L1 health (used with CNAV and CNAV2)
-#
-# Name   Type Description
-# ------ ---- --------------------------------------------------------------
-# Prn    int  Satellite PRN number 1..32
-# Health bool L1 health, false = signal OK, true = signal bad or unavailable
-#
-
-class SetGpsSatelliteL1Health(CommandBase):
-
-  def __init__(self, prn, health):
-    CommandBase.__init__(self, "SetGpsSatelliteL1Health")
-    self.setPrn(prn)
-    self.setHealth(health)
-
-  def executePermission(self):
-    return ExecutePermission.EXECUTE_IF_SIMULATING | ExecutePermission.EXECUTE_IF_IDLE
-
-  def prn(self):
-    return self.get("Prn")
-
-  def setPrn(self, value):
-    return self.set("Prn", value)
-
-  def health(self):
-    return self.get("Health")
-
-  def setHealth(self, value):
-    return self.set("Health", value)
-
-#
-# Please note the command GetGpsSatelliteL1Health is deprecated since 21.3. You may use GetGpsL1HealthForSV.
-# 
-# Get GPS L1 health (used with CNAV and CNAV2)
-#
-# Name Type Description
-# ---- ---- --------------------------
-# Prn  int  Satellite PRN number 1..32
-#
-
-class GetGpsSatelliteL1Health(CommandBase):
-
-  def __init__(self, prn):
-    CommandBase.__init__(self, "GetGpsSatelliteL1Health")
-    self.setPrn(prn)
-
-  def executePermission(self):
-    return ExecutePermission.EXECUTE_IF_IDLE
-
-  def prn(self):
-    return self.get("Prn")
-
-  def setPrn(self, value):
-    return self.set("Prn", value)
-
-#
-# Result of GetGpsSatelliteL1Health.
-#
-# Name   Type Description
-# ------ ---- --------------------------------------------------------------
-# Prn    int  Satellite PRN number 1..32
-# Health bool L1 health, false = signal OK, true = signal bad or unavailable
-#
-
-class GetGpsSatelliteL1HealthResult(CommandResult):
-
-  def __init__(self, prn, health):
-    CommandResult.__init__(self, "GetGpsSatelliteL1HealthResult")
-    self.setPrn(prn)
-    self.setHealth(health)
-
-  def isSuccess(self):
-    return True
-
-  def prn(self):
-    return self.get("Prn")
-
-  def setPrn(self, value):
-    return self.set("Prn", value)
-
-  def health(self):
-    return self.get("Health")
-
-  def setHealth(self, value):
-    return self.set("Health", value)
-
-#
-# Please note the command SetGpsSatelliteL2Health is deprecated since 21.3. You may use SetGpsL2HealthForSV.
-# 
-# Set GPS L2 health (used with CNAV and CNAV2)
-#
-# Name   Type Description
-# ------ ---- --------------------------------------------------------------
-# Prn    int  Satellite PRN number 1..32
-# Health bool L2 health, false = signal OK, true = signal bad or unavailable
-#
-
-class SetGpsSatelliteL2Health(CommandBase):
-
-  def __init__(self, prn, health):
-    CommandBase.__init__(self, "SetGpsSatelliteL2Health")
-    self.setPrn(prn)
-    self.setHealth(health)
-
-  def executePermission(self):
-    return ExecutePermission.EXECUTE_IF_SIMULATING | ExecutePermission.EXECUTE_IF_IDLE
-
-  def prn(self):
-    return self.get("Prn")
-
-  def setPrn(self, value):
-    return self.set("Prn", value)
-
-  def health(self):
-    return self.get("Health")
-
-  def setHealth(self, value):
-    return self.set("Health", value)
-
-#
-# Please note the command GetGpsSatelliteL2Health is deprecated since 21.3. You may use GetGpsL2HealthForSV.
-# 
-# Get GPS L2 health (used with CNAV and CNAV2)
-#
-# Name Type Description
-# ---- ---- --------------------------
-# Prn  int  Satellite PRN number 1..32
-#
-
-class GetGpsSatelliteL2Health(CommandBase):
-
-  def __init__(self, prn):
-    CommandBase.__init__(self, "GetGpsSatelliteL2Health")
-    self.setPrn(prn)
-
-  def executePermission(self):
-    return ExecutePermission.EXECUTE_IF_IDLE
-
-  def prn(self):
-    return self.get("Prn")
-
-  def setPrn(self, value):
-    return self.set("Prn", value)
-
-#
-# Result of GetGpsSatelliteL2Health.
-#
-# Name   Type Description
-# ------ ---- --------------------------------------------------------------
-# Prn    int  Satellite PRN number 1..32
-# Health bool L2 health, false = signal OK, true = signal bad or unavailable
-#
-
-class GetGpsSatelliteL2HealthResult(CommandResult):
-
-  def __init__(self, prn, health):
-    CommandResult.__init__(self, "GetGpsSatelliteL2HealthResult")
-    self.setPrn(prn)
-    self.setHealth(health)
-
-  def isSuccess(self):
-    return True
-
-  def prn(self):
-    return self.get("Prn")
-
-  def setPrn(self, value):
-    return self.set("Prn", value)
-
-  def health(self):
-    return self.get("Health")
-
-  def setHealth(self, value):
-    return self.set("Health", value)
-
-#
-# Please note the command SetGpsSatelliteL5Health is deprecated since 21.3. You may use SetGpsL5HealthForSV.
-# 
-# Set GPS L5 health (used with CNAV and CNAV2)
-#
-# Name   Type Description
-# ------ ---- --------------------------------------------------------------
-# Prn    int  Satellite PRN number 1..32
-# Health bool L5 health, false = signal OK, true = signal bad or unavailable
-#
-
-class SetGpsSatelliteL5Health(CommandBase):
-
-  def __init__(self, prn, health):
-    CommandBase.__init__(self, "SetGpsSatelliteL5Health")
-    self.setPrn(prn)
-    self.setHealth(health)
-
-  def executePermission(self):
-    return ExecutePermission.EXECUTE_IF_SIMULATING | ExecutePermission.EXECUTE_IF_IDLE
-
-  def prn(self):
-    return self.get("Prn")
-
-  def setPrn(self, value):
-    return self.set("Prn", value)
-
-  def health(self):
-    return self.get("Health")
-
-  def setHealth(self, value):
-    return self.set("Health", value)
-
-#
-# Please note the command GetGpsSatelliteL5Health is deprecated since 21.3. You may use GetGpsL5HealthForSV.
-# 
-# Get GPS L5 health (used with CNAV and CNAV2)
-#
-# Name Type Description
-# ---- ---- --------------------------
-# Prn  int  Satellite PRN number 1..32
-#
-
-class GetGpsSatelliteL5Health(CommandBase):
-
-  def __init__(self, prn):
-    CommandBase.__init__(self, "GetGpsSatelliteL5Health")
-    self.setPrn(prn)
-
-  def executePermission(self):
-    return ExecutePermission.EXECUTE_IF_IDLE
-
-  def prn(self):
-    return self.get("Prn")
-
-  def setPrn(self, value):
-    return self.set("Prn", value)
-
-#
-# Result of GetGpsSatelliteL5Health.
-#
-# Name   Type Description
-# ------ ---- --------------------------------------------------------------
-# Prn    int  Satellite PRN number 1..32
-# Health bool L5 health, false = signal OK, true = signal bad or unavailable
-#
-
-class GetGpsSatelliteL5HealthResult(CommandResult):
-
-  def __init__(self, prn, health):
-    CommandResult.__init__(self, "GetGpsSatelliteL5HealthResult")
-    self.setPrn(prn)
-    self.setHealth(health)
-
-  def isSuccess(self):
-    return True
-
-  def prn(self):
-    return self.get("Prn")
-
-  def setPrn(self, value):
-    return self.set("Prn", value)
-
-  def health(self):
-    return self.get("Health")
-
-  def setHealth(self, value):
-    return self.set("Health", value)
-
-#
-# Please note the command SetGpsSatelliteL1cHealth is deprecated since 21.3. You may use SetGpsL1cHealthForSV.
-# 
-# Set GPS L1C health (used in CNAV2 only)
-#
-# Name   Type Description
-# ------ ---- ---------------------------------------------------------------
-# Prn    int  Satellite PRN number 1..32
-# Health bool L1C health, false = signal OK, true = signal bad or unavailable
-#
-
-class SetGpsSatelliteL1cHealth(CommandBase):
-
-  def __init__(self, prn, health):
-    CommandBase.__init__(self, "SetGpsSatelliteL1cHealth")
-    self.setPrn(prn)
-    self.setHealth(health)
-
-  def executePermission(self):
-    return ExecutePermission.EXECUTE_IF_SIMULATING | ExecutePermission.EXECUTE_IF_IDLE
-
-  def prn(self):
-    return self.get("Prn")
-
-  def setPrn(self, value):
-    return self.set("Prn", value)
-
-  def health(self):
-    return self.get("Health")
-
-  def setHealth(self, value):
-    return self.set("Health", value)
-
-#
-# Please note the command GetGpsSatelliteL1cHealth is deprecated since 21.3. You may use GetGpsL1cHealthForSV.
-# 
-# Get GPS L1C health (used in CNAV2 only)
-#
-# Name Type Description
-# ---- ---- --------------------------
-# Prn  int  Satellite PRN number 1..32
-#
-
-class GetGpsSatelliteL1cHealth(CommandBase):
-
-  def __init__(self, prn):
-    CommandBase.__init__(self, "GetGpsSatelliteL1cHealth")
-    self.setPrn(prn)
-
-  def executePermission(self):
-    return ExecutePermission.EXECUTE_IF_IDLE
-
-  def prn(self):
-    return self.get("Prn")
-
-  def setPrn(self, value):
-    return self.set("Prn", value)
-
-#
-# Result of GetGpsSatelliteL1cHealth.
-#
-# Name   Type Description
-# ------ ---- ---------------------------------------------------------------
-# Prn    int  Satellite PRN number 1..32
-# Health bool L1C health, false = signal OK, true = signal bad or unavailable
-#
-
-class GetGpsSatelliteL1cHealthResult(CommandResult):
-
-  def __init__(self, prn, health):
-    CommandResult.__init__(self, "GetGpsSatelliteL1cHealthResult")
-    self.setPrn(prn)
-    self.setHealth(health)
-
-  def isSuccess(self):
-    return True
-
-  def prn(self):
-    return self.get("Prn")
-
-  def setPrn(self, value):
-    return self.set("Prn", value)
-
-  def health(self):
-    return self.get("Health")
-
-  def setHealth(self, value):
-    return self.set("Health", value)
-
-#
-# Please note the command SetGpsSatelliteAntiSpoofingFlag is deprecated since 21.3. You may use SetGpsAntiSpoofingFlagForSV.
-# 
-# Set GPS Anti-Spoofing Flag
-#
-# Name         Type      Description
-# ------------ --------- --------------------------
-# Prn          int       Satellite PRN number 1..32
-# AntiSpoofing GpsASFlag GPS Anti-Spoofing Flag.
-#
-
-class SetGpsSatelliteAntiSpoofingFlag(CommandBase):
-
-  def __init__(self, prn, antiSpoofing):
-    CommandBase.__init__(self, "SetGpsSatelliteAntiSpoofingFlag")
-    self.setPrn(prn)
-    self.setAntiSpoofing(antiSpoofing)
-
-  def executePermission(self):
-    return ExecutePermission.EXECUTE_IF_SIMULATING | ExecutePermission.EXECUTE_IF_IDLE
-
-  def prn(self):
-    return self.get("Prn")
-
-  def setPrn(self, value):
-    return self.set("Prn", value)
-
-  def antiSpoofing(self):
-    return self.get("AntiSpoofing")
-
-  def setAntiSpoofing(self, value):
-    return self.set("AntiSpoofing", value)
-
-#
-# Please note the command GetGpsSatelliteAntiSpoofingFlag is deprecated since 21.3. You may use GetGpsAntiSpoofingFlagForSV.
-# 
-# Get GPS Anti-Spoofing Flag
-#
-# Name Type Description
-# ---- ---- --------------------------
-# Prn  int  Satellite PRN number 1..32
-#
-
-class GetGpsSatelliteAntiSpoofingFlag(CommandBase):
-
-  def __init__(self, prn):
-    CommandBase.__init__(self, "GetGpsSatelliteAntiSpoofingFlag")
-    self.setPrn(prn)
-
-  def executePermission(self):
-    return ExecutePermission.EXECUTE_IF_IDLE
-
-  def prn(self):
-    return self.get("Prn")
-
-  def setPrn(self, value):
-    return self.set("Prn", value)
-
-#
-# Result of GetGpsSatelliteAntiSpoofingFlag.
-#
-# Name         Type      Description
-# ------------ --------- --------------------------
-# Prn          int       Satellite PRN number 1..32
-# AntiSpoofing GpsASFlag GPS Anti-Spoofing Flag.
-#
-
-class GetGpsSatelliteAntiSpoofingFlagResult(CommandResult):
-
-  def __init__(self, prn, antiSpoofing):
-    CommandResult.__init__(self, "GetGpsSatelliteAntiSpoofingFlagResult")
-    self.setPrn(prn)
-    self.setAntiSpoofing(antiSpoofing)
-
-  def isSuccess(self):
-    return True
-
-  def prn(self):
-    return self.get("Prn")
-
-  def setPrn(self, value):
-    return self.set("Prn", value)
-
-  def antiSpoofing(self):
-    return self.get("AntiSpoofing")
-
-  def setAntiSpoofing(self, value):
-    return self.set("AntiSpoofing", value)
-
-#
-# Please note the command SetGpsSatelliteNavAlertFlag is deprecated since 21.3. You may use SetGpsNavAlertFlagForSV.
-# 
-# Set GPS NAV Alert Flag
-#
-# Name  Type Description
-# ----- ---- --------------------------------------------------
-# Prn   int  Satellite PRN number 1..32
-# Alert bool GPS NAV Alert Flag, false = No Alert, true = Alert
-#
-
-class SetGpsSatelliteNavAlertFlag(CommandBase):
-
-  def __init__(self, prn, alert):
-    CommandBase.__init__(self, "SetGpsSatelliteNavAlertFlag")
-    self.setPrn(prn)
-    self.setAlert(alert)
-
-  def executePermission(self):
-    return ExecutePermission.EXECUTE_IF_SIMULATING | ExecutePermission.EXECUTE_IF_IDLE
-
-  def prn(self):
-    return self.get("Prn")
-
-  def setPrn(self, value):
-    return self.set("Prn", value)
-
-  def alert(self):
-    return self.get("Alert")
-
-  def setAlert(self, value):
-    return self.set("Alert", value)
-
-#
-# Please note the command GetGpsSatelliteNavAlertFlag is deprecated since 21.3. You may use GetGpsNavAlertFlagForSV.
-# 
-# Get GPS NAV Alert Flag
-#
-# Name Type Description
-# ---- ---- --------------------------
-# Prn  int  Satellite PRN number 1..32
-#
-
-class GetGpsSatelliteNavAlertFlag(CommandBase):
-
-  def __init__(self, prn):
-    CommandBase.__init__(self, "GetGpsSatelliteNavAlertFlag")
-    self.setPrn(prn)
-
-  def executePermission(self):
-    return ExecutePermission.EXECUTE_IF_IDLE
-
-  def prn(self):
-    return self.get("Prn")
-
-  def setPrn(self, value):
-    return self.set("Prn", value)
-
-#
-# Result of GetGpsSatelliteNavAlertFlag.
-#
-# Name  Type Description
-# ----- ---- --------------------------------------------------
-# Prn   int  Satellite PRN number 1..32
-# Alert bool GPS NAV Alert Flag, false = No Alert, true = Alert
-#
-
-class GetGpsSatelliteNavAlertFlagResult(CommandResult):
-
-  def __init__(self, prn, alert):
-    CommandResult.__init__(self, "GetGpsSatelliteNavAlertFlagResult")
-    self.setPrn(prn)
-    self.setAlert(alert)
-
-  def isSuccess(self):
-    return True
-
-  def prn(self):
-    return self.get("Prn")
-
-  def setPrn(self, value):
-    return self.set("Prn", value)
-
-  def alert(self):
-    return self.get("Alert")
-
-  def setAlert(self, value):
-    return self.set("Alert", value)
-
-#
-# Please note the command SetGpsSatelliteCNavAlertFlag is deprecated since 21.3. You may use SetGpsCNavAlertFlagToSV.
-# 
-# Set GPS CNAV Alert Flag
-#
-# Name  Type Description
-# ----- ---- ---------------------------------------------------
-# Prn   int  Satellite PRN number 1..32
-# Alert bool GPS CNAV Alert Flag, false = No Alert, true = Alert
-#
-
-class SetGpsSatelliteCNavAlertFlag(CommandBase):
-
-  def __init__(self, prn, alert):
-    CommandBase.__init__(self, "SetGpsSatelliteCNavAlertFlag")
-    self.setPrn(prn)
-    self.setAlert(alert)
-
-  def executePermission(self):
-    return ExecutePermission.EXECUTE_IF_SIMULATING | ExecutePermission.EXECUTE_IF_IDLE
-
-  def prn(self):
-    return self.get("Prn")
-
-  def setPrn(self, value):
-    return self.set("Prn", value)
-
-  def alert(self):
-    return self.get("Alert")
-
-  def setAlert(self, value):
-    return self.set("Alert", value)
-
-#
-# Please note the command GetGpsSatelliteCNavAlertFlag is deprecated since 21.3. You may use GetGpsCNavAlertFlagToSV.
-# 
-# Get GPS CNAV Alert Flag
-#
-# Name Type Description
-# ---- ---- --------------------------
-# Prn  int  Satellite PRN number 1..32
-#
-
-class GetGpsSatelliteCNavAlertFlag(CommandBase):
-
-  def __init__(self, prn):
-    CommandBase.__init__(self, "GetGpsSatelliteCNavAlertFlag")
-    self.setPrn(prn)
-
-  def executePermission(self):
-    return ExecutePermission.EXECUTE_IF_IDLE
-
-  def prn(self):
-    return self.get("Prn")
-
-  def setPrn(self, value):
-    return self.set("Prn", value)
-
-#
-# Result of GetGpsSatelliteCNavAlertFlag.
-#
-# Name  Type Description
-# ----- ---- ---------------------------------------------------
-# Prn   int  Satellite PRN number 1..32
-# Alert bool GPS CNAV Alert Flag, false = No Alert, true = Alert
-#
-
-class GetGpsSatelliteCNavAlertFlagResult(CommandResult):
-
-  def __init__(self, prn, alert):
-    CommandResult.__init__(self, "GetGpsSatelliteCNavAlertFlagResult")
-    self.setPrn(prn)
-    self.setAlert(alert)
-
-  def isSuccess(self):
-    return True
-
-  def prn(self):
-    return self.get("Prn")
-
-  def setPrn(self, value):
-    return self.set("Prn", value)
-
-  def alert(self):
-    return self.get("Alert")
-
-  def setAlert(self, value):
-    return self.set("Alert", value)
-
-#
-# Please note the command EnableLOS is deprecated since 21.3. You may use EnableLosForSV.
-# 
-# Set Direct Line Of Sight signal from satellite enabled or disabled. Generally used when only multipaths signal is visible.
-#
-# Name    Type   Description
-# ------- ------ -------------------------------------------------------------------------------------------------------------
-# Prn     int    Satellite PRN number for GPS, Galileo, BeiDou and SBAS. Slot number for GLONASS and SV ID for QZSS and NavIC.
-# System  string "GPS", "GLONASS", "Galileo", "BeiDou", "SBAS", "QZSS" or "NavIC"
-# Enabled bool   Direct Line of Sight enabled or not
-#
-
-class EnableLOS(CommandBase):
-
-  def __init__(self, prn, system, enabled):
-    CommandBase.__init__(self, "EnableLOS")
-    self.setPrn(prn)
-    self.setSystem(system)
-    self.setEnabled(enabled)
-
-  def executePermission(self):
-    return ExecutePermission.EXECUTE_IF_SIMULATING | ExecutePermission.EXECUTE_IF_IDLE
-
-  def prn(self):
-    return self.get("Prn")
-
-  def setPrn(self, value):
-    return self.set("Prn", value)
-
-  def system(self):
-    return self.get("System")
-
-  def setSystem(self, value):
-    return self.set("System", value)
-
-  def enabled(self):
-    return self.get("Enabled")
-
-  def setEnabled(self, value):
-    return self.set("Enabled", value)
-
-#
-# Please note the command IsLOSEnabled is deprecated since 21.3. You may use IsLosEnabledForSV.
-# 
-# Get Direct Line Of Sight signal from satellite enabled or disabled. Generally used when only multipaths signal is visible.
-#
-# Name   Type   Description
-# ------ ------ -------------------------------------------------------------------------------------------------------------
-# Prn    int    Satellite PRN number for GPS, Galileo, BeiDou and SBAS. Slot number for GLONASS and SV ID for QZSS and NavIC.
-# System string "GPS", "GLONASS", "Galileo", "BeiDou", "SBAS", "QZSS" or "NavIC"
-#
-
-class IsLOSEnabled(CommandBase):
-
-  def __init__(self, prn, system):
-    CommandBase.__init__(self, "IsLOSEnabled")
-    self.setPrn(prn)
-    self.setSystem(system)
-
-  def executePermission(self):
-    return ExecutePermission.EXECUTE_IF_IDLE
-
-  def prn(self):
-    return self.get("Prn")
-
-  def setPrn(self, value):
-    return self.set("Prn", value)
-
-  def system(self):
-    return self.get("System")
-
-  def setSystem(self, value):
-    return self.set("System", value)
-
-#
-# Result of IsLOSEnabled.
-#
-# Name    Type   Description
-# ------- ------ -------------------------------------------------------------------------------------------------------------
-# Prn     int    Satellite PRN number for GPS, Galileo, BeiDou and SBAS. Slot number for GLONASS and SV ID for QZSS and NavIC.
-# System  string "GPS", "GLONASS", "Galileo", "BeiDou", "SBAS", "QZSS" or "NavIC"
-# Enabled bool   Direct Line of Sight enabled or not
-#
-
-class IsLOSEnabledResult(CommandResult):
-
-  def __init__(self, prn, system, enabled):
-    CommandResult.__init__(self, "IsLOSEnabledResult")
-    self.setPrn(prn)
-    self.setSystem(system)
-    self.setEnabled(enabled)
-
-  def isSuccess(self):
-    return True
-
-  def prn(self):
-    return self.get("Prn")
-
-  def setPrn(self, value):
-    return self.set("Prn", value)
-
-  def system(self):
-    return self.get("System")
-
-  def setSystem(self, value):
-    return self.set("System", value)
-
-  def enabled(self):
-    return self.get("Enabled")
-
-  def setEnabled(self, value):
-    return self.set("Enabled", value)
-
-#
-# Please note the command EnableLOSForEachPrn is deprecated since 21.3. You may use EnableLosForEachSV.
-# 
-# Set Direct Line Of Sight signal from satellite disabled or enabled. Generally used when only multipaths signal is visible.
-#
-# Name    Type       Description
-# ------- ---------- -----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
-# System  string     "GPS", "GLONASS", "Galileo", "BeiDou", "SBAS", "QZSS" or "NavIC"
-# Enabled array bool Direct Line of Sight enabled or not. Zero based index (index 0 => first PRN (Slot for GLONASS, SV ID for QSZZ and NavIC), index 1 => second PRN (Slot for GLONASS, SV ID for QSZZ), etc).
-#
-
-class EnableLOSForEachPrn(CommandBase):
-
-  def __init__(self, system, enabled):
-    CommandBase.__init__(self, "EnableLOSForEachPrn")
-    self.setSystem(system)
-    self.setEnabled(enabled)
-
-  def executePermission(self):
-    return ExecutePermission.EXECUTE_IF_SIMULATING | ExecutePermission.EXECUTE_IF_IDLE
-
-  def system(self):
-    return self.get("System")
-
-  def setSystem(self, value):
-    return self.set("System", value)
-
-  def enabled(self):
-    return self.get("Enabled")
-
-  def setEnabled(self, value):
-    return self.set("Enabled", value)
-
-#
-# Please note the command IsLOSEnabledForEachPrn is deprecated since 21.3. You may use IsLOSEnabledForEachSV.
-# 
-# Get Direct Line Of Sight signal from satellite disabled or enabled. Generally used when only multipaths signal is visible.
-#
-# Name   Type   Description
-# ------ ------ ----------------------------------------------------------------
-# System string "GPS", "GLONASS", "Galileo", "BeiDou", "SBAS", "QZSS" or "NavIC"
-#
-
-class IsLOSEnabledForEachPrn(CommandBase):
-
-  def __init__(self, system):
-    CommandBase.__init__(self, "IsLOSEnabledForEachPrn")
-    self.setSystem(system)
-
-  def executePermission(self):
-    return ExecutePermission.EXECUTE_IF_IDLE
-
-  def system(self):
-    return self.get("System")
-
-  def setSystem(self, value):
-    return self.set("System", value)
-
-#
-# Result of IsLOSEnabledForEachPrn.
-#
-# Name    Type       Description
-# ------- ---------- -----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
-# System  string     "GPS", "GLONASS", "Galileo", "BeiDou", "SBAS", "QZSS" or "NavIC"
-# Enabled array bool Direct Line of Sight enabled or not. Zero based index (index 0 => first PRN (Slot for GLONASS, SV ID for QSZZ and NavIC), index 1 => second PRN (Slot for GLONASS, SV ID for QSZZ), etc).
-#
-
-class IsLOSEnabledForEachPrnResult(CommandResult):
-
-  def __init__(self, system, enabled):
-    CommandResult.__init__(self, "IsLOSEnabledForEachPrnResult")
-    self.setSystem(system)
-    self.setEnabled(enabled)
-
-  def isSuccess(self):
-    return True
-
-  def system(self):
-    return self.get("System")
-
-  def setSystem(self, value):
-    return self.set("System", value)
-
-  def enabled(self):
-    return self.get("Enabled")
-
-  def setEnabled(self, value):
-    return self.set("Enabled", value)
-
-#
-# Please note the command SetBeiDouSatelliteHealthInfo is deprecated since 21.3. You may use SetBeiDouHealthInfoForSV.
-# 
-# Set BeiDou satellite health info
-#
-# Name   Type Description
-# ------ ---- -------------------------------------------------------------------------
-# Prn    int  Satellite PRN number 1..30
-# Health int  Health Info, 9-bit integer : 0, 2, 64, 66, 128, 130, 192, 194, 256 or 511
-#
-
-class SetBeiDouSatelliteHealthInfo(CommandBase):
-
-  def __init__(self, prn, health):
-    CommandBase.__init__(self, "SetBeiDouSatelliteHealthInfo")
-    self.setPrn(prn)
-    self.setHealth(health)
-
-  def executePermission(self):
-    return ExecutePermission.EXECUTE_IF_SIMULATING | ExecutePermission.EXECUTE_IF_IDLE
-
-  def prn(self):
-    return self.get("Prn")
-
-  def setPrn(self, value):
-    return self.set("Prn", value)
-
-  def health(self):
-    return self.get("Health")
-
-  def setHealth(self, value):
-    return self.set("Health", value)
-
-#
-# Please note the command GetBeiDouSatelliteHealthInfo is deprecated since 21.3. You may use GetBeiDouHealthInfoForSV.
-# 
-# Get BeiDou satellite health info
-#
-# Name Type Description
-# ---- ---- --------------------------
-# Prn  int  Satellite PRN number 1..30
-#
-
-class GetBeiDouSatelliteHealthInfo(CommandBase):
-
-  def __init__(self, prn):
-    CommandBase.__init__(self, "GetBeiDouSatelliteHealthInfo")
-    self.setPrn(prn)
-
-  def executePermission(self):
-    return ExecutePermission.EXECUTE_IF_IDLE
-
-  def prn(self):
-    return self.get("Prn")
-
-  def setPrn(self, value):
-    return self.set("Prn", value)
-
-#
-# Result of GetBeiDouSatelliteHealthInfo.
-#
-# Name   Type Description
-# ------ ---- -------------------------------------------------------------------------
-# Prn    int  Satellite PRN number 1..30
-# Health int  Health Info, 9-bit integer : 0, 2, 64, 66, 128, 130, 192, 194, 256 or 511
-#
-
-class GetBeiDouSatelliteHealthInfoResult(CommandResult):
-
-  def __init__(self, prn, health):
-    CommandResult.__init__(self, "GetBeiDouSatelliteHealthInfoResult")
-    self.setPrn(prn)
-    self.setHealth(health)
-
-  def isSuccess(self):
-    return True
-
-  def prn(self):
-    return self.get("Prn")
-
-  def setPrn(self, value):
-    return self.set("Prn", value)
-
-  def health(self):
-    return self.get("Health")
-
-  def setHealth(self, value):
-    return self.set("Health", value)
-
-#
-# Please note the command SetBeiDouSatelliteAutonomousHealth is deprecated since 21.3. You may use SetBeiDouAutonomousHealthForSV.
-# 
-# Set BeiDou satellite autonomous health
-#
-# Name   Type Description
-# ------ ---- -------------------------------------
-# Prn    int  Satellite PRN number 1..30
-# Health bool Status, false = Good, true = Not Good
-#
-
-class SetBeiDouSatelliteAutonomousHealth(CommandBase):
-
-  def __init__(self, prn, health):
-    CommandBase.__init__(self, "SetBeiDouSatelliteAutonomousHealth")
-    self.setPrn(prn)
-    self.setHealth(health)
-
-  def executePermission(self):
-    return ExecutePermission.EXECUTE_IF_SIMULATING | ExecutePermission.EXECUTE_IF_IDLE
-
-  def prn(self):
-    return self.get("Prn")
-
-  def setPrn(self, value):
-    return self.set("Prn", value)
-
-  def health(self):
-    return self.get("Health")
-
-  def setHealth(self, value):
-    return self.set("Health", value)
-
-#
-# Please note the command GetBeiDouSatelliteAutonomousHealth is deprecated since 21.3. You may use GetBeiDouAutonomousHealthForSV.
-# 
-# Get BeiDou satellite autonomous health
-#
-# Name Type Description
-# ---- ---- --------------------------
-# Prn  int  Satellite PRN number 1..30
-#
-
-class GetBeiDouSatelliteAutonomousHealth(CommandBase):
-
-  def __init__(self, prn):
-    CommandBase.__init__(self, "GetBeiDouSatelliteAutonomousHealth")
-    self.setPrn(prn)
-
-  def executePermission(self):
-    return ExecutePermission.EXECUTE_IF_IDLE
-
-  def prn(self):
-    return self.get("Prn")
-
-  def setPrn(self, value):
-    return self.set("Prn", value)
-
-#
-# Result of GetBeiDouSatelliteAutonomousHealth.
-#
-# Name   Type Description
-# ------ ---- -------------------------------------
-# Prn    int  Satellite PRN number 1..30
-# Health bool Status, false = Good, true = Not Good
-#
-
-class GetBeiDouSatelliteAutonomousHealthResult(CommandResult):
-
-  def __init__(self, prn, health):
-    CommandResult.__init__(self, "GetBeiDouSatelliteAutonomousHealthResult")
-    self.setPrn(prn)
-    self.setHealth(health)
-
-  def isSuccess(self):
-    return True
-
-  def prn(self):
-    return self.get("Prn")
-
-  def setPrn(self, value):
-    return self.set("Prn", value)
-
-  def health(self):
-    return self.get("Health")
-
-  def setHealth(self, value):
-    return self.set("Health", value)
-
-#
-# Please note the command SetBeiDouCNavSatelliteHealthInfo is deprecated since 21.3. You may use SetBeiDouCNavHealthInfoForSV.
-# 
-# Set BeiDou CNav satellite health info
-#
-# Name   Type Description
-# ------ ---- ------------------------------------------------------
-# Prn    int  Satellite PRN number 1..30
-# Health int  Health Info, 8-bit integer : 0, 32, 64, 96, 128 or 255
-#
-
-class SetBeiDouCNavSatelliteHealthInfo(CommandBase):
-
-  def __init__(self, prn, health):
-    CommandBase.__init__(self, "SetBeiDouCNavSatelliteHealthInfo")
-    self.setPrn(prn)
-    self.setHealth(health)
-
-  def executePermission(self):
-    return ExecutePermission.EXECUTE_IF_SIMULATING | ExecutePermission.EXECUTE_IF_IDLE
-
-  def prn(self):
-    return self.get("Prn")
-
-  def setPrn(self, value):
-    return self.set("Prn", value)
-
-  def health(self):
-    return self.get("Health")
-
-  def setHealth(self, value):
-    return self.set("Health", value)
-
-#
-# Please note the command GetBeiDouCNavSatelliteHealthInfo is deprecated since 21.3. You may use GetBeiDouCNavHealthInfoForSV.
-# 
-# Get BeiDou CNav satellite health info
-#
-# Name Type Description
-# ---- ---- --------------------------
-# Prn  int  Satellite PRN number 1..30
-#
-
-class GetBeiDouCNavSatelliteHealthInfo(CommandBase):
-
-  def __init__(self, prn):
-    CommandBase.__init__(self, "GetBeiDouCNavSatelliteHealthInfo")
-    self.setPrn(prn)
-
-  def executePermission(self):
-    return ExecutePermission.EXECUTE_IF_IDLE
-
-  def prn(self):
-    return self.get("Prn")
-
-  def setPrn(self, value):
-    return self.set("Prn", value)
-
-#
-# Result of GetBeiDouCNavSatelliteHealthInfo.
-#
-# Name   Type Description
-# ------ ---- ------------------------------------------------------
-# Prn    int  Satellite PRN number 1..30
-# Health int  Health Info, 8-bit integer : 0, 32, 64, 96, 128 or 255
-#
-
-class GetBeiDouCNavSatelliteHealthInfoResult(CommandResult):
-
-  def __init__(self, prn, health):
-    CommandResult.__init__(self, "GetBeiDouCNavSatelliteHealthInfoResult")
-    self.setPrn(prn)
-    self.setHealth(health)
-
-  def isSuccess(self):
-    return True
-
-  def prn(self):
-    return self.get("Prn")
-
-  def setPrn(self, value):
-    return self.set("Prn", value)
-
-  def health(self):
-    return self.get("Health")
-
-  def setHealth(self, value):
-    return self.set("Health", value)
-
-#
-# Please note the command SetBeiDouSatelliteHealthStatus is deprecated since 21.3. You may use SetBeiDouHealthStatusForSV.
-# 
-# Set BeiDou satellite health status
-#
-# Name   Type Description
-# ------ ---- -----------------------------------------
-# Prn    int  Satellite PRN number 1..30
-# Health int  Health Info, 2-bit integer : 0, 1, 2 or 3
-#
-
-class SetBeiDouSatelliteHealthStatus(CommandBase):
-
-  def __init__(self, prn, health):
-    CommandBase.__init__(self, "SetBeiDouSatelliteHealthStatus")
-    self.setPrn(prn)
-    self.setHealth(health)
-
-  def executePermission(self):
-    return ExecutePermission.EXECUTE_IF_SIMULATING | ExecutePermission.EXECUTE_IF_IDLE
-
-  def prn(self):
-    return self.get("Prn")
-
-  def setPrn(self, value):
-    return self.set("Prn", value)
-
-  def health(self):
-    return self.get("Health")
-
-  def setHealth(self, value):
-    return self.set("Health", value)
-
-#
-# Please note the command GetBeiDouSatelliteHealthStatus is deprecated since 21.3. You may use GetBeiDouHealthStatusForSV.
-# 
-# Get BeiDou satellite health status
-#
-# Name Type Description
-# ---- ---- --------------------------
-# Prn  int  Satellite PRN number 1..30
-#
-
-class GetBeiDouSatelliteHealthStatus(CommandBase):
-
-  def __init__(self, prn):
-    CommandBase.__init__(self, "GetBeiDouSatelliteHealthStatus")
-    self.setPrn(prn)
-
-  def executePermission(self):
-    return ExecutePermission.EXECUTE_IF_IDLE
-
-  def prn(self):
-    return self.get("Prn")
-
-  def setPrn(self, value):
-    return self.set("Prn", value)
-
-#
-# Result of GetBeiDouSatelliteHealthStatus.
-#
-# Name   Type Description
-# ------ ---- -----------------------------------------
-# Prn    int  Satellite PRN number 1..30
-# Health int  Health Info, 2-bit integer : 0, 1, 2 or 3
-#
-
-class GetBeiDouSatelliteHealthStatusResult(CommandResult):
-
-  def __init__(self, prn, health):
-    CommandResult.__init__(self, "GetBeiDouSatelliteHealthStatusResult")
-    self.setPrn(prn)
-    self.setHealth(health)
-
-  def isSuccess(self):
-    return True
-
-  def prn(self):
-    return self.get("Prn")
-
-  def setPrn(self, value):
-    return self.set("Prn", value)
-
-  def health(self):
-    return self.get("Health")
-
-  def setHealth(self, value):
-    return self.set("Health", value)
-
-#
-# Please note the command SetGpsUraIndex is deprecated since 21.3. You may use SetGpsUraIndexForSV.
-# 
-# Set the ura index of a GPS satellite
-#
-# Name Type Description
-# ---- ---- -----------------
-# Prn  int  The satellite PRN
-# Urai int  URA index.
-#
-
-class SetGpsUraIndex(CommandBase):
-
-  def __init__(self, prn, urai):
-    CommandBase.__init__(self, "SetGpsUraIndex")
-    self.setPrn(prn)
-    self.setUrai(urai)
-
-  def executePermission(self):
-    return ExecutePermission.EXECUTE_IF_IDLE | ExecutePermission.EXECUTE_IF_SIMULATING
-
-  def prn(self):
-    return self.get("Prn")
-
-  def setPrn(self, value):
-    return self.set("Prn", value)
-
-  def urai(self):
-    return self.get("Urai")
-
-  def setUrai(self, value):
-    return self.set("Urai", value)
-
-#
-# Please note the command SetBeiDouUraIndex is deprecated since 21.3. You may use SetBeiDouUraIndexForSV.
-# 
-# Set the ura index of a BeiDou satellite
-#
-# Name Type Description
-# ---- ---- -----------------
-# Prn  int  The satellite PRN
-# Urai int  URA index.
-#
-
-class SetBeiDouUraIndex(CommandBase):
-
-  def __init__(self, prn, urai):
-    CommandBase.__init__(self, "SetBeiDouUraIndex")
-    self.setPrn(prn)
-    self.setUrai(urai)
-
-  def executePermission(self):
-    return ExecutePermission.EXECUTE_IF_IDLE | ExecutePermission.EXECUTE_IF_SIMULATING
-
-  def prn(self):
-    return self.get("Prn")
-
-  def setPrn(self, value):
-    return self.set("Prn", value)
-
-  def urai(self):
-    return self.get("Urai")
-
-  def setUrai(self, value):
-    return self.set("Urai", value)
-
-#
-# Please note the command SetModificationToGpsCNavMessage is deprecated since 21.3. You may use SetMessageModificationToGpsCNav.
-# 
-# Set (or Modify) event to change CNAV message bits. If you send this command without setting the Id
-# parameter, or if you set the Id with a value never used before, a new Modification event will be
-# created. If you reuse the same event Id, it will modify the existing event.
-# 
-# Note that start and stop time are automatically extended to beginning and ending of overlapped
-# messages.
-# 
-# The Condition parameter is optional and allows you to add content matching condition before applying
-# bits mods.
-# 
-# BitsMods can be an empty string. The Modification will have no effect until you modify it with at
-# least one bits mod.
-# 
-# A bits mod is represented with a string using the following format: "I:Bits" where I is a bit
-# index (1 refers to the first transmitted bit) and Bits is a modification mask where each
-# character describes a modification to a single bit. The allowed characters are:
-#    0 : force bit to 0
-#    1 : force bit to 1
-#    - : leave bit unchanged
-#    X : revert bit (0 becomes 1 and 1 becomes 0)
-# 
-# For example: "24:X---10XX" will: revert bits 24, 30 and 31
-#                  set bit 28 to 1
-#                  set bit 29 to 0
-# The other bits are not affected.
-# 
-# You can add multiple bits mods using commas. For example: "24:X---10XX,127:100X,231:01"
-#
-# Name      Type   Description
-# --------- ------ --------------------------------------------------------------------
-# Prn       int    Satellite PRN number 1..32
-# StartTime int    Elapsed time in seconds since start of simulation
-# StopTime  int    Elapsed time in seconds since start of simulation
-# MsgTypeId int    CNAV Message type ID
-# Condition string Optional condition to match message content, ex: "EQUAL(45,10,0x3F)"
-# UpdateCRC bool   Recalculate CRC after making modification
-# BitsMods  string Comma separated bits mods
-# Id        string Unique identifier of the event
-#
-
-class SetModificationToGpsCNavMessage(CommandBase):
-
-  def __init__(self, prn, startTime, stopTime, msgTypeId, condition, updateCRC, bitsMods, id):
-    CommandBase.__init__(self, "SetModificationToGpsCNavMessage")
-    self.setPrn(prn)
-    self.setStartTime(startTime)
-    self.setStopTime(stopTime)
-    self.setMsgTypeId(msgTypeId)
-    self.setCondition(condition)
-    self.setUpdateCRC(updateCRC)
-    self.setBitsMods(bitsMods)
-    self.setId(id)
-
-  def executePermission(self):
-    return ExecutePermission.EXECUTE_IF_SIMULATING | ExecutePermission.EXECUTE_IF_IDLE
-
-  def prn(self):
-    return self.get("Prn")
-
-  def setPrn(self, value):
-    return self.set("Prn", value)
-
-  def startTime(self):
-    return self.get("StartTime")
-
-  def setStartTime(self, value):
-    return self.set("StartTime", value)
-
-  def stopTime(self):
-    return self.get("StopTime")
-
-  def setStopTime(self, value):
-    return self.set("StopTime", value)
-
-  def msgTypeId(self):
-    return self.get("MsgTypeId")
-
-  def setMsgTypeId(self, value):
-    return self.set("MsgTypeId", value)
-
-  def condition(self):
-    return self.get("Condition")
-
-  def setCondition(self, value):
-    return self.set("Condition", value)
-
-  def updateCRC(self):
-    return self.get("UpdateCRC")
-
-  def setUpdateCRC(self, value):
-    return self.set("UpdateCRC", value)
-
-  def bitsMods(self):
-    return self.get("BitsMods")
-
-  def setBitsMods(self, value):
-    return self.set("BitsMods", value)
-
-  def id(self):
-    return self.get("Id")
-
-  def setId(self, value):
-    return self.set("Id", value)
-
-#
-# Please note the command GetGpsCNavMessage is deprecated since 21.3. You may use GetMessageModificationToGpsCNav.
-# 
-# Get infos about the CNAV Message with this id
-#
-# Name Type   Description
-# ---- ------ ------------------------------
-# Id   string Unique identifier of the event
-#
-
-class GetGpsCNavMessage(CommandBase):
-
-  def __init__(self, id):
-    CommandBase.__init__(self, "GetGpsCNavMessage")
-    self.setId(id)
-
-  def executePermission(self):
-    return ExecutePermission.EXECUTE_IF_IDLE
-
-  def id(self):
-    return self.get("Id")
-
-  def setId(self, value):
-    return self.set("Id", value)
-
-#
-# Result of GetGpsCNavMessage.
-#
-# Name      Type   Description
-# --------- ------ --------------------------------------------------------------------
-# Prn       int    Satellite PRN number 1..32
-# StartTime int    Elapsed time in seconds since start of simulation
-# StopTime  int    Elapsed time in seconds since start of simulation
-# MsgTypeId int    CNAV Message type ID
-# Condition string Optional condition to match message content, ex: "EQUAL(45,10,0x3F)"
-# UpdateCRC bool   Recalculate CRC after making modification
-# BitsMods  string Comma separated bits mods
-# Id        string Unique identifier of the event
-#
-
-class GetGpsCNavMessageResult(CommandResult):
-
-  def __init__(self, prn, startTime, stopTime, msgTypeId, condition, updateCRC, bitsMods, id):
-    CommandResult.__init__(self, "GetGpsCNavMessageResult")
-    self.setPrn(prn)
-    self.setStartTime(startTime)
-    self.setStopTime(stopTime)
-    self.setMsgTypeId(msgTypeId)
-    self.setCondition(condition)
-    self.setUpdateCRC(updateCRC)
-    self.setBitsMods(bitsMods)
-    self.setId(id)
-
-  def isSuccess(self):
-    return True
-
-  def prn(self):
-    return self.get("Prn")
-
-  def setPrn(self, value):
-    return self.set("Prn", value)
-
-  def startTime(self):
-    return self.get("StartTime")
-
-  def setStartTime(self, value):
-    return self.set("StartTime", value)
-
-  def stopTime(self):
-    return self.get("StopTime")
-
-  def setStopTime(self, value):
-    return self.set("StopTime", value)
-
-  def msgTypeId(self):
-    return self.get("MsgTypeId")
-
-  def setMsgTypeId(self, value):
-    return self.set("MsgTypeId", value)
-
-  def condition(self):
-    return self.get("Condition")
-
-  def setCondition(self, value):
-    return self.set("Condition", value)
-
-  def updateCRC(self):
-    return self.get("UpdateCRC")
-
-  def setUpdateCRC(self, value):
-    return self.set("UpdateCRC", value)
-
-  def bitsMods(self):
-    return self.get("BitsMods")
-
-  def setBitsMods(self, value):
-    return self.set("BitsMods", value)
-
-  def id(self):
-    return self.get("Id")
-
-  def setId(self, value):
-    return self.set("Id", value)
-
-#
-# Please note the command RemoveModificationToGpsCNavMessage is deprecated since 21.3. You may use RemoveMessageModificationForNavMsgFamily.
-# 
-# Removes a modification.
-#
-# Name Type   Description
-# ---- ------ -------------------------------------------------------
-# Id   string Unique identifier (see SetModificationToGpsCNavMessage)
-#
-
-class RemoveModificationToGpsCNavMessage(CommandBase):
-
-  def __init__(self, id):
-    CommandBase.__init__(self, "RemoveModificationToGpsCNavMessage")
-    self.setId(id)
-
-  def executePermission(self):
-    return ExecutePermission.EXECUTE_IF_IDLE
-
-  def id(self):
-    return self.get("Id")
-
-  def setId(self, value):
-    return self.set("Id", value)
-
-#
-# Please note the command ClearAllModificationsToGpsCNavMessage is deprecated since 21.3. You may use ClearAllMessageModificationsForNavMsgFamily.
-# 
-# Clear all events to change GPS navigation message bits
-#
-#
-
-class ClearAllModificationsToGpsCNavMessage(CommandBase):
-
-  def __init__(self):
-    CommandBase.__init__(self, "ClearAllModificationsToGpsCNavMessage")
-
-  def executePermission(self):
-    return ExecutePermission.EXECUTE_IF_IDLE
-
-#
-# Please note the command GetGpsCNavMessages is deprecated since 21.3. You may use GetAllMessageModificationIdsForNavMsgFamily.
-# 
-# Get all events' IDs whose will modify the GPS CNav Message for this PRN
-#
-# Name Type Description
-# ---- ---- --------------------------
-# Prn  int  Satellite PRN number 1..32
-#
-
-class GetGpsCNavMessages(CommandBase):
-
-  def __init__(self, prn):
-    CommandBase.__init__(self, "GetGpsCNavMessages")
-    self.setPrn(prn)
-
-  def executePermission(self):
-    return ExecutePermission.EXECUTE_IF_IDLE
-
-  def prn(self):
-    return self.get("Prn")
-
-  def setPrn(self, value):
-    return self.set("Prn", value)
-
-#
-# Result of GetGpsCNavMessages
-#
-# Name Type         Description
-# ---- ------------ ---------------------------------------------
-# Ids  array string List of IDs of Gps CNAV Messages for this PRN
-#
-
-class GetGpsCNavMessagesResult(CommandResult):
-
-  def __init__(self, ids):
-    CommandResult.__init__(self, "GetGpsCNavMessagesResult")
-    self.setIds(ids)
-
-  def isSuccess(self):
-    return True
-
-  def ids(self):
-    return self.get("Ids")
-
-  def setIds(self, value):
-    return self.set("Ids", value)
-
-#
-# Please note the command SetModificationToGpsMNavMessage is deprecated since 21.3. You may use SetMessageModificationToGpsMNav.
-# 
-# Set (or Modify) event to change MNAV message bits. If you send this command without setting the Id
-# parameter, or if you set the Id with a value never used before, a new Modification event will be
-# created. If you reuse the same event Id, it will modify the existing event.
-# 
-# Note that start and stop time are automatically extended to beginning and ending of overlapped
-# messages.
-# 
-# The Condition parameter is optional and allows you to add content matching condition before applying
-# bits mods.
-# 
-# BitsMods can be an empty string. The Modification will have no effect until you modify it with at
-# least one bits mod.
-# 
-# A bits mod is represented with a string using the following format: "I:Bits" where I is a bit
-# index (1 refers to the first transmitted bit) and Bits is a modification mask where each
-# character describes a modification to a single bit. The allowed characters are:
-#    0 : force bit to 0
-#    1 : force bit to 1
-#    - : leave bit unchanged
-#    X : revert bit (0 becomes 1 and 1 becomes 0)
-# 
-# For example: "24:X---10XX" will: revert bits 24, 30 and 31
-#                  set bit 28 to 1
-#                  set bit 29 to 0
-# The other bits are not affected.
-# 
-# You can add multiple bits mods using commas. For example: "24:X---10XX,127:100X,231:01"
-#
-# Name       Type   Description
-# ---------- ------ ----------------------------------------------------------------------------------
-# Prn        int    Satellite PRN number 1..32
-# StartTime  int    Elapsed time in seconds since start of simulation
-# StopTime   int    Elapsed time in seconds since start of simulation
-# MsgTypeId  int    MNAV Message type ID
-# Occurrence int    Occurrence number in message sequence (1 based, or use -1 to match any occurrence)
-# Condition  string Optional condition to match message content, ex: "EQUAL(45,10,0x3F)"
-# BitsMods   string Comma separated bits mods
-# Id         string Unique identifier automatically set by simulator
-#
-
-class SetModificationToGpsMNavMessage(CommandBase):
-
-  def __init__(self, prn, startTime, stopTime, msgTypeId, occurrence, condition, bitsMods, id):
-    CommandBase.__init__(self, "SetModificationToGpsMNavMessage")
-    self.setPrn(prn)
-    self.setStartTime(startTime)
-    self.setStopTime(stopTime)
-    self.setMsgTypeId(msgTypeId)
-    self.setOccurrence(occurrence)
-    self.setCondition(condition)
-    self.setBitsMods(bitsMods)
-    self.setId(id)
-
-  def executePermission(self):
-    return ExecutePermission.EXECUTE_IF_SIMULATING | ExecutePermission.EXECUTE_IF_IDLE
-
-  def prn(self):
-    return self.get("Prn")
-
-  def setPrn(self, value):
-    return self.set("Prn", value)
-
-  def startTime(self):
-    return self.get("StartTime")
-
-  def setStartTime(self, value):
-    return self.set("StartTime", value)
-
-  def stopTime(self):
-    return self.get("StopTime")
-
-  def setStopTime(self, value):
-    return self.set("StopTime", value)
-
-  def msgTypeId(self):
-    return self.get("MsgTypeId")
-
-  def setMsgTypeId(self, value):
-    return self.set("MsgTypeId", value)
-
-  def occurrence(self):
-    return self.get("Occurrence")
-
-  def setOccurrence(self, value):
-    return self.set("Occurrence", value)
-
-  def condition(self):
-    return self.get("Condition")
-
-  def setCondition(self, value):
-    return self.set("Condition", value)
-
-  def bitsMods(self):
-    return self.get("BitsMods")
-
-  def setBitsMods(self, value):
-    return self.set("BitsMods", value)
-
-  def id(self):
-    return self.get("Id")
-
-  def setId(self, value):
-    return self.set("Id", value)
-
-#
-# Please note the command GetGpsMNavMessage is deprecated since 21.3. You may use GetMessageModificationToGpsMNav.
-# 
-# Get infos about the MNAV Message with this id
-#
-# Name Type   Description
-# ---- ------ --------------------------------------
-# Id   string Unique identifier of the event to get.
-#
-
-class GetGpsMNavMessage(CommandBase):
-
-  def __init__(self, id):
-    CommandBase.__init__(self, "GetGpsMNavMessage")
-    self.setId(id)
-
-  def executePermission(self):
-    return ExecutePermission.EXECUTE_IF_IDLE
-
-  def id(self):
-    return self.get("Id")
-
-  def setId(self, value):
-    return self.set("Id", value)
-
-#
-# Result of GetGpsMNavMessage
-#
-# Name       Type   Description
-# ---------- ------ ----------------------------------------------------------------------------------
-# Prn        int    Satellite PRN number 1..32
-# StartTime  int    Elapsed time in seconds since start of simulation
-# StopTime   int    Elapsed time in seconds since start of simulation
-# MsgTypeId  int    MNAV Message type ID
-# Occurrence int    Occurrence number in message sequence (1 based, or use -1 to match any occurrence)
-# Condition  string Optional condition to match message content, ex: "EQUAL(45,10,0x3F)"
-# BitsMods   string Comma separated bits mods
-# Id         string Unique identifier automatically set by simulator
-#
-
-class GetGpsMNavMessageResult(CommandResult):
-
-  def __init__(self, prn, startTime, stopTime, msgTypeId, occurrence, condition, bitsMods, id):
-    CommandResult.__init__(self, "GetGpsMNavMessageResult")
-    self.setPrn(prn)
-    self.setStartTime(startTime)
-    self.setStopTime(stopTime)
-    self.setMsgTypeId(msgTypeId)
-    self.setOccurrence(occurrence)
-    self.setCondition(condition)
-    self.setBitsMods(bitsMods)
-    self.setId(id)
-
-  def isSuccess(self):
-    return True
-
-  def prn(self):
-    return self.get("Prn")
-
-  def setPrn(self, value):
-    return self.set("Prn", value)
-
-  def startTime(self):
-    return self.get("StartTime")
-
-  def setStartTime(self, value):
-    return self.set("StartTime", value)
-
-  def stopTime(self):
-    return self.get("StopTime")
-
-  def setStopTime(self, value):
-    return self.set("StopTime", value)
-
-  def msgTypeId(self):
-    return self.get("MsgTypeId")
-
-  def setMsgTypeId(self, value):
-    return self.set("MsgTypeId", value)
-
-  def occurrence(self):
-    return self.get("Occurrence")
-
-  def setOccurrence(self, value):
-    return self.set("Occurrence", value)
-
-  def condition(self):
-    return self.get("Condition")
-
-  def setCondition(self, value):
-    return self.set("Condition", value)
-
-  def bitsMods(self):
-    return self.get("BitsMods")
-
-  def setBitsMods(self, value):
-    return self.set("BitsMods", value)
-
-  def id(self):
-    return self.get("Id")
-
-  def setId(self, value):
-    return self.set("Id", value)
-
-#
-# Please note the command RemoveModificationToGpsMNavMessage is deprecated since 21.3. You may use RemoveMessageModificationForNavMsgFamily.
-# 
-# Removes a modification.
-#
-# Name Type   Description
-# ---- ------ -------------------------------------------------------
-# Id   string Unique identifier (see SetModificationToGpsCNavMessage)
-#
-
-class RemoveModificationToGpsMNavMessage(CommandBase):
-
-  def __init__(self, id):
-    CommandBase.__init__(self, "RemoveModificationToGpsMNavMessage")
-    self.setId(id)
-
-  def executePermission(self):
-    return ExecutePermission.EXECUTE_IF_IDLE
-
-  def id(self):
-    return self.get("Id")
-
-  def setId(self, value):
-    return self.set("Id", value)
-
-#
-# Please note the command ClearAllModificationsToGpsMNavMessage is deprecated since 21.3. You may use ClearAllMessageModificationsForNavMsgFamily.
-# 
-# Clear all events to change GPS navigation message bits
-#
-#
-
-class ClearAllModificationsToGpsMNavMessage(CommandBase):
-
-  def __init__(self):
-    CommandBase.__init__(self, "ClearAllModificationsToGpsMNavMessage")
-
-  def executePermission(self):
-    return ExecutePermission.EXECUTE_IF_IDLE
-
-#
-# Please note the command GetGpsMNavMessages is deprecated since 21.3. You may use GetAllMessageModificationIdsForNavMsgFamily.
-# 
-# Get all events' IDs whose will modify the GPS MNav Message for this PRN
-#
-# Name Type Description
-# ---- ---- --------------------------
-# Prn  int  Satellite PRN number 1..32
-#
-
-class GetGpsMNavMessages(CommandBase):
-
-  def __init__(self, prn):
-    CommandBase.__init__(self, "GetGpsMNavMessages")
-    self.setPrn(prn)
-
-  def executePermission(self):
-    return ExecutePermission.EXECUTE_IF_IDLE
-
-  def prn(self):
-    return self.get("Prn")
-
-  def setPrn(self, value):
-    return self.set("Prn", value)
-
-#
-# Result of GetGpsMNavMessages
-#
-# Name Type         Description
-# ---- ------------ ---------------------------------------------
-# Ids  array string List of IDs of Gps MNAV Messages for this PRN
-#
-
-class GetGpsMNavMessagesResult(CommandResult):
-
-  def __init__(self, ids):
-    CommandResult.__init__(self, "GetGpsMNavMessagesResult")
-    self.setIds(ids)
-
-  def isSuccess(self):
-    return True
-
-  def ids(self):
-    return self.get("Ids")
-
-  def setIds(self, value):
-    return self.set("Ids", value)
-
-#
-# Please note the command SetModificationToGpsCNav2Message is deprecated since 21.3. You may use SetMessageModificationToGpsCNav2.
-# 
-# Set (or Modify) event to change CNAV2 message bits. If you send this command without setting the Id
-# parameter, or if you set the Id with a value never used before, a new Modification event will be
-# created. If you reuse the same event Id, it will modify the existing event.
-# 
-# Note that start and stop time are automatically extended to beginning and ending of overlapped
-# messages.
-# 
-# The Condition parameter is optional and allows you to add content matching condition before applying
-# bits mods.
-# 
-# BitsMods can be an empty string. The Modification will have no effect until you modify it with at
-# least one bits mod.
-# 
-# A bits mod is represented with a string using the following format: "I:Bits" where I is a bit
-# index (1 refers to the first transmitted bit) and Bits is a modification mask where each
-# character describes a modification to a single bit. The allowed characters are:
-#    0 : force bit to 0
-#    1 : force bit to 1
-#    - : leave bit unchanged
-#    X : revert bit (0 becomes 1 and 1 becomes 0)
-# 
-# For example: "24:X---10XX" will: revert bits 24, 30 and 31
-#                  set bit 28 to 1
-#                  set bit 29 to 0
-# The other bits are not affected.
-# 
-# You can add multiple bits mods using commas. For example: "24:X---10XX,127:100X,231:01"
-#
-# Name      Type   Description
-# --------- ------ --------------------------------------------------------------------
-# Prn       int    Satellite PRN number 1..32
-# StartTime int    Elapsed time in seconds since start of simulation
-# StopTime  int    Elapsed time in seconds since start of simulation
-# PageId    int    CNAV2 page ID
-# Condition string Optional condition to match message content, ex: "EQUAL(45,10,0x3F)"
-# UpdateCRC bool   Recalculate CRC after making modification
-# BitsMods  string Comma separated bits mods
-# Id        string Unique identifier of the event
-#
-
-class SetModificationToGpsCNav2Message(CommandBase):
-
-  def __init__(self, prn, startTime, stopTime, pageId, condition, updateCRC, bitsMods, id):
-    CommandBase.__init__(self, "SetModificationToGpsCNav2Message")
-    self.setPrn(prn)
-    self.setStartTime(startTime)
-    self.setStopTime(stopTime)
-    self.setPageId(pageId)
-    self.setCondition(condition)
-    self.setUpdateCRC(updateCRC)
-    self.setBitsMods(bitsMods)
-    self.setId(id)
-
-  def executePermission(self):
-    return ExecutePermission.EXECUTE_IF_SIMULATING | ExecutePermission.EXECUTE_IF_IDLE
-
-  def prn(self):
-    return self.get("Prn")
-
-  def setPrn(self, value):
-    return self.set("Prn", value)
-
-  def startTime(self):
-    return self.get("StartTime")
-
-  def setStartTime(self, value):
-    return self.set("StartTime", value)
-
-  def stopTime(self):
-    return self.get("StopTime")
-
-  def setStopTime(self, value):
-    return self.set("StopTime", value)
-
-  def pageId(self):
-    return self.get("PageId")
-
-  def setPageId(self, value):
-    return self.set("PageId", value)
-
-  def condition(self):
-    return self.get("Condition")
-
-  def setCondition(self, value):
-    return self.set("Condition", value)
-
-  def updateCRC(self):
-    return self.get("UpdateCRC")
-
-  def setUpdateCRC(self, value):
-    return self.set("UpdateCRC", value)
-
-  def bitsMods(self):
-    return self.get("BitsMods")
-
-  def setBitsMods(self, value):
-    return self.set("BitsMods", value)
-
-  def id(self):
-    return self.get("Id")
-
-  def setId(self, value):
-    return self.set("Id", value)
-
-#
-# Please note the command GetGpsCNav2Message is deprecated since 21.3. You may use GetMessageModificationToGpsCNav2.
-# 
-# Get infos about the CNAV2 Message with this id
-#
-# Name Type   Description
-# ---- ------ ------------------------------
-# Id   string Unique identifier of the event
-#
-
-class GetGpsCNav2Message(CommandBase):
-
-  def __init__(self, id):
-    CommandBase.__init__(self, "GetGpsCNav2Message")
-    self.setId(id)
-
-  def executePermission(self):
-    return ExecutePermission.EXECUTE_IF_IDLE
-
-  def id(self):
-    return self.get("Id")
-
-  def setId(self, value):
-    return self.set("Id", value)
-
-#
-# Result of GetGpsCNav2Message.
-#
-# Name      Type   Description
-# --------- ------ --------------------------------------------------------------------
-# Prn       int    Satellite PRN number 1..32
-# StartTime int    Elapsed time in seconds since start of simulation
-# StopTime  int    Elapsed time in seconds since start of simulation
-# PageId    int    CNAV2 page ID
-# Condition string Optional condition to match message content, ex: "EQUAL(45,10,0x3F)"
-# UpdateCRC bool   Recalculate CRC after making modification
-# BitsMods  string Comma separated bits mods
-# Id        string Unique identifier of the event
-#
-
-class GetGpsCNav2MessageResult(CommandResult):
-
-  def __init__(self, prn, startTime, stopTime, pageId, condition, updateCRC, bitsMods, id):
-    CommandResult.__init__(self, "GetGpsCNav2MessageResult")
-    self.setPrn(prn)
-    self.setStartTime(startTime)
-    self.setStopTime(stopTime)
-    self.setPageId(pageId)
-    self.setCondition(condition)
-    self.setUpdateCRC(updateCRC)
-    self.setBitsMods(bitsMods)
-    self.setId(id)
-
-  def isSuccess(self):
-    return True
-
-  def prn(self):
-    return self.get("Prn")
-
-  def setPrn(self, value):
-    return self.set("Prn", value)
-
-  def startTime(self):
-    return self.get("StartTime")
-
-  def setStartTime(self, value):
-    return self.set("StartTime", value)
-
-  def stopTime(self):
-    return self.get("StopTime")
-
-  def setStopTime(self, value):
-    return self.set("StopTime", value)
-
-  def pageId(self):
-    return self.get("PageId")
-
-  def setPageId(self, value):
-    return self.set("PageId", value)
-
-  def condition(self):
-    return self.get("Condition")
-
-  def setCondition(self, value):
-    return self.set("Condition", value)
-
-  def updateCRC(self):
-    return self.get("UpdateCRC")
-
-  def setUpdateCRC(self, value):
-    return self.set("UpdateCRC", value)
-
-  def bitsMods(self):
-    return self.get("BitsMods")
-
-  def setBitsMods(self, value):
-    return self.set("BitsMods", value)
-
-  def id(self):
-    return self.get("Id")
-
-  def setId(self, value):
-    return self.set("Id", value)
-
-#
-# Please note the command RemoveModificationToGpsCNav2Message is deprecated since 21.3. You may use RemoveMessageModificationForNavMsgFamily.
-# 
-# Removes a modification.
-#
-# Name Type   Description
-# ---- ------ --------------------------------------------------------
-# Id   string Unique identifier (see SetModificationToGpsCNav2Message)
-#
-
-class RemoveModificationToGpsCNav2Message(CommandBase):
-
-  def __init__(self, id):
-    CommandBase.__init__(self, "RemoveModificationToGpsCNav2Message")
-    self.setId(id)
-
-  def executePermission(self):
-    return ExecutePermission.EXECUTE_IF_IDLE
-
-  def id(self):
-    return self.get("Id")
-
-  def setId(self, value):
-    return self.set("Id", value)
-
-#
-# Please note the command ClearAllModificationsToGpsCNav2Message is deprecated since 21.3. You may use ClearAllMessageModificationsForNavMsgFamily.
-# 
-# Clear all events to change GPS navigation message bits
-#
-#
-
-class ClearAllModificationsToGpsCNav2Message(CommandBase):
-
-  def __init__(self):
-    CommandBase.__init__(self, "ClearAllModificationsToGpsCNav2Message")
-
-  def executePermission(self):
-    return ExecutePermission.EXECUTE_IF_IDLE
-
-#
-# Please note the command GetGpsCNav2Messages is deprecated since 21.3. You may use GetAllMessageModificationIdsForNavMsgFamily.
-# 
-# Get all events' IDs whose will modify the GPS CNav2 Message for this PRN
-#
-# Name Type Description
-# ---- ---- --------------------------
-# Prn  int  Satellite PRN number 1..32
-#
-
-class GetGpsCNav2Messages(CommandBase):
-
-  def __init__(self, prn):
-    CommandBase.__init__(self, "GetGpsCNav2Messages")
-    self.setPrn(prn)
-
-  def executePermission(self):
-    return ExecutePermission.EXECUTE_IF_IDLE
-
-  def prn(self):
-    return self.get("Prn")
-
-  def setPrn(self, value):
-    return self.set("Prn", value)
-
-#
-# Result of GetGpsCNav2Messages
-#
-# Name Type         Description
-# ---- ------------ ----------------------------------------------
-# Ids  array string List of IDs of Gps CNAV2 Messages for this PRN
-#
-
-class GetGpsCNav2MessagesResult(CommandResult):
-
-  def __init__(self, ids):
-    CommandResult.__init__(self, "GetGpsCNav2MessagesResult")
-    self.setIds(ids)
-
-  def isSuccess(self):
-    return True
-
-  def ids(self):
-    return self.get("Ids")
-
-  def setIds(self, value):
-    return self.set("Ids", value)
-
-#
-# Please note the command SetModificationToGpsNavigationMessage is deprecated since 21.3. You may use SetMessageModificationToGpsLNav.
-# 
-# Set (or Modify) event to change navigation message bits.
-# 
-# Note that start and stop time are automatically extended to beginning and ending of overlapped
-# subframes. The Modification parameter is a string where the first character applies to the first
-# bit of subframe word and last character applies to last bit of subframe word.
-#    '0' will force bit to zero
-#    '1' will for bit to one
-#    'X' will negate bit value
-#    any other byte value will have no effect
-# 
-# Example: "-00------------------1-X------" will force bits 1 and 2 to zero and bit 22 to one
-#                       and negate bit 24
-# 
-# Note: if UpdateParity is true, any modification to bits 25..30 will have no effect.
-# 
-# The Id parameter is automatically updated with a unique id by the simulator for future reference.
-# If the Id is set with a value other than an empty string, the simulator will try to find a match
-# with previously added events. If there is a match, the event is updated with this message
-# instead of adding a new event. If there is no match, the event is added and the id is not
-# changed.
-#
-# Name         Type   Description
-# ------------ ------ -----------------------------------------------------------
-# Prn          int    Satellite PRN number 1..32
-# StartTime    int    Elapsed time in seconds since start of simulation
-# StopTime     int    Elapsed time in seconds since start of simulation
-# SubFrame     int    Subframe 1..5 (use 0 to apply modification to all subframes
-# Page         int    Page 1..25 (use 0 to apply modification to all pages)
-# Word         int    Word 1..10 (use 0 to apply modification to all words)
-# UpdateParity bool   Recalculate parity after making modification
-# Modification string Modification string must be 30 bytes long
-# Id           string Unique identifier of the event
-#
-
-class SetModificationToGpsNavigationMessage(CommandBase):
-
-  def __init__(self, prn, startTime, stopTime, subFrame, page, word, updateParity, modification, id):
-    CommandBase.__init__(self, "SetModificationToGpsNavigationMessage")
-    self.setPrn(prn)
-    self.setStartTime(startTime)
-    self.setStopTime(stopTime)
-    self.setSubFrame(subFrame)
-    self.setPage(page)
-    self.setWord(word)
-    self.setUpdateParity(updateParity)
-    self.setModification(modification)
-    self.setId(id)
-
-  def executePermission(self):
-    return ExecutePermission.EXECUTE_IF_SIMULATING | ExecutePermission.EXECUTE_IF_IDLE
-
-  def prn(self):
-    return self.get("Prn")
-
-  def setPrn(self, value):
-    return self.set("Prn", value)
-
-  def startTime(self):
-    return self.get("StartTime")
-
-  def setStartTime(self, value):
-    return self.set("StartTime", value)
-
-  def stopTime(self):
-    return self.get("StopTime")
-
-  def setStopTime(self, value):
-    return self.set("StopTime", value)
-
-  def subFrame(self):
-    return self.get("SubFrame")
-
-  def setSubFrame(self, value):
-    return self.set("SubFrame", value)
-
-  def page(self):
-    return self.get("Page")
-
-  def setPage(self, value):
-    return self.set("Page", value)
-
-  def word(self):
-    return self.get("Word")
-
-  def setWord(self, value):
-    return self.set("Word", value)
-
-  def updateParity(self):
-    return self.get("UpdateParity")
-
-  def setUpdateParity(self, value):
-    return self.set("UpdateParity", value)
-
-  def modification(self):
-    return self.get("Modification")
-
-  def setModification(self, value):
-    return self.set("Modification", value)
-
-  def id(self):
-    return self.get("Id")
-
-  def setId(self, value):
-    return self.set("Id", value)
-
-#
-# Please note the command GetGpsNavigationMessage is deprecated since 21.3. You may use GetMessageModificationToGpsLNav.
-# 
-# Get infos about this modification gps navigation message event.
-#
-# Name Type   Description
-# ---- ------ ------------------------------
-# Id   string Unique identifier of the event
-#
-
-class GetGpsNavigationMessage(CommandBase):
-
-  def __init__(self, id):
-    CommandBase.__init__(self, "GetGpsNavigationMessage")
-    self.setId(id)
-
-  def executePermission(self):
-    return ExecutePermission.EXECUTE_IF_IDLE
-
-  def id(self):
-    return self.get("Id")
-
-  def setId(self, value):
-    return self.set("Id", value)
-
-#
-# Result of GetGpsNavigationMessage.
-#
-# Name         Type   Description
-# ------------ ------ -----------------------------------------------------------
-# Prn          int    Satellite PRN number 1..32
-# StartTime    int    Elapsed time in seconds since start of simulation
-# StopTime     int    Elapsed time in seconds since start of simulation
-# SubFrame     int    Subframe 1..5 (use 0 to apply modification to all subframes
-# Page         int    Page 1..25 (use 0 to apply modification to all pages)
-# Word         int    Word 1..10 (use 0 to apply modification to all words)
-# UpdateParity bool   Recalculate parity after making modification
-# Modification string Modification string must be 30 bytes long
-# Id           string Unique identifier of the event
-#
-
-class GetGpsNavigationMessageResult(CommandResult):
-
-  def __init__(self, prn, startTime, stopTime, subFrame, page, word, updateParity, modification, id):
-    CommandResult.__init__(self, "GetGpsNavigationMessageResult")
-    self.setPrn(prn)
-    self.setStartTime(startTime)
-    self.setStopTime(stopTime)
-    self.setSubFrame(subFrame)
-    self.setPage(page)
-    self.setWord(word)
-    self.setUpdateParity(updateParity)
-    self.setModification(modification)
-    self.setId(id)
-
-  def isSuccess(self):
-    return True
-
-  def prn(self):
-    return self.get("Prn")
-
-  def setPrn(self, value):
-    return self.set("Prn", value)
-
-  def startTime(self):
-    return self.get("StartTime")
-
-  def setStartTime(self, value):
-    return self.set("StartTime", value)
-
-  def stopTime(self):
-    return self.get("StopTime")
-
-  def setStopTime(self, value):
-    return self.set("StopTime", value)
-
-  def subFrame(self):
-    return self.get("SubFrame")
-
-  def setSubFrame(self, value):
-    return self.set("SubFrame", value)
-
-  def page(self):
-    return self.get("Page")
-
-  def setPage(self, value):
-    return self.set("Page", value)
-
-  def word(self):
-    return self.get("Word")
-
-  def setWord(self, value):
-    return self.set("Word", value)
-
-  def updateParity(self):
-    return self.get("UpdateParity")
-
-  def setUpdateParity(self, value):
-    return self.set("UpdateParity", value)
-
-  def modification(self):
-    return self.get("Modification")
-
-  def setModification(self, value):
-    return self.set("Modification", value)
-
-  def id(self):
-    return self.get("Id")
-
-  def setId(self, value):
-    return self.set("Id", value)
-
-#
-# Please note the command RemoveModificationToGpsNavigationMessage is deprecated since 21.3. You may use RemoveMessageModificationForNavMsgFamily.
-# 
-# Removes an event added with SetModificationToGpsNavigationMessage. When adding an event, the simulator
-# sets the Id parameter. Use that Id here to remove the associated event.
-#
-# Name Type   Description
-# ---- ------ -----------------------------------------
-# Id   string Unique identifier of the event to remove.
-#
-
-class RemoveModificationToGpsNavigationMessage(CommandBase):
-
-  def __init__(self, id):
-    CommandBase.__init__(self, "RemoveModificationToGpsNavigationMessage")
-    self.setId(id)
-
-  def executePermission(self):
-    return ExecutePermission.EXECUTE_IF_IDLE
-
-  def id(self):
-    return self.get("Id")
-
-  def setId(self, value):
-    return self.set("Id", value)
-
-#
-# Please note the command ClearAllModificationsToGpsNavigationMessage is deprecated since 21.3. You may use ClearAllMessageModificationsForNavMsgFamily.
-# 
-# Clear all events to change GPS navigation message bits
-#
-#
-
-class ClearAllModificationsToGpsNavigationMessage(CommandBase):
-
-  def __init__(self):
-    CommandBase.__init__(self, "ClearAllModificationsToGpsNavigationMessage")
-
-  def executePermission(self):
-    return ExecutePermission.EXECUTE_IF_IDLE
-
-#
-# Please note the command GetGpsNavigationMessages is deprecated since 21.3. You may use GetAllMessageModificationIdsForNavMsgFamily.
-# 
-# Get all events' IDs whose will modify the GPS Navigation Message for this PRN
-#
-# Name Type Description
-# ---- ---- --------------------------
-# Prn  int  Satellite PRN number 1..32
-#
-
-class GetGpsNavigationMessages(CommandBase):
-
-  def __init__(self, prn):
-    CommandBase.__init__(self, "GetGpsNavigationMessages")
-    self.setPrn(prn)
-
-  def executePermission(self):
-    return ExecutePermission.EXECUTE_IF_IDLE
-
-  def prn(self):
-    return self.get("Prn")
-
-  def setPrn(self, value):
-    return self.set("Prn", value)
-
-#
-# Result of GetGpsNavigationMessages
-#
-# Name Type         Description
-# ---- ------------ -------------------------------------------
-# Ids  array string List of ids event whose will affect the PRN
-#
-
-class GetGpsNavigationMessagesResult(CommandResult):
-
-  def __init__(self, ids):
-    CommandResult.__init__(self, "GetGpsNavigationMessagesResult")
-    self.setIds(ids)
-
-  def isSuccess(self):
-    return True
-
-  def ids(self):
-    return self.get("Ids")
-
-  def setIds(self, value):
-    return self.set("Ids", value)
-
-#
-# Please note the command SetModificationToGalileoFNavMessage is deprecated since 21.3. You may use SetMessageModificationToGalileoFNav.
-# 
-# Set (or Modify) event to change FNAV message bits. If you send this command without setting the Id
-# parameter, or if you set the Id with a value never used before, a new Modification event will be
-# created. If you reuse the same event Id, it will modify the existing event.
-# 
-# Note that start and stop time are automatically extended to beginning and ending of overlapped
-# messages.
-# 
-# BitsMods can be an empty string. The Modification will have no effect until you modify it with at
-# least one bits mod.
-# 
-# A bits mod is represented with a string using the following format: "I:Bits" where I is a bit
-# index (1 refers to the first transmitted bit) and Bits is a modification mask where each
-# character describes a modification to a single bit. The allowed characters are:
-#    0 : force bit to 0
-#    1 : force bit to 1
-#    - : leave bit unchanged
-#    X : revert bit (0 becomes 1 and 1 becomes 0)
-# 
-# For example: "24:X---10XX" will: revert bits 24, 30 and 31
-#                  set bit 28 to 1
-#                  set bit 29 to 0
-# The other bits are not affected.
-# 
-# You can add multiple bits mods using commas. For example: "24:X---10XX,127:100X,231:01"
-#
-# Name      Type   Description
-# --------- ------ --------------------------------------------------------------------
-# Prn       int    Satellite PRN number 1..36 (use 0 to apply modification to all PRNs)
-# StartTime int    Elapsed time in seconds since start of simulation
-# StopTime  int    Elapsed time in seconds since start of simulation
-# SubFrame  int    Subframe 1..12 (use 0 to apply modification to all subframes)
-# Page      int    Page 1..5 (use 0 to apply modification to all pages)
-# UpdateCRC bool   Recalculate CRC after making modification
-# BitsMods  string Comma separated bits mods
-# Id        string Unique identifier of the event
-#
-
-class SetModificationToGalileoFNavMessage(CommandBase):
-
-  def __init__(self, prn, startTime, stopTime, subFrame, page, updateCRC, bitsMods, id):
-    CommandBase.__init__(self, "SetModificationToGalileoFNavMessage")
-    self.setPrn(prn)
-    self.setStartTime(startTime)
-    self.setStopTime(stopTime)
-    self.setSubFrame(subFrame)
-    self.setPage(page)
-    self.setUpdateCRC(updateCRC)
-    self.setBitsMods(bitsMods)
-    self.setId(id)
-
-  def executePermission(self):
-    return ExecutePermission.EXECUTE_IF_SIMULATING | ExecutePermission.EXECUTE_IF_IDLE
-
-  def prn(self):
-    return self.get("Prn")
-
-  def setPrn(self, value):
-    return self.set("Prn", value)
-
-  def startTime(self):
-    return self.get("StartTime")
-
-  def setStartTime(self, value):
-    return self.set("StartTime", value)
-
-  def stopTime(self):
-    return self.get("StopTime")
-
-  def setStopTime(self, value):
-    return self.set("StopTime", value)
-
-  def subFrame(self):
-    return self.get("SubFrame")
-
-  def setSubFrame(self, value):
-    return self.set("SubFrame", value)
-
-  def page(self):
-    return self.get("Page")
-
-  def setPage(self, value):
-    return self.set("Page", value)
-
-  def updateCRC(self):
-    return self.get("UpdateCRC")
-
-  def setUpdateCRC(self, value):
-    return self.set("UpdateCRC", value)
-
-  def bitsMods(self):
-    return self.get("BitsMods")
-
-  def setBitsMods(self, value):
-    return self.set("BitsMods", value)
-
-  def id(self):
-    return self.get("Id")
-
-  def setId(self, value):
-    return self.set("Id", value)
-
-#
-# Please note the command GetGalileoFNavMessage is deprecated since 21.3. You may use GetMessageModificationToGalileoFNav.
-# 
-# Get infos about the FNAV Message with this id
-#
-# Name Type   Description
-# ---- ------ ------------------------------
-# Id   string Unique identifier of the event
-#
-
-class GetGalileoFNavMessage(CommandBase):
-
-  def __init__(self, id):
-    CommandBase.__init__(self, "GetGalileoFNavMessage")
-    self.setId(id)
-
-  def executePermission(self):
-    return ExecutePermission.EXECUTE_IF_IDLE
-
-  def id(self):
-    return self.get("Id")
-
-  def setId(self, value):
-    return self.set("Id", value)
-
-#
-# Result of GetGalileoFNavMessage.
-#
-# Name      Type   Description
-# --------- ------ --------------------------------------------------------------------
-# Prn       int    Satellite PRN number 1..36 (use 0 to apply modification to all PRNs)
-# StartTime int    Elapsed time in seconds since start of simulation
-# StopTime  int    Elapsed time in seconds since start of simulation
-# SubFrame  int    Subframe 1..12 (use 0 to apply modification to all subframes)
-# Page      int    Page 1..5 (use 0 to apply modification to all pages)
-# UpdateCRC bool   Recalculate CRC after making modification
-# BitsMods  string Comma separated bits mods
-# Id        string Unique identifier of the event
-#
-
-class GetGalileoFNavMessageResult(CommandResult):
-
-  def __init__(self, prn, startTime, stopTime, subFrame, page, updateCRC, bitsMods, id):
-    CommandResult.__init__(self, "GetGalileoFNavMessageResult")
-    self.setPrn(prn)
-    self.setStartTime(startTime)
-    self.setStopTime(stopTime)
-    self.setSubFrame(subFrame)
-    self.setPage(page)
-    self.setUpdateCRC(updateCRC)
-    self.setBitsMods(bitsMods)
-    self.setId(id)
-
-  def isSuccess(self):
-    return True
-
-  def prn(self):
-    return self.get("Prn")
-
-  def setPrn(self, value):
-    return self.set("Prn", value)
-
-  def startTime(self):
-    return self.get("StartTime")
-
-  def setStartTime(self, value):
-    return self.set("StartTime", value)
-
-  def stopTime(self):
-    return self.get("StopTime")
-
-  def setStopTime(self, value):
-    return self.set("StopTime", value)
-
-  def subFrame(self):
-    return self.get("SubFrame")
-
-  def setSubFrame(self, value):
-    return self.set("SubFrame", value)
-
-  def page(self):
-    return self.get("Page")
-
-  def setPage(self, value):
-    return self.set("Page", value)
-
-  def updateCRC(self):
-    return self.get("UpdateCRC")
-
-  def setUpdateCRC(self, value):
-    return self.set("UpdateCRC", value)
-
-  def bitsMods(self):
-    return self.get("BitsMods")
-
-  def setBitsMods(self, value):
-    return self.set("BitsMods", value)
-
-  def id(self):
-    return self.get("Id")
-
-  def setId(self, value):
-    return self.set("Id", value)
-
-#
-# Please note the command RemoveModificationToGalileoFNavMessage is deprecated since 21.3. You may use RemoveMessageModificationForNavMsgFamily.
-# 
-# Removes a modification.
-#
-# Name Type   Description
-# ---- ------ -----------------------------------------------------------
-# Id   string Unique identifier (see SetModificationToGalileoFNavMessage)
-#
-
-class RemoveModificationToGalileoFNavMessage(CommandBase):
-
-  def __init__(self, id):
-    CommandBase.__init__(self, "RemoveModificationToGalileoFNavMessage")
-    self.setId(id)
-
-  def executePermission(self):
-    return ExecutePermission.EXECUTE_IF_IDLE
-
-  def id(self):
-    return self.get("Id")
-
-  def setId(self, value):
-    return self.set("Id", value)
-
-#
-# Please note the command ClearAllModificationsToGalileoFNavMessage is deprecated since 21.3. You may use ClearAllMessageModificationsForNavMsgFamily.
-# 
-# Clear all events to change GALILEO navigation message bits
-#
-#
-
-class ClearAllModificationsToGalileoFNavMessage(CommandBase):
-
-  def __init__(self):
-    CommandBase.__init__(self, "ClearAllModificationsToGalileoFNavMessage")
-
-  def executePermission(self):
-    return ExecutePermission.EXECUTE_IF_IDLE
-
-#
-# Please note the command GetGalileoFNavMessages is deprecated since 21.3. You may use GetAllMessageModificationIdsForNavMsgFamily.
-# 
-# Get all events' IDs whose will modify the GALILEO FNAV Message for this PRN
-#
-# Name Type Description
-# ---- ---- --------------------------
-# Prn  int  Satellite PRN number 1..36
-#
-
-class GetGalileoFNavMessages(CommandBase):
-
-  def __init__(self, prn):
-    CommandBase.__init__(self, "GetGalileoFNavMessages")
-    self.setPrn(prn)
-
-  def executePermission(self):
-    return ExecutePermission.EXECUTE_IF_IDLE
-
-  def prn(self):
-    return self.get("Prn")
-
-  def setPrn(self, value):
-    return self.set("Prn", value)
-
-#
-# Result of GetGalileoFNavMessages
-#
-# Name Type         Description
-# ---- ------------ -------------------------------------------------
-# Ids  array string List of IDs of GALILEO FNAV Messages for this PRN
-#
-
-class GetGalileoFNavMessagesResult(CommandResult):
-
-  def __init__(self, ids):
-    CommandResult.__init__(self, "GetGalileoFNavMessagesResult")
-    self.setIds(ids)
-
-  def isSuccess(self):
-    return True
-
-  def ids(self):
-    return self.get("Ids")
-
-  def setIds(self, value):
-    return self.set("Ids", value)
-
-#
-# Please note the command SetModificationToGalileoINavMessage is deprecated since 21.3. You may use SetMessageModificationToGalileoINav.
-# 
-# Set (or Modify) event to change INAV message bits. If you send this command without setting the Id
-# parameter, or if you set the Id with a value never used before, a new Modification event will be
-# created. If you reuse the same event Id, it will modify the existing event.
-# 
-# Note that start and stop time are automatically extended to beginning and ending of overlapped
-# messages.
-# 
-# BitsMods can be an empty string. The Modification will have no effect until you modify it with at
-# least one bits mod.
-# 
-# A bits mod is represented with a string using the following format: "I:Bits" where I is a bit
-# index (1 refers to the first transmitted bit) and Bits is a modification mask where each
-# character describes a modification to a single bit. The allowed characters are:
-#    0 : force bit to 0
-#    1 : force bit to 1
-#    - : leave bit unchanged
-#    X : revert bit (0 becomes 1 and 1 becomes 0)
-# 
-# For example: "24:X---10XX" will: revert bits 24, 30 and 31
-#                  set bit 28 to 1
-#                  set bit 29 to 0
-# The other bits are not affected.
-# 
-# You can add multiple bits mods using commas. For example: "24:X---10XX,127:100X,231:01"
-#
-# Name      Type   Description
-# --------- ------ --------------------------------------------------------------------
-# Prn       int    Satellite PRN number 1..36 (use 0 to apply modification to all PRNs)
-# StartTime int    Elapsed time in seconds since start of simulation
-# StopTime  int    Elapsed time in seconds since start of simulation
-# SubFrame  int    Subframe 1..24 (use 0 to apply modification to all subframes)
-# Page      int    Page 1..15 (use 0 to apply modification to all pages)
-# UpdateCRC bool   Recalculate CRC after making modification
-# BitsMods  string Comma separated bits mods
-# E1        bool   Apply modifications to Galileo E1 or not
-# E5b       bool   Apply modifications to Galileo E1 or not
-# Id        string Unique identifier of the event
-#
-
-class SetModificationToGalileoINavMessage(CommandBase):
-
-  def __init__(self, prn, startTime, stopTime, subFrame, page, updateCRC, bitsMods, e1, e5b, id):
-    CommandBase.__init__(self, "SetModificationToGalileoINavMessage")
-    self.setPrn(prn)
-    self.setStartTime(startTime)
-    self.setStopTime(stopTime)
-    self.setSubFrame(subFrame)
-    self.setPage(page)
-    self.setUpdateCRC(updateCRC)
-    self.setBitsMods(bitsMods)
-    self.setE1(e1)
-    self.setE5b(e5b)
-    self.setId(id)
-
-  def executePermission(self):
-    return ExecutePermission.EXECUTE_IF_SIMULATING | ExecutePermission.EXECUTE_IF_IDLE
-
-  def prn(self):
-    return self.get("Prn")
-
-  def setPrn(self, value):
-    return self.set("Prn", value)
-
-  def startTime(self):
-    return self.get("StartTime")
-
-  def setStartTime(self, value):
-    return self.set("StartTime", value)
-
-  def stopTime(self):
-    return self.get("StopTime")
-
-  def setStopTime(self, value):
-    return self.set("StopTime", value)
-
-  def subFrame(self):
-    return self.get("SubFrame")
-
-  def setSubFrame(self, value):
-    return self.set("SubFrame", value)
-
-  def page(self):
-    return self.get("Page")
-
-  def setPage(self, value):
-    return self.set("Page", value)
-
-  def updateCRC(self):
-    return self.get("UpdateCRC")
-
-  def setUpdateCRC(self, value):
-    return self.set("UpdateCRC", value)
-
-  def bitsMods(self):
-    return self.get("BitsMods")
-
-  def setBitsMods(self, value):
-    return self.set("BitsMods", value)
-
-  def e1(self):
-    return self.get("E1")
-
-  def setE1(self, value):
-    return self.set("E1", value)
-
-  def e5b(self):
-    return self.get("E5b")
-
-  def setE5b(self, value):
-    return self.set("E5b", value)
-
-  def id(self):
-    return self.get("Id")
-
-  def setId(self, value):
-    return self.set("Id", value)
-
-#
-# Please note the command GetGalileoINavMessage is deprecated since 21.3. You may use GetMessageModificationToGalileoINav.
-# 
-# Get infos about the INAV Message with this id
-#
-# Name Type   Description
-# ---- ------ ------------------------------
-# Id   string Unique identifier of the event
-#
-
-class GetGalileoINavMessage(CommandBase):
-
-  def __init__(self, id):
-    CommandBase.__init__(self, "GetGalileoINavMessage")
-    self.setId(id)
-
-  def executePermission(self):
-    return ExecutePermission.EXECUTE_IF_IDLE
-
-  def id(self):
-    return self.get("Id")
-
-  def setId(self, value):
-    return self.set("Id", value)
-
-#
-# Result of GetGalileoINavMessage.
-#
-# Name      Type   Description
-# --------- ------ --------------------------------------------------------------------
-# Prn       int    Satellite PRN number 1..36 (use 0 to apply modification to all PRNs)
-# StartTime int    Elapsed time in seconds since start of simulation
-# StopTime  int    Elapsed time in seconds since start of simulation
-# SubFrame  int    Subframe 1..24 (use 0 to apply modification to all subframes)
-# Page      int    Page 1..15 (use 0 to apply modification to all pages)
-# UpdateCRC bool   Recalculate CRC after making modification
-# BitsMods  string Comma separated bits mods
-# E1        bool   Apply modifications to Galileo E1 or not
-# E5b       bool   Apply modifications to Galileo E1 or not
-# Id        string Unique identifier of the event
-#
-
-class GetGalileoINavMessageResult(CommandResult):
-
-  def __init__(self, prn, startTime, stopTime, subFrame, page, updateCRC, bitsMods, e1, e5b, id):
-    CommandResult.__init__(self, "GetGalileoINavMessageResult")
-    self.setPrn(prn)
-    self.setStartTime(startTime)
-    self.setStopTime(stopTime)
-    self.setSubFrame(subFrame)
-    self.setPage(page)
-    self.setUpdateCRC(updateCRC)
-    self.setBitsMods(bitsMods)
-    self.setE1(e1)
-    self.setE5b(e5b)
-    self.setId(id)
-
-  def isSuccess(self):
-    return True
-
-  def prn(self):
-    return self.get("Prn")
-
-  def setPrn(self, value):
-    return self.set("Prn", value)
-
-  def startTime(self):
-    return self.get("StartTime")
-
-  def setStartTime(self, value):
-    return self.set("StartTime", value)
-
-  def stopTime(self):
-    return self.get("StopTime")
-
-  def setStopTime(self, value):
-    return self.set("StopTime", value)
-
-  def subFrame(self):
-    return self.get("SubFrame")
-
-  def setSubFrame(self, value):
-    return self.set("SubFrame", value)
-
-  def page(self):
-    return self.get("Page")
-
-  def setPage(self, value):
-    return self.set("Page", value)
-
-  def updateCRC(self):
-    return self.get("UpdateCRC")
-
-  def setUpdateCRC(self, value):
-    return self.set("UpdateCRC", value)
-
-  def bitsMods(self):
-    return self.get("BitsMods")
-
-  def setBitsMods(self, value):
-    return self.set("BitsMods", value)
-
-  def e1(self):
-    return self.get("E1")
-
-  def setE1(self, value):
-    return self.set("E1", value)
-
-  def e5b(self):
-    return self.get("E5b")
-
-  def setE5b(self, value):
-    return self.set("E5b", value)
-
-  def id(self):
-    return self.get("Id")
-
-  def setId(self, value):
-    return self.set("Id", value)
-
-#
-# Please note the command RemoveModificationToGalileoINavMessage is deprecated since 21.3. You may use RemoveMessageModificationForNavMsgFamily.
-# 
-# Removes a modification.
-#
-# Name Type   Description
-# ---- ------ -----------------------------------------------------------
-# Id   string Unique identifier (see SetModificationToGalileoINavMessage)
-#
-
-class RemoveModificationToGalileoINavMessage(CommandBase):
-
-  def __init__(self, id):
-    CommandBase.__init__(self, "RemoveModificationToGalileoINavMessage")
-    self.setId(id)
-
-  def executePermission(self):
-    return ExecutePermission.EXECUTE_IF_IDLE
-
-  def id(self):
-    return self.get("Id")
-
-  def setId(self, value):
-    return self.set("Id", value)
-
-#
-# Please note the command ClearAllModificationsToGalileoINavMessage is deprecated since 21.3. You may use ClearAllMessageModificationsForNavMsgFamily.
-# 
-# Clear all events to change GALILEO navigation message bits
-#
-#
-
-class ClearAllModificationsToGalileoINavMessage(CommandBase):
-
-  def __init__(self):
-    CommandBase.__init__(self, "ClearAllModificationsToGalileoINavMessage")
-
-  def executePermission(self):
-    return ExecutePermission.EXECUTE_IF_IDLE
-
-#
-# Please note the command GetGalileoINavMessages is deprecated since 21.3. You may use GetAllMessageModificationIdsForNavMsgFamily.
-# 
-# Get all events' IDs whose will modify the GALILEO INAV Message for this PRN
-#
-# Name Type Description
-# ---- ---- --------------------------
-# Prn  int  Satellite PRN number 1..36
-#
-
-class GetGalileoINavMessages(CommandBase):
-
-  def __init__(self, prn):
-    CommandBase.__init__(self, "GetGalileoINavMessages")
-    self.setPrn(prn)
-
-  def executePermission(self):
-    return ExecutePermission.EXECUTE_IF_IDLE
-
-  def prn(self):
-    return self.get("Prn")
-
-  def setPrn(self, value):
-    return self.set("Prn", value)
-
-#
-# Result of GetGalileoINavMessages
-#
-# Name Type         Description
-# ---- ------------ -------------------------------------------------
-# Ids  array string List of IDs of GALILEO INAV Messages for this PRN
-#
-
-class GetGalileoINavMessagesResult(CommandResult):
-
-  def __init__(self, ids):
-    CommandResult.__init__(self, "GetGalileoINavMessagesResult")
-    self.setIds(ids)
-
-  def isSuccess(self):
-    return True
-
-  def ids(self):
-    return self.get("Ids")
-
-  def setIds(self, value):
-    return self.set("Ids", value)
-
-#
-# Please note the command SetModificationToGlonassNavigationMessage is deprecated since 21.3. You may use SetMessageModificationToGlonassNav.
-# 
-# Set (or Modify) event to change navigation message bits.
-# 
-# Note that start and stop time are automatically extended to beginning and ending of overlapped
-# message strings. The Modification parameter is a string where the first character applies to bit
-# 85 of frame string and last character applies to Hamming Code bit 1.
-#    '0' will force bit to zero
-#    '1' will for bit to one
-#    'X' will negate bit value
-#    ' ' white space are ignored (use them to separate the string into bytes to help reading)
-#    '-' or any other byte value will have no effect
-# 
-# Example:
-# 
-# "-0--- 1------- -------- -------- -------- -------- -------- -------- -------- -------- ---1--X-"
-#   |  |                                           |  |
-#   |  +- Force bit 80 to '1'               Force Hamming code bit 5 to '1' -+  |
-#   |                                               |
-#   +------ Force bit 84 to 0                   Negate Hamming code bit 2 ----+
-# 
-# Note: if UpdateHammingCode is true, any modification to bits 1..8 will have no effect.
-# 
-# The Id parameter is automatically updated with a unique id by the simulator for future reference.
-# If the Id is set with a value other than an empty string, the simulator will try to find a match
-# with previously added events. If there is a match, the event is updated with this message
-# instead of adding a new event. If there is no match, the event is added and the id is not
-# changed.
-#
-# Name              Type   Description
-# ----------------- ------ -------------------------------------------------------------------------
-# Prn               int    Satellite slot number number 1..24
-# StartTime         int    Elapsed time in seconds since start of simulation
-# StopTime          int    Elapsed time in seconds since start of simulation
-# Frame             int    Frame 1..5 (use 0 to apply modification to all frames
-# StringNumber      int    String 1..15 (use 0 to apply modification to all strings)
-# UpdateHammingCode bool   Recalculate Hamming Code after making modification
-# Modification      string Modification string must be 85 bytes long (or more if using white spaces)
-# Id                string Unique identifier of the event
-#
-
-class SetModificationToGlonassNavigationMessage(CommandBase):
-
-  def __init__(self, prn, startTime, stopTime, frame, stringNumber, updateHammingCode, modification, id):
-    CommandBase.__init__(self, "SetModificationToGlonassNavigationMessage")
-    self.setPrn(prn)
-    self.setStartTime(startTime)
-    self.setStopTime(stopTime)
-    self.setFrame(frame)
-    self.setStringNumber(stringNumber)
-    self.setUpdateHammingCode(updateHammingCode)
-    self.setModification(modification)
-    self.setId(id)
-
-  def executePermission(self):
-    return ExecutePermission.EXECUTE_IF_SIMULATING | ExecutePermission.EXECUTE_IF_IDLE
-
-  def prn(self):
-    return self.get("Prn")
-
-  def setPrn(self, value):
-    return self.set("Prn", value)
-
-  def startTime(self):
-    return self.get("StartTime")
-
-  def setStartTime(self, value):
-    return self.set("StartTime", value)
-
-  def stopTime(self):
-    return self.get("StopTime")
-
-  def setStopTime(self, value):
-    return self.set("StopTime", value)
-
-  def frame(self):
-    return self.get("Frame")
-
-  def setFrame(self, value):
-    return self.set("Frame", value)
-
-  def stringNumber(self):
-    return self.get("StringNumber")
-
-  def setStringNumber(self, value):
-    return self.set("StringNumber", value)
-
-  def updateHammingCode(self):
-    return self.get("UpdateHammingCode")
-
-  def setUpdateHammingCode(self, value):
-    return self.set("UpdateHammingCode", value)
-
-  def modification(self):
-    return self.get("Modification")
-
-  def setModification(self, value):
-    return self.set("Modification", value)
-
-  def id(self):
-    return self.get("Id")
-
-  def setId(self, value):
-    return self.set("Id", value)
-
-#
-# Please note the command GetGlonassNavigationMessage is deprecated since 21.3. You may use GetMessageModificationToGlonassNav.
-# 
-# Get infos about this modification Glonass navigation message event
-#
-# Name Type   Description
-# ---- ------ ------------------------------
-# Id   string Unique identifier of the event
-#
-
-class GetGlonassNavigationMessage(CommandBase):
-
-  def __init__(self, id):
-    CommandBase.__init__(self, "GetGlonassNavigationMessage")
-    self.setId(id)
-
-  def executePermission(self):
-    return ExecutePermission.EXECUTE_IF_IDLE
-
-  def id(self):
-    return self.get("Id")
-
-  def setId(self, value):
-    return self.set("Id", value)
-
-#
-# Result of GetGlonassNavigationMessage.
-#
-# Name              Type   Description
-# ----------------- ------ -------------------------------------------------------------------------
-# Prn               int    Satellite slot number number 1..24
-# StartTime         int    Elapsed time in seconds since start of simulation
-# StopTime          int    Elapsed time in seconds since start of simulation
-# Frame             int    Frame 1..5 (use 0 to apply modification to all frames
-# StringNumber      int    String 1..15 (use 0 to apply modification to all strings)
-# UpdateHammingCode bool   Recalculate Hamming Code after making modification
-# Modification      string Modification string must be 85 bytes long (or more if using white spaces)
-# Id                string Unique identifier of the event
-#
-
-class GetGlonassNavigationMessageResult(CommandResult):
-
-  def __init__(self, prn, startTime, stopTime, frame, stringNumber, updateHammingCode, modification, id):
-    CommandResult.__init__(self, "GetGlonassNavigationMessageResult")
-    self.setPrn(prn)
-    self.setStartTime(startTime)
-    self.setStopTime(stopTime)
-    self.setFrame(frame)
-    self.setStringNumber(stringNumber)
-    self.setUpdateHammingCode(updateHammingCode)
-    self.setModification(modification)
-    self.setId(id)
-
-  def isSuccess(self):
-    return True
-
-  def prn(self):
-    return self.get("Prn")
-
-  def setPrn(self, value):
-    return self.set("Prn", value)
-
-  def startTime(self):
-    return self.get("StartTime")
-
-  def setStartTime(self, value):
-    return self.set("StartTime", value)
-
-  def stopTime(self):
-    return self.get("StopTime")
-
-  def setStopTime(self, value):
-    return self.set("StopTime", value)
-
-  def frame(self):
-    return self.get("Frame")
-
-  def setFrame(self, value):
-    return self.set("Frame", value)
-
-  def stringNumber(self):
-    return self.get("StringNumber")
-
-  def setStringNumber(self, value):
-    return self.set("StringNumber", value)
-
-  def updateHammingCode(self):
-    return self.get("UpdateHammingCode")
-
-  def setUpdateHammingCode(self, value):
-    return self.set("UpdateHammingCode", value)
-
-  def modification(self):
-    return self.get("Modification")
-
-  def setModification(self, value):
-    return self.set("Modification", value)
-
-  def id(self):
-    return self.get("Id")
-
-  def setId(self, value):
-    return self.set("Id", value)
-
-#
-# Please note the command RemoveModificationToGlonassNavigationMessage is deprecated since 21.3. You may use RemoveMessageModificationForNavMsgFamily.
-# 
-# Removes an event added with SetModificationToGlonassNavigationMessage. When adding an event, the simulator
-# sets the Id parameter. Use that Id here to remove the associated event.
-#
-# Name Type   Description
-# ---- ------ -----------------------------------------
-# Id   string Unique identifier of the event to remove.
-#
-
-class RemoveModificationToGlonassNavigationMessage(CommandBase):
-
-  def __init__(self, id):
-    CommandBase.__init__(self, "RemoveModificationToGlonassNavigationMessage")
-    self.setId(id)
-
-  def executePermission(self):
-    return ExecutePermission.EXECUTE_IF_IDLE
-
-  def id(self):
-    return self.get("Id")
-
-  def setId(self, value):
-    return self.set("Id", value)
-
-#
-# Please note the command ClearAllModificationsToGlonassNavigationMessage is deprecated since 21.3. You may use ClearAllMessageModificationsForNavMsgFamily.
-# 
-# Clear all events to change GLONASS navigation message bits
-#
-#
-
-class ClearAllModificationsToGlonassNavigationMessage(CommandBase):
-
-  def __init__(self):
-    CommandBase.__init__(self, "ClearAllModificationsToGlonassNavigationMessage")
-
-  def executePermission(self):
-    return ExecutePermission.EXECUTE_IF_IDLE
-
-#
-# Please note the command GetGlonassNavigationMessages is deprecated since 21.3. You may use GetAllMessageModificationIdsForNavMsgFamily.
-# 
-# Get all events' IDs whose will modify the Glonass Navigation Message for this PRN
-#
-# Name Type Description
-# ---- ---- --------------------------
-# Prn  int  Satellite PRN number 1..24
-#
-
-class GetGlonassNavigationMessages(CommandBase):
-
-  def __init__(self, prn):
-    CommandBase.__init__(self, "GetGlonassNavigationMessages")
-    self.setPrn(prn)
-
-  def executePermission(self):
-    return ExecutePermission.EXECUTE_IF_IDLE
-
-  def prn(self):
-    return self.get("Prn")
-
-  def setPrn(self, value):
-    return self.set("Prn", value)
-
-#
-# Result of GetGlonassNavigationMessages
-#
-# Name Type         Description
-# ---- ------------ -------------------------------------------
-# Ids  array string List of ids event whose will affect the PRN
-#
-
-class GetGlonassNavigationMessagesResult(CommandResult):
-
-  def __init__(self, ids):
-    CommandResult.__init__(self, "GetGlonassNavigationMessagesResult")
-    self.setIds(ids)
-
-  def isSuccess(self):
-    return True
-
-  def ids(self):
-    return self.get("Ids")
-
-  def setIds(self, value):
-    return self.set("Ids", value)
-
-#
-# Please note the command SetModificationToBeiDouD1NavigationMessage is deprecated since 21.3. You may use SetMessageModificationToBeiDouD1Nav.
-# 
-# Set (or Modify) event to change navigation message bits.
-# 
-# Note that start and stop time are automatically extended to beginning and ending of overlapped
-# subframes. The Modification parameter is a string where the first character applies to the first
-# bit of subframe word and last character applies to last bit of subframe word.
-#    '0' will force bit to zero
-#    '1' will for bit to one
-#    'X' will negate bit value
-#    any other byte value will have no effect
-# 
-# Example: "-00------------------1-X------" will force bits 1 and 2 to zero and bit 22 to one
-#                       and negate bit 24
-# 
-# Note: if UpdateParity is true, any modification to parity bits will have no effect.
-# 
-# The Id parameter is automatically updated with a unique id by the simulator for future reference.
-# If the Id is set with a value other than an empty string, the simulator will try to find a match
-# with previously added events. If there is a match, the event is updated with this message
-# instead of adding a new event. If there is no match, the event is added and the id is not
-# changed.
-#
-# Name         Type   Description
-# ------------ ------ ------------------------------------------------------------
-# Prn          int    Satellite PRN number 6..30
-# StartTime    int    Elapsed time in seconds since start of simulation
-# StopTime     int    Elapsed time in seconds since start of simulation
-# SubFrame     int     Subframe 1..5 (use 0 to apply modification to all subframes
-# Page         int    Page 1..24 (use 0 to apply modification to all pages)
-# Word         int    Word 1..10 (use 0 to apply modification to all words)
-# UpdateParity bool   Recalculate parity after making modification
-# Modification string Modification string must be 30 bytes long
-# Id           string Unique identifier of the event
-#
-
-class SetModificationToBeiDouD1NavigationMessage(CommandBase):
-
-  def __init__(self, prn, startTime, stopTime, subFrame, page, word, updateParity, modification, id):
-    CommandBase.__init__(self, "SetModificationToBeiDouD1NavigationMessage")
-    self.setPrn(prn)
-    self.setStartTime(startTime)
-    self.setStopTime(stopTime)
-    self.setSubFrame(subFrame)
-    self.setPage(page)
-    self.setWord(word)
-    self.setUpdateParity(updateParity)
-    self.setModification(modification)
-    self.setId(id)
-
-  def executePermission(self):
-    return ExecutePermission.EXECUTE_IF_SIMULATING | ExecutePermission.EXECUTE_IF_IDLE
-
-  def prn(self):
-    return self.get("Prn")
-
-  def setPrn(self, value):
-    return self.set("Prn", value)
-
-  def startTime(self):
-    return self.get("StartTime")
-
-  def setStartTime(self, value):
-    return self.set("StartTime", value)
-
-  def stopTime(self):
-    return self.get("StopTime")
-
-  def setStopTime(self, value):
-    return self.set("StopTime", value)
-
-  def subFrame(self):
-    return self.get("SubFrame")
-
-  def setSubFrame(self, value):
-    return self.set("SubFrame", value)
-
-  def page(self):
-    return self.get("Page")
-
-  def setPage(self, value):
-    return self.set("Page", value)
-
-  def word(self):
-    return self.get("Word")
-
-  def setWord(self, value):
-    return self.set("Word", value)
-
-  def updateParity(self):
-    return self.get("UpdateParity")
-
-  def setUpdateParity(self, value):
-    return self.set("UpdateParity", value)
-
-  def modification(self):
-    return self.get("Modification")
-
-  def setModification(self, value):
-    return self.set("Modification", value)
-
-  def id(self):
-    return self.get("Id")
-
-  def setId(self, value):
-    return self.set("Id", value)
-
-#
-# Please note the command GetBeiDouD1NavigationMessage is deprecated since 21.3. You may use GetMessageModificationToBeiDouD1Nav.
-# 
-# Get infos about this modification BeiDou D1 navigation message event
-#
-# Name Type   Description
-# ---- ------ ------------------------------
-# Id   string Unique identifier of the event
-#
-
-class GetBeiDouD1NavigationMessage(CommandBase):
-
-  def __init__(self, id):
-    CommandBase.__init__(self, "GetBeiDouD1NavigationMessage")
-    self.setId(id)
-
-  def executePermission(self):
-    return ExecutePermission.EXECUTE_IF_IDLE
-
-  def id(self):
-    return self.get("Id")
-
-  def setId(self, value):
-    return self.set("Id", value)
-
-#
-# Result of GetBeiDouD1NavigationMessage.
-#
-# Name         Type   Description
-# ------------ ------ ------------------------------------------------------------
-# Prn          int    Satellite PRN number 6..30
-# StartTime    int    Elapsed time in seconds since start of simulation
-# StopTime     int    Elapsed time in seconds since start of simulation
-# SubFrame     int     Subframe 1..5 (use 0 to apply modification to all subframes
-# Page         int    Page 1..24 (use 0 to apply modification to all pages)
-# Word         int    Word 1..10 (use 0 to apply modification to all words)
-# UpdateParity bool   Recalculate parity after making modification
-# Modification string Modification string must be 30 bytes long
-# Id           string Unique identifier of the event
-#
-
-class GetBeiDouD1NavigationMessageResult(CommandResult):
-
-  def __init__(self, prn, startTime, stopTime, subFrame, page, word, updateParity, modification, id):
-    CommandResult.__init__(self, "GetBeiDouD1NavigationMessageResult")
-    self.setPrn(prn)
-    self.setStartTime(startTime)
-    self.setStopTime(stopTime)
-    self.setSubFrame(subFrame)
-    self.setPage(page)
-    self.setWord(word)
-    self.setUpdateParity(updateParity)
-    self.setModification(modification)
-    self.setId(id)
-
-  def isSuccess(self):
-    return True
-
-  def prn(self):
-    return self.get("Prn")
-
-  def setPrn(self, value):
-    return self.set("Prn", value)
-
-  def startTime(self):
-    return self.get("StartTime")
-
-  def setStartTime(self, value):
-    return self.set("StartTime", value)
-
-  def stopTime(self):
-    return self.get("StopTime")
-
-  def setStopTime(self, value):
-    return self.set("StopTime", value)
-
-  def subFrame(self):
-    return self.get("SubFrame")
-
-  def setSubFrame(self, value):
-    return self.set("SubFrame", value)
-
-  def page(self):
-    return self.get("Page")
-
-  def setPage(self, value):
-    return self.set("Page", value)
-
-  def word(self):
-    return self.get("Word")
-
-  def setWord(self, value):
-    return self.set("Word", value)
-
-  def updateParity(self):
-    return self.get("UpdateParity")
-
-  def setUpdateParity(self, value):
-    return self.set("UpdateParity", value)
-
-  def modification(self):
-    return self.get("Modification")
-
-  def setModification(self, value):
-    return self.set("Modification", value)
-
-  def id(self):
-    return self.get("Id")
-
-  def setId(self, value):
-    return self.set("Id", value)
-
-#
-# Please note the command RemoveModificationToBeiDouD1NavigationMessage is deprecated since 21.3. You may use RemoveMessageModificationForNavMsgFamily.
-# 
-# Removes an event added with SetModificationToBeiDouNavigationMessage. When adding an event, the simulator
-# sets the Id parameter. Use that Id here to remove the associated event.
-#
-# Name Type   Description
-# ---- ------ -----------------------------------------
-# Id   string Unique identifier of the event to remove.
-#
-
-class RemoveModificationToBeiDouD1NavigationMessage(CommandBase):
-
-  def __init__(self, id):
-    CommandBase.__init__(self, "RemoveModificationToBeiDouD1NavigationMessage")
-    self.setId(id)
-
-  def executePermission(self):
-    return ExecutePermission.EXECUTE_IF_IDLE
-
-  def id(self):
-    return self.get("Id")
-
-  def setId(self, value):
-    return self.set("Id", value)
-
-#
-# Please note the command ClearAllModificationsToBeiDouD1NavigationMessage is deprecated since 21.3. You may use ClearAllMessageModificationsForNavMsgFamily.
-# 
-# Clear all events to change BeiDou navigation message bits
-#
-#
-
-class ClearAllModificationsToBeiDouD1NavigationMessage(CommandBase):
-
-  def __init__(self):
-    CommandBase.__init__(self, "ClearAllModificationsToBeiDouD1NavigationMessage")
-
-  def executePermission(self):
-    return ExecutePermission.EXECUTE_IF_IDLE
-
-#
-# Please note the command GetBeiDouD1NavigationMessages is deprecated since 21.3. You may use GetAllMessageModificationIdsForNavMsgFamily.
-# 
-# Get all events' IDs whose will modify the BeiDou D1 Navigation Messages for this PRN
-#
-# Name Type Description
-# ---- ---- --------------------------
-# Prn  int  Satellite PRN number 1..24
-#
-
-class GetBeiDouD1NavigationMessages(CommandBase):
-
-  def __init__(self, prn):
-    CommandBase.__init__(self, "GetBeiDouD1NavigationMessages")
-    self.setPrn(prn)
-
-  def executePermission(self):
-    return ExecutePermission.EXECUTE_IF_IDLE
-
-  def prn(self):
-    return self.get("Prn")
-
-  def setPrn(self, value):
-    return self.set("Prn", value)
-
-#
-# Result of GetBeiDouD1NavigationMessages
-#
-# Name Type         Description
-# ---- ------------ -------------------------------------------
-# Ids  array string List of ids event whose will affect the PRN
-#
-
-class GetBeiDouD1NavigationMessagesResult(CommandResult):
-
-  def __init__(self, ids):
-    CommandResult.__init__(self, "GetBeiDouD1NavigationMessagesResult")
-    self.setIds(ids)
-
-  def isSuccess(self):
-    return True
-
-  def ids(self):
-    return self.get("Ids")
-
-  def setIds(self, value):
-    return self.set("Ids", value)
-
-#
-# Please note the command SetModificationToBeiDouD2NavigationMessage is deprecated since 21.3. You may use SetMessageModificationToBeiDouD2Nav.
-# 
-# Set (or Modify) event to change navigation message bits.
-# 
-# Note that start and stop time are automatically extended to beginning and ending of overlapped
-# subframes. The Modification parameter is a string where the first character applies to the first
-# bit of subframe word and last character applies to last bit of subframe word.
-#    '0' will force bit to zero
-#    '1' will for bit to one
-#    'X' will negate bit value
-#    any other byte value will have no effect
-# 
-# Example: "-00------------------1-X------" will force bits 1 and 2 to zero and bit 22 to one
-#                       and negate bit 24
-# 
-# Note: if UpdateParity is true, any modification to parity bits will have no effect.
-# 
-# The Id parameter is automatically updated with a unique id by the simulator for future reference.
-# If the Id is set with a value other than an empty string, the simulator will try to find a match
-# with previously added events. If there is a match, the event is updated with this message
-# instead of adding a new event. If there is no match, the event is added and the id is not
-# changed.
-#
-# Name         Type   Description
-# ------------ ------ -----------------------------------------------------------
-# Prn          int    Satellite PRN number 1..5
-# StartTime    int    Elapsed time in seconds since start of simulation
-# StopTime     int    Elapsed time in seconds since start of simulation
-# SubFrame     int    Subframe 1..5 (use 0 to apply modification to all subframes
-# Page         int    Page 1..120 (use 0 to apply modification to all pages)
-# Word         int    Word 1..10 (use 0 to apply modification to all words)
-# UpdateParity bool   Recalculate parity after making modification
-# Modification string Modification string must be 30 bytes long
-# Id           string Unique identifier of the event
-#
-
-class SetModificationToBeiDouD2NavigationMessage(CommandBase):
-
-  def __init__(self, prn, startTime, stopTime, subFrame, page, word, updateParity, modification, id):
-    CommandBase.__init__(self, "SetModificationToBeiDouD2NavigationMessage")
-    self.setPrn(prn)
-    self.setStartTime(startTime)
-    self.setStopTime(stopTime)
-    self.setSubFrame(subFrame)
-    self.setPage(page)
-    self.setWord(word)
-    self.setUpdateParity(updateParity)
-    self.setModification(modification)
-    self.setId(id)
-
-  def executePermission(self):
-    return ExecutePermission.EXECUTE_IF_SIMULATING | ExecutePermission.EXECUTE_IF_IDLE
-
-  def prn(self):
-    return self.get("Prn")
-
-  def setPrn(self, value):
-    return self.set("Prn", value)
-
-  def startTime(self):
-    return self.get("StartTime")
-
-  def setStartTime(self, value):
-    return self.set("StartTime", value)
-
-  def stopTime(self):
-    return self.get("StopTime")
-
-  def setStopTime(self, value):
-    return self.set("StopTime", value)
-
-  def subFrame(self):
-    return self.get("SubFrame")
-
-  def setSubFrame(self, value):
-    return self.set("SubFrame", value)
-
-  def page(self):
-    return self.get("Page")
-
-  def setPage(self, value):
-    return self.set("Page", value)
-
-  def word(self):
-    return self.get("Word")
-
-  def setWord(self, value):
-    return self.set("Word", value)
-
-  def updateParity(self):
-    return self.get("UpdateParity")
-
-  def setUpdateParity(self, value):
-    return self.set("UpdateParity", value)
-
-  def modification(self):
-    return self.get("Modification")
-
-  def setModification(self, value):
-    return self.set("Modification", value)
-
-  def id(self):
-    return self.get("Id")
-
-  def setId(self, value):
-    return self.set("Id", value)
-
-#
-# Please note the command GetBeiDouD2NavigationMessage is deprecated since 21.3. You may use GetMessageModificationToBeiDouD2Nav.
-# 
-# Get infos about this modification BeiDou D2 navigation message event
-#
-# Name Type   Description
-# ---- ------ ------------------------------
-# Id   string Unique identifier of the event
-#
-
-class GetBeiDouD2NavigationMessage(CommandBase):
-
-  def __init__(self, id):
-    CommandBase.__init__(self, "GetBeiDouD2NavigationMessage")
-    self.setId(id)
-
-  def executePermission(self):
-    return ExecutePermission.EXECUTE_IF_IDLE
-
-  def id(self):
-    return self.get("Id")
-
-  def setId(self, value):
-    return self.set("Id", value)
-
-#
-# Result of GetBeiDouD2NavigationMessage.
-#
-# Name         Type   Description
-# ------------ ------ -----------------------------------------------------------
-# Prn          int    Satellite PRN number 1..5
-# StartTime    int    Elapsed time in seconds since start of simulation
-# StopTime     int    Elapsed time in seconds since start of simulation
-# SubFrame     int    Subframe 1..5 (use 0 to apply modification to all subframes
-# Page         int    Page 1..120 (use 0 to apply modification to all pages)
-# Word         int    Word 1..10 (use 0 to apply modification to all words)
-# UpdateParity bool   Recalculate parity after making modification
-# Modification string Modification string must be 30 bytes long
-# Id           string Unique identifier of the event
-#
-
-class GetBeiDouD2NavigationMessageResult(CommandResult):
-
-  def __init__(self, prn, startTime, stopTime, subFrame, page, word, updateParity, modification, id):
-    CommandResult.__init__(self, "GetBeiDouD2NavigationMessageResult")
-    self.setPrn(prn)
-    self.setStartTime(startTime)
-    self.setStopTime(stopTime)
-    self.setSubFrame(subFrame)
-    self.setPage(page)
-    self.setWord(word)
-    self.setUpdateParity(updateParity)
-    self.setModification(modification)
-    self.setId(id)
-
-  def isSuccess(self):
-    return True
-
-  def prn(self):
-    return self.get("Prn")
-
-  def setPrn(self, value):
-    return self.set("Prn", value)
-
-  def startTime(self):
-    return self.get("StartTime")
-
-  def setStartTime(self, value):
-    return self.set("StartTime", value)
-
-  def stopTime(self):
-    return self.get("StopTime")
-
-  def setStopTime(self, value):
-    return self.set("StopTime", value)
-
-  def subFrame(self):
-    return self.get("SubFrame")
-
-  def setSubFrame(self, value):
-    return self.set("SubFrame", value)
-
-  def page(self):
-    return self.get("Page")
-
-  def setPage(self, value):
-    return self.set("Page", value)
-
-  def word(self):
-    return self.get("Word")
-
-  def setWord(self, value):
-    return self.set("Word", value)
-
-  def updateParity(self):
-    return self.get("UpdateParity")
-
-  def setUpdateParity(self, value):
-    return self.set("UpdateParity", value)
-
-  def modification(self):
-    return self.get("Modification")
-
-  def setModification(self, value):
-    return self.set("Modification", value)
-
-  def id(self):
-    return self.get("Id")
-
-  def setId(self, value):
-    return self.set("Id", value)
-
-#
-# Please note the command RemoveModificationToBeiDouD2NavigationMessage is deprecated since 21.3. You may use RemoveMessageModificationForNavMsgFamily.
-# 
-# Removes an event added with SetModificationToBeiDouNavigationMessage. When adding an event, the simulator
-# sets the Id parameter. Use that Id here to remove the associated event.
-#
-# Name Type   Description
-# ---- ------ -----------------------------------------
-# Id   string Unique identifier of the event to remove.
-#
-
-class RemoveModificationToBeiDouD2NavigationMessage(CommandBase):
-
-  def __init__(self, id):
-    CommandBase.__init__(self, "RemoveModificationToBeiDouD2NavigationMessage")
-    self.setId(id)
-
-  def executePermission(self):
-    return ExecutePermission.EXECUTE_IF_IDLE
-
-  def id(self):
-    return self.get("Id")
-
-  def setId(self, value):
-    return self.set("Id", value)
-
-#
-# Please note the command ClearAllModificationsToBeiDouD2NavigationMessage is deprecated since 21.3. You may use ClearAllMessageModificationsForNavMsgFamily.
-# 
-# Clear all events to change BeiDou navigation message bits
-#
-#
-
-class ClearAllModificationsToBeiDouD2NavigationMessage(CommandBase):
-
-  def __init__(self):
-    CommandBase.__init__(self, "ClearAllModificationsToBeiDouD2NavigationMessage")
-
-  def executePermission(self):
-    return ExecutePermission.EXECUTE_IF_IDLE
-
-#
-# Please note the command GetBeiDouD2NavigationMessages is deprecated since 21.3. You may use GetAllMessageModificationIdsForNavMsgFamily.
-# 
-# Get all events' IDs whose will modify the BeiDou D2 Navigation Messages for this PRN
-#
-# Name Type Description
-# ---- ---- --------------------------
-# Prn  int  Satellite PRN number 1..24
-#
-
-class GetBeiDouD2NavigationMessages(CommandBase):
-
-  def __init__(self, prn):
-    CommandBase.__init__(self, "GetBeiDouD2NavigationMessages")
-    self.setPrn(prn)
-
-  def executePermission(self):
-    return ExecutePermission.EXECUTE_IF_IDLE
-
-  def prn(self):
-    return self.get("Prn")
-
-  def setPrn(self, value):
-    return self.set("Prn", value)
-
-#
-# Result of GetBeiDouD2NavigationMessages
-#
-# Name Type         Description
-# ---- ------------ -------------------------------------------
-# Ids  array string List of ids event whose will affect the PRN
-#
-
-class GetBeiDouD2NavigationMessagesResult(CommandResult):
-
-  def __init__(self, ids):
-    CommandResult.__init__(self, "GetBeiDouD2NavigationMessagesResult")
-    self.setIds(ids)
-
-  def isSuccess(self):
-    return True
-
-  def ids(self):
-    return self.get("Ids")
-
-  def setIds(self, value):
-    return self.set("Ids", value)
-
-#
-# Please note the command SetModificationToBeiDouCNav1Message is deprecated since 21.3. You may use SetMessageModificationToBeiDouCNav1.
-# 
-# Set (or Modify) event to change CNAV1 message bits. If you send this command without setting the Id
-# parameter, or if you set the Id with a value never used before, a new Modification event will be
-# created. If you reuse the same event Id, it will modify the existing event.
-# 
-# Note that start and stop time are automatically extended to beginning and ending of overlapped
-# messages.
-# 
-# The Condition parameter is optional and allows you to add content matching condition before applying
-# bits mods.
-# 
-# BitsMods can be an empty string. The Modification will have no effect until you modify it with at
-# least one bits mod.
-# 
-# A bits mod is represented with a string using the following format: "I:Bits" where I is a bit
-# index (1 refers to the first transmitted bit) and Bits is a modification mask where each
-# character describes a modification to a single bit. The allowed characters are:
-#    0 : force bit to 0
-#    1 : force bit to 1
-#    - : leave bit unchanged
-#    X : revert bit (0 becomes 1 and 1 becomes 0)
-# 
-# For example: "24:X---10XX" will: revert bits 24, 30 and 31
-#                  set bit 28 to 1
-#                  set bit 29 to 0
-# The other bits are not affected.
-# 
-# You can add multiple bits mods using commas. For example: "24:X---10XX,127:100X,231:01"
-#
-# Name      Type   Description
-# --------- ------ --------------------------------------------------------------------
-# Prn       int    Satellite PRN number 1..24
-# StartTime int    Elapsed time in seconds since start of simulation
-# StopTime  int    Elapsed time in seconds since start of simulation
-# PageId    int    CNAV1 page ID
-# Condition string Optional condition to match message content, ex: "EQUAL(45,10,0x3F)"
-# UpdateCRC bool   Recalculate CRC after making modification
-# BitsMods  string Comma separated bits mods
-# Id        string Unique identifier of the event
-#
-
-class SetModificationToBeiDouCNav1Message(CommandBase):
-
-  def __init__(self, prn, startTime, stopTime, pageId, condition, updateCRC, bitsMods, id):
-    CommandBase.__init__(self, "SetModificationToBeiDouCNav1Message")
-    self.setPrn(prn)
-    self.setStartTime(startTime)
-    self.setStopTime(stopTime)
-    self.setPageId(pageId)
-    self.setCondition(condition)
-    self.setUpdateCRC(updateCRC)
-    self.setBitsMods(bitsMods)
-    self.setId(id)
-
-  def executePermission(self):
-    return ExecutePermission.EXECUTE_IF_SIMULATING | ExecutePermission.EXECUTE_IF_IDLE
-
-  def prn(self):
-    return self.get("Prn")
-
-  def setPrn(self, value):
-    return self.set("Prn", value)
-
-  def startTime(self):
-    return self.get("StartTime")
-
-  def setStartTime(self, value):
-    return self.set("StartTime", value)
-
-  def stopTime(self):
-    return self.get("StopTime")
-
-  def setStopTime(self, value):
-    return self.set("StopTime", value)
-
-  def pageId(self):
-    return self.get("PageId")
-
-  def setPageId(self, value):
-    return self.set("PageId", value)
-
-  def condition(self):
-    return self.get("Condition")
-
-  def setCondition(self, value):
-    return self.set("Condition", value)
-
-  def updateCRC(self):
-    return self.get("UpdateCRC")
-
-  def setUpdateCRC(self, value):
-    return self.set("UpdateCRC", value)
-
-  def bitsMods(self):
-    return self.get("BitsMods")
-
-  def setBitsMods(self, value):
-    return self.set("BitsMods", value)
-
-  def id(self):
-    return self.get("Id")
-
-  def setId(self, value):
-    return self.set("Id", value)
-
-#
-# Please note the command GetBeiDouCNav1Message is deprecated since 21.3. You may use GetMessageModificationToBeiDouCNav1.
-# 
-# Get infos about the CNAV1 Message with this id
-#
-# Name Type   Description
-# ---- ------ ------------------------------
-# Id   string Unique identifier of the event
-#
-
-class GetBeiDouCNav1Message(CommandBase):
-
-  def __init__(self, id):
-    CommandBase.__init__(self, "GetBeiDouCNav1Message")
-    self.setId(id)
-
-  def executePermission(self):
-    return ExecutePermission.EXECUTE_IF_IDLE
-
-  def id(self):
-    return self.get("Id")
-
-  def setId(self, value):
-    return self.set("Id", value)
-
-#
-# Result of GetBeiDouCNav1Message.
-#
-# Name      Type   Description
-# --------- ------ --------------------------------------------------------------------
-# Prn       int    Satellite PRN number 1..24
-# StartTime int    Elapsed time in seconds since start of simulation
-# StopTime  int    Elapsed time in seconds since start of simulation
-# PageId    int    CNAV1 page ID
-# Condition string Optional condition to match message content, ex: "EQUAL(45,10,0x3F)"
-# UpdateCRC bool   Recalculate CRC after making modification
-# BitsMods  string Comma separated bits mods
-# Id        string Unique identifier of the event
-#
-
-class GetBeiDouCNav1MessageResult(CommandResult):
-
-  def __init__(self, prn, startTime, stopTime, pageId, condition, updateCRC, bitsMods, id):
-    CommandResult.__init__(self, "GetBeiDouCNav1MessageResult")
-    self.setPrn(prn)
-    self.setStartTime(startTime)
-    self.setStopTime(stopTime)
-    self.setPageId(pageId)
-    self.setCondition(condition)
-    self.setUpdateCRC(updateCRC)
-    self.setBitsMods(bitsMods)
-    self.setId(id)
-
-  def isSuccess(self):
-    return True
-
-  def prn(self):
-    return self.get("Prn")
-
-  def setPrn(self, value):
-    return self.set("Prn", value)
-
-  def startTime(self):
-    return self.get("StartTime")
-
-  def setStartTime(self, value):
-    return self.set("StartTime", value)
-
-  def stopTime(self):
-    return self.get("StopTime")
-
-  def setStopTime(self, value):
-    return self.set("StopTime", value)
-
-  def pageId(self):
-    return self.get("PageId")
-
-  def setPageId(self, value):
-    return self.set("PageId", value)
-
-  def condition(self):
-    return self.get("Condition")
-
-  def setCondition(self, value):
-    return self.set("Condition", value)
-
-  def updateCRC(self):
-    return self.get("UpdateCRC")
-
-  def setUpdateCRC(self, value):
-    return self.set("UpdateCRC", value)
-
-  def bitsMods(self):
-    return self.get("BitsMods")
-
-  def setBitsMods(self, value):
-    return self.set("BitsMods", value)
-
-  def id(self):
-    return self.get("Id")
-
-  def setId(self, value):
-    return self.set("Id", value)
-
-#
-# Please note the command RemoveModificationToBeiDouCNav1Message is deprecated since 21.3. You may use RemoveMessageModificationForNavMsgFamily.
-# 
-# Removes a modification.
-#
-# Name Type   Description
-# ---- ------ -----------------------------------------------------------
-# Id   string Unique identifier (see SetModificationToBeiDouCNav1Message)
-#
-
-class RemoveModificationToBeiDouCNav1Message(CommandBase):
-
-  def __init__(self, id):
-    CommandBase.__init__(self, "RemoveModificationToBeiDouCNav1Message")
-    self.setId(id)
-
-  def executePermission(self):
-    return ExecutePermission.EXECUTE_IF_IDLE
-
-  def id(self):
-    return self.get("Id")
-
-  def setId(self, value):
-    return self.set("Id", value)
-
-#
-# Please note the command ClearAllModificationsToBeiDouCNav1Message is deprecated since 21.3. You may use ClearAllMessageModificationsForNavMsgFamily.
-# 
-# Clear all events to change BeiDou navigation message bits
-#
-#
-
-class ClearAllModificationsToBeiDouCNav1Message(CommandBase):
-
-  def __init__(self):
-    CommandBase.__init__(self, "ClearAllModificationsToBeiDouCNav1Message")
-
-  def executePermission(self):
-    return ExecutePermission.EXECUTE_IF_IDLE
-
-#
-# Please note the command GetBeiDouCNav1Messages is deprecated since 21.3. You may use GetAllMessageModificationIdsForNavMsgFamily.
-# 
-# Get all events' IDs whose will modify the BeiDou CNav1 Message for this PRN
-#
-# Name Type Description
-# ---- ---- --------------------------
-# Prn  int  Satellite PRN number 1..24
-#
-
-class GetBeiDouCNav1Messages(CommandBase):
-
-  def __init__(self, prn):
-    CommandBase.__init__(self, "GetBeiDouCNav1Messages")
-    self.setPrn(prn)
-
-  def executePermission(self):
-    return ExecutePermission.EXECUTE_IF_IDLE
-
-  def prn(self):
-    return self.get("Prn")
-
-  def setPrn(self, value):
-    return self.set("Prn", value)
-
-#
-# Result of GetBeiDouCNav1Messages
-#
-# Name Type         Description
-# ---- ------------ -------------------------------------------------
-# Ids  array string List of IDs of BeiDou CNAV1 Messages for this PRN
-#
-
-class GetBeiDouCNav1MessagesResult(CommandResult):
-
-  def __init__(self, ids):
-    CommandResult.__init__(self, "GetBeiDouCNav1MessagesResult")
-    self.setIds(ids)
-
-  def isSuccess(self):
-    return True
-
-  def ids(self):
-    return self.get("Ids")
-
-  def setIds(self, value):
-    return self.set("Ids", value)
-
-#
-# Please note the command SetModificationToBeiDouCNav2Message is deprecated since 21.3. You may use SetMessageModificationToBeiDouCNav2.
-# 
-# Set (or Modify) event to change CNAV2 message bits. If you send this command without setting the Id
-# parameter, or if you set the Id with a value never used before, a new Modification event will be
-# created. If you reuse the same event Id, it will modify the existing event.
-# 
-# Note that start and stop time are automatically extended to beginning and ending of overlapped
-# messages.
-# 
-# The Condition parameter is optional and allows you to add content matching condition before applying
-# bits mods.
-# 
-# BitsMods can be an empty string. The Modification will have no effect until you modify it with at
-# least one bits mod.
-# 
-# A bits mod is represented with a string using the following format: "I:Bits" where I is a bit
-# index (1 refers to the first transmitted bit) and Bits is a modification mask where each
-# character describes a modification to a single bit. The allowed characters are:
-#    0 : force bit to 0
-#    1 : force bit to 1
-#    - : leave bit unchanged
-#    X : revert bit (0 becomes 1 and 1 becomes 0)
-# 
-# For example: "24:X---10XX" will: revert bits 24, 30 and 31
-#                  set bit 28 to 1
-#                  set bit 29 to 0
-# The other bits are not affected.
-# 
-# You can add multiple bits mods using commas. For example: "24:X---10XX,127:100X,231:01"
-#
-# Name        Type   Description
-# ----------- ------ --------------------------------------------------------------------
-# Prn         int    Satellite PRN number 1..30
-# StartTime   int    Elapsed time in seconds since start of simulation
-# StopTime    int    Elapsed time in seconds since start of simulation
-# MessageType int    CNAV2 Message Type
-# Condition   string Optional condition to match message content, ex: "EQUAL(45,10,0x3F)"
-# UpdateCRC   bool   Recalculate CRC after making modification
-# BitsMods    string Comma separated bits mods
-# Id          string Unique identifier of the event
-#
-
-class SetModificationToBeiDouCNav2Message(CommandBase):
-
-  def __init__(self, prn, startTime, stopTime, messageType, condition, updateCRC, bitsMods, id):
-    CommandBase.__init__(self, "SetModificationToBeiDouCNav2Message")
-    self.setPrn(prn)
-    self.setStartTime(startTime)
-    self.setStopTime(stopTime)
-    self.setMessageType(messageType)
-    self.setCondition(condition)
-    self.setUpdateCRC(updateCRC)
-    self.setBitsMods(bitsMods)
-    self.setId(id)
-
-  def executePermission(self):
-    return ExecutePermission.EXECUTE_IF_SIMULATING | ExecutePermission.EXECUTE_IF_IDLE
-
-  def prn(self):
-    return self.get("Prn")
-
-  def setPrn(self, value):
-    return self.set("Prn", value)
-
-  def startTime(self):
-    return self.get("StartTime")
-
-  def setStartTime(self, value):
-    return self.set("StartTime", value)
-
-  def stopTime(self):
-    return self.get("StopTime")
-
-  def setStopTime(self, value):
-    return self.set("StopTime", value)
-
-  def messageType(self):
-    return self.get("MessageType")
-
-  def setMessageType(self, value):
-    return self.set("MessageType", value)
-
-  def condition(self):
-    return self.get("Condition")
-
-  def setCondition(self, value):
-    return self.set("Condition", value)
-
-  def updateCRC(self):
-    return self.get("UpdateCRC")
-
-  def setUpdateCRC(self, value):
-    return self.set("UpdateCRC", value)
-
-  def bitsMods(self):
-    return self.get("BitsMods")
-
-  def setBitsMods(self, value):
-    return self.set("BitsMods", value)
-
-  def id(self):
-    return self.get("Id")
-
-  def setId(self, value):
-    return self.set("Id", value)
-
-#
-# Please note the command GetBeiDouCNav2Message is deprecated since 21.3. You may use GetMessageModificationToBeiDouCNav2.
-# 
-# Get infos about the modifications of CNAV2 Message with this id
-#
-# Name Type   Description
-# ---- ------ ------------------------------
-# Id   string Unique identifier of the event
-#
-
-class GetBeiDouCNav2Message(CommandBase):
-
-  def __init__(self, id):
-    CommandBase.__init__(self, "GetBeiDouCNav2Message")
-    self.setId(id)
-
-  def executePermission(self):
-    return ExecutePermission.EXECUTE_IF_IDLE
-
-  def id(self):
-    return self.get("Id")
-
-  def setId(self, value):
-    return self.set("Id", value)
-
-#
-# Result of GetBeiDouCNav2Message.
-#
-# Name        Type   Description
-# ----------- ------ --------------------------------------------------------------------
-# Prn         int    Satellite PRN number 1..30
-# StartTime   int    Elapsed time in seconds since start of simulation
-# StopTime    int    Elapsed time in seconds since start of simulation
-# MessageType int    CNAV2 Message Type
-# Condition   string Optional condition to match message content, ex: "EQUAL(45,10,0x3F)"
-# UpdateCRC   bool   Recalculate CRC after making modification
-# BitsMods    string Comma separated bits mods
-# Id          string Unique identifier of the event
-#
-
-class GetBeiDouCNav2MessageResult(CommandResult):
-
-  def __init__(self, prn, startTime, stopTime, messageType, condition, updateCRC, bitsMods, id):
-    CommandResult.__init__(self, "GetBeiDouCNav2MessageResult")
-    self.setPrn(prn)
-    self.setStartTime(startTime)
-    self.setStopTime(stopTime)
-    self.setMessageType(messageType)
-    self.setCondition(condition)
-    self.setUpdateCRC(updateCRC)
-    self.setBitsMods(bitsMods)
-    self.setId(id)
-
-  def isSuccess(self):
-    return True
-
-  def prn(self):
-    return self.get("Prn")
-
-  def setPrn(self, value):
-    return self.set("Prn", value)
-
-  def startTime(self):
-    return self.get("StartTime")
-
-  def setStartTime(self, value):
-    return self.set("StartTime", value)
-
-  def stopTime(self):
-    return self.get("StopTime")
-
-  def setStopTime(self, value):
-    return self.set("StopTime", value)
-
-  def messageType(self):
-    return self.get("MessageType")
-
-  def setMessageType(self, value):
-    return self.set("MessageType", value)
-
-  def condition(self):
-    return self.get("Condition")
-
-  def setCondition(self, value):
-    return self.set("Condition", value)
-
-  def updateCRC(self):
-    return self.get("UpdateCRC")
-
-  def setUpdateCRC(self, value):
-    return self.set("UpdateCRC", value)
-
-  def bitsMods(self):
-    return self.get("BitsMods")
-
-  def setBitsMods(self, value):
-    return self.set("BitsMods", value)
-
-  def id(self):
-    return self.get("Id")
-
-  def setId(self, value):
-    return self.set("Id", value)
-
-#
-# Please note the command RemoveModificationToBeiDouCNav2Message is deprecated since 21.3. You may use RemoveMessageModificationForNavMsgFamily.
-# 
-# Removes a BeiDou CNAV2 modification.
-#
-# Name Type   Description
-# ---- ------ -----------------------------------------------------------
-# Id   string Unique identifier (see SetModificationToBeiDouCNav2Message)
-#
-
-class RemoveModificationToBeiDouCNav2Message(CommandBase):
-
-  def __init__(self, id):
-    CommandBase.__init__(self, "RemoveModificationToBeiDouCNav2Message")
-    self.setId(id)
-
-  def executePermission(self):
-    return ExecutePermission.EXECUTE_IF_IDLE
-
-  def id(self):
-    return self.get("Id")
-
-  def setId(self, value):
-    return self.set("Id", value)
-
-#
-# Please note the command ClearAllModificationsToBeiDouCNav2Message is deprecated since 21.3. You may use ClearAllMessageModificationsForNavMsgFamily.
-# 
-# Clear all events to change BeiDou CNAV2 navigation message bits
-#
-#
-
-class ClearAllModificationsToBeiDouCNav2Message(CommandBase):
-
-  def __init__(self):
-    CommandBase.__init__(self, "ClearAllModificationsToBeiDouCNav2Message")
-
-  def executePermission(self):
-    return ExecutePermission.EXECUTE_IF_IDLE
-
-#
-# Please note the command GetBeiDouCNav2Messages is deprecated since 21.3. You may use GetAllMessageModificationIdsForNavMsgFamily.
-# 
-# Get all events' IDs whose will modify the BeiDou CNAV2 Message for this PRN
-#
-# Name Type Description
-# ---- ---- --------------------------
-# Prn  int  Satellite PRN number 1..30
-#
-
-class GetBeiDouCNav2Messages(CommandBase):
-
-  def __init__(self, prn):
-    CommandBase.__init__(self, "GetBeiDouCNav2Messages")
-    self.setPrn(prn)
-
-  def executePermission(self):
-    return ExecutePermission.EXECUTE_IF_IDLE
-
-  def prn(self):
-    return self.get("Prn")
-
-  def setPrn(self, value):
-    return self.set("Prn", value)
-
-#
-# Result of GetBeiDouCNav2Messages
-#
-# Name Type         Description
-# ---- ------------ ---------------------------------------------------------------
-# Ids  array string List of IDs of BeiDou CNAV2 Messages modifications for this PRN
-#
-
-class GetBeiDouCNav2MessagesResult(CommandResult):
-
-  def __init__(self, ids):
-    CommandResult.__init__(self, "GetBeiDouCNav2MessagesResult")
-    self.setIds(ids)
-
-  def isSuccess(self):
-    return True
-
-  def ids(self):
-    return self.get("Ids")
-
-  def setIds(self, value):
-    return self.set("Ids", value)
-
-#
-# Please note the command SetModificationToQzssLNAVNavigationMessage is deprecated since 21.3. You may use SetMessageModificationToQzssLNav.
-# 
-# Set (or Modify) event to change navigation message bits.
-# 
-# Note that start and stop time are automatically extended to beginning and ending of overlapped
-# subframes. The Modification parameter is a string where the first character applies to the first
-# bit of subframe word and last character applies to last bit of subframe word.
-#    '0' will force bit to zero
-#    '1' will for bit to one
-#    'X' will negate bit value
-#    any other byte value will have no effect
-# 
-# Example: "-00------------------1-X------" will force bits 1 and 2 to zero and bit 22 to one
-#                       and negate bit 24
-# 
-# Note: if UpdateParity is true, any modification to bits 25..30 will have no effect.
-# 
-# The Id parameter is automatically updated with a unique id by the simulator for future reference.
-# If the ID is set with a value other than an empty string, the simulator will try to find a match
-# with previously added events. If there is a match, the event is updated with this message
-# instead of adding a new event. If there is no match, the event is added and the ID is not
-# changed.
-#
-# Name            Type   Description
-# --------------- ------ -------------------------------------------------------------------------
-# SvId            int    Satellite SV ID 1..10
-# StartTime       int    Elapsed time in seconds since start of simulation
-# StopTime        int    Elapsed time in seconds since start of simulation
-# SubFrame        int    Subframe 1..5 (use 0 to apply modification to all subframes
-# TransmittedSvId int    LNAV SV ID in subframe 4 and 5 (use 0 to apply modification to all SV ID)
-# Word            int    Word 1..10 (use 0 to apply modification to all words)
-# UpdateParity    bool   Recalculate parity after making modification
-# Modification    string Modification string must be 30 bytes long
-# Id              string Unique identifier of the event
-#
-
-class SetModificationToQzssLNAVNavigationMessage(CommandBase):
-
-  def __init__(self, svId, startTime, stopTime, subFrame, transmittedSvId, word, updateParity, modification, id):
-    CommandBase.__init__(self, "SetModificationToQzssLNAVNavigationMessage")
-    self.setSvId(svId)
-    self.setStartTime(startTime)
-    self.setStopTime(stopTime)
-    self.setSubFrame(subFrame)
-    self.setTransmittedSvId(transmittedSvId)
-    self.setWord(word)
-    self.setUpdateParity(updateParity)
-    self.setModification(modification)
-    self.setId(id)
-
-  def executePermission(self):
-    return ExecutePermission.EXECUTE_IF_SIMULATING | ExecutePermission.EXECUTE_IF_IDLE
-
-  def svId(self):
-    return self.get("SvId")
-
-  def setSvId(self, value):
-    return self.set("SvId", value)
-
-  def startTime(self):
-    return self.get("StartTime")
-
-  def setStartTime(self, value):
-    return self.set("StartTime", value)
-
-  def stopTime(self):
-    return self.get("StopTime")
-
-  def setStopTime(self, value):
-    return self.set("StopTime", value)
-
-  def subFrame(self):
-    return self.get("SubFrame")
-
-  def setSubFrame(self, value):
-    return self.set("SubFrame", value)
-
-  def transmittedSvId(self):
-    return self.get("TransmittedSvId")
-
-  def setTransmittedSvId(self, value):
-    return self.set("TransmittedSvId", value)
-
-  def word(self):
-    return self.get("Word")
-
-  def setWord(self, value):
-    return self.set("Word", value)
-
-  def updateParity(self):
-    return self.get("UpdateParity")
-
-  def setUpdateParity(self, value):
-    return self.set("UpdateParity", value)
-
-  def modification(self):
-    return self.get("Modification")
-
-  def setModification(self, value):
-    return self.set("Modification", value)
-
-  def id(self):
-    return self.get("Id")
-
-  def setId(self, value):
-    return self.set("Id", value)
-
-#
-# Please note the command GetQzssLNAVNavigationMessage is deprecated since 21.3. You may use GetMessageModificationToQzssLNav.
-# 
-# Get infos about this modification QZSS navigation message event.
-#
-# Name Type   Description
-# ---- ------ ------------------------------
-# Id   string Unique identifier of the event
-#
-
-class GetQzssLNAVNavigationMessage(CommandBase):
-
-  def __init__(self, id):
-    CommandBase.__init__(self, "GetQzssLNAVNavigationMessage")
-    self.setId(id)
-
-  def executePermission(self):
-    return ExecutePermission.EXECUTE_IF_IDLE
-
-  def id(self):
-    return self.get("Id")
-
-  def setId(self, value):
-    return self.set("Id", value)
-
-#
-# Result of GetQzssLNAVNavigationMessage.
-#
-# Name            Type   Description
-# --------------- ------ -------------------------------------------------------------------------
-# SvId            int    Satellite SV ID 1..10
-# StartTime       int    Elapsed time in seconds since start of simulation
-# StopTime        int    Elapsed time in seconds since start of simulation
-# SubFrame        int    Subframe 1..5 (use 0 to apply modification to all subframes
-# TransmittedSvId int    LNAV SV ID in subframe 4 and 5 (use 0 to apply modification to all SV ID)
-# Word            int    Word 1..10 (use 0 to apply modification to all words)
-# UpdateParity    bool   Recalculate parity after making modification
-# Modification    string Modification string must be 30 bytes long
-# Id              string Unique identifier of the event
-#
-
-class GetQzssLNAVNavigationMessageResult(CommandResult):
-
-  def __init__(self, svId, startTime, stopTime, subFrame, transmittedSvId, word, updateParity, modification, id):
-    CommandResult.__init__(self, "GetQzssLNAVNavigationMessageResult")
-    self.setSvId(svId)
-    self.setStartTime(startTime)
-    self.setStopTime(stopTime)
-    self.setSubFrame(subFrame)
-    self.setTransmittedSvId(transmittedSvId)
-    self.setWord(word)
-    self.setUpdateParity(updateParity)
-    self.setModification(modification)
-    self.setId(id)
-
-  def isSuccess(self):
-    return True
-
-  def svId(self):
-    return self.get("SvId")
-
-  def setSvId(self, value):
-    return self.set("SvId", value)
-
-  def startTime(self):
-    return self.get("StartTime")
-
-  def setStartTime(self, value):
-    return self.set("StartTime", value)
-
-  def stopTime(self):
-    return self.get("StopTime")
-
-  def setStopTime(self, value):
-    return self.set("StopTime", value)
-
-  def subFrame(self):
-    return self.get("SubFrame")
-
-  def setSubFrame(self, value):
-    return self.set("SubFrame", value)
-
-  def transmittedSvId(self):
-    return self.get("TransmittedSvId")
-
-  def setTransmittedSvId(self, value):
-    return self.set("TransmittedSvId", value)
-
-  def word(self):
-    return self.get("Word")
-
-  def setWord(self, value):
-    return self.set("Word", value)
-
-  def updateParity(self):
-    return self.get("UpdateParity")
-
-  def setUpdateParity(self, value):
-    return self.set("UpdateParity", value)
-
-  def modification(self):
-    return self.get("Modification")
-
-  def setModification(self, value):
-    return self.set("Modification", value)
-
-  def id(self):
-    return self.get("Id")
-
-  def setId(self, value):
-    return self.set("Id", value)
-
-#
-# Please note the command RemoveModificationToQzssLNAVNavigationMessage is deprecated since 21.3. You may use RemoveMessageModificationForNavMsgFamily.
-# 
-# Removes an event added with SetModificationToQzssLNAVNavigationMessage. When adding an event, the simulator
-# sets the Id parameter. Use that Id here to remove the associated event.
-#
-# Name Type   Description
-# ---- ------ -----------------------------------------
-# Id   string Unique identifier of the event to remove.
-#
-
-class RemoveModificationToQzssLNAVNavigationMessage(CommandBase):
-
-  def __init__(self, id):
-    CommandBase.__init__(self, "RemoveModificationToQzssLNAVNavigationMessage")
-    self.setId(id)
-
-  def executePermission(self):
-    return ExecutePermission.EXECUTE_IF_IDLE
-
-  def id(self):
-    return self.get("Id")
-
-  def setId(self, value):
-    return self.set("Id", value)
-
-#
-# Please note the command ClearAllModificationsToQzssLNAVNavigationMessage is deprecated since 21.3. You may use ClearAllMessageModificationsForNavMsgFamily.
-# 
-# Clear all events to change QZSS navigation message bits
-#
-#
-
-class ClearAllModificationsToQzssLNAVNavigationMessage(CommandBase):
-
-  def __init__(self):
-    CommandBase.__init__(self, "ClearAllModificationsToQzssLNAVNavigationMessage")
-
-  def executePermission(self):
-    return ExecutePermission.EXECUTE_IF_IDLE
-
-#
-# Please note the command GetQzssLNAVNavigationMessages is deprecated since 21.3. You may use GetAllMessageModificationIdsForNavMsgFamily.
-# 
-# Get all events' IDs whose will modify the QZSS Navigation Message for this SV ID
-#
-# Name Type Description
-# ---- ---- ---------------------
-# SvId int  Satellite SV ID 1..10
-#
-
-class GetQzssLNAVNavigationMessages(CommandBase):
-
-  def __init__(self, svId):
-    CommandBase.__init__(self, "GetQzssLNAVNavigationMessages")
-    self.setSvId(svId)
-
-  def executePermission(self):
-    return ExecutePermission.EXECUTE_IF_IDLE
-
-  def svId(self):
-    return self.get("SvId")
-
-  def setSvId(self, value):
-    return self.set("SvId", value)
-
-#
-# Result of GetQzssLNAVNavigationMessages
-#
-# Name Type         Description
-# ---- ------------ ---------------------------------------------
-# Ids  array string List of ids event whose will affect the SV ID
-#
-
-class GetQzssLNAVNavigationMessagesResult(CommandResult):
-
-  def __init__(self, ids):
-    CommandResult.__init__(self, "GetQzssLNAVNavigationMessagesResult")
-    self.setIds(ids)
-
-  def isSuccess(self):
-    return True
-
-  def ids(self):
-    return self.get("Ids")
-
-  def setIds(self, value):
-    return self.set("Ids", value)
-
-#
-# Please note the command SetModificationToQzssL1SMessage is deprecated since 21.3. You may use SetMessageModificationToQzssSlas.
-# 
-# Set (or Modify) event to change L1S message bits. If you send this command without setting the Id
-# parameter, or if you set the Id with a value never used before, a new Modification event will be
-# created. If you reuse the same event Id, it will modify the existing event.
-# 
-# Note that start and stop time are automatically extended to beginning and ending of overlapped
-# messages.
-# 
-# The Condition parameter is optional and allows you to add content matching condition before applying
-# bits mods.
-# 
-# BitsMods can be an empty string. The Modification will have no effect until you modify it with at
-# least one bits mod.
-# 
-# A bits mod is represented with a string using the following format: "I:Bits" where I is a bit
-# index (1 refers to the first transmitted bit) and Bits is a modification mask where each
-# character describes a modification to a single bit. The allowed characters are:
-#    0 : force bit to 0
-#    1 : force bit to 1
-#    - : leave bit unchanged
-#    X : revert bit (0 becomes 1 and 1 becomes 0)
-# 
-# For example: "24:X---10XX" will: revert bits 24, 30 and 31
-#                  set bit 28 to 1
-#                  set bit 29 to 0
-# The other bits are not affected.
-# 
-# You can add multiple bits mods using commas. For example: "24:X---10XX,127:100X,231:01"
-#
-# Name        Type   Description
-# ----------- ------ --------------------------------------------------------------------
-# SvId        int    Satellite SV ID 1..10
-# StartTime   int    Elapsed time in seconds since start of simulation
-# StopTime    int    Elapsed time in seconds since start of simulation
-# MessageType int    L1S Message type ID
-# Condition   string Optional condition to match message content, ex: "EQUAL(45,10,0x3F)"
-# UpdateCRC   bool   Recalculate CRC after making modification
-# BitsMods    string Comma separated bits mods
-# Id          string Unique identifier of the event
-#
-
-class SetModificationToQzssL1SMessage(CommandBase):
-
-  def __init__(self, svId, startTime, stopTime, messageType, condition, updateCRC, bitsMods, id):
-    CommandBase.__init__(self, "SetModificationToQzssL1SMessage")
-    self.setSvId(svId)
-    self.setStartTime(startTime)
-    self.setStopTime(stopTime)
-    self.setMessageType(messageType)
-    self.setCondition(condition)
-    self.setUpdateCRC(updateCRC)
-    self.setBitsMods(bitsMods)
-    self.setId(id)
-
-  def executePermission(self):
-    return ExecutePermission.EXECUTE_IF_SIMULATING | ExecutePermission.EXECUTE_IF_IDLE
-
-  def svId(self):
-    return self.get("SvId")
-
-  def setSvId(self, value):
-    return self.set("SvId", value)
-
-  def startTime(self):
-    return self.get("StartTime")
-
-  def setStartTime(self, value):
-    return self.set("StartTime", value)
-
-  def stopTime(self):
-    return self.get("StopTime")
-
-  def setStopTime(self, value):
-    return self.set("StopTime", value)
-
-  def messageType(self):
-    return self.get("MessageType")
-
-  def setMessageType(self, value):
-    return self.set("MessageType", value)
-
-  def condition(self):
-    return self.get("Condition")
-
-  def setCondition(self, value):
-    return self.set("Condition", value)
-
-  def updateCRC(self):
-    return self.get("UpdateCRC")
-
-  def setUpdateCRC(self, value):
-    return self.set("UpdateCRC", value)
-
-  def bitsMods(self):
-    return self.get("BitsMods")
-
-  def setBitsMods(self, value):
-    return self.set("BitsMods", value)
-
-  def id(self):
-    return self.get("Id")
-
-  def setId(self, value):
-    return self.set("Id", value)
-
-#
-# Please note the command GetQzssL1SMessage is deprecated since 21.3. You may use GetMessageModificationToQzssSlas.
-# 
-# Get infos about the L1S Message with this id
-#
-# Name Type   Description
-# ---- ------ ------------------------------
-# Id   string Unique identifier of the event
-#
-
-class GetQzssL1SMessage(CommandBase):
-
-  def __init__(self, id):
-    CommandBase.__init__(self, "GetQzssL1SMessage")
-    self.setId(id)
-
-  def executePermission(self):
-    return ExecutePermission.EXECUTE_IF_IDLE
-
-  def id(self):
-    return self.get("Id")
-
-  def setId(self, value):
-    return self.set("Id", value)
-
-#
-# Result of GetQzssL1SMessage.
-#
-# Name        Type   Description
-# ----------- ------ --------------------------------------------------------------------
-# SvId        int    Satellite SV ID 1..10
-# StartTime   int    Elapsed time in seconds since start of simulation
-# StopTime    int    Elapsed time in seconds since start of simulation
-# MessageType int    L1S Message type ID
-# Condition   string Optional condition to match message content, ex: "EQUAL(45,10,0x3F)"
-# UpdateCRC   bool   Recalculate CRC after making modification
-# BitsMods    string Comma separated bits mods
-# Id          string Unique identifier of the event
-#
-
-class GetQzssL1SMessageResult(CommandResult):
-
-  def __init__(self, svId, startTime, stopTime, messageType, condition, updateCRC, bitsMods, id):
-    CommandResult.__init__(self, "GetQzssL1SMessageResult")
-    self.setSvId(svId)
-    self.setStartTime(startTime)
-    self.setStopTime(stopTime)
-    self.setMessageType(messageType)
-    self.setCondition(condition)
-    self.setUpdateCRC(updateCRC)
-    self.setBitsMods(bitsMods)
-    self.setId(id)
-
-  def isSuccess(self):
-    return True
-
-  def svId(self):
-    return self.get("SvId")
-
-  def setSvId(self, value):
-    return self.set("SvId", value)
-
-  def startTime(self):
-    return self.get("StartTime")
-
-  def setStartTime(self, value):
-    return self.set("StartTime", value)
-
-  def stopTime(self):
-    return self.get("StopTime")
-
-  def setStopTime(self, value):
-    return self.set("StopTime", value)
-
-  def messageType(self):
-    return self.get("MessageType")
-
-  def setMessageType(self, value):
-    return self.set("MessageType", value)
-
-  def condition(self):
-    return self.get("Condition")
-
-  def setCondition(self, value):
-    return self.set("Condition", value)
-
-  def updateCRC(self):
-    return self.get("UpdateCRC")
-
-  def setUpdateCRC(self, value):
-    return self.set("UpdateCRC", value)
-
-  def bitsMods(self):
-    return self.get("BitsMods")
-
-  def setBitsMods(self, value):
-    return self.set("BitsMods", value)
-
-  def id(self):
-    return self.get("Id")
-
-  def setId(self, value):
-    return self.set("Id", value)
-
-#
-# Please note the command SetModificationToNavICL5Message is deprecated since 21.3. You may use SetMessageModificationToNavICNav.
-# 
-# Set (or Modify) event to change NavIC L5 message bits. If you send this command without setting the Id
-# parameter, or if you set the Id with a value never used before, a new Modification event will be
-# created. If you reuse the same event Id, it will modify the existing event.
-# 
-# Note that start and stop time are automatically extended to beginning and ending of overlapped
-# messages.
-# 
-# The Condition parameter is optional and allows you to add content matching condition before applying
-# bits mods.
-# 
-# BitsMods can be an empty string. The Modification will have no effect until you modify it with at
-# least one bits mod.
-# 
-# A bits mod is represented with a string using the following format: "I:Bits" where I is a bit
-# index (1 refers to the first transmitted bit) and Bits is a modification mask where each
-# character describes a modification to a single bit. The allowed characters are:
-#    0 : force bit to 0
-#    1 : force bit to 1
-#    - : leave bit unchanged
-#    X : revert bit (0 becomes 1 and 1 becomes 0)
-# 
-# For example: "24:X---10XX" will: revert bits 24, 30 and 31
-#                  set bit 28 to 1
-#                  set bit 29 to 0
-# The other bits are not affected.
-# 
-# You can add multiple bits mods using commas. For example: "24:X---10XX,127:100X,231:01"
-#
-# Name        Type   Description
-# ----------- ------ --------------------------------------------------------------------
-# SvId        int    Satellite SV ID number 1..14
-# StartTime   int    Elapsed time in seconds since start of simulation
-# StopTime    int    Elapsed time in seconds since start of simulation
-# Subframe    int    Subframe 1..5
-# MessageType int    Nav Message type
-# Condition   string Optional condition to match message content, ex: "EQUAL(45,10,0x3F)"
-# UpdateCRC   bool   Recalculate CRC after making modification
-# BitsMods    string Comma separated bits mods
-# Id          string Unique identifier of the event
-#
-
-class SetModificationToNavICL5Message(CommandBase):
-
-  def __init__(self, svId, startTime, stopTime, subframe, messageType, condition, updateCRC, bitsMods, id):
-    CommandBase.__init__(self, "SetModificationToNavICL5Message")
-    self.setSvId(svId)
-    self.setStartTime(startTime)
-    self.setStopTime(stopTime)
-    self.setSubframe(subframe)
-    self.setMessageType(messageType)
-    self.setCondition(condition)
-    self.setUpdateCRC(updateCRC)
-    self.setBitsMods(bitsMods)
-    self.setId(id)
-
-  def executePermission(self):
-    return ExecutePermission.EXECUTE_IF_SIMULATING | ExecutePermission.EXECUTE_IF_IDLE
-
-  def svId(self):
-    return self.get("SvId")
-
-  def setSvId(self, value):
-    return self.set("SvId", value)
-
-  def startTime(self):
-    return self.get("StartTime")
-
-  def setStartTime(self, value):
-    return self.set("StartTime", value)
-
-  def stopTime(self):
-    return self.get("StopTime")
-
-  def setStopTime(self, value):
-    return self.set("StopTime", value)
-
-  def subframe(self):
-    return self.get("Subframe")
-
-  def setSubframe(self, value):
-    return self.set("Subframe", value)
-
-  def messageType(self):
-    return self.get("MessageType")
-
-  def setMessageType(self, value):
-    return self.set("MessageType", value)
-
-  def condition(self):
-    return self.get("Condition")
-
-  def setCondition(self, value):
-    return self.set("Condition", value)
-
-  def updateCRC(self):
-    return self.get("UpdateCRC")
-
-  def setUpdateCRC(self, value):
-    return self.set("UpdateCRC", value)
-
-  def bitsMods(self):
-    return self.get("BitsMods")
-
-  def setBitsMods(self, value):
-    return self.set("BitsMods", value)
-
-  def id(self):
-    return self.get("Id")
-
-  def setId(self, value):
-    return self.set("Id", value)
-
-#
-# Please note the command GetNavICL5Message is deprecated since 21.3. You may use GetMessageModificationToNavICNav.
-# 
-# Get infos about the NAV Message with this id
-#
-# Name Type   Description
-# ---- ------ ------------------------------
-# Id   string Unique identifier of the event
-#
-
-class GetNavICL5Message(CommandBase):
-
-  def __init__(self, id):
-    CommandBase.__init__(self, "GetNavICL5Message")
-    self.setId(id)
-
-  def executePermission(self):
-    return ExecutePermission.EXECUTE_IF_IDLE
-
-  def id(self):
-    return self.get("Id")
-
-  def setId(self, value):
-    return self.set("Id", value)
-
-#
-# Result of GetNavICL5Message.
-#
-# Name        Type   Description
-# ----------- ------ --------------------------------------------------------------------
-# SvId        int    Satellite SV ID number 1..14
-# StartTime   int    Elapsed time in seconds since start of simulation
-# StopTime    int    Elapsed time in seconds since start of simulation
-# Subframe    int    Subframe 1..5
-# MessageType int    Nav Message type
-# Condition   string Optional condition to match message content, ex: "EQUAL(45,10,0x3F)"
-# UpdateCRC   bool   Recalculate CRC after making modification
-# BitsMods    string Comma separated bits mods
-# Id          string Unique identifier of the event
-#
-
-class GetNavICL5MessageResult(CommandResult):
-
-  def __init__(self, svId, startTime, stopTime, subframe, messageType, condition, updateCRC, bitsMods, id):
-    CommandResult.__init__(self, "GetNavICL5MessageResult")
-    self.setSvId(svId)
-    self.setStartTime(startTime)
-    self.setStopTime(stopTime)
-    self.setSubframe(subframe)
-    self.setMessageType(messageType)
-    self.setCondition(condition)
-    self.setUpdateCRC(updateCRC)
-    self.setBitsMods(bitsMods)
-    self.setId(id)
-
-  def isSuccess(self):
-    return True
-
-  def svId(self):
-    return self.get("SvId")
-
-  def setSvId(self, value):
-    return self.set("SvId", value)
-
-  def startTime(self):
-    return self.get("StartTime")
-
-  def setStartTime(self, value):
-    return self.set("StartTime", value)
-
-  def stopTime(self):
-    return self.get("StopTime")
-
-  def setStopTime(self, value):
-    return self.set("StopTime", value)
-
-  def subframe(self):
-    return self.get("Subframe")
-
-  def setSubframe(self, value):
-    return self.set("Subframe", value)
-
-  def messageType(self):
-    return self.get("MessageType")
-
-  def setMessageType(self, value):
-    return self.set("MessageType", value)
-
-  def condition(self):
-    return self.get("Condition")
-
-  def setCondition(self, value):
-    return self.set("Condition", value)
-
-  def updateCRC(self):
-    return self.get("UpdateCRC")
-
-  def setUpdateCRC(self, value):
-    return self.set("UpdateCRC", value)
-
-  def bitsMods(self):
-    return self.get("BitsMods")
-
-  def setBitsMods(self, value):
-    return self.set("BitsMods", value)
-
-  def id(self):
-    return self.get("Id")
-
-  def setId(self, value):
-    return self.set("Id", value)
-
-#
-# Please note the command GetMessageModifications is deprecated since 21.3. You may use GetAllMessageModificationIdsForSignal.
-# 
-# Get all event's IDs whose will modify the signal's message for this SV ID
-#
-# Name   Type   Description
-# ------ ------ ---------------
-# Signal string Signal
-# SvId   int    Satellite SV ID
-#
-
-class GetMessageModifications(CommandBase):
-
-  def __init__(self, signal, svId):
-    CommandBase.__init__(self, "GetMessageModifications")
-    self.setSignal(signal)
-    self.setSvId(svId)
-
-  def executePermission(self):
-    return ExecutePermission.EXECUTE_IF_IDLE
-
-  def signal(self):
-    return self.get("Signal")
-
-  def setSignal(self, value):
-    return self.set("Signal", value)
-
-  def svId(self):
-    return self.get("SvId")
-
-  def setSvId(self, value):
-    return self.set("SvId", value)
-
-#
-# Result of GetMessageModifications
-#
-# Name Type         Description
-# ---- ------------ -----------
-# Ids  array string Signal
-#
-
-class GetMessageModificationsResult(CommandResult):
-
-  def __init__(self, ids):
-    CommandResult.__init__(self, "GetMessageModificationsResult")
-    self.setIds(ids)
-
-  def isSuccess(self):
-    return True
-
-  def ids(self):
-    return self.get("Ids")
-
-  def setIds(self, value):
-    return self.set("Ids", value)
 
 #
 # Please note the command SetSbasHealthRanging is deprecated since 21.9. You may use SetSbasSVRangingHealth.
@@ -43195,1697 +35273,4 @@ class SetSbasHealthService(CommandBase):
 
   def setHealth(self, value):
     return self.set("Health", value)
-
-#
-# Please note the command SetGalileoSisaE1E5aIndex is deprecated since 21.3. You may use SetGalileoSisaE1E5aIndexForSV.
-# 
-# Set the SISA(E1,E5a) index of a Galileo satellite
-#
-# Name  Type Description
-# ----- ---- -----------------
-# Prn   int  The satellite PRN
-# Sisai int  SISA index.
-#
-
-class SetGalileoSisaE1E5aIndex(CommandBase):
-
-  def __init__(self, prn, sisai):
-    CommandBase.__init__(self, "SetGalileoSisaE1E5aIndex")
-    self.setPrn(prn)
-    self.setSisai(sisai)
-
-  def executePermission(self):
-    return ExecutePermission.EXECUTE_IF_IDLE | ExecutePermission.EXECUTE_IF_SIMULATING
-
-  def prn(self):
-    return self.get("Prn")
-
-  def setPrn(self, value):
-    return self.set("Prn", value)
-
-  def sisai(self):
-    return self.get("Sisai")
-
-  def setSisai(self, value):
-    return self.set("Sisai", value)
-
-#
-# Please note the command SetGalileoSisaE1E5bIndex is deprecated since 21.3. You may use SetGalileoSisaE1E5bIndexForSV.
-# 
-# Set the SISA(E1,E5b) index of a Galileo satellite
-#
-# Name  Type Description
-# ----- ---- -----------------
-# Prn   int  The satellite PRN
-# Sisai int  SISA index.
-#
-
-class SetGalileoSisaE1E5bIndex(CommandBase):
-
-  def __init__(self, prn, sisai):
-    CommandBase.__init__(self, "SetGalileoSisaE1E5bIndex")
-    self.setPrn(prn)
-    self.setSisai(sisai)
-
-  def executePermission(self):
-    return ExecutePermission.EXECUTE_IF_IDLE | ExecutePermission.EXECUTE_IF_SIMULATING
-
-  def prn(self):
-    return self.get("Prn")
-
-  def setPrn(self, value):
-    return self.set("Prn", value)
-
-  def sisai(self):
-    return self.get("Sisai")
-
-  def setSisai(self, value):
-    return self.set("Sisai", value)
-
-#
-# Please note the command SetSatellitePower is deprecated since 21.3. You may use SetPowerForSV.
-# 
-# Set power offset for specified satellite PRN. Use PRN 0 to set power for all satellites.
-#
-# Name            Type   Description
-# --------------- ------ ----------------------------------------------------------------------------------------------------------
-# System          string "GPS", "GLONASS", "Galileo", "BeiDou", "SBAS", "QZSS" or "NavIC"
-# Prn             int    Satellite PRN number for GPS, Galileo, BeiDou and SBAS. Slot number for GLONASS. SV ID for QZSS and NavIC.
-# PowerOffset     double Power offset in dB (relative to signal power reference level)
-# OtherSatsFollow bool   If true, other sats power will be adjusted to maintain current offsets between satellites
-#
-
-class SetSatellitePower(CommandBase):
-
-  def __init__(self, system, prn, powerOffset, otherSatsFollow):
-    CommandBase.__init__(self, "SetSatellitePower")
-    self.setSystem(system)
-    self.setPrn(prn)
-    self.setPowerOffset(powerOffset)
-    self.setOtherSatsFollow(otherSatsFollow)
-
-  def executePermission(self):
-    return ExecutePermission.EXECUTE_IF_SIMULATING
-
-  def system(self):
-    return self.get("System")
-
-  def setSystem(self, value):
-    return self.set("System", value)
-
-  def prn(self):
-    return self.get("Prn")
-
-  def setPrn(self, value):
-    return self.set("Prn", value)
-
-  def powerOffset(self):
-    return self.get("PowerOffset")
-
-  def setPowerOffset(self, value):
-    return self.set("PowerOffset", value)
-
-  def otherSatsFollow(self):
-    return self.get("OtherSatsFollow")
-
-  def setOtherSatsFollow(self, value):
-    return self.set("OtherSatsFollow", value)
-
-#
-# Please note the command GetSatellitePower is deprecated since 21.3. You may use GetPowerForSV.
-# 
-# Get power offset for specified satellite PRN.
-#
-# Name   Type   Description
-# ------ ------ ----------------------------------------------------------------------------------------------------------
-# System string The system, can be "GPS", "GLONASS", "Galileo", "BeiDou", "SBAS", "QZSS" or "NavIC"
-# Prn    int    Satellite PRN number for GPS, Galileo, BeiDou and SBAS. Slot number for GLONASS. SV ID for QZSS and NavIC.
-#
-
-class GetSatellitePower(CommandBase):
-
-  def __init__(self, system, prn):
-    CommandBase.__init__(self, "GetSatellitePower")
-    self.setSystem(system)
-    self.setPrn(prn)
-
-  def executePermission(self):
-    return ExecutePermission.EXECUTE_IF_SIMULATING
-
-  def system(self):
-    return self.get("System")
-
-  def setSystem(self, value):
-    return self.set("System", value)
-
-  def prn(self):
-    return self.get("Prn")
-
-  def setPrn(self, value):
-    return self.set("Prn", value)
-
-#
-# Result of GetSatellitePower.
-#
-# Name                Type   Description
-# ------------------- ------ --------------------------------------------------------------------------------------------------------
-# NominalPower        double The nominal power in dBm
-# SignalStrengthModel double The power difference coming from the Signal Strength Model (dB)
-# Antenna             double The receiver antenna power offset (dB). Depends on antenna pattern and relative orientation with signal.
-# SignalLevelOffset   double The global power offset (dB)
-# ManualGain          double The power offset provided by the user (dB). See SetSatellitePower
-# Total               double The sum of all the other fields (dBm)
-#
-
-class GetSatellitePowerResult(CommandResult):
-
-  def __init__(self, nominalPower, signalStrengthModel, antenna, signalLevelOffset, manualGain, total):
-    CommandResult.__init__(self, "GetSatellitePowerResult")
-    self.setNominalPower(nominalPower)
-    self.setSignalStrengthModel(signalStrengthModel)
-    self.setAntenna(antenna)
-    self.setSignalLevelOffset(signalLevelOffset)
-    self.setManualGain(manualGain)
-    self.setTotal(total)
-
-  def isSuccess(self):
-    return True
-
-  def nominalPower(self):
-    return self.get("NominalPower")
-
-  def setNominalPower(self, value):
-    return self.set("NominalPower", value)
-
-  def signalStrengthModel(self):
-    return self.get("SignalStrengthModel")
-
-  def setSignalStrengthModel(self, value):
-    return self.set("SignalStrengthModel", value)
-
-  def antenna(self):
-    return self.get("Antenna")
-
-  def setAntenna(self, value):
-    return self.set("Antenna", value)
-
-  def signalLevelOffset(self):
-    return self.get("SignalLevelOffset")
-
-  def setSignalLevelOffset(self, value):
-    return self.set("SignalLevelOffset", value)
-
-  def manualGain(self):
-    return self.get("ManualGain")
-
-  def setManualGain(self, value):
-    return self.set("ManualGain", value)
-
-  def total(self):
-    return self.get("Total")
-
-  def setTotal(self, value):
-    return self.set("Total", value)
-
-#
-# Please note the command GetVisibleSatellites is deprecated since 21.3. You may use GetVisibleSV.
-# 
-# Get a list of visible satellites within a system, returns a GetVisibleSatellitesResult
-#
-# Name   Type   Description
-# ------ ------ -----------------------------------------------------------------------------------
-# System string The system, can be "GPS", "GLONASS", "Galileo", "BeiDou", "SBAS", "QZSS" or "NavIC"
-#
-
-class GetVisibleSatellites(CommandBase):
-
-  def __init__(self, system):
-    CommandBase.__init__(self, "GetVisibleSatellites")
-    self.setSystem(system)
-
-  def executePermission(self):
-    return ExecutePermission.EXECUTE_IF_SIMULATING
-
-  def system(self):
-    return self.get("System")
-
-  def setSystem(self, value):
-    return self.set("System", value)
-
-#
-# Result of GetVisibleSatellites
-#
-# Name Type      Description
-# ---- --------- ----------------------------------------------
-# Prns array int A list containing the visible satellites' PRNs
-#
-
-class GetVisibleSatellitesResult(CommandResult):
-
-  def __init__(self, prns):
-    CommandResult.__init__(self, "GetVisibleSatellitesResult")
-    self.setPrns(prns)
-
-  def isSuccess(self):
-    return True
-
-  def prns(self):
-    return self.get("Prns")
-
-  def setPrns(self, value):
-    return self.set("Prns", value)
-
-#
-# Please note the command SetSatGeo is deprecated since 21.3. You may use ForceSVGeo.
-# 
-# Set whether a satellite is geostationary
-#
-# Name      Type   Description
-# --------- ------ -----------------------------------------------------------------------------------------------------------------------------------------------
-# System    string "GPS", "Galileo", "BeiDou", "QZSS" or "NavIC"
-# Prn       int    The satellite to make geostationary. Satellite PRN number for GPS, Galileo, BeiDou and SBAS. Slot number for GLONASS. SV ID for QZSS and NavIC.
-# IsGeo     bool   True for geostationary satellite
-# Longitude double The longitude to use, in degree
-#
-
-class SetSatGeo(CommandBase):
-
-  def __init__(self, system, prn, isGeo, longitude):
-    CommandBase.__init__(self, "SetSatGeo")
-    self.setSystem(system)
-    self.setPrn(prn)
-    self.setIsGeo(isGeo)
-    self.setLongitude(longitude)
-
-  def executePermission(self):
-    return ExecutePermission.EXECUTE_IF_IDLE
-
-  def system(self):
-    return self.get("System")
-
-  def setSystem(self, value):
-    return self.set("System", value)
-
-  def prn(self):
-    return self.get("Prn")
-
-  def setPrn(self, value):
-    return self.set("Prn", value)
-
-  def isGeo(self):
-    return self.get("IsGeo")
-
-  def setIsGeo(self, value):
-    return self.set("IsGeo", value)
-
-  def longitude(self):
-    return self.get("Longitude")
-
-  def setLongitude(self, value):
-    return self.set("Longitude", value)
-
-#
-# Please note the command IsSatGeo is deprecated since 21.3. You may use IsSVForcedGeo.
-# 
-# Get whether a satellite is geostationary
-#
-# Name   Type   Description
-# ------ ------ -----------------------------------------------------------------------------------------------------------------------------------------------
-# System string "GPS", "Galileo", "BeiDou", "QZSS" or "NavIC"
-# Prn    int    The satellite to make geostationary. Satellite PRN number for GPS, Galileo, BeiDou and SBAS. Slot number for GLONASS. SV ID for QZSS and NavIC.
-#
-
-class IsSatGeo(CommandBase):
-
-  def __init__(self, system, prn):
-    CommandBase.__init__(self, "IsSatGeo")
-    self.setSystem(system)
-    self.setPrn(prn)
-
-  def executePermission(self):
-    return ExecutePermission.EXECUTE_IF_IDLE
-
-  def system(self):
-    return self.get("System")
-
-  def setSystem(self, value):
-    return self.set("System", value)
-
-  def prn(self):
-    return self.get("Prn")
-
-  def setPrn(self, value):
-    return self.set("Prn", value)
-
-#
-# Result of IsSatGeo.
-#
-# Name      Type   Description
-# --------- ------ -----------------------------------------------------------------------------------------------------------------------------------------------
-# System    string "GPS", "Galileo", "BeiDou", "QZSS" or "NavIC"
-# Prn       int    The satellite to make geostationary. Satellite PRN number for GPS, Galileo, BeiDou and SBAS. Slot number for GLONASS. SV ID for QZSS and NavIC.
-# IsGeo     bool   True for geostationary satellite
-# Longitude double The longitude to use, in degree
-#
-
-class IsSatGeoResult(CommandResult):
-
-  def __init__(self, system, prn, isGeo, longitude):
-    CommandResult.__init__(self, "IsSatGeoResult")
-    self.setSystem(system)
-    self.setPrn(prn)
-    self.setIsGeo(isGeo)
-    self.setLongitude(longitude)
-
-  def isSuccess(self):
-    return True
-
-  def system(self):
-    return self.get("System")
-
-  def setSystem(self, value):
-    return self.set("System", value)
-
-  def prn(self):
-    return self.get("Prn")
-
-  def setPrn(self, value):
-    return self.set("Prn", value)
-
-  def isGeo(self):
-    return self.get("IsGeo")
-
-  def setIsGeo(self, value):
-    return self.set("IsGeo", value)
-
-  def longitude(self):
-    return self.get("Longitude")
-
-  def setLongitude(self, value):
-    return self.set("Longitude", value)
-
-#
-# Please note the command EnablePY is deprecated since 21.3. You may use EnablePYCodeForSV.
-# 
-# Enable (or disable) P(Y)-Code for specified satellite PRN. Use PRN 0 to enabled/disable all satellites.
-# Allowed signal keys: "L1P", "L2P"
-#
-# Name    Type   Description
-# ------- ------ --------------------------------------------------------
-# Prn     int    Satellite PRN number
-# Signal  string Signal key - see command description for possible values
-# Enabled bool   Enable P(Y)-Code if True.
-#
-
-class EnablePY(CommandBase):
-
-  def __init__(self, prn, signal, enabled):
-    CommandBase.__init__(self, "EnablePY")
-    self.setPrn(prn)
-    self.setSignal(signal)
-    self.setEnabled(enabled)
-
-  def executePermission(self):
-    return ExecutePermission.EXECUTE_IF_SIMULATING | ExecutePermission.EXECUTE_IF_IDLE
-
-  def prn(self):
-    return self.get("Prn")
-
-  def setPrn(self, value):
-    return self.set("Prn", value)
-
-  def signal(self):
-    return self.get("Signal")
-
-  def setSignal(self, value):
-    return self.set("Signal", value)
-
-  def enabled(self):
-    return self.get("Enabled")
-
-  def setEnabled(self, value):
-    return self.set("Enabled", value)
-
-#
-# Please note the command IsPYEnabled is deprecated since 21.3. You may use IsPYCodeEnabledForSV.
-# 
-# Tells if P(Y)-Code is enabled for the specified satellite PRN. See IsPYEnabled description for allowed signals.
-#
-# Name   Type   Description
-# ------ ------ --------------------------------------------------------
-# Prn    int    Satellite PRN number
-# Signal string Signal key - see command description for possible values
-#
-
-class IsPYEnabled(CommandBase):
-
-  def __init__(self, prn, signal):
-    CommandBase.__init__(self, "IsPYEnabled")
-    self.setPrn(prn)
-    self.setSignal(signal)
-
-  def executePermission(self):
-    return ExecutePermission.EXECUTE_IF_IDLE
-
-  def prn(self):
-    return self.get("Prn")
-
-  def setPrn(self, value):
-    return self.set("Prn", value)
-
-  def signal(self):
-    return self.get("Signal")
-
-  def setSignal(self, value):
-    return self.set("Signal", value)
-
-#
-# Result of IsPYEnabled.
-#
-# Name    Type   Description
-# ------- ------ --------------------------------------------------------
-# Prn     int    Satellite PRN number
-# Signal  string Signal key - see command description for possible values
-# Enabled bool   Enable P(Y)-Code if True.
-#
-
-class IsPYEnabledResult(CommandResult):
-
-  def __init__(self, prn, signal, enabled):
-    CommandResult.__init__(self, "IsPYEnabledResult")
-    self.setPrn(prn)
-    self.setSignal(signal)
-    self.setEnabled(enabled)
-
-  def isSuccess(self):
-    return True
-
-  def prn(self):
-    return self.get("Prn")
-
-  def setPrn(self, value):
-    return self.set("Prn", value)
-
-  def signal(self):
-    return self.get("Signal")
-
-  def setSignal(self, value):
-    return self.set("Signal", value)
-
-  def enabled(self):
-    return self.get("Enabled")
-
-  def setEnabled(self, value):
-    return self.set("Enabled", value)
-
-#
-# Please note the command EnablePYForEachPrn is deprecated since 21.3. You may use EnablePYCodeForEachSV.
-# 
-# Enable (or disable) P(Y)-Code for each satellite individually.
-# Allowed signal keys: "L1P", "L2P"
-#
-# Name    Type       Description
-# ------- ---------- ------------------------------------------------------------------------------------------------------------------
-# Signal  string     Signal key - see command description for possible values
-# Enabled array bool Enable P(Y)-Code if True, otherwise it is P-Code only. Zero based index (index 0 => PRN 1, index 1 => PRN 2, etc).
-#
-
-class EnablePYForEachPrn(CommandBase):
-
-  def __init__(self, signal, enabled):
-    CommandBase.__init__(self, "EnablePYForEachPrn")
-    self.setSignal(signal)
-    self.setEnabled(enabled)
-
-  def executePermission(self):
-    return ExecutePermission.EXECUTE_IF_SIMULATING | ExecutePermission.EXECUTE_IF_IDLE
-
-  def signal(self):
-    return self.get("Signal")
-
-  def setSignal(self, value):
-    return self.set("Signal", value)
-
-  def enabled(self):
-    return self.get("Enabled")
-
-  def setEnabled(self, value):
-    return self.set("Enabled", value)
-
-#
-# Please note the command GetPYEnabledForEachPrn is deprecated since 21.3. You may use IsPYCodeEnabledForEachSV.
-# 
-# Tells if the P(Y)-Code is enabled or disabled for each satellite. See GetPYEnabledForEachPrn description for allowed signals.
-#
-# Name   Type   Description
-# ------ ------ --------------------------------------------------------
-# Signal string Signal key - see command description for possible values
-#
-
-class GetPYEnabledForEachPrn(CommandBase):
-
-  def __init__(self, signal):
-    CommandBase.__init__(self, "GetPYEnabledForEachPrn")
-    self.setSignal(signal)
-
-  def executePermission(self):
-    return ExecutePermission.EXECUTE_IF_IDLE
-
-  def signal(self):
-    return self.get("Signal")
-
-  def setSignal(self, value):
-    return self.set("Signal", value)
-
-#
-# Result of GetPYEnabledForEachPrn.
-#
-# Name    Type       Description
-# ------- ---------- ------------------------------------------------------------------------------------------------------------------
-# Signal  string     Signal key - see command description for possible values
-# Enabled array bool Enable P(Y)-Code if True, otherwise it is P-Code only. Zero based index (index 0 => PRN 1, index 1 => PRN 2, etc).
-#
-
-class GetPYEnabledForEachPrnResult(CommandResult):
-
-  def __init__(self, signal, enabled):
-    CommandResult.__init__(self, "GetPYEnabledForEachPrnResult")
-    self.setSignal(signal)
-    self.setEnabled(enabled)
-
-  def isSuccess(self):
-    return True
-
-  def signal(self):
-    return self.get("Signal")
-
-  def setSignal(self, value):
-    return self.set("Signal", value)
-
-  def enabled(self):
-    return self.get("Enabled")
-
-  def setEnabled(self, value):
-    return self.set("Enabled", value)
-
-#
-# Please note the command SetSatellitePseudorangeNoiseOffset is deprecated since 21.3. You may use SetPseudorangeNoiseOffsetForSV.
-# 
-# Set the satellite pseudorange noise constant offset.
-#
-# Name    Type   Description
-# ------- ------ ----------------------------------------------------------------------------------------------------------
-# System  string "GPS", "GLONASS", "Galileo", "BeiDou", "SBAS", "QZSS" or "NavIC"
-# Prn     int    Satellite PRN number for GPS, Galileo, BeiDou and SBAS. Slot number for GLONASS. SV ID for QZSS and NavIC.
-# Enabled bool   If true, the offset is enabled (applied)
-# Offset  double The constant offset in metters
-#
-
-class SetSatellitePseudorangeNoiseOffset(CommandBase):
-
-  def __init__(self, system, prn, enabled, offset):
-    CommandBase.__init__(self, "SetSatellitePseudorangeNoiseOffset")
-    self.setSystem(system)
-    self.setPrn(prn)
-    self.setEnabled(enabled)
-    self.setOffset(offset)
-
-  def executePermission(self):
-    return ExecutePermission.EXECUTE_IF_IDLE
-
-  def system(self):
-    return self.get("System")
-
-  def setSystem(self, value):
-    return self.set("System", value)
-
-  def prn(self):
-    return self.get("Prn")
-
-  def setPrn(self, value):
-    return self.set("Prn", value)
-
-  def enabled(self):
-    return self.get("Enabled")
-
-  def setEnabled(self, value):
-    return self.set("Enabled", value)
-
-  def offset(self):
-    return self.get("Offset")
-
-  def setOffset(self, value):
-    return self.set("Offset", value)
-
-#
-# Please note the command GetSatellitePseudorangeNoiseOffset is deprecated since 21.3. You may use GetPseudorangeNoiseOffsetForSV.
-# 
-# Get the satellite pseudorange noise constant offset.
-#
-# Name   Type   Description
-# ------ ------ ----------------------------------------------------------------------------------------------------------
-# System string "GPS", "GLONASS", "Galileo", "BeiDou", "SBAS", "QZSS" or "NavIC"
-# Prn    int    Satellite PRN number for GPS, Galileo, BeiDou and SBAS. Slot number for GLONASS. SV ID for QZSS and NavIC.
-#
-
-class GetSatellitePseudorangeNoiseOffset(CommandBase):
-
-  def __init__(self, system, prn):
-    CommandBase.__init__(self, "GetSatellitePseudorangeNoiseOffset")
-    self.setSystem(system)
-    self.setPrn(prn)
-
-  def executePermission(self):
-    return ExecutePermission.EXECUTE_IF_IDLE
-
-  def system(self):
-    return self.get("System")
-
-  def setSystem(self, value):
-    return self.set("System", value)
-
-  def prn(self):
-    return self.get("Prn")
-
-  def setPrn(self, value):
-    return self.set("Prn", value)
-
-#
-# Result of GetSatellitePseudorangeNoiseOffset.
-#
-# Name    Type   Description
-# ------- ------ ----------------------------------------------------------------------------------------------------------
-# System  string "GPS", "GLONASS", "Galileo", "BeiDou", "SBAS", "QZSS" or "NavIC"
-# Prn     int    Satellite PRN number for GPS, Galileo, BeiDou and SBAS. Slot number for GLONASS. SV ID for QZSS and NavIC.
-# Enabled bool   If true, the offset is enabled (applied)
-# Offset  double The constant offset in metters
-#
-
-class GetSatellitePseudorangeNoiseOffsetResult(CommandResult):
-
-  def __init__(self, system, prn, enabled, offset):
-    CommandResult.__init__(self, "GetSatellitePseudorangeNoiseOffsetResult")
-    self.setSystem(system)
-    self.setPrn(prn)
-    self.setEnabled(enabled)
-    self.setOffset(offset)
-
-  def isSuccess(self):
-    return True
-
-  def system(self):
-    return self.get("System")
-
-  def setSystem(self, value):
-    return self.set("System", value)
-
-  def prn(self):
-    return self.get("Prn")
-
-  def setPrn(self, value):
-    return self.set("Prn", value)
-
-  def enabled(self):
-    return self.get("Enabled")
-
-  def setEnabled(self, value):
-    return self.set("Enabled", value)
-
-  def offset(self):
-    return self.get("Offset")
-
-  def setOffset(self, value):
-    return self.set("Offset", value)
-
-#
-# Please note the command SetSatellitePseudorangeNoiseSineWave is deprecated since 21.3. You may use SetPseudorangeNoiseSineWaveForSV.
-# 
-# Set the satellite pseudorange noise sine wave attributes.
-#
-# Name      Type   Description
-# --------- ------ ----------------------------------------------------------------------------------------------------------
-# System    string "GPS", "GLONASS", "Galileo", "BeiDou", "SBAS", "QZSS" or "NavIC"
-# Prn       int    Satellite PRN number for GPS, Galileo, BeiDou and SBAS. Slot number for GLONASS. SV ID for QZSS and NavIC.
-# SineWave  int    Sine wave number (0 or 1)
-# Enabled   bool   If true, sine wave is enabled
-# Amplitude double Sine wave amplitude in meters
-# Period    int    Sine wave period in seconds (minimum 3 seconds)
-# Offset    double Phase offset in radians
-#
-
-class SetSatellitePseudorangeNoiseSineWave(CommandBase):
-
-  def __init__(self, system, prn, sineWave, enabled, amplitude, period, offset):
-    CommandBase.__init__(self, "SetSatellitePseudorangeNoiseSineWave")
-    self.setSystem(system)
-    self.setPrn(prn)
-    self.setSineWave(sineWave)
-    self.setEnabled(enabled)
-    self.setAmplitude(amplitude)
-    self.setPeriod(period)
-    self.setOffset(offset)
-
-  def executePermission(self):
-    return ExecutePermission.EXECUTE_IF_IDLE
-
-  def system(self):
-    return self.get("System")
-
-  def setSystem(self, value):
-    return self.set("System", value)
-
-  def prn(self):
-    return self.get("Prn")
-
-  def setPrn(self, value):
-    return self.set("Prn", value)
-
-  def sineWave(self):
-    return self.get("SineWave")
-
-  def setSineWave(self, value):
-    return self.set("SineWave", value)
-
-  def enabled(self):
-    return self.get("Enabled")
-
-  def setEnabled(self, value):
-    return self.set("Enabled", value)
-
-  def amplitude(self):
-    return self.get("Amplitude")
-
-  def setAmplitude(self, value):
-    return self.set("Amplitude", value)
-
-  def period(self):
-    return self.get("Period")
-
-  def setPeriod(self, value):
-    return self.set("Period", value)
-
-  def offset(self):
-    return self.get("Offset")
-
-  def setOffset(self, value):
-    return self.set("Offset", value)
-
-#
-# Please note the command GetSatellitePseudorangeNoiseSineWave is deprecated since 21.3. You may use GetPseudorangeNoiseSineWaveForSV.
-# 
-# Get the satellite pseudorange noise sine wave attributes.
-#
-# Name     Type   Description
-# -------- ------ ----------------------------------------------------------------------------------------------------------
-# System   string "GPS", "GLONASS", "Galileo", "BeiDou", "SBAS", "QZSS" or "NavIC"
-# Prn      int    Satellite PRN number for GPS, Galileo, BeiDou and SBAS. Slot number for GLONASS. SV ID for QZSS and NavIC.
-# SineWave int    Sine wave number (0 or 1)
-#
-
-class GetSatellitePseudorangeNoiseSineWave(CommandBase):
-
-  def __init__(self, system, prn, sineWave):
-    CommandBase.__init__(self, "GetSatellitePseudorangeNoiseSineWave")
-    self.setSystem(system)
-    self.setPrn(prn)
-    self.setSineWave(sineWave)
-
-  def executePermission(self):
-    return ExecutePermission.EXECUTE_IF_IDLE
-
-  def system(self):
-    return self.get("System")
-
-  def setSystem(self, value):
-    return self.set("System", value)
-
-  def prn(self):
-    return self.get("Prn")
-
-  def setPrn(self, value):
-    return self.set("Prn", value)
-
-  def sineWave(self):
-    return self.get("SineWave")
-
-  def setSineWave(self, value):
-    return self.set("SineWave", value)
-
-#
-# Result of GetSatellitePseudorangeNoiseSineWave.
-#
-# Name      Type   Description
-# --------- ------ ----------------------------------------------------------------------------------------------------------
-# System    string "GPS", "GLONASS", "Galileo", "BeiDou", "SBAS", "QZSS" or "NavIC"
-# Prn       int    Satellite PRN number for GPS, Galileo, BeiDou and SBAS. Slot number for GLONASS. SV ID for QZSS and NavIC.
-# SineWave  int    Sine wave number (0 or 1)
-# Enabled   bool   If true, sine wave is enabled
-# Amplitude double Sine wave amplitude in meters
-# Period    int    Sine wave period in seconds (minimum 3 seconds)
-# Offset    double Phase offset in radians
-#
-
-class GetSatellitePseudorangeNoiseSineWaveResult(CommandResult):
-
-  def __init__(self, system, prn, sineWave, enabled, amplitude, period, offset):
-    CommandResult.__init__(self, "GetSatellitePseudorangeNoiseSineWaveResult")
-    self.setSystem(system)
-    self.setPrn(prn)
-    self.setSineWave(sineWave)
-    self.setEnabled(enabled)
-    self.setAmplitude(amplitude)
-    self.setPeriod(period)
-    self.setOffset(offset)
-
-  def isSuccess(self):
-    return True
-
-  def system(self):
-    return self.get("System")
-
-  def setSystem(self, value):
-    return self.set("System", value)
-
-  def prn(self):
-    return self.get("Prn")
-
-  def setPrn(self, value):
-    return self.set("Prn", value)
-
-  def sineWave(self):
-    return self.get("SineWave")
-
-  def setSineWave(self, value):
-    return self.set("SineWave", value)
-
-  def enabled(self):
-    return self.get("Enabled")
-
-  def setEnabled(self, value):
-    return self.set("Enabled", value)
-
-  def amplitude(self):
-    return self.get("Amplitude")
-
-  def setAmplitude(self, value):
-    return self.set("Amplitude", value)
-
-  def period(self):
-    return self.get("Period")
-
-  def setPeriod(self, value):
-    return self.set("Period", value)
-
-  def offset(self):
-    return self.get("Offset")
-
-  def setOffset(self, value):
-    return self.set("Offset", value)
-
-#
-# Please note the command SetSatellitePseudorangeNoiseGaussMarkov is deprecated since 21.3. You may use SetPseudorangeNoiseGaussMarkovForSV.
-# 
-# Set the satellite pseudorange noise Gauss-Markov process attributes.
-#
-# Name    Type   Description
-# ------- ------ ----------------------------------------------------------------------------------------------------------
-# System  string "GPS", "GLONASS", "Galileo", "BeiDou", "SBAS", "QZSS" or "NavIC"
-# Prn     int    Satellite PRN number for GPS, Galileo, BeiDou and SBAS. Slot number for GLONASS. SV ID for QZSS and NavIC.
-# Process int    Gauss-Markov Process number (0 or 1)
-# Enabled bool   If true, Gauss-Markov process is enabled
-# Sigma   double Standard devition in meters [0..5000]
-# Time    double Time constant [1..2000]
-# Seed    int    Random seed
-#
-
-class SetSatellitePseudorangeNoiseGaussMarkov(CommandBase):
-
-  def __init__(self, system, prn, process, enabled, sigma, time, seed):
-    CommandBase.__init__(self, "SetSatellitePseudorangeNoiseGaussMarkov")
-    self.setSystem(system)
-    self.setPrn(prn)
-    self.setProcess(process)
-    self.setEnabled(enabled)
-    self.setSigma(sigma)
-    self.setTime(time)
-    self.setSeed(seed)
-
-  def executePermission(self):
-    return ExecutePermission.EXECUTE_IF_IDLE
-
-  def system(self):
-    return self.get("System")
-
-  def setSystem(self, value):
-    return self.set("System", value)
-
-  def prn(self):
-    return self.get("Prn")
-
-  def setPrn(self, value):
-    return self.set("Prn", value)
-
-  def process(self):
-    return self.get("Process")
-
-  def setProcess(self, value):
-    return self.set("Process", value)
-
-  def enabled(self):
-    return self.get("Enabled")
-
-  def setEnabled(self, value):
-    return self.set("Enabled", value)
-
-  def sigma(self):
-    return self.get("Sigma")
-
-  def setSigma(self, value):
-    return self.set("Sigma", value)
-
-  def time(self):
-    return self.get("Time")
-
-  def setTime(self, value):
-    return self.set("Time", value)
-
-  def seed(self):
-    return self.get("Seed")
-
-  def setSeed(self, value):
-    return self.set("Seed", value)
-
-#
-# Please note the command GetSatellitePseudorangeNoiseGaussMarkov is deprecated since 21.3. You may use GetPseudorangeNoiseGaussMarkovForSV.
-# 
-# Get the satellite pseudorange noise Gauss-Markov process attributes.
-#
-# Name    Type   Description
-# ------- ------ ----------------------------------------------------------------------------------------------------------
-# System  string "GPS", "GLONASS", "Galileo", "BeiDou", "SBAS", "QZSS" or "NavIC"
-# Prn     int    Satellite PRN number for GPS, Galileo, BeiDou and SBAS. Slot number for GLONASS. SV ID for QZSS and NavIC.
-# Process int    Gauss-Markov Process number (0 or 1)
-#
-
-class GetSatellitePseudorangeNoiseGaussMarkov(CommandBase):
-
-  def __init__(self, system, prn, process):
-    CommandBase.__init__(self, "GetSatellitePseudorangeNoiseGaussMarkov")
-    self.setSystem(system)
-    self.setPrn(prn)
-    self.setProcess(process)
-
-  def executePermission(self):
-    return ExecutePermission.EXECUTE_IF_IDLE
-
-  def system(self):
-    return self.get("System")
-
-  def setSystem(self, value):
-    return self.set("System", value)
-
-  def prn(self):
-    return self.get("Prn")
-
-  def setPrn(self, value):
-    return self.set("Prn", value)
-
-  def process(self):
-    return self.get("Process")
-
-  def setProcess(self, value):
-    return self.set("Process", value)
-
-#
-# Result of GetSatellitePseudorangeNoiseGaussMarkov.
-#
-# Name    Type   Description
-# ------- ------ ----------------------------------------------------------------------------------------------------------
-# System  string "GPS", "GLONASS", "Galileo", "BeiDou", "SBAS", "QZSS" or "NavIC"
-# Prn     int    Satellite PRN number for GPS, Galileo, BeiDou and SBAS. Slot number for GLONASS. SV ID for QZSS and NavIC.
-# Process int    Gauss-Markov Process number (0 or 1)
-# Enabled bool   If true, Gauss-Markov process is enabled
-# Sigma   double Standard devition in meters [0..5000]
-# Time    double Time constant [1..2000]
-# Seed    int    Random seed
-#
-
-class GetSatellitePseudorangeNoiseGaussMarkovResult(CommandResult):
-
-  def __init__(self, system, prn, process, enabled, sigma, time, seed):
-    CommandResult.__init__(self, "GetSatellitePseudorangeNoiseGaussMarkovResult")
-    self.setSystem(system)
-    self.setPrn(prn)
-    self.setProcess(process)
-    self.setEnabled(enabled)
-    self.setSigma(sigma)
-    self.setTime(time)
-    self.setSeed(seed)
-
-  def isSuccess(self):
-    return True
-
-  def system(self):
-    return self.get("System")
-
-  def setSystem(self, value):
-    return self.set("System", value)
-
-  def prn(self):
-    return self.get("Prn")
-
-  def setPrn(self, value):
-    return self.set("Prn", value)
-
-  def process(self):
-    return self.get("Process")
-
-  def setProcess(self, value):
-    return self.set("Process", value)
-
-  def enabled(self):
-    return self.get("Enabled")
-
-  def setEnabled(self, value):
-    return self.set("Enabled", value)
-
-  def sigma(self):
-    return self.get("Sigma")
-
-  def setSigma(self, value):
-    return self.set("Sigma", value)
-
-  def time(self):
-    return self.get("Time")
-
-  def setTime(self, value):
-    return self.set("Time", value)
-
-  def seed(self):
-    return self.get("Seed")
-
-  def setSeed(self, value):
-    return self.set("Seed", value)
-
-#
-# Please note the command SetSatelliteEphemerisError is deprecated since 21.3. You may use SetEphemerisErrorForSV.
-# 
-# Set the satellite ephemeris error.
-#
-# Name     Type   Description
-# -------- ------ ----------------------------------------------------------------------------------------------------------
-# System   string "GPS", "Galileo", "GLONASS", "BeiDou", "QZSS" or "NavIC"
-# Prn      int    Satellite PRN number for GPS, Galileo, BeiDou and SBAS. Slot number for GLONASS. SV ID for QZSS and NavIC.
-# Orbit    RIC    The orbit error, in relative orbit frame. In-track error not available for GLONASS.
-# DeltaAf0 double The clock bias error, in second. DeltaTaun for GLONASS.
-# DeltaAf1 double The clock drift error, in second/second. Not available for GLONASS.
-#
-
-class SetSatelliteEphemerisError(CommandBase):
-
-  def __init__(self, system, prn, orbit, deltaAf0, deltaAf1):
-    CommandBase.__init__(self, "SetSatelliteEphemerisError")
-    self.setSystem(system)
-    self.setPrn(prn)
-    self.setOrbit(orbit)
-    self.setDeltaAf0(deltaAf0)
-    self.setDeltaAf1(deltaAf1)
-
-  def executePermission(self):
-    return ExecutePermission.EXECUTE_IF_IDLE
-
-  def system(self):
-    return self.get("System")
-
-  def setSystem(self, value):
-    return self.set("System", value)
-
-  def prn(self):
-    return self.get("Prn")
-
-  def setPrn(self, value):
-    return self.set("Prn", value)
-
-  def orbit(self):
-    return self.get("Orbit")
-
-  def setOrbit(self, value):
-    return self.set("Orbit", value)
-
-  def deltaAf0(self):
-    return self.get("DeltaAf0")
-
-  def setDeltaAf0(self, value):
-    return self.set("DeltaAf0", value)
-
-  def deltaAf1(self):
-    return self.get("DeltaAf1")
-
-  def setDeltaAf1(self, value):
-    return self.set("DeltaAf1", value)
-
-#
-# Please note the command GetSatelliteEphemerisError is deprecated since 21.3. You may use GetEphemerisErrorForSV.
-# 
-# Get the satellite ephemeris error.
-#
-# Name   Type   Description
-# ------ ------ ----------------------------------------------------------------------------------------------------------
-# System string "GPS", "Galileo", "GLONASS", "BeiDou", "QZSS" or "NavIC"
-# Prn    int    Satellite PRN number for GPS, Galileo, BeiDou and SBAS. Slot number for GLONASS. SV ID for QZSS and NavIC.
-#
-
-class GetSatelliteEphemerisError(CommandBase):
-
-  def __init__(self, system, prn):
-    CommandBase.__init__(self, "GetSatelliteEphemerisError")
-    self.setSystem(system)
-    self.setPrn(prn)
-
-  def executePermission(self):
-    return ExecutePermission.EXECUTE_IF_IDLE
-
-  def system(self):
-    return self.get("System")
-
-  def setSystem(self, value):
-    return self.set("System", value)
-
-  def prn(self):
-    return self.get("Prn")
-
-  def setPrn(self, value):
-    return self.set("Prn", value)
-
-#
-# Result of GetSatelliteEphemerisError.
-#
-# Name     Type   Description
-# -------- ------ ----------------------------------------------------------------------------------------------------------
-# System   string "GPS", "Galileo", "GLONASS", "BeiDou", "QZSS" or "NavIC"
-# Prn      int    Satellite PRN number for GPS, Galileo, BeiDou and SBAS. Slot number for GLONASS. SV ID for QZSS and NavIC.
-# Orbit    RIC    The orbit error, in relative orbit frame. In-track error not available for GLONASS.
-# DeltaAf0 double The clock bias error, in second. DeltaTaun for GLONASS.
-# DeltaAf1 double The clock drift error, in second/second. Not available for GLONASS.
-#
-
-class GetSatelliteEphemerisErrorResult(CommandResult):
-
-  def __init__(self, system, prn, orbit, deltaAf0, deltaAf1):
-    CommandResult.__init__(self, "GetSatelliteEphemerisErrorResult")
-    self.setSystem(system)
-    self.setPrn(prn)
-    self.setOrbit(orbit)
-    self.setDeltaAf0(deltaAf0)
-    self.setDeltaAf1(deltaAf1)
-
-  def isSuccess(self):
-    return True
-
-  def system(self):
-    return self.get("System")
-
-  def setSystem(self, value):
-    return self.set("System", value)
-
-  def prn(self):
-    return self.get("Prn")
-
-  def setPrn(self, value):
-    return self.set("Prn", value)
-
-  def orbit(self):
-    return self.get("Orbit")
-
-  def setOrbit(self, value):
-    return self.set("Orbit", value)
-
-  def deltaAf0(self):
-    return self.get("DeltaAf0")
-
-  def setDeltaAf0(self, value):
-    return self.set("DeltaAf0", value)
-
-  def deltaAf1(self):
-    return self.get("DeltaAf1")
-
-  def setDeltaAf1(self, value):
-    return self.set("DeltaAf1", value)
-
-#
-# Please note the command SetGpsCodePrn is deprecated since 21.3. You may use SetPrnOfSVID.
-# 
-# Set the transmitted PRN code for the specified satellite
-#
-# Name           Type Description
-# -------------- ---- -----------------------------
-# SatPrn         int  The GPS satellite PRN [1..32]
-# TransmittedPrn int  The PRN to transmit [1..210]
-#
-
-class SetGpsCodePrn(CommandBase):
-
-  def __init__(self, satPrn, transmittedPrn):
-    CommandBase.__init__(self, "SetGpsCodePrn")
-    self.setSatPrn(satPrn)
-    self.setTransmittedPrn(transmittedPrn)
-
-  def executePermission(self):
-    return ExecutePermission.EXECUTE_IF_IDLE
-
-  def satPrn(self):
-    return self.get("SatPrn")
-
-  def setSatPrn(self, value):
-    return self.set("SatPrn", value)
-
-  def transmittedPrn(self):
-    return self.get("TransmittedPrn")
-
-  def setTransmittedPrn(self, value):
-    return self.set("TransmittedPrn", value)
-
-#
-# Please note the command GetGpsCodePrn is deprecated since 21.3. You may use GetPrnOfSVID.
-# 
-# Get the transmitted PRN code for the specified satellite
-#
-# Name   Type Description
-# ------ ---- -----------------------------
-# SatPrn int  The GPS satellite PRN [1..32]
-#
-
-class GetGpsCodePrn(CommandBase):
-
-  def __init__(self, satPrn):
-    CommandBase.__init__(self, "GetGpsCodePrn")
-    self.setSatPrn(satPrn)
-
-  def executePermission(self):
-    return ExecutePermission.EXECUTE_IF_IDLE
-
-  def satPrn(self):
-    return self.get("SatPrn")
-
-  def setSatPrn(self, value):
-    return self.set("SatPrn", value)
-
-#
-# Result of GetGpsCodePrn.
-#
-# Name           Type Description
-# -------------- ---- -----------------------------
-# SatPrn         int  The GPS satellite PRN [1..32]
-# TransmittedPrn int  The PRN to transmit [1..210]
-#
-
-class GetGpsCodePrnResult(CommandResult):
-
-  def __init__(self, satPrn, transmittedPrn):
-    CommandResult.__init__(self, "GetGpsCodePrnResult")
-    self.setSatPrn(satPrn)
-    self.setTransmittedPrn(transmittedPrn)
-
-  def isSuccess(self):
-    return True
-
-  def satPrn(self):
-    return self.get("SatPrn")
-
-  def setSatPrn(self, value):
-    return self.set("SatPrn", value)
-
-  def transmittedPrn(self):
-    return self.get("TransmittedPrn")
-
-  def setTransmittedPrn(self, value):
-    return self.set("TransmittedPrn", value)
-
-#
-# Please note the command SetPseudorangeRamp is deprecated since 21.3. You may use SetPseudorangeRampForSV.
-# 
-# Set PSR ramp event. This function lets user change the pseudorange of any satellite.
-# If PRN is set to 0, the change is applied to all satellites.
-# 
-#          Hold Start Time
-#          |     Hold Stop Time
-#          |     |
-#          ...........
-#        ..       ...
-#        ..        ...
-#   .......           .........> Time
-#       |           |
-#       Start Time      Stop Time
-#
-# Name          Type   Description
-# ------------- ------ ----------------------------------------------------------------------------------------------------------
-# System        string "GPS", "GLONASS", "Galileo", "BeiDou", "SBAS", "QZSS" or "NavIC"
-# Prn           int    Satellite PRN number for GPS, Galileo, BeiDou and SBAS. Slot number for GLONASS. SV ID for QZSS and NavIC.
-# Offset        double Change to satellite pseudorange in meter when ramp is at maximum. Range -1e7..+1e7
-# StartTime     int    Elapsed time in seconds since start of simulation.
-# HoldStartTime int    Elapsed time in seconds since start of simulation. HoldStartTime >= StartTime
-# HoldStopTime  int    Elapsed time in seconds since start of simulation. HoldStopTime >= HoldStartTime
-# StopTime      int    Elapsed time in seconds since start of simulation. StopTime >= HoldStopTime
-# Id            string Unique identifier automatically set by simulator.
-#
-
-class SetPseudorangeRamp(CommandBase):
-
-  def __init__(self, system, prn, offset, startTime, holdStartTime, holdStopTime, stopTime, id):
-    CommandBase.__init__(self, "SetPseudorangeRamp")
-    self.setSystem(system)
-    self.setPrn(prn)
-    self.setOffset(offset)
-    self.setStartTime(startTime)
-    self.setHoldStartTime(holdStartTime)
-    self.setHoldStopTime(holdStopTime)
-    self.setStopTime(stopTime)
-    self.setId(id)
-
-  def executePermission(self):
-    return ExecutePermission.EXECUTE_IF_SIMULATING | ExecutePermission.EXECUTE_IF_IDLE
-
-  def system(self):
-    return self.get("System")
-
-  def setSystem(self, value):
-    return self.set("System", value)
-
-  def prn(self):
-    return self.get("Prn")
-
-  def setPrn(self, value):
-    return self.set("Prn", value)
-
-  def offset(self):
-    return self.get("Offset")
-
-  def setOffset(self, value):
-    return self.set("Offset", value)
-
-  def startTime(self):
-    return self.get("StartTime")
-
-  def setStartTime(self, value):
-    return self.set("StartTime", value)
-
-  def holdStartTime(self):
-    return self.get("HoldStartTime")
-
-  def setHoldStartTime(self, value):
-    return self.set("HoldStartTime", value)
-
-  def holdStopTime(self):
-    return self.get("HoldStopTime")
-
-  def setHoldStopTime(self, value):
-    return self.set("HoldStopTime", value)
-
-  def stopTime(self):
-    return self.get("StopTime")
-
-  def setStopTime(self, value):
-    return self.set("StopTime", value)
-
-  def id(self):
-    return self.get("Id")
-
-  def setId(self, value):
-    return self.set("Id", value)
-
-#
-# Please note the command GetPseudorangeRamp is deprecated since 21.3. You may use GetPseudorangeRampForSV.
-# 
-# Get PSR ramp event. This function lets user change the pseudorange of any satellite.
-# If PRN is set to 0, the change is applied to all satellites.
-# 
-#          Hold Start Time
-#          |     Hold Stop Time
-#          |     |
-#          ...........
-#        ..       ...
-#        ..        ...
-#   .......           .........> Time
-#       |           |
-#       Start Time      Stop Time
-#
-# Name Type   Description
-# ---- ------ -------------------------------------------------
-# Id   string Unique identifier automatically set by simulator.
-#
-
-class GetPseudorangeRamp(CommandBase):
-
-  def __init__(self, id):
-    CommandBase.__init__(self, "GetPseudorangeRamp")
-    self.setId(id)
-
-  def executePermission(self):
-    return ExecutePermission.EXECUTE_IF_IDLE
-
-  def id(self):
-    return self.get("Id")
-
-  def setId(self, value):
-    return self.set("Id", value)
-
-#
-# Result of GetPseudorangeRamp.
-#
-# Name          Type   Description
-# ------------- ------ ----------------------------------------------------------------------------------------------------------
-# System        string "GPS", "GLONASS", "Galileo", "BeiDou", "SBAS", "QZSS" or "NavIC"
-# Prn           int    Satellite PRN number for GPS, Galileo, BeiDou and SBAS. Slot number for GLONASS. SV ID for QZSS and NavIC.
-# Offset        double Change to satellite pseudorange in meter when ramp is at maximum. Range -1e7..+1e7
-# StartTime     int    Elapsed time in seconds since start of simulation.
-# HoldStartTime int    Elapsed time in seconds since start of simulation. HoldStartTime >= StartTime
-# HoldStopTime  int    Elapsed time in seconds since start of simulation. HoldStopTime >= HoldStartTime
-# StopTime      int    Elapsed time in seconds since start of simulation. StopTime >= HoldStopTime
-# Id            string Unique identifier automatically set by simulator.
-#
-
-class GetPseudorangeRampResult(CommandResult):
-
-  def __init__(self, system, prn, offset, startTime, holdStartTime, holdStopTime, stopTime, id):
-    CommandResult.__init__(self, "GetPseudorangeRampResult")
-    self.setSystem(system)
-    self.setPrn(prn)
-    self.setOffset(offset)
-    self.setStartTime(startTime)
-    self.setHoldStartTime(holdStartTime)
-    self.setHoldStopTime(holdStopTime)
-    self.setStopTime(stopTime)
-    self.setId(id)
-
-  def isSuccess(self):
-    return True
-
-  def system(self):
-    return self.get("System")
-
-  def setSystem(self, value):
-    return self.set("System", value)
-
-  def prn(self):
-    return self.get("Prn")
-
-  def setPrn(self, value):
-    return self.set("Prn", value)
-
-  def offset(self):
-    return self.get("Offset")
-
-  def setOffset(self, value):
-    return self.set("Offset", value)
-
-  def startTime(self):
-    return self.get("StartTime")
-
-  def setStartTime(self, value):
-    return self.set("StartTime", value)
-
-  def holdStartTime(self):
-    return self.get("HoldStartTime")
-
-  def setHoldStartTime(self, value):
-    return self.set("HoldStartTime", value)
-
-  def holdStopTime(self):
-    return self.get("HoldStopTime")
-
-  def setHoldStopTime(self, value):
-    return self.set("HoldStopTime", value)
-
-  def stopTime(self):
-    return self.get("StopTime")
-
-  def setStopTime(self, value):
-    return self.set("StopTime", value)
-
-  def id(self):
-    return self.get("Id")
-
-  def setId(self, value):
-    return self.set("Id", value)
-
-#
-# Please note the command GetPseudorangeRamps is deprecated since 21.3. You may use GetAllPseudorangeRampForSV.
-# 
-# Get a list of all the pseudorange ramps IDs for one satellite of a system
-#
-# Name   Type   Description
-# ------ ------ ----------------------------------------------------------------------------------------------------------
-# System string "GPS", "GLONASS", "Galileo", "BeiDou", "SBAS", "QZSS" or "NavIC"
-# Prn    int    Satellite PRN number for GPS, Galileo, BeiDou and SBAS. Slot number for GLONASS. SV ID for QZSS and NavIC.
-#
-
-class GetPseudorangeRamps(CommandBase):
-
-  def __init__(self, system, prn):
-    CommandBase.__init__(self, "GetPseudorangeRamps")
-    self.setSystem(system)
-    self.setPrn(prn)
-
-  def executePermission(self):
-    return ExecutePermission.EXECUTE_IF_IDLE
-
-  def system(self):
-    return self.get("System")
-
-  def setSystem(self, value):
-    return self.set("System", value)
-
-  def prn(self):
-    return self.get("Prn")
-
-  def setPrn(self, value):
-    return self.set("Prn", value)
-
-#
-# result of GetPseudorangeRamps
-#
-# Name   Type         Description
-# ------ ------------ ----------------------------------------------------------------------------------------------------------
-# System string       "GPS", "GLONASS", "Galileo", "BeiDou", "SBAS", "QZSS" or "NavIC"
-# Prn    int          Satellite PRN number for GPS, Galileo, BeiDou and SBAS. Slot number for GLONASS. SV ID for QZSS and NavIC.
-# Ids    array string List of all the pseudorange ramps IDs for this satellite of system
-#
-
-class GetPseudorangeRampsResult(CommandResult):
-
-  def __init__(self, system, prn, ids):
-    CommandResult.__init__(self, "GetPseudorangeRampsResult")
-    self.setSystem(system)
-    self.setPrn(prn)
-    self.setIds(ids)
-
-  def isSuccess(self):
-    return True
-
-  def system(self):
-    return self.get("System")
-
-  def setSystem(self, value):
-    return self.set("System", value)
-
-  def prn(self):
-    return self.get("Prn")
-
-  def setPrn(self, value):
-    return self.set("Prn", value)
-
-  def ids(self):
-    return self.get("Ids")
-
-  def setIds(self, value):
-    return self.set("Ids", value)
-
-#
-# Please note the command SetSVAntennaModelForAllSat is deprecated since 21.3. You may use SetSVAntennaModelForEachSV.
-# 
-# Set the antenna model for all satellites.
-#
-# Name              Type         Description
-# ----------------- ------------ --------------------------------------------------------------------------------------------------------------------------------------------------
-# AntennaModelNames array string Antenna model name for each satellite. Zero based index (index 0 => PRN 1, index 1 => PRN 2, etc and index 0 => 120, index 1 => 121, etc for SBAS)
-# System            string       "GPS", "GLONASS", "Galileo", "BeiDou", "SBAS", "QZSS" or "NavIC"
-#
-
-class SetSVAntennaModelForAllSat(CommandBase):
-
-  def __init__(self, antennaModelNames, system):
-    CommandBase.__init__(self, "SetSVAntennaModelForAllSat")
-    self.setAntennaModelNames(antennaModelNames)
-    self.setSystem(system)
-
-  def executePermission(self):
-    return ExecutePermission.EXECUTE_IF_IDLE
-
-  def antennaModelNames(self):
-    return self.get("AntennaModelNames")
-
-  def setAntennaModelNames(self, value):
-    return self.set("AntennaModelNames", value)
-
-  def system(self):
-    return self.get("System")
-
-  def setSystem(self, value):
-    return self.set("System", value)
-
-#
-# Please note the command GetSVAntennaModelForAllSat is deprecated since 21.3. You may use GetSVAntennaModelForEachSV.
-# 
-# Get the antenna model for all satellites.
-#
-# Name   Type   Description
-# ------ ------ ----------------------------------------------------------------
-# System string "GPS", "GLONASS", "Galileo", "BeiDou", "SBAS", "QZSS" or "NavIC"
-#
-
-class GetSVAntennaModelForAllSat(CommandBase):
-
-  def __init__(self, system):
-    CommandBase.__init__(self, "GetSVAntennaModelForAllSat")
-    self.setSystem(system)
-
-  def executePermission(self):
-    return ExecutePermission.EXECUTE_IF_IDLE
-
-  def system(self):
-    return self.get("System")
-
-  def setSystem(self, value):
-    return self.set("System", value)
-
-#
-# Result of GetSVAntennaModelForAllSat.
-#
-# Name              Type         Description
-# ----------------- ------------ --------------------------------------------------------------------------------------------------------------------------------------------------
-# AntennaModelNames array string Antenna model name for each satellite. Zero based index (index 0 => PRN 1, index 1 => PRN 2, etc and index 0 => 120, index 1 => 121, etc for SBAS)
-# System            string       "GPS", "GLONASS", "Galileo", "BeiDou", "SBAS", "QZSS" or "NavIC"
-#
-
-class GetSVAntennaModelForAllSatResult(CommandResult):
-
-  def __init__(self, antennaModelNames, system):
-    CommandResult.__init__(self, "GetSVAntennaModelForAllSatResult")
-    self.setAntennaModelNames(antennaModelNames)
-    self.setSystem(system)
-
-  def isSuccess(self):
-    return True
-
-  def antennaModelNames(self):
-    return self.get("AntennaModelNames")
-
-  def setAntennaModelNames(self, value):
-    return self.set("AntennaModelNames", value)
-
-  def system(self):
-    return self.get("System")
-
-  def setSystem(self, value):
-    return self.set("System", value)
 

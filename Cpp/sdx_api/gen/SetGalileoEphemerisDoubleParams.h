@@ -2,6 +2,7 @@
 
 #include <memory>
 #include "command_base.h"
+#include "sdx_optional.h"
 #include <string>
 #include <vector>
 
@@ -14,10 +15,11 @@ namespace Sdx
     /// 
     /// Set Galileo ephemeris parameter value for all satellites
     ///
-    /// Name      Type         Description
-    /// --------- ------------ --------------------------------------------------------------------------------------------------
-    /// ParamName string       Refer to SetGalileoEphDoubleParamForSV for accepted names
-    /// Val       array double Parameter value for each satellite. Zero based index (index 0 => SV ID 1, index 1 => SV ID 2, etc)
+    /// Name        Type            Description
+    /// ----------- --------------- --------------------------------------------------------------------------------------------------
+    /// ParamName   string          Refer to SetGalileoEphDoubleParamForSV for accepted names
+    /// Val         array double    Parameter value for each satellite. Zero based index (index 0 => SV ID 1, index 1 => SV ID 2, etc)
+    /// DataSetName optional string Optional name of the data set to use. If no value is provided, the active data set is used.
     ///
 
     class SetGalileoEphemerisDoubleParams;
@@ -33,9 +35,9 @@ namespace Sdx
 
       SetGalileoEphemerisDoubleParams();
 
-      SetGalileoEphemerisDoubleParams(const std::string& paramName, const std::vector<double>& val);
+      SetGalileoEphemerisDoubleParams(const std::string& paramName, const std::vector<double>& val, const Sdx::optional<std::string>& dataSetName = {});
   
-      static SetGalileoEphemerisDoubleParamsPtr create(const std::string& paramName, const std::vector<double>& val);
+      static SetGalileoEphemerisDoubleParamsPtr create(const std::string& paramName, const std::vector<double>& val, const Sdx::optional<std::string>& dataSetName = {});
       static SetGalileoEphemerisDoubleParamsPtr dynamicCast(CommandBasePtr ptr);
       virtual bool isValid() const override;
       virtual std::string documentation() const override;
@@ -51,6 +53,11 @@ namespace Sdx
       // **** val ****
       std::vector<double> val() const;
       void setVal(const std::vector<double>& val);
+
+
+      // **** dataSetName ****
+      Sdx::optional<std::string> dataSetName() const;
+      void setDataSetName(const Sdx::optional<std::string>& dataSetName);
     };
   }
 }

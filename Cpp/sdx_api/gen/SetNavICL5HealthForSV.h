@@ -2,7 +2,8 @@
 
 #include <memory>
 #include "command_base.h"
-
+#include "sdx_optional.h"
+#include <string>
 
 namespace Sdx
 {
@@ -11,10 +12,11 @@ namespace Sdx
     ///
     /// Set NavIC L5 health (Health of L5 signal)
     ///
-    /// Name   Type Description
-    /// ------ ---- -----------------------------------------------
-    /// SvId   int  Satellite SV ID 1..14
-    /// Health bool L5 health, false = signal OK, true = signal bad
+    /// Name        Type            Description
+    /// ----------- --------------- -------------------------------------------------------------------------------------------
+    /// SvId        int             Satellite SV ID 1..14, or use 0 to apply new value to all satellites.
+    /// Health      bool            L5 health, false = signal OK, true = signal bad
+    /// DataSetName optional string Optional name of the data set to use. If no value is provided, the active data set is used.
     ///
 
     class SetNavICL5HealthForSV;
@@ -30,9 +32,9 @@ namespace Sdx
 
       SetNavICL5HealthForSV();
 
-      SetNavICL5HealthForSV(int svId, bool health);
+      SetNavICL5HealthForSV(int svId, bool health, const Sdx::optional<std::string>& dataSetName = {});
   
-      static SetNavICL5HealthForSVPtr create(int svId, bool health);
+      static SetNavICL5HealthForSVPtr create(int svId, bool health, const Sdx::optional<std::string>& dataSetName = {});
       static SetNavICL5HealthForSVPtr dynamicCast(CommandBasePtr ptr);
       virtual bool isValid() const override;
       virtual std::string documentation() const override;
@@ -48,6 +50,11 @@ namespace Sdx
       // **** health ****
       bool health() const;
       void setHealth(bool health);
+
+
+      // **** dataSetName ****
+      Sdx::optional<std::string> dataSetName() const;
+      void setDataSetName(const Sdx::optional<std::string>& dataSetName);
     };
   }
 }

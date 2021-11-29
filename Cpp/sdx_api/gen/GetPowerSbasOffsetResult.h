@@ -12,8 +12,8 @@ namespace Sdx
     /// Result of GetPowerSbasOffset.
     ///
     /// Name            Type   Description
-    /// --------------- ------ -------------------------------------------------------------
-    /// ServiceProvider string Service Provider key, allowed values: "WAAS", "EGNOS", "MSAS"
+    /// --------------- ------ ------------------------------------------------------------------------------
+    /// ServiceProvider string Service Provider key, allowed values: "WAAS", "EGNOS", "MSAS", "GAGAN", "SDCM"
     /// Offset          double Offset in dB (negative value will attenuate signal)
     ///
 

@@ -2,6 +2,7 @@
 
 #include <memory>
 #include "command_result.h"
+#include "sdx_optional.h"
 #include <string>
 
 namespace Sdx
@@ -11,16 +12,17 @@ namespace Sdx
     ///
     /// Result of GetPerturbations.
     ///
-    /// Name   Type   Description
-    /// ------ ------ ---------------------------------------------
-    /// System string "GPS", "Galileo", "BeiDou", "QZSS" or "NavIC"
-    /// SvId   int    The satellite's SV ID.
-    /// Crs    double Crs (meter)
-    /// Crc    double Crc (meter)
-    /// Cis    double Crs (rad)
-    /// Cic    double Crc (rad)
-    /// Cus    double Cus (rad)
-    /// Cuc    double Cuc (rad)
+    /// Name        Type            Description
+    /// ----------- --------------- -------------------------------------------------------------------------------------------
+    /// System      string          "GPS", "Galileo", "BeiDou", "QZSS" or "NavIC"
+    /// SvId        int             The satellite's SV ID.
+    /// Crs         double          Crs (meter)
+    /// Crc         double          Crc (meter)
+    /// Cis         double          Cis (rad)
+    /// Cic         double          Cic (rad)
+    /// Cus         double          Cus (rad)
+    /// Cuc         double          Cuc (rad)
+    /// DataSetName optional string Optional name of the data set to use. If no value is provided, the active data set is used.
     ///
 
     class GetPerturbationsResult;
@@ -36,9 +38,9 @@ namespace Sdx
 
       GetPerturbationsResult();
 
-      GetPerturbationsResult(CommandBasePtr relatedCommand, const std::string& system, int svId, double crs, double crc, double cis, double cic, double cus, double cuc);
+      GetPerturbationsResult(CommandBasePtr relatedCommand, const std::string& system, int svId, double crs, double crc, double cis, double cic, double cus, double cuc, const Sdx::optional<std::string>& dataSetName = {});
   
-      static GetPerturbationsResultPtr create(CommandBasePtr relatedCommand, const std::string& system, int svId, double crs, double crc, double cis, double cic, double cus, double cuc);
+      static GetPerturbationsResultPtr create(CommandBasePtr relatedCommand, const std::string& system, int svId, double crs, double crc, double cis, double cic, double cus, double cuc, const Sdx::optional<std::string>& dataSetName = {});
       static GetPerturbationsResultPtr dynamicCast(CommandBasePtr ptr);
       virtual bool isValid() const override;
       virtual std::string documentation() const override;
@@ -82,6 +84,11 @@ namespace Sdx
       // **** cuc ****
       double cuc() const;
       void setCuc(double cuc);
+
+
+      // **** dataSetName ****
+      Sdx::optional<std::string> dataSetName() const;
+      void setDataSetName(const Sdx::optional<std::string>& dataSetName);
     };
   }
 }

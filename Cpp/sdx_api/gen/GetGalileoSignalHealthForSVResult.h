@@ -2,6 +2,7 @@
 
 #include <memory>
 #include "command_result.h"
+#include "sdx_optional.h"
 #include <string>
 
 namespace Sdx
@@ -11,11 +12,12 @@ namespace Sdx
     ///
     /// Result of GetGalileoSignalHealthForSV.
     ///
-    /// Name      Type   Description
-    /// --------- ------ ------------------------------------------
-    /// SvId      int    The satellite's SV ID 1..36
-    /// Component string Component is either "E5a", "E5b", or "E1B"
-    /// Health    int    Signal health 0..3
+    /// Name        Type            Description
+    /// ----------- --------------- -------------------------------------------------------------------------------------------
+    /// SvId        int             The satellite's SV ID 1..36
+    /// Component   string          Component is either "E5a", "E5b", or "E1B"
+    /// Health      int             Signal health 0..3
+    /// DataSetName optional string Optional name of the data set to use. If no value is provided, the active data set is used.
     ///
 
     class GetGalileoSignalHealthForSVResult;
@@ -31,9 +33,9 @@ namespace Sdx
 
       GetGalileoSignalHealthForSVResult();
 
-      GetGalileoSignalHealthForSVResult(CommandBasePtr relatedCommand, int svId, const std::string& component, int health);
+      GetGalileoSignalHealthForSVResult(CommandBasePtr relatedCommand, int svId, const std::string& component, int health, const Sdx::optional<std::string>& dataSetName = {});
   
-      static GetGalileoSignalHealthForSVResultPtr create(CommandBasePtr relatedCommand, int svId, const std::string& component, int health);
+      static GetGalileoSignalHealthForSVResultPtr create(CommandBasePtr relatedCommand, int svId, const std::string& component, int health, const Sdx::optional<std::string>& dataSetName = {});
       static GetGalileoSignalHealthForSVResultPtr dynamicCast(CommandBasePtr ptr);
       virtual bool isValid() const override;
       virtual std::string documentation() const override;
@@ -52,6 +54,11 @@ namespace Sdx
       // **** health ****
       int health() const;
       void setHealth(int health);
+
+
+      // **** dataSetName ****
+      Sdx::optional<std::string> dataSetName() const;
+      void setDataSetName(const Sdx::optional<std::string>& dataSetName);
     };
   }
 }

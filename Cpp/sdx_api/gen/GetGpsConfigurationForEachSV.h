@@ -2,7 +2,8 @@
 
 #include <memory>
 #include "command_base.h"
-
+#include "sdx_optional.h"
+#include <string>
 
 namespace Sdx
 {
@@ -11,7 +12,9 @@ namespace Sdx
     ///
     /// Get GPS SV configuration flag for each SVs
     ///
-    /// 
+    /// Name        Type            Description
+    /// ----------- --------------- -------------------------------------------------------------------------------------------
+    /// DataSetName optional string Optional name of the data set to use. If no value is provided, the active data set is used.
     ///
 
     class GetGpsConfigurationForEachSV;
@@ -25,14 +28,19 @@ namespace Sdx
       static const char* const Documentation;
 
 
-      GetGpsConfigurationForEachSV();
+      GetGpsConfigurationForEachSV(const Sdx::optional<std::string>& dataSetName = {});
   
-      static GetGpsConfigurationForEachSVPtr create();
+      static GetGpsConfigurationForEachSVPtr create(const Sdx::optional<std::string>& dataSetName = {});
       static GetGpsConfigurationForEachSVPtr dynamicCast(CommandBasePtr ptr);
       virtual bool isValid() const override;
       virtual std::string documentation() const override;
 
       virtual int executePermission() const override;
+
+
+      // **** dataSetName ****
+      Sdx::optional<std::string> dataSetName() const;
+      void setDataSetName(const Sdx::optional<std::string>& dataSetName);
     };
   }
 }

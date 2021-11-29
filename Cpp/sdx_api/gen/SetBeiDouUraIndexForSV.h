@@ -2,7 +2,8 @@
 
 #include <memory>
 #include "command_base.h"
-
+#include "sdx_optional.h"
+#include <string>
 
 namespace Sdx
 {
@@ -11,10 +12,11 @@ namespace Sdx
     ///
     /// Set the ura index of a BeiDou satellite
     ///
-    /// Name Type Description
-    /// ---- ---- -------------------
-    /// SvId int  The satellite SV ID
-    /// Urai int  URA index.
+    /// Name        Type            Description
+    /// ----------- --------------- -------------------------------------------------------------------------------------------
+    /// SvId        int             The satellite SV ID, or use 0 to apply new value to all satellites.
+    /// Urai        int             URA index.
+    /// DataSetName optional string Optional name of the data set to use. If no value is provided, the active data set is used.
     ///
 
     class SetBeiDouUraIndexForSV;
@@ -30,9 +32,9 @@ namespace Sdx
 
       SetBeiDouUraIndexForSV();
 
-      SetBeiDouUraIndexForSV(int svId, int urai);
+      SetBeiDouUraIndexForSV(int svId, int urai, const Sdx::optional<std::string>& dataSetName = {});
   
-      static SetBeiDouUraIndexForSVPtr create(int svId, int urai);
+      static SetBeiDouUraIndexForSVPtr create(int svId, int urai, const Sdx::optional<std::string>& dataSetName = {});
       static SetBeiDouUraIndexForSVPtr dynamicCast(CommandBasePtr ptr);
       virtual bool isValid() const override;
       virtual std::string documentation() const override;
@@ -48,6 +50,11 @@ namespace Sdx
       // **** urai ****
       int urai() const;
       void setUrai(int urai);
+
+
+      // **** dataSetName ****
+      Sdx::optional<std::string> dataSetName() const;
+      void setDataSetName(const Sdx::optional<std::string>& dataSetName);
     };
   }
 }

@@ -2,6 +2,7 @@
 
 #include <memory>
 #include "command_base.h"
+#include "sdx_optional.h"
 #include <string>
 
 namespace Sdx
@@ -13,13 +14,14 @@ namespace Sdx
     /// 
     /// Set various parameters in the QZSS ephemeris.
     ///
-    /// Name      Type   Description
-    /// --------- ------ ----------------------------------------------------------------------------------
-    /// SvId      int    The satellite's SV ID 1..10 (use 0 to apply to all satellites)
-    /// ParamName string In meters:  "Crs", "Crc"
-    ///                  In radians: "Cis", "Cic", "Cus", "Cuc"
-    ///                  In seconds: "Tgd", "IscL1Ca", "IscL2C", "IscL5I5", "IscL5Q5", "IscL1CP", "IscL1CD"
-    /// Val       double Parameter value (see ParamName above for unit)
+    /// Name        Type            Description
+    /// ----------- --------------- -------------------------------------------------------------------------------------------
+    /// SvId        int             The satellite's SV ID 1..10 (use 0 to apply to all satellites)
+    /// ParamName   string          In meters:  "Crs", "Crc"
+    ///                             In radians: "Cis", "Cic", "Cus", "Cuc"
+    ///                             In seconds: "Tgd", "IscL1Ca", "IscL2C", "IscL5I5", "IscL5Q5", "IscL1CP", "IscL1CD"
+    /// Val         double          Parameter value (see ParamName above for unit)
+    /// DataSetName optional string Optional name of the data set to use. If no value is provided, the active data set is used.
     ///
 
     class SetQzssEphemerisDoubleParam;
@@ -35,9 +37,9 @@ namespace Sdx
 
       SetQzssEphemerisDoubleParam();
 
-      SetQzssEphemerisDoubleParam(int svId, const std::string& paramName, double val);
+      SetQzssEphemerisDoubleParam(int svId, const std::string& paramName, double val, const Sdx::optional<std::string>& dataSetName = {});
   
-      static SetQzssEphemerisDoubleParamPtr create(int svId, const std::string& paramName, double val);
+      static SetQzssEphemerisDoubleParamPtr create(int svId, const std::string& paramName, double val, const Sdx::optional<std::string>& dataSetName = {});
       static SetQzssEphemerisDoubleParamPtr dynamicCast(CommandBasePtr ptr);
       virtual bool isValid() const override;
       virtual std::string documentation() const override;
@@ -58,6 +60,11 @@ namespace Sdx
       // **** val ****
       double val() const;
       void setVal(double val);
+
+
+      // **** dataSetName ****
+      Sdx::optional<std::string> dataSetName() const;
+      void setDataSetName(const Sdx::optional<std::string>& dataSetName);
     };
   }
 }

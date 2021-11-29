@@ -9,7 +9,7 @@ namespace Sdx
   namespace Cmd
   {
     ///
-    /// Set If enabled, master and all the slaves will stop if a slave stop.
+    /// If enabled, master and all the slaves will stop if a slave stop.
     ///
     /// Name    Type Description
     /// ------- ---- ---------------------------------------

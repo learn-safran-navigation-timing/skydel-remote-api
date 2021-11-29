@@ -41,6 +41,11 @@ class MakeObj:
   def __getitem__(self, key):
       return self.__dict__[key]
 
+  def __eq__(self, other):
+    if isinstance(other, MakeObj):
+      return self.items() == other.items()
+    return False
+
   def iteritems(self):
     return self.__dict__.items()
 

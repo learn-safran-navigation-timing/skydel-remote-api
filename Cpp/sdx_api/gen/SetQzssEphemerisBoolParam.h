@@ -2,6 +2,7 @@
 
 #include <memory>
 #include "command_base.h"
+#include "sdx_optional.h"
 #include <string>
 
 namespace Sdx
@@ -21,11 +22,12 @@ namespace Sdx
     /// "IscL1CPAvailable"
     /// "IscL1CDAvailable"
     ///
-    /// Name      Type   Description
-    /// --------- ------ --------------------------------------------------------------------
-    /// SvId      int    Satellite SV ID 1..10, or use 0 to apply new value to all satellites
-    /// ParamName string Parameter name (see table above for accepted names)
-    /// Val       bool   Parameter value (see table above for unit)
+    /// Name        Type            Description
+    /// ----------- --------------- -------------------------------------------------------------------------------------------
+    /// SvId        int             Satellite SV ID 1..10, or use 0 to apply new value to all satellites
+    /// ParamName   string          Parameter name (see table above for accepted names)
+    /// Val         bool            Parameter value (see table above for unit)
+    /// DataSetName optional string Optional name of the data set to use. If no value is provided, the active data set is used.
     ///
 
     class SetQzssEphemerisBoolParam;
@@ -41,9 +43,9 @@ namespace Sdx
 
       SetQzssEphemerisBoolParam();
 
-      SetQzssEphemerisBoolParam(int svId, const std::string& paramName, bool val);
+      SetQzssEphemerisBoolParam(int svId, const std::string& paramName, bool val, const Sdx::optional<std::string>& dataSetName = {});
   
-      static SetQzssEphemerisBoolParamPtr create(int svId, const std::string& paramName, bool val);
+      static SetQzssEphemerisBoolParamPtr create(int svId, const std::string& paramName, bool val, const Sdx::optional<std::string>& dataSetName = {});
       static SetQzssEphemerisBoolParamPtr dynamicCast(CommandBasePtr ptr);
       virtual bool isValid() const override;
       virtual std::string documentation() const override;
@@ -64,6 +66,11 @@ namespace Sdx
       // **** val ****
       bool val() const;
       void setVal(bool val);
+
+
+      // **** dataSetName ****
+      Sdx::optional<std::string> dataSetName() const;
+      void setDataSetName(const Sdx::optional<std::string>& dataSetName);
     };
   }
 }

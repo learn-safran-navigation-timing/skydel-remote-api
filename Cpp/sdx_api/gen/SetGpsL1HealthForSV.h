@@ -2,7 +2,8 @@
 
 #include <memory>
 #include "command_base.h"
-
+#include "sdx_optional.h"
+#include <string>
 
 namespace Sdx
 {
@@ -11,10 +12,11 @@ namespace Sdx
     ///
     /// Set GPS L1 health (used with CNAV and CNAV2)
     ///
-    /// Name   Type Description
-    /// ------ ---- --------------------------------------------------------------
-    /// SvId   int  Satellite's SV ID 1..32
-    /// Health bool L1 health, false = signal OK, true = signal bad or unavailable
+    /// Name        Type            Description
+    /// ----------- --------------- -------------------------------------------------------------------------------------------
+    /// SvId        int             Satellite's SV ID 1..32
+    /// Health      bool            L1 health, false = signal OK, true = signal bad or unavailable
+    /// DataSetName optional string Optional name of the data set to use. If no value is provided, the active data set is used.
     ///
 
     class SetGpsL1HealthForSV;
@@ -30,9 +32,9 @@ namespace Sdx
 
       SetGpsL1HealthForSV();
 
-      SetGpsL1HealthForSV(int svId, bool health);
+      SetGpsL1HealthForSV(int svId, bool health, const Sdx::optional<std::string>& dataSetName = {});
   
-      static SetGpsL1HealthForSVPtr create(int svId, bool health);
+      static SetGpsL1HealthForSVPtr create(int svId, bool health, const Sdx::optional<std::string>& dataSetName = {});
       static SetGpsL1HealthForSVPtr dynamicCast(CommandBasePtr ptr);
       virtual bool isValid() const override;
       virtual std::string documentation() const override;
@@ -48,6 +50,11 @@ namespace Sdx
       // **** health ****
       bool health() const;
       void setHealth(bool health);
+
+
+      // **** dataSetName ****
+      Sdx::optional<std::string> dataSetName() const;
+      void setDataSetName(const Sdx::optional<std::string>& dataSetName);
     };
   }
 }

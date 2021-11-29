@@ -2,6 +2,7 @@
 
 #include <memory>
 #include "command_result.h"
+#include "sdx_optional.h"
 #include <string>
 
 namespace Sdx
@@ -11,12 +12,13 @@ namespace Sdx
     ///
     /// Result of IsSVForcedGeo.
     ///
-    /// Name      Type   Description
-    /// --------- ------ ---------------------------------------------
-    /// System    string "GPS", "Galileo", "BeiDou", "QZSS" or "NavIC"
-    /// SvId      int    The satellite SV ID
-    /// IsGeo     bool   True for geostationary satellite
-    /// Longitude double The longitude to use, in degree
+    /// Name        Type            Description
+    /// ----------- --------------- -------------------------------------------------------------------------------------------
+    /// System      string          "GPS", "Galileo", "BeiDou", "QZSS" or "NavIC"
+    /// SvId        int             The satellite SV ID
+    /// IsGeo       bool            True for geostationary satellite
+    /// Longitude   double          The longitude to use, in degree
+    /// DataSetName optional string Optional name of the data set to use. If no value is provided, the active data set is used.
     ///
 
     class IsSVForcedGeoResult;
@@ -32,9 +34,9 @@ namespace Sdx
 
       IsSVForcedGeoResult();
 
-      IsSVForcedGeoResult(CommandBasePtr relatedCommand, const std::string& system, int svId, bool isGeo, double longitude);
+      IsSVForcedGeoResult(CommandBasePtr relatedCommand, const std::string& system, int svId, bool isGeo, double longitude, const Sdx::optional<std::string>& dataSetName = {});
   
-      static IsSVForcedGeoResultPtr create(CommandBasePtr relatedCommand, const std::string& system, int svId, bool isGeo, double longitude);
+      static IsSVForcedGeoResultPtr create(CommandBasePtr relatedCommand, const std::string& system, int svId, bool isGeo, double longitude, const Sdx::optional<std::string>& dataSetName = {});
       static IsSVForcedGeoResultPtr dynamicCast(CommandBasePtr ptr);
       virtual bool isValid() const override;
       virtual std::string documentation() const override;
@@ -58,6 +60,11 @@ namespace Sdx
       // **** longitude ****
       double longitude() const;
       void setLongitude(double longitude);
+
+
+      // **** dataSetName ****
+      Sdx::optional<std::string> dataSetName() const;
+      void setDataSetName(const Sdx::optional<std::string>& dataSetName);
     };
   }
 }

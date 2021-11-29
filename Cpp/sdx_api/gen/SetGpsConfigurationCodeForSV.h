@@ -2,7 +2,8 @@
 
 #include <memory>
 #include "command_base.h"
-
+#include "sdx_optional.h"
+#include <string>
 
 namespace Sdx
 {
@@ -11,10 +12,11 @@ namespace Sdx
     ///
     /// Set GPS SV configuration flag for one satellite
     ///
-    /// Name     Type Description
-    /// -------- ---- ---------------------
-    /// SvId     int  Satellite SV ID 1..32
-    /// SvConfig int  SV Config 0..4
+    /// Name        Type            Description
+    /// ----------- --------------- -------------------------------------------------------------------------------------------
+    /// SvId        int             Satellite SV ID 1..32
+    /// SvConfig    int             SV Config 0..4
+    /// DataSetName optional string Optional name of the data set to use. If no value is provided, the active data set is used.
     ///
 
     class SetGpsConfigurationCodeForSV;
@@ -30,9 +32,9 @@ namespace Sdx
 
       SetGpsConfigurationCodeForSV();
 
-      SetGpsConfigurationCodeForSV(int svId, int svConfig);
+      SetGpsConfigurationCodeForSV(int svId, int svConfig, const Sdx::optional<std::string>& dataSetName = {});
   
-      static SetGpsConfigurationCodeForSVPtr create(int svId, int svConfig);
+      static SetGpsConfigurationCodeForSVPtr create(int svId, int svConfig, const Sdx::optional<std::string>& dataSetName = {});
       static SetGpsConfigurationCodeForSVPtr dynamicCast(CommandBasePtr ptr);
       virtual bool isValid() const override;
       virtual std::string documentation() const override;
@@ -48,6 +50,11 @@ namespace Sdx
       // **** svConfig ****
       int svConfig() const;
       void setSvConfig(int svConfig);
+
+
+      // **** dataSetName ****
+      Sdx::optional<std::string> dataSetName() const;
+      void setDataSetName(const Sdx::optional<std::string>& dataSetName);
     };
   }
 }

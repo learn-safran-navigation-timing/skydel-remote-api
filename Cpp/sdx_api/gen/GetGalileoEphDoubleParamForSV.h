@@ -2,6 +2,7 @@
 
 #include <memory>
 #include "command_base.h"
+#include "sdx_optional.h"
 #include <string>
 
 namespace Sdx
@@ -37,10 +38,11 @@ namespace Sdx
     ///   "BgdE1E5a"        ns
     ///   "BgdE1E5b"        ns
     ///
-    /// Name      Type   Description
-    /// --------- ------ --------------------------------------------------------------------
-    /// SvId      int    Satellite SV ID 1..36, or use 0 to apply new value to all satellites
-    /// ParamName string Parameter name (see table above for accepted names)
+    /// Name        Type            Description
+    /// ----------- --------------- -------------------------------------------------------------------------------------------
+    /// SvId        int             Satellite SV ID 1..36, or use 0 to apply new value to all satellites
+    /// ParamName   string          Parameter name (see table above for accepted names)
+    /// DataSetName optional string Optional name of the data set to use. If no value is provided, the active data set is used.
     ///
 
     class GetGalileoEphDoubleParamForSV;
@@ -56,9 +58,9 @@ namespace Sdx
 
       GetGalileoEphDoubleParamForSV();
 
-      GetGalileoEphDoubleParamForSV(int svId, const std::string& paramName);
+      GetGalileoEphDoubleParamForSV(int svId, const std::string& paramName, const Sdx::optional<std::string>& dataSetName = {});
   
-      static GetGalileoEphDoubleParamForSVPtr create(int svId, const std::string& paramName);
+      static GetGalileoEphDoubleParamForSVPtr create(int svId, const std::string& paramName, const Sdx::optional<std::string>& dataSetName = {});
       static GetGalileoEphDoubleParamForSVPtr dynamicCast(CommandBasePtr ptr);
       virtual bool isValid() const override;
       virtual std::string documentation() const override;
@@ -74,6 +76,11 @@ namespace Sdx
       // **** paramName ****
       std::string paramName() const;
       void setParamName(const std::string& paramName);
+
+
+      // **** dataSetName ****
+      Sdx::optional<std::string> dataSetName() const;
+      void setDataSetName(const Sdx::optional<std::string>& dataSetName);
     };
   }
 }

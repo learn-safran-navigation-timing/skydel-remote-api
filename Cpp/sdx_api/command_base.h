@@ -40,6 +40,8 @@ public:
   inline const std::string& splittedName() const {return m_cmdSplittedName;}
   inline const std::string& uuid() const { return m_cmdUuid; }
 
+  void setHidden(bool isHidden);
+  bool isHidden() const;
   virtual double timestamp() const;
   virtual void setTimestamp(double secs);
   bool hasTimestamp() const;

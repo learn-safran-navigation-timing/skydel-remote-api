@@ -2,6 +2,8 @@
 
 #include <memory>
 #include "command_base.h"
+#include "sdx_optional.h"
+#include <string>
 #include <vector>
 
 namespace Sdx
@@ -13,9 +15,10 @@ namespace Sdx
     /// 
     /// Set GPS SV configuration flag for each SVs
     ///
-    /// Name      Type      Description
-    /// --------- --------- --------------------------
-    /// SvConfigs array int SV Config of all satellite
+    /// Name        Type            Description
+    /// ----------- --------------- -------------------------------------------------------------------------------------------
+    /// SvConfigs   array int       SV Config of all satellite
+    /// DataSetName optional string Optional name of the data set to use. If no value is provided, the active data set is used.
     ///
 
     class SetGpsSVConfigurationForAllSat;
@@ -31,9 +34,9 @@ namespace Sdx
 
       SetGpsSVConfigurationForAllSat();
 
-      SetGpsSVConfigurationForAllSat(const std::vector<int>& svConfigs);
+      SetGpsSVConfigurationForAllSat(const std::vector<int>& svConfigs, const Sdx::optional<std::string>& dataSetName = {});
   
-      static SetGpsSVConfigurationForAllSatPtr create(const std::vector<int>& svConfigs);
+      static SetGpsSVConfigurationForAllSatPtr create(const std::vector<int>& svConfigs, const Sdx::optional<std::string>& dataSetName = {});
       static SetGpsSVConfigurationForAllSatPtr dynamicCast(CommandBasePtr ptr);
       virtual bool isValid() const override;
       virtual std::string documentation() const override;
@@ -44,6 +47,11 @@ namespace Sdx
       // **** svConfigs ****
       std::vector<int> svConfigs() const;
       void setSvConfigs(const std::vector<int>& svConfigs);
+
+
+      // **** dataSetName ****
+      Sdx::optional<std::string> dataSetName() const;
+      void setDataSetName(const Sdx::optional<std::string>& dataSetName);
     };
   }
 }

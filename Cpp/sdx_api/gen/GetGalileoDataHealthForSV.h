@@ -2,6 +2,7 @@
 
 #include <memory>
 #include "command_base.h"
+#include "sdx_optional.h"
 #include <string>
 
 namespace Sdx
@@ -11,10 +12,11 @@ namespace Sdx
     ///
     /// Get Galileo data health for I/NAV and F/NAV message
     ///
-    /// Name      Type   Description
-    /// --------- ------ ------------------------------------------
-    /// SvId      int    Satellite SV ID number 1..36
-    /// Component string Component is either "E5a", "E5b", or "E1B"
+    /// Name        Type            Description
+    /// ----------- --------------- -------------------------------------------------------------------------------------------
+    /// SvId        int             Satellite SV ID number 1..36.
+    /// Component   string          Component is either "E5a", "E5b", or "E1B"
+    /// DataSetName optional string Optional name of the data set to use. If no value is provided, the active data set is used.
     ///
 
     class GetGalileoDataHealthForSV;
@@ -30,9 +32,9 @@ namespace Sdx
 
       GetGalileoDataHealthForSV();
 
-      GetGalileoDataHealthForSV(int svId, const std::string& component);
+      GetGalileoDataHealthForSV(int svId, const std::string& component, const Sdx::optional<std::string>& dataSetName = {});
   
-      static GetGalileoDataHealthForSVPtr create(int svId, const std::string& component);
+      static GetGalileoDataHealthForSVPtr create(int svId, const std::string& component, const Sdx::optional<std::string>& dataSetName = {});
       static GetGalileoDataHealthForSVPtr dynamicCast(CommandBasePtr ptr);
       virtual bool isValid() const override;
       virtual std::string documentation() const override;
@@ -48,6 +50,11 @@ namespace Sdx
       // **** component ****
       std::string component() const;
       void setComponent(const std::string& component);
+
+
+      // **** dataSetName ****
+      Sdx::optional<std::string> dataSetName() const;
+      void setDataSetName(const Sdx::optional<std::string>& dataSetName);
     };
   }
 }

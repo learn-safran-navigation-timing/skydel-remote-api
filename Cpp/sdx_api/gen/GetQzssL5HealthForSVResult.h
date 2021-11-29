@@ -2,7 +2,8 @@
 
 #include <memory>
 #include "command_result.h"
-
+#include "sdx_optional.h"
+#include <string>
 
 namespace Sdx
 {
@@ -11,10 +12,11 @@ namespace Sdx
     ///
     /// Result of GetQzssL5HealthForSV.
     ///
-    /// Name   Type Description
-    /// ------ ---- -----------------------------------------------
-    /// SvId   int  Satellite SV ID 1..10
-    /// Health bool L5 health, false = signal OK, true = signal bad
+    /// Name        Type            Description
+    /// ----------- --------------- -------------------------------------------------------------------------------------------
+    /// SvId        int             Satellite SV ID 1..10, or use 0 to apply new value to all satellites.
+    /// Health      bool            L5 health, false = signal OK, true = signal bad
+    /// DataSetName optional string Optional name of the data set to use. If no value is provided, the active data set is used.
     ///
 
     class GetQzssL5HealthForSVResult;
@@ -31,9 +33,9 @@ namespace Sdx
 
       GetQzssL5HealthForSVResult();
 
-      GetQzssL5HealthForSVResult(CommandBasePtr relatedCommand, int svId, bool health);
+      GetQzssL5HealthForSVResult(CommandBasePtr relatedCommand, int svId, bool health, const Sdx::optional<std::string>& dataSetName = {});
   
-      static GetQzssL5HealthForSVResultPtr create(CommandBasePtr relatedCommand, int svId, bool health);
+      static GetQzssL5HealthForSVResultPtr create(CommandBasePtr relatedCommand, int svId, bool health, const Sdx::optional<std::string>& dataSetName = {});
       static GetQzssL5HealthForSVResultPtr dynamicCast(CommandBasePtr ptr);
       virtual bool isValid() const override;
       virtual std::string documentation() const override;
@@ -47,6 +49,11 @@ namespace Sdx
       // **** health ****
       bool health() const;
       void setHealth(bool health);
+
+
+      // **** dataSetName ****
+      Sdx::optional<std::string> dataSetName() const;
+      void setDataSetName(const Sdx::optional<std::string>& dataSetName);
     };
   }
 }

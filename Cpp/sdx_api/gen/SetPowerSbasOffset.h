@@ -12,8 +12,8 @@ namespace Sdx
     /// Set power offset default value for the SBAS Service Provider given in argument
     ///
     /// Name            Type   Description
-    /// --------------- ------ -------------------------------------------------------------
-    /// ServiceProvider string Service Provider key, allowed values: "WAAS", "EGNOS", "MSAS"
+    /// --------------- ------ ------------------------------------------------------------------------------
+    /// ServiceProvider string Service Provider key, allowed values: "WAAS", "EGNOS", "MSAS", "GAGAN", "SDCM"
     /// Offset          double Offset in dB (negative value will attenuate signal)
     ///
 

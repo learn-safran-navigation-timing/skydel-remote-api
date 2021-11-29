@@ -2,6 +2,7 @@
 
 #include <memory>
 #include "command_base.h"
+#include "sdx_optional.h"
 #include <string>
 
 namespace Sdx
@@ -19,10 +20,11 @@ namespace Sdx
     /// "IscL1CPAvailable"
     /// "IscL1CDAvailable"
     ///
-    /// Name      Type   Description
-    /// --------- ------ --------------------------------------------------------------------
-    /// SvId      int    Satellite SV ID 1..10, or use 0 to apply new value to all satellites
-    /// ParamName string Parameter name (see table above for accepted names)
+    /// Name        Type            Description
+    /// ----------- --------------- -------------------------------------------------------------------------------------------
+    /// SvId        int             Satellite SV ID 1..10, or use 0 to apply new value to all satellites
+    /// ParamName   string          Parameter name (see table above for accepted names)
+    /// DataSetName optional string Optional name of the data set to use. If no value is provided, the active data set is used.
     ///
 
     class GetQzssEphBoolParamForSV;
@@ -38,9 +40,9 @@ namespace Sdx
 
       GetQzssEphBoolParamForSV();
 
-      GetQzssEphBoolParamForSV(int svId, const std::string& paramName);
+      GetQzssEphBoolParamForSV(int svId, const std::string& paramName, const Sdx::optional<std::string>& dataSetName = {});
   
-      static GetQzssEphBoolParamForSVPtr create(int svId, const std::string& paramName);
+      static GetQzssEphBoolParamForSVPtr create(int svId, const std::string& paramName, const Sdx::optional<std::string>& dataSetName = {});
       static GetQzssEphBoolParamForSVPtr dynamicCast(CommandBasePtr ptr);
       virtual bool isValid() const override;
       virtual std::string documentation() const override;
@@ -56,6 +58,11 @@ namespace Sdx
       // **** paramName ****
       std::string paramName() const;
       void setParamName(const std::string& paramName);
+
+
+      // **** dataSetName ****
+      Sdx::optional<std::string> dataSetName() const;
+      void setDataSetName(const Sdx::optional<std::string>& dataSetName);
     };
   }
 }

@@ -2,7 +2,8 @@
 
 #include <memory>
 #include "command_result.h"
-
+#include "sdx_optional.h"
+#include <string>
 
 namespace Sdx
 {
@@ -11,10 +12,11 @@ namespace Sdx
     ///
     /// Result of GetNavICL5HealthForSV.
     ///
-    /// Name   Type Description
-    /// ------ ---- -----------------------------------------------
-    /// SvId   int  Satellite SV ID 1..14
-    /// Health bool L5 health, false = signal OK, true = signal bad
+    /// Name        Type            Description
+    /// ----------- --------------- -------------------------------------------------------------------------------------------
+    /// SvId        int             Satellite SV ID 1..14, or use 0 to apply new value to all satellites.
+    /// Health      bool            L5 health, false = signal OK, true = signal bad
+    /// DataSetName optional string Optional name of the data set to use. If no value is provided, the active data set is used.
     ///
 
     class GetNavICL5HealthForSVResult;
@@ -31,9 +33,9 @@ namespace Sdx
 
       GetNavICL5HealthForSVResult();
 
-      GetNavICL5HealthForSVResult(CommandBasePtr relatedCommand, int svId, bool health);
+      GetNavICL5HealthForSVResult(CommandBasePtr relatedCommand, int svId, bool health, const Sdx::optional<std::string>& dataSetName = {});
   
-      static GetNavICL5HealthForSVResultPtr create(CommandBasePtr relatedCommand, int svId, bool health);
+      static GetNavICL5HealthForSVResultPtr create(CommandBasePtr relatedCommand, int svId, bool health, const Sdx::optional<std::string>& dataSetName = {});
       static GetNavICL5HealthForSVResultPtr dynamicCast(CommandBasePtr ptr);
       virtual bool isValid() const override;
       virtual std::string documentation() const override;
@@ -47,6 +49,11 @@ namespace Sdx
       // **** health ****
       bool health() const;
       void setHealth(bool health);
+
+
+      // **** dataSetName ****
+      Sdx::optional<std::string> dataSetName() const;
+      void setDataSetName(const Sdx::optional<std::string>& dataSetName);
     };
   }
 }

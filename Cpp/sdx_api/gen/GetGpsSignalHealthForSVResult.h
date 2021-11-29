@@ -2,7 +2,8 @@
 
 #include <memory>
 #include "command_result.h"
-
+#include "sdx_optional.h"
+#include <string>
 
 namespace Sdx
 {
@@ -11,10 +12,11 @@ namespace Sdx
     ///
     /// Result of GetGpsSignalHealthForSV.
     ///
-    /// Name   Type Description
-    /// ------ ---- -----------------------
-    /// SvId   int  Satellite's SV ID 1..32
-    /// Health int  Signal health 0..31
+    /// Name        Type            Description
+    /// ----------- --------------- -------------------------------------------------------------------------------------------
+    /// SvId        int             Satellite's SV ID 1..32
+    /// Health      int             Signal health 0..31
+    /// DataSetName optional string Optional name of the data set to use. If no value is provided, the active data set is used.
     ///
 
     class GetGpsSignalHealthForSVResult;
@@ -30,9 +32,9 @@ namespace Sdx
 
       GetGpsSignalHealthForSVResult();
 
-      GetGpsSignalHealthForSVResult(CommandBasePtr relatedCommand, int svId, int health);
+      GetGpsSignalHealthForSVResult(CommandBasePtr relatedCommand, int svId, int health, const Sdx::optional<std::string>& dataSetName = {});
   
-      static GetGpsSignalHealthForSVResultPtr create(CommandBasePtr relatedCommand, int svId, int health);
+      static GetGpsSignalHealthForSVResultPtr create(CommandBasePtr relatedCommand, int svId, int health, const Sdx::optional<std::string>& dataSetName = {});
       static GetGpsSignalHealthForSVResultPtr dynamicCast(CommandBasePtr ptr);
       virtual bool isValid() const override;
       virtual std::string documentation() const override;
@@ -46,6 +48,11 @@ namespace Sdx
       // **** health ****
       int health() const;
       void setHealth(int health);
+
+
+      // **** dataSetName ****
+      Sdx::optional<std::string> dataSetName() const;
+      void setDataSetName(const Sdx::optional<std::string>& dataSetName);
     };
   }
 }

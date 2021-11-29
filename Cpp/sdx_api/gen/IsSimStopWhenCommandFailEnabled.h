@@ -9,7 +9,7 @@ namespace Sdx
   namespace Cmd
   {
     ///
-    /// Get If enabled, simulation stops when a command result fail.
+    /// If enabled, simulation stops when a command result fail.
     ///
     /// 
     ///

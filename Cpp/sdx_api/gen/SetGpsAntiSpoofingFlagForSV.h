@@ -3,6 +3,8 @@
 #include <memory>
 #include "command_base.h"
 #include "gen/GpsASFlag.h"
+#include "sdx_optional.h"
+#include <string>
 
 namespace Sdx
 {
@@ -11,10 +13,11 @@ namespace Sdx
     ///
     /// Set GPS Anti-Spoofing Flag
     ///
-    /// Name         Type      Description
-    /// ------------ --------- -----------------------
-    /// SvId         int       Satellite's SV ID 1..32
-    /// AntiSpoofing GpsASFlag GPS Anti-Spoofing Flag.
+    /// Name         Type            Description
+    /// ------------ --------------- -------------------------------------------------------------------------------------------
+    /// SvId         int             Satellite's SV ID 1..32, or use 0 to apply new value to all satellites.
+    /// AntiSpoofing GpsASFlag       GPS Anti-Spoofing Flag.
+    /// DataSetName  optional string Optional name of the data set to use. If no value is provided, the active data set is used.
     ///
 
     class SetGpsAntiSpoofingFlagForSV;
@@ -30,9 +33,9 @@ namespace Sdx
 
       SetGpsAntiSpoofingFlagForSV();
 
-      SetGpsAntiSpoofingFlagForSV(int svId, const Sdx::GpsASFlag& antiSpoofing);
+      SetGpsAntiSpoofingFlagForSV(int svId, const Sdx::GpsASFlag& antiSpoofing, const Sdx::optional<std::string>& dataSetName = {});
   
-      static SetGpsAntiSpoofingFlagForSVPtr create(int svId, const Sdx::GpsASFlag& antiSpoofing);
+      static SetGpsAntiSpoofingFlagForSVPtr create(int svId, const Sdx::GpsASFlag& antiSpoofing, const Sdx::optional<std::string>& dataSetName = {});
       static SetGpsAntiSpoofingFlagForSVPtr dynamicCast(CommandBasePtr ptr);
       virtual bool isValid() const override;
       virtual std::string documentation() const override;
@@ -48,6 +51,11 @@ namespace Sdx
       // **** antiSpoofing ****
       Sdx::GpsASFlag antiSpoofing() const;
       void setAntiSpoofing(const Sdx::GpsASFlag& antiSpoofing);
+
+
+      // **** dataSetName ****
+      Sdx::optional<std::string> dataSetName() const;
+      void setDataSetName(const Sdx::optional<std::string>& dataSetName);
     };
   }
 }

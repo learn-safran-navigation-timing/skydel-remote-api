@@ -3,6 +3,7 @@
 #include <memory>
 #include "command_result.h"
 #include "date_time.h"
+#include "sdx_optional.h"
 #include <string>
 
 namespace Sdx
@@ -12,11 +13,12 @@ namespace Sdx
     ///
     /// Result of GetEphemerisReferenceTimeForSV.
     ///
-    /// Name   Type     Description
-    /// ------ -------- --------------------------------------------------------------
-    /// System string   "GPS", "Galileo", "BeiDou", "QZSS" or "NavIC"
-    /// SvId   int      The satellite's SV ID.
-    /// Time   datetime GPS date and time (it is the GPS time expressed in UTC format)
+    /// Name        Type            Description
+    /// ----------- --------------- -------------------------------------------------------------------------------------------
+    /// System      string          "GPS", "Galileo", "BeiDou", "QZSS" or "NavIC"
+    /// SvId        int             The satellite's SV ID.
+    /// Time        datetime        GPS date and time (it is the GPS time expressed in UTC format)
+    /// DataSetName optional string Optional name of the data set to use. If no value is provided, the active data set is used.
     ///
 
     class GetEphemerisReferenceTimeForSVResult;
@@ -33,9 +35,9 @@ namespace Sdx
 
       GetEphemerisReferenceTimeForSVResult();
 
-      GetEphemerisReferenceTimeForSVResult(CommandBasePtr relatedCommand, const std::string& system, int svId, const Sdx::DateTime& time);
+      GetEphemerisReferenceTimeForSVResult(CommandBasePtr relatedCommand, const std::string& system, int svId, const Sdx::DateTime& time, const Sdx::optional<std::string>& dataSetName = {});
   
-      static GetEphemerisReferenceTimeForSVResultPtr create(CommandBasePtr relatedCommand, const std::string& system, int svId, const Sdx::DateTime& time);
+      static GetEphemerisReferenceTimeForSVResultPtr create(CommandBasePtr relatedCommand, const std::string& system, int svId, const Sdx::DateTime& time, const Sdx::optional<std::string>& dataSetName = {});
       static GetEphemerisReferenceTimeForSVResultPtr dynamicCast(CommandBasePtr ptr);
       virtual bool isValid() const override;
       virtual std::string documentation() const override;
@@ -54,6 +56,11 @@ namespace Sdx
       // **** time ****
       Sdx::DateTime time() const;
       void setTime(const Sdx::DateTime& time);
+
+
+      // **** dataSetName ****
+      Sdx::optional<std::string> dataSetName() const;
+      void setDataSetName(const Sdx::optional<std::string>& dataSetName);
     };
   }
 }
