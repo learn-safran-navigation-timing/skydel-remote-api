@@ -13,8 +13,8 @@ namespace Sdx
     /// Set the PRN for each satellite for specified signals.
     ///
     /// Name   Type      Description
-    /// ------ --------- ---------------------------------------------------------------------------------------------------------------------------------------------------------------------
-    /// Signal string    Accepted signal keys: "L1CA", "L1C", "L2C", "L5", "E1", "E6BC", "B1", "B2", "B1C", "B2a", "QZSSL1CA", "QZSSL1C", "QZSSL2C", "QZSSL5", "QZSSL1S", "QZSSL5S", "NAVICL5"
+    /// ------ --------- ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+    /// Signal string    Accepted signal keys: "L1CA", "L1C", "L2C", "L5", "E1", "E6BC", "B1", "B2", "B1C", "B2a", "QZSSL1CA", "QZSSL1CB", "QZSSL1C", "QZSSL2C", "QZSSL5", "QZSSL1S", "QZSSL5S", "NAVICL5"
     /// Prn    array int PRN value to set for each satellite. Zero based index (index 0 => PRN for SV ID 1, index 1 => PRN for SV ID 2, etc)
     ///
 

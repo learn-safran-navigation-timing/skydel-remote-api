@@ -230,7 +230,7 @@ bool CmdClient::receiveMessage()
   {
     rx = recv(m->s, m->message, 2, MSG_PEEK);
 
-    if (rx < 0)
+    if (rx <= 0)
     {
       checkStopRequest();
       return false;
@@ -245,7 +245,7 @@ bool CmdClient::receiveMessage()
   {
     rx = recv(m->s, messagePtr, bytesToRead, MSG_WAITALL);
 
-    if (rx < 0)
+    if (rx <= 0)
     {
       checkStopRequest();
       return false;

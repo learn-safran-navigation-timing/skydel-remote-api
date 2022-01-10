@@ -13,8 +13,8 @@ namespace Sdx
     /// Result of GetMessageModificationToQzssLNav.
     ///
     /// Name             Type         Description
-    /// ---------------- ------------ -----------------------------------------------------------------------------------------
-    /// SignalArray      array string Array of signals to apply the message modification to, accepts "QZSSL1CA" (empty for all)
+    /// ---------------- ------------ --------------------------------------------------------------------------------------------------------
+    /// SignalArray      array string Array of signals to apply the message modification to, accepts "QZSSL1CA" and "QZSSL1CB" (empty for all)
     /// SvId             int          The satellite's SV ID 1..10 (use 0 to apply modification to all SVs)
     /// StartTime        int          Elapsed time in seconds since start of simulation
     /// StopTime         int          Elapsed time in seconds since start of simulation (use 0 for no stop time)

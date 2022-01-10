@@ -12,8 +12,8 @@ namespace Sdx
     /// Result of GetIonoModel.
     ///
     /// Name  Type   Description
-    /// ----- ------ -------------------------------------------------------
-    /// Model string Ionospheric model ("None", "Klobuchar" or "Spacecraft")
+    /// ----- ------ ------------------------------------------------------------------
+    /// Model string Ionospheric model ("None", "Klobuchar", "Spacecraft" or "NeQuick")
     ///
 
     class GetIonoModelResult;

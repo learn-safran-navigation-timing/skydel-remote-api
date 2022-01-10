@@ -12,8 +12,8 @@ namespace Sdx
     /// Clear the signal for all message modifications.
     ///
     /// Name   Type   Description
-    /// ------ ------ -----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
-    /// Signal string Signal key, accepted values : "L1CA", "L1C", "L1P", "L1M", "L2C", "L2P", "L2M", "L5", "G1", "G2", "E1", "E5a", "E5b", "B1", "B2", "B2a", "B1C", "QZSSL1CA", "QZSSL1S" and "NAVICL5"
+    /// ------ ------ -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+    /// Signal string Signal key, accepted values : "L1CA", "L1C", "L1P", "L1M", "L2C", "L2P", "L2M", "L5", "G1", "G2", "E1", "E5a", "E5b", "B1", "B2", "B2a", "B1C", "QZSSL1CA", "QZSSL1CB", "QZSSL1S", "NAVICL5", "SBASL1" and "SBASL5"
     ///
 
     class ClearAllMessageModificationsForSignal;

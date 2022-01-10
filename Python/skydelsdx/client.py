@@ -34,6 +34,8 @@ class Client:
     packet = self.sock.recv(size)
     while len(packet) != size:
       chunk = self.sock.recv(size - len(packet))
+      if len(chunk) == 0:
+        raise Exception("Server closed connection.")
       packet = packet + chunk
     return packet
 

@@ -4611,6 +4611,238 @@ namespace Sdx
 
 
 ///
+/// Definition of SetEffectiveIonisationLevelCoefficient
+///
+#include "gen/SetEffectiveIonisationLevelCoefficient.h"
+
+namespace Sdx
+{
+  namespace Cmd
+  {
+    const char* const SetEffectiveIonisationLevelCoefficient::CmdName = "SetEffectiveIonisationLevelCoefficient";
+    const char* const SetEffectiveIonisationLevelCoefficient::Documentation = "Set the effective ionisation level coefficient for the 1st, 2nd or 3rd order, (ai0 , ai1 , ai2).";
+
+    REGISTER_COMMAND_FACTORY(SetEffectiveIonisationLevelCoefficient);
+
+
+    SetEffectiveIonisationLevelCoefficient::SetEffectiveIonisationLevelCoefficient()
+      : CommandBase(CmdName)
+    {}
+
+    SetEffectiveIonisationLevelCoefficient::SetEffectiveIonisationLevelCoefficient(int index, double val)
+      : CommandBase(CmdName)
+    {
+
+      setIndex(index);
+      setVal(val);
+    }
+
+
+    SetEffectiveIonisationLevelCoefficientPtr SetEffectiveIonisationLevelCoefficient::create(int index, double val)
+    {
+      return SetEffectiveIonisationLevelCoefficientPtr(new SetEffectiveIonisationLevelCoefficient(index, val));
+    }
+
+    SetEffectiveIonisationLevelCoefficientPtr SetEffectiveIonisationLevelCoefficient::dynamicCast(CommandBasePtr ptr)
+    {
+      return std::dynamic_pointer_cast<SetEffectiveIonisationLevelCoefficient>(ptr);
+    }
+
+    bool SetEffectiveIonisationLevelCoefficient::isValid() const
+    {
+      
+        return m_values.IsObject()
+          && parse_json<int>::is_valid(m_values["Index"])
+          && parse_json<double>::is_valid(m_values["Val"])
+        ;
+
+    }
+
+    std::string SetEffectiveIonisationLevelCoefficient::documentation() const { return Documentation; }
+
+
+    int SetEffectiveIonisationLevelCoefficient::executePermission() const
+    {
+      return EXECUTE_IF_IDLE;
+    }
+
+
+    int SetEffectiveIonisationLevelCoefficient::index() const
+    {
+      return parse_json<int>::parse(m_values["Index"]);
+    }
+
+    void SetEffectiveIonisationLevelCoefficient::setIndex(int index)
+    {
+      m_values.AddMember("Index", parse_json<int>::format(index, m_values.GetAllocator()), m_values.GetAllocator());
+    }
+
+
+
+    double SetEffectiveIonisationLevelCoefficient::val() const
+    {
+      return parse_json<double>::parse(m_values["Val"]);
+    }
+
+    void SetEffectiveIonisationLevelCoefficient::setVal(double val)
+    {
+      m_values.AddMember("Val", parse_json<double>::format(val, m_values.GetAllocator()), m_values.GetAllocator());
+    }
+
+
+  }
+}
+
+
+///
+/// Definition of GetEffectiveIonisationLevelCoefficient
+///
+#include "gen/GetEffectiveIonisationLevelCoefficient.h"
+
+namespace Sdx
+{
+  namespace Cmd
+  {
+    const char* const GetEffectiveIonisationLevelCoefficient::CmdName = "GetEffectiveIonisationLevelCoefficient";
+    const char* const GetEffectiveIonisationLevelCoefficient::Documentation = "Get the effective ionisation level coefficient for the 1st, 2nd or 3rd order, (ai0 , ai1 , ai2).";
+
+    REGISTER_COMMAND_FACTORY(GetEffectiveIonisationLevelCoefficient);
+
+
+    GetEffectiveIonisationLevelCoefficient::GetEffectiveIonisationLevelCoefficient()
+      : CommandBase(CmdName)
+    {}
+
+    GetEffectiveIonisationLevelCoefficient::GetEffectiveIonisationLevelCoefficient(int index)
+      : CommandBase(CmdName)
+    {
+
+      setIndex(index);
+    }
+
+
+    GetEffectiveIonisationLevelCoefficientPtr GetEffectiveIonisationLevelCoefficient::create(int index)
+    {
+      return GetEffectiveIonisationLevelCoefficientPtr(new GetEffectiveIonisationLevelCoefficient(index));
+    }
+
+    GetEffectiveIonisationLevelCoefficientPtr GetEffectiveIonisationLevelCoefficient::dynamicCast(CommandBasePtr ptr)
+    {
+      return std::dynamic_pointer_cast<GetEffectiveIonisationLevelCoefficient>(ptr);
+    }
+
+    bool GetEffectiveIonisationLevelCoefficient::isValid() const
+    {
+      
+        return m_values.IsObject()
+          && parse_json<int>::is_valid(m_values["Index"])
+        ;
+
+    }
+
+    std::string GetEffectiveIonisationLevelCoefficient::documentation() const { return Documentation; }
+
+
+    int GetEffectiveIonisationLevelCoefficient::executePermission() const
+    {
+      return EXECUTE_IF_IDLE;
+    }
+
+
+    int GetEffectiveIonisationLevelCoefficient::index() const
+    {
+      return parse_json<int>::parse(m_values["Index"]);
+    }
+
+    void GetEffectiveIonisationLevelCoefficient::setIndex(int index)
+    {
+      m_values.AddMember("Index", parse_json<int>::format(index, m_values.GetAllocator()), m_values.GetAllocator());
+    }
+
+
+  }
+}
+
+
+///
+/// Definition of GetEffectiveIonisationLevelCoefficientResult
+///
+#include "gen/GetEffectiveIonisationLevelCoefficientResult.h"
+
+namespace Sdx
+{
+  namespace Cmd
+  {
+    const char* const GetEffectiveIonisationLevelCoefficientResult::CmdName = "GetEffectiveIonisationLevelCoefficientResult";
+    const char* const GetEffectiveIonisationLevelCoefficientResult::Documentation = "Result of GetEffectiveIonisationLevelCoefficient.";
+
+    REGISTER_COMMAND_RESULT_FACTORY(GetEffectiveIonisationLevelCoefficientResult);
+
+
+    GetEffectiveIonisationLevelCoefficientResult::GetEffectiveIonisationLevelCoefficientResult()
+      : CommandResult(CmdName)
+    {}
+
+    GetEffectiveIonisationLevelCoefficientResult::GetEffectiveIonisationLevelCoefficientResult(CommandBasePtr relatedCommand, int index, double val)
+      : CommandResult(CmdName, relatedCommand)
+    {
+
+      setIndex(index);
+      setVal(val);
+    }
+
+
+    GetEffectiveIonisationLevelCoefficientResultPtr GetEffectiveIonisationLevelCoefficientResult::create(CommandBasePtr relatedCommand, int index, double val)
+    {
+      return GetEffectiveIonisationLevelCoefficientResultPtr(new GetEffectiveIonisationLevelCoefficientResult(relatedCommand, index, val));
+    }
+
+    GetEffectiveIonisationLevelCoefficientResultPtr GetEffectiveIonisationLevelCoefficientResult::dynamicCast(CommandBasePtr ptr)
+    {
+      return std::dynamic_pointer_cast<GetEffectiveIonisationLevelCoefficientResult>(ptr);
+    }
+
+    bool GetEffectiveIonisationLevelCoefficientResult::isValid() const
+    {
+      
+        return m_values.IsObject()
+          && parse_json<int>::is_valid(m_values["Index"])
+          && parse_json<double>::is_valid(m_values["Val"])
+        ;
+
+    }
+
+    std::string GetEffectiveIonisationLevelCoefficientResult::documentation() const { return Documentation; }
+
+
+    int GetEffectiveIonisationLevelCoefficientResult::index() const
+    {
+      return parse_json<int>::parse(m_values["Index"]);
+    }
+
+    void GetEffectiveIonisationLevelCoefficientResult::setIndex(int index)
+    {
+      m_values.AddMember("Index", parse_json<int>::format(index, m_values.GetAllocator()), m_values.GetAllocator());
+    }
+
+
+
+    double GetEffectiveIonisationLevelCoefficientResult::val() const
+    {
+      return parse_json<double>::parse(m_values["Val"]);
+    }
+
+    void GetEffectiveIonisationLevelCoefficientResult::setVal(double val)
+    {
+      m_values.AddMember("Val", parse_json<double>::format(val, m_values.GetAllocator()), m_values.GetAllocator());
+    }
+
+
+  }
+}
+
+
+///
 /// Definition of SetIonoModel
 ///
 #include "gen/SetIonoModel.h"
@@ -22321,6 +22553,146 @@ namespace Sdx
     void ImportIonoParameters::setType(const Sdx::optional<std::string>& type)
     {
       m_values.AddMember("Type", parse_json<Sdx::optional<std::string>>::format(type, m_values.GetAllocator()), m_values.GetAllocator());
+    }
+
+
+  }
+}
+
+
+///
+/// Definition of ImportMODIPFile
+///
+#include "gen/ImportMODIPFile.h"
+
+namespace Sdx
+{
+  namespace Cmd
+  {
+    const char* const ImportMODIPFile::CmdName = "ImportMODIPFile";
+    const char* const ImportMODIPFile::Documentation = "Import MODIP data file.";
+
+    REGISTER_COMMAND_FACTORY(ImportMODIPFile);
+
+
+    ImportMODIPFile::ImportMODIPFile()
+      : CommandBase(CmdName)
+    {}
+
+    ImportMODIPFile::ImportMODIPFile(const std::string& path)
+      : CommandBase(CmdName)
+    {
+
+      setPath(path);
+    }
+
+
+    ImportMODIPFilePtr ImportMODIPFile::create(const std::string& path)
+    {
+      return ImportMODIPFilePtr(new ImportMODIPFile(path));
+    }
+
+    ImportMODIPFilePtr ImportMODIPFile::dynamicCast(CommandBasePtr ptr)
+    {
+      return std::dynamic_pointer_cast<ImportMODIPFile>(ptr);
+    }
+
+    bool ImportMODIPFile::isValid() const
+    {
+      
+        return m_values.IsObject()
+          && parse_json<std::string>::is_valid(m_values["Path"])
+        ;
+
+    }
+
+    std::string ImportMODIPFile::documentation() const { return Documentation; }
+
+
+    int ImportMODIPFile::executePermission() const
+    {
+      return EXECUTE_IF_IDLE;
+    }
+
+
+    std::string ImportMODIPFile::path() const
+    {
+      return parse_json<std::string>::parse(m_values["Path"]);
+    }
+
+    void ImportMODIPFile::setPath(const std::string& path)
+    {
+      m_values.AddMember("Path", parse_json<std::string>::format(path, m_values.GetAllocator()), m_values.GetAllocator());
+    }
+
+
+  }
+}
+
+
+///
+/// Definition of ImportCCIRFilesFromDirectory
+///
+#include "gen/ImportCCIRFilesFromDirectory.h"
+
+namespace Sdx
+{
+  namespace Cmd
+  {
+    const char* const ImportCCIRFilesFromDirectory::CmdName = "ImportCCIRFilesFromDirectory";
+    const char* const ImportCCIRFilesFromDirectory::Documentation = "Import all the CCIR data files from the specified directory.";
+
+    REGISTER_COMMAND_FACTORY(ImportCCIRFilesFromDirectory);
+
+
+    ImportCCIRFilesFromDirectory::ImportCCIRFilesFromDirectory()
+      : CommandBase(CmdName)
+    {}
+
+    ImportCCIRFilesFromDirectory::ImportCCIRFilesFromDirectory(const std::string& path)
+      : CommandBase(CmdName)
+    {
+
+      setPath(path);
+    }
+
+
+    ImportCCIRFilesFromDirectoryPtr ImportCCIRFilesFromDirectory::create(const std::string& path)
+    {
+      return ImportCCIRFilesFromDirectoryPtr(new ImportCCIRFilesFromDirectory(path));
+    }
+
+    ImportCCIRFilesFromDirectoryPtr ImportCCIRFilesFromDirectory::dynamicCast(CommandBasePtr ptr)
+    {
+      return std::dynamic_pointer_cast<ImportCCIRFilesFromDirectory>(ptr);
+    }
+
+    bool ImportCCIRFilesFromDirectory::isValid() const
+    {
+      
+        return m_values.IsObject()
+          && parse_json<std::string>::is_valid(m_values["Path"])
+        ;
+
+    }
+
+    std::string ImportCCIRFilesFromDirectory::documentation() const { return Documentation; }
+
+
+    int ImportCCIRFilesFromDirectory::executePermission() const
+    {
+      return EXECUTE_IF_IDLE;
+    }
+
+
+    std::string ImportCCIRFilesFromDirectory::path() const
+    {
+      return parse_json<std::string>::parse(m_values["Path"]);
+    }
+
+    void ImportCCIRFilesFromDirectory::setPath(const std::string& path)
+    {
+      m_values.AddMember("Path", parse_json<std::string>::format(path, m_values.GetAllocator()), m_values.GetAllocator());
     }
 
 
@@ -51845,6 +52217,434 @@ namespace Sdx
     }
 
     void GetMessageModificationToNavICNavResult::setId(const std::string& id)
+    {
+      m_values.AddMember("Id", parse_json<std::string>::format(id, m_values.GetAllocator()), m_values.GetAllocator());
+    }
+
+
+  }
+}
+
+
+///
+/// Definition of SetMessageModificationToSbasNav
+///
+#include "gen/SetMessageModificationToSbasNav.h"
+
+namespace Sdx
+{
+  namespace Cmd
+  {
+    const char* const SetMessageModificationToSbasNav::CmdName = "SetMessageModificationToSbasNav";
+    const char* const SetMessageModificationToSbasNav::Documentation = "Set (or Modify) event to change SBAS NAV message bits. If you send this command without setting the ID\nparameter, or if you set the ID with a value never used before, a new Modification event will be\ncreated. If you reuse the same event ID, it will modify the existing event.\n\nNote that start and stop time are automatically extended to beginning and ending of overlapped\nmessages.\n\nThe Condition parameter is optional and allows you to add content matching condition before applying\nbit modifications.\n\nBitModifications can be an empty string. The Modification will have no effect until you modify it with at\nleast one bits mod.\n\nA bits mod is represented with a string using the following format: \"I:Bits\" where I is a bit\nindex (1 refers to the first transmitted bit) and Bits is a modification mask where each\ncharacter describes a modification to a single bit. The allowed characters are:\n   0 : force bit to 0\n   1 : force bit to 1\n   - : leave bit unchanged\n   X : revert bit (0 becomes 1 and 1 becomes 0)\n\nFor example: \"24:X---10XX\" will: revert bits 24, 30 and 31\n                 set bit 28 to 1\n                 set bit 29 to 0\nThe other bits are not affected.\n\nYou can add multiple bit modifications using commas. For example: \"24:X---10XX,127:100X,231:01\"";
+
+    REGISTER_COMMAND_FACTORY(SetMessageModificationToSbasNav);
+
+
+    SetMessageModificationToSbasNav::SetMessageModificationToSbasNav()
+      : CommandBase(CmdName)
+    {}
+
+    SetMessageModificationToSbasNav::SetMessageModificationToSbasNav(const std::vector<std::string>& signalArray, int svId, int startTime, int stopTime, int messageType, const std::string& condition, bool updateCRC, const std::string& bitModifications, const std::string& id)
+      : CommandBase(CmdName)
+    {
+
+      setSignalArray(signalArray);
+      setSvId(svId);
+      setStartTime(startTime);
+      setStopTime(stopTime);
+      setMessageType(messageType);
+      setCondition(condition);
+      setUpdateCRC(updateCRC);
+      setBitModifications(bitModifications);
+      setId(id);
+    }
+
+
+    SetMessageModificationToSbasNavPtr SetMessageModificationToSbasNav::create(const std::vector<std::string>& signalArray, int svId, int startTime, int stopTime, int messageType, const std::string& condition, bool updateCRC, const std::string& bitModifications, const std::string& id)
+    {
+      return SetMessageModificationToSbasNavPtr(new SetMessageModificationToSbasNav(signalArray, svId, startTime, stopTime, messageType, condition, updateCRC, bitModifications, id));
+    }
+
+    SetMessageModificationToSbasNavPtr SetMessageModificationToSbasNav::dynamicCast(CommandBasePtr ptr)
+    {
+      return std::dynamic_pointer_cast<SetMessageModificationToSbasNav>(ptr);
+    }
+
+    bool SetMessageModificationToSbasNav::isValid() const
+    {
+      
+        return m_values.IsObject()
+          && parse_json<std::vector<std::string>>::is_valid(m_values["SignalArray"])
+          && parse_json<int>::is_valid(m_values["SvId"])
+          && parse_json<int>::is_valid(m_values["StartTime"])
+          && parse_json<int>::is_valid(m_values["StopTime"])
+          && parse_json<int>::is_valid(m_values["MessageType"])
+          && parse_json<std::string>::is_valid(m_values["Condition"])
+          && parse_json<bool>::is_valid(m_values["UpdateCRC"])
+          && parse_json<std::string>::is_valid(m_values["BitModifications"])
+          && parse_json<std::string>::is_valid(m_values["Id"])
+        ;
+
+    }
+
+    std::string SetMessageModificationToSbasNav::documentation() const { return Documentation; }
+
+
+    int SetMessageModificationToSbasNav::executePermission() const
+    {
+      return EXECUTE_IF_SIMULATING | EXECUTE_IF_IDLE;
+    }
+
+
+    std::vector<std::string> SetMessageModificationToSbasNav::signalArray() const
+    {
+      return parse_json<std::vector<std::string>>::parse(m_values["SignalArray"]);
+    }
+
+    void SetMessageModificationToSbasNav::setSignalArray(const std::vector<std::string>& signalArray)
+    {
+      m_values.AddMember("SignalArray", parse_json<std::vector<std::string>>::format(signalArray, m_values.GetAllocator()), m_values.GetAllocator());
+    }
+
+
+
+    int SetMessageModificationToSbasNav::svId() const
+    {
+      return parse_json<int>::parse(m_values["SvId"]);
+    }
+
+    void SetMessageModificationToSbasNav::setSvId(int svId)
+    {
+      m_values.AddMember("SvId", parse_json<int>::format(svId, m_values.GetAllocator()), m_values.GetAllocator());
+    }
+
+
+
+    int SetMessageModificationToSbasNav::startTime() const
+    {
+      return parse_json<int>::parse(m_values["StartTime"]);
+    }
+
+    void SetMessageModificationToSbasNav::setStartTime(int startTime)
+    {
+      m_values.AddMember("StartTime", parse_json<int>::format(startTime, m_values.GetAllocator()), m_values.GetAllocator());
+    }
+
+
+
+    int SetMessageModificationToSbasNav::stopTime() const
+    {
+      return parse_json<int>::parse(m_values["StopTime"]);
+    }
+
+    void SetMessageModificationToSbasNav::setStopTime(int stopTime)
+    {
+      m_values.AddMember("StopTime", parse_json<int>::format(stopTime, m_values.GetAllocator()), m_values.GetAllocator());
+    }
+
+
+
+    int SetMessageModificationToSbasNav::messageType() const
+    {
+      return parse_json<int>::parse(m_values["MessageType"]);
+    }
+
+    void SetMessageModificationToSbasNav::setMessageType(int messageType)
+    {
+      m_values.AddMember("MessageType", parse_json<int>::format(messageType, m_values.GetAllocator()), m_values.GetAllocator());
+    }
+
+
+
+    std::string SetMessageModificationToSbasNav::condition() const
+    {
+      return parse_json<std::string>::parse(m_values["Condition"]);
+    }
+
+    void SetMessageModificationToSbasNav::setCondition(const std::string& condition)
+    {
+      m_values.AddMember("Condition", parse_json<std::string>::format(condition, m_values.GetAllocator()), m_values.GetAllocator());
+    }
+
+
+
+    bool SetMessageModificationToSbasNav::updateCRC() const
+    {
+      return parse_json<bool>::parse(m_values["UpdateCRC"]);
+    }
+
+    void SetMessageModificationToSbasNav::setUpdateCRC(bool updateCRC)
+    {
+      m_values.AddMember("UpdateCRC", parse_json<bool>::format(updateCRC, m_values.GetAllocator()), m_values.GetAllocator());
+    }
+
+
+
+    std::string SetMessageModificationToSbasNav::bitModifications() const
+    {
+      return parse_json<std::string>::parse(m_values["BitModifications"]);
+    }
+
+    void SetMessageModificationToSbasNav::setBitModifications(const std::string& bitModifications)
+    {
+      m_values.AddMember("BitModifications", parse_json<std::string>::format(bitModifications, m_values.GetAllocator()), m_values.GetAllocator());
+    }
+
+
+
+    std::string SetMessageModificationToSbasNav::id() const
+    {
+      return parse_json<std::string>::parse(m_values["Id"]);
+    }
+
+    void SetMessageModificationToSbasNav::setId(const std::string& id)
+    {
+      m_values.AddMember("Id", parse_json<std::string>::format(id, m_values.GetAllocator()), m_values.GetAllocator());
+    }
+
+
+  }
+}
+
+
+///
+/// Definition of GetMessageModificationToSbasNav
+///
+#include "gen/GetMessageModificationToSbasNav.h"
+
+namespace Sdx
+{
+  namespace Cmd
+  {
+    const char* const GetMessageModificationToSbasNav::CmdName = "GetMessageModificationToSbasNav";
+    const char* const GetMessageModificationToSbasNav::Documentation = "Get infos about the SBAS NAV message modification with this ID.";
+
+    REGISTER_COMMAND_FACTORY(GetMessageModificationToSbasNav);
+
+
+    GetMessageModificationToSbasNav::GetMessageModificationToSbasNav()
+      : CommandBase(CmdName)
+    {}
+
+    GetMessageModificationToSbasNav::GetMessageModificationToSbasNav(const std::string& id)
+      : CommandBase(CmdName)
+    {
+
+      setId(id);
+    }
+
+
+    GetMessageModificationToSbasNavPtr GetMessageModificationToSbasNav::create(const std::string& id)
+    {
+      return GetMessageModificationToSbasNavPtr(new GetMessageModificationToSbasNav(id));
+    }
+
+    GetMessageModificationToSbasNavPtr GetMessageModificationToSbasNav::dynamicCast(CommandBasePtr ptr)
+    {
+      return std::dynamic_pointer_cast<GetMessageModificationToSbasNav>(ptr);
+    }
+
+    bool GetMessageModificationToSbasNav::isValid() const
+    {
+      
+        return m_values.IsObject()
+          && parse_json<std::string>::is_valid(m_values["Id"])
+        ;
+
+    }
+
+    std::string GetMessageModificationToSbasNav::documentation() const { return Documentation; }
+
+
+    int GetMessageModificationToSbasNav::executePermission() const
+    {
+      return EXECUTE_IF_IDLE;
+    }
+
+
+    std::string GetMessageModificationToSbasNav::id() const
+    {
+      return parse_json<std::string>::parse(m_values["Id"]);
+    }
+
+    void GetMessageModificationToSbasNav::setId(const std::string& id)
+    {
+      m_values.AddMember("Id", parse_json<std::string>::format(id, m_values.GetAllocator()), m_values.GetAllocator());
+    }
+
+
+  }
+}
+
+
+///
+/// Definition of GetMessageModificationToSbasNavResult
+///
+#include "gen/GetMessageModificationToSbasNavResult.h"
+
+namespace Sdx
+{
+  namespace Cmd
+  {
+    const char* const GetMessageModificationToSbasNavResult::CmdName = "GetMessageModificationToSbasNavResult";
+    const char* const GetMessageModificationToSbasNavResult::Documentation = "Result of GetMessageModificationToSbasNav.";
+
+    REGISTER_COMMAND_RESULT_FACTORY(GetMessageModificationToSbasNavResult);
+
+
+    GetMessageModificationToSbasNavResult::GetMessageModificationToSbasNavResult()
+      : CommandResult(CmdName)
+    {}
+
+    GetMessageModificationToSbasNavResult::GetMessageModificationToSbasNavResult(CommandBasePtr relatedCommand, const std::vector<std::string>& signalArray, int svId, int startTime, int stopTime, int messageType, const std::string& condition, bool updateCRC, const std::string& bitModifications, const std::string& id)
+      : CommandResult(CmdName, relatedCommand)
+    {
+
+      setSignalArray(signalArray);
+      setSvId(svId);
+      setStartTime(startTime);
+      setStopTime(stopTime);
+      setMessageType(messageType);
+      setCondition(condition);
+      setUpdateCRC(updateCRC);
+      setBitModifications(bitModifications);
+      setId(id);
+    }
+
+
+    GetMessageModificationToSbasNavResultPtr GetMessageModificationToSbasNavResult::create(CommandBasePtr relatedCommand, const std::vector<std::string>& signalArray, int svId, int startTime, int stopTime, int messageType, const std::string& condition, bool updateCRC, const std::string& bitModifications, const std::string& id)
+    {
+      return GetMessageModificationToSbasNavResultPtr(new GetMessageModificationToSbasNavResult(relatedCommand, signalArray, svId, startTime, stopTime, messageType, condition, updateCRC, bitModifications, id));
+    }
+
+    GetMessageModificationToSbasNavResultPtr GetMessageModificationToSbasNavResult::dynamicCast(CommandBasePtr ptr)
+    {
+      return std::dynamic_pointer_cast<GetMessageModificationToSbasNavResult>(ptr);
+    }
+
+    bool GetMessageModificationToSbasNavResult::isValid() const
+    {
+      
+        return m_values.IsObject()
+          && parse_json<std::vector<std::string>>::is_valid(m_values["SignalArray"])
+          && parse_json<int>::is_valid(m_values["SvId"])
+          && parse_json<int>::is_valid(m_values["StartTime"])
+          && parse_json<int>::is_valid(m_values["StopTime"])
+          && parse_json<int>::is_valid(m_values["MessageType"])
+          && parse_json<std::string>::is_valid(m_values["Condition"])
+          && parse_json<bool>::is_valid(m_values["UpdateCRC"])
+          && parse_json<std::string>::is_valid(m_values["BitModifications"])
+          && parse_json<std::string>::is_valid(m_values["Id"])
+        ;
+
+    }
+
+    std::string GetMessageModificationToSbasNavResult::documentation() const { return Documentation; }
+
+
+    std::vector<std::string> GetMessageModificationToSbasNavResult::signalArray() const
+    {
+      return parse_json<std::vector<std::string>>::parse(m_values["SignalArray"]);
+    }
+
+    void GetMessageModificationToSbasNavResult::setSignalArray(const std::vector<std::string>& signalArray)
+    {
+      m_values.AddMember("SignalArray", parse_json<std::vector<std::string>>::format(signalArray, m_values.GetAllocator()), m_values.GetAllocator());
+    }
+
+
+
+    int GetMessageModificationToSbasNavResult::svId() const
+    {
+      return parse_json<int>::parse(m_values["SvId"]);
+    }
+
+    void GetMessageModificationToSbasNavResult::setSvId(int svId)
+    {
+      m_values.AddMember("SvId", parse_json<int>::format(svId, m_values.GetAllocator()), m_values.GetAllocator());
+    }
+
+
+
+    int GetMessageModificationToSbasNavResult::startTime() const
+    {
+      return parse_json<int>::parse(m_values["StartTime"]);
+    }
+
+    void GetMessageModificationToSbasNavResult::setStartTime(int startTime)
+    {
+      m_values.AddMember("StartTime", parse_json<int>::format(startTime, m_values.GetAllocator()), m_values.GetAllocator());
+    }
+
+
+
+    int GetMessageModificationToSbasNavResult::stopTime() const
+    {
+      return parse_json<int>::parse(m_values["StopTime"]);
+    }
+
+    void GetMessageModificationToSbasNavResult::setStopTime(int stopTime)
+    {
+      m_values.AddMember("StopTime", parse_json<int>::format(stopTime, m_values.GetAllocator()), m_values.GetAllocator());
+    }
+
+
+
+    int GetMessageModificationToSbasNavResult::messageType() const
+    {
+      return parse_json<int>::parse(m_values["MessageType"]);
+    }
+
+    void GetMessageModificationToSbasNavResult::setMessageType(int messageType)
+    {
+      m_values.AddMember("MessageType", parse_json<int>::format(messageType, m_values.GetAllocator()), m_values.GetAllocator());
+    }
+
+
+
+    std::string GetMessageModificationToSbasNavResult::condition() const
+    {
+      return parse_json<std::string>::parse(m_values["Condition"]);
+    }
+
+    void GetMessageModificationToSbasNavResult::setCondition(const std::string& condition)
+    {
+      m_values.AddMember("Condition", parse_json<std::string>::format(condition, m_values.GetAllocator()), m_values.GetAllocator());
+    }
+
+
+
+    bool GetMessageModificationToSbasNavResult::updateCRC() const
+    {
+      return parse_json<bool>::parse(m_values["UpdateCRC"]);
+    }
+
+    void GetMessageModificationToSbasNavResult::setUpdateCRC(bool updateCRC)
+    {
+      m_values.AddMember("UpdateCRC", parse_json<bool>::format(updateCRC, m_values.GetAllocator()), m_values.GetAllocator());
+    }
+
+
+
+    std::string GetMessageModificationToSbasNavResult::bitModifications() const
+    {
+      return parse_json<std::string>::parse(m_values["BitModifications"]);
+    }
+
+    void GetMessageModificationToSbasNavResult::setBitModifications(const std::string& bitModifications)
+    {
+      m_values.AddMember("BitModifications", parse_json<std::string>::format(bitModifications, m_values.GetAllocator()), m_values.GetAllocator());
+    }
+
+
+
+    std::string GetMessageModificationToSbasNavResult::id() const
+    {
+      return parse_json<std::string>::parse(m_values["Id"]);
+    }
+
+    void GetMessageModificationToSbasNavResult::setId(const std::string& id)
     {
       m_values.AddMember("Id", parse_json<std::string>::format(id, m_values.GetAllocator()), m_values.GetAllocator());
     }
@@ -84154,7 +84954,7 @@ namespace Sdx
   namespace Cmd
   {
     const char* const GetSVIDsOfPrn::CmdName = "GetSVIDsOfPrn";
-    const char* const GetSVIDsOfPrn::Documentation = "Mapping PRN to the corresponding SV ID. Get a list of SV IDs based on a specific signal. Accepted signal keys: \"L1CA\", \"L1C\", \"L1P\", \"L1M\", \"L2C\", \"L2P\", \"L5\", \"G1\", \"G2\", \"E1\", \"E1PRS\", \"E5a\", \"E5b\", \"E6BC\", \"E6PRS\", \"B1\", \"B2\", \"B2a\", \"B1C\", \"SBASL1\", \"SBASL5\", \"QZSSL1CA\", \"QZSSL1C\", \"QZSSL2C\", \"QZSSL5\", \"QZSSL1S\", \"QZSSL5S\" and \"NAVICL5\"";
+    const char* const GetSVIDsOfPrn::Documentation = "Mapping PRN to the corresponding SV ID. Get a list of SV IDs based on a specific signal. Accepted signal keys: \"L1CA\", \"L1C\", \"L1P\", \"L1M\", \"L2C\", \"L2P\", \"L5\", \"G1\", \"G2\", \"E1\", \"E1PRS\", \"E5a\", \"E5b\", \"E6BC\", \"E6PRS\", \"B1\", \"B2\", \"B2a\", \"B1C\", \"SBASL1\", \"SBASL5\", \"QZSSL1CA\", \"QZSSL1CB\", \"QZSSL1C\", \"QZSSL2C\", \"QZSSL5\", \"QZSSL1S\", \"QZSSL5S\" and \"NAVICL5\"";
 
     REGISTER_COMMAND_FACTORY(GetSVIDsOfPrn);
 
@@ -85863,6 +86663,330 @@ namespace Sdx
     void DuplicateDataSet::setNewDataSetName(const Sdx::optional<std::string>& newDataSetName)
     {
       m_values.AddMember("NewDataSetName", parse_json<Sdx::optional<std::string>>::format(newDataSetName, m_values.GetAllocator()), m_values.GetAllocator());
+    }
+
+
+  }
+}
+
+
+///
+/// Definition of GetElevationAzimuthForEachSV
+///
+#include "gen/GetElevationAzimuthForEachSV.h"
+
+namespace Sdx
+{
+  namespace Cmd
+  {
+    const char* const GetElevationAzimuthForEachSV::CmdName = "GetElevationAzimuthForEachSV";
+    const char* const GetElevationAzimuthForEachSV::Documentation = "Get elevation and azimuth position angles for all satellites.";
+
+    REGISTER_COMMAND_FACTORY(GetElevationAzimuthForEachSV);
+
+
+    GetElevationAzimuthForEachSV::GetElevationAzimuthForEachSV()
+      : CommandBase(CmdName)
+    {}
+
+    GetElevationAzimuthForEachSV::GetElevationAzimuthForEachSV(const std::string& system)
+      : CommandBase(CmdName)
+    {
+
+      setSystem(system);
+    }
+
+
+    GetElevationAzimuthForEachSVPtr GetElevationAzimuthForEachSV::create(const std::string& system)
+    {
+      return GetElevationAzimuthForEachSVPtr(new GetElevationAzimuthForEachSV(system));
+    }
+
+    GetElevationAzimuthForEachSVPtr GetElevationAzimuthForEachSV::dynamicCast(CommandBasePtr ptr)
+    {
+      return std::dynamic_pointer_cast<GetElevationAzimuthForEachSV>(ptr);
+    }
+
+    bool GetElevationAzimuthForEachSV::isValid() const
+    {
+      
+        return m_values.IsObject()
+          && parse_json<std::string>::is_valid(m_values["System"])
+        ;
+
+    }
+
+    std::string GetElevationAzimuthForEachSV::documentation() const { return Documentation; }
+
+
+    int GetElevationAzimuthForEachSV::executePermission() const
+    {
+      return EXECUTE_IF_IDLE | EXECUTE_IF_SIMULATING;
+    }
+
+
+    std::string GetElevationAzimuthForEachSV::system() const
+    {
+      return parse_json<std::string>::parse(m_values["System"]);
+    }
+
+    void GetElevationAzimuthForEachSV::setSystem(const std::string& system)
+    {
+      m_values.AddMember("System", parse_json<std::string>::format(system, m_values.GetAllocator()), m_values.GetAllocator());
+    }
+
+
+  }
+}
+
+
+///
+/// Definition of GetElevationAzimuthForEachSVResult
+///
+#include "gen/GetElevationAzimuthForEachSVResult.h"
+
+namespace Sdx
+{
+  namespace Cmd
+  {
+    const char* const GetElevationAzimuthForEachSVResult::CmdName = "GetElevationAzimuthForEachSVResult";
+    const char* const GetElevationAzimuthForEachSVResult::Documentation = "Result of GetElevationAzimuthForEachSV.";
+
+    REGISTER_COMMAND_RESULT_FACTORY(GetElevationAzimuthForEachSVResult);
+
+
+    GetElevationAzimuthForEachSVResult::GetElevationAzimuthForEachSVResult()
+      : CommandResult(CmdName)
+    {}
+
+    GetElevationAzimuthForEachSVResult::GetElevationAzimuthForEachSVResult(CommandBasePtr relatedCommand, const std::string& system, const std::vector<Sdx::optional<Sdx::ElevationAzimuth>>& elevationAzimuths)
+      : CommandResult(CmdName, relatedCommand)
+    {
+
+      setSystem(system);
+      setElevationAzimuths(elevationAzimuths);
+    }
+
+
+    GetElevationAzimuthForEachSVResultPtr GetElevationAzimuthForEachSVResult::create(CommandBasePtr relatedCommand, const std::string& system, const std::vector<Sdx::optional<Sdx::ElevationAzimuth>>& elevationAzimuths)
+    {
+      return GetElevationAzimuthForEachSVResultPtr(new GetElevationAzimuthForEachSVResult(relatedCommand, system, elevationAzimuths));
+    }
+
+    GetElevationAzimuthForEachSVResultPtr GetElevationAzimuthForEachSVResult::dynamicCast(CommandBasePtr ptr)
+    {
+      return std::dynamic_pointer_cast<GetElevationAzimuthForEachSVResult>(ptr);
+    }
+
+    bool GetElevationAzimuthForEachSVResult::isValid() const
+    {
+      
+        return m_values.IsObject()
+          && parse_json<std::string>::is_valid(m_values["System"])
+          && parse_json<std::vector<Sdx::optional<Sdx::ElevationAzimuth>>>::is_valid(m_values["ElevationAzimuths"])
+        ;
+
+    }
+
+    std::string GetElevationAzimuthForEachSVResult::documentation() const { return Documentation; }
+
+
+    std::string GetElevationAzimuthForEachSVResult::system() const
+    {
+      return parse_json<std::string>::parse(m_values["System"]);
+    }
+
+    void GetElevationAzimuthForEachSVResult::setSystem(const std::string& system)
+    {
+      m_values.AddMember("System", parse_json<std::string>::format(system, m_values.GetAllocator()), m_values.GetAllocator());
+    }
+
+
+
+    std::vector<Sdx::optional<Sdx::ElevationAzimuth>> GetElevationAzimuthForEachSVResult::elevationAzimuths() const
+    {
+      return parse_json<std::vector<Sdx::optional<Sdx::ElevationAzimuth>>>::parse(m_values["ElevationAzimuths"]);
+    }
+
+    void GetElevationAzimuthForEachSVResult::setElevationAzimuths(const std::vector<Sdx::optional<Sdx::ElevationAzimuth>>& elevationAzimuths)
+    {
+      m_values.AddMember("ElevationAzimuths", parse_json<std::vector<Sdx::optional<Sdx::ElevationAzimuth>>>::format(elevationAzimuths, m_values.GetAllocator()), m_values.GetAllocator());
+    }
+
+
+  }
+}
+
+
+///
+/// Definition of GetElevationAzimuthForSV
+///
+#include "gen/GetElevationAzimuthForSV.h"
+
+namespace Sdx
+{
+  namespace Cmd
+  {
+    const char* const GetElevationAzimuthForSV::CmdName = "GetElevationAzimuthForSV";
+    const char* const GetElevationAzimuthForSV::Documentation = "Get elevation and azimuth position angles for satellite.";
+
+    REGISTER_COMMAND_FACTORY(GetElevationAzimuthForSV);
+
+
+    GetElevationAzimuthForSV::GetElevationAzimuthForSV()
+      : CommandBase(CmdName)
+    {}
+
+    GetElevationAzimuthForSV::GetElevationAzimuthForSV(const std::string& system, int svId)
+      : CommandBase(CmdName)
+    {
+
+      setSystem(system);
+      setSvId(svId);
+    }
+
+
+    GetElevationAzimuthForSVPtr GetElevationAzimuthForSV::create(const std::string& system, int svId)
+    {
+      return GetElevationAzimuthForSVPtr(new GetElevationAzimuthForSV(system, svId));
+    }
+
+    GetElevationAzimuthForSVPtr GetElevationAzimuthForSV::dynamicCast(CommandBasePtr ptr)
+    {
+      return std::dynamic_pointer_cast<GetElevationAzimuthForSV>(ptr);
+    }
+
+    bool GetElevationAzimuthForSV::isValid() const
+    {
+      
+        return m_values.IsObject()
+          && parse_json<std::string>::is_valid(m_values["System"])
+          && parse_json<int>::is_valid(m_values["SvId"])
+        ;
+
+    }
+
+    std::string GetElevationAzimuthForSV::documentation() const { return Documentation; }
+
+
+    int GetElevationAzimuthForSV::executePermission() const
+    {
+      return EXECUTE_IF_IDLE | EXECUTE_IF_SIMULATING;
+    }
+
+
+    std::string GetElevationAzimuthForSV::system() const
+    {
+      return parse_json<std::string>::parse(m_values["System"]);
+    }
+
+    void GetElevationAzimuthForSV::setSystem(const std::string& system)
+    {
+      m_values.AddMember("System", parse_json<std::string>::format(system, m_values.GetAllocator()), m_values.GetAllocator());
+    }
+
+
+
+    int GetElevationAzimuthForSV::svId() const
+    {
+      return parse_json<int>::parse(m_values["SvId"]);
+    }
+
+    void GetElevationAzimuthForSV::setSvId(int svId)
+    {
+      m_values.AddMember("SvId", parse_json<int>::format(svId, m_values.GetAllocator()), m_values.GetAllocator());
+    }
+
+
+  }
+}
+
+
+///
+/// Definition of GetElevationAzimuthForSVResult
+///
+#include "gen/GetElevationAzimuthForSVResult.h"
+
+namespace Sdx
+{
+  namespace Cmd
+  {
+    const char* const GetElevationAzimuthForSVResult::CmdName = "GetElevationAzimuthForSVResult";
+    const char* const GetElevationAzimuthForSVResult::Documentation = "Result of GetElevationAzimuthForSV.";
+
+    REGISTER_COMMAND_RESULT_FACTORY(GetElevationAzimuthForSVResult);
+
+
+    GetElevationAzimuthForSVResult::GetElevationAzimuthForSVResult()
+      : CommandResult(CmdName)
+    {}
+
+    GetElevationAzimuthForSVResult::GetElevationAzimuthForSVResult(CommandBasePtr relatedCommand, const std::string& system, int svId, const Sdx::optional<Sdx::ElevationAzimuth>& elevationAzimuth)
+      : CommandResult(CmdName, relatedCommand)
+    {
+
+      setSystem(system);
+      setSvId(svId);
+      setElevationAzimuth(elevationAzimuth);
+    }
+
+
+    GetElevationAzimuthForSVResultPtr GetElevationAzimuthForSVResult::create(CommandBasePtr relatedCommand, const std::string& system, int svId, const Sdx::optional<Sdx::ElevationAzimuth>& elevationAzimuth)
+    {
+      return GetElevationAzimuthForSVResultPtr(new GetElevationAzimuthForSVResult(relatedCommand, system, svId, elevationAzimuth));
+    }
+
+    GetElevationAzimuthForSVResultPtr GetElevationAzimuthForSVResult::dynamicCast(CommandBasePtr ptr)
+    {
+      return std::dynamic_pointer_cast<GetElevationAzimuthForSVResult>(ptr);
+    }
+
+    bool GetElevationAzimuthForSVResult::isValid() const
+    {
+      
+        return m_values.IsObject()
+          && parse_json<std::string>::is_valid(m_values["System"])
+          && parse_json<int>::is_valid(m_values["SvId"])
+          && parse_json<Sdx::optional<Sdx::ElevationAzimuth>>::is_valid(m_values["ElevationAzimuth"])
+        ;
+
+    }
+
+    std::string GetElevationAzimuthForSVResult::documentation() const { return Documentation; }
+
+
+    std::string GetElevationAzimuthForSVResult::system() const
+    {
+      return parse_json<std::string>::parse(m_values["System"]);
+    }
+
+    void GetElevationAzimuthForSVResult::setSystem(const std::string& system)
+    {
+      m_values.AddMember("System", parse_json<std::string>::format(system, m_values.GetAllocator()), m_values.GetAllocator());
+    }
+
+
+
+    int GetElevationAzimuthForSVResult::svId() const
+    {
+      return parse_json<int>::parse(m_values["SvId"]);
+    }
+
+    void GetElevationAzimuthForSVResult::setSvId(int svId)
+    {
+      m_values.AddMember("SvId", parse_json<int>::format(svId, m_values.GetAllocator()), m_values.GetAllocator());
+    }
+
+
+
+    Sdx::optional<Sdx::ElevationAzimuth> GetElevationAzimuthForSVResult::elevationAzimuth() const
+    {
+      return parse_json<Sdx::optional<Sdx::ElevationAzimuth>>::parse(m_values["ElevationAzimuth"]);
+    }
+
+    void GetElevationAzimuthForSVResult::setElevationAzimuth(const Sdx::optional<Sdx::ElevationAzimuth>& elevationAzimuth)
+    {
+      m_values.AddMember("ElevationAzimuth", parse_json<Sdx::optional<Sdx::ElevationAzimuth>>::format(elevationAzimuth, m_values.GetAllocator()), m_values.GetAllocator());
     }
 
 

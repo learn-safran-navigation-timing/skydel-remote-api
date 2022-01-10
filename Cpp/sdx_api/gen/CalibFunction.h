@@ -12,9 +12,9 @@ namespace Sdx
     /// Skydel special calibration function, internal use only
     ///
     /// Name          Type   Description
-    /// ------------- ------ ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+    /// ------------- ------ ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
     /// SvId          int    SV ID for GPS, Galileo, BeiDou, GLONASS, QZSS and SBAS.
-    /// Signal        string Accepted signal keys: "L1CA", "L1C", "L1P", "L1M", "L2C", "L2P", "L2M", "L5", "G1", "G2", "E1", "E5a", "E5b", "B1", "B2", "B1C", "B2a", "SBASL1", "QZSSL1CA", "QZSSL1C", "QZSSL2C", "QZSSL5", "QZSSL1S", "QZSSL5S"
+    /// Signal        string Accepted signal keys: "L1CA", "L1C", "L1P", "L1M", "L2C", "L2P", "L2M", "L5", "G1", "G2", "E1", "E5a", "E5b", "B1", "B2", "B1C", "B2a", "SBASL1", "QZSSL1CA", "QZSSL1CB", "QZSSL1C", "QZSSL2C", "QZSSL5", "QZSSL1S", "QZSSL5S"
     /// EnableSV      bool   Enable/Disable multiplication by satellite and Navigation Message
     /// EnableDoppler bool   Enable/Disable Doppler Frequency and Phase offset
     /// PhaseOffet    double Carrier Phase Offset applied to Line Of Sight

@@ -12,10 +12,10 @@ namespace Sdx
     /// Result of GetPowerOffset.
     ///
     /// Name   Type   Description
-    /// ------ ------ -------------------------------------------------------------------------------
+    /// ------ ------ ----------------------------------------------------------------------------------
     /// Signal string Accepted signal keys: "L1CA", "L1C", "L1P", "L1M", "L2C", "L2P", "L2M", "L5",
     ///                                     "G1", "G2", "E1", "E1PRS", "E5a", "E5b", "E6BC", "E6PRS",
-    ///                                     "B1", "B2", "B1C", "B2a", "QZSSL1CA", "QZSSL1C",
+    ///                                     "B1", "B2", "B1C", "B2a", "QZSSL1CA", "QZSSL1CB", "QZSSL1C",
     ///                                     "QZSSL2C", "QZSSL5", "QZSSL1S", "QZSSL5S", "NAVICL5"
     /// Offset double Offset in dB (negative value will attenuate signal)
     ///
