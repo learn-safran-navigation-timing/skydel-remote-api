@@ -20,6 +20,12 @@ namespace Sdx
       get { return m_verbose; }
     }
 
+    public bool IsHilStreamingCheckEnabled
+    {
+      set { m_hilStreamingCheckEnabled = value; }
+      get { return m_hilStreamingCheckEnabled; }
+    }
+
     public bool IsConnected
     {
       get
@@ -52,6 +58,7 @@ namespace Sdx
     }
 
     private bool m_verbose = false;
+    private bool m_hilStreamingCheckEnabled = true;
     private HilClient m_hil = null;
     private CmdClient m_client = null;
     private long m_checkRunningTime = 0;
@@ -380,7 +387,7 @@ namespace Sdx
       if (elapsedTime - m_checkRunningTime >= 1000)
       {
         m_checkRunningTime = elapsedTime;
-        if (!CheckIfStreaming())
+        if (m_hilStreamingCheckEnabled && !CheckIfStreaming())
         {
           ResetTime();
           return false;
@@ -402,11 +409,8 @@ namespace Sdx
       if (m_hil == null)
         throw new Exception("Cannot send position to simulator because you are not connected.");
 
-      if (!HilCheck(elapsedTime))
-        return false;
-
       m_hil.PushEcef(elapsedTime, ecef, name);
-      return true;
+      return HilCheck(elapsedTime);
     }
 
     public bool PushLlaNed(long elapsedTime, Lla lla, Attitude attitude, string name = "")
@@ -419,11 +423,8 @@ namespace Sdx
       if (m_hil == null)
         throw new Exception("Cannot send position to simulator because you are not connected.");
 
-      if (!HilCheck(elapsedTime))
-        return false;
-
       m_hil.PushEcefNed(elapsedTime, ecef, attitude, name);
-      return true;
+      return HilCheck(elapsedTime);
     }
 
     private void HandleException(CommandResult result)

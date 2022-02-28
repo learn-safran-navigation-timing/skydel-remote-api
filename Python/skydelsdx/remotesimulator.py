@@ -14,6 +14,7 @@ class RemoteSimulator:
     self.exception_on_error = exception_on_error
     self.client = None
     self.verbose = False
+    self.hilStreamingCheckEnabled = True
     self.hil = None
     self._last_vehicle_info = None
     self.checkRunningTime = 0
@@ -55,6 +56,12 @@ class RemoteSimulator:
     
   def isVerbose(self):
     return self.verbose
+
+  def setHilStreamingCheckEnabled(self, hilStreamingCheckEnabled):
+    self.hilStreamingCheckEnabled = hilStreamingCheckEnabled
+
+  def isHilStreamingCheckEnabled(self):
+    return self.hilStreamingCheckEnabled
     
   def isConnected(self):
     return self.client != None
@@ -186,7 +193,7 @@ class RemoteSimulator:
       
     if elapsedTime - self.checkRunningTime >= 1000:
       self.checkRunningTime = elapsedTime
-      if not self.checkIfStreaming(): 
+      if self.hilStreamingCheckEnabled and not self.checkIfStreaming(): 
         self._resetTime()
         return False
       if self.verbose: print(str(pos) + " sent at " + str(elapsedTime) + "ms") 
@@ -200,16 +207,12 @@ class RemoteSimulator:
     return self.pushEcef(elapsedTime, lla.toEcef(), dest)
     
   def pushEcef(self, elapsedTime, ecef, dest = ""):
-    if not self._checkHil(ecef, elapsedTime):
-      return False
     self.hil.pushEcef(elapsedTime, ecef, dest)
-    return True
+    return self._checkHil(ecef, elapsedTime)
     
   def pushEcefNed(self, elapsedTime, ecef, attitude, dest = ""):
-    if not self._checkHil(str(ecef)+","+str(attitude), elapsedTime):
-      return False
     self.hil.pushEcefNed(elapsedTime, ecef, attitude, dest)
-    return True
+    return self._checkHil(str(ecef)+","+str(attitude), elapsedTime)
     
   def pushLlaNed(self, elapsedTime, lla, attitude):
     return self.pushEcefNed(elapsedTime, lla.toEcef(), attitude)

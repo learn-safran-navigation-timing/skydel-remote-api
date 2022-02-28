@@ -39,8 +39,8 @@ namespace Sdx
     /// You can add multiple bit modifications using commas. For example: "24:X---10XX,127:100X,231:01"
     ///
     /// Name             Type         Description
-    /// ---------------- ------------ ----------------------------------------------------------------------------------------------
-    /// SignalArray      array string Array of signals to apply the message modification to, accepts "L1M" and "L2M" (empty for all)
+    /// ---------------- ------------ ------------------------------------------------------------------------------------------------
+    /// SignalArray      array string Array of signals to apply the message modification to, accepts "L1ME" and "L2ME" (empty for all)
     /// SvId             int          The satellite's SV ID 1..32 (use 0 to apply modification to all SVs)
     /// StartTime        int          Elapsed time in seconds since start of simulation
     /// StopTime         int          Elapsed time in seconds since start of simulation (use 0 for no stop time)

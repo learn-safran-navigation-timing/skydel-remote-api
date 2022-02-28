@@ -9,7 +9,7 @@
 
 #define REGISTER_COMMAND_FACTORY(COMMAND_CLASS_NAME) \
 CommandBasePtr functionToCreateCommand##COMMAND_CLASS_NAME() {\
-  return CommandBasePtr(new COMMAND_CLASS_NAME); \
+  return std::make_shared<COMMAND_CLASS_NAME>(); \
 } \
 class ClassToRegisterCommand##COMMAND_CLASS_NAME { \
 public: \

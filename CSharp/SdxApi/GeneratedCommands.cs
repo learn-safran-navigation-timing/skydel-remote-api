@@ -6,7 +6,7 @@ namespace Sdx.Cmd
 
   public static class ApiInfo
   {
-    public const int COMMANDS_API_VERSION = 35;
+    public const int COMMANDS_API_VERSION = 36;
   }
 
   ///
@@ -1409,7 +1409,7 @@ namespace Sdx.Cmd
   ///
   /// Name    Type   Description
   /// ------- ------ -------------------------------------------------------------------------------------------------
-  /// Signal  string Accepted signal keys: "L1CA", "L1C", "L1P", "L1M", "L2C", "L2P", "L2M", "L5",
+  /// Signal  string Accepted signal keys: "L1CA", "L1C", "L1P", "L1ME", "L1MR", "L2C", "L2P", "L2ME", "L2MR", "L5",
   ///                                      "G1", "G2", "E1", "E1PRS", "E5a", "E5b", "E6BC", "E6PRS",
   ///                                      "B1", "B2", "B1C", "B2a", "SBASL1", "SBASL5", "QZSSL1CA"
   ///                                      "QZSSL1CB", "QZSSL1C", "QZSSL2C", "QZSSL5", "QZSSL1S", "QZSSL5S", "NAVICL5"
@@ -1486,7 +1486,7 @@ namespace Sdx.Cmd
   ///
   /// Name   Type   Description
   /// ------ ------ -------------------------------------------------------------------------------------------------
-  /// Signal string Accepted signal keys: "L1CA", "L1C", "L1P", "L1M", "L2C", "L2P", "L2M", "L5",
+  /// Signal string Accepted signal keys: "L1CA", "L1C", "L1P", "L1ME", "L1MR", "L2C", "L2P", "L2ME", "L2MR", "L5",
   ///                                     "G1", "G2", "E1", "E1PRS", "E5a", "E5b", "E6BC", "E6PRS",
   ///                                     "B1", "B2", "B1C", "B2a", "SBASL1", "SBASL5", "QZSSL1CA"
   ///                                     "QZSSL1CB", "QZSSL1C", "QZSSL2C", "QZSSL5", "QZSSL1S", "QZSSL5S", "NAVICL5"
@@ -1551,7 +1551,7 @@ namespace Sdx.Cmd
   ///
   /// Name    Type   Description
   /// ------- ------ -------------------------------------------------------------------------------------------------
-  /// Signal  string Accepted signal keys: "L1CA", "L1C", "L1P", "L1M", "L2C", "L2P", "L2M", "L5",
+  /// Signal  string Accepted signal keys: "L1CA", "L1C", "L1P", "L1ME", "L1MR", "L2C", "L2P", "L2ME", "L2MR", "L5",
   ///                                      "G1", "G2", "E1", "E1PRS", "E5a", "E5b", "E6BC", "E6PRS",
   ///                                      "B1", "B2", "B1C", "B2a", "SBASL1", "SBASL5", "QZSSL1CA"
   ///                                      "QZSSL1CB", "QZSSL1C", "QZSSL2C", "QZSSL5", "QZSSL1S", "QZSSL5S", "NAVICL5"
@@ -1626,7 +1626,7 @@ namespace Sdx.Cmd
   ///
   /// Name    Type       Description
   /// ------- ---------- --------------------------------------------------------------------------------------------------------------
-  /// Signal  string     Accepted signal keys: "L1CA", "L1C", "L1P", "L1M", "L2C", "L2P", "L2M", "L5",
+  /// Signal  string     Accepted signal keys: "L1CA", "L1C", "L1P", "L1ME", "L1MR", "L2C", "L2P", "L2ME", "L2MR", "L5",
   ///                                          "G1", "G2", "E1", "E1PRS", "E5a", "E5b", "E6BC", "E6PRS",
   ///                                          "B1", "B2", "B1C", "B2a", "SBASL1", "SBASL5", "QZSSL1CA",
   ///                                          "QZSSL1CB", "QZSSL1C", "QZSSL2C", "QZSSL5", "QZSSL1S", "QZSSL5S", "NAVICL5"
@@ -1691,7 +1691,7 @@ namespace Sdx.Cmd
   ///
   /// Name   Type   Description
   /// ------ ------ -------------------------------------------------------------------------------------------------
-  /// Signal string Accepted signal keys: "L1CA", "L1C", "L1P", "L1M", "L2C", "L2P", "L2M", "L5",
+  /// Signal string Accepted signal keys: "L1CA", "L1C", "L1P", "L1ME", "L1MR", "L2C", "L2P", "L2ME", "L2MR", "L5",
   ///                                     "G1", "G2", "E1", "E1PRS", "E5a", "E5b", "E6BC", "E6PRS",
   ///                                     "B1", "B2", "B1C", "B2a", "SBASL1", "SBASL5", "QZSSL1CA",
   ///                                     "QZSSL1CB", "QZSSL1C", "QZSSL2C", "QZSSL5", "QZSSL1S", "QZSSL5S", "NAVICL5"
@@ -1744,7 +1744,7 @@ namespace Sdx.Cmd
   ///
   /// Name    Type       Description
   /// ------- ---------- --------------------------------------------------------------------------------------------------------------
-  /// Signal  string     Accepted signal keys: "L1CA", "L1C", "L1P", "L1M", "L2C", "L2P", "L2M", "L5",
+  /// Signal  string     Accepted signal keys: "L1CA", "L1C", "L1P", "L1ME", "L1MR", "L2C", "L2P", "L2ME", "L2MR", "L5",
   ///                                          "G1", "G2", "E1", "E1PRS", "E5a", "E5b", "E6BC", "E6PRS",
   ///                                          "B1", "B2", "B1C", "B2a", "SBASL1", "SBASL5", "QZSSL1CA",
   ///                                          "QZSSL1CB", "QZSSL1C", "QZSSL2C", "QZSSL5", "QZSSL1S", "QZSSL5S", "NAVICL5"
@@ -2507,6 +2507,68 @@ namespace Sdx.Cmd
       set
       {
           SetValue("System", JToken.FromObject(value, CommandBase.Serializer));
+      }
+    }
+  }
+
+
+  ///
+  /// Export the performance graph data into a csv file.
+  ///
+  /// Name        Type   Description
+  /// ----------- ------ -----------------------------------------------------------------------------------------------
+  /// Path        string The full path to the csv file.
+  /// Overwriting bool   Overwrite an existing file if set to true, return an error if set to false and the file exists.
+  ///
+
+  public class ExportPerformanceDataToCSV : CommandBase
+  {
+    public override string Documentation
+    {
+      get { return "Export the performance graph data into a csv file."; }
+    }
+
+    internal const string CmdName = "ExportPerformanceDataToCSV";
+
+    public ExportPerformanceDataToCSV()
+      : base(CmdName)
+    {}
+
+    public ExportPerformanceDataToCSV(string path, bool overwriting)
+      : base(CmdName)
+    {
+      Path = path;
+      Overwriting = overwriting;
+    }
+      
+    public override bool IsValid
+    {
+      get
+      {
+        return base.IsValid
+        && Contains("Path")
+        && Contains("Overwriting")
+      ;
+      }
+    }
+
+    public override int ExecutePermission { get { return EXECUTE_IF_SIMULATING | EXECUTE_IF_IDLE; } }
+
+    public string Path
+    {
+      get { return GetValue("Path").ToObject<string>(CommandBase.Serializer); }
+      set
+      {
+          SetValue("Path", JToken.FromObject(value, CommandBase.Serializer));
+      }
+    }
+
+    public bool Overwriting
+    {
+      get { return GetValue("Overwriting").ToObject<bool>(CommandBase.Serializer); }
+      set
+      {
+          SetValue("Overwriting", JToken.FromObject(value, CommandBase.Serializer));
       }
     }
   }
@@ -15124,8 +15186,8 @@ namespace Sdx.Cmd
   /// Set power offset default value for the signal given in argument
   ///
   /// Name   Type   Description
-  /// ------ ------ ----------------------------------------------------------------------------------
-  /// Signal string Accepted signal keys: "L1CA", "L1C", "L1P", "L1M", "L2C", "L2P", "L2M", "L5",
+  /// ------ ------ -----------------------------------------------------------------------------------------------
+  /// Signal string Accepted signal keys: "L1CA", "L1C", "L1P", "L1ME", "L1MR", "L2C", "L2P", "L2ME", "L2MR", "L5",
   ///                                     "G1", "G2", "E1", "E1PRS", "E5a", "E5b", "E6BC", "E6PRS",
   ///                                     "B1", "B2", "B1C", "B2a", "QZSSL1CA", "QZSSL1CB", "QZSSL1C",
   ///                                     "QZSSL2C", "QZSSL5", "QZSSL1S", "QZSSL5S", "NAVICL5"
@@ -15189,8 +15251,8 @@ namespace Sdx.Cmd
   /// Get power offset default value for the signal given in argument
   ///
   /// Name   Type   Description
-  /// ------ ------ ----------------------------------------------------------------------------------
-  /// Signal string Accepted signal keys: "L1CA", "L1C", "L1P", "L1M", "L2C", "L2P", "L2M", "L5",
+  /// ------ ------ -----------------------------------------------------------------------------------------------
+  /// Signal string Accepted signal keys: "L1CA", "L1C", "L1P", "L1ME", "L1MR", "L2C", "L2P", "L2ME", "L2MR", "L5",
   ///                                     "G1", "G2", "E1", "E1PRS", "E5a", "E5b", "E6BC", "E6PRS",
   ///                                     "B1", "B2", "B1C", "B2a", "QZSSL1CA", "QZSSL1CB", "QZSSL1C",
   ///                                     "QZSSL2C", "QZSSL5", "QZSSL1S", "QZSSL5S", "NAVICL5"
@@ -15242,8 +15304,8 @@ namespace Sdx.Cmd
   /// Result of GetPowerOffset.
   ///
   /// Name   Type   Description
-  /// ------ ------ ----------------------------------------------------------------------------------
-  /// Signal string Accepted signal keys: "L1CA", "L1C", "L1P", "L1M", "L2C", "L2P", "L2M", "L5",
+  /// ------ ------ -----------------------------------------------------------------------------------------------
+  /// Signal string Accepted signal keys: "L1CA", "L1C", "L1P", "L1ME", "L1MR", "L2C", "L2P", "L2ME", "L2MR", "L5",
   ///                                     "G1", "G2", "E1", "E1PRS", "E5a", "E5b", "E6BC", "E6PRS",
   ///                                     "B1", "B2", "B1C", "B2a", "QZSSL1CA", "QZSSL1CB", "QZSSL1C",
   ///                                     "QZSSL2C", "QZSSL5", "QZSSL1S", "QZSSL5S", "NAVICL5"
@@ -16164,7 +16226,7 @@ namespace Sdx.Cmd
   /// MinRate          int             Minimum sampling rate (12500000, 25000000, 50000000, 60000000, 100000000)
   /// MaxRate          int             Maximum sampling rate (12500000, 25000000, 50000000, 60000000, 100000000)
   /// Band             string          Frequency band is "LowerL" or "UpperL"
-  /// Signal           string          Comma separated signal keys, accepted signal keys: "L1CA", "L1C", "L1P", "L1M", "L2C", "L2P", "L2M", "L5", "G1", "G2", "E1", "E5a", "E5b", "B1", "B2", "B1C", "B2a", "SBASL1", "QZSSL1CA", "QZSSL1CB", "QZSSL1C", "QZSSL2C", "QZSSL5", "QZSSL1S", "QZSSL5S", "NAVICL5"
+  /// Signal           string          Comma separated signal keys, accepted signal keys: "L1CA", "L1C", "L1P", "L1ME", "L1MR", "L2C", "L2P", "L2ME", "L2MR", "L5", "G1", "G2", "E1", "E5a", "E5b", "B1", "B2", "B1C", "B2a", "SBASL1", "QZSSL1CA", "QZSSL1CB", "QZSSL1C", "QZSSL2C", "QZSSL5", "QZSSL1S", "QZSSL5S", "NAVICL5"
   /// Gain             int             The gain associated to this output (dB). This value has to be between the radio minimum value and 115. A negative value means to use the radio default value.
   /// GaussianNoise    bool            If true, add Gaussian noise to ensure realistic signal to noise ratio. When combining multiple outputs, only one should have Gaussian noise enabled.
   /// Id               string          Target identifier
@@ -16376,7 +16438,7 @@ namespace Sdx.Cmd
   /// MinRate          int             Minimum sampling rate (12500000, 25000000, 50000000, 60000000, 100000000)
   /// MaxRate          int             Maximum sampling rate (12500000, 25000000, 50000000, 60000000, 100000000)
   /// Band             string          Frequency band is "LowerL" or "UpperL"
-  /// Signal           string          Comma separated signal keys, accepted signal keys: "L1CA", "L1C", "L1P", "L1M", "L2C", "L2P", "L2M", "L5", "G1", "G2", "E1", "E5a", "E5b", "B1", "B2", "B1C", "B2a", "SBASL1", "QZSSL1CA", "QZSSL1CB", "QZSSL1C", "QZSSL2C", "QZSSL5", "QZSSL1S", "QZSSL5S", "NAVICL5"
+  /// Signal           string          Comma separated signal keys, accepted signal keys: "L1CA", "L1C", "L1P", "L1ME", "L1MR", "L2C", "L2P", "L2ME", "L2MR", "L5", "G1", "G2", "E1", "E5a", "E5b", "B1", "B2", "B1C", "B2a", "SBASL1", "QZSSL1CA", "QZSSL1CB", "QZSSL1C", "QZSSL2C", "QZSSL5", "QZSSL1S", "QZSSL5S", "NAVICL5"
   /// Gain             int             The gain associated to this output (dB). This value has to be between the radio minimum value and 115. A negative value means to use the radio default value.
   /// GaussianNoise    bool            If true, add Gaussian noise to ensure realistic signal to noise ratio. When combining multiple outputs, only one should have Gaussian noise enabled.
   /// Id               string          Target identifier
@@ -16520,7 +16582,7 @@ namespace Sdx.Cmd
   /// but it is possible to set constaints with MinRate and MaxRate.
   ///
   /// Name        Type            Description
-  /// ----------- --------------- -----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+  /// ----------- --------------- -----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
   /// Output      int             Output index (zero based)
   /// MinRate     int             Minimum sampling rate (12500000, 25000000, 50000000, 60000000, 100000000)
   /// MaxRate     int             Maximum sampling rate (12500000, 25000000, 50000000. 60000000, 100000000)
@@ -16528,7 +16590,7 @@ namespace Sdx.Cmd
   /// CentralFreq double          Central frequency (Hz). Put 0.0 and complete signal list to let Skydel choose automaticly the central frequency.
   /// Gain        int             The gain associated to this output (dB). As of today, accepted values are 0, 20, 40, 60 and 80. Values at 40 and under are not recommended. Use a negative value to use the default value (60).
   /// Id          string          Target identifier
-  /// Signal      optional string Comma separated signal keys if you want to match central frequency and sampling rate with a particular list of signals. Accepted signal keys: "L1CA", "L1C", "L1P", "L1M", "L2C", "L2P", "L2M", "L5", "G1", "G2", "E1", "E5a", "E5b", "B1", "B2", "B1C", "B2a", "SBASL1", "QZSSL1CA", "QZSSL1CB", "QZSSL1C", "QZSSL2C", "QZSSL5", "QZSSL1S", "QZSSL5S", "NAVICL5"
+  /// Signal      optional string Comma separated signal keys if you want to match central frequency and sampling rate with a particular list of signals. Accepted signal keys: "L1CA", "L1C", "L1P", "L1ME", "L1MR", "L2C", "L2P", "L2ME", "L2MR", "L5", "G1", "G2", "E1", "E5a", "E5b", "B1", "B2", "B1C", "B2a", "SBASL1", "QZSSL1CA", "QZSSL1CB", "QZSSL1C", "QZSSL2C", "QZSSL5", "QZSSL1S", "QZSSL5S", "NAVICL5"
   ///
 
   public class ChangeModulationTargetInterference : CommandBase
@@ -16721,7 +16783,7 @@ namespace Sdx.Cmd
   /// Result of GetModulationTargetInterferences.
   ///
   /// Name        Type            Description
-  /// ----------- --------------- -----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+  /// ----------- --------------- -----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
   /// Output      int             Output index (zero based)
   /// MinRate     int             Minimum sampling rate (12500000, 25000000, 50000000, 60000000, 100000000)
   /// MaxRate     int             Maximum sampling rate (12500000, 25000000, 50000000. 60000000, 100000000)
@@ -16729,7 +16791,7 @@ namespace Sdx.Cmd
   /// CentralFreq double          Central frequency (Hz). Put 0.0 and complete signal list to let Skydel choose automaticly the central frequency.
   /// Gain        int             The gain associated to this output (dB). As of today, accepted values are 0, 20, 40, 60 and 80. Values at 40 and under are not recommended. Use a negative value to use the default value (60).
   /// Id          string          Target identifier
-  /// Signal      optional string Comma separated signal keys if you want to match central frequency and sampling rate with a particular list of signals. Accepted signal keys: "L1CA", "L1C", "L1P", "L1M", "L2C", "L2P", "L2M", "L5", "G1", "G2", "E1", "E5a", "E5b", "B1", "B2", "B1C", "B2a", "SBASL1", "QZSSL1CA", "QZSSL1CB", "QZSSL1C", "QZSSL2C", "QZSSL5", "QZSSL1S", "QZSSL5S", "NAVICL5"
+  /// Signal      optional string Comma separated signal keys if you want to match central frequency and sampling rate with a particular list of signals. Accepted signal keys: "L1CA", "L1C", "L1P", "L1ME", "L1MR", "L2C", "L2P", "L2ME", "L2MR", "L5", "G1", "G2", "E1", "E5a", "E5b", "B1", "B2", "B1C", "B2a", "SBASL1", "QZSSL1CA", "QZSSL1CB", "QZSSL1C", "QZSSL2C", "QZSSL5", "QZSSL1S", "QZSSL5S", "NAVICL5"
   ///
 
   public class GetModulationTargetInterferencesResult : CommandResult
@@ -23572,12 +23634,12 @@ namespace Sdx.Cmd
   /// Set the PRNs transmitted by the SV ID for these signals.
   ///
   /// Name          Type            Description
-  /// ------------- --------------- -------------------------------------------------------------------------------
+  /// ------------- --------------- --------------------------------------------------------------------------------
   /// SvId          int             Satellite SV ID.
   /// SignalPrnDict dict string:int A dictionary of signal prn pairs.
   ///                               Accepted keys are: "L1CA", "L1C", "L2C", "L5", "E1", "E6BC", "B1", "B2", "B1C",
-  ///                                                  "B2a", "QZSSL1CA", "QZSSL1CB", "QZSSL1C", "QZSSL2C",
-  ///                                                  "QZSSL5", "QZSSL1S", "QZSSL5S" and "NAVICL5"
+  ///                                                  "B2a", "SBASL1", "SBASL5", "QZSSL1CA", "QZSSL1CB", "QZSSL1C",
+  ///                                                  "QZSSL2C", "QZSSL5", "QZSSL1S", "QZSSL5S" and "NAVICL5"
   ///
 
   public class SetTransmittedPrnForSV : CommandBase
@@ -23637,12 +23699,13 @@ namespace Sdx.Cmd
   /// Get the PRNs transmitted by the SV ID for these signals.
   ///
   /// Name        Type         Description
-  /// ----------- ------------ --------------------------------------------------------------------------------
+  /// ----------- ------------ ------------------------------------------------------------------------------
   /// SvId        int          Satellite SV ID.
   /// SignalArray array string An array of signals.
   ///                          Accepted values are: "L1CA", "L1C", "L2C", "L5", "E1", "E6BC", "B1", "B2",
-  ///                                               "B1C", "B2a", "QZSSL1CA", "QZSSL1CB", "QZSSL1C", "QZSSL2C",
-  ///                                               "QZSSL5", "QZSSL1S", "QZSSL5S" and "NAVICL5"
+  ///                                               "B1C", "B2a", "SBASL1", "SBASL5", "QZSSL1CA", "QZSSL1CB",
+  ///                                               "QZSSL1C", "QZSSL2C", "QZSSL5", "QZSSL1S", "QZSSL5S" and
+  ///                                               "NAVICL5"
   ///
 
   public class GetTransmittedPrnForSV : CommandBase
@@ -23702,12 +23765,12 @@ namespace Sdx.Cmd
   /// Result of GetTransmittedPrnForSV.
   ///
   /// Name          Type            Description
-  /// ------------- --------------- -------------------------------------------------------------------------------
+  /// ------------- --------------- --------------------------------------------------------------------------------
   /// SvId          int             Satellite SV ID.
   /// SignalPrnDict dict string:int A dictionary of signal prn pairs.
   ///                               Accepted keys are: "L1CA", "L1C", "L2C", "L5", "E1", "E6BC", "B1", "B2", "B1C",
-  ///                                                  "B2a", "QZSSL1CA", "QZSSL1CB", "QZSSL1C", "QZSSL2C",
-  ///                                                  "QZSSL5", "QZSSL1S", "QZSSL5S" and "NAVICL5"
+  ///                                                  "B2a", "SBASL1", "SBASL5", "QZSSL1CA", "QZSSL1CB", "QZSSL1C",
+  ///                                                  "QZSSL2C", "QZSSL5", "QZSSL1S", "QZSSL5S" and "NAVICL5"
   ///
 
   public class GetTransmittedPrnForSVResult : CommandResult
@@ -23765,8 +23828,8 @@ namespace Sdx.Cmd
   /// Set the PRN transmitted by the SV ID for this signal.
   ///
   /// Name   Type   Description
-  /// ------ ------ ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
-  /// Signal string Accepted signal keys: "L1CA", "L1C", "L2C", "L5", "E1", "E6BC", "B1", "B2", "B1C", "B2a", "QZSSL1CA", "QZSSL1CB", "QZSSL1C", "QZSSL2C", "QZSSL5", "QZSSL1S", "QZSSL5S", "NAVICL5"
+  /// ------ ------ -----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+  /// Signal string Accepted signal keys: "L1CA", "L1C", "L2C", "L5", "E1", "E6BC", "B1", "B2", "B1C", "B2a", "SBASL1", "SBASL5", "QZSSL1CA", "QZSSL1CB", "QZSSL1C", "QZSSL2C", "QZSSL5", "QZSSL1S", "QZSSL5S", "NAVICL5"
   /// SvId   int    Satellite SV ID.
   /// Prn    int    PRN number.
   ///
@@ -23839,8 +23902,8 @@ namespace Sdx.Cmd
   /// Get the PRN transmitted by the SV ID for this signal.
   ///
   /// Name   Type   Description
-  /// ------ ------ ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
-  /// Signal string Accepted signal keys: "L1CA", "L1C", "L2C", "L5", "E1", "E6BC", "B1", "B2", "B1C", "B2a", "QZSSL1CA", "QZSSL1CB", "QZSSL1C", "QZSSL2C", "QZSSL5", "QZSSL1S", "QZSSL5S", "NAVICL5"
+  /// ------ ------ -----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+  /// Signal string Accepted signal keys: "L1CA", "L1C", "L2C", "L5", "E1", "E6BC", "B1", "B2", "B1C", "B2a", "SBASL1", "SBASL5", "QZSSL1CA", "QZSSL1CB", "QZSSL1C", "QZSSL2C", "QZSSL5", "QZSSL1S", "QZSSL5S", "NAVICL5"
   /// SvId   int    Satellite SV ID.
   ///
 
@@ -23901,8 +23964,8 @@ namespace Sdx.Cmd
   /// Result of GetPrnOfSVID.
   ///
   /// Name   Type   Description
-  /// ------ ------ ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
-  /// Signal string Accepted signal keys: "L1CA", "L1C", "L2C", "L5", "E1", "E6BC", "B1", "B2", "B1C", "B2a", "QZSSL1CA", "QZSSL1CB", "QZSSL1C", "QZSSL2C", "QZSSL5", "QZSSL1S", "QZSSL5S", "NAVICL5"
+  /// ------ ------ -----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+  /// Signal string Accepted signal keys: "L1CA", "L1C", "L2C", "L5", "E1", "E6BC", "B1", "B2", "B1C", "B2a", "SBASL1", "SBASL5", "QZSSL1CA", "QZSSL1CB", "QZSSL1C", "QZSSL2C", "QZSSL5", "QZSSL1S", "QZSSL5S", "NAVICL5"
   /// SvId   int    Satellite SV ID.
   /// Prn    int    PRN number.
   ///
@@ -23973,8 +24036,8 @@ namespace Sdx.Cmd
   /// Set the PRN for each satellite for specified signals.
   ///
   /// Name   Type      Description
-  /// ------ --------- ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
-  /// Signal string    Accepted signal keys: "L1CA", "L1C", "L2C", "L5", "E1", "E6BC", "B1", "B2", "B1C", "B2a", "QZSSL1CA", "QZSSL1CB", "QZSSL1C", "QZSSL2C", "QZSSL5", "QZSSL1S", "QZSSL5S", "NAVICL5"
+  /// ------ --------- -----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+  /// Signal string    Accepted signal keys: "L1CA", "L1C", "L2C", "L5", "E1", "E6BC", "B1", "B2", "B1C", "B2a", "SBASL1", "SBASL5", "QZSSL1CA", "QZSSL1CB", "QZSSL1C", "QZSSL2C", "QZSSL5", "QZSSL1S", "QZSSL5S", "NAVICL5"
   /// Prn    array int PRN value to set for each satellite. Zero based index (index 0 => PRN for SV ID 1, index 1 => PRN for SV ID 2, etc)
   ///
 
@@ -24035,8 +24098,8 @@ namespace Sdx.Cmd
   /// Get the PRN for each satellite for specified signals.
   ///
   /// Name   Type   Description
-  /// ------ ------ ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
-  /// Signal string Accepted signal keys: "L1CA", "L1C", "L2C", "L5", "E1", "E6BC", "B1", "B2", "B1C", "B2a", "QZSSL1CA", "QZSSL1CB", "QZSSL1C", "QZSSL2C", "QZSSL5", "QZSSL1S", "QZSSL5S", "NAVICL5"
+  /// ------ ------ -----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+  /// Signal string Accepted signal keys: "L1CA", "L1C", "L2C", "L5", "E1", "E6BC", "B1", "B2", "B1C", "B2a", "SBASL1", "SBASL5", "QZSSL1CA", "QZSSL1CB", "QZSSL1C", "QZSSL2C", "QZSSL5", "QZSSL1S", "QZSSL5S", "NAVICL5"
   ///
 
   public class GetPrnForEachSV : CommandBase
@@ -24085,8 +24148,8 @@ namespace Sdx.Cmd
   /// Result of GetPrnForEachSV.
   ///
   /// Name   Type      Description
-  /// ------ --------- ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
-  /// Signal string    Accepted signal keys: "L1CA", "L1C", "L2C", "L5", "E1", "E6BC", "B1", "B2", "B1C", "B2a", "QZSSL1CA", "QZSSL1CB", "QZSSL1C", "QZSSL2C", "QZSSL5", "QZSSL1S", "QZSSL5S", "NAVICL5"
+  /// ------ --------- -----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+  /// Signal string    Accepted signal keys: "L1CA", "L1C", "L2C", "L5", "E1", "E6BC", "B1", "B2", "B1C", "B2a", "SBASL1", "SBASL5", "QZSSL1CA", "QZSSL1CB", "QZSSL1C", "QZSSL2C", "QZSSL5", "QZSSL1S", "QZSSL5S", "NAVICL5"
   /// Prn    array int PRN value to set for each satellite. Zero based index (index 0 => PRN for SV ID 1, index 1 => PRN for SV ID 2, etc)
   ///
 
@@ -35289,8 +35352,8 @@ namespace Sdx.Cmd
   /// You can add multiple bit modifications using commas. For example: "24:X---10XX,127:100X,231:01"
   ///
   /// Name             Type         Description
-  /// ---------------- ------------ ----------------------------------------------------------------------------------------------
-  /// SignalArray      array string Array of signals to apply the message modification to, accepts "L1M" and "L2M" (empty for all)
+  /// ---------------- ------------ ------------------------------------------------------------------------------------------------
+  /// SignalArray      array string Array of signals to apply the message modification to, accepts "L1ME" and "L2ME" (empty for all)
   /// SvId             int          The satellite's SV ID 1..32 (use 0 to apply modification to all SVs)
   /// StartTime        int          Elapsed time in seconds since start of simulation
   /// StopTime         int          Elapsed time in seconds since start of simulation (use 0 for no stop time)
@@ -35485,8 +35548,8 @@ namespace Sdx.Cmd
   /// Result of GetMessageModificationToGpsMNav.
   ///
   /// Name             Type         Description
-  /// ---------------- ------------ ----------------------------------------------------------------------------------------------
-  /// SignalArray      array string Array of signals to apply the message modification to, accepts "L1M" and "L2M" (empty for all)
+  /// ---------------- ------------ ------------------------------------------------------------------------------------------------
+  /// SignalArray      array string Array of signals to apply the message modification to, accepts "L1ME" and "L2ME" (empty for all)
   /// SvId             int          The satellite's SV ID 1..32 (use 0 to apply modification to all SVs)
   /// StartTime        int          Elapsed time in seconds since start of simulation
   /// StopTime         int          Elapsed time in seconds since start of simulation (use 0 for no stop time)
@@ -41791,8 +41854,8 @@ namespace Sdx.Cmd
   /// Removes the signal for the message modification.
   ///
   /// Name   Type   Description
-  /// ------ ------ -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
-  /// Signal string Signal key, accepted values : "L1CA", "L1C", "L1P", "L1M", "L2C", "L2P", "L2M", "L5", "G1", "G2", "E1", "E5a", "E5b", "B1", "B2", "B2a", "B1C", "QZSSL1CA", "QZSSL1CB", "QZSSL1S", "NAVICL5", "SBASL1" and "SBASL5"
+  /// ------ ------ -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+  /// Signal string Signal key, accepted values : "L1CA", "L1C", "L1P", "L1ME", "L1MR", "L2C", "L2P", "L2ME", "L2MR", "L5", "G1", "G2", "E1", "E5a", "E5b", "B1", "B2", "B2a", "B1C", "QZSSL1CA", "QZSSL1CB", "QZSSL1S", "NAVICL5", "SBASL1" and "SBASL5"
   /// Id     string Unique identifier
   ///
 
@@ -41853,8 +41916,8 @@ namespace Sdx.Cmd
   /// Removes the signal for the message modification.
   ///
   /// Name   Type   Description
-  /// ------ ------ -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
-  /// Signal string Signal key, accepted values : "L1CA", "L1C", "L1P", "L1M", "L2C", "L2P", "L2M", "L5", "G1", "G2", "E1", "E5a", "E5b", "B1", "B2", "B2a", "B1C", "QZSSL1CA", "QZSSL1CB", "QZSSL1S", "NAVICL5", "SBASL1" and "SBASL5"
+  /// ------ ------ -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+  /// Signal string Signal key, accepted values : "L1CA", "L1C", "L1P", "L1ME", "L1MR", "L2C", "L2P", "L2ME", "L2MR", "L5", "G1", "G2", "E1", "E5a", "E5b", "B1", "B2", "B2a", "B1C", "QZSSL1CA", "QZSSL1CB", "QZSSL1S", "NAVICL5", "SBASL1" and "SBASL5"
   /// Id     string Unique identifier
   ///
 
@@ -41917,8 +41980,8 @@ namespace Sdx.Cmd
   /// Clear the signal for all message modifications.
   ///
   /// Name   Type   Description
-  /// ------ ------ -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
-  /// Signal string Signal key, accepted values : "L1CA", "L1C", "L1P", "L1M", "L2C", "L2P", "L2M", "L5", "G1", "G2", "E1", "E5a", "E5b", "B1", "B2", "B2a", "B1C", "QZSSL1CA", "QZSSL1CB", "QZSSL1S", "NAVICL5", "SBASL1" and "SBASL5"
+  /// ------ ------ -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+  /// Signal string Signal key, accepted values : "L1CA", "L1C", "L1P", "L1ME", "L1MR", "L2C", "L2P", "L2ME", "L2MR", "L5", "G1", "G2", "E1", "E5a", "E5b", "B1", "B2", "B2a", "B1C", "QZSSL1CA", "QZSSL1CB", "QZSSL1S", "NAVICL5", "SBASL1" and "SBASL5"
   ///
 
   public class ClearAllMessageModifications : CommandBase
@@ -41967,8 +42030,8 @@ namespace Sdx.Cmd
   /// Clear the signal for all message modifications.
   ///
   /// Name   Type   Description
-  /// ------ ------ -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
-  /// Signal string Signal key, accepted values : "L1CA", "L1C", "L1P", "L1M", "L2C", "L2P", "L2M", "L5", "G1", "G2", "E1", "E5a", "E5b", "B1", "B2", "B2a", "B1C", "QZSSL1CA", "QZSSL1CB", "QZSSL1S", "NAVICL5", "SBASL1" and "SBASL5"
+  /// ------ ------ -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+  /// Signal string Signal key, accepted values : "L1CA", "L1C", "L1P", "L1ME", "L1MR", "L2C", "L2P", "L2ME", "L2MR", "L5", "G1", "G2", "E1", "E5a", "E5b", "B1", "B2", "B2a", "B1C", "QZSSL1CA", "QZSSL1CB", "QZSSL1S", "NAVICL5", "SBASL1" and "SBASL5"
   ///
 
   public class ClearAllMessageModificationsForSignal : CommandBase
@@ -42017,8 +42080,8 @@ namespace Sdx.Cmd
   /// Get all the message modification event's IDs for this signal and SV ID.
   ///
   /// Name   Type   Description
-  /// ------ ------ -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
-  /// Signal string Signal key, accepted values : "L1CA", "L1C", "L1P", "L1M", "L2C", "L2P", "L2M", "L5", "G1", "G2", "E1", "E5a", "E5b", "B1", "B2", "B2a", "B1C", "QZSSL1CA", "QZSSL1CB", "QZSSL1S", "NAVICL5", "SBASL1" and "SBASL5"
+  /// ------ ------ -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+  /// Signal string Signal key, accepted values : "L1CA", "L1C", "L1P", "L1ME", "L1MR", "L2C", "L2P", "L2ME", "L2MR", "L5", "G1", "G2", "E1", "E5a", "E5b", "B1", "B2", "B2a", "B1C", "QZSSL1CA", "QZSSL1CB", "QZSSL1S", "NAVICL5", "SBASL1" and "SBASL5"
   /// SvId   int    The satellite's SV ID
   ///
 
@@ -43466,8 +43529,8 @@ namespace Sdx.Cmd
   /// If Id is not set, or unknown to Skydel, a new echo will be added. Otherwise, existing echo will be updated.
   ///
   /// Name         Type   Description
-  /// ------------ ------ -----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
-  /// Signal       string Accepted signal keys: "L1CA", "L1C", "L1P", "L1M", "L2C", "L2P", "L2M", "L5", "G1", "G2", "E1", "E5a", "E5b", "B1", "B2", "B1C", "B2a", "SBASL1", "QZSSL1CA", "QZSSL1CB", "QZSSL1C", "QZSSL2C", "QZSSL5", "QZSSL1S", "QZSSL5S", "NAVICL5"
+  /// ------------ ------ -----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+  /// Signal       string Accepted signal keys: "L1CA", "L1C", "L1P", "L1ME", "L1MR", "L2C", "L2P", "L2ME", "L2MR", "L5", "G1", "G2", "E1", "E5a", "E5b", "B1", "B2", "B1C", "B2a", "SBASL1", "QZSSL1CA", "QZSSL1CB", "QZSSL1C", "QZSSL2C", "QZSSL5", "QZSSL1S", "QZSSL5S", "NAVICL5"
   /// SvId         int    The satellite's SV ID
   /// PowerLoss    double Power loss in dB (value must be positive)
   /// Pseudorange  double Pseudorange offset in meters (value must be positive)
@@ -43712,8 +43775,8 @@ namespace Sdx.Cmd
   /// Disable all multipath in all satellites but only for the specified signal.
   ///
   /// Name   Type   Description
-  /// ------ ------ -----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
-  /// Signal string Accepted signal keys: "L1CA", "L1C", "L1P", "L1M", "L2C", "L2P", "L2M", "L5", "G1", "G2", "E1", "E5a", "E5b", "B1", "B2", "B1C", "B2a", "SBASL1", "QZSSL1CA", "QZSSL1CB", "QZSSL1C", "QZSSL2C", "QZSSL5", "QZSSL1S", "QZSSL5S", "NAVICL5"
+  /// ------ ------ -----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+  /// Signal string Accepted signal keys: "L1CA", "L1C", "L1P", "L1ME", "L1MR", "L2C", "L2P", "L2ME", "L2MR", "L5", "G1", "G2", "E1", "E5a", "E5b", "B1", "B2", "B1C", "B2a", "SBASL1", "QZSSL1CA", "QZSSL1CB", "QZSSL1C", "QZSSL2C", "QZSSL5", "QZSSL1S", "QZSSL5S", "NAVICL5"
   /// Reset  bool   Reset attributes (PSR offset, power loss, Doppler shift and carrier phase offset are set to zero)
   ///
 
@@ -43960,10 +44023,10 @@ namespace Sdx.Cmd
   /// Result of GetMultipathForID.
   ///
   /// Name         Type   Description
-  /// ------------ ------ -----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+  /// ------------ ------ -----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
   /// Id           string A multipath ID
   /// System       string "GPS", "GLONASS", "Galileo", "BeiDou", "SBAS", "QZSS" or "NavIC"
-  /// Signal       string Accepted signal keys: "L1CA", "L1C", "L1P", "L1M", "L2C", "L2P", "L2M", "L5", "G1", "G2", "E1", "E5a", "E5b", "B1", "B2", "B1C", "B2a", "SBASL1", "QZSSL1CA", "QZSSL1CB", "QZSSL1C", "QZSSL2C", "QZSSL5", "QZSSL1S", "QZSSL5S", "NAVICL5"
+  /// Signal       string Accepted signal keys: "L1CA", "L1C", "L1P", "L1ME", "L1MR", "L2C", "L2P", "L2ME", "L2MR", "L5", "G1", "G2", "E1", "E5a", "E5b", "B1", "B2", "B1C", "B2a", "SBASL1", "QZSSL1CA", "QZSSL1CB", "QZSSL1C", "QZSSL2C", "QZSSL5", "QZSSL1S", "QZSSL5S", "NAVICL5"
   /// SvId         int    The satellite's SV ID
   /// PowerLoss    double Power loss in dB (value must be positive)
   /// Pseudorange  double Pseudorange offset in meters (value must be positive)
@@ -44216,8 +44279,8 @@ namespace Sdx.Cmd
   /// Get all multipath ID for the specified signal.
   ///
   /// Name   Type   Description
-  /// ------ ------ -----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
-  /// Signal string Accepted signal keys: "L1CA", "L1C", "L1P", "L1M", "L2C", "L2P", "L2M", "L5", "G1", "G2", "E1", "E5a", "E5b", "B1", "B2", "B1C", "B2a", "SBASL1", "QZSSL1CA", "QZSSL1CB", "QZSSL1C", "QZSSL2C", "QZSSL5", "QZSSL1S", "QZSSL5S", "NAVICL5"
+  /// ------ ------ -----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+  /// Signal string Accepted signal keys: "L1CA", "L1C", "L1P", "L1ME", "L1MR", "L2C", "L2P", "L2ME", "L2MR", "L5", "G1", "G2", "E1", "E5a", "E5b", "B1", "B2", "B1C", "B2a", "SBASL1", "QZSSL1CA", "QZSSL1CB", "QZSSL1C", "QZSSL2C", "QZSSL5", "QZSSL1S", "QZSSL5S", "NAVICL5"
   ///
 
   public class GetAllMultipathForSignal : CommandBase
@@ -50770,6 +50833,7 @@ namespace Sdx.Cmd
   /// TransmitterId string       Transmitter unique identifier.
   /// SignalId      string       BPSK unique identifier.
   /// Group         optional int Group, if not using default group.
+  /// Prn           optional int Prn code to use. If not specified, a random gode will be generated.
   ///
 
   public class SetIntTxBPSK : CommandBase
@@ -50785,7 +50849,7 @@ namespace Sdx.Cmd
       : base(CmdName)
     {}
 
-    public SetIntTxBPSK(bool enabled, double centralFreq, double power, int codeRate, int codeLengthMs, string transmitterId, string signalId, int? group = null)
+    public SetIntTxBPSK(bool enabled, double centralFreq, double power, int codeRate, int codeLengthMs, string transmitterId, string signalId, int? group = null, int? prn = null)
       : base(CmdName)
     {
       Enabled = enabled;
@@ -50796,6 +50860,7 @@ namespace Sdx.Cmd
       TransmitterId = transmitterId;
       SignalId = signalId;
       Group = group;
+      Prn = prn;
     }
       
     public override bool IsValid
@@ -50890,6 +50955,18 @@ namespace Sdx.Cmd
           SetValue("Group", JToken.FromObject(value, CommandBase.Serializer));
       }
     }
+
+    public int? Prn
+    {
+      get { return GetValue("Prn").ToObject<int?>(CommandBase.Serializer); }
+      set
+      {
+        if (value == null)
+          RemoveValue("Prn");
+        else
+          SetValue("Prn", JToken.FromObject(value, CommandBase.Serializer));
+      }
+    }
   }
 
 
@@ -50968,6 +51045,7 @@ namespace Sdx.Cmd
   /// TransmitterId string       Transmitter unique identifier.
   /// SignalId      string       BPSK unique identifier.
   /// Group         optional int Group, if not using default group.
+  /// Prn           optional int Prn code to use. If not specified, a random gode will be generated.
   ///
 
   public class GetIntTxBPSKResult : CommandResult
@@ -50983,7 +51061,7 @@ namespace Sdx.Cmd
       : base(CmdName)
     {}
 
-    public GetIntTxBPSKResult(CommandBase relatedCommand, bool enabled, double centralFreq, double power, int codeRate, int codeLengthMs, string transmitterId, string signalId, int? group = null)
+    public GetIntTxBPSKResult(CommandBase relatedCommand, bool enabled, double centralFreq, double power, int codeRate, int codeLengthMs, string transmitterId, string signalId, int? group = null, int? prn = null)
       : base(CmdName, relatedCommand)
     {
       Enabled = enabled;
@@ -50994,6 +51072,7 @@ namespace Sdx.Cmd
       TransmitterId = transmitterId;
       SignalId = signalId;
       Group = group;
+      Prn = prn;
     }
       
     public override bool IsValid
@@ -51084,6 +51163,18 @@ namespace Sdx.Cmd
           RemoveValue("Group");
         else
           SetValue("Group", JToken.FromObject(value, CommandBase.Serializer));
+      }
+    }
+
+    public int? Prn
+    {
+      get { return GetValue("Prn").ToObject<int?>(CommandBase.Serializer); }
+      set
+      {
+        if (value == null)
+          RemoveValue("Prn");
+        else
+          SetValue("Prn", JToken.FromObject(value, CommandBase.Serializer));
       }
     }
   }
@@ -54163,9 +54254,9 @@ namespace Sdx.Cmd
   /// Skydel special calibration function, internal use only
   ///
   /// Name          Type   Description
-  /// ------------- ------ ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+  /// ------------- ------ ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
   /// SvId          int    SV ID for GPS, Galileo, BeiDou, GLONASS, QZSS and SBAS.
-  /// Signal        string Accepted signal keys: "L1CA", "L1C", "L1P", "L1M", "L2C", "L2P", "L2M", "L5", "G1", "G2", "E1", "E5a", "E5b", "B1", "B2", "B1C", "B2a", "SBASL1", "QZSSL1CA", "QZSSL1CB", "QZSSL1C", "QZSSL2C", "QZSSL5", "QZSSL1S", "QZSSL5S"
+  /// Signal        string Accepted signal keys: "L1CA", "L1C", "L1P", "L1ME", "L1MR", "L2C", "L2P", "L2ME", "L2MR", "L5", "G1", "G2", "E1", "E5a", "E5b", "B1", "B2", "B1C", "B2a", "SBASL1", "QZSSL1CA", "QZSSL1CB", "QZSSL1C", "QZSSL2C", "QZSSL5", "QZSSL1S", "QZSSL5S"
   /// EnableSV      bool   Enable/Disable multiplication by satellite and Navigation Message
   /// EnableDoppler bool   Enable/Disable Doppler Frequency and Phase offset
   /// PhaseOffet    double Carrier Phase Offset applied to Line Of Sight
@@ -55443,29 +55534,33 @@ namespace Sdx.Cmd
 
 
   ///
-  /// Set the global UDREI value transmitted by SBAS
+  /// Set the UDREI value transmitted by SBAS for the satellite of the specified constellation.
   ///
-  /// Name  Type Description
-  /// ----- ---- ---------------
-  /// Udrei int  The UDREI value
+  /// Name   Type   Description
+  /// ------ ------ ---------------------------------------------------------------
+  /// System string "GPS" or "SBAS".
+  /// SvId   int    The satellite's SV ID (use 0 to apply modification to all SVs).
+  /// Udrei  int    The UDREI value.
   ///
 
-  public class SetSbasUdrei : CommandBase
+  public class SetUdreiForSV : CommandBase
   {
     public override string Documentation
     {
-      get { return "Set the global UDREI value transmitted by SBAS"; }
+      get { return "Set the UDREI value transmitted by SBAS for the satellite of the specified constellation."; }
     }
 
-    internal const string CmdName = "SetSbasUdrei";
+    internal const string CmdName = "SetUdreiForSV";
 
-    public SetSbasUdrei()
+    public SetUdreiForSV()
       : base(CmdName)
     {}
 
-    public SetSbasUdrei(int udrei)
+    public SetUdreiForSV(string system, int svId, int udrei)
       : base(CmdName)
     {
+      System = system;
+      SvId = svId;
       Udrei = udrei;
     }
       
@@ -55474,12 +55569,32 @@ namespace Sdx.Cmd
       get
       {
         return base.IsValid
+        && Contains("System")
+        && Contains("SvId")
         && Contains("Udrei")
       ;
       }
     }
 
-    public override int ExecutePermission { get { return EXECUTE_IF_IDLE; } }
+    public override int ExecutePermission { get { return EXECUTE_IF_IDLE | EXECUTE_IF_SIMULATING; } }
+
+    public string System
+    {
+      get { return GetValue("System").ToObject<string>(CommandBase.Serializer); }
+      set
+      {
+          SetValue("System", JToken.FromObject(value, CommandBase.Serializer));
+      }
+    }
+
+    public int SvId
+    {
+      get { return GetValue("SvId").ToObject<int>(CommandBase.Serializer); }
+      set
+      {
+          SetValue("SvId", JToken.FromObject(value, CommandBase.Serializer));
+      }
+    }
 
     public int Udrei
     {
@@ -55493,61 +55608,95 @@ namespace Sdx.Cmd
 
 
   ///
-  /// Get the global UDREI value transmitted by SBAS
+  /// Get the UDREI value transmitted by SBAS for the satellite of the specified constellation.
   ///
-  /// 
+  /// Name   Type   Description
+  /// ------ ------ ---------------------------------------------------------------
+  /// System string "GPS" or "SBAS".
+  /// SvId   int    The satellite's SV ID (use 0 to apply modification to all SVs).
   ///
 
-  public class GetSbasUdrei : CommandBase
+  public class GetUdreiForSV : CommandBase
   {
     public override string Documentation
     {
-      get { return "Get the global UDREI value transmitted by SBAS"; }
+      get { return "Get the UDREI value transmitted by SBAS for the satellite of the specified constellation."; }
     }
 
-    internal const string CmdName = "GetSbasUdrei";
+    internal const string CmdName = "GetUdreiForSV";
 
-    public GetSbasUdrei()
+    public GetUdreiForSV()
       : base(CmdName)
     {}
+
+    public GetUdreiForSV(string system, int svId)
+      : base(CmdName)
+    {
+      System = system;
+      SvId = svId;
+    }
       
     public override bool IsValid
     {
       get
       {
         return base.IsValid
+        && Contains("System")
+        && Contains("SvId")
       ;
       }
     }
 
     public override int ExecutePermission { get { return EXECUTE_IF_IDLE; } }
+
+    public string System
+    {
+      get { return GetValue("System").ToObject<string>(CommandBase.Serializer); }
+      set
+      {
+          SetValue("System", JToken.FromObject(value, CommandBase.Serializer));
+      }
+    }
+
+    public int SvId
+    {
+      get { return GetValue("SvId").ToObject<int>(CommandBase.Serializer); }
+      set
+      {
+          SetValue("SvId", JToken.FromObject(value, CommandBase.Serializer));
+      }
+    }
   }
 
 
   ///
-  /// Result of GetSbasUdrei.
+  /// Result of GetUdreiForSV.
   ///
-  /// Name  Type Description
-  /// ----- ---- ---------------
-  /// Udrei int  The UDREI value
+  /// Name   Type   Description
+  /// ------ ------ ---------------------------------------------------------------
+  /// System string "GPS" or "SBAS".
+  /// SvId   int    The satellite's SV ID (use 0 to apply modification to all SVs).
+  /// Udrei  int    The UDREI value.
   ///
 
-  public class GetSbasUdreiResult : CommandResult
+  public class GetUdreiForSVResult : CommandResult
   {
     public override string Documentation
     {
-      get { return "Result of GetSbasUdrei."; }
+      get { return "Result of GetUdreiForSV."; }
     }
 
-    internal const string CmdName = "GetSbasUdreiResult";
+    internal const string CmdName = "GetUdreiForSVResult";
 
-    public GetSbasUdreiResult()
+    public GetUdreiForSVResult()
       : base(CmdName)
     {}
 
-    public GetSbasUdreiResult(CommandBase relatedCommand, int udrei)
+    public GetUdreiForSVResult(CommandBase relatedCommand, string system, int svId, int udrei)
       : base(CmdName, relatedCommand)
     {
+      System = system;
+      SvId = svId;
       Udrei = udrei;
     }
       
@@ -55556,8 +55705,28 @@ namespace Sdx.Cmd
       get
       {
         return base.IsValid
+        && Contains("System")
+        && Contains("SvId")
         && Contains("Udrei")
       ;
+      }
+    }
+
+    public string System
+    {
+      get { return GetValue("System").ToObject<string>(CommandBase.Serializer); }
+      set
+      {
+          SetValue("System", JToken.FromObject(value, CommandBase.Serializer));
+      }
+    }
+
+    public int SvId
+    {
+      get { return GetValue("SvId").ToObject<int>(CommandBase.Serializer); }
+      set
+      {
+          SetValue("SvId", JToken.FromObject(value, CommandBase.Serializer));
       }
     }
 
@@ -55567,6 +55736,178 @@ namespace Sdx.Cmd
       set
       {
           SetValue("Udrei", JToken.FromObject(value, CommandBase.Serializer));
+      }
+    }
+  }
+
+
+  ///
+  /// Set the UDREI value transmitted by SBAS for all satellites of the specified constellation.
+  ///
+  /// Name   Type      Description
+  /// ------ --------- --------------------------------------------------------------------------------------------------------------------------
+  /// System string    "GPS" or "SBAS".
+  /// Udreis array int UDREI value to set for each satellite. Zero based index (index 0 => UDREI for SV ID 1, index 1 => UDREI for SV ID 2, etc).
+  ///
+
+  public class SetUdreiForEachSV : CommandBase
+  {
+    public override string Documentation
+    {
+      get { return "Set the UDREI value transmitted by SBAS for all satellites of the specified constellation."; }
+    }
+
+    internal const string CmdName = "SetUdreiForEachSV";
+
+    public SetUdreiForEachSV()
+      : base(CmdName)
+    {}
+
+    public SetUdreiForEachSV(string system, List<int> udreis)
+      : base(CmdName)
+    {
+      System = system;
+      Udreis = udreis;
+    }
+      
+    public override bool IsValid
+    {
+      get
+      {
+        return base.IsValid
+        && Contains("System")
+        && Contains("Udreis")
+      ;
+      }
+    }
+
+    public override int ExecutePermission { get { return EXECUTE_IF_IDLE | EXECUTE_IF_SIMULATING; } }
+
+    public string System
+    {
+      get { return GetValue("System").ToObject<string>(CommandBase.Serializer); }
+      set
+      {
+          SetValue("System", JToken.FromObject(value, CommandBase.Serializer));
+      }
+    }
+
+    public List<int> Udreis
+    {
+      get { return GetValue("Udreis").ToObject<List<int>>(CommandBase.Serializer); }
+      set
+      {
+          SetValue("Udreis", JToken.FromObject(value, CommandBase.Serializer));
+      }
+    }
+  }
+
+
+  ///
+  /// Get the UDREI value transmitted by SBAS for all satellites of the specified constellation.
+  ///
+  /// Name   Type   Description
+  /// ------ ------ ----------------
+  /// System string "GPS" or "SBAS".
+  ///
+
+  public class GetUdreiForEachSV : CommandBase
+  {
+    public override string Documentation
+    {
+      get { return "Get the UDREI value transmitted by SBAS for all satellites of the specified constellation."; }
+    }
+
+    internal const string CmdName = "GetUdreiForEachSV";
+
+    public GetUdreiForEachSV()
+      : base(CmdName)
+    {}
+
+    public GetUdreiForEachSV(string system)
+      : base(CmdName)
+    {
+      System = system;
+    }
+      
+    public override bool IsValid
+    {
+      get
+      {
+        return base.IsValid
+        && Contains("System")
+      ;
+      }
+    }
+
+    public override int ExecutePermission { get { return EXECUTE_IF_IDLE; } }
+
+    public string System
+    {
+      get { return GetValue("System").ToObject<string>(CommandBase.Serializer); }
+      set
+      {
+          SetValue("System", JToken.FromObject(value, CommandBase.Serializer));
+      }
+    }
+  }
+
+
+  ///
+  /// Result of GetUdreiForEachSV.
+  ///
+  /// Name   Type      Description
+  /// ------ --------- --------------------------------------------------------------------------------------------------------------------------
+  /// System string    "GPS" or "SBAS".
+  /// Udreis array int UDREI value to set for each satellite. Zero based index (index 0 => UDREI for SV ID 1, index 1 => UDREI for SV ID 2, etc).
+  ///
+
+  public class GetUdreiForEachSVResult : CommandResult
+  {
+    public override string Documentation
+    {
+      get { return "Result of GetUdreiForEachSV."; }
+    }
+
+    internal const string CmdName = "GetUdreiForEachSVResult";
+
+    public GetUdreiForEachSVResult()
+      : base(CmdName)
+    {}
+
+    public GetUdreiForEachSVResult(CommandBase relatedCommand, string system, List<int> udreis)
+      : base(CmdName, relatedCommand)
+    {
+      System = system;
+      Udreis = udreis;
+    }
+      
+    public override bool IsValid
+    {
+      get
+      {
+        return base.IsValid
+        && Contains("System")
+        && Contains("Udreis")
+      ;
+      }
+    }
+
+    public string System
+    {
+      get { return GetValue("System").ToObject<string>(CommandBase.Serializer); }
+      set
+      {
+          SetValue("System", JToken.FromObject(value, CommandBase.Serializer));
+      }
+    }
+
+    public List<int> Udreis
+    {
+      get { return GetValue("Udreis").ToObject<List<int>>(CommandBase.Serializer); }
+      set
+      {
+          SetValue("Udreis", JToken.FromObject(value, CommandBase.Serializer));
       }
     }
   }
@@ -58560,6 +58901,136 @@ namespace Sdx.Cmd
 
 
   ///
+  /// Set whether SBAS should transmit message 2 instead of message 0.
+  ///
+  /// Name             Type Description
+  /// ---------------- ---- ---------------------------------------------------------
+  /// TransmitMessage2 bool Whether SBAS should transmit message type 2 instead of 0.
+  ///
+
+  public class SetTransmitMessage2InSbasMessage0 : CommandBase
+  {
+    public override string Documentation
+    {
+      get { return "Set whether SBAS should transmit message 2 instead of message 0."; }
+    }
+
+    internal const string CmdName = "SetTransmitMessage2InSbasMessage0";
+
+    public SetTransmitMessage2InSbasMessage0()
+      : base(CmdName)
+    {}
+
+    public SetTransmitMessage2InSbasMessage0(bool transmitMessage2)
+      : base(CmdName)
+    {
+      TransmitMessage2 = transmitMessage2;
+    }
+      
+    public override bool IsValid
+    {
+      get
+      {
+        return base.IsValid
+        && Contains("TransmitMessage2")
+      ;
+      }
+    }
+
+    public override int ExecutePermission { get { return EXECUTE_IF_IDLE | EXECUTE_IF_SIMULATING; } }
+
+    public bool TransmitMessage2
+    {
+      get { return GetValue("TransmitMessage2").ToObject<bool>(CommandBase.Serializer); }
+      set
+      {
+          SetValue("TransmitMessage2", JToken.FromObject(value, CommandBase.Serializer));
+      }
+    }
+  }
+
+
+  ///
+  /// Get whether SBAS should transmit message 2 instead of message 0.
+  ///
+  /// 
+  ///
+
+  public class IsTransmitMessage2InSbasMessage0 : CommandBase
+  {
+    public override string Documentation
+    {
+      get { return "Get whether SBAS should transmit message 2 instead of message 0."; }
+    }
+
+    internal const string CmdName = "IsTransmitMessage2InSbasMessage0";
+
+    public IsTransmitMessage2InSbasMessage0()
+      : base(CmdName)
+    {}
+      
+    public override bool IsValid
+    {
+      get
+      {
+        return base.IsValid
+      ;
+      }
+    }
+
+    public override int ExecutePermission { get { return EXECUTE_IF_IDLE; } }
+  }
+
+
+  ///
+  /// Result of IsTransmitMessage2InSbasMessage0.
+  ///
+  /// Name             Type Description
+  /// ---------------- ---- ---------------------------------------------------------
+  /// TransmitMessage2 bool Whether SBAS should transmit message type 2 instead of 0.
+  ///
+
+  public class IsTransmitMessage2InSbasMessage0Result : CommandResult
+  {
+    public override string Documentation
+    {
+      get { return "Result of IsTransmitMessage2InSbasMessage0."; }
+    }
+
+    internal const string CmdName = "IsTransmitMessage2InSbasMessage0Result";
+
+    public IsTransmitMessage2InSbasMessage0Result()
+      : base(CmdName)
+    {}
+
+    public IsTransmitMessage2InSbasMessage0Result(CommandBase relatedCommand, bool transmitMessage2)
+      : base(CmdName, relatedCommand)
+    {
+      TransmitMessage2 = transmitMessage2;
+    }
+      
+    public override bool IsValid
+    {
+      get
+      {
+        return base.IsValid
+        && Contains("TransmitMessage2")
+      ;
+      }
+    }
+
+    public bool TransmitMessage2
+    {
+      get { return GetValue("TransmitMessage2").ToObject<bool>(CommandBase.Serializer); }
+      set
+      {
+          SetValue("TransmitMessage2", JToken.FromObject(value, CommandBase.Serializer));
+      }
+    }
+  }
+
+
+  ///
   /// Set whether a satellite is geostationary
   ///
   /// Name        Type            Description
@@ -58834,19 +59305,21 @@ namespace Sdx.Cmd
 
 
   ///
-  /// Set whether pseudorange errors for this constellation should be compensated in SBAS fast corrections
+  /// Set whether specific errors type for this constellation should be compensated in SBAS fast corrections
   ///
-  /// Name      Type   Description
-  /// --------- ------ -------------------------------
-  /// System    string "GPS" or "SBAS"
-  /// IsEnabled bool   True if corrections are enabled
+  /// Name      Type            Description
+  /// --------- --------------- ----------------------------------------------------------------------------------------------------
+  /// System    string          "GPS" or "SBAS"
+  /// IsEnabled bool            True if corrections are enabled
+  /// ErrorType optional string Comma separated error type to enable/disable. Accepted error types are "PSR offset" and "PSR error".
+  ///                           Default value is "PSR error". Getter only accepts one error type.
   ///
 
   public class EnableSbasFastCorrectionsFor : CommandBase
   {
     public override string Documentation
     {
-      get { return "Set whether pseudorange errors for this constellation should be compensated in SBAS fast corrections"; }
+      get { return "Set whether specific errors type for this constellation should be compensated in SBAS fast corrections"; }
     }
 
     internal const string CmdName = "EnableSbasFastCorrectionsFor";
@@ -58855,11 +59328,12 @@ namespace Sdx.Cmd
       : base(CmdName)
     {}
 
-    public EnableSbasFastCorrectionsFor(string system, bool isEnabled)
+    public EnableSbasFastCorrectionsFor(string system, bool isEnabled, string errorType = null)
       : base(CmdName)
     {
       System = system;
       IsEnabled = isEnabled;
+      ErrorType = errorType;
     }
       
     public override bool IsValid
@@ -58892,22 +59366,36 @@ namespace Sdx.Cmd
           SetValue("IsEnabled", JToken.FromObject(value, CommandBase.Serializer));
       }
     }
+
+    public string ErrorType
+    {
+      get { return GetValue("ErrorType").ToObject<string>(CommandBase.Serializer); }
+      set
+      {
+        if (value == null)
+          RemoveValue("ErrorType");
+        else
+          SetValue("ErrorType", JToken.FromObject(value, CommandBase.Serializer));
+      }
+    }
   }
 
 
   ///
-  /// Get whether pseudorange errors for this constellation should be compensated in SBAS fast corrections
+  /// Get whether specific errors type for this constellation should be compensated in SBAS fast corrections
   ///
-  /// Name   Type   Description
-  /// ------ ------ ---------------
-  /// System string "GPS" or "SBAS"
+  /// Name      Type            Description
+  /// --------- --------------- ----------------------------------------------------------------------------------------------------
+  /// System    string          "GPS" or "SBAS"
+  /// ErrorType optional string Comma separated error type to enable/disable. Accepted error types are "PSR offset" and "PSR error".
+  ///                           Default value is "PSR error". Getter only accepts one error type.
   ///
 
   public class IsSbasFastCorrectionsEnabledFor : CommandBase
   {
     public override string Documentation
     {
-      get { return "Get whether pseudorange errors for this constellation should be compensated in SBAS fast corrections"; }
+      get { return "Get whether specific errors type for this constellation should be compensated in SBAS fast corrections"; }
     }
 
     internal const string CmdName = "IsSbasFastCorrectionsEnabledFor";
@@ -58916,10 +59404,11 @@ namespace Sdx.Cmd
       : base(CmdName)
     {}
 
-    public IsSbasFastCorrectionsEnabledFor(string system)
+    public IsSbasFastCorrectionsEnabledFor(string system, string errorType = null)
       : base(CmdName)
     {
       System = system;
+      ErrorType = errorType;
     }
       
     public override bool IsValid
@@ -58942,16 +59431,30 @@ namespace Sdx.Cmd
           SetValue("System", JToken.FromObject(value, CommandBase.Serializer));
       }
     }
+
+    public string ErrorType
+    {
+      get { return GetValue("ErrorType").ToObject<string>(CommandBase.Serializer); }
+      set
+      {
+        if (value == null)
+          RemoveValue("ErrorType");
+        else
+          SetValue("ErrorType", JToken.FromObject(value, CommandBase.Serializer));
+      }
+    }
   }
 
 
   ///
   /// Result of IsSbasFastCorrectionsEnabledFor.
   ///
-  /// Name      Type   Description
-  /// --------- ------ -------------------------------
-  /// System    string "GPS" or "SBAS"
-  /// IsEnabled bool   True if corrections are enabled
+  /// Name      Type            Description
+  /// --------- --------------- ----------------------------------------------------------------------------------------------------
+  /// System    string          "GPS" or "SBAS"
+  /// IsEnabled bool            True if corrections are enabled
+  /// ErrorType optional string Comma separated error type to enable/disable. Accepted error types are "PSR offset" and "PSR error".
+  ///                           Default value is "PSR error". Getter only accepts one error type.
   ///
 
   public class IsSbasFastCorrectionsEnabledForResult : CommandResult
@@ -58967,11 +59470,12 @@ namespace Sdx.Cmd
       : base(CmdName)
     {}
 
-    public IsSbasFastCorrectionsEnabledForResult(CommandBase relatedCommand, string system, bool isEnabled)
+    public IsSbasFastCorrectionsEnabledForResult(CommandBase relatedCommand, string system, bool isEnabled, string errorType = null)
       : base(CmdName, relatedCommand)
     {
       System = system;
       IsEnabled = isEnabled;
+      ErrorType = errorType;
     }
       
     public override bool IsValid
@@ -59000,6 +59504,18 @@ namespace Sdx.Cmd
       set
       {
           SetValue("IsEnabled", JToken.FromObject(value, CommandBase.Serializer));
+      }
+    }
+
+    public string ErrorType
+    {
+      get { return GetValue("ErrorType").ToObject<string>(CommandBase.Serializer); }
+      set
+      {
+        if (value == null)
+          RemoveValue("ErrorType");
+        else
+          SetValue("ErrorType", JToken.FromObject(value, CommandBase.Serializer));
       }
     }
   }
@@ -59845,6 +60361,82 @@ namespace Sdx.Cmd
     {}
 
     public SetNavICUraIndexForSV(int svId, int urai, string dataSetName = null)
+      : base(CmdName)
+    {
+      SvId = svId;
+      Urai = urai;
+      DataSetName = dataSetName;
+    }
+      
+    public override bool IsValid
+    {
+      get
+      {
+        return base.IsValid
+        && Contains("SvId")
+        && Contains("Urai")
+      ;
+      }
+    }
+
+    public override int ExecutePermission { get { return EXECUTE_IF_IDLE | EXECUTE_IF_SIMULATING; } }
+
+    public int SvId
+    {
+      get { return GetValue("SvId").ToObject<int>(CommandBase.Serializer); }
+      set
+      {
+          SetValue("SvId", JToken.FromObject(value, CommandBase.Serializer));
+      }
+    }
+
+    public int Urai
+    {
+      get { return GetValue("Urai").ToObject<int>(CommandBase.Serializer); }
+      set
+      {
+          SetValue("Urai", JToken.FromObject(value, CommandBase.Serializer));
+      }
+    }
+
+    public string DataSetName
+    {
+      get { return GetValue("DataSetName").ToObject<string>(CommandBase.Serializer); }
+      set
+      {
+        if (value == null)
+          RemoveValue("DataSetName");
+        else
+          SetValue("DataSetName", JToken.FromObject(value, CommandBase.Serializer));
+      }
+    }
+  }
+
+
+  ///
+  /// Set the URA index of a Sbas satellite
+  ///
+  /// Name        Type            Description
+  /// ----------- --------------- -------------------------------------------------------------------------------------------
+  /// SvId        int             The satellite SV ID, or use 0 to apply new value to all satellites.
+  /// Urai        int             URA index.
+  /// DataSetName optional string Optional name of the data set to use. If no value is provided, the active data set is used.
+  ///
+
+  public class SetSbasUraIndexForSV : CommandBase
+  {
+    public override string Documentation
+    {
+      get { return "Set the URA index of a Sbas satellite"; }
+    }
+
+    internal const string CmdName = "SetSbasUraIndexForSV";
+
+    public SetSbasUraIndexForSV()
+      : base(CmdName)
+    {}
+
+    public SetSbasUraIndexForSV(int svId, int urai, string dataSetName = null)
       : base(CmdName)
     {
       SvId = svId;
@@ -66096,7 +66688,7 @@ namespace Sdx.Cmd
 
 
   ///
-  /// Mapping PRN to the corresponding SV ID. Get a list of SV IDs based on a specific signal. Accepted signal keys: "L1CA", "L1C", "L1P", "L1M", "L2C", "L2P", "L5", "G1", "G2", "E1", "E1PRS", "E5a", "E5b", "E6BC", "E6PRS", "B1", "B2", "B2a", "B1C", "SBASL1", "SBASL5", "QZSSL1CA", "QZSSL1CB", "QZSSL1C", "QZSSL2C", "QZSSL5", "QZSSL1S", "QZSSL5S" and "NAVICL5"
+  /// Mapping PRN to the corresponding SV ID. Get a list of SV IDs based on a specific signal. Accepted signal keys: "L1CA", "L1C", "L1P", "L1ME", "L1MR", "L2C", "L2P", "L5", "G1", "G2", "E1", "E1PRS", "E5a", "E5b", "E6BC", "E6PRS", "B1", "B2", "B2a", "B1C", "SBASL1", "SBASL5", "QZSSL1CA", "QZSSL1CB", "QZSSL1C", "QZSSL2C", "QZSSL5", "QZSSL1S", "QZSSL5S" and "NAVICL5"
   ///
   /// Name   Type   Description
   /// ------ ------ ----------------------------------------------------------------------
@@ -66108,7 +66700,7 @@ namespace Sdx.Cmd
   {
     public override string Documentation
     {
-      get { return "Mapping PRN to the corresponding SV ID. Get a list of SV IDs based on a specific signal. Accepted signal keys: \"L1CA\", \"L1C\", \"L1P\", \"L1M\", \"L2C\", \"L2P\", \"L5\", \"G1\", \"G2\", \"E1\", \"E1PRS\", \"E5a\", \"E5b\", \"E6BC\", \"E6PRS\", \"B1\", \"B2\", \"B2a\", \"B1C\", \"SBASL1\", \"SBASL5\", \"QZSSL1CA\", \"QZSSL1CB\", \"QZSSL1C\", \"QZSSL2C\", \"QZSSL5\", \"QZSSL1S\", \"QZSSL5S\" and \"NAVICL5\""; }
+      get { return "Mapping PRN to the corresponding SV ID. Get a list of SV IDs based on a specific signal. Accepted signal keys: \"L1CA\", \"L1C\", \"L1P\", \"L1ME\", \"L1MR\", \"L2C\", \"L2P\", \"L5\", \"G1\", \"G2\", \"E1\", \"E1PRS\", \"E5a\", \"E5b\", \"E6BC\", \"E6PRS\", \"B1\", \"B2\", \"B2a\", \"B1C\", \"SBASL1\", \"SBASL5\", \"QZSSL1CA\", \"QZSSL1CB\", \"QZSSL1C\", \"QZSSL2C\", \"QZSSL5\", \"QZSSL1S\", \"QZSSL5S\" and \"NAVICL5\""; }
     }
 
     internal const string CmdName = "GetSVIDsOfPrn";
@@ -67654,6 +68246,642 @@ namespace Sdx.Cmd
 
 
   ///
+  /// SBAS service message region.
+  ///
+  /// Name            Type   Description
+  /// --------------- ------ -------------------------------------------------
+  /// FirstLatitude   int    First latitude (deg).
+  /// FirstLongitude  int    First longitude (deg).
+  /// SecondLatitude  int    Second latitude (deg).
+  /// SecondLongitude int    Second longitude (deg).
+  /// Shape           string Region shape, accepts "Triangle" and "Rectangle".
+  ///
+
+  public struct SbasServiceMessageRegion
+  {
+    public int FirstLatitude;
+    public int FirstLongitude;
+    public int SecondLatitude;
+    public int SecondLongitude;
+    public string Shape;
+  }
+
+
+  ///
+  /// Set (or Modify) a SBAS service message region group.
+  ///
+  /// Name            Type                           Description
+  /// --------------- ------------------------------ ---------------------------------------------------------------------------------
+  /// ServiceProvider string                         Service providers, accepts "WAAS", "EGNOS", "MSAS", "GAGAN" and "SDCM".
+  /// DeltaUdrei      int                            Delta UDREI applicable inside the defined regions. Accepted range is [0..15].
+  /// PriorityCode    int                            Priority code of the SBAS service message region group. Accepted range is [0..3].
+  /// Regions         array SbasServiceMessageRegion Array of SBAS service message regions. Accepted size range is [1..5].
+  /// Id              string                         Unique identifier of the SBAS service message region group.
+  ///
+
+  public class SetSbasServiceMessageRegionGroup : CommandBase
+  {
+    public override string Documentation
+    {
+      get { return "Set (or Modify) a SBAS service message region group."; }
+    }
+
+    internal const string CmdName = "SetSbasServiceMessageRegionGroup";
+
+    public SetSbasServiceMessageRegionGroup()
+      : base(CmdName)
+    {}
+
+    public SetSbasServiceMessageRegionGroup(string serviceProvider, int deltaUdrei, int priorityCode, List<SbasServiceMessageRegion> regions, string id)
+      : base(CmdName)
+    {
+      ServiceProvider = serviceProvider;
+      DeltaUdrei = deltaUdrei;
+      PriorityCode = priorityCode;
+      Regions = regions;
+      Id = id;
+    }
+      
+    public override bool IsValid
+    {
+      get
+      {
+        return base.IsValid
+        && Contains("ServiceProvider")
+        && Contains("DeltaUdrei")
+        && Contains("PriorityCode")
+        && Contains("Regions")
+        && Contains("Id")
+      ;
+      }
+    }
+
+    public override int ExecutePermission { get { return EXECUTE_IF_IDLE; } }
+
+    public string ServiceProvider
+    {
+      get { return GetValue("ServiceProvider").ToObject<string>(CommandBase.Serializer); }
+      set
+      {
+          SetValue("ServiceProvider", JToken.FromObject(value, CommandBase.Serializer));
+      }
+    }
+
+    public int DeltaUdrei
+    {
+      get { return GetValue("DeltaUdrei").ToObject<int>(CommandBase.Serializer); }
+      set
+      {
+          SetValue("DeltaUdrei", JToken.FromObject(value, CommandBase.Serializer));
+      }
+    }
+
+    public int PriorityCode
+    {
+      get { return GetValue("PriorityCode").ToObject<int>(CommandBase.Serializer); }
+      set
+      {
+          SetValue("PriorityCode", JToken.FromObject(value, CommandBase.Serializer));
+      }
+    }
+
+    public List<SbasServiceMessageRegion> Regions
+    {
+      get { return GetValue("Regions").ToObject<List<SbasServiceMessageRegion>>(CommandBase.Serializer); }
+      set
+      {
+          SetValue("Regions", JToken.FromObject(value, CommandBase.Serializer));
+      }
+    }
+
+    public string Id
+    {
+      get { return GetValue("Id").ToObject<string>(CommandBase.Serializer); }
+      set
+      {
+          SetValue("Id", JToken.FromObject(value, CommandBase.Serializer));
+      }
+    }
+  }
+
+
+  ///
+  /// Get infos about the SBAS service message region group at this index.
+  ///
+  /// Name            Type   Description
+  /// --------------- ------ -----------------------------------------------------------------------
+  /// ServiceProvider string Service providers, accepts "WAAS", "EGNOS", "MSAS", "GAGAN" and "SDCM".
+  /// Id              string Unique identifier of the SBAS service message region group.
+  ///
+
+  public class GetSbasServiceMessageRegionGroup : CommandBase
+  {
+    public override string Documentation
+    {
+      get { return "Get infos about the SBAS service message region group at this index."; }
+    }
+
+    internal const string CmdName = "GetSbasServiceMessageRegionGroup";
+
+    public GetSbasServiceMessageRegionGroup()
+      : base(CmdName)
+    {}
+
+    public GetSbasServiceMessageRegionGroup(string serviceProvider, string id)
+      : base(CmdName)
+    {
+      ServiceProvider = serviceProvider;
+      Id = id;
+    }
+      
+    public override bool IsValid
+    {
+      get
+      {
+        return base.IsValid
+        && Contains("ServiceProvider")
+        && Contains("Id")
+      ;
+      }
+    }
+
+    public override int ExecutePermission { get { return EXECUTE_IF_IDLE; } }
+
+    public string ServiceProvider
+    {
+      get { return GetValue("ServiceProvider").ToObject<string>(CommandBase.Serializer); }
+      set
+      {
+          SetValue("ServiceProvider", JToken.FromObject(value, CommandBase.Serializer));
+      }
+    }
+
+    public string Id
+    {
+      get { return GetValue("Id").ToObject<string>(CommandBase.Serializer); }
+      set
+      {
+          SetValue("Id", JToken.FromObject(value, CommandBase.Serializer));
+      }
+    }
+  }
+
+
+  ///
+  /// Result of GetSbasServiceMessageRegionGroup.
+  ///
+  /// Name            Type                           Description
+  /// --------------- ------------------------------ ---------------------------------------------------------------------------------
+  /// ServiceProvider string                         Service providers, accepts "WAAS", "EGNOS", "MSAS", "GAGAN" and "SDCM".
+  /// DeltaUdrei      int                            Delta UDREI applicable inside the defined regions. Accepted range is [0..15].
+  /// PriorityCode    int                            Priority code of the SBAS service message region group. Accepted range is [0..3].
+  /// Regions         array SbasServiceMessageRegion Array of SBAS service message regions. Accepted size range is [1..5].
+  /// Id              string                         Unique identifier of the SBAS service message region group.
+  ///
+
+  public class GetSbasServiceMessageRegionGroupResult : CommandResult
+  {
+    public override string Documentation
+    {
+      get { return "Result of GetSbasServiceMessageRegionGroup."; }
+    }
+
+    internal const string CmdName = "GetSbasServiceMessageRegionGroupResult";
+
+    public GetSbasServiceMessageRegionGroupResult()
+      : base(CmdName)
+    {}
+
+    public GetSbasServiceMessageRegionGroupResult(CommandBase relatedCommand, string serviceProvider, int deltaUdrei, int priorityCode, List<SbasServiceMessageRegion> regions, string id)
+      : base(CmdName, relatedCommand)
+    {
+      ServiceProvider = serviceProvider;
+      DeltaUdrei = deltaUdrei;
+      PriorityCode = priorityCode;
+      Regions = regions;
+      Id = id;
+    }
+      
+    public override bool IsValid
+    {
+      get
+      {
+        return base.IsValid
+        && Contains("ServiceProvider")
+        && Contains("DeltaUdrei")
+        && Contains("PriorityCode")
+        && Contains("Regions")
+        && Contains("Id")
+      ;
+      }
+    }
+
+    public string ServiceProvider
+    {
+      get { return GetValue("ServiceProvider").ToObject<string>(CommandBase.Serializer); }
+      set
+      {
+          SetValue("ServiceProvider", JToken.FromObject(value, CommandBase.Serializer));
+      }
+    }
+
+    public int DeltaUdrei
+    {
+      get { return GetValue("DeltaUdrei").ToObject<int>(CommandBase.Serializer); }
+      set
+      {
+          SetValue("DeltaUdrei", JToken.FromObject(value, CommandBase.Serializer));
+      }
+    }
+
+    public int PriorityCode
+    {
+      get { return GetValue("PriorityCode").ToObject<int>(CommandBase.Serializer); }
+      set
+      {
+          SetValue("PriorityCode", JToken.FromObject(value, CommandBase.Serializer));
+      }
+    }
+
+    public List<SbasServiceMessageRegion> Regions
+    {
+      get { return GetValue("Regions").ToObject<List<SbasServiceMessageRegion>>(CommandBase.Serializer); }
+      set
+      {
+          SetValue("Regions", JToken.FromObject(value, CommandBase.Serializer));
+      }
+    }
+
+    public string Id
+    {
+      get { return GetValue("Id").ToObject<string>(CommandBase.Serializer); }
+      set
+      {
+          SetValue("Id", JToken.FromObject(value, CommandBase.Serializer));
+      }
+    }
+  }
+
+
+  ///
+  /// Set SBAS delta UDREI outside all the defined regions for this service provider.
+  ///
+  /// Name            Type   Description
+  /// --------------- ------ ----------------------------------------------------------------------------------
+  /// ServiceProvider string Service providers, accepts "WAAS", "EGNOS", "MSAS", "GAGAN" and "SDCM".
+  /// DeltaUdrei      int    Delta UDREI applicable outside all the defined regions. Accepted range is [0..15].
+  ///
+
+  public class SetSbasDeltaUdreiOutsideOfRegions : CommandBase
+  {
+    public override string Documentation
+    {
+      get { return "Set SBAS delta UDREI outside all the defined regions for this service provider."; }
+    }
+
+    internal const string CmdName = "SetSbasDeltaUdreiOutsideOfRegions";
+
+    public SetSbasDeltaUdreiOutsideOfRegions()
+      : base(CmdName)
+    {}
+
+    public SetSbasDeltaUdreiOutsideOfRegions(string serviceProvider, int deltaUdrei)
+      : base(CmdName)
+    {
+      ServiceProvider = serviceProvider;
+      DeltaUdrei = deltaUdrei;
+    }
+      
+    public override bool IsValid
+    {
+      get
+      {
+        return base.IsValid
+        && Contains("ServiceProvider")
+        && Contains("DeltaUdrei")
+      ;
+      }
+    }
+
+    public override int ExecutePermission { get { return EXECUTE_IF_IDLE; } }
+
+    public string ServiceProvider
+    {
+      get { return GetValue("ServiceProvider").ToObject<string>(CommandBase.Serializer); }
+      set
+      {
+          SetValue("ServiceProvider", JToken.FromObject(value, CommandBase.Serializer));
+      }
+    }
+
+    public int DeltaUdrei
+    {
+      get { return GetValue("DeltaUdrei").ToObject<int>(CommandBase.Serializer); }
+      set
+      {
+          SetValue("DeltaUdrei", JToken.FromObject(value, CommandBase.Serializer));
+      }
+    }
+  }
+
+
+  ///
+  /// Get SBAS delta UDREI outside all the defined regions for this service provider.
+  ///
+  /// Name            Type   Description
+  /// --------------- ------ -----------------------------------------------------------------------
+  /// ServiceProvider string Service providers, accepts "WAAS", "EGNOS", "MSAS", "GAGAN" and "SDCM".
+  ///
+
+  public class GetSbasDeltaUdreiOutsideOfRegions : CommandBase
+  {
+    public override string Documentation
+    {
+      get { return "Get SBAS delta UDREI outside all the defined regions for this service provider."; }
+    }
+
+    internal const string CmdName = "GetSbasDeltaUdreiOutsideOfRegions";
+
+    public GetSbasDeltaUdreiOutsideOfRegions()
+      : base(CmdName)
+    {}
+
+    public GetSbasDeltaUdreiOutsideOfRegions(string serviceProvider)
+      : base(CmdName)
+    {
+      ServiceProvider = serviceProvider;
+    }
+      
+    public override bool IsValid
+    {
+      get
+      {
+        return base.IsValid
+        && Contains("ServiceProvider")
+      ;
+      }
+    }
+
+    public override int ExecutePermission { get { return EXECUTE_IF_IDLE; } }
+
+    public string ServiceProvider
+    {
+      get { return GetValue("ServiceProvider").ToObject<string>(CommandBase.Serializer); }
+      set
+      {
+          SetValue("ServiceProvider", JToken.FromObject(value, CommandBase.Serializer));
+      }
+    }
+  }
+
+
+  ///
+  /// Result of GetSbasDeltaUdreiOutsideOfRegions.
+  ///
+  /// Name            Type   Description
+  /// --------------- ------ ----------------------------------------------------------------------------------
+  /// ServiceProvider string Service providers, accepts "WAAS", "EGNOS", "MSAS", "GAGAN" and "SDCM".
+  /// DeltaUdrei      int    Delta UDREI applicable outside all the defined regions. Accepted range is [0..15].
+  ///
+
+  public class GetSbasDeltaUdreiOutsideOfRegionsResult : CommandResult
+  {
+    public override string Documentation
+    {
+      get { return "Result of GetSbasDeltaUdreiOutsideOfRegions."; }
+    }
+
+    internal const string CmdName = "GetSbasDeltaUdreiOutsideOfRegionsResult";
+
+    public GetSbasDeltaUdreiOutsideOfRegionsResult()
+      : base(CmdName)
+    {}
+
+    public GetSbasDeltaUdreiOutsideOfRegionsResult(CommandBase relatedCommand, string serviceProvider, int deltaUdrei)
+      : base(CmdName, relatedCommand)
+    {
+      ServiceProvider = serviceProvider;
+      DeltaUdrei = deltaUdrei;
+    }
+      
+    public override bool IsValid
+    {
+      get
+      {
+        return base.IsValid
+        && Contains("ServiceProvider")
+        && Contains("DeltaUdrei")
+      ;
+      }
+    }
+
+    public string ServiceProvider
+    {
+      get { return GetValue("ServiceProvider").ToObject<string>(CommandBase.Serializer); }
+      set
+      {
+          SetValue("ServiceProvider", JToken.FromObject(value, CommandBase.Serializer));
+      }
+    }
+
+    public int DeltaUdrei
+    {
+      get { return GetValue("DeltaUdrei").ToObject<int>(CommandBase.Serializer); }
+      set
+      {
+          SetValue("DeltaUdrei", JToken.FromObject(value, CommandBase.Serializer));
+      }
+    }
+  }
+
+
+  ///
+  /// Removes a SBAS service message region group for the service provider.
+  ///
+  /// Name            Type   Description
+  /// --------------- ------ -----------------------------------------------------------------------
+  /// ServiceProvider string Service providers, accepts "WAAS", "EGNOS", "MSAS", "GAGAN" and "SDCM".
+  /// Id              string Unique identifier of the SBAS service message region group to remove.
+  ///
+
+  public class RemoveSbasServiceMessageRegionGroup : CommandBase
+  {
+    public override string Documentation
+    {
+      get { return "Removes a SBAS service message region group for the service provider."; }
+    }
+
+    internal const string CmdName = "RemoveSbasServiceMessageRegionGroup";
+
+    public RemoveSbasServiceMessageRegionGroup()
+      : base(CmdName)
+    {}
+
+    public RemoveSbasServiceMessageRegionGroup(string serviceProvider, string id)
+      : base(CmdName)
+    {
+      ServiceProvider = serviceProvider;
+      Id = id;
+    }
+      
+    public override bool IsValid
+    {
+      get
+      {
+        return base.IsValid
+        && Contains("ServiceProvider")
+        && Contains("Id")
+      ;
+      }
+    }
+
+    public override int ExecutePermission { get { return EXECUTE_IF_IDLE; } }
+
+    public string ServiceProvider
+    {
+      get { return GetValue("ServiceProvider").ToObject<string>(CommandBase.Serializer); }
+      set
+      {
+          SetValue("ServiceProvider", JToken.FromObject(value, CommandBase.Serializer));
+      }
+    }
+
+    public string Id
+    {
+      get { return GetValue("Id").ToObject<string>(CommandBase.Serializer); }
+      set
+      {
+          SetValue("Id", JToken.FromObject(value, CommandBase.Serializer));
+      }
+    }
+  }
+
+
+  ///
+  /// Clears all SBAS service message region group for this service provider.
+  ///
+  /// Name            Type   Description
+  /// --------------- ------ -----------------------------------------------------------------------
+  /// ServiceProvider string Service providers, accepts "WAAS", "EGNOS", "MSAS", "GAGAN" and "SDCM".
+  ///
+
+  public class ClearAllSbasServiceMessageRegionGroup : CommandBase
+  {
+    public override string Documentation
+    {
+      get { return "Clears all SBAS service message region group for this service provider."; }
+    }
+
+    internal const string CmdName = "ClearAllSbasServiceMessageRegionGroup";
+
+    public ClearAllSbasServiceMessageRegionGroup()
+      : base(CmdName)
+    {}
+
+    public ClearAllSbasServiceMessageRegionGroup(string serviceProvider)
+      : base(CmdName)
+    {
+      ServiceProvider = serviceProvider;
+    }
+      
+    public override bool IsValid
+    {
+      get
+      {
+        return base.IsValid
+        && Contains("ServiceProvider")
+      ;
+      }
+    }
+
+    public override int ExecutePermission { get { return EXECUTE_IF_IDLE; } }
+
+    public string ServiceProvider
+    {
+      get { return GetValue("ServiceProvider").ToObject<string>(CommandBase.Serializer); }
+      set
+      {
+          SetValue("ServiceProvider", JToken.FromObject(value, CommandBase.Serializer));
+      }
+    }
+  }
+
+
+  ///
+  /// Swaps 2 SBAS service message region group.
+  ///
+  /// Name            Type   Description
+  /// --------------- ------ ---------------------------------------------------------------------------------
+  /// ServiceProvider string Service providers, accepts "WAAS", "EGNOS", "MSAS", "GAGAN" and "SDCM".
+  /// FirstId         string Unique identifier of the SBAS service message region group to swap with SecondId.
+  /// SecondId        string Unique identifier of the SBAS service message region group to swap with FirstId.
+  ///
+
+  public class SwapSbasServiceMessageRegionGroup : CommandBase
+  {
+    public override string Documentation
+    {
+      get { return "Swaps 2 SBAS service message region group."; }
+    }
+
+    internal const string CmdName = "SwapSbasServiceMessageRegionGroup";
+
+    public SwapSbasServiceMessageRegionGroup()
+      : base(CmdName)
+    {}
+
+    public SwapSbasServiceMessageRegionGroup(string serviceProvider, string firstId, string secondId)
+      : base(CmdName)
+    {
+      ServiceProvider = serviceProvider;
+      FirstId = firstId;
+      SecondId = secondId;
+    }
+      
+    public override bool IsValid
+    {
+      get
+      {
+        return base.IsValid
+        && Contains("ServiceProvider")
+        && Contains("FirstId")
+        && Contains("SecondId")
+      ;
+      }
+    }
+
+    public override int ExecutePermission { get { return EXECUTE_IF_IDLE; } }
+
+    public string ServiceProvider
+    {
+      get { return GetValue("ServiceProvider").ToObject<string>(CommandBase.Serializer); }
+      set
+      {
+          SetValue("ServiceProvider", JToken.FromObject(value, CommandBase.Serializer));
+      }
+    }
+
+    public string FirstId
+    {
+      get { return GetValue("FirstId").ToObject<string>(CommandBase.Serializer); }
+      set
+      {
+          SetValue("FirstId", JToken.FromObject(value, CommandBase.Serializer));
+      }
+    }
+
+    public string SecondId
+    {
+      get { return GetValue("SecondId").ToObject<string>(CommandBase.Serializer); }
+      set
+      {
+          SetValue("SecondId", JToken.FromObject(value, CommandBase.Serializer));
+      }
+    }
+  }
+
+
+  ///
   /// A pair of string
   ///
   /// Name   Type   Description
@@ -67984,6 +69212,140 @@ namespace Sdx.Cmd
       set
       {
           SetValue("Health", JToken.FromObject(value, CommandBase.Serializer));
+      }
+    }
+  }
+
+
+  ///
+  /// Please note the command SetSbasUdrei is deprecated since 22.2. You may use SetUdreiForSV.
+  /// 
+  /// Set the global UDREI value transmitted by SBAS
+  ///
+  /// Name  Type Description
+  /// ----- ---- ---------------
+  /// Udrei int  The UDREI value
+  ///
+
+  public class SetSbasUdrei : CommandBase
+  {
+    public override string Documentation
+    {
+      get { return "Please note the command SetSbasUdrei is deprecated since 22.2. You may use SetUdreiForSV.\n\nSet the global UDREI value transmitted by SBAS"; }
+    }
+
+    internal const string CmdName = "SetSbasUdrei";
+
+    public SetSbasUdrei()
+      : base(CmdName)
+    {}
+
+    public SetSbasUdrei(int udrei)
+      : base(CmdName)
+    {
+      Udrei = udrei;
+    }
+      
+    public override bool IsValid
+    {
+      get
+      {
+        return base.IsValid
+        && Contains("Udrei")
+      ;
+      }
+    }
+
+    public override int ExecutePermission { get { return EXECUTE_IF_IDLE; } }
+
+    public int Udrei
+    {
+      get { return GetValue("Udrei").ToObject<int>(CommandBase.Serializer); }
+      set
+      {
+          SetValue("Udrei", JToken.FromObject(value, CommandBase.Serializer));
+      }
+    }
+  }
+
+
+  ///
+  /// Please note the command GetSbasUdrei is deprecated since 22.2. You may use GetUdreiForSV.
+  /// 
+  /// Get the global UDREI value transmitted by SBAS
+  ///
+  /// 
+  ///
+
+  public class GetSbasUdrei : CommandBase
+  {
+    public override string Documentation
+    {
+      get { return "Please note the command GetSbasUdrei is deprecated since 22.2. You may use GetUdreiForSV.\n\nGet the global UDREI value transmitted by SBAS"; }
+    }
+
+    internal const string CmdName = "GetSbasUdrei";
+
+    public GetSbasUdrei()
+      : base(CmdName)
+    {}
+      
+    public override bool IsValid
+    {
+      get
+      {
+        return base.IsValid
+      ;
+      }
+    }
+
+    public override int ExecutePermission { get { return EXECUTE_IF_IDLE; } }
+  }
+
+
+  ///
+  /// Result of GetSbasUdrei.
+  ///
+  /// Name  Type Description
+  /// ----- ---- ---------------
+  /// Udrei int  The UDREI value
+  ///
+
+  public class GetSbasUdreiResult : CommandResult
+  {
+    public override string Documentation
+    {
+      get { return "Result of GetSbasUdrei."; }
+    }
+
+    internal const string CmdName = "GetSbasUdreiResult";
+
+    public GetSbasUdreiResult()
+      : base(CmdName)
+    {}
+
+    public GetSbasUdreiResult(CommandBase relatedCommand, int udrei)
+      : base(CmdName, relatedCommand)
+    {
+      Udrei = udrei;
+    }
+      
+    public override bool IsValid
+    {
+      get
+      {
+        return base.IsValid
+        && Contains("Udrei")
+      ;
+      }
+    }
+
+    public int Udrei
+    {
+      get { return GetValue("Udrei").ToObject<int>(CommandBase.Serializer); }
+      set
+      {
+          SetValue("Udrei", JToken.FromObject(value, CommandBase.Serializer));
       }
     }
   }

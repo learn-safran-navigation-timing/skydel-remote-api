@@ -13,12 +13,13 @@ namespace Sdx
     /// Get the PRNs transmitted by the SV ID for these signals.
     ///
     /// Name        Type         Description
-    /// ----------- ------------ --------------------------------------------------------------------------------
+    /// ----------- ------------ ------------------------------------------------------------------------------
     /// SvId        int          Satellite SV ID.
     /// SignalArray array string An array of signals.
     ///                          Accepted values are: "L1CA", "L1C", "L2C", "L5", "E1", "E6BC", "B1", "B2",
-    ///                                               "B1C", "B2a", "QZSSL1CA", "QZSSL1CB", "QZSSL1C", "QZSSL2C",
-    ///                                               "QZSSL5", "QZSSL1S", "QZSSL5S" and "NAVICL5"
+    ///                                               "B1C", "B2a", "SBASL1", "SBASL5", "QZSSL1CA", "QZSSL1CB",
+    ///                                               "QZSSL1C", "QZSSL2C", "QZSSL5", "QZSSL1S", "QZSSL5S" and
+    ///                                               "NAVICL5"
     ///
 
     class GetTransmittedPrnForSV;

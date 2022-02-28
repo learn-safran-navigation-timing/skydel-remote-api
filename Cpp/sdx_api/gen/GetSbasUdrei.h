@@ -9,6 +9,8 @@ namespace Sdx
   namespace Cmd
   {
     ///
+    /// Please note the command GetSbasUdrei is deprecated since 22.2. You may use GetUdreiForSV.
+    /// 
     /// Get the global UDREI value transmitted by SBAS
     ///
     /// 

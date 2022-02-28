@@ -9,6 +9,8 @@ namespace Sdx
   namespace Cmd
   {
     ///
+    /// Please note the command SetSbasUdrei is deprecated since 22.2. You may use SetUdreiForSV.
+    /// 
     /// Set the global UDREI value transmitted by SBAS
     ///
     /// Name  Type Description

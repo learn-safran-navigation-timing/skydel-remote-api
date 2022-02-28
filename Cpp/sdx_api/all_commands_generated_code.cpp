@@ -30,7 +30,7 @@ namespace Sdx
 
     SuccessResultPtr SuccessResult::create(CommandBasePtr relatedCommand)
     {
-      return SuccessResultPtr(new SuccessResult(relatedCommand));
+      return std::make_shared<SuccessResult>(relatedCommand);
     }
 
     SuccessResultPtr SuccessResult::dynamicCast(CommandBasePtr ptr)
@@ -81,7 +81,7 @@ namespace Sdx
 
     FailureResultPtr FailureResult::create(CommandBasePtr relatedCommand, const std::string& errorMsg)
     {
-      return FailureResultPtr(new FailureResult(relatedCommand, errorMsg));
+      return std::make_shared<FailureResult>(relatedCommand, errorMsg);
     }
 
     FailureResultPtr FailureResult::dynamicCast(CommandBasePtr ptr)
@@ -140,7 +140,7 @@ namespace Sdx
 
     UndoCmdPtr UndoCmd::create()
     {
-      return UndoCmdPtr(new UndoCmd());
+      return std::make_shared<UndoCmd>();
     }
 
     UndoCmdPtr UndoCmd::dynamicCast(CommandBasePtr ptr)
@@ -192,7 +192,7 @@ namespace Sdx
 
     RedoCmdPtr RedoCmd::create()
     {
-      return RedoCmdPtr(new RedoCmd());
+      return std::make_shared<RedoCmd>();
     }
 
     RedoCmdPtr RedoCmd::dynamicCast(CommandBasePtr ptr)
@@ -244,7 +244,7 @@ namespace Sdx
 
     GetDataFolderPtr GetDataFolder::create()
     {
-      return GetDataFolderPtr(new GetDataFolder());
+      return std::make_shared<GetDataFolder>();
     }
 
     GetDataFolderPtr GetDataFolder::dynamicCast(CommandBasePtr ptr)
@@ -301,7 +301,7 @@ namespace Sdx
 
     DataFolderResultPtr DataFolderResult::create(CommandBasePtr relatedCommand, const std::string& folder)
     {
-      return DataFolderResultPtr(new DataFolderResult(relatedCommand, folder));
+      return std::make_shared<DataFolderResult>(relatedCommand, folder);
     }
 
     DataFolderResultPtr DataFolderResult::dynamicCast(CommandBasePtr ptr)
@@ -360,7 +360,7 @@ namespace Sdx
 
     GetVersionPtr GetVersion::create()
     {
-      return GetVersionPtr(new GetVersion());
+      return std::make_shared<GetVersion>();
     }
 
     GetVersionPtr GetVersion::dynamicCast(CommandBasePtr ptr)
@@ -417,7 +417,7 @@ namespace Sdx
 
     VersionResultPtr VersionResult::create(CommandBasePtr relatedCommand, const std::string& version)
     {
-      return VersionResultPtr(new VersionResult(relatedCommand, version));
+      return std::make_shared<VersionResult>(relatedCommand, version);
     }
 
     VersionResultPtr VersionResult::dynamicCast(CommandBasePtr ptr)
@@ -476,7 +476,7 @@ namespace Sdx
 
     GetSimulationElapsedTimePtr GetSimulationElapsedTime::create()
     {
-      return GetSimulationElapsedTimePtr(new GetSimulationElapsedTime());
+      return std::make_shared<GetSimulationElapsedTime>();
     }
 
     GetSimulationElapsedTimePtr GetSimulationElapsedTime::dynamicCast(CommandBasePtr ptr)
@@ -533,7 +533,7 @@ namespace Sdx
 
     SimulationElapsedTimeResultPtr SimulationElapsedTimeResult::create(CommandBasePtr relatedCommand, int milliseconds)
     {
-      return SimulationElapsedTimeResultPtr(new SimulationElapsedTimeResult(relatedCommand, milliseconds));
+      return std::make_shared<SimulationElapsedTimeResult>(relatedCommand, milliseconds);
     }
 
     SimulationElapsedTimeResultPtr SimulationElapsedTimeResult::dynamicCast(CommandBasePtr ptr)
@@ -598,7 +598,7 @@ namespace Sdx
 
     NewPtr New::create(bool discardCurrentConfig, const Sdx::optional<bool>& loadDefaultConfig)
     {
-      return NewPtr(new New(discardCurrentConfig, loadDefaultConfig));
+      return std::make_shared<New>(discardCurrentConfig, loadDefaultConfig);
     }
 
     NewPtr New::dynamicCast(CommandBasePtr ptr)
@@ -682,7 +682,7 @@ namespace Sdx
 
     SaveAsPtr SaveAs::create(const std::string& path, bool overwrite)
     {
-      return SaveAsPtr(new SaveAs(path, overwrite));
+      return std::make_shared<SaveAs>(path, overwrite);
     }
 
     SaveAsPtr SaveAs::dynamicCast(CommandBasePtr ptr)
@@ -760,7 +760,7 @@ namespace Sdx
 
     SavePtr Save::create()
     {
-      return SavePtr(new Save());
+      return std::make_shared<Save>();
     }
 
     SavePtr Save::dynamicCast(CommandBasePtr ptr)
@@ -818,7 +818,7 @@ namespace Sdx
 
     OpenPtr Open::create(const std::string& path, bool discardCurrentConfig)
     {
-      return OpenPtr(new Open(path, discardCurrentConfig));
+      return std::make_shared<Open>(path, discardCurrentConfig);
     }
 
     OpenPtr Open::dynamicCast(CommandBasePtr ptr)
@@ -896,7 +896,7 @@ namespace Sdx
 
     SetDefaultConfigurationPtr SetDefaultConfiguration::create()
     {
-      return SetDefaultConfigurationPtr(new SetDefaultConfiguration());
+      return std::make_shared<SetDefaultConfiguration>();
     }
 
     SetDefaultConfigurationPtr SetDefaultConfiguration::dynamicCast(CommandBasePtr ptr)
@@ -948,7 +948,7 @@ namespace Sdx
 
     ResetDefaultConfigurationPtr ResetDefaultConfiguration::create()
     {
-      return ResetDefaultConfigurationPtr(new ResetDefaultConfiguration());
+      return std::make_shared<ResetDefaultConfiguration>();
     }
 
     ResetDefaultConfigurationPtr ResetDefaultConfiguration::dynamicCast(CommandBasePtr ptr)
@@ -1000,7 +1000,7 @@ namespace Sdx
 
     ClearAutomatePagePtr ClearAutomatePage::create()
     {
-      return ClearAutomatePagePtr(new ClearAutomatePage());
+      return std::make_shared<ClearAutomatePage>();
     }
 
     ClearAutomatePagePtr ClearAutomatePage::dynamicCast(CommandBasePtr ptr)
@@ -1052,7 +1052,7 @@ namespace Sdx
 
     StartPtr Start::create()
     {
-      return StartPtr(new Start());
+      return std::make_shared<Start>();
     }
 
     StartPtr Start::dynamicCast(CommandBasePtr ptr)
@@ -1104,7 +1104,7 @@ namespace Sdx
 
     ArmPtr Arm::create()
     {
-      return ArmPtr(new Arm());
+      return std::make_shared<Arm>();
     }
 
     ArmPtr Arm::dynamicCast(CommandBasePtr ptr)
@@ -1156,7 +1156,7 @@ namespace Sdx
 
     PausePtr Pause::create()
     {
-      return PausePtr(new Pause());
+      return std::make_shared<Pause>();
     }
 
     PausePtr Pause::dynamicCast(CommandBasePtr ptr)
@@ -1208,7 +1208,7 @@ namespace Sdx
 
     ResumePtr Resume::create()
     {
-      return ResumePtr(new Resume());
+      return std::make_shared<Resume>();
     }
 
     ResumePtr Resume::dynamicCast(CommandBasePtr ptr)
@@ -1260,7 +1260,7 @@ namespace Sdx
 
     StopPtr Stop::create()
     {
-      return StopPtr(new Stop());
+      return std::make_shared<Stop>();
     }
 
     StopPtr Stop::dynamicCast(CommandBasePtr ptr)
@@ -1317,7 +1317,7 @@ namespace Sdx
 
     QuitPtr Quit::create(bool forceQuit)
     {
-      return QuitPtr(new Quit(forceQuit));
+      return std::make_shared<Quit>(forceQuit);
     }
 
     QuitPtr Quit::dynamicCast(CommandBasePtr ptr)
@@ -1382,7 +1382,7 @@ namespace Sdx
 
     LockGUIPtr LockGUI::create()
     {
-      return LockGUIPtr(new LockGUI());
+      return std::make_shared<LockGUI>();
     }
 
     LockGUIPtr LockGUI::dynamicCast(CommandBasePtr ptr)
@@ -1434,7 +1434,7 @@ namespace Sdx
 
     UnlockGUIPtr UnlockGUI::create()
     {
-      return UnlockGUIPtr(new UnlockGUI());
+      return std::make_shared<UnlockGUI>();
     }
 
     UnlockGUIPtr UnlockGUI::dynamicCast(CommandBasePtr ptr)
@@ -1493,7 +1493,7 @@ namespace Sdx
 
     EnableRFOutputForSVPtr EnableRFOutputForSV::create(const std::string& system, int svId, bool enabled)
     {
-      return EnableRFOutputForSVPtr(new EnableRFOutputForSV(system, svId, enabled));
+      return std::make_shared<EnableRFOutputForSV>(system, svId, enabled);
     }
 
     EnableRFOutputForSVPtr EnableRFOutputForSV::dynamicCast(CommandBasePtr ptr)
@@ -1590,7 +1590,7 @@ namespace Sdx
 
     IsRFOutputEnabledPtr IsRFOutputEnabled::create(const std::string& system, int svId)
     {
-      return IsRFOutputEnabledPtr(new IsRFOutputEnabled(system, svId));
+      return std::make_shared<IsRFOutputEnabled>(system, svId);
     }
 
     IsRFOutputEnabledPtr IsRFOutputEnabled::dynamicCast(CommandBasePtr ptr)
@@ -1675,7 +1675,7 @@ namespace Sdx
 
     IsRFOutputEnabledResultPtr IsRFOutputEnabledResult::create(CommandBasePtr relatedCommand, const std::string& system, int svId, bool enabled)
     {
-      return IsRFOutputEnabledResultPtr(new IsRFOutputEnabledResult(relatedCommand, system, svId, enabled));
+      return std::make_shared<IsRFOutputEnabledResult>(relatedCommand, system, svId, enabled);
     }
 
     IsRFOutputEnabledResultPtr IsRFOutputEnabledResult::dynamicCast(CommandBasePtr ptr)
@@ -1766,7 +1766,7 @@ namespace Sdx
 
     EnableRFOutputForEachSVPtr EnableRFOutputForEachSV::create(const std::string& system, const std::vector<bool>& enabled)
     {
-      return EnableRFOutputForEachSVPtr(new EnableRFOutputForEachSV(system, enabled));
+      return std::make_shared<EnableRFOutputForEachSV>(system, enabled);
     }
 
     EnableRFOutputForEachSVPtr EnableRFOutputForEachSV::dynamicCast(CommandBasePtr ptr)
@@ -1849,7 +1849,7 @@ namespace Sdx
 
     IsRFOutputEnabledForEachSVPtr IsRFOutputEnabledForEachSV::create(const std::string& system)
     {
-      return IsRFOutputEnabledForEachSVPtr(new IsRFOutputEnabledForEachSV(system));
+      return std::make_shared<IsRFOutputEnabledForEachSV>(system);
     }
 
     IsRFOutputEnabledForEachSVPtr IsRFOutputEnabledForEachSV::dynamicCast(CommandBasePtr ptr)
@@ -1920,7 +1920,7 @@ namespace Sdx
 
     IsRFOutputEnabledForEachSVResultPtr IsRFOutputEnabledForEachSVResult::create(CommandBasePtr relatedCommand, const std::string& system, const std::vector<bool>& enabled)
     {
-      return IsRFOutputEnabledForEachSVResultPtr(new IsRFOutputEnabledForEachSVResult(relatedCommand, system, enabled));
+      return std::make_shared<IsRFOutputEnabledForEachSVResult>(relatedCommand, system, enabled);
     }
 
     IsRFOutputEnabledForEachSVResultPtr IsRFOutputEnabledForEachSVResult::dynamicCast(CommandBasePtr ptr)
@@ -1999,7 +1999,7 @@ namespace Sdx
 
     EnableSignalForSVPtr EnableSignalForSV::create(const std::string& signal, int svId, bool enabled)
     {
-      return EnableSignalForSVPtr(new EnableSignalForSV(signal, svId, enabled));
+      return std::make_shared<EnableSignalForSV>(signal, svId, enabled);
     }
 
     EnableSignalForSVPtr EnableSignalForSV::dynamicCast(CommandBasePtr ptr)
@@ -2096,7 +2096,7 @@ namespace Sdx
 
     IsSignalEnabledForSVPtr IsSignalEnabledForSV::create(const std::string& signal, int svId)
     {
-      return IsSignalEnabledForSVPtr(new IsSignalEnabledForSV(signal, svId));
+      return std::make_shared<IsSignalEnabledForSV>(signal, svId);
     }
 
     IsSignalEnabledForSVPtr IsSignalEnabledForSV::dynamicCast(CommandBasePtr ptr)
@@ -2181,7 +2181,7 @@ namespace Sdx
 
     IsSignalEnabledForSVResultPtr IsSignalEnabledForSVResult::create(CommandBasePtr relatedCommand, const std::string& signal, int svId, bool enabled)
     {
-      return IsSignalEnabledForSVResultPtr(new IsSignalEnabledForSVResult(relatedCommand, signal, svId, enabled));
+      return std::make_shared<IsSignalEnabledForSVResult>(relatedCommand, signal, svId, enabled);
     }
 
     IsSignalEnabledForSVResultPtr IsSignalEnabledForSVResult::dynamicCast(CommandBasePtr ptr)
@@ -2272,7 +2272,7 @@ namespace Sdx
 
     EnableSignalForEachSVPtr EnableSignalForEachSV::create(const std::string& signal, const std::vector<bool>& enabled)
     {
-      return EnableSignalForEachSVPtr(new EnableSignalForEachSV(signal, enabled));
+      return std::make_shared<EnableSignalForEachSV>(signal, enabled);
     }
 
     EnableSignalForEachSVPtr EnableSignalForEachSV::dynamicCast(CommandBasePtr ptr)
@@ -2355,7 +2355,7 @@ namespace Sdx
 
     IsSignalEnabledForEachSVPtr IsSignalEnabledForEachSV::create(const std::string& signal)
     {
-      return IsSignalEnabledForEachSVPtr(new IsSignalEnabledForEachSV(signal));
+      return std::make_shared<IsSignalEnabledForEachSV>(signal);
     }
 
     IsSignalEnabledForEachSVPtr IsSignalEnabledForEachSV::dynamicCast(CommandBasePtr ptr)
@@ -2426,7 +2426,7 @@ namespace Sdx
 
     IsSignalEnabledForEachSVResultPtr IsSignalEnabledForEachSVResult::create(CommandBasePtr relatedCommand, const std::string& signal, const std::vector<bool>& enabled)
     {
-      return IsSignalEnabledForEachSVResultPtr(new IsSignalEnabledForEachSVResult(relatedCommand, signal, enabled));
+      return std::make_shared<IsSignalEnabledForEachSVResult>(relatedCommand, signal, enabled);
     }
 
     IsSignalEnabledForEachSVResultPtr IsSignalEnabledForEachSVResult::dynamicCast(CommandBasePtr ptr)
@@ -2505,7 +2505,7 @@ namespace Sdx
 
     EnablePYCodeForSVPtr EnablePYCodeForSV::create(const std::string& signal, int svId, bool enabled)
     {
-      return EnablePYCodeForSVPtr(new EnablePYCodeForSV(signal, svId, enabled));
+      return std::make_shared<EnablePYCodeForSV>(signal, svId, enabled);
     }
 
     EnablePYCodeForSVPtr EnablePYCodeForSV::dynamicCast(CommandBasePtr ptr)
@@ -2602,7 +2602,7 @@ namespace Sdx
 
     IsPYCodeEnabledForSVPtr IsPYCodeEnabledForSV::create(const std::string& signal, int svId)
     {
-      return IsPYCodeEnabledForSVPtr(new IsPYCodeEnabledForSV(signal, svId));
+      return std::make_shared<IsPYCodeEnabledForSV>(signal, svId);
     }
 
     IsPYCodeEnabledForSVPtr IsPYCodeEnabledForSV::dynamicCast(CommandBasePtr ptr)
@@ -2687,7 +2687,7 @@ namespace Sdx
 
     IsPYCodeEnabledForSVResultPtr IsPYCodeEnabledForSVResult::create(CommandBasePtr relatedCommand, const std::string& signal, int svId, bool enabled)
     {
-      return IsPYCodeEnabledForSVResultPtr(new IsPYCodeEnabledForSVResult(relatedCommand, signal, svId, enabled));
+      return std::make_shared<IsPYCodeEnabledForSVResult>(relatedCommand, signal, svId, enabled);
     }
 
     IsPYCodeEnabledForSVResultPtr IsPYCodeEnabledForSVResult::dynamicCast(CommandBasePtr ptr)
@@ -2778,7 +2778,7 @@ namespace Sdx
 
     EnablePYCodeForEachSVPtr EnablePYCodeForEachSV::create(const std::string& signal, const std::vector<bool>& enabled)
     {
-      return EnablePYCodeForEachSVPtr(new EnablePYCodeForEachSV(signal, enabled));
+      return std::make_shared<EnablePYCodeForEachSV>(signal, enabled);
     }
 
     EnablePYCodeForEachSVPtr EnablePYCodeForEachSV::dynamicCast(CommandBasePtr ptr)
@@ -2861,7 +2861,7 @@ namespace Sdx
 
     IsPYCodeEnabledForEachSVPtr IsPYCodeEnabledForEachSV::create(const std::string& signal)
     {
-      return IsPYCodeEnabledForEachSVPtr(new IsPYCodeEnabledForEachSV(signal));
+      return std::make_shared<IsPYCodeEnabledForEachSV>(signal);
     }
 
     IsPYCodeEnabledForEachSVPtr IsPYCodeEnabledForEachSV::dynamicCast(CommandBasePtr ptr)
@@ -2932,7 +2932,7 @@ namespace Sdx
 
     IsPYCodeEnabledForEachSVResultPtr IsPYCodeEnabledForEachSVResult::create(CommandBasePtr relatedCommand, const std::string& signal, const std::vector<bool>& enabled)
     {
-      return IsPYCodeEnabledForEachSVResultPtr(new IsPYCodeEnabledForEachSVResult(relatedCommand, signal, enabled));
+      return std::make_shared<IsPYCodeEnabledForEachSVResult>(relatedCommand, signal, enabled);
     }
 
     IsPYCodeEnabledForEachSVResultPtr IsPYCodeEnabledForEachSVResult::dynamicCast(CommandBasePtr ptr)
@@ -3012,7 +3012,7 @@ namespace Sdx
 
     SetPowerForSVPtr SetPowerForSV::create(const std::string& system, int svId, double powerOffset, bool otherSatsFollow)
     {
-      return SetPowerForSVPtr(new SetPowerForSV(system, svId, powerOffset, otherSatsFollow));
+      return std::make_shared<SetPowerForSV>(system, svId, powerOffset, otherSatsFollow);
     }
 
     SetPowerForSVPtr SetPowerForSV::dynamicCast(CommandBasePtr ptr)
@@ -3122,7 +3122,7 @@ namespace Sdx
 
     GetPowerForSVPtr GetPowerForSV::create(const std::string& system, int svId)
     {
-      return GetPowerForSVPtr(new GetPowerForSV(system, svId));
+      return std::make_shared<GetPowerForSV>(system, svId);
     }
 
     GetPowerForSVPtr GetPowerForSV::dynamicCast(CommandBasePtr ptr)
@@ -3212,7 +3212,7 @@ namespace Sdx
 
     GetPowerForSVResultPtr GetPowerForSVResult::create(CommandBasePtr relatedCommand, const std::string& system, int svId, double nominalPower, double signalStrengthModel, double antenna, double signalLevelOffset, double manualGain, double total)
     {
-      return GetPowerForSVResultPtr(new GetPowerForSVResult(relatedCommand, system, svId, nominalPower, signalStrengthModel, antenna, signalLevelOffset, manualGain, total));
+      return std::make_shared<GetPowerForSVResult>(relatedCommand, system, svId, nominalPower, signalStrengthModel, antenna, signalLevelOffset, manualGain, total);
     }
 
     GetPowerForSVResultPtr GetPowerForSVResult::dynamicCast(CommandBasePtr ptr)
@@ -3367,7 +3367,7 @@ namespace Sdx
 
     ResetAllSatPowerPtr ResetAllSatPower::create(const std::string& system)
     {
-      return ResetAllSatPowerPtr(new ResetAllSatPower(system));
+      return std::make_shared<ResetAllSatPower>(system);
     }
 
     ResetAllSatPowerPtr ResetAllSatPower::dynamicCast(CommandBasePtr ptr)
@@ -3409,6 +3409,90 @@ namespace Sdx
 
 
 ///
+/// Definition of ExportPerformanceDataToCSV
+///
+#include "gen/ExportPerformanceDataToCSV.h"
+
+namespace Sdx
+{
+  namespace Cmd
+  {
+    const char* const ExportPerformanceDataToCSV::CmdName = "ExportPerformanceDataToCSV";
+    const char* const ExportPerformanceDataToCSV::Documentation = "Export the performance graph data into a csv file.";
+
+    REGISTER_COMMAND_FACTORY(ExportPerformanceDataToCSV);
+
+
+    ExportPerformanceDataToCSV::ExportPerformanceDataToCSV()
+      : CommandBase(CmdName)
+    {}
+
+    ExportPerformanceDataToCSV::ExportPerformanceDataToCSV(const std::string& path, bool overwriting)
+      : CommandBase(CmdName)
+    {
+
+      setPath(path);
+      setOverwriting(overwriting);
+    }
+
+
+    ExportPerformanceDataToCSVPtr ExportPerformanceDataToCSV::create(const std::string& path, bool overwriting)
+    {
+      return std::make_shared<ExportPerformanceDataToCSV>(path, overwriting);
+    }
+
+    ExportPerformanceDataToCSVPtr ExportPerformanceDataToCSV::dynamicCast(CommandBasePtr ptr)
+    {
+      return std::dynamic_pointer_cast<ExportPerformanceDataToCSV>(ptr);
+    }
+
+    bool ExportPerformanceDataToCSV::isValid() const
+    {
+      
+        return m_values.IsObject()
+          && parse_json<std::string>::is_valid(m_values["Path"])
+          && parse_json<bool>::is_valid(m_values["Overwriting"])
+        ;
+
+    }
+
+    std::string ExportPerformanceDataToCSV::documentation() const { return Documentation; }
+
+
+    int ExportPerformanceDataToCSV::executePermission() const
+    {
+      return EXECUTE_IF_SIMULATING | EXECUTE_IF_IDLE;
+    }
+
+
+    std::string ExportPerformanceDataToCSV::path() const
+    {
+      return parse_json<std::string>::parse(m_values["Path"]);
+    }
+
+    void ExportPerformanceDataToCSV::setPath(const std::string& path)
+    {
+      m_values.AddMember("Path", parse_json<std::string>::format(path, m_values.GetAllocator()), m_values.GetAllocator());
+    }
+
+
+
+    bool ExportPerformanceDataToCSV::overwriting() const
+    {
+      return parse_json<bool>::parse(m_values["Overwriting"]);
+    }
+
+    void ExportPerformanceDataToCSV::setOverwriting(bool overwriting)
+    {
+      m_values.AddMember("Overwriting", parse_json<bool>::format(overwriting, m_values.GetAllocator()), m_values.GetAllocator());
+    }
+
+
+  }
+}
+
+
+///
 /// Definition of SetPropagationDelay
 ///
 #include "gen/SetPropagationDelay.h"
@@ -3438,7 +3522,7 @@ namespace Sdx
 
     SetPropagationDelayPtr SetPropagationDelay::create(const std::string& system, bool enabled)
     {
-      return SetPropagationDelayPtr(new SetPropagationDelay(system, enabled));
+      return std::make_shared<SetPropagationDelay>(system, enabled);
     }
 
     SetPropagationDelayPtr SetPropagationDelay::dynamicCast(CommandBasePtr ptr)
@@ -3521,7 +3605,7 @@ namespace Sdx
 
     IsPropagationDelayEnabledPtr IsPropagationDelayEnabled::create(const std::string& system)
     {
-      return IsPropagationDelayEnabledPtr(new IsPropagationDelayEnabled(system));
+      return std::make_shared<IsPropagationDelayEnabled>(system);
     }
 
     IsPropagationDelayEnabledPtr IsPropagationDelayEnabled::dynamicCast(CommandBasePtr ptr)
@@ -3592,7 +3676,7 @@ namespace Sdx
 
     IsPropagationDelayEnabledResultPtr IsPropagationDelayEnabledResult::create(CommandBasePtr relatedCommand, const std::string& system, bool enabled)
     {
-      return IsPropagationDelayEnabledResultPtr(new IsPropagationDelayEnabledResult(relatedCommand, system, enabled));
+      return std::make_shared<IsPropagationDelayEnabledResult>(relatedCommand, system, enabled);
     }
 
     IsPropagationDelayEnabledResultPtr IsPropagationDelayEnabledResult::dynamicCast(CommandBasePtr ptr)
@@ -3671,7 +3755,7 @@ namespace Sdx
 
     SetSatMotionFixedPtr SetSatMotionFixed::create(const std::string& system, int svId, bool isFixed)
     {
-      return SetSatMotionFixedPtr(new SetSatMotionFixed(system, svId, isFixed));
+      return std::make_shared<SetSatMotionFixed>(system, svId, isFixed);
     }
 
     SetSatMotionFixedPtr SetSatMotionFixed::dynamicCast(CommandBasePtr ptr)
@@ -3768,7 +3852,7 @@ namespace Sdx
 
     IsSatMotionFixedPtr IsSatMotionFixed::create(const std::string& system, int svId)
     {
-      return IsSatMotionFixedPtr(new IsSatMotionFixed(system, svId));
+      return std::make_shared<IsSatMotionFixed>(system, svId);
     }
 
     IsSatMotionFixedPtr IsSatMotionFixed::dynamicCast(CommandBasePtr ptr)
@@ -3853,7 +3937,7 @@ namespace Sdx
 
     IsSatMotionFixedResultPtr IsSatMotionFixedResult::create(CommandBasePtr relatedCommand, const std::string& system, int svId, bool isFixed)
     {
-      return IsSatMotionFixedResultPtr(new IsSatMotionFixedResult(relatedCommand, system, svId, isFixed));
+      return std::make_shared<IsSatMotionFixedResult>(relatedCommand, system, svId, isFixed);
     }
 
     IsSatMotionFixedResultPtr IsSatMotionFixedResult::dynamicCast(CommandBasePtr ptr)
@@ -3944,7 +4028,7 @@ namespace Sdx
 
     SetIonoAlphaPtr SetIonoAlpha::create(int index, double val)
     {
-      return SetIonoAlphaPtr(new SetIonoAlpha(index, val));
+      return std::make_shared<SetIonoAlpha>(index, val);
     }
 
     SetIonoAlphaPtr SetIonoAlpha::dynamicCast(CommandBasePtr ptr)
@@ -4027,7 +4111,7 @@ namespace Sdx
 
     GetIonoAlphaPtr GetIonoAlpha::create(int index)
     {
-      return GetIonoAlphaPtr(new GetIonoAlpha(index));
+      return std::make_shared<GetIonoAlpha>(index);
     }
 
     GetIonoAlphaPtr GetIonoAlpha::dynamicCast(CommandBasePtr ptr)
@@ -4098,7 +4182,7 @@ namespace Sdx
 
     GetIonoAlphaResultPtr GetIonoAlphaResult::create(CommandBasePtr relatedCommand, int index, double val)
     {
-      return GetIonoAlphaResultPtr(new GetIonoAlphaResult(relatedCommand, index, val));
+      return std::make_shared<GetIonoAlphaResult>(relatedCommand, index, val);
     }
 
     GetIonoAlphaResultPtr GetIonoAlphaResult::dynamicCast(CommandBasePtr ptr)
@@ -4176,7 +4260,7 @@ namespace Sdx
 
     SetIonoBetaPtr SetIonoBeta::create(int index, double val)
     {
-      return SetIonoBetaPtr(new SetIonoBeta(index, val));
+      return std::make_shared<SetIonoBeta>(index, val);
     }
 
     SetIonoBetaPtr SetIonoBeta::dynamicCast(CommandBasePtr ptr)
@@ -4259,7 +4343,7 @@ namespace Sdx
 
     GetIonoBetaPtr GetIonoBeta::create(int index)
     {
-      return GetIonoBetaPtr(new GetIonoBeta(index));
+      return std::make_shared<GetIonoBeta>(index);
     }
 
     GetIonoBetaPtr GetIonoBeta::dynamicCast(CommandBasePtr ptr)
@@ -4330,7 +4414,7 @@ namespace Sdx
 
     GetIonoBetaResultPtr GetIonoBetaResult::create(CommandBasePtr relatedCommand, int index, double val)
     {
-      return GetIonoBetaResultPtr(new GetIonoBetaResult(relatedCommand, index, val));
+      return std::make_shared<GetIonoBetaResult>(relatedCommand, index, val);
     }
 
     GetIonoBetaResultPtr GetIonoBetaResult::dynamicCast(CommandBasePtr ptr)
@@ -4408,7 +4492,7 @@ namespace Sdx
 
     SetIonoBdgimAlphaPtr SetIonoBdgimAlpha::create(int index, double val)
     {
-      return SetIonoBdgimAlphaPtr(new SetIonoBdgimAlpha(index, val));
+      return std::make_shared<SetIonoBdgimAlpha>(index, val);
     }
 
     SetIonoBdgimAlphaPtr SetIonoBdgimAlpha::dynamicCast(CommandBasePtr ptr)
@@ -4491,7 +4575,7 @@ namespace Sdx
 
     GetIonoBdgimAlphaPtr GetIonoBdgimAlpha::create(int index)
     {
-      return GetIonoBdgimAlphaPtr(new GetIonoBdgimAlpha(index));
+      return std::make_shared<GetIonoBdgimAlpha>(index);
     }
 
     GetIonoBdgimAlphaPtr GetIonoBdgimAlpha::dynamicCast(CommandBasePtr ptr)
@@ -4562,7 +4646,7 @@ namespace Sdx
 
     GetIonoBdgimAlphaResultPtr GetIonoBdgimAlphaResult::create(CommandBasePtr relatedCommand, int index, double val)
     {
-      return GetIonoBdgimAlphaResultPtr(new GetIonoBdgimAlphaResult(relatedCommand, index, val));
+      return std::make_shared<GetIonoBdgimAlphaResult>(relatedCommand, index, val);
     }
 
     GetIonoBdgimAlphaResultPtr GetIonoBdgimAlphaResult::dynamicCast(CommandBasePtr ptr)
@@ -4640,7 +4724,7 @@ namespace Sdx
 
     SetEffectiveIonisationLevelCoefficientPtr SetEffectiveIonisationLevelCoefficient::create(int index, double val)
     {
-      return SetEffectiveIonisationLevelCoefficientPtr(new SetEffectiveIonisationLevelCoefficient(index, val));
+      return std::make_shared<SetEffectiveIonisationLevelCoefficient>(index, val);
     }
 
     SetEffectiveIonisationLevelCoefficientPtr SetEffectiveIonisationLevelCoefficient::dynamicCast(CommandBasePtr ptr)
@@ -4723,7 +4807,7 @@ namespace Sdx
 
     GetEffectiveIonisationLevelCoefficientPtr GetEffectiveIonisationLevelCoefficient::create(int index)
     {
-      return GetEffectiveIonisationLevelCoefficientPtr(new GetEffectiveIonisationLevelCoefficient(index));
+      return std::make_shared<GetEffectiveIonisationLevelCoefficient>(index);
     }
 
     GetEffectiveIonisationLevelCoefficientPtr GetEffectiveIonisationLevelCoefficient::dynamicCast(CommandBasePtr ptr)
@@ -4794,7 +4878,7 @@ namespace Sdx
 
     GetEffectiveIonisationLevelCoefficientResultPtr GetEffectiveIonisationLevelCoefficientResult::create(CommandBasePtr relatedCommand, int index, double val)
     {
-      return GetEffectiveIonisationLevelCoefficientResultPtr(new GetEffectiveIonisationLevelCoefficientResult(relatedCommand, index, val));
+      return std::make_shared<GetEffectiveIonisationLevelCoefficientResult>(relatedCommand, index, val);
     }
 
     GetEffectiveIonisationLevelCoefficientResultPtr GetEffectiveIonisationLevelCoefficientResult::dynamicCast(CommandBasePtr ptr)
@@ -4871,7 +4955,7 @@ namespace Sdx
 
     SetIonoModelPtr SetIonoModel::create(const std::string& model)
     {
-      return SetIonoModelPtr(new SetIonoModel(model));
+      return std::make_shared<SetIonoModel>(model);
     }
 
     SetIonoModelPtr SetIonoModel::dynamicCast(CommandBasePtr ptr)
@@ -4936,7 +5020,7 @@ namespace Sdx
 
     GetIonoModelPtr GetIonoModel::create()
     {
-      return GetIonoModelPtr(new GetIonoModel());
+      return std::make_shared<GetIonoModel>();
     }
 
     GetIonoModelPtr GetIonoModel::dynamicCast(CommandBasePtr ptr)
@@ -4993,7 +5077,7 @@ namespace Sdx
 
     GetIonoModelResultPtr GetIonoModelResult::create(CommandBasePtr relatedCommand, const std::string& model)
     {
-      return GetIonoModelResultPtr(new GetIonoModelResult(relatedCommand, model));
+      return std::make_shared<GetIonoModelResult>(relatedCommand, model);
     }
 
     GetIonoModelResultPtr GetIonoModelResult::dynamicCast(CommandBasePtr ptr)
@@ -5057,7 +5141,7 @@ namespace Sdx
 
     SetTropoModelPtr SetTropoModel::create(const std::string& model)
     {
-      return SetTropoModelPtr(new SetTropoModel(model));
+      return std::make_shared<SetTropoModel>(model);
     }
 
     SetTropoModelPtr SetTropoModel::dynamicCast(CommandBasePtr ptr)
@@ -5122,7 +5206,7 @@ namespace Sdx
 
     GetTropoModelPtr GetTropoModel::create()
     {
-      return GetTropoModelPtr(new GetTropoModel());
+      return std::make_shared<GetTropoModel>();
     }
 
     GetTropoModelPtr GetTropoModel::dynamicCast(CommandBasePtr ptr)
@@ -5179,7 +5263,7 @@ namespace Sdx
 
     GetTropoModelResultPtr GetTropoModelResult::create(CommandBasePtr relatedCommand, const std::string& model)
     {
-      return GetTropoModelResultPtr(new GetTropoModelResult(relatedCommand, model));
+      return std::make_shared<GetTropoModelResult>(relatedCommand, model);
     }
 
     GetTropoModelResultPtr GetTropoModelResult::dynamicCast(CommandBasePtr ptr)
@@ -5243,7 +5327,7 @@ namespace Sdx
 
     SetStartTimeModePtr SetStartTimeMode::create(const std::string& mode)
     {
-      return SetStartTimeModePtr(new SetStartTimeMode(mode));
+      return std::make_shared<SetStartTimeMode>(mode);
     }
 
     SetStartTimeModePtr SetStartTimeMode::dynamicCast(CommandBasePtr ptr)
@@ -5308,7 +5392,7 @@ namespace Sdx
 
     GetStartTimeModePtr GetStartTimeMode::create()
     {
-      return GetStartTimeModePtr(new GetStartTimeMode());
+      return std::make_shared<GetStartTimeMode>();
     }
 
     GetStartTimeModePtr GetStartTimeMode::dynamicCast(CommandBasePtr ptr)
@@ -5365,7 +5449,7 @@ namespace Sdx
 
     GetStartTimeModeResultPtr GetStartTimeModeResult::create(CommandBasePtr relatedCommand, const std::string& mode)
     {
-      return GetStartTimeModeResultPtr(new GetStartTimeModeResult(relatedCommand, mode));
+      return std::make_shared<GetStartTimeModeResult>(relatedCommand, mode);
     }
 
     GetStartTimeModeResultPtr GetStartTimeModeResult::dynamicCast(CommandBasePtr ptr)
@@ -5434,7 +5518,7 @@ namespace Sdx
 
     SetGpsTimingReceiverPtr SetGpsTimingReceiver::create(const std::string& port, const Sdx::optional<int>& baudRate, const Sdx::optional<int>& dataBits, const Sdx::optional<Sdx::SerialPortParity>& parity, const Sdx::optional<int>& stopBits, const Sdx::optional<Sdx::SerialPortFlowControl>& flowControl)
     {
-      return SetGpsTimingReceiverPtr(new SetGpsTimingReceiver(port, baudRate, dataBits, parity, stopBits, flowControl));
+      return std::make_shared<SetGpsTimingReceiver>(port, baudRate, dataBits, parity, stopBits, flowControl);
     }
 
     SetGpsTimingReceiverPtr SetGpsTimingReceiver::dynamicCast(CommandBasePtr ptr)
@@ -5564,7 +5648,7 @@ namespace Sdx
 
     GetGpsTimingReceiverPtr GetGpsTimingReceiver::create()
     {
-      return GetGpsTimingReceiverPtr(new GetGpsTimingReceiver());
+      return std::make_shared<GetGpsTimingReceiver>();
     }
 
     GetGpsTimingReceiverPtr GetGpsTimingReceiver::dynamicCast(CommandBasePtr ptr)
@@ -5626,7 +5710,7 @@ namespace Sdx
 
     GetGpsTimingReceiverResultPtr GetGpsTimingReceiverResult::create(CommandBasePtr relatedCommand, const std::string& port, const Sdx::optional<int>& baudRate, const Sdx::optional<int>& dataBits, const Sdx::optional<Sdx::SerialPortParity>& parity, const Sdx::optional<int>& stopBits, const Sdx::optional<Sdx::SerialPortFlowControl>& flowControl)
     {
-      return GetGpsTimingReceiverResultPtr(new GetGpsTimingReceiverResult(relatedCommand, port, baudRate, dataBits, parity, stopBits, flowControl));
+      return std::make_shared<GetGpsTimingReceiverResult>(relatedCommand, port, baudRate, dataBits, parity, stopBits, flowControl);
     }
 
     GetGpsTimingReceiverResultPtr GetGpsTimingReceiverResult::dynamicCast(CommandBasePtr ptr)
@@ -5755,7 +5839,7 @@ namespace Sdx
 
     SetStartTimeOffsetPtr SetStartTimeOffset::create(int offset)
     {
-      return SetStartTimeOffsetPtr(new SetStartTimeOffset(offset));
+      return std::make_shared<SetStartTimeOffset>(offset);
     }
 
     SetStartTimeOffsetPtr SetStartTimeOffset::dynamicCast(CommandBasePtr ptr)
@@ -5820,7 +5904,7 @@ namespace Sdx
 
     GetStartTimeOffsetPtr GetStartTimeOffset::create()
     {
-      return GetStartTimeOffsetPtr(new GetStartTimeOffset());
+      return std::make_shared<GetStartTimeOffset>();
     }
 
     GetStartTimeOffsetPtr GetStartTimeOffset::dynamicCast(CommandBasePtr ptr)
@@ -5877,7 +5961,7 @@ namespace Sdx
 
     GetStartTimeOffsetResultPtr GetStartTimeOffsetResult::create(CommandBasePtr relatedCommand, int offset)
     {
-      return GetStartTimeOffsetResultPtr(new GetStartTimeOffsetResult(relatedCommand, offset));
+      return std::make_shared<GetStartTimeOffsetResult>(relatedCommand, offset);
     }
 
     GetStartTimeOffsetResultPtr GetStartTimeOffsetResult::dynamicCast(CommandBasePtr ptr)
@@ -5941,7 +6025,7 @@ namespace Sdx
 
     SetLeapSecondPtr SetLeapSecond::create(int leapSecond)
     {
-      return SetLeapSecondPtr(new SetLeapSecond(leapSecond));
+      return std::make_shared<SetLeapSecond>(leapSecond);
     }
 
     SetLeapSecondPtr SetLeapSecond::dynamicCast(CommandBasePtr ptr)
@@ -6011,7 +6095,7 @@ namespace Sdx
 
     SetGpsStartTimePtr SetGpsStartTime::create(const Sdx::DateTime& start)
     {
-      return SetGpsStartTimePtr(new SetGpsStartTime(start));
+      return std::make_shared<SetGpsStartTime>(start);
     }
 
     SetGpsStartTimePtr SetGpsStartTime::dynamicCast(CommandBasePtr ptr)
@@ -6076,7 +6160,7 @@ namespace Sdx
 
     GetGpsStartTimePtr GetGpsStartTime::create()
     {
-      return GetGpsStartTimePtr(new GetGpsStartTime());
+      return std::make_shared<GetGpsStartTime>();
     }
 
     GetGpsStartTimePtr GetGpsStartTime::dynamicCast(CommandBasePtr ptr)
@@ -6134,7 +6218,7 @@ namespace Sdx
 
     GetGpsStartTimeResultPtr GetGpsStartTimeResult::create(CommandBasePtr relatedCommand, const Sdx::DateTime& startTime, int leapSecond)
     {
-      return GetGpsStartTimeResultPtr(new GetGpsStartTimeResult(relatedCommand, startTime, leapSecond));
+      return std::make_shared<GetGpsStartTimeResult>(relatedCommand, startTime, leapSecond);
     }
 
     GetGpsStartTimeResultPtr GetGpsStartTimeResult::dynamicCast(CommandBasePtr ptr)
@@ -6211,7 +6295,7 @@ namespace Sdx
 
     SetDurationPtr SetDuration::create(int second)
     {
-      return SetDurationPtr(new SetDuration(second));
+      return std::make_shared<SetDuration>(second);
     }
 
     SetDurationPtr SetDuration::dynamicCast(CommandBasePtr ptr)
@@ -6276,7 +6360,7 @@ namespace Sdx
 
     GetDurationPtr GetDuration::create()
     {
-      return GetDurationPtr(new GetDuration());
+      return std::make_shared<GetDuration>();
     }
 
     GetDurationPtr GetDuration::dynamicCast(CommandBasePtr ptr)
@@ -6333,7 +6417,7 @@ namespace Sdx
 
     GetDurationResultPtr GetDurationResult::create(CommandBasePtr relatedCommand, int second)
     {
-      return GetDurationResultPtr(new GetDurationResult(relatedCommand, second));
+      return std::make_shared<GetDurationResult>(relatedCommand, second);
     }
 
     GetDurationResultPtr GetDurationResult::dynamicCast(CommandBasePtr ptr)
@@ -6397,7 +6481,7 @@ namespace Sdx
 
     EnableLogRawPtr EnableLogRaw::create(bool enabled)
     {
-      return EnableLogRawPtr(new EnableLogRaw(enabled));
+      return std::make_shared<EnableLogRaw>(enabled);
     }
 
     EnableLogRawPtr EnableLogRaw::dynamicCast(CommandBasePtr ptr)
@@ -6462,7 +6546,7 @@ namespace Sdx
 
     IsLogRawEnabledPtr IsLogRawEnabled::create()
     {
-      return IsLogRawEnabledPtr(new IsLogRawEnabled());
+      return std::make_shared<IsLogRawEnabled>();
     }
 
     IsLogRawEnabledPtr IsLogRawEnabled::dynamicCast(CommandBasePtr ptr)
@@ -6519,7 +6603,7 @@ namespace Sdx
 
     IsLogRawEnabledResultPtr IsLogRawEnabledResult::create(CommandBasePtr relatedCommand, bool enabled)
     {
-      return IsLogRawEnabledResultPtr(new IsLogRawEnabledResult(relatedCommand, enabled));
+      return std::make_shared<IsLogRawEnabledResult>(relatedCommand, enabled);
     }
 
     IsLogRawEnabledResultPtr IsLogRawEnabledResult::dynamicCast(CommandBasePtr ptr)
@@ -6585,7 +6669,7 @@ namespace Sdx
 
     EnableLogDownlinkPtr EnableLogDownlink::create(bool enabled, const Sdx::optional<bool>& beforeEncoding, const Sdx::optional<bool>& afterEncoding)
     {
-      return EnableLogDownlinkPtr(new EnableLogDownlink(enabled, beforeEncoding, afterEncoding));
+      return std::make_shared<EnableLogDownlink>(enabled, beforeEncoding, afterEncoding);
     }
 
     EnableLogDownlinkPtr EnableLogDownlink::dynamicCast(CommandBasePtr ptr)
@@ -6676,7 +6760,7 @@ namespace Sdx
 
     IsLogDownlinkEnabledPtr IsLogDownlinkEnabled::create()
     {
-      return IsLogDownlinkEnabledPtr(new IsLogDownlinkEnabled());
+      return std::make_shared<IsLogDownlinkEnabled>();
     }
 
     IsLogDownlinkEnabledPtr IsLogDownlinkEnabled::dynamicCast(CommandBasePtr ptr)
@@ -6735,7 +6819,7 @@ namespace Sdx
 
     IsLogDownlinkEnabledResultPtr IsLogDownlinkEnabledResult::create(CommandBasePtr relatedCommand, bool enabled, const Sdx::optional<bool>& beforeEncoding, const Sdx::optional<bool>& afterEncoding)
     {
-      return IsLogDownlinkEnabledResultPtr(new IsLogDownlinkEnabledResult(relatedCommand, enabled, beforeEncoding, afterEncoding));
+      return std::make_shared<IsLogDownlinkEnabledResult>(relatedCommand, enabled, beforeEncoding, afterEncoding);
     }
 
     IsLogDownlinkEnabledResultPtr IsLogDownlinkEnabledResult::dynamicCast(CommandBasePtr ptr)
@@ -6825,7 +6909,7 @@ namespace Sdx
 
     EnableLogRinexPtr EnableLogRinex::create(bool enabled)
     {
-      return EnableLogRinexPtr(new EnableLogRinex(enabled));
+      return std::make_shared<EnableLogRinex>(enabled);
     }
 
     EnableLogRinexPtr EnableLogRinex::dynamicCast(CommandBasePtr ptr)
@@ -6890,7 +6974,7 @@ namespace Sdx
 
     IsLogRinexEnabledPtr IsLogRinexEnabled::create()
     {
-      return IsLogRinexEnabledPtr(new IsLogRinexEnabled());
+      return std::make_shared<IsLogRinexEnabled>();
     }
 
     IsLogRinexEnabledPtr IsLogRinexEnabled::dynamicCast(CommandBasePtr ptr)
@@ -6947,7 +7031,7 @@ namespace Sdx
 
     IsLogRinexEnabledResultPtr IsLogRinexEnabledResult::create(CommandBasePtr relatedCommand, bool enabled)
     {
-      return IsLogRinexEnabledResultPtr(new IsLogRinexEnabledResult(relatedCommand, enabled));
+      return std::make_shared<IsLogRinexEnabledResult>(relatedCommand, enabled);
     }
 
     IsLogRinexEnabledResultPtr IsLogRinexEnabledResult::dynamicCast(CommandBasePtr ptr)
@@ -7011,7 +7095,7 @@ namespace Sdx
 
     EnableLogHILInputPtr EnableLogHILInput::create(bool enabled)
     {
-      return EnableLogHILInputPtr(new EnableLogHILInput(enabled));
+      return std::make_shared<EnableLogHILInput>(enabled);
     }
 
     EnableLogHILInputPtr EnableLogHILInput::dynamicCast(CommandBasePtr ptr)
@@ -7076,7 +7160,7 @@ namespace Sdx
 
     IsLogHILInputEnabledPtr IsLogHILInputEnabled::create()
     {
-      return IsLogHILInputEnabledPtr(new IsLogHILInputEnabled());
+      return std::make_shared<IsLogHILInputEnabled>();
     }
 
     IsLogHILInputEnabledPtr IsLogHILInputEnabled::dynamicCast(CommandBasePtr ptr)
@@ -7133,7 +7217,7 @@ namespace Sdx
 
     IsLogHILInputEnabledResultPtr IsLogHILInputEnabledResult::create(CommandBasePtr relatedCommand, bool enabled)
     {
-      return IsLogHILInputEnabledResultPtr(new IsLogHILInputEnabledResult(relatedCommand, enabled));
+      return std::make_shared<IsLogHILInputEnabledResult>(relatedCommand, enabled);
     }
 
     IsLogHILInputEnabledResultPtr IsLogHILInputEnabledResult::dynamicCast(CommandBasePtr ptr)
@@ -7197,7 +7281,7 @@ namespace Sdx
 
     SetLogRawRatePtr SetLogRawRate::create(int rate)
     {
-      return SetLogRawRatePtr(new SetLogRawRate(rate));
+      return std::make_shared<SetLogRawRate>(rate);
     }
 
     SetLogRawRatePtr SetLogRawRate::dynamicCast(CommandBasePtr ptr)
@@ -7262,7 +7346,7 @@ namespace Sdx
 
     GetLogRawRatePtr GetLogRawRate::create()
     {
-      return GetLogRawRatePtr(new GetLogRawRate());
+      return std::make_shared<GetLogRawRate>();
     }
 
     GetLogRawRatePtr GetLogRawRate::dynamicCast(CommandBasePtr ptr)
@@ -7319,7 +7403,7 @@ namespace Sdx
 
     LogRawRateResultPtr LogRawRateResult::create(CommandBasePtr relatedCommand, int rate)
     {
-      return LogRawRateResultPtr(new LogRawRateResult(relatedCommand, rate));
+      return std::make_shared<LogRawRateResult>(relatedCommand, rate);
     }
 
     LogRawRateResultPtr LogRawRateResult::dynamicCast(CommandBasePtr ptr)
@@ -7383,7 +7467,7 @@ namespace Sdx
 
     EnableLogNmeaPtr EnableLogNmea::create(bool enabled)
     {
-      return EnableLogNmeaPtr(new EnableLogNmea(enabled));
+      return std::make_shared<EnableLogNmea>(enabled);
     }
 
     EnableLogNmeaPtr EnableLogNmea::dynamicCast(CommandBasePtr ptr)
@@ -7448,7 +7532,7 @@ namespace Sdx
 
     IsLogNmeaEnabledPtr IsLogNmeaEnabled::create()
     {
-      return IsLogNmeaEnabledPtr(new IsLogNmeaEnabled());
+      return std::make_shared<IsLogNmeaEnabled>();
     }
 
     IsLogNmeaEnabledPtr IsLogNmeaEnabled::dynamicCast(CommandBasePtr ptr)
@@ -7505,7 +7589,7 @@ namespace Sdx
 
     IsLogNmeaEnabledResultPtr IsLogNmeaEnabledResult::create(CommandBasePtr relatedCommand, bool enabled)
     {
-      return IsLogNmeaEnabledResultPtr(new IsLogNmeaEnabledResult(relatedCommand, enabled));
+      return std::make_shared<IsLogNmeaEnabledResult>(relatedCommand, enabled);
     }
 
     IsLogNmeaEnabledResultPtr IsLogNmeaEnabledResult::dynamicCast(CommandBasePtr ptr)
@@ -7569,7 +7653,7 @@ namespace Sdx
 
     SetLogNmeaRatePtr SetLogNmeaRate::create(int rate)
     {
-      return SetLogNmeaRatePtr(new SetLogNmeaRate(rate));
+      return std::make_shared<SetLogNmeaRate>(rate);
     }
 
     SetLogNmeaRatePtr SetLogNmeaRate::dynamicCast(CommandBasePtr ptr)
@@ -7634,7 +7718,7 @@ namespace Sdx
 
     GetLogNmeaRatePtr GetLogNmeaRate::create()
     {
-      return GetLogNmeaRatePtr(new GetLogNmeaRate());
+      return std::make_shared<GetLogNmeaRate>();
     }
 
     GetLogNmeaRatePtr GetLogNmeaRate::dynamicCast(CommandBasePtr ptr)
@@ -7691,7 +7775,7 @@ namespace Sdx
 
     LogNmeaRateResultPtr LogNmeaRateResult::create(CommandBasePtr relatedCommand, int rate)
     {
-      return LogNmeaRateResultPtr(new LogNmeaRateResult(relatedCommand, rate));
+      return std::make_shared<LogNmeaRateResult>(relatedCommand, rate);
     }
 
     LogNmeaRateResultPtr LogNmeaRateResult::dynamicCast(CommandBasePtr ptr)
@@ -7755,7 +7839,7 @@ namespace Sdx
 
     EnableMasterPpsPtr EnableMasterPps::create(bool enabled)
     {
-      return EnableMasterPpsPtr(new EnableMasterPps(enabled));
+      return std::make_shared<EnableMasterPps>(enabled);
     }
 
     EnableMasterPpsPtr EnableMasterPps::dynamicCast(CommandBasePtr ptr)
@@ -7820,7 +7904,7 @@ namespace Sdx
 
     GetMasterStatusPtr GetMasterStatus::create()
     {
-      return GetMasterStatusPtr(new GetMasterStatus());
+      return std::make_shared<GetMasterStatus>();
     }
 
     GetMasterStatusPtr GetMasterStatus::dynamicCast(CommandBasePtr ptr)
@@ -7879,7 +7963,7 @@ namespace Sdx
 
     GetMasterStatusResultPtr GetMasterStatusResult::create(CommandBasePtr relatedCommand, bool isMaster, int slaveConnected, int port)
     {
-      return GetMasterStatusResultPtr(new GetMasterStatusResult(relatedCommand, isMaster, slaveConnected, port));
+      return std::make_shared<GetMasterStatusResult>(relatedCommand, isMaster, slaveConnected, port);
     }
 
     GetMasterStatusResultPtr GetMasterStatusResult::dynamicCast(CommandBasePtr ptr)
@@ -7969,7 +8053,7 @@ namespace Sdx
 
     EnableSlavePpsPtr EnableSlavePps::create(bool enabled)
     {
-      return EnableSlavePpsPtr(new EnableSlavePps(enabled));
+      return std::make_shared<EnableSlavePps>(enabled);
     }
 
     EnableSlavePpsPtr EnableSlavePps::dynamicCast(CommandBasePtr ptr)
@@ -8034,7 +8118,7 @@ namespace Sdx
 
     GetSlaveStatusPtr GetSlaveStatus::create()
     {
-      return GetSlaveStatusPtr(new GetSlaveStatus());
+      return std::make_shared<GetSlaveStatus>();
     }
 
     GetSlaveStatusPtr GetSlaveStatus::dynamicCast(CommandBasePtr ptr)
@@ -8094,7 +8178,7 @@ namespace Sdx
 
     GetSlaveStatusResultPtr GetSlaveStatusResult::create(CommandBasePtr relatedCommand, bool isSlave, bool isConnected, const std::string& hostName, int hostPort)
     {
-      return GetSlaveStatusResultPtr(new GetSlaveStatusResult(relatedCommand, isSlave, isConnected, hostName, hostPort));
+      return std::make_shared<GetSlaveStatusResult>(relatedCommand, isSlave, isConnected, hostName, hostPort);
     }
 
     GetSlaveStatusResultPtr GetSlaveStatusResult::dynamicCast(CommandBasePtr ptr)
@@ -8199,7 +8283,7 @@ namespace Sdx
 
     SetLeapSecondFuturePtr SetLeapSecondFuture::create(bool enabled, int seconds, const Sdx::Date& date)
     {
-      return SetLeapSecondFuturePtr(new SetLeapSecondFuture(enabled, seconds, date));
+      return std::make_shared<SetLeapSecondFuture>(enabled, seconds, date);
     }
 
     SetLeapSecondFuturePtr SetLeapSecondFuture::dynamicCast(CommandBasePtr ptr)
@@ -8290,7 +8374,7 @@ namespace Sdx
 
     GetLeapSecondFuturePtr GetLeapSecondFuture::create()
     {
-      return GetLeapSecondFuturePtr(new GetLeapSecondFuture());
+      return std::make_shared<GetLeapSecondFuture>();
     }
 
     GetLeapSecondFuturePtr GetLeapSecondFuture::dynamicCast(CommandBasePtr ptr)
@@ -8349,7 +8433,7 @@ namespace Sdx
 
     GetLeapSecondFutureResultPtr GetLeapSecondFutureResult::create(CommandBasePtr relatedCommand, bool enabled, int seconds, const Sdx::Date& date)
     {
-      return GetLeapSecondFutureResultPtr(new GetLeapSecondFutureResult(relatedCommand, enabled, seconds, date));
+      return std::make_shared<GetLeapSecondFutureResult>(relatedCommand, enabled, seconds, date);
     }
 
     GetLeapSecondFutureResultPtr GetLeapSecondFutureResult::dynamicCast(CommandBasePtr ptr)
@@ -8439,7 +8523,7 @@ namespace Sdx
 
     EnableSignalStrengthModelPtr EnableSignalStrengthModel::create(bool enabled)
     {
-      return EnableSignalStrengthModelPtr(new EnableSignalStrengthModel(enabled));
+      return std::make_shared<EnableSignalStrengthModel>(enabled);
     }
 
     EnableSignalStrengthModelPtr EnableSignalStrengthModel::dynamicCast(CommandBasePtr ptr)
@@ -8504,7 +8588,7 @@ namespace Sdx
 
     IsSignalStrengthModelEnabledPtr IsSignalStrengthModelEnabled::create()
     {
-      return IsSignalStrengthModelEnabledPtr(new IsSignalStrengthModelEnabled());
+      return std::make_shared<IsSignalStrengthModelEnabled>();
     }
 
     IsSignalStrengthModelEnabledPtr IsSignalStrengthModelEnabled::dynamicCast(CommandBasePtr ptr)
@@ -8561,7 +8645,7 @@ namespace Sdx
 
     IsSignalStrengthModelEnabledResultPtr IsSignalStrengthModelEnabledResult::create(CommandBasePtr relatedCommand, bool enabled)
     {
-      return IsSignalStrengthModelEnabledResultPtr(new IsSignalStrengthModelEnabledResult(relatedCommand, enabled));
+      return std::make_shared<IsSignalStrengthModelEnabledResult>(relatedCommand, enabled);
     }
 
     IsSignalStrengthModelEnabledResultPtr IsSignalStrengthModelEnabledResult::dynamicCast(CommandBasePtr ptr)
@@ -8625,7 +8709,7 @@ namespace Sdx
 
     EnableElevationMaskBelowPtr EnableElevationMaskBelow::create(bool enabled)
     {
-      return EnableElevationMaskBelowPtr(new EnableElevationMaskBelow(enabled));
+      return std::make_shared<EnableElevationMaskBelow>(enabled);
     }
 
     EnableElevationMaskBelowPtr EnableElevationMaskBelow::dynamicCast(CommandBasePtr ptr)
@@ -8690,7 +8774,7 @@ namespace Sdx
 
     IsElevationMaskBelowEnabledPtr IsElevationMaskBelowEnabled::create()
     {
-      return IsElevationMaskBelowEnabledPtr(new IsElevationMaskBelowEnabled());
+      return std::make_shared<IsElevationMaskBelowEnabled>();
     }
 
     IsElevationMaskBelowEnabledPtr IsElevationMaskBelowEnabled::dynamicCast(CommandBasePtr ptr)
@@ -8747,7 +8831,7 @@ namespace Sdx
 
     IsElevationMaskBelowEnabledResultPtr IsElevationMaskBelowEnabledResult::create(CommandBasePtr relatedCommand, bool enabled)
     {
-      return IsElevationMaskBelowEnabledResultPtr(new IsElevationMaskBelowEnabledResult(relatedCommand, enabled));
+      return std::make_shared<IsElevationMaskBelowEnabledResult>(relatedCommand, enabled);
     }
 
     IsElevationMaskBelowEnabledResultPtr IsElevationMaskBelowEnabledResult::dynamicCast(CommandBasePtr ptr)
@@ -8811,7 +8895,7 @@ namespace Sdx
 
     EnableElevationMaskAbovePtr EnableElevationMaskAbove::create(bool enabled)
     {
-      return EnableElevationMaskAbovePtr(new EnableElevationMaskAbove(enabled));
+      return std::make_shared<EnableElevationMaskAbove>(enabled);
     }
 
     EnableElevationMaskAbovePtr EnableElevationMaskAbove::dynamicCast(CommandBasePtr ptr)
@@ -8876,7 +8960,7 @@ namespace Sdx
 
     IsElevationMaskAboveEnabledPtr IsElevationMaskAboveEnabled::create()
     {
-      return IsElevationMaskAboveEnabledPtr(new IsElevationMaskAboveEnabled());
+      return std::make_shared<IsElevationMaskAboveEnabled>();
     }
 
     IsElevationMaskAboveEnabledPtr IsElevationMaskAboveEnabled::dynamicCast(CommandBasePtr ptr)
@@ -8933,7 +9017,7 @@ namespace Sdx
 
     IsElevationMaskAboveEnabledResultPtr IsElevationMaskAboveEnabledResult::create(CommandBasePtr relatedCommand, bool enabled)
     {
-      return IsElevationMaskAboveEnabledResultPtr(new IsElevationMaskAboveEnabledResult(relatedCommand, enabled));
+      return std::make_shared<IsElevationMaskAboveEnabledResult>(relatedCommand, enabled);
     }
 
     IsElevationMaskAboveEnabledResultPtr IsElevationMaskAboveEnabledResult::dynamicCast(CommandBasePtr ptr)
@@ -8997,7 +9081,7 @@ namespace Sdx
 
     SetElevationMaskBelowPtr SetElevationMaskBelow::create(double angle)
     {
-      return SetElevationMaskBelowPtr(new SetElevationMaskBelow(angle));
+      return std::make_shared<SetElevationMaskBelow>(angle);
     }
 
     SetElevationMaskBelowPtr SetElevationMaskBelow::dynamicCast(CommandBasePtr ptr)
@@ -9062,7 +9146,7 @@ namespace Sdx
 
     GetElevationMaskBelowPtr GetElevationMaskBelow::create()
     {
-      return GetElevationMaskBelowPtr(new GetElevationMaskBelow());
+      return std::make_shared<GetElevationMaskBelow>();
     }
 
     GetElevationMaskBelowPtr GetElevationMaskBelow::dynamicCast(CommandBasePtr ptr)
@@ -9119,7 +9203,7 @@ namespace Sdx
 
     GetElevationMaskBelowResultPtr GetElevationMaskBelowResult::create(CommandBasePtr relatedCommand, double angle)
     {
-      return GetElevationMaskBelowResultPtr(new GetElevationMaskBelowResult(relatedCommand, angle));
+      return std::make_shared<GetElevationMaskBelowResult>(relatedCommand, angle);
     }
 
     GetElevationMaskBelowResultPtr GetElevationMaskBelowResult::dynamicCast(CommandBasePtr ptr)
@@ -9183,7 +9267,7 @@ namespace Sdx
 
     SetElevationMaskAbovePtr SetElevationMaskAbove::create(double angle)
     {
-      return SetElevationMaskAbovePtr(new SetElevationMaskAbove(angle));
+      return std::make_shared<SetElevationMaskAbove>(angle);
     }
 
     SetElevationMaskAbovePtr SetElevationMaskAbove::dynamicCast(CommandBasePtr ptr)
@@ -9248,7 +9332,7 @@ namespace Sdx
 
     GetElevationMaskAbovePtr GetElevationMaskAbove::create()
     {
-      return GetElevationMaskAbovePtr(new GetElevationMaskAbove());
+      return std::make_shared<GetElevationMaskAbove>();
     }
 
     GetElevationMaskAbovePtr GetElevationMaskAbove::dynamicCast(CommandBasePtr ptr)
@@ -9305,7 +9389,7 @@ namespace Sdx
 
     GetElevationMaskAboveResultPtr GetElevationMaskAboveResult::create(CommandBasePtr relatedCommand, double angle)
     {
-      return GetElevationMaskAboveResultPtr(new GetElevationMaskAboveResult(relatedCommand, angle));
+      return std::make_shared<GetElevationMaskAboveResult>(relatedCommand, angle);
     }
 
     GetElevationMaskAboveResultPtr GetElevationMaskAboveResult::dynamicCast(CommandBasePtr ptr)
@@ -9371,7 +9455,7 @@ namespace Sdx
 
     SetIssueOfDataPtr SetIssueOfData::create(int clock, int ephemeris, const Sdx::optional<bool>& overrideRinex)
     {
-      return SetIssueOfDataPtr(new SetIssueOfData(clock, ephemeris, overrideRinex));
+      return std::make_shared<SetIssueOfData>(clock, ephemeris, overrideRinex);
     }
 
     SetIssueOfDataPtr SetIssueOfData::dynamicCast(CommandBasePtr ptr)
@@ -9462,7 +9546,7 @@ namespace Sdx
 
     GetIssueOfDataPtr GetIssueOfData::create()
     {
-      return GetIssueOfDataPtr(new GetIssueOfData());
+      return std::make_shared<GetIssueOfData>();
     }
 
     GetIssueOfDataPtr GetIssueOfData::dynamicCast(CommandBasePtr ptr)
@@ -9521,7 +9605,7 @@ namespace Sdx
 
     GetIssueOfDataResultPtr GetIssueOfDataResult::create(CommandBasePtr relatedCommand, int clock, int ephemeris, const Sdx::optional<bool>& overrideRinex)
     {
-      return GetIssueOfDataResultPtr(new GetIssueOfDataResult(relatedCommand, clock, ephemeris, overrideRinex));
+      return std::make_shared<GetIssueOfDataResult>(relatedCommand, clock, ephemeris, overrideRinex);
     }
 
     GetIssueOfDataResultPtr GetIssueOfDataResult::dynamicCast(CommandBasePtr ptr)
@@ -9613,7 +9697,7 @@ namespace Sdx
 
     SetIssueOfDataGalileoPtr SetIssueOfDataGalileo::create(int navigation, int almanac, const Sdx::optional<bool>& overrideRinex)
     {
-      return SetIssueOfDataGalileoPtr(new SetIssueOfDataGalileo(navigation, almanac, overrideRinex));
+      return std::make_shared<SetIssueOfDataGalileo>(navigation, almanac, overrideRinex);
     }
 
     SetIssueOfDataGalileoPtr SetIssueOfDataGalileo::dynamicCast(CommandBasePtr ptr)
@@ -9704,7 +9788,7 @@ namespace Sdx
 
     GetIssueOfDataGalileoPtr GetIssueOfDataGalileo::create()
     {
-      return GetIssueOfDataGalileoPtr(new GetIssueOfDataGalileo());
+      return std::make_shared<GetIssueOfDataGalileo>();
     }
 
     GetIssueOfDataGalileoPtr GetIssueOfDataGalileo::dynamicCast(CommandBasePtr ptr)
@@ -9763,7 +9847,7 @@ namespace Sdx
 
     GetIssueOfDataGalileoResultPtr GetIssueOfDataGalileoResult::create(CommandBasePtr relatedCommand, int navigation, int almanac, const Sdx::optional<bool>& overrideRinex)
     {
-      return GetIssueOfDataGalileoResultPtr(new GetIssueOfDataGalileoResult(relatedCommand, navigation, almanac, overrideRinex));
+      return std::make_shared<GetIssueOfDataGalileoResult>(relatedCommand, navigation, almanac, overrideRinex);
     }
 
     GetIssueOfDataGalileoResultPtr GetIssueOfDataGalileoResult::dynamicCast(CommandBasePtr ptr)
@@ -9855,7 +9939,7 @@ namespace Sdx
 
     SetAgeOfDataBeiDouPtr SetAgeOfDataBeiDou::create(int clock, int ephemeris, const Sdx::optional<bool>& overrideRinex)
     {
-      return SetAgeOfDataBeiDouPtr(new SetAgeOfDataBeiDou(clock, ephemeris, overrideRinex));
+      return std::make_shared<SetAgeOfDataBeiDou>(clock, ephemeris, overrideRinex);
     }
 
     SetAgeOfDataBeiDouPtr SetAgeOfDataBeiDou::dynamicCast(CommandBasePtr ptr)
@@ -9946,7 +10030,7 @@ namespace Sdx
 
     GetAgeOfDataBeiDouPtr GetAgeOfDataBeiDou::create()
     {
-      return GetAgeOfDataBeiDouPtr(new GetAgeOfDataBeiDou());
+      return std::make_shared<GetAgeOfDataBeiDou>();
     }
 
     GetAgeOfDataBeiDouPtr GetAgeOfDataBeiDou::dynamicCast(CommandBasePtr ptr)
@@ -10005,7 +10089,7 @@ namespace Sdx
 
     GetAgeOfDataBeiDouResultPtr GetAgeOfDataBeiDouResult::create(CommandBasePtr relatedCommand, int clock, int ephemeris, const Sdx::optional<bool>& overrideRinex)
     {
-      return GetAgeOfDataBeiDouResultPtr(new GetAgeOfDataBeiDouResult(relatedCommand, clock, ephemeris, overrideRinex));
+      return std::make_shared<GetAgeOfDataBeiDouResult>(relatedCommand, clock, ephemeris, overrideRinex);
     }
 
     GetAgeOfDataBeiDouResultPtr GetAgeOfDataBeiDouResult::dynamicCast(CommandBasePtr ptr)
@@ -10096,7 +10180,7 @@ namespace Sdx
 
     SetIssueOfDataBeiDouPtr SetIssueOfDataBeiDou::create(int clock, int ephemeris)
     {
-      return SetIssueOfDataBeiDouPtr(new SetIssueOfDataBeiDou(clock, ephemeris));
+      return std::make_shared<SetIssueOfDataBeiDou>(clock, ephemeris);
     }
 
     SetIssueOfDataBeiDouPtr SetIssueOfDataBeiDou::dynamicCast(CommandBasePtr ptr)
@@ -10174,7 +10258,7 @@ namespace Sdx
 
     GetIssueOfDataBeiDouPtr GetIssueOfDataBeiDou::create()
     {
-      return GetIssueOfDataBeiDouPtr(new GetIssueOfDataBeiDou());
+      return std::make_shared<GetIssueOfDataBeiDou>();
     }
 
     GetIssueOfDataBeiDouPtr GetIssueOfDataBeiDou::dynamicCast(CommandBasePtr ptr)
@@ -10232,7 +10316,7 @@ namespace Sdx
 
     GetIssueOfDataBeiDouResultPtr GetIssueOfDataBeiDouResult::create(CommandBasePtr relatedCommand, int clock, int ephemeris)
     {
-      return GetIssueOfDataBeiDouResultPtr(new GetIssueOfDataBeiDouResult(relatedCommand, clock, ephemeris));
+      return std::make_shared<GetIssueOfDataBeiDouResult>(relatedCommand, clock, ephemeris);
     }
 
     GetIssueOfDataBeiDouResultPtr GetIssueOfDataBeiDouResult::dynamicCast(CommandBasePtr ptr)
@@ -10311,7 +10395,7 @@ namespace Sdx
 
     SetIssueOfDataQzssPtr SetIssueOfDataQzss::create(int clock, int ephemeris, const Sdx::optional<bool>& overrideRinex)
     {
-      return SetIssueOfDataQzssPtr(new SetIssueOfDataQzss(clock, ephemeris, overrideRinex));
+      return std::make_shared<SetIssueOfDataQzss>(clock, ephemeris, overrideRinex);
     }
 
     SetIssueOfDataQzssPtr SetIssueOfDataQzss::dynamicCast(CommandBasePtr ptr)
@@ -10402,7 +10486,7 @@ namespace Sdx
 
     GetIssueOfDataQzssPtr GetIssueOfDataQzss::create()
     {
-      return GetIssueOfDataQzssPtr(new GetIssueOfDataQzss());
+      return std::make_shared<GetIssueOfDataQzss>();
     }
 
     GetIssueOfDataQzssPtr GetIssueOfDataQzss::dynamicCast(CommandBasePtr ptr)
@@ -10461,7 +10545,7 @@ namespace Sdx
 
     GetIssueOfDataQzssResultPtr GetIssueOfDataQzssResult::create(CommandBasePtr relatedCommand, int clock, int ephemeris, const Sdx::optional<bool>& overrideRinex)
     {
-      return GetIssueOfDataQzssResultPtr(new GetIssueOfDataQzssResult(relatedCommand, clock, ephemeris, overrideRinex));
+      return std::make_shared<GetIssueOfDataQzssResult>(relatedCommand, clock, ephemeris, overrideRinex);
     }
 
     GetIssueOfDataQzssResultPtr GetIssueOfDataQzssResult::dynamicCast(CommandBasePtr ptr)
@@ -10552,7 +10636,7 @@ namespace Sdx
 
     SetIssueOfDataNavICPtr SetIssueOfDataNavIC::create(int ephemerisAndClock, const Sdx::optional<bool>& overrideRinex)
     {
-      return SetIssueOfDataNavICPtr(new SetIssueOfDataNavIC(ephemerisAndClock, overrideRinex));
+      return std::make_shared<SetIssueOfDataNavIC>(ephemerisAndClock, overrideRinex);
     }
 
     SetIssueOfDataNavICPtr SetIssueOfDataNavIC::dynamicCast(CommandBasePtr ptr)
@@ -10630,7 +10714,7 @@ namespace Sdx
 
     GetIssueOfDataNavICPtr GetIssueOfDataNavIC::create()
     {
-      return GetIssueOfDataNavICPtr(new GetIssueOfDataNavIC());
+      return std::make_shared<GetIssueOfDataNavIC>();
     }
 
     GetIssueOfDataNavICPtr GetIssueOfDataNavIC::dynamicCast(CommandBasePtr ptr)
@@ -10688,7 +10772,7 @@ namespace Sdx
 
     GetIssueOfDataNavICResultPtr GetIssueOfDataNavICResult::create(CommandBasePtr relatedCommand, int ephemerisAndClock, const Sdx::optional<bool>& overrideRinex)
     {
-      return GetIssueOfDataNavICResultPtr(new GetIssueOfDataNavICResult(relatedCommand, ephemerisAndClock, overrideRinex));
+      return std::make_shared<GetIssueOfDataNavICResult>(relatedCommand, ephemerisAndClock, overrideRinex);
     }
 
     GetIssueOfDataNavICResultPtr GetIssueOfDataNavICResult::dynamicCast(CommandBasePtr ptr)
@@ -10767,7 +10851,7 @@ namespace Sdx
 
     SetGpsConfigurationCodeForSVPtr SetGpsConfigurationCodeForSV::create(int svId, int svConfig, const Sdx::optional<std::string>& dataSetName)
     {
-      return SetGpsConfigurationCodeForSVPtr(new SetGpsConfigurationCodeForSV(svId, svConfig, dataSetName));
+      return std::make_shared<SetGpsConfigurationCodeForSV>(svId, svConfig, dataSetName);
     }
 
     SetGpsConfigurationCodeForSVPtr SetGpsConfigurationCodeForSV::dynamicCast(CommandBasePtr ptr)
@@ -10864,7 +10948,7 @@ namespace Sdx
 
     GetGpsConfigurationCodeForSVPtr GetGpsConfigurationCodeForSV::create(int svId, const Sdx::optional<std::string>& dataSetName)
     {
-      return GetGpsConfigurationCodeForSVPtr(new GetGpsConfigurationCodeForSV(svId, dataSetName));
+      return std::make_shared<GetGpsConfigurationCodeForSV>(svId, dataSetName);
     }
 
     GetGpsConfigurationCodeForSVPtr GetGpsConfigurationCodeForSV::dynamicCast(CommandBasePtr ptr)
@@ -10949,7 +11033,7 @@ namespace Sdx
 
     GetGpsConfigurationCodeForSVResultPtr GetGpsConfigurationCodeForSVResult::create(CommandBasePtr relatedCommand, int svId, int svConfig, const Sdx::optional<std::string>& dataSetName)
     {
-      return GetGpsConfigurationCodeForSVResultPtr(new GetGpsConfigurationCodeForSVResult(relatedCommand, svId, svConfig, dataSetName));
+      return std::make_shared<GetGpsConfigurationCodeForSVResult>(relatedCommand, svId, svConfig, dataSetName);
     }
 
     GetGpsConfigurationCodeForSVResultPtr GetGpsConfigurationCodeForSVResult::dynamicCast(CommandBasePtr ptr)
@@ -11040,7 +11124,7 @@ namespace Sdx
 
     SetGpsConfigurationForEachSVPtr SetGpsConfigurationForEachSV::create(const std::vector<int>& svConfigs, const Sdx::optional<std::string>& dataSetName)
     {
-      return SetGpsConfigurationForEachSVPtr(new SetGpsConfigurationForEachSV(svConfigs, dataSetName));
+      return std::make_shared<SetGpsConfigurationForEachSV>(svConfigs, dataSetName);
     }
 
     SetGpsConfigurationForEachSVPtr SetGpsConfigurationForEachSV::dynamicCast(CommandBasePtr ptr)
@@ -11124,7 +11208,7 @@ namespace Sdx
 
     SetGpsSVConfigurationForAllSatPtr SetGpsSVConfigurationForAllSat::create(const std::vector<int>& svConfigs, const Sdx::optional<std::string>& dataSetName)
     {
-      return SetGpsSVConfigurationForAllSatPtr(new SetGpsSVConfigurationForAllSat(svConfigs, dataSetName));
+      return std::make_shared<SetGpsSVConfigurationForAllSat>(svConfigs, dataSetName);
     }
 
     SetGpsSVConfigurationForAllSatPtr SetGpsSVConfigurationForAllSat::dynamicCast(CommandBasePtr ptr)
@@ -11203,7 +11287,7 @@ namespace Sdx
 
     GetGpsConfigurationForEachSVPtr GetGpsConfigurationForEachSV::create(const Sdx::optional<std::string>& dataSetName)
     {
-      return GetGpsConfigurationForEachSVPtr(new GetGpsConfigurationForEachSV(dataSetName));
+      return std::make_shared<GetGpsConfigurationForEachSV>(dataSetName);
     }
 
     GetGpsConfigurationForEachSVPtr GetGpsConfigurationForEachSV::dynamicCast(CommandBasePtr ptr)
@@ -11269,7 +11353,7 @@ namespace Sdx
 
     GetGpsSVConfigurationForAllSatPtr GetGpsSVConfigurationForAllSat::create(const Sdx::optional<std::string>& dataSetName)
     {
-      return GetGpsSVConfigurationForAllSatPtr(new GetGpsSVConfigurationForAllSat(dataSetName));
+      return std::make_shared<GetGpsSVConfigurationForAllSat>(dataSetName);
     }
 
     GetGpsSVConfigurationForAllSatPtr GetGpsSVConfigurationForAllSat::dynamicCast(CommandBasePtr ptr)
@@ -11340,7 +11424,7 @@ namespace Sdx
 
     GetGpsConfigurationForEachSVResultPtr GetGpsConfigurationForEachSVResult::create(CommandBasePtr relatedCommand, const std::vector<int>& svConfigs, const Sdx::optional<std::string>& dataSetName)
     {
-      return GetGpsConfigurationForEachSVResultPtr(new GetGpsConfigurationForEachSVResult(relatedCommand, svConfigs, dataSetName));
+      return std::make_shared<GetGpsConfigurationForEachSVResult>(relatedCommand, svConfigs, dataSetName);
     }
 
     GetGpsConfigurationForEachSVResultPtr GetGpsConfigurationForEachSVResult::dynamicCast(CommandBasePtr ptr)
@@ -11419,7 +11503,7 @@ namespace Sdx
 
     SetGpsDataHealthForSVPtr SetGpsDataHealthForSV::create(int svId, int health, const Sdx::optional<std::string>& dataSetName)
     {
-      return SetGpsDataHealthForSVPtr(new SetGpsDataHealthForSV(svId, health, dataSetName));
+      return std::make_shared<SetGpsDataHealthForSV>(svId, health, dataSetName);
     }
 
     SetGpsDataHealthForSVPtr SetGpsDataHealthForSV::dynamicCast(CommandBasePtr ptr)
@@ -11516,7 +11600,7 @@ namespace Sdx
 
     GetGpsDataHealthForSVPtr GetGpsDataHealthForSV::create(int svId, const Sdx::optional<std::string>& dataSetName)
     {
-      return GetGpsDataHealthForSVPtr(new GetGpsDataHealthForSV(svId, dataSetName));
+      return std::make_shared<GetGpsDataHealthForSV>(svId, dataSetName);
     }
 
     GetGpsDataHealthForSVPtr GetGpsDataHealthForSV::dynamicCast(CommandBasePtr ptr)
@@ -11601,7 +11685,7 @@ namespace Sdx
 
     GetGpsDataHealthForSVResultPtr GetGpsDataHealthForSVResult::create(CommandBasePtr relatedCommand, int svId, int health, const Sdx::optional<std::string>& dataSetName)
     {
-      return GetGpsDataHealthForSVResultPtr(new GetGpsDataHealthForSVResult(relatedCommand, svId, health, dataSetName));
+      return std::make_shared<GetGpsDataHealthForSVResult>(relatedCommand, svId, health, dataSetName);
     }
 
     GetGpsDataHealthForSVResultPtr GetGpsDataHealthForSVResult::dynamicCast(CommandBasePtr ptr)
@@ -11693,7 +11777,7 @@ namespace Sdx
 
     SetGpsSignalHealthForSVPtr SetGpsSignalHealthForSV::create(int svId, int health, const Sdx::optional<std::string>& dataSetName)
     {
-      return SetGpsSignalHealthForSVPtr(new SetGpsSignalHealthForSV(svId, health, dataSetName));
+      return std::make_shared<SetGpsSignalHealthForSV>(svId, health, dataSetName);
     }
 
     SetGpsSignalHealthForSVPtr SetGpsSignalHealthForSV::dynamicCast(CommandBasePtr ptr)
@@ -11790,7 +11874,7 @@ namespace Sdx
 
     GetGpsSignalHealthForSVPtr GetGpsSignalHealthForSV::create(int svId, const Sdx::optional<std::string>& dataSetName)
     {
-      return GetGpsSignalHealthForSVPtr(new GetGpsSignalHealthForSV(svId, dataSetName));
+      return std::make_shared<GetGpsSignalHealthForSV>(svId, dataSetName);
     }
 
     GetGpsSignalHealthForSVPtr GetGpsSignalHealthForSV::dynamicCast(CommandBasePtr ptr)
@@ -11875,7 +11959,7 @@ namespace Sdx
 
     GetGpsSignalHealthForSVResultPtr GetGpsSignalHealthForSVResult::create(CommandBasePtr relatedCommand, int svId, int health, const Sdx::optional<std::string>& dataSetName)
     {
-      return GetGpsSignalHealthForSVResultPtr(new GetGpsSignalHealthForSVResult(relatedCommand, svId, health, dataSetName));
+      return std::make_shared<GetGpsSignalHealthForSVResult>(relatedCommand, svId, health, dataSetName);
     }
 
     GetGpsSignalHealthForSVResultPtr GetGpsSignalHealthForSVResult::dynamicCast(CommandBasePtr ptr)
@@ -11968,7 +12052,7 @@ namespace Sdx
 
     SetGalileoDataHealthForSVPtr SetGalileoDataHealthForSV::create(int svId, const std::string& component, bool health, const Sdx::optional<std::string>& dataSetName)
     {
-      return SetGalileoDataHealthForSVPtr(new SetGalileoDataHealthForSV(svId, component, health, dataSetName));
+      return std::make_shared<SetGalileoDataHealthForSV>(svId, component, health, dataSetName);
     }
 
     SetGalileoDataHealthForSVPtr SetGalileoDataHealthForSV::dynamicCast(CommandBasePtr ptr)
@@ -12079,7 +12163,7 @@ namespace Sdx
 
     GetGalileoDataHealthForSVPtr GetGalileoDataHealthForSV::create(int svId, const std::string& component, const Sdx::optional<std::string>& dataSetName)
     {
-      return GetGalileoDataHealthForSVPtr(new GetGalileoDataHealthForSV(svId, component, dataSetName));
+      return std::make_shared<GetGalileoDataHealthForSV>(svId, component, dataSetName);
     }
 
     GetGalileoDataHealthForSVPtr GetGalileoDataHealthForSV::dynamicCast(CommandBasePtr ptr)
@@ -12178,7 +12262,7 @@ namespace Sdx
 
     GetGalileoDataHealthForSVResultPtr GetGalileoDataHealthForSVResult::create(CommandBasePtr relatedCommand, int svId, const std::string& component, bool health, const Sdx::optional<std::string>& dataSetName)
     {
-      return GetGalileoDataHealthForSVResultPtr(new GetGalileoDataHealthForSVResult(relatedCommand, svId, component, health, dataSetName));
+      return std::make_shared<GetGalileoDataHealthForSVResult>(relatedCommand, svId, component, health, dataSetName);
     }
 
     GetGalileoDataHealthForSVResultPtr GetGalileoDataHealthForSVResult::dynamicCast(CommandBasePtr ptr)
@@ -12284,7 +12368,7 @@ namespace Sdx
 
     SetGalileoSignalHealthForSVPtr SetGalileoSignalHealthForSV::create(int svId, const std::string& component, int health, const Sdx::optional<std::string>& dataSetName)
     {
-      return SetGalileoSignalHealthForSVPtr(new SetGalileoSignalHealthForSV(svId, component, health, dataSetName));
+      return std::make_shared<SetGalileoSignalHealthForSV>(svId, component, health, dataSetName);
     }
 
     SetGalileoSignalHealthForSVPtr SetGalileoSignalHealthForSV::dynamicCast(CommandBasePtr ptr)
@@ -12395,7 +12479,7 @@ namespace Sdx
 
     GetGalileoSignalHealthForSVPtr GetGalileoSignalHealthForSV::create(int svId, const std::string& component, const Sdx::optional<std::string>& dataSetName)
     {
-      return GetGalileoSignalHealthForSVPtr(new GetGalileoSignalHealthForSV(svId, component, dataSetName));
+      return std::make_shared<GetGalileoSignalHealthForSV>(svId, component, dataSetName);
     }
 
     GetGalileoSignalHealthForSVPtr GetGalileoSignalHealthForSV::dynamicCast(CommandBasePtr ptr)
@@ -12494,7 +12578,7 @@ namespace Sdx
 
     GetGalileoSignalHealthForSVResultPtr GetGalileoSignalHealthForSVResult::create(CommandBasePtr relatedCommand, int svId, const std::string& component, int health, const Sdx::optional<std::string>& dataSetName)
     {
-      return GetGalileoSignalHealthForSVResultPtr(new GetGalileoSignalHealthForSVResult(relatedCommand, svId, component, health, dataSetName));
+      return std::make_shared<GetGalileoSignalHealthForSVResult>(relatedCommand, svId, component, health, dataSetName);
     }
 
     GetGalileoSignalHealthForSVResultPtr GetGalileoSignalHealthForSVResult::dynamicCast(CommandBasePtr ptr)
@@ -12599,7 +12683,7 @@ namespace Sdx
 
     SetGpsL1HealthForSVPtr SetGpsL1HealthForSV::create(int svId, bool health, const Sdx::optional<std::string>& dataSetName)
     {
-      return SetGpsL1HealthForSVPtr(new SetGpsL1HealthForSV(svId, health, dataSetName));
+      return std::make_shared<SetGpsL1HealthForSV>(svId, health, dataSetName);
     }
 
     SetGpsL1HealthForSVPtr SetGpsL1HealthForSV::dynamicCast(CommandBasePtr ptr)
@@ -12696,7 +12780,7 @@ namespace Sdx
 
     GetGpsL1HealthForSVPtr GetGpsL1HealthForSV::create(int svId, const Sdx::optional<std::string>& dataSetName)
     {
-      return GetGpsL1HealthForSVPtr(new GetGpsL1HealthForSV(svId, dataSetName));
+      return std::make_shared<GetGpsL1HealthForSV>(svId, dataSetName);
     }
 
     GetGpsL1HealthForSVPtr GetGpsL1HealthForSV::dynamicCast(CommandBasePtr ptr)
@@ -12781,7 +12865,7 @@ namespace Sdx
 
     GetGpsL1HealthForSVResultPtr GetGpsL1HealthForSVResult::create(CommandBasePtr relatedCommand, int svId, bool health, const Sdx::optional<std::string>& dataSetName)
     {
-      return GetGpsL1HealthForSVResultPtr(new GetGpsL1HealthForSVResult(relatedCommand, svId, health, dataSetName));
+      return std::make_shared<GetGpsL1HealthForSVResult>(relatedCommand, svId, health, dataSetName);
     }
 
     GetGpsL1HealthForSVResultPtr GetGpsL1HealthForSVResult::dynamicCast(CommandBasePtr ptr)
@@ -12873,7 +12957,7 @@ namespace Sdx
 
     SetGpsL2HealthForSVPtr SetGpsL2HealthForSV::create(int svId, bool health, const Sdx::optional<std::string>& dataSetName)
     {
-      return SetGpsL2HealthForSVPtr(new SetGpsL2HealthForSV(svId, health, dataSetName));
+      return std::make_shared<SetGpsL2HealthForSV>(svId, health, dataSetName);
     }
 
     SetGpsL2HealthForSVPtr SetGpsL2HealthForSV::dynamicCast(CommandBasePtr ptr)
@@ -12970,7 +13054,7 @@ namespace Sdx
 
     GetGpsL2HealthForSVPtr GetGpsL2HealthForSV::create(int svId, const Sdx::optional<std::string>& dataSetName)
     {
-      return GetGpsL2HealthForSVPtr(new GetGpsL2HealthForSV(svId, dataSetName));
+      return std::make_shared<GetGpsL2HealthForSV>(svId, dataSetName);
     }
 
     GetGpsL2HealthForSVPtr GetGpsL2HealthForSV::dynamicCast(CommandBasePtr ptr)
@@ -13055,7 +13139,7 @@ namespace Sdx
 
     GetGpsL2HealthForSVResultPtr GetGpsL2HealthForSVResult::create(CommandBasePtr relatedCommand, int svId, bool health, const Sdx::optional<std::string>& dataSetName)
     {
-      return GetGpsL2HealthForSVResultPtr(new GetGpsL2HealthForSVResult(relatedCommand, svId, health, dataSetName));
+      return std::make_shared<GetGpsL2HealthForSVResult>(relatedCommand, svId, health, dataSetName);
     }
 
     GetGpsL2HealthForSVResultPtr GetGpsL2HealthForSVResult::dynamicCast(CommandBasePtr ptr)
@@ -13147,7 +13231,7 @@ namespace Sdx
 
     SetGpsL5HealthForSVPtr SetGpsL5HealthForSV::create(int svId, bool health, const Sdx::optional<std::string>& dataSetName)
     {
-      return SetGpsL5HealthForSVPtr(new SetGpsL5HealthForSV(svId, health, dataSetName));
+      return std::make_shared<SetGpsL5HealthForSV>(svId, health, dataSetName);
     }
 
     SetGpsL5HealthForSVPtr SetGpsL5HealthForSV::dynamicCast(CommandBasePtr ptr)
@@ -13244,7 +13328,7 @@ namespace Sdx
 
     GetGpsL5HealthForSVPtr GetGpsL5HealthForSV::create(int svId, const Sdx::optional<std::string>& dataSetName)
     {
-      return GetGpsL5HealthForSVPtr(new GetGpsL5HealthForSV(svId, dataSetName));
+      return std::make_shared<GetGpsL5HealthForSV>(svId, dataSetName);
     }
 
     GetGpsL5HealthForSVPtr GetGpsL5HealthForSV::dynamicCast(CommandBasePtr ptr)
@@ -13329,7 +13413,7 @@ namespace Sdx
 
     GetGpsL5HealthForSVResultPtr GetGpsL5HealthForSVResult::create(CommandBasePtr relatedCommand, int svId, bool health, const Sdx::optional<std::string>& dataSetName)
     {
-      return GetGpsL5HealthForSVResultPtr(new GetGpsL5HealthForSVResult(relatedCommand, svId, health, dataSetName));
+      return std::make_shared<GetGpsL5HealthForSVResult>(relatedCommand, svId, health, dataSetName);
     }
 
     GetGpsL5HealthForSVResultPtr GetGpsL5HealthForSVResult::dynamicCast(CommandBasePtr ptr)
@@ -13421,7 +13505,7 @@ namespace Sdx
 
     SetGpsL1cHealthForSVPtr SetGpsL1cHealthForSV::create(int svId, bool health, const Sdx::optional<std::string>& dataSetName)
     {
-      return SetGpsL1cHealthForSVPtr(new SetGpsL1cHealthForSV(svId, health, dataSetName));
+      return std::make_shared<SetGpsL1cHealthForSV>(svId, health, dataSetName);
     }
 
     SetGpsL1cHealthForSVPtr SetGpsL1cHealthForSV::dynamicCast(CommandBasePtr ptr)
@@ -13518,7 +13602,7 @@ namespace Sdx
 
     GetGpsL1cHealthForSVPtr GetGpsL1cHealthForSV::create(int svId, const Sdx::optional<std::string>& dataSetName)
     {
-      return GetGpsL1cHealthForSVPtr(new GetGpsL1cHealthForSV(svId, dataSetName));
+      return std::make_shared<GetGpsL1cHealthForSV>(svId, dataSetName);
     }
 
     GetGpsL1cHealthForSVPtr GetGpsL1cHealthForSV::dynamicCast(CommandBasePtr ptr)
@@ -13603,7 +13687,7 @@ namespace Sdx
 
     GetGpsL1cHealthForSVResultPtr GetGpsL1cHealthForSVResult::create(CommandBasePtr relatedCommand, int svId, bool health, const Sdx::optional<std::string>& dataSetName)
     {
-      return GetGpsL1cHealthForSVResultPtr(new GetGpsL1cHealthForSVResult(relatedCommand, svId, health, dataSetName));
+      return std::make_shared<GetGpsL1cHealthForSVResult>(relatedCommand, svId, health, dataSetName);
     }
 
     GetGpsL1cHealthForSVResultPtr GetGpsL1cHealthForSVResult::dynamicCast(CommandBasePtr ptr)
@@ -13695,7 +13779,7 @@ namespace Sdx
 
     SetGpsAntiSpoofingFlagForSVPtr SetGpsAntiSpoofingFlagForSV::create(int svId, const Sdx::GpsASFlag& antiSpoofing, const Sdx::optional<std::string>& dataSetName)
     {
-      return SetGpsAntiSpoofingFlagForSVPtr(new SetGpsAntiSpoofingFlagForSV(svId, antiSpoofing, dataSetName));
+      return std::make_shared<SetGpsAntiSpoofingFlagForSV>(svId, antiSpoofing, dataSetName);
     }
 
     SetGpsAntiSpoofingFlagForSVPtr SetGpsAntiSpoofingFlagForSV::dynamicCast(CommandBasePtr ptr)
@@ -13792,7 +13876,7 @@ namespace Sdx
 
     GetGpsAntiSpoofingFlagForSVPtr GetGpsAntiSpoofingFlagForSV::create(int svId, const Sdx::optional<std::string>& dataSetName)
     {
-      return GetGpsAntiSpoofingFlagForSVPtr(new GetGpsAntiSpoofingFlagForSV(svId, dataSetName));
+      return std::make_shared<GetGpsAntiSpoofingFlagForSV>(svId, dataSetName);
     }
 
     GetGpsAntiSpoofingFlagForSVPtr GetGpsAntiSpoofingFlagForSV::dynamicCast(CommandBasePtr ptr)
@@ -13877,7 +13961,7 @@ namespace Sdx
 
     GetGpsAntiSpoofingFlagForSVResultPtr GetGpsAntiSpoofingFlagForSVResult::create(CommandBasePtr relatedCommand, int svId, const Sdx::GpsASFlag& antiSpoofing, const Sdx::optional<std::string>& dataSetName)
     {
-      return GetGpsAntiSpoofingFlagForSVResultPtr(new GetGpsAntiSpoofingFlagForSVResult(relatedCommand, svId, antiSpoofing, dataSetName));
+      return std::make_shared<GetGpsAntiSpoofingFlagForSVResult>(relatedCommand, svId, antiSpoofing, dataSetName);
     }
 
     GetGpsAntiSpoofingFlagForSVResultPtr GetGpsAntiSpoofingFlagForSVResult::dynamicCast(CommandBasePtr ptr)
@@ -13969,7 +14053,7 @@ namespace Sdx
 
     SetGpsNavAlertFlagForSVPtr SetGpsNavAlertFlagForSV::create(int svId, bool alert, const Sdx::optional<std::string>& dataSetName)
     {
-      return SetGpsNavAlertFlagForSVPtr(new SetGpsNavAlertFlagForSV(svId, alert, dataSetName));
+      return std::make_shared<SetGpsNavAlertFlagForSV>(svId, alert, dataSetName);
     }
 
     SetGpsNavAlertFlagForSVPtr SetGpsNavAlertFlagForSV::dynamicCast(CommandBasePtr ptr)
@@ -14066,7 +14150,7 @@ namespace Sdx
 
     GetGpsNavAlertFlagForSVPtr GetGpsNavAlertFlagForSV::create(int svId, const Sdx::optional<std::string>& dataSetName)
     {
-      return GetGpsNavAlertFlagForSVPtr(new GetGpsNavAlertFlagForSV(svId, dataSetName));
+      return std::make_shared<GetGpsNavAlertFlagForSV>(svId, dataSetName);
     }
 
     GetGpsNavAlertFlagForSVPtr GetGpsNavAlertFlagForSV::dynamicCast(CommandBasePtr ptr)
@@ -14151,7 +14235,7 @@ namespace Sdx
 
     GetGpsNavAlertFlagForSVResultPtr GetGpsNavAlertFlagForSVResult::create(CommandBasePtr relatedCommand, int svId, bool alert, const Sdx::optional<std::string>& dataSetName)
     {
-      return GetGpsNavAlertFlagForSVResultPtr(new GetGpsNavAlertFlagForSVResult(relatedCommand, svId, alert, dataSetName));
+      return std::make_shared<GetGpsNavAlertFlagForSVResult>(relatedCommand, svId, alert, dataSetName);
     }
 
     GetGpsNavAlertFlagForSVResultPtr GetGpsNavAlertFlagForSVResult::dynamicCast(CommandBasePtr ptr)
@@ -14243,7 +14327,7 @@ namespace Sdx
 
     SetGpsCNavAlertFlagToSVPtr SetGpsCNavAlertFlagToSV::create(int svId, bool alert, const Sdx::optional<std::string>& dataSetName)
     {
-      return SetGpsCNavAlertFlagToSVPtr(new SetGpsCNavAlertFlagToSV(svId, alert, dataSetName));
+      return std::make_shared<SetGpsCNavAlertFlagToSV>(svId, alert, dataSetName);
     }
 
     SetGpsCNavAlertFlagToSVPtr SetGpsCNavAlertFlagToSV::dynamicCast(CommandBasePtr ptr)
@@ -14340,7 +14424,7 @@ namespace Sdx
 
     GetGpsCNavAlertFlagToSVPtr GetGpsCNavAlertFlagToSV::create(int svId, const Sdx::optional<std::string>& dataSetName)
     {
-      return GetGpsCNavAlertFlagToSVPtr(new GetGpsCNavAlertFlagToSV(svId, dataSetName));
+      return std::make_shared<GetGpsCNavAlertFlagToSV>(svId, dataSetName);
     }
 
     GetGpsCNavAlertFlagToSVPtr GetGpsCNavAlertFlagToSV::dynamicCast(CommandBasePtr ptr)
@@ -14425,7 +14509,7 @@ namespace Sdx
 
     GetGpsCNavAlertFlagToSVResultPtr GetGpsCNavAlertFlagToSVResult::create(CommandBasePtr relatedCommand, int svId, bool alert, const Sdx::optional<std::string>& dataSetName)
     {
-      return GetGpsCNavAlertFlagToSVResultPtr(new GetGpsCNavAlertFlagToSVResult(relatedCommand, svId, alert, dataSetName));
+      return std::make_shared<GetGpsCNavAlertFlagToSVResult>(relatedCommand, svId, alert, dataSetName);
     }
 
     GetGpsCNavAlertFlagToSVResultPtr GetGpsCNavAlertFlagToSVResult::dynamicCast(CommandBasePtr ptr)
@@ -14517,7 +14601,7 @@ namespace Sdx
 
     SetBeiDouHealthInfoForSVPtr SetBeiDouHealthInfoForSV::create(int svId, int health, const Sdx::optional<std::string>& dataSetName)
     {
-      return SetBeiDouHealthInfoForSVPtr(new SetBeiDouHealthInfoForSV(svId, health, dataSetName));
+      return std::make_shared<SetBeiDouHealthInfoForSV>(svId, health, dataSetName);
     }
 
     SetBeiDouHealthInfoForSVPtr SetBeiDouHealthInfoForSV::dynamicCast(CommandBasePtr ptr)
@@ -14614,7 +14698,7 @@ namespace Sdx
 
     GetBeiDouHealthInfoForSVPtr GetBeiDouHealthInfoForSV::create(int svId, const Sdx::optional<std::string>& dataSetName)
     {
-      return GetBeiDouHealthInfoForSVPtr(new GetBeiDouHealthInfoForSV(svId, dataSetName));
+      return std::make_shared<GetBeiDouHealthInfoForSV>(svId, dataSetName);
     }
 
     GetBeiDouHealthInfoForSVPtr GetBeiDouHealthInfoForSV::dynamicCast(CommandBasePtr ptr)
@@ -14699,7 +14783,7 @@ namespace Sdx
 
     GetBeiDouHealthInfoForSVResultPtr GetBeiDouHealthInfoForSVResult::create(CommandBasePtr relatedCommand, int svId, int health, const Sdx::optional<std::string>& dataSetName)
     {
-      return GetBeiDouHealthInfoForSVResultPtr(new GetBeiDouHealthInfoForSVResult(relatedCommand, svId, health, dataSetName));
+      return std::make_shared<GetBeiDouHealthInfoForSVResult>(relatedCommand, svId, health, dataSetName);
     }
 
     GetBeiDouHealthInfoForSVResultPtr GetBeiDouHealthInfoForSVResult::dynamicCast(CommandBasePtr ptr)
@@ -14791,7 +14875,7 @@ namespace Sdx
 
     SetBeiDouAutonomousHealthForSVPtr SetBeiDouAutonomousHealthForSV::create(int svId, bool health, const Sdx::optional<std::string>& dataSetName)
     {
-      return SetBeiDouAutonomousHealthForSVPtr(new SetBeiDouAutonomousHealthForSV(svId, health, dataSetName));
+      return std::make_shared<SetBeiDouAutonomousHealthForSV>(svId, health, dataSetName);
     }
 
     SetBeiDouAutonomousHealthForSVPtr SetBeiDouAutonomousHealthForSV::dynamicCast(CommandBasePtr ptr)
@@ -14888,7 +14972,7 @@ namespace Sdx
 
     GetBeiDouAutonomousHealthForSVPtr GetBeiDouAutonomousHealthForSV::create(int svId, const Sdx::optional<std::string>& dataSetName)
     {
-      return GetBeiDouAutonomousHealthForSVPtr(new GetBeiDouAutonomousHealthForSV(svId, dataSetName));
+      return std::make_shared<GetBeiDouAutonomousHealthForSV>(svId, dataSetName);
     }
 
     GetBeiDouAutonomousHealthForSVPtr GetBeiDouAutonomousHealthForSV::dynamicCast(CommandBasePtr ptr)
@@ -14973,7 +15057,7 @@ namespace Sdx
 
     GetBeiDouAutonomousHealthForSVResultPtr GetBeiDouAutonomousHealthForSVResult::create(CommandBasePtr relatedCommand, int svId, bool health, const Sdx::optional<std::string>& dataSetName)
     {
-      return GetBeiDouAutonomousHealthForSVResultPtr(new GetBeiDouAutonomousHealthForSVResult(relatedCommand, svId, health, dataSetName));
+      return std::make_shared<GetBeiDouAutonomousHealthForSVResult>(relatedCommand, svId, health, dataSetName);
     }
 
     GetBeiDouAutonomousHealthForSVResultPtr GetBeiDouAutonomousHealthForSVResult::dynamicCast(CommandBasePtr ptr)
@@ -15065,7 +15149,7 @@ namespace Sdx
 
     SetBeiDouCNavHealthInfoForSVPtr SetBeiDouCNavHealthInfoForSV::create(int svId, int health, const Sdx::optional<std::string>& dataSetName)
     {
-      return SetBeiDouCNavHealthInfoForSVPtr(new SetBeiDouCNavHealthInfoForSV(svId, health, dataSetName));
+      return std::make_shared<SetBeiDouCNavHealthInfoForSV>(svId, health, dataSetName);
     }
 
     SetBeiDouCNavHealthInfoForSVPtr SetBeiDouCNavHealthInfoForSV::dynamicCast(CommandBasePtr ptr)
@@ -15162,7 +15246,7 @@ namespace Sdx
 
     GetBeiDouCNavHealthInfoForSVPtr GetBeiDouCNavHealthInfoForSV::create(int svId, const Sdx::optional<std::string>& dataSetName)
     {
-      return GetBeiDouCNavHealthInfoForSVPtr(new GetBeiDouCNavHealthInfoForSV(svId, dataSetName));
+      return std::make_shared<GetBeiDouCNavHealthInfoForSV>(svId, dataSetName);
     }
 
     GetBeiDouCNavHealthInfoForSVPtr GetBeiDouCNavHealthInfoForSV::dynamicCast(CommandBasePtr ptr)
@@ -15247,7 +15331,7 @@ namespace Sdx
 
     GetBeiDouCNavHealthInfoForSVResultPtr GetBeiDouCNavHealthInfoForSVResult::create(CommandBasePtr relatedCommand, int svId, int health, const Sdx::optional<std::string>& dataSetName)
     {
-      return GetBeiDouCNavHealthInfoForSVResultPtr(new GetBeiDouCNavHealthInfoForSVResult(relatedCommand, svId, health, dataSetName));
+      return std::make_shared<GetBeiDouCNavHealthInfoForSVResult>(relatedCommand, svId, health, dataSetName);
     }
 
     GetBeiDouCNavHealthInfoForSVResultPtr GetBeiDouCNavHealthInfoForSVResult::dynamicCast(CommandBasePtr ptr)
@@ -15339,7 +15423,7 @@ namespace Sdx
 
     SetBeiDouHealthStatusForSVPtr SetBeiDouHealthStatusForSV::create(int svId, int health, const Sdx::optional<std::string>& dataSetName)
     {
-      return SetBeiDouHealthStatusForSVPtr(new SetBeiDouHealthStatusForSV(svId, health, dataSetName));
+      return std::make_shared<SetBeiDouHealthStatusForSV>(svId, health, dataSetName);
     }
 
     SetBeiDouHealthStatusForSVPtr SetBeiDouHealthStatusForSV::dynamicCast(CommandBasePtr ptr)
@@ -15436,7 +15520,7 @@ namespace Sdx
 
     GetBeiDouHealthStatusForSVPtr GetBeiDouHealthStatusForSV::create(int svId, const Sdx::optional<std::string>& dataSetName)
     {
-      return GetBeiDouHealthStatusForSVPtr(new GetBeiDouHealthStatusForSV(svId, dataSetName));
+      return std::make_shared<GetBeiDouHealthStatusForSV>(svId, dataSetName);
     }
 
     GetBeiDouHealthStatusForSVPtr GetBeiDouHealthStatusForSV::dynamicCast(CommandBasePtr ptr)
@@ -15521,7 +15605,7 @@ namespace Sdx
 
     GetBeiDouHealthStatusForSVResultPtr GetBeiDouHealthStatusForSVResult::create(CommandBasePtr relatedCommand, int svId, int health, const Sdx::optional<std::string>& dataSetName)
     {
-      return GetBeiDouHealthStatusForSVResultPtr(new GetBeiDouHealthStatusForSVResult(relatedCommand, svId, health, dataSetName));
+      return std::make_shared<GetBeiDouHealthStatusForSVResult>(relatedCommand, svId, health, dataSetName);
     }
 
     GetBeiDouHealthStatusForSVResultPtr GetBeiDouHealthStatusForSVResult::dynamicCast(CommandBasePtr ptr)
@@ -15612,7 +15696,7 @@ namespace Sdx
 
     SetGlonassEphemerisHealthFlagForSVPtr SetGlonassEphemerisHealthFlagForSV::create(int svId, bool health)
     {
-      return SetGlonassEphemerisHealthFlagForSVPtr(new SetGlonassEphemerisHealthFlagForSV(svId, health));
+      return std::make_shared<SetGlonassEphemerisHealthFlagForSV>(svId, health);
     }
 
     SetGlonassEphemerisHealthFlagForSVPtr SetGlonassEphemerisHealthFlagForSV::dynamicCast(CommandBasePtr ptr)
@@ -15695,7 +15779,7 @@ namespace Sdx
 
     GetGlonassEphemerisHealthFlagForSVPtr GetGlonassEphemerisHealthFlagForSV::create(int svId)
     {
-      return GetGlonassEphemerisHealthFlagForSVPtr(new GetGlonassEphemerisHealthFlagForSV(svId));
+      return std::make_shared<GetGlonassEphemerisHealthFlagForSV>(svId);
     }
 
     GetGlonassEphemerisHealthFlagForSVPtr GetGlonassEphemerisHealthFlagForSV::dynamicCast(CommandBasePtr ptr)
@@ -15766,7 +15850,7 @@ namespace Sdx
 
     GetGlonassEphemerisHealthFlagForSVResultPtr GetGlonassEphemerisHealthFlagForSVResult::create(CommandBasePtr relatedCommand, int svId, bool health)
     {
-      return GetGlonassEphemerisHealthFlagForSVResultPtr(new GetGlonassEphemerisHealthFlagForSVResult(relatedCommand, svId, health));
+      return std::make_shared<GetGlonassEphemerisHealthFlagForSVResult>(relatedCommand, svId, health);
     }
 
     GetGlonassEphemerisHealthFlagForSVResultPtr GetGlonassEphemerisHealthFlagForSVResult::dynamicCast(CommandBasePtr ptr)
@@ -15844,7 +15928,7 @@ namespace Sdx
 
     SetGlonassAlmanacUnhealthyFlagForSVPtr SetGlonassAlmanacUnhealthyFlagForSV::create(int svId, bool health)
     {
-      return SetGlonassAlmanacUnhealthyFlagForSVPtr(new SetGlonassAlmanacUnhealthyFlagForSV(svId, health));
+      return std::make_shared<SetGlonassAlmanacUnhealthyFlagForSV>(svId, health);
     }
 
     SetGlonassAlmanacUnhealthyFlagForSVPtr SetGlonassAlmanacUnhealthyFlagForSV::dynamicCast(CommandBasePtr ptr)
@@ -15927,7 +16011,7 @@ namespace Sdx
 
     GetGlonassAlmanacUnhealthyFlagForSVPtr GetGlonassAlmanacUnhealthyFlagForSV::create(int svId)
     {
-      return GetGlonassAlmanacUnhealthyFlagForSVPtr(new GetGlonassAlmanacUnhealthyFlagForSV(svId));
+      return std::make_shared<GetGlonassAlmanacUnhealthyFlagForSV>(svId);
     }
 
     GetGlonassAlmanacUnhealthyFlagForSVPtr GetGlonassAlmanacUnhealthyFlagForSV::dynamicCast(CommandBasePtr ptr)
@@ -15998,7 +16082,7 @@ namespace Sdx
 
     GetGlonassAlmanacUnhealthyFlagForSVResultPtr GetGlonassAlmanacUnhealthyFlagForSVResult::create(CommandBasePtr relatedCommand, int svId, bool health)
     {
-      return GetGlonassAlmanacUnhealthyFlagForSVResultPtr(new GetGlonassAlmanacUnhealthyFlagForSVResult(relatedCommand, svId, health));
+      return std::make_shared<GetGlonassAlmanacUnhealthyFlagForSVResult>(relatedCommand, svId, health);
     }
 
     GetGlonassAlmanacUnhealthyFlagForSVResultPtr GetGlonassAlmanacUnhealthyFlagForSVResult::dynamicCast(CommandBasePtr ptr)
@@ -16077,7 +16161,7 @@ namespace Sdx
 
     SetQzssL1DataHealthForSVPtr SetQzssL1DataHealthForSV::create(int svId, int health, const Sdx::optional<std::string>& dataSetName)
     {
-      return SetQzssL1DataHealthForSVPtr(new SetQzssL1DataHealthForSV(svId, health, dataSetName));
+      return std::make_shared<SetQzssL1DataHealthForSV>(svId, health, dataSetName);
     }
 
     SetQzssL1DataHealthForSVPtr SetQzssL1DataHealthForSV::dynamicCast(CommandBasePtr ptr)
@@ -16175,7 +16259,7 @@ namespace Sdx
 
     SetQzssSatelliteL1DataHealthPtr SetQzssSatelliteL1DataHealth::create(int svId, int health, const Sdx::optional<std::string>& dataSetName)
     {
-      return SetQzssSatelliteL1DataHealthPtr(new SetQzssSatelliteL1DataHealth(svId, health, dataSetName));
+      return std::make_shared<SetQzssSatelliteL1DataHealth>(svId, health, dataSetName);
     }
 
     SetQzssSatelliteL1DataHealthPtr SetQzssSatelliteL1DataHealth::dynamicCast(CommandBasePtr ptr)
@@ -16272,7 +16356,7 @@ namespace Sdx
 
     GetQzssL1DataHealthForSVPtr GetQzssL1DataHealthForSV::create(int svId, const Sdx::optional<std::string>& dataSetName)
     {
-      return GetQzssL1DataHealthForSVPtr(new GetQzssL1DataHealthForSV(svId, dataSetName));
+      return std::make_shared<GetQzssL1DataHealthForSV>(svId, dataSetName);
     }
 
     GetQzssL1DataHealthForSVPtr GetQzssL1DataHealthForSV::dynamicCast(CommandBasePtr ptr)
@@ -16356,7 +16440,7 @@ namespace Sdx
 
     GetQzssSatelliteL1DataHealthPtr GetQzssSatelliteL1DataHealth::create(int svId, const Sdx::optional<std::string>& dataSetName)
     {
-      return GetQzssSatelliteL1DataHealthPtr(new GetQzssSatelliteL1DataHealth(svId, dataSetName));
+      return std::make_shared<GetQzssSatelliteL1DataHealth>(svId, dataSetName);
     }
 
     GetQzssSatelliteL1DataHealthPtr GetQzssSatelliteL1DataHealth::dynamicCast(CommandBasePtr ptr)
@@ -16441,7 +16525,7 @@ namespace Sdx
 
     GetQzssL1DataHealthForSVResultPtr GetQzssL1DataHealthForSVResult::create(CommandBasePtr relatedCommand, int svId, int health, const Sdx::optional<std::string>& dataSetName)
     {
-      return GetQzssL1DataHealthForSVResultPtr(new GetQzssL1DataHealthForSVResult(relatedCommand, svId, health, dataSetName));
+      return std::make_shared<GetQzssL1DataHealthForSVResult>(relatedCommand, svId, health, dataSetName);
     }
 
     GetQzssL1DataHealthForSVResultPtr GetQzssL1DataHealthForSVResult::dynamicCast(CommandBasePtr ptr)
@@ -16533,7 +16617,7 @@ namespace Sdx
 
     SetQzssL1HealthForSVPtr SetQzssL1HealthForSV::create(int svId, bool health, const Sdx::optional<std::string>& dataSetName)
     {
-      return SetQzssL1HealthForSVPtr(new SetQzssL1HealthForSV(svId, health, dataSetName));
+      return std::make_shared<SetQzssL1HealthForSV>(svId, health, dataSetName);
     }
 
     SetQzssL1HealthForSVPtr SetQzssL1HealthForSV::dynamicCast(CommandBasePtr ptr)
@@ -16631,7 +16715,7 @@ namespace Sdx
 
     SetQzssSatelliteL1HealthPtr SetQzssSatelliteL1Health::create(int svId, bool health, const Sdx::optional<std::string>& dataSetName)
     {
-      return SetQzssSatelliteL1HealthPtr(new SetQzssSatelliteL1Health(svId, health, dataSetName));
+      return std::make_shared<SetQzssSatelliteL1Health>(svId, health, dataSetName);
     }
 
     SetQzssSatelliteL1HealthPtr SetQzssSatelliteL1Health::dynamicCast(CommandBasePtr ptr)
@@ -16728,7 +16812,7 @@ namespace Sdx
 
     GetQzssL1HealthForSVPtr GetQzssL1HealthForSV::create(int svId, const Sdx::optional<std::string>& dataSetName)
     {
-      return GetQzssL1HealthForSVPtr(new GetQzssL1HealthForSV(svId, dataSetName));
+      return std::make_shared<GetQzssL1HealthForSV>(svId, dataSetName);
     }
 
     GetQzssL1HealthForSVPtr GetQzssL1HealthForSV::dynamicCast(CommandBasePtr ptr)
@@ -16812,7 +16896,7 @@ namespace Sdx
 
     GetQzssSatelliteL1HealthPtr GetQzssSatelliteL1Health::create(int svId, const Sdx::optional<std::string>& dataSetName)
     {
-      return GetQzssSatelliteL1HealthPtr(new GetQzssSatelliteL1Health(svId, dataSetName));
+      return std::make_shared<GetQzssSatelliteL1Health>(svId, dataSetName);
     }
 
     GetQzssSatelliteL1HealthPtr GetQzssSatelliteL1Health::dynamicCast(CommandBasePtr ptr)
@@ -16897,7 +16981,7 @@ namespace Sdx
 
     GetQzssL1HealthForSVResultPtr GetQzssL1HealthForSVResult::create(CommandBasePtr relatedCommand, int svId, bool health, const Sdx::optional<std::string>& dataSetName)
     {
-      return GetQzssL1HealthForSVResultPtr(new GetQzssL1HealthForSVResult(relatedCommand, svId, health, dataSetName));
+      return std::make_shared<GetQzssL1HealthForSVResult>(relatedCommand, svId, health, dataSetName);
     }
 
     GetQzssL1HealthForSVResultPtr GetQzssL1HealthForSVResult::dynamicCast(CommandBasePtr ptr)
@@ -16989,7 +17073,7 @@ namespace Sdx
 
     SetQzssL2HealthForSVPtr SetQzssL2HealthForSV::create(int svId, bool health, const Sdx::optional<std::string>& dataSetName)
     {
-      return SetQzssL2HealthForSVPtr(new SetQzssL2HealthForSV(svId, health, dataSetName));
+      return std::make_shared<SetQzssL2HealthForSV>(svId, health, dataSetName);
     }
 
     SetQzssL2HealthForSVPtr SetQzssL2HealthForSV::dynamicCast(CommandBasePtr ptr)
@@ -17087,7 +17171,7 @@ namespace Sdx
 
     SetQzssSatelliteL2HealthPtr SetQzssSatelliteL2Health::create(int svId, bool health, const Sdx::optional<std::string>& dataSetName)
     {
-      return SetQzssSatelliteL2HealthPtr(new SetQzssSatelliteL2Health(svId, health, dataSetName));
+      return std::make_shared<SetQzssSatelliteL2Health>(svId, health, dataSetName);
     }
 
     SetQzssSatelliteL2HealthPtr SetQzssSatelliteL2Health::dynamicCast(CommandBasePtr ptr)
@@ -17184,7 +17268,7 @@ namespace Sdx
 
     GetQzssL2HealthForSVPtr GetQzssL2HealthForSV::create(int svId, const Sdx::optional<std::string>& dataSetName)
     {
-      return GetQzssL2HealthForSVPtr(new GetQzssL2HealthForSV(svId, dataSetName));
+      return std::make_shared<GetQzssL2HealthForSV>(svId, dataSetName);
     }
 
     GetQzssL2HealthForSVPtr GetQzssL2HealthForSV::dynamicCast(CommandBasePtr ptr)
@@ -17268,7 +17352,7 @@ namespace Sdx
 
     GetQzssSatelliteL2HealthPtr GetQzssSatelliteL2Health::create(int svId, const Sdx::optional<std::string>& dataSetName)
     {
-      return GetQzssSatelliteL2HealthPtr(new GetQzssSatelliteL2Health(svId, dataSetName));
+      return std::make_shared<GetQzssSatelliteL2Health>(svId, dataSetName);
     }
 
     GetQzssSatelliteL2HealthPtr GetQzssSatelliteL2Health::dynamicCast(CommandBasePtr ptr)
@@ -17353,7 +17437,7 @@ namespace Sdx
 
     GetQzssL2HealthForSVResultPtr GetQzssL2HealthForSVResult::create(CommandBasePtr relatedCommand, int svId, bool health, const Sdx::optional<std::string>& dataSetName)
     {
-      return GetQzssL2HealthForSVResultPtr(new GetQzssL2HealthForSVResult(relatedCommand, svId, health, dataSetName));
+      return std::make_shared<GetQzssL2HealthForSVResult>(relatedCommand, svId, health, dataSetName);
     }
 
     GetQzssL2HealthForSVResultPtr GetQzssL2HealthForSVResult::dynamicCast(CommandBasePtr ptr)
@@ -17445,7 +17529,7 @@ namespace Sdx
 
     SetQzssL5HealthForSVPtr SetQzssL5HealthForSV::create(int svId, bool health, const Sdx::optional<std::string>& dataSetName)
     {
-      return SetQzssL5HealthForSVPtr(new SetQzssL5HealthForSV(svId, health, dataSetName));
+      return std::make_shared<SetQzssL5HealthForSV>(svId, health, dataSetName);
     }
 
     SetQzssL5HealthForSVPtr SetQzssL5HealthForSV::dynamicCast(CommandBasePtr ptr)
@@ -17543,7 +17627,7 @@ namespace Sdx
 
     SetQzssSatelliteL5HealthPtr SetQzssSatelliteL5Health::create(int svId, bool health, const Sdx::optional<std::string>& dataSetName)
     {
-      return SetQzssSatelliteL5HealthPtr(new SetQzssSatelliteL5Health(svId, health, dataSetName));
+      return std::make_shared<SetQzssSatelliteL5Health>(svId, health, dataSetName);
     }
 
     SetQzssSatelliteL5HealthPtr SetQzssSatelliteL5Health::dynamicCast(CommandBasePtr ptr)
@@ -17640,7 +17724,7 @@ namespace Sdx
 
     GetQzssL5HealthForSVPtr GetQzssL5HealthForSV::create(int svId, const Sdx::optional<std::string>& dataSetName)
     {
-      return GetQzssL5HealthForSVPtr(new GetQzssL5HealthForSV(svId, dataSetName));
+      return std::make_shared<GetQzssL5HealthForSV>(svId, dataSetName);
     }
 
     GetQzssL5HealthForSVPtr GetQzssL5HealthForSV::dynamicCast(CommandBasePtr ptr)
@@ -17724,7 +17808,7 @@ namespace Sdx
 
     GetQzssSatelliteL5HealthPtr GetQzssSatelliteL5Health::create(int svId, const Sdx::optional<std::string>& dataSetName)
     {
-      return GetQzssSatelliteL5HealthPtr(new GetQzssSatelliteL5Health(svId, dataSetName));
+      return std::make_shared<GetQzssSatelliteL5Health>(svId, dataSetName);
     }
 
     GetQzssSatelliteL5HealthPtr GetQzssSatelliteL5Health::dynamicCast(CommandBasePtr ptr)
@@ -17809,7 +17893,7 @@ namespace Sdx
 
     GetQzssL5HealthForSVResultPtr GetQzssL5HealthForSVResult::create(CommandBasePtr relatedCommand, int svId, bool health, const Sdx::optional<std::string>& dataSetName)
     {
-      return GetQzssL5HealthForSVResultPtr(new GetQzssL5HealthForSVResult(relatedCommand, svId, health, dataSetName));
+      return std::make_shared<GetQzssL5HealthForSVResult>(relatedCommand, svId, health, dataSetName);
     }
 
     GetQzssL5HealthForSVResultPtr GetQzssL5HealthForSVResult::dynamicCast(CommandBasePtr ptr)
@@ -17901,7 +17985,7 @@ namespace Sdx
 
     SetQzssL1cHealthForSVPtr SetQzssL1cHealthForSV::create(int svId, bool health, const Sdx::optional<std::string>& dataSetName)
     {
-      return SetQzssL1cHealthForSVPtr(new SetQzssL1cHealthForSV(svId, health, dataSetName));
+      return std::make_shared<SetQzssL1cHealthForSV>(svId, health, dataSetName);
     }
 
     SetQzssL1cHealthForSVPtr SetQzssL1cHealthForSV::dynamicCast(CommandBasePtr ptr)
@@ -17999,7 +18083,7 @@ namespace Sdx
 
     SetQzssSatelliteL1cHealthPtr SetQzssSatelliteL1cHealth::create(int svId, bool health, const Sdx::optional<std::string>& dataSetName)
     {
-      return SetQzssSatelliteL1cHealthPtr(new SetQzssSatelliteL1cHealth(svId, health, dataSetName));
+      return std::make_shared<SetQzssSatelliteL1cHealth>(svId, health, dataSetName);
     }
 
     SetQzssSatelliteL1cHealthPtr SetQzssSatelliteL1cHealth::dynamicCast(CommandBasePtr ptr)
@@ -18096,7 +18180,7 @@ namespace Sdx
 
     GetQzssL1cHealthForSVPtr GetQzssL1cHealthForSV::create(int svId, const Sdx::optional<std::string>& dataSetName)
     {
-      return GetQzssL1cHealthForSVPtr(new GetQzssL1cHealthForSV(svId, dataSetName));
+      return std::make_shared<GetQzssL1cHealthForSV>(svId, dataSetName);
     }
 
     GetQzssL1cHealthForSVPtr GetQzssL1cHealthForSV::dynamicCast(CommandBasePtr ptr)
@@ -18180,7 +18264,7 @@ namespace Sdx
 
     GetQzssSatelliteL1cHealthPtr GetQzssSatelliteL1cHealth::create(int svId, const Sdx::optional<std::string>& dataSetName)
     {
-      return GetQzssSatelliteL1cHealthPtr(new GetQzssSatelliteL1cHealth(svId, dataSetName));
+      return std::make_shared<GetQzssSatelliteL1cHealth>(svId, dataSetName);
     }
 
     GetQzssSatelliteL1cHealthPtr GetQzssSatelliteL1cHealth::dynamicCast(CommandBasePtr ptr)
@@ -18265,7 +18349,7 @@ namespace Sdx
 
     GetQzssL1cHealthForSVResultPtr GetQzssL1cHealthForSVResult::create(CommandBasePtr relatedCommand, int svId, bool health, const Sdx::optional<std::string>& dataSetName)
     {
-      return GetQzssL1cHealthForSVResultPtr(new GetQzssL1cHealthForSVResult(relatedCommand, svId, health, dataSetName));
+      return std::make_shared<GetQzssL1cHealthForSVResult>(relatedCommand, svId, health, dataSetName);
     }
 
     GetQzssL1cHealthForSVResultPtr GetQzssL1cHealthForSVResult::dynamicCast(CommandBasePtr ptr)
@@ -18357,7 +18441,7 @@ namespace Sdx
 
     SetQzssNavAlertFlagForSVPtr SetQzssNavAlertFlagForSV::create(int svId, bool alert, const Sdx::optional<std::string>& dataSetName)
     {
-      return SetQzssNavAlertFlagForSVPtr(new SetQzssNavAlertFlagForSV(svId, alert, dataSetName));
+      return std::make_shared<SetQzssNavAlertFlagForSV>(svId, alert, dataSetName);
     }
 
     SetQzssNavAlertFlagForSVPtr SetQzssNavAlertFlagForSV::dynamicCast(CommandBasePtr ptr)
@@ -18455,7 +18539,7 @@ namespace Sdx
 
     SetQzssSatelliteNavAlertFlagPtr SetQzssSatelliteNavAlertFlag::create(int svId, bool alert, const Sdx::optional<std::string>& dataSetName)
     {
-      return SetQzssSatelliteNavAlertFlagPtr(new SetQzssSatelliteNavAlertFlag(svId, alert, dataSetName));
+      return std::make_shared<SetQzssSatelliteNavAlertFlag>(svId, alert, dataSetName);
     }
 
     SetQzssSatelliteNavAlertFlagPtr SetQzssSatelliteNavAlertFlag::dynamicCast(CommandBasePtr ptr)
@@ -18552,7 +18636,7 @@ namespace Sdx
 
     GetQzssNavAlertFlagForSVPtr GetQzssNavAlertFlagForSV::create(int svId, const Sdx::optional<std::string>& dataSetName)
     {
-      return GetQzssNavAlertFlagForSVPtr(new GetQzssNavAlertFlagForSV(svId, dataSetName));
+      return std::make_shared<GetQzssNavAlertFlagForSV>(svId, dataSetName);
     }
 
     GetQzssNavAlertFlagForSVPtr GetQzssNavAlertFlagForSV::dynamicCast(CommandBasePtr ptr)
@@ -18636,7 +18720,7 @@ namespace Sdx
 
     GetQzssSatelliteNavAlertFlagPtr GetQzssSatelliteNavAlertFlag::create(int svId, const Sdx::optional<std::string>& dataSetName)
     {
-      return GetQzssSatelliteNavAlertFlagPtr(new GetQzssSatelliteNavAlertFlag(svId, dataSetName));
+      return std::make_shared<GetQzssSatelliteNavAlertFlag>(svId, dataSetName);
     }
 
     GetQzssSatelliteNavAlertFlagPtr GetQzssSatelliteNavAlertFlag::dynamicCast(CommandBasePtr ptr)
@@ -18721,7 +18805,7 @@ namespace Sdx
 
     GetQzssNavAlertFlagForSVResultPtr GetQzssNavAlertFlagForSVResult::create(CommandBasePtr relatedCommand, int svId, bool alert, const Sdx::optional<std::string>& dataSetName)
     {
-      return GetQzssNavAlertFlagForSVResultPtr(new GetQzssNavAlertFlagForSVResult(relatedCommand, svId, alert, dataSetName));
+      return std::make_shared<GetQzssNavAlertFlagForSVResult>(relatedCommand, svId, alert, dataSetName);
     }
 
     GetQzssNavAlertFlagForSVResultPtr GetQzssNavAlertFlagForSVResult::dynamicCast(CommandBasePtr ptr)
@@ -18813,7 +18897,7 @@ namespace Sdx
 
     SetNavICL5HealthForSVPtr SetNavICL5HealthForSV::create(int svId, bool health, const Sdx::optional<std::string>& dataSetName)
     {
-      return SetNavICL5HealthForSVPtr(new SetNavICL5HealthForSV(svId, health, dataSetName));
+      return std::make_shared<SetNavICL5HealthForSV>(svId, health, dataSetName);
     }
 
     SetNavICL5HealthForSVPtr SetNavICL5HealthForSV::dynamicCast(CommandBasePtr ptr)
@@ -18911,7 +18995,7 @@ namespace Sdx
 
     SetNavICSatelliteL5HealthPtr SetNavICSatelliteL5Health::create(int svId, bool health, const Sdx::optional<std::string>& dataSetName)
     {
-      return SetNavICSatelliteL5HealthPtr(new SetNavICSatelliteL5Health(svId, health, dataSetName));
+      return std::make_shared<SetNavICSatelliteL5Health>(svId, health, dataSetName);
     }
 
     SetNavICSatelliteL5HealthPtr SetNavICSatelliteL5Health::dynamicCast(CommandBasePtr ptr)
@@ -19008,7 +19092,7 @@ namespace Sdx
 
     GetNavICL5HealthForSVPtr GetNavICL5HealthForSV::create(int svId, const Sdx::optional<std::string>& dataSetName)
     {
-      return GetNavICL5HealthForSVPtr(new GetNavICL5HealthForSV(svId, dataSetName));
+      return std::make_shared<GetNavICL5HealthForSV>(svId, dataSetName);
     }
 
     GetNavICL5HealthForSVPtr GetNavICL5HealthForSV::dynamicCast(CommandBasePtr ptr)
@@ -19092,7 +19176,7 @@ namespace Sdx
 
     GetNavICSatelliteL5HealthPtr GetNavICSatelliteL5Health::create(int svId, const Sdx::optional<std::string>& dataSetName)
     {
-      return GetNavICSatelliteL5HealthPtr(new GetNavICSatelliteL5Health(svId, dataSetName));
+      return std::make_shared<GetNavICSatelliteL5Health>(svId, dataSetName);
     }
 
     GetNavICSatelliteL5HealthPtr GetNavICSatelliteL5Health::dynamicCast(CommandBasePtr ptr)
@@ -19177,7 +19261,7 @@ namespace Sdx
 
     GetNavICL5HealthForSVResultPtr GetNavICL5HealthForSVResult::create(CommandBasePtr relatedCommand, int svId, bool health, const Sdx::optional<std::string>& dataSetName)
     {
-      return GetNavICL5HealthForSVResultPtr(new GetNavICL5HealthForSVResult(relatedCommand, svId, health, dataSetName));
+      return std::make_shared<GetNavICL5HealthForSVResult>(relatedCommand, svId, health, dataSetName);
     }
 
     GetNavICL5HealthForSVResultPtr GetNavICL5HealthForSVResult::dynamicCast(CommandBasePtr ptr)
@@ -19269,7 +19353,7 @@ namespace Sdx
 
     SetNavICNavAlertFlagForSVPtr SetNavICNavAlertFlagForSV::create(int svId, bool alert, const Sdx::optional<std::string>& dataSetName)
     {
-      return SetNavICNavAlertFlagForSVPtr(new SetNavICNavAlertFlagForSV(svId, alert, dataSetName));
+      return std::make_shared<SetNavICNavAlertFlagForSV>(svId, alert, dataSetName);
     }
 
     SetNavICNavAlertFlagForSVPtr SetNavICNavAlertFlagForSV::dynamicCast(CommandBasePtr ptr)
@@ -19367,7 +19451,7 @@ namespace Sdx
 
     SetNavICSatelliteNavAlertFlagPtr SetNavICSatelliteNavAlertFlag::create(int svId, bool alert, const Sdx::optional<std::string>& dataSetName)
     {
-      return SetNavICSatelliteNavAlertFlagPtr(new SetNavICSatelliteNavAlertFlag(svId, alert, dataSetName));
+      return std::make_shared<SetNavICSatelliteNavAlertFlag>(svId, alert, dataSetName);
     }
 
     SetNavICSatelliteNavAlertFlagPtr SetNavICSatelliteNavAlertFlag::dynamicCast(CommandBasePtr ptr)
@@ -19464,7 +19548,7 @@ namespace Sdx
 
     GetNavICNavAlertFlagForSVPtr GetNavICNavAlertFlagForSV::create(int svId, const Sdx::optional<std::string>& dataSetName)
     {
-      return GetNavICNavAlertFlagForSVPtr(new GetNavICNavAlertFlagForSV(svId, dataSetName));
+      return std::make_shared<GetNavICNavAlertFlagForSV>(svId, dataSetName);
     }
 
     GetNavICNavAlertFlagForSVPtr GetNavICNavAlertFlagForSV::dynamicCast(CommandBasePtr ptr)
@@ -19548,7 +19632,7 @@ namespace Sdx
 
     GetNavICSatelliteNavAlertFlagPtr GetNavICSatelliteNavAlertFlag::create(int svId, const Sdx::optional<std::string>& dataSetName)
     {
-      return GetNavICSatelliteNavAlertFlagPtr(new GetNavICSatelliteNavAlertFlag(svId, dataSetName));
+      return std::make_shared<GetNavICSatelliteNavAlertFlag>(svId, dataSetName);
     }
 
     GetNavICSatelliteNavAlertFlagPtr GetNavICSatelliteNavAlertFlag::dynamicCast(CommandBasePtr ptr)
@@ -19633,7 +19717,7 @@ namespace Sdx
 
     GetNavICNavAlertFlagForSVResultPtr GetNavICNavAlertFlagForSVResult::create(CommandBasePtr relatedCommand, int svId, bool alert, const Sdx::optional<std::string>& dataSetName)
     {
-      return GetNavICNavAlertFlagForSVResultPtr(new GetNavICNavAlertFlagForSVResult(relatedCommand, svId, alert, dataSetName));
+      return std::make_shared<GetNavICNavAlertFlagForSVResult>(relatedCommand, svId, alert, dataSetName);
     }
 
     GetNavICNavAlertFlagForSVResultPtr GetNavICNavAlertFlagForSVResult::dynamicCast(CommandBasePtr ptr)
@@ -19723,7 +19807,7 @@ namespace Sdx
 
     SetPowerGlobalOffsetPtr SetPowerGlobalOffset::create(double offset)
     {
-      return SetPowerGlobalOffsetPtr(new SetPowerGlobalOffset(offset));
+      return std::make_shared<SetPowerGlobalOffset>(offset);
     }
 
     SetPowerGlobalOffsetPtr SetPowerGlobalOffset::dynamicCast(CommandBasePtr ptr)
@@ -19788,7 +19872,7 @@ namespace Sdx
 
     GetPowerGlobalOffsetPtr GetPowerGlobalOffset::create()
     {
-      return GetPowerGlobalOffsetPtr(new GetPowerGlobalOffset());
+      return std::make_shared<GetPowerGlobalOffset>();
     }
 
     GetPowerGlobalOffsetPtr GetPowerGlobalOffset::dynamicCast(CommandBasePtr ptr)
@@ -19845,7 +19929,7 @@ namespace Sdx
 
     GetPowerGlobalOffsetResultPtr GetPowerGlobalOffsetResult::create(CommandBasePtr relatedCommand, double offset)
     {
-      return GetPowerGlobalOffsetResultPtr(new GetPowerGlobalOffsetResult(relatedCommand, offset));
+      return std::make_shared<GetPowerGlobalOffsetResult>(relatedCommand, offset);
     }
 
     GetPowerGlobalOffsetResultPtr GetPowerGlobalOffsetResult::dynamicCast(CommandBasePtr ptr)
@@ -19910,7 +19994,7 @@ namespace Sdx
 
     SetPowerOffsetPtr SetPowerOffset::create(const std::string& signal, double offset)
     {
-      return SetPowerOffsetPtr(new SetPowerOffset(signal, offset));
+      return std::make_shared<SetPowerOffset>(signal, offset);
     }
 
     SetPowerOffsetPtr SetPowerOffset::dynamicCast(CommandBasePtr ptr)
@@ -19993,7 +20077,7 @@ namespace Sdx
 
     GetPowerOffsetPtr GetPowerOffset::create(const std::string& signal)
     {
-      return GetPowerOffsetPtr(new GetPowerOffset(signal));
+      return std::make_shared<GetPowerOffset>(signal);
     }
 
     GetPowerOffsetPtr GetPowerOffset::dynamicCast(CommandBasePtr ptr)
@@ -20064,7 +20148,7 @@ namespace Sdx
 
     GetPowerOffsetResultPtr GetPowerOffsetResult::create(CommandBasePtr relatedCommand, const std::string& signal, double offset)
     {
-      return GetPowerOffsetResultPtr(new GetPowerOffsetResult(relatedCommand, signal, offset));
+      return std::make_shared<GetPowerOffsetResult>(relatedCommand, signal, offset);
     }
 
     GetPowerOffsetResultPtr GetPowerOffsetResult::dynamicCast(CommandBasePtr ptr)
@@ -20142,7 +20226,7 @@ namespace Sdx
 
     SetPowerSbasOffsetPtr SetPowerSbasOffset::create(const std::string& serviceProvider, double offset)
     {
-      return SetPowerSbasOffsetPtr(new SetPowerSbasOffset(serviceProvider, offset));
+      return std::make_shared<SetPowerSbasOffset>(serviceProvider, offset);
     }
 
     SetPowerSbasOffsetPtr SetPowerSbasOffset::dynamicCast(CommandBasePtr ptr)
@@ -20225,7 +20309,7 @@ namespace Sdx
 
     GetPowerSbasOffsetPtr GetPowerSbasOffset::create(const std::string& serviceProvider)
     {
-      return GetPowerSbasOffsetPtr(new GetPowerSbasOffset(serviceProvider));
+      return std::make_shared<GetPowerSbasOffset>(serviceProvider);
     }
 
     GetPowerSbasOffsetPtr GetPowerSbasOffset::dynamicCast(CommandBasePtr ptr)
@@ -20296,7 +20380,7 @@ namespace Sdx
 
     GetPowerSbasOffsetResultPtr GetPowerSbasOffsetResult::create(CommandBasePtr relatedCommand, const std::string& serviceProvider, double offset)
     {
-      return GetPowerSbasOffsetResultPtr(new GetPowerSbasOffsetResult(relatedCommand, serviceProvider, offset));
+      return std::make_shared<GetPowerSbasOffsetResult>(relatedCommand, serviceProvider, offset);
     }
 
     GetPowerSbasOffsetResultPtr GetPowerSbasOffsetResult::dynamicCast(CommandBasePtr ptr)
@@ -20377,7 +20461,7 @@ namespace Sdx
 
     SetModulationTargetPtr SetModulationTarget::create(const std::string& type, const std::string& path, const std::string& address, bool clockIsExternal, const std::string& id)
     {
-      return SetModulationTargetPtr(new SetModulationTarget(type, path, address, clockIsExternal, id));
+      return std::make_shared<SetModulationTarget>(type, path, address, clockIsExternal, id);
     }
 
     SetModulationTargetPtr SetModulationTarget::dynamicCast(CommandBasePtr ptr)
@@ -20499,7 +20583,7 @@ namespace Sdx
 
     GetModulationTargetPtr GetModulationTarget::create(const std::string& id)
     {
-      return GetModulationTargetPtr(new GetModulationTarget(id));
+      return std::make_shared<GetModulationTarget>(id);
     }
 
     GetModulationTargetPtr GetModulationTarget::dynamicCast(CommandBasePtr ptr)
@@ -20573,7 +20657,7 @@ namespace Sdx
 
     GetModulationTargetResultPtr GetModulationTargetResult::create(CommandBasePtr relatedCommand, const std::string& type, const std::string& path, const std::string& address, bool clockIsExternal, const std::string& id)
     {
-      return GetModulationTargetResultPtr(new GetModulationTargetResult(relatedCommand, type, path, address, clockIsExternal, id));
+      return std::make_shared<GetModulationTargetResult>(relatedCommand, type, path, address, clockIsExternal, id);
     }
 
     GetModulationTargetResultPtr GetModulationTargetResult::dynamicCast(CommandBasePtr ptr)
@@ -20691,7 +20775,7 @@ namespace Sdx
 
     SetGpuPtr SetGpu::create(int gpuIdx, int output, const std::string& id)
     {
-      return SetGpuPtr(new SetGpu(gpuIdx, output, id));
+      return std::make_shared<SetGpu>(gpuIdx, output, id);
     }
 
     SetGpuPtr SetGpu::dynamicCast(CommandBasePtr ptr)
@@ -20788,7 +20872,7 @@ namespace Sdx
 
     GetGpuPtr GetGpu::create(int output, const std::string& id)
     {
-      return GetGpuPtr(new GetGpu(output, id));
+      return std::make_shared<GetGpu>(output, id);
     }
 
     GetGpuPtr GetGpu::dynamicCast(CommandBasePtr ptr)
@@ -20873,7 +20957,7 @@ namespace Sdx
 
     GetGpuResultPtr GetGpuResult::create(CommandBasePtr relatedCommand, int gpuIdx, int output, const std::string& id)
     {
-      return GetGpuResultPtr(new GetGpuResult(relatedCommand, gpuIdx, output, id));
+      return std::make_shared<GetGpuResult>(relatedCommand, gpuIdx, output, id);
     }
 
     GetGpuResultPtr GetGpuResult::dynamicCast(CommandBasePtr ptr)
@@ -20958,7 +21042,7 @@ namespace Sdx
 
     GetAllModulationTargetsPtr GetAllModulationTargets::create()
     {
-      return GetAllModulationTargetsPtr(new GetAllModulationTargets());
+      return std::make_shared<GetAllModulationTargets>();
     }
 
     GetAllModulationTargetsPtr GetAllModulationTargets::dynamicCast(CommandBasePtr ptr)
@@ -21015,7 +21099,7 @@ namespace Sdx
 
     GetAllModulationTargetsResultPtr GetAllModulationTargetsResult::create(CommandBasePtr relatedCommand, const std::vector<std::string>& ids)
     {
-      return GetAllModulationTargetsResultPtr(new GetAllModulationTargetsResult(relatedCommand, ids));
+      return std::make_shared<GetAllModulationTargetsResult>(relatedCommand, ids);
     }
 
     GetAllModulationTargetsResultPtr GetAllModulationTargetsResult::dynamicCast(CommandBasePtr ptr)
@@ -21079,7 +21163,7 @@ namespace Sdx
 
     RemoveModulationTargetPtr RemoveModulationTarget::create(const std::string& id)
     {
-      return RemoveModulationTargetPtr(new RemoveModulationTarget(id));
+      return std::make_shared<RemoveModulationTarget>(id);
     }
 
     RemoveModulationTargetPtr RemoveModulationTarget::dynamicCast(CommandBasePtr ptr)
@@ -21144,7 +21228,7 @@ namespace Sdx
 
     RemoveAllModulationTargetsPtr RemoveAllModulationTargets::create()
     {
-      return RemoveAllModulationTargetsPtr(new RemoveAllModulationTargets());
+      return std::make_shared<RemoveAllModulationTargets>();
     }
 
     RemoveAllModulationTargetsPtr RemoveAllModulationTargets::dynamicCast(CommandBasePtr ptr)
@@ -21202,7 +21286,7 @@ namespace Sdx
 
     ChangeModulationTargetNamePtr ChangeModulationTargetName::create(const std::string& targetName, const std::string& id)
     {
-      return ChangeModulationTargetNamePtr(new ChangeModulationTargetName(targetName, id));
+      return std::make_shared<ChangeModulationTargetName>(targetName, id);
     }
 
     ChangeModulationTargetNamePtr ChangeModulationTargetName::dynamicCast(CommandBasePtr ptr)
@@ -21293,7 +21377,7 @@ namespace Sdx
 
     ChangeModulationTargetSignalsPtr ChangeModulationTargetSignals::create(int output, int minRate, int maxRate, const std::string& band, const std::string& signal, int gain, bool gaussianNoise, const std::string& id, const Sdx::optional<double>& centralFrequency)
     {
-      return ChangeModulationTargetSignalsPtr(new ChangeModulationTargetSignals(output, minRate, maxRate, band, signal, gain, gaussianNoise, id, centralFrequency));
+      return std::make_shared<ChangeModulationTargetSignals>(output, minRate, maxRate, band, signal, gain, gaussianNoise, id, centralFrequency);
     }
 
     ChangeModulationTargetSignalsPtr ChangeModulationTargetSignals::dynamicCast(CommandBasePtr ptr)
@@ -21468,7 +21552,7 @@ namespace Sdx
 
     GetModulationTargetSignalsPtr GetModulationTargetSignals::create(int output, const std::string& id)
     {
-      return GetModulationTargetSignalsPtr(new GetModulationTargetSignals(output, id));
+      return std::make_shared<GetModulationTargetSignals>(output, id);
     }
 
     GetModulationTargetSignalsPtr GetModulationTargetSignals::dynamicCast(CommandBasePtr ptr)
@@ -21559,7 +21643,7 @@ namespace Sdx
 
     GetModulationTargetSignalsResultPtr GetModulationTargetSignalsResult::create(CommandBasePtr relatedCommand, int output, int minRate, int maxRate, const std::string& band, const std::string& signal, int gain, bool gaussianNoise, const std::string& id, const Sdx::optional<double>& centralFrequency)
     {
-      return GetModulationTargetSignalsResultPtr(new GetModulationTargetSignalsResult(relatedCommand, output, minRate, maxRate, band, signal, gain, gaussianNoise, id, centralFrequency));
+      return std::make_shared<GetModulationTargetSignalsResult>(relatedCommand, output, minRate, maxRate, band, signal, gain, gaussianNoise, id, centralFrequency);
     }
 
     GetModulationTargetSignalsResultPtr GetModulationTargetSignalsResult::dynamicCast(CommandBasePtr ptr)
@@ -21734,7 +21818,7 @@ namespace Sdx
 
     ChangeModulationTargetInterferencePtr ChangeModulationTargetInterference::create(int output, int minRate, int maxRate, int group, double centralFreq, int gain, const std::string& id, const Sdx::optional<std::string>& signal)
     {
-      return ChangeModulationTargetInterferencePtr(new ChangeModulationTargetInterference(output, minRate, maxRate, group, centralFreq, gain, id, signal));
+      return std::make_shared<ChangeModulationTargetInterference>(output, minRate, maxRate, group, centralFreq, gain, id, signal);
     }
 
     ChangeModulationTargetInterferencePtr ChangeModulationTargetInterference::dynamicCast(CommandBasePtr ptr)
@@ -21896,7 +21980,7 @@ namespace Sdx
 
     GetModulationTargetInterferencesPtr GetModulationTargetInterferences::create(int output, const std::string& id)
     {
-      return GetModulationTargetInterferencesPtr(new GetModulationTargetInterferences(output, id));
+      return std::make_shared<GetModulationTargetInterferences>(output, id);
     }
 
     GetModulationTargetInterferencesPtr GetModulationTargetInterferences::dynamicCast(CommandBasePtr ptr)
@@ -21986,7 +22070,7 @@ namespace Sdx
 
     GetModulationTargetInterferencesResultPtr GetModulationTargetInterferencesResult::create(CommandBasePtr relatedCommand, int output, int minRate, int maxRate, int group, double centralFreq, int gain, const std::string& id, const Sdx::optional<std::string>& signal)
     {
-      return GetModulationTargetInterferencesResultPtr(new GetModulationTargetInterferencesResult(relatedCommand, output, minRate, maxRate, group, centralFreq, gain, id, signal));
+      return std::make_shared<GetModulationTargetInterferencesResult>(relatedCommand, output, minRate, maxRate, group, centralFreq, gain, id, signal);
     }
 
     GetModulationTargetInterferencesResultPtr GetModulationTargetInterferencesResult::dynamicCast(CommandBasePtr ptr)
@@ -22143,7 +22227,7 @@ namespace Sdx
 
     ChangeModulationAnechoicTargetInterferencePtr ChangeModulationAnechoicTargetInterference::create(int group, const std::string& output, double centralFreq)
     {
-      return ChangeModulationAnechoicTargetInterferencePtr(new ChangeModulationAnechoicTargetInterference(group, output, centralFreq));
+      return std::make_shared<ChangeModulationAnechoicTargetInterference>(group, output, centralFreq);
     }
 
     ChangeModulationAnechoicTargetInterferencePtr ChangeModulationAnechoicTargetInterference::dynamicCast(CommandBasePtr ptr)
@@ -22239,7 +22323,7 @@ namespace Sdx
 
     RemoveModulationAnechoicTargetInterferencePtr RemoveModulationAnechoicTargetInterference::create(int group)
     {
-      return RemoveModulationAnechoicTargetInterferencePtr(new RemoveModulationAnechoicTargetInterference(group));
+      return std::make_shared<RemoveModulationAnechoicTargetInterference>(group);
     }
 
     RemoveModulationAnechoicTargetInterferencePtr RemoveModulationAnechoicTargetInterference::dynamicCast(CommandBasePtr ptr)
@@ -22310,7 +22394,7 @@ namespace Sdx
 
     SetRfGainPtr SetRfGain::create(int output, double gain)
     {
-      return SetRfGainPtr(new SetRfGain(output, gain));
+      return std::make_shared<SetRfGain>(output, gain);
     }
 
     SetRfGainPtr SetRfGain::dynamicCast(CommandBasePtr ptr)
@@ -22396,7 +22480,7 @@ namespace Sdx
 
     ImportConstellationParametersPtr ImportConstellationParameters::create(const std::string& system, const std::string& path, const Sdx::optional<int>& rollover, const Sdx::optional<std::string>& dataSetName)
     {
-      return ImportConstellationParametersPtr(new ImportConstellationParameters(system, path, rollover, dataSetName));
+      return std::make_shared<ImportConstellationParameters>(system, path, rollover, dataSetName);
     }
 
     ImportConstellationParametersPtr ImportConstellationParameters::dynamicCast(CommandBasePtr ptr)
@@ -22506,7 +22590,7 @@ namespace Sdx
 
     ImportIonoParametersPtr ImportIonoParameters::create(const std::string& path, const Sdx::optional<std::string>& type)
     {
-      return ImportIonoParametersPtr(new ImportIonoParameters(path, type));
+      return std::make_shared<ImportIonoParameters>(path, type);
     }
 
     ImportIonoParametersPtr ImportIonoParameters::dynamicCast(CommandBasePtr ptr)
@@ -22589,7 +22673,7 @@ namespace Sdx
 
     ImportMODIPFilePtr ImportMODIPFile::create(const std::string& path)
     {
-      return ImportMODIPFilePtr(new ImportMODIPFile(path));
+      return std::make_shared<ImportMODIPFile>(path);
     }
 
     ImportMODIPFilePtr ImportMODIPFile::dynamicCast(CommandBasePtr ptr)
@@ -22659,7 +22743,7 @@ namespace Sdx
 
     ImportCCIRFilesFromDirectoryPtr ImportCCIRFilesFromDirectory::create(const std::string& path)
     {
-      return ImportCCIRFilesFromDirectoryPtr(new ImportCCIRFilesFromDirectory(path));
+      return std::make_shared<ImportCCIRFilesFromDirectory>(path);
     }
 
     ImportCCIRFilesFromDirectoryPtr ImportCCIRFilesFromDirectory::dynamicCast(CommandBasePtr ptr)
@@ -22729,7 +22813,7 @@ namespace Sdx
 
     ImportGlonassAlmanacPtr ImportGlonassAlmanac::create(const std::string& path)
     {
-      return ImportGlonassAlmanacPtr(new ImportGlonassAlmanac(path));
+      return std::make_shared<ImportGlonassAlmanac>(path);
     }
 
     ImportGlonassAlmanacPtr ImportGlonassAlmanac::dynamicCast(CommandBasePtr ptr)
@@ -22799,7 +22883,7 @@ namespace Sdx
 
     ImportNmeaTrackPtr ImportNmeaTrack::create(const std::string& path)
     {
-      return ImportNmeaTrackPtr(new ImportNmeaTrack(path));
+      return std::make_shared<ImportNmeaTrack>(path);
     }
 
     ImportNmeaTrackPtr ImportNmeaTrack::dynamicCast(CommandBasePtr ptr)
@@ -22864,7 +22948,7 @@ namespace Sdx
 
     ClearVehiculeTrajectoryPtr ClearVehiculeTrajectory::create()
     {
-      return ClearVehiculeTrajectoryPtr(new ClearVehiculeTrajectory());
+      return std::make_shared<ClearVehiculeTrajectory>();
     }
 
     ClearVehiculeTrajectoryPtr ClearVehiculeTrajectory::dynamicCast(CommandBasePtr ptr)
@@ -22921,7 +23005,7 @@ namespace Sdx
 
     SetDefaultVehicleAntennaModelPtr SetDefaultVehicleAntennaModel::create(const std::string& name)
     {
-      return SetDefaultVehicleAntennaModelPtr(new SetDefaultVehicleAntennaModel(name));
+      return std::make_shared<SetDefaultVehicleAntennaModel>(name);
     }
 
     SetDefaultVehicleAntennaModelPtr SetDefaultVehicleAntennaModel::dynamicCast(CommandBasePtr ptr)
@@ -22986,7 +23070,7 @@ namespace Sdx
 
     GetDefaultVehicleAntennaModelPtr GetDefaultVehicleAntennaModel::create()
     {
-      return GetDefaultVehicleAntennaModelPtr(new GetDefaultVehicleAntennaModel());
+      return std::make_shared<GetDefaultVehicleAntennaModel>();
     }
 
     GetDefaultVehicleAntennaModelPtr GetDefaultVehicleAntennaModel::dynamicCast(CommandBasePtr ptr)
@@ -23043,7 +23127,7 @@ namespace Sdx
 
     GetDefaultVehicleAntennaModelResultPtr GetDefaultVehicleAntennaModelResult::create(CommandBasePtr relatedCommand, const std::string& name)
     {
-      return GetDefaultVehicleAntennaModelResultPtr(new GetDefaultVehicleAntennaModelResult(relatedCommand, name));
+      return std::make_shared<GetDefaultVehicleAntennaModelResult>(relatedCommand, name);
     }
 
     GetDefaultVehicleAntennaModelResultPtr GetDefaultVehicleAntennaModelResult::dynamicCast(CommandBasePtr ptr)
@@ -23102,7 +23186,7 @@ namespace Sdx
 
     GetAllVehicleAntennaNamesPtr GetAllVehicleAntennaNames::create()
     {
-      return GetAllVehicleAntennaNamesPtr(new GetAllVehicleAntennaNames());
+      return std::make_shared<GetAllVehicleAntennaNames>();
     }
 
     GetAllVehicleAntennaNamesPtr GetAllVehicleAntennaNames::dynamicCast(CommandBasePtr ptr)
@@ -23159,7 +23243,7 @@ namespace Sdx
 
     GetAllVehicleAntennaNamesResultPtr GetAllVehicleAntennaNamesResult::create(CommandBasePtr relatedCommand, const std::vector<std::string>& antennaNames)
     {
-      return GetAllVehicleAntennaNamesResultPtr(new GetAllVehicleAntennaNamesResult(relatedCommand, antennaNames));
+      return std::make_shared<GetAllVehicleAntennaNamesResult>(relatedCommand, antennaNames);
     }
 
     GetAllVehicleAntennaNamesResultPtr GetAllVehicleAntennaNamesResult::dynamicCast(CommandBasePtr ptr)
@@ -23226,7 +23310,7 @@ namespace Sdx
 
     SetVehicleAntennaGainPtr SetVehicleAntennaGain::create(const std::vector<std::vector<double>>& gain, const Sdx::AntennaPatternType& type, const Sdx::GNSSBand& band, const Sdx::optional<std::string>& name)
     {
-      return SetVehicleAntennaGainPtr(new SetVehicleAntennaGain(gain, type, band, name));
+      return std::make_shared<SetVehicleAntennaGain>(gain, type, band, name);
     }
 
     SetVehicleAntennaGainPtr SetVehicleAntennaGain::dynamicCast(CommandBasePtr ptr)
@@ -23336,7 +23420,7 @@ namespace Sdx
 
     GetVehicleAntennaGainPtr GetVehicleAntennaGain::create(const Sdx::GNSSBand& band, const Sdx::optional<std::string>& name)
     {
-      return GetVehicleAntennaGainPtr(new GetVehicleAntennaGain(band, name));
+      return std::make_shared<GetVehicleAntennaGain>(band, name);
     }
 
     GetVehicleAntennaGainPtr GetVehicleAntennaGain::dynamicCast(CommandBasePtr ptr)
@@ -23422,7 +23506,7 @@ namespace Sdx
 
     GetVehicleAntennaGainResultPtr GetVehicleAntennaGainResult::create(CommandBasePtr relatedCommand, const std::vector<std::vector<double>>& gain, const Sdx::AntennaPatternType& type, const Sdx::GNSSBand& band, const Sdx::optional<std::string>& name)
     {
-      return GetVehicleAntennaGainResultPtr(new GetVehicleAntennaGainResult(relatedCommand, gain, type, band, name));
+      return std::make_shared<GetVehicleAntennaGainResult>(relatedCommand, gain, type, band, name);
     }
 
     GetVehicleAntennaGainResultPtr GetVehicleAntennaGainResult::dynamicCast(CommandBasePtr ptr)
@@ -23528,7 +23612,7 @@ namespace Sdx
 
     SetVehicleAntennaPhaseOffsetPtr SetVehicleAntennaPhaseOffset::create(const std::vector<std::vector<double>>& phaseOffset, const Sdx::AntennaPatternType& type, const Sdx::GNSSBand& band, const Sdx::optional<std::string>& name)
     {
-      return SetVehicleAntennaPhaseOffsetPtr(new SetVehicleAntennaPhaseOffset(phaseOffset, type, band, name));
+      return std::make_shared<SetVehicleAntennaPhaseOffset>(phaseOffset, type, band, name);
     }
 
     SetVehicleAntennaPhaseOffsetPtr SetVehicleAntennaPhaseOffset::dynamicCast(CommandBasePtr ptr)
@@ -23638,7 +23722,7 @@ namespace Sdx
 
     GetVehicleAntennaPhaseOffsetPtr GetVehicleAntennaPhaseOffset::create(const Sdx::GNSSBand& band, const Sdx::optional<std::string>& name)
     {
-      return GetVehicleAntennaPhaseOffsetPtr(new GetVehicleAntennaPhaseOffset(band, name));
+      return std::make_shared<GetVehicleAntennaPhaseOffset>(band, name);
     }
 
     GetVehicleAntennaPhaseOffsetPtr GetVehicleAntennaPhaseOffset::dynamicCast(CommandBasePtr ptr)
@@ -23724,7 +23808,7 @@ namespace Sdx
 
     GetVehicleAntennaPhaseOffsetResultPtr GetVehicleAntennaPhaseOffsetResult::create(CommandBasePtr relatedCommand, const std::vector<std::vector<double>>& phaseOffset, const Sdx::AntennaPatternType& type, const Sdx::GNSSBand& band, const Sdx::optional<std::string>& name)
     {
-      return GetVehicleAntennaPhaseOffsetResultPtr(new GetVehicleAntennaPhaseOffsetResult(relatedCommand, phaseOffset, type, band, name));
+      return std::make_shared<GetVehicleAntennaPhaseOffsetResult>(relatedCommand, phaseOffset, type, band, name);
     }
 
     GetVehicleAntennaPhaseOffsetResultPtr GetVehicleAntennaPhaseOffsetResult::dynamicCast(CommandBasePtr ptr)
@@ -23830,7 +23914,7 @@ namespace Sdx
 
     SetVehicleAntennaGainCSVPtr SetVehicleAntennaGainCSV::create(const std::string& filePath, const Sdx::AntennaPatternType& type, const Sdx::GNSSBand& band, const Sdx::optional<std::string>& name)
     {
-      return SetVehicleAntennaGainCSVPtr(new SetVehicleAntennaGainCSV(filePath, type, band, name));
+      return std::make_shared<SetVehicleAntennaGainCSV>(filePath, type, band, name);
     }
 
     SetVehicleAntennaGainCSVPtr SetVehicleAntennaGainCSV::dynamicCast(CommandBasePtr ptr)
@@ -23943,7 +24027,7 @@ namespace Sdx
 
     SetVehicleAntennaPhaseOffsetCSVPtr SetVehicleAntennaPhaseOffsetCSV::create(const std::string& filePath, const Sdx::AntennaPatternFileType& fileFormat, const Sdx::AntennaPatternType& type, const Sdx::GNSSBand& band, const Sdx::optional<std::string>& name)
     {
-      return SetVehicleAntennaPhaseOffsetCSVPtr(new SetVehicleAntennaPhaseOffsetCSV(filePath, fileFormat, type, band, name));
+      return std::make_shared<SetVehicleAntennaPhaseOffsetCSV>(filePath, fileFormat, type, band, name);
     }
 
     SetVehicleAntennaPhaseOffsetCSVPtr SetVehicleAntennaPhaseOffsetCSV::dynamicCast(CommandBasePtr ptr)
@@ -24067,7 +24151,7 @@ namespace Sdx
 
     AddVehicleGainPatternOffsetPtr AddVehicleGainPatternOffset::create(const Sdx::GNSSBand& band, double offset, const Sdx::optional<std::string>& antennaName)
     {
-      return AddVehicleGainPatternOffsetPtr(new AddVehicleGainPatternOffset(band, offset, antennaName));
+      return std::make_shared<AddVehicleGainPatternOffset>(band, offset, antennaName);
     }
 
     AddVehicleGainPatternOffsetPtr AddVehicleGainPatternOffset::dynamicCast(CommandBasePtr ptr)
@@ -24164,7 +24248,7 @@ namespace Sdx
 
     GetVehicleGainPatternOffsetPtr GetVehicleGainPatternOffset::create(const Sdx::GNSSBand& band, const Sdx::optional<std::string>& antennaName)
     {
-      return GetVehicleGainPatternOffsetPtr(new GetVehicleGainPatternOffset(band, antennaName));
+      return std::make_shared<GetVehicleGainPatternOffset>(band, antennaName);
     }
 
     GetVehicleGainPatternOffsetPtr GetVehicleGainPatternOffset::dynamicCast(CommandBasePtr ptr)
@@ -24249,7 +24333,7 @@ namespace Sdx
 
     GetVehicleGainPatternOffsetResultPtr GetVehicleGainPatternOffsetResult::create(CommandBasePtr relatedCommand, const Sdx::GNSSBand& band, double offset, const Sdx::optional<std::string>& antennaName)
     {
-      return GetVehicleGainPatternOffsetResultPtr(new GetVehicleGainPatternOffsetResult(relatedCommand, band, offset, antennaName));
+      return std::make_shared<GetVehicleGainPatternOffsetResult>(relatedCommand, band, offset, antennaName);
     }
 
     GetVehicleGainPatternOffsetResultPtr GetVehicleGainPatternOffsetResult::dynamicCast(CommandBasePtr ptr)
@@ -24341,7 +24425,7 @@ namespace Sdx
 
     AddVehiclePhasePatternOffsetPtr AddVehiclePhasePatternOffset::create(const Sdx::GNSSBand& band, double offset, const Sdx::optional<std::string>& antennaName)
     {
-      return AddVehiclePhasePatternOffsetPtr(new AddVehiclePhasePatternOffset(band, offset, antennaName));
+      return std::make_shared<AddVehiclePhasePatternOffset>(band, offset, antennaName);
     }
 
     AddVehiclePhasePatternOffsetPtr AddVehiclePhasePatternOffset::dynamicCast(CommandBasePtr ptr)
@@ -24438,7 +24522,7 @@ namespace Sdx
 
     GetVehiclePhasePatternOffsetPtr GetVehiclePhasePatternOffset::create(const Sdx::GNSSBand& band, const Sdx::optional<std::string>& antennaName)
     {
-      return GetVehiclePhasePatternOffsetPtr(new GetVehiclePhasePatternOffset(band, antennaName));
+      return std::make_shared<GetVehiclePhasePatternOffset>(band, antennaName);
     }
 
     GetVehiclePhasePatternOffsetPtr GetVehiclePhasePatternOffset::dynamicCast(CommandBasePtr ptr)
@@ -24523,7 +24607,7 @@ namespace Sdx
 
     GetVehiclePhasePatternOffsetResultPtr GetVehiclePhasePatternOffsetResult::create(CommandBasePtr relatedCommand, const Sdx::GNSSBand& band, double offset, const Sdx::optional<std::string>& antennaName)
     {
-      return GetVehiclePhasePatternOffsetResultPtr(new GetVehiclePhasePatternOffsetResult(relatedCommand, band, offset, antennaName));
+      return std::make_shared<GetVehiclePhasePatternOffsetResult>(relatedCommand, band, offset, antennaName);
     }
 
     GetVehiclePhasePatternOffsetResultPtr GetVehiclePhasePatternOffsetResult::dynamicCast(CommandBasePtr ptr)
@@ -24619,7 +24703,7 @@ namespace Sdx
 
     SetVehicleAntennaOffsetPtr SetVehicleAntennaOffset::create(double x, double y, double z, double yaw, double pitch, double roll, const Sdx::optional<std::string>& name)
     {
-      return SetVehicleAntennaOffsetPtr(new SetVehicleAntennaOffset(x, y, z, yaw, pitch, roll, name));
+      return std::make_shared<SetVehicleAntennaOffset>(x, y, z, yaw, pitch, roll, name);
     }
 
     SetVehicleAntennaOffsetPtr SetVehicleAntennaOffset::dynamicCast(CommandBasePtr ptr)
@@ -24763,7 +24847,7 @@ namespace Sdx
 
     GetVehicleAntennaOffsetPtr GetVehicleAntennaOffset::create(const Sdx::optional<std::string>& name)
     {
-      return GetVehicleAntennaOffsetPtr(new GetVehicleAntennaOffset(name));
+      return std::make_shared<GetVehicleAntennaOffset>(name);
     }
 
     GetVehicleAntennaOffsetPtr GetVehicleAntennaOffset::dynamicCast(CommandBasePtr ptr)
@@ -24839,7 +24923,7 @@ namespace Sdx
 
     GetVehicleAntennaOffsetResultPtr GetVehicleAntennaOffsetResult::create(CommandBasePtr relatedCommand, double x, double y, double z, double yaw, double pitch, double roll, const Sdx::optional<std::string>& name)
     {
-      return GetVehicleAntennaOffsetResultPtr(new GetVehicleAntennaOffsetResult(relatedCommand, x, y, z, yaw, pitch, roll, name));
+      return std::make_shared<GetVehicleAntennaOffsetResult>(relatedCommand, x, y, z, yaw, pitch, roll, name);
     }
 
     GetVehicleAntennaOffsetResultPtr GetVehicleAntennaOffsetResult::dynamicCast(CommandBasePtr ptr)
@@ -24981,7 +25065,7 @@ namespace Sdx
 
     AddEmptyVehicleAntennaModelPtr AddEmptyVehicleAntennaModel::create(const std::string& name)
     {
-      return AddEmptyVehicleAntennaModelPtr(new AddEmptyVehicleAntennaModel(name));
+      return std::make_shared<AddEmptyVehicleAntennaModel>(name);
     }
 
     AddEmptyVehicleAntennaModelPtr AddEmptyVehicleAntennaModel::dynamicCast(CommandBasePtr ptr)
@@ -25051,7 +25135,7 @@ namespace Sdx
 
     DeleteVehicleAntennaModelPtr DeleteVehicleAntennaModel::create(const std::string& name)
     {
-      return DeleteVehicleAntennaModelPtr(new DeleteVehicleAntennaModel(name));
+      return std::make_shared<DeleteVehicleAntennaModel>(name);
     }
 
     DeleteVehicleAntennaModelPtr DeleteVehicleAntennaModel::dynamicCast(CommandBasePtr ptr)
@@ -25122,7 +25206,7 @@ namespace Sdx
 
     RenameVehicleAntennaModelPtr RenameVehicleAntennaModel::create(const std::string& name, const std::string& newName)
     {
-      return RenameVehicleAntennaModelPtr(new RenameVehicleAntennaModel(name, newName));
+      return std::make_shared<RenameVehicleAntennaModel>(name, newName);
     }
 
     RenameVehicleAntennaModelPtr RenameVehicleAntennaModel::dynamicCast(CommandBasePtr ptr)
@@ -25206,7 +25290,7 @@ namespace Sdx
 
     CopyVehicleAntennaModelPtr CopyVehicleAntennaModel::create(const std::string& name, const std::string& copyName)
     {
-      return CopyVehicleAntennaModelPtr(new CopyVehicleAntennaModel(name, copyName));
+      return std::make_shared<CopyVehicleAntennaModel>(name, copyName);
     }
 
     CopyVehicleAntennaModelPtr CopyVehicleAntennaModel::dynamicCast(CommandBasePtr ptr)
@@ -25289,7 +25373,7 @@ namespace Sdx
 
     GetVehicleAntennaModelPtr GetVehicleAntennaModel::create(const std::string& name)
     {
-      return GetVehicleAntennaModelPtr(new GetVehicleAntennaModel(name));
+      return std::make_shared<GetVehicleAntennaModel>(name);
     }
 
     GetVehicleAntennaModelPtr GetVehicleAntennaModel::dynamicCast(CommandBasePtr ptr)
@@ -25389,7 +25473,7 @@ namespace Sdx
 
     GetVehicleAntennaModelResultPtr GetVehicleAntennaModelResult::create(CommandBasePtr relatedCommand, const std::vector<std::vector<double>>& gainL1, const Sdx::AntennaPatternType& gainTypeL1, double gainOffsetL1, const std::vector<std::vector<double>>& gainL2, const Sdx::AntennaPatternType& gainTypeL2, double gainOffsetL2, const std::vector<std::vector<double>>& gainL5, const Sdx::AntennaPatternType& gainTypeL5, double gainOffsetL5, const std::vector<std::vector<double>>& gainE6, const Sdx::AntennaPatternType& gainTypeE6, double gainOffsetE6, const std::vector<std::vector<double>>& phaseOffsetL1, const Sdx::AntennaPatternType& phaseOffsetTypeL1, double phasePatternOffsetL1, const std::vector<std::vector<double>>& phaseOffsetL2, const Sdx::AntennaPatternType& phaseOffsetTypeL2, double phasePatternOffsetL2, const std::vector<std::vector<double>>& phaseOffsetL5, const Sdx::AntennaPatternType& phaseOffsetTypeL5, double phasePatternOffsetL5, const std::vector<std::vector<double>>& phaseOffsetE6, const Sdx::AntennaPatternType& phaseOffsetTypeE6, double phasePatternOffsetE6, double x, double y, double z, double yaw, double pitch, double roll, const std::string& name)
     {
-      return GetVehicleAntennaModelResultPtr(new GetVehicleAntennaModelResult(relatedCommand, gainL1, gainTypeL1, gainOffsetL1, gainL2, gainTypeL2, gainOffsetL2, gainL5, gainTypeL5, gainOffsetL5, gainE6, gainTypeE6, gainOffsetE6, phaseOffsetL1, phaseOffsetTypeL1, phasePatternOffsetL1, phaseOffsetL2, phaseOffsetTypeL2, phasePatternOffsetL2, phaseOffsetL5, phaseOffsetTypeL5, phasePatternOffsetL5, phaseOffsetE6, phaseOffsetTypeE6, phasePatternOffsetE6, x, y, z, yaw, pitch, roll, name));
+      return std::make_shared<GetVehicleAntennaModelResult>(relatedCommand, gainL1, gainTypeL1, gainOffsetL1, gainL2, gainTypeL2, gainOffsetL2, gainL5, gainTypeL5, gainOffsetL5, gainE6, gainTypeE6, gainOffsetE6, phaseOffsetL1, phaseOffsetTypeL1, phasePatternOffsetL1, phaseOffsetL2, phaseOffsetTypeL2, phasePatternOffsetL2, phaseOffsetL5, phaseOffsetTypeL5, phasePatternOffsetL5, phaseOffsetE6, phaseOffsetTypeE6, phasePatternOffsetE6, x, y, z, yaw, pitch, roll, name);
     }
 
     GetVehicleAntennaModelResultPtr GetVehicleAntennaModelResult::dynamicCast(CommandBasePtr ptr)
@@ -25843,7 +25927,7 @@ namespace Sdx
 
     ImportVehicleAntennaModelPtr ImportVehicleAntennaModel::create(const std::string& filePath)
     {
-      return ImportVehicleAntennaModelPtr(new ImportVehicleAntennaModel(filePath));
+      return std::make_shared<ImportVehicleAntennaModel>(filePath);
     }
 
     ImportVehicleAntennaModelPtr ImportVehicleAntennaModel::dynamicCast(CommandBasePtr ptr)
@@ -25915,7 +25999,7 @@ namespace Sdx
 
     ExportVehicleAntennaModelPtr ExportVehicleAntennaModel::create(const std::string& antennaName, const std::string& filePath, bool overwriting)
     {
-      return ExportVehicleAntennaModelPtr(new ExportVehicleAntennaModel(antennaName, filePath, overwriting));
+      return std::make_shared<ExportVehicleAntennaModel>(antennaName, filePath, overwriting);
     }
 
     ExportVehicleAntennaModelPtr ExportVehicleAntennaModel::dynamicCast(CommandBasePtr ptr)
@@ -26013,7 +26097,7 @@ namespace Sdx
 
     SetAntennaChangePtr SetAntennaChange::create(double startTime, const std::string& antenna, const std::string& id)
     {
-      return SetAntennaChangePtr(new SetAntennaChange(startTime, antenna, id));
+      return std::make_shared<SetAntennaChange>(startTime, antenna, id);
     }
 
     SetAntennaChangePtr SetAntennaChange::dynamicCast(CommandBasePtr ptr)
@@ -26109,7 +26193,7 @@ namespace Sdx
 
     GetAntennaChangePtr GetAntennaChange::create(const std::string& id)
     {
-      return GetAntennaChangePtr(new GetAntennaChange(id));
+      return std::make_shared<GetAntennaChange>(id);
     }
 
     GetAntennaChangePtr GetAntennaChange::dynamicCast(CommandBasePtr ptr)
@@ -26181,7 +26265,7 @@ namespace Sdx
 
     GetAntennaChangeResultPtr GetAntennaChangeResult::create(CommandBasePtr relatedCommand, double startTime, const std::string& antenna, const std::string& id)
     {
-      return GetAntennaChangeResultPtr(new GetAntennaChangeResult(relatedCommand, startTime, antenna, id));
+      return std::make_shared<GetAntennaChangeResult>(relatedCommand, startTime, antenna, id);
     }
 
     GetAntennaChangeResultPtr GetAntennaChangeResult::dynamicCast(CommandBasePtr ptr)
@@ -26271,7 +26355,7 @@ namespace Sdx
 
     RemoveAntennaChangePtr RemoveAntennaChange::create(const std::string& id)
     {
-      return RemoveAntennaChangePtr(new RemoveAntennaChange(id));
+      return std::make_shared<RemoveAntennaChange>(id);
     }
 
     RemoveAntennaChangePtr RemoveAntennaChange::dynamicCast(CommandBasePtr ptr)
@@ -26336,7 +26420,7 @@ namespace Sdx
 
     ClearAllAntennaChangesPtr ClearAllAntennaChanges::create()
     {
-      return ClearAllAntennaChangesPtr(new ClearAllAntennaChanges());
+      return std::make_shared<ClearAllAntennaChanges>();
     }
 
     ClearAllAntennaChangesPtr ClearAllAntennaChanges::dynamicCast(CommandBasePtr ptr)
@@ -26398,7 +26482,7 @@ namespace Sdx
 
     SetWFAntennaOffsetPtr SetWFAntennaOffset::create(double x, double y, double z, double yaw, double pitch, double roll)
     {
-      return SetWFAntennaOffsetPtr(new SetWFAntennaOffset(x, y, z, yaw, pitch, roll));
+      return std::make_shared<SetWFAntennaOffset>(x, y, z, yaw, pitch, roll);
     }
 
     SetWFAntennaOffsetPtr SetWFAntennaOffset::dynamicCast(CommandBasePtr ptr)
@@ -26528,7 +26612,7 @@ namespace Sdx
 
     GetWFAntennaOffsetPtr GetWFAntennaOffset::create()
     {
-      return GetWFAntennaOffsetPtr(new GetWFAntennaOffset());
+      return std::make_shared<GetWFAntennaOffset>();
     }
 
     GetWFAntennaOffsetPtr GetWFAntennaOffset::dynamicCast(CommandBasePtr ptr)
@@ -26590,7 +26674,7 @@ namespace Sdx
 
     GetWFAntennaOffsetResultPtr GetWFAntennaOffsetResult::create(CommandBasePtr relatedCommand, double x, double y, double z, double yaw, double pitch, double roll)
     {
-      return GetWFAntennaOffsetResultPtr(new GetWFAntennaOffsetResult(relatedCommand, x, y, z, yaw, pitch, roll));
+      return std::make_shared<GetWFAntennaOffsetResult>(relatedCommand, x, y, z, yaw, pitch, roll);
     }
 
     GetWFAntennaOffsetResultPtr GetWFAntennaOffsetResult::dynamicCast(CommandBasePtr ptr)
@@ -26725,7 +26809,7 @@ namespace Sdx
 
     SetWFAntennaElementOffsetPtr SetWFAntennaElementOffset::create(double x, double y, double z, double yaw, double pitch, double roll, int element)
     {
-      return SetWFAntennaElementOffsetPtr(new SetWFAntennaElementOffset(x, y, z, yaw, pitch, roll, element));
+      return std::make_shared<SetWFAntennaElementOffset>(x, y, z, yaw, pitch, roll, element);
     }
 
     SetWFAntennaElementOffsetPtr SetWFAntennaElementOffset::dynamicCast(CommandBasePtr ptr)
@@ -26873,7 +26957,7 @@ namespace Sdx
 
     GetWFAntennaElementOffsetPtr GetWFAntennaElementOffset::create(int element)
     {
-      return GetWFAntennaElementOffsetPtr(new GetWFAntennaElementOffset(element));
+      return std::make_shared<GetWFAntennaElementOffset>(element);
     }
 
     GetWFAntennaElementOffsetPtr GetWFAntennaElementOffset::dynamicCast(CommandBasePtr ptr)
@@ -26949,7 +27033,7 @@ namespace Sdx
 
     GetWFAntennaElementOffsetResultPtr GetWFAntennaElementOffsetResult::create(CommandBasePtr relatedCommand, double x, double y, double z, double yaw, double pitch, double roll, int element)
     {
-      return GetWFAntennaElementOffsetResultPtr(new GetWFAntennaElementOffsetResult(relatedCommand, x, y, z, yaw, pitch, roll, element));
+      return std::make_shared<GetWFAntennaElementOffsetResult>(relatedCommand, x, y, z, yaw, pitch, roll, element);
     }
 
     GetWFAntennaElementOffsetResultPtr GetWFAntennaElementOffsetResult::dynamicCast(CommandBasePtr ptr)
@@ -27092,7 +27176,7 @@ namespace Sdx
 
     SetWFAntennaElementModelPtr SetWFAntennaElementModel::create(const std::string& antennaModelName, int element)
     {
-      return SetWFAntennaElementModelPtr(new SetWFAntennaElementModel(antennaModelName, element));
+      return std::make_shared<SetWFAntennaElementModel>(antennaModelName, element);
     }
 
     SetWFAntennaElementModelPtr SetWFAntennaElementModel::dynamicCast(CommandBasePtr ptr)
@@ -27175,7 +27259,7 @@ namespace Sdx
 
     GetWFAntennaElementModelPtr GetWFAntennaElementModel::create(int element)
     {
-      return GetWFAntennaElementModelPtr(new GetWFAntennaElementModel(element));
+      return std::make_shared<GetWFAntennaElementModel>(element);
     }
 
     GetWFAntennaElementModelPtr GetWFAntennaElementModel::dynamicCast(CommandBasePtr ptr)
@@ -27246,7 +27330,7 @@ namespace Sdx
 
     GetWFAntennaElementModelResultPtr GetWFAntennaElementModelResult::create(CommandBasePtr relatedCommand, const std::string& antennaModelName, int element)
     {
-      return GetWFAntennaElementModelResultPtr(new GetWFAntennaElementModelResult(relatedCommand, antennaModelName, element));
+      return std::make_shared<GetWFAntennaElementModelResult>(relatedCommand, antennaModelName, element);
     }
 
     GetWFAntennaElementModelResultPtr GetWFAntennaElementModelResult::dynamicCast(CommandBasePtr ptr)
@@ -27324,7 +27408,7 @@ namespace Sdx
 
     SetWFAntennaElementPhasePatternOffsetPtr SetWFAntennaElementPhasePatternOffset::create(double phaseOffset, int element)
     {
-      return SetWFAntennaElementPhasePatternOffsetPtr(new SetWFAntennaElementPhasePatternOffset(phaseOffset, element));
+      return std::make_shared<SetWFAntennaElementPhasePatternOffset>(phaseOffset, element);
     }
 
     SetWFAntennaElementPhasePatternOffsetPtr SetWFAntennaElementPhasePatternOffset::dynamicCast(CommandBasePtr ptr)
@@ -27407,7 +27491,7 @@ namespace Sdx
 
     GetWFAntennaElementPhasePatternOffsetPtr GetWFAntennaElementPhasePatternOffset::create(int element)
     {
-      return GetWFAntennaElementPhasePatternOffsetPtr(new GetWFAntennaElementPhasePatternOffset(element));
+      return std::make_shared<GetWFAntennaElementPhasePatternOffset>(element);
     }
 
     GetWFAntennaElementPhasePatternOffsetPtr GetWFAntennaElementPhasePatternOffset::dynamicCast(CommandBasePtr ptr)
@@ -27478,7 +27562,7 @@ namespace Sdx
 
     GetWFAntennaElementPhasePatternOffsetResultPtr GetWFAntennaElementPhasePatternOffsetResult::create(CommandBasePtr relatedCommand, double phaseOffset, int element)
     {
-      return GetWFAntennaElementPhasePatternOffsetResultPtr(new GetWFAntennaElementPhasePatternOffsetResult(relatedCommand, phaseOffset, element));
+      return std::make_shared<GetWFAntennaElementPhasePatternOffsetResult>(relatedCommand, phaseOffset, element);
     }
 
     GetWFAntennaElementPhasePatternOffsetResultPtr GetWFAntennaElementPhasePatternOffsetResult::dynamicCast(CommandBasePtr ptr)
@@ -27556,7 +27640,7 @@ namespace Sdx
 
     SetWFAntennaElementEnabledPtr SetWFAntennaElementEnabled::create(int element, bool enabled)
     {
-      return SetWFAntennaElementEnabledPtr(new SetWFAntennaElementEnabled(element, enabled));
+      return std::make_shared<SetWFAntennaElementEnabled>(element, enabled);
     }
 
     SetWFAntennaElementEnabledPtr SetWFAntennaElementEnabled::dynamicCast(CommandBasePtr ptr)
@@ -27639,7 +27723,7 @@ namespace Sdx
 
     IsWFAntennaElementEnabledPtr IsWFAntennaElementEnabled::create(int element)
     {
-      return IsWFAntennaElementEnabledPtr(new IsWFAntennaElementEnabled(element));
+      return std::make_shared<IsWFAntennaElementEnabled>(element);
     }
 
     IsWFAntennaElementEnabledPtr IsWFAntennaElementEnabled::dynamicCast(CommandBasePtr ptr)
@@ -27710,7 +27794,7 @@ namespace Sdx
 
     IsWFAntennaElementEnabledResultPtr IsWFAntennaElementEnabledResult::create(CommandBasePtr relatedCommand, int element, bool enabled)
     {
-      return IsWFAntennaElementEnabledResultPtr(new IsWFAntennaElementEnabledResult(relatedCommand, element, enabled));
+      return std::make_shared<IsWFAntennaElementEnabledResult>(relatedCommand, element, enabled);
     }
 
     IsWFAntennaElementEnabledResultPtr IsWFAntennaElementEnabledResult::dynamicCast(CommandBasePtr ptr)
@@ -27787,7 +27871,7 @@ namespace Sdx
 
     GetAllSVAntennaNamesPtr GetAllSVAntennaNames::create(const std::string& system)
     {
-      return GetAllSVAntennaNamesPtr(new GetAllSVAntennaNames(system));
+      return std::make_shared<GetAllSVAntennaNames>(system);
     }
 
     GetAllSVAntennaNamesPtr GetAllSVAntennaNames::dynamicCast(CommandBasePtr ptr)
@@ -27858,7 +27942,7 @@ namespace Sdx
 
     GetAllSVAntennaNamesResultPtr GetAllSVAntennaNamesResult::create(CommandBasePtr relatedCommand, const std::string& system, const std::vector<std::string>& antennaNames)
     {
-      return GetAllSVAntennaNamesResultPtr(new GetAllSVAntennaNamesResult(relatedCommand, system, antennaNames));
+      return std::make_shared<GetAllSVAntennaNamesResult>(relatedCommand, system, antennaNames);
     }
 
     GetAllSVAntennaNamesResultPtr GetAllSVAntennaNamesResult::dynamicCast(CommandBasePtr ptr)
@@ -27938,7 +28022,7 @@ namespace Sdx
 
     AddSVGainPatternOffsetPtr AddSVGainPatternOffset::create(const Sdx::GNSSBand& band, const std::string& system, double offset, const Sdx::optional<std::string>& antennaName)
     {
-      return AddSVGainPatternOffsetPtr(new AddSVGainPatternOffset(band, system, offset, antennaName));
+      return std::make_shared<AddSVGainPatternOffset>(band, system, offset, antennaName);
     }
 
     AddSVGainPatternOffsetPtr AddSVGainPatternOffset::dynamicCast(CommandBasePtr ptr)
@@ -28049,7 +28133,7 @@ namespace Sdx
 
     GetSVGainPatternOffsetPtr GetSVGainPatternOffset::create(const Sdx::GNSSBand& band, const std::string& system, const Sdx::optional<std::string>& antennaName)
     {
-      return GetSVGainPatternOffsetPtr(new GetSVGainPatternOffset(band, system, antennaName));
+      return std::make_shared<GetSVGainPatternOffset>(band, system, antennaName);
     }
 
     GetSVGainPatternOffsetPtr GetSVGainPatternOffset::dynamicCast(CommandBasePtr ptr)
@@ -28148,7 +28232,7 @@ namespace Sdx
 
     GetSVGainPatternOffsetResultPtr GetSVGainPatternOffsetResult::create(CommandBasePtr relatedCommand, const Sdx::GNSSBand& band, const std::string& system, double offset, const Sdx::optional<std::string>& antennaName)
     {
-      return GetSVGainPatternOffsetResultPtr(new GetSVGainPatternOffsetResult(relatedCommand, band, system, offset, antennaName));
+      return std::make_shared<GetSVGainPatternOffsetResult>(relatedCommand, band, system, offset, antennaName);
     }
 
     GetSVGainPatternOffsetResultPtr GetSVGainPatternOffsetResult::dynamicCast(CommandBasePtr ptr)
@@ -28254,7 +28338,7 @@ namespace Sdx
 
     AddSVPhasePatternOffsetPtr AddSVPhasePatternOffset::create(const Sdx::GNSSBand& band, const std::string& system, double offset, const Sdx::optional<std::string>& antennaName)
     {
-      return AddSVPhasePatternOffsetPtr(new AddSVPhasePatternOffset(band, system, offset, antennaName));
+      return std::make_shared<AddSVPhasePatternOffset>(band, system, offset, antennaName);
     }
 
     AddSVPhasePatternOffsetPtr AddSVPhasePatternOffset::dynamicCast(CommandBasePtr ptr)
@@ -28365,7 +28449,7 @@ namespace Sdx
 
     GetSVPhasePatternOffsetPtr GetSVPhasePatternOffset::create(const Sdx::GNSSBand& band, const std::string& system, const Sdx::optional<std::string>& antennaName)
     {
-      return GetSVPhasePatternOffsetPtr(new GetSVPhasePatternOffset(band, system, antennaName));
+      return std::make_shared<GetSVPhasePatternOffset>(band, system, antennaName);
     }
 
     GetSVPhasePatternOffsetPtr GetSVPhasePatternOffset::dynamicCast(CommandBasePtr ptr)
@@ -28464,7 +28548,7 @@ namespace Sdx
 
     GetSVPhasePatternOffsetResultPtr GetSVPhasePatternOffsetResult::create(CommandBasePtr relatedCommand, const Sdx::GNSSBand& band, const std::string& system, double offset, const Sdx::optional<std::string>& antennaName)
     {
-      return GetSVPhasePatternOffsetResultPtr(new GetSVPhasePatternOffsetResult(relatedCommand, band, system, offset, antennaName));
+      return std::make_shared<GetSVPhasePatternOffsetResult>(relatedCommand, band, system, offset, antennaName);
     }
 
     GetSVPhasePatternOffsetResultPtr GetSVPhasePatternOffsetResult::dynamicCast(CommandBasePtr ptr)
@@ -28571,7 +28655,7 @@ namespace Sdx
 
     SetSVAntennaGainPtr SetSVAntennaGain::create(const std::vector<std::vector<double>>& gain, const Sdx::AntennaPatternType& type, const Sdx::GNSSBand& band, const std::string& system, const Sdx::optional<std::string>& name)
     {
-      return SetSVAntennaGainPtr(new SetSVAntennaGain(gain, type, band, system, name));
+      return std::make_shared<SetSVAntennaGain>(gain, type, band, system, name);
     }
 
     SetSVAntennaGainPtr SetSVAntennaGain::dynamicCast(CommandBasePtr ptr)
@@ -28695,7 +28779,7 @@ namespace Sdx
 
     GetSVAntennaGainPtr GetSVAntennaGain::create(const Sdx::GNSSBand& band, const std::string& system, const Sdx::optional<std::string>& name)
     {
-      return GetSVAntennaGainPtr(new GetSVAntennaGain(band, system, name));
+      return std::make_shared<GetSVAntennaGain>(band, system, name);
     }
 
     GetSVAntennaGainPtr GetSVAntennaGain::dynamicCast(CommandBasePtr ptr)
@@ -28795,7 +28879,7 @@ namespace Sdx
 
     GetSVAntennaGainResultPtr GetSVAntennaGainResult::create(CommandBasePtr relatedCommand, const std::vector<std::vector<double>>& gain, const Sdx::AntennaPatternType& type, const Sdx::GNSSBand& band, const std::string& system, const Sdx::optional<std::string>& name)
     {
-      return GetSVAntennaGainResultPtr(new GetSVAntennaGainResult(relatedCommand, gain, type, band, system, name));
+      return std::make_shared<GetSVAntennaGainResult>(relatedCommand, gain, type, band, system, name);
     }
 
     GetSVAntennaGainResultPtr GetSVAntennaGainResult::dynamicCast(CommandBasePtr ptr)
@@ -28915,7 +28999,7 @@ namespace Sdx
 
     SetSVAntennaPhaseOffsetPtr SetSVAntennaPhaseOffset::create(const std::vector<std::vector<double>>& phaseOffset, const Sdx::AntennaPatternType& type, const Sdx::GNSSBand& band, const std::string& system, const Sdx::optional<std::string>& name)
     {
-      return SetSVAntennaPhaseOffsetPtr(new SetSVAntennaPhaseOffset(phaseOffset, type, band, system, name));
+      return std::make_shared<SetSVAntennaPhaseOffset>(phaseOffset, type, band, system, name);
     }
 
     SetSVAntennaPhaseOffsetPtr SetSVAntennaPhaseOffset::dynamicCast(CommandBasePtr ptr)
@@ -29039,7 +29123,7 @@ namespace Sdx
 
     GetSVAntennaPhaseOffsetPtr GetSVAntennaPhaseOffset::create(const Sdx::GNSSBand& band, const std::string& system, const Sdx::optional<std::string>& name)
     {
-      return GetSVAntennaPhaseOffsetPtr(new GetSVAntennaPhaseOffset(band, system, name));
+      return std::make_shared<GetSVAntennaPhaseOffset>(band, system, name);
     }
 
     GetSVAntennaPhaseOffsetPtr GetSVAntennaPhaseOffset::dynamicCast(CommandBasePtr ptr)
@@ -29139,7 +29223,7 @@ namespace Sdx
 
     GetSVAntennaPhaseOffsetResultPtr GetSVAntennaPhaseOffsetResult::create(CommandBasePtr relatedCommand, const std::vector<std::vector<double>>& phaseOffset, const Sdx::AntennaPatternType& type, const Sdx::GNSSBand& band, const std::string& system, const Sdx::optional<std::string>& name)
     {
-      return GetSVAntennaPhaseOffsetResultPtr(new GetSVAntennaPhaseOffsetResult(relatedCommand, phaseOffset, type, band, system, name));
+      return std::make_shared<GetSVAntennaPhaseOffsetResult>(relatedCommand, phaseOffset, type, band, system, name);
     }
 
     GetSVAntennaPhaseOffsetResultPtr GetSVAntennaPhaseOffsetResult::dynamicCast(CommandBasePtr ptr)
@@ -29259,7 +29343,7 @@ namespace Sdx
 
     SetSVAntennaGainCSVPtr SetSVAntennaGainCSV::create(const std::string& filePath, const Sdx::AntennaPatternType& type, const Sdx::GNSSBand& band, const std::string& system, const Sdx::optional<std::string>& name)
     {
-      return SetSVAntennaGainCSVPtr(new SetSVAntennaGainCSV(filePath, type, band, system, name));
+      return std::make_shared<SetSVAntennaGainCSV>(filePath, type, band, system, name);
     }
 
     SetSVAntennaGainCSVPtr SetSVAntennaGainCSV::dynamicCast(CommandBasePtr ptr)
@@ -29386,7 +29470,7 @@ namespace Sdx
 
     SetSVAntennaPhaseOffsetCSVPtr SetSVAntennaPhaseOffsetCSV::create(const std::string& filePath, const Sdx::AntennaPatternFileType& fileFormat, const Sdx::AntennaPatternType& type, const Sdx::GNSSBand& band, const std::string& system, const Sdx::optional<std::string>& name)
     {
-      return SetSVAntennaPhaseOffsetCSVPtr(new SetSVAntennaPhaseOffsetCSV(filePath, fileFormat, type, band, system, name));
+      return std::make_shared<SetSVAntennaPhaseOffsetCSV>(filePath, fileFormat, type, band, system, name);
     }
 
     SetSVAntennaPhaseOffsetCSVPtr SetSVAntennaPhaseOffsetCSV::dynamicCast(CommandBasePtr ptr)
@@ -29522,7 +29606,7 @@ namespace Sdx
 
     AddEmptySVAntennaModelPtr AddEmptySVAntennaModel::create(const std::string& name, const std::string& system)
     {
-      return AddEmptySVAntennaModelPtr(new AddEmptySVAntennaModel(name, system));
+      return std::make_shared<AddEmptySVAntennaModel>(name, system);
     }
 
     AddEmptySVAntennaModelPtr AddEmptySVAntennaModel::dynamicCast(CommandBasePtr ptr)
@@ -29606,7 +29690,7 @@ namespace Sdx
 
     DeleteSVAntennaModelPtr DeleteSVAntennaModel::create(const std::string& name, const std::string& system)
     {
-      return DeleteSVAntennaModelPtr(new DeleteSVAntennaModel(name, system));
+      return std::make_shared<DeleteSVAntennaModel>(name, system);
     }
 
     DeleteSVAntennaModelPtr DeleteSVAntennaModel::dynamicCast(CommandBasePtr ptr)
@@ -29691,7 +29775,7 @@ namespace Sdx
 
     RenameSVAntennaModelPtr RenameSVAntennaModel::create(const std::string& name, const std::string& newName, const std::string& system)
     {
-      return RenameSVAntennaModelPtr(new RenameSVAntennaModel(name, newName, system));
+      return std::make_shared<RenameSVAntennaModel>(name, newName, system);
     }
 
     RenameSVAntennaModelPtr RenameSVAntennaModel::dynamicCast(CommandBasePtr ptr)
@@ -29789,7 +29873,7 @@ namespace Sdx
 
     CopySVAntennaModelPtr CopySVAntennaModel::create(const std::string& name, const std::string& copyName, const std::string& system)
     {
-      return CopySVAntennaModelPtr(new CopySVAntennaModel(name, copyName, system));
+      return std::make_shared<CopySVAntennaModel>(name, copyName, system);
     }
 
     CopySVAntennaModelPtr CopySVAntennaModel::dynamicCast(CommandBasePtr ptr)
@@ -29886,7 +29970,7 @@ namespace Sdx
 
     ImportSVAntennaModelPtr ImportSVAntennaModel::create(const std::string& filePath, const std::string& system)
     {
-      return ImportSVAntennaModelPtr(new ImportSVAntennaModel(filePath, system));
+      return std::make_shared<ImportSVAntennaModel>(filePath, system);
     }
 
     ImportSVAntennaModelPtr ImportSVAntennaModel::dynamicCast(CommandBasePtr ptr)
@@ -29972,7 +30056,7 @@ namespace Sdx
 
     ExportSVAntennaModelPtr ExportSVAntennaModel::create(const std::string& antennaName, const std::string& system, const std::string& filePath, bool overwriting)
     {
-      return ExportSVAntennaModelPtr(new ExportSVAntennaModel(antennaName, system, filePath, overwriting));
+      return std::make_shared<ExportSVAntennaModel>(antennaName, system, filePath, overwriting);
     }
 
     ExportSVAntennaModelPtr ExportSVAntennaModel::dynamicCast(CommandBasePtr ptr)
@@ -30083,7 +30167,7 @@ namespace Sdx
 
     SetSVAntennaModelForSVPtr SetSVAntennaModelForSV::create(const std::string& system, int svId, const std::string& antennaModelName)
     {
-      return SetSVAntennaModelForSVPtr(new SetSVAntennaModelForSV(system, svId, antennaModelName));
+      return std::make_shared<SetSVAntennaModelForSV>(system, svId, antennaModelName);
     }
 
     SetSVAntennaModelForSVPtr SetSVAntennaModelForSV::dynamicCast(CommandBasePtr ptr)
@@ -30180,7 +30264,7 @@ namespace Sdx
 
     GetSVAntennaModelForSVPtr GetSVAntennaModelForSV::create(const std::string& system, int svId)
     {
-      return GetSVAntennaModelForSVPtr(new GetSVAntennaModelForSV(system, svId));
+      return std::make_shared<GetSVAntennaModelForSV>(system, svId);
     }
 
     GetSVAntennaModelForSVPtr GetSVAntennaModelForSV::dynamicCast(CommandBasePtr ptr)
@@ -30265,7 +30349,7 @@ namespace Sdx
 
     GetSVAntennaModelForSVResultPtr GetSVAntennaModelForSVResult::create(CommandBasePtr relatedCommand, const std::string& system, int svId, const std::string& antennaModelName)
     {
-      return GetSVAntennaModelForSVResultPtr(new GetSVAntennaModelForSVResult(relatedCommand, system, svId, antennaModelName));
+      return std::make_shared<GetSVAntennaModelForSVResult>(relatedCommand, system, svId, antennaModelName);
     }
 
     GetSVAntennaModelForSVResultPtr GetSVAntennaModelForSVResult::dynamicCast(CommandBasePtr ptr)
@@ -30356,7 +30440,7 @@ namespace Sdx
 
     SetSVAntennaModelForEachSVPtr SetSVAntennaModelForEachSV::create(const std::string& system, const std::vector<std::string>& antennaModelNames)
     {
-      return SetSVAntennaModelForEachSVPtr(new SetSVAntennaModelForEachSV(system, antennaModelNames));
+      return std::make_shared<SetSVAntennaModelForEachSV>(system, antennaModelNames);
     }
 
     SetSVAntennaModelForEachSVPtr SetSVAntennaModelForEachSV::dynamicCast(CommandBasePtr ptr)
@@ -30439,7 +30523,7 @@ namespace Sdx
 
     GetSVAntennaModelForEachSVPtr GetSVAntennaModelForEachSV::create(const std::string& system)
     {
-      return GetSVAntennaModelForEachSVPtr(new GetSVAntennaModelForEachSV(system));
+      return std::make_shared<GetSVAntennaModelForEachSV>(system);
     }
 
     GetSVAntennaModelForEachSVPtr GetSVAntennaModelForEachSV::dynamicCast(CommandBasePtr ptr)
@@ -30510,7 +30594,7 @@ namespace Sdx
 
     GetSVAntennaModelForEachSVResultPtr GetSVAntennaModelForEachSVResult::create(CommandBasePtr relatedCommand, const std::string& system, const std::vector<std::string>& antennaModelNames)
     {
-      return GetSVAntennaModelForEachSVResultPtr(new GetSVAntennaModelForEachSVResult(relatedCommand, system, antennaModelNames));
+      return std::make_shared<GetSVAntennaModelForEachSVResult>(relatedCommand, system, antennaModelNames);
     }
 
     GetSVAntennaModelForEachSVResultPtr GetSVAntennaModelForEachSVResult::dynamicCast(CommandBasePtr ptr)
@@ -30589,7 +30673,7 @@ namespace Sdx
 
     SetSVTypePtr SetSVType::create(const std::string& system, int svId, const std::string& svType)
     {
-      return SetSVTypePtr(new SetSVType(system, svId, svType));
+      return std::make_shared<SetSVType>(system, svId, svType);
     }
 
     SetSVTypePtr SetSVType::dynamicCast(CommandBasePtr ptr)
@@ -30686,7 +30770,7 @@ namespace Sdx
 
     GetSVTypePtr GetSVType::create(const std::string& system, int svId)
     {
-      return GetSVTypePtr(new GetSVType(system, svId));
+      return std::make_shared<GetSVType>(system, svId);
     }
 
     GetSVTypePtr GetSVType::dynamicCast(CommandBasePtr ptr)
@@ -30771,7 +30855,7 @@ namespace Sdx
 
     GetSVTypeResultPtr GetSVTypeResult::create(CommandBasePtr relatedCommand, const std::string& system, int svId, const std::string& svType)
     {
-      return GetSVTypeResultPtr(new GetSVTypeResult(relatedCommand, system, svId, svType));
+      return std::make_shared<GetSVTypeResult>(relatedCommand, system, svId, svType);
     }
 
     GetSVTypeResultPtr GetSVTypeResult::dynamicCast(CommandBasePtr ptr)
@@ -30862,7 +30946,7 @@ namespace Sdx
 
     SetTransmittedPrnForSVPtr SetTransmittedPrnForSV::create(int svId, const std::map<std::string, int>& signalPrnDict)
     {
-      return SetTransmittedPrnForSVPtr(new SetTransmittedPrnForSV(svId, signalPrnDict));
+      return std::make_shared<SetTransmittedPrnForSV>(svId, signalPrnDict);
     }
 
     SetTransmittedPrnForSVPtr SetTransmittedPrnForSV::dynamicCast(CommandBasePtr ptr)
@@ -30946,7 +31030,7 @@ namespace Sdx
 
     GetTransmittedPrnForSVPtr GetTransmittedPrnForSV::create(int svId, const std::vector<std::string>& signalArray)
     {
-      return GetTransmittedPrnForSVPtr(new GetTransmittedPrnForSV(svId, signalArray));
+      return std::make_shared<GetTransmittedPrnForSV>(svId, signalArray);
     }
 
     GetTransmittedPrnForSVPtr GetTransmittedPrnForSV::dynamicCast(CommandBasePtr ptr)
@@ -31030,7 +31114,7 @@ namespace Sdx
 
     GetTransmittedPrnForSVResultPtr GetTransmittedPrnForSVResult::create(CommandBasePtr relatedCommand, int svId, const std::map<std::string, int>& signalPrnDict)
     {
-      return GetTransmittedPrnForSVResultPtr(new GetTransmittedPrnForSVResult(relatedCommand, svId, signalPrnDict));
+      return std::make_shared<GetTransmittedPrnForSVResult>(relatedCommand, svId, signalPrnDict);
     }
 
     GetTransmittedPrnForSVResultPtr GetTransmittedPrnForSVResult::dynamicCast(CommandBasePtr ptr)
@@ -31109,7 +31193,7 @@ namespace Sdx
 
     SetPrnOfSVIDPtr SetPrnOfSVID::create(const std::string& signal, int svId, int prn)
     {
-      return SetPrnOfSVIDPtr(new SetPrnOfSVID(signal, svId, prn));
+      return std::make_shared<SetPrnOfSVID>(signal, svId, prn);
     }
 
     SetPrnOfSVIDPtr SetPrnOfSVID::dynamicCast(CommandBasePtr ptr)
@@ -31206,7 +31290,7 @@ namespace Sdx
 
     GetPrnOfSVIDPtr GetPrnOfSVID::create(const std::string& signal, int svId)
     {
-      return GetPrnOfSVIDPtr(new GetPrnOfSVID(signal, svId));
+      return std::make_shared<GetPrnOfSVID>(signal, svId);
     }
 
     GetPrnOfSVIDPtr GetPrnOfSVID::dynamicCast(CommandBasePtr ptr)
@@ -31291,7 +31375,7 @@ namespace Sdx
 
     GetPrnOfSVIDResultPtr GetPrnOfSVIDResult::create(CommandBasePtr relatedCommand, const std::string& signal, int svId, int prn)
     {
-      return GetPrnOfSVIDResultPtr(new GetPrnOfSVIDResult(relatedCommand, signal, svId, prn));
+      return std::make_shared<GetPrnOfSVIDResult>(relatedCommand, signal, svId, prn);
     }
 
     GetPrnOfSVIDResultPtr GetPrnOfSVIDResult::dynamicCast(CommandBasePtr ptr)
@@ -31382,7 +31466,7 @@ namespace Sdx
 
     SetPrnForEachSVPtr SetPrnForEachSV::create(const std::string& signal, const std::vector<int>& prn)
     {
-      return SetPrnForEachSVPtr(new SetPrnForEachSV(signal, prn));
+      return std::make_shared<SetPrnForEachSV>(signal, prn);
     }
 
     SetPrnForEachSVPtr SetPrnForEachSV::dynamicCast(CommandBasePtr ptr)
@@ -31465,7 +31549,7 @@ namespace Sdx
 
     GetPrnForEachSVPtr GetPrnForEachSV::create(const std::string& signal)
     {
-      return GetPrnForEachSVPtr(new GetPrnForEachSV(signal));
+      return std::make_shared<GetPrnForEachSV>(signal);
     }
 
     GetPrnForEachSVPtr GetPrnForEachSV::dynamicCast(CommandBasePtr ptr)
@@ -31536,7 +31620,7 @@ namespace Sdx
 
     GetPrnForEachSVResultPtr GetPrnForEachSVResult::create(CommandBasePtr relatedCommand, const std::string& signal, const std::vector<int>& prn)
     {
-      return GetPrnForEachSVResultPtr(new GetPrnForEachSVResult(relatedCommand, signal, prn));
+      return std::make_shared<GetPrnForEachSVResult>(relatedCommand, signal, prn);
     }
 
     GetPrnForEachSVResultPtr GetPrnForEachSVResult::dynamicCast(CommandBasePtr ptr)
@@ -31613,7 +31697,7 @@ namespace Sdx
 
     ResetToDefaultPrnPtr ResetToDefaultPrn::create(const std::string& system)
     {
-      return ResetToDefaultPrnPtr(new ResetToDefaultPrn(system));
+      return std::make_shared<ResetToDefaultPrn>(system);
     }
 
     ResetToDefaultPrnPtr ResetToDefaultPrn::dynamicCast(CommandBasePtr ptr)
@@ -31683,7 +31767,7 @@ namespace Sdx
 
     EnableTrajectorySmoothingPtr EnableTrajectorySmoothing::create(bool enabled)
     {
-      return EnableTrajectorySmoothingPtr(new EnableTrajectorySmoothing(enabled));
+      return std::make_shared<EnableTrajectorySmoothing>(enabled);
     }
 
     EnableTrajectorySmoothingPtr EnableTrajectorySmoothing::dynamicCast(CommandBasePtr ptr)
@@ -31748,7 +31832,7 @@ namespace Sdx
 
     IsTrajectorySmoothingEnabledPtr IsTrajectorySmoothingEnabled::create()
     {
-      return IsTrajectorySmoothingEnabledPtr(new IsTrajectorySmoothingEnabled());
+      return std::make_shared<IsTrajectorySmoothingEnabled>();
     }
 
     IsTrajectorySmoothingEnabledPtr IsTrajectorySmoothingEnabled::dynamicCast(CommandBasePtr ptr)
@@ -31805,7 +31889,7 @@ namespace Sdx
 
     IsTrajectorySmoothingEnabledResultPtr IsTrajectorySmoothingEnabledResult::create(CommandBasePtr relatedCommand, bool enabled)
     {
-      return IsTrajectorySmoothingEnabledResultPtr(new IsTrajectorySmoothingEnabledResult(relatedCommand, enabled));
+      return std::make_shared<IsTrajectorySmoothingEnabledResult>(relatedCommand, enabled);
     }
 
     IsTrajectorySmoothingEnabledResultPtr IsTrajectorySmoothingEnabledResult::dynamicCast(CommandBasePtr ptr)
@@ -31869,7 +31953,7 @@ namespace Sdx
 
     EnableSimulationStopAtTrajectoryEndPtr EnableSimulationStopAtTrajectoryEnd::create(bool enabled)
     {
-      return EnableSimulationStopAtTrajectoryEndPtr(new EnableSimulationStopAtTrajectoryEnd(enabled));
+      return std::make_shared<EnableSimulationStopAtTrajectoryEnd>(enabled);
     }
 
     EnableSimulationStopAtTrajectoryEndPtr EnableSimulationStopAtTrajectoryEnd::dynamicCast(CommandBasePtr ptr)
@@ -31934,7 +32018,7 @@ namespace Sdx
 
     IsSimulationStopAtTrajectoryEndEnabledPtr IsSimulationStopAtTrajectoryEndEnabled::create()
     {
-      return IsSimulationStopAtTrajectoryEndEnabledPtr(new IsSimulationStopAtTrajectoryEndEnabled());
+      return std::make_shared<IsSimulationStopAtTrajectoryEndEnabled>();
     }
 
     IsSimulationStopAtTrajectoryEndEnabledPtr IsSimulationStopAtTrajectoryEndEnabled::dynamicCast(CommandBasePtr ptr)
@@ -31991,7 +32075,7 @@ namespace Sdx
 
     IsSimulationStopAtTrajectoryEndEnabledResultPtr IsSimulationStopAtTrajectoryEndEnabledResult::create(CommandBasePtr relatedCommand, bool enabled)
     {
-      return IsSimulationStopAtTrajectoryEndEnabledResultPtr(new IsSimulationStopAtTrajectoryEndEnabledResult(relatedCommand, enabled));
+      return std::make_shared<IsSimulationStopAtTrajectoryEndEnabledResult>(relatedCommand, enabled);
     }
 
     IsSimulationStopAtTrajectoryEndEnabledResultPtr IsSimulationStopAtTrajectoryEndEnabledResult::dynamicCast(CommandBasePtr ptr)
@@ -32055,7 +32139,7 @@ namespace Sdx
 
     ForceAttitudeToZeroPtr ForceAttitudeToZero::create(bool enabled)
     {
-      return ForceAttitudeToZeroPtr(new ForceAttitudeToZero(enabled));
+      return std::make_shared<ForceAttitudeToZero>(enabled);
     }
 
     ForceAttitudeToZeroPtr ForceAttitudeToZero::dynamicCast(CommandBasePtr ptr)
@@ -32120,7 +32204,7 @@ namespace Sdx
 
     IsAttitudeToZeroForcedPtr IsAttitudeToZeroForced::create()
     {
-      return IsAttitudeToZeroForcedPtr(new IsAttitudeToZeroForced());
+      return std::make_shared<IsAttitudeToZeroForced>();
     }
 
     IsAttitudeToZeroForcedPtr IsAttitudeToZeroForced::dynamicCast(CommandBasePtr ptr)
@@ -32177,7 +32261,7 @@ namespace Sdx
 
     IsAttitudeToZeroForcedResultPtr IsAttitudeToZeroForcedResult::create(CommandBasePtr relatedCommand, bool enabled)
     {
-      return IsAttitudeToZeroForcedResultPtr(new IsAttitudeToZeroForcedResult(relatedCommand, enabled));
+      return std::make_shared<IsAttitudeToZeroForcedResult>(relatedCommand, enabled);
     }
 
     IsAttitudeToZeroForcedResultPtr IsAttitudeToZeroForcedResult::dynamicCast(CommandBasePtr ptr)
@@ -32241,7 +32325,7 @@ namespace Sdx
 
     SetVehicleTrajectoryPtr SetVehicleTrajectory::create(const std::string& type)
     {
-      return SetVehicleTrajectoryPtr(new SetVehicleTrajectory(type));
+      return std::make_shared<SetVehicleTrajectory>(type);
     }
 
     SetVehicleTrajectoryPtr SetVehicleTrajectory::dynamicCast(CommandBasePtr ptr)
@@ -32306,7 +32390,7 @@ namespace Sdx
 
     GetVehicleTrajectoryPtr GetVehicleTrajectory::create()
     {
-      return GetVehicleTrajectoryPtr(new GetVehicleTrajectory());
+      return std::make_shared<GetVehicleTrajectory>();
     }
 
     GetVehicleTrajectoryPtr GetVehicleTrajectory::dynamicCast(CommandBasePtr ptr)
@@ -32363,7 +32447,7 @@ namespace Sdx
 
     GetVehicleTrajectoryResultPtr GetVehicleTrajectoryResult::create(CommandBasePtr relatedCommand, const std::string& type)
     {
-      return GetVehicleTrajectoryResultPtr(new GetVehicleTrajectoryResult(relatedCommand, type));
+      return std::make_shared<GetVehicleTrajectoryResult>(relatedCommand, type);
     }
 
     GetVehicleTrajectoryResultPtr GetVehicleTrajectoryResult::dynamicCast(CommandBasePtr ptr)
@@ -32427,7 +32511,7 @@ namespace Sdx
 
     SetVehicleTypePtr SetVehicleType::create(const std::string& type)
     {
-      return SetVehicleTypePtr(new SetVehicleType(type));
+      return std::make_shared<SetVehicleType>(type);
     }
 
     SetVehicleTypePtr SetVehicleType::dynamicCast(CommandBasePtr ptr)
@@ -32492,7 +32576,7 @@ namespace Sdx
 
     GetVehicleTypePtr GetVehicleType::create()
     {
-      return GetVehicleTypePtr(new GetVehicleType());
+      return std::make_shared<GetVehicleType>();
     }
 
     GetVehicleTypePtr GetVehicleType::dynamicCast(CommandBasePtr ptr)
@@ -32549,7 +32633,7 @@ namespace Sdx
 
     GetVehicleTypeResultPtr GetVehicleTypeResult::create(CommandBasePtr relatedCommand, const std::string& type)
     {
-      return GetVehicleTypeResultPtr(new GetVehicleTypeResult(relatedCommand, type));
+      return std::make_shared<GetVehicleTypeResult>(relatedCommand, type);
     }
 
     GetVehicleTypeResultPtr GetVehicleTypeResult::dynamicCast(CommandBasePtr ptr)
@@ -32608,7 +32692,7 @@ namespace Sdx
 
     BeginTrackDefinitionPtr BeginTrackDefinition::create()
     {
-      return BeginTrackDefinitionPtr(new BeginTrackDefinition());
+      return std::make_shared<BeginTrackDefinition>();
     }
 
     BeginTrackDefinitionPtr BeginTrackDefinition::dynamicCast(CommandBasePtr ptr)
@@ -32668,7 +32752,7 @@ namespace Sdx
 
     PushTrackEcefPtr PushTrackEcef::create(int time, double x, double y, double z)
     {
-      return PushTrackEcefPtr(new PushTrackEcef(time, x, y, z));
+      return std::make_shared<PushTrackEcef>(time, x, y, z);
     }
 
     PushTrackEcefPtr PushTrackEcef::dynamicCast(CommandBasePtr ptr)
@@ -32783,7 +32867,7 @@ namespace Sdx
 
     PushTrackEcefNedPtr PushTrackEcefNed::create(int time, double x, double y, double z, double yaw, double pitch, double roll)
     {
-      return PushTrackEcefNedPtr(new PushTrackEcefNed(time, x, y, z, yaw, pitch, roll));
+      return std::make_shared<PushTrackEcefNed>(time, x, y, z, yaw, pitch, roll);
     }
 
     PushTrackEcefNedPtr PushTrackEcefNed::dynamicCast(CommandBasePtr ptr)
@@ -32926,7 +33010,7 @@ namespace Sdx
 
     EndTrackDefinitionPtr EndTrackDefinition::create()
     {
-      return EndTrackDefinitionPtr(new EndTrackDefinition());
+      return std::make_shared<EndTrackDefinition>();
     }
 
     EndTrackDefinitionPtr EndTrackDefinition::dynamicCast(CommandBasePtr ptr)
@@ -32983,7 +33067,7 @@ namespace Sdx
 
     EndTrackDefinitionResultPtr EndTrackDefinitionResult::create(CommandBasePtr relatedCommand, int count)
     {
-      return EndTrackDefinitionResultPtr(new EndTrackDefinitionResult(relatedCommand, count));
+      return std::make_shared<EndTrackDefinitionResult>(relatedCommand, count);
     }
 
     EndTrackDefinitionResultPtr EndTrackDefinitionResult::dynamicCast(CommandBasePtr ptr)
@@ -33042,7 +33126,7 @@ namespace Sdx
 
     BeginRouteDefinitionPtr BeginRouteDefinition::create()
     {
-      return BeginRouteDefinitionPtr(new BeginRouteDefinition());
+      return std::make_shared<BeginRouteDefinition>();
     }
 
     BeginRouteDefinitionPtr BeginRouteDefinition::dynamicCast(CommandBasePtr ptr)
@@ -33102,7 +33186,7 @@ namespace Sdx
 
     PushRouteEcefPtr PushRouteEcef::create(double speed, double x, double y, double z)
     {
-      return PushRouteEcefPtr(new PushRouteEcef(speed, x, y, z));
+      return std::make_shared<PushRouteEcef>(speed, x, y, z);
     }
 
     PushRouteEcefPtr PushRouteEcef::dynamicCast(CommandBasePtr ptr)
@@ -33206,7 +33290,7 @@ namespace Sdx
 
     EndRouteDefinitionPtr EndRouteDefinition::create()
     {
-      return EndRouteDefinitionPtr(new EndRouteDefinition());
+      return std::make_shared<EndRouteDefinition>();
     }
 
     EndRouteDefinitionPtr EndRouteDefinition::dynamicCast(CommandBasePtr ptr)
@@ -33263,7 +33347,7 @@ namespace Sdx
 
     EndRouteDefinitionResultPtr EndRouteDefinitionResult::create(CommandBasePtr relatedCommand, int count)
     {
-      return EndRouteDefinitionResultPtr(new EndRouteDefinitionResult(relatedCommand, count));
+      return std::make_shared<EndRouteDefinitionResult>(relatedCommand, count);
     }
 
     EndRouteDefinitionResultPtr EndRouteDefinitionResult::dynamicCast(CommandBasePtr ptr)
@@ -33333,7 +33417,7 @@ namespace Sdx
 
     SetVehicleTrajectoryFixPtr SetVehicleTrajectoryFix::create(const std::string& type, double lat, double lon, double alt, double yaw, double pitch, double roll)
     {
-      return SetVehicleTrajectoryFixPtr(new SetVehicleTrajectoryFix(type, lat, lon, alt, yaw, pitch, roll));
+      return std::make_shared<SetVehicleTrajectoryFix>(type, lat, lon, alt, yaw, pitch, roll);
     }
 
     SetVehicleTrajectoryFixPtr SetVehicleTrajectoryFix::dynamicCast(CommandBasePtr ptr)
@@ -33476,7 +33560,7 @@ namespace Sdx
 
     GetVehicleTrajectoryFixPtr GetVehicleTrajectoryFix::create()
     {
-      return GetVehicleTrajectoryFixPtr(new GetVehicleTrajectoryFix());
+      return std::make_shared<GetVehicleTrajectoryFix>();
     }
 
     GetVehicleTrajectoryFixPtr GetVehicleTrajectoryFix::dynamicCast(CommandBasePtr ptr)
@@ -33539,7 +33623,7 @@ namespace Sdx
 
     GetVehicleTrajectoryFixResultPtr GetVehicleTrajectoryFixResult::create(CommandBasePtr relatedCommand, const std::string& type, double lat, double lon, double alt, double yaw, double pitch, double roll)
     {
-      return GetVehicleTrajectoryFixResultPtr(new GetVehicleTrajectoryFixResult(relatedCommand, type, lat, lon, alt, yaw, pitch, roll));
+      return std::make_shared<GetVehicleTrajectoryFixResult>(relatedCommand, type, lat, lon, alt, yaw, pitch, roll);
     }
 
     GetVehicleTrajectoryFixResultPtr GetVehicleTrajectoryFixResult::dynamicCast(CommandBasePtr ptr)
@@ -33687,7 +33771,7 @@ namespace Sdx
 
     SetVehicleTrajectoryFixEcefPtr SetVehicleTrajectoryFixEcef::create(const std::string& type, double x, double y, double z, double yaw, double pitch, double roll)
     {
-      return SetVehicleTrajectoryFixEcefPtr(new SetVehicleTrajectoryFixEcef(type, x, y, z, yaw, pitch, roll));
+      return std::make_shared<SetVehicleTrajectoryFixEcef>(type, x, y, z, yaw, pitch, roll);
     }
 
     SetVehicleTrajectoryFixEcefPtr SetVehicleTrajectoryFixEcef::dynamicCast(CommandBasePtr ptr)
@@ -33830,7 +33914,7 @@ namespace Sdx
 
     GetVehicleTrajectoryFixEcefPtr GetVehicleTrajectoryFixEcef::create()
     {
-      return GetVehicleTrajectoryFixEcefPtr(new GetVehicleTrajectoryFixEcef());
+      return std::make_shared<GetVehicleTrajectoryFixEcef>();
     }
 
     GetVehicleTrajectoryFixEcefPtr GetVehicleTrajectoryFixEcef::dynamicCast(CommandBasePtr ptr)
@@ -33893,7 +33977,7 @@ namespace Sdx
 
     GetVehicleTrajectoryFixEcefResultPtr GetVehicleTrajectoryFixEcefResult::create(CommandBasePtr relatedCommand, const std::string& type, double x, double y, double z, double yaw, double pitch, double roll)
     {
-      return GetVehicleTrajectoryFixEcefResultPtr(new GetVehicleTrajectoryFixEcefResult(relatedCommand, type, x, y, z, yaw, pitch, roll));
+      return std::make_shared<GetVehicleTrajectoryFixEcefResult>(relatedCommand, type, x, y, z, yaw, pitch, roll);
     }
 
     GetVehicleTrajectoryFixEcefResultPtr GetVehicleTrajectoryFixEcefResult::dynamicCast(CommandBasePtr ptr)
@@ -34042,7 +34126,7 @@ namespace Sdx
 
     SetVehicleTrajectoryCircularPtr SetVehicleTrajectoryCircular::create(const std::string& type, double lat, double lon, double alt, double radius, double speed, bool clockwise, const Sdx::optional<double>& originAngle)
     {
-      return SetVehicleTrajectoryCircularPtr(new SetVehicleTrajectoryCircular(type, lat, lon, alt, radius, speed, clockwise, originAngle));
+      return std::make_shared<SetVehicleTrajectoryCircular>(type, lat, lon, alt, radius, speed, clockwise, originAngle);
     }
 
     SetVehicleTrajectoryCircularPtr SetVehicleTrajectoryCircular::dynamicCast(CommandBasePtr ptr)
@@ -34198,7 +34282,7 @@ namespace Sdx
 
     GetVehicleTrajectoryCircularPtr GetVehicleTrajectoryCircular::create()
     {
-      return GetVehicleTrajectoryCircularPtr(new GetVehicleTrajectoryCircular());
+      return std::make_shared<GetVehicleTrajectoryCircular>();
     }
 
     GetVehicleTrajectoryCircularPtr GetVehicleTrajectoryCircular::dynamicCast(CommandBasePtr ptr)
@@ -34262,7 +34346,7 @@ namespace Sdx
 
     GetVehicleTrajectoryCircularResultPtr GetVehicleTrajectoryCircularResult::create(CommandBasePtr relatedCommand, const std::string& type, double lat, double lon, double alt, double radius, double speed, bool clockwise, const Sdx::optional<double>& originAngle)
     {
-      return GetVehicleTrajectoryCircularResultPtr(new GetVehicleTrajectoryCircularResult(relatedCommand, type, lat, lon, alt, radius, speed, clockwise, originAngle));
+      return std::make_shared<GetVehicleTrajectoryCircularResult>(relatedCommand, type, lat, lon, alt, radius, speed, clockwise, originAngle);
     }
 
     GetVehicleTrajectoryCircularResultPtr GetVehicleTrajectoryCircularResult::dynamicCast(CommandBasePtr ptr)
@@ -34424,7 +34508,7 @@ namespace Sdx
 
     SetVehicleTrajectoryOrbitPtr SetVehicleTrajectoryOrbit::create(const std::string& type, const Sdx::DateTime& reference, double semiMajorAxis, double inclination, double rightAscension, double eccentricity, double meanAnomaly, double argumentOfPerigee)
     {
-      return SetVehicleTrajectoryOrbitPtr(new SetVehicleTrajectoryOrbit(type, reference, semiMajorAxis, inclination, rightAscension, eccentricity, meanAnomaly, argumentOfPerigee));
+      return std::make_shared<SetVehicleTrajectoryOrbit>(type, reference, semiMajorAxis, inclination, rightAscension, eccentricity, meanAnomaly, argumentOfPerigee);
     }
 
     SetVehicleTrajectoryOrbitPtr SetVehicleTrajectoryOrbit::dynamicCast(CommandBasePtr ptr)
@@ -34580,7 +34664,7 @@ namespace Sdx
 
     GetVehicleTrajectoryOrbitPtr GetVehicleTrajectoryOrbit::create()
     {
-      return GetVehicleTrajectoryOrbitPtr(new GetVehicleTrajectoryOrbit());
+      return std::make_shared<GetVehicleTrajectoryOrbit>();
     }
 
     GetVehicleTrajectoryOrbitPtr GetVehicleTrajectoryOrbit::dynamicCast(CommandBasePtr ptr)
@@ -34644,7 +34728,7 @@ namespace Sdx
 
     GetVehicleTrajectoryOrbitResultPtr GetVehicleTrajectoryOrbitResult::create(CommandBasePtr relatedCommand, const std::string& type, const Sdx::DateTime& reference, double semiMajorAxis, double inclination, double rightAscension, double eccentricity, double meanAnomaly, double argumentOfPerigee)
     {
-      return GetVehicleTrajectoryOrbitResultPtr(new GetVehicleTrajectoryOrbitResult(relatedCommand, type, reference, semiMajorAxis, inclination, rightAscension, eccentricity, meanAnomaly, argumentOfPerigee));
+      return std::make_shared<GetVehicleTrajectoryOrbitResult>(relatedCommand, type, reference, semiMajorAxis, inclination, rightAscension, eccentricity, meanAnomaly, argumentOfPerigee);
     }
 
     GetVehicleTrajectoryOrbitResultPtr GetVehicleTrajectoryOrbitResult::dynamicCast(CommandBasePtr ptr)
@@ -34794,7 +34878,7 @@ namespace Sdx
 
     GetHilPortPtr GetHilPort::create()
     {
-      return GetHilPortPtr(new GetHilPort());
+      return std::make_shared<GetHilPort>();
     }
 
     GetHilPortPtr GetHilPort::dynamicCast(CommandBasePtr ptr)
@@ -34851,7 +34935,7 @@ namespace Sdx
 
     HilPortResultPtr HilPortResult::create(CommandBasePtr relatedCommand, int port)
     {
-      return HilPortResultPtr(new HilPortResult(relatedCommand, port));
+      return std::make_shared<HilPortResult>(relatedCommand, port);
     }
 
     HilPortResultPtr HilPortResult::dynamicCast(CommandBasePtr ptr)
@@ -34910,7 +34994,7 @@ namespace Sdx
 
     ResetHilWarningPtr ResetHilWarning::create()
     {
-      return ResetHilWarningPtr(new ResetHilWarning());
+      return std::make_shared<ResetHilWarning>();
     }
 
     ResetHilWarningPtr ResetHilWarning::dynamicCast(CommandBasePtr ptr)
@@ -34962,7 +35046,7 @@ namespace Sdx
 
     GetLastHilWarningPtr GetLastHilWarning::create()
     {
-      return GetLastHilWarningPtr(new GetLastHilWarning());
+      return std::make_shared<GetLastHilWarning>();
     }
 
     GetLastHilWarningPtr GetLastHilWarning::dynamicCast(CommandBasePtr ptr)
@@ -35020,7 +35104,7 @@ namespace Sdx
 
     HilWarningResultPtr HilWarningResult::create(CommandBasePtr relatedCommand, bool isExtrapolated, int extrapolationTime)
     {
-      return HilWarningResultPtr(new HilWarningResult(relatedCommand, isExtrapolated, extrapolationTime));
+      return std::make_shared<HilWarningResult>(relatedCommand, isExtrapolated, extrapolationTime);
     }
 
     HilWarningResultPtr HilWarningResult::dynamicCast(CommandBasePtr ptr)
@@ -35100,7 +35184,7 @@ namespace Sdx
 
     SetEphemerisReferenceTimeForSVPtr SetEphemerisReferenceTimeForSV::create(const std::string& system, int svId, const Sdx::DateTime& time, const Sdx::optional<std::string>& dataSetName)
     {
-      return SetEphemerisReferenceTimeForSVPtr(new SetEphemerisReferenceTimeForSV(system, svId, time, dataSetName));
+      return std::make_shared<SetEphemerisReferenceTimeForSV>(system, svId, time, dataSetName);
     }
 
     SetEphemerisReferenceTimeForSVPtr SetEphemerisReferenceTimeForSV::dynamicCast(CommandBasePtr ptr)
@@ -35212,7 +35296,7 @@ namespace Sdx
 
     SetEphemerisReferenceTimePtr SetEphemerisReferenceTime::create(const std::string& system, int svId, const Sdx::DateTime& time, const Sdx::optional<std::string>& dataSetName)
     {
-      return SetEphemerisReferenceTimePtr(new SetEphemerisReferenceTime(system, svId, time, dataSetName));
+      return std::make_shared<SetEphemerisReferenceTime>(system, svId, time, dataSetName);
     }
 
     SetEphemerisReferenceTimePtr SetEphemerisReferenceTime::dynamicCast(CommandBasePtr ptr)
@@ -35323,7 +35407,7 @@ namespace Sdx
 
     GetEphemerisReferenceTimeForSVPtr GetEphemerisReferenceTimeForSV::create(const std::string& system, int svId, const Sdx::optional<std::string>& dataSetName)
     {
-      return GetEphemerisReferenceTimeForSVPtr(new GetEphemerisReferenceTimeForSV(system, svId, dataSetName));
+      return std::make_shared<GetEphemerisReferenceTimeForSV>(system, svId, dataSetName);
     }
 
     GetEphemerisReferenceTimeForSVPtr GetEphemerisReferenceTimeForSV::dynamicCast(CommandBasePtr ptr)
@@ -35421,7 +35505,7 @@ namespace Sdx
 
     GetEphemerisReferenceTimePtr GetEphemerisReferenceTime::create(const std::string& system, int svId, const Sdx::optional<std::string>& dataSetName)
     {
-      return GetEphemerisReferenceTimePtr(new GetEphemerisReferenceTime(system, svId, dataSetName));
+      return std::make_shared<GetEphemerisReferenceTime>(system, svId, dataSetName);
     }
 
     GetEphemerisReferenceTimePtr GetEphemerisReferenceTime::dynamicCast(CommandBasePtr ptr)
@@ -35520,7 +35604,7 @@ namespace Sdx
 
     GetEphemerisReferenceTimeForSVResultPtr GetEphemerisReferenceTimeForSVResult::create(CommandBasePtr relatedCommand, const std::string& system, int svId, const Sdx::DateTime& time, const Sdx::optional<std::string>& dataSetName)
     {
-      return GetEphemerisReferenceTimeForSVResultPtr(new GetEphemerisReferenceTimeForSVResult(relatedCommand, system, svId, time, dataSetName));
+      return std::make_shared<GetEphemerisReferenceTimeForSVResult>(relatedCommand, system, svId, time, dataSetName);
     }
 
     GetEphemerisReferenceTimeForSVResultPtr GetEphemerisReferenceTimeForSVResult::dynamicCast(CommandBasePtr ptr)
@@ -35626,7 +35710,7 @@ namespace Sdx
 
     SetGpsEphDoubleParamForSVPtr SetGpsEphDoubleParamForSV::create(int svId, const std::string& paramName, double val, const Sdx::optional<std::string>& dataSetName)
     {
-      return SetGpsEphDoubleParamForSVPtr(new SetGpsEphDoubleParamForSV(svId, paramName, val, dataSetName));
+      return std::make_shared<SetGpsEphDoubleParamForSV>(svId, paramName, val, dataSetName);
     }
 
     SetGpsEphDoubleParamForSVPtr SetGpsEphDoubleParamForSV::dynamicCast(CommandBasePtr ptr)
@@ -35737,7 +35821,7 @@ namespace Sdx
 
     GetGpsEphDoubleParamForSVPtr GetGpsEphDoubleParamForSV::create(int svId, const std::string& paramName, const Sdx::optional<std::string>& dataSetName)
     {
-      return GetGpsEphDoubleParamForSVPtr(new GetGpsEphDoubleParamForSV(svId, paramName, dataSetName));
+      return std::make_shared<GetGpsEphDoubleParamForSV>(svId, paramName, dataSetName);
     }
 
     GetGpsEphDoubleParamForSVPtr GetGpsEphDoubleParamForSV::dynamicCast(CommandBasePtr ptr)
@@ -35836,7 +35920,7 @@ namespace Sdx
 
     GetGpsEphDoubleParamForSVResultPtr GetGpsEphDoubleParamForSVResult::create(CommandBasePtr relatedCommand, int svId, const std::string& paramName, double val, const Sdx::optional<std::string>& dataSetName)
     {
-      return GetGpsEphDoubleParamForSVResultPtr(new GetGpsEphDoubleParamForSVResult(relatedCommand, svId, paramName, val, dataSetName));
+      return std::make_shared<GetGpsEphDoubleParamForSVResult>(relatedCommand, svId, paramName, val, dataSetName);
     }
 
     GetGpsEphDoubleParamForSVResultPtr GetGpsEphDoubleParamForSVResult::dynamicCast(CommandBasePtr ptr)
@@ -35942,7 +36026,7 @@ namespace Sdx
 
     SetGalileoEphDoubleParamForSVPtr SetGalileoEphDoubleParamForSV::create(int svId, const std::string& paramName, double val, const Sdx::optional<std::string>& dataSetName)
     {
-      return SetGalileoEphDoubleParamForSVPtr(new SetGalileoEphDoubleParamForSV(svId, paramName, val, dataSetName));
+      return std::make_shared<SetGalileoEphDoubleParamForSV>(svId, paramName, val, dataSetName);
     }
 
     SetGalileoEphDoubleParamForSVPtr SetGalileoEphDoubleParamForSV::dynamicCast(CommandBasePtr ptr)
@@ -36053,7 +36137,7 @@ namespace Sdx
 
     GetGalileoEphDoubleParamForSVPtr GetGalileoEphDoubleParamForSV::create(int svId, const std::string& paramName, const Sdx::optional<std::string>& dataSetName)
     {
-      return GetGalileoEphDoubleParamForSVPtr(new GetGalileoEphDoubleParamForSV(svId, paramName, dataSetName));
+      return std::make_shared<GetGalileoEphDoubleParamForSV>(svId, paramName, dataSetName);
     }
 
     GetGalileoEphDoubleParamForSVPtr GetGalileoEphDoubleParamForSV::dynamicCast(CommandBasePtr ptr)
@@ -36152,7 +36236,7 @@ namespace Sdx
 
     GetGalileoEphDoubleParamForSVResultPtr GetGalileoEphDoubleParamForSVResult::create(CommandBasePtr relatedCommand, int svId, const std::string& paramName, double val, const Sdx::optional<std::string>& dataSetName)
     {
-      return GetGalileoEphDoubleParamForSVResultPtr(new GetGalileoEphDoubleParamForSVResult(relatedCommand, svId, paramName, val, dataSetName));
+      return std::make_shared<GetGalileoEphDoubleParamForSVResult>(relatedCommand, svId, paramName, val, dataSetName);
     }
 
     GetGalileoEphDoubleParamForSVResultPtr GetGalileoEphDoubleParamForSVResult::dynamicCast(CommandBasePtr ptr)
@@ -36258,7 +36342,7 @@ namespace Sdx
 
     SetBeiDouEphDoubleParamForSVPtr SetBeiDouEphDoubleParamForSV::create(int svId, const std::string& paramName, double val, const Sdx::optional<std::string>& dataSetName)
     {
-      return SetBeiDouEphDoubleParamForSVPtr(new SetBeiDouEphDoubleParamForSV(svId, paramName, val, dataSetName));
+      return std::make_shared<SetBeiDouEphDoubleParamForSV>(svId, paramName, val, dataSetName);
     }
 
     SetBeiDouEphDoubleParamForSVPtr SetBeiDouEphDoubleParamForSV::dynamicCast(CommandBasePtr ptr)
@@ -36369,7 +36453,7 @@ namespace Sdx
 
     GetBeiDouEphDoubleParamForSVPtr GetBeiDouEphDoubleParamForSV::create(int svId, const std::string& paramName, const Sdx::optional<std::string>& dataSetName)
     {
-      return GetBeiDouEphDoubleParamForSVPtr(new GetBeiDouEphDoubleParamForSV(svId, paramName, dataSetName));
+      return std::make_shared<GetBeiDouEphDoubleParamForSV>(svId, paramName, dataSetName);
     }
 
     GetBeiDouEphDoubleParamForSVPtr GetBeiDouEphDoubleParamForSV::dynamicCast(CommandBasePtr ptr)
@@ -36468,7 +36552,7 @@ namespace Sdx
 
     GetBeiDouEphDoubleParamForSVResultPtr GetBeiDouEphDoubleParamForSVResult::create(CommandBasePtr relatedCommand, int svId, const std::string& paramName, double val, const Sdx::optional<std::string>& dataSetName)
     {
-      return GetBeiDouEphDoubleParamForSVResultPtr(new GetBeiDouEphDoubleParamForSVResult(relatedCommand, svId, paramName, val, dataSetName));
+      return std::make_shared<GetBeiDouEphDoubleParamForSVResult>(relatedCommand, svId, paramName, val, dataSetName);
     }
 
     GetBeiDouEphDoubleParamForSVResultPtr GetBeiDouEphDoubleParamForSVResult::dynamicCast(CommandBasePtr ptr)
@@ -36573,7 +36657,7 @@ namespace Sdx
 
     SetGlonassEphDoubleParamForSVPtr SetGlonassEphDoubleParamForSV::create(int svId, const std::string& paramName, double val)
     {
-      return SetGlonassEphDoubleParamForSVPtr(new SetGlonassEphDoubleParamForSV(svId, paramName, val));
+      return std::make_shared<SetGlonassEphDoubleParamForSV>(svId, paramName, val);
     }
 
     SetGlonassEphDoubleParamForSVPtr SetGlonassEphDoubleParamForSV::dynamicCast(CommandBasePtr ptr)
@@ -36670,7 +36754,7 @@ namespace Sdx
 
     GetGlonassEphDoubleParamForSVPtr GetGlonassEphDoubleParamForSV::create(int svId, const std::string& paramName)
     {
-      return GetGlonassEphDoubleParamForSVPtr(new GetGlonassEphDoubleParamForSV(svId, paramName));
+      return std::make_shared<GetGlonassEphDoubleParamForSV>(svId, paramName);
     }
 
     GetGlonassEphDoubleParamForSVPtr GetGlonassEphDoubleParamForSV::dynamicCast(CommandBasePtr ptr)
@@ -36755,7 +36839,7 @@ namespace Sdx
 
     GetGlonassEphDoubleParamForSVResultPtr GetGlonassEphDoubleParamForSVResult::create(CommandBasePtr relatedCommand, int svId, const std::string& paramName, double val)
     {
-      return GetGlonassEphDoubleParamForSVResultPtr(new GetGlonassEphDoubleParamForSVResult(relatedCommand, svId, paramName, val));
+      return std::make_shared<GetGlonassEphDoubleParamForSVResult>(relatedCommand, svId, paramName, val);
     }
 
     GetGlonassEphDoubleParamForSVResultPtr GetGlonassEphDoubleParamForSVResult::dynamicCast(CommandBasePtr ptr)
@@ -36848,7 +36932,7 @@ namespace Sdx
 
     SetQzssEphDoubleParamForSVPtr SetQzssEphDoubleParamForSV::create(int svId, const std::string& paramName, double val, const Sdx::optional<std::string>& dataSetName)
     {
-      return SetQzssEphDoubleParamForSVPtr(new SetQzssEphDoubleParamForSV(svId, paramName, val, dataSetName));
+      return std::make_shared<SetQzssEphDoubleParamForSV>(svId, paramName, val, dataSetName);
     }
 
     SetQzssEphDoubleParamForSVPtr SetQzssEphDoubleParamForSV::dynamicCast(CommandBasePtr ptr)
@@ -36960,7 +37044,7 @@ namespace Sdx
 
     SetQzssEphemerisDoubleParamPtr SetQzssEphemerisDoubleParam::create(int svId, const std::string& paramName, double val, const Sdx::optional<std::string>& dataSetName)
     {
-      return SetQzssEphemerisDoubleParamPtr(new SetQzssEphemerisDoubleParam(svId, paramName, val, dataSetName));
+      return std::make_shared<SetQzssEphemerisDoubleParam>(svId, paramName, val, dataSetName);
     }
 
     SetQzssEphemerisDoubleParamPtr SetQzssEphemerisDoubleParam::dynamicCast(CommandBasePtr ptr)
@@ -37071,7 +37155,7 @@ namespace Sdx
 
     GetQzssEphDoubleParamForSVPtr GetQzssEphDoubleParamForSV::create(int svId, const std::string& paramName, const Sdx::optional<std::string>& dataSetName)
     {
-      return GetQzssEphDoubleParamForSVPtr(new GetQzssEphDoubleParamForSV(svId, paramName, dataSetName));
+      return std::make_shared<GetQzssEphDoubleParamForSV>(svId, paramName, dataSetName);
     }
 
     GetQzssEphDoubleParamForSVPtr GetQzssEphDoubleParamForSV::dynamicCast(CommandBasePtr ptr)
@@ -37169,7 +37253,7 @@ namespace Sdx
 
     GetQzssEphemerisDoubleParamPtr GetQzssEphemerisDoubleParam::create(int svId, const std::string& paramName, const Sdx::optional<std::string>& dataSetName)
     {
-      return GetQzssEphemerisDoubleParamPtr(new GetQzssEphemerisDoubleParam(svId, paramName, dataSetName));
+      return std::make_shared<GetQzssEphemerisDoubleParam>(svId, paramName, dataSetName);
     }
 
     GetQzssEphemerisDoubleParamPtr GetQzssEphemerisDoubleParam::dynamicCast(CommandBasePtr ptr)
@@ -37268,7 +37352,7 @@ namespace Sdx
 
     GetQzssEphDoubleParamForSVResultPtr GetQzssEphDoubleParamForSVResult::create(CommandBasePtr relatedCommand, int svId, const std::string& paramName, double val, const Sdx::optional<std::string>& dataSetName)
     {
-      return GetQzssEphDoubleParamForSVResultPtr(new GetQzssEphDoubleParamForSVResult(relatedCommand, svId, paramName, val, dataSetName));
+      return std::make_shared<GetQzssEphDoubleParamForSVResult>(relatedCommand, svId, paramName, val, dataSetName);
     }
 
     GetQzssEphDoubleParamForSVResultPtr GetQzssEphDoubleParamForSVResult::dynamicCast(CommandBasePtr ptr)
@@ -37374,7 +37458,7 @@ namespace Sdx
 
     SetNavICEphDoubleParamForSVPtr SetNavICEphDoubleParamForSV::create(int svId, const std::string& paramName, double val, const Sdx::optional<std::string>& dataSetName)
     {
-      return SetNavICEphDoubleParamForSVPtr(new SetNavICEphDoubleParamForSV(svId, paramName, val, dataSetName));
+      return std::make_shared<SetNavICEphDoubleParamForSV>(svId, paramName, val, dataSetName);
     }
 
     SetNavICEphDoubleParamForSVPtr SetNavICEphDoubleParamForSV::dynamicCast(CommandBasePtr ptr)
@@ -37486,7 +37570,7 @@ namespace Sdx
 
     SetNavICEphemerisDoubleParamPtr SetNavICEphemerisDoubleParam::create(int svId, const std::string& paramName, double val, const Sdx::optional<std::string>& dataSetName)
     {
-      return SetNavICEphemerisDoubleParamPtr(new SetNavICEphemerisDoubleParam(svId, paramName, val, dataSetName));
+      return std::make_shared<SetNavICEphemerisDoubleParam>(svId, paramName, val, dataSetName);
     }
 
     SetNavICEphemerisDoubleParamPtr SetNavICEphemerisDoubleParam::dynamicCast(CommandBasePtr ptr)
@@ -37597,7 +37681,7 @@ namespace Sdx
 
     GetNavICEphDoubleParamForSVPtr GetNavICEphDoubleParamForSV::create(int svId, const std::string& paramName, const Sdx::optional<std::string>& dataSetName)
     {
-      return GetNavICEphDoubleParamForSVPtr(new GetNavICEphDoubleParamForSV(svId, paramName, dataSetName));
+      return std::make_shared<GetNavICEphDoubleParamForSV>(svId, paramName, dataSetName);
     }
 
     GetNavICEphDoubleParamForSVPtr GetNavICEphDoubleParamForSV::dynamicCast(CommandBasePtr ptr)
@@ -37695,7 +37779,7 @@ namespace Sdx
 
     GetNavICEphemerisDoubleParamPtr GetNavICEphemerisDoubleParam::create(int svId, const std::string& paramName, const Sdx::optional<std::string>& dataSetName)
     {
-      return GetNavICEphemerisDoubleParamPtr(new GetNavICEphemerisDoubleParam(svId, paramName, dataSetName));
+      return std::make_shared<GetNavICEphemerisDoubleParam>(svId, paramName, dataSetName);
     }
 
     GetNavICEphemerisDoubleParamPtr GetNavICEphemerisDoubleParam::dynamicCast(CommandBasePtr ptr)
@@ -37794,7 +37878,7 @@ namespace Sdx
 
     GetNavICEphDoubleParamForSVResultPtr GetNavICEphDoubleParamForSVResult::create(CommandBasePtr relatedCommand, int svId, const std::string& paramName, double val, const Sdx::optional<std::string>& dataSetName)
     {
-      return GetNavICEphDoubleParamForSVResultPtr(new GetNavICEphDoubleParamForSVResult(relatedCommand, svId, paramName, val, dataSetName));
+      return std::make_shared<GetNavICEphDoubleParamForSVResult>(relatedCommand, svId, paramName, val, dataSetName);
     }
 
     GetNavICEphDoubleParamForSVResultPtr GetNavICEphDoubleParamForSVResult::dynamicCast(CommandBasePtr ptr)
@@ -37899,7 +37983,7 @@ namespace Sdx
 
     SetGpsEphDoubleParamForEachSVPtr SetGpsEphDoubleParamForEachSV::create(const std::string& paramName, const std::vector<double>& val, const Sdx::optional<std::string>& dataSetName)
     {
-      return SetGpsEphDoubleParamForEachSVPtr(new SetGpsEphDoubleParamForEachSV(paramName, val, dataSetName));
+      return std::make_shared<SetGpsEphDoubleParamForEachSV>(paramName, val, dataSetName);
     }
 
     SetGpsEphDoubleParamForEachSVPtr SetGpsEphDoubleParamForEachSV::dynamicCast(CommandBasePtr ptr)
@@ -37997,7 +38081,7 @@ namespace Sdx
 
     SetGpsEphemerisDoubleParamsPtr SetGpsEphemerisDoubleParams::create(const std::string& paramName, const std::vector<double>& val, const Sdx::optional<std::string>& dataSetName)
     {
-      return SetGpsEphemerisDoubleParamsPtr(new SetGpsEphemerisDoubleParams(paramName, val, dataSetName));
+      return std::make_shared<SetGpsEphemerisDoubleParams>(paramName, val, dataSetName);
     }
 
     SetGpsEphemerisDoubleParamsPtr SetGpsEphemerisDoubleParams::dynamicCast(CommandBasePtr ptr)
@@ -38094,7 +38178,7 @@ namespace Sdx
 
     GetGpsEphDoubleParamForEachSVPtr GetGpsEphDoubleParamForEachSV::create(const std::string& paramName, const Sdx::optional<std::string>& dataSetName)
     {
-      return GetGpsEphDoubleParamForEachSVPtr(new GetGpsEphDoubleParamForEachSV(paramName, dataSetName));
+      return std::make_shared<GetGpsEphDoubleParamForEachSV>(paramName, dataSetName);
     }
 
     GetGpsEphDoubleParamForEachSVPtr GetGpsEphDoubleParamForEachSV::dynamicCast(CommandBasePtr ptr)
@@ -38178,7 +38262,7 @@ namespace Sdx
 
     GetGpsEphemerisDoubleParamsPtr GetGpsEphemerisDoubleParams::create(const std::string& paramName, const Sdx::optional<std::string>& dataSetName)
     {
-      return GetGpsEphemerisDoubleParamsPtr(new GetGpsEphemerisDoubleParams(paramName, dataSetName));
+      return std::make_shared<GetGpsEphemerisDoubleParams>(paramName, dataSetName);
     }
 
     GetGpsEphemerisDoubleParamsPtr GetGpsEphemerisDoubleParams::dynamicCast(CommandBasePtr ptr)
@@ -38263,7 +38347,7 @@ namespace Sdx
 
     GetGpsEphDoubleParamForEachSVResultPtr GetGpsEphDoubleParamForEachSVResult::create(CommandBasePtr relatedCommand, const std::string& paramName, const std::vector<double>& val, const Sdx::optional<std::string>& dataSetName)
     {
-      return GetGpsEphDoubleParamForEachSVResultPtr(new GetGpsEphDoubleParamForEachSVResult(relatedCommand, paramName, val, dataSetName));
+      return std::make_shared<GetGpsEphDoubleParamForEachSVResult>(relatedCommand, paramName, val, dataSetName);
     }
 
     GetGpsEphDoubleParamForEachSVResultPtr GetGpsEphDoubleParamForEachSVResult::dynamicCast(CommandBasePtr ptr)
@@ -38355,7 +38439,7 @@ namespace Sdx
 
     SetGalileoEphDoubleParamForEachSVPtr SetGalileoEphDoubleParamForEachSV::create(const std::string& paramName, const std::vector<double>& val, const Sdx::optional<std::string>& dataSetName)
     {
-      return SetGalileoEphDoubleParamForEachSVPtr(new SetGalileoEphDoubleParamForEachSV(paramName, val, dataSetName));
+      return std::make_shared<SetGalileoEphDoubleParamForEachSV>(paramName, val, dataSetName);
     }
 
     SetGalileoEphDoubleParamForEachSVPtr SetGalileoEphDoubleParamForEachSV::dynamicCast(CommandBasePtr ptr)
@@ -38453,7 +38537,7 @@ namespace Sdx
 
     SetGalileoEphemerisDoubleParamsPtr SetGalileoEphemerisDoubleParams::create(const std::string& paramName, const std::vector<double>& val, const Sdx::optional<std::string>& dataSetName)
     {
-      return SetGalileoEphemerisDoubleParamsPtr(new SetGalileoEphemerisDoubleParams(paramName, val, dataSetName));
+      return std::make_shared<SetGalileoEphemerisDoubleParams>(paramName, val, dataSetName);
     }
 
     SetGalileoEphemerisDoubleParamsPtr SetGalileoEphemerisDoubleParams::dynamicCast(CommandBasePtr ptr)
@@ -38550,7 +38634,7 @@ namespace Sdx
 
     GetGalileoEphDoubleParamForEachSVPtr GetGalileoEphDoubleParamForEachSV::create(const std::string& paramName, const Sdx::optional<std::string>& dataSetName)
     {
-      return GetGalileoEphDoubleParamForEachSVPtr(new GetGalileoEphDoubleParamForEachSV(paramName, dataSetName));
+      return std::make_shared<GetGalileoEphDoubleParamForEachSV>(paramName, dataSetName);
     }
 
     GetGalileoEphDoubleParamForEachSVPtr GetGalileoEphDoubleParamForEachSV::dynamicCast(CommandBasePtr ptr)
@@ -38634,7 +38718,7 @@ namespace Sdx
 
     GetGalileoEphemerisDoubleParamsPtr GetGalileoEphemerisDoubleParams::create(const std::string& paramName, const Sdx::optional<std::string>& dataSetName)
     {
-      return GetGalileoEphemerisDoubleParamsPtr(new GetGalileoEphemerisDoubleParams(paramName, dataSetName));
+      return std::make_shared<GetGalileoEphemerisDoubleParams>(paramName, dataSetName);
     }
 
     GetGalileoEphemerisDoubleParamsPtr GetGalileoEphemerisDoubleParams::dynamicCast(CommandBasePtr ptr)
@@ -38719,7 +38803,7 @@ namespace Sdx
 
     GetGalileoEphDoubleParamForEachSVResultPtr GetGalileoEphDoubleParamForEachSVResult::create(CommandBasePtr relatedCommand, const std::string& paramName, const std::vector<double>& val, const Sdx::optional<std::string>& dataSetName)
     {
-      return GetGalileoEphDoubleParamForEachSVResultPtr(new GetGalileoEphDoubleParamForEachSVResult(relatedCommand, paramName, val, dataSetName));
+      return std::make_shared<GetGalileoEphDoubleParamForEachSVResult>(relatedCommand, paramName, val, dataSetName);
     }
 
     GetGalileoEphDoubleParamForEachSVResultPtr GetGalileoEphDoubleParamForEachSVResult::dynamicCast(CommandBasePtr ptr)
@@ -38811,7 +38895,7 @@ namespace Sdx
 
     SetBeiDouEphDoubleParamForEachSVPtr SetBeiDouEphDoubleParamForEachSV::create(const std::string& paramName, const std::vector<double>& val, const Sdx::optional<std::string>& dataSetName)
     {
-      return SetBeiDouEphDoubleParamForEachSVPtr(new SetBeiDouEphDoubleParamForEachSV(paramName, val, dataSetName));
+      return std::make_shared<SetBeiDouEphDoubleParamForEachSV>(paramName, val, dataSetName);
     }
 
     SetBeiDouEphDoubleParamForEachSVPtr SetBeiDouEphDoubleParamForEachSV::dynamicCast(CommandBasePtr ptr)
@@ -38909,7 +38993,7 @@ namespace Sdx
 
     SetBeiDouEphemerisDoubleParamsPtr SetBeiDouEphemerisDoubleParams::create(const std::string& paramName, const std::vector<double>& val, const Sdx::optional<std::string>& dataSetName)
     {
-      return SetBeiDouEphemerisDoubleParamsPtr(new SetBeiDouEphemerisDoubleParams(paramName, val, dataSetName));
+      return std::make_shared<SetBeiDouEphemerisDoubleParams>(paramName, val, dataSetName);
     }
 
     SetBeiDouEphemerisDoubleParamsPtr SetBeiDouEphemerisDoubleParams::dynamicCast(CommandBasePtr ptr)
@@ -39006,7 +39090,7 @@ namespace Sdx
 
     GetBeiDouEphDoubleParamForEachSVPtr GetBeiDouEphDoubleParamForEachSV::create(const std::string& paramName, const Sdx::optional<std::string>& dataSetName)
     {
-      return GetBeiDouEphDoubleParamForEachSVPtr(new GetBeiDouEphDoubleParamForEachSV(paramName, dataSetName));
+      return std::make_shared<GetBeiDouEphDoubleParamForEachSV>(paramName, dataSetName);
     }
 
     GetBeiDouEphDoubleParamForEachSVPtr GetBeiDouEphDoubleParamForEachSV::dynamicCast(CommandBasePtr ptr)
@@ -39090,7 +39174,7 @@ namespace Sdx
 
     GetBeiDouEphemerisDoubleParamsPtr GetBeiDouEphemerisDoubleParams::create(const std::string& paramName, const Sdx::optional<std::string>& dataSetName)
     {
-      return GetBeiDouEphemerisDoubleParamsPtr(new GetBeiDouEphemerisDoubleParams(paramName, dataSetName));
+      return std::make_shared<GetBeiDouEphemerisDoubleParams>(paramName, dataSetName);
     }
 
     GetBeiDouEphemerisDoubleParamsPtr GetBeiDouEphemerisDoubleParams::dynamicCast(CommandBasePtr ptr)
@@ -39175,7 +39259,7 @@ namespace Sdx
 
     GetBeiDouEphDoubleParamForEachSVResultPtr GetBeiDouEphDoubleParamForEachSVResult::create(CommandBasePtr relatedCommand, const std::string& paramName, const std::vector<double>& val, const Sdx::optional<std::string>& dataSetName)
     {
-      return GetBeiDouEphDoubleParamForEachSVResultPtr(new GetBeiDouEphDoubleParamForEachSVResult(relatedCommand, paramName, val, dataSetName));
+      return std::make_shared<GetBeiDouEphDoubleParamForEachSVResult>(relatedCommand, paramName, val, dataSetName);
     }
 
     GetBeiDouEphDoubleParamForEachSVResultPtr GetBeiDouEphDoubleParamForEachSVResult::dynamicCast(CommandBasePtr ptr)
@@ -39266,7 +39350,7 @@ namespace Sdx
 
     SetGlonassEphDoubleParamForEachSVPtr SetGlonassEphDoubleParamForEachSV::create(const std::string& paramName, const std::vector<double>& val)
     {
-      return SetGlonassEphDoubleParamForEachSVPtr(new SetGlonassEphDoubleParamForEachSV(paramName, val));
+      return std::make_shared<SetGlonassEphDoubleParamForEachSV>(paramName, val);
     }
 
     SetGlonassEphDoubleParamForEachSVPtr SetGlonassEphDoubleParamForEachSV::dynamicCast(CommandBasePtr ptr)
@@ -39350,7 +39434,7 @@ namespace Sdx
 
     SetGlonassDoubleParamsPtr SetGlonassDoubleParams::create(const std::string& paramName, const std::vector<double>& val)
     {
-      return SetGlonassDoubleParamsPtr(new SetGlonassDoubleParams(paramName, val));
+      return std::make_shared<SetGlonassDoubleParams>(paramName, val);
     }
 
     SetGlonassDoubleParamsPtr SetGlonassDoubleParams::dynamicCast(CommandBasePtr ptr)
@@ -39433,7 +39517,7 @@ namespace Sdx
 
     GetGlonassEphDoubleParamForEachSVPtr GetGlonassEphDoubleParamForEachSV::create(const std::string& paramName)
     {
-      return GetGlonassEphDoubleParamForEachSVPtr(new GetGlonassEphDoubleParamForEachSV(paramName));
+      return std::make_shared<GetGlonassEphDoubleParamForEachSV>(paramName);
     }
 
     GetGlonassEphDoubleParamForEachSVPtr GetGlonassEphDoubleParamForEachSV::dynamicCast(CommandBasePtr ptr)
@@ -39503,7 +39587,7 @@ namespace Sdx
 
     GetGlonassDoubleParamsPtr GetGlonassDoubleParams::create(const std::string& paramName)
     {
-      return GetGlonassDoubleParamsPtr(new GetGlonassDoubleParams(paramName));
+      return std::make_shared<GetGlonassDoubleParams>(paramName);
     }
 
     GetGlonassDoubleParamsPtr GetGlonassDoubleParams::dynamicCast(CommandBasePtr ptr)
@@ -39574,7 +39658,7 @@ namespace Sdx
 
     GetGlonassEphDoubleParamForEachSVResultPtr GetGlonassEphDoubleParamForEachSVResult::create(CommandBasePtr relatedCommand, const std::string& paramName, const std::vector<double>& val)
     {
-      return GetGlonassEphDoubleParamForEachSVResultPtr(new GetGlonassEphDoubleParamForEachSVResult(relatedCommand, paramName, val));
+      return std::make_shared<GetGlonassEphDoubleParamForEachSVResult>(relatedCommand, paramName, val);
     }
 
     GetGlonassEphDoubleParamForEachSVResultPtr GetGlonassEphDoubleParamForEachSVResult::dynamicCast(CommandBasePtr ptr)
@@ -39646,7 +39730,7 @@ namespace Sdx
 
     GetGlonassFrequencyNumberForEachSVPtr GetGlonassFrequencyNumberForEachSV::create()
     {
-      return GetGlonassFrequencyNumberForEachSVPtr(new GetGlonassFrequencyNumberForEachSV());
+      return std::make_shared<GetGlonassFrequencyNumberForEachSV>();
     }
 
     GetGlonassFrequencyNumberForEachSVPtr GetGlonassFrequencyNumberForEachSV::dynamicCast(CommandBasePtr ptr)
@@ -39703,7 +39787,7 @@ namespace Sdx
 
     GetGlonassFrequencyNumberForEachSVResultPtr GetGlonassFrequencyNumberForEachSVResult::create(CommandBasePtr relatedCommand, const std::vector<int>& frequencyNumber)
     {
-      return GetGlonassFrequencyNumberForEachSVResultPtr(new GetGlonassFrequencyNumberForEachSVResult(relatedCommand, frequencyNumber));
+      return std::make_shared<GetGlonassFrequencyNumberForEachSVResult>(relatedCommand, frequencyNumber);
     }
 
     GetGlonassFrequencyNumberForEachSVResultPtr GetGlonassFrequencyNumberForEachSVResult::dynamicCast(CommandBasePtr ptr)
@@ -39769,7 +39853,7 @@ namespace Sdx
 
     SetQzssEphDoubleParamForEachSVPtr SetQzssEphDoubleParamForEachSV::create(const std::string& paramName, const std::vector<double>& val, const Sdx::optional<std::string>& dataSetName)
     {
-      return SetQzssEphDoubleParamForEachSVPtr(new SetQzssEphDoubleParamForEachSV(paramName, val, dataSetName));
+      return std::make_shared<SetQzssEphDoubleParamForEachSV>(paramName, val, dataSetName);
     }
 
     SetQzssEphDoubleParamForEachSVPtr SetQzssEphDoubleParamForEachSV::dynamicCast(CommandBasePtr ptr)
@@ -39867,7 +39951,7 @@ namespace Sdx
 
     SetQzssEphemerisDoubleParamsPtr SetQzssEphemerisDoubleParams::create(const std::string& paramName, const std::vector<double>& val, const Sdx::optional<std::string>& dataSetName)
     {
-      return SetQzssEphemerisDoubleParamsPtr(new SetQzssEphemerisDoubleParams(paramName, val, dataSetName));
+      return std::make_shared<SetQzssEphemerisDoubleParams>(paramName, val, dataSetName);
     }
 
     SetQzssEphemerisDoubleParamsPtr SetQzssEphemerisDoubleParams::dynamicCast(CommandBasePtr ptr)
@@ -39964,7 +40048,7 @@ namespace Sdx
 
     GetQzssEphDoubleParamForEachSVPtr GetQzssEphDoubleParamForEachSV::create(const std::string& paramName, const Sdx::optional<std::string>& dataSetName)
     {
-      return GetQzssEphDoubleParamForEachSVPtr(new GetQzssEphDoubleParamForEachSV(paramName, dataSetName));
+      return std::make_shared<GetQzssEphDoubleParamForEachSV>(paramName, dataSetName);
     }
 
     GetQzssEphDoubleParamForEachSVPtr GetQzssEphDoubleParamForEachSV::dynamicCast(CommandBasePtr ptr)
@@ -40048,7 +40132,7 @@ namespace Sdx
 
     GetQzssEphemerisDoubleParamsPtr GetQzssEphemerisDoubleParams::create(const std::string& paramName, const Sdx::optional<std::string>& dataSetName)
     {
-      return GetQzssEphemerisDoubleParamsPtr(new GetQzssEphemerisDoubleParams(paramName, dataSetName));
+      return std::make_shared<GetQzssEphemerisDoubleParams>(paramName, dataSetName);
     }
 
     GetQzssEphemerisDoubleParamsPtr GetQzssEphemerisDoubleParams::dynamicCast(CommandBasePtr ptr)
@@ -40133,7 +40217,7 @@ namespace Sdx
 
     GetQzssEphDoubleParamForEachSVResultPtr GetQzssEphDoubleParamForEachSVResult::create(CommandBasePtr relatedCommand, const std::string& paramName, const std::vector<double>& val, const Sdx::optional<std::string>& dataSetName)
     {
-      return GetQzssEphDoubleParamForEachSVResultPtr(new GetQzssEphDoubleParamForEachSVResult(relatedCommand, paramName, val, dataSetName));
+      return std::make_shared<GetQzssEphDoubleParamForEachSVResult>(relatedCommand, paramName, val, dataSetName);
     }
 
     GetQzssEphDoubleParamForEachSVResultPtr GetQzssEphDoubleParamForEachSVResult::dynamicCast(CommandBasePtr ptr)
@@ -40225,7 +40309,7 @@ namespace Sdx
 
     SetNavICEphDoubleParamForEachSVPtr SetNavICEphDoubleParamForEachSV::create(const std::string& paramName, const std::vector<double>& val, const Sdx::optional<std::string>& dataSetName)
     {
-      return SetNavICEphDoubleParamForEachSVPtr(new SetNavICEphDoubleParamForEachSV(paramName, val, dataSetName));
+      return std::make_shared<SetNavICEphDoubleParamForEachSV>(paramName, val, dataSetName);
     }
 
     SetNavICEphDoubleParamForEachSVPtr SetNavICEphDoubleParamForEachSV::dynamicCast(CommandBasePtr ptr)
@@ -40323,7 +40407,7 @@ namespace Sdx
 
     SetNavICEphemerisDoubleParamsPtr SetNavICEphemerisDoubleParams::create(const std::string& paramName, const std::vector<double>& val, const Sdx::optional<std::string>& dataSetName)
     {
-      return SetNavICEphemerisDoubleParamsPtr(new SetNavICEphemerisDoubleParams(paramName, val, dataSetName));
+      return std::make_shared<SetNavICEphemerisDoubleParams>(paramName, val, dataSetName);
     }
 
     SetNavICEphemerisDoubleParamsPtr SetNavICEphemerisDoubleParams::dynamicCast(CommandBasePtr ptr)
@@ -40420,7 +40504,7 @@ namespace Sdx
 
     GetNavICEphDoubleParamForEachSVPtr GetNavICEphDoubleParamForEachSV::create(const std::string& paramName, const Sdx::optional<std::string>& dataSetName)
     {
-      return GetNavICEphDoubleParamForEachSVPtr(new GetNavICEphDoubleParamForEachSV(paramName, dataSetName));
+      return std::make_shared<GetNavICEphDoubleParamForEachSV>(paramName, dataSetName);
     }
 
     GetNavICEphDoubleParamForEachSVPtr GetNavICEphDoubleParamForEachSV::dynamicCast(CommandBasePtr ptr)
@@ -40504,7 +40588,7 @@ namespace Sdx
 
     GetNavICEphemerisDoubleParamsPtr GetNavICEphemerisDoubleParams::create(const std::string& paramName, const Sdx::optional<std::string>& dataSetName)
     {
-      return GetNavICEphemerisDoubleParamsPtr(new GetNavICEphemerisDoubleParams(paramName, dataSetName));
+      return std::make_shared<GetNavICEphemerisDoubleParams>(paramName, dataSetName);
     }
 
     GetNavICEphemerisDoubleParamsPtr GetNavICEphemerisDoubleParams::dynamicCast(CommandBasePtr ptr)
@@ -40589,7 +40673,7 @@ namespace Sdx
 
     GetNavICEphDoubleParamForEachSVResultPtr GetNavICEphDoubleParamForEachSVResult::create(CommandBasePtr relatedCommand, const std::string& paramName, const std::vector<double>& val, const Sdx::optional<std::string>& dataSetName)
     {
-      return GetNavICEphDoubleParamForEachSVResultPtr(new GetNavICEphDoubleParamForEachSVResult(relatedCommand, paramName, val, dataSetName));
+      return std::make_shared<GetNavICEphDoubleParamForEachSVResult>(relatedCommand, paramName, val, dataSetName);
     }
 
     GetNavICEphDoubleParamForEachSVResultPtr GetNavICEphDoubleParamForEachSVResult::dynamicCast(CommandBasePtr ptr)
@@ -40682,7 +40766,7 @@ namespace Sdx
 
     SetGpsEphBoolParamForSVPtr SetGpsEphBoolParamForSV::create(int svId, const std::string& paramName, bool val, const Sdx::optional<std::string>& dataSetName)
     {
-      return SetGpsEphBoolParamForSVPtr(new SetGpsEphBoolParamForSV(svId, paramName, val, dataSetName));
+      return std::make_shared<SetGpsEphBoolParamForSV>(svId, paramName, val, dataSetName);
     }
 
     SetGpsEphBoolParamForSVPtr SetGpsEphBoolParamForSV::dynamicCast(CommandBasePtr ptr)
@@ -40793,7 +40877,7 @@ namespace Sdx
 
     GetGpsEphBoolParamForSVPtr GetGpsEphBoolParamForSV::create(int svId, const std::string& paramName, const Sdx::optional<std::string>& dataSetName)
     {
-      return GetGpsEphBoolParamForSVPtr(new GetGpsEphBoolParamForSV(svId, paramName, dataSetName));
+      return std::make_shared<GetGpsEphBoolParamForSV>(svId, paramName, dataSetName);
     }
 
     GetGpsEphBoolParamForSVPtr GetGpsEphBoolParamForSV::dynamicCast(CommandBasePtr ptr)
@@ -40892,7 +40976,7 @@ namespace Sdx
 
     GetGpsEphBoolParamForSVResultPtr GetGpsEphBoolParamForSVResult::create(CommandBasePtr relatedCommand, int svId, const std::string& paramName, bool val, const Sdx::optional<std::string>& dataSetName)
     {
-      return GetGpsEphBoolParamForSVResultPtr(new GetGpsEphBoolParamForSVResult(relatedCommand, svId, paramName, val, dataSetName));
+      return std::make_shared<GetGpsEphBoolParamForSVResult>(relatedCommand, svId, paramName, val, dataSetName);
     }
 
     GetGpsEphBoolParamForSVResultPtr GetGpsEphBoolParamForSVResult::dynamicCast(CommandBasePtr ptr)
@@ -40997,7 +41081,7 @@ namespace Sdx
 
     SetGpsEphBoolParamForEachSVPtr SetGpsEphBoolParamForEachSV::create(const std::string& paramName, const std::vector<bool>& val, const Sdx::optional<std::string>& dataSetName)
     {
-      return SetGpsEphBoolParamForEachSVPtr(new SetGpsEphBoolParamForEachSV(paramName, val, dataSetName));
+      return std::make_shared<SetGpsEphBoolParamForEachSV>(paramName, val, dataSetName);
     }
 
     SetGpsEphBoolParamForEachSVPtr SetGpsEphBoolParamForEachSV::dynamicCast(CommandBasePtr ptr)
@@ -41095,7 +41179,7 @@ namespace Sdx
 
     SetGpsEphemerisBoolParamsPtr SetGpsEphemerisBoolParams::create(const std::string& paramName, const std::vector<bool>& val, const Sdx::optional<std::string>& dataSetName)
     {
-      return SetGpsEphemerisBoolParamsPtr(new SetGpsEphemerisBoolParams(paramName, val, dataSetName));
+      return std::make_shared<SetGpsEphemerisBoolParams>(paramName, val, dataSetName);
     }
 
     SetGpsEphemerisBoolParamsPtr SetGpsEphemerisBoolParams::dynamicCast(CommandBasePtr ptr)
@@ -41192,7 +41276,7 @@ namespace Sdx
 
     GetGpsEphBoolParamForEachSVPtr GetGpsEphBoolParamForEachSV::create(const std::string& paramName, const Sdx::optional<std::string>& dataSetName)
     {
-      return GetGpsEphBoolParamForEachSVPtr(new GetGpsEphBoolParamForEachSV(paramName, dataSetName));
+      return std::make_shared<GetGpsEphBoolParamForEachSV>(paramName, dataSetName);
     }
 
     GetGpsEphBoolParamForEachSVPtr GetGpsEphBoolParamForEachSV::dynamicCast(CommandBasePtr ptr)
@@ -41276,7 +41360,7 @@ namespace Sdx
 
     GetGpsEphemerisBoolParamsPtr GetGpsEphemerisBoolParams::create(const std::string& paramName, const Sdx::optional<std::string>& dataSetName)
     {
-      return GetGpsEphemerisBoolParamsPtr(new GetGpsEphemerisBoolParams(paramName, dataSetName));
+      return std::make_shared<GetGpsEphemerisBoolParams>(paramName, dataSetName);
     }
 
     GetGpsEphemerisBoolParamsPtr GetGpsEphemerisBoolParams::dynamicCast(CommandBasePtr ptr)
@@ -41361,7 +41445,7 @@ namespace Sdx
 
     GetGpsEphBoolParamForEachSVResultPtr GetGpsEphBoolParamForEachSVResult::create(CommandBasePtr relatedCommand, const std::string& paramName, const std::vector<bool>& val, const Sdx::optional<std::string>& dataSetName)
     {
-      return GetGpsEphBoolParamForEachSVResultPtr(new GetGpsEphBoolParamForEachSVResult(relatedCommand, paramName, val, dataSetName));
+      return std::make_shared<GetGpsEphBoolParamForEachSVResult>(relatedCommand, paramName, val, dataSetName);
     }
 
     GetGpsEphBoolParamForEachSVResultPtr GetGpsEphBoolParamForEachSVResult::dynamicCast(CommandBasePtr ptr)
@@ -41454,7 +41538,7 @@ namespace Sdx
 
     SetBeiDouEphBoolParamForSVPtr SetBeiDouEphBoolParamForSV::create(int svId, const std::string& paramName, bool val, const Sdx::optional<std::string>& dataSetName)
     {
-      return SetBeiDouEphBoolParamForSVPtr(new SetBeiDouEphBoolParamForSV(svId, paramName, val, dataSetName));
+      return std::make_shared<SetBeiDouEphBoolParamForSV>(svId, paramName, val, dataSetName);
     }
 
     SetBeiDouEphBoolParamForSVPtr SetBeiDouEphBoolParamForSV::dynamicCast(CommandBasePtr ptr)
@@ -41565,7 +41649,7 @@ namespace Sdx
 
     GetBeiDouEphBoolParamForSVPtr GetBeiDouEphBoolParamForSV::create(int svId, const std::string& paramName, const Sdx::optional<std::string>& dataSetName)
     {
-      return GetBeiDouEphBoolParamForSVPtr(new GetBeiDouEphBoolParamForSV(svId, paramName, dataSetName));
+      return std::make_shared<GetBeiDouEphBoolParamForSV>(svId, paramName, dataSetName);
     }
 
     GetBeiDouEphBoolParamForSVPtr GetBeiDouEphBoolParamForSV::dynamicCast(CommandBasePtr ptr)
@@ -41664,7 +41748,7 @@ namespace Sdx
 
     GetBeiDouEphBoolParamForSVResultPtr GetBeiDouEphBoolParamForSVResult::create(CommandBasePtr relatedCommand, int svId, const std::string& paramName, bool val, const Sdx::optional<std::string>& dataSetName)
     {
-      return GetBeiDouEphBoolParamForSVResultPtr(new GetBeiDouEphBoolParamForSVResult(relatedCommand, svId, paramName, val, dataSetName));
+      return std::make_shared<GetBeiDouEphBoolParamForSVResult>(relatedCommand, svId, paramName, val, dataSetName);
     }
 
     GetBeiDouEphBoolParamForSVResultPtr GetBeiDouEphBoolParamForSVResult::dynamicCast(CommandBasePtr ptr)
@@ -41769,7 +41853,7 @@ namespace Sdx
 
     SetBeiDouEphBoolParamForEachSVPtr SetBeiDouEphBoolParamForEachSV::create(const std::string& paramName, const std::vector<bool>& val, const Sdx::optional<std::string>& dataSetName)
     {
-      return SetBeiDouEphBoolParamForEachSVPtr(new SetBeiDouEphBoolParamForEachSV(paramName, val, dataSetName));
+      return std::make_shared<SetBeiDouEphBoolParamForEachSV>(paramName, val, dataSetName);
     }
 
     SetBeiDouEphBoolParamForEachSVPtr SetBeiDouEphBoolParamForEachSV::dynamicCast(CommandBasePtr ptr)
@@ -41867,7 +41951,7 @@ namespace Sdx
 
     SetBeiDouEphemerisBoolParamsPtr SetBeiDouEphemerisBoolParams::create(const std::string& paramName, const std::vector<bool>& val, const Sdx::optional<std::string>& dataSetName)
     {
-      return SetBeiDouEphemerisBoolParamsPtr(new SetBeiDouEphemerisBoolParams(paramName, val, dataSetName));
+      return std::make_shared<SetBeiDouEphemerisBoolParams>(paramName, val, dataSetName);
     }
 
     SetBeiDouEphemerisBoolParamsPtr SetBeiDouEphemerisBoolParams::dynamicCast(CommandBasePtr ptr)
@@ -41964,7 +42048,7 @@ namespace Sdx
 
     GetBeiDouEphBoolParamForEachSVPtr GetBeiDouEphBoolParamForEachSV::create(const std::string& paramName, const Sdx::optional<std::string>& dataSetName)
     {
-      return GetBeiDouEphBoolParamForEachSVPtr(new GetBeiDouEphBoolParamForEachSV(paramName, dataSetName));
+      return std::make_shared<GetBeiDouEphBoolParamForEachSV>(paramName, dataSetName);
     }
 
     GetBeiDouEphBoolParamForEachSVPtr GetBeiDouEphBoolParamForEachSV::dynamicCast(CommandBasePtr ptr)
@@ -42048,7 +42132,7 @@ namespace Sdx
 
     GetBeiDouEphemerisBoolParamsPtr GetBeiDouEphemerisBoolParams::create(const std::string& paramName, const Sdx::optional<std::string>& dataSetName)
     {
-      return GetBeiDouEphemerisBoolParamsPtr(new GetBeiDouEphemerisBoolParams(paramName, dataSetName));
+      return std::make_shared<GetBeiDouEphemerisBoolParams>(paramName, dataSetName);
     }
 
     GetBeiDouEphemerisBoolParamsPtr GetBeiDouEphemerisBoolParams::dynamicCast(CommandBasePtr ptr)
@@ -42133,7 +42217,7 @@ namespace Sdx
 
     GetBeiDouEphBoolParamForEachSVResultPtr GetBeiDouEphBoolParamForEachSVResult::create(CommandBasePtr relatedCommand, const std::string& paramName, const std::vector<bool>& val, const Sdx::optional<std::string>& dataSetName)
     {
-      return GetBeiDouEphBoolParamForEachSVResultPtr(new GetBeiDouEphBoolParamForEachSVResult(relatedCommand, paramName, val, dataSetName));
+      return std::make_shared<GetBeiDouEphBoolParamForEachSVResult>(relatedCommand, paramName, val, dataSetName);
     }
 
     GetBeiDouEphBoolParamForEachSVResultPtr GetBeiDouEphBoolParamForEachSVResult::dynamicCast(CommandBasePtr ptr)
@@ -42226,7 +42310,7 @@ namespace Sdx
 
     SetQzssEphBoolParamForSVPtr SetQzssEphBoolParamForSV::create(int svId, const std::string& paramName, bool val, const Sdx::optional<std::string>& dataSetName)
     {
-      return SetQzssEphBoolParamForSVPtr(new SetQzssEphBoolParamForSV(svId, paramName, val, dataSetName));
+      return std::make_shared<SetQzssEphBoolParamForSV>(svId, paramName, val, dataSetName);
     }
 
     SetQzssEphBoolParamForSVPtr SetQzssEphBoolParamForSV::dynamicCast(CommandBasePtr ptr)
@@ -42338,7 +42422,7 @@ namespace Sdx
 
     SetQzssEphemerisBoolParamPtr SetQzssEphemerisBoolParam::create(int svId, const std::string& paramName, bool val, const Sdx::optional<std::string>& dataSetName)
     {
-      return SetQzssEphemerisBoolParamPtr(new SetQzssEphemerisBoolParam(svId, paramName, val, dataSetName));
+      return std::make_shared<SetQzssEphemerisBoolParam>(svId, paramName, val, dataSetName);
     }
 
     SetQzssEphemerisBoolParamPtr SetQzssEphemerisBoolParam::dynamicCast(CommandBasePtr ptr)
@@ -42449,7 +42533,7 @@ namespace Sdx
 
     GetQzssEphBoolParamForSVPtr GetQzssEphBoolParamForSV::create(int svId, const std::string& paramName, const Sdx::optional<std::string>& dataSetName)
     {
-      return GetQzssEphBoolParamForSVPtr(new GetQzssEphBoolParamForSV(svId, paramName, dataSetName));
+      return std::make_shared<GetQzssEphBoolParamForSV>(svId, paramName, dataSetName);
     }
 
     GetQzssEphBoolParamForSVPtr GetQzssEphBoolParamForSV::dynamicCast(CommandBasePtr ptr)
@@ -42547,7 +42631,7 @@ namespace Sdx
 
     GetQzssEphemerisBoolParamPtr GetQzssEphemerisBoolParam::create(int svId, const std::string& paramName, const Sdx::optional<std::string>& dataSetName)
     {
-      return GetQzssEphemerisBoolParamPtr(new GetQzssEphemerisBoolParam(svId, paramName, dataSetName));
+      return std::make_shared<GetQzssEphemerisBoolParam>(svId, paramName, dataSetName);
     }
 
     GetQzssEphemerisBoolParamPtr GetQzssEphemerisBoolParam::dynamicCast(CommandBasePtr ptr)
@@ -42646,7 +42730,7 @@ namespace Sdx
 
     GetQzssEphBoolParamForSVResultPtr GetQzssEphBoolParamForSVResult::create(CommandBasePtr relatedCommand, int svId, const std::string& paramName, bool val, const Sdx::optional<std::string>& dataSetName)
     {
-      return GetQzssEphBoolParamForSVResultPtr(new GetQzssEphBoolParamForSVResult(relatedCommand, svId, paramName, val, dataSetName));
+      return std::make_shared<GetQzssEphBoolParamForSVResult>(relatedCommand, svId, paramName, val, dataSetName);
     }
 
     GetQzssEphBoolParamForSVResultPtr GetQzssEphBoolParamForSVResult::dynamicCast(CommandBasePtr ptr)
@@ -42751,7 +42835,7 @@ namespace Sdx
 
     SetQzssEphBoolParamForEachSVPtr SetQzssEphBoolParamForEachSV::create(const std::string& paramName, const std::vector<bool>& val, const Sdx::optional<std::string>& dataSetName)
     {
-      return SetQzssEphBoolParamForEachSVPtr(new SetQzssEphBoolParamForEachSV(paramName, val, dataSetName));
+      return std::make_shared<SetQzssEphBoolParamForEachSV>(paramName, val, dataSetName);
     }
 
     SetQzssEphBoolParamForEachSVPtr SetQzssEphBoolParamForEachSV::dynamicCast(CommandBasePtr ptr)
@@ -42849,7 +42933,7 @@ namespace Sdx
 
     SetQzssEphemerisBoolParamsPtr SetQzssEphemerisBoolParams::create(const std::string& paramName, const std::vector<bool>& val, const Sdx::optional<std::string>& dataSetName)
     {
-      return SetQzssEphemerisBoolParamsPtr(new SetQzssEphemerisBoolParams(paramName, val, dataSetName));
+      return std::make_shared<SetQzssEphemerisBoolParams>(paramName, val, dataSetName);
     }
 
     SetQzssEphemerisBoolParamsPtr SetQzssEphemerisBoolParams::dynamicCast(CommandBasePtr ptr)
@@ -42946,7 +43030,7 @@ namespace Sdx
 
     GetQzssEphBoolParamForEachSVPtr GetQzssEphBoolParamForEachSV::create(const std::string& paramName, const Sdx::optional<std::string>& dataSetName)
     {
-      return GetQzssEphBoolParamForEachSVPtr(new GetQzssEphBoolParamForEachSV(paramName, dataSetName));
+      return std::make_shared<GetQzssEphBoolParamForEachSV>(paramName, dataSetName);
     }
 
     GetQzssEphBoolParamForEachSVPtr GetQzssEphBoolParamForEachSV::dynamicCast(CommandBasePtr ptr)
@@ -43030,7 +43114,7 @@ namespace Sdx
 
     GetQzssEphemerisBoolParamsPtr GetQzssEphemerisBoolParams::create(const std::string& paramName, const Sdx::optional<std::string>& dataSetName)
     {
-      return GetQzssEphemerisBoolParamsPtr(new GetQzssEphemerisBoolParams(paramName, dataSetName));
+      return std::make_shared<GetQzssEphemerisBoolParams>(paramName, dataSetName);
     }
 
     GetQzssEphemerisBoolParamsPtr GetQzssEphemerisBoolParams::dynamicCast(CommandBasePtr ptr)
@@ -43115,7 +43199,7 @@ namespace Sdx
 
     GetQzssEphBoolParamForEachSVResultPtr GetQzssEphBoolParamForEachSVResult::create(CommandBasePtr relatedCommand, const std::string& paramName, const std::vector<bool>& val, const Sdx::optional<std::string>& dataSetName)
     {
-      return GetQzssEphBoolParamForEachSVResultPtr(new GetQzssEphBoolParamForEachSVResult(relatedCommand, paramName, val, dataSetName));
+      return std::make_shared<GetQzssEphBoolParamForEachSVResult>(relatedCommand, paramName, val, dataSetName);
     }
 
     GetQzssEphBoolParamForEachSVResultPtr GetQzssEphBoolParamForEachSVResult::dynamicCast(CommandBasePtr ptr)
@@ -43206,7 +43290,7 @@ namespace Sdx
 
     SetSbasEphParamsForSVPtr SetSbasEphParamsForSV::create(int svId, const std::map<std::string, double>& paramValueDict)
     {
-      return SetSbasEphParamsForSVPtr(new SetSbasEphParamsForSV(svId, paramValueDict));
+      return std::make_shared<SetSbasEphParamsForSV>(svId, paramValueDict);
     }
 
     SetSbasEphParamsForSVPtr SetSbasEphParamsForSV::dynamicCast(CommandBasePtr ptr)
@@ -43290,7 +43374,7 @@ namespace Sdx
 
     GetSbasEphParamsForSVPtr GetSbasEphParamsForSV::create(int svId, const std::vector<std::string>& paramArray)
     {
-      return GetSbasEphParamsForSVPtr(new GetSbasEphParamsForSV(svId, paramArray));
+      return std::make_shared<GetSbasEphParamsForSV>(svId, paramArray);
     }
 
     GetSbasEphParamsForSVPtr GetSbasEphParamsForSV::dynamicCast(CommandBasePtr ptr)
@@ -43374,7 +43458,7 @@ namespace Sdx
 
     GetSbasEphParamsForSVResultPtr GetSbasEphParamsForSVResult::create(CommandBasePtr relatedCommand, int svId, const std::map<std::string, double>& paramValueDict)
     {
-      return GetSbasEphParamsForSVResultPtr(new GetSbasEphParamsForSVResult(relatedCommand, svId, paramValueDict));
+      return std::make_shared<GetSbasEphParamsForSVResult>(relatedCommand, svId, paramValueDict);
     }
 
     GetSbasEphParamsForSVResultPtr GetSbasEphParamsForSVResult::dynamicCast(CommandBasePtr ptr)
@@ -43452,7 +43536,7 @@ namespace Sdx
 
     SetSbasRangingHealthForSVPtr SetSbasRangingHealthForSV::create(int svId, bool health)
     {
-      return SetSbasRangingHealthForSVPtr(new SetSbasRangingHealthForSV(svId, health));
+      return std::make_shared<SetSbasRangingHealthForSV>(svId, health);
     }
 
     SetSbasRangingHealthForSVPtr SetSbasRangingHealthForSV::dynamicCast(CommandBasePtr ptr)
@@ -43536,7 +43620,7 @@ namespace Sdx
 
     SetSbasCorrectionsHealthForSVPtr SetSbasCorrectionsHealthForSV::create(int svId, bool health)
     {
-      return SetSbasCorrectionsHealthForSVPtr(new SetSbasCorrectionsHealthForSV(svId, health));
+      return std::make_shared<SetSbasCorrectionsHealthForSV>(svId, health);
     }
 
     SetSbasCorrectionsHealthForSVPtr SetSbasCorrectionsHealthForSV::dynamicCast(CommandBasePtr ptr)
@@ -43620,7 +43704,7 @@ namespace Sdx
 
     SetSbasIntegrityHealthForSVPtr SetSbasIntegrityHealthForSV::create(int svId, bool health)
     {
-      return SetSbasIntegrityHealthForSVPtr(new SetSbasIntegrityHealthForSV(svId, health));
+      return std::make_shared<SetSbasIntegrityHealthForSV>(svId, health);
     }
 
     SetSbasIntegrityHealthForSVPtr SetSbasIntegrityHealthForSV::dynamicCast(CommandBasePtr ptr)
@@ -43704,7 +43788,7 @@ namespace Sdx
 
     SetSbasReservedHealthForSVPtr SetSbasReservedHealthForSV::create(int svId, bool health)
     {
-      return SetSbasReservedHealthForSVPtr(new SetSbasReservedHealthForSV(svId, health));
+      return std::make_shared<SetSbasReservedHealthForSV>(svId, health);
     }
 
     SetSbasReservedHealthForSVPtr SetSbasReservedHealthForSV::dynamicCast(CommandBasePtr ptr)
@@ -43788,7 +43872,7 @@ namespace Sdx
 
     SetSbasServiceHealthForSVPtr SetSbasServiceHealthForSV::create(int svId, int health)
     {
-      return SetSbasServiceHealthForSVPtr(new SetSbasServiceHealthForSV(svId, health));
+      return std::make_shared<SetSbasServiceHealthForSV>(svId, health);
     }
 
     SetSbasServiceHealthForSVPtr SetSbasServiceHealthForSV::dynamicCast(CommandBasePtr ptr)
@@ -43873,7 +43957,7 @@ namespace Sdx
 
     ResetPerturbationsPtr ResetPerturbations::create(const std::string& system, int svId, const Sdx::optional<std::string>& dataSetName)
     {
-      return ResetPerturbationsPtr(new ResetPerturbations(system, svId, dataSetName));
+      return std::make_shared<ResetPerturbations>(system, svId, dataSetName);
     }
 
     ResetPerturbationsPtr ResetPerturbations::dynamicCast(CommandBasePtr ptr)
@@ -43977,7 +44061,7 @@ namespace Sdx
 
     SetPerturbationsPtr SetPerturbations::create(const std::string& system, int svId, double crs, double crc, double cis, double cic, double cus, double cuc, const Sdx::optional<std::string>& dataSetName)
     {
-      return SetPerturbationsPtr(new SetPerturbations(system, svId, crs, crc, cis, cic, cus, cuc, dataSetName));
+      return std::make_shared<SetPerturbations>(system, svId, crs, crc, cis, cic, cus, cuc, dataSetName);
     }
 
     SetPerturbationsPtr SetPerturbations::dynamicCast(CommandBasePtr ptr)
@@ -44153,7 +44237,7 @@ namespace Sdx
 
     GetPerturbationsPtr GetPerturbations::create(const std::string& system, int svId, const Sdx::optional<std::string>& dataSetName)
     {
-      return GetPerturbationsPtr(new GetPerturbations(system, svId, dataSetName));
+      return std::make_shared<GetPerturbations>(system, svId, dataSetName);
     }
 
     GetPerturbationsPtr GetPerturbations::dynamicCast(CommandBasePtr ptr)
@@ -44257,7 +44341,7 @@ namespace Sdx
 
     GetPerturbationsResultPtr GetPerturbationsResult::create(CommandBasePtr relatedCommand, const std::string& system, int svId, double crs, double crc, double cis, double cic, double cus, double cuc, const Sdx::optional<std::string>& dataSetName)
     {
-      return GetPerturbationsResultPtr(new GetPerturbationsResult(relatedCommand, system, svId, crs, crc, cis, cic, cus, cuc, dataSetName));
+      return std::make_shared<GetPerturbationsResult>(relatedCommand, system, svId, crs, crc, cis, cic, cus, cuc, dataSetName);
     }
 
     GetPerturbationsResultPtr GetPerturbationsResult::dynamicCast(CommandBasePtr ptr)
@@ -44432,7 +44516,7 @@ namespace Sdx
 
     SetPerturbationsForAllSatPtr SetPerturbationsForAllSat::create(const std::string& system, const std::vector<double>& crs, const std::vector<double>& crc, const std::vector<double>& cis, const std::vector<double>& cic, const std::vector<double>& cus, const std::vector<double>& cuc, const Sdx::optional<std::string>& dataSetName)
     {
-      return SetPerturbationsForAllSatPtr(new SetPerturbationsForAllSat(system, crs, crc, cis, cic, cus, cuc, dataSetName));
+      return std::make_shared<SetPerturbationsForAllSat>(system, crs, crc, cis, cic, cus, cuc, dataSetName);
     }
 
     SetPerturbationsForAllSatPtr SetPerturbationsForAllSat::dynamicCast(CommandBasePtr ptr)
@@ -44594,7 +44678,7 @@ namespace Sdx
 
     GetPerturbationsForAllSatPtr GetPerturbationsForAllSat::create(const std::string& system, const Sdx::optional<std::string>& dataSetName)
     {
-      return GetPerturbationsForAllSatPtr(new GetPerturbationsForAllSat(system, dataSetName));
+      return std::make_shared<GetPerturbationsForAllSat>(system, dataSetName);
     }
 
     GetPerturbationsForAllSatPtr GetPerturbationsForAllSat::dynamicCast(CommandBasePtr ptr)
@@ -44684,7 +44768,7 @@ namespace Sdx
 
     GetPerturbationsForAllSatResultPtr GetPerturbationsForAllSatResult::create(CommandBasePtr relatedCommand, const std::string& system, const std::vector<double>& crs, const std::vector<double>& crc, const std::vector<double>& cis, const std::vector<double>& cic, const std::vector<double>& cus, const std::vector<double>& cuc, const Sdx::optional<std::string>& dataSetName)
     {
-      return GetPerturbationsForAllSatResultPtr(new GetPerturbationsForAllSatResult(relatedCommand, system, crs, crc, cis, cic, cus, cuc, dataSetName));
+      return std::make_shared<GetPerturbationsForAllSatResult>(relatedCommand, system, crs, crc, cis, cic, cus, cuc, dataSetName);
     }
 
     GetPerturbationsForAllSatResultPtr GetPerturbationsForAllSatResult::dynamicCast(CommandBasePtr ptr)
@@ -44847,7 +44931,7 @@ namespace Sdx
 
     SetMessageModificationToGpsCNavPtr SetMessageModificationToGpsCNav::create(const std::vector<std::string>& signalArray, int svId, int startTime, int stopTime, int messageType, const std::string& condition, bool updateCRC, const std::string& bitModifications, const std::string& id)
     {
-      return SetMessageModificationToGpsCNavPtr(new SetMessageModificationToGpsCNav(signalArray, svId, startTime, stopTime, messageType, condition, updateCRC, bitModifications, id));
+      return std::make_shared<SetMessageModificationToGpsCNav>(signalArray, svId, startTime, stopTime, messageType, condition, updateCRC, bitModifications, id);
     }
 
     SetMessageModificationToGpsCNavPtr SetMessageModificationToGpsCNav::dynamicCast(CommandBasePtr ptr)
@@ -45021,7 +45105,7 @@ namespace Sdx
 
     GetMessageModificationToGpsCNavPtr GetMessageModificationToGpsCNav::create(const std::string& id)
     {
-      return GetMessageModificationToGpsCNavPtr(new GetMessageModificationToGpsCNav(id));
+      return std::make_shared<GetMessageModificationToGpsCNav>(id);
     }
 
     GetMessageModificationToGpsCNavPtr GetMessageModificationToGpsCNav::dynamicCast(CommandBasePtr ptr)
@@ -45099,7 +45183,7 @@ namespace Sdx
 
     GetMessageModificationToGpsCNavResultPtr GetMessageModificationToGpsCNavResult::create(CommandBasePtr relatedCommand, const std::vector<std::string>& signalArray, int svId, int startTime, int stopTime, int messageType, const std::string& condition, bool updateCRC, const std::string& bitModifications, const std::string& id)
     {
-      return GetMessageModificationToGpsCNavResultPtr(new GetMessageModificationToGpsCNavResult(relatedCommand, signalArray, svId, startTime, stopTime, messageType, condition, updateCRC, bitModifications, id));
+      return std::make_shared<GetMessageModificationToGpsCNavResult>(relatedCommand, signalArray, svId, startTime, stopTime, messageType, condition, updateCRC, bitModifications, id);
     }
 
     GetMessageModificationToGpsCNavResultPtr GetMessageModificationToGpsCNavResult::dynamicCast(CommandBasePtr ptr)
@@ -45275,7 +45359,7 @@ namespace Sdx
 
     SetMessageModificationToGpsMNavPtr SetMessageModificationToGpsMNav::create(const std::vector<std::string>& signalArray, int svId, int startTime, int stopTime, int messageType, int occurrence, const std::string& condition, const std::string& bitModifications, const std::string& id)
     {
-      return SetMessageModificationToGpsMNavPtr(new SetMessageModificationToGpsMNav(signalArray, svId, startTime, stopTime, messageType, occurrence, condition, bitModifications, id));
+      return std::make_shared<SetMessageModificationToGpsMNav>(signalArray, svId, startTime, stopTime, messageType, occurrence, condition, bitModifications, id);
     }
 
     SetMessageModificationToGpsMNavPtr SetMessageModificationToGpsMNav::dynamicCast(CommandBasePtr ptr)
@@ -45449,7 +45533,7 @@ namespace Sdx
 
     GetMessageModificationToGpsMNavPtr GetMessageModificationToGpsMNav::create(const std::string& id)
     {
-      return GetMessageModificationToGpsMNavPtr(new GetMessageModificationToGpsMNav(id));
+      return std::make_shared<GetMessageModificationToGpsMNav>(id);
     }
 
     GetMessageModificationToGpsMNavPtr GetMessageModificationToGpsMNav::dynamicCast(CommandBasePtr ptr)
@@ -45527,7 +45611,7 @@ namespace Sdx
 
     GetMessageModificationToGpsMNavResultPtr GetMessageModificationToGpsMNavResult::create(CommandBasePtr relatedCommand, const std::vector<std::string>& signalArray, int svId, int startTime, int stopTime, int messageType, int occurrence, const std::string& condition, const std::string& bitModifications, const std::string& id)
     {
-      return GetMessageModificationToGpsMNavResultPtr(new GetMessageModificationToGpsMNavResult(relatedCommand, signalArray, svId, startTime, stopTime, messageType, occurrence, condition, bitModifications, id));
+      return std::make_shared<GetMessageModificationToGpsMNavResult>(relatedCommand, signalArray, svId, startTime, stopTime, messageType, occurrence, condition, bitModifications, id);
     }
 
     GetMessageModificationToGpsMNavResultPtr GetMessageModificationToGpsMNavResult::dynamicCast(CommandBasePtr ptr)
@@ -45703,7 +45787,7 @@ namespace Sdx
 
     SetMessageModificationToGpsCNav2Ptr SetMessageModificationToGpsCNav2::create(const std::vector<std::string>& signalArray, int svId, int startTime, int stopTime, int page, const std::string& condition, bool updateCRC, const std::string& bitModifications, const std::string& id)
     {
-      return SetMessageModificationToGpsCNav2Ptr(new SetMessageModificationToGpsCNav2(signalArray, svId, startTime, stopTime, page, condition, updateCRC, bitModifications, id));
+      return std::make_shared<SetMessageModificationToGpsCNav2>(signalArray, svId, startTime, stopTime, page, condition, updateCRC, bitModifications, id);
     }
 
     SetMessageModificationToGpsCNav2Ptr SetMessageModificationToGpsCNav2::dynamicCast(CommandBasePtr ptr)
@@ -45877,7 +45961,7 @@ namespace Sdx
 
     GetMessageModificationToGpsCNav2Ptr GetMessageModificationToGpsCNav2::create(const std::string& id)
     {
-      return GetMessageModificationToGpsCNav2Ptr(new GetMessageModificationToGpsCNav2(id));
+      return std::make_shared<GetMessageModificationToGpsCNav2>(id);
     }
 
     GetMessageModificationToGpsCNav2Ptr GetMessageModificationToGpsCNav2::dynamicCast(CommandBasePtr ptr)
@@ -45955,7 +46039,7 @@ namespace Sdx
 
     GetMessageModificationToGpsCNav2ResultPtr GetMessageModificationToGpsCNav2Result::create(CommandBasePtr relatedCommand, const std::vector<std::string>& signalArray, int svId, int startTime, int stopTime, int page, const std::string& condition, bool updateCRC, const std::string& bitModifications, const std::string& id)
     {
-      return GetMessageModificationToGpsCNav2ResultPtr(new GetMessageModificationToGpsCNav2Result(relatedCommand, signalArray, svId, startTime, stopTime, page, condition, updateCRC, bitModifications, id));
+      return std::make_shared<GetMessageModificationToGpsCNav2Result>(relatedCommand, signalArray, svId, startTime, stopTime, page, condition, updateCRC, bitModifications, id);
     }
 
     GetMessageModificationToGpsCNav2ResultPtr GetMessageModificationToGpsCNav2Result::dynamicCast(CommandBasePtr ptr)
@@ -46132,7 +46216,7 @@ namespace Sdx
 
     SetMessageModificationToGpsLNavPtr SetMessageModificationToGpsLNav::create(const std::vector<std::string>& signalArray, int svId, int startTime, int stopTime, int subframe, int page, int word, bool updateParity, const std::string& wordModification, const std::string& id)
     {
-      return SetMessageModificationToGpsLNavPtr(new SetMessageModificationToGpsLNav(signalArray, svId, startTime, stopTime, subframe, page, word, updateParity, wordModification, id));
+      return std::make_shared<SetMessageModificationToGpsLNav>(signalArray, svId, startTime, stopTime, subframe, page, word, updateParity, wordModification, id);
     }
 
     SetMessageModificationToGpsLNavPtr SetMessageModificationToGpsLNav::dynamicCast(CommandBasePtr ptr)
@@ -46319,7 +46403,7 @@ namespace Sdx
 
     GetMessageModificationToGpsLNavPtr GetMessageModificationToGpsLNav::create(const std::string& id)
     {
-      return GetMessageModificationToGpsLNavPtr(new GetMessageModificationToGpsLNav(id));
+      return std::make_shared<GetMessageModificationToGpsLNav>(id);
     }
 
     GetMessageModificationToGpsLNavPtr GetMessageModificationToGpsLNav::dynamicCast(CommandBasePtr ptr)
@@ -46398,7 +46482,7 @@ namespace Sdx
 
     GetMessageModificationToGpsLNavResultPtr GetMessageModificationToGpsLNavResult::create(CommandBasePtr relatedCommand, const std::vector<std::string>& signalArray, int svId, int startTime, int stopTime, int subframe, int page, int word, bool updateParity, const std::string& wordModification, const std::string& id)
     {
-      return GetMessageModificationToGpsLNavResultPtr(new GetMessageModificationToGpsLNavResult(relatedCommand, signalArray, svId, startTime, stopTime, subframe, page, word, updateParity, wordModification, id));
+      return std::make_shared<GetMessageModificationToGpsLNavResult>(relatedCommand, signalArray, svId, startTime, stopTime, subframe, page, word, updateParity, wordModification, id);
     }
 
     GetMessageModificationToGpsLNavResultPtr GetMessageModificationToGpsLNavResult::dynamicCast(CommandBasePtr ptr)
@@ -46585,7 +46669,7 @@ namespace Sdx
 
     SetMessageModificationToGalileoCNavPtr SetMessageModificationToGalileoCNav::create(const std::vector<std::string>& signalArray, int svId, int startTime, int stopTime, bool updateCRC, const std::string& bitModifications, const std::string& id)
     {
-      return SetMessageModificationToGalileoCNavPtr(new SetMessageModificationToGalileoCNav(signalArray, svId, startTime, stopTime, updateCRC, bitModifications, id));
+      return std::make_shared<SetMessageModificationToGalileoCNav>(signalArray, svId, startTime, stopTime, updateCRC, bitModifications, id);
     }
 
     SetMessageModificationToGalileoCNavPtr SetMessageModificationToGalileoCNav::dynamicCast(CommandBasePtr ptr)
@@ -46733,7 +46817,7 @@ namespace Sdx
 
     GetMessageModificationToGalileoCNavPtr GetMessageModificationToGalileoCNav::create(const std::string& id)
     {
-      return GetMessageModificationToGalileoCNavPtr(new GetMessageModificationToGalileoCNav(id));
+      return std::make_shared<GetMessageModificationToGalileoCNav>(id);
     }
 
     GetMessageModificationToGalileoCNavPtr GetMessageModificationToGalileoCNav::dynamicCast(CommandBasePtr ptr)
@@ -46809,7 +46893,7 @@ namespace Sdx
 
     GetMessageModificationToGalileoCNavResultPtr GetMessageModificationToGalileoCNavResult::create(CommandBasePtr relatedCommand, const std::vector<std::string>& signalArray, int svId, int startTime, int stopTime, bool updateCRC, const std::string& bitModifications, const std::string& id)
     {
-      return GetMessageModificationToGalileoCNavResultPtr(new GetMessageModificationToGalileoCNavResult(relatedCommand, signalArray, svId, startTime, stopTime, updateCRC, bitModifications, id));
+      return std::make_shared<GetMessageModificationToGalileoCNavResult>(relatedCommand, signalArray, svId, startTime, stopTime, updateCRC, bitModifications, id);
     }
 
     GetMessageModificationToGalileoCNavResultPtr GetMessageModificationToGalileoCNavResult::dynamicCast(CommandBasePtr ptr)
@@ -46960,7 +47044,7 @@ namespace Sdx
 
     SetMessageModificationToGalileoFNavPtr SetMessageModificationToGalileoFNav::create(const std::vector<std::string>& signalArray, int svId, int startTime, int stopTime, int subframe, int page, const std::string& condition, bool updateCRC, const std::string& bitModifications, const std::string& id)
     {
-      return SetMessageModificationToGalileoFNavPtr(new SetMessageModificationToGalileoFNav(signalArray, svId, startTime, stopTime, subframe, page, condition, updateCRC, bitModifications, id));
+      return std::make_shared<SetMessageModificationToGalileoFNav>(signalArray, svId, startTime, stopTime, subframe, page, condition, updateCRC, bitModifications, id);
     }
 
     SetMessageModificationToGalileoFNavPtr SetMessageModificationToGalileoFNav::dynamicCast(CommandBasePtr ptr)
@@ -47147,7 +47231,7 @@ namespace Sdx
 
     GetMessageModificationToGalileoFNavPtr GetMessageModificationToGalileoFNav::create(const std::string& id)
     {
-      return GetMessageModificationToGalileoFNavPtr(new GetMessageModificationToGalileoFNav(id));
+      return std::make_shared<GetMessageModificationToGalileoFNav>(id);
     }
 
     GetMessageModificationToGalileoFNavPtr GetMessageModificationToGalileoFNav::dynamicCast(CommandBasePtr ptr)
@@ -47226,7 +47310,7 @@ namespace Sdx
 
     GetMessageModificationToGalileoFNavResultPtr GetMessageModificationToGalileoFNavResult::create(CommandBasePtr relatedCommand, const std::vector<std::string>& signalArray, int svId, int startTime, int stopTime, int subframe, int page, const std::string& condition, bool updateCRC, const std::string& bitModifications, const std::string& id)
     {
-      return GetMessageModificationToGalileoFNavResultPtr(new GetMessageModificationToGalileoFNavResult(relatedCommand, signalArray, svId, startTime, stopTime, subframe, page, condition, updateCRC, bitModifications, id));
+      return std::make_shared<GetMessageModificationToGalileoFNavResult>(relatedCommand, signalArray, svId, startTime, stopTime, subframe, page, condition, updateCRC, bitModifications, id);
     }
 
     GetMessageModificationToGalileoFNavResultPtr GetMessageModificationToGalileoFNavResult::dynamicCast(CommandBasePtr ptr)
@@ -47416,7 +47500,7 @@ namespace Sdx
 
     SetMessageModificationToGalileoINavPtr SetMessageModificationToGalileoINav::create(const std::vector<std::string>& signalArray, int svId, int startTime, int stopTime, int subframe, int page, const std::string& condition, bool updateCRC, const std::string& bitModifications, const std::string& id)
     {
-      return SetMessageModificationToGalileoINavPtr(new SetMessageModificationToGalileoINav(signalArray, svId, startTime, stopTime, subframe, page, condition, updateCRC, bitModifications, id));
+      return std::make_shared<SetMessageModificationToGalileoINav>(signalArray, svId, startTime, stopTime, subframe, page, condition, updateCRC, bitModifications, id);
     }
 
     SetMessageModificationToGalileoINavPtr SetMessageModificationToGalileoINav::dynamicCast(CommandBasePtr ptr)
@@ -47603,7 +47687,7 @@ namespace Sdx
 
     GetMessageModificationToGalileoINavPtr GetMessageModificationToGalileoINav::create(const std::string& id)
     {
-      return GetMessageModificationToGalileoINavPtr(new GetMessageModificationToGalileoINav(id));
+      return std::make_shared<GetMessageModificationToGalileoINav>(id);
     }
 
     GetMessageModificationToGalileoINavPtr GetMessageModificationToGalileoINav::dynamicCast(CommandBasePtr ptr)
@@ -47682,7 +47766,7 @@ namespace Sdx
 
     GetMessageModificationToGalileoINavResultPtr GetMessageModificationToGalileoINavResult::create(CommandBasePtr relatedCommand, const std::vector<std::string>& signalArray, int svId, int startTime, int stopTime, int subframe, int page, const std::string& condition, bool updateCRC, const std::string& bitModifications, const std::string& id)
     {
-      return GetMessageModificationToGalileoINavResultPtr(new GetMessageModificationToGalileoINavResult(relatedCommand, signalArray, svId, startTime, stopTime, subframe, page, condition, updateCRC, bitModifications, id));
+      return std::make_shared<GetMessageModificationToGalileoINavResult>(relatedCommand, signalArray, svId, startTime, stopTime, subframe, page, condition, updateCRC, bitModifications, id);
     }
 
     GetMessageModificationToGalileoINavResultPtr GetMessageModificationToGalileoINavResult::dynamicCast(CommandBasePtr ptr)
@@ -47871,7 +47955,7 @@ namespace Sdx
 
     SetMessageModificationToGlonassNavPtr SetMessageModificationToGlonassNav::create(const std::vector<std::string>& signalArray, int svId, int startTime, int stopTime, int frame, int stringNumber, bool updateHammingCode, const std::string& stringModification, const std::string& id)
     {
-      return SetMessageModificationToGlonassNavPtr(new SetMessageModificationToGlonassNav(signalArray, svId, startTime, stopTime, frame, stringNumber, updateHammingCode, stringModification, id));
+      return std::make_shared<SetMessageModificationToGlonassNav>(signalArray, svId, startTime, stopTime, frame, stringNumber, updateHammingCode, stringModification, id);
     }
 
     SetMessageModificationToGlonassNavPtr SetMessageModificationToGlonassNav::dynamicCast(CommandBasePtr ptr)
@@ -48045,7 +48129,7 @@ namespace Sdx
 
     GetMessageModificationToGlonassNavPtr GetMessageModificationToGlonassNav::create(const std::string& id)
     {
-      return GetMessageModificationToGlonassNavPtr(new GetMessageModificationToGlonassNav(id));
+      return std::make_shared<GetMessageModificationToGlonassNav>(id);
     }
 
     GetMessageModificationToGlonassNavPtr GetMessageModificationToGlonassNav::dynamicCast(CommandBasePtr ptr)
@@ -48123,7 +48207,7 @@ namespace Sdx
 
     GetMessageModificationToGlonassNavResultPtr GetMessageModificationToGlonassNavResult::create(CommandBasePtr relatedCommand, const std::vector<std::string>& signalArray, int svId, int startTime, int stopTime, int frame, int stringNumber, bool updateHammingCode, const std::string& stringModification, const std::string& id)
     {
-      return GetMessageModificationToGlonassNavResultPtr(new GetMessageModificationToGlonassNavResult(relatedCommand, signalArray, svId, startTime, stopTime, frame, stringNumber, updateHammingCode, stringModification, id));
+      return std::make_shared<GetMessageModificationToGlonassNavResult>(relatedCommand, signalArray, svId, startTime, stopTime, frame, stringNumber, updateHammingCode, stringModification, id);
     }
 
     GetMessageModificationToGlonassNavResultPtr GetMessageModificationToGlonassNavResult::dynamicCast(CommandBasePtr ptr)
@@ -48300,7 +48384,7 @@ namespace Sdx
 
     SetMessageModificationToBeiDouD1NavPtr SetMessageModificationToBeiDouD1Nav::create(const std::vector<std::string>& signalArray, int svId, int startTime, int stopTime, int subframe, int page, int word, bool updateParity, const std::string& wordModification, const std::string& id)
     {
-      return SetMessageModificationToBeiDouD1NavPtr(new SetMessageModificationToBeiDouD1Nav(signalArray, svId, startTime, stopTime, subframe, page, word, updateParity, wordModification, id));
+      return std::make_shared<SetMessageModificationToBeiDouD1Nav>(signalArray, svId, startTime, stopTime, subframe, page, word, updateParity, wordModification, id);
     }
 
     SetMessageModificationToBeiDouD1NavPtr SetMessageModificationToBeiDouD1Nav::dynamicCast(CommandBasePtr ptr)
@@ -48487,7 +48571,7 @@ namespace Sdx
 
     GetMessageModificationToBeiDouD1NavPtr GetMessageModificationToBeiDouD1Nav::create(const std::string& id)
     {
-      return GetMessageModificationToBeiDouD1NavPtr(new GetMessageModificationToBeiDouD1Nav(id));
+      return std::make_shared<GetMessageModificationToBeiDouD1Nav>(id);
     }
 
     GetMessageModificationToBeiDouD1NavPtr GetMessageModificationToBeiDouD1Nav::dynamicCast(CommandBasePtr ptr)
@@ -48566,7 +48650,7 @@ namespace Sdx
 
     GetMessageModificationToBeiDouD1NavResultPtr GetMessageModificationToBeiDouD1NavResult::create(CommandBasePtr relatedCommand, const std::vector<std::string>& signalArray, int svId, int startTime, int stopTime, int subframe, int page, int word, bool updateParity, const std::string& wordModification, const std::string& id)
     {
-      return GetMessageModificationToBeiDouD1NavResultPtr(new GetMessageModificationToBeiDouD1NavResult(relatedCommand, signalArray, svId, startTime, stopTime, subframe, page, word, updateParity, wordModification, id));
+      return std::make_shared<GetMessageModificationToBeiDouD1NavResult>(relatedCommand, signalArray, svId, startTime, stopTime, subframe, page, word, updateParity, wordModification, id);
     }
 
     GetMessageModificationToBeiDouD1NavResultPtr GetMessageModificationToBeiDouD1NavResult::dynamicCast(CommandBasePtr ptr)
@@ -48756,7 +48840,7 @@ namespace Sdx
 
     SetMessageModificationToBeiDouD2NavPtr SetMessageModificationToBeiDouD2Nav::create(const std::vector<std::string>& signalArray, int svId, int startTime, int stopTime, int subframe, int page, int word, bool updateParity, const std::string& wordModification, const std::string& id)
     {
-      return SetMessageModificationToBeiDouD2NavPtr(new SetMessageModificationToBeiDouD2Nav(signalArray, svId, startTime, stopTime, subframe, page, word, updateParity, wordModification, id));
+      return std::make_shared<SetMessageModificationToBeiDouD2Nav>(signalArray, svId, startTime, stopTime, subframe, page, word, updateParity, wordModification, id);
     }
 
     SetMessageModificationToBeiDouD2NavPtr SetMessageModificationToBeiDouD2Nav::dynamicCast(CommandBasePtr ptr)
@@ -48943,7 +49027,7 @@ namespace Sdx
 
     GetMessageModificationToBeiDouD2NavPtr GetMessageModificationToBeiDouD2Nav::create(const std::string& id)
     {
-      return GetMessageModificationToBeiDouD2NavPtr(new GetMessageModificationToBeiDouD2Nav(id));
+      return std::make_shared<GetMessageModificationToBeiDouD2Nav>(id);
     }
 
     GetMessageModificationToBeiDouD2NavPtr GetMessageModificationToBeiDouD2Nav::dynamicCast(CommandBasePtr ptr)
@@ -49022,7 +49106,7 @@ namespace Sdx
 
     GetMessageModificationToBeiDouD2NavResultPtr GetMessageModificationToBeiDouD2NavResult::create(CommandBasePtr relatedCommand, const std::vector<std::string>& signalArray, int svId, int startTime, int stopTime, int subframe, int page, int word, bool updateParity, const std::string& wordModification, const std::string& id)
     {
-      return GetMessageModificationToBeiDouD2NavResultPtr(new GetMessageModificationToBeiDouD2NavResult(relatedCommand, signalArray, svId, startTime, stopTime, subframe, page, word, updateParity, wordModification, id));
+      return std::make_shared<GetMessageModificationToBeiDouD2NavResult>(relatedCommand, signalArray, svId, startTime, stopTime, subframe, page, word, updateParity, wordModification, id);
     }
 
     GetMessageModificationToBeiDouD2NavResultPtr GetMessageModificationToBeiDouD2NavResult::dynamicCast(CommandBasePtr ptr)
@@ -49211,7 +49295,7 @@ namespace Sdx
 
     SetMessageModificationToBeiDouCNav1Ptr SetMessageModificationToBeiDouCNav1::create(const std::vector<std::string>& signalArray, int svId, int startTime, int stopTime, int page, const std::string& condition, bool updateCRC, const std::string& bitModifications, const std::string& id)
     {
-      return SetMessageModificationToBeiDouCNav1Ptr(new SetMessageModificationToBeiDouCNav1(signalArray, svId, startTime, stopTime, page, condition, updateCRC, bitModifications, id));
+      return std::make_shared<SetMessageModificationToBeiDouCNav1>(signalArray, svId, startTime, stopTime, page, condition, updateCRC, bitModifications, id);
     }
 
     SetMessageModificationToBeiDouCNav1Ptr SetMessageModificationToBeiDouCNav1::dynamicCast(CommandBasePtr ptr)
@@ -49385,7 +49469,7 @@ namespace Sdx
 
     GetMessageModificationToBeiDouCNav1Ptr GetMessageModificationToBeiDouCNav1::create(const std::string& id)
     {
-      return GetMessageModificationToBeiDouCNav1Ptr(new GetMessageModificationToBeiDouCNav1(id));
+      return std::make_shared<GetMessageModificationToBeiDouCNav1>(id);
     }
 
     GetMessageModificationToBeiDouCNav1Ptr GetMessageModificationToBeiDouCNav1::dynamicCast(CommandBasePtr ptr)
@@ -49463,7 +49547,7 @@ namespace Sdx
 
     GetMessageModificationToBeiDouCNav1ResultPtr GetMessageModificationToBeiDouCNav1Result::create(CommandBasePtr relatedCommand, const std::vector<std::string>& signalArray, int svId, int startTime, int stopTime, int page, const std::string& condition, bool updateCRC, const std::string& bitModifications, const std::string& id)
     {
-      return GetMessageModificationToBeiDouCNav1ResultPtr(new GetMessageModificationToBeiDouCNav1Result(relatedCommand, signalArray, svId, startTime, stopTime, page, condition, updateCRC, bitModifications, id));
+      return std::make_shared<GetMessageModificationToBeiDouCNav1Result>(relatedCommand, signalArray, svId, startTime, stopTime, page, condition, updateCRC, bitModifications, id);
     }
 
     GetMessageModificationToBeiDouCNav1ResultPtr GetMessageModificationToBeiDouCNav1Result::dynamicCast(CommandBasePtr ptr)
@@ -49639,7 +49723,7 @@ namespace Sdx
 
     SetMessageModificationToBeiDouCNav2Ptr SetMessageModificationToBeiDouCNav2::create(const std::vector<std::string>& signalArray, int svId, int startTime, int stopTime, int messageType, const std::string& condition, bool updateCRC, const std::string& bitModifications, const std::string& id)
     {
-      return SetMessageModificationToBeiDouCNav2Ptr(new SetMessageModificationToBeiDouCNav2(signalArray, svId, startTime, stopTime, messageType, condition, updateCRC, bitModifications, id));
+      return std::make_shared<SetMessageModificationToBeiDouCNav2>(signalArray, svId, startTime, stopTime, messageType, condition, updateCRC, bitModifications, id);
     }
 
     SetMessageModificationToBeiDouCNav2Ptr SetMessageModificationToBeiDouCNav2::dynamicCast(CommandBasePtr ptr)
@@ -49813,7 +49897,7 @@ namespace Sdx
 
     GetMessageModificationToBeiDouCNav2Ptr GetMessageModificationToBeiDouCNav2::create(const std::string& id)
     {
-      return GetMessageModificationToBeiDouCNav2Ptr(new GetMessageModificationToBeiDouCNav2(id));
+      return std::make_shared<GetMessageModificationToBeiDouCNav2>(id);
     }
 
     GetMessageModificationToBeiDouCNav2Ptr GetMessageModificationToBeiDouCNav2::dynamicCast(CommandBasePtr ptr)
@@ -49891,7 +49975,7 @@ namespace Sdx
 
     GetMessageModificationToBeiDouCNav2ResultPtr GetMessageModificationToBeiDouCNav2Result::create(CommandBasePtr relatedCommand, const std::vector<std::string>& signalArray, int svId, int startTime, int stopTime, int messageType, const std::string& condition, bool updateCRC, const std::string& bitModifications, const std::string& id)
     {
-      return GetMessageModificationToBeiDouCNav2ResultPtr(new GetMessageModificationToBeiDouCNav2Result(relatedCommand, signalArray, svId, startTime, stopTime, messageType, condition, updateCRC, bitModifications, id));
+      return std::make_shared<GetMessageModificationToBeiDouCNav2Result>(relatedCommand, signalArray, svId, startTime, stopTime, messageType, condition, updateCRC, bitModifications, id);
     }
 
     GetMessageModificationToBeiDouCNav2ResultPtr GetMessageModificationToBeiDouCNav2Result::dynamicCast(CommandBasePtr ptr)
@@ -50068,7 +50152,7 @@ namespace Sdx
 
     SetMessageModificationToQzssLNavPtr SetMessageModificationToQzssLNav::create(const std::vector<std::string>& signalArray, int svId, int startTime, int stopTime, int subframe, int lNavSvId, int word, bool updateParity, const std::string& wordModification, const std::string& id)
     {
-      return SetMessageModificationToQzssLNavPtr(new SetMessageModificationToQzssLNav(signalArray, svId, startTime, stopTime, subframe, lNavSvId, word, updateParity, wordModification, id));
+      return std::make_shared<SetMessageModificationToQzssLNav>(signalArray, svId, startTime, stopTime, subframe, lNavSvId, word, updateParity, wordModification, id);
     }
 
     SetMessageModificationToQzssLNavPtr SetMessageModificationToQzssLNav::dynamicCast(CommandBasePtr ptr)
@@ -50255,7 +50339,7 @@ namespace Sdx
 
     GetMessageModificationToQzssLNavPtr GetMessageModificationToQzssLNav::create(const std::string& id)
     {
-      return GetMessageModificationToQzssLNavPtr(new GetMessageModificationToQzssLNav(id));
+      return std::make_shared<GetMessageModificationToQzssLNav>(id);
     }
 
     GetMessageModificationToQzssLNavPtr GetMessageModificationToQzssLNav::dynamicCast(CommandBasePtr ptr)
@@ -50334,7 +50418,7 @@ namespace Sdx
 
     GetMessageModificationToQzssLNavResultPtr GetMessageModificationToQzssLNavResult::create(CommandBasePtr relatedCommand, const std::vector<std::string>& signalArray, int svId, int startTime, int stopTime, int subframe, int lNavSvId, int word, bool updateParity, const std::string& wordModification, const std::string& id)
     {
-      return GetMessageModificationToQzssLNavResultPtr(new GetMessageModificationToQzssLNavResult(relatedCommand, signalArray, svId, startTime, stopTime, subframe, lNavSvId, word, updateParity, wordModification, id));
+      return std::make_shared<GetMessageModificationToQzssLNavResult>(relatedCommand, signalArray, svId, startTime, stopTime, subframe, lNavSvId, word, updateParity, wordModification, id);
     }
 
     GetMessageModificationToQzssLNavResultPtr GetMessageModificationToQzssLNavResult::dynamicCast(CommandBasePtr ptr)
@@ -50523,7 +50607,7 @@ namespace Sdx
 
     SetMessageModificationToQzssSlasPtr SetMessageModificationToQzssSlas::create(const std::vector<std::string>& signalArray, int svId, int startTime, int stopTime, int messageType, const std::string& condition, bool updateCRC, const std::string& bitModifications, const std::string& id)
     {
-      return SetMessageModificationToQzssSlasPtr(new SetMessageModificationToQzssSlas(signalArray, svId, startTime, stopTime, messageType, condition, updateCRC, bitModifications, id));
+      return std::make_shared<SetMessageModificationToQzssSlas>(signalArray, svId, startTime, stopTime, messageType, condition, updateCRC, bitModifications, id);
     }
 
     SetMessageModificationToQzssSlasPtr SetMessageModificationToQzssSlas::dynamicCast(CommandBasePtr ptr)
@@ -50697,7 +50781,7 @@ namespace Sdx
 
     GetMessageModificationToQzssSlasPtr GetMessageModificationToQzssSlas::create(const std::string& id)
     {
-      return GetMessageModificationToQzssSlasPtr(new GetMessageModificationToQzssSlas(id));
+      return std::make_shared<GetMessageModificationToQzssSlas>(id);
     }
 
     GetMessageModificationToQzssSlasPtr GetMessageModificationToQzssSlas::dynamicCast(CommandBasePtr ptr)
@@ -50775,7 +50859,7 @@ namespace Sdx
 
     GetMessageModificationToQzssSlasResultPtr GetMessageModificationToQzssSlasResult::create(CommandBasePtr relatedCommand, const std::vector<std::string>& signalArray, int svId, int startTime, int stopTime, int messageType, const std::string& condition, bool updateCRC, const std::string& bitModifications, const std::string& id)
     {
-      return GetMessageModificationToQzssSlasResultPtr(new GetMessageModificationToQzssSlasResult(relatedCommand, signalArray, svId, startTime, stopTime, messageType, condition, updateCRC, bitModifications, id));
+      return std::make_shared<GetMessageModificationToQzssSlasResult>(relatedCommand, signalArray, svId, startTime, stopTime, messageType, condition, updateCRC, bitModifications, id);
     }
 
     GetMessageModificationToQzssSlasResultPtr GetMessageModificationToQzssSlasResult::dynamicCast(CommandBasePtr ptr)
@@ -50951,7 +51035,7 @@ namespace Sdx
 
     SetMessageModificationToQzssCNavPtr SetMessageModificationToQzssCNav::create(const std::vector<std::string>& signalArray, int svId, int startTime, int stopTime, int messageType, const std::string& condition, bool updateCRC, const std::string& bitModifications, const std::string& id)
     {
-      return SetMessageModificationToQzssCNavPtr(new SetMessageModificationToQzssCNav(signalArray, svId, startTime, stopTime, messageType, condition, updateCRC, bitModifications, id));
+      return std::make_shared<SetMessageModificationToQzssCNav>(signalArray, svId, startTime, stopTime, messageType, condition, updateCRC, bitModifications, id);
     }
 
     SetMessageModificationToQzssCNavPtr SetMessageModificationToQzssCNav::dynamicCast(CommandBasePtr ptr)
@@ -51125,7 +51209,7 @@ namespace Sdx
 
     GetMessageModificationToQzssCNavPtr GetMessageModificationToQzssCNav::create(const std::string& id)
     {
-      return GetMessageModificationToQzssCNavPtr(new GetMessageModificationToQzssCNav(id));
+      return std::make_shared<GetMessageModificationToQzssCNav>(id);
     }
 
     GetMessageModificationToQzssCNavPtr GetMessageModificationToQzssCNav::dynamicCast(CommandBasePtr ptr)
@@ -51203,7 +51287,7 @@ namespace Sdx
 
     GetMessageModificationToQzssCNavResultPtr GetMessageModificationToQzssCNavResult::create(CommandBasePtr relatedCommand, const std::vector<std::string>& signalArray, int svId, int startTime, int stopTime, int messageType, const std::string& condition, bool updateCRC, const std::string& bitModifications, const std::string& id)
     {
-      return GetMessageModificationToQzssCNavResultPtr(new GetMessageModificationToQzssCNavResult(relatedCommand, signalArray, svId, startTime, stopTime, messageType, condition, updateCRC, bitModifications, id));
+      return std::make_shared<GetMessageModificationToQzssCNavResult>(relatedCommand, signalArray, svId, startTime, stopTime, messageType, condition, updateCRC, bitModifications, id);
     }
 
     GetMessageModificationToQzssCNavResultPtr GetMessageModificationToQzssCNavResult::dynamicCast(CommandBasePtr ptr)
@@ -51379,7 +51463,7 @@ namespace Sdx
 
     SetMessageModificationToQzssCNav2Ptr SetMessageModificationToQzssCNav2::create(const std::vector<std::string>& signalArray, int svId, int startTime, int stopTime, int page, const std::string& condition, bool updateCRC, const std::string& bitModifications, const std::string& id)
     {
-      return SetMessageModificationToQzssCNav2Ptr(new SetMessageModificationToQzssCNav2(signalArray, svId, startTime, stopTime, page, condition, updateCRC, bitModifications, id));
+      return std::make_shared<SetMessageModificationToQzssCNav2>(signalArray, svId, startTime, stopTime, page, condition, updateCRC, bitModifications, id);
     }
 
     SetMessageModificationToQzssCNav2Ptr SetMessageModificationToQzssCNav2::dynamicCast(CommandBasePtr ptr)
@@ -51553,7 +51637,7 @@ namespace Sdx
 
     GetMessageModificationToQzssCNav2Ptr GetMessageModificationToQzssCNav2::create(const std::string& id)
     {
-      return GetMessageModificationToQzssCNav2Ptr(new GetMessageModificationToQzssCNav2(id));
+      return std::make_shared<GetMessageModificationToQzssCNav2>(id);
     }
 
     GetMessageModificationToQzssCNav2Ptr GetMessageModificationToQzssCNav2::dynamicCast(CommandBasePtr ptr)
@@ -51631,7 +51715,7 @@ namespace Sdx
 
     GetMessageModificationToQzssCNav2ResultPtr GetMessageModificationToQzssCNav2Result::create(CommandBasePtr relatedCommand, const std::vector<std::string>& signalArray, int svId, int startTime, int stopTime, int page, const std::string& condition, bool updateCRC, const std::string& bitModifications, const std::string& id)
     {
-      return GetMessageModificationToQzssCNav2ResultPtr(new GetMessageModificationToQzssCNav2Result(relatedCommand, signalArray, svId, startTime, stopTime, page, condition, updateCRC, bitModifications, id));
+      return std::make_shared<GetMessageModificationToQzssCNav2Result>(relatedCommand, signalArray, svId, startTime, stopTime, page, condition, updateCRC, bitModifications, id);
     }
 
     GetMessageModificationToQzssCNav2ResultPtr GetMessageModificationToQzssCNav2Result::dynamicCast(CommandBasePtr ptr)
@@ -51808,7 +51892,7 @@ namespace Sdx
 
     SetMessageModificationToNavICNavPtr SetMessageModificationToNavICNav::create(const std::vector<std::string>& signalArray, int svId, int startTime, int stopTime, int subframe, int messageType, const std::string& condition, bool updateCRC, const std::string& bitModifications, const std::string& id)
     {
-      return SetMessageModificationToNavICNavPtr(new SetMessageModificationToNavICNav(signalArray, svId, startTime, stopTime, subframe, messageType, condition, updateCRC, bitModifications, id));
+      return std::make_shared<SetMessageModificationToNavICNav>(signalArray, svId, startTime, stopTime, subframe, messageType, condition, updateCRC, bitModifications, id);
     }
 
     SetMessageModificationToNavICNavPtr SetMessageModificationToNavICNav::dynamicCast(CommandBasePtr ptr)
@@ -51995,7 +52079,7 @@ namespace Sdx
 
     GetMessageModificationToNavICNavPtr GetMessageModificationToNavICNav::create(const std::string& id)
     {
-      return GetMessageModificationToNavICNavPtr(new GetMessageModificationToNavICNav(id));
+      return std::make_shared<GetMessageModificationToNavICNav>(id);
     }
 
     GetMessageModificationToNavICNavPtr GetMessageModificationToNavICNav::dynamicCast(CommandBasePtr ptr)
@@ -52074,7 +52158,7 @@ namespace Sdx
 
     GetMessageModificationToNavICNavResultPtr GetMessageModificationToNavICNavResult::create(CommandBasePtr relatedCommand, const std::vector<std::string>& signalArray, int svId, int startTime, int stopTime, int subframe, int messageType, const std::string& condition, bool updateCRC, const std::string& bitModifications, const std::string& id)
     {
-      return GetMessageModificationToNavICNavResultPtr(new GetMessageModificationToNavICNavResult(relatedCommand, signalArray, svId, startTime, stopTime, subframe, messageType, condition, updateCRC, bitModifications, id));
+      return std::make_shared<GetMessageModificationToNavICNavResult>(relatedCommand, signalArray, svId, startTime, stopTime, subframe, messageType, condition, updateCRC, bitModifications, id);
     }
 
     GetMessageModificationToNavICNavResultPtr GetMessageModificationToNavICNavResult::dynamicCast(CommandBasePtr ptr)
@@ -52263,7 +52347,7 @@ namespace Sdx
 
     SetMessageModificationToSbasNavPtr SetMessageModificationToSbasNav::create(const std::vector<std::string>& signalArray, int svId, int startTime, int stopTime, int messageType, const std::string& condition, bool updateCRC, const std::string& bitModifications, const std::string& id)
     {
-      return SetMessageModificationToSbasNavPtr(new SetMessageModificationToSbasNav(signalArray, svId, startTime, stopTime, messageType, condition, updateCRC, bitModifications, id));
+      return std::make_shared<SetMessageModificationToSbasNav>(signalArray, svId, startTime, stopTime, messageType, condition, updateCRC, bitModifications, id);
     }
 
     SetMessageModificationToSbasNavPtr SetMessageModificationToSbasNav::dynamicCast(CommandBasePtr ptr)
@@ -52437,7 +52521,7 @@ namespace Sdx
 
     GetMessageModificationToSbasNavPtr GetMessageModificationToSbasNav::create(const std::string& id)
     {
-      return GetMessageModificationToSbasNavPtr(new GetMessageModificationToSbasNav(id));
+      return std::make_shared<GetMessageModificationToSbasNav>(id);
     }
 
     GetMessageModificationToSbasNavPtr GetMessageModificationToSbasNav::dynamicCast(CommandBasePtr ptr)
@@ -52515,7 +52599,7 @@ namespace Sdx
 
     GetMessageModificationToSbasNavResultPtr GetMessageModificationToSbasNavResult::create(CommandBasePtr relatedCommand, const std::vector<std::string>& signalArray, int svId, int startTime, int stopTime, int messageType, const std::string& condition, bool updateCRC, const std::string& bitModifications, const std::string& id)
     {
-      return GetMessageModificationToSbasNavResultPtr(new GetMessageModificationToSbasNavResult(relatedCommand, signalArray, svId, startTime, stopTime, messageType, condition, updateCRC, bitModifications, id));
+      return std::make_shared<GetMessageModificationToSbasNavResult>(relatedCommand, signalArray, svId, startTime, stopTime, messageType, condition, updateCRC, bitModifications, id);
     }
 
     GetMessageModificationToSbasNavResultPtr GetMessageModificationToSbasNavResult::dynamicCast(CommandBasePtr ptr)
@@ -52684,7 +52768,7 @@ namespace Sdx
 
     RemoveMessageModificationForNavMsgFamilyPtr RemoveMessageModificationForNavMsgFamily::create(const std::string& navMsgFamily, const std::string& id)
     {
-      return RemoveMessageModificationForNavMsgFamilyPtr(new RemoveMessageModificationForNavMsgFamily(navMsgFamily, id));
+      return std::make_shared<RemoveMessageModificationForNavMsgFamily>(navMsgFamily, id);
     }
 
     RemoveMessageModificationForNavMsgFamilyPtr RemoveMessageModificationForNavMsgFamily::dynamicCast(CommandBasePtr ptr)
@@ -52767,7 +52851,7 @@ namespace Sdx
 
     ClearAllMessageModificationsForNavMsgFamilyPtr ClearAllMessageModificationsForNavMsgFamily::create(const std::string& navMsgFamily)
     {
-      return ClearAllMessageModificationsForNavMsgFamilyPtr(new ClearAllMessageModificationsForNavMsgFamily(navMsgFamily));
+      return std::make_shared<ClearAllMessageModificationsForNavMsgFamily>(navMsgFamily);
     }
 
     ClearAllMessageModificationsForNavMsgFamilyPtr ClearAllMessageModificationsForNavMsgFamily::dynamicCast(CommandBasePtr ptr)
@@ -52838,7 +52922,7 @@ namespace Sdx
 
     GetAllMessageModificationIdsForNavMsgFamilyPtr GetAllMessageModificationIdsForNavMsgFamily::create(const std::string& navMsgFamily, int svId)
     {
-      return GetAllMessageModificationIdsForNavMsgFamilyPtr(new GetAllMessageModificationIdsForNavMsgFamily(navMsgFamily, svId));
+      return std::make_shared<GetAllMessageModificationIdsForNavMsgFamily>(navMsgFamily, svId);
     }
 
     GetAllMessageModificationIdsForNavMsgFamilyPtr GetAllMessageModificationIdsForNavMsgFamily::dynamicCast(CommandBasePtr ptr)
@@ -52921,7 +53005,7 @@ namespace Sdx
 
     GetAllMessageModificationIdsForNavMsgFamilyResultPtr GetAllMessageModificationIdsForNavMsgFamilyResult::create(CommandBasePtr relatedCommand, const std::vector<std::string>& ids)
     {
-      return GetAllMessageModificationIdsForNavMsgFamilyResultPtr(new GetAllMessageModificationIdsForNavMsgFamilyResult(relatedCommand, ids));
+      return std::make_shared<GetAllMessageModificationIdsForNavMsgFamilyResult>(relatedCommand, ids);
     }
 
     GetAllMessageModificationIdsForNavMsgFamilyResultPtr GetAllMessageModificationIdsForNavMsgFamilyResult::dynamicCast(CommandBasePtr ptr)
@@ -52986,7 +53070,7 @@ namespace Sdx
 
     RemoveMessageModificationForSignalPtr RemoveMessageModificationForSignal::create(const std::string& signal, const std::string& id)
     {
-      return RemoveMessageModificationForSignalPtr(new RemoveMessageModificationForSignal(signal, id));
+      return std::make_shared<RemoveMessageModificationForSignal>(signal, id);
     }
 
     RemoveMessageModificationForSignalPtr RemoveMessageModificationForSignal::dynamicCast(CommandBasePtr ptr)
@@ -53070,7 +53154,7 @@ namespace Sdx
 
     RemoveMessageModificationPtr RemoveMessageModification::create(const std::string& signal, const std::string& id)
     {
-      return RemoveMessageModificationPtr(new RemoveMessageModification(signal, id));
+      return std::make_shared<RemoveMessageModification>(signal, id);
     }
 
     RemoveMessageModificationPtr RemoveMessageModification::dynamicCast(CommandBasePtr ptr)
@@ -53153,7 +53237,7 @@ namespace Sdx
 
     ClearAllMessageModificationsForSignalPtr ClearAllMessageModificationsForSignal::create(const std::string& signal)
     {
-      return ClearAllMessageModificationsForSignalPtr(new ClearAllMessageModificationsForSignal(signal));
+      return std::make_shared<ClearAllMessageModificationsForSignal>(signal);
     }
 
     ClearAllMessageModificationsForSignalPtr ClearAllMessageModificationsForSignal::dynamicCast(CommandBasePtr ptr)
@@ -53223,7 +53307,7 @@ namespace Sdx
 
     ClearAllMessageModificationsPtr ClearAllMessageModifications::create(const std::string& signal)
     {
-      return ClearAllMessageModificationsPtr(new ClearAllMessageModifications(signal));
+      return std::make_shared<ClearAllMessageModifications>(signal);
     }
 
     ClearAllMessageModificationsPtr ClearAllMessageModifications::dynamicCast(CommandBasePtr ptr)
@@ -53294,7 +53378,7 @@ namespace Sdx
 
     GetAllMessageModificationIdsForSignalPtr GetAllMessageModificationIdsForSignal::create(const std::string& signal, int svId)
     {
-      return GetAllMessageModificationIdsForSignalPtr(new GetAllMessageModificationIdsForSignal(signal, svId));
+      return std::make_shared<GetAllMessageModificationIdsForSignal>(signal, svId);
     }
 
     GetAllMessageModificationIdsForSignalPtr GetAllMessageModificationIdsForSignal::dynamicCast(CommandBasePtr ptr)
@@ -53377,7 +53461,7 @@ namespace Sdx
 
     GetAllMessageModificationIdsForSignalResultPtr GetAllMessageModificationIdsForSignalResult::create(CommandBasePtr relatedCommand, const std::vector<std::string>& ids)
     {
-      return GetAllMessageModificationIdsForSignalResultPtr(new GetAllMessageModificationIdsForSignalResult(relatedCommand, ids));
+      return std::make_shared<GetAllMessageModificationIdsForSignalResult>(relatedCommand, ids);
     }
 
     GetAllMessageModificationIdsForSignalResultPtr GetAllMessageModificationIdsForSignalResult::dynamicCast(CommandBasePtr ptr)
@@ -53446,7 +53530,7 @@ namespace Sdx
 
     SetInterferenceCWPtr SetInterferenceCW::create(int startTime, int stopTime, double centralFreq, double power, bool enabled, const std::string& id)
     {
-      return SetInterferenceCWPtr(new SetInterferenceCW(startTime, stopTime, centralFreq, power, enabled, id));
+      return std::make_shared<SetInterferenceCW>(startTime, stopTime, centralFreq, power, enabled, id);
     }
 
     SetInterferenceCWPtr SetInterferenceCW::dynamicCast(CommandBasePtr ptr)
@@ -53588,7 +53672,7 @@ namespace Sdx
 
     SetInterferenceChirpPtr SetInterferenceChirp::create(int startTime, int stopTime, double centralFreq, double power, double bandwidth, double sweepTime, bool enabled, const std::string& id)
     {
-      return SetInterferenceChirpPtr(new SetInterferenceChirp(startTime, stopTime, centralFreq, power, bandwidth, sweepTime, enabled, id));
+      return std::make_shared<SetInterferenceChirp>(startTime, stopTime, centralFreq, power, bandwidth, sweepTime, enabled, id);
     }
 
     SetInterferenceChirpPtr SetInterferenceChirp::dynamicCast(CommandBasePtr ptr)
@@ -53749,7 +53833,7 @@ namespace Sdx
 
     RemoveInterferencePtr RemoveInterference::create(const std::string& id)
     {
-      return RemoveInterferencePtr(new RemoveInterference(id));
+      return std::make_shared<RemoveInterference>(id);
     }
 
     RemoveInterferencePtr RemoveInterference::dynamicCast(CommandBasePtr ptr)
@@ -53814,7 +53898,7 @@ namespace Sdx
 
     RemoveAllInterferencesPtr RemoveAllInterferences::create()
     {
-      return RemoveAllInterferencesPtr(new RemoveAllInterferences());
+      return std::make_shared<RemoveAllInterferences>();
     }
 
     RemoveAllInterferencesPtr RemoveAllInterferences::dynamicCast(CommandBasePtr ptr)
@@ -53878,7 +53962,7 @@ namespace Sdx
 
     SetPseudorangeRampForSVPtr SetPseudorangeRampForSV::create(const std::string& system, int svId, double offset, int startTime, int holdStartTime, int holdStopTime, int stopTime, const std::string& id)
     {
-      return SetPseudorangeRampForSVPtr(new SetPseudorangeRampForSV(system, svId, offset, startTime, holdStartTime, holdStopTime, stopTime, id));
+      return std::make_shared<SetPseudorangeRampForSV>(system, svId, offset, startTime, holdStartTime, holdStopTime, stopTime, id);
     }
 
     SetPseudorangeRampForSVPtr SetPseudorangeRampForSV::dynamicCast(CommandBasePtr ptr)
@@ -54039,7 +54123,7 @@ namespace Sdx
 
     GetPseudorangeRampForSVPtr GetPseudorangeRampForSV::create(const std::string& id)
     {
-      return GetPseudorangeRampForSVPtr(new GetPseudorangeRampForSV(id));
+      return std::make_shared<GetPseudorangeRampForSV>(id);
     }
 
     GetPseudorangeRampForSVPtr GetPseudorangeRampForSV::dynamicCast(CommandBasePtr ptr)
@@ -54116,7 +54200,7 @@ namespace Sdx
 
     GetPseudorangeRampForSVResultPtr GetPseudorangeRampForSVResult::create(CommandBasePtr relatedCommand, const std::string& system, int svId, double offset, int startTime, int holdStartTime, int holdStopTime, int stopTime, const std::string& id)
     {
-      return GetPseudorangeRampForSVResultPtr(new GetPseudorangeRampForSVResult(relatedCommand, system, svId, offset, startTime, holdStartTime, holdStopTime, stopTime, id));
+      return std::make_shared<GetPseudorangeRampForSVResult>(relatedCommand, system, svId, offset, startTime, holdStartTime, holdStopTime, stopTime, id);
     }
 
     GetPseudorangeRampForSVResultPtr GetPseudorangeRampForSVResult::dynamicCast(CommandBasePtr ptr)
@@ -54272,7 +54356,7 @@ namespace Sdx
 
     GetAllPseudorangeRampForSVPtr GetAllPseudorangeRampForSV::create(const std::string& system, int svId)
     {
-      return GetAllPseudorangeRampForSVPtr(new GetAllPseudorangeRampForSV(system, svId));
+      return std::make_shared<GetAllPseudorangeRampForSV>(system, svId);
     }
 
     GetAllPseudorangeRampForSVPtr GetAllPseudorangeRampForSV::dynamicCast(CommandBasePtr ptr)
@@ -54357,7 +54441,7 @@ namespace Sdx
 
     GetAllPseudorangeRampForSVResultPtr GetAllPseudorangeRampForSVResult::create(CommandBasePtr relatedCommand, const std::string& system, int svId, const std::vector<std::string>& ids)
     {
-      return GetAllPseudorangeRampForSVResultPtr(new GetAllPseudorangeRampForSVResult(relatedCommand, system, svId, ids));
+      return std::make_shared<GetAllPseudorangeRampForSVResult>(relatedCommand, system, svId, ids);
     }
 
     GetAllPseudorangeRampForSVResultPtr GetAllPseudorangeRampForSVResult::dynamicCast(CommandBasePtr ptr)
@@ -54448,7 +54532,7 @@ namespace Sdx
 
     RemovePseudorangeRampPtr RemovePseudorangeRamp::create(const std::string& system, const std::string& id)
     {
-      return RemovePseudorangeRampPtr(new RemovePseudorangeRamp(system, id));
+      return std::make_shared<RemovePseudorangeRamp>(system, id);
     }
 
     RemovePseudorangeRampPtr RemovePseudorangeRamp::dynamicCast(CommandBasePtr ptr)
@@ -54532,7 +54616,7 @@ namespace Sdx
 
     RemoveAllPseudorangeRampForSVPtr RemoveAllPseudorangeRampForSV::create(const std::string& system, int svId)
     {
-      return RemoveAllPseudorangeRampForSVPtr(new RemoveAllPseudorangeRampForSV(system, svId));
+      return std::make_shared<RemoveAllPseudorangeRampForSV>(system, svId);
     }
 
     RemoveAllPseudorangeRampForSVPtr RemoveAllPseudorangeRampForSV::dynamicCast(CommandBasePtr ptr)
@@ -54615,7 +54699,7 @@ namespace Sdx
 
     RemoveAllPseudorangeRampForSystemPtr RemoveAllPseudorangeRampForSystem::create(const std::string& system)
     {
-      return RemoveAllPseudorangeRampForSystemPtr(new RemoveAllPseudorangeRampForSystem(system));
+      return std::make_shared<RemoveAllPseudorangeRampForSystem>(system);
     }
 
     RemoveAllPseudorangeRampForSystemPtr RemoveAllPseudorangeRampForSystem::dynamicCast(CommandBasePtr ptr)
@@ -54685,7 +54769,7 @@ namespace Sdx
 
     RemoveAllPseudorangeRampPtr RemoveAllPseudorangeRamp::create(const std::string& system)
     {
-      return RemoveAllPseudorangeRampPtr(new RemoveAllPseudorangeRamp(system));
+      return std::make_shared<RemoveAllPseudorangeRamp>(system);
     }
 
     RemoveAllPseudorangeRampPtr RemoveAllPseudorangeRamp::dynamicCast(CommandBasePtr ptr)
@@ -54756,7 +54840,7 @@ namespace Sdx
 
     SetAlmanacInitialUploadTimeOffsetPtr SetAlmanacInitialUploadTimeOffset::create(const std::string& system, int offset)
     {
-      return SetAlmanacInitialUploadTimeOffsetPtr(new SetAlmanacInitialUploadTimeOffset(system, offset));
+      return std::make_shared<SetAlmanacInitialUploadTimeOffset>(system, offset);
     }
 
     SetAlmanacInitialUploadTimeOffsetPtr SetAlmanacInitialUploadTimeOffset::dynamicCast(CommandBasePtr ptr)
@@ -54834,7 +54918,7 @@ namespace Sdx
 
     GetAlmanacInitialUploadTimeOffsetPtr GetAlmanacInitialUploadTimeOffset::create()
     {
-      return GetAlmanacInitialUploadTimeOffsetPtr(new GetAlmanacInitialUploadTimeOffset());
+      return std::make_shared<GetAlmanacInitialUploadTimeOffset>();
     }
 
     GetAlmanacInitialUploadTimeOffsetPtr GetAlmanacInitialUploadTimeOffset::dynamicCast(CommandBasePtr ptr)
@@ -54892,7 +54976,7 @@ namespace Sdx
 
     GetAlmanacInitialUploadTimeOffsetResultPtr GetAlmanacInitialUploadTimeOffsetResult::create(CommandBasePtr relatedCommand, const std::string& system, int offset)
     {
-      return GetAlmanacInitialUploadTimeOffsetResultPtr(new GetAlmanacInitialUploadTimeOffsetResult(relatedCommand, system, offset));
+      return std::make_shared<GetAlmanacInitialUploadTimeOffsetResult>(relatedCommand, system, offset);
     }
 
     GetAlmanacInitialUploadTimeOffsetResultPtr GetAlmanacInitialUploadTimeOffsetResult::dynamicCast(CommandBasePtr ptr)
@@ -54970,7 +55054,7 @@ namespace Sdx
 
     SetAlmanacUploadTimeIntervalPtr SetAlmanacUploadTimeInterval::create(const std::string& system, int interval)
     {
-      return SetAlmanacUploadTimeIntervalPtr(new SetAlmanacUploadTimeInterval(system, interval));
+      return std::make_shared<SetAlmanacUploadTimeInterval>(system, interval);
     }
 
     SetAlmanacUploadTimeIntervalPtr SetAlmanacUploadTimeInterval::dynamicCast(CommandBasePtr ptr)
@@ -55048,7 +55132,7 @@ namespace Sdx
 
     GetAlmanacUploadTimeIntervalPtr GetAlmanacUploadTimeInterval::create()
     {
-      return GetAlmanacUploadTimeIntervalPtr(new GetAlmanacUploadTimeInterval());
+      return std::make_shared<GetAlmanacUploadTimeInterval>();
     }
 
     GetAlmanacUploadTimeIntervalPtr GetAlmanacUploadTimeInterval::dynamicCast(CommandBasePtr ptr)
@@ -55106,7 +55190,7 @@ namespace Sdx
 
     GetAlmanacUploadTimeIntervalResultPtr GetAlmanacUploadTimeIntervalResult::create(CommandBasePtr relatedCommand, const std::string& system, int interval)
     {
-      return GetAlmanacUploadTimeIntervalResultPtr(new GetAlmanacUploadTimeIntervalResult(relatedCommand, system, interval));
+      return std::make_shared<GetAlmanacUploadTimeIntervalResult>(relatedCommand, system, interval);
     }
 
     GetAlmanacUploadTimeIntervalResultPtr GetAlmanacUploadTimeIntervalResult::dynamicCast(CommandBasePtr ptr)
@@ -55190,7 +55274,7 @@ namespace Sdx
 
     SetMultipathForSVPtr SetMultipathForSV::create(const std::string& signal, int svId, double powerLoss, double pseudorange, double doppler, double carrierPhase, int echo, const std::string& id)
     {
-      return SetMultipathForSVPtr(new SetMultipathForSV(signal, svId, powerLoss, pseudorange, doppler, carrierPhase, echo, id));
+      return std::make_shared<SetMultipathForSV>(signal, svId, powerLoss, pseudorange, doppler, carrierPhase, echo, id);
     }
 
     SetMultipathForSVPtr SetMultipathForSV::dynamicCast(CommandBasePtr ptr)
@@ -55352,7 +55436,7 @@ namespace Sdx
 
     EnableMultipathPtr EnableMultipath::create(bool enabled, const std::string& id)
     {
-      return EnableMultipathPtr(new EnableMultipath(enabled, id));
+      return std::make_shared<EnableMultipath>(enabled, id);
     }
 
     EnableMultipathPtr EnableMultipath::dynamicCast(CommandBasePtr ptr)
@@ -55435,7 +55519,7 @@ namespace Sdx
 
     RemoveMultipathPtr RemoveMultipath::create(const std::string& id)
     {
-      return RemoveMultipathPtr(new RemoveMultipath(id));
+      return std::make_shared<RemoveMultipath>(id);
     }
 
     RemoveMultipathPtr RemoveMultipath::dynamicCast(CommandBasePtr ptr)
@@ -55506,7 +55590,7 @@ namespace Sdx
 
     RemoveAllMultipathForSignalPtr RemoveAllMultipathForSignal::create(const std::string& signal, bool reset)
     {
-      return RemoveAllMultipathForSignalPtr(new RemoveAllMultipathForSignal(signal, reset));
+      return std::make_shared<RemoveAllMultipathForSignal>(signal, reset);
     }
 
     RemoveAllMultipathForSignalPtr RemoveAllMultipathForSignal::dynamicCast(CommandBasePtr ptr)
@@ -55591,7 +55675,7 @@ namespace Sdx
 
     RemoveAllMultipathForSVPtr RemoveAllMultipathForSV::create(const std::string& system, int svId, bool reset)
     {
-      return RemoveAllMultipathForSVPtr(new RemoveAllMultipathForSV(system, svId, reset));
+      return std::make_shared<RemoveAllMultipathForSV>(system, svId, reset);
     }
 
     RemoveAllMultipathForSVPtr RemoveAllMultipathForSV::dynamicCast(CommandBasePtr ptr)
@@ -55688,7 +55772,7 @@ namespace Sdx
 
     RemoveAllMultipathForSystemPtr RemoveAllMultipathForSystem::create(const std::string& system, bool reset)
     {
-      return RemoveAllMultipathForSystemPtr(new RemoveAllMultipathForSystem(system, reset));
+      return std::make_shared<RemoveAllMultipathForSystem>(system, reset);
     }
 
     RemoveAllMultipathForSystemPtr RemoveAllMultipathForSystem::dynamicCast(CommandBasePtr ptr)
@@ -55771,7 +55855,7 @@ namespace Sdx
 
     GetMultipathForIDPtr GetMultipathForID::create(const std::string& id)
     {
-      return GetMultipathForIDPtr(new GetMultipathForID(id));
+      return std::make_shared<GetMultipathForID>(id);
     }
 
     GetMultipathForIDPtr GetMultipathForID::dynamicCast(CommandBasePtr ptr)
@@ -55849,7 +55933,7 @@ namespace Sdx
 
     GetMultipathForIDResultPtr GetMultipathForIDResult::create(CommandBasePtr relatedCommand, const std::string& id, const std::string& system, const std::string& signal, int svId, double powerLoss, double pseudorange, double doppler, double carrierPhase, int echo)
     {
-      return GetMultipathForIDResultPtr(new GetMultipathForIDResult(relatedCommand, id, system, signal, svId, powerLoss, pseudorange, doppler, carrierPhase, echo));
+      return std::make_shared<GetMultipathForIDResult>(relatedCommand, id, system, signal, svId, powerLoss, pseudorange, doppler, carrierPhase, echo);
     }
 
     GetMultipathForIDResultPtr GetMultipathForIDResult::dynamicCast(CommandBasePtr ptr)
@@ -56017,7 +56101,7 @@ namespace Sdx
 
     GetAllMultipathForSystemPtr GetAllMultipathForSystem::create(const std::string& system)
     {
-      return GetAllMultipathForSystemPtr(new GetAllMultipathForSystem(system));
+      return std::make_shared<GetAllMultipathForSystem>(system);
     }
 
     GetAllMultipathForSystemPtr GetAllMultipathForSystem::dynamicCast(CommandBasePtr ptr)
@@ -56088,7 +56172,7 @@ namespace Sdx
 
     GetAllMultipathForSVPtr GetAllMultipathForSV::create(const std::string& system, int svId)
     {
-      return GetAllMultipathForSVPtr(new GetAllMultipathForSV(system, svId));
+      return std::make_shared<GetAllMultipathForSV>(system, svId);
     }
 
     GetAllMultipathForSVPtr GetAllMultipathForSV::dynamicCast(CommandBasePtr ptr)
@@ -56171,7 +56255,7 @@ namespace Sdx
 
     GetAllMultipathForSignalPtr GetAllMultipathForSignal::create(const std::string& signal)
     {
-      return GetAllMultipathForSignalPtr(new GetAllMultipathForSignal(signal));
+      return std::make_shared<GetAllMultipathForSignal>(signal);
     }
 
     GetAllMultipathForSignalPtr GetAllMultipathForSignal::dynamicCast(CommandBasePtr ptr)
@@ -56241,7 +56325,7 @@ namespace Sdx
 
     GetAllMultipathForResultPtr GetAllMultipathForResult::create(CommandBasePtr relatedCommand, const std::vector<std::string>& ids)
     {
-      return GetAllMultipathForResultPtr(new GetAllMultipathForResult(relatedCommand, ids));
+      return std::make_shared<GetAllMultipathForResult>(relatedCommand, ids);
     }
 
     GetAllMultipathForResultPtr GetAllMultipathForResult::dynamicCast(CommandBasePtr ptr)
@@ -56307,7 +56391,7 @@ namespace Sdx
 
     EnableLosForSVPtr EnableLosForSV::create(const std::string& system, int svId, bool enabled)
     {
-      return EnableLosForSVPtr(new EnableLosForSV(system, svId, enabled));
+      return std::make_shared<EnableLosForSV>(system, svId, enabled);
     }
 
     EnableLosForSVPtr EnableLosForSV::dynamicCast(CommandBasePtr ptr)
@@ -56404,7 +56488,7 @@ namespace Sdx
 
     IsLosEnabledForSVPtr IsLosEnabledForSV::create(const std::string& system, int svId)
     {
-      return IsLosEnabledForSVPtr(new IsLosEnabledForSV(system, svId));
+      return std::make_shared<IsLosEnabledForSV>(system, svId);
     }
 
     IsLosEnabledForSVPtr IsLosEnabledForSV::dynamicCast(CommandBasePtr ptr)
@@ -56489,7 +56573,7 @@ namespace Sdx
 
     IsLosEnabledForSVResultPtr IsLosEnabledForSVResult::create(CommandBasePtr relatedCommand, const std::string& system, int svId, bool enabled)
     {
-      return IsLosEnabledForSVResultPtr(new IsLosEnabledForSVResult(relatedCommand, system, svId, enabled));
+      return std::make_shared<IsLosEnabledForSVResult>(relatedCommand, system, svId, enabled);
     }
 
     IsLosEnabledForSVResultPtr IsLosEnabledForSVResult::dynamicCast(CommandBasePtr ptr)
@@ -56579,7 +56663,7 @@ namespace Sdx
 
     ClearAllLOSForSystemPtr ClearAllLOSForSystem::create(const std::string& system)
     {
-      return ClearAllLOSForSystemPtr(new ClearAllLOSForSystem(system));
+      return std::make_shared<ClearAllLOSForSystem>(system);
     }
 
     ClearAllLOSForSystemPtr ClearAllLOSForSystem::dynamicCast(CommandBasePtr ptr)
@@ -56650,7 +56734,7 @@ namespace Sdx
 
     EnableLosForEachSVPtr EnableLosForEachSV::create(const std::string& system, const std::vector<bool>& enabled)
     {
-      return EnableLosForEachSVPtr(new EnableLosForEachSV(system, enabled));
+      return std::make_shared<EnableLosForEachSV>(system, enabled);
     }
 
     EnableLosForEachSVPtr EnableLosForEachSV::dynamicCast(CommandBasePtr ptr)
@@ -56733,7 +56817,7 @@ namespace Sdx
 
     IsLOSEnabledForEachSVPtr IsLOSEnabledForEachSV::create(const std::string& system)
     {
-      return IsLOSEnabledForEachSVPtr(new IsLOSEnabledForEachSV(system));
+      return std::make_shared<IsLOSEnabledForEachSV>(system);
     }
 
     IsLOSEnabledForEachSVPtr IsLOSEnabledForEachSV::dynamicCast(CommandBasePtr ptr)
@@ -56804,7 +56888,7 @@ namespace Sdx
 
     IsLOSEnabledForEachSVResultPtr IsLOSEnabledForEachSVResult::create(CommandBasePtr relatedCommand, const std::string& system, const std::vector<bool>& enabled)
     {
-      return IsLOSEnabledForEachSVResultPtr(new IsLOSEnabledForEachSVResult(relatedCommand, system, enabled));
+      return std::make_shared<IsLOSEnabledForEachSVResult>(relatedCommand, system, enabled);
     }
 
     IsLOSEnabledForEachSVResultPtr IsLOSEnabledForEachSVResult::dynamicCast(CommandBasePtr ptr)
@@ -56882,7 +56966,7 @@ namespace Sdx
 
     AddPlugInInstancePtr AddPlugInInstance::create(const std::string& name, const std::string& type)
     {
-      return AddPlugInInstancePtr(new AddPlugInInstance(name, type));
+      return std::make_shared<AddPlugInInstance>(name, type);
     }
 
     AddPlugInInstancePtr AddPlugInInstance::dynamicCast(CommandBasePtr ptr)
@@ -56960,7 +57044,7 @@ namespace Sdx
 
     GetPlugInInstancePtr GetPlugInInstance::create()
     {
-      return GetPlugInInstancePtr(new GetPlugInInstance());
+      return std::make_shared<GetPlugInInstance>();
     }
 
     GetPlugInInstancePtr GetPlugInInstance::dynamicCast(CommandBasePtr ptr)
@@ -57018,7 +57102,7 @@ namespace Sdx
 
     GetPlugInInstanceResultPtr GetPlugInInstanceResult::create(CommandBasePtr relatedCommand, const std::string& name, const std::string& type)
     {
-      return GetPlugInInstanceResultPtr(new GetPlugInInstanceResult(relatedCommand, name, type));
+      return std::make_shared<GetPlugInInstanceResult>(relatedCommand, name, type);
     }
 
     GetPlugInInstanceResultPtr GetPlugInInstanceResult::dynamicCast(CommandBasePtr ptr)
@@ -57095,7 +57179,7 @@ namespace Sdx
 
     RemovePlugInInstancePtr RemovePlugInInstance::create(const std::string& name)
     {
-      return RemovePlugInInstancePtr(new RemovePlugInInstance(name));
+      return std::make_shared<RemovePlugInInstance>(name);
     }
 
     RemovePlugInInstancePtr RemovePlugInInstance::dynamicCast(CommandBasePtr ptr)
@@ -57165,7 +57249,7 @@ namespace Sdx
 
     SetDefaultIntTxPersistencePtr SetDefaultIntTxPersistence::create(bool defaultValue)
     {
-      return SetDefaultIntTxPersistencePtr(new SetDefaultIntTxPersistence(defaultValue));
+      return std::make_shared<SetDefaultIntTxPersistence>(defaultValue);
     }
 
     SetDefaultIntTxPersistencePtr SetDefaultIntTxPersistence::dynamicCast(CommandBasePtr ptr)
@@ -57230,7 +57314,7 @@ namespace Sdx
 
     GetDefaultIntTxPersistencePtr GetDefaultIntTxPersistence::create()
     {
-      return GetDefaultIntTxPersistencePtr(new GetDefaultIntTxPersistence());
+      return std::make_shared<GetDefaultIntTxPersistence>();
     }
 
     GetDefaultIntTxPersistencePtr GetDefaultIntTxPersistence::dynamicCast(CommandBasePtr ptr)
@@ -57287,7 +57371,7 @@ namespace Sdx
 
     GetDefaultIntTxPersistenceResultPtr GetDefaultIntTxPersistenceResult::create(CommandBasePtr relatedCommand, bool defaultValue)
     {
-      return GetDefaultIntTxPersistenceResultPtr(new GetDefaultIntTxPersistenceResult(relatedCommand, defaultValue));
+      return std::make_shared<GetDefaultIntTxPersistenceResult>(relatedCommand, defaultValue);
     }
 
     GetDefaultIntTxPersistenceResultPtr GetDefaultIntTxPersistenceResult::dynamicCast(CommandBasePtr ptr)
@@ -57346,7 +57430,7 @@ namespace Sdx
 
     GetAllIntTxIDPtr GetAllIntTxID::create()
     {
-      return GetAllIntTxIDPtr(new GetAllIntTxID());
+      return std::make_shared<GetAllIntTxID>();
     }
 
     GetAllIntTxIDPtr GetAllIntTxID::dynamicCast(CommandBasePtr ptr)
@@ -57403,7 +57487,7 @@ namespace Sdx
 
     GetAllIntTxIDResultPtr GetAllIntTxIDResult::create(CommandBasePtr relatedCommand, const std::vector<std::string>& ids)
     {
-      return GetAllIntTxIDResultPtr(new GetAllIntTxIDResult(relatedCommand, ids));
+      return std::make_shared<GetAllIntTxIDResult>(relatedCommand, ids);
     }
 
     GetAllIntTxIDResultPtr GetAllIntTxIDResult::dynamicCast(CommandBasePtr ptr)
@@ -57472,7 +57556,7 @@ namespace Sdx
 
     AddIntTxPtr AddIntTx::create(const std::string& usualName, bool enabled, int group, bool dynamic, double power, const std::string& id)
     {
-      return AddIntTxPtr(new AddIntTx(usualName, enabled, group, dynamic, power, id));
+      return std::make_shared<AddIntTx>(usualName, enabled, group, dynamic, power, id);
     }
 
     AddIntTxPtr AddIntTx::dynamicCast(CommandBasePtr ptr)
@@ -57607,7 +57691,7 @@ namespace Sdx
 
     GetIntTxPtr GetIntTx::create(const std::string& id)
     {
-      return GetIntTxPtr(new GetIntTx(id));
+      return std::make_shared<GetIntTx>(id);
     }
 
     GetIntTxPtr GetIntTx::dynamicCast(CommandBasePtr ptr)
@@ -57682,7 +57766,7 @@ namespace Sdx
 
     GetIntTxResultPtr GetIntTxResult::create(CommandBasePtr relatedCommand, const std::string& usualName, bool enabled, int group, bool dynamic, double power, const std::string& id)
     {
-      return GetIntTxResultPtr(new GetIntTxResult(relatedCommand, usualName, enabled, group, dynamic, power, id));
+      return std::make_shared<GetIntTxResult>(relatedCommand, usualName, enabled, group, dynamic, power, id);
     }
 
     GetIntTxResultPtr GetIntTxResult::dynamicCast(CommandBasePtr ptr)
@@ -57812,7 +57896,7 @@ namespace Sdx
 
     RenameIntTxPtr RenameIntTx::create(const std::string& usualName, const std::string& id)
     {
-      return RenameIntTxPtr(new RenameIntTx(usualName, id));
+      return std::make_shared<RenameIntTx>(usualName, id);
     }
 
     RenameIntTxPtr RenameIntTx::dynamicCast(CommandBasePtr ptr)
@@ -57896,7 +57980,7 @@ namespace Sdx
 
     ChangeIntTxColorPtr ChangeIntTxColor::create(const std::string& color, const std::string& id)
     {
-      return ChangeIntTxColorPtr(new ChangeIntTxColor(color, id));
+      return std::make_shared<ChangeIntTxColor>(color, id);
     }
 
     ChangeIntTxColorPtr ChangeIntTxColor::dynamicCast(CommandBasePtr ptr)
@@ -57979,7 +58063,7 @@ namespace Sdx
 
     GetIntTxColorPtr GetIntTxColor::create(const std::string& id)
     {
-      return GetIntTxColorPtr(new GetIntTxColor(id));
+      return std::make_shared<GetIntTxColor>(id);
     }
 
     GetIntTxColorPtr GetIntTxColor::dynamicCast(CommandBasePtr ptr)
@@ -58050,7 +58134,7 @@ namespace Sdx
 
     GetIntTxColorResultPtr GetIntTxColorResult::create(CommandBasePtr relatedCommand, const std::string& color, const std::string& id)
     {
-      return GetIntTxColorResultPtr(new GetIntTxColorResult(relatedCommand, color, id));
+      return std::make_shared<GetIntTxColorResult>(relatedCommand, color, id);
     }
 
     GetIntTxColorResultPtr GetIntTxColorResult::dynamicCast(CommandBasePtr ptr)
@@ -58128,7 +58212,7 @@ namespace Sdx
 
     EnableIntTxPtr EnableIntTx::create(bool enabled, const std::string& id)
     {
-      return EnableIntTxPtr(new EnableIntTx(enabled, id));
+      return std::make_shared<EnableIntTx>(enabled, id);
     }
 
     EnableIntTxPtr EnableIntTx::dynamicCast(CommandBasePtr ptr)
@@ -58212,7 +58296,7 @@ namespace Sdx
 
     SetIntTxGroupPtr SetIntTxGroup::create(int group, const std::string& id)
     {
-      return SetIntTxGroupPtr(new SetIntTxGroup(group, id));
+      return std::make_shared<SetIntTxGroup>(group, id);
     }
 
     SetIntTxGroupPtr SetIntTxGroup::dynamicCast(CommandBasePtr ptr)
@@ -58296,7 +58380,7 @@ namespace Sdx
 
     SetIntTxRefPowerPtr SetIntTxRefPower::create(double power, const std::string& id)
     {
-      return SetIntTxRefPowerPtr(new SetIntTxRefPower(power, id));
+      return std::make_shared<SetIntTxRefPower>(power, id);
     }
 
     SetIntTxRefPowerPtr SetIntTxRefPower::dynamicCast(CommandBasePtr ptr)
@@ -58380,7 +58464,7 @@ namespace Sdx
 
     SetIntTxPersistencePtr SetIntTxPersistence::create(bool persistence, const std::string& id)
     {
-      return SetIntTxPersistencePtr(new SetIntTxPersistence(persistence, id));
+      return std::make_shared<SetIntTxPersistence>(persistence, id);
     }
 
     SetIntTxPersistencePtr SetIntTxPersistence::dynamicCast(CommandBasePtr ptr)
@@ -58463,7 +58547,7 @@ namespace Sdx
 
     GetIntTxPersistencePtr GetIntTxPersistence::create(const std::string& id)
     {
-      return GetIntTxPersistencePtr(new GetIntTxPersistence(id));
+      return std::make_shared<GetIntTxPersistence>(id);
     }
 
     GetIntTxPersistencePtr GetIntTxPersistence::dynamicCast(CommandBasePtr ptr)
@@ -58534,7 +58618,7 @@ namespace Sdx
 
     GetIntTxPersistenceResultPtr GetIntTxPersistenceResult::create(CommandBasePtr relatedCommand, bool persistence, const std::string& id)
     {
-      return GetIntTxPersistenceResultPtr(new GetIntTxPersistenceResult(relatedCommand, persistence, id));
+      return std::make_shared<GetIntTxPersistenceResult>(relatedCommand, persistence, id);
     }
 
     GetIntTxPersistenceResultPtr GetIntTxPersistenceResult::dynamicCast(CommandBasePtr ptr)
@@ -58613,7 +58697,7 @@ namespace Sdx
 
     SetIntTxSignalManualPropagationLossPtr SetIntTxSignalManualPropagationLoss::create(double propagationLoss, const std::string& transmitterId, const std::string& signalId)
     {
-      return SetIntTxSignalManualPropagationLossPtr(new SetIntTxSignalManualPropagationLoss(propagationLoss, transmitterId, signalId));
+      return std::make_shared<SetIntTxSignalManualPropagationLoss>(propagationLoss, transmitterId, signalId);
     }
 
     SetIntTxSignalManualPropagationLossPtr SetIntTxSignalManualPropagationLoss::dynamicCast(CommandBasePtr ptr)
@@ -58710,7 +58794,7 @@ namespace Sdx
 
     SetIntTxUseManualPropagationLossPtr SetIntTxUseManualPropagationLoss::create(bool manual, const std::string& id)
     {
-      return SetIntTxUseManualPropagationLossPtr(new SetIntTxUseManualPropagationLoss(manual, id));
+      return std::make_shared<SetIntTxUseManualPropagationLoss>(manual, id);
     }
 
     SetIntTxUseManualPropagationLossPtr SetIntTxUseManualPropagationLoss::dynamicCast(CommandBasePtr ptr)
@@ -58794,7 +58878,7 @@ namespace Sdx
 
     SetIntTxIgnorePropagationLossPtr SetIntTxIgnorePropagationLoss::create(bool ignore, const std::string& id)
     {
-      return SetIntTxIgnorePropagationLossPtr(new SetIntTxIgnorePropagationLoss(ignore, id));
+      return std::make_shared<SetIntTxIgnorePropagationLoss>(ignore, id);
     }
 
     SetIntTxIgnorePropagationLossPtr SetIntTxIgnorePropagationLoss::dynamicCast(CommandBasePtr ptr)
@@ -58878,7 +58962,7 @@ namespace Sdx
 
     SetIntTxIgnoreRxAntennaPatternsPtr SetIntTxIgnoreRxAntennaPatterns::create(bool ignore, const std::string& id)
     {
-      return SetIntTxIgnoreRxAntennaPatternsPtr(new SetIntTxIgnoreRxAntennaPatterns(ignore, id));
+      return std::make_shared<SetIntTxIgnoreRxAntennaPatterns>(ignore, id);
     }
 
     SetIntTxIgnoreRxAntennaPatternsPtr SetIntTxIgnoreRxAntennaPatterns::dynamicCast(CommandBasePtr ptr)
@@ -58962,7 +59046,7 @@ namespace Sdx
 
     SetIntTxIgnoreVehicleAntennaPatternPtr SetIntTxIgnoreVehicleAntennaPattern::create(bool ignore, const std::string& id)
     {
-      return SetIntTxIgnoreVehicleAntennaPatternPtr(new SetIntTxIgnoreVehicleAntennaPattern(ignore, id));
+      return std::make_shared<SetIntTxIgnoreVehicleAntennaPattern>(ignore, id);
     }
 
     SetIntTxIgnoreVehicleAntennaPatternPtr SetIntTxIgnoreVehicleAntennaPattern::dynamicCast(CommandBasePtr ptr)
@@ -59046,7 +59130,7 @@ namespace Sdx
 
     SetIntTxHiddenOnMapPtr SetIntTxHiddenOnMap::create(bool hiddenOnMap, const std::string& id)
     {
-      return SetIntTxHiddenOnMapPtr(new SetIntTxHiddenOnMap(hiddenOnMap, id));
+      return std::make_shared<SetIntTxHiddenOnMap>(hiddenOnMap, id);
     }
 
     SetIntTxHiddenOnMapPtr SetIntTxHiddenOnMap::dynamicCast(CommandBasePtr ptr)
@@ -59129,7 +59213,7 @@ namespace Sdx
 
     GetIntTxHiddenOnMapPtr GetIntTxHiddenOnMap::create(const std::string& id)
     {
-      return GetIntTxHiddenOnMapPtr(new GetIntTxHiddenOnMap(id));
+      return std::make_shared<GetIntTxHiddenOnMap>(id);
     }
 
     GetIntTxHiddenOnMapPtr GetIntTxHiddenOnMap::dynamicCast(CommandBasePtr ptr)
@@ -59200,7 +59284,7 @@ namespace Sdx
 
     GetIntTxHiddenOnMapResultPtr GetIntTxHiddenOnMapResult::create(CommandBasePtr relatedCommand, bool hiddenOnMap, const std::string& id)
     {
-      return GetIntTxHiddenOnMapResultPtr(new GetIntTxHiddenOnMapResult(relatedCommand, hiddenOnMap, id));
+      return std::make_shared<GetIntTxHiddenOnMapResult>(relatedCommand, hiddenOnMap, id);
     }
 
     GetIntTxHiddenOnMapResultPtr GetIntTxHiddenOnMapResult::dynamicCast(CommandBasePtr ptr)
@@ -59278,7 +59362,7 @@ namespace Sdx
 
     SetIntTxIgnoreRxAntennaGainPatternPtr SetIntTxIgnoreRxAntennaGainPattern::create(bool ignore, const std::string& id)
     {
-      return SetIntTxIgnoreRxAntennaGainPatternPtr(new SetIntTxIgnoreRxAntennaGainPattern(ignore, id));
+      return std::make_shared<SetIntTxIgnoreRxAntennaGainPattern>(ignore, id);
     }
 
     SetIntTxIgnoreRxAntennaGainPatternPtr SetIntTxIgnoreRxAntennaGainPattern::dynamicCast(CommandBasePtr ptr)
@@ -59361,7 +59445,7 @@ namespace Sdx
 
     IsIntTxIgnoreRxAntennaGainPatternPtr IsIntTxIgnoreRxAntennaGainPattern::create(const std::string& id)
     {
-      return IsIntTxIgnoreRxAntennaGainPatternPtr(new IsIntTxIgnoreRxAntennaGainPattern(id));
+      return std::make_shared<IsIntTxIgnoreRxAntennaGainPattern>(id);
     }
 
     IsIntTxIgnoreRxAntennaGainPatternPtr IsIntTxIgnoreRxAntennaGainPattern::dynamicCast(CommandBasePtr ptr)
@@ -59432,7 +59516,7 @@ namespace Sdx
 
     IsIntTxIgnoreRxAntennaGainPatternResultPtr IsIntTxIgnoreRxAntennaGainPatternResult::create(CommandBasePtr relatedCommand, bool ignore, const std::string& id)
     {
-      return IsIntTxIgnoreRxAntennaGainPatternResultPtr(new IsIntTxIgnoreRxAntennaGainPatternResult(relatedCommand, ignore, id));
+      return std::make_shared<IsIntTxIgnoreRxAntennaGainPatternResult>(relatedCommand, ignore, id);
     }
 
     IsIntTxIgnoreRxAntennaGainPatternResultPtr IsIntTxIgnoreRxAntennaGainPatternResult::dynamicCast(CommandBasePtr ptr)
@@ -59510,7 +59594,7 @@ namespace Sdx
 
     SetIntTxIgnoreRxAntennaPhasePatternPtr SetIntTxIgnoreRxAntennaPhasePattern::create(bool ignore, const std::string& id)
     {
-      return SetIntTxIgnoreRxAntennaPhasePatternPtr(new SetIntTxIgnoreRxAntennaPhasePattern(ignore, id));
+      return std::make_shared<SetIntTxIgnoreRxAntennaPhasePattern>(ignore, id);
     }
 
     SetIntTxIgnoreRxAntennaPhasePatternPtr SetIntTxIgnoreRxAntennaPhasePattern::dynamicCast(CommandBasePtr ptr)
@@ -59593,7 +59677,7 @@ namespace Sdx
 
     IsIntTxIgnoreRxAntennaPhasePatternPtr IsIntTxIgnoreRxAntennaPhasePattern::create(const std::string& id)
     {
-      return IsIntTxIgnoreRxAntennaPhasePatternPtr(new IsIntTxIgnoreRxAntennaPhasePattern(id));
+      return std::make_shared<IsIntTxIgnoreRxAntennaPhasePattern>(id);
     }
 
     IsIntTxIgnoreRxAntennaPhasePatternPtr IsIntTxIgnoreRxAntennaPhasePattern::dynamicCast(CommandBasePtr ptr)
@@ -59664,7 +59748,7 @@ namespace Sdx
 
     IsIntTxIgnoreRxAntennaPhasePatternResultPtr IsIntTxIgnoreRxAntennaPhasePatternResult::create(CommandBasePtr relatedCommand, bool ignore, const std::string& id)
     {
-      return IsIntTxIgnoreRxAntennaPhasePatternResultPtr(new IsIntTxIgnoreRxAntennaPhasePatternResult(relatedCommand, ignore, id));
+      return std::make_shared<IsIntTxIgnoreRxAntennaPhasePatternResult>(relatedCommand, ignore, id);
     }
 
     IsIntTxIgnoreRxAntennaPhasePatternResultPtr IsIntTxIgnoreRxAntennaPhasePatternResult::dynamicCast(CommandBasePtr ptr)
@@ -59741,7 +59825,7 @@ namespace Sdx
 
     SetIntTxNonePtr SetIntTxNone::create(const std::string& id)
     {
-      return SetIntTxNonePtr(new SetIntTxNone(id));
+      return std::make_shared<SetIntTxNone>(id);
     }
 
     SetIntTxNonePtr SetIntTxNone::dynamicCast(CommandBasePtr ptr)
@@ -59817,7 +59901,7 @@ namespace Sdx
 
     SetIntTxFixPtr SetIntTxFix::create(double lat, double lon, double alt, double yaw, double pitch, double roll, const std::string& id)
     {
-      return SetIntTxFixPtr(new SetIntTxFix(lat, lon, alt, yaw, pitch, roll, id));
+      return std::make_shared<SetIntTxFix>(lat, lon, alt, yaw, pitch, roll, id);
     }
 
     SetIntTxFixPtr SetIntTxFix::dynamicCast(CommandBasePtr ptr)
@@ -59965,7 +60049,7 @@ namespace Sdx
 
     GetIntTxFixPtr GetIntTxFix::create(const std::string& id)
     {
-      return GetIntTxFixPtr(new GetIntTxFix(id));
+      return std::make_shared<GetIntTxFix>(id);
     }
 
     GetIntTxFixPtr GetIntTxFix::dynamicCast(CommandBasePtr ptr)
@@ -60041,7 +60125,7 @@ namespace Sdx
 
     GetIntTxFixResultPtr GetIntTxFixResult::create(CommandBasePtr relatedCommand, double lat, double lon, double alt, double yaw, double pitch, double roll, const std::string& id)
     {
-      return GetIntTxFixResultPtr(new GetIntTxFixResult(relatedCommand, lat, lon, alt, yaw, pitch, roll, id));
+      return std::make_shared<GetIntTxFixResult>(relatedCommand, lat, lon, alt, yaw, pitch, roll, id);
     }
 
     GetIntTxFixResultPtr GetIntTxFixResult::dynamicCast(CommandBasePtr ptr)
@@ -60189,7 +60273,7 @@ namespace Sdx
 
     SetIntTxFixEcefPtr SetIntTxFixEcef::create(double x, double y, double z, double yaw, double pitch, double roll, const std::string& id)
     {
-      return SetIntTxFixEcefPtr(new SetIntTxFixEcef(x, y, z, yaw, pitch, roll, id));
+      return std::make_shared<SetIntTxFixEcef>(x, y, z, yaw, pitch, roll, id);
     }
 
     SetIntTxFixEcefPtr SetIntTxFixEcef::dynamicCast(CommandBasePtr ptr)
@@ -60337,7 +60421,7 @@ namespace Sdx
 
     GetIntTxFixEcefPtr GetIntTxFixEcef::create(const std::string& id)
     {
-      return GetIntTxFixEcefPtr(new GetIntTxFixEcef(id));
+      return std::make_shared<GetIntTxFixEcef>(id);
     }
 
     GetIntTxFixEcefPtr GetIntTxFixEcef::dynamicCast(CommandBasePtr ptr)
@@ -60413,7 +60497,7 @@ namespace Sdx
 
     GetIntTxFixEcefResultPtr GetIntTxFixEcefResult::create(CommandBasePtr relatedCommand, double x, double y, double z, double yaw, double pitch, double roll, const std::string& id)
     {
-      return GetIntTxFixEcefResultPtr(new GetIntTxFixEcefResult(relatedCommand, x, y, z, yaw, pitch, roll, id));
+      return std::make_shared<GetIntTxFixEcefResult>(relatedCommand, x, y, z, yaw, pitch, roll, id);
     }
 
     GetIntTxFixEcefResultPtr GetIntTxFixEcefResult::dynamicCast(CommandBasePtr ptr)
@@ -60562,7 +60646,7 @@ namespace Sdx
 
     SetIntTxCircularPtr SetIntTxCircular::create(double lat, double lon, double alt, double radius, double speed, bool clockwise, const std::string& id, const Sdx::optional<double>& originAngle)
     {
-      return SetIntTxCircularPtr(new SetIntTxCircular(lat, lon, alt, radius, speed, clockwise, id, originAngle));
+      return std::make_shared<SetIntTxCircular>(lat, lon, alt, radius, speed, clockwise, id, originAngle);
     }
 
     SetIntTxCircularPtr SetIntTxCircular::dynamicCast(CommandBasePtr ptr)
@@ -60723,7 +60807,7 @@ namespace Sdx
 
     GetIntTxCircularPtr GetIntTxCircular::create(const std::string& id)
     {
-      return GetIntTxCircularPtr(new GetIntTxCircular(id));
+      return std::make_shared<GetIntTxCircular>(id);
     }
 
     GetIntTxCircularPtr GetIntTxCircular::dynamicCast(CommandBasePtr ptr)
@@ -60800,7 +60884,7 @@ namespace Sdx
 
     GetIntTxCircularResultPtr GetIntTxCircularResult::create(CommandBasePtr relatedCommand, double lat, double lon, double alt, double radius, double speed, bool clockwise, const std::string& id, const Sdx::optional<double>& originAngle)
     {
-      return GetIntTxCircularResultPtr(new GetIntTxCircularResult(relatedCommand, lat, lon, alt, radius, speed, clockwise, id, originAngle));
+      return std::make_shared<GetIntTxCircularResult>(relatedCommand, lat, lon, alt, radius, speed, clockwise, id, originAngle);
     }
 
     GetIntTxCircularResultPtr GetIntTxCircularResult::dynamicCast(CommandBasePtr ptr)
@@ -60955,7 +61039,7 @@ namespace Sdx
 
     SetIntTxHilPtr SetIntTxHil::create(const std::string& id)
     {
-      return SetIntTxHilPtr(new SetIntTxHil(id));
+      return std::make_shared<SetIntTxHil>(id);
     }
 
     SetIntTxHilPtr SetIntTxHil::dynamicCast(CommandBasePtr ptr)
@@ -61025,7 +61109,7 @@ namespace Sdx
 
     BeginIntTxTrackDefinitionPtr BeginIntTxTrackDefinition::create(const std::string& id)
     {
-      return BeginIntTxTrackDefinitionPtr(new BeginIntTxTrackDefinition(id));
+      return std::make_shared<BeginIntTxTrackDefinition>(id);
     }
 
     BeginIntTxTrackDefinitionPtr BeginIntTxTrackDefinition::dynamicCast(CommandBasePtr ptr)
@@ -61099,7 +61183,7 @@ namespace Sdx
 
     PushIntTxTrackEcefPtr PushIntTxTrackEcef::create(int time, double x, double y, double z, const std::string& id)
     {
-      return PushIntTxTrackEcefPtr(new PushIntTxTrackEcef(time, x, y, z, id));
+      return std::make_shared<PushIntTxTrackEcef>(time, x, y, z, id);
     }
 
     PushIntTxTrackEcefPtr PushIntTxTrackEcef::dynamicCast(CommandBasePtr ptr)
@@ -61228,7 +61312,7 @@ namespace Sdx
 
     PushIntTxTrackEcefNedPtr PushIntTxTrackEcefNed::create(int time, double x, double y, double z, double yaw, double pitch, double roll, const std::string& id)
     {
-      return PushIntTxTrackEcefNedPtr(new PushIntTxTrackEcefNed(time, x, y, z, yaw, pitch, roll, id));
+      return std::make_shared<PushIntTxTrackEcefNed>(time, x, y, z, yaw, pitch, roll, id);
     }
 
     PushIntTxTrackEcefNedPtr PushIntTxTrackEcefNed::dynamicCast(CommandBasePtr ptr)
@@ -61389,7 +61473,7 @@ namespace Sdx
 
     EndIntTxTrackDefinitionPtr EndIntTxTrackDefinition::create(const std::string& id)
     {
-      return EndIntTxTrackDefinitionPtr(new EndIntTxTrackDefinition(id));
+      return std::make_shared<EndIntTxTrackDefinition>(id);
     }
 
     EndIntTxTrackDefinitionPtr EndIntTxTrackDefinition::dynamicCast(CommandBasePtr ptr)
@@ -61460,7 +61544,7 @@ namespace Sdx
 
     EndIntTxTrackDefinitionResultPtr EndIntTxTrackDefinitionResult::create(CommandBasePtr relatedCommand, int count, const std::string& id)
     {
-      return EndIntTxTrackDefinitionResultPtr(new EndIntTxTrackDefinitionResult(relatedCommand, count, id));
+      return std::make_shared<EndIntTxTrackDefinitionResult>(relatedCommand, count, id);
     }
 
     EndIntTxTrackDefinitionResultPtr EndIntTxTrackDefinitionResult::dynamicCast(CommandBasePtr ptr)
@@ -61538,7 +61622,7 @@ namespace Sdx
 
     ImportNmeaIntTxTrackPtr ImportNmeaIntTxTrack::create(const std::string& path, const std::string& id)
     {
-      return ImportNmeaIntTxTrackPtr(new ImportNmeaIntTxTrack(path, id));
+      return std::make_shared<ImportNmeaIntTxTrack>(path, id);
     }
 
     ImportNmeaIntTxTrackPtr ImportNmeaIntTxTrack::dynamicCast(CommandBasePtr ptr)
@@ -61622,7 +61706,7 @@ namespace Sdx
 
     EnableIntTxTrajectorySmoothingPtr EnableIntTxTrajectorySmoothing::create(bool enabled, const std::string& id)
     {
-      return EnableIntTxTrajectorySmoothingPtr(new EnableIntTxTrajectorySmoothing(enabled, id));
+      return std::make_shared<EnableIntTxTrajectorySmoothing>(enabled, id);
     }
 
     EnableIntTxTrajectorySmoothingPtr EnableIntTxTrajectorySmoothing::dynamicCast(CommandBasePtr ptr)
@@ -61705,7 +61789,7 @@ namespace Sdx
 
     IsIntTxTrajectorySmoothingEnabledPtr IsIntTxTrajectorySmoothingEnabled::create(const std::string& id)
     {
-      return IsIntTxTrajectorySmoothingEnabledPtr(new IsIntTxTrajectorySmoothingEnabled(id));
+      return std::make_shared<IsIntTxTrajectorySmoothingEnabled>(id);
     }
 
     IsIntTxTrajectorySmoothingEnabledPtr IsIntTxTrajectorySmoothingEnabled::dynamicCast(CommandBasePtr ptr)
@@ -61776,7 +61860,7 @@ namespace Sdx
 
     IsIntTxTrajectorySmoothingEnabledResultPtr IsIntTxTrajectorySmoothingEnabledResult::create(CommandBasePtr relatedCommand, bool enabled, const std::string& id)
     {
-      return IsIntTxTrajectorySmoothingEnabledResultPtr(new IsIntTxTrajectorySmoothingEnabledResult(relatedCommand, enabled, id));
+      return std::make_shared<IsIntTxTrajectorySmoothingEnabledResult>(relatedCommand, enabled, id);
     }
 
     IsIntTxTrajectorySmoothingEnabledResultPtr IsIntTxTrajectorySmoothingEnabledResult::dynamicCast(CommandBasePtr ptr)
@@ -61854,7 +61938,7 @@ namespace Sdx
 
     ForceIntTxAttitudeToZeroPtr ForceIntTxAttitudeToZero::create(bool enabled, const std::string& id)
     {
-      return ForceIntTxAttitudeToZeroPtr(new ForceIntTxAttitudeToZero(enabled, id));
+      return std::make_shared<ForceIntTxAttitudeToZero>(enabled, id);
     }
 
     ForceIntTxAttitudeToZeroPtr ForceIntTxAttitudeToZero::dynamicCast(CommandBasePtr ptr)
@@ -61937,7 +62021,7 @@ namespace Sdx
 
     IsIntTxAttitudeToZeroForcedPtr IsIntTxAttitudeToZeroForced::create(const std::string& id)
     {
-      return IsIntTxAttitudeToZeroForcedPtr(new IsIntTxAttitudeToZeroForced(id));
+      return std::make_shared<IsIntTxAttitudeToZeroForced>(id);
     }
 
     IsIntTxAttitudeToZeroForcedPtr IsIntTxAttitudeToZeroForced::dynamicCast(CommandBasePtr ptr)
@@ -62008,7 +62092,7 @@ namespace Sdx
 
     IsIntTxAttitudeToZeroForcedResultPtr IsIntTxAttitudeToZeroForcedResult::create(CommandBasePtr relatedCommand, bool enabled, const std::string& id)
     {
-      return IsIntTxAttitudeToZeroForcedResultPtr(new IsIntTxAttitudeToZeroForcedResult(relatedCommand, enabled, id));
+      return std::make_shared<IsIntTxAttitudeToZeroForcedResult>(relatedCommand, enabled, id);
     }
 
     IsIntTxAttitudeToZeroForcedResultPtr IsIntTxAttitudeToZeroForcedResult::dynamicCast(CommandBasePtr ptr)
@@ -62086,7 +62170,7 @@ namespace Sdx
 
     SetIntTxVehicleTypePtr SetIntTxVehicleType::create(const std::string& type, const std::string& id)
     {
-      return SetIntTxVehicleTypePtr(new SetIntTxVehicleType(type, id));
+      return std::make_shared<SetIntTxVehicleType>(type, id);
     }
 
     SetIntTxVehicleTypePtr SetIntTxVehicleType::dynamicCast(CommandBasePtr ptr)
@@ -62169,7 +62253,7 @@ namespace Sdx
 
     GetIntTxVehicleTypePtr GetIntTxVehicleType::create(const std::string& id)
     {
-      return GetIntTxVehicleTypePtr(new GetIntTxVehicleType(id));
+      return std::make_shared<GetIntTxVehicleType>(id);
     }
 
     GetIntTxVehicleTypePtr GetIntTxVehicleType::dynamicCast(CommandBasePtr ptr)
@@ -62240,7 +62324,7 @@ namespace Sdx
 
     GetIntTxVehicleTypeResultPtr GetIntTxVehicleTypeResult::create(CommandBasePtr relatedCommand, const std::string& type, const std::string& id)
     {
-      return GetIntTxVehicleTypeResultPtr(new GetIntTxVehicleTypeResult(relatedCommand, type, id));
+      return std::make_shared<GetIntTxVehicleTypeResult>(relatedCommand, type, id);
     }
 
     GetIntTxVehicleTypeResultPtr GetIntTxVehicleTypeResult::dynamicCast(CommandBasePtr ptr)
@@ -62317,7 +62401,7 @@ namespace Sdx
 
     GetIntTxTrajectoryPtr GetIntTxTrajectory::create(const std::string& id)
     {
-      return GetIntTxTrajectoryPtr(new GetIntTxTrajectory(id));
+      return std::make_shared<GetIntTxTrajectory>(id);
     }
 
     GetIntTxTrajectoryPtr GetIntTxTrajectory::dynamicCast(CommandBasePtr ptr)
@@ -62388,7 +62472,7 @@ namespace Sdx
 
     GetIntTxTrajectoryResultPtr GetIntTxTrajectoryResult::create(CommandBasePtr relatedCommand, const std::string& trajectoryType, const std::string& id)
     {
-      return GetIntTxTrajectoryResultPtr(new GetIntTxTrajectoryResult(relatedCommand, trajectoryType, id));
+      return std::make_shared<GetIntTxTrajectoryResult>(relatedCommand, trajectoryType, id);
     }
 
     GetIntTxTrajectoryResultPtr GetIntTxTrajectoryResult::dynamicCast(CommandBasePtr ptr)
@@ -62467,7 +62551,7 @@ namespace Sdx
 
     SetIntTxAntennaPtr SetIntTxAntenna::create(const std::vector<std::vector<double>>& gain, const Sdx::AntennaPatternType& type, const std::string& id)
     {
-      return SetIntTxAntennaPtr(new SetIntTxAntenna(gain, type, id));
+      return std::make_shared<SetIntTxAntenna>(gain, type, id);
     }
 
     SetIntTxAntennaPtr SetIntTxAntenna::dynamicCast(CommandBasePtr ptr)
@@ -62563,7 +62647,7 @@ namespace Sdx
 
     GetIntTxAntennaPtr GetIntTxAntenna::create(const std::string& id)
     {
-      return GetIntTxAntennaPtr(new GetIntTxAntenna(id));
+      return std::make_shared<GetIntTxAntenna>(id);
     }
 
     GetIntTxAntennaPtr GetIntTxAntenna::dynamicCast(CommandBasePtr ptr)
@@ -62635,7 +62719,7 @@ namespace Sdx
 
     GetIntTxAntennaResultPtr GetIntTxAntennaResult::create(CommandBasePtr relatedCommand, const std::vector<std::vector<double>>& gain, const Sdx::AntennaPatternType& type, const std::string& id)
     {
-      return GetIntTxAntennaResultPtr(new GetIntTxAntennaResult(relatedCommand, gain, type, id));
+      return std::make_shared<GetIntTxAntennaResult>(relatedCommand, gain, type, id);
     }
 
     GetIntTxAntennaResultPtr GetIntTxAntennaResult::dynamicCast(CommandBasePtr ptr)
@@ -62731,7 +62815,7 @@ namespace Sdx
 
     SetIntTxAntennaOffsetPtr SetIntTxAntennaOffset::create(double x, double y, double z, double yaw, double pitch, double roll, const std::string& id)
     {
-      return SetIntTxAntennaOffsetPtr(new SetIntTxAntennaOffset(x, y, z, yaw, pitch, roll, id));
+      return std::make_shared<SetIntTxAntennaOffset>(x, y, z, yaw, pitch, roll, id);
     }
 
     SetIntTxAntennaOffsetPtr SetIntTxAntennaOffset::dynamicCast(CommandBasePtr ptr)
@@ -62879,7 +62963,7 @@ namespace Sdx
 
     GetIntTxAntennaOffsetPtr GetIntTxAntennaOffset::create(const std::string& id)
     {
-      return GetIntTxAntennaOffsetPtr(new GetIntTxAntennaOffset(id));
+      return std::make_shared<GetIntTxAntennaOffset>(id);
     }
 
     GetIntTxAntennaOffsetPtr GetIntTxAntennaOffset::dynamicCast(CommandBasePtr ptr)
@@ -62955,7 +63039,7 @@ namespace Sdx
 
     GetIntTxAntennaOffsetResultPtr GetIntTxAntennaOffsetResult::create(CommandBasePtr relatedCommand, double x, double y, double z, double yaw, double pitch, double roll, const std::string& id)
     {
-      return GetIntTxAntennaOffsetResultPtr(new GetIntTxAntennaOffsetResult(relatedCommand, x, y, z, yaw, pitch, roll, id));
+      return std::make_shared<GetIntTxAntennaOffsetResult>(relatedCommand, x, y, z, yaw, pitch, roll, id);
     }
 
     GetIntTxAntennaOffsetResultPtr GetIntTxAntennaOffsetResult::dynamicCast(CommandBasePtr ptr)
@@ -63097,7 +63181,7 @@ namespace Sdx
 
     RemoveIntTxPtr RemoveIntTx::create(const std::string& id)
     {
-      return RemoveIntTxPtr(new RemoveIntTx(id));
+      return std::make_shared<RemoveIntTx>(id);
     }
 
     RemoveIntTxPtr RemoveIntTx::dynamicCast(CommandBasePtr ptr)
@@ -63162,7 +63246,7 @@ namespace Sdx
 
     RemoveAllIntTxPtr RemoveAllIntTx::create()
     {
-      return RemoveAllIntTxPtr(new RemoveAllIntTx());
+      return std::make_shared<RemoveAllIntTx>();
     }
 
     RemoveAllIntTxPtr RemoveAllIntTx::dynamicCast(CommandBasePtr ptr)
@@ -63219,7 +63303,7 @@ namespace Sdx
 
     GetAllSignalsFromIntTxPtr GetAllSignalsFromIntTx::create(const std::string& id)
     {
-      return GetAllSignalsFromIntTxPtr(new GetAllSignalsFromIntTx(id));
+      return std::make_shared<GetAllSignalsFromIntTx>(id);
     }
 
     GetAllSignalsFromIntTxPtr GetAllSignalsFromIntTx::dynamicCast(CommandBasePtr ptr)
@@ -63290,7 +63374,7 @@ namespace Sdx
 
     GetAllSignalsFromIntTxResultPtr GetAllSignalsFromIntTxResult::create(CommandBasePtr relatedCommand, const std::string& id, const std::vector<std::string>& idsSignal)
     {
-      return GetAllSignalsFromIntTxResultPtr(new GetAllSignalsFromIntTxResult(relatedCommand, id, idsSignal));
+      return std::make_shared<GetAllSignalsFromIntTxResult>(relatedCommand, id, idsSignal);
     }
 
     GetAllSignalsFromIntTxResultPtr GetAllSignalsFromIntTxResult::dynamicCast(CommandBasePtr ptr)
@@ -63368,7 +63452,7 @@ namespace Sdx
 
     GetSignalFromIntTxPtr GetSignalFromIntTx::create(const std::string& idTransmitter, const std::string& signalType)
     {
-      return GetSignalFromIntTxPtr(new GetSignalFromIntTx(idTransmitter, signalType));
+      return std::make_shared<GetSignalFromIntTx>(idTransmitter, signalType);
     }
 
     GetSignalFromIntTxPtr GetSignalFromIntTx::dynamicCast(CommandBasePtr ptr)
@@ -63453,7 +63537,7 @@ namespace Sdx
 
     GetSignalFromIntTxResultPtr GetSignalFromIntTxResult::create(CommandBasePtr relatedCommand, const std::string& idTransmitter, const std::string& signalType, const std::vector<std::string>& idsSignal)
     {
-      return GetSignalFromIntTxResultPtr(new GetSignalFromIntTxResult(relatedCommand, idTransmitter, signalType, idsSignal));
+      return std::make_shared<GetSignalFromIntTxResult>(relatedCommand, idTransmitter, signalType, idsSignal);
     }
 
     GetSignalFromIntTxResultPtr GetSignalFromIntTxResult::dynamicCast(CommandBasePtr ptr)
@@ -63549,7 +63633,7 @@ namespace Sdx
 
     SetIntTxCWPtr SetIntTxCW::create(bool enabled, double centralFreq, double power, const std::string& transmitterId, const std::string& signalId, const Sdx::optional<double>& initialPhaseOffset, const Sdx::optional<int>& group)
     {
-      return SetIntTxCWPtr(new SetIntTxCW(enabled, centralFreq, power, transmitterId, signalId, initialPhaseOffset, group));
+      return std::make_shared<SetIntTxCW>(enabled, centralFreq, power, transmitterId, signalId, initialPhaseOffset, group);
     }
 
     SetIntTxCWPtr SetIntTxCW::dynamicCast(CommandBasePtr ptr)
@@ -63698,7 +63782,7 @@ namespace Sdx
 
     GetIntTxCWPtr GetIntTxCW::create(const std::string& transmitterId, const std::string& signalId)
     {
-      return GetIntTxCWPtr(new GetIntTxCW(transmitterId, signalId));
+      return std::make_shared<GetIntTxCW>(transmitterId, signalId);
     }
 
     GetIntTxCWPtr GetIntTxCW::dynamicCast(CommandBasePtr ptr)
@@ -63787,7 +63871,7 @@ namespace Sdx
 
     GetIntTxCWResultPtr GetIntTxCWResult::create(CommandBasePtr relatedCommand, bool enabled, double centralFreq, double power, const std::string& transmitterId, const std::string& signalId, const Sdx::optional<double>& initialPhaseOffset, const Sdx::optional<int>& group)
     {
-      return GetIntTxCWResultPtr(new GetIntTxCWResult(relatedCommand, enabled, centralFreq, power, transmitterId, signalId, initialPhaseOffset, group));
+      return std::make_shared<GetIntTxCWResult>(relatedCommand, enabled, centralFreq, power, transmitterId, signalId, initialPhaseOffset, group);
     }
 
     GetIntTxCWResultPtr GetIntTxCWResult::dynamicCast(CommandBasePtr ptr)
@@ -63936,7 +64020,7 @@ namespace Sdx
 
     SetIntTxChirpPtr SetIntTxChirp::create(bool enabled, double centralFreq, double power, double bandwidth, double sweepTime, const std::string& transmitterId, const std::string& signalId, const Sdx::optional<int>& group)
     {
-      return SetIntTxChirpPtr(new SetIntTxChirp(enabled, centralFreq, power, bandwidth, sweepTime, transmitterId, signalId, group));
+      return std::make_shared<SetIntTxChirp>(enabled, centralFreq, power, bandwidth, sweepTime, transmitterId, signalId, group);
     }
 
     SetIntTxChirpPtr SetIntTxChirp::dynamicCast(CommandBasePtr ptr)
@@ -64098,7 +64182,7 @@ namespace Sdx
 
     GetIntTxChirpPtr GetIntTxChirp::create(const std::string& transmitterId, const std::string& signalId)
     {
-      return GetIntTxChirpPtr(new GetIntTxChirp(transmitterId, signalId));
+      return std::make_shared<GetIntTxChirp>(transmitterId, signalId);
     }
 
     GetIntTxChirpPtr GetIntTxChirp::dynamicCast(CommandBasePtr ptr)
@@ -64188,7 +64272,7 @@ namespace Sdx
 
     GetIntTxChirpResultPtr GetIntTxChirpResult::create(CommandBasePtr relatedCommand, bool enabled, double centralFreq, double power, double bandwidth, double sweepTime, const std::string& transmitterId, const std::string& signalId, const Sdx::optional<int>& group)
     {
-      return GetIntTxChirpResultPtr(new GetIntTxChirpResult(relatedCommand, enabled, centralFreq, power, bandwidth, sweepTime, transmitterId, signalId, group));
+      return std::make_shared<GetIntTxChirpResult>(relatedCommand, enabled, centralFreq, power, bandwidth, sweepTime, transmitterId, signalId, group);
     }
 
     GetIntTxChirpResultPtr GetIntTxChirpResult::dynamicCast(CommandBasePtr ptr)
@@ -64350,7 +64434,7 @@ namespace Sdx
 
     SetIntTxPulsePtr SetIntTxPulse::create(bool enabled, double centralFreq, double power, double dutyCycle, int pulseRate, const std::string& transmitterId, const std::string& signalId, const Sdx::optional<int>& group)
     {
-      return SetIntTxPulsePtr(new SetIntTxPulse(enabled, centralFreq, power, dutyCycle, pulseRate, transmitterId, signalId, group));
+      return std::make_shared<SetIntTxPulse>(enabled, centralFreq, power, dutyCycle, pulseRate, transmitterId, signalId, group);
     }
 
     SetIntTxPulsePtr SetIntTxPulse::dynamicCast(CommandBasePtr ptr)
@@ -64512,7 +64596,7 @@ namespace Sdx
 
     GetIntTxPulsePtr GetIntTxPulse::create(const std::string& transmitterId, const std::string& signalId)
     {
-      return GetIntTxPulsePtr(new GetIntTxPulse(transmitterId, signalId));
+      return std::make_shared<GetIntTxPulse>(transmitterId, signalId);
     }
 
     GetIntTxPulsePtr GetIntTxPulse::dynamicCast(CommandBasePtr ptr)
@@ -64602,7 +64686,7 @@ namespace Sdx
 
     GetIntTxPulseResultPtr GetIntTxPulseResult::create(CommandBasePtr relatedCommand, bool enabled, double centralFreq, double power, double dutyCycle, int pulseRate, const std::string& transmitterId, const std::string& signalId, const Sdx::optional<int>& group)
     {
-      return GetIntTxPulseResultPtr(new GetIntTxPulseResult(relatedCommand, enabled, centralFreq, power, dutyCycle, pulseRate, transmitterId, signalId, group));
+      return std::make_shared<GetIntTxPulseResult>(relatedCommand, enabled, centralFreq, power, dutyCycle, pulseRate, transmitterId, signalId, group);
     }
 
     GetIntTxPulseResultPtr GetIntTxPulseResult::dynamicCast(CommandBasePtr ptr)
@@ -64747,7 +64831,7 @@ namespace Sdx
       : CommandBase(CmdName)
     {}
 
-    SetIntTxBPSK::SetIntTxBPSK(bool enabled, double centralFreq, double power, int codeRate, int codeLengthMs, const std::string& transmitterId, const std::string& signalId, const Sdx::optional<int>& group)
+    SetIntTxBPSK::SetIntTxBPSK(bool enabled, double centralFreq, double power, int codeRate, int codeLengthMs, const std::string& transmitterId, const std::string& signalId, const Sdx::optional<int>& group, const Sdx::optional<int>& prn)
       : CommandBase(CmdName)
     {
 
@@ -64759,12 +64843,13 @@ namespace Sdx
       setTransmitterId(transmitterId);
       setSignalId(signalId);
       setGroup(group);
+      setPrn(prn);
     }
 
 
-    SetIntTxBPSKPtr SetIntTxBPSK::create(bool enabled, double centralFreq, double power, int codeRate, int codeLengthMs, const std::string& transmitterId, const std::string& signalId, const Sdx::optional<int>& group)
+    SetIntTxBPSKPtr SetIntTxBPSK::create(bool enabled, double centralFreq, double power, int codeRate, int codeLengthMs, const std::string& transmitterId, const std::string& signalId, const Sdx::optional<int>& group, const Sdx::optional<int>& prn)
     {
-      return SetIntTxBPSKPtr(new SetIntTxBPSK(enabled, centralFreq, power, codeRate, codeLengthMs, transmitterId, signalId, group));
+      return std::make_shared<SetIntTxBPSK>(enabled, centralFreq, power, codeRate, codeLengthMs, transmitterId, signalId, group, prn);
     }
 
     SetIntTxBPSKPtr SetIntTxBPSK::dynamicCast(CommandBasePtr ptr)
@@ -64784,6 +64869,7 @@ namespace Sdx
           && parse_json<std::string>::is_valid(m_values["TransmitterId"])
           && parse_json<std::string>::is_valid(m_values["SignalId"])
           && parse_json<Sdx::optional<int>>::is_valid(m_values["Group"])
+          && parse_json<Sdx::optional<int>>::is_valid(m_values["Prn"])
         ;
 
     }
@@ -64892,6 +64978,18 @@ namespace Sdx
     }
 
 
+
+    Sdx::optional<int> SetIntTxBPSK::prn() const
+    {
+      return parse_json<Sdx::optional<int>>::parse(m_values["Prn"]);
+    }
+
+    void SetIntTxBPSK::setPrn(const Sdx::optional<int>& prn)
+    {
+      m_values.AddMember("Prn", parse_json<Sdx::optional<int>>::format(prn, m_values.GetAllocator()), m_values.GetAllocator());
+    }
+
+
   }
 }
 
@@ -64926,7 +65024,7 @@ namespace Sdx
 
     GetIntTxBPSKPtr GetIntTxBPSK::create(const std::string& transmitterId, const std::string& signalId)
     {
-      return GetIntTxBPSKPtr(new GetIntTxBPSK(transmitterId, signalId));
+      return std::make_shared<GetIntTxBPSK>(transmitterId, signalId);
     }
 
     GetIntTxBPSKPtr GetIntTxBPSK::dynamicCast(CommandBasePtr ptr)
@@ -64999,7 +65097,7 @@ namespace Sdx
       : CommandResult(CmdName)
     {}
 
-    GetIntTxBPSKResult::GetIntTxBPSKResult(CommandBasePtr relatedCommand, bool enabled, double centralFreq, double power, int codeRate, int codeLengthMs, const std::string& transmitterId, const std::string& signalId, const Sdx::optional<int>& group)
+    GetIntTxBPSKResult::GetIntTxBPSKResult(CommandBasePtr relatedCommand, bool enabled, double centralFreq, double power, int codeRate, int codeLengthMs, const std::string& transmitterId, const std::string& signalId, const Sdx::optional<int>& group, const Sdx::optional<int>& prn)
       : CommandResult(CmdName, relatedCommand)
     {
 
@@ -65011,12 +65109,13 @@ namespace Sdx
       setTransmitterId(transmitterId);
       setSignalId(signalId);
       setGroup(group);
+      setPrn(prn);
     }
 
 
-    GetIntTxBPSKResultPtr GetIntTxBPSKResult::create(CommandBasePtr relatedCommand, bool enabled, double centralFreq, double power, int codeRate, int codeLengthMs, const std::string& transmitterId, const std::string& signalId, const Sdx::optional<int>& group)
+    GetIntTxBPSKResultPtr GetIntTxBPSKResult::create(CommandBasePtr relatedCommand, bool enabled, double centralFreq, double power, int codeRate, int codeLengthMs, const std::string& transmitterId, const std::string& signalId, const Sdx::optional<int>& group, const Sdx::optional<int>& prn)
     {
-      return GetIntTxBPSKResultPtr(new GetIntTxBPSKResult(relatedCommand, enabled, centralFreq, power, codeRate, codeLengthMs, transmitterId, signalId, group));
+      return std::make_shared<GetIntTxBPSKResult>(relatedCommand, enabled, centralFreq, power, codeRate, codeLengthMs, transmitterId, signalId, group, prn);
     }
 
     GetIntTxBPSKResultPtr GetIntTxBPSKResult::dynamicCast(CommandBasePtr ptr)
@@ -65036,6 +65135,7 @@ namespace Sdx
           && parse_json<std::string>::is_valid(m_values["TransmitterId"])
           && parse_json<std::string>::is_valid(m_values["SignalId"])
           && parse_json<Sdx::optional<int>>::is_valid(m_values["Group"])
+          && parse_json<Sdx::optional<int>>::is_valid(m_values["Prn"])
         ;
 
     }
@@ -65138,6 +65238,18 @@ namespace Sdx
     }
 
 
+
+    Sdx::optional<int> GetIntTxBPSKResult::prn() const
+    {
+      return parse_json<Sdx::optional<int>>::parse(m_values["Prn"]);
+    }
+
+    void GetIntTxBPSKResult::setPrn(const Sdx::optional<int>& prn)
+    {
+      m_values.AddMember("Prn", parse_json<Sdx::optional<int>>::format(prn, m_values.GetAllocator()), m_values.GetAllocator());
+    }
+
+
   }
 }
 
@@ -65180,7 +65292,7 @@ namespace Sdx
 
     SetIntTxBOCPtr SetIntTxBOC::create(bool enabled, double centralFreq, double power, int codeRate, int codeLengthMs, int subCarrierRate, bool cosinePhaseBoc, const std::string& transmitterId, const std::string& signalId, const Sdx::optional<int>& group)
     {
-      return SetIntTxBOCPtr(new SetIntTxBOC(enabled, centralFreq, power, codeRate, codeLengthMs, subCarrierRate, cosinePhaseBoc, transmitterId, signalId, group));
+      return std::make_shared<SetIntTxBOC>(enabled, centralFreq, power, codeRate, codeLengthMs, subCarrierRate, cosinePhaseBoc, transmitterId, signalId, group);
     }
 
     SetIntTxBOCPtr SetIntTxBOC::dynamicCast(CommandBasePtr ptr)
@@ -65368,7 +65480,7 @@ namespace Sdx
 
     GetIntTxBOCPtr GetIntTxBOC::create(const std::string& transmitterId, const std::string& signalId)
     {
-      return GetIntTxBOCPtr(new GetIntTxBOC(transmitterId, signalId));
+      return std::make_shared<GetIntTxBOC>(transmitterId, signalId);
     }
 
     GetIntTxBOCPtr GetIntTxBOC::dynamicCast(CommandBasePtr ptr)
@@ -65460,7 +65572,7 @@ namespace Sdx
 
     GetIntTxBOCResultPtr GetIntTxBOCResult::create(CommandBasePtr relatedCommand, bool enabled, double centralFreq, double power, int codeRate, int codeLengthMs, int subCarrierRate, bool cosinePhaseBoc, const std::string& transmitterId, const std::string& signalId, const Sdx::optional<int>& group)
     {
-      return GetIntTxBOCResultPtr(new GetIntTxBOCResult(relatedCommand, enabled, centralFreq, power, codeRate, codeLengthMs, subCarrierRate, cosinePhaseBoc, transmitterId, signalId, group));
+      return std::make_shared<GetIntTxBOCResult>(relatedCommand, enabled, centralFreq, power, codeRate, codeLengthMs, subCarrierRate, cosinePhaseBoc, transmitterId, signalId, group);
     }
 
     GetIntTxBOCResultPtr GetIntTxBOCResult::dynamicCast(CommandBasePtr ptr)
@@ -65648,7 +65760,7 @@ namespace Sdx
 
     SetIntTxAWGNPtr SetIntTxAWGN::create(bool enabled, double centralFreq, double power, double bandwidth, const std::string& transmitterId, const std::string& signalId, const Sdx::optional<int>& seed, const Sdx::optional<int>& group)
     {
-      return SetIntTxAWGNPtr(new SetIntTxAWGN(enabled, centralFreq, power, bandwidth, transmitterId, signalId, seed, group));
+      return std::make_shared<SetIntTxAWGN>(enabled, centralFreq, power, bandwidth, transmitterId, signalId, seed, group);
     }
 
     SetIntTxAWGNPtr SetIntTxAWGN::dynamicCast(CommandBasePtr ptr)
@@ -65810,7 +65922,7 @@ namespace Sdx
 
     GetIntTxAWGNPtr GetIntTxAWGN::create(const std::string& transmitterId, const std::string& signalId)
     {
-      return GetIntTxAWGNPtr(new GetIntTxAWGN(transmitterId, signalId));
+      return std::make_shared<GetIntTxAWGN>(transmitterId, signalId);
     }
 
     GetIntTxAWGNPtr GetIntTxAWGN::dynamicCast(CommandBasePtr ptr)
@@ -65900,7 +66012,7 @@ namespace Sdx
 
     GetIntTxAWGNResultPtr GetIntTxAWGNResult::create(CommandBasePtr relatedCommand, bool enabled, double centralFreq, double power, double bandwidth, const std::string& transmitterId, const std::string& signalId, const Sdx::optional<int>& seed, const Sdx::optional<int>& group)
     {
-      return GetIntTxAWGNResultPtr(new GetIntTxAWGNResult(relatedCommand, enabled, centralFreq, power, bandwidth, transmitterId, signalId, seed, group));
+      return std::make_shared<GetIntTxAWGNResult>(relatedCommand, enabled, centralFreq, power, bandwidth, transmitterId, signalId, seed, group);
     }
 
     GetIntTxAWGNResultPtr GetIntTxAWGNResult::dynamicCast(CommandBasePtr ptr)
@@ -66061,7 +66173,7 @@ namespace Sdx
 
     SetIntTxIqFilePtr SetIntTxIqFile::create(bool enabled, double centralFreq, double power, const std::string& path, const std::string& transmitterId, const std::string& signalId, const Sdx::optional<int>& group)
     {
-      return SetIntTxIqFilePtr(new SetIntTxIqFile(enabled, centralFreq, power, path, transmitterId, signalId, group));
+      return std::make_shared<SetIntTxIqFile>(enabled, centralFreq, power, path, transmitterId, signalId, group);
     }
 
     SetIntTxIqFilePtr SetIntTxIqFile::dynamicCast(CommandBasePtr ptr)
@@ -66210,7 +66322,7 @@ namespace Sdx
 
     GetIntTxIqFilePtr GetIntTxIqFile::create(const std::string& transmitterId, const std::string& signalId)
     {
-      return GetIntTxIqFilePtr(new GetIntTxIqFile(transmitterId, signalId));
+      return std::make_shared<GetIntTxIqFile>(transmitterId, signalId);
     }
 
     GetIntTxIqFilePtr GetIntTxIqFile::dynamicCast(CommandBasePtr ptr)
@@ -66299,7 +66411,7 @@ namespace Sdx
 
     GetIntTxIqFileResultPtr GetIntTxIqFileResult::create(CommandBasePtr relatedCommand, bool enabled, double centralFreq, double power, const std::string& path, const std::string& transmitterId, const std::string& signalId, const Sdx::optional<int>& group)
     {
-      return GetIntTxIqFileResultPtr(new GetIntTxIqFileResult(relatedCommand, enabled, centralFreq, power, path, transmitterId, signalId, group));
+      return std::make_shared<GetIntTxIqFileResult>(relatedCommand, enabled, centralFreq, power, path, transmitterId, signalId, group);
     }
 
     GetIntTxIqFileResultPtr GetIntTxIqFileResult::dynamicCast(CommandBasePtr ptr)
@@ -66443,7 +66555,7 @@ namespace Sdx
 
     EnableIntTxSignalPtr EnableIntTxSignal::create(bool enabled, const std::string& transmitterId, const std::string& signalId)
     {
-      return EnableIntTxSignalPtr(new EnableIntTxSignal(enabled, transmitterId, signalId));
+      return std::make_shared<EnableIntTxSignal>(enabled, transmitterId, signalId);
     }
 
     EnableIntTxSignalPtr EnableIntTxSignal::dynamicCast(CommandBasePtr ptr)
@@ -66540,7 +66652,7 @@ namespace Sdx
 
     RemoveSignalFromIntTxPtr RemoveSignalFromIntTx::create(const std::string& transmitterId, const std::string& signalId)
     {
-      return RemoveSignalFromIntTxPtr(new RemoveSignalFromIntTx(transmitterId, signalId));
+      return std::make_shared<RemoveSignalFromIntTx>(transmitterId, signalId);
     }
 
     RemoveSignalFromIntTxPtr RemoveSignalFromIntTx::dynamicCast(CommandBasePtr ptr)
@@ -66623,7 +66735,7 @@ namespace Sdx
 
     RemoveAllSignalsFromIntTxPtr RemoveAllSignalsFromIntTx::create(const std::string& transmitterId)
     {
-      return RemoveAllSignalsFromIntTxPtr(new RemoveAllSignalsFromIntTx(transmitterId));
+      return std::make_shared<RemoveAllSignalsFromIntTx>(transmitterId);
     }
 
     RemoveAllSignalsFromIntTxPtr RemoveAllSignalsFromIntTx::dynamicCast(CommandBasePtr ptr)
@@ -66693,7 +66805,7 @@ namespace Sdx
 
     SetStreamingBufferPtr SetStreamingBuffer::create(int size)
     {
-      return SetStreamingBufferPtr(new SetStreamingBuffer(size));
+      return std::make_shared<SetStreamingBuffer>(size);
     }
 
     SetStreamingBufferPtr SetStreamingBuffer::dynamicCast(CommandBasePtr ptr)
@@ -66763,7 +66875,7 @@ namespace Sdx
 
     SetEngineLatencyPtr SetEngineLatency::create(int latency)
     {
-      return SetEngineLatencyPtr(new SetEngineLatency(latency));
+      return std::make_shared<SetEngineLatency>(latency);
     }
 
     SetEngineLatencyPtr SetEngineLatency::dynamicCast(CommandBasePtr ptr)
@@ -66833,7 +66945,7 @@ namespace Sdx
 
     SetSyncServerPtr SetSyncServer::create(int port)
     {
-      return SetSyncServerPtr(new SetSyncServer(port));
+      return std::make_shared<SetSyncServer>(port);
     }
 
     SetSyncServerPtr SetSyncServer::dynamicCast(CommandBasePtr ptr)
@@ -66904,7 +67016,7 @@ namespace Sdx
 
     SetSyncClientPtr SetSyncClient::create(const std::string& host, int port)
     {
-      return SetSyncClientPtr(new SetSyncClient(host, port));
+      return std::make_shared<SetSyncClient>(host, port);
     }
 
     SetSyncClientPtr SetSyncClient::dynamicCast(CommandBasePtr ptr)
@@ -66987,7 +67099,7 @@ namespace Sdx
 
     SetSyncTimePtr SetSyncTime::create(double time)
     {
-      return SetSyncTimePtr(new SetSyncTime(time));
+      return std::make_shared<SetSyncTime>(time);
     }
 
     SetSyncTimePtr SetSyncTime::dynamicCast(CommandBasePtr ptr)
@@ -67052,7 +67164,7 @@ namespace Sdx
 
     GetSyncTimePtr GetSyncTime::create()
     {
-      return GetSyncTimePtr(new GetSyncTime());
+      return std::make_shared<GetSyncTime>();
     }
 
     GetSyncTimePtr GetSyncTime::dynamicCast(CommandBasePtr ptr)
@@ -67109,7 +67221,7 @@ namespace Sdx
 
     GetSyncTimeResultPtr GetSyncTimeResult::create(CommandBasePtr relatedCommand, double time)
     {
-      return GetSyncTimeResultPtr(new GetSyncTimeResult(relatedCommand, time));
+      return std::make_shared<GetSyncTimeResult>(relatedCommand, time);
     }
 
     GetSyncTimeResultPtr GetSyncTimeResult::dynamicCast(CommandBasePtr ptr)
@@ -67173,7 +67285,7 @@ namespace Sdx
 
     SetSyncTimeMasterPtr SetSyncTimeMaster::create(double time)
     {
-      return SetSyncTimeMasterPtr(new SetSyncTimeMaster(time));
+      return std::make_shared<SetSyncTimeMaster>(time);
     }
 
     SetSyncTimeMasterPtr SetSyncTimeMaster::dynamicCast(CommandBasePtr ptr)
@@ -67238,7 +67350,7 @@ namespace Sdx
 
     GetSyncTimeMasterPtr GetSyncTimeMaster::create()
     {
-      return GetSyncTimeMasterPtr(new GetSyncTimeMaster());
+      return std::make_shared<GetSyncTimeMaster>();
     }
 
     GetSyncTimeMasterPtr GetSyncTimeMaster::dynamicCast(CommandBasePtr ptr)
@@ -67295,7 +67407,7 @@ namespace Sdx
 
     GetSyncTimeMasterResultPtr GetSyncTimeMasterResult::create(CommandBasePtr relatedCommand, double time)
     {
-      return GetSyncTimeMasterResultPtr(new GetSyncTimeMasterResult(relatedCommand, time));
+      return std::make_shared<GetSyncTimeMasterResult>(relatedCommand, time);
     }
 
     GetSyncTimeMasterResultPtr GetSyncTimeMasterResult::dynamicCast(CommandBasePtr ptr)
@@ -67359,7 +67471,7 @@ namespace Sdx
 
     StopWhenCommandFailPtr StopWhenCommandFail::create(bool enabled)
     {
-      return StopWhenCommandFailPtr(new StopWhenCommandFail(enabled));
+      return std::make_shared<StopWhenCommandFail>(enabled);
     }
 
     StopWhenCommandFailPtr StopWhenCommandFail::dynamicCast(CommandBasePtr ptr)
@@ -67424,7 +67536,7 @@ namespace Sdx
 
     IsSimStopWhenCommandFailEnabledPtr IsSimStopWhenCommandFailEnabled::create()
     {
-      return IsSimStopWhenCommandFailEnabledPtr(new IsSimStopWhenCommandFailEnabled());
+      return std::make_shared<IsSimStopWhenCommandFailEnabled>();
     }
 
     IsSimStopWhenCommandFailEnabledPtr IsSimStopWhenCommandFailEnabled::dynamicCast(CommandBasePtr ptr)
@@ -67481,7 +67593,7 @@ namespace Sdx
 
     IsSimStopWhenCommandFailEnabledResultPtr IsSimStopWhenCommandFailEnabledResult::create(CommandBasePtr relatedCommand, bool enabled)
     {
-      return IsSimStopWhenCommandFailEnabledResultPtr(new IsSimStopWhenCommandFailEnabledResult(relatedCommand, enabled));
+      return std::make_shared<IsSimStopWhenCommandFailEnabledResult>(relatedCommand, enabled);
     }
 
     IsSimStopWhenCommandFailEnabledResultPtr IsSimStopWhenCommandFailEnabledResult::dynamicCast(CommandBasePtr ptr)
@@ -67545,7 +67657,7 @@ namespace Sdx
 
     StopMasterWhenSlaveStopPtr StopMasterWhenSlaveStop::create(bool enabled)
     {
-      return StopMasterWhenSlaveStopPtr(new StopMasterWhenSlaveStop(enabled));
+      return std::make_shared<StopMasterWhenSlaveStop>(enabled);
     }
 
     StopMasterWhenSlaveStopPtr StopMasterWhenSlaveStop::dynamicCast(CommandBasePtr ptr)
@@ -67610,7 +67722,7 @@ namespace Sdx
 
     IsStopMasterWhenSlaveStopPtr IsStopMasterWhenSlaveStop::create()
     {
-      return IsStopMasterWhenSlaveStopPtr(new IsStopMasterWhenSlaveStop());
+      return std::make_shared<IsStopMasterWhenSlaveStop>();
     }
 
     IsStopMasterWhenSlaveStopPtr IsStopMasterWhenSlaveStop::dynamicCast(CommandBasePtr ptr)
@@ -67667,7 +67779,7 @@ namespace Sdx
 
     IsStopMasterWhenSlaveStopResultPtr IsStopMasterWhenSlaveStopResult::create(CommandBasePtr relatedCommand, bool enabled)
     {
-      return IsStopMasterWhenSlaveStopResultPtr(new IsStopMasterWhenSlaveStopResult(relatedCommand, enabled));
+      return std::make_shared<IsStopMasterWhenSlaveStopResult>(relatedCommand, enabled);
     }
 
     IsStopMasterWhenSlaveStopResultPtr IsStopMasterWhenSlaveStopResult::dynamicCast(CommandBasePtr ptr)
@@ -67731,7 +67843,7 @@ namespace Sdx
 
     ShowMapAnalysisPtr ShowMapAnalysis::create(bool show)
     {
-      return ShowMapAnalysisPtr(new ShowMapAnalysis(show));
+      return std::make_shared<ShowMapAnalysis>(show);
     }
 
     ShowMapAnalysisPtr ShowMapAnalysis::dynamicCast(CommandBasePtr ptr)
@@ -67796,7 +67908,7 @@ namespace Sdx
 
     IsMapAnalysisEnabledPtr IsMapAnalysisEnabled::create()
     {
-      return IsMapAnalysisEnabledPtr(new IsMapAnalysisEnabled());
+      return std::make_shared<IsMapAnalysisEnabled>();
     }
 
     IsMapAnalysisEnabledPtr IsMapAnalysisEnabled::dynamicCast(CommandBasePtr ptr)
@@ -67853,7 +67965,7 @@ namespace Sdx
 
     IsMapAnalysisEnabledResultPtr IsMapAnalysisEnabledResult::create(CommandBasePtr relatedCommand, bool show)
     {
-      return IsMapAnalysisEnabledResultPtr(new IsMapAnalysisEnabledResult(relatedCommand, show));
+      return std::make_shared<IsMapAnalysisEnabledResult>(relatedCommand, show);
     }
 
     IsMapAnalysisEnabledResultPtr IsMapAnalysisEnabledResult::dynamicCast(CommandBasePtr ptr)
@@ -67917,7 +68029,7 @@ namespace Sdx
 
     SetSpectrumVisiblePtr SetSpectrumVisible::create(bool visible)
     {
-      return SetSpectrumVisiblePtr(new SetSpectrumVisible(visible));
+      return std::make_shared<SetSpectrumVisible>(visible);
     }
 
     SetSpectrumVisiblePtr SetSpectrumVisible::dynamicCast(CommandBasePtr ptr)
@@ -67982,7 +68094,7 @@ namespace Sdx
 
     IsSpectrumVisiblePtr IsSpectrumVisible::create()
     {
-      return IsSpectrumVisiblePtr(new IsSpectrumVisible());
+      return std::make_shared<IsSpectrumVisible>();
     }
 
     IsSpectrumVisiblePtr IsSpectrumVisible::dynamicCast(CommandBasePtr ptr)
@@ -68039,7 +68151,7 @@ namespace Sdx
 
     IsSpectrumVisibleResultPtr IsSpectrumVisibleResult::create(CommandBasePtr relatedCommand, bool visible)
     {
-      return IsSpectrumVisibleResultPtr(new IsSpectrumVisibleResult(relatedCommand, visible));
+      return std::make_shared<IsSpectrumVisibleResult>(relatedCommand, visible);
     }
 
     IsSpectrumVisibleResultPtr IsSpectrumVisibleResult::dynamicCast(CommandBasePtr ptr)
@@ -68098,7 +68210,7 @@ namespace Sdx
 
     GetSimulatorStatePtr GetSimulatorState::create()
     {
-      return GetSimulatorStatePtr(new GetSimulatorState());
+      return std::make_shared<GetSimulatorState>();
     }
 
     GetSimulatorStatePtr GetSimulatorState::dynamicCast(CommandBasePtr ptr)
@@ -68156,7 +68268,7 @@ namespace Sdx
 
     WaitSimulatorStatePtr WaitSimulatorState::create(const std::string& state, const std::string& failureState)
     {
-      return WaitSimulatorStatePtr(new WaitSimulatorState(state, failureState));
+      return std::make_shared<WaitSimulatorState>(state, failureState);
     }
 
     WaitSimulatorStatePtr WaitSimulatorState::dynamicCast(CommandBasePtr ptr)
@@ -68234,7 +68346,7 @@ namespace Sdx
 
     AbortWaitSimulatorStatePtr AbortWaitSimulatorState::create()
     {
-      return AbortWaitSimulatorStatePtr(new AbortWaitSimulatorState());
+      return std::make_shared<AbortWaitSimulatorState>();
     }
 
     AbortWaitSimulatorStatePtr AbortWaitSimulatorState::dynamicCast(CommandBasePtr ptr)
@@ -68294,7 +68406,7 @@ namespace Sdx
 
     SimulatorStateResultPtr SimulatorStateResult::create(CommandBasePtr relatedCommand, const std::string& state, const std::string& error, const Sdx::SimulatorState& stateId, const Sdx::SimulatorSubState& subStateId)
     {
-      return SimulatorStateResultPtr(new SimulatorStateResult(relatedCommand, state, error, stateId, subStateId));
+      return std::make_shared<SimulatorStateResult>(relatedCommand, state, error, stateId, subStateId);
     }
 
     SimulatorStateResultPtr SimulatorStateResult::dynamicCast(CommandBasePtr ptr)
@@ -68392,7 +68504,7 @@ namespace Sdx
 
     BeginVehicleInfoPtr BeginVehicleInfo::create()
     {
-      return BeginVehicleInfoPtr(new BeginVehicleInfo());
+      return std::make_shared<BeginVehicleInfo>();
     }
 
     BeginVehicleInfoPtr BeginVehicleInfo::dynamicCast(CommandBasePtr ptr)
@@ -68444,7 +68556,7 @@ namespace Sdx
 
     EndVehicleInfoPtr EndVehicleInfo::create()
     {
-      return EndVehicleInfoPtr(new EndVehicleInfo());
+      return std::make_shared<EndVehicleInfo>();
     }
 
     EndVehicleInfoPtr EndVehicleInfo::dynamicCast(CommandBasePtr ptr)
@@ -68503,7 +68615,7 @@ namespace Sdx
 
     MessageSequenceInsertPtr MessageSequenceInsert::create(const std::string& signal, int index, int type)
     {
-      return MessageSequenceInsertPtr(new MessageSequenceInsert(signal, index, type));
+      return std::make_shared<MessageSequenceInsert>(signal, index, type);
     }
 
     MessageSequenceInsertPtr MessageSequenceInsert::dynamicCast(CommandBasePtr ptr)
@@ -68600,7 +68712,7 @@ namespace Sdx
 
     MessageSequenceRemovePtr MessageSequenceRemove::create(const std::string& signal, int index)
     {
-      return MessageSequenceRemovePtr(new MessageSequenceRemove(signal, index));
+      return std::make_shared<MessageSequenceRemove>(signal, index);
     }
 
     MessageSequenceRemovePtr MessageSequenceRemove::dynamicCast(CommandBasePtr ptr)
@@ -68685,7 +68797,7 @@ namespace Sdx
 
     MessageSequenceSwapPtr MessageSequenceSwap::create(const std::string& signal, int indexI, int indexJ)
     {
-      return MessageSequenceSwapPtr(new MessageSequenceSwap(signal, indexI, indexJ));
+      return std::make_shared<MessageSequenceSwap>(signal, indexI, indexJ);
     }
 
     MessageSequenceSwapPtr MessageSequenceSwap::dynamicCast(CommandBasePtr ptr)
@@ -68782,7 +68894,7 @@ namespace Sdx
 
     MessageSequenceImportPtr MessageSequenceImport::create(const std::string& signal, const std::string& filename)
     {
-      return MessageSequenceImportPtr(new MessageSequenceImport(signal, filename));
+      return std::make_shared<MessageSequenceImport>(signal, filename);
     }
 
     MessageSequenceImportPtr MessageSequenceImport::dynamicCast(CommandBasePtr ptr)
@@ -68865,7 +68977,7 @@ namespace Sdx
 
     GetMessageSequencePtr GetMessageSequence::create(const std::string& signal)
     {
-      return GetMessageSequencePtr(new GetMessageSequence(signal));
+      return std::make_shared<GetMessageSequence>(signal);
     }
 
     GetMessageSequencePtr GetMessageSequence::dynamicCast(CommandBasePtr ptr)
@@ -68936,7 +69048,7 @@ namespace Sdx
 
     GetMessageSequenceResultPtr GetMessageSequenceResult::create(CommandBasePtr relatedCommand, const std::string& signal, const std::vector<int>& sequence)
     {
-      return GetMessageSequenceResultPtr(new GetMessageSequenceResult(relatedCommand, signal, sequence));
+      return std::make_shared<GetMessageSequenceResult>(relatedCommand, signal, sequence);
     }
 
     GetMessageSequenceResultPtr GetMessageSequenceResult::dynamicCast(CommandBasePtr ptr)
@@ -69014,7 +69126,7 @@ namespace Sdx
 
     SetGalileoFnavSatelliteKPtr SetGalileoFnavSatelliteK::create(int prn, int k)
     {
-      return SetGalileoFnavSatelliteKPtr(new SetGalileoFnavSatelliteK(prn, k));
+      return std::make_shared<SetGalileoFnavSatelliteK>(prn, k);
     }
 
     SetGalileoFnavSatelliteKPtr SetGalileoFnavSatelliteK::dynamicCast(CommandBasePtr ptr)
@@ -69097,7 +69209,7 @@ namespace Sdx
 
     GetGalileoFnavSatelliteKPtr GetGalileoFnavSatelliteK::create(int prn)
     {
-      return GetGalileoFnavSatelliteKPtr(new GetGalileoFnavSatelliteK(prn));
+      return std::make_shared<GetGalileoFnavSatelliteK>(prn);
     }
 
     GetGalileoFnavSatelliteKPtr GetGalileoFnavSatelliteK::dynamicCast(CommandBasePtr ptr)
@@ -69168,7 +69280,7 @@ namespace Sdx
 
     GetGalileoFnavSatelliteKResultPtr GetGalileoFnavSatelliteKResult::create(CommandBasePtr relatedCommand, int prn, int k)
     {
-      return GetGalileoFnavSatelliteKResultPtr(new GetGalileoFnavSatelliteKResult(relatedCommand, prn, k));
+      return std::make_shared<GetGalileoFnavSatelliteKResult>(relatedCommand, prn, k);
     }
 
     GetGalileoFnavSatelliteKResultPtr GetGalileoFnavSatelliteKResult::dynamicCast(CommandBasePtr ptr)
@@ -69249,7 +69361,7 @@ namespace Sdx
 
     CalibFunctionPtr CalibFunction::create(int svId, const std::string& signal, bool enableSV, bool enableDoppler, double phaseOffet)
     {
-      return CalibFunctionPtr(new CalibFunction(svId, signal, enableSV, enableDoppler, phaseOffet));
+      return std::make_shared<CalibFunction>(svId, signal, enableSV, enableDoppler, phaseOffet);
     }
 
     CalibFunctionPtr CalibFunction::dynamicCast(CommandBasePtr ptr)
@@ -69366,7 +69478,7 @@ namespace Sdx
 
     ClearStatusLogPtr ClearStatusLog::create()
     {
-      return ClearStatusLogPtr(new ClearStatusLog());
+      return std::make_shared<ClearStatusLog>();
     }
 
     ClearStatusLogPtr ClearStatusLog::dynamicCast(CommandBasePtr ptr)
@@ -69418,7 +69530,7 @@ namespace Sdx
 
     GetStatusLogPtr GetStatusLog::create()
     {
-      return GetStatusLogPtr(new GetStatusLog());
+      return std::make_shared<GetStatusLog>();
     }
 
     GetStatusLogPtr GetStatusLog::dynamicCast(CommandBasePtr ptr)
@@ -69475,7 +69587,7 @@ namespace Sdx
 
     GetStatusLogResultPtr GetStatusLogResult::create(CommandBasePtr relatedCommand, const std::vector<Sdx::LogRecord>& records)
     {
-      return GetStatusLogResultPtr(new GetStatusLogResult(relatedCommand, records));
+      return std::make_shared<GetStatusLogResult>(relatedCommand, records);
     }
 
     GetStatusLogResultPtr GetStatusLogResult::dynamicCast(CommandBasePtr ptr)
@@ -69539,7 +69651,7 @@ namespace Sdx
 
     CommandGroupPtr CommandGroup::create(const std::vector<Sdx::CommandBasePtr>& commands)
     {
-      return CommandGroupPtr(new CommandGroup(commands));
+      return std::make_shared<CommandGroup>(commands);
     }
 
     CommandGroupPtr CommandGroup::dynamicCast(CommandBasePtr ptr)
@@ -69609,7 +69721,7 @@ namespace Sdx
 
     GetVisibleSVPtr GetVisibleSV::create(const std::string& system)
     {
-      return GetVisibleSVPtr(new GetVisibleSV(system));
+      return std::make_shared<GetVisibleSV>(system);
     }
 
     GetVisibleSVPtr GetVisibleSV::dynamicCast(CommandBasePtr ptr)
@@ -69680,7 +69792,7 @@ namespace Sdx
 
     GetVisibleSVResultPtr GetVisibleSVResult::create(CommandBasePtr relatedCommand, const std::string& system, const std::vector<int>& svId)
     {
-      return GetVisibleSVResultPtr(new GetVisibleSVResult(relatedCommand, system, svId));
+      return std::make_shared<GetVisibleSVResult>(relatedCommand, system, svId);
     }
 
     GetVisibleSVResultPtr GetVisibleSVResult::dynamicCast(CommandBasePtr ptr)
@@ -69752,7 +69864,7 @@ namespace Sdx
 
     ArmPPSPtr ArmPPS::create()
     {
-      return ArmPPSPtr(new ArmPPS());
+      return std::make_shared<ArmPPS>();
     }
 
     ArmPPSPtr ArmPPS::dynamicCast(CommandBasePtr ptr)
@@ -69804,7 +69916,7 @@ namespace Sdx
 
     WaitAndResetPPSPtr WaitAndResetPPS::create()
     {
-      return WaitAndResetPPSPtr(new WaitAndResetPPS());
+      return std::make_shared<WaitAndResetPPS>();
     }
 
     WaitAndResetPPSPtr WaitAndResetPPS::dynamicCast(CommandBasePtr ptr)
@@ -69861,7 +69973,7 @@ namespace Sdx
 
     StartPPSPtr StartPPS::create(int msec)
     {
-      return StartPPSPtr(new StartPPS(msec));
+      return std::make_shared<StartPPS>(msec);
     }
 
     StartPPSPtr StartPPS::dynamicCast(CommandBasePtr ptr)
@@ -69933,7 +70045,7 @@ namespace Sdx
 
     EnableSVPtr EnableSV::create(const std::string& system, int svId, bool enabled)
     {
-      return EnableSVPtr(new EnableSV(system, svId, enabled));
+      return std::make_shared<EnableSV>(system, svId, enabled);
     }
 
     EnableSVPtr EnableSV::dynamicCast(CommandBasePtr ptr)
@@ -70030,7 +70142,7 @@ namespace Sdx
 
     IsSVEnabledPtr IsSVEnabled::create(const std::string& system, int svId)
     {
-      return IsSVEnabledPtr(new IsSVEnabled(system, svId));
+      return std::make_shared<IsSVEnabled>(system, svId);
     }
 
     IsSVEnabledPtr IsSVEnabled::dynamicCast(CommandBasePtr ptr)
@@ -70115,7 +70227,7 @@ namespace Sdx
 
     IsSVEnabledResultPtr IsSVEnabledResult::create(CommandBasePtr relatedCommand, const std::string& system, int svId, bool enabled)
     {
-      return IsSVEnabledResultPtr(new IsSVEnabledResult(relatedCommand, system, svId, enabled));
+      return std::make_shared<IsSVEnabledResult>(relatedCommand, system, svId, enabled);
     }
 
     IsSVEnabledResultPtr IsSVEnabledResult::dynamicCast(CommandBasePtr ptr)
@@ -70206,7 +70318,7 @@ namespace Sdx
 
     EnableEachSVPtr EnableEachSV::create(const std::string& system, const std::vector<bool>& enabled)
     {
-      return EnableEachSVPtr(new EnableEachSV(system, enabled));
+      return std::make_shared<EnableEachSV>(system, enabled);
     }
 
     EnableEachSVPtr EnableEachSV::dynamicCast(CommandBasePtr ptr)
@@ -70289,7 +70401,7 @@ namespace Sdx
 
     IsEachSVEnabledPtr IsEachSVEnabled::create(const std::string& system)
     {
-      return IsEachSVEnabledPtr(new IsEachSVEnabled(system));
+      return std::make_shared<IsEachSVEnabled>(system);
     }
 
     IsEachSVEnabledPtr IsEachSVEnabled::dynamicCast(CommandBasePtr ptr)
@@ -70360,7 +70472,7 @@ namespace Sdx
 
     IsEachSVEnabledResultPtr IsEachSVEnabledResult::create(CommandBasePtr relatedCommand, const std::string& system, const std::vector<bool>& enabled)
     {
-      return IsEachSVEnabledResultPtr(new IsEachSVEnabledResult(relatedCommand, system, enabled));
+      return std::make_shared<IsEachSVEnabledResult>(relatedCommand, system, enabled);
     }
 
     IsEachSVEnabledResultPtr IsEachSVEnabledResult::dynamicCast(CommandBasePtr ptr)
@@ -70437,7 +70549,7 @@ namespace Sdx
 
     EnableCnav2PagesPtr EnableCnav2Pages::create(const std::vector<int>& messages)
     {
-      return EnableCnav2PagesPtr(new EnableCnav2Pages(messages));
+      return std::make_shared<EnableCnav2Pages>(messages);
     }
 
     EnableCnav2PagesPtr EnableCnav2Pages::dynamicCast(CommandBasePtr ptr)
@@ -70502,7 +70614,7 @@ namespace Sdx
 
     GetCnav2PagesEnabledPtr GetCnav2PagesEnabled::create()
     {
-      return GetCnav2PagesEnabledPtr(new GetCnav2PagesEnabled());
+      return std::make_shared<GetCnav2PagesEnabled>();
     }
 
     GetCnav2PagesEnabledPtr GetCnav2PagesEnabled::dynamicCast(CommandBasePtr ptr)
@@ -70559,7 +70671,7 @@ namespace Sdx
 
     GetCnav2PagesEnabledResultPtr GetCnav2PagesEnabledResult::create(CommandBasePtr relatedCommand, const std::vector<int>& messages)
     {
-      return GetCnav2PagesEnabledResultPtr(new GetCnav2PagesEnabledResult(relatedCommand, messages));
+      return std::make_shared<GetCnav2PagesEnabledResult>(relatedCommand, messages);
     }
 
     GetCnav2PagesEnabledResultPtr GetCnav2PagesEnabledResult::dynamicCast(CommandBasePtr ptr)
@@ -70623,7 +70735,7 @@ namespace Sdx
 
     EnableSbasMessagesPtr EnableSbasMessages::create(const std::vector<int>& messages)
     {
-      return EnableSbasMessagesPtr(new EnableSbasMessages(messages));
+      return std::make_shared<EnableSbasMessages>(messages);
     }
 
     EnableSbasMessagesPtr EnableSbasMessages::dynamicCast(CommandBasePtr ptr)
@@ -70688,7 +70800,7 @@ namespace Sdx
 
     GetSbasMessagesEnabledPtr GetSbasMessagesEnabled::create()
     {
-      return GetSbasMessagesEnabledPtr(new GetSbasMessagesEnabled());
+      return std::make_shared<GetSbasMessagesEnabled>();
     }
 
     GetSbasMessagesEnabledPtr GetSbasMessagesEnabled::dynamicCast(CommandBasePtr ptr)
@@ -70745,7 +70857,7 @@ namespace Sdx
 
     GetSbasMessagesEnabledResultPtr GetSbasMessagesEnabledResult::create(CommandBasePtr relatedCommand, const std::vector<int>& messages)
     {
-      return GetSbasMessagesEnabledResultPtr(new GetSbasMessagesEnabledResult(relatedCommand, messages));
+      return std::make_shared<GetSbasMessagesEnabledResult>(relatedCommand, messages);
     }
 
     GetSbasMessagesEnabledResultPtr GetSbasMessagesEnabledResult::dynamicCast(CommandBasePtr ptr)
@@ -70809,7 +70921,7 @@ namespace Sdx
 
     SetSbasMonitoredSystemsPtr SetSbasMonitoredSystems::create(const std::vector<std::string>& systems)
     {
-      return SetSbasMonitoredSystemsPtr(new SetSbasMonitoredSystems(systems));
+      return std::make_shared<SetSbasMonitoredSystems>(systems);
     }
 
     SetSbasMonitoredSystemsPtr SetSbasMonitoredSystems::dynamicCast(CommandBasePtr ptr)
@@ -70874,7 +70986,7 @@ namespace Sdx
 
     GetSbasMonitoredSystemsPtr GetSbasMonitoredSystems::create()
     {
-      return GetSbasMonitoredSystemsPtr(new GetSbasMonitoredSystems());
+      return std::make_shared<GetSbasMonitoredSystems>();
     }
 
     GetSbasMonitoredSystemsPtr GetSbasMonitoredSystems::dynamicCast(CommandBasePtr ptr)
@@ -70931,7 +71043,7 @@ namespace Sdx
 
     GetSbasMonitoredSystemsResultPtr GetSbasMonitoredSystemsResult::create(CommandBasePtr relatedCommand, const std::vector<std::string>& systems)
     {
-      return GetSbasMonitoredSystemsResultPtr(new GetSbasMonitoredSystemsResult(relatedCommand, systems));
+      return std::make_shared<GetSbasMonitoredSystemsResult>(relatedCommand, systems);
     }
 
     GetSbasMonitoredSystemsResultPtr GetSbasMonitoredSystemsResult::dynamicCast(CommandBasePtr ptr)
@@ -70967,66 +71079,94 @@ namespace Sdx
 
 
 ///
-/// Definition of SetSbasUdrei
+/// Definition of SetUdreiForSV
 ///
-#include "gen/SetSbasUdrei.h"
+#include "gen/SetUdreiForSV.h"
 
 namespace Sdx
 {
   namespace Cmd
   {
-    const char* const SetSbasUdrei::CmdName = "SetSbasUdrei";
-    const char* const SetSbasUdrei::Documentation = "Set the global UDREI value transmitted by SBAS";
+    const char* const SetUdreiForSV::CmdName = "SetUdreiForSV";
+    const char* const SetUdreiForSV::Documentation = "Set the UDREI value transmitted by SBAS for the satellite of the specified constellation.";
 
-    REGISTER_COMMAND_FACTORY(SetSbasUdrei);
+    REGISTER_COMMAND_FACTORY(SetUdreiForSV);
 
 
-    SetSbasUdrei::SetSbasUdrei()
+    SetUdreiForSV::SetUdreiForSV()
       : CommandBase(CmdName)
     {}
 
-    SetSbasUdrei::SetSbasUdrei(int udrei)
+    SetUdreiForSV::SetUdreiForSV(const std::string& system, int svId, int udrei)
       : CommandBase(CmdName)
     {
 
+      setSystem(system);
+      setSvId(svId);
       setUdrei(udrei);
     }
 
 
-    SetSbasUdreiPtr SetSbasUdrei::create(int udrei)
+    SetUdreiForSVPtr SetUdreiForSV::create(const std::string& system, int svId, int udrei)
     {
-      return SetSbasUdreiPtr(new SetSbasUdrei(udrei));
+      return std::make_shared<SetUdreiForSV>(system, svId, udrei);
     }
 
-    SetSbasUdreiPtr SetSbasUdrei::dynamicCast(CommandBasePtr ptr)
+    SetUdreiForSVPtr SetUdreiForSV::dynamicCast(CommandBasePtr ptr)
     {
-      return std::dynamic_pointer_cast<SetSbasUdrei>(ptr);
+      return std::dynamic_pointer_cast<SetUdreiForSV>(ptr);
     }
 
-    bool SetSbasUdrei::isValid() const
+    bool SetUdreiForSV::isValid() const
     {
       
         return m_values.IsObject()
+          && parse_json<std::string>::is_valid(m_values["System"])
+          && parse_json<int>::is_valid(m_values["SvId"])
           && parse_json<int>::is_valid(m_values["Udrei"])
         ;
 
     }
 
-    std::string SetSbasUdrei::documentation() const { return Documentation; }
+    std::string SetUdreiForSV::documentation() const { return Documentation; }
 
 
-    int SetSbasUdrei::executePermission() const
+    int SetUdreiForSV::executePermission() const
     {
-      return EXECUTE_IF_IDLE;
+      return EXECUTE_IF_IDLE | EXECUTE_IF_SIMULATING;
     }
 
 
-    int SetSbasUdrei::udrei() const
+    std::string SetUdreiForSV::system() const
+    {
+      return parse_json<std::string>::parse(m_values["System"]);
+    }
+
+    void SetUdreiForSV::setSystem(const std::string& system)
+    {
+      m_values.AddMember("System", parse_json<std::string>::format(system, m_values.GetAllocator()), m_values.GetAllocator());
+    }
+
+
+
+    int SetUdreiForSV::svId() const
+    {
+      return parse_json<int>::parse(m_values["SvId"]);
+    }
+
+    void SetUdreiForSV::setSvId(int svId)
+    {
+      m_values.AddMember("SvId", parse_json<int>::format(svId, m_values.GetAllocator()), m_values.GetAllocator());
+    }
+
+
+
+    int SetUdreiForSV::udrei() const
     {
       return parse_json<int>::parse(m_values["Udrei"]);
     }
 
-    void SetSbasUdrei::setUdrei(int udrei)
+    void SetUdreiForSV::setUdrei(int udrei)
     {
       m_values.AddMember("Udrei", parse_json<int>::format(udrei, m_values.GetAllocator()), m_values.GetAllocator());
     }
@@ -71037,114 +71177,406 @@ namespace Sdx
 
 
 ///
-/// Definition of GetSbasUdrei
+/// Definition of GetUdreiForSV
 ///
-#include "gen/GetSbasUdrei.h"
+#include "gen/GetUdreiForSV.h"
 
 namespace Sdx
 {
   namespace Cmd
   {
-    const char* const GetSbasUdrei::CmdName = "GetSbasUdrei";
-    const char* const GetSbasUdrei::Documentation = "Get the global UDREI value transmitted by SBAS";
+    const char* const GetUdreiForSV::CmdName = "GetUdreiForSV";
+    const char* const GetUdreiForSV::Documentation = "Get the UDREI value transmitted by SBAS for the satellite of the specified constellation.";
 
-    REGISTER_COMMAND_FACTORY(GetSbasUdrei);
+    REGISTER_COMMAND_FACTORY(GetUdreiForSV);
 
 
-    GetSbasUdrei::GetSbasUdrei()
+    GetUdreiForSV::GetUdreiForSV()
+      : CommandBase(CmdName)
+    {}
+
+    GetUdreiForSV::GetUdreiForSV(const std::string& system, int svId)
       : CommandBase(CmdName)
     {
 
+      setSystem(system);
+      setSvId(svId);
     }
 
 
-    GetSbasUdreiPtr GetSbasUdrei::create()
+    GetUdreiForSVPtr GetUdreiForSV::create(const std::string& system, int svId)
     {
-      return GetSbasUdreiPtr(new GetSbasUdrei());
+      return std::make_shared<GetUdreiForSV>(system, svId);
     }
 
-    GetSbasUdreiPtr GetSbasUdrei::dynamicCast(CommandBasePtr ptr)
+    GetUdreiForSVPtr GetUdreiForSV::dynamicCast(CommandBasePtr ptr)
     {
-      return std::dynamic_pointer_cast<GetSbasUdrei>(ptr);
+      return std::dynamic_pointer_cast<GetUdreiForSV>(ptr);
     }
 
-    bool GetSbasUdrei::isValid() const
+    bool GetUdreiForSV::isValid() const
     {
       
         return m_values.IsObject()
+          && parse_json<std::string>::is_valid(m_values["System"])
+          && parse_json<int>::is_valid(m_values["SvId"])
         ;
 
     }
 
-    std::string GetSbasUdrei::documentation() const { return Documentation; }
+    std::string GetUdreiForSV::documentation() const { return Documentation; }
 
 
-    int GetSbasUdrei::executePermission() const
+    int GetUdreiForSV::executePermission() const
     {
       return EXECUTE_IF_IDLE;
     }
+
+
+    std::string GetUdreiForSV::system() const
+    {
+      return parse_json<std::string>::parse(m_values["System"]);
+    }
+
+    void GetUdreiForSV::setSystem(const std::string& system)
+    {
+      m_values.AddMember("System", parse_json<std::string>::format(system, m_values.GetAllocator()), m_values.GetAllocator());
+    }
+
+
+
+    int GetUdreiForSV::svId() const
+    {
+      return parse_json<int>::parse(m_values["SvId"]);
+    }
+
+    void GetUdreiForSV::setSvId(int svId)
+    {
+      m_values.AddMember("SvId", parse_json<int>::format(svId, m_values.GetAllocator()), m_values.GetAllocator());
+    }
+
 
   }
 }
 
 
 ///
-/// Definition of GetSbasUdreiResult
+/// Definition of GetUdreiForSVResult
 ///
-#include "gen/GetSbasUdreiResult.h"
+#include "gen/GetUdreiForSVResult.h"
 
 namespace Sdx
 {
   namespace Cmd
   {
-    const char* const GetSbasUdreiResult::CmdName = "GetSbasUdreiResult";
-    const char* const GetSbasUdreiResult::Documentation = "Result of GetSbasUdrei.";
+    const char* const GetUdreiForSVResult::CmdName = "GetUdreiForSVResult";
+    const char* const GetUdreiForSVResult::Documentation = "Result of GetUdreiForSV.";
 
-    REGISTER_COMMAND_RESULT_FACTORY(GetSbasUdreiResult);
+    REGISTER_COMMAND_RESULT_FACTORY(GetUdreiForSVResult);
 
 
-    GetSbasUdreiResult::GetSbasUdreiResult()
+    GetUdreiForSVResult::GetUdreiForSVResult()
       : CommandResult(CmdName)
     {}
 
-    GetSbasUdreiResult::GetSbasUdreiResult(CommandBasePtr relatedCommand, int udrei)
+    GetUdreiForSVResult::GetUdreiForSVResult(CommandBasePtr relatedCommand, const std::string& system, int svId, int udrei)
       : CommandResult(CmdName, relatedCommand)
     {
 
+      setSystem(system);
+      setSvId(svId);
       setUdrei(udrei);
     }
 
 
-    GetSbasUdreiResultPtr GetSbasUdreiResult::create(CommandBasePtr relatedCommand, int udrei)
+    GetUdreiForSVResultPtr GetUdreiForSVResult::create(CommandBasePtr relatedCommand, const std::string& system, int svId, int udrei)
     {
-      return GetSbasUdreiResultPtr(new GetSbasUdreiResult(relatedCommand, udrei));
+      return std::make_shared<GetUdreiForSVResult>(relatedCommand, system, svId, udrei);
     }
 
-    GetSbasUdreiResultPtr GetSbasUdreiResult::dynamicCast(CommandBasePtr ptr)
+    GetUdreiForSVResultPtr GetUdreiForSVResult::dynamicCast(CommandBasePtr ptr)
     {
-      return std::dynamic_pointer_cast<GetSbasUdreiResult>(ptr);
+      return std::dynamic_pointer_cast<GetUdreiForSVResult>(ptr);
     }
 
-    bool GetSbasUdreiResult::isValid() const
+    bool GetUdreiForSVResult::isValid() const
     {
       
         return m_values.IsObject()
+          && parse_json<std::string>::is_valid(m_values["System"])
+          && parse_json<int>::is_valid(m_values["SvId"])
           && parse_json<int>::is_valid(m_values["Udrei"])
         ;
 
     }
 
-    std::string GetSbasUdreiResult::documentation() const { return Documentation; }
+    std::string GetUdreiForSVResult::documentation() const { return Documentation; }
 
 
-    int GetSbasUdreiResult::udrei() const
+    std::string GetUdreiForSVResult::system() const
+    {
+      return parse_json<std::string>::parse(m_values["System"]);
+    }
+
+    void GetUdreiForSVResult::setSystem(const std::string& system)
+    {
+      m_values.AddMember("System", parse_json<std::string>::format(system, m_values.GetAllocator()), m_values.GetAllocator());
+    }
+
+
+
+    int GetUdreiForSVResult::svId() const
+    {
+      return parse_json<int>::parse(m_values["SvId"]);
+    }
+
+    void GetUdreiForSVResult::setSvId(int svId)
+    {
+      m_values.AddMember("SvId", parse_json<int>::format(svId, m_values.GetAllocator()), m_values.GetAllocator());
+    }
+
+
+
+    int GetUdreiForSVResult::udrei() const
     {
       return parse_json<int>::parse(m_values["Udrei"]);
     }
 
-    void GetSbasUdreiResult::setUdrei(int udrei)
+    void GetUdreiForSVResult::setUdrei(int udrei)
     {
       m_values.AddMember("Udrei", parse_json<int>::format(udrei, m_values.GetAllocator()), m_values.GetAllocator());
+    }
+
+
+  }
+}
+
+
+///
+/// Definition of SetUdreiForEachSV
+///
+#include "gen/SetUdreiForEachSV.h"
+
+namespace Sdx
+{
+  namespace Cmd
+  {
+    const char* const SetUdreiForEachSV::CmdName = "SetUdreiForEachSV";
+    const char* const SetUdreiForEachSV::Documentation = "Set the UDREI value transmitted by SBAS for all satellites of the specified constellation.";
+
+    REGISTER_COMMAND_FACTORY(SetUdreiForEachSV);
+
+
+    SetUdreiForEachSV::SetUdreiForEachSV()
+      : CommandBase(CmdName)
+    {}
+
+    SetUdreiForEachSV::SetUdreiForEachSV(const std::string& system, const std::vector<int>& udreis)
+      : CommandBase(CmdName)
+    {
+
+      setSystem(system);
+      setUdreis(udreis);
+    }
+
+
+    SetUdreiForEachSVPtr SetUdreiForEachSV::create(const std::string& system, const std::vector<int>& udreis)
+    {
+      return std::make_shared<SetUdreiForEachSV>(system, udreis);
+    }
+
+    SetUdreiForEachSVPtr SetUdreiForEachSV::dynamicCast(CommandBasePtr ptr)
+    {
+      return std::dynamic_pointer_cast<SetUdreiForEachSV>(ptr);
+    }
+
+    bool SetUdreiForEachSV::isValid() const
+    {
+      
+        return m_values.IsObject()
+          && parse_json<std::string>::is_valid(m_values["System"])
+          && parse_json<std::vector<int>>::is_valid(m_values["Udreis"])
+        ;
+
+    }
+
+    std::string SetUdreiForEachSV::documentation() const { return Documentation; }
+
+
+    int SetUdreiForEachSV::executePermission() const
+    {
+      return EXECUTE_IF_IDLE | EXECUTE_IF_SIMULATING;
+    }
+
+
+    std::string SetUdreiForEachSV::system() const
+    {
+      return parse_json<std::string>::parse(m_values["System"]);
+    }
+
+    void SetUdreiForEachSV::setSystem(const std::string& system)
+    {
+      m_values.AddMember("System", parse_json<std::string>::format(system, m_values.GetAllocator()), m_values.GetAllocator());
+    }
+
+
+
+    std::vector<int> SetUdreiForEachSV::udreis() const
+    {
+      return parse_json<std::vector<int>>::parse(m_values["Udreis"]);
+    }
+
+    void SetUdreiForEachSV::setUdreis(const std::vector<int>& udreis)
+    {
+      m_values.AddMember("Udreis", parse_json<std::vector<int>>::format(udreis, m_values.GetAllocator()), m_values.GetAllocator());
+    }
+
+
+  }
+}
+
+
+///
+/// Definition of GetUdreiForEachSV
+///
+#include "gen/GetUdreiForEachSV.h"
+
+namespace Sdx
+{
+  namespace Cmd
+  {
+    const char* const GetUdreiForEachSV::CmdName = "GetUdreiForEachSV";
+    const char* const GetUdreiForEachSV::Documentation = "Get the UDREI value transmitted by SBAS for all satellites of the specified constellation.";
+
+    REGISTER_COMMAND_FACTORY(GetUdreiForEachSV);
+
+
+    GetUdreiForEachSV::GetUdreiForEachSV()
+      : CommandBase(CmdName)
+    {}
+
+    GetUdreiForEachSV::GetUdreiForEachSV(const std::string& system)
+      : CommandBase(CmdName)
+    {
+
+      setSystem(system);
+    }
+
+
+    GetUdreiForEachSVPtr GetUdreiForEachSV::create(const std::string& system)
+    {
+      return std::make_shared<GetUdreiForEachSV>(system);
+    }
+
+    GetUdreiForEachSVPtr GetUdreiForEachSV::dynamicCast(CommandBasePtr ptr)
+    {
+      return std::dynamic_pointer_cast<GetUdreiForEachSV>(ptr);
+    }
+
+    bool GetUdreiForEachSV::isValid() const
+    {
+      
+        return m_values.IsObject()
+          && parse_json<std::string>::is_valid(m_values["System"])
+        ;
+
+    }
+
+    std::string GetUdreiForEachSV::documentation() const { return Documentation; }
+
+
+    int GetUdreiForEachSV::executePermission() const
+    {
+      return EXECUTE_IF_IDLE;
+    }
+
+
+    std::string GetUdreiForEachSV::system() const
+    {
+      return parse_json<std::string>::parse(m_values["System"]);
+    }
+
+    void GetUdreiForEachSV::setSystem(const std::string& system)
+    {
+      m_values.AddMember("System", parse_json<std::string>::format(system, m_values.GetAllocator()), m_values.GetAllocator());
+    }
+
+
+  }
+}
+
+
+///
+/// Definition of GetUdreiForEachSVResult
+///
+#include "gen/GetUdreiForEachSVResult.h"
+
+namespace Sdx
+{
+  namespace Cmd
+  {
+    const char* const GetUdreiForEachSVResult::CmdName = "GetUdreiForEachSVResult";
+    const char* const GetUdreiForEachSVResult::Documentation = "Result of GetUdreiForEachSV.";
+
+    REGISTER_COMMAND_RESULT_FACTORY(GetUdreiForEachSVResult);
+
+
+    GetUdreiForEachSVResult::GetUdreiForEachSVResult()
+      : CommandResult(CmdName)
+    {}
+
+    GetUdreiForEachSVResult::GetUdreiForEachSVResult(CommandBasePtr relatedCommand, const std::string& system, const std::vector<int>& udreis)
+      : CommandResult(CmdName, relatedCommand)
+    {
+
+      setSystem(system);
+      setUdreis(udreis);
+    }
+
+
+    GetUdreiForEachSVResultPtr GetUdreiForEachSVResult::create(CommandBasePtr relatedCommand, const std::string& system, const std::vector<int>& udreis)
+    {
+      return std::make_shared<GetUdreiForEachSVResult>(relatedCommand, system, udreis);
+    }
+
+    GetUdreiForEachSVResultPtr GetUdreiForEachSVResult::dynamicCast(CommandBasePtr ptr)
+    {
+      return std::dynamic_pointer_cast<GetUdreiForEachSVResult>(ptr);
+    }
+
+    bool GetUdreiForEachSVResult::isValid() const
+    {
+      
+        return m_values.IsObject()
+          && parse_json<std::string>::is_valid(m_values["System"])
+          && parse_json<std::vector<int>>::is_valid(m_values["Udreis"])
+        ;
+
+    }
+
+    std::string GetUdreiForEachSVResult::documentation() const { return Documentation; }
+
+
+    std::string GetUdreiForEachSVResult::system() const
+    {
+      return parse_json<std::string>::parse(m_values["System"]);
+    }
+
+    void GetUdreiForEachSVResult::setSystem(const std::string& system)
+    {
+      m_values.AddMember("System", parse_json<std::string>::format(system, m_values.GetAllocator()), m_values.GetAllocator());
+    }
+
+
+
+    std::vector<int> GetUdreiForEachSVResult::udreis() const
+    {
+      return parse_json<std::vector<int>>::parse(m_values["Udreis"]);
+    }
+
+    void GetUdreiForEachSVResult::setUdreis(const std::vector<int>& udreis)
+    {
+      m_values.AddMember("Udreis", parse_json<std::vector<int>>::format(udreis, m_values.GetAllocator()), m_values.GetAllocator());
     }
 
 
@@ -71176,7 +71608,7 @@ namespace Sdx
 
     BroadcastConfigPtr BroadcastConfig::create()
     {
-      return BroadcastConfigPtr(new BroadcastConfig());
+      return std::make_shared<BroadcastConfig>();
     }
 
     BroadcastConfigPtr BroadcastConfig::dynamicCast(CommandBasePtr ptr)
@@ -71228,7 +71660,7 @@ namespace Sdx
 
     CancelBroadcastConfigPtr CancelBroadcastConfig::create()
     {
-      return CancelBroadcastConfigPtr(new CancelBroadcastConfig());
+      return std::make_shared<CancelBroadcastConfig>();
     }
 
     CancelBroadcastConfigPtr CancelBroadcastConfig::dynamicCast(CommandBasePtr ptr)
@@ -71285,7 +71717,7 @@ namespace Sdx
 
     SetConfigBroadcastOnStartPtr SetConfigBroadcastOnStart::create(bool broadcastOnStart)
     {
-      return SetConfigBroadcastOnStartPtr(new SetConfigBroadcastOnStart(broadcastOnStart));
+      return std::make_shared<SetConfigBroadcastOnStart>(broadcastOnStart);
     }
 
     SetConfigBroadcastOnStartPtr SetConfigBroadcastOnStart::dynamicCast(CommandBasePtr ptr)
@@ -71350,7 +71782,7 @@ namespace Sdx
 
     GetConfigBroadcastOnStartPtr GetConfigBroadcastOnStart::create()
     {
-      return GetConfigBroadcastOnStartPtr(new GetConfigBroadcastOnStart());
+      return std::make_shared<GetConfigBroadcastOnStart>();
     }
 
     GetConfigBroadcastOnStartPtr GetConfigBroadcastOnStart::dynamicCast(CommandBasePtr ptr)
@@ -71407,7 +71839,7 @@ namespace Sdx
 
     GetConfigBroadcastOnStartResultPtr GetConfigBroadcastOnStartResult::create(CommandBasePtr relatedCommand, bool broadcastOnStart)
     {
-      return GetConfigBroadcastOnStartResultPtr(new GetConfigBroadcastOnStartResult(relatedCommand, broadcastOnStart));
+      return std::make_shared<GetConfigBroadcastOnStartResult>(relatedCommand, broadcastOnStart);
     }
 
     GetConfigBroadcastOnStartResultPtr GetConfigBroadcastOnStartResult::dynamicCast(CommandBasePtr ptr)
@@ -71471,7 +71903,7 @@ namespace Sdx
 
     SetConfigBroadcastFilterPtr SetConfigBroadcastFilter::create(const std::vector<Sdx::ConfigFilter>& filter)
     {
-      return SetConfigBroadcastFilterPtr(new SetConfigBroadcastFilter(filter));
+      return std::make_shared<SetConfigBroadcastFilter>(filter);
     }
 
     SetConfigBroadcastFilterPtr SetConfigBroadcastFilter::dynamicCast(CommandBasePtr ptr)
@@ -71536,7 +71968,7 @@ namespace Sdx
 
     GetConfigBroadcastFilterPtr GetConfigBroadcastFilter::create()
     {
-      return GetConfigBroadcastFilterPtr(new GetConfigBroadcastFilter());
+      return std::make_shared<GetConfigBroadcastFilter>();
     }
 
     GetConfigBroadcastFilterPtr GetConfigBroadcastFilter::dynamicCast(CommandBasePtr ptr)
@@ -71593,7 +72025,7 @@ namespace Sdx
 
     GetConfigBroadcastFilterResultPtr GetConfigBroadcastFilterResult::create(CommandBasePtr relatedCommand, const std::vector<Sdx::ConfigFilter>& filter)
     {
-      return GetConfigBroadcastFilterResultPtr(new GetConfigBroadcastFilterResult(relatedCommand, filter));
+      return std::make_shared<GetConfigBroadcastFilterResult>(relatedCommand, filter);
     }
 
     GetConfigBroadcastFilterResultPtr GetConfigBroadcastFilterResult::dynamicCast(CommandBasePtr ptr)
@@ -71660,7 +72092,7 @@ namespace Sdx
 
     SetPseudorangeNoiseOffsetForSVPtr SetPseudorangeNoiseOffsetForSV::create(const std::string& system, int svId, bool enabled, double offset)
     {
-      return SetPseudorangeNoiseOffsetForSVPtr(new SetPseudorangeNoiseOffsetForSV(system, svId, enabled, offset));
+      return std::make_shared<SetPseudorangeNoiseOffsetForSV>(system, svId, enabled, offset);
     }
 
     SetPseudorangeNoiseOffsetForSVPtr SetPseudorangeNoiseOffsetForSV::dynamicCast(CommandBasePtr ptr)
@@ -71770,7 +72202,7 @@ namespace Sdx
 
     GetPseudorangeNoiseOffsetForSVPtr GetPseudorangeNoiseOffsetForSV::create(const std::string& system, int svId)
     {
-      return GetPseudorangeNoiseOffsetForSVPtr(new GetPseudorangeNoiseOffsetForSV(system, svId));
+      return std::make_shared<GetPseudorangeNoiseOffsetForSV>(system, svId);
     }
 
     GetPseudorangeNoiseOffsetForSVPtr GetPseudorangeNoiseOffsetForSV::dynamicCast(CommandBasePtr ptr)
@@ -71856,7 +72288,7 @@ namespace Sdx
 
     GetPseudorangeNoiseOffsetForSVResultPtr GetPseudorangeNoiseOffsetForSVResult::create(CommandBasePtr relatedCommand, const std::string& system, int svId, bool enabled, double offset)
     {
-      return GetPseudorangeNoiseOffsetForSVResultPtr(new GetPseudorangeNoiseOffsetForSVResult(relatedCommand, system, svId, enabled, offset));
+      return std::make_shared<GetPseudorangeNoiseOffsetForSVResult>(relatedCommand, system, svId, enabled, offset);
     }
 
     GetPseudorangeNoiseOffsetForSVResultPtr GetPseudorangeNoiseOffsetForSVResult::dynamicCast(CommandBasePtr ptr)
@@ -71961,7 +72393,7 @@ namespace Sdx
 
     SetPseudorangeNoiseOffsetForEachSVPtr SetPseudorangeNoiseOffsetForEachSV::create(const std::string& system, const std::vector<bool>& enabled, const std::vector<double>& offset)
     {
-      return SetPseudorangeNoiseOffsetForEachSVPtr(new SetPseudorangeNoiseOffsetForEachSV(system, enabled, offset));
+      return std::make_shared<SetPseudorangeNoiseOffsetForEachSV>(system, enabled, offset);
     }
 
     SetPseudorangeNoiseOffsetForEachSVPtr SetPseudorangeNoiseOffsetForEachSV::dynamicCast(CommandBasePtr ptr)
@@ -72059,7 +72491,7 @@ namespace Sdx
 
     SetAllSatellitesPseudorangeNoiseOffsetPtr SetAllSatellitesPseudorangeNoiseOffset::create(const std::string& system, const std::vector<bool>& enabled, const std::vector<double>& offset)
     {
-      return SetAllSatellitesPseudorangeNoiseOffsetPtr(new SetAllSatellitesPseudorangeNoiseOffset(system, enabled, offset));
+      return std::make_shared<SetAllSatellitesPseudorangeNoiseOffset>(system, enabled, offset);
     }
 
     SetAllSatellitesPseudorangeNoiseOffsetPtr SetAllSatellitesPseudorangeNoiseOffset::dynamicCast(CommandBasePtr ptr)
@@ -72155,7 +72587,7 @@ namespace Sdx
 
     GetPseudorangeNoiseOffsetForEachSVPtr GetPseudorangeNoiseOffsetForEachSV::create(const std::string& system)
     {
-      return GetPseudorangeNoiseOffsetForEachSVPtr(new GetPseudorangeNoiseOffsetForEachSV(system));
+      return std::make_shared<GetPseudorangeNoiseOffsetForEachSV>(system);
     }
 
     GetPseudorangeNoiseOffsetForEachSVPtr GetPseudorangeNoiseOffsetForEachSV::dynamicCast(CommandBasePtr ptr)
@@ -72225,7 +72657,7 @@ namespace Sdx
 
     GetAllSatellitesPseudorangeNoiseOffsetPtr GetAllSatellitesPseudorangeNoiseOffset::create(const std::string& system)
     {
-      return GetAllSatellitesPseudorangeNoiseOffsetPtr(new GetAllSatellitesPseudorangeNoiseOffset(system));
+      return std::make_shared<GetAllSatellitesPseudorangeNoiseOffset>(system);
     }
 
     GetAllSatellitesPseudorangeNoiseOffsetPtr GetAllSatellitesPseudorangeNoiseOffset::dynamicCast(CommandBasePtr ptr)
@@ -72297,7 +72729,7 @@ namespace Sdx
 
     GetPseudorangeNoiseOffsetForEachSVResultPtr GetPseudorangeNoiseOffsetForEachSVResult::create(CommandBasePtr relatedCommand, const std::string& system, const std::vector<bool>& enabled, const std::vector<double>& offset)
     {
-      return GetPseudorangeNoiseOffsetForEachSVResultPtr(new GetPseudorangeNoiseOffsetForEachSVResult(relatedCommand, system, enabled, offset));
+      return std::make_shared<GetPseudorangeNoiseOffsetForEachSVResult>(relatedCommand, system, enabled, offset);
     }
 
     GetPseudorangeNoiseOffsetForEachSVResultPtr GetPseudorangeNoiseOffsetForEachSVResult::dynamicCast(CommandBasePtr ptr)
@@ -72393,7 +72825,7 @@ namespace Sdx
 
     SetPseudorangeNoiseSineWaveForSVPtr SetPseudorangeNoiseSineWaveForSV::create(const std::string& system, int svId, int sineWave, bool enabled, double amplitude, int period, double offset)
     {
-      return SetPseudorangeNoiseSineWaveForSVPtr(new SetPseudorangeNoiseSineWaveForSV(system, svId, sineWave, enabled, amplitude, period, offset));
+      return std::make_shared<SetPseudorangeNoiseSineWaveForSV>(system, svId, sineWave, enabled, amplitude, period, offset);
     }
 
     SetPseudorangeNoiseSineWaveForSVPtr SetPseudorangeNoiseSineWaveForSV::dynamicCast(CommandBasePtr ptr)
@@ -72543,7 +72975,7 @@ namespace Sdx
 
     GetPseudorangeNoiseSineWaveForSVPtr GetPseudorangeNoiseSineWaveForSV::create(const std::string& system, int svId, int sineWave)
     {
-      return GetPseudorangeNoiseSineWaveForSVPtr(new GetPseudorangeNoiseSineWaveForSV(system, svId, sineWave));
+      return std::make_shared<GetPseudorangeNoiseSineWaveForSV>(system, svId, sineWave);
     }
 
     GetPseudorangeNoiseSineWaveForSVPtr GetPseudorangeNoiseSineWaveForSV::dynamicCast(CommandBasePtr ptr)
@@ -72645,7 +73077,7 @@ namespace Sdx
 
     GetPseudorangeNoiseSineWaveForSVResultPtr GetPseudorangeNoiseSineWaveForSVResult::create(CommandBasePtr relatedCommand, const std::string& system, int svId, int sineWave, bool enabled, double amplitude, int period, double offset)
     {
-      return GetPseudorangeNoiseSineWaveForSVResultPtr(new GetPseudorangeNoiseSineWaveForSVResult(relatedCommand, system, svId, sineWave, enabled, amplitude, period, offset));
+      return std::make_shared<GetPseudorangeNoiseSineWaveForSVResult>(relatedCommand, system, svId, sineWave, enabled, amplitude, period, offset);
     }
 
     GetPseudorangeNoiseSineWaveForSVResultPtr GetPseudorangeNoiseSineWaveForSVResult::dynamicCast(CommandBasePtr ptr)
@@ -72792,7 +73224,7 @@ namespace Sdx
 
     SetPseudorangeNoiseSineWaveForEachSVPtr SetPseudorangeNoiseSineWaveForEachSV::create(const std::string& system, int sineWave, const std::vector<bool>& enabled, const std::vector<double>& amplitude, const std::vector<int>& period, const std::vector<double>& offset)
     {
-      return SetPseudorangeNoiseSineWaveForEachSVPtr(new SetPseudorangeNoiseSineWaveForEachSV(system, sineWave, enabled, amplitude, period, offset));
+      return std::make_shared<SetPseudorangeNoiseSineWaveForEachSV>(system, sineWave, enabled, amplitude, period, offset);
     }
 
     SetPseudorangeNoiseSineWaveForEachSVPtr SetPseudorangeNoiseSineWaveForEachSV::dynamicCast(CommandBasePtr ptr)
@@ -72932,7 +73364,7 @@ namespace Sdx
 
     SetAllSatellitesPseudorangeNoiseSineWavePtr SetAllSatellitesPseudorangeNoiseSineWave::create(const std::string& system, int sineWave, const std::vector<bool>& enabled, const std::vector<double>& amplitude, const std::vector<int>& period, const std::vector<double>& offset)
     {
-      return SetAllSatellitesPseudorangeNoiseSineWavePtr(new SetAllSatellitesPseudorangeNoiseSineWave(system, sineWave, enabled, amplitude, period, offset));
+      return std::make_shared<SetAllSatellitesPseudorangeNoiseSineWave>(system, sineWave, enabled, amplitude, period, offset);
     }
 
     SetAllSatellitesPseudorangeNoiseSineWavePtr SetAllSatellitesPseudorangeNoiseSineWave::dynamicCast(CommandBasePtr ptr)
@@ -73068,7 +73500,7 @@ namespace Sdx
 
     GetPseudorangeNoiseSineWaveForEachSVPtr GetPseudorangeNoiseSineWaveForEachSV::create(const std::string& system, int sineWave)
     {
-      return GetPseudorangeNoiseSineWaveForEachSVPtr(new GetPseudorangeNoiseSineWaveForEachSV(system, sineWave));
+      return std::make_shared<GetPseudorangeNoiseSineWaveForEachSV>(system, sineWave);
     }
 
     GetPseudorangeNoiseSineWaveForEachSVPtr GetPseudorangeNoiseSineWaveForEachSV::dynamicCast(CommandBasePtr ptr)
@@ -73152,7 +73584,7 @@ namespace Sdx
 
     GetAllSatellitesPseudorangeNoiseSineWavePtr GetAllSatellitesPseudorangeNoiseSineWave::create(const std::string& system, int sineWave)
     {
-      return GetAllSatellitesPseudorangeNoiseSineWavePtr(new GetAllSatellitesPseudorangeNoiseSineWave(system, sineWave));
+      return std::make_shared<GetAllSatellitesPseudorangeNoiseSineWave>(system, sineWave);
     }
 
     GetAllSatellitesPseudorangeNoiseSineWavePtr GetAllSatellitesPseudorangeNoiseSineWave::dynamicCast(CommandBasePtr ptr)
@@ -73240,7 +73672,7 @@ namespace Sdx
 
     GetPseudorangeNoiseSineWaveForEachSVResultPtr GetPseudorangeNoiseSineWaveForEachSVResult::create(CommandBasePtr relatedCommand, const std::string& system, int sineWave, const std::vector<bool>& enabled, const std::vector<double>& amplitude, const std::vector<int>& period, const std::vector<double>& offset)
     {
-      return GetPseudorangeNoiseSineWaveForEachSVResultPtr(new GetPseudorangeNoiseSineWaveForEachSVResult(relatedCommand, system, sineWave, enabled, amplitude, period, offset));
+      return std::make_shared<GetPseudorangeNoiseSineWaveForEachSVResult>(relatedCommand, system, sineWave, enabled, amplitude, period, offset);
     }
 
     GetPseudorangeNoiseSineWaveForEachSVResultPtr GetPseudorangeNoiseSineWaveForEachSVResult::dynamicCast(CommandBasePtr ptr)
@@ -73375,7 +73807,7 @@ namespace Sdx
 
     SetPseudorangeNoiseGaussMarkovForSVPtr SetPseudorangeNoiseGaussMarkovForSV::create(const std::string& system, int svId, int process, bool enabled, double sigma, double time, int seed)
     {
-      return SetPseudorangeNoiseGaussMarkovForSVPtr(new SetPseudorangeNoiseGaussMarkovForSV(system, svId, process, enabled, sigma, time, seed));
+      return std::make_shared<SetPseudorangeNoiseGaussMarkovForSV>(system, svId, process, enabled, sigma, time, seed);
     }
 
     SetPseudorangeNoiseGaussMarkovForSVPtr SetPseudorangeNoiseGaussMarkovForSV::dynamicCast(CommandBasePtr ptr)
@@ -73525,7 +73957,7 @@ namespace Sdx
 
     GetPseudorangeNoiseGaussMarkovForSVPtr GetPseudorangeNoiseGaussMarkovForSV::create(const std::string& system, int svId, int process)
     {
-      return GetPseudorangeNoiseGaussMarkovForSVPtr(new GetPseudorangeNoiseGaussMarkovForSV(system, svId, process));
+      return std::make_shared<GetPseudorangeNoiseGaussMarkovForSV>(system, svId, process);
     }
 
     GetPseudorangeNoiseGaussMarkovForSVPtr GetPseudorangeNoiseGaussMarkovForSV::dynamicCast(CommandBasePtr ptr)
@@ -73627,7 +74059,7 @@ namespace Sdx
 
     GetPseudorangeNoiseGaussMarkovForSVResultPtr GetPseudorangeNoiseGaussMarkovForSVResult::create(CommandBasePtr relatedCommand, const std::string& system, int svId, int process, bool enabled, double sigma, double time, int seed)
     {
-      return GetPseudorangeNoiseGaussMarkovForSVResultPtr(new GetPseudorangeNoiseGaussMarkovForSVResult(relatedCommand, system, svId, process, enabled, sigma, time, seed));
+      return std::make_shared<GetPseudorangeNoiseGaussMarkovForSVResult>(relatedCommand, system, svId, process, enabled, sigma, time, seed);
     }
 
     GetPseudorangeNoiseGaussMarkovForSVResultPtr GetPseudorangeNoiseGaussMarkovForSVResult::dynamicCast(CommandBasePtr ptr)
@@ -73774,7 +74206,7 @@ namespace Sdx
 
     SetPseudorangeNoiseGaussMarkovForEachSVPtr SetPseudorangeNoiseGaussMarkovForEachSV::create(const std::string& system, int process, const std::vector<bool>& enabled, const std::vector<double>& sigma, const std::vector<double>& time, const std::vector<int>& seed)
     {
-      return SetPseudorangeNoiseGaussMarkovForEachSVPtr(new SetPseudorangeNoiseGaussMarkovForEachSV(system, process, enabled, sigma, time, seed));
+      return std::make_shared<SetPseudorangeNoiseGaussMarkovForEachSV>(system, process, enabled, sigma, time, seed);
     }
 
     SetPseudorangeNoiseGaussMarkovForEachSVPtr SetPseudorangeNoiseGaussMarkovForEachSV::dynamicCast(CommandBasePtr ptr)
@@ -73914,7 +74346,7 @@ namespace Sdx
 
     SetAllSatellitesPseudorangeNoiseGaussMarkovPtr SetAllSatellitesPseudorangeNoiseGaussMarkov::create(const std::string& system, int process, const std::vector<bool>& enabled, const std::vector<double>& sigma, const std::vector<double>& time, const std::vector<int>& seed)
     {
-      return SetAllSatellitesPseudorangeNoiseGaussMarkovPtr(new SetAllSatellitesPseudorangeNoiseGaussMarkov(system, process, enabled, sigma, time, seed));
+      return std::make_shared<SetAllSatellitesPseudorangeNoiseGaussMarkov>(system, process, enabled, sigma, time, seed);
     }
 
     SetAllSatellitesPseudorangeNoiseGaussMarkovPtr SetAllSatellitesPseudorangeNoiseGaussMarkov::dynamicCast(CommandBasePtr ptr)
@@ -74050,7 +74482,7 @@ namespace Sdx
 
     GetPseudorangeNoiseGaussMarkovForEachSVPtr GetPseudorangeNoiseGaussMarkovForEachSV::create(const std::string& system, int process)
     {
-      return GetPseudorangeNoiseGaussMarkovForEachSVPtr(new GetPseudorangeNoiseGaussMarkovForEachSV(system, process));
+      return std::make_shared<GetPseudorangeNoiseGaussMarkovForEachSV>(system, process);
     }
 
     GetPseudorangeNoiseGaussMarkovForEachSVPtr GetPseudorangeNoiseGaussMarkovForEachSV::dynamicCast(CommandBasePtr ptr)
@@ -74134,7 +74566,7 @@ namespace Sdx
 
     GetAllSatellitesPseudorangeNoiseGaussMarkovPtr GetAllSatellitesPseudorangeNoiseGaussMarkov::create(const std::string& system, int process)
     {
-      return GetAllSatellitesPseudorangeNoiseGaussMarkovPtr(new GetAllSatellitesPseudorangeNoiseGaussMarkov(system, process));
+      return std::make_shared<GetAllSatellitesPseudorangeNoiseGaussMarkov>(system, process);
     }
 
     GetAllSatellitesPseudorangeNoiseGaussMarkovPtr GetAllSatellitesPseudorangeNoiseGaussMarkov::dynamicCast(CommandBasePtr ptr)
@@ -74222,7 +74654,7 @@ namespace Sdx
 
     GetPseudorangeNoiseGaussMarkovForEachSVResultPtr GetPseudorangeNoiseGaussMarkovForEachSVResult::create(CommandBasePtr relatedCommand, const std::string& system, int process, const std::vector<bool>& enabled, const std::vector<double>& sigma, const std::vector<double>& time, const std::vector<int>& seed)
     {
-      return GetPseudorangeNoiseGaussMarkovForEachSVResultPtr(new GetPseudorangeNoiseGaussMarkovForEachSVResult(relatedCommand, system, process, enabled, sigma, time, seed));
+      return std::make_shared<GetPseudorangeNoiseGaussMarkovForEachSVResult>(relatedCommand, system, process, enabled, sigma, time, seed);
     }
 
     GetPseudorangeNoiseGaussMarkovForEachSVResultPtr GetPseudorangeNoiseGaussMarkovForEachSVResult::dynamicCast(CommandBasePtr ptr)
@@ -74351,7 +74783,7 @@ namespace Sdx
 
     RandomizePseudorangeNoiseGaussMarkovSeedsForAllSVPtr RandomizePseudorangeNoiseGaussMarkovSeedsForAllSV::create(const std::string& system)
     {
-      return RandomizePseudorangeNoiseGaussMarkovSeedsForAllSVPtr(new RandomizePseudorangeNoiseGaussMarkovSeedsForAllSV(system));
+      return std::make_shared<RandomizePseudorangeNoiseGaussMarkovSeedsForAllSV>(system);
     }
 
     RandomizePseudorangeNoiseGaussMarkovSeedsForAllSVPtr RandomizePseudorangeNoiseGaussMarkovSeedsForAllSV::dynamicCast(CommandBasePtr ptr)
@@ -74421,7 +74853,7 @@ namespace Sdx
 
     RandomizeSeedsForAllSatellitesPseudorangeNoiseGaussMarkovPtr RandomizeSeedsForAllSatellitesPseudorangeNoiseGaussMarkov::create(const std::string& system)
     {
-      return RandomizeSeedsForAllSatellitesPseudorangeNoiseGaussMarkovPtr(new RandomizeSeedsForAllSatellitesPseudorangeNoiseGaussMarkov(system));
+      return std::make_shared<RandomizeSeedsForAllSatellitesPseudorangeNoiseGaussMarkov>(system);
     }
 
     RandomizeSeedsForAllSatellitesPseudorangeNoiseGaussMarkovPtr RandomizeSeedsForAllSatellitesPseudorangeNoiseGaussMarkov::dynamicCast(CommandBasePtr ptr)
@@ -74495,7 +74927,7 @@ namespace Sdx
 
     SetEphemerisErrorForSVPtr SetEphemerisErrorForSV::create(const std::string& system, int svId, const Sdx::RIC& orbit, double deltaAf0, double deltaAf1)
     {
-      return SetEphemerisErrorForSVPtr(new SetEphemerisErrorForSV(system, svId, orbit, deltaAf0, deltaAf1));
+      return std::make_shared<SetEphemerisErrorForSV>(system, svId, orbit, deltaAf0, deltaAf1);
     }
 
     SetEphemerisErrorForSVPtr SetEphemerisErrorForSV::dynamicCast(CommandBasePtr ptr)
@@ -74618,7 +75050,7 @@ namespace Sdx
 
     GetEphemerisErrorForSVPtr GetEphemerisErrorForSV::create(const std::string& system, int svId)
     {
-      return GetEphemerisErrorForSVPtr(new GetEphemerisErrorForSV(system, svId));
+      return std::make_shared<GetEphemerisErrorForSV>(system, svId);
     }
 
     GetEphemerisErrorForSVPtr GetEphemerisErrorForSV::dynamicCast(CommandBasePtr ptr)
@@ -74705,7 +75137,7 @@ namespace Sdx
 
     GetEphemerisErrorForSVResultPtr GetEphemerisErrorForSVResult::create(CommandBasePtr relatedCommand, const std::string& system, int svId, const Sdx::RIC& orbit, double deltaAf0, double deltaAf1)
     {
-      return GetEphemerisErrorForSVResultPtr(new GetEphemerisErrorForSVResult(relatedCommand, system, svId, orbit, deltaAf0, deltaAf1));
+      return std::make_shared<GetEphemerisErrorForSVResult>(relatedCommand, system, svId, orbit, deltaAf0, deltaAf1);
     }
 
     GetEphemerisErrorForSVResultPtr GetEphemerisErrorForSVResult::dynamicCast(CommandBasePtr ptr)
@@ -74821,7 +75253,7 @@ namespace Sdx
 
     SetUsingVelocityInSbasMessage25Ptr SetUsingVelocityInSbasMessage25::create(bool useVelocity)
     {
-      return SetUsingVelocityInSbasMessage25Ptr(new SetUsingVelocityInSbasMessage25(useVelocity));
+      return std::make_shared<SetUsingVelocityInSbasMessage25>(useVelocity);
     }
 
     SetUsingVelocityInSbasMessage25Ptr SetUsingVelocityInSbasMessage25::dynamicCast(CommandBasePtr ptr)
@@ -74886,7 +75318,7 @@ namespace Sdx
 
     IsUsingVelocityInSbasMessage25Ptr IsUsingVelocityInSbasMessage25::create()
     {
-      return IsUsingVelocityInSbasMessage25Ptr(new IsUsingVelocityInSbasMessage25());
+      return std::make_shared<IsUsingVelocityInSbasMessage25>();
     }
 
     IsUsingVelocityInSbasMessage25Ptr IsUsingVelocityInSbasMessage25::dynamicCast(CommandBasePtr ptr)
@@ -74943,7 +75375,7 @@ namespace Sdx
 
     IsUsingVelocityInSbasMessage25ResultPtr IsUsingVelocityInSbasMessage25Result::create(CommandBasePtr relatedCommand, bool useVelocity)
     {
-      return IsUsingVelocityInSbasMessage25ResultPtr(new IsUsingVelocityInSbasMessage25Result(relatedCommand, useVelocity));
+      return std::make_shared<IsUsingVelocityInSbasMessage25Result>(relatedCommand, useVelocity);
     }
 
     IsUsingVelocityInSbasMessage25ResultPtr IsUsingVelocityInSbasMessage25Result::dynamicCast(CommandBasePtr ptr)
@@ -74971,6 +75403,192 @@ namespace Sdx
     void IsUsingVelocityInSbasMessage25Result::setUseVelocity(bool useVelocity)
     {
       m_values.AddMember("UseVelocity", parse_json<bool>::format(useVelocity, m_values.GetAllocator()), m_values.GetAllocator());
+    }
+
+
+  }
+}
+
+
+///
+/// Definition of SetTransmitMessage2InSbasMessage0
+///
+#include "gen/SetTransmitMessage2InSbasMessage0.h"
+
+namespace Sdx
+{
+  namespace Cmd
+  {
+    const char* const SetTransmitMessage2InSbasMessage0::CmdName = "SetTransmitMessage2InSbasMessage0";
+    const char* const SetTransmitMessage2InSbasMessage0::Documentation = "Set whether SBAS should transmit message 2 instead of message 0.";
+
+    REGISTER_COMMAND_FACTORY(SetTransmitMessage2InSbasMessage0);
+
+
+    SetTransmitMessage2InSbasMessage0::SetTransmitMessage2InSbasMessage0()
+      : CommandBase(CmdName)
+    {}
+
+    SetTransmitMessage2InSbasMessage0::SetTransmitMessage2InSbasMessage0(bool transmitMessage2)
+      : CommandBase(CmdName)
+    {
+
+      setTransmitMessage2(transmitMessage2);
+    }
+
+
+    SetTransmitMessage2InSbasMessage0Ptr SetTransmitMessage2InSbasMessage0::create(bool transmitMessage2)
+    {
+      return std::make_shared<SetTransmitMessage2InSbasMessage0>(transmitMessage2);
+    }
+
+    SetTransmitMessage2InSbasMessage0Ptr SetTransmitMessage2InSbasMessage0::dynamicCast(CommandBasePtr ptr)
+    {
+      return std::dynamic_pointer_cast<SetTransmitMessage2InSbasMessage0>(ptr);
+    }
+
+    bool SetTransmitMessage2InSbasMessage0::isValid() const
+    {
+      
+        return m_values.IsObject()
+          && parse_json<bool>::is_valid(m_values["TransmitMessage2"])
+        ;
+
+    }
+
+    std::string SetTransmitMessage2InSbasMessage0::documentation() const { return Documentation; }
+
+
+    int SetTransmitMessage2InSbasMessage0::executePermission() const
+    {
+      return EXECUTE_IF_IDLE | EXECUTE_IF_SIMULATING;
+    }
+
+
+    bool SetTransmitMessage2InSbasMessage0::transmitMessage2() const
+    {
+      return parse_json<bool>::parse(m_values["TransmitMessage2"]);
+    }
+
+    void SetTransmitMessage2InSbasMessage0::setTransmitMessage2(bool transmitMessage2)
+    {
+      m_values.AddMember("TransmitMessage2", parse_json<bool>::format(transmitMessage2, m_values.GetAllocator()), m_values.GetAllocator());
+    }
+
+
+  }
+}
+
+
+///
+/// Definition of IsTransmitMessage2InSbasMessage0
+///
+#include "gen/IsTransmitMessage2InSbasMessage0.h"
+
+namespace Sdx
+{
+  namespace Cmd
+  {
+    const char* const IsTransmitMessage2InSbasMessage0::CmdName = "IsTransmitMessage2InSbasMessage0";
+    const char* const IsTransmitMessage2InSbasMessage0::Documentation = "Get whether SBAS should transmit message 2 instead of message 0.";
+
+    REGISTER_COMMAND_FACTORY(IsTransmitMessage2InSbasMessage0);
+
+
+    IsTransmitMessage2InSbasMessage0::IsTransmitMessage2InSbasMessage0()
+      : CommandBase(CmdName)
+    {
+
+    }
+
+
+    IsTransmitMessage2InSbasMessage0Ptr IsTransmitMessage2InSbasMessage0::create()
+    {
+      return std::make_shared<IsTransmitMessage2InSbasMessage0>();
+    }
+
+    IsTransmitMessage2InSbasMessage0Ptr IsTransmitMessage2InSbasMessage0::dynamicCast(CommandBasePtr ptr)
+    {
+      return std::dynamic_pointer_cast<IsTransmitMessage2InSbasMessage0>(ptr);
+    }
+
+    bool IsTransmitMessage2InSbasMessage0::isValid() const
+    {
+      
+        return m_values.IsObject()
+        ;
+
+    }
+
+    std::string IsTransmitMessage2InSbasMessage0::documentation() const { return Documentation; }
+
+
+    int IsTransmitMessage2InSbasMessage0::executePermission() const
+    {
+      return EXECUTE_IF_IDLE;
+    }
+
+  }
+}
+
+
+///
+/// Definition of IsTransmitMessage2InSbasMessage0Result
+///
+#include "gen/IsTransmitMessage2InSbasMessage0Result.h"
+
+namespace Sdx
+{
+  namespace Cmd
+  {
+    const char* const IsTransmitMessage2InSbasMessage0Result::CmdName = "IsTransmitMessage2InSbasMessage0Result";
+    const char* const IsTransmitMessage2InSbasMessage0Result::Documentation = "Result of IsTransmitMessage2InSbasMessage0.";
+
+    REGISTER_COMMAND_RESULT_FACTORY(IsTransmitMessage2InSbasMessage0Result);
+
+
+    IsTransmitMessage2InSbasMessage0Result::IsTransmitMessage2InSbasMessage0Result()
+      : CommandResult(CmdName)
+    {}
+
+    IsTransmitMessage2InSbasMessage0Result::IsTransmitMessage2InSbasMessage0Result(CommandBasePtr relatedCommand, bool transmitMessage2)
+      : CommandResult(CmdName, relatedCommand)
+    {
+
+      setTransmitMessage2(transmitMessage2);
+    }
+
+
+    IsTransmitMessage2InSbasMessage0ResultPtr IsTransmitMessage2InSbasMessage0Result::create(CommandBasePtr relatedCommand, bool transmitMessage2)
+    {
+      return std::make_shared<IsTransmitMessage2InSbasMessage0Result>(relatedCommand, transmitMessage2);
+    }
+
+    IsTransmitMessage2InSbasMessage0ResultPtr IsTransmitMessage2InSbasMessage0Result::dynamicCast(CommandBasePtr ptr)
+    {
+      return std::dynamic_pointer_cast<IsTransmitMessage2InSbasMessage0Result>(ptr);
+    }
+
+    bool IsTransmitMessage2InSbasMessage0Result::isValid() const
+    {
+      
+        return m_values.IsObject()
+          && parse_json<bool>::is_valid(m_values["TransmitMessage2"])
+        ;
+
+    }
+
+    std::string IsTransmitMessage2InSbasMessage0Result::documentation() const { return Documentation; }
+
+
+    bool IsTransmitMessage2InSbasMessage0Result::transmitMessage2() const
+    {
+      return parse_json<bool>::parse(m_values["TransmitMessage2"]);
+    }
+
+    void IsTransmitMessage2InSbasMessage0Result::setTransmitMessage2(bool transmitMessage2)
+    {
+      m_values.AddMember("TransmitMessage2", parse_json<bool>::format(transmitMessage2, m_values.GetAllocator()), m_values.GetAllocator());
     }
 
 
@@ -75011,7 +75629,7 @@ namespace Sdx
 
     ForceSVGeoPtr ForceSVGeo::create(const std::string& system, int svId, bool isGeo, double longitude, const Sdx::optional<std::string>& dataSetName)
     {
-      return ForceSVGeoPtr(new ForceSVGeo(system, svId, isGeo, longitude, dataSetName));
+      return std::make_shared<ForceSVGeo>(system, svId, isGeo, longitude, dataSetName);
     }
 
     ForceSVGeoPtr ForceSVGeo::dynamicCast(CommandBasePtr ptr)
@@ -75135,7 +75753,7 @@ namespace Sdx
 
     IsSVForcedGeoPtr IsSVForcedGeo::create(const std::string& system, int svId, const Sdx::optional<std::string>& dataSetName)
     {
-      return IsSVForcedGeoPtr(new IsSVForcedGeo(system, svId, dataSetName));
+      return std::make_shared<IsSVForcedGeo>(system, svId, dataSetName);
     }
 
     IsSVForcedGeoPtr IsSVForcedGeo::dynamicCast(CommandBasePtr ptr)
@@ -75235,7 +75853,7 @@ namespace Sdx
 
     IsSVForcedGeoResultPtr IsSVForcedGeoResult::create(CommandBasePtr relatedCommand, const std::string& system, int svId, bool isGeo, double longitude, const Sdx::optional<std::string>& dataSetName)
     {
-      return IsSVForcedGeoResultPtr(new IsSVForcedGeoResult(relatedCommand, system, svId, isGeo, longitude, dataSetName));
+      return std::make_shared<IsSVForcedGeoResult>(relatedCommand, system, svId, isGeo, longitude, dataSetName);
     }
 
     IsSVForcedGeoResultPtr IsSVForcedGeoResult::dynamicCast(CommandBasePtr ptr)
@@ -75332,7 +75950,7 @@ namespace Sdx
   namespace Cmd
   {
     const char* const EnableSbasFastCorrectionsFor::CmdName = "EnableSbasFastCorrectionsFor";
-    const char* const EnableSbasFastCorrectionsFor::Documentation = "Set whether pseudorange errors for this constellation should be compensated in SBAS fast corrections";
+    const char* const EnableSbasFastCorrectionsFor::Documentation = "Set whether specific errors type for this constellation should be compensated in SBAS fast corrections";
 
     REGISTER_COMMAND_FACTORY(EnableSbasFastCorrectionsFor);
 
@@ -75341,18 +75959,19 @@ namespace Sdx
       : CommandBase(CmdName)
     {}
 
-    EnableSbasFastCorrectionsFor::EnableSbasFastCorrectionsFor(const std::string& system, bool isEnabled)
+    EnableSbasFastCorrectionsFor::EnableSbasFastCorrectionsFor(const std::string& system, bool isEnabled, const Sdx::optional<std::string>& errorType)
       : CommandBase(CmdName)
     {
 
       setSystem(system);
       setIsEnabled(isEnabled);
+      setErrorType(errorType);
     }
 
 
-    EnableSbasFastCorrectionsForPtr EnableSbasFastCorrectionsFor::create(const std::string& system, bool isEnabled)
+    EnableSbasFastCorrectionsForPtr EnableSbasFastCorrectionsFor::create(const std::string& system, bool isEnabled, const Sdx::optional<std::string>& errorType)
     {
-      return EnableSbasFastCorrectionsForPtr(new EnableSbasFastCorrectionsFor(system, isEnabled));
+      return std::make_shared<EnableSbasFastCorrectionsFor>(system, isEnabled, errorType);
     }
 
     EnableSbasFastCorrectionsForPtr EnableSbasFastCorrectionsFor::dynamicCast(CommandBasePtr ptr)
@@ -75366,6 +75985,7 @@ namespace Sdx
         return m_values.IsObject()
           && parse_json<std::string>::is_valid(m_values["System"])
           && parse_json<bool>::is_valid(m_values["IsEnabled"])
+          && parse_json<Sdx::optional<std::string>>::is_valid(m_values["ErrorType"])
         ;
 
     }
@@ -75402,6 +76022,18 @@ namespace Sdx
     }
 
 
+
+    Sdx::optional<std::string> EnableSbasFastCorrectionsFor::errorType() const
+    {
+      return parse_json<Sdx::optional<std::string>>::parse(m_values["ErrorType"]);
+    }
+
+    void EnableSbasFastCorrectionsFor::setErrorType(const Sdx::optional<std::string>& errorType)
+    {
+      m_values.AddMember("ErrorType", parse_json<Sdx::optional<std::string>>::format(errorType, m_values.GetAllocator()), m_values.GetAllocator());
+    }
+
+
   }
 }
 
@@ -75416,7 +76048,7 @@ namespace Sdx
   namespace Cmd
   {
     const char* const IsSbasFastCorrectionsEnabledFor::CmdName = "IsSbasFastCorrectionsEnabledFor";
-    const char* const IsSbasFastCorrectionsEnabledFor::Documentation = "Get whether pseudorange errors for this constellation should be compensated in SBAS fast corrections";
+    const char* const IsSbasFastCorrectionsEnabledFor::Documentation = "Get whether specific errors type for this constellation should be compensated in SBAS fast corrections";
 
     REGISTER_COMMAND_FACTORY(IsSbasFastCorrectionsEnabledFor);
 
@@ -75425,17 +76057,18 @@ namespace Sdx
       : CommandBase(CmdName)
     {}
 
-    IsSbasFastCorrectionsEnabledFor::IsSbasFastCorrectionsEnabledFor(const std::string& system)
+    IsSbasFastCorrectionsEnabledFor::IsSbasFastCorrectionsEnabledFor(const std::string& system, const Sdx::optional<std::string>& errorType)
       : CommandBase(CmdName)
     {
 
       setSystem(system);
+      setErrorType(errorType);
     }
 
 
-    IsSbasFastCorrectionsEnabledForPtr IsSbasFastCorrectionsEnabledFor::create(const std::string& system)
+    IsSbasFastCorrectionsEnabledForPtr IsSbasFastCorrectionsEnabledFor::create(const std::string& system, const Sdx::optional<std::string>& errorType)
     {
-      return IsSbasFastCorrectionsEnabledForPtr(new IsSbasFastCorrectionsEnabledFor(system));
+      return std::make_shared<IsSbasFastCorrectionsEnabledFor>(system, errorType);
     }
 
     IsSbasFastCorrectionsEnabledForPtr IsSbasFastCorrectionsEnabledFor::dynamicCast(CommandBasePtr ptr)
@@ -75448,6 +76081,7 @@ namespace Sdx
       
         return m_values.IsObject()
           && parse_json<std::string>::is_valid(m_values["System"])
+          && parse_json<Sdx::optional<std::string>>::is_valid(m_values["ErrorType"])
         ;
 
     }
@@ -75469,6 +76103,18 @@ namespace Sdx
     void IsSbasFastCorrectionsEnabledFor::setSystem(const std::string& system)
     {
       m_values.AddMember("System", parse_json<std::string>::format(system, m_values.GetAllocator()), m_values.GetAllocator());
+    }
+
+
+
+    Sdx::optional<std::string> IsSbasFastCorrectionsEnabledFor::errorType() const
+    {
+      return parse_json<Sdx::optional<std::string>>::parse(m_values["ErrorType"]);
+    }
+
+    void IsSbasFastCorrectionsEnabledFor::setErrorType(const Sdx::optional<std::string>& errorType)
+    {
+      m_values.AddMember("ErrorType", parse_json<Sdx::optional<std::string>>::format(errorType, m_values.GetAllocator()), m_values.GetAllocator());
     }
 
 
@@ -75495,18 +76141,19 @@ namespace Sdx
       : CommandResult(CmdName)
     {}
 
-    IsSbasFastCorrectionsEnabledForResult::IsSbasFastCorrectionsEnabledForResult(CommandBasePtr relatedCommand, const std::string& system, bool isEnabled)
+    IsSbasFastCorrectionsEnabledForResult::IsSbasFastCorrectionsEnabledForResult(CommandBasePtr relatedCommand, const std::string& system, bool isEnabled, const Sdx::optional<std::string>& errorType)
       : CommandResult(CmdName, relatedCommand)
     {
 
       setSystem(system);
       setIsEnabled(isEnabled);
+      setErrorType(errorType);
     }
 
 
-    IsSbasFastCorrectionsEnabledForResultPtr IsSbasFastCorrectionsEnabledForResult::create(CommandBasePtr relatedCommand, const std::string& system, bool isEnabled)
+    IsSbasFastCorrectionsEnabledForResultPtr IsSbasFastCorrectionsEnabledForResult::create(CommandBasePtr relatedCommand, const std::string& system, bool isEnabled, const Sdx::optional<std::string>& errorType)
     {
-      return IsSbasFastCorrectionsEnabledForResultPtr(new IsSbasFastCorrectionsEnabledForResult(relatedCommand, system, isEnabled));
+      return std::make_shared<IsSbasFastCorrectionsEnabledForResult>(relatedCommand, system, isEnabled, errorType);
     }
 
     IsSbasFastCorrectionsEnabledForResultPtr IsSbasFastCorrectionsEnabledForResult::dynamicCast(CommandBasePtr ptr)
@@ -75520,6 +76167,7 @@ namespace Sdx
         return m_values.IsObject()
           && parse_json<std::string>::is_valid(m_values["System"])
           && parse_json<bool>::is_valid(m_values["IsEnabled"])
+          && parse_json<Sdx::optional<std::string>>::is_valid(m_values["ErrorType"])
         ;
 
     }
@@ -75547,6 +76195,18 @@ namespace Sdx
     void IsSbasFastCorrectionsEnabledForResult::setIsEnabled(bool isEnabled)
     {
       m_values.AddMember("IsEnabled", parse_json<bool>::format(isEnabled, m_values.GetAllocator()), m_values.GetAllocator());
+    }
+
+
+
+    Sdx::optional<std::string> IsSbasFastCorrectionsEnabledForResult::errorType() const
+    {
+      return parse_json<Sdx::optional<std::string>>::parse(m_values["ErrorType"]);
+    }
+
+    void IsSbasFastCorrectionsEnabledForResult::setErrorType(const Sdx::optional<std::string>& errorType)
+    {
+      m_values.AddMember("ErrorType", parse_json<Sdx::optional<std::string>>::format(errorType, m_values.GetAllocator()), m_values.GetAllocator());
     }
 
 
@@ -75583,7 +76243,7 @@ namespace Sdx
 
     ApplyDelayInSbasPtr ApplyDelayInSbas::create(bool isEnabled)
     {
-      return ApplyDelayInSbasPtr(new ApplyDelayInSbas(isEnabled));
+      return std::make_shared<ApplyDelayInSbas>(isEnabled);
     }
 
     ApplyDelayInSbasPtr ApplyDelayInSbas::dynamicCast(CommandBasePtr ptr)
@@ -75648,7 +76308,7 @@ namespace Sdx
 
     IsDelayAppliedInSbasPtr IsDelayAppliedInSbas::create()
     {
-      return IsDelayAppliedInSbasPtr(new IsDelayAppliedInSbas());
+      return std::make_shared<IsDelayAppliedInSbas>();
     }
 
     IsDelayAppliedInSbasPtr IsDelayAppliedInSbas::dynamicCast(CommandBasePtr ptr)
@@ -75705,7 +76365,7 @@ namespace Sdx
 
     IsDelayAppliedInSbasResultPtr IsDelayAppliedInSbasResult::create(CommandBasePtr relatedCommand, bool isEnabled)
     {
-      return IsDelayAppliedInSbasResultPtr(new IsDelayAppliedInSbasResult(relatedCommand, isEnabled));
+      return std::make_shared<IsDelayAppliedInSbasResult>(relatedCommand, isEnabled);
     }
 
     IsDelayAppliedInSbasResultPtr IsDelayAppliedInSbasResult::dynamicCast(CommandBasePtr ptr)
@@ -75769,7 +76429,7 @@ namespace Sdx
 
     EnableIonoOffsetPtr EnableIonoOffset::create(bool isEnabled)
     {
-      return EnableIonoOffsetPtr(new EnableIonoOffset(isEnabled));
+      return std::make_shared<EnableIonoOffset>(isEnabled);
     }
 
     EnableIonoOffsetPtr EnableIonoOffset::dynamicCast(CommandBasePtr ptr)
@@ -75834,7 +76494,7 @@ namespace Sdx
 
     IsIonoOffsetEnabledPtr IsIonoOffsetEnabled::create()
     {
-      return IsIonoOffsetEnabledPtr(new IsIonoOffsetEnabled());
+      return std::make_shared<IsIonoOffsetEnabled>();
     }
 
     IsIonoOffsetEnabledPtr IsIonoOffsetEnabled::dynamicCast(CommandBasePtr ptr)
@@ -75891,7 +76551,7 @@ namespace Sdx
 
     IsIonoOffsetEnabledResultPtr IsIonoOffsetEnabledResult::create(CommandBasePtr relatedCommand, bool isEnabled)
     {
-      return IsIonoOffsetEnabledResultPtr(new IsIonoOffsetEnabledResult(relatedCommand, isEnabled));
+      return std::make_shared<IsIonoOffsetEnabledResult>(relatedCommand, isEnabled);
     }
 
     IsIonoOffsetEnabledResultPtr IsIonoOffsetEnabledResult::dynamicCast(CommandBasePtr ptr)
@@ -75956,7 +76616,7 @@ namespace Sdx
 
     EnableSbasLongTermCorrectionsForPtr EnableSbasLongTermCorrectionsFor::create(const std::string& system, bool isEnabled)
     {
-      return EnableSbasLongTermCorrectionsForPtr(new EnableSbasLongTermCorrectionsFor(system, isEnabled));
+      return std::make_shared<EnableSbasLongTermCorrectionsFor>(system, isEnabled);
     }
 
     EnableSbasLongTermCorrectionsForPtr EnableSbasLongTermCorrectionsFor::dynamicCast(CommandBasePtr ptr)
@@ -76039,7 +76699,7 @@ namespace Sdx
 
     IsSbasLongTermCorrectionsEnabledForPtr IsSbasLongTermCorrectionsEnabledFor::create(const std::string& system)
     {
-      return IsSbasLongTermCorrectionsEnabledForPtr(new IsSbasLongTermCorrectionsEnabledFor(system));
+      return std::make_shared<IsSbasLongTermCorrectionsEnabledFor>(system);
     }
 
     IsSbasLongTermCorrectionsEnabledForPtr IsSbasLongTermCorrectionsEnabledFor::dynamicCast(CommandBasePtr ptr)
@@ -76110,7 +76770,7 @@ namespace Sdx
 
     IsSbasLongTermCorrectionsEnabledForResultPtr IsSbasLongTermCorrectionsEnabledForResult::create(CommandBasePtr relatedCommand, const std::string& system, bool isEnabled)
     {
-      return IsSbasLongTermCorrectionsEnabledForResultPtr(new IsSbasLongTermCorrectionsEnabledForResult(relatedCommand, system, isEnabled));
+      return std::make_shared<IsSbasLongTermCorrectionsEnabledForResult>(relatedCommand, system, isEnabled);
     }
 
     IsSbasLongTermCorrectionsEnabledForResultPtr IsSbasLongTermCorrectionsEnabledForResult::dynamicCast(CommandBasePtr ptr)
@@ -76189,7 +76849,7 @@ namespace Sdx
 
     SetGpsUraIndexForSVPtr SetGpsUraIndexForSV::create(int svId, int urai, const Sdx::optional<std::string>& dataSetName)
     {
-      return SetGpsUraIndexForSVPtr(new SetGpsUraIndexForSV(svId, urai, dataSetName));
+      return std::make_shared<SetGpsUraIndexForSV>(svId, urai, dataSetName);
     }
 
     SetGpsUraIndexForSVPtr SetGpsUraIndexForSV::dynamicCast(CommandBasePtr ptr)
@@ -76287,7 +76947,7 @@ namespace Sdx
 
     SetBeiDouUraIndexForSVPtr SetBeiDouUraIndexForSV::create(int svId, int urai, const Sdx::optional<std::string>& dataSetName)
     {
-      return SetBeiDouUraIndexForSVPtr(new SetBeiDouUraIndexForSV(svId, urai, dataSetName));
+      return std::make_shared<SetBeiDouUraIndexForSV>(svId, urai, dataSetName);
     }
 
     SetBeiDouUraIndexForSVPtr SetBeiDouUraIndexForSV::dynamicCast(CommandBasePtr ptr)
@@ -76385,7 +77045,7 @@ namespace Sdx
 
     SetQzssUraIndexForSVPtr SetQzssUraIndexForSV::create(int svId, int urai, const Sdx::optional<std::string>& dataSetName)
     {
-      return SetQzssUraIndexForSVPtr(new SetQzssUraIndexForSV(svId, urai, dataSetName));
+      return std::make_shared<SetQzssUraIndexForSV>(svId, urai, dataSetName);
     }
 
     SetQzssUraIndexForSVPtr SetQzssUraIndexForSV::dynamicCast(CommandBasePtr ptr)
@@ -76483,7 +77143,7 @@ namespace Sdx
 
     SetQzssUraIndexPtr SetQzssUraIndex::create(int svId, int urai, const Sdx::optional<std::string>& dataSetName)
     {
-      return SetQzssUraIndexPtr(new SetQzssUraIndex(svId, urai, dataSetName));
+      return std::make_shared<SetQzssUraIndex>(svId, urai, dataSetName);
     }
 
     SetQzssUraIndexPtr SetQzssUraIndex::dynamicCast(CommandBasePtr ptr)
@@ -76581,7 +77241,7 @@ namespace Sdx
 
     SetNavICUraIndexForSVPtr SetNavICUraIndexForSV::create(int svId, int urai, const Sdx::optional<std::string>& dataSetName)
     {
-      return SetNavICUraIndexForSVPtr(new SetNavICUraIndexForSV(svId, urai, dataSetName));
+      return std::make_shared<SetNavICUraIndexForSV>(svId, urai, dataSetName);
     }
 
     SetNavICUraIndexForSVPtr SetNavICUraIndexForSV::dynamicCast(CommandBasePtr ptr)
@@ -76679,7 +77339,7 @@ namespace Sdx
 
     SetNavICUraIndexPtr SetNavICUraIndex::create(int svId, int urai, const Sdx::optional<std::string>& dataSetName)
     {
-      return SetNavICUraIndexPtr(new SetNavICUraIndex(svId, urai, dataSetName));
+      return std::make_shared<SetNavICUraIndex>(svId, urai, dataSetName);
     }
 
     SetNavICUraIndexPtr SetNavICUraIndex::dynamicCast(CommandBasePtr ptr)
@@ -76747,6 +77407,104 @@ namespace Sdx
 
 
 ///
+/// Definition of SetSbasUraIndexForSV
+///
+#include "gen/SetSbasUraIndexForSV.h"
+
+namespace Sdx
+{
+  namespace Cmd
+  {
+    const char* const SetSbasUraIndexForSV::CmdName = "SetSbasUraIndexForSV";
+    const char* const SetSbasUraIndexForSV::Documentation = "Set the URA index of a Sbas satellite";
+
+    REGISTER_COMMAND_FACTORY(SetSbasUraIndexForSV);
+
+
+    SetSbasUraIndexForSV::SetSbasUraIndexForSV()
+      : CommandBase(CmdName)
+    {}
+
+    SetSbasUraIndexForSV::SetSbasUraIndexForSV(int svId, int urai, const Sdx::optional<std::string>& dataSetName)
+      : CommandBase(CmdName)
+    {
+
+      setSvId(svId);
+      setUrai(urai);
+      setDataSetName(dataSetName);
+    }
+
+
+    SetSbasUraIndexForSVPtr SetSbasUraIndexForSV::create(int svId, int urai, const Sdx::optional<std::string>& dataSetName)
+    {
+      return std::make_shared<SetSbasUraIndexForSV>(svId, urai, dataSetName);
+    }
+
+    SetSbasUraIndexForSVPtr SetSbasUraIndexForSV::dynamicCast(CommandBasePtr ptr)
+    {
+      return std::dynamic_pointer_cast<SetSbasUraIndexForSV>(ptr);
+    }
+
+    bool SetSbasUraIndexForSV::isValid() const
+    {
+      
+        return m_values.IsObject()
+          && parse_json<int>::is_valid(m_values["SvId"])
+          && parse_json<int>::is_valid(m_values["Urai"])
+          && parse_json<Sdx::optional<std::string>>::is_valid(m_values["DataSetName"])
+        ;
+
+    }
+
+    std::string SetSbasUraIndexForSV::documentation() const { return Documentation; }
+
+
+    int SetSbasUraIndexForSV::executePermission() const
+    {
+      return EXECUTE_IF_IDLE | EXECUTE_IF_SIMULATING;
+    }
+
+
+    int SetSbasUraIndexForSV::svId() const
+    {
+      return parse_json<int>::parse(m_values["SvId"]);
+    }
+
+    void SetSbasUraIndexForSV::setSvId(int svId)
+    {
+      m_values.AddMember("SvId", parse_json<int>::format(svId, m_values.GetAllocator()), m_values.GetAllocator());
+    }
+
+
+
+    int SetSbasUraIndexForSV::urai() const
+    {
+      return parse_json<int>::parse(m_values["Urai"]);
+    }
+
+    void SetSbasUraIndexForSV::setUrai(int urai)
+    {
+      m_values.AddMember("Urai", parse_json<int>::format(urai, m_values.GetAllocator()), m_values.GetAllocator());
+    }
+
+
+
+    Sdx::optional<std::string> SetSbasUraIndexForSV::dataSetName() const
+    {
+      return parse_json<Sdx::optional<std::string>>::parse(m_values["DataSetName"]);
+    }
+
+    void SetSbasUraIndexForSV::setDataSetName(const Sdx::optional<std::string>& dataSetName)
+    {
+      m_values.AddMember("DataSetName", parse_json<Sdx::optional<std::string>>::format(dataSetName, m_values.GetAllocator()), m_values.GetAllocator());
+    }
+
+
+  }
+}
+
+
+///
 /// Definition of SetGalileoSisaE1E5aIndexForSV
 ///
 #include "gen/SetGalileoSisaE1E5aIndexForSV.h"
@@ -76777,7 +77535,7 @@ namespace Sdx
 
     SetGalileoSisaE1E5aIndexForSVPtr SetGalileoSisaE1E5aIndexForSV::create(int svId, int sisai, const Sdx::optional<std::string>& dataSetName)
     {
-      return SetGalileoSisaE1E5aIndexForSVPtr(new SetGalileoSisaE1E5aIndexForSV(svId, sisai, dataSetName));
+      return std::make_shared<SetGalileoSisaE1E5aIndexForSV>(svId, sisai, dataSetName);
     }
 
     SetGalileoSisaE1E5aIndexForSVPtr SetGalileoSisaE1E5aIndexForSV::dynamicCast(CommandBasePtr ptr)
@@ -76875,7 +77633,7 @@ namespace Sdx
 
     SetGalileoSisaE1E5bIndexForSVPtr SetGalileoSisaE1E5bIndexForSV::create(int svId, int sisai, const Sdx::optional<std::string>& dataSetName)
     {
-      return SetGalileoSisaE1E5bIndexForSVPtr(new SetGalileoSisaE1E5bIndexForSV(svId, sisai, dataSetName));
+      return std::make_shared<SetGalileoSisaE1E5bIndexForSV>(svId, sisai, dataSetName);
     }
 
     SetGalileoSisaE1E5bIndexForSVPtr SetGalileoSisaE1E5bIndexForSV::dynamicCast(CommandBasePtr ptr)
@@ -76975,7 +77733,7 @@ namespace Sdx
 
     SetPilotCWPtr SetPilotCW::create(bool enabled, int outputIdx, double centralFreqOffset, double power, const std::string& pilotId)
     {
-      return SetPilotCWPtr(new SetPilotCW(enabled, outputIdx, centralFreqOffset, power, pilotId));
+      return std::make_shared<SetPilotCW>(enabled, outputIdx, centralFreqOffset, power, pilotId);
     }
 
     SetPilotCWPtr SetPilotCW::dynamicCast(CommandBasePtr ptr)
@@ -77103,7 +77861,7 @@ namespace Sdx
 
     SetPilotPRNPtr SetPilotPRN::create(bool enabled, int outputIdx, double centralFreqOffset, double power, int prn, const std::string& type, const std::string& pilotId)
     {
-      return SetPilotPRNPtr(new SetPilotPRN(enabled, outputIdx, centralFreqOffset, power, prn, type, pilotId));
+      return std::make_shared<SetPilotPRN>(enabled, outputIdx, centralFreqOffset, power, prn, type, pilotId);
     }
 
     SetPilotPRNPtr SetPilotPRN::dynamicCast(CommandBasePtr ptr)
@@ -77254,7 +78012,7 @@ namespace Sdx
 
     CalibratePilotOutputPtr CalibratePilotOutput::create(int outputIdx, double power, double time, double carrierPhase)
     {
-      return CalibratePilotOutputPtr(new CalibratePilotOutput(outputIdx, power, time, carrierPhase));
+      return std::make_shared<CalibratePilotOutput>(outputIdx, power, time, carrierPhase);
     }
 
     CalibratePilotOutputPtr CalibratePilotOutput::dynamicCast(CommandBasePtr ptr)
@@ -77358,7 +78116,7 @@ namespace Sdx
 
     RemoveAllPilotsPtr RemoveAllPilots::create()
     {
-      return RemoveAllPilotsPtr(new RemoveAllPilots());
+      return std::make_shared<RemoveAllPilots>();
     }
 
     RemoveAllPilotsPtr RemoveAllPilots::dynamicCast(CommandBasePtr ptr)
@@ -77418,7 +78176,7 @@ namespace Sdx
 
     SetRFOutputOffsetsPtr SetRFOutputOffsets::create(int outputIdx, double powerOffset, double timeOffset, double phaseOffset)
     {
-      return SetRFOutputOffsetsPtr(new SetRFOutputOffsets(outputIdx, powerOffset, timeOffset, phaseOffset));
+      return std::make_shared<SetRFOutputOffsets>(outputIdx, powerOffset, timeOffset, phaseOffset);
     }
 
     SetRFOutputOffsetsPtr SetRFOutputOffsets::dynamicCast(CommandBasePtr ptr)
@@ -77522,7 +78280,7 @@ namespace Sdx
 
     IsTrajectoryCompletedPtr IsTrajectoryCompleted::create()
     {
-      return IsTrajectoryCompletedPtr(new IsTrajectoryCompleted());
+      return std::make_shared<IsTrajectoryCompleted>();
     }
 
     IsTrajectoryCompletedPtr IsTrajectoryCompleted::dynamicCast(CommandBasePtr ptr)
@@ -77579,7 +78337,7 @@ namespace Sdx
 
     IsTrajectoryCompletedResultPtr IsTrajectoryCompletedResult::create(CommandBasePtr relatedCommand, bool isCompleted)
     {
-      return IsTrajectoryCompletedResultPtr(new IsTrajectoryCompletedResult(relatedCommand, isCompleted));
+      return std::make_shared<IsTrajectoryCompletedResult>(relatedCommand, isCompleted);
     }
 
     IsTrajectoryCompletedResultPtr IsTrajectoryCompletedResult::dynamicCast(CommandBasePtr ptr)
@@ -77645,7 +78403,7 @@ namespace Sdx
 
     SetIonoGridErrorPtr SetIonoGridError::create(int band, int point, double error)
     {
-      return SetIonoGridErrorPtr(new SetIonoGridError(band, point, error));
+      return std::make_shared<SetIonoGridError>(band, point, error);
     }
 
     SetIonoGridErrorPtr SetIonoGridError::dynamicCast(CommandBasePtr ptr)
@@ -77742,7 +78500,7 @@ namespace Sdx
 
     GetIonoGridErrorPtr GetIonoGridError::create(int band, int point)
     {
-      return GetIonoGridErrorPtr(new GetIonoGridError(band, point));
+      return std::make_shared<GetIonoGridError>(band, point);
     }
 
     GetIonoGridErrorPtr GetIonoGridError::dynamicCast(CommandBasePtr ptr)
@@ -77827,7 +78585,7 @@ namespace Sdx
 
     GetIonoGridErrorResultPtr GetIonoGridErrorResult::create(CommandBasePtr relatedCommand, int band, int point, double error)
     {
-      return GetIonoGridErrorResultPtr(new GetIonoGridErrorResult(relatedCommand, band, point, error));
+      return std::make_shared<GetIonoGridErrorResult>(relatedCommand, band, point, error);
     }
 
     GetIonoGridErrorResultPtr GetIonoGridErrorResult::dynamicCast(CommandBasePtr ptr)
@@ -77920,7 +78678,7 @@ namespace Sdx
 
     SetIonoGridGIVEIPtr SetIonoGridGIVEI::create(int band, int point, int giveI, const Sdx::optional<std::string>& serviceProvider)
     {
-      return SetIonoGridGIVEIPtr(new SetIonoGridGIVEI(band, point, giveI, serviceProvider));
+      return std::make_shared<SetIonoGridGIVEI>(band, point, giveI, serviceProvider);
     }
 
     SetIonoGridGIVEIPtr SetIonoGridGIVEI::dynamicCast(CommandBasePtr ptr)
@@ -78031,7 +78789,7 @@ namespace Sdx
 
     GetIonoGridGIVEIPtr GetIonoGridGIVEI::create(int band, int point, const Sdx::optional<std::string>& serviceProvider)
     {
-      return GetIonoGridGIVEIPtr(new GetIonoGridGIVEI(band, point, serviceProvider));
+      return std::make_shared<GetIonoGridGIVEI>(band, point, serviceProvider);
     }
 
     GetIonoGridGIVEIPtr GetIonoGridGIVEI::dynamicCast(CommandBasePtr ptr)
@@ -78130,7 +78888,7 @@ namespace Sdx
 
     GetIonoGridGIVEIResultPtr GetIonoGridGIVEIResult::create(CommandBasePtr relatedCommand, int band, int point, int giveI, const Sdx::optional<std::string>& serviceProvider)
     {
-      return GetIonoGridGIVEIResultPtr(new GetIonoGridGIVEIResult(relatedCommand, band, point, giveI, serviceProvider));
+      return std::make_shared<GetIonoGridGIVEIResult>(relatedCommand, band, point, giveI, serviceProvider);
     }
 
     GetIonoGridGIVEIResultPtr GetIonoGridGIVEIResult::dynamicCast(CommandBasePtr ptr)
@@ -78233,7 +78991,7 @@ namespace Sdx
 
     SetIonoGridErrorAllPtr SetIonoGridErrorAll::create(const std::vector<std::vector<double>>& grid)
     {
-      return SetIonoGridErrorAllPtr(new SetIonoGridErrorAll(grid));
+      return std::make_shared<SetIonoGridErrorAll>(grid);
     }
 
     SetIonoGridErrorAllPtr SetIonoGridErrorAll::dynamicCast(CommandBasePtr ptr)
@@ -78298,7 +79056,7 @@ namespace Sdx
 
     GetIonoGridErrorAllPtr GetIonoGridErrorAll::create()
     {
-      return GetIonoGridErrorAllPtr(new GetIonoGridErrorAll());
+      return std::make_shared<GetIonoGridErrorAll>();
     }
 
     GetIonoGridErrorAllPtr GetIonoGridErrorAll::dynamicCast(CommandBasePtr ptr)
@@ -78355,7 +79113,7 @@ namespace Sdx
 
     GetIonoGridErrorAllResultPtr GetIonoGridErrorAllResult::create(CommandBasePtr relatedCommand, const std::vector<std::vector<double>>& grid)
     {
-      return GetIonoGridErrorAllResultPtr(new GetIonoGridErrorAllResult(relatedCommand, grid));
+      return std::make_shared<GetIonoGridErrorAllResult>(relatedCommand, grid);
     }
 
     GetIonoGridErrorAllResultPtr GetIonoGridErrorAllResult::dynamicCast(CommandBasePtr ptr)
@@ -78420,7 +79178,7 @@ namespace Sdx
 
     SetIonoGridGIVEIAllPtr SetIonoGridGIVEIAll::create(const std::vector<std::vector<int>>& grid, const Sdx::optional<std::string>& serviceProvider)
     {
-      return SetIonoGridGIVEIAllPtr(new SetIonoGridGIVEIAll(grid, serviceProvider));
+      return std::make_shared<SetIonoGridGIVEIAll>(grid, serviceProvider);
     }
 
     SetIonoGridGIVEIAllPtr SetIonoGridGIVEIAll::dynamicCast(CommandBasePtr ptr)
@@ -78499,7 +79257,7 @@ namespace Sdx
 
     GetIonoGridGIVEIAllPtr GetIonoGridGIVEIAll::create(const Sdx::optional<std::string>& serviceProvider)
     {
-      return GetIonoGridGIVEIAllPtr(new GetIonoGridGIVEIAll(serviceProvider));
+      return std::make_shared<GetIonoGridGIVEIAll>(serviceProvider);
     }
 
     GetIonoGridGIVEIAllPtr GetIonoGridGIVEIAll::dynamicCast(CommandBasePtr ptr)
@@ -78570,7 +79328,7 @@ namespace Sdx
 
     GetIonoGridGIVEIAllResultPtr GetIonoGridGIVEIAllResult::create(CommandBasePtr relatedCommand, const std::vector<std::vector<int>>& grid, const Sdx::optional<std::string>& serviceProvider)
     {
-      return GetIonoGridGIVEIAllResultPtr(new GetIonoGridGIVEIAllResult(relatedCommand, grid, serviceProvider));
+      return std::make_shared<GetIonoGridGIVEIAllResult>(relatedCommand, grid, serviceProvider);
     }
 
     GetIonoGridGIVEIAllResultPtr GetIonoGridGIVEIAllResult::dynamicCast(CommandBasePtr ptr)
@@ -78650,7 +79408,7 @@ namespace Sdx
 
     SetIonoGridMaskPtr SetIonoGridMask::create(const std::string& serviceProvider, int band, int point, bool flag)
     {
-      return SetIonoGridMaskPtr(new SetIonoGridMask(serviceProvider, band, point, flag));
+      return std::make_shared<SetIonoGridMask>(serviceProvider, band, point, flag);
     }
 
     SetIonoGridMaskPtr SetIonoGridMask::dynamicCast(CommandBasePtr ptr)
@@ -78761,7 +79519,7 @@ namespace Sdx
 
     GetIonoGridMaskPtr GetIonoGridMask::create(const std::string& serviceProvider, int band, int point)
     {
-      return GetIonoGridMaskPtr(new GetIonoGridMask(serviceProvider, band, point));
+      return std::make_shared<GetIonoGridMask>(serviceProvider, band, point);
     }
 
     GetIonoGridMaskPtr GetIonoGridMask::dynamicCast(CommandBasePtr ptr)
@@ -78860,7 +79618,7 @@ namespace Sdx
 
     GetIonoGridMaskResultPtr GetIonoGridMaskResult::create(CommandBasePtr relatedCommand, const std::string& serviceProvider, int band, int point, bool flag)
     {
-      return GetIonoGridMaskResultPtr(new GetIonoGridMaskResult(relatedCommand, serviceProvider, band, point, flag));
+      return std::make_shared<GetIonoGridMaskResult>(relatedCommand, serviceProvider, band, point, flag);
     }
 
     GetIonoGridMaskResultPtr GetIonoGridMaskResult::dynamicCast(CommandBasePtr ptr)
@@ -78964,7 +79722,7 @@ namespace Sdx
 
     SetIonoGridMaskAllPtr SetIonoGridMaskAll::create(const std::string& serviceProvider, const std::vector<std::vector<bool>>& grid)
     {
-      return SetIonoGridMaskAllPtr(new SetIonoGridMaskAll(serviceProvider, grid));
+      return std::make_shared<SetIonoGridMaskAll>(serviceProvider, grid);
     }
 
     SetIonoGridMaskAllPtr SetIonoGridMaskAll::dynamicCast(CommandBasePtr ptr)
@@ -79047,7 +79805,7 @@ namespace Sdx
 
     GetIonoGridMaskAllPtr GetIonoGridMaskAll::create(const std::string& serviceProvider)
     {
-      return GetIonoGridMaskAllPtr(new GetIonoGridMaskAll(serviceProvider));
+      return std::make_shared<GetIonoGridMaskAll>(serviceProvider);
     }
 
     GetIonoGridMaskAllPtr GetIonoGridMaskAll::dynamicCast(CommandBasePtr ptr)
@@ -79118,7 +79876,7 @@ namespace Sdx
 
     GetIonoGridMaskAllResultPtr GetIonoGridMaskAllResult::create(CommandBasePtr relatedCommand, const std::string& serviceProvider, const std::vector<std::vector<bool>>& grid)
     {
-      return GetIonoGridMaskAllResultPtr(new GetIonoGridMaskAllResult(relatedCommand, serviceProvider, grid));
+      return std::make_shared<GetIonoGridMaskAllResult>(relatedCommand, serviceProvider, grid);
     }
 
     GetIonoGridMaskAllResultPtr GetIonoGridMaskAllResult::dynamicCast(CommandBasePtr ptr)
@@ -79196,7 +79954,7 @@ namespace Sdx
 
     ImportIonoGridErrorsPtr ImportIonoGridErrors::create(bool overwriting, const std::string& path)
     {
-      return ImportIonoGridErrorsPtr(new ImportIonoGridErrors(overwriting, path));
+      return std::make_shared<ImportIonoGridErrors>(overwriting, path);
     }
 
     ImportIonoGridErrorsPtr ImportIonoGridErrors::dynamicCast(CommandBasePtr ptr)
@@ -79281,7 +80039,7 @@ namespace Sdx
 
     ImportIonoGridGIVEIPtr ImportIonoGridGIVEI::create(bool overwriting, const std::string& path, const Sdx::optional<std::string>& serviceProvider)
     {
-      return ImportIonoGridGIVEIPtr(new ImportIonoGridGIVEI(overwriting, path, serviceProvider));
+      return std::make_shared<ImportIonoGridGIVEI>(overwriting, path, serviceProvider);
     }
 
     ImportIonoGridGIVEIPtr ImportIonoGridGIVEI::dynamicCast(CommandBasePtr ptr)
@@ -79379,7 +80137,7 @@ namespace Sdx
 
     ImportIonoGridMaskPtr ImportIonoGridMask::create(const std::string& serviceProvider, bool overwriting, const std::string& path)
     {
-      return ImportIonoGridMaskPtr(new ImportIonoGridMask(serviceProvider, overwriting, path));
+      return std::make_shared<ImportIonoGridMask>(serviceProvider, overwriting, path);
     }
 
     ImportIonoGridMaskPtr ImportIonoGridMask::dynamicCast(CommandBasePtr ptr)
@@ -79476,7 +80234,7 @@ namespace Sdx
 
     ExportIonoGridErrorsPtr ExportIonoGridErrors::create(bool overwriting, const std::string& path)
     {
-      return ExportIonoGridErrorsPtr(new ExportIonoGridErrors(overwriting, path));
+      return std::make_shared<ExportIonoGridErrors>(overwriting, path);
     }
 
     ExportIonoGridErrorsPtr ExportIonoGridErrors::dynamicCast(CommandBasePtr ptr)
@@ -79561,7 +80319,7 @@ namespace Sdx
 
     ExportIonoGridGIVEIPtr ExportIonoGridGIVEI::create(bool overwriting, const std::string& path, const Sdx::optional<std::string>& serviceProvider)
     {
-      return ExportIonoGridGIVEIPtr(new ExportIonoGridGIVEI(overwriting, path, serviceProvider));
+      return std::make_shared<ExportIonoGridGIVEI>(overwriting, path, serviceProvider);
     }
 
     ExportIonoGridGIVEIPtr ExportIonoGridGIVEI::dynamicCast(CommandBasePtr ptr)
@@ -79659,7 +80417,7 @@ namespace Sdx
 
     ExportIonoGridMaskPtr ExportIonoGridMask::create(const std::string& serviceProvider, bool overwriting, const std::string& path)
     {
-      return ExportIonoGridMaskPtr(new ExportIonoGridMask(serviceProvider, overwriting, path));
+      return std::make_shared<ExportIonoGridMask>(serviceProvider, overwriting, path);
     }
 
     ExportIonoGridMaskPtr ExportIonoGridMask::dynamicCast(CommandBasePtr ptr)
@@ -79750,7 +80508,7 @@ namespace Sdx
 
     GetConfigPathsPtr GetConfigPaths::create()
     {
-      return GetConfigPathsPtr(new GetConfigPaths());
+      return std::make_shared<GetConfigPaths>();
     }
 
     GetConfigPathsPtr GetConfigPaths::dynamicCast(CommandBasePtr ptr)
@@ -79807,7 +80565,7 @@ namespace Sdx
 
     GetConfigPathsResultPtr GetConfigPathsResult::create(CommandBasePtr relatedCommand, const std::vector<std::string>& paths)
     {
-      return GetConfigPathsResultPtr(new GetConfigPathsResult(relatedCommand, paths));
+      return std::make_shared<GetConfigPathsResult>(relatedCommand, paths);
     }
 
     GetConfigPathsResultPtr GetConfigPathsResult::dynamicCast(CommandBasePtr ptr)
@@ -79871,7 +80629,7 @@ namespace Sdx
 
     SetPps0GpsTimePtr SetPps0GpsTime::create(const Sdx::DateTime& gpsTime)
     {
-      return SetPps0GpsTimePtr(new SetPps0GpsTime(gpsTime));
+      return std::make_shared<SetPps0GpsTime>(gpsTime);
     }
 
     SetPps0GpsTimePtr SetPps0GpsTime::dynamicCast(CommandBasePtr ptr)
@@ -79941,7 +80699,7 @@ namespace Sdx
 
     GetOfficialLeapSecondPtr GetOfficialLeapSecond::create(const Sdx::DateTime& date)
     {
-      return GetOfficialLeapSecondPtr(new GetOfficialLeapSecond(date));
+      return std::make_shared<GetOfficialLeapSecond>(date);
     }
 
     GetOfficialLeapSecondPtr GetOfficialLeapSecond::dynamicCast(CommandBasePtr ptr)
@@ -80011,7 +80769,7 @@ namespace Sdx
 
     GetOfficialLeapSecondResultPtr GetOfficialLeapSecondResult::create(CommandBasePtr relatedCommand, int leapSecond)
     {
-      return GetOfficialLeapSecondResultPtr(new GetOfficialLeapSecondResult(relatedCommand, leapSecond));
+      return std::make_shared<GetOfficialLeapSecondResult>(relatedCommand, leapSecond);
     }
 
     GetOfficialLeapSecondResultPtr GetOfficialLeapSecondResult::dynamicCast(CommandBasePtr ptr)
@@ -80070,7 +80828,7 @@ namespace Sdx
 
     GetLastLeapSecondDatePtr GetLastLeapSecondDate::create()
     {
-      return GetLastLeapSecondDatePtr(new GetLastLeapSecondDate());
+      return std::make_shared<GetLastLeapSecondDate>();
     }
 
     GetLastLeapSecondDatePtr GetLastLeapSecondDate::dynamicCast(CommandBasePtr ptr)
@@ -80127,7 +80885,7 @@ namespace Sdx
 
     GetLastLeapSecondDateResultPtr GetLastLeapSecondDateResult::create(CommandBasePtr relatedCommand, const Sdx::Date& date)
     {
-      return GetLastLeapSecondDateResultPtr(new GetLastLeapSecondDateResult(relatedCommand, date));
+      return std::make_shared<GetLastLeapSecondDateResult>(relatedCommand, date);
     }
 
     GetLastLeapSecondDateResultPtr GetLastLeapSecondDateResult::dynamicCast(CommandBasePtr ptr)
@@ -80191,7 +80949,7 @@ namespace Sdx
 
     SetWFAntennaGainPtr SetWFAntennaGain::create(int gain)
     {
-      return SetWFAntennaGainPtr(new SetWFAntennaGain(gain));
+      return std::make_shared<SetWFAntennaGain>(gain);
     }
 
     SetWFAntennaGainPtr SetWFAntennaGain::dynamicCast(CommandBasePtr ptr)
@@ -80256,7 +81014,7 @@ namespace Sdx
 
     GetWFAntennaGainPtr GetWFAntennaGain::create()
     {
-      return GetWFAntennaGainPtr(new GetWFAntennaGain());
+      return std::make_shared<GetWFAntennaGain>();
     }
 
     GetWFAntennaGainPtr GetWFAntennaGain::dynamicCast(CommandBasePtr ptr)
@@ -80313,7 +81071,7 @@ namespace Sdx
 
     GetWFAntennaGainResultPtr GetWFAntennaGainResult::create(CommandBasePtr relatedCommand, int gain)
     {
-      return GetWFAntennaGainResultPtr(new GetWFAntennaGainResult(relatedCommand, gain));
+      return std::make_shared<GetWFAntennaGainResult>(relatedCommand, gain);
     }
 
     GetWFAntennaGainResultPtr GetWFAntennaGainResult::dynamicCast(CommandBasePtr ptr)
@@ -80378,7 +81136,7 @@ namespace Sdx
 
     AddCustomSignalPtr AddCustomSignal::create(const std::string& path, const std::string& id)
     {
-      return AddCustomSignalPtr(new AddCustomSignal(path, id));
+      return std::make_shared<AddCustomSignal>(path, id);
     }
 
     AddCustomSignalPtr AddCustomSignal::dynamicCast(CommandBasePtr ptr)
@@ -80461,7 +81219,7 @@ namespace Sdx
 
     RemoveCustomSignalPtr RemoveCustomSignal::create(const std::string& id)
     {
-      return RemoveCustomSignalPtr(new RemoveCustomSignal(id));
+      return std::make_shared<RemoveCustomSignal>(id);
     }
 
     RemoveCustomSignalPtr RemoveCustomSignal::dynamicCast(CommandBasePtr ptr)
@@ -80526,7 +81284,7 @@ namespace Sdx
 
     RemoveAllCustomSignalsPtr RemoveAllCustomSignals::create()
     {
-      return RemoveAllCustomSignalsPtr(new RemoveAllCustomSignals());
+      return std::make_shared<RemoveAllCustomSignals>();
     }
 
     RemoveAllCustomSignalsPtr RemoveAllCustomSignals::dynamicCast(CommandBasePtr ptr)
@@ -80584,7 +81342,7 @@ namespace Sdx
 
     ChangeCustomSignalColorPtr ChangeCustomSignalColor::create(const std::string& color, const std::string& id)
     {
-      return ChangeCustomSignalColorPtr(new ChangeCustomSignalColor(color, id));
+      return std::make_shared<ChangeCustomSignalColor>(color, id);
     }
 
     ChangeCustomSignalColorPtr ChangeCustomSignalColor::dynamicCast(CommandBasePtr ptr)
@@ -80662,7 +81420,7 @@ namespace Sdx
 
     GetAllSpoofTxIDPtr GetAllSpoofTxID::create()
     {
-      return GetAllSpoofTxIDPtr(new GetAllSpoofTxID());
+      return std::make_shared<GetAllSpoofTxID>();
     }
 
     GetAllSpoofTxIDPtr GetAllSpoofTxID::dynamicCast(CommandBasePtr ptr)
@@ -80719,7 +81477,7 @@ namespace Sdx
 
     GetAllSpoofTxIDResultPtr GetAllSpoofTxIDResult::create(CommandBasePtr relatedCommand, const std::vector<std::string>& ids)
     {
-      return GetAllSpoofTxIDResultPtr(new GetAllSpoofTxIDResult(relatedCommand, ids));
+      return std::make_shared<GetAllSpoofTxIDResult>(relatedCommand, ids);
     }
 
     GetAllSpoofTxIDResultPtr GetAllSpoofTxIDResult::dynamicCast(CommandBasePtr ptr)
@@ -80787,7 +81545,7 @@ namespace Sdx
 
     AddSpoofTxPtr AddSpoofTx::create(const std::string& usualName, bool enabled, const std::string& address, int instanceId, const std::string& id)
     {
-      return AddSpoofTxPtr(new AddSpoofTx(usualName, enabled, address, instanceId, id));
+      return std::make_shared<AddSpoofTx>(usualName, enabled, address, instanceId, id);
     }
 
     AddSpoofTxPtr AddSpoofTx::dynamicCast(CommandBasePtr ptr)
@@ -80909,7 +81667,7 @@ namespace Sdx
 
     GetSpoofTxPtr GetSpoofTx::create(const std::string& id)
     {
-      return GetSpoofTxPtr(new GetSpoofTx(id));
+      return std::make_shared<GetSpoofTx>(id);
     }
 
     GetSpoofTxPtr GetSpoofTx::dynamicCast(CommandBasePtr ptr)
@@ -80983,7 +81741,7 @@ namespace Sdx
 
     GetSpoofTxResultPtr GetSpoofTxResult::create(CommandBasePtr relatedCommand, const std::string& usualName, bool enabled, const std::string& address, int instanceId, const std::string& id)
     {
-      return GetSpoofTxResultPtr(new GetSpoofTxResult(relatedCommand, usualName, enabled, address, instanceId, id));
+      return std::make_shared<GetSpoofTxResult>(relatedCommand, usualName, enabled, address, instanceId, id);
     }
 
     GetSpoofTxResultPtr GetSpoofTxResult::dynamicCast(CommandBasePtr ptr)
@@ -81099,7 +81857,7 @@ namespace Sdx
 
     RemoveSpoofTxPtr RemoveSpoofTx::create(const std::string& id)
     {
-      return RemoveSpoofTxPtr(new RemoveSpoofTx(id));
+      return std::make_shared<RemoveSpoofTx>(id);
     }
 
     RemoveSpoofTxPtr RemoveSpoofTx::dynamicCast(CommandBasePtr ptr)
@@ -81170,7 +81928,7 @@ namespace Sdx
 
     RenameSpoofTxPtr RenameSpoofTx::create(const std::string& usualName, const std::string& id)
     {
-      return RenameSpoofTxPtr(new RenameSpoofTx(usualName, id));
+      return std::make_shared<RenameSpoofTx>(usualName, id);
     }
 
     RenameSpoofTxPtr RenameSpoofTx::dynamicCast(CommandBasePtr ptr)
@@ -81254,7 +82012,7 @@ namespace Sdx
 
     ChangeSpoofTxColorPtr ChangeSpoofTxColor::create(const std::string& color, const std::string& id)
     {
-      return ChangeSpoofTxColorPtr(new ChangeSpoofTxColor(color, id));
+      return std::make_shared<ChangeSpoofTxColor>(color, id);
     }
 
     ChangeSpoofTxColorPtr ChangeSpoofTxColor::dynamicCast(CommandBasePtr ptr)
@@ -81337,7 +82095,7 @@ namespace Sdx
 
     GetSpoofTxColorPtr GetSpoofTxColor::create(const std::string& id)
     {
-      return GetSpoofTxColorPtr(new GetSpoofTxColor(id));
+      return std::make_shared<GetSpoofTxColor>(id);
     }
 
     GetSpoofTxColorPtr GetSpoofTxColor::dynamicCast(CommandBasePtr ptr)
@@ -81408,7 +82166,7 @@ namespace Sdx
 
     GetSpoofTxColorResultPtr GetSpoofTxColorResult::create(CommandBasePtr relatedCommand, const std::string& color, const std::string& id)
     {
-      return GetSpoofTxColorResultPtr(new GetSpoofTxColorResult(relatedCommand, color, id));
+      return std::make_shared<GetSpoofTxColorResult>(relatedCommand, color, id);
     }
 
     GetSpoofTxColorResultPtr GetSpoofTxColorResult::dynamicCast(CommandBasePtr ptr)
@@ -81486,7 +82244,7 @@ namespace Sdx
 
     EnableSpoofTxPtr EnableSpoofTx::create(bool enabled, const std::string& id)
     {
-      return EnableSpoofTxPtr(new EnableSpoofTx(enabled, id));
+      return std::make_shared<EnableSpoofTx>(enabled, id);
     }
 
     EnableSpoofTxPtr EnableSpoofTx::dynamicCast(CommandBasePtr ptr)
@@ -81571,7 +82329,7 @@ namespace Sdx
 
     SetSpoofSignalManualPropagationLossPtr SetSpoofSignalManualPropagationLoss::create(double propagationLoss, const std::string& transmitterId, const std::string& signalId)
     {
-      return SetSpoofSignalManualPropagationLossPtr(new SetSpoofSignalManualPropagationLoss(propagationLoss, transmitterId, signalId));
+      return std::make_shared<SetSpoofSignalManualPropagationLoss>(propagationLoss, transmitterId, signalId);
     }
 
     SetSpoofSignalManualPropagationLossPtr SetSpoofSignalManualPropagationLoss::dynamicCast(CommandBasePtr ptr)
@@ -81668,7 +82426,7 @@ namespace Sdx
 
     SetSpoofTxUseManualPropagationLossPtr SetSpoofTxUseManualPropagationLoss::create(bool manual, const std::string& id)
     {
-      return SetSpoofTxUseManualPropagationLossPtr(new SetSpoofTxUseManualPropagationLoss(manual, id));
+      return std::make_shared<SetSpoofTxUseManualPropagationLoss>(manual, id);
     }
 
     SetSpoofTxUseManualPropagationLossPtr SetSpoofTxUseManualPropagationLoss::dynamicCast(CommandBasePtr ptr)
@@ -81752,7 +82510,7 @@ namespace Sdx
 
     SetSpoofTxIgnorePropagationLossPtr SetSpoofTxIgnorePropagationLoss::create(bool ignore, const std::string& id)
     {
-      return SetSpoofTxIgnorePropagationLossPtr(new SetSpoofTxIgnorePropagationLoss(ignore, id));
+      return std::make_shared<SetSpoofTxIgnorePropagationLoss>(ignore, id);
     }
 
     SetSpoofTxIgnorePropagationLossPtr SetSpoofTxIgnorePropagationLoss::dynamicCast(CommandBasePtr ptr)
@@ -81836,7 +82594,7 @@ namespace Sdx
 
     SetSpoofTxIgnoreRxAntennaPatternsPtr SetSpoofTxIgnoreRxAntennaPatterns::create(bool ignore, const std::string& id)
     {
-      return SetSpoofTxIgnoreRxAntennaPatternsPtr(new SetSpoofTxIgnoreRxAntennaPatterns(ignore, id));
+      return std::make_shared<SetSpoofTxIgnoreRxAntennaPatterns>(ignore, id);
     }
 
     SetSpoofTxIgnoreRxAntennaPatternsPtr SetSpoofTxIgnoreRxAntennaPatterns::dynamicCast(CommandBasePtr ptr)
@@ -81920,7 +82678,7 @@ namespace Sdx
 
     SetSpoofTxIgnoreRxAntennaGainPatternPtr SetSpoofTxIgnoreRxAntennaGainPattern::create(bool ignore, const std::string& id)
     {
-      return SetSpoofTxIgnoreRxAntennaGainPatternPtr(new SetSpoofTxIgnoreRxAntennaGainPattern(ignore, id));
+      return std::make_shared<SetSpoofTxIgnoreRxAntennaGainPattern>(ignore, id);
     }
 
     SetSpoofTxIgnoreRxAntennaGainPatternPtr SetSpoofTxIgnoreRxAntennaGainPattern::dynamicCast(CommandBasePtr ptr)
@@ -82003,7 +82761,7 @@ namespace Sdx
 
     IsSpoofTxIgnoreRxAntennaGainPatternPtr IsSpoofTxIgnoreRxAntennaGainPattern::create(const std::string& id)
     {
-      return IsSpoofTxIgnoreRxAntennaGainPatternPtr(new IsSpoofTxIgnoreRxAntennaGainPattern(id));
+      return std::make_shared<IsSpoofTxIgnoreRxAntennaGainPattern>(id);
     }
 
     IsSpoofTxIgnoreRxAntennaGainPatternPtr IsSpoofTxIgnoreRxAntennaGainPattern::dynamicCast(CommandBasePtr ptr)
@@ -82074,7 +82832,7 @@ namespace Sdx
 
     IsSpoofTxIgnoreRxAntennaGainPatternResultPtr IsSpoofTxIgnoreRxAntennaGainPatternResult::create(CommandBasePtr relatedCommand, bool ignore, const std::string& id)
     {
-      return IsSpoofTxIgnoreRxAntennaGainPatternResultPtr(new IsSpoofTxIgnoreRxAntennaGainPatternResult(relatedCommand, ignore, id));
+      return std::make_shared<IsSpoofTxIgnoreRxAntennaGainPatternResult>(relatedCommand, ignore, id);
     }
 
     IsSpoofTxIgnoreRxAntennaGainPatternResultPtr IsSpoofTxIgnoreRxAntennaGainPatternResult::dynamicCast(CommandBasePtr ptr)
@@ -82152,7 +82910,7 @@ namespace Sdx
 
     SetSpoofTxIgnoreRxAntennaPhasePatternPtr SetSpoofTxIgnoreRxAntennaPhasePattern::create(bool ignore, const std::string& id)
     {
-      return SetSpoofTxIgnoreRxAntennaPhasePatternPtr(new SetSpoofTxIgnoreRxAntennaPhasePattern(ignore, id));
+      return std::make_shared<SetSpoofTxIgnoreRxAntennaPhasePattern>(ignore, id);
     }
 
     SetSpoofTxIgnoreRxAntennaPhasePatternPtr SetSpoofTxIgnoreRxAntennaPhasePattern::dynamicCast(CommandBasePtr ptr)
@@ -82235,7 +82993,7 @@ namespace Sdx
 
     IsSpoofTxIgnoreRxAntennaPhasePatternPtr IsSpoofTxIgnoreRxAntennaPhasePattern::create(const std::string& id)
     {
-      return IsSpoofTxIgnoreRxAntennaPhasePatternPtr(new IsSpoofTxIgnoreRxAntennaPhasePattern(id));
+      return std::make_shared<IsSpoofTxIgnoreRxAntennaPhasePattern>(id);
     }
 
     IsSpoofTxIgnoreRxAntennaPhasePatternPtr IsSpoofTxIgnoreRxAntennaPhasePattern::dynamicCast(CommandBasePtr ptr)
@@ -82306,7 +83064,7 @@ namespace Sdx
 
     IsSpoofTxIgnoreRxAntennaPhasePatternResultPtr IsSpoofTxIgnoreRxAntennaPhasePatternResult::create(CommandBasePtr relatedCommand, bool ignore, const std::string& id)
     {
-      return IsSpoofTxIgnoreRxAntennaPhasePatternResultPtr(new IsSpoofTxIgnoreRxAntennaPhasePatternResult(relatedCommand, ignore, id));
+      return std::make_shared<IsSpoofTxIgnoreRxAntennaPhasePatternResult>(relatedCommand, ignore, id);
     }
 
     IsSpoofTxIgnoreRxAntennaPhasePatternResultPtr IsSpoofTxIgnoreRxAntennaPhasePatternResult::dynamicCast(CommandBasePtr ptr)
@@ -82389,7 +83147,7 @@ namespace Sdx
 
     SetSpoofTxFixPtr SetSpoofTxFix::create(double lat, double lon, double alt, double yaw, double pitch, double roll, const std::string& id)
     {
-      return SetSpoofTxFixPtr(new SetSpoofTxFix(lat, lon, alt, yaw, pitch, roll, id));
+      return std::make_shared<SetSpoofTxFix>(lat, lon, alt, yaw, pitch, roll, id);
     }
 
     SetSpoofTxFixPtr SetSpoofTxFix::dynamicCast(CommandBasePtr ptr)
@@ -82537,7 +83295,7 @@ namespace Sdx
 
     GetSpoofTxFixPtr GetSpoofTxFix::create(const std::string& id)
     {
-      return GetSpoofTxFixPtr(new GetSpoofTxFix(id));
+      return std::make_shared<GetSpoofTxFix>(id);
     }
 
     GetSpoofTxFixPtr GetSpoofTxFix::dynamicCast(CommandBasePtr ptr)
@@ -82613,7 +83371,7 @@ namespace Sdx
 
     GetSpoofTxFixResultPtr GetSpoofTxFixResult::create(CommandBasePtr relatedCommand, double lat, double lon, double alt, double yaw, double pitch, double roll, const std::string& id)
     {
-      return GetSpoofTxFixResultPtr(new GetSpoofTxFixResult(relatedCommand, lat, lon, alt, yaw, pitch, roll, id));
+      return std::make_shared<GetSpoofTxFixResult>(relatedCommand, lat, lon, alt, yaw, pitch, roll, id);
     }
 
     GetSpoofTxFixResultPtr GetSpoofTxFixResult::dynamicCast(CommandBasePtr ptr)
@@ -82761,7 +83519,7 @@ namespace Sdx
 
     SetSpoofTxFixEcefPtr SetSpoofTxFixEcef::create(double x, double y, double z, double yaw, double pitch, double roll, const std::string& id)
     {
-      return SetSpoofTxFixEcefPtr(new SetSpoofTxFixEcef(x, y, z, yaw, pitch, roll, id));
+      return std::make_shared<SetSpoofTxFixEcef>(x, y, z, yaw, pitch, roll, id);
     }
 
     SetSpoofTxFixEcefPtr SetSpoofTxFixEcef::dynamicCast(CommandBasePtr ptr)
@@ -82909,7 +83667,7 @@ namespace Sdx
 
     GetSpoofTxFixEcefPtr GetSpoofTxFixEcef::create(const std::string& id)
     {
-      return GetSpoofTxFixEcefPtr(new GetSpoofTxFixEcef(id));
+      return std::make_shared<GetSpoofTxFixEcef>(id);
     }
 
     GetSpoofTxFixEcefPtr GetSpoofTxFixEcef::dynamicCast(CommandBasePtr ptr)
@@ -82985,7 +83743,7 @@ namespace Sdx
 
     GetSpoofTxFixEcefResultPtr GetSpoofTxFixEcefResult::create(CommandBasePtr relatedCommand, double x, double y, double z, double yaw, double pitch, double roll, const std::string& id)
     {
-      return GetSpoofTxFixEcefResultPtr(new GetSpoofTxFixEcefResult(relatedCommand, x, y, z, yaw, pitch, roll, id));
+      return std::make_shared<GetSpoofTxFixEcefResult>(relatedCommand, x, y, z, yaw, pitch, roll, id);
     }
 
     GetSpoofTxFixEcefResultPtr GetSpoofTxFixEcefResult::dynamicCast(CommandBasePtr ptr)
@@ -83134,7 +83892,7 @@ namespace Sdx
 
     SetSpoofTxCircularPtr SetSpoofTxCircular::create(double lat, double lon, double alt, double radius, double speed, bool clockwise, const std::string& id, const Sdx::optional<double>& originAngle)
     {
-      return SetSpoofTxCircularPtr(new SetSpoofTxCircular(lat, lon, alt, radius, speed, clockwise, id, originAngle));
+      return std::make_shared<SetSpoofTxCircular>(lat, lon, alt, radius, speed, clockwise, id, originAngle);
     }
 
     SetSpoofTxCircularPtr SetSpoofTxCircular::dynamicCast(CommandBasePtr ptr)
@@ -83295,7 +84053,7 @@ namespace Sdx
 
     GetSpoofTxCircularPtr GetSpoofTxCircular::create(const std::string& id)
     {
-      return GetSpoofTxCircularPtr(new GetSpoofTxCircular(id));
+      return std::make_shared<GetSpoofTxCircular>(id);
     }
 
     GetSpoofTxCircularPtr GetSpoofTxCircular::dynamicCast(CommandBasePtr ptr)
@@ -83372,7 +84130,7 @@ namespace Sdx
 
     GetSpoofTxCircularResultPtr GetSpoofTxCircularResult::create(CommandBasePtr relatedCommand, double lat, double lon, double alt, double radius, double speed, bool clockwise, const std::string& id, const Sdx::optional<double>& originAngle)
     {
-      return GetSpoofTxCircularResultPtr(new GetSpoofTxCircularResult(relatedCommand, lat, lon, alt, radius, speed, clockwise, id, originAngle));
+      return std::make_shared<GetSpoofTxCircularResult>(relatedCommand, lat, lon, alt, radius, speed, clockwise, id, originAngle);
     }
 
     GetSpoofTxCircularResultPtr GetSpoofTxCircularResult::dynamicCast(CommandBasePtr ptr)
@@ -83527,7 +84285,7 @@ namespace Sdx
 
     SetSpoofTxHilPtr SetSpoofTxHil::create(const std::string& id)
     {
-      return SetSpoofTxHilPtr(new SetSpoofTxHil(id));
+      return std::make_shared<SetSpoofTxHil>(id);
     }
 
     SetSpoofTxHilPtr SetSpoofTxHil::dynamicCast(CommandBasePtr ptr)
@@ -83597,7 +84355,7 @@ namespace Sdx
 
     GetSpoofTxTrajectoryPtr GetSpoofTxTrajectory::create(const std::string& id)
     {
-      return GetSpoofTxTrajectoryPtr(new GetSpoofTxTrajectory(id));
+      return std::make_shared<GetSpoofTxTrajectory>(id);
     }
 
     GetSpoofTxTrajectoryPtr GetSpoofTxTrajectory::dynamicCast(CommandBasePtr ptr)
@@ -83668,7 +84426,7 @@ namespace Sdx
 
     GetSpoofTxTrajectoryResultPtr GetSpoofTxTrajectoryResult::create(CommandBasePtr relatedCommand, const std::string& trajectoryType, const std::string& id)
     {
-      return GetSpoofTxTrajectoryResultPtr(new GetSpoofTxTrajectoryResult(relatedCommand, trajectoryType, id));
+      return std::make_shared<GetSpoofTxTrajectoryResult>(relatedCommand, trajectoryType, id);
     }
 
     GetSpoofTxTrajectoryResultPtr GetSpoofTxTrajectoryResult::dynamicCast(CommandBasePtr ptr)
@@ -83747,7 +84505,7 @@ namespace Sdx
 
     SetSpoofTxAntennaPtr SetSpoofTxAntenna::create(const std::vector<std::vector<double>>& gain, const Sdx::AntennaPatternType& type, const std::string& id)
     {
-      return SetSpoofTxAntennaPtr(new SetSpoofTxAntenna(gain, type, id));
+      return std::make_shared<SetSpoofTxAntenna>(gain, type, id);
     }
 
     SetSpoofTxAntennaPtr SetSpoofTxAntenna::dynamicCast(CommandBasePtr ptr)
@@ -83843,7 +84601,7 @@ namespace Sdx
 
     GetSpoofTxAntennaPtr GetSpoofTxAntenna::create(const std::string& id)
     {
-      return GetSpoofTxAntennaPtr(new GetSpoofTxAntenna(id));
+      return std::make_shared<GetSpoofTxAntenna>(id);
     }
 
     GetSpoofTxAntennaPtr GetSpoofTxAntenna::dynamicCast(CommandBasePtr ptr)
@@ -83915,7 +84673,7 @@ namespace Sdx
 
     GetSpoofTxAntennaResultPtr GetSpoofTxAntennaResult::create(CommandBasePtr relatedCommand, const std::vector<std::vector<double>>& gain, const Sdx::AntennaPatternType& type, const std::string& id)
     {
-      return GetSpoofTxAntennaResultPtr(new GetSpoofTxAntennaResult(relatedCommand, gain, type, id));
+      return std::make_shared<GetSpoofTxAntennaResult>(relatedCommand, gain, type, id);
     }
 
     GetSpoofTxAntennaResultPtr GetSpoofTxAntennaResult::dynamicCast(CommandBasePtr ptr)
@@ -84011,7 +84769,7 @@ namespace Sdx
 
     SetSpoofTxAntennaOffsetPtr SetSpoofTxAntennaOffset::create(double x, double y, double z, double yaw, double pitch, double roll, const std::string& id)
     {
-      return SetSpoofTxAntennaOffsetPtr(new SetSpoofTxAntennaOffset(x, y, z, yaw, pitch, roll, id));
+      return std::make_shared<SetSpoofTxAntennaOffset>(x, y, z, yaw, pitch, roll, id);
     }
 
     SetSpoofTxAntennaOffsetPtr SetSpoofTxAntennaOffset::dynamicCast(CommandBasePtr ptr)
@@ -84159,7 +84917,7 @@ namespace Sdx
 
     GetSpoofTxAntennaOffsetPtr GetSpoofTxAntennaOffset::create(const std::string& id)
     {
-      return GetSpoofTxAntennaOffsetPtr(new GetSpoofTxAntennaOffset(id));
+      return std::make_shared<GetSpoofTxAntennaOffset>(id);
     }
 
     GetSpoofTxAntennaOffsetPtr GetSpoofTxAntennaOffset::dynamicCast(CommandBasePtr ptr)
@@ -84235,7 +84993,7 @@ namespace Sdx
 
     GetSpoofTxAntennaOffsetResultPtr GetSpoofTxAntennaOffsetResult::create(CommandBasePtr relatedCommand, double x, double y, double z, double yaw, double pitch, double roll, const std::string& id)
     {
-      return GetSpoofTxAntennaOffsetResultPtr(new GetSpoofTxAntennaOffsetResult(relatedCommand, x, y, z, yaw, pitch, roll, id));
+      return std::make_shared<GetSpoofTxAntennaOffsetResult>(relatedCommand, x, y, z, yaw, pitch, roll, id);
     }
 
     GetSpoofTxAntennaOffsetResultPtr GetSpoofTxAntennaOffsetResult::dynamicCast(CommandBasePtr ptr)
@@ -84379,7 +85137,7 @@ namespace Sdx
 
     SetSpoofTxRemoteAddressPtr SetSpoofTxRemoteAddress::create(const std::string& address, int instanceId, const std::string& id)
     {
-      return SetSpoofTxRemoteAddressPtr(new SetSpoofTxRemoteAddress(address, instanceId, id));
+      return std::make_shared<SetSpoofTxRemoteAddress>(address, instanceId, id);
     }
 
     SetSpoofTxRemoteAddressPtr SetSpoofTxRemoteAddress::dynamicCast(CommandBasePtr ptr)
@@ -84475,7 +85233,7 @@ namespace Sdx
 
     GetSpoofTxRemoteAddressPtr GetSpoofTxRemoteAddress::create(const std::string& id)
     {
-      return GetSpoofTxRemoteAddressPtr(new GetSpoofTxRemoteAddress(id));
+      return std::make_shared<GetSpoofTxRemoteAddress>(id);
     }
 
     GetSpoofTxRemoteAddressPtr GetSpoofTxRemoteAddress::dynamicCast(CommandBasePtr ptr)
@@ -84547,7 +85305,7 @@ namespace Sdx
 
     GetSpoofTxRemoteAddressResultPtr GetSpoofTxRemoteAddressResult::create(CommandBasePtr relatedCommand, const std::string& address, int instanceId, const std::string& id)
     {
-      return GetSpoofTxRemoteAddressResultPtr(new GetSpoofTxRemoteAddressResult(relatedCommand, address, instanceId, id));
+      return std::make_shared<GetSpoofTxRemoteAddressResult>(relatedCommand, address, instanceId, id);
     }
 
     GetSpoofTxRemoteAddressResultPtr GetSpoofTxRemoteAddressResult::dynamicCast(CommandBasePtr ptr)
@@ -84638,7 +85396,7 @@ namespace Sdx
 
     SetSpoofTxRefPowerPtr SetSpoofTxRefPower::create(double power, const std::string& id)
     {
-      return SetSpoofTxRefPowerPtr(new SetSpoofTxRefPower(power, id));
+      return std::make_shared<SetSpoofTxRefPower>(power, id);
     }
 
     SetSpoofTxRefPowerPtr SetSpoofTxRefPower::dynamicCast(CommandBasePtr ptr)
@@ -84722,7 +85480,7 @@ namespace Sdx
 
     ClearSpoofTxGpuIdxPtr ClearSpoofTxGpuIdx::create(int signalId, const std::string& id)
     {
-      return ClearSpoofTxGpuIdxPtr(new ClearSpoofTxGpuIdx(signalId, id));
+      return std::make_shared<ClearSpoofTxGpuIdx>(signalId, id);
     }
 
     ClearSpoofTxGpuIdxPtr ClearSpoofTxGpuIdx::dynamicCast(CommandBasePtr ptr)
@@ -84807,7 +85565,7 @@ namespace Sdx
 
     SetSpoofTxGpuIdxPtr SetSpoofTxGpuIdx::create(int gpuIdx, int signalId, const std::string& id)
     {
-      return SetSpoofTxGpuIdxPtr(new SetSpoofTxGpuIdx(gpuIdx, signalId, id));
+      return std::make_shared<SetSpoofTxGpuIdx>(gpuIdx, signalId, id);
     }
 
     SetSpoofTxGpuIdxPtr SetSpoofTxGpuIdx::dynamicCast(CommandBasePtr ptr)
@@ -84903,7 +85661,7 @@ namespace Sdx
 
     SetExternalChannelsPathPtr SetExternalChannelsPath::create(const std::string& path)
     {
-      return SetExternalChannelsPathPtr(new SetExternalChannelsPath(path));
+      return std::make_shared<SetExternalChannelsPath>(path);
     }
 
     SetExternalChannelsPathPtr SetExternalChannelsPath::dynamicCast(CommandBasePtr ptr)
@@ -84954,7 +85712,7 @@ namespace Sdx
   namespace Cmd
   {
     const char* const GetSVIDsOfPrn::CmdName = "GetSVIDsOfPrn";
-    const char* const GetSVIDsOfPrn::Documentation = "Mapping PRN to the corresponding SV ID. Get a list of SV IDs based on a specific signal. Accepted signal keys: \"L1CA\", \"L1C\", \"L1P\", \"L1M\", \"L2C\", \"L2P\", \"L5\", \"G1\", \"G2\", \"E1\", \"E1PRS\", \"E5a\", \"E5b\", \"E6BC\", \"E6PRS\", \"B1\", \"B2\", \"B2a\", \"B1C\", \"SBASL1\", \"SBASL5\", \"QZSSL1CA\", \"QZSSL1CB\", \"QZSSL1C\", \"QZSSL2C\", \"QZSSL5\", \"QZSSL1S\", \"QZSSL5S\" and \"NAVICL5\"";
+    const char* const GetSVIDsOfPrn::Documentation = "Mapping PRN to the corresponding SV ID. Get a list of SV IDs based on a specific signal. Accepted signal keys: \"L1CA\", \"L1C\", \"L1P\", \"L1ME\", \"L1MR\", \"L2C\", \"L2P\", \"L5\", \"G1\", \"G2\", \"E1\", \"E1PRS\", \"E5a\", \"E5b\", \"E6BC\", \"E6PRS\", \"B1\", \"B2\", \"B2a\", \"B1C\", \"SBASL1\", \"SBASL5\", \"QZSSL1CA\", \"QZSSL1CB\", \"QZSSL1C\", \"QZSSL2C\", \"QZSSL5\", \"QZSSL1S\", \"QZSSL5S\" and \"NAVICL5\"";
 
     REGISTER_COMMAND_FACTORY(GetSVIDsOfPrn);
 
@@ -84974,7 +85732,7 @@ namespace Sdx
 
     GetSVIDsOfPrnPtr GetSVIDsOfPrn::create(const std::string& signal, int prn)
     {
-      return GetSVIDsOfPrnPtr(new GetSVIDsOfPrn(signal, prn));
+      return std::make_shared<GetSVIDsOfPrn>(signal, prn);
     }
 
     GetSVIDsOfPrnPtr GetSVIDsOfPrn::dynamicCast(CommandBasePtr ptr)
@@ -85059,7 +85817,7 @@ namespace Sdx
 
     GetSVIDsOfPrnResultPtr GetSVIDsOfPrnResult::create(CommandBasePtr relatedCommand, const std::string& signal, int prn, const std::vector<int>& svIdList)
     {
-      return GetSVIDsOfPrnResultPtr(new GetSVIDsOfPrnResult(relatedCommand, signal, prn, svIdList));
+      return std::make_shared<GetSVIDsOfPrnResult>(relatedCommand, signal, prn, svIdList);
     }
 
     GetSVIDsOfPrnResultPtr GetSVIDsOfPrnResult::dynamicCast(CommandBasePtr ptr)
@@ -85154,7 +85912,7 @@ namespace Sdx
 
     SetQzssL1SAugmentationPtr SetQzssL1SAugmentation::create(const std::string& system, int prn, bool augmentIOD, bool augmentPRC, double prc, const std::string& id)
     {
-      return SetQzssL1SAugmentationPtr(new SetQzssL1SAugmentation(system, prn, augmentIOD, augmentPRC, prc, id));
+      return std::make_shared<SetQzssL1SAugmentation>(system, prn, augmentIOD, augmentPRC, prc, id);
     }
 
     SetQzssL1SAugmentationPtr SetQzssL1SAugmentation::dynamicCast(CommandBasePtr ptr)
@@ -85289,7 +86047,7 @@ namespace Sdx
 
     GetQzssL1SAugmentationPtr GetQzssL1SAugmentation::create(const std::string& id)
     {
-      return GetQzssL1SAugmentationPtr(new GetQzssL1SAugmentation(id));
+      return std::make_shared<GetQzssL1SAugmentation>(id);
     }
 
     GetQzssL1SAugmentationPtr GetQzssL1SAugmentation::dynamicCast(CommandBasePtr ptr)
@@ -85364,7 +86122,7 @@ namespace Sdx
 
     GetQzssL1SAugmentationResultPtr GetQzssL1SAugmentationResult::create(CommandBasePtr relatedCommand, const std::string& system, int prn, bool augmentIOD, bool augmentPRC, double prc, const std::string& id)
     {
-      return GetQzssL1SAugmentationResultPtr(new GetQzssL1SAugmentationResult(relatedCommand, system, prn, augmentIOD, augmentPRC, prc, id));
+      return std::make_shared<GetQzssL1SAugmentationResult>(relatedCommand, system, prn, augmentIOD, augmentPRC, prc, id);
     }
 
     GetQzssL1SAugmentationResultPtr GetQzssL1SAugmentationResult::dynamicCast(CommandBasePtr ptr)
@@ -85493,7 +86251,7 @@ namespace Sdx
 
     RemoveQzssL1SAugmentationPtr RemoveQzssL1SAugmentation::create(const std::string& id)
     {
-      return RemoveQzssL1SAugmentationPtr(new RemoveQzssL1SAugmentation(id));
+      return std::make_shared<RemoveQzssL1SAugmentation>(id);
     }
 
     RemoveQzssL1SAugmentationPtr RemoveQzssL1SAugmentation::dynamicCast(CommandBasePtr ptr)
@@ -85558,7 +86316,7 @@ namespace Sdx
 
     ClearQzssL1SAugmentationsPtr ClearQzssL1SAugmentations::create()
     {
-      return ClearQzssL1SAugmentationsPtr(new ClearQzssL1SAugmentations());
+      return std::make_shared<ClearQzssL1SAugmentations>();
     }
 
     ClearQzssL1SAugmentationsPtr ClearQzssL1SAugmentations::dynamicCast(CommandBasePtr ptr)
@@ -85610,7 +86368,7 @@ namespace Sdx
 
     GetQzssL1SAugmentationsPtr GetQzssL1SAugmentations::create()
     {
-      return GetQzssL1SAugmentationsPtr(new GetQzssL1SAugmentations());
+      return std::make_shared<GetQzssL1SAugmentations>();
     }
 
     GetQzssL1SAugmentationsPtr GetQzssL1SAugmentations::dynamicCast(CommandBasePtr ptr)
@@ -85667,7 +86425,7 @@ namespace Sdx
 
     GetQzssL1SAugmentationsResultPtr GetQzssL1SAugmentationsResult::create(CommandBasePtr relatedCommand, const std::vector<std::string>& ids)
     {
-      return GetQzssL1SAugmentationsResultPtr(new GetQzssL1SAugmentationsResult(relatedCommand, ids));
+      return std::make_shared<GetQzssL1SAugmentationsResult>(relatedCommand, ids);
     }
 
     GetQzssL1SAugmentationsResultPtr GetQzssL1SAugmentationsResult::dynamicCast(CommandBasePtr ptr)
@@ -85731,7 +86489,7 @@ namespace Sdx
 
     SetWavefrontJamCalibrationStatePtr SetWavefrontJamCalibrationState::create(bool state)
     {
-      return SetWavefrontJamCalibrationStatePtr(new SetWavefrontJamCalibrationState(state));
+      return std::make_shared<SetWavefrontJamCalibrationState>(state);
     }
 
     SetWavefrontJamCalibrationStatePtr SetWavefrontJamCalibrationState::dynamicCast(CommandBasePtr ptr)
@@ -85804,7 +86562,7 @@ namespace Sdx
 
     AddDataSetPtr AddDataSet::create(const std::string& system, const std::string& path, const Sdx::optional<int>& rollover, const Sdx::optional<std::string>& dataSetName)
     {
-      return AddDataSetPtr(new AddDataSet(system, path, rollover, dataSetName));
+      return std::make_shared<AddDataSet>(system, path, rollover, dataSetName);
     }
 
     AddDataSetPtr AddDataSet::dynamicCast(CommandBasePtr ptr)
@@ -85915,7 +86673,7 @@ namespace Sdx
 
     SetDataSetAssignationPtr SetDataSetAssignation::create(const std::string& system, const std::string& dataSetType, const std::string& dataSetName)
     {
-      return SetDataSetAssignationPtr(new SetDataSetAssignation(system, dataSetType, dataSetName));
+      return std::make_shared<SetDataSetAssignation>(system, dataSetType, dataSetName);
     }
 
     SetDataSetAssignationPtr SetDataSetAssignation::dynamicCast(CommandBasePtr ptr)
@@ -86012,7 +86770,7 @@ namespace Sdx
 
     GetDataSetAssignationPtr GetDataSetAssignation::create(const std::string& system, const std::string& dataSetType)
     {
-      return GetDataSetAssignationPtr(new GetDataSetAssignation(system, dataSetType));
+      return std::make_shared<GetDataSetAssignation>(system, dataSetType);
     }
 
     GetDataSetAssignationPtr GetDataSetAssignation::dynamicCast(CommandBasePtr ptr)
@@ -86097,7 +86855,7 @@ namespace Sdx
 
     GetDataSetAssignationResultPtr GetDataSetAssignationResult::create(CommandBasePtr relatedCommand, const std::string& system, const std::string& dataSetType, const std::string& dataSetName)
     {
-      return GetDataSetAssignationResultPtr(new GetDataSetAssignationResult(relatedCommand, system, dataSetType, dataSetName));
+      return std::make_shared<GetDataSetAssignationResult>(relatedCommand, system, dataSetType, dataSetName);
     }
 
     GetDataSetAssignationResultPtr GetDataSetAssignationResult::dynamicCast(CommandBasePtr ptr)
@@ -86189,7 +86947,7 @@ namespace Sdx
 
     RenameDataSetPtr RenameDataSet::create(const std::string& system, const std::string& dataSetName, const std::string& newDataSetName)
     {
-      return RenameDataSetPtr(new RenameDataSet(system, dataSetName, newDataSetName));
+      return std::make_shared<RenameDataSet>(system, dataSetName, newDataSetName);
     }
 
     RenameDataSetPtr RenameDataSet::dynamicCast(CommandBasePtr ptr)
@@ -86286,7 +87044,7 @@ namespace Sdx
 
     DeleteDataSetPtr DeleteDataSet::create(const std::string& system, const std::string& dataSetName)
     {
-      return DeleteDataSetPtr(new DeleteDataSet(system, dataSetName));
+      return std::make_shared<DeleteDataSet>(system, dataSetName);
     }
 
     DeleteDataSetPtr DeleteDataSet::dynamicCast(CommandBasePtr ptr)
@@ -86370,7 +87128,7 @@ namespace Sdx
 
     SetActiveDataSetPtr SetActiveDataSet::create(const std::string& system, const std::string& dataSetName)
     {
-      return SetActiveDataSetPtr(new SetActiveDataSet(system, dataSetName));
+      return std::make_shared<SetActiveDataSet>(system, dataSetName);
     }
 
     SetActiveDataSetPtr SetActiveDataSet::dynamicCast(CommandBasePtr ptr)
@@ -86453,7 +87211,7 @@ namespace Sdx
 
     GetActiveDataSetPtr GetActiveDataSet::create(const std::string& system)
     {
-      return GetActiveDataSetPtr(new GetActiveDataSet(system));
+      return std::make_shared<GetActiveDataSet>(system);
     }
 
     GetActiveDataSetPtr GetActiveDataSet::dynamicCast(CommandBasePtr ptr)
@@ -86524,7 +87282,7 @@ namespace Sdx
 
     GetActiveDataSetResultPtr GetActiveDataSetResult::create(CommandBasePtr relatedCommand, const std::string& system, const std::string& dataSetName)
     {
-      return GetActiveDataSetResultPtr(new GetActiveDataSetResult(relatedCommand, system, dataSetName));
+      return std::make_shared<GetActiveDataSetResult>(relatedCommand, system, dataSetName);
     }
 
     GetActiveDataSetResultPtr GetActiveDataSetResult::dynamicCast(CommandBasePtr ptr)
@@ -86603,7 +87361,7 @@ namespace Sdx
 
     DuplicateDataSetPtr DuplicateDataSet::create(const std::string& system, const std::string& dataSetName, const Sdx::optional<std::string>& newDataSetName)
     {
-      return DuplicateDataSetPtr(new DuplicateDataSet(system, dataSetName, newDataSetName));
+      return std::make_shared<DuplicateDataSet>(system, dataSetName, newDataSetName);
     }
 
     DuplicateDataSetPtr DuplicateDataSet::dynamicCast(CommandBasePtr ptr)
@@ -86699,7 +87457,7 @@ namespace Sdx
 
     GetElevationAzimuthForEachSVPtr GetElevationAzimuthForEachSV::create(const std::string& system)
     {
-      return GetElevationAzimuthForEachSVPtr(new GetElevationAzimuthForEachSV(system));
+      return std::make_shared<GetElevationAzimuthForEachSV>(system);
     }
 
     GetElevationAzimuthForEachSVPtr GetElevationAzimuthForEachSV::dynamicCast(CommandBasePtr ptr)
@@ -86770,7 +87528,7 @@ namespace Sdx
 
     GetElevationAzimuthForEachSVResultPtr GetElevationAzimuthForEachSVResult::create(CommandBasePtr relatedCommand, const std::string& system, const std::vector<Sdx::optional<Sdx::ElevationAzimuth>>& elevationAzimuths)
     {
-      return GetElevationAzimuthForEachSVResultPtr(new GetElevationAzimuthForEachSVResult(relatedCommand, system, elevationAzimuths));
+      return std::make_shared<GetElevationAzimuthForEachSVResult>(relatedCommand, system, elevationAzimuths);
     }
 
     GetElevationAzimuthForEachSVResultPtr GetElevationAzimuthForEachSVResult::dynamicCast(CommandBasePtr ptr)
@@ -86848,7 +87606,7 @@ namespace Sdx
 
     GetElevationAzimuthForSVPtr GetElevationAzimuthForSV::create(const std::string& system, int svId)
     {
-      return GetElevationAzimuthForSVPtr(new GetElevationAzimuthForSV(system, svId));
+      return std::make_shared<GetElevationAzimuthForSV>(system, svId);
     }
 
     GetElevationAzimuthForSVPtr GetElevationAzimuthForSV::dynamicCast(CommandBasePtr ptr)
@@ -86933,7 +87691,7 @@ namespace Sdx
 
     GetElevationAzimuthForSVResultPtr GetElevationAzimuthForSVResult::create(CommandBasePtr relatedCommand, const std::string& system, int svId, const Sdx::optional<Sdx::ElevationAzimuth>& elevationAzimuth)
     {
-      return GetElevationAzimuthForSVResultPtr(new GetElevationAzimuthForSVResult(relatedCommand, system, svId, elevationAzimuth));
+      return std::make_shared<GetElevationAzimuthForSVResult>(relatedCommand, system, svId, elevationAzimuth);
     }
 
     GetElevationAzimuthForSVResultPtr GetElevationAzimuthForSVResult::dynamicCast(CommandBasePtr ptr)
@@ -86995,6 +87753,820 @@ namespace Sdx
 
 
 ///
+/// Definition of SetSbasServiceMessageRegionGroup
+///
+#include "gen/SetSbasServiceMessageRegionGroup.h"
+
+namespace Sdx
+{
+  namespace Cmd
+  {
+    const char* const SetSbasServiceMessageRegionGroup::CmdName = "SetSbasServiceMessageRegionGroup";
+    const char* const SetSbasServiceMessageRegionGroup::Documentation = "Set (or Modify) a SBAS service message region group.";
+
+    REGISTER_COMMAND_FACTORY(SetSbasServiceMessageRegionGroup);
+
+
+    SetSbasServiceMessageRegionGroup::SetSbasServiceMessageRegionGroup()
+      : CommandBase(CmdName)
+    {}
+
+    SetSbasServiceMessageRegionGroup::SetSbasServiceMessageRegionGroup(const std::string& serviceProvider, int deltaUdrei, int priorityCode, const std::vector<Sdx::SbasServiceMessageRegion>& regions, const std::string& id)
+      : CommandBase(CmdName)
+    {
+
+      setServiceProvider(serviceProvider);
+      setDeltaUdrei(deltaUdrei);
+      setPriorityCode(priorityCode);
+      setRegions(regions);
+      setId(id);
+    }
+
+
+    SetSbasServiceMessageRegionGroupPtr SetSbasServiceMessageRegionGroup::create(const std::string& serviceProvider, int deltaUdrei, int priorityCode, const std::vector<Sdx::SbasServiceMessageRegion>& regions, const std::string& id)
+    {
+      return std::make_shared<SetSbasServiceMessageRegionGroup>(serviceProvider, deltaUdrei, priorityCode, regions, id);
+    }
+
+    SetSbasServiceMessageRegionGroupPtr SetSbasServiceMessageRegionGroup::dynamicCast(CommandBasePtr ptr)
+    {
+      return std::dynamic_pointer_cast<SetSbasServiceMessageRegionGroup>(ptr);
+    }
+
+    bool SetSbasServiceMessageRegionGroup::isValid() const
+    {
+      
+        return m_values.IsObject()
+          && parse_json<std::string>::is_valid(m_values["ServiceProvider"])
+          && parse_json<int>::is_valid(m_values["DeltaUdrei"])
+          && parse_json<int>::is_valid(m_values["PriorityCode"])
+          && parse_json<std::vector<Sdx::SbasServiceMessageRegion>>::is_valid(m_values["Regions"])
+          && parse_json<std::string>::is_valid(m_values["Id"])
+        ;
+
+    }
+
+    std::string SetSbasServiceMessageRegionGroup::documentation() const { return Documentation; }
+
+
+    int SetSbasServiceMessageRegionGroup::executePermission() const
+    {
+      return EXECUTE_IF_IDLE;
+    }
+
+
+    std::string SetSbasServiceMessageRegionGroup::serviceProvider() const
+    {
+      return parse_json<std::string>::parse(m_values["ServiceProvider"]);
+    }
+
+    void SetSbasServiceMessageRegionGroup::setServiceProvider(const std::string& serviceProvider)
+    {
+      m_values.AddMember("ServiceProvider", parse_json<std::string>::format(serviceProvider, m_values.GetAllocator()), m_values.GetAllocator());
+    }
+
+
+
+    int SetSbasServiceMessageRegionGroup::deltaUdrei() const
+    {
+      return parse_json<int>::parse(m_values["DeltaUdrei"]);
+    }
+
+    void SetSbasServiceMessageRegionGroup::setDeltaUdrei(int deltaUdrei)
+    {
+      m_values.AddMember("DeltaUdrei", parse_json<int>::format(deltaUdrei, m_values.GetAllocator()), m_values.GetAllocator());
+    }
+
+
+
+    int SetSbasServiceMessageRegionGroup::priorityCode() const
+    {
+      return parse_json<int>::parse(m_values["PriorityCode"]);
+    }
+
+    void SetSbasServiceMessageRegionGroup::setPriorityCode(int priorityCode)
+    {
+      m_values.AddMember("PriorityCode", parse_json<int>::format(priorityCode, m_values.GetAllocator()), m_values.GetAllocator());
+    }
+
+
+
+    std::vector<Sdx::SbasServiceMessageRegion> SetSbasServiceMessageRegionGroup::regions() const
+    {
+      return parse_json<std::vector<Sdx::SbasServiceMessageRegion>>::parse(m_values["Regions"]);
+    }
+
+    void SetSbasServiceMessageRegionGroup::setRegions(const std::vector<Sdx::SbasServiceMessageRegion>& regions)
+    {
+      m_values.AddMember("Regions", parse_json<std::vector<Sdx::SbasServiceMessageRegion>>::format(regions, m_values.GetAllocator()), m_values.GetAllocator());
+    }
+
+
+
+    std::string SetSbasServiceMessageRegionGroup::id() const
+    {
+      return parse_json<std::string>::parse(m_values["Id"]);
+    }
+
+    void SetSbasServiceMessageRegionGroup::setId(const std::string& id)
+    {
+      m_values.AddMember("Id", parse_json<std::string>::format(id, m_values.GetAllocator()), m_values.GetAllocator());
+    }
+
+
+  }
+}
+
+
+///
+/// Definition of GetSbasServiceMessageRegionGroup
+///
+#include "gen/GetSbasServiceMessageRegionGroup.h"
+
+namespace Sdx
+{
+  namespace Cmd
+  {
+    const char* const GetSbasServiceMessageRegionGroup::CmdName = "GetSbasServiceMessageRegionGroup";
+    const char* const GetSbasServiceMessageRegionGroup::Documentation = "Get infos about the SBAS service message region group at this index.";
+
+    REGISTER_COMMAND_FACTORY(GetSbasServiceMessageRegionGroup);
+
+
+    GetSbasServiceMessageRegionGroup::GetSbasServiceMessageRegionGroup()
+      : CommandBase(CmdName)
+    {}
+
+    GetSbasServiceMessageRegionGroup::GetSbasServiceMessageRegionGroup(const std::string& serviceProvider, const std::string& id)
+      : CommandBase(CmdName)
+    {
+
+      setServiceProvider(serviceProvider);
+      setId(id);
+    }
+
+
+    GetSbasServiceMessageRegionGroupPtr GetSbasServiceMessageRegionGroup::create(const std::string& serviceProvider, const std::string& id)
+    {
+      return std::make_shared<GetSbasServiceMessageRegionGroup>(serviceProvider, id);
+    }
+
+    GetSbasServiceMessageRegionGroupPtr GetSbasServiceMessageRegionGroup::dynamicCast(CommandBasePtr ptr)
+    {
+      return std::dynamic_pointer_cast<GetSbasServiceMessageRegionGroup>(ptr);
+    }
+
+    bool GetSbasServiceMessageRegionGroup::isValid() const
+    {
+      
+        return m_values.IsObject()
+          && parse_json<std::string>::is_valid(m_values["ServiceProvider"])
+          && parse_json<std::string>::is_valid(m_values["Id"])
+        ;
+
+    }
+
+    std::string GetSbasServiceMessageRegionGroup::documentation() const { return Documentation; }
+
+
+    int GetSbasServiceMessageRegionGroup::executePermission() const
+    {
+      return EXECUTE_IF_IDLE;
+    }
+
+
+    std::string GetSbasServiceMessageRegionGroup::serviceProvider() const
+    {
+      return parse_json<std::string>::parse(m_values["ServiceProvider"]);
+    }
+
+    void GetSbasServiceMessageRegionGroup::setServiceProvider(const std::string& serviceProvider)
+    {
+      m_values.AddMember("ServiceProvider", parse_json<std::string>::format(serviceProvider, m_values.GetAllocator()), m_values.GetAllocator());
+    }
+
+
+
+    std::string GetSbasServiceMessageRegionGroup::id() const
+    {
+      return parse_json<std::string>::parse(m_values["Id"]);
+    }
+
+    void GetSbasServiceMessageRegionGroup::setId(const std::string& id)
+    {
+      m_values.AddMember("Id", parse_json<std::string>::format(id, m_values.GetAllocator()), m_values.GetAllocator());
+    }
+
+
+  }
+}
+
+
+///
+/// Definition of GetSbasServiceMessageRegionGroupResult
+///
+#include "gen/GetSbasServiceMessageRegionGroupResult.h"
+
+namespace Sdx
+{
+  namespace Cmd
+  {
+    const char* const GetSbasServiceMessageRegionGroupResult::CmdName = "GetSbasServiceMessageRegionGroupResult";
+    const char* const GetSbasServiceMessageRegionGroupResult::Documentation = "Result of GetSbasServiceMessageRegionGroup.";
+
+    REGISTER_COMMAND_RESULT_FACTORY(GetSbasServiceMessageRegionGroupResult);
+
+
+    GetSbasServiceMessageRegionGroupResult::GetSbasServiceMessageRegionGroupResult()
+      : CommandResult(CmdName)
+    {}
+
+    GetSbasServiceMessageRegionGroupResult::GetSbasServiceMessageRegionGroupResult(CommandBasePtr relatedCommand, const std::string& serviceProvider, int deltaUdrei, int priorityCode, const std::vector<Sdx::SbasServiceMessageRegion>& regions, const std::string& id)
+      : CommandResult(CmdName, relatedCommand)
+    {
+
+      setServiceProvider(serviceProvider);
+      setDeltaUdrei(deltaUdrei);
+      setPriorityCode(priorityCode);
+      setRegions(regions);
+      setId(id);
+    }
+
+
+    GetSbasServiceMessageRegionGroupResultPtr GetSbasServiceMessageRegionGroupResult::create(CommandBasePtr relatedCommand, const std::string& serviceProvider, int deltaUdrei, int priorityCode, const std::vector<Sdx::SbasServiceMessageRegion>& regions, const std::string& id)
+    {
+      return std::make_shared<GetSbasServiceMessageRegionGroupResult>(relatedCommand, serviceProvider, deltaUdrei, priorityCode, regions, id);
+    }
+
+    GetSbasServiceMessageRegionGroupResultPtr GetSbasServiceMessageRegionGroupResult::dynamicCast(CommandBasePtr ptr)
+    {
+      return std::dynamic_pointer_cast<GetSbasServiceMessageRegionGroupResult>(ptr);
+    }
+
+    bool GetSbasServiceMessageRegionGroupResult::isValid() const
+    {
+      
+        return m_values.IsObject()
+          && parse_json<std::string>::is_valid(m_values["ServiceProvider"])
+          && parse_json<int>::is_valid(m_values["DeltaUdrei"])
+          && parse_json<int>::is_valid(m_values["PriorityCode"])
+          && parse_json<std::vector<Sdx::SbasServiceMessageRegion>>::is_valid(m_values["Regions"])
+          && parse_json<std::string>::is_valid(m_values["Id"])
+        ;
+
+    }
+
+    std::string GetSbasServiceMessageRegionGroupResult::documentation() const { return Documentation; }
+
+
+    std::string GetSbasServiceMessageRegionGroupResult::serviceProvider() const
+    {
+      return parse_json<std::string>::parse(m_values["ServiceProvider"]);
+    }
+
+    void GetSbasServiceMessageRegionGroupResult::setServiceProvider(const std::string& serviceProvider)
+    {
+      m_values.AddMember("ServiceProvider", parse_json<std::string>::format(serviceProvider, m_values.GetAllocator()), m_values.GetAllocator());
+    }
+
+
+
+    int GetSbasServiceMessageRegionGroupResult::deltaUdrei() const
+    {
+      return parse_json<int>::parse(m_values["DeltaUdrei"]);
+    }
+
+    void GetSbasServiceMessageRegionGroupResult::setDeltaUdrei(int deltaUdrei)
+    {
+      m_values.AddMember("DeltaUdrei", parse_json<int>::format(deltaUdrei, m_values.GetAllocator()), m_values.GetAllocator());
+    }
+
+
+
+    int GetSbasServiceMessageRegionGroupResult::priorityCode() const
+    {
+      return parse_json<int>::parse(m_values["PriorityCode"]);
+    }
+
+    void GetSbasServiceMessageRegionGroupResult::setPriorityCode(int priorityCode)
+    {
+      m_values.AddMember("PriorityCode", parse_json<int>::format(priorityCode, m_values.GetAllocator()), m_values.GetAllocator());
+    }
+
+
+
+    std::vector<Sdx::SbasServiceMessageRegion> GetSbasServiceMessageRegionGroupResult::regions() const
+    {
+      return parse_json<std::vector<Sdx::SbasServiceMessageRegion>>::parse(m_values["Regions"]);
+    }
+
+    void GetSbasServiceMessageRegionGroupResult::setRegions(const std::vector<Sdx::SbasServiceMessageRegion>& regions)
+    {
+      m_values.AddMember("Regions", parse_json<std::vector<Sdx::SbasServiceMessageRegion>>::format(regions, m_values.GetAllocator()), m_values.GetAllocator());
+    }
+
+
+
+    std::string GetSbasServiceMessageRegionGroupResult::id() const
+    {
+      return parse_json<std::string>::parse(m_values["Id"]);
+    }
+
+    void GetSbasServiceMessageRegionGroupResult::setId(const std::string& id)
+    {
+      m_values.AddMember("Id", parse_json<std::string>::format(id, m_values.GetAllocator()), m_values.GetAllocator());
+    }
+
+
+  }
+}
+
+
+///
+/// Definition of SetSbasDeltaUdreiOutsideOfRegions
+///
+#include "gen/SetSbasDeltaUdreiOutsideOfRegions.h"
+
+namespace Sdx
+{
+  namespace Cmd
+  {
+    const char* const SetSbasDeltaUdreiOutsideOfRegions::CmdName = "SetSbasDeltaUdreiOutsideOfRegions";
+    const char* const SetSbasDeltaUdreiOutsideOfRegions::Documentation = "Set SBAS delta UDREI outside all the defined regions for this service provider.";
+
+    REGISTER_COMMAND_FACTORY(SetSbasDeltaUdreiOutsideOfRegions);
+
+
+    SetSbasDeltaUdreiOutsideOfRegions::SetSbasDeltaUdreiOutsideOfRegions()
+      : CommandBase(CmdName)
+    {}
+
+    SetSbasDeltaUdreiOutsideOfRegions::SetSbasDeltaUdreiOutsideOfRegions(const std::string& serviceProvider, int deltaUdrei)
+      : CommandBase(CmdName)
+    {
+
+      setServiceProvider(serviceProvider);
+      setDeltaUdrei(deltaUdrei);
+    }
+
+
+    SetSbasDeltaUdreiOutsideOfRegionsPtr SetSbasDeltaUdreiOutsideOfRegions::create(const std::string& serviceProvider, int deltaUdrei)
+    {
+      return std::make_shared<SetSbasDeltaUdreiOutsideOfRegions>(serviceProvider, deltaUdrei);
+    }
+
+    SetSbasDeltaUdreiOutsideOfRegionsPtr SetSbasDeltaUdreiOutsideOfRegions::dynamicCast(CommandBasePtr ptr)
+    {
+      return std::dynamic_pointer_cast<SetSbasDeltaUdreiOutsideOfRegions>(ptr);
+    }
+
+    bool SetSbasDeltaUdreiOutsideOfRegions::isValid() const
+    {
+      
+        return m_values.IsObject()
+          && parse_json<std::string>::is_valid(m_values["ServiceProvider"])
+          && parse_json<int>::is_valid(m_values["DeltaUdrei"])
+        ;
+
+    }
+
+    std::string SetSbasDeltaUdreiOutsideOfRegions::documentation() const { return Documentation; }
+
+
+    int SetSbasDeltaUdreiOutsideOfRegions::executePermission() const
+    {
+      return EXECUTE_IF_IDLE;
+    }
+
+
+    std::string SetSbasDeltaUdreiOutsideOfRegions::serviceProvider() const
+    {
+      return parse_json<std::string>::parse(m_values["ServiceProvider"]);
+    }
+
+    void SetSbasDeltaUdreiOutsideOfRegions::setServiceProvider(const std::string& serviceProvider)
+    {
+      m_values.AddMember("ServiceProvider", parse_json<std::string>::format(serviceProvider, m_values.GetAllocator()), m_values.GetAllocator());
+    }
+
+
+
+    int SetSbasDeltaUdreiOutsideOfRegions::deltaUdrei() const
+    {
+      return parse_json<int>::parse(m_values["DeltaUdrei"]);
+    }
+
+    void SetSbasDeltaUdreiOutsideOfRegions::setDeltaUdrei(int deltaUdrei)
+    {
+      m_values.AddMember("DeltaUdrei", parse_json<int>::format(deltaUdrei, m_values.GetAllocator()), m_values.GetAllocator());
+    }
+
+
+  }
+}
+
+
+///
+/// Definition of GetSbasDeltaUdreiOutsideOfRegions
+///
+#include "gen/GetSbasDeltaUdreiOutsideOfRegions.h"
+
+namespace Sdx
+{
+  namespace Cmd
+  {
+    const char* const GetSbasDeltaUdreiOutsideOfRegions::CmdName = "GetSbasDeltaUdreiOutsideOfRegions";
+    const char* const GetSbasDeltaUdreiOutsideOfRegions::Documentation = "Get SBAS delta UDREI outside all the defined regions for this service provider.";
+
+    REGISTER_COMMAND_FACTORY(GetSbasDeltaUdreiOutsideOfRegions);
+
+
+    GetSbasDeltaUdreiOutsideOfRegions::GetSbasDeltaUdreiOutsideOfRegions()
+      : CommandBase(CmdName)
+    {}
+
+    GetSbasDeltaUdreiOutsideOfRegions::GetSbasDeltaUdreiOutsideOfRegions(const std::string& serviceProvider)
+      : CommandBase(CmdName)
+    {
+
+      setServiceProvider(serviceProvider);
+    }
+
+
+    GetSbasDeltaUdreiOutsideOfRegionsPtr GetSbasDeltaUdreiOutsideOfRegions::create(const std::string& serviceProvider)
+    {
+      return std::make_shared<GetSbasDeltaUdreiOutsideOfRegions>(serviceProvider);
+    }
+
+    GetSbasDeltaUdreiOutsideOfRegionsPtr GetSbasDeltaUdreiOutsideOfRegions::dynamicCast(CommandBasePtr ptr)
+    {
+      return std::dynamic_pointer_cast<GetSbasDeltaUdreiOutsideOfRegions>(ptr);
+    }
+
+    bool GetSbasDeltaUdreiOutsideOfRegions::isValid() const
+    {
+      
+        return m_values.IsObject()
+          && parse_json<std::string>::is_valid(m_values["ServiceProvider"])
+        ;
+
+    }
+
+    std::string GetSbasDeltaUdreiOutsideOfRegions::documentation() const { return Documentation; }
+
+
+    int GetSbasDeltaUdreiOutsideOfRegions::executePermission() const
+    {
+      return EXECUTE_IF_IDLE;
+    }
+
+
+    std::string GetSbasDeltaUdreiOutsideOfRegions::serviceProvider() const
+    {
+      return parse_json<std::string>::parse(m_values["ServiceProvider"]);
+    }
+
+    void GetSbasDeltaUdreiOutsideOfRegions::setServiceProvider(const std::string& serviceProvider)
+    {
+      m_values.AddMember("ServiceProvider", parse_json<std::string>::format(serviceProvider, m_values.GetAllocator()), m_values.GetAllocator());
+    }
+
+
+  }
+}
+
+
+///
+/// Definition of GetSbasDeltaUdreiOutsideOfRegionsResult
+///
+#include "gen/GetSbasDeltaUdreiOutsideOfRegionsResult.h"
+
+namespace Sdx
+{
+  namespace Cmd
+  {
+    const char* const GetSbasDeltaUdreiOutsideOfRegionsResult::CmdName = "GetSbasDeltaUdreiOutsideOfRegionsResult";
+    const char* const GetSbasDeltaUdreiOutsideOfRegionsResult::Documentation = "Result of GetSbasDeltaUdreiOutsideOfRegions.";
+
+    REGISTER_COMMAND_RESULT_FACTORY(GetSbasDeltaUdreiOutsideOfRegionsResult);
+
+
+    GetSbasDeltaUdreiOutsideOfRegionsResult::GetSbasDeltaUdreiOutsideOfRegionsResult()
+      : CommandResult(CmdName)
+    {}
+
+    GetSbasDeltaUdreiOutsideOfRegionsResult::GetSbasDeltaUdreiOutsideOfRegionsResult(CommandBasePtr relatedCommand, const std::string& serviceProvider, int deltaUdrei)
+      : CommandResult(CmdName, relatedCommand)
+    {
+
+      setServiceProvider(serviceProvider);
+      setDeltaUdrei(deltaUdrei);
+    }
+
+
+    GetSbasDeltaUdreiOutsideOfRegionsResultPtr GetSbasDeltaUdreiOutsideOfRegionsResult::create(CommandBasePtr relatedCommand, const std::string& serviceProvider, int deltaUdrei)
+    {
+      return std::make_shared<GetSbasDeltaUdreiOutsideOfRegionsResult>(relatedCommand, serviceProvider, deltaUdrei);
+    }
+
+    GetSbasDeltaUdreiOutsideOfRegionsResultPtr GetSbasDeltaUdreiOutsideOfRegionsResult::dynamicCast(CommandBasePtr ptr)
+    {
+      return std::dynamic_pointer_cast<GetSbasDeltaUdreiOutsideOfRegionsResult>(ptr);
+    }
+
+    bool GetSbasDeltaUdreiOutsideOfRegionsResult::isValid() const
+    {
+      
+        return m_values.IsObject()
+          && parse_json<std::string>::is_valid(m_values["ServiceProvider"])
+          && parse_json<int>::is_valid(m_values["DeltaUdrei"])
+        ;
+
+    }
+
+    std::string GetSbasDeltaUdreiOutsideOfRegionsResult::documentation() const { return Documentation; }
+
+
+    std::string GetSbasDeltaUdreiOutsideOfRegionsResult::serviceProvider() const
+    {
+      return parse_json<std::string>::parse(m_values["ServiceProvider"]);
+    }
+
+    void GetSbasDeltaUdreiOutsideOfRegionsResult::setServiceProvider(const std::string& serviceProvider)
+    {
+      m_values.AddMember("ServiceProvider", parse_json<std::string>::format(serviceProvider, m_values.GetAllocator()), m_values.GetAllocator());
+    }
+
+
+
+    int GetSbasDeltaUdreiOutsideOfRegionsResult::deltaUdrei() const
+    {
+      return parse_json<int>::parse(m_values["DeltaUdrei"]);
+    }
+
+    void GetSbasDeltaUdreiOutsideOfRegionsResult::setDeltaUdrei(int deltaUdrei)
+    {
+      m_values.AddMember("DeltaUdrei", parse_json<int>::format(deltaUdrei, m_values.GetAllocator()), m_values.GetAllocator());
+    }
+
+
+  }
+}
+
+
+///
+/// Definition of RemoveSbasServiceMessageRegionGroup
+///
+#include "gen/RemoveSbasServiceMessageRegionGroup.h"
+
+namespace Sdx
+{
+  namespace Cmd
+  {
+    const char* const RemoveSbasServiceMessageRegionGroup::CmdName = "RemoveSbasServiceMessageRegionGroup";
+    const char* const RemoveSbasServiceMessageRegionGroup::Documentation = "Removes a SBAS service message region group for the service provider.";
+
+    REGISTER_COMMAND_FACTORY(RemoveSbasServiceMessageRegionGroup);
+
+
+    RemoveSbasServiceMessageRegionGroup::RemoveSbasServiceMessageRegionGroup()
+      : CommandBase(CmdName)
+    {}
+
+    RemoveSbasServiceMessageRegionGroup::RemoveSbasServiceMessageRegionGroup(const std::string& serviceProvider, const std::string& id)
+      : CommandBase(CmdName)
+    {
+
+      setServiceProvider(serviceProvider);
+      setId(id);
+    }
+
+
+    RemoveSbasServiceMessageRegionGroupPtr RemoveSbasServiceMessageRegionGroup::create(const std::string& serviceProvider, const std::string& id)
+    {
+      return std::make_shared<RemoveSbasServiceMessageRegionGroup>(serviceProvider, id);
+    }
+
+    RemoveSbasServiceMessageRegionGroupPtr RemoveSbasServiceMessageRegionGroup::dynamicCast(CommandBasePtr ptr)
+    {
+      return std::dynamic_pointer_cast<RemoveSbasServiceMessageRegionGroup>(ptr);
+    }
+
+    bool RemoveSbasServiceMessageRegionGroup::isValid() const
+    {
+      
+        return m_values.IsObject()
+          && parse_json<std::string>::is_valid(m_values["ServiceProvider"])
+          && parse_json<std::string>::is_valid(m_values["Id"])
+        ;
+
+    }
+
+    std::string RemoveSbasServiceMessageRegionGroup::documentation() const { return Documentation; }
+
+
+    int RemoveSbasServiceMessageRegionGroup::executePermission() const
+    {
+      return EXECUTE_IF_IDLE;
+    }
+
+
+    std::string RemoveSbasServiceMessageRegionGroup::serviceProvider() const
+    {
+      return parse_json<std::string>::parse(m_values["ServiceProvider"]);
+    }
+
+    void RemoveSbasServiceMessageRegionGroup::setServiceProvider(const std::string& serviceProvider)
+    {
+      m_values.AddMember("ServiceProvider", parse_json<std::string>::format(serviceProvider, m_values.GetAllocator()), m_values.GetAllocator());
+    }
+
+
+
+    std::string RemoveSbasServiceMessageRegionGroup::id() const
+    {
+      return parse_json<std::string>::parse(m_values["Id"]);
+    }
+
+    void RemoveSbasServiceMessageRegionGroup::setId(const std::string& id)
+    {
+      m_values.AddMember("Id", parse_json<std::string>::format(id, m_values.GetAllocator()), m_values.GetAllocator());
+    }
+
+
+  }
+}
+
+
+///
+/// Definition of ClearAllSbasServiceMessageRegionGroup
+///
+#include "gen/ClearAllSbasServiceMessageRegionGroup.h"
+
+namespace Sdx
+{
+  namespace Cmd
+  {
+    const char* const ClearAllSbasServiceMessageRegionGroup::CmdName = "ClearAllSbasServiceMessageRegionGroup";
+    const char* const ClearAllSbasServiceMessageRegionGroup::Documentation = "Clears all SBAS service message region group for this service provider.";
+
+    REGISTER_COMMAND_FACTORY(ClearAllSbasServiceMessageRegionGroup);
+
+
+    ClearAllSbasServiceMessageRegionGroup::ClearAllSbasServiceMessageRegionGroup()
+      : CommandBase(CmdName)
+    {}
+
+    ClearAllSbasServiceMessageRegionGroup::ClearAllSbasServiceMessageRegionGroup(const std::string& serviceProvider)
+      : CommandBase(CmdName)
+    {
+
+      setServiceProvider(serviceProvider);
+    }
+
+
+    ClearAllSbasServiceMessageRegionGroupPtr ClearAllSbasServiceMessageRegionGroup::create(const std::string& serviceProvider)
+    {
+      return std::make_shared<ClearAllSbasServiceMessageRegionGroup>(serviceProvider);
+    }
+
+    ClearAllSbasServiceMessageRegionGroupPtr ClearAllSbasServiceMessageRegionGroup::dynamicCast(CommandBasePtr ptr)
+    {
+      return std::dynamic_pointer_cast<ClearAllSbasServiceMessageRegionGroup>(ptr);
+    }
+
+    bool ClearAllSbasServiceMessageRegionGroup::isValid() const
+    {
+      
+        return m_values.IsObject()
+          && parse_json<std::string>::is_valid(m_values["ServiceProvider"])
+        ;
+
+    }
+
+    std::string ClearAllSbasServiceMessageRegionGroup::documentation() const { return Documentation; }
+
+
+    int ClearAllSbasServiceMessageRegionGroup::executePermission() const
+    {
+      return EXECUTE_IF_IDLE;
+    }
+
+
+    std::string ClearAllSbasServiceMessageRegionGroup::serviceProvider() const
+    {
+      return parse_json<std::string>::parse(m_values["ServiceProvider"]);
+    }
+
+    void ClearAllSbasServiceMessageRegionGroup::setServiceProvider(const std::string& serviceProvider)
+    {
+      m_values.AddMember("ServiceProvider", parse_json<std::string>::format(serviceProvider, m_values.GetAllocator()), m_values.GetAllocator());
+    }
+
+
+  }
+}
+
+
+///
+/// Definition of SwapSbasServiceMessageRegionGroup
+///
+#include "gen/SwapSbasServiceMessageRegionGroup.h"
+
+namespace Sdx
+{
+  namespace Cmd
+  {
+    const char* const SwapSbasServiceMessageRegionGroup::CmdName = "SwapSbasServiceMessageRegionGroup";
+    const char* const SwapSbasServiceMessageRegionGroup::Documentation = "Swaps 2 SBAS service message region group.";
+
+    REGISTER_COMMAND_FACTORY(SwapSbasServiceMessageRegionGroup);
+
+
+    SwapSbasServiceMessageRegionGroup::SwapSbasServiceMessageRegionGroup()
+      : CommandBase(CmdName)
+    {}
+
+    SwapSbasServiceMessageRegionGroup::SwapSbasServiceMessageRegionGroup(const std::string& serviceProvider, const std::string& firstId, const std::string& secondId)
+      : CommandBase(CmdName)
+    {
+
+      setServiceProvider(serviceProvider);
+      setFirstId(firstId);
+      setSecondId(secondId);
+    }
+
+
+    SwapSbasServiceMessageRegionGroupPtr SwapSbasServiceMessageRegionGroup::create(const std::string& serviceProvider, const std::string& firstId, const std::string& secondId)
+    {
+      return std::make_shared<SwapSbasServiceMessageRegionGroup>(serviceProvider, firstId, secondId);
+    }
+
+    SwapSbasServiceMessageRegionGroupPtr SwapSbasServiceMessageRegionGroup::dynamicCast(CommandBasePtr ptr)
+    {
+      return std::dynamic_pointer_cast<SwapSbasServiceMessageRegionGroup>(ptr);
+    }
+
+    bool SwapSbasServiceMessageRegionGroup::isValid() const
+    {
+      
+        return m_values.IsObject()
+          && parse_json<std::string>::is_valid(m_values["ServiceProvider"])
+          && parse_json<std::string>::is_valid(m_values["FirstId"])
+          && parse_json<std::string>::is_valid(m_values["SecondId"])
+        ;
+
+    }
+
+    std::string SwapSbasServiceMessageRegionGroup::documentation() const { return Documentation; }
+
+
+    int SwapSbasServiceMessageRegionGroup::executePermission() const
+    {
+      return EXECUTE_IF_IDLE;
+    }
+
+
+    std::string SwapSbasServiceMessageRegionGroup::serviceProvider() const
+    {
+      return parse_json<std::string>::parse(m_values["ServiceProvider"]);
+    }
+
+    void SwapSbasServiceMessageRegionGroup::setServiceProvider(const std::string& serviceProvider)
+    {
+      m_values.AddMember("ServiceProvider", parse_json<std::string>::format(serviceProvider, m_values.GetAllocator()), m_values.GetAllocator());
+    }
+
+
+
+    std::string SwapSbasServiceMessageRegionGroup::firstId() const
+    {
+      return parse_json<std::string>::parse(m_values["FirstId"]);
+    }
+
+    void SwapSbasServiceMessageRegionGroup::setFirstId(const std::string& firstId)
+    {
+      m_values.AddMember("FirstId", parse_json<std::string>::format(firstId, m_values.GetAllocator()), m_values.GetAllocator());
+    }
+
+
+
+    std::string SwapSbasServiceMessageRegionGroup::secondId() const
+    {
+      return parse_json<std::string>::parse(m_values["SecondId"]);
+    }
+
+    void SwapSbasServiceMessageRegionGroup::setSecondId(const std::string& secondId)
+    {
+      m_values.AddMember("SecondId", parse_json<std::string>::format(secondId, m_values.GetAllocator()), m_values.GetAllocator());
+    }
+
+
+  }
+}
+
+
+///
 /// Definition of SetSbasHealthRanging
 ///
 #include "gen/SetSbasHealthRanging.h"
@@ -87024,7 +88596,7 @@ namespace Sdx
 
     SetSbasHealthRangingPtr SetSbasHealthRanging::create(int prn, bool health)
     {
-      return SetSbasHealthRangingPtr(new SetSbasHealthRanging(prn, health));
+      return std::make_shared<SetSbasHealthRanging>(prn, health);
     }
 
     SetSbasHealthRangingPtr SetSbasHealthRanging::dynamicCast(CommandBasePtr ptr)
@@ -87108,7 +88680,7 @@ namespace Sdx
 
     SetSbasHealthCorrectionsPtr SetSbasHealthCorrections::create(int prn, bool health)
     {
-      return SetSbasHealthCorrectionsPtr(new SetSbasHealthCorrections(prn, health));
+      return std::make_shared<SetSbasHealthCorrections>(prn, health);
     }
 
     SetSbasHealthCorrectionsPtr SetSbasHealthCorrections::dynamicCast(CommandBasePtr ptr)
@@ -87192,7 +88764,7 @@ namespace Sdx
 
     SetSbasHealthIntegrityPtr SetSbasHealthIntegrity::create(int prn, bool health)
     {
-      return SetSbasHealthIntegrityPtr(new SetSbasHealthIntegrity(prn, health));
+      return std::make_shared<SetSbasHealthIntegrity>(prn, health);
     }
 
     SetSbasHealthIntegrityPtr SetSbasHealthIntegrity::dynamicCast(CommandBasePtr ptr)
@@ -87276,7 +88848,7 @@ namespace Sdx
 
     SetSbasHealthReservedPtr SetSbasHealthReserved::create(int prn, bool health)
     {
-      return SetSbasHealthReservedPtr(new SetSbasHealthReserved(prn, health));
+      return std::make_shared<SetSbasHealthReserved>(prn, health);
     }
 
     SetSbasHealthReservedPtr SetSbasHealthReserved::dynamicCast(CommandBasePtr ptr)
@@ -87360,7 +88932,7 @@ namespace Sdx
 
     SetSbasHealthServicePtr SetSbasHealthService::create(int prn, int health)
     {
-      return SetSbasHealthServicePtr(new SetSbasHealthService(prn, health));
+      return std::make_shared<SetSbasHealthService>(prn, health);
     }
 
     SetSbasHealthServicePtr SetSbasHealthService::dynamicCast(CommandBasePtr ptr)
@@ -87407,6 +88979,192 @@ namespace Sdx
     void SetSbasHealthService::setHealth(int health)
     {
       m_values.AddMember("Health", parse_json<int>::format(health, m_values.GetAllocator()), m_values.GetAllocator());
+    }
+
+
+  }
+}
+
+
+///
+/// Definition of SetSbasUdrei
+///
+#include "gen/SetSbasUdrei.h"
+
+namespace Sdx
+{
+  namespace Cmd
+  {
+    const char* const SetSbasUdrei::CmdName = "SetSbasUdrei";
+    const char* const SetSbasUdrei::Documentation = "Please note the command SetSbasUdrei is deprecated since 22.2. You may use SetUdreiForSV.\n\nSet the global UDREI value transmitted by SBAS";
+
+    REGISTER_COMMAND_FACTORY(SetSbasUdrei);
+
+
+    SetSbasUdrei::SetSbasUdrei()
+      : CommandBase(CmdName)
+    {}
+
+    SetSbasUdrei::SetSbasUdrei(int udrei)
+      : CommandBase(CmdName)
+    {
+
+      setUdrei(udrei);
+    }
+
+
+    SetSbasUdreiPtr SetSbasUdrei::create(int udrei)
+    {
+      return std::make_shared<SetSbasUdrei>(udrei);
+    }
+
+    SetSbasUdreiPtr SetSbasUdrei::dynamicCast(CommandBasePtr ptr)
+    {
+      return std::dynamic_pointer_cast<SetSbasUdrei>(ptr);
+    }
+
+    bool SetSbasUdrei::isValid() const
+    {
+      
+        return m_values.IsObject()
+          && parse_json<int>::is_valid(m_values["Udrei"])
+        ;
+
+    }
+
+    std::string SetSbasUdrei::documentation() const { return Documentation; }
+
+
+    int SetSbasUdrei::executePermission() const
+    {
+      return EXECUTE_IF_IDLE;
+    }
+
+
+    int SetSbasUdrei::udrei() const
+    {
+      return parse_json<int>::parse(m_values["Udrei"]);
+    }
+
+    void SetSbasUdrei::setUdrei(int udrei)
+    {
+      m_values.AddMember("Udrei", parse_json<int>::format(udrei, m_values.GetAllocator()), m_values.GetAllocator());
+    }
+
+
+  }
+}
+
+
+///
+/// Definition of GetSbasUdrei
+///
+#include "gen/GetSbasUdrei.h"
+
+namespace Sdx
+{
+  namespace Cmd
+  {
+    const char* const GetSbasUdrei::CmdName = "GetSbasUdrei";
+    const char* const GetSbasUdrei::Documentation = "Please note the command GetSbasUdrei is deprecated since 22.2. You may use GetUdreiForSV.\n\nGet the global UDREI value transmitted by SBAS";
+
+    REGISTER_COMMAND_FACTORY(GetSbasUdrei);
+
+
+    GetSbasUdrei::GetSbasUdrei()
+      : CommandBase(CmdName)
+    {
+
+    }
+
+
+    GetSbasUdreiPtr GetSbasUdrei::create()
+    {
+      return std::make_shared<GetSbasUdrei>();
+    }
+
+    GetSbasUdreiPtr GetSbasUdrei::dynamicCast(CommandBasePtr ptr)
+    {
+      return std::dynamic_pointer_cast<GetSbasUdrei>(ptr);
+    }
+
+    bool GetSbasUdrei::isValid() const
+    {
+      
+        return m_values.IsObject()
+        ;
+
+    }
+
+    std::string GetSbasUdrei::documentation() const { return Documentation; }
+
+
+    int GetSbasUdrei::executePermission() const
+    {
+      return EXECUTE_IF_IDLE;
+    }
+
+  }
+}
+
+
+///
+/// Definition of GetSbasUdreiResult
+///
+#include "gen/GetSbasUdreiResult.h"
+
+namespace Sdx
+{
+  namespace Cmd
+  {
+    const char* const GetSbasUdreiResult::CmdName = "GetSbasUdreiResult";
+    const char* const GetSbasUdreiResult::Documentation = "Result of GetSbasUdrei.";
+
+    REGISTER_COMMAND_RESULT_FACTORY(GetSbasUdreiResult);
+
+
+    GetSbasUdreiResult::GetSbasUdreiResult()
+      : CommandResult(CmdName)
+    {}
+
+    GetSbasUdreiResult::GetSbasUdreiResult(CommandBasePtr relatedCommand, int udrei)
+      : CommandResult(CmdName, relatedCommand)
+    {
+
+      setUdrei(udrei);
+    }
+
+
+    GetSbasUdreiResultPtr GetSbasUdreiResult::create(CommandBasePtr relatedCommand, int udrei)
+    {
+      return std::make_shared<GetSbasUdreiResult>(relatedCommand, udrei);
+    }
+
+    GetSbasUdreiResultPtr GetSbasUdreiResult::dynamicCast(CommandBasePtr ptr)
+    {
+      return std::dynamic_pointer_cast<GetSbasUdreiResult>(ptr);
+    }
+
+    bool GetSbasUdreiResult::isValid() const
+    {
+      
+        return m_values.IsObject()
+          && parse_json<int>::is_valid(m_values["Udrei"])
+        ;
+
+    }
+
+    std::string GetSbasUdreiResult::documentation() const { return Documentation; }
+
+
+    int GetSbasUdreiResult::udrei() const
+    {
+      return parse_json<int>::parse(m_values["Udrei"]);
+    }
+
+    void GetSbasUdreiResult::setUdrei(int udrei)
+    {
+      m_values.AddMember("Udrei", parse_json<int>::format(udrei, m_values.GetAllocator()), m_values.GetAllocator());
     }
 
 

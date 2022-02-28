@@ -22,6 +22,7 @@ namespace Sdx
     /// TransmitterId string       Transmitter unique identifier.
     /// SignalId      string       BPSK unique identifier.
     /// Group         optional int Group, if not using default group.
+    /// Prn           optional int Prn code to use. If not specified, a random gode will be generated.
     ///
 
     class SetIntTxBPSK;
@@ -37,9 +38,9 @@ namespace Sdx
 
       SetIntTxBPSK();
 
-      SetIntTxBPSK(bool enabled, double centralFreq, double power, int codeRate, int codeLengthMs, const std::string& transmitterId, const std::string& signalId, const Sdx::optional<int>& group = {});
+      SetIntTxBPSK(bool enabled, double centralFreq, double power, int codeRate, int codeLengthMs, const std::string& transmitterId, const std::string& signalId, const Sdx::optional<int>& group = {}, const Sdx::optional<int>& prn = {});
   
-      static SetIntTxBPSKPtr create(bool enabled, double centralFreq, double power, int codeRate, int codeLengthMs, const std::string& transmitterId, const std::string& signalId, const Sdx::optional<int>& group = {});
+      static SetIntTxBPSKPtr create(bool enabled, double centralFreq, double power, int codeRate, int codeLengthMs, const std::string& transmitterId, const std::string& signalId, const Sdx::optional<int>& group = {}, const Sdx::optional<int>& prn = {});
       static SetIntTxBPSKPtr dynamicCast(CommandBasePtr ptr);
       virtual bool isValid() const override;
       virtual std::string documentation() const override;
@@ -85,6 +86,11 @@ namespace Sdx
       // **** group ****
       Sdx::optional<int> group() const;
       void setGroup(const Sdx::optional<int>& group);
+
+
+      // **** prn ****
+      Sdx::optional<int> prn() const;
+      void setPrn(const Sdx::optional<int>& prn);
     };
   }
 }

@@ -6,7 +6,7 @@
 
 #define REGISTER_COMMAND_RESULT_FACTORY(COMMAND_CLASS_NAME) \
 CommandResultPtr functionToCreateCommand##COMMAND_CLASS_NAME() {\
-  return CommandResultPtr(new COMMAND_CLASS_NAME); \
+  return std::make_shared<COMMAND_CLASS_NAME>(); \
 } \
 class ClassToRegisterCommand##COMMAND_CLASS_NAME { \
 public: \

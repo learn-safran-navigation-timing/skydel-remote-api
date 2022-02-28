@@ -2,6 +2,7 @@
 
 #include <memory>
 #include "command_base.h"
+#include "sdx_optional.h"
 #include <string>
 
 namespace Sdx
@@ -9,12 +10,14 @@ namespace Sdx
   namespace Cmd
   {
     ///
-    /// Set whether pseudorange errors for this constellation should be compensated in SBAS fast corrections
+    /// Set whether specific errors type for this constellation should be compensated in SBAS fast corrections
     ///
-    /// Name      Type   Description
-    /// --------- ------ -------------------------------
-    /// System    string "GPS" or "SBAS"
-    /// IsEnabled bool   True if corrections are enabled
+    /// Name      Type            Description
+    /// --------- --------------- ----------------------------------------------------------------------------------------------------
+    /// System    string          "GPS" or "SBAS"
+    /// IsEnabled bool            True if corrections are enabled
+    /// ErrorType optional string Comma separated error type to enable/disable. Accepted error types are "PSR offset" and "PSR error".
+    ///                           Default value is "PSR error". Getter only accepts one error type.
     ///
 
     class EnableSbasFastCorrectionsFor;
@@ -30,9 +33,9 @@ namespace Sdx
 
       EnableSbasFastCorrectionsFor();
 
-      EnableSbasFastCorrectionsFor(const std::string& system, bool isEnabled);
+      EnableSbasFastCorrectionsFor(const std::string& system, bool isEnabled, const Sdx::optional<std::string>& errorType = {});
   
-      static EnableSbasFastCorrectionsForPtr create(const std::string& system, bool isEnabled);
+      static EnableSbasFastCorrectionsForPtr create(const std::string& system, bool isEnabled, const Sdx::optional<std::string>& errorType = {});
       static EnableSbasFastCorrectionsForPtr dynamicCast(CommandBasePtr ptr);
       virtual bool isValid() const override;
       virtual std::string documentation() const override;
@@ -48,6 +51,11 @@ namespace Sdx
       // **** isEnabled ****
       bool isEnabled() const;
       void setIsEnabled(bool isEnabled);
+
+
+      // **** errorType ****
+      Sdx::optional<std::string> errorType() const;
+      void setErrorType(const Sdx::optional<std::string>& errorType);
     };
   }
 }

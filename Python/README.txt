@@ -14,14 +14,21 @@ library.
 ===============
 ===== On Linux:
 ===============
-The library is automatically installed in the system during Skydel installation 
-for the default "python" command.
-If you want to use the librairy with an alternate python version (ex: python3),
-you must manually call the setup.py script with this alternate version.
-Ex: python3 setup.py install
+To install the library, you must manually run this command each time the library
+API version changes (see Documentation.txt to identify the version):  
+
+```sh
+python3 setup.py install --record installed_files.txt  
+``` 
 
 Note: you must execute this command each time the library API version changes
 (see Documentation.txt to identify the version)
+
+When you want to clear the installed python files you just need to do:  
+
+```sh
+sudo xargs rm -rf < installed_files.txt
+``` 
 
 
 =================
