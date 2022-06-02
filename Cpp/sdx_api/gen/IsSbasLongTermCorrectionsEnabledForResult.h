@@ -12,9 +12,9 @@ namespace Sdx
     /// Result of IsSbasLongTermCorrectionsEnabledFor.
     ///
     /// Name      Type   Description
-    /// --------- ------ ------------------------------------
-    /// System    string As of today, only "GPS" is supported
-    /// IsEnabled bool   True if corrections are enabled
+    /// --------- ------ -------------------------------------
+    /// System    string As of today, only "GPS" is supported.
+    /// IsEnabled bool   True if corrections are enabled.
     ///
 
     class IsSbasLongTermCorrectionsEnabledForResult;

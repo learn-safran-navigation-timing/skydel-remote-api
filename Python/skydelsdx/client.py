@@ -41,6 +41,15 @@ class Client:
 
   def _msgId2Packet(self, msgId):
     return struct.pack('<B', msgId)
-    
+
+  def _dynamicType2Packet(self, dynamicType):
+    return struct.pack('<B', dynamicType)
+
+  def _ecef2Packet(self, triplet):
+   return struct.pack('<d', triplet.x) + struct.pack('<d', triplet.y) + struct.pack('<d', triplet.z)
+
+  def _angle2Packet(self, triplet):
+   return struct.pack('<d', triplet.yaw) + struct.pack('<d', triplet.pitch) + struct.pack('<d', triplet.roll)
+
   def _getPacketMsgId(self):
     return struct.unpack('<B', self._getPacket(1))[0]

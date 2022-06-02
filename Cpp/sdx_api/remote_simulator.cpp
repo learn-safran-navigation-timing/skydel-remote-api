@@ -300,9 +300,9 @@ bool RemoteSimulator::waitState(const std::string& state, const std::string& fai
   return false;
 }
 
-bool RemoteSimulator::hilCheck(long long elapsedTime)
+bool RemoteSimulator::hilCheck(double elapsedTime)
 {
-  if (m_checkRunningTime < 0)
+  if (m_checkRunningTime < 0.0)
     m_checkRunningTime = elapsedTime;
 
   if (elapsedTime - m_checkRunningTime >= 1000)
@@ -345,32 +345,86 @@ bool RemoteSimulator::lastVehicleInfo(VehicleInfo& vehicleInfo)
   return m_hil->recvLastVehicleInfo(vehicleInfo);
 }
 
-bool RemoteSimulator::pushEcef(long long elapsedTime, const Ecef& ecef, const std::string& name)
+bool RemoteSimulator::pushEcef(double elapsedTime, const Ecef& position, const std::string& name)
 {
   if (!m_hil)
     throw std::runtime_error("Cannot send position to simulator because you are not connected.");
 
-  m_hil->pushEcef(elapsedTime, ecef, name);
+  m_hil->pushEcef(elapsedTime, position, name);
   return hilCheck(elapsedTime);
 }
 
-bool RemoteSimulator::pushLla(long long elapsedTime, const Lla& lla, const std::string& name)
+bool RemoteSimulator::pushEcef(double elapsedTime, const Ecef& position, const Ecef& velocity, const std::string& name)
+{
+	if (!m_hil)
+		throw std::runtime_error("Cannot send position to simulator because you are not connected.");
+
+	m_hil->pushEcef(elapsedTime, position, velocity, name);
+	return hilCheck(elapsedTime);
+}
+
+bool RemoteSimulator::pushEcef(double elapsedTime, const Ecef& position, const Ecef& velocity, const Ecef& acceleration, const std::string& name)
+{
+	if (!m_hil)
+		throw std::runtime_error("Cannot send position to simulator because you are not connected.");
+
+	m_hil->pushEcef(elapsedTime, position, velocity, acceleration, name);
+	return hilCheck(elapsedTime);
+}
+
+bool RemoteSimulator::pushEcef(double elapsedTime, const Ecef& position, const Ecef& velocity, const Ecef& acceleration, const Ecef& jerk, const std::string& name)
+{
+	if (!m_hil)
+		throw std::runtime_error("Cannot send position to simulator because you are not connected.");
+
+	m_hil->pushEcef(elapsedTime, position, velocity, acceleration, jerk, name);
+	return hilCheck(elapsedTime);
+}
+
+bool RemoteSimulator::pushLla(double elapsedTime, const Lla& lla, const std::string& name)
 {
   Ecef ecef;
   lla.toEcef(ecef);
   return pushEcef(elapsedTime, ecef, name);
 }
 
-bool RemoteSimulator::pushEcefNed(long long elapsedTime, const Ecef& ecef, const Attitude& attitude, const std::string& name)
+bool RemoteSimulator::pushEcefNed(double elapsedTime, const Ecef& position, const Attitude& attitude, const std::string& name)
 {
   if (!m_hil)
     throw std::runtime_error("Cannot send position to simulator because you are not connected.");
 
-  m_hil->pushEcefNed(elapsedTime, ecef, attitude, name);
+  m_hil->pushEcefNed(elapsedTime, position, attitude, name);
   return hilCheck(elapsedTime);
 }
 
-bool RemoteSimulator::pushLlaNed(long long elapsedTime, const Lla& lla, const Attitude& attitude, const std::string& name)
+bool RemoteSimulator::pushEcefNed(double elapsedTime, const Ecef& position, const Attitude& attitude, const Ecef& velocity, const Attitude& angularVelocity, const std::string& name)
+{
+	if (!m_hil)
+		throw std::runtime_error("Cannot send position to simulator because you are not connected.");
+
+	m_hil->pushEcefNed(elapsedTime, position, attitude, velocity, angularVelocity, name);
+	return hilCheck(elapsedTime);
+}
+
+bool RemoteSimulator::pushEcefNed(double elapsedTime, const Ecef& position, const Attitude& attitude, const Ecef& velocity, const Attitude& angularVelocity, const Ecef& acceleration, const Attitude& angularAcceleration, const std::string& name)
+{
+	if (!m_hil)
+		throw std::runtime_error("Cannot send position to simulator because you are not connected.");
+
+	m_hil->pushEcefNed(elapsedTime, position, attitude, velocity, angularVelocity, acceleration, angularAcceleration, name);
+	return hilCheck(elapsedTime);
+}
+
+bool RemoteSimulator::pushEcefNed(double elapsedTime, const Ecef& position, const Attitude& attitude, const Ecef& velocity, const Attitude& angularVelocity, const Ecef& acceleration, const Attitude& angularAcceleration, const Ecef& jerk, const  Attitude& angularJerk, const std::string& name)
+{
+	if (!m_hil)
+		throw std::runtime_error("Cannot send position to simulator because you are not connected.");
+
+	m_hil->pushEcefNed(elapsedTime, position, attitude, velocity, angularVelocity, acceleration, angularAcceleration, jerk, angularJerk, name);
+	return hilCheck(elapsedTime);
+}
+
+bool RemoteSimulator::pushLlaNed(double elapsedTime, const Lla& lla, const Attitude& attitude, const std::string& name)
 {
   Ecef ecef;
   lla.toEcef(ecef);

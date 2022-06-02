@@ -9,11 +9,11 @@ namespace Sdx
   namespace Cmd
   {
     ///
-    /// Get whether ephemeris errors for this constellation should be compensated in SBAS long term corrections
+    /// Get whether ephemeris errors for this constellation should be compensated in SBAS long term corrections.
     ///
     /// Name   Type   Description
-    /// ------ ------ ------------------------------------
-    /// System string As of today, only "GPS" is supported
+    /// ------ ------ -------------------------------------
+    /// System string As of today, only "GPS" is supported.
     ///
 
     class IsSbasLongTermCorrectionsEnabledFor;

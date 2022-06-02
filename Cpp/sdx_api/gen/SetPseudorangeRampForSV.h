@@ -26,7 +26,7 @@ namespace Sdx
     /// Name          Type   Description
     /// ------------- ------ ----------------------------------------------------------------------------------
     /// System        string "GPS", "GLONASS", "Galileo", "BeiDou", "SBAS", "QZSS" or "NavIC"
-    /// SvId          int    The satellite SV ID.
+    /// SvId          int    The satellite's SV ID.
     /// Offset        double Change to satellite pseudorange in meter when ramp is at maximum. Range -1e7..+1e7
     /// StartTime     int    Elapsed time in seconds since start of simulation.
     /// HoldStartTime int    Elapsed time in seconds since start of simulation. HoldStartTime >= StartTime

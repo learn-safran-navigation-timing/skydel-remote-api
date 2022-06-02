@@ -12,9 +12,6 @@
 //    You can easily change the TARGET_TYPE to "X300", for example
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 using System;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using Sdx;
 using Sdx.Cmd;
 using System.Threading;
@@ -39,7 +36,7 @@ namespace SdxExamples
         RunExampleCreateTrack(HOST, TARGET_TYPE, X300_IP);
         RunExampleCreateTrack6dof(HOST, TARGET_TYPE, X300_IP);
         RunExampleCreateRouteCar(HOST, TARGET_TYPE, X300_IP);
-        RunExampleHilRealtime(HOST, TARGET_TYPE, X300_IP);
+        RunExampleHil(HOST, TARGET_TYPE, X300_IP);
         RunExampleElapsedTime(HOST, TARGET_TYPE, X300_IP);
         RunExampleInterferences(HOST, TARGET_TYPE, X300_IP);
         RunExampleAutomaticStop(HOST, TARGET_TYPE, X300_IP);
@@ -149,8 +146,8 @@ namespace SdxExamples
       Console.WriteLine("=== Failure handling Example ===");
 
       Console.WriteLine("==> Connecting to the simulator");
-      //RemoteSimulator sim = new RemoteSimulator(true); //Stop the script with a exception if a command fail
-      RemoteSimulator sim = new RemoteSimulator(false); //Does not stop the script with a exception if a command fail
+      //RemoteSimulator sim = new RemoteSimulator(true); // Stop the example with an exception if a command fail
+      RemoteSimulator sim = new RemoteSimulator(false); // Does not stop the example with an exception if a command fail
       sim.IsVerbose = false;
       sim.Connect(host);
 
@@ -167,7 +164,7 @@ namespace SdxExamples
       // Command Success Example:
       // Changing configuration before starting the simulation.
       CommandResult result1 = sim.Call(new ChangeModulationTargetSignals(0, 12500000, 50000000, "UpperL", "L1CA,G1", -1, false, targetId));
-      Console.WriteLine("SUCCESS MESSAGE EXAMPLE: " + result1.Message); //Will print Success
+      Console.WriteLine("SUCCESS MESSAGE EXAMPLE: " + result1.Message); // Will print Success
 
       // Command Failure Example:
       // The following command is not allowed before you start the simulation.
@@ -320,6 +317,10 @@ namespace SdxExamples
       sim.Disconnect();
     }
 
+    static double ToRadian(double degree)
+    {
+      return (Math.PI / 180) * degree;
+    }
 
     ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
     // Track creation Example
@@ -518,80 +519,221 @@ namespace SdxExamples
       sim.Disconnect();
     }
 
-    static double ToRadian(double degree)
+    static void DisplayHilExtrapolationWarnings(RemoteSimulator sim)
     {
-      return (Math.PI / 180) * degree;
-    }
+      bool isVerbose = sim.IsVerbose;
+      sim.IsVerbose = false;
 
-    static long GetCurrentTime()
-    {
-      return DateTime.Now.Ticks / TimeSpan.TicksPerMillisecond;
+      var result = (GetHilExtrapolationStateResult)sim.Call(new GetHilExtrapolationState());
+
+      if (result.State == HilExtrapolationState.NonDeterministic)
+      {
+        Console.WriteLine("Warning: HIL non deterministic extrapolation at millisecond " + result.ElapsedTime);
+      }
+      else if (result.State == HilExtrapolationState.Snap)
+      {
+        Console.WriteLine("Warning: HIL position snap at millisecond " + result.ElapsedTime);
+      }
+
+      sim.IsVerbose = isVerbose;
     }
 
     ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
     // Hardware-In-The-Loop (HIL) Example
     // This example shows:
     // 1- How to push simulated positions during the simulation
+    //
+    // There are two modes of operation with this example:
+    //
+    //   1 - You run this example on the same PC as Skydel, and haven't setup time synchronization
+    //       between the computer system time and the PPS signal driving your radio (or you run in NoneRT).
+    //       
+    //       This is the default use case (when the variable isOsTimeSyncWithPPS is false), it exists
+    //       to allow users to quickly and easily test HIL without having to set up time synchronization.
+    //       Note that if you use this mode with a radio, the time will drift between this example and
+    //       the Skydel's simulation over time.
+    //
+    //   2 - You run this example on any PC which has it's time synchronized with the radio PPS signal.
+    //       
+    //       This is the recommended use case (when the variable isOsTimeSyncWithPPS is true).
+    //       We recommend using a time server, such as the SecureSync 2400 to provide the 10Mhz
+    //       and the PPS reference to the radio. The SecureSync is also a PTP server that can 
+    //       synchronize your computer system clock with the PPS to a high degree of precision.
+    //       In this mode, there will be no time drift between the example and the Skydel's simulation.
+    //
+    // Additional note: the example doesn't change the Skydel's engine latency by default,
+    // as this is a system wide preference. To set the preference, you can uncomment the line
+    // in the example. We recommend you set it back to the default value of 200ms once you are done
+    // using this example, unless you only plan to do low latency HIL on this machine.
     ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-    static void RunExampleHilRealtime(string host, string target_type, string x300_ip)
+    static void RunExampleHil(string host, string targetType, string x300Ip)
     {
-      const long HIL_DURATION = 60000;
-      const double HIL_SPEED = 10;
+      // Change these as required
+      var trajectory = new CircleTrajectory();
+      const long SIMULATION_DURATION_MS = 60000;
+      const int SYNC_DURATION_MS = 2000;
+      const string UNIQUE_RADIO_ID = "uniqueId";
+
+      // Set to true if the computer which runs this example has it's time synchronized with the output radio PPS
+      bool isOsTimeSyncWithPPS = false;
 
       Console.WriteLine();
       Console.WriteLine("=== HIL Example ===");
 
+      if (host != "localhost" && host != "127.0.0.1" && !isOsTimeSyncWithPPS)
+      {
+        throw new Exception("Can't run this example on a different computer if the OS time isn't in sync with the radio's PPS.");
+      }
+
       Console.WriteLine("==> Connecting to the simulator");
-      RemoteSimulator sim = new RemoteSimulator();
-      sim.IsVerbose = false;
+      var sim = new RemoteSimulator { IsVerbose = false };
       sim.Connect(host);
 
-      Console.WriteLine("==> Create New Configuration, discarding current simulator settings");
-      sim.Call(new New(true));
+      Console.WriteLine("==> Checking preferences before start");
 
+      // We suggest these values as a starting point, but they will have to be modified according 
+      // to your hardware, the configuration of the simulation and your requirements.
+      // Use the performance graph as well as the HIL graph to monitor Skydel and diagnose issues.
+      // It is strongly recommended to read the user manual before you try to optimize those settings.
+      const int TIME_BETWEEN_POSITION_MS = 15;  // Send receiver position every 15 milliseconds
+      const int SKYDEL_LATENCY_MS = 40;  // How much in advance can Skydel be versus the radio time
+      const int HIL_TJOIN = 65;  // This value should be greater than SKYDEL_LATENCY_MS + TIME_BETWEEN_POSITION_MS + network latency
+
+      // Check the engine latency (Skydel preference)
+      if (((GetEngineLatencyResult)sim.Call(new GetEngineLatency())).Latency != SKYDEL_LATENCY_MS)
+      {
+        //sim.call(SetEngineLatency::create(SKYDEL_LATENCY_MS));
+        throw new Exception("HIL Example: Please execute SetEngineLatency(" + SKYDEL_LATENCY_MS + ") command or change the SKYDEL_LATENCY_MS value before executing this example.");
+      }
+
+      // Check the streaming buffer preference, do not change it from its default value
+      if (((GetStreamingBufferResult)sim.Call(new GetStreamingBuffer())).Size != 200)
+      {
+        throw new Exception("HIL Example: Please do not change the Streaming Buffer preference.");
+      }
+
+      // Uncomment these lines if you do very low latency HIL, as these features can impact Skydel's performance (Skydel's system wide preferences)
+      //sim.Call(new ShowMapAnalysis(false));
+      //sim.Call(new SetSpectrumVisible(false));
+
+      Console.WriteLine("==> Create new config, ignore the default config if it's set");
+      sim.Call(new New(true, false));
+
+      // Change the output
       Console.WriteLine("==> Modulation Settings");
-      string targetId = "MyTargetId";
-      sim.Call(new SetModulationTarget(target_type, "", x300_ip, true, targetId));
-      // Select signals to simulate
-      sim.Call(new ChangeModulationTargetSignals(0, 12500000, 12500000, "UpperL", "L1CA", -1, false, targetId));
+      sim.Call(new SetModulationTarget(targetType, "", x300Ip, true, UNIQUE_RADIO_ID));
 
-      Console.WriteLine("==> Set to HIL Mode");
+      // Select signals to simulate
+      sim.Call(new ChangeModulationTargetSignals(0, 12500000, 12500000, "UpperL", "L1CA", -1, false, UNIQUE_RADIO_ID));
+
+      // Enable some logging type
+      sim.Call(new EnableLogRaw(false));       // You can enable raw logging and compare the logs (the receiver position is especially helpful)
+      sim.Call(new EnableLogHILInput(false));  // This will give you exactly what Skydel has received through the HIL interface
+
+      Console.WriteLine("==> Change the vehicle's trajectory to HIL");
       sim.Call(new SetVehicleTrajectory("HIL"));
 
-      Console.WriteLine("==> Starting Simulation");
-      sim.Start();
+      // HIL Tjoin is a volatile parameter that must be set before every HIL simulation
+      sim.Call(new SetHilTjoin(HIL_TJOIN));
 
-      Lla origin = new Lla(ToRadian(45.0), ToRadian(-74.0), 1.0);
+      // The streaming check is performed at the end of pushEcefNed. It's recommended to disable this check 
+      // and do it asynchronously outside of the while loop when sending positions at high frequencies.
+      sim.IsHilStreamingCheckEnabled = true;
 
-      Console.WriteLine("==> Sending positions in Real-Time, for " + (HIL_DURATION / 1000) + " seconds.");
-      long startTime = GetCurrentTime();
-      while (true)
+      Console.WriteLine("==> Setup synchronisation with PPS");
+
+      // From here we want to make sure to stop the simulation if something goes wrong
+      try
       {
-        // Here we use the PC time as an example. In reality time should come from the position's generator.
-        long elapsedTime = GetCurrentTime() - startTime;
+        double pps0TimestampMs = 0.0;
 
-        if (elapsedTime > HIL_DURATION)
-          break;
+        // Enable PPS synchronisation
+        sim.Call(new EnableMasterPps(true));
 
-        double t = elapsedTime / 1000.0;
+        // Arm the simulator, when this command returns, we can start synchronizing with the PPS
+        sim.Call(new ArmPPS());
 
-        // Vehicule will head North/East
-        Enu enu = new Enu(HIL_SPEED * t, HIL_SPEED * t, 0);
-        Lla lla = origin.AddEnu(enu);
-        sim.PushLla(elapsedTime, lla);
+        // The WaitAndResetPPS command returns immediately after a PPS signal, which is our PPS reference (PPS0)
+        sim.Call(new WaitAndResetPPS());
 
-        // You can also push vehicle attitude attached to the node
-        //sim.PushLlaNed(elapsedTime, lla, new Attitude(ToRadian(45), ToRadian(2), 0));
+        if (isOsTimeSyncWithPPS)
+        {
+          pps0TimestampMs = HilHelper.GetClosestPpsTimeMs();
+        }
 
-        // You can also push Ecef instead of Lla
-        //sim.PushEcef(elapsedTime, lla.ToEcef());
+        Console.WriteLine("==> Starting Simulation in " + SYNC_DURATION_MS + "ms");
 
-        //Send new position to simulator each 10 ms. This should be controlled by the position's generator.
-        Thread.Sleep(10);
+        // The command StartPPS will start the simulation at PPS0 + syncDurationMs
+        // You can sync with your HIL simulation, by changing the value of syncDurationMs
+        sim.Call(new StartPPS(SYNC_DURATION_MS));
+
+        // If the PC clock is NOT synchronized with the PPS, we can ask Skydel to tell us the PC time corresponding to PPS0
+        if (!isOsTimeSyncWithPPS)
+        {
+          pps0TimestampMs = ((GetComputerSystemTimeSinceEpochAtPps0Result)sim.Call(new GetComputerSystemTimeSinceEpochAtPps0())).Milliseconds;
+        }
+
+        // Compute the timestamp at the beginning of the simulation
+        double simStartTimestampMs = pps0TimestampMs + SYNC_DURATION_MS;
+
+        // We send the first position outside of the loop, so initialize this variable for the second position
+        double nextTimestampMs = simStartTimestampMs + TIME_BETWEEN_POSITION_MS;
+
+        // Keep track of the simulation elapsed time in milliseconds
+        double elapsedMs = 0.0;
+        double warningTimeMs = 0.0;
+        Random random = new Random();
+
+        // Fix a precise attitude
+        var fixedAttitude = new Attitude(HilHelper.ToRadian(45), HilHelper.ToRadian(2), 0);
+        var angularVelocity = new Attitude(0.0, 0.0, 0.0);
+
+        // Skydel must know the initial position of the receiver for initialization.
+        // Use PushLla, PushEcef or PushEcefNed based on your requirements.
+        Tuple<Ecef, Ecef> positionVelocity = trajectory.GeneratePositionAndVelocityAt(elapsedMs);
+        sim.PushEcefNed(elapsedMs, positionVelocity.Item1, fixedAttitude, positionVelocity.Item2, angularVelocity);
+
+        Console.WriteLine("==> Sending positions in Real-Time, for " + (SIMULATION_DURATION_MS / 1000) + " seconds.");
+
+        while (elapsedMs <= SIMULATION_DURATION_MS)
+        {
+          //  Wait for the next position timestamp
+          HilHelper.PreciseSleepUntilMs(nextTimestampMs);
+          nextTimestampMs += TIME_BETWEEN_POSITION_MS;
+
+          // Get the current elapsed time in milliseconds
+          elapsedMs = HilHelper.GetCurrentTimeMs() - simStartTimestampMs;
+
+          // Generate the position
+          positionVelocity = trajectory.GeneratePositionAndVelocityAt(elapsedMs);
+
+          // Push the position to Skydel
+          // Uncomment the following condition to simulate a poor network connection and get HIL extrapolation warnings:
+          //if (random.NextDouble() < 0.98)
+          sim.PushEcefNed(elapsedMs, positionVelocity.Item1, fixedAttitude, positionVelocity.Item2, angularVelocity);
+
+          // It is recommended to do this check at 10 Hz or less to avoid TCP stack overflow.
+          // Do this check asynchronously, outside of this loop, if you are sending positions at a high rate.
+          // HIL uses UDP, so you can send positions at 100 Hz or 1000 Hz without any issues.
+          if (elapsedMs > warningTimeMs + 1000.0)
+          {
+            warningTimeMs = elapsedMs;
+            DisplayHilExtrapolationWarnings(sim);
+          }
+        }
+
+        Console.WriteLine("==> Stop simulation.");
+        sim.Stop();
       }
-      Console.WriteLine("==> Stop simulation");
-      sim.Stop();
-      sim.Disconnect();
+      catch (Exception e)
+      {
+        Console.WriteLine("==> Simulation stopped with error: " + e.Message);
+        sim.Stop();
+      }
+      finally
+      {
+        sim.Disconnect();
+      }
     }
 
     ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////

@@ -61,7 +61,7 @@ namespace Sdx
     private bool m_hilStreamingCheckEnabled = true;
     private HilClient m_hil = null;
     private CmdClient m_client = null;
-    private long m_checkRunningTime = 0;
+    private double m_checkRunningTime = 0.0;
     private bool m_beginTrack = false;
     private bool m_beginRoute = false;
     private int m_serverApiVersion = 0;
@@ -74,7 +74,7 @@ namespace Sdx
 
     private void ResetTime()
     {
-      m_checkRunningTime = -999999999;
+      m_checkRunningTime = -999999999.9;
     }
 
     public static int SpooferInstance(int id) { return 128 + id; }
@@ -293,18 +293,18 @@ namespace Sdx
       return result;
     }
 
-    public void PushTrackEcef(int elapsedTime, Ecef ecef)
+    public void PushTrackEcef(int elapsedTime, Ecef position)
     {
       if (!m_beginTrack)
         throw new Exception("You must call beginTrackDefinition first.");
-      PostCommand(new PushTrackEcef(elapsedTime, ecef.X, ecef.Y, ecef.Z));
+      PostCommand(new PushTrackEcef(elapsedTime, position.X, position.Y, position.Z));
     }
 
-    public void PushTrackEcefNed(int elapsedTime, Ecef ecef, Attitude attitude)
+    public void PushTrackEcefNed(int elapsedTime, Ecef position, Attitude attitude)
     {
       if (!m_beginTrack)
         throw new Exception("You must call beginTrackDefinition first.");
-      PostCommand(new PushTrackEcefNed(elapsedTime, ecef.X, ecef.Y, ecef.Z,
+      PostCommand(new PushTrackEcefNed(elapsedTime, position.X, position.Y, position.Z,
                                  attitude.Yaw, attitude.Pitch, attitude.Roll));
     }
 
@@ -345,7 +345,7 @@ namespace Sdx
       return result;
     }
 
-    public void PushRouteEcef(double speed, Ecef ecef)
+    public void PushRouteEcef(double speed, Ecef position)
     {
       if (!m_beginRoute)
         throw new Exception("You must call beginRouteDefinition first.");
@@ -353,7 +353,7 @@ namespace Sdx
       if (speed <= 0)
         throw new Exception("A route node must have a speed limit greater than zero.");
 
-      PostCommand(new PushRouteEcef(speed, ecef.X, ecef.Y, ecef.Z));
+      PostCommand(new PushRouteEcef(speed, position.X, position.Y, position.Z));
     }
 
     public void PushRouteLla(double speed, Lla lla)
@@ -379,12 +379,12 @@ namespace Sdx
       return result;
     }
 
-    private bool HilCheck(long elapsedTime)
+    private bool HilCheck(double elapsedTime)
     {
-      if (m_checkRunningTime < 0)
+      if (m_checkRunningTime < 0.0)
         m_checkRunningTime = elapsedTime;
 
-      if (elapsedTime - m_checkRunningTime >= 1000)
+      if (elapsedTime - m_checkRunningTime >= 1000.0)
       {
         m_checkRunningTime = elapsedTime;
         if (m_hilStreamingCheckEnabled && !CheckIfStreaming())
@@ -399,31 +399,85 @@ namespace Sdx
       return true;
     }
 
-    public bool PushLla(long elapsedTime, Lla lla, string name = "")
+    public bool PushLla(double elapsedTime, Lla lla, string name = "")
     {
       return PushEcef(elapsedTime, lla.ToEcef(), name);
     }
 
-    public bool PushEcef(long elapsedTime, Ecef ecef, string name = "")
+    public bool PushEcef(double elapsedTime, Ecef position, string name = "")
     {
       if (m_hil == null)
         throw new Exception("Cannot send position to simulator because you are not connected.");
 
-      m_hil.PushEcef(elapsedTime, ecef, name);
+      m_hil.PushEcef(elapsedTime, position, name);
       return HilCheck(elapsedTime);
     }
 
-    public bool PushLlaNed(long elapsedTime, Lla lla, Attitude attitude, string name = "")
+    public bool PushEcef(double elapsedTime, Ecef position, Ecef velocity, string name = "")
+    {
+      if (m_hil == null)
+        throw new Exception("Cannot send position to simulator because you are not connected.");
+
+      m_hil.PushEcef(elapsedTime, position, velocity, name);
+      return HilCheck(elapsedTime);
+    }
+
+    public bool PushEcef(double elapsedTime, Ecef position, Ecef velocity, Ecef acceleration, string name = "")
+    {
+      if (m_hil == null)
+        throw new Exception("Cannot send position to simulator because you are not connected.");
+
+      m_hil.PushEcef(elapsedTime, position, velocity, acceleration, name);
+      return HilCheck(elapsedTime);
+    }
+
+    public bool PushEcef(double elapsedTime, Ecef position, Ecef velocity, Ecef acceleration, Ecef jerk, string name = "")
+    {
+      if (m_hil == null)
+        throw new Exception("Cannot send position to simulator because you are not connected.");
+
+      m_hil.PushEcef(elapsedTime, position, velocity, acceleration, jerk, name);
+      return HilCheck(elapsedTime);
+    }
+
+    public bool PushLlaNed(double elapsedTime, Lla lla, Attitude attitude, string name = "")
     {
       return PushEcefNed(elapsedTime, lla.ToEcef(), attitude, name);
     }
 
-    public bool PushEcefNed(long elapsedTime, Ecef ecef, Attitude attitude, string name = "")
+    public bool PushEcefNed(double elapsedTime, Ecef position, Attitude attitude, string name = "")
     {
       if (m_hil == null)
         throw new Exception("Cannot send position to simulator because you are not connected.");
 
-      m_hil.PushEcefNed(elapsedTime, ecef, attitude, name);
+      m_hil.PushEcefNed(elapsedTime, position, attitude, name);
+      return HilCheck(elapsedTime);
+    }
+
+    public bool PushEcefNed(double elapsedTime, Ecef position, Attitude attitude, Ecef velocity, Attitude angularVelocity, string name = "")
+    {
+      if (m_hil == null)
+        throw new Exception("Cannot send position to simulator because you are not connected.");
+
+      m_hil.PushEcefNed(elapsedTime, position, attitude, velocity, angularVelocity, name);
+      return HilCheck(elapsedTime);
+    }
+
+    public bool PushEcefNed(double elapsedTime, Ecef position, Attitude attitude, Ecef velocity, Attitude angularVelocity, Ecef acceleration, Attitude angularAcceleration, string name = "")
+    {
+      if (m_hil == null)
+        throw new Exception("Cannot send position to simulator because you are not connected.");
+
+      m_hil.PushEcefNed(elapsedTime, position, attitude, velocity, angularVelocity, acceleration, angularAcceleration, name);
+      return HilCheck(elapsedTime);
+    }
+
+    public bool PushEcefNed(double elapsedTime, Ecef position, Attitude attitude, Ecef velocity, Attitude angularVelocity, Ecef acceleration, Attitude angularAcceleration, Ecef jerk, Attitude angularJerk, string name = "")
+    {
+      if (m_hil == null)
+        throw new Exception("Cannot send position to simulator because you are not connected.");
+
+      m_hil.PushEcefNed(elapsedTime, position, attitude, velocity, angularVelocity, acceleration, angularAcceleration, jerk, angularJerk, name);
       return HilCheck(elapsedTime);
     }
 

@@ -3,7 +3,7 @@ from .commandbase import CommandBase
 from .commandresult import CommandResult
 from .commandbase import ExecutePermission
 
-ApiVersion = 36
+ApiVersion = 37
 
 #
 # The GPS AS flag value.
@@ -45,6 +45,8 @@ class SimulatorSubState:
   Started_SyncStart = 13
   Started_WFSlaveInit = 14
   Started_WFMasterInit = 15
+  Started_WFSyncPPSReset = 16
+  Started_WFSyncStart = 17
 
 #
 # The Parity scheme used by a serial port.
@@ -1289,6 +1291,37 @@ class ExportPerformanceDataToCSV(CommandBase):
 
   def __init__(self, path, overwriting):
     CommandBase.__init__(self, "ExportPerformanceDataToCSV")
+    self.setPath(path)
+    self.setOverwriting(overwriting)
+
+  def executePermission(self):
+    return ExecutePermission.EXECUTE_IF_SIMULATING | ExecutePermission.EXECUTE_IF_IDLE
+
+  def path(self):
+    return self.get("Path")
+
+  def setPath(self, value):
+    return self.set("Path", value)
+
+  def overwriting(self):
+    return self.get("Overwriting")
+
+  def setOverwriting(self, value):
+    return self.set("Overwriting", value)
+
+#
+# Export the hil graph data into a csv file.
+#
+# Name        Type   Description
+# ----------- ------ -----------------------------------------------------------------------------------------------
+# Path        string The full path to the csv file.
+# Overwriting bool   Overwrite an existing file if set to true, return an error if set to false and the file exists.
+#
+
+class ExportHilGraphDataToCSV(CommandBase):
+
+  def __init__(self, path, overwriting):
+    CommandBase.__init__(self, "ExportHilGraphDataToCSV")
     self.setPath(path)
     self.setOverwriting(overwriting)
 
@@ -9684,7 +9717,7 @@ class CopyVehicleAntennaModel(CommandBase):
     return self.set("CopyName", value)
 
 #
-# Get all infos about this antenna model.
+# Get  all infos about this antenna model.
 #
 # Name Type   Description
 # ---- ------ --------------------------
@@ -9707,7 +9740,7 @@ class GetVehicleAntennaModel(CommandBase):
     return self.set("Name", value)
 
 #
-# Result of GetVehicleAntennaModel
+# Result of GetVehicleAntennaModel.
 #
 # Name                 Type               Description
 # -------------------- ------------------ ----------------------------------------------------------------------------------------------------------------------------------
@@ -13573,61 +13606,60 @@ class HilPortResult(CommandResult):
     return self.set("Port", value)
 
 #
-# Reset Hardware in the loop trajectory server warning message.
+# HIL extrapolation state.
+#
+
+class HilExtrapolationState:
+  Deterministic = 0
+  NonDeterministic = 1
+  Snap = 2
+
+#
+# Get last Hardware in the loop extrapolation state. The states are defined as
+# the following increasing priority levels: Deterministic, NonDeterministic and Snap.
+# The state will stay on the highest level until polled. Polling the extrapolation state will reset it.
+# Returns GetHilExtrapolationStateResult.
 #
 #
 
-class ResetHilWarning(CommandBase):
+class GetHilExtrapolationState(CommandBase):
 
   def __init__(self):
-    CommandBase.__init__(self, "ResetHilWarning")
+    CommandBase.__init__(self, "GetHilExtrapolationState")
 
   def executePermission(self):
     return ExecutePermission.EXECUTE_IF_SIMULATING
 
 #
-# Get last Hardware in the loop trajectory server warning message. Returns HilWarningResult.
+# Result of GetHilExtrapolationState.
 #
-#
-
-class GetLastHilWarning(CommandBase):
-
-  def __init__(self):
-    CommandBase.__init__(self, "GetLastHilWarning")
-
-  def executePermission(self):
-    return ExecutePermission.EXECUTE_IF_SIMULATING
-
-#
-# Result of GetLastHilWarning.
-#
-# Name              Type Description
-# ----------------- ---- -----------------------------------------------------------------------------------------------------------------------------------
-# IsExtrapolated    bool Indicate if there is receiver position has been extrapolated because of the HIL client that did not send receiver position in time.
-# ExtrapolationTime int  Time of last extrapolated position
+# Name        Type                  Description
+# ----------- --------------------- ---------------------------------------------------------
+# State       HilExtrapolationState HIL Extrapolation State.
+# ElapsedTime int                   Time in milliseconds of the returned extrapolation state.
 #
 
-class HilWarningResult(CommandResult):
+class GetHilExtrapolationStateResult(CommandResult):
 
-  def __init__(self, isExtrapolated, extrapolationTime):
-    CommandResult.__init__(self, "HilWarningResult")
-    self.setIsExtrapolated(isExtrapolated)
-    self.setExtrapolationTime(extrapolationTime)
+  def __init__(self, state, elapsedTime):
+    CommandResult.__init__(self, "GetHilExtrapolationStateResult")
+    self.setState(state)
+    self.setElapsedTime(elapsedTime)
 
   def isSuccess(self):
     return True
 
-  def isExtrapolated(self):
-    return self.get("IsExtrapolated")
+  def state(self):
+    return self.get("State")
 
-  def setIsExtrapolated(self, value):
-    return self.set("IsExtrapolated", value)
+  def setState(self, value):
+    return self.set("State", value)
 
-  def extrapolationTime(self):
-    return self.get("ExtrapolationTime")
+  def elapsedTime(self):
+    return self.get("ElapsedTime")
 
-  def setExtrapolationTime(self, value):
-    return self.set("ExtrapolationTime", value)
+  def setElapsedTime(self, value):
+    return self.set("ElapsedTime", value)
 
 #
 # Set the ephemeris reference time for the specified constellation.
@@ -22519,7 +22551,7 @@ class RemoveAllInterferences(CommandBase):
 # Name          Type   Description
 # ------------- ------ ----------------------------------------------------------------------------------
 # System        string "GPS", "GLONASS", "Galileo", "BeiDou", "SBAS", "QZSS" or "NavIC"
-# SvId          int    The satellite SV ID.
+# SvId          int    The satellite's SV ID.
 # Offset        double Change to satellite pseudorange in meter when ramp is at maximum. Range -1e7..+1e7
 # StartTime     int    Elapsed time in seconds since start of simulation.
 # HoldStartTime int    Elapsed time in seconds since start of simulation. HoldStartTime >= StartTime
@@ -22632,7 +22664,7 @@ class GetPseudorangeRampForSV(CommandBase):
 # Name          Type   Description
 # ------------- ------ ----------------------------------------------------------------------------------
 # System        string "GPS", "GLONASS", "Galileo", "BeiDou", "SBAS", "QZSS" or "NavIC"
-# SvId          int    The satellite SV ID.
+# SvId          int    The satellite's SV ID.
 # Offset        double Change to satellite pseudorange in meter when ramp is at maximum. Range -1e7..+1e7
 # StartTime     int    Elapsed time in seconds since start of simulation.
 # HoldStartTime int    Elapsed time in seconds since start of simulation. HoldStartTime >= StartTime
@@ -22813,7 +22845,7 @@ class RemovePseudorangeRamp(CommandBase):
 # Name   Type   Description
 # ------ ------ ----------------------------------------------------------------
 # System string "GPS", "GLONASS", "Galileo", "BeiDou", "SBAS", "QZSS" or "NavIC"
-# SvId   int    The satellite's SV ID.
+# SvId   int    The satellite's SV ID (use 0 for all SVs).
 #
 
 class RemoveAllPseudorangeRampForSV(CommandBase):
@@ -27775,6 +27807,42 @@ class SetStreamingBuffer(CommandBase):
     return self.set("Size", value)
 
 #
+# Get streaming buffer size.
+#
+#
+
+class GetStreamingBuffer(CommandBase):
+
+  def __init__(self):
+    CommandBase.__init__(self, "GetStreamingBuffer")
+
+  def executePermission(self):
+    return ExecutePermission.EXECUTE_IF_NO_CONFIG | ExecutePermission.EXECUTE_IF_IDLE | ExecutePermission.EXECUTE_IF_SIMULATING
+
+#
+# Result of GetStreamingBuffer.
+#
+# Name Type Description
+# ---- ---- -----------------------------
+# Size int  Streaming buffer size in msec
+#
+
+class GetStreamingBufferResult(CommandResult):
+
+  def __init__(self, size):
+    CommandResult.__init__(self, "GetStreamingBufferResult")
+    self.setSize(size)
+
+  def isSuccess(self):
+    return True
+
+  def size(self):
+    return self.get("Size")
+
+  def setSize(self, value):
+    return self.set("Size", value)
+
+#
 # Set engine latency.
 #
 # Name    Type Description
@@ -27789,13 +27857,72 @@ class SetEngineLatency(CommandBase):
     self.setLatency(latency)
 
   def executePermission(self):
-    return ExecutePermission.EXECUTE_IF_NO_CONFIG | ExecutePermission.EXECUTE_IF_IDLE
+    return ExecutePermission.EXECUTE_IF_IDLE
 
   def latency(self):
     return self.get("Latency")
 
   def setLatency(self, value):
     return self.set("Latency", value)
+
+#
+# Get engine latency.
+#
+#
+
+class GetEngineLatency(CommandBase):
+
+  def __init__(self):
+    CommandBase.__init__(self, "GetEngineLatency")
+
+  def executePermission(self):
+    return ExecutePermission.EXECUTE_IF_IDLE | ExecutePermission.EXECUTE_IF_SIMULATING
+
+#
+# Result of GetEngineLatency.
+#
+# Name    Type Description
+# ------- ---- ----------------------
+# Latency int  Engine latency in msec
+#
+
+class GetEngineLatencyResult(CommandResult):
+
+  def __init__(self, latency):
+    CommandResult.__init__(self, "GetEngineLatencyResult")
+    self.setLatency(latency)
+
+  def isSuccess(self):
+    return True
+
+  def latency(self):
+    return self.get("Latency")
+
+  def setLatency(self, value):
+    return self.set("Latency", value)
+
+#
+# HIL Tjoin. Value is in milliseconds.
+#
+# Name     Type Description
+# -------- ---- -----------
+# HilTjoin int  HIL Tjoin.
+#
+
+class SetHilTjoin(CommandBase):
+
+  def __init__(self, hilTjoin):
+    CommandBase.__init__(self, "SetHilTjoin")
+    self.setHilTjoin(hilTjoin)
+
+  def executePermission(self):
+    return ExecutePermission.EXECUTE_IF_IDLE
+
+  def hilTjoin(self):
+    return self.get("HilTjoin")
+
+  def setHilTjoin(self, value):
+    return self.set("HilTjoin", value)
 
 #
 # Set listening port for sync time server.
@@ -27867,7 +27994,7 @@ class SetSyncTime(CommandBase):
     self.setTime(time)
 
   def executePermission(self):
-    return ExecutePermission.EXECUTE_IF_NO_CONFIG | ExecutePermission.EXECUTE_IF_IDLE
+    return ExecutePermission.EXECUTE_IF_IDLE
 
   def time(self):
     return self.get("Time")
@@ -27887,7 +28014,7 @@ class GetSyncTime(CommandBase):
     CommandBase.__init__(self, "GetSyncTime")
 
   def executePermission(self):
-    return ExecutePermission.EXECUTE_IF_IDLE
+    return ExecutePermission.EXECUTE_IF_IDLE | ExecutePermission.EXECUTE_IF_SIMULATING
 
 #
 # Result of GetSyncTime.
@@ -27929,7 +28056,7 @@ class SetSyncTimeMaster(CommandBase):
     self.setTime(time)
 
   def executePermission(self):
-    return ExecutePermission.EXECUTE_IF_NO_CONFIG | ExecutePermission.EXECUTE_IF_IDLE
+    return ExecutePermission.EXECUTE_IF_IDLE
 
   def time(self):
     return self.get("Time")
@@ -27950,7 +28077,7 @@ class GetSyncTimeMaster(CommandBase):
     CommandBase.__init__(self, "GetSyncTimeMaster")
 
   def executePermission(self):
-    return ExecutePermission.EXECUTE_IF_IDLE
+    return ExecutePermission.EXECUTE_IF_IDLE | ExecutePermission.EXECUTE_IF_SIMULATING
 
 #
 # Result of GetSyncTimeMaster.
@@ -28009,7 +28136,7 @@ class IsSimStopWhenCommandFailEnabled(CommandBase):
     CommandBase.__init__(self, "IsSimStopWhenCommandFailEnabled")
 
   def executePermission(self):
-    return ExecutePermission.EXECUTE_IF_IDLE
+    return ExecutePermission.EXECUTE_IF_IDLE | ExecutePermission.EXECUTE_IF_SIMULATING
 
 #
 # Result of IsSimStopWhenCommandFailEnabled.
@@ -28049,7 +28176,7 @@ class StopMasterWhenSlaveStop(CommandBase):
     self.setEnabled(enabled)
 
   def executePermission(self):
-    return ExecutePermission.EXECUTE_IF_NO_CONFIG | ExecutePermission.EXECUTE_IF_IDLE
+    return ExecutePermission.EXECUTE_IF_NO_CONFIG | ExecutePermission.EXECUTE_IF_IDLE | ExecutePermission.EXECUTE_IF_SIMULATING
 
   def enabled(self):
     return self.get("Enabled")
@@ -28068,7 +28195,7 @@ class IsStopMasterWhenSlaveStop(CommandBase):
     CommandBase.__init__(self, "IsStopMasterWhenSlaveStop")
 
   def executePermission(self):
-    return ExecutePermission.EXECUTE_IF_IDLE
+    return ExecutePermission.EXECUTE_IF_IDLE | ExecutePermission.EXECUTE_IF_SIMULATING
 
 #
 # Result of IsStopMasterWhenSlaveStop.
@@ -29182,7 +29309,7 @@ class EnableSbasMessages(CommandBase):
     self.setMessages(messages)
 
   def executePermission(self):
-    return ExecutePermission.EXECUTE_IF_IDLE
+    return ExecutePermission.EXECUTE_IF_IDLE | ExecutePermission.EXECUTE_IF_SIMULATING
 
   def messages(self):
     return self.get("Messages")
@@ -29201,7 +29328,7 @@ class GetSbasMessagesEnabled(CommandBase):
     CommandBase.__init__(self, "GetSbasMessagesEnabled")
 
   def executePermission(self):
-    return ExecutePermission.EXECUTE_IF_IDLE
+    return ExecutePermission.EXECUTE_IF_IDLE | ExecutePermission.EXECUTE_IF_SIMULATING
 
 #
 # Result of GetSbasMessagesEnabled.
@@ -29225,6 +29352,122 @@ class GetSbasMessagesEnabledResult(CommandResult):
 
   def setMessages(self, value):
     return self.set("Messages", value)
+
+#
+# Set the SBAS message update interval.
+#
+# Name           Type Description
+# -------------- ---- -----------------------------------------------------------------------------------------------
+# Message        int  The message type.
+# UpdateInterval int  The message update interval in seconds. Accepted range is [6..300] and must be a multiple of 6.
+#
+
+class SetSbasMessageUpdateInterval(CommandBase):
+
+  def __init__(self, message, updateInterval):
+    CommandBase.__init__(self, "SetSbasMessageUpdateInterval")
+    self.setMessage(message)
+    self.setUpdateInterval(updateInterval)
+
+  def executePermission(self):
+    return ExecutePermission.EXECUTE_IF_IDLE | ExecutePermission.EXECUTE_IF_SIMULATING
+
+  def message(self):
+    return self.get("Message")
+
+  def setMessage(self, value):
+    return self.set("Message", value)
+
+  def updateInterval(self):
+    return self.get("UpdateInterval")
+
+  def setUpdateInterval(self, value):
+    return self.set("UpdateInterval", value)
+
+#
+# Get the SBAS message update interval.
+#
+# Name    Type Description
+# ------- ---- -----------------
+# Message int  The message type.
+#
+
+class GetSbasMessageUpdateInterval(CommandBase):
+
+  def __init__(self, message):
+    CommandBase.__init__(self, "GetSbasMessageUpdateInterval")
+    self.setMessage(message)
+
+  def executePermission(self):
+    return ExecutePermission.EXECUTE_IF_IDLE | ExecutePermission.EXECUTE_IF_SIMULATING
+
+  def message(self):
+    return self.get("Message")
+
+  def setMessage(self, value):
+    return self.set("Message", value)
+
+#
+# Result of GetSbasMessageUpdateInterval.
+#
+# Name           Type Description
+# -------------- ---- -----------------------------------------------------------------------------------------------
+# Message        int  The message type.
+# UpdateInterval int  The message update interval in seconds. Accepted range is [6..300] and must be a multiple of 6.
+#
+
+class GetSbasMessageUpdateIntervalResult(CommandResult):
+
+  def __init__(self, message, updateInterval):
+    CommandResult.__init__(self, "GetSbasMessageUpdateIntervalResult")
+    self.setMessage(message)
+    self.setUpdateInterval(updateInterval)
+
+  def isSuccess(self):
+    return True
+
+  def message(self):
+    return self.get("Message")
+
+  def setMessage(self, value):
+    return self.set("Message", value)
+
+  def updateInterval(self):
+    return self.get("UpdateInterval")
+
+  def setUpdateInterval(self, value):
+    return self.set("UpdateInterval", value)
+
+#
+# Export the SBAS message sequence into a csv file.
+#
+# Name        Type   Description
+# ----------- ------ -----------------------------------------------------------------------------------------------
+# Path        string The full path to the csv file.
+# Overwriting bool   Overwrite an existing file if set to true, return an error if set to false and the file exists.
+#
+
+class ExportSbasMessageSequence(CommandBase):
+
+  def __init__(self, path, overwriting):
+    CommandBase.__init__(self, "ExportSbasMessageSequence")
+    self.setPath(path)
+    self.setOverwriting(overwriting)
+
+  def executePermission(self):
+    return ExecutePermission.EXECUTE_IF_SIMULATING | ExecutePermission.EXECUTE_IF_IDLE
+
+  def path(self):
+    return self.get("Path")
+
+  def setPath(self, value):
+    return self.set("Path", value)
+
+  def overwriting(self):
+    return self.get("Overwriting")
+
+  def setOverwriting(self, value):
+    return self.set("Overwriting", value)
 
 #
 # Set the systems monitored by SBAS.
@@ -31311,7 +31554,7 @@ class EnableSbasFastCorrectionsFor(CommandBase):
     self.setErrorType(errorType)
 
   def executePermission(self):
-    return ExecutePermission.EXECUTE_IF_IDLE
+    return ExecutePermission.EXECUTE_IF_IDLE | ExecutePermission.EXECUTE_IF_SIMULATING
 
   def system(self):
     return self.get("System")
@@ -31349,7 +31592,7 @@ class IsSbasFastCorrectionsEnabledFor(CommandBase):
     self.setErrorType(errorType)
 
   def executePermission(self):
-    return ExecutePermission.EXECUTE_IF_IDLE
+    return ExecutePermission.EXECUTE_IF_IDLE | ExecutePermission.EXECUTE_IF_SIMULATING
 
   def system(self):
     return self.get("System")
@@ -31418,7 +31661,7 @@ class ApplyDelayInSbas(CommandBase):
     self.setIsEnabled(isEnabled)
 
   def executePermission(self):
-    return ExecutePermission.EXECUTE_IF_IDLE
+    return ExecutePermission.EXECUTE_IF_IDLE | ExecutePermission.EXECUTE_IF_SIMULATING
 
   def isEnabled(self):
     return self.get("IsEnabled")
@@ -31437,7 +31680,7 @@ class IsDelayAppliedInSbas(CommandBase):
     CommandBase.__init__(self, "IsDelayAppliedInSbas")
 
   def executePermission(self):
-    return ExecutePermission.EXECUTE_IF_IDLE
+    return ExecutePermission.EXECUTE_IF_IDLE | ExecutePermission.EXECUTE_IF_SIMULATING
 
 #
 # Result of IsDelayAppliedInSbas.
@@ -31522,12 +31765,12 @@ class IsIonoOffsetEnabledResult(CommandResult):
     return self.set("IsEnabled", value)
 
 #
-# Set whether ephemeris errors for this constellation should be compensated in SBAS long term corrections
+# Set whether ephemeris errors for this constellation should be compensated in SBAS long term corrections.
 #
 # Name      Type   Description
-# --------- ------ ------------------------------------
-# System    string As of today, only "GPS" is supported
-# IsEnabled bool   True if corrections are enabled
+# --------- ------ -------------------------------------
+# System    string As of today, only "GPS" is supported.
+# IsEnabled bool   True if corrections are enabled.
 #
 
 class EnableSbasLongTermCorrectionsFor(CommandBase):
@@ -31538,7 +31781,7 @@ class EnableSbasLongTermCorrectionsFor(CommandBase):
     self.setIsEnabled(isEnabled)
 
   def executePermission(self):
-    return ExecutePermission.EXECUTE_IF_IDLE
+    return ExecutePermission.EXECUTE_IF_IDLE | ExecutePermission.EXECUTE_IF_SIMULATING
 
   def system(self):
     return self.get("System")
@@ -31553,11 +31796,11 @@ class EnableSbasLongTermCorrectionsFor(CommandBase):
     return self.set("IsEnabled", value)
 
 #
-# Get whether ephemeris errors for this constellation should be compensated in SBAS long term corrections
+# Get whether ephemeris errors for this constellation should be compensated in SBAS long term corrections.
 #
 # Name   Type   Description
-# ------ ------ ------------------------------------
-# System string As of today, only "GPS" is supported
+# ------ ------ -------------------------------------
+# System string As of today, only "GPS" is supported.
 #
 
 class IsSbasLongTermCorrectionsEnabledFor(CommandBase):
@@ -31567,7 +31810,7 @@ class IsSbasLongTermCorrectionsEnabledFor(CommandBase):
     self.setSystem(system)
 
   def executePermission(self):
-    return ExecutePermission.EXECUTE_IF_IDLE
+    return ExecutePermission.EXECUTE_IF_IDLE | ExecutePermission.EXECUTE_IF_SIMULATING
 
   def system(self):
     return self.get("System")
@@ -31579,9 +31822,9 @@ class IsSbasLongTermCorrectionsEnabledFor(CommandBase):
 # Result of IsSbasLongTermCorrectionsEnabledFor.
 #
 # Name      Type   Description
-# --------- ------ ------------------------------------
-# System    string As of today, only "GPS" is supported
-# IsEnabled bool   True if corrections are enabled
+# --------- ------ -------------------------------------
+# System    string As of today, only "GPS" is supported.
+# IsEnabled bool   True if corrections are enabled.
 #
 
 class IsSbasLongTermCorrectionsEnabledForResult(CommandResult):
@@ -31984,7 +32227,7 @@ class SetPilotCW(CommandBase):
     self.setPilotId(pilotId)
 
   def executePermission(self):
-    return ExecutePermission.EXECUTE_IF_SIMULATING | ExecutePermission.EXECUTE_IF_IDLE
+    return ExecutePermission.EXECUTE_IF_SIMULATING
 
   def enabled(self):
     return self.get("Enabled")
@@ -32043,7 +32286,7 @@ class SetPilotPRN(CommandBase):
     self.setPilotId(pilotId)
 
   def executePermission(self):
-    return ExecutePermission.EXECUTE_IF_SIMULATING | ExecutePermission.EXECUTE_IF_IDLE
+    return ExecutePermission.EXECUTE_IF_SIMULATING
 
   def enabled(self):
     return self.get("Enabled")
@@ -36236,6 +36479,43 @@ class SwapSbasServiceMessageRegionGroup(CommandBase):
     return self.set("SecondId", value)
 
 #
+# Get  the computer system time since epoch at PPS0, for the computer running this Skydel instance.
+# Use this command after StartPPS.
+#
+#
+
+class GetComputerSystemTimeSinceEpochAtPps0(CommandBase):
+
+  def __init__(self):
+    CommandBase.__init__(self, "GetComputerSystemTimeSinceEpochAtPps0")
+
+  def executePermission(self):
+    return ExecutePermission.EXECUTE_IF_SIMULATING
+
+#
+# Result of GetComputerSystemTimeSinceEpochAtPps0.
+#
+# Name         Type   Description
+# ------------ ------ ---------------------------------------------------------
+# Milliseconds double Computer system time since epoch at PPS0 in milliseconds.
+#
+
+class GetComputerSystemTimeSinceEpochAtPps0Result(CommandResult):
+
+  def __init__(self, milliseconds):
+    CommandResult.__init__(self, "GetComputerSystemTimeSinceEpochAtPps0Result")
+    self.setMilliseconds(milliseconds)
+
+  def isSuccess(self):
+    return True
+
+  def milliseconds(self):
+    return self.get("Milliseconds")
+
+  def setMilliseconds(self, value):
+    return self.set("Milliseconds", value)
+
+#
 # A pair of string
 #
 # Name   Type   Description
@@ -36249,6 +36529,67 @@ class StringPair:
   def __init__(self, first, second):
     self.First = first
     self.Second = second
+
+#
+# Please note the command ResetHilWarning is deprecated since 22.5. You may use GetHilExtrapolationState.
+# 
+# Reset Hardware in the loop trajectory server warning message.
+#
+#
+
+class ResetHilWarning(CommandBase):
+
+  def __init__(self):
+    CommandBase.__init__(self, "ResetHilWarning")
+
+  def executePermission(self):
+    return ExecutePermission.EXECUTE_IF_SIMULATING
+
+#
+# Please note the command GetLastHilWarning is deprecated since 22.5. You may use GetHilExtrapolationState.
+# 
+# Get last Hardware in the loop trajectory server warning message. Returns HilWarningResult.
+#
+#
+
+class GetLastHilWarning(CommandBase):
+
+  def __init__(self):
+    CommandBase.__init__(self, "GetLastHilWarning")
+
+  def executePermission(self):
+    return ExecutePermission.EXECUTE_IF_SIMULATING
+
+#
+# Result of GetLastHilWarning.
+#
+# Name              Type Description
+# ----------------- ---- -----------------------------------------------------------------------------------------------------------------------------------
+# IsExtrapolated    bool Indicate if there is receiver position has been extrapolated because of the HIL client that did not send receiver position in time.
+# ExtrapolationTime int  Time of last extrapolated position
+#
+
+class HilWarningResult(CommandResult):
+
+  def __init__(self, isExtrapolated, extrapolationTime):
+    CommandResult.__init__(self, "HilWarningResult")
+    self.setIsExtrapolated(isExtrapolated)
+    self.setExtrapolationTime(extrapolationTime)
+
+  def isSuccess(self):
+    return True
+
+  def isExtrapolated(self):
+    return self.get("IsExtrapolated")
+
+  def setIsExtrapolated(self, value):
+    return self.set("IsExtrapolated", value)
+
+  def extrapolationTime(self):
+    return self.get("ExtrapolationTime")
+
+  def setExtrapolationTime(self, value):
+    return self.set("ExtrapolationTime", value)
 
 #
 # Please note the command SetSbasHealthRanging is deprecated since 21.9. You may use SetSbasSVRangingHealth.

@@ -126,7 +126,7 @@ class Attitude:
     self.roll = roll
     
   def __str__(self):
-    return u"%.2fdeg, %.2fdef, %.2fdef" % (self.yawDeg(), self.pitchDeg(), self.rollDeg())
+    return u"%.2fdeg, %.2fdeg, %.2fdeg" % (self.yawDeg(), self.pitchDeg(), self.rollDeg())
     
   def __add__(self, other):
     return Attitude(self.yaw + other.yaw, self.pitch + other.pitch, self.roll + other.roll)

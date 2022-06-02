@@ -1,4 +1,4 @@
-#!/usr/bin/python
+#!/usr/bin/python3
 
 import socket
 from .units import *
@@ -7,11 +7,18 @@ import datetime
 from .client import Client
 
 class MsgId:
-  PushEcef = 0
   Hello = 1
   Bye = 2
   VehicleInfo = 3
-  PushEcefNed = 4
+  PushEcef = 5
+  PushEcefNed = 6
+  PushEcefDynamics = 7
+  PushEcefNedDynamics = 8
+
+class DynamicType:
+  Velocity = 0
+  Acceleration = 1
+  Jerk = 2
 
 class VehicleInfo:
   def __init__(self):
@@ -70,25 +77,90 @@ class ClientHil(Client):
       self.sock.settimeout(oldTimeout)
       raise
    
-  def pushEcef(self, elapsedTime, ecef, dest):
-    message = self._msgId2Packet(MsgId.PushEcef)
-    message += struct.pack('<q', int(elapsedTime))
-    message += struct.pack('<d', ecef.x)
-    message += struct.pack('<d', ecef.y)
-    message += struct.pack('<d', ecef.z)
+  def pushEcef(self, elapsedTime, position, velocity, acceleration, jerk, dest):
+    hasVelocity = velocity is not None
+    hasAcceleration = hasVelocity and acceleration is not None 
+    hasJerk = hasAcceleration and jerk is not None
+
+    if (not hasVelocity and not hasAcceleration and not hasJerk):
+      message = self._msgId2Packet(MsgId.PushEcef)
+    else:
+      message = self._msgId2Packet(MsgId.PushEcefDynamics)
+
+    if hasJerk:
+      message += self._dynamicType2Packet(DynamicType.Jerk)
+    elif hasAcceleration:
+      message += self._dynamicType2Packet(DynamicType.Acceleration)
+    elif hasVelocity:
+      message += self._dynamicType2Packet(DynamicType.Velocity)
+
+    message += struct.pack('<d', float(elapsedTime))
+
+    message += self._ecef2Packet(position)
+
+    if hasVelocity:
+      message += self._ecef2Packet(velocity)
+      if hasAcceleration:
+        message += self._ecef2Packet(acceleration)
+        if hasJerk:
+          message += self._ecef2Packet(jerk)
+
     message += struct.pack('<I', len(dest))
     message = message + dest.encode("UTF-8")
     self._sendMessage(message)
- 
-  def pushEcefNed(self, elapsedTime, ecef, attitude, dest):
-    message = self._msgId2Packet(MsgId.PushEcefNed)
-    message += struct.pack('<q', elapsedTime)
-    message += struct.pack('<d', ecef.x)
-    message += struct.pack('<d', ecef.y)
-    message += struct.pack('<d', ecef.z)
-    message += struct.pack('<d', attitude.yaw)
-    message += struct.pack('<d', attitude.pitch)
-    message += struct.pack('<d', attitude.roll)
+
+  def pushEcefNed(self, elapsedTime, position, attitude, velocity, angularVelocity, acceleration, angularAcceleration, jerk, angularJerk, dest):
+    hasPosVelocity = velocity is not None
+    hasPosAcceleration = acceleration is not None
+    hasPosJerk = jerk is not None
+    hasAngularVelocity = angularVelocity is not None
+    hasAngularAcceleration = angularAcceleration is not None
+    hasAngularJerk = angularJerk is not None
+    
+
+    if (hasPosVelocity != hasAngularVelocity):
+      raise Exception("Velocity and angular velocity must be sent in pairs.")
+    if (hasPosAcceleration != hasAngularAcceleration):
+      raise Exception("Acceleration and angular acceleration must be sent in pairs.")
+    if (hasPosJerk != hasAngularJerk):
+      raise Exception("Jerk and angular jerk must be sent in pairs.")
+    
+    hasVelocity = hasPosVelocity and hasAngularVelocity
+    hasAcceleration = hasPosAcceleration and hasAngularVelocity
+    hasJerk = hasPosJerk and hasAngularJerk
+
+    if (hasAcceleration and not hasVelocity):
+      raise Exception("Velocity must be sent in order to send acceleration.")
+    if (hasJerk and (not hasVelocity or not hasAcceleration)):
+      raise Exception("Velocity and acceleration must be sent in order to send jerk.")
+
+    if (not hasVelocity and not hasAcceleration and not hasJerk):
+      message = self._msgId2Packet(MsgId.PushEcefNed)
+    else:
+      message = self._msgId2Packet(MsgId.PushEcefNedDynamics)
+
+    if hasJerk:
+      message += self._dynamicType2Packet(DynamicType.Jerk)
+    elif hasAcceleration:
+      message += self._dynamicType2Packet(DynamicType.Acceleration)
+    elif hasVelocity:
+      message += self._dynamicType2Packet(DynamicType.Velocity)
+
+    message += struct.pack('<d', float(elapsedTime))
+
+    message += self._ecef2Packet(position)
+    message += self._angle2Packet(attitude)
+
+    if hasVelocity:
+      message += self._ecef2Packet(velocity)
+      message += self._angle2Packet(angularVelocity)
+      if hasAcceleration:
+        message += self._ecef2Packet(acceleration)
+        message += self._angle2Packet(angularAcceleration)
+        if hasJerk:
+          message += self._ecef2Packet(jerk)
+          message += self._angle2Packet(angularJerk)
+
     message += struct.pack('<I', len(dest))
     message = message + dest.encode("UTF-8")
     self._sendMessage(message)

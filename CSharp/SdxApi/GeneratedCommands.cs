@@ -6,7 +6,7 @@ namespace Sdx.Cmd
 
   public static class ApiInfo
   {
-    public const int COMMANDS_API_VERSION = 36;
+    public const int COMMANDS_API_VERSION = 37;
   }
 
   ///
@@ -27,7 +27,7 @@ namespace Sdx.Cmd
   /// The simulator sub-state.
   ///
   
-  public enum SimulatorSubState { SubStateNone, Idle_ConfigNotValid, Idle_ConfigValid, Started_InitPlugins, Started_InitHardware, Started_Streaming, Started_SyncInit, Started_SlaveSync, Started_Armed, Started_SyncStartTime, Error, Started_HILSync, Started_SyncPPSReset, Started_SyncStart, Started_WFSlaveInit, Started_WFMasterInit }
+  public enum SimulatorSubState { SubStateNone, Idle_ConfigNotValid, Idle_ConfigValid, Started_InitPlugins, Started_InitHardware, Started_Streaming, Started_SyncInit, Started_SlaveSync, Started_Armed, Started_SyncStartTime, Error, Started_HILSync, Started_SyncPPSReset, Started_SyncStart, Started_WFSlaveInit, Started_WFMasterInit, Started_WFSyncPPSReset, Started_WFSyncStart }
 
 
   ///
@@ -2535,6 +2535,68 @@ namespace Sdx.Cmd
     {}
 
     public ExportPerformanceDataToCSV(string path, bool overwriting)
+      : base(CmdName)
+    {
+      Path = path;
+      Overwriting = overwriting;
+    }
+      
+    public override bool IsValid
+    {
+      get
+      {
+        return base.IsValid
+        && Contains("Path")
+        && Contains("Overwriting")
+      ;
+      }
+    }
+
+    public override int ExecutePermission { get { return EXECUTE_IF_SIMULATING | EXECUTE_IF_IDLE; } }
+
+    public string Path
+    {
+      get { return GetValue("Path").ToObject<string>(CommandBase.Serializer); }
+      set
+      {
+          SetValue("Path", JToken.FromObject(value, CommandBase.Serializer));
+      }
+    }
+
+    public bool Overwriting
+    {
+      get { return GetValue("Overwriting").ToObject<bool>(CommandBase.Serializer); }
+      set
+      {
+          SetValue("Overwriting", JToken.FromObject(value, CommandBase.Serializer));
+      }
+    }
+  }
+
+
+  ///
+  /// Export the hil graph data into a csv file.
+  ///
+  /// Name        Type   Description
+  /// ----------- ------ -----------------------------------------------------------------------------------------------
+  /// Path        string The full path to the csv file.
+  /// Overwriting bool   Overwrite an existing file if set to true, return an error if set to false and the file exists.
+  ///
+
+  public class ExportHilGraphDataToCSV : CommandBase
+  {
+    public override string Documentation
+    {
+      get { return "Export the hil graph data into a csv file."; }
+    }
+
+    internal const string CmdName = "ExportHilGraphDataToCSV";
+
+    public ExportHilGraphDataToCSV()
+      : base(CmdName)
+    {}
+
+    public ExportHilGraphDataToCSV(string path, bool overwriting)
       : base(CmdName)
     {
       Path = path;
@@ -19325,7 +19387,7 @@ namespace Sdx.Cmd
 
 
   ///
-  /// Get all infos about this antenna model.
+  /// Get  all infos about this antenna model.
   ///
   /// Name Type   Description
   /// ---- ------ --------------------------
@@ -19336,7 +19398,7 @@ namespace Sdx.Cmd
   {
     public override string Documentation
     {
-      get { return "Get all infos about this antenna model."; }
+      get { return "Get  all infos about this antenna model."; }
     }
 
     internal const string CmdName = "GetVehicleAntennaModel";
@@ -19375,7 +19437,7 @@ namespace Sdx.Cmd
 
 
   ///
-  /// Result of GetVehicleAntennaModel
+  /// Result of GetVehicleAntennaModel.
   ///
   /// Name                 Type               Description
   /// -------------------- ------------------ ----------------------------------------------------------------------------------------------------------------------------------
@@ -19416,7 +19478,7 @@ namespace Sdx.Cmd
   {
     public override string Documentation
     {
-      get { return "Result of GetVehicleAntennaModel"; }
+      get { return "Result of GetVehicleAntennaModel."; }
     }
 
     internal const string CmdName = "GetVehicleAntennaModelResult";
@@ -26663,21 +26725,31 @@ namespace Sdx.Cmd
 
 
   ///
-  /// Reset Hardware in the loop trajectory server warning message.
+  /// HIL extrapolation state.
+  ///
+  
+  public enum HilExtrapolationState { Deterministic, NonDeterministic, Snap }
+
+
+  ///
+  /// Get last Hardware in the loop extrapolation state. The states are defined as
+  /// the following increasing priority levels: Deterministic, NonDeterministic and Snap.
+  /// The state will stay on the highest level until polled. Polling the extrapolation state will reset it.
+  /// Returns GetHilExtrapolationStateResult.
   ///
   /// 
   ///
 
-  public class ResetHilWarning : CommandBase
+  public class GetHilExtrapolationState : CommandBase
   {
     public override string Documentation
     {
-      get { return "Reset Hardware in the loop trajectory server warning message."; }
+      get { return "Get last Hardware in the loop extrapolation state. The states are defined as\nthe following increasing priority levels: Deterministic, NonDeterministic and Snap.\nThe state will stay on the highest level until polled. Polling the extrapolation state will reset it.\nReturns GetHilExtrapolationStateResult."; }
     }
 
-    internal const string CmdName = "ResetHilWarning";
+    internal const string CmdName = "GetHilExtrapolationState";
 
-    public ResetHilWarning()
+    public GetHilExtrapolationState()
       : base(CmdName)
     {}
       
@@ -26695,64 +26767,32 @@ namespace Sdx.Cmd
 
 
   ///
-  /// Get last Hardware in the loop trajectory server warning message. Returns HilWarningResult.
+  /// Result of GetHilExtrapolationState.
   ///
-  /// 
+  /// Name        Type                  Description
+  /// ----------- --------------------- ---------------------------------------------------------
+  /// State       HilExtrapolationState HIL Extrapolation State.
+  /// ElapsedTime int                   Time in milliseconds of the returned extrapolation state.
   ///
 
-  public class GetLastHilWarning : CommandBase
+  public class GetHilExtrapolationStateResult : CommandResult
   {
     public override string Documentation
     {
-      get { return "Get last Hardware in the loop trajectory server warning message. Returns HilWarningResult."; }
+      get { return "Result of GetHilExtrapolationState."; }
     }
 
-    internal const string CmdName = "GetLastHilWarning";
+    internal const string CmdName = "GetHilExtrapolationStateResult";
 
-    public GetLastHilWarning()
-      : base(CmdName)
-    {}
-      
-    public override bool IsValid
-    {
-      get
-      {
-        return base.IsValid
-      ;
-      }
-    }
-
-    public override int ExecutePermission { get { return EXECUTE_IF_SIMULATING; } }
-  }
-
-
-  ///
-  /// Result of GetLastHilWarning.
-  ///
-  /// Name              Type Description
-  /// ----------------- ---- -----------------------------------------------------------------------------------------------------------------------------------
-  /// IsExtrapolated    bool Indicate if there is receiver position has been extrapolated because of the HIL client that did not send receiver position in time.
-  /// ExtrapolationTime int  Time of last extrapolated position
-  ///
-
-  public class HilWarningResult : CommandResult
-  {
-    public override string Documentation
-    {
-      get { return "Result of GetLastHilWarning."; }
-    }
-
-    internal const string CmdName = "HilWarningResult";
-
-    public HilWarningResult()
+    public GetHilExtrapolationStateResult()
       : base(CmdName)
     {}
 
-    public HilWarningResult(CommandBase relatedCommand, bool isExtrapolated, int extrapolationTime)
+    public GetHilExtrapolationStateResult(CommandBase relatedCommand, HilExtrapolationState state, int elapsedTime)
       : base(CmdName, relatedCommand)
     {
-      IsExtrapolated = isExtrapolated;
-      ExtrapolationTime = extrapolationTime;
+      State = state;
+      ElapsedTime = elapsedTime;
     }
       
     public override bool IsValid
@@ -26760,27 +26800,27 @@ namespace Sdx.Cmd
       get
       {
         return base.IsValid
-        && Contains("IsExtrapolated")
-        && Contains("ExtrapolationTime")
+        && Contains("State")
+        && Contains("ElapsedTime")
       ;
       }
     }
 
-    public bool IsExtrapolated
+    public HilExtrapolationState State
     {
-      get { return GetValue("IsExtrapolated").ToObject<bool>(CommandBase.Serializer); }
+      get { return GetValue("State").ToObject<HilExtrapolationState>(CommandBase.Serializer); }
       set
       {
-          SetValue("IsExtrapolated", JToken.FromObject(value, CommandBase.Serializer));
+          SetValue("State", JToken.FromObject(value, CommandBase.Serializer));
       }
     }
 
-    public int ExtrapolationTime
+    public int ElapsedTime
     {
-      get { return GetValue("ExtrapolationTime").ToObject<int>(CommandBase.Serializer); }
+      get { return GetValue("ElapsedTime").ToObject<int>(CommandBase.Serializer); }
       set
       {
-          SetValue("ExtrapolationTime", JToken.FromObject(value, CommandBase.Serializer));
+          SetValue("ElapsedTime", JToken.FromObject(value, CommandBase.Serializer));
       }
     }
   }
@@ -42531,7 +42571,7 @@ namespace Sdx.Cmd
   /// Name          Type   Description
   /// ------------- ------ ----------------------------------------------------------------------------------
   /// System        string "GPS", "GLONASS", "Galileo", "BeiDou", "SBAS", "QZSS" or "NavIC"
-  /// SvId          int    The satellite SV ID.
+  /// SvId          int    The satellite's SV ID.
   /// Offset        double Change to satellite pseudorange in meter when ramp is at maximum. Range -1e7..+1e7
   /// StartTime     int    Elapsed time in seconds since start of simulation.
   /// HoldStartTime int    Elapsed time in seconds since start of simulation. HoldStartTime >= StartTime
@@ -42727,7 +42767,7 @@ namespace Sdx.Cmd
   /// Name          Type   Description
   /// ------------- ------ ----------------------------------------------------------------------------------
   /// System        string "GPS", "GLONASS", "Galileo", "BeiDou", "SBAS", "QZSS" or "NavIC"
-  /// SvId          int    The satellite SV ID.
+  /// SvId          int    The satellite's SV ID.
   /// Offset        double Change to satellite pseudorange in meter when ramp is at maximum. Range -1e7..+1e7
   /// StartTime     int    Elapsed time in seconds since start of simulation.
   /// HoldStartTime int    Elapsed time in seconds since start of simulation. HoldStartTime >= StartTime
@@ -43056,7 +43096,7 @@ namespace Sdx.Cmd
   /// Name   Type   Description
   /// ------ ------ ----------------------------------------------------------------
   /// System string "GPS", "GLONASS", "Galileo", "BeiDou", "SBAS", "QZSS" or "NavIC"
-  /// SvId   int    The satellite's SV ID.
+  /// SvId   int    The satellite's SV ID (use 0 for all SVs).
   ///
 
   public class RemoveAllPseudorangeRampForSV : CommandBase
@@ -52441,6 +52481,86 @@ namespace Sdx.Cmd
 
 
   ///
+  /// Get streaming buffer size.
+  ///
+  /// 
+  ///
+
+  public class GetStreamingBuffer : CommandBase
+  {
+    public override string Documentation
+    {
+      get { return "Get streaming buffer size."; }
+    }
+
+    internal const string CmdName = "GetStreamingBuffer";
+
+    public GetStreamingBuffer()
+      : base(CmdName)
+    {}
+      
+    public override bool IsValid
+    {
+      get
+      {
+        return base.IsValid
+      ;
+      }
+    }
+
+    public override int ExecutePermission { get { return EXECUTE_IF_NO_CONFIG | EXECUTE_IF_IDLE | EXECUTE_IF_SIMULATING; } }
+  }
+
+
+  ///
+  /// Result of GetStreamingBuffer.
+  ///
+  /// Name Type Description
+  /// ---- ---- -----------------------------
+  /// Size int  Streaming buffer size in msec
+  ///
+
+  public class GetStreamingBufferResult : CommandResult
+  {
+    public override string Documentation
+    {
+      get { return "Result of GetStreamingBuffer."; }
+    }
+
+    internal const string CmdName = "GetStreamingBufferResult";
+
+    public GetStreamingBufferResult()
+      : base(CmdName)
+    {}
+
+    public GetStreamingBufferResult(CommandBase relatedCommand, int size)
+      : base(CmdName, relatedCommand)
+    {
+      Size = size;
+    }
+      
+    public override bool IsValid
+    {
+      get
+      {
+        return base.IsValid
+        && Contains("Size")
+      ;
+      }
+    }
+
+    public int Size
+    {
+      get { return GetValue("Size").ToObject<int>(CommandBase.Serializer); }
+      set
+      {
+          SetValue("Size", JToken.FromObject(value, CommandBase.Serializer));
+      }
+    }
+  }
+
+
+  ///
   /// Set engine latency.
   ///
   /// Name    Type Description
@@ -52477,7 +52597,7 @@ namespace Sdx.Cmd
       }
     }
 
-    public override int ExecutePermission { get { return EXECUTE_IF_NO_CONFIG | EXECUTE_IF_IDLE; } }
+    public override int ExecutePermission { get { return EXECUTE_IF_IDLE; } }
 
     public int Latency
     {
@@ -52485,6 +52605,136 @@ namespace Sdx.Cmd
       set
       {
           SetValue("Latency", JToken.FromObject(value, CommandBase.Serializer));
+      }
+    }
+  }
+
+
+  ///
+  /// Get engine latency.
+  ///
+  /// 
+  ///
+
+  public class GetEngineLatency : CommandBase
+  {
+    public override string Documentation
+    {
+      get { return "Get engine latency."; }
+    }
+
+    internal const string CmdName = "GetEngineLatency";
+
+    public GetEngineLatency()
+      : base(CmdName)
+    {}
+      
+    public override bool IsValid
+    {
+      get
+      {
+        return base.IsValid
+      ;
+      }
+    }
+
+    public override int ExecutePermission { get { return EXECUTE_IF_IDLE | EXECUTE_IF_SIMULATING; } }
+  }
+
+
+  ///
+  /// Result of GetEngineLatency.
+  ///
+  /// Name    Type Description
+  /// ------- ---- ----------------------
+  /// Latency int  Engine latency in msec
+  ///
+
+  public class GetEngineLatencyResult : CommandResult
+  {
+    public override string Documentation
+    {
+      get { return "Result of GetEngineLatency."; }
+    }
+
+    internal const string CmdName = "GetEngineLatencyResult";
+
+    public GetEngineLatencyResult()
+      : base(CmdName)
+    {}
+
+    public GetEngineLatencyResult(CommandBase relatedCommand, int latency)
+      : base(CmdName, relatedCommand)
+    {
+      Latency = latency;
+    }
+      
+    public override bool IsValid
+    {
+      get
+      {
+        return base.IsValid
+        && Contains("Latency")
+      ;
+      }
+    }
+
+    public int Latency
+    {
+      get { return GetValue("Latency").ToObject<int>(CommandBase.Serializer); }
+      set
+      {
+          SetValue("Latency", JToken.FromObject(value, CommandBase.Serializer));
+      }
+    }
+  }
+
+
+  ///
+  /// HIL Tjoin. Value is in milliseconds.
+  ///
+  /// Name     Type Description
+  /// -------- ---- -----------
+  /// HilTjoin int  HIL Tjoin.
+  ///
+
+  public class SetHilTjoin : CommandBase
+  {
+    public override string Documentation
+    {
+      get { return "HIL Tjoin. Value is in milliseconds."; }
+    }
+
+    internal const string CmdName = "SetHilTjoin";
+
+    public SetHilTjoin()
+      : base(CmdName)
+    {}
+
+    public SetHilTjoin(int hilTjoin)
+      : base(CmdName)
+    {
+      HilTjoin = hilTjoin;
+    }
+      
+    public override bool IsValid
+    {
+      get
+      {
+        return base.IsValid
+        && Contains("HilTjoin")
+      ;
+      }
+    }
+
+    public override int ExecutePermission { get { return EXECUTE_IF_IDLE; } }
+
+    public int HilTjoin
+    {
+      get { return GetValue("HilTjoin").ToObject<int>(CommandBase.Serializer); }
+      set
+      {
+          SetValue("HilTjoin", JToken.FromObject(value, CommandBase.Serializer));
       }
     }
   }
@@ -52640,7 +52890,7 @@ namespace Sdx.Cmd
       }
     }
 
-    public override int ExecutePermission { get { return EXECUTE_IF_NO_CONFIG | EXECUTE_IF_IDLE; } }
+    public override int ExecutePermission { get { return EXECUTE_IF_IDLE; } }
 
     public double Time
     {
@@ -52682,7 +52932,7 @@ namespace Sdx.Cmd
       }
     }
 
-    public override int ExecutePermission { get { return EXECUTE_IF_IDLE; } }
+    public override int ExecutePermission { get { return EXECUTE_IF_IDLE | EXECUTE_IF_SIMULATING; } }
   }
 
 
@@ -52773,7 +53023,7 @@ namespace Sdx.Cmd
       }
     }
 
-    public override int ExecutePermission { get { return EXECUTE_IF_NO_CONFIG | EXECUTE_IF_IDLE; } }
+    public override int ExecutePermission { get { return EXECUTE_IF_IDLE; } }
 
     public double Time
     {
@@ -52816,7 +53066,7 @@ namespace Sdx.Cmd
       }
     }
 
-    public override int ExecutePermission { get { return EXECUTE_IF_IDLE; } }
+    public override int ExecutePermission { get { return EXECUTE_IF_IDLE | EXECUTE_IF_SIMULATING; } }
   }
 
 
@@ -52946,7 +53196,7 @@ namespace Sdx.Cmd
       }
     }
 
-    public override int ExecutePermission { get { return EXECUTE_IF_IDLE; } }
+    public override int ExecutePermission { get { return EXECUTE_IF_IDLE | EXECUTE_IF_SIMULATING; } }
   }
 
 
@@ -53035,7 +53285,7 @@ namespace Sdx.Cmd
       }
     }
 
-    public override int ExecutePermission { get { return EXECUTE_IF_NO_CONFIG | EXECUTE_IF_IDLE; } }
+    public override int ExecutePermission { get { return EXECUTE_IF_NO_CONFIG | EXECUTE_IF_IDLE | EXECUTE_IF_SIMULATING; } }
 
     public bool Enabled
     {
@@ -53076,7 +53326,7 @@ namespace Sdx.Cmd
       }
     }
 
-    public override int ExecutePermission { get { return EXECUTE_IF_IDLE; } }
+    public override int ExecutePermission { get { return EXECUTE_IF_IDLE | EXECUTE_IF_SIMULATING; } }
   }
 
 
@@ -55310,7 +55560,7 @@ namespace Sdx.Cmd
       }
     }
 
-    public override int ExecutePermission { get { return EXECUTE_IF_IDLE; } }
+    public override int ExecutePermission { get { return EXECUTE_IF_IDLE | EXECUTE_IF_SIMULATING; } }
 
     public List<int> Messages
     {
@@ -55351,7 +55601,7 @@ namespace Sdx.Cmd
       }
     }
 
-    public override int ExecutePermission { get { return EXECUTE_IF_IDLE; } }
+    public override int ExecutePermission { get { return EXECUTE_IF_IDLE | EXECUTE_IF_SIMULATING; } }
   }
 
 
@@ -55398,6 +55648,240 @@ namespace Sdx.Cmd
       set
       {
           SetValue("Messages", JToken.FromObject(value, CommandBase.Serializer));
+      }
+    }
+  }
+
+
+  ///
+  /// Set the SBAS message update interval.
+  ///
+  /// Name           Type Description
+  /// -------------- ---- -----------------------------------------------------------------------------------------------
+  /// Message        int  The message type.
+  /// UpdateInterval int  The message update interval in seconds. Accepted range is [6..300] and must be a multiple of 6.
+  ///
+
+  public class SetSbasMessageUpdateInterval : CommandBase
+  {
+    public override string Documentation
+    {
+      get { return "Set the SBAS message update interval."; }
+    }
+
+    internal const string CmdName = "SetSbasMessageUpdateInterval";
+
+    public SetSbasMessageUpdateInterval()
+      : base(CmdName)
+    {}
+
+    public SetSbasMessageUpdateInterval(int message, int updateInterval)
+      : base(CmdName)
+    {
+      Message = message;
+      UpdateInterval = updateInterval;
+    }
+      
+    public override bool IsValid
+    {
+      get
+      {
+        return base.IsValid
+        && Contains("Message")
+        && Contains("UpdateInterval")
+      ;
+      }
+    }
+
+    public override int ExecutePermission { get { return EXECUTE_IF_IDLE | EXECUTE_IF_SIMULATING; } }
+
+    public int Message
+    {
+      get { return GetValue("Message").ToObject<int>(CommandBase.Serializer); }
+      set
+      {
+          SetValue("Message", JToken.FromObject(value, CommandBase.Serializer));
+      }
+    }
+
+    public int UpdateInterval
+    {
+      get { return GetValue("UpdateInterval").ToObject<int>(CommandBase.Serializer); }
+      set
+      {
+          SetValue("UpdateInterval", JToken.FromObject(value, CommandBase.Serializer));
+      }
+    }
+  }
+
+
+  ///
+  /// Get the SBAS message update interval.
+  ///
+  /// Name    Type Description
+  /// ------- ---- -----------------
+  /// Message int  The message type.
+  ///
+
+  public class GetSbasMessageUpdateInterval : CommandBase
+  {
+    public override string Documentation
+    {
+      get { return "Get the SBAS message update interval."; }
+    }
+
+    internal const string CmdName = "GetSbasMessageUpdateInterval";
+
+    public GetSbasMessageUpdateInterval()
+      : base(CmdName)
+    {}
+
+    public GetSbasMessageUpdateInterval(int message)
+      : base(CmdName)
+    {
+      Message = message;
+    }
+      
+    public override bool IsValid
+    {
+      get
+      {
+        return base.IsValid
+        && Contains("Message")
+      ;
+      }
+    }
+
+    public override int ExecutePermission { get { return EXECUTE_IF_IDLE | EXECUTE_IF_SIMULATING; } }
+
+    public int Message
+    {
+      get { return GetValue("Message").ToObject<int>(CommandBase.Serializer); }
+      set
+      {
+          SetValue("Message", JToken.FromObject(value, CommandBase.Serializer));
+      }
+    }
+  }
+
+
+  ///
+  /// Result of GetSbasMessageUpdateInterval.
+  ///
+  /// Name           Type Description
+  /// -------------- ---- -----------------------------------------------------------------------------------------------
+  /// Message        int  The message type.
+  /// UpdateInterval int  The message update interval in seconds. Accepted range is [6..300] and must be a multiple of 6.
+  ///
+
+  public class GetSbasMessageUpdateIntervalResult : CommandResult
+  {
+    public override string Documentation
+    {
+      get { return "Result of GetSbasMessageUpdateInterval."; }
+    }
+
+    internal const string CmdName = "GetSbasMessageUpdateIntervalResult";
+
+    public GetSbasMessageUpdateIntervalResult()
+      : base(CmdName)
+    {}
+
+    public GetSbasMessageUpdateIntervalResult(CommandBase relatedCommand, int message, int updateInterval)
+      : base(CmdName, relatedCommand)
+    {
+      Message = message;
+      UpdateInterval = updateInterval;
+    }
+      
+    public override bool IsValid
+    {
+      get
+      {
+        return base.IsValid
+        && Contains("Message")
+        && Contains("UpdateInterval")
+      ;
+      }
+    }
+
+    public int Message
+    {
+      get { return GetValue("Message").ToObject<int>(CommandBase.Serializer); }
+      set
+      {
+          SetValue("Message", JToken.FromObject(value, CommandBase.Serializer));
+      }
+    }
+
+    public int UpdateInterval
+    {
+      get { return GetValue("UpdateInterval").ToObject<int>(CommandBase.Serializer); }
+      set
+      {
+          SetValue("UpdateInterval", JToken.FromObject(value, CommandBase.Serializer));
+      }
+    }
+  }
+
+
+  ///
+  /// Export the SBAS message sequence into a csv file.
+  ///
+  /// Name        Type   Description
+  /// ----------- ------ -----------------------------------------------------------------------------------------------
+  /// Path        string The full path to the csv file.
+  /// Overwriting bool   Overwrite an existing file if set to true, return an error if set to false and the file exists.
+  ///
+
+  public class ExportSbasMessageSequence : CommandBase
+  {
+    public override string Documentation
+    {
+      get { return "Export the SBAS message sequence into a csv file."; }
+    }
+
+    internal const string CmdName = "ExportSbasMessageSequence";
+
+    public ExportSbasMessageSequence()
+      : base(CmdName)
+    {}
+
+    public ExportSbasMessageSequence(string path, bool overwriting)
+      : base(CmdName)
+    {
+      Path = path;
+      Overwriting = overwriting;
+    }
+      
+    public override bool IsValid
+    {
+      get
+      {
+        return base.IsValid
+        && Contains("Path")
+        && Contains("Overwriting")
+      ;
+      }
+    }
+
+    public override int ExecutePermission { get { return EXECUTE_IF_SIMULATING | EXECUTE_IF_IDLE; } }
+
+    public string Path
+    {
+      get { return GetValue("Path").ToObject<string>(CommandBase.Serializer); }
+      set
+      {
+          SetValue("Path", JToken.FromObject(value, CommandBase.Serializer));
+      }
+    }
+
+    public bool Overwriting
+    {
+      get { return GetValue("Overwriting").ToObject<bool>(CommandBase.Serializer); }
+      set
+      {
+          SetValue("Overwriting", JToken.FromObject(value, CommandBase.Serializer));
       }
     }
   }
@@ -59347,7 +59831,7 @@ namespace Sdx.Cmd
       }
     }
 
-    public override int ExecutePermission { get { return EXECUTE_IF_IDLE; } }
+    public override int ExecutePermission { get { return EXECUTE_IF_IDLE | EXECUTE_IF_SIMULATING; } }
 
     public string System
     {
@@ -59421,7 +59905,7 @@ namespace Sdx.Cmd
       }
     }
 
-    public override int ExecutePermission { get { return EXECUTE_IF_IDLE; } }
+    public override int ExecutePermission { get { return EXECUTE_IF_IDLE | EXECUTE_IF_SIMULATING; } }
 
     public string System
     {
@@ -59558,7 +60042,7 @@ namespace Sdx.Cmd
       }
     }
 
-    public override int ExecutePermission { get { return EXECUTE_IF_IDLE; } }
+    public override int ExecutePermission { get { return EXECUTE_IF_IDLE | EXECUTE_IF_SIMULATING; } }
 
     public bool IsEnabled
     {
@@ -59599,7 +60083,7 @@ namespace Sdx.Cmd
       }
     }
 
-    public override int ExecutePermission { get { return EXECUTE_IF_IDLE; } }
+    public override int ExecutePermission { get { return EXECUTE_IF_IDLE | EXECUTE_IF_SIMULATING; } }
   }
 
 
@@ -59782,19 +60266,19 @@ namespace Sdx.Cmd
 
 
   ///
-  /// Set whether ephemeris errors for this constellation should be compensated in SBAS long term corrections
+  /// Set whether ephemeris errors for this constellation should be compensated in SBAS long term corrections.
   ///
   /// Name      Type   Description
-  /// --------- ------ ------------------------------------
-  /// System    string As of today, only "GPS" is supported
-  /// IsEnabled bool   True if corrections are enabled
+  /// --------- ------ -------------------------------------
+  /// System    string As of today, only "GPS" is supported.
+  /// IsEnabled bool   True if corrections are enabled.
   ///
 
   public class EnableSbasLongTermCorrectionsFor : CommandBase
   {
     public override string Documentation
     {
-      get { return "Set whether ephemeris errors for this constellation should be compensated in SBAS long term corrections"; }
+      get { return "Set whether ephemeris errors for this constellation should be compensated in SBAS long term corrections."; }
     }
 
     internal const string CmdName = "EnableSbasLongTermCorrectionsFor";
@@ -59821,7 +60305,7 @@ namespace Sdx.Cmd
       }
     }
 
-    public override int ExecutePermission { get { return EXECUTE_IF_IDLE; } }
+    public override int ExecutePermission { get { return EXECUTE_IF_IDLE | EXECUTE_IF_SIMULATING; } }
 
     public string System
     {
@@ -59844,18 +60328,18 @@ namespace Sdx.Cmd
 
 
   ///
-  /// Get whether ephemeris errors for this constellation should be compensated in SBAS long term corrections
+  /// Get whether ephemeris errors for this constellation should be compensated in SBAS long term corrections.
   ///
   /// Name   Type   Description
-  /// ------ ------ ------------------------------------
-  /// System string As of today, only "GPS" is supported
+  /// ------ ------ -------------------------------------
+  /// System string As of today, only "GPS" is supported.
   ///
 
   public class IsSbasLongTermCorrectionsEnabledFor : CommandBase
   {
     public override string Documentation
     {
-      get { return "Get whether ephemeris errors for this constellation should be compensated in SBAS long term corrections"; }
+      get { return "Get whether ephemeris errors for this constellation should be compensated in SBAS long term corrections."; }
     }
 
     internal const string CmdName = "IsSbasLongTermCorrectionsEnabledFor";
@@ -59880,7 +60364,7 @@ namespace Sdx.Cmd
       }
     }
 
-    public override int ExecutePermission { get { return EXECUTE_IF_IDLE; } }
+    public override int ExecutePermission { get { return EXECUTE_IF_IDLE | EXECUTE_IF_SIMULATING; } }
 
     public string System
     {
@@ -59897,9 +60381,9 @@ namespace Sdx.Cmd
   /// Result of IsSbasLongTermCorrectionsEnabledFor.
   ///
   /// Name      Type   Description
-  /// --------- ------ ------------------------------------
-  /// System    string As of today, only "GPS" is supported
-  /// IsEnabled bool   True if corrections are enabled
+  /// --------- ------ -------------------------------------
+  /// System    string As of today, only "GPS" is supported.
+  /// IsEnabled bool   True if corrections are enabled.
   ///
 
   public class IsSbasLongTermCorrectionsEnabledForResult : CommandResult
@@ -60690,7 +61174,7 @@ namespace Sdx.Cmd
       }
     }
 
-    public override int ExecutePermission { get { return EXECUTE_IF_SIMULATING | EXECUTE_IF_IDLE; } }
+    public override int ExecutePermission { get { return EXECUTE_IF_SIMULATING; } }
 
     public bool Enabled
     {
@@ -60794,7 +61278,7 @@ namespace Sdx.Cmd
       }
     }
 
-    public override int ExecutePermission { get { return EXECUTE_IF_SIMULATING | EXECUTE_IF_IDLE; } }
+    public override int ExecutePermission { get { return EXECUTE_IF_SIMULATING; } }
 
     public bool Enabled
     {
@@ -68882,6 +69366,87 @@ namespace Sdx.Cmd
 
 
   ///
+  /// Get  the computer system time since epoch at PPS0, for the computer running this Skydel instance.
+  /// Use this command after StartPPS.
+  ///
+  /// 
+  ///
+
+  public class GetComputerSystemTimeSinceEpochAtPps0 : CommandBase
+  {
+    public override string Documentation
+    {
+      get { return "Get  the computer system time since epoch at PPS0, for the computer running this Skydel instance.\nUse this command after StartPPS."; }
+    }
+
+    internal const string CmdName = "GetComputerSystemTimeSinceEpochAtPps0";
+
+    public GetComputerSystemTimeSinceEpochAtPps0()
+      : base(CmdName)
+    {}
+      
+    public override bool IsValid
+    {
+      get
+      {
+        return base.IsValid
+      ;
+      }
+    }
+
+    public override int ExecutePermission { get { return EXECUTE_IF_SIMULATING; } }
+  }
+
+
+  ///
+  /// Result of GetComputerSystemTimeSinceEpochAtPps0.
+  ///
+  /// Name         Type   Description
+  /// ------------ ------ ---------------------------------------------------------
+  /// Milliseconds double Computer system time since epoch at PPS0 in milliseconds.
+  ///
+
+  public class GetComputerSystemTimeSinceEpochAtPps0Result : CommandResult
+  {
+    public override string Documentation
+    {
+      get { return "Result of GetComputerSystemTimeSinceEpochAtPps0."; }
+    }
+
+    internal const string CmdName = "GetComputerSystemTimeSinceEpochAtPps0Result";
+
+    public GetComputerSystemTimeSinceEpochAtPps0Result()
+      : base(CmdName)
+    {}
+
+    public GetComputerSystemTimeSinceEpochAtPps0Result(CommandBase relatedCommand, double milliseconds)
+      : base(CmdName, relatedCommand)
+    {
+      Milliseconds = milliseconds;
+    }
+      
+    public override bool IsValid
+    {
+      get
+      {
+        return base.IsValid
+        && Contains("Milliseconds")
+      ;
+      }
+    }
+
+    public double Milliseconds
+    {
+      get { return GetValue("Milliseconds").ToObject<double>(CommandBase.Serializer); }
+      set
+      {
+          SetValue("Milliseconds", JToken.FromObject(value, CommandBase.Serializer));
+      }
+    }
+  }
+
+
+  ///
   /// A pair of string
   ///
   /// Name   Type   Description
@@ -68894,6 +69459,134 @@ namespace Sdx.Cmd
   {
     public string First;
     public string Second;
+  }
+
+
+  ///
+  /// Please note the command ResetHilWarning is deprecated since 22.5. You may use GetHilExtrapolationState.
+  /// 
+  /// Reset Hardware in the loop trajectory server warning message.
+  ///
+  /// 
+  ///
+
+  public class ResetHilWarning : CommandBase
+  {
+    public override string Documentation
+    {
+      get { return "Please note the command ResetHilWarning is deprecated since 22.5. You may use GetHilExtrapolationState.\n\nReset Hardware in the loop trajectory server warning message."; }
+    }
+
+    internal const string CmdName = "ResetHilWarning";
+
+    public ResetHilWarning()
+      : base(CmdName)
+    {}
+      
+    public override bool IsValid
+    {
+      get
+      {
+        return base.IsValid
+      ;
+      }
+    }
+
+    public override int ExecutePermission { get { return EXECUTE_IF_SIMULATING; } }
+  }
+
+
+  ///
+  /// Please note the command GetLastHilWarning is deprecated since 22.5. You may use GetHilExtrapolationState.
+  /// 
+  /// Get last Hardware in the loop trajectory server warning message. Returns HilWarningResult.
+  ///
+  /// 
+  ///
+
+  public class GetLastHilWarning : CommandBase
+  {
+    public override string Documentation
+    {
+      get { return "Please note the command GetLastHilWarning is deprecated since 22.5. You may use GetHilExtrapolationState.\n\nGet last Hardware in the loop trajectory server warning message. Returns HilWarningResult."; }
+    }
+
+    internal const string CmdName = "GetLastHilWarning";
+
+    public GetLastHilWarning()
+      : base(CmdName)
+    {}
+      
+    public override bool IsValid
+    {
+      get
+      {
+        return base.IsValid
+      ;
+      }
+    }
+
+    public override int ExecutePermission { get { return EXECUTE_IF_SIMULATING; } }
+  }
+
+
+  ///
+  /// Result of GetLastHilWarning.
+  ///
+  /// Name              Type Description
+  /// ----------------- ---- -----------------------------------------------------------------------------------------------------------------------------------
+  /// IsExtrapolated    bool Indicate if there is receiver position has been extrapolated because of the HIL client that did not send receiver position in time.
+  /// ExtrapolationTime int  Time of last extrapolated position
+  ///
+
+  public class HilWarningResult : CommandResult
+  {
+    public override string Documentation
+    {
+      get { return "Result of GetLastHilWarning."; }
+    }
+
+    internal const string CmdName = "HilWarningResult";
+
+    public HilWarningResult()
+      : base(CmdName)
+    {}
+
+    public HilWarningResult(CommandBase relatedCommand, bool isExtrapolated, int extrapolationTime)
+      : base(CmdName, relatedCommand)
+    {
+      IsExtrapolated = isExtrapolated;
+      ExtrapolationTime = extrapolationTime;
+    }
+      
+    public override bool IsValid
+    {
+      get
+      {
+        return base.IsValid
+        && Contains("IsExtrapolated")
+        && Contains("ExtrapolationTime")
+      ;
+      }
+    }
+
+    public bool IsExtrapolated
+    {
+      get { return GetValue("IsExtrapolated").ToObject<bool>(CommandBase.Serializer); }
+      set
+      {
+          SetValue("IsExtrapolated", JToken.FromObject(value, CommandBase.Serializer));
+      }
+    }
+
+    public int ExtrapolationTime
+    {
+      get { return GetValue("ExtrapolationTime").ToObject<int>(CommandBase.Serializer); }
+      set
+      {
+          SetValue("ExtrapolationTime", JToken.FromObject(value, CommandBase.Serializer));
+      }
+    }
   }
 
 

@@ -89,7 +89,7 @@ class RemoteSimulator:
       print(result.getRelatedCommand().getName() + " failed: "+ result.getMessage())
 
   def _resetTime(self):
-    self.checkRunningTime = -99999999
+    self.checkRunningTime = -99999999.9
 
   def arm(self):
     self._checkConnect()
@@ -188,15 +188,15 @@ class RemoteSimulator:
     if self.hil == None:
       raise Exception("Cannot send positions to simulator because you are not connected.")
     
-    if self.checkRunningTime < 0:
+    if self.checkRunningTime < 0.0:
       self.checkRunningTime = elapsedTime
       
-    if elapsedTime - self.checkRunningTime >= 1000:
+    if elapsedTime - self.checkRunningTime >= 1000.0:
       self.checkRunningTime = elapsedTime
       if self.hilStreamingCheckEnabled and not self.checkIfStreaming(): 
         self._resetTime()
         return False
-      if self.verbose: print(str(pos) + " sent at " + str(elapsedTime) + "ms") 
+      if self.verbose: print(str(pos) + " sent at %2fms" % elapsedTime) 
     return True
   
   def _checkConnect(self):
@@ -204,15 +204,15 @@ class RemoteSimulator:
       raise Exception("You are not connected.")
   
   def pushLla(self, elapsedTime, lla, dest = ""):
-    return self.pushEcef(elapsedTime, lla.toEcef(), dest)
+    return self.pushEcef(elapsedTime, lla.toEcef(), dest = dest)
     
-  def pushEcef(self, elapsedTime, ecef, dest = ""):
-    self.hil.pushEcef(elapsedTime, ecef, dest)
-    return self._checkHil(ecef, elapsedTime)
-    
-  def pushEcefNed(self, elapsedTime, ecef, attitude, dest = ""):
-    self.hil.pushEcefNed(elapsedTime, ecef, attitude, dest)
-    return self._checkHil(str(ecef)+","+str(attitude), elapsedTime)
+  def pushEcef(self, elapsedTime, position, velocity = None, acceleration = None, jerk = None, dest = ""):
+    self.hil.pushEcef(elapsedTime, position, velocity, acceleration, jerk, dest)
+    return self._checkHil(position, elapsedTime)
+
+  def pushEcefNed(self, elapsedTime, position, attitude, velocity = None, angularVelocity = None, acceleration = None, angularAcceleration = None, jerk = None, angularJerk = None, dest = ""):
+    self.hil.pushEcefNed(elapsedTime, position, attitude, velocity, angularVelocity, acceleration, angularAcceleration, jerk, angularJerk, dest)
+    return self._checkHil(str(position)+", "+str(attitude), elapsedTime)
     
   def pushLlaNed(self, elapsedTime, lla, attitude):
     return self.pushEcefNed(elapsedTime, lla.toEcef(), attitude)

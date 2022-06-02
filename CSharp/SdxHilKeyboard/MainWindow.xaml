@@ -46,7 +46,6 @@
         <Label Grid.Row="1" Grid.Column="0" Content="Target Type:" Margin="3"/>
         <ComboBox Grid.Row="1" Grid.Column="1" VerticalAlignment="Center" Margin="3" SelectedValuePath="Content" SelectedValue="{Binding Path=TargetType}">
           <ComboBoxItem Content="NoneRT" />
-          <ComboBoxItem Content="BladeRF" />
           <ComboBoxItem Content="N210" />
           <ComboBoxItem Content="X300" />
         </ComboBox>

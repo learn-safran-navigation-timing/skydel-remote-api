@@ -19,7 +19,6 @@ You can also use the root "makefile" to compile everything with "make" command i
 IMPORTANT for Linux:
 The SdxApi project depends on libuuid.
 Command to install on Ubuntu : sudo apt-get install uuid-dev
-Commnad to install on Fedora : sudo yum install uuid-devel
 
 
 * HOW TO RUN EXAMPLES *

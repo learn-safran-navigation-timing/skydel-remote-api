@@ -1,4 +1,4 @@
 #pragma once
 
-#define COMMANDS_API_VERSION 36
+#define COMMANDS_API_VERSION 37
 

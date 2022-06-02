@@ -9,7 +9,7 @@ from distutils.core import setup
 
 setup(
     name="Skydel SDX",
-    version="36",
+    version="37",
     packages=["skydelsdx"],
     license="Commercial License",
     long_description="Skydel python module for remote commands"

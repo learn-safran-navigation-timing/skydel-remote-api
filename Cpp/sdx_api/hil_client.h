@@ -4,22 +4,32 @@
 #include <memory>
 #include <string>
 #include <cstdint>
+#include <utility>
 
 namespace Sdx
 {
 
 enum HilMessageId
 {
-  HilMsgId_PushEcef = 0,
   HilMsgId_Hello = 1,
   HilMsgId_Bye = 2,
   HilMsgId_VehicleInfo = 3,
-  HilMsgId_PushEcefNed = 4
+  HilMsgId_PushEcef = 5,
+  HilMsgId_PushEcefNed = 6,
+  HilMsgId_PushEcefDynamics = 7,
+  HilMsgId_PushEcefNedDynamics = 8
+};
+
+enum class HilDynamics
+{
+  Velocity = 0,
+  Acceleration= 1,
+  Jerk = 2
 };
 
 struct HilMessageEcef
 {
-  int64_t time;
+  double time;
   double  x;
   double  y;
   double  z;
@@ -27,7 +37,7 @@ struct HilMessageEcef
 
 struct HilMessageEcefNed
 {
-  int64_t time;
+  double time;
   double  x;
   double  y;
   double  z;
@@ -55,8 +65,15 @@ public:
   bool isVerbose() const;
   void setVerbose(bool verbose);
 
-  virtual bool pushEcef(long long elapsedTime, const Ecef& ecef, const std::string& name = "");
-  virtual bool pushEcefNed(long long elapsedTime, const Ecef& ecef, const Attitude& attitude, const std::string& name = "");
+  virtual bool pushEcef(double elapsedTime, const Ecef& position, const std::string& name = "");
+  virtual bool pushEcef(double elapsedTime, const Ecef& position, const Ecef& velocity, const std::string& name = "");
+  virtual bool pushEcef(double elapsedTime, const Ecef& position, const Ecef& velocity, const Ecef& acceleration, const std::string& name = "");
+  virtual bool pushEcef(double elapsedTime, const Ecef& position, const Ecef& velocity, const Ecef& acceleration, const Ecef& jerk, const std::string& name = "");
+
+  virtual bool pushEcefNed(double elapsedTime, const Ecef& position, const Attitude& attitude, const std::string& name = "");
+  virtual bool pushEcefNed(double elapsedTime, const Ecef& position, const Attitude& attitude, const Ecef& velocity, const Attitude& angularVelocity, const std::string& name = "");
+  virtual bool pushEcefNed(double elapsedTime, const Ecef& position, const Attitude& attitude, const Ecef& velocity, const Attitude& angularVelocity, const Ecef& acceleration, const Attitude& angularAcceleration, const std::string& name = "");
+  virtual bool pushEcefNed(double elapsedTime, const Ecef& position, const Attitude& attitude, const Ecef& velocity, const Attitude& angularVelocity, const Ecef& acceleration, const Attitude& angularAcceleration, const Ecef& jerk, const  Attitude& angularJerk, const std::string& name = "");
 
   void disconnect();
 

@@ -14,7 +14,7 @@ namespace Sdx
     /// Name   Type   Description
     /// ------ ------ ----------------------------------------------------------------
     /// System string "GPS", "GLONASS", "Galileo", "BeiDou", "SBAS", "QZSS" or "NavIC"
-    /// SvId   int    The satellite's SV ID.
+    /// SvId   int    The satellite's SV ID (use 0 for all SVs).
     ///
 
     class RemoveAllPseudorangeRampForSV;

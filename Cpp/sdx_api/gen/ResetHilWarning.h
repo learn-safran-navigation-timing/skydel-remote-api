@@ -9,6 +9,8 @@ namespace Sdx
   namespace Cmd
   {
     ///
+    /// Please note the command ResetHilWarning is deprecated since 22.5. You may use GetHilExtrapolationState.
+    /// 
     /// Reset Hardware in the loop trajectory server warning message.
     ///
     /// 

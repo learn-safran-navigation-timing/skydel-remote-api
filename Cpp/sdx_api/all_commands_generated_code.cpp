@@ -3493,6 +3493,90 @@ namespace Sdx
 
 
 ///
+/// Definition of ExportHilGraphDataToCSV
+///
+#include "gen/ExportHilGraphDataToCSV.h"
+
+namespace Sdx
+{
+  namespace Cmd
+  {
+    const char* const ExportHilGraphDataToCSV::CmdName = "ExportHilGraphDataToCSV";
+    const char* const ExportHilGraphDataToCSV::Documentation = "Export the hil graph data into a csv file.";
+
+    REGISTER_COMMAND_FACTORY(ExportHilGraphDataToCSV);
+
+
+    ExportHilGraphDataToCSV::ExportHilGraphDataToCSV()
+      : CommandBase(CmdName)
+    {}
+
+    ExportHilGraphDataToCSV::ExportHilGraphDataToCSV(const std::string& path, bool overwriting)
+      : CommandBase(CmdName)
+    {
+
+      setPath(path);
+      setOverwriting(overwriting);
+    }
+
+
+    ExportHilGraphDataToCSVPtr ExportHilGraphDataToCSV::create(const std::string& path, bool overwriting)
+    {
+      return std::make_shared<ExportHilGraphDataToCSV>(path, overwriting);
+    }
+
+    ExportHilGraphDataToCSVPtr ExportHilGraphDataToCSV::dynamicCast(CommandBasePtr ptr)
+    {
+      return std::dynamic_pointer_cast<ExportHilGraphDataToCSV>(ptr);
+    }
+
+    bool ExportHilGraphDataToCSV::isValid() const
+    {
+      
+        return m_values.IsObject()
+          && parse_json<std::string>::is_valid(m_values["Path"])
+          && parse_json<bool>::is_valid(m_values["Overwriting"])
+        ;
+
+    }
+
+    std::string ExportHilGraphDataToCSV::documentation() const { return Documentation; }
+
+
+    int ExportHilGraphDataToCSV::executePermission() const
+    {
+      return EXECUTE_IF_SIMULATING | EXECUTE_IF_IDLE;
+    }
+
+
+    std::string ExportHilGraphDataToCSV::path() const
+    {
+      return parse_json<std::string>::parse(m_values["Path"]);
+    }
+
+    void ExportHilGraphDataToCSV::setPath(const std::string& path)
+    {
+      m_values.AddMember("Path", parse_json<std::string>::format(path, m_values.GetAllocator()), m_values.GetAllocator());
+    }
+
+
+
+    bool ExportHilGraphDataToCSV::overwriting() const
+    {
+      return parse_json<bool>::parse(m_values["Overwriting"]);
+    }
+
+    void ExportHilGraphDataToCSV::setOverwriting(bool overwriting)
+    {
+      m_values.AddMember("Overwriting", parse_json<bool>::format(overwriting, m_values.GetAllocator()), m_values.GetAllocator());
+    }
+
+
+  }
+}
+
+
+///
 /// Definition of SetPropagationDelay
 ///
 #include "gen/SetPropagationDelay.h"
@@ -25354,7 +25438,7 @@ namespace Sdx
   namespace Cmd
   {
     const char* const GetVehicleAntennaModel::CmdName = "GetVehicleAntennaModel";
-    const char* const GetVehicleAntennaModel::Documentation = "Get all infos about this antenna model.";
+    const char* const GetVehicleAntennaModel::Documentation = "Get  all infos about this antenna model.";
 
     REGISTER_COMMAND_FACTORY(GetVehicleAntennaModel);
 
@@ -25424,7 +25508,7 @@ namespace Sdx
   namespace Cmd
   {
     const char* const GetVehicleAntennaModelResult::CmdName = "GetVehicleAntennaModelResult";
-    const char* const GetVehicleAntennaModelResult::Documentation = "Result of GetVehicleAntennaModel";
+    const char* const GetVehicleAntennaModelResult::Documentation = "Result of GetVehicleAntennaModel.";
 
     REGISTER_COMMAND_RESULT_FACTORY(GetVehicleAntennaModelResult);
 
@@ -34971,38 +35055,38 @@ namespace Sdx
 
 
 ///
-/// Definition of ResetHilWarning
+/// Definition of GetHilExtrapolationState
 ///
-#include "gen/ResetHilWarning.h"
+#include "gen/GetHilExtrapolationState.h"
 
 namespace Sdx
 {
   namespace Cmd
   {
-    const char* const ResetHilWarning::CmdName = "ResetHilWarning";
-    const char* const ResetHilWarning::Documentation = "Reset Hardware in the loop trajectory server warning message.";
+    const char* const GetHilExtrapolationState::CmdName = "GetHilExtrapolationState";
+    const char* const GetHilExtrapolationState::Documentation = "Get last Hardware in the loop extrapolation state. The states are defined as\nthe following increasing priority levels: Deterministic, NonDeterministic and Snap.\nThe state will stay on the highest level until polled. Polling the extrapolation state will reset it.\nReturns GetHilExtrapolationStateResult.";
 
-    REGISTER_COMMAND_FACTORY(ResetHilWarning);
+    REGISTER_COMMAND_FACTORY(GetHilExtrapolationState);
 
 
-    ResetHilWarning::ResetHilWarning()
+    GetHilExtrapolationState::GetHilExtrapolationState()
       : CommandBase(CmdName)
     {
 
     }
 
 
-    ResetHilWarningPtr ResetHilWarning::create()
+    GetHilExtrapolationStatePtr GetHilExtrapolationState::create()
     {
-      return std::make_shared<ResetHilWarning>();
+      return std::make_shared<GetHilExtrapolationState>();
     }
 
-    ResetHilWarningPtr ResetHilWarning::dynamicCast(CommandBasePtr ptr)
+    GetHilExtrapolationStatePtr GetHilExtrapolationState::dynamicCast(CommandBasePtr ptr)
     {
-      return std::dynamic_pointer_cast<ResetHilWarning>(ptr);
+      return std::dynamic_pointer_cast<GetHilExtrapolationState>(ptr);
     }
 
-    bool ResetHilWarning::isValid() const
+    bool GetHilExtrapolationState::isValid() const
     {
       
         return m_values.IsObject()
@@ -35010,10 +35094,10 @@ namespace Sdx
 
     }
 
-    std::string ResetHilWarning::documentation() const { return Documentation; }
+    std::string GetHilExtrapolationState::documentation() const { return Documentation; }
 
 
-    int ResetHilWarning::executePermission() const
+    int GetHilExtrapolationState::executePermission() const
     {
       return EXECUTE_IF_SIMULATING;
     }
@@ -35023,128 +35107,76 @@ namespace Sdx
 
 
 ///
-/// Definition of GetLastHilWarning
+/// Definition of GetHilExtrapolationStateResult
 ///
-#include "gen/GetLastHilWarning.h"
+#include "gen/GetHilExtrapolationStateResult.h"
 
 namespace Sdx
 {
   namespace Cmd
   {
-    const char* const GetLastHilWarning::CmdName = "GetLastHilWarning";
-    const char* const GetLastHilWarning::Documentation = "Get last Hardware in the loop trajectory server warning message. Returns HilWarningResult.";
+    const char* const GetHilExtrapolationStateResult::CmdName = "GetHilExtrapolationStateResult";
+    const char* const GetHilExtrapolationStateResult::Documentation = "Result of GetHilExtrapolationState.";
 
-    REGISTER_COMMAND_FACTORY(GetLastHilWarning);
-
-
-    GetLastHilWarning::GetLastHilWarning()
-      : CommandBase(CmdName)
-    {
-
-    }
+    REGISTER_COMMAND_RESULT_FACTORY(GetHilExtrapolationStateResult);
 
 
-    GetLastHilWarningPtr GetLastHilWarning::create()
-    {
-      return std::make_shared<GetLastHilWarning>();
-    }
-
-    GetLastHilWarningPtr GetLastHilWarning::dynamicCast(CommandBasePtr ptr)
-    {
-      return std::dynamic_pointer_cast<GetLastHilWarning>(ptr);
-    }
-
-    bool GetLastHilWarning::isValid() const
-    {
-      
-        return m_values.IsObject()
-        ;
-
-    }
-
-    std::string GetLastHilWarning::documentation() const { return Documentation; }
-
-
-    int GetLastHilWarning::executePermission() const
-    {
-      return EXECUTE_IF_SIMULATING;
-    }
-
-  }
-}
-
-
-///
-/// Definition of HilWarningResult
-///
-#include "gen/HilWarningResult.h"
-
-namespace Sdx
-{
-  namespace Cmd
-  {
-    const char* const HilWarningResult::CmdName = "HilWarningResult";
-    const char* const HilWarningResult::Documentation = "Result of GetLastHilWarning.";
-
-    REGISTER_COMMAND_RESULT_FACTORY(HilWarningResult);
-
-
-    HilWarningResult::HilWarningResult()
+    GetHilExtrapolationStateResult::GetHilExtrapolationStateResult()
       : CommandResult(CmdName)
     {}
 
-    HilWarningResult::HilWarningResult(CommandBasePtr relatedCommand, bool isExtrapolated, int extrapolationTime)
+    GetHilExtrapolationStateResult::GetHilExtrapolationStateResult(CommandBasePtr relatedCommand, const Sdx::HilExtrapolationState& state, int elapsedTime)
       : CommandResult(CmdName, relatedCommand)
     {
 
-      setIsExtrapolated(isExtrapolated);
-      setExtrapolationTime(extrapolationTime);
+      setState(state);
+      setElapsedTime(elapsedTime);
     }
 
 
-    HilWarningResultPtr HilWarningResult::create(CommandBasePtr relatedCommand, bool isExtrapolated, int extrapolationTime)
+    GetHilExtrapolationStateResultPtr GetHilExtrapolationStateResult::create(CommandBasePtr relatedCommand, const Sdx::HilExtrapolationState& state, int elapsedTime)
     {
-      return std::make_shared<HilWarningResult>(relatedCommand, isExtrapolated, extrapolationTime);
+      return std::make_shared<GetHilExtrapolationStateResult>(relatedCommand, state, elapsedTime);
     }
 
-    HilWarningResultPtr HilWarningResult::dynamicCast(CommandBasePtr ptr)
+    GetHilExtrapolationStateResultPtr GetHilExtrapolationStateResult::dynamicCast(CommandBasePtr ptr)
     {
-      return std::dynamic_pointer_cast<HilWarningResult>(ptr);
+      return std::dynamic_pointer_cast<GetHilExtrapolationStateResult>(ptr);
     }
 
-    bool HilWarningResult::isValid() const
+    bool GetHilExtrapolationStateResult::isValid() const
     {
       
         return m_values.IsObject()
-          && parse_json<bool>::is_valid(m_values["IsExtrapolated"])
-          && parse_json<int>::is_valid(m_values["ExtrapolationTime"])
+          && parse_json<Sdx::HilExtrapolationState>::is_valid(m_values["State"])
+          && parse_json<int>::is_valid(m_values["ElapsedTime"])
         ;
 
     }
 
-    std::string HilWarningResult::documentation() const { return Documentation; }
+    std::string GetHilExtrapolationStateResult::documentation() const { return Documentation; }
 
 
-    bool HilWarningResult::isExtrapolated() const
+    Sdx::HilExtrapolationState GetHilExtrapolationStateResult::state() const
     {
-      return parse_json<bool>::parse(m_values["IsExtrapolated"]);
+      return parse_json<Sdx::HilExtrapolationState>::parse(m_values["State"]);
     }
 
-    void HilWarningResult::setIsExtrapolated(bool isExtrapolated)
+    void GetHilExtrapolationStateResult::setState(const Sdx::HilExtrapolationState& state)
     {
-      m_values.AddMember("IsExtrapolated", parse_json<bool>::format(isExtrapolated, m_values.GetAllocator()), m_values.GetAllocator());
+      m_values.AddMember("State", parse_json<Sdx::HilExtrapolationState>::format(state, m_values.GetAllocator()), m_values.GetAllocator());
     }
 
 
 
-    int HilWarningResult::extrapolationTime() const
+    int GetHilExtrapolationStateResult::elapsedTime() const
     {
-      return parse_json<int>::parse(m_values["ExtrapolationTime"]);
+      return parse_json<int>::parse(m_values["ElapsedTime"]);
     }
 
-    void HilWarningResult::setExtrapolationTime(int extrapolationTime)
+    void GetHilExtrapolationStateResult::setElapsedTime(int elapsedTime)
     {
-      m_values.AddMember("ExtrapolationTime", parse_json<int>::format(extrapolationTime, m_values.GetAllocator()), m_values.GetAllocator());
+      m_values.AddMember("ElapsedTime", parse_json<int>::format(elapsedTime, m_values.GetAllocator()), m_values.GetAllocator());
     }
 
 
@@ -66847,6 +66879,122 @@ namespace Sdx
 
 
 ///
+/// Definition of GetStreamingBuffer
+///
+#include "gen/GetStreamingBuffer.h"
+
+namespace Sdx
+{
+  namespace Cmd
+  {
+    const char* const GetStreamingBuffer::CmdName = "GetStreamingBuffer";
+    const char* const GetStreamingBuffer::Documentation = "Get streaming buffer size.";
+
+    REGISTER_COMMAND_FACTORY(GetStreamingBuffer);
+
+
+    GetStreamingBuffer::GetStreamingBuffer()
+      : CommandBase(CmdName)
+    {
+
+    }
+
+
+    GetStreamingBufferPtr GetStreamingBuffer::create()
+    {
+      return std::make_shared<GetStreamingBuffer>();
+    }
+
+    GetStreamingBufferPtr GetStreamingBuffer::dynamicCast(CommandBasePtr ptr)
+    {
+      return std::dynamic_pointer_cast<GetStreamingBuffer>(ptr);
+    }
+
+    bool GetStreamingBuffer::isValid() const
+    {
+      
+        return m_values.IsObject()
+        ;
+
+    }
+
+    std::string GetStreamingBuffer::documentation() const { return Documentation; }
+
+
+    int GetStreamingBuffer::executePermission() const
+    {
+      return EXECUTE_IF_NO_CONFIG | EXECUTE_IF_IDLE | EXECUTE_IF_SIMULATING;
+    }
+
+  }
+}
+
+
+///
+/// Definition of GetStreamingBufferResult
+///
+#include "gen/GetStreamingBufferResult.h"
+
+namespace Sdx
+{
+  namespace Cmd
+  {
+    const char* const GetStreamingBufferResult::CmdName = "GetStreamingBufferResult";
+    const char* const GetStreamingBufferResult::Documentation = "Result of GetStreamingBuffer.";
+
+    REGISTER_COMMAND_RESULT_FACTORY(GetStreamingBufferResult);
+
+
+    GetStreamingBufferResult::GetStreamingBufferResult()
+      : CommandResult(CmdName)
+    {}
+
+    GetStreamingBufferResult::GetStreamingBufferResult(CommandBasePtr relatedCommand, int size)
+      : CommandResult(CmdName, relatedCommand)
+    {
+
+      setSize(size);
+    }
+
+
+    GetStreamingBufferResultPtr GetStreamingBufferResult::create(CommandBasePtr relatedCommand, int size)
+    {
+      return std::make_shared<GetStreamingBufferResult>(relatedCommand, size);
+    }
+
+    GetStreamingBufferResultPtr GetStreamingBufferResult::dynamicCast(CommandBasePtr ptr)
+    {
+      return std::dynamic_pointer_cast<GetStreamingBufferResult>(ptr);
+    }
+
+    bool GetStreamingBufferResult::isValid() const
+    {
+      
+        return m_values.IsObject()
+          && parse_json<int>::is_valid(m_values["Size"])
+        ;
+
+    }
+
+    std::string GetStreamingBufferResult::documentation() const { return Documentation; }
+
+
+    int GetStreamingBufferResult::size() const
+    {
+      return parse_json<int>::parse(m_values["Size"]);
+    }
+
+    void GetStreamingBufferResult::setSize(int size)
+    {
+      m_values.AddMember("Size", parse_json<int>::format(size, m_values.GetAllocator()), m_values.GetAllocator());
+    }
+
+
+  }
+}
+
+
+///
 /// Definition of SetEngineLatency
 ///
 #include "gen/SetEngineLatency.h"
@@ -66897,7 +67045,7 @@ namespace Sdx
 
     int SetEngineLatency::executePermission() const
     {
-      return EXECUTE_IF_NO_CONFIG | EXECUTE_IF_IDLE;
+      return EXECUTE_IF_IDLE;
     }
 
 
@@ -66909,6 +67057,192 @@ namespace Sdx
     void SetEngineLatency::setLatency(int latency)
     {
       m_values.AddMember("Latency", parse_json<int>::format(latency, m_values.GetAllocator()), m_values.GetAllocator());
+    }
+
+
+  }
+}
+
+
+///
+/// Definition of GetEngineLatency
+///
+#include "gen/GetEngineLatency.h"
+
+namespace Sdx
+{
+  namespace Cmd
+  {
+    const char* const GetEngineLatency::CmdName = "GetEngineLatency";
+    const char* const GetEngineLatency::Documentation = "Get engine latency.";
+
+    REGISTER_COMMAND_FACTORY(GetEngineLatency);
+
+
+    GetEngineLatency::GetEngineLatency()
+      : CommandBase(CmdName)
+    {
+
+    }
+
+
+    GetEngineLatencyPtr GetEngineLatency::create()
+    {
+      return std::make_shared<GetEngineLatency>();
+    }
+
+    GetEngineLatencyPtr GetEngineLatency::dynamicCast(CommandBasePtr ptr)
+    {
+      return std::dynamic_pointer_cast<GetEngineLatency>(ptr);
+    }
+
+    bool GetEngineLatency::isValid() const
+    {
+      
+        return m_values.IsObject()
+        ;
+
+    }
+
+    std::string GetEngineLatency::documentation() const { return Documentation; }
+
+
+    int GetEngineLatency::executePermission() const
+    {
+      return EXECUTE_IF_IDLE | EXECUTE_IF_SIMULATING;
+    }
+
+  }
+}
+
+
+///
+/// Definition of GetEngineLatencyResult
+///
+#include "gen/GetEngineLatencyResult.h"
+
+namespace Sdx
+{
+  namespace Cmd
+  {
+    const char* const GetEngineLatencyResult::CmdName = "GetEngineLatencyResult";
+    const char* const GetEngineLatencyResult::Documentation = "Result of GetEngineLatency.";
+
+    REGISTER_COMMAND_RESULT_FACTORY(GetEngineLatencyResult);
+
+
+    GetEngineLatencyResult::GetEngineLatencyResult()
+      : CommandResult(CmdName)
+    {}
+
+    GetEngineLatencyResult::GetEngineLatencyResult(CommandBasePtr relatedCommand, int latency)
+      : CommandResult(CmdName, relatedCommand)
+    {
+
+      setLatency(latency);
+    }
+
+
+    GetEngineLatencyResultPtr GetEngineLatencyResult::create(CommandBasePtr relatedCommand, int latency)
+    {
+      return std::make_shared<GetEngineLatencyResult>(relatedCommand, latency);
+    }
+
+    GetEngineLatencyResultPtr GetEngineLatencyResult::dynamicCast(CommandBasePtr ptr)
+    {
+      return std::dynamic_pointer_cast<GetEngineLatencyResult>(ptr);
+    }
+
+    bool GetEngineLatencyResult::isValid() const
+    {
+      
+        return m_values.IsObject()
+          && parse_json<int>::is_valid(m_values["Latency"])
+        ;
+
+    }
+
+    std::string GetEngineLatencyResult::documentation() const { return Documentation; }
+
+
+    int GetEngineLatencyResult::latency() const
+    {
+      return parse_json<int>::parse(m_values["Latency"]);
+    }
+
+    void GetEngineLatencyResult::setLatency(int latency)
+    {
+      m_values.AddMember("Latency", parse_json<int>::format(latency, m_values.GetAllocator()), m_values.GetAllocator());
+    }
+
+
+  }
+}
+
+
+///
+/// Definition of SetHilTjoin
+///
+#include "gen/SetHilTjoin.h"
+
+namespace Sdx
+{
+  namespace Cmd
+  {
+    const char* const SetHilTjoin::CmdName = "SetHilTjoin";
+    const char* const SetHilTjoin::Documentation = "HIL Tjoin. Value is in milliseconds.";
+
+    REGISTER_COMMAND_FACTORY(SetHilTjoin);
+
+
+    SetHilTjoin::SetHilTjoin()
+      : CommandBase(CmdName)
+    {}
+
+    SetHilTjoin::SetHilTjoin(int hilTjoin)
+      : CommandBase(CmdName)
+    {
+
+      setHilTjoin(hilTjoin);
+    }
+
+
+    SetHilTjoinPtr SetHilTjoin::create(int hilTjoin)
+    {
+      return std::make_shared<SetHilTjoin>(hilTjoin);
+    }
+
+    SetHilTjoinPtr SetHilTjoin::dynamicCast(CommandBasePtr ptr)
+    {
+      return std::dynamic_pointer_cast<SetHilTjoin>(ptr);
+    }
+
+    bool SetHilTjoin::isValid() const
+    {
+      
+        return m_values.IsObject()
+          && parse_json<int>::is_valid(m_values["HilTjoin"])
+        ;
+
+    }
+
+    std::string SetHilTjoin::documentation() const { return Documentation; }
+
+
+    int SetHilTjoin::executePermission() const
+    {
+      return EXECUTE_IF_IDLE;
+    }
+
+
+    int SetHilTjoin::hilTjoin() const
+    {
+      return parse_json<int>::parse(m_values["HilTjoin"]);
+    }
+
+    void SetHilTjoin::setHilTjoin(int hilTjoin)
+    {
+      m_values.AddMember("HilTjoin", parse_json<int>::format(hilTjoin, m_values.GetAllocator()), m_values.GetAllocator());
     }
 
 
@@ -67121,7 +67455,7 @@ namespace Sdx
 
     int SetSyncTime::executePermission() const
     {
-      return EXECUTE_IF_NO_CONFIG | EXECUTE_IF_IDLE;
+      return EXECUTE_IF_IDLE;
     }
 
 
@@ -67185,7 +67519,7 @@ namespace Sdx
 
     int GetSyncTime::executePermission() const
     {
-      return EXECUTE_IF_IDLE;
+      return EXECUTE_IF_IDLE | EXECUTE_IF_SIMULATING;
     }
 
   }
@@ -67307,7 +67641,7 @@ namespace Sdx
 
     int SetSyncTimeMaster::executePermission() const
     {
-      return EXECUTE_IF_NO_CONFIG | EXECUTE_IF_IDLE;
+      return EXECUTE_IF_IDLE;
     }
 
 
@@ -67371,7 +67705,7 @@ namespace Sdx
 
     int GetSyncTimeMaster::executePermission() const
     {
-      return EXECUTE_IF_IDLE;
+      return EXECUTE_IF_IDLE | EXECUTE_IF_SIMULATING;
     }
 
   }
@@ -67557,7 +67891,7 @@ namespace Sdx
 
     int IsSimStopWhenCommandFailEnabled::executePermission() const
     {
-      return EXECUTE_IF_IDLE;
+      return EXECUTE_IF_IDLE | EXECUTE_IF_SIMULATING;
     }
 
   }
@@ -67679,7 +68013,7 @@ namespace Sdx
 
     int StopMasterWhenSlaveStop::executePermission() const
     {
-      return EXECUTE_IF_NO_CONFIG | EXECUTE_IF_IDLE;
+      return EXECUTE_IF_NO_CONFIG | EXECUTE_IF_IDLE | EXECUTE_IF_SIMULATING;
     }
 
 
@@ -67743,7 +68077,7 @@ namespace Sdx
 
     int IsStopMasterWhenSlaveStop::executePermission() const
     {
-      return EXECUTE_IF_IDLE;
+      return EXECUTE_IF_IDLE | EXECUTE_IF_SIMULATING;
     }
 
   }
@@ -70757,7 +71091,7 @@ namespace Sdx
 
     int EnableSbasMessages::executePermission() const
     {
-      return EXECUTE_IF_IDLE;
+      return EXECUTE_IF_IDLE | EXECUTE_IF_SIMULATING;
     }
 
 
@@ -70821,7 +71155,7 @@ namespace Sdx
 
     int GetSbasMessagesEnabled::executePermission() const
     {
-      return EXECUTE_IF_IDLE;
+      return EXECUTE_IF_IDLE | EXECUTE_IF_SIMULATING;
     }
 
   }
@@ -70885,6 +71219,322 @@ namespace Sdx
     void GetSbasMessagesEnabledResult::setMessages(const std::vector<int>& messages)
     {
       m_values.AddMember("Messages", parse_json<std::vector<int>>::format(messages, m_values.GetAllocator()), m_values.GetAllocator());
+    }
+
+
+  }
+}
+
+
+///
+/// Definition of SetSbasMessageUpdateInterval
+///
+#include "gen/SetSbasMessageUpdateInterval.h"
+
+namespace Sdx
+{
+  namespace Cmd
+  {
+    const char* const SetSbasMessageUpdateInterval::CmdName = "SetSbasMessageUpdateInterval";
+    const char* const SetSbasMessageUpdateInterval::Documentation = "Set the SBAS message update interval.";
+
+    REGISTER_COMMAND_FACTORY(SetSbasMessageUpdateInterval);
+
+
+    SetSbasMessageUpdateInterval::SetSbasMessageUpdateInterval()
+      : CommandBase(CmdName)
+    {}
+
+    SetSbasMessageUpdateInterval::SetSbasMessageUpdateInterval(int message, int updateInterval)
+      : CommandBase(CmdName)
+    {
+
+      setMessage(message);
+      setUpdateInterval(updateInterval);
+    }
+
+
+    SetSbasMessageUpdateIntervalPtr SetSbasMessageUpdateInterval::create(int message, int updateInterval)
+    {
+      return std::make_shared<SetSbasMessageUpdateInterval>(message, updateInterval);
+    }
+
+    SetSbasMessageUpdateIntervalPtr SetSbasMessageUpdateInterval::dynamicCast(CommandBasePtr ptr)
+    {
+      return std::dynamic_pointer_cast<SetSbasMessageUpdateInterval>(ptr);
+    }
+
+    bool SetSbasMessageUpdateInterval::isValid() const
+    {
+      
+        return m_values.IsObject()
+          && parse_json<int>::is_valid(m_values["Message"])
+          && parse_json<int>::is_valid(m_values["UpdateInterval"])
+        ;
+
+    }
+
+    std::string SetSbasMessageUpdateInterval::documentation() const { return Documentation; }
+
+
+    int SetSbasMessageUpdateInterval::executePermission() const
+    {
+      return EXECUTE_IF_IDLE | EXECUTE_IF_SIMULATING;
+    }
+
+
+    int SetSbasMessageUpdateInterval::message() const
+    {
+      return parse_json<int>::parse(m_values["Message"]);
+    }
+
+    void SetSbasMessageUpdateInterval::setMessage(int message)
+    {
+      m_values.AddMember("Message", parse_json<int>::format(message, m_values.GetAllocator()), m_values.GetAllocator());
+    }
+
+
+
+    int SetSbasMessageUpdateInterval::updateInterval() const
+    {
+      return parse_json<int>::parse(m_values["UpdateInterval"]);
+    }
+
+    void SetSbasMessageUpdateInterval::setUpdateInterval(int updateInterval)
+    {
+      m_values.AddMember("UpdateInterval", parse_json<int>::format(updateInterval, m_values.GetAllocator()), m_values.GetAllocator());
+    }
+
+
+  }
+}
+
+
+///
+/// Definition of GetSbasMessageUpdateInterval
+///
+#include "gen/GetSbasMessageUpdateInterval.h"
+
+namespace Sdx
+{
+  namespace Cmd
+  {
+    const char* const GetSbasMessageUpdateInterval::CmdName = "GetSbasMessageUpdateInterval";
+    const char* const GetSbasMessageUpdateInterval::Documentation = "Get the SBAS message update interval.";
+
+    REGISTER_COMMAND_FACTORY(GetSbasMessageUpdateInterval);
+
+
+    GetSbasMessageUpdateInterval::GetSbasMessageUpdateInterval()
+      : CommandBase(CmdName)
+    {}
+
+    GetSbasMessageUpdateInterval::GetSbasMessageUpdateInterval(int message)
+      : CommandBase(CmdName)
+    {
+
+      setMessage(message);
+    }
+
+
+    GetSbasMessageUpdateIntervalPtr GetSbasMessageUpdateInterval::create(int message)
+    {
+      return std::make_shared<GetSbasMessageUpdateInterval>(message);
+    }
+
+    GetSbasMessageUpdateIntervalPtr GetSbasMessageUpdateInterval::dynamicCast(CommandBasePtr ptr)
+    {
+      return std::dynamic_pointer_cast<GetSbasMessageUpdateInterval>(ptr);
+    }
+
+    bool GetSbasMessageUpdateInterval::isValid() const
+    {
+      
+        return m_values.IsObject()
+          && parse_json<int>::is_valid(m_values["Message"])
+        ;
+
+    }
+
+    std::string GetSbasMessageUpdateInterval::documentation() const { return Documentation; }
+
+
+    int GetSbasMessageUpdateInterval::executePermission() const
+    {
+      return EXECUTE_IF_IDLE | EXECUTE_IF_SIMULATING;
+    }
+
+
+    int GetSbasMessageUpdateInterval::message() const
+    {
+      return parse_json<int>::parse(m_values["Message"]);
+    }
+
+    void GetSbasMessageUpdateInterval::setMessage(int message)
+    {
+      m_values.AddMember("Message", parse_json<int>::format(message, m_values.GetAllocator()), m_values.GetAllocator());
+    }
+
+
+  }
+}
+
+
+///
+/// Definition of GetSbasMessageUpdateIntervalResult
+///
+#include "gen/GetSbasMessageUpdateIntervalResult.h"
+
+namespace Sdx
+{
+  namespace Cmd
+  {
+    const char* const GetSbasMessageUpdateIntervalResult::CmdName = "GetSbasMessageUpdateIntervalResult";
+    const char* const GetSbasMessageUpdateIntervalResult::Documentation = "Result of GetSbasMessageUpdateInterval.";
+
+    REGISTER_COMMAND_RESULT_FACTORY(GetSbasMessageUpdateIntervalResult);
+
+
+    GetSbasMessageUpdateIntervalResult::GetSbasMessageUpdateIntervalResult()
+      : CommandResult(CmdName)
+    {}
+
+    GetSbasMessageUpdateIntervalResult::GetSbasMessageUpdateIntervalResult(CommandBasePtr relatedCommand, int message, int updateInterval)
+      : CommandResult(CmdName, relatedCommand)
+    {
+
+      setMessage(message);
+      setUpdateInterval(updateInterval);
+    }
+
+
+    GetSbasMessageUpdateIntervalResultPtr GetSbasMessageUpdateIntervalResult::create(CommandBasePtr relatedCommand, int message, int updateInterval)
+    {
+      return std::make_shared<GetSbasMessageUpdateIntervalResult>(relatedCommand, message, updateInterval);
+    }
+
+    GetSbasMessageUpdateIntervalResultPtr GetSbasMessageUpdateIntervalResult::dynamicCast(CommandBasePtr ptr)
+    {
+      return std::dynamic_pointer_cast<GetSbasMessageUpdateIntervalResult>(ptr);
+    }
+
+    bool GetSbasMessageUpdateIntervalResult::isValid() const
+    {
+      
+        return m_values.IsObject()
+          && parse_json<int>::is_valid(m_values["Message"])
+          && parse_json<int>::is_valid(m_values["UpdateInterval"])
+        ;
+
+    }
+
+    std::string GetSbasMessageUpdateIntervalResult::documentation() const { return Documentation; }
+
+
+    int GetSbasMessageUpdateIntervalResult::message() const
+    {
+      return parse_json<int>::parse(m_values["Message"]);
+    }
+
+    void GetSbasMessageUpdateIntervalResult::setMessage(int message)
+    {
+      m_values.AddMember("Message", parse_json<int>::format(message, m_values.GetAllocator()), m_values.GetAllocator());
+    }
+
+
+
+    int GetSbasMessageUpdateIntervalResult::updateInterval() const
+    {
+      return parse_json<int>::parse(m_values["UpdateInterval"]);
+    }
+
+    void GetSbasMessageUpdateIntervalResult::setUpdateInterval(int updateInterval)
+    {
+      m_values.AddMember("UpdateInterval", parse_json<int>::format(updateInterval, m_values.GetAllocator()), m_values.GetAllocator());
+    }
+
+
+  }
+}
+
+
+///
+/// Definition of ExportSbasMessageSequence
+///
+#include "gen/ExportSbasMessageSequence.h"
+
+namespace Sdx
+{
+  namespace Cmd
+  {
+    const char* const ExportSbasMessageSequence::CmdName = "ExportSbasMessageSequence";
+    const char* const ExportSbasMessageSequence::Documentation = "Export the SBAS message sequence into a csv file.";
+
+    REGISTER_COMMAND_FACTORY(ExportSbasMessageSequence);
+
+
+    ExportSbasMessageSequence::ExportSbasMessageSequence()
+      : CommandBase(CmdName)
+    {}
+
+    ExportSbasMessageSequence::ExportSbasMessageSequence(const std::string& path, bool overwriting)
+      : CommandBase(CmdName)
+    {
+
+      setPath(path);
+      setOverwriting(overwriting);
+    }
+
+
+    ExportSbasMessageSequencePtr ExportSbasMessageSequence::create(const std::string& path, bool overwriting)
+    {
+      return std::make_shared<ExportSbasMessageSequence>(path, overwriting);
+    }
+
+    ExportSbasMessageSequencePtr ExportSbasMessageSequence::dynamicCast(CommandBasePtr ptr)
+    {
+      return std::dynamic_pointer_cast<ExportSbasMessageSequence>(ptr);
+    }
+
+    bool ExportSbasMessageSequence::isValid() const
+    {
+      
+        return m_values.IsObject()
+          && parse_json<std::string>::is_valid(m_values["Path"])
+          && parse_json<bool>::is_valid(m_values["Overwriting"])
+        ;
+
+    }
+
+    std::string ExportSbasMessageSequence::documentation() const { return Documentation; }
+
+
+    int ExportSbasMessageSequence::executePermission() const
+    {
+      return EXECUTE_IF_SIMULATING | EXECUTE_IF_IDLE;
+    }
+
+
+    std::string ExportSbasMessageSequence::path() const
+    {
+      return parse_json<std::string>::parse(m_values["Path"]);
+    }
+
+    void ExportSbasMessageSequence::setPath(const std::string& path)
+    {
+      m_values.AddMember("Path", parse_json<std::string>::format(path, m_values.GetAllocator()), m_values.GetAllocator());
+    }
+
+
+
+    bool ExportSbasMessageSequence::overwriting() const
+    {
+      return parse_json<bool>::parse(m_values["Overwriting"]);
+    }
+
+    void ExportSbasMessageSequence::setOverwriting(bool overwriting)
+    {
+      m_values.AddMember("Overwriting", parse_json<bool>::format(overwriting, m_values.GetAllocator()), m_values.GetAllocator());
     }
 
 
@@ -75995,7 +76645,7 @@ namespace Sdx
 
     int EnableSbasFastCorrectionsFor::executePermission() const
     {
-      return EXECUTE_IF_IDLE;
+      return EXECUTE_IF_IDLE | EXECUTE_IF_SIMULATING;
     }
 
 
@@ -76091,7 +76741,7 @@ namespace Sdx
 
     int IsSbasFastCorrectionsEnabledFor::executePermission() const
     {
-      return EXECUTE_IF_IDLE;
+      return EXECUTE_IF_IDLE | EXECUTE_IF_SIMULATING;
     }
 
 
@@ -76265,7 +76915,7 @@ namespace Sdx
 
     int ApplyDelayInSbas::executePermission() const
     {
-      return EXECUTE_IF_IDLE;
+      return EXECUTE_IF_IDLE | EXECUTE_IF_SIMULATING;
     }
 
 
@@ -76329,7 +76979,7 @@ namespace Sdx
 
     int IsDelayAppliedInSbas::executePermission() const
     {
-      return EXECUTE_IF_IDLE;
+      return EXECUTE_IF_IDLE | EXECUTE_IF_SIMULATING;
     }
 
   }
@@ -76596,7 +77246,7 @@ namespace Sdx
   namespace Cmd
   {
     const char* const EnableSbasLongTermCorrectionsFor::CmdName = "EnableSbasLongTermCorrectionsFor";
-    const char* const EnableSbasLongTermCorrectionsFor::Documentation = "Set whether ephemeris errors for this constellation should be compensated in SBAS long term corrections";
+    const char* const EnableSbasLongTermCorrectionsFor::Documentation = "Set whether ephemeris errors for this constellation should be compensated in SBAS long term corrections.";
 
     REGISTER_COMMAND_FACTORY(EnableSbasLongTermCorrectionsFor);
 
@@ -76639,7 +77289,7 @@ namespace Sdx
 
     int EnableSbasLongTermCorrectionsFor::executePermission() const
     {
-      return EXECUTE_IF_IDLE;
+      return EXECUTE_IF_IDLE | EXECUTE_IF_SIMULATING;
     }
 
 
@@ -76680,7 +77330,7 @@ namespace Sdx
   namespace Cmd
   {
     const char* const IsSbasLongTermCorrectionsEnabledFor::CmdName = "IsSbasLongTermCorrectionsEnabledFor";
-    const char* const IsSbasLongTermCorrectionsEnabledFor::Documentation = "Get whether ephemeris errors for this constellation should be compensated in SBAS long term corrections";
+    const char* const IsSbasLongTermCorrectionsEnabledFor::Documentation = "Get whether ephemeris errors for this constellation should be compensated in SBAS long term corrections.";
 
     REGISTER_COMMAND_FACTORY(IsSbasLongTermCorrectionsEnabledFor);
 
@@ -76721,7 +77371,7 @@ namespace Sdx
 
     int IsSbasLongTermCorrectionsEnabledFor::executePermission() const
     {
-      return EXECUTE_IF_IDLE;
+      return EXECUTE_IF_IDLE | EXECUTE_IF_SIMULATING;
     }
 
 
@@ -77759,7 +78409,7 @@ namespace Sdx
 
     int SetPilotCW::executePermission() const
     {
-      return EXECUTE_IF_SIMULATING | EXECUTE_IF_IDLE;
+      return EXECUTE_IF_SIMULATING;
     }
 
 
@@ -77889,7 +78539,7 @@ namespace Sdx
 
     int SetPilotPRN::executePermission() const
     {
-      return EXECUTE_IF_SIMULATING | EXECUTE_IF_IDLE;
+      return EXECUTE_IF_SIMULATING;
     }
 
 
@@ -88559,6 +89209,304 @@ namespace Sdx
     void SwapSbasServiceMessageRegionGroup::setSecondId(const std::string& secondId)
     {
       m_values.AddMember("SecondId", parse_json<std::string>::format(secondId, m_values.GetAllocator()), m_values.GetAllocator());
+    }
+
+
+  }
+}
+
+
+///
+/// Definition of GetComputerSystemTimeSinceEpochAtPps0
+///
+#include "gen/GetComputerSystemTimeSinceEpochAtPps0.h"
+
+namespace Sdx
+{
+  namespace Cmd
+  {
+    const char* const GetComputerSystemTimeSinceEpochAtPps0::CmdName = "GetComputerSystemTimeSinceEpochAtPps0";
+    const char* const GetComputerSystemTimeSinceEpochAtPps0::Documentation = "Get  the computer system time since epoch at PPS0, for the computer running this Skydel instance.\nUse this command after StartPPS.";
+
+    REGISTER_COMMAND_FACTORY(GetComputerSystemTimeSinceEpochAtPps0);
+
+
+    GetComputerSystemTimeSinceEpochAtPps0::GetComputerSystemTimeSinceEpochAtPps0()
+      : CommandBase(CmdName)
+    {
+
+    }
+
+
+    GetComputerSystemTimeSinceEpochAtPps0Ptr GetComputerSystemTimeSinceEpochAtPps0::create()
+    {
+      return std::make_shared<GetComputerSystemTimeSinceEpochAtPps0>();
+    }
+
+    GetComputerSystemTimeSinceEpochAtPps0Ptr GetComputerSystemTimeSinceEpochAtPps0::dynamicCast(CommandBasePtr ptr)
+    {
+      return std::dynamic_pointer_cast<GetComputerSystemTimeSinceEpochAtPps0>(ptr);
+    }
+
+    bool GetComputerSystemTimeSinceEpochAtPps0::isValid() const
+    {
+      
+        return m_values.IsObject()
+        ;
+
+    }
+
+    std::string GetComputerSystemTimeSinceEpochAtPps0::documentation() const { return Documentation; }
+
+
+    int GetComputerSystemTimeSinceEpochAtPps0::executePermission() const
+    {
+      return EXECUTE_IF_SIMULATING;
+    }
+
+  }
+}
+
+
+///
+/// Definition of GetComputerSystemTimeSinceEpochAtPps0Result
+///
+#include "gen/GetComputerSystemTimeSinceEpochAtPps0Result.h"
+
+namespace Sdx
+{
+  namespace Cmd
+  {
+    const char* const GetComputerSystemTimeSinceEpochAtPps0Result::CmdName = "GetComputerSystemTimeSinceEpochAtPps0Result";
+    const char* const GetComputerSystemTimeSinceEpochAtPps0Result::Documentation = "Result of GetComputerSystemTimeSinceEpochAtPps0.";
+
+    REGISTER_COMMAND_RESULT_FACTORY(GetComputerSystemTimeSinceEpochAtPps0Result);
+
+
+    GetComputerSystemTimeSinceEpochAtPps0Result::GetComputerSystemTimeSinceEpochAtPps0Result()
+      : CommandResult(CmdName)
+    {}
+
+    GetComputerSystemTimeSinceEpochAtPps0Result::GetComputerSystemTimeSinceEpochAtPps0Result(CommandBasePtr relatedCommand, double milliseconds)
+      : CommandResult(CmdName, relatedCommand)
+    {
+
+      setMilliseconds(milliseconds);
+    }
+
+
+    GetComputerSystemTimeSinceEpochAtPps0ResultPtr GetComputerSystemTimeSinceEpochAtPps0Result::create(CommandBasePtr relatedCommand, double milliseconds)
+    {
+      return std::make_shared<GetComputerSystemTimeSinceEpochAtPps0Result>(relatedCommand, milliseconds);
+    }
+
+    GetComputerSystemTimeSinceEpochAtPps0ResultPtr GetComputerSystemTimeSinceEpochAtPps0Result::dynamicCast(CommandBasePtr ptr)
+    {
+      return std::dynamic_pointer_cast<GetComputerSystemTimeSinceEpochAtPps0Result>(ptr);
+    }
+
+    bool GetComputerSystemTimeSinceEpochAtPps0Result::isValid() const
+    {
+      
+        return m_values.IsObject()
+          && parse_json<double>::is_valid(m_values["Milliseconds"])
+        ;
+
+    }
+
+    std::string GetComputerSystemTimeSinceEpochAtPps0Result::documentation() const { return Documentation; }
+
+
+    double GetComputerSystemTimeSinceEpochAtPps0Result::milliseconds() const
+    {
+      return parse_json<double>::parse(m_values["Milliseconds"]);
+    }
+
+    void GetComputerSystemTimeSinceEpochAtPps0Result::setMilliseconds(double milliseconds)
+    {
+      m_values.AddMember("Milliseconds", parse_json<double>::format(milliseconds, m_values.GetAllocator()), m_values.GetAllocator());
+    }
+
+
+  }
+}
+
+
+///
+/// Definition of ResetHilWarning
+///
+#include "gen/ResetHilWarning.h"
+
+namespace Sdx
+{
+  namespace Cmd
+  {
+    const char* const ResetHilWarning::CmdName = "ResetHilWarning";
+    const char* const ResetHilWarning::Documentation = "Please note the command ResetHilWarning is deprecated since 22.5. You may use GetHilExtrapolationState.\n\nReset Hardware in the loop trajectory server warning message.";
+
+    REGISTER_COMMAND_FACTORY(ResetHilWarning);
+
+
+    ResetHilWarning::ResetHilWarning()
+      : CommandBase(CmdName)
+    {
+
+    }
+
+
+    ResetHilWarningPtr ResetHilWarning::create()
+    {
+      return std::make_shared<ResetHilWarning>();
+    }
+
+    ResetHilWarningPtr ResetHilWarning::dynamicCast(CommandBasePtr ptr)
+    {
+      return std::dynamic_pointer_cast<ResetHilWarning>(ptr);
+    }
+
+    bool ResetHilWarning::isValid() const
+    {
+      
+        return m_values.IsObject()
+        ;
+
+    }
+
+    std::string ResetHilWarning::documentation() const { return Documentation; }
+
+
+    int ResetHilWarning::executePermission() const
+    {
+      return EXECUTE_IF_SIMULATING;
+    }
+
+  }
+}
+
+
+///
+/// Definition of GetLastHilWarning
+///
+#include "gen/GetLastHilWarning.h"
+
+namespace Sdx
+{
+  namespace Cmd
+  {
+    const char* const GetLastHilWarning::CmdName = "GetLastHilWarning";
+    const char* const GetLastHilWarning::Documentation = "Please note the command GetLastHilWarning is deprecated since 22.5. You may use GetHilExtrapolationState.\n\nGet last Hardware in the loop trajectory server warning message. Returns HilWarningResult.";
+
+    REGISTER_COMMAND_FACTORY(GetLastHilWarning);
+
+
+    GetLastHilWarning::GetLastHilWarning()
+      : CommandBase(CmdName)
+    {
+
+    }
+
+
+    GetLastHilWarningPtr GetLastHilWarning::create()
+    {
+      return std::make_shared<GetLastHilWarning>();
+    }
+
+    GetLastHilWarningPtr GetLastHilWarning::dynamicCast(CommandBasePtr ptr)
+    {
+      return std::dynamic_pointer_cast<GetLastHilWarning>(ptr);
+    }
+
+    bool GetLastHilWarning::isValid() const
+    {
+      
+        return m_values.IsObject()
+        ;
+
+    }
+
+    std::string GetLastHilWarning::documentation() const { return Documentation; }
+
+
+    int GetLastHilWarning::executePermission() const
+    {
+      return EXECUTE_IF_SIMULATING;
+    }
+
+  }
+}
+
+
+///
+/// Definition of HilWarningResult
+///
+#include "gen/HilWarningResult.h"
+
+namespace Sdx
+{
+  namespace Cmd
+  {
+    const char* const HilWarningResult::CmdName = "HilWarningResult";
+    const char* const HilWarningResult::Documentation = "Result of GetLastHilWarning.";
+
+    REGISTER_COMMAND_RESULT_FACTORY(HilWarningResult);
+
+
+    HilWarningResult::HilWarningResult()
+      : CommandResult(CmdName)
+    {}
+
+    HilWarningResult::HilWarningResult(CommandBasePtr relatedCommand, bool isExtrapolated, int extrapolationTime)
+      : CommandResult(CmdName, relatedCommand)
+    {
+
+      setIsExtrapolated(isExtrapolated);
+      setExtrapolationTime(extrapolationTime);
+    }
+
+
+    HilWarningResultPtr HilWarningResult::create(CommandBasePtr relatedCommand, bool isExtrapolated, int extrapolationTime)
+    {
+      return std::make_shared<HilWarningResult>(relatedCommand, isExtrapolated, extrapolationTime);
+    }
+
+    HilWarningResultPtr HilWarningResult::dynamicCast(CommandBasePtr ptr)
+    {
+      return std::dynamic_pointer_cast<HilWarningResult>(ptr);
+    }
+
+    bool HilWarningResult::isValid() const
+    {
+      
+        return m_values.IsObject()
+          && parse_json<bool>::is_valid(m_values["IsExtrapolated"])
+          && parse_json<int>::is_valid(m_values["ExtrapolationTime"])
+        ;
+
+    }
+
+    std::string HilWarningResult::documentation() const { return Documentation; }
+
+
+    bool HilWarningResult::isExtrapolated() const
+    {
+      return parse_json<bool>::parse(m_values["IsExtrapolated"]);
+    }
+
+    void HilWarningResult::setIsExtrapolated(bool isExtrapolated)
+    {
+      m_values.AddMember("IsExtrapolated", parse_json<bool>::format(isExtrapolated, m_values.GetAllocator()), m_values.GetAllocator());
+    }
+
+
+
+    int HilWarningResult::extrapolationTime() const
+    {
+      return parse_json<int>::parse(m_values["ExtrapolationTime"]);
+    }
+
+    void HilWarningResult::setExtrapolationTime(int extrapolationTime)
+    {
+      m_values.AddMember("ExtrapolationTime", parse_json<int>::format(extrapolationTime, m_values.GetAllocator()), m_values.GetAllocator());
     }
 
 

@@ -1,4 +1,4 @@
-﻿<?xml version="1.0" encoding="utf-8"?>
+<?xml version="1.0" encoding="utf-8"?>
 <Project DefaultTargets="Build" ToolsVersion="14.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <ItemGroup Label="ProjectConfigurations">
     <ProjectConfiguration Include="Debug|x64">
@@ -95,6 +95,7 @@
     <ClInclude Include="gps_constants.h" />
     <ClInclude Include="guid.h" />
     <ClInclude Include="hil_client.h" />
+    <ClInclude Include="hil_helper.h" />
     <ClInclude Include="lla.h" />
     <ClInclude Include="parse_json.hpp" />
     <ClInclude Include="remote_simulator.h" />

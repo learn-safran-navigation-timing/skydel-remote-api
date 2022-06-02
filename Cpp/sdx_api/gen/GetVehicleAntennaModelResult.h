@@ -11,7 +11,7 @@ namespace Sdx
   namespace Cmd
   {
     ///
-    /// Result of GetVehicleAntennaModel
+    /// Result of GetVehicleAntennaModel.
     ///
     /// Name                 Type               Description
     /// -------------------- ------------------ ----------------------------------------------------------------------------------------------------------------------------------

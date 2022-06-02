@@ -9,6 +9,8 @@ namespace Sdx
   namespace Cmd
   {
     ///
+    /// Please note the command GetLastHilWarning is deprecated since 22.5. You may use GetHilExtrapolationState.
+    /// 
     /// Get last Hardware in the loop trajectory server warning message. Returns HilWarningResult.
     ///
     /// 

@@ -59,10 +59,18 @@ public:
   void pushRouteLla(double speed, const Lla& lla);
   CommandResultPtr endRouteDefinition(int& numberOfNodesInRoute);
 
-  bool pushEcef(long long elapsedTime, const Ecef& ecef, const std::string& name = "");
-  bool pushEcefNed(long long elapsedTime, const Ecef& ecef, const Attitude& attitude, const std::string& name = "");
-  bool pushLla(long long elapsedTime, const Lla& lla, const std::string& name = "");
-  bool pushLlaNed(long long elapsedTime, const Lla& lla, const Attitude& attitude, const std::string& name = "");
+  bool pushEcef(double elapsedTime, const Ecef& position, const std::string& name = "");
+  bool pushEcef(double elapsedTime, const Ecef& position, const Ecef& velocity, const std::string& name = "");
+  bool pushEcef(double elapsedTime, const Ecef& position, const Ecef& velocity, const Ecef& acceleration, const std::string& name = "");
+  bool pushEcef(double elapsedTime, const Ecef& position, const Ecef& velocity, const Ecef& acceleration, const Ecef& jerk, const std::string& name = "");
+
+  bool pushEcefNed(double elapsedTime, const Ecef& position, const Attitude& attitude, const std::string& name = "");
+  bool pushEcefNed(double elapsedTime, const Ecef& position, const Attitude& attitude, const Ecef& velocity, const Attitude& angularVelocity, const std::string& name = "");
+  bool pushEcefNed(double elapsedTime, const Ecef& position, const Attitude& attitude, const Ecef& velocity, const Attitude& angularVelocity, const Ecef& acceleration, const Attitude& angularAcceleration, const std::string& name = "");
+  bool pushEcefNed(double elapsedTime, const Ecef& position, const Attitude& attitude, const Ecef& velocity, const Attitude& angularVelocity, const Ecef& acceleration, const Attitude& angularAcceleration, const Ecef& jerk, const  Attitude& angularJerk, const std::string& name = "");
+
+  bool pushLla(double elapsedTime, const Lla& lla, const std::string& name = "");
+  bool pushLlaNed(double elapsedTime, const Lla& lla, const Attitude& attitude, const std::string& name = "");
 
   CommandResultPtr beginVehicleInfo();
   CommandResultPtr endVehicleInfo();
@@ -92,14 +100,14 @@ private:
 
   void resetTime();
   void checkForbidden(CommandBasePtr cmd);
-  bool hilCheck(long long elapsedTime);
+  bool hilCheck(double elapsedTime);
   void handleException(CommandResultPtr result);
   void errorMessage(const std::string& msg);
 
   bool m_exceptionOnError;
   CmdClient* m_client;
   HilClient* m_hil;
-  long long m_checkRunningTime;
+  double m_checkRunningTime;
   bool m_verbose;
   bool m_hilStreamingCheckEnabled;
   bool m_beginTrack;

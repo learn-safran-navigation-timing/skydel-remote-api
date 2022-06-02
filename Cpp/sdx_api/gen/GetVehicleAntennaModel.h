@@ -9,7 +9,7 @@ namespace Sdx
   namespace Cmd
   {
     ///
-    /// Get all infos about this antenna model.
+    /// Get  all infos about this antenna model.
     ///
     /// Name Type   Description
     /// ---- ------ --------------------------

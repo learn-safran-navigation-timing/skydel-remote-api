@@ -3,6 +3,7 @@
 
 #include "ecef.h"
 #include "attitude.h"
+#include <cstdint>
 
 namespace Sdx
 {

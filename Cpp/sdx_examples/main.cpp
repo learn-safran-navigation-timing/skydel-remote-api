@@ -32,6 +32,7 @@
 #include "enu.h"
 #include "ecef.h"
 #include "vehicle_info.h"
+#include "hil_helper.h"
 
 using namespace Sdx;
 using namespace Sdx::Cmd;
@@ -47,7 +48,7 @@ void runExampleGetElapsedTime(const std::string& host, const std::string& target
 void runExampleCreateTrack(const std::string& host, const std::string& targetType, const std::string& X300IP);
 void runExampleCreateTrack6dof(const std::string& host, const std::string& targetType, const std::string& X300IP);
 void runExampleCreateRouteCar(const std::string& host, const std::string& targetType, const std::string& X300IP);
-void runExampleHilRealtime(const std::string& host, const std::string& targetType, const std::string& X300IP, bool autoAttitude);
+void runExampleHilRealtime(const std::string& host, const std::string& targetType, const std::string& X300IP);
 void runExampleInterferences(const std::string& host, const std::string& targetType, const std::string& X300IP);
 void runExampleVehicleInfo(const std::string& host, const std::string& targetType, const std::string& X300IP);
 void runExamplePauseResume(const std::string& host, const std::string& targetType, const std::string& X300IP);
@@ -69,8 +70,7 @@ int main(int argc, char* argv[])
     runExampleCreateTrack(HOST, TARGET_TYPE, X300_IP);
     runExampleCreateTrack6dof(HOST, TARGET_TYPE, X300_IP);
     runExampleCreateRouteCar(HOST, TARGET_TYPE, X300_IP);
-    runExampleHilRealtime(HOST, TARGET_TYPE, X300_IP, true);
-    runExampleHilRealtime(HOST, TARGET_TYPE, X300_IP, false);
+    runExampleHilRealtime(HOST, TARGET_TYPE, X300_IP);
     runExampleGetElapsedTime(HOST, TARGET_TYPE, X300_IP);
     runExampleInterferences(HOST, TARGET_TYPE, X300_IP);
     runExamplePauseResume(HOST, TARGET_TYPE, X300_IP);
@@ -91,12 +91,6 @@ int main(int argc, char* argv[])
   std::cin.get(); //waits for character
 
   return 0;
-}
-
-static long long currentTime()
-{
-  using namespace std::chrono;
-  return duration_cast<milliseconds>(high_resolution_clock::now().time_since_epoch()).count();
 }
 
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -186,8 +180,8 @@ void runExampleFailureHandling(const std::string& host, const std::string& targe
   std::cout << std::endl << "=== Failure handling Example ===" << std::endl;
 
   std::cout << "==> Connecting to the simulator" << std::endl;
-  //RemoteSimulator sim(true); //Stop the script with a exception if a command fail
-  RemoteSimulator sim(false); //Does not stop the script with a exception if a command fail
+  //RemoteSimulator sim(true); // Stop the example with an exception if a command fail
+  RemoteSimulator sim(false); // Does not stop the example with an exception if a command fail
   sim.setVerbose(VERBOSE);
   if (!sim.connect(host))
     return;
@@ -565,77 +559,217 @@ void runExampleCreateRouteCar(const std::string& host, const std::string& target
   sim.disconnect();
 }
 
+void displayHilExtrapolationWarnings(RemoteSimulator& sim)
+{
+  bool isVerbose = sim.isVerbose();
+  sim.setVerbose(false);
+
+  auto result = GetHilExtrapolationStateResult::dynamicCast(sim.call(GetHilExtrapolationState::create()));
+
+  if (result->state() == Sdx::HilExtrapolationState::NonDeterministic)
+  {
+    std::cout << "Warning: HIL non deterministic extrapolation at millisecond " << result->elapsedTime() << std::endl;
+  }
+  else if (result->state() == Sdx::HilExtrapolationState::Snap)
+  {
+    std::cout << "Warning: HIL position snap at millisecond " << result->elapsedTime() << std::endl;
+  }
+
+  sim.setVerbose(isVerbose);
+}
+
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 // Hardware-In-The-Loop (HIL) Example
 // This example shows:
 // 1- How to push simulated positions during the simulation
+//
+// There are two modes of operation with this example:
+//
+//   1 - You run this example on the same PC as Skydel, and haven't setup time synchronization
+//       between the computer system time and the PPS signal driving your radio (or you run in NoneRT).
+//       
+//       This is the default use case (when the variable isOsTimeSyncWithPPS is false), it exists
+//       to allow users to quickly and easily test HIL without having to set up time synchronization.
+//       Note that if you use this mode with a radio, the time will drift between this example and
+//       the Skydel's simulation over time.
+//
+//   2 - You run this example on any PC which has it's time synchronized with the radio PPS signal.
+//       
+//       This is the recommended use case (when the variable isOsTimeSyncWithPPS is true).
+//       We recommend using a time server, such as the SecureSync 2400 to provide the 10Mhz
+//       and the PPS reference to the radio. The SecureSync is also a PTP server that can 
+//       synchronize your computer system clock with the PPS to a high degree of precision.
+//       In this mode, there will be no time drift between the example and the Skydel's simulation.
+//
+// Additional note: the example doesn't change the Skydel's engine latency by default,
+// as this is a system wide preference. To set the preference, you can uncomment the line
+// in the example. We recommend you set it back to the default value of 200ms once you are done
+// using this example, unless you only plan to do low latency HIL on this machine.
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-void runExampleHilRealtime(const std::string& host, const std::string& targetType, const std::string& X300IP, bool autoAttitude)
+void runExampleHilRealtime(const std::string& host, const std::string& targetType, const std::string& X300IP)
 {
-  static const long long HIL_DURATION = 60000;
-  static const double HIL_SPEED = 10;
+  // Change these as required
+  CircleTrajectory trajectory;
+  const double SIMULATION_DURATION_MS = 60000;
+  const int SYNC_DURATION_MS = 2000;
+  const std::string UNIQUE_RADIO_ID = "uniqueId";
+
+  // Set to true if the computer which runs this example has it's time synchronized with the output radio PPS
+  bool isOsTimeSyncWithPPS = false;
 
   std::cout << std::endl << "=== HIL Example ===" << std::endl;
+
+  if (host != "localhost" && host != "127.0.0.1" && !isOsTimeSyncWithPPS)
+  {
+    throw std::runtime_error("Can't run this example on a different computer if the OS time isn't in sync with the radio's PPS.");
+  }
 
   std::cout << "==> Connecting to the simulator" << std::endl;
   RemoteSimulator sim;
   sim.setVerbose(VERBOSE);
   sim.connect(host);
 
-  std::cout << "==> Create New Configuration, discarding current simulator settings" << std::endl;
-  sim.call(New::create(true));
+  std::cout << "==> Checking preferences before start" << std::endl;
 
+  // We suggest these values as a starting point, but they will have to be modified according 
+  // to your hardware, the configuration of the simulation and your requirements.
+  // Use the performance graph as well as the HIL graph to monitor Skydel and diagnose issues.
+  // It is strongly recommended to read the user manual before you try to optimize those settings.
+  const int TIME_BETWEEN_POSITION_MS = 15;  // Send receiver position every 15 milliseconds
+  const int SKYDEL_LATENCY_MS = 40;  // How much in advance can Skydel be versus the radio time
+  const int HIL_TJOIN = 65;  // This value should be greater than SKYDEL_LATENCY_MS + TIME_BETWEEN_POSITION_MS + network latency
+
+  // Check the engine latency (Skydel preference)
+  if (GetEngineLatencyResult::dynamicCast(sim.call(GetEngineLatency::create()))->latency() != SKYDEL_LATENCY_MS)
+  {
+    //sim.call(SetEngineLatency::create(SKYDEL_LATENCY_MS));
+    throw std::runtime_error("HIL Example: Please execute SetEngineLatency(" + std::to_string(SKYDEL_LATENCY_MS) + ") command or change the SKYDEL_LATENCY_MS value before executing this example.");
+  }
+
+  // Check the streaming buffer preference, do not change it from its default value
+  if (GetStreamingBufferResult::dynamicCast(sim.call(GetStreamingBuffer::create()))->size() != 200)
+  {
+    throw std::runtime_error("HIL Example: Please do not change the Streaming Buffer preference.");
+  }
+
+  // Uncomment these lines if you do very low latency HIL, as these features can impact Skydel's performance (Skydel's system wide preferences)
+  //sim.call(ShowMapAnalysis::create(false));
+  //sim.call(SetSpectrumVisible::create(false));
+
+  std::cout << "==> Create new config, ignore the default config if it's set" << std::endl;
+  sim.call(New::create(true, false));
+
+  // Change the output
   std::cout << "==> Modulation Settings" << std::endl;
-  std::string targetId = "MyOutputId";
-  SetModulationTargetPtr setModulationTargetCmd = SetModulationTarget::create(targetType, "", X300IP, true, targetId);
-  sim.call(setModulationTargetCmd);
-  // Select signals to simulate
-  sim.call(ChangeModulationTargetSignals::create(0, 12500000, 12500000, "UpperL", "L1CA", -1, false, targetId));
+  sim.call(SetModulationTarget::create(targetType, "", X300IP, true, UNIQUE_RADIO_ID));
 
-  std::cout << "==> Set to HIL Mode" << std::endl;
+  // Select signals to simulate
+  sim.call(ChangeModulationTargetSignals::create(0, 12500000, 12500000, "UpperL", "L1CA", -1, false, UNIQUE_RADIO_ID));
+
+  // Enable some logging type
+  sim.call(EnableLogRaw::create(false));  // You can enable raw logging and compare the logs (the receiver position is especially helpful)
+  sim.call(EnableLogHILInput::create(true));  // This will give you exactly what Skydel has received through the HIL interface
+
+  std::cout << "==> Change the vehicle's trajectory to HIL" << std::endl;
   sim.call(SetVehicleTrajectory::create("HIL"));
 
-  std::cout << "==> Starting Simulation" << std::endl;
-  sim.start();
+  // HIL Tjoin is a volatile parameter that must be set before every HIL simulation
+  sim.call(SetHilTjoin::create(HIL_TJOIN));
 
-  Lla origin(RADIAN(45.0), RADIAN(-74.0), 1.0);
+  // The streaming check is performed at the end of pushEcefNed. It's recommended to disable this check 
+  // and do it asynchronously outside of the while loop when sending positions at high frequencies.
+  sim.setHilStreamingCheckEnabled(true);
 
-  std::cout << "==> Sending positions in Real-Time, for " << (HIL_DURATION / 1000) << " seconds." << std::endl;
-  long long startTime = currentTime();
-  while (true)
+  std::cout << "==> Setup synchronisation with PPS" << std::endl;
+
+  // From here we want to make sure to stop the simulation if something goes wrong
+  try
   {
-    // Here we use the PC time as an example. In reality time should come from the position's generator.
-    long long elapsedTime = currentTime() - startTime;
+    double pps0TimestampMs = 0.0;
+    
+    // Enable the PPS synchronisation
+    sim.call(EnableMasterPps::create(true));
 
-    if (elapsedTime > HIL_DURATION)
-      break;
+    // Arm the simulator, when this command returns, we can start synchronizing with the PPS
+    sim.call(ArmPPS::create());
 
-    double t = elapsedTime / 1000.0;
+    // The WaitAndResetPPS command returns immediately after a PPS signal, which is our PPS reference (PPS0)
+    sim.call(WaitAndResetPPS::create());
 
-    // Vehicule will head North/East
-    Enu enu(HIL_SPEED * t, HIL_SPEED * t, 0);
-    Lla lla = origin.addEnu(enu);
-
-    if (autoAttitude)
+    if (isOsTimeSyncWithPPS)
     {
-      sim.pushLla(elapsedTime, lla); //vehicle's attitude will be based on its heading
-    }
-    else
-    {
-      // You can also push vehicle attitude attached to the node
-      sim.pushLlaNed(elapsedTime, lla, Attitude(RADIAN(45), RADIAN(2), 0));
+      pps0TimestampMs = getClosestPpsTimeMs();
     }
 
-    // You can also push Ecef instead of Lla
-    //Ecef ecef;
-    //lla.toEcef(ecef);
-    //sim.pushEcef(elapsedTime, ecef);
+    std::cout << "==> Starting Simulation in " << SYNC_DURATION_MS << "ms" << std::endl;
 
-    //Send new position to simulator each 10 ms. This should be controlled by the position's generator.
-    std::this_thread::sleep_for(std::chrono::milliseconds(10));
+    // The command StartPPS will start the simulation at PPS0 + syncDurationMs
+    // You can sync with your HIL simulation, by changing the value of syncDurationMs
+    sim.call(StartPPS::create(SYNC_DURATION_MS));
+
+    // If the PC clock is NOT synchronized with the PPS, we can ask Skydel to tell us the PC time corresponding to PPS0
+    if (!isOsTimeSyncWithPPS)
+    {
+      auto result = sim.call(GetComputerSystemTimeSinceEpochAtPps0::create());
+      pps0TimestampMs = GetComputerSystemTimeSinceEpochAtPps0Result::dynamicCast(result)->milliseconds();
+    }
+
+    // Compute the timestamp at the beginning of the simulation
+    double simStartTimestampMs = pps0TimestampMs + SYNC_DURATION_MS;
+
+    // We send the first position outside of the loop, so initialize this variable for the second position
+    double nextTimestampMs = simStartTimestampMs + TIME_BETWEEN_POSITION_MS;
+
+    // Keep track of the simulation elapsed time in milliseconds
+    double elapsedMs = 0.0;
+    double warningTimeMs = 0.0;
+
+    // Fix a precise attitude
+    Attitude fixedAttitude(toRadian(45), toRadian(2), 0);
+    Attitude angularVelocity(0.0, 0.0, 0.0);
+
+    // Skydel must know the initial position of the receiver for initialization.
+    // Use pushLla, pushEcef or pushEcefNed based on your requirements.
+    std::tuple<Ecef, Ecef> positionVelocity = trajectory.generatePositionAndVelocityAt(elapsedMs);
+    sim.pushEcefNed(elapsedMs, std::get<0>(positionVelocity), fixedAttitude, std::get<1>(positionVelocity), angularVelocity);
+
+    std::cout << "==> Sending positions in Real-Time, for " + std::to_string(SIMULATION_DURATION_MS / 1000) + " seconds." << std::endl;
+    
+    while (elapsedMs <= SIMULATION_DURATION_MS)
+    {
+      // Wait for the next position's timestamp
+      preciseSleepUntilMs(nextTimestampMs);
+      nextTimestampMs += TIME_BETWEEN_POSITION_MS;
+
+      // Get the current elapsed time in milliseconds
+      elapsedMs = getCurrentTimeMs() - simStartTimestampMs;
+
+      // Generate the position
+      positionVelocity = trajectory.generatePositionAndVelocityAt(elapsedMs);
+      
+      // Push the position to Skydel
+      // Uncomment the following condition to simulate a poor network connection and get HIL extrapolation warnings:
+      //if ((static_cast<double>(rand()) / (RAND_MAX)) < 0.98)
+      sim.pushEcefNed(elapsedMs, std::get<0>(positionVelocity), fixedAttitude, std::get<1>(positionVelocity), angularVelocity);
+
+      // It is recommended to do this check at 10 Hz or less to avoid TCP stack overflow.
+      // Do this check asynchronously, outside of this loop, if you are sending positions at a high rate.
+      // HIL uses UDP, so you can send positions at 100 Hz or 1000 Hz without any issues.
+      if (elapsedMs > warningTimeMs + 1000.0)
+      {
+        warningTimeMs = elapsedMs;
+        displayHilExtrapolationWarnings(sim);
+      }
+    }
+
+    std::cout << "==> Stop simulation." << std::endl;
+    sim.stop();
   }
-  std::cout << "==> Stop simulation " << std::endl;
-  sim.stop();
+  catch (const std::runtime_error& e)
+  {
+    std::cout << "==> Simulation stopped with error: " << e.what() << std::endl;
+    sim.stop();
+  }
 
   sim.disconnect();
 }

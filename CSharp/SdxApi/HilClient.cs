@@ -10,11 +10,20 @@ public class HilClient
 {
   enum MessageId
   {
-    PushEcef,
-    Hello,
-    Bye,
-    VehicleInfo,
-    PushEcefNed
+    Hello = 1,
+    Bye = 2,
+    VehicleInfo = 3,
+    PushEcef = 5,
+    PushEcefNed = 6,
+    PushEcefDynamics = 7,
+    PushEcefNedDynamics = 8
+  };
+
+  enum DynamicType
+  {
+    Velocity,
+    Acceleration,
+    Jerk
   };
 
   public bool IsVerbose {get; set;}
@@ -39,18 +48,32 @@ public class HilClient
     m_udpClient.Send(message, 1);
   }
 
-  public void PushEcef(long elpasedTime, Ecef ecef, string name = "")
+  public void writeEcef(ref BinaryWriter bw, Ecef ecef)
   {
-    if (!IsConnected)
-      throw new Exception("Cannot push ecef because you are not connected.");
-    
-    MemoryStream memStream = new MemoryStream();
-    BinaryWriter bw = new BinaryWriter(memStream);
-    bw.Write((byte)MessageId.PushEcef);
-    bw.Write(elpasedTime);
     bw.Write(ecef.X);
     bw.Write(ecef.Y);
     bw.Write(ecef.Z);
+  }
+
+  public void writeEcefNed(ref BinaryWriter bw, Ecef ecef, Attitude attitude)
+  {
+    writeEcef(ref bw, ecef);
+    bw.Write(attitude.Yaw);
+    bw.Write(attitude.Pitch);
+    bw.Write(attitude.Roll);
+  }
+
+  public void PushEcef(double elapsedTime, Ecef position, string name = "")
+  {
+    if (!IsConnected)
+      throw new Exception("Cannot push ecef because you are not connected.");
+
+    MemoryStream memStream = new MemoryStream();
+    BinaryWriter bw = new BinaryWriter(memStream);
+
+    bw.Write((byte)MessageId.PushEcef);
+    bw.Write(elapsedTime);
+    writeEcef(ref bw, position);
     bw.Write(name.Length);
     bw.Write(Encoding.ASCII.GetBytes(name));
     bw.Seek(0, SeekOrigin.Begin);
@@ -60,7 +83,77 @@ public class HilClient
     m_udpClient.Send(data, data.Length);
   }
 
-  public void PushEcefNed(long elpasedTime, Ecef ecef, Attitude attitude, string name = "")
+  public void PushEcef(double elapsedTime, Ecef position, Ecef velocity, string name = "")
+  {
+    if (!IsConnected)
+      throw new Exception("Cannot push ecef because you are not connected.");
+
+    MemoryStream memStream = new MemoryStream();
+    BinaryWriter bw = new BinaryWriter(memStream);
+
+    bw.Write((byte)MessageId.PushEcefDynamics);
+    bw.Write((byte)DynamicType.Velocity);
+    bw.Write(elapsedTime);
+    writeEcef(ref bw, position);
+    writeEcef(ref bw, velocity);
+    bw.Write(name.Length);
+    bw.Write(Encoding.ASCII.GetBytes(name));
+    bw.Seek(0, SeekOrigin.Begin);
+
+    BinaryReader br = new BinaryReader(memStream);
+    byte[] data = br.ReadBytes((int)memStream.Length);
+    m_udpClient.Send(data, data.Length);
+  }
+
+  public void PushEcef(double elapsedTime, Ecef position, Ecef velocity, Ecef acceleration, string name = "")
+  {
+    if (!IsConnected)
+      throw new Exception("Cannot push ecef because you are not connected.");
+
+    MemoryStream memStream = new MemoryStream();
+    BinaryWriter bw = new BinaryWriter(memStream);
+
+    bw.Write((byte)MessageId.PushEcefDynamics);
+    bw.Write((byte)DynamicType.Acceleration);
+    bw.Write(elapsedTime);
+    writeEcef(ref bw, position);
+    writeEcef(ref bw, velocity);
+    writeEcef(ref bw, acceleration);
+    bw.Write(name.Length);
+    bw.Write(Encoding.ASCII.GetBytes(name));
+    bw.Seek(0, SeekOrigin.Begin);
+
+    BinaryReader br = new BinaryReader(memStream);
+    byte[] data = br.ReadBytes((int)memStream.Length);
+    m_udpClient.Send(data, data.Length);
+  }
+
+  public void PushEcef(double elapsedTime, Ecef position, Ecef velocity, Ecef acceleration, Ecef jerk, string name = "")
+  {
+    if (!IsConnected)
+      throw new Exception("Cannot push ecef because you are not connected.");
+    
+
+    MemoryStream memStream = new MemoryStream();
+    BinaryWriter bw = new BinaryWriter(memStream);
+
+    bw.Write((byte)MessageId.PushEcefDynamics);
+    bw.Write((byte)DynamicType.Jerk);
+    bw.Write(elapsedTime);
+    writeEcef(ref bw, position);
+    writeEcef(ref bw, velocity);
+    writeEcef(ref bw, acceleration);
+    writeEcef(ref bw, jerk);
+    bw.Write(name.Length);
+    bw.Write(Encoding.ASCII.GetBytes(name));
+    bw.Seek(0, SeekOrigin.Begin);
+
+    BinaryReader br = new BinaryReader(memStream);
+    byte[] data = br.ReadBytes((int)memStream.Length);
+    m_udpClient.Send(data, data.Length);
+  }
+
+  public void PushEcefNed(double elapsedTime, Ecef position, Attitude attitude, string name = "")
   {
     if (!IsConnected)
       throw new Exception("Cannot push ecef because you are not connected.");
@@ -68,13 +161,74 @@ public class HilClient
     MemoryStream memStream = new MemoryStream();
     BinaryWriter bw = new BinaryWriter(memStream, Encoding.ASCII);
     bw.Write((byte)MessageId.PushEcefNed);
-    bw.Write(elpasedTime);
-    bw.Write(ecef.X);
-    bw.Write(ecef.Y);
-    bw.Write(ecef.Z);
-    bw.Write(attitude.Yaw);
-    bw.Write(attitude.Pitch);
-    bw.Write(attitude.Roll);
+    bw.Write(elapsedTime);
+    writeEcefNed(ref bw, position, attitude);
+    bw.Write(name.Length);
+    bw.Write(Encoding.ASCII.GetBytes(name));
+    bw.Seek(0, SeekOrigin.Begin);
+
+    BinaryReader br = new BinaryReader(memStream);
+    byte[] data = br.ReadBytes((int)memStream.Length);
+    m_udpClient.Send(data, data.Length);
+  }
+
+  public void PushEcefNed(double elapsedTime, Ecef position, Attitude attitude, Ecef velocity, Attitude angularVelocity, string name = "")
+  {
+    if (!IsConnected)
+      throw new Exception("Cannot push ecef because you are not connected.");
+
+    MemoryStream memStream = new MemoryStream();
+    BinaryWriter bw = new BinaryWriter(memStream, Encoding.ASCII);
+    bw.Write((byte)MessageId.PushEcefNedDynamics);
+    bw.Write((byte)DynamicType.Velocity);
+    bw.Write(elapsedTime);
+    writeEcefNed(ref bw, position, attitude);
+    writeEcefNed(ref bw, velocity, angularVelocity);
+    bw.Write(name.Length);
+    bw.Write(Encoding.ASCII.GetBytes(name));
+    bw.Seek(0, SeekOrigin.Begin);
+
+    BinaryReader br = new BinaryReader(memStream);
+    byte[] data = br.ReadBytes((int)memStream.Length);
+    m_udpClient.Send(data, data.Length);
+  }
+
+  public void PushEcefNed(double elapsedTime, Ecef position, Attitude attitude, Ecef velocity, Attitude angularVelocity, Ecef acceleration, Attitude angularAcceleration, string name = "")
+  {
+    if (!IsConnected)
+      throw new Exception("Cannot push ecef because you are not connected.");
+
+    MemoryStream memStream = new MemoryStream();
+    BinaryWriter bw = new BinaryWriter(memStream, Encoding.ASCII);
+    bw.Write((byte)MessageId.PushEcefNedDynamics);
+    bw.Write((byte)DynamicType.Acceleration);
+    bw.Write(elapsedTime);
+    writeEcefNed(ref bw, position, attitude);
+    writeEcefNed(ref bw, velocity, angularVelocity);
+    writeEcefNed(ref bw, acceleration, angularAcceleration);
+    bw.Write(name.Length);
+    bw.Write(Encoding.ASCII.GetBytes(name));
+    bw.Seek(0, SeekOrigin.Begin);
+
+    BinaryReader br = new BinaryReader(memStream);
+    byte[] data = br.ReadBytes((int)memStream.Length);
+    m_udpClient.Send(data, data.Length);
+  }
+
+  public void PushEcefNed(double elapsedTime, Ecef position, Attitude attitude, Ecef velocity, Attitude angularVelocity, Ecef acceleration, Attitude angularAcceleration, Ecef jerk, Attitude angularJerk, string name = "")
+  {
+    if (!IsConnected)
+      throw new Exception("Cannot push ecef because you are not connected.");
+
+    MemoryStream memStream = new MemoryStream();
+    BinaryWriter bw = new BinaryWriter(memStream, Encoding.ASCII);
+    bw.Write((byte)MessageId.PushEcefNedDynamics);
+    bw.Write((byte)DynamicType.Jerk);
+    bw.Write(elapsedTime);
+    writeEcefNed(ref bw, position, attitude);
+    writeEcefNed(ref bw, velocity, angularVelocity);
+    writeEcefNed(ref bw, acceleration, angularAcceleration);
+    writeEcefNed(ref bw, jerk, angularJerk);
     bw.Write(name.Length);
     bw.Write(Encoding.ASCII.GetBytes(name));
     bw.Seek(0, SeekOrigin.Begin);
@@ -143,7 +297,7 @@ public class HilClient
       BinaryReader binReader = new BinaryReader(memStream);
 
       binReader.ReadByte();
-      simStats.ElapsedTime = binReader.ReadInt64();
+      simStats.ElapsedTime = binReader.ReadUInt64();
       Ecef position = new Ecef(
         binReader.ReadDouble(), 
         binReader.ReadDouble(), 
@@ -190,4 +344,4 @@ public class HilClient
     IsConnected = false;
   }
 }
-} // namespace Bb
+} // namespace Sdx

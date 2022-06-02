@@ -36,6 +36,8 @@ namespace Sdx
       virtual bool isValid() const override;
       virtual std::string documentation() const override;
 
+      inline virtual bool isSuccess() const override { return false; }
+
 
       // **** errorMsg ****
       std::string errorMsg() const;
