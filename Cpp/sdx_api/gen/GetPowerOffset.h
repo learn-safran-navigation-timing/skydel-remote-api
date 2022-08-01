@@ -9,6 +9,8 @@ namespace Sdx
   namespace Cmd
   {
     ///
+    /// Please note the command GetPowerOffset is deprecated since 21.7. You may use GetSignalPowerOffset.
+    /// 
     /// Get power offset default value for the signal given in argument
     ///
     /// Name   Type   Description

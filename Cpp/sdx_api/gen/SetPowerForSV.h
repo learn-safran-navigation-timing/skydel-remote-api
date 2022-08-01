@@ -9,6 +9,8 @@ namespace Sdx
   namespace Cmd
   {
     ///
+    /// Please note the command SetPowerForSV is deprecated since 22.7. You may use SetManualPowerOffsetForSV.
+    /// 
     /// Set power offset for specified satellite SV ID. Use SV ID 0 to set power for all satellites.
     ///
     /// Name            Type   Description

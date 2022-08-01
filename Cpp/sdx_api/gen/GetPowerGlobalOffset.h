@@ -9,6 +9,8 @@ namespace Sdx
   namespace Cmd
   {
     ///
+    /// Please note the command GetPowerGlobalOffset is deprecated since 21.7. You may use GetGlobalPowerOffset.
+    /// 
     /// Get global power offset default value for all signals and all systems
     ///
     /// 

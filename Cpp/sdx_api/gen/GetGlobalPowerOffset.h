@@ -9,26 +9,26 @@ namespace Sdx
   namespace Cmd
   {
     ///
-    /// Get Add a plug-in instance of specified type.
+    /// Get global power offset default value for all signals and all systems
     ///
     /// 
     ///
 
-    class GetPlugInInstance;
-    typedef std::shared_ptr<GetPlugInInstance> GetPlugInInstancePtr;
+    class GetGlobalPowerOffset;
+    typedef std::shared_ptr<GetGlobalPowerOffset> GetGlobalPowerOffsetPtr;
     
     
-    class GetPlugInInstance : public CommandBase
+    class GetGlobalPowerOffset : public CommandBase
     {
     public:
       static const char* const CmdName;
       static const char* const Documentation;
 
 
-      GetPlugInInstance();
+      GetGlobalPowerOffset();
   
-      static GetPlugInInstancePtr create();
-      static GetPlugInInstancePtr dynamicCast(CommandBasePtr ptr);
+      static GetGlobalPowerOffsetPtr create();
+      static GetGlobalPowerOffsetPtr dynamicCast(CommandBasePtr ptr);
       virtual bool isValid() const override;
       virtual std::string documentation() const override;
 

@@ -114,6 +114,13 @@ bool CmdClient::connectToHost(const std::string& ip, int port)
   m->serv_addr.sin_family = AF_INET;
   memcpy(&m->serv_addr.sin_addr.s_addr, m->server->h_addr, m->server->h_length);
   m->serv_addr.sin_port = htons(port);
+
+#ifndef _WIN32
+  // Add a 10 second timeout to the socket SEND calls
+  timeval timeout{ 10, 0 };
+  setsockopt(m->s, SOL_SOCKET, SO_SNDTIMEO, &timeout, sizeof(timeout));
+#endif
+
   if (connect(m->s, (struct sockaddr*)&m->serv_addr, sizeof(m->serv_addr)) < 0)
   {
     closeSocket();

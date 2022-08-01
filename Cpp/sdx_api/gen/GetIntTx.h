@@ -9,9 +9,7 @@ namespace Sdx
   namespace Cmd
   {
     ///
-    /// Get an interference transmitter. For set : the transmitter Id parameter is not set (empty string),
-    /// Skydel will assign a unique Id to the transmitter. If the Id is set and already used by Skydel, the
-    /// command will fail.
+    /// Get an interference transmitter.
     ///
     /// Name Type   Description
     /// ---- ------ ------------------------------

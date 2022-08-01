@@ -86,38 +86,38 @@ D1DictEphemeris2 = [
     {'name':"P10",    'range':[292,299]}]
 
 D1DictEphemeris3 = [
-    {'name':"Pre",      'range':[0,10]},
-    {'name':"Rev",      'range':[11,14]},
-    {'name':"FraID",    'range':[15,17]},
-    {'name':"SOW",      'range':[[18,25],[30,41]],                                     'unit':utility.SECOND},
-    {'name':"P1",       'range':[26,29]},
-    #        SOW                [30,41]
-    {'name':"toe",      'range':[[42,51],[60,64]],                    'factor':2**3,   'unit':utility.SECOND},
-    {'name':"P2",       'range':[52,59]},
-    #        toe                [60,64]
-    {'name':"i0",       'range':[[65,81],[90,104]],    'signed':True, 'factor':2**-31, 'unit':utility.SEMICIRCLE},
-    {'name':"P3",       'range':[82,89]},
-    #        i0                 [90,104]
-    {'name':"Cic",      'range':[[105,111],[120,130]], 'signed':True, 'factor':2**-31, 'unit':utility.RADIAN},
-    {'name':"P4",       'range':[112,119]},
-    #        Cic                [120,130]
-    {'name':"OmegaDot", 'range':[[131,141],[150,162]], 'signed':True, 'factor':2**-43, 'unit':utility.SEMICIRCLE_PER_SECOND},
-    {'name':"P5",       'range':[142,149]},
-    #        OmegaDot           [150,162]
-    {'name':"Cis",      'range':[[163,171],[180,188]], 'signed':True, 'factor':2**-31, 'unit':utility.RADIAN},
-    {'name':"P6",       'range':[172,179]},
-    #        Cis                [180,188]
-    {'name':"IDOT",     'range':[[189,201],[210,210]], 'signed':True, 'factor':2**-43, 'unit':utility.SEMICIRCLE_PER_SECOND},
-    {'name':"P7",       'range':[202,209]},
-    #        IDOT               [210,210]
-    {'name':"Omega0",   'range':[[211,231],[240,250]], 'signed':True, 'factor':2**-31, 'unit':utility.SEMICIRCLE},
-    {'name':"P8",       'range':[232,239]},
+    {'name':"Pre",        'range':[0,10]},
+    {'name':"Rev",        'range':[11,14]},
+    {'name':"FraID",      'range':[15,17]},
+    {'name':"SOW",        'range':[[18,25],[30,41]],                                     'unit':utility.SECOND},
+    {'name':"P1",         'range':[26,29]},
+    #        SOW                  [30,41]
+    {'name':"toe",        'range':[[42,51],[60,64]],                    'factor':2**3,   'unit':utility.SECOND},
+    {'name':"P2",         'range':[52,59]},
+    #        toe                  [60,64]
+    {'name':"i0",         'range':[[65,81],[90,104]],    'signed':True, 'factor':2**-31, 'unit':utility.SEMICIRCLE},
+    {'name':"P3",         'range':[82,89]},
+    #        i0                   [90,104]
+    {'name':"Cic",        'range':[[105,111],[120,130]], 'signed':True, 'factor':2**-31, 'unit':utility.RADIAN},
+    {'name':"P4",         'range':[112,119]},
+    #        Cic                  [120,130]
+    {'name':"OmegaDot",   'range':[[131,141],[150,162]], 'signed':True, 'factor':2**-43, 'unit':utility.SEMICIRCLE_PER_SECOND},
+    {'name':"P5",         'range':[142,149]},
+    #        OmegaDot             [150,162]
+    {'name':"Cis",        'range':[[163,171],[180,188]], 'signed':True, 'factor':2**-31, 'unit':utility.RADIAN},
+    {'name':"P6",         'range':[172,179]},
+    #        Cis                  [180,188]
+    {'name':"IDOT",       'range':[[189,201],[210,210]], 'signed':True, 'factor':2**-43, 'unit':utility.SEMICIRCLE_PER_SECOND},
+    {'name':"P7",         'range':[202,209]},
+    #        IDOT                 [210,210]
+    {'name':"Omega0",     'range':[[211,231],[240,250]], 'signed':True, 'factor':2**-31, 'unit':utility.SEMICIRCLE},
+    {'name':"P8",         'range':[232,239]},
     #        Omega0             [240,250]
-    {'name':"Omega",    'range':[[251,261],[270,290]], 'signed':True, 'factor':2**-31, 'unit':utility.SEMICIRCLE},
-    {'name':"P9",       'range':[262,269]},
-    #        Omega              [270,290]
-    {'name':"Rev2",     'range':[291,291]},
-    {'name':"P10",      'range':[292,299]}]
+    {'name':"Omega",      'range':[[251,261],[270,290]], 'signed':True, 'factor':2**-31, 'unit':utility.SEMICIRCLE},
+    {'name':"P9",         'range':[262,269]},
+    #        Omega                [270,290]
+    {'name':"Rev2",       'range':[291,291]},
+    {'name':"P10",        'range':[292,299]}]
 
 D1DictAlmanac = [
     {'name':"Pre",      'range':[0,10]},
@@ -152,7 +152,7 @@ D1DictAlmanac = [
     {'name':"M0",       'range':[[258,261],[270,289]], 'signed':True, 'factor':2**-23, 'unit':utility.SEMICIRCLE},
     {'name':"P9",       'range':[262,269]},
     #        M0                 [270,289]
-    {'name':"Rev3",     'range':[290,291]},
+    {'name':"AmEpID",   'range':[290,291]},
     {'name':"P10",      'range':[292,299]}]
 
 D1DictHealthA = [
@@ -237,6 +237,47 @@ D1DictHealthB = [
     {'name':"Rev3",  'range':[213,275]},
     {'name':"P8",    'range':[276,299]}]
 
+D1DictHealthC = [
+    {'name':"Pre",   'range':[0,10]},
+    {'name':"Rev",   'range':[11,14]},
+    {'name':"FraID", 'range':[15,17]},
+    {'name':"SOW",   'range':[[18,25],[30,41]], 'unit':utility.SECOND},
+    {'name':"P1",    'range':[26,29]},
+    #        SOW             [30,41]
+    {'name':"Rev2",  'range':[42,42]},
+    {'name':"Pnum",  'range':[43,49]},
+    {'name':"Hea31", 'range':[[50,51],[60,66]]},
+    {'name':"P2",    'range':[52,59]},
+    #        Hea31            [60,66]
+    {'name':"Hea32", 'range':[67,75]},
+    {'name':"Hea33", 'range':[[76,81],[90,92]]},
+    {'name':"P3",    'range':[82,89]},
+    #        Hea33           [90,92]
+    {'name':"Hea34", 'range':[93,101]},
+    {'name':"Hea35", 'range':[102,110]},
+    {'name':"Hea36", 'range':[[111,111],[120,127]]},
+    {'name':"P4",    'range':[112,119]},
+    #        Hea36           [120,127]
+    {'name':"Hea37", 'range':[128,136]},
+    {'name':"Hea38", 'range':[[137,141],[150,153]]},
+    {'name':"P5",    'range':[142,149]},
+    #        Hea38           [150,153]
+    {'name':"Hea39", 'range':[154,162]},
+    {'name':"Hea40", 'range':[163,171]},
+    {'name':"P6",    'range':[172,179]},
+    {'name':"Hea41", 'range':[180,188]},
+    {'name':"Hea42", 'range':[189,197]},
+    {'name':"Hea43", 'range':[[198,201],[210,214]]},
+    {'name':"P7",    'range':[202,209]},
+    #        Hea43           [210,214]
+    {'name':"AmID",  'range':[215,216]},
+    {'name':"Rev4",  'range':[217,231]},
+    {'name':"P8",    'range':[232,239]},
+    {'name':"Rev5",  'range':[240,261]},
+    {'name':"P9",    'range':[262,269]},
+    {'name':"Rev6",  'range':[270,291]},
+    {'name':"P10",   'range':[292,299]}]
+
 D1DictGNSSTime = [
     {'name':"Pre",   'range':[0,10]},
     {'name':"Rev",   'range':[11,14]},
@@ -251,7 +292,7 @@ D1DictGNSSTime = [
     {'name':"Rev4",  'range':[60,81]},
     {'name':"P3",    'range':[82,89]},
     {'name':"Rev5",  'range':[90,95]},
-    {'name':"A0PGS", 'range':[96,109],              'signed':True, 'factor':0.1, 'unit':utility.NANO_SECOND},
+    {'name':"A0GPS", 'range':[96,109],              'signed':True, 'factor':0.1, 'unit':utility.NANO_SECOND},
     {'name':"A1GPS", 'range':[[110,111],[120,133]], 'signed':True, 'factor':0.1, 'unit':utility.NANO_SECOND_PER_SECOND},
     {'name':"P4",    'range':[112,119]},
     #        A1GPS           [120,133]
@@ -289,8 +330,44 @@ D1DictUTCTime = [
     {'name':"P5",         'range':[142,149]},
     #        A1UTC                [150,161]
     {'name':"DN",         'range':[162,169],                                             'unit':utility.DAY},
-    {'name':"Rev3",       'range':[169,259]},
+    {'name':"Rev3",       'range':[170,259]},
     {'name':"P8",         'range':[260,299]}]
+
+D1DictAlmanacSF5 = [
+    {'name':"Pre",      'range':[0,10]},
+    {'name':"Rev",      'range':[11,14]},
+    {'name':"FraID",    'range':[15,17]},
+    {'name':"SOW",      'range':[[18,25],[30,41]],                                     'unit':utility.SECOND},
+    {'name':"P1",       'range':[26,29]},
+    #        SOW                [30,41]
+    {'name':"Rev2",     'range':[42,42]},
+    {'name':"Pnum",     'range':[43,49]},
+    {'name':"SqrtA",    'range':[[50,51],[60,81]],                    'factor':2**-11, 'unit':utility.METER_SQUARE_ROOT},
+    {'name':"P2",       'range':[52,59]},
+    #        SqrtA              [60,81]
+    {'name':"P3",       'range':[82,89]},
+    {'name':"a1",       'range':[90,100],              'signed':True, 'factor':2**-38, 'unit':utility.SECOND_PER_SECOND},
+    {'name':"a0",       'range':[101, 111],            'signed':True, 'factor':2**-20, 'unit':utility.SECOND},
+    {'name':"P4",       'range':[112,119]},
+    {'name':"Omega0",   'range':[[120,141],[150,151]], 'signed':True, 'factor':2**-23, 'unit':utility.SEMICIRCLE},
+    {'name':"P5",       'range':[142,149]},
+    #        Omega0             [150,151]
+    {'name':"e",        'range':[152,168],                            'factor':2**-21},
+    {'name':"Delta-i",  'range':[[169,171],[180,192]], 'signed':True, 'factor':2**-19, 'unit':utility.SEMICIRCLE},
+    {'name':"P6",       'range':[172,179]},
+    #        Deltai             [180,192]
+    {'name':"toa",      'range':[193,200],                            'factor':2**12,  'unit':utility.SECOND},
+    {'name':"OmegaDot", 'range':[[201,201],[210,225]], 'signed':True, 'factor':2**-38, 'unit':utility.SEMICIRCLE_PER_SECOND},
+    {'name':"P7",       'range':[202,209]},
+    #        OmegaDot           [210,225]
+    {'name':"Omega",    'range':[[226,231],[240,257]], 'signed':True, 'factor':2**-23, 'unit':utility.SEMICIRCLE},
+    {'name':"P8",       'range':[232,239]},
+    #        Omega              [240,257]
+    {'name':"M0",       'range':[[258,261],[270,289]], 'signed':True, 'factor':2**-23, 'unit':utility.SEMICIRCLE},
+    {'name':"P9",       'range':[262,269]},
+    #        M0                 [270,289]
+    {'name':"AmID",     'range':[290,291]},
+    {'name':"P10",      'range':[292,299]}]
 
 D1DictPlaceholder = [
     {'name':"Pre",   'range':[0,10]},
@@ -577,7 +654,7 @@ D2DictSf2 = [
     #        UDREI17               [270,270]
     {'name':"UDREI18",     'range':[271,274]},
     {'name':"RUREII1",     'range':[275,278]},
-    {'name':"DeltaTi1",    'range':[279,291],                  'signed':True, 'factor':10**-1, 'unit':utility.SEMICIRCLE},
+    {'name':"DeltaTi1",    'range':[279,291],                  'signed':True, 'factor':10**-1, 'unit':utility.METER},
     {'name':"P10",         'range':[292,299]}
 ]
 
@@ -590,11 +667,11 @@ D2DictSf3 = [
     #        SOW                   [30,41]
     {'name':"Rev2",        'range':[42,42]},
     {'name':"RUREII2",     'range':[43,46]},
-    {'name':"DeltaTi2",    'range':[[47,51], [60,67]],                          'signed':True, 'factor':10**-1, 'unit':utility.SEMICIRCLE},
+    {'name':"DeltaTi2",    'range':[[47,51], [60,67]],                          'signed':True, 'factor':10**-1, 'unit':utility.METER},
     {'name':"P2",          'range':[52,59]},
     #        DeltaTi2              [60,67]
     {'name':"RUREII3",     'range':[68,71]},
-    {'name':"DeltaTi3",    'range':[[72,81], [90,92]],                          'signed':True, 'factor':10**-1, 'unit':utility.SEMICIRCLE},
+    {'name':"DeltaTi3",    'range':[[72,81], [90,92]],                          'signed':True, 'factor':10**-1, 'unit':utility.METER},
     {'name':"P3",          'range':[82,89]},
     #        DeltaTi3              [90,92]
     {'name':"Rev3",        'range':[[93,111], [120,141], [150,171], [180,180]]},
@@ -623,10 +700,58 @@ D2DictSf4 = [
     {'name':"P1",       'range':[26,29]},
     #        SOW                [30,41]
     {'name':"Rev2",     'range':[42,42]},
-    {'name':"Rev3",     'range':[43,106]},
-    {'name':"Rev4",     'range':[107,170]},
-    {'name':"Rev5",     'range':[171,227]},
-    {'name':"P2",       'range':[228,299]}
+    {'name':"Rev3",     'range':[43, 106]},
+    {'name':"Rev4",     'range':[107, 167]},
+    {'name':"BDEpID",   'range':[168, 169]},
+    {'name':"BDID31",   'range':[170,170]},
+    {'name':"BDID32",   'range':[171,171]},
+    {'name':"P6",       'range':[172,179]},
+    {'name':"BDID33",   'range':[180,180]},
+    {'name':"BDID34",   'range':[181,181]},
+    {'name':"BDID35",   'range':[182,182]},
+    {'name':"BDID36",   'range':[183,183]},
+    {'name':"BDID37",   'range':[184,184]},
+    {'name':"BDID38",   'range':[185,185]},
+    {'name':"BDID39",   'range':[186,186]},
+    {'name':"BDID40",   'range':[187,187]},
+    {'name':"BDID41",   'range':[188,188]},
+    {'name':"BDID42",   'range':[189,189]},
+    {'name':"BDID43",   'range':[190,190]},
+    {'name':"BDID44",   'range':[191,191]},
+    {'name':"BDID45",   'range':[192,192]},
+    {'name':"BDID46",   'range':[193,193]},
+    {'name':"BDID47",   'range':[194,194]},
+    {'name':"BDID48",   'range':[195,195]},
+    {'name':"BDID49",   'range':[196,196]},
+    {'name':"BDID50",   'range':[197,197]},
+    {'name':"BDID51",   'range':[198,198]},
+    {'name':"BDID52",   'range':[199,199]},
+    {'name':"BDID53",   'range':[200,200]},
+    {'name':"BDID54",   'range':[201,201]},
+    {'name':"P7",       'range':[202,209]},
+    {'name':"BDID55",   'range':[210,210]},
+    {'name':"BDID56",   'range':[211,211]},
+    {'name':"BDID57",   'range':[212,212]},
+    {'name':"BDID58",   'range':[213,213]},
+    {'name':"BDID59",   'range':[214,214]},
+    {'name':"BDID60",   'range':[215,215]},
+    {'name':"BDID61",   'range':[216,216]},
+    {'name':"BDID62",   'range':[217,217]},
+    {'name':"BDID63",   'range':[218,218]},
+    {'name':"UDREI19",  'range':[219,222]},
+    {'name':"UDREI20",  'range':[223,226]},
+    {'name':"UDREI21",  'range':[227,230]},
+    {'name':"UDREI22",  'range':[[231,231], [240,242]]},
+    {'name':"P8",       'range':[232,239]},
+    #       "UDREI22",          [240,242]
+    {'name':"UDREI23",  'range':[243,246]},
+    {'name':"UDREI24",  'range':[247,250]},
+    {'name':"RURAIi4",  'range':[251,254]},
+    {'name':"deltaTi4", 'range':[[255,261], [270,275]],   'signed':True, 'factor':10**-1, 'unit':utility.METER},
+    {'name':"P9",       'range':[262,269]},
+    #       "deltaTi4",         [270,275]
+    {'name':"rev5",     'range':[276,291]},
+    {'name':"P10",      'range':[292,299]}
 ]
 
 D2DictSf5IonoGridA  = [
@@ -707,8 +832,10 @@ D2DictSf5IonoGridB  = [
 D2DictSf5Almanac  = D1DictAlmanac
 D2DictSf5HealthA  = D1DictHealthA
 D2DictSf5HealthB  = D1DictHealthB
+D2DictSf5HealthC  = D1DictHealthC
 D2DictSf5GNSSTime = D1DictGNSSTime
 D2DictSf5UTCTime  = D1DictUTCTime
+D2DictSf5Almanac2 = D1DictAlmanacSF5
 D2DictSf5Reserved = D1DictPlaceholder
 
 """
@@ -1388,7 +1515,7 @@ def getDictBeiDouB1D1NavigationMessage(binaryMessage):
         dictToUse = D1DictEphemeris[sfID]
     elif sfID == 5:
         pageID = int(binaryMessage[43:50], 2)
-        if pageID in [1, 2, 3, 4, 5, 6]:
+        if 1 <= pageID <= 6:
             dictToUse = D1DictAlmanac
         elif pageID == 7:
             dictToUse = D1DictHealthA
@@ -1398,6 +1525,10 @@ def getDictBeiDouB1D1NavigationMessage(binaryMessage):
             dictToUse = D1DictGNSSTime
         elif pageID == 10:
             dictToUse =  D1DictUTCTime
+        elif 11 <= pageID <= 23:
+            dictToUse = D1DictAlmanacSF5
+        elif pageID == 24:
+            dictToUse = D1DictHealthC
         else:
             dictToUse = D1DictPlaceholder
     else:
@@ -1452,6 +1583,10 @@ def getDictBeiDouB1D2NavigationMessage(binaryMessage):
             dictToUse = D2DictSf5GNSSTime
         elif pageID == 102:
             dictToUse = D2DictSf5UTCTime
+        elif 103 <= pageID <= 115:
+            dictToUse = D2DictSf5Almanac2
+        elif pageID == 116:
+            dictToUse = D2DictSf5HealthC
         elif pageID in range(14, 35) or pageID in range(74, 95) or pageID in range(103, 121):
             dictToUse = D2DictSf5Reserved
     else:

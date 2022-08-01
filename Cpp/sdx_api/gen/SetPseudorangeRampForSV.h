@@ -12,15 +12,15 @@ namespace Sdx
     /// Set PSR ramp event. This function lets user change the pseudorange of any satellite.
     /// If SV ID is set to 0, the change is applied to all satellites.
     /// 
-    ///          Hold Start Time
-    ///          |     Hold Stop Time
-    ///          |     |
-    ///          ...........
-    ///        ..       ...
-    ///        ..        ...
-    ///   .......           .........> Time
-    ///       |           |
-    ///       Start Time      Stop Time
+    ///           Hold Start Time
+    ///           |         Hold Stop Time
+    ///           |         |
+    ///           ...........
+    ///          ..         ...
+    ///         ..            ...
+    ///   .......               .........> Time
+    ///         |               |
+    ///         Start Time      Stop Time
     /// 
     ///
     /// Name          Type   Description
@@ -32,7 +32,8 @@ namespace Sdx
     /// HoldStartTime int    Elapsed time in seconds since start of simulation. HoldStartTime >= StartTime
     /// HoldStopTime  int    Elapsed time in seconds since start of simulation. HoldStopTime >= HoldStartTime
     /// StopTime      int    Elapsed time in seconds since start of simulation. StopTime >= HoldStopTime
-    /// Id            string Unique identifier automatically set by simulator.
+    /// Id            string Unique identifier automatically set by simulator if empty string.
+    ///                      The IDs pool is common between all system.
     ///
 
     class SetPseudorangeRampForSV;

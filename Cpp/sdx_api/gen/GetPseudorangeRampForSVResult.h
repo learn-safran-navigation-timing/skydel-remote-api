@@ -20,7 +20,8 @@ namespace Sdx
     /// HoldStartTime int    Elapsed time in seconds since start of simulation. HoldStartTime >= StartTime
     /// HoldStopTime  int    Elapsed time in seconds since start of simulation. HoldStopTime >= HoldStartTime
     /// StopTime      int    Elapsed time in seconds since start of simulation. StopTime >= HoldStopTime
-    /// Id            string Unique identifier automatically set by simulator.
+    /// Id            string Unique identifier automatically set by simulator if empty string.
+    ///                      The IDs pool is common between all system.
     ///
 
     class GetPseudorangeRampForSVResult;

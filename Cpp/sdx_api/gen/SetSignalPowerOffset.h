@@ -1,7 +1,7 @@
 #pragma once
 
 #include <memory>
-#include "command_result.h"
+#include "command_base.h"
 #include <string>
 
 namespace Sdx
@@ -9,7 +9,7 @@ namespace Sdx
   namespace Cmd
   {
     ///
-    /// Result of GetPowerOffset.
+    /// Set power offset default value for the signal given in argument
     ///
     /// Name   Type   Description
     /// ------ ------ -----------------------------------------------------------------------------------------------
@@ -20,25 +20,27 @@ namespace Sdx
     /// Offset double Offset in dB (negative value will attenuate signal)
     ///
 
-    class GetPowerOffsetResult;
-    typedef std::shared_ptr<GetPowerOffsetResult> GetPowerOffsetResultPtr;
+    class SetSignalPowerOffset;
+    typedef std::shared_ptr<SetSignalPowerOffset> SetSignalPowerOffsetPtr;
     
     
-    class GetPowerOffsetResult : public CommandResult
+    class SetSignalPowerOffset : public CommandBase
     {
     public:
       static const char* const CmdName;
       static const char* const Documentation;
 
 
-      GetPowerOffsetResult();
+      SetSignalPowerOffset();
 
-      GetPowerOffsetResult(CommandBasePtr relatedCommand, const std::string& signal, double offset);
+      SetSignalPowerOffset(const std::string& signal, double offset);
   
-      static GetPowerOffsetResultPtr create(CommandBasePtr relatedCommand, const std::string& signal, double offset);
-      static GetPowerOffsetResultPtr dynamicCast(CommandBasePtr ptr);
+      static SetSignalPowerOffsetPtr create(const std::string& signal, double offset);
+      static SetSignalPowerOffsetPtr dynamicCast(CommandBasePtr ptr);
       virtual bool isValid() const override;
       virtual std::string documentation() const override;
+
+      virtual int executePermission() const override;
 
 
       // **** signal ****

@@ -9,7 +9,7 @@ namespace Sdx
   namespace Cmd
   {
     ///
-    /// Set Add a plug-in instance of specified type.
+    /// Add a plug-in instance of specified type.
     ///
     /// Name Type   Description
     /// ---- ------ -------------------------------------

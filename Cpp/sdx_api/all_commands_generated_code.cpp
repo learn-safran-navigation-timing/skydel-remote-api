@@ -2243,6 +2243,182 @@ namespace Sdx
 
 
 ///
+/// Definition of GetEnabledSignalsForSV
+///
+#include "gen/GetEnabledSignalsForSV.h"
+
+namespace Sdx
+{
+  namespace Cmd
+  {
+    const char* const GetEnabledSignalsForSV::CmdName = "GetEnabledSignalsForSV";
+    const char* const GetEnabledSignalsForSV::Documentation = "Get the list of enabled signals for a specified SV ID.";
+
+    REGISTER_COMMAND_FACTORY(GetEnabledSignalsForSV);
+
+
+    GetEnabledSignalsForSV::GetEnabledSignalsForSV()
+      : CommandBase(CmdName)
+    {}
+
+    GetEnabledSignalsForSV::GetEnabledSignalsForSV(const std::string& system, int svId)
+      : CommandBase(CmdName)
+    {
+
+      setSystem(system);
+      setSvId(svId);
+    }
+
+
+    GetEnabledSignalsForSVPtr GetEnabledSignalsForSV::create(const std::string& system, int svId)
+    {
+      return std::make_shared<GetEnabledSignalsForSV>(system, svId);
+    }
+
+    GetEnabledSignalsForSVPtr GetEnabledSignalsForSV::dynamicCast(CommandBasePtr ptr)
+    {
+      return std::dynamic_pointer_cast<GetEnabledSignalsForSV>(ptr);
+    }
+
+    bool GetEnabledSignalsForSV::isValid() const
+    {
+      
+        return m_values.IsObject()
+          && parse_json<std::string>::is_valid(m_values["System"])
+          && parse_json<int>::is_valid(m_values["SvId"])
+        ;
+
+    }
+
+    std::string GetEnabledSignalsForSV::documentation() const { return Documentation; }
+
+
+    int GetEnabledSignalsForSV::executePermission() const
+    {
+      return EXECUTE_IF_SIMULATING | EXECUTE_IF_IDLE;
+    }
+
+
+    std::string GetEnabledSignalsForSV::system() const
+    {
+      return parse_json<std::string>::parse(m_values["System"]);
+    }
+
+    void GetEnabledSignalsForSV::setSystem(const std::string& system)
+    {
+      m_values.AddMember("System", parse_json<std::string>::format(system, m_values.GetAllocator()), m_values.GetAllocator());
+    }
+
+
+
+    int GetEnabledSignalsForSV::svId() const
+    {
+      return parse_json<int>::parse(m_values["SvId"]);
+    }
+
+    void GetEnabledSignalsForSV::setSvId(int svId)
+    {
+      m_values.AddMember("SvId", parse_json<int>::format(svId, m_values.GetAllocator()), m_values.GetAllocator());
+    }
+
+
+  }
+}
+
+
+///
+/// Definition of GetEnabledSignalsForSVResult
+///
+#include "gen/GetEnabledSignalsForSVResult.h"
+
+namespace Sdx
+{
+  namespace Cmd
+  {
+    const char* const GetEnabledSignalsForSVResult::CmdName = "GetEnabledSignalsForSVResult";
+    const char* const GetEnabledSignalsForSVResult::Documentation = "Result of GetEnabledSignalsForSV.";
+
+    REGISTER_COMMAND_RESULT_FACTORY(GetEnabledSignalsForSVResult);
+
+
+    GetEnabledSignalsForSVResult::GetEnabledSignalsForSVResult()
+      : CommandResult(CmdName)
+    {}
+
+    GetEnabledSignalsForSVResult::GetEnabledSignalsForSVResult(CommandBasePtr relatedCommand, const std::string& system, int svId, const std::vector<std::string>& signalArray)
+      : CommandResult(CmdName, relatedCommand)
+    {
+
+      setSystem(system);
+      setSvId(svId);
+      setSignalArray(signalArray);
+    }
+
+
+    GetEnabledSignalsForSVResultPtr GetEnabledSignalsForSVResult::create(CommandBasePtr relatedCommand, const std::string& system, int svId, const std::vector<std::string>& signalArray)
+    {
+      return std::make_shared<GetEnabledSignalsForSVResult>(relatedCommand, system, svId, signalArray);
+    }
+
+    GetEnabledSignalsForSVResultPtr GetEnabledSignalsForSVResult::dynamicCast(CommandBasePtr ptr)
+    {
+      return std::dynamic_pointer_cast<GetEnabledSignalsForSVResult>(ptr);
+    }
+
+    bool GetEnabledSignalsForSVResult::isValid() const
+    {
+      
+        return m_values.IsObject()
+          && parse_json<std::string>::is_valid(m_values["System"])
+          && parse_json<int>::is_valid(m_values["SvId"])
+          && parse_json<std::vector<std::string>>::is_valid(m_values["SignalArray"])
+        ;
+
+    }
+
+    std::string GetEnabledSignalsForSVResult::documentation() const { return Documentation; }
+
+
+    std::string GetEnabledSignalsForSVResult::system() const
+    {
+      return parse_json<std::string>::parse(m_values["System"]);
+    }
+
+    void GetEnabledSignalsForSVResult::setSystem(const std::string& system)
+    {
+      m_values.AddMember("System", parse_json<std::string>::format(system, m_values.GetAllocator()), m_values.GetAllocator());
+    }
+
+
+
+    int GetEnabledSignalsForSVResult::svId() const
+    {
+      return parse_json<int>::parse(m_values["SvId"]);
+    }
+
+    void GetEnabledSignalsForSVResult::setSvId(int svId)
+    {
+      m_values.AddMember("SvId", parse_json<int>::format(svId, m_values.GetAllocator()), m_values.GetAllocator());
+    }
+
+
+
+    std::vector<std::string> GetEnabledSignalsForSVResult::signalArray() const
+    {
+      return parse_json<std::vector<std::string>>::parse(m_values["SignalArray"]);
+    }
+
+    void GetEnabledSignalsForSVResult::setSignalArray(const std::vector<std::string>& signalArray)
+    {
+      m_values.AddMember("SignalArray", parse_json<std::vector<std::string>>::format(signalArray, m_values.GetAllocator()), m_values.GetAllocator());
+    }
+
+
+  }
+}
+
+
+///
 /// Definition of EnableSignalForEachSV
 ///
 #include "gen/EnableSignalForEachSV.h"
@@ -2981,110 +3157,110 @@ namespace Sdx
 
 
 ///
-/// Definition of SetPowerForSV
+/// Definition of SetManualPowerOffsetForSV
 ///
-#include "gen/SetPowerForSV.h"
+#include "gen/SetManualPowerOffsetForSV.h"
 
 namespace Sdx
 {
   namespace Cmd
   {
-    const char* const SetPowerForSV::CmdName = "SetPowerForSV";
-    const char* const SetPowerForSV::Documentation = "Set power offset for specified satellite SV ID. Use SV ID 0 to set power for all satellites.";
+    const char* const SetManualPowerOffsetForSV::CmdName = "SetManualPowerOffsetForSV";
+    const char* const SetManualPowerOffsetForSV::Documentation = "Set the power offsets applied to the signals of a satellite. Use SV ID 0 to set the power offset of all the satellites. Use key \"All\" to set the power offset to all signals.";
 
-    REGISTER_COMMAND_FACTORY(SetPowerForSV);
+    REGISTER_COMMAND_FACTORY(SetManualPowerOffsetForSV);
 
 
-    SetPowerForSV::SetPowerForSV()
+    SetManualPowerOffsetForSV::SetManualPowerOffsetForSV()
       : CommandBase(CmdName)
     {}
 
-    SetPowerForSV::SetPowerForSV(const std::string& system, int svId, double powerOffset, bool otherSatsFollow)
+    SetManualPowerOffsetForSV::SetManualPowerOffsetForSV(const std::string& system, int svId, const std::map<std::string, double>& signalPowerOffsetDict, bool isRelativePowerOffset)
       : CommandBase(CmdName)
     {
 
       setSystem(system);
       setSvId(svId);
-      setPowerOffset(powerOffset);
-      setOtherSatsFollow(otherSatsFollow);
+      setSignalPowerOffsetDict(signalPowerOffsetDict);
+      setIsRelativePowerOffset(isRelativePowerOffset);
     }
 
 
-    SetPowerForSVPtr SetPowerForSV::create(const std::string& system, int svId, double powerOffset, bool otherSatsFollow)
+    SetManualPowerOffsetForSVPtr SetManualPowerOffsetForSV::create(const std::string& system, int svId, const std::map<std::string, double>& signalPowerOffsetDict, bool isRelativePowerOffset)
     {
-      return std::make_shared<SetPowerForSV>(system, svId, powerOffset, otherSatsFollow);
+      return std::make_shared<SetManualPowerOffsetForSV>(system, svId, signalPowerOffsetDict, isRelativePowerOffset);
     }
 
-    SetPowerForSVPtr SetPowerForSV::dynamicCast(CommandBasePtr ptr)
+    SetManualPowerOffsetForSVPtr SetManualPowerOffsetForSV::dynamicCast(CommandBasePtr ptr)
     {
-      return std::dynamic_pointer_cast<SetPowerForSV>(ptr);
+      return std::dynamic_pointer_cast<SetManualPowerOffsetForSV>(ptr);
     }
 
-    bool SetPowerForSV::isValid() const
+    bool SetManualPowerOffsetForSV::isValid() const
     {
       
         return m_values.IsObject()
           && parse_json<std::string>::is_valid(m_values["System"])
           && parse_json<int>::is_valid(m_values["SvId"])
-          && parse_json<double>::is_valid(m_values["PowerOffset"])
-          && parse_json<bool>::is_valid(m_values["OtherSatsFollow"])
+          && parse_json<std::map<std::string, double>>::is_valid(m_values["SignalPowerOffsetDict"])
+          && parse_json<bool>::is_valid(m_values["IsRelativePowerOffset"])
         ;
 
     }
 
-    std::string SetPowerForSV::documentation() const { return Documentation; }
+    std::string SetManualPowerOffsetForSV::documentation() const { return Documentation; }
 
 
-    int SetPowerForSV::executePermission() const
+    int SetManualPowerOffsetForSV::executePermission() const
     {
       return EXECUTE_IF_SIMULATING;
     }
 
 
-    std::string SetPowerForSV::system() const
+    std::string SetManualPowerOffsetForSV::system() const
     {
       return parse_json<std::string>::parse(m_values["System"]);
     }
 
-    void SetPowerForSV::setSystem(const std::string& system)
+    void SetManualPowerOffsetForSV::setSystem(const std::string& system)
     {
       m_values.AddMember("System", parse_json<std::string>::format(system, m_values.GetAllocator()), m_values.GetAllocator());
     }
 
 
 
-    int SetPowerForSV::svId() const
+    int SetManualPowerOffsetForSV::svId() const
     {
       return parse_json<int>::parse(m_values["SvId"]);
     }
 
-    void SetPowerForSV::setSvId(int svId)
+    void SetManualPowerOffsetForSV::setSvId(int svId)
     {
       m_values.AddMember("SvId", parse_json<int>::format(svId, m_values.GetAllocator()), m_values.GetAllocator());
     }
 
 
 
-    double SetPowerForSV::powerOffset() const
+    std::map<std::string, double> SetManualPowerOffsetForSV::signalPowerOffsetDict() const
     {
-      return parse_json<double>::parse(m_values["PowerOffset"]);
+      return parse_json<std::map<std::string, double>>::parse(m_values["SignalPowerOffsetDict"]);
     }
 
-    void SetPowerForSV::setPowerOffset(double powerOffset)
+    void SetManualPowerOffsetForSV::setSignalPowerOffsetDict(const std::map<std::string, double>& signalPowerOffsetDict)
     {
-      m_values.AddMember("PowerOffset", parse_json<double>::format(powerOffset, m_values.GetAllocator()), m_values.GetAllocator());
+      m_values.AddMember("SignalPowerOffsetDict", parse_json<std::map<std::string, double>>::format(signalPowerOffsetDict, m_values.GetAllocator()), m_values.GetAllocator());
     }
 
 
 
-    bool SetPowerForSV::otherSatsFollow() const
+    bool SetManualPowerOffsetForSV::isRelativePowerOffset() const
     {
-      return parse_json<bool>::parse(m_values["OtherSatsFollow"]);
+      return parse_json<bool>::parse(m_values["IsRelativePowerOffset"]);
     }
 
-    void SetPowerForSV::setOtherSatsFollow(bool otherSatsFollow)
+    void SetManualPowerOffsetForSV::setIsRelativePowerOffset(bool isRelativePowerOffset)
     {
-      m_values.AddMember("OtherSatsFollow", parse_json<bool>::format(otherSatsFollow, m_values.GetAllocator()), m_values.GetAllocator());
+      m_values.AddMember("IsRelativePowerOffset", parse_json<bool>::format(isRelativePowerOffset, m_values.GetAllocator()), m_values.GetAllocator());
     }
 
 
@@ -3093,82 +3269,96 @@ namespace Sdx
 
 
 ///
-/// Definition of GetPowerForSV
+/// Definition of GetManualPowerOffsetForSV
 ///
-#include "gen/GetPowerForSV.h"
+#include "gen/GetManualPowerOffsetForSV.h"
 
 namespace Sdx
 {
   namespace Cmd
   {
-    const char* const GetPowerForSV::CmdName = "GetPowerForSV";
-    const char* const GetPowerForSV::Documentation = "Get the power offset for specified satellite SV ID.";
+    const char* const GetManualPowerOffsetForSV::CmdName = "GetManualPowerOffsetForSV";
+    const char* const GetManualPowerOffsetForSV::Documentation = "Get the power offsets for specific signals of a satellite.";
 
-    REGISTER_COMMAND_FACTORY(GetPowerForSV);
+    REGISTER_COMMAND_FACTORY(GetManualPowerOffsetForSV);
 
 
-    GetPowerForSV::GetPowerForSV()
+    GetManualPowerOffsetForSV::GetManualPowerOffsetForSV()
       : CommandBase(CmdName)
     {}
 
-    GetPowerForSV::GetPowerForSV(const std::string& system, int svId)
+    GetManualPowerOffsetForSV::GetManualPowerOffsetForSV(const std::string& system, int svId, const std::vector<std::string>& signalArray)
       : CommandBase(CmdName)
     {
 
       setSystem(system);
       setSvId(svId);
+      setSignalArray(signalArray);
     }
 
 
-    GetPowerForSVPtr GetPowerForSV::create(const std::string& system, int svId)
+    GetManualPowerOffsetForSVPtr GetManualPowerOffsetForSV::create(const std::string& system, int svId, const std::vector<std::string>& signalArray)
     {
-      return std::make_shared<GetPowerForSV>(system, svId);
+      return std::make_shared<GetManualPowerOffsetForSV>(system, svId, signalArray);
     }
 
-    GetPowerForSVPtr GetPowerForSV::dynamicCast(CommandBasePtr ptr)
+    GetManualPowerOffsetForSVPtr GetManualPowerOffsetForSV::dynamicCast(CommandBasePtr ptr)
     {
-      return std::dynamic_pointer_cast<GetPowerForSV>(ptr);
+      return std::dynamic_pointer_cast<GetManualPowerOffsetForSV>(ptr);
     }
 
-    bool GetPowerForSV::isValid() const
+    bool GetManualPowerOffsetForSV::isValid() const
     {
       
         return m_values.IsObject()
           && parse_json<std::string>::is_valid(m_values["System"])
           && parse_json<int>::is_valid(m_values["SvId"])
+          && parse_json<std::vector<std::string>>::is_valid(m_values["SignalArray"])
         ;
 
     }
 
-    std::string GetPowerForSV::documentation() const { return Documentation; }
+    std::string GetManualPowerOffsetForSV::documentation() const { return Documentation; }
 
 
-    int GetPowerForSV::executePermission() const
+    int GetManualPowerOffsetForSV::executePermission() const
     {
       return EXECUTE_IF_SIMULATING;
     }
 
 
-    std::string GetPowerForSV::system() const
+    std::string GetManualPowerOffsetForSV::system() const
     {
       return parse_json<std::string>::parse(m_values["System"]);
     }
 
-    void GetPowerForSV::setSystem(const std::string& system)
+    void GetManualPowerOffsetForSV::setSystem(const std::string& system)
     {
       m_values.AddMember("System", parse_json<std::string>::format(system, m_values.GetAllocator()), m_values.GetAllocator());
     }
 
 
 
-    int GetPowerForSV::svId() const
+    int GetManualPowerOffsetForSV::svId() const
     {
       return parse_json<int>::parse(m_values["SvId"]);
     }
 
-    void GetPowerForSV::setSvId(int svId)
+    void GetManualPowerOffsetForSV::setSvId(int svId)
     {
       m_values.AddMember("SvId", parse_json<int>::format(svId, m_values.GetAllocator()), m_values.GetAllocator());
+    }
+
+
+
+    std::vector<std::string> GetManualPowerOffsetForSV::signalArray() const
+    {
+      return parse_json<std::vector<std::string>>::parse(m_values["SignalArray"]);
+    }
+
+    void GetManualPowerOffsetForSV::setSignalArray(const std::vector<std::string>& signalArray)
+    {
+      m_values.AddMember("SignalArray", parse_json<std::vector<std::string>>::format(signalArray, m_values.GetAllocator()), m_values.GetAllocator());
     }
 
 
@@ -3177,160 +3367,160 @@ namespace Sdx
 
 
 ///
-/// Definition of GetPowerForSVResult
+/// Definition of GetManualPowerOffsetForSVResult
 ///
-#include "gen/GetPowerForSVResult.h"
+#include "gen/GetManualPowerOffsetForSVResult.h"
 
 namespace Sdx
 {
   namespace Cmd
   {
-    const char* const GetPowerForSVResult::CmdName = "GetPowerForSVResult";
-    const char* const GetPowerForSVResult::Documentation = "Result of GetPowerForSV.";
+    const char* const GetManualPowerOffsetForSVResult::CmdName = "GetManualPowerOffsetForSVResult";
+    const char* const GetManualPowerOffsetForSVResult::Documentation = "Result of GetManualPowerOffsetForSV.";
 
-    REGISTER_COMMAND_RESULT_FACTORY(GetPowerForSVResult);
+    REGISTER_COMMAND_RESULT_FACTORY(GetManualPowerOffsetForSVResult);
 
 
-    GetPowerForSVResult::GetPowerForSVResult()
+    GetManualPowerOffsetForSVResult::GetManualPowerOffsetForSVResult()
       : CommandResult(CmdName)
     {}
 
-    GetPowerForSVResult::GetPowerForSVResult(CommandBasePtr relatedCommand, const std::string& system, int svId, double nominalPower, double signalStrengthModel, double antenna, double signalLevelOffset, double manualGain, double total)
+    GetManualPowerOffsetForSVResult::GetManualPowerOffsetForSVResult(CommandBasePtr relatedCommand, const std::string& system, int svId, const std::map<std::string, double>& signalPowerOffsetDict)
       : CommandResult(CmdName, relatedCommand)
     {
 
       setSystem(system);
       setSvId(svId);
-      setNominalPower(nominalPower);
-      setSignalStrengthModel(signalStrengthModel);
-      setAntenna(antenna);
-      setSignalLevelOffset(signalLevelOffset);
-      setManualGain(manualGain);
-      setTotal(total);
+      setSignalPowerOffsetDict(signalPowerOffsetDict);
     }
 
 
-    GetPowerForSVResultPtr GetPowerForSVResult::create(CommandBasePtr relatedCommand, const std::string& system, int svId, double nominalPower, double signalStrengthModel, double antenna, double signalLevelOffset, double manualGain, double total)
+    GetManualPowerOffsetForSVResultPtr GetManualPowerOffsetForSVResult::create(CommandBasePtr relatedCommand, const std::string& system, int svId, const std::map<std::string, double>& signalPowerOffsetDict)
     {
-      return std::make_shared<GetPowerForSVResult>(relatedCommand, system, svId, nominalPower, signalStrengthModel, antenna, signalLevelOffset, manualGain, total);
+      return std::make_shared<GetManualPowerOffsetForSVResult>(relatedCommand, system, svId, signalPowerOffsetDict);
     }
 
-    GetPowerForSVResultPtr GetPowerForSVResult::dynamicCast(CommandBasePtr ptr)
+    GetManualPowerOffsetForSVResultPtr GetManualPowerOffsetForSVResult::dynamicCast(CommandBasePtr ptr)
     {
-      return std::dynamic_pointer_cast<GetPowerForSVResult>(ptr);
+      return std::dynamic_pointer_cast<GetManualPowerOffsetForSVResult>(ptr);
     }
 
-    bool GetPowerForSVResult::isValid() const
+    bool GetManualPowerOffsetForSVResult::isValid() const
     {
       
         return m_values.IsObject()
           && parse_json<std::string>::is_valid(m_values["System"])
           && parse_json<int>::is_valid(m_values["SvId"])
-          && parse_json<double>::is_valid(m_values["NominalPower"])
-          && parse_json<double>::is_valid(m_values["SignalStrengthModel"])
-          && parse_json<double>::is_valid(m_values["Antenna"])
-          && parse_json<double>::is_valid(m_values["SignalLevelOffset"])
-          && parse_json<double>::is_valid(m_values["ManualGain"])
-          && parse_json<double>::is_valid(m_values["Total"])
+          && parse_json<std::map<std::string, double>>::is_valid(m_values["SignalPowerOffsetDict"])
         ;
 
     }
 
-    std::string GetPowerForSVResult::documentation() const { return Documentation; }
+    std::string GetManualPowerOffsetForSVResult::documentation() const { return Documentation; }
 
 
-    std::string GetPowerForSVResult::system() const
+    std::string GetManualPowerOffsetForSVResult::system() const
     {
       return parse_json<std::string>::parse(m_values["System"]);
     }
 
-    void GetPowerForSVResult::setSystem(const std::string& system)
+    void GetManualPowerOffsetForSVResult::setSystem(const std::string& system)
     {
       m_values.AddMember("System", parse_json<std::string>::format(system, m_values.GetAllocator()), m_values.GetAllocator());
     }
 
 
 
-    int GetPowerForSVResult::svId() const
+    int GetManualPowerOffsetForSVResult::svId() const
     {
       return parse_json<int>::parse(m_values["SvId"]);
     }
 
-    void GetPowerForSVResult::setSvId(int svId)
+    void GetManualPowerOffsetForSVResult::setSvId(int svId)
     {
       m_values.AddMember("SvId", parse_json<int>::format(svId, m_values.GetAllocator()), m_values.GetAllocator());
     }
 
 
 
-    double GetPowerForSVResult::nominalPower() const
+    std::map<std::string, double> GetManualPowerOffsetForSVResult::signalPowerOffsetDict() const
     {
-      return parse_json<double>::parse(m_values["NominalPower"]);
+      return parse_json<std::map<std::string, double>>::parse(m_values["SignalPowerOffsetDict"]);
     }
 
-    void GetPowerForSVResult::setNominalPower(double nominalPower)
+    void GetManualPowerOffsetForSVResult::setSignalPowerOffsetDict(const std::map<std::string, double>& signalPowerOffsetDict)
     {
-      m_values.AddMember("NominalPower", parse_json<double>::format(nominalPower, m_values.GetAllocator()), m_values.GetAllocator());
-    }
-
-
-
-    double GetPowerForSVResult::signalStrengthModel() const
-    {
-      return parse_json<double>::parse(m_values["SignalStrengthModel"]);
-    }
-
-    void GetPowerForSVResult::setSignalStrengthModel(double signalStrengthModel)
-    {
-      m_values.AddMember("SignalStrengthModel", parse_json<double>::format(signalStrengthModel, m_values.GetAllocator()), m_values.GetAllocator());
+      m_values.AddMember("SignalPowerOffsetDict", parse_json<std::map<std::string, double>>::format(signalPowerOffsetDict, m_values.GetAllocator()), m_values.GetAllocator());
     }
 
 
+  }
+}
 
-    double GetPowerForSVResult::antenna() const
+
+///
+/// Definition of ResetManualPowerOffsets
+///
+#include "gen/ResetManualPowerOffsets.h"
+
+namespace Sdx
+{
+  namespace Cmd
+  {
+    const char* const ResetManualPowerOffsets::CmdName = "ResetManualPowerOffsets";
+    const char* const ResetManualPowerOffsets::Documentation = "Reset power offset for all satellites is specified system to default value";
+
+    REGISTER_COMMAND_FACTORY(ResetManualPowerOffsets);
+
+
+    ResetManualPowerOffsets::ResetManualPowerOffsets()
+      : CommandBase(CmdName)
+    {}
+
+    ResetManualPowerOffsets::ResetManualPowerOffsets(const std::string& system)
+      : CommandBase(CmdName)
     {
-      return parse_json<double>::parse(m_values["Antenna"]);
-    }
 
-    void GetPowerForSVResult::setAntenna(double antenna)
-    {
-      m_values.AddMember("Antenna", parse_json<double>::format(antenna, m_values.GetAllocator()), m_values.GetAllocator());
-    }
-
-
-
-    double GetPowerForSVResult::signalLevelOffset() const
-    {
-      return parse_json<double>::parse(m_values["SignalLevelOffset"]);
-    }
-
-    void GetPowerForSVResult::setSignalLevelOffset(double signalLevelOffset)
-    {
-      m_values.AddMember("SignalLevelOffset", parse_json<double>::format(signalLevelOffset, m_values.GetAllocator()), m_values.GetAllocator());
-    }
-
-
-
-    double GetPowerForSVResult::manualGain() const
-    {
-      return parse_json<double>::parse(m_values["ManualGain"]);
-    }
-
-    void GetPowerForSVResult::setManualGain(double manualGain)
-    {
-      m_values.AddMember("ManualGain", parse_json<double>::format(manualGain, m_values.GetAllocator()), m_values.GetAllocator());
+      setSystem(system);
     }
 
 
-
-    double GetPowerForSVResult::total() const
+    ResetManualPowerOffsetsPtr ResetManualPowerOffsets::create(const std::string& system)
     {
-      return parse_json<double>::parse(m_values["Total"]);
+      return std::make_shared<ResetManualPowerOffsets>(system);
     }
 
-    void GetPowerForSVResult::setTotal(double total)
+    ResetManualPowerOffsetsPtr ResetManualPowerOffsets::dynamicCast(CommandBasePtr ptr)
     {
-      m_values.AddMember("Total", parse_json<double>::format(total, m_values.GetAllocator()), m_values.GetAllocator());
+      return std::dynamic_pointer_cast<ResetManualPowerOffsets>(ptr);
+    }
+
+    bool ResetManualPowerOffsets::isValid() const
+    {
+      
+        return m_values.IsObject()
+          && parse_json<std::string>::is_valid(m_values["System"])
+        ;
+
+    }
+
+    std::string ResetManualPowerOffsets::documentation() const { return Documentation; }
+
+
+    int ResetManualPowerOffsets::executePermission() const
+    {
+      return EXECUTE_IF_SIMULATING;
+    }
+
+
+    std::string ResetManualPowerOffsets::system() const
+    {
+      return parse_json<std::string>::parse(m_values["System"]);
+    }
+
+    void ResetManualPowerOffsets::setSystem(const std::string& system)
+    {
+      m_values.AddMember("System", parse_json<std::string>::format(system, m_values.GetAllocator()), m_values.GetAllocator());
     }
 
 
@@ -3348,7 +3538,7 @@ namespace Sdx
   namespace Cmd
   {
     const char* const ResetAllSatPower::CmdName = "ResetAllSatPower";
-    const char* const ResetAllSatPower::Documentation = "Reset power offset for all satellites is specified system to default value";
+    const char* const ResetAllSatPower::Documentation = "Please note the command ResetAllSatPower is deprecated since 21.7. You may use ResetManualPowerOffsets.\n\nReset power offset for all satellites is specified system to default value";
 
     REGISTER_COMMAND_FACTORY(ResetAllSatPower);
 
@@ -3401,6 +3591,224 @@ namespace Sdx
     void ResetAllSatPower::setSystem(const std::string& system)
     {
       m_values.AddMember("System", parse_json<std::string>::format(system, m_values.GetAllocator()), m_values.GetAllocator());
+    }
+
+
+  }
+}
+
+
+///
+/// Definition of GetAllPowerForSV
+///
+#include "gen/GetAllPowerForSV.h"
+
+namespace Sdx
+{
+  namespace Cmd
+  {
+    const char* const GetAllPowerForSV::CmdName = "GetAllPowerForSV";
+    const char* const GetAllPowerForSV::Documentation = "Get the power information for the specified satellite.";
+
+    REGISTER_COMMAND_FACTORY(GetAllPowerForSV);
+
+
+    GetAllPowerForSV::GetAllPowerForSV()
+      : CommandBase(CmdName)
+    {}
+
+    GetAllPowerForSV::GetAllPowerForSV(const std::string& system, int svId, const std::vector<std::string>& signalArray)
+      : CommandBase(CmdName)
+    {
+
+      setSystem(system);
+      setSvId(svId);
+      setSignalArray(signalArray);
+    }
+
+
+    GetAllPowerForSVPtr GetAllPowerForSV::create(const std::string& system, int svId, const std::vector<std::string>& signalArray)
+    {
+      return std::make_shared<GetAllPowerForSV>(system, svId, signalArray);
+    }
+
+    GetAllPowerForSVPtr GetAllPowerForSV::dynamicCast(CommandBasePtr ptr)
+    {
+      return std::dynamic_pointer_cast<GetAllPowerForSV>(ptr);
+    }
+
+    bool GetAllPowerForSV::isValid() const
+    {
+      
+        return m_values.IsObject()
+          && parse_json<std::string>::is_valid(m_values["System"])
+          && parse_json<int>::is_valid(m_values["SvId"])
+          && parse_json<std::vector<std::string>>::is_valid(m_values["SignalArray"])
+        ;
+
+    }
+
+    std::string GetAllPowerForSV::documentation() const { return Documentation; }
+
+
+    int GetAllPowerForSV::executePermission() const
+    {
+      return EXECUTE_IF_SIMULATING;
+    }
+
+
+    std::string GetAllPowerForSV::system() const
+    {
+      return parse_json<std::string>::parse(m_values["System"]);
+    }
+
+    void GetAllPowerForSV::setSystem(const std::string& system)
+    {
+      m_values.AddMember("System", parse_json<std::string>::format(system, m_values.GetAllocator()), m_values.GetAllocator());
+    }
+
+
+
+    int GetAllPowerForSV::svId() const
+    {
+      return parse_json<int>::parse(m_values["SvId"]);
+    }
+
+    void GetAllPowerForSV::setSvId(int svId)
+    {
+      m_values.AddMember("SvId", parse_json<int>::format(svId, m_values.GetAllocator()), m_values.GetAllocator());
+    }
+
+
+
+    std::vector<std::string> GetAllPowerForSV::signalArray() const
+    {
+      return parse_json<std::vector<std::string>>::parse(m_values["SignalArray"]);
+    }
+
+    void GetAllPowerForSV::setSignalArray(const std::vector<std::string>& signalArray)
+    {
+      m_values.AddMember("SignalArray", parse_json<std::vector<std::string>>::format(signalArray, m_values.GetAllocator()), m_values.GetAllocator());
+    }
+
+
+  }
+}
+
+
+///
+/// Definition of GetAllPowerForSVResult
+///
+#include "gen/GetAllPowerForSVResult.h"
+
+namespace Sdx
+{
+  namespace Cmd
+  {
+    const char* const GetAllPowerForSVResult::CmdName = "GetAllPowerForSVResult";
+    const char* const GetAllPowerForSVResult::Documentation = "Result of GetAllPowerForSV.";
+
+    REGISTER_COMMAND_RESULT_FACTORY(GetAllPowerForSVResult);
+
+
+    GetAllPowerForSVResult::GetAllPowerForSVResult()
+      : CommandResult(CmdName)
+    {}
+
+    GetAllPowerForSVResult::GetAllPowerForSVResult(CommandBasePtr relatedCommand, const std::string& system, int svId, double nominalPower, double globalOffset, const std::map<std::string, Sdx::SignalPower>& signalPowerDict)
+      : CommandResult(CmdName, relatedCommand)
+    {
+
+      setSystem(system);
+      setSvId(svId);
+      setNominalPower(nominalPower);
+      setGlobalOffset(globalOffset);
+      setSignalPowerDict(signalPowerDict);
+    }
+
+
+    GetAllPowerForSVResultPtr GetAllPowerForSVResult::create(CommandBasePtr relatedCommand, const std::string& system, int svId, double nominalPower, double globalOffset, const std::map<std::string, Sdx::SignalPower>& signalPowerDict)
+    {
+      return std::make_shared<GetAllPowerForSVResult>(relatedCommand, system, svId, nominalPower, globalOffset, signalPowerDict);
+    }
+
+    GetAllPowerForSVResultPtr GetAllPowerForSVResult::dynamicCast(CommandBasePtr ptr)
+    {
+      return std::dynamic_pointer_cast<GetAllPowerForSVResult>(ptr);
+    }
+
+    bool GetAllPowerForSVResult::isValid() const
+    {
+      
+        return m_values.IsObject()
+          && parse_json<std::string>::is_valid(m_values["System"])
+          && parse_json<int>::is_valid(m_values["SvId"])
+          && parse_json<double>::is_valid(m_values["NominalPower"])
+          && parse_json<double>::is_valid(m_values["GlobalOffset"])
+          && parse_json<std::map<std::string, Sdx::SignalPower>>::is_valid(m_values["SignalPowerDict"])
+        ;
+
+    }
+
+    std::string GetAllPowerForSVResult::documentation() const { return Documentation; }
+
+
+    std::string GetAllPowerForSVResult::system() const
+    {
+      return parse_json<std::string>::parse(m_values["System"]);
+    }
+
+    void GetAllPowerForSVResult::setSystem(const std::string& system)
+    {
+      m_values.AddMember("System", parse_json<std::string>::format(system, m_values.GetAllocator()), m_values.GetAllocator());
+    }
+
+
+
+    int GetAllPowerForSVResult::svId() const
+    {
+      return parse_json<int>::parse(m_values["SvId"]);
+    }
+
+    void GetAllPowerForSVResult::setSvId(int svId)
+    {
+      m_values.AddMember("SvId", parse_json<int>::format(svId, m_values.GetAllocator()), m_values.GetAllocator());
+    }
+
+
+
+    double GetAllPowerForSVResult::nominalPower() const
+    {
+      return parse_json<double>::parse(m_values["NominalPower"]);
+    }
+
+    void GetAllPowerForSVResult::setNominalPower(double nominalPower)
+    {
+      m_values.AddMember("NominalPower", parse_json<double>::format(nominalPower, m_values.GetAllocator()), m_values.GetAllocator());
+    }
+
+
+
+    double GetAllPowerForSVResult::globalOffset() const
+    {
+      return parse_json<double>::parse(m_values["GlobalOffset"]);
+    }
+
+    void GetAllPowerForSVResult::setGlobalOffset(double globalOffset)
+    {
+      m_values.AddMember("GlobalOffset", parse_json<double>::format(globalOffset, m_values.GetAllocator()), m_values.GetAllocator());
+    }
+
+
+
+    std::map<std::string, Sdx::SignalPower> GetAllPowerForSVResult::signalPowerDict() const
+    {
+      return parse_json<std::map<std::string, Sdx::SignalPower>>::parse(m_values["SignalPowerDict"]);
+    }
+
+    void GetAllPowerForSVResult::setSignalPowerDict(const std::map<std::string, Sdx::SignalPower>& signalPowerDict)
+    {
+      m_values.AddMember("SignalPowerDict", parse_json<std::map<std::string, Sdx::SignalPower>>::format(signalPowerDict, m_values.GetAllocator()), m_values.GetAllocator());
     }
 
 
@@ -5563,6 +5971,198 @@ namespace Sdx
       m_values.AddMember("Mode", parse_json<std::string>::format(mode, m_values.GetAllocator()), m_values.GetAllocator());
     }
 
+
+  }
+}
+
+
+///
+/// Definition of ConnectSerialPortReceiver
+///
+#include "gen/ConnectSerialPortReceiver.h"
+
+namespace Sdx
+{
+  namespace Cmd
+  {
+    const char* const ConnectSerialPortReceiver::CmdName = "ConnectSerialPortReceiver";
+    const char* const ConnectSerialPortReceiver::Documentation = "Connect a receiver.";
+
+    REGISTER_COMMAND_FACTORY(ConnectSerialPortReceiver);
+
+
+    ConnectSerialPortReceiver::ConnectSerialPortReceiver()
+      : CommandBase(CmdName)
+    {}
+
+    ConnectSerialPortReceiver::ConnectSerialPortReceiver(const std::string& port, const Sdx::optional<int>& baudRate, const Sdx::optional<int>& dataBits, const Sdx::optional<Sdx::SerialPortParity>& parity, const Sdx::optional<int>& stopBits, const Sdx::optional<Sdx::SerialPortFlowControl>& flowControl)
+      : CommandBase(CmdName)
+    {
+
+      setPort(port);
+      setBaudRate(baudRate);
+      setDataBits(dataBits);
+      setParity(parity);
+      setStopBits(stopBits);
+      setFlowControl(flowControl);
+    }
+
+
+    ConnectSerialPortReceiverPtr ConnectSerialPortReceiver::create(const std::string& port, const Sdx::optional<int>& baudRate, const Sdx::optional<int>& dataBits, const Sdx::optional<Sdx::SerialPortParity>& parity, const Sdx::optional<int>& stopBits, const Sdx::optional<Sdx::SerialPortFlowControl>& flowControl)
+    {
+      return std::make_shared<ConnectSerialPortReceiver>(port, baudRate, dataBits, parity, stopBits, flowControl);
+    }
+
+    ConnectSerialPortReceiverPtr ConnectSerialPortReceiver::dynamicCast(CommandBasePtr ptr)
+    {
+      return std::dynamic_pointer_cast<ConnectSerialPortReceiver>(ptr);
+    }
+
+    bool ConnectSerialPortReceiver::isValid() const
+    {
+      
+        return m_values.IsObject()
+          && parse_json<std::string>::is_valid(m_values["Port"])
+          && parse_json<Sdx::optional<int>>::is_valid(m_values["BaudRate"])
+          && parse_json<Sdx::optional<int>>::is_valid(m_values["DataBits"])
+          && parse_json<Sdx::optional<Sdx::SerialPortParity>>::is_valid(m_values["Parity"])
+          && parse_json<Sdx::optional<int>>::is_valid(m_values["StopBits"])
+          && parse_json<Sdx::optional<Sdx::SerialPortFlowControl>>::is_valid(m_values["FlowControl"])
+        ;
+
+    }
+
+    std::string ConnectSerialPortReceiver::documentation() const { return Documentation; }
+
+
+    int ConnectSerialPortReceiver::executePermission() const
+    {
+      return EXECUTE_IF_NO_CONFIG | EXECUTE_IF_SIMULATING | EXECUTE_IF_IDLE;
+    }
+
+
+    std::string ConnectSerialPortReceiver::port() const
+    {
+      return parse_json<std::string>::parse(m_values["Port"]);
+    }
+
+    void ConnectSerialPortReceiver::setPort(const std::string& port)
+    {
+      m_values.AddMember("Port", parse_json<std::string>::format(port, m_values.GetAllocator()), m_values.GetAllocator());
+    }
+
+
+
+    Sdx::optional<int> ConnectSerialPortReceiver::baudRate() const
+    {
+      return parse_json<Sdx::optional<int>>::parse(m_values["BaudRate"]);
+    }
+
+    void ConnectSerialPortReceiver::setBaudRate(const Sdx::optional<int>& baudRate)
+    {
+      m_values.AddMember("BaudRate", parse_json<Sdx::optional<int>>::format(baudRate, m_values.GetAllocator()), m_values.GetAllocator());
+    }
+
+
+
+    Sdx::optional<int> ConnectSerialPortReceiver::dataBits() const
+    {
+      return parse_json<Sdx::optional<int>>::parse(m_values["DataBits"]);
+    }
+
+    void ConnectSerialPortReceiver::setDataBits(const Sdx::optional<int>& dataBits)
+    {
+      m_values.AddMember("DataBits", parse_json<Sdx::optional<int>>::format(dataBits, m_values.GetAllocator()), m_values.GetAllocator());
+    }
+
+
+
+    Sdx::optional<Sdx::SerialPortParity> ConnectSerialPortReceiver::parity() const
+    {
+      return parse_json<Sdx::optional<Sdx::SerialPortParity>>::parse(m_values["Parity"]);
+    }
+
+    void ConnectSerialPortReceiver::setParity(const Sdx::optional<Sdx::SerialPortParity>& parity)
+    {
+      m_values.AddMember("Parity", parse_json<Sdx::optional<Sdx::SerialPortParity>>::format(parity, m_values.GetAllocator()), m_values.GetAllocator());
+    }
+
+
+
+    Sdx::optional<int> ConnectSerialPortReceiver::stopBits() const
+    {
+      return parse_json<Sdx::optional<int>>::parse(m_values["StopBits"]);
+    }
+
+    void ConnectSerialPortReceiver::setStopBits(const Sdx::optional<int>& stopBits)
+    {
+      m_values.AddMember("StopBits", parse_json<Sdx::optional<int>>::format(stopBits, m_values.GetAllocator()), m_values.GetAllocator());
+    }
+
+
+
+    Sdx::optional<Sdx::SerialPortFlowControl> ConnectSerialPortReceiver::flowControl() const
+    {
+      return parse_json<Sdx::optional<Sdx::SerialPortFlowControl>>::parse(m_values["FlowControl"]);
+    }
+
+    void ConnectSerialPortReceiver::setFlowControl(const Sdx::optional<Sdx::SerialPortFlowControl>& flowControl)
+    {
+      m_values.AddMember("FlowControl", parse_json<Sdx::optional<Sdx::SerialPortFlowControl>>::format(flowControl, m_values.GetAllocator()), m_values.GetAllocator());
+    }
+
+
+  }
+}
+
+
+///
+/// Definition of DisconnectSerialPortReceiver
+///
+#include "gen/DisconnectSerialPortReceiver.h"
+
+namespace Sdx
+{
+  namespace Cmd
+  {
+    const char* const DisconnectSerialPortReceiver::CmdName = "DisconnectSerialPortReceiver";
+    const char* const DisconnectSerialPortReceiver::Documentation = "Disconnects the connected receiver. Does nothing if no receiver is connected.";
+
+    REGISTER_COMMAND_FACTORY(DisconnectSerialPortReceiver);
+
+
+    DisconnectSerialPortReceiver::DisconnectSerialPortReceiver()
+      : CommandBase(CmdName)
+    {
+
+    }
+
+
+    DisconnectSerialPortReceiverPtr DisconnectSerialPortReceiver::create()
+    {
+      return std::make_shared<DisconnectSerialPortReceiver>();
+    }
+
+    DisconnectSerialPortReceiverPtr DisconnectSerialPortReceiver::dynamicCast(CommandBasePtr ptr)
+    {
+      return std::dynamic_pointer_cast<DisconnectSerialPortReceiver>(ptr);
+    }
+
+    bool DisconnectSerialPortReceiver::isValid() const
+    {
+      
+        return m_values.IsObject()
+        ;
+
+    }
+
+    std::string DisconnectSerialPortReceiver::documentation() const { return Documentation; }
+
+
+    int DisconnectSerialPortReceiver::executePermission() const
+    {
+      return EXECUTE_IF_NO_CONFIG | EXECUTE_IF_SIMULATING | EXECUTE_IF_IDLE;
+    }
 
   }
 }
@@ -19863,6 +20463,76 @@ namespace Sdx
 
 
 ///
+/// Definition of SetGlobalPowerOffset
+///
+#include "gen/SetGlobalPowerOffset.h"
+
+namespace Sdx
+{
+  namespace Cmd
+  {
+    const char* const SetGlobalPowerOffset::CmdName = "SetGlobalPowerOffset";
+    const char* const SetGlobalPowerOffset::Documentation = "Set global power offset default value for all signals and all systems";
+
+    REGISTER_COMMAND_FACTORY(SetGlobalPowerOffset);
+
+
+    SetGlobalPowerOffset::SetGlobalPowerOffset()
+      : CommandBase(CmdName)
+    {}
+
+    SetGlobalPowerOffset::SetGlobalPowerOffset(double offset)
+      : CommandBase(CmdName)
+    {
+
+      setOffset(offset);
+    }
+
+
+    SetGlobalPowerOffsetPtr SetGlobalPowerOffset::create(double offset)
+    {
+      return std::make_shared<SetGlobalPowerOffset>(offset);
+    }
+
+    SetGlobalPowerOffsetPtr SetGlobalPowerOffset::dynamicCast(CommandBasePtr ptr)
+    {
+      return std::dynamic_pointer_cast<SetGlobalPowerOffset>(ptr);
+    }
+
+    bool SetGlobalPowerOffset::isValid() const
+    {
+      
+        return m_values.IsObject()
+          && parse_json<double>::is_valid(m_values["Offset"])
+        ;
+
+    }
+
+    std::string SetGlobalPowerOffset::documentation() const { return Documentation; }
+
+
+    int SetGlobalPowerOffset::executePermission() const
+    {
+      return EXECUTE_IF_SIMULATING | EXECUTE_IF_IDLE;
+    }
+
+
+    double SetGlobalPowerOffset::offset() const
+    {
+      return parse_json<double>::parse(m_values["Offset"]);
+    }
+
+    void SetGlobalPowerOffset::setOffset(double offset)
+    {
+      m_values.AddMember("Offset", parse_json<double>::format(offset, m_values.GetAllocator()), m_values.GetAllocator());
+    }
+
+
+  }
+}
+
+
+///
 /// Definition of SetPowerGlobalOffset
 ///
 #include "gen/SetPowerGlobalOffset.h"
@@ -19872,7 +20542,7 @@ namespace Sdx
   namespace Cmd
   {
     const char* const SetPowerGlobalOffset::CmdName = "SetPowerGlobalOffset";
-    const char* const SetPowerGlobalOffset::Documentation = "Set global power offset default value for all signals and all systems";
+    const char* const SetPowerGlobalOffset::Documentation = "Please note the command SetPowerGlobalOffset is deprecated since 21.7. You may use SetGlobalPowerOffset.\n\nSet global power offset default value for all signals and all systems";
 
     REGISTER_COMMAND_FACTORY(SetPowerGlobalOffset);
 
@@ -19933,6 +20603,58 @@ namespace Sdx
 
 
 ///
+/// Definition of GetGlobalPowerOffset
+///
+#include "gen/GetGlobalPowerOffset.h"
+
+namespace Sdx
+{
+  namespace Cmd
+  {
+    const char* const GetGlobalPowerOffset::CmdName = "GetGlobalPowerOffset";
+    const char* const GetGlobalPowerOffset::Documentation = "Get global power offset default value for all signals and all systems";
+
+    REGISTER_COMMAND_FACTORY(GetGlobalPowerOffset);
+
+
+    GetGlobalPowerOffset::GetGlobalPowerOffset()
+      : CommandBase(CmdName)
+    {
+
+    }
+
+
+    GetGlobalPowerOffsetPtr GetGlobalPowerOffset::create()
+    {
+      return std::make_shared<GetGlobalPowerOffset>();
+    }
+
+    GetGlobalPowerOffsetPtr GetGlobalPowerOffset::dynamicCast(CommandBasePtr ptr)
+    {
+      return std::dynamic_pointer_cast<GetGlobalPowerOffset>(ptr);
+    }
+
+    bool GetGlobalPowerOffset::isValid() const
+    {
+      
+        return m_values.IsObject()
+        ;
+
+    }
+
+    std::string GetGlobalPowerOffset::documentation() const { return Documentation; }
+
+
+    int GetGlobalPowerOffset::executePermission() const
+    {
+      return EXECUTE_IF_IDLE;
+    }
+
+  }
+}
+
+
+///
 /// Definition of GetPowerGlobalOffset
 ///
 #include "gen/GetPowerGlobalOffset.h"
@@ -19942,7 +20664,7 @@ namespace Sdx
   namespace Cmd
   {
     const char* const GetPowerGlobalOffset::CmdName = "GetPowerGlobalOffset";
-    const char* const GetPowerGlobalOffset::Documentation = "Get global power offset default value for all signals and all systems";
+    const char* const GetPowerGlobalOffset::Documentation = "Please note the command GetPowerGlobalOffset is deprecated since 21.7. You may use GetGlobalPowerOffset.\n\nGet global power offset default value for all signals and all systems";
 
     REGISTER_COMMAND_FACTORY(GetPowerGlobalOffset);
 
@@ -19985,25 +20707,25 @@ namespace Sdx
 
 
 ///
-/// Definition of GetPowerGlobalOffsetResult
+/// Definition of GetGlobalPowerOffsetResult
 ///
-#include "gen/GetPowerGlobalOffsetResult.h"
+#include "gen/GetGlobalPowerOffsetResult.h"
 
 namespace Sdx
 {
   namespace Cmd
   {
-    const char* const GetPowerGlobalOffsetResult::CmdName = "GetPowerGlobalOffsetResult";
-    const char* const GetPowerGlobalOffsetResult::Documentation = "Result of GetPowerGlobalOffset.";
+    const char* const GetGlobalPowerOffsetResult::CmdName = "GetGlobalPowerOffsetResult";
+    const char* const GetGlobalPowerOffsetResult::Documentation = "Result of GetGlobalPowerOffset.";
 
-    REGISTER_COMMAND_RESULT_FACTORY(GetPowerGlobalOffsetResult);
+    REGISTER_COMMAND_RESULT_FACTORY(GetGlobalPowerOffsetResult);
 
 
-    GetPowerGlobalOffsetResult::GetPowerGlobalOffsetResult()
+    GetGlobalPowerOffsetResult::GetGlobalPowerOffsetResult()
       : CommandResult(CmdName)
     {}
 
-    GetPowerGlobalOffsetResult::GetPowerGlobalOffsetResult(CommandBasePtr relatedCommand, double offset)
+    GetGlobalPowerOffsetResult::GetGlobalPowerOffsetResult(CommandBasePtr relatedCommand, double offset)
       : CommandResult(CmdName, relatedCommand)
     {
 
@@ -20011,17 +20733,17 @@ namespace Sdx
     }
 
 
-    GetPowerGlobalOffsetResultPtr GetPowerGlobalOffsetResult::create(CommandBasePtr relatedCommand, double offset)
+    GetGlobalPowerOffsetResultPtr GetGlobalPowerOffsetResult::create(CommandBasePtr relatedCommand, double offset)
     {
-      return std::make_shared<GetPowerGlobalOffsetResult>(relatedCommand, offset);
+      return std::make_shared<GetGlobalPowerOffsetResult>(relatedCommand, offset);
     }
 
-    GetPowerGlobalOffsetResultPtr GetPowerGlobalOffsetResult::dynamicCast(CommandBasePtr ptr)
+    GetGlobalPowerOffsetResultPtr GetGlobalPowerOffsetResult::dynamicCast(CommandBasePtr ptr)
     {
-      return std::dynamic_pointer_cast<GetPowerGlobalOffsetResult>(ptr);
+      return std::dynamic_pointer_cast<GetGlobalPowerOffsetResult>(ptr);
     }
 
-    bool GetPowerGlobalOffsetResult::isValid() const
+    bool GetGlobalPowerOffsetResult::isValid() const
     {
       
         return m_values.IsObject()
@@ -20030,15 +20752,99 @@ namespace Sdx
 
     }
 
-    std::string GetPowerGlobalOffsetResult::documentation() const { return Documentation; }
+    std::string GetGlobalPowerOffsetResult::documentation() const { return Documentation; }
 
 
-    double GetPowerGlobalOffsetResult::offset() const
+    double GetGlobalPowerOffsetResult::offset() const
     {
       return parse_json<double>::parse(m_values["Offset"]);
     }
 
-    void GetPowerGlobalOffsetResult::setOffset(double offset)
+    void GetGlobalPowerOffsetResult::setOffset(double offset)
+    {
+      m_values.AddMember("Offset", parse_json<double>::format(offset, m_values.GetAllocator()), m_values.GetAllocator());
+    }
+
+
+  }
+}
+
+
+///
+/// Definition of SetSignalPowerOffset
+///
+#include "gen/SetSignalPowerOffset.h"
+
+namespace Sdx
+{
+  namespace Cmd
+  {
+    const char* const SetSignalPowerOffset::CmdName = "SetSignalPowerOffset";
+    const char* const SetSignalPowerOffset::Documentation = "Set power offset default value for the signal given in argument";
+
+    REGISTER_COMMAND_FACTORY(SetSignalPowerOffset);
+
+
+    SetSignalPowerOffset::SetSignalPowerOffset()
+      : CommandBase(CmdName)
+    {}
+
+    SetSignalPowerOffset::SetSignalPowerOffset(const std::string& signal, double offset)
+      : CommandBase(CmdName)
+    {
+
+      setSignal(signal);
+      setOffset(offset);
+    }
+
+
+    SetSignalPowerOffsetPtr SetSignalPowerOffset::create(const std::string& signal, double offset)
+    {
+      return std::make_shared<SetSignalPowerOffset>(signal, offset);
+    }
+
+    SetSignalPowerOffsetPtr SetSignalPowerOffset::dynamicCast(CommandBasePtr ptr)
+    {
+      return std::dynamic_pointer_cast<SetSignalPowerOffset>(ptr);
+    }
+
+    bool SetSignalPowerOffset::isValid() const
+    {
+      
+        return m_values.IsObject()
+          && parse_json<std::string>::is_valid(m_values["Signal"])
+          && parse_json<double>::is_valid(m_values["Offset"])
+        ;
+
+    }
+
+    std::string SetSignalPowerOffset::documentation() const { return Documentation; }
+
+
+    int SetSignalPowerOffset::executePermission() const
+    {
+      return EXECUTE_IF_SIMULATING | EXECUTE_IF_IDLE;
+    }
+
+
+    std::string SetSignalPowerOffset::signal() const
+    {
+      return parse_json<std::string>::parse(m_values["Signal"]);
+    }
+
+    void SetSignalPowerOffset::setSignal(const std::string& signal)
+    {
+      m_values.AddMember("Signal", parse_json<std::string>::format(signal, m_values.GetAllocator()), m_values.GetAllocator());
+    }
+
+
+
+    double SetSignalPowerOffset::offset() const
+    {
+      return parse_json<double>::parse(m_values["Offset"]);
+    }
+
+    void SetSignalPowerOffset::setOffset(double offset)
     {
       m_values.AddMember("Offset", parse_json<double>::format(offset, m_values.GetAllocator()), m_values.GetAllocator());
     }
@@ -20058,7 +20864,7 @@ namespace Sdx
   namespace Cmd
   {
     const char* const SetPowerOffset::CmdName = "SetPowerOffset";
-    const char* const SetPowerOffset::Documentation = "Set power offset default value for the signal given in argument";
+    const char* const SetPowerOffset::Documentation = "Please note the command SetPowerOffset is deprecated since 21.7. You may use SetSignalPowerOffset.\n\nSet power offset default value for the signal given in argument";
 
     REGISTER_COMMAND_FACTORY(SetPowerOffset);
 
@@ -20133,6 +20939,76 @@ namespace Sdx
 
 
 ///
+/// Definition of GetSignalPowerOffset
+///
+#include "gen/GetSignalPowerOffset.h"
+
+namespace Sdx
+{
+  namespace Cmd
+  {
+    const char* const GetSignalPowerOffset::CmdName = "GetSignalPowerOffset";
+    const char* const GetSignalPowerOffset::Documentation = "Get power offset default value for the signal given in argument";
+
+    REGISTER_COMMAND_FACTORY(GetSignalPowerOffset);
+
+
+    GetSignalPowerOffset::GetSignalPowerOffset()
+      : CommandBase(CmdName)
+    {}
+
+    GetSignalPowerOffset::GetSignalPowerOffset(const std::string& signal)
+      : CommandBase(CmdName)
+    {
+
+      setSignal(signal);
+    }
+
+
+    GetSignalPowerOffsetPtr GetSignalPowerOffset::create(const std::string& signal)
+    {
+      return std::make_shared<GetSignalPowerOffset>(signal);
+    }
+
+    GetSignalPowerOffsetPtr GetSignalPowerOffset::dynamicCast(CommandBasePtr ptr)
+    {
+      return std::dynamic_pointer_cast<GetSignalPowerOffset>(ptr);
+    }
+
+    bool GetSignalPowerOffset::isValid() const
+    {
+      
+        return m_values.IsObject()
+          && parse_json<std::string>::is_valid(m_values["Signal"])
+        ;
+
+    }
+
+    std::string GetSignalPowerOffset::documentation() const { return Documentation; }
+
+
+    int GetSignalPowerOffset::executePermission() const
+    {
+      return EXECUTE_IF_IDLE;
+    }
+
+
+    std::string GetSignalPowerOffset::signal() const
+    {
+      return parse_json<std::string>::parse(m_values["Signal"]);
+    }
+
+    void GetSignalPowerOffset::setSignal(const std::string& signal)
+    {
+      m_values.AddMember("Signal", parse_json<std::string>::format(signal, m_values.GetAllocator()), m_values.GetAllocator());
+    }
+
+
+  }
+}
+
+
+///
 /// Definition of GetPowerOffset
 ///
 #include "gen/GetPowerOffset.h"
@@ -20142,7 +21018,7 @@ namespace Sdx
   namespace Cmd
   {
     const char* const GetPowerOffset::CmdName = "GetPowerOffset";
-    const char* const GetPowerOffset::Documentation = "Get power offset default value for the signal given in argument";
+    const char* const GetPowerOffset::Documentation = "Please note the command GetPowerOffset is deprecated since 21.7. You may use GetSignalPowerOffset.\n\nGet power offset default value for the signal given in argument";
 
     REGISTER_COMMAND_FACTORY(GetPowerOffset);
 
@@ -20203,25 +21079,25 @@ namespace Sdx
 
 
 ///
-/// Definition of GetPowerOffsetResult
+/// Definition of GetSignalPowerOffsetResult
 ///
-#include "gen/GetPowerOffsetResult.h"
+#include "gen/GetSignalPowerOffsetResult.h"
 
 namespace Sdx
 {
   namespace Cmd
   {
-    const char* const GetPowerOffsetResult::CmdName = "GetPowerOffsetResult";
-    const char* const GetPowerOffsetResult::Documentation = "Result of GetPowerOffset.";
+    const char* const GetSignalPowerOffsetResult::CmdName = "GetSignalPowerOffsetResult";
+    const char* const GetSignalPowerOffsetResult::Documentation = "Result of GetSignalPowerOffset.";
 
-    REGISTER_COMMAND_RESULT_FACTORY(GetPowerOffsetResult);
+    REGISTER_COMMAND_RESULT_FACTORY(GetSignalPowerOffsetResult);
 
 
-    GetPowerOffsetResult::GetPowerOffsetResult()
+    GetSignalPowerOffsetResult::GetSignalPowerOffsetResult()
       : CommandResult(CmdName)
     {}
 
-    GetPowerOffsetResult::GetPowerOffsetResult(CommandBasePtr relatedCommand, const std::string& signal, double offset)
+    GetSignalPowerOffsetResult::GetSignalPowerOffsetResult(CommandBasePtr relatedCommand, const std::string& signal, double offset)
       : CommandResult(CmdName, relatedCommand)
     {
 
@@ -20230,17 +21106,17 @@ namespace Sdx
     }
 
 
-    GetPowerOffsetResultPtr GetPowerOffsetResult::create(CommandBasePtr relatedCommand, const std::string& signal, double offset)
+    GetSignalPowerOffsetResultPtr GetSignalPowerOffsetResult::create(CommandBasePtr relatedCommand, const std::string& signal, double offset)
     {
-      return std::make_shared<GetPowerOffsetResult>(relatedCommand, signal, offset);
+      return std::make_shared<GetSignalPowerOffsetResult>(relatedCommand, signal, offset);
     }
 
-    GetPowerOffsetResultPtr GetPowerOffsetResult::dynamicCast(CommandBasePtr ptr)
+    GetSignalPowerOffsetResultPtr GetSignalPowerOffsetResult::dynamicCast(CommandBasePtr ptr)
     {
-      return std::dynamic_pointer_cast<GetPowerOffsetResult>(ptr);
+      return std::dynamic_pointer_cast<GetSignalPowerOffsetResult>(ptr);
     }
 
-    bool GetPowerOffsetResult::isValid() const
+    bool GetSignalPowerOffsetResult::isValid() const
     {
       
         return m_values.IsObject()
@@ -20250,27 +21126,27 @@ namespace Sdx
 
     }
 
-    std::string GetPowerOffsetResult::documentation() const { return Documentation; }
+    std::string GetSignalPowerOffsetResult::documentation() const { return Documentation; }
 
 
-    std::string GetPowerOffsetResult::signal() const
+    std::string GetSignalPowerOffsetResult::signal() const
     {
       return parse_json<std::string>::parse(m_values["Signal"]);
     }
 
-    void GetPowerOffsetResult::setSignal(const std::string& signal)
+    void GetSignalPowerOffsetResult::setSignal(const std::string& signal)
     {
       m_values.AddMember("Signal", parse_json<std::string>::format(signal, m_values.GetAllocator()), m_values.GetAllocator());
     }
 
 
 
-    double GetPowerOffsetResult::offset() const
+    double GetSignalPowerOffsetResult::offset() const
     {
       return parse_json<double>::parse(m_values["Offset"]);
     }
 
-    void GetPowerOffsetResult::setOffset(double offset)
+    void GetSignalPowerOffsetResult::setOffset(double offset)
     {
       m_values.AddMember("Offset", parse_json<double>::format(offset, m_values.GetAllocator()), m_values.GetAllocator());
     }
@@ -53968,7 +54844,7 @@ namespace Sdx
   namespace Cmd
   {
     const char* const SetPseudorangeRampForSV::CmdName = "SetPseudorangeRampForSV";
-    const char* const SetPseudorangeRampForSV::Documentation = "Set PSR ramp event. This function lets user change the pseudorange of any satellite.\nIf SV ID is set to 0, the change is applied to all satellites.\n\n         Hold Start Time\n         |     Hold Stop Time\n         |     |\n         ...........\n       ..       ...\n       ..        ...\n  .......           .........> Time\n      |           |\n      Start Time      Stop Time\n";
+    const char* const SetPseudorangeRampForSV::Documentation = "Set PSR ramp event. This function lets user change the pseudorange of any satellite.\nIf SV ID is set to 0, the change is applied to all satellites.\n\n          Hold Start Time\n          |         Hold Stop Time\n          |         |\n          ...........\n         ..         ...\n        ..            ...\n  .......               .........> Time\n        |               |\n        Start Time      Stop Time\n";
 
     REGISTER_COMMAND_FACTORY(SetPseudorangeRampForSV);
 
@@ -54136,7 +55012,7 @@ namespace Sdx
   namespace Cmd
   {
     const char* const GetPseudorangeRampForSV::CmdName = "GetPseudorangeRampForSV";
-    const char* const GetPseudorangeRampForSV::Documentation = "Get PSR ramp event. This function lets user change the pseudorange of any satellite.\nIf SV ID is set to 0, the change is applied to all satellites.\n\n         Hold Start Time\n         |     Hold Stop Time\n         |     |\n         ...........\n       ..       ...\n       ..        ...\n  .......           .........> Time\n      |           |\n      Start Time      Stop Time\n";
+    const char* const GetPseudorangeRampForSV::Documentation = "Get PSR ramp event. This function lets user change the pseudorange of any satellite.\nIf SV ID is set to 0, the change is applied to all satellites.\n\n          Hold Start Time\n          |         Hold Stop Time\n          |         |\n          ...........\n         ..         ...\n        ..            ...\n  .......               .........> Time\n        |               |\n        Start Time      Stop Time\n";
 
     REGISTER_COMMAND_FACTORY(GetPseudorangeRampForSV);
 
@@ -56978,7 +57854,7 @@ namespace Sdx
   namespace Cmd
   {
     const char* const AddPlugInInstance::CmdName = "AddPlugInInstance";
-    const char* const AddPlugInInstance::Documentation = "Set Add a plug-in instance of specified type.";
+    const char* const AddPlugInInstance::Documentation = "Add a plug-in instance of specified type.";
 
     REGISTER_COMMAND_FACTORY(AddPlugInInstance);
 
@@ -57043,136 +57919,6 @@ namespace Sdx
     }
 
     void AddPlugInInstance::setType(const std::string& type)
-    {
-      m_values.AddMember("Type", parse_json<std::string>::format(type, m_values.GetAllocator()), m_values.GetAllocator());
-    }
-
-
-  }
-}
-
-
-///
-/// Definition of GetPlugInInstance
-///
-#include "gen/GetPlugInInstance.h"
-
-namespace Sdx
-{
-  namespace Cmd
-  {
-    const char* const GetPlugInInstance::CmdName = "GetPlugInInstance";
-    const char* const GetPlugInInstance::Documentation = "Get Add a plug-in instance of specified type.";
-
-    REGISTER_COMMAND_FACTORY(GetPlugInInstance);
-
-
-    GetPlugInInstance::GetPlugInInstance()
-      : CommandBase(CmdName)
-    {
-
-    }
-
-
-    GetPlugInInstancePtr GetPlugInInstance::create()
-    {
-      return std::make_shared<GetPlugInInstance>();
-    }
-
-    GetPlugInInstancePtr GetPlugInInstance::dynamicCast(CommandBasePtr ptr)
-    {
-      return std::dynamic_pointer_cast<GetPlugInInstance>(ptr);
-    }
-
-    bool GetPlugInInstance::isValid() const
-    {
-      
-        return m_values.IsObject()
-        ;
-
-    }
-
-    std::string GetPlugInInstance::documentation() const { return Documentation; }
-
-
-    int GetPlugInInstance::executePermission() const
-    {
-      return EXECUTE_IF_IDLE;
-    }
-
-  }
-}
-
-
-///
-/// Definition of GetPlugInInstanceResult
-///
-#include "gen/GetPlugInInstanceResult.h"
-
-namespace Sdx
-{
-  namespace Cmd
-  {
-    const char* const GetPlugInInstanceResult::CmdName = "GetPlugInInstanceResult";
-    const char* const GetPlugInInstanceResult::Documentation = "Result of GetPlugInInstance.";
-
-    REGISTER_COMMAND_RESULT_FACTORY(GetPlugInInstanceResult);
-
-
-    GetPlugInInstanceResult::GetPlugInInstanceResult()
-      : CommandResult(CmdName)
-    {}
-
-    GetPlugInInstanceResult::GetPlugInInstanceResult(CommandBasePtr relatedCommand, const std::string& name, const std::string& type)
-      : CommandResult(CmdName, relatedCommand)
-    {
-
-      setName(name);
-      setType(type);
-    }
-
-
-    GetPlugInInstanceResultPtr GetPlugInInstanceResult::create(CommandBasePtr relatedCommand, const std::string& name, const std::string& type)
-    {
-      return std::make_shared<GetPlugInInstanceResult>(relatedCommand, name, type);
-    }
-
-    GetPlugInInstanceResultPtr GetPlugInInstanceResult::dynamicCast(CommandBasePtr ptr)
-    {
-      return std::dynamic_pointer_cast<GetPlugInInstanceResult>(ptr);
-    }
-
-    bool GetPlugInInstanceResult::isValid() const
-    {
-      
-        return m_values.IsObject()
-          && parse_json<std::string>::is_valid(m_values["Name"])
-          && parse_json<std::string>::is_valid(m_values["Type"])
-        ;
-
-    }
-
-    std::string GetPlugInInstanceResult::documentation() const { return Documentation; }
-
-
-    std::string GetPlugInInstanceResult::name() const
-    {
-      return parse_json<std::string>::parse(m_values["Name"]);
-    }
-
-    void GetPlugInInstanceResult::setName(const std::string& name)
-    {
-      m_values.AddMember("Name", parse_json<std::string>::format(name, m_values.GetAllocator()), m_values.GetAllocator());
-    }
-
-
-
-    std::string GetPlugInInstanceResult::type() const
-    {
-      return parse_json<std::string>::parse(m_values["Type"]);
-    }
-
-    void GetPlugInInstanceResult::setType(const std::string& type)
     {
       m_values.AddMember("Type", parse_json<std::string>::format(type, m_values.GetAllocator()), m_values.GetAllocator());
     }
@@ -57564,7 +58310,7 @@ namespace Sdx
   namespace Cmd
   {
     const char* const AddIntTx::CmdName = "AddIntTx";
-    const char* const AddIntTx::Documentation = "Set an interference transmitter. For set : the transmitter Id parameter is not set (empty string),\nSkydel will assign a unique Id to the transmitter. If the Id is set and already used by Skydel, the\ncommand will fail.";
+    const char* const AddIntTx::Documentation = "Set an interference transmitter. If the transmitter ID parameter is not set (empty string),\nSkydel will assign a unique ID to the transmitter. If the ID is set and already used by Skydel, the\ncommand will fail.";
 
     REGISTER_COMMAND_FACTORY(AddIntTx);
 
@@ -57704,7 +58450,7 @@ namespace Sdx
   namespace Cmd
   {
     const char* const GetIntTx::CmdName = "GetIntTx";
-    const char* const GetIntTx::Documentation = "Get an interference transmitter. For set : the transmitter Id parameter is not set (empty string),\nSkydel will assign a unique Id to the transmitter. If the Id is set and already used by Skydel, the\ncommand will fail.";
+    const char* const GetIntTx::Documentation = "Get an interference transmitter.";
 
     REGISTER_COMMAND_FACTORY(GetIntTx);
 
@@ -67045,7 +67791,7 @@ namespace Sdx
 
     int SetEngineLatency::executePermission() const
     {
-      return EXECUTE_IF_IDLE;
+      return EXECUTE_IF_NO_CONFIG | EXECUTE_IF_IDLE;
     }
 
 
@@ -67109,7 +67855,7 @@ namespace Sdx
 
     int GetEngineLatency::executePermission() const
     {
-      return EXECUTE_IF_IDLE | EXECUTE_IF_SIMULATING;
+      return EXECUTE_IF_NO_CONFIG | EXECUTE_IF_IDLE | EXECUTE_IF_SIMULATING;
     }
 
   }
@@ -89515,426 +90261,6 @@ namespace Sdx
 
 
 ///
-/// Definition of SetSbasHealthRanging
-///
-#include "gen/SetSbasHealthRanging.h"
-
-namespace Sdx
-{
-  namespace Cmd
-  {
-    const char* const SetSbasHealthRanging::CmdName = "SetSbasHealthRanging";
-    const char* const SetSbasHealthRanging::Documentation = "Please note the command SetSbasHealthRanging is deprecated since 21.9. You may use SetSbasSVRangingHealth.\n\nApply ranging flag for a SBAS satellite";
-
-    REGISTER_COMMAND_FACTORY(SetSbasHealthRanging);
-
-
-    SetSbasHealthRanging::SetSbasHealthRanging()
-      : CommandBase(CmdName)
-    {}
-
-    SetSbasHealthRanging::SetSbasHealthRanging(int prn, bool health)
-      : CommandBase(CmdName)
-    {
-
-      setPrn(prn);
-      setHealth(health);
-    }
-
-
-    SetSbasHealthRangingPtr SetSbasHealthRanging::create(int prn, bool health)
-    {
-      return std::make_shared<SetSbasHealthRanging>(prn, health);
-    }
-
-    SetSbasHealthRangingPtr SetSbasHealthRanging::dynamicCast(CommandBasePtr ptr)
-    {
-      return std::dynamic_pointer_cast<SetSbasHealthRanging>(ptr);
-    }
-
-    bool SetSbasHealthRanging::isValid() const
-    {
-      
-        return m_values.IsObject()
-          && parse_json<int>::is_valid(m_values["Prn"])
-          && parse_json<bool>::is_valid(m_values["Health"])
-        ;
-
-    }
-
-    std::string SetSbasHealthRanging::documentation() const { return Documentation; }
-
-
-    int SetSbasHealthRanging::executePermission() const
-    {
-      return EXECUTE_IF_SIMULATING | EXECUTE_IF_IDLE;
-    }
-
-
-    int SetSbasHealthRanging::prn() const
-    {
-      return parse_json<int>::parse(m_values["Prn"]);
-    }
-
-    void SetSbasHealthRanging::setPrn(int prn)
-    {
-      m_values.AddMember("Prn", parse_json<int>::format(prn, m_values.GetAllocator()), m_values.GetAllocator());
-    }
-
-
-
-    bool SetSbasHealthRanging::health() const
-    {
-      return parse_json<bool>::parse(m_values["Health"]);
-    }
-
-    void SetSbasHealthRanging::setHealth(bool health)
-    {
-      m_values.AddMember("Health", parse_json<bool>::format(health, m_values.GetAllocator()), m_values.GetAllocator());
-    }
-
-
-  }
-}
-
-
-///
-/// Definition of SetSbasHealthCorrections
-///
-#include "gen/SetSbasHealthCorrections.h"
-
-namespace Sdx
-{
-  namespace Cmd
-  {
-    const char* const SetSbasHealthCorrections::CmdName = "SetSbasHealthCorrections";
-    const char* const SetSbasHealthCorrections::Documentation = "Please note the command SetSbasHealthCorrections is deprecated since 21.9. You may use SetSbasSVCorrectionsHealth.\n\nApply correction flag for a SBAS satellite";
-
-    REGISTER_COMMAND_FACTORY(SetSbasHealthCorrections);
-
-
-    SetSbasHealthCorrections::SetSbasHealthCorrections()
-      : CommandBase(CmdName)
-    {}
-
-    SetSbasHealthCorrections::SetSbasHealthCorrections(int prn, bool health)
-      : CommandBase(CmdName)
-    {
-
-      setPrn(prn);
-      setHealth(health);
-    }
-
-
-    SetSbasHealthCorrectionsPtr SetSbasHealthCorrections::create(int prn, bool health)
-    {
-      return std::make_shared<SetSbasHealthCorrections>(prn, health);
-    }
-
-    SetSbasHealthCorrectionsPtr SetSbasHealthCorrections::dynamicCast(CommandBasePtr ptr)
-    {
-      return std::dynamic_pointer_cast<SetSbasHealthCorrections>(ptr);
-    }
-
-    bool SetSbasHealthCorrections::isValid() const
-    {
-      
-        return m_values.IsObject()
-          && parse_json<int>::is_valid(m_values["Prn"])
-          && parse_json<bool>::is_valid(m_values["Health"])
-        ;
-
-    }
-
-    std::string SetSbasHealthCorrections::documentation() const { return Documentation; }
-
-
-    int SetSbasHealthCorrections::executePermission() const
-    {
-      return EXECUTE_IF_SIMULATING | EXECUTE_IF_IDLE;
-    }
-
-
-    int SetSbasHealthCorrections::prn() const
-    {
-      return parse_json<int>::parse(m_values["Prn"]);
-    }
-
-    void SetSbasHealthCorrections::setPrn(int prn)
-    {
-      m_values.AddMember("Prn", parse_json<int>::format(prn, m_values.GetAllocator()), m_values.GetAllocator());
-    }
-
-
-
-    bool SetSbasHealthCorrections::health() const
-    {
-      return parse_json<bool>::parse(m_values["Health"]);
-    }
-
-    void SetSbasHealthCorrections::setHealth(bool health)
-    {
-      m_values.AddMember("Health", parse_json<bool>::format(health, m_values.GetAllocator()), m_values.GetAllocator());
-    }
-
-
-  }
-}
-
-
-///
-/// Definition of SetSbasHealthIntegrity
-///
-#include "gen/SetSbasHealthIntegrity.h"
-
-namespace Sdx
-{
-  namespace Cmd
-  {
-    const char* const SetSbasHealthIntegrity::CmdName = "SetSbasHealthIntegrity";
-    const char* const SetSbasHealthIntegrity::Documentation = "Please note the command SetSbasHealthIntegrity is deprecated since 21.9. You may use SetSbasSVIntegrityHealth.\n\nApply integrity flag for a SBAS satellite";
-
-    REGISTER_COMMAND_FACTORY(SetSbasHealthIntegrity);
-
-
-    SetSbasHealthIntegrity::SetSbasHealthIntegrity()
-      : CommandBase(CmdName)
-    {}
-
-    SetSbasHealthIntegrity::SetSbasHealthIntegrity(int prn, bool health)
-      : CommandBase(CmdName)
-    {
-
-      setPrn(prn);
-      setHealth(health);
-    }
-
-
-    SetSbasHealthIntegrityPtr SetSbasHealthIntegrity::create(int prn, bool health)
-    {
-      return std::make_shared<SetSbasHealthIntegrity>(prn, health);
-    }
-
-    SetSbasHealthIntegrityPtr SetSbasHealthIntegrity::dynamicCast(CommandBasePtr ptr)
-    {
-      return std::dynamic_pointer_cast<SetSbasHealthIntegrity>(ptr);
-    }
-
-    bool SetSbasHealthIntegrity::isValid() const
-    {
-      
-        return m_values.IsObject()
-          && parse_json<int>::is_valid(m_values["Prn"])
-          && parse_json<bool>::is_valid(m_values["Health"])
-        ;
-
-    }
-
-    std::string SetSbasHealthIntegrity::documentation() const { return Documentation; }
-
-
-    int SetSbasHealthIntegrity::executePermission() const
-    {
-      return EXECUTE_IF_SIMULATING | EXECUTE_IF_IDLE;
-    }
-
-
-    int SetSbasHealthIntegrity::prn() const
-    {
-      return parse_json<int>::parse(m_values["Prn"]);
-    }
-
-    void SetSbasHealthIntegrity::setPrn(int prn)
-    {
-      m_values.AddMember("Prn", parse_json<int>::format(prn, m_values.GetAllocator()), m_values.GetAllocator());
-    }
-
-
-
-    bool SetSbasHealthIntegrity::health() const
-    {
-      return parse_json<bool>::parse(m_values["Health"]);
-    }
-
-    void SetSbasHealthIntegrity::setHealth(bool health)
-    {
-      m_values.AddMember("Health", parse_json<bool>::format(health, m_values.GetAllocator()), m_values.GetAllocator());
-    }
-
-
-  }
-}
-
-
-///
-/// Definition of SetSbasHealthReserved
-///
-#include "gen/SetSbasHealthReserved.h"
-
-namespace Sdx
-{
-  namespace Cmd
-  {
-    const char* const SetSbasHealthReserved::CmdName = "SetSbasHealthReserved";
-    const char* const SetSbasHealthReserved::Documentation = "Please note the command SetSbasHealthReserved is deprecated since 21.9. You may use SetSbasSVReservedHealth.\n\nApply reserved flag for a SBAS satellite";
-
-    REGISTER_COMMAND_FACTORY(SetSbasHealthReserved);
-
-
-    SetSbasHealthReserved::SetSbasHealthReserved()
-      : CommandBase(CmdName)
-    {}
-
-    SetSbasHealthReserved::SetSbasHealthReserved(int prn, bool health)
-      : CommandBase(CmdName)
-    {
-
-      setPrn(prn);
-      setHealth(health);
-    }
-
-
-    SetSbasHealthReservedPtr SetSbasHealthReserved::create(int prn, bool health)
-    {
-      return std::make_shared<SetSbasHealthReserved>(prn, health);
-    }
-
-    SetSbasHealthReservedPtr SetSbasHealthReserved::dynamicCast(CommandBasePtr ptr)
-    {
-      return std::dynamic_pointer_cast<SetSbasHealthReserved>(ptr);
-    }
-
-    bool SetSbasHealthReserved::isValid() const
-    {
-      
-        return m_values.IsObject()
-          && parse_json<int>::is_valid(m_values["Prn"])
-          && parse_json<bool>::is_valid(m_values["Health"])
-        ;
-
-    }
-
-    std::string SetSbasHealthReserved::documentation() const { return Documentation; }
-
-
-    int SetSbasHealthReserved::executePermission() const
-    {
-      return EXECUTE_IF_SIMULATING | EXECUTE_IF_IDLE;
-    }
-
-
-    int SetSbasHealthReserved::prn() const
-    {
-      return parse_json<int>::parse(m_values["Prn"]);
-    }
-
-    void SetSbasHealthReserved::setPrn(int prn)
-    {
-      m_values.AddMember("Prn", parse_json<int>::format(prn, m_values.GetAllocator()), m_values.GetAllocator());
-    }
-
-
-
-    bool SetSbasHealthReserved::health() const
-    {
-      return parse_json<bool>::parse(m_values["Health"]);
-    }
-
-    void SetSbasHealthReserved::setHealth(bool health)
-    {
-      m_values.AddMember("Health", parse_json<bool>::format(health, m_values.GetAllocator()), m_values.GetAllocator());
-    }
-
-
-  }
-}
-
-
-///
-/// Definition of SetSbasHealthService
-///
-#include "gen/SetSbasHealthService.h"
-
-namespace Sdx
-{
-  namespace Cmd
-  {
-    const char* const SetSbasHealthService::CmdName = "SetSbasHealthService";
-    const char* const SetSbasHealthService::Documentation = "Please note the command SetSbasHealthService is deprecated since 21.9. You may use SetSbasSVServiceHealth.\n\nApply service provider for a satellite";
-
-    REGISTER_COMMAND_FACTORY(SetSbasHealthService);
-
-
-    SetSbasHealthService::SetSbasHealthService()
-      : CommandBase(CmdName)
-    {}
-
-    SetSbasHealthService::SetSbasHealthService(int prn, int health)
-      : CommandBase(CmdName)
-    {
-
-      setPrn(prn);
-      setHealth(health);
-    }
-
-
-    SetSbasHealthServicePtr SetSbasHealthService::create(int prn, int health)
-    {
-      return std::make_shared<SetSbasHealthService>(prn, health);
-    }
-
-    SetSbasHealthServicePtr SetSbasHealthService::dynamicCast(CommandBasePtr ptr)
-    {
-      return std::dynamic_pointer_cast<SetSbasHealthService>(ptr);
-    }
-
-    bool SetSbasHealthService::isValid() const
-    {
-      
-        return m_values.IsObject()
-          && parse_json<int>::is_valid(m_values["Prn"])
-          && parse_json<int>::is_valid(m_values["Health"])
-        ;
-
-    }
-
-    std::string SetSbasHealthService::documentation() const { return Documentation; }
-
-
-    int SetSbasHealthService::executePermission() const
-    {
-      return EXECUTE_IF_IDLE;
-    }
-
-
-    int SetSbasHealthService::prn() const
-    {
-      return parse_json<int>::parse(m_values["Prn"]);
-    }
-
-    void SetSbasHealthService::setPrn(int prn)
-    {
-      m_values.AddMember("Prn", parse_json<int>::format(prn, m_values.GetAllocator()), m_values.GetAllocator());
-    }
-
-
-
-    int SetSbasHealthService::health() const
-    {
-      return parse_json<int>::parse(m_values["Health"]);
-    }
-
-    void SetSbasHealthService::setHealth(int health)
-    {
-      m_values.AddMember("Health", parse_json<int>::format(health, m_values.GetAllocator()), m_values.GetAllocator());
-    }
-
-
-  }
-}
-
-
-///
 /// Definition of SetSbasUdrei
 ///
 #include "gen/SetSbasUdrei.h"
@@ -90113,6 +90439,364 @@ namespace Sdx
     void GetSbasUdreiResult::setUdrei(int udrei)
     {
       m_values.AddMember("Udrei", parse_json<int>::format(udrei, m_values.GetAllocator()), m_values.GetAllocator());
+    }
+
+
+  }
+}
+
+
+///
+/// Definition of SetPowerForSV
+///
+#include "gen/SetPowerForSV.h"
+
+namespace Sdx
+{
+  namespace Cmd
+  {
+    const char* const SetPowerForSV::CmdName = "SetPowerForSV";
+    const char* const SetPowerForSV::Documentation = "Please note the command SetPowerForSV is deprecated since 22.7. You may use SetManualPowerOffsetForSV.\n\nSet power offset for specified satellite SV ID. Use SV ID 0 to set power for all satellites.";
+
+    REGISTER_COMMAND_FACTORY(SetPowerForSV);
+
+
+    SetPowerForSV::SetPowerForSV()
+      : CommandBase(CmdName)
+    {}
+
+    SetPowerForSV::SetPowerForSV(const std::string& system, int svId, double powerOffset, bool otherSatsFollow)
+      : CommandBase(CmdName)
+    {
+
+      setSystem(system);
+      setSvId(svId);
+      setPowerOffset(powerOffset);
+      setOtherSatsFollow(otherSatsFollow);
+    }
+
+
+    SetPowerForSVPtr SetPowerForSV::create(const std::string& system, int svId, double powerOffset, bool otherSatsFollow)
+    {
+      return std::make_shared<SetPowerForSV>(system, svId, powerOffset, otherSatsFollow);
+    }
+
+    SetPowerForSVPtr SetPowerForSV::dynamicCast(CommandBasePtr ptr)
+    {
+      return std::dynamic_pointer_cast<SetPowerForSV>(ptr);
+    }
+
+    bool SetPowerForSV::isValid() const
+    {
+      
+        return m_values.IsObject()
+          && parse_json<std::string>::is_valid(m_values["System"])
+          && parse_json<int>::is_valid(m_values["SvId"])
+          && parse_json<double>::is_valid(m_values["PowerOffset"])
+          && parse_json<bool>::is_valid(m_values["OtherSatsFollow"])
+        ;
+
+    }
+
+    std::string SetPowerForSV::documentation() const { return Documentation; }
+
+
+    int SetPowerForSV::executePermission() const
+    {
+      return EXECUTE_IF_SIMULATING;
+    }
+
+
+    std::string SetPowerForSV::system() const
+    {
+      return parse_json<std::string>::parse(m_values["System"]);
+    }
+
+    void SetPowerForSV::setSystem(const std::string& system)
+    {
+      m_values.AddMember("System", parse_json<std::string>::format(system, m_values.GetAllocator()), m_values.GetAllocator());
+    }
+
+
+
+    int SetPowerForSV::svId() const
+    {
+      return parse_json<int>::parse(m_values["SvId"]);
+    }
+
+    void SetPowerForSV::setSvId(int svId)
+    {
+      m_values.AddMember("SvId", parse_json<int>::format(svId, m_values.GetAllocator()), m_values.GetAllocator());
+    }
+
+
+
+    double SetPowerForSV::powerOffset() const
+    {
+      return parse_json<double>::parse(m_values["PowerOffset"]);
+    }
+
+    void SetPowerForSV::setPowerOffset(double powerOffset)
+    {
+      m_values.AddMember("PowerOffset", parse_json<double>::format(powerOffset, m_values.GetAllocator()), m_values.GetAllocator());
+    }
+
+
+
+    bool SetPowerForSV::otherSatsFollow() const
+    {
+      return parse_json<bool>::parse(m_values["OtherSatsFollow"]);
+    }
+
+    void SetPowerForSV::setOtherSatsFollow(bool otherSatsFollow)
+    {
+      m_values.AddMember("OtherSatsFollow", parse_json<bool>::format(otherSatsFollow, m_values.GetAllocator()), m_values.GetAllocator());
+    }
+
+
+  }
+}
+
+
+///
+/// Definition of GetPowerForSV
+///
+#include "gen/GetPowerForSV.h"
+
+namespace Sdx
+{
+  namespace Cmd
+  {
+    const char* const GetPowerForSV::CmdName = "GetPowerForSV";
+    const char* const GetPowerForSV::Documentation = "Please note the command GetPowerForSV is deprecated since 22.7. You may use GetAllPowerForSV.\n\nGet the power offset for specified satellite SV ID.";
+
+    REGISTER_COMMAND_FACTORY(GetPowerForSV);
+
+
+    GetPowerForSV::GetPowerForSV()
+      : CommandBase(CmdName)
+    {}
+
+    GetPowerForSV::GetPowerForSV(const std::string& system, int svId)
+      : CommandBase(CmdName)
+    {
+
+      setSystem(system);
+      setSvId(svId);
+    }
+
+
+    GetPowerForSVPtr GetPowerForSV::create(const std::string& system, int svId)
+    {
+      return std::make_shared<GetPowerForSV>(system, svId);
+    }
+
+    GetPowerForSVPtr GetPowerForSV::dynamicCast(CommandBasePtr ptr)
+    {
+      return std::dynamic_pointer_cast<GetPowerForSV>(ptr);
+    }
+
+    bool GetPowerForSV::isValid() const
+    {
+      
+        return m_values.IsObject()
+          && parse_json<std::string>::is_valid(m_values["System"])
+          && parse_json<int>::is_valid(m_values["SvId"])
+        ;
+
+    }
+
+    std::string GetPowerForSV::documentation() const { return Documentation; }
+
+
+    int GetPowerForSV::executePermission() const
+    {
+      return EXECUTE_IF_SIMULATING;
+    }
+
+
+    std::string GetPowerForSV::system() const
+    {
+      return parse_json<std::string>::parse(m_values["System"]);
+    }
+
+    void GetPowerForSV::setSystem(const std::string& system)
+    {
+      m_values.AddMember("System", parse_json<std::string>::format(system, m_values.GetAllocator()), m_values.GetAllocator());
+    }
+
+
+
+    int GetPowerForSV::svId() const
+    {
+      return parse_json<int>::parse(m_values["SvId"]);
+    }
+
+    void GetPowerForSV::setSvId(int svId)
+    {
+      m_values.AddMember("SvId", parse_json<int>::format(svId, m_values.GetAllocator()), m_values.GetAllocator());
+    }
+
+
+  }
+}
+
+
+///
+/// Definition of GetPowerForSVResult
+///
+#include "gen/GetPowerForSVResult.h"
+
+namespace Sdx
+{
+  namespace Cmd
+  {
+    const char* const GetPowerForSVResult::CmdName = "GetPowerForSVResult";
+    const char* const GetPowerForSVResult::Documentation = "Result of GetPowerForSV.";
+
+    REGISTER_COMMAND_RESULT_FACTORY(GetPowerForSVResult);
+
+
+    GetPowerForSVResult::GetPowerForSVResult()
+      : CommandResult(CmdName)
+    {}
+
+    GetPowerForSVResult::GetPowerForSVResult(CommandBasePtr relatedCommand, const std::string& system, int svId, double nominalPower, double signalStrengthModel, double antenna, double signalLevelOffset, double manualGain, double total)
+      : CommandResult(CmdName, relatedCommand)
+    {
+
+      setSystem(system);
+      setSvId(svId);
+      setNominalPower(nominalPower);
+      setSignalStrengthModel(signalStrengthModel);
+      setAntenna(antenna);
+      setSignalLevelOffset(signalLevelOffset);
+      setManualGain(manualGain);
+      setTotal(total);
+    }
+
+
+    GetPowerForSVResultPtr GetPowerForSVResult::create(CommandBasePtr relatedCommand, const std::string& system, int svId, double nominalPower, double signalStrengthModel, double antenna, double signalLevelOffset, double manualGain, double total)
+    {
+      return std::make_shared<GetPowerForSVResult>(relatedCommand, system, svId, nominalPower, signalStrengthModel, antenna, signalLevelOffset, manualGain, total);
+    }
+
+    GetPowerForSVResultPtr GetPowerForSVResult::dynamicCast(CommandBasePtr ptr)
+    {
+      return std::dynamic_pointer_cast<GetPowerForSVResult>(ptr);
+    }
+
+    bool GetPowerForSVResult::isValid() const
+    {
+      
+        return m_values.IsObject()
+          && parse_json<std::string>::is_valid(m_values["System"])
+          && parse_json<int>::is_valid(m_values["SvId"])
+          && parse_json<double>::is_valid(m_values["NominalPower"])
+          && parse_json<double>::is_valid(m_values["SignalStrengthModel"])
+          && parse_json<double>::is_valid(m_values["Antenna"])
+          && parse_json<double>::is_valid(m_values["SignalLevelOffset"])
+          && parse_json<double>::is_valid(m_values["ManualGain"])
+          && parse_json<double>::is_valid(m_values["Total"])
+        ;
+
+    }
+
+    std::string GetPowerForSVResult::documentation() const { return Documentation; }
+
+
+    std::string GetPowerForSVResult::system() const
+    {
+      return parse_json<std::string>::parse(m_values["System"]);
+    }
+
+    void GetPowerForSVResult::setSystem(const std::string& system)
+    {
+      m_values.AddMember("System", parse_json<std::string>::format(system, m_values.GetAllocator()), m_values.GetAllocator());
+    }
+
+
+
+    int GetPowerForSVResult::svId() const
+    {
+      return parse_json<int>::parse(m_values["SvId"]);
+    }
+
+    void GetPowerForSVResult::setSvId(int svId)
+    {
+      m_values.AddMember("SvId", parse_json<int>::format(svId, m_values.GetAllocator()), m_values.GetAllocator());
+    }
+
+
+
+    double GetPowerForSVResult::nominalPower() const
+    {
+      return parse_json<double>::parse(m_values["NominalPower"]);
+    }
+
+    void GetPowerForSVResult::setNominalPower(double nominalPower)
+    {
+      m_values.AddMember("NominalPower", parse_json<double>::format(nominalPower, m_values.GetAllocator()), m_values.GetAllocator());
+    }
+
+
+
+    double GetPowerForSVResult::signalStrengthModel() const
+    {
+      return parse_json<double>::parse(m_values["SignalStrengthModel"]);
+    }
+
+    void GetPowerForSVResult::setSignalStrengthModel(double signalStrengthModel)
+    {
+      m_values.AddMember("SignalStrengthModel", parse_json<double>::format(signalStrengthModel, m_values.GetAllocator()), m_values.GetAllocator());
+    }
+
+
+
+    double GetPowerForSVResult::antenna() const
+    {
+      return parse_json<double>::parse(m_values["Antenna"]);
+    }
+
+    void GetPowerForSVResult::setAntenna(double antenna)
+    {
+      m_values.AddMember("Antenna", parse_json<double>::format(antenna, m_values.GetAllocator()), m_values.GetAllocator());
+    }
+
+
+
+    double GetPowerForSVResult::signalLevelOffset() const
+    {
+      return parse_json<double>::parse(m_values["SignalLevelOffset"]);
+    }
+
+    void GetPowerForSVResult::setSignalLevelOffset(double signalLevelOffset)
+    {
+      m_values.AddMember("SignalLevelOffset", parse_json<double>::format(signalLevelOffset, m_values.GetAllocator()), m_values.GetAllocator());
+    }
+
+
+
+    double GetPowerForSVResult::manualGain() const
+    {
+      return parse_json<double>::parse(m_values["ManualGain"]);
+    }
+
+    void GetPowerForSVResult::setManualGain(double manualGain)
+    {
+      m_values.AddMember("ManualGain", parse_json<double>::format(manualGain, m_values.GetAllocator()), m_values.GetAllocator());
+    }
+
+
+
+    double GetPowerForSVResult::total() const
+    {
+      return parse_json<double>::parse(m_values["Total"]);
+    }
+
+    void GetPowerForSVResult::setTotal(double total)
+    {
+      m_values.AddMember("Total", parse_json<double>::format(total, m_values.GetAllocator()), m_values.GetAllocator());
     }
 
 

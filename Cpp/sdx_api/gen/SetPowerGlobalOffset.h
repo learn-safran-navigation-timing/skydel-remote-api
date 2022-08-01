@@ -9,6 +9,8 @@ namespace Sdx
   namespace Cmd
   {
     ///
+    /// Please note the command SetPowerGlobalOffset is deprecated since 21.7. You may use SetGlobalPowerOffset.
+    /// 
     /// Set global power offset default value for all signals and all systems
     ///
     /// Name   Type   Description

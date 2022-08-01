@@ -3,7 +3,7 @@ from .commandbase import CommandBase
 from .commandresult import CommandResult
 from .commandbase import ExecutePermission
 
-ApiVersion = 37
+ApiVersion = 38
 
 #
 # The GPS AS flag value.
@@ -811,6 +811,76 @@ class IsSignalEnabledForSVResult(CommandResult):
     return self.set("Enabled", value)
 
 #
+# Get the list of enabled signals for a specified SV ID.
+#
+# Name   Type   Description
+# ------ ------ ------------------------------------------------------------------------------------
+# System string The system, can be "GPS", "GLONASS", "Galileo", "BeiDou", "SBAS", "QZSS" or "NavIC".
+# SvId   int    The satellite SV ID.
+#
+
+class GetEnabledSignalsForSV(CommandBase):
+
+  def __init__(self, system, svId):
+    CommandBase.__init__(self, "GetEnabledSignalsForSV")
+    self.setSystem(system)
+    self.setSvId(svId)
+
+  def executePermission(self):
+    return ExecutePermission.EXECUTE_IF_SIMULATING | ExecutePermission.EXECUTE_IF_IDLE
+
+  def system(self):
+    return self.get("System")
+
+  def setSystem(self, value):
+    return self.set("System", value)
+
+  def svId(self):
+    return self.get("SvId")
+
+  def setSvId(self, value):
+    return self.set("SvId", value)
+
+#
+# Result of GetEnabledSignalsForSV.
+#
+# Name        Type         Description
+# ----------- ------------ ------------------------------------------------------------------------------------
+# System      string       The system, can be "GPS", "GLONASS", "Galileo", "BeiDou", "SBAS", "QZSS" or "NavIC".
+# SvId        int          The satellite SV ID.
+# SignalArray array string The list of enabled signals.
+#
+
+class GetEnabledSignalsForSVResult(CommandResult):
+
+  def __init__(self, system, svId, signalArray):
+    CommandResult.__init__(self, "GetEnabledSignalsForSVResult")
+    self.setSystem(system)
+    self.setSvId(svId)
+    self.setSignalArray(signalArray)
+
+  def isSuccess(self):
+    return True
+
+  def system(self):
+    return self.get("System")
+
+  def setSystem(self, value):
+    return self.set("System", value)
+
+  def svId(self):
+    return self.get("SvId")
+
+  def setSvId(self, value):
+    return self.set("SvId", value)
+
+  def signalArray(self):
+    return self.get("SignalArray")
+
+  def setSignalArray(self, value):
+    return self.set("SignalArray", value)
+
+#
 # Enable (or disable) signal for each satellite individually.
 #
 # Name    Type       Description
@@ -1099,24 +1169,29 @@ class IsPYCodeEnabledForEachSVResult(CommandResult):
     return self.set("Enabled", value)
 
 #
-# Set power offset for specified satellite SV ID. Use SV ID 0 to set power for all satellites.
+# Set the power offsets applied to the signals of a satellite. Use SV ID 0 to set the power offset of all the satellites. Use key "All" to set the power offset to all signals.
 #
-# Name            Type   Description
-# --------------- ------ -----------------------------------------------------------------------------------------
-# System          string "GPS", "GLONASS", "Galileo", "BeiDou", "SBAS", "QZSS" or "NavIC"
-# SvId            int    The Satellite SV ID
-# PowerOffset     double Power offset in dB (relative to signal power reference level)
-# OtherSatsFollow bool   If true, other sats power will be adjusted to maintain current offsets between satellites
+# Name                  Type               Description
+# --------------------- ------------------ ------------------------------------------------------------------------------
+# System                string             "GPS", "GLONASS", "Galileo", "BeiDou", "SBAS", "QZSS" or "NavIC".
+# SvId                  int                The satellite's SV ID.
+# SignalPowerOffsetDict dict string:double A dictionary of signal poweroffset pairs.
+#                                          Accepted keys are: "All", "L1CA", "L1C", "L1P", "L1ME", "L1MR", "L2C", "L2P",
+#                                                             "L2ME", "L2MR", "L5", "G1", "G2", "E1", "E1PRS", "E5a",
+#                                                             "E5b", "E6BC", "E6PRS", "B1", "B2", "B1C", "B2a", "SBASL1",
+#                                                             "SBASL5", "QZSSL1CA", "QZSSL1CB", "QZSSL1C", "QZSSL2C",
+#                                                             "QZSSL5", "QZSSL1S", "QZSSL5S" and "NAVICL5"
+# IsRelativePowerOffset bool               If true, the power offset(s) are added to the current value(s).
 #
 
-class SetPowerForSV(CommandBase):
+class SetManualPowerOffsetForSV(CommandBase):
 
-  def __init__(self, system, svId, powerOffset, otherSatsFollow):
-    CommandBase.__init__(self, "SetPowerForSV")
+  def __init__(self, system, svId, signalPowerOffsetDict, isRelativePowerOffset):
+    CommandBase.__init__(self, "SetManualPowerOffsetForSV")
     self.setSystem(system)
     self.setSvId(svId)
-    self.setPowerOffset(powerOffset)
-    self.setOtherSatsFollow(otherSatsFollow)
+    self.setSignalPowerOffsetDict(signalPowerOffsetDict)
+    self.setIsRelativePowerOffset(isRelativePowerOffset)
 
   def executePermission(self):
     return ExecutePermission.EXECUTE_IF_SIMULATING
@@ -1133,33 +1208,119 @@ class SetPowerForSV(CommandBase):
   def setSvId(self, value):
     return self.set("SvId", value)
 
-  def powerOffset(self):
-    return self.get("PowerOffset")
+  def signalPowerOffsetDict(self):
+    return self.get("SignalPowerOffsetDict")
 
-  def setPowerOffset(self, value):
-    return self.set("PowerOffset", value)
+  def setSignalPowerOffsetDict(self, value):
+    return self.set("SignalPowerOffsetDict", value)
 
-  def otherSatsFollow(self):
-    return self.get("OtherSatsFollow")
+  def isRelativePowerOffset(self):
+    return self.get("IsRelativePowerOffset")
 
-  def setOtherSatsFollow(self, value):
-    return self.set("OtherSatsFollow", value)
+  def setIsRelativePowerOffset(self, value):
+    return self.set("IsRelativePowerOffset", value)
 
 #
-# Get the power offset for specified satellite SV ID.
+# Get the power offsets for specific signals of a satellite.
+#
+# Name        Type         Description
+# ----------- ------------ --------------------------------------------------------------------------------
+# System      string       "GPS", "GLONASS", "Galileo", "BeiDou", "SBAS", "QZSS" or "NavIC".
+# SvId        int          The satellite's SV ID.
+# SignalArray array string An array of signals.
+#                          Accepted values are: "All", "L1CA", "L1C", "L1P", "L1ME", "L1MR", "L2C", "L2P",
+#                                               "L2ME", "L2MR", "L5", "G1", "G2", "E1", "E1PRS", "E5a",
+#                                               "E5b", "E6BC", "E6PRS", "B1", "B2", "B1C", "B2a", "SBASL1",
+#                                               "SBASL5", "QZSSL1CA", "QZSSL1CB", "QZSSL1C", "QZSSL2C",
+#                                               "QZSSL5", "QZSSL1S", "QZSSL5S" and "NAVICL5"
+#
+
+class GetManualPowerOffsetForSV(CommandBase):
+
+  def __init__(self, system, svId, signalArray):
+    CommandBase.__init__(self, "GetManualPowerOffsetForSV")
+    self.setSystem(system)
+    self.setSvId(svId)
+    self.setSignalArray(signalArray)
+
+  def executePermission(self):
+    return ExecutePermission.EXECUTE_IF_SIMULATING
+
+  def system(self):
+    return self.get("System")
+
+  def setSystem(self, value):
+    return self.set("System", value)
+
+  def svId(self):
+    return self.get("SvId")
+
+  def setSvId(self, value):
+    return self.set("SvId", value)
+
+  def signalArray(self):
+    return self.get("SignalArray")
+
+  def setSignalArray(self, value):
+    return self.set("SignalArray", value)
+
+#
+# Result of GetManualPowerOffsetForSV.
+#
+# Name                  Type               Description
+# --------------------- ------------------ ------------------------------------------------------------------------------
+# System                string             "GPS", "GLONASS", "Galileo", "BeiDou", "SBAS", "QZSS" or "NavIC".
+# SvId                  int                The satellite's SV ID.
+# SignalPowerOffsetDict dict string:double A dictionary of signal poweroffset pairs.
+#                                          Accepted keys are: "All", "L1CA", "L1C", "L1P", "L1ME", "L1MR", "L2C", "L2P",
+#                                                             "L2ME", "L2MR", "L5", "G1", "G2", "E1", "E1PRS", "E5a",
+#                                                             "E5b", "E6BC", "E6PRS", "B1", "B2", "B1C", "B2a", "SBASL1",
+#                                                             "SBASL5", "QZSSL1CA", "QZSSL1CB", "QZSSL1C", "QZSSL2C",
+#                                                             "QZSSL5", "QZSSL1S", "QZSSL5S" and "NAVICL5"
+#
+
+class GetManualPowerOffsetForSVResult(CommandResult):
+
+  def __init__(self, system, svId, signalPowerOffsetDict):
+    CommandResult.__init__(self, "GetManualPowerOffsetForSVResult")
+    self.setSystem(system)
+    self.setSvId(svId)
+    self.setSignalPowerOffsetDict(signalPowerOffsetDict)
+
+  def isSuccess(self):
+    return True
+
+  def system(self):
+    return self.get("System")
+
+  def setSystem(self, value):
+    return self.set("System", value)
+
+  def svId(self):
+    return self.get("SvId")
+
+  def setSvId(self, value):
+    return self.set("SvId", value)
+
+  def signalPowerOffsetDict(self):
+    return self.get("SignalPowerOffsetDict")
+
+  def setSignalPowerOffsetDict(self, value):
+    return self.set("SignalPowerOffsetDict", value)
+
+#
+# Reset power offset for all satellites is specified system to default value
 #
 # Name   Type   Description
-# ------ ------ -----------------------------------------------------------------------------------
-# System string The system, can be "GPS", "GLONASS", "Galileo", "BeiDou", "SBAS", "QZSS" or "NavIC"
-# SvId   int    The Satellite SV ID
+# ------ ------ -----------------------------------------------------------------
+# System string "GPS", "GLONASS", "Galileo", "BeiDou", "SBAS", "QZSS" or "NavIC".
 #
 
-class GetPowerForSV(CommandBase):
+class ResetManualPowerOffsets(CommandBase):
 
-  def __init__(self, system, svId):
-    CommandBase.__init__(self, "GetPowerForSV")
+  def __init__(self, system):
+    CommandBase.__init__(self, "ResetManualPowerOffsets")
     self.setSystem(system)
-    self.setSvId(svId)
 
   def executePermission(self):
     return ExecutePermission.EXECUTE_IF_SIMULATING
@@ -1170,39 +1331,122 @@ class GetPowerForSV(CommandBase):
   def setSystem(self, value):
     return self.set("System", value)
 
-  def svId(self):
-    return self.get("SvId")
+#
+# Please note the command ResetAllSatPower is deprecated since 21.7. You may use ResetManualPowerOffsets.
+# 
+# Reset power offset for all satellites is specified system to default value
+#
+# Name   Type   Description
+# ------ ------ -----------------------------------------------------------------
+# System string "GPS", "GLONASS", "Galileo", "BeiDou", "SBAS", "QZSS" or "NavIC".
+#
 
-  def setSvId(self, value):
-    return self.set("SvId", value)
+class ResetAllSatPower(CommandBase):
+
+  def __init__(self, system):
+    CommandBase.__init__(self, "ResetAllSatPower")
+    self.setSystem(system)
+
+  def executePermission(self):
+    return ExecutePermission.EXECUTE_IF_SIMULATING
+
+  def system(self):
+    return self.get("System")
+
+  def setSystem(self, value):
+    return self.set("System", value)
 
 #
-# Result of GetPowerForSV.
+# Information on the signal power.
 #
 # Name                Type   Description
 # ------------------- ------ -----------------------------------------------------------------------------------------------------------
-# System              string The system, can be "GPS", "GLONASS", "Galileo", "BeiDou", "SBAS", "QZSS" or "NavIC"
-# SvId                int    The Satellite SV ID
-# NominalPower        double The nominal power in dBm
-# SignalStrengthModel double The power difference coming from the Signal Strength Model (dB)
-# Antenna             double The receiver antenna power offset (dB). It depends on antenna pattern and relative orientation with signal.
-# SignalLevelOffset   double The global power offset (dB)
-# ManualGain          double The power offset provided by the user (dB). See SetPowerForSV
-# Total               double The sum of all the other fields (dBm)
+# AntennaOffset       double The receiver antenna power offset (dB). It depends on antenna pattern and relative orientation with signal.
+# StrengthModelOffset double The power offset coming from the Signal Strength Model (dB).
+# SignalOffset        double The signal power offset (dB). See SetSignalPowerOffset.
+# ManualOffset        double The manual power offset (dB). See SetManualPowerOffsetForSV.
+# Total               double The sum of all the other fields, including nominal power and the global power offset (dBm).
 #
 
-class GetPowerForSVResult(CommandResult):
+class SignalPower:
 
-  def __init__(self, system, svId, nominalPower, signalStrengthModel, antenna, signalLevelOffset, manualGain, total):
-    CommandResult.__init__(self, "GetPowerForSVResult")
+  def __init__(self, antennaOffset, strengthModelOffset, signalOffset, manualOffset, total):
+    self.AntennaOffset = antennaOffset
+    self.StrengthModelOffset = strengthModelOffset
+    self.SignalOffset = signalOffset
+    self.ManualOffset = manualOffset
+    self.Total = total
+
+#
+# Get the power information for the specified satellite.
+#
+# Name        Type         Description
+# ----------- ------------ --------------------------------------------------------------------------------
+# System      string       "GPS", "GLONASS", "Galileo", "BeiDou", "SBAS", "QZSS" or "NavIC".
+# SvId        int          The Satellite's SV ID.
+# SignalArray array string An array of signals.
+#                          Accepted values are: "All", "L1CA", "L1C", "L1P", "L1ME", "L1MR", "L2C", "L2P",
+#                                               "L2ME", "L2MR", "L5", "G1", "G2", "E1", "E1PRS", "E5a",
+#                                               "E5b", "E6BC", "E6PRS", "B1", "B2", "B1C", "B2a", "SBASL1",
+#                                               "SBASL5", "QZSSL1CA", "QZSSL1CB", "QZSSL1C", "QZSSL2C",
+#                                               "QZSSL5", "QZSSL1S", "QZSSL5S" and "NAVICL5"
+#
+
+class GetAllPowerForSV(CommandBase):
+
+  def __init__(self, system, svId, signalArray):
+    CommandBase.__init__(self, "GetAllPowerForSV")
+    self.setSystem(system)
+    self.setSvId(svId)
+    self.setSignalArray(signalArray)
+
+  def executePermission(self):
+    return ExecutePermission.EXECUTE_IF_SIMULATING
+
+  def system(self):
+    return self.get("System")
+
+  def setSystem(self, value):
+    return self.set("System", value)
+
+  def svId(self):
+    return self.get("SvId")
+
+  def setSvId(self, value):
+    return self.set("SvId", value)
+
+  def signalArray(self):
+    return self.get("SignalArray")
+
+  def setSignalArray(self, value):
+    return self.set("SignalArray", value)
+
+#
+# Result of GetAllPowerForSV.
+#
+# Name            Type                    Description
+# --------------- ----------------------- ------------------------------------------------------------------------------
+# System          string                  "GPS", "GLONASS", "Galileo", "BeiDou", "SBAS", "QZSS" or "NavIC".
+# SvId            int                     The Satellite's SV ID.
+# NominalPower    double                  The nominal power in dBm.
+# GlobalOffset    double                  The global power offset (dB).
+# SignalPowerDict dict string:SignalPower A dictionary of signal power pairs.
+#                                         Accepted keys are: "All", "L1CA", "L1C", "L1P", "L1ME", "L1MR", "L2C", "L2P",
+#                                                            "L2ME", "L2MR", "L5", "G1", "G2", "E1", "E1PRS", "E5a",
+#                                                            "E5b", "E6BC", "E6PRS", "B1", "B2", "B1C", "B2a", "SBASL1",
+#                                                            "SBASL5", "QZSSL1CA", "QZSSL1CB", "QZSSL1C", "QZSSL2C",
+#                                                            "QZSSL5", "QZSSL1S", "QZSSL5S" and "NAVICL5"
+#
+
+class GetAllPowerForSVResult(CommandResult):
+
+  def __init__(self, system, svId, nominalPower, globalOffset, signalPowerDict):
+    CommandResult.__init__(self, "GetAllPowerForSVResult")
     self.setSystem(system)
     self.setSvId(svId)
     self.setNominalPower(nominalPower)
-    self.setSignalStrengthModel(signalStrengthModel)
-    self.setAntenna(antenna)
-    self.setSignalLevelOffset(signalLevelOffset)
-    self.setManualGain(manualGain)
-    self.setTotal(total)
+    self.setGlobalOffset(globalOffset)
+    self.setSignalPowerDict(signalPowerDict)
 
   def isSuccess(self):
     return True
@@ -1225,58 +1469,17 @@ class GetPowerForSVResult(CommandResult):
   def setNominalPower(self, value):
     return self.set("NominalPower", value)
 
-  def signalStrengthModel(self):
-    return self.get("SignalStrengthModel")
+  def globalOffset(self):
+    return self.get("GlobalOffset")
 
-  def setSignalStrengthModel(self, value):
-    return self.set("SignalStrengthModel", value)
+  def setGlobalOffset(self, value):
+    return self.set("GlobalOffset", value)
 
-  def antenna(self):
-    return self.get("Antenna")
+  def signalPowerDict(self):
+    return self.get("SignalPowerDict")
 
-  def setAntenna(self, value):
-    return self.set("Antenna", value)
-
-  def signalLevelOffset(self):
-    return self.get("SignalLevelOffset")
-
-  def setSignalLevelOffset(self, value):
-    return self.set("SignalLevelOffset", value)
-
-  def manualGain(self):
-    return self.get("ManualGain")
-
-  def setManualGain(self, value):
-    return self.set("ManualGain", value)
-
-  def total(self):
-    return self.get("Total")
-
-  def setTotal(self, value):
-    return self.set("Total", value)
-
-#
-# Reset power offset for all satellites is specified system to default value
-#
-# Name   Type   Description
-# ------ ------ ----------------------------------------------------------------
-# System string "GPS", "GLONASS", "Galileo", "BeiDou", "SBAS", "QZSS" or "NavIC"
-#
-
-class ResetAllSatPower(CommandBase):
-
-  def __init__(self, system):
-    CommandBase.__init__(self, "ResetAllSatPower")
-    self.setSystem(system)
-
-  def executePermission(self):
-    return ExecutePermission.EXECUTE_IF_SIMULATING
-
-  def system(self):
-    return self.get("System")
-
-  def setSystem(self, value):
-    return self.set("System", value)
+  def setSignalPowerDict(self, value):
+    return self.set("SignalPowerDict", value)
 
 #
 # Export the performance graph data into a csv file.
@@ -2067,6 +2270,82 @@ class GetStartTimeModeResult(CommandResult):
 
   def setMode(self, value):
     return self.set("Mode", value)
+
+#
+# Connect a receiver.
+#
+# Name        Type                           Description
+# ----------- ------------------------------ -------------------------------------------------------------------------------------------------------------------------------------
+# Port        string                         Serial Port (ex: "COM5").
+# BaudRate    optional int                   Data baud rate of the serial port. Can be 1200 | 2400 | 4800 | 9600 | 19200 | 38400 | 57600 | 115200 | 460800. Default value is 9600.
+# DataBits    optional int                   Number of data bits used by the serial port. Possible values are 5, 6, 7 and 8. Default value is 8.
+# Parity      optional SerialPortParity      Parity scheme used by the serial port. Default value is NoParity.
+# StopBits    optional int                   Number of stop bits used by the serial port. Possible values are 1 and 2. Default value is 1.
+# FlowControl optional SerialPortFlowControl Flow control used by the serial port. Default value is NoFlowControl.
+#
+
+class ConnectSerialPortReceiver(CommandBase):
+
+  def __init__(self, port, baudRate = None, dataBits = None, parity = None, stopBits = None, flowControl = None):
+    CommandBase.__init__(self, "ConnectSerialPortReceiver")
+    self.setPort(port)
+    self.setBaudRate(baudRate)
+    self.setDataBits(dataBits)
+    self.setParity(parity)
+    self.setStopBits(stopBits)
+    self.setFlowControl(flowControl)
+
+  def executePermission(self):
+    return ExecutePermission.EXECUTE_IF_NO_CONFIG | ExecutePermission.EXECUTE_IF_SIMULATING | ExecutePermission.EXECUTE_IF_IDLE
+
+  def port(self):
+    return self.get("Port")
+
+  def setPort(self, value):
+    return self.set("Port", value)
+
+  def baudRate(self):
+    return self.get("BaudRate")
+
+  def setBaudRate(self, value):
+    return self.set("BaudRate", value)
+
+  def dataBits(self):
+    return self.get("DataBits")
+
+  def setDataBits(self, value):
+    return self.set("DataBits", value)
+
+  def parity(self):
+    return self.get("Parity")
+
+  def setParity(self, value):
+    return self.set("Parity", value)
+
+  def stopBits(self):
+    return self.get("StopBits")
+
+  def setStopBits(self, value):
+    return self.set("StopBits", value)
+
+  def flowControl(self):
+    return self.get("FlowControl")
+
+  def setFlowControl(self, value):
+    return self.set("FlowControl", value)
+
+#
+# Disconnects the connected receiver. Does nothing if no receiver is connected.
+#
+#
+
+class DisconnectSerialPortReceiver(CommandBase):
+
+  def __init__(self):
+    CommandBase.__init__(self, "DisconnectSerialPortReceiver")
+
+  def executePermission(self):
+    return ExecutePermission.EXECUTE_IF_NO_CONFIG | ExecutePermission.EXECUTE_IF_SIMULATING | ExecutePermission.EXECUTE_IF_IDLE
 
 #
 # Set the connection parameters to the GPS Receiver from which the simulator will get the simulation start time.
@@ -7501,6 +7780,31 @@ class GetNavICNavAlertFlagForSVResult(CommandResult):
 # Offset double Offset in dB (negative value will attenuate signal)
 #
 
+class SetGlobalPowerOffset(CommandBase):
+
+  def __init__(self, offset):
+    CommandBase.__init__(self, "SetGlobalPowerOffset")
+    self.setOffset(offset)
+
+  def executePermission(self):
+    return ExecutePermission.EXECUTE_IF_SIMULATING | ExecutePermission.EXECUTE_IF_IDLE
+
+  def offset(self):
+    return self.get("Offset")
+
+  def setOffset(self, value):
+    return self.set("Offset", value)
+
+#
+# Please note the command SetPowerGlobalOffset is deprecated since 21.7. You may use SetGlobalPowerOffset.
+# 
+# Set global power offset default value for all signals and all systems
+#
+# Name   Type   Description
+# ------ ------ ---------------------------------------------------
+# Offset double Offset in dB (negative value will attenuate signal)
+#
+
 class SetPowerGlobalOffset(CommandBase):
 
   def __init__(self, offset):
@@ -7521,6 +7825,21 @@ class SetPowerGlobalOffset(CommandBase):
 #
 #
 
+class GetGlobalPowerOffset(CommandBase):
+
+  def __init__(self):
+    CommandBase.__init__(self, "GetGlobalPowerOffset")
+
+  def executePermission(self):
+    return ExecutePermission.EXECUTE_IF_IDLE
+
+#
+# Please note the command GetPowerGlobalOffset is deprecated since 21.7. You may use GetGlobalPowerOffset.
+# 
+# Get global power offset default value for all signals and all systems
+#
+#
+
 class GetPowerGlobalOffset(CommandBase):
 
   def __init__(self):
@@ -7530,17 +7849,17 @@ class GetPowerGlobalOffset(CommandBase):
     return ExecutePermission.EXECUTE_IF_IDLE
 
 #
-# Result of GetPowerGlobalOffset.
+# Result of GetGlobalPowerOffset.
 #
 # Name   Type   Description
 # ------ ------ ---------------------------------------------------
 # Offset double Offset in dB (negative value will attenuate signal)
 #
 
-class GetPowerGlobalOffsetResult(CommandResult):
+class GetGlobalPowerOffsetResult(CommandResult):
 
   def __init__(self, offset):
-    CommandResult.__init__(self, "GetPowerGlobalOffsetResult")
+    CommandResult.__init__(self, "GetGlobalPowerOffsetResult")
     self.setOffset(offset)
 
   def isSuccess(self):
@@ -7553,6 +7872,42 @@ class GetPowerGlobalOffsetResult(CommandResult):
     return self.set("Offset", value)
 
 #
+# Set power offset default value for the signal given in argument
+#
+# Name   Type   Description
+# ------ ------ -----------------------------------------------------------------------------------------------
+# Signal string Accepted signal keys: "L1CA", "L1C", "L1P", "L1ME", "L1MR", "L2C", "L2P", "L2ME", "L2MR", "L5",
+#                                     "G1", "G2", "E1", "E1PRS", "E5a", "E5b", "E6BC", "E6PRS",
+#                                     "B1", "B2", "B1C", "B2a", "QZSSL1CA", "QZSSL1CB", "QZSSL1C",
+#                                     "QZSSL2C", "QZSSL5", "QZSSL1S", "QZSSL5S", "NAVICL5"
+# Offset double Offset in dB (negative value will attenuate signal)
+#
+
+class SetSignalPowerOffset(CommandBase):
+
+  def __init__(self, signal, offset):
+    CommandBase.__init__(self, "SetSignalPowerOffset")
+    self.setSignal(signal)
+    self.setOffset(offset)
+
+  def executePermission(self):
+    return ExecutePermission.EXECUTE_IF_SIMULATING | ExecutePermission.EXECUTE_IF_IDLE
+
+  def signal(self):
+    return self.get("Signal")
+
+  def setSignal(self, value):
+    return self.set("Signal", value)
+
+  def offset(self):
+    return self.get("Offset")
+
+  def setOffset(self, value):
+    return self.set("Offset", value)
+
+#
+# Please note the command SetPowerOffset is deprecated since 21.7. You may use SetSignalPowerOffset.
+# 
 # Set power offset default value for the signal given in argument
 #
 # Name   Type   Description
@@ -7597,6 +7952,34 @@ class SetPowerOffset(CommandBase):
 #                                     "QZSSL2C", "QZSSL5", "QZSSL1S", "QZSSL5S", "NAVICL5"
 #
 
+class GetSignalPowerOffset(CommandBase):
+
+  def __init__(self, signal):
+    CommandBase.__init__(self, "GetSignalPowerOffset")
+    self.setSignal(signal)
+
+  def executePermission(self):
+    return ExecutePermission.EXECUTE_IF_IDLE
+
+  def signal(self):
+    return self.get("Signal")
+
+  def setSignal(self, value):
+    return self.set("Signal", value)
+
+#
+# Please note the command GetPowerOffset is deprecated since 21.7. You may use GetSignalPowerOffset.
+# 
+# Get power offset default value for the signal given in argument
+#
+# Name   Type   Description
+# ------ ------ -----------------------------------------------------------------------------------------------
+# Signal string Accepted signal keys: "L1CA", "L1C", "L1P", "L1ME", "L1MR", "L2C", "L2P", "L2ME", "L2MR", "L5",
+#                                     "G1", "G2", "E1", "E1PRS", "E5a", "E5b", "E6BC", "E6PRS",
+#                                     "B1", "B2", "B1C", "B2a", "QZSSL1CA", "QZSSL1CB", "QZSSL1C",
+#                                     "QZSSL2C", "QZSSL5", "QZSSL1S", "QZSSL5S", "NAVICL5"
+#
+
 class GetPowerOffset(CommandBase):
 
   def __init__(self, signal):
@@ -7613,7 +7996,7 @@ class GetPowerOffset(CommandBase):
     return self.set("Signal", value)
 
 #
-# Result of GetPowerOffset.
+# Result of GetSignalPowerOffset.
 #
 # Name   Type   Description
 # ------ ------ -----------------------------------------------------------------------------------------------
@@ -7624,10 +8007,10 @@ class GetPowerOffset(CommandBase):
 # Offset double Offset in dB (negative value will attenuate signal)
 #
 
-class GetPowerOffsetResult(CommandResult):
+class GetSignalPowerOffsetResult(CommandResult):
 
   def __init__(self, signal, offset):
-    CommandResult.__init__(self, "GetPowerOffsetResult")
+    CommandResult.__init__(self, "GetSignalPowerOffsetResult")
     self.setSignal(signal)
     self.setOffset(offset)
 
@@ -7738,10 +8121,10 @@ class GetPowerSbasOffsetResult(CommandResult):
 #
 # Name            Type   Description
 # --------------- ------ ------------------------------------------------------------------------------------------------------------------------------------
-# Type            string Target type can be "Anechoic Chamber", "DTA-2115B", "File", "N210", "None", "NoneRT" or "X300".
+# Type            string Target type can be "Anechoic Chamber", "DTA-2115B", "File", "N310", "None", "NoneRT", "X300" or "Wavefront Controller".
 # Path            string File path. Optional, use only if type is "File".
-# Address         string Optional. IP Address if type is "N210" or "X300".
-# ClockIsExternal bool   Indicate 10 MHz reference clock is external (true) or internal (false). Optional, use only if type is "DTA-2115B", "N210" or "X300".
+# Address         string Optional. IP Address if type is "N310" or "X300".
+# ClockIsExternal bool   Indicate 10 MHz reference clock is external (true) or internal (false). Optional, use only if type is "DTA-2115B", "N310" or "X300".
 # Id              string Unique identifier automatically set by simulator
 #
 
@@ -7818,10 +8201,10 @@ class GetModulationTarget(CommandBase):
 #
 # Name            Type   Description
 # --------------- ------ ------------------------------------------------------------------------------------------------------------------------------------
-# Type            string Target type can be "Anechoic Chamber", "DTA-2115B", "File", "N210", "None", "NoneRT" or "X300".
+# Type            string Target type can be "Anechoic Chamber", "DTA-2115B", "File", "N310", "None", "NoneRT", "X300" or "Wavefront Controller".
 # Path            string File path. Optional, use only if type is "File".
-# Address         string Optional. IP Address if type is "N210" or "X300".
-# ClockIsExternal bool   Indicate 10 MHz reference clock is external (true) or internal (false). Optional, use only if type is "DTA-2115B", "N210" or "X300".
+# Address         string Optional. IP Address if type is "N310" or "X300".
+# ClockIsExternal bool   Indicate 10 MHz reference clock is external (true) or internal (false). Optional, use only if type is "DTA-2115B", "N310" or "X300".
 # Id              string Unique identifier automatically set by simulator
 #
 
@@ -22538,15 +22921,15 @@ class RemoveAllInterferences(CommandBase):
 # Set PSR ramp event. This function lets user change the pseudorange of any satellite.
 # If SV ID is set to 0, the change is applied to all satellites.
 # 
-#          Hold Start Time
-#          |     Hold Stop Time
-#          |     |
-#          ...........
-#        ..       ...
-#        ..        ...
-#   .......           .........> Time
-#       |           |
-#       Start Time      Stop Time
+#           Hold Start Time
+#           |         Hold Stop Time
+#           |         |
+#           ...........
+#          ..         ...
+#         ..            ...
+#   .......               .........> Time
+#         |               |
+#         Start Time      Stop Time
 #
 # Name          Type   Description
 # ------------- ------ ----------------------------------------------------------------------------------
@@ -22557,7 +22940,8 @@ class RemoveAllInterferences(CommandBase):
 # HoldStartTime int    Elapsed time in seconds since start of simulation. HoldStartTime >= StartTime
 # HoldStopTime  int    Elapsed time in seconds since start of simulation. HoldStopTime >= HoldStartTime
 # StopTime      int    Elapsed time in seconds since start of simulation. StopTime >= HoldStopTime
-# Id            string Unique identifier automatically set by simulator.
+# Id            string Unique identifier automatically set by simulator if empty string.
+#                      The IDs pool is common between all system.
 #
 
 class SetPseudorangeRampForSV(CommandBase):
@@ -22628,19 +23012,20 @@ class SetPseudorangeRampForSV(CommandBase):
 # Get PSR ramp event. This function lets user change the pseudorange of any satellite.
 # If SV ID is set to 0, the change is applied to all satellites.
 # 
-#          Hold Start Time
-#          |     Hold Stop Time
-#          |     |
-#          ...........
-#        ..       ...
-#        ..        ...
-#   .......           .........> Time
-#       |           |
-#       Start Time      Stop Time
+#           Hold Start Time
+#           |         Hold Stop Time
+#           |         |
+#           ...........
+#          ..         ...
+#         ..            ...
+#   .......               .........> Time
+#         |               |
+#         Start Time      Stop Time
 #
 # Name Type   Description
-# ---- ------ -------------------------------------------------
-# Id   string Unique identifier automatically set by simulator.
+# ---- ------ -----------------------------------------------------------------
+# Id   string Unique identifier automatically set by simulator if empty string.
+#             The IDs pool is common between all system.
 #
 
 class GetPseudorangeRampForSV(CommandBase):
@@ -22670,7 +23055,8 @@ class GetPseudorangeRampForSV(CommandBase):
 # HoldStartTime int    Elapsed time in seconds since start of simulation. HoldStartTime >= StartTime
 # HoldStopTime  int    Elapsed time in seconds since start of simulation. HoldStopTime >= HoldStartTime
 # StopTime      int    Elapsed time in seconds since start of simulation. StopTime >= HoldStopTime
-# Id            string Unique identifier automatically set by simulator.
+# Id            string Unique identifier automatically set by simulator if empty string.
+#                      The IDs pool is common between all system.
 #
 
 class GetPseudorangeRampForSVResult(CommandResult):
@@ -23733,7 +24119,7 @@ class IsLOSEnabledForEachSVResult(CommandResult):
     return self.set("Enabled", value)
 
 #
-# Set Add a plug-in instance of specified type.
+# Add a plug-in instance of specified type.
 #
 # Name Type   Description
 # ---- ------ -------------------------------------
@@ -23750,50 +24136,6 @@ class AddPlugInInstance(CommandBase):
 
   def executePermission(self):
     return ExecutePermission.EXECUTE_IF_IDLE
-
-  def name(self):
-    return self.get("Name")
-
-  def setName(self, value):
-    return self.set("Name", value)
-
-  def type(self):
-    return self.get("Type")
-
-  def setType(self, value):
-    return self.set("Type", value)
-
-#
-# Get Add a plug-in instance of specified type.
-#
-#
-
-class GetPlugInInstance(CommandBase):
-
-  def __init__(self):
-    CommandBase.__init__(self, "GetPlugInInstance")
-
-  def executePermission(self):
-    return ExecutePermission.EXECUTE_IF_IDLE
-
-#
-# Result of GetPlugInInstance.
-#
-# Name Type   Description
-# ---- ------ -------------------------------------
-# Name string Unique name for the plug-in instance.
-# Type string Type of the plug-in instance.
-#
-
-class GetPlugInInstanceResult(CommandResult):
-
-  def __init__(self, name, type):
-    CommandResult.__init__(self, "GetPlugInInstanceResult")
-    self.setName(name)
-    self.setType(type)
-
-  def isSuccess(self):
-    return True
 
   def name(self):
     return self.get("Name")
@@ -23926,8 +24268,8 @@ class GetAllIntTxIDResult(CommandResult):
     return self.set("Ids", value)
 
 #
-# Set an interference transmitter. For set : the transmitter Id parameter is not set (empty string),
-# Skydel will assign a unique Id to the transmitter. If the Id is set and already used by Skydel, the
+# Set an interference transmitter. If the transmitter ID parameter is not set (empty string),
+# Skydel will assign a unique ID to the transmitter. If the ID is set and already used by Skydel, the
 # command will fail.
 #
 # Name      Type   Description
@@ -23991,9 +24333,7 @@ class AddIntTx(CommandBase):
     return self.set("Id", value)
 
 #
-# Get an interference transmitter. For set : the transmitter Id parameter is not set (empty string),
-# Skydel will assign a unique Id to the transmitter. If the Id is set and already used by Skydel, the
-# command will fail.
+# Get an interference transmitter.
 #
 # Name Type   Description
 # ---- ------ ------------------------------
@@ -27857,7 +28197,7 @@ class SetEngineLatency(CommandBase):
     self.setLatency(latency)
 
   def executePermission(self):
-    return ExecutePermission.EXECUTE_IF_IDLE
+    return ExecutePermission.EXECUTE_IF_NO_CONFIG | ExecutePermission.EXECUTE_IF_IDLE
 
   def latency(self):
     return self.get("Latency")
@@ -27876,7 +28216,7 @@ class GetEngineLatency(CommandBase):
     CommandBase.__init__(self, "GetEngineLatency")
 
   def executePermission(self):
-    return ExecutePermission.EXECUTE_IF_IDLE | ExecutePermission.EXECUTE_IF_SIMULATING
+    return ExecutePermission.EXECUTE_IF_NO_CONFIG | ExecutePermission.EXECUTE_IF_IDLE | ExecutePermission.EXECUTE_IF_SIMULATING
 
 #
 # Result of GetEngineLatency.
@@ -36592,171 +36932,6 @@ class HilWarningResult(CommandResult):
     return self.set("ExtrapolationTime", value)
 
 #
-# Please note the command SetSbasHealthRanging is deprecated since 21.9. You may use SetSbasSVRangingHealth.
-# 
-# Apply ranging flag for a SBAS satellite
-#
-# Name   Type Description
-# ------ ---- --------------------------
-# Prn    int  The satellite's PRN number
-# Health bool The ranging unhealthy flag
-#
-
-class SetSbasHealthRanging(CommandBase):
-
-  def __init__(self, prn, health):
-    CommandBase.__init__(self, "SetSbasHealthRanging")
-    self.setPrn(prn)
-    self.setHealth(health)
-
-  def executePermission(self):
-    return ExecutePermission.EXECUTE_IF_SIMULATING | ExecutePermission.EXECUTE_IF_IDLE
-
-  def prn(self):
-    return self.get("Prn")
-
-  def setPrn(self, value):
-    return self.set("Prn", value)
-
-  def health(self):
-    return self.get("Health")
-
-  def setHealth(self, value):
-    return self.set("Health", value)
-
-#
-# Please note the command SetSbasHealthCorrections is deprecated since 21.9. You may use SetSbasSVCorrectionsHealth.
-# 
-# Apply correction flag for a SBAS satellite
-#
-# Name   Type Description
-# ------ ---- -----------------------------
-# Prn    int  The satellite's PRN number
-# Health bool The correction unhealthy flag
-#
-
-class SetSbasHealthCorrections(CommandBase):
-
-  def __init__(self, prn, health):
-    CommandBase.__init__(self, "SetSbasHealthCorrections")
-    self.setPrn(prn)
-    self.setHealth(health)
-
-  def executePermission(self):
-    return ExecutePermission.EXECUTE_IF_SIMULATING | ExecutePermission.EXECUTE_IF_IDLE
-
-  def prn(self):
-    return self.get("Prn")
-
-  def setPrn(self, value):
-    return self.set("Prn", value)
-
-  def health(self):
-    return self.get("Health")
-
-  def setHealth(self, value):
-    return self.set("Health", value)
-
-#
-# Please note the command SetSbasHealthIntegrity is deprecated since 21.9. You may use SetSbasSVIntegrityHealth.
-# 
-# Apply integrity flag for a SBAS satellite
-#
-# Name   Type Description
-# ------ ---- ----------------------------
-# Prn    int  The satellite's PRN number
-# Health bool The integrity unhealthy flag
-#
-
-class SetSbasHealthIntegrity(CommandBase):
-
-  def __init__(self, prn, health):
-    CommandBase.__init__(self, "SetSbasHealthIntegrity")
-    self.setPrn(prn)
-    self.setHealth(health)
-
-  def executePermission(self):
-    return ExecutePermission.EXECUTE_IF_SIMULATING | ExecutePermission.EXECUTE_IF_IDLE
-
-  def prn(self):
-    return self.get("Prn")
-
-  def setPrn(self, value):
-    return self.set("Prn", value)
-
-  def health(self):
-    return self.get("Health")
-
-  def setHealth(self, value):
-    return self.set("Health", value)
-
-#
-# Please note the command SetSbasHealthReserved is deprecated since 21.9. You may use SetSbasSVReservedHealth.
-# 
-# Apply reserved flag for a SBAS satellite
-#
-# Name   Type Description
-# ------ ---- ---------------------------
-# Prn    int  The satellite's PRN number
-# Health bool The reserved unhealthy flag
-#
-
-class SetSbasHealthReserved(CommandBase):
-
-  def __init__(self, prn, health):
-    CommandBase.__init__(self, "SetSbasHealthReserved")
-    self.setPrn(prn)
-    self.setHealth(health)
-
-  def executePermission(self):
-    return ExecutePermission.EXECUTE_IF_SIMULATING | ExecutePermission.EXECUTE_IF_IDLE
-
-  def prn(self):
-    return self.get("Prn")
-
-  def setPrn(self, value):
-    return self.set("Prn", value)
-
-  def health(self):
-    return self.get("Health")
-
-  def setHealth(self, value):
-    return self.set("Health", value)
-
-#
-# Please note the command SetSbasHealthService is deprecated since 21.9. You may use SetSbasSVServiceHealth.
-# 
-# Apply service provider for a satellite
-#
-# Name   Type Description
-# ------ ---- --------------------------
-# Prn    int  The satellite's PRN number
-# Health int  The service provider
-#
-
-class SetSbasHealthService(CommandBase):
-
-  def __init__(self, prn, health):
-    CommandBase.__init__(self, "SetSbasHealthService")
-    self.setPrn(prn)
-    self.setHealth(health)
-
-  def executePermission(self):
-    return ExecutePermission.EXECUTE_IF_IDLE
-
-  def prn(self):
-    return self.get("Prn")
-
-  def setPrn(self, value):
-    return self.set("Prn", value)
-
-  def health(self):
-    return self.get("Health")
-
-  def setHealth(self, value):
-    return self.set("Health", value)
-
-#
 # Please note the command SetSbasUdrei is deprecated since 22.2. You may use SetUdreiForSV.
 # 
 # Set the global UDREI value transmitted by SBAS
@@ -36818,4 +36993,165 @@ class GetSbasUdreiResult(CommandResult):
 
   def setUdrei(self, value):
     return self.set("Udrei", value)
+
+#
+# Please note the command SetPowerForSV is deprecated since 22.7. You may use SetManualPowerOffsetForSV.
+# 
+# Set power offset for specified satellite SV ID. Use SV ID 0 to set power for all satellites.
+#
+# Name            Type   Description
+# --------------- ------ -----------------------------------------------------------------------------------------
+# System          string "GPS", "GLONASS", "Galileo", "BeiDou", "SBAS", "QZSS" or "NavIC"
+# SvId            int    The Satellite SV ID
+# PowerOffset     double Power offset in dB (relative to signal power reference level)
+# OtherSatsFollow bool   If true, other sats power will be adjusted to maintain current offsets between satellites
+#
+
+class SetPowerForSV(CommandBase):
+
+  def __init__(self, system, svId, powerOffset, otherSatsFollow):
+    CommandBase.__init__(self, "SetPowerForSV")
+    self.setSystem(system)
+    self.setSvId(svId)
+    self.setPowerOffset(powerOffset)
+    self.setOtherSatsFollow(otherSatsFollow)
+
+  def executePermission(self):
+    return ExecutePermission.EXECUTE_IF_SIMULATING
+
+  def system(self):
+    return self.get("System")
+
+  def setSystem(self, value):
+    return self.set("System", value)
+
+  def svId(self):
+    return self.get("SvId")
+
+  def setSvId(self, value):
+    return self.set("SvId", value)
+
+  def powerOffset(self):
+    return self.get("PowerOffset")
+
+  def setPowerOffset(self, value):
+    return self.set("PowerOffset", value)
+
+  def otherSatsFollow(self):
+    return self.get("OtherSatsFollow")
+
+  def setOtherSatsFollow(self, value):
+    return self.set("OtherSatsFollow", value)
+
+#
+# Please note the command GetPowerForSV is deprecated since 22.7. You may use GetAllPowerForSV.
+# 
+# Get the power offset for specified satellite SV ID.
+#
+# Name   Type   Description
+# ------ ------ -----------------------------------------------------------------------------------
+# System string The system, can be "GPS", "GLONASS", "Galileo", "BeiDou", "SBAS", "QZSS" or "NavIC"
+# SvId   int    The Satellite SV ID
+#
+
+class GetPowerForSV(CommandBase):
+
+  def __init__(self, system, svId):
+    CommandBase.__init__(self, "GetPowerForSV")
+    self.setSystem(system)
+    self.setSvId(svId)
+
+  def executePermission(self):
+    return ExecutePermission.EXECUTE_IF_SIMULATING
+
+  def system(self):
+    return self.get("System")
+
+  def setSystem(self, value):
+    return self.set("System", value)
+
+  def svId(self):
+    return self.get("SvId")
+
+  def setSvId(self, value):
+    return self.set("SvId", value)
+
+#
+# Result of GetPowerForSV.
+#
+# Name                Type   Description
+# ------------------- ------ -----------------------------------------------------------------------------------------------------------
+# System              string The system, can be "GPS", "GLONASS", "Galileo", "BeiDou", "SBAS", "QZSS" or "NavIC"
+# SvId                int    The Satellite SV ID
+# NominalPower        double The nominal power in dBm
+# SignalStrengthModel double The power difference coming from the Signal Strength Model (dB)
+# Antenna             double The receiver antenna power offset (dB). It depends on antenna pattern and relative orientation with signal.
+# SignalLevelOffset   double The global power offset (dB)
+# ManualGain          double The power offset provided by the user (dB). See SetPowerForSV
+# Total               double The sum of all the other fields (dBm)
+#
+
+class GetPowerForSVResult(CommandResult):
+
+  def __init__(self, system, svId, nominalPower, signalStrengthModel, antenna, signalLevelOffset, manualGain, total):
+    CommandResult.__init__(self, "GetPowerForSVResult")
+    self.setSystem(system)
+    self.setSvId(svId)
+    self.setNominalPower(nominalPower)
+    self.setSignalStrengthModel(signalStrengthModel)
+    self.setAntenna(antenna)
+    self.setSignalLevelOffset(signalLevelOffset)
+    self.setManualGain(manualGain)
+    self.setTotal(total)
+
+  def isSuccess(self):
+    return True
+
+  def system(self):
+    return self.get("System")
+
+  def setSystem(self, value):
+    return self.set("System", value)
+
+  def svId(self):
+    return self.get("SvId")
+
+  def setSvId(self, value):
+    return self.set("SvId", value)
+
+  def nominalPower(self):
+    return self.get("NominalPower")
+
+  def setNominalPower(self, value):
+    return self.set("NominalPower", value)
+
+  def signalStrengthModel(self):
+    return self.get("SignalStrengthModel")
+
+  def setSignalStrengthModel(self, value):
+    return self.set("SignalStrengthModel", value)
+
+  def antenna(self):
+    return self.get("Antenna")
+
+  def setAntenna(self, value):
+    return self.set("Antenna", value)
+
+  def signalLevelOffset(self):
+    return self.get("SignalLevelOffset")
+
+  def setSignalLevelOffset(self, value):
+    return self.set("SignalLevelOffset", value)
+
+  def manualGain(self):
+    return self.get("ManualGain")
+
+  def setManualGain(self, value):
+    return self.set("ManualGain", value)
+
+  def total(self):
+    return self.get("Total")
+
+  def setTotal(self, value):
+    return self.set("Total", value)
 

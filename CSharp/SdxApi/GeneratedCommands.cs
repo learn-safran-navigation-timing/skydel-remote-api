@@ -6,7 +6,7 @@ namespace Sdx.Cmd
 
   public static class ApiInfo
   {
-    public const int COMMANDS_API_VERSION = 37;
+    public const int COMMANDS_API_VERSION = 38;
   }
 
   ///
@@ -1622,6 +1622,140 @@ namespace Sdx.Cmd
 
 
   ///
+  /// Get the list of enabled signals for a specified SV ID.
+  ///
+  /// Name   Type   Description
+  /// ------ ------ ------------------------------------------------------------------------------------
+  /// System string The system, can be "GPS", "GLONASS", "Galileo", "BeiDou", "SBAS", "QZSS" or "NavIC".
+  /// SvId   int    The satellite SV ID.
+  ///
+
+  public class GetEnabledSignalsForSV : CommandBase
+  {
+    public override string Documentation
+    {
+      get { return "Get the list of enabled signals for a specified SV ID."; }
+    }
+
+    internal const string CmdName = "GetEnabledSignalsForSV";
+
+    public GetEnabledSignalsForSV()
+      : base(CmdName)
+    {}
+
+    public GetEnabledSignalsForSV(string system, int svId)
+      : base(CmdName)
+    {
+      System = system;
+      SvId = svId;
+    }
+      
+    public override bool IsValid
+    {
+      get
+      {
+        return base.IsValid
+        && Contains("System")
+        && Contains("SvId")
+      ;
+      }
+    }
+
+    public override int ExecutePermission { get { return EXECUTE_IF_SIMULATING | EXECUTE_IF_IDLE; } }
+
+    public string System
+    {
+      get { return GetValue("System").ToObject<string>(CommandBase.Serializer); }
+      set
+      {
+          SetValue("System", JToken.FromObject(value, CommandBase.Serializer));
+      }
+    }
+
+    public int SvId
+    {
+      get { return GetValue("SvId").ToObject<int>(CommandBase.Serializer); }
+      set
+      {
+          SetValue("SvId", JToken.FromObject(value, CommandBase.Serializer));
+      }
+    }
+  }
+
+
+  ///
+  /// Result of GetEnabledSignalsForSV.
+  ///
+  /// Name        Type         Description
+  /// ----------- ------------ ------------------------------------------------------------------------------------
+  /// System      string       The system, can be "GPS", "GLONASS", "Galileo", "BeiDou", "SBAS", "QZSS" or "NavIC".
+  /// SvId        int          The satellite SV ID.
+  /// SignalArray array string The list of enabled signals.
+  ///
+
+  public class GetEnabledSignalsForSVResult : CommandResult
+  {
+    public override string Documentation
+    {
+      get { return "Result of GetEnabledSignalsForSV."; }
+    }
+
+    internal const string CmdName = "GetEnabledSignalsForSVResult";
+
+    public GetEnabledSignalsForSVResult()
+      : base(CmdName)
+    {}
+
+    public GetEnabledSignalsForSVResult(CommandBase relatedCommand, string system, int svId, List<string> signalArray)
+      : base(CmdName, relatedCommand)
+    {
+      System = system;
+      SvId = svId;
+      SignalArray = signalArray;
+    }
+      
+    public override bool IsValid
+    {
+      get
+      {
+        return base.IsValid
+        && Contains("System")
+        && Contains("SvId")
+        && Contains("SignalArray")
+      ;
+      }
+    }
+
+    public string System
+    {
+      get { return GetValue("System").ToObject<string>(CommandBase.Serializer); }
+      set
+      {
+          SetValue("System", JToken.FromObject(value, CommandBase.Serializer));
+      }
+    }
+
+    public int SvId
+    {
+      get { return GetValue("SvId").ToObject<int>(CommandBase.Serializer); }
+      set
+      {
+          SetValue("SvId", JToken.FromObject(value, CommandBase.Serializer));
+      }
+    }
+
+    public List<string> SignalArray
+    {
+      get { return GetValue("SignalArray").ToObject<List<string>>(CommandBase.Serializer); }
+      set
+      {
+          SetValue("SignalArray", JToken.FromObject(value, CommandBase.Serializer));
+      }
+    }
+  }
+
+
+  ///
   /// Enable (or disable) signal for each satellite individually.
   ///
   /// Name    Type       Description
@@ -2183,36 +2317,41 @@ namespace Sdx.Cmd
 
 
   ///
-  /// Set power offset for specified satellite SV ID. Use SV ID 0 to set power for all satellites.
+  /// Set the power offsets applied to the signals of a satellite. Use SV ID 0 to set the power offset of all the satellites. Use key "All" to set the power offset to all signals.
   ///
-  /// Name            Type   Description
-  /// --------------- ------ -----------------------------------------------------------------------------------------
-  /// System          string "GPS", "GLONASS", "Galileo", "BeiDou", "SBAS", "QZSS" or "NavIC"
-  /// SvId            int    The Satellite SV ID
-  /// PowerOffset     double Power offset in dB (relative to signal power reference level)
-  /// OtherSatsFollow bool   If true, other sats power will be adjusted to maintain current offsets between satellites
+  /// Name                  Type               Description
+  /// --------------------- ------------------ ------------------------------------------------------------------------------
+  /// System                string             "GPS", "GLONASS", "Galileo", "BeiDou", "SBAS", "QZSS" or "NavIC".
+  /// SvId                  int                The satellite's SV ID.
+  /// SignalPowerOffsetDict dict string:double A dictionary of signal poweroffset pairs.
+  ///                                          Accepted keys are: "All", "L1CA", "L1C", "L1P", "L1ME", "L1MR", "L2C", "L2P",
+  ///                                                             "L2ME", "L2MR", "L5", "G1", "G2", "E1", "E1PRS", "E5a",
+  ///                                                             "E5b", "E6BC", "E6PRS", "B1", "B2", "B1C", "B2a", "SBASL1",
+  ///                                                             "SBASL5", "QZSSL1CA", "QZSSL1CB", "QZSSL1C", "QZSSL2C",
+  ///                                                             "QZSSL5", "QZSSL1S", "QZSSL5S" and "NAVICL5"
+  /// IsRelativePowerOffset bool               If true, the power offset(s) are added to the current value(s).
   ///
 
-  public class SetPowerForSV : CommandBase
+  public class SetManualPowerOffsetForSV : CommandBase
   {
     public override string Documentation
     {
-      get { return "Set power offset for specified satellite SV ID. Use SV ID 0 to set power for all satellites."; }
+      get { return "Set the power offsets applied to the signals of a satellite. Use SV ID 0 to set the power offset of all the satellites. Use key \"All\" to set the power offset to all signals."; }
     }
 
-    internal const string CmdName = "SetPowerForSV";
+    internal const string CmdName = "SetManualPowerOffsetForSV";
 
-    public SetPowerForSV()
+    public SetManualPowerOffsetForSV()
       : base(CmdName)
     {}
 
-    public SetPowerForSV(string system, int svId, double powerOffset, bool otherSatsFollow)
+    public SetManualPowerOffsetForSV(string system, int svId, Dictionary<string, double> signalPowerOffsetDict, bool isRelativePowerOffset)
       : base(CmdName)
     {
       System = system;
       SvId = svId;
-      PowerOffset = powerOffset;
-      OtherSatsFollow = otherSatsFollow;
+      SignalPowerOffsetDict = signalPowerOffsetDict;
+      IsRelativePowerOffset = isRelativePowerOffset;
     }
       
     public override bool IsValid
@@ -2222,8 +2361,8 @@ namespace Sdx.Cmd
         return base.IsValid
         && Contains("System")
         && Contains("SvId")
-        && Contains("PowerOffset")
-        && Contains("OtherSatsFollow")
+        && Contains("SignalPowerOffsetDict")
+        && Contains("IsRelativePowerOffset")
       ;
       }
     }
@@ -2248,53 +2387,60 @@ namespace Sdx.Cmd
       }
     }
 
-    public double PowerOffset
+    public Dictionary<string, double> SignalPowerOffsetDict
     {
-      get { return GetValue("PowerOffset").ToObject<double>(CommandBase.Serializer); }
+      get { return GetValue("SignalPowerOffsetDict").ToObject<Dictionary<string, double>>(CommandBase.Serializer); }
       set
       {
-          SetValue("PowerOffset", JToken.FromObject(value, CommandBase.Serializer));
+          SetValue("SignalPowerOffsetDict", JToken.FromObject(value, CommandBase.Serializer));
       }
     }
 
-    public bool OtherSatsFollow
+    public bool IsRelativePowerOffset
     {
-      get { return GetValue("OtherSatsFollow").ToObject<bool>(CommandBase.Serializer); }
+      get { return GetValue("IsRelativePowerOffset").ToObject<bool>(CommandBase.Serializer); }
       set
       {
-          SetValue("OtherSatsFollow", JToken.FromObject(value, CommandBase.Serializer));
+          SetValue("IsRelativePowerOffset", JToken.FromObject(value, CommandBase.Serializer));
       }
     }
   }
 
 
   ///
-  /// Get the power offset for specified satellite SV ID.
+  /// Get the power offsets for specific signals of a satellite.
   ///
-  /// Name   Type   Description
-  /// ------ ------ -----------------------------------------------------------------------------------
-  /// System string The system, can be "GPS", "GLONASS", "Galileo", "BeiDou", "SBAS", "QZSS" or "NavIC"
-  /// SvId   int    The Satellite SV ID
+  /// Name        Type         Description
+  /// ----------- ------------ --------------------------------------------------------------------------------
+  /// System      string       "GPS", "GLONASS", "Galileo", "BeiDou", "SBAS", "QZSS" or "NavIC".
+  /// SvId        int          The satellite's SV ID.
+  /// SignalArray array string An array of signals.
+  ///                          Accepted values are: "All", "L1CA", "L1C", "L1P", "L1ME", "L1MR", "L2C", "L2P",
+  ///                                               "L2ME", "L2MR", "L5", "G1", "G2", "E1", "E1PRS", "E5a",
+  ///                                               "E5b", "E6BC", "E6PRS", "B1", "B2", "B1C", "B2a", "SBASL1",
+  ///                                               "SBASL5", "QZSSL1CA", "QZSSL1CB", "QZSSL1C", "QZSSL2C",
+  ///                                               "QZSSL5", "QZSSL1S", "QZSSL5S" and "NAVICL5"
   ///
 
-  public class GetPowerForSV : CommandBase
+  public class GetManualPowerOffsetForSV : CommandBase
   {
     public override string Documentation
     {
-      get { return "Get the power offset for specified satellite SV ID."; }
+      get { return "Get the power offsets for specific signals of a satellite."; }
     }
 
-    internal const string CmdName = "GetPowerForSV";
+    internal const string CmdName = "GetManualPowerOffsetForSV";
 
-    public GetPowerForSV()
+    public GetManualPowerOffsetForSV()
       : base(CmdName)
     {}
 
-    public GetPowerForSV(string system, int svId)
+    public GetManualPowerOffsetForSV(string system, int svId, List<string> signalArray)
       : base(CmdName)
     {
       System = system;
       SvId = svId;
+      SignalArray = signalArray;
     }
       
     public override bool IsValid
@@ -2304,6 +2450,7 @@ namespace Sdx.Cmd
         return base.IsValid
         && Contains("System")
         && Contains("SvId")
+        && Contains("SignalArray")
       ;
       }
     }
@@ -2327,48 +2474,52 @@ namespace Sdx.Cmd
           SetValue("SvId", JToken.FromObject(value, CommandBase.Serializer));
       }
     }
+
+    public List<string> SignalArray
+    {
+      get { return GetValue("SignalArray").ToObject<List<string>>(CommandBase.Serializer); }
+      set
+      {
+          SetValue("SignalArray", JToken.FromObject(value, CommandBase.Serializer));
+      }
+    }
   }
 
 
   ///
-  /// Result of GetPowerForSV.
+  /// Result of GetManualPowerOffsetForSV.
   ///
-  /// Name                Type   Description
-  /// ------------------- ------ -----------------------------------------------------------------------------------------------------------
-  /// System              string The system, can be "GPS", "GLONASS", "Galileo", "BeiDou", "SBAS", "QZSS" or "NavIC"
-  /// SvId                int    The Satellite SV ID
-  /// NominalPower        double The nominal power in dBm
-  /// SignalStrengthModel double The power difference coming from the Signal Strength Model (dB)
-  /// Antenna             double The receiver antenna power offset (dB). It depends on antenna pattern and relative orientation with signal.
-  /// SignalLevelOffset   double The global power offset (dB)
-  /// ManualGain          double The power offset provided by the user (dB). See SetPowerForSV
-  /// Total               double The sum of all the other fields (dBm)
+  /// Name                  Type               Description
+  /// --------------------- ------------------ ------------------------------------------------------------------------------
+  /// System                string             "GPS", "GLONASS", "Galileo", "BeiDou", "SBAS", "QZSS" or "NavIC".
+  /// SvId                  int                The satellite's SV ID.
+  /// SignalPowerOffsetDict dict string:double A dictionary of signal poweroffset pairs.
+  ///                                          Accepted keys are: "All", "L1CA", "L1C", "L1P", "L1ME", "L1MR", "L2C", "L2P",
+  ///                                                             "L2ME", "L2MR", "L5", "G1", "G2", "E1", "E1PRS", "E5a",
+  ///                                                             "E5b", "E6BC", "E6PRS", "B1", "B2", "B1C", "B2a", "SBASL1",
+  ///                                                             "SBASL5", "QZSSL1CA", "QZSSL1CB", "QZSSL1C", "QZSSL2C",
+  ///                                                             "QZSSL5", "QZSSL1S", "QZSSL5S" and "NAVICL5"
   ///
 
-  public class GetPowerForSVResult : CommandResult
+  public class GetManualPowerOffsetForSVResult : CommandResult
   {
     public override string Documentation
     {
-      get { return "Result of GetPowerForSV."; }
+      get { return "Result of GetManualPowerOffsetForSV."; }
     }
 
-    internal const string CmdName = "GetPowerForSVResult";
+    internal const string CmdName = "GetManualPowerOffsetForSVResult";
 
-    public GetPowerForSVResult()
+    public GetManualPowerOffsetForSVResult()
       : base(CmdName)
     {}
 
-    public GetPowerForSVResult(CommandBase relatedCommand, string system, int svId, double nominalPower, double signalStrengthModel, double antenna, double signalLevelOffset, double manualGain, double total)
+    public GetManualPowerOffsetForSVResult(CommandBase relatedCommand, string system, int svId, Dictionary<string, double> signalPowerOffsetDict)
       : base(CmdName, relatedCommand)
     {
       System = system;
       SvId = svId;
-      NominalPower = nominalPower;
-      SignalStrengthModel = signalStrengthModel;
-      Antenna = antenna;
-      SignalLevelOffset = signalLevelOffset;
-      ManualGain = manualGain;
-      Total = total;
+      SignalPowerOffsetDict = signalPowerOffsetDict;
     }
       
     public override bool IsValid
@@ -2378,12 +2529,7 @@ namespace Sdx.Cmd
         return base.IsValid
         && Contains("System")
         && Contains("SvId")
-        && Contains("NominalPower")
-        && Contains("SignalStrengthModel")
-        && Contains("Antenna")
-        && Contains("SignalLevelOffset")
-        && Contains("ManualGain")
-        && Contains("Total")
+        && Contains("SignalPowerOffsetDict")
       ;
       }
     }
@@ -2406,75 +2552,32 @@ namespace Sdx.Cmd
       }
     }
 
-    public double NominalPower
+    public Dictionary<string, double> SignalPowerOffsetDict
     {
-      get { return GetValue("NominalPower").ToObject<double>(CommandBase.Serializer); }
+      get { return GetValue("SignalPowerOffsetDict").ToObject<Dictionary<string, double>>(CommandBase.Serializer); }
       set
       {
-          SetValue("NominalPower", JToken.FromObject(value, CommandBase.Serializer));
-      }
-    }
-
-    public double SignalStrengthModel
-    {
-      get { return GetValue("SignalStrengthModel").ToObject<double>(CommandBase.Serializer); }
-      set
-      {
-          SetValue("SignalStrengthModel", JToken.FromObject(value, CommandBase.Serializer));
-      }
-    }
-
-    public double Antenna
-    {
-      get { return GetValue("Antenna").ToObject<double>(CommandBase.Serializer); }
-      set
-      {
-          SetValue("Antenna", JToken.FromObject(value, CommandBase.Serializer));
-      }
-    }
-
-    public double SignalLevelOffset
-    {
-      get { return GetValue("SignalLevelOffset").ToObject<double>(CommandBase.Serializer); }
-      set
-      {
-          SetValue("SignalLevelOffset", JToken.FromObject(value, CommandBase.Serializer));
-      }
-    }
-
-    public double ManualGain
-    {
-      get { return GetValue("ManualGain").ToObject<double>(CommandBase.Serializer); }
-      set
-      {
-          SetValue("ManualGain", JToken.FromObject(value, CommandBase.Serializer));
-      }
-    }
-
-    public double Total
-    {
-      get { return GetValue("Total").ToObject<double>(CommandBase.Serializer); }
-      set
-      {
-          SetValue("Total", JToken.FromObject(value, CommandBase.Serializer));
+          SetValue("SignalPowerOffsetDict", JToken.FromObject(value, CommandBase.Serializer));
       }
     }
   }
 
 
   ///
+  /// Please note the command ResetAllSatPower is deprecated since 21.7. You may use ResetManualPowerOffsets.
+  /// 
   /// Reset power offset for all satellites is specified system to default value
   ///
   /// Name   Type   Description
-  /// ------ ------ ----------------------------------------------------------------
-  /// System string "GPS", "GLONASS", "Galileo", "BeiDou", "SBAS", "QZSS" or "NavIC"
+  /// ------ ------ -----------------------------------------------------------------
+  /// System string "GPS", "GLONASS", "Galileo", "BeiDou", "SBAS", "QZSS" or "NavIC".
   ///
 
   public class ResetAllSatPower : CommandBase
   {
     public override string Documentation
     {
-      get { return "Reset power offset for all satellites is specified system to default value"; }
+      get { return "Please note the command ResetAllSatPower is deprecated since 21.7. You may use ResetManualPowerOffsets.\n\nReset power offset for all satellites is specified system to default value"; }
     }
 
     internal const string CmdName = "ResetAllSatPower";
@@ -2507,6 +2610,258 @@ namespace Sdx.Cmd
       set
       {
           SetValue("System", JToken.FromObject(value, CommandBase.Serializer));
+      }
+    }
+  }
+
+
+  ///
+  /// Reset power offset for all satellites is specified system to default value
+  ///
+  /// Name   Type   Description
+  /// ------ ------ -----------------------------------------------------------------
+  /// System string "GPS", "GLONASS", "Galileo", "BeiDou", "SBAS", "QZSS" or "NavIC".
+  ///
+
+  public class ResetManualPowerOffsets : CommandBase
+  {
+    public override string Documentation
+    {
+      get { return "Reset power offset for all satellites is specified system to default value"; }
+    }
+
+    internal const string CmdName = "ResetManualPowerOffsets";
+
+    public ResetManualPowerOffsets()
+      : base(CmdName)
+    {}
+
+    public ResetManualPowerOffsets(string system)
+      : base(CmdName)
+    {
+      System = system;
+    }
+      
+    public override bool IsValid
+    {
+      get
+      {
+        return base.IsValid
+        && Contains("System")
+      ;
+      }
+    }
+
+    public override int ExecutePermission { get { return EXECUTE_IF_SIMULATING; } }
+
+    public string System
+    {
+      get { return GetValue("System").ToObject<string>(CommandBase.Serializer); }
+      set
+      {
+          SetValue("System", JToken.FromObject(value, CommandBase.Serializer));
+      }
+    }
+  }
+
+
+  ///
+  /// Information on the signal power.
+  ///
+  /// Name                Type   Description
+  /// ------------------- ------ -----------------------------------------------------------------------------------------------------------
+  /// AntennaOffset       double The receiver antenna power offset (dB). It depends on antenna pattern and relative orientation with signal.
+  /// StrengthModelOffset double The power offset coming from the Signal Strength Model (dB).
+  /// SignalOffset        double The signal power offset (dB). See SetSignalPowerOffset.
+  /// ManualOffset        double The manual power offset (dB). See SetManualPowerOffsetForSV.
+  /// Total               double The sum of all the other fields, including nominal power and the global power offset (dBm).
+  ///
+
+  public struct SignalPower
+  {
+    public double AntennaOffset;
+    public double StrengthModelOffset;
+    public double SignalOffset;
+    public double ManualOffset;
+    public double Total;
+  }
+
+
+  ///
+  /// Get the power information for the specified satellite.
+  ///
+  /// Name        Type         Description
+  /// ----------- ------------ --------------------------------------------------------------------------------
+  /// System      string       "GPS", "GLONASS", "Galileo", "BeiDou", "SBAS", "QZSS" or "NavIC".
+  /// SvId        int          The Satellite's SV ID.
+  /// SignalArray array string An array of signals.
+  ///                          Accepted values are: "All", "L1CA", "L1C", "L1P", "L1ME", "L1MR", "L2C", "L2P",
+  ///                                               "L2ME", "L2MR", "L5", "G1", "G2", "E1", "E1PRS", "E5a",
+  ///                                               "E5b", "E6BC", "E6PRS", "B1", "B2", "B1C", "B2a", "SBASL1",
+  ///                                               "SBASL5", "QZSSL1CA", "QZSSL1CB", "QZSSL1C", "QZSSL2C",
+  ///                                               "QZSSL5", "QZSSL1S", "QZSSL5S" and "NAVICL5"
+  ///
+
+  public class GetAllPowerForSV : CommandBase
+  {
+    public override string Documentation
+    {
+      get { return "Get the power information for the specified satellite."; }
+    }
+
+    internal const string CmdName = "GetAllPowerForSV";
+
+    public GetAllPowerForSV()
+      : base(CmdName)
+    {}
+
+    public GetAllPowerForSV(string system, int svId, List<string> signalArray)
+      : base(CmdName)
+    {
+      System = system;
+      SvId = svId;
+      SignalArray = signalArray;
+    }
+      
+    public override bool IsValid
+    {
+      get
+      {
+        return base.IsValid
+        && Contains("System")
+        && Contains("SvId")
+        && Contains("SignalArray")
+      ;
+      }
+    }
+
+    public override int ExecutePermission { get { return EXECUTE_IF_SIMULATING; } }
+
+    public string System
+    {
+      get { return GetValue("System").ToObject<string>(CommandBase.Serializer); }
+      set
+      {
+          SetValue("System", JToken.FromObject(value, CommandBase.Serializer));
+      }
+    }
+
+    public int SvId
+    {
+      get { return GetValue("SvId").ToObject<int>(CommandBase.Serializer); }
+      set
+      {
+          SetValue("SvId", JToken.FromObject(value, CommandBase.Serializer));
+      }
+    }
+
+    public List<string> SignalArray
+    {
+      get { return GetValue("SignalArray").ToObject<List<string>>(CommandBase.Serializer); }
+      set
+      {
+          SetValue("SignalArray", JToken.FromObject(value, CommandBase.Serializer));
+      }
+    }
+  }
+
+
+  ///
+  /// Result of GetAllPowerForSV.
+  ///
+  /// Name            Type                    Description
+  /// --------------- ----------------------- ------------------------------------------------------------------------------
+  /// System          string                  "GPS", "GLONASS", "Galileo", "BeiDou", "SBAS", "QZSS" or "NavIC".
+  /// SvId            int                     The Satellite's SV ID.
+  /// NominalPower    double                  The nominal power in dBm.
+  /// GlobalOffset    double                  The global power offset (dB).
+  /// SignalPowerDict dict string:SignalPower A dictionary of signal power pairs.
+  ///                                         Accepted keys are: "All", "L1CA", "L1C", "L1P", "L1ME", "L1MR", "L2C", "L2P",
+  ///                                                            "L2ME", "L2MR", "L5", "G1", "G2", "E1", "E1PRS", "E5a",
+  ///                                                            "E5b", "E6BC", "E6PRS", "B1", "B2", "B1C", "B2a", "SBASL1",
+  ///                                                            "SBASL5", "QZSSL1CA", "QZSSL1CB", "QZSSL1C", "QZSSL2C",
+  ///                                                            "QZSSL5", "QZSSL1S", "QZSSL5S" and "NAVICL5"
+  ///
+
+  public class GetAllPowerForSVResult : CommandResult
+  {
+    public override string Documentation
+    {
+      get { return "Result of GetAllPowerForSV."; }
+    }
+
+    internal const string CmdName = "GetAllPowerForSVResult";
+
+    public GetAllPowerForSVResult()
+      : base(CmdName)
+    {}
+
+    public GetAllPowerForSVResult(CommandBase relatedCommand, string system, int svId, double nominalPower, double globalOffset, Dictionary<string, SignalPower> signalPowerDict)
+      : base(CmdName, relatedCommand)
+    {
+      System = system;
+      SvId = svId;
+      NominalPower = nominalPower;
+      GlobalOffset = globalOffset;
+      SignalPowerDict = signalPowerDict;
+    }
+      
+    public override bool IsValid
+    {
+      get
+      {
+        return base.IsValid
+        && Contains("System")
+        && Contains("SvId")
+        && Contains("NominalPower")
+        && Contains("GlobalOffset")
+        && Contains("SignalPowerDict")
+      ;
+      }
+    }
+
+    public string System
+    {
+      get { return GetValue("System").ToObject<string>(CommandBase.Serializer); }
+      set
+      {
+          SetValue("System", JToken.FromObject(value, CommandBase.Serializer));
+      }
+    }
+
+    public int SvId
+    {
+      get { return GetValue("SvId").ToObject<int>(CommandBase.Serializer); }
+      set
+      {
+          SetValue("SvId", JToken.FromObject(value, CommandBase.Serializer));
+      }
+    }
+
+    public double NominalPower
+    {
+      get { return GetValue("NominalPower").ToObject<double>(CommandBase.Serializer); }
+      set
+      {
+          SetValue("NominalPower", JToken.FromObject(value, CommandBase.Serializer));
+      }
+    }
+
+    public double GlobalOffset
+    {
+      get { return GetValue("GlobalOffset").ToObject<double>(CommandBase.Serializer); }
+      set
+      {
+          SetValue("GlobalOffset", JToken.FromObject(value, CommandBase.Serializer));
+      }
+    }
+
+    public Dictionary<string, SignalPower> SignalPowerDict
+    {
+      get { return GetValue("SignalPowerDict").ToObject<Dictionary<string, SignalPower>>(CommandBase.Serializer); }
+      set
+      {
+          SetValue("SignalPowerDict", JToken.FromObject(value, CommandBase.Serializer));
       }
     }
   }
@@ -4108,6 +4463,158 @@ namespace Sdx.Cmd
           SetValue("Mode", JToken.FromObject(value, CommandBase.Serializer));
       }
     }
+  }
+
+
+  ///
+  /// Connect a receiver.
+  ///
+  /// Name        Type                           Description
+  /// ----------- ------------------------------ -------------------------------------------------------------------------------------------------------------------------------------
+  /// Port        string                         Serial Port (ex: "COM5").
+  /// BaudRate    optional int                   Data baud rate of the serial port. Can be 1200 | 2400 | 4800 | 9600 | 19200 | 38400 | 57600 | 115200 | 460800. Default value is 9600.
+  /// DataBits    optional int                   Number of data bits used by the serial port. Possible values are 5, 6, 7 and 8. Default value is 8.
+  /// Parity      optional SerialPortParity      Parity scheme used by the serial port. Default value is NoParity.
+  /// StopBits    optional int                   Number of stop bits used by the serial port. Possible values are 1 and 2. Default value is 1.
+  /// FlowControl optional SerialPortFlowControl Flow control used by the serial port. Default value is NoFlowControl.
+  ///
+
+  public class ConnectSerialPortReceiver : CommandBase
+  {
+    public override string Documentation
+    {
+      get { return "Connect a receiver."; }
+    }
+
+    internal const string CmdName = "ConnectSerialPortReceiver";
+
+    public ConnectSerialPortReceiver()
+      : base(CmdName)
+    {}
+
+    public ConnectSerialPortReceiver(string port, int? baudRate = null, int? dataBits = null, SerialPortParity? parity = null, int? stopBits = null, SerialPortFlowControl? flowControl = null)
+      : base(CmdName)
+    {
+      Port = port;
+      BaudRate = baudRate;
+      DataBits = dataBits;
+      Parity = parity;
+      StopBits = stopBits;
+      FlowControl = flowControl;
+    }
+      
+    public override bool IsValid
+    {
+      get
+      {
+        return base.IsValid
+        && Contains("Port")
+      ;
+      }
+    }
+
+    public override int ExecutePermission { get { return EXECUTE_IF_NO_CONFIG | EXECUTE_IF_SIMULATING | EXECUTE_IF_IDLE; } }
+
+    public string Port
+    {
+      get { return GetValue("Port").ToObject<string>(CommandBase.Serializer); }
+      set
+      {
+          SetValue("Port", JToken.FromObject(value, CommandBase.Serializer));
+      }
+    }
+
+    public int? BaudRate
+    {
+      get { return GetValue("BaudRate").ToObject<int?>(CommandBase.Serializer); }
+      set
+      {
+        if (value == null)
+          RemoveValue("BaudRate");
+        else
+          SetValue("BaudRate", JToken.FromObject(value, CommandBase.Serializer));
+      }
+    }
+
+    public int? DataBits
+    {
+      get { return GetValue("DataBits").ToObject<int?>(CommandBase.Serializer); }
+      set
+      {
+        if (value == null)
+          RemoveValue("DataBits");
+        else
+          SetValue("DataBits", JToken.FromObject(value, CommandBase.Serializer));
+      }
+    }
+
+    public SerialPortParity? Parity
+    {
+      get { return GetValue("Parity").ToObject<SerialPortParity?>(CommandBase.Serializer); }
+      set
+      {
+        if (value == null)
+          RemoveValue("Parity");
+        else
+          SetValue("Parity", JToken.FromObject(value, CommandBase.Serializer));
+      }
+    }
+
+    public int? StopBits
+    {
+      get { return GetValue("StopBits").ToObject<int?>(CommandBase.Serializer); }
+      set
+      {
+        if (value == null)
+          RemoveValue("StopBits");
+        else
+          SetValue("StopBits", JToken.FromObject(value, CommandBase.Serializer));
+      }
+    }
+
+    public SerialPortFlowControl? FlowControl
+    {
+      get { return GetValue("FlowControl").ToObject<SerialPortFlowControl?>(CommandBase.Serializer); }
+      set
+      {
+        if (value == null)
+          RemoveValue("FlowControl");
+        else
+          SetValue("FlowControl", JToken.FromObject(value, CommandBase.Serializer));
+      }
+    }
+  }
+
+
+  ///
+  /// Disconnects the connected receiver. Does nothing if no receiver is connected.
+  ///
+  /// 
+  ///
+
+  public class DisconnectSerialPortReceiver : CommandBase
+  {
+    public override string Documentation
+    {
+      get { return "Disconnects the connected receiver. Does nothing if no receiver is connected."; }
+    }
+
+    internal const string CmdName = "DisconnectSerialPortReceiver";
+
+    public DisconnectSerialPortReceiver()
+      : base(CmdName)
+    {}
+      
+    public override bool IsValid
+    {
+      get
+      {
+        return base.IsValid
+      ;
+      }
+    }
+
+    public override int ExecutePermission { get { return EXECUTE_IF_NO_CONFIG | EXECUTE_IF_SIMULATING | EXECUTE_IF_IDLE; } }
   }
 
 
@@ -15115,6 +15622,8 @@ namespace Sdx.Cmd
 
 
   ///
+  /// Please note the command SetPowerGlobalOffset is deprecated since 21.7. You may use SetGlobalPowerOffset.
+  /// 
   /// Set global power offset default value for all signals and all systems
   ///
   /// Name   Type   Description
@@ -15126,7 +15635,7 @@ namespace Sdx.Cmd
   {
     public override string Documentation
     {
-      get { return "Set global power offset default value for all signals and all systems"; }
+      get { return "Please note the command SetPowerGlobalOffset is deprecated since 21.7. You may use SetGlobalPowerOffset.\n\nSet global power offset default value for all signals and all systems"; }
     }
 
     internal const string CmdName = "SetPowerGlobalOffset";
@@ -15165,6 +15674,58 @@ namespace Sdx.Cmd
 
 
   ///
+  /// Set global power offset default value for all signals and all systems
+  ///
+  /// Name   Type   Description
+  /// ------ ------ ---------------------------------------------------
+  /// Offset double Offset in dB (negative value will attenuate signal)
+  ///
+
+  public class SetGlobalPowerOffset : CommandBase
+  {
+    public override string Documentation
+    {
+      get { return "Set global power offset default value for all signals and all systems"; }
+    }
+
+    internal const string CmdName = "SetGlobalPowerOffset";
+
+    public SetGlobalPowerOffset()
+      : base(CmdName)
+    {}
+
+    public SetGlobalPowerOffset(double offset)
+      : base(CmdName)
+    {
+      Offset = offset;
+    }
+      
+    public override bool IsValid
+    {
+      get
+      {
+        return base.IsValid
+        && Contains("Offset")
+      ;
+      }
+    }
+
+    public override int ExecutePermission { get { return EXECUTE_IF_SIMULATING | EXECUTE_IF_IDLE; } }
+
+    public double Offset
+    {
+      get { return GetValue("Offset").ToObject<double>(CommandBase.Serializer); }
+      set
+      {
+          SetValue("Offset", JToken.FromObject(value, CommandBase.Serializer));
+      }
+    }
+  }
+
+
+  ///
+  /// Please note the command GetPowerGlobalOffset is deprecated since 21.7. You may use GetGlobalPowerOffset.
+  /// 
   /// Get global power offset default value for all signals and all systems
   ///
   /// 
@@ -15174,7 +15735,7 @@ namespace Sdx.Cmd
   {
     public override string Documentation
     {
-      get { return "Get global power offset default value for all signals and all systems"; }
+      get { return "Please note the command GetPowerGlobalOffset is deprecated since 21.7. You may use GetGlobalPowerOffset.\n\nGet global power offset default value for all signals and all systems"; }
     }
 
     internal const string CmdName = "GetPowerGlobalOffset";
@@ -15197,7 +15758,39 @@ namespace Sdx.Cmd
 
 
   ///
-  /// Result of GetPowerGlobalOffset.
+  /// Get global power offset default value for all signals and all systems
+  ///
+  /// 
+  ///
+
+  public class GetGlobalPowerOffset : CommandBase
+  {
+    public override string Documentation
+    {
+      get { return "Get global power offset default value for all signals and all systems"; }
+    }
+
+    internal const string CmdName = "GetGlobalPowerOffset";
+
+    public GetGlobalPowerOffset()
+      : base(CmdName)
+    {}
+      
+    public override bool IsValid
+    {
+      get
+      {
+        return base.IsValid
+      ;
+      }
+    }
+
+    public override int ExecutePermission { get { return EXECUTE_IF_IDLE; } }
+  }
+
+
+  ///
+  /// Result of GetGlobalPowerOffset.
   ///
   /// Name   Type   Description
   /// ------ ------ ---------------------------------------------------
@@ -15208,9 +15801,9 @@ namespace Sdx.Cmd
   {
     public override string Documentation
     {
-      get { return "Result of GetPowerGlobalOffset."; }
+      get { return "Result of GetGlobalPowerOffset."; }
     }
-
+  
     internal const string CmdName = "GetPowerGlobalOffsetResult";
 
     public GetPowerGlobalOffsetResult()
@@ -15222,7 +15815,7 @@ namespace Sdx.Cmd
     {
       Offset = offset;
     }
-      
+
     public override bool IsValid
     {
       get
@@ -15236,15 +15829,37 @@ namespace Sdx.Cmd
     public double Offset
     {
       get { return GetValue("Offset").ToObject<double>(CommandBase.Serializer); }
-      set
-      {
-          SetValue("Offset", JToken.FromObject(value, CommandBase.Serializer));
-      }
+      set { SetValue("Offset", JToken.FromObject(value, CommandBase.Serializer)); }
+    }
+  }
+
+  ///
+  /// Name   Type   Description
+  /// ------ ------ ---------------------------------------------------
+  /// Offset double Offset in dB (negative value will attenuate signal)
+  ///
+
+  public class GetGlobalPowerOffsetResult : GetPowerGlobalOffsetResult
+  {
+    internal new const string CmdName = "GetGlobalPowerOffsetResult";
+
+    public GetGlobalPowerOffsetResult()
+      : base()
+    {
+       Name = CmdName;
+    }
+
+    public GetGlobalPowerOffsetResult(CommandBase relatedCommand, double offset)
+      : base(relatedCommand, offset)
+    {
+      Name = CmdName;
     }
   }
 
 
   ///
+  /// Please note the command SetPowerOffset is deprecated since 21.7. You may use SetSignalPowerOffset.
+  /// 
   /// Set power offset default value for the signal given in argument
   ///
   /// Name   Type   Description
@@ -15260,7 +15875,7 @@ namespace Sdx.Cmd
   {
     public override string Documentation
     {
-      get { return "Set power offset default value for the signal given in argument"; }
+      get { return "Please note the command SetPowerOffset is deprecated since 21.7. You may use SetSignalPowerOffset.\n\nSet power offset default value for the signal given in argument"; }
     }
 
     internal const string CmdName = "SetPowerOffset";
@@ -15310,6 +15925,73 @@ namespace Sdx.Cmd
 
 
   ///
+  /// Set power offset default value for the signal given in argument
+  ///
+  /// Name   Type   Description
+  /// ------ ------ -----------------------------------------------------------------------------------------------
+  /// Signal string Accepted signal keys: "L1CA", "L1C", "L1P", "L1ME", "L1MR", "L2C", "L2P", "L2ME", "L2MR", "L5",
+  ///                                     "G1", "G2", "E1", "E1PRS", "E5a", "E5b", "E6BC", "E6PRS",
+  ///                                     "B1", "B2", "B1C", "B2a", "QZSSL1CA", "QZSSL1CB", "QZSSL1C",
+  ///                                     "QZSSL2C", "QZSSL5", "QZSSL1S", "QZSSL5S", "NAVICL5"
+  /// Offset double Offset in dB (negative value will attenuate signal)
+  ///
+
+  public class SetSignalPowerOffset : CommandBase
+  {
+    public override string Documentation
+    {
+      get { return "Set power offset default value for the signal given in argument"; }
+    }
+
+    internal const string CmdName = "SetSignalPowerOffset";
+
+    public SetSignalPowerOffset()
+      : base(CmdName)
+    {}
+
+    public SetSignalPowerOffset(string signal, double offset)
+      : base(CmdName)
+    {
+      Signal = signal;
+      Offset = offset;
+    }
+      
+    public override bool IsValid
+    {
+      get
+      {
+        return base.IsValid
+        && Contains("Signal")
+        && Contains("Offset")
+      ;
+      }
+    }
+
+    public override int ExecutePermission { get { return EXECUTE_IF_SIMULATING | EXECUTE_IF_IDLE; } }
+
+    public string Signal
+    {
+      get { return GetValue("Signal").ToObject<string>(CommandBase.Serializer); }
+      set
+      {
+          SetValue("Signal", JToken.FromObject(value, CommandBase.Serializer));
+      }
+    }
+
+    public double Offset
+    {
+      get { return GetValue("Offset").ToObject<double>(CommandBase.Serializer); }
+      set
+      {
+          SetValue("Offset", JToken.FromObject(value, CommandBase.Serializer));
+      }
+    }
+  }
+
+
+  ///
+  /// Please note the command GetPowerOffset is deprecated since 21.7. You may use GetSignalPowerOffset.
+  /// 
   /// Get power offset default value for the signal given in argument
   ///
   /// Name   Type   Description
@@ -15324,7 +16006,7 @@ namespace Sdx.Cmd
   {
     public override string Documentation
     {
-      get { return "Get power offset default value for the signal given in argument"; }
+      get { return "Please note the command GetPowerOffset is deprecated since 21.7. You may use GetSignalPowerOffset.\n\nGet power offset default value for the signal given in argument"; }
     }
 
     internal const string CmdName = "GetPowerOffset";
@@ -15363,7 +16045,60 @@ namespace Sdx.Cmd
 
 
   ///
-  /// Result of GetPowerOffset.
+  /// Get power offset default value for the signal given in argument
+  ///
+  /// Name   Type   Description
+  /// ------ ------ -----------------------------------------------------------------------------------------------
+  /// Signal string Accepted signal keys: "L1CA", "L1C", "L1P", "L1ME", "L1MR", "L2C", "L2P", "L2ME", "L2MR", "L5",
+  ///                                     "G1", "G2", "E1", "E1PRS", "E5a", "E5b", "E6BC", "E6PRS",
+  ///                                     "B1", "B2", "B1C", "B2a", "QZSSL1CA", "QZSSL1CB", "QZSSL1C",
+  ///                                     "QZSSL2C", "QZSSL5", "QZSSL1S", "QZSSL5S", "NAVICL5"
+  ///
+
+  public class GetSignalPowerOffset : CommandBase
+  {
+    public override string Documentation
+    {
+      get { return "Get power offset default value for the signal given in argument"; }
+    }
+
+    internal const string CmdName = "GetSignalPowerOffset";
+
+    public GetSignalPowerOffset()
+      : base(CmdName)
+    {}
+
+    public GetSignalPowerOffset(string signal)
+      : base(CmdName)
+    {
+      Signal = signal;
+    }
+      
+    public override bool IsValid
+    {
+      get
+      {
+        return base.IsValid
+        && Contains("Signal")
+      ;
+      }
+    }
+
+    public override int ExecutePermission { get { return EXECUTE_IF_IDLE; } }
+
+    public string Signal
+    {
+      get { return GetValue("Signal").ToObject<string>(CommandBase.Serializer); }
+      set
+      {
+          SetValue("Signal", JToken.FromObject(value, CommandBase.Serializer));
+      }
+    }
+  }
+
+
+  ///
+  /// Result of GetSignalPowerOffset.
   ///
   /// Name   Type   Description
   /// ------ ------ -----------------------------------------------------------------------------------------------
@@ -15378,9 +16113,9 @@ namespace Sdx.Cmd
   {
     public override string Documentation
     {
-      get { return "Result of GetPowerOffset."; }
+      get { return "Result of GetSignalPowerOffset."; }
     }
-
+  
     internal const string CmdName = "GetPowerOffsetResult";
 
     public GetPowerOffsetResult()
@@ -15393,7 +16128,7 @@ namespace Sdx.Cmd
       Signal = signal;
       Offset = offset;
     }
-      
+
     public override bool IsValid
     {
       get
@@ -15408,19 +16143,40 @@ namespace Sdx.Cmd
     public string Signal
     {
       get { return GetValue("Signal").ToObject<string>(CommandBase.Serializer); }
-      set
-      {
-          SetValue("Signal", JToken.FromObject(value, CommandBase.Serializer));
-      }
+      set { SetValue("Signal", JToken.FromObject(value, CommandBase.Serializer)); }
     }
 
     public double Offset
     {
       get { return GetValue("Offset").ToObject<double>(CommandBase.Serializer); }
-      set
-      {
-          SetValue("Offset", JToken.FromObject(value, CommandBase.Serializer));
-      }
+      set { SetValue("Offset", JToken.FromObject(value, CommandBase.Serializer)); }
+    }
+  }
+
+  ///
+  /// Name   Type   Description
+  /// ------ ------ -----------------------------------------------------------------------------------------------
+  /// Signal string Accepted signal keys: "L1CA", "L1C", "L1P", "L1ME", "L1MR", "L2C", "L2P", "L2ME", "L2MR", "L5",
+  ///                                     "G1", "G2", "E1", "E1PRS", "E5a", "E5b", "E6BC", "E6PRS",
+  ///                                     "B1", "B2", "B1C", "B2a", "QZSSL1CA", "QZSSL1CB", "QZSSL1C",
+  ///                                     "QZSSL2C", "QZSSL5", "QZSSL1S", "QZSSL5S", "NAVICL5"
+  /// Offset double Offset in dB (negative value will attenuate signal)
+  ///
+
+  public class GetSignalPowerOffsetResult : GetPowerOffsetResult
+  {
+    internal new const string CmdName = "GetSignalPowerOffsetResult";
+
+    public GetSignalPowerOffsetResult()
+      : base()
+    {
+       Name = CmdName;
+    }
+
+    public GetSignalPowerOffsetResult(CommandBase relatedCommand, string signal, double offset)
+      : base(relatedCommand, signal, offset)
+    {
+      Name = CmdName;
     }
   }
 
@@ -15604,10 +16360,10 @@ namespace Sdx.Cmd
   ///
   /// Name            Type   Description
   /// --------------- ------ ------------------------------------------------------------------------------------------------------------------------------------
-  /// Type            string Target type can be "Anechoic Chamber", "DTA-2115B", "File", "N210", "None", "NoneRT" or "X300".
+  /// Type            string Target type can be "Anechoic Chamber", "DTA-2115B", "File", "N310", "None", "NoneRT", "X300" or "Wavefront Controller".
   /// Path            string File path. Optional, use only if type is "File".
-  /// Address         string Optional. IP Address if type is "N210" or "X300".
-  /// ClockIsExternal bool   Indicate 10 MHz reference clock is external (true) or internal (false). Optional, use only if type is "DTA-2115B", "N210" or "X300".
+  /// Address         string Optional. IP Address if type is "N310" or "X300".
+  /// ClockIsExternal bool   Indicate 10 MHz reference clock is external (true) or internal (false). Optional, use only if type is "DTA-2115B", "N310" or "X300".
   /// Id              string Unique identifier automatically set by simulator
   ///
 
@@ -15754,10 +16510,10 @@ namespace Sdx.Cmd
   ///
   /// Name            Type   Description
   /// --------------- ------ ------------------------------------------------------------------------------------------------------------------------------------
-  /// Type            string Target type can be "Anechoic Chamber", "DTA-2115B", "File", "N210", "None", "NoneRT" or "X300".
+  /// Type            string Target type can be "Anechoic Chamber", "DTA-2115B", "File", "N310", "None", "NoneRT", "X300" or "Wavefront Controller".
   /// Path            string File path. Optional, use only if type is "File".
-  /// Address         string Optional. IP Address if type is "N210" or "X300".
-  /// ClockIsExternal bool   Indicate 10 MHz reference clock is external (true) or internal (false). Optional, use only if type is "DTA-2115B", "N210" or "X300".
+  /// Address         string Optional. IP Address if type is "N310" or "X300".
+  /// ClockIsExternal bool   Indicate 10 MHz reference clock is external (true) or internal (false). Optional, use only if type is "DTA-2115B", "N310" or "X300".
   /// Id              string Unique identifier automatically set by simulator
   ///
 
@@ -42557,15 +43313,15 @@ namespace Sdx.Cmd
   /// Set PSR ramp event. This function lets user change the pseudorange of any satellite.
   /// If SV ID is set to 0, the change is applied to all satellites.
   /// 
-  ///          Hold Start Time
-  ///          |     Hold Stop Time
-  ///          |     |
-  ///          ...........
-  ///        ..       ...
-  ///        ..        ...
-  ///   .......           .........> Time
-  ///       |           |
-  ///       Start Time      Stop Time
+  ///           Hold Start Time
+  ///           |         Hold Stop Time
+  ///           |         |
+  ///           ...........
+  ///          ..         ...
+  ///         ..            ...
+  ///   .......               .........> Time
+  ///         |               |
+  ///         Start Time      Stop Time
   /// 
   ///
   /// Name          Type   Description
@@ -42577,14 +43333,15 @@ namespace Sdx.Cmd
   /// HoldStartTime int    Elapsed time in seconds since start of simulation. HoldStartTime >= StartTime
   /// HoldStopTime  int    Elapsed time in seconds since start of simulation. HoldStopTime >= HoldStartTime
   /// StopTime      int    Elapsed time in seconds since start of simulation. StopTime >= HoldStopTime
-  /// Id            string Unique identifier automatically set by simulator.
+  /// Id            string Unique identifier automatically set by simulator if empty string.
+  ///                      The IDs pool is common between all system.
   ///
 
   public class SetPseudorangeRampForSV : CommandBase
   {
     public override string Documentation
     {
-      get { return "Set PSR ramp event. This function lets user change the pseudorange of any satellite.\nIf SV ID is set to 0, the change is applied to all satellites.\n\n         Hold Start Time\n         |     Hold Stop Time\n         |     |\n         ...........\n       ..       ...\n       ..        ...\n  .......           .........> Time\n      |           |\n      Start Time      Stop Time\n"; }
+      get { return "Set PSR ramp event. This function lets user change the pseudorange of any satellite.\nIf SV ID is set to 0, the change is applied to all satellites.\n\n          Hold Start Time\n          |         Hold Stop Time\n          |         |\n          ...........\n         ..         ...\n        ..            ...\n  .......               .........> Time\n        |               |\n        Start Time      Stop Time\n"; }
     }
 
     internal const string CmdName = "SetPseudorangeRampForSV";
@@ -42703,27 +43460,28 @@ namespace Sdx.Cmd
   /// Get PSR ramp event. This function lets user change the pseudorange of any satellite.
   /// If SV ID is set to 0, the change is applied to all satellites.
   /// 
-  ///          Hold Start Time
-  ///          |     Hold Stop Time
-  ///          |     |
-  ///          ...........
-  ///        ..       ...
-  ///        ..        ...
-  ///   .......           .........> Time
-  ///       |           |
-  ///       Start Time      Stop Time
+  ///           Hold Start Time
+  ///           |         Hold Stop Time
+  ///           |         |
+  ///           ...........
+  ///          ..         ...
+  ///         ..            ...
+  ///   .......               .........> Time
+  ///         |               |
+  ///         Start Time      Stop Time
   /// 
   ///
   /// Name Type   Description
-  /// ---- ------ -------------------------------------------------
-  /// Id   string Unique identifier automatically set by simulator.
+  /// ---- ------ -----------------------------------------------------------------
+  /// Id   string Unique identifier automatically set by simulator if empty string.
+  ///             The IDs pool is common between all system.
   ///
 
   public class GetPseudorangeRampForSV : CommandBase
   {
     public override string Documentation
     {
-      get { return "Get PSR ramp event. This function lets user change the pseudorange of any satellite.\nIf SV ID is set to 0, the change is applied to all satellites.\n\n         Hold Start Time\n         |     Hold Stop Time\n         |     |\n         ...........\n       ..       ...\n       ..        ...\n  .......           .........> Time\n      |           |\n      Start Time      Stop Time\n"; }
+      get { return "Get PSR ramp event. This function lets user change the pseudorange of any satellite.\nIf SV ID is set to 0, the change is applied to all satellites.\n\n          Hold Start Time\n          |         Hold Stop Time\n          |         |\n          ...........\n         ..         ...\n        ..            ...\n  .......               .........> Time\n        |               |\n        Start Time      Stop Time\n"; }
     }
 
     internal const string CmdName = "GetPseudorangeRampForSV";
@@ -42773,7 +43531,8 @@ namespace Sdx.Cmd
   /// HoldStartTime int    Elapsed time in seconds since start of simulation. HoldStartTime >= StartTime
   /// HoldStopTime  int    Elapsed time in seconds since start of simulation. HoldStopTime >= HoldStartTime
   /// StopTime      int    Elapsed time in seconds since start of simulation. StopTime >= HoldStopTime
-  /// Id            string Unique identifier automatically set by simulator.
+  /// Id            string Unique identifier automatically set by simulator if empty string.
+  ///                      The IDs pool is common between all system.
   ///
 
   public class GetPseudorangeRampForSVResult : CommandResult
@@ -44844,7 +45603,7 @@ namespace Sdx.Cmd
 
 
   ///
-  /// Set Add a plug-in instance of specified type.
+  /// Add a plug-in instance of specified type.
   ///
   /// Name Type   Description
   /// ---- ------ -------------------------------------
@@ -44856,7 +45615,7 @@ namespace Sdx.Cmd
   {
     public override string Documentation
     {
-      get { return "Set Add a plug-in instance of specified type."; }
+      get { return "Add a plug-in instance of specified type."; }
     }
 
     internal const string CmdName = "AddPlugInInstance";
@@ -44884,98 +45643,6 @@ namespace Sdx.Cmd
     }
 
     public override int ExecutePermission { get { return EXECUTE_IF_IDLE; } }
-
-    public new string Name
-    {
-      get { return GetValue("Name").ToObject<string>(CommandBase.Serializer); }
-      set
-      {
-          SetValue("Name", JToken.FromObject(value, CommandBase.Serializer));
-      }
-    }
-
-    public string Type
-    {
-      get { return GetValue("Type").ToObject<string>(CommandBase.Serializer); }
-      set
-      {
-          SetValue("Type", JToken.FromObject(value, CommandBase.Serializer));
-      }
-    }
-  }
-
-
-  ///
-  /// Get Add a plug-in instance of specified type.
-  ///
-  /// 
-  ///
-
-  public class GetPlugInInstance : CommandBase
-  {
-    public override string Documentation
-    {
-      get { return "Get Add a plug-in instance of specified type."; }
-    }
-
-    internal const string CmdName = "GetPlugInInstance";
-
-    public GetPlugInInstance()
-      : base(CmdName)
-    {}
-      
-    public override bool IsValid
-    {
-      get
-      {
-        return base.IsValid
-      ;
-      }
-    }
-
-    public override int ExecutePermission { get { return EXECUTE_IF_IDLE; } }
-  }
-
-
-  ///
-  /// Result of GetPlugInInstance.
-  ///
-  /// Name Type   Description
-  /// ---- ------ -------------------------------------
-  /// Name string Unique name for the plug-in instance.
-  /// Type string Type of the plug-in instance.
-  ///
-
-  public class GetPlugInInstanceResult : CommandResult
-  {
-    public override string Documentation
-    {
-      get { return "Result of GetPlugInInstance."; }
-    }
-
-    internal const string CmdName = "GetPlugInInstanceResult";
-
-    public GetPlugInInstanceResult()
-      : base(CmdName)
-    {}
-
-    public GetPlugInInstanceResult(CommandBase relatedCommand, string name, string type)
-      : base(CmdName, relatedCommand)
-    {
-      Name = name;
-      Type = type;
-    }
-      
-    public override bool IsValid
-    {
-      get
-      {
-        return base.IsValid
-        && Contains("Name")
-        && Contains("Type")
-      ;
-      }
-    }
 
     public new string Name
     {
@@ -45258,8 +45925,8 @@ namespace Sdx.Cmd
 
 
   ///
-  /// Set an interference transmitter. For set : the transmitter Id parameter is not set (empty string),
-  /// Skydel will assign a unique Id to the transmitter. If the Id is set and already used by Skydel, the
+  /// Set an interference transmitter. If the transmitter ID parameter is not set (empty string),
+  /// Skydel will assign a unique ID to the transmitter. If the ID is set and already used by Skydel, the
   /// command will fail.
   ///
   /// Name      Type   Description
@@ -45276,7 +45943,7 @@ namespace Sdx.Cmd
   {
     public override string Documentation
     {
-      get { return "Set an interference transmitter. For set : the transmitter Id parameter is not set (empty string),\nSkydel will assign a unique Id to the transmitter. If the Id is set and already used by Skydel, the\ncommand will fail."; }
+      get { return "Set an interference transmitter. If the transmitter ID parameter is not set (empty string),\nSkydel will assign a unique ID to the transmitter. If the ID is set and already used by Skydel, the\ncommand will fail."; }
     }
 
     internal const string CmdName = "AddIntTx";
@@ -45370,9 +46037,7 @@ namespace Sdx.Cmd
 
 
   ///
-  /// Get an interference transmitter. For set : the transmitter Id parameter is not set (empty string),
-  /// Skydel will assign a unique Id to the transmitter. If the Id is set and already used by Skydel, the
-  /// command will fail.
+  /// Get an interference transmitter.
   ///
   /// Name Type   Description
   /// ---- ------ ------------------------------
@@ -45383,7 +46048,7 @@ namespace Sdx.Cmd
   {
     public override string Documentation
     {
-      get { return "Get an interference transmitter. For set : the transmitter Id parameter is not set (empty string),\nSkydel will assign a unique Id to the transmitter. If the Id is set and already used by Skydel, the\ncommand will fail."; }
+      get { return "Get an interference transmitter."; }
     }
 
     internal const string CmdName = "GetIntTx";
@@ -52597,7 +53262,7 @@ namespace Sdx.Cmd
       }
     }
 
-    public override int ExecutePermission { get { return EXECUTE_IF_IDLE; } }
+    public override int ExecutePermission { get { return EXECUTE_IF_NO_CONFIG | EXECUTE_IF_IDLE; } }
 
     public int Latency
     {
@@ -52638,7 +53303,7 @@ namespace Sdx.Cmd
       }
     }
 
-    public override int ExecutePermission { get { return EXECUTE_IF_IDLE | EXECUTE_IF_SIMULATING; } }
+    public override int ExecutePermission { get { return EXECUTE_IF_NO_CONFIG | EXECUTE_IF_IDLE | EXECUTE_IF_SIMULATING; } }
   }
 
 
@@ -69591,326 +70256,6 @@ namespace Sdx.Cmd
 
 
   ///
-  /// Please note the command SetSbasHealthRanging is deprecated since 21.9. You may use SetSbasSVRangingHealth.
-  /// 
-  /// Apply ranging flag for a SBAS satellite
-  ///
-  /// Name   Type Description
-  /// ------ ---- --------------------------
-  /// Prn    int  The satellite's PRN number
-  /// Health bool The ranging unhealthy flag
-  ///
-
-  public class SetSbasHealthRanging : CommandBase
-  {
-    public override string Documentation
-    {
-      get { return "Please note the command SetSbasHealthRanging is deprecated since 21.9. You may use SetSbasSVRangingHealth.\n\nApply ranging flag for a SBAS satellite"; }
-    }
-
-    internal const string CmdName = "SetSbasHealthRanging";
-
-    public SetSbasHealthRanging()
-      : base(CmdName)
-    {}
-
-    public SetSbasHealthRanging(int prn, bool health)
-      : base(CmdName)
-    {
-      Prn = prn;
-      Health = health;
-    }
-      
-    public override bool IsValid
-    {
-      get
-      {
-        return base.IsValid
-        && Contains("Prn")
-        && Contains("Health")
-      ;
-      }
-    }
-
-    public override int ExecutePermission { get { return EXECUTE_IF_SIMULATING | EXECUTE_IF_IDLE; } }
-
-    public int Prn
-    {
-      get { return GetValue("Prn").ToObject<int>(CommandBase.Serializer); }
-      set
-      {
-          SetValue("Prn", JToken.FromObject(value, CommandBase.Serializer));
-      }
-    }
-
-    public bool Health
-    {
-      get { return GetValue("Health").ToObject<bool>(CommandBase.Serializer); }
-      set
-      {
-          SetValue("Health", JToken.FromObject(value, CommandBase.Serializer));
-      }
-    }
-  }
-
-
-  ///
-  /// Please note the command SetSbasHealthCorrections is deprecated since 21.9. You may use SetSbasSVCorrectionsHealth.
-  /// 
-  /// Apply correction flag for a SBAS satellite
-  ///
-  /// Name   Type Description
-  /// ------ ---- -----------------------------
-  /// Prn    int  The satellite's PRN number
-  /// Health bool The correction unhealthy flag
-  ///
-
-  public class SetSbasHealthCorrections : CommandBase
-  {
-    public override string Documentation
-    {
-      get { return "Please note the command SetSbasHealthCorrections is deprecated since 21.9. You may use SetSbasSVCorrectionsHealth.\n\nApply correction flag for a SBAS satellite"; }
-    }
-
-    internal const string CmdName = "SetSbasHealthCorrections";
-
-    public SetSbasHealthCorrections()
-      : base(CmdName)
-    {}
-
-    public SetSbasHealthCorrections(int prn, bool health)
-      : base(CmdName)
-    {
-      Prn = prn;
-      Health = health;
-    }
-      
-    public override bool IsValid
-    {
-      get
-      {
-        return base.IsValid
-        && Contains("Prn")
-        && Contains("Health")
-      ;
-      }
-    }
-
-    public override int ExecutePermission { get { return EXECUTE_IF_SIMULATING | EXECUTE_IF_IDLE; } }
-
-    public int Prn
-    {
-      get { return GetValue("Prn").ToObject<int>(CommandBase.Serializer); }
-      set
-      {
-          SetValue("Prn", JToken.FromObject(value, CommandBase.Serializer));
-      }
-    }
-
-    public bool Health
-    {
-      get { return GetValue("Health").ToObject<bool>(CommandBase.Serializer); }
-      set
-      {
-          SetValue("Health", JToken.FromObject(value, CommandBase.Serializer));
-      }
-    }
-  }
-
-
-  ///
-  /// Please note the command SetSbasHealthIntegrity is deprecated since 21.9. You may use SetSbasSVIntegrityHealth.
-  /// 
-  /// Apply integrity flag for a SBAS satellite
-  ///
-  /// Name   Type Description
-  /// ------ ---- ----------------------------
-  /// Prn    int  The satellite's PRN number
-  /// Health bool The integrity unhealthy flag
-  ///
-
-  public class SetSbasHealthIntegrity : CommandBase
-  {
-    public override string Documentation
-    {
-      get { return "Please note the command SetSbasHealthIntegrity is deprecated since 21.9. You may use SetSbasSVIntegrityHealth.\n\nApply integrity flag for a SBAS satellite"; }
-    }
-
-    internal const string CmdName = "SetSbasHealthIntegrity";
-
-    public SetSbasHealthIntegrity()
-      : base(CmdName)
-    {}
-
-    public SetSbasHealthIntegrity(int prn, bool health)
-      : base(CmdName)
-    {
-      Prn = prn;
-      Health = health;
-    }
-      
-    public override bool IsValid
-    {
-      get
-      {
-        return base.IsValid
-        && Contains("Prn")
-        && Contains("Health")
-      ;
-      }
-    }
-
-    public override int ExecutePermission { get { return EXECUTE_IF_SIMULATING | EXECUTE_IF_IDLE; } }
-
-    public int Prn
-    {
-      get { return GetValue("Prn").ToObject<int>(CommandBase.Serializer); }
-      set
-      {
-          SetValue("Prn", JToken.FromObject(value, CommandBase.Serializer));
-      }
-    }
-
-    public bool Health
-    {
-      get { return GetValue("Health").ToObject<bool>(CommandBase.Serializer); }
-      set
-      {
-          SetValue("Health", JToken.FromObject(value, CommandBase.Serializer));
-      }
-    }
-  }
-
-
-  ///
-  /// Please note the command SetSbasHealthReserved is deprecated since 21.9. You may use SetSbasSVReservedHealth.
-  /// 
-  /// Apply reserved flag for a SBAS satellite
-  ///
-  /// Name   Type Description
-  /// ------ ---- ---------------------------
-  /// Prn    int  The satellite's PRN number
-  /// Health bool The reserved unhealthy flag
-  ///
-
-  public class SetSbasHealthReserved : CommandBase
-  {
-    public override string Documentation
-    {
-      get { return "Please note the command SetSbasHealthReserved is deprecated since 21.9. You may use SetSbasSVReservedHealth.\n\nApply reserved flag for a SBAS satellite"; }
-    }
-
-    internal const string CmdName = "SetSbasHealthReserved";
-
-    public SetSbasHealthReserved()
-      : base(CmdName)
-    {}
-
-    public SetSbasHealthReserved(int prn, bool health)
-      : base(CmdName)
-    {
-      Prn = prn;
-      Health = health;
-    }
-      
-    public override bool IsValid
-    {
-      get
-      {
-        return base.IsValid
-        && Contains("Prn")
-        && Contains("Health")
-      ;
-      }
-    }
-
-    public override int ExecutePermission { get { return EXECUTE_IF_SIMULATING | EXECUTE_IF_IDLE; } }
-
-    public int Prn
-    {
-      get { return GetValue("Prn").ToObject<int>(CommandBase.Serializer); }
-      set
-      {
-          SetValue("Prn", JToken.FromObject(value, CommandBase.Serializer));
-      }
-    }
-
-    public bool Health
-    {
-      get { return GetValue("Health").ToObject<bool>(CommandBase.Serializer); }
-      set
-      {
-          SetValue("Health", JToken.FromObject(value, CommandBase.Serializer));
-      }
-    }
-  }
-
-
-  ///
-  /// Please note the command SetSbasHealthService is deprecated since 21.9. You may use SetSbasSVServiceHealth.
-  /// 
-  /// Apply service provider for a satellite
-  ///
-  /// Name   Type Description
-  /// ------ ---- --------------------------
-  /// Prn    int  The satellite's PRN number
-  /// Health int  The service provider
-  ///
-
-  public class SetSbasHealthService : CommandBase
-  {
-    public override string Documentation
-    {
-      get { return "Please note the command SetSbasHealthService is deprecated since 21.9. You may use SetSbasSVServiceHealth.\n\nApply service provider for a satellite"; }
-    }
-
-    internal const string CmdName = "SetSbasHealthService";
-
-    public SetSbasHealthService()
-      : base(CmdName)
-    {}
-
-    public SetSbasHealthService(int prn, int health)
-      : base(CmdName)
-    {
-      Prn = prn;
-      Health = health;
-    }
-      
-    public override bool IsValid
-    {
-      get
-      {
-        return base.IsValid
-        && Contains("Prn")
-        && Contains("Health")
-      ;
-      }
-    }
-
-    public override int ExecutePermission { get { return EXECUTE_IF_IDLE; } }
-
-    public int Prn
-    {
-      get { return GetValue("Prn").ToObject<int>(CommandBase.Serializer); }
-      set
-      {
-          SetValue("Prn", JToken.FromObject(value, CommandBase.Serializer));
-      }
-    }
-
-    public int Health
-    {
-      get { return GetValue("Health").ToObject<int>(CommandBase.Serializer); }
-      set
-      {
-          SetValue("Health", JToken.FromObject(value, CommandBase.Serializer));
-      }
-    }
-  }
-
-
-  ///
   /// Please note the command SetSbasUdrei is deprecated since 22.2. You may use SetUdreiForSV.
   /// 
   /// Set the global UDREI value transmitted by SBAS
@@ -70039,6 +70384,290 @@ namespace Sdx.Cmd
       set
       {
           SetValue("Udrei", JToken.FromObject(value, CommandBase.Serializer));
+      }
+    }
+  }
+
+
+  ///
+  /// Please note the command SetPowerForSV is deprecated since 22.7. You may use SetManualPowerOffsetForSV.
+  /// 
+  /// Set power offset for specified satellite SV ID. Use SV ID 0 to set power for all satellites.
+  ///
+  /// Name            Type   Description
+  /// --------------- ------ -----------------------------------------------------------------------------------------
+  /// System          string "GPS", "GLONASS", "Galileo", "BeiDou", "SBAS", "QZSS" or "NavIC"
+  /// SvId            int    The Satellite SV ID
+  /// PowerOffset     double Power offset in dB (relative to signal power reference level)
+  /// OtherSatsFollow bool   If true, other sats power will be adjusted to maintain current offsets between satellites
+  ///
+
+  public class SetPowerForSV : CommandBase
+  {
+    public override string Documentation
+    {
+      get { return "Please note the command SetPowerForSV is deprecated since 22.7. You may use SetManualPowerOffsetForSV.\n\nSet power offset for specified satellite SV ID. Use SV ID 0 to set power for all satellites."; }
+    }
+
+    internal const string CmdName = "SetPowerForSV";
+
+    public SetPowerForSV()
+      : base(CmdName)
+    {}
+
+    public SetPowerForSV(string system, int svId, double powerOffset, bool otherSatsFollow)
+      : base(CmdName)
+    {
+      System = system;
+      SvId = svId;
+      PowerOffset = powerOffset;
+      OtherSatsFollow = otherSatsFollow;
+    }
+      
+    public override bool IsValid
+    {
+      get
+      {
+        return base.IsValid
+        && Contains("System")
+        && Contains("SvId")
+        && Contains("PowerOffset")
+        && Contains("OtherSatsFollow")
+      ;
+      }
+    }
+
+    public override int ExecutePermission { get { return EXECUTE_IF_SIMULATING; } }
+
+    public string System
+    {
+      get { return GetValue("System").ToObject<string>(CommandBase.Serializer); }
+      set
+      {
+          SetValue("System", JToken.FromObject(value, CommandBase.Serializer));
+      }
+    }
+
+    public int SvId
+    {
+      get { return GetValue("SvId").ToObject<int>(CommandBase.Serializer); }
+      set
+      {
+          SetValue("SvId", JToken.FromObject(value, CommandBase.Serializer));
+      }
+    }
+
+    public double PowerOffset
+    {
+      get { return GetValue("PowerOffset").ToObject<double>(CommandBase.Serializer); }
+      set
+      {
+          SetValue("PowerOffset", JToken.FromObject(value, CommandBase.Serializer));
+      }
+    }
+
+    public bool OtherSatsFollow
+    {
+      get { return GetValue("OtherSatsFollow").ToObject<bool>(CommandBase.Serializer); }
+      set
+      {
+          SetValue("OtherSatsFollow", JToken.FromObject(value, CommandBase.Serializer));
+      }
+    }
+  }
+
+
+  ///
+  /// Please note the command GetPowerForSV is deprecated since 22.7. You may use GetAllPowerForSV.
+  /// 
+  /// Get the power offset for specified satellite SV ID.
+  ///
+  /// Name   Type   Description
+  /// ------ ------ -----------------------------------------------------------------------------------
+  /// System string The system, can be "GPS", "GLONASS", "Galileo", "BeiDou", "SBAS", "QZSS" or "NavIC"
+  /// SvId   int    The Satellite SV ID
+  ///
+
+  public class GetPowerForSV : CommandBase
+  {
+    public override string Documentation
+    {
+      get { return "Please note the command GetPowerForSV is deprecated since 22.7. You may use GetAllPowerForSV.\n\nGet the power offset for specified satellite SV ID."; }
+    }
+
+    internal const string CmdName = "GetPowerForSV";
+
+    public GetPowerForSV()
+      : base(CmdName)
+    {}
+
+    public GetPowerForSV(string system, int svId)
+      : base(CmdName)
+    {
+      System = system;
+      SvId = svId;
+    }
+      
+    public override bool IsValid
+    {
+      get
+      {
+        return base.IsValid
+        && Contains("System")
+        && Contains("SvId")
+      ;
+      }
+    }
+
+    public override int ExecutePermission { get { return EXECUTE_IF_SIMULATING; } }
+
+    public string System
+    {
+      get { return GetValue("System").ToObject<string>(CommandBase.Serializer); }
+      set
+      {
+          SetValue("System", JToken.FromObject(value, CommandBase.Serializer));
+      }
+    }
+
+    public int SvId
+    {
+      get { return GetValue("SvId").ToObject<int>(CommandBase.Serializer); }
+      set
+      {
+          SetValue("SvId", JToken.FromObject(value, CommandBase.Serializer));
+      }
+    }
+  }
+
+
+  ///
+  /// Result of GetPowerForSV.
+  ///
+  /// Name                Type   Description
+  /// ------------------- ------ -----------------------------------------------------------------------------------------------------------
+  /// System              string The system, can be "GPS", "GLONASS", "Galileo", "BeiDou", "SBAS", "QZSS" or "NavIC"
+  /// SvId                int    The Satellite SV ID
+  /// NominalPower        double The nominal power in dBm
+  /// SignalStrengthModel double The power difference coming from the Signal Strength Model (dB)
+  /// Antenna             double The receiver antenna power offset (dB). It depends on antenna pattern and relative orientation with signal.
+  /// SignalLevelOffset   double The global power offset (dB)
+  /// ManualGain          double The power offset provided by the user (dB). See SetPowerForSV
+  /// Total               double The sum of all the other fields (dBm)
+  ///
+
+  public class GetPowerForSVResult : CommandResult
+  {
+    public override string Documentation
+    {
+      get { return "Result of GetPowerForSV."; }
+    }
+
+    internal const string CmdName = "GetPowerForSVResult";
+
+    public GetPowerForSVResult()
+      : base(CmdName)
+    {}
+
+    public GetPowerForSVResult(CommandBase relatedCommand, string system, int svId, double nominalPower, double signalStrengthModel, double antenna, double signalLevelOffset, double manualGain, double total)
+      : base(CmdName, relatedCommand)
+    {
+      System = system;
+      SvId = svId;
+      NominalPower = nominalPower;
+      SignalStrengthModel = signalStrengthModel;
+      Antenna = antenna;
+      SignalLevelOffset = signalLevelOffset;
+      ManualGain = manualGain;
+      Total = total;
+    }
+      
+    public override bool IsValid
+    {
+      get
+      {
+        return base.IsValid
+        && Contains("System")
+        && Contains("SvId")
+        && Contains("NominalPower")
+        && Contains("SignalStrengthModel")
+        && Contains("Antenna")
+        && Contains("SignalLevelOffset")
+        && Contains("ManualGain")
+        && Contains("Total")
+      ;
+      }
+    }
+
+    public string System
+    {
+      get { return GetValue("System").ToObject<string>(CommandBase.Serializer); }
+      set
+      {
+          SetValue("System", JToken.FromObject(value, CommandBase.Serializer));
+      }
+    }
+
+    public int SvId
+    {
+      get { return GetValue("SvId").ToObject<int>(CommandBase.Serializer); }
+      set
+      {
+          SetValue("SvId", JToken.FromObject(value, CommandBase.Serializer));
+      }
+    }
+
+    public double NominalPower
+    {
+      get { return GetValue("NominalPower").ToObject<double>(CommandBase.Serializer); }
+      set
+      {
+          SetValue("NominalPower", JToken.FromObject(value, CommandBase.Serializer));
+      }
+    }
+
+    public double SignalStrengthModel
+    {
+      get { return GetValue("SignalStrengthModel").ToObject<double>(CommandBase.Serializer); }
+      set
+      {
+          SetValue("SignalStrengthModel", JToken.FromObject(value, CommandBase.Serializer));
+      }
+    }
+
+    public double Antenna
+    {
+      get { return GetValue("Antenna").ToObject<double>(CommandBase.Serializer); }
+      set
+      {
+          SetValue("Antenna", JToken.FromObject(value, CommandBase.Serializer));
+      }
+    }
+
+    public double SignalLevelOffset
+    {
+      get { return GetValue("SignalLevelOffset").ToObject<double>(CommandBase.Serializer); }
+      set
+      {
+          SetValue("SignalLevelOffset", JToken.FromObject(value, CommandBase.Serializer));
+      }
+    }
+
+    public double ManualGain
+    {
+      get { return GetValue("ManualGain").ToObject<double>(CommandBase.Serializer); }
+      set
+      {
+          SetValue("ManualGain", JToken.FromObject(value, CommandBase.Serializer));
+      }
+    }
+
+    public double Total
+    {
+      get { return GetValue("Total").ToObject<double>(CommandBase.Serializer); }
+      set
+      {
+          SetValue("Total", JToken.FromObject(value, CommandBase.Serializer));
       }
     }
   }

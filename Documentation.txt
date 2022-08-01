@@ -1,4 +1,4 @@
-Skydel Remote API Version 37
+Skydel Remote API Version 38
 
 Command execution permission flags:
   EXECUTE_IF_NO_CONFIG  : executed even if there is no config
@@ -420,6 +420,30 @@ Enabled bool   Signal is enabled when value is True
 
 ***************************************************************************************************************************
 
+Command GetEnabledSignalsForSV(system, svId)
+Permission: EXECUTE_IF_SIMULATING | EXECUTE_IF_IDLE
+
+Get the list of enabled signals for a specified SV ID.
+
+Name   Type   Description
+------ ------ ------------------------------------------------------------------------------------
+System string The system, can be "GPS", "GLONASS", "Galileo", "BeiDou", "SBAS", "QZSS" or "NavIC".
+SvId   int    The satellite SV ID.
+
+***************************************************************************************************************************
+
+Result GetEnabledSignalsForSVResult(system, svId, signalArray)
+
+Result of GetEnabledSignalsForSV.
+
+Name        Type         Description
+----------- ------------ ------------------------------------------------------------------------------------
+System      string       The system, can be "GPS", "GLONASS", "Galileo", "BeiDou", "SBAS", "QZSS" or "NavIC".
+SvId        int          The satellite SV ID.
+SignalArray array string The list of enabled signals.
+
+***************************************************************************************************************************
+
 Command EnableSignalForEachSV(signal, enabled)
 Permission: EXECUTE_IF_SIMULATING | EXECUTE_IF_IDLE
 
@@ -534,57 +558,132 @@ Enabled array bool Enable P(Y)-Code if True. Zero based index (index 0 => SV ID 
 
 ***************************************************************************************************************************
 
-Command SetPowerForSV(system, svId, powerOffset, otherSatsFollow)
+Command SetManualPowerOffsetForSV(system, svId, signalPowerOffsetDict, isRelativePowerOffset)
 Permission: EXECUTE_IF_SIMULATING
 
-Set power offset for specified satellite SV ID. Use SV ID 0 to set power for all satellites.
+Set the power offsets applied to the signals of a satellite. Use SV ID 0 to set the power offset of all the satellites. Use key "All" to set the power offset to all signals.
 
-Name            Type   Description
---------------- ------ -----------------------------------------------------------------------------------------
-System          string "GPS", "GLONASS", "Galileo", "BeiDou", "SBAS", "QZSS" or "NavIC"
-SvId            int    The Satellite SV ID
-PowerOffset     double Power offset in dB (relative to signal power reference level)
-OtherSatsFollow bool   If true, other sats power will be adjusted to maintain current offsets between satellites
+Name                  Type               Description
+--------------------- ------------------ ------------------------------------------------------------------------------
+System                string             "GPS", "GLONASS", "Galileo", "BeiDou", "SBAS", "QZSS" or "NavIC".
+SvId                  int                The satellite's SV ID.
+SignalPowerOffsetDict dict string:double A dictionary of signal poweroffset pairs.
+                                         Accepted keys are: "All", "L1CA", "L1C", "L1P", "L1ME", "L1MR", "L2C", "L2P",
+                                                            "L2ME", "L2MR", "L5", "G1", "G2", "E1", "E1PRS", "E5a",
+                                                            "E5b", "E6BC", "E6PRS", "B1", "B2", "B1C", "B2a", "SBASL1",
+                                                            "SBASL5", "QZSSL1CA", "QZSSL1CB", "QZSSL1C", "QZSSL2C",
+                                                            "QZSSL5", "QZSSL1S", "QZSSL5S" and "NAVICL5"
+IsRelativePowerOffset bool               If true, the power offset(s) are added to the current value(s).
 
 ***************************************************************************************************************************
 
-Command GetPowerForSV(system, svId)
+Command GetManualPowerOffsetForSV(system, svId, signalArray)
 Permission: EXECUTE_IF_SIMULATING
 
-Get the power offset for specified satellite SV ID.
+Get the power offsets for specific signals of a satellite.
+
+Name        Type         Description
+----------- ------------ --------------------------------------------------------------------------------
+System      string       "GPS", "GLONASS", "Galileo", "BeiDou", "SBAS", "QZSS" or "NavIC".
+SvId        int          The satellite's SV ID.
+SignalArray array string An array of signals.
+                         Accepted values are: "All", "L1CA", "L1C", "L1P", "L1ME", "L1MR", "L2C", "L2P",
+                                              "L2ME", "L2MR", "L5", "G1", "G2", "E1", "E1PRS", "E5a",
+                                              "E5b", "E6BC", "E6PRS", "B1", "B2", "B1C", "B2a", "SBASL1",
+                                              "SBASL5", "QZSSL1CA", "QZSSL1CB", "QZSSL1C", "QZSSL2C",
+                                              "QZSSL5", "QZSSL1S", "QZSSL5S" and "NAVICL5"
+
+***************************************************************************************************************************
+
+Result GetManualPowerOffsetForSVResult(system, svId, signalPowerOffsetDict)
+
+Result of GetManualPowerOffsetForSV.
+
+Name                  Type               Description
+--------------------- ------------------ ------------------------------------------------------------------------------
+System                string             "GPS", "GLONASS", "Galileo", "BeiDou", "SBAS", "QZSS" or "NavIC".
+SvId                  int                The satellite's SV ID.
+SignalPowerOffsetDict dict string:double A dictionary of signal poweroffset pairs.
+                                         Accepted keys are: "All", "L1CA", "L1C", "L1P", "L1ME", "L1MR", "L2C", "L2P",
+                                                            "L2ME", "L2MR", "L5", "G1", "G2", "E1", "E1PRS", "E5a",
+                                                            "E5b", "E6BC", "E6PRS", "B1", "B2", "B1C", "B2a", "SBASL1",
+                                                            "SBASL5", "QZSSL1CA", "QZSSL1CB", "QZSSL1C", "QZSSL2C",
+                                                            "QZSSL5", "QZSSL1S", "QZSSL5S" and "NAVICL5"
+
+***************************************************************************************************************************
+
+Command ResetManualPowerOffsets(system)
+Permission: EXECUTE_IF_SIMULATING
+
+Reset power offset for all satellites is specified system to default value
 
 Name   Type   Description
------- ------ -----------------------------------------------------------------------------------
-System string The system, can be "GPS", "GLONASS", "Galileo", "BeiDou", "SBAS", "QZSS" or "NavIC"
-SvId   int    The Satellite SV ID
-
-***************************************************************************************************************************
-
-Result GetPowerForSVResult(system, svId, nominalPower, signalStrengthModel, antenna, signalLevelOffset, manualGain, total)
-
-Result of GetPowerForSV.
-
-Name                Type   Description
-------------------- ------ -----------------------------------------------------------------------------------------------------------
-System              string The system, can be "GPS", "GLONASS", "Galileo", "BeiDou", "SBAS", "QZSS" or "NavIC"
-SvId                int    The Satellite SV ID
-NominalPower        double The nominal power in dBm
-SignalStrengthModel double The power difference coming from the Signal Strength Model (dB)
-Antenna             double The receiver antenna power offset (dB). It depends on antenna pattern and relative orientation with signal.
-SignalLevelOffset   double The global power offset (dB)
-ManualGain          double The power offset provided by the user (dB). See SetPowerForSV
-Total               double The sum of all the other fields (dBm)
+------ ------ -----------------------------------------------------------------
+System string "GPS", "GLONASS", "Galileo", "BeiDou", "SBAS", "QZSS" or "NavIC".
 
 ***************************************************************************************************************************
 
 Command ResetAllSatPower(system)
 Permission: EXECUTE_IF_SIMULATING
 
+Please note the command ResetAllSatPower is deprecated since 21.7. You may use ResetManualPowerOffsets.
+
 Reset power offset for all satellites is specified system to default value
 
 Name   Type   Description
------- ------ ----------------------------------------------------------------
-System string "GPS", "GLONASS", "Galileo", "BeiDou", "SBAS", "QZSS" or "NavIC"
+------ ------ -----------------------------------------------------------------
+System string "GPS", "GLONASS", "Galileo", "BeiDou", "SBAS", "QZSS" or "NavIC".
+
+***************************************************************************************************************************
+
+Data SignalPower(antennaOffset, strengthModelOffset, signalOffset, manualOffset, total)
+
+Information on the signal power.
+
+Name                Type   Description
+------------------- ------ -----------------------------------------------------------------------------------------------------------
+AntennaOffset       double The receiver antenna power offset (dB). It depends on antenna pattern and relative orientation with signal.
+StrengthModelOffset double The power offset coming from the Signal Strength Model (dB).
+SignalOffset        double The signal power offset (dB). See SetSignalPowerOffset.
+ManualOffset        double The manual power offset (dB). See SetManualPowerOffsetForSV.
+Total               double The sum of all the other fields, including nominal power and the global power offset (dBm).
+
+***************************************************************************************************************************
+
+Command GetAllPowerForSV(system, svId, signalArray)
+Permission: EXECUTE_IF_SIMULATING
+
+Get the power information for the specified satellite.
+
+Name        Type         Description
+----------- ------------ --------------------------------------------------------------------------------
+System      string       "GPS", "GLONASS", "Galileo", "BeiDou", "SBAS", "QZSS" or "NavIC".
+SvId        int          The Satellite's SV ID.
+SignalArray array string An array of signals.
+                         Accepted values are: "All", "L1CA", "L1C", "L1P", "L1ME", "L1MR", "L2C", "L2P",
+                                              "L2ME", "L2MR", "L5", "G1", "G2", "E1", "E1PRS", "E5a",
+                                              "E5b", "E6BC", "E6PRS", "B1", "B2", "B1C", "B2a", "SBASL1",
+                                              "SBASL5", "QZSSL1CA", "QZSSL1CB", "QZSSL1C", "QZSSL2C",
+                                              "QZSSL5", "QZSSL1S", "QZSSL5S" and "NAVICL5"
+
+***************************************************************************************************************************
+
+Result GetAllPowerForSVResult(system, svId, nominalPower, globalOffset, signalPowerDict)
+
+Result of GetAllPowerForSV.
+
+Name            Type                    Description
+--------------- ----------------------- ------------------------------------------------------------------------------
+System          string                  "GPS", "GLONASS", "Galileo", "BeiDou", "SBAS", "QZSS" or "NavIC".
+SvId            int                     The Satellite's SV ID.
+NominalPower    double                  The nominal power in dBm.
+GlobalOffset    double                  The global power offset (dB).
+SignalPowerDict dict string:SignalPower A dictionary of signal power pairs.
+                                        Accepted keys are: "All", "L1CA", "L1C", "L1P", "L1ME", "L1MR", "L2C", "L2P",
+                                                           "L2ME", "L2MR", "L5", "G1", "G2", "E1", "E1PRS", "E5a",
+                                                           "E5b", "E6BC", "E6PRS", "B1", "B2", "B1C", "B2a", "SBASL1",
+                                                           "SBASL5", "QZSSL1CA", "QZSSL1CB", "QZSSL1C", "QZSSL2C",
+                                                           "QZSSL5", "QZSSL1S", "QZSSL5S" and "NAVICL5"
 
 ***************************************************************************************************************************
 
@@ -920,6 +1019,30 @@ Result of GetStartTimeMode.
 Name Type   Description
 ---- ------ --------------------------------------------
 Mode string Accepted Modes ("Custom", "Computer", "GPS")
+
+***************************************************************************************************************************
+
+Command ConnectSerialPortReceiver(port, baudRate, dataBits, parity, stopBits, flowControl)
+Permission: EXECUTE_IF_NO_CONFIG | EXECUTE_IF_SIMULATING | EXECUTE_IF_IDLE
+
+Connect a receiver.
+
+Name        Type                           Description
+----------- ------------------------------ -------------------------------------------------------------------------------------------------------------------------------------
+Port        string                         Serial Port (ex: "COM5").
+BaudRate    optional int                   Data baud rate of the serial port. Can be 1200 | 2400 | 4800 | 9600 | 19200 | 38400 | 57600 | 115200 | 460800. Default value is 9600.
+DataBits    optional int                   Number of data bits used by the serial port. Possible values are 5, 6, 7 and 8. Default value is 8.
+Parity      optional SerialPortParity      Parity scheme used by the serial port. Default value is NoParity.
+StopBits    optional int                   Number of stop bits used by the serial port. Possible values are 1 and 2. Default value is 1.
+FlowControl optional SerialPortFlowControl Flow control used by the serial port. Default value is NoFlowControl.
+
+***************************************************************************************************************************
+
+Command DisconnectSerialPortReceiver()
+Permission: EXECUTE_IF_NO_CONFIG | EXECUTE_IF_SIMULATING | EXECUTE_IF_IDLE
+
+Disconnects the connected receiver. Does nothing if no receiver is connected.
+
 
 ***************************************************************************************************************************
 
@@ -2964,7 +3087,7 @@ DataSetName optional string Optional name of the data set to use. If no value is
 
 ***************************************************************************************************************************
 
-Command SetPowerGlobalOffset(offset)
+Command SetGlobalPowerOffset(offset)
 Permission: EXECUTE_IF_SIMULATING | EXECUTE_IF_IDLE
 
 Set global power offset default value for all signals and all systems
@@ -2975,17 +3098,12 @@ Offset double Offset in dB (negative value will attenuate signal)
 
 ***************************************************************************************************************************
 
-Command GetPowerGlobalOffset()
-Permission: EXECUTE_IF_IDLE
+Command SetPowerGlobalOffset(offset)
+Permission: EXECUTE_IF_SIMULATING | EXECUTE_IF_IDLE
 
-Get global power offset default value for all signals and all systems
+Please note the command SetPowerGlobalOffset is deprecated since 21.7. You may use SetGlobalPowerOffset.
 
-
-***************************************************************************************************************************
-
-Result GetPowerGlobalOffsetResult(offset)
-
-Result of GetPowerGlobalOffset.
+Set global power offset default value for all signals and all systems
 
 Name   Type   Description
 ------ ------ ---------------------------------------------------
@@ -2993,7 +3111,35 @@ Offset double Offset in dB (negative value will attenuate signal)
 
 ***************************************************************************************************************************
 
-Command SetPowerOffset(signal, offset)
+Command GetGlobalPowerOffset()
+Permission: EXECUTE_IF_IDLE
+
+Get global power offset default value for all signals and all systems
+
+
+***************************************************************************************************************************
+
+Command GetPowerGlobalOffset()
+Permission: EXECUTE_IF_IDLE
+
+Please note the command GetPowerGlobalOffset is deprecated since 21.7. You may use GetGlobalPowerOffset.
+
+Get global power offset default value for all signals and all systems
+
+
+***************************************************************************************************************************
+
+Result GetGlobalPowerOffsetResult(offset)
+
+Result of GetGlobalPowerOffset.
+
+Name   Type   Description
+------ ------ ---------------------------------------------------
+Offset double Offset in dB (negative value will attenuate signal)
+
+***************************************************************************************************************************
+
+Command SetSignalPowerOffset(signal, offset)
 Permission: EXECUTE_IF_SIMULATING | EXECUTE_IF_IDLE
 
 Set power offset default value for the signal given in argument
@@ -3008,7 +3154,24 @@ Offset double Offset in dB (negative value will attenuate signal)
 
 ***************************************************************************************************************************
 
-Command GetPowerOffset(signal)
+Command SetPowerOffset(signal, offset)
+Permission: EXECUTE_IF_SIMULATING | EXECUTE_IF_IDLE
+
+Please note the command SetPowerOffset is deprecated since 21.7. You may use SetSignalPowerOffset.
+
+Set power offset default value for the signal given in argument
+
+Name   Type   Description
+------ ------ -----------------------------------------------------------------------------------------------
+Signal string Accepted signal keys: "L1CA", "L1C", "L1P", "L1ME", "L1MR", "L2C", "L2P", "L2ME", "L2MR", "L5",
+                                    "G1", "G2", "E1", "E1PRS", "E5a", "E5b", "E6BC", "E6PRS",
+                                    "B1", "B2", "B1C", "B2a", "QZSSL1CA", "QZSSL1CB", "QZSSL1C",
+                                    "QZSSL2C", "QZSSL5", "QZSSL1S", "QZSSL5S", "NAVICL5"
+Offset double Offset in dB (negative value will attenuate signal)
+
+***************************************************************************************************************************
+
+Command GetSignalPowerOffset(signal)
 Permission: EXECUTE_IF_IDLE
 
 Get power offset default value for the signal given in argument
@@ -3022,9 +3185,25 @@ Signal string Accepted signal keys: "L1CA", "L1C", "L1P", "L1ME", "L1MR", "L2C",
 
 ***************************************************************************************************************************
 
-Result GetPowerOffsetResult(signal, offset)
+Command GetPowerOffset(signal)
+Permission: EXECUTE_IF_IDLE
 
-Result of GetPowerOffset.
+Please note the command GetPowerOffset is deprecated since 21.7. You may use GetSignalPowerOffset.
+
+Get power offset default value for the signal given in argument
+
+Name   Type   Description
+------ ------ -----------------------------------------------------------------------------------------------
+Signal string Accepted signal keys: "L1CA", "L1C", "L1P", "L1ME", "L1MR", "L2C", "L2P", "L2ME", "L2MR", "L5",
+                                    "G1", "G2", "E1", "E1PRS", "E5a", "E5b", "E6BC", "E6PRS",
+                                    "B1", "B2", "B1C", "B2a", "QZSSL1CA", "QZSSL1CB", "QZSSL1C",
+                                    "QZSSL2C", "QZSSL5", "QZSSL1S", "QZSSL5S", "NAVICL5"
+
+***************************************************************************************************************************
+
+Result GetSignalPowerOffsetResult(signal, offset)
+
+Result of GetSignalPowerOffset.
 
 Name   Type   Description
 ------ ------ -----------------------------------------------------------------------------------------------
@@ -3079,10 +3258,10 @@ For setter : If the Id is already used, the corresponding target is updated.
 
 Name            Type   Description
 --------------- ------ ------------------------------------------------------------------------------------------------------------------------------------
-Type            string Target type can be "Anechoic Chamber", "DTA-2115B", "File", "N210", "None", "NoneRT" or "X300".
+Type            string Target type can be "Anechoic Chamber", "DTA-2115B", "File", "N310", "None", "NoneRT", "X300" or "Wavefront Controller".
 Path            string File path. Optional, use only if type is "File".
-Address         string Optional. IP Address if type is "N210" or "X300".
-ClockIsExternal bool   Indicate 10 MHz reference clock is external (true) or internal (false). Optional, use only if type is "DTA-2115B", "N210" or "X300".
+Address         string Optional. IP Address if type is "N310" or "X300".
+ClockIsExternal bool   Indicate 10 MHz reference clock is external (true) or internal (false). Optional, use only if type is "DTA-2115B", "N310" or "X300".
 Id              string Unique identifier automatically set by simulator
 
 ***************************************************************************************************************************
@@ -3106,10 +3285,10 @@ Result of GetModulationTarget.
 
 Name            Type   Description
 --------------- ------ ------------------------------------------------------------------------------------------------------------------------------------
-Type            string Target type can be "Anechoic Chamber", "DTA-2115B", "File", "N210", "None", "NoneRT" or "X300".
+Type            string Target type can be "Anechoic Chamber", "DTA-2115B", "File", "N310", "None", "NoneRT", "X300" or "Wavefront Controller".
 Path            string File path. Optional, use only if type is "File".
-Address         string Optional. IP Address if type is "N210" or "X300".
-ClockIsExternal bool   Indicate 10 MHz reference clock is external (true) or internal (false). Optional, use only if type is "DTA-2115B", "N210" or "X300".
+Address         string Optional. IP Address if type is "N310" or "X300".
+ClockIsExternal bool   Indicate 10 MHz reference clock is external (true) or internal (false). Optional, use only if type is "DTA-2115B", "N310" or "X300".
 Id              string Unique identifier automatically set by simulator
 
 ***************************************************************************************************************************
@@ -8264,15 +8443,15 @@ Permission: EXECUTE_IF_SIMULATING | EXECUTE_IF_IDLE
 Set PSR ramp event. This function lets user change the pseudorange of any satellite.
 If SV ID is set to 0, the change is applied to all satellites.
 
-         Hold Start Time
-         |     Hold Stop Time
-         |     |
-         ...........
-       ..       ...
-       ..        ...
-  .......           .........> Time
-      |           |
-      Start Time      Stop Time
+          Hold Start Time
+          |         Hold Stop Time
+          |         |
+          ...........
+         ..         ...
+        ..            ...
+  .......               .........> Time
+        |               |
+        Start Time      Stop Time
 
 Name          Type   Description
 ------------- ------ ----------------------------------------------------------------------------------
@@ -8283,7 +8462,8 @@ StartTime     int    Elapsed time in seconds since start of simulation.
 HoldStartTime int    Elapsed time in seconds since start of simulation. HoldStartTime >= StartTime
 HoldStopTime  int    Elapsed time in seconds since start of simulation. HoldStopTime >= HoldStartTime
 StopTime      int    Elapsed time in seconds since start of simulation. StopTime >= HoldStopTime
-Id            string Unique identifier automatically set by simulator.
+Id            string Unique identifier automatically set by simulator if empty string.
+                     The IDs pool is common between all system.
 
 ***************************************************************************************************************************
 
@@ -8293,19 +8473,20 @@ Permission: EXECUTE_IF_IDLE
 Get PSR ramp event. This function lets user change the pseudorange of any satellite.
 If SV ID is set to 0, the change is applied to all satellites.
 
-         Hold Start Time
-         |     Hold Stop Time
-         |     |
-         ...........
-       ..       ...
-       ..        ...
-  .......           .........> Time
-      |           |
-      Start Time      Stop Time
+          Hold Start Time
+          |         Hold Stop Time
+          |         |
+          ...........
+         ..         ...
+        ..            ...
+  .......               .........> Time
+        |               |
+        Start Time      Stop Time
 
 Name Type   Description
----- ------ -------------------------------------------------
-Id   string Unique identifier automatically set by simulator.
+---- ------ -----------------------------------------------------------------
+Id   string Unique identifier automatically set by simulator if empty string.
+            The IDs pool is common between all system.
 
 ***************************************************************************************************************************
 
@@ -8322,7 +8503,8 @@ StartTime     int    Elapsed time in seconds since start of simulation.
 HoldStartTime int    Elapsed time in seconds since start of simulation. HoldStartTime >= StartTime
 HoldStopTime  int    Elapsed time in seconds since start of simulation. HoldStopTime >= HoldStartTime
 StopTime      int    Elapsed time in seconds since start of simulation. StopTime >= HoldStopTime
-Id            string Unique identifier automatically set by simulator.
+Id            string Unique identifier automatically set by simulator if empty string.
+                     The IDs pool is common between all system.
 
 ***************************************************************************************************************************
 
@@ -8700,26 +8882,7 @@ Enabled array bool Direct Line of Sight enabled or not. Zero based index (index 
 Command AddPlugInInstance(name, type)
 Permission: EXECUTE_IF_IDLE
 
-Set Add a plug-in instance of specified type.
-
-Name Type   Description
----- ------ -------------------------------------
-Name string Unique name for the plug-in instance.
-Type string Type of the plug-in instance.
-
-***************************************************************************************************************************
-
-Command GetPlugInInstance()
-Permission: EXECUTE_IF_IDLE
-
-Get Add a plug-in instance of specified type.
-
-
-***************************************************************************************************************************
-
-Result GetPlugInInstanceResult(name, type)
-
-Result of GetPlugInInstance.
+Add a plug-in instance of specified type.
 
 Name Type   Description
 ---- ------ -------------------------------------
@@ -8789,8 +8952,8 @@ Ids  array string ID list of all interferences transmitters.
 Command AddIntTx(usualName, enabled, group, dynamic, power, id)
 Permission: EXECUTE_IF_SIMULATING | EXECUTE_IF_IDLE
 
-Set an interference transmitter. For set : the transmitter Id parameter is not set (empty string),
-Skydel will assign a unique Id to the transmitter. If the Id is set and already used by Skydel, the
+Set an interference transmitter. If the transmitter ID parameter is not set (empty string),
+Skydel will assign a unique ID to the transmitter. If the ID is set and already used by Skydel, the
 command will fail.
 
 Name      Type   Description
@@ -8807,9 +8970,7 @@ Id        string Transmitter unique identifier.
 Command GetIntTx(id)
 Permission: EXECUTE_IF_IDLE
 
-Get an interference transmitter. For set : the transmitter Id parameter is not set (empty string),
-Skydel will assign a unique Id to the transmitter. If the Id is set and already used by Skydel, the
-command will fail.
+Get an interference transmitter.
 
 Name Type   Description
 ---- ------ ------------------------------
@@ -10038,7 +10199,7 @@ Size int  Streaming buffer size in msec
 ***************************************************************************************************************************
 
 Command SetEngineLatency(latency)
-Permission: EXECUTE_IF_IDLE
+Permission: EXECUTE_IF_NO_CONFIG | EXECUTE_IF_IDLE
 
 Set engine latency.
 
@@ -10049,7 +10210,7 @@ Latency int  Engine latency in msec
 ***************************************************************************************************************************
 
 Command GetEngineLatency()
-Permission: EXECUTE_IF_IDLE | EXECUTE_IF_SIMULATING
+Permission: EXECUTE_IF_NO_CONFIG | EXECUTE_IF_IDLE | EXECUTE_IF_SIMULATING
 
 Get engine latency.
 
@@ -13357,76 +13518,6 @@ ExtrapolationTime int  Time of last extrapolated position
 
 ***************************************************************************************************************************
 
-Command SetSbasHealthRanging(prn, health)
-Permission: EXECUTE_IF_SIMULATING | EXECUTE_IF_IDLE
-
-Please note the command SetSbasHealthRanging is deprecated since 21.9. You may use SetSbasSVRangingHealth.
-
-Apply ranging flag for a SBAS satellite
-
-Name   Type Description
------- ---- --------------------------
-Prn    int  The satellite's PRN number
-Health bool The ranging unhealthy flag
-
-***************************************************************************************************************************
-
-Command SetSbasHealthCorrections(prn, health)
-Permission: EXECUTE_IF_SIMULATING | EXECUTE_IF_IDLE
-
-Please note the command SetSbasHealthCorrections is deprecated since 21.9. You may use SetSbasSVCorrectionsHealth.
-
-Apply correction flag for a SBAS satellite
-
-Name   Type Description
------- ---- -----------------------------
-Prn    int  The satellite's PRN number
-Health bool The correction unhealthy flag
-
-***************************************************************************************************************************
-
-Command SetSbasHealthIntegrity(prn, health)
-Permission: EXECUTE_IF_SIMULATING | EXECUTE_IF_IDLE
-
-Please note the command SetSbasHealthIntegrity is deprecated since 21.9. You may use SetSbasSVIntegrityHealth.
-
-Apply integrity flag for a SBAS satellite
-
-Name   Type Description
------- ---- ----------------------------
-Prn    int  The satellite's PRN number
-Health bool The integrity unhealthy flag
-
-***************************************************************************************************************************
-
-Command SetSbasHealthReserved(prn, health)
-Permission: EXECUTE_IF_SIMULATING | EXECUTE_IF_IDLE
-
-Please note the command SetSbasHealthReserved is deprecated since 21.9. You may use SetSbasSVReservedHealth.
-
-Apply reserved flag for a SBAS satellite
-
-Name   Type Description
------- ---- ---------------------------
-Prn    int  The satellite's PRN number
-Health bool The reserved unhealthy flag
-
-***************************************************************************************************************************
-
-Command SetSbasHealthService(prn, health)
-Permission: EXECUTE_IF_IDLE
-
-Please note the command SetSbasHealthService is deprecated since 21.9. You may use SetSbasSVServiceHealth.
-
-Apply service provider for a satellite
-
-Name   Type Description
------- ---- --------------------------
-Prn    int  The satellite's PRN number
-Health int  The service provider
-
-***************************************************************************************************************************
-
 Command SetSbasUdrei(udrei)
 Permission: EXECUTE_IF_IDLE
 
@@ -13457,4 +13548,51 @@ Result of GetSbasUdrei.
 Name  Type Description
 ----- ---- ---------------
 Udrei int  The UDREI value
+
+***************************************************************************************************************************
+
+Command SetPowerForSV(system, svId, powerOffset, otherSatsFollow)
+Permission: EXECUTE_IF_SIMULATING
+
+Please note the command SetPowerForSV is deprecated since 22.7. You may use SetManualPowerOffsetForSV.
+
+Set power offset for specified satellite SV ID. Use SV ID 0 to set power for all satellites.
+
+Name            Type   Description
+--------------- ------ -----------------------------------------------------------------------------------------
+System          string "GPS", "GLONASS", "Galileo", "BeiDou", "SBAS", "QZSS" or "NavIC"
+SvId            int    The Satellite SV ID
+PowerOffset     double Power offset in dB (relative to signal power reference level)
+OtherSatsFollow bool   If true, other sats power will be adjusted to maintain current offsets between satellites
+
+***************************************************************************************************************************
+
+Command GetPowerForSV(system, svId)
+Permission: EXECUTE_IF_SIMULATING
+
+Please note the command GetPowerForSV is deprecated since 22.7. You may use GetAllPowerForSV.
+
+Get the power offset for specified satellite SV ID.
+
+Name   Type   Description
+------ ------ -----------------------------------------------------------------------------------
+System string The system, can be "GPS", "GLONASS", "Galileo", "BeiDou", "SBAS", "QZSS" or "NavIC"
+SvId   int    The Satellite SV ID
+
+***************************************************************************************************************************
+
+Result GetPowerForSVResult(system, svId, nominalPower, signalStrengthModel, antenna, signalLevelOffset, manualGain, total)
+
+Result of GetPowerForSV.
+
+Name                Type   Description
+------------------- ------ -----------------------------------------------------------------------------------------------------------
+System              string The system, can be "GPS", "GLONASS", "Galileo", "BeiDou", "SBAS", "QZSS" or "NavIC"
+SvId                int    The Satellite SV ID
+NominalPower        double The nominal power in dBm
+SignalStrengthModel double The power difference coming from the Signal Strength Model (dB)
+Antenna             double The receiver antenna power offset (dB). It depends on antenna pattern and relative orientation with signal.
+SignalLevelOffset   double The global power offset (dB)
+ManualGain          double The power offset provided by the user (dB). See SetPowerForSV
+Total               double The sum of all the other fields (dBm)
 

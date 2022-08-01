@@ -17,30 +17,30 @@
 #include <unistd.h>
 #endif
 
+#include <chrono>
 #include <iomanip>
 #include <iostream>
 #include <thread>
-#include <chrono>
 #define _USE_MATH_DEFINES
 #include <math.h>
 
-#include "remote_simulator.h"
 #include "all_commands.h"
 #include "command_exception.h"
-#include "hil_client.h"
-#include "lla.h"
-#include "enu.h"
 #include "ecef.h"
-#include "vehicle_info.h"
+#include "enu.h"
+#include "hil_client.h"
 #include "hil_helper.h"
+#include "lla.h"
+#include "remote_simulator.h"
+#include "vehicle_info.h"
 
 using namespace Sdx;
 using namespace Sdx::Cmd;
 
 #define VERBOSE false
-#define RADIAN(degree) degree/180.0*M_PI
+#define RADIAN(degree) degree / 180.0 * M_PI
 
-int main(int argc, char * argv[]);
+int main(int argc, char* argv[]);
 
 void runExampleBasic(const std::string& host, const std::string& targetType, const std::string& X300IP);
 void runExampleFailureHandling(const std::string& host, const std::string& targetType, const std::string& X300IP);
@@ -60,8 +60,8 @@ int main(int argc, char* argv[])
   // If you wish to connect to the simulator running on a remote computer,
   // change "localhost" for the remote computer's IP address, such as "192.168.1.100"
   const std::string HOST = "localhost";
-  const std::string TARGET_TYPE = "NoneRT";       // Change to "X300" to execute on a X300 device
-  const std::string X300_IP = ""; // Change to "192.168.XXX.XXX" to execute on a X300 device
+  const std::string TARGET_TYPE = "NoneRT"; // Change to "X300" to execute on a X300 device
+  const std::string X300_IP = "";           // Change to "192.168.XXX.XXX" to execute on a X300 device
 
   try
   {
@@ -88,7 +88,7 @@ int main(int argc, char* argv[])
   }
 
   std::cout << "Press any key to exit..." << std::endl;
-  std::cin.get(); //waits for character
+  std::cin.get(); // waits for character
 
   return 0;
 }
@@ -129,20 +129,22 @@ void runExampleBasic(const std::string& host, const std::string& targetType, con
   std::cout << "==> Arming the simulation" << std::endl;
   sim.arm();
 
-  std::cout << "==> Change satellite 16 power to +5 dB  (relative to nominal power)" << std::endl;
-  sim.post(SetPowerForSV::create("GPS", 16, 5, false));
+  std::cout << "==> Set +5 dB of manual power offset to all signals of satellite 13" << std::endl;
+  sim.post(SetManualPowerOffsetForSV::create("GPS", 13, {{"All", 5}}, false));
 
   std::cout << "==> Starting the simulation" << std::endl;
   sim.start();
 
-  std::cout << "==> Right after start, change satellite 25 power to -15dB (relative to nominal power)" << std::endl;
-  sim.call(SetPowerForSV::create("GPS", 25, -15, false));
+  std::cout << "==> Right after start, set -15 dB of manual power offset to all signals of satellite 15" << std::endl;
+  sim.call(SetManualPowerOffsetForSV::create("GPS", 15, {{"All", -15}}, false));
 
   // Asynchronous command examples
-  std::cout << "==> CMD #1: At Simulation Time 9.567s, Change satellite 32 power to -25dB (relative to nominal power)" << std::endl;
-  CommandBasePtr cmd1 = sim.post(SetPowerForSV::create("GPS", 32, -25, false), 9.567);
-  std::cout << "==> CMD #2: At Simulation Time 12.05s, Change satellite 29 power to +10dB (relative to nominal power)" << std::endl;
-  CommandBasePtr cmd2 = sim.post(SetPowerForSV::create("GPS", 29, 10, false), 12.05);
+  std::cout << "==> CMD #1: At Simulation Time 9.567s, set -25 dB of manual power offset to signal L1CA of satellite 18"
+            << std::endl;
+  CommandBasePtr cmd1 = sim.post(SetManualPowerOffsetForSV::create("GPS", 18, {{"L1CA", -25}}, false), 9.567);
+  std::cout << "==> CMD #2: At Simulation Time 12.05s, add 10 dB of manual power offset to all signals of satellite 29"
+            << std::endl;
+  CommandBasePtr cmd2 = sim.post(SetManualPowerOffsetForSV::create("GPS", 29, {{"All", 10}}, true), 12.05);
 
   // Wait for commands to complete
   std::cout << "==> Waiting for CMD #1..." << std::flush;
@@ -153,8 +155,8 @@ void runExampleBasic(const std::string& host, const std::string& targetType, con
   sim.wait(cmd2);
   std::cout << "Done!" << std::endl;
 
-  std::cout << "==> At Simulation Time 15s, reset all satellites to nominal power" << std::endl;
-  sim.call(ResetAllSatPower::create("GPS"), 15);
+  std::cout << "==> At Simulation Time 15s, reset all satellites manual power offsets" << std::endl;
+  sim.call(ResetManualPowerOffsets::create("GPS"), 15);
 
   std::cout << "==> Pause vehicle motion" << std::endl;
   sim.call(Pause::create());
@@ -168,7 +170,6 @@ void runExampleBasic(const std::string& host, const std::string& targetType, con
   sim.disconnect();
 }
 
-
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 // Failure Handling Example
 // This example shows:
@@ -180,7 +181,7 @@ void runExampleFailureHandling(const std::string& host, const std::string& targe
   std::cout << std::endl << "=== Failure handling Example ===" << std::endl;
 
   std::cout << "==> Connecting to the simulator" << std::endl;
-  //RemoteSimulator sim(true); // Stop the example with an exception if a command fail
+  // RemoteSimulator sim(true); // Stop the example with an exception if a command fail
   RemoteSimulator sim(false); // Does not stop the example with an exception if a command fail
   sim.setVerbose(VERBOSE);
   if (!sim.connect(host))
@@ -198,39 +199,43 @@ void runExampleFailureHandling(const std::string& host, const std::string& targe
 
   // Command Success Example:
   // Changing configuration before starting the simulation.
-  CommandResultPtr result1 = sim.call(ChangeModulationTargetSignals::create(0, 12500000, 50000000, "UpperL", "L1CA,G1", -1, false, targetId));
-  std::cout << "SUCCESS MESSAGE EXAMPLE: " << result1->message() << std::endl; //Will print Success
+  CommandResultPtr result1 = sim.call(
+    ChangeModulationTargetSignals::create(0, 12500000, 50000000, "UpperL", "L1CA,G1", -1, false, targetId));
+  std::cout << "SUCCESS MESSAGE EXAMPLE: " << result1->message() << std::endl; // Will print Success
 
   // Command Failure Example:
   // The following command is not allowed before you start the simulation.
-  CommandResultPtr result2 = sim.call(SetPowerForSV::create("GPS", 12, -10, true));
+  CommandResultPtr result2 = sim.call(SetManualPowerOffsetForSV::create("GPS", 12, {{"All", -10}}, true));
   std::cout << "FAILURE MESSAGE EXAMPLE: " << result2->message() << std::endl;
 
   std::cout << "==> Starting Simulation" << std::endl;
   if (sim.start())
   {
-    // Change satellite 14 power to -15dB (relative to nominal power)
-    sim.call(SetPowerForSV::create("GPS", 14, -15, false));
+    // Right after start, set -15 dB of manual power offset to all signals of satellite 15
+    sim.call(SetManualPowerOffsetForSV::create("GPS", 15, {{"All", -15}}, false));
 
     // Command Failure Example:
     // The following command (setting simulation start time) is not allowed once simulation is started.
     CommandResultPtr result3 = sim.call(SetGpsStartTime::create(DateTime(2021, 2, 15, 7, 0, 0)));
-    std::cout << "FAILURE MESSAGE EXAMPLE: " << result3->relatedCommand()->toReadableCommand() << ": " << result3->message() << std::endl;
+    std::cout << "FAILURE MESSAGE EXAMPLE: " << result3->relatedCommand()->toReadableCommand() << ": "
+              << result3->message() << std::endl;
 
     // Asynchronous Success command example
-    // When simulation elapsed time is 9.567 sec, change satellite 31 power to -25 dB
-    CommandBasePtr cmd4 = sim.post(SetPowerForSV::create("GPS", 31, -25, false), 9.567);
+    // When simulation elapsed time is 9.567 sec, set -25 dB of manual power offset to signal L1CA of satellite 31
+    CommandBasePtr cmd4 = sim.post(SetManualPowerOffsetForSV::create("GPS", 31, {{"L1CA", -25}}, false), 9.567);
 
     // Asynchronous Failure command example
-    // When simulation elapsed time is 12.05 sec, change satellite 200 power to +10 dB
-    CommandBasePtr cmd5 = sim.post(SetPowerForSV::create("GPS", 200, 10, false), 12.05);
+    // When simulation elapsed time is 12.05 sec, add 10 dB of manual power offset to all signals of satellite 26
+    CommandBasePtr cmd5 = sim.post(SetManualPowerOffsetForSV::create("GPS", 200, {{"All", 10}}, true), 12.05);
 
     // Wait for Asynchronous commands to complete
     CommandResultPtr result4 = sim.wait(cmd4);
     CommandResultPtr result5 = sim.wait(cmd5);
 
-    std::cout << "SUCCESS MESSAGE EXAMPLE: " << result4->relatedCommand()->toReadableCommand() + ": " + result4->message() << std::endl;
-    std::cout << "FAILURE MESSAGE EXAMPLE: " << result5->relatedCommand()->toReadableCommand() + ": " + result5->message() << std::endl;
+    std::cout << "SUCCESS MESSAGE EXAMPLE: "
+              << result4->relatedCommand()->toReadableCommand() + ": " + result4->message() << std::endl;
+    std::cout << "FAILURE MESSAGE EXAMPLE: "
+              << result5->relatedCommand()->toReadableCommand() + ": " + result5->message() << std::endl;
 
     std::cout << "==> Stop simulation when elapsed time is 20 sec" << std::endl;
     sim.stop(20);
@@ -263,17 +268,15 @@ void runExampleGetElapsedTime(const std::string& host, const std::string& target
 
   std::cout << "==> Example #1: Get the Simulation Start Time: " << std::endl;
   // We will get the Simulation Start Time of a newly created configuration.
-  GetGpsStartTimePtr        getGpsStartTimeCmd = GetGpsStartTime::create();
-  CommandResultPtr          cmdResult = sim.call(getGpsStartTimeCmd);
-  GetGpsStartTimeResultPtr  gpsStartTime = GetGpsStartTimeResult::dynamicCast(cmdResult);
+  GetGpsStartTimePtr getGpsStartTimeCmd = GetGpsStartTime::create();
+  CommandResultPtr cmdResult = sim.call(getGpsStartTimeCmd);
+  GetGpsStartTimeResultPtr gpsStartTime = GetGpsStartTimeResult::dynamicCast(cmdResult);
   std::cout << std::endl;
-  std::cout << "  Simulation Start Time (GPS TIME): "
-    << gpsStartTime->startTime().year << "-"
-    << gpsStartTime->startTime().month << "-"
-    << gpsStartTime->startTime().day << " "
-    << std::setfill('0') << std::setw(2) << gpsStartTime->startTime().hour << ":"
-    << std::setfill('0') << std::setw(2) << gpsStartTime->startTime().minute << ":"
-    << std::setfill('0') << std::setw(2) << gpsStartTime->startTime().second << std::endl;
+  std::cout << "  Simulation Start Time (GPS TIME): " << gpsStartTime->startTime().year << "-"
+            << gpsStartTime->startTime().month << "-" << gpsStartTime->startTime().day << " " << std::setfill('0')
+            << std::setw(2) << gpsStartTime->startTime().hour << ":" << std::setfill('0') << std::setw(2)
+            << gpsStartTime->startTime().minute << ":" << std::setfill('0') << std::setw(2)
+            << gpsStartTime->startTime().second << std::endl;
   std::cout << "  Simulation Start Leap Seconds   : " << gpsStartTime->leapSecond() << "s" << std::endl;
   std::cout << std::endl;
 
@@ -288,8 +291,8 @@ void runExampleGetElapsedTime(const std::string& host, const std::string& target
   sim.start();
 
   std::cout << "Example #2: Getting Simulation Time in a loop" << std::endl;
-  GetSimulationElapsedTimePtr        getSimElapsedTimeCmd = GetSimulationElapsedTime::create();
-  SimulationElapsedTimeResultPtr     simulationElaspedTime;
+  GetSimulationElapsedTimePtr getSimElapsedTimeCmd = GetSimulationElapsedTime::create();
+  SimulationElapsedTimeResultPtr simulationElaspedTime;
 
   int elaspedTimeMs = 0;
   while (elaspedTimeMs < 20000)
@@ -345,7 +348,7 @@ void runExampleVehicleInfo(const std::string& host, const std::string& targetTyp
 
   std::cout << "==> Begin receiving vehicle informations" << std::endl;
 
-  //You must call BeginVehicleInfo before getting vehicle informations
+  // You must call BeginVehicleInfo before getting vehicle informations
   sim.beginVehicleInfo();
   sim.start();
 
@@ -354,27 +357,28 @@ void runExampleVehicleInfo(const std::string& host, const std::string& targetTyp
   sim.lastVehicleInfo(vehicleInfo);
   Lla originLla, currentLla;
   Enu currentEnu;
-  vehicleInfo.ecef.toLla(originLla); //convert ecef origin to lla
+  vehicleInfo.ecef.toLla(originLla); // convert ecef origin to lla
   do
   {
-    //sim.lastVehicleInfo() will block till a vehicle info is received,
-    //you can use sim.hasVehicleInfo(), if you do not want a blocking behavior :
-    //if (!sim.hasVehicleInfo()) continue;
+    // sim.lastVehicleInfo() will block till a vehicle info is received,
+    // you can use sim.hasVehicleInfo(), if you do not want a blocking behavior :
+    // if (!sim.hasVehicleInfo()) continue;
 
     sim.lastVehicleInfo(vehicleInfo);
-    vehicleInfo.ecef.toLla(currentLla); //convert ecef to lla
-    currentLla.toEnu(originLla, currentEnu); //convert lla to enu
+    vehicleInfo.ecef.toLla(currentLla);      // convert ecef to lla
+    currentLla.toEnu(originLla, currentEnu); // convert lla to enu
     std::cout << "--------------------------------------------------" << std::endl;
     std::cout << "Time (ms): " << vehicleInfo.elapsedTime << std::endl;
     std::cout << "ENU Position (meters): " << std::fixed << std::setprecision(2);
     std::cout << currentEnu.n << ", " << currentEnu.e << ", " << currentEnu.u << std::endl;
     std::cout << "NED Attitude (deg): " << vehicleInfo.attitude.yawDeg() << ", ";
     std::cout << vehicleInfo.attitude.pitchDeg() << ", " << vehicleInfo.attitude.rollDeg() << std::endl;
-    std::cout << "Odometer (meters): " << vehicleInfo.odometer << " | Heading (deg): " << (vehicleInfo.heading / M_PI * 180);
+    std::cout << "Odometer (meters): " << vehicleInfo.odometer
+              << " | Heading (deg): " << (vehicleInfo.heading / M_PI * 180);
     std::cout << " | Speed (m/s): " << vehicleInfo.speed << std::endl;
 
-    //You can remove or decrease this sleep to get more resolution
-    //A vehicle info is sent each 10 ms from simulator
+    // You can remove or decrease this sleep to get more resolution
+    // A vehicle info is sent each 10 ms from simulator
     std::this_thread::sleep_for(std::chrono::milliseconds(1000));
   } while (vehicleInfo.elapsedTime < 90000);
 
@@ -587,17 +591,17 @@ void displayHilExtrapolationWarnings(RemoteSimulator& sim)
 //
 //   1 - You run this example on the same PC as Skydel, and haven't setup time synchronization
 //       between the computer system time and the PPS signal driving your radio (or you run in NoneRT).
-//       
+//
 //       This is the default use case (when the variable isOsTimeSyncWithPPS is false), it exists
 //       to allow users to quickly and easily test HIL without having to set up time synchronization.
 //       Note that if you use this mode with a radio, the time will drift between this example and
 //       the Skydel's simulation over time.
 //
 //   2 - You run this example on any PC which has it's time synchronized with the radio PPS signal.
-//       
+//
 //       This is the recommended use case (when the variable isOsTimeSyncWithPPS is true).
 //       We recommend using a time server, such as the SecureSync 2400 to provide the 10Mhz
-//       and the PPS reference to the radio. The SecureSync is also a PTP server that can 
+//       and the PPS reference to the radio. The SecureSync is also a PTP server that can
 //       synchronize your computer system clock with the PPS to a high degree of precision.
 //       In this mode, there will be no time drift between the example and the Skydel's simulation.
 //
@@ -621,7 +625,8 @@ void runExampleHilRealtime(const std::string& host, const std::string& targetTyp
 
   if (host != "localhost" && host != "127.0.0.1" && !isOsTimeSyncWithPPS)
   {
-    throw std::runtime_error("Can't run this example on a different computer if the OS time isn't in sync with the radio's PPS.");
+    throw std::runtime_error(
+      "Can't run this example on a different computer if the OS time isn't in sync with the radio's PPS.");
   }
 
   std::cout << "==> Connecting to the simulator" << std::endl;
@@ -631,19 +636,21 @@ void runExampleHilRealtime(const std::string& host, const std::string& targetTyp
 
   std::cout << "==> Checking preferences before start" << std::endl;
 
-  // We suggest these values as a starting point, but they will have to be modified according 
+  // We suggest these values as a starting point, but they will have to be modified according
   // to your hardware, the configuration of the simulation and your requirements.
   // Use the performance graph as well as the HIL graph to monitor Skydel and diagnose issues.
   // It is strongly recommended to read the user manual before you try to optimize those settings.
-  const int TIME_BETWEEN_POSITION_MS = 15;  // Send receiver position every 15 milliseconds
-  const int SKYDEL_LATENCY_MS = 40;  // How much in advance can Skydel be versus the radio time
-  const int HIL_TJOIN = 65;  // This value should be greater than SKYDEL_LATENCY_MS + TIME_BETWEEN_POSITION_MS + network latency
+  const int TIME_BETWEEN_POSITION_MS = 15; // Send receiver position every 15 milliseconds
+  const int SKYDEL_LATENCY_MS = 40;        // How much in advance can Skydel be versus the radio time
+  const int HIL_TJOIN =
+    65; // This value should be greater than SKYDEL_LATENCY_MS + TIME_BETWEEN_POSITION_MS + network latency
 
   // Check the engine latency (Skydel preference)
   if (GetEngineLatencyResult::dynamicCast(sim.call(GetEngineLatency::create()))->latency() != SKYDEL_LATENCY_MS)
   {
-    //sim.call(SetEngineLatency::create(SKYDEL_LATENCY_MS));
-    throw std::runtime_error("HIL Example: Please execute SetEngineLatency(" + std::to_string(SKYDEL_LATENCY_MS) + ") command or change the SKYDEL_LATENCY_MS value before executing this example.");
+    // sim.call(SetEngineLatency::create(SKYDEL_LATENCY_MS));
+    throw std::runtime_error("HIL Example: Please execute SetEngineLatency(" + std::to_string(SKYDEL_LATENCY_MS) +
+                             ") command or change the SKYDEL_LATENCY_MS value before executing this example.");
   }
 
   // Check the streaming buffer preference, do not change it from its default value
@@ -652,9 +659,10 @@ void runExampleHilRealtime(const std::string& host, const std::string& targetTyp
     throw std::runtime_error("HIL Example: Please do not change the Streaming Buffer preference.");
   }
 
-  // Uncomment these lines if you do very low latency HIL, as these features can impact Skydel's performance (Skydel's system wide preferences)
-  //sim.call(ShowMapAnalysis::create(false));
-  //sim.call(SetSpectrumVisible::create(false));
+  // Uncomment these lines if you do very low latency HIL, as these features can impact Skydel's performance (Skydel's
+  // system wide preferences)
+  // sim.call(ShowMapAnalysis::create(false));
+  // sim.call(SetSpectrumVisible::create(false));
 
   std::cout << "==> Create new config, ignore the default config if it's set" << std::endl;
   sim.call(New::create(true, false));
@@ -667,8 +675,10 @@ void runExampleHilRealtime(const std::string& host, const std::string& targetTyp
   sim.call(ChangeModulationTargetSignals::create(0, 12500000, 12500000, "UpperL", "L1CA", -1, false, UNIQUE_RADIO_ID));
 
   // Enable some logging type
-  sim.call(EnableLogRaw::create(false));  // You can enable raw logging and compare the logs (the receiver position is especially helpful)
-  sim.call(EnableLogHILInput::create(true));  // This will give you exactly what Skydel has received through the HIL interface
+  sim.call(EnableLogRaw::create(
+    false)); // You can enable raw logging and compare the logs (the receiver position is especially helpful)
+  sim.call(
+    EnableLogHILInput::create(true)); // This will give you exactly what Skydel has received through the HIL interface
 
   std::cout << "==> Change the vehicle's trajectory to HIL" << std::endl;
   sim.call(SetVehicleTrajectory::create("HIL"));
@@ -676,7 +686,7 @@ void runExampleHilRealtime(const std::string& host, const std::string& targetTyp
   // HIL Tjoin is a volatile parameter that must be set before every HIL simulation
   sim.call(SetHilTjoin::create(HIL_TJOIN));
 
-  // The streaming check is performed at the end of pushEcefNed. It's recommended to disable this check 
+  // The streaming check is performed at the end of pushEcefNed. It's recommended to disable this check
   // and do it asynchronously outside of the while loop when sending positions at high frequencies.
   sim.setHilStreamingCheckEnabled(true);
 
@@ -686,7 +696,7 @@ void runExampleHilRealtime(const std::string& host, const std::string& targetTyp
   try
   {
     double pps0TimestampMs = 0.0;
-    
+
     // Enable the PPS synchronisation
     sim.call(EnableMasterPps::create(true));
 
@@ -731,10 +741,16 @@ void runExampleHilRealtime(const std::string& host, const std::string& targetTyp
     // Skydel must know the initial position of the receiver for initialization.
     // Use pushLla, pushEcef or pushEcefNed based on your requirements.
     std::tuple<Ecef, Ecef> positionVelocity = trajectory.generatePositionAndVelocityAt(elapsedMs);
-    sim.pushEcefNed(elapsedMs, std::get<0>(positionVelocity), fixedAttitude, std::get<1>(positionVelocity), angularVelocity);
+    sim.pushEcefNed(elapsedMs,
+                    std::get<0>(positionVelocity),
+                    fixedAttitude,
+                    std::get<1>(positionVelocity),
+                    angularVelocity);
 
-    std::cout << "==> Sending positions in Real-Time, for " + std::to_string(SIMULATION_DURATION_MS / 1000) + " seconds." << std::endl;
-    
+    std::cout << "==> Sending positions in Real-Time, for " + std::to_string(SIMULATION_DURATION_MS / 1000) +
+                   " seconds."
+              << std::endl;
+
     while (elapsedMs <= SIMULATION_DURATION_MS)
     {
       // Wait for the next position's timestamp
@@ -746,11 +762,15 @@ void runExampleHilRealtime(const std::string& host, const std::string& targetTyp
 
       // Generate the position
       positionVelocity = trajectory.generatePositionAndVelocityAt(elapsedMs);
-      
+
       // Push the position to Skydel
       // Uncomment the following condition to simulate a poor network connection and get HIL extrapolation warnings:
-      //if ((static_cast<double>(rand()) / (RAND_MAX)) < 0.98)
-      sim.pushEcefNed(elapsedMs, std::get<0>(positionVelocity), fixedAttitude, std::get<1>(positionVelocity), angularVelocity);
+      // if ((static_cast<double>(rand()) / (RAND_MAX)) < 0.98)
+      sim.pushEcefNed(elapsedMs,
+                      std::get<0>(positionVelocity),
+                      fixedAttitude,
+                      std::get<1>(positionVelocity),
+                      angularVelocity);
 
       // It is recommended to do this check at 10 Hz or less to avoid TCP stack overflow.
       // Do this check asynchronously, outside of this loop, if you are sending positions at a high rate.
@@ -896,7 +916,8 @@ void runExamplePauseResume(const std::string& host, const std::string& targetTyp
   }
   int numberOfNodes = 0;
   result = sim.endTrackDefinition(numberOfNodes);
-  std::cout << "RESULT (endTrackDefinition): " << result->message() << "; Number of nodes: " << numberOfNodes << std::endl;
+  std::cout << "RESULT (endTrackDefinition): " << result->message() << "; Number of nodes: " << numberOfNodes
+            << std::endl;
 
   std::cout << "==> Starting Simulation" << std::endl;
   sim.start();
@@ -937,7 +958,7 @@ void runExampleAutomaticStop(const std::string& host, const std::string& targetT
   // Select signals to simulate
   sim.call(ChangeModulationTargetSignals::create(0, 12500000, 12500000, "UpperL", "L1CA", -1, false, targetId));
 
-  //When enabled, the simulation will stop when the vehicle will reach its trajectory destination
+  // When enabled, the simulation will stop when the vehicle will reach its trajectory destination
   std::cout << "==> Enable simulation automatic stop at trajectory end" << std::endl;
   sim.call(EnableSimulationStopAtTrajectoryEnd::create(true));
 
@@ -975,7 +996,7 @@ void runExampleAutomaticStop(const std::string& host, const std::string& targetT
   sim.disconnect();
 }
 
-void runExampleGetPower(const std::string & host, const std::string & targetType, const std::string & X300IP)
+void runExampleGetPower(const std::string& host, const std::string& targetType, const std::string& X300IP)
 {
   std::cout << std::endl << "=== Get Power Example ===" << std::endl;
 
@@ -1002,9 +1023,11 @@ void runExampleGetPower(const std::string & host, const std::string & targetType
 
   for (int i = 0; i < static_cast<int>(svIds.size()); ++i)
   {
-    GetPowerForSVResultPtr power = GetPowerForSVResult::dynamicCast(sim.call(GetPowerForSV::create("GPS", svIds[i])));
+    GetAllPowerForSVResultPtr power = GetAllPowerForSVResult::dynamicCast(
+      sim.call(GetAllPowerForSV::create("GPS", svIds[i], {"L1CA"})));
 
-    std::cout << "SV ID " << svIds[i] << " received power: " << power->total() << " dBm" << std::endl;
+    std::cout << "SV ID " << svIds[i] << " received power: " << power->signalPowerDict().at("L1CA").Total << " dBm"
+              << std::endl;
   }
 
   std::cout << "==> Stopping Simulation" << std::endl;

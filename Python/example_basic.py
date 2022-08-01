@@ -29,30 +29,29 @@ sim.arm()
 
 # Asynchronous command examples
 
-# Change satellite 16 power to +5 dB (relative to nominal power)
-sim.post(SetPowerForSV("GPS", 16, 5, False))
+# Set +5 dB of manual power offset to all signals of satellite 13
+sim.post(SetManualPowerOffsetForSV("GPS", 13, {"All": 5}, False))
 
-# When simulation elapsed time is 9.567 sec, change satellite 32 power to -25 dB (relative to nominal power)
-cmd1 = sim.post(SetPowerForSV("GPS", 32, -25, False), 9.567)
+# When simulation elapsed time is 9.567 sec, set -25 dB of manual power offset to signal L1CA of satellite 18
+cmd1 = sim.post(SetManualPowerOffsetForSV("GPS", 18, {"L1CA": -25}, False), 9.567)
 
-# When simulation elapsed time is 12.05 sec, change satellite 29 power to +10 dB (relative to nominal power)
-cmd2 = sim.post(SetPowerForSV("GPS", 29, 10, False), 12.05)
+# When simulation elapsed time is 12.05 sec, add 10 dB of manual power offset to all signals of satellite 29
+cmd2 = sim.post(SetManualPowerOffsetForSV("GPS", 29, {"All": 10}, True), 12.05)
 
 # Start the simulation
 sim.start()
 
-time.sleep(1);
+time.sleep(1)
 
-
-# Right after start, change satellite 25 power to -15dB (relative to nominal power)
-sim.call(SetPowerForSV("GPS", 25, -15, False))
+# Right after start, set -15 dB of manual power offset to all signals of satellite 15
+sim.call(SetManualPowerOffsetForSV("GPS", 15, {"All": -15}, False))
 
 # Wait for commands to complete
 sim.wait(cmd1)
 sim.wait(cmd2)
 
-# When simulation elapsed time is 15, reset all satellites to nominal power
-sim.call(ResetAllSatPower("GPS"), 15)
+# When simulation elapsed time is 15, reset all satellites manual power offsets
+sim.call(ResetManualPowerOffsets("GPS"), 15)
 
 # Pause vehicle motion and resume at 18 sec
 sim.call(Pause())

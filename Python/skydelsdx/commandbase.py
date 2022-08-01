@@ -46,6 +46,9 @@ class MakeObj:
       return self.items() == other.items()
     return False
 
+  def __contains__(self, key):
+    return key in self.__dict__
+
   def iteritems(self):
     return self.__dict__.items()
 

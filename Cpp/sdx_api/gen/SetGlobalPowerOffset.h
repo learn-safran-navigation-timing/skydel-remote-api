@@ -1,7 +1,7 @@
 #pragma once
 
 #include <memory>
-#include "command_result.h"
+#include "command_base.h"
 
 
 namespace Sdx
@@ -9,32 +9,34 @@ namespace Sdx
   namespace Cmd
   {
     ///
-    /// Result of GetPowerGlobalOffset.
+    /// Set global power offset default value for all signals and all systems
     ///
     /// Name   Type   Description
     /// ------ ------ ---------------------------------------------------
     /// Offset double Offset in dB (negative value will attenuate signal)
     ///
 
-    class GetPowerGlobalOffsetResult;
-    typedef std::shared_ptr<GetPowerGlobalOffsetResult> GetPowerGlobalOffsetResultPtr;
+    class SetGlobalPowerOffset;
+    typedef std::shared_ptr<SetGlobalPowerOffset> SetGlobalPowerOffsetPtr;
     
     
-    class GetPowerGlobalOffsetResult : public CommandResult
+    class SetGlobalPowerOffset : public CommandBase
     {
     public:
       static const char* const CmdName;
       static const char* const Documentation;
 
 
-      GetPowerGlobalOffsetResult();
+      SetGlobalPowerOffset();
 
-      GetPowerGlobalOffsetResult(CommandBasePtr relatedCommand, double offset);
+      SetGlobalPowerOffset(double offset);
   
-      static GetPowerGlobalOffsetResultPtr create(CommandBasePtr relatedCommand, double offset);
-      static GetPowerGlobalOffsetResultPtr dynamicCast(CommandBasePtr ptr);
+      static SetGlobalPowerOffsetPtr create(double offset);
+      static SetGlobalPowerOffsetPtr dynamicCast(CommandBasePtr ptr);
       virtual bool isValid() const override;
       virtual std::string documentation() const override;
+
+      virtual int executePermission() const override;
 
 
       // **** offset ****

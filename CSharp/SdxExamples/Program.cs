@@ -95,20 +95,20 @@ namespace SdxExamples
       Console.WriteLine("==> Arming the simulation");
       sim.Arm();
 
-      Console.WriteLine("==> Change satellite 16 power to +5 dB  (relative to nominal power)");
-      sim.Call(new SetPowerForSV("GPS", 16, 5, false));
+      Console.WriteLine("==> Set +5 dB of manual power offset to all signals of satellite 13");
+      sim.Call(new SetManualPowerOffsetForSV("GPS", 13, new Dictionary<string, double> {{"All", 5}}, false));
 
       Console.WriteLine("==> Starting the simulation");
       sim.Start();
 
-      Console.WriteLine("==> Right after start, change satellite 25 power to -15dB (relative to nominal power)");
-      sim.Call(new SetPowerForSV("GPS", 25, -15, false));
+      Console.WriteLine("==> Right after start, set -15 dB of manual power offset to all signals of satellite 15");
+      sim.Call(new SetManualPowerOffsetForSV("GPS", 15, new Dictionary<string, double> {{"All", -15}}, false));
 
       // Asynchronous command examples
-      Console.WriteLine("==> CMD #1: At simulation time 9.567s, Change satellite 32 power to -25dB (relative to nominal power)");
-      CommandBase cmd1 = sim.Post(new SetPowerForSV("GPS", 32, -25, false), 9.567);
-      Console.WriteLine("==> CMD #2: At simulation time 12.05s, Change satellite 29 power to +10dB (relative to nominal power)");
-      CommandBase cmd2 = sim.Post(new SetPowerForSV("GPS", 29, 10, false), 12.05);
+      Console.WriteLine("==> CMD #1: At Simulation Time 9.567s, set -25 dB of manual power offset to signal L1CA of satellite 18");
+      CommandBase cmd1 = sim.Post(new SetManualPowerOffsetForSV("GPS", 18, new Dictionary<string, double> {{"L1CA", -25}}, false), 9.567);
+      Console.WriteLine("==> CMD #2: At Simulation Time 12.05s, add 10 dB of manual power offset to all signals of satellite 29");
+      CommandBase cmd2 = sim.Post(new SetManualPowerOffsetForSV("GPS", 29, new Dictionary<string, double> {{"All", 10}}, true), 12.05);
 
       // Wait for commands to complete
       Console.Write("==> Waiting for CMD #1...");
@@ -118,8 +118,8 @@ namespace SdxExamples
       sim.Wait(cmd2);
       Console.WriteLine("Done!");
 
-      Console.WriteLine("==> At simulation time 15s, reset all satellites to nominal power");
-      sim.Call(new ResetAllSatPower("GPS"), 15);
+      Console.WriteLine("==> At simulation time 15s, reset all satellites manual power offsets");
+      sim.Call(new ResetManualPowerOffsets("GPS"), 15);
 
       Console.WriteLine("==> Pause vehicle motion");
       sim.Call(new Pause());
@@ -168,14 +168,14 @@ namespace SdxExamples
 
       // Command Failure Example:
       // The following command is not allowed before you start the simulation.
-      CommandResult result2 = sim.Call(new SetPowerForSV("GPS", 12, -10, true));
+      CommandResult result2 = sim.Call(new SetManualPowerOffsetForSV("GPS", 12, new Dictionary<string, double> {{"All", -10}}, true));
       Console.WriteLine("FAILURE MESSAGE EXAMPLE: " + result2.Message);
 
       Console.WriteLine("==> Starting Simulation");
       if (sim.Start())
       {
-        // Change satellite 14 power to -15dB (relative to nominal power)
-        sim.Call(new SetPowerForSV("GPS", 14, -15, false));
+        // Right after start, set -15 dB of manual power offset to all signals of satellite 15
+        sim.Call(new SetManualPowerOffsetForSV("GPS", 15, new Dictionary<string, double> {{"All", -15}}, false));
 
         // Command Failure Example:
         // The following command (setting simulation start time) is not allowed once simulation is started.
@@ -183,12 +183,12 @@ namespace SdxExamples
         Console.WriteLine("FAILURE MESSAGE EXAMPLE: " + result3.RelatedCommand.ToReadableCommand() + ": " + result3.Message);
 
         // Asynchronous Success command example
-        // When simulation elapsed time is 9.567 sec, change satellite 31 power to -25 dB
-        CommandBase cmd4 = sim.Post(new SetPowerForSV("GPS", 31, -25, false), 9.567);
+        // When simulation elapsed time is 9.567 sec, set -25 dB of manual power offset to signal L1CA of satellite 31
+        CommandBase cmd4 = sim.Post(new SetManualPowerOffsetForSV("GPS", 31, new Dictionary<string, double> {{"L1CA", -25}}, false), 9.567);
 
         // Asynchronous Failure command example
-        // When simulation elapsed time is 12.05 sec, change satellite 200 power to +10 dB
-        CommandBase cmd5 = sim.Post(new SetPowerForSV("GPS", 200, 10, false), 12.05);
+        // hen simulation elapsed time is 12.05 sec, add 10 dB of manual power offset to all signals of satellite 26
+        CommandBase cmd5 = sim.Post(new SetManualPowerOffsetForSV("GPS", 200, new Dictionary<string, double> {{"All", 10}}, true), 12.05);
 
         // Wait for Asynchronous commands to complete
         CommandResult result4 = sim.Wait(cmd4);
@@ -911,9 +911,9 @@ namespace SdxExamples
 
       foreach (int svId in visibles.SvId)
       {
-        GetPowerForSVResult power = (GetPowerForSVResult)sim.Call(new GetPowerForSV("GPS", svId));
+        GetAllPowerForSVResult power = (GetAllPowerForSVResult)sim.Call(new GetAllPowerForSV("GPS", svId, new List<string> {"L1CA"}));
 
-        Console.WriteLine("SV ID {0} received power: {1} dBm", svId, power.Total);
+        Console.WriteLine("SV ID {0} received power: {1} dBm", svId, power.SignalPowerDict["L1CA"].Total);
       }
 
       Console.WriteLine("==> Stop simulation");

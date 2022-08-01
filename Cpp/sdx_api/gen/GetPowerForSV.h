@@ -9,6 +9,8 @@ namespace Sdx
   namespace Cmd
   {
     ///
+    /// Please note the command GetPowerForSV is deprecated since 22.7. You may use GetAllPowerForSV.
+    /// 
     /// Get the power offset for specified satellite SV ID.
     ///
     /// Name   Type   Description

@@ -27,11 +27,14 @@ sim.arm()
 # Get the list of all visible satellite
 visibles = sim.call(GetVisibleSV("GPS"))
 
-for svId in visibles.svId():
-  # Get the power of that satellite
-  power = sim.call(GetPowerForSV("GPS", svId))
+# Change the signal here
+signal = "L1CA"
 
-  print("SV ID {0} received power: {1}".format(svId, power.total()))
+for svId in visibles.svId():
+  # Get the signal power of that satellite
+  power = sim.call(GetAllPowerForSV("GPS", svId, [signal]))
+
+  print("SV ID {0} received power {1} for signal {2}".format(svId, power.signalPowerDict()[signal].Total, signal))
 
 sim.stop()
 
