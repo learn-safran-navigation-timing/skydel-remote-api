@@ -2,6 +2,7 @@
 
 #include <memory>
 #include "command_base.h"
+
 #include <string>
 
 namespace Sdx
@@ -61,6 +62,7 @@ namespace Sdx
       bool flag() const;
       void setFlag(bool flag);
     };
+    
   }
 }
 

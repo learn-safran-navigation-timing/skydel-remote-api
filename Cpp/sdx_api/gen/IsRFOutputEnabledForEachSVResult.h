@@ -2,6 +2,7 @@
 
 #include <memory>
 #include "command_result.h"
+#include "command_result_factory.h"
 #include <string>
 #include <vector>
 
@@ -48,6 +49,7 @@ namespace Sdx
       std::vector<bool> enabled() const;
       void setEnabled(const std::vector<bool>& enabled);
     };
+    REGISTER_COMMAND_RESULT_TO_FACTORY_DECL(IsRFOutputEnabledForEachSVResult);
   }
 }
 

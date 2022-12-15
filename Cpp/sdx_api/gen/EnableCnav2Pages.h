@@ -2,6 +2,7 @@
 
 #include <memory>
 #include "command_base.h"
+
 #include <vector>
 
 namespace Sdx
@@ -43,6 +44,7 @@ namespace Sdx
       std::vector<int> messages() const;
       void setMessages(const std::vector<int>& messages);
     };
+    
   }
 }
 

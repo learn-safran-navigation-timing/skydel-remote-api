@@ -2,6 +2,7 @@
 
 #include <memory>
 #include "command_result.h"
+#include "command_result_factory.h"
 #include <string>
 #include <vector>
 
@@ -55,6 +56,7 @@ namespace Sdx
       std::vector<double> offset() const;
       void setOffset(const std::vector<double>& offset);
     };
+    REGISTER_COMMAND_RESULT_TO_FACTORY_DECL(GetPseudorangeNoiseOffsetForEachSVResult);
   }
 }
 

@@ -2,6 +2,7 @@
 
 #include <memory>
 #include "command_base.h"
+
 #include <string>
 
 namespace Sdx
@@ -43,6 +44,7 @@ namespace Sdx
       std::string navMsgFamily() const;
       void setNavMsgFamily(const std::string& navMsgFamily);
     };
+    
   }
 }
 

@@ -2,6 +2,7 @@
 
 #include <memory>
 #include "command_result.h"
+#include "command_result_factory.h"
 #include "gen/SbasServiceMessageRegion.h"
 #include <string>
 #include <vector>
@@ -67,6 +68,7 @@ namespace Sdx
       std::string id() const;
       void setId(const std::string& id);
     };
+    REGISTER_COMMAND_RESULT_TO_FACTORY_DECL(GetSbasServiceMessageRegionGroupResult);
   }
 }
 

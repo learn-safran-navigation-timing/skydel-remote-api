@@ -2,6 +2,7 @@
 
 #include <memory>
 #include "command_base.h"
+
 #include "sdx_optional.h"
 #include <string>
 #include <vector>
@@ -51,6 +52,7 @@ namespace Sdx
       Sdx::optional<std::string> serviceProvider() const;
       void setServiceProvider(const Sdx::optional<std::string>& serviceProvider);
     };
+    
   }
 }
 

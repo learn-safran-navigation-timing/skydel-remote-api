@@ -2,6 +2,7 @@
 
 #include <memory>
 #include "command_base.h"
+
 #include <string>
 #include <vector>
 
@@ -56,6 +57,7 @@ namespace Sdx
       std::vector<double> offset() const;
       void setOffset(const std::vector<double>& offset);
     };
+    
   }
 }
 

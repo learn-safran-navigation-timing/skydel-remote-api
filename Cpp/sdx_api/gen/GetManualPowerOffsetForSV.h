@@ -2,6 +2,7 @@
 
 #include <memory>
 #include "command_base.h"
+
 #include <string>
 #include <vector>
 
@@ -61,6 +62,7 @@ namespace Sdx
       std::vector<std::string> signalArray() const;
       void setSignalArray(const std::vector<std::string>& signalArray);
     };
+    
   }
 }
 

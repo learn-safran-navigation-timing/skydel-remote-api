@@ -2,6 +2,7 @@
 
 #include <memory>
 #include "command_base.h"
+
 #include "gen/AntennaPatternFileType.h"
 #include "gen/AntennaPatternType.h"
 #include "gen/GNSSBand.h"
@@ -71,6 +72,7 @@ namespace Sdx
       Sdx::optional<std::string> name() const;
       void setName(const Sdx::optional<std::string>& name);
     };
+    
   }
 }
 

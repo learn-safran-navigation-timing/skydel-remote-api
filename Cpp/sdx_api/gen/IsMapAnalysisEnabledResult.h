@@ -2,6 +2,7 @@
 
 #include <memory>
 #include "command_result.h"
+#include "command_result_factory.h"
 
 
 namespace Sdx
@@ -41,6 +42,7 @@ namespace Sdx
       bool show() const;
       void setShow(bool show);
     };
+    REGISTER_COMMAND_RESULT_TO_FACTORY_DECL(IsMapAnalysisEnabledResult);
   }
 }
 

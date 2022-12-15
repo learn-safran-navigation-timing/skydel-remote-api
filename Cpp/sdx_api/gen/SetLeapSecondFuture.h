@@ -2,6 +2,7 @@
 
 #include <memory>
 #include "command_base.h"
+
 #include "date.h"
 
 namespace Sdx
@@ -55,6 +56,7 @@ namespace Sdx
       Sdx::Date date() const;
       void setDate(const Sdx::Date& date);
     };
+    
   }
 }
 

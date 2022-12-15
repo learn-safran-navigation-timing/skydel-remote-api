@@ -2,6 +2,7 @@
 
 #include <memory>
 #include "command_base.h"
+
 #include <string>
 
 namespace Sdx
@@ -67,6 +68,7 @@ namespace Sdx
       double phaseOffet() const;
       void setPhaseOffet(double phaseOffet);
     };
+    
   }
 }
 

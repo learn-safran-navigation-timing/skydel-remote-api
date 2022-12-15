@@ -2,6 +2,7 @@
 
 #include <memory>
 #include "command_base.h"
+
 #include <string>
 
 namespace Sdx
@@ -67,6 +68,7 @@ namespace Sdx
       std::string pilotId() const;
       void setPilotId(const std::string& pilotId);
     };
+    
   }
 }
 

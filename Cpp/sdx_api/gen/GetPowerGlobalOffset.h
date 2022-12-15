@@ -4,6 +4,7 @@
 #include "command_base.h"
 
 
+
 namespace Sdx
 {
   namespace Cmd
@@ -36,6 +37,7 @@ namespace Sdx
 
       virtual int executePermission() const override;
     };
+    
   }
 }
 

@@ -2,6 +2,7 @@
 
 #include <memory>
 #include "command_result.h"
+#include "command_result_factory.h"
 #include <vector>
 
 namespace Sdx
@@ -41,6 +42,7 @@ namespace Sdx
       std::vector<int> messages() const;
       void setMessages(const std::vector<int>& messages);
     };
+    REGISTER_COMMAND_RESULT_TO_FACTORY_DECL(GetCnav2PagesEnabledResult);
   }
 }
 

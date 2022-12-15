@@ -2,6 +2,7 @@
 
 #include <memory>
 #include "command_result.h"
+#include "command_result_factory.h"
 #include "gen/SignalPower.h"
 #include <map>
 #include <string>
@@ -72,6 +73,7 @@ namespace Sdx
       std::map<std::string, Sdx::SignalPower> signalPowerDict() const;
       void setSignalPowerDict(const std::map<std::string, Sdx::SignalPower>& signalPowerDict);
     };
+    REGISTER_COMMAND_RESULT_TO_FACTORY_DECL(GetAllPowerForSVResult);
   }
 }
 

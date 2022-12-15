@@ -2,6 +2,7 @@
 
 #include <memory>
 #include "command_base.h"
+
 #include <string>
 
 namespace Sdx
@@ -49,6 +50,7 @@ namespace Sdx
       std::string copyName() const;
       void setCopyName(const std::string& copyName);
     };
+    
   }
 }
 

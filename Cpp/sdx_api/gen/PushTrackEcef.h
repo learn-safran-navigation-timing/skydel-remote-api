@@ -4,6 +4,7 @@
 #include "command_base.h"
 
 
+
 namespace Sdx
 {
   namespace Cmd
@@ -61,6 +62,7 @@ namespace Sdx
       double z() const;
       void setZ(double z);
     };
+    
   }
 }
 

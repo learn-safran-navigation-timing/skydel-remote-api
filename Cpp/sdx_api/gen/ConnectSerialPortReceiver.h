@@ -2,6 +2,7 @@
 
 #include <memory>
 #include "command_base.h"
+
 #include "gen/SerialPortFlowControl.h"
 #include "gen/SerialPortParity.h"
 #include "sdx_optional.h"
@@ -76,6 +77,7 @@ namespace Sdx
       Sdx::optional<Sdx::SerialPortFlowControl> flowControl() const;
       void setFlowControl(const Sdx::optional<Sdx::SerialPortFlowControl>& flowControl);
     };
+    
   }
 }
 

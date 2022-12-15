@@ -1,8 +1,11 @@
 using System;
+using System.Collections.Generic;
 using Sdx.Cmd;
 
 namespace Sdx
 {
+  public enum DeprecatedMessageMode {ALL, LATCH, NONE}
+
   public class RemoteSimulator
   {
     public bool IsExceptionOnError { get; private set; }
@@ -57,6 +60,18 @@ namespace Sdx
       }
     }
 
+    public DeprecatedMessageMode DeprecatedMessageMode {
+      get
+      {
+        return m_deprecatedMessageMode;
+      }
+      set
+      {
+        m_deprecatedMessageMode = value;
+        m_latchDeprecated.Clear();
+      }
+    }
+
     private bool m_verbose = false;
     private bool m_hilStreamingCheckEnabled = true;
     private HilClient m_hil = null;
@@ -65,6 +80,8 @@ namespace Sdx
     private bool m_beginTrack = false;
     private bool m_beginRoute = false;
     private int m_serverApiVersion = 0;
+    private DeprecatedMessageMode m_deprecatedMessageMode = DeprecatedMessageMode.LATCH;
+    private HashSet<string> m_latchDeprecated = new HashSet<string>();
 
     public RemoteSimulator(bool isExceptionOnError = true)
     {
@@ -560,8 +577,19 @@ namespace Sdx
       return result;
     }
 
+    private void DeprecatedMessage(CommandBase cmd)
+    {
+      string deprecated = cmd.Deprecated;
+      if (deprecated != null && (m_deprecatedMessageMode == DeprecatedMessageMode.ALL || (m_deprecatedMessageMode == DeprecatedMessageMode.LATCH && !m_latchDeprecated.Contains(cmd.Name))))
+      {
+        Console.WriteLine("Warning: " + deprecated);
+        m_latchDeprecated.Add(cmd.Name);
+      }
+    }
+
     private CommandBase PostCommand(CommandBase cmd, double timestamp)
     {
+      DeprecatedMessage(cmd);
       cmd.Timestamp = timestamp;
       m_client.SendCommand(cmd);
       return cmd;
@@ -569,6 +597,7 @@ namespace Sdx
 
     private CommandBase PostCommand(CommandBase cmd)
     {
+      DeprecatedMessage(cmd);
       m_client.SendCommand(cmd);
       return cmd;
     }

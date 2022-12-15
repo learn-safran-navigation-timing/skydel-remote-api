@@ -2,6 +2,7 @@
 
 #include <memory>
 #include "command_result.h"
+#include "command_result_factory.h"
 #include <string>
 #include <vector>
 
@@ -49,6 +50,7 @@ namespace Sdx
       std::vector<double> val() const;
       void setVal(const std::vector<double>& val);
     };
+    REGISTER_COMMAND_RESULT_TO_FACTORY_DECL(GetGlonassEphDoubleParamForEachSVResult);
   }
 }
 

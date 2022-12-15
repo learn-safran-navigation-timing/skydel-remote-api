@@ -4,8 +4,8 @@
 #include "command_result.h"
 #include <string>
 
-#define REGISTER_COMMAND_RESULT_FACTORY(COMMAND_CLASS_NAME) \
-CommandResultPtr functionToCreateCommand##COMMAND_CLASS_NAME() {\
+#define REGISTER_COMMAND_RESULT_TO_FACTORY_DECL(COMMAND_CLASS_NAME) \
+inline CommandResultPtr functionToCreateCommand##COMMAND_CLASS_NAME() {\
   return std::make_shared<COMMAND_CLASS_NAME>(); \
 } \
 class ClassToRegisterCommand##COMMAND_CLASS_NAME { \
@@ -14,8 +14,16 @@ public: \
     CommandResultFactory::instance()->registerFactoryFunction(COMMAND_CLASS_NAME::CmdName, functionToCreateCommand##COMMAND_CLASS_NAME); \
   } \
 }; \
-ClassToRegisterCommand##COMMAND_CLASS_NAME instanceToRegisterCommand##COMMAND_CLASS_NAME
+ClassToRegisterCommand##COMMAND_CLASS_NAME functionToCreateInstanceToRegisterCommand##COMMAND_CLASS_NAME(); \
+namespace { \
+ClassToRegisterCommand##COMMAND_CLASS_NAME instanceToRegisterCommand##COMMAND_CLASS_NAME = functionToCreateInstanceToRegisterCommand##COMMAND_CLASS_NAME(); \
+}
 
+#define REGISTER_COMMAND_RESULT_TO_FACTORY_IMPL(COMMAND_CLASS_NAME) \
+ClassToRegisterCommand##COMMAND_CLASS_NAME functionToCreateInstanceToRegisterCommand##COMMAND_CLASS_NAME() { \
+  static ClassToRegisterCommand##COMMAND_CLASS_NAME staticInstance; \
+  return staticInstance; \
+}
 
 namespace Sdx
 {

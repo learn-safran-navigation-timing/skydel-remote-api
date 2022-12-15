@@ -2,6 +2,7 @@
 
 #include <memory>
 #include "command_base.h"
+
 #include "sdx_optional.h"
 
 namespace Sdx
@@ -55,6 +56,7 @@ namespace Sdx
       Sdx::optional<bool> afterEncoding() const;
       void setAfterEncoding(const Sdx::optional<bool>& afterEncoding);
     };
+    
   }
 }
 

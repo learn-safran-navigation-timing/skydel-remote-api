@@ -2,6 +2,7 @@
 
 #include <memory>
 #include "command_result.h"
+#include "command_result_factory.h"
 #include "gen/LogRecord.h"
 #include <vector>
 
@@ -42,6 +43,7 @@ namespace Sdx
       std::vector<Sdx::LogRecord> records() const;
       void setRecords(const std::vector<Sdx::LogRecord>& records);
     };
+    REGISTER_COMMAND_RESULT_TO_FACTORY_DECL(GetStatusLogResult);
   }
 }
 

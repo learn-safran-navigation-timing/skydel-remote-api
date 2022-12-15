@@ -2,6 +2,7 @@
 
 #include <memory>
 #include "command_base.h"
+
 #include "sdx_optional.h"
 #include <string>
 
@@ -50,6 +51,7 @@ namespace Sdx
       Sdx::optional<std::string> type() const;
       void setType(const Sdx::optional<std::string>& type);
     };
+    
   }
 }
 

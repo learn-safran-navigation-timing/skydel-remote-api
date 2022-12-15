@@ -1,4 +1,4 @@
-Skydel Remote API Version 38
+Skydel Remote API Version 39
 
 Command execution permission flags:
   EXECUTE_IF_NO_CONFIG  : executed even if there is no config
@@ -10579,6 +10579,19 @@ Name     Type   Description
 -------- ------ ------------------------------------------------
 Signal   string Signal Name ("L2C" for example)
 Filename string Path to the CSV file on the simulator's machine.
+
+***************************************************************************************************************************
+
+Command ExportMessageSequenceToCSV(signal, path, overwriting)
+Permission: EXECUTE_IF_IDLE
+
+Export the signal's message sequence into a csv file.
+
+Name        Type   Description
+----------- ------ -------------------------------------------------------------------------------------------------
+Signal      string Signal key ("L2C" for example).
+Path        string The full path to the csv file.
+Overwriting bool   Overwrites an existing file if set to true, returns an error if set to false and the file exists.
 
 ***************************************************************************************************************************
 

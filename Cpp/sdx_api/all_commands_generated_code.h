@@ -775,6 +775,7 @@
 #include "gen/MessageSequenceRemove.h"
 #include "gen/MessageSequenceSwap.h"
 #include "gen/MessageSequenceImport.h"
+#include "gen/ExportMessageSequenceToCSV.h"
 #include "gen/GetMessageSequence.h"
 #include "gen/GetMessageSequenceResult.h"
 #include "gen/SetGalileoFnavSatelliteK.h"

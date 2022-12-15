@@ -2,6 +2,7 @@
 
 #include <memory>
 #include "command_base.h"
+
 #include <string>
 #include <vector>
 
@@ -74,6 +75,7 @@ namespace Sdx
       std::vector<int> seed() const;
       void setSeed(const std::vector<int>& seed);
     };
+    
   }
 }
 

@@ -2,6 +2,7 @@
 
 #include <memory>
 #include "command_base.h"
+
 #include <string>
 
 namespace Sdx
@@ -55,6 +56,7 @@ namespace Sdx
       std::string antennaModelName() const;
       void setAntennaModelName(const std::string& antennaModelName);
     };
+    
   }
 }
 

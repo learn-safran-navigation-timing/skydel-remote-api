@@ -2,6 +2,7 @@
 
 #include <memory>
 #include "command_result.h"
+#include "command_result_factory.h"
 #include <string>
 #include <vector>
 
@@ -42,6 +43,7 @@ namespace Sdx
       std::vector<std::string> ids() const;
       void setIds(const std::vector<std::string>& ids);
     };
+    REGISTER_COMMAND_RESULT_TO_FACTORY_DECL(GetAllMessageModificationIdsForNavMsgFamilyResult);
   }
 }
 

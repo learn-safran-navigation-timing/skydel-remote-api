@@ -2,6 +2,7 @@
 
 #include <memory>
 #include "command_result.h"
+#include "command_result_factory.h"
 
 
 namespace Sdx
@@ -34,6 +35,7 @@ namespace Sdx
       virtual bool isValid() const override;
       virtual std::string documentation() const override;
     };
+    REGISTER_COMMAND_RESULT_TO_FACTORY_DECL(SuccessResult);
   }
 }
 

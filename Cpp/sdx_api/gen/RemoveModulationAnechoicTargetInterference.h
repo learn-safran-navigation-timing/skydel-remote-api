@@ -4,6 +4,7 @@
 #include "command_base.h"
 
 
+
 namespace Sdx
 {
   namespace Cmd
@@ -44,6 +45,7 @@ namespace Sdx
       int group() const;
       void setGroup(int group);
     };
+    
   }
 }
 

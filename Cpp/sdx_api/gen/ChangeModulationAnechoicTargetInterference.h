@@ -2,6 +2,7 @@
 
 #include <memory>
 #include "command_base.h"
+
 #include <string>
 
 namespace Sdx
@@ -56,6 +57,7 @@ namespace Sdx
       double centralFreq() const;
       void setCentralFreq(double centralFreq);
     };
+    
   }
 }
 

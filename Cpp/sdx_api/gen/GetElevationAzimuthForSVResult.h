@@ -2,6 +2,7 @@
 
 #include <memory>
 #include "command_result.h"
+#include "command_result_factory.h"
 #include "gen/ElevationAzimuth.h"
 #include "sdx_optional.h"
 #include <string>
@@ -55,6 +56,7 @@ namespace Sdx
       Sdx::optional<Sdx::ElevationAzimuth> elevationAzimuth() const;
       void setElevationAzimuth(const Sdx::optional<Sdx::ElevationAzimuth>& elevationAzimuth);
     };
+    REGISTER_COMMAND_RESULT_TO_FACTORY_DECL(GetElevationAzimuthForSVResult);
   }
 }
 

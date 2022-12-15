@@ -1,9 +1,0 @@
-<?xml version="1.0" encoding="UTF-8" standalone="yes" ?>
-<CodeBlocks_workspace_file>
-	<Workspace title="Workspace">
-		<Project filename="sdx_api/sdx_api.cbp" />
-		<Project filename="sdx_examples/sdx_examples.cbp">
-			<Depends filename="sdx_api/sdx_api.cbp" />
-		</Project>
-	</Workspace>
-</CodeBlocks_workspace_file>

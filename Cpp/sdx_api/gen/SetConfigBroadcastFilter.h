@@ -2,6 +2,7 @@
 
 #include <memory>
 #include "command_base.h"
+
 #include "gen/ConfigFilter.h"
 #include <vector>
 
@@ -44,6 +45,7 @@ namespace Sdx
       std::vector<Sdx::ConfigFilter> filter() const;
       void setFilter(const std::vector<Sdx::ConfigFilter>& filter);
     };
+    
   }
 }
 

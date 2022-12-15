@@ -2,6 +2,7 @@
 
 #include <memory>
 #include "command_result.h"
+#include "command_result_factory.h"
 #include <string>
 
 namespace Sdx
@@ -53,6 +54,7 @@ namespace Sdx
       bool isFixed() const;
       void setIsFixed(bool isFixed);
     };
+    REGISTER_COMMAND_RESULT_TO_FACTORY_DECL(IsSatMotionFixedResult);
   }
 }
 

@@ -4,6 +4,7 @@
 #include "command_base.h"
 
 
+
 namespace Sdx
 {
   namespace Cmd
@@ -79,6 +80,7 @@ namespace Sdx
       double roll() const;
       void setRoll(double roll);
     };
+    
   }
 }
 

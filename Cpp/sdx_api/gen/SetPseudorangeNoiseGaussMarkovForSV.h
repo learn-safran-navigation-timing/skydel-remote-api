@@ -2,6 +2,7 @@
 
 #include <memory>
 #include "command_base.h"
+
 #include <string>
 
 namespace Sdx
@@ -79,6 +80,7 @@ namespace Sdx
       int seed() const;
       void setSeed(int seed);
     };
+    
   }
 }
 

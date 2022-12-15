@@ -2,6 +2,7 @@
 
 #include <memory>
 #include "command_base.h"
+
 #include <string>
 #include <vector>
 
@@ -50,6 +51,7 @@ namespace Sdx
       std::vector<bool> enabled() const;
       void setEnabled(const std::vector<bool>& enabled);
     };
+    
   }
 }
 

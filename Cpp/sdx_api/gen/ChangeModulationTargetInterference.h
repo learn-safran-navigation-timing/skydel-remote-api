@@ -2,6 +2,7 @@
 
 #include <memory>
 #include "command_base.h"
+
 #include "sdx_optional.h"
 #include <string>
 
@@ -89,6 +90,7 @@ namespace Sdx
       Sdx::optional<std::string> signal() const;
       void setSignal(const Sdx::optional<std::string>& signal);
     };
+    
   }
 }
 

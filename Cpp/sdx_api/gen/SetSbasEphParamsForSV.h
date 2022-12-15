@@ -2,6 +2,7 @@
 
 #include <memory>
 #include "command_base.h"
+
 #include <map>
 #include <string>
 
@@ -54,6 +55,7 @@ namespace Sdx
       std::map<std::string, double> paramValueDict() const;
       void setParamValueDict(const std::map<std::string, double>& paramValueDict);
     };
+    
   }
 }
 

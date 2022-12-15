@@ -4,6 +4,7 @@
 #include "command_base.h"
 
 
+
 namespace Sdx
 {
   namespace Cmd
@@ -43,6 +44,7 @@ namespace Sdx
       bool transmitMessage2() const;
       void setTransmitMessage2(bool transmitMessage2);
     };
+    
   }
 }
 

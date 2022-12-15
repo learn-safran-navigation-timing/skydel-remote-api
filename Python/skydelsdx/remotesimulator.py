@@ -5,9 +5,15 @@ from .clientcmd import ClientCmd
 from .clienthil import ClientHil
 import sys
 from .commands import *
+from enum import Enum, auto
 
 def spooferInstance(id):
   return 128 + id
+
+class DeprecatedMessageMode(Enum):
+  ALL = auto()
+  LATCH = auto()
+  NONE = auto()
 
 class RemoteSimulator: 
   def __init__(self, exception_on_error=True):
@@ -22,6 +28,8 @@ class RemoteSimulator:
     self.beginTrack = False
     self.beginIntTxTrack = {}
     self._serverApiVersion = 0
+    self.deprecatedMessageMode = DeprecatedMessageMode.LATCH
+    self.latchDeprecated = set()
  
   def connect(self, ip = "localhost", id=0, failIfApiVersionMismatch=False):
     if self.isConnected():
@@ -354,6 +362,10 @@ class RemoteSimulator:
     return self._waitCommand(cmd)
   
   def _postCommand(self, cmd, timestamp=None):
+    deprecated = cmd.deprecated()
+    if deprecated and (self.deprecatedMessageMode == DeprecatedMessageMode.ALL or (self.deprecatedMessageMode == DeprecatedMessageMode.LATCH and cmd.getName() not in self.latchDeprecated)):
+      print(f"Warning: {deprecated}")
+      self.latchDeprecated.add(cmd.getName())
     if timestamp != None: 
       cmd.setTimestamp(timestamp) 
     self.client.sendCommand(cmd)
@@ -419,6 +431,10 @@ class RemoteSimulator:
     while self.hasVehicleInfo():
       pass
     return self.nextVehicleInfo()
+
+  def setDeprecatedMessageMode(self, mode):
+    self.deprecatedMessageMode = mode
+    self.latchDeprecated.clear()
 
 
 class RemoteSpooferSimulator(RemoteSimulator):

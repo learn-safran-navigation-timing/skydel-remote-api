@@ -3,7 +3,7 @@ from .commandbase import CommandBase
 from .commandresult import CommandResult
 from .commandbase import ExecutePermission
 
-ApiVersion = 38
+ApiVersion = 39
 
 #
 # The GPS AS flag value.
@@ -28983,6 +28983,45 @@ class MessageSequenceImport(CommandBase):
     return self.set("Filename", value)
 
 #
+# Export the signal's message sequence into a csv file.
+#
+# Name        Type   Description
+# ----------- ------ -------------------------------------------------------------------------------------------------
+# Signal      string Signal key ("L2C" for example).
+# Path        string The full path to the csv file.
+# Overwriting bool   Overwrites an existing file if set to true, returns an error if set to false and the file exists.
+#
+
+class ExportMessageSequenceToCSV(CommandBase):
+
+  def __init__(self, signal, path, overwriting):
+    CommandBase.__init__(self, "ExportMessageSequenceToCSV")
+    self.setSignal(signal)
+    self.setPath(path)
+    self.setOverwriting(overwriting)
+
+  def executePermission(self):
+    return ExecutePermission.EXECUTE_IF_IDLE
+
+  def signal(self):
+    return self.get("Signal")
+
+  def setSignal(self, value):
+    return self.set("Signal", value)
+
+  def path(self):
+    return self.get("Path")
+
+  def setPath(self, value):
+    return self.set("Path", value)
+
+  def overwriting(self):
+    return self.get("Overwriting")
+
+  def setOverwriting(self, value):
+    return self.set("Overwriting", value)
+
+#
 # Get the messages sequence for the signal
 #
 # Name   Type   Description
@@ -36885,6 +36924,9 @@ class ResetHilWarning(CommandBase):
   def executePermission(self):
     return ExecutePermission.EXECUTE_IF_SIMULATING
 
+  def deprecated(self):
+    return "Please note the command ResetHilWarning is deprecated since 22.5. You may use GetHilExtrapolationState."
+
 #
 # Please note the command GetLastHilWarning is deprecated since 22.5. You may use GetHilExtrapolationState.
 # 
@@ -36899,6 +36941,9 @@ class GetLastHilWarning(CommandBase):
 
   def executePermission(self):
     return ExecutePermission.EXECUTE_IF_SIMULATING
+
+  def deprecated(self):
+    return "Please note the command GetLastHilWarning is deprecated since 22.5. You may use GetHilExtrapolationState."
 
 #
 # Result of GetLastHilWarning.
@@ -36956,6 +37001,9 @@ class SetSbasUdrei(CommandBase):
   def setUdrei(self, value):
     return self.set("Udrei", value)
 
+  def deprecated(self):
+    return "Please note the command SetSbasUdrei is deprecated since 22.2. You may use SetUdreiForSV."
+
 #
 # Please note the command GetSbasUdrei is deprecated since 22.2. You may use GetUdreiForSV.
 # 
@@ -36970,6 +37018,9 @@ class GetSbasUdrei(CommandBase):
 
   def executePermission(self):
     return ExecutePermission.EXECUTE_IF_IDLE
+
+  def deprecated(self):
+    return "Please note the command GetSbasUdrei is deprecated since 22.2. You may use GetUdreiForSV."
 
 #
 # Result of GetSbasUdrei.
@@ -37043,6 +37094,9 @@ class SetPowerForSV(CommandBase):
   def setOtherSatsFollow(self, value):
     return self.set("OtherSatsFollow", value)
 
+  def deprecated(self):
+    return "Please note the command SetPowerForSV is deprecated since 22.7. You may use SetManualPowerOffsetForSV."
+
 #
 # Please note the command GetPowerForSV is deprecated since 22.7. You may use GetAllPowerForSV.
 # 
@@ -37075,6 +37129,9 @@ class GetPowerForSV(CommandBase):
 
   def setSvId(self, value):
     return self.set("SvId", value)
+
+  def deprecated(self):
+    return "Please note the command GetPowerForSV is deprecated since 22.7. You may use GetAllPowerForSV."
 
 #
 # Result of GetPowerForSV.

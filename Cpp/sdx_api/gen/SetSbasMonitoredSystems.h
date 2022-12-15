@@ -2,6 +2,7 @@
 
 #include <memory>
 #include "command_base.h"
+
 #include <string>
 #include <vector>
 
@@ -44,6 +45,7 @@ namespace Sdx
       std::vector<std::string> systems() const;
       void setSystems(const std::vector<std::string>& systems);
     };
+    
   }
 }
 

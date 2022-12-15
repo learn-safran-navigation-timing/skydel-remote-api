@@ -4,6 +4,7 @@
 #include "command_base.h"
 
 
+
 namespace Sdx
 {
   namespace Cmd
@@ -44,6 +45,7 @@ namespace Sdx
       int offset() const;
       void setOffset(int offset);
     };
+    
   }
 }
 

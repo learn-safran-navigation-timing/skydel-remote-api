@@ -2,6 +2,7 @@
 
 #include <memory>
 #include "command_result.h"
+#include "command_result_factory.h"
 #include "sdx_optional.h"
 #include <string>
 
@@ -84,6 +85,7 @@ namespace Sdx
       Sdx::optional<int> group() const;
       void setGroup(const Sdx::optional<int>& group);
     };
+    REGISTER_COMMAND_RESULT_TO_FACTORY_DECL(GetIntTxChirpResult);
   }
 }
 

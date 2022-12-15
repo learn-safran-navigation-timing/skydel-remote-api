@@ -6,7 +6,7 @@ namespace Sdx.Cmd
 
   public static class ApiInfo
   {
-    public const int COMMANDS_API_VERSION = 38;
+    public const int COMMANDS_API_VERSION = 39;
   }
 
   ///
@@ -54884,6 +54884,80 @@ namespace Sdx.Cmd
 
 
   ///
+  /// Export the signal's message sequence into a csv file.
+  ///
+  /// Name        Type   Description
+  /// ----------- ------ -------------------------------------------------------------------------------------------------
+  /// Signal      string Signal key ("L2C" for example).
+  /// Path        string The full path to the csv file.
+  /// Overwriting bool   Overwrites an existing file if set to true, returns an error if set to false and the file exists.
+  ///
+
+  public class ExportMessageSequenceToCSV : CommandBase
+  {
+    public override string Documentation
+    {
+      get { return "Export the signal's message sequence into a csv file."; }
+    }
+
+    internal const string CmdName = "ExportMessageSequenceToCSV";
+
+    public ExportMessageSequenceToCSV()
+      : base(CmdName)
+    {}
+
+    public ExportMessageSequenceToCSV(string signal, string path, bool overwriting)
+      : base(CmdName)
+    {
+      Signal = signal;
+      Path = path;
+      Overwriting = overwriting;
+    }
+      
+    public override bool IsValid
+    {
+      get
+      {
+        return base.IsValid
+        && Contains("Signal")
+        && Contains("Path")
+        && Contains("Overwriting")
+      ;
+      }
+    }
+
+    public override int ExecutePermission { get { return EXECUTE_IF_IDLE; } }
+
+    public string Signal
+    {
+      get { return GetValue("Signal").ToObject<string>(CommandBase.Serializer); }
+      set
+      {
+          SetValue("Signal", JToken.FromObject(value, CommandBase.Serializer));
+      }
+    }
+
+    public string Path
+    {
+      get { return GetValue("Path").ToObject<string>(CommandBase.Serializer); }
+      set
+      {
+          SetValue("Path", JToken.FromObject(value, CommandBase.Serializer));
+      }
+    }
+
+    public bool Overwriting
+    {
+      get { return GetValue("Overwriting").ToObject<bool>(CommandBase.Serializer); }
+      set
+      {
+          SetValue("Overwriting", JToken.FromObject(value, CommandBase.Serializer));
+      }
+    }
+  }
+
+
+  ///
   /// Get the messages sequence for the signal
   ///
   /// Name   Type   Description
@@ -70142,6 +70216,11 @@ namespace Sdx.Cmd
       get { return "Please note the command ResetHilWarning is deprecated since 22.5. You may use GetHilExtrapolationState.\n\nReset Hardware in the loop trajectory server warning message."; }
     }
 
+    public override string Deprecated
+    {
+      get { return "Please note the command ResetHilWarning is deprecated since 22.5. You may use GetHilExtrapolationState."; }
+    }
+
     internal const string CmdName = "ResetHilWarning";
 
     public ResetHilWarning()
@@ -70174,6 +70253,11 @@ namespace Sdx.Cmd
     public override string Documentation
     {
       get { return "Please note the command GetLastHilWarning is deprecated since 22.5. You may use GetHilExtrapolationState.\n\nGet last Hardware in the loop trajectory server warning message. Returns HilWarningResult."; }
+    }
+
+    public override string Deprecated
+    {
+      get { return "Please note the command GetLastHilWarning is deprecated since 22.5. You may use GetHilExtrapolationState."; }
     }
 
     internal const string CmdName = "GetLastHilWarning";
@@ -70272,6 +70356,11 @@ namespace Sdx.Cmd
       get { return "Please note the command SetSbasUdrei is deprecated since 22.2. You may use SetUdreiForSV.\n\nSet the global UDREI value transmitted by SBAS"; }
     }
 
+    public override string Deprecated
+    {
+      get { return "Please note the command SetSbasUdrei is deprecated since 22.2. You may use SetUdreiForSV."; }
+    }
+
     internal const string CmdName = "SetSbasUdrei";
 
     public SetSbasUdrei()
@@ -70320,6 +70409,11 @@ namespace Sdx.Cmd
     public override string Documentation
     {
       get { return "Please note the command GetSbasUdrei is deprecated since 22.2. You may use GetUdreiForSV.\n\nGet the global UDREI value transmitted by SBAS"; }
+    }
+
+    public override string Deprecated
+    {
+      get { return "Please note the command GetSbasUdrei is deprecated since 22.2. You may use GetUdreiForSV."; }
     }
 
     internal const string CmdName = "GetSbasUdrei";
@@ -70409,6 +70503,11 @@ namespace Sdx.Cmd
       get { return "Please note the command SetPowerForSV is deprecated since 22.7. You may use SetManualPowerOffsetForSV.\n\nSet power offset for specified satellite SV ID. Use SV ID 0 to set power for all satellites."; }
     }
 
+    public override string Deprecated
+    {
+      get { return "Please note the command SetPowerForSV is deprecated since 22.7. You may use SetManualPowerOffsetForSV."; }
+    }
+
     internal const string CmdName = "SetPowerForSV";
 
     public SetPowerForSV()
@@ -70493,6 +70592,11 @@ namespace Sdx.Cmd
     public override string Documentation
     {
       get { return "Please note the command GetPowerForSV is deprecated since 22.7. You may use GetAllPowerForSV.\n\nGet the power offset for specified satellite SV ID."; }
+    }
+
+    public override string Deprecated
+    {
+      get { return "Please note the command GetPowerForSV is deprecated since 22.7. You may use GetAllPowerForSV."; }
     }
 
     internal const string CmdName = "GetPowerForSV";

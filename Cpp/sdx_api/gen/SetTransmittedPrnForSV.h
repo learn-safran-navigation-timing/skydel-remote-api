@@ -2,6 +2,7 @@
 
 #include <memory>
 #include "command_base.h"
+
 #include <map>
 #include <string>
 
@@ -53,6 +54,7 @@ namespace Sdx
       std::map<std::string, int> signalPrnDict() const;
       void setSignalPrnDict(const std::map<std::string, int>& signalPrnDict);
     };
+    
   }
 }
 

@@ -2,6 +2,7 @@
 
 #include <memory>
 #include "command_result.h"
+#include "command_result_factory.h"
 #include "date.h"
 
 namespace Sdx
@@ -41,6 +42,7 @@ namespace Sdx
       Sdx::Date date() const;
       void setDate(const Sdx::Date& date);
     };
+    REGISTER_COMMAND_RESULT_TO_FACTORY_DECL(GetLastLeapSecondDateResult);
   }
 }
 

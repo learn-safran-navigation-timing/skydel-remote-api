@@ -2,6 +2,7 @@
 
 #include <memory>
 #include "command_result.h"
+#include "command_result_factory.h"
 #include <string>
 
 namespace Sdx
@@ -43,6 +44,7 @@ namespace Sdx
       std::string errorMsg() const;
       void setErrorMsg(const std::string& errorMsg);
     };
+    REGISTER_COMMAND_RESULT_TO_FACTORY_DECL(FailureResult);
   }
 }
 

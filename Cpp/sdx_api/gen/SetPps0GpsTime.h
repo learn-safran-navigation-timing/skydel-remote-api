@@ -2,6 +2,7 @@
 
 #include <memory>
 #include "command_base.h"
+
 #include "date_time.h"
 
 namespace Sdx
@@ -43,6 +44,7 @@ namespace Sdx
       Sdx::DateTime gpsTime() const;
       void setGpsTime(const Sdx::DateTime& gpsTime);
     };
+    
   }
 }
 

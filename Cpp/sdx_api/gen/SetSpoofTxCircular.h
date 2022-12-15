@@ -2,6 +2,7 @@
 
 #include <memory>
 #include "command_base.h"
+
 #include "sdx_optional.h"
 #include <string>
 
@@ -86,6 +87,7 @@ namespace Sdx
       Sdx::optional<double> originAngle() const;
       void setOriginAngle(const Sdx::optional<double>& originAngle);
     };
+    
   }
 }
 

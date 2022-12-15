@@ -2,6 +2,7 @@
 
 #include <memory>
 #include "command_base.h"
+
 #include <string>
 
 namespace Sdx
@@ -65,6 +66,7 @@ namespace Sdx
       std::string failureState() const;
       void setFailureState(const std::string& failureState);
     };
+    
   }
 }
 

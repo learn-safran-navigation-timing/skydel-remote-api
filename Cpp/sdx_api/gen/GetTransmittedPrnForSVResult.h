@@ -2,6 +2,7 @@
 
 #include <memory>
 #include "command_result.h"
+#include "command_result_factory.h"
 #include <map>
 #include <string>
 
@@ -51,6 +52,7 @@ namespace Sdx
       std::map<std::string, int> signalPrnDict() const;
       void setSignalPrnDict(const std::map<std::string, int>& signalPrnDict);
     };
+    REGISTER_COMMAND_RESULT_TO_FACTORY_DECL(GetTransmittedPrnForSVResult);
   }
 }
 

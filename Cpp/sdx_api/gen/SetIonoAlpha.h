@@ -4,6 +4,7 @@
 #include "command_base.h"
 
 
+
 namespace Sdx
 {
   namespace Cmd
@@ -53,6 +54,7 @@ namespace Sdx
       double val() const;
       void setVal(double val);
     };
+    
   }
 }
 

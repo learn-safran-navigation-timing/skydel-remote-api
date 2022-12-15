@@ -2,6 +2,7 @@
 
 #include <memory>
 #include "command_base.h"
+
 #include "sdx_optional.h"
 
 namespace Sdx
@@ -49,6 +50,7 @@ namespace Sdx
       Sdx::optional<bool> loadDefaultConfig() const;
       void setLoadDefaultConfig(const Sdx::optional<bool>& loadDefaultConfig);
     };
+    
   }
 }
 

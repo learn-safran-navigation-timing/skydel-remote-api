@@ -4,6 +4,7 @@
 #include "command_base.h"
 
 
+
 namespace Sdx
 {
   namespace Cmd
@@ -55,6 +56,7 @@ namespace Sdx
       double error() const;
       void setError(double error);
     };
+    
   }
 }
 

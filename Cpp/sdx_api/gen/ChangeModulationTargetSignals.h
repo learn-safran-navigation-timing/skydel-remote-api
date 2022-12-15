@@ -2,6 +2,7 @@
 
 #include <memory>
 #include "command_base.h"
+
 #include "sdx_optional.h"
 #include <string>
 
@@ -94,6 +95,7 @@ namespace Sdx
       Sdx::optional<double> centralFrequency() const;
       void setCentralFrequency(const Sdx::optional<double>& centralFrequency);
     };
+    
   }
 }
 

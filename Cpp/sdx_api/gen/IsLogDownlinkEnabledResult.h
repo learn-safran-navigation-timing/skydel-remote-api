@@ -2,6 +2,7 @@
 
 #include <memory>
 #include "command_result.h"
+#include "command_result_factory.h"
 #include "sdx_optional.h"
 
 namespace Sdx
@@ -53,6 +54,7 @@ namespace Sdx
       Sdx::optional<bool> afterEncoding() const;
       void setAfterEncoding(const Sdx::optional<bool>& afterEncoding);
     };
+    REGISTER_COMMAND_RESULT_TO_FACTORY_DECL(IsLogDownlinkEnabledResult);
   }
 }
 

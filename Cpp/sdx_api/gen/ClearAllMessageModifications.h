@@ -2,6 +2,7 @@
 
 #include <memory>
 #include "command_base.h"
+
 #include <string>
 
 namespace Sdx
@@ -45,6 +46,7 @@ namespace Sdx
       std::string signal() const;
       void setSignal(const std::string& signal);
     };
+    
   }
 }
 

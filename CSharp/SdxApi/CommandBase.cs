@@ -30,6 +30,7 @@ namespace Sdx
     public virtual bool IsGuiNavigation { get { return false; } }
     public virtual int ExecutePermission { get { return EXECUTE_IF_IDLE; } }
     public virtual string Documentation { get { return "Documentation not available."; } }
+    public virtual string Deprecated { get { return null; } }
     public virtual bool HasTimestamp { get { return Contains(CmdTimestampKey) && HasExecutePermission(EXECUTE_IF_SIMULATING); } }
     public virtual double Timestamp
     {

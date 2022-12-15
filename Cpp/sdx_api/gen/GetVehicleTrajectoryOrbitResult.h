@@ -2,6 +2,7 @@
 
 #include <memory>
 #include "command_result.h"
+#include "command_result_factory.h"
 #include "date_time.h"
 #include <string>
 
@@ -84,6 +85,7 @@ namespace Sdx
       double argumentOfPerigee() const;
       void setArgumentOfPerigee(double argumentOfPerigee);
     };
+    REGISTER_COMMAND_RESULT_TO_FACTORY_DECL(GetVehicleTrajectoryOrbitResult);
   }
 }
 

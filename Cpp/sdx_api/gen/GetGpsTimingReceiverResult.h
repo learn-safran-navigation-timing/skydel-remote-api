@@ -2,6 +2,7 @@
 
 #include <memory>
 #include "command_result.h"
+#include "command_result_factory.h"
 #include "gen/SerialPortFlowControl.h"
 #include "gen/SerialPortParity.h"
 #include "sdx_optional.h"
@@ -74,6 +75,7 @@ namespace Sdx
       Sdx::optional<Sdx::SerialPortFlowControl> flowControl() const;
       void setFlowControl(const Sdx::optional<Sdx::SerialPortFlowControl>& flowControl);
     };
+    REGISTER_COMMAND_RESULT_TO_FACTORY_DECL(GetGpsTimingReceiverResult);
   }
 }
 

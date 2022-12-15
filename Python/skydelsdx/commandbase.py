@@ -111,3 +111,6 @@ class CommandBase:
       if key != CommandBase.CmdNameKey and key != CommandBase.CmdUuidKey:
         cmdStr += key + ": " + str(value) + ", "
     return cmdStr[:-2] + ")"
+
+  def deprecated(self):
+    return None

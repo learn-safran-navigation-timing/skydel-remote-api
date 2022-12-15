@@ -2,6 +2,7 @@
 
 #include <memory>
 #include "command_result.h"
+#include "command_result_factory.h"
 #include "sdx_optional.h"
 #include <string>
 
@@ -90,6 +91,7 @@ namespace Sdx
       Sdx::optional<int> prn() const;
       void setPrn(const Sdx::optional<int>& prn);
     };
+    REGISTER_COMMAND_RESULT_TO_FACTORY_DECL(GetIntTxBPSKResult);
   }
 }
 

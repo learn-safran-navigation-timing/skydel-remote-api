@@ -2,6 +2,7 @@
 
 #include <memory>
 #include "command_base.h"
+
 #include <string>
 
 namespace Sdx
@@ -57,6 +58,7 @@ namespace Sdx
       std::string svType() const;
       void setSvType(const std::string& svType);
     };
+    
   }
 }
 

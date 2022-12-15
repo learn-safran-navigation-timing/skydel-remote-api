@@ -2,6 +2,7 @@
 
 #include <memory>
 #include "command_base.h"
+
 #include "date_time.h"
 #include <string>
 
@@ -86,6 +87,7 @@ namespace Sdx
       double argumentOfPerigee() const;
       void setArgumentOfPerigee(double argumentOfPerigee);
     };
+    
   }
 }
 

@@ -2,6 +2,7 @@
 
 #include <memory>
 #include "command_base.h"
+
 #include "gen/RIC.h"
 #include <string>
 
@@ -68,6 +69,7 @@ namespace Sdx
       double deltaAf1() const;
       void setDeltaAf1(double deltaAf1);
     };
+    
   }
 }
 

@@ -2,6 +2,7 @@
 
 #include <memory>
 #include "command_result.h"
+#include "command_result_factory.h"
 #include "gen/SimulatorState.h"
 #include "gen/SimulatorSubState.h"
 #include <string>
@@ -77,6 +78,7 @@ namespace Sdx
       Sdx::SimulatorSubState subStateId() const;
       void setSubStateId(const Sdx::SimulatorSubState& subStateId);
     };
+    REGISTER_COMMAND_RESULT_TO_FACTORY_DECL(SimulatorStateResult);
   }
 }
 

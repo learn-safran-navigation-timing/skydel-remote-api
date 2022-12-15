@@ -4,6 +4,7 @@
 #include "command_base.h"
 
 
+
 namespace Sdx
 {
   namespace Cmd
@@ -49,6 +50,7 @@ namespace Sdx
       int updateInterval() const;
       void setUpdateInterval(int updateInterval);
     };
+    
   }
 }
 

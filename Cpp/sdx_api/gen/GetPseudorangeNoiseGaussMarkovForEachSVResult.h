@@ -2,6 +2,7 @@
 
 #include <memory>
 #include "command_result.h"
+#include "command_result_factory.h"
 #include <string>
 #include <vector>
 
@@ -73,6 +74,7 @@ namespace Sdx
       std::vector<int> seed() const;
       void setSeed(const std::vector<int>& seed);
     };
+    REGISTER_COMMAND_RESULT_TO_FACTORY_DECL(GetPseudorangeNoiseGaussMarkovForEachSVResult);
   }
 }
 

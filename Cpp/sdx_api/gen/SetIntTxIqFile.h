@@ -2,6 +2,7 @@
 
 #include <memory>
 #include "command_base.h"
+
 #include "sdx_optional.h"
 #include <string>
 
@@ -80,6 +81,7 @@ namespace Sdx
       Sdx::optional<int> group() const;
       void setGroup(const Sdx::optional<int>& group);
     };
+    
   }
 }
 

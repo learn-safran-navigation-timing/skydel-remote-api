@@ -2,6 +2,7 @@
 
 #include <memory>
 #include "command_base.h"
+
 #include <string>
 
 namespace Sdx
@@ -50,6 +51,7 @@ namespace Sdx
       std::string filename() const;
       void setFilename(const std::string& filename);
     };
+    
   }
 }
 

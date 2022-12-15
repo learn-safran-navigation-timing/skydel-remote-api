@@ -156,7 +156,7 @@ INavDictType0 = [
     {'name':"SAR",         'range':[178,199]},
     {'name':"Spare",       'range':[200,201]},
     {'name':"CRC",         'range':[202,225]},
-    {'name':"Reserved 2",  'range':[226,233]},
+    {'name':"SSP",         'range':[226,233]},
     {'name':"Tail odd",    'range':[234,239]}]
 
 INavDictType1 = [
@@ -178,7 +178,7 @@ INavDictType1 = [
     {'name':"SAR",         'range':[178,199]},
     {'name':"Spare",       'range':[200,201]},
     {'name':"CRC",         'range':[202,225]},
-    {'name':"Reserved 2",  'range':[226,233]},
+    {'name':"SSP",         'range':[226,233]},
     {'name':"Tail odd",    'range':[234,239]}]
 
 INavDictType2 = [
@@ -199,7 +199,7 @@ INavDictType2 = [
     {'name':"SAR",         'range':[178,199]},
     {'name':"Spare",       'range':[200,201]},
     {'name':"CRC",         'range':[202,225]},
-    {'name':"Reserved 2",  'range':[226,233]},
+    {'name':"SSP",         'range':[226,233]},
     {'name':"Tail odd",    'range':[234,239]}]
 
 INavDictType3 = [
@@ -223,7 +223,7 @@ INavDictType3 = [
     {'name':"SAR",         'range':[178,199]},
     {'name':"Spare",       'range':[200,201]},
     {'name':"CRC",         'range':[202,225]},
-    {'name':"Reserved 2",  'range':[226,233]},
+    {'name':"SSP",         'range':[226,233]},
     {'name':"Tail odd",    'range':[234,239]}]
 
 INavDictType4 = [
@@ -248,7 +248,7 @@ INavDictType4 = [
     {'name':"SAR",         'range':[178,199]},
     {'name':"Spare",       'range':[200,201]},
     {'name':"CRC",         'range':[202,225]},
-    {'name':"Reserved 2",  'range':[226,233]},
+    {'name':"SSP",         'range':[226,233]},
     {'name':"Tail odd",    'range':[234,239]}]
 
 INavDictType5 = [
@@ -277,7 +277,7 @@ INavDictType5 = [
     {'name':"SAR",         'range':[178,199]},
     {'name':"Spare",       'range':[200,201]},
     {'name':"CRC",         'range':[202,225]},
-    {'name':"Reserved 2",  'range':[226,233]},
+    {'name':"SSP",         'range':[226,233]},
     {'name':"Tail odd",    'range':[234,239]}]
 
 INavDictType6 = [
@@ -303,7 +303,7 @@ INavDictType6 = [
     {'name':"SAR",         'range':[178,199]},
     {'name':"Spare",       'range':[200,201]},
     {'name':"CRC",         'range':[202,225]},
-    {'name':"Reserved 2",  'range':[226,233]},
+    {'name':"SSP",         'range':[226,233]},
     {'name':"Tail odd",    'range':[234,239]}]
 
 INavDictType7 = [
@@ -331,7 +331,7 @@ INavDictType7 = [
     {'name':"SAR",         'range':[178,199]},
     {'name':"Spare",       'range':[200,201]},
     {'name':"CRC",         'range':[202,225]},
-    {'name':"Reserved 2",  'range':[226,233]},
+    {'name':"SSP",         'range':[226,233]},
     {'name':"Tail odd",    'range':[234,239]}]
 
 INavDictType8 = [
@@ -360,7 +360,7 @@ INavDictType8 = [
     {'name':"SAR",          'range':[178,199]},
     {'name':"Spare",        'range':[200,201]},
     {'name':"CRC",          'range':[202,225]},
-    {'name':"Reserved 2",   'range':[226,233]},
+    {'name':"SSP",          'range':[226,233]},
     {'name':"Tail odd",     'range':[234,239]}]
 
 INavDictType9 = [
@@ -389,7 +389,7 @@ INavDictType9 = [
     {'name':"SAR",         'range':[178,199]},
     {'name':"Spare",       'range':[200,201]},
     {'name':"CRC",         'range':[202,225]},
-    {'name':"Reserved 2",  'range':[226,233]},
+    {'name':"SSP",         'range':[226,233]},
     {'name':"Tail odd",    'range':[234,239]}]
 
 INavDictType10 = [
@@ -417,10 +417,53 @@ INavDictType10 = [
     {'name':"SAR",         'range':[178,199]},
     {'name':"Spare",       'range':[200,201]},
     {'name':"CRC",         'range':[202,225]},
-    {'name':"Reserved 2",  'range':[226,233]},
+    {'name':"SSP",         'range':[226,233]},
     {'name':"Tail odd",    'range':[234,239]}]
 
-INavDictAll = {0:INavDictType0, 1:INavDictType1, 2:INavDictType2, 3:INavDictType3, 4:INavDictType4, 5:INavDictType5, 6:INavDictType6, 7:INavDictType7, 8:INavDictType8, 9:INavDictType9, 10:INavDictType10}
+INavDictType16 = [
+    {'name':"Even",       'range':[0,0]},
+    {'name':"Type even",  'range':[1,1]},
+    {'name':"Type",       'range':[2,7]},
+    {'name':"DeltaA",     'range':[8,12],                'signed':True, 'factor':2**8,   'unit':utility.METER},
+    {'name':"ex",         'range':[13,25],               'signed':True, 'factor':2**-22},
+    {'name':"ey",         'range':[26,38],               'signed':True, 'factor':2**-22},
+    {'name':"Delta-i0",   'range':[39,55],               'signed':True, 'factor':2**-22, 'unit':utility.SEMICIRCLE},
+    {'name':"Omega0",     'range':[56,78],               'signed':True, 'factor':2**-22, 'unit':utility.SEMICIRCLE},
+    {'name':"Lambda0",    'range':[79,101],              'signed':True, 'factor':2**-22, 'unit':utility.SEMICIRCLE},
+    {'name':"af0",        'range':[[102,113],[122,131]], 'signed':True, 'factor':2**-26, 'unit':utility.SECOND},
+    {'name':"Tail even",  'range':[114,119]},
+
+    {'name':"Odd",        'range':[120,120]},
+    {'name':"Type odd",   'range':[121,121]},
+    # af0                         [122, 131]
+    {'name':"af1",        'range':[132,137],             'signed':True, 'factor':2**-35, 'unit':utility.SECOND_PER_SECOND},
+    {'name':"Reserved 1", 'range':[138,177]},
+    {'name':"SAR",        'range':[178,199]},
+    {'name':"Spare",      'range':[200,201]},
+    {'name':"CRC",        'range':[202,225]},
+    {'name':"SSP",        'range':[226,233]},
+    {'name':"Tail odd",   'range':[234,239]}]
+
+INavDictType17To20 = [
+    {'name':"Even",        'range':[0,0]},
+    {'name':"Type even",   'range':[1,1]},
+    {'name':"Type",        'range':[2,7]},
+    {'name':"FEC2 RS 1",   'range':[8,15]},
+    {'name':"IODlsb",      'range':[16,17]},
+    {'name':"FEC2 RS 2",   'range':[[18,113],[122,137]]},
+    {'name':"Tail even",   'range':[114,119]},
+
+    {'name':"Odd",         'range':[120,120]},
+    {'name':"Type odd",    'range':[121,121]},
+    # FEC2 RS 2                    [122,137]
+    {'name':"Reserved 1",  'range':[138,177]},
+    {'name':"SAR",         'range':[178,199]},
+    {'name':"Spare",       'range':[200,201]},
+    {'name':"CRC",         'range':[202,225]},
+    {'name':"SSP",         'range':[226,233]},
+    {'name':"Tail odd",    'range':[234,239]}]
+
+INavDictAll = {0:INavDictType0, 1:INavDictType1, 2:INavDictType2, 3:INavDictType3, 4:INavDictType4, 5:INavDictType5, 6:INavDictType6, 7:INavDictType7, 8:INavDictType8, 9:INavDictType9, 10:INavDictType10, 16:INavDictType16, 17:INavDictType17To20, 18:INavDictType17To20, 19:INavDictType17To20, 20:INavDictType17To20}
 
 def decodeGalileoINavigationMessageInBinary(message, size):
 	raw = bin(int(message.replace(" ", ""), 16))[2:].zfill(size)

@@ -2,6 +2,7 @@
 
 #include <memory>
 #include "command_base.h"
+
 #include <map>
 #include <string>
 
@@ -67,6 +68,7 @@ namespace Sdx
       bool isRelativePowerOffset() const;
       void setIsRelativePowerOffset(bool isRelativePowerOffset);
     };
+    
   }
 }
 

@@ -2,6 +2,7 @@
 
 #include <memory>
 #include "command_result.h"
+#include "command_result_factory.h"
 #include <map>
 #include <string>
 
@@ -52,6 +53,7 @@ namespace Sdx
       std::map<std::string, double> paramValueDict() const;
       void setParamValueDict(const std::map<std::string, double>& paramValueDict);
     };
+    REGISTER_COMMAND_RESULT_TO_FACTORY_DECL(GetSbasEphParamsForSVResult);
   }
 }
 

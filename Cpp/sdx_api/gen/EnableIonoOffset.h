@@ -4,6 +4,7 @@
 #include "command_base.h"
 
 
+
 namespace Sdx
 {
   namespace Cmd
@@ -43,6 +44,7 @@ namespace Sdx
       bool isEnabled() const;
       void setIsEnabled(bool isEnabled);
     };
+    
   }
 }
 

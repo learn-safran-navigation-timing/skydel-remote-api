@@ -3,6 +3,7 @@
 
 #include "command_result.h"
 #include <queue>
+#include <set>
 
 namespace Sdx
 {
@@ -89,6 +90,9 @@ public:
 
   bool waitState(const std::string& state, const std::string& failureState = "");
 
+  enum DeprecatedMessageMode {ALL, LATCH, NONE};
+  void setDeprecatedMessageMode(DeprecatedMessageMode mode);
+
 private:
   CommandBasePtr postCommand(CommandBasePtr cmd, double timestamp);
   CommandBasePtr postCommand(CommandBasePtr cmd);
@@ -103,6 +107,7 @@ private:
   bool hilCheck(double elapsedTime);
   void handleException(CommandResultPtr result);
   void errorMessage(const std::string& msg);
+  void deprecatedMessage(CommandBasePtr cmd);
 
   bool m_exceptionOnError;
   CmdClient* m_client;
@@ -112,6 +117,9 @@ private:
   bool m_hilStreamingCheckEnabled;
   bool m_beginTrack;
   bool m_beginRoute;
+
+  std::set<std::string> m_latchDeprecated;
+  DeprecatedMessageMode m_deprecatedMessageMode{DeprecatedMessageMode::LATCH};
 
   int m_serverApiVersion;
 };

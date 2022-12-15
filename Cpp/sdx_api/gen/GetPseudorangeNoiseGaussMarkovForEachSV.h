@@ -2,6 +2,7 @@
 
 #include <memory>
 #include "command_base.h"
+
 #include <string>
 
 namespace Sdx
@@ -49,6 +50,7 @@ namespace Sdx
       int process() const;
       void setProcess(int process);
     };
+    
   }
 }
 

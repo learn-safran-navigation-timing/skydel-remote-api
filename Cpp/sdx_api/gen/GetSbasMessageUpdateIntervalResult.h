@@ -2,6 +2,7 @@
 
 #include <memory>
 #include "command_result.h"
+#include "command_result_factory.h"
 
 
 namespace Sdx
@@ -47,6 +48,7 @@ namespace Sdx
       int updateInterval() const;
       void setUpdateInterval(int updateInterval);
     };
+    REGISTER_COMMAND_RESULT_TO_FACTORY_DECL(GetSbasMessageUpdateIntervalResult);
   }
 }
 
