@@ -33,8 +33,12 @@ namespace Sdx
 
       GetGlonassEphDoubleParamForEachSVResult();
 
+      GetGlonassEphDoubleParamForEachSVResult(const std::string& paramName, const std::vector<double>& val);
+
       GetGlonassEphDoubleParamForEachSVResult(CommandBasePtr relatedCommand, const std::string& paramName, const std::vector<double>& val);
-  
+
+      static GetGlonassEphDoubleParamForEachSVResultPtr create(const std::string& paramName, const std::vector<double>& val);
+
       static GetGlonassEphDoubleParamForEachSVResultPtr create(CommandBasePtr relatedCommand, const std::string& paramName, const std::vector<double>& val);
       static GetGlonassEphDoubleParamForEachSVResultPtr dynamicCast(CommandBasePtr ptr);
       virtual bool isValid() const override;

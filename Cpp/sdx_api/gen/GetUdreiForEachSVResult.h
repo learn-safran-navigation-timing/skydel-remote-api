@@ -32,8 +32,12 @@ namespace Sdx
 
       GetUdreiForEachSVResult();
 
+      GetUdreiForEachSVResult(const std::string& system, const std::vector<int>& udreis);
+
       GetUdreiForEachSVResult(CommandBasePtr relatedCommand, const std::string& system, const std::vector<int>& udreis);
-  
+
+      static GetUdreiForEachSVResultPtr create(const std::string& system, const std::vector<int>& udreis);
+
       static GetUdreiForEachSVResultPtr create(CommandBasePtr relatedCommand, const std::string& system, const std::vector<int>& udreis);
       static GetUdreiForEachSVResultPtr dynamicCast(CommandBasePtr ptr);
       virtual bool isValid() const override;

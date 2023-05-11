@@ -28,7 +28,7 @@ namespace Sdx
 
 
       LockGUI();
-  
+
       static LockGUIPtr create();
       static LockGUIPtr dynamicCast(CommandBasePtr ptr);
       virtual bool isValid() const override;

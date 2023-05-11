@@ -30,7 +30,6 @@ namespace Sdx
       setAngle(angle);
     }
 
-
     SetElevationMaskAbovePtr SetElevationMaskAbove::create(double angle)
     {
       return std::make_shared<SetElevationMaskAbove>(angle);

@@ -31,7 +31,6 @@ namespace Sdx
       setId(id);
     }
 
-
     RemoveMessageModificationForNavMsgFamilyPtr RemoveMessageModificationForNavMsgFamily::create(const std::string& navMsgFamily, const std::string& id)
     {
       return std::make_shared<RemoveMessageModificationForNavMsgFamily>(navMsgFamily, id);

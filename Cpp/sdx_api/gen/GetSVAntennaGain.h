@@ -35,7 +35,7 @@ namespace Sdx
       GetSVAntennaGain();
 
       GetSVAntennaGain(const Sdx::GNSSBand& band, const std::string& system, const Sdx::optional<std::string>& name = {});
-  
+
       static GetSVAntennaGainPtr create(const Sdx::GNSSBand& band, const std::string& system, const Sdx::optional<std::string>& name = {});
       static GetSVAntennaGainPtr dynamicCast(CommandBasePtr ptr);
       virtual bool isValid() const override;

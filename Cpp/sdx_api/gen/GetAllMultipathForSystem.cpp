@@ -30,7 +30,6 @@ namespace Sdx
       setSystem(system);
     }
 
-
     GetAllMultipathForSystemPtr GetAllMultipathForSystem::create(const std::string& system)
     {
       return std::make_shared<GetAllMultipathForSystem>(system);

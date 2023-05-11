@@ -25,7 +25,6 @@ namespace Sdx
 
     }
 
-
     IsStopMasterWhenSlaveStopPtr IsStopMasterWhenSlaveStop::create()
     {
       return std::make_shared<IsStopMasterWhenSlaveStop>();

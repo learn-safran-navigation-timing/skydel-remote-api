@@ -25,7 +25,6 @@ namespace Sdx
 
     }
 
-
     GetIonoModelPtr GetIonoModel::create()
     {
       return std::make_shared<GetIonoModel>();

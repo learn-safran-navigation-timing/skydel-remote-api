@@ -32,7 +32,7 @@ namespace Sdx
       SetSbasMonitoredSystems();
 
       SetSbasMonitoredSystems(const std::vector<std::string>& systems);
-  
+
       static SetSbasMonitoredSystemsPtr create(const std::vector<std::string>& systems);
       static SetSbasMonitoredSystemsPtr dynamicCast(CommandBasePtr ptr);
       virtual bool isValid() const override;

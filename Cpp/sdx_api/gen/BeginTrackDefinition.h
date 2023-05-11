@@ -30,7 +30,7 @@ namespace Sdx
 
 
       BeginTrackDefinition();
-  
+
       static BeginTrackDefinitionPtr create();
       static BeginTrackDefinitionPtr dynamicCast(CommandBasePtr ptr);
       virtual bool isValid() const override;

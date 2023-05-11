@@ -23,6 +23,22 @@ namespace Sdx
       : CommandResult(CmdName)
     {}
 
+    GetMessageModificationToBeiDouD2NavResult::GetMessageModificationToBeiDouD2NavResult(const std::vector<std::string>& signalArray, int svId, int startTime, int stopTime, int subframe, int page, int word, bool updateParity, const std::string& wordModification, const std::string& id)
+      : CommandResult(CmdName)
+    {
+
+      setSignalArray(signalArray);
+      setSvId(svId);
+      setStartTime(startTime);
+      setStopTime(stopTime);
+      setSubframe(subframe);
+      setPage(page);
+      setWord(word);
+      setUpdateParity(updateParity);
+      setWordModification(wordModification);
+      setId(id);
+    }
+
     GetMessageModificationToBeiDouD2NavResult::GetMessageModificationToBeiDouD2NavResult(CommandBasePtr relatedCommand, const std::vector<std::string>& signalArray, int svId, int startTime, int stopTime, int subframe, int page, int word, bool updateParity, const std::string& wordModification, const std::string& id)
       : CommandResult(CmdName, relatedCommand)
     {
@@ -39,6 +55,11 @@ namespace Sdx
       setId(id);
     }
 
+
+    GetMessageModificationToBeiDouD2NavResultPtr GetMessageModificationToBeiDouD2NavResult::create(const std::vector<std::string>& signalArray, int svId, int startTime, int stopTime, int subframe, int page, int word, bool updateParity, const std::string& wordModification, const std::string& id)
+    {
+      return std::make_shared<GetMessageModificationToBeiDouD2NavResult>(signalArray, svId, startTime, stopTime, subframe, page, word, updateParity, wordModification, id);
+    }
 
     GetMessageModificationToBeiDouD2NavResultPtr GetMessageModificationToBeiDouD2NavResult::create(CommandBasePtr relatedCommand, const std::vector<std::string>& signalArray, int svId, int startTime, int stopTime, int subframe, int page, int word, bool updateParity, const std::string& wordModification, const std::string& id)
     {

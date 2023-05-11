@@ -27,7 +27,7 @@ namespace Sdx
 
 
       GetElevationMaskBelow();
-  
+
       static GetElevationMaskBelowPtr create();
       static GetElevationMaskBelowPtr dynamicCast(CommandBasePtr ptr);
       virtual bool isValid() const override;

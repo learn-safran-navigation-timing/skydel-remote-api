@@ -33,7 +33,7 @@ namespace Sdx
       SetIssueOfDataQzss();
 
       SetIssueOfDataQzss(int clock, int ephemeris, const Sdx::optional<bool>& overrideRinex = {});
-  
+
       static SetIssueOfDataQzssPtr create(int clock, int ephemeris, const Sdx::optional<bool>& overrideRinex = {});
       static SetIssueOfDataQzssPtr dynamicCast(CommandBasePtr ptr);
       virtual bool isValid() const override;

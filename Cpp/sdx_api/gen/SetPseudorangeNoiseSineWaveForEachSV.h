@@ -37,7 +37,7 @@ namespace Sdx
       SetPseudorangeNoiseSineWaveForEachSV();
 
       SetPseudorangeNoiseSineWaveForEachSV(const std::string& system, int sineWave, const std::vector<bool>& enabled, const std::vector<double>& amplitude, const std::vector<int>& period, const std::vector<double>& offset);
-  
+
       static SetPseudorangeNoiseSineWaveForEachSVPtr create(const std::string& system, int sineWave, const std::vector<bool>& enabled, const std::vector<double>& amplitude, const std::vector<int>& period, const std::vector<double>& offset);
       static SetPseudorangeNoiseSineWaveForEachSVPtr dynamicCast(CommandBasePtr ptr);
       virtual bool isValid() const override;

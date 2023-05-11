@@ -27,7 +27,7 @@ namespace Sdx
 
 
       GetIssueOfDataNavIC();
-  
+
       static GetIssueOfDataNavICPtr create();
       static GetIssueOfDataNavICPtr dynamicCast(CommandBasePtr ptr);
       virtual bool isValid() const override;

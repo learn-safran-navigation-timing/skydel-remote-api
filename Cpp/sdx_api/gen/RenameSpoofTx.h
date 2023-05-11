@@ -32,7 +32,7 @@ namespace Sdx
       RenameSpoofTx();
 
       RenameSpoofTx(const std::string& usualName, const std::string& id);
-  
+
       static RenameSpoofTxPtr create(const std::string& usualName, const std::string& id);
       static RenameSpoofTxPtr dynamicCast(CommandBasePtr ptr);
       virtual bool isValid() const override;

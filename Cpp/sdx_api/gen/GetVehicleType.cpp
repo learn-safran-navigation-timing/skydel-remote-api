@@ -25,7 +25,6 @@ namespace Sdx
 
     }
 
-
     GetVehicleTypePtr GetVehicleType::create()
     {
       return std::make_shared<GetVehicleType>();

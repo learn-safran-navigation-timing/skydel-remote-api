@@ -82,7 +82,7 @@ D1DictEphemeris2 = [
     {'name':"SqrtA",  'range':[[250,261],[270,289]],                'factor':2**-19, 'unit':utility.METER_SQUARE_ROOT},
     {'name':"P9",     'range':[262,269]},
     #        SqrtA            [270,289]
-    {'name':"toe",    'range':[290,291],                            'factor':2**3,   'unit':utility.SECOND},
+    {'name':"toe",    'range':[290,291],                            'factor':2**18,   'unit':utility.SECOND},
     {'name':"P10",    'range':[292,299]}]
 
 D1DictEphemeris3 = [

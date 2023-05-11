@@ -23,6 +23,20 @@ namespace Sdx
       : CommandResult(CmdName)
     {}
 
+    GetIntTxCircularResult::GetIntTxCircularResult(double lat, double lon, double alt, double radius, double speed, bool clockwise, const std::string& id, const Sdx::optional<double>& originAngle)
+      : CommandResult(CmdName)
+    {
+
+      setLat(lat);
+      setLon(lon);
+      setAlt(alt);
+      setRadius(radius);
+      setSpeed(speed);
+      setClockwise(clockwise);
+      setId(id);
+      setOriginAngle(originAngle);
+    }
+
     GetIntTxCircularResult::GetIntTxCircularResult(CommandBasePtr relatedCommand, double lat, double lon, double alt, double radius, double speed, bool clockwise, const std::string& id, const Sdx::optional<double>& originAngle)
       : CommandResult(CmdName, relatedCommand)
     {
@@ -37,6 +51,11 @@ namespace Sdx
       setOriginAngle(originAngle);
     }
 
+
+    GetIntTxCircularResultPtr GetIntTxCircularResult::create(double lat, double lon, double alt, double radius, double speed, bool clockwise, const std::string& id, const Sdx::optional<double>& originAngle)
+    {
+      return std::make_shared<GetIntTxCircularResult>(lat, lon, alt, radius, speed, clockwise, id, originAngle);
+    }
 
     GetIntTxCircularResultPtr GetIntTxCircularResult::create(CommandBasePtr relatedCommand, double lat, double lon, double alt, double radius, double speed, bool clockwise, const std::string& id, const Sdx::optional<double>& originAngle)
     {

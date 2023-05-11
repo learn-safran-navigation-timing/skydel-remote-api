@@ -31,7 +31,7 @@ namespace Sdx
       ResetToDefaultPrn();
 
       ResetToDefaultPrn(const std::string& system);
-  
+
       static ResetToDefaultPrnPtr create(const std::string& system);
       static ResetToDefaultPrnPtr dynamicCast(CommandBasePtr ptr);
       virtual bool isValid() const override;

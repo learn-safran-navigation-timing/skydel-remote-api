@@ -23,6 +23,13 @@ namespace Sdx
       : CommandResult(CmdName)
     {}
 
+    HilPortResult::HilPortResult(int port)
+      : CommandResult(CmdName)
+    {
+
+      setPort(port);
+    }
+
     HilPortResult::HilPortResult(CommandBasePtr relatedCommand, int port)
       : CommandResult(CmdName, relatedCommand)
     {
@@ -30,6 +37,11 @@ namespace Sdx
       setPort(port);
     }
 
+
+    HilPortResultPtr HilPortResult::create(int port)
+    {
+      return std::make_shared<HilPortResult>(port);
+    }
 
     HilPortResultPtr HilPortResult::create(CommandBasePtr relatedCommand, int port)
     {

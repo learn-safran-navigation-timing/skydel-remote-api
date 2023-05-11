@@ -31,8 +31,12 @@ namespace Sdx
 
       GetIntTxPersistenceResult();
 
+      GetIntTxPersistenceResult(bool persistence, const std::string& id);
+
       GetIntTxPersistenceResult(CommandBasePtr relatedCommand, bool persistence, const std::string& id);
-  
+
+      static GetIntTxPersistenceResultPtr create(bool persistence, const std::string& id);
+
       static GetIntTxPersistenceResultPtr create(CommandBasePtr relatedCommand, bool persistence, const std::string& id);
       static GetIntTxPersistenceResultPtr dynamicCast(CommandBasePtr ptr);
       virtual bool isValid() const override;

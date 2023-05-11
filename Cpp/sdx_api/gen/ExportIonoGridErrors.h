@@ -32,7 +32,7 @@ namespace Sdx
       ExportIonoGridErrors();
 
       ExportIonoGridErrors(bool overwriting, const std::string& path);
-  
+
       static ExportIonoGridErrorsPtr create(bool overwriting, const std::string& path);
       static ExportIonoGridErrorsPtr dynamicCast(CommandBasePtr ptr);
       virtual bool isValid() const override;

@@ -30,8 +30,12 @@ namespace Sdx
 
       GetEngineLatencyResult();
 
+      GetEngineLatencyResult(int latency);
+
       GetEngineLatencyResult(CommandBasePtr relatedCommand, int latency);
-  
+
+      static GetEngineLatencyResultPtr create(int latency);
+
       static GetEngineLatencyResultPtr create(CommandBasePtr relatedCommand, int latency);
       static GetEngineLatencyResultPtr dynamicCast(CommandBasePtr ptr);
       virtual bool isValid() const override;

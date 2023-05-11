@@ -36,7 +36,6 @@ namespace Sdx
       setId(id);
     }
 
-
     SetIntTxFixPtr SetIntTxFix::create(double lat, double lon, double alt, double yaw, double pitch, double roll, const std::string& id)
     {
       return std::make_shared<SetIntTxFix>(lat, lon, alt, yaw, pitch, roll, id);

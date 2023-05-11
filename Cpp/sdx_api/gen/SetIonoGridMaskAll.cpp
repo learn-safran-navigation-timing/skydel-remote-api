@@ -31,7 +31,6 @@ namespace Sdx
       setGrid(grid);
     }
 
-
     SetIonoGridMaskAllPtr SetIonoGridMaskAll::create(const std::string& serviceProvider, const std::vector<std::vector<bool>>& grid)
     {
       return std::make_shared<SetIonoGridMaskAll>(serviceProvider, grid);

@@ -32,7 +32,6 @@ namespace Sdx
       setId(id);
     }
 
-
     SetSpoofTxAntennaPtr SetSpoofTxAntenna::create(const std::vector<std::vector<double>>& gain, const Sdx::AntennaPatternType& type, const std::string& id)
     {
       return std::make_shared<SetSpoofTxAntenna>(gain, type, id);

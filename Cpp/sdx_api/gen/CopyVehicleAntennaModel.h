@@ -32,7 +32,7 @@ namespace Sdx
       CopyVehicleAntennaModel();
 
       CopyVehicleAntennaModel(const std::string& name, const std::string& copyName);
-  
+
       static CopyVehicleAntennaModelPtr create(const std::string& name, const std::string& copyName);
       static CopyVehicleAntennaModelPtr dynamicCast(CommandBasePtr ptr);
       virtual bool isValid() const override;

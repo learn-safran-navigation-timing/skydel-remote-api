@@ -36,7 +36,6 @@ namespace Sdx
       setName(name);
     }
 
-
     SetVehicleAntennaOffsetPtr SetVehicleAntennaOffset::create(double x, double y, double z, double yaw, double pitch, double roll, const Sdx::optional<std::string>& name)
     {
       return std::make_shared<SetVehicleAntennaOffset>(x, y, z, yaw, pitch, roll, name);

@@ -31,7 +31,6 @@ namespace Sdx
       setK(k);
     }
 
-
     SetGalileoFnavSatelliteKPtr SetGalileoFnavSatelliteK::create(int prn, int k)
     {
       return std::make_shared<SetGalileoFnavSatelliteK>(prn, k);

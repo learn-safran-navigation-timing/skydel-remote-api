@@ -25,7 +25,6 @@ namespace Sdx
 
     }
 
-
     LockGUIPtr LockGUI::create()
     {
       return std::make_shared<LockGUI>();

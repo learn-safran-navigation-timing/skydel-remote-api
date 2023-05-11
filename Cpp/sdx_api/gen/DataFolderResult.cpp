@@ -23,6 +23,13 @@ namespace Sdx
       : CommandResult(CmdName)
     {}
 
+    DataFolderResult::DataFolderResult(const std::string& folder)
+      : CommandResult(CmdName)
+    {
+
+      setFolder(folder);
+    }
+
     DataFolderResult::DataFolderResult(CommandBasePtr relatedCommand, const std::string& folder)
       : CommandResult(CmdName, relatedCommand)
     {
@@ -30,6 +37,11 @@ namespace Sdx
       setFolder(folder);
     }
 
+
+    DataFolderResultPtr DataFolderResult::create(const std::string& folder)
+    {
+      return std::make_shared<DataFolderResult>(folder);
+    }
 
     DataFolderResultPtr DataFolderResult::create(CommandBasePtr relatedCommand, const std::string& folder)
     {

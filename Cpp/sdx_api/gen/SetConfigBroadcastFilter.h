@@ -32,7 +32,7 @@ namespace Sdx
       SetConfigBroadcastFilter();
 
       SetConfigBroadcastFilter(const std::vector<Sdx::ConfigFilter>& filter);
-  
+
       static SetConfigBroadcastFilterPtr create(const std::vector<Sdx::ConfigFilter>& filter);
       static SetConfigBroadcastFilterPtr dynamicCast(CommandBasePtr ptr);
       virtual bool isValid() const override;

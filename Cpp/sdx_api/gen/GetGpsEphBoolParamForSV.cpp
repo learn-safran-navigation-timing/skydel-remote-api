@@ -32,7 +32,6 @@ namespace Sdx
       setDataSetName(dataSetName);
     }
 
-
     GetGpsEphBoolParamForSVPtr GetGpsEphBoolParamForSV::create(int svId, const std::string& paramName, const Sdx::optional<std::string>& dataSetName)
     {
       return std::make_shared<GetGpsEphBoolParamForSV>(svId, paramName, dataSetName);

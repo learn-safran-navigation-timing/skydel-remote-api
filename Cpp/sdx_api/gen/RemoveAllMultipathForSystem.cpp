@@ -31,7 +31,6 @@ namespace Sdx
       setReset(reset);
     }
 
-
     RemoveAllMultipathForSystemPtr RemoveAllMultipathForSystem::create(const std::string& system, bool reset)
     {
       return std::make_shared<RemoveAllMultipathForSystem>(system, reset);

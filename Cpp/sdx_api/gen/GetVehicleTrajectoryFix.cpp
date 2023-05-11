@@ -25,7 +25,6 @@ namespace Sdx
 
     }
 
-
     GetVehicleTrajectoryFixPtr GetVehicleTrajectoryFix::create()
     {
       return std::make_shared<GetVehicleTrajectoryFix>();

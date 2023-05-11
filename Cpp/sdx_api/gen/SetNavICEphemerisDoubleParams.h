@@ -37,7 +37,7 @@ namespace Sdx
       SetNavICEphemerisDoubleParams();
 
       SetNavICEphemerisDoubleParams(const std::string& paramName, const std::vector<double>& val, const Sdx::optional<std::string>& dataSetName = {});
-  
+
       static SetNavICEphemerisDoubleParamsPtr create(const std::string& paramName, const std::vector<double>& val, const Sdx::optional<std::string>& dataSetName = {});
       static SetNavICEphemerisDoubleParamsPtr dynamicCast(CommandBasePtr ptr);
       virtual bool isValid() const override;

@@ -31,8 +31,12 @@ namespace Sdx
 
       GetAllSpoofTxIDResult();
 
+      GetAllSpoofTxIDResult(const std::vector<std::string>& ids);
+
       GetAllSpoofTxIDResult(CommandBasePtr relatedCommand, const std::vector<std::string>& ids);
-  
+
+      static GetAllSpoofTxIDResultPtr create(const std::vector<std::string>& ids);
+
       static GetAllSpoofTxIDResultPtr create(CommandBasePtr relatedCommand, const std::vector<std::string>& ids);
       static GetAllSpoofTxIDResultPtr dynamicCast(CommandBasePtr ptr);
       virtual bool isValid() const override;

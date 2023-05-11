@@ -32,7 +32,6 @@ namespace Sdx
       setOverrideRinex(overrideRinex);
     }
 
-
     SetIssueOfDataPtr SetIssueOfData::create(int clock, int ephemeris, const Sdx::optional<bool>& overrideRinex)
     {
       return std::make_shared<SetIssueOfData>(clock, ephemeris, overrideRinex);

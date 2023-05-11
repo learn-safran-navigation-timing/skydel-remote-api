@@ -38,7 +38,7 @@ namespace Sdx
       PushIntTxTrackEcefNed();
 
       PushIntTxTrackEcefNed(int time, double x, double y, double z, double yaw, double pitch, double roll, const std::string& id);
-  
+
       static PushIntTxTrackEcefNedPtr create(int time, double x, double y, double z, double yaw, double pitch, double roll, const std::string& id);
       static PushIntTxTrackEcefNedPtr dynamicCast(CommandBasePtr ptr);
       virtual bool isValid() const override;

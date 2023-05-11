@@ -33,7 +33,7 @@ namespace Sdx
       GetGpsCNavAlertFlagToSV();
 
       GetGpsCNavAlertFlagToSV(int svId, const Sdx::optional<std::string>& dataSetName = {});
-  
+
       static GetGpsCNavAlertFlagToSVPtr create(int svId, const Sdx::optional<std::string>& dataSetName = {});
       static GetGpsCNavAlertFlagToSVPtr dynamicCast(CommandBasePtr ptr);
       virtual bool isValid() const override;

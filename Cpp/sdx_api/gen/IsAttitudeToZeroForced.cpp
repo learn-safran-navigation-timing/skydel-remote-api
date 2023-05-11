@@ -25,7 +25,6 @@ namespace Sdx
 
     }
 
-
     IsAttitudeToZeroForcedPtr IsAttitudeToZeroForced::create()
     {
       return std::make_shared<IsAttitudeToZeroForced>();

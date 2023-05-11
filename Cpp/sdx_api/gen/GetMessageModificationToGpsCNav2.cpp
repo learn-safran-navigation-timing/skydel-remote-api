@@ -30,7 +30,6 @@ namespace Sdx
       setId(id);
     }
 
-
     GetMessageModificationToGpsCNav2Ptr GetMessageModificationToGpsCNav2::create(const std::string& id)
     {
       return std::make_shared<GetMessageModificationToGpsCNav2>(id);

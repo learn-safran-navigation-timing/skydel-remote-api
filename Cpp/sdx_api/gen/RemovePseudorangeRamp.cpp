@@ -31,7 +31,6 @@ namespace Sdx
       setId(id);
     }
 
-
     RemovePseudorangeRampPtr RemovePseudorangeRamp::create(const std::string& system, const std::string& id)
     {
       return std::make_shared<RemovePseudorangeRamp>(system, id);

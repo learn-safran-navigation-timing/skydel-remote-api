@@ -32,7 +32,7 @@ namespace Sdx
       ChangeSpoofTxColor();
 
       ChangeSpoofTxColor(const std::string& color, const std::string& id);
-  
+
       static ChangeSpoofTxColorPtr create(const std::string& color, const std::string& id);
       static ChangeSpoofTxColorPtr dynamicCast(CommandBasePtr ptr);
       virtual bool isValid() const override;

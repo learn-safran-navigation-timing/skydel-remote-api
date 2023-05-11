@@ -27,7 +27,7 @@ namespace Sdx
 
 
       RemoveAllCustomSignals();
-  
+
       static RemoveAllCustomSignalsPtr create();
       static RemoveAllCustomSignalsPtr dynamicCast(CommandBasePtr ptr);
       virtual bool isValid() const override;

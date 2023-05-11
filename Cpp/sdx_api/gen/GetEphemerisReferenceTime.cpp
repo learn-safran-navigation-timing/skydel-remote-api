@@ -32,7 +32,6 @@ namespace Sdx
       setDataSetName(dataSetName);
     }
 
-
     GetEphemerisReferenceTimePtr GetEphemerisReferenceTime::create(const std::string& system, int svId, const Sdx::optional<std::string>& dataSetName)
     {
       return std::make_shared<GetEphemerisReferenceTime>(system, svId, dataSetName);

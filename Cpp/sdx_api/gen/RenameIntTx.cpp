@@ -31,7 +31,6 @@ namespace Sdx
       setId(id);
     }
 
-
     RenameIntTxPtr RenameIntTx::create(const std::string& usualName, const std::string& id)
     {
       return std::make_shared<RenameIntTx>(usualName, id);

@@ -36,8 +36,12 @@ namespace Sdx
 
       GetVehicleTrajectoryFixEcefResult();
 
+      GetVehicleTrajectoryFixEcefResult(const std::string& type, double x, double y, double z, double yaw, double pitch, double roll);
+
       GetVehicleTrajectoryFixEcefResult(CommandBasePtr relatedCommand, const std::string& type, double x, double y, double z, double yaw, double pitch, double roll);
-  
+
+      static GetVehicleTrajectoryFixEcefResultPtr create(const std::string& type, double x, double y, double z, double yaw, double pitch, double roll);
+
       static GetVehicleTrajectoryFixEcefResultPtr create(CommandBasePtr relatedCommand, const std::string& type, double x, double y, double z, double yaw, double pitch, double roll);
       static GetVehicleTrajectoryFixEcefResultPtr dynamicCast(CommandBasePtr ptr);
       virtual bool isValid() const override;

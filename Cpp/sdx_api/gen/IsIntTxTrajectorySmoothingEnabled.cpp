@@ -30,7 +30,6 @@ namespace Sdx
       setId(id);
     }
 
-
     IsIntTxTrajectorySmoothingEnabledPtr IsIntTxTrajectorySmoothingEnabled::create(const std::string& id)
     {
       return std::make_shared<IsIntTxTrajectorySmoothingEnabled>(id);

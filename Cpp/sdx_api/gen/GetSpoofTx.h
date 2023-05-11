@@ -33,7 +33,7 @@ namespace Sdx
       GetSpoofTx();
 
       GetSpoofTx(const std::string& id);
-  
+
       static GetSpoofTxPtr create(const std::string& id);
       static GetSpoofTxPtr dynamicCast(CommandBasePtr ptr);
       virtual bool isValid() const override;

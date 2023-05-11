@@ -23,6 +23,15 @@ namespace Sdx
       : CommandResult(CmdName)
     {}
 
+    GetAntennaChangeResult::GetAntennaChangeResult(double startTime, const std::string& antenna, const std::string& id)
+      : CommandResult(CmdName)
+    {
+
+      setStartTime(startTime);
+      setAntenna(antenna);
+      setId(id);
+    }
+
     GetAntennaChangeResult::GetAntennaChangeResult(CommandBasePtr relatedCommand, double startTime, const std::string& antenna, const std::string& id)
       : CommandResult(CmdName, relatedCommand)
     {
@@ -32,6 +41,11 @@ namespace Sdx
       setId(id);
     }
 
+
+    GetAntennaChangeResultPtr GetAntennaChangeResult::create(double startTime, const std::string& antenna, const std::string& id)
+    {
+      return std::make_shared<GetAntennaChangeResult>(startTime, antenna, id);
+    }
 
     GetAntennaChangeResultPtr GetAntennaChangeResult::create(CommandBasePtr relatedCommand, double startTime, const std::string& antenna, const std::string& id)
     {

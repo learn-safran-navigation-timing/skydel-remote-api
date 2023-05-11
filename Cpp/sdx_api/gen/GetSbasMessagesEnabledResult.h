@@ -30,8 +30,12 @@ namespace Sdx
 
       GetSbasMessagesEnabledResult();
 
+      GetSbasMessagesEnabledResult(const std::vector<int>& messages);
+
       GetSbasMessagesEnabledResult(CommandBasePtr relatedCommand, const std::vector<int>& messages);
-  
+
+      static GetSbasMessagesEnabledResultPtr create(const std::vector<int>& messages);
+
       static GetSbasMessagesEnabledResultPtr create(CommandBasePtr relatedCommand, const std::vector<int>& messages);
       static GetSbasMessagesEnabledResultPtr dynamicCast(CommandBasePtr ptr);
       virtual bool isValid() const override;

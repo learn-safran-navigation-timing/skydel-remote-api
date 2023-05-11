@@ -37,7 +37,7 @@ namespace Sdx
       SetVehicleTrajectoryFixEcef();
 
       SetVehicleTrajectoryFixEcef(const std::string& type, double x, double y, double z, double yaw, double pitch, double roll);
-  
+
       static SetVehicleTrajectoryFixEcefPtr create(const std::string& type, double x, double y, double z, double yaw, double pitch, double roll);
       static SetVehicleTrajectoryFixEcefPtr dynamicCast(CommandBasePtr ptr);
       virtual bool isValid() const override;

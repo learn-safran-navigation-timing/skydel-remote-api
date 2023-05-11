@@ -33,7 +33,6 @@ namespace Sdx
       setFlag(flag);
     }
 
-
     SetIonoGridMaskPtr SetIonoGridMask::create(const std::string& serviceProvider, int band, int point, bool flag)
     {
       return std::make_shared<SetIonoGridMask>(serviceProvider, band, point, flag);

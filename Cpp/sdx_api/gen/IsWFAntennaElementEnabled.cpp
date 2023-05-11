@@ -30,7 +30,6 @@ namespace Sdx
       setElement(element);
     }
 
-
     IsWFAntennaElementEnabledPtr IsWFAntennaElementEnabled::create(int element)
     {
       return std::make_shared<IsWFAntennaElementEnabled>(element);

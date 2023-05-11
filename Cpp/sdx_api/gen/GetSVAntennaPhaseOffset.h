@@ -35,7 +35,7 @@ namespace Sdx
       GetSVAntennaPhaseOffset();
 
       GetSVAntennaPhaseOffset(const Sdx::GNSSBand& band, const std::string& system, const Sdx::optional<std::string>& name = {});
-  
+
       static GetSVAntennaPhaseOffsetPtr create(const Sdx::GNSSBand& band, const std::string& system, const Sdx::optional<std::string>& name = {});
       static GetSVAntennaPhaseOffsetPtr dynamicCast(CommandBasePtr ptr);
       virtual bool isValid() const override;

@@ -23,6 +23,16 @@ namespace Sdx
       : CommandResult(CmdName)
     {}
 
+    GetVehicleAntennaGainResult::GetVehicleAntennaGainResult(const std::vector<std::vector<double>>& gain, const Sdx::AntennaPatternType& type, const Sdx::GNSSBand& band, const Sdx::optional<std::string>& name)
+      : CommandResult(CmdName)
+    {
+
+      setGain(gain);
+      setType(type);
+      setBand(band);
+      setName(name);
+    }
+
     GetVehicleAntennaGainResult::GetVehicleAntennaGainResult(CommandBasePtr relatedCommand, const std::vector<std::vector<double>>& gain, const Sdx::AntennaPatternType& type, const Sdx::GNSSBand& band, const Sdx::optional<std::string>& name)
       : CommandResult(CmdName, relatedCommand)
     {
@@ -33,6 +43,11 @@ namespace Sdx
       setName(name);
     }
 
+
+    GetVehicleAntennaGainResultPtr GetVehicleAntennaGainResult::create(const std::vector<std::vector<double>>& gain, const Sdx::AntennaPatternType& type, const Sdx::GNSSBand& band, const Sdx::optional<std::string>& name)
+    {
+      return std::make_shared<GetVehicleAntennaGainResult>(gain, type, band, name);
+    }
 
     GetVehicleAntennaGainResultPtr GetVehicleAntennaGainResult::create(CommandBasePtr relatedCommand, const std::vector<std::vector<double>>& gain, const Sdx::AntennaPatternType& type, const Sdx::GNSSBand& band, const Sdx::optional<std::string>& name)
     {

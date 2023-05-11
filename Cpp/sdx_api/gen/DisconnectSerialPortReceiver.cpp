@@ -25,7 +25,6 @@ namespace Sdx
 
     }
 
-
     DisconnectSerialPortReceiverPtr DisconnectSerialPortReceiver::create()
     {
       return std::make_shared<DisconnectSerialPortReceiver>();

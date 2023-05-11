@@ -27,7 +27,7 @@ namespace Sdx
 
 
       IsLogRawEnabled();
-  
+
       static IsLogRawEnabledPtr create();
       static IsLogRawEnabledPtr dynamicCast(CommandBasePtr ptr);
       virtual bool isValid() const override;

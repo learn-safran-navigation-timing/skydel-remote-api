@@ -37,7 +37,7 @@ namespace Sdx
       SetQzssEphDoubleParamForSV();
 
       SetQzssEphDoubleParamForSV(int svId, const std::string& paramName, double val, const Sdx::optional<std::string>& dataSetName = {});
-  
+
       static SetQzssEphDoubleParamForSVPtr create(int svId, const std::string& paramName, double val, const Sdx::optional<std::string>& dataSetName = {});
       static SetQzssEphDoubleParamForSVPtr dynamicCast(CommandBasePtr ptr);
       virtual bool isValid() const override;

@@ -32,7 +32,7 @@ namespace Sdx
       SetIntTxIgnorePropagationLoss();
 
       SetIntTxIgnorePropagationLoss(bool ignore, const std::string& id);
-  
+
       static SetIntTxIgnorePropagationLossPtr create(bool ignore, const std::string& id);
       static SetIntTxIgnorePropagationLossPtr dynamicCast(CommandBasePtr ptr);
       virtual bool isValid() const override;

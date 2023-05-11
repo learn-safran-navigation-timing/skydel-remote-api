@@ -31,7 +31,7 @@ namespace Sdx
       IsLOSEnabledForEachSV();
 
       IsLOSEnabledForEachSV(const std::string& system);
-  
+
       static IsLOSEnabledForEachSVPtr create(const std::string& system);
       static IsLOSEnabledForEachSVPtr dynamicCast(CommandBasePtr ptr);
       virtual bool isValid() const override;

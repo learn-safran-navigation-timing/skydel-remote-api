@@ -25,7 +25,6 @@ namespace Sdx
 
     }
 
-
     ResumePtr Resume::create()
     {
       return std::make_shared<Resume>();

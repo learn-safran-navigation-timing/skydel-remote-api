@@ -23,6 +23,13 @@ namespace Sdx
       : CommandResult(CmdName)
     {}
 
+    IsLogRinexEnabledResult::IsLogRinexEnabledResult(bool enabled)
+      : CommandResult(CmdName)
+    {
+
+      setEnabled(enabled);
+    }
+
     IsLogRinexEnabledResult::IsLogRinexEnabledResult(CommandBasePtr relatedCommand, bool enabled)
       : CommandResult(CmdName, relatedCommand)
     {
@@ -30,6 +37,11 @@ namespace Sdx
       setEnabled(enabled);
     }
 
+
+    IsLogRinexEnabledResultPtr IsLogRinexEnabledResult::create(bool enabled)
+    {
+      return std::make_shared<IsLogRinexEnabledResult>(enabled);
+    }
 
     IsLogRinexEnabledResultPtr IsLogRinexEnabledResult::create(CommandBasePtr relatedCommand, bool enabled)
     {

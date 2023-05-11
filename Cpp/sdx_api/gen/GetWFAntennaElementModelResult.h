@@ -31,8 +31,12 @@ namespace Sdx
 
       GetWFAntennaElementModelResult();
 
+      GetWFAntennaElementModelResult(const std::string& antennaModelName, int element);
+
       GetWFAntennaElementModelResult(CommandBasePtr relatedCommand, const std::string& antennaModelName, int element);
-  
+
+      static GetWFAntennaElementModelResultPtr create(const std::string& antennaModelName, int element);
+
       static GetWFAntennaElementModelResultPtr create(CommandBasePtr relatedCommand, const std::string& antennaModelName, int element);
       static GetWFAntennaElementModelResultPtr dynamicCast(CommandBasePtr ptr);
       virtual bool isValid() const override;

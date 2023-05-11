@@ -30,8 +30,12 @@ namespace Sdx
 
       GetOfficialLeapSecondResult();
 
+      GetOfficialLeapSecondResult(int leapSecond);
+
       GetOfficialLeapSecondResult(CommandBasePtr relatedCommand, int leapSecond);
-  
+
+      static GetOfficialLeapSecondResultPtr create(int leapSecond);
+
       static GetOfficialLeapSecondResultPtr create(CommandBasePtr relatedCommand, int leapSecond);
       static GetOfficialLeapSecondResultPtr dynamicCast(CommandBasePtr ptr);
       virtual bool isValid() const override;

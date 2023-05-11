@@ -35,8 +35,12 @@ namespace Sdx
 
       GetNavICEphDoubleParamForEachSVResult();
 
+      GetNavICEphDoubleParamForEachSVResult(const std::string& paramName, const std::vector<double>& val, const Sdx::optional<std::string>& dataSetName = {});
+
       GetNavICEphDoubleParamForEachSVResult(CommandBasePtr relatedCommand, const std::string& paramName, const std::vector<double>& val, const Sdx::optional<std::string>& dataSetName = {});
-  
+
+      static GetNavICEphDoubleParamForEachSVResultPtr create(const std::string& paramName, const std::vector<double>& val, const Sdx::optional<std::string>& dataSetName = {});
+
       static GetNavICEphDoubleParamForEachSVResultPtr create(CommandBasePtr relatedCommand, const std::string& paramName, const std::vector<double>& val, const Sdx::optional<std::string>& dataSetName = {});
       static GetNavICEphDoubleParamForEachSVResultPtr dynamicCast(CommandBasePtr ptr);
       virtual bool isValid() const override;

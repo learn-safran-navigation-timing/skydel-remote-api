@@ -33,7 +33,7 @@ namespace Sdx
       GetBeiDouHealthInfoForSV();
 
       GetBeiDouHealthInfoForSV(int svId, const Sdx::optional<std::string>& dataSetName = {});
-  
+
       static GetBeiDouHealthInfoForSVPtr create(int svId, const Sdx::optional<std::string>& dataSetName = {});
       static GetBeiDouHealthInfoForSVPtr dynamicCast(CommandBasePtr ptr);
       virtual bool isValid() const override;

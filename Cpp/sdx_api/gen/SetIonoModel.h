@@ -31,7 +31,7 @@ namespace Sdx
       SetIonoModel();
 
       SetIonoModel(const std::string& model);
-  
+
       static SetIonoModelPtr create(const std::string& model);
       static SetIonoModelPtr dynamicCast(CommandBasePtr ptr);
       virtual bool isValid() const override;

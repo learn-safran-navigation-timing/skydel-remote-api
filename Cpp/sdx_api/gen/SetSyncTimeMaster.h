@@ -33,7 +33,7 @@ namespace Sdx
       SetSyncTimeMaster();
 
       SetSyncTimeMaster(double time);
-  
+
       static SetSyncTimeMasterPtr create(double time);
       static SetSyncTimeMasterPtr dynamicCast(CommandBasePtr ptr);
       virtual bool isValid() const override;

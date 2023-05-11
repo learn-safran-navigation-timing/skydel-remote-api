@@ -31,7 +31,6 @@ namespace Sdx
       setDataSetName(dataSetName);
     }
 
-
     GetGpsSignalHealthForSVPtr GetGpsSignalHealthForSV::create(int svId, const Sdx::optional<std::string>& dataSetName)
     {
       return std::make_shared<GetGpsSignalHealthForSV>(svId, dataSetName);

@@ -23,6 +23,15 @@ namespace Sdx
       : CommandResult(CmdName)
     {}
 
+    GetEnabledSignalsForSVResult::GetEnabledSignalsForSVResult(const std::string& system, int svId, const std::vector<std::string>& signalArray)
+      : CommandResult(CmdName)
+    {
+
+      setSystem(system);
+      setSvId(svId);
+      setSignalArray(signalArray);
+    }
+
     GetEnabledSignalsForSVResult::GetEnabledSignalsForSVResult(CommandBasePtr relatedCommand, const std::string& system, int svId, const std::vector<std::string>& signalArray)
       : CommandResult(CmdName, relatedCommand)
     {
@@ -32,6 +41,11 @@ namespace Sdx
       setSignalArray(signalArray);
     }
 
+
+    GetEnabledSignalsForSVResultPtr GetEnabledSignalsForSVResult::create(const std::string& system, int svId, const std::vector<std::string>& signalArray)
+    {
+      return std::make_shared<GetEnabledSignalsForSVResult>(system, svId, signalArray);
+    }
 
     GetEnabledSignalsForSVResultPtr GetEnabledSignalsForSVResult::create(CommandBasePtr relatedCommand, const std::string& system, int svId, const std::vector<std::string>& signalArray)
     {

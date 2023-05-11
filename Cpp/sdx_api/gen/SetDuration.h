@@ -31,7 +31,7 @@ namespace Sdx
       SetDuration();
 
       SetDuration(int second);
-  
+
       static SetDurationPtr create(int second);
       static SetDurationPtr dynamicCast(CommandBasePtr ptr);
       virtual bool isValid() const override;

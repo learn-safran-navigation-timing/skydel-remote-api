@@ -25,7 +25,6 @@ namespace Sdx
 
     }
 
-
     AbortWaitSimulatorStatePtr AbortWaitSimulatorState::create()
     {
       return std::make_shared<AbortWaitSimulatorState>();

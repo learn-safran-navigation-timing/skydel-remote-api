@@ -31,7 +31,7 @@ namespace Sdx
       SetStreamingBuffer();
 
       SetStreamingBuffer(int size);
-  
+
       static SetStreamingBufferPtr create(int size);
       static SetStreamingBufferPtr dynamicCast(CommandBasePtr ptr);
       virtual bool isValid() const override;

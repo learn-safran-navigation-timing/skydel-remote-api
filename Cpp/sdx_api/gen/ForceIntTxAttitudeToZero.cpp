@@ -31,7 +31,6 @@ namespace Sdx
       setId(id);
     }
 
-
     ForceIntTxAttitudeToZeroPtr ForceIntTxAttitudeToZero::create(bool enabled, const std::string& id)
     {
       return std::make_shared<ForceIntTxAttitudeToZero>(enabled, id);

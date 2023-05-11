@@ -31,7 +31,6 @@ namespace Sdx
       setEnabled(enabled);
     }
 
-
     SetWFAntennaElementEnabledPtr SetWFAntennaElementEnabled::create(int element, bool enabled)
     {
       return std::make_shared<SetWFAntennaElementEnabled>(element, enabled);

@@ -30,7 +30,7 @@ namespace Sdx
 
 
       IsTrajectoryCompleted();
-  
+
       static IsTrajectoryCompletedPtr create();
       static IsTrajectoryCompletedPtr dynamicCast(CommandBasePtr ptr);
       virtual bool isValid() const override;

@@ -30,7 +30,6 @@ namespace Sdx
       setMessages(messages);
     }
 
-
     EnableSbasMessagesPtr EnableSbasMessages::create(const std::vector<int>& messages)
     {
       return std::make_shared<EnableSbasMessages>(messages);

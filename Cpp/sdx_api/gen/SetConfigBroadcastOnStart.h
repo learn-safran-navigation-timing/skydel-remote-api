@@ -31,7 +31,7 @@ namespace Sdx
       SetConfigBroadcastOnStart();
 
       SetConfigBroadcastOnStart(bool broadcastOnStart);
-  
+
       static SetConfigBroadcastOnStartPtr create(bool broadcastOnStart);
       static SetConfigBroadcastOnStartPtr dynamicCast(CommandBasePtr ptr);
       virtual bool isValid() const override;

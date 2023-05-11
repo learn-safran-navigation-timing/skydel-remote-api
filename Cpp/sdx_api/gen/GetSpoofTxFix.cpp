@@ -30,7 +30,6 @@ namespace Sdx
       setId(id);
     }
 
-
     GetSpoofTxFixPtr GetSpoofTxFix::create(const std::string& id)
     {
       return std::make_shared<GetSpoofTxFix>(id);

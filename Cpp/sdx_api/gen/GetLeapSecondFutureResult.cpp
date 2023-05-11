@@ -23,6 +23,15 @@ namespace Sdx
       : CommandResult(CmdName)
     {}
 
+    GetLeapSecondFutureResult::GetLeapSecondFutureResult(bool enabled, int seconds, const Sdx::Date& date)
+      : CommandResult(CmdName)
+    {
+
+      setEnabled(enabled);
+      setSeconds(seconds);
+      setDate(date);
+    }
+
     GetLeapSecondFutureResult::GetLeapSecondFutureResult(CommandBasePtr relatedCommand, bool enabled, int seconds, const Sdx::Date& date)
       : CommandResult(CmdName, relatedCommand)
     {
@@ -32,6 +41,11 @@ namespace Sdx
       setDate(date);
     }
 
+
+    GetLeapSecondFutureResultPtr GetLeapSecondFutureResult::create(bool enabled, int seconds, const Sdx::Date& date)
+    {
+      return std::make_shared<GetLeapSecondFutureResult>(enabled, seconds, date);
+    }
 
     GetLeapSecondFutureResultPtr GetLeapSecondFutureResult::create(CommandBasePtr relatedCommand, bool enabled, int seconds, const Sdx::Date& date)
     {

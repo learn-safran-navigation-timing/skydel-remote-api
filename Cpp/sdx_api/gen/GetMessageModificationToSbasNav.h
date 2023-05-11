@@ -31,7 +31,7 @@ namespace Sdx
       GetMessageModificationToSbasNav();
 
       GetMessageModificationToSbasNav(const std::string& id);
-  
+
       static GetMessageModificationToSbasNavPtr create(const std::string& id);
       static GetMessageModificationToSbasNavPtr dynamicCast(CommandBasePtr ptr);
       virtual bool isValid() const override;

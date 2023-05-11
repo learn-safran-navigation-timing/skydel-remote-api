@@ -27,7 +27,7 @@ namespace Sdx
 
 
       GetVehicleTrajectoryCircular();
-  
+
       static GetVehicleTrajectoryCircularPtr create();
       static GetVehicleTrajectoryCircularPtr dynamicCast(CommandBasePtr ptr);
       virtual bool isValid() const override;

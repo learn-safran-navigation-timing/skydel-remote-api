@@ -39,7 +39,7 @@ namespace Sdx
       SetIntTxPulse();
 
       SetIntTxPulse(bool enabled, double centralFreq, double power, double dutyCycle, int pulseRate, const std::string& transmitterId, const std::string& signalId, const Sdx::optional<int>& group = {});
-  
+
       static SetIntTxPulsePtr create(bool enabled, double centralFreq, double power, double dutyCycle, int pulseRate, const std::string& transmitterId, const std::string& signalId, const Sdx::optional<int>& group = {});
       static SetIntTxPulsePtr dynamicCast(CommandBasePtr ptr);
       virtual bool isValid() const override;

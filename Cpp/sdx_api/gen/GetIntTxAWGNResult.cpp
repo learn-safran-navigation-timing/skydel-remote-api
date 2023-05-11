@@ -23,6 +23,20 @@ namespace Sdx
       : CommandResult(CmdName)
     {}
 
+    GetIntTxAWGNResult::GetIntTxAWGNResult(bool enabled, double centralFreq, double power, double bandwidth, const std::string& transmitterId, const std::string& signalId, const Sdx::optional<int>& seed, const Sdx::optional<int>& group)
+      : CommandResult(CmdName)
+    {
+
+      setEnabled(enabled);
+      setCentralFreq(centralFreq);
+      setPower(power);
+      setBandwidth(bandwidth);
+      setTransmitterId(transmitterId);
+      setSignalId(signalId);
+      setSeed(seed);
+      setGroup(group);
+    }
+
     GetIntTxAWGNResult::GetIntTxAWGNResult(CommandBasePtr relatedCommand, bool enabled, double centralFreq, double power, double bandwidth, const std::string& transmitterId, const std::string& signalId, const Sdx::optional<int>& seed, const Sdx::optional<int>& group)
       : CommandResult(CmdName, relatedCommand)
     {
@@ -37,6 +51,11 @@ namespace Sdx
       setGroup(group);
     }
 
+
+    GetIntTxAWGNResultPtr GetIntTxAWGNResult::create(bool enabled, double centralFreq, double power, double bandwidth, const std::string& transmitterId, const std::string& signalId, const Sdx::optional<int>& seed, const Sdx::optional<int>& group)
+    {
+      return std::make_shared<GetIntTxAWGNResult>(enabled, centralFreq, power, bandwidth, transmitterId, signalId, seed, group);
+    }
 
     GetIntTxAWGNResultPtr GetIntTxAWGNResult::create(CommandBasePtr relatedCommand, bool enabled, double centralFreq, double power, double bandwidth, const std::string& transmitterId, const std::string& signalId, const Sdx::optional<int>& seed, const Sdx::optional<int>& group)
     {

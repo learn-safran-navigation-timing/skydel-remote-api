@@ -60,7 +60,7 @@ namespace Sdx
       SetMessageModificationToGpsLNav();
 
       SetMessageModificationToGpsLNav(const std::vector<std::string>& signalArray, int svId, int startTime, int stopTime, int subframe, int page, int word, bool updateParity, const std::string& wordModification, const std::string& id);
-  
+
       static SetMessageModificationToGpsLNavPtr create(const std::vector<std::string>& signalArray, int svId, int startTime, int stopTime, int subframe, int page, int word, bool updateParity, const std::string& wordModification, const std::string& id);
       static SetMessageModificationToGpsLNavPtr dynamicCast(CommandBasePtr ptr);
       virtual bool isValid() const override;

@@ -31,8 +31,12 @@ namespace Sdx
 
       GetIonoBdgimAlphaResult();
 
+      GetIonoBdgimAlphaResult(int index, double val);
+
       GetIonoBdgimAlphaResult(CommandBasePtr relatedCommand, int index, double val);
-  
+
+      static GetIonoBdgimAlphaResultPtr create(int index, double val);
+
       static GetIonoBdgimAlphaResultPtr create(CommandBasePtr relatedCommand, int index, double val);
       static GetIonoBdgimAlphaResultPtr dynamicCast(CommandBasePtr ptr);
       virtual bool isValid() const override;

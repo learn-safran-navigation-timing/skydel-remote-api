@@ -39,8 +39,12 @@ namespace Sdx
 
       GetMessageModificationToGlonassNavResult();
 
+      GetMessageModificationToGlonassNavResult(const std::vector<std::string>& signalArray, int svId, int startTime, int stopTime, int frame, int stringNumber, bool updateHammingCode, const std::string& stringModification, const std::string& id);
+
       GetMessageModificationToGlonassNavResult(CommandBasePtr relatedCommand, const std::vector<std::string>& signalArray, int svId, int startTime, int stopTime, int frame, int stringNumber, bool updateHammingCode, const std::string& stringModification, const std::string& id);
-  
+
+      static GetMessageModificationToGlonassNavResultPtr create(const std::vector<std::string>& signalArray, int svId, int startTime, int stopTime, int frame, int stringNumber, bool updateHammingCode, const std::string& stringModification, const std::string& id);
+
       static GetMessageModificationToGlonassNavResultPtr create(CommandBasePtr relatedCommand, const std::vector<std::string>& signalArray, int svId, int startTime, int stopTime, int frame, int stringNumber, bool updateHammingCode, const std::string& stringModification, const std::string& id);
       static GetMessageModificationToGlonassNavResultPtr dynamicCast(CommandBasePtr ptr);
       virtual bool isValid() const override;

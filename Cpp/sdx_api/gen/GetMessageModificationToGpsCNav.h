@@ -31,7 +31,7 @@ namespace Sdx
       GetMessageModificationToGpsCNav();
 
       GetMessageModificationToGpsCNav(const std::string& id);
-  
+
       static GetMessageModificationToGpsCNavPtr create(const std::string& id);
       static GetMessageModificationToGpsCNavPtr dynamicCast(CommandBasePtr ptr);
       virtual bool isValid() const override;

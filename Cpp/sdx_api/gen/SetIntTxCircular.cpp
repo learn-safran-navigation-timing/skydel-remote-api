@@ -37,7 +37,6 @@ namespace Sdx
       setOriginAngle(originAngle);
     }
 
-
     SetIntTxCircularPtr SetIntTxCircular::create(double lat, double lon, double alt, double radius, double speed, bool clockwise, const std::string& id, const Sdx::optional<double>& originAngle)
     {
       return std::make_shared<SetIntTxCircular>(lat, lon, alt, radius, speed, clockwise, id, originAngle);

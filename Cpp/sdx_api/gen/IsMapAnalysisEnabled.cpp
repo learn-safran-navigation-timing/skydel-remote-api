@@ -25,7 +25,6 @@ namespace Sdx
 
     }
 
-
     IsMapAnalysisEnabledPtr IsMapAnalysisEnabled::create()
     {
       return std::make_shared<IsMapAnalysisEnabled>();

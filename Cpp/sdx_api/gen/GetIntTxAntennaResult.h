@@ -34,8 +34,12 @@ namespace Sdx
 
       GetIntTxAntennaResult();
 
+      GetIntTxAntennaResult(const std::vector<std::vector<double>>& gain, const Sdx::AntennaPatternType& type, const std::string& id);
+
       GetIntTxAntennaResult(CommandBasePtr relatedCommand, const std::vector<std::vector<double>>& gain, const Sdx::AntennaPatternType& type, const std::string& id);
-  
+
+      static GetIntTxAntennaResultPtr create(const std::vector<std::vector<double>>& gain, const Sdx::AntennaPatternType& type, const std::string& id);
+
       static GetIntTxAntennaResultPtr create(CommandBasePtr relatedCommand, const std::vector<std::vector<double>>& gain, const Sdx::AntennaPatternType& type, const std::string& id);
       static GetIntTxAntennaResultPtr dynamicCast(CommandBasePtr ptr);
       virtual bool isValid() const override;

@@ -32,7 +32,7 @@ namespace Sdx
       SetWFAntennaElementModel();
 
       SetWFAntennaElementModel(const std::string& antennaModelName, int element);
-  
+
       static SetWFAntennaElementModelPtr create(const std::string& antennaModelName, int element);
       static SetWFAntennaElementModelPtr dynamicCast(CommandBasePtr ptr);
       virtual bool isValid() const override;

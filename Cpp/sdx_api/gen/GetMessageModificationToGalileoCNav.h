@@ -31,7 +31,7 @@ namespace Sdx
       GetMessageModificationToGalileoCNav();
 
       GetMessageModificationToGalileoCNav(const std::string& id);
-  
+
       static GetMessageModificationToGalileoCNavPtr create(const std::string& id);
       static GetMessageModificationToGalileoCNavPtr dynamicCast(CommandBasePtr ptr);
       virtual bool isValid() const override;

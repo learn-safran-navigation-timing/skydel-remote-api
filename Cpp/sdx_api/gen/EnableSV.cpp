@@ -32,7 +32,6 @@ namespace Sdx
       setEnabled(enabled);
     }
 
-
     EnableSVPtr EnableSV::create(const std::string& system, int svId, bool enabled)
     {
       return std::make_shared<EnableSV>(system, svId, enabled);

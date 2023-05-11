@@ -25,7 +25,6 @@ namespace Sdx
 
     }
 
-
     IsElevationMaskBelowEnabledPtr IsElevationMaskBelowEnabled::create()
     {
       return std::make_shared<IsElevationMaskBelowEnabled>();

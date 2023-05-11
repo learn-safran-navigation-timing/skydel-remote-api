@@ -27,7 +27,7 @@ namespace Sdx
 
 
       ClearAutomatePage();
-  
+
       static ClearAutomatePagePtr create();
       static ClearAutomatePagePtr dynamicCast(CommandBasePtr ptr);
       virtual bool isValid() const override;

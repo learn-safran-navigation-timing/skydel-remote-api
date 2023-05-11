@@ -32,7 +32,6 @@ namespace Sdx
       setIsFixed(isFixed);
     }
 
-
     SetSatMotionFixedPtr SetSatMotionFixed::create(const std::string& system, int svId, bool isFixed)
     {
       return std::make_shared<SetSatMotionFixed>(system, svId, isFixed);

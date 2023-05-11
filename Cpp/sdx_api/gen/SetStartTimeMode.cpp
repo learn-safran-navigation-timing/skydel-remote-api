@@ -30,7 +30,6 @@ namespace Sdx
       setMode(mode);
     }
 
-
     SetStartTimeModePtr SetStartTimeMode::create(const std::string& mode)
     {
       return std::make_shared<SetStartTimeMode>(mode);

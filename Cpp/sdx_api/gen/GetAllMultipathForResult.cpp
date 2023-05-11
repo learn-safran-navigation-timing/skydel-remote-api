@@ -23,6 +23,13 @@ namespace Sdx
       : CommandResult(CmdName)
     {}
 
+    GetAllMultipathForResult::GetAllMultipathForResult(const std::vector<std::string>& ids)
+      : CommandResult(CmdName)
+    {
+
+      setIds(ids);
+    }
+
     GetAllMultipathForResult::GetAllMultipathForResult(CommandBasePtr relatedCommand, const std::vector<std::string>& ids)
       : CommandResult(CmdName, relatedCommand)
     {
@@ -30,6 +37,11 @@ namespace Sdx
       setIds(ids);
     }
 
+
+    GetAllMultipathForResultPtr GetAllMultipathForResult::create(const std::vector<std::string>& ids)
+    {
+      return std::make_shared<GetAllMultipathForResult>(ids);
+    }
 
     GetAllMultipathForResultPtr GetAllMultipathForResult::create(CommandBasePtr relatedCommand, const std::vector<std::string>& ids)
     {

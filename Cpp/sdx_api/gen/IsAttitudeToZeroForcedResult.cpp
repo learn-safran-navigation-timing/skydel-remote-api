@@ -23,6 +23,13 @@ namespace Sdx
       : CommandResult(CmdName)
     {}
 
+    IsAttitudeToZeroForcedResult::IsAttitudeToZeroForcedResult(bool enabled)
+      : CommandResult(CmdName)
+    {
+
+      setEnabled(enabled);
+    }
+
     IsAttitudeToZeroForcedResult::IsAttitudeToZeroForcedResult(CommandBasePtr relatedCommand, bool enabled)
       : CommandResult(CmdName, relatedCommand)
     {
@@ -30,6 +37,11 @@ namespace Sdx
       setEnabled(enabled);
     }
 
+
+    IsAttitudeToZeroForcedResultPtr IsAttitudeToZeroForcedResult::create(bool enabled)
+    {
+      return std::make_shared<IsAttitudeToZeroForcedResult>(enabled);
+    }
 
     IsAttitudeToZeroForcedResultPtr IsAttitudeToZeroForcedResult::create(CommandBasePtr relatedCommand, bool enabled)
     {

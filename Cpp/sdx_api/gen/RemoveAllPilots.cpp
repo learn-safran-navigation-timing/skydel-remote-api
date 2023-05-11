@@ -25,7 +25,6 @@ namespace Sdx
 
     }
 
-
     RemoveAllPilotsPtr RemoveAllPilots::create()
     {
       return std::make_shared<RemoveAllPilots>();

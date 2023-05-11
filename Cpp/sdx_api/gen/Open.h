@@ -32,7 +32,7 @@ namespace Sdx
       Open();
 
       Open(const std::string& path, bool discardCurrentConfig);
-  
+
       static OpenPtr create(const std::string& path, bool discardCurrentConfig);
       static OpenPtr dynamicCast(CommandBasePtr ptr);
       virtual bool isValid() const override;

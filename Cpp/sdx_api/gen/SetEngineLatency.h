@@ -31,7 +31,7 @@ namespace Sdx
       SetEngineLatency();
 
       SetEngineLatency(int latency);
-  
+
       static SetEngineLatencyPtr create(int latency);
       static SetEngineLatencyPtr dynamicCast(CommandBasePtr ptr);
       virtual bool isValid() const override;

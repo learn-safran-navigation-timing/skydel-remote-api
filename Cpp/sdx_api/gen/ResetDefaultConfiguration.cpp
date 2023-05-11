@@ -25,7 +25,6 @@ namespace Sdx
 
     }
 
-
     ResetDefaultConfigurationPtr ResetDefaultConfiguration::create()
     {
       return std::make_shared<ResetDefaultConfiguration>();

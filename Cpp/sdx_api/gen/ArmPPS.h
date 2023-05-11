@@ -27,7 +27,7 @@ namespace Sdx
 
 
       ArmPPS();
-  
+
       static ArmPPSPtr create();
       static ArmPPSPtr dynamicCast(CommandBasePtr ptr);
       virtual bool isValid() const override;

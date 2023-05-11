@@ -31,8 +31,12 @@ namespace Sdx
 
       GetStatusLogResult();
 
+      GetStatusLogResult(const std::vector<Sdx::LogRecord>& records);
+
       GetStatusLogResult(CommandBasePtr relatedCommand, const std::vector<Sdx::LogRecord>& records);
-  
+
+      static GetStatusLogResultPtr create(const std::vector<Sdx::LogRecord>& records);
+
       static GetStatusLogResultPtr create(CommandBasePtr relatedCommand, const std::vector<Sdx::LogRecord>& records);
       static GetStatusLogResultPtr dynamicCast(CommandBasePtr ptr);
       virtual bool isValid() const override;

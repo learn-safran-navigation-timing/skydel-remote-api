@@ -30,7 +30,6 @@ namespace Sdx
       setSystem(system);
     }
 
-
     GetActiveDataSetPtr GetActiveDataSet::create(const std::string& system)
     {
       return std::make_shared<GetActiveDataSet>(system);

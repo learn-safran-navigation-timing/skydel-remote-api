@@ -31,7 +31,6 @@ namespace Sdx
       setErrorType(errorType);
     }
 
-
     IsSbasFastCorrectionsEnabledForPtr IsSbasFastCorrectionsEnabledFor::create(const std::string& system, const Sdx::optional<std::string>& errorType)
     {
       return std::make_shared<IsSbasFastCorrectionsEnabledFor>(system, errorType);

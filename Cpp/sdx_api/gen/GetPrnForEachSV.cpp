@@ -30,7 +30,6 @@ namespace Sdx
       setSignal(signal);
     }
 
-
     GetPrnForEachSVPtr GetPrnForEachSV::create(const std::string& signal)
     {
       return std::make_shared<GetPrnForEachSV>(signal);

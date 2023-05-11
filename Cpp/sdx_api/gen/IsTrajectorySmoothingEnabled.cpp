@@ -25,7 +25,6 @@ namespace Sdx
 
     }
 
-
     IsTrajectorySmoothingEnabledPtr IsTrajectorySmoothingEnabled::create()
     {
       return std::make_shared<IsTrajectorySmoothingEnabled>();

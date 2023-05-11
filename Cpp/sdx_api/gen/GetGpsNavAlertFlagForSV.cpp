@@ -31,7 +31,6 @@ namespace Sdx
       setDataSetName(dataSetName);
     }
 
-
     GetGpsNavAlertFlagForSVPtr GetGpsNavAlertFlagForSV::create(int svId, const Sdx::optional<std::string>& dataSetName)
     {
       return std::make_shared<GetGpsNavAlertFlagForSV>(svId, dataSetName);

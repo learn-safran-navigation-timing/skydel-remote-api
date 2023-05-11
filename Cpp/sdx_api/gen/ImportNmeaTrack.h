@@ -31,7 +31,7 @@ namespace Sdx
       ImportNmeaTrack();
 
       ImportNmeaTrack(const std::string& path);
-  
+
       static ImportNmeaTrackPtr create(const std::string& path);
       static ImportNmeaTrackPtr dynamicCast(CommandBasePtr ptr);
       virtual bool isValid() const override;

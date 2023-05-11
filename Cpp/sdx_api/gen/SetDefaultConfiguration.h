@@ -27,7 +27,7 @@ namespace Sdx
 
 
       SetDefaultConfiguration();
-  
+
       static SetDefaultConfigurationPtr create();
       static SetDefaultConfigurationPtr dynamicCast(CommandBasePtr ptr);
       virtual bool isValid() const override;

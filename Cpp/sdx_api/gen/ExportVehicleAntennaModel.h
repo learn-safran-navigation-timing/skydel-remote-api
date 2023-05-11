@@ -33,7 +33,7 @@ namespace Sdx
       ExportVehicleAntennaModel();
 
       ExportVehicleAntennaModel(const std::string& antennaName, const std::string& filePath, bool overwriting);
-  
+
       static ExportVehicleAntennaModelPtr create(const std::string& antennaName, const std::string& filePath, bool overwriting);
       static ExportVehicleAntennaModelPtr dynamicCast(CommandBasePtr ptr);
       virtual bool isValid() const override;

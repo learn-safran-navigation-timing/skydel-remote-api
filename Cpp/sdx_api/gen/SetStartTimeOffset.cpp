@@ -30,7 +30,6 @@ namespace Sdx
       setOffset(offset);
     }
 
-
     SetStartTimeOffsetPtr SetStartTimeOffset::create(int offset)
     {
       return std::make_shared<SetStartTimeOffset>(offset);

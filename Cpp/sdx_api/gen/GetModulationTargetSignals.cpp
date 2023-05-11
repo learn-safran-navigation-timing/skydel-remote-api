@@ -31,7 +31,6 @@ namespace Sdx
       setId(id);
     }
 
-
     GetModulationTargetSignalsPtr GetModulationTargetSignals::create(int output, const std::string& id)
     {
       return std::make_shared<GetModulationTargetSignals>(output, id);

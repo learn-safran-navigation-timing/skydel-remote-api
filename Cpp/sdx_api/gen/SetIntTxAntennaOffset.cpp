@@ -36,7 +36,6 @@ namespace Sdx
       setId(id);
     }
 
-
     SetIntTxAntennaOffsetPtr SetIntTxAntennaOffset::create(double x, double y, double z, double yaw, double pitch, double roll, const std::string& id)
     {
       return std::make_shared<SetIntTxAntennaOffset>(x, y, z, yaw, pitch, roll, id);

@@ -34,7 +34,7 @@ namespace Sdx
       GetAllSatellitesPseudorangeNoiseGaussMarkov();
 
       GetAllSatellitesPseudorangeNoiseGaussMarkov(const std::string& system, int process);
-  
+
       static GetAllSatellitesPseudorangeNoiseGaussMarkovPtr create(const std::string& system, int process);
       static GetAllSatellitesPseudorangeNoiseGaussMarkovPtr dynamicCast(CommandBasePtr ptr);
       virtual bool isValid() const override;

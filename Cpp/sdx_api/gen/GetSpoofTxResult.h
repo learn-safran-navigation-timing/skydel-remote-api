@@ -34,8 +34,12 @@ namespace Sdx
 
       GetSpoofTxResult();
 
+      GetSpoofTxResult(const std::string& usualName, bool enabled, const std::string& address, int instanceId, const std::string& id);
+
       GetSpoofTxResult(CommandBasePtr relatedCommand, const std::string& usualName, bool enabled, const std::string& address, int instanceId, const std::string& id);
-  
+
+      static GetSpoofTxResultPtr create(const std::string& usualName, bool enabled, const std::string& address, int instanceId, const std::string& id);
+
       static GetSpoofTxResultPtr create(CommandBasePtr relatedCommand, const std::string& usualName, bool enabled, const std::string& address, int instanceId, const std::string& id);
       static GetSpoofTxResultPtr dynamicCast(CommandBasePtr ptr);
       virtual bool isValid() const override;

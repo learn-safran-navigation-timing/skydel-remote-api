@@ -25,7 +25,6 @@ namespace Sdx
 
     }
 
-
     GetMasterStatusPtr GetMasterStatus::create()
     {
       return std::make_shared<GetMasterStatus>();

@@ -30,7 +30,6 @@ namespace Sdx
       setUseVelocity(useVelocity);
     }
 
-
     SetUsingVelocityInSbasMessage25Ptr SetUsingVelocityInSbasMessage25::create(bool useVelocity)
     {
       return std::make_shared<SetUsingVelocityInSbasMessage25>(useVelocity);

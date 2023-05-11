@@ -32,7 +32,6 @@ namespace Sdx
       setSineWave(sineWave);
     }
 
-
     GetPseudorangeNoiseSineWaveForSVPtr GetPseudorangeNoiseSineWaveForSV::create(const std::string& system, int svId, int sineWave)
     {
       return std::make_shared<GetPseudorangeNoiseSineWaveForSV>(system, svId, sineWave);

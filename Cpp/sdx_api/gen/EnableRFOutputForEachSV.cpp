@@ -31,7 +31,6 @@ namespace Sdx
       setEnabled(enabled);
     }
 
-
     EnableRFOutputForEachSVPtr EnableRFOutputForEachSV::create(const std::string& system, const std::vector<bool>& enabled)
     {
       return std::make_shared<EnableRFOutputForEachSV>(system, enabled);

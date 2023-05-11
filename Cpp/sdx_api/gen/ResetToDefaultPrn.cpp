@@ -30,7 +30,6 @@ namespace Sdx
       setSystem(system);
     }
 
-
     ResetToDefaultPrnPtr ResetToDefaultPrn::create(const std::string& system)
     {
       return std::make_shared<ResetToDefaultPrn>(system);

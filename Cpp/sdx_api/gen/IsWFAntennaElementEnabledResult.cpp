@@ -23,6 +23,14 @@ namespace Sdx
       : CommandResult(CmdName)
     {}
 
+    IsWFAntennaElementEnabledResult::IsWFAntennaElementEnabledResult(int element, bool enabled)
+      : CommandResult(CmdName)
+    {
+
+      setElement(element);
+      setEnabled(enabled);
+    }
+
     IsWFAntennaElementEnabledResult::IsWFAntennaElementEnabledResult(CommandBasePtr relatedCommand, int element, bool enabled)
       : CommandResult(CmdName, relatedCommand)
     {
@@ -31,6 +39,11 @@ namespace Sdx
       setEnabled(enabled);
     }
 
+
+    IsWFAntennaElementEnabledResultPtr IsWFAntennaElementEnabledResult::create(int element, bool enabled)
+    {
+      return std::make_shared<IsWFAntennaElementEnabledResult>(element, enabled);
+    }
 
     IsWFAntennaElementEnabledResultPtr IsWFAntennaElementEnabledResult::create(CommandBasePtr relatedCommand, int element, bool enabled)
     {

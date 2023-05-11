@@ -36,7 +36,6 @@ namespace Sdx
       setSeed(seed);
     }
 
-
     SetPseudorangeNoiseGaussMarkovForSVPtr SetPseudorangeNoiseGaussMarkovForSV::create(const std::string& system, int svId, int process, bool enabled, double sigma, double time, int seed)
     {
       return std::make_shared<SetPseudorangeNoiseGaussMarkovForSV>(system, svId, process, enabled, sigma, time, seed);

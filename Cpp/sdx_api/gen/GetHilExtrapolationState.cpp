@@ -25,7 +25,6 @@ namespace Sdx
 
     }
 
-
     GetHilExtrapolationStatePtr GetHilExtrapolationState::create()
     {
       return std::make_shared<GetHilExtrapolationState>();

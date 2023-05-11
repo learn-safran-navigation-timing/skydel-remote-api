@@ -30,7 +30,6 @@ namespace Sdx
       setDefaultValue(defaultValue);
     }
 
-
     SetDefaultIntTxPersistencePtr SetDefaultIntTxPersistence::create(bool defaultValue)
     {
       return std::make_shared<SetDefaultIntTxPersistence>(defaultValue);

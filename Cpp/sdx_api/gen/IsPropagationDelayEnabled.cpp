@@ -30,7 +30,6 @@ namespace Sdx
       setSystem(system);
     }
 
-
     IsPropagationDelayEnabledPtr IsPropagationDelayEnabled::create(const std::string& system)
     {
       return std::make_shared<IsPropagationDelayEnabled>(system);

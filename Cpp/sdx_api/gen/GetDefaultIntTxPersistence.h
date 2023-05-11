@@ -27,7 +27,7 @@ namespace Sdx
 
 
       GetDefaultIntTxPersistence();
-  
+
       static GetDefaultIntTxPersistencePtr create();
       static GetDefaultIntTxPersistencePtr dynamicCast(CommandBasePtr ptr);
       virtual bool isValid() const override;

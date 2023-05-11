@@ -31,8 +31,12 @@ namespace Sdx
 
       GetQzssL1SAugmentationsResult();
 
+      GetQzssL1SAugmentationsResult(const std::vector<std::string>& ids);
+
       GetQzssL1SAugmentationsResult(CommandBasePtr relatedCommand, const std::vector<std::string>& ids);
-  
+
+      static GetQzssL1SAugmentationsResultPtr create(const std::vector<std::string>& ids);
+
       static GetQzssL1SAugmentationsResultPtr create(CommandBasePtr relatedCommand, const std::vector<std::string>& ids);
       static GetQzssL1SAugmentationsResultPtr dynamicCast(CommandBasePtr ptr);
       virtual bool isValid() const override;

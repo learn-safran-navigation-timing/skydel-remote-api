@@ -25,7 +25,6 @@ namespace Sdx
 
     }
 
-
     StopPtr Stop::create()
     {
       return std::make_shared<Stop>();

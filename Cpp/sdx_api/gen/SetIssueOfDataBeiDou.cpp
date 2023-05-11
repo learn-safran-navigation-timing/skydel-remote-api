@@ -31,7 +31,6 @@ namespace Sdx
       setEphemeris(ephemeris);
     }
 
-
     SetIssueOfDataBeiDouPtr SetIssueOfDataBeiDou::create(int clock, int ephemeris)
     {
       return std::make_shared<SetIssueOfDataBeiDou>(clock, ephemeris);

@@ -31,7 +31,6 @@ namespace Sdx
       setDataSetName(dataSetName);
     }
 
-
     GetBeiDouAutonomousHealthForSVPtr GetBeiDouAutonomousHealthForSV::create(int svId, const Sdx::optional<std::string>& dataSetName)
     {
       return std::make_shared<GetBeiDouAutonomousHealthForSV>(svId, dataSetName);

@@ -32,7 +32,6 @@ namespace Sdx
       setDataSetName(dataSetName);
     }
 
-
     SetQzssSatelliteNavAlertFlagPtr SetQzssSatelliteNavAlertFlag::create(int svId, bool alert, const Sdx::optional<std::string>& dataSetName)
     {
       return std::make_shared<SetQzssSatelliteNavAlertFlag>(svId, alert, dataSetName);

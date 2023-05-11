@@ -32,7 +32,7 @@ namespace Sdx
       New();
 
       New(bool discardCurrentConfig, const Sdx::optional<bool>& loadDefaultConfig = {});
-  
+
       static NewPtr create(bool discardCurrentConfig, const Sdx::optional<bool>& loadDefaultConfig = {});
       static NewPtr dynamicCast(CommandBasePtr ptr);
       virtual bool isValid() const override;

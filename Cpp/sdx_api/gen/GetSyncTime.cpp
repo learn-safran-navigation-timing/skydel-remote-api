@@ -25,7 +25,6 @@ namespace Sdx
 
     }
 
-
     GetSyncTimePtr GetSyncTime::create()
     {
       return std::make_shared<GetSyncTime>();

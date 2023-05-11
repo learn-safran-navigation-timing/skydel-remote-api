@@ -30,8 +30,12 @@ namespace Sdx
 
       SimulationElapsedTimeResult();
 
+      SimulationElapsedTimeResult(int milliseconds);
+
       SimulationElapsedTimeResult(CommandBasePtr relatedCommand, int milliseconds);
-  
+
+      static SimulationElapsedTimeResultPtr create(int milliseconds);
+
       static SimulationElapsedTimeResultPtr create(CommandBasePtr relatedCommand, int milliseconds);
       static SimulationElapsedTimeResultPtr dynamicCast(CommandBasePtr ptr);
       virtual bool isValid() const override;

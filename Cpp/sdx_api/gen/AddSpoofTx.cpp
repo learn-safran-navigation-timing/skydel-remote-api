@@ -34,7 +34,6 @@ namespace Sdx
       setId(id);
     }
 
-
     AddSpoofTxPtr AddSpoofTx::create(const std::string& usualName, bool enabled, const std::string& address, int instanceId, const std::string& id)
     {
       return std::make_shared<AddSpoofTx>(usualName, enabled, address, instanceId, id);

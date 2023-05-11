@@ -27,7 +27,7 @@ namespace Sdx
 
 
       AbortWaitSimulatorState();
-  
+
       static AbortWaitSimulatorStatePtr create();
       static AbortWaitSimulatorStatePtr dynamicCast(CommandBasePtr ptr);
       virtual bool isValid() const override;

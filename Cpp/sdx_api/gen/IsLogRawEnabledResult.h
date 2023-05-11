@@ -30,8 +30,12 @@ namespace Sdx
 
       IsLogRawEnabledResult();
 
+      IsLogRawEnabledResult(bool enabled);
+
       IsLogRawEnabledResult(CommandBasePtr relatedCommand, bool enabled);
-  
+
+      static IsLogRawEnabledResultPtr create(bool enabled);
+
       static IsLogRawEnabledResultPtr create(CommandBasePtr relatedCommand, bool enabled);
       static IsLogRawEnabledResultPtr dynamicCast(CommandBasePtr ptr);
       virtual bool isValid() const override;

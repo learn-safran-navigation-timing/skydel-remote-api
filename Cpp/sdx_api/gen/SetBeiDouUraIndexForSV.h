@@ -34,7 +34,7 @@ namespace Sdx
       SetBeiDouUraIndexForSV();
 
       SetBeiDouUraIndexForSV(int svId, int urai, const Sdx::optional<std::string>& dataSetName = {});
-  
+
       static SetBeiDouUraIndexForSVPtr create(int svId, int urai, const Sdx::optional<std::string>& dataSetName = {});
       static SetBeiDouUraIndexForSVPtr dynamicCast(CommandBasePtr ptr);
       virtual bool isValid() const override;

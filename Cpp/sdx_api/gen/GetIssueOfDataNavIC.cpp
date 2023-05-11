@@ -25,7 +25,6 @@ namespace Sdx
 
     }
 
-
     GetIssueOfDataNavICPtr GetIssueOfDataNavIC::create()
     {
       return std::make_shared<GetIssueOfDataNavIC>();

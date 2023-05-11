@@ -27,7 +27,7 @@ namespace Sdx
 
 
       ClearVehiculeTrajectory();
-  
+
       static ClearVehiculeTrajectoryPtr create();
       static ClearVehiculeTrajectoryPtr dynamicCast(CommandBasePtr ptr);
       virtual bool isValid() const override;

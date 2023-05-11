@@ -31,7 +31,6 @@ namespace Sdx
       setSvId(svId);
     }
 
-
     IsSVEnabledPtr IsSVEnabled::create(const std::string& system, int svId)
     {
       return std::make_shared<IsSVEnabled>(system, svId);

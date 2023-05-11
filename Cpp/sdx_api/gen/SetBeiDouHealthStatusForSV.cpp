@@ -32,7 +32,6 @@ namespace Sdx
       setDataSetName(dataSetName);
     }
 
-
     SetBeiDouHealthStatusForSVPtr SetBeiDouHealthStatusForSV::create(int svId, int health, const Sdx::optional<std::string>& dataSetName)
     {
       return std::make_shared<SetBeiDouHealthStatusForSV>(svId, health, dataSetName);

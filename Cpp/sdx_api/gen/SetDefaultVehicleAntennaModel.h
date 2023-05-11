@@ -31,7 +31,7 @@ namespace Sdx
       SetDefaultVehicleAntennaModel();
 
       SetDefaultVehicleAntennaModel(const std::string& name);
-  
+
       static SetDefaultVehicleAntennaModelPtr create(const std::string& name);
       static SetDefaultVehicleAntennaModelPtr dynamicCast(CommandBasePtr ptr);
       virtual bool isValid() const override;

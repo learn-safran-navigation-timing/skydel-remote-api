@@ -32,7 +32,7 @@ namespace Sdx
       SetIntTxGroup();
 
       SetIntTxGroup(int group, const std::string& id);
-  
+
       static SetIntTxGroupPtr create(int group, const std::string& id);
       static SetIntTxGroupPtr dynamicCast(CommandBasePtr ptr);
       virtual bool isValid() const override;

@@ -25,7 +25,6 @@ namespace Sdx
 
     }
 
-
     GetDataFolderPtr GetDataFolder::create()
     {
       return std::make_shared<GetDataFolder>();

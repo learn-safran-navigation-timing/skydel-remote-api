@@ -25,7 +25,6 @@ namespace Sdx
 
     }
 
-
     GetSbasMonitoredSystemsPtr GetSbasMonitoredSystems::create()
     {
       return std::make_shared<GetSbasMonitoredSystems>();

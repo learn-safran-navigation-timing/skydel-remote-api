@@ -34,8 +34,12 @@ namespace Sdx
 
       GetGpsEphDoubleParamForSVResult();
 
+      GetGpsEphDoubleParamForSVResult(int svId, const std::string& paramName, double val, const Sdx::optional<std::string>& dataSetName = {});
+
       GetGpsEphDoubleParamForSVResult(CommandBasePtr relatedCommand, int svId, const std::string& paramName, double val, const Sdx::optional<std::string>& dataSetName = {});
-  
+
+      static GetGpsEphDoubleParamForSVResultPtr create(int svId, const std::string& paramName, double val, const Sdx::optional<std::string>& dataSetName = {});
+
       static GetGpsEphDoubleParamForSVResultPtr create(CommandBasePtr relatedCommand, int svId, const std::string& paramName, double val, const Sdx::optional<std::string>& dataSetName = {});
       static GetGpsEphDoubleParamForSVResultPtr dynamicCast(CommandBasePtr ptr);
       virtual bool isValid() const override;

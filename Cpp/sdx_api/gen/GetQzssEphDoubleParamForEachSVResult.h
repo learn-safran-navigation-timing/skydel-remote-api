@@ -35,8 +35,12 @@ namespace Sdx
 
       GetQzssEphDoubleParamForEachSVResult();
 
+      GetQzssEphDoubleParamForEachSVResult(const std::string& paramName, const std::vector<double>& val, const Sdx::optional<std::string>& dataSetName = {});
+
       GetQzssEphDoubleParamForEachSVResult(CommandBasePtr relatedCommand, const std::string& paramName, const std::vector<double>& val, const Sdx::optional<std::string>& dataSetName = {});
-  
+
+      static GetQzssEphDoubleParamForEachSVResultPtr create(const std::string& paramName, const std::vector<double>& val, const Sdx::optional<std::string>& dataSetName = {});
+
       static GetQzssEphDoubleParamForEachSVResultPtr create(CommandBasePtr relatedCommand, const std::string& paramName, const std::vector<double>& val, const Sdx::optional<std::string>& dataSetName = {});
       static GetQzssEphDoubleParamForEachSVResultPtr dynamicCast(CommandBasePtr ptr);
       virtual bool isValid() const override;

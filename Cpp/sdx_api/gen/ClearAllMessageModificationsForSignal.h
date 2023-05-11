@@ -13,8 +13,8 @@ namespace Sdx
     /// Clear the signal for all message modifications.
     ///
     /// Name   Type   Description
-    /// ------ ------ -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
-    /// Signal string Signal key, accepted values : "L1CA", "L1C", "L1P", "L1ME", "L1MR", "L2C", "L2P", "L2ME", "L2MR", "L5", "G1", "G2", "E1", "E5a", "E5b", "B1", "B2", "B2a", "B1C", "QZSSL1CA", "QZSSL1CB", "QZSSL1S", "NAVICL5", "SBASL1" and "SBASL5"
+    /// ------ ------ --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+    /// Signal string Signal key, accepted values : "L1CA", "L1C", "L1P", "L1ME", "L1MR", "L2C", "L2P", "L2ME", "L2MR", "L5", "G1", "G2", "E1", "E5a", "E5b", "B1", "B2", "B2a", "B1C", "B3I", "QZSSL1CA", "QZSSL1CB", "QZSSL1S", "NAVICL5", "SBASL1" and "SBASL5"
     ///
 
     class ClearAllMessageModificationsForSignal;
@@ -31,7 +31,7 @@ namespace Sdx
       ClearAllMessageModificationsForSignal();
 
       ClearAllMessageModificationsForSignal(const std::string& signal);
-  
+
       static ClearAllMessageModificationsForSignalPtr create(const std::string& signal);
       static ClearAllMessageModificationsForSignalPtr dynamicCast(CommandBasePtr ptr);
       virtual bool isValid() const override;

@@ -30,7 +30,6 @@ namespace Sdx
       setSystem(system);
     }
 
-
     RandomizeSeedsForAllSatellitesPseudorangeNoiseGaussMarkovPtr RandomizeSeedsForAllSatellitesPseudorangeNoiseGaussMarkov::create(const std::string& system)
     {
       return std::make_shared<RandomizeSeedsForAllSatellitesPseudorangeNoiseGaussMarkov>(system);

@@ -31,7 +31,7 @@ namespace Sdx
       EnableSbasMessages();
 
       EnableSbasMessages(const std::vector<int>& messages);
-  
+
       static EnableSbasMessagesPtr create(const std::vector<int>& messages);
       static EnableSbasMessagesPtr dynamicCast(CommandBasePtr ptr);
       virtual bool isValid() const override;

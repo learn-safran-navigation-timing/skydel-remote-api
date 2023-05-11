@@ -31,7 +31,7 @@ namespace Sdx
       GetMessageModificationToQzssSlas();
 
       GetMessageModificationToQzssSlas(const std::string& id);
-  
+
       static GetMessageModificationToQzssSlasPtr create(const std::string& id);
       static GetMessageModificationToQzssSlasPtr dynamicCast(CommandBasePtr ptr);
       virtual bool isValid() const override;

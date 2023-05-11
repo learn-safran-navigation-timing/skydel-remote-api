@@ -23,6 +23,13 @@ namespace Sdx
       : CommandResult(CmdName)
     {}
 
+    GetOfficialLeapSecondResult::GetOfficialLeapSecondResult(int leapSecond)
+      : CommandResult(CmdName)
+    {
+
+      setLeapSecond(leapSecond);
+    }
+
     GetOfficialLeapSecondResult::GetOfficialLeapSecondResult(CommandBasePtr relatedCommand, int leapSecond)
       : CommandResult(CmdName, relatedCommand)
     {
@@ -30,6 +37,11 @@ namespace Sdx
       setLeapSecond(leapSecond);
     }
 
+
+    GetOfficialLeapSecondResultPtr GetOfficialLeapSecondResult::create(int leapSecond)
+    {
+      return std::make_shared<GetOfficialLeapSecondResult>(leapSecond);
+    }
 
     GetOfficialLeapSecondResultPtr GetOfficialLeapSecondResult::create(CommandBasePtr relatedCommand, int leapSecond)
     {

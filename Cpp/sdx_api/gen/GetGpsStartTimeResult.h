@@ -31,8 +31,12 @@ namespace Sdx
 
       GetGpsStartTimeResult();
 
+      GetGpsStartTimeResult(const Sdx::DateTime& startTime, int leapSecond);
+
       GetGpsStartTimeResult(CommandBasePtr relatedCommand, const Sdx::DateTime& startTime, int leapSecond);
-  
+
+      static GetGpsStartTimeResultPtr create(const Sdx::DateTime& startTime, int leapSecond);
+
       static GetGpsStartTimeResultPtr create(CommandBasePtr relatedCommand, const Sdx::DateTime& startTime, int leapSecond);
       static GetGpsStartTimeResultPtr dynamicCast(CommandBasePtr ptr);
       virtual bool isValid() const override;

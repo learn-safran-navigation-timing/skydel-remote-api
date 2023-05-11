@@ -25,7 +25,6 @@ namespace Sdx
 
     }
 
-
     GetStatusLogPtr GetStatusLog::create()
     {
       return std::make_shared<GetStatusLog>();

@@ -31,7 +31,7 @@ namespace Sdx
       IsPropagationDelayEnabled();
 
       IsPropagationDelayEnabled(const std::string& system);
-  
+
       static IsPropagationDelayEnabledPtr create(const std::string& system);
       static IsPropagationDelayEnabledPtr dynamicCast(CommandBasePtr ptr);
       virtual bool isValid() const override;

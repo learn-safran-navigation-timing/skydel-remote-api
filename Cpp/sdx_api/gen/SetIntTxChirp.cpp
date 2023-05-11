@@ -37,7 +37,6 @@ namespace Sdx
       setGroup(group);
     }
 
-
     SetIntTxChirpPtr SetIntTxChirp::create(bool enabled, double centralFreq, double power, double bandwidth, double sweepTime, const std::string& transmitterId, const std::string& signalId, const Sdx::optional<int>& group)
     {
       return std::make_shared<SetIntTxChirp>(enabled, centralFreq, power, bandwidth, sweepTime, transmitterId, signalId, group);

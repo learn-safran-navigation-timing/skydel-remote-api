@@ -13,8 +13,8 @@ namespace Sdx
     /// Result of GetPrnOfSVID.
     ///
     /// Name   Type   Description
-    /// ------ ------ -----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
-    /// Signal string Accepted signal keys: "L1CA", "L1C", "L2C", "L5", "E1", "E6BC", "B1", "B2", "B1C", "B2a", "SBASL1", "SBASL5", "QZSSL1CA", "QZSSL1CB", "QZSSL1C", "QZSSL2C", "QZSSL5", "QZSSL1S", "QZSSL5S", "NAVICL5"
+    /// ------ ------ ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+    /// Signal string Accepted signal keys: "L1CA", "L1C", "L2C", "L5", "E1", "E6BC", "B1", "B2", "B1C", "B2a", "B3I", "SBASL1", "SBASL5", "QZSSL1CA", "QZSSL1CB", "QZSSL1C", "QZSSL2C", "QZSSL5", "QZSSL1S", "QZSSL5S", "NAVICL5"
     /// SvId   int    Satellite SV ID.
     /// Prn    int    PRN number.
     ///
@@ -32,8 +32,12 @@ namespace Sdx
 
       GetPrnOfSVIDResult();
 
+      GetPrnOfSVIDResult(const std::string& signal, int svId, int prn);
+
       GetPrnOfSVIDResult(CommandBasePtr relatedCommand, const std::string& signal, int svId, int prn);
-  
+
+      static GetPrnOfSVIDResultPtr create(const std::string& signal, int svId, int prn);
+
       static GetPrnOfSVIDResultPtr create(CommandBasePtr relatedCommand, const std::string& signal, int svId, int prn);
       static GetPrnOfSVIDResultPtr dynamicCast(CommandBasePtr ptr);
       virtual bool isValid() const override;

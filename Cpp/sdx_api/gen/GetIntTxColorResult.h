@@ -31,8 +31,12 @@ namespace Sdx
 
       GetIntTxColorResult();
 
+      GetIntTxColorResult(const std::string& color, const std::string& id);
+
       GetIntTxColorResult(CommandBasePtr relatedCommand, const std::string& color, const std::string& id);
-  
+
+      static GetIntTxColorResultPtr create(const std::string& color, const std::string& id);
+
       static GetIntTxColorResultPtr create(CommandBasePtr relatedCommand, const std::string& color, const std::string& id);
       static GetIntTxColorResultPtr dynamicCast(CommandBasePtr ptr);
       virtual bool isValid() const override;

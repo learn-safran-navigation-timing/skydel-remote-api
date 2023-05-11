@@ -32,7 +32,7 @@ namespace Sdx
       IsLosEnabledForSV();
 
       IsLosEnabledForSV(const std::string& system, int svId);
-  
+
       static IsLosEnabledForSVPtr create(const std::string& system, int svId);
       static IsLosEnabledForSVPtr dynamicCast(CommandBasePtr ptr);
       virtual bool isValid() const override;

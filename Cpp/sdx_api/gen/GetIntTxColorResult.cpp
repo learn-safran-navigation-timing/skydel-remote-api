@@ -23,6 +23,14 @@ namespace Sdx
       : CommandResult(CmdName)
     {}
 
+    GetIntTxColorResult::GetIntTxColorResult(const std::string& color, const std::string& id)
+      : CommandResult(CmdName)
+    {
+
+      setColor(color);
+      setId(id);
+    }
+
     GetIntTxColorResult::GetIntTxColorResult(CommandBasePtr relatedCommand, const std::string& color, const std::string& id)
       : CommandResult(CmdName, relatedCommand)
     {
@@ -31,6 +39,11 @@ namespace Sdx
       setId(id);
     }
 
+
+    GetIntTxColorResultPtr GetIntTxColorResult::create(const std::string& color, const std::string& id)
+    {
+      return std::make_shared<GetIntTxColorResult>(color, id);
+    }
 
     GetIntTxColorResultPtr GetIntTxColorResult::create(CommandBasePtr relatedCommand, const std::string& color, const std::string& id)
     {

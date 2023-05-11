@@ -31,7 +31,6 @@ namespace Sdx
       setSignalId(signalId);
     }
 
-
     GetIntTxBOCPtr GetIntTxBOC::create(const std::string& transmitterId, const std::string& signalId)
     {
       return std::make_shared<GetIntTxBOC>(transmitterId, signalId);

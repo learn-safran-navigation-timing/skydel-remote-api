@@ -23,6 +23,15 @@ namespace Sdx
       : CommandResult(CmdName)
     {}
 
+    GetGpsAntiSpoofingFlagForSVResult::GetGpsAntiSpoofingFlagForSVResult(int svId, const Sdx::GpsASFlag& antiSpoofing, const Sdx::optional<std::string>& dataSetName)
+      : CommandResult(CmdName)
+    {
+
+      setSvId(svId);
+      setAntiSpoofing(antiSpoofing);
+      setDataSetName(dataSetName);
+    }
+
     GetGpsAntiSpoofingFlagForSVResult::GetGpsAntiSpoofingFlagForSVResult(CommandBasePtr relatedCommand, int svId, const Sdx::GpsASFlag& antiSpoofing, const Sdx::optional<std::string>& dataSetName)
       : CommandResult(CmdName, relatedCommand)
     {
@@ -32,6 +41,11 @@ namespace Sdx
       setDataSetName(dataSetName);
     }
 
+
+    GetGpsAntiSpoofingFlagForSVResultPtr GetGpsAntiSpoofingFlagForSVResult::create(int svId, const Sdx::GpsASFlag& antiSpoofing, const Sdx::optional<std::string>& dataSetName)
+    {
+      return std::make_shared<GetGpsAntiSpoofingFlagForSVResult>(svId, antiSpoofing, dataSetName);
+    }
 
     GetGpsAntiSpoofingFlagForSVResultPtr GetGpsAntiSpoofingFlagForSVResult::create(CommandBasePtr relatedCommand, int svId, const Sdx::GpsASFlag& antiSpoofing, const Sdx::optional<std::string>& dataSetName)
     {

@@ -31,7 +31,6 @@ namespace Sdx
       setVal(val);
     }
 
-
     SetEffectiveIonisationLevelCoefficientPtr SetEffectiveIonisationLevelCoefficient::create(int index, double val)
     {
       return std::make_shared<SetEffectiveIonisationLevelCoefficient>(index, val);

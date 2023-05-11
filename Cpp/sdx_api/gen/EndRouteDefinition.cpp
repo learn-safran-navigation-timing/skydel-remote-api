@@ -25,7 +25,6 @@ namespace Sdx
 
     }
 
-
     EndRouteDefinitionPtr EndRouteDefinition::create()
     {
       return std::make_shared<EndRouteDefinition>();

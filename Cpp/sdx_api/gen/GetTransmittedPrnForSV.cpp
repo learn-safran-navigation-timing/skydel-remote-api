@@ -31,7 +31,6 @@ namespace Sdx
       setSignalArray(signalArray);
     }
 
-
     GetTransmittedPrnForSVPtr GetTransmittedPrnForSV::create(int svId, const std::vector<std::string>& signalArray)
     {
       return std::make_shared<GetTransmittedPrnForSV>(svId, signalArray);

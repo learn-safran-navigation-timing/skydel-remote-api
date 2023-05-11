@@ -31,7 +31,6 @@ namespace Sdx
       setOverwriting(overwriting);
     }
 
-
     ExportHilGraphDataToCSVPtr ExportHilGraphDataToCSV::create(const std::string& path, bool overwriting)
     {
       return std::make_shared<ExportHilGraphDataToCSV>(path, overwriting);

@@ -23,6 +23,14 @@ namespace Sdx
       : CommandResult(CmdName)
     {}
 
+    GetIntTxVehicleTypeResult::GetIntTxVehicleTypeResult(const std::string& type, const std::string& id)
+      : CommandResult(CmdName)
+    {
+
+      setType(type);
+      setId(id);
+    }
+
     GetIntTxVehicleTypeResult::GetIntTxVehicleTypeResult(CommandBasePtr relatedCommand, const std::string& type, const std::string& id)
       : CommandResult(CmdName, relatedCommand)
     {
@@ -31,6 +39,11 @@ namespace Sdx
       setId(id);
     }
 
+
+    GetIntTxVehicleTypeResultPtr GetIntTxVehicleTypeResult::create(const std::string& type, const std::string& id)
+    {
+      return std::make_shared<GetIntTxVehicleTypeResult>(type, id);
+    }
 
     GetIntTxVehicleTypeResultPtr GetIntTxVehicleTypeResult::create(CommandBasePtr relatedCommand, const std::string& type, const std::string& id)
     {

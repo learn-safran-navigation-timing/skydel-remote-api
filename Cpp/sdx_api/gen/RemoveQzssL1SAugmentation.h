@@ -31,7 +31,7 @@ namespace Sdx
       RemoveQzssL1SAugmentation();
 
       RemoveQzssL1SAugmentation(const std::string& id);
-  
+
       static RemoveQzssL1SAugmentationPtr create(const std::string& id);
       static RemoveQzssL1SAugmentationPtr dynamicCast(CommandBasePtr ptr);
       virtual bool isValid() const override;

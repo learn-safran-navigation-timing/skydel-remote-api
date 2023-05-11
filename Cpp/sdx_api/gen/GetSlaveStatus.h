@@ -27,7 +27,7 @@ namespace Sdx
 
 
       GetSlaveStatus();
-  
+
       static GetSlaveStatusPtr create();
       static GetSlaveStatusPtr dynamicCast(CommandBasePtr ptr);
       virtual bool isValid() const override;

@@ -23,6 +23,16 @@ namespace Sdx
       : CommandResult(CmdName)
     {}
 
+    GetGpsEphDoubleParamForSVResult::GetGpsEphDoubleParamForSVResult(int svId, const std::string& paramName, double val, const Sdx::optional<std::string>& dataSetName)
+      : CommandResult(CmdName)
+    {
+
+      setSvId(svId);
+      setParamName(paramName);
+      setVal(val);
+      setDataSetName(dataSetName);
+    }
+
     GetGpsEphDoubleParamForSVResult::GetGpsEphDoubleParamForSVResult(CommandBasePtr relatedCommand, int svId, const std::string& paramName, double val, const Sdx::optional<std::string>& dataSetName)
       : CommandResult(CmdName, relatedCommand)
     {
@@ -33,6 +43,11 @@ namespace Sdx
       setDataSetName(dataSetName);
     }
 
+
+    GetGpsEphDoubleParamForSVResultPtr GetGpsEphDoubleParamForSVResult::create(int svId, const std::string& paramName, double val, const Sdx::optional<std::string>& dataSetName)
+    {
+      return std::make_shared<GetGpsEphDoubleParamForSVResult>(svId, paramName, val, dataSetName);
+    }
 
     GetGpsEphDoubleParamForSVResultPtr GetGpsEphDoubleParamForSVResult::create(CommandBasePtr relatedCommand, int svId, const std::string& paramName, double val, const Sdx::optional<std::string>& dataSetName)
     {

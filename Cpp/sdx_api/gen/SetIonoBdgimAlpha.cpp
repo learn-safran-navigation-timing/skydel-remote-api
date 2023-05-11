@@ -31,7 +31,6 @@ namespace Sdx
       setVal(val);
     }
 
-
     SetIonoBdgimAlphaPtr SetIonoBdgimAlpha::create(int index, double val)
     {
       return std::make_shared<SetIonoBdgimAlpha>(index, val);

@@ -31,8 +31,12 @@ namespace Sdx
 
       IsIntTxIgnoreRxAntennaPhasePatternResult();
 
+      IsIntTxIgnoreRxAntennaPhasePatternResult(bool ignore, const std::string& id);
+
       IsIntTxIgnoreRxAntennaPhasePatternResult(CommandBasePtr relatedCommand, bool ignore, const std::string& id);
-  
+
+      static IsIntTxIgnoreRxAntennaPhasePatternResultPtr create(bool ignore, const std::string& id);
+
       static IsIntTxIgnoreRxAntennaPhasePatternResultPtr create(CommandBasePtr relatedCommand, bool ignore, const std::string& id);
       static IsIntTxIgnoreRxAntennaPhasePatternResultPtr dynamicCast(CommandBasePtr ptr);
       virtual bool isValid() const override;

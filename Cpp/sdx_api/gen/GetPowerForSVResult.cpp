@@ -23,6 +23,20 @@ namespace Sdx
       : CommandResult(CmdName)
     {}
 
+    GetPowerForSVResult::GetPowerForSVResult(const std::string& system, int svId, double nominalPower, double signalStrengthModel, double antenna, double signalLevelOffset, double manualGain, double total)
+      : CommandResult(CmdName)
+    {
+
+      setSystem(system);
+      setSvId(svId);
+      setNominalPower(nominalPower);
+      setSignalStrengthModel(signalStrengthModel);
+      setAntenna(antenna);
+      setSignalLevelOffset(signalLevelOffset);
+      setManualGain(manualGain);
+      setTotal(total);
+    }
+
     GetPowerForSVResult::GetPowerForSVResult(CommandBasePtr relatedCommand, const std::string& system, int svId, double nominalPower, double signalStrengthModel, double antenna, double signalLevelOffset, double manualGain, double total)
       : CommandResult(CmdName, relatedCommand)
     {
@@ -37,6 +51,11 @@ namespace Sdx
       setTotal(total);
     }
 
+
+    GetPowerForSVResultPtr GetPowerForSVResult::create(const std::string& system, int svId, double nominalPower, double signalStrengthModel, double antenna, double signalLevelOffset, double manualGain, double total)
+    {
+      return std::make_shared<GetPowerForSVResult>(system, svId, nominalPower, signalStrengthModel, antenna, signalLevelOffset, manualGain, total);
+    }
 
     GetPowerForSVResultPtr GetPowerForSVResult::create(CommandBasePtr relatedCommand, const std::string& system, int svId, double nominalPower, double signalStrengthModel, double antenna, double signalLevelOffset, double manualGain, double total)
     {

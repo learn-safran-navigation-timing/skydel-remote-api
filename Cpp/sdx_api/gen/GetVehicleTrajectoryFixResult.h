@@ -36,8 +36,12 @@ namespace Sdx
 
       GetVehicleTrajectoryFixResult();
 
+      GetVehicleTrajectoryFixResult(const std::string& type, double lat, double lon, double alt, double yaw, double pitch, double roll);
+
       GetVehicleTrajectoryFixResult(CommandBasePtr relatedCommand, const std::string& type, double lat, double lon, double alt, double yaw, double pitch, double roll);
-  
+
+      static GetVehicleTrajectoryFixResultPtr create(const std::string& type, double lat, double lon, double alt, double yaw, double pitch, double roll);
+
       static GetVehicleTrajectoryFixResultPtr create(CommandBasePtr relatedCommand, const std::string& type, double lat, double lon, double alt, double yaw, double pitch, double roll);
       static GetVehicleTrajectoryFixResultPtr dynamicCast(CommandBasePtr ptr);
       virtual bool isValid() const override;

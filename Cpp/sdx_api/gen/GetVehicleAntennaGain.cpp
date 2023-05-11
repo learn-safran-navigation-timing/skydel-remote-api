@@ -31,7 +31,6 @@ namespace Sdx
       setName(name);
     }
 
-
     GetVehicleAntennaGainPtr GetVehicleAntennaGain::create(const Sdx::GNSSBand& band, const Sdx::optional<std::string>& name)
     {
       return std::make_shared<GetVehicleAntennaGain>(band, name);

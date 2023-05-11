@@ -37,7 +37,6 @@ namespace Sdx
       setId(id);
     }
 
-
     PushIntTxTrackEcefNedPtr PushIntTxTrackEcefNed::create(int time, double x, double y, double z, double yaw, double pitch, double roll, const std::string& id)
     {
       return std::make_shared<PushIntTxTrackEcefNed>(time, x, y, z, yaw, pitch, roll, id);

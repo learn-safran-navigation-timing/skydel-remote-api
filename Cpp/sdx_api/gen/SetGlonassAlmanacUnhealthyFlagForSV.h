@@ -32,7 +32,7 @@ namespace Sdx
       SetGlonassAlmanacUnhealthyFlagForSV();
 
       SetGlonassAlmanacUnhealthyFlagForSV(int svId, bool health);
-  
+
       static SetGlonassAlmanacUnhealthyFlagForSVPtr create(int svId, bool health);
       static SetGlonassAlmanacUnhealthyFlagForSVPtr dynamicCast(CommandBasePtr ptr);
       virtual bool isValid() const override;

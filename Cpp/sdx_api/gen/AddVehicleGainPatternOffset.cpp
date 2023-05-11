@@ -32,7 +32,6 @@ namespace Sdx
       setAntennaName(antennaName);
     }
 
-
     AddVehicleGainPatternOffsetPtr AddVehicleGainPatternOffset::create(const Sdx::GNSSBand& band, double offset, const Sdx::optional<std::string>& antennaName)
     {
       return std::make_shared<AddVehicleGainPatternOffset>(band, offset, antennaName);

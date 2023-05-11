@@ -23,6 +23,15 @@ namespace Sdx
       : CommandResult(CmdName)
     {}
 
+    IsLogDownlinkEnabledResult::IsLogDownlinkEnabledResult(bool enabled, const Sdx::optional<bool>& beforeEncoding, const Sdx::optional<bool>& afterEncoding)
+      : CommandResult(CmdName)
+    {
+
+      setEnabled(enabled);
+      setBeforeEncoding(beforeEncoding);
+      setAfterEncoding(afterEncoding);
+    }
+
     IsLogDownlinkEnabledResult::IsLogDownlinkEnabledResult(CommandBasePtr relatedCommand, bool enabled, const Sdx::optional<bool>& beforeEncoding, const Sdx::optional<bool>& afterEncoding)
       : CommandResult(CmdName, relatedCommand)
     {
@@ -32,6 +41,11 @@ namespace Sdx
       setAfterEncoding(afterEncoding);
     }
 
+
+    IsLogDownlinkEnabledResultPtr IsLogDownlinkEnabledResult::create(bool enabled, const Sdx::optional<bool>& beforeEncoding, const Sdx::optional<bool>& afterEncoding)
+    {
+      return std::make_shared<IsLogDownlinkEnabledResult>(enabled, beforeEncoding, afterEncoding);
+    }
 
     IsLogDownlinkEnabledResultPtr IsLogDownlinkEnabledResult::create(CommandBasePtr relatedCommand, bool enabled, const Sdx::optional<bool>& beforeEncoding, const Sdx::optional<bool>& afterEncoding)
     {

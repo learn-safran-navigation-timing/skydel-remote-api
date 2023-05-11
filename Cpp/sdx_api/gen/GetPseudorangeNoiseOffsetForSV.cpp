@@ -31,7 +31,6 @@ namespace Sdx
       setSvId(svId);
     }
 
-
     GetPseudorangeNoiseOffsetForSVPtr GetPseudorangeNoiseOffsetForSV::create(const std::string& system, int svId)
     {
       return std::make_shared<GetPseudorangeNoiseOffsetForSV>(system, svId);

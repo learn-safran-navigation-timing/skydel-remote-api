@@ -32,8 +32,12 @@ namespace Sdx
 
       GetAgeOfDataBeiDouResult();
 
+      GetAgeOfDataBeiDouResult(int clock, int ephemeris, const Sdx::optional<bool>& overrideRinex = {});
+
       GetAgeOfDataBeiDouResult(CommandBasePtr relatedCommand, int clock, int ephemeris, const Sdx::optional<bool>& overrideRinex = {});
-  
+
+      static GetAgeOfDataBeiDouResultPtr create(int clock, int ephemeris, const Sdx::optional<bool>& overrideRinex = {});
+
       static GetAgeOfDataBeiDouResultPtr create(CommandBasePtr relatedCommand, int clock, int ephemeris, const Sdx::optional<bool>& overrideRinex = {});
       static GetAgeOfDataBeiDouResultPtr dynamicCast(CommandBasePtr ptr);
       virtual bool isValid() const override;

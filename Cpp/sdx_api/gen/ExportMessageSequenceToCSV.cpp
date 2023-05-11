@@ -32,7 +32,6 @@ namespace Sdx
       setOverwriting(overwriting);
     }
 
-
     ExportMessageSequenceToCSVPtr ExportMessageSequenceToCSV::create(const std::string& signal, const std::string& path, bool overwriting)
     {
       return std::make_shared<ExportMessageSequenceToCSV>(signal, path, overwriting);

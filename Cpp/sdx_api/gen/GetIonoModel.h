@@ -27,7 +27,7 @@ namespace Sdx
 
 
       GetIonoModel();
-  
+
       static GetIonoModelPtr create();
       static GetIonoModelPtr dynamicCast(CommandBasePtr ptr);
       virtual bool isValid() const override;

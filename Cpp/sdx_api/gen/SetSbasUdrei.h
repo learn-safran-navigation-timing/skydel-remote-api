@@ -35,7 +35,7 @@ namespace Sdx
       SetSbasUdrei();
 
       SetSbasUdrei(int udrei);
-  
+
       static SetSbasUdreiPtr create(int udrei);
       static SetSbasUdreiPtr dynamicCast(CommandBasePtr ptr);
       virtual bool isValid() const override;

@@ -33,7 +33,7 @@ namespace Sdx
       RemovePseudorangeRamp();
 
       RemovePseudorangeRamp(const std::string& system, const std::string& id);
-  
+
       static RemovePseudorangeRampPtr create(const std::string& system, const std::string& id);
       static RemovePseudorangeRampPtr dynamicCast(CommandBasePtr ptr);
       virtual bool isValid() const override;

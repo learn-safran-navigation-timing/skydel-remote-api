@@ -32,7 +32,7 @@ namespace Sdx
       GetEphemerisErrorForSV();
 
       GetEphemerisErrorForSV(const std::string& system, int svId);
-  
+
       static GetEphemerisErrorForSVPtr create(const std::string& system, int svId);
       static GetEphemerisErrorForSVPtr dynamicCast(CommandBasePtr ptr);
       virtual bool isValid() const override;

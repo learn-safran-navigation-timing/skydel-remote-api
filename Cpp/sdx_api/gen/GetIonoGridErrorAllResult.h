@@ -30,8 +30,12 @@ namespace Sdx
 
       GetIonoGridErrorAllResult();
 
+      GetIonoGridErrorAllResult(const std::vector<std::vector<double>>& grid);
+
       GetIonoGridErrorAllResult(CommandBasePtr relatedCommand, const std::vector<std::vector<double>>& grid);
-  
+
+      static GetIonoGridErrorAllResultPtr create(const std::vector<std::vector<double>>& grid);
+
       static GetIonoGridErrorAllResultPtr create(CommandBasePtr relatedCommand, const std::vector<std::vector<double>>& grid);
       static GetIonoGridErrorAllResultPtr dynamicCast(CommandBasePtr ptr);
       virtual bool isValid() const override;

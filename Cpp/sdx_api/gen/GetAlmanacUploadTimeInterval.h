@@ -28,7 +28,7 @@ namespace Sdx
 
 
       GetAlmanacUploadTimeInterval();
-  
+
       static GetAlmanacUploadTimeIntervalPtr create();
       static GetAlmanacUploadTimeIntervalPtr dynamicCast(CommandBasePtr ptr);
       virtual bool isValid() const override;

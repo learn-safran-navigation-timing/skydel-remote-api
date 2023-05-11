@@ -33,7 +33,7 @@ namespace Sdx
       EnableLosForEachSV();
 
       EnableLosForEachSV(const std::string& system, const std::vector<bool>& enabled);
-  
+
       static EnableLosForEachSVPtr create(const std::string& system, const std::vector<bool>& enabled);
       static EnableLosForEachSVPtr dynamicCast(CommandBasePtr ptr);
       virtual bool isValid() const override;

@@ -51,8 +51,12 @@ namespace Sdx
 
       SimulatorStateResult();
 
+      SimulatorStateResult(const std::string& state, const std::string& error, const Sdx::SimulatorState& stateId, const Sdx::SimulatorSubState& subStateId);
+
       SimulatorStateResult(CommandBasePtr relatedCommand, const std::string& state, const std::string& error, const Sdx::SimulatorState& stateId, const Sdx::SimulatorSubState& subStateId);
-  
+
+      static SimulatorStateResultPtr create(const std::string& state, const std::string& error, const Sdx::SimulatorState& stateId, const Sdx::SimulatorSubState& subStateId);
+
       static SimulatorStateResultPtr create(CommandBasePtr relatedCommand, const std::string& state, const std::string& error, const Sdx::SimulatorState& stateId, const Sdx::SimulatorSubState& subStateId);
       static SimulatorStateResultPtr dynamicCast(CommandBasePtr ptr);
       virtual bool isValid() const override;

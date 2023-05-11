@@ -31,7 +31,6 @@ namespace Sdx
       setId(id);
     }
 
-
     AddCustomSignalPtr AddCustomSignal::create(const std::string& path, const std::string& id)
     {
       return std::make_shared<AddCustomSignal>(path, id);

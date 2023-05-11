@@ -30,7 +30,6 @@ namespace Sdx
       setId(id);
     }
 
-
     RemoveModulationTargetPtr RemoveModulationTarget::create(const std::string& id)
     {
       return std::make_shared<RemoveModulationTarget>(id);

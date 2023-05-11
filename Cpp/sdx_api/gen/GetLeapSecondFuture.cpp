@@ -25,7 +25,6 @@ namespace Sdx
 
     }
 
-
     GetLeapSecondFuturePtr GetLeapSecondFuture::create()
     {
       return std::make_shared<GetLeapSecondFuture>();

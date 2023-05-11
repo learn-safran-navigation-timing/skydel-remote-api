@@ -31,7 +31,6 @@ namespace Sdx
       setSvId(svId);
     }
 
-
     RemoveAllPseudorangeRampForSVPtr RemoveAllPseudorangeRampForSV::create(const std::string& system, int svId)
     {
       return std::make_shared<RemoveAllPseudorangeRampForSV>(system, svId);

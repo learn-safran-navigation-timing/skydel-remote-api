@@ -27,7 +27,7 @@ namespace Sdx
 
 
       RemoveAllIntTx();
-  
+
       static RemoveAllIntTxPtr create();
       static RemoveAllIntTxPtr dynamicCast(CommandBasePtr ptr);
       virtual bool isValid() const override;

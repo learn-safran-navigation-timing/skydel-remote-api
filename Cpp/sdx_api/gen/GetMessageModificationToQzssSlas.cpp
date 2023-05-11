@@ -30,7 +30,6 @@ namespace Sdx
       setId(id);
     }
 
-
     GetMessageModificationToQzssSlasPtr GetMessageModificationToQzssSlas::create(const std::string& id)
     {
       return std::make_shared<GetMessageModificationToQzssSlas>(id);

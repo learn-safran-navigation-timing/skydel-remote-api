@@ -31,7 +31,7 @@ namespace Sdx
       GetPseudorangeNoiseOffsetForEachSV();
 
       GetPseudorangeNoiseOffsetForEachSV(const std::string& system);
-  
+
       static GetPseudorangeNoiseOffsetForEachSVPtr create(const std::string& system);
       static GetPseudorangeNoiseOffsetForEachSVPtr dynamicCast(CommandBasePtr ptr);
       virtual bool isValid() const override;

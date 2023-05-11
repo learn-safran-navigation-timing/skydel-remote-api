@@ -33,7 +33,6 @@ namespace Sdx
       setDataSetName(dataSetName);
     }
 
-
     SetNavICEphDoubleParamForSVPtr SetNavICEphDoubleParamForSV::create(int svId, const std::string& paramName, double val, const Sdx::optional<std::string>& dataSetName)
     {
       return std::make_shared<SetNavICEphDoubleParamForSV>(svId, paramName, val, dataSetName);

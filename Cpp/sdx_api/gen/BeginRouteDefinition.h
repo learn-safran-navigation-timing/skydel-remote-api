@@ -30,7 +30,7 @@ namespace Sdx
 
 
       BeginRouteDefinition();
-  
+
       static BeginRouteDefinitionPtr create();
       static BeginRouteDefinitionPtr dynamicCast(CommandBasePtr ptr);
       virtual bool isValid() const override;

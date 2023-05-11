@@ -27,7 +27,7 @@ namespace Sdx
 
 
       GetTropoModel();
-  
+
       static GetTropoModelPtr create();
       static GetTropoModelPtr dynamicCast(CommandBasePtr ptr);
       virtual bool isValid() const override;

@@ -31,7 +31,6 @@ namespace Sdx
       setSignalId(signalId);
     }
 
-
     GetIntTxAWGNPtr GetIntTxAWGN::create(const std::string& transmitterId, const std::string& signalId)
     {
       return std::make_shared<GetIntTxAWGN>(transmitterId, signalId);

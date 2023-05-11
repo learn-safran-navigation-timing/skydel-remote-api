@@ -31,8 +31,12 @@ namespace Sdx
 
       GetSbasMonitoredSystemsResult();
 
+      GetSbasMonitoredSystemsResult(const std::vector<std::string>& systems);
+
       GetSbasMonitoredSystemsResult(CommandBasePtr relatedCommand, const std::vector<std::string>& systems);
-  
+
+      static GetSbasMonitoredSystemsResultPtr create(const std::vector<std::string>& systems);
+
       static GetSbasMonitoredSystemsResultPtr create(CommandBasePtr relatedCommand, const std::vector<std::string>& systems);
       static GetSbasMonitoredSystemsResultPtr dynamicCast(CommandBasePtr ptr);
       virtual bool isValid() const override;

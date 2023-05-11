@@ -30,7 +30,6 @@ namespace Sdx
       setId(id);
     }
 
-
     GetIntTxVehicleTypePtr GetIntTxVehicleType::create(const std::string& id)
     {
       return std::make_shared<GetIntTxVehicleType>(id);

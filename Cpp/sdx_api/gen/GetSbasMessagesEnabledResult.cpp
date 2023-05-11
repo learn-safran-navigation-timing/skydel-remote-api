@@ -23,6 +23,13 @@ namespace Sdx
       : CommandResult(CmdName)
     {}
 
+    GetSbasMessagesEnabledResult::GetSbasMessagesEnabledResult(const std::vector<int>& messages)
+      : CommandResult(CmdName)
+    {
+
+      setMessages(messages);
+    }
+
     GetSbasMessagesEnabledResult::GetSbasMessagesEnabledResult(CommandBasePtr relatedCommand, const std::vector<int>& messages)
       : CommandResult(CmdName, relatedCommand)
     {
@@ -30,6 +37,11 @@ namespace Sdx
       setMessages(messages);
     }
 
+
+    GetSbasMessagesEnabledResultPtr GetSbasMessagesEnabledResult::create(const std::vector<int>& messages)
+    {
+      return std::make_shared<GetSbasMessagesEnabledResult>(messages);
+    }
 
     GetSbasMessagesEnabledResultPtr GetSbasMessagesEnabledResult::create(CommandBasePtr relatedCommand, const std::vector<int>& messages)
     {

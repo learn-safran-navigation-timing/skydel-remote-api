@@ -32,7 +32,7 @@ namespace Sdx
       SetPowerSbasOffset();
 
       SetPowerSbasOffset(const std::string& serviceProvider, double offset);
-  
+
       static SetPowerSbasOffsetPtr create(const std::string& serviceProvider, double offset);
       static SetPowerSbasOffsetPtr dynamicCast(CommandBasePtr ptr);
       virtual bool isValid() const override;

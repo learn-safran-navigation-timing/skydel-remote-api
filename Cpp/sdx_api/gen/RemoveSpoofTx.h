@@ -32,7 +32,7 @@ namespace Sdx
       RemoveSpoofTx();
 
       RemoveSpoofTx(const std::string& id);
-  
+
       static RemoveSpoofTxPtr create(const std::string& id);
       static RemoveSpoofTxPtr dynamicCast(CommandBasePtr ptr);
       virtual bool isValid() const override;

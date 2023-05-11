@@ -30,7 +30,6 @@ namespace Sdx
       setSignal(signal);
     }
 
-
     GetMessageSequencePtr GetMessageSequence::create(const std::string& signal)
     {
       return std::make_shared<GetMessageSequence>(signal);

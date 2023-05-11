@@ -31,7 +31,6 @@ namespace Sdx
       setId(id);
     }
 
-
     ImportNmeaIntTxTrackPtr ImportNmeaIntTxTrack::create(const std::string& path, const std::string& id)
     {
       return std::make_shared<ImportNmeaIntTxTrack>(path, id);

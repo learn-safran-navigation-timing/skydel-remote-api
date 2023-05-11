@@ -32,8 +32,12 @@ namespace Sdx
 
       IsRFOutputEnabledResult();
 
+      IsRFOutputEnabledResult(const std::string& system, int svId, bool enabled);
+
       IsRFOutputEnabledResult(CommandBasePtr relatedCommand, const std::string& system, int svId, bool enabled);
-  
+
+      static IsRFOutputEnabledResultPtr create(const std::string& system, int svId, bool enabled);
+
       static IsRFOutputEnabledResultPtr create(CommandBasePtr relatedCommand, const std::string& system, int svId, bool enabled);
       static IsRFOutputEnabledResultPtr dynamicCast(CommandBasePtr ptr);
       virtual bool isValid() const override;

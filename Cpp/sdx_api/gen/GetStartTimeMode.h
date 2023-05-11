@@ -27,7 +27,7 @@ namespace Sdx
 
 
       GetStartTimeMode();
-  
+
       static GetStartTimeModePtr create();
       static GetStartTimeModePtr dynamicCast(CommandBasePtr ptr);
       virtual bool isValid() const override;

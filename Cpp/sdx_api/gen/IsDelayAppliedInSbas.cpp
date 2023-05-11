@@ -25,7 +25,6 @@ namespace Sdx
 
     }
 
-
     IsDelayAppliedInSbasPtr IsDelayAppliedInSbas::create()
     {
       return std::make_shared<IsDelayAppliedInSbas>();

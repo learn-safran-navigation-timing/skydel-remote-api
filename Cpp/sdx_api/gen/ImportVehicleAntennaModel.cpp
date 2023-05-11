@@ -30,7 +30,6 @@ namespace Sdx
       setFilePath(filePath);
     }
 
-
     ImportVehicleAntennaModelPtr ImportVehicleAntennaModel::create(const std::string& filePath)
     {
       return std::make_shared<ImportVehicleAntennaModel>(filePath);

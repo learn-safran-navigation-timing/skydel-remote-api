@@ -31,8 +31,12 @@ namespace Sdx
 
       GetIssueOfDataNavICResult();
 
+      GetIssueOfDataNavICResult(int ephemerisAndClock, const Sdx::optional<bool>& overrideRinex = {});
+
       GetIssueOfDataNavICResult(CommandBasePtr relatedCommand, int ephemerisAndClock, const Sdx::optional<bool>& overrideRinex = {});
-  
+
+      static GetIssueOfDataNavICResultPtr create(int ephemerisAndClock, const Sdx::optional<bool>& overrideRinex = {});
+
       static GetIssueOfDataNavICResultPtr create(CommandBasePtr relatedCommand, int ephemerisAndClock, const Sdx::optional<bool>& overrideRinex = {});
       static GetIssueOfDataNavICResultPtr dynamicCast(CommandBasePtr ptr);
       virtual bool isValid() const override;

@@ -31,7 +31,6 @@ namespace Sdx
       setInterval(interval);
     }
 
-
     SetAlmanacUploadTimeIntervalPtr SetAlmanacUploadTimeInterval::create(const std::string& system, int interval)
     {
       return std::make_shared<SetAlmanacUploadTimeInterval>(system, interval);

@@ -30,7 +30,6 @@ namespace Sdx
       setId(id);
     }
 
-
     RemoveMultipathPtr RemoveMultipath::create(const std::string& id)
     {
       return std::make_shared<RemoveMultipath>(id);

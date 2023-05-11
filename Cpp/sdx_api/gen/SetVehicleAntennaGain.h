@@ -38,7 +38,7 @@ namespace Sdx
       SetVehicleAntennaGain();
 
       SetVehicleAntennaGain(const std::vector<std::vector<double>>& gain, const Sdx::AntennaPatternType& type, const Sdx::GNSSBand& band, const Sdx::optional<std::string>& name = {});
-  
+
       static SetVehicleAntennaGainPtr create(const std::vector<std::vector<double>>& gain, const Sdx::AntennaPatternType& type, const Sdx::GNSSBand& band, const Sdx::optional<std::string>& name = {});
       static SetVehicleAntennaGainPtr dynamicCast(CommandBasePtr ptr);
       virtual bool isValid() const override;

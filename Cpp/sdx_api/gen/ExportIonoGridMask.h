@@ -33,7 +33,7 @@ namespace Sdx
       ExportIonoGridMask();
 
       ExportIonoGridMask(const std::string& serviceProvider, bool overwriting, const std::string& path);
-  
+
       static ExportIonoGridMaskPtr create(const std::string& serviceProvider, bool overwriting, const std::string& path);
       static ExportIonoGridMaskPtr dynamicCast(CommandBasePtr ptr);
       virtual bool isValid() const override;

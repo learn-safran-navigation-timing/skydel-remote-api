@@ -34,7 +34,7 @@ namespace Sdx
       GetAllSatellitesPseudorangeNoiseSineWave();
 
       GetAllSatellitesPseudorangeNoiseSineWave(const std::string& system, int sineWave);
-  
+
       static GetAllSatellitesPseudorangeNoiseSineWavePtr create(const std::string& system, int sineWave);
       static GetAllSatellitesPseudorangeNoiseSineWavePtr dynamicCast(CommandBasePtr ptr);
       virtual bool isValid() const override;

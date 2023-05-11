@@ -35,7 +35,7 @@ namespace Sdx
       AddDataSet();
 
       AddDataSet(const std::string& system, const std::string& path, const Sdx::optional<int>& rollover = {}, const Sdx::optional<std::string>& dataSetName = {});
-  
+
       static AddDataSetPtr create(const std::string& system, const std::string& path, const Sdx::optional<int>& rollover = {}, const Sdx::optional<std::string>& dataSetName = {});
       static AddDataSetPtr dynamicCast(CommandBasePtr ptr);
       virtual bool isValid() const override;

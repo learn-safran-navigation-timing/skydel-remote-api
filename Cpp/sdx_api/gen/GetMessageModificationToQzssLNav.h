@@ -31,7 +31,7 @@ namespace Sdx
       GetMessageModificationToQzssLNav();
 
       GetMessageModificationToQzssLNav(const std::string& id);
-  
+
       static GetMessageModificationToQzssLNavPtr create(const std::string& id);
       static GetMessageModificationToQzssLNavPtr dynamicCast(CommandBasePtr ptr);
       virtual bool isValid() const override;

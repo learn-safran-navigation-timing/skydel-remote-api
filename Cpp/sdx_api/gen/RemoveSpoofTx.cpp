@@ -30,7 +30,6 @@ namespace Sdx
       setId(id);
     }
 
-
     RemoveSpoofTxPtr RemoveSpoofTx::create(const std::string& id)
     {
       return std::make_shared<RemoveSpoofTx>(id);

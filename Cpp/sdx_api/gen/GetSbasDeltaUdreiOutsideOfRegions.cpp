@@ -30,7 +30,6 @@ namespace Sdx
       setServiceProvider(serviceProvider);
     }
 
-
     GetSbasDeltaUdreiOutsideOfRegionsPtr GetSbasDeltaUdreiOutsideOfRegions::create(const std::string& serviceProvider)
     {
       return std::make_shared<GetSbasDeltaUdreiOutsideOfRegions>(serviceProvider);

@@ -31,7 +31,6 @@ namespace Sdx
       setDataSetName(dataSetName);
     }
 
-
     GetQzssNavAlertFlagForSVPtr GetQzssNavAlertFlagForSV::create(int svId, const Sdx::optional<std::string>& dataSetName)
     {
       return std::make_shared<GetQzssNavAlertFlagForSV>(svId, dataSetName);

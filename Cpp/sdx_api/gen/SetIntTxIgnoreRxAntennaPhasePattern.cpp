@@ -31,7 +31,6 @@ namespace Sdx
       setId(id);
     }
 
-
     SetIntTxIgnoreRxAntennaPhasePatternPtr SetIntTxIgnoreRxAntennaPhasePattern::create(bool ignore, const std::string& id)
     {
       return std::make_shared<SetIntTxIgnoreRxAntennaPhasePattern>(ignore, id);

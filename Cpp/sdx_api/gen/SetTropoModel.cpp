@@ -30,7 +30,6 @@ namespace Sdx
       setModel(model);
     }
 
-
     SetTropoModelPtr SetTropoModel::create(const std::string& model)
     {
       return std::make_shared<SetTropoModel>(model);

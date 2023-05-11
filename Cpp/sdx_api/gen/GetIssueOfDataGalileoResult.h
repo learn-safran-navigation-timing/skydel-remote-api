@@ -32,8 +32,12 @@ namespace Sdx
 
       GetIssueOfDataGalileoResult();
 
+      GetIssueOfDataGalileoResult(int navigation, int almanac, const Sdx::optional<bool>& overrideRinex = {});
+
       GetIssueOfDataGalileoResult(CommandBasePtr relatedCommand, int navigation, int almanac, const Sdx::optional<bool>& overrideRinex = {});
-  
+
+      static GetIssueOfDataGalileoResultPtr create(int navigation, int almanac, const Sdx::optional<bool>& overrideRinex = {});
+
       static GetIssueOfDataGalileoResultPtr create(CommandBasePtr relatedCommand, int navigation, int almanac, const Sdx::optional<bool>& overrideRinex = {});
       static GetIssueOfDataGalileoResultPtr dynamicCast(CommandBasePtr ptr);
       virtual bool isValid() const override;

@@ -33,7 +33,7 @@ namespace Sdx
       SetIonoGridMaskAll();
 
       SetIonoGridMaskAll(const std::string& serviceProvider, const std::vector<std::vector<bool>>& grid);
-  
+
       static SetIonoGridMaskAllPtr create(const std::string& serviceProvider, const std::vector<std::vector<bool>>& grid);
       static SetIonoGridMaskAllPtr dynamicCast(CommandBasePtr ptr);
       virtual bool isValid() const override;

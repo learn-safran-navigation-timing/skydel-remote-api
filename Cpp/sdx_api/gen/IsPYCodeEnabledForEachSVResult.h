@@ -32,8 +32,12 @@ namespace Sdx
 
       IsPYCodeEnabledForEachSVResult();
 
+      IsPYCodeEnabledForEachSVResult(const std::string& signal, const std::vector<bool>& enabled);
+
       IsPYCodeEnabledForEachSVResult(CommandBasePtr relatedCommand, const std::string& signal, const std::vector<bool>& enabled);
-  
+
+      static IsPYCodeEnabledForEachSVResultPtr create(const std::string& signal, const std::vector<bool>& enabled);
+
       static IsPYCodeEnabledForEachSVResultPtr create(CommandBasePtr relatedCommand, const std::string& signal, const std::vector<bool>& enabled);
       static IsPYCodeEnabledForEachSVResultPtr dynamicCast(CommandBasePtr ptr);
       virtual bool isValid() const override;

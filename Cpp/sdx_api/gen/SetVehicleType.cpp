@@ -30,7 +30,6 @@ namespace Sdx
       setType(type);
     }
 
-
     SetVehicleTypePtr SetVehicleType::create(const std::string& type)
     {
       return std::make_shared<SetVehicleType>(type);

@@ -30,7 +30,6 @@ namespace Sdx
       setEnabled(enabled);
     }
 
-
     ForceAttitudeToZeroPtr ForceAttitudeToZero::create(bool enabled)
     {
       return std::make_shared<ForceAttitudeToZero>(enabled);

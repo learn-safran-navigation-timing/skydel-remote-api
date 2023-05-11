@@ -30,7 +30,6 @@ namespace Sdx
       setId(id);
     }
 
-
     RemoveInterferencePtr RemoveInterference::create(const std::string& id)
     {
       return std::make_shared<RemoveInterference>(id);

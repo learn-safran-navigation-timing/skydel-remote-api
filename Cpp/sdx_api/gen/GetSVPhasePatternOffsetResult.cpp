@@ -23,6 +23,16 @@ namespace Sdx
       : CommandResult(CmdName)
     {}
 
+    GetSVPhasePatternOffsetResult::GetSVPhasePatternOffsetResult(const Sdx::GNSSBand& band, const std::string& system, double offset, const Sdx::optional<std::string>& antennaName)
+      : CommandResult(CmdName)
+    {
+
+      setBand(band);
+      setSystem(system);
+      setOffset(offset);
+      setAntennaName(antennaName);
+    }
+
     GetSVPhasePatternOffsetResult::GetSVPhasePatternOffsetResult(CommandBasePtr relatedCommand, const Sdx::GNSSBand& band, const std::string& system, double offset, const Sdx::optional<std::string>& antennaName)
       : CommandResult(CmdName, relatedCommand)
     {
@@ -33,6 +43,11 @@ namespace Sdx
       setAntennaName(antennaName);
     }
 
+
+    GetSVPhasePatternOffsetResultPtr GetSVPhasePatternOffsetResult::create(const Sdx::GNSSBand& band, const std::string& system, double offset, const Sdx::optional<std::string>& antennaName)
+    {
+      return std::make_shared<GetSVPhasePatternOffsetResult>(band, system, offset, antennaName);
+    }
 
     GetSVPhasePatternOffsetResultPtr GetSVPhasePatternOffsetResult::create(CommandBasePtr relatedCommand, const Sdx::GNSSBand& band, const std::string& system, double offset, const Sdx::optional<std::string>& antennaName)
     {

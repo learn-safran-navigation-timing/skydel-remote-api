@@ -31,7 +31,7 @@ namespace Sdx
       GetSVAntennaModelForEachSV();
 
       GetSVAntennaModelForEachSV(const std::string& system);
-  
+
       static GetSVAntennaModelForEachSVPtr create(const std::string& system);
       static GetSVAntennaModelForEachSVPtr dynamicCast(CommandBasePtr ptr);
       virtual bool isValid() const override;

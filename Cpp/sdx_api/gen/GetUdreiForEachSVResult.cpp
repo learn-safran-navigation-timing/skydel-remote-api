@@ -23,6 +23,14 @@ namespace Sdx
       : CommandResult(CmdName)
     {}
 
+    GetUdreiForEachSVResult::GetUdreiForEachSVResult(const std::string& system, const std::vector<int>& udreis)
+      : CommandResult(CmdName)
+    {
+
+      setSystem(system);
+      setUdreis(udreis);
+    }
+
     GetUdreiForEachSVResult::GetUdreiForEachSVResult(CommandBasePtr relatedCommand, const std::string& system, const std::vector<int>& udreis)
       : CommandResult(CmdName, relatedCommand)
     {
@@ -31,6 +39,11 @@ namespace Sdx
       setUdreis(udreis);
     }
 
+
+    GetUdreiForEachSVResultPtr GetUdreiForEachSVResult::create(const std::string& system, const std::vector<int>& udreis)
+    {
+      return std::make_shared<GetUdreiForEachSVResult>(system, udreis);
+    }
 
     GetUdreiForEachSVResultPtr GetUdreiForEachSVResult::create(CommandBasePtr relatedCommand, const std::string& system, const std::vector<int>& udreis)
     {

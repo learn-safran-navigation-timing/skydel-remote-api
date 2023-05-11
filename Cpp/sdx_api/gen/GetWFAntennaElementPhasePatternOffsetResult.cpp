@@ -23,6 +23,14 @@ namespace Sdx
       : CommandResult(CmdName)
     {}
 
+    GetWFAntennaElementPhasePatternOffsetResult::GetWFAntennaElementPhasePatternOffsetResult(double phaseOffset, int element)
+      : CommandResult(CmdName)
+    {
+
+      setPhaseOffset(phaseOffset);
+      setElement(element);
+    }
+
     GetWFAntennaElementPhasePatternOffsetResult::GetWFAntennaElementPhasePatternOffsetResult(CommandBasePtr relatedCommand, double phaseOffset, int element)
       : CommandResult(CmdName, relatedCommand)
     {
@@ -31,6 +39,11 @@ namespace Sdx
       setElement(element);
     }
 
+
+    GetWFAntennaElementPhasePatternOffsetResultPtr GetWFAntennaElementPhasePatternOffsetResult::create(double phaseOffset, int element)
+    {
+      return std::make_shared<GetWFAntennaElementPhasePatternOffsetResult>(phaseOffset, element);
+    }
 
     GetWFAntennaElementPhasePatternOffsetResultPtr GetWFAntennaElementPhasePatternOffsetResult::create(CommandBasePtr relatedCommand, double phaseOffset, int element)
     {

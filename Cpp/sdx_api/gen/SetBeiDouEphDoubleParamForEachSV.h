@@ -35,7 +35,7 @@ namespace Sdx
       SetBeiDouEphDoubleParamForEachSV();
 
       SetBeiDouEphDoubleParamForEachSV(const std::string& paramName, const std::vector<double>& val, const Sdx::optional<std::string>& dataSetName = {});
-  
+
       static SetBeiDouEphDoubleParamForEachSVPtr create(const std::string& paramName, const std::vector<double>& val, const Sdx::optional<std::string>& dataSetName = {});
       static SetBeiDouEphDoubleParamForEachSVPtr dynamicCast(CommandBasePtr ptr);
       virtual bool isValid() const override;

@@ -30,7 +30,6 @@ namespace Sdx
       setDate(date);
     }
 
-
     GetOfficialLeapSecondPtr GetOfficialLeapSecond::create(const Sdx::DateTime& date)
     {
       return std::make_shared<GetOfficialLeapSecond>(date);

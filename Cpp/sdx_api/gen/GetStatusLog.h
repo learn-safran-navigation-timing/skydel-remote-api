@@ -27,7 +27,7 @@ namespace Sdx
 
 
       GetStatusLog();
-  
+
       static GetStatusLogPtr create();
       static GetStatusLogPtr dynamicCast(CommandBasePtr ptr);
       virtual bool isValid() const override;

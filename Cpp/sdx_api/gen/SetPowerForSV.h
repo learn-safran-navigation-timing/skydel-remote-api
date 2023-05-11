@@ -38,7 +38,7 @@ namespace Sdx
       SetPowerForSV();
 
       SetPowerForSV(const std::string& system, int svId, double powerOffset, bool otherSatsFollow);
-  
+
       static SetPowerForSVPtr create(const std::string& system, int svId, double powerOffset, bool otherSatsFollow);
       static SetPowerForSVPtr dynamicCast(CommandBasePtr ptr);
       virtual bool isValid() const override;

@@ -38,8 +38,12 @@ namespace Sdx
 
       GetIntTxCircularResult();
 
+      GetIntTxCircularResult(double lat, double lon, double alt, double radius, double speed, bool clockwise, const std::string& id, const Sdx::optional<double>& originAngle = {});
+
       GetIntTxCircularResult(CommandBasePtr relatedCommand, double lat, double lon, double alt, double radius, double speed, bool clockwise, const std::string& id, const Sdx::optional<double>& originAngle = {});
-  
+
+      static GetIntTxCircularResultPtr create(double lat, double lon, double alt, double radius, double speed, bool clockwise, const std::string& id, const Sdx::optional<double>& originAngle = {});
+
       static GetIntTxCircularResultPtr create(CommandBasePtr relatedCommand, double lat, double lon, double alt, double radius, double speed, bool clockwise, const std::string& id, const Sdx::optional<double>& originAngle = {});
       static GetIntTxCircularResultPtr dynamicCast(CommandBasePtr ptr);
       virtual bool isValid() const override;

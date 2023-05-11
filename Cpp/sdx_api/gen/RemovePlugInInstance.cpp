@@ -30,7 +30,6 @@ namespace Sdx
       setName(name);
     }
 
-
     RemovePlugInInstancePtr RemovePlugInInstance::create(const std::string& name)
     {
       return std::make_shared<RemovePlugInInstance>(name);

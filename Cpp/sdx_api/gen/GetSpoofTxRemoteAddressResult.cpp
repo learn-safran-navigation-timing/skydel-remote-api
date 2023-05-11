@@ -23,6 +23,15 @@ namespace Sdx
       : CommandResult(CmdName)
     {}
 
+    GetSpoofTxRemoteAddressResult::GetSpoofTxRemoteAddressResult(const std::string& address, int instanceId, const std::string& id)
+      : CommandResult(CmdName)
+    {
+
+      setAddress(address);
+      setInstanceId(instanceId);
+      setId(id);
+    }
+
     GetSpoofTxRemoteAddressResult::GetSpoofTxRemoteAddressResult(CommandBasePtr relatedCommand, const std::string& address, int instanceId, const std::string& id)
       : CommandResult(CmdName, relatedCommand)
     {
@@ -32,6 +41,11 @@ namespace Sdx
       setId(id);
     }
 
+
+    GetSpoofTxRemoteAddressResultPtr GetSpoofTxRemoteAddressResult::create(const std::string& address, int instanceId, const std::string& id)
+    {
+      return std::make_shared<GetSpoofTxRemoteAddressResult>(address, instanceId, id);
+    }
 
     GetSpoofTxRemoteAddressResultPtr GetSpoofTxRemoteAddressResult::create(CommandBasePtr relatedCommand, const std::string& address, int instanceId, const std::string& id)
     {

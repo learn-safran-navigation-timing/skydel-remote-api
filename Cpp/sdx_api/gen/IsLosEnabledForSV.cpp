@@ -31,7 +31,6 @@ namespace Sdx
       setSvId(svId);
     }
 
-
     IsLosEnabledForSVPtr IsLosEnabledForSV::create(const std::string& system, int svId)
     {
       return std::make_shared<IsLosEnabledForSV>(system, svId);

@@ -35,7 +35,6 @@ namespace Sdx
       setOffset(offset);
     }
 
-
     SetPseudorangeNoiseSineWaveForEachSVPtr SetPseudorangeNoiseSineWaveForEachSV::create(const std::string& system, int sineWave, const std::vector<bool>& enabled, const std::vector<double>& amplitude, const std::vector<int>& period, const std::vector<double>& offset)
     {
       return std::make_shared<SetPseudorangeNoiseSineWaveForEachSV>(system, sineWave, enabled, amplitude, period, offset);

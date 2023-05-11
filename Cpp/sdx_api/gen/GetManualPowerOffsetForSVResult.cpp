@@ -23,6 +23,15 @@ namespace Sdx
       : CommandResult(CmdName)
     {}
 
+    GetManualPowerOffsetForSVResult::GetManualPowerOffsetForSVResult(const std::string& system, int svId, const std::map<std::string, double>& signalPowerOffsetDict)
+      : CommandResult(CmdName)
+    {
+
+      setSystem(system);
+      setSvId(svId);
+      setSignalPowerOffsetDict(signalPowerOffsetDict);
+    }
+
     GetManualPowerOffsetForSVResult::GetManualPowerOffsetForSVResult(CommandBasePtr relatedCommand, const std::string& system, int svId, const std::map<std::string, double>& signalPowerOffsetDict)
       : CommandResult(CmdName, relatedCommand)
     {
@@ -32,6 +41,11 @@ namespace Sdx
       setSignalPowerOffsetDict(signalPowerOffsetDict);
     }
 
+
+    GetManualPowerOffsetForSVResultPtr GetManualPowerOffsetForSVResult::create(const std::string& system, int svId, const std::map<std::string, double>& signalPowerOffsetDict)
+    {
+      return std::make_shared<GetManualPowerOffsetForSVResult>(system, svId, signalPowerOffsetDict);
+    }
 
     GetManualPowerOffsetForSVResultPtr GetManualPowerOffsetForSVResult::create(CommandBasePtr relatedCommand, const std::string& system, int svId, const std::map<std::string, double>& signalPowerOffsetDict)
     {

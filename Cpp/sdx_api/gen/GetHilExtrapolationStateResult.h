@@ -31,8 +31,12 @@ namespace Sdx
 
       GetHilExtrapolationStateResult();
 
+      GetHilExtrapolationStateResult(const Sdx::HilExtrapolationState& state, int elapsedTime);
+
       GetHilExtrapolationStateResult(CommandBasePtr relatedCommand, const Sdx::HilExtrapolationState& state, int elapsedTime);
-  
+
+      static GetHilExtrapolationStateResultPtr create(const Sdx::HilExtrapolationState& state, int elapsedTime);
+
       static GetHilExtrapolationStateResultPtr create(CommandBasePtr relatedCommand, const Sdx::HilExtrapolationState& state, int elapsedTime);
       static GetHilExtrapolationStateResultPtr dynamicCast(CommandBasePtr ptr);
       virtual bool isValid() const override;

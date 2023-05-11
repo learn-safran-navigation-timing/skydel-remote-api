@@ -27,7 +27,7 @@ namespace Sdx
 
 
       ClearQzssL1SAugmentations();
-  
+
       static ClearQzssL1SAugmentationsPtr create();
       static ClearQzssL1SAugmentationsPtr dynamicCast(CommandBasePtr ptr);
       virtual bool isValid() const override;

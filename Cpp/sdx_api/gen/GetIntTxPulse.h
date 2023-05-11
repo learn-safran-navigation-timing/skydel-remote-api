@@ -32,7 +32,7 @@ namespace Sdx
       GetIntTxPulse();
 
       GetIntTxPulse(const std::string& transmitterId, const std::string& signalId);
-  
+
       static GetIntTxPulsePtr create(const std::string& transmitterId, const std::string& signalId);
       static GetIntTxPulsePtr dynamicCast(CommandBasePtr ptr);
       virtual bool isValid() const override;

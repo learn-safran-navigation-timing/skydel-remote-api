@@ -28,7 +28,7 @@ namespace Sdx
 
 
       GetComputerSystemTimeSinceEpochAtPps0();
-  
+
       static GetComputerSystemTimeSinceEpochAtPps0Ptr create();
       static GetComputerSystemTimeSinceEpochAtPps0Ptr dynamicCast(CommandBasePtr ptr);
       virtual bool isValid() const override;

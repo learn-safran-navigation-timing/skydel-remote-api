@@ -33,7 +33,7 @@ namespace Sdx
       GetNavICL5HealthForSV();
 
       GetNavICL5HealthForSV(int svId, const Sdx::optional<std::string>& dataSetName = {});
-  
+
       static GetNavICL5HealthForSVPtr create(int svId, const Sdx::optional<std::string>& dataSetName = {});
       static GetNavICL5HealthForSVPtr dynamicCast(CommandBasePtr ptr);
       virtual bool isValid() const override;

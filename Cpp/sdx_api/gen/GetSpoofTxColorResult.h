@@ -31,8 +31,12 @@ namespace Sdx
 
       GetSpoofTxColorResult();
 
+      GetSpoofTxColorResult(const std::string& color, const std::string& id);
+
       GetSpoofTxColorResult(CommandBasePtr relatedCommand, const std::string& color, const std::string& id);
-  
+
+      static GetSpoofTxColorResultPtr create(const std::string& color, const std::string& id);
+
       static GetSpoofTxColorResultPtr create(CommandBasePtr relatedCommand, const std::string& color, const std::string& id);
       static GetSpoofTxColorResultPtr dynamicCast(CommandBasePtr ptr);
       virtual bool isValid() const override;

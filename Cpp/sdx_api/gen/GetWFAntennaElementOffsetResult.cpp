@@ -23,6 +23,19 @@ namespace Sdx
       : CommandResult(CmdName)
     {}
 
+    GetWFAntennaElementOffsetResult::GetWFAntennaElementOffsetResult(double x, double y, double z, double yaw, double pitch, double roll, int element)
+      : CommandResult(CmdName)
+    {
+
+      setX(x);
+      setY(y);
+      setZ(z);
+      setYaw(yaw);
+      setPitch(pitch);
+      setRoll(roll);
+      setElement(element);
+    }
+
     GetWFAntennaElementOffsetResult::GetWFAntennaElementOffsetResult(CommandBasePtr relatedCommand, double x, double y, double z, double yaw, double pitch, double roll, int element)
       : CommandResult(CmdName, relatedCommand)
     {
@@ -36,6 +49,11 @@ namespace Sdx
       setElement(element);
     }
 
+
+    GetWFAntennaElementOffsetResultPtr GetWFAntennaElementOffsetResult::create(double x, double y, double z, double yaw, double pitch, double roll, int element)
+    {
+      return std::make_shared<GetWFAntennaElementOffsetResult>(x, y, z, yaw, pitch, roll, element);
+    }
 
     GetWFAntennaElementOffsetResultPtr GetWFAntennaElementOffsetResult::create(CommandBasePtr relatedCommand, double x, double y, double z, double yaw, double pitch, double roll, int element)
     {

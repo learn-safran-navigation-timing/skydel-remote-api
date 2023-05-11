@@ -30,7 +30,6 @@ namespace Sdx
       setTime(time);
     }
 
-
     SetSyncTimeMasterPtr SetSyncTimeMaster::create(double time)
     {
       return std::make_shared<SetSyncTimeMaster>(time);

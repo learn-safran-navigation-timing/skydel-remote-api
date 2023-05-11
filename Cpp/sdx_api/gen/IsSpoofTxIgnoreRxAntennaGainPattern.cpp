@@ -30,7 +30,6 @@ namespace Sdx
       setId(id);
     }
 
-
     IsSpoofTxIgnoreRxAntennaGainPatternPtr IsSpoofTxIgnoreRxAntennaGainPattern::create(const std::string& id)
     {
       return std::make_shared<IsSpoofTxIgnoreRxAntennaGainPattern>(id);

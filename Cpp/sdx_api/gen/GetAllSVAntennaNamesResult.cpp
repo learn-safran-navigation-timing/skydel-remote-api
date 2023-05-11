@@ -23,6 +23,14 @@ namespace Sdx
       : CommandResult(CmdName)
     {}
 
+    GetAllSVAntennaNamesResult::GetAllSVAntennaNamesResult(const std::string& system, const std::vector<std::string>& antennaNames)
+      : CommandResult(CmdName)
+    {
+
+      setSystem(system);
+      setAntennaNames(antennaNames);
+    }
+
     GetAllSVAntennaNamesResult::GetAllSVAntennaNamesResult(CommandBasePtr relatedCommand, const std::string& system, const std::vector<std::string>& antennaNames)
       : CommandResult(CmdName, relatedCommand)
     {
@@ -31,6 +39,11 @@ namespace Sdx
       setAntennaNames(antennaNames);
     }
 
+
+    GetAllSVAntennaNamesResultPtr GetAllSVAntennaNamesResult::create(const std::string& system, const std::vector<std::string>& antennaNames)
+    {
+      return std::make_shared<GetAllSVAntennaNamesResult>(system, antennaNames);
+    }
 
     GetAllSVAntennaNamesResultPtr GetAllSVAntennaNamesResult::create(CommandBasePtr relatedCommand, const std::string& system, const std::vector<std::string>& antennaNames)
     {

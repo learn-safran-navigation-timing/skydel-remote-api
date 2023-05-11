@@ -31,7 +31,6 @@ namespace Sdx
       setDataSetName(dataSetName);
     }
 
-
     GetGpsConfigurationCodeForSVPtr GetGpsConfigurationCodeForSV::create(int svId, const Sdx::optional<std::string>& dataSetName)
     {
       return std::make_shared<GetGpsConfigurationCodeForSV>(svId, dataSetName);

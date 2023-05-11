@@ -23,6 +23,15 @@ namespace Sdx
       : CommandResult(CmdName)
     {}
 
+    GetVehicleGainPatternOffsetResult::GetVehicleGainPatternOffsetResult(const Sdx::GNSSBand& band, double offset, const Sdx::optional<std::string>& antennaName)
+      : CommandResult(CmdName)
+    {
+
+      setBand(band);
+      setOffset(offset);
+      setAntennaName(antennaName);
+    }
+
     GetVehicleGainPatternOffsetResult::GetVehicleGainPatternOffsetResult(CommandBasePtr relatedCommand, const Sdx::GNSSBand& band, double offset, const Sdx::optional<std::string>& antennaName)
       : CommandResult(CmdName, relatedCommand)
     {
@@ -32,6 +41,11 @@ namespace Sdx
       setAntennaName(antennaName);
     }
 
+
+    GetVehicleGainPatternOffsetResultPtr GetVehicleGainPatternOffsetResult::create(const Sdx::GNSSBand& band, double offset, const Sdx::optional<std::string>& antennaName)
+    {
+      return std::make_shared<GetVehicleGainPatternOffsetResult>(band, offset, antennaName);
+    }
 
     GetVehicleGainPatternOffsetResultPtr GetVehicleGainPatternOffsetResult::create(CommandBasePtr relatedCommand, const Sdx::GNSSBand& band, double offset, const Sdx::optional<std::string>& antennaName)
     {

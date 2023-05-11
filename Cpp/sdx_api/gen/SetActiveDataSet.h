@@ -32,7 +32,7 @@ namespace Sdx
       SetActiveDataSet();
 
       SetActiveDataSet(const std::string& system, const std::string& dataSetName);
-  
+
       static SetActiveDataSetPtr create(const std::string& system, const std::string& dataSetName);
       static SetActiveDataSetPtr dynamicCast(CommandBasePtr ptr);
       virtual bool isValid() const override;

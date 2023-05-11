@@ -34,7 +34,7 @@ namespace Sdx
       SetIntTxIgnoreVehicleAntennaPattern();
 
       SetIntTxIgnoreVehicleAntennaPattern(bool ignore, const std::string& id);
-  
+
       static SetIntTxIgnoreVehicleAntennaPatternPtr create(bool ignore, const std::string& id);
       static SetIntTxIgnoreVehicleAntennaPatternPtr dynamicCast(CommandBasePtr ptr);
       virtual bool isValid() const override;

@@ -25,7 +25,6 @@ namespace Sdx
 
     }
 
-
     GetSimulatorStatePtr GetSimulatorState::create()
     {
       return std::make_shared<GetSimulatorState>();

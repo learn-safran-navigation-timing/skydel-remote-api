@@ -23,6 +23,19 @@ namespace Sdx
       : CommandResult(CmdName)
     {}
 
+    GetVehicleTrajectoryFixEcefResult::GetVehicleTrajectoryFixEcefResult(const std::string& type, double x, double y, double z, double yaw, double pitch, double roll)
+      : CommandResult(CmdName)
+    {
+
+      setType(type);
+      setX(x);
+      setY(y);
+      setZ(z);
+      setYaw(yaw);
+      setPitch(pitch);
+      setRoll(roll);
+    }
+
     GetVehicleTrajectoryFixEcefResult::GetVehicleTrajectoryFixEcefResult(CommandBasePtr relatedCommand, const std::string& type, double x, double y, double z, double yaw, double pitch, double roll)
       : CommandResult(CmdName, relatedCommand)
     {
@@ -36,6 +49,11 @@ namespace Sdx
       setRoll(roll);
     }
 
+
+    GetVehicleTrajectoryFixEcefResultPtr GetVehicleTrajectoryFixEcefResult::create(const std::string& type, double x, double y, double z, double yaw, double pitch, double roll)
+    {
+      return std::make_shared<GetVehicleTrajectoryFixEcefResult>(type, x, y, z, yaw, pitch, roll);
+    }
 
     GetVehicleTrajectoryFixEcefResultPtr GetVehicleTrajectoryFixEcefResult::create(CommandBasePtr relatedCommand, const std::string& type, double x, double y, double z, double yaw, double pitch, double roll)
     {

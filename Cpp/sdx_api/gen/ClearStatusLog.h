@@ -27,7 +27,7 @@ namespace Sdx
 
 
       ClearStatusLog();
-  
+
       static ClearStatusLogPtr create();
       static ClearStatusLogPtr dynamicCast(CommandBasePtr ptr);
       virtual bool isValid() const override;

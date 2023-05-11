@@ -30,8 +30,12 @@ namespace Sdx
 
       GetIonoModelResult();
 
+      GetIonoModelResult(const std::string& model);
+
       GetIonoModelResult(CommandBasePtr relatedCommand, const std::string& model);
-  
+
+      static GetIonoModelResultPtr create(const std::string& model);
+
       static GetIonoModelResultPtr create(CommandBasePtr relatedCommand, const std::string& model);
       static GetIonoModelResultPtr dynamicCast(CommandBasePtr ptr);
       virtual bool isValid() const override;

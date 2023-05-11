@@ -32,7 +32,6 @@ namespace Sdx
       setReset(reset);
     }
 
-
     RemoveAllMultipathForSVPtr RemoveAllMultipathForSV::create(const std::string& system, int svId, bool reset)
     {
       return std::make_shared<RemoveAllMultipathForSV>(system, svId, reset);

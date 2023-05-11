@@ -69,4 +69,12 @@ std::string CommandResult::message() const
     return toReadableCommand();
 }
 
+void CommandResult::setRelatedCommand(CommandBasePtr relatedCommand)
+{
+  m_relatedCommand = std::move(relatedCommand);
+  rapidjson::Value value;
+  value.SetString(m_relatedCommand->toString().c_str(), (rapidjson::SizeType) m_relatedCommand->toString().size(), m_values.GetAllocator());
+  setValue(RelatedCommand, value);
+}
+
 } //namespace Sdx

@@ -31,8 +31,12 @@ namespace Sdx
 
       GetConfigBroadcastFilterResult();
 
+      GetConfigBroadcastFilterResult(const std::vector<Sdx::ConfigFilter>& filter);
+
       GetConfigBroadcastFilterResult(CommandBasePtr relatedCommand, const std::vector<Sdx::ConfigFilter>& filter);
-  
+
+      static GetConfigBroadcastFilterResultPtr create(const std::vector<Sdx::ConfigFilter>& filter);
+
       static GetConfigBroadcastFilterResultPtr create(CommandBasePtr relatedCommand, const std::vector<Sdx::ConfigFilter>& filter);
       static GetConfigBroadcastFilterResultPtr dynamicCast(CommandBasePtr ptr);
       virtual bool isValid() const override;

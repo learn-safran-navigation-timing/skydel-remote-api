@@ -31,7 +31,6 @@ namespace Sdx
       setElement(element);
     }
 
-
     SetWFAntennaElementPhasePatternOffsetPtr SetWFAntennaElementPhasePatternOffset::create(double phaseOffset, int element)
     {
       return std::make_shared<SetWFAntennaElementPhasePatternOffset>(phaseOffset, element);

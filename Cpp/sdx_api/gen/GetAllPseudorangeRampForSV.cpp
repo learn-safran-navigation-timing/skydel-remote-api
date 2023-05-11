@@ -31,7 +31,6 @@ namespace Sdx
       setSvId(svId);
     }
 
-
     GetAllPseudorangeRampForSVPtr GetAllPseudorangeRampForSV::create(const std::string& system, int svId)
     {
       return std::make_shared<GetAllPseudorangeRampForSV>(system, svId);

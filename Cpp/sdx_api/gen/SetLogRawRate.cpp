@@ -30,7 +30,6 @@ namespace Sdx
       setRate(rate);
     }
 
-
     SetLogRawRatePtr SetLogRawRate::create(int rate)
     {
       return std::make_shared<SetLogRawRate>(rate);

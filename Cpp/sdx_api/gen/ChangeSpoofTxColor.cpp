@@ -31,7 +31,6 @@ namespace Sdx
       setId(id);
     }
 
-
     ChangeSpoofTxColorPtr ChangeSpoofTxColor::create(const std::string& color, const std::string& id)
     {
       return std::make_shared<ChangeSpoofTxColor>(color, id);

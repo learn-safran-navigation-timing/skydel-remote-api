@@ -27,7 +27,7 @@ namespace Sdx
 
 
       IsAttitudeToZeroForced();
-  
+
       static IsAttitudeToZeroForcedPtr create();
       static IsAttitudeToZeroForcedPtr dynamicCast(CommandBasePtr ptr);
       virtual bool isValid() const override;

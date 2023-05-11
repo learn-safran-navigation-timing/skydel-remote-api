@@ -23,6 +23,15 @@ namespace Sdx
       : CommandResult(CmdName)
     {}
 
+    IsSbasFastCorrectionsEnabledForResult::IsSbasFastCorrectionsEnabledForResult(const std::string& system, bool isEnabled, const Sdx::optional<std::string>& errorType)
+      : CommandResult(CmdName)
+    {
+
+      setSystem(system);
+      setIsEnabled(isEnabled);
+      setErrorType(errorType);
+    }
+
     IsSbasFastCorrectionsEnabledForResult::IsSbasFastCorrectionsEnabledForResult(CommandBasePtr relatedCommand, const std::string& system, bool isEnabled, const Sdx::optional<std::string>& errorType)
       : CommandResult(CmdName, relatedCommand)
     {
@@ -32,6 +41,11 @@ namespace Sdx
       setErrorType(errorType);
     }
 
+
+    IsSbasFastCorrectionsEnabledForResultPtr IsSbasFastCorrectionsEnabledForResult::create(const std::string& system, bool isEnabled, const Sdx::optional<std::string>& errorType)
+    {
+      return std::make_shared<IsSbasFastCorrectionsEnabledForResult>(system, isEnabled, errorType);
+    }
 
     IsSbasFastCorrectionsEnabledForResultPtr IsSbasFastCorrectionsEnabledForResult::create(CommandBasePtr relatedCommand, const std::string& system, bool isEnabled, const Sdx::optional<std::string>& errorType)
     {

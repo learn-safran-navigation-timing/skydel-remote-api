@@ -30,8 +30,12 @@ namespace Sdx
 
       IsSimulationStopAtTrajectoryEndEnabledResult();
 
+      IsSimulationStopAtTrajectoryEndEnabledResult(bool enabled);
+
       IsSimulationStopAtTrajectoryEndEnabledResult(CommandBasePtr relatedCommand, bool enabled);
-  
+
+      static IsSimulationStopAtTrajectoryEndEnabledResultPtr create(bool enabled);
+
       static IsSimulationStopAtTrajectoryEndEnabledResultPtr create(CommandBasePtr relatedCommand, bool enabled);
       static IsSimulationStopAtTrajectoryEndEnabledResultPtr dynamicCast(CommandBasePtr ptr);
       virtual bool isValid() const override;

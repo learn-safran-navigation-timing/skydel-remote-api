@@ -32,8 +32,12 @@ namespace Sdx
 
       GetMessageSequenceResult();
 
+      GetMessageSequenceResult(const std::string& signal, const std::vector<int>& sequence);
+
       GetMessageSequenceResult(CommandBasePtr relatedCommand, const std::string& signal, const std::vector<int>& sequence);
-  
+
+      static GetMessageSequenceResultPtr create(const std::string& signal, const std::vector<int>& sequence);
+
       static GetMessageSequenceResultPtr create(CommandBasePtr relatedCommand, const std::string& signal, const std::vector<int>& sequence);
       static GetMessageSequenceResultPtr dynamicCast(CommandBasePtr ptr);
       virtual bool isValid() const override;

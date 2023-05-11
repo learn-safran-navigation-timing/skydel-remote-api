@@ -23,6 +23,15 @@ namespace Sdx
       : CommandResult(CmdName)
     {}
 
+    IsSatMotionFixedResult::IsSatMotionFixedResult(const std::string& system, int svId, bool isFixed)
+      : CommandResult(CmdName)
+    {
+
+      setSystem(system);
+      setSvId(svId);
+      setIsFixed(isFixed);
+    }
+
     IsSatMotionFixedResult::IsSatMotionFixedResult(CommandBasePtr relatedCommand, const std::string& system, int svId, bool isFixed)
       : CommandResult(CmdName, relatedCommand)
     {
@@ -32,6 +41,11 @@ namespace Sdx
       setIsFixed(isFixed);
     }
 
+
+    IsSatMotionFixedResultPtr IsSatMotionFixedResult::create(const std::string& system, int svId, bool isFixed)
+    {
+      return std::make_shared<IsSatMotionFixedResult>(system, svId, isFixed);
+    }
 
     IsSatMotionFixedResultPtr IsSatMotionFixedResult::create(CommandBasePtr relatedCommand, const std::string& system, int svId, bool isFixed)
     {

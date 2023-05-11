@@ -30,7 +30,6 @@ namespace Sdx
       setSize(size);
     }
 
-
     SetStreamingBufferPtr SetStreamingBuffer::create(int size)
     {
       return std::make_shared<SetStreamingBuffer>(size);

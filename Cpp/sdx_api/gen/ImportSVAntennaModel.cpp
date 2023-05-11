@@ -31,7 +31,6 @@ namespace Sdx
       setSystem(system);
     }
 
-
     ImportSVAntennaModelPtr ImportSVAntennaModel::create(const std::string& filePath, const std::string& system)
     {
       return std::make_shared<ImportSVAntennaModel>(filePath, system);

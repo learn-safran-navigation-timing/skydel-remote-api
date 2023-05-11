@@ -23,6 +23,13 @@ namespace Sdx
       : CommandResult(CmdName)
     {}
 
+    EndTrackDefinitionResult::EndTrackDefinitionResult(int count)
+      : CommandResult(CmdName)
+    {
+
+      setCount(count);
+    }
+
     EndTrackDefinitionResult::EndTrackDefinitionResult(CommandBasePtr relatedCommand, int count)
       : CommandResult(CmdName, relatedCommand)
     {
@@ -30,6 +37,11 @@ namespace Sdx
       setCount(count);
     }
 
+
+    EndTrackDefinitionResultPtr EndTrackDefinitionResult::create(int count)
+    {
+      return std::make_shared<EndTrackDefinitionResult>(count);
+    }
 
     EndTrackDefinitionResultPtr EndTrackDefinitionResult::create(CommandBasePtr relatedCommand, int count)
     {

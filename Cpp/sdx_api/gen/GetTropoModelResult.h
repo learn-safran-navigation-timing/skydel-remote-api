@@ -30,8 +30,12 @@ namespace Sdx
 
       GetTropoModelResult();
 
+      GetTropoModelResult(const std::string& model);
+
       GetTropoModelResult(CommandBasePtr relatedCommand, const std::string& model);
-  
+
+      static GetTropoModelResultPtr create(const std::string& model);
+
       static GetTropoModelResultPtr create(CommandBasePtr relatedCommand, const std::string& model);
       static GetTropoModelResultPtr dynamicCast(CommandBasePtr ptr);
       virtual bool isValid() const override;

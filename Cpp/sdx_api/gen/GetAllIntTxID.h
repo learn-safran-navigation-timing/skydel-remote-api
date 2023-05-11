@@ -27,7 +27,7 @@ namespace Sdx
 
 
       GetAllIntTxID();
-  
+
       static GetAllIntTxIDPtr create();
       static GetAllIntTxIDPtr dynamicCast(CommandBasePtr ptr);
       virtual bool isValid() const override;

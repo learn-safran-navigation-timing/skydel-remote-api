@@ -23,6 +23,13 @@ namespace Sdx
       : CommandResult(CmdName)
     {}
 
+    IsLogNmeaEnabledResult::IsLogNmeaEnabledResult(bool enabled)
+      : CommandResult(CmdName)
+    {
+
+      setEnabled(enabled);
+    }
+
     IsLogNmeaEnabledResult::IsLogNmeaEnabledResult(CommandBasePtr relatedCommand, bool enabled)
       : CommandResult(CmdName, relatedCommand)
     {
@@ -30,6 +37,11 @@ namespace Sdx
       setEnabled(enabled);
     }
 
+
+    IsLogNmeaEnabledResultPtr IsLogNmeaEnabledResult::create(bool enabled)
+    {
+      return std::make_shared<IsLogNmeaEnabledResult>(enabled);
+    }
 
     IsLogNmeaEnabledResultPtr IsLogNmeaEnabledResult::create(CommandBasePtr relatedCommand, bool enabled)
     {

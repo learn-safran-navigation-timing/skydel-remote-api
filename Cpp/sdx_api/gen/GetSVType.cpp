@@ -31,7 +31,6 @@ namespace Sdx
       setSvId(svId);
     }
 
-
     GetSVTypePtr GetSVType::create(const std::string& system, int svId)
     {
       return std::make_shared<GetSVType>(system, svId);

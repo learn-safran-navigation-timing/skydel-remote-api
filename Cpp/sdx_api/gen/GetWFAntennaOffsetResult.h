@@ -35,8 +35,12 @@ namespace Sdx
 
       GetWFAntennaOffsetResult();
 
+      GetWFAntennaOffsetResult(double x, double y, double z, double yaw, double pitch, double roll);
+
       GetWFAntennaOffsetResult(CommandBasePtr relatedCommand, double x, double y, double z, double yaw, double pitch, double roll);
-  
+
+      static GetWFAntennaOffsetResultPtr create(double x, double y, double z, double yaw, double pitch, double roll);
+
       static GetWFAntennaOffsetResultPtr create(CommandBasePtr relatedCommand, double x, double y, double z, double yaw, double pitch, double roll);
       static GetWFAntennaOffsetResultPtr dynamicCast(CommandBasePtr ptr);
       virtual bool isValid() const override;

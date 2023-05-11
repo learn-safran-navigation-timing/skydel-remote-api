@@ -25,7 +25,6 @@ namespace Sdx
 
     }
 
-
     CancelBroadcastConfigPtr CancelBroadcastConfig::create()
     {
       return std::make_shared<CancelBroadcastConfig>();

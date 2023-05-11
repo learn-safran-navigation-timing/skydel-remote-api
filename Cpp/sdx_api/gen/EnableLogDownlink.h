@@ -33,7 +33,7 @@ namespace Sdx
       EnableLogDownlink();
 
       EnableLogDownlink(bool enabled, const Sdx::optional<bool>& beforeEncoding = {}, const Sdx::optional<bool>& afterEncoding = {});
-  
+
       static EnableLogDownlinkPtr create(bool enabled, const Sdx::optional<bool>& beforeEncoding = {}, const Sdx::optional<bool>& afterEncoding = {});
       static EnableLogDownlinkPtr dynamicCast(CommandBasePtr ptr);
       virtual bool isValid() const override;

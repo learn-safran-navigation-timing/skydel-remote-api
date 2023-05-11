@@ -30,8 +30,12 @@ namespace Sdx
 
       GetElevationMaskBelowResult();
 
+      GetElevationMaskBelowResult(double angle);
+
       GetElevationMaskBelowResult(CommandBasePtr relatedCommand, double angle);
-  
+
+      static GetElevationMaskBelowResultPtr create(double angle);
+
       static GetElevationMaskBelowResultPtr create(CommandBasePtr relatedCommand, double angle);
       static GetElevationMaskBelowResultPtr dynamicCast(CommandBasePtr ptr);
       virtual bool isValid() const override;

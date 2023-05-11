@@ -25,7 +25,6 @@ namespace Sdx
 
     }
 
-
     GetAllSpoofTxIDPtr GetAllSpoofTxID::create()
     {
       return std::make_shared<GetAllSpoofTxID>();

@@ -30,7 +30,6 @@ namespace Sdx
       setBroadcastOnStart(broadcastOnStart);
     }
 
-
     SetConfigBroadcastOnStartPtr SetConfigBroadcastOnStart::create(bool broadcastOnStart)
     {
       return std::make_shared<SetConfigBroadcastOnStart>(broadcastOnStart);

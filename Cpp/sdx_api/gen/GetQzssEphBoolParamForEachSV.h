@@ -33,7 +33,7 @@ namespace Sdx
       GetQzssEphBoolParamForEachSV();
 
       GetQzssEphBoolParamForEachSV(const std::string& paramName, const Sdx::optional<std::string>& dataSetName = {});
-  
+
       static GetQzssEphBoolParamForEachSVPtr create(const std::string& paramName, const Sdx::optional<std::string>& dataSetName = {});
       static GetQzssEphBoolParamForEachSVPtr dynamicCast(CommandBasePtr ptr);
       virtual bool isValid() const override;

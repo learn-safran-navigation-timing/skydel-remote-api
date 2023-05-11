@@ -27,7 +27,7 @@ namespace Sdx
 
 
       Save();
-  
+
       static SavePtr create();
       static SavePtr dynamicCast(CommandBasePtr ptr);
       virtual bool isValid() const override;

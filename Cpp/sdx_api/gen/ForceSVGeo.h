@@ -36,7 +36,7 @@ namespace Sdx
       ForceSVGeo();
 
       ForceSVGeo(const std::string& system, int svId, bool isGeo, double longitude, const Sdx::optional<std::string>& dataSetName = {});
-  
+
       static ForceSVGeoPtr create(const std::string& system, int svId, bool isGeo, double longitude, const Sdx::optional<std::string>& dataSetName = {});
       static ForceSVGeoPtr dynamicCast(CommandBasePtr ptr);
       virtual bool isValid() const override;

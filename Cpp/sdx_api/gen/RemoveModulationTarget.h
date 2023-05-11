@@ -31,7 +31,7 @@ namespace Sdx
       RemoveModulationTarget();
 
       RemoveModulationTarget(const std::string& id);
-  
+
       static RemoveModulationTargetPtr create(const std::string& id);
       static RemoveModulationTargetPtr dynamicCast(CommandBasePtr ptr);
       virtual bool isValid() const override;

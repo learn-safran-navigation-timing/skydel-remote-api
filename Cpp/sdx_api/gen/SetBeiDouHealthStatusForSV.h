@@ -34,7 +34,7 @@ namespace Sdx
       SetBeiDouHealthStatusForSV();
 
       SetBeiDouHealthStatusForSV(int svId, int health, const Sdx::optional<std::string>& dataSetName = {});
-  
+
       static SetBeiDouHealthStatusForSVPtr create(int svId, int health, const Sdx::optional<std::string>& dataSetName = {});
       static SetBeiDouHealthStatusForSVPtr dynamicCast(CommandBasePtr ptr);
       virtual bool isValid() const override;

@@ -33,7 +33,7 @@ namespace Sdx
       SetSpoofTxGpuIdx();
 
       SetSpoofTxGpuIdx(int gpuIdx, int signalId, const std::string& id);
-  
+
       static SetSpoofTxGpuIdxPtr create(int gpuIdx, int signalId, const std::string& id);
       static SetSpoofTxGpuIdxPtr dynamicCast(CommandBasePtr ptr);
       virtual bool isValid() const override;

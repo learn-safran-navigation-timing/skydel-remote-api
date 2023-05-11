@@ -33,7 +33,6 @@ namespace Sdx
       setDataSetName(dataSetName);
     }
 
-
     SetBeiDouEphDoubleParamForSVPtr SetBeiDouEphDoubleParamForSV::create(int svId, const std::string& paramName, double val, const Sdx::optional<std::string>& dataSetName)
     {
       return std::make_shared<SetBeiDouEphDoubleParamForSV>(svId, paramName, val, dataSetName);

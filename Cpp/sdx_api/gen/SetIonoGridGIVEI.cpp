@@ -33,7 +33,6 @@ namespace Sdx
       setServiceProvider(serviceProvider);
     }
 
-
     SetIonoGridGIVEIPtr SetIonoGridGIVEI::create(int band, int point, int giveI, const Sdx::optional<std::string>& serviceProvider)
     {
       return std::make_shared<SetIonoGridGIVEI>(band, point, giveI, serviceProvider);

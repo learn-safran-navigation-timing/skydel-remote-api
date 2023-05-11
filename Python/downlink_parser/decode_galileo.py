@@ -3,6 +3,7 @@
     Messages supported :
         Galileo F/Nav E5a
         Galileo I/Nav E1/E5b
+        Galileo C/Nav HAS Message
 """
 
 import utility
@@ -470,6 +471,22 @@ def decodeGalileoINavigationMessageInBinary(message, size):
 	return raw[0:120] + raw[128:]
 
 """
+    Informations for decoding Galieo C/Nav HAS navigation messages.
+"""
+
+CNavHASDict = [
+    {'name':"TOH",                   'range':[0,11]},
+    {'name':"Mask Flag",             'range':[12,12]},
+    {'name':"Orbit Correction Flag", 'range':[13,13]},
+    {'name':"Clock Fullset Flag",    'range':[14,14]},
+    {'name':"Clock Subset Flag",     'range':[15,15]},
+    {'name':"Code Bias Flag",        'range':[16,16]},
+    {'name':"Phase Bias Flag",       'range':[17,17]},
+    {'name':"Reserved",              'range':[18,21]},
+    {'name':"Mask ID",               'range':[22,26]},
+    {'name':"IOD Set ID",            'range':[27,31]}]
+
+"""
     Main functions for decoding a Galileo downlink navigation message.
 """
 def getDictGalileoFNavigationMessage(message):
@@ -493,3 +510,83 @@ def getDictGalileoINavigationMessage(message):
         return dictToUse
 
     return utility.fillDict(binaryMessage, dictToUse)
+
+class GalileoCNavHasDictGenerator:
+    binaryMessage = 0
+    dictToUse = CNavHASDict
+    currentBitIndex = 32
+
+    def __init__(self, pages):
+        self.binaryMessage = utility.convertToBinaryNavigationMessage(pages[0], 424)
+        pageIndex = 1
+        while pageIndex < len(pages) - 1:
+            self.binaryMessage = self.binaryMessage + utility.convertToBinaryNavigationMessage(pages[pageIndex], 424)[1:]
+            pageIndex += 1
+
+    def addParametertoDict(self, name, size, signed = False, factor = 1, unit = ""):
+        self.dictToUse.append({'name':name, 'range':[self.currentBitIndex, self.currentBitIndex + size - 1], 'signed':signed, 'factor':factor, 'unit':unit})
+        self.currentBitIndex += size
+
+    def getParameterValue(self, size):
+        return int(self.binaryMessage[self.currentBitIndex:self.currentBitIndex + size], 2)
+
+def getDictGalileoCNavigationMessage(message):
+    pages = str(message).split(' ')
+
+    gen = GalileoCNavHasDictGenerator(pages)
+    satCounts = []
+    sigCounts = []
+
+    # Mask Block
+    nsys = gen.getParameterValue(4)
+    gen.addParametertoDict("NSys", 4)
+    for sys in range(1, nsys + 1):
+        gen.addParametertoDict("GNSS ID {0}".format(sys), 4)
+        satM = gen.getParameterValue(40)
+        gen.addParametertoDict("SatM {0}".format(sys), 40)
+        sigM = gen.getParameterValue(16)
+        gen.addParametertoDict("SigM {0}".format(sys), 16)
+        gen.addParametertoDict("CMAF {0}".format(sys), 1)
+        satCount = bin(satM).count("1")
+        sigCount = bin(sigM).count("1")
+        for sat in range(1, satCount + 1):
+            for sig in range(1, sigCount + 1):
+                gen.addParametertoDict("CM {0} Sat{1} Sig{2}".format(sys, sat, sig), 1)
+        gen.addParametertoDict("NM {0}".format(sys), 3)
+        satCounts.append(satCount)
+        sigCounts.append(sigCount)
+    gen.addParametertoDict("Mask Block Reserved", 6)
+
+    # Orbit Block
+    gen.addParametertoDict("Orbit Block Validity Interval", 4)
+    for sys in range(1, nsys + 1):
+        for sat in range(1, satCounts[sys - 1] + 1):
+            gen.addParametertoDict("IODref Sys{0} Sat{1}".format(sys, sat), 10)
+            gen.addParametertoDict("DR Sys{0} Sat{1}".format(sys, sat), 13, True, 0.0025, utility.METER)
+            gen.addParametertoDict("DIT Sys{0} Sat{1}".format(sys, sat), 12, True, 0.0080, utility.METER)
+            gen.addParametertoDict("DCT Sys{0} Sat{1}".format(sys, sat), 12, True, 0.0080, utility.METER)
+
+    # Clock Full-Set Block
+    gen.addParametertoDict("Clock Full-Set Validity Interval", 4)
+    for sys in range(1, nsys + 1):
+        gen.addParametertoDict("DCM {0}".format(sys), 2)
+    for sys in range(1, nsys + 1):
+        for sat in range(1, satCounts[sys - 1] + 1):
+            gen.addParametertoDict("DCC Sys{0} Sat{1}".format(sys, sat), 13, True, 0.0025, utility.METER)
+
+    # Code Biases Block
+    gen.addParametertoDict("Code Biases Validity Interval", 4)
+    for sys in range(1, nsys + 1):
+        for sat in range(1, satCounts[sys - 1] + 1):
+            for sig in range(1, sigCounts[sys - 1] + 1):
+                gen.addParametertoDict("CB Sys{0} Sat{1} Sig{2}".format(sys, sat, sig), 11, True, 0.02, utility.METER)
+
+    # Phase Biases Block
+    gen.addParametertoDict("Phase Biases Validity Interval", 4)
+    for sys in range(1, nsys + 1):
+        for sat in range(1, satCounts[sys - 1] + 1):
+            for sig in range(1, sigCounts[sys - 1] + 1):
+                gen.addParametertoDict("PB Sys{0} Sat{1} Sig{2}".format(sys, sat, sig), 11, True, 0.01)
+                gen.addParametertoDict("PDI Sys{0} Sat{1} Sig{2}".format(sys, sat, sig), 2)
+
+    return utility.fillDict(gen.binaryMessage, gen.dictToUse)

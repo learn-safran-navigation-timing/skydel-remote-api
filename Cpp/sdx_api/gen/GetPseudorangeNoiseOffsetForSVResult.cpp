@@ -23,6 +23,16 @@ namespace Sdx
       : CommandResult(CmdName)
     {}
 
+    GetPseudorangeNoiseOffsetForSVResult::GetPseudorangeNoiseOffsetForSVResult(const std::string& system, int svId, bool enabled, double offset)
+      : CommandResult(CmdName)
+    {
+
+      setSystem(system);
+      setSvId(svId);
+      setEnabled(enabled);
+      setOffset(offset);
+    }
+
     GetPseudorangeNoiseOffsetForSVResult::GetPseudorangeNoiseOffsetForSVResult(CommandBasePtr relatedCommand, const std::string& system, int svId, bool enabled, double offset)
       : CommandResult(CmdName, relatedCommand)
     {
@@ -33,6 +43,11 @@ namespace Sdx
       setOffset(offset);
     }
 
+
+    GetPseudorangeNoiseOffsetForSVResultPtr GetPseudorangeNoiseOffsetForSVResult::create(const std::string& system, int svId, bool enabled, double offset)
+    {
+      return std::make_shared<GetPseudorangeNoiseOffsetForSVResult>(system, svId, enabled, offset);
+    }
 
     GetPseudorangeNoiseOffsetForSVResultPtr GetPseudorangeNoiseOffsetForSVResult::create(CommandBasePtr relatedCommand, const std::string& system, int svId, bool enabled, double offset)
     {

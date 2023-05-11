@@ -35,7 +35,6 @@ namespace Sdx
       setOtherSatsFollow(otherSatsFollow);
     }
 
-
     SetPowerForSVPtr SetPowerForSV::create(const std::string& system, int svId, double powerOffset, bool otherSatsFollow)
     {
       return std::make_shared<SetPowerForSV>(system, svId, powerOffset, otherSatsFollow);

@@ -31,7 +31,6 @@ namespace Sdx
       setId(id);
     }
 
-
     GetGpuPtr GetGpu::create(int output, const std::string& id)
     {
       return std::make_shared<GetGpu>(output, id);

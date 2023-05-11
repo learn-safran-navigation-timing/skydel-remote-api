@@ -33,7 +33,7 @@ namespace Sdx
       GetIonoGridMask();
 
       GetIonoGridMask(const std::string& serviceProvider, int band, int point);
-  
+
       static GetIonoGridMaskPtr create(const std::string& serviceProvider, int band, int point);
       static GetIonoGridMaskPtr dynamicCast(CommandBasePtr ptr);
       virtual bool isValid() const override;

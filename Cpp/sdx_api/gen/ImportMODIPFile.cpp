@@ -30,7 +30,6 @@ namespace Sdx
       setPath(path);
     }
 
-
     ImportMODIPFilePtr ImportMODIPFile::create(const std::string& path)
     {
       return std::make_shared<ImportMODIPFile>(path);

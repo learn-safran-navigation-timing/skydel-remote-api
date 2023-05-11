@@ -27,7 +27,7 @@ namespace Sdx
 
 
       IsLogDownlinkEnabled();
-  
+
       static IsLogDownlinkEnabledPtr create();
       static IsLogDownlinkEnabledPtr dynamicCast(CommandBasePtr ptr);
       virtual bool isValid() const override;

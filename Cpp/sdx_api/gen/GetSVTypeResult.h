@@ -32,8 +32,12 @@ namespace Sdx
 
       GetSVTypeResult();
 
+      GetSVTypeResult(const std::string& system, int svId, const std::string& svType);
+
       GetSVTypeResult(CommandBasePtr relatedCommand, const std::string& system, int svId, const std::string& svType);
-  
+
+      static GetSVTypeResultPtr create(const std::string& system, int svId, const std::string& svType);
+
       static GetSVTypeResultPtr create(CommandBasePtr relatedCommand, const std::string& system, int svId, const std::string& svType);
       static GetSVTypeResultPtr dynamicCast(CommandBasePtr ptr);
       virtual bool isValid() const override;

@@ -30,7 +30,6 @@ namespace Sdx
       setEnabled(enabled);
     }
 
-
     EnableMasterPpsPtr EnableMasterPps::create(bool enabled)
     {
       return std::make_shared<EnableMasterPps>(enabled);

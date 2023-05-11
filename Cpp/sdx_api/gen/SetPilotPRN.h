@@ -37,7 +37,7 @@ namespace Sdx
       SetPilotPRN();
 
       SetPilotPRN(bool enabled, int outputIdx, double centralFreqOffset, double power, int prn, const std::string& type, const std::string& pilotId);
-  
+
       static SetPilotPRNPtr create(bool enabled, int outputIdx, double centralFreqOffset, double power, int prn, const std::string& type, const std::string& pilotId);
       static SetPilotPRNPtr dynamicCast(CommandBasePtr ptr);
       virtual bool isValid() const override;

@@ -30,7 +30,6 @@ namespace Sdx
       setEnabled(enabled);
     }
 
-
     EnableLogHILInputPtr EnableLogHILInput::create(bool enabled)
     {
       return std::make_shared<EnableLogHILInput>(enabled);

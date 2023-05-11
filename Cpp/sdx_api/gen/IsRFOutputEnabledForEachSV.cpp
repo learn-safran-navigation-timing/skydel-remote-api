@@ -30,7 +30,6 @@ namespace Sdx
       setSystem(system);
     }
 
-
     IsRFOutputEnabledForEachSVPtr IsRFOutputEnabledForEachSV::create(const std::string& system)
     {
       return std::make_shared<IsRFOutputEnabledForEachSV>(system);

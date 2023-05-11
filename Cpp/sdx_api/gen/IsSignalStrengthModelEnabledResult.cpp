@@ -23,6 +23,13 @@ namespace Sdx
       : CommandResult(CmdName)
     {}
 
+    IsSignalStrengthModelEnabledResult::IsSignalStrengthModelEnabledResult(bool enabled)
+      : CommandResult(CmdName)
+    {
+
+      setEnabled(enabled);
+    }
+
     IsSignalStrengthModelEnabledResult::IsSignalStrengthModelEnabledResult(CommandBasePtr relatedCommand, bool enabled)
       : CommandResult(CmdName, relatedCommand)
     {
@@ -30,6 +37,11 @@ namespace Sdx
       setEnabled(enabled);
     }
 
+
+    IsSignalStrengthModelEnabledResultPtr IsSignalStrengthModelEnabledResult::create(bool enabled)
+    {
+      return std::make_shared<IsSignalStrengthModelEnabledResult>(enabled);
+    }
 
     IsSignalStrengthModelEnabledResultPtr IsSignalStrengthModelEnabledResult::create(CommandBasePtr relatedCommand, bool enabled)
     {

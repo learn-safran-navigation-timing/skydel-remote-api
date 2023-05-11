@@ -23,6 +23,13 @@ namespace Sdx
       : CommandResult(CmdName)
     {}
 
+    GetElevationMaskAboveResult::GetElevationMaskAboveResult(double angle)
+      : CommandResult(CmdName)
+    {
+
+      setAngle(angle);
+    }
+
     GetElevationMaskAboveResult::GetElevationMaskAboveResult(CommandBasePtr relatedCommand, double angle)
       : CommandResult(CmdName, relatedCommand)
     {
@@ -30,6 +37,11 @@ namespace Sdx
       setAngle(angle);
     }
 
+
+    GetElevationMaskAboveResultPtr GetElevationMaskAboveResult::create(double angle)
+    {
+      return std::make_shared<GetElevationMaskAboveResult>(angle);
+    }
 
     GetElevationMaskAboveResultPtr GetElevationMaskAboveResult::create(CommandBasePtr relatedCommand, double angle)
     {

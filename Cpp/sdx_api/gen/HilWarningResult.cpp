@@ -23,6 +23,14 @@ namespace Sdx
       : CommandResult(CmdName)
     {}
 
+    HilWarningResult::HilWarningResult(bool isExtrapolated, int extrapolationTime)
+      : CommandResult(CmdName)
+    {
+
+      setIsExtrapolated(isExtrapolated);
+      setExtrapolationTime(extrapolationTime);
+    }
+
     HilWarningResult::HilWarningResult(CommandBasePtr relatedCommand, bool isExtrapolated, int extrapolationTime)
       : CommandResult(CmdName, relatedCommand)
     {
@@ -31,6 +39,11 @@ namespace Sdx
       setExtrapolationTime(extrapolationTime);
     }
 
+
+    HilWarningResultPtr HilWarningResult::create(bool isExtrapolated, int extrapolationTime)
+    {
+      return std::make_shared<HilWarningResult>(isExtrapolated, extrapolationTime);
+    }
 
     HilWarningResultPtr HilWarningResult::create(CommandBasePtr relatedCommand, bool isExtrapolated, int extrapolationTime)
     {

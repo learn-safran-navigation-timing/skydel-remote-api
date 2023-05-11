@@ -23,6 +23,14 @@ namespace Sdx
       : CommandResult(CmdName)
     {}
 
+    GetMessageSequenceResult::GetMessageSequenceResult(const std::string& signal, const std::vector<int>& sequence)
+      : CommandResult(CmdName)
+    {
+
+      setSignal(signal);
+      setSequence(sequence);
+    }
+
     GetMessageSequenceResult::GetMessageSequenceResult(CommandBasePtr relatedCommand, const std::string& signal, const std::vector<int>& sequence)
       : CommandResult(CmdName, relatedCommand)
     {
@@ -31,6 +39,11 @@ namespace Sdx
       setSequence(sequence);
     }
 
+
+    GetMessageSequenceResultPtr GetMessageSequenceResult::create(const std::string& signal, const std::vector<int>& sequence)
+    {
+      return std::make_shared<GetMessageSequenceResult>(signal, sequence);
+    }
 
     GetMessageSequenceResultPtr GetMessageSequenceResult::create(CommandBasePtr relatedCommand, const std::string& signal, const std::vector<int>& sequence)
     {

@@ -30,7 +30,6 @@ namespace Sdx
       setSystem(system);
     }
 
-
     ClearAllLOSForSystemPtr ClearAllLOSForSystem::create(const std::string& system)
     {
       return std::make_shared<ClearAllLOSForSystem>(system);

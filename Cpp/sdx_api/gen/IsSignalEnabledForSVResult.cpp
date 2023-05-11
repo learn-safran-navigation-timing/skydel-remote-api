@@ -23,6 +23,15 @@ namespace Sdx
       : CommandResult(CmdName)
     {}
 
+    IsSignalEnabledForSVResult::IsSignalEnabledForSVResult(const std::string& signal, int svId, bool enabled)
+      : CommandResult(CmdName)
+    {
+
+      setSignal(signal);
+      setSvId(svId);
+      setEnabled(enabled);
+    }
+
     IsSignalEnabledForSVResult::IsSignalEnabledForSVResult(CommandBasePtr relatedCommand, const std::string& signal, int svId, bool enabled)
       : CommandResult(CmdName, relatedCommand)
     {
@@ -32,6 +41,11 @@ namespace Sdx
       setEnabled(enabled);
     }
 
+
+    IsSignalEnabledForSVResultPtr IsSignalEnabledForSVResult::create(const std::string& signal, int svId, bool enabled)
+    {
+      return std::make_shared<IsSignalEnabledForSVResult>(signal, svId, enabled);
+    }
 
     IsSignalEnabledForSVResultPtr IsSignalEnabledForSVResult::create(CommandBasePtr relatedCommand, const std::string& signal, int svId, bool enabled)
     {

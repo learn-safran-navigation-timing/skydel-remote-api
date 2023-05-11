@@ -23,6 +23,14 @@ namespace Sdx
       : CommandResult(CmdName)
     {}
 
+    GetSbasEphParamsForSVResult::GetSbasEphParamsForSVResult(int svId, const std::map<std::string, double>& paramValueDict)
+      : CommandResult(CmdName)
+    {
+
+      setSvId(svId);
+      setParamValueDict(paramValueDict);
+    }
+
     GetSbasEphParamsForSVResult::GetSbasEphParamsForSVResult(CommandBasePtr relatedCommand, int svId, const std::map<std::string, double>& paramValueDict)
       : CommandResult(CmdName, relatedCommand)
     {
@@ -31,6 +39,11 @@ namespace Sdx
       setParamValueDict(paramValueDict);
     }
 
+
+    GetSbasEphParamsForSVResultPtr GetSbasEphParamsForSVResult::create(int svId, const std::map<std::string, double>& paramValueDict)
+    {
+      return std::make_shared<GetSbasEphParamsForSVResult>(svId, paramValueDict);
+    }
 
     GetSbasEphParamsForSVResultPtr GetSbasEphParamsForSVResult::create(CommandBasePtr relatedCommand, int svId, const std::map<std::string, double>& paramValueDict)
     {

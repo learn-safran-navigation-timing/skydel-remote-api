@@ -31,7 +31,6 @@ namespace Sdx
       setNewName(newName);
     }
 
-
     RenameVehicleAntennaModelPtr RenameVehicleAntennaModel::create(const std::string& name, const std::string& newName)
     {
       return std::make_shared<RenameVehicleAntennaModel>(name, newName);

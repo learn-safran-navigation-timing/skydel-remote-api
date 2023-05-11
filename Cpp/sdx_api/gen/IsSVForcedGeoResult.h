@@ -35,8 +35,12 @@ namespace Sdx
 
       IsSVForcedGeoResult();
 
+      IsSVForcedGeoResult(const std::string& system, int svId, bool isGeo, double longitude, const Sdx::optional<std::string>& dataSetName = {});
+
       IsSVForcedGeoResult(CommandBasePtr relatedCommand, const std::string& system, int svId, bool isGeo, double longitude, const Sdx::optional<std::string>& dataSetName = {});
-  
+
+      static IsSVForcedGeoResultPtr create(const std::string& system, int svId, bool isGeo, double longitude, const Sdx::optional<std::string>& dataSetName = {});
+
       static IsSVForcedGeoResultPtr create(CommandBasePtr relatedCommand, const std::string& system, int svId, bool isGeo, double longitude, const Sdx::optional<std::string>& dataSetName = {});
       static IsSVForcedGeoResultPtr dynamicCast(CommandBasePtr ptr);
       virtual bool isValid() const override;

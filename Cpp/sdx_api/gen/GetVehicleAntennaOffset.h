@@ -30,7 +30,7 @@ namespace Sdx
 
 
       GetVehicleAntennaOffset(const Sdx::optional<std::string>& name = {});
-  
+
       static GetVehicleAntennaOffsetPtr create(const Sdx::optional<std::string>& name = {});
       static GetVehicleAntennaOffsetPtr dynamicCast(CommandBasePtr ptr);
       virtual bool isValid() const override;

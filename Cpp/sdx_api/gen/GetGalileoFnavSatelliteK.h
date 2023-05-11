@@ -31,7 +31,7 @@ namespace Sdx
       GetGalileoFnavSatelliteK();
 
       GetGalileoFnavSatelliteK(int prn);
-  
+
       static GetGalileoFnavSatelliteKPtr create(int prn);
       static GetGalileoFnavSatelliteKPtr dynamicCast(CommandBasePtr ptr);
       virtual bool isValid() const override;

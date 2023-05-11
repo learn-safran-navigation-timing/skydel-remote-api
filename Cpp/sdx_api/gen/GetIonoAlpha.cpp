@@ -30,7 +30,6 @@ namespace Sdx
       setIndex(index);
     }
 
-
     GetIonoAlphaPtr GetIonoAlpha::create(int index)
     {
       return std::make_shared<GetIonoAlpha>(index);

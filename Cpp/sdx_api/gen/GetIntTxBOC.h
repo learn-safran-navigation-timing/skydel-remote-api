@@ -32,7 +32,7 @@ namespace Sdx
       GetIntTxBOC();
 
       GetIntTxBOC(const std::string& transmitterId, const std::string& signalId);
-  
+
       static GetIntTxBOCPtr create(const std::string& transmitterId, const std::string& signalId);
       static GetIntTxBOCPtr dynamicCast(CommandBasePtr ptr);
       virtual bool isValid() const override;

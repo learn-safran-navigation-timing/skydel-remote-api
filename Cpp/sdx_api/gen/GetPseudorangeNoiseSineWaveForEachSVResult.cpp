@@ -23,6 +23,18 @@ namespace Sdx
       : CommandResult(CmdName)
     {}
 
+    GetPseudorangeNoiseSineWaveForEachSVResult::GetPseudorangeNoiseSineWaveForEachSVResult(const std::string& system, int sineWave, const std::vector<bool>& enabled, const std::vector<double>& amplitude, const std::vector<int>& period, const std::vector<double>& offset)
+      : CommandResult(CmdName)
+    {
+
+      setSystem(system);
+      setSineWave(sineWave);
+      setEnabled(enabled);
+      setAmplitude(amplitude);
+      setPeriod(period);
+      setOffset(offset);
+    }
+
     GetPseudorangeNoiseSineWaveForEachSVResult::GetPseudorangeNoiseSineWaveForEachSVResult(CommandBasePtr relatedCommand, const std::string& system, int sineWave, const std::vector<bool>& enabled, const std::vector<double>& amplitude, const std::vector<int>& period, const std::vector<double>& offset)
       : CommandResult(CmdName, relatedCommand)
     {
@@ -35,6 +47,11 @@ namespace Sdx
       setOffset(offset);
     }
 
+
+    GetPseudorangeNoiseSineWaveForEachSVResultPtr GetPseudorangeNoiseSineWaveForEachSVResult::create(const std::string& system, int sineWave, const std::vector<bool>& enabled, const std::vector<double>& amplitude, const std::vector<int>& period, const std::vector<double>& offset)
+    {
+      return std::make_shared<GetPseudorangeNoiseSineWaveForEachSVResult>(system, sineWave, enabled, amplitude, period, offset);
+    }
 
     GetPseudorangeNoiseSineWaveForEachSVResultPtr GetPseudorangeNoiseSineWaveForEachSVResult::create(CommandBasePtr relatedCommand, const std::string& system, int sineWave, const std::vector<bool>& enabled, const std::vector<double>& amplitude, const std::vector<int>& period, const std::vector<double>& offset)
     {

@@ -23,6 +23,18 @@ namespace Sdx
       : CommandResult(CmdName)
     {}
 
+    GetQzssL1SAugmentationResult::GetQzssL1SAugmentationResult(const std::string& system, int prn, bool augmentIOD, bool augmentPRC, double prc, const std::string& id)
+      : CommandResult(CmdName)
+    {
+
+      setSystem(system);
+      setPrn(prn);
+      setAugmentIOD(augmentIOD);
+      setAugmentPRC(augmentPRC);
+      setPrc(prc);
+      setId(id);
+    }
+
     GetQzssL1SAugmentationResult::GetQzssL1SAugmentationResult(CommandBasePtr relatedCommand, const std::string& system, int prn, bool augmentIOD, bool augmentPRC, double prc, const std::string& id)
       : CommandResult(CmdName, relatedCommand)
     {
@@ -35,6 +47,11 @@ namespace Sdx
       setId(id);
     }
 
+
+    GetQzssL1SAugmentationResultPtr GetQzssL1SAugmentationResult::create(const std::string& system, int prn, bool augmentIOD, bool augmentPRC, double prc, const std::string& id)
+    {
+      return std::make_shared<GetQzssL1SAugmentationResult>(system, prn, augmentIOD, augmentPRC, prc, id);
+    }
 
     GetQzssL1SAugmentationResultPtr GetQzssL1SAugmentationResult::create(CommandBasePtr relatedCommand, const std::string& system, int prn, bool augmentIOD, bool augmentPRC, double prc, const std::string& id)
     {

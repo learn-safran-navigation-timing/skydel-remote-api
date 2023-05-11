@@ -31,7 +31,6 @@ namespace Sdx
       setGain(gain);
     }
 
-
     SetRfGainPtr SetRfGain::create(int output, double gain)
     {
       return std::make_shared<SetRfGain>(output, gain);

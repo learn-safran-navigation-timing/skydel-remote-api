@@ -30,7 +30,6 @@ namespace Sdx
       setMessages(messages);
     }
 
-
     EnableCnav2PagesPtr EnableCnav2Pages::create(const std::vector<int>& messages)
     {
       return std::make_shared<EnableCnav2Pages>(messages);

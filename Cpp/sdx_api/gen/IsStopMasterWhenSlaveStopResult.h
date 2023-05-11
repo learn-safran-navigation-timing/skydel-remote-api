@@ -30,8 +30,12 @@ namespace Sdx
 
       IsStopMasterWhenSlaveStopResult();
 
+      IsStopMasterWhenSlaveStopResult(bool enabled);
+
       IsStopMasterWhenSlaveStopResult(CommandBasePtr relatedCommand, bool enabled);
-  
+
+      static IsStopMasterWhenSlaveStopResultPtr create(bool enabled);
+
       static IsStopMasterWhenSlaveStopResultPtr create(CommandBasePtr relatedCommand, bool enabled);
       static IsStopMasterWhenSlaveStopResultPtr dynamicCast(CommandBasePtr ptr);
       virtual bool isValid() const override;

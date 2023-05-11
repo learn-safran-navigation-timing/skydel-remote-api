@@ -23,6 +23,13 @@ namespace Sdx
       : CommandResult(CmdName)
     {}
 
+    GetDefaultVehicleAntennaModelResult::GetDefaultVehicleAntennaModelResult(const std::string& name)
+      : CommandResult(CmdName)
+    {
+
+      setName(name);
+    }
+
     GetDefaultVehicleAntennaModelResult::GetDefaultVehicleAntennaModelResult(CommandBasePtr relatedCommand, const std::string& name)
       : CommandResult(CmdName, relatedCommand)
     {
@@ -30,6 +37,11 @@ namespace Sdx
       setName(name);
     }
 
+
+    GetDefaultVehicleAntennaModelResultPtr GetDefaultVehicleAntennaModelResult::create(const std::string& name)
+    {
+      return std::make_shared<GetDefaultVehicleAntennaModelResult>(name);
+    }
 
     GetDefaultVehicleAntennaModelResultPtr GetDefaultVehicleAntennaModelResult::create(CommandBasePtr relatedCommand, const std::string& name)
     {

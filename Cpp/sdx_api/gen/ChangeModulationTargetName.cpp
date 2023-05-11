@@ -31,7 +31,6 @@ namespace Sdx
       setId(id);
     }
 
-
     ChangeModulationTargetNamePtr ChangeModulationTargetName::create(const std::string& targetName, const std::string& id)
     {
       return std::make_shared<ChangeModulationTargetName>(targetName, id);

@@ -25,7 +25,6 @@ namespace Sdx
 
     }
 
-
     IsSpectrumVisiblePtr IsSpectrumVisible::create()
     {
       return std::make_shared<IsSpectrumVisible>();

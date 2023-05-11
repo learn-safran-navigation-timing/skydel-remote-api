@@ -31,7 +31,6 @@ namespace Sdx
       setId(id);
     }
 
-
     EnableSpoofTxPtr EnableSpoofTx::create(bool enabled, const std::string& id)
     {
       return std::make_shared<EnableSpoofTx>(enabled, id);

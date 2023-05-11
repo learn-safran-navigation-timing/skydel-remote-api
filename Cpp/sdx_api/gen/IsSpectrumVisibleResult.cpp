@@ -23,6 +23,13 @@ namespace Sdx
       : CommandResult(CmdName)
     {}
 
+    IsSpectrumVisibleResult::IsSpectrumVisibleResult(bool visible)
+      : CommandResult(CmdName)
+    {
+
+      setVisible(visible);
+    }
+
     IsSpectrumVisibleResult::IsSpectrumVisibleResult(CommandBasePtr relatedCommand, bool visible)
       : CommandResult(CmdName, relatedCommand)
     {
@@ -30,6 +37,11 @@ namespace Sdx
       setVisible(visible);
     }
 
+
+    IsSpectrumVisibleResultPtr IsSpectrumVisibleResult::create(bool visible)
+    {
+      return std::make_shared<IsSpectrumVisibleResult>(visible);
+    }
 
     IsSpectrumVisibleResultPtr IsSpectrumVisibleResult::create(CommandBasePtr relatedCommand, bool visible)
     {

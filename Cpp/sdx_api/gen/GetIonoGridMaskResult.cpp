@@ -23,6 +23,16 @@ namespace Sdx
       : CommandResult(CmdName)
     {}
 
+    GetIonoGridMaskResult::GetIonoGridMaskResult(const std::string& serviceProvider, int band, int point, bool flag)
+      : CommandResult(CmdName)
+    {
+
+      setServiceProvider(serviceProvider);
+      setBand(band);
+      setPoint(point);
+      setFlag(flag);
+    }
+
     GetIonoGridMaskResult::GetIonoGridMaskResult(CommandBasePtr relatedCommand, const std::string& serviceProvider, int band, int point, bool flag)
       : CommandResult(CmdName, relatedCommand)
     {
@@ -33,6 +43,11 @@ namespace Sdx
       setFlag(flag);
     }
 
+
+    GetIonoGridMaskResultPtr GetIonoGridMaskResult::create(const std::string& serviceProvider, int band, int point, bool flag)
+    {
+      return std::make_shared<GetIonoGridMaskResult>(serviceProvider, band, point, flag);
+    }
 
     GetIonoGridMaskResultPtr GetIonoGridMaskResult::create(CommandBasePtr relatedCommand, const std::string& serviceProvider, int band, int point, bool flag)
     {

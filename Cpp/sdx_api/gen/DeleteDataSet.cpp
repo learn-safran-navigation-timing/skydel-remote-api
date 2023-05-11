@@ -31,7 +31,6 @@ namespace Sdx
       setDataSetName(dataSetName);
     }
 
-
     DeleteDataSetPtr DeleteDataSet::create(const std::string& system, const std::string& dataSetName)
     {
       return std::make_shared<DeleteDataSet>(system, dataSetName);

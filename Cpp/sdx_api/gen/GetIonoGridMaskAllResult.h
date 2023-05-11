@@ -32,8 +32,12 @@ namespace Sdx
 
       GetIonoGridMaskAllResult();
 
+      GetIonoGridMaskAllResult(const std::string& serviceProvider, const std::vector<std::vector<bool>>& grid);
+
       GetIonoGridMaskAllResult(CommandBasePtr relatedCommand, const std::string& serviceProvider, const std::vector<std::vector<bool>>& grid);
-  
+
+      static GetIonoGridMaskAllResultPtr create(const std::string& serviceProvider, const std::vector<std::vector<bool>>& grid);
+
       static GetIonoGridMaskAllResultPtr create(CommandBasePtr relatedCommand, const std::string& serviceProvider, const std::vector<std::vector<bool>>& grid);
       static GetIonoGridMaskAllResultPtr dynamicCast(CommandBasePtr ptr);
       virtual bool isValid() const override;

@@ -23,6 +23,14 @@ namespace Sdx
       : CommandResult(CmdName)
     {}
 
+    GetActiveDataSetResult::GetActiveDataSetResult(const std::string& system, const std::string& dataSetName)
+      : CommandResult(CmdName)
+    {
+
+      setSystem(system);
+      setDataSetName(dataSetName);
+    }
+
     GetActiveDataSetResult::GetActiveDataSetResult(CommandBasePtr relatedCommand, const std::string& system, const std::string& dataSetName)
       : CommandResult(CmdName, relatedCommand)
     {
@@ -31,6 +39,11 @@ namespace Sdx
       setDataSetName(dataSetName);
     }
 
+
+    GetActiveDataSetResultPtr GetActiveDataSetResult::create(const std::string& system, const std::string& dataSetName)
+    {
+      return std::make_shared<GetActiveDataSetResult>(system, dataSetName);
+    }
 
     GetActiveDataSetResultPtr GetActiveDataSetResult::create(CommandBasePtr relatedCommand, const std::string& system, const std::string& dataSetName)
     {

@@ -31,8 +31,12 @@ namespace Sdx
 
       GetSbasDeltaUdreiOutsideOfRegionsResult();
 
+      GetSbasDeltaUdreiOutsideOfRegionsResult(const std::string& serviceProvider, int deltaUdrei);
+
       GetSbasDeltaUdreiOutsideOfRegionsResult(CommandBasePtr relatedCommand, const std::string& serviceProvider, int deltaUdrei);
-  
+
+      static GetSbasDeltaUdreiOutsideOfRegionsResultPtr create(const std::string& serviceProvider, int deltaUdrei);
+
       static GetSbasDeltaUdreiOutsideOfRegionsResultPtr create(CommandBasePtr relatedCommand, const std::string& serviceProvider, int deltaUdrei);
       static GetSbasDeltaUdreiOutsideOfRegionsResultPtr dynamicCast(CommandBasePtr ptr);
       virtual bool isValid() const override;

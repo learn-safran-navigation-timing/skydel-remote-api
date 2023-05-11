@@ -27,7 +27,7 @@ namespace Sdx
 
 
       ResetDefaultConfiguration();
-  
+
       static ResetDefaultConfigurationPtr create();
       static ResetDefaultConfigurationPtr dynamicCast(CommandBasePtr ptr);
       virtual bool isValid() const override;

@@ -31,7 +31,7 @@ namespace Sdx
       SetElevationMaskAbove();
 
       SetElevationMaskAbove(double angle);
-  
+
       static SetElevationMaskAbovePtr create(double angle);
       static SetElevationMaskAbovePtr dynamicCast(CommandBasePtr ptr);
       virtual bool isValid() const override;

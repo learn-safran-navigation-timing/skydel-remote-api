@@ -30,7 +30,6 @@ namespace Sdx
       setSystem(system);
     }
 
-
     GetElevationAzimuthForEachSVPtr GetElevationAzimuthForEachSV::create(const std::string& system)
     {
       return std::make_shared<GetElevationAzimuthForEachSV>(system);

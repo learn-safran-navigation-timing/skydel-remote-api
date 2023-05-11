@@ -23,6 +23,21 @@ namespace Sdx
       : CommandResult(CmdName)
     {}
 
+    GetIntTxBPSKResult::GetIntTxBPSKResult(bool enabled, double centralFreq, double power, int codeRate, int codeLengthMs, const std::string& transmitterId, const std::string& signalId, const Sdx::optional<int>& group, const Sdx::optional<int>& prn)
+      : CommandResult(CmdName)
+    {
+
+      setEnabled(enabled);
+      setCentralFreq(centralFreq);
+      setPower(power);
+      setCodeRate(codeRate);
+      setCodeLengthMs(codeLengthMs);
+      setTransmitterId(transmitterId);
+      setSignalId(signalId);
+      setGroup(group);
+      setPrn(prn);
+    }
+
     GetIntTxBPSKResult::GetIntTxBPSKResult(CommandBasePtr relatedCommand, bool enabled, double centralFreq, double power, int codeRate, int codeLengthMs, const std::string& transmitterId, const std::string& signalId, const Sdx::optional<int>& group, const Sdx::optional<int>& prn)
       : CommandResult(CmdName, relatedCommand)
     {
@@ -38,6 +53,11 @@ namespace Sdx
       setPrn(prn);
     }
 
+
+    GetIntTxBPSKResultPtr GetIntTxBPSKResult::create(bool enabled, double centralFreq, double power, int codeRate, int codeLengthMs, const std::string& transmitterId, const std::string& signalId, const Sdx::optional<int>& group, const Sdx::optional<int>& prn)
+    {
+      return std::make_shared<GetIntTxBPSKResult>(enabled, centralFreq, power, codeRate, codeLengthMs, transmitterId, signalId, group, prn);
+    }
 
     GetIntTxBPSKResultPtr GetIntTxBPSKResult::create(CommandBasePtr relatedCommand, bool enabled, double centralFreq, double power, int codeRate, int codeLengthMs, const std::string& transmitterId, const std::string& signalId, const Sdx::optional<int>& group, const Sdx::optional<int>& prn)
     {

@@ -23,6 +23,22 @@ namespace Sdx
       : CommandResult(CmdName)
     {}
 
+    GetIntTxBOCResult::GetIntTxBOCResult(bool enabled, double centralFreq, double power, int codeRate, int codeLengthMs, int subCarrierRate, bool cosinePhaseBoc, const std::string& transmitterId, const std::string& signalId, const Sdx::optional<int>& group)
+      : CommandResult(CmdName)
+    {
+
+      setEnabled(enabled);
+      setCentralFreq(centralFreq);
+      setPower(power);
+      setCodeRate(codeRate);
+      setCodeLengthMs(codeLengthMs);
+      setSubCarrierRate(subCarrierRate);
+      setCosinePhaseBoc(cosinePhaseBoc);
+      setTransmitterId(transmitterId);
+      setSignalId(signalId);
+      setGroup(group);
+    }
+
     GetIntTxBOCResult::GetIntTxBOCResult(CommandBasePtr relatedCommand, bool enabled, double centralFreq, double power, int codeRate, int codeLengthMs, int subCarrierRate, bool cosinePhaseBoc, const std::string& transmitterId, const std::string& signalId, const Sdx::optional<int>& group)
       : CommandResult(CmdName, relatedCommand)
     {
@@ -39,6 +55,11 @@ namespace Sdx
       setGroup(group);
     }
 
+
+    GetIntTxBOCResultPtr GetIntTxBOCResult::create(bool enabled, double centralFreq, double power, int codeRate, int codeLengthMs, int subCarrierRate, bool cosinePhaseBoc, const std::string& transmitterId, const std::string& signalId, const Sdx::optional<int>& group)
+    {
+      return std::make_shared<GetIntTxBOCResult>(enabled, centralFreq, power, codeRate, codeLengthMs, subCarrierRate, cosinePhaseBoc, transmitterId, signalId, group);
+    }
 
     GetIntTxBOCResultPtr GetIntTxBOCResult::create(CommandBasePtr relatedCommand, bool enabled, double centralFreq, double power, int codeRate, int codeLengthMs, int subCarrierRate, bool cosinePhaseBoc, const std::string& transmitterId, const std::string& signalId, const Sdx::optional<int>& group)
     {

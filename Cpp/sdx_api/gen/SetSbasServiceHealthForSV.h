@@ -32,7 +32,7 @@ namespace Sdx
       SetSbasServiceHealthForSV();
 
       SetSbasServiceHealthForSV(int svId, int health);
-  
+
       static SetSbasServiceHealthForSVPtr create(int svId, int health);
       static SetSbasServiceHealthForSVPtr dynamicCast(CommandBasePtr ptr);
       virtual bool isValid() const override;

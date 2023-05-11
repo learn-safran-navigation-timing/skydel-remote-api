@@ -30,7 +30,6 @@ namespace Sdx
       setSystem(system);
     }
 
-
     ResetAllSatPowerPtr ResetAllSatPower::create(const std::string& system)
     {
       return std::make_shared<ResetAllSatPower>(system);

@@ -39,8 +39,12 @@ namespace Sdx
 
       GetMessageModificationToBeiDouCNav1Result();
 
+      GetMessageModificationToBeiDouCNav1Result(const std::vector<std::string>& signalArray, int svId, int startTime, int stopTime, int page, const std::string& condition, bool updateCRC, const std::string& bitModifications, const std::string& id);
+
       GetMessageModificationToBeiDouCNav1Result(CommandBasePtr relatedCommand, const std::vector<std::string>& signalArray, int svId, int startTime, int stopTime, int page, const std::string& condition, bool updateCRC, const std::string& bitModifications, const std::string& id);
-  
+
+      static GetMessageModificationToBeiDouCNav1ResultPtr create(const std::vector<std::string>& signalArray, int svId, int startTime, int stopTime, int page, const std::string& condition, bool updateCRC, const std::string& bitModifications, const std::string& id);
+
       static GetMessageModificationToBeiDouCNav1ResultPtr create(CommandBasePtr relatedCommand, const std::vector<std::string>& signalArray, int svId, int startTime, int stopTime, int page, const std::string& condition, bool updateCRC, const std::string& bitModifications, const std::string& id);
       static GetMessageModificationToBeiDouCNav1ResultPtr dynamicCast(CommandBasePtr ptr);
       virtual bool isValid() const override;

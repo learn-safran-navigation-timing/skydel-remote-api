@@ -30,7 +30,6 @@ namespace Sdx
       setSecond(second);
     }
 
-
     SetDurationPtr SetDuration::create(int second)
     {
       return std::make_shared<SetDuration>(second);

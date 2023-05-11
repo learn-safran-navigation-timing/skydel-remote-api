@@ -35,7 +35,6 @@ namespace Sdx
       setId(id);
     }
 
-
     AddIntTxPtr AddIntTx::create(const std::string& usualName, bool enabled, int group, bool dynamic, double power, const std::string& id)
     {
       return std::make_shared<AddIntTx>(usualName, enabled, group, dynamic, power, id);

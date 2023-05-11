@@ -31,7 +31,7 @@ namespace Sdx
       GetIntTxFix();
 
       GetIntTxFix(const std::string& id);
-  
+
       static GetIntTxFixPtr create(const std::string& id);
       static GetIntTxFixPtr dynamicCast(CommandBasePtr ptr);
       virtual bool isValid() const override;

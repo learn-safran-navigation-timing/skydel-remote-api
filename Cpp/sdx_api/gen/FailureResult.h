@@ -30,8 +30,12 @@ namespace Sdx
 
       FailureResult();
 
+      FailureResult(const std::string& errorMsg);
+
       FailureResult(CommandBasePtr relatedCommand, const std::string& errorMsg);
-  
+
+      static FailureResultPtr create(const std::string& errorMsg);
+
       static FailureResultPtr create(CommandBasePtr relatedCommand, const std::string& errorMsg);
       static FailureResultPtr dynamicCast(CommandBasePtr ptr);
       virtual bool isValid() const override;

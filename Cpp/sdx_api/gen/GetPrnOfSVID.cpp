@@ -31,7 +31,6 @@ namespace Sdx
       setSvId(svId);
     }
 
-
     GetPrnOfSVIDPtr GetPrnOfSVID::create(const std::string& signal, int svId)
     {
       return std::make_shared<GetPrnOfSVID>(signal, svId);

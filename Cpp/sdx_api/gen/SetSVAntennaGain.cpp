@@ -34,7 +34,6 @@ namespace Sdx
       setName(name);
     }
 
-
     SetSVAntennaGainPtr SetSVAntennaGain::create(const std::vector<std::vector<double>>& gain, const Sdx::AntennaPatternType& type, const Sdx::GNSSBand& band, const std::string& system, const Sdx::optional<std::string>& name)
     {
       return std::make_shared<SetSVAntennaGain>(gain, type, band, system, name);

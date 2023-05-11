@@ -25,7 +25,6 @@ namespace Sdx
 
     }
 
-
     SavePtr Save::create()
     {
       return std::make_shared<Save>();

@@ -37,7 +37,7 @@ namespace Sdx
       SetSpoofTxFix();
 
       SetSpoofTxFix(double lat, double lon, double alt, double yaw, double pitch, double roll, const std::string& id);
-  
+
       static SetSpoofTxFixPtr create(double lat, double lon, double alt, double yaw, double pitch, double roll, const std::string& id);
       static SetSpoofTxFixPtr dynamicCast(CommandBasePtr ptr);
       virtual bool isValid() const override;

@@ -34,7 +34,7 @@ namespace Sdx
       SetGalileoSisaE1E5bIndexForSV();
 
       SetGalileoSisaE1E5bIndexForSV(int svId, int sisai, const Sdx::optional<std::string>& dataSetName = {});
-  
+
       static SetGalileoSisaE1E5bIndexForSVPtr create(int svId, int sisai, const Sdx::optional<std::string>& dataSetName = {});
       static SetGalileoSisaE1E5bIndexForSVPtr dynamicCast(CommandBasePtr ptr);
       virtual bool isValid() const override;

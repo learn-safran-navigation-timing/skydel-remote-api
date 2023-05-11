@@ -31,8 +31,12 @@ namespace Sdx
 
       GetGlonassAlmanacUnhealthyFlagForSVResult();
 
+      GetGlonassAlmanacUnhealthyFlagForSVResult(int svId, bool health);
+
       GetGlonassAlmanacUnhealthyFlagForSVResult(CommandBasePtr relatedCommand, int svId, bool health);
-  
+
+      static GetGlonassAlmanacUnhealthyFlagForSVResultPtr create(int svId, bool health);
+
       static GetGlonassAlmanacUnhealthyFlagForSVResultPtr create(CommandBasePtr relatedCommand, int svId, bool health);
       static GetGlonassAlmanacUnhealthyFlagForSVResultPtr dynamicCast(CommandBasePtr ptr);
       virtual bool isValid() const override;

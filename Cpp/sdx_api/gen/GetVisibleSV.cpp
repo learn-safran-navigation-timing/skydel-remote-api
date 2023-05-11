@@ -30,7 +30,6 @@ namespace Sdx
       setSystem(system);
     }
 
-
     GetVisibleSVPtr GetVisibleSV::create(const std::string& system)
     {
       return std::make_shared<GetVisibleSV>(system);

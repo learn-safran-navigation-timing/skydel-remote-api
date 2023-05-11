@@ -37,8 +37,12 @@ namespace Sdx
 
       GetVehicleAntennaOffsetResult();
 
+      GetVehicleAntennaOffsetResult(double x, double y, double z, double yaw, double pitch, double roll, const Sdx::optional<std::string>& name = {});
+
       GetVehicleAntennaOffsetResult(CommandBasePtr relatedCommand, double x, double y, double z, double yaw, double pitch, double roll, const Sdx::optional<std::string>& name = {});
-  
+
+      static GetVehicleAntennaOffsetResultPtr create(double x, double y, double z, double yaw, double pitch, double roll, const Sdx::optional<std::string>& name = {});
+
       static GetVehicleAntennaOffsetResultPtr create(CommandBasePtr relatedCommand, double x, double y, double z, double yaw, double pitch, double roll, const Sdx::optional<std::string>& name = {});
       static GetVehicleAntennaOffsetResultPtr dynamicCast(CommandBasePtr ptr);
       virtual bool isValid() const override;

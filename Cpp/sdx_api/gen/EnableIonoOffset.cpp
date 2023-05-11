@@ -30,7 +30,6 @@ namespace Sdx
       setIsEnabled(isEnabled);
     }
 
-
     EnableIonoOffsetPtr EnableIonoOffset::create(bool isEnabled)
     {
       return std::make_shared<EnableIonoOffset>(isEnabled);

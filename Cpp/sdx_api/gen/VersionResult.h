@@ -30,8 +30,12 @@ namespace Sdx
 
       VersionResult();
 
+      VersionResult(const std::string& version);
+
       VersionResult(CommandBasePtr relatedCommand, const std::string& version);
-  
+
+      static VersionResultPtr create(const std::string& version);
+
       static VersionResultPtr create(CommandBasePtr relatedCommand, const std::string& version);
       static VersionResultPtr dynamicCast(CommandBasePtr ptr);
       virtual bool isValid() const override;

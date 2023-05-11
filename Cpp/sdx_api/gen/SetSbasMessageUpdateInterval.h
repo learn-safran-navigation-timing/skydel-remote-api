@@ -32,7 +32,7 @@ namespace Sdx
       SetSbasMessageUpdateInterval();
 
       SetSbasMessageUpdateInterval(int message, int updateInterval);
-  
+
       static SetSbasMessageUpdateIntervalPtr create(int message, int updateInterval);
       static SetSbasMessageUpdateIntervalPtr dynamicCast(CommandBasePtr ptr);
       virtual bool isValid() const override;

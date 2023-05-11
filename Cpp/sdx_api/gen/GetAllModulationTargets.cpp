@@ -25,7 +25,6 @@ namespace Sdx
 
     }
 
-
     GetAllModulationTargetsPtr GetAllModulationTargets::create()
     {
       return std::make_shared<GetAllModulationTargets>();

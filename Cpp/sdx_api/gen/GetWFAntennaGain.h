@@ -27,7 +27,7 @@ namespace Sdx
 
 
       GetWFAntennaGain();
-  
+
       static GetWFAntennaGainPtr create();
       static GetWFAntennaGainPtr dynamicCast(CommandBasePtr ptr);
       virtual bool isValid() const override;

@@ -31,7 +31,6 @@ namespace Sdx
       setDiscardCurrentConfig(discardCurrentConfig);
     }
 
-
     OpenPtr Open::create(const std::string& path, bool discardCurrentConfig)
     {
       return std::make_shared<Open>(path, discardCurrentConfig);

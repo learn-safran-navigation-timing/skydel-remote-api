@@ -30,8 +30,12 @@ namespace Sdx
 
       GetComputerSystemTimeSinceEpochAtPps0Result();
 
+      GetComputerSystemTimeSinceEpochAtPps0Result(double milliseconds);
+
       GetComputerSystemTimeSinceEpochAtPps0Result(CommandBasePtr relatedCommand, double milliseconds);
-  
+
+      static GetComputerSystemTimeSinceEpochAtPps0ResultPtr create(double milliseconds);
+
       static GetComputerSystemTimeSinceEpochAtPps0ResultPtr create(CommandBasePtr relatedCommand, double milliseconds);
       static GetComputerSystemTimeSinceEpochAtPps0ResultPtr dynamicCast(CommandBasePtr ptr);
       virtual bool isValid() const override;

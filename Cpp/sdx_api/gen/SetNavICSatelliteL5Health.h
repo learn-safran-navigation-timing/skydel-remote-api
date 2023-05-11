@@ -36,7 +36,7 @@ namespace Sdx
       SetNavICSatelliteL5Health();
 
       SetNavICSatelliteL5Health(int svId, bool health, const Sdx::optional<std::string>& dataSetName = {});
-  
+
       static SetNavICSatelliteL5HealthPtr create(int svId, bool health, const Sdx::optional<std::string>& dataSetName = {});
       static SetNavICSatelliteL5HealthPtr dynamicCast(CommandBasePtr ptr);
       virtual bool isValid() const override;

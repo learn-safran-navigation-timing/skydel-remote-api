@@ -23,6 +23,13 @@ namespace Sdx
       : CommandResult(CmdName)
     {}
 
+    GetEngineLatencyResult::GetEngineLatencyResult(int latency)
+      : CommandResult(CmdName)
+    {
+
+      setLatency(latency);
+    }
+
     GetEngineLatencyResult::GetEngineLatencyResult(CommandBasePtr relatedCommand, int latency)
       : CommandResult(CmdName, relatedCommand)
     {
@@ -30,6 +37,11 @@ namespace Sdx
       setLatency(latency);
     }
 
+
+    GetEngineLatencyResultPtr GetEngineLatencyResult::create(int latency)
+    {
+      return std::make_shared<GetEngineLatencyResult>(latency);
+    }
 
     GetEngineLatencyResultPtr GetEngineLatencyResult::create(CommandBasePtr relatedCommand, int latency)
     {

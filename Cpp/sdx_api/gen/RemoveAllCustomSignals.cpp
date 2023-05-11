@@ -25,7 +25,6 @@ namespace Sdx
 
     }
 
-
     RemoveAllCustomSignalsPtr RemoveAllCustomSignals::create()
     {
       return std::make_shared<RemoveAllCustomSignals>();

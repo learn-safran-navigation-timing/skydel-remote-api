@@ -33,8 +33,12 @@ namespace Sdx
 
       GetIonoGridGIVEIAllResult();
 
+      GetIonoGridGIVEIAllResult(const std::vector<std::vector<int>>& grid, const Sdx::optional<std::string>& serviceProvider = {});
+
       GetIonoGridGIVEIAllResult(CommandBasePtr relatedCommand, const std::vector<std::vector<int>>& grid, const Sdx::optional<std::string>& serviceProvider = {});
-  
+
+      static GetIonoGridGIVEIAllResultPtr create(const std::vector<std::vector<int>>& grid, const Sdx::optional<std::string>& serviceProvider = {});
+
       static GetIonoGridGIVEIAllResultPtr create(CommandBasePtr relatedCommand, const std::vector<std::vector<int>>& grid, const Sdx::optional<std::string>& serviceProvider = {});
       static GetIonoGridGIVEIAllResultPtr dynamicCast(CommandBasePtr ptr);
       virtual bool isValid() const override;

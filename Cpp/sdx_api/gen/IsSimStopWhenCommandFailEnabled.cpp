@@ -25,7 +25,6 @@ namespace Sdx
 
     }
 
-
     IsSimStopWhenCommandFailEnabledPtr IsSimStopWhenCommandFailEnabled::create()
     {
       return std::make_shared<IsSimStopWhenCommandFailEnabled>();

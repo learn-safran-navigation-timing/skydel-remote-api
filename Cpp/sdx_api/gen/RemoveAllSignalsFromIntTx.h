@@ -31,7 +31,7 @@ namespace Sdx
       RemoveAllSignalsFromIntTx();
 
       RemoveAllSignalsFromIntTx(const std::string& transmitterId);
-  
+
       static RemoveAllSignalsFromIntTxPtr create(const std::string& transmitterId);
       static RemoveAllSignalsFromIntTxPtr dynamicCast(CommandBasePtr ptr);
       virtual bool isValid() const override;

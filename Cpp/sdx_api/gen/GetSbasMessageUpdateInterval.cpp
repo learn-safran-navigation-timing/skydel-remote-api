@@ -30,7 +30,6 @@ namespace Sdx
       setMessage(message);
     }
 
-
     GetSbasMessageUpdateIntervalPtr GetSbasMessageUpdateInterval::create(int message)
     {
       return std::make_shared<GetSbasMessageUpdateInterval>(message);

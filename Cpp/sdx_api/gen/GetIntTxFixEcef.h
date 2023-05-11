@@ -31,7 +31,7 @@ namespace Sdx
       GetIntTxFixEcef();
 
       GetIntTxFixEcef(const std::string& id);
-  
+
       static GetIntTxFixEcefPtr create(const std::string& id);
       static GetIntTxFixEcefPtr dynamicCast(CommandBasePtr ptr);
       virtual bool isValid() const override;

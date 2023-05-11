@@ -23,6 +23,14 @@ namespace Sdx
       : CommandResult(CmdName)
     {}
 
+    IsSbasLongTermCorrectionsEnabledForResult::IsSbasLongTermCorrectionsEnabledForResult(const std::string& system, bool isEnabled)
+      : CommandResult(CmdName)
+    {
+
+      setSystem(system);
+      setIsEnabled(isEnabled);
+    }
+
     IsSbasLongTermCorrectionsEnabledForResult::IsSbasLongTermCorrectionsEnabledForResult(CommandBasePtr relatedCommand, const std::string& system, bool isEnabled)
       : CommandResult(CmdName, relatedCommand)
     {
@@ -31,6 +39,11 @@ namespace Sdx
       setIsEnabled(isEnabled);
     }
 
+
+    IsSbasLongTermCorrectionsEnabledForResultPtr IsSbasLongTermCorrectionsEnabledForResult::create(const std::string& system, bool isEnabled)
+    {
+      return std::make_shared<IsSbasLongTermCorrectionsEnabledForResult>(system, isEnabled);
+    }
 
     IsSbasLongTermCorrectionsEnabledForResultPtr IsSbasLongTermCorrectionsEnabledForResult::create(CommandBasePtr relatedCommand, const std::string& system, bool isEnabled)
     {

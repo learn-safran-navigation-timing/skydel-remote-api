@@ -31,7 +31,6 @@ namespace Sdx
       setOffset(offset);
     }
 
-
     SetPowerOffsetPtr SetPowerOffset::create(const std::string& signal, double offset)
     {
       return std::make_shared<SetPowerOffset>(signal, offset);

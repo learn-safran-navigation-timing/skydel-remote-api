@@ -31,7 +31,6 @@ namespace Sdx
       setId(id);
     }
 
-
     SetSpoofTxIgnoreRxAntennaPatternsPtr SetSpoofTxIgnoreRxAntennaPatterns::create(bool ignore, const std::string& id)
     {
       return std::make_shared<SetSpoofTxIgnoreRxAntennaPatterns>(ignore, id);

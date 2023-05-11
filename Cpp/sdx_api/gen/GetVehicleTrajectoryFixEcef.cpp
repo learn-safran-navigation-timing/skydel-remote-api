@@ -25,7 +25,6 @@ namespace Sdx
 
     }
 
-
     GetVehicleTrajectoryFixEcefPtr GetVehicleTrajectoryFixEcef::create()
     {
       return std::make_shared<GetVehicleTrajectoryFixEcef>();

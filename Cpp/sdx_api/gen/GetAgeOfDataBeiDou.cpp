@@ -25,7 +25,6 @@ namespace Sdx
 
     }
 
-
     GetAgeOfDataBeiDouPtr GetAgeOfDataBeiDou::create()
     {
       return std::make_shared<GetAgeOfDataBeiDou>();

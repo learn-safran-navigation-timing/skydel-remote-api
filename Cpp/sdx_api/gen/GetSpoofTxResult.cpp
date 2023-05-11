@@ -23,6 +23,17 @@ namespace Sdx
       : CommandResult(CmdName)
     {}
 
+    GetSpoofTxResult::GetSpoofTxResult(const std::string& usualName, bool enabled, const std::string& address, int instanceId, const std::string& id)
+      : CommandResult(CmdName)
+    {
+
+      setUsualName(usualName);
+      setEnabled(enabled);
+      setAddress(address);
+      setInstanceId(instanceId);
+      setId(id);
+    }
+
     GetSpoofTxResult::GetSpoofTxResult(CommandBasePtr relatedCommand, const std::string& usualName, bool enabled, const std::string& address, int instanceId, const std::string& id)
       : CommandResult(CmdName, relatedCommand)
     {
@@ -34,6 +45,11 @@ namespace Sdx
       setId(id);
     }
 
+
+    GetSpoofTxResultPtr GetSpoofTxResult::create(const std::string& usualName, bool enabled, const std::string& address, int instanceId, const std::string& id)
+    {
+      return std::make_shared<GetSpoofTxResult>(usualName, enabled, address, instanceId, id);
+    }
 
     GetSpoofTxResultPtr GetSpoofTxResult::create(CommandBasePtr relatedCommand, const std::string& usualName, bool enabled, const std::string& address, int instanceId, const std::string& id)
     {

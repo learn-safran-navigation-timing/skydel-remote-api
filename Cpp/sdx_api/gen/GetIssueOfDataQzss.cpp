@@ -25,7 +25,6 @@ namespace Sdx
 
     }
 
-
     GetIssueOfDataQzssPtr GetIssueOfDataQzss::create()
     {
       return std::make_shared<GetIssueOfDataQzss>();

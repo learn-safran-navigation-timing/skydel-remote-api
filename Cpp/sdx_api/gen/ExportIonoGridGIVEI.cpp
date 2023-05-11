@@ -32,7 +32,6 @@ namespace Sdx
       setServiceProvider(serviceProvider);
     }
 
-
     ExportIonoGridGIVEIPtr ExportIonoGridGIVEI::create(bool overwriting, const std::string& path, const Sdx::optional<std::string>& serviceProvider)
     {
       return std::make_shared<ExportIonoGridGIVEI>(overwriting, path, serviceProvider);

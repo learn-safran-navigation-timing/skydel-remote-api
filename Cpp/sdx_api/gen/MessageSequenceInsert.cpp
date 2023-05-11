@@ -32,7 +32,6 @@ namespace Sdx
       setType(type);
     }
 
-
     MessageSequenceInsertPtr MessageSequenceInsert::create(const std::string& signal, int index, int type)
     {
       return std::make_shared<MessageSequenceInsert>(signal, index, type);

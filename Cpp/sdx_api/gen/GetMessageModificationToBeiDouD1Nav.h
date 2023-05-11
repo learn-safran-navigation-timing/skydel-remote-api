@@ -31,7 +31,7 @@ namespace Sdx
       GetMessageModificationToBeiDouD1Nav();
 
       GetMessageModificationToBeiDouD1Nav(const std::string& id);
-  
+
       static GetMessageModificationToBeiDouD1NavPtr create(const std::string& id);
       static GetMessageModificationToBeiDouD1NavPtr dynamicCast(CommandBasePtr ptr);
       virtual bool isValid() const override;

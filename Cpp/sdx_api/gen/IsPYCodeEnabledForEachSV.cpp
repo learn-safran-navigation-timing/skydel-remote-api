@@ -30,7 +30,6 @@ namespace Sdx
       setSignal(signal);
     }
 
-
     IsPYCodeEnabledForEachSVPtr IsPYCodeEnabledForEachSV::create(const std::string& signal)
     {
       return std::make_shared<IsPYCodeEnabledForEachSV>(signal);

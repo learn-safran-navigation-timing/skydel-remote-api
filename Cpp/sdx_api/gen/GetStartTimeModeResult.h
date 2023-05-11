@@ -30,8 +30,12 @@ namespace Sdx
 
       GetStartTimeModeResult();
 
+      GetStartTimeModeResult(const std::string& mode);
+
       GetStartTimeModeResult(CommandBasePtr relatedCommand, const std::string& mode);
-  
+
+      static GetStartTimeModeResultPtr create(const std::string& mode);
+
       static GetStartTimeModeResultPtr create(CommandBasePtr relatedCommand, const std::string& mode);
       static GetStartTimeModeResultPtr dynamicCast(CommandBasePtr ptr);
       virtual bool isValid() const override;

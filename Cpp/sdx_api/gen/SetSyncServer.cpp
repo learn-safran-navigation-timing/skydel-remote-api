@@ -30,7 +30,6 @@ namespace Sdx
       setPort(port);
     }
 
-
     SetSyncServerPtr SetSyncServer::create(int port)
     {
       return std::make_shared<SetSyncServer>(port);

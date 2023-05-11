@@ -23,6 +23,14 @@ namespace Sdx
       : CommandResult(CmdName)
     {}
 
+    IsPropagationDelayEnabledResult::IsPropagationDelayEnabledResult(const std::string& system, bool enabled)
+      : CommandResult(CmdName)
+    {
+
+      setSystem(system);
+      setEnabled(enabled);
+    }
+
     IsPropagationDelayEnabledResult::IsPropagationDelayEnabledResult(CommandBasePtr relatedCommand, const std::string& system, bool enabled)
       : CommandResult(CmdName, relatedCommand)
     {
@@ -31,6 +39,11 @@ namespace Sdx
       setEnabled(enabled);
     }
 
+
+    IsPropagationDelayEnabledResultPtr IsPropagationDelayEnabledResult::create(const std::string& system, bool enabled)
+    {
+      return std::make_shared<IsPropagationDelayEnabledResult>(system, enabled);
+    }
 
     IsPropagationDelayEnabledResultPtr IsPropagationDelayEnabledResult::create(CommandBasePtr relatedCommand, const std::string& system, bool enabled)
     {

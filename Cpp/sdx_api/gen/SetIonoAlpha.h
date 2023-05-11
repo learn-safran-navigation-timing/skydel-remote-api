@@ -36,7 +36,7 @@ namespace Sdx
       SetIonoAlpha();
 
       SetIonoAlpha(int index, double val);
-  
+
       static SetIonoAlphaPtr create(int index, double val);
       static SetIonoAlphaPtr dynamicCast(CommandBasePtr ptr);
       virtual bool isValid() const override;

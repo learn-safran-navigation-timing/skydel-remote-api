@@ -23,6 +23,21 @@ namespace Sdx
       : CommandResult(CmdName)
     {}
 
+    GetMessageModificationToGlonassNavResult::GetMessageModificationToGlonassNavResult(const std::vector<std::string>& signalArray, int svId, int startTime, int stopTime, int frame, int stringNumber, bool updateHammingCode, const std::string& stringModification, const std::string& id)
+      : CommandResult(CmdName)
+    {
+
+      setSignalArray(signalArray);
+      setSvId(svId);
+      setStartTime(startTime);
+      setStopTime(stopTime);
+      setFrame(frame);
+      setStringNumber(stringNumber);
+      setUpdateHammingCode(updateHammingCode);
+      setStringModification(stringModification);
+      setId(id);
+    }
+
     GetMessageModificationToGlonassNavResult::GetMessageModificationToGlonassNavResult(CommandBasePtr relatedCommand, const std::vector<std::string>& signalArray, int svId, int startTime, int stopTime, int frame, int stringNumber, bool updateHammingCode, const std::string& stringModification, const std::string& id)
       : CommandResult(CmdName, relatedCommand)
     {
@@ -38,6 +53,11 @@ namespace Sdx
       setId(id);
     }
 
+
+    GetMessageModificationToGlonassNavResultPtr GetMessageModificationToGlonassNavResult::create(const std::vector<std::string>& signalArray, int svId, int startTime, int stopTime, int frame, int stringNumber, bool updateHammingCode, const std::string& stringModification, const std::string& id)
+    {
+      return std::make_shared<GetMessageModificationToGlonassNavResult>(signalArray, svId, startTime, stopTime, frame, stringNumber, updateHammingCode, stringModification, id);
+    }
 
     GetMessageModificationToGlonassNavResultPtr GetMessageModificationToGlonassNavResult::create(CommandBasePtr relatedCommand, const std::vector<std::string>& signalArray, int svId, int startTime, int stopTime, int frame, int stringNumber, bool updateHammingCode, const std::string& stringModification, const std::string& id)
     {

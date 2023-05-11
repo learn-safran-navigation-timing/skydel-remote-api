@@ -34,8 +34,12 @@ namespace Sdx
 
       GetGalileoSignalHealthForSVResult();
 
+      GetGalileoSignalHealthForSVResult(int svId, const std::string& component, int health, const Sdx::optional<std::string>& dataSetName = {});
+
       GetGalileoSignalHealthForSVResult(CommandBasePtr relatedCommand, int svId, const std::string& component, int health, const Sdx::optional<std::string>& dataSetName = {});
-  
+
+      static GetGalileoSignalHealthForSVResultPtr create(int svId, const std::string& component, int health, const Sdx::optional<std::string>& dataSetName = {});
+
       static GetGalileoSignalHealthForSVResultPtr create(CommandBasePtr relatedCommand, int svId, const std::string& component, int health, const Sdx::optional<std::string>& dataSetName = {});
       static GetGalileoSignalHealthForSVResultPtr dynamicCast(CommandBasePtr ptr);
       virtual bool isValid() const override;

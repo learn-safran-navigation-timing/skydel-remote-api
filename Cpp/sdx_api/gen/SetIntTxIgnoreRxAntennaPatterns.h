@@ -32,7 +32,7 @@ namespace Sdx
       SetIntTxIgnoreRxAntennaPatterns();
 
       SetIntTxIgnoreRxAntennaPatterns(bool ignore, const std::string& id);
-  
+
       static SetIntTxIgnoreRxAntennaPatternsPtr create(bool ignore, const std::string& id);
       static SetIntTxIgnoreRxAntennaPatternsPtr dynamicCast(CommandBasePtr ptr);
       virtual bool isValid() const override;

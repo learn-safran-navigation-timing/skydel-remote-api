@@ -27,7 +27,7 @@ namespace Sdx
 
 
       GetAllVehicleAntennaNames();
-  
+
       static GetAllVehicleAntennaNamesPtr create();
       static GetAllVehicleAntennaNamesPtr dynamicCast(CommandBasePtr ptr);
       virtual bool isValid() const override;

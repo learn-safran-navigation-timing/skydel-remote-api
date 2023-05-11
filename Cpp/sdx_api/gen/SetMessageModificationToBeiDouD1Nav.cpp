@@ -39,7 +39,6 @@ namespace Sdx
       setId(id);
     }
 
-
     SetMessageModificationToBeiDouD1NavPtr SetMessageModificationToBeiDouD1Nav::create(const std::vector<std::string>& signalArray, int svId, int startTime, int stopTime, int subframe, int page, int word, bool updateParity, const std::string& wordModification, const std::string& id)
     {
       return std::make_shared<SetMessageModificationToBeiDouD1Nav>(signalArray, svId, startTime, stopTime, subframe, page, word, updateParity, wordModification, id);

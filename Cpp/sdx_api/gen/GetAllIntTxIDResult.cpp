@@ -23,6 +23,13 @@ namespace Sdx
       : CommandResult(CmdName)
     {}
 
+    GetAllIntTxIDResult::GetAllIntTxIDResult(const std::vector<std::string>& ids)
+      : CommandResult(CmdName)
+    {
+
+      setIds(ids);
+    }
+
     GetAllIntTxIDResult::GetAllIntTxIDResult(CommandBasePtr relatedCommand, const std::vector<std::string>& ids)
       : CommandResult(CmdName, relatedCommand)
     {
@@ -30,6 +37,11 @@ namespace Sdx
       setIds(ids);
     }
 
+
+    GetAllIntTxIDResultPtr GetAllIntTxIDResult::create(const std::vector<std::string>& ids)
+    {
+      return std::make_shared<GetAllIntTxIDResult>(ids);
+    }
 
     GetAllIntTxIDResultPtr GetAllIntTxIDResult::create(CommandBasePtr relatedCommand, const std::vector<std::string>& ids)
     {

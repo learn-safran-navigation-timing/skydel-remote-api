@@ -31,7 +31,7 @@ namespace Sdx
       RemoveCustomSignal();
 
       RemoveCustomSignal(const std::string& id);
-  
+
       static RemoveCustomSignalPtr create(const std::string& id);
       static RemoveCustomSignalPtr dynamicCast(CommandBasePtr ptr);
       virtual bool isValid() const override;

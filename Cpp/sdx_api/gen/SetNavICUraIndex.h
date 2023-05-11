@@ -36,7 +36,7 @@ namespace Sdx
       SetNavICUraIndex();
 
       SetNavICUraIndex(int svId, int urai, const Sdx::optional<std::string>& dataSetName = {});
-  
+
       static SetNavICUraIndexPtr create(int svId, int urai, const Sdx::optional<std::string>& dataSetName = {});
       static SetNavICUraIndexPtr dynamicCast(CommandBasePtr ptr);
       virtual bool isValid() const override;

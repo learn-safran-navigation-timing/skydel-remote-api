@@ -32,7 +32,7 @@ namespace Sdx
       EnableSlavePps();
 
       EnableSlavePps(bool enabled);
-  
+
       static EnableSlavePpsPtr create(bool enabled);
       static EnableSlavePpsPtr dynamicCast(CommandBasePtr ptr);
       virtual bool isValid() const override;

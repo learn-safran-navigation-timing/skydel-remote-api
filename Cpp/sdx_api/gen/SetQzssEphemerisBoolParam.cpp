@@ -33,7 +33,6 @@ namespace Sdx
       setDataSetName(dataSetName);
     }
 
-
     SetQzssEphemerisBoolParamPtr SetQzssEphemerisBoolParam::create(int svId, const std::string& paramName, bool val, const Sdx::optional<std::string>& dataSetName)
     {
       return std::make_shared<SetQzssEphemerisBoolParam>(svId, paramName, val, dataSetName);

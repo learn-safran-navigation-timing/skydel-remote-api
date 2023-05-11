@@ -30,7 +30,6 @@ namespace Sdx
       setSignal(signal);
     }
 
-
     ClearAllMessageModificationsPtr ClearAllMessageModifications::create(const std::string& signal)
     {
       return std::make_shared<ClearAllMessageModifications>(signal);

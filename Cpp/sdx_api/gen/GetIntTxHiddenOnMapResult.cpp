@@ -23,6 +23,14 @@ namespace Sdx
       : CommandResult(CmdName)
     {}
 
+    GetIntTxHiddenOnMapResult::GetIntTxHiddenOnMapResult(bool hiddenOnMap, const std::string& id)
+      : CommandResult(CmdName)
+    {
+
+      setHiddenOnMap(hiddenOnMap);
+      setId(id);
+    }
+
     GetIntTxHiddenOnMapResult::GetIntTxHiddenOnMapResult(CommandBasePtr relatedCommand, bool hiddenOnMap, const std::string& id)
       : CommandResult(CmdName, relatedCommand)
     {
@@ -31,6 +39,11 @@ namespace Sdx
       setId(id);
     }
 
+
+    GetIntTxHiddenOnMapResultPtr GetIntTxHiddenOnMapResult::create(bool hiddenOnMap, const std::string& id)
+    {
+      return std::make_shared<GetIntTxHiddenOnMapResult>(hiddenOnMap, id);
+    }
 
     GetIntTxHiddenOnMapResultPtr GetIntTxHiddenOnMapResult::create(CommandBasePtr relatedCommand, bool hiddenOnMap, const std::string& id)
     {

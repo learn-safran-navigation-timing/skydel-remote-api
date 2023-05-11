@@ -23,6 +23,13 @@ namespace Sdx
       : CommandResult(CmdName)
     {}
 
+    FailureResult::FailureResult(const std::string& errorMsg)
+      : CommandResult(CmdName)
+    {
+
+      setErrorMsg(errorMsg);
+    }
+
     FailureResult::FailureResult(CommandBasePtr relatedCommand, const std::string& errorMsg)
       : CommandResult(CmdName, relatedCommand)
     {
@@ -30,6 +37,11 @@ namespace Sdx
       setErrorMsg(errorMsg);
     }
 
+
+    FailureResultPtr FailureResult::create(const std::string& errorMsg)
+    {
+      return std::make_shared<FailureResult>(errorMsg);
+    }
 
     FailureResultPtr FailureResult::create(CommandBasePtr relatedCommand, const std::string& errorMsg)
     {

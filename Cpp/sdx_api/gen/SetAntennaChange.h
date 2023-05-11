@@ -33,7 +33,7 @@ namespace Sdx
       SetAntennaChange();
 
       SetAntennaChange(double startTime, const std::string& antenna, const std::string& id);
-  
+
       static SetAntennaChangePtr create(double startTime, const std::string& antenna, const std::string& id);
       static SetAntennaChangePtr dynamicCast(CommandBasePtr ptr);
       virtual bool isValid() const override;

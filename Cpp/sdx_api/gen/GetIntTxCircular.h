@@ -31,7 +31,7 @@ namespace Sdx
       GetIntTxCircular();
 
       GetIntTxCircular(const std::string& id);
-  
+
       static GetIntTxCircularPtr create(const std::string& id);
       static GetIntTxCircularPtr dynamicCast(CommandBasePtr ptr);
       virtual bool isValid() const override;

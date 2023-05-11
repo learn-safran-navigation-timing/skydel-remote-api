@@ -27,7 +27,7 @@ namespace Sdx
 
 
       GetIssueOfDataQzss();
-  
+
       static GetIssueOfDataQzssPtr create();
       static GetIssueOfDataQzssPtr dynamicCast(CommandBasePtr ptr);
       virtual bool isValid() const override;

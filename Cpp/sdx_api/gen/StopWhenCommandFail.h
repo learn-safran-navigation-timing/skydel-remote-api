@@ -31,7 +31,7 @@ namespace Sdx
       StopWhenCommandFail();
 
       StopWhenCommandFail(bool enabled);
-  
+
       static StopWhenCommandFailPtr create(bool enabled);
       static StopWhenCommandFailPtr dynamicCast(CommandBasePtr ptr);
       virtual bool isValid() const override;

@@ -32,8 +32,12 @@ namespace Sdx
 
       IsSVEnabledResult();
 
+      IsSVEnabledResult(const std::string& system, int svId, bool enabled);
+
       IsSVEnabledResult(CommandBasePtr relatedCommand, const std::string& system, int svId, bool enabled);
-  
+
+      static IsSVEnabledResultPtr create(const std::string& system, int svId, bool enabled);
+
       static IsSVEnabledResultPtr create(CommandBasePtr relatedCommand, const std::string& system, int svId, bool enabled);
       static IsSVEnabledResultPtr dynamicCast(CommandBasePtr ptr);
       virtual bool isValid() const override;

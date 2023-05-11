@@ -33,7 +33,6 @@ namespace Sdx
       setZ(z);
     }
 
-
     PushRouteEcefPtr PushRouteEcef::create(double speed, double x, double y, double z)
     {
       return std::make_shared<PushRouteEcef>(speed, x, y, z);

@@ -27,7 +27,7 @@ namespace Sdx
 
 
       GetConfigBroadcastFilter();
-  
+
       static GetConfigBroadcastFilterPtr create();
       static GetConfigBroadcastFilterPtr dynamicCast(CommandBasePtr ptr);
       virtual bool isValid() const override;

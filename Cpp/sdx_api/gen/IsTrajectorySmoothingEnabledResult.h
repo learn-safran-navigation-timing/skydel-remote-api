@@ -30,8 +30,12 @@ namespace Sdx
 
       IsTrajectorySmoothingEnabledResult();
 
+      IsTrajectorySmoothingEnabledResult(bool enabled);
+
       IsTrajectorySmoothingEnabledResult(CommandBasePtr relatedCommand, bool enabled);
-  
+
+      static IsTrajectorySmoothingEnabledResultPtr create(bool enabled);
+
       static IsTrajectorySmoothingEnabledResultPtr create(CommandBasePtr relatedCommand, bool enabled);
       static IsTrajectorySmoothingEnabledResultPtr dynamicCast(CommandBasePtr ptr);
       virtual bool isValid() const override;

@@ -31,7 +31,7 @@ namespace Sdx
       StartPPS();
 
       StartPPS(int msec);
-  
+
       static StartPPSPtr create(int msec);
       static StartPPSPtr dynamicCast(CommandBasePtr ptr);
       virtual bool isValid() const override;

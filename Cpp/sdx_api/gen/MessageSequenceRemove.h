@@ -32,7 +32,7 @@ namespace Sdx
       MessageSequenceRemove();
 
       MessageSequenceRemove(const std::string& signal, int index);
-  
+
       static MessageSequenceRemovePtr create(const std::string& signal, int index);
       static MessageSequenceRemovePtr dynamicCast(CommandBasePtr ptr);
       virtual bool isValid() const override;

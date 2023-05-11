@@ -32,7 +32,7 @@ namespace Sdx
       ClearSpoofTxGpuIdx();
 
       ClearSpoofTxGpuIdx(int signalId, const std::string& id);
-  
+
       static ClearSpoofTxGpuIdxPtr create(int signalId, const std::string& id);
       static ClearSpoofTxGpuIdxPtr dynamicCast(CommandBasePtr ptr);
       virtual bool isValid() const override;

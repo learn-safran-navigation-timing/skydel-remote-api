@@ -36,7 +36,6 @@ namespace Sdx
       setId(id);
     }
 
-
     SetSpoofTxFixPtr SetSpoofTxFix::create(double lat, double lon, double alt, double yaw, double pitch, double roll, const std::string& id)
     {
       return std::make_shared<SetSpoofTxFix>(lat, lon, alt, yaw, pitch, roll, id);

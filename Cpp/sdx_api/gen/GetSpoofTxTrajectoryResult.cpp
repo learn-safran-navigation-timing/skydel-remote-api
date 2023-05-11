@@ -23,6 +23,14 @@ namespace Sdx
       : CommandResult(CmdName)
     {}
 
+    GetSpoofTxTrajectoryResult::GetSpoofTxTrajectoryResult(const std::string& trajectoryType, const std::string& id)
+      : CommandResult(CmdName)
+    {
+
+      setTrajectoryType(trajectoryType);
+      setId(id);
+    }
+
     GetSpoofTxTrajectoryResult::GetSpoofTxTrajectoryResult(CommandBasePtr relatedCommand, const std::string& trajectoryType, const std::string& id)
       : CommandResult(CmdName, relatedCommand)
     {
@@ -31,6 +39,11 @@ namespace Sdx
       setId(id);
     }
 
+
+    GetSpoofTxTrajectoryResultPtr GetSpoofTxTrajectoryResult::create(const std::string& trajectoryType, const std::string& id)
+    {
+      return std::make_shared<GetSpoofTxTrajectoryResult>(trajectoryType, id);
+    }
 
     GetSpoofTxTrajectoryResultPtr GetSpoofTxTrajectoryResult::create(CommandBasePtr relatedCommand, const std::string& trajectoryType, const std::string& id)
     {

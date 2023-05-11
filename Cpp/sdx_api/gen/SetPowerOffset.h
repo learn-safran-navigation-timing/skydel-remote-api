@@ -18,7 +18,7 @@ namespace Sdx
     /// ------ ------ -----------------------------------------------------------------------------------------------
     /// Signal string Accepted signal keys: "L1CA", "L1C", "L1P", "L1ME", "L1MR", "L2C", "L2P", "L2ME", "L2MR", "L5",
     ///                                     "G1", "G2", "E1", "E1PRS", "E5a", "E5b", "E6BC", "E6PRS",
-    ///                                     "B1", "B2", "B1C", "B2a", "QZSSL1CA", "QZSSL1CB", "QZSSL1C",
+    ///                                     "B1", "B2", "B1C", "B2a", "B3I", "QZSSL1CA", "QZSSL1CB", "QZSSL1C",
     ///                                     "QZSSL2C", "QZSSL5", "QZSSL1S", "QZSSL5S", "NAVICL5"
     /// Offset double Offset in dB (negative value will attenuate signal)
     ///
@@ -37,7 +37,7 @@ namespace Sdx
       SetPowerOffset();
 
       SetPowerOffset(const std::string& signal, double offset);
-  
+
       static SetPowerOffsetPtr create(const std::string& signal, double offset);
       static SetPowerOffsetPtr dynamicCast(CommandBasePtr ptr);
       virtual bool isValid() const override;

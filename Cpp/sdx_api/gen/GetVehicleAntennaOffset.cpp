@@ -26,7 +26,6 @@ namespace Sdx
       setName(name);
     }
 
-
     GetVehicleAntennaOffsetPtr GetVehicleAntennaOffset::create(const Sdx::optional<std::string>& name)
     {
       return std::make_shared<GetVehicleAntennaOffset>(name);

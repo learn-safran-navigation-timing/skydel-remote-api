@@ -30,7 +30,6 @@ namespace Sdx
       setGroup(group);
     }
 
-
     RemoveModulationAnechoicTargetInterferencePtr RemoveModulationAnechoicTargetInterference::create(int group)
     {
       return std::make_shared<RemoveModulationAnechoicTargetInterference>(group);

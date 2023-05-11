@@ -33,7 +33,7 @@ namespace Sdx
       SetGpu();
 
       SetGpu(int gpuIdx, int output, const std::string& id);
-  
+
       static SetGpuPtr create(int gpuIdx, int output, const std::string& id);
       static SetGpuPtr dynamicCast(CommandBasePtr ptr);
       virtual bool isValid() const override;

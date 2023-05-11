@@ -31,7 +31,6 @@ namespace Sdx
       setEnabled(enabled);
     }
 
-
     SetPropagationDelayPtr SetPropagationDelay::create(const std::string& system, bool enabled)
     {
       return std::make_shared<SetPropagationDelay>(system, enabled);

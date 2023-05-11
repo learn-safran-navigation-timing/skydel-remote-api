@@ -31,7 +31,6 @@ namespace Sdx
       setSignalId(signalId);
     }
 
-
     GetIntTxIqFilePtr GetIntTxIqFile::create(const std::string& transmitterId, const std::string& signalId)
     {
       return std::make_shared<GetIntTxIqFile>(transmitterId, signalId);

@@ -31,7 +31,7 @@ namespace Sdx
       GetSpoofTxTrajectory();
 
       GetSpoofTxTrajectory(const std::string& id);
-  
+
       static GetSpoofTxTrajectoryPtr create(const std::string& id);
       static GetSpoofTxTrajectoryPtr dynamicCast(CommandBasePtr ptr);
       virtual bool isValid() const override;

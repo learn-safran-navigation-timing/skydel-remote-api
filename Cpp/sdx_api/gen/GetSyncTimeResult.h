@@ -30,8 +30,12 @@ namespace Sdx
 
       GetSyncTimeResult();
 
+      GetSyncTimeResult(double time);
+
       GetSyncTimeResult(CommandBasePtr relatedCommand, double time);
-  
+
+      static GetSyncTimeResultPtr create(double time);
+
       static GetSyncTimeResultPtr create(CommandBasePtr relatedCommand, double time);
       static GetSyncTimeResultPtr dynamicCast(CommandBasePtr ptr);
       virtual bool isValid() const override;

@@ -32,7 +32,6 @@ namespace Sdx
       setDataSetName(dataSetName);
     }
 
-
     SetGalileoEphemerisDoubleParamsPtr SetGalileoEphemerisDoubleParams::create(const std::string& paramName, const std::vector<double>& val, const Sdx::optional<std::string>& dataSetName)
     {
       return std::make_shared<SetGalileoEphemerisDoubleParams>(paramName, val, dataSetName);

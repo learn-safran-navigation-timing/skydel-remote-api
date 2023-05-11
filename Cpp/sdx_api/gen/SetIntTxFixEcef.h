@@ -37,7 +37,7 @@ namespace Sdx
       SetIntTxFixEcef();
 
       SetIntTxFixEcef(double x, double y, double z, double yaw, double pitch, double roll, const std::string& id);
-  
+
       static SetIntTxFixEcefPtr create(double x, double y, double z, double yaw, double pitch, double roll, const std::string& id);
       static SetIntTxFixEcefPtr dynamicCast(CommandBasePtr ptr);
       virtual bool isValid() const override;

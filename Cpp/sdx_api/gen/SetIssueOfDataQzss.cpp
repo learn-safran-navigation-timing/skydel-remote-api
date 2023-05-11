@@ -32,7 +32,6 @@ namespace Sdx
       setOverrideRinex(overrideRinex);
     }
 
-
     SetIssueOfDataQzssPtr SetIssueOfDataQzss::create(int clock, int ephemeris, const Sdx::optional<bool>& overrideRinex)
     {
       return std::make_shared<SetIssueOfDataQzss>(clock, ephemeris, overrideRinex);

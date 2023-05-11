@@ -30,7 +30,6 @@ namespace Sdx
       setEnabled(enabled);
     }
 
-
     StopMasterWhenSlaveStopPtr StopMasterWhenSlaveStop::create(bool enabled)
     {
       return std::make_shared<StopMasterWhenSlaveStop>(enabled);

@@ -32,7 +32,7 @@ namespace Sdx
       AddEmptySVAntennaModel();
 
       AddEmptySVAntennaModel(const std::string& name, const std::string& system);
-  
+
       static AddEmptySVAntennaModelPtr create(const std::string& name, const std::string& system);
       static AddEmptySVAntennaModelPtr dynamicCast(CommandBasePtr ptr);
       virtual bool isValid() const override;

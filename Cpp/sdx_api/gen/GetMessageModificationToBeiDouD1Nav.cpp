@@ -30,7 +30,6 @@ namespace Sdx
       setId(id);
     }
 
-
     GetMessageModificationToBeiDouD1NavPtr GetMessageModificationToBeiDouD1Nav::create(const std::string& id)
     {
       return std::make_shared<GetMessageModificationToBeiDouD1Nav>(id);

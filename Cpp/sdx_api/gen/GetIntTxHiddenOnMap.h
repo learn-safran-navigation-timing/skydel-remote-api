@@ -31,7 +31,7 @@ namespace Sdx
       GetIntTxHiddenOnMap();
 
       GetIntTxHiddenOnMap(const std::string& id);
-  
+
       static GetIntTxHiddenOnMapPtr create(const std::string& id);
       static GetIntTxHiddenOnMapPtr dynamicCast(CommandBasePtr ptr);
       virtual bool isValid() const override;

@@ -23,6 +23,19 @@ namespace Sdx
       : CommandResult(CmdName)
     {}
 
+    GetIntTxIqFileResult::GetIntTxIqFileResult(bool enabled, double centralFreq, double power, const std::string& path, const std::string& transmitterId, const std::string& signalId, const Sdx::optional<int>& group)
+      : CommandResult(CmdName)
+    {
+
+      setEnabled(enabled);
+      setCentralFreq(centralFreq);
+      setPower(power);
+      setPath(path);
+      setTransmitterId(transmitterId);
+      setSignalId(signalId);
+      setGroup(group);
+    }
+
     GetIntTxIqFileResult::GetIntTxIqFileResult(CommandBasePtr relatedCommand, bool enabled, double centralFreq, double power, const std::string& path, const std::string& transmitterId, const std::string& signalId, const Sdx::optional<int>& group)
       : CommandResult(CmdName, relatedCommand)
     {
@@ -36,6 +49,11 @@ namespace Sdx
       setGroup(group);
     }
 
+
+    GetIntTxIqFileResultPtr GetIntTxIqFileResult::create(bool enabled, double centralFreq, double power, const std::string& path, const std::string& transmitterId, const std::string& signalId, const Sdx::optional<int>& group)
+    {
+      return std::make_shared<GetIntTxIqFileResult>(enabled, centralFreq, power, path, transmitterId, signalId, group);
+    }
 
     GetIntTxIqFileResultPtr GetIntTxIqFileResult::create(CommandBasePtr relatedCommand, bool enabled, double centralFreq, double power, const std::string& path, const std::string& transmitterId, const std::string& signalId, const Sdx::optional<int>& group)
     {

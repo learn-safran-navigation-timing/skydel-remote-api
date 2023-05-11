@@ -32,7 +32,7 @@ namespace Sdx
       SetWFAntennaElementEnabled();
 
       SetWFAntennaElementEnabled(int element, bool enabled);
-  
+
       static SetWFAntennaElementEnabledPtr create(int element, bool enabled);
       static SetWFAntennaElementEnabledPtr dynamicCast(CommandBasePtr ptr);
       virtual bool isValid() const override;

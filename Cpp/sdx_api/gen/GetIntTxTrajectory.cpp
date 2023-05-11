@@ -30,7 +30,6 @@ namespace Sdx
       setId(id);
     }
 
-
     GetIntTxTrajectoryPtr GetIntTxTrajectory::create(const std::string& id)
     {
       return std::make_shared<GetIntTxTrajectory>(id);

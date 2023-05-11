@@ -31,7 +31,7 @@ namespace Sdx
       ClearAllMessageModificationsForNavMsgFamily();
 
       ClearAllMessageModificationsForNavMsgFamily(const std::string& navMsgFamily);
-  
+
       static ClearAllMessageModificationsForNavMsgFamilyPtr create(const std::string& navMsgFamily);
       static ClearAllMessageModificationsForNavMsgFamilyPtr dynamicCast(CommandBasePtr ptr);
       virtual bool isValid() const override;

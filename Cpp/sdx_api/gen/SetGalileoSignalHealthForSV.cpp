@@ -33,7 +33,6 @@ namespace Sdx
       setDataSetName(dataSetName);
     }
 
-
     SetGalileoSignalHealthForSVPtr SetGalileoSignalHealthForSV::create(int svId, const std::string& component, int health, const Sdx::optional<std::string>& dataSetName)
     {
       return std::make_shared<SetGalileoSignalHealthForSV>(svId, component, health, dataSetName);

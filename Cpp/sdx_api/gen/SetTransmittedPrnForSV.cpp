@@ -31,7 +31,6 @@ namespace Sdx
       setSignalPrnDict(signalPrnDict);
     }
 
-
     SetTransmittedPrnForSVPtr SetTransmittedPrnForSV::create(int svId, const std::map<std::string, int>& signalPrnDict)
     {
       return std::make_shared<SetTransmittedPrnForSV>(svId, signalPrnDict);

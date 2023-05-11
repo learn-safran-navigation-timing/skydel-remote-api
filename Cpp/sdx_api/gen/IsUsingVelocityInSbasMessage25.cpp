@@ -25,7 +25,6 @@ namespace Sdx
 
     }
 
-
     IsUsingVelocityInSbasMessage25Ptr IsUsingVelocityInSbasMessage25::create()
     {
       return std::make_shared<IsUsingVelocityInSbasMessage25>();

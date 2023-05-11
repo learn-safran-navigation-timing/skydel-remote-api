@@ -32,7 +32,7 @@ namespace Sdx
       GetAllMessageModificationIdsForNavMsgFamily();
 
       GetAllMessageModificationIdsForNavMsgFamily(const std::string& navMsgFamily, int svId);
-  
+
       static GetAllMessageModificationIdsForNavMsgFamilyPtr create(const std::string& navMsgFamily, int svId);
       static GetAllMessageModificationIdsForNavMsgFamilyPtr dynamicCast(CommandBasePtr ptr);
       virtual bool isValid() const override;

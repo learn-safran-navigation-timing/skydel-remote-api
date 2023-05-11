@@ -23,6 +23,15 @@ namespace Sdx
       : CommandResult(CmdName)
     {}
 
+    GetPrnOfSVIDResult::GetPrnOfSVIDResult(const std::string& signal, int svId, int prn)
+      : CommandResult(CmdName)
+    {
+
+      setSignal(signal);
+      setSvId(svId);
+      setPrn(prn);
+    }
+
     GetPrnOfSVIDResult::GetPrnOfSVIDResult(CommandBasePtr relatedCommand, const std::string& signal, int svId, int prn)
       : CommandResult(CmdName, relatedCommand)
     {
@@ -32,6 +41,11 @@ namespace Sdx
       setPrn(prn);
     }
 
+
+    GetPrnOfSVIDResultPtr GetPrnOfSVIDResult::create(const std::string& signal, int svId, int prn)
+    {
+      return std::make_shared<GetPrnOfSVIDResult>(signal, svId, prn);
+    }
 
     GetPrnOfSVIDResultPtr GetPrnOfSVIDResult::create(CommandBasePtr relatedCommand, const std::string& signal, int svId, int prn)
     {

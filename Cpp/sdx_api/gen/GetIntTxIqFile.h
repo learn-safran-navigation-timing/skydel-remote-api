@@ -32,7 +32,7 @@ namespace Sdx
       GetIntTxIqFile();
 
       GetIntTxIqFile(const std::string& transmitterId, const std::string& signalId);
-  
+
       static GetIntTxIqFilePtr create(const std::string& transmitterId, const std::string& signalId);
       static GetIntTxIqFilePtr dynamicCast(CommandBasePtr ptr);
       virtual bool isValid() const override;

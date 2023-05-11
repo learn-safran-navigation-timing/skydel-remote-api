@@ -27,7 +27,7 @@ namespace Sdx
 
 
       GetSimulatorState();
-  
+
       static GetSimulatorStatePtr create();
       static GetSimulatorStatePtr dynamicCast(CommandBasePtr ptr);
       virtual bool isValid() const override;

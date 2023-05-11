@@ -23,6 +23,18 @@ namespace Sdx
       : CommandResult(CmdName)
     {}
 
+    GetIntTxResult::GetIntTxResult(const std::string& usualName, bool enabled, int group, bool dynamic, double power, const std::string& id)
+      : CommandResult(CmdName)
+    {
+
+      setUsualName(usualName);
+      setEnabled(enabled);
+      setGroup(group);
+      setDynamic(dynamic);
+      setPower(power);
+      setId(id);
+    }
+
     GetIntTxResult::GetIntTxResult(CommandBasePtr relatedCommand, const std::string& usualName, bool enabled, int group, bool dynamic, double power, const std::string& id)
       : CommandResult(CmdName, relatedCommand)
     {
@@ -35,6 +47,11 @@ namespace Sdx
       setId(id);
     }
 
+
+    GetIntTxResultPtr GetIntTxResult::create(const std::string& usualName, bool enabled, int group, bool dynamic, double power, const std::string& id)
+    {
+      return std::make_shared<GetIntTxResult>(usualName, enabled, group, dynamic, power, id);
+    }
 
     GetIntTxResultPtr GetIntTxResult::create(CommandBasePtr relatedCommand, const std::string& usualName, bool enabled, int group, bool dynamic, double power, const std::string& id)
     {

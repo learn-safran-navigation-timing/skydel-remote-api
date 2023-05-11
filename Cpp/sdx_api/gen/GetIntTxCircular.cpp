@@ -30,7 +30,6 @@ namespace Sdx
       setId(id);
     }
 
-
     GetIntTxCircularPtr GetIntTxCircular::create(const std::string& id)
     {
       return std::make_shared<GetIntTxCircular>(id);

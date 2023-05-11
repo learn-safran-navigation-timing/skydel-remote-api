@@ -37,7 +37,7 @@ namespace Sdx
       SetSbasServiceMessageRegionGroup();
 
       SetSbasServiceMessageRegionGroup(const std::string& serviceProvider, int deltaUdrei, int priorityCode, const std::vector<Sdx::SbasServiceMessageRegion>& regions, const std::string& id);
-  
+
       static SetSbasServiceMessageRegionGroupPtr create(const std::string& serviceProvider, int deltaUdrei, int priorityCode, const std::vector<Sdx::SbasServiceMessageRegion>& regions, const std::string& id);
       static SetSbasServiceMessageRegionGroupPtr dynamicCast(CommandBasePtr ptr);
       virtual bool isValid() const override;

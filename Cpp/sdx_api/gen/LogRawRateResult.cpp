@@ -23,6 +23,13 @@ namespace Sdx
       : CommandResult(CmdName)
     {}
 
+    LogRawRateResult::LogRawRateResult(int rate)
+      : CommandResult(CmdName)
+    {
+
+      setRate(rate);
+    }
+
     LogRawRateResult::LogRawRateResult(CommandBasePtr relatedCommand, int rate)
       : CommandResult(CmdName, relatedCommand)
     {
@@ -30,6 +37,11 @@ namespace Sdx
       setRate(rate);
     }
 
+
+    LogRawRateResultPtr LogRawRateResult::create(int rate)
+    {
+      return std::make_shared<LogRawRateResult>(rate);
+    }
 
     LogRawRateResultPtr LogRawRateResult::create(CommandBasePtr relatedCommand, int rate)
     {

@@ -31,7 +31,6 @@ namespace Sdx
       setDataSetName(dataSetName);
     }
 
-
     GetBeiDouEphemerisDoubleParamsPtr GetBeiDouEphemerisDoubleParams::create(const std::string& paramName, const Sdx::optional<std::string>& dataSetName)
     {
       return std::make_shared<GetBeiDouEphemerisDoubleParams>(paramName, dataSetName);

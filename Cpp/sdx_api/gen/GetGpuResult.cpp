@@ -23,6 +23,15 @@ namespace Sdx
       : CommandResult(CmdName)
     {}
 
+    GetGpuResult::GetGpuResult(int gpuIdx, int output, const std::string& id)
+      : CommandResult(CmdName)
+    {
+
+      setGpuIdx(gpuIdx);
+      setOutput(output);
+      setId(id);
+    }
+
     GetGpuResult::GetGpuResult(CommandBasePtr relatedCommand, int gpuIdx, int output, const std::string& id)
       : CommandResult(CmdName, relatedCommand)
     {
@@ -32,6 +41,11 @@ namespace Sdx
       setId(id);
     }
 
+
+    GetGpuResultPtr GetGpuResult::create(int gpuIdx, int output, const std::string& id)
+    {
+      return std::make_shared<GetGpuResult>(gpuIdx, output, id);
+    }
 
     GetGpuResultPtr GetGpuResult::create(CommandBasePtr relatedCommand, int gpuIdx, int output, const std::string& id)
     {

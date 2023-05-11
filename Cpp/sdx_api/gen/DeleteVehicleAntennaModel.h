@@ -31,7 +31,7 @@ namespace Sdx
       DeleteVehicleAntennaModel();
 
       DeleteVehicleAntennaModel(const std::string& name);
-  
+
       static DeleteVehicleAntennaModelPtr create(const std::string& name);
       static DeleteVehicleAntennaModelPtr dynamicCast(CommandBasePtr ptr);
       virtual bool isValid() const override;

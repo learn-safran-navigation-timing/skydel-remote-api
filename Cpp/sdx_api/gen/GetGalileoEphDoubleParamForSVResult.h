@@ -34,8 +34,12 @@ namespace Sdx
 
       GetGalileoEphDoubleParamForSVResult();
 
+      GetGalileoEphDoubleParamForSVResult(int svId, const std::string& paramName, double val, const Sdx::optional<std::string>& dataSetName = {});
+
       GetGalileoEphDoubleParamForSVResult(CommandBasePtr relatedCommand, int svId, const std::string& paramName, double val, const Sdx::optional<std::string>& dataSetName = {});
-  
+
+      static GetGalileoEphDoubleParamForSVResultPtr create(int svId, const std::string& paramName, double val, const Sdx::optional<std::string>& dataSetName = {});
+
       static GetGalileoEphDoubleParamForSVResultPtr create(CommandBasePtr relatedCommand, int svId, const std::string& paramName, double val, const Sdx::optional<std::string>& dataSetName = {});
       static GetGalileoEphDoubleParamForSVResultPtr dynamicCast(CommandBasePtr ptr);
       virtual bool isValid() const override;

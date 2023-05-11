@@ -23,6 +23,22 @@ namespace Sdx
       : CommandResult(CmdName)
     {}
 
+    GetMessageModificationToGalileoFNavResult::GetMessageModificationToGalileoFNavResult(const std::vector<std::string>& signalArray, int svId, int startTime, int stopTime, int subframe, int page, const std::string& condition, bool updateCRC, const std::string& bitModifications, const std::string& id)
+      : CommandResult(CmdName)
+    {
+
+      setSignalArray(signalArray);
+      setSvId(svId);
+      setStartTime(startTime);
+      setStopTime(stopTime);
+      setSubframe(subframe);
+      setPage(page);
+      setCondition(condition);
+      setUpdateCRC(updateCRC);
+      setBitModifications(bitModifications);
+      setId(id);
+    }
+
     GetMessageModificationToGalileoFNavResult::GetMessageModificationToGalileoFNavResult(CommandBasePtr relatedCommand, const std::vector<std::string>& signalArray, int svId, int startTime, int stopTime, int subframe, int page, const std::string& condition, bool updateCRC, const std::string& bitModifications, const std::string& id)
       : CommandResult(CmdName, relatedCommand)
     {
@@ -39,6 +55,11 @@ namespace Sdx
       setId(id);
     }
 
+
+    GetMessageModificationToGalileoFNavResultPtr GetMessageModificationToGalileoFNavResult::create(const std::vector<std::string>& signalArray, int svId, int startTime, int stopTime, int subframe, int page, const std::string& condition, bool updateCRC, const std::string& bitModifications, const std::string& id)
+    {
+      return std::make_shared<GetMessageModificationToGalileoFNavResult>(signalArray, svId, startTime, stopTime, subframe, page, condition, updateCRC, bitModifications, id);
+    }
 
     GetMessageModificationToGalileoFNavResultPtr GetMessageModificationToGalileoFNavResult::create(CommandBasePtr relatedCommand, const std::vector<std::string>& signalArray, int svId, int startTime, int stopTime, int subframe, int page, const std::string& condition, bool updateCRC, const std::string& bitModifications, const std::string& id)
     {

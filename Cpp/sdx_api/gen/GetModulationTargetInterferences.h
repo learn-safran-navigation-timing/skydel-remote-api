@@ -35,7 +35,7 @@ namespace Sdx
       GetModulationTargetInterferences();
 
       GetModulationTargetInterferences(int output, const std::string& id);
-  
+
       static GetModulationTargetInterferencesPtr create(int output, const std::string& id);
       static GetModulationTargetInterferencesPtr dynamicCast(CommandBasePtr ptr);
       virtual bool isValid() const override;

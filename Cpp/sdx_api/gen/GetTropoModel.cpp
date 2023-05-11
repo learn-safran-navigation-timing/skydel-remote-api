@@ -25,7 +25,6 @@ namespace Sdx
 
     }
 
-
     GetTropoModelPtr GetTropoModel::create()
     {
       return std::make_shared<GetTropoModel>();

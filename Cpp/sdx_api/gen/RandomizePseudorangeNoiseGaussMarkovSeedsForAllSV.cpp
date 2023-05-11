@@ -30,7 +30,6 @@ namespace Sdx
       setSystem(system);
     }
 
-
     RandomizePseudorangeNoiseGaussMarkovSeedsForAllSVPtr RandomizePseudorangeNoiseGaussMarkovSeedsForAllSV::create(const std::string& system)
     {
       return std::make_shared<RandomizePseudorangeNoiseGaussMarkovSeedsForAllSV>(system);

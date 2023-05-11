@@ -33,7 +33,7 @@ namespace Sdx
       SetIntTxSignalManualPropagationLoss();
 
       SetIntTxSignalManualPropagationLoss(double propagationLoss, const std::string& transmitterId, const std::string& signalId);
-  
+
       static SetIntTxSignalManualPropagationLossPtr create(double propagationLoss, const std::string& transmitterId, const std::string& signalId);
       static SetIntTxSignalManualPropagationLossPtr dynamicCast(CommandBasePtr ptr);
       virtual bool isValid() const override;

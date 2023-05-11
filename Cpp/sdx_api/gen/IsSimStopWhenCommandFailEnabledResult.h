@@ -30,8 +30,12 @@ namespace Sdx
 
       IsSimStopWhenCommandFailEnabledResult();
 
+      IsSimStopWhenCommandFailEnabledResult(bool enabled);
+
       IsSimStopWhenCommandFailEnabledResult(CommandBasePtr relatedCommand, bool enabled);
-  
+
+      static IsSimStopWhenCommandFailEnabledResultPtr create(bool enabled);
+
       static IsSimStopWhenCommandFailEnabledResultPtr create(CommandBasePtr relatedCommand, bool enabled);
       static IsSimStopWhenCommandFailEnabledResultPtr dynamicCast(CommandBasePtr ptr);
       virtual bool isValid() const override;

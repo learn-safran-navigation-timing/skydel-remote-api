@@ -30,7 +30,6 @@ namespace Sdx
       setId(id);
     }
 
-
     GetIntTxColorPtr GetIntTxColor::create(const std::string& id)
     {
       return std::make_shared<GetIntTxColor>(id);

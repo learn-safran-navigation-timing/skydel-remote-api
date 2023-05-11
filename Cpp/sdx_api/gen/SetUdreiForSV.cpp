@@ -32,7 +32,6 @@ namespace Sdx
       setUdrei(udrei);
     }
 
-
     SetUdreiForSVPtr SetUdreiForSV::create(const std::string& system, int svId, int udrei)
     {
       return std::make_shared<SetUdreiForSV>(system, svId, udrei);

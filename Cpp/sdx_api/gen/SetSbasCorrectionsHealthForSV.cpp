@@ -31,7 +31,6 @@ namespace Sdx
       setHealth(health);
     }
 
-
     SetSbasCorrectionsHealthForSVPtr SetSbasCorrectionsHealthForSV::create(int svId, bool health)
     {
       return std::make_shared<SetSbasCorrectionsHealthForSV>(svId, health);

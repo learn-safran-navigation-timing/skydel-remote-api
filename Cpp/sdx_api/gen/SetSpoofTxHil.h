@@ -31,7 +31,7 @@ namespace Sdx
       SetSpoofTxHil();
 
       SetSpoofTxHil(const std::string& id);
-  
+
       static SetSpoofTxHilPtr create(const std::string& id);
       static SetSpoofTxHilPtr dynamicCast(CommandBasePtr ptr);
       virtual bool isValid() const override;

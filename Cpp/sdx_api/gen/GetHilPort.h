@@ -27,7 +27,7 @@ namespace Sdx
 
 
       GetHilPort();
-  
+
       static GetHilPortPtr create();
       static GetHilPortPtr dynamicCast(CommandBasePtr ptr);
       virtual bool isValid() const override;

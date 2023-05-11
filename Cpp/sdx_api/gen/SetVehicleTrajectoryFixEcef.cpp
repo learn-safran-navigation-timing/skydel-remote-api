@@ -36,7 +36,6 @@ namespace Sdx
       setRoll(roll);
     }
 
-
     SetVehicleTrajectoryFixEcefPtr SetVehicleTrajectoryFixEcef::create(const std::string& type, double x, double y, double z, double yaw, double pitch, double roll)
     {
       return std::make_shared<SetVehicleTrajectoryFixEcef>(type, x, y, z, yaw, pitch, roll);

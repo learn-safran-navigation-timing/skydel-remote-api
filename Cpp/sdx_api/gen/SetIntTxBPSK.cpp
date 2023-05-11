@@ -38,7 +38,6 @@ namespace Sdx
       setPrn(prn);
     }
 
-
     SetIntTxBPSKPtr SetIntTxBPSK::create(bool enabled, double centralFreq, double power, int codeRate, int codeLengthMs, const std::string& transmitterId, const std::string& signalId, const Sdx::optional<int>& group, const Sdx::optional<int>& prn)
     {
       return std::make_shared<SetIntTxBPSK>(enabled, centralFreq, power, codeRate, codeLengthMs, transmitterId, signalId, group, prn);

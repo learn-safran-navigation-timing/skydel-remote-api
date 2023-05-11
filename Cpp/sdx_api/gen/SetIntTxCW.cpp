@@ -36,7 +36,6 @@ namespace Sdx
       setGroup(group);
     }
 
-
     SetIntTxCWPtr SetIntTxCW::create(bool enabled, double centralFreq, double power, const std::string& transmitterId, const std::string& signalId, const Sdx::optional<double>& initialPhaseOffset, const Sdx::optional<int>& group)
     {
       return std::make_shared<SetIntTxCW>(enabled, centralFreq, power, transmitterId, signalId, initialPhaseOffset, group);

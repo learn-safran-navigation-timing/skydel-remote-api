@@ -31,8 +31,12 @@ namespace Sdx
 
       GetConfigPathsResult();
 
+      GetConfigPathsResult(const std::vector<std::string>& paths);
+
       GetConfigPathsResult(CommandBasePtr relatedCommand, const std::vector<std::string>& paths);
-  
+
+      static GetConfigPathsResultPtr create(const std::vector<std::string>& paths);
+
       static GetConfigPathsResultPtr create(CommandBasePtr relatedCommand, const std::vector<std::string>& paths);
       static GetConfigPathsResultPtr dynamicCast(CommandBasePtr ptr);
       virtual bool isValid() const override;

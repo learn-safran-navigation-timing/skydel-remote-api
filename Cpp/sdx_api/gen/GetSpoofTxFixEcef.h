@@ -31,7 +31,7 @@ namespace Sdx
       GetSpoofTxFixEcef();
 
       GetSpoofTxFixEcef(const std::string& id);
-  
+
       static GetSpoofTxFixEcefPtr create(const std::string& id);
       static GetSpoofTxFixEcefPtr dynamicCast(CommandBasePtr ptr);
       virtual bool isValid() const override;

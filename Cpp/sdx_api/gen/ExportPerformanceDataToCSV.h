@@ -32,7 +32,7 @@ namespace Sdx
       ExportPerformanceDataToCSV();
 
       ExportPerformanceDataToCSV(const std::string& path, bool overwriting);
-  
+
       static ExportPerformanceDataToCSVPtr create(const std::string& path, bool overwriting);
       static ExportPerformanceDataToCSVPtr dynamicCast(CommandBasePtr ptr);
       virtual bool isValid() const override;

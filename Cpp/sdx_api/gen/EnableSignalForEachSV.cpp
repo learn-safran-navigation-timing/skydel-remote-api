@@ -31,7 +31,6 @@ namespace Sdx
       setEnabled(enabled);
     }
 
-
     EnableSignalForEachSVPtr EnableSignalForEachSV::create(const std::string& signal, const std::vector<bool>& enabled)
     {
       return std::make_shared<EnableSignalForEachSV>(signal, enabled);

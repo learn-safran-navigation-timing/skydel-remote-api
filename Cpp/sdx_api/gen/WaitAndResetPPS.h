@@ -27,7 +27,7 @@ namespace Sdx
 
 
       WaitAndResetPPS();
-  
+
       static WaitAndResetPPSPtr create();
       static WaitAndResetPPSPtr dynamicCast(CommandBasePtr ptr);
       virtual bool isValid() const override;

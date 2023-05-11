@@ -25,7 +25,6 @@ namespace Sdx
 
     }
 
-
     BeginTrackDefinitionPtr BeginTrackDefinition::create()
     {
       return std::make_shared<BeginTrackDefinition>();

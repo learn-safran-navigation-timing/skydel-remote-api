@@ -31,7 +31,6 @@ namespace Sdx
       setOverwriting(overwriting);
     }
 
-
     ExportSbasMessageSequencePtr ExportSbasMessageSequence::create(const std::string& path, bool overwriting)
     {
       return std::make_shared<ExportSbasMessageSequence>(path, overwriting);

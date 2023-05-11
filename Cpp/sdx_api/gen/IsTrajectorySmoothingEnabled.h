@@ -27,7 +27,7 @@ namespace Sdx
 
 
       IsTrajectorySmoothingEnabled();
-  
+
       static IsTrajectorySmoothingEnabledPtr create();
       static IsTrajectorySmoothingEnabledPtr dynamicCast(CommandBasePtr ptr);
       virtual bool isValid() const override;

@@ -31,7 +31,7 @@ namespace Sdx
       RemovePlugInInstance();
 
       RemovePlugInInstance(const std::string& name);
-  
+
       static RemovePlugInInstancePtr create(const std::string& name);
       static RemovePlugInInstancePtr dynamicCast(CommandBasePtr ptr);
       virtual bool isValid() const override;

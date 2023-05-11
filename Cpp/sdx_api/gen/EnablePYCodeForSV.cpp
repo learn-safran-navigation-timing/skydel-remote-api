@@ -32,7 +32,6 @@ namespace Sdx
       setEnabled(enabled);
     }
 
-
     EnablePYCodeForSVPtr EnablePYCodeForSV::create(const std::string& signal, int svId, bool enabled)
     {
       return std::make_shared<EnablePYCodeForSV>(signal, svId, enabled);

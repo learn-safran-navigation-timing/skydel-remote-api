@@ -31,7 +31,6 @@ namespace Sdx
       setId(id);
     }
 
-
     SetIntTxIgnoreVehicleAntennaPatternPtr SetIntTxIgnoreVehicleAntennaPattern::create(bool ignore, const std::string& id)
     {
       return std::make_shared<SetIntTxIgnoreVehicleAntennaPattern>(ignore, id);

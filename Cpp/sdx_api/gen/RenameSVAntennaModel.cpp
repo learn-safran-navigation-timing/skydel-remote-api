@@ -32,7 +32,6 @@ namespace Sdx
       setSystem(system);
     }
 
-
     RenameSVAntennaModelPtr RenameSVAntennaModel::create(const std::string& name, const std::string& newName, const std::string& system)
     {
       return std::make_shared<RenameSVAntennaModel>(name, newName, system);

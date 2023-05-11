@@ -33,7 +33,6 @@ namespace Sdx
       setSvId(svId);
     }
 
-
     GetPowerForSVPtr GetPowerForSV::create(const std::string& system, int svId)
     {
       return std::make_shared<GetPowerForSV>(system, svId);

@@ -31,7 +31,7 @@ namespace Sdx
       GetSpoofTxFix();
 
       GetSpoofTxFix(const std::string& id);
-  
+
       static GetSpoofTxFixPtr create(const std::string& id);
       static GetSpoofTxFixPtr dynamicCast(CommandBasePtr ptr);
       virtual bool isValid() const override;

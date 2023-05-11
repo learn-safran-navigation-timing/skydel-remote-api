@@ -32,7 +32,7 @@ namespace Sdx
       RemoveSignalFromIntTx();
 
       RemoveSignalFromIntTx(const std::string& transmitterId, const std::string& signalId);
-  
+
       static RemoveSignalFromIntTxPtr create(const std::string& transmitterId, const std::string& signalId);
       static RemoveSignalFromIntTxPtr dynamicCast(CommandBasePtr ptr);
       virtual bool isValid() const override;

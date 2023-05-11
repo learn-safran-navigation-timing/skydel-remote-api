@@ -27,7 +27,7 @@ namespace Sdx
 
 
       GetLastLeapSecondDate();
-  
+
       static GetLastLeapSecondDatePtr create();
       static GetLastLeapSecondDatePtr dynamicCast(CommandBasePtr ptr);
       virtual bool isValid() const override;

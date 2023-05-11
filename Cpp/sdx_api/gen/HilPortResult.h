@@ -30,8 +30,12 @@ namespace Sdx
 
       HilPortResult();
 
+      HilPortResult(int port);
+
       HilPortResult(CommandBasePtr relatedCommand, int port);
-  
+
+      static HilPortResultPtr create(int port);
+
       static HilPortResultPtr create(CommandBasePtr relatedCommand, int port);
       static HilPortResultPtr dynamicCast(CommandBasePtr ptr);
       virtual bool isValid() const override;

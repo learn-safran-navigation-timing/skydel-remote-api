@@ -33,7 +33,7 @@ namespace Sdx
       EnableEachSV();
 
       EnableEachSV(const std::string& system, const std::vector<bool>& enabled);
-  
+
       static EnableEachSVPtr create(const std::string& system, const std::vector<bool>& enabled);
       static EnableEachSVPtr dynamicCast(CommandBasePtr ptr);
       virtual bool isValid() const override;

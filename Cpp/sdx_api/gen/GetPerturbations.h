@@ -34,7 +34,7 @@ namespace Sdx
       GetPerturbations();
 
       GetPerturbations(const std::string& system, int svId, const Sdx::optional<std::string>& dataSetName = {});
-  
+
       static GetPerturbationsPtr create(const std::string& system, int svId, const Sdx::optional<std::string>& dataSetName = {});
       static GetPerturbationsPtr dynamicCast(CommandBasePtr ptr);
       virtual bool isValid() const override;

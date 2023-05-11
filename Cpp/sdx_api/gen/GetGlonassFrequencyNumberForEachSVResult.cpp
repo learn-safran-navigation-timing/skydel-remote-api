@@ -23,6 +23,13 @@ namespace Sdx
       : CommandResult(CmdName)
     {}
 
+    GetGlonassFrequencyNumberForEachSVResult::GetGlonassFrequencyNumberForEachSVResult(const std::vector<int>& frequencyNumber)
+      : CommandResult(CmdName)
+    {
+
+      setFrequencyNumber(frequencyNumber);
+    }
+
     GetGlonassFrequencyNumberForEachSVResult::GetGlonassFrequencyNumberForEachSVResult(CommandBasePtr relatedCommand, const std::vector<int>& frequencyNumber)
       : CommandResult(CmdName, relatedCommand)
     {
@@ -30,6 +37,11 @@ namespace Sdx
       setFrequencyNumber(frequencyNumber);
     }
 
+
+    GetGlonassFrequencyNumberForEachSVResultPtr GetGlonassFrequencyNumberForEachSVResult::create(const std::vector<int>& frequencyNumber)
+    {
+      return std::make_shared<GetGlonassFrequencyNumberForEachSVResult>(frequencyNumber);
+    }
 
     GetGlonassFrequencyNumberForEachSVResultPtr GetGlonassFrequencyNumberForEachSVResult::create(CommandBasePtr relatedCommand, const std::vector<int>& frequencyNumber)
     {

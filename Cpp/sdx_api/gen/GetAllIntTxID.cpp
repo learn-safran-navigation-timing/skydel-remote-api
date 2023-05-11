@@ -25,7 +25,6 @@ namespace Sdx
 
     }
 
-
     GetAllIntTxIDPtr GetAllIntTxID::create()
     {
       return std::make_shared<GetAllIntTxID>();

@@ -31,7 +31,7 @@ namespace Sdx
       ImportVehicleAntennaModel();
 
       ImportVehicleAntennaModel(const std::string& filePath);
-  
+
       static ImportVehicleAntennaModelPtr create(const std::string& filePath);
       static ImportVehicleAntennaModelPtr dynamicCast(CommandBasePtr ptr);
       virtual bool isValid() const override;

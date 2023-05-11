@@ -31,7 +31,6 @@ namespace Sdx
       setVal(val);
     }
 
-
     SetIonoAlphaPtr SetIonoAlpha::create(int index, double val)
     {
       return std::make_shared<SetIonoAlpha>(index, val);

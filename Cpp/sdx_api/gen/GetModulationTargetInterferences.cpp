@@ -31,7 +31,6 @@ namespace Sdx
       setId(id);
     }
 
-
     GetModulationTargetInterferencesPtr GetModulationTargetInterferences::create(int output, const std::string& id)
     {
       return std::make_shared<GetModulationTargetInterferences>(output, id);

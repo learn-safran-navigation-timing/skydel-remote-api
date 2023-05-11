@@ -27,7 +27,7 @@ namespace Sdx
 
 
       UndoCmd();
-  
+
       static UndoCmdPtr create();
       static UndoCmdPtr dynamicCast(CommandBasePtr ptr);
       virtual bool isValid() const override;

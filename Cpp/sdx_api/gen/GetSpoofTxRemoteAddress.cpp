@@ -30,7 +30,6 @@ namespace Sdx
       setId(id);
     }
 
-
     GetSpoofTxRemoteAddressPtr GetSpoofTxRemoteAddress::create(const std::string& id)
     {
       return std::make_shared<GetSpoofTxRemoteAddress>(id);

@@ -31,7 +31,7 @@ namespace Sdx
       ImportMODIPFile();
 
       ImportMODIPFile(const std::string& path);
-  
+
       static ImportMODIPFilePtr create(const std::string& path);
       static ImportMODIPFilePtr dynamicCast(CommandBasePtr ptr);
       virtual bool isValid() const override;

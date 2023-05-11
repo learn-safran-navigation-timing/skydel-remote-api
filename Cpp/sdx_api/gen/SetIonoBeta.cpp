@@ -31,7 +31,6 @@ namespace Sdx
       setVal(val);
     }
 
-
     SetIonoBetaPtr SetIonoBeta::create(int index, double val)
     {
       return std::make_shared<SetIonoBeta>(index, val);

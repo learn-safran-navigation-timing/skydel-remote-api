@@ -31,7 +31,6 @@ namespace Sdx
       setId(id);
     }
 
-
     RemoveSbasServiceMessageRegionGroupPtr RemoveSbasServiceMessageRegionGroup::create(const std::string& serviceProvider, const std::string& id)
     {
       return std::make_shared<RemoveSbasServiceMessageRegionGroup>(serviceProvider, id);

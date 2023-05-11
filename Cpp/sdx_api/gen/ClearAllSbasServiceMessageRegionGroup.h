@@ -31,7 +31,7 @@ namespace Sdx
       ClearAllSbasServiceMessageRegionGroup();
 
       ClearAllSbasServiceMessageRegionGroup(const std::string& serviceProvider);
-  
+
       static ClearAllSbasServiceMessageRegionGroupPtr create(const std::string& serviceProvider);
       static ClearAllSbasServiceMessageRegionGroupPtr dynamicCast(CommandBasePtr ptr);
       virtual bool isValid() const override;

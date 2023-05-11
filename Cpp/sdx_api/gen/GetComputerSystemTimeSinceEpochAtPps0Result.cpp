@@ -23,6 +23,13 @@ namespace Sdx
       : CommandResult(CmdName)
     {}
 
+    GetComputerSystemTimeSinceEpochAtPps0Result::GetComputerSystemTimeSinceEpochAtPps0Result(double milliseconds)
+      : CommandResult(CmdName)
+    {
+
+      setMilliseconds(milliseconds);
+    }
+
     GetComputerSystemTimeSinceEpochAtPps0Result::GetComputerSystemTimeSinceEpochAtPps0Result(CommandBasePtr relatedCommand, double milliseconds)
       : CommandResult(CmdName, relatedCommand)
     {
@@ -30,6 +37,11 @@ namespace Sdx
       setMilliseconds(milliseconds);
     }
 
+
+    GetComputerSystemTimeSinceEpochAtPps0ResultPtr GetComputerSystemTimeSinceEpochAtPps0Result::create(double milliseconds)
+    {
+      return std::make_shared<GetComputerSystemTimeSinceEpochAtPps0Result>(milliseconds);
+    }
 
     GetComputerSystemTimeSinceEpochAtPps0ResultPtr GetComputerSystemTimeSinceEpochAtPps0Result::create(CommandBasePtr relatedCommand, double milliseconds)
     {

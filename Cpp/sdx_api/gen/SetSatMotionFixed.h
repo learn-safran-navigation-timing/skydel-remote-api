@@ -33,7 +33,7 @@ namespace Sdx
       SetSatMotionFixed();
 
       SetSatMotionFixed(const std::string& system, int svId, bool isFixed);
-  
+
       static SetSatMotionFixedPtr create(const std::string& system, int svId, bool isFixed);
       static SetSatMotionFixedPtr dynamicCast(CommandBasePtr ptr);
       virtual bool isValid() const override;

@@ -32,7 +32,6 @@ namespace Sdx
       setSignalId(signalId);
     }
 
-
     EnableIntTxSignalPtr EnableIntTxSignal::create(bool enabled, const std::string& transmitterId, const std::string& signalId)
     {
       return std::make_shared<EnableIntTxSignal>(enabled, transmitterId, signalId);

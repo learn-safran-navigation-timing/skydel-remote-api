@@ -38,8 +38,12 @@ namespace Sdx
 
       GetVehicleTrajectoryCircularResult();
 
+      GetVehicleTrajectoryCircularResult(const std::string& type, double lat, double lon, double alt, double radius, double speed, bool clockwise, const Sdx::optional<double>& originAngle = {});
+
       GetVehicleTrajectoryCircularResult(CommandBasePtr relatedCommand, const std::string& type, double lat, double lon, double alt, double radius, double speed, bool clockwise, const Sdx::optional<double>& originAngle = {});
-  
+
+      static GetVehicleTrajectoryCircularResultPtr create(const std::string& type, double lat, double lon, double alt, double radius, double speed, bool clockwise, const Sdx::optional<double>& originAngle = {});
+
       static GetVehicleTrajectoryCircularResultPtr create(CommandBasePtr relatedCommand, const std::string& type, double lat, double lon, double alt, double radius, double speed, bool clockwise, const Sdx::optional<double>& originAngle = {});
       static GetVehicleTrajectoryCircularResultPtr dynamicCast(CommandBasePtr ptr);
       virtual bool isValid() const override;

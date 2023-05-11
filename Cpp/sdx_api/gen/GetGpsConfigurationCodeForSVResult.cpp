@@ -23,6 +23,15 @@ namespace Sdx
       : CommandResult(CmdName)
     {}
 
+    GetGpsConfigurationCodeForSVResult::GetGpsConfigurationCodeForSVResult(int svId, int svConfig, const Sdx::optional<std::string>& dataSetName)
+      : CommandResult(CmdName)
+    {
+
+      setSvId(svId);
+      setSvConfig(svConfig);
+      setDataSetName(dataSetName);
+    }
+
     GetGpsConfigurationCodeForSVResult::GetGpsConfigurationCodeForSVResult(CommandBasePtr relatedCommand, int svId, int svConfig, const Sdx::optional<std::string>& dataSetName)
       : CommandResult(CmdName, relatedCommand)
     {
@@ -32,6 +41,11 @@ namespace Sdx
       setDataSetName(dataSetName);
     }
 
+
+    GetGpsConfigurationCodeForSVResultPtr GetGpsConfigurationCodeForSVResult::create(int svId, int svConfig, const Sdx::optional<std::string>& dataSetName)
+    {
+      return std::make_shared<GetGpsConfigurationCodeForSVResult>(svId, svConfig, dataSetName);
+    }
 
     GetGpsConfigurationCodeForSVResultPtr GetGpsConfigurationCodeForSVResult::create(CommandBasePtr relatedCommand, int svId, int svConfig, const Sdx::optional<std::string>& dataSetName)
     {

@@ -33,7 +33,7 @@ namespace Sdx
       SetUdreiForSV();
 
       SetUdreiForSV(const std::string& system, int svId, int udrei);
-  
+
       static SetUdreiForSVPtr create(const std::string& system, int svId, int udrei);
       static SetUdreiForSVPtr dynamicCast(CommandBasePtr ptr);
       virtual bool isValid() const override;

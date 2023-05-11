@@ -31,7 +31,6 @@ namespace Sdx
       setSignalId(signalId);
     }
 
-
     GetIntTxPulsePtr GetIntTxPulse::create(const std::string& transmitterId, const std::string& signalId)
     {
       return std::make_shared<GetIntTxPulse>(transmitterId, signalId);

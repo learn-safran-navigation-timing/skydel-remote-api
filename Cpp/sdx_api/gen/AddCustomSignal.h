@@ -32,7 +32,7 @@ namespace Sdx
       AddCustomSignal();
 
       AddCustomSignal(const std::string& path, const std::string& id);
-  
+
       static AddCustomSignalPtr create(const std::string& path, const std::string& id);
       static AddCustomSignalPtr dynamicCast(CommandBasePtr ptr);
       virtual bool isValid() const override;

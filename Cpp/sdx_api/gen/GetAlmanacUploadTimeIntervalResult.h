@@ -31,8 +31,12 @@ namespace Sdx
 
       GetAlmanacUploadTimeIntervalResult();
 
+      GetAlmanacUploadTimeIntervalResult(const std::string& system, int interval);
+
       GetAlmanacUploadTimeIntervalResult(CommandBasePtr relatedCommand, const std::string& system, int interval);
-  
+
+      static GetAlmanacUploadTimeIntervalResultPtr create(const std::string& system, int interval);
+
       static GetAlmanacUploadTimeIntervalResultPtr create(CommandBasePtr relatedCommand, const std::string& system, int interval);
       static GetAlmanacUploadTimeIntervalResultPtr dynamicCast(CommandBasePtr ptr);
       virtual bool isValid() const override;

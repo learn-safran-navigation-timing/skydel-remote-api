@@ -23,6 +23,15 @@ namespace Sdx
       : CommandResult(CmdName)
     {}
 
+    GetSVAntennaModelForSVResult::GetSVAntennaModelForSVResult(const std::string& system, int svId, const std::string& antennaModelName)
+      : CommandResult(CmdName)
+    {
+
+      setSystem(system);
+      setSvId(svId);
+      setAntennaModelName(antennaModelName);
+    }
+
     GetSVAntennaModelForSVResult::GetSVAntennaModelForSVResult(CommandBasePtr relatedCommand, const std::string& system, int svId, const std::string& antennaModelName)
       : CommandResult(CmdName, relatedCommand)
     {
@@ -32,6 +41,11 @@ namespace Sdx
       setAntennaModelName(antennaModelName);
     }
 
+
+    GetSVAntennaModelForSVResultPtr GetSVAntennaModelForSVResult::create(const std::string& system, int svId, const std::string& antennaModelName)
+    {
+      return std::make_shared<GetSVAntennaModelForSVResult>(system, svId, antennaModelName);
+    }
 
     GetSVAntennaModelForSVResultPtr GetSVAntennaModelForSVResult::create(CommandBasePtr relatedCommand, const std::string& system, int svId, const std::string& antennaModelName)
     {

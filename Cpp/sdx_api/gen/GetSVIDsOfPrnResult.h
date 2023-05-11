@@ -33,8 +33,12 @@ namespace Sdx
 
       GetSVIDsOfPrnResult();
 
+      GetSVIDsOfPrnResult(const std::string& signal, int prn, const std::vector<int>& svIdList);
+
       GetSVIDsOfPrnResult(CommandBasePtr relatedCommand, const std::string& signal, int prn, const std::vector<int>& svIdList);
-  
+
+      static GetSVIDsOfPrnResultPtr create(const std::string& signal, int prn, const std::vector<int>& svIdList);
+
       static GetSVIDsOfPrnResultPtr create(CommandBasePtr relatedCommand, const std::string& signal, int prn, const std::vector<int>& svIdList);
       static GetSVIDsOfPrnResultPtr dynamicCast(CommandBasePtr ptr);
       virtual bool isValid() const override;

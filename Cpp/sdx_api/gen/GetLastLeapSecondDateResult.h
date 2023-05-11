@@ -30,8 +30,12 @@ namespace Sdx
 
       GetLastLeapSecondDateResult();
 
+      GetLastLeapSecondDateResult(const Sdx::Date& date);
+
       GetLastLeapSecondDateResult(CommandBasePtr relatedCommand, const Sdx::Date& date);
-  
+
+      static GetLastLeapSecondDateResultPtr create(const Sdx::Date& date);
+
       static GetLastLeapSecondDateResultPtr create(CommandBasePtr relatedCommand, const Sdx::Date& date);
       static GetLastLeapSecondDateResultPtr dynamicCast(CommandBasePtr ptr);
       virtual bool isValid() const override;

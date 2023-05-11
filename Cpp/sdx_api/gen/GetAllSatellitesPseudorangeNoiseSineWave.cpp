@@ -31,7 +31,6 @@ namespace Sdx
       setSineWave(sineWave);
     }
 
-
     GetAllSatellitesPseudorangeNoiseSineWavePtr GetAllSatellitesPseudorangeNoiseSineWave::create(const std::string& system, int sineWave)
     {
       return std::make_shared<GetAllSatellitesPseudorangeNoiseSineWave>(system, sineWave);

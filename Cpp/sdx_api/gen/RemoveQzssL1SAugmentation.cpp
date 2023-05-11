@@ -30,7 +30,6 @@ namespace Sdx
       setId(id);
     }
 
-
     RemoveQzssL1SAugmentationPtr RemoveQzssL1SAugmentation::create(const std::string& id)
     {
       return std::make_shared<RemoveQzssL1SAugmentation>(id);

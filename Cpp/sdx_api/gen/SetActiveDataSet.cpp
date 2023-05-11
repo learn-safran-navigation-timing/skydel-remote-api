@@ -31,7 +31,6 @@ namespace Sdx
       setDataSetName(dataSetName);
     }
 
-
     SetActiveDataSetPtr SetActiveDataSet::create(const std::string& system, const std::string& dataSetName)
     {
       return std::make_shared<SetActiveDataSet>(system, dataSetName);

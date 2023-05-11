@@ -35,7 +35,7 @@ namespace Sdx
       GetBeiDouEphemerisBoolParams();
 
       GetBeiDouEphemerisBoolParams(const std::string& paramName, const Sdx::optional<std::string>& dataSetName = {});
-  
+
       static GetBeiDouEphemerisBoolParamsPtr create(const std::string& paramName, const Sdx::optional<std::string>& dataSetName = {});
       static GetBeiDouEphemerisBoolParamsPtr dynamicCast(CommandBasePtr ptr);
       virtual bool isValid() const override;

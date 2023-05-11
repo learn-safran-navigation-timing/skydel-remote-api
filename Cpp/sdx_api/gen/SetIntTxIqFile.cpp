@@ -36,7 +36,6 @@ namespace Sdx
       setGroup(group);
     }
 
-
     SetIntTxIqFilePtr SetIntTxIqFile::create(bool enabled, double centralFreq, double power, const std::string& path, const std::string& transmitterId, const std::string& signalId, const Sdx::optional<int>& group)
     {
       return std::make_shared<SetIntTxIqFile>(enabled, centralFreq, power, path, transmitterId, signalId, group);

@@ -30,7 +30,6 @@ namespace Sdx
       setSystem(system);
     }
 
-
     IsLOSEnabledForEachSVPtr IsLOSEnabledForEachSV::create(const std::string& system)
     {
       return std::make_shared<IsLOSEnabledForEachSV>(system);

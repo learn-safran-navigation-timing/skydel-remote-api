@@ -30,7 +30,6 @@ namespace Sdx
       setId(id);
     }
 
-
     SetIntTxHilPtr SetIntTxHil::create(const std::string& id)
     {
       return std::make_shared<SetIntTxHil>(id);

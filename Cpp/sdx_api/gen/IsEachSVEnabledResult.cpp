@@ -23,6 +23,14 @@ namespace Sdx
       : CommandResult(CmdName)
     {}
 
+    IsEachSVEnabledResult::IsEachSVEnabledResult(const std::string& system, const std::vector<bool>& enabled)
+      : CommandResult(CmdName)
+    {
+
+      setSystem(system);
+      setEnabled(enabled);
+    }
+
     IsEachSVEnabledResult::IsEachSVEnabledResult(CommandBasePtr relatedCommand, const std::string& system, const std::vector<bool>& enabled)
       : CommandResult(CmdName, relatedCommand)
     {
@@ -31,6 +39,11 @@ namespace Sdx
       setEnabled(enabled);
     }
 
+
+    IsEachSVEnabledResultPtr IsEachSVEnabledResult::create(const std::string& system, const std::vector<bool>& enabled)
+    {
+      return std::make_shared<IsEachSVEnabledResult>(system, enabled);
+    }
 
     IsEachSVEnabledResultPtr IsEachSVEnabledResult::create(CommandBasePtr relatedCommand, const std::string& system, const std::vector<bool>& enabled)
     {

@@ -34,7 +34,7 @@ namespace Sdx
       DuplicateDataSet();
 
       DuplicateDataSet(const std::string& system, const std::string& dataSetName, const Sdx::optional<std::string>& newDataSetName = {});
-  
+
       static DuplicateDataSetPtr create(const std::string& system, const std::string& dataSetName, const Sdx::optional<std::string>& newDataSetName = {});
       static DuplicateDataSetPtr dynamicCast(CommandBasePtr ptr);
       virtual bool isValid() const override;

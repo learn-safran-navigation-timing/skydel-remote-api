@@ -37,7 +37,7 @@ namespace Sdx
       SetWFAntennaElementOffset();
 
       SetWFAntennaElementOffset(double x, double y, double z, double yaw, double pitch, double roll, int element);
-  
+
       static SetWFAntennaElementOffsetPtr create(double x, double y, double z, double yaw, double pitch, double roll, int element);
       static SetWFAntennaElementOffsetPtr dynamicCast(CommandBasePtr ptr);
       virtual bool isValid() const override;

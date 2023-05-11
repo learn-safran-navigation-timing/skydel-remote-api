@@ -32,8 +32,12 @@ namespace Sdx
 
       IsLOSEnabledForEachSVResult();
 
+      IsLOSEnabledForEachSVResult(const std::string& system, const std::vector<bool>& enabled);
+
       IsLOSEnabledForEachSVResult(CommandBasePtr relatedCommand, const std::string& system, const std::vector<bool>& enabled);
-  
+
+      static IsLOSEnabledForEachSVResultPtr create(const std::string& system, const std::vector<bool>& enabled);
+
       static IsLOSEnabledForEachSVResultPtr create(CommandBasePtr relatedCommand, const std::string& system, const std::vector<bool>& enabled);
       static IsLOSEnabledForEachSVResultPtr dynamicCast(CommandBasePtr ptr);
       virtual bool isValid() const override;

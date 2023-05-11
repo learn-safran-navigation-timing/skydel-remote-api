@@ -27,7 +27,7 @@ namespace Sdx
 
 
       GetSimulationElapsedTime();
-  
+
       static GetSimulationElapsedTimePtr create();
       static GetSimulationElapsedTimePtr dynamicCast(CommandBasePtr ptr);
       virtual bool isValid() const override;

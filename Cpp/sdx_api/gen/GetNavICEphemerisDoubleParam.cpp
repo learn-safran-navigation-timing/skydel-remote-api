@@ -32,7 +32,6 @@ namespace Sdx
       setDataSetName(dataSetName);
     }
 
-
     GetNavICEphemerisDoubleParamPtr GetNavICEphemerisDoubleParam::create(int svId, const std::string& paramName, const Sdx::optional<std::string>& dataSetName)
     {
       return std::make_shared<GetNavICEphemerisDoubleParam>(svId, paramName, dataSetName);

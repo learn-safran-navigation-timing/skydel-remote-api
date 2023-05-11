@@ -31,7 +31,7 @@ namespace Sdx
       GetIntTx();
 
       GetIntTx(const std::string& id);
-  
+
       static GetIntTxPtr create(const std::string& id);
       static GetIntTxPtr dynamicCast(CommandBasePtr ptr);
       virtual bool isValid() const override;

@@ -31,7 +31,6 @@ namespace Sdx
       setSvId(svId);
     }
 
-
     GetSVAntennaModelForSVPtr GetSVAntennaModelForSV::create(const std::string& system, int svId)
     {
       return std::make_shared<GetSVAntennaModelForSV>(system, svId);

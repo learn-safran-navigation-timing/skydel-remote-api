@@ -36,7 +36,6 @@ namespace Sdx
       setRoll(roll);
     }
 
-
     PushTrackEcefNedPtr PushTrackEcefNed::create(int time, double x, double y, double z, double yaw, double pitch, double roll)
     {
       return std::make_shared<PushTrackEcefNed>(time, x, y, z, yaw, pitch, roll);

@@ -31,7 +31,6 @@ namespace Sdx
       setOverwriting(overwriting);
     }
 
-
     ExportPerformanceDataToCSVPtr ExportPerformanceDataToCSV::create(const std::string& path, bool overwriting)
     {
       return std::make_shared<ExportPerformanceDataToCSV>(path, overwriting);

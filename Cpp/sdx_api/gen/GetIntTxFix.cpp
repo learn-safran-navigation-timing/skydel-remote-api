@@ -30,7 +30,6 @@ namespace Sdx
       setId(id);
     }
 
-
     GetIntTxFixPtr GetIntTxFix::create(const std::string& id)
     {
       return std::make_shared<GetIntTxFix>(id);

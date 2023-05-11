@@ -33,7 +33,7 @@ namespace Sdx
       GetGlonassDoubleParams();
 
       GetGlonassDoubleParams(const std::string& paramName);
-  
+
       static GetGlonassDoubleParamsPtr create(const std::string& paramName);
       static GetGlonassDoubleParamsPtr dynamicCast(CommandBasePtr ptr);
       virtual bool isValid() const override;

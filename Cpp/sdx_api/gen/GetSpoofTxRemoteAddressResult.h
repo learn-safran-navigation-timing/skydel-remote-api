@@ -32,8 +32,12 @@ namespace Sdx
 
       GetSpoofTxRemoteAddressResult();
 
+      GetSpoofTxRemoteAddressResult(const std::string& address, int instanceId, const std::string& id);
+
       GetSpoofTxRemoteAddressResult(CommandBasePtr relatedCommand, const std::string& address, int instanceId, const std::string& id);
-  
+
+      static GetSpoofTxRemoteAddressResultPtr create(const std::string& address, int instanceId, const std::string& id);
+
       static GetSpoofTxRemoteAddressResultPtr create(CommandBasePtr relatedCommand, const std::string& address, int instanceId, const std::string& id);
       static GetSpoofTxRemoteAddressResultPtr dynamicCast(CommandBasePtr ptr);
       virtual bool isValid() const override;

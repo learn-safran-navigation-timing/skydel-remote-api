@@ -31,7 +31,6 @@ namespace Sdx
       setId(id);
     }
 
-
     SetIntTxIgnorePropagationLossPtr SetIntTxIgnorePropagationLoss::create(bool ignore, const std::string& id)
     {
       return std::make_shared<SetIntTxIgnorePropagationLoss>(ignore, id);

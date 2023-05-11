@@ -31,7 +31,7 @@ namespace Sdx
       SetStartTimeMode();
 
       SetStartTimeMode(const std::string& mode);
-  
+
       static SetStartTimeModePtr create(const std::string& mode);
       static SetStartTimeModePtr dynamicCast(CommandBasePtr ptr);
       virtual bool isValid() const override;

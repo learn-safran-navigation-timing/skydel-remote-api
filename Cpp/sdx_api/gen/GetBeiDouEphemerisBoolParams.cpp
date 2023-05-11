@@ -31,7 +31,6 @@ namespace Sdx
       setDataSetName(dataSetName);
     }
 
-
     GetBeiDouEphemerisBoolParamsPtr GetBeiDouEphemerisBoolParams::create(const std::string& paramName, const Sdx::optional<std::string>& dataSetName)
     {
       return std::make_shared<GetBeiDouEphemerisBoolParams>(paramName, dataSetName);

@@ -30,7 +30,6 @@ namespace Sdx
       setId(id);
     }
 
-
     EndIntTxTrackDefinitionPtr EndIntTxTrackDefinition::create(const std::string& id)
     {
       return std::make_shared<EndIntTxTrackDefinition>(id);

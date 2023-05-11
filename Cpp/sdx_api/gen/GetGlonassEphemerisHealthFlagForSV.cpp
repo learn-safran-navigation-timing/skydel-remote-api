@@ -30,7 +30,6 @@ namespace Sdx
       setSvId(svId);
     }
 
-
     GetGlonassEphemerisHealthFlagForSVPtr GetGlonassEphemerisHealthFlagForSV::create(int svId)
     {
       return std::make_shared<GetGlonassEphemerisHealthFlagForSV>(svId);

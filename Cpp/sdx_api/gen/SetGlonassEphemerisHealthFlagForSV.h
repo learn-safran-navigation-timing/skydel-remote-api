@@ -32,7 +32,7 @@ namespace Sdx
       SetGlonassEphemerisHealthFlagForSV();
 
       SetGlonassEphemerisHealthFlagForSV(int svId, bool health);
-  
+
       static SetGlonassEphemerisHealthFlagForSVPtr create(int svId, bool health);
       static SetGlonassEphemerisHealthFlagForSVPtr dynamicCast(CommandBasePtr ptr);
       virtual bool isValid() const override;

@@ -31,7 +31,7 @@ namespace Sdx
       SetExternalChannelsPath();
 
       SetExternalChannelsPath(const std::string& path);
-  
+
       static SetExternalChannelsPathPtr create(const std::string& path);
       static SetExternalChannelsPathPtr dynamicCast(CommandBasePtr ptr);
       virtual bool isValid() const override;

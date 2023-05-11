@@ -31,7 +31,7 @@ namespace Sdx
       ImportCCIRFilesFromDirectory();
 
       ImportCCIRFilesFromDirectory(const std::string& path);
-  
+
       static ImportCCIRFilesFromDirectoryPtr create(const std::string& path);
       static ImportCCIRFilesFromDirectoryPtr dynamicCast(CommandBasePtr ptr);
       virtual bool isValid() const override;

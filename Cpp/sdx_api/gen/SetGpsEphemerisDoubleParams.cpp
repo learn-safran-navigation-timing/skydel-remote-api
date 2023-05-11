@@ -32,7 +32,6 @@ namespace Sdx
       setDataSetName(dataSetName);
     }
 
-
     SetGpsEphemerisDoubleParamsPtr SetGpsEphemerisDoubleParams::create(const std::string& paramName, const std::vector<double>& val, const Sdx::optional<std::string>& dataSetName)
     {
       return std::make_shared<SetGpsEphemerisDoubleParams>(paramName, val, dataSetName);

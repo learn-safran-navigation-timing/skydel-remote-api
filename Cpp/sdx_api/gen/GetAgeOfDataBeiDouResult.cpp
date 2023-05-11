@@ -23,6 +23,15 @@ namespace Sdx
       : CommandResult(CmdName)
     {}
 
+    GetAgeOfDataBeiDouResult::GetAgeOfDataBeiDouResult(int clock, int ephemeris, const Sdx::optional<bool>& overrideRinex)
+      : CommandResult(CmdName)
+    {
+
+      setClock(clock);
+      setEphemeris(ephemeris);
+      setOverrideRinex(overrideRinex);
+    }
+
     GetAgeOfDataBeiDouResult::GetAgeOfDataBeiDouResult(CommandBasePtr relatedCommand, int clock, int ephemeris, const Sdx::optional<bool>& overrideRinex)
       : CommandResult(CmdName, relatedCommand)
     {
@@ -32,6 +41,11 @@ namespace Sdx
       setOverrideRinex(overrideRinex);
     }
 
+
+    GetAgeOfDataBeiDouResultPtr GetAgeOfDataBeiDouResult::create(int clock, int ephemeris, const Sdx::optional<bool>& overrideRinex)
+    {
+      return std::make_shared<GetAgeOfDataBeiDouResult>(clock, ephemeris, overrideRinex);
+    }
 
     GetAgeOfDataBeiDouResultPtr GetAgeOfDataBeiDouResult::create(CommandBasePtr relatedCommand, int clock, int ephemeris, const Sdx::optional<bool>& overrideRinex)
     {

@@ -25,7 +25,6 @@ namespace Sdx
 
     }
 
-
     UnlockGUIPtr UnlockGUI::create()
     {
       return std::make_shared<UnlockGUI>();

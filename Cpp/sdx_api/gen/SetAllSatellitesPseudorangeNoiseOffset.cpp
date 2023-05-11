@@ -32,7 +32,6 @@ namespace Sdx
       setOffset(offset);
     }
 
-
     SetAllSatellitesPseudorangeNoiseOffsetPtr SetAllSatellitesPseudorangeNoiseOffset::create(const std::string& system, const std::vector<bool>& enabled, const std::vector<double>& offset)
     {
       return std::make_shared<SetAllSatellitesPseudorangeNoiseOffset>(system, enabled, offset);

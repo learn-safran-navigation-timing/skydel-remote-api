@@ -31,7 +31,6 @@ namespace Sdx
       setDataSetName(dataSetName);
     }
 
-
     GetQzssEphemerisDoubleParamsPtr GetQzssEphemerisDoubleParams::create(const std::string& paramName, const Sdx::optional<std::string>& dataSetName)
     {
       return std::make_shared<GetQzssEphemerisDoubleParams>(paramName, dataSetName);

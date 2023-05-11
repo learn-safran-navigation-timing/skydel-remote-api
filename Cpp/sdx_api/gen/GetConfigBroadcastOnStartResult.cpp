@@ -23,6 +23,13 @@ namespace Sdx
       : CommandResult(CmdName)
     {}
 
+    GetConfigBroadcastOnStartResult::GetConfigBroadcastOnStartResult(bool broadcastOnStart)
+      : CommandResult(CmdName)
+    {
+
+      setBroadcastOnStart(broadcastOnStart);
+    }
+
     GetConfigBroadcastOnStartResult::GetConfigBroadcastOnStartResult(CommandBasePtr relatedCommand, bool broadcastOnStart)
       : CommandResult(CmdName, relatedCommand)
     {
@@ -30,6 +37,11 @@ namespace Sdx
       setBroadcastOnStart(broadcastOnStart);
     }
 
+
+    GetConfigBroadcastOnStartResultPtr GetConfigBroadcastOnStartResult::create(bool broadcastOnStart)
+    {
+      return std::make_shared<GetConfigBroadcastOnStartResult>(broadcastOnStart);
+    }
 
     GetConfigBroadcastOnStartResultPtr GetConfigBroadcastOnStartResult::create(CommandBasePtr relatedCommand, bool broadcastOnStart)
     {

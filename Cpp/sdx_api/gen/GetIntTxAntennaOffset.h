@@ -37,7 +37,7 @@ namespace Sdx
       GetIntTxAntennaOffset();
 
       GetIntTxAntennaOffset(const std::string& id);
-  
+
       static GetIntTxAntennaOffsetPtr create(const std::string& id);
       static GetIntTxAntennaOffsetPtr dynamicCast(CommandBasePtr ptr);
       virtual bool isValid() const override;

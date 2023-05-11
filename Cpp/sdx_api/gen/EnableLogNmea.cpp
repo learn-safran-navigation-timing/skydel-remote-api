@@ -30,7 +30,6 @@ namespace Sdx
       setEnabled(enabled);
     }
 
-
     EnableLogNmeaPtr EnableLogNmea::create(bool enabled)
     {
       return std::make_shared<EnableLogNmea>(enabled);

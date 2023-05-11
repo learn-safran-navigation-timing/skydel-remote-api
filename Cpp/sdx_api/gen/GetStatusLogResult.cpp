@@ -23,6 +23,13 @@ namespace Sdx
       : CommandResult(CmdName)
     {}
 
+    GetStatusLogResult::GetStatusLogResult(const std::vector<Sdx::LogRecord>& records)
+      : CommandResult(CmdName)
+    {
+
+      setRecords(records);
+    }
+
     GetStatusLogResult::GetStatusLogResult(CommandBasePtr relatedCommand, const std::vector<Sdx::LogRecord>& records)
       : CommandResult(CmdName, relatedCommand)
     {
@@ -30,6 +37,11 @@ namespace Sdx
       setRecords(records);
     }
 
+
+    GetStatusLogResultPtr GetStatusLogResult::create(const std::vector<Sdx::LogRecord>& records)
+    {
+      return std::make_shared<GetStatusLogResult>(records);
+    }
 
     GetStatusLogResultPtr GetStatusLogResult::create(CommandBasePtr relatedCommand, const std::vector<Sdx::LogRecord>& records)
     {

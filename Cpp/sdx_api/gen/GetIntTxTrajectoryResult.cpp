@@ -23,6 +23,14 @@ namespace Sdx
       : CommandResult(CmdName)
     {}
 
+    GetIntTxTrajectoryResult::GetIntTxTrajectoryResult(const std::string& trajectoryType, const std::string& id)
+      : CommandResult(CmdName)
+    {
+
+      setTrajectoryType(trajectoryType);
+      setId(id);
+    }
+
     GetIntTxTrajectoryResult::GetIntTxTrajectoryResult(CommandBasePtr relatedCommand, const std::string& trajectoryType, const std::string& id)
       : CommandResult(CmdName, relatedCommand)
     {
@@ -31,6 +39,11 @@ namespace Sdx
       setId(id);
     }
 
+
+    GetIntTxTrajectoryResultPtr GetIntTxTrajectoryResult::create(const std::string& trajectoryType, const std::string& id)
+    {
+      return std::make_shared<GetIntTxTrajectoryResult>(trajectoryType, id);
+    }
 
     GetIntTxTrajectoryResultPtr GetIntTxTrajectoryResult::create(CommandBasePtr relatedCommand, const std::string& trajectoryType, const std::string& id)
     {

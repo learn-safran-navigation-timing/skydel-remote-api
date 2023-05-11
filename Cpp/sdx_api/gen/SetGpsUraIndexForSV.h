@@ -34,7 +34,7 @@ namespace Sdx
       SetGpsUraIndexForSV();
 
       SetGpsUraIndexForSV(int svId, int urai, const Sdx::optional<std::string>& dataSetName = {});
-  
+
       static SetGpsUraIndexForSVPtr create(int svId, int urai, const Sdx::optional<std::string>& dataSetName = {});
       static SetGpsUraIndexForSVPtr dynamicCast(CommandBasePtr ptr);
       virtual bool isValid() const override;

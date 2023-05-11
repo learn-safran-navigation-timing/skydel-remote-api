@@ -33,8 +33,12 @@ namespace Sdx
 
       GetAllPseudorangeRampForSVResult();
 
+      GetAllPseudorangeRampForSVResult(const std::string& system, int svId, const std::vector<std::string>& ids);
+
       GetAllPseudorangeRampForSVResult(CommandBasePtr relatedCommand, const std::string& system, int svId, const std::vector<std::string>& ids);
-  
+
+      static GetAllPseudorangeRampForSVResultPtr create(const std::string& system, int svId, const std::vector<std::string>& ids);
+
       static GetAllPseudorangeRampForSVResultPtr create(CommandBasePtr relatedCommand, const std::string& system, int svId, const std::vector<std::string>& ids);
       static GetAllPseudorangeRampForSVResultPtr dynamicCast(CommandBasePtr ptr);
       virtual bool isValid() const override;

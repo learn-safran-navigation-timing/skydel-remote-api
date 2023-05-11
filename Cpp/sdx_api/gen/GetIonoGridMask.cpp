@@ -32,7 +32,6 @@ namespace Sdx
       setPoint(point);
     }
 
-
     GetIonoGridMaskPtr GetIonoGridMask::create(const std::string& serviceProvider, int band, int point)
     {
       return std::make_shared<GetIonoGridMask>(serviceProvider, band, point);

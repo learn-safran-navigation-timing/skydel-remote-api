@@ -32,7 +32,7 @@ namespace Sdx
       GetIntTxBPSK();
 
       GetIntTxBPSK(const std::string& transmitterId, const std::string& signalId);
-  
+
       static GetIntTxBPSKPtr create(const std::string& transmitterId, const std::string& signalId);
       static GetIntTxBPSKPtr dynamicCast(CommandBasePtr ptr);
       virtual bool isValid() const override;

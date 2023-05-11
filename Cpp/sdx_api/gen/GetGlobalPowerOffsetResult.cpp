@@ -23,6 +23,13 @@ namespace Sdx
       : CommandResult(CmdName)
     {}
 
+    GetGlobalPowerOffsetResult::GetGlobalPowerOffsetResult(double offset)
+      : CommandResult(CmdName)
+    {
+
+      setOffset(offset);
+    }
+
     GetGlobalPowerOffsetResult::GetGlobalPowerOffsetResult(CommandBasePtr relatedCommand, double offset)
       : CommandResult(CmdName, relatedCommand)
     {
@@ -30,6 +37,11 @@ namespace Sdx
       setOffset(offset);
     }
 
+
+    GetGlobalPowerOffsetResultPtr GetGlobalPowerOffsetResult::create(double offset)
+    {
+      return std::make_shared<GetGlobalPowerOffsetResult>(offset);
+    }
 
     GetGlobalPowerOffsetResultPtr GetGlobalPowerOffsetResult::create(CommandBasePtr relatedCommand, double offset)
     {

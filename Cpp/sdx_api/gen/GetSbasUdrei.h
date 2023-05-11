@@ -31,7 +31,7 @@ namespace Sdx
 
 
       GetSbasUdrei();
-  
+
       static GetSbasUdreiPtr create();
       static GetSbasUdreiPtr dynamicCast(CommandBasePtr ptr);
       virtual bool isValid() const override;

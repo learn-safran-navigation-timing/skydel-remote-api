@@ -31,7 +31,7 @@ namespace Sdx
       EnableLogRaw();
 
       EnableLogRaw(bool enabled);
-  
+
       static EnableLogRawPtr create(bool enabled);
       static EnableLogRawPtr dynamicCast(CommandBasePtr ptr);
       virtual bool isValid() const override;

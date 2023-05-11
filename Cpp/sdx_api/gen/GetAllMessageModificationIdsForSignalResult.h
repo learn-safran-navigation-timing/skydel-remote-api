@@ -31,8 +31,12 @@ namespace Sdx
 
       GetAllMessageModificationIdsForSignalResult();
 
+      GetAllMessageModificationIdsForSignalResult(const std::vector<std::string>& ids);
+
       GetAllMessageModificationIdsForSignalResult(CommandBasePtr relatedCommand, const std::vector<std::string>& ids);
-  
+
+      static GetAllMessageModificationIdsForSignalResultPtr create(const std::vector<std::string>& ids);
+
       static GetAllMessageModificationIdsForSignalResultPtr create(CommandBasePtr relatedCommand, const std::vector<std::string>& ids);
       static GetAllMessageModificationIdsForSignalResultPtr dynamicCast(CommandBasePtr ptr);
       virtual bool isValid() const override;

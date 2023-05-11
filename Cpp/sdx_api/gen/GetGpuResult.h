@@ -32,8 +32,12 @@ namespace Sdx
 
       GetGpuResult();
 
+      GetGpuResult(int gpuIdx, int output, const std::string& id);
+
       GetGpuResult(CommandBasePtr relatedCommand, int gpuIdx, int output, const std::string& id);
-  
+
+      static GetGpuResultPtr create(int gpuIdx, int output, const std::string& id);
+
       static GetGpuResultPtr create(CommandBasePtr relatedCommand, int gpuIdx, int output, const std::string& id);
       static GetGpuResultPtr dynamicCast(CommandBasePtr ptr);
       virtual bool isValid() const override;

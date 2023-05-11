@@ -31,7 +31,7 @@ namespace Sdx
       IsSpoofTxIgnoreRxAntennaPhasePattern();
 
       IsSpoofTxIgnoreRxAntennaPhasePattern(const std::string& id);
-  
+
       static IsSpoofTxIgnoreRxAntennaPhasePatternPtr create(const std::string& id);
       static IsSpoofTxIgnoreRxAntennaPhasePatternPtr dynamicCast(CommandBasePtr ptr);
       virtual bool isValid() const override;

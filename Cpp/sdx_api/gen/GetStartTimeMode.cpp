@@ -25,7 +25,6 @@ namespace Sdx
 
     }
 
-
     GetStartTimeModePtr GetStartTimeMode::create()
     {
       return std::make_shared<GetStartTimeMode>();

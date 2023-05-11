@@ -31,7 +31,7 @@ namespace Sdx
       GetMessageSequence();
 
       GetMessageSequence(const std::string& signal);
-  
+
       static GetMessageSequencePtr create(const std::string& signal);
       static GetMessageSequencePtr dynamicCast(CommandBasePtr ptr);
       virtual bool isValid() const override;

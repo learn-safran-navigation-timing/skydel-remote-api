@@ -27,7 +27,7 @@ namespace Sdx
 
 
       GetSbasMonitoredSystems();
-  
+
       static GetSbasMonitoredSystemsPtr create();
       static GetSbasMonitoredSystemsPtr dynamicCast(CommandBasePtr ptr);
       virtual bool isValid() const override;

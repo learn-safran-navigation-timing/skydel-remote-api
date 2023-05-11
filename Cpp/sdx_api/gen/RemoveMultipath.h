@@ -31,7 +31,7 @@ namespace Sdx
       RemoveMultipath();
 
       RemoveMultipath(const std::string& id);
-  
+
       static RemoveMultipathPtr create(const std::string& id);
       static RemoveMultipathPtr dynamicCast(CommandBasePtr ptr);
       virtual bool isValid() const override;

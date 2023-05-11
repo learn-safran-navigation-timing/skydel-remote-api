@@ -23,6 +23,13 @@ namespace Sdx
       : CommandResult(CmdName)
     {}
 
+    GetIonoGridErrorAllResult::GetIonoGridErrorAllResult(const std::vector<std::vector<double>>& grid)
+      : CommandResult(CmdName)
+    {
+
+      setGrid(grid);
+    }
+
     GetIonoGridErrorAllResult::GetIonoGridErrorAllResult(CommandBasePtr relatedCommand, const std::vector<std::vector<double>>& grid)
       : CommandResult(CmdName, relatedCommand)
     {
@@ -30,6 +37,11 @@ namespace Sdx
       setGrid(grid);
     }
 
+
+    GetIonoGridErrorAllResultPtr GetIonoGridErrorAllResult::create(const std::vector<std::vector<double>>& grid)
+    {
+      return std::make_shared<GetIonoGridErrorAllResult>(grid);
+    }
 
     GetIonoGridErrorAllResultPtr GetIonoGridErrorAllResult::create(CommandBasePtr relatedCommand, const std::vector<std::vector<double>>& grid)
     {

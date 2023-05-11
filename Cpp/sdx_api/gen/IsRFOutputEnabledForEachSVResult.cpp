@@ -23,6 +23,14 @@ namespace Sdx
       : CommandResult(CmdName)
     {}
 
+    IsRFOutputEnabledForEachSVResult::IsRFOutputEnabledForEachSVResult(const std::string& system, const std::vector<bool>& enabled)
+      : CommandResult(CmdName)
+    {
+
+      setSystem(system);
+      setEnabled(enabled);
+    }
+
     IsRFOutputEnabledForEachSVResult::IsRFOutputEnabledForEachSVResult(CommandBasePtr relatedCommand, const std::string& system, const std::vector<bool>& enabled)
       : CommandResult(CmdName, relatedCommand)
     {
@@ -31,6 +39,11 @@ namespace Sdx
       setEnabled(enabled);
     }
 
+
+    IsRFOutputEnabledForEachSVResultPtr IsRFOutputEnabledForEachSVResult::create(const std::string& system, const std::vector<bool>& enabled)
+    {
+      return std::make_shared<IsRFOutputEnabledForEachSVResult>(system, enabled);
+    }
 
     IsRFOutputEnabledForEachSVResultPtr IsRFOutputEnabledForEachSVResult::create(CommandBasePtr relatedCommand, const std::string& system, const std::vector<bool>& enabled)
     {

@@ -25,7 +25,6 @@ namespace Sdx
 
     }
 
-
     IsTransmitMessage2InSbasMessage0Ptr IsTransmitMessage2InSbasMessage0::create()
     {
       return std::make_shared<IsTransmitMessage2InSbasMessage0>();

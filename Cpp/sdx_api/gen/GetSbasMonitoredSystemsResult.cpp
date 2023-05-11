@@ -23,6 +23,13 @@ namespace Sdx
       : CommandResult(CmdName)
     {}
 
+    GetSbasMonitoredSystemsResult::GetSbasMonitoredSystemsResult(const std::vector<std::string>& systems)
+      : CommandResult(CmdName)
+    {
+
+      setSystems(systems);
+    }
+
     GetSbasMonitoredSystemsResult::GetSbasMonitoredSystemsResult(CommandBasePtr relatedCommand, const std::vector<std::string>& systems)
       : CommandResult(CmdName, relatedCommand)
     {
@@ -30,6 +37,11 @@ namespace Sdx
       setSystems(systems);
     }
 
+
+    GetSbasMonitoredSystemsResultPtr GetSbasMonitoredSystemsResult::create(const std::vector<std::string>& systems)
+    {
+      return std::make_shared<GetSbasMonitoredSystemsResult>(systems);
+    }
 
     GetSbasMonitoredSystemsResultPtr GetSbasMonitoredSystemsResult::create(CommandBasePtr relatedCommand, const std::vector<std::string>& systems)
     {

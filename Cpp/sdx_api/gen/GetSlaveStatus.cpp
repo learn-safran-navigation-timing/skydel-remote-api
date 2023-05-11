@@ -25,7 +25,6 @@ namespace Sdx
 
     }
 
-
     GetSlaveStatusPtr GetSlaveStatus::create()
     {
       return std::make_shared<GetSlaveStatus>();

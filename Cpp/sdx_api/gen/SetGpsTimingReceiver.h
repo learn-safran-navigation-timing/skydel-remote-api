@@ -39,7 +39,7 @@ namespace Sdx
       SetGpsTimingReceiver();
 
       SetGpsTimingReceiver(const std::string& port, const Sdx::optional<int>& baudRate = {}, const Sdx::optional<int>& dataBits = {}, const Sdx::optional<Sdx::SerialPortParity>& parity = {}, const Sdx::optional<int>& stopBits = {}, const Sdx::optional<Sdx::SerialPortFlowControl>& flowControl = {});
-  
+
       static SetGpsTimingReceiverPtr create(const std::string& port, const Sdx::optional<int>& baudRate = {}, const Sdx::optional<int>& dataBits = {}, const Sdx::optional<Sdx::SerialPortParity>& parity = {}, const Sdx::optional<int>& stopBits = {}, const Sdx::optional<Sdx::SerialPortFlowControl>& flowControl = {});
       static SetGpsTimingReceiverPtr dynamicCast(CommandBasePtr ptr);
       virtual bool isValid() const override;

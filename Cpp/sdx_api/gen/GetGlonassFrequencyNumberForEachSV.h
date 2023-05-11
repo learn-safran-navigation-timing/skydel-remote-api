@@ -27,7 +27,7 @@ namespace Sdx
 
 
       GetGlonassFrequencyNumberForEachSV();
-  
+
       static GetGlonassFrequencyNumberForEachSVPtr create();
       static GetGlonassFrequencyNumberForEachSVPtr dynamicCast(CommandBasePtr ptr);
       virtual bool isValid() const override;

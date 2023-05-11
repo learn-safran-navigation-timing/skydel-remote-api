@@ -30,7 +30,6 @@ namespace Sdx
       setElement(element);
     }
 
-
     GetWFAntennaElementModelPtr GetWFAntennaElementModel::create(int element)
     {
       return std::make_shared<GetWFAntennaElementModel>(element);

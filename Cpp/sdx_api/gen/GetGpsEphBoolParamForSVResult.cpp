@@ -23,6 +23,16 @@ namespace Sdx
       : CommandResult(CmdName)
     {}
 
+    GetGpsEphBoolParamForSVResult::GetGpsEphBoolParamForSVResult(int svId, const std::string& paramName, bool val, const Sdx::optional<std::string>& dataSetName)
+      : CommandResult(CmdName)
+    {
+
+      setSvId(svId);
+      setParamName(paramName);
+      setVal(val);
+      setDataSetName(dataSetName);
+    }
+
     GetGpsEphBoolParamForSVResult::GetGpsEphBoolParamForSVResult(CommandBasePtr relatedCommand, int svId, const std::string& paramName, bool val, const Sdx::optional<std::string>& dataSetName)
       : CommandResult(CmdName, relatedCommand)
     {
@@ -33,6 +43,11 @@ namespace Sdx
       setDataSetName(dataSetName);
     }
 
+
+    GetGpsEphBoolParamForSVResultPtr GetGpsEphBoolParamForSVResult::create(int svId, const std::string& paramName, bool val, const Sdx::optional<std::string>& dataSetName)
+    {
+      return std::make_shared<GetGpsEphBoolParamForSVResult>(svId, paramName, val, dataSetName);
+    }
 
     GetGpsEphBoolParamForSVResultPtr GetGpsEphBoolParamForSVResult::create(CommandBasePtr relatedCommand, int svId, const std::string& paramName, bool val, const Sdx::optional<std::string>& dataSetName)
     {

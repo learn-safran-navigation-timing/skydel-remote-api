@@ -23,6 +23,13 @@ namespace Sdx
       : CommandResult(CmdName)
     {}
 
+    GetLastLeapSecondDateResult::GetLastLeapSecondDateResult(const Sdx::Date& date)
+      : CommandResult(CmdName)
+    {
+
+      setDate(date);
+    }
+
     GetLastLeapSecondDateResult::GetLastLeapSecondDateResult(CommandBasePtr relatedCommand, const Sdx::Date& date)
       : CommandResult(CmdName, relatedCommand)
     {
@@ -30,6 +37,11 @@ namespace Sdx
       setDate(date);
     }
 
+
+    GetLastLeapSecondDateResultPtr GetLastLeapSecondDateResult::create(const Sdx::Date& date)
+    {
+      return std::make_shared<GetLastLeapSecondDateResult>(date);
+    }
 
     GetLastLeapSecondDateResultPtr GetLastLeapSecondDateResult::create(CommandBasePtr relatedCommand, const Sdx::Date& date)
     {

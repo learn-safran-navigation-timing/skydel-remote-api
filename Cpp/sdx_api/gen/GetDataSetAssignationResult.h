@@ -32,8 +32,12 @@ namespace Sdx
 
       GetDataSetAssignationResult();
 
+      GetDataSetAssignationResult(const std::string& system, const std::string& dataSetType, const std::string& dataSetName);
+
       GetDataSetAssignationResult(CommandBasePtr relatedCommand, const std::string& system, const std::string& dataSetType, const std::string& dataSetName);
-  
+
+      static GetDataSetAssignationResultPtr create(const std::string& system, const std::string& dataSetType, const std::string& dataSetName);
+
       static GetDataSetAssignationResultPtr create(CommandBasePtr relatedCommand, const std::string& system, const std::string& dataSetType, const std::string& dataSetName);
       static GetDataSetAssignationResultPtr dynamicCast(CommandBasePtr ptr);
       virtual bool isValid() const override;

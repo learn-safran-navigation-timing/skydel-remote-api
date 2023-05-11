@@ -30,8 +30,12 @@ namespace Sdx
 
       IsLogHILInputEnabledResult();
 
+      IsLogHILInputEnabledResult(bool enabled);
+
       IsLogHILInputEnabledResult(CommandBasePtr relatedCommand, bool enabled);
-  
+
+      static IsLogHILInputEnabledResultPtr create(bool enabled);
+
       static IsLogHILInputEnabledResultPtr create(CommandBasePtr relatedCommand, bool enabled);
       static IsLogHILInputEnabledResultPtr dynamicCast(CommandBasePtr ptr);
       virtual bool isValid() const override;

@@ -25,7 +25,6 @@ namespace Sdx
 
     }
 
-
     BeginRouteDefinitionPtr BeginRouteDefinition::create()
     {
       return std::make_shared<BeginRouteDefinition>();

@@ -23,6 +23,14 @@ namespace Sdx
       : CommandResult(CmdName)
     {}
 
+    GetGlonassAlmanacUnhealthyFlagForSVResult::GetGlonassAlmanacUnhealthyFlagForSVResult(int svId, bool health)
+      : CommandResult(CmdName)
+    {
+
+      setSvId(svId);
+      setHealth(health);
+    }
+
     GetGlonassAlmanacUnhealthyFlagForSVResult::GetGlonassAlmanacUnhealthyFlagForSVResult(CommandBasePtr relatedCommand, int svId, bool health)
       : CommandResult(CmdName, relatedCommand)
     {
@@ -31,6 +39,11 @@ namespace Sdx
       setHealth(health);
     }
 
+
+    GetGlonassAlmanacUnhealthyFlagForSVResultPtr GetGlonassAlmanacUnhealthyFlagForSVResult::create(int svId, bool health)
+    {
+      return std::make_shared<GetGlonassAlmanacUnhealthyFlagForSVResult>(svId, health);
+    }
 
     GetGlonassAlmanacUnhealthyFlagForSVResultPtr GetGlonassAlmanacUnhealthyFlagForSVResult::create(CommandBasePtr relatedCommand, int svId, bool health)
     {

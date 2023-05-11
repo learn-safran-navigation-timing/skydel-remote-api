@@ -30,8 +30,12 @@ namespace Sdx
 
       IsDelayAppliedInSbasResult();
 
+      IsDelayAppliedInSbasResult(bool isEnabled);
+
       IsDelayAppliedInSbasResult(CommandBasePtr relatedCommand, bool isEnabled);
-  
+
+      static IsDelayAppliedInSbasResultPtr create(bool isEnabled);
+
       static IsDelayAppliedInSbasResultPtr create(CommandBasePtr relatedCommand, bool isEnabled);
       static IsDelayAppliedInSbasResultPtr dynamicCast(CommandBasePtr ptr);
       virtual bool isValid() const override;

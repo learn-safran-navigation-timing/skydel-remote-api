@@ -25,7 +25,6 @@ namespace Sdx
 
     }
 
-
     WaitAndResetPPSPtr WaitAndResetPPS::create()
     {
       return std::make_shared<WaitAndResetPPS>();

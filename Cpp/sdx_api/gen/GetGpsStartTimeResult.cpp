@@ -23,6 +23,14 @@ namespace Sdx
       : CommandResult(CmdName)
     {}
 
+    GetGpsStartTimeResult::GetGpsStartTimeResult(const Sdx::DateTime& startTime, int leapSecond)
+      : CommandResult(CmdName)
+    {
+
+      setStartTime(startTime);
+      setLeapSecond(leapSecond);
+    }
+
     GetGpsStartTimeResult::GetGpsStartTimeResult(CommandBasePtr relatedCommand, const Sdx::DateTime& startTime, int leapSecond)
       : CommandResult(CmdName, relatedCommand)
     {
@@ -31,6 +39,11 @@ namespace Sdx
       setLeapSecond(leapSecond);
     }
 
+
+    GetGpsStartTimeResultPtr GetGpsStartTimeResult::create(const Sdx::DateTime& startTime, int leapSecond)
+    {
+      return std::make_shared<GetGpsStartTimeResult>(startTime, leapSecond);
+    }
 
     GetGpsStartTimeResultPtr GetGpsStartTimeResult::create(CommandBasePtr relatedCommand, const Sdx::DateTime& startTime, int leapSecond)
     {

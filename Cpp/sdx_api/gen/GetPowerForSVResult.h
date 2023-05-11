@@ -37,8 +37,12 @@ namespace Sdx
 
       GetPowerForSVResult();
 
+      GetPowerForSVResult(const std::string& system, int svId, double nominalPower, double signalStrengthModel, double antenna, double signalLevelOffset, double manualGain, double total);
+
       GetPowerForSVResult(CommandBasePtr relatedCommand, const std::string& system, int svId, double nominalPower, double signalStrengthModel, double antenna, double signalLevelOffset, double manualGain, double total);
-  
+
+      static GetPowerForSVResultPtr create(const std::string& system, int svId, double nominalPower, double signalStrengthModel, double antenna, double signalLevelOffset, double manualGain, double total);
+
       static GetPowerForSVResultPtr create(CommandBasePtr relatedCommand, const std::string& system, int svId, double nominalPower, double signalStrengthModel, double antenna, double signalLevelOffset, double manualGain, double total);
       static GetPowerForSVResultPtr dynamicCast(CommandBasePtr ptr);
       virtual bool isValid() const override;

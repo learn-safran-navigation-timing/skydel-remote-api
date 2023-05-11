@@ -31,7 +31,7 @@ namespace Sdx
       GetElevationAzimuthForEachSV();
 
       GetElevationAzimuthForEachSV(const std::string& system);
-  
+
       static GetElevationAzimuthForEachSVPtr create(const std::string& system);
       static GetElevationAzimuthForEachSVPtr dynamicCast(CommandBasePtr ptr);
       virtual bool isValid() const override;

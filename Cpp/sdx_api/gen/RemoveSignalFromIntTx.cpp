@@ -31,7 +31,6 @@ namespace Sdx
       setSignalId(signalId);
     }
 
-
     RemoveSignalFromIntTxPtr RemoveSignalFromIntTx::create(const std::string& transmitterId, const std::string& signalId)
     {
       return std::make_shared<RemoveSignalFromIntTx>(transmitterId, signalId);

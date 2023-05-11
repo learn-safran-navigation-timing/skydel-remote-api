@@ -31,8 +31,12 @@ namespace Sdx
 
       IsPropagationDelayEnabledResult();
 
+      IsPropagationDelayEnabledResult(const std::string& system, bool enabled);
+
       IsPropagationDelayEnabledResult(CommandBasePtr relatedCommand, const std::string& system, bool enabled);
-  
+
+      static IsPropagationDelayEnabledResultPtr create(const std::string& system, bool enabled);
+
       static IsPropagationDelayEnabledResultPtr create(CommandBasePtr relatedCommand, const std::string& system, bool enabled);
       static IsPropagationDelayEnabledResultPtr dynamicCast(CommandBasePtr ptr);
       virtual bool isValid() const override;

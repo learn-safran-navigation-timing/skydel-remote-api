@@ -29,7 +29,6 @@ namespace Sdx
 
     }
 
-
     SuccessResultPtr SuccessResult::create(CommandBasePtr relatedCommand)
     {
       return std::make_shared<SuccessResult>(relatedCommand);

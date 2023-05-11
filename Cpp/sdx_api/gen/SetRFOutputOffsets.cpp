@@ -33,7 +33,6 @@ namespace Sdx
       setPhaseOffset(phaseOffset);
     }
 
-
     SetRFOutputOffsetsPtr SetRFOutputOffsets::create(int outputIdx, double powerOffset, double timeOffset, double phaseOffset)
     {
       return std::make_shared<SetRFOutputOffsets>(outputIdx, powerOffset, timeOffset, phaseOffset);

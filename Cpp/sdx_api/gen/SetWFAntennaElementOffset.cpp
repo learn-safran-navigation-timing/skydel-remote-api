@@ -36,7 +36,6 @@ namespace Sdx
       setElement(element);
     }
 
-
     SetWFAntennaElementOffsetPtr SetWFAntennaElementOffset::create(double x, double y, double z, double yaw, double pitch, double roll, int element)
     {
       return std::make_shared<SetWFAntennaElementOffset>(x, y, z, yaw, pitch, roll, element);

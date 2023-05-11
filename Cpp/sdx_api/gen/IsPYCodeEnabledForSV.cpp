@@ -31,7 +31,6 @@ namespace Sdx
       setSvId(svId);
     }
 
-
     IsPYCodeEnabledForSVPtr IsPYCodeEnabledForSV::create(const std::string& signal, int svId)
     {
       return std::make_shared<IsPYCodeEnabledForSV>(signal, svId);

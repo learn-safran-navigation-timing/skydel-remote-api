@@ -31,7 +31,7 @@ namespace Sdx
       GetSpoofTxCircular();
 
       GetSpoofTxCircular(const std::string& id);
-  
+
       static GetSpoofTxCircularPtr create(const std::string& id);
       static GetSpoofTxCircularPtr dynamicCast(CommandBasePtr ptr);
       virtual bool isValid() const override;

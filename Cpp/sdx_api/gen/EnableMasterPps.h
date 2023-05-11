@@ -32,7 +32,7 @@ namespace Sdx
       EnableMasterPps();
 
       EnableMasterPps(bool enabled);
-  
+
       static EnableMasterPpsPtr create(bool enabled);
       static EnableMasterPpsPtr dynamicCast(CommandBasePtr ptr);
       virtual bool isValid() const override;

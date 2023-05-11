@@ -25,7 +25,6 @@ namespace Sdx
 
     }
 
-
     RemoveAllInterferencesPtr RemoveAllInterferences::create()
     {
       return std::make_shared<RemoveAllInterferences>();

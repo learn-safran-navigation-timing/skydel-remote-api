@@ -30,8 +30,12 @@ namespace Sdx
 
       IsLogNmeaEnabledResult();
 
+      IsLogNmeaEnabledResult(bool enabled);
+
       IsLogNmeaEnabledResult(CommandBasePtr relatedCommand, bool enabled);
-  
+
+      static IsLogNmeaEnabledResultPtr create(bool enabled);
+
       static IsLogNmeaEnabledResultPtr create(CommandBasePtr relatedCommand, bool enabled);
       static IsLogNmeaEnabledResultPtr dynamicCast(CommandBasePtr ptr);
       virtual bool isValid() const override;

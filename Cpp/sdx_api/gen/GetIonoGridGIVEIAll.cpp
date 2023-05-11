@@ -26,7 +26,6 @@ namespace Sdx
       setServiceProvider(serviceProvider);
     }
 
-
     GetIonoGridGIVEIAllPtr GetIonoGridGIVEIAll::create(const Sdx::optional<std::string>& serviceProvider)
     {
       return std::make_shared<GetIonoGridGIVEIAll>(serviceProvider);

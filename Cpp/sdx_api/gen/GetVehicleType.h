@@ -27,7 +27,7 @@ namespace Sdx
 
 
       GetVehicleType();
-  
+
       static GetVehicleTypePtr create();
       static GetVehicleTypePtr dynamicCast(CommandBasePtr ptr);
       virtual bool isValid() const override;

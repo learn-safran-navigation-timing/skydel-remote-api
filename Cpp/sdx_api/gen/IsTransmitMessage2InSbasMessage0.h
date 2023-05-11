@@ -27,7 +27,7 @@ namespace Sdx
 
 
       IsTransmitMessage2InSbasMessage0();
-  
+
       static IsTransmitMessage2InSbasMessage0Ptr create();
       static IsTransmitMessage2InSbasMessage0Ptr dynamicCast(CommandBasePtr ptr);
       virtual bool isValid() const override;

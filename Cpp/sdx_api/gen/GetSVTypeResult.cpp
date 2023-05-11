@@ -23,6 +23,15 @@ namespace Sdx
       : CommandResult(CmdName)
     {}
 
+    GetSVTypeResult::GetSVTypeResult(const std::string& system, int svId, const std::string& svType)
+      : CommandResult(CmdName)
+    {
+
+      setSystem(system);
+      setSvId(svId);
+      setSvType(svType);
+    }
+
     GetSVTypeResult::GetSVTypeResult(CommandBasePtr relatedCommand, const std::string& system, int svId, const std::string& svType)
       : CommandResult(CmdName, relatedCommand)
     {
@@ -32,6 +41,11 @@ namespace Sdx
       setSvType(svType);
     }
 
+
+    GetSVTypeResultPtr GetSVTypeResult::create(const std::string& system, int svId, const std::string& svType)
+    {
+      return std::make_shared<GetSVTypeResult>(system, svId, svType);
+    }
 
     GetSVTypeResultPtr GetSVTypeResult::create(CommandBasePtr relatedCommand, const std::string& system, int svId, const std::string& svType)
     {

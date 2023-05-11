@@ -23,6 +23,13 @@ namespace Sdx
       : CommandResult(CmdName)
     {}
 
+    GetDefaultIntTxPersistenceResult::GetDefaultIntTxPersistenceResult(bool defaultValue)
+      : CommandResult(CmdName)
+    {
+
+      setDefaultValue(defaultValue);
+    }
+
     GetDefaultIntTxPersistenceResult::GetDefaultIntTxPersistenceResult(CommandBasePtr relatedCommand, bool defaultValue)
       : CommandResult(CmdName, relatedCommand)
     {
@@ -30,6 +37,11 @@ namespace Sdx
       setDefaultValue(defaultValue);
     }
 
+
+    GetDefaultIntTxPersistenceResultPtr GetDefaultIntTxPersistenceResult::create(bool defaultValue)
+    {
+      return std::make_shared<GetDefaultIntTxPersistenceResult>(defaultValue);
+    }
 
     GetDefaultIntTxPersistenceResultPtr GetDefaultIntTxPersistenceResult::create(CommandBasePtr relatedCommand, bool defaultValue)
     {

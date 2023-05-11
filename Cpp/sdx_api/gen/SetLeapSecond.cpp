@@ -30,7 +30,6 @@ namespace Sdx
       setLeapSecond(leapSecond);
     }
 
-
     SetLeapSecondPtr SetLeapSecond::create(int leapSecond)
     {
       return std::make_shared<SetLeapSecond>(leapSecond);

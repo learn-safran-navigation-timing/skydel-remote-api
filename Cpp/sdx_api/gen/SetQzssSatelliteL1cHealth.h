@@ -36,7 +36,7 @@ namespace Sdx
       SetQzssSatelliteL1cHealth();
 
       SetQzssSatelliteL1cHealth(int svId, bool health, const Sdx::optional<std::string>& dataSetName = {});
-  
+
       static SetQzssSatelliteL1cHealthPtr create(int svId, bool health, const Sdx::optional<std::string>& dataSetName = {});
       static SetQzssSatelliteL1cHealthPtr dynamicCast(CommandBasePtr ptr);
       virtual bool isValid() const override;

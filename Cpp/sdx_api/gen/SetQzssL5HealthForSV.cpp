@@ -32,7 +32,6 @@ namespace Sdx
       setDataSetName(dataSetName);
     }
 
-
     SetQzssL5HealthForSVPtr SetQzssL5HealthForSV::create(int svId, bool health, const Sdx::optional<std::string>& dataSetName)
     {
       return std::make_shared<SetQzssL5HealthForSV>(svId, health, dataSetName);

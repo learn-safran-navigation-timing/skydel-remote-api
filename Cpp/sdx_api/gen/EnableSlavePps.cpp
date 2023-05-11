@@ -30,7 +30,6 @@ namespace Sdx
       setEnabled(enabled);
     }
 
-
     EnableSlavePpsPtr EnableSlavePps::create(bool enabled)
     {
       return std::make_shared<EnableSlavePps>(enabled);

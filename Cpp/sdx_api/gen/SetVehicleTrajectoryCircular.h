@@ -39,7 +39,7 @@ namespace Sdx
       SetVehicleTrajectoryCircular();
 
       SetVehicleTrajectoryCircular(const std::string& type, double lat, double lon, double alt, double radius, double speed, bool clockwise, const Sdx::optional<double>& originAngle = {});
-  
+
       static SetVehicleTrajectoryCircularPtr create(const std::string& type, double lat, double lon, double alt, double radius, double speed, bool clockwise, const Sdx::optional<double>& originAngle = {});
       static SetVehicleTrajectoryCircularPtr dynamicCast(CommandBasePtr ptr);
       virtual bool isValid() const override;

@@ -30,7 +30,6 @@ namespace Sdx
       setEnabled(enabled);
     }
 
-
     EnableElevationMaskBelowPtr EnableElevationMaskBelow::create(bool enabled)
     {
       return std::make_shared<EnableElevationMaskBelow>(enabled);

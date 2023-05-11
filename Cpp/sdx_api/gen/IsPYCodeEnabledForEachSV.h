@@ -31,7 +31,7 @@ namespace Sdx
       IsPYCodeEnabledForEachSV();
 
       IsPYCodeEnabledForEachSV(const std::string& signal);
-  
+
       static IsPYCodeEnabledForEachSVPtr create(const std::string& signal);
       static IsPYCodeEnabledForEachSVPtr dynamicCast(CommandBasePtr ptr);
       virtual bool isValid() const override;

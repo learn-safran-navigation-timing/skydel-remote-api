@@ -32,7 +32,6 @@ namespace Sdx
       setDataSetName(dataSetName);
     }
 
-
     SetBeiDouEphBoolParamForEachSVPtr SetBeiDouEphBoolParamForEachSV::create(const std::string& paramName, const std::vector<bool>& val, const Sdx::optional<std::string>& dataSetName)
     {
       return std::make_shared<SetBeiDouEphBoolParamForEachSV>(paramName, val, dataSetName);

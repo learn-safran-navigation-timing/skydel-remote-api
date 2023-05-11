@@ -31,7 +31,7 @@ namespace Sdx
       IsIntTxAttitudeToZeroForced();
 
       IsIntTxAttitudeToZeroForced(const std::string& id);
-  
+
       static IsIntTxAttitudeToZeroForcedPtr create(const std::string& id);
       static IsIntTxAttitudeToZeroForcedPtr dynamicCast(CommandBasePtr ptr);
       virtual bool isValid() const override;

@@ -39,8 +39,12 @@ namespace Sdx
 
       GetMessageModificationToQzssCNavResult();
 
+      GetMessageModificationToQzssCNavResult(const std::vector<std::string>& signalArray, int svId, int startTime, int stopTime, int messageType, const std::string& condition, bool updateCRC, const std::string& bitModifications, const std::string& id);
+
       GetMessageModificationToQzssCNavResult(CommandBasePtr relatedCommand, const std::vector<std::string>& signalArray, int svId, int startTime, int stopTime, int messageType, const std::string& condition, bool updateCRC, const std::string& bitModifications, const std::string& id);
-  
+
+      static GetMessageModificationToQzssCNavResultPtr create(const std::vector<std::string>& signalArray, int svId, int startTime, int stopTime, int messageType, const std::string& condition, bool updateCRC, const std::string& bitModifications, const std::string& id);
+
       static GetMessageModificationToQzssCNavResultPtr create(CommandBasePtr relatedCommand, const std::vector<std::string>& signalArray, int svId, int startTime, int stopTime, int messageType, const std::string& condition, bool updateCRC, const std::string& bitModifications, const std::string& id);
       static GetMessageModificationToQzssCNavResultPtr dynamicCast(CommandBasePtr ptr);
       virtual bool isValid() const override;

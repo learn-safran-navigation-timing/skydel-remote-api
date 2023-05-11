@@ -37,8 +37,12 @@ namespace Sdx
 
       GetIntTxIqFileResult();
 
+      GetIntTxIqFileResult(bool enabled, double centralFreq, double power, const std::string& path, const std::string& transmitterId, const std::string& signalId, const Sdx::optional<int>& group = {});
+
       GetIntTxIqFileResult(CommandBasePtr relatedCommand, bool enabled, double centralFreq, double power, const std::string& path, const std::string& transmitterId, const std::string& signalId, const Sdx::optional<int>& group = {});
-  
+
+      static GetIntTxIqFileResultPtr create(bool enabled, double centralFreq, double power, const std::string& path, const std::string& transmitterId, const std::string& signalId, const Sdx::optional<int>& group = {});
+
       static GetIntTxIqFileResultPtr create(CommandBasePtr relatedCommand, bool enabled, double centralFreq, double power, const std::string& path, const std::string& transmitterId, const std::string& signalId, const Sdx::optional<int>& group = {});
       static GetIntTxIqFileResultPtr dynamicCast(CommandBasePtr ptr);
       virtual bool isValid() const override;

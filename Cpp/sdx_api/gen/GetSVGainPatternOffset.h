@@ -35,7 +35,7 @@ namespace Sdx
       GetSVGainPatternOffset();
 
       GetSVGainPatternOffset(const Sdx::GNSSBand& band, const std::string& system, const Sdx::optional<std::string>& antennaName = {});
-  
+
       static GetSVGainPatternOffsetPtr create(const Sdx::GNSSBand& band, const std::string& system, const Sdx::optional<std::string>& antennaName = {});
       static GetSVGainPatternOffsetPtr dynamicCast(CommandBasePtr ptr);
       virtual bool isValid() const override;

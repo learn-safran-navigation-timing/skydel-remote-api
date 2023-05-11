@@ -32,7 +32,6 @@ namespace Sdx
       setDate(date);
     }
 
-
     SetLeapSecondFuturePtr SetLeapSecondFuture::create(bool enabled, int seconds, const Sdx::Date& date)
     {
       return std::make_shared<SetLeapSecondFuture>(enabled, seconds, date);

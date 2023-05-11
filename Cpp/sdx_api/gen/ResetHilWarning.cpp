@@ -27,7 +27,6 @@ namespace Sdx
 
     }
 
-
     ResetHilWarningPtr ResetHilWarning::create()
     {
       return std::make_shared<ResetHilWarning>();

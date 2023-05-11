@@ -25,7 +25,6 @@ namespace Sdx
 
     }
 
-
     BroadcastConfigPtr BroadcastConfig::create()
     {
       return std::make_shared<BroadcastConfig>();

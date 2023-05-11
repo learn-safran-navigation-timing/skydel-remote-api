@@ -37,7 +37,6 @@ namespace Sdx
       setGroup(group);
     }
 
-
     SetIntTxAWGNPtr SetIntTxAWGN::create(bool enabled, double centralFreq, double power, double bandwidth, const std::string& transmitterId, const std::string& signalId, const Sdx::optional<int>& seed, const Sdx::optional<int>& group)
     {
       return std::make_shared<SetIntTxAWGN>(enabled, centralFreq, power, bandwidth, transmitterId, signalId, seed, group);

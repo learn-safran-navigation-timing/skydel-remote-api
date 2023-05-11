@@ -31,7 +31,6 @@ namespace Sdx
       setSvId(svId);
     }
 
-
     GetEnabledSignalsForSVPtr GetEnabledSignalsForSV::create(const std::string& system, int svId)
     {
       return std::make_shared<GetEnabledSignalsForSV>(system, svId);

@@ -30,7 +30,7 @@ namespace Sdx
 
 
       GetHilExtrapolationState();
-  
+
       static GetHilExtrapolationStatePtr create();
       static GetHilExtrapolationStatePtr dynamicCast(CommandBasePtr ptr);
       virtual bool isValid() const override;

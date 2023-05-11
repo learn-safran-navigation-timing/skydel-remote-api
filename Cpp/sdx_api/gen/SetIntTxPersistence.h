@@ -32,7 +32,7 @@ namespace Sdx
       SetIntTxPersistence();
 
       SetIntTxPersistence(bool persistence, const std::string& id);
-  
+
       static SetIntTxPersistencePtr create(bool persistence, const std::string& id);
       static SetIntTxPersistencePtr dynamicCast(CommandBasePtr ptr);
       virtual bool isValid() const override;

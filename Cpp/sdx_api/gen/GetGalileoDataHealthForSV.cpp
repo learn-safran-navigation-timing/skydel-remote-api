@@ -32,7 +32,6 @@ namespace Sdx
       setDataSetName(dataSetName);
     }
 
-
     GetGalileoDataHealthForSVPtr GetGalileoDataHealthForSV::create(int svId, const std::string& component, const Sdx::optional<std::string>& dataSetName)
     {
       return std::make_shared<GetGalileoDataHealthForSV>(svId, component, dataSetName);

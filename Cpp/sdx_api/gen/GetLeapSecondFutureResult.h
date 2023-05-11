@@ -32,8 +32,12 @@ namespace Sdx
 
       GetLeapSecondFutureResult();
 
+      GetLeapSecondFutureResult(bool enabled, int seconds, const Sdx::Date& date);
+
       GetLeapSecondFutureResult(CommandBasePtr relatedCommand, bool enabled, int seconds, const Sdx::Date& date);
-  
+
+      static GetLeapSecondFutureResultPtr create(bool enabled, int seconds, const Sdx::Date& date);
+
       static GetLeapSecondFutureResultPtr create(CommandBasePtr relatedCommand, bool enabled, int seconds, const Sdx::Date& date);
       static GetLeapSecondFutureResultPtr dynamicCast(CommandBasePtr ptr);
       virtual bool isValid() const override;

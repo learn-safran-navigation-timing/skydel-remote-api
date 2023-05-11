@@ -32,7 +32,6 @@ namespace Sdx
       setDataSetName(dataSetName);
     }
 
-
     SetGalileoSisaE1E5bIndexForSVPtr SetGalileoSisaE1E5bIndexForSV::create(int svId, int sisai, const Sdx::optional<std::string>& dataSetName)
     {
       return std::make_shared<SetGalileoSisaE1E5bIndexForSV>(svId, sisai, dataSetName);

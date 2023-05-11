@@ -30,7 +30,6 @@ namespace Sdx
       setParamName(paramName);
     }
 
-
     GetGlonassDoubleParamsPtr GetGlonassDoubleParams::create(const std::string& paramName)
     {
       return std::make_shared<GetGlonassDoubleParams>(paramName);

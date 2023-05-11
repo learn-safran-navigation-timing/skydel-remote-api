@@ -35,7 +35,7 @@ namespace Sdx
       SetSVType();
 
       SetSVType(const std::string& system, int svId, const std::string& svType);
-  
+
       static SetSVTypePtr create(const std::string& system, int svId, const std::string& svType);
       static SetSVTypePtr dynamicCast(CommandBasePtr ptr);
       virtual bool isValid() const override;

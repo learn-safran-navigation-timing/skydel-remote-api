@@ -30,7 +30,6 @@ namespace Sdx
       setId(id);
     }
 
-
     GetMessageModificationToGlonassNavPtr GetMessageModificationToGlonassNav::create(const std::string& id)
     {
       return std::make_shared<GetMessageModificationToGlonassNav>(id);

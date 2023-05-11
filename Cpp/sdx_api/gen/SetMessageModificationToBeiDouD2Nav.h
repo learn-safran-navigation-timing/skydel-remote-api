@@ -33,8 +33,8 @@ namespace Sdx
     /// changed.
     ///
     /// Name             Type         Description
-    /// ---------------- ------------ --------------------------------------------------------------------------------------------
-    /// SignalArray      array string Array of signals to apply the message modification to, accepts "B1" and "B2" (empty for all)
+    /// ---------------- ------------ ---------------------------------------------------------------------------------------------------
+    /// SignalArray      array string Array of signals to apply the message modification to, accepts "B1", "B2" and "B3I" (empty for all)
     /// SvId             int          The satellite's SV ID 1..35 (use 0 to apply modification to all SVs)
     /// StartTime        int          Elapsed time in seconds since start of simulation
     /// StopTime         int          Elapsed time in seconds since start of simulation (use 0 for no stop time)
@@ -60,7 +60,7 @@ namespace Sdx
       SetMessageModificationToBeiDouD2Nav();
 
       SetMessageModificationToBeiDouD2Nav(const std::vector<std::string>& signalArray, int svId, int startTime, int stopTime, int subframe, int page, int word, bool updateParity, const std::string& wordModification, const std::string& id);
-  
+
       static SetMessageModificationToBeiDouD2NavPtr create(const std::vector<std::string>& signalArray, int svId, int startTime, int stopTime, int subframe, int page, int word, bool updateParity, const std::string& wordModification, const std::string& id);
       static SetMessageModificationToBeiDouD2NavPtr dynamicCast(CommandBasePtr ptr);
       virtual bool isValid() const override;

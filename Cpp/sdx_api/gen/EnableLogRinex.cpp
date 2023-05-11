@@ -30,7 +30,6 @@ namespace Sdx
       setEnabled(enabled);
     }
 
-
     EnableLogRinexPtr EnableLogRinex::create(bool enabled)
     {
       return std::make_shared<EnableLogRinex>(enabled);

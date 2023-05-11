@@ -31,7 +31,6 @@ namespace Sdx
       setEnabled(enabled);
     }
 
-
     EnableEachSVPtr EnableEachSV::create(const std::string& system, const std::vector<bool>& enabled)
     {
       return std::make_shared<EnableEachSV>(system, enabled);

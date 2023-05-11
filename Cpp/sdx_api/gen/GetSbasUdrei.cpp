@@ -27,7 +27,6 @@ namespace Sdx
 
     }
 
-
     GetSbasUdreiPtr GetSbasUdrei::create()
     {
       return std::make_shared<GetSbasUdrei>();

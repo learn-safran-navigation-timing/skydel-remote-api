@@ -30,7 +30,6 @@ namespace Sdx
       setSvId(svId);
     }
 
-
     GetGlonassAlmanacUnhealthyFlagForSVPtr GetGlonassAlmanacUnhealthyFlagForSV::create(int svId)
     {
       return std::make_shared<GetGlonassAlmanacUnhealthyFlagForSV>(svId);

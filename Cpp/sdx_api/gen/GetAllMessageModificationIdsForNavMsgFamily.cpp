@@ -31,7 +31,6 @@ namespace Sdx
       setSvId(svId);
     }
 
-
     GetAllMessageModificationIdsForNavMsgFamilyPtr GetAllMessageModificationIdsForNavMsgFamily::create(const std::string& navMsgFamily, int svId)
     {
       return std::make_shared<GetAllMessageModificationIdsForNavMsgFamily>(navMsgFamily, svId);

@@ -31,7 +31,6 @@ namespace Sdx
       setLoadDefaultConfig(loadDefaultConfig);
     }
 
-
     NewPtr New::create(bool discardCurrentConfig, const Sdx::optional<bool>& loadDefaultConfig)
     {
       return std::make_shared<New>(discardCurrentConfig, loadDefaultConfig);

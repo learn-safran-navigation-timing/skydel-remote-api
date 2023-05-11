@@ -34,7 +34,7 @@ namespace Sdx
       GetPerturbationsForAllSat();
 
       GetPerturbationsForAllSat(const std::string& system, const Sdx::optional<std::string>& dataSetName = {});
-  
+
       static GetPerturbationsForAllSatPtr create(const std::string& system, const Sdx::optional<std::string>& dataSetName = {});
       static GetPerturbationsForAllSatPtr dynamicCast(CommandBasePtr ptr);
       virtual bool isValid() const override;

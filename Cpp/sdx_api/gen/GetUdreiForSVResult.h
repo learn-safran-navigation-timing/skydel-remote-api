@@ -32,8 +32,12 @@ namespace Sdx
 
       GetUdreiForSVResult();
 
+      GetUdreiForSVResult(const std::string& system, int svId, int udrei);
+
       GetUdreiForSVResult(CommandBasePtr relatedCommand, const std::string& system, int svId, int udrei);
-  
+
+      static GetUdreiForSVResultPtr create(const std::string& system, int svId, int udrei);
+
       static GetUdreiForSVResultPtr create(CommandBasePtr relatedCommand, const std::string& system, int svId, int udrei);
       static GetUdreiForSVResultPtr dynamicCast(CommandBasePtr ptr);
       virtual bool isValid() const override;

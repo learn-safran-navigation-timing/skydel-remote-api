@@ -30,8 +30,12 @@ namespace Sdx
 
       IsAttitudeToZeroForcedResult();
 
+      IsAttitudeToZeroForcedResult(bool enabled);
+
       IsAttitudeToZeroForcedResult(CommandBasePtr relatedCommand, bool enabled);
-  
+
+      static IsAttitudeToZeroForcedResultPtr create(bool enabled);
+
       static IsAttitudeToZeroForcedResultPtr create(CommandBasePtr relatedCommand, bool enabled);
       static IsAttitudeToZeroForcedResultPtr dynamicCast(CommandBasePtr ptr);
       virtual bool isValid() const override;

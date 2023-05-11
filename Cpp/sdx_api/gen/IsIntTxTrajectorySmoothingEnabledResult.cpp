@@ -23,6 +23,14 @@ namespace Sdx
       : CommandResult(CmdName)
     {}
 
+    IsIntTxTrajectorySmoothingEnabledResult::IsIntTxTrajectorySmoothingEnabledResult(bool enabled, const std::string& id)
+      : CommandResult(CmdName)
+    {
+
+      setEnabled(enabled);
+      setId(id);
+    }
+
     IsIntTxTrajectorySmoothingEnabledResult::IsIntTxTrajectorySmoothingEnabledResult(CommandBasePtr relatedCommand, bool enabled, const std::string& id)
       : CommandResult(CmdName, relatedCommand)
     {
@@ -31,6 +39,11 @@ namespace Sdx
       setId(id);
     }
 
+
+    IsIntTxTrajectorySmoothingEnabledResultPtr IsIntTxTrajectorySmoothingEnabledResult::create(bool enabled, const std::string& id)
+    {
+      return std::make_shared<IsIntTxTrajectorySmoothingEnabledResult>(enabled, id);
+    }
 
     IsIntTxTrajectorySmoothingEnabledResultPtr IsIntTxTrajectorySmoothingEnabledResult::create(CommandBasePtr relatedCommand, bool enabled, const std::string& id)
     {

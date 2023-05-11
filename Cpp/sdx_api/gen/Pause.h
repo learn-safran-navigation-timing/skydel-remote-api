@@ -27,7 +27,7 @@ namespace Sdx
 
 
       Pause();
-  
+
       static PausePtr create();
       static PausePtr dynamicCast(CommandBasePtr ptr);
       virtual bool isValid() const override;

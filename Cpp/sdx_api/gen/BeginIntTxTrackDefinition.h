@@ -34,7 +34,7 @@ namespace Sdx
       BeginIntTxTrackDefinition();
 
       BeginIntTxTrackDefinition(const std::string& id);
-  
+
       static BeginIntTxTrackDefinitionPtr create(const std::string& id);
       static BeginIntTxTrackDefinitionPtr dynamicCast(CommandBasePtr ptr);
       virtual bool isValid() const override;

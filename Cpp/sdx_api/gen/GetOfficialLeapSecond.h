@@ -31,7 +31,7 @@ namespace Sdx
       GetOfficialLeapSecond();
 
       GetOfficialLeapSecond(const Sdx::DateTime& date);
-  
+
       static GetOfficialLeapSecondPtr create(const Sdx::DateTime& date);
       static GetOfficialLeapSecondPtr dynamicCast(CommandBasePtr ptr);
       virtual bool isValid() const override;

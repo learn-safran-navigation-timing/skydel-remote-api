@@ -25,7 +25,6 @@ namespace Sdx
 
     }
 
-
     IsLogDownlinkEnabledPtr IsLogDownlinkEnabled::create()
     {
       return std::make_shared<IsLogDownlinkEnabled>();

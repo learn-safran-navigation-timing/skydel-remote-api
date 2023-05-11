@@ -30,7 +30,6 @@ namespace Sdx
       setId(id);
     }
 
-
     GetSpoofTxAntennaOffsetPtr GetSpoofTxAntennaOffset::create(const std::string& id)
     {
       return std::make_shared<GetSpoofTxAntennaOffset>(id);

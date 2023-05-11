@@ -31,7 +31,6 @@ namespace Sdx
       setHealth(health);
     }
 
-
     SetSbasIntegrityHealthForSVPtr SetSbasIntegrityHealthForSV::create(int svId, bool health)
     {
       return std::make_shared<SetSbasIntegrityHealthForSV>(svId, health);

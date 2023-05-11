@@ -44,7 +44,7 @@ namespace Sdx
       GetPseudorangeRampForSV();
 
       GetPseudorangeRampForSV(const std::string& id);
-  
+
       static GetPseudorangeRampForSVPtr create(const std::string& id);
       static GetPseudorangeRampForSVPtr dynamicCast(CommandBasePtr ptr);
       virtual bool isValid() const override;

@@ -23,6 +23,13 @@ namespace Sdx
       : CommandResult(CmdName)
     {}
 
+    IsLogHILInputEnabledResult::IsLogHILInputEnabledResult(bool enabled)
+      : CommandResult(CmdName)
+    {
+
+      setEnabled(enabled);
+    }
+
     IsLogHILInputEnabledResult::IsLogHILInputEnabledResult(CommandBasePtr relatedCommand, bool enabled)
       : CommandResult(CmdName, relatedCommand)
     {
@@ -30,6 +37,11 @@ namespace Sdx
       setEnabled(enabled);
     }
 
+
+    IsLogHILInputEnabledResultPtr IsLogHILInputEnabledResult::create(bool enabled)
+    {
+      return std::make_shared<IsLogHILInputEnabledResult>(enabled);
+    }
 
     IsLogHILInputEnabledResultPtr IsLogHILInputEnabledResult::create(CommandBasePtr relatedCommand, bool enabled)
     {

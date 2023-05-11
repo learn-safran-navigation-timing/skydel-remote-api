@@ -27,7 +27,7 @@ namespace Sdx
 
 
       GetVersion();
-  
+
       static GetVersionPtr create();
       static GetVersionPtr dynamicCast(CommandBasePtr ptr);
       virtual bool isValid() const override;

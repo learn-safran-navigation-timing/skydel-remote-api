@@ -25,7 +25,6 @@ namespace Sdx
 
     }
 
-
     ClearVehiculeTrajectoryPtr ClearVehiculeTrajectory::create()
     {
       return std::make_shared<ClearVehiculeTrajectory>();

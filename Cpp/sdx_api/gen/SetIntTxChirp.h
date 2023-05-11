@@ -42,7 +42,7 @@ namespace Sdx
       SetIntTxChirp();
 
       SetIntTxChirp(bool enabled, double centralFreq, double power, double bandwidth, double sweepTime, const std::string& transmitterId, const std::string& signalId, const Sdx::optional<int>& group = {});
-  
+
       static SetIntTxChirpPtr create(bool enabled, double centralFreq, double power, double bandwidth, double sweepTime, const std::string& transmitterId, const std::string& signalId, const Sdx::optional<int>& group = {});
       static SetIntTxChirpPtr dynamicCast(CommandBasePtr ptr);
       virtual bool isValid() const override;

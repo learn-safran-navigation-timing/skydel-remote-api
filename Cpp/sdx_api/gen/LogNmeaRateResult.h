@@ -30,8 +30,12 @@ namespace Sdx
 
       LogNmeaRateResult();
 
+      LogNmeaRateResult(int rate);
+
       LogNmeaRateResult(CommandBasePtr relatedCommand, int rate);
-  
+
+      static LogNmeaRateResultPtr create(int rate);
+
       static LogNmeaRateResultPtr create(CommandBasePtr relatedCommand, int rate);
       static LogNmeaRateResultPtr dynamicCast(CommandBasePtr ptr);
       virtual bool isValid() const override;

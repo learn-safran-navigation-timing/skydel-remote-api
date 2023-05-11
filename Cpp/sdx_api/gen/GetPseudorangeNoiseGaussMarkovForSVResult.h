@@ -36,8 +36,12 @@ namespace Sdx
 
       GetPseudorangeNoiseGaussMarkovForSVResult();
 
+      GetPseudorangeNoiseGaussMarkovForSVResult(const std::string& system, int svId, int process, bool enabled, double sigma, double time, int seed);
+
       GetPseudorangeNoiseGaussMarkovForSVResult(CommandBasePtr relatedCommand, const std::string& system, int svId, int process, bool enabled, double sigma, double time, int seed);
-  
+
+      static GetPseudorangeNoiseGaussMarkovForSVResultPtr create(const std::string& system, int svId, int process, bool enabled, double sigma, double time, int seed);
+
       static GetPseudorangeNoiseGaussMarkovForSVResultPtr create(CommandBasePtr relatedCommand, const std::string& system, int svId, int process, bool enabled, double sigma, double time, int seed);
       static GetPseudorangeNoiseGaussMarkovForSVResultPtr dynamicCast(CommandBasePtr ptr);
       virtual bool isValid() const override;

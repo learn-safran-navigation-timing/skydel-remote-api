@@ -30,8 +30,12 @@ namespace Sdx
 
       GetDurationResult();
 
+      GetDurationResult(int second);
+
       GetDurationResult(CommandBasePtr relatedCommand, int second);
-  
+
+      static GetDurationResultPtr create(int second);
+
       static GetDurationResultPtr create(CommandBasePtr relatedCommand, int second);
       static GetDurationResultPtr dynamicCast(CommandBasePtr ptr);
       virtual bool isValid() const override;

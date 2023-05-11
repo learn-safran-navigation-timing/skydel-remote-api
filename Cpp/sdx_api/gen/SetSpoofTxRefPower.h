@@ -32,7 +32,7 @@ namespace Sdx
       SetSpoofTxRefPower();
 
       SetSpoofTxRefPower(double power, const std::string& id);
-  
+
       static SetSpoofTxRefPowerPtr create(double power, const std::string& id);
       static SetSpoofTxRefPowerPtr dynamicCast(CommandBasePtr ptr);
       virtual bool isValid() const override;

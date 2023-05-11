@@ -28,7 +28,7 @@ namespace Sdx
 
 
       BeginVehicleInfo();
-  
+
       static BeginVehicleInfoPtr create();
       static BeginVehicleInfoPtr dynamicCast(CommandBasePtr ptr);
       virtual bool isValid() const override;

@@ -27,7 +27,7 @@ namespace Sdx
 
 
       IsUsingVelocityInSbasMessage25();
-  
+
       static IsUsingVelocityInSbasMessage25Ptr create();
       static IsUsingVelocityInSbasMessage25Ptr dynamicCast(CommandBasePtr ptr);
       virtual bool isValid() const override;

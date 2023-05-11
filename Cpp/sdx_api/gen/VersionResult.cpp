@@ -23,6 +23,13 @@ namespace Sdx
       : CommandResult(CmdName)
     {}
 
+    VersionResult::VersionResult(const std::string& version)
+      : CommandResult(CmdName)
+    {
+
+      setVersion(version);
+    }
+
     VersionResult::VersionResult(CommandBasePtr relatedCommand, const std::string& version)
       : CommandResult(CmdName, relatedCommand)
     {
@@ -30,6 +37,11 @@ namespace Sdx
       setVersion(version);
     }
 
+
+    VersionResultPtr VersionResult::create(const std::string& version)
+    {
+      return std::make_shared<VersionResult>(version);
+    }
 
     VersionResultPtr VersionResult::create(CommandBasePtr relatedCommand, const std::string& version)
     {

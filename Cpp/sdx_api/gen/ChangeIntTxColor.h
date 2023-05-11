@@ -32,7 +32,7 @@ namespace Sdx
       ChangeIntTxColor();
 
       ChangeIntTxColor(const std::string& color, const std::string& id);
-  
+
       static ChangeIntTxColorPtr create(const std::string& color, const std::string& id);
       static ChangeIntTxColorPtr dynamicCast(CommandBasePtr ptr);
       virtual bool isValid() const override;

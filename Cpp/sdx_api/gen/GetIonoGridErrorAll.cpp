@@ -25,7 +25,6 @@ namespace Sdx
 
     }
 
-
     GetIonoGridErrorAllPtr GetIonoGridErrorAll::create()
     {
       return std::make_shared<GetIonoGridErrorAll>();

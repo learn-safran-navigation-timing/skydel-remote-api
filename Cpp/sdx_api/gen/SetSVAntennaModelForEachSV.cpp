@@ -31,7 +31,6 @@ namespace Sdx
       setAntennaModelNames(antennaModelNames);
     }
 
-
     SetSVAntennaModelForEachSVPtr SetSVAntennaModelForEachSV::create(const std::string& system, const std::vector<std::string>& antennaModelNames)
     {
       return std::make_shared<SetSVAntennaModelForEachSV>(system, antennaModelNames);

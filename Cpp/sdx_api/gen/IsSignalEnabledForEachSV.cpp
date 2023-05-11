@@ -30,7 +30,6 @@ namespace Sdx
       setSignal(signal);
     }
 
-
     IsSignalEnabledForEachSVPtr IsSignalEnabledForEachSV::create(const std::string& signal)
     {
       return std::make_shared<IsSignalEnabledForEachSV>(signal);

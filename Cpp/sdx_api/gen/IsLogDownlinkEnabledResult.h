@@ -32,8 +32,12 @@ namespace Sdx
 
       IsLogDownlinkEnabledResult();
 
+      IsLogDownlinkEnabledResult(bool enabled, const Sdx::optional<bool>& beforeEncoding = {}, const Sdx::optional<bool>& afterEncoding = {});
+
       IsLogDownlinkEnabledResult(CommandBasePtr relatedCommand, bool enabled, const Sdx::optional<bool>& beforeEncoding = {}, const Sdx::optional<bool>& afterEncoding = {});
-  
+
+      static IsLogDownlinkEnabledResultPtr create(bool enabled, const Sdx::optional<bool>& beforeEncoding = {}, const Sdx::optional<bool>& afterEncoding = {});
+
       static IsLogDownlinkEnabledResultPtr create(CommandBasePtr relatedCommand, bool enabled, const Sdx::optional<bool>& beforeEncoding = {}, const Sdx::optional<bool>& afterEncoding = {});
       static IsLogDownlinkEnabledResultPtr dynamicCast(CommandBasePtr ptr);
       virtual bool isValid() const override;

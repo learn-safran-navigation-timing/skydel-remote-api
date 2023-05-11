@@ -31,7 +31,6 @@ namespace Sdx
       setSvId(svId);
     }
 
-
     GetUdreiForSVPtr GetUdreiForSV::create(const std::string& system, int svId)
     {
       return std::make_shared<GetUdreiForSV>(system, svId);

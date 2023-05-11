@@ -27,7 +27,7 @@ namespace Sdx
 
 
       IsStopMasterWhenSlaveStop();
-  
+
       static IsStopMasterWhenSlaveStopPtr create();
       static IsStopMasterWhenSlaveStopPtr dynamicCast(CommandBasePtr ptr);
       virtual bool isValid() const override;

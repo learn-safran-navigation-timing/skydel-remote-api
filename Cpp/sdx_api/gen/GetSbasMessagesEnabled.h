@@ -27,7 +27,7 @@ namespace Sdx
 
 
       GetSbasMessagesEnabled();
-  
+
       static GetSbasMessagesEnabledPtr create();
       static GetSbasMessagesEnabledPtr dynamicCast(CommandBasePtr ptr);
       virtual bool isValid() const override;

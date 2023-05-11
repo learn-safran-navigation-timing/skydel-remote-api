@@ -30,7 +30,6 @@ namespace Sdx
       setId(id);
     }
 
-
     GetSpoofTxCircularPtr GetSpoofTxCircular::create(const std::string& id)
     {
       return std::make_shared<GetSpoofTxCircular>(id);

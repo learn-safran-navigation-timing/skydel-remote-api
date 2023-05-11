@@ -32,7 +32,7 @@ namespace Sdx
       RenameIntTx();
 
       RenameIntTx(const std::string& usualName, const std::string& id);
-  
+
       static RenameIntTxPtr create(const std::string& usualName, const std::string& id);
       static RenameIntTxPtr dynamicCast(CommandBasePtr ptr);
       virtual bool isValid() const override;

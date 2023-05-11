@@ -31,7 +31,7 @@ namespace Sdx
       ImportGlonassAlmanac();
 
       ImportGlonassAlmanac(const std::string& path);
-  
+
       static ImportGlonassAlmanacPtr create(const std::string& path);
       static ImportGlonassAlmanacPtr dynamicCast(CommandBasePtr ptr);
       virtual bool isValid() const override;

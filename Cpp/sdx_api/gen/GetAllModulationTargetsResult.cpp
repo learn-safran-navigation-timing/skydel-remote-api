@@ -23,6 +23,13 @@ namespace Sdx
       : CommandResult(CmdName)
     {}
 
+    GetAllModulationTargetsResult::GetAllModulationTargetsResult(const std::vector<std::string>& ids)
+      : CommandResult(CmdName)
+    {
+
+      setIds(ids);
+    }
+
     GetAllModulationTargetsResult::GetAllModulationTargetsResult(CommandBasePtr relatedCommand, const std::vector<std::string>& ids)
       : CommandResult(CmdName, relatedCommand)
     {
@@ -30,6 +37,11 @@ namespace Sdx
       setIds(ids);
     }
 
+
+    GetAllModulationTargetsResultPtr GetAllModulationTargetsResult::create(const std::vector<std::string>& ids)
+    {
+      return std::make_shared<GetAllModulationTargetsResult>(ids);
+    }
 
     GetAllModulationTargetsResultPtr GetAllModulationTargetsResult::create(CommandBasePtr relatedCommand, const std::vector<std::string>& ids)
     {

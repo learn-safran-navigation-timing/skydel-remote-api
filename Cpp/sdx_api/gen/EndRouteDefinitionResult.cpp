@@ -23,6 +23,13 @@ namespace Sdx
       : CommandResult(CmdName)
     {}
 
+    EndRouteDefinitionResult::EndRouteDefinitionResult(int count)
+      : CommandResult(CmdName)
+    {
+
+      setCount(count);
+    }
+
     EndRouteDefinitionResult::EndRouteDefinitionResult(CommandBasePtr relatedCommand, int count)
       : CommandResult(CmdName, relatedCommand)
     {
@@ -30,6 +37,11 @@ namespace Sdx
       setCount(count);
     }
 
+
+    EndRouteDefinitionResultPtr EndRouteDefinitionResult::create(int count)
+    {
+      return std::make_shared<EndRouteDefinitionResult>(count);
+    }
 
     EndRouteDefinitionResultPtr EndRouteDefinitionResult::create(CommandBasePtr relatedCommand, int count)
     {

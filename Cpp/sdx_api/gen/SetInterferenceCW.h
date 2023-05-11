@@ -36,7 +36,7 @@ namespace Sdx
       SetInterferenceCW();
 
       SetInterferenceCW(int startTime, int stopTime, double centralFreq, double power, bool enabled, const std::string& id);
-  
+
       static SetInterferenceCWPtr create(int startTime, int stopTime, double centralFreq, double power, bool enabled, const std::string& id);
       static SetInterferenceCWPtr dynamicCast(CommandBasePtr ptr);
       virtual bool isValid() const override;

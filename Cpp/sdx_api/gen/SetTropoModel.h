@@ -31,7 +31,7 @@ namespace Sdx
       SetTropoModel();
 
       SetTropoModel(const std::string& model);
-  
+
       static SetTropoModelPtr create(const std::string& model);
       static SetTropoModelPtr dynamicCast(CommandBasePtr ptr);
       virtual bool isValid() const override;

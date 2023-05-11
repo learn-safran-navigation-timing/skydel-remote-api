@@ -34,7 +34,7 @@ namespace Sdx
       SetIonoGridGIVEIAll();
 
       SetIonoGridGIVEIAll(const std::vector<std::vector<int>>& grid, const Sdx::optional<std::string>& serviceProvider = {});
-  
+
       static SetIonoGridGIVEIAllPtr create(const std::vector<std::vector<int>>& grid, const Sdx::optional<std::string>& serviceProvider = {});
       static SetIonoGridGIVEIAllPtr dynamicCast(CommandBasePtr ptr);
       virtual bool isValid() const override;

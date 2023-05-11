@@ -25,7 +25,6 @@ namespace Sdx
 
     }
 
-
     RemoveAllModulationTargetsPtr RemoveAllModulationTargets::create()
     {
       return std::make_shared<RemoveAllModulationTargets>();

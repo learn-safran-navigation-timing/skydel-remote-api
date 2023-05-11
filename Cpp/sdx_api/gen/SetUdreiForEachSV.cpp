@@ -31,7 +31,6 @@ namespace Sdx
       setUdreis(udreis);
     }
 
-
     SetUdreiForEachSVPtr SetUdreiForEachSV::create(const std::string& system, const std::vector<int>& udreis)
     {
       return std::make_shared<SetUdreiForEachSV>(system, udreis);

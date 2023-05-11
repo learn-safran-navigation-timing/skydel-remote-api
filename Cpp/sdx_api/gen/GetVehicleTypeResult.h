@@ -30,8 +30,12 @@ namespace Sdx
 
       GetVehicleTypeResult();
 
+      GetVehicleTypeResult(const std::string& type);
+
       GetVehicleTypeResult(CommandBasePtr relatedCommand, const std::string& type);
-  
+
+      static GetVehicleTypeResultPtr create(const std::string& type);
+
       static GetVehicleTypeResultPtr create(CommandBasePtr relatedCommand, const std::string& type);
       static GetVehicleTypeResultPtr dynamicCast(CommandBasePtr ptr);
       virtual bool isValid() const override;

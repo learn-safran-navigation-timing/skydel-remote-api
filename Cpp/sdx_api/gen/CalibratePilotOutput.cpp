@@ -33,7 +33,6 @@ namespace Sdx
       setCarrierPhase(carrierPhase);
     }
 
-
     CalibratePilotOutputPtr CalibratePilotOutput::create(int outputIdx, double power, double time, double carrierPhase)
     {
       return std::make_shared<CalibratePilotOutput>(outputIdx, power, time, carrierPhase);

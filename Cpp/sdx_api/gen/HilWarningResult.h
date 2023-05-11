@@ -31,8 +31,12 @@ namespace Sdx
 
       HilWarningResult();
 
+      HilWarningResult(bool isExtrapolated, int extrapolationTime);
+
       HilWarningResult(CommandBasePtr relatedCommand, bool isExtrapolated, int extrapolationTime);
-  
+
+      static HilWarningResultPtr create(bool isExtrapolated, int extrapolationTime);
+
       static HilWarningResultPtr create(CommandBasePtr relatedCommand, bool isExtrapolated, int extrapolationTime);
       static HilWarningResultPtr dynamicCast(CommandBasePtr ptr);
       virtual bool isValid() const override;

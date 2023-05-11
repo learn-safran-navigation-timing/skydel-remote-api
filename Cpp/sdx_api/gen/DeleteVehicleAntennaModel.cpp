@@ -30,7 +30,6 @@ namespace Sdx
       setName(name);
     }
 
-
     DeleteVehicleAntennaModelPtr DeleteVehicleAntennaModel::create(const std::string& name)
     {
       return std::make_shared<DeleteVehicleAntennaModel>(name);

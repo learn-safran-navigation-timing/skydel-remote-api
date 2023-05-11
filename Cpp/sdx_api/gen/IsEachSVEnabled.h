@@ -31,7 +31,7 @@ namespace Sdx
       IsEachSVEnabled();
 
       IsEachSVEnabled(const std::string& system);
-  
+
       static IsEachSVEnabledPtr create(const std::string& system);
       static IsEachSVEnabledPtr dynamicCast(CommandBasePtr ptr);
       virtual bool isValid() const override;

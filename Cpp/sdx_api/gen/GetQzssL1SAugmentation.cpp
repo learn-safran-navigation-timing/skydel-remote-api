@@ -30,7 +30,6 @@ namespace Sdx
       setId(id);
     }
 
-
     GetQzssL1SAugmentationPtr GetQzssL1SAugmentation::create(const std::string& id)
     {
       return std::make_shared<GetQzssL1SAugmentation>(id);

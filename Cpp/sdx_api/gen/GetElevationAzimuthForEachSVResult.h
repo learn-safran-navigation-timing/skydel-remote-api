@@ -34,8 +34,12 @@ namespace Sdx
 
       GetElevationAzimuthForEachSVResult();
 
+      GetElevationAzimuthForEachSVResult(const std::string& system, const std::vector<Sdx::optional<Sdx::ElevationAzimuth>>& elevationAzimuths);
+
       GetElevationAzimuthForEachSVResult(CommandBasePtr relatedCommand, const std::string& system, const std::vector<Sdx::optional<Sdx::ElevationAzimuth>>& elevationAzimuths);
-  
+
+      static GetElevationAzimuthForEachSVResultPtr create(const std::string& system, const std::vector<Sdx::optional<Sdx::ElevationAzimuth>>& elevationAzimuths);
+
       static GetElevationAzimuthForEachSVResultPtr create(CommandBasePtr relatedCommand, const std::string& system, const std::vector<Sdx::optional<Sdx::ElevationAzimuth>>& elevationAzimuths);
       static GetElevationAzimuthForEachSVResultPtr dynamicCast(CommandBasePtr ptr);
       virtual bool isValid() const override;

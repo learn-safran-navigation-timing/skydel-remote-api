@@ -32,8 +32,12 @@ namespace Sdx
 
       GetMasterStatusResult();
 
+      GetMasterStatusResult(bool isMaster, int slaveConnected, int port);
+
       GetMasterStatusResult(CommandBasePtr relatedCommand, bool isMaster, int slaveConnected, int port);
-  
+
+      static GetMasterStatusResultPtr create(bool isMaster, int slaveConnected, int port);
+
       static GetMasterStatusResultPtr create(CommandBasePtr relatedCommand, bool isMaster, int slaveConnected, int port);
       static GetMasterStatusResultPtr dynamicCast(CommandBasePtr ptr);
       virtual bool isValid() const override;

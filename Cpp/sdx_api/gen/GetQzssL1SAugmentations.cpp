@@ -25,7 +25,6 @@ namespace Sdx
 
     }
 
-
     GetQzssL1SAugmentationsPtr GetQzssL1SAugmentations::create()
     {
       return std::make_shared<GetQzssL1SAugmentations>();

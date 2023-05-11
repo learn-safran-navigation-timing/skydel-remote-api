@@ -33,7 +33,7 @@ namespace Sdx
       GetNavICNavAlertFlagForSV();
 
       GetNavICNavAlertFlagForSV(int svId, const Sdx::optional<std::string>& dataSetName = {});
-  
+
       static GetNavICNavAlertFlagForSVPtr create(int svId, const Sdx::optional<std::string>& dataSetName = {});
       static GetNavICNavAlertFlagForSVPtr dynamicCast(CommandBasePtr ptr);
       virtual bool isValid() const override;

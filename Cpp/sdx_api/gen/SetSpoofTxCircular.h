@@ -39,7 +39,7 @@ namespace Sdx
       SetSpoofTxCircular();
 
       SetSpoofTxCircular(double lat, double lon, double alt, double radius, double speed, bool clockwise, const std::string& id, const Sdx::optional<double>& originAngle = {});
-  
+
       static SetSpoofTxCircularPtr create(double lat, double lon, double alt, double radius, double speed, bool clockwise, const std::string& id, const Sdx::optional<double>& originAngle = {});
       static SetSpoofTxCircularPtr dynamicCast(CommandBasePtr ptr);
       virtual bool isValid() const override;

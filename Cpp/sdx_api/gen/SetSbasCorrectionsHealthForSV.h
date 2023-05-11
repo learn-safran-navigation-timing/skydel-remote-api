@@ -32,7 +32,7 @@ namespace Sdx
       SetSbasCorrectionsHealthForSV();
 
       SetSbasCorrectionsHealthForSV(int svId, bool health);
-  
+
       static SetSbasCorrectionsHealthForSVPtr create(int svId, bool health);
       static SetSbasCorrectionsHealthForSVPtr dynamicCast(CommandBasePtr ptr);
       virtual bool isValid() const override;

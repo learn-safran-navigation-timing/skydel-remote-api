@@ -25,7 +25,6 @@ namespace Sdx
 
     }
 
-
     GetSbasMessagesEnabledPtr GetSbasMessagesEnabled::create()
     {
       return std::make_shared<GetSbasMessagesEnabled>();

@@ -31,7 +31,7 @@ namespace Sdx
       GetVisibleSV();
 
       GetVisibleSV(const std::string& system);
-  
+
       static GetVisibleSVPtr create(const std::string& system);
       static GetVisibleSVPtr dynamicCast(CommandBasePtr ptr);
       virtual bool isValid() const override;

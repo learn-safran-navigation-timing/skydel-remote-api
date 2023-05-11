@@ -36,8 +36,12 @@ namespace Sdx
 
       GetSpoofTxFixEcefResult();
 
+      GetSpoofTxFixEcefResult(double x, double y, double z, double yaw, double pitch, double roll, const std::string& id);
+
       GetSpoofTxFixEcefResult(CommandBasePtr relatedCommand, double x, double y, double z, double yaw, double pitch, double roll, const std::string& id);
-  
+
+      static GetSpoofTxFixEcefResultPtr create(double x, double y, double z, double yaw, double pitch, double roll, const std::string& id);
+
       static GetSpoofTxFixEcefResultPtr create(CommandBasePtr relatedCommand, double x, double y, double z, double yaw, double pitch, double roll, const std::string& id);
       static GetSpoofTxFixEcefResultPtr dynamicCast(CommandBasePtr ptr);
       virtual bool isValid() const override;

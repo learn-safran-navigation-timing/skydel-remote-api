@@ -25,7 +25,6 @@ namespace Sdx
 
     }
 
-
     BeginVehicleInfoPtr BeginVehicleInfo::create()
     {
       return std::make_shared<BeginVehicleInfo>();

@@ -30,8 +30,12 @@ namespace Sdx
 
       DataFolderResult();
 
+      DataFolderResult(const std::string& folder);
+
       DataFolderResult(CommandBasePtr relatedCommand, const std::string& folder);
-  
+
+      static DataFolderResultPtr create(const std::string& folder);
+
       static DataFolderResultPtr create(CommandBasePtr relatedCommand, const std::string& folder);
       static DataFolderResultPtr dynamicCast(CommandBasePtr ptr);
       virtual bool isValid() const override;

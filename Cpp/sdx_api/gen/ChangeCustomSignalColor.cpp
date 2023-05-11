@@ -31,7 +31,6 @@ namespace Sdx
       setId(id);
     }
 
-
     ChangeCustomSignalColorPtr ChangeCustomSignalColor::create(const std::string& color, const std::string& id)
     {
       return std::make_shared<ChangeCustomSignalColor>(color, id);

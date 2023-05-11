@@ -30,7 +30,6 @@ namespace Sdx
       setLatency(latency);
     }
 
-
     SetEngineLatencyPtr SetEngineLatency::create(int latency)
     {
       return std::make_shared<SetEngineLatency>(latency);

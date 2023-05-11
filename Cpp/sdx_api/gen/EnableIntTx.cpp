@@ -31,7 +31,6 @@ namespace Sdx
       setId(id);
     }
 
-
     EnableIntTxPtr EnableIntTx::create(bool enabled, const std::string& id)
     {
       return std::make_shared<EnableIntTx>(enabled, id);

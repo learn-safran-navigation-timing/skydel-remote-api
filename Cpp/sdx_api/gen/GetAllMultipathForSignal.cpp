@@ -30,7 +30,6 @@ namespace Sdx
       setSignal(signal);
     }
 
-
     GetAllMultipathForSignalPtr GetAllMultipathForSignal::create(const std::string& signal)
     {
       return std::make_shared<GetAllMultipathForSignal>(signal);

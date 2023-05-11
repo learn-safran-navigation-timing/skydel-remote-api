@@ -32,7 +32,7 @@ namespace Sdx
       GetSbasServiceMessageRegionGroup();
 
       GetSbasServiceMessageRegionGroup(const std::string& serviceProvider, const std::string& id);
-  
+
       static GetSbasServiceMessageRegionGroupPtr create(const std::string& serviceProvider, const std::string& id);
       static GetSbasServiceMessageRegionGroupPtr dynamicCast(CommandBasePtr ptr);
       virtual bool isValid() const override;

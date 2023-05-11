@@ -27,7 +27,7 @@ namespace Sdx
 
 
       RedoCmd();
-  
+
       static RedoCmdPtr create();
       static RedoCmdPtr dynamicCast(CommandBasePtr ptr);
       virtual bool isValid() const override;

@@ -33,7 +33,7 @@ namespace Sdx
       GetBeiDouEphBoolParamForEachSV();
 
       GetBeiDouEphBoolParamForEachSV(const std::string& paramName, const Sdx::optional<std::string>& dataSetName = {});
-  
+
       static GetBeiDouEphBoolParamForEachSVPtr create(const std::string& paramName, const Sdx::optional<std::string>& dataSetName = {});
       static GetBeiDouEphBoolParamForEachSVPtr dynamicCast(CommandBasePtr ptr);
       virtual bool isValid() const override;

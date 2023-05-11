@@ -31,7 +31,6 @@ namespace Sdx
       setDataSetName(dataSetName);
     }
 
-
     GetNavICSatelliteNavAlertFlagPtr GetNavICSatelliteNavAlertFlag::create(int svId, const Sdx::optional<std::string>& dataSetName)
     {
       return std::make_shared<GetNavICSatelliteNavAlertFlag>(svId, dataSetName);

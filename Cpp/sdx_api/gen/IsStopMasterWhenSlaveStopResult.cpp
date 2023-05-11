@@ -23,6 +23,13 @@ namespace Sdx
       : CommandResult(CmdName)
     {}
 
+    IsStopMasterWhenSlaveStopResult::IsStopMasterWhenSlaveStopResult(bool enabled)
+      : CommandResult(CmdName)
+    {
+
+      setEnabled(enabled);
+    }
+
     IsStopMasterWhenSlaveStopResult::IsStopMasterWhenSlaveStopResult(CommandBasePtr relatedCommand, bool enabled)
       : CommandResult(CmdName, relatedCommand)
     {
@@ -30,6 +37,11 @@ namespace Sdx
       setEnabled(enabled);
     }
 
+
+    IsStopMasterWhenSlaveStopResultPtr IsStopMasterWhenSlaveStopResult::create(bool enabled)
+    {
+      return std::make_shared<IsStopMasterWhenSlaveStopResult>(enabled);
+    }
 
     IsStopMasterWhenSlaveStopResultPtr IsStopMasterWhenSlaveStopResult::create(CommandBasePtr relatedCommand, bool enabled)
     {

@@ -30,7 +30,6 @@ namespace Sdx
       setSignal(signal);
     }
 
-
     GetPowerOffsetPtr GetPowerOffset::create(const std::string& signal)
     {
       return std::make_shared<GetPowerOffset>(signal);

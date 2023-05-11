@@ -30,7 +30,6 @@ namespace Sdx
       setVisible(visible);
     }
 
-
     SetSpectrumVisiblePtr SetSpectrumVisible::create(bool visible)
     {
       return std::make_shared<SetSpectrumVisible>(visible);

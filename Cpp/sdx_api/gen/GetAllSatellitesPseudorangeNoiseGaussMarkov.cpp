@@ -31,7 +31,6 @@ namespace Sdx
       setProcess(process);
     }
 
-
     GetAllSatellitesPseudorangeNoiseGaussMarkovPtr GetAllSatellitesPseudorangeNoiseGaussMarkov::create(const std::string& system, int process)
     {
       return std::make_shared<GetAllSatellitesPseudorangeNoiseGaussMarkov>(system, process);

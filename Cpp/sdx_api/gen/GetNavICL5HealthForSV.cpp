@@ -31,7 +31,6 @@ namespace Sdx
       setDataSetName(dataSetName);
     }
 
-
     GetNavICL5HealthForSVPtr GetNavICL5HealthForSV::create(int svId, const Sdx::optional<std::string>& dataSetName)
     {
       return std::make_shared<GetNavICL5HealthForSV>(svId, dataSetName);

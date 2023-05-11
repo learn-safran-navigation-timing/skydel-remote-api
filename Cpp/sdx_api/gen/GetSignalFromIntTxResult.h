@@ -33,8 +33,12 @@ namespace Sdx
 
       GetSignalFromIntTxResult();
 
+      GetSignalFromIntTxResult(const std::string& idTransmitter, const std::string& signalType, const std::vector<std::string>& idsSignal);
+
       GetSignalFromIntTxResult(CommandBasePtr relatedCommand, const std::string& idTransmitter, const std::string& signalType, const std::vector<std::string>& idsSignal);
-  
+
+      static GetSignalFromIntTxResultPtr create(const std::string& idTransmitter, const std::string& signalType, const std::vector<std::string>& idsSignal);
+
       static GetSignalFromIntTxResultPtr create(CommandBasePtr relatedCommand, const std::string& idTransmitter, const std::string& signalType, const std::vector<std::string>& idsSignal);
       static GetSignalFromIntTxResultPtr dynamicCast(CommandBasePtr ptr);
       virtual bool isValid() const override;

@@ -27,7 +27,7 @@ namespace Sdx
 
 
       GetDuration();
-  
+
       static GetDurationPtr create();
       static GetDurationPtr dynamicCast(CommandBasePtr ptr);
       virtual bool isValid() const override;

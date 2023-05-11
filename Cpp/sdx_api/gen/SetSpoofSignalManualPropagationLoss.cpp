@@ -32,7 +32,6 @@ namespace Sdx
       setSignalId(signalId);
     }
 
-
     SetSpoofSignalManualPropagationLossPtr SetSpoofSignalManualPropagationLoss::create(double propagationLoss, const std::string& transmitterId, const std::string& signalId)
     {
       return std::make_shared<SetSpoofSignalManualPropagationLoss>(propagationLoss, transmitterId, signalId);

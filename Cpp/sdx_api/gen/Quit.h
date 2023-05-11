@@ -31,7 +31,7 @@ namespace Sdx
       Quit();
 
       Quit(bool forceQuit);
-  
+
       static QuitPtr create(bool forceQuit);
       static QuitPtr dynamicCast(CommandBasePtr ptr);
       virtual bool isValid() const override;

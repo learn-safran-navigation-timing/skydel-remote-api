@@ -25,7 +25,6 @@ namespace Sdx
 
     }
 
-
     GetVehicleTrajectoryPtr GetVehicleTrajectory::create()
     {
       return std::make_shared<GetVehicleTrajectory>();

@@ -23,6 +23,17 @@ namespace Sdx
       : CommandResult(CmdName)
     {}
 
+    IsSVForcedGeoResult::IsSVForcedGeoResult(const std::string& system, int svId, bool isGeo, double longitude, const Sdx::optional<std::string>& dataSetName)
+      : CommandResult(CmdName)
+    {
+
+      setSystem(system);
+      setSvId(svId);
+      setIsGeo(isGeo);
+      setLongitude(longitude);
+      setDataSetName(dataSetName);
+    }
+
     IsSVForcedGeoResult::IsSVForcedGeoResult(CommandBasePtr relatedCommand, const std::string& system, int svId, bool isGeo, double longitude, const Sdx::optional<std::string>& dataSetName)
       : CommandResult(CmdName, relatedCommand)
     {
@@ -34,6 +45,11 @@ namespace Sdx
       setDataSetName(dataSetName);
     }
 
+
+    IsSVForcedGeoResultPtr IsSVForcedGeoResult::create(const std::string& system, int svId, bool isGeo, double longitude, const Sdx::optional<std::string>& dataSetName)
+    {
+      return std::make_shared<IsSVForcedGeoResult>(system, svId, isGeo, longitude, dataSetName);
+    }
 
     IsSVForcedGeoResultPtr IsSVForcedGeoResult::create(CommandBasePtr relatedCommand, const std::string& system, int svId, bool isGeo, double longitude, const Sdx::optional<std::string>& dataSetName)
     {

@@ -23,6 +23,20 @@ namespace Sdx
       : CommandResult(CmdName)
     {}
 
+    GetModulationTargetInterferencesResult::GetModulationTargetInterferencesResult(int output, int minRate, int maxRate, int group, double centralFreq, int gain, const std::string& id, const Sdx::optional<std::string>& signal)
+      : CommandResult(CmdName)
+    {
+
+      setOutput(output);
+      setMinRate(minRate);
+      setMaxRate(maxRate);
+      setGroup(group);
+      setCentralFreq(centralFreq);
+      setGain(gain);
+      setId(id);
+      setSignal(signal);
+    }
+
     GetModulationTargetInterferencesResult::GetModulationTargetInterferencesResult(CommandBasePtr relatedCommand, int output, int minRate, int maxRate, int group, double centralFreq, int gain, const std::string& id, const Sdx::optional<std::string>& signal)
       : CommandResult(CmdName, relatedCommand)
     {
@@ -37,6 +51,11 @@ namespace Sdx
       setSignal(signal);
     }
 
+
+    GetModulationTargetInterferencesResultPtr GetModulationTargetInterferencesResult::create(int output, int minRate, int maxRate, int group, double centralFreq, int gain, const std::string& id, const Sdx::optional<std::string>& signal)
+    {
+      return std::make_shared<GetModulationTargetInterferencesResult>(output, minRate, maxRate, group, centralFreq, gain, id, signal);
+    }
 
     GetModulationTargetInterferencesResultPtr GetModulationTargetInterferencesResult::create(CommandBasePtr relatedCommand, int output, int minRate, int maxRate, int group, double centralFreq, int gain, const std::string& id, const Sdx::optional<std::string>& signal)
     {

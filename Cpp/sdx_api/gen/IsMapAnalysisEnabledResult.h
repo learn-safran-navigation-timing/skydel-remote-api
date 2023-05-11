@@ -30,8 +30,12 @@ namespace Sdx
 
       IsMapAnalysisEnabledResult();
 
+      IsMapAnalysisEnabledResult(bool show);
+
       IsMapAnalysisEnabledResult(CommandBasePtr relatedCommand, bool show);
-  
+
+      static IsMapAnalysisEnabledResultPtr create(bool show);
+
       static IsMapAnalysisEnabledResultPtr create(CommandBasePtr relatedCommand, bool show);
       static IsMapAnalysisEnabledResultPtr dynamicCast(CommandBasePtr ptr);
       virtual bool isValid() const override;

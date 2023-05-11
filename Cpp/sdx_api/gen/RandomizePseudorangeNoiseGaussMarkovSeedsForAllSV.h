@@ -31,7 +31,7 @@ namespace Sdx
       RandomizePseudorangeNoiseGaussMarkovSeedsForAllSV();
 
       RandomizePseudorangeNoiseGaussMarkovSeedsForAllSV(const std::string& system);
-  
+
       static RandomizePseudorangeNoiseGaussMarkovSeedsForAllSVPtr create(const std::string& system);
       static RandomizePseudorangeNoiseGaussMarkovSeedsForAllSVPtr dynamicCast(CommandBasePtr ptr);
       virtual bool isValid() const override;

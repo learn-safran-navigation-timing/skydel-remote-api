@@ -34,8 +34,12 @@ namespace Sdx
 
       GetQzssL2HealthForSVResult();
 
+      GetQzssL2HealthForSVResult(int svId, bool health, const Sdx::optional<std::string>& dataSetName = {});
+
       GetQzssL2HealthForSVResult(CommandBasePtr relatedCommand, int svId, bool health, const Sdx::optional<std::string>& dataSetName = {});
-  
+
+      static GetQzssL2HealthForSVResultPtr create(int svId, bool health, const Sdx::optional<std::string>& dataSetName = {});
+
       static GetQzssL2HealthForSVResultPtr create(CommandBasePtr relatedCommand, int svId, bool health, const Sdx::optional<std::string>& dataSetName = {});
       static GetQzssL2HealthForSVResultPtr dynamicCast(CommandBasePtr ptr);
       virtual bool isValid() const override;

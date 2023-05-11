@@ -30,8 +30,12 @@ namespace Sdx
 
       GetGlonassFrequencyNumberForEachSVResult();
 
+      GetGlonassFrequencyNumberForEachSVResult(const std::vector<int>& frequencyNumber);
+
       GetGlonassFrequencyNumberForEachSVResult(CommandBasePtr relatedCommand, const std::vector<int>& frequencyNumber);
-  
+
+      static GetGlonassFrequencyNumberForEachSVResultPtr create(const std::vector<int>& frequencyNumber);
+
       static GetGlonassFrequencyNumberForEachSVResultPtr create(CommandBasePtr relatedCommand, const std::vector<int>& frequencyNumber);
       static GetGlonassFrequencyNumberForEachSVResultPtr dynamicCast(CommandBasePtr ptr);
       virtual bool isValid() const override;

@@ -30,7 +30,6 @@ namespace Sdx
       setForceQuit(forceQuit);
     }
 
-
     QuitPtr Quit::create(bool forceQuit)
     {
       return std::make_shared<Quit>(forceQuit);

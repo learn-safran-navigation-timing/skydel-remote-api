@@ -31,7 +31,6 @@ namespace Sdx
       setSignalId(signalId);
     }
 
-
     GetIntTxBPSKPtr GetIntTxBPSK::create(const std::string& transmitterId, const std::string& signalId)
     {
       return std::make_shared<GetIntTxBPSK>(transmitterId, signalId);

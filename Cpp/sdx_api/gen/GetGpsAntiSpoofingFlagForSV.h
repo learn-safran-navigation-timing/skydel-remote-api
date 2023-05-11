@@ -33,7 +33,7 @@ namespace Sdx
       GetGpsAntiSpoofingFlagForSV();
 
       GetGpsAntiSpoofingFlagForSV(int svId, const Sdx::optional<std::string>& dataSetName = {});
-  
+
       static GetGpsAntiSpoofingFlagForSVPtr create(int svId, const Sdx::optional<std::string>& dataSetName = {});
       static GetGpsAntiSpoofingFlagForSVPtr dynamicCast(CommandBasePtr ptr);
       virtual bool isValid() const override;

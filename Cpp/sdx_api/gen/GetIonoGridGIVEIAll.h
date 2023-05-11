@@ -30,7 +30,7 @@ namespace Sdx
 
 
       GetIonoGridGIVEIAll(const Sdx::optional<std::string>& serviceProvider = {});
-  
+
       static GetIonoGridGIVEIAllPtr create(const Sdx::optional<std::string>& serviceProvider = {});
       static GetIonoGridGIVEIAllPtr dynamicCast(CommandBasePtr ptr);
       virtual bool isValid() const override;

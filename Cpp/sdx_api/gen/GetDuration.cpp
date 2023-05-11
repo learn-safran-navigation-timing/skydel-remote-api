@@ -25,7 +25,6 @@ namespace Sdx
 
     }
 
-
     GetDurationPtr GetDuration::create()
     {
       return std::make_shared<GetDuration>();

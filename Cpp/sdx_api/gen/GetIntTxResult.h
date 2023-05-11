@@ -35,8 +35,12 @@ namespace Sdx
 
       GetIntTxResult();
 
+      GetIntTxResult(const std::string& usualName, bool enabled, int group, bool dynamic, double power, const std::string& id);
+
       GetIntTxResult(CommandBasePtr relatedCommand, const std::string& usualName, bool enabled, int group, bool dynamic, double power, const std::string& id);
-  
+
+      static GetIntTxResultPtr create(const std::string& usualName, bool enabled, int group, bool dynamic, double power, const std::string& id);
+
       static GetIntTxResultPtr create(CommandBasePtr relatedCommand, const std::string& usualName, bool enabled, int group, bool dynamic, double power, const std::string& id);
       static GetIntTxResultPtr dynamicCast(CommandBasePtr ptr);
       virtual bool isValid() const override;

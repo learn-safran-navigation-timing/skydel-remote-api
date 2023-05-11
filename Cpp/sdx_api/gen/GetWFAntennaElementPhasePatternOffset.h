@@ -31,7 +31,7 @@ namespace Sdx
       GetWFAntennaElementPhasePatternOffset();
 
       GetWFAntennaElementPhasePatternOffset(int element);
-  
+
       static GetWFAntennaElementPhasePatternOffsetPtr create(int element);
       static GetWFAntennaElementPhasePatternOffsetPtr dynamicCast(CommandBasePtr ptr);
       virtual bool isValid() const override;

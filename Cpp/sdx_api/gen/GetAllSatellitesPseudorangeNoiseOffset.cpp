@@ -30,7 +30,6 @@ namespace Sdx
       setSystem(system);
     }
 
-
     GetAllSatellitesPseudorangeNoiseOffsetPtr GetAllSatellitesPseudorangeNoiseOffset::create(const std::string& system)
     {
       return std::make_shared<GetAllSatellitesPseudorangeNoiseOffset>(system);

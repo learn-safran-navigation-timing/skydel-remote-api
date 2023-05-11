@@ -23,6 +23,15 @@ namespace Sdx
       : CommandResult(CmdName)
     {}
 
+    GetGpsCNavAlertFlagToSVResult::GetGpsCNavAlertFlagToSVResult(int svId, bool alert, const Sdx::optional<std::string>& dataSetName)
+      : CommandResult(CmdName)
+    {
+
+      setSvId(svId);
+      setAlert(alert);
+      setDataSetName(dataSetName);
+    }
+
     GetGpsCNavAlertFlagToSVResult::GetGpsCNavAlertFlagToSVResult(CommandBasePtr relatedCommand, int svId, bool alert, const Sdx::optional<std::string>& dataSetName)
       : CommandResult(CmdName, relatedCommand)
     {
@@ -32,6 +41,11 @@ namespace Sdx
       setDataSetName(dataSetName);
     }
 
+
+    GetGpsCNavAlertFlagToSVResultPtr GetGpsCNavAlertFlagToSVResult::create(int svId, bool alert, const Sdx::optional<std::string>& dataSetName)
+    {
+      return std::make_shared<GetGpsCNavAlertFlagToSVResult>(svId, alert, dataSetName);
+    }
 
     GetGpsCNavAlertFlagToSVResultPtr GetGpsCNavAlertFlagToSVResult::create(CommandBasePtr relatedCommand, int svId, bool alert, const Sdx::optional<std::string>& dataSetName)
     {

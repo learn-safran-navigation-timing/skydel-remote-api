@@ -31,8 +31,12 @@ namespace Sdx
 
       EndIntTxTrackDefinitionResult();
 
+      EndIntTxTrackDefinitionResult(int count, const std::string& id);
+
       EndIntTxTrackDefinitionResult(CommandBasePtr relatedCommand, int count, const std::string& id);
-  
+
+      static EndIntTxTrackDefinitionResultPtr create(int count, const std::string& id);
+
       static EndIntTxTrackDefinitionResultPtr create(CommandBasePtr relatedCommand, int count, const std::string& id);
       static EndIntTxTrackDefinitionResultPtr dynamicCast(CommandBasePtr ptr);
       virtual bool isValid() const override;

@@ -31,7 +31,6 @@ namespace Sdx
       setId(id);
     }
 
-
     SetSpoofTxRefPowerPtr SetSpoofTxRefPower::create(double power, const std::string& id)
     {
       return std::make_shared<SetSpoofTxRefPower>(power, id);

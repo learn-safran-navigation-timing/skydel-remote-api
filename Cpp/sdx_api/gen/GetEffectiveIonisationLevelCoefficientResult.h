@@ -31,8 +31,12 @@ namespace Sdx
 
       GetEffectiveIonisationLevelCoefficientResult();
 
+      GetEffectiveIonisationLevelCoefficientResult(int index, double val);
+
       GetEffectiveIonisationLevelCoefficientResult(CommandBasePtr relatedCommand, int index, double val);
-  
+
+      static GetEffectiveIonisationLevelCoefficientResultPtr create(int index, double val);
+
       static GetEffectiveIonisationLevelCoefficientResultPtr create(CommandBasePtr relatedCommand, int index, double val);
       static GetEffectiveIonisationLevelCoefficientResultPtr dynamicCast(CommandBasePtr ptr);
       virtual bool isValid() const override;

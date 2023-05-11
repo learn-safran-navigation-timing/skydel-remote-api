@@ -23,6 +23,16 @@ namespace Sdx
       : CommandResult(CmdName)
     {}
 
+    SimulatorStateResult::SimulatorStateResult(const std::string& state, const std::string& error, const Sdx::SimulatorState& stateId, const Sdx::SimulatorSubState& subStateId)
+      : CommandResult(CmdName)
+    {
+
+      setState(state);
+      setError(error);
+      setStateId(stateId);
+      setSubStateId(subStateId);
+    }
+
     SimulatorStateResult::SimulatorStateResult(CommandBasePtr relatedCommand, const std::string& state, const std::string& error, const Sdx::SimulatorState& stateId, const Sdx::SimulatorSubState& subStateId)
       : CommandResult(CmdName, relatedCommand)
     {
@@ -33,6 +43,11 @@ namespace Sdx
       setSubStateId(subStateId);
     }
 
+
+    SimulatorStateResultPtr SimulatorStateResult::create(const std::string& state, const std::string& error, const Sdx::SimulatorState& stateId, const Sdx::SimulatorSubState& subStateId)
+    {
+      return std::make_shared<SimulatorStateResult>(state, error, stateId, subStateId);
+    }
 
     SimulatorStateResultPtr SimulatorStateResult::create(CommandBasePtr relatedCommand, const std::string& state, const std::string& error, const Sdx::SimulatorState& stateId, const Sdx::SimulatorSubState& subStateId)
     {

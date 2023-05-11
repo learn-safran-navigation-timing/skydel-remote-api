@@ -32,7 +32,6 @@ namespace Sdx
       setId(id);
     }
 
-
     SetGpuPtr SetGpu::create(int gpuIdx, int output, const std::string& id)
     {
       return std::make_shared<SetGpu>(gpuIdx, output, id);

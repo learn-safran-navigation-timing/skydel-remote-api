@@ -33,7 +33,7 @@ namespace Sdx
       SetAgeOfDataBeiDou();
 
       SetAgeOfDataBeiDou(int clock, int ephemeris, const Sdx::optional<bool>& overrideRinex = {});
-  
+
       static SetAgeOfDataBeiDouPtr create(int clock, int ephemeris, const Sdx::optional<bool>& overrideRinex = {});
       static SetAgeOfDataBeiDouPtr dynamicCast(CommandBasePtr ptr);
       virtual bool isValid() const override;

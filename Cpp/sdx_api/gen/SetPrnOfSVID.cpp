@@ -32,7 +32,6 @@ namespace Sdx
       setPrn(prn);
     }
 
-
     SetPrnOfSVIDPtr SetPrnOfSVID::create(const std::string& signal, int svId, int prn)
     {
       return std::make_shared<SetPrnOfSVID>(signal, svId, prn);

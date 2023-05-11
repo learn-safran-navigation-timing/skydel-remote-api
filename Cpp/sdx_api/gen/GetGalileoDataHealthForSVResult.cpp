@@ -23,6 +23,16 @@ namespace Sdx
       : CommandResult(CmdName)
     {}
 
+    GetGalileoDataHealthForSVResult::GetGalileoDataHealthForSVResult(int svId, const std::string& component, bool health, const Sdx::optional<std::string>& dataSetName)
+      : CommandResult(CmdName)
+    {
+
+      setSvId(svId);
+      setComponent(component);
+      setHealth(health);
+      setDataSetName(dataSetName);
+    }
+
     GetGalileoDataHealthForSVResult::GetGalileoDataHealthForSVResult(CommandBasePtr relatedCommand, int svId, const std::string& component, bool health, const Sdx::optional<std::string>& dataSetName)
       : CommandResult(CmdName, relatedCommand)
     {
@@ -33,6 +43,11 @@ namespace Sdx
       setDataSetName(dataSetName);
     }
 
+
+    GetGalileoDataHealthForSVResultPtr GetGalileoDataHealthForSVResult::create(int svId, const std::string& component, bool health, const Sdx::optional<std::string>& dataSetName)
+    {
+      return std::make_shared<GetGalileoDataHealthForSVResult>(svId, component, health, dataSetName);
+    }
 
     GetGalileoDataHealthForSVResultPtr GetGalileoDataHealthForSVResult::create(CommandBasePtr relatedCommand, int svId, const std::string& component, bool health, const Sdx::optional<std::string>& dataSetName)
     {

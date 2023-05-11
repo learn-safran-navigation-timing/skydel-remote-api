@@ -30,7 +30,6 @@ namespace Sdx
       setSystem(system);
     }
 
-
     IsEachSVEnabledPtr IsEachSVEnabled::create(const std::string& system)
     {
       return std::make_shared<IsEachSVEnabled>(system);

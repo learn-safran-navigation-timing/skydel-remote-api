@@ -31,7 +31,7 @@ namespace Sdx
       GetGlonassEphemerisHealthFlagForSV();
 
       GetGlonassEphemerisHealthFlagForSV(int svId);
-  
+
       static GetGlonassEphemerisHealthFlagForSVPtr create(int svId);
       static GetGlonassEphemerisHealthFlagForSVPtr dynamicCast(CommandBasePtr ptr);
       virtual bool isValid() const override;

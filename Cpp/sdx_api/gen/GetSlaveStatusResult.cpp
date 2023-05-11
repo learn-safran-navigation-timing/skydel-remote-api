@@ -23,6 +23,16 @@ namespace Sdx
       : CommandResult(CmdName)
     {}
 
+    GetSlaveStatusResult::GetSlaveStatusResult(bool isSlave, bool isConnected, const std::string& hostName, int hostPort)
+      : CommandResult(CmdName)
+    {
+
+      setIsSlave(isSlave);
+      setIsConnected(isConnected);
+      setHostName(hostName);
+      setHostPort(hostPort);
+    }
+
     GetSlaveStatusResult::GetSlaveStatusResult(CommandBasePtr relatedCommand, bool isSlave, bool isConnected, const std::string& hostName, int hostPort)
       : CommandResult(CmdName, relatedCommand)
     {
@@ -33,6 +43,11 @@ namespace Sdx
       setHostPort(hostPort);
     }
 
+
+    GetSlaveStatusResultPtr GetSlaveStatusResult::create(bool isSlave, bool isConnected, const std::string& hostName, int hostPort)
+    {
+      return std::make_shared<GetSlaveStatusResult>(isSlave, isConnected, hostName, hostPort);
+    }
 
     GetSlaveStatusResultPtr GetSlaveStatusResult::create(CommandBasePtr relatedCommand, bool isSlave, bool isConnected, const std::string& hostName, int hostPort)
     {

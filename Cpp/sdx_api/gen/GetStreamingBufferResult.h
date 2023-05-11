@@ -30,8 +30,12 @@ namespace Sdx
 
       GetStreamingBufferResult();
 
+      GetStreamingBufferResult(int size);
+
       GetStreamingBufferResult(CommandBasePtr relatedCommand, int size);
-  
+
+      static GetStreamingBufferResultPtr create(int size);
+
       static GetStreamingBufferResultPtr create(CommandBasePtr relatedCommand, int size);
       static GetStreamingBufferResultPtr dynamicCast(CommandBasePtr ptr);
       virtual bool isValid() const override;

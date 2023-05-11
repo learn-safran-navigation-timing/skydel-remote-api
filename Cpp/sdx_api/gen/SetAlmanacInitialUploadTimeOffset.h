@@ -32,7 +32,7 @@ namespace Sdx
       SetAlmanacInitialUploadTimeOffset();
 
       SetAlmanacInitialUploadTimeOffset(const std::string& system, int offset);
-  
+
       static SetAlmanacInitialUploadTimeOffsetPtr create(const std::string& system, int offset);
       static SetAlmanacInitialUploadTimeOffsetPtr dynamicCast(CommandBasePtr ptr);
       virtual bool isValid() const override;

@@ -23,6 +23,14 @@ namespace Sdx
       : CommandResult(CmdName)
     {}
 
+    GetSbasMessageUpdateIntervalResult::GetSbasMessageUpdateIntervalResult(int message, int updateInterval)
+      : CommandResult(CmdName)
+    {
+
+      setMessage(message);
+      setUpdateInterval(updateInterval);
+    }
+
     GetSbasMessageUpdateIntervalResult::GetSbasMessageUpdateIntervalResult(CommandBasePtr relatedCommand, int message, int updateInterval)
       : CommandResult(CmdName, relatedCommand)
     {
@@ -31,6 +39,11 @@ namespace Sdx
       setUpdateInterval(updateInterval);
     }
 
+
+    GetSbasMessageUpdateIntervalResultPtr GetSbasMessageUpdateIntervalResult::create(int message, int updateInterval)
+    {
+      return std::make_shared<GetSbasMessageUpdateIntervalResult>(message, updateInterval);
+    }
 
     GetSbasMessageUpdateIntervalResultPtr GetSbasMessageUpdateIntervalResult::create(CommandBasePtr relatedCommand, int message, int updateInterval)
     {

@@ -30,7 +30,6 @@ namespace Sdx
       setId(id);
     }
 
-
     IsIntTxAttitudeToZeroForcedPtr IsIntTxAttitudeToZeroForced::create(const std::string& id)
     {
       return std::make_shared<IsIntTxAttitudeToZeroForced>(id);

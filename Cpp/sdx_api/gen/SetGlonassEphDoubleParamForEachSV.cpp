@@ -31,7 +31,6 @@ namespace Sdx
       setVal(val);
     }
 
-
     SetGlonassEphDoubleParamForEachSVPtr SetGlonassEphDoubleParamForEachSV::create(const std::string& paramName, const std::vector<double>& val)
     {
       return std::make_shared<SetGlonassEphDoubleParamForEachSV>(paramName, val);

@@ -31,7 +31,6 @@ namespace Sdx
       setIndex(index);
     }
 
-
     MessageSequenceRemovePtr MessageSequenceRemove::create(const std::string& signal, int index)
     {
       return std::make_shared<MessageSequenceRemove>(signal, index);

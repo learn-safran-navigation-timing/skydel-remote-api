@@ -31,7 +31,6 @@ namespace Sdx
       setOverwrite(overwrite);
     }
 
-
     SaveAsPtr SaveAs::create(const std::string& path, bool overwrite)
     {
       return std::make_shared<SaveAs>(path, overwrite);

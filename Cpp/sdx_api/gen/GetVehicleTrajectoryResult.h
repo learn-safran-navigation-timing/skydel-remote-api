@@ -30,8 +30,12 @@ namespace Sdx
 
       GetVehicleTrajectoryResult();
 
+      GetVehicleTrajectoryResult(const std::string& type);
+
       GetVehicleTrajectoryResult(CommandBasePtr relatedCommand, const std::string& type);
-  
+
+      static GetVehicleTrajectoryResultPtr create(const std::string& type);
+
       static GetVehicleTrajectoryResultPtr create(CommandBasePtr relatedCommand, const std::string& type);
       static GetVehicleTrajectoryResultPtr dynamicCast(CommandBasePtr ptr);
       virtual bool isValid() const override;

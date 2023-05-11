@@ -31,8 +31,12 @@ namespace Sdx
 
       GetAllModulationTargetsResult();
 
+      GetAllModulationTargetsResult(const std::vector<std::string>& ids);
+
       GetAllModulationTargetsResult(CommandBasePtr relatedCommand, const std::vector<std::string>& ids);
-  
+
+      static GetAllModulationTargetsResultPtr create(const std::vector<std::string>& ids);
+
       static GetAllModulationTargetsResultPtr create(CommandBasePtr relatedCommand, const std::vector<std::string>& ids);
       static GetAllModulationTargetsResultPtr dynamicCast(CommandBasePtr ptr);
       virtual bool isValid() const override;

@@ -23,6 +23,15 @@ namespace Sdx
       : CommandResult(CmdName)
     {}
 
+    GetIssueOfDataGalileoResult::GetIssueOfDataGalileoResult(int navigation, int almanac, const Sdx::optional<bool>& overrideRinex)
+      : CommandResult(CmdName)
+    {
+
+      setNavigation(navigation);
+      setAlmanac(almanac);
+      setOverrideRinex(overrideRinex);
+    }
+
     GetIssueOfDataGalileoResult::GetIssueOfDataGalileoResult(CommandBasePtr relatedCommand, int navigation, int almanac, const Sdx::optional<bool>& overrideRinex)
       : CommandResult(CmdName, relatedCommand)
     {
@@ -32,6 +41,11 @@ namespace Sdx
       setOverrideRinex(overrideRinex);
     }
 
+
+    GetIssueOfDataGalileoResultPtr GetIssueOfDataGalileoResult::create(int navigation, int almanac, const Sdx::optional<bool>& overrideRinex)
+    {
+      return std::make_shared<GetIssueOfDataGalileoResult>(navigation, almanac, overrideRinex);
+    }
 
     GetIssueOfDataGalileoResultPtr GetIssueOfDataGalileoResult::create(CommandBasePtr relatedCommand, int navigation, int almanac, const Sdx::optional<bool>& overrideRinex)
     {

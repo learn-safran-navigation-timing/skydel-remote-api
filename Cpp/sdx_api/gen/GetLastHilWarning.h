@@ -31,7 +31,7 @@ namespace Sdx
 
 
       GetLastHilWarning();
-  
+
       static GetLastHilWarningPtr create();
       static GetLastHilWarningPtr dynamicCast(CommandBasePtr ptr);
       virtual bool isValid() const override;

@@ -30,8 +30,12 @@ namespace Sdx
 
       GetCnav2PagesEnabledResult();
 
+      GetCnav2PagesEnabledResult(const std::vector<int>& messages);
+
       GetCnav2PagesEnabledResult(CommandBasePtr relatedCommand, const std::vector<int>& messages);
-  
+
+      static GetCnav2PagesEnabledResultPtr create(const std::vector<int>& messages);
+
       static GetCnav2PagesEnabledResultPtr create(CommandBasePtr relatedCommand, const std::vector<int>& messages);
       static GetCnav2PagesEnabledResultPtr dynamicCast(CommandBasePtr ptr);
       virtual bool isValid() const override;

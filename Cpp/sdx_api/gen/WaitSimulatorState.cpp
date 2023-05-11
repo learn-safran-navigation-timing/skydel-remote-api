@@ -31,7 +31,6 @@ namespace Sdx
       setFailureState(failureState);
     }
 
-
     WaitSimulatorStatePtr WaitSimulatorState::create(const std::string& state, const std::string& failureState)
     {
       return std::make_shared<WaitSimulatorState>(state, failureState);

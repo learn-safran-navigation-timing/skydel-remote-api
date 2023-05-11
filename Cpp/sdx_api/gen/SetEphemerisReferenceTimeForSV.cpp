@@ -33,7 +33,6 @@ namespace Sdx
       setDataSetName(dataSetName);
     }
 
-
     SetEphemerisReferenceTimeForSVPtr SetEphemerisReferenceTimeForSV::create(const std::string& system, int svId, const Sdx::DateTime& time, const Sdx::optional<std::string>& dataSetName)
     {
       return std::make_shared<SetEphemerisReferenceTimeForSV>(system, svId, time, dataSetName);

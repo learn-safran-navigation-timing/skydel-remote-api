@@ -25,7 +25,6 @@ namespace Sdx
 
     }
 
-
     GetConfigBroadcastFilterPtr GetConfigBroadcastFilter::create()
     {
       return std::make_shared<GetConfigBroadcastFilter>();

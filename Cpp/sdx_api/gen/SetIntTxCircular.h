@@ -39,7 +39,7 @@ namespace Sdx
       SetIntTxCircular();
 
       SetIntTxCircular(double lat, double lon, double alt, double radius, double speed, bool clockwise, const std::string& id, const Sdx::optional<double>& originAngle = {});
-  
+
       static SetIntTxCircularPtr create(double lat, double lon, double alt, double radius, double speed, bool clockwise, const std::string& id, const Sdx::optional<double>& originAngle = {});
       static SetIntTxCircularPtr dynamicCast(CommandBasePtr ptr);
       virtual bool isValid() const override;

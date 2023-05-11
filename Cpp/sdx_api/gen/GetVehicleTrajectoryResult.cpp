@@ -23,6 +23,13 @@ namespace Sdx
       : CommandResult(CmdName)
     {}
 
+    GetVehicleTrajectoryResult::GetVehicleTrajectoryResult(const std::string& type)
+      : CommandResult(CmdName)
+    {
+
+      setType(type);
+    }
+
     GetVehicleTrajectoryResult::GetVehicleTrajectoryResult(CommandBasePtr relatedCommand, const std::string& type)
       : CommandResult(CmdName, relatedCommand)
     {
@@ -30,6 +37,11 @@ namespace Sdx
       setType(type);
     }
 
+
+    GetVehicleTrajectoryResultPtr GetVehicleTrajectoryResult::create(const std::string& type)
+    {
+      return std::make_shared<GetVehicleTrajectoryResult>(type);
+    }
 
     GetVehicleTrajectoryResultPtr GetVehicleTrajectoryResult::create(CommandBasePtr relatedCommand, const std::string& type)
     {

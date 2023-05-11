@@ -25,7 +25,6 @@ namespace Sdx
 
     }
 
-
     GetEngineLatencyPtr GetEngineLatency::create()
     {
       return std::make_shared<GetEngineLatency>();

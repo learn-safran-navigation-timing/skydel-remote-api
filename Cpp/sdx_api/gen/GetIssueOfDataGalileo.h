@@ -27,7 +27,7 @@ namespace Sdx
 
 
       GetIssueOfDataGalileo();
-  
+
       static GetIssueOfDataGalileoPtr create();
       static GetIssueOfDataGalileoPtr dynamicCast(CommandBasePtr ptr);
       virtual bool isValid() const override;

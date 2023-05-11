@@ -34,7 +34,7 @@ namespace Sdx
       SetGpsConfigurationForEachSV();
 
       SetGpsConfigurationForEachSV(const std::vector<int>& svConfigs, const Sdx::optional<std::string>& dataSetName = {});
-  
+
       static SetGpsConfigurationForEachSVPtr create(const std::vector<int>& svConfigs, const Sdx::optional<std::string>& dataSetName = {});
       static SetGpsConfigurationForEachSVPtr dynamicCast(CommandBasePtr ptr);
       virtual bool isValid() const override;

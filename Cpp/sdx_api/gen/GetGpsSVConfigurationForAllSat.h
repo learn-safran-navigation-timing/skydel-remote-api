@@ -32,7 +32,7 @@ namespace Sdx
 
 
       GetGpsSVConfigurationForAllSat(const Sdx::optional<std::string>& dataSetName = {});
-  
+
       static GetGpsSVConfigurationForAllSatPtr create(const Sdx::optional<std::string>& dataSetName = {});
       static GetGpsSVConfigurationForAllSatPtr dynamicCast(CommandBasePtr ptr);
       virtual bool isValid() const override;

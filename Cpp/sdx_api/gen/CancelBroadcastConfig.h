@@ -27,7 +27,7 @@ namespace Sdx
 
 
       CancelBroadcastConfig();
-  
+
       static CancelBroadcastConfigPtr create();
       static CancelBroadcastConfigPtr dynamicCast(CommandBasePtr ptr);
       virtual bool isValid() const override;

@@ -27,7 +27,7 @@ namespace Sdx
 
 
       GetConfigPaths();
-  
+
       static GetConfigPathsPtr create();
       static GetConfigPathsPtr dynamicCast(CommandBasePtr ptr);
       virtual bool isValid() const override;

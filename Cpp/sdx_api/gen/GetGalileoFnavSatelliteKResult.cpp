@@ -23,6 +23,14 @@ namespace Sdx
       : CommandResult(CmdName)
     {}
 
+    GetGalileoFnavSatelliteKResult::GetGalileoFnavSatelliteKResult(int prn, int k)
+      : CommandResult(CmdName)
+    {
+
+      setPrn(prn);
+      setK(k);
+    }
+
     GetGalileoFnavSatelliteKResult::GetGalileoFnavSatelliteKResult(CommandBasePtr relatedCommand, int prn, int k)
       : CommandResult(CmdName, relatedCommand)
     {
@@ -31,6 +39,11 @@ namespace Sdx
       setK(k);
     }
 
+
+    GetGalileoFnavSatelliteKResultPtr GetGalileoFnavSatelliteKResult::create(int prn, int k)
+    {
+      return std::make_shared<GetGalileoFnavSatelliteKResult>(prn, k);
+    }
 
     GetGalileoFnavSatelliteKResultPtr GetGalileoFnavSatelliteKResult::create(CommandBasePtr relatedCommand, int prn, int k)
     {

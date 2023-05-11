@@ -31,7 +31,6 @@ namespace Sdx
       setSvId(svId);
     }
 
-
     GetElevationAzimuthForSVPtr GetElevationAzimuthForSV::create(const std::string& system, int svId)
     {
       return std::make_shared<GetElevationAzimuthForSV>(system, svId);

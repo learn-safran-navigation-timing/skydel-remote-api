@@ -31,7 +31,7 @@ namespace Sdx
       SetSyncServer();
 
       SetSyncServer(int port);
-  
+
       static SetSyncServerPtr create(int port);
       static SetSyncServerPtr dynamicCast(CommandBasePtr ptr);
       virtual bool isValid() const override;

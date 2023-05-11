@@ -23,6 +23,14 @@ namespace Sdx
       : CommandResult(CmdName)
     {}
 
+    GetVisibleSVResult::GetVisibleSVResult(const std::string& system, const std::vector<int>& svId)
+      : CommandResult(CmdName)
+    {
+
+      setSystem(system);
+      setSvId(svId);
+    }
+
     GetVisibleSVResult::GetVisibleSVResult(CommandBasePtr relatedCommand, const std::string& system, const std::vector<int>& svId)
       : CommandResult(CmdName, relatedCommand)
     {
@@ -31,6 +39,11 @@ namespace Sdx
       setSvId(svId);
     }
 
+
+    GetVisibleSVResultPtr GetVisibleSVResult::create(const std::string& system, const std::vector<int>& svId)
+    {
+      return std::make_shared<GetVisibleSVResult>(system, svId);
+    }
 
     GetVisibleSVResultPtr GetVisibleSVResult::create(CommandBasePtr relatedCommand, const std::string& system, const std::vector<int>& svId)
     {

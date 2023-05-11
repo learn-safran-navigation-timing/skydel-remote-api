@@ -35,7 +35,6 @@ namespace Sdx
       setRoll(roll);
     }
 
-
     SetWFAntennaOffsetPtr SetWFAntennaOffset::create(double x, double y, double z, double yaw, double pitch, double roll)
     {
       return std::make_shared<SetWFAntennaOffset>(x, y, z, yaw, pitch, roll);

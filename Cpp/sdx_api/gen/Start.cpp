@@ -25,7 +25,6 @@ namespace Sdx
 
     }
 
-
     StartPtr Start::create()
     {
       return std::make_shared<Start>();

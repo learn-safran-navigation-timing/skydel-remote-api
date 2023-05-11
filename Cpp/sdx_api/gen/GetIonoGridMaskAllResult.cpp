@@ -23,6 +23,14 @@ namespace Sdx
       : CommandResult(CmdName)
     {}
 
+    GetIonoGridMaskAllResult::GetIonoGridMaskAllResult(const std::string& serviceProvider, const std::vector<std::vector<bool>>& grid)
+      : CommandResult(CmdName)
+    {
+
+      setServiceProvider(serviceProvider);
+      setGrid(grid);
+    }
+
     GetIonoGridMaskAllResult::GetIonoGridMaskAllResult(CommandBasePtr relatedCommand, const std::string& serviceProvider, const std::vector<std::vector<bool>>& grid)
       : CommandResult(CmdName, relatedCommand)
     {
@@ -31,6 +39,11 @@ namespace Sdx
       setGrid(grid);
     }
 
+
+    GetIonoGridMaskAllResultPtr GetIonoGridMaskAllResult::create(const std::string& serviceProvider, const std::vector<std::vector<bool>>& grid)
+    {
+      return std::make_shared<GetIonoGridMaskAllResult>(serviceProvider, grid);
+    }
 
     GetIonoGridMaskAllResultPtr GetIonoGridMaskAllResult::create(CommandBasePtr relatedCommand, const std::string& serviceProvider, const std::vector<std::vector<bool>>& grid)
     {

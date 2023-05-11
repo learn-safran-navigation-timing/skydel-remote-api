@@ -31,7 +31,6 @@ namespace Sdx
       setSignalId(signalId);
     }
 
-
     GetIntTxChirpPtr GetIntTxChirp::create(const std::string& transmitterId, const std::string& signalId)
     {
       return std::make_shared<GetIntTxChirp>(transmitterId, signalId);

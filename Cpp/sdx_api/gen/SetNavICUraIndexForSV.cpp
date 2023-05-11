@@ -32,7 +32,6 @@ namespace Sdx
       setDataSetName(dataSetName);
     }
 
-
     SetNavICUraIndexForSVPtr SetNavICUraIndexForSV::create(int svId, int urai, const Sdx::optional<std::string>& dataSetName)
     {
       return std::make_shared<SetNavICUraIndexForSV>(svId, urai, dataSetName);

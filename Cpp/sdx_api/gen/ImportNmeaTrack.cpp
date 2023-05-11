@@ -30,7 +30,6 @@ namespace Sdx
       setPath(path);
     }
 
-
     ImportNmeaTrackPtr ImportNmeaTrack::create(const std::string& path)
     {
       return std::make_shared<ImportNmeaTrack>(path);

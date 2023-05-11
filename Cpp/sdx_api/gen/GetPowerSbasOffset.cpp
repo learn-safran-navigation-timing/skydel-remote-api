@@ -30,7 +30,6 @@ namespace Sdx
       setServiceProvider(serviceProvider);
     }
 
-
     GetPowerSbasOffsetPtr GetPowerSbasOffset::create(const std::string& serviceProvider)
     {
       return std::make_shared<GetPowerSbasOffset>(serviceProvider);

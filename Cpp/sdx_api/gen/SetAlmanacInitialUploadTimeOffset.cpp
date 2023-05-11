@@ -31,7 +31,6 @@ namespace Sdx
       setOffset(offset);
     }
 
-
     SetAlmanacInitialUploadTimeOffsetPtr SetAlmanacInitialUploadTimeOffset::create(const std::string& system, int offset)
     {
       return std::make_shared<SetAlmanacInitialUploadTimeOffset>(system, offset);

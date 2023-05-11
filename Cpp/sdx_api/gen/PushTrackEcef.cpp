@@ -33,7 +33,6 @@ namespace Sdx
       setZ(z);
     }
 
-
     PushTrackEcefPtr PushTrackEcef::create(int time, double x, double y, double z)
     {
       return std::make_shared<PushTrackEcef>(time, x, y, z);

@@ -27,7 +27,7 @@ namespace Sdx
 
 
       IsLogRinexEnabled();
-  
+
       static IsLogRinexEnabledPtr create();
       static IsLogRinexEnabledPtr dynamicCast(CommandBasePtr ptr);
       virtual bool isValid() const override;

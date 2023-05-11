@@ -34,8 +34,12 @@ namespace Sdx
 
       GetGpsConfigurationForEachSVResult();
 
+      GetGpsConfigurationForEachSVResult(const std::vector<int>& svConfigs, const Sdx::optional<std::string>& dataSetName = {});
+
       GetGpsConfigurationForEachSVResult(CommandBasePtr relatedCommand, const std::vector<int>& svConfigs, const Sdx::optional<std::string>& dataSetName = {});
-  
+
+      static GetGpsConfigurationForEachSVResultPtr create(const std::vector<int>& svConfigs, const Sdx::optional<std::string>& dataSetName = {});
+
       static GetGpsConfigurationForEachSVResultPtr create(CommandBasePtr relatedCommand, const std::vector<int>& svConfigs, const Sdx::optional<std::string>& dataSetName = {});
       static GetGpsConfigurationForEachSVResultPtr dynamicCast(CommandBasePtr ptr);
       virtual bool isValid() const override;

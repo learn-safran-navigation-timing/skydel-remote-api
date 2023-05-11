@@ -32,7 +32,7 @@ namespace Sdx
       GetElevationAzimuthForSV();
 
       GetElevationAzimuthForSV(const std::string& system, int svId);
-  
+
       static GetElevationAzimuthForSVPtr create(const std::string& system, int svId);
       static GetElevationAzimuthForSVPtr dynamicCast(CommandBasePtr ptr);
       virtual bool isValid() const override;

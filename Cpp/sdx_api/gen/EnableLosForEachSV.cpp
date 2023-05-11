@@ -31,7 +31,6 @@ namespace Sdx
       setEnabled(enabled);
     }
 
-
     EnableLosForEachSVPtr EnableLosForEachSV::create(const std::string& system, const std::vector<bool>& enabled)
     {
       return std::make_shared<EnableLosForEachSV>(system, enabled);

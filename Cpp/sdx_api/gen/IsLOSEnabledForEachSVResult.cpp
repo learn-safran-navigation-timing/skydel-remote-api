@@ -23,6 +23,14 @@ namespace Sdx
       : CommandResult(CmdName)
     {}
 
+    IsLOSEnabledForEachSVResult::IsLOSEnabledForEachSVResult(const std::string& system, const std::vector<bool>& enabled)
+      : CommandResult(CmdName)
+    {
+
+      setSystem(system);
+      setEnabled(enabled);
+    }
+
     IsLOSEnabledForEachSVResult::IsLOSEnabledForEachSVResult(CommandBasePtr relatedCommand, const std::string& system, const std::vector<bool>& enabled)
       : CommandResult(CmdName, relatedCommand)
     {
@@ -31,6 +39,11 @@ namespace Sdx
       setEnabled(enabled);
     }
 
+
+    IsLOSEnabledForEachSVResultPtr IsLOSEnabledForEachSVResult::create(const std::string& system, const std::vector<bool>& enabled)
+    {
+      return std::make_shared<IsLOSEnabledForEachSVResult>(system, enabled);
+    }
 
     IsLOSEnabledForEachSVResultPtr IsLOSEnabledForEachSVResult::create(CommandBasePtr relatedCommand, const std::string& system, const std::vector<bool>& enabled)
     {

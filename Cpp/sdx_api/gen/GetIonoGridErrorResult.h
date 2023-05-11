@@ -32,8 +32,12 @@ namespace Sdx
 
       GetIonoGridErrorResult();
 
+      GetIonoGridErrorResult(int band, int point, double error);
+
       GetIonoGridErrorResult(CommandBasePtr relatedCommand, int band, int point, double error);
-  
+
+      static GetIonoGridErrorResultPtr create(int band, int point, double error);
+
       static GetIonoGridErrorResultPtr create(CommandBasePtr relatedCommand, int band, int point, double error);
       static GetIonoGridErrorResultPtr dynamicCast(CommandBasePtr ptr);
       virtual bool isValid() const override;

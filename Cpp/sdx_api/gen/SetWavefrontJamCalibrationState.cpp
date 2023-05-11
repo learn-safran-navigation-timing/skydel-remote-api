@@ -30,7 +30,6 @@ namespace Sdx
       setState(state);
     }
 
-
     SetWavefrontJamCalibrationStatePtr SetWavefrontJamCalibrationState::create(bool state)
     {
       return std::make_shared<SetWavefrontJamCalibrationState>(state);

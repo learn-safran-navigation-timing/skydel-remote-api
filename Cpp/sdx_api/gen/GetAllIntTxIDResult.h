@@ -31,8 +31,12 @@ namespace Sdx
 
       GetAllIntTxIDResult();
 
+      GetAllIntTxIDResult(const std::vector<std::string>& ids);
+
       GetAllIntTxIDResult(CommandBasePtr relatedCommand, const std::vector<std::string>& ids);
-  
+
+      static GetAllIntTxIDResultPtr create(const std::vector<std::string>& ids);
+
       static GetAllIntTxIDResultPtr create(CommandBasePtr relatedCommand, const std::vector<std::string>& ids);
       static GetAllIntTxIDResultPtr dynamicCast(CommandBasePtr ptr);
       virtual bool isValid() const override;

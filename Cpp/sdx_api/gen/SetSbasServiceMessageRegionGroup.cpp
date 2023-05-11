@@ -34,7 +34,6 @@ namespace Sdx
       setId(id);
     }
 
-
     SetSbasServiceMessageRegionGroupPtr SetSbasServiceMessageRegionGroup::create(const std::string& serviceProvider, int deltaUdrei, int priorityCode, const std::vector<Sdx::SbasServiceMessageRegion>& regions, const std::string& id)
     {
       return std::make_shared<SetSbasServiceMessageRegionGroup>(serviceProvider, deltaUdrei, priorityCode, regions, id);

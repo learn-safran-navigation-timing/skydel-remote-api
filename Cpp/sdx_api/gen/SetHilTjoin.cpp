@@ -30,7 +30,6 @@ namespace Sdx
       setHilTjoin(hilTjoin);
     }
 
-
     SetHilTjoinPtr SetHilTjoin::create(int hilTjoin)
     {
       return std::make_shared<SetHilTjoin>(hilTjoin);

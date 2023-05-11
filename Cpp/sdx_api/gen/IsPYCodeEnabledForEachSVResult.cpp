@@ -23,6 +23,14 @@ namespace Sdx
       : CommandResult(CmdName)
     {}
 
+    IsPYCodeEnabledForEachSVResult::IsPYCodeEnabledForEachSVResult(const std::string& signal, const std::vector<bool>& enabled)
+      : CommandResult(CmdName)
+    {
+
+      setSignal(signal);
+      setEnabled(enabled);
+    }
+
     IsPYCodeEnabledForEachSVResult::IsPYCodeEnabledForEachSVResult(CommandBasePtr relatedCommand, const std::string& signal, const std::vector<bool>& enabled)
       : CommandResult(CmdName, relatedCommand)
     {
@@ -31,6 +39,11 @@ namespace Sdx
       setEnabled(enabled);
     }
 
+
+    IsPYCodeEnabledForEachSVResultPtr IsPYCodeEnabledForEachSVResult::create(const std::string& signal, const std::vector<bool>& enabled)
+    {
+      return std::make_shared<IsPYCodeEnabledForEachSVResult>(signal, enabled);
+    }
 
     IsPYCodeEnabledForEachSVResultPtr IsPYCodeEnabledForEachSVResult::create(CommandBasePtr relatedCommand, const std::string& signal, const std::vector<bool>& enabled)
     {

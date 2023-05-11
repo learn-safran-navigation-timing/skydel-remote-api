@@ -30,8 +30,12 @@ namespace Sdx
 
       IsSignalStrengthModelEnabledResult();
 
+      IsSignalStrengthModelEnabledResult(bool enabled);
+
       IsSignalStrengthModelEnabledResult(CommandBasePtr relatedCommand, bool enabled);
-  
+
+      static IsSignalStrengthModelEnabledResultPtr create(bool enabled);
+
       static IsSignalStrengthModelEnabledResultPtr create(CommandBasePtr relatedCommand, bool enabled);
       static IsSignalStrengthModelEnabledResultPtr dynamicCast(CommandBasePtr ptr);
       virtual bool isValid() const override;

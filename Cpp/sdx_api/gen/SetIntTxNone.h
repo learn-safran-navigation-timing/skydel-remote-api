@@ -31,7 +31,7 @@ namespace Sdx
       SetIntTxNone();
 
       SetIntTxNone(const std::string& id);
-  
+
       static SetIntTxNonePtr create(const std::string& id);
       static SetIntTxNonePtr dynamicCast(CommandBasePtr ptr);
       virtual bool isValid() const override;

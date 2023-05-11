@@ -27,7 +27,7 @@ namespace Sdx
 
 
       RemoveAllModulationTargets();
-  
+
       static RemoveAllModulationTargetsPtr create();
       static RemoveAllModulationTargetsPtr dynamicCast(CommandBasePtr ptr);
       virtual bool isValid() const override;

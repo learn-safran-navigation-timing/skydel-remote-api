@@ -32,7 +32,6 @@ namespace Sdx
       setOverwriting(overwriting);
     }
 
-
     ExportVehicleAntennaModelPtr ExportVehicleAntennaModel::create(const std::string& antennaName, const std::string& filePath, bool overwriting)
     {
       return std::make_shared<ExportVehicleAntennaModel>(antennaName, filePath, overwriting);

@@ -36,7 +36,7 @@ namespace Sdx
       SetQzssUraIndex();
 
       SetQzssUraIndex(int svId, int urai, const Sdx::optional<std::string>& dataSetName = {});
-  
+
       static SetQzssUraIndexPtr create(int svId, int urai, const Sdx::optional<std::string>& dataSetName = {});
       static SetQzssUraIndexPtr dynamicCast(CommandBasePtr ptr);
       virtual bool isValid() const override;

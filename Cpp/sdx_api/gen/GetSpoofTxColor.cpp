@@ -30,7 +30,6 @@ namespace Sdx
       setId(id);
     }
 
-
     GetSpoofTxColorPtr GetSpoofTxColor::create(const std::string& id)
     {
       return std::make_shared<GetSpoofTxColor>(id);

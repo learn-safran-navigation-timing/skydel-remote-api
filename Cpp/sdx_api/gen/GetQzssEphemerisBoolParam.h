@@ -44,7 +44,7 @@ namespace Sdx
       GetQzssEphemerisBoolParam();
 
       GetQzssEphemerisBoolParam(int svId, const std::string& paramName, const Sdx::optional<std::string>& dataSetName = {});
-  
+
       static GetQzssEphemerisBoolParamPtr create(int svId, const std::string& paramName, const Sdx::optional<std::string>& dataSetName = {});
       static GetQzssEphemerisBoolParamPtr dynamicCast(CommandBasePtr ptr);
       virtual bool isValid() const override;

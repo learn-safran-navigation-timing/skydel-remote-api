@@ -30,8 +30,12 @@ namespace Sdx
 
       IsSpectrumVisibleResult();
 
+      IsSpectrumVisibleResult(bool visible);
+
       IsSpectrumVisibleResult(CommandBasePtr relatedCommand, bool visible);
-  
+
+      static IsSpectrumVisibleResultPtr create(bool visible);
+
       static IsSpectrumVisibleResultPtr create(CommandBasePtr relatedCommand, bool visible);
       static IsSpectrumVisibleResultPtr dynamicCast(CommandBasePtr ptr);
       virtual bool isValid() const override;

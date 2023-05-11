@@ -23,6 +23,13 @@ namespace Sdx
       : CommandResult(CmdName)
     {}
 
+    GetStreamingBufferResult::GetStreamingBufferResult(int size)
+      : CommandResult(CmdName)
+    {
+
+      setSize(size);
+    }
+
     GetStreamingBufferResult::GetStreamingBufferResult(CommandBasePtr relatedCommand, int size)
       : CommandResult(CmdName, relatedCommand)
     {
@@ -30,6 +37,11 @@ namespace Sdx
       setSize(size);
     }
 
+
+    GetStreamingBufferResultPtr GetStreamingBufferResult::create(int size)
+    {
+      return std::make_shared<GetStreamingBufferResult>(size);
+    }
 
     GetStreamingBufferResultPtr GetStreamingBufferResult::create(CommandBasePtr relatedCommand, int size)
     {

@@ -33,7 +33,7 @@ namespace Sdx
       SetAlmanacUploadTimeInterval();
 
       SetAlmanacUploadTimeInterval(const std::string& system, int interval);
-  
+
       static SetAlmanacUploadTimeIntervalPtr create(const std::string& system, int interval);
       static SetAlmanacUploadTimeIntervalPtr dynamicCast(CommandBasePtr ptr);
       virtual bool isValid() const override;

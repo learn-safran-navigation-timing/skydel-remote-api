@@ -31,7 +31,6 @@ namespace Sdx
       setSignalType(signalType);
     }
 
-
     GetSignalFromIntTxPtr GetSignalFromIntTx::create(const std::string& idTransmitter, const std::string& signalType)
     {
       return std::make_shared<GetSignalFromIntTx>(idTransmitter, signalType);

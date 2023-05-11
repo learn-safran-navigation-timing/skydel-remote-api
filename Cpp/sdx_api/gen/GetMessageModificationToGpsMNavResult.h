@@ -39,8 +39,12 @@ namespace Sdx
 
       GetMessageModificationToGpsMNavResult();
 
+      GetMessageModificationToGpsMNavResult(const std::vector<std::string>& signalArray, int svId, int startTime, int stopTime, int messageType, int occurrence, const std::string& condition, const std::string& bitModifications, const std::string& id);
+
       GetMessageModificationToGpsMNavResult(CommandBasePtr relatedCommand, const std::vector<std::string>& signalArray, int svId, int startTime, int stopTime, int messageType, int occurrence, const std::string& condition, const std::string& bitModifications, const std::string& id);
-  
+
+      static GetMessageModificationToGpsMNavResultPtr create(const std::vector<std::string>& signalArray, int svId, int startTime, int stopTime, int messageType, int occurrence, const std::string& condition, const std::string& bitModifications, const std::string& id);
+
       static GetMessageModificationToGpsMNavResultPtr create(CommandBasePtr relatedCommand, const std::vector<std::string>& signalArray, int svId, int startTime, int stopTime, int messageType, int occurrence, const std::string& condition, const std::string& bitModifications, const std::string& id);
       static GetMessageModificationToGpsMNavResultPtr dynamicCast(CommandBasePtr ptr);
       virtual bool isValid() const override;

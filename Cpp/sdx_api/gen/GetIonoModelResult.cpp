@@ -23,6 +23,13 @@ namespace Sdx
       : CommandResult(CmdName)
     {}
 
+    GetIonoModelResult::GetIonoModelResult(const std::string& model)
+      : CommandResult(CmdName)
+    {
+
+      setModel(model);
+    }
+
     GetIonoModelResult::GetIonoModelResult(CommandBasePtr relatedCommand, const std::string& model)
       : CommandResult(CmdName, relatedCommand)
     {
@@ -30,6 +37,11 @@ namespace Sdx
       setModel(model);
     }
 
+
+    GetIonoModelResultPtr GetIonoModelResult::create(const std::string& model)
+    {
+      return std::make_shared<GetIonoModelResult>(model);
+    }
 
     GetIonoModelResultPtr GetIonoModelResult::create(CommandBasePtr relatedCommand, const std::string& model)
     {

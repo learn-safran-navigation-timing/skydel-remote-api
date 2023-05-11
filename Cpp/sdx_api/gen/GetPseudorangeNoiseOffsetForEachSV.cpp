@@ -30,7 +30,6 @@ namespace Sdx
       setSystem(system);
     }
 
-
     GetPseudorangeNoiseOffsetForEachSVPtr GetPseudorangeNoiseOffsetForEachSV::create(const std::string& system)
     {
       return std::make_shared<GetPseudorangeNoiseOffsetForEachSV>(system);

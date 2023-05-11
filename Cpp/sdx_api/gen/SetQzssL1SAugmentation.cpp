@@ -35,7 +35,6 @@ namespace Sdx
       setId(id);
     }
 
-
     SetQzssL1SAugmentationPtr SetQzssL1SAugmentation::create(const std::string& system, int prn, bool augmentIOD, bool augmentPRC, double prc, const std::string& id)
     {
       return std::make_shared<SetQzssL1SAugmentation>(system, prn, augmentIOD, augmentPRC, prc, id);

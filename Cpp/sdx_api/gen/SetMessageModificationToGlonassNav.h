@@ -65,7 +65,7 @@ namespace Sdx
       SetMessageModificationToGlonassNav();
 
       SetMessageModificationToGlonassNav(const std::vector<std::string>& signalArray, int svId, int startTime, int stopTime, int frame, int stringNumber, bool updateHammingCode, const std::string& stringModification, const std::string& id);
-  
+
       static SetMessageModificationToGlonassNavPtr create(const std::vector<std::string>& signalArray, int svId, int startTime, int stopTime, int frame, int stringNumber, bool updateHammingCode, const std::string& stringModification, const std::string& id);
       static SetMessageModificationToGlonassNavPtr dynamicCast(CommandBasePtr ptr);
       virtual bool isValid() const override;

@@ -81,7 +81,8 @@ void CommandResultFactory::registerFactoryFunction(const std::string &cmdName, C
   }
   else
   {
-    std::cout << "Can't register factory function for command" << cmdName << "because a function is already registered";
+    std::cout << "Can't register factory function for command " << cmdName
+              << " because a function is already registered." << std::endl;
   }
 }
 

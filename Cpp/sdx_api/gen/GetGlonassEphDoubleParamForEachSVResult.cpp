@@ -23,6 +23,14 @@ namespace Sdx
       : CommandResult(CmdName)
     {}
 
+    GetGlonassEphDoubleParamForEachSVResult::GetGlonassEphDoubleParamForEachSVResult(const std::string& paramName, const std::vector<double>& val)
+      : CommandResult(CmdName)
+    {
+
+      setParamName(paramName);
+      setVal(val);
+    }
+
     GetGlonassEphDoubleParamForEachSVResult::GetGlonassEphDoubleParamForEachSVResult(CommandBasePtr relatedCommand, const std::string& paramName, const std::vector<double>& val)
       : CommandResult(CmdName, relatedCommand)
     {
@@ -31,6 +39,11 @@ namespace Sdx
       setVal(val);
     }
 
+
+    GetGlonassEphDoubleParamForEachSVResultPtr GetGlonassEphDoubleParamForEachSVResult::create(const std::string& paramName, const std::vector<double>& val)
+    {
+      return std::make_shared<GetGlonassEphDoubleParamForEachSVResult>(paramName, val);
+    }
 
     GetGlonassEphDoubleParamForEachSVResultPtr GetGlonassEphDoubleParamForEachSVResult::create(CommandBasePtr relatedCommand, const std::string& paramName, const std::vector<double>& val)
     {

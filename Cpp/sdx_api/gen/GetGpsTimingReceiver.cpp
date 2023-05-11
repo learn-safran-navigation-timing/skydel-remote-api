@@ -25,7 +25,6 @@ namespace Sdx
 
     }
 
-
     GetGpsTimingReceiverPtr GetGpsTimingReceiver::create()
     {
       return std::make_shared<GetGpsTimingReceiver>();

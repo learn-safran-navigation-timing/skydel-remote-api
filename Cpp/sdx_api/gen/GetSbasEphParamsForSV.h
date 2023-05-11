@@ -37,7 +37,7 @@ namespace Sdx
       GetSbasEphParamsForSV();
 
       GetSbasEphParamsForSV(int svId, const std::vector<std::string>& paramArray);
-  
+
       static GetSbasEphParamsForSVPtr create(int svId, const std::vector<std::string>& paramArray);
       static GetSbasEphParamsForSVPtr dynamicCast(CommandBasePtr ptr);
       virtual bool isValid() const override;

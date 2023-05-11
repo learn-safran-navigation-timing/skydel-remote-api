@@ -23,6 +23,14 @@ namespace Sdx
       : CommandResult(CmdName)
     {}
 
+    GetPowerSbasOffsetResult::GetPowerSbasOffsetResult(const std::string& serviceProvider, double offset)
+      : CommandResult(CmdName)
+    {
+
+      setServiceProvider(serviceProvider);
+      setOffset(offset);
+    }
+
     GetPowerSbasOffsetResult::GetPowerSbasOffsetResult(CommandBasePtr relatedCommand, const std::string& serviceProvider, double offset)
       : CommandResult(CmdName, relatedCommand)
     {
@@ -31,6 +39,11 @@ namespace Sdx
       setOffset(offset);
     }
 
+
+    GetPowerSbasOffsetResultPtr GetPowerSbasOffsetResult::create(const std::string& serviceProvider, double offset)
+    {
+      return std::make_shared<GetPowerSbasOffsetResult>(serviceProvider, offset);
+    }
 
     GetPowerSbasOffsetResultPtr GetPowerSbasOffsetResult::create(CommandBasePtr relatedCommand, const std::string& serviceProvider, double offset)
     {

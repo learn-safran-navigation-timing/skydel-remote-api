@@ -35,7 +35,7 @@ namespace Sdx
       GetGpsEphemerisBoolParams();
 
       GetGpsEphemerisBoolParams(const std::string& paramName, const Sdx::optional<std::string>& dataSetName = {});
-  
+
       static GetGpsEphemerisBoolParamsPtr create(const std::string& paramName, const Sdx::optional<std::string>& dataSetName = {});
       static GetGpsEphemerisBoolParamsPtr dynamicCast(CommandBasePtr ptr);
       virtual bool isValid() const override;

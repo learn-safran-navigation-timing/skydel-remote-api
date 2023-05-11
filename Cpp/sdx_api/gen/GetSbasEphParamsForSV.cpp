@@ -31,7 +31,6 @@ namespace Sdx
       setParamArray(paramArray);
     }
 
-
     GetSbasEphParamsForSVPtr GetSbasEphParamsForSV::create(int svId, const std::vector<std::string>& paramArray)
     {
       return std::make_shared<GetSbasEphParamsForSV>(svId, paramArray);

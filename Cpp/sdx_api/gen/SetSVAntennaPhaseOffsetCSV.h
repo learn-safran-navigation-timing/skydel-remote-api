@@ -40,7 +40,7 @@ namespace Sdx
       SetSVAntennaPhaseOffsetCSV();
 
       SetSVAntennaPhaseOffsetCSV(const std::string& filePath, const Sdx::AntennaPatternFileType& fileFormat, const Sdx::AntennaPatternType& type, const Sdx::GNSSBand& band, const std::string& system, const Sdx::optional<std::string>& name = {});
-  
+
       static SetSVAntennaPhaseOffsetCSVPtr create(const std::string& filePath, const Sdx::AntennaPatternFileType& fileFormat, const Sdx::AntennaPatternType& type, const Sdx::GNSSBand& band, const std::string& system, const Sdx::optional<std::string>& name = {});
       static SetSVAntennaPhaseOffsetCSVPtr dynamicCast(CommandBasePtr ptr);
       virtual bool isValid() const override;

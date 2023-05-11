@@ -31,7 +31,6 @@ namespace Sdx
       setId(id);
     }
 
-
     SetSpoofTxUseManualPropagationLossPtr SetSpoofTxUseManualPropagationLoss::create(bool manual, const std::string& id)
     {
       return std::make_shared<SetSpoofTxUseManualPropagationLoss>(manual, id);

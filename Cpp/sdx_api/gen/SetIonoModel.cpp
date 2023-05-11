@@ -30,7 +30,6 @@ namespace Sdx
       setModel(model);
     }
 
-
     SetIonoModelPtr SetIonoModel::create(const std::string& model)
     {
       return std::make_shared<SetIonoModel>(model);

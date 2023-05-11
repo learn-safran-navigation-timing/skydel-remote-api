@@ -23,6 +23,14 @@ namespace Sdx
       : CommandResult(CmdName)
     {}
 
+    GetAlmanacUploadTimeIntervalResult::GetAlmanacUploadTimeIntervalResult(const std::string& system, int interval)
+      : CommandResult(CmdName)
+    {
+
+      setSystem(system);
+      setInterval(interval);
+    }
+
     GetAlmanacUploadTimeIntervalResult::GetAlmanacUploadTimeIntervalResult(CommandBasePtr relatedCommand, const std::string& system, int interval)
       : CommandResult(CmdName, relatedCommand)
     {
@@ -31,6 +39,11 @@ namespace Sdx
       setInterval(interval);
     }
 
+
+    GetAlmanacUploadTimeIntervalResultPtr GetAlmanacUploadTimeIntervalResult::create(const std::string& system, int interval)
+    {
+      return std::make_shared<GetAlmanacUploadTimeIntervalResult>(system, interval);
+    }
 
     GetAlmanacUploadTimeIntervalResultPtr GetAlmanacUploadTimeIntervalResult::create(CommandBasePtr relatedCommand, const std::string& system, int interval)
     {

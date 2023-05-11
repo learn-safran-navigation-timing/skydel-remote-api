@@ -35,7 +35,6 @@ namespace Sdx
       setId(id);
     }
 
-
     SetInterferenceCWPtr SetInterferenceCW::create(int startTime, int stopTime, double centralFreq, double power, bool enabled, const std::string& id)
     {
       return std::make_shared<SetInterferenceCW>(startTime, stopTime, centralFreq, power, enabled, id);

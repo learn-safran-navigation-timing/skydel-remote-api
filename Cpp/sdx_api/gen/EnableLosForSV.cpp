@@ -32,7 +32,6 @@ namespace Sdx
       setEnabled(enabled);
     }
 
-
     EnableLosForSVPtr EnableLosForSV::create(const std::string& system, int svId, bool enabled)
     {
       return std::make_shared<EnableLosForSV>(system, svId, enabled);

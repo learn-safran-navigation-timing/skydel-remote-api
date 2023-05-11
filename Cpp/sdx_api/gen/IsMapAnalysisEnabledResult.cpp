@@ -23,6 +23,13 @@ namespace Sdx
       : CommandResult(CmdName)
     {}
 
+    IsMapAnalysisEnabledResult::IsMapAnalysisEnabledResult(bool show)
+      : CommandResult(CmdName)
+    {
+
+      setShow(show);
+    }
+
     IsMapAnalysisEnabledResult::IsMapAnalysisEnabledResult(CommandBasePtr relatedCommand, bool show)
       : CommandResult(CmdName, relatedCommand)
     {
@@ -30,6 +37,11 @@ namespace Sdx
       setShow(show);
     }
 
+
+    IsMapAnalysisEnabledResultPtr IsMapAnalysisEnabledResult::create(bool show)
+    {
+      return std::make_shared<IsMapAnalysisEnabledResult>(show);
+    }
 
     IsMapAnalysisEnabledResultPtr IsMapAnalysisEnabledResult::create(CommandBasePtr relatedCommand, bool show)
     {

@@ -31,8 +31,12 @@ namespace Sdx
 
       GetPowerSbasOffsetResult();
 
+      GetPowerSbasOffsetResult(const std::string& serviceProvider, double offset);
+
       GetPowerSbasOffsetResult(CommandBasePtr relatedCommand, const std::string& serviceProvider, double offset);
-  
+
+      static GetPowerSbasOffsetResultPtr create(const std::string& serviceProvider, double offset);
+
       static GetPowerSbasOffsetResultPtr create(CommandBasePtr relatedCommand, const std::string& serviceProvider, double offset);
       static GetPowerSbasOffsetResultPtr dynamicCast(CommandBasePtr ptr);
       virtual bool isValid() const override;

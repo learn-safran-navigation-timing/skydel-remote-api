@@ -25,7 +25,6 @@ namespace Sdx
 
     }
 
-
     GetIssueOfDataPtr GetIssueOfData::create()
     {
       return std::make_shared<GetIssueOfData>();

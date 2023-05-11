@@ -30,7 +30,6 @@ namespace Sdx
       setId(id);
     }
 
-
     GetIntTxPersistencePtr GetIntTxPersistence::create(const std::string& id)
     {
       return std::make_shared<GetIntTxPersistence>(id);

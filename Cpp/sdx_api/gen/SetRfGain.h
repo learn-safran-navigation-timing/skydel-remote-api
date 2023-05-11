@@ -32,7 +32,7 @@ namespace Sdx
       SetRfGain();
 
       SetRfGain(int output, double gain);
-  
+
       static SetRfGainPtr create(int output, double gain);
       static SetRfGainPtr dynamicCast(CommandBasePtr ptr);
       virtual bool isValid() const override;

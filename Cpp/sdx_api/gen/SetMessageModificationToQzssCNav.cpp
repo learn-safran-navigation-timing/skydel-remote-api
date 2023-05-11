@@ -38,7 +38,6 @@ namespace Sdx
       setId(id);
     }
 
-
     SetMessageModificationToQzssCNavPtr SetMessageModificationToQzssCNav::create(const std::vector<std::string>& signalArray, int svId, int startTime, int stopTime, int messageType, const std::string& condition, bool updateCRC, const std::string& bitModifications, const std::string& id)
     {
       return std::make_shared<SetMessageModificationToQzssCNav>(signalArray, svId, startTime, stopTime, messageType, condition, updateCRC, bitModifications, id);

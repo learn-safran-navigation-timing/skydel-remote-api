@@ -23,6 +23,13 @@ namespace Sdx
       : CommandResult(CmdName)
     {}
 
+    GetConfigPathsResult::GetConfigPathsResult(const std::vector<std::string>& paths)
+      : CommandResult(CmdName)
+    {
+
+      setPaths(paths);
+    }
+
     GetConfigPathsResult::GetConfigPathsResult(CommandBasePtr relatedCommand, const std::vector<std::string>& paths)
       : CommandResult(CmdName, relatedCommand)
     {
@@ -30,6 +37,11 @@ namespace Sdx
       setPaths(paths);
     }
 
+
+    GetConfigPathsResultPtr GetConfigPathsResult::create(const std::vector<std::string>& paths)
+    {
+      return std::make_shared<GetConfigPathsResult>(paths);
+    }
 
     GetConfigPathsResultPtr GetConfigPathsResult::create(CommandBasePtr relatedCommand, const std::vector<std::string>& paths)
     {

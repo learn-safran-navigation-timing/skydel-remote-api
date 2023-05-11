@@ -33,7 +33,7 @@ namespace Sdx
       GetGpsConfigurationCodeForSV();
 
       GetGpsConfigurationCodeForSV(int svId, const Sdx::optional<std::string>& dataSetName = {});
-  
+
       static GetGpsConfigurationCodeForSVPtr create(int svId, const Sdx::optional<std::string>& dataSetName = {});
       static GetGpsConfigurationCodeForSVPtr dynamicCast(CommandBasePtr ptr);
       virtual bool isValid() const override;

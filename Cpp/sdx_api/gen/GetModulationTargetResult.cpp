@@ -23,6 +23,17 @@ namespace Sdx
       : CommandResult(CmdName)
     {}
 
+    GetModulationTargetResult::GetModulationTargetResult(const std::string& type, const std::string& path, const std::string& address, bool clockIsExternal, const std::string& id)
+      : CommandResult(CmdName)
+    {
+
+      setType(type);
+      setPath(path);
+      setAddress(address);
+      setClockIsExternal(clockIsExternal);
+      setId(id);
+    }
+
     GetModulationTargetResult::GetModulationTargetResult(CommandBasePtr relatedCommand, const std::string& type, const std::string& path, const std::string& address, bool clockIsExternal, const std::string& id)
       : CommandResult(CmdName, relatedCommand)
     {
@@ -34,6 +45,11 @@ namespace Sdx
       setId(id);
     }
 
+
+    GetModulationTargetResultPtr GetModulationTargetResult::create(const std::string& type, const std::string& path, const std::string& address, bool clockIsExternal, const std::string& id)
+    {
+      return std::make_shared<GetModulationTargetResult>(type, path, address, clockIsExternal, id);
+    }
 
     GetModulationTargetResultPtr GetModulationTargetResult::create(CommandBasePtr relatedCommand, const std::string& type, const std::string& path, const std::string& address, bool clockIsExternal, const std::string& id)
     {

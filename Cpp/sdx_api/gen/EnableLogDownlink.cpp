@@ -32,7 +32,6 @@ namespace Sdx
       setAfterEncoding(afterEncoding);
     }
 
-
     EnableLogDownlinkPtr EnableLogDownlink::create(bool enabled, const Sdx::optional<bool>& beforeEncoding, const Sdx::optional<bool>& afterEncoding)
     {
       return std::make_shared<EnableLogDownlink>(enabled, beforeEncoding, afterEncoding);

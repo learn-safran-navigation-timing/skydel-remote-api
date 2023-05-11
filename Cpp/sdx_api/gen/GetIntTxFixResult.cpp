@@ -23,6 +23,19 @@ namespace Sdx
       : CommandResult(CmdName)
     {}
 
+    GetIntTxFixResult::GetIntTxFixResult(double lat, double lon, double alt, double yaw, double pitch, double roll, const std::string& id)
+      : CommandResult(CmdName)
+    {
+
+      setLat(lat);
+      setLon(lon);
+      setAlt(alt);
+      setYaw(yaw);
+      setPitch(pitch);
+      setRoll(roll);
+      setId(id);
+    }
+
     GetIntTxFixResult::GetIntTxFixResult(CommandBasePtr relatedCommand, double lat, double lon, double alt, double yaw, double pitch, double roll, const std::string& id)
       : CommandResult(CmdName, relatedCommand)
     {
@@ -36,6 +49,11 @@ namespace Sdx
       setId(id);
     }
 
+
+    GetIntTxFixResultPtr GetIntTxFixResult::create(double lat, double lon, double alt, double yaw, double pitch, double roll, const std::string& id)
+    {
+      return std::make_shared<GetIntTxFixResult>(lat, lon, alt, yaw, pitch, roll, id);
+    }
 
     GetIntTxFixResultPtr GetIntTxFixResult::create(CommandBasePtr relatedCommand, double lat, double lon, double alt, double yaw, double pitch, double roll, const std::string& id)
     {

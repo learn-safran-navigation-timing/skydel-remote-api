@@ -23,6 +23,14 @@ namespace Sdx
       : CommandResult(CmdName)
     {}
 
+    GetSpoofTxColorResult::GetSpoofTxColorResult(const std::string& color, const std::string& id)
+      : CommandResult(CmdName)
+    {
+
+      setColor(color);
+      setId(id);
+    }
+
     GetSpoofTxColorResult::GetSpoofTxColorResult(CommandBasePtr relatedCommand, const std::string& color, const std::string& id)
       : CommandResult(CmdName, relatedCommand)
     {
@@ -31,6 +39,11 @@ namespace Sdx
       setId(id);
     }
 
+
+    GetSpoofTxColorResultPtr GetSpoofTxColorResult::create(const std::string& color, const std::string& id)
+    {
+      return std::make_shared<GetSpoofTxColorResult>(color, id);
+    }
 
     GetSpoofTxColorResultPtr GetSpoofTxColorResult::create(CommandBasePtr relatedCommand, const std::string& color, const std::string& id)
     {

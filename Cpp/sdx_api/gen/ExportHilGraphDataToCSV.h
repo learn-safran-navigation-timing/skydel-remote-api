@@ -32,7 +32,7 @@ namespace Sdx
       ExportHilGraphDataToCSV();
 
       ExportHilGraphDataToCSV(const std::string& path, bool overwriting);
-  
+
       static ExportHilGraphDataToCSVPtr create(const std::string& path, bool overwriting);
       static ExportHilGraphDataToCSVPtr dynamicCast(CommandBasePtr ptr);
       virtual bool isValid() const override;

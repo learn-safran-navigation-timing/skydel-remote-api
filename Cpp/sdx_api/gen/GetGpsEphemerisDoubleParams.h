@@ -35,7 +35,7 @@ namespace Sdx
       GetGpsEphemerisDoubleParams();
 
       GetGpsEphemerisDoubleParams(const std::string& paramName, const Sdx::optional<std::string>& dataSetName = {});
-  
+
       static GetGpsEphemerisDoubleParamsPtr create(const std::string& paramName, const Sdx::optional<std::string>& dataSetName = {});
       static GetGpsEphemerisDoubleParamsPtr dynamicCast(CommandBasePtr ptr);
       virtual bool isValid() const override;

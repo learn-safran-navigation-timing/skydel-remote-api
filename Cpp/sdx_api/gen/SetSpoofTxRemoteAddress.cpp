@@ -32,7 +32,6 @@ namespace Sdx
       setId(id);
     }
 
-
     SetSpoofTxRemoteAddressPtr SetSpoofTxRemoteAddress::create(const std::string& address, int instanceId, const std::string& id)
     {
       return std::make_shared<SetSpoofTxRemoteAddress>(address, instanceId, id);

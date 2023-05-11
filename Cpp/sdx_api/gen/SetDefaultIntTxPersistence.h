@@ -31,7 +31,7 @@ namespace Sdx
       SetDefaultIntTxPersistence();
 
       SetDefaultIntTxPersistence(bool defaultValue);
-  
+
       static SetDefaultIntTxPersistencePtr create(bool defaultValue);
       static SetDefaultIntTxPersistencePtr dynamicCast(CommandBasePtr ptr);
       virtual bool isValid() const override;

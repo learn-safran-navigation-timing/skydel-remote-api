@@ -33,7 +33,7 @@ namespace Sdx
       MessageSequenceInsert();
 
       MessageSequenceInsert(const std::string& signal, int index, int type);
-  
+
       static MessageSequenceInsertPtr create(const std::string& signal, int index, int type);
       static MessageSequenceInsertPtr dynamicCast(CommandBasePtr ptr);
       virtual bool isValid() const override;

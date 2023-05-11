@@ -38,8 +38,12 @@ namespace Sdx
 
       GetIntTxAWGNResult();
 
+      GetIntTxAWGNResult(bool enabled, double centralFreq, double power, double bandwidth, const std::string& transmitterId, const std::string& signalId, const Sdx::optional<int>& seed = {}, const Sdx::optional<int>& group = {});
+
       GetIntTxAWGNResult(CommandBasePtr relatedCommand, bool enabled, double centralFreq, double power, double bandwidth, const std::string& transmitterId, const std::string& signalId, const Sdx::optional<int>& seed = {}, const Sdx::optional<int>& group = {});
-  
+
+      static GetIntTxAWGNResultPtr create(bool enabled, double centralFreq, double power, double bandwidth, const std::string& transmitterId, const std::string& signalId, const Sdx::optional<int>& seed = {}, const Sdx::optional<int>& group = {});
+
       static GetIntTxAWGNResultPtr create(CommandBasePtr relatedCommand, bool enabled, double centralFreq, double power, double bandwidth, const std::string& transmitterId, const std::string& signalId, const Sdx::optional<int>& seed = {}, const Sdx::optional<int>& group = {});
       static GetIntTxAWGNResultPtr dynamicCast(CommandBasePtr ptr);
       virtual bool isValid() const override;

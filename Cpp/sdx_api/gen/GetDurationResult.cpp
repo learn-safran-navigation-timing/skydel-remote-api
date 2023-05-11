@@ -23,6 +23,13 @@ namespace Sdx
       : CommandResult(CmdName)
     {}
 
+    GetDurationResult::GetDurationResult(int second)
+      : CommandResult(CmdName)
+    {
+
+      setSecond(second);
+    }
+
     GetDurationResult::GetDurationResult(CommandBasePtr relatedCommand, int second)
       : CommandResult(CmdName, relatedCommand)
     {
@@ -30,6 +37,11 @@ namespace Sdx
       setSecond(second);
     }
 
+
+    GetDurationResultPtr GetDurationResult::create(int second)
+    {
+      return std::make_shared<GetDurationResult>(second);
+    }
 
     GetDurationResultPtr GetDurationResult::create(CommandBasePtr relatedCommand, int second)
     {

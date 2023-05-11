@@ -30,7 +30,6 @@ namespace Sdx
       setEnabled(enabled);
     }
 
-
     EnableLogRawPtr EnableLogRaw::create(bool enabled)
     {
       return std::make_shared<EnableLogRaw>(enabled);

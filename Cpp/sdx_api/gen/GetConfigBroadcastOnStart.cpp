@@ -25,7 +25,6 @@ namespace Sdx
 
     }
 
-
     GetConfigBroadcastOnStartPtr GetConfigBroadcastOnStart::create()
     {
       return std::make_shared<GetConfigBroadcastOnStart>();

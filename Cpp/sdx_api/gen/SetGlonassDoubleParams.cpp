@@ -31,7 +31,6 @@ namespace Sdx
       setVal(val);
     }
 
-
     SetGlonassDoubleParamsPtr SetGlonassDoubleParams::create(const std::string& paramName, const std::vector<double>& val)
     {
       return std::make_shared<SetGlonassDoubleParams>(paramName, val);

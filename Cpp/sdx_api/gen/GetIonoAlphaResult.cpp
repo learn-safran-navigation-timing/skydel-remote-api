@@ -23,6 +23,14 @@ namespace Sdx
       : CommandResult(CmdName)
     {}
 
+    GetIonoAlphaResult::GetIonoAlphaResult(int index, double val)
+      : CommandResult(CmdName)
+    {
+
+      setIndex(index);
+      setVal(val);
+    }
+
     GetIonoAlphaResult::GetIonoAlphaResult(CommandBasePtr relatedCommand, int index, double val)
       : CommandResult(CmdName, relatedCommand)
     {
@@ -31,6 +39,11 @@ namespace Sdx
       setVal(val);
     }
 
+
+    GetIonoAlphaResultPtr GetIonoAlphaResult::create(int index, double val)
+    {
+      return std::make_shared<GetIonoAlphaResult>(index, val);
+    }
 
     GetIonoAlphaResultPtr GetIonoAlphaResult::create(CommandBasePtr relatedCommand, int index, double val)
     {

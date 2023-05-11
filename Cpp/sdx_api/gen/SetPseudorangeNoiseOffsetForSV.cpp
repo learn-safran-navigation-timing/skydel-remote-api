@@ -33,7 +33,6 @@ namespace Sdx
       setOffset(offset);
     }
 
-
     SetPseudorangeNoiseOffsetForSVPtr SetPseudorangeNoiseOffsetForSV::create(const std::string& system, int svId, bool enabled, double offset)
     {
       return std::make_shared<SetPseudorangeNoiseOffsetForSV>(system, svId, enabled, offset);

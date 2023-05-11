@@ -31,7 +31,6 @@ namespace Sdx
       setPoint(point);
     }
 
-
     GetIonoGridErrorPtr GetIonoGridError::create(int band, int point)
     {
       return std::make_shared<GetIonoGridError>(band, point);

@@ -38,8 +38,12 @@ namespace Sdx
 
       GetSpoofTxCircularResult();
 
+      GetSpoofTxCircularResult(double lat, double lon, double alt, double radius, double speed, bool clockwise, const std::string& id, const Sdx::optional<double>& originAngle = {});
+
       GetSpoofTxCircularResult(CommandBasePtr relatedCommand, double lat, double lon, double alt, double radius, double speed, bool clockwise, const std::string& id, const Sdx::optional<double>& originAngle = {});
-  
+
+      static GetSpoofTxCircularResultPtr create(double lat, double lon, double alt, double radius, double speed, bool clockwise, const std::string& id, const Sdx::optional<double>& originAngle = {});
+
       static GetSpoofTxCircularResultPtr create(CommandBasePtr relatedCommand, double lat, double lon, double alt, double radius, double speed, bool clockwise, const std::string& id, const Sdx::optional<double>& originAngle = {});
       static GetSpoofTxCircularResultPtr dynamicCast(CommandBasePtr ptr);
       virtual bool isValid() const override;

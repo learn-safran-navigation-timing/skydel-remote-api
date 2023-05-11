@@ -27,7 +27,7 @@ namespace Sdx
 
 
       GetLogRawRate();
-  
+
       static GetLogRawRatePtr create();
       static GetLogRawRatePtr dynamicCast(CommandBasePtr ptr);
       virtual bool isValid() const override;

@@ -44,7 +44,7 @@ namespace Sdx
       GetGlonassEphDoubleParamForSV();
 
       GetGlonassEphDoubleParamForSV(int svId, const std::string& paramName);
-  
+
       static GetGlonassEphDoubleParamForSVPtr create(int svId, const std::string& paramName);
       static GetGlonassEphDoubleParamForSVPtr dynamicCast(CommandBasePtr ptr);
       virtual bool isValid() const override;

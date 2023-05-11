@@ -27,7 +27,7 @@ namespace Sdx
 
 
       Arm();
-  
+
       static ArmPtr create();
       static ArmPtr dynamicCast(CommandBasePtr ptr);
       virtual bool isValid() const override;

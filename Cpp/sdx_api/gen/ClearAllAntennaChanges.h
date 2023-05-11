@@ -27,7 +27,7 @@ namespace Sdx
 
 
       ClearAllAntennaChanges();
-  
+
       static ClearAllAntennaChangesPtr create();
       static ClearAllAntennaChangesPtr dynamicCast(CommandBasePtr ptr);
       virtual bool isValid() const override;

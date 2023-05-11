@@ -31,7 +31,6 @@ namespace Sdx
       setOverrideRinex(overrideRinex);
     }
 
-
     SetIssueOfDataNavICPtr SetIssueOfDataNavIC::create(int ephemerisAndClock, const Sdx::optional<bool>& overrideRinex)
     {
       return std::make_shared<SetIssueOfDataNavIC>(ephemerisAndClock, overrideRinex);

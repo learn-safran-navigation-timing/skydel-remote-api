@@ -34,7 +34,7 @@ namespace Sdx
       GetGalileoDataHealthForSV();
 
       GetGalileoDataHealthForSV(int svId, const std::string& component, const Sdx::optional<std::string>& dataSetName = {});
-  
+
       static GetGalileoDataHealthForSVPtr create(int svId, const std::string& component, const Sdx::optional<std::string>& dataSetName = {});
       static GetGalileoDataHealthForSVPtr dynamicCast(CommandBasePtr ptr);
       virtual bool isValid() const override;

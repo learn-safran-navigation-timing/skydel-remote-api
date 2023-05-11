@@ -32,8 +32,12 @@ namespace Sdx
 
       GetAllSVAntennaNamesResult();
 
+      GetAllSVAntennaNamesResult(const std::string& system, const std::vector<std::string>& antennaNames);
+
       GetAllSVAntennaNamesResult(CommandBasePtr relatedCommand, const std::string& system, const std::vector<std::string>& antennaNames);
-  
+
+      static GetAllSVAntennaNamesResultPtr create(const std::string& system, const std::vector<std::string>& antennaNames);
+
       static GetAllSVAntennaNamesResultPtr create(CommandBasePtr relatedCommand, const std::string& system, const std::vector<std::string>& antennaNames);
       static GetAllSVAntennaNamesResultPtr dynamicCast(CommandBasePtr ptr);
       virtual bool isValid() const override;

@@ -23,6 +23,13 @@ namespace Sdx
       : CommandResult(CmdName)
     {}
 
+    IsTrajectoryCompletedResult::IsTrajectoryCompletedResult(bool isCompleted)
+      : CommandResult(CmdName)
+    {
+
+      setIsCompleted(isCompleted);
+    }
+
     IsTrajectoryCompletedResult::IsTrajectoryCompletedResult(CommandBasePtr relatedCommand, bool isCompleted)
       : CommandResult(CmdName, relatedCommand)
     {
@@ -30,6 +37,11 @@ namespace Sdx
       setIsCompleted(isCompleted);
     }
 
+
+    IsTrajectoryCompletedResultPtr IsTrajectoryCompletedResult::create(bool isCompleted)
+    {
+      return std::make_shared<IsTrajectoryCompletedResult>(isCompleted);
+    }
 
     IsTrajectoryCompletedResultPtr IsTrajectoryCompletedResult::create(CommandBasePtr relatedCommand, bool isCompleted)
     {

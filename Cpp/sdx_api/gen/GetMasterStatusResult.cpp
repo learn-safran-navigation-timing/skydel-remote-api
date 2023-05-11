@@ -23,6 +23,15 @@ namespace Sdx
       : CommandResult(CmdName)
     {}
 
+    GetMasterStatusResult::GetMasterStatusResult(bool isMaster, int slaveConnected, int port)
+      : CommandResult(CmdName)
+    {
+
+      setIsMaster(isMaster);
+      setSlaveConnected(slaveConnected);
+      setPort(port);
+    }
+
     GetMasterStatusResult::GetMasterStatusResult(CommandBasePtr relatedCommand, bool isMaster, int slaveConnected, int port)
       : CommandResult(CmdName, relatedCommand)
     {
@@ -32,6 +41,11 @@ namespace Sdx
       setPort(port);
     }
 
+
+    GetMasterStatusResultPtr GetMasterStatusResult::create(bool isMaster, int slaveConnected, int port)
+    {
+      return std::make_shared<GetMasterStatusResult>(isMaster, slaveConnected, port);
+    }
 
     GetMasterStatusResultPtr GetMasterStatusResult::create(CommandBasePtr relatedCommand, bool isMaster, int slaveConnected, int port)
     {

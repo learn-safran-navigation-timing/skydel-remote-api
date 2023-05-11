@@ -67,7 +67,7 @@ namespace Sdx
       SetMessageModificationToNavICNav();
 
       SetMessageModificationToNavICNav(const std::vector<std::string>& signalArray, int svId, int startTime, int stopTime, int subframe, int messageType, const std::string& condition, bool updateCRC, const std::string& bitModifications, const std::string& id);
-  
+
       static SetMessageModificationToNavICNavPtr create(const std::vector<std::string>& signalArray, int svId, int startTime, int stopTime, int subframe, int messageType, const std::string& condition, bool updateCRC, const std::string& bitModifications, const std::string& id);
       static SetMessageModificationToNavICNavPtr dynamicCast(CommandBasePtr ptr);
       virtual bool isValid() const override;

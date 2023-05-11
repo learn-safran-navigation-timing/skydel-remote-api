@@ -33,7 +33,7 @@ namespace Sdx
       EnableIntTxSignal();
 
       EnableIntTxSignal(bool enabled, const std::string& transmitterId, const std::string& signalId);
-  
+
       static EnableIntTxSignalPtr create(bool enabled, const std::string& transmitterId, const std::string& signalId);
       static EnableIntTxSignalPtr dynamicCast(CommandBasePtr ptr);
       virtual bool isValid() const override;

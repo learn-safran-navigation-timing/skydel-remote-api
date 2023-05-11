@@ -31,7 +31,7 @@ namespace Sdx
       IsSbasLongTermCorrectionsEnabledFor();
 
       IsSbasLongTermCorrectionsEnabledFor(const std::string& system);
-  
+
       static IsSbasLongTermCorrectionsEnabledForPtr create(const std::string& system);
       static IsSbasLongTermCorrectionsEnabledForPtr dynamicCast(CommandBasePtr ptr);
       virtual bool isValid() const override;

@@ -31,7 +31,6 @@ namespace Sdx
       setSvId(svId);
     }
 
-
     GetAllMultipathForSVPtr GetAllMultipathForSV::create(const std::string& system, int svId)
     {
       return std::make_shared<GetAllMultipathForSV>(system, svId);

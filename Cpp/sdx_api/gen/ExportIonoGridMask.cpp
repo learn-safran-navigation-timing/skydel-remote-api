@@ -32,7 +32,6 @@ namespace Sdx
       setPath(path);
     }
 
-
     ExportIonoGridMaskPtr ExportIonoGridMask::create(const std::string& serviceProvider, bool overwriting, const std::string& path)
     {
       return std::make_shared<ExportIonoGridMask>(serviceProvider, overwriting, path);

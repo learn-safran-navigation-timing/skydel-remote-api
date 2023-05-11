@@ -27,7 +27,7 @@ namespace Sdx
 
 
       IsSimStopWhenCommandFailEnabled();
-  
+
       static IsSimStopWhenCommandFailEnabledPtr create();
       static IsSimStopWhenCommandFailEnabledPtr dynamicCast(CommandBasePtr ptr);
       virtual bool isValid() const override;

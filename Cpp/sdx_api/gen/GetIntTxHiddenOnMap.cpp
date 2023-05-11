@@ -30,7 +30,6 @@ namespace Sdx
       setId(id);
     }
 
-
     GetIntTxHiddenOnMapPtr GetIntTxHiddenOnMap::create(const std::string& id)
     {
       return std::make_shared<GetIntTxHiddenOnMap>(id);

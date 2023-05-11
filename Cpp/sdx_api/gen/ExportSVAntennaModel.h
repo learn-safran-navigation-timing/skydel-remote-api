@@ -34,7 +34,7 @@ namespace Sdx
       ExportSVAntennaModel();
 
       ExportSVAntennaModel(const std::string& antennaName, const std::string& system, const std::string& filePath, bool overwriting);
-  
+
       static ExportSVAntennaModelPtr create(const std::string& antennaName, const std::string& system, const std::string& filePath, bool overwriting);
       static ExportSVAntennaModelPtr dynamicCast(CommandBasePtr ptr);
       virtual bool isValid() const override;

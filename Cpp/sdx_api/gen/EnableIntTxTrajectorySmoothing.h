@@ -32,7 +32,7 @@ namespace Sdx
       EnableIntTxTrajectorySmoothing();
 
       EnableIntTxTrajectorySmoothing(bool enabled, const std::string& id);
-  
+
       static EnableIntTxTrajectorySmoothingPtr create(bool enabled, const std::string& id);
       static EnableIntTxTrajectorySmoothingPtr dynamicCast(CommandBasePtr ptr);
       virtual bool isValid() const override;

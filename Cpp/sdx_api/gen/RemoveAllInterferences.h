@@ -27,7 +27,7 @@ namespace Sdx
 
 
       RemoveAllInterferences();
-  
+
       static RemoveAllInterferencesPtr create();
       static RemoveAllInterferencesPtr dynamicCast(CommandBasePtr ptr);
       virtual bool isValid() const override;

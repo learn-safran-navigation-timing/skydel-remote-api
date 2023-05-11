@@ -25,7 +25,6 @@ namespace Sdx
 
     }
 
-
     GetElevationMaskAbovePtr GetElevationMaskAbove::create()
     {
       return std::make_shared<GetElevationMaskAbove>();

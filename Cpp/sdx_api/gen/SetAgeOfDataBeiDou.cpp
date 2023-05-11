@@ -32,7 +32,6 @@ namespace Sdx
       setOverrideRinex(overrideRinex);
     }
 
-
     SetAgeOfDataBeiDouPtr SetAgeOfDataBeiDou::create(int clock, int ephemeris, const Sdx::optional<bool>& overrideRinex)
     {
       return std::make_shared<SetAgeOfDataBeiDou>(clock, ephemeris, overrideRinex);

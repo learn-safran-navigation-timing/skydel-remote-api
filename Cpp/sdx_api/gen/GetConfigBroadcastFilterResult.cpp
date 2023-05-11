@@ -23,6 +23,13 @@ namespace Sdx
       : CommandResult(CmdName)
     {}
 
+    GetConfigBroadcastFilterResult::GetConfigBroadcastFilterResult(const std::vector<Sdx::ConfigFilter>& filter)
+      : CommandResult(CmdName)
+    {
+
+      setFilter(filter);
+    }
+
     GetConfigBroadcastFilterResult::GetConfigBroadcastFilterResult(CommandBasePtr relatedCommand, const std::vector<Sdx::ConfigFilter>& filter)
       : CommandResult(CmdName, relatedCommand)
     {
@@ -30,6 +37,11 @@ namespace Sdx
       setFilter(filter);
     }
 
+
+    GetConfigBroadcastFilterResultPtr GetConfigBroadcastFilterResult::create(const std::vector<Sdx::ConfigFilter>& filter)
+    {
+      return std::make_shared<GetConfigBroadcastFilterResult>(filter);
+    }
 
     GetConfigBroadcastFilterResultPtr GetConfigBroadcastFilterResult::create(CommandBasePtr relatedCommand, const std::vector<Sdx::ConfigFilter>& filter)
     {

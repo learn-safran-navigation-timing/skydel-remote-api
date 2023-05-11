@@ -30,7 +30,6 @@ namespace Sdx
       setSystem(system);
     }
 
-
     IsSbasLongTermCorrectionsEnabledForPtr IsSbasLongTermCorrectionsEnabledFor::create(const std::string& system)
     {
       return std::make_shared<IsSbasLongTermCorrectionsEnabledFor>(system);

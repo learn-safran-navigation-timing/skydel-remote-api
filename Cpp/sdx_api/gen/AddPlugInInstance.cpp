@@ -31,7 +31,6 @@ namespace Sdx
       setType(type);
     }
 
-
     AddPlugInInstancePtr AddPlugInInstance::create(const std::string& name, const std::string& type)
     {
       return std::make_shared<AddPlugInInstance>(name, type);

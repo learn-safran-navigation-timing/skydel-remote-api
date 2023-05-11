@@ -31,7 +31,7 @@ namespace Sdx
       GetAllMultipathForSystem();
 
       GetAllMultipathForSystem(const std::string& system);
-  
+
       static GetAllMultipathForSystemPtr create(const std::string& system);
       static GetAllMultipathForSystemPtr dynamicCast(CommandBasePtr ptr);
       virtual bool isValid() const override;

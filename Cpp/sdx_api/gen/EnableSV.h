@@ -33,7 +33,7 @@ namespace Sdx
       EnableSV();
 
       EnableSV(const std::string& system, int svId, bool enabled);
-  
+
       static EnableSVPtr create(const std::string& system, int svId, bool enabled);
       static EnableSVPtr dynamicCast(CommandBasePtr ptr);
       virtual bool isValid() const override;

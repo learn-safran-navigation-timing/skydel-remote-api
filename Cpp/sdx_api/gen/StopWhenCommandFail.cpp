@@ -30,7 +30,6 @@ namespace Sdx
       setEnabled(enabled);
     }
 
-
     StopWhenCommandFailPtr StopWhenCommandFail::create(bool enabled)
     {
       return std::make_shared<StopWhenCommandFail>(enabled);

@@ -31,7 +31,7 @@ namespace Sdx
       ResetManualPowerOffsets();
 
       ResetManualPowerOffsets(const std::string& system);
-  
+
       static ResetManualPowerOffsetsPtr create(const std::string& system);
       static ResetManualPowerOffsetsPtr dynamicCast(CommandBasePtr ptr);
       virtual bool isValid() const override;

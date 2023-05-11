@@ -23,6 +23,15 @@ namespace Sdx
       : CommandResult(CmdName)
     {}
 
+    IsLosEnabledForSVResult::IsLosEnabledForSVResult(const std::string& system, int svId, bool enabled)
+      : CommandResult(CmdName)
+    {
+
+      setSystem(system);
+      setSvId(svId);
+      setEnabled(enabled);
+    }
+
     IsLosEnabledForSVResult::IsLosEnabledForSVResult(CommandBasePtr relatedCommand, const std::string& system, int svId, bool enabled)
       : CommandResult(CmdName, relatedCommand)
     {
@@ -32,6 +41,11 @@ namespace Sdx
       setEnabled(enabled);
     }
 
+
+    IsLosEnabledForSVResultPtr IsLosEnabledForSVResult::create(const std::string& system, int svId, bool enabled)
+    {
+      return std::make_shared<IsLosEnabledForSVResult>(system, svId, enabled);
+    }
 
     IsLosEnabledForSVResultPtr IsLosEnabledForSVResult::create(CommandBasePtr relatedCommand, const std::string& system, int svId, bool enabled)
     {

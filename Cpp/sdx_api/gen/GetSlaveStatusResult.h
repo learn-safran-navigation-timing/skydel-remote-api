@@ -33,8 +33,12 @@ namespace Sdx
 
       GetSlaveStatusResult();
 
+      GetSlaveStatusResult(bool isSlave, bool isConnected, const std::string& hostName, int hostPort);
+
       GetSlaveStatusResult(CommandBasePtr relatedCommand, bool isSlave, bool isConnected, const std::string& hostName, int hostPort);
-  
+
+      static GetSlaveStatusResultPtr create(bool isSlave, bool isConnected, const std::string& hostName, int hostPort);
+
       static GetSlaveStatusResultPtr create(CommandBasePtr relatedCommand, bool isSlave, bool isConnected, const std::string& hostName, int hostPort);
       static GetSlaveStatusResultPtr dynamicCast(CommandBasePtr ptr);
       virtual bool isValid() const override;

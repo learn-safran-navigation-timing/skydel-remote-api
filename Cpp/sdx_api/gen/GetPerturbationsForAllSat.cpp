@@ -31,7 +31,6 @@ namespace Sdx
       setDataSetName(dataSetName);
     }
 
-
     GetPerturbationsForAllSatPtr GetPerturbationsForAllSat::create(const std::string& system, const Sdx::optional<std::string>& dataSetName)
     {
       return std::make_shared<GetPerturbationsForAllSat>(system, dataSetName);

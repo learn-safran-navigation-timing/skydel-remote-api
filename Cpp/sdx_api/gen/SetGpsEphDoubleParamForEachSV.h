@@ -35,7 +35,7 @@ namespace Sdx
       SetGpsEphDoubleParamForEachSV();
 
       SetGpsEphDoubleParamForEachSV(const std::string& paramName, const std::vector<double>& val, const Sdx::optional<std::string>& dataSetName = {});
-  
+
       static SetGpsEphDoubleParamForEachSVPtr create(const std::string& paramName, const std::vector<double>& val, const Sdx::optional<std::string>& dataSetName = {});
       static SetGpsEphDoubleParamForEachSVPtr dynamicCast(CommandBasePtr ptr);
       virtual bool isValid() const override;

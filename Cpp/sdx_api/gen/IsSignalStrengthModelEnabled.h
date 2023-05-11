@@ -27,7 +27,7 @@ namespace Sdx
 
 
       IsSignalStrengthModelEnabled();
-  
+
       static IsSignalStrengthModelEnabledPtr create();
       static IsSignalStrengthModelEnabledPtr dynamicCast(CommandBasePtr ptr);
       virtual bool isValid() const override;

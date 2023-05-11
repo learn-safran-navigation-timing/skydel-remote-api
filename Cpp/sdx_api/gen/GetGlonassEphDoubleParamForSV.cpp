@@ -31,7 +31,6 @@ namespace Sdx
       setParamName(paramName);
     }
 
-
     GetGlonassEphDoubleParamForSVPtr GetGlonassEphDoubleParamForSV::create(int svId, const std::string& paramName)
     {
       return std::make_shared<GetGlonassEphDoubleParamForSV>(svId, paramName);

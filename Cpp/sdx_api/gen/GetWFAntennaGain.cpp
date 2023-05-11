@@ -25,7 +25,6 @@ namespace Sdx
 
     }
 
-
     GetWFAntennaGainPtr GetWFAntennaGain::create()
     {
       return std::make_shared<GetWFAntennaGain>();

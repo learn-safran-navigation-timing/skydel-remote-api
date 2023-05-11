@@ -43,7 +43,7 @@ namespace Sdx
       SetGpsEphBoolParamForSV();
 
       SetGpsEphBoolParamForSV(int svId, const std::string& paramName, bool val, const Sdx::optional<std::string>& dataSetName = {});
-  
+
       static SetGpsEphBoolParamForSVPtr create(int svId, const std::string& paramName, bool val, const Sdx::optional<std::string>& dataSetName = {});
       static SetGpsEphBoolParamForSVPtr dynamicCast(CommandBasePtr ptr);
       virtual bool isValid() const override;

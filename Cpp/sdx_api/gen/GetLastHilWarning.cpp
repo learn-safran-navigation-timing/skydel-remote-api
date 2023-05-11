@@ -27,7 +27,6 @@ namespace Sdx
 
     }
 
-
     GetLastHilWarningPtr GetLastHilWarning::create()
     {
       return std::make_shared<GetLastHilWarning>();

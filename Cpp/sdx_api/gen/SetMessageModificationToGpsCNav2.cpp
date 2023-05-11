@@ -38,7 +38,6 @@ namespace Sdx
       setId(id);
     }
 
-
     SetMessageModificationToGpsCNav2Ptr SetMessageModificationToGpsCNav2::create(const std::vector<std::string>& signalArray, int svId, int startTime, int stopTime, int page, const std::string& condition, bool updateCRC, const std::string& bitModifications, const std::string& id)
     {
       return std::make_shared<SetMessageModificationToGpsCNav2>(signalArray, svId, startTime, stopTime, page, condition, updateCRC, bitModifications, id);

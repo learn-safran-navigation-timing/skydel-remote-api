@@ -23,6 +23,14 @@ namespace Sdx
       : CommandResult(CmdName)
     {}
 
+    GetIssueOfDataBeiDouResult::GetIssueOfDataBeiDouResult(int clock, int ephemeris)
+      : CommandResult(CmdName)
+    {
+
+      setClock(clock);
+      setEphemeris(ephemeris);
+    }
+
     GetIssueOfDataBeiDouResult::GetIssueOfDataBeiDouResult(CommandBasePtr relatedCommand, int clock, int ephemeris)
       : CommandResult(CmdName, relatedCommand)
     {
@@ -31,6 +39,11 @@ namespace Sdx
       setEphemeris(ephemeris);
     }
 
+
+    GetIssueOfDataBeiDouResultPtr GetIssueOfDataBeiDouResult::create(int clock, int ephemeris)
+    {
+      return std::make_shared<GetIssueOfDataBeiDouResult>(clock, ephemeris);
+    }
 
     GetIssueOfDataBeiDouResultPtr GetIssueOfDataBeiDouResult::create(CommandBasePtr relatedCommand, int clock, int ephemeris)
     {

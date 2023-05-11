@@ -23,6 +23,16 @@ namespace Sdx
       : CommandResult(CmdName)
     {}
 
+    GetIonoGridGIVEIResult::GetIonoGridGIVEIResult(int band, int point, int giveI, const Sdx::optional<std::string>& serviceProvider)
+      : CommandResult(CmdName)
+    {
+
+      setBand(band);
+      setPoint(point);
+      setGiveI(giveI);
+      setServiceProvider(serviceProvider);
+    }
+
     GetIonoGridGIVEIResult::GetIonoGridGIVEIResult(CommandBasePtr relatedCommand, int band, int point, int giveI, const Sdx::optional<std::string>& serviceProvider)
       : CommandResult(CmdName, relatedCommand)
     {
@@ -33,6 +43,11 @@ namespace Sdx
       setServiceProvider(serviceProvider);
     }
 
+
+    GetIonoGridGIVEIResultPtr GetIonoGridGIVEIResult::create(int band, int point, int giveI, const Sdx::optional<std::string>& serviceProvider)
+    {
+      return std::make_shared<GetIonoGridGIVEIResult>(band, point, giveI, serviceProvider);
+    }
 
     GetIonoGridGIVEIResultPtr GetIonoGridGIVEIResult::create(CommandBasePtr relatedCommand, int band, int point, int giveI, const Sdx::optional<std::string>& serviceProvider)
     {

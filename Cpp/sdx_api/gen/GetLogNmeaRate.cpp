@@ -25,7 +25,6 @@ namespace Sdx
 
     }
 
-
     GetLogNmeaRatePtr GetLogNmeaRate::create()
     {
       return std::make_shared<GetLogNmeaRate>();

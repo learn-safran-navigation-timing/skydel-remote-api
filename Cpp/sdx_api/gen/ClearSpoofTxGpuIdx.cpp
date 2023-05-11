@@ -31,7 +31,6 @@ namespace Sdx
       setId(id);
     }
 
-
     ClearSpoofTxGpuIdxPtr ClearSpoofTxGpuIdx::create(int signalId, const std::string& id)
     {
       return std::make_shared<ClearSpoofTxGpuIdx>(signalId, id);

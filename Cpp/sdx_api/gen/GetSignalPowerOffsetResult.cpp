@@ -23,6 +23,14 @@ namespace Sdx
       : CommandResult(CmdName)
     {}
 
+    GetSignalPowerOffsetResult::GetSignalPowerOffsetResult(const std::string& signal, double offset)
+      : CommandResult(CmdName)
+    {
+
+      setSignal(signal);
+      setOffset(offset);
+    }
+
     GetSignalPowerOffsetResult::GetSignalPowerOffsetResult(CommandBasePtr relatedCommand, const std::string& signal, double offset)
       : CommandResult(CmdName, relatedCommand)
     {
@@ -31,6 +39,11 @@ namespace Sdx
       setOffset(offset);
     }
 
+
+    GetSignalPowerOffsetResultPtr GetSignalPowerOffsetResult::create(const std::string& signal, double offset)
+    {
+      return std::make_shared<GetSignalPowerOffsetResult>(signal, offset);
+    }
 
     GetSignalPowerOffsetResultPtr GetSignalPowerOffsetResult::create(CommandBasePtr relatedCommand, const std::string& signal, double offset)
     {

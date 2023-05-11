@@ -31,7 +31,7 @@ namespace Sdx
       SetLogNmeaRate();
 
       SetLogNmeaRate(int rate);
-  
+
       static SetLogNmeaRatePtr create(int rate);
       static SetLogNmeaRatePtr dynamicCast(CommandBasePtr ptr);
       virtual bool isValid() const override;

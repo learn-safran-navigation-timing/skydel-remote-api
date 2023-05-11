@@ -31,7 +31,6 @@ namespace Sdx
       setParamValueDict(paramValueDict);
     }
 
-
     SetSbasEphParamsForSVPtr SetSbasEphParamsForSV::create(int svId, const std::map<std::string, double>& paramValueDict)
     {
       return std::make_shared<SetSbasEphParamsForSV>(svId, paramValueDict);

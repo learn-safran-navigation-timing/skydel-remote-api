@@ -36,7 +36,7 @@ namespace Sdx
       SetEphemerisReferenceTimeForSV();
 
       SetEphemerisReferenceTimeForSV(const std::string& system, int svId, const Sdx::DateTime& time, const Sdx::optional<std::string>& dataSetName = {});
-  
+
       static SetEphemerisReferenceTimeForSVPtr create(const std::string& system, int svId, const Sdx::DateTime& time, const Sdx::optional<std::string>& dataSetName = {});
       static SetEphemerisReferenceTimeForSVPtr dynamicCast(CommandBasePtr ptr);
       virtual bool isValid() const override;

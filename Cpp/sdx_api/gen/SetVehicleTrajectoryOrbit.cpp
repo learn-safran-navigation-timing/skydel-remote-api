@@ -37,7 +37,6 @@ namespace Sdx
       setArgumentOfPerigee(argumentOfPerigee);
     }
 
-
     SetVehicleTrajectoryOrbitPtr SetVehicleTrajectoryOrbit::create(const std::string& type, const Sdx::DateTime& reference, double semiMajorAxis, double inclination, double rightAscension, double eccentricity, double meanAnomaly, double argumentOfPerigee)
     {
       return std::make_shared<SetVehicleTrajectoryOrbit>(type, reference, semiMajorAxis, inclination, rightAscension, eccentricity, meanAnomaly, argumentOfPerigee);

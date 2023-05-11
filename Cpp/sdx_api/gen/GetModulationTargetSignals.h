@@ -34,7 +34,7 @@ namespace Sdx
       GetModulationTargetSignals();
 
       GetModulationTargetSignals(int output, const std::string& id);
-  
+
       static GetModulationTargetSignalsPtr create(int output, const std::string& id);
       static GetModulationTargetSignalsPtr dynamicCast(CommandBasePtr ptr);
       virtual bool isValid() const override;

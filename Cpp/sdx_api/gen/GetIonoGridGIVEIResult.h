@@ -34,8 +34,12 @@ namespace Sdx
 
       GetIonoGridGIVEIResult();
 
+      GetIonoGridGIVEIResult(int band, int point, int giveI, const Sdx::optional<std::string>& serviceProvider = {});
+
       GetIonoGridGIVEIResult(CommandBasePtr relatedCommand, int band, int point, int giveI, const Sdx::optional<std::string>& serviceProvider = {});
-  
+
+      static GetIonoGridGIVEIResultPtr create(int band, int point, int giveI, const Sdx::optional<std::string>& serviceProvider = {});
+
       static GetIonoGridGIVEIResultPtr create(CommandBasePtr relatedCommand, int band, int point, int giveI, const Sdx::optional<std::string>& serviceProvider = {});
       static GetIonoGridGIVEIResultPtr dynamicCast(CommandBasePtr ptr);
       virtual bool isValid() const override;

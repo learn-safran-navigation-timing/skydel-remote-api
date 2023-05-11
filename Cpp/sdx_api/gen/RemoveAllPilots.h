@@ -27,7 +27,7 @@ namespace Sdx
 
 
       RemoveAllPilots();
-  
+
       static RemoveAllPilotsPtr create();
       static RemoveAllPilotsPtr dynamicCast(CommandBasePtr ptr);
       virtual bool isValid() const override;

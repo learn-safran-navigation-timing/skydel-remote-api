@@ -23,6 +23,15 @@ namespace Sdx
       : CommandResult(CmdName)
     {}
 
+    GetAllPseudorangeRampForSVResult::GetAllPseudorangeRampForSVResult(const std::string& system, int svId, const std::vector<std::string>& ids)
+      : CommandResult(CmdName)
+    {
+
+      setSystem(system);
+      setSvId(svId);
+      setIds(ids);
+    }
+
     GetAllPseudorangeRampForSVResult::GetAllPseudorangeRampForSVResult(CommandBasePtr relatedCommand, const std::string& system, int svId, const std::vector<std::string>& ids)
       : CommandResult(CmdName, relatedCommand)
     {
@@ -32,6 +41,11 @@ namespace Sdx
       setIds(ids);
     }
 
+
+    GetAllPseudorangeRampForSVResultPtr GetAllPseudorangeRampForSVResult::create(const std::string& system, int svId, const std::vector<std::string>& ids)
+    {
+      return std::make_shared<GetAllPseudorangeRampForSVResult>(system, svId, ids);
+    }
 
     GetAllPseudorangeRampForSVResultPtr GetAllPseudorangeRampForSVResult::create(CommandBasePtr relatedCommand, const std::string& system, int svId, const std::vector<std::string>& ids)
     {

@@ -32,7 +32,6 @@ namespace Sdx
       setDataSetName(dataSetName);
     }
 
-
     ResetPerturbationsPtr ResetPerturbations::create(const std::string& system, int svId, const Sdx::optional<std::string>& dataSetName)
     {
       return std::make_shared<ResetPerturbations>(system, svId, dataSetName);

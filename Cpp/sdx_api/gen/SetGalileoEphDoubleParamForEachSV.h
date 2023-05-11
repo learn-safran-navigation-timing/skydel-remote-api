@@ -35,7 +35,7 @@ namespace Sdx
       SetGalileoEphDoubleParamForEachSV();
 
       SetGalileoEphDoubleParamForEachSV(const std::string& paramName, const std::vector<double>& val, const Sdx::optional<std::string>& dataSetName = {});
-  
+
       static SetGalileoEphDoubleParamForEachSVPtr create(const std::string& paramName, const std::vector<double>& val, const Sdx::optional<std::string>& dataSetName = {});
       static SetGalileoEphDoubleParamForEachSVPtr dynamicCast(CommandBasePtr ptr);
       virtual bool isValid() const override;

@@ -32,7 +32,6 @@ namespace Sdx
       setDataSetName(dataSetName);
     }
 
-
     GetGpsEphDoubleParamForSVPtr GetGpsEphDoubleParamForSV::create(int svId, const std::string& paramName, const Sdx::optional<std::string>& dataSetName)
     {
       return std::make_shared<GetGpsEphDoubleParamForSV>(svId, paramName, dataSetName);

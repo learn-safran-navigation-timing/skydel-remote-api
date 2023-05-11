@@ -27,7 +27,7 @@ namespace Sdx
 
 
       GetAlmanacInitialUploadTimeOffset();
-  
+
       static GetAlmanacInitialUploadTimeOffsetPtr create();
       static GetAlmanacInitialUploadTimeOffsetPtr dynamicCast(CommandBasePtr ptr);
       virtual bool isValid() const override;

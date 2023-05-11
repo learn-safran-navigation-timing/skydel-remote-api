@@ -23,6 +23,13 @@ namespace Sdx
       : CommandResult(CmdName)
     {}
 
+    GetAllMessageModificationIdsForSignalResult::GetAllMessageModificationIdsForSignalResult(const std::vector<std::string>& ids)
+      : CommandResult(CmdName)
+    {
+
+      setIds(ids);
+    }
+
     GetAllMessageModificationIdsForSignalResult::GetAllMessageModificationIdsForSignalResult(CommandBasePtr relatedCommand, const std::vector<std::string>& ids)
       : CommandResult(CmdName, relatedCommand)
     {
@@ -30,6 +37,11 @@ namespace Sdx
       setIds(ids);
     }
 
+
+    GetAllMessageModificationIdsForSignalResultPtr GetAllMessageModificationIdsForSignalResult::create(const std::vector<std::string>& ids)
+    {
+      return std::make_shared<GetAllMessageModificationIdsForSignalResult>(ids);
+    }
 
     GetAllMessageModificationIdsForSignalResultPtr GetAllMessageModificationIdsForSignalResult::create(CommandBasePtr relatedCommand, const std::vector<std::string>& ids)
     {

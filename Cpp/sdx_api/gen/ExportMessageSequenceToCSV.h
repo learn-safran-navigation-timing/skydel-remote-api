@@ -33,7 +33,7 @@ namespace Sdx
       ExportMessageSequenceToCSV();
 
       ExportMessageSequenceToCSV(const std::string& signal, const std::string& path, bool overwriting);
-  
+
       static ExportMessageSequenceToCSVPtr create(const std::string& signal, const std::string& path, bool overwriting);
       static ExportMessageSequenceToCSVPtr dynamicCast(CommandBasePtr ptr);
       virtual bool isValid() const override;

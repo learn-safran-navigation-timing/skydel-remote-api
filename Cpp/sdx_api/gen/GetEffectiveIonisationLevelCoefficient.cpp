@@ -30,7 +30,6 @@ namespace Sdx
       setIndex(index);
     }
 
-
     GetEffectiveIonisationLevelCoefficientPtr GetEffectiveIonisationLevelCoefficient::create(int index)
     {
       return std::make_shared<GetEffectiveIonisationLevelCoefficient>(index);

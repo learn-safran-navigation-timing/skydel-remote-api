@@ -25,7 +25,6 @@ namespace Sdx
 
     }
 
-
     GetConfigPathsPtr GetConfigPaths::create()
     {
       return std::make_shared<GetConfigPaths>();

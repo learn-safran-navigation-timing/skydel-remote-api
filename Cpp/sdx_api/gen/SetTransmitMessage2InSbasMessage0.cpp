@@ -30,7 +30,6 @@ namespace Sdx
       setTransmitMessage2(transmitMessage2);
     }
 
-
     SetTransmitMessage2InSbasMessage0Ptr SetTransmitMessage2InSbasMessage0::create(bool transmitMessage2)
     {
       return std::make_shared<SetTransmitMessage2InSbasMessage0>(transmitMessage2);

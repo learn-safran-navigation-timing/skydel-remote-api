@@ -31,7 +31,6 @@ namespace Sdx
       setDataSetName(dataSetName);
     }
 
-
     SetGpsSVConfigurationForAllSatPtr SetGpsSVConfigurationForAllSat::create(const std::vector<int>& svConfigs, const Sdx::optional<std::string>& dataSetName)
     {
       return std::make_shared<SetGpsSVConfigurationForAllSat>(svConfigs, dataSetName);

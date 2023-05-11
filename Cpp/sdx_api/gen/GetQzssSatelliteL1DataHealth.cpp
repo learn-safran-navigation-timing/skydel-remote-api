@@ -31,7 +31,6 @@ namespace Sdx
       setDataSetName(dataSetName);
     }
 
-
     GetQzssSatelliteL1DataHealthPtr GetQzssSatelliteL1DataHealth::create(int svId, const Sdx::optional<std::string>& dataSetName)
     {
       return std::make_shared<GetQzssSatelliteL1DataHealth>(svId, dataSetName);

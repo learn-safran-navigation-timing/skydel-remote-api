@@ -27,7 +27,7 @@ namespace Sdx
 
 
       DisconnectSerialPortReceiver();
-  
+
       static DisconnectSerialPortReceiverPtr create();
       static DisconnectSerialPortReceiverPtr dynamicCast(CommandBasePtr ptr);
       virtual bool isValid() const override;

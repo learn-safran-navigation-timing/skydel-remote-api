@@ -30,7 +30,6 @@ namespace Sdx
       setSystems(systems);
     }
 
-
     SetSbasMonitoredSystemsPtr SetSbasMonitoredSystems::create(const std::vector<std::string>& systems)
     {
       return std::make_shared<SetSbasMonitoredSystems>(systems);

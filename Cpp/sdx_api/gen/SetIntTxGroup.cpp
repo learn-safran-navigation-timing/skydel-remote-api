@@ -31,7 +31,6 @@ namespace Sdx
       setId(id);
     }
 
-
     SetIntTxGroupPtr SetIntTxGroup::create(int group, const std::string& id)
     {
       return std::make_shared<SetIntTxGroup>(group, id);

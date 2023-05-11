@@ -25,7 +25,6 @@ namespace Sdx
 
     }
 
-
     IsLogHILInputEnabledPtr IsLogHILInputEnabled::create()
     {
       return std::make_shared<IsLogHILInputEnabled>();

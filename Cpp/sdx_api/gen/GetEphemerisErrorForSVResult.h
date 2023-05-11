@@ -35,8 +35,12 @@ namespace Sdx
 
       GetEphemerisErrorForSVResult();
 
+      GetEphemerisErrorForSVResult(const std::string& system, int svId, const Sdx::RIC& orbit, double deltaAf0, double deltaAf1);
+
       GetEphemerisErrorForSVResult(CommandBasePtr relatedCommand, const std::string& system, int svId, const Sdx::RIC& orbit, double deltaAf0, double deltaAf1);
-  
+
+      static GetEphemerisErrorForSVResultPtr create(const std::string& system, int svId, const Sdx::RIC& orbit, double deltaAf0, double deltaAf1);
+
       static GetEphemerisErrorForSVResultPtr create(CommandBasePtr relatedCommand, const std::string& system, int svId, const Sdx::RIC& orbit, double deltaAf0, double deltaAf1);
       static GetEphemerisErrorForSVResultPtr dynamicCast(CommandBasePtr ptr);
       virtual bool isValid() const override;

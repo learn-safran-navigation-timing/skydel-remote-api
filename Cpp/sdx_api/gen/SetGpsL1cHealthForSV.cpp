@@ -32,7 +32,6 @@ namespace Sdx
       setDataSetName(dataSetName);
     }
 
-
     SetGpsL1cHealthForSVPtr SetGpsL1cHealthForSV::create(int svId, bool health, const Sdx::optional<std::string>& dataSetName)
     {
       return std::make_shared<SetGpsL1cHealthForSV>(svId, health, dataSetName);

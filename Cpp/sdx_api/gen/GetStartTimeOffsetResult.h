@@ -30,8 +30,12 @@ namespace Sdx
 
       GetStartTimeOffsetResult();
 
+      GetStartTimeOffsetResult(int offset);
+
       GetStartTimeOffsetResult(CommandBasePtr relatedCommand, int offset);
-  
+
+      static GetStartTimeOffsetResultPtr create(int offset);
+
       static GetStartTimeOffsetResultPtr create(CommandBasePtr relatedCommand, int offset);
       static GetStartTimeOffsetResultPtr dynamicCast(CommandBasePtr ptr);
       virtual bool isValid() const override;

@@ -30,8 +30,12 @@ namespace Sdx
 
       EndTrackDefinitionResult();
 
+      EndTrackDefinitionResult(int count);
+
       EndTrackDefinitionResult(CommandBasePtr relatedCommand, int count);
-  
+
+      static EndTrackDefinitionResultPtr create(int count);
+
       static EndTrackDefinitionResultPtr create(CommandBasePtr relatedCommand, int count);
       static EndTrackDefinitionResultPtr dynamicCast(CommandBasePtr ptr);
       virtual bool isValid() const override;

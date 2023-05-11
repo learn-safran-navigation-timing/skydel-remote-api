@@ -30,7 +30,6 @@ namespace Sdx
       setId(id);
     }
 
-
     GetIntTxAntennaPtr GetIntTxAntenna::create(const std::string& id)
     {
       return std::make_shared<GetIntTxAntenna>(id);

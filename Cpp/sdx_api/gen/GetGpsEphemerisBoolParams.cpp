@@ -31,7 +31,6 @@ namespace Sdx
       setDataSetName(dataSetName);
     }
 
-
     GetGpsEphemerisBoolParamsPtr GetGpsEphemerisBoolParams::create(const std::string& paramName, const Sdx::optional<std::string>& dataSetName)
     {
       return std::make_shared<GetGpsEphemerisBoolParams>(paramName, dataSetName);

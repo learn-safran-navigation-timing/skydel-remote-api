@@ -32,7 +32,6 @@ namespace Sdx
       setEnabled(enabled);
     }
 
-
     EnableRFOutputForSVPtr EnableRFOutputForSV::create(const std::string& system, int svId, bool enabled)
     {
       return std::make_shared<EnableRFOutputForSV>(system, svId, enabled);

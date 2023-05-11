@@ -32,7 +32,7 @@ namespace Sdx
       SetIntTxVehicleType();
 
       SetIntTxVehicleType(const std::string& type, const std::string& id);
-  
+
       static SetIntTxVehicleTypePtr create(const std::string& type, const std::string& id);
       static SetIntTxVehicleTypePtr dynamicCast(CommandBasePtr ptr);
       virtual bool isValid() const override;

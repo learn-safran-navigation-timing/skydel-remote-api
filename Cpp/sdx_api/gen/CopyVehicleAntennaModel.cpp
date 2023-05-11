@@ -31,7 +31,6 @@ namespace Sdx
       setCopyName(copyName);
     }
 
-
     CopyVehicleAntennaModelPtr CopyVehicleAntennaModel::create(const std::string& name, const std::string& copyName)
     {
       return std::make_shared<CopyVehicleAntennaModel>(name, copyName);

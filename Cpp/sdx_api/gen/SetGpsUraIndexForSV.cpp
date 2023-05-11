@@ -32,7 +32,6 @@ namespace Sdx
       setDataSetName(dataSetName);
     }
 
-
     SetGpsUraIndexForSVPtr SetGpsUraIndexForSV::create(int svId, int urai, const Sdx::optional<std::string>& dataSetName)
     {
       return std::make_shared<SetGpsUraIndexForSV>(svId, urai, dataSetName);

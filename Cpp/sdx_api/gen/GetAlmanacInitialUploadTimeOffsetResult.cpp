@@ -23,6 +23,14 @@ namespace Sdx
       : CommandResult(CmdName)
     {}
 
+    GetAlmanacInitialUploadTimeOffsetResult::GetAlmanacInitialUploadTimeOffsetResult(const std::string& system, int offset)
+      : CommandResult(CmdName)
+    {
+
+      setSystem(system);
+      setOffset(offset);
+    }
+
     GetAlmanacInitialUploadTimeOffsetResult::GetAlmanacInitialUploadTimeOffsetResult(CommandBasePtr relatedCommand, const std::string& system, int offset)
       : CommandResult(CmdName, relatedCommand)
     {
@@ -31,6 +39,11 @@ namespace Sdx
       setOffset(offset);
     }
 
+
+    GetAlmanacInitialUploadTimeOffsetResultPtr GetAlmanacInitialUploadTimeOffsetResult::create(const std::string& system, int offset)
+    {
+      return std::make_shared<GetAlmanacInitialUploadTimeOffsetResult>(system, offset);
+    }
 
     GetAlmanacInitialUploadTimeOffsetResultPtr GetAlmanacInitialUploadTimeOffsetResult::create(CommandBasePtr relatedCommand, const std::string& system, int offset)
     {

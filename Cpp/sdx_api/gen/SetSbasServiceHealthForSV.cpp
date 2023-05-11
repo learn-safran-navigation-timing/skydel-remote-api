@@ -31,7 +31,6 @@ namespace Sdx
       setHealth(health);
     }
 
-
     SetSbasServiceHealthForSVPtr SetSbasServiceHealthForSV::create(int svId, int health)
     {
       return std::make_shared<SetSbasServiceHealthForSV>(svId, health);

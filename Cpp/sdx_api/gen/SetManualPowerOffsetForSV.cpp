@@ -33,7 +33,6 @@ namespace Sdx
       setIsRelativePowerOffset(isRelativePowerOffset);
     }
 
-
     SetManualPowerOffsetForSVPtr SetManualPowerOffsetForSV::create(const std::string& system, int svId, const std::map<std::string, double>& signalPowerOffsetDict, bool isRelativePowerOffset)
     {
       return std::make_shared<SetManualPowerOffsetForSV>(system, svId, signalPowerOffsetDict, isRelativePowerOffset);

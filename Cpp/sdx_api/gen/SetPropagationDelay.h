@@ -33,7 +33,7 @@ namespace Sdx
       SetPropagationDelay();
 
       SetPropagationDelay(const std::string& system, bool enabled);
-  
+
       static SetPropagationDelayPtr create(const std::string& system, bool enabled);
       static SetPropagationDelayPtr dynamicCast(CommandBasePtr ptr);
       virtual bool isValid() const override;

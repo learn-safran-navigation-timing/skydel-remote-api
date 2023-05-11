@@ -30,7 +30,6 @@ namespace Sdx
       setId(id);
     }
 
-
     SetIntTxNonePtr SetIntTxNone::create(const std::string& id)
     {
       return std::make_shared<SetIntTxNone>(id);

@@ -32,7 +32,7 @@ namespace Sdx
       EnableLogNmea();
 
       EnableLogNmea(bool enabled);
-  
+
       static EnableLogNmeaPtr create(bool enabled);
       static EnableLogNmeaPtr dynamicCast(CommandBasePtr ptr);
       virtual bool isValid() const override;

@@ -23,6 +23,13 @@ namespace Sdx
       : CommandResult(CmdName)
     {}
 
+    SimulationElapsedTimeResult::SimulationElapsedTimeResult(int milliseconds)
+      : CommandResult(CmdName)
+    {
+
+      setMilliseconds(milliseconds);
+    }
+
     SimulationElapsedTimeResult::SimulationElapsedTimeResult(CommandBasePtr relatedCommand, int milliseconds)
       : CommandResult(CmdName, relatedCommand)
     {
@@ -30,6 +37,11 @@ namespace Sdx
       setMilliseconds(milliseconds);
     }
 
+
+    SimulationElapsedTimeResultPtr SimulationElapsedTimeResult::create(int milliseconds)
+    {
+      return std::make_shared<SimulationElapsedTimeResult>(milliseconds);
+    }
 
     SimulationElapsedTimeResultPtr SimulationElapsedTimeResult::create(CommandBasePtr relatedCommand, int milliseconds)
     {

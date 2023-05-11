@@ -33,7 +33,7 @@ namespace Sdx
       ResetAllSatPower();
 
       ResetAllSatPower(const std::string& system);
-  
+
       static ResetAllSatPowerPtr create(const std::string& system);
       static ResetAllSatPowerPtr dynamicCast(CommandBasePtr ptr);
       virtual bool isValid() const override;

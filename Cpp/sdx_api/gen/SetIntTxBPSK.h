@@ -40,7 +40,7 @@ namespace Sdx
       SetIntTxBPSK();
 
       SetIntTxBPSK(bool enabled, double centralFreq, double power, int codeRate, int codeLengthMs, const std::string& transmitterId, const std::string& signalId, const Sdx::optional<int>& group = {}, const Sdx::optional<int>& prn = {});
-  
+
       static SetIntTxBPSKPtr create(bool enabled, double centralFreq, double power, int codeRate, int codeLengthMs, const std::string& transmitterId, const std::string& signalId, const Sdx::optional<int>& group = {}, const Sdx::optional<int>& prn = {});
       static SetIntTxBPSKPtr dynamicCast(CommandBasePtr ptr);
       virtual bool isValid() const override;

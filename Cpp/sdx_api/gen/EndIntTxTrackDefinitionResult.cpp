@@ -23,6 +23,14 @@ namespace Sdx
       : CommandResult(CmdName)
     {}
 
+    EndIntTxTrackDefinitionResult::EndIntTxTrackDefinitionResult(int count, const std::string& id)
+      : CommandResult(CmdName)
+    {
+
+      setCount(count);
+      setId(id);
+    }
+
     EndIntTxTrackDefinitionResult::EndIntTxTrackDefinitionResult(CommandBasePtr relatedCommand, int count, const std::string& id)
       : CommandResult(CmdName, relatedCommand)
     {
@@ -31,6 +39,11 @@ namespace Sdx
       setId(id);
     }
 
+
+    EndIntTxTrackDefinitionResultPtr EndIntTxTrackDefinitionResult::create(int count, const std::string& id)
+    {
+      return std::make_shared<EndIntTxTrackDefinitionResult>(count, id);
+    }
 
     EndIntTxTrackDefinitionResultPtr EndIntTxTrackDefinitionResult::create(CommandBasePtr relatedCommand, int count, const std::string& id)
     {

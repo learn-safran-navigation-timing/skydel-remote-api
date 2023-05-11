@@ -33,7 +33,7 @@ namespace Sdx
       ImportIonoParameters();
 
       ImportIonoParameters(const std::string& path, const Sdx::optional<std::string>& type = {});
-  
+
       static ImportIonoParametersPtr create(const std::string& path, const Sdx::optional<std::string>& type = {});
       static ImportIonoParametersPtr dynamicCast(CommandBasePtr ptr);
       virtual bool isValid() const override;

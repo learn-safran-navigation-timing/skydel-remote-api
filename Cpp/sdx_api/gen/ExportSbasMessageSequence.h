@@ -32,7 +32,7 @@ namespace Sdx
       ExportSbasMessageSequence();
 
       ExportSbasMessageSequence(const std::string& path, bool overwriting);
-  
+
       static ExportSbasMessageSequencePtr create(const std::string& path, bool overwriting);
       static ExportSbasMessageSequencePtr dynamicCast(CommandBasePtr ptr);
       virtual bool isValid() const override;

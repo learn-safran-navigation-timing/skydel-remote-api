@@ -25,7 +25,6 @@ namespace Sdx
 
     }
 
-
     ClearQzssL1SAugmentationsPtr ClearQzssL1SAugmentations::create()
     {
       return std::make_shared<ClearQzssL1SAugmentations>();

@@ -23,6 +23,19 @@ namespace Sdx
       : CommandResult(CmdName)
     {}
 
+    GetVehicleTrajectoryFixResult::GetVehicleTrajectoryFixResult(const std::string& type, double lat, double lon, double alt, double yaw, double pitch, double roll)
+      : CommandResult(CmdName)
+    {
+
+      setType(type);
+      setLat(lat);
+      setLon(lon);
+      setAlt(alt);
+      setYaw(yaw);
+      setPitch(pitch);
+      setRoll(roll);
+    }
+
     GetVehicleTrajectoryFixResult::GetVehicleTrajectoryFixResult(CommandBasePtr relatedCommand, const std::string& type, double lat, double lon, double alt, double yaw, double pitch, double roll)
       : CommandResult(CmdName, relatedCommand)
     {
@@ -36,6 +49,11 @@ namespace Sdx
       setRoll(roll);
     }
 
+
+    GetVehicleTrajectoryFixResultPtr GetVehicleTrajectoryFixResult::create(const std::string& type, double lat, double lon, double alt, double yaw, double pitch, double roll)
+    {
+      return std::make_shared<GetVehicleTrajectoryFixResult>(type, lat, lon, alt, yaw, pitch, roll);
+    }
 
     GetVehicleTrajectoryFixResultPtr GetVehicleTrajectoryFixResult::create(CommandBasePtr relatedCommand, const std::string& type, double lat, double lon, double alt, double yaw, double pitch, double roll)
     {

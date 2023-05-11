@@ -31,7 +31,7 @@ namespace Sdx
       SetSpectrumVisible();
 
       SetSpectrumVisible(bool visible);
-  
+
       static SetSpectrumVisiblePtr create(bool visible);
       static SetSpectrumVisiblePtr dynamicCast(CommandBasePtr ptr);
       virtual bool isValid() const override;

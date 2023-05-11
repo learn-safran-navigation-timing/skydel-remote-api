@@ -35,7 +35,7 @@ namespace Sdx
       GetQzssSatelliteL1DataHealth();
 
       GetQzssSatelliteL1DataHealth(int svId, const Sdx::optional<std::string>& dataSetName = {});
-  
+
       static GetQzssSatelliteL1DataHealthPtr create(int svId, const Sdx::optional<std::string>& dataSetName = {});
       static GetQzssSatelliteL1DataHealthPtr dynamicCast(CommandBasePtr ptr);
       virtual bool isValid() const override;

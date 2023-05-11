@@ -23,6 +23,14 @@ namespace Sdx
       : CommandResult(CmdName)
     {}
 
+    GetTransmittedPrnForSVResult::GetTransmittedPrnForSVResult(int svId, const std::map<std::string, int>& signalPrnDict)
+      : CommandResult(CmdName)
+    {
+
+      setSvId(svId);
+      setSignalPrnDict(signalPrnDict);
+    }
+
     GetTransmittedPrnForSVResult::GetTransmittedPrnForSVResult(CommandBasePtr relatedCommand, int svId, const std::map<std::string, int>& signalPrnDict)
       : CommandResult(CmdName, relatedCommand)
     {
@@ -31,6 +39,11 @@ namespace Sdx
       setSignalPrnDict(signalPrnDict);
     }
 
+
+    GetTransmittedPrnForSVResultPtr GetTransmittedPrnForSVResult::create(int svId, const std::map<std::string, int>& signalPrnDict)
+    {
+      return std::make_shared<GetTransmittedPrnForSVResult>(svId, signalPrnDict);
+    }
 
     GetTransmittedPrnForSVResultPtr GetTransmittedPrnForSVResult::create(CommandBasePtr relatedCommand, int svId, const std::map<std::string, int>& signalPrnDict)
     {

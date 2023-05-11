@@ -31,7 +31,6 @@ namespace Sdx
       setType(type);
     }
 
-
     ImportIonoParametersPtr ImportIonoParameters::create(const std::string& path, const Sdx::optional<std::string>& type)
     {
       return std::make_shared<ImportIonoParameters>(path, type);

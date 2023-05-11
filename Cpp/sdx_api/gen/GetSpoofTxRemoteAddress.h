@@ -32,7 +32,7 @@ namespace Sdx
       GetSpoofTxRemoteAddress();
 
       GetSpoofTxRemoteAddress(const std::string& id);
-  
+
       static GetSpoofTxRemoteAddressPtr create(const std::string& id);
       static GetSpoofTxRemoteAddressPtr dynamicCast(CommandBasePtr ptr);
       virtual bool isValid() const override;

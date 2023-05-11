@@ -30,8 +30,12 @@ namespace Sdx
 
       IsLogRinexEnabledResult();
 
+      IsLogRinexEnabledResult(bool enabled);
+
       IsLogRinexEnabledResult(CommandBasePtr relatedCommand, bool enabled);
-  
+
+      static IsLogRinexEnabledResultPtr create(bool enabled);
+
       static IsLogRinexEnabledResultPtr create(CommandBasePtr relatedCommand, bool enabled);
       static IsLogRinexEnabledResultPtr dynamicCast(CommandBasePtr ptr);
       virtual bool isValid() const override;

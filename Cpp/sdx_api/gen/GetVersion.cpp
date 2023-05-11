@@ -25,7 +25,6 @@ namespace Sdx
 
     }
 
-
     GetVersionPtr GetVersion::create()
     {
       return std::make_shared<GetVersion>();

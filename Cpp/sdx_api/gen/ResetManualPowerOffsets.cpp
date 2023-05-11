@@ -30,7 +30,6 @@ namespace Sdx
       setSystem(system);
     }
 
-
     ResetManualPowerOffsetsPtr ResetManualPowerOffsets::create(const std::string& system)
     {
       return std::make_shared<ResetManualPowerOffsets>(system);

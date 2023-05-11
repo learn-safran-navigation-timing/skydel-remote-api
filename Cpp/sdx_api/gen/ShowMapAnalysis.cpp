@@ -30,7 +30,6 @@ namespace Sdx
       setShow(show);
     }
 
-
     ShowMapAnalysisPtr ShowMapAnalysis::create(bool show)
     {
       return std::make_shared<ShowMapAnalysis>(show);

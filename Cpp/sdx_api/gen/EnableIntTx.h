@@ -32,7 +32,7 @@ namespace Sdx
       EnableIntTx();
 
       EnableIntTx(bool enabled, const std::string& id);
-  
+
       static EnableIntTxPtr create(bool enabled, const std::string& id);
       static EnableIntTxPtr dynamicCast(CommandBasePtr ptr);
       virtual bool isValid() const override;

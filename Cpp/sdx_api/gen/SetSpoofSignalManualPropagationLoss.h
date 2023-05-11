@@ -33,7 +33,7 @@ namespace Sdx
       SetSpoofSignalManualPropagationLoss();
 
       SetSpoofSignalManualPropagationLoss(double propagationLoss, const std::string& transmitterId, const std::string& signalId);
-  
+
       static SetSpoofSignalManualPropagationLossPtr create(double propagationLoss, const std::string& transmitterId, const std::string& signalId);
       static SetSpoofSignalManualPropagationLossPtr dynamicCast(CommandBasePtr ptr);
       virtual bool isValid() const override;

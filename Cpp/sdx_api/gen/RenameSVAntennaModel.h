@@ -33,7 +33,7 @@ namespace Sdx
       RenameSVAntennaModel();
 
       RenameSVAntennaModel(const std::string& name, const std::string& newName, const std::string& system);
-  
+
       static RenameSVAntennaModelPtr create(const std::string& name, const std::string& newName, const std::string& system);
       static RenameSVAntennaModelPtr dynamicCast(CommandBasePtr ptr);
       virtual bool isValid() const override;

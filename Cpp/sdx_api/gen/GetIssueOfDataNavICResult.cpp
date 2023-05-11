@@ -23,6 +23,14 @@ namespace Sdx
       : CommandResult(CmdName)
     {}
 
+    GetIssueOfDataNavICResult::GetIssueOfDataNavICResult(int ephemerisAndClock, const Sdx::optional<bool>& overrideRinex)
+      : CommandResult(CmdName)
+    {
+
+      setEphemerisAndClock(ephemerisAndClock);
+      setOverrideRinex(overrideRinex);
+    }
+
     GetIssueOfDataNavICResult::GetIssueOfDataNavICResult(CommandBasePtr relatedCommand, int ephemerisAndClock, const Sdx::optional<bool>& overrideRinex)
       : CommandResult(CmdName, relatedCommand)
     {
@@ -31,6 +39,11 @@ namespace Sdx
       setOverrideRinex(overrideRinex);
     }
 
+
+    GetIssueOfDataNavICResultPtr GetIssueOfDataNavICResult::create(int ephemerisAndClock, const Sdx::optional<bool>& overrideRinex)
+    {
+      return std::make_shared<GetIssueOfDataNavICResult>(ephemerisAndClock, overrideRinex);
+    }
 
     GetIssueOfDataNavICResultPtr GetIssueOfDataNavICResult::create(CommandBasePtr relatedCommand, int ephemerisAndClock, const Sdx::optional<bool>& overrideRinex)
     {

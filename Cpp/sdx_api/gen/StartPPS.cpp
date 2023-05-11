@@ -30,7 +30,6 @@ namespace Sdx
       setMsec(msec);
     }
 
-
     StartPPSPtr StartPPS::create(int msec)
     {
       return std::make_shared<StartPPS>(msec);

@@ -32,7 +32,7 @@ namespace Sdx
       ImportSVAntennaModel();
 
       ImportSVAntennaModel(const std::string& filePath, const std::string& system);
-  
+
       static ImportSVAntennaModelPtr create(const std::string& filePath, const std::string& system);
       static ImportSVAntennaModelPtr dynamicCast(CommandBasePtr ptr);
       virtual bool isValid() const override;

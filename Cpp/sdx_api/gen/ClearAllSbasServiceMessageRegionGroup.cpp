@@ -30,7 +30,6 @@ namespace Sdx
       setServiceProvider(serviceProvider);
     }
 
-
     ClearAllSbasServiceMessageRegionGroupPtr ClearAllSbasServiceMessageRegionGroup::create(const std::string& serviceProvider)
     {
       return std::make_shared<ClearAllSbasServiceMessageRegionGroup>(serviceProvider);

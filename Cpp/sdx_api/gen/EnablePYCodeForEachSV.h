@@ -33,7 +33,7 @@ namespace Sdx
       EnablePYCodeForEachSV();
 
       EnablePYCodeForEachSV(const std::string& signal, const std::vector<bool>& enabled);
-  
+
       static EnablePYCodeForEachSVPtr create(const std::string& signal, const std::vector<bool>& enabled);
       static EnablePYCodeForEachSVPtr dynamicCast(CommandBasePtr ptr);
       virtual bool isValid() const override;

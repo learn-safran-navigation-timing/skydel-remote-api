@@ -23,6 +23,13 @@ namespace Sdx
       : CommandResult(CmdName)
     {}
 
+    IsElevationMaskBelowEnabledResult::IsElevationMaskBelowEnabledResult(bool enabled)
+      : CommandResult(CmdName)
+    {
+
+      setEnabled(enabled);
+    }
+
     IsElevationMaskBelowEnabledResult::IsElevationMaskBelowEnabledResult(CommandBasePtr relatedCommand, bool enabled)
       : CommandResult(CmdName, relatedCommand)
     {
@@ -30,6 +37,11 @@ namespace Sdx
       setEnabled(enabled);
     }
 
+
+    IsElevationMaskBelowEnabledResultPtr IsElevationMaskBelowEnabledResult::create(bool enabled)
+    {
+      return std::make_shared<IsElevationMaskBelowEnabledResult>(enabled);
+    }
 
     IsElevationMaskBelowEnabledResultPtr IsElevationMaskBelowEnabledResult::create(CommandBasePtr relatedCommand, bool enabled)
     {

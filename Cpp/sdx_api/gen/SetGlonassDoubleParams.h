@@ -35,7 +35,7 @@ namespace Sdx
       SetGlonassDoubleParams();
 
       SetGlonassDoubleParams(const std::string& paramName, const std::vector<double>& val);
-  
+
       static SetGlonassDoubleParamsPtr create(const std::string& paramName, const std::vector<double>& val);
       static SetGlonassDoubleParamsPtr dynamicCast(CommandBasePtr ptr);
       virtual bool isValid() const override;

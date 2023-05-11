@@ -23,6 +23,13 @@ namespace Sdx
       : CommandResult(CmdName)
     {}
 
+    GetSbasUdreiResult::GetSbasUdreiResult(int udrei)
+      : CommandResult(CmdName)
+    {
+
+      setUdrei(udrei);
+    }
+
     GetSbasUdreiResult::GetSbasUdreiResult(CommandBasePtr relatedCommand, int udrei)
       : CommandResult(CmdName, relatedCommand)
     {
@@ -30,6 +37,11 @@ namespace Sdx
       setUdrei(udrei);
     }
 
+
+    GetSbasUdreiResultPtr GetSbasUdreiResult::create(int udrei)
+    {
+      return std::make_shared<GetSbasUdreiResult>(udrei);
+    }
 
     GetSbasUdreiResultPtr GetSbasUdreiResult::create(CommandBasePtr relatedCommand, int udrei)
     {

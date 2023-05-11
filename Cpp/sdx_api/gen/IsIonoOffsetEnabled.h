@@ -27,7 +27,7 @@ namespace Sdx
 
 
       IsIonoOffsetEnabled();
-  
+
       static IsIonoOffsetEnabledPtr create();
       static IsIonoOffsetEnabledPtr dynamicCast(CommandBasePtr ptr);
       virtual bool isValid() const override;

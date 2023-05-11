@@ -30,7 +30,6 @@ namespace Sdx
       setNavMsgFamily(navMsgFamily);
     }
 
-
     ClearAllMessageModificationsForNavMsgFamilyPtr ClearAllMessageModificationsForNavMsgFamily::create(const std::string& navMsgFamily)
     {
       return std::make_shared<ClearAllMessageModificationsForNavMsgFamily>(navMsgFamily);

@@ -27,7 +27,7 @@ namespace Sdx
 
 
       GetGpsTimingReceiver();
-  
+
       static GetGpsTimingReceiverPtr create();
       static GetGpsTimingReceiverPtr dynamicCast(CommandBasePtr ptr);
       virtual bool isValid() const override;

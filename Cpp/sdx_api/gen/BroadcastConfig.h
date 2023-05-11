@@ -27,7 +27,7 @@ namespace Sdx
 
 
       BroadcastConfig();
-  
+
       static BroadcastConfigPtr create();
       static BroadcastConfigPtr dynamicCast(CommandBasePtr ptr);
       virtual bool isValid() const override;

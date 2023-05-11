@@ -31,7 +31,7 @@ namespace Sdx
 
 
       ResetHilWarning();
-  
+
       static ResetHilWarningPtr create();
       static ResetHilWarningPtr dynamicCast(CommandBasePtr ptr);
       virtual bool isValid() const override;

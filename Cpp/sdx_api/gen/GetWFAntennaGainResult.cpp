@@ -23,6 +23,13 @@ namespace Sdx
       : CommandResult(CmdName)
     {}
 
+    GetWFAntennaGainResult::GetWFAntennaGainResult(int gain)
+      : CommandResult(CmdName)
+    {
+
+      setGain(gain);
+    }
+
     GetWFAntennaGainResult::GetWFAntennaGainResult(CommandBasePtr relatedCommand, int gain)
       : CommandResult(CmdName, relatedCommand)
     {
@@ -30,6 +37,11 @@ namespace Sdx
       setGain(gain);
     }
 
+
+    GetWFAntennaGainResultPtr GetWFAntennaGainResult::create(int gain)
+    {
+      return std::make_shared<GetWFAntennaGainResult>(gain);
+    }
 
     GetWFAntennaGainResultPtr GetWFAntennaGainResult::create(CommandBasePtr relatedCommand, int gain)
     {

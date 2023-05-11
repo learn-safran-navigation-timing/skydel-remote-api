@@ -31,7 +31,6 @@ namespace Sdx
       setId(id);
     }
 
-
     RenameSpoofTxPtr RenameSpoofTx::create(const std::string& usualName, const std::string& id)
     {
       return std::make_shared<RenameSpoofTx>(usualName, id);

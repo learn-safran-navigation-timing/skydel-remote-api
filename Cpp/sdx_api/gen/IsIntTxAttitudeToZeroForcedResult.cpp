@@ -23,6 +23,14 @@ namespace Sdx
       : CommandResult(CmdName)
     {}
 
+    IsIntTxAttitudeToZeroForcedResult::IsIntTxAttitudeToZeroForcedResult(bool enabled, const std::string& id)
+      : CommandResult(CmdName)
+    {
+
+      setEnabled(enabled);
+      setId(id);
+    }
+
     IsIntTxAttitudeToZeroForcedResult::IsIntTxAttitudeToZeroForcedResult(CommandBasePtr relatedCommand, bool enabled, const std::string& id)
       : CommandResult(CmdName, relatedCommand)
     {
@@ -31,6 +39,11 @@ namespace Sdx
       setId(id);
     }
 
+
+    IsIntTxAttitudeToZeroForcedResultPtr IsIntTxAttitudeToZeroForcedResult::create(bool enabled, const std::string& id)
+    {
+      return std::make_shared<IsIntTxAttitudeToZeroForcedResult>(enabled, id);
+    }
 
     IsIntTxAttitudeToZeroForcedResultPtr IsIntTxAttitudeToZeroForcedResult::create(CommandBasePtr relatedCommand, bool enabled, const std::string& id)
     {

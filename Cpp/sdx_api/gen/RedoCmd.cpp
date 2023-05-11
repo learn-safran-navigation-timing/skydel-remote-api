@@ -25,7 +25,6 @@ namespace Sdx
 
     }
 
-
     RedoCmdPtr RedoCmd::create()
     {
       return std::make_shared<RedoCmd>();

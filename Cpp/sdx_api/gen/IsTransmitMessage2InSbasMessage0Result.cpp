@@ -23,6 +23,13 @@ namespace Sdx
       : CommandResult(CmdName)
     {}
 
+    IsTransmitMessage2InSbasMessage0Result::IsTransmitMessage2InSbasMessage0Result(bool transmitMessage2)
+      : CommandResult(CmdName)
+    {
+
+      setTransmitMessage2(transmitMessage2);
+    }
+
     IsTransmitMessage2InSbasMessage0Result::IsTransmitMessage2InSbasMessage0Result(CommandBasePtr relatedCommand, bool transmitMessage2)
       : CommandResult(CmdName, relatedCommand)
     {
@@ -30,6 +37,11 @@ namespace Sdx
       setTransmitMessage2(transmitMessage2);
     }
 
+
+    IsTransmitMessage2InSbasMessage0ResultPtr IsTransmitMessage2InSbasMessage0Result::create(bool transmitMessage2)
+    {
+      return std::make_shared<IsTransmitMessage2InSbasMessage0Result>(transmitMessage2);
+    }
 
     IsTransmitMessage2InSbasMessage0ResultPtr IsTransmitMessage2InSbasMessage0Result::create(CommandBasePtr relatedCommand, bool transmitMessage2)
     {

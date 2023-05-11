@@ -35,7 +35,7 @@ namespace Sdx
       GetBeiDouEphemerisDoubleParams();
 
       GetBeiDouEphemerisDoubleParams(const std::string& paramName, const Sdx::optional<std::string>& dataSetName = {});
-  
+
       static GetBeiDouEphemerisDoubleParamsPtr create(const std::string& paramName, const Sdx::optional<std::string>& dataSetName = {});
       static GetBeiDouEphemerisDoubleParamsPtr dynamicCast(CommandBasePtr ptr);
       virtual bool isValid() const override;

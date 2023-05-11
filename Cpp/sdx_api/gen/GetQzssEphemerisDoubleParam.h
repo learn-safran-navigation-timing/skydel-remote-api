@@ -38,7 +38,7 @@ namespace Sdx
       GetQzssEphemerisDoubleParam();
 
       GetQzssEphemerisDoubleParam(int svId, const std::string& paramName, const Sdx::optional<std::string>& dataSetName = {});
-  
+
       static GetQzssEphemerisDoubleParamPtr create(int svId, const std::string& paramName, const Sdx::optional<std::string>& dataSetName = {});
       static GetQzssEphemerisDoubleParamPtr dynamicCast(CommandBasePtr ptr);
       virtual bool isValid() const override;

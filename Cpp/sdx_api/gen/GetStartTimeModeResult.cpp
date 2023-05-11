@@ -23,6 +23,13 @@ namespace Sdx
       : CommandResult(CmdName)
     {}
 
+    GetStartTimeModeResult::GetStartTimeModeResult(const std::string& mode)
+      : CommandResult(CmdName)
+    {
+
+      setMode(mode);
+    }
+
     GetStartTimeModeResult::GetStartTimeModeResult(CommandBasePtr relatedCommand, const std::string& mode)
       : CommandResult(CmdName, relatedCommand)
     {
@@ -30,6 +37,11 @@ namespace Sdx
       setMode(mode);
     }
 
+
+    GetStartTimeModeResultPtr GetStartTimeModeResult::create(const std::string& mode)
+    {
+      return std::make_shared<GetStartTimeModeResult>(mode);
+    }
 
     GetStartTimeModeResultPtr GetStartTimeModeResult::create(CommandBasePtr relatedCommand, const std::string& mode)
     {

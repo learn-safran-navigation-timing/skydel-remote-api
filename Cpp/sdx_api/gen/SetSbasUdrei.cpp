@@ -32,7 +32,6 @@ namespace Sdx
       setUdrei(udrei);
     }
 
-
     SetSbasUdreiPtr SetSbasUdrei::create(int udrei)
     {
       return std::make_shared<SetSbasUdrei>(udrei);

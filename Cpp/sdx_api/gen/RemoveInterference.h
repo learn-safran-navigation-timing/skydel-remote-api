@@ -32,7 +32,7 @@ namespace Sdx
       RemoveInterference();
 
       RemoveInterference(const std::string& id);
-  
+
       static RemoveInterferencePtr create(const std::string& id);
       static RemoveInterferencePtr dynamicCast(CommandBasePtr ptr);
       virtual bool isValid() const override;

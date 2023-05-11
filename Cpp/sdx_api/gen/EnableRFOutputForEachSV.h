@@ -33,7 +33,7 @@ namespace Sdx
       EnableRFOutputForEachSV();
 
       EnableRFOutputForEachSV(const std::string& system, const std::vector<bool>& enabled);
-  
+
       static EnableRFOutputForEachSVPtr create(const std::string& system, const std::vector<bool>& enabled);
       static EnableRFOutputForEachSVPtr dynamicCast(CommandBasePtr ptr);
       virtual bool isValid() const override;

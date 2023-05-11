@@ -32,7 +32,7 @@ namespace Sdx
       GetIntTxChirp();
 
       GetIntTxChirp(const std::string& transmitterId, const std::string& signalId);
-  
+
       static GetIntTxChirpPtr create(const std::string& transmitterId, const std::string& signalId);
       static GetIntTxChirpPtr dynamicCast(CommandBasePtr ptr);
       virtual bool isValid() const override;

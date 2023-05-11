@@ -32,7 +32,7 @@ namespace Sdx
       EnableSpoofTx();
 
       EnableSpoofTx(bool enabled, const std::string& id);
-  
+
       static EnableSpoofTxPtr create(bool enabled, const std::string& id);
       static EnableSpoofTxPtr dynamicCast(CommandBasePtr ptr);
       virtual bool isValid() const override;

@@ -32,7 +32,6 @@ namespace Sdx
       setSecondId(secondId);
     }
 
-
     SwapSbasServiceMessageRegionGroupPtr SwapSbasServiceMessageRegionGroup::create(const std::string& serviceProvider, const std::string& firstId, const std::string& secondId)
     {
       return std::make_shared<SwapSbasServiceMessageRegionGroup>(serviceProvider, firstId, secondId);

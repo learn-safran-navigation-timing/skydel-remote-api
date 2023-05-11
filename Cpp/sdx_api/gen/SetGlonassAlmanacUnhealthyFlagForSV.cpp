@@ -31,7 +31,6 @@ namespace Sdx
       setHealth(health);
     }
 
-
     SetGlonassAlmanacUnhealthyFlagForSVPtr SetGlonassAlmanacUnhealthyFlagForSV::create(int svId, bool health)
     {
       return std::make_shared<SetGlonassAlmanacUnhealthyFlagForSV>(svId, health);

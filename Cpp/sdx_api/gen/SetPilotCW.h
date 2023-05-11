@@ -35,7 +35,7 @@ namespace Sdx
       SetPilotCW();
 
       SetPilotCW(bool enabled, int outputIdx, double centralFreqOffset, double power, const std::string& pilotId);
-  
+
       static SetPilotCWPtr create(bool enabled, int outputIdx, double centralFreqOffset, double power, const std::string& pilotId);
       static SetPilotCWPtr dynamicCast(CommandBasePtr ptr);
       virtual bool isValid() const override;

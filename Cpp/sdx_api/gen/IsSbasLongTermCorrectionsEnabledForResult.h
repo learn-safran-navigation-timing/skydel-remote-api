@@ -31,8 +31,12 @@ namespace Sdx
 
       IsSbasLongTermCorrectionsEnabledForResult();
 
+      IsSbasLongTermCorrectionsEnabledForResult(const std::string& system, bool isEnabled);
+
       IsSbasLongTermCorrectionsEnabledForResult(CommandBasePtr relatedCommand, const std::string& system, bool isEnabled);
-  
+
+      static IsSbasLongTermCorrectionsEnabledForResultPtr create(const std::string& system, bool isEnabled);
+
       static IsSbasLongTermCorrectionsEnabledForResultPtr create(CommandBasePtr relatedCommand, const std::string& system, bool isEnabled);
       static IsSbasLongTermCorrectionsEnabledForResultPtr dynamicCast(CommandBasePtr ptr);
       virtual bool isValid() const override;

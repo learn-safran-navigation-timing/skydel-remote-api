@@ -31,8 +31,12 @@ namespace Sdx
 
       GetIssueOfDataBeiDouResult();
 
+      GetIssueOfDataBeiDouResult(int clock, int ephemeris);
+
       GetIssueOfDataBeiDouResult(CommandBasePtr relatedCommand, int clock, int ephemeris);
-  
+
+      static GetIssueOfDataBeiDouResultPtr create(int clock, int ephemeris);
+
       static GetIssueOfDataBeiDouResultPtr create(CommandBasePtr relatedCommand, int clock, int ephemeris);
       static GetIssueOfDataBeiDouResultPtr dynamicCast(CommandBasePtr ptr);
       virtual bool isValid() const override;

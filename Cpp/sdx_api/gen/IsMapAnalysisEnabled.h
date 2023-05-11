@@ -27,7 +27,7 @@ namespace Sdx
 
 
       IsMapAnalysisEnabled();
-  
+
       static IsMapAnalysisEnabledPtr create();
       static IsMapAnalysisEnabledPtr dynamicCast(CommandBasePtr ptr);
       virtual bool isValid() const override;

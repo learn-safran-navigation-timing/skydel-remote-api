@@ -31,7 +31,7 @@ namespace Sdx
       EnableLogRinex();
 
       EnableLogRinex(bool enabled);
-  
+
       static EnableLogRinexPtr create(bool enabled);
       static EnableLogRinexPtr dynamicCast(CommandBasePtr ptr);
       virtual bool isValid() const override;

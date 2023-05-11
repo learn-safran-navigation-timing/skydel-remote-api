@@ -48,7 +48,7 @@ namespace Sdx
       WaitSimulatorState();
 
       WaitSimulatorState(const std::string& state, const std::string& failureState);
-  
+
       static WaitSimulatorStatePtr create(const std::string& state, const std::string& failureState);
       static WaitSimulatorStatePtr dynamicCast(CommandBasePtr ptr);
       virtual bool isValid() const override;

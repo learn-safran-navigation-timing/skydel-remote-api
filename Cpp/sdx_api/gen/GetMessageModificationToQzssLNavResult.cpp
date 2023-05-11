@@ -23,6 +23,22 @@ namespace Sdx
       : CommandResult(CmdName)
     {}
 
+    GetMessageModificationToQzssLNavResult::GetMessageModificationToQzssLNavResult(const std::vector<std::string>& signalArray, int svId, int startTime, int stopTime, int subframe, int lNavSvId, int word, bool updateParity, const std::string& wordModification, const std::string& id)
+      : CommandResult(CmdName)
+    {
+
+      setSignalArray(signalArray);
+      setSvId(svId);
+      setStartTime(startTime);
+      setStopTime(stopTime);
+      setSubframe(subframe);
+      setLNavSvId(lNavSvId);
+      setWord(word);
+      setUpdateParity(updateParity);
+      setWordModification(wordModification);
+      setId(id);
+    }
+
     GetMessageModificationToQzssLNavResult::GetMessageModificationToQzssLNavResult(CommandBasePtr relatedCommand, const std::vector<std::string>& signalArray, int svId, int startTime, int stopTime, int subframe, int lNavSvId, int word, bool updateParity, const std::string& wordModification, const std::string& id)
       : CommandResult(CmdName, relatedCommand)
     {
@@ -39,6 +55,11 @@ namespace Sdx
       setId(id);
     }
 
+
+    GetMessageModificationToQzssLNavResultPtr GetMessageModificationToQzssLNavResult::create(const std::vector<std::string>& signalArray, int svId, int startTime, int stopTime, int subframe, int lNavSvId, int word, bool updateParity, const std::string& wordModification, const std::string& id)
+    {
+      return std::make_shared<GetMessageModificationToQzssLNavResult>(signalArray, svId, startTime, stopTime, subframe, lNavSvId, word, updateParity, wordModification, id);
+    }
 
     GetMessageModificationToQzssLNavResultPtr GetMessageModificationToQzssLNavResult::create(CommandBasePtr relatedCommand, const std::vector<std::string>& signalArray, int svId, int startTime, int stopTime, int subframe, int lNavSvId, int word, bool updateParity, const std::string& wordModification, const std::string& id)
     {

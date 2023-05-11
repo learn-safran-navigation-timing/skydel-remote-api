@@ -34,7 +34,6 @@ namespace Sdx
       setDeltaAf1(deltaAf1);
     }
 
-
     SetEphemerisErrorForSVPtr SetEphemerisErrorForSV::create(const std::string& system, int svId, const Sdx::RIC& orbit, double deltaAf0, double deltaAf1)
     {
       return std::make_shared<SetEphemerisErrorForSV>(system, svId, orbit, deltaAf0, deltaAf1);

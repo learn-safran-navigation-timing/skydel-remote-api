@@ -31,7 +31,6 @@ namespace Sdx
       setDataSetType(dataSetType);
     }
 
-
     GetDataSetAssignationPtr GetDataSetAssignation::create(const std::string& system, const std::string& dataSetType)
     {
       return std::make_shared<GetDataSetAssignation>(system, dataSetType);

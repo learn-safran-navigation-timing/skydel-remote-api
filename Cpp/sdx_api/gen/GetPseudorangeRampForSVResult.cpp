@@ -23,6 +23,20 @@ namespace Sdx
       : CommandResult(CmdName)
     {}
 
+    GetPseudorangeRampForSVResult::GetPseudorangeRampForSVResult(const std::string& system, int svId, double offset, int startTime, int holdStartTime, int holdStopTime, int stopTime, const std::string& id)
+      : CommandResult(CmdName)
+    {
+
+      setSystem(system);
+      setSvId(svId);
+      setOffset(offset);
+      setStartTime(startTime);
+      setHoldStartTime(holdStartTime);
+      setHoldStopTime(holdStopTime);
+      setStopTime(stopTime);
+      setId(id);
+    }
+
     GetPseudorangeRampForSVResult::GetPseudorangeRampForSVResult(CommandBasePtr relatedCommand, const std::string& system, int svId, double offset, int startTime, int holdStartTime, int holdStopTime, int stopTime, const std::string& id)
       : CommandResult(CmdName, relatedCommand)
     {
@@ -37,6 +51,11 @@ namespace Sdx
       setId(id);
     }
 
+
+    GetPseudorangeRampForSVResultPtr GetPseudorangeRampForSVResult::create(const std::string& system, int svId, double offset, int startTime, int holdStartTime, int holdStopTime, int stopTime, const std::string& id)
+    {
+      return std::make_shared<GetPseudorangeRampForSVResult>(system, svId, offset, startTime, holdStartTime, holdStopTime, stopTime, id);
+    }
 
     GetPseudorangeRampForSVResultPtr GetPseudorangeRampForSVResult::create(CommandBasePtr relatedCommand, const std::string& system, int svId, double offset, int startTime, int holdStartTime, int holdStopTime, int stopTime, const std::string& id)
     {

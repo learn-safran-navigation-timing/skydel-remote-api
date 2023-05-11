@@ -38,7 +38,7 @@ namespace Sdx
       AddIntTx();
 
       AddIntTx(const std::string& usualName, bool enabled, int group, bool dynamic, double power, const std::string& id);
-  
+
       static AddIntTxPtr create(const std::string& usualName, bool enabled, int group, bool dynamic, double power, const std::string& id);
       static AddIntTxPtr dynamicCast(CommandBasePtr ptr);
       virtual bool isValid() const override;

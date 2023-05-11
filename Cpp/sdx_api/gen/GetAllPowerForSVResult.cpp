@@ -23,6 +23,17 @@ namespace Sdx
       : CommandResult(CmdName)
     {}
 
+    GetAllPowerForSVResult::GetAllPowerForSVResult(const std::string& system, int svId, double nominalPower, double globalOffset, const std::map<std::string, Sdx::SignalPower>& signalPowerDict)
+      : CommandResult(CmdName)
+    {
+
+      setSystem(system);
+      setSvId(svId);
+      setNominalPower(nominalPower);
+      setGlobalOffset(globalOffset);
+      setSignalPowerDict(signalPowerDict);
+    }
+
     GetAllPowerForSVResult::GetAllPowerForSVResult(CommandBasePtr relatedCommand, const std::string& system, int svId, double nominalPower, double globalOffset, const std::map<std::string, Sdx::SignalPower>& signalPowerDict)
       : CommandResult(CmdName, relatedCommand)
     {
@@ -34,6 +45,11 @@ namespace Sdx
       setSignalPowerDict(signalPowerDict);
     }
 
+
+    GetAllPowerForSVResultPtr GetAllPowerForSVResult::create(const std::string& system, int svId, double nominalPower, double globalOffset, const std::map<std::string, Sdx::SignalPower>& signalPowerDict)
+    {
+      return std::make_shared<GetAllPowerForSVResult>(system, svId, nominalPower, globalOffset, signalPowerDict);
+    }
 
     GetAllPowerForSVResultPtr GetAllPowerForSVResult::create(CommandBasePtr relatedCommand, const std::string& system, int svId, double nominalPower, double globalOffset, const std::map<std::string, Sdx::SignalPower>& signalPowerDict)
     {

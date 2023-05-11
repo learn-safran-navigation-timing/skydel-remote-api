@@ -27,7 +27,7 @@ namespace Sdx
 
 
       GetIonoGridErrorAll();
-  
+
       static GetIonoGridErrorAllPtr create();
       static GetIonoGridErrorAllPtr dynamicCast(CommandBasePtr ptr);
       virtual bool isValid() const override;

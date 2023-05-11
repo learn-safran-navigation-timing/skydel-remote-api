@@ -25,7 +25,6 @@ namespace Sdx
 
     }
 
-
     IsLogRawEnabledPtr IsLogRawEnabled::create()
     {
       return std::make_shared<IsLogRawEnabled>();

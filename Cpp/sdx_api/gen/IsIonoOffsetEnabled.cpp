@@ -25,7 +25,6 @@ namespace Sdx
 
     }
 
-
     IsIonoOffsetEnabledPtr IsIonoOffsetEnabled::create()
     {
       return std::make_shared<IsIonoOffsetEnabled>();

@@ -31,7 +31,6 @@ namespace Sdx
       setPath(path);
     }
 
-
     ExportIonoGridErrorsPtr ExportIonoGridErrors::create(bool overwriting, const std::string& path)
     {
       return std::make_shared<ExportIonoGridErrors>(overwriting, path);

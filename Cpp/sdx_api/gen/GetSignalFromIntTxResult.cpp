@@ -23,6 +23,15 @@ namespace Sdx
       : CommandResult(CmdName)
     {}
 
+    GetSignalFromIntTxResult::GetSignalFromIntTxResult(const std::string& idTransmitter, const std::string& signalType, const std::vector<std::string>& idsSignal)
+      : CommandResult(CmdName)
+    {
+
+      setIdTransmitter(idTransmitter);
+      setSignalType(signalType);
+      setIdsSignal(idsSignal);
+    }
+
     GetSignalFromIntTxResult::GetSignalFromIntTxResult(CommandBasePtr relatedCommand, const std::string& idTransmitter, const std::string& signalType, const std::vector<std::string>& idsSignal)
       : CommandResult(CmdName, relatedCommand)
     {
@@ -32,6 +41,11 @@ namespace Sdx
       setIdsSignal(idsSignal);
     }
 
+
+    GetSignalFromIntTxResultPtr GetSignalFromIntTxResult::create(const std::string& idTransmitter, const std::string& signalType, const std::vector<std::string>& idsSignal)
+    {
+      return std::make_shared<GetSignalFromIntTxResult>(idTransmitter, signalType, idsSignal);
+    }
 
     GetSignalFromIntTxResultPtr GetSignalFromIntTxResult::create(CommandBasePtr relatedCommand, const std::string& idTransmitter, const std::string& signalType, const std::vector<std::string>& idsSignal)
     {

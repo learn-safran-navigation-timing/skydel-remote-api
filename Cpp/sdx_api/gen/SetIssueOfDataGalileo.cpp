@@ -32,7 +32,6 @@ namespace Sdx
       setOverrideRinex(overrideRinex);
     }
 
-
     SetIssueOfDataGalileoPtr SetIssueOfDataGalileo::create(int navigation, int almanac, const Sdx::optional<bool>& overrideRinex)
     {
       return std::make_shared<SetIssueOfDataGalileo>(navigation, almanac, overrideRinex);

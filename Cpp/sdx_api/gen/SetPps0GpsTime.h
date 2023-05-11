@@ -31,7 +31,7 @@ namespace Sdx
       SetPps0GpsTime();
 
       SetPps0GpsTime(const Sdx::DateTime& gpsTime);
-  
+
       static SetPps0GpsTimePtr create(const Sdx::DateTime& gpsTime);
       static SetPps0GpsTimePtr dynamicCast(CommandBasePtr ptr);
       virtual bool isValid() const override;

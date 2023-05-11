@@ -23,6 +23,14 @@ namespace Sdx
       : CommandResult(CmdName)
     {}
 
+    GetHilExtrapolationStateResult::GetHilExtrapolationStateResult(const Sdx::HilExtrapolationState& state, int elapsedTime)
+      : CommandResult(CmdName)
+    {
+
+      setState(state);
+      setElapsedTime(elapsedTime);
+    }
+
     GetHilExtrapolationStateResult::GetHilExtrapolationStateResult(CommandBasePtr relatedCommand, const Sdx::HilExtrapolationState& state, int elapsedTime)
       : CommandResult(CmdName, relatedCommand)
     {
@@ -31,6 +39,11 @@ namespace Sdx
       setElapsedTime(elapsedTime);
     }
 
+
+    GetHilExtrapolationStateResultPtr GetHilExtrapolationStateResult::create(const Sdx::HilExtrapolationState& state, int elapsedTime)
+    {
+      return std::make_shared<GetHilExtrapolationStateResult>(state, elapsedTime);
+    }
 
     GetHilExtrapolationStateResultPtr GetHilExtrapolationStateResult::create(CommandBasePtr relatedCommand, const Sdx::HilExtrapolationState& state, int elapsedTime)
     {

@@ -31,7 +31,7 @@ namespace Sdx
       GetActiveDataSet();
 
       GetActiveDataSet(const std::string& system);
-  
+
       static GetActiveDataSetPtr create(const std::string& system);
       static GetActiveDataSetPtr dynamicCast(CommandBasePtr ptr);
       virtual bool isValid() const override;

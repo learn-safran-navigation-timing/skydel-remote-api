@@ -35,7 +35,7 @@ namespace Sdx
       GetIonoAlpha();
 
       GetIonoAlpha(int index);
-  
+
       static GetIonoAlphaPtr create(int index);
       static GetIonoAlphaPtr dynamicCast(CommandBasePtr ptr);
       virtual bool isValid() const override;

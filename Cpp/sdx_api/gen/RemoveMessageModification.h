@@ -15,8 +15,8 @@ namespace Sdx
     /// Removes the signal for the message modification.
     ///
     /// Name   Type   Description
-    /// ------ ------ -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
-    /// Signal string Signal key, accepted values : "L1CA", "L1C", "L1P", "L1ME", "L1MR", "L2C", "L2P", "L2ME", "L2MR", "L5", "G1", "G2", "E1", "E5a", "E5b", "B1", "B2", "B2a", "B1C", "QZSSL1CA", "QZSSL1CB", "QZSSL1S", "NAVICL5", "SBASL1" and "SBASL5"
+    /// ------ ------ --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+    /// Signal string Signal key, accepted values : "L1CA", "L1C", "L1P", "L1ME", "L1MR", "L2C", "L2P", "L2ME", "L2MR", "L5", "G1", "G2", "E1", "E5a", "E5b", "B1", "B2", "B2a", "B1C", "B3I", "QZSSL1CA", "QZSSL1CB", "QZSSL1S", "NAVICL5", "SBASL1" and "SBASL5"
     /// Id     string Unique identifier
     ///
 
@@ -34,7 +34,7 @@ namespace Sdx
       RemoveMessageModification();
 
       RemoveMessageModification(const std::string& signal, const std::string& id);
-  
+
       static RemoveMessageModificationPtr create(const std::string& signal, const std::string& id);
       static RemoveMessageModificationPtr dynamicCast(CommandBasePtr ptr);
       virtual bool isValid() const override;

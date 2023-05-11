@@ -31,8 +31,12 @@ namespace Sdx
 
       GetAlmanacInitialUploadTimeOffsetResult();
 
+      GetAlmanacInitialUploadTimeOffsetResult(const std::string& system, int offset);
+
       GetAlmanacInitialUploadTimeOffsetResult(CommandBasePtr relatedCommand, const std::string& system, int offset);
-  
+
+      static GetAlmanacInitialUploadTimeOffsetResultPtr create(const std::string& system, int offset);
+
       static GetAlmanacInitialUploadTimeOffsetResultPtr create(CommandBasePtr relatedCommand, const std::string& system, int offset);
       static GetAlmanacInitialUploadTimeOffsetResultPtr dynamicCast(CommandBasePtr ptr);
       virtual bool isValid() const override;

@@ -23,6 +23,14 @@ namespace Sdx
       : CommandResult(CmdName)
     {}
 
+    GetWFAntennaElementModelResult::GetWFAntennaElementModelResult(const std::string& antennaModelName, int element)
+      : CommandResult(CmdName)
+    {
+
+      setAntennaModelName(antennaModelName);
+      setElement(element);
+    }
+
     GetWFAntennaElementModelResult::GetWFAntennaElementModelResult(CommandBasePtr relatedCommand, const std::string& antennaModelName, int element)
       : CommandResult(CmdName, relatedCommand)
     {
@@ -31,6 +39,11 @@ namespace Sdx
       setElement(element);
     }
 
+
+    GetWFAntennaElementModelResultPtr GetWFAntennaElementModelResult::create(const std::string& antennaModelName, int element)
+    {
+      return std::make_shared<GetWFAntennaElementModelResult>(antennaModelName, element);
+    }
 
     GetWFAntennaElementModelResultPtr GetWFAntennaElementModelResult::create(CommandBasePtr relatedCommand, const std::string& antennaModelName, int element)
     {

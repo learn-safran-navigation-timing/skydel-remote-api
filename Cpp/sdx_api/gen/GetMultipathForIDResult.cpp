@@ -23,6 +23,21 @@ namespace Sdx
       : CommandResult(CmdName)
     {}
 
+    GetMultipathForIDResult::GetMultipathForIDResult(const std::string& id, const std::string& system, const std::string& signal, int svId, double powerLoss, double pseudorange, double doppler, double carrierPhase, int echo)
+      : CommandResult(CmdName)
+    {
+
+      setId(id);
+      setSystem(system);
+      setSignal(signal);
+      setSvId(svId);
+      setPowerLoss(powerLoss);
+      setPseudorange(pseudorange);
+      setDoppler(doppler);
+      setCarrierPhase(carrierPhase);
+      setEcho(echo);
+    }
+
     GetMultipathForIDResult::GetMultipathForIDResult(CommandBasePtr relatedCommand, const std::string& id, const std::string& system, const std::string& signal, int svId, double powerLoss, double pseudorange, double doppler, double carrierPhase, int echo)
       : CommandResult(CmdName, relatedCommand)
     {
@@ -38,6 +53,11 @@ namespace Sdx
       setEcho(echo);
     }
 
+
+    GetMultipathForIDResultPtr GetMultipathForIDResult::create(const std::string& id, const std::string& system, const std::string& signal, int svId, double powerLoss, double pseudorange, double doppler, double carrierPhase, int echo)
+    {
+      return std::make_shared<GetMultipathForIDResult>(id, system, signal, svId, powerLoss, pseudorange, doppler, carrierPhase, echo);
+    }
 
     GetMultipathForIDResultPtr GetMultipathForIDResult::create(CommandBasePtr relatedCommand, const std::string& id, const std::string& system, const std::string& signal, int svId, double powerLoss, double pseudorange, double doppler, double carrierPhase, int echo)
     {

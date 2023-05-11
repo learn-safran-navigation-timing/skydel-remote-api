@@ -30,7 +30,6 @@ namespace Sdx
       setElement(element);
     }
 
-
     GetWFAntennaElementOffsetPtr GetWFAntennaElementOffset::create(int element)
     {
       return std::make_shared<GetWFAntennaElementOffset>(element);

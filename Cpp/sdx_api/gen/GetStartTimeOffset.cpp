@@ -25,7 +25,6 @@ namespace Sdx
 
     }
 
-
     GetStartTimeOffsetPtr GetStartTimeOffset::create()
     {
       return std::make_shared<GetStartTimeOffset>();

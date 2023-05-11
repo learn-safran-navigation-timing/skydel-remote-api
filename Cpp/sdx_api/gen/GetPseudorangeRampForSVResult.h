@@ -38,8 +38,12 @@ namespace Sdx
 
       GetPseudorangeRampForSVResult();
 
+      GetPseudorangeRampForSVResult(const std::string& system, int svId, double offset, int startTime, int holdStartTime, int holdStopTime, int stopTime, const std::string& id);
+
       GetPseudorangeRampForSVResult(CommandBasePtr relatedCommand, const std::string& system, int svId, double offset, int startTime, int holdStartTime, int holdStopTime, int stopTime, const std::string& id);
-  
+
+      static GetPseudorangeRampForSVResultPtr create(const std::string& system, int svId, double offset, int startTime, int holdStartTime, int holdStopTime, int stopTime, const std::string& id);
+
       static GetPseudorangeRampForSVResultPtr create(CommandBasePtr relatedCommand, const std::string& system, int svId, double offset, int startTime, int holdStartTime, int holdStopTime, int stopTime, const std::string& id);
       static GetPseudorangeRampForSVResultPtr dynamicCast(CommandBasePtr ptr);
       virtual bool isValid() const override;

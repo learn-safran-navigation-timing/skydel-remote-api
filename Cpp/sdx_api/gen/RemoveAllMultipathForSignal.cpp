@@ -31,7 +31,6 @@ namespace Sdx
       setReset(reset);
     }
 
-
     RemoveAllMultipathForSignalPtr RemoveAllMultipathForSignal::create(const std::string& signal, bool reset)
     {
       return std::make_shared<RemoveAllMultipathForSignal>(signal, reset);

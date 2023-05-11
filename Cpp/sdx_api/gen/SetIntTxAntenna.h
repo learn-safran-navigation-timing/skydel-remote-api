@@ -35,7 +35,7 @@ namespace Sdx
       SetIntTxAntenna();
 
       SetIntTxAntenna(const std::vector<std::vector<double>>& gain, const Sdx::AntennaPatternType& type, const std::string& id);
-  
+
       static SetIntTxAntennaPtr create(const std::vector<std::vector<double>>& gain, const Sdx::AntennaPatternType& type, const std::string& id);
       static SetIntTxAntennaPtr dynamicCast(CommandBasePtr ptr);
       virtual bool isValid() const override;

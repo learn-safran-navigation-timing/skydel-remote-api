@@ -32,8 +32,12 @@ namespace Sdx
 
       GetAntennaChangeResult();
 
+      GetAntennaChangeResult(double startTime, const std::string& antenna, const std::string& id);
+
       GetAntennaChangeResult(CommandBasePtr relatedCommand, double startTime, const std::string& antenna, const std::string& id);
-  
+
+      static GetAntennaChangeResultPtr create(double startTime, const std::string& antenna, const std::string& id);
+
       static GetAntennaChangeResultPtr create(CommandBasePtr relatedCommand, double startTime, const std::string& antenna, const std::string& id);
       static GetAntennaChangeResultPtr dynamicCast(CommandBasePtr ptr);
       virtual bool isValid() const override;

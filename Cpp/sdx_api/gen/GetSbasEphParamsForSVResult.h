@@ -36,8 +36,12 @@ namespace Sdx
 
       GetSbasEphParamsForSVResult();
 
+      GetSbasEphParamsForSVResult(int svId, const std::map<std::string, double>& paramValueDict);
+
       GetSbasEphParamsForSVResult(CommandBasePtr relatedCommand, int svId, const std::map<std::string, double>& paramValueDict);
-  
+
+      static GetSbasEphParamsForSVResultPtr create(int svId, const std::map<std::string, double>& paramValueDict);
+
       static GetSbasEphParamsForSVResultPtr create(CommandBasePtr relatedCommand, int svId, const std::map<std::string, double>& paramValueDict);
       static GetSbasEphParamsForSVResultPtr dynamicCast(CommandBasePtr ptr);
       virtual bool isValid() const override;

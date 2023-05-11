@@ -30,7 +30,6 @@ namespace Sdx
       setId(id);
     }
 
-
     RemoveCustomSignalPtr RemoveCustomSignal::create(const std::string& id)
     {
       return std::make_shared<RemoveCustomSignal>(id);

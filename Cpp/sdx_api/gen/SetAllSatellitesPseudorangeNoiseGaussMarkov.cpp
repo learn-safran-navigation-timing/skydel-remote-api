@@ -35,7 +35,6 @@ namespace Sdx
       setSeed(seed);
     }
 
-
     SetAllSatellitesPseudorangeNoiseGaussMarkovPtr SetAllSatellitesPseudorangeNoiseGaussMarkov::create(const std::string& system, int process, const std::vector<bool>& enabled, const std::vector<double>& sigma, const std::vector<double>& time, const std::vector<int>& seed)
     {
       return std::make_shared<SetAllSatellitesPseudorangeNoiseGaussMarkov>(system, process, enabled, sigma, time, seed);

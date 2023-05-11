@@ -34,7 +34,7 @@ namespace Sdx
       SetIonoGridMask();
 
       SetIonoGridMask(const std::string& serviceProvider, int band, int point, bool flag);
-  
+
       static SetIonoGridMaskPtr create(const std::string& serviceProvider, int band, int point, bool flag);
       static SetIonoGridMaskPtr dynamicCast(CommandBasePtr ptr);
       virtual bool isValid() const override;

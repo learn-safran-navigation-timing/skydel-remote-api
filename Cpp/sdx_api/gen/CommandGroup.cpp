@@ -30,7 +30,6 @@ namespace Sdx
       setCommands(commands);
     }
 
-
     CommandGroupPtr CommandGroup::create(const std::vector<Sdx::CommandBasePtr>& commands)
     {
       return std::make_shared<CommandGroup>(commands);

@@ -23,6 +23,17 @@ namespace Sdx
       : CommandResult(CmdName)
     {}
 
+    GetSbasServiceMessageRegionGroupResult::GetSbasServiceMessageRegionGroupResult(const std::string& serviceProvider, int deltaUdrei, int priorityCode, const std::vector<Sdx::SbasServiceMessageRegion>& regions, const std::string& id)
+      : CommandResult(CmdName)
+    {
+
+      setServiceProvider(serviceProvider);
+      setDeltaUdrei(deltaUdrei);
+      setPriorityCode(priorityCode);
+      setRegions(regions);
+      setId(id);
+    }
+
     GetSbasServiceMessageRegionGroupResult::GetSbasServiceMessageRegionGroupResult(CommandBasePtr relatedCommand, const std::string& serviceProvider, int deltaUdrei, int priorityCode, const std::vector<Sdx::SbasServiceMessageRegion>& regions, const std::string& id)
       : CommandResult(CmdName, relatedCommand)
     {
@@ -34,6 +45,11 @@ namespace Sdx
       setId(id);
     }
 
+
+    GetSbasServiceMessageRegionGroupResultPtr GetSbasServiceMessageRegionGroupResult::create(const std::string& serviceProvider, int deltaUdrei, int priorityCode, const std::vector<Sdx::SbasServiceMessageRegion>& regions, const std::string& id)
+    {
+      return std::make_shared<GetSbasServiceMessageRegionGroupResult>(serviceProvider, deltaUdrei, priorityCode, regions, id);
+    }
 
     GetSbasServiceMessageRegionGroupResultPtr GetSbasServiceMessageRegionGroupResult::create(CommandBasePtr relatedCommand, const std::string& serviceProvider, int deltaUdrei, int priorityCode, const std::vector<Sdx::SbasServiceMessageRegion>& regions, const std::string& id)
     {

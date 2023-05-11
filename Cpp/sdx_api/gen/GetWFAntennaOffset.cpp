@@ -25,7 +25,6 @@ namespace Sdx
 
     }
 
-
     GetWFAntennaOffsetPtr GetWFAntennaOffset::create()
     {
       return std::make_shared<GetWFAntennaOffset>();

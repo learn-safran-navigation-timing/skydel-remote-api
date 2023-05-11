@@ -32,7 +32,7 @@ namespace Sdx
       DeleteSVAntennaModel();
 
       DeleteSVAntennaModel(const std::string& name, const std::string& system);
-  
+
       static DeleteSVAntennaModelPtr create(const std::string& name, const std::string& system);
       static DeleteSVAntennaModelPtr dynamicCast(CommandBasePtr ptr);
       virtual bool isValid() const override;

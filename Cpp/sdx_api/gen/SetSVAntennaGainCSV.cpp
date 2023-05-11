@@ -34,7 +34,6 @@ namespace Sdx
       setName(name);
     }
 
-
     SetSVAntennaGainCSVPtr SetSVAntennaGainCSV::create(const std::string& filePath, const Sdx::AntennaPatternType& type, const Sdx::GNSSBand& band, const std::string& system, const Sdx::optional<std::string>& name)
     {
       return std::make_shared<SetSVAntennaGainCSV>(filePath, type, band, system, name);

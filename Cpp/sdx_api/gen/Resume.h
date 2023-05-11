@@ -27,7 +27,7 @@ namespace Sdx
 
 
       Resume();
-  
+
       static ResumePtr create();
       static ResumePtr dynamicCast(CommandBasePtr ptr);
       virtual bool isValid() const override;

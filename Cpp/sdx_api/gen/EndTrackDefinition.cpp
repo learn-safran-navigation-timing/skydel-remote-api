@@ -25,7 +25,6 @@ namespace Sdx
 
     }
 
-
     EndTrackDefinitionPtr EndTrackDefinition::create()
     {
       return std::make_shared<EndTrackDefinition>();

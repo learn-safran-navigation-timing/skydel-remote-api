@@ -23,6 +23,13 @@ namespace Sdx
       : CommandResult(CmdName)
     {}
 
+    IsIonoOffsetEnabledResult::IsIonoOffsetEnabledResult(bool isEnabled)
+      : CommandResult(CmdName)
+    {
+
+      setIsEnabled(isEnabled);
+    }
+
     IsIonoOffsetEnabledResult::IsIonoOffsetEnabledResult(CommandBasePtr relatedCommand, bool isEnabled)
       : CommandResult(CmdName, relatedCommand)
     {
@@ -30,6 +37,11 @@ namespace Sdx
       setIsEnabled(isEnabled);
     }
 
+
+    IsIonoOffsetEnabledResultPtr IsIonoOffsetEnabledResult::create(bool isEnabled)
+    {
+      return std::make_shared<IsIonoOffsetEnabledResult>(isEnabled);
+    }
 
     IsIonoOffsetEnabledResultPtr IsIonoOffsetEnabledResult::create(CommandBasePtr relatedCommand, bool isEnabled)
     {

@@ -23,6 +23,15 @@ namespace Sdx
       : CommandResult(CmdName)
     {}
 
+    GetIssueOfDataResult::GetIssueOfDataResult(int clock, int ephemeris, const Sdx::optional<bool>& overrideRinex)
+      : CommandResult(CmdName)
+    {
+
+      setClock(clock);
+      setEphemeris(ephemeris);
+      setOverrideRinex(overrideRinex);
+    }
+
     GetIssueOfDataResult::GetIssueOfDataResult(CommandBasePtr relatedCommand, int clock, int ephemeris, const Sdx::optional<bool>& overrideRinex)
       : CommandResult(CmdName, relatedCommand)
     {
@@ -32,6 +41,11 @@ namespace Sdx
       setOverrideRinex(overrideRinex);
     }
 
+
+    GetIssueOfDataResultPtr GetIssueOfDataResult::create(int clock, int ephemeris, const Sdx::optional<bool>& overrideRinex)
+    {
+      return std::make_shared<GetIssueOfDataResult>(clock, ephemeris, overrideRinex);
+    }
 
     GetIssueOfDataResultPtr GetIssueOfDataResult::create(CommandBasePtr relatedCommand, int clock, int ephemeris, const Sdx::optional<bool>& overrideRinex)
     {

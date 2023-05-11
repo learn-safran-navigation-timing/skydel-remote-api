@@ -23,6 +23,13 @@ namespace Sdx
       : CommandResult(CmdName)
     {}
 
+    GetAllSpoofTxIDResult::GetAllSpoofTxIDResult(const std::vector<std::string>& ids)
+      : CommandResult(CmdName)
+    {
+
+      setIds(ids);
+    }
+
     GetAllSpoofTxIDResult::GetAllSpoofTxIDResult(CommandBasePtr relatedCommand, const std::vector<std::string>& ids)
       : CommandResult(CmdName, relatedCommand)
     {
@@ -30,6 +37,11 @@ namespace Sdx
       setIds(ids);
     }
 
+
+    GetAllSpoofTxIDResultPtr GetAllSpoofTxIDResult::create(const std::vector<std::string>& ids)
+    {
+      return std::make_shared<GetAllSpoofTxIDResult>(ids);
+    }
 
     GetAllSpoofTxIDResultPtr GetAllSpoofTxIDResult::create(CommandBasePtr relatedCommand, const std::vector<std::string>& ids)
     {

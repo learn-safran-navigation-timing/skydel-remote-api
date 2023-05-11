@@ -32,7 +32,7 @@ namespace Sdx
       RemoveAllMultipathForSystem();
 
       RemoveAllMultipathForSystem(const std::string& system, bool reset);
-  
+
       static RemoveAllMultipathForSystemPtr create(const std::string& system, bool reset);
       static RemoveAllMultipathForSystemPtr dynamicCast(CommandBasePtr ptr);
       virtual bool isValid() const override;

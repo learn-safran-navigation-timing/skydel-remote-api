@@ -25,7 +25,6 @@ namespace Sdx
 
     }
 
-
     GetLogRawRatePtr GetLogRawRate::create()
     {
       return std::make_shared<GetLogRawRate>();

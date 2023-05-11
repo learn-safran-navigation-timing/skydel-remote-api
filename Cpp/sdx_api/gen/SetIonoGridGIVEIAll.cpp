@@ -31,7 +31,6 @@ namespace Sdx
       setServiceProvider(serviceProvider);
     }
 
-
     SetIonoGridGIVEIAllPtr SetIonoGridGIVEIAll::create(const std::vector<std::vector<int>>& grid, const Sdx::optional<std::string>& serviceProvider)
     {
       return std::make_shared<SetIonoGridGIVEIAll>(grid, serviceProvider);

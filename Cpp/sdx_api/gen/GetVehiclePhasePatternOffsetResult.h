@@ -34,8 +34,12 @@ namespace Sdx
 
       GetVehiclePhasePatternOffsetResult();
 
+      GetVehiclePhasePatternOffsetResult(const Sdx::GNSSBand& band, double offset, const Sdx::optional<std::string>& antennaName = {});
+
       GetVehiclePhasePatternOffsetResult(CommandBasePtr relatedCommand, const Sdx::GNSSBand& band, double offset, const Sdx::optional<std::string>& antennaName = {});
-  
+
+      static GetVehiclePhasePatternOffsetResultPtr create(const Sdx::GNSSBand& band, double offset, const Sdx::optional<std::string>& antennaName = {});
+
       static GetVehiclePhasePatternOffsetResultPtr create(CommandBasePtr relatedCommand, const Sdx::GNSSBand& band, double offset, const Sdx::optional<std::string>& antennaName = {});
       static GetVehiclePhasePatternOffsetResultPtr dynamicCast(CommandBasePtr ptr);
       virtual bool isValid() const override;

@@ -32,7 +32,7 @@ namespace Sdx
       GetEnabledSignalsForSV();
 
       GetEnabledSignalsForSV(const std::string& system, int svId);
-  
+
       static GetEnabledSignalsForSVPtr create(const std::string& system, int svId);
       static GetEnabledSignalsForSVPtr dynamicCast(CommandBasePtr ptr);
       virtual bool isValid() const override;

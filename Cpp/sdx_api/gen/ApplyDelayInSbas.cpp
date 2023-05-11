@@ -30,7 +30,6 @@ namespace Sdx
       setIsEnabled(isEnabled);
     }
 
-
     ApplyDelayInSbasPtr ApplyDelayInSbas::create(bool isEnabled)
     {
       return std::make_shared<ApplyDelayInSbas>(isEnabled);

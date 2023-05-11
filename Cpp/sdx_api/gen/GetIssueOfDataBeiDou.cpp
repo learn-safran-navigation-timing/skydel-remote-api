@@ -25,7 +25,6 @@ namespace Sdx
 
     }
 
-
     GetIssueOfDataBeiDouPtr GetIssueOfDataBeiDou::create()
     {
       return std::make_shared<GetIssueOfDataBeiDou>();

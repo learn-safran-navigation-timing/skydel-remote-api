@@ -30,7 +30,6 @@ namespace Sdx
       setId(id);
     }
 
-
     RemoveIntTxPtr RemoveIntTx::create(const std::string& id)
     {
       return std::make_shared<RemoveIntTx>(id);

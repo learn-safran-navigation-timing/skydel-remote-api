@@ -25,7 +25,6 @@ namespace Sdx
 
     }
 
-
     ClearStatusLogPtr ClearStatusLog::create()
     {
       return std::make_shared<ClearStatusLog>();

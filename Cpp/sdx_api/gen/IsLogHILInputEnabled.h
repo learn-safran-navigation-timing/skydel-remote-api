@@ -27,7 +27,7 @@ namespace Sdx
 
 
       IsLogHILInputEnabled();
-  
+
       static IsLogHILInputEnabledPtr create();
       static IsLogHILInputEnabledPtr dynamicCast(CommandBasePtr ptr);
       virtual bool isValid() const override;

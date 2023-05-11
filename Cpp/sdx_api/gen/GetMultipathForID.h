@@ -31,7 +31,7 @@ namespace Sdx
       GetMultipathForID();
 
       GetMultipathForID(const std::string& id);
-  
+
       static GetMultipathForIDPtr create(const std::string& id);
       static GetMultipathForIDPtr dynamicCast(CommandBasePtr ptr);
       virtual bool isValid() const override;

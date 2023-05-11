@@ -16,7 +16,7 @@ namespace Sdx
     /// ------- ------ -------------------------------------------------------------------------------------------------
     /// Signal  string Accepted signal keys: "L1CA", "L1C", "L1P", "L1ME", "L1MR", "L2C", "L2P", "L2ME", "L2MR", "L5",
     ///                                      "G1", "G2", "E1", "E1PRS", "E5a", "E5b", "E6BC", "E6PRS",
-    ///                                      "B1", "B2", "B1C", "B2a", "SBASL1", "SBASL5", "QZSSL1CA"
+    ///                                      "B1", "B2", "B1C", "B2a", "B3I", "SBASL1", "SBASL5", "QZSSL1CA"
     ///                                      "QZSSL1CB", "QZSSL1C", "QZSSL2C", "QZSSL5", "QZSSL1S", "QZSSL5S", "NAVICL5"
     /// SvId    int    The satellite's SV ID (use 0 for all constellation's satellites)
     /// Enabled bool   Signal is enabled when value is True
@@ -35,8 +35,12 @@ namespace Sdx
 
       IsSignalEnabledForSVResult();
 
+      IsSignalEnabledForSVResult(const std::string& signal, int svId, bool enabled);
+
       IsSignalEnabledForSVResult(CommandBasePtr relatedCommand, const std::string& signal, int svId, bool enabled);
-  
+
+      static IsSignalEnabledForSVResultPtr create(const std::string& signal, int svId, bool enabled);
+
       static IsSignalEnabledForSVResultPtr create(CommandBasePtr relatedCommand, const std::string& signal, int svId, bool enabled);
       static IsSignalEnabledForSVResultPtr dynamicCast(CommandBasePtr ptr);
       virtual bool isValid() const override;

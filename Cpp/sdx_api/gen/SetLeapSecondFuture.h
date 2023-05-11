@@ -33,7 +33,7 @@ namespace Sdx
       SetLeapSecondFuture();
 
       SetLeapSecondFuture(bool enabled, int seconds, const Sdx::Date& date);
-  
+
       static SetLeapSecondFuturePtr create(bool enabled, int seconds, const Sdx::Date& date);
       static SetLeapSecondFuturePtr dynamicCast(CommandBasePtr ptr);
       virtual bool isValid() const override;

@@ -33,7 +33,7 @@ namespace Sdx
       GetAllSatellitesPseudorangeNoiseOffset();
 
       GetAllSatellitesPseudorangeNoiseOffset(const std::string& system);
-  
+
       static GetAllSatellitesPseudorangeNoiseOffsetPtr create(const std::string& system);
       static GetAllSatellitesPseudorangeNoiseOffsetPtr dynamicCast(CommandBasePtr ptr);
       virtual bool isValid() const override;

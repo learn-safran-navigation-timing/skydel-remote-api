@@ -25,7 +25,6 @@ namespace Sdx
 
     }
 
-
     UndoCmdPtr UndoCmd::create()
     {
       return std::make_shared<UndoCmd>();

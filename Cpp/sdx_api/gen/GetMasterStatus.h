@@ -27,7 +27,7 @@ namespace Sdx
 
 
       GetMasterStatus();
-  
+
       static GetMasterStatusPtr create();
       static GetMasterStatusPtr dynamicCast(CommandBasePtr ptr);
       virtual bool isValid() const override;

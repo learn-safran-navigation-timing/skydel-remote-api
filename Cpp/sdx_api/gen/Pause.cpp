@@ -25,7 +25,6 @@ namespace Sdx
 
     }
 
-
     PausePtr Pause::create()
     {
       return std::make_shared<Pause>();

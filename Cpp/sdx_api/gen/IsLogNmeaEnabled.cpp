@@ -25,7 +25,6 @@ namespace Sdx
 
     }
 
-
     IsLogNmeaEnabledPtr IsLogNmeaEnabled::create()
     {
       return std::make_shared<IsLogNmeaEnabled>();

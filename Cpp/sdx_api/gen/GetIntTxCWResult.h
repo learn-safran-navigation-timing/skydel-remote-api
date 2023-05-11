@@ -37,8 +37,12 @@ namespace Sdx
 
       GetIntTxCWResult();
 
+      GetIntTxCWResult(bool enabled, double centralFreq, double power, const std::string& transmitterId, const std::string& signalId, const Sdx::optional<double>& initialPhaseOffset = {}, const Sdx::optional<int>& group = {});
+
       GetIntTxCWResult(CommandBasePtr relatedCommand, bool enabled, double centralFreq, double power, const std::string& transmitterId, const std::string& signalId, const Sdx::optional<double>& initialPhaseOffset = {}, const Sdx::optional<int>& group = {});
-  
+
+      static GetIntTxCWResultPtr create(bool enabled, double centralFreq, double power, const std::string& transmitterId, const std::string& signalId, const Sdx::optional<double>& initialPhaseOffset = {}, const Sdx::optional<int>& group = {});
+
       static GetIntTxCWResultPtr create(CommandBasePtr relatedCommand, bool enabled, double centralFreq, double power, const std::string& transmitterId, const std::string& signalId, const Sdx::optional<double>& initialPhaseOffset = {}, const Sdx::optional<int>& group = {});
       static GetIntTxCWResultPtr dynamicCast(CommandBasePtr ptr);
       virtual bool isValid() const override;

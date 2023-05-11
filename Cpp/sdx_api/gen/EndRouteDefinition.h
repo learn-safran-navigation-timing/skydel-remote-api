@@ -30,7 +30,7 @@ namespace Sdx
 
 
       EndRouteDefinition();
-  
+
       static EndRouteDefinitionPtr create();
       static EndRouteDefinitionPtr dynamicCast(CommandBasePtr ptr);
       virtual bool isValid() const override;

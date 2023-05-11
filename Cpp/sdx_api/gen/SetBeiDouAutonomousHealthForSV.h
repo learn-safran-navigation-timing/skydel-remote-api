@@ -34,7 +34,7 @@ namespace Sdx
       SetBeiDouAutonomousHealthForSV();
 
       SetBeiDouAutonomousHealthForSV(int svId, bool health, const Sdx::optional<std::string>& dataSetName = {});
-  
+
       static SetBeiDouAutonomousHealthForSVPtr create(int svId, bool health, const Sdx::optional<std::string>& dataSetName = {});
       static SetBeiDouAutonomousHealthForSVPtr dynamicCast(CommandBasePtr ptr);
       virtual bool isValid() const override;

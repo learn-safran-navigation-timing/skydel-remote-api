@@ -31,7 +31,6 @@ namespace Sdx
       setHealth(health);
     }
 
-
     SetSbasRangingHealthForSVPtr SetSbasRangingHealthForSV::create(int svId, bool health)
     {
       return std::make_shared<SetSbasRangingHealthForSV>(svId, health);

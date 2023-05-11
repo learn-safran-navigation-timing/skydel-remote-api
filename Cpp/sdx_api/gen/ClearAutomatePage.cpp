@@ -25,7 +25,6 @@ namespace Sdx
 
     }
 
-
     ClearAutomatePagePtr ClearAutomatePage::create()
     {
       return std::make_shared<ClearAutomatePage>();

@@ -31,7 +31,6 @@ namespace Sdx
       setSystem(system);
     }
 
-
     AddEmptySVAntennaModelPtr AddEmptySVAntennaModel::create(const std::string& name, const std::string& system)
     {
       return std::make_shared<AddEmptySVAntennaModel>(name, system);

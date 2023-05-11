@@ -30,7 +30,6 @@ namespace Sdx
       setName(name);
     }
 
-
     AddEmptyVehicleAntennaModelPtr AddEmptyVehicleAntennaModel::create(const std::string& name)
     {
       return std::make_shared<AddEmptyVehicleAntennaModel>(name);

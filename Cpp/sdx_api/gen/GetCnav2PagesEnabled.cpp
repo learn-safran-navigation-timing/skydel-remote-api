@@ -25,7 +25,6 @@ namespace Sdx
 
     }
 
-
     GetCnav2PagesEnabledPtr GetCnav2PagesEnabled::create()
     {
       return std::make_shared<GetCnav2PagesEnabled>();

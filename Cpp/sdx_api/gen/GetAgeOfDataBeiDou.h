@@ -27,7 +27,7 @@ namespace Sdx
 
 
       GetAgeOfDataBeiDou();
-  
+
       static GetAgeOfDataBeiDouPtr create();
       static GetAgeOfDataBeiDouPtr dynamicCast(CommandBasePtr ptr);
       virtual bool isValid() const override;

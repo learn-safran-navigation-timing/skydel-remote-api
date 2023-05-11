@@ -23,6 +23,13 @@ namespace Sdx
       : CommandResult(CmdName)
     {}
 
+    GetStartTimeOffsetResult::GetStartTimeOffsetResult(int offset)
+      : CommandResult(CmdName)
+    {
+
+      setOffset(offset);
+    }
+
     GetStartTimeOffsetResult::GetStartTimeOffsetResult(CommandBasePtr relatedCommand, int offset)
       : CommandResult(CmdName, relatedCommand)
     {
@@ -30,6 +37,11 @@ namespace Sdx
       setOffset(offset);
     }
 
+
+    GetStartTimeOffsetResultPtr GetStartTimeOffsetResult::create(int offset)
+    {
+      return std::make_shared<GetStartTimeOffsetResult>(offset);
+    }
 
     GetStartTimeOffsetResultPtr GetStartTimeOffsetResult::create(CommandBasePtr relatedCommand, int offset)
     {

@@ -31,7 +31,7 @@ namespace Sdx
       ClearAllLOSForSystem();
 
       ClearAllLOSForSystem(const std::string& system);
-  
+
       static ClearAllLOSForSystemPtr create(const std::string& system);
       static ClearAllLOSForSystemPtr dynamicCast(CommandBasePtr ptr);
       virtual bool isValid() const override;

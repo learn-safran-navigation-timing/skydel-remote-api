@@ -30,7 +30,6 @@ namespace Sdx
       setServiceProvider(serviceProvider);
     }
 
-
     GetIonoGridMaskAllPtr GetIonoGridMaskAll::create(const std::string& serviceProvider)
     {
       return std::make_shared<GetIonoGridMaskAll>(serviceProvider);

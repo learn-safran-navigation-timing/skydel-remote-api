@@ -33,7 +33,7 @@ namespace Sdx
       MessageSequenceSwap();
 
       MessageSequenceSwap(const std::string& signal, int indexI, int indexJ);
-  
+
       static MessageSequenceSwapPtr create(const std::string& signal, int indexI, int indexJ);
       static MessageSequenceSwapPtr dynamicCast(CommandBasePtr ptr);
       virtual bool isValid() const override;

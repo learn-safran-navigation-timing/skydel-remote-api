@@ -23,6 +23,14 @@ namespace Sdx
       : CommandResult(CmdName)
     {}
 
+    IsIntTxIgnoreRxAntennaGainPatternResult::IsIntTxIgnoreRxAntennaGainPatternResult(bool ignore, const std::string& id)
+      : CommandResult(CmdName)
+    {
+
+      setIgnore(ignore);
+      setId(id);
+    }
+
     IsIntTxIgnoreRxAntennaGainPatternResult::IsIntTxIgnoreRxAntennaGainPatternResult(CommandBasePtr relatedCommand, bool ignore, const std::string& id)
       : CommandResult(CmdName, relatedCommand)
     {
@@ -31,6 +39,11 @@ namespace Sdx
       setId(id);
     }
 
+
+    IsIntTxIgnoreRxAntennaGainPatternResultPtr IsIntTxIgnoreRxAntennaGainPatternResult::create(bool ignore, const std::string& id)
+    {
+      return std::make_shared<IsIntTxIgnoreRxAntennaGainPatternResult>(ignore, id);
+    }
 
     IsIntTxIgnoreRxAntennaGainPatternResultPtr IsIntTxIgnoreRxAntennaGainPatternResult::create(CommandBasePtr relatedCommand, bool ignore, const std::string& id)
     {

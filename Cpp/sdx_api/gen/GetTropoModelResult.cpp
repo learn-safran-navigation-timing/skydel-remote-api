@@ -23,6 +23,13 @@ namespace Sdx
       : CommandResult(CmdName)
     {}
 
+    GetTropoModelResult::GetTropoModelResult(const std::string& model)
+      : CommandResult(CmdName)
+    {
+
+      setModel(model);
+    }
+
     GetTropoModelResult::GetTropoModelResult(CommandBasePtr relatedCommand, const std::string& model)
       : CommandResult(CmdName, relatedCommand)
     {
@@ -30,6 +37,11 @@ namespace Sdx
       setModel(model);
     }
 
+
+    GetTropoModelResultPtr GetTropoModelResult::create(const std::string& model)
+    {
+      return std::make_shared<GetTropoModelResult>(model);
+    }
 
     GetTropoModelResultPtr GetTropoModelResult::create(CommandBasePtr relatedCommand, const std::string& model)
     {

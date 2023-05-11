@@ -64,7 +64,7 @@ namespace Sdx
       SetMessageModificationToGalileoINav();
 
       SetMessageModificationToGalileoINav(const std::vector<std::string>& signalArray, int svId, int startTime, int stopTime, int subframe, int page, const std::string& condition, bool updateCRC, const std::string& bitModifications, const std::string& id);
-  
+
       static SetMessageModificationToGalileoINavPtr create(const std::vector<std::string>& signalArray, int svId, int startTime, int stopTime, int subframe, int page, const std::string& condition, bool updateCRC, const std::string& bitModifications, const std::string& id);
       static SetMessageModificationToGalileoINavPtr dynamicCast(CommandBasePtr ptr);
       virtual bool isValid() const override;

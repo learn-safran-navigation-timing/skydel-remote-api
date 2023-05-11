@@ -23,6 +23,14 @@ namespace Sdx
       : CommandResult(CmdName)
     {}
 
+    GetElevationAzimuthForEachSVResult::GetElevationAzimuthForEachSVResult(const std::string& system, const std::vector<Sdx::optional<Sdx::ElevationAzimuth>>& elevationAzimuths)
+      : CommandResult(CmdName)
+    {
+
+      setSystem(system);
+      setElevationAzimuths(elevationAzimuths);
+    }
+
     GetElevationAzimuthForEachSVResult::GetElevationAzimuthForEachSVResult(CommandBasePtr relatedCommand, const std::string& system, const std::vector<Sdx::optional<Sdx::ElevationAzimuth>>& elevationAzimuths)
       : CommandResult(CmdName, relatedCommand)
     {
@@ -31,6 +39,11 @@ namespace Sdx
       setElevationAzimuths(elevationAzimuths);
     }
 
+
+    GetElevationAzimuthForEachSVResultPtr GetElevationAzimuthForEachSVResult::create(const std::string& system, const std::vector<Sdx::optional<Sdx::ElevationAzimuth>>& elevationAzimuths)
+    {
+      return std::make_shared<GetElevationAzimuthForEachSVResult>(system, elevationAzimuths);
+    }
 
     GetElevationAzimuthForEachSVResultPtr GetElevationAzimuthForEachSVResult::create(CommandBasePtr relatedCommand, const std::string& system, const std::vector<Sdx::optional<Sdx::ElevationAzimuth>>& elevationAzimuths)
     {

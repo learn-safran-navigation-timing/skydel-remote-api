@@ -25,7 +25,6 @@ namespace Sdx
 
     }
 
-
     GetStreamingBufferPtr GetStreamingBuffer::create()
     {
       return std::make_shared<GetStreamingBuffer>();

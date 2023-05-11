@@ -31,7 +31,7 @@ namespace Sdx
       SetIntTxHil();
 
       SetIntTxHil(const std::string& id);
-  
+
       static SetIntTxHilPtr create(const std::string& id);
       static SetIntTxHilPtr dynamicCast(CommandBasePtr ptr);
       virtual bool isValid() const override;

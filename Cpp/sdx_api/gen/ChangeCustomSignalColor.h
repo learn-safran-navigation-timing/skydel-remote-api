@@ -32,7 +32,7 @@ namespace Sdx
       ChangeCustomSignalColor();
 
       ChangeCustomSignalColor(const std::string& color, const std::string& id);
-  
+
       static ChangeCustomSignalColorPtr create(const std::string& color, const std::string& id);
       static ChangeCustomSignalColorPtr dynamicCast(CommandBasePtr ptr);
       virtual bool isValid() const override;

@@ -30,8 +30,12 @@ namespace Sdx
 
       GetDefaultVehicleAntennaModelResult();
 
+      GetDefaultVehicleAntennaModelResult(const std::string& name);
+
       GetDefaultVehicleAntennaModelResult(CommandBasePtr relatedCommand, const std::string& name);
-  
+
+      static GetDefaultVehicleAntennaModelResultPtr create(const std::string& name);
+
       static GetDefaultVehicleAntennaModelResultPtr create(CommandBasePtr relatedCommand, const std::string& name);
       static GetDefaultVehicleAntennaModelResultPtr dynamicCast(CommandBasePtr ptr);
       virtual bool isValid() const override;

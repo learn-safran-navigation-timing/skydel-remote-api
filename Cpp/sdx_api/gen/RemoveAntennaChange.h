@@ -31,7 +31,7 @@ namespace Sdx
       RemoveAntennaChange();
 
       RemoveAntennaChange(const std::string& id);
-  
+
       static RemoveAntennaChangePtr create(const std::string& id);
       static RemoveAntennaChangePtr dynamicCast(CommandBasePtr ptr);
       virtual bool isValid() const override;

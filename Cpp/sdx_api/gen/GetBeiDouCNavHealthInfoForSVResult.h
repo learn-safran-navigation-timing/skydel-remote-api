@@ -33,8 +33,12 @@ namespace Sdx
 
       GetBeiDouCNavHealthInfoForSVResult();
 
+      GetBeiDouCNavHealthInfoForSVResult(int svId, int health, const Sdx::optional<std::string>& dataSetName = {});
+
       GetBeiDouCNavHealthInfoForSVResult(CommandBasePtr relatedCommand, int svId, int health, const Sdx::optional<std::string>& dataSetName = {});
-  
+
+      static GetBeiDouCNavHealthInfoForSVResultPtr create(int svId, int health, const Sdx::optional<std::string>& dataSetName = {});
+
       static GetBeiDouCNavHealthInfoForSVResultPtr create(CommandBasePtr relatedCommand, int svId, int health, const Sdx::optional<std::string>& dataSetName = {});
       static GetBeiDouCNavHealthInfoForSVResultPtr dynamicCast(CommandBasePtr ptr);
       virtual bool isValid() const override;

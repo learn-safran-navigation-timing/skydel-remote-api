@@ -27,7 +27,7 @@ namespace Sdx
 
 
       GetLeapSecondFuture();
-  
+
       static GetLeapSecondFuturePtr create();
       static GetLeapSecondFuturePtr dynamicCast(CommandBasePtr ptr);
       virtual bool isValid() const override;

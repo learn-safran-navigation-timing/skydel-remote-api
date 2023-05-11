@@ -25,7 +25,6 @@ namespace Sdx
 
     }
 
-
     ClearAllAntennaChangesPtr ClearAllAntennaChanges::create()
     {
       return std::make_shared<ClearAllAntennaChanges>();

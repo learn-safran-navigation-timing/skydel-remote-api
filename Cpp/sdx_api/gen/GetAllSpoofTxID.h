@@ -27,7 +27,7 @@ namespace Sdx
 
 
       GetAllSpoofTxID();
-  
+
       static GetAllSpoofTxIDPtr create();
       static GetAllSpoofTxIDPtr dynamicCast(CommandBasePtr ptr);
       virtual bool isValid() const override;

@@ -33,7 +33,6 @@ namespace Sdx
       setAntennaName(antennaName);
     }
 
-
     AddSVPhasePatternOffsetPtr AddSVPhasePatternOffset::create(const Sdx::GNSSBand& band, const std::string& system, double offset, const Sdx::optional<std::string>& antennaName)
     {
       return std::make_shared<AddSVPhasePatternOffset>(band, system, offset, antennaName);

@@ -31,7 +31,6 @@ namespace Sdx
       setId(id);
     }
 
-
     EnableMultipathPtr EnableMultipath::create(bool enabled, const std::string& id)
     {
       return std::make_shared<EnableMultipath>(enabled, id);

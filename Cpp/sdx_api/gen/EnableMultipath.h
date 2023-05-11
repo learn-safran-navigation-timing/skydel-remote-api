@@ -32,7 +32,7 @@ namespace Sdx
       EnableMultipath();
 
       EnableMultipath(bool enabled, const std::string& id);
-  
+
       static EnableMultipathPtr create(bool enabled, const std::string& id);
       static EnableMultipathPtr dynamicCast(CommandBasePtr ptr);
       virtual bool isValid() const override;

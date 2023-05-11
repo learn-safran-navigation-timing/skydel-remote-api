@@ -27,7 +27,7 @@ namespace Sdx
 
 
       GetDataFolder();
-  
+
       static GetDataFolderPtr create();
       static GetDataFolderPtr dynamicCast(CommandBasePtr ptr);
       virtual bool isValid() const override;

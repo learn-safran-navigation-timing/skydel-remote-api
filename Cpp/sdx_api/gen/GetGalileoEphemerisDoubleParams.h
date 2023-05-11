@@ -35,7 +35,7 @@ namespace Sdx
       GetGalileoEphemerisDoubleParams();
 
       GetGalileoEphemerisDoubleParams(const std::string& paramName, const Sdx::optional<std::string>& dataSetName = {});
-  
+
       static GetGalileoEphemerisDoubleParamsPtr create(const std::string& paramName, const Sdx::optional<std::string>& dataSetName = {});
       static GetGalileoEphemerisDoubleParamsPtr dynamicCast(CommandBasePtr ptr);
       virtual bool isValid() const override;

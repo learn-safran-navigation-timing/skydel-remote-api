@@ -27,7 +27,7 @@ namespace Sdx
 
 
       GetDefaultVehicleAntennaModel();
-  
+
       static GetDefaultVehicleAntennaModelPtr create();
       static GetDefaultVehicleAntennaModelPtr dynamicCast(CommandBasePtr ptr);
       virtual bool isValid() const override;

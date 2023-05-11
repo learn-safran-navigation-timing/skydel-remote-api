@@ -27,7 +27,7 @@ namespace Sdx
 
 
       GetVehicleTrajectoryOrbit();
-  
+
       static GetVehicleTrajectoryOrbitPtr create();
       static GetVehicleTrajectoryOrbitPtr dynamicCast(CommandBasePtr ptr);
       virtual bool isValid() const override;

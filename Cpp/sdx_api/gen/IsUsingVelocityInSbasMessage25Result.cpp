@@ -23,6 +23,13 @@ namespace Sdx
       : CommandResult(CmdName)
     {}
 
+    IsUsingVelocityInSbasMessage25Result::IsUsingVelocityInSbasMessage25Result(bool useVelocity)
+      : CommandResult(CmdName)
+    {
+
+      setUseVelocity(useVelocity);
+    }
+
     IsUsingVelocityInSbasMessage25Result::IsUsingVelocityInSbasMessage25Result(CommandBasePtr relatedCommand, bool useVelocity)
       : CommandResult(CmdName, relatedCommand)
     {
@@ -30,6 +37,11 @@ namespace Sdx
       setUseVelocity(useVelocity);
     }
 
+
+    IsUsingVelocityInSbasMessage25ResultPtr IsUsingVelocityInSbasMessage25Result::create(bool useVelocity)
+    {
+      return std::make_shared<IsUsingVelocityInSbasMessage25Result>(useVelocity);
+    }
 
     IsUsingVelocityInSbasMessage25ResultPtr IsUsingVelocityInSbasMessage25Result::create(CommandBasePtr relatedCommand, bool useVelocity)
     {

@@ -23,6 +23,13 @@ namespace Sdx
       : CommandResult(CmdName)
     {}
 
+    IsDelayAppliedInSbasResult::IsDelayAppliedInSbasResult(bool isEnabled)
+      : CommandResult(CmdName)
+    {
+
+      setIsEnabled(isEnabled);
+    }
+
     IsDelayAppliedInSbasResult::IsDelayAppliedInSbasResult(CommandBasePtr relatedCommand, bool isEnabled)
       : CommandResult(CmdName, relatedCommand)
     {
@@ -30,6 +37,11 @@ namespace Sdx
       setIsEnabled(isEnabled);
     }
 
+
+    IsDelayAppliedInSbasResultPtr IsDelayAppliedInSbasResult::create(bool isEnabled)
+    {
+      return std::make_shared<IsDelayAppliedInSbasResult>(isEnabled);
+    }
 
     IsDelayAppliedInSbasResultPtr IsDelayAppliedInSbasResult::create(CommandBasePtr relatedCommand, bool isEnabled)
     {

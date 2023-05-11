@@ -31,7 +31,6 @@ namespace Sdx
       setSvId(svId);
     }
 
-
     IsRFOutputEnabledPtr IsRFOutputEnabled::create(const std::string& system, int svId)
     {
       return std::make_shared<IsRFOutputEnabled>(system, svId);

@@ -25,7 +25,6 @@ namespace Sdx
 
     }
 
-
     GetAlmanacUploadTimeIntervalPtr GetAlmanacUploadTimeInterval::create()
     {
       return std::make_shared<GetAlmanacUploadTimeInterval>();

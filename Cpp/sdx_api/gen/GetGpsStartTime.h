@@ -27,7 +27,7 @@ namespace Sdx
 
 
       GetGpsStartTime();
-  
+
       static GetGpsStartTimePtr create();
       static GetGpsStartTimePtr dynamicCast(CommandBasePtr ptr);
       virtual bool isValid() const override;

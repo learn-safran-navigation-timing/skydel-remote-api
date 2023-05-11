@@ -31,7 +31,7 @@ namespace Sdx
       GetIntTxTrajectory();
 
       GetIntTxTrajectory(const std::string& id);
-  
+
       static GetIntTxTrajectoryPtr create(const std::string& id);
       static GetIntTxTrajectoryPtr dynamicCast(CommandBasePtr ptr);
       virtual bool isValid() const override;

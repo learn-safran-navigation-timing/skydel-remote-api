@@ -32,7 +32,7 @@ namespace Sdx
       SetIssueOfDataNavIC();
 
       SetIssueOfDataNavIC(int ephemerisAndClock, const Sdx::optional<bool>& overrideRinex = {});
-  
+
       static SetIssueOfDataNavICPtr create(int ephemerisAndClock, const Sdx::optional<bool>& overrideRinex = {});
       static SetIssueOfDataNavICPtr dynamicCast(CommandBasePtr ptr);
       virtual bool isValid() const override;

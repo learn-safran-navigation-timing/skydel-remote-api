@@ -23,6 +23,13 @@ namespace Sdx
       : CommandResult(CmdName)
     {}
 
+    GetSyncTimeMasterResult::GetSyncTimeMasterResult(double time)
+      : CommandResult(CmdName)
+    {
+
+      setTime(time);
+    }
+
     GetSyncTimeMasterResult::GetSyncTimeMasterResult(CommandBasePtr relatedCommand, double time)
       : CommandResult(CmdName, relatedCommand)
     {
@@ -30,6 +37,11 @@ namespace Sdx
       setTime(time);
     }
 
+
+    GetSyncTimeMasterResultPtr GetSyncTimeMasterResult::create(double time)
+    {
+      return std::make_shared<GetSyncTimeMasterResult>(time);
+    }
 
     GetSyncTimeMasterResultPtr GetSyncTimeMasterResult::create(CommandBasePtr relatedCommand, double time)
     {

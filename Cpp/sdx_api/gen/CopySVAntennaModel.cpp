@@ -32,7 +32,6 @@ namespace Sdx
       setSystem(system);
     }
 
-
     CopySVAntennaModelPtr CopySVAntennaModel::create(const std::string& name, const std::string& copyName, const std::string& system)
     {
       return std::make_shared<CopySVAntennaModel>(name, copyName, system);

@@ -32,7 +32,7 @@ namespace Sdx
       GetIntTxAWGN();
 
       GetIntTxAWGN(const std::string& transmitterId, const std::string& signalId);
-  
+
       static GetIntTxAWGNPtr create(const std::string& transmitterId, const std::string& signalId);
       static GetIntTxAWGNPtr dynamicCast(CommandBasePtr ptr);
       virtual bool isValid() const override;

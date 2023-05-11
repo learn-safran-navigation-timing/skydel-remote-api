@@ -30,7 +30,6 @@ namespace Sdx
       setPath(path);
     }
 
-
     ImportGlonassAlmanacPtr ImportGlonassAlmanac::create(const std::string& path)
     {
       return std::make_shared<ImportGlonassAlmanac>(path);

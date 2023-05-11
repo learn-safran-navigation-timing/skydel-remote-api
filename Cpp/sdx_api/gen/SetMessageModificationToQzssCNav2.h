@@ -66,7 +66,7 @@ namespace Sdx
       SetMessageModificationToQzssCNav2();
 
       SetMessageModificationToQzssCNav2(const std::vector<std::string>& signalArray, int svId, int startTime, int stopTime, int page, const std::string& condition, bool updateCRC, const std::string& bitModifications, const std::string& id);
-  
+
       static SetMessageModificationToQzssCNav2Ptr create(const std::vector<std::string>& signalArray, int svId, int startTime, int stopTime, int page, const std::string& condition, bool updateCRC, const std::string& bitModifications, const std::string& id);
       static SetMessageModificationToQzssCNav2Ptr dynamicCast(CommandBasePtr ptr);
       virtual bool isValid() const override;

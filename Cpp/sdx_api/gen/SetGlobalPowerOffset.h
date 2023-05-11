@@ -31,7 +31,7 @@ namespace Sdx
       SetGlobalPowerOffset();
 
       SetGlobalPowerOffset(double offset);
-  
+
       static SetGlobalPowerOffsetPtr create(double offset);
       static SetGlobalPowerOffsetPtr dynamicCast(CommandBasePtr ptr);
       virtual bool isValid() const override;

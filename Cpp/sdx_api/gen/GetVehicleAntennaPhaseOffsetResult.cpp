@@ -23,6 +23,16 @@ namespace Sdx
       : CommandResult(CmdName)
     {}
 
+    GetVehicleAntennaPhaseOffsetResult::GetVehicleAntennaPhaseOffsetResult(const std::vector<std::vector<double>>& phaseOffset, const Sdx::AntennaPatternType& type, const Sdx::GNSSBand& band, const Sdx::optional<std::string>& name)
+      : CommandResult(CmdName)
+    {
+
+      setPhaseOffset(phaseOffset);
+      setType(type);
+      setBand(band);
+      setName(name);
+    }
+
     GetVehicleAntennaPhaseOffsetResult::GetVehicleAntennaPhaseOffsetResult(CommandBasePtr relatedCommand, const std::vector<std::vector<double>>& phaseOffset, const Sdx::AntennaPatternType& type, const Sdx::GNSSBand& band, const Sdx::optional<std::string>& name)
       : CommandResult(CmdName, relatedCommand)
     {
@@ -33,6 +43,11 @@ namespace Sdx
       setName(name);
     }
 
+
+    GetVehicleAntennaPhaseOffsetResultPtr GetVehicleAntennaPhaseOffsetResult::create(const std::vector<std::vector<double>>& phaseOffset, const Sdx::AntennaPatternType& type, const Sdx::GNSSBand& band, const Sdx::optional<std::string>& name)
+    {
+      return std::make_shared<GetVehicleAntennaPhaseOffsetResult>(phaseOffset, type, band, name);
+    }
 
     GetVehicleAntennaPhaseOffsetResultPtr GetVehicleAntennaPhaseOffsetResult::create(CommandBasePtr relatedCommand, const std::vector<std::vector<double>>& phaseOffset, const Sdx::AntennaPatternType& type, const Sdx::GNSSBand& band, const Sdx::optional<std::string>& name)
     {

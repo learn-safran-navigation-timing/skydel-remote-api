@@ -31,8 +31,12 @@ namespace Sdx
 
       GetIntTxTrajectoryResult();
 
+      GetIntTxTrajectoryResult(const std::string& trajectoryType, const std::string& id);
+
       GetIntTxTrajectoryResult(CommandBasePtr relatedCommand, const std::string& trajectoryType, const std::string& id);
-  
+
+      static GetIntTxTrajectoryResultPtr create(const std::string& trajectoryType, const std::string& id);
+
       static GetIntTxTrajectoryResultPtr create(CommandBasePtr relatedCommand, const std::string& trajectoryType, const std::string& id);
       static GetIntTxTrajectoryResultPtr dynamicCast(CommandBasePtr ptr);
       virtual bool isValid() const override;

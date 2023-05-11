@@ -32,8 +32,12 @@ namespace Sdx
 
       GetIssueOfDataQzssResult();
 
+      GetIssueOfDataQzssResult(int clock, int ephemeris, const Sdx::optional<bool>& overrideRinex = {});
+
       GetIssueOfDataQzssResult(CommandBasePtr relatedCommand, int clock, int ephemeris, const Sdx::optional<bool>& overrideRinex = {});
-  
+
+      static GetIssueOfDataQzssResultPtr create(int clock, int ephemeris, const Sdx::optional<bool>& overrideRinex = {});
+
       static GetIssueOfDataQzssResultPtr create(CommandBasePtr relatedCommand, int clock, int ephemeris, const Sdx::optional<bool>& overrideRinex = {});
       static GetIssueOfDataQzssResultPtr dynamicCast(CommandBasePtr ptr);
       virtual bool isValid() const override;

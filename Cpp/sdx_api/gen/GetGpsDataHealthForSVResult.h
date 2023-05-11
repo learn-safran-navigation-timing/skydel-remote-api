@@ -33,8 +33,12 @@ namespace Sdx
 
       GetGpsDataHealthForSVResult();
 
+      GetGpsDataHealthForSVResult(int svId, int health, const Sdx::optional<std::string>& dataSetName = {});
+
       GetGpsDataHealthForSVResult(CommandBasePtr relatedCommand, int svId, int health, const Sdx::optional<std::string>& dataSetName = {});
-  
+
+      static GetGpsDataHealthForSVResultPtr create(int svId, int health, const Sdx::optional<std::string>& dataSetName = {});
+
       static GetGpsDataHealthForSVResultPtr create(CommandBasePtr relatedCommand, int svId, int health, const Sdx::optional<std::string>& dataSetName = {});
       static GetGpsDataHealthForSVResultPtr dynamicCast(CommandBasePtr ptr);
       virtual bool isValid() const override;

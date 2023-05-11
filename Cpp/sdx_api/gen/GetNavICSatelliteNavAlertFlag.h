@@ -35,7 +35,7 @@ namespace Sdx
       GetNavICSatelliteNavAlertFlag();
 
       GetNavICSatelliteNavAlertFlag(int svId, const Sdx::optional<std::string>& dataSetName = {});
-  
+
       static GetNavICSatelliteNavAlertFlagPtr create(int svId, const Sdx::optional<std::string>& dataSetName = {});
       static GetNavICSatelliteNavAlertFlagPtr dynamicCast(CommandBasePtr ptr);
       virtual bool isValid() const override;

@@ -34,7 +34,6 @@ namespace Sdx
       setId(id);
     }
 
-
     SetModulationTargetPtr SetModulationTarget::create(const std::string& type, const std::string& path, const std::string& address, bool clockIsExternal, const std::string& id)
     {
       return std::make_shared<SetModulationTarget>(type, path, address, clockIsExternal, id);

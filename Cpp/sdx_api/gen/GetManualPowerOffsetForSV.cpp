@@ -32,7 +32,6 @@ namespace Sdx
       setSignalArray(signalArray);
     }
 
-
     GetManualPowerOffsetForSVPtr GetManualPowerOffsetForSV::create(const std::string& system, int svId, const std::vector<std::string>& signalArray)
     {
       return std::make_shared<GetManualPowerOffsetForSV>(system, svId, signalArray);

@@ -32,7 +32,6 @@ namespace Sdx
       setDataSetName(dataSetName);
     }
 
-
     SetNavICSatelliteL5HealthPtr SetNavICSatelliteL5Health::create(int svId, bool health, const Sdx::optional<std::string>& dataSetName)
     {
       return std::make_shared<SetNavICSatelliteL5Health>(svId, health, dataSetName);

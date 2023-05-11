@@ -25,7 +25,6 @@ namespace Sdx
 
     }
 
-
     GetSimulationElapsedTimePtr GetSimulationElapsedTime::create()
     {
       return std::make_shared<GetSimulationElapsedTime>();

@@ -30,7 +30,6 @@ namespace Sdx
       setPrn(prn);
     }
 
-
     GetGalileoFnavSatelliteKPtr GetGalileoFnavSatelliteK::create(int prn)
     {
       return std::make_shared<GetGalileoFnavSatelliteK>(prn);

@@ -30,7 +30,6 @@ namespace Sdx
       setSystem(system);
     }
 
-
     RemoveAllPseudorangeRampForSystemPtr RemoveAllPseudorangeRampForSystem::create(const std::string& system)
     {
       return std::make_shared<RemoveAllPseudorangeRampForSystem>(system);

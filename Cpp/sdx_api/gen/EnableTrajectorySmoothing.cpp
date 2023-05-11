@@ -30,7 +30,6 @@ namespace Sdx
       setEnabled(enabled);
     }
 
-
     EnableTrajectorySmoothingPtr EnableTrajectorySmoothing::create(bool enabled)
     {
       return std::make_shared<EnableTrajectorySmoothing>(enabled);

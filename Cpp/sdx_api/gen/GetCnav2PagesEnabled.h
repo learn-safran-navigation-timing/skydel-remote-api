@@ -27,7 +27,7 @@ namespace Sdx
 
 
       GetCnav2PagesEnabled();
-  
+
       static GetCnav2PagesEnabledPtr create();
       static GetCnav2PagesEnabledPtr dynamicCast(CommandBasePtr ptr);
       virtual bool isValid() const override;

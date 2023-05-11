@@ -32,7 +32,6 @@ namespace Sdx
       setIndexJ(indexJ);
     }
 
-
     MessageSequenceSwapPtr MessageSequenceSwap::create(const std::string& signal, int indexI, int indexJ)
     {
       return std::make_shared<MessageSequenceSwap>(signal, indexI, indexJ);

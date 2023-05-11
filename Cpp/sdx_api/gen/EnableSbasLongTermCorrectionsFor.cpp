@@ -31,7 +31,6 @@ namespace Sdx
       setIsEnabled(isEnabled);
     }
 
-
     EnableSbasLongTermCorrectionsForPtr EnableSbasLongTermCorrectionsFor::create(const std::string& system, bool isEnabled)
     {
       return std::make_shared<EnableSbasLongTermCorrectionsFor>(system, isEnabled);

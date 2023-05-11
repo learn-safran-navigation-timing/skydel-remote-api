@@ -33,7 +33,6 @@ namespace Sdx
       setName(name);
     }
 
-
     SetVehicleAntennaPhaseOffsetPtr SetVehicleAntennaPhaseOffset::create(const std::vector<std::vector<double>>& phaseOffset, const Sdx::AntennaPatternType& type, const Sdx::GNSSBand& band, const Sdx::optional<std::string>& name)
     {
       return std::make_shared<SetVehicleAntennaPhaseOffset>(phaseOffset, type, band, name);

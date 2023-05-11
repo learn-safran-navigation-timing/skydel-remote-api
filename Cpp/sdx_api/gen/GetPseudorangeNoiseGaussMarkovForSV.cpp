@@ -32,7 +32,6 @@ namespace Sdx
       setProcess(process);
     }
 
-
     GetPseudorangeNoiseGaussMarkovForSVPtr GetPseudorangeNoiseGaussMarkovForSV::create(const std::string& system, int svId, int process)
     {
       return std::make_shared<GetPseudorangeNoiseGaussMarkovForSV>(system, svId, process);

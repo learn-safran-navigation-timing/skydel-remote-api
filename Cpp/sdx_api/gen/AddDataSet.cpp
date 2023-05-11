@@ -33,7 +33,6 @@ namespace Sdx
       setDataSetName(dataSetName);
     }
 
-
     AddDataSetPtr AddDataSet::create(const std::string& system, const std::string& path, const Sdx::optional<int>& rollover, const Sdx::optional<std::string>& dataSetName)
     {
       return std::make_shared<AddDataSet>(system, path, rollover, dataSetName);

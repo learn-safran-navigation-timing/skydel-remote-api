@@ -31,7 +31,7 @@ namespace Sdx
       GetAllSignalsFromIntTx();
 
       GetAllSignalsFromIntTx(const std::string& id);
-  
+
       static GetAllSignalsFromIntTxPtr create(const std::string& id);
       static GetAllSignalsFromIntTxPtr dynamicCast(CommandBasePtr ptr);
       virtual bool isValid() const override;

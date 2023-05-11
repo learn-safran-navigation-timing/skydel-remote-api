@@ -28,7 +28,7 @@ namespace Sdx
 
 
       IsLogNmeaEnabled();
-  
+
       static IsLogNmeaEnabledPtr create();
       static IsLogNmeaEnabledPtr dynamicCast(CommandBasePtr ptr);
       virtual bool isValid() const override;

@@ -31,7 +31,6 @@ namespace Sdx
       setDeltaUdrei(deltaUdrei);
     }
 
-
     SetSbasDeltaUdreiOutsideOfRegionsPtr SetSbasDeltaUdreiOutsideOfRegions::create(const std::string& serviceProvider, int deltaUdrei)
     {
       return std::make_shared<SetSbasDeltaUdreiOutsideOfRegions>(serviceProvider, deltaUdrei);

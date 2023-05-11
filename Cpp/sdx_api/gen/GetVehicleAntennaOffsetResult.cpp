@@ -23,6 +23,19 @@ namespace Sdx
       : CommandResult(CmdName)
     {}
 
+    GetVehicleAntennaOffsetResult::GetVehicleAntennaOffsetResult(double x, double y, double z, double yaw, double pitch, double roll, const Sdx::optional<std::string>& name)
+      : CommandResult(CmdName)
+    {
+
+      setX(x);
+      setY(y);
+      setZ(z);
+      setYaw(yaw);
+      setPitch(pitch);
+      setRoll(roll);
+      setName(name);
+    }
+
     GetVehicleAntennaOffsetResult::GetVehicleAntennaOffsetResult(CommandBasePtr relatedCommand, double x, double y, double z, double yaw, double pitch, double roll, const Sdx::optional<std::string>& name)
       : CommandResult(CmdName, relatedCommand)
     {
@@ -36,6 +49,11 @@ namespace Sdx
       setName(name);
     }
 
+
+    GetVehicleAntennaOffsetResultPtr GetVehicleAntennaOffsetResult::create(double x, double y, double z, double yaw, double pitch, double roll, const Sdx::optional<std::string>& name)
+    {
+      return std::make_shared<GetVehicleAntennaOffsetResult>(x, y, z, yaw, pitch, roll, name);
+    }
 
     GetVehicleAntennaOffsetResultPtr GetVehicleAntennaOffsetResult::create(CommandBasePtr relatedCommand, double x, double y, double z, double yaw, double pitch, double roll, const Sdx::optional<std::string>& name)
     {

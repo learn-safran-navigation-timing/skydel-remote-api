@@ -33,8 +33,12 @@ namespace Sdx
 
       GetEnabledSignalsForSVResult();
 
+      GetEnabledSignalsForSVResult(const std::string& system, int svId, const std::vector<std::string>& signalArray);
+
       GetEnabledSignalsForSVResult(CommandBasePtr relatedCommand, const std::string& system, int svId, const std::vector<std::string>& signalArray);
-  
+
+      static GetEnabledSignalsForSVResultPtr create(const std::string& system, int svId, const std::vector<std::string>& signalArray);
+
       static GetEnabledSignalsForSVResultPtr create(CommandBasePtr relatedCommand, const std::string& system, int svId, const std::vector<std::string>& signalArray);
       static GetEnabledSignalsForSVResultPtr dynamicCast(CommandBasePtr ptr);
       virtual bool isValid() const override;

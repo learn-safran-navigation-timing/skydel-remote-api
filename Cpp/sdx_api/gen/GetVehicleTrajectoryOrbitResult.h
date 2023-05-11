@@ -38,8 +38,12 @@ namespace Sdx
 
       GetVehicleTrajectoryOrbitResult();
 
+      GetVehicleTrajectoryOrbitResult(const std::string& type, const Sdx::DateTime& reference, double semiMajorAxis, double inclination, double rightAscension, double eccentricity, double meanAnomaly, double argumentOfPerigee);
+
       GetVehicleTrajectoryOrbitResult(CommandBasePtr relatedCommand, const std::string& type, const Sdx::DateTime& reference, double semiMajorAxis, double inclination, double rightAscension, double eccentricity, double meanAnomaly, double argumentOfPerigee);
-  
+
+      static GetVehicleTrajectoryOrbitResultPtr create(const std::string& type, const Sdx::DateTime& reference, double semiMajorAxis, double inclination, double rightAscension, double eccentricity, double meanAnomaly, double argumentOfPerigee);
+
       static GetVehicleTrajectoryOrbitResultPtr create(CommandBasePtr relatedCommand, const std::string& type, const Sdx::DateTime& reference, double semiMajorAxis, double inclination, double rightAscension, double eccentricity, double meanAnomaly, double argumentOfPerigee);
       static GetVehicleTrajectoryOrbitResultPtr dynamicCast(CommandBasePtr ptr);
       virtual bool isValid() const override;

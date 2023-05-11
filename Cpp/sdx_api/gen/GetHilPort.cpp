@@ -25,7 +25,6 @@ namespace Sdx
 
     }
 
-
     GetHilPortPtr GetHilPort::create()
     {
       return std::make_shared<GetHilPort>();

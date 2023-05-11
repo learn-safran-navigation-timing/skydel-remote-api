@@ -31,7 +31,7 @@ namespace Sdx
       ShowMapAnalysis();
 
       ShowMapAnalysis(bool show);
-  
+
       static ShowMapAnalysisPtr create(bool show);
       static ShowMapAnalysisPtr dynamicCast(CommandBasePtr ptr);
       virtual bool isValid() const override;

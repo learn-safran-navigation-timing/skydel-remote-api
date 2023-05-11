@@ -33,7 +33,7 @@ namespace Sdx
       SetIssueOfDataGalileo();
 
       SetIssueOfDataGalileo(int navigation, int almanac, const Sdx::optional<bool>& overrideRinex = {});
-  
+
       static SetIssueOfDataGalileoPtr create(int navigation, int almanac, const Sdx::optional<bool>& overrideRinex = {});
       static SetIssueOfDataGalileoPtr dynamicCast(CommandBasePtr ptr);
       virtual bool isValid() const override;

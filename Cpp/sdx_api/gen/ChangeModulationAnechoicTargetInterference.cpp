@@ -32,7 +32,6 @@ namespace Sdx
       setCentralFreq(centralFreq);
     }
 
-
     ChangeModulationAnechoicTargetInterferencePtr ChangeModulationAnechoicTargetInterference::create(int group, const std::string& output, double centralFreq)
     {
       return std::make_shared<ChangeModulationAnechoicTargetInterference>(group, output, centralFreq);

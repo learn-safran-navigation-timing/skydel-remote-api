@@ -32,7 +32,7 @@ namespace Sdx
       ChangeModulationTargetName();
 
       ChangeModulationTargetName(const std::string& targetName, const std::string& id);
-  
+
       static ChangeModulationTargetNamePtr create(const std::string& targetName, const std::string& id);
       static ChangeModulationTargetNamePtr dynamicCast(CommandBasePtr ptr);
       virtual bool isValid() const override;

@@ -31,7 +31,7 @@ namespace Sdx
       CommandGroup();
 
       CommandGroup(const std::vector<Sdx::CommandBasePtr>& commands);
-  
+
       static CommandGroupPtr create(const std::vector<Sdx::CommandBasePtr>& commands);
       static CommandGroupPtr dynamicCast(CommandBasePtr ptr);
       virtual bool isValid() const override;

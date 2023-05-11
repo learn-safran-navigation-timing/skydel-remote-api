@@ -31,7 +31,6 @@ namespace Sdx
       setPrn(prn);
     }
 
-
     SetPrnForEachSVPtr SetPrnForEachSV::create(const std::string& signal, const std::vector<int>& prn)
     {
       return std::make_shared<SetPrnForEachSV>(signal, prn);

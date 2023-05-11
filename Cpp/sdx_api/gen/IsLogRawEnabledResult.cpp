@@ -23,6 +23,13 @@ namespace Sdx
       : CommandResult(CmdName)
     {}
 
+    IsLogRawEnabledResult::IsLogRawEnabledResult(bool enabled)
+      : CommandResult(CmdName)
+    {
+
+      setEnabled(enabled);
+    }
+
     IsLogRawEnabledResult::IsLogRawEnabledResult(CommandBasePtr relatedCommand, bool enabled)
       : CommandResult(CmdName, relatedCommand)
     {
@@ -30,6 +37,11 @@ namespace Sdx
       setEnabled(enabled);
     }
 
+
+    IsLogRawEnabledResultPtr IsLogRawEnabledResult::create(bool enabled)
+    {
+      return std::make_shared<IsLogRawEnabledResult>(enabled);
+    }
 
     IsLogRawEnabledResultPtr IsLogRawEnabledResult::create(CommandBasePtr relatedCommand, bool enabled)
     {

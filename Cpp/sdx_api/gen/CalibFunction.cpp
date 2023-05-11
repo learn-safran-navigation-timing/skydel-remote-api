@@ -34,7 +34,6 @@ namespace Sdx
       setPhaseOffet(phaseOffet);
     }
 
-
     CalibFunctionPtr CalibFunction::create(int svId, const std::string& signal, bool enableSV, bool enableDoppler, double phaseOffet)
     {
       return std::make_shared<CalibFunction>(svId, signal, enableSV, enableDoppler, phaseOffet);

@@ -36,7 +36,7 @@ namespace Sdx
       GetPowerForSV();
 
       GetPowerForSV(const std::string& system, int svId);
-  
+
       static GetPowerForSVPtr create(const std::string& system, int svId);
       static GetPowerForSVPtr dynamicCast(CommandBasePtr ptr);
       virtual bool isValid() const override;
