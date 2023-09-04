@@ -1,4 +1,4 @@
-#!/usr/bin/python
+#!/usr/bin/env python3
 
 # This Python script illustrates basic commands to automate Skydel.
 

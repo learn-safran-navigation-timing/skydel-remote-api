@@ -1,4 +1,4 @@
-#!/usr/bin/python
+#!/usr/bin/env python3
 
 from .commandexception import CommandException
 from .clientcmd import ClientCmd

@@ -1,4 +1,4 @@
-#!/usr/bin/python
+#!/usr/bin/env python3
 """
     Messages supported :
         SBASL1 type : 1 - 2 - 3 - 4 - 5 - 6 - 7 - 9 - 10 - 17 - 18 - 24 - 25 - 26 - 27 - 28

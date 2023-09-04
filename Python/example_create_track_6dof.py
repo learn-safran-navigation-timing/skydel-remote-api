@@ -1,4 +1,4 @@
-#!/usr/bin/python
+#!/usr/bin/env python3
 
 # This Python script illustrates how to create a circular 6DOF (Six degree of freedom) track for Skydel.
 

@@ -1,4 +1,4 @@
-#!/usr/bin/python
+#!/usr/bin/env python3
 
 # This Python script imports a route from a csv file and sends it to Skydel.
 

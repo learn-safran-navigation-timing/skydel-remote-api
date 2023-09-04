@@ -1,4 +1,4 @@
-#!/usr/bin/python
+#!/usr/bin/env python3
 
 # This Python script generates a circular trajectory into a csv file.
 # The generated file can be used in example_hil_csv.py

@@ -1,4 +1,4 @@
-Skydel Remote API Version 40
+Skydel Remote API Version 41
 
 Command execution permission flags:
   EXECUTE_IF_NO_CONFIG  : executed even if there is no config
@@ -13658,6 +13658,87 @@ ParametersDict dict string:double A dictionary of parameters pairs.
                                                      "IscL5Q5", "IscL1CP", "IscL1CD", "BgdE1E5a", "BgdE1E5b",
                                                      "Tgd1", "Tgd2", "TgdB1Cp", "TgdB2ap", "IscB1Cd", "IscB2ad",
                                                      "SisaE1E5a" and "SisaE1E5b"
+
+***************************************************************************************************************************
+
+Enumeration EncryptionSignalType
+
+Encryption signal type.
+
+Possible values:
+  PY_CODE
+  M_CODE
+  PRS
+
+***************************************************************************************************************************
+
+Command SetEncryptionLibraryPath(type, path)
+Permission: EXECUTE_IF_NO_CONFIG | EXECUTE_IF_IDLE
+
+Set the specific encryption signal library path.
+
+Name Type                 Description
+---- -------------------- -------------------------
+Type EncryptionSignalType Encryption signal type.
+Path string               Path to the library file.
+
+***************************************************************************************************************************
+
+Command GetEncryptionLibraryPath(type)
+Permission: EXECUTE_IF_NO_CONFIG | EXECUTE_IF_IDLE
+
+Get the specific encryption signal library path.
+
+Name Type                 Description
+---- -------------------- -----------------------
+Type EncryptionSignalType Encryption signal type.
+
+***************************************************************************************************************************
+
+Result GetEncryptionLibraryPathResult(type, path)
+
+Result of GetEncryptionLibraryPath.
+
+Name Type                 Description
+---- -------------------- -------------------------
+Type EncryptionSignalType Encryption signal type.
+Path string               Path to the library file.
+
+***************************************************************************************************************************
+
+Command TestEncryptionLibrary(type)
+Permission: EXECUTE_IF_NO_CONFIG | EXECUTE_IF_IDLE
+
+Test the specific encryption signal library.
+
+Name Type                 Description
+---- -------------------- -----------------------
+Type EncryptionSignalType Encryption signal type.
+
+***************************************************************************************************************************
+
+Command ExecuteGpuBenchmark(durationMs, systemSvCountDict, echoCount)
+Permission: EXECUTE_IF_IDLE
+
+Execute the GPU benchmark and get the result score (will block Skydel's user interface).
+
+Name              Type            Description
+----------------- --------------- ----------------------------------------------------------------------------
+DurationMs        int             Duration of execution in milliseconds.
+SystemSvCountDict dict string:int A dictionary of system svcount pairs.
+                                  Accepted keys are: "GPS", "GLONASS", "Galileo", "BeiDou", "SBAS", "QZSS" and
+                                                     "NavIC"
+EchoCount         int             Number of echos per signal.
+
+***************************************************************************************************************************
+
+Result ExecuteGpuBenchmarkResult(score)
+
+Result of the GPU benchmark execution.
+
+Name  Type   Description
+----- ------ -------------------------------------------------------------------------------------------------
+Score double Score of the GPU benchmark execution, a result over 1.15 is recommended for real-time simulation.
 
 ***************************************************************************************************************************
 

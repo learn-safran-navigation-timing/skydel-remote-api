@@ -1,4 +1,4 @@
-#!/usr/bin/python3
+#!/usr/bin/env python3
 
 import socket
 from .units import *
@@ -56,7 +56,7 @@ class ClientHil(Client):
     except socket.timeout:
       pass
     except socket.error as e:
-      if e.args[0] != 10035 and e.args[0] != 11:
+      if e.args[0] != socket.EWOULDBLOCK:
         raise
     self.sock.settimeout(oldTimeout)
     return sent
@@ -71,7 +71,7 @@ class ClientHil(Client):
       self.sock.settimeout(oldTimeout)
     except socket.error as e:
       self.sock.settimeout(oldTimeout)
-      if e.args[0] != 10035 and e.args[0] != 11:
+      if e.args[0] != socket.EWOULDBLOCK:
         raise
     except:
       self.sock.settimeout(oldTimeout)

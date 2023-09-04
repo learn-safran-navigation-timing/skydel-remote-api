@@ -1,4 +1,4 @@
-#!/usr/bin/python
+#!/usr/bin/env python3
 
 # This Python script illustrates how to create an aircraft track from a CSV file for Skydel.
 

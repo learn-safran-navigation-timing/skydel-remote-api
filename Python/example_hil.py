@@ -1,4 +1,4 @@
-#!/usr/bin/python3
+#!/usr/bin/env python3
 
 # This Python script illustrates how to send the receiver trajectory in 
 # real-time using the hardware-in-the-loop (HIL) feature.

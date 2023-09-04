@@ -1,4 +1,4 @@
-#!/usr/bin/python
+#!/usr/bin/env python3
 
 FILE_PATH = 'circle_100Hz.csv'
 BLOCK_DURATION = 3000 # in ms

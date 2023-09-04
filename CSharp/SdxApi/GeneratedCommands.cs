@@ -6,7 +6,7 @@ namespace Sdx.Cmd
 
   public static class ApiInfo
   {
-    public const int COMMANDS_API_VERSION = 40;
+    public const int COMMANDS_API_VERSION = 41;
   }
 
   ///
@@ -70840,6 +70840,359 @@ namespace Sdx.Cmd
       set
       {
           SetValue("ParametersDict", JToken.FromObject(value, CommandBase.Serializer));
+      }
+    }
+  }
+
+
+  ///
+  /// Encryption signal type.
+  ///
+  
+  public enum EncryptionSignalType { PY_CODE, M_CODE, PRS }
+
+
+  ///
+  /// Set the specific encryption signal library path.
+  ///
+  /// Name Type                 Description
+  /// ---- -------------------- -------------------------
+  /// Type EncryptionSignalType Encryption signal type.
+  /// Path string               Path to the library file.
+  ///
+
+  public class SetEncryptionLibraryPath : CommandBase
+  {
+    public override string Documentation
+    {
+      get { return "Set the specific encryption signal library path."; }
+    }
+
+    internal const string CmdName = "SetEncryptionLibraryPath";
+
+    public SetEncryptionLibraryPath()
+      : base(CmdName)
+    {}
+
+    public SetEncryptionLibraryPath(EncryptionSignalType type, string path)
+      : base(CmdName)
+    {
+      Type = type;
+      Path = path;
+    }
+      
+    public override bool IsValid
+    {
+      get
+      {
+        return base.IsValid
+        && Contains("Type")
+        && Contains("Path")
+      ;
+      }
+    }
+
+    public override int ExecutePermission { get { return EXECUTE_IF_NO_CONFIG | EXECUTE_IF_IDLE; } }
+
+    public EncryptionSignalType Type
+    {
+      get { return GetValue("Type").ToObject<EncryptionSignalType>(CommandBase.Serializer); }
+      set
+      {
+          SetValue("Type", JToken.FromObject(value, CommandBase.Serializer));
+      }
+    }
+
+    public string Path
+    {
+      get { return GetValue("Path").ToObject<string>(CommandBase.Serializer); }
+      set
+      {
+          SetValue("Path", JToken.FromObject(value, CommandBase.Serializer));
+      }
+    }
+  }
+
+
+  ///
+  /// Get the specific encryption signal library path.
+  ///
+  /// Name Type                 Description
+  /// ---- -------------------- -----------------------
+  /// Type EncryptionSignalType Encryption signal type.
+  ///
+
+  public class GetEncryptionLibraryPath : CommandBase
+  {
+    public override string Documentation
+    {
+      get { return "Get the specific encryption signal library path."; }
+    }
+
+    internal const string CmdName = "GetEncryptionLibraryPath";
+
+    public GetEncryptionLibraryPath()
+      : base(CmdName)
+    {}
+
+    public GetEncryptionLibraryPath(EncryptionSignalType type)
+      : base(CmdName)
+    {
+      Type = type;
+    }
+      
+    public override bool IsValid
+    {
+      get
+      {
+        return base.IsValid
+        && Contains("Type")
+      ;
+      }
+    }
+
+    public override int ExecutePermission { get { return EXECUTE_IF_NO_CONFIG | EXECUTE_IF_IDLE; } }
+
+    public EncryptionSignalType Type
+    {
+      get { return GetValue("Type").ToObject<EncryptionSignalType>(CommandBase.Serializer); }
+      set
+      {
+          SetValue("Type", JToken.FromObject(value, CommandBase.Serializer));
+      }
+    }
+  }
+
+
+  ///
+  /// Result of GetEncryptionLibraryPath.
+  ///
+  /// Name Type                 Description
+  /// ---- -------------------- -------------------------
+  /// Type EncryptionSignalType Encryption signal type.
+  /// Path string               Path to the library file.
+  ///
+
+  public class GetEncryptionLibraryPathResult : CommandResult
+  {
+    public override string Documentation
+    {
+      get { return "Result of GetEncryptionLibraryPath."; }
+    }
+
+    internal const string CmdName = "GetEncryptionLibraryPathResult";
+
+    public GetEncryptionLibraryPathResult()
+      : base(CmdName)
+    {}
+
+    public GetEncryptionLibraryPathResult(CommandBase relatedCommand, EncryptionSignalType type, string path)
+      : base(CmdName, relatedCommand)
+    {
+      Type = type;
+      Path = path;
+    }
+      
+    public override bool IsValid
+    {
+      get
+      {
+        return base.IsValid
+        && Contains("Type")
+        && Contains("Path")
+      ;
+      }
+    }
+
+    public EncryptionSignalType Type
+    {
+      get { return GetValue("Type").ToObject<EncryptionSignalType>(CommandBase.Serializer); }
+      set
+      {
+          SetValue("Type", JToken.FromObject(value, CommandBase.Serializer));
+      }
+    }
+
+    public string Path
+    {
+      get { return GetValue("Path").ToObject<string>(CommandBase.Serializer); }
+      set
+      {
+          SetValue("Path", JToken.FromObject(value, CommandBase.Serializer));
+      }
+    }
+  }
+
+
+  ///
+  /// Test the specific encryption signal library.
+  ///
+  /// Name Type                 Description
+  /// ---- -------------------- -----------------------
+  /// Type EncryptionSignalType Encryption signal type.
+  ///
+
+  public class TestEncryptionLibrary : CommandBase
+  {
+    public override string Documentation
+    {
+      get { return "Test the specific encryption signal library."; }
+    }
+
+    internal const string CmdName = "TestEncryptionLibrary";
+
+    public TestEncryptionLibrary()
+      : base(CmdName)
+    {}
+
+    public TestEncryptionLibrary(EncryptionSignalType type)
+      : base(CmdName)
+    {
+      Type = type;
+    }
+      
+    public override bool IsValid
+    {
+      get
+      {
+        return base.IsValid
+        && Contains("Type")
+      ;
+      }
+    }
+
+    public override int ExecutePermission { get { return EXECUTE_IF_NO_CONFIG | EXECUTE_IF_IDLE; } }
+
+    public EncryptionSignalType Type
+    {
+      get { return GetValue("Type").ToObject<EncryptionSignalType>(CommandBase.Serializer); }
+      set
+      {
+          SetValue("Type", JToken.FromObject(value, CommandBase.Serializer));
+      }
+    }
+  }
+
+
+  ///
+  /// Execute the GPU benchmark and get the result score (will block Skydel's user interface).
+  ///
+  /// Name              Type            Description
+  /// ----------------- --------------- ----------------------------------------------------------------------------
+  /// DurationMs        int             Duration of execution in milliseconds.
+  /// SystemSvCountDict dict string:int A dictionary of system svcount pairs.
+  ///                                   Accepted keys are: "GPS", "GLONASS", "Galileo", "BeiDou", "SBAS", "QZSS" and
+  ///                                                      "NavIC"
+  /// EchoCount         int             Number of echos per signal.
+  ///
+
+  public class ExecuteGpuBenchmark : CommandBase
+  {
+    public override string Documentation
+    {
+      get { return "Execute the GPU benchmark and get the result score (will block Skydel's user interface)."; }
+    }
+
+    internal const string CmdName = "ExecuteGpuBenchmark";
+
+    public ExecuteGpuBenchmark()
+      : base(CmdName)
+    {}
+
+    public ExecuteGpuBenchmark(int durationMs, Dictionary<string, int> systemSvCountDict, int echoCount)
+      : base(CmdName)
+    {
+      DurationMs = durationMs;
+      SystemSvCountDict = systemSvCountDict;
+      EchoCount = echoCount;
+    }
+      
+    public override bool IsValid
+    {
+      get
+      {
+        return base.IsValid
+        && Contains("DurationMs")
+        && Contains("SystemSvCountDict")
+        && Contains("EchoCount")
+      ;
+      }
+    }
+
+    public override int ExecutePermission { get { return EXECUTE_IF_IDLE; } }
+
+    public int DurationMs
+    {
+      get { return GetValue("DurationMs").ToObject<int>(CommandBase.Serializer); }
+      set
+      {
+          SetValue("DurationMs", JToken.FromObject(value, CommandBase.Serializer));
+      }
+    }
+
+    public Dictionary<string, int> SystemSvCountDict
+    {
+      get { return GetValue("SystemSvCountDict").ToObject<Dictionary<string, int>>(CommandBase.Serializer); }
+      set
+      {
+          SetValue("SystemSvCountDict", JToken.FromObject(value, CommandBase.Serializer));
+      }
+    }
+
+    public int EchoCount
+    {
+      get { return GetValue("EchoCount").ToObject<int>(CommandBase.Serializer); }
+      set
+      {
+          SetValue("EchoCount", JToken.FromObject(value, CommandBase.Serializer));
+      }
+    }
+  }
+
+
+  ///
+  /// Result of the GPU benchmark execution.
+  ///
+  /// Name  Type   Description
+  /// ----- ------ -------------------------------------------------------------------------------------------------
+  /// Score double Score of the GPU benchmark execution, a result over 1.15 is recommended for real-time simulation.
+  ///
+
+  public class ExecuteGpuBenchmarkResult : CommandResult
+  {
+    public override string Documentation
+    {
+      get { return "Result of the GPU benchmark execution."; }
+    }
+
+    internal const string CmdName = "ExecuteGpuBenchmarkResult";
+
+    public ExecuteGpuBenchmarkResult()
+      : base(CmdName)
+    {}
+
+    public ExecuteGpuBenchmarkResult(CommandBase relatedCommand, double score)
+      : base(CmdName, relatedCommand)
+    {
+      Score = score;
+    }
+      
+    public override bool IsValid
+    {
+      get
+      {
+        return base.IsValid
+        && Contains("Score")
+      ;
+      }
+    }
+
+    public double Score
+    {
+      get { return GetValue("Score").ToObject<double>(CommandBase.Serializer); }
+      set
+      {
+          SetValue("Score", JToken.FromObject(value, CommandBase.Serializer));
       }
     }
   }

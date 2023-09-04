@@ -1,4 +1,4 @@
-#!/usr/bin/python3
+#!/usr/bin/env python3
 
 # This Python script illustrates how to send satellite data parsed from RINEX files
 # to the Skydel simulator during a simulation.

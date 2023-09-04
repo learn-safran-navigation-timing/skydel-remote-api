@@ -105,7 +105,7 @@ bool HilClient::connectToHost(const std::string& ip, int port)
   memset(&m->servAddr, 0, sizeof(m->servAddr));
   m->servAddr.sin_family = AF_INET;
   memcpy(&m->servAddr.sin_addr.s_addr, m->server->h_addr, m->server->h_length);
-  m->servAddr.sin_port = htons(port);
+  m->servAddr.sin_port = htons(static_cast<u_short>(port));
   if (connect(m->s, (struct sockaddr*)&m->servAddr, sizeof(m->servAddr)) < 0)
   {
     disconnect();

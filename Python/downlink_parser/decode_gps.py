@@ -1,4 +1,4 @@
-#!/usr/bin/python
+#!/usr/bin/env python3
 """
     Messages supported :
         GPS L5 type : 10 - 11 - 12 - 30 - 32 - 33

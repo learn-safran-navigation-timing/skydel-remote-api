@@ -113,7 +113,7 @@ bool CmdClient::connectToHost(const std::string& ip, int port)
   memset(&m->serv_addr, 0, sizeof(m->serv_addr));
   m->serv_addr.sin_family = AF_INET;
   memcpy(&m->serv_addr.sin_addr.s_addr, m->server->h_addr, m->server->h_length);
-  m->serv_addr.sin_port = htons(port);
+  m->serv_addr.sin_port = htons(static_cast<u_short>(port));
 
 #ifndef _WIN32
   // Add a 10 second timeout to the socket SEND calls

@@ -1,4 +1,4 @@
-#!/usr/bin/python
+#!/usr/bin/env python3
 """
     Messages supported :
         Galileo F/Nav E5a
@@ -520,7 +520,7 @@ class GalileoCNavHasDictGenerator:
         self.binaryMessage = utility.convertToBinaryNavigationMessage(pages[0], 424)
         pageIndex = 1
         while pageIndex < len(pages) - 1:
-            self.binaryMessage = self.binaryMessage + utility.convertToBinaryNavigationMessage(pages[pageIndex], 424)[1:]
+            self.binaryMessage = self.binaryMessage + utility.convertToBinaryNavigationMessage(pages[pageIndex], 424)
             pageIndex += 1
 
     def addParametertoDict(self, name, size, signed = False, factor = 1, unit = ""):
@@ -529,6 +529,12 @@ class GalileoCNavHasDictGenerator:
 
     def getParameterValue(self, size):
         return int(self.binaryMessage[self.currentBitIndex:self.currentBitIndex + size], 2)
+
+def getIODSize(nsys, sys):
+    if nsys == 1 or sys == 2:
+        return 10
+    else:
+        return 8
 
 def getDictGalileoCNavigationMessage(message):
     pages = str(message).split(' ')
@@ -561,7 +567,7 @@ def getDictGalileoCNavigationMessage(message):
     gen.addParametertoDict("Orbit Block Validity Interval", 4)
     for sys in range(1, nsys + 1):
         for sat in range(1, satCounts[sys - 1] + 1):
-            gen.addParametertoDict("IODref Sys{0} Sat{1}".format(sys, sat), 10)
+            gen.addParametertoDict("IODref Sys{0} Sat{1}".format(sys, sat), getIODSize(nsys, sys))
             gen.addParametertoDict("DR Sys{0} Sat{1}".format(sys, sat), 13, True, 0.0025, utility.METER)
             gen.addParametertoDict("DIT Sys{0} Sat{1}".format(sys, sat), 12, True, 0.0080, utility.METER)
             gen.addParametertoDict("DCT Sys{0} Sat{1}".format(sys, sat), 12, True, 0.0080, utility.METER)

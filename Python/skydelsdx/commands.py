@@ -1,9 +1,9 @@
-#!/usr/bin/python
+#!/usr/bin/env python3
 from .commandbase import CommandBase
 from .commandresult import CommandResult
 from .commandbase import ExecutePermission
 
-ApiVersion = 40
+ApiVersion = 41
 
 #
 # The GPS AS flag value.
@@ -37255,6 +37255,187 @@ class PushDynamicSVData(CommandBase):
 
   def setParametersDict(self, value):
     return self.set("ParametersDict", value)
+
+#
+# Encryption signal type.
+#
+
+class EncryptionSignalType:
+  PY_CODE = 0
+  M_CODE = 1
+  PRS = 2
+
+#
+# Set the specific encryption signal library path.
+#
+# Name Type                 Description
+# ---- -------------------- -------------------------
+# Type EncryptionSignalType Encryption signal type.
+# Path string               Path to the library file.
+#
+
+class SetEncryptionLibraryPath(CommandBase):
+
+  def __init__(self, type, path):
+    CommandBase.__init__(self, "SetEncryptionLibraryPath")
+    self.setType(type)
+    self.setPath(path)
+
+  def executePermission(self):
+    return ExecutePermission.EXECUTE_IF_NO_CONFIG | ExecutePermission.EXECUTE_IF_IDLE
+
+  def type(self):
+    return self.get("Type")
+
+  def setType(self, value):
+    return self.set("Type", value)
+
+  def path(self):
+    return self.get("Path")
+
+  def setPath(self, value):
+    return self.set("Path", value)
+
+#
+# Get the specific encryption signal library path.
+#
+# Name Type                 Description
+# ---- -------------------- -----------------------
+# Type EncryptionSignalType Encryption signal type.
+#
+
+class GetEncryptionLibraryPath(CommandBase):
+
+  def __init__(self, type):
+    CommandBase.__init__(self, "GetEncryptionLibraryPath")
+    self.setType(type)
+
+  def executePermission(self):
+    return ExecutePermission.EXECUTE_IF_NO_CONFIG | ExecutePermission.EXECUTE_IF_IDLE
+
+  def type(self):
+    return self.get("Type")
+
+  def setType(self, value):
+    return self.set("Type", value)
+
+#
+# Result of GetEncryptionLibraryPath.
+#
+# Name Type                 Description
+# ---- -------------------- -------------------------
+# Type EncryptionSignalType Encryption signal type.
+# Path string               Path to the library file.
+#
+
+class GetEncryptionLibraryPathResult(CommandResult):
+
+  def __init__(self, type, path):
+    CommandResult.__init__(self, "GetEncryptionLibraryPathResult")
+    self.setType(type)
+    self.setPath(path)
+
+  def isSuccess(self):
+    return True
+
+  def type(self):
+    return self.get("Type")
+
+  def setType(self, value):
+    return self.set("Type", value)
+
+  def path(self):
+    return self.get("Path")
+
+  def setPath(self, value):
+    return self.set("Path", value)
+
+#
+# Test the specific encryption signal library.
+#
+# Name Type                 Description
+# ---- -------------------- -----------------------
+# Type EncryptionSignalType Encryption signal type.
+#
+
+class TestEncryptionLibrary(CommandBase):
+
+  def __init__(self, type):
+    CommandBase.__init__(self, "TestEncryptionLibrary")
+    self.setType(type)
+
+  def executePermission(self):
+    return ExecutePermission.EXECUTE_IF_NO_CONFIG | ExecutePermission.EXECUTE_IF_IDLE
+
+  def type(self):
+    return self.get("Type")
+
+  def setType(self, value):
+    return self.set("Type", value)
+
+#
+# Execute the GPU benchmark and get the result score (will block Skydel's user interface).
+#
+# Name              Type            Description
+# ----------------- --------------- ----------------------------------------------------------------------------
+# DurationMs        int             Duration of execution in milliseconds.
+# SystemSvCountDict dict string:int A dictionary of system svcount pairs.
+#                                   Accepted keys are: "GPS", "GLONASS", "Galileo", "BeiDou", "SBAS", "QZSS" and
+#                                                      "NavIC"
+# EchoCount         int             Number of echos per signal.
+#
+
+class ExecuteGpuBenchmark(CommandBase):
+
+  def __init__(self, durationMs, systemSvCountDict, echoCount):
+    CommandBase.__init__(self, "ExecuteGpuBenchmark")
+    self.setDurationMs(durationMs)
+    self.setSystemSvCountDict(systemSvCountDict)
+    self.setEchoCount(echoCount)
+
+  def executePermission(self):
+    return ExecutePermission.EXECUTE_IF_IDLE
+
+  def durationMs(self):
+    return self.get("DurationMs")
+
+  def setDurationMs(self, value):
+    return self.set("DurationMs", value)
+
+  def systemSvCountDict(self):
+    return self.get("SystemSvCountDict")
+
+  def setSystemSvCountDict(self, value):
+    return self.set("SystemSvCountDict", value)
+
+  def echoCount(self):
+    return self.get("EchoCount")
+
+  def setEchoCount(self, value):
+    return self.set("EchoCount", value)
+
+#
+# Result of the GPU benchmark execution.
+#
+# Name  Type   Description
+# ----- ------ -------------------------------------------------------------------------------------------------
+# Score double Score of the GPU benchmark execution, a result over 1.15 is recommended for real-time simulation.
+#
+
+class ExecuteGpuBenchmarkResult(CommandResult):
+
+  def __init__(self, score):
+    CommandResult.__init__(self, "ExecuteGpuBenchmarkResult")
+    self.setScore(score)
+
+  def isSuccess(self):
+    return True
+
+  def score(self):
+    return self.get("Score")
+
+  def setScore(self, value):
+    return self.set("Score", value)
 
 #
 # A pair of string

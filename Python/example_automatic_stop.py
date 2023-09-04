@@ -1,4 +1,4 @@
-#!/usr/bin/python
+#!/usr/bin/env python3
 
 # This Python script illustrates how to create a car route with speed limits and a car track
 # and enables automatic stop when the car reach the end of the route or track.
