@@ -14,7 +14,9 @@ namespace Sdx
   namespace Cmd
   {
     const char* const SetNavICEphemerisDoubleParams::CmdName = "SetNavICEphemerisDoubleParams";
-    const char* const SetNavICEphemerisDoubleParams::Documentation = "Please note the command SetNavICEphemerisDoubleParams is deprecated since 21.3. You may use SetNavICEphDoubleParamForEachSV.\n\nSet NavIC ephemeris parameter value for all satellites";
+    const char* const SetNavICEphemerisDoubleParams::Documentation = "Please note the command SetNavICEphemerisDoubleParams is deprecated since 21.3. You may use SetNavICEphDoubleParamForEachSV.\n\nPlease note the command SetNavICEphDoubleParamForEachSV is deprecated since 23.11. You may use SetConstellationParameterForSV.\n\nSet NavIC ephemeris parameter value for all satellites";
+
+    const char* const SetNavICEphemerisDoubleParams::Deprecated = "Please note the command SetNavICEphemerisDoubleParams is deprecated since 23.11. You may use SetConstellationParameterForSV.";
 
     REGISTER_COMMAND_FACTORY(SetNavICEphemerisDoubleParams);
 
@@ -54,6 +56,8 @@ namespace Sdx
     }
 
     std::string SetNavICEphemerisDoubleParams::documentation() const { return Documentation; }
+
+    Sdx::optional<std::string> SetNavICEphemerisDoubleParams::deprecated() const { return Sdx::optional<std::string>{Deprecated}; }
 
 
     int SetNavICEphemerisDoubleParams::executePermission() const

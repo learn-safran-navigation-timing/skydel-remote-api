@@ -13,6 +13,8 @@ namespace Sdx
     ///
     /// Please note the command GetBeiDouEphemerisBoolParams is deprecated since 21.3. You may use GetBeiDouEphBoolParamForEachSV.
     /// 
+    /// Please note the command GetBeiDouEphBoolParamForEachSV is deprecated since 23.11. You may use GetConstellationParameterForSV.
+    /// 
     /// Get BeiDou ephemeris boolean parameter value for all satellites
     ///
     /// Name        Type            Description
@@ -31,6 +33,8 @@ namespace Sdx
       static const char* const CmdName;
       static const char* const Documentation;
 
+      static const char* const Deprecated;
+
 
       GetBeiDouEphemerisBoolParams();
 
@@ -40,6 +44,8 @@ namespace Sdx
       static GetBeiDouEphemerisBoolParamsPtr dynamicCast(CommandBasePtr ptr);
       virtual bool isValid() const override;
       virtual std::string documentation() const override;
+
+      virtual Sdx::optional<std::string> deprecated() const override;
 
       virtual int executePermission() const override;
 

@@ -20,9 +20,9 @@ namespace Sdx
     /// -Initializing
     /// -Armed
     /// -Streaming RF
-    /// -Sync Slave
-    /// -WF Init (Slave)
-    /// -WF Init (Master)
+    /// -Sync Worker
+    /// -WF Init (Worker)
+    /// -WF Init (Main)
     /// -HIL Sync
     /// -Sync Init
     /// -Sync PPS Reset

@@ -14,7 +14,9 @@ namespace Sdx
   namespace Cmd
   {
     const char* const IsWFAntennaElementEnabled::CmdName = "IsWFAntennaElementEnabled";
-    const char* const IsWFAntennaElementEnabled::Documentation = "Get whether an antenna element is enabled or disabled.";
+    const char* const IsWFAntennaElementEnabled::Documentation = "Please note the command IsWFAntennaElementEnabled is deprecated since 23.11. You may use GetWFElement.\n\nGet whether an antenna element is enabled or disabled.";
+
+    const char* const IsWFAntennaElementEnabled::Deprecated = "Please note the command IsWFAntennaElementEnabled is deprecated since 23.11. You may use GetWFElement.";
 
     REGISTER_COMMAND_FACTORY(IsWFAntennaElementEnabled);
 
@@ -50,6 +52,8 @@ namespace Sdx
     }
 
     std::string IsWFAntennaElementEnabled::documentation() const { return Documentation; }
+
+    Sdx::optional<std::string> IsWFAntennaElementEnabled::deprecated() const { return Sdx::optional<std::string>{Deprecated}; }
 
 
     int IsWFAntennaElementEnabled::executePermission() const

@@ -10,6 +10,8 @@ namespace Sdx
   namespace Cmd
   {
     ///
+    /// Please note the command IsWFAntennaElementEnabled is deprecated since 23.11. You may use GetWFElement.
+    /// 
     /// Get whether an antenna element is enabled or disabled.
     ///
     /// Name    Type Description
@@ -27,6 +29,8 @@ namespace Sdx
       static const char* const CmdName;
       static const char* const Documentation;
 
+      static const char* const Deprecated;
+
 
       IsWFAntennaElementEnabled();
 
@@ -36,6 +40,8 @@ namespace Sdx
       static IsWFAntennaElementEnabledPtr dynamicCast(CommandBasePtr ptr);
       virtual bool isValid() const override;
       virtual std::string documentation() const override;
+
+      virtual Sdx::optional<std::string> deprecated() const override;
 
       virtual int executePermission() const override;
 

@@ -10,12 +10,14 @@ namespace Sdx
   namespace Cmd
   {
     ///
-    /// Enable/Disable Time Synchronization Slave.
-    /// The Slave will wait for the Master to synchronize the simulators.
+    /// Please note the command EnableSlavePps is deprecated since 23.11. You may use EnableWorkerInstanceSync.
+    /// 
+    /// Enable/Disable Time Synchronization on worker instance.
+    /// The worker instance will wait for the main instance to synchronize the simulators.
     ///
     /// Name    Type Description
-    /// ------- ---- ---------------------------------------------------------------------------
-    /// Enabled bool If true, this simulator will wait for the master to synchronize simulators.
+    /// ------- ---- ----------------------------------------------------------------------------------
+    /// Enabled bool If true, this simulator will wait for the main instance to synchronize simulators.
     ///
 
     class EnableSlavePps;

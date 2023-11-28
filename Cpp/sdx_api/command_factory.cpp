@@ -1,6 +1,8 @@
 #include "command_factory.h"
-#include <map>
+
 #include <iostream>
+#include <map>
+
 #include "rapidjson/document.h"
 
 namespace Sdx
@@ -49,7 +51,9 @@ CommandBasePtr CommandFactory::createCommand(const std::string& serializedComman
     rapidjson::Value& uuidValue = doc[CommandBase::CmdUuidKey.c_str()];
     cmd->m_cmdUuid = uuidValue.GetString();
     rapidjson::Value newValue;
-    newValue.SetString(cmd->m_cmdUuid.c_str(), (rapidjson::SizeType) cmd->m_cmdUuid.size(), cmd->m_values.GetAllocator());
+    newValue.SetString(cmd->m_cmdUuid.c_str(),
+                       (rapidjson::SizeType)cmd->m_cmdUuid.size(),
+                       cmd->m_values.GetAllocator());
     cmd->setValue(CommandBase::CmdUuidKey, newValue);
     if (cmd->isValid())
     {
@@ -66,7 +70,7 @@ CommandBasePtr CommandFactory::createCommand(const std::string& serializedComman
   return CommandBasePtr();
 }
 
-void CommandFactory::registerFactoryFunction(const std::string &cmdName, CommandFactory::FactoryFunction fct)
+void CommandFactory::registerFactoryFunction(const std::string& cmdName, CommandFactory::FactoryFunction fct)
 {
   if (m->factory.find(cmdName) == m->factory.end())
   {
@@ -78,7 +82,5 @@ void CommandFactory::registerFactoryFunction(const std::string &cmdName, Command
               << " because a function is already registered." << std::endl;
   }
 }
-
-
 
 } // namespace Sdx

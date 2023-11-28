@@ -10,6 +10,8 @@ namespace Sdx
   namespace Cmd
   {
     ///
+    /// Please note the command SetWFAntennaElementModel is deprecated since 23.11. You may use SetWFElement.
+    /// 
     /// Set WF Antenna model for this element
     ///
     /// Name             Type   Description
@@ -28,6 +30,8 @@ namespace Sdx
       static const char* const CmdName;
       static const char* const Documentation;
 
+      static const char* const Deprecated;
+
 
       SetWFAntennaElementModel();
 
@@ -37,6 +41,8 @@ namespace Sdx
       static SetWFAntennaElementModelPtr dynamicCast(CommandBasePtr ptr);
       virtual bool isValid() const override;
       virtual std::string documentation() const override;
+
+      virtual Sdx::optional<std::string> deprecated() const override;
 
       virtual int executePermission() const override;
 

@@ -1,8 +1,10 @@
 #include "command_result_factory.h"
-#include <map>
+
 #include <iostream>
-#include "rapidjson/document.h"
+#include <map>
+
 #include "command_factory.h"
+#include "rapidjson/document.h"
 
 namespace Sdx
 {
@@ -50,11 +52,13 @@ CommandResultPtr CommandResultFactory::createCommandResult(const std::string& se
     rapidjson::Value& uuidValue = doc[CommandBase::CmdUuidKey.c_str()];
     result->m_cmdUuid = uuidValue.GetString();
     rapidjson::Value newValue;
-    newValue.SetString(result->m_cmdUuid.c_str(), (rapidjson::SizeType) result->m_cmdUuid.size(), result->m_values.GetAllocator());
+    newValue.SetString(result->m_cmdUuid.c_str(),
+                       (rapidjson::SizeType)result->m_cmdUuid.size(),
+                       result->m_values.GetAllocator());
     result->setValue(CommandBase::CmdUuidKey, newValue);
-    result->m_relatedCommand = CommandFactory::instance()->createCommand(
-      result->value(CommandResult::RelatedCommand).GetString(), errorMsg);
-    if(!result->m_relatedCommand)
+    result->m_relatedCommand =
+      CommandFactory::instance()->createCommand(result->value(CommandResult::RelatedCommand).GetString(), errorMsg);
+    if (!result->m_relatedCommand)
     {
       return CommandResultPtr();
     }
@@ -73,7 +77,8 @@ CommandResultPtr CommandResultFactory::createCommandResult(const std::string& se
   return CommandResultPtr();
 }
 
-void CommandResultFactory::registerFactoryFunction(const std::string &cmdName, CommandResultFactory::FactoryFunction fct)
+void CommandResultFactory::registerFactoryFunction(const std::string& cmdName,
+                                                   CommandResultFactory::FactoryFunction fct)
 {
   if (m->factory.find(cmdName) == m->factory.end())
   {
@@ -85,7 +90,5 @@ void CommandResultFactory::registerFactoryFunction(const std::string &cmdName, C
               << " because a function is already registered." << std::endl;
   }
 }
-
-
 
 } // namespace Sdx

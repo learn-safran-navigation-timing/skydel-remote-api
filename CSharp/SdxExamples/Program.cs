@@ -648,7 +648,7 @@ namespace SdxExamples
         double pps0TimestampMs = 0.0;
 
         // Enable PPS synchronisation
-        sim.Call(new EnableMasterPps(true));
+        sim.Call(new EnableMainInstanceSync(true));
 
         // Arm the simulator, when this command returns, we can start synchronizing with the PPS
         sim.Call(new ArmPPS());

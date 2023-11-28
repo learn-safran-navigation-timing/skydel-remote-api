@@ -16,16 +16,16 @@ class Ecef;
 class Enu
 {
 public:
-    Enu();
-    Enu(double e, double n, double u);
-    void toEcef(const Lla& origin, Ecef& ecef) const;
-    void toLla(const Lla& origin, Lla& lla) const;
-    bool operator==(const Enu& other) const;
-    bool operator!=(const Enu& other) const;
+  Enu();
+  Enu(double e, double n, double u);
+  void toEcef(const Lla& origin, Ecef& ecef) const;
+  void toLla(const Lla& origin, Lla& lla) const;
+  bool operator==(const Enu& other) const;
+  bool operator!=(const Enu& other) const;
 
-    double e; // east  (meter)
-    double n; // north (meter)
-    double u; // up    (meter)
+  double e; // east  (meter)
+  double n; // north (meter)
+  double u; // up    (meter)
 };
 
 } // namespace Sdx

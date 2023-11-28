@@ -14,7 +14,7 @@ namespace Sdx
   namespace Cmd
   {
     const char* const WaitSimulatorState::CmdName = "WaitSimulatorState";
-    const char* const WaitSimulatorState::Documentation = "Wait until simulator has reached the specified substate unless simulator goes to error state or specified failure substate. Will return a SimulatorStateResult.\nPossible substates are :\n-None\n-Incomplete\n-Ready\n-Initializing\n-Armed\n-Streaming RF\n-Sync Slave\n-WF Init (Slave)\n-WF Init (Master)\n-HIL Sync\n-Sync Init\n-Sync PPS Reset\n-Sync Start Time\n-Sync Start\n-Error";
+    const char* const WaitSimulatorState::Documentation = "Wait until simulator has reached the specified substate unless simulator goes to error state or specified failure substate. Will return a SimulatorStateResult.\nPossible substates are :\n-None\n-Incomplete\n-Ready\n-Initializing\n-Armed\n-Streaming RF\n-Sync Worker Instance\n-WF Init (Worker)\n-WF Init (Main)\n-HIL Sync\n-Sync Init\n-Sync PPS Reset\n-Sync Start Time\n-Sync Start\n-Error";
 
     REGISTER_COMMAND_FACTORY(WaitSimulatorState);
 

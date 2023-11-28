@@ -13,6 +13,8 @@ namespace Sdx
     ///
     /// Please note the command GetQzssEphemerisDoubleParam is deprecated since 21.3. You may use GetQzssEphDoubleParamForSV.
     /// 
+    /// Please note the command GetQzssEphDoubleParamForSV is deprecated since 23.11. You may use GetConstellationParameterForSV.
+    /// 
     /// Get various parameters in the QZSS ephemeris.
     ///
     /// Name        Type            Description
@@ -34,6 +36,8 @@ namespace Sdx
       static const char* const CmdName;
       static const char* const Documentation;
 
+      static const char* const Deprecated;
+
 
       GetQzssEphemerisDoubleParam();
 
@@ -43,6 +47,8 @@ namespace Sdx
       static GetQzssEphemerisDoubleParamPtr dynamicCast(CommandBasePtr ptr);
       virtual bool isValid() const override;
       virtual std::string documentation() const override;
+
+      virtual Sdx::optional<std::string> deprecated() const override;
 
       virtual int executePermission() const override;
 

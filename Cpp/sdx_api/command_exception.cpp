@@ -2,15 +2,16 @@
 
 using namespace Sdx;
 
-CommandException::CommandException(CommandResultPtr cmdResult, const std::string& errorMsg) :
-  m_cmdResult(cmdResult)
+CommandException::CommandException(CommandResultPtr cmdResult, const std::string& errorMsg) : m_cmdResult(cmdResult)
 {
   m_message = m_cmdResult->relatedCommand()->name() + " command failed => " + m_cmdResult->message() + errorMsg;
 }
 
-CommandException::~CommandException() throw (){}
+CommandException::~CommandException() throw()
+{
+}
 
-const char* CommandException::what() const throw ()
+const char* CommandException::what() const throw()
 {
   return m_message.c_str();
 }

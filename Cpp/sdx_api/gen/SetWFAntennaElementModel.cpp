@@ -14,7 +14,9 @@ namespace Sdx
   namespace Cmd
   {
     const char* const SetWFAntennaElementModel::CmdName = "SetWFAntennaElementModel";
-    const char* const SetWFAntennaElementModel::Documentation = "Set WF Antenna model for this element";
+    const char* const SetWFAntennaElementModel::Documentation = "Please note the command SetWFAntennaElementModel is deprecated since 23.11. You may use SetWFElement.\n\nSet WF Antenna model for this element";
+
+    const char* const SetWFAntennaElementModel::Deprecated = "Please note the command SetWFAntennaElementModel is deprecated since 23.11. You may use SetWFElement.";
 
     REGISTER_COMMAND_FACTORY(SetWFAntennaElementModel);
 
@@ -52,6 +54,8 @@ namespace Sdx
     }
 
     std::string SetWFAntennaElementModel::documentation() const { return Documentation; }
+
+    Sdx::optional<std::string> SetWFAntennaElementModel::deprecated() const { return Sdx::optional<std::string>{Deprecated}; }
 
 
     int SetWFAntennaElementModel::executePermission() const

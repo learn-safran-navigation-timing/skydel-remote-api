@@ -698,7 +698,7 @@ void runExampleHilRealtime(const std::string& host, const std::string& targetTyp
     double pps0TimestampMs = 0.0;
 
     // Enable the PPS synchronisation
-    sim.call(EnableMasterPps::create(true));
+    sim.call(EnableMainInstanceSync::create(true));
 
     // Arm the simulator, when this command returns, we can start synchronizing with the PPS
     sim.call(ArmPPS::create());

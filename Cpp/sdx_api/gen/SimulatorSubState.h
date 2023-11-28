@@ -8,7 +8,7 @@ namespace Sdx
   /// The simulator sub-state.
   ///
   
-  enum class SimulatorSubState : int { SubStateNone, Idle_ConfigNotValid, Idle_ConfigValid, Started_InitPlugins, Started_InitHardware, Started_Streaming, Started_SyncInit, Started_SlaveSync, Started_Armed, Started_SyncStartTime, Error, Started_HILSync, Started_SyncPPSReset, Started_SyncStart, Started_WFSlaveInit, Started_WFMasterInit, Started_WFSyncPPSReset, Started_WFSyncStart };
+  enum class SimulatorSubState : int { SubStateNone, Idle_ConfigNotValid, Idle_ConfigValid, Started_InitPlugins, Started_InitHardware, Started_Streaming, Started_SyncInit, Started_WorkerSync, Started_Armed, Started_SyncStartTime, Error, Started_HILSync, Started_SyncPPSReset, Started_SyncStart, Started_WFWorkerInit, Started_WFMainInit, Started_WFSyncPPSReset, Started_WFSyncStart };
 }
 
 template<>

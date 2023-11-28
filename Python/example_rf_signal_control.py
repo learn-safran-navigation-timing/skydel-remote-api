@@ -47,7 +47,11 @@ sim.call(EnableSignalForSV("L2C", 0, True), 14)
 sim.call(EnableSignalForEachSV("L2C", [True, True, False, False, True, False, False, False,\
                                         True, True, True, True, False, False, True, False, \
                                         True, True, False, False, True, False, False, False, \
-                                        True, True, True, True, False, False, True, False]), \
+                                        True, True, True, True, False, False, True, False,\
+                                        True, True, False, False, True, False, False, False,\
+                                        True, True, True, True, False, False, True, False, \
+                                        True, True, False, False, True, False, False, False, \
+                                        True, True, True, True, False, False, True]), \
                                         15)
 
 # Stop simulation when elapsed time is 20 sec

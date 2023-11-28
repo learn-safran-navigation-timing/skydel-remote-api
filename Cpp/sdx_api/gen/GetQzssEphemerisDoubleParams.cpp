@@ -14,7 +14,9 @@ namespace Sdx
   namespace Cmd
   {
     const char* const GetQzssEphemerisDoubleParams::CmdName = "GetQzssEphemerisDoubleParams";
-    const char* const GetQzssEphemerisDoubleParams::Documentation = "Please note the command GetQzssEphemerisDoubleParams is deprecated since 21.3. You may use GetQzssEphDoubleParamForEachSV.\n\nGet QZSS ephemeris parameter value for all satellites";
+    const char* const GetQzssEphemerisDoubleParams::Documentation = "Please note the command GetQzssEphemerisDoubleParams is deprecated since 21.3. You may use GetQzssEphDoubleParamForEachSV.\n\nPlease note the command GetQzssEphDoubleParamForEachSV is deprecated since 23.11. You may use GetConstellationParameterForSV.\n\nGet QZSS ephemeris parameter value for all satellites";
+
+    const char* const GetQzssEphemerisDoubleParams::Deprecated = "Please note the command GetQzssEphemerisDoubleParams is deprecated since 23.11. You may use GetConstellationParameterForSV.";
 
     REGISTER_COMMAND_FACTORY(GetQzssEphemerisDoubleParams);
 
@@ -52,6 +54,8 @@ namespace Sdx
     }
 
     std::string GetQzssEphemerisDoubleParams::documentation() const { return Documentation; }
+
+    Sdx::optional<std::string> GetQzssEphemerisDoubleParams::deprecated() const { return Sdx::optional<std::string>{Deprecated}; }
 
 
     int GetQzssEphemerisDoubleParams::executePermission() const

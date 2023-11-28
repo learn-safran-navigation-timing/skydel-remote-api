@@ -146,15 +146,23 @@ class RemoteSimulator:
     if self.verbose: 
       print("Simulation stopped.")
 
-  def _checkForbidden(self, cmd):
+  def _checkForbiddenPost(self, cmd):
     if cmd.getName() == "Start":
       raise Exception("You cannot send a Start command. Use RemoteSimulator.start() instead.")
-    if cmd.getName() == "BeginRouteDefinition":
-      raise Exception("You cannot send a BeginRouteDefinition command. Use RemoteSimulator.beginRouteDefinition() instead.")
-    if cmd.getName() == "EndRouteDefinition":
-      raise Exception("You cannot send a EndRouteDefinition command. Use RemoteSimulator.endRouteDefinition() instead.")
-    if cmd.getName() == "PushRouteNode":
-      raise Exception("You cannot send a PushRouteNode command. Use RemoteSimulator.pushRouteLla() or RemoteSimulator.pushRouteEcef() instead.")
+
+  def _checkForbiddenCall(self, cmd):
+    if cmd.getName() == "Start":
+      raise Exception("You cannot send a Start command. Use RemoteSimulator.start() instead.")
+    if cmd.getName() == "PushRouteEcef":
+      raise Exception("You cannot call a PushRouteEcef command. Post it or use RemoteSimulator.pushRouteLla() or RemoteSimulator.pushRouteEcef() instead.")
+    if cmd.getName() == "PushTrackEcef":
+      raise Exception("You cannot call a PushTrackEcef command. Post it or use RemoteSimulator.pushTrackEcef() or RemoteSimulator.pushTrackLla() instead.")
+    if cmd.getName() == "PushTrackEcefNed":
+      raise Exception("You cannot call a PushTrackEcefNed command. Post it or use RemoteSimulator.pushTrackEcefNed() or RemoteSimulator.pushTrackLlaNed() instead.")
+    if cmd.getName() == "PushIntTxTrackEcef":
+      raise Exception("You cannot call a PushIntTxTrackEcef command. Post it or use RemoteSimulator.pushIntTxTrackEcef() or RemoteSimulator.pushIntTxTrackLla() instead.")
+    if cmd.getName() == "PushIntTxTrackEcefNed":
+      raise Exception("You cannot call a PushIntTxTrackEcefNed command. Post it or use RemoteSimulator.pushIntTxTrackEcefNed() or RemoteSimulator.pushIntTxTrackLlaNed() instead.")
   
   def checkIfStreaming(self):
     self._checkConnect()
@@ -184,7 +192,7 @@ class RemoteSimulator:
     elif stateResult.state() == "Error":
       errorMsg = "An error occured during simulation. Error message:\n" + stateResult.error() 
     else:
-      errorMsg = "Wrong simulator state. Expected", state, "but received ", stateResult.state()
+      errorMsg = "Wrong simulator state. Expected ", state, " but received ", stateResult.state()
       
     if self.exception_on_error:
       raise Exception(errorMsg)
@@ -211,17 +219,69 @@ class RemoteSimulator:
     if not self.isConnected():
       raise Exception("You are not connected.")
   
+  # Send Skydel an HIL timed position of the vehicle. The position is provided in the LLA coordinate system.
+  #
+  #  Parameter     Type              Units                            Description
+  #  -------------------------------------------------------------------------------------------------------
+  #  elapsedTime   double            milliseconds                     Time since the beginning of the simulation.
+  #  position      LLA Object        lat (rad), long (rad), alt (m)   Position of the vehicle.
+  #  dest          optional string                                    If empty, sends the position for the vehicle. 
+  #                                                                   If set with a jammerID, sends the position for 
+  #                                                                   the specified jammer's vehicle.
+  #
   def pushLla(self, elapsedTime, lla, dest = ""):
     return self.pushEcef(elapsedTime, lla.toEcef(), dest = dest)
-    
+
+  # Send Skydel a timed ECEF-referenced position with the associated dynamics.
+  #
+  #  Parameter      Type                   Units            Description
+  #  -------------------------------------------------------------------------------------------------------
+  #  elapsedTime    double                 milliseconds     Time since the beginning of the simulation.
+  #  position       Ecef Object            x, y, z (m)      Position of the vehicle.
+  #  velocity       optional Ecef Object   x, y, z (m/s)    Velocity of the vehicle.
+  #  acceleration   optional Ecef Object   x, y, z (m/s²)   Acceleration of the vehicle.
+  #  jerk           optional Ecef Object   x, y, z (m/s³)   Jerk of the vehicle.
+  #  dest           optional string)                        If empty, sends the position for the vehicle. 
+  #                                                         If set with a jammerID, sends the position for 
+  #                                                         the specified jammer's vehicle.
+  #
   def pushEcef(self, elapsedTime, position, velocity = None, acceleration = None, jerk = None, dest = ""):
     self.hil.pushEcef(elapsedTime, position, velocity, acceleration, jerk, dest)
     return self._checkHil(position, elapsedTime)
 
+  # Send Skydel an HIL timed position, orientation, and the associated dynamics of the vehicle. 
+  # The position is provided in the ECEF coordinate system, while the body's orientation is specified relative
+  # to the local NED reference frame.
+  #
+  #  Parameter             Type                       Units                       Description
+  #  -------------------------------------------------------------------------------------------------------
+  #  elapsedTime           double                     milliseconds                Time since the beginning of the simulation.
+  #  position              Ecef Object                x, y, z (m)                 Position of the vehicle.
+  #  attitude              Attitude Object            yaw, pitch, roll (rad)      Orientation of the vehicle's body.
+  #  velocity              optional Ecef Object       x, y, z (m/s)               Velocity of the vehicle.
+  #  angularVelocity       optional Attitude Object   yaw, pitch, roll(rad/s)     Rotational velocity of the vehicle's body.
+  #  acceleration          optional Ecef Object       x, y , z (m/s²)             Acceleration of the vehicle.
+  #  angularAcceleration   optional Attitude Object   yaw, pitch, roll (rad/s²)   Rotational acceleration of the vehicle's body.
+  #  jerk                  optional Ecef Object       x, y, z (m/s³)              Jerk of the vehicle.
+  #  angularJerk           optional Attitude Object   yaw, pitch, roll (rad/s³)   Rotational jerk of the vehicle's body.
+  #  dest                  optional string                                        If empty, sends the position for the vehicle. 
+  #                                                                               If set with a jammerID, sends the position for 
+  #                                                                               the specified jammer's vehicle.
+  #
   def pushEcefNed(self, elapsedTime, position, attitude, velocity = None, angularVelocity = None, acceleration = None, angularAcceleration = None, jerk = None, angularJerk = None, dest = ""):
     self.hil.pushEcefNed(elapsedTime, position, attitude, velocity, angularVelocity, acceleration, angularAcceleration, jerk, angularJerk, dest)
     return self._checkHil(str(position)+", "+str(attitude), elapsedTime)
-    
+
+  # Send Skydel an HIL timed position and orientation of the vehicle. 
+  # The position is provided in the LLA coordinate system, while the body's orientation is specified relative 
+  # to the local NED reference frame.
+  #
+  #  Parameter     Type              Units                            Description
+  #  -------------------------------------------------------------------------------------------------------
+  #  elapsedTime   double            milliseconds                     Time since the beginning of the simulation.
+  #  position      LLA Object        lat (rad), long (rad), alt (m)   Position of the vehicle.
+  #  attitude      Attitude Object   yaw, pitch, roll (rad)           Orientation of the vehicle's body.
+  #
   def pushLlaNed(self, elapsedTime, lla, attitude):
     return self.pushEcefNed(elapsedTime, lla.toEcef(), attitude)
   
@@ -306,7 +366,7 @@ class RemoteSimulator:
       return 0
     
     if self.verbose: 
-      print("End route contains " + str(trackResult.count()) + "nodes.")
+      print("End route contains " + str(trackResult.count()) + " nodes.")
       
     return trackResult.count()
 
@@ -353,7 +413,7 @@ class RemoteSimulator:
       return 0
     
     if self.verbose: 
-      print("End transmitter track contains " + str(trackResult.count()) + "nodes.")
+      print("End transmitter track contains " + str(trackResult.count()) + " nodes.")
 	  
     return trackResult.count()
   
@@ -378,7 +438,7 @@ class RemoteSimulator:
   
   def post(self, cmd, timestamp=None):
     self._checkConnect()
-    self._checkForbidden(cmd)
+    self._checkForbiddenPost(cmd)
     if self.verbose:
       print("Post " + cmd.toString())
     self._postCommand(cmd, timestamp)
@@ -396,7 +456,7 @@ class RemoteSimulator:
     
   def call(self, cmd, timestamp=None):
     self._checkConnect()
-    self._checkForbidden(cmd)
+    self._checkForbiddenCall(cmd)
     self._postCommand(cmd, timestamp)
     if self.verbose:
       sys.stdout.write("Call " + cmd.toString())

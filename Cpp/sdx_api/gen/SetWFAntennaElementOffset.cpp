@@ -14,7 +14,9 @@ namespace Sdx
   namespace Cmd
   {
     const char* const SetWFAntennaElementOffset::CmdName = "SetWFAntennaElementOffset";
-    const char* const SetWFAntennaElementOffset::Documentation = "Set WF antenna offset and orientation relative to CRPA Antenna frame for the specified element index.";
+    const char* const SetWFAntennaElementOffset::Documentation = "Please note the command SetWFAntennaElementOffset is deprecated since 23.11. You may use SetVehicleAntennaOffset.\n\nSet WF antenna offset and orientation relative to CRPA Antenna frame for the specified element index.";
+
+    const char* const SetWFAntennaElementOffset::Deprecated = "Please note the command SetWFAntennaElementOffset is deprecated since 23.11. You may use SetVehicleAntennaOffset.";
 
     REGISTER_COMMAND_FACTORY(SetWFAntennaElementOffset);
 
@@ -62,6 +64,8 @@ namespace Sdx
     }
 
     std::string SetWFAntennaElementOffset::documentation() const { return Documentation; }
+
+    Sdx::optional<std::string> SetWFAntennaElementOffset::deprecated() const { return Sdx::optional<std::string>{Deprecated}; }
 
 
     int SetWFAntennaElementOffset::executePermission() const

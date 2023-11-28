@@ -11,6 +11,8 @@ namespace Sdx
   namespace Cmd
   {
     ///
+    /// Please note the command SetBeiDouEphBoolParamForSV is deprecated since 23.11. You may use SetConstellationParameterForSV.
+    /// 
     /// Set various boolean parameters in the BeiDou ephemeris
     /// 
     ///   ParamName
@@ -35,6 +37,8 @@ namespace Sdx
       static const char* const CmdName;
       static const char* const Documentation;
 
+      static const char* const Deprecated;
+
 
       SetBeiDouEphBoolParamForSV();
 
@@ -44,6 +48,8 @@ namespace Sdx
       static SetBeiDouEphBoolParamForSVPtr dynamicCast(CommandBasePtr ptr);
       virtual bool isValid() const override;
       virtual std::string documentation() const override;
+
+      virtual Sdx::optional<std::string> deprecated() const override;
 
       virtual int executePermission() const override;
 

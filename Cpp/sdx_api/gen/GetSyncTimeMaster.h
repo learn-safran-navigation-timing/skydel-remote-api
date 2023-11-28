@@ -10,6 +10,8 @@ namespace Sdx
   namespace Cmd
   {
     ///
+    /// Please note the command GetSyncTimeMaster is deprecated since 23.11. You may use GetSyncTimeMainInstance.
+    /// 
     /// Get time delay to start streaming after PPS synchronization. A value of 1500
     /// means the simulation will start streaming 1.5 sec after the PPS used for
     /// synchornization.

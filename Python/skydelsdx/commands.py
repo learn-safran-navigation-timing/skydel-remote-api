@@ -3,7 +3,7 @@ from .commandbase import CommandBase
 from .commandresult import CommandResult
 from .commandbase import ExecutePermission
 
-ApiVersion = 41
+ApiVersion = 42
 
 #
 # The GPS AS flag value.
@@ -36,15 +36,15 @@ class SimulatorSubState:
   Started_InitHardware = 4
   Started_Streaming = 5
   Started_SyncInit = 6
-  Started_SlaveSync = 7
+  Started_WorkerSync = 7
   Started_Armed = 8
   Started_SyncStartTime = 9
   Error = 10
   Started_HILSync = 11
   Started_SyncPPSReset = 12
   Started_SyncStart = 13
-  Started_WFSlaveInit = 14
-  Started_WFMasterInit = 15
+  Started_WFWorkerInit = 14
+  Started_WFMainInit = 15
   Started_WFSyncPPSReset = 16
   Started_WFSyncStart = 17
 
@@ -3144,12 +3144,38 @@ class LogNmeaRateResult(CommandResult):
     return self.set("Rate", value)
 
 #
-# Enable/Disable Time Synchronization Master.
-# The Master will control other Skydel simulators with Slave PPS Enabled.
+# Enable/Disable Time Synchronization on main instance.
+# The main instance will control other Skydel simulators with main instance PPS Enabled.
 #
 # Name    Type Description
-# ------- ---- ---------------------------------------------------------------------
-# Enabled bool If true, this simulator will be the master to synchronize simulators.
+# ------- ---- ----------------------------------------------------------------------------
+# Enabled bool If true, this simulator will be the main instance to synchronize simulators.
+#
+
+class EnableMainInstanceSync(CommandBase):
+
+  def __init__(self, enabled):
+    CommandBase.__init__(self, "EnableMainInstanceSync")
+    self.setEnabled(enabled)
+
+  def executePermission(self):
+    return ExecutePermission.EXECUTE_IF_IDLE
+
+  def enabled(self):
+    return self.get("Enabled")
+
+  def setEnabled(self, value):
+    return self.set("Enabled", value)
+
+#
+# Please note the command EnableMasterPps is deprecated since 23.11. You may use EnableMainInstanceSync.
+# 
+# Enable/Disable Time Synchronization on main instance.
+# The main instance will control other Skydel simulators with main instance PPS Enabled.
+#
+# Name    Type Description
+# ------- ---- ----------------------------------------------------------------------------
+# Enabled bool If true, this simulator will be the main instance to synchronize simulators.
 #
 
 class EnableMasterPps(CommandBase):
@@ -3168,50 +3194,50 @@ class EnableMasterPps(CommandBase):
     return self.set("Enabled", value)
 
 #
-# Request for the master status, returns a GetMasterStatusResult
+# Request for the main instance status, returns a GetMainInstanceStatusResult
 #
 #
 
-class GetMasterStatus(CommandBase):
+class GetMainInstanceStatus(CommandBase):
 
   def __init__(self):
-    CommandBase.__init__(self, "GetMasterStatus")
+    CommandBase.__init__(self, "GetMainInstanceStatus")
 
   def executePermission(self):
     return ExecutePermission.EXECUTE_IF_IDLE | ExecutePermission.EXECUTE_IF_SIMULATING
 
 #
-# Result of GetMasterStatus.
+# Result of GetMainInstanceStatus.
 #
-# Name           Type Description
-# -------------- ---- -------------------------------------
-# IsMaster       bool True if Skydel is in master mode
-# SlaveConnected int  The number of connected slaves
-# Port           int  The listening port, 0 if not a master
+# Name                    Type Description
+# ----------------------- ---- --------------------------------------------
+# IsMainInstance          bool True if Skydel is in main instance mode
+# WorkerInstanceConnected int  The number of connected worker instances
+# Port                    int  The listening port, 0 if not a main instance
 #
 
-class GetMasterStatusResult(CommandResult):
+class GetMainInstanceStatusResult(CommandResult):
 
-  def __init__(self, isMaster, slaveConnected, port):
-    CommandResult.__init__(self, "GetMasterStatusResult")
-    self.setIsMaster(isMaster)
-    self.setSlaveConnected(slaveConnected)
+  def __init__(self, isMainInstance, workerInstanceConnected, port):
+    CommandResult.__init__(self, "GetMainInstanceStatusResult")
+    self.setIsMainInstance(isMainInstance)
+    self.setWorkerInstanceConnected(workerInstanceConnected)
     self.setPort(port)
 
   def isSuccess(self):
     return True
 
-  def isMaster(self):
-    return self.get("IsMaster")
+  def isMainInstance(self):
+    return self.get("IsMainInstance")
 
-  def setIsMaster(self, value):
-    return self.set("IsMaster", value)
+  def setIsMainInstance(self, value):
+    return self.set("IsMainInstance", value)
 
-  def slaveConnected(self):
-    return self.get("SlaveConnected")
+  def workerInstanceConnected(self):
+    return self.get("WorkerInstanceConnected")
 
-  def setSlaveConnected(self, value):
-    return self.set("SlaveConnected", value)
+  def setWorkerInstanceConnected(self, value):
+    return self.set("WorkerInstanceConnected", value)
 
   def port(self):
     return self.get("Port")
@@ -3220,12 +3246,38 @@ class GetMasterStatusResult(CommandResult):
     return self.set("Port", value)
 
 #
-# Enable/Disable Time Synchronization Slave.
-# The Slave will wait for the Master to synchronize the simulators.
+# Enable/Disable Time Synchronization on worker instance.
+# The worker instance will wait for the main instance to synchronize the simulators.
 #
 # Name    Type Description
-# ------- ---- ---------------------------------------------------------------------------
-# Enabled bool If true, this simulator will wait for the master to synchronize simulators.
+# ------- ---- ----------------------------------------------------------------------------------
+# Enabled bool If true, this simulator will wait for the main instance to synchronize simulators.
+#
+
+class EnableWorkerInstanceSync(CommandBase):
+
+  def __init__(self, enabled):
+    CommandBase.__init__(self, "EnableWorkerInstanceSync")
+    self.setEnabled(enabled)
+
+  def executePermission(self):
+    return ExecutePermission.EXECUTE_IF_IDLE
+
+  def enabled(self):
+    return self.get("Enabled")
+
+  def setEnabled(self, value):
+    return self.set("Enabled", value)
+
+#
+# Please note the command EnableSlavePps is deprecated since 23.11. You may use EnableWorkerInstanceSync.
+# 
+# Enable/Disable Time Synchronization on worker instance.
+# The worker instance will wait for the main instance to synchronize the simulators.
+#
+# Name    Type Description
+# ------- ---- ----------------------------------------------------------------------------------
+# Enabled bool If true, this simulator will wait for the main instance to synchronize simulators.
 #
 
 class EnableSlavePps(CommandBase):
@@ -3244,34 +3296,34 @@ class EnableSlavePps(CommandBase):
     return self.set("Enabled", value)
 
 #
-# Request for the slave status, returns a GetSlaveStatusResult
+# Request for the worker instance status, returns a GetWorkerInstanceStatusResult
 #
 #
 
-class GetSlaveStatus(CommandBase):
+class GetWorkerInstanceStatus(CommandBase):
 
   def __init__(self):
-    CommandBase.__init__(self, "GetSlaveStatus")
+    CommandBase.__init__(self, "GetWorkerInstanceStatus")
 
   def executePermission(self):
     return ExecutePermission.EXECUTE_IF_IDLE | ExecutePermission.EXECUTE_IF_SIMULATING
 
 #
-# Result of GetSlaveStatus.
+# Result of GetWorkerInstanceStatus.
 #
-# Name        Type   Description
-# ----------- ------ ---------------------------------------
-# IsSlave     bool   True if Skydel is in slave mode
-# IsConnected bool   True if Skydel is connected to a master
-# HostName    string The host name, empty if not a slave
-# HostPort    int    The host port, 0 if not a slave
+# Name             Type   Description
+# ---------------- ------ ----------------------------------------------
+# IsWorkerInstance bool   True if Skydel is in worker instance mode
+# IsConnected      bool   True if Skydel is connected to a main instance
+# HostName         string The host name, empty if not a worker instance
+# HostPort         int    The host port, 0 if not a worker instance
 #
 
-class GetSlaveStatusResult(CommandResult):
+class GetWorkerInstanceStatusResult(CommandResult):
 
-  def __init__(self, isSlave, isConnected, hostName, hostPort):
-    CommandResult.__init__(self, "GetSlaveStatusResult")
-    self.setIsSlave(isSlave)
+  def __init__(self, isWorkerInstance, isConnected, hostName, hostPort):
+    CommandResult.__init__(self, "GetWorkerInstanceStatusResult")
+    self.setIsWorkerInstance(isWorkerInstance)
     self.setIsConnected(isConnected)
     self.setHostName(hostName)
     self.setHostPort(hostPort)
@@ -3279,11 +3331,11 @@ class GetSlaveStatusResult(CommandResult):
   def isSuccess(self):
     return True
 
-  def isSlave(self):
-    return self.get("IsSlave")
+  def isWorkerInstance(self):
+    return self.get("IsWorkerInstance")
 
-  def setIsSlave(self, value):
-    return self.set("IsSlave", value)
+  def setIsWorkerInstance(self, value):
+    return self.set("IsWorkerInstance", value)
 
   def isConnected(self):
     return self.get("IsConnected")
@@ -10730,426 +10782,6 @@ class GetWFAntennaOffsetResult(CommandResult):
     return self.set("Roll", value)
 
 #
-# Set WF antenna offset and orientation relative to CRPA Antenna frame for the specified element index.
-#
-# Name    Type   Description
-# ------- ------ -------------------------------------------------------
-# X       double WF Element X offset in the CRPA antenna frame (meter)
-# Y       double WF Element Y offset in the CRPA antenna frame (meter)
-# Z       double WF Element Z offset in the CRPA antenna frame (meter)
-# Yaw     double WF Element Yaw offset in the CRPA antenna frame (rad)
-# Pitch   double WF Element Pitch offset in the CRPA antenna frame (rad)
-# Roll    double WF Element Roll offset in the CRPA antenna frame (rad)
-# Element int    One-based index for element in antenna.
-#
-
-class SetWFAntennaElementOffset(CommandBase):
-
-  def __init__(self, x, y, z, yaw, pitch, roll, element):
-    CommandBase.__init__(self, "SetWFAntennaElementOffset")
-    self.setX(x)
-    self.setY(y)
-    self.setZ(z)
-    self.setYaw(yaw)
-    self.setPitch(pitch)
-    self.setRoll(roll)
-    self.setElement(element)
-
-  def executePermission(self):
-    return ExecutePermission.EXECUTE_IF_IDLE
-
-  def x(self):
-    return self.get("X")
-
-  def setX(self, value):
-    return self.set("X", value)
-
-  def y(self):
-    return self.get("Y")
-
-  def setY(self, value):
-    return self.set("Y", value)
-
-  def z(self):
-    return self.get("Z")
-
-  def setZ(self, value):
-    return self.set("Z", value)
-
-  def yaw(self):
-    return self.get("Yaw")
-
-  def setYaw(self, value):
-    return self.set("Yaw", value)
-
-  def pitch(self):
-    return self.get("Pitch")
-
-  def setPitch(self, value):
-    return self.set("Pitch", value)
-
-  def roll(self):
-    return self.get("Roll")
-
-  def setRoll(self, value):
-    return self.set("Roll", value)
-
-  def element(self):
-    return self.get("Element")
-
-  def setElement(self, value):
-    return self.set("Element", value)
-
-#
-# Get the WF antenna offset infos for this element.
-#
-# Name    Type Description
-# ------- ---- ---------------------------------------
-# Element int  One-based index for element in antenna.
-#
-
-class GetWFAntennaElementOffset(CommandBase):
-
-  def __init__(self, element):
-    CommandBase.__init__(self, "GetWFAntennaElementOffset")
-    self.setElement(element)
-
-  def executePermission(self):
-    return ExecutePermission.EXECUTE_IF_IDLE
-
-  def element(self):
-    return self.get("Element")
-
-  def setElement(self, value):
-    return self.set("Element", value)
-
-#
-# Result of GetWFAntennaElementOffset.
-#
-# Name    Type   Description
-# ------- ------ -------------------------------------------------------
-# X       double WF Element X offset in the CRPA antenna frame (meter)
-# Y       double WF Element Y offset in the CRPA antenna frame (meter)
-# Z       double WF Element Z offset in the CRPA antenna frame (meter)
-# Yaw     double WF Element Yaw offset in the CRPA antenna frame (rad)
-# Pitch   double WF Element Pitch offset in the CRPA antenna frame (rad)
-# Roll    double WF Element Roll offset in the CRPA antenna frame (rad)
-# Element int    One-based index for element in antenna.
-#
-
-class GetWFAntennaElementOffsetResult(CommandResult):
-
-  def __init__(self, x, y, z, yaw, pitch, roll, element):
-    CommandResult.__init__(self, "GetWFAntennaElementOffsetResult")
-    self.setX(x)
-    self.setY(y)
-    self.setZ(z)
-    self.setYaw(yaw)
-    self.setPitch(pitch)
-    self.setRoll(roll)
-    self.setElement(element)
-
-  def isSuccess(self):
-    return True
-
-  def x(self):
-    return self.get("X")
-
-  def setX(self, value):
-    return self.set("X", value)
-
-  def y(self):
-    return self.get("Y")
-
-  def setY(self, value):
-    return self.set("Y", value)
-
-  def z(self):
-    return self.get("Z")
-
-  def setZ(self, value):
-    return self.set("Z", value)
-
-  def yaw(self):
-    return self.get("Yaw")
-
-  def setYaw(self, value):
-    return self.set("Yaw", value)
-
-  def pitch(self):
-    return self.get("Pitch")
-
-  def setPitch(self, value):
-    return self.set("Pitch", value)
-
-  def roll(self):
-    return self.get("Roll")
-
-  def setRoll(self, value):
-    return self.set("Roll", value)
-
-  def element(self):
-    return self.get("Element")
-
-  def setElement(self, value):
-    return self.set("Element", value)
-
-#
-# Set WF Antenna model for this element
-#
-# Name             Type   Description
-# ---------------- ------ ----------------------------------------------------------------------------------------------------
-# AntennaModelName string Antenna Model name to set for this element. Antenna models must be defined in vehicle antenna model.
-# Element          int    One-based index for element in antenna.
-#
-
-class SetWFAntennaElementModel(CommandBase):
-
-  def __init__(self, antennaModelName, element):
-    CommandBase.__init__(self, "SetWFAntennaElementModel")
-    self.setAntennaModelName(antennaModelName)
-    self.setElement(element)
-
-  def executePermission(self):
-    return ExecutePermission.EXECUTE_IF_IDLE
-
-  def antennaModelName(self):
-    return self.get("AntennaModelName")
-
-  def setAntennaModelName(self, value):
-    return self.set("AntennaModelName", value)
-
-  def element(self):
-    return self.get("Element")
-
-  def setElement(self, value):
-    return self.set("Element", value)
-
-#
-# Get WF Antenna model for this element
-#
-# Name    Type Description
-# ------- ---- ---------------------------------------
-# Element int  One-based index for element in antenna.
-#
-
-class GetWFAntennaElementModel(CommandBase):
-
-  def __init__(self, element):
-    CommandBase.__init__(self, "GetWFAntennaElementModel")
-    self.setElement(element)
-
-  def executePermission(self):
-    return ExecutePermission.EXECUTE_IF_IDLE
-
-  def element(self):
-    return self.get("Element")
-
-  def setElement(self, value):
-    return self.set("Element", value)
-
-#
-# Result of GetWFAntennaElementModel.
-#
-# Name             Type   Description
-# ---------------- ------ ----------------------------------------------------------------------------------------------------
-# AntennaModelName string Antenna Model name to set for this element. Antenna models must be defined in vehicle antenna model.
-# Element          int    One-based index for element in antenna.
-#
-
-class GetWFAntennaElementModelResult(CommandResult):
-
-  def __init__(self, antennaModelName, element):
-    CommandResult.__init__(self, "GetWFAntennaElementModelResult")
-    self.setAntennaModelName(antennaModelName)
-    self.setElement(element)
-
-  def isSuccess(self):
-    return True
-
-  def antennaModelName(self):
-    return self.get("AntennaModelName")
-
-  def setAntennaModelName(self, value):
-    return self.set("AntennaModelName", value)
-
-  def element(self):
-    return self.get("Element")
-
-  def setElement(self, value):
-    return self.set("Element", value)
-
-#
-# Set WF Antenna phase pattern offset (in rad) for this element
-#
-# Name        Type   Description
-# ----------- ------ -------------------------------------------------------------------------
-# PhaseOffset double Antenna phase pattern offset (in rad) to set for this element. [-Pi ; Pi]
-# Element     int    One-based index for element in antenna.
-#
-
-class SetWFAntennaElementPhasePatternOffset(CommandBase):
-
-  def __init__(self, phaseOffset, element):
-    CommandBase.__init__(self, "SetWFAntennaElementPhasePatternOffset")
-    self.setPhaseOffset(phaseOffset)
-    self.setElement(element)
-
-  def executePermission(self):
-    return ExecutePermission.EXECUTE_IF_IDLE
-
-  def phaseOffset(self):
-    return self.get("PhaseOffset")
-
-  def setPhaseOffset(self, value):
-    return self.set("PhaseOffset", value)
-
-  def element(self):
-    return self.get("Element")
-
-  def setElement(self, value):
-    return self.set("Element", value)
-
-#
-# Get WF Antenna phase pattern offset (in rad) for this element
-#
-# Name    Type Description
-# ------- ---- ---------------------------------------
-# Element int  One-based index for element in antenna.
-#
-
-class GetWFAntennaElementPhasePatternOffset(CommandBase):
-
-  def __init__(self, element):
-    CommandBase.__init__(self, "GetWFAntennaElementPhasePatternOffset")
-    self.setElement(element)
-
-  def executePermission(self):
-    return ExecutePermission.EXECUTE_IF_IDLE
-
-  def element(self):
-    return self.get("Element")
-
-  def setElement(self, value):
-    return self.set("Element", value)
-
-#
-# Result of GetWFAntennaElementPhasePatternOffset.
-#
-# Name        Type   Description
-# ----------- ------ -------------------------------------------------------------------------
-# PhaseOffset double Antenna phase pattern offset (in rad) to set for this element. [-Pi ; Pi]
-# Element     int    One-based index for element in antenna.
-#
-
-class GetWFAntennaElementPhasePatternOffsetResult(CommandResult):
-
-  def __init__(self, phaseOffset, element):
-    CommandResult.__init__(self, "GetWFAntennaElementPhasePatternOffsetResult")
-    self.setPhaseOffset(phaseOffset)
-    self.setElement(element)
-
-  def isSuccess(self):
-    return True
-
-  def phaseOffset(self):
-    return self.get("PhaseOffset")
-
-  def setPhaseOffset(self, value):
-    return self.set("PhaseOffset", value)
-
-  def element(self):
-    return self.get("Element")
-
-  def setElement(self, value):
-    return self.set("Element", value)
-
-#
-# Set WF antenna element enabled or disabled. A disabled antenna element is not simulated at all.
-#
-# Name    Type Description
-# ------- ---- -------------------------------------------------
-# Element int  One-based index for element in antenna.
-# Enabled bool If True, this antenna element will bil simulated.
-#
-
-class SetWFAntennaElementEnabled(CommandBase):
-
-  def __init__(self, element, enabled):
-    CommandBase.__init__(self, "SetWFAntennaElementEnabled")
-    self.setElement(element)
-    self.setEnabled(enabled)
-
-  def executePermission(self):
-    return ExecutePermission.EXECUTE_IF_IDLE
-
-  def element(self):
-    return self.get("Element")
-
-  def setElement(self, value):
-    return self.set("Element", value)
-
-  def enabled(self):
-    return self.get("Enabled")
-
-  def setEnabled(self, value):
-    return self.set("Enabled", value)
-
-#
-# Get whether an antenna element is enabled or disabled.
-#
-# Name    Type Description
-# ------- ---- ---------------------------------------
-# Element int  One-based index for element in antenna.
-#
-
-class IsWFAntennaElementEnabled(CommandBase):
-
-  def __init__(self, element):
-    CommandBase.__init__(self, "IsWFAntennaElementEnabled")
-    self.setElement(element)
-
-  def executePermission(self):
-    return ExecutePermission.EXECUTE_IF_IDLE
-
-  def element(self):
-    return self.get("Element")
-
-  def setElement(self, value):
-    return self.set("Element", value)
-
-#
-# Result of IsWFAntennaElementEnabled.
-#
-# Name    Type Description
-# ------- ---- -------------------------------------------------
-# Element int  One-based index for element in antenna.
-# Enabled bool If True, this antenna element will bil simulated.
-#
-
-class IsWFAntennaElementEnabledResult(CommandResult):
-
-  def __init__(self, element, enabled):
-    CommandResult.__init__(self, "IsWFAntennaElementEnabledResult")
-    self.setElement(element)
-    self.setEnabled(enabled)
-
-  def isSuccess(self):
-    return True
-
-  def element(self):
-    return self.get("Element")
-
-  def setElement(self, value):
-    return self.set("Element", value)
-
-  def enabled(self):
-    return self.get("Enabled")
-
-  def setEnabled(self, value):
-    return self.set("Enabled", value)
-
-#
 # Get a list of all space vehicle antenna names.
 #
 # Name   Type   Description
@@ -14270,571 +13902,6 @@ class GetEphemerisReferenceTimeForSVResult(CommandResult):
     return self.set("DataSetName", value)
 
 #
-# Set various parameters in the GPS ephemeris
-# 
-#   ParamName         Unit
-#   "ClockBias"       sec
-#   "ClockDrift"      sec/sec
-#   "ClockDriftRate"  sec/sec^2
-#   "Crs"             meter
-#   "Crc"             meter
-#   "Cis"             rad
-#   "Cic"             rad
-#   "Cus"             rad
-#   "Cuc"             rad
-#   "DeltaN"          rad/sec
-#   "M0"              rad
-#   "Eccentricity"    -
-#   "SqrtA"           sqrt(meter)
-#   "BigOmega"        rad
-#   "I0"              rad
-#   "LittleOmega"     rad
-#   "BigOmegaDot"     rad/sec
-#   "Idot"            rad/sec
-#   "Accuracy"        meter
-#   "Adot"            meters/sec
-#   "DeltaN0dot"      rad/sec^2
-#   "Tgd"             sec
-#   "IscL1Ca"         sec
-#   "IscL2C"          sec
-#   "IscL5I5"         sec
-#   "IscL5Q5"         sec
-#   "IscL1CP"         sec
-#   "IscL1CD"         sec
-#
-# Name        Type            Description
-# ----------- --------------- -------------------------------------------------------------------------------------------
-# SvId        int             Satellite SV ID 1..32, or use 0 to apply new value to all satellites.
-# ParamName   string          Parameter name (see table above for accepted names)
-# Val         double          Parameter value (see table above for unit)
-# DataSetName optional string Optional name of the data set to use. If no value is provided, the active data set is used.
-#
-
-class SetGpsEphDoubleParamForSV(CommandBase):
-
-  def __init__(self, svId, paramName, val, dataSetName = None):
-    CommandBase.__init__(self, "SetGpsEphDoubleParamForSV")
-    self.setSvId(svId)
-    self.setParamName(paramName)
-    self.setVal(val)
-    self.setDataSetName(dataSetName)
-
-  def executePermission(self):
-    return ExecutePermission.EXECUTE_IF_IDLE
-
-  def svId(self):
-    return self.get("SvId")
-
-  def setSvId(self, value):
-    return self.set("SvId", value)
-
-  def paramName(self):
-    return self.get("ParamName")
-
-  def setParamName(self, value):
-    return self.set("ParamName", value)
-
-  def val(self):
-    return self.get("Val")
-
-  def setVal(self, value):
-    return self.set("Val", value)
-
-  def dataSetName(self):
-    return self.get("DataSetName")
-
-  def setDataSetName(self, value):
-    return self.set("DataSetName", value)
-
-#
-# Get various parameters in the GPS ephemeris
-# 
-#   ParamName         Unit
-#   "ClockBias"       sec
-#   "ClockDrift"      sec/sec
-#   "ClockDriftRate"  sec/sec^2
-#   "Crs"             meter
-#   "Crc"             meter
-#   "Cis"             rad
-#   "Cic"             rad
-#   "Cus"             rad
-#   "Cuc"             rad
-#   "DeltaN"          rad/sec
-#   "M0"              rad
-#   "Eccentricity"    -
-#   "SqrtA"           sqrt(meter)
-#   "BigOmega"        rad
-#   "I0"              rad
-#   "LittleOmega"     rad
-#   "BigOmegaDot"     rad/sec
-#   "Idot"            rad/sec
-#   "Accuracy"        meter
-#   "Adot"            meters/sec
-#   "DeltaN0dot"      rad/sec^2
-#   "Tgd"             sec
-#   "IscL1Ca"         sec
-#   "IscL2C"          sec
-#   "IscL5I5"         sec
-#   "IscL5Q5"         sec
-#   "IscL1CP"         sec
-#   "IscL1CD"         sec
-#
-# Name        Type            Description
-# ----------- --------------- -------------------------------------------------------------------------------------------
-# SvId        int             Satellite SV ID 1..32, or use 0 to apply new value to all satellites.
-# ParamName   string          Parameter name (see table above for accepted names)
-# DataSetName optional string Optional name of the data set to use. If no value is provided, the active data set is used.
-#
-
-class GetGpsEphDoubleParamForSV(CommandBase):
-
-  def __init__(self, svId, paramName, dataSetName = None):
-    CommandBase.__init__(self, "GetGpsEphDoubleParamForSV")
-    self.setSvId(svId)
-    self.setParamName(paramName)
-    self.setDataSetName(dataSetName)
-
-  def executePermission(self):
-    return ExecutePermission.EXECUTE_IF_IDLE
-
-  def svId(self):
-    return self.get("SvId")
-
-  def setSvId(self, value):
-    return self.set("SvId", value)
-
-  def paramName(self):
-    return self.get("ParamName")
-
-  def setParamName(self, value):
-    return self.set("ParamName", value)
-
-  def dataSetName(self):
-    return self.get("DataSetName")
-
-  def setDataSetName(self, value):
-    return self.set("DataSetName", value)
-
-#
-# Result of GetGpsEphDoubleParamForSV.
-#
-# Name        Type            Description
-# ----------- --------------- -------------------------------------------------------------------------------------------
-# SvId        int             Satellite SV ID 1..32, or use 0 to apply new value to all satellites.
-# ParamName   string          Parameter name (see table above for accepted names)
-# Val         double          Parameter value (see table above for unit)
-# DataSetName optional string Optional name of the data set to use. If no value is provided, the active data set is used.
-#
-
-class GetGpsEphDoubleParamForSVResult(CommandResult):
-
-  def __init__(self, svId, paramName, val, dataSetName = None):
-    CommandResult.__init__(self, "GetGpsEphDoubleParamForSVResult")
-    self.setSvId(svId)
-    self.setParamName(paramName)
-    self.setVal(val)
-    self.setDataSetName(dataSetName)
-
-  def isSuccess(self):
-    return True
-
-  def svId(self):
-    return self.get("SvId")
-
-  def setSvId(self, value):
-    return self.set("SvId", value)
-
-  def paramName(self):
-    return self.get("ParamName")
-
-  def setParamName(self, value):
-    return self.set("ParamName", value)
-
-  def val(self):
-    return self.get("Val")
-
-  def setVal(self, value):
-    return self.set("Val", value)
-
-  def dataSetName(self):
-    return self.get("DataSetName")
-
-  def setDataSetName(self, value):
-    return self.set("DataSetName", value)
-
-#
-# Set various parameters in the Galileo ephemeris
-# 
-#   ParamName         Unit
-#   "ClockBias"       sec
-#   "ClockDrift"      sec/sec
-#   "ClockDriftRate"  sec/sec^2
-#   "Crs"             meter
-#   "Crc"             meter
-#   "Cis"             rad
-#   "Cic"             rad
-#   "Cus"             rad
-#   "Cuc"             rad
-#   "DeltaN"          rad/sec
-#   "M0"              rad
-#   "Eccentricity"    -
-#   "SqrtA"           sqrt(meter)
-#   "BigOmega"        rad
-#   "I0"              rad
-#   "LittleOmega"     rad
-#   "BigOmegaDot"     rad/sec
-#   "Idot"            rad/sec
-#   "Accuracy"        meter
-#   "Adot"            meters/sec
-#   "DeltaN0dot"      rad/sec^2
-#   "Tgd"             sec
-#   "BgdE1E5a"        ns
-#   "BgdE1E5b"        ns
-#
-# Name        Type            Description
-# ----------- --------------- -------------------------------------------------------------------------------------------
-# SvId        int             Satellite SV ID 1..36, or use 0 to apply new value to all satellites
-# ParamName   string          Parameter name (see table above for accepted names)
-# Val         double          Parameter value (see table above for unit)
-# DataSetName optional string Optional name of the data set to use. If no value is provided, the active data set is used.
-#
-
-class SetGalileoEphDoubleParamForSV(CommandBase):
-
-  def __init__(self, svId, paramName, val, dataSetName = None):
-    CommandBase.__init__(self, "SetGalileoEphDoubleParamForSV")
-    self.setSvId(svId)
-    self.setParamName(paramName)
-    self.setVal(val)
-    self.setDataSetName(dataSetName)
-
-  def executePermission(self):
-    return ExecutePermission.EXECUTE_IF_IDLE
-
-  def svId(self):
-    return self.get("SvId")
-
-  def setSvId(self, value):
-    return self.set("SvId", value)
-
-  def paramName(self):
-    return self.get("ParamName")
-
-  def setParamName(self, value):
-    return self.set("ParamName", value)
-
-  def val(self):
-    return self.get("Val")
-
-  def setVal(self, value):
-    return self.set("Val", value)
-
-  def dataSetName(self):
-    return self.get("DataSetName")
-
-  def setDataSetName(self, value):
-    return self.set("DataSetName", value)
-
-#
-# Get various parameters in the Galileo ephemeris
-# 
-#   ParamName         Unit
-#   "ClockBias"       sec
-#   "ClockDrift"      sec/sec
-#   "ClockDriftRate"  sec/sec^2
-#   "Crs"             meter
-#   "Crc"             meter
-#   "Cis"             rad
-#   "Cic"             rad
-#   "Cus"             rad
-#   "Cuc"             rad
-#   "DeltaN"          rad/sec
-#   "M0"              rad
-#   "Eccentricity"    -
-#   "SqrtA"           sqrt(meter)
-#   "BigOmega"        rad
-#   "I0"              rad
-#   "LittleOmega"     rad
-#   "BigOmegaDot"     rad/sec
-#   "Idot"            rad/sec
-#   "Accuracy"        meter
-#   "Adot"            meters/sec
-#   "DeltaN0dot"      rad/sec^2
-#   "Tgd"             sec
-#   "BgdE1E5a"        ns
-#   "BgdE1E5b"        ns
-#
-# Name        Type            Description
-# ----------- --------------- -------------------------------------------------------------------------------------------
-# SvId        int             Satellite SV ID 1..36, or use 0 to apply new value to all satellites
-# ParamName   string          Parameter name (see table above for accepted names)
-# DataSetName optional string Optional name of the data set to use. If no value is provided, the active data set is used.
-#
-
-class GetGalileoEphDoubleParamForSV(CommandBase):
-
-  def __init__(self, svId, paramName, dataSetName = None):
-    CommandBase.__init__(self, "GetGalileoEphDoubleParamForSV")
-    self.setSvId(svId)
-    self.setParamName(paramName)
-    self.setDataSetName(dataSetName)
-
-  def executePermission(self):
-    return ExecutePermission.EXECUTE_IF_IDLE
-
-  def svId(self):
-    return self.get("SvId")
-
-  def setSvId(self, value):
-    return self.set("SvId", value)
-
-  def paramName(self):
-    return self.get("ParamName")
-
-  def setParamName(self, value):
-    return self.set("ParamName", value)
-
-  def dataSetName(self):
-    return self.get("DataSetName")
-
-  def setDataSetName(self, value):
-    return self.set("DataSetName", value)
-
-#
-# Result of GetGalileoEphDoubleParamForSV.
-#
-# Name        Type            Description
-# ----------- --------------- -------------------------------------------------------------------------------------------
-# SvId        int             Satellite SV ID 1..36, or use 0 to apply new value to all satellites
-# ParamName   string          Parameter name (see table above for accepted names)
-# Val         double          Parameter value (see table above for unit)
-# DataSetName optional string Optional name of the data set to use. If no value is provided, the active data set is used.
-#
-
-class GetGalileoEphDoubleParamForSVResult(CommandResult):
-
-  def __init__(self, svId, paramName, val, dataSetName = None):
-    CommandResult.__init__(self, "GetGalileoEphDoubleParamForSVResult")
-    self.setSvId(svId)
-    self.setParamName(paramName)
-    self.setVal(val)
-    self.setDataSetName(dataSetName)
-
-  def isSuccess(self):
-    return True
-
-  def svId(self):
-    return self.get("SvId")
-
-  def setSvId(self, value):
-    return self.set("SvId", value)
-
-  def paramName(self):
-    return self.get("ParamName")
-
-  def setParamName(self, value):
-    return self.set("ParamName", value)
-
-  def val(self):
-    return self.get("Val")
-
-  def setVal(self, value):
-    return self.set("Val", value)
-
-  def dataSetName(self):
-    return self.get("DataSetName")
-
-  def setDataSetName(self, value):
-    return self.set("DataSetName", value)
-
-#
-# Set various parameters in the BeiDou ephemeris
-# 
-#   ParamName         Unit
-#   "ClockBias"       sec
-#   "ClockDrift"      sec/sec
-#   "ClockDriftRate"  sec/sec^2
-#   "Crs"             meter
-#   "Crc"             meter
-#   "Cis"             rad
-#   "Cic"             rad
-#   "Cus"             rad
-#   "Cuc"             rad
-#   "DeltaN"          rad/sec
-#   "M0"              rad
-#   "Eccentricity"    -
-#   "SqrtA"           sqrt(meter)
-#   "BigOmega"        rad
-#   "I0"              rad
-#   "LittleOmega"     rad
-#   "BigOmegaDot"     rad/sec
-#   "Idot"            rad/sec
-#   "Accuracy"        meter
-#   "Adot"            meters/sec
-#   "DeltaN0dot"      rad/sec^2
-#   "Tgd1"            sec
-#   "Tgd2"            sec
-#   "TgdB1Cp"         sec
-#   "TgdB2Ap"         sec
-#
-# Name        Type            Description
-# ----------- --------------- -------------------------------------------------------------------------------------------
-# SvId        int             Satellite SV ID 1..35, or use 0 to apply new value to all satellites
-# ParamName   string          Parameter name (see table above for accepted names)
-# Val         double          Parameter value (see table above for unit)
-# DataSetName optional string Optional name of the data set to use. If no value is provided, the active data set is used.
-#
-
-class SetBeiDouEphDoubleParamForSV(CommandBase):
-
-  def __init__(self, svId, paramName, val, dataSetName = None):
-    CommandBase.__init__(self, "SetBeiDouEphDoubleParamForSV")
-    self.setSvId(svId)
-    self.setParamName(paramName)
-    self.setVal(val)
-    self.setDataSetName(dataSetName)
-
-  def executePermission(self):
-    return ExecutePermission.EXECUTE_IF_IDLE
-
-  def svId(self):
-    return self.get("SvId")
-
-  def setSvId(self, value):
-    return self.set("SvId", value)
-
-  def paramName(self):
-    return self.get("ParamName")
-
-  def setParamName(self, value):
-    return self.set("ParamName", value)
-
-  def val(self):
-    return self.get("Val")
-
-  def setVal(self, value):
-    return self.set("Val", value)
-
-  def dataSetName(self):
-    return self.get("DataSetName")
-
-  def setDataSetName(self, value):
-    return self.set("DataSetName", value)
-
-#
-# Get various parameters in the BeiDou ephemeris
-# 
-#   ParamName         Unit
-#   "ClockBias"       sec
-#   "ClockDrift"      sec/sec
-#   "ClockDriftRate"  sec/sec^2
-#   "Crs"             meter
-#   "Crc"             meter
-#   "Cis"             rad
-#   "Cic"             rad
-#   "Cus"             rad
-#   "Cuc"             rad
-#   "DeltaN"          rad/sec
-#   "M0"              rad
-#   "Eccentricity"    -
-#   "SqrtA"           sqrt(meter)
-#   "BigOmega"        rad
-#   "I0"              rad
-#   "LittleOmega"     rad
-#   "BigOmegaDot"     rad/sec
-#   "Idot"            rad/sec
-#   "Accuracy"        meter
-#   "Adot"            meters/sec
-#   "DeltaN0dot"      rad/sec^2
-#   "Tgd1"            sec
-#   "Tgd2"            sec
-#   "TgdB1Cp"         sec
-#   "TgdB2Ap"         sec
-#
-# Name        Type            Description
-# ----------- --------------- -------------------------------------------------------------------------------------------
-# SvId        int             Satellite SV ID 1..35, or use 0 to apply new value to all satellites
-# ParamName   string          Parameter name (see table above for accepted names)
-# DataSetName optional string Optional name of the data set to use. If no value is provided, the active data set is used.
-#
-
-class GetBeiDouEphDoubleParamForSV(CommandBase):
-
-  def __init__(self, svId, paramName, dataSetName = None):
-    CommandBase.__init__(self, "GetBeiDouEphDoubleParamForSV")
-    self.setSvId(svId)
-    self.setParamName(paramName)
-    self.setDataSetName(dataSetName)
-
-  def executePermission(self):
-    return ExecutePermission.EXECUTE_IF_IDLE
-
-  def svId(self):
-    return self.get("SvId")
-
-  def setSvId(self, value):
-    return self.set("SvId", value)
-
-  def paramName(self):
-    return self.get("ParamName")
-
-  def setParamName(self, value):
-    return self.set("ParamName", value)
-
-  def dataSetName(self):
-    return self.get("DataSetName")
-
-  def setDataSetName(self, value):
-    return self.set("DataSetName", value)
-
-#
-# Result of GetBeiDouEphDoubleParamForSV.
-#
-# Name        Type            Description
-# ----------- --------------- -------------------------------------------------------------------------------------------
-# SvId        int             Satellite SV ID 1..35, or use 0 to apply new value to all satellites
-# ParamName   string          Parameter name (see table above for accepted names)
-# Val         double          Parameter value (see table above for unit)
-# DataSetName optional string Optional name of the data set to use. If no value is provided, the active data set is used.
-#
-
-class GetBeiDouEphDoubleParamForSVResult(CommandResult):
-
-  def __init__(self, svId, paramName, val, dataSetName = None):
-    CommandResult.__init__(self, "GetBeiDouEphDoubleParamForSVResult")
-    self.setSvId(svId)
-    self.setParamName(paramName)
-    self.setVal(val)
-    self.setDataSetName(dataSetName)
-
-  def isSuccess(self):
-    return True
-
-  def svId(self):
-    return self.get("SvId")
-
-  def setSvId(self, value):
-    return self.set("SvId", value)
-
-  def paramName(self):
-    return self.get("ParamName")
-
-  def setParamName(self, value):
-    return self.set("ParamName", value)
-
-  def val(self):
-    return self.get("Val")
-
-  def setVal(self, value):
-    return self.set("Val", value)
-
-  def dataSetName(self):
-    return self.get("DataSetName")
-
-  def setDataSetName(self, value):
-    return self.set("DataSetName", value)
-
-#
 # Set various parameters for GLONASS
 # 
 #   ParamName       Unit               Range          Description
@@ -14966,1107 +14033,6 @@ class GetGlonassEphDoubleParamForSVResult(CommandResult):
 
   def setVal(self, value):
     return self.set("Val", value)
-
-#
-# Set various parameters in the QZSS ephemeris.
-#
-# Name        Type            Description
-# ----------- --------------- -------------------------------------------------------------------------------------------
-# SvId        int             The satellite's SV ID 1..10 (use 0 to apply to all satellites)
-# ParamName   string          In meters:  "Crs", "Crc"
-#                             In radians: "Cis", "Cic", "Cus", "Cuc"
-#                             In seconds: "Tgd", "IscL1Ca", "IscL2C", "IscL5I5", "IscL5Q5", "IscL1CP", "IscL1CD"
-# Val         double          Parameter value (see ParamName above for unit)
-# DataSetName optional string Optional name of the data set to use. If no value is provided, the active data set is used.
-#
-
-class SetQzssEphDoubleParamForSV(CommandBase):
-
-  def __init__(self, svId, paramName, val, dataSetName = None):
-    CommandBase.__init__(self, "SetQzssEphDoubleParamForSV")
-    self.setSvId(svId)
-    self.setParamName(paramName)
-    self.setVal(val)
-    self.setDataSetName(dataSetName)
-
-  def executePermission(self):
-    return ExecutePermission.EXECUTE_IF_IDLE
-
-  def svId(self):
-    return self.get("SvId")
-
-  def setSvId(self, value):
-    return self.set("SvId", value)
-
-  def paramName(self):
-    return self.get("ParamName")
-
-  def setParamName(self, value):
-    return self.set("ParamName", value)
-
-  def val(self):
-    return self.get("Val")
-
-  def setVal(self, value):
-    return self.set("Val", value)
-
-  def dataSetName(self):
-    return self.get("DataSetName")
-
-  def setDataSetName(self, value):
-    return self.set("DataSetName", value)
-
-#
-# Please note the command SetQzssEphemerisDoubleParam is deprecated since 21.3. You may use SetQzssEphDoubleParamForSV.
-# 
-# Set various parameters in the QZSS ephemeris.
-#
-# Name        Type            Description
-# ----------- --------------- -------------------------------------------------------------------------------------------
-# SvId        int             The satellite's SV ID 1..10 (use 0 to apply to all satellites)
-# ParamName   string          In meters:  "Crs", "Crc"
-#                             In radians: "Cis", "Cic", "Cus", "Cuc"
-#                             In seconds: "Tgd", "IscL1Ca", "IscL2C", "IscL5I5", "IscL5Q5", "IscL1CP", "IscL1CD"
-# Val         double          Parameter value (see ParamName above for unit)
-# DataSetName optional string Optional name of the data set to use. If no value is provided, the active data set is used.
-#
-
-class SetQzssEphemerisDoubleParam(CommandBase):
-
-  def __init__(self, svId, paramName, val, dataSetName = None):
-    CommandBase.__init__(self, "SetQzssEphemerisDoubleParam")
-    self.setSvId(svId)
-    self.setParamName(paramName)
-    self.setVal(val)
-    self.setDataSetName(dataSetName)
-
-  def executePermission(self):
-    return ExecutePermission.EXECUTE_IF_IDLE
-
-  def svId(self):
-    return self.get("SvId")
-
-  def setSvId(self, value):
-    return self.set("SvId", value)
-
-  def paramName(self):
-    return self.get("ParamName")
-
-  def setParamName(self, value):
-    return self.set("ParamName", value)
-
-  def val(self):
-    return self.get("Val")
-
-  def setVal(self, value):
-    return self.set("Val", value)
-
-  def dataSetName(self):
-    return self.get("DataSetName")
-
-  def setDataSetName(self, value):
-    return self.set("DataSetName", value)
-
-#
-# Get various parameters in the QZSS ephemeris.
-#
-# Name        Type            Description
-# ----------- --------------- -------------------------------------------------------------------------------------------
-# SvId        int             The satellite's SV ID 1..10 (use 0 to apply to all satellites)
-# ParamName   string          In meters:  "Crs", "Crc"
-#                             In radians: "Cis", "Cic", "Cus", "Cuc"
-#                             In seconds: "Tgd", "IscL1Ca", "IscL2C", "IscL5I5", "IscL5Q5", "IscL1CP", "IscL1CD"
-# DataSetName optional string Optional name of the data set to use. If no value is provided, the active data set is used.
-#
-
-class GetQzssEphDoubleParamForSV(CommandBase):
-
-  def __init__(self, svId, paramName, dataSetName = None):
-    CommandBase.__init__(self, "GetQzssEphDoubleParamForSV")
-    self.setSvId(svId)
-    self.setParamName(paramName)
-    self.setDataSetName(dataSetName)
-
-  def executePermission(self):
-    return ExecutePermission.EXECUTE_IF_IDLE
-
-  def svId(self):
-    return self.get("SvId")
-
-  def setSvId(self, value):
-    return self.set("SvId", value)
-
-  def paramName(self):
-    return self.get("ParamName")
-
-  def setParamName(self, value):
-    return self.set("ParamName", value)
-
-  def dataSetName(self):
-    return self.get("DataSetName")
-
-  def setDataSetName(self, value):
-    return self.set("DataSetName", value)
-
-#
-# Please note the command GetQzssEphemerisDoubleParam is deprecated since 21.3. You may use GetQzssEphDoubleParamForSV.
-# 
-# Get various parameters in the QZSS ephemeris.
-#
-# Name        Type            Description
-# ----------- --------------- -------------------------------------------------------------------------------------------
-# SvId        int             The satellite's SV ID 1..10 (use 0 to apply to all satellites)
-# ParamName   string          In meters:  "Crs", "Crc"
-#                             In radians: "Cis", "Cic", "Cus", "Cuc"
-#                             In seconds: "Tgd", "IscL1Ca", "IscL2C", "IscL5I5", "IscL5Q5", "IscL1CP", "IscL1CD"
-# DataSetName optional string Optional name of the data set to use. If no value is provided, the active data set is used.
-#
-
-class GetQzssEphemerisDoubleParam(CommandBase):
-
-  def __init__(self, svId, paramName, dataSetName = None):
-    CommandBase.__init__(self, "GetQzssEphemerisDoubleParam")
-    self.setSvId(svId)
-    self.setParamName(paramName)
-    self.setDataSetName(dataSetName)
-
-  def executePermission(self):
-    return ExecutePermission.EXECUTE_IF_IDLE
-
-  def svId(self):
-    return self.get("SvId")
-
-  def setSvId(self, value):
-    return self.set("SvId", value)
-
-  def paramName(self):
-    return self.get("ParamName")
-
-  def setParamName(self, value):
-    return self.set("ParamName", value)
-
-  def dataSetName(self):
-    return self.get("DataSetName")
-
-  def setDataSetName(self, value):
-    return self.set("DataSetName", value)
-
-#
-# Result of GetQzssEphDoubleParamForSV.
-#
-# Name        Type            Description
-# ----------- --------------- -------------------------------------------------------------------------------------------
-# SvId        int             The satellite's SV ID 1..10 (use 0 to apply to all satellites)
-# ParamName   string          In meters:  "Crs", "Crc"
-#                             In radians: "Cis", "Cic", "Cus", "Cuc"
-#                             In seconds: "Tgd", "IscL1Ca", "IscL2C", "IscL5I5", "IscL5Q5", "IscL1CP", "IscL1CD"
-# Val         double          Parameter value (see ParamName above for unit)
-# DataSetName optional string Optional name of the data set to use. If no value is provided, the active data set is used.
-#
-
-class GetQzssEphDoubleParamForSVResult(CommandResult):
-
-  def __init__(self, svId, paramName, val, dataSetName = None):
-    CommandResult.__init__(self, "GetQzssEphDoubleParamForSVResult")
-    self.setSvId(svId)
-    self.setParamName(paramName)
-    self.setVal(val)
-    self.setDataSetName(dataSetName)
-
-  def isSuccess(self):
-    return True
-
-  def svId(self):
-    return self.get("SvId")
-
-  def setSvId(self, value):
-    return self.set("SvId", value)
-
-  def paramName(self):
-    return self.get("ParamName")
-
-  def setParamName(self, value):
-    return self.set("ParamName", value)
-
-  def val(self):
-    return self.get("Val")
-
-  def setVal(self, value):
-    return self.set("Val", value)
-
-  def dataSetName(self):
-    return self.get("DataSetName")
-
-  def setDataSetName(self, value):
-    return self.set("DataSetName", value)
-
-#
-# Set various parameters in the NavIC ephemeris
-# 
-#   ParamName         Unit
-#   "ClockBias"       sec
-#   "ClockDrift"      sec/sec
-#   "ClockDriftRate"  sec/sec^2
-#   "Crs"             meter
-#   "Crc"             meter
-#   "Cis"             rad
-#   "Cic"             rad
-#   "Cus"             rad
-#   "Cuc"             rad
-#   "DeltaN"          rad/sec
-#   "M0"              rad
-#   "Eccentricity"    -
-#   "SqrtA"           sqrt(meter)
-#   "BigOmega"        rad
-#   "I0"              rad
-#   "LittleOmega"     rad
-#   "BigOmegaDot"     rad/sec
-#   "Idot"            rad/sec
-#   "Accuracy"        meter
-#   "Adot"            meters/sec
-#   "DeltaN0dot"      rad/sec^2
-#   "Tgd"             sec
-#
-# Name        Type            Description
-# ----------- --------------- -------------------------------------------------------------------------------------------
-# SvId        int             Satellite SV ID 1..14, or use 0 to apply new value to all satellites
-# ParamName   string          Parameter name (see table above for accepted names)
-# Val         double          Parameter value (see table above for unit)
-# DataSetName optional string Optional name of the data set to use. If no value is provided, the active data set is used.
-#
-
-class SetNavICEphDoubleParamForSV(CommandBase):
-
-  def __init__(self, svId, paramName, val, dataSetName = None):
-    CommandBase.__init__(self, "SetNavICEphDoubleParamForSV")
-    self.setSvId(svId)
-    self.setParamName(paramName)
-    self.setVal(val)
-    self.setDataSetName(dataSetName)
-
-  def executePermission(self):
-    return ExecutePermission.EXECUTE_IF_IDLE
-
-  def svId(self):
-    return self.get("SvId")
-
-  def setSvId(self, value):
-    return self.set("SvId", value)
-
-  def paramName(self):
-    return self.get("ParamName")
-
-  def setParamName(self, value):
-    return self.set("ParamName", value)
-
-  def val(self):
-    return self.get("Val")
-
-  def setVal(self, value):
-    return self.set("Val", value)
-
-  def dataSetName(self):
-    return self.get("DataSetName")
-
-  def setDataSetName(self, value):
-    return self.set("DataSetName", value)
-
-#
-# Please note the command SetNavICEphemerisDoubleParam is deprecated since 21.3. You may use SetNavICEphDoubleParamForSV.
-# 
-# Set various parameters in the NavIC ephemeris
-# 
-#   ParamName         Unit
-#   "ClockBias"       sec
-#   "ClockDrift"      sec/sec
-#   "ClockDriftRate"  sec/sec^2
-#   "Crs"             meter
-#   "Crc"             meter
-#   "Cis"             rad
-#   "Cic"             rad
-#   "Cus"             rad
-#   "Cuc"             rad
-#   "DeltaN"          rad/sec
-#   "M0"              rad
-#   "Eccentricity"    -
-#   "SqrtA"           sqrt(meter)
-#   "BigOmega"        rad
-#   "I0"              rad
-#   "LittleOmega"     rad
-#   "BigOmegaDot"     rad/sec
-#   "Idot"            rad/sec
-#   "Accuracy"        meter
-#   "Adot"            meters/sec
-#   "DeltaN0dot"      rad/sec^2
-#   "Tgd"             sec
-#
-# Name        Type            Description
-# ----------- --------------- -------------------------------------------------------------------------------------------
-# SvId        int             Satellite SV ID 1..14, or use 0 to apply new value to all satellites
-# ParamName   string          Parameter name (see table above for accepted names)
-# Val         double          Parameter value (see table above for unit)
-# DataSetName optional string Optional name of the data set to use. If no value is provided, the active data set is used.
-#
-
-class SetNavICEphemerisDoubleParam(CommandBase):
-
-  def __init__(self, svId, paramName, val, dataSetName = None):
-    CommandBase.__init__(self, "SetNavICEphemerisDoubleParam")
-    self.setSvId(svId)
-    self.setParamName(paramName)
-    self.setVal(val)
-    self.setDataSetName(dataSetName)
-
-  def executePermission(self):
-    return ExecutePermission.EXECUTE_IF_IDLE
-
-  def svId(self):
-    return self.get("SvId")
-
-  def setSvId(self, value):
-    return self.set("SvId", value)
-
-  def paramName(self):
-    return self.get("ParamName")
-
-  def setParamName(self, value):
-    return self.set("ParamName", value)
-
-  def val(self):
-    return self.get("Val")
-
-  def setVal(self, value):
-    return self.set("Val", value)
-
-  def dataSetName(self):
-    return self.get("DataSetName")
-
-  def setDataSetName(self, value):
-    return self.set("DataSetName", value)
-
-#
-# Get various parameters in the NavIC ephemeris
-# 
-#   ParamName         Unit
-#   "ClockBias"       sec
-#   "ClockDrift"      sec/sec
-#   "ClockDriftRate"  sec/sec^2
-#   "Crs"             meter
-#   "Crc"             meter
-#   "Cis"             rad
-#   "Cic"             rad
-#   "Cus"             rad
-#   "Cuc"             rad
-#   "DeltaN"          rad/sec
-#   "M0"              rad
-#   "Eccentricity"    -
-#   "SqrtA"           sqrt(meter)
-#   "BigOmega"        rad
-#   "I0"              rad
-#   "LittleOmega"     rad
-#   "BigOmegaDot"     rad/sec
-#   "Idot"            rad/sec
-#   "Accuracy"        meter
-#   "Adot"            meters/sec
-#   "DeltaN0dot"      rad/sec^2
-#   "Tgd"             sec
-#
-# Name        Type            Description
-# ----------- --------------- -------------------------------------------------------------------------------------------
-# SvId        int             Satellite SV ID 1..14, or use 0 to apply new value to all satellites
-# ParamName   string          Parameter name (see table above for accepted names)
-# DataSetName optional string Optional name of the data set to use. If no value is provided, the active data set is used.
-#
-
-class GetNavICEphDoubleParamForSV(CommandBase):
-
-  def __init__(self, svId, paramName, dataSetName = None):
-    CommandBase.__init__(self, "GetNavICEphDoubleParamForSV")
-    self.setSvId(svId)
-    self.setParamName(paramName)
-    self.setDataSetName(dataSetName)
-
-  def executePermission(self):
-    return ExecutePermission.EXECUTE_IF_IDLE
-
-  def svId(self):
-    return self.get("SvId")
-
-  def setSvId(self, value):
-    return self.set("SvId", value)
-
-  def paramName(self):
-    return self.get("ParamName")
-
-  def setParamName(self, value):
-    return self.set("ParamName", value)
-
-  def dataSetName(self):
-    return self.get("DataSetName")
-
-  def setDataSetName(self, value):
-    return self.set("DataSetName", value)
-
-#
-# Please note the command GetNavICEphemerisDoubleParam is deprecated since 21.3. You may use GetNavICEphDoubleParamForSV.
-# 
-# Get various parameters in the NavIC ephemeris
-# 
-#   ParamName         Unit
-#   "ClockBias"       sec
-#   "ClockDrift"      sec/sec
-#   "ClockDriftRate"  sec/sec^2
-#   "Crs"             meter
-#   "Crc"             meter
-#   "Cis"             rad
-#   "Cic"             rad
-#   "Cus"             rad
-#   "Cuc"             rad
-#   "DeltaN"          rad/sec
-#   "M0"              rad
-#   "Eccentricity"    -
-#   "SqrtA"           sqrt(meter)
-#   "BigOmega"        rad
-#   "I0"              rad
-#   "LittleOmega"     rad
-#   "BigOmegaDot"     rad/sec
-#   "Idot"            rad/sec
-#   "Accuracy"        meter
-#   "Adot"            meters/sec
-#   "DeltaN0dot"      rad/sec^2
-#   "Tgd"             sec
-#
-# Name        Type            Description
-# ----------- --------------- -------------------------------------------------------------------------------------------
-# SvId        int             Satellite SV ID 1..14, or use 0 to apply new value to all satellites
-# ParamName   string          Parameter name (see table above for accepted names)
-# DataSetName optional string Optional name of the data set to use. If no value is provided, the active data set is used.
-#
-
-class GetNavICEphemerisDoubleParam(CommandBase):
-
-  def __init__(self, svId, paramName, dataSetName = None):
-    CommandBase.__init__(self, "GetNavICEphemerisDoubleParam")
-    self.setSvId(svId)
-    self.setParamName(paramName)
-    self.setDataSetName(dataSetName)
-
-  def executePermission(self):
-    return ExecutePermission.EXECUTE_IF_IDLE
-
-  def svId(self):
-    return self.get("SvId")
-
-  def setSvId(self, value):
-    return self.set("SvId", value)
-
-  def paramName(self):
-    return self.get("ParamName")
-
-  def setParamName(self, value):
-    return self.set("ParamName", value)
-
-  def dataSetName(self):
-    return self.get("DataSetName")
-
-  def setDataSetName(self, value):
-    return self.set("DataSetName", value)
-
-#
-# Result of GetNavICEphDoubleParamForSV.
-#
-# Name        Type            Description
-# ----------- --------------- -------------------------------------------------------------------------------------------
-# SvId        int             Satellite SV ID 1..14, or use 0 to apply new value to all satellites
-# ParamName   string          Parameter name (see table above for accepted names)
-# Val         double          Parameter value (see table above for unit)
-# DataSetName optional string Optional name of the data set to use. If no value is provided, the active data set is used.
-#
-
-class GetNavICEphDoubleParamForSVResult(CommandResult):
-
-  def __init__(self, svId, paramName, val, dataSetName = None):
-    CommandResult.__init__(self, "GetNavICEphDoubleParamForSVResult")
-    self.setSvId(svId)
-    self.setParamName(paramName)
-    self.setVal(val)
-    self.setDataSetName(dataSetName)
-
-  def isSuccess(self):
-    return True
-
-  def svId(self):
-    return self.get("SvId")
-
-  def setSvId(self, value):
-    return self.set("SvId", value)
-
-  def paramName(self):
-    return self.get("ParamName")
-
-  def setParamName(self, value):
-    return self.set("ParamName", value)
-
-  def val(self):
-    return self.get("Val")
-
-  def setVal(self, value):
-    return self.set("Val", value)
-
-  def dataSetName(self):
-    return self.get("DataSetName")
-
-  def setDataSetName(self, value):
-    return self.set("DataSetName", value)
-
-#
-# Set GPS ephemeris parameter value for all satellites
-#
-# Name        Type            Description
-# ----------- --------------- --------------------------------------------------------------------------------------------------
-# ParamName   string          Refer to SetGpsEphDoubleParamForSV for accepted names
-# Val         array double    Parameter value for each satellite. Zero based index (index 0 => SV ID 1, index 1 => SV ID 2, etc)
-# DataSetName optional string Optional name of the data set to use. If no value is provided, the active data set is used.
-#
-
-class SetGpsEphDoubleParamForEachSV(CommandBase):
-
-  def __init__(self, paramName, val, dataSetName = None):
-    CommandBase.__init__(self, "SetGpsEphDoubleParamForEachSV")
-    self.setParamName(paramName)
-    self.setVal(val)
-    self.setDataSetName(dataSetName)
-
-  def executePermission(self):
-    return ExecutePermission.EXECUTE_IF_IDLE
-
-  def paramName(self):
-    return self.get("ParamName")
-
-  def setParamName(self, value):
-    return self.set("ParamName", value)
-
-  def val(self):
-    return self.get("Val")
-
-  def setVal(self, value):
-    return self.set("Val", value)
-
-  def dataSetName(self):
-    return self.get("DataSetName")
-
-  def setDataSetName(self, value):
-    return self.set("DataSetName", value)
-
-#
-# Please note the command SetGpsEphemerisDoubleParams is deprecated since 21.3. You may use SetGpsEphDoubleParamForEachSV.
-# 
-# Set GPS ephemeris parameter value for all satellites
-#
-# Name        Type            Description
-# ----------- --------------- --------------------------------------------------------------------------------------------------
-# ParamName   string          Refer to SetGpsEphDoubleParamForSV for accepted names
-# Val         array double    Parameter value for each satellite. Zero based index (index 0 => SV ID 1, index 1 => SV ID 2, etc)
-# DataSetName optional string Optional name of the data set to use. If no value is provided, the active data set is used.
-#
-
-class SetGpsEphemerisDoubleParams(CommandBase):
-
-  def __init__(self, paramName, val, dataSetName = None):
-    CommandBase.__init__(self, "SetGpsEphemerisDoubleParams")
-    self.setParamName(paramName)
-    self.setVal(val)
-    self.setDataSetName(dataSetName)
-
-  def executePermission(self):
-    return ExecutePermission.EXECUTE_IF_IDLE
-
-  def paramName(self):
-    return self.get("ParamName")
-
-  def setParamName(self, value):
-    return self.set("ParamName", value)
-
-  def val(self):
-    return self.get("Val")
-
-  def setVal(self, value):
-    return self.set("Val", value)
-
-  def dataSetName(self):
-    return self.get("DataSetName")
-
-  def setDataSetName(self, value):
-    return self.set("DataSetName", value)
-
-#
-# Get GPS ephemeris parameter value for all satellites
-#
-# Name        Type            Description
-# ----------- --------------- -------------------------------------------------------------------------------------------
-# ParamName   string          Refer to SetGpsEphDoubleParamForSV for accepted names
-# DataSetName optional string Optional name of the data set to use. If no value is provided, the active data set is used.
-#
-
-class GetGpsEphDoubleParamForEachSV(CommandBase):
-
-  def __init__(self, paramName, dataSetName = None):
-    CommandBase.__init__(self, "GetGpsEphDoubleParamForEachSV")
-    self.setParamName(paramName)
-    self.setDataSetName(dataSetName)
-
-  def executePermission(self):
-    return ExecutePermission.EXECUTE_IF_IDLE
-
-  def paramName(self):
-    return self.get("ParamName")
-
-  def setParamName(self, value):
-    return self.set("ParamName", value)
-
-  def dataSetName(self):
-    return self.get("DataSetName")
-
-  def setDataSetName(self, value):
-    return self.set("DataSetName", value)
-
-#
-# Please note the command GetGpsEphemerisDoubleParams is deprecated since 21.3. You may use GetGpsEphDoubleParamForEachSV.
-# 
-# Get GPS ephemeris parameter value for all satellites
-#
-# Name        Type            Description
-# ----------- --------------- -------------------------------------------------------------------------------------------
-# ParamName   string          Refer to SetGpsEphDoubleParamForSV for accepted names
-# DataSetName optional string Optional name of the data set to use. If no value is provided, the active data set is used.
-#
-
-class GetGpsEphemerisDoubleParams(CommandBase):
-
-  def __init__(self, paramName, dataSetName = None):
-    CommandBase.__init__(self, "GetGpsEphemerisDoubleParams")
-    self.setParamName(paramName)
-    self.setDataSetName(dataSetName)
-
-  def executePermission(self):
-    return ExecutePermission.EXECUTE_IF_IDLE
-
-  def paramName(self):
-    return self.get("ParamName")
-
-  def setParamName(self, value):
-    return self.set("ParamName", value)
-
-  def dataSetName(self):
-    return self.get("DataSetName")
-
-  def setDataSetName(self, value):
-    return self.set("DataSetName", value)
-
-#
-# Result of GetGpsEphDoubleParamForEachSV.
-#
-# Name        Type            Description
-# ----------- --------------- --------------------------------------------------------------------------------------------------
-# ParamName   string          Refer to SetGpsEphDoubleParamForSV for accepted names
-# Val         array double    Parameter value for each satellite. Zero based index (index 0 => SV ID 1, index 1 => SV ID 2, etc)
-# DataSetName optional string Optional name of the data set to use. If no value is provided, the active data set is used.
-#
-
-class GetGpsEphDoubleParamForEachSVResult(CommandResult):
-
-  def __init__(self, paramName, val, dataSetName = None):
-    CommandResult.__init__(self, "GetGpsEphDoubleParamForEachSVResult")
-    self.setParamName(paramName)
-    self.setVal(val)
-    self.setDataSetName(dataSetName)
-
-  def isSuccess(self):
-    return True
-
-  def paramName(self):
-    return self.get("ParamName")
-
-  def setParamName(self, value):
-    return self.set("ParamName", value)
-
-  def val(self):
-    return self.get("Val")
-
-  def setVal(self, value):
-    return self.set("Val", value)
-
-  def dataSetName(self):
-    return self.get("DataSetName")
-
-  def setDataSetName(self, value):
-    return self.set("DataSetName", value)
-
-#
-# Set Galileo ephemeris parameter value for all satellites
-#
-# Name        Type            Description
-# ----------- --------------- --------------------------------------------------------------------------------------------------
-# ParamName   string          Refer to SetGalileoEphDoubleParamForSV for accepted names
-# Val         array double    Parameter value for each satellite. Zero based index (index 0 => SV ID 1, index 1 => SV ID 2, etc)
-# DataSetName optional string Optional name of the data set to use. If no value is provided, the active data set is used.
-#
-
-class SetGalileoEphDoubleParamForEachSV(CommandBase):
-
-  def __init__(self, paramName, val, dataSetName = None):
-    CommandBase.__init__(self, "SetGalileoEphDoubleParamForEachSV")
-    self.setParamName(paramName)
-    self.setVal(val)
-    self.setDataSetName(dataSetName)
-
-  def executePermission(self):
-    return ExecutePermission.EXECUTE_IF_IDLE
-
-  def paramName(self):
-    return self.get("ParamName")
-
-  def setParamName(self, value):
-    return self.set("ParamName", value)
-
-  def val(self):
-    return self.get("Val")
-
-  def setVal(self, value):
-    return self.set("Val", value)
-
-  def dataSetName(self):
-    return self.get("DataSetName")
-
-  def setDataSetName(self, value):
-    return self.set("DataSetName", value)
-
-#
-# Please note the command SetGalileoEphemerisDoubleParams is deprecated since 21.3. You may use SetGalileoEphDoubleParamForEachSV.
-# 
-# Set Galileo ephemeris parameter value for all satellites
-#
-# Name        Type            Description
-# ----------- --------------- --------------------------------------------------------------------------------------------------
-# ParamName   string          Refer to SetGalileoEphDoubleParamForSV for accepted names
-# Val         array double    Parameter value for each satellite. Zero based index (index 0 => SV ID 1, index 1 => SV ID 2, etc)
-# DataSetName optional string Optional name of the data set to use. If no value is provided, the active data set is used.
-#
-
-class SetGalileoEphemerisDoubleParams(CommandBase):
-
-  def __init__(self, paramName, val, dataSetName = None):
-    CommandBase.__init__(self, "SetGalileoEphemerisDoubleParams")
-    self.setParamName(paramName)
-    self.setVal(val)
-    self.setDataSetName(dataSetName)
-
-  def executePermission(self):
-    return ExecutePermission.EXECUTE_IF_IDLE
-
-  def paramName(self):
-    return self.get("ParamName")
-
-  def setParamName(self, value):
-    return self.set("ParamName", value)
-
-  def val(self):
-    return self.get("Val")
-
-  def setVal(self, value):
-    return self.set("Val", value)
-
-  def dataSetName(self):
-    return self.get("DataSetName")
-
-  def setDataSetName(self, value):
-    return self.set("DataSetName", value)
-
-#
-# Get Galileo ephemeris parameter value for all satellites
-#
-# Name        Type            Description
-# ----------- --------------- -------------------------------------------------------------------------------------------
-# ParamName   string          Refer to SetGalileoEphDoubleParamForSV for accepted names
-# DataSetName optional string Optional name of the data set to use. If no value is provided, the active data set is used.
-#
-
-class GetGalileoEphDoubleParamForEachSV(CommandBase):
-
-  def __init__(self, paramName, dataSetName = None):
-    CommandBase.__init__(self, "GetGalileoEphDoubleParamForEachSV")
-    self.setParamName(paramName)
-    self.setDataSetName(dataSetName)
-
-  def executePermission(self):
-    return ExecutePermission.EXECUTE_IF_IDLE
-
-  def paramName(self):
-    return self.get("ParamName")
-
-  def setParamName(self, value):
-    return self.set("ParamName", value)
-
-  def dataSetName(self):
-    return self.get("DataSetName")
-
-  def setDataSetName(self, value):
-    return self.set("DataSetName", value)
-
-#
-# Please note the command GetGalileoEphemerisDoubleParams is deprecated since 21.3. You may use GetGalileoEphDoubleParamForEachSV.
-# 
-# Get Galileo ephemeris parameter value for all satellites
-#
-# Name        Type            Description
-# ----------- --------------- -------------------------------------------------------------------------------------------
-# ParamName   string          Refer to SetGalileoEphDoubleParamForSV for accepted names
-# DataSetName optional string Optional name of the data set to use. If no value is provided, the active data set is used.
-#
-
-class GetGalileoEphemerisDoubleParams(CommandBase):
-
-  def __init__(self, paramName, dataSetName = None):
-    CommandBase.__init__(self, "GetGalileoEphemerisDoubleParams")
-    self.setParamName(paramName)
-    self.setDataSetName(dataSetName)
-
-  def executePermission(self):
-    return ExecutePermission.EXECUTE_IF_IDLE
-
-  def paramName(self):
-    return self.get("ParamName")
-
-  def setParamName(self, value):
-    return self.set("ParamName", value)
-
-  def dataSetName(self):
-    return self.get("DataSetName")
-
-  def setDataSetName(self, value):
-    return self.set("DataSetName", value)
-
-#
-# Result of GetGalileoEphDoubleParamForEachSV.
-#
-# Name        Type            Description
-# ----------- --------------- --------------------------------------------------------------------------------------------------
-# ParamName   string          Refer to SetGalileoEphDoubleParamForSV for accepted names
-# Val         array double    Parameter value for each satellite. Zero based index (index 0 => SV ID 1, index 1 => SV ID 2, etc)
-# DataSetName optional string Optional name of the data set to use. If no value is provided, the active data set is used.
-#
-
-class GetGalileoEphDoubleParamForEachSVResult(CommandResult):
-
-  def __init__(self, paramName, val, dataSetName = None):
-    CommandResult.__init__(self, "GetGalileoEphDoubleParamForEachSVResult")
-    self.setParamName(paramName)
-    self.setVal(val)
-    self.setDataSetName(dataSetName)
-
-  def isSuccess(self):
-    return True
-
-  def paramName(self):
-    return self.get("ParamName")
-
-  def setParamName(self, value):
-    return self.set("ParamName", value)
-
-  def val(self):
-    return self.get("Val")
-
-  def setVal(self, value):
-    return self.set("Val", value)
-
-  def dataSetName(self):
-    return self.get("DataSetName")
-
-  def setDataSetName(self, value):
-    return self.set("DataSetName", value)
-
-#
-# Set BeiDou ephemeris parameter value for all satellites
-#
-# Name        Type            Description
-# ----------- --------------- --------------------------------------------------------------------------------------------------
-# ParamName   string          Refer to SetBeiDouEphDoubleParamForSV for accepted names
-# Val         array double    Parameter value for each satellite. Zero based index (index 0 => SV ID 1, index 1 => SV ID 2, etc)
-# DataSetName optional string Optional name of the data set to use. If no value is provided, the active data set is used.
-#
-
-class SetBeiDouEphDoubleParamForEachSV(CommandBase):
-
-  def __init__(self, paramName, val, dataSetName = None):
-    CommandBase.__init__(self, "SetBeiDouEphDoubleParamForEachSV")
-    self.setParamName(paramName)
-    self.setVal(val)
-    self.setDataSetName(dataSetName)
-
-  def executePermission(self):
-    return ExecutePermission.EXECUTE_IF_IDLE
-
-  def paramName(self):
-    return self.get("ParamName")
-
-  def setParamName(self, value):
-    return self.set("ParamName", value)
-
-  def val(self):
-    return self.get("Val")
-
-  def setVal(self, value):
-    return self.set("Val", value)
-
-  def dataSetName(self):
-    return self.get("DataSetName")
-
-  def setDataSetName(self, value):
-    return self.set("DataSetName", value)
-
-#
-# Please note the command SetBeiDouEphemerisDoubleParams is deprecated since 21.3. You may use SetBeiDouEphDoubleParamForEachSV.
-# 
-# Set BeiDou ephemeris parameter value for all satellites
-#
-# Name        Type            Description
-# ----------- --------------- --------------------------------------------------------------------------------------------------
-# ParamName   string          Refer to SetBeiDouEphDoubleParamForSV for accepted names
-# Val         array double    Parameter value for each satellite. Zero based index (index 0 => SV ID 1, index 1 => SV ID 2, etc)
-# DataSetName optional string Optional name of the data set to use. If no value is provided, the active data set is used.
-#
-
-class SetBeiDouEphemerisDoubleParams(CommandBase):
-
-  def __init__(self, paramName, val, dataSetName = None):
-    CommandBase.__init__(self, "SetBeiDouEphemerisDoubleParams")
-    self.setParamName(paramName)
-    self.setVal(val)
-    self.setDataSetName(dataSetName)
-
-  def executePermission(self):
-    return ExecutePermission.EXECUTE_IF_IDLE
-
-  def paramName(self):
-    return self.get("ParamName")
-
-  def setParamName(self, value):
-    return self.set("ParamName", value)
-
-  def val(self):
-    return self.get("Val")
-
-  def setVal(self, value):
-    return self.set("Val", value)
-
-  def dataSetName(self):
-    return self.get("DataSetName")
-
-  def setDataSetName(self, value):
-    return self.set("DataSetName", value)
-
-#
-# Get BeiDou ephemeris parameter value for all satellites
-#
-# Name        Type            Description
-# ----------- --------------- -------------------------------------------------------------------------------------------
-# ParamName   string          Refer to SetBeiDouEphDoubleParamForSV for accepted names
-# DataSetName optional string Optional name of the data set to use. If no value is provided, the active data set is used.
-#
-
-class GetBeiDouEphDoubleParamForEachSV(CommandBase):
-
-  def __init__(self, paramName, dataSetName = None):
-    CommandBase.__init__(self, "GetBeiDouEphDoubleParamForEachSV")
-    self.setParamName(paramName)
-    self.setDataSetName(dataSetName)
-
-  def executePermission(self):
-    return ExecutePermission.EXECUTE_IF_IDLE
-
-  def paramName(self):
-    return self.get("ParamName")
-
-  def setParamName(self, value):
-    return self.set("ParamName", value)
-
-  def dataSetName(self):
-    return self.get("DataSetName")
-
-  def setDataSetName(self, value):
-    return self.set("DataSetName", value)
-
-#
-# Please note the command GetBeiDouEphemerisDoubleParams is deprecated since 21.3. You may use GetBeiDouEphDoubleParamForEachSV.
-# 
-# Get BeiDou ephemeris parameter value for all satellites
-#
-# Name        Type            Description
-# ----------- --------------- -------------------------------------------------------------------------------------------
-# ParamName   string          Refer to SetBeiDouEphDoubleParamForSV for accepted names
-# DataSetName optional string Optional name of the data set to use. If no value is provided, the active data set is used.
-#
-
-class GetBeiDouEphemerisDoubleParams(CommandBase):
-
-  def __init__(self, paramName, dataSetName = None):
-    CommandBase.__init__(self, "GetBeiDouEphemerisDoubleParams")
-    self.setParamName(paramName)
-    self.setDataSetName(dataSetName)
-
-  def executePermission(self):
-    return ExecutePermission.EXECUTE_IF_IDLE
-
-  def paramName(self):
-    return self.get("ParamName")
-
-  def setParamName(self, value):
-    return self.set("ParamName", value)
-
-  def dataSetName(self):
-    return self.get("DataSetName")
-
-  def setDataSetName(self, value):
-    return self.set("DataSetName", value)
-
-#
-# Result of GetBeiDouEphDoubleParamForEachSV.
-#
-# Name        Type            Description
-# ----------- --------------- --------------------------------------------------------------------------------------------------
-# ParamName   string          Refer to SetBeiDouEphDoubleParamForSV for accepted names
-# Val         array double    Parameter value for each satellite. Zero based index (index 0 => SV ID 1, index 1 => SV ID 2, etc)
-# DataSetName optional string Optional name of the data set to use. If no value is provided, the active data set is used.
-#
-
-class GetBeiDouEphDoubleParamForEachSVResult(CommandResult):
-
-  def __init__(self, paramName, val, dataSetName = None):
-    CommandResult.__init__(self, "GetBeiDouEphDoubleParamForEachSVResult")
-    self.setParamName(paramName)
-    self.setVal(val)
-    self.setDataSetName(dataSetName)
-
-  def isSuccess(self):
-    return True
-
-  def paramName(self):
-    return self.get("ParamName")
-
-  def setParamName(self, value):
-    return self.set("ParamName", value)
-
-  def val(self):
-    return self.get("Val")
-
-  def setVal(self, value):
-    return self.set("Val", value)
-
-  def dataSetName(self):
-    return self.get("DataSetName")
-
-  def setDataSetName(self, value):
-    return self.set("DataSetName", value)
 
 #
 # Set GLONASS parameter value for all satellites
@@ -16246,1466 +14212,6 @@ class GetGlonassFrequencyNumberForEachSVResult(CommandResult):
 
   def setFrequencyNumber(self, value):
     return self.set("FrequencyNumber", value)
-
-#
-# Set QZSS ephemeris parameter value for all satellites
-#
-# Name        Type            Description
-# ----------- --------------- --------------------------------------------------------------------------------------------------
-# ParamName   string          Refer to SetQzssEphDoubleParamForSV for accepted names
-# Val         array double    Parameter value for each satellite. Zero based index (index 0 => SV ID 1, index 1 => SV ID 2, etc)
-# DataSetName optional string Optional name of the data set to use. If no value is provided, the active data set is used.
-#
-
-class SetQzssEphDoubleParamForEachSV(CommandBase):
-
-  def __init__(self, paramName, val, dataSetName = None):
-    CommandBase.__init__(self, "SetQzssEphDoubleParamForEachSV")
-    self.setParamName(paramName)
-    self.setVal(val)
-    self.setDataSetName(dataSetName)
-
-  def executePermission(self):
-    return ExecutePermission.EXECUTE_IF_IDLE
-
-  def paramName(self):
-    return self.get("ParamName")
-
-  def setParamName(self, value):
-    return self.set("ParamName", value)
-
-  def val(self):
-    return self.get("Val")
-
-  def setVal(self, value):
-    return self.set("Val", value)
-
-  def dataSetName(self):
-    return self.get("DataSetName")
-
-  def setDataSetName(self, value):
-    return self.set("DataSetName", value)
-
-#
-# Please note the command SetQzssEphemerisDoubleParams is deprecated since 21.3. You may use SetQzssEphDoubleParamForEachSV.
-# 
-# Set QZSS ephemeris parameter value for all satellites
-#
-# Name        Type            Description
-# ----------- --------------- --------------------------------------------------------------------------------------------------
-# ParamName   string          Refer to SetQzssEphDoubleParamForSV for accepted names
-# Val         array double    Parameter value for each satellite. Zero based index (index 0 => SV ID 1, index 1 => SV ID 2, etc)
-# DataSetName optional string Optional name of the data set to use. If no value is provided, the active data set is used.
-#
-
-class SetQzssEphemerisDoubleParams(CommandBase):
-
-  def __init__(self, paramName, val, dataSetName = None):
-    CommandBase.__init__(self, "SetQzssEphemerisDoubleParams")
-    self.setParamName(paramName)
-    self.setVal(val)
-    self.setDataSetName(dataSetName)
-
-  def executePermission(self):
-    return ExecutePermission.EXECUTE_IF_IDLE
-
-  def paramName(self):
-    return self.get("ParamName")
-
-  def setParamName(self, value):
-    return self.set("ParamName", value)
-
-  def val(self):
-    return self.get("Val")
-
-  def setVal(self, value):
-    return self.set("Val", value)
-
-  def dataSetName(self):
-    return self.get("DataSetName")
-
-  def setDataSetName(self, value):
-    return self.set("DataSetName", value)
-
-#
-# Get QZSS ephemeris parameter value for all satellites
-#
-# Name        Type            Description
-# ----------- --------------- -------------------------------------------------------------------------------------------
-# ParamName   string          Refer to SetQzssEphDoubleParamForSV for accepted names
-# DataSetName optional string Optional name of the data set to use. If no value is provided, the active data set is used.
-#
-
-class GetQzssEphDoubleParamForEachSV(CommandBase):
-
-  def __init__(self, paramName, dataSetName = None):
-    CommandBase.__init__(self, "GetQzssEphDoubleParamForEachSV")
-    self.setParamName(paramName)
-    self.setDataSetName(dataSetName)
-
-  def executePermission(self):
-    return ExecutePermission.EXECUTE_IF_IDLE
-
-  def paramName(self):
-    return self.get("ParamName")
-
-  def setParamName(self, value):
-    return self.set("ParamName", value)
-
-  def dataSetName(self):
-    return self.get("DataSetName")
-
-  def setDataSetName(self, value):
-    return self.set("DataSetName", value)
-
-#
-# Please note the command GetQzssEphemerisDoubleParams is deprecated since 21.3. You may use GetQzssEphDoubleParamForEachSV.
-# 
-# Get QZSS ephemeris parameter value for all satellites
-#
-# Name        Type            Description
-# ----------- --------------- -------------------------------------------------------------------------------------------
-# ParamName   string          Refer to SetQzssEphDoubleParamForSV for accepted names
-# DataSetName optional string Optional name of the data set to use. If no value is provided, the active data set is used.
-#
-
-class GetQzssEphemerisDoubleParams(CommandBase):
-
-  def __init__(self, paramName, dataSetName = None):
-    CommandBase.__init__(self, "GetQzssEphemerisDoubleParams")
-    self.setParamName(paramName)
-    self.setDataSetName(dataSetName)
-
-  def executePermission(self):
-    return ExecutePermission.EXECUTE_IF_IDLE
-
-  def paramName(self):
-    return self.get("ParamName")
-
-  def setParamName(self, value):
-    return self.set("ParamName", value)
-
-  def dataSetName(self):
-    return self.get("DataSetName")
-
-  def setDataSetName(self, value):
-    return self.set("DataSetName", value)
-
-#
-# Result of GetQzssEphDoubleParamForEachSV.
-#
-# Name        Type            Description
-# ----------- --------------- --------------------------------------------------------------------------------------------------
-# ParamName   string          Refer to SetQzssEphDoubleParamForSV for accepted names
-# Val         array double    Parameter value for each satellite. Zero based index (index 0 => SV ID 1, index 1 => SV ID 2, etc)
-# DataSetName optional string Optional name of the data set to use. If no value is provided, the active data set is used.
-#
-
-class GetQzssEphDoubleParamForEachSVResult(CommandResult):
-
-  def __init__(self, paramName, val, dataSetName = None):
-    CommandResult.__init__(self, "GetQzssEphDoubleParamForEachSVResult")
-    self.setParamName(paramName)
-    self.setVal(val)
-    self.setDataSetName(dataSetName)
-
-  def isSuccess(self):
-    return True
-
-  def paramName(self):
-    return self.get("ParamName")
-
-  def setParamName(self, value):
-    return self.set("ParamName", value)
-
-  def val(self):
-    return self.get("Val")
-
-  def setVal(self, value):
-    return self.set("Val", value)
-
-  def dataSetName(self):
-    return self.get("DataSetName")
-
-  def setDataSetName(self, value):
-    return self.set("DataSetName", value)
-
-#
-# Set NavIC ephemeris parameter value for all satellites
-#
-# Name        Type            Description
-# ----------- --------------- --------------------------------------------------------------------------------------------------
-# ParamName   string          Refer to SetNavICEphDoubleParamForSV for accepted names
-# Val         array double    Parameter value for each satellite. Zero based index (index 0 => SV ID 1, index 1 => SV ID 2, etc)
-# DataSetName optional string Optional name of the data set to use. If no value is provided, the active data set is used.
-#
-
-class SetNavICEphDoubleParamForEachSV(CommandBase):
-
-  def __init__(self, paramName, val, dataSetName = None):
-    CommandBase.__init__(self, "SetNavICEphDoubleParamForEachSV")
-    self.setParamName(paramName)
-    self.setVal(val)
-    self.setDataSetName(dataSetName)
-
-  def executePermission(self):
-    return ExecutePermission.EXECUTE_IF_IDLE
-
-  def paramName(self):
-    return self.get("ParamName")
-
-  def setParamName(self, value):
-    return self.set("ParamName", value)
-
-  def val(self):
-    return self.get("Val")
-
-  def setVal(self, value):
-    return self.set("Val", value)
-
-  def dataSetName(self):
-    return self.get("DataSetName")
-
-  def setDataSetName(self, value):
-    return self.set("DataSetName", value)
-
-#
-# Please note the command SetNavICEphemerisDoubleParams is deprecated since 21.3. You may use SetNavICEphDoubleParamForEachSV.
-# 
-# Set NavIC ephemeris parameter value for all satellites
-#
-# Name        Type            Description
-# ----------- --------------- --------------------------------------------------------------------------------------------------
-# ParamName   string          Refer to SetNavICEphDoubleParamForSV for accepted names
-# Val         array double    Parameter value for each satellite. Zero based index (index 0 => SV ID 1, index 1 => SV ID 2, etc)
-# DataSetName optional string Optional name of the data set to use. If no value is provided, the active data set is used.
-#
-
-class SetNavICEphemerisDoubleParams(CommandBase):
-
-  def __init__(self, paramName, val, dataSetName = None):
-    CommandBase.__init__(self, "SetNavICEphemerisDoubleParams")
-    self.setParamName(paramName)
-    self.setVal(val)
-    self.setDataSetName(dataSetName)
-
-  def executePermission(self):
-    return ExecutePermission.EXECUTE_IF_IDLE
-
-  def paramName(self):
-    return self.get("ParamName")
-
-  def setParamName(self, value):
-    return self.set("ParamName", value)
-
-  def val(self):
-    return self.get("Val")
-
-  def setVal(self, value):
-    return self.set("Val", value)
-
-  def dataSetName(self):
-    return self.get("DataSetName")
-
-  def setDataSetName(self, value):
-    return self.set("DataSetName", value)
-
-#
-# Get NavIC ephemeris parameter value for all satellites
-#
-# Name        Type            Description
-# ----------- --------------- -------------------------------------------------------------------------------------------
-# ParamName   string          Refer to SetNavICEphDoubleParamForSV for accepted names
-# DataSetName optional string Optional name of the data set to use. If no value is provided, the active data set is used.
-#
-
-class GetNavICEphDoubleParamForEachSV(CommandBase):
-
-  def __init__(self, paramName, dataSetName = None):
-    CommandBase.__init__(self, "GetNavICEphDoubleParamForEachSV")
-    self.setParamName(paramName)
-    self.setDataSetName(dataSetName)
-
-  def executePermission(self):
-    return ExecutePermission.EXECUTE_IF_IDLE
-
-  def paramName(self):
-    return self.get("ParamName")
-
-  def setParamName(self, value):
-    return self.set("ParamName", value)
-
-  def dataSetName(self):
-    return self.get("DataSetName")
-
-  def setDataSetName(self, value):
-    return self.set("DataSetName", value)
-
-#
-# Please note the command GetNavICEphemerisDoubleParams is deprecated since 21.3. You may use GetNavICEphDoubleParamForEachSV.
-# 
-# Get NavIC ephemeris parameter value for all satellites
-#
-# Name        Type            Description
-# ----------- --------------- -------------------------------------------------------------------------------------------
-# ParamName   string          Refer to SetNavICEphDoubleParamForSV for accepted names
-# DataSetName optional string Optional name of the data set to use. If no value is provided, the active data set is used.
-#
-
-class GetNavICEphemerisDoubleParams(CommandBase):
-
-  def __init__(self, paramName, dataSetName = None):
-    CommandBase.__init__(self, "GetNavICEphemerisDoubleParams")
-    self.setParamName(paramName)
-    self.setDataSetName(dataSetName)
-
-  def executePermission(self):
-    return ExecutePermission.EXECUTE_IF_IDLE
-
-  def paramName(self):
-    return self.get("ParamName")
-
-  def setParamName(self, value):
-    return self.set("ParamName", value)
-
-  def dataSetName(self):
-    return self.get("DataSetName")
-
-  def setDataSetName(self, value):
-    return self.set("DataSetName", value)
-
-#
-# Result of GetNavICEphDoubleParamForEachSV.
-#
-# Name        Type            Description
-# ----------- --------------- --------------------------------------------------------------------------------------------------
-# ParamName   string          Refer to SetNavICEphDoubleParamForSV for accepted names
-# Val         array double    Parameter value for each satellite. Zero based index (index 0 => SV ID 1, index 1 => SV ID 2, etc)
-# DataSetName optional string Optional name of the data set to use. If no value is provided, the active data set is used.
-#
-
-class GetNavICEphDoubleParamForEachSVResult(CommandResult):
-
-  def __init__(self, paramName, val, dataSetName = None):
-    CommandResult.__init__(self, "GetNavICEphDoubleParamForEachSVResult")
-    self.setParamName(paramName)
-    self.setVal(val)
-    self.setDataSetName(dataSetName)
-
-  def isSuccess(self):
-    return True
-
-  def paramName(self):
-    return self.get("ParamName")
-
-  def setParamName(self, value):
-    return self.set("ParamName", value)
-
-  def val(self):
-    return self.get("Val")
-
-  def setVal(self, value):
-    return self.set("Val", value)
-
-  def dataSetName(self):
-    return self.get("DataSetName")
-
-  def setDataSetName(self, value):
-    return self.set("DataSetName", value)
-
-#
-# Set various boolean parameters in the GPS ephemeris
-# 
-#   ParamName
-# "IscL1CaAvailable"
-# "IscL2CAvailable"
-# "IscL5I5Available"
-# "IscL5Q5Available"
-# "IscL1CPAvailable"
-# "IscL1CDAvailable"
-#
-# Name        Type            Description
-# ----------- --------------- -------------------------------------------------------------------------------------------
-# SvId        int             Satellite SV ID 1..32, or use 0 to apply new value to all satellites
-# ParamName   string          Parameter name (see table above for accepted names)
-# Val         bool            Parameter value (see table above for unit)
-# DataSetName optional string Optional name of the data set to use. If no value is provided, the active data set is used.
-#
-
-class SetGpsEphBoolParamForSV(CommandBase):
-
-  def __init__(self, svId, paramName, val, dataSetName = None):
-    CommandBase.__init__(self, "SetGpsEphBoolParamForSV")
-    self.setSvId(svId)
-    self.setParamName(paramName)
-    self.setVal(val)
-    self.setDataSetName(dataSetName)
-
-  def executePermission(self):
-    return ExecutePermission.EXECUTE_IF_IDLE
-
-  def svId(self):
-    return self.get("SvId")
-
-  def setSvId(self, value):
-    return self.set("SvId", value)
-
-  def paramName(self):
-    return self.get("ParamName")
-
-  def setParamName(self, value):
-    return self.set("ParamName", value)
-
-  def val(self):
-    return self.get("Val")
-
-  def setVal(self, value):
-    return self.set("Val", value)
-
-  def dataSetName(self):
-    return self.get("DataSetName")
-
-  def setDataSetName(self, value):
-    return self.set("DataSetName", value)
-
-#
-# Get various boolean parameters in the GPS ephemeris
-# 
-#   ParamName
-# "IscL1CaAvailable"
-# "IscL2CAvailable"
-# "IscL5I5Available"
-# "IscL5Q5Available"
-# "IscL1CPAvailable"
-# "IscL1CDAvailable"
-#
-# Name        Type            Description
-# ----------- --------------- -------------------------------------------------------------------------------------------
-# SvId        int             Satellite SV ID 1..32, or use 0 to apply new value to all satellites
-# ParamName   string          Parameter name (see table above for accepted names)
-# DataSetName optional string Optional name of the data set to use. If no value is provided, the active data set is used.
-#
-
-class GetGpsEphBoolParamForSV(CommandBase):
-
-  def __init__(self, svId, paramName, dataSetName = None):
-    CommandBase.__init__(self, "GetGpsEphBoolParamForSV")
-    self.setSvId(svId)
-    self.setParamName(paramName)
-    self.setDataSetName(dataSetName)
-
-  def executePermission(self):
-    return ExecutePermission.EXECUTE_IF_IDLE
-
-  def svId(self):
-    return self.get("SvId")
-
-  def setSvId(self, value):
-    return self.set("SvId", value)
-
-  def paramName(self):
-    return self.get("ParamName")
-
-  def setParamName(self, value):
-    return self.set("ParamName", value)
-
-  def dataSetName(self):
-    return self.get("DataSetName")
-
-  def setDataSetName(self, value):
-    return self.set("DataSetName", value)
-
-#
-# Result of GetGpsEphBoolParamForSV.
-#
-# Name        Type            Description
-# ----------- --------------- -------------------------------------------------------------------------------------------
-# SvId        int             Satellite SV ID 1..32, or use 0 to apply new value to all satellites
-# ParamName   string          Parameter name (see table above for accepted names)
-# Val         bool            Parameter value (see table above for unit)
-# DataSetName optional string Optional name of the data set to use. If no value is provided, the active data set is used.
-#
-
-class GetGpsEphBoolParamForSVResult(CommandResult):
-
-  def __init__(self, svId, paramName, val, dataSetName = None):
-    CommandResult.__init__(self, "GetGpsEphBoolParamForSVResult")
-    self.setSvId(svId)
-    self.setParamName(paramName)
-    self.setVal(val)
-    self.setDataSetName(dataSetName)
-
-  def isSuccess(self):
-    return True
-
-  def svId(self):
-    return self.get("SvId")
-
-  def setSvId(self, value):
-    return self.set("SvId", value)
-
-  def paramName(self):
-    return self.get("ParamName")
-
-  def setParamName(self, value):
-    return self.set("ParamName", value)
-
-  def val(self):
-    return self.get("Val")
-
-  def setVal(self, value):
-    return self.set("Val", value)
-
-  def dataSetName(self):
-    return self.get("DataSetName")
-
-  def setDataSetName(self, value):
-    return self.set("DataSetName", value)
-
-#
-# Set GPS ephemeris boolean parameter value for all satellites
-#
-# Name        Type            Description
-# ----------- --------------- --------------------------------------------------------------------------------------------------
-# ParamName   string          Refer to SetGpsEphBoolParamForSV for accepted names
-# Val         array bool      Parameter value for each satellite. Zero based index (index 0 => SV ID 1, index 1 => SV ID 2, etc)
-# DataSetName optional string Optional name of the data set to use. If no value is provided, the active data set is used.
-#
-
-class SetGpsEphBoolParamForEachSV(CommandBase):
-
-  def __init__(self, paramName, val, dataSetName = None):
-    CommandBase.__init__(self, "SetGpsEphBoolParamForEachSV")
-    self.setParamName(paramName)
-    self.setVal(val)
-    self.setDataSetName(dataSetName)
-
-  def executePermission(self):
-    return ExecutePermission.EXECUTE_IF_IDLE
-
-  def paramName(self):
-    return self.get("ParamName")
-
-  def setParamName(self, value):
-    return self.set("ParamName", value)
-
-  def val(self):
-    return self.get("Val")
-
-  def setVal(self, value):
-    return self.set("Val", value)
-
-  def dataSetName(self):
-    return self.get("DataSetName")
-
-  def setDataSetName(self, value):
-    return self.set("DataSetName", value)
-
-#
-# Please note the command SetGpsEphemerisBoolParams is deprecated since 21.3. You may use SetGpsEphBoolParamForEachSV.
-# 
-# Set GPS ephemeris boolean parameter value for all satellites
-#
-# Name        Type            Description
-# ----------- --------------- --------------------------------------------------------------------------------------------------
-# ParamName   string          Refer to SetGpsEphBoolParamForSV for accepted names
-# Val         array bool      Parameter value for each satellite. Zero based index (index 0 => SV ID 1, index 1 => SV ID 2, etc)
-# DataSetName optional string Optional name of the data set to use. If no value is provided, the active data set is used.
-#
-
-class SetGpsEphemerisBoolParams(CommandBase):
-
-  def __init__(self, paramName, val, dataSetName = None):
-    CommandBase.__init__(self, "SetGpsEphemerisBoolParams")
-    self.setParamName(paramName)
-    self.setVal(val)
-    self.setDataSetName(dataSetName)
-
-  def executePermission(self):
-    return ExecutePermission.EXECUTE_IF_IDLE
-
-  def paramName(self):
-    return self.get("ParamName")
-
-  def setParamName(self, value):
-    return self.set("ParamName", value)
-
-  def val(self):
-    return self.get("Val")
-
-  def setVal(self, value):
-    return self.set("Val", value)
-
-  def dataSetName(self):
-    return self.get("DataSetName")
-
-  def setDataSetName(self, value):
-    return self.set("DataSetName", value)
-
-#
-# Get GPS ephemeris boolean parameter value for all satellites
-#
-# Name        Type            Description
-# ----------- --------------- -------------------------------------------------------------------------------------------
-# ParamName   string          Refer to SetGpsEphBoolParamForSV for accepted names
-# DataSetName optional string Optional name of the data set to use. If no value is provided, the active data set is used.
-#
-
-class GetGpsEphBoolParamForEachSV(CommandBase):
-
-  def __init__(self, paramName, dataSetName = None):
-    CommandBase.__init__(self, "GetGpsEphBoolParamForEachSV")
-    self.setParamName(paramName)
-    self.setDataSetName(dataSetName)
-
-  def executePermission(self):
-    return ExecutePermission.EXECUTE_IF_IDLE
-
-  def paramName(self):
-    return self.get("ParamName")
-
-  def setParamName(self, value):
-    return self.set("ParamName", value)
-
-  def dataSetName(self):
-    return self.get("DataSetName")
-
-  def setDataSetName(self, value):
-    return self.set("DataSetName", value)
-
-#
-# Please note the command GetGpsEphemerisBoolParams is deprecated since 21.3. You may use GetGpsEphBoolParamForEachSV.
-# 
-# Get GPS ephemeris boolean parameter value for all satellites
-#
-# Name        Type            Description
-# ----------- --------------- -------------------------------------------------------------------------------------------
-# ParamName   string          Refer to SetGpsEphBoolParamForSV for accepted names
-# DataSetName optional string Optional name of the data set to use. If no value is provided, the active data set is used.
-#
-
-class GetGpsEphemerisBoolParams(CommandBase):
-
-  def __init__(self, paramName, dataSetName = None):
-    CommandBase.__init__(self, "GetGpsEphemerisBoolParams")
-    self.setParamName(paramName)
-    self.setDataSetName(dataSetName)
-
-  def executePermission(self):
-    return ExecutePermission.EXECUTE_IF_IDLE
-
-  def paramName(self):
-    return self.get("ParamName")
-
-  def setParamName(self, value):
-    return self.set("ParamName", value)
-
-  def dataSetName(self):
-    return self.get("DataSetName")
-
-  def setDataSetName(self, value):
-    return self.set("DataSetName", value)
-
-#
-# Result of GetGpsEphBoolParamForEachSV.
-#
-# Name        Type            Description
-# ----------- --------------- --------------------------------------------------------------------------------------------------
-# ParamName   string          Refer to SetGpsEphBoolParamForSV for accepted names
-# Val         array bool      Parameter value for each satellite. Zero based index (index 0 => SV ID 1, index 1 => SV ID 2, etc)
-# DataSetName optional string Optional name of the data set to use. If no value is provided, the active data set is used.
-#
-
-class GetGpsEphBoolParamForEachSVResult(CommandResult):
-
-  def __init__(self, paramName, val, dataSetName = None):
-    CommandResult.__init__(self, "GetGpsEphBoolParamForEachSVResult")
-    self.setParamName(paramName)
-    self.setVal(val)
-    self.setDataSetName(dataSetName)
-
-  def isSuccess(self):
-    return True
-
-  def paramName(self):
-    return self.get("ParamName")
-
-  def setParamName(self, value):
-    return self.set("ParamName", value)
-
-  def val(self):
-    return self.get("Val")
-
-  def setVal(self, value):
-    return self.set("Val", value)
-
-  def dataSetName(self):
-    return self.get("DataSetName")
-
-  def setDataSetName(self, value):
-    return self.set("DataSetName", value)
-
-#
-# Set various boolean parameters in the BeiDou ephemeris
-# 
-#   ParamName
-# "IscB1CdAvailable"
-# "IscB2adAvailable"
-#
-# Name        Type            Description
-# ----------- --------------- -------------------------------------------------------------------------------------------
-# SvId        int             Satellite SV ID 1..35, or use 0 to apply new value to all satellites
-# ParamName   string          Parameter name (see table above for accepted names)
-# Val         bool            Parameter value (see table above for unit)
-# DataSetName optional string Optional name of the data set to use. If no value is provided, the active data set is used.
-#
-
-class SetBeiDouEphBoolParamForSV(CommandBase):
-
-  def __init__(self, svId, paramName, val, dataSetName = None):
-    CommandBase.__init__(self, "SetBeiDouEphBoolParamForSV")
-    self.setSvId(svId)
-    self.setParamName(paramName)
-    self.setVal(val)
-    self.setDataSetName(dataSetName)
-
-  def executePermission(self):
-    return ExecutePermission.EXECUTE_IF_IDLE
-
-  def svId(self):
-    return self.get("SvId")
-
-  def setSvId(self, value):
-    return self.set("SvId", value)
-
-  def paramName(self):
-    return self.get("ParamName")
-
-  def setParamName(self, value):
-    return self.set("ParamName", value)
-
-  def val(self):
-    return self.get("Val")
-
-  def setVal(self, value):
-    return self.set("Val", value)
-
-  def dataSetName(self):
-    return self.get("DataSetName")
-
-  def setDataSetName(self, value):
-    return self.set("DataSetName", value)
-
-#
-# Get various boolean parameters in the BeiDou ephemeris
-# 
-#   ParamName
-# "IscB1CdAvailable"
-# "IscB2adAvailable"
-#
-# Name        Type            Description
-# ----------- --------------- -------------------------------------------------------------------------------------------
-# SvId        int             Satellite SV ID 1..35, or use 0 to apply new value to all satellites
-# ParamName   string          Parameter name (see table above for accepted names)
-# DataSetName optional string Optional name of the data set to use. If no value is provided, the active data set is used.
-#
-
-class GetBeiDouEphBoolParamForSV(CommandBase):
-
-  def __init__(self, svId, paramName, dataSetName = None):
-    CommandBase.__init__(self, "GetBeiDouEphBoolParamForSV")
-    self.setSvId(svId)
-    self.setParamName(paramName)
-    self.setDataSetName(dataSetName)
-
-  def executePermission(self):
-    return ExecutePermission.EXECUTE_IF_IDLE
-
-  def svId(self):
-    return self.get("SvId")
-
-  def setSvId(self, value):
-    return self.set("SvId", value)
-
-  def paramName(self):
-    return self.get("ParamName")
-
-  def setParamName(self, value):
-    return self.set("ParamName", value)
-
-  def dataSetName(self):
-    return self.get("DataSetName")
-
-  def setDataSetName(self, value):
-    return self.set("DataSetName", value)
-
-#
-# Result of GetBeiDouEphBoolParamForSV.
-#
-# Name        Type            Description
-# ----------- --------------- -------------------------------------------------------------------------------------------
-# SvId        int             Satellite SV ID 1..35, or use 0 to apply new value to all satellites
-# ParamName   string          Parameter name (see table above for accepted names)
-# Val         bool            Parameter value (see table above for unit)
-# DataSetName optional string Optional name of the data set to use. If no value is provided, the active data set is used.
-#
-
-class GetBeiDouEphBoolParamForSVResult(CommandResult):
-
-  def __init__(self, svId, paramName, val, dataSetName = None):
-    CommandResult.__init__(self, "GetBeiDouEphBoolParamForSVResult")
-    self.setSvId(svId)
-    self.setParamName(paramName)
-    self.setVal(val)
-    self.setDataSetName(dataSetName)
-
-  def isSuccess(self):
-    return True
-
-  def svId(self):
-    return self.get("SvId")
-
-  def setSvId(self, value):
-    return self.set("SvId", value)
-
-  def paramName(self):
-    return self.get("ParamName")
-
-  def setParamName(self, value):
-    return self.set("ParamName", value)
-
-  def val(self):
-    return self.get("Val")
-
-  def setVal(self, value):
-    return self.set("Val", value)
-
-  def dataSetName(self):
-    return self.get("DataSetName")
-
-  def setDataSetName(self, value):
-    return self.set("DataSetName", value)
-
-#
-# Set BeiDou ephemeris boolean parameter value for all satellites
-#
-# Name        Type            Description
-# ----------- --------------- --------------------------------------------------------------------------------------------------
-# ParamName   string          Refer to SetBeiDouEphBoolParamForSV for accepted names
-# Val         array bool      Parameter value for each satellite. Zero based index (index 0 => SV ID 1, index 1 => SV ID 2, etc)
-# DataSetName optional string Optional name of the data set to use. If no value is provided, the active data set is used.
-#
-
-class SetBeiDouEphBoolParamForEachSV(CommandBase):
-
-  def __init__(self, paramName, val, dataSetName = None):
-    CommandBase.__init__(self, "SetBeiDouEphBoolParamForEachSV")
-    self.setParamName(paramName)
-    self.setVal(val)
-    self.setDataSetName(dataSetName)
-
-  def executePermission(self):
-    return ExecutePermission.EXECUTE_IF_IDLE
-
-  def paramName(self):
-    return self.get("ParamName")
-
-  def setParamName(self, value):
-    return self.set("ParamName", value)
-
-  def val(self):
-    return self.get("Val")
-
-  def setVal(self, value):
-    return self.set("Val", value)
-
-  def dataSetName(self):
-    return self.get("DataSetName")
-
-  def setDataSetName(self, value):
-    return self.set("DataSetName", value)
-
-#
-# Please note the command SetBeiDouEphemerisBoolParams is deprecated since 21.3. You may use SetBeiDouEphBoolParamForEachSV.
-# 
-# Set BeiDou ephemeris boolean parameter value for all satellites
-#
-# Name        Type            Description
-# ----------- --------------- --------------------------------------------------------------------------------------------------
-# ParamName   string          Refer to SetBeiDouEphBoolParamForSV for accepted names
-# Val         array bool      Parameter value for each satellite. Zero based index (index 0 => SV ID 1, index 1 => SV ID 2, etc)
-# DataSetName optional string Optional name of the data set to use. If no value is provided, the active data set is used.
-#
-
-class SetBeiDouEphemerisBoolParams(CommandBase):
-
-  def __init__(self, paramName, val, dataSetName = None):
-    CommandBase.__init__(self, "SetBeiDouEphemerisBoolParams")
-    self.setParamName(paramName)
-    self.setVal(val)
-    self.setDataSetName(dataSetName)
-
-  def executePermission(self):
-    return ExecutePermission.EXECUTE_IF_IDLE
-
-  def paramName(self):
-    return self.get("ParamName")
-
-  def setParamName(self, value):
-    return self.set("ParamName", value)
-
-  def val(self):
-    return self.get("Val")
-
-  def setVal(self, value):
-    return self.set("Val", value)
-
-  def dataSetName(self):
-    return self.get("DataSetName")
-
-  def setDataSetName(self, value):
-    return self.set("DataSetName", value)
-
-#
-# Get BeiDou ephemeris boolean parameter value for all satellites
-#
-# Name        Type            Description
-# ----------- --------------- -------------------------------------------------------------------------------------------
-# ParamName   string          Refer to SetBeiDouEphBoolParamForSV for accepted names
-# DataSetName optional string Optional name of the data set to use. If no value is provided, the active data set is used.
-#
-
-class GetBeiDouEphBoolParamForEachSV(CommandBase):
-
-  def __init__(self, paramName, dataSetName = None):
-    CommandBase.__init__(self, "GetBeiDouEphBoolParamForEachSV")
-    self.setParamName(paramName)
-    self.setDataSetName(dataSetName)
-
-  def executePermission(self):
-    return ExecutePermission.EXECUTE_IF_IDLE
-
-  def paramName(self):
-    return self.get("ParamName")
-
-  def setParamName(self, value):
-    return self.set("ParamName", value)
-
-  def dataSetName(self):
-    return self.get("DataSetName")
-
-  def setDataSetName(self, value):
-    return self.set("DataSetName", value)
-
-#
-# Please note the command GetBeiDouEphemerisBoolParams is deprecated since 21.3. You may use GetBeiDouEphBoolParamForEachSV.
-# 
-# Get BeiDou ephemeris boolean parameter value for all satellites
-#
-# Name        Type            Description
-# ----------- --------------- -------------------------------------------------------------------------------------------
-# ParamName   string          Refer to SetBeiDouEphBoolParamForSV for accepted names
-# DataSetName optional string Optional name of the data set to use. If no value is provided, the active data set is used.
-#
-
-class GetBeiDouEphemerisBoolParams(CommandBase):
-
-  def __init__(self, paramName, dataSetName = None):
-    CommandBase.__init__(self, "GetBeiDouEphemerisBoolParams")
-    self.setParamName(paramName)
-    self.setDataSetName(dataSetName)
-
-  def executePermission(self):
-    return ExecutePermission.EXECUTE_IF_IDLE
-
-  def paramName(self):
-    return self.get("ParamName")
-
-  def setParamName(self, value):
-    return self.set("ParamName", value)
-
-  def dataSetName(self):
-    return self.get("DataSetName")
-
-  def setDataSetName(self, value):
-    return self.set("DataSetName", value)
-
-#
-# Result of GetBeiDouEphBoolParamForEachSV.
-#
-# Name        Type            Description
-# ----------- --------------- --------------------------------------------------------------------------------------------------
-# ParamName   string          Refer to SetBeiDouEphBoolParamForSV for accepted names
-# Val         array bool      Parameter value for each satellite. Zero based index (index 0 => SV ID 1, index 1 => SV ID 2, etc)
-# DataSetName optional string Optional name of the data set to use. If no value is provided, the active data set is used.
-#
-
-class GetBeiDouEphBoolParamForEachSVResult(CommandResult):
-
-  def __init__(self, paramName, val, dataSetName = None):
-    CommandResult.__init__(self, "GetBeiDouEphBoolParamForEachSVResult")
-    self.setParamName(paramName)
-    self.setVal(val)
-    self.setDataSetName(dataSetName)
-
-  def isSuccess(self):
-    return True
-
-  def paramName(self):
-    return self.get("ParamName")
-
-  def setParamName(self, value):
-    return self.set("ParamName", value)
-
-  def val(self):
-    return self.get("Val")
-
-  def setVal(self, value):
-    return self.set("Val", value)
-
-  def dataSetName(self):
-    return self.get("DataSetName")
-
-  def setDataSetName(self, value):
-    return self.set("DataSetName", value)
-
-#
-# Set various boolean parameters in the QZSS ephemeris
-# 
-#   ParamName
-# "IscL1CaAvailable"
-# "IscL2CAvailable"
-# "IscL5I5Available"
-# "IscL5Q5Available"
-# "IscL1CPAvailable"
-# "IscL1CDAvailable"
-#
-# Name        Type            Description
-# ----------- --------------- -------------------------------------------------------------------------------------------
-# SvId        int             Satellite SV ID 1..10, or use 0 to apply new value to all satellites
-# ParamName   string          Parameter name (see table above for accepted names)
-# Val         bool            Parameter value (see table above for unit)
-# DataSetName optional string Optional name of the data set to use. If no value is provided, the active data set is used.
-#
-
-class SetQzssEphBoolParamForSV(CommandBase):
-
-  def __init__(self, svId, paramName, val, dataSetName = None):
-    CommandBase.__init__(self, "SetQzssEphBoolParamForSV")
-    self.setSvId(svId)
-    self.setParamName(paramName)
-    self.setVal(val)
-    self.setDataSetName(dataSetName)
-
-  def executePermission(self):
-    return ExecutePermission.EXECUTE_IF_IDLE
-
-  def svId(self):
-    return self.get("SvId")
-
-  def setSvId(self, value):
-    return self.set("SvId", value)
-
-  def paramName(self):
-    return self.get("ParamName")
-
-  def setParamName(self, value):
-    return self.set("ParamName", value)
-
-  def val(self):
-    return self.get("Val")
-
-  def setVal(self, value):
-    return self.set("Val", value)
-
-  def dataSetName(self):
-    return self.get("DataSetName")
-
-  def setDataSetName(self, value):
-    return self.set("DataSetName", value)
-
-#
-# Please note the command SetQzssEphemerisBoolParam is deprecated since 21.3. You may use SetQzssEphBoolParamForSV.
-# 
-# Set various boolean parameters in the QZSS ephemeris
-# 
-#   ParamName
-# "IscL1CaAvailable"
-# "IscL2CAvailable"
-# "IscL5I5Available"
-# "IscL5Q5Available"
-# "IscL1CPAvailable"
-# "IscL1CDAvailable"
-#
-# Name        Type            Description
-# ----------- --------------- -------------------------------------------------------------------------------------------
-# SvId        int             Satellite SV ID 1..10, or use 0 to apply new value to all satellites
-# ParamName   string          Parameter name (see table above for accepted names)
-# Val         bool            Parameter value (see table above for unit)
-# DataSetName optional string Optional name of the data set to use. If no value is provided, the active data set is used.
-#
-
-class SetQzssEphemerisBoolParam(CommandBase):
-
-  def __init__(self, svId, paramName, val, dataSetName = None):
-    CommandBase.__init__(self, "SetQzssEphemerisBoolParam")
-    self.setSvId(svId)
-    self.setParamName(paramName)
-    self.setVal(val)
-    self.setDataSetName(dataSetName)
-
-  def executePermission(self):
-    return ExecutePermission.EXECUTE_IF_IDLE
-
-  def svId(self):
-    return self.get("SvId")
-
-  def setSvId(self, value):
-    return self.set("SvId", value)
-
-  def paramName(self):
-    return self.get("ParamName")
-
-  def setParamName(self, value):
-    return self.set("ParamName", value)
-
-  def val(self):
-    return self.get("Val")
-
-  def setVal(self, value):
-    return self.set("Val", value)
-
-  def dataSetName(self):
-    return self.get("DataSetName")
-
-  def setDataSetName(self, value):
-    return self.set("DataSetName", value)
-
-#
-# Get various boolean parameters in the QZSS ephemeris
-# 
-#   ParamName
-# "IscL1CaAvailable"
-# "IscL2CAvailable"
-# "IscL5I5Available"
-# "IscL5Q5Available"
-# "IscL1CPAvailable"
-# "IscL1CDAvailable"
-#
-# Name        Type            Description
-# ----------- --------------- -------------------------------------------------------------------------------------------
-# SvId        int             Satellite SV ID 1..10, or use 0 to apply new value to all satellites
-# ParamName   string          Parameter name (see table above for accepted names)
-# DataSetName optional string Optional name of the data set to use. If no value is provided, the active data set is used.
-#
-
-class GetQzssEphBoolParamForSV(CommandBase):
-
-  def __init__(self, svId, paramName, dataSetName = None):
-    CommandBase.__init__(self, "GetQzssEphBoolParamForSV")
-    self.setSvId(svId)
-    self.setParamName(paramName)
-    self.setDataSetName(dataSetName)
-
-  def executePermission(self):
-    return ExecutePermission.EXECUTE_IF_IDLE
-
-  def svId(self):
-    return self.get("SvId")
-
-  def setSvId(self, value):
-    return self.set("SvId", value)
-
-  def paramName(self):
-    return self.get("ParamName")
-
-  def setParamName(self, value):
-    return self.set("ParamName", value)
-
-  def dataSetName(self):
-    return self.get("DataSetName")
-
-  def setDataSetName(self, value):
-    return self.set("DataSetName", value)
-
-#
-# Please note the command GetQzssEphemerisBoolParam is deprecated since 21.3. You may use GetQzssEphBoolParamForSV.
-# 
-# Get various boolean parameters in the QZSS ephemeris
-# 
-#   ParamName
-# "IscL1CaAvailable"
-# "IscL2CAvailable"
-# "IscL5I5Available"
-# "IscL5Q5Available"
-# "IscL1CPAvailable"
-# "IscL1CDAvailable"
-#
-# Name        Type            Description
-# ----------- --------------- -------------------------------------------------------------------------------------------
-# SvId        int             Satellite SV ID 1..10, or use 0 to apply new value to all satellites
-# ParamName   string          Parameter name (see table above for accepted names)
-# DataSetName optional string Optional name of the data set to use. If no value is provided, the active data set is used.
-#
-
-class GetQzssEphemerisBoolParam(CommandBase):
-
-  def __init__(self, svId, paramName, dataSetName = None):
-    CommandBase.__init__(self, "GetQzssEphemerisBoolParam")
-    self.setSvId(svId)
-    self.setParamName(paramName)
-    self.setDataSetName(dataSetName)
-
-  def executePermission(self):
-    return ExecutePermission.EXECUTE_IF_IDLE
-
-  def svId(self):
-    return self.get("SvId")
-
-  def setSvId(self, value):
-    return self.set("SvId", value)
-
-  def paramName(self):
-    return self.get("ParamName")
-
-  def setParamName(self, value):
-    return self.set("ParamName", value)
-
-  def dataSetName(self):
-    return self.get("DataSetName")
-
-  def setDataSetName(self, value):
-    return self.set("DataSetName", value)
-
-#
-# Result of GetQzssEphBoolParamForSV.
-#
-# Name        Type            Description
-# ----------- --------------- -------------------------------------------------------------------------------------------
-# SvId        int             Satellite SV ID 1..10, or use 0 to apply new value to all satellites
-# ParamName   string          Parameter name (see table above for accepted names)
-# Val         bool            Parameter value (see table above for unit)
-# DataSetName optional string Optional name of the data set to use. If no value is provided, the active data set is used.
-#
-
-class GetQzssEphBoolParamForSVResult(CommandResult):
-
-  def __init__(self, svId, paramName, val, dataSetName = None):
-    CommandResult.__init__(self, "GetQzssEphBoolParamForSVResult")
-    self.setSvId(svId)
-    self.setParamName(paramName)
-    self.setVal(val)
-    self.setDataSetName(dataSetName)
-
-  def isSuccess(self):
-    return True
-
-  def svId(self):
-    return self.get("SvId")
-
-  def setSvId(self, value):
-    return self.set("SvId", value)
-
-  def paramName(self):
-    return self.get("ParamName")
-
-  def setParamName(self, value):
-    return self.set("ParamName", value)
-
-  def val(self):
-    return self.get("Val")
-
-  def setVal(self, value):
-    return self.set("Val", value)
-
-  def dataSetName(self):
-    return self.get("DataSetName")
-
-  def setDataSetName(self, value):
-    return self.set("DataSetName", value)
-
-#
-# Set QZSS ephemeris boolean parameter value for all satellites
-#
-# Name        Type            Description
-# ----------- --------------- --------------------------------------------------------------------------------------------------
-# ParamName   string          Refer to SetQzssEphemerisBoolParam for accepted names
-# Val         array bool      Parameter value for each satellite. Zero based index (index 0 => SV ID 1, index 1 => SV ID 2, etc)
-# DataSetName optional string Optional name of the data set to use. If no value is provided, the active data set is used.
-#
-
-class SetQzssEphBoolParamForEachSV(CommandBase):
-
-  def __init__(self, paramName, val, dataSetName = None):
-    CommandBase.__init__(self, "SetQzssEphBoolParamForEachSV")
-    self.setParamName(paramName)
-    self.setVal(val)
-    self.setDataSetName(dataSetName)
-
-  def executePermission(self):
-    return ExecutePermission.EXECUTE_IF_IDLE
-
-  def paramName(self):
-    return self.get("ParamName")
-
-  def setParamName(self, value):
-    return self.set("ParamName", value)
-
-  def val(self):
-    return self.get("Val")
-
-  def setVal(self, value):
-    return self.set("Val", value)
-
-  def dataSetName(self):
-    return self.get("DataSetName")
-
-  def setDataSetName(self, value):
-    return self.set("DataSetName", value)
-
-#
-# Please note the command SetQzssEphemerisBoolParams is deprecated since 21.3. You may use SetQzssEphBoolParamForEachSV.
-# 
-# Set QZSS ephemeris boolean parameter value for all satellites
-#
-# Name        Type            Description
-# ----------- --------------- --------------------------------------------------------------------------------------------------
-# ParamName   string          Refer to SetQzssEphemerisBoolParam for accepted names
-# Val         array bool      Parameter value for each satellite. Zero based index (index 0 => SV ID 1, index 1 => SV ID 2, etc)
-# DataSetName optional string Optional name of the data set to use. If no value is provided, the active data set is used.
-#
-
-class SetQzssEphemerisBoolParams(CommandBase):
-
-  def __init__(self, paramName, val, dataSetName = None):
-    CommandBase.__init__(self, "SetQzssEphemerisBoolParams")
-    self.setParamName(paramName)
-    self.setVal(val)
-    self.setDataSetName(dataSetName)
-
-  def executePermission(self):
-    return ExecutePermission.EXECUTE_IF_IDLE
-
-  def paramName(self):
-    return self.get("ParamName")
-
-  def setParamName(self, value):
-    return self.set("ParamName", value)
-
-  def val(self):
-    return self.get("Val")
-
-  def setVal(self, value):
-    return self.set("Val", value)
-
-  def dataSetName(self):
-    return self.get("DataSetName")
-
-  def setDataSetName(self, value):
-    return self.set("DataSetName", value)
-
-#
-# Get QZSS ephemeris boolean parameter value for all satellites
-#
-# Name        Type            Description
-# ----------- --------------- -------------------------------------------------------------------------------------------
-# ParamName   string          Refer to SetQzssEphemerisBoolParam for accepted names
-# DataSetName optional string Optional name of the data set to use. If no value is provided, the active data set is used.
-#
-
-class GetQzssEphBoolParamForEachSV(CommandBase):
-
-  def __init__(self, paramName, dataSetName = None):
-    CommandBase.__init__(self, "GetQzssEphBoolParamForEachSV")
-    self.setParamName(paramName)
-    self.setDataSetName(dataSetName)
-
-  def executePermission(self):
-    return ExecutePermission.EXECUTE_IF_IDLE
-
-  def paramName(self):
-    return self.get("ParamName")
-
-  def setParamName(self, value):
-    return self.set("ParamName", value)
-
-  def dataSetName(self):
-    return self.get("DataSetName")
-
-  def setDataSetName(self, value):
-    return self.set("DataSetName", value)
-
-#
-# Please note the command GetQzssEphemerisBoolParams is deprecated since 21.3. You may use GetQzssEphBoolParamForEachSV.
-# 
-# Get QZSS ephemeris boolean parameter value for all satellites
-#
-# Name        Type            Description
-# ----------- --------------- -------------------------------------------------------------------------------------------
-# ParamName   string          Refer to SetQzssEphemerisBoolParam for accepted names
-# DataSetName optional string Optional name of the data set to use. If no value is provided, the active data set is used.
-#
-
-class GetQzssEphemerisBoolParams(CommandBase):
-
-  def __init__(self, paramName, dataSetName = None):
-    CommandBase.__init__(self, "GetQzssEphemerisBoolParams")
-    self.setParamName(paramName)
-    self.setDataSetName(dataSetName)
-
-  def executePermission(self):
-    return ExecutePermission.EXECUTE_IF_IDLE
-
-  def paramName(self):
-    return self.get("ParamName")
-
-  def setParamName(self, value):
-    return self.set("ParamName", value)
-
-  def dataSetName(self):
-    return self.get("DataSetName")
-
-  def setDataSetName(self, value):
-    return self.set("DataSetName", value)
-
-#
-# Result of GetQzssEphBoolParamForEachSV.
-#
-# Name        Type            Description
-# ----------- --------------- --------------------------------------------------------------------------------------------------
-# ParamName   string          Refer to SetQzssEphemerisBoolParam for accepted names
-# Val         array bool      Parameter value for each satellite. Zero based index (index 0 => SV ID 1, index 1 => SV ID 2, etc)
-# DataSetName optional string Optional name of the data set to use. If no value is provided, the active data set is used.
-#
-
-class GetQzssEphBoolParamForEachSVResult(CommandResult):
-
-  def __init__(self, paramName, val, dataSetName = None):
-    CommandResult.__init__(self, "GetQzssEphBoolParamForEachSVResult")
-    self.setParamName(paramName)
-    self.setVal(val)
-    self.setDataSetName(dataSetName)
-
-  def isSuccess(self):
-    return True
-
-  def paramName(self):
-    return self.get("ParamName")
-
-  def setParamName(self, value):
-    return self.set("ParamName", value)
-
-  def val(self):
-    return self.get("Val")
-
-  def setVal(self, value):
-    return self.set("Val", value)
-
-  def dataSetName(self):
-    return self.get("DataSetName")
-
-  def setDataSetName(self, value):
-    return self.set("DataSetName", value)
 
 #
 # Set parameters for a SBAS satellite ephemeris (runtime modification only available for health parameter)
@@ -28422,6 +24928,33 @@ class GetSyncTimeResult(CommandResult):
 # Time double Time delay in msec (minimum is 500 msec)
 #
 
+class SetSyncTimeMainInstance(CommandBase):
+
+  def __init__(self, time):
+    CommandBase.__init__(self, "SetSyncTimeMainInstance")
+    self.setTime(time)
+
+  def executePermission(self):
+    return ExecutePermission.EXECUTE_IF_IDLE
+
+  def time(self):
+    return self.get("Time")
+
+  def setTime(self, value):
+    return self.set("Time", value)
+
+#
+# Please note the command SetSyncTimeMaster is deprecated since 23.11. You may use SetSyncTimeMainInstance.
+# 
+# Set time delay to start streaming after PPS synchronization. A value of 1500
+# means the simulation will start streaming 1.5 sec after the PPS used for
+# synchornization.
+#
+# Name Type   Description
+# ---- ------ ----------------------------------------
+# Time double Time delay in msec (minimum is 500 msec)
+#
+
 class SetSyncTimeMaster(CommandBase):
 
   def __init__(self, time):
@@ -28444,6 +24977,23 @@ class SetSyncTimeMaster(CommandBase):
 #
 #
 
+class GetSyncTimeMainInstance(CommandBase):
+
+  def __init__(self):
+    CommandBase.__init__(self, "GetSyncTimeMainInstance")
+
+  def executePermission(self):
+    return ExecutePermission.EXECUTE_IF_IDLE | ExecutePermission.EXECUTE_IF_SIMULATING
+
+#
+# Please note the command GetSyncTimeMaster is deprecated since 23.11. You may use GetSyncTimeMainInstance.
+# 
+# Get time delay to start streaming after PPS synchronization. A value of 1500
+# means the simulation will start streaming 1.5 sec after the PPS used for
+# synchornization.
+#
+#
+
 class GetSyncTimeMaster(CommandBase):
 
   def __init__(self):
@@ -28453,17 +25003,17 @@ class GetSyncTimeMaster(CommandBase):
     return ExecutePermission.EXECUTE_IF_IDLE | ExecutePermission.EXECUTE_IF_SIMULATING
 
 #
-# Result of GetSyncTimeMaster.
+# Result of GetSyncTimeMainInstance.
 #
 # Name Type   Description
 # ---- ------ ----------------------------------------
 # Time double Time delay in msec (minimum is 500 msec)
 #
 
-class GetSyncTimeMasterResult(CommandResult):
+class GetSyncTimeMainInstanceResult(CommandResult):
 
   def __init__(self, time):
-    CommandResult.__init__(self, "GetSyncTimeMasterResult")
+    CommandResult.__init__(self, "GetSyncTimeMainInstanceResult")
     self.setTime(time)
 
   def isSuccess(self):
@@ -28535,17 +25085,17 @@ class IsSimStopWhenCommandFailEnabledResult(CommandResult):
     return self.set("Enabled", value)
 
 #
-# If enabled, master and all the slaves will stop if a slave stop.
+# If enabled, main instance and all the worker instances will stop if a worker instance stops.
 #
 # Name    Type Description
-# ------- ---- ---------------------------------------
-# Enabled bool Enable master stop when slave fail flag
+# ------- ---- ---------------------------------------------------------
+# Enabled bool Enable main instance stop when worker instance stops flag
 #
 
-class StopMasterWhenSlaveStop(CommandBase):
+class StopMainInstanceWhenWorkerInstanceStop(CommandBase):
 
   def __init__(self, enabled):
-    CommandBase.__init__(self, "StopMasterWhenSlaveStop")
+    CommandBase.__init__(self, "StopMainInstanceWhenWorkerInstanceStop")
     self.setEnabled(enabled)
 
   def executePermission(self):
@@ -28558,30 +25108,30 @@ class StopMasterWhenSlaveStop(CommandBase):
     return self.set("Enabled", value)
 
 #
-# If enabled, master and all the slaves will stop if a slave stop.
+# If enabled, main instance and all the worker instances will stop if a worker instance stops.
 #
 #
 
-class IsStopMasterWhenSlaveStop(CommandBase):
+class IsStopMainInstanceWhenWorkerInstanceStop(CommandBase):
 
   def __init__(self):
-    CommandBase.__init__(self, "IsStopMasterWhenSlaveStop")
+    CommandBase.__init__(self, "IsStopMainInstanceWhenWorkerInstanceStop")
 
   def executePermission(self):
     return ExecutePermission.EXECUTE_IF_IDLE | ExecutePermission.EXECUTE_IF_SIMULATING
 
 #
-# Result of IsStopMasterWhenSlaveStop.
+# Result of IsStopMainInstanceWhenWorkerInstanceStop.
 #
 # Name    Type Description
-# ------- ---- ---------------------------------------
-# Enabled bool Enable master stop when slave fail flag
+# ------- ---- ---------------------------------------------------------
+# Enabled bool Enable main instance stop when worker instance stops flag
 #
 
-class IsStopMasterWhenSlaveStopResult(CommandResult):
+class IsStopMainInstanceWhenWorkerInstanceStopResult(CommandResult):
 
   def __init__(self, enabled):
-    CommandResult.__init__(self, "IsStopMasterWhenSlaveStopResult")
+    CommandResult.__init__(self, "IsStopMainInstanceWhenWorkerInstanceStopResult")
     self.setEnabled(enabled)
 
   def isSuccess(self):
@@ -28733,9 +25283,9 @@ class GetSimulatorState(CommandBase):
 # -Initializing
 # -Armed
 # -Streaming RF
-# -Sync Slave
-# -WF Init (Slave)
-# -WF Init (Master)
+# -Sync Worker Instance
+# -WF Init (Worker)
+# -WF Init (Main)
 # -HIL Sync
 # -Sync Init
 # -Sync PPS Reset
@@ -28793,9 +25343,9 @@ class AbortWaitSimulatorState(CommandBase):
 # -Initializing
 # -Armed
 # -Streaming RF
-# -Sync Slave
-# -WF Init (Slave)
-# -WF Init (Master)
+# -Sync Worker
+# -WF Init (Worker)
+# -WF Init (Main)
 # -HIL Sync
 # -Sync Init
 # -Sync PPS Reset
@@ -30154,7 +26704,7 @@ class GNSSBand:
   E6 = 3
 
 #
-# Ask the master to broadcast its configuration to all slaves.
+# Ask the main instance to broadcast its configuration to all worker instances.
 #
 #
 
@@ -30180,7 +26730,7 @@ class CancelBroadcastConfig(CommandBase):
     return ExecutePermission.EXECUTE_IF_IDLE
 
 #
-# Set wether the master should send its configuration to every slave when simulation start.
+# Set wether the main instance should send its configuration to every worker instance when simulation start.
 #
 # Name             Type Description
 # ---------------- ---- --------------------------------------------------------------
@@ -30203,7 +26753,7 @@ class SetConfigBroadcastOnStart(CommandBase):
     return self.set("BroadcastOnStart", value)
 
 #
-# Get wether the master should send its configuration to every slave when simulation start.
+# Get wether the main instance should send its configuration to every worker instance when simulation start.
 #
 #
 
@@ -37438,6 +33988,651 @@ class ExecuteGpuBenchmarkResult(CommandResult):
     return self.set("Score", value)
 
 #
+# Set Wavefront element properties. Properties define if an element is enabled/disabled, and the associated antenna.
+#
+# Name             Type   Description
+# ---------------- ------ -------------------------------------------------------------------------------------------------
+# Element          int    One-based index of the element. Value -1 adds a new element at the end of the list.
+# Enabled          bool   If True, this antenna element will be simulated.
+# AntennaModelName string Antenna Model name for this element. Antenna models can be defined in Vehicle Antenna Model menu.
+#
+
+class SetWFElement(CommandBase):
+
+  def __init__(self, element, enabled, antennaModelName):
+    CommandBase.__init__(self, "SetWFElement")
+    self.setElement(element)
+    self.setEnabled(enabled)
+    self.setAntennaModelName(antennaModelName)
+
+  def executePermission(self):
+    return ExecutePermission.EXECUTE_IF_IDLE
+
+  def element(self):
+    return self.get("Element")
+
+  def setElement(self, value):
+    return self.set("Element", value)
+
+  def enabled(self):
+    return self.get("Enabled")
+
+  def setEnabled(self, value):
+    return self.set("Enabled", value)
+
+  def antennaModelName(self):
+    return self.get("AntennaModelName")
+
+  def setAntennaModelName(self, value):
+    return self.set("AntennaModelName", value)
+
+#
+# Get Wavefront element properties. Properties define if an element is enabled/disabled, and the associated antenna.
+#
+# Name    Type Description
+# ------- ---- -----------------------------------------------------------------------------------
+# Element int  One-based index of the element. Value -1 adds a new element at the end of the list.
+#
+
+class GetWFElement(CommandBase):
+
+  def __init__(self, element):
+    CommandBase.__init__(self, "GetWFElement")
+    self.setElement(element)
+
+  def executePermission(self):
+    return ExecutePermission.EXECUTE_IF_IDLE
+
+  def element(self):
+    return self.get("Element")
+
+  def setElement(self, value):
+    return self.set("Element", value)
+
+#
+# Result of GetWFElement.
+#
+# Name             Type   Description
+# ---------------- ------ -------------------------------------------------------------------------------------------------
+# Element          int    One-based index of the element. Value -1 adds a new element at the end of the list.
+# Enabled          bool   If True, this antenna element will be simulated.
+# AntennaModelName string Antenna Model name for this element. Antenna models can be defined in Vehicle Antenna Model menu.
+#
+
+class GetWFElementResult(CommandResult):
+
+  def __init__(self, element, enabled, antennaModelName):
+    CommandResult.__init__(self, "GetWFElementResult")
+    self.setElement(element)
+    self.setEnabled(enabled)
+    self.setAntennaModelName(antennaModelName)
+
+  def isSuccess(self):
+    return True
+
+  def element(self):
+    return self.get("Element")
+
+  def setElement(self, value):
+    return self.set("Element", value)
+
+  def enabled(self):
+    return self.get("Enabled")
+
+  def setEnabled(self, value):
+    return self.set("Enabled", value)
+
+  def antennaModelName(self):
+    return self.get("AntennaModelName")
+
+  def setAntennaModelName(self, value):
+    return self.set("AntennaModelName", value)
+
+#
+# Remove last Wavefront element.
+#
+#
+
+class RemoveWFElement(CommandBase):
+
+  def __init__(self):
+    CommandBase.__init__(self, "RemoveWFElement")
+
+  def executePermission(self):
+    return ExecutePermission.EXECUTE_IF_IDLE
+
+#
+# Import Wavefront Antenna settings from an XML file.
+#
+# Name     Type   Description
+# -------- ------ -----------------------------------------
+# FilePath string File path for Wavefront Antenna settings.
+#
+
+class ImportWFAntenna(CommandBase):
+
+  def __init__(self, filePath):
+    CommandBase.__init__(self, "ImportWFAntenna")
+    self.setFilePath(filePath)
+
+  def executePermission(self):
+    return ExecutePermission.EXECUTE_IF_IDLE
+
+  def filePath(self):
+    return self.get("FilePath")
+
+  def setFilePath(self, value):
+    return self.set("FilePath", value)
+
+#
+# Export Wavefront Antenna settings to an XML file.
+#
+# Name          Type   Description
+# ------------- ------ -------------------------------------------------
+# FilePath      string Export file path for Wavefront Antenna settings.
+# OverwriteFile bool   When selected, existing file will be overwritten.
+#
+
+class ExportWFAntenna(CommandBase):
+
+  def __init__(self, filePath, overwriteFile):
+    CommandBase.__init__(self, "ExportWFAntenna")
+    self.setFilePath(filePath)
+    self.setOverwriteFile(overwriteFile)
+
+  def executePermission(self):
+    return ExecutePermission.EXECUTE_IF_IDLE
+
+  def filePath(self):
+    return self.get("FilePath")
+
+  def setFilePath(self, value):
+    return self.set("FilePath", value)
+
+  def overwriteFile(self):
+    return self.get("OverwriteFile")
+
+  def setOverwriteFile(self, value):
+    return self.set("OverwriteFile", value)
+
+#
+# Set the local oscillator source of the N310. Can be Internal or External. By default, the source is Internal.
+#
+# Name       Type   Description
+# ---------- ------ -------------------------------------------------------------------------------------------
+# IsExternal bool   Indicates if the Local Oscillator is external (true) or internal (false). False by default.
+# Id         string N310 modulation target Id.
+#
+
+class SetN310LocalOscillatorSource(CommandBase):
+
+  def __init__(self, isExternal, id):
+    CommandBase.__init__(self, "SetN310LocalOscillatorSource")
+    self.setIsExternal(isExternal)
+    self.setId(id)
+
+  def executePermission(self):
+    return ExecutePermission.EXECUTE_IF_NO_CONFIG | ExecutePermission.EXECUTE_IF_IDLE
+
+  def isExternal(self):
+    return self.get("IsExternal")
+
+  def setIsExternal(self, value):
+    return self.set("IsExternal", value)
+
+  def id(self):
+    return self.get("Id")
+
+  def setId(self, value):
+    return self.set("Id", value)
+
+#
+# Get the local oscillator source of the N310. Can be Internal or External. By default, the source is Internal.
+#
+# Name Type   Description
+# ---- ------ --------------------------
+# Id   string N310 modulation target Id.
+#
+
+class GetN310LocalOscillatorSource(CommandBase):
+
+  def __init__(self, id):
+    CommandBase.__init__(self, "GetN310LocalOscillatorSource")
+    self.setId(id)
+
+  def executePermission(self):
+    return ExecutePermission.EXECUTE_IF_IDLE
+
+  def id(self):
+    return self.get("Id")
+
+  def setId(self, value):
+    return self.set("Id", value)
+
+#
+# Result of GetN310LocalOscillatorSource.
+#
+# Name       Type   Description
+# ---------- ------ -------------------------------------------------------------------------------------------
+# IsExternal bool   Indicates if the Local Oscillator is external (true) or internal (false). False by default.
+# Id         string N310 modulation target Id.
+#
+
+class GetN310LocalOscillatorSourceResult(CommandResult):
+
+  def __init__(self, isExternal, id):
+    CommandResult.__init__(self, "GetN310LocalOscillatorSourceResult")
+    self.setIsExternal(isExternal)
+    self.setId(id)
+
+  def isSuccess(self):
+    return True
+
+  def isExternal(self):
+    return self.get("IsExternal")
+
+  def setIsExternal(self, value):
+    return self.set("IsExternal", value)
+
+  def id(self):
+    return self.get("Id")
+
+  def setId(self, value):
+    return self.set("Id", value)
+
+#
+# Set "GPS", "Galileo", "BeiDou", "QZSS" or "NavIC" constellation parameter value.
+# 
+# General constellation parameters:
+# 
+#   Unit         Type     ParamName
+#   sec          double   "ClockBias"
+#   sec/sec      double   "ClockDrift"
+#   sec/sec^2    double   "ClockDriftRate"
+#   meter        double   "Crs", "Crc", "Accuracy"
+#   meter/sec    double   "Adot"
+#   rad          double   "Cis", "Cic", "Cus", "Cuc", "M0", "BigOmega", "I0", "LittleOmega"
+#   rad/sec      double   "DeltaN", "BigOmegaDot", "Idot" 
+#   rad/sec^2    double   "DeltaN0dot"
+#   sqrt(meter)  double   "SqrtA"  
+#   -            double   "Eccentricity"
+#   -            integer  "Week Number", "Toe", "Transmission Time"
+# 
+# GPS:
+# 
+#   Unit         Type     ParamName
+#   sec          double   "Tgd", "IscL1Ca", "IscL2C", "IscL5I5", "IscL5Q5", "IscL1CP", "IscL1CD", "IscL1ME", "IscL2ME", "IscL1MR", "IscL2MR"
+#   sec          integer  "Fit interval"
+#   -            integer  "IODE", "IODC", "UraIndex"
+#   -            boolean  "IscL1CaAvailable", "IscL2CAvailable", "IscL5I5Available", "IscL5Q5Available", "IscL1CPAvailable", "IscL1CDAvailable", "IscL1MEAvailable", "IscL2MEAvailable", "IscL1MRAvailable", "IscL2MRAvailable"
+# 
+# Galileo:
+# 
+#   Unit         Type     ParamName
+#   sec          double   "Tgd"
+#   ns           double   "BgdE1E5a", "BgdE1E5b"
+#   -            integer  "SisaE1E5a", "SisaE1E5b", "IODNAV" 
+# 
+# BeiDou:
+# 
+#   Unit         Type     ParamName
+#   sec          double   "Tgd1", "Tgd2", "TgdB1Cp", "TgdB2Ap"
+#   -            integer  "IODE", "IODC", "AODE", "AODC"
+#   -            boolean  "IscB1CdAvailable", "IscB2adAvailable"
+# 
+# QZSS:
+# 
+#   Unit         Type     ParamName
+#   sec          double   "Tgd", "IscL1Ca", "IscL2C", "IscL5I5", "IscL5Q5", "IscL1CP", "IscL1CD"
+#   sec          integer  "Fit interval"
+#   -            integer  "IODE", "IODC", "UraIndex"
+#   -            boolean  "IscL1CaAvailable", "IscL2CAvailable", "IscL5I5Available", "IscL5Q5Available", "IscL1CPAvailable", "IscL1CDAvailable"
+# 
+# NavIC:
+# 
+#   Unit         Type     ParamName
+#   sec          double   "Tgd"
+#   -            integer  "IODEC", "UraIndex"
+#
+# Name        Type                  Description
+# ----------- --------------------- -------------------------------------------------------------------------------------------
+# System      string                "GPS", "Galileo", "BeiDou", "QZSS" or "NavIC".
+# SvId        int                   The Satellite SV ID, or use 0 to apply new value to all satellites.
+# ParamName   string                Parameter name (see table above for accepted names).
+# Val         double or int or bool Parameter value (see table above for unit and type).
+# DataSetName optional string       Optional name of the data set to use. If no value is provided, the active data set is used.
+#
+
+class SetConstellationParameterForSV(CommandBase):
+
+  def __init__(self, system, svId, paramName, val, dataSetName = None):
+    CommandBase.__init__(self, "SetConstellationParameterForSV")
+    self.setSystem(system)
+    self.setSvId(svId)
+    self.setParamName(paramName)
+    self.setVal(val)
+    self.setDataSetName(dataSetName)
+
+  def executePermission(self):
+    return ExecutePermission.EXECUTE_IF_IDLE
+
+  def system(self):
+    return self.get("System")
+
+  def setSystem(self, value):
+    return self.set("System", value)
+
+  def svId(self):
+    return self.get("SvId")
+
+  def setSvId(self, value):
+    return self.set("SvId", value)
+
+  def paramName(self):
+    return self.get("ParamName")
+
+  def setParamName(self, value):
+    return self.set("ParamName", value)
+
+  def val(self):
+    return self.get("Val")
+
+  def setVal(self, value):
+    return self.set("Val", value)
+
+  def dataSetName(self):
+    return self.get("DataSetName")
+
+  def setDataSetName(self, value):
+    return self.set("DataSetName", value)
+
+#
+# Get "GPS", "Galileo", "BeiDou", "QZSS" or "NavIC" constellation parameter value.
+# 
+# General constellation parameters:
+# 
+#   Unit         Type     ParamName
+#   sec          double   "ClockBias"
+#   sec/sec      double   "ClockDrift"
+#   sec/sec^2    double   "ClockDriftRate"
+#   meter        double   "Crs", "Crc", "Accuracy"
+#   meter/sec    double   "Adot"
+#   rad          double   "Cis", "Cic", "Cus", "Cuc", "M0", "BigOmega", "I0", "LittleOmega"
+#   rad/sec      double   "DeltaN", "BigOmegaDot", "Idot" 
+#   rad/sec^2    double   "DeltaN0dot"
+#   sqrt(meter)  double   "SqrtA"  
+#   -            double   "Eccentricity"
+#   -            integer  "Week Number", "Toe", "Transmission Time"
+# 
+# GPS:
+# 
+#   Unit         Type     ParamName
+#   sec          double   "Tgd", "IscL1Ca", "IscL2C", "IscL5I5", "IscL5Q5", "IscL1CP", "IscL1CD", "IscL1ME", "IscL2ME", "IscL1MR", "IscL2MR"
+#   sec          integer  "Fit interval"
+#   -            integer  "IODE", "IODC", "UraIndex"
+#   -            boolean  "IscL1CaAvailable", "IscL2CAvailable", "IscL5I5Available", "IscL5Q5Available", "IscL1CPAvailable", "IscL1CDAvailable", "IscL1MEAvailable", "IscL2MEAvailable", "IscL1MRAvailable", "IscL2MRAvailable"
+# 
+# Galileo:
+# 
+#   Unit         Type     ParamName
+#   sec          double   "Tgd"
+#   ns           double   "BgdE1E5a", "BgdE1E5b"
+#   -            integer  "SisaE1E5a", "SisaE1E5b", "IODNAV" 
+# 
+# BeiDou:
+# 
+#   Unit         Type     ParamName
+#   sec          double   "Tgd1", "Tgd2", "TgdB1Cp", "TgdB2Ap"
+#   -            integer  "IODE", "IODC", "AODE", "AODC"
+#   -            boolean  "IscB1CdAvailable", "IscB2adAvailable"
+# 
+# QZSS:
+# 
+#   Unit         Type     ParamName
+#   sec          double   "Tgd", "IscL1Ca", "IscL2C", "IscL5I5", "IscL5Q5", "IscL1CP", "IscL1CD"
+#   sec          integer  "Fit interval"
+#   -            integer  "IODE", "IODC", "UraIndex"
+#   -            boolean  "IscL1CaAvailable", "IscL2CAvailable", "IscL5I5Available", "IscL5Q5Available", "IscL1CPAvailable", "IscL1CDAvailable"
+# 
+# NavIC:
+# 
+#   Unit         Type     ParamName
+#   sec          double   "Tgd"
+#   -            integer  "IODEC", "UraIndex"
+#
+# Name        Type            Description
+# ----------- --------------- -------------------------------------------------------------------------------------------
+# System      string          "GPS", "Galileo", "BeiDou", "QZSS" or "NavIC".
+# SvId        int             The Satellite SV ID, or use 0 to apply new value to all satellites.
+# ParamName   string          Parameter name (see table above for accepted names).
+# DataSetName optional string Optional name of the data set to use. If no value is provided, the active data set is used.
+#
+
+class GetConstellationParameterForSV(CommandBase):
+
+  def __init__(self, system, svId, paramName, dataSetName = None):
+    CommandBase.__init__(self, "GetConstellationParameterForSV")
+    self.setSystem(system)
+    self.setSvId(svId)
+    self.setParamName(paramName)
+    self.setDataSetName(dataSetName)
+
+  def executePermission(self):
+    return ExecutePermission.EXECUTE_IF_IDLE
+
+  def system(self):
+    return self.get("System")
+
+  def setSystem(self, value):
+    return self.set("System", value)
+
+  def svId(self):
+    return self.get("SvId")
+
+  def setSvId(self, value):
+    return self.set("SvId", value)
+
+  def paramName(self):
+    return self.get("ParamName")
+
+  def setParamName(self, value):
+    return self.set("ParamName", value)
+
+  def dataSetName(self):
+    return self.get("DataSetName")
+
+  def setDataSetName(self, value):
+    return self.set("DataSetName", value)
+
+#
+# Result of GetConstellationParameterForSV.
+#
+# Name        Type                  Description
+# ----------- --------------------- -------------------------------------------------------------------------------------------
+# System      string                "GPS", "Galileo", "BeiDou", "QZSS" or "NavIC".
+# SvId        int                   The Satellite SV ID, or use 0 to apply new value to all satellites.
+# ParamName   string                Parameter name (see table above for accepted names).
+# Val         double or int or bool Parameter value (see table above for unit and type).
+# DataSetName optional string       Optional name of the data set to use. If no value is provided, the active data set is used.
+#
+
+class GetConstellationParameterForSVResult(CommandResult):
+
+  def __init__(self, system, svId, paramName, val, dataSetName = None):
+    CommandResult.__init__(self, "GetConstellationParameterForSVResult")
+    self.setSystem(system)
+    self.setSvId(svId)
+    self.setParamName(paramName)
+    self.setVal(val)
+    self.setDataSetName(dataSetName)
+
+  def isSuccess(self):
+    return True
+
+  def system(self):
+    return self.get("System")
+
+  def setSystem(self, value):
+    return self.set("System", value)
+
+  def svId(self):
+    return self.get("SvId")
+
+  def setSvId(self, value):
+    return self.set("SvId", value)
+
+  def paramName(self):
+    return self.get("ParamName")
+
+  def setParamName(self, value):
+    return self.set("ParamName", value)
+
+  def val(self):
+    return self.get("Val")
+
+  def setVal(self, value):
+    return self.set("Val", value)
+
+  def dataSetName(self):
+    return self.get("DataSetName")
+
+  def setDataSetName(self, value):
+    return self.set("DataSetName", value)
+
+#
+# Set "GPS", "Galileo", "BeiDou", "QZSS" or "NavIC" constellation parameter value for all satellites.
+#
+# Name        Type                                    Description
+# ----------- --------------------------------------- ----------------------------------------------------------------------------------------------------
+# System      string                                  "GPS", "Galileo", "BeiDou", "QZSS" or "NavIC".
+# ParamName   string                                  Refer to SetConstellationParameterForSV for accepted names.
+# Val         array double or array int or array bool Parameter value for each satellite. Zero based index (index 0 => SV ID 1, index 1 => SV ID 2, etc.).
+# DataSetName optional string                         Optional name of the data set to use. If no value is provided, the active data set is used.
+#
+
+class SetConstellationParameterForEachSV(CommandBase):
+
+  def __init__(self, system, paramName, val, dataSetName = None):
+    CommandBase.__init__(self, "SetConstellationParameterForEachSV")
+    self.setSystem(system)
+    self.setParamName(paramName)
+    self.setVal(val)
+    self.setDataSetName(dataSetName)
+
+  def executePermission(self):
+    return ExecutePermission.EXECUTE_IF_IDLE
+
+  def system(self):
+    return self.get("System")
+
+  def setSystem(self, value):
+    return self.set("System", value)
+
+  def paramName(self):
+    return self.get("ParamName")
+
+  def setParamName(self, value):
+    return self.set("ParamName", value)
+
+  def val(self):
+    return self.get("Val")
+
+  def setVal(self, value):
+    return self.set("Val", value)
+
+  def dataSetName(self):
+    return self.get("DataSetName")
+
+  def setDataSetName(self, value):
+    return self.set("DataSetName", value)
+
+#
+# Get "GPS", "Galileo", "BeiDou", "QZSS" or "NavIC" constellation parameter value for all satellites.
+#
+# Name        Type            Description
+# ----------- --------------- -------------------------------------------------------------------------------------------
+# System      string          "GPS", "Galileo", "BeiDou", "QZSS" or "NavIC".
+# ParamName   string          Refer to SetConstellationParameterForSV for accepted names.
+# DataSetName optional string Optional name of the data set to use. If no value is provided, the active data set is used.
+#
+
+class GetConstellationParameterForEachSV(CommandBase):
+
+  def __init__(self, system, paramName, dataSetName = None):
+    CommandBase.__init__(self, "GetConstellationParameterForEachSV")
+    self.setSystem(system)
+    self.setParamName(paramName)
+    self.setDataSetName(dataSetName)
+
+  def executePermission(self):
+    return ExecutePermission.EXECUTE_IF_IDLE
+
+  def system(self):
+    return self.get("System")
+
+  def setSystem(self, value):
+    return self.set("System", value)
+
+  def paramName(self):
+    return self.get("ParamName")
+
+  def setParamName(self, value):
+    return self.set("ParamName", value)
+
+  def dataSetName(self):
+    return self.get("DataSetName")
+
+  def setDataSetName(self, value):
+    return self.set("DataSetName", value)
+
+#
+# Result of GetConstellationParameterForEachSV.
+#
+# Name        Type                                    Description
+# ----------- --------------------------------------- ----------------------------------------------------------------------------------------------------
+# System      string                                  "GPS", "Galileo", "BeiDou", "QZSS" or "NavIC".
+# ParamName   string                                  Refer to SetConstellationParameterForSV for accepted names.
+# Val         array double or array int or array bool Parameter value for each satellite. Zero based index (index 0 => SV ID 1, index 1 => SV ID 2, etc.).
+# DataSetName optional string                         Optional name of the data set to use. If no value is provided, the active data set is used.
+#
+
+class GetConstellationParameterForEachSVResult(CommandResult):
+
+  def __init__(self, system, paramName, val, dataSetName = None):
+    CommandResult.__init__(self, "GetConstellationParameterForEachSVResult")
+    self.setSystem(system)
+    self.setParamName(paramName)
+    self.setVal(val)
+    self.setDataSetName(dataSetName)
+
+  def isSuccess(self):
+    return True
+
+  def system(self):
+    return self.get("System")
+
+  def setSystem(self, value):
+    return self.set("System", value)
+
+  def paramName(self):
+    return self.get("ParamName")
+
+  def setParamName(self, value):
+    return self.set("ParamName", value)
+
+  def val(self):
+    return self.get("Val")
+
+  def setVal(self, value):
+    return self.set("Val", value)
+
+  def dataSetName(self):
+    return self.get("DataSetName")
+
+  def setDataSetName(self, value):
+    return self.set("DataSetName", value)
+
+#
 # A pair of string
 #
 # Name   Type   Description
@@ -37754,4 +34949,4051 @@ class GetPowerForSVResult(CommandResult):
 
   def setTotal(self, value):
     return self.set("Total", value)
+
+#
+# Please note the command GetMasterStatus is deprecated since 23.11. You may use GetMainInstanceStatus.
+# 
+# Request for the master status, returns a GetMasterStatusResult
+#
+#
+
+class GetMasterStatus(CommandBase):
+
+  def __init__(self):
+    CommandBase.__init__(self, "GetMasterStatus")
+
+  def executePermission(self):
+    return ExecutePermission.EXECUTE_IF_IDLE | ExecutePermission.EXECUTE_IF_SIMULATING
+
+  def deprecated(self):
+    return "Please note the command GetMasterStatus is deprecated since 23.11. You may use GetMainInstanceStatus."
+
+#
+# Result of GetMasterStatus.
+#
+# Name           Type Description
+# -------------- ---- -------------------------------------
+# IsMaster       bool True if Skydel is in master mode
+# SlaveConnected int  The number of connected slaves
+# Port           int  The listening port, 0 if not a master
+#
+
+class GetMasterStatusResult(CommandResult):
+
+  def __init__(self, isMaster, slaveConnected, port):
+    CommandResult.__init__(self, "GetMasterStatusResult")
+    self.setIsMaster(isMaster)
+    self.setSlaveConnected(slaveConnected)
+    self.setPort(port)
+
+  def isSuccess(self):
+    return True
+
+  def isMaster(self):
+    return self.get("IsMaster")
+
+  def setIsMaster(self, value):
+    return self.set("IsMaster", value)
+
+  def slaveConnected(self):
+    return self.get("SlaveConnected")
+
+  def setSlaveConnected(self, value):
+    return self.set("SlaveConnected", value)
+
+  def port(self):
+    return self.get("Port")
+
+  def setPort(self, value):
+    return self.set("Port", value)
+
+#
+# Please note the command GetSlaveStatus is deprecated since 23.11. You may use GetWorkerInstanceStatus.
+# 
+# Request for the slave status, returns a GetSlaveStatusResult
+#
+#
+
+class GetSlaveStatus(CommandBase):
+
+  def __init__(self):
+    CommandBase.__init__(self, "GetSlaveStatus")
+
+  def executePermission(self):
+    return ExecutePermission.EXECUTE_IF_IDLE | ExecutePermission.EXECUTE_IF_SIMULATING
+
+  def deprecated(self):
+    return "Please note the command GetSlaveStatus is deprecated since 23.11. You may use GetWorkerInstanceStatus."
+
+#
+# Result of GetSlaveStatus.
+#
+# Name        Type   Description
+# ----------- ------ ---------------------------------------
+# IsSlave     bool   True if Skydel is in slave mode
+# IsConnected bool   True if Skydel is connected to a master
+# HostName    string The host name, empty if not a slave
+# HostPort    int    The host port, 0 if not a slave
+#
+
+class GetSlaveStatusResult(CommandResult):
+
+  def __init__(self, isSlave, isConnected, hostName, hostPort):
+    CommandResult.__init__(self, "GetSlaveStatusResult")
+    self.setIsSlave(isSlave)
+    self.setIsConnected(isConnected)
+    self.setHostName(hostName)
+    self.setHostPort(hostPort)
+
+  def isSuccess(self):
+    return True
+
+  def isSlave(self):
+    return self.get("IsSlave")
+
+  def setIsSlave(self, value):
+    return self.set("IsSlave", value)
+
+  def isConnected(self):
+    return self.get("IsConnected")
+
+  def setIsConnected(self, value):
+    return self.set("IsConnected", value)
+
+  def hostName(self):
+    return self.get("HostName")
+
+  def setHostName(self, value):
+    return self.set("HostName", value)
+
+  def hostPort(self):
+    return self.get("HostPort")
+
+  def setHostPort(self, value):
+    return self.set("HostPort", value)
+
+#
+# Please note the command StopMasterWhenSlaveStop is deprecated since 23.11. You may use StopMainInstanceWhenWorkerInstanceStop.
+# 
+# If enabled, master and all the slaves will stop if a slave stop.
+#
+# Name    Type Description
+# ------- ---- ---------------------------------------
+# Enabled bool Enable master stop when slave fail flag
+#
+
+class StopMasterWhenSlaveStop(CommandBase):
+
+  def __init__(self, enabled):
+    CommandBase.__init__(self, "StopMasterWhenSlaveStop")
+    self.setEnabled(enabled)
+
+  def executePermission(self):
+    return ExecutePermission.EXECUTE_IF_NO_CONFIG | ExecutePermission.EXECUTE_IF_IDLE | ExecutePermission.EXECUTE_IF_SIMULATING
+
+  def enabled(self):
+    return self.get("Enabled")
+
+  def setEnabled(self, value):
+    return self.set("Enabled", value)
+
+  def deprecated(self):
+    return "Please note the command StopMasterWhenSlaveStop is deprecated since 23.11. You may use StopMainInstanceWhenWorkerInstanceStop."
+
+#
+# Please note the command IsStopMasterWhenSlaveStop is deprecated since 23.11. You may use IsStopMainInstanceWhenWorkerInstanceStop.
+# 
+# If enabled, master and all the slaves will stop if a slave stop.
+#
+#
+
+class IsStopMasterWhenSlaveStop(CommandBase):
+
+  def __init__(self):
+    CommandBase.__init__(self, "IsStopMasterWhenSlaveStop")
+
+  def executePermission(self):
+    return ExecutePermission.EXECUTE_IF_IDLE | ExecutePermission.EXECUTE_IF_SIMULATING
+
+  def deprecated(self):
+    return "Please note the command IsStopMasterWhenSlaveStop is deprecated since 23.11. You may use IsStopMainInstanceWhenWorkerInstanceStop."
+
+#
+# Result of IsStopMasterWhenSlaveStop.
+#
+# Name    Type Description
+# ------- ---- ---------------------------------------
+# Enabled bool Enable master stop when slave fail flag
+#
+
+class IsStopMasterWhenSlaveStopResult(CommandResult):
+
+  def __init__(self, enabled):
+    CommandResult.__init__(self, "IsStopMasterWhenSlaveStopResult")
+    self.setEnabled(enabled)
+
+  def isSuccess(self):
+    return True
+
+  def enabled(self):
+    return self.get("Enabled")
+
+  def setEnabled(self, value):
+    return self.set("Enabled", value)
+
+#
+# Please note the command SetGpsEphDoubleParamForSV is deprecated since 23.11. You may use SetConstellationParameterForSV.
+# 
+# Set various parameters in the GPS ephemeris
+# 
+#   ParamName         Unit
+#   "ClockBias"       sec
+#   "ClockDrift"      sec/sec
+#   "ClockDriftRate"  sec/sec^2
+#   "Crs"             meter
+#   "Crc"             meter
+#   "Cis"             rad
+#   "Cic"             rad
+#   "Cus"             rad
+#   "Cuc"             rad
+#   "DeltaN"          rad/sec
+#   "M0"              rad
+#   "Eccentricity"    -
+#   "SqrtA"           sqrt(meter)
+#   "BigOmega"        rad
+#   "I0"              rad
+#   "LittleOmega"     rad
+#   "BigOmegaDot"     rad/sec
+#   "Idot"            rad/sec
+#   "Accuracy"        meter
+#   "Adot"            meters/sec
+#   "DeltaN0dot"      rad/sec^2
+#   "Tgd"             sec
+#   "IscL1Ca"         sec
+#   "IscL2C"          sec
+#   "IscL5I5"         sec
+#   "IscL5Q5"         sec
+#   "IscL1CP"         sec
+#   "IscL1CD"         sec
+#
+# Name        Type            Description
+# ----------- --------------- -------------------------------------------------------------------------------------------
+# SvId        int             Satellite SV ID 1..32, or use 0 to apply new value to all satellites.
+# ParamName   string          Parameter name (see table above for accepted names)
+# Val         double          Parameter value (see table above for unit)
+# DataSetName optional string Optional name of the data set to use. If no value is provided, the active data set is used.
+#
+
+class SetGpsEphDoubleParamForSV(CommandBase):
+
+  def __init__(self, svId, paramName, val, dataSetName = None):
+    CommandBase.__init__(self, "SetGpsEphDoubleParamForSV")
+    self.setSvId(svId)
+    self.setParamName(paramName)
+    self.setVal(val)
+    self.setDataSetName(dataSetName)
+
+  def executePermission(self):
+    return ExecutePermission.EXECUTE_IF_IDLE
+
+  def svId(self):
+    return self.get("SvId")
+
+  def setSvId(self, value):
+    return self.set("SvId", value)
+
+  def paramName(self):
+    return self.get("ParamName")
+
+  def setParamName(self, value):
+    return self.set("ParamName", value)
+
+  def val(self):
+    return self.get("Val")
+
+  def setVal(self, value):
+    return self.set("Val", value)
+
+  def dataSetName(self):
+    return self.get("DataSetName")
+
+  def setDataSetName(self, value):
+    return self.set("DataSetName", value)
+
+  def deprecated(self):
+    return "Please note the command SetGpsEphDoubleParamForSV is deprecated since 23.11. You may use SetConstellationParameterForSV."
+
+#
+# Please note the command GetGpsEphDoubleParamForSV is deprecated since 23.11. You may use GetConstellationParameterForSV.
+# 
+# Get various parameters in the GPS ephemeris
+# 
+#   ParamName         Unit
+#   "ClockBias"       sec
+#   "ClockDrift"      sec/sec
+#   "ClockDriftRate"  sec/sec^2
+#   "Crs"             meter
+#   "Crc"             meter
+#   "Cis"             rad
+#   "Cic"             rad
+#   "Cus"             rad
+#   "Cuc"             rad
+#   "DeltaN"          rad/sec
+#   "M0"              rad
+#   "Eccentricity"    -
+#   "SqrtA"           sqrt(meter)
+#   "BigOmega"        rad
+#   "I0"              rad
+#   "LittleOmega"     rad
+#   "BigOmegaDot"     rad/sec
+#   "Idot"            rad/sec
+#   "Accuracy"        meter
+#   "Adot"            meters/sec
+#   "DeltaN0dot"      rad/sec^2
+#   "Tgd"             sec
+#   "IscL1Ca"         sec
+#   "IscL2C"          sec
+#   "IscL5I5"         sec
+#   "IscL5Q5"         sec
+#   "IscL1CP"         sec
+#   "IscL1CD"         sec
+#
+# Name        Type            Description
+# ----------- --------------- -------------------------------------------------------------------------------------------
+# SvId        int             Satellite SV ID 1..32, or use 0 to apply new value to all satellites.
+# ParamName   string          Parameter name (see table above for accepted names)
+# DataSetName optional string Optional name of the data set to use. If no value is provided, the active data set is used.
+#
+
+class GetGpsEphDoubleParamForSV(CommandBase):
+
+  def __init__(self, svId, paramName, dataSetName = None):
+    CommandBase.__init__(self, "GetGpsEphDoubleParamForSV")
+    self.setSvId(svId)
+    self.setParamName(paramName)
+    self.setDataSetName(dataSetName)
+
+  def executePermission(self):
+    return ExecutePermission.EXECUTE_IF_IDLE
+
+  def svId(self):
+    return self.get("SvId")
+
+  def setSvId(self, value):
+    return self.set("SvId", value)
+
+  def paramName(self):
+    return self.get("ParamName")
+
+  def setParamName(self, value):
+    return self.set("ParamName", value)
+
+  def dataSetName(self):
+    return self.get("DataSetName")
+
+  def setDataSetName(self, value):
+    return self.set("DataSetName", value)
+
+  def deprecated(self):
+    return "Please note the command GetGpsEphDoubleParamForSV is deprecated since 23.11. You may use GetConstellationParameterForSV."
+
+#
+# Result of GetGpsEphDoubleParamForSV.
+#
+# Name        Type            Description
+# ----------- --------------- -------------------------------------------------------------------------------------------
+# SvId        int             Satellite SV ID 1..32, or use 0 to apply new value to all satellites.
+# ParamName   string          Parameter name (see table above for accepted names)
+# Val         double          Parameter value (see table above for unit)
+# DataSetName optional string Optional name of the data set to use. If no value is provided, the active data set is used.
+#
+
+class GetGpsEphDoubleParamForSVResult(CommandResult):
+
+  def __init__(self, svId, paramName, val, dataSetName = None):
+    CommandResult.__init__(self, "GetGpsEphDoubleParamForSVResult")
+    self.setSvId(svId)
+    self.setParamName(paramName)
+    self.setVal(val)
+    self.setDataSetName(dataSetName)
+
+  def isSuccess(self):
+    return True
+
+  def svId(self):
+    return self.get("SvId")
+
+  def setSvId(self, value):
+    return self.set("SvId", value)
+
+  def paramName(self):
+    return self.get("ParamName")
+
+  def setParamName(self, value):
+    return self.set("ParamName", value)
+
+  def val(self):
+    return self.get("Val")
+
+  def setVal(self, value):
+    return self.set("Val", value)
+
+  def dataSetName(self):
+    return self.get("DataSetName")
+
+  def setDataSetName(self, value):
+    return self.set("DataSetName", value)
+
+#
+# Please note the command SetGalileoEphDoubleParamForSV is deprecated since 23.11. You may use SetConstellationParameterForSV.
+# 
+# Set various parameters in the Galileo ephemeris
+# 
+#   ParamName         Unit
+#   "ClockBias"       sec
+#   "ClockDrift"      sec/sec
+#   "ClockDriftRate"  sec/sec^2
+#   "Crs"             meter
+#   "Crc"             meter
+#   "Cis"             rad
+#   "Cic"             rad
+#   "Cus"             rad
+#   "Cuc"             rad
+#   "DeltaN"          rad/sec
+#   "M0"              rad
+#   "Eccentricity"    -
+#   "SqrtA"           sqrt(meter)
+#   "BigOmega"        rad
+#   "I0"              rad
+#   "LittleOmega"     rad
+#   "BigOmegaDot"     rad/sec
+#   "Idot"            rad/sec
+#   "Accuracy"        meter
+#   "Adot"            meters/sec
+#   "DeltaN0dot"      rad/sec^2
+#   "Tgd"             sec
+#   "BgdE1E5a"        ns
+#   "BgdE1E5b"        ns
+#
+# Name        Type            Description
+# ----------- --------------- -------------------------------------------------------------------------------------------
+# SvId        int             Satellite SV ID 1..36, or use 0 to apply new value to all satellites
+# ParamName   string          Parameter name (see table above for accepted names)
+# Val         double          Parameter value (see table above for unit)
+# DataSetName optional string Optional name of the data set to use. If no value is provided, the active data set is used.
+#
+
+class SetGalileoEphDoubleParamForSV(CommandBase):
+
+  def __init__(self, svId, paramName, val, dataSetName = None):
+    CommandBase.__init__(self, "SetGalileoEphDoubleParamForSV")
+    self.setSvId(svId)
+    self.setParamName(paramName)
+    self.setVal(val)
+    self.setDataSetName(dataSetName)
+
+  def executePermission(self):
+    return ExecutePermission.EXECUTE_IF_IDLE
+
+  def svId(self):
+    return self.get("SvId")
+
+  def setSvId(self, value):
+    return self.set("SvId", value)
+
+  def paramName(self):
+    return self.get("ParamName")
+
+  def setParamName(self, value):
+    return self.set("ParamName", value)
+
+  def val(self):
+    return self.get("Val")
+
+  def setVal(self, value):
+    return self.set("Val", value)
+
+  def dataSetName(self):
+    return self.get("DataSetName")
+
+  def setDataSetName(self, value):
+    return self.set("DataSetName", value)
+
+  def deprecated(self):
+    return "Please note the command SetGalileoEphDoubleParamForSV is deprecated since 23.11. You may use SetConstellationParameterForSV."
+
+#
+# Please note the command GetGalileoEphDoubleParamForSV is deprecated since 23.11. You may use GetConstellationParameterForSV.
+# 
+# Get various parameters in the Galileo ephemeris
+# 
+#   ParamName         Unit
+#   "ClockBias"       sec
+#   "ClockDrift"      sec/sec
+#   "ClockDriftRate"  sec/sec^2
+#   "Crs"             meter
+#   "Crc"             meter
+#   "Cis"             rad
+#   "Cic"             rad
+#   "Cus"             rad
+#   "Cuc"             rad
+#   "DeltaN"          rad/sec
+#   "M0"              rad
+#   "Eccentricity"    -
+#   "SqrtA"           sqrt(meter)
+#   "BigOmega"        rad
+#   "I0"              rad
+#   "LittleOmega"     rad
+#   "BigOmegaDot"     rad/sec
+#   "Idot"            rad/sec
+#   "Accuracy"        meter
+#   "Adot"            meters/sec
+#   "DeltaN0dot"      rad/sec^2
+#   "Tgd"             sec
+#   "BgdE1E5a"        ns
+#   "BgdE1E5b"        ns
+#
+# Name        Type            Description
+# ----------- --------------- -------------------------------------------------------------------------------------------
+# SvId        int             Satellite SV ID 1..36, or use 0 to apply new value to all satellites
+# ParamName   string          Parameter name (see table above for accepted names)
+# DataSetName optional string Optional name of the data set to use. If no value is provided, the active data set is used.
+#
+
+class GetGalileoEphDoubleParamForSV(CommandBase):
+
+  def __init__(self, svId, paramName, dataSetName = None):
+    CommandBase.__init__(self, "GetGalileoEphDoubleParamForSV")
+    self.setSvId(svId)
+    self.setParamName(paramName)
+    self.setDataSetName(dataSetName)
+
+  def executePermission(self):
+    return ExecutePermission.EXECUTE_IF_IDLE
+
+  def svId(self):
+    return self.get("SvId")
+
+  def setSvId(self, value):
+    return self.set("SvId", value)
+
+  def paramName(self):
+    return self.get("ParamName")
+
+  def setParamName(self, value):
+    return self.set("ParamName", value)
+
+  def dataSetName(self):
+    return self.get("DataSetName")
+
+  def setDataSetName(self, value):
+    return self.set("DataSetName", value)
+
+  def deprecated(self):
+    return "Please note the command GetGalileoEphDoubleParamForSV is deprecated since 23.11. You may use GetConstellationParameterForSV."
+
+#
+# Result of GetGalileoEphDoubleParamForSV.
+#
+# Name        Type            Description
+# ----------- --------------- -------------------------------------------------------------------------------------------
+# SvId        int             Satellite SV ID 1..36, or use 0 to apply new value to all satellites
+# ParamName   string          Parameter name (see table above for accepted names)
+# Val         double          Parameter value (see table above for unit)
+# DataSetName optional string Optional name of the data set to use. If no value is provided, the active data set is used.
+#
+
+class GetGalileoEphDoubleParamForSVResult(CommandResult):
+
+  def __init__(self, svId, paramName, val, dataSetName = None):
+    CommandResult.__init__(self, "GetGalileoEphDoubleParamForSVResult")
+    self.setSvId(svId)
+    self.setParamName(paramName)
+    self.setVal(val)
+    self.setDataSetName(dataSetName)
+
+  def isSuccess(self):
+    return True
+
+  def svId(self):
+    return self.get("SvId")
+
+  def setSvId(self, value):
+    return self.set("SvId", value)
+
+  def paramName(self):
+    return self.get("ParamName")
+
+  def setParamName(self, value):
+    return self.set("ParamName", value)
+
+  def val(self):
+    return self.get("Val")
+
+  def setVal(self, value):
+    return self.set("Val", value)
+
+  def dataSetName(self):
+    return self.get("DataSetName")
+
+  def setDataSetName(self, value):
+    return self.set("DataSetName", value)
+
+#
+# Please note the command SetBeiDouEphDoubleParamForSV is deprecated since 23.11. You may use SetConstellationParameterForSV.
+# 
+# Set various parameters in the BeiDou ephemeris
+# 
+#   ParamName         Unit
+#   "ClockBias"       sec
+#   "ClockDrift"      sec/sec
+#   "ClockDriftRate"  sec/sec^2
+#   "Crs"             meter
+#   "Crc"             meter
+#   "Cis"             rad
+#   "Cic"             rad
+#   "Cus"             rad
+#   "Cuc"             rad
+#   "DeltaN"          rad/sec
+#   "M0"              rad
+#   "Eccentricity"    -
+#   "SqrtA"           sqrt(meter)
+#   "BigOmega"        rad
+#   "I0"              rad
+#   "LittleOmega"     rad
+#   "BigOmegaDot"     rad/sec
+#   "Idot"            rad/sec
+#   "Accuracy"        meter
+#   "Adot"            meters/sec
+#   "DeltaN0dot"      rad/sec^2
+#   "Tgd1"            sec
+#   "Tgd2"            sec
+#   "TgdB1Cp"         sec
+#   "TgdB2Ap"         sec
+#
+# Name        Type            Description
+# ----------- --------------- -------------------------------------------------------------------------------------------
+# SvId        int             Satellite SV ID 1..35, or use 0 to apply new value to all satellites
+# ParamName   string          Parameter name (see table above for accepted names)
+# Val         double          Parameter value (see table above for unit)
+# DataSetName optional string Optional name of the data set to use. If no value is provided, the active data set is used.
+#
+
+class SetBeiDouEphDoubleParamForSV(CommandBase):
+
+  def __init__(self, svId, paramName, val, dataSetName = None):
+    CommandBase.__init__(self, "SetBeiDouEphDoubleParamForSV")
+    self.setSvId(svId)
+    self.setParamName(paramName)
+    self.setVal(val)
+    self.setDataSetName(dataSetName)
+
+  def executePermission(self):
+    return ExecutePermission.EXECUTE_IF_IDLE
+
+  def svId(self):
+    return self.get("SvId")
+
+  def setSvId(self, value):
+    return self.set("SvId", value)
+
+  def paramName(self):
+    return self.get("ParamName")
+
+  def setParamName(self, value):
+    return self.set("ParamName", value)
+
+  def val(self):
+    return self.get("Val")
+
+  def setVal(self, value):
+    return self.set("Val", value)
+
+  def dataSetName(self):
+    return self.get("DataSetName")
+
+  def setDataSetName(self, value):
+    return self.set("DataSetName", value)
+
+  def deprecated(self):
+    return "Please note the command SetBeiDouEphDoubleParamForSV is deprecated since 23.11. You may use SetConstellationParameterForSV."
+
+#
+# Please note the command GetBeiDouEphDoubleParamForSV is deprecated since 23.11. You may use GetConstellationParameterForSV.
+# 
+# Get various parameters in the BeiDou ephemeris
+# 
+#   ParamName         Unit
+#   "ClockBias"       sec
+#   "ClockDrift"      sec/sec
+#   "ClockDriftRate"  sec/sec^2
+#   "Crs"             meter
+#   "Crc"             meter
+#   "Cis"             rad
+#   "Cic"             rad
+#   "Cus"             rad
+#   "Cuc"             rad
+#   "DeltaN"          rad/sec
+#   "M0"              rad
+#   "Eccentricity"    -
+#   "SqrtA"           sqrt(meter)
+#   "BigOmega"        rad
+#   "I0"              rad
+#   "LittleOmega"     rad
+#   "BigOmegaDot"     rad/sec
+#   "Idot"            rad/sec
+#   "Accuracy"        meter
+#   "Adot"            meters/sec
+#   "DeltaN0dot"      rad/sec^2
+#   "Tgd1"            sec
+#   "Tgd2"            sec
+#   "TgdB1Cp"         sec
+#   "TgdB2Ap"         sec
+#
+# Name        Type            Description
+# ----------- --------------- -------------------------------------------------------------------------------------------
+# SvId        int             Satellite SV ID 1..35, or use 0 to apply new value to all satellites
+# ParamName   string          Parameter name (see table above for accepted names)
+# DataSetName optional string Optional name of the data set to use. If no value is provided, the active data set is used.
+#
+
+class GetBeiDouEphDoubleParamForSV(CommandBase):
+
+  def __init__(self, svId, paramName, dataSetName = None):
+    CommandBase.__init__(self, "GetBeiDouEphDoubleParamForSV")
+    self.setSvId(svId)
+    self.setParamName(paramName)
+    self.setDataSetName(dataSetName)
+
+  def executePermission(self):
+    return ExecutePermission.EXECUTE_IF_IDLE
+
+  def svId(self):
+    return self.get("SvId")
+
+  def setSvId(self, value):
+    return self.set("SvId", value)
+
+  def paramName(self):
+    return self.get("ParamName")
+
+  def setParamName(self, value):
+    return self.set("ParamName", value)
+
+  def dataSetName(self):
+    return self.get("DataSetName")
+
+  def setDataSetName(self, value):
+    return self.set("DataSetName", value)
+
+  def deprecated(self):
+    return "Please note the command GetBeiDouEphDoubleParamForSV is deprecated since 23.11. You may use GetConstellationParameterForSV."
+
+#
+# Result of GetBeiDouEphDoubleParamForSV.
+#
+# Name        Type            Description
+# ----------- --------------- -------------------------------------------------------------------------------------------
+# SvId        int             Satellite SV ID 1..35, or use 0 to apply new value to all satellites
+# ParamName   string          Parameter name (see table above for accepted names)
+# Val         double          Parameter value (see table above for unit)
+# DataSetName optional string Optional name of the data set to use. If no value is provided, the active data set is used.
+#
+
+class GetBeiDouEphDoubleParamForSVResult(CommandResult):
+
+  def __init__(self, svId, paramName, val, dataSetName = None):
+    CommandResult.__init__(self, "GetBeiDouEphDoubleParamForSVResult")
+    self.setSvId(svId)
+    self.setParamName(paramName)
+    self.setVal(val)
+    self.setDataSetName(dataSetName)
+
+  def isSuccess(self):
+    return True
+
+  def svId(self):
+    return self.get("SvId")
+
+  def setSvId(self, value):
+    return self.set("SvId", value)
+
+  def paramName(self):
+    return self.get("ParamName")
+
+  def setParamName(self, value):
+    return self.set("ParamName", value)
+
+  def val(self):
+    return self.get("Val")
+
+  def setVal(self, value):
+    return self.set("Val", value)
+
+  def dataSetName(self):
+    return self.get("DataSetName")
+
+  def setDataSetName(self, value):
+    return self.set("DataSetName", value)
+
+#
+# Please note the command SetQzssEphDoubleParamForSV is deprecated since 23.11. You may use SetConstellationParameterForSV.
+# 
+# Set various parameters in the QZSS ephemeris.
+#
+# Name        Type            Description
+# ----------- --------------- -------------------------------------------------------------------------------------------
+# SvId        int             The satellite's SV ID 1..10 (use 0 to apply to all satellites)
+# ParamName   string          In meters:  "Crs", "Crc"
+#                             In radians: "Cis", "Cic", "Cus", "Cuc"
+#                             In seconds: "Tgd", "IscL1Ca", "IscL2C", "IscL5I5", "IscL5Q5", "IscL1CP", "IscL1CD"
+# Val         double          Parameter value (see ParamName above for unit)
+# DataSetName optional string Optional name of the data set to use. If no value is provided, the active data set is used.
+#
+
+class SetQzssEphDoubleParamForSV(CommandBase):
+
+  def __init__(self, svId, paramName, val, dataSetName = None):
+    CommandBase.__init__(self, "SetQzssEphDoubleParamForSV")
+    self.setSvId(svId)
+    self.setParamName(paramName)
+    self.setVal(val)
+    self.setDataSetName(dataSetName)
+
+  def executePermission(self):
+    return ExecutePermission.EXECUTE_IF_IDLE
+
+  def svId(self):
+    return self.get("SvId")
+
+  def setSvId(self, value):
+    return self.set("SvId", value)
+
+  def paramName(self):
+    return self.get("ParamName")
+
+  def setParamName(self, value):
+    return self.set("ParamName", value)
+
+  def val(self):
+    return self.get("Val")
+
+  def setVal(self, value):
+    return self.set("Val", value)
+
+  def dataSetName(self):
+    return self.get("DataSetName")
+
+  def setDataSetName(self, value):
+    return self.set("DataSetName", value)
+
+  def deprecated(self):
+    return "Please note the command SetQzssEphDoubleParamForSV is deprecated since 23.11. You may use SetConstellationParameterForSV."
+
+#
+# Please note the command SetQzssEphemerisDoubleParam is deprecated since 21.3. You may use SetQzssEphDoubleParamForSV.
+# 
+# Please note the command SetQzssEphDoubleParamForSV is deprecated since 23.11. You may use SetConstellationParameterForSV.
+# 
+# Set various parameters in the QZSS ephemeris.
+#
+# Name        Type            Description
+# ----------- --------------- -------------------------------------------------------------------------------------------
+# SvId        int             The satellite's SV ID 1..10 (use 0 to apply to all satellites)
+# ParamName   string          In meters:  "Crs", "Crc"
+#                             In radians: "Cis", "Cic", "Cus", "Cuc"
+#                             In seconds: "Tgd", "IscL1Ca", "IscL2C", "IscL5I5", "IscL5Q5", "IscL1CP", "IscL1CD"
+# Val         double          Parameter value (see ParamName above for unit)
+# DataSetName optional string Optional name of the data set to use. If no value is provided, the active data set is used.
+#
+
+class SetQzssEphemerisDoubleParam(CommandBase):
+
+  def __init__(self, svId, paramName, val, dataSetName = None):
+    CommandBase.__init__(self, "SetQzssEphemerisDoubleParam")
+    self.setSvId(svId)
+    self.setParamName(paramName)
+    self.setVal(val)
+    self.setDataSetName(dataSetName)
+
+  def executePermission(self):
+    return ExecutePermission.EXECUTE_IF_IDLE
+
+  def svId(self):
+    return self.get("SvId")
+
+  def setSvId(self, value):
+    return self.set("SvId", value)
+
+  def paramName(self):
+    return self.get("ParamName")
+
+  def setParamName(self, value):
+    return self.set("ParamName", value)
+
+  def val(self):
+    return self.get("Val")
+
+  def setVal(self, value):
+    return self.set("Val", value)
+
+  def dataSetName(self):
+    return self.get("DataSetName")
+
+  def setDataSetName(self, value):
+    return self.set("DataSetName", value)
+
+  def deprecated(self):
+    return "Please note the command SetQzssEphemerisDoubleParam is deprecated since 23.11. You may use SetConstellationParameterForSV."
+
+#
+# Please note the command GetQzssEphDoubleParamForSV is deprecated since 23.11. You may use GetConstellationParameterForSV.
+# 
+# Get various parameters in the QZSS ephemeris.
+#
+# Name        Type            Description
+# ----------- --------------- -------------------------------------------------------------------------------------------
+# SvId        int             The satellite's SV ID 1..10 (use 0 to apply to all satellites)
+# ParamName   string          In meters:  "Crs", "Crc"
+#                             In radians: "Cis", "Cic", "Cus", "Cuc"
+#                             In seconds: "Tgd", "IscL1Ca", "IscL2C", "IscL5I5", "IscL5Q5", "IscL1CP", "IscL1CD"
+# DataSetName optional string Optional name of the data set to use. If no value is provided, the active data set is used.
+#
+
+class GetQzssEphDoubleParamForSV(CommandBase):
+
+  def __init__(self, svId, paramName, dataSetName = None):
+    CommandBase.__init__(self, "GetQzssEphDoubleParamForSV")
+    self.setSvId(svId)
+    self.setParamName(paramName)
+    self.setDataSetName(dataSetName)
+
+  def executePermission(self):
+    return ExecutePermission.EXECUTE_IF_IDLE
+
+  def svId(self):
+    return self.get("SvId")
+
+  def setSvId(self, value):
+    return self.set("SvId", value)
+
+  def paramName(self):
+    return self.get("ParamName")
+
+  def setParamName(self, value):
+    return self.set("ParamName", value)
+
+  def dataSetName(self):
+    return self.get("DataSetName")
+
+  def setDataSetName(self, value):
+    return self.set("DataSetName", value)
+
+  def deprecated(self):
+    return "Please note the command GetQzssEphDoubleParamForSV is deprecated since 23.11. You may use GetConstellationParameterForSV."
+
+#
+# Please note the command GetQzssEphemerisDoubleParam is deprecated since 21.3. You may use GetQzssEphDoubleParamForSV.
+# 
+# Please note the command GetQzssEphDoubleParamForSV is deprecated since 23.11. You may use GetConstellationParameterForSV.
+# 
+# Get various parameters in the QZSS ephemeris.
+#
+# Name        Type            Description
+# ----------- --------------- -------------------------------------------------------------------------------------------
+# SvId        int             The satellite's SV ID 1..10 (use 0 to apply to all satellites)
+# ParamName   string          In meters:  "Crs", "Crc"
+#                             In radians: "Cis", "Cic", "Cus", "Cuc"
+#                             In seconds: "Tgd", "IscL1Ca", "IscL2C", "IscL5I5", "IscL5Q5", "IscL1CP", "IscL1CD"
+# DataSetName optional string Optional name of the data set to use. If no value is provided, the active data set is used.
+#
+
+class GetQzssEphemerisDoubleParam(CommandBase):
+
+  def __init__(self, svId, paramName, dataSetName = None):
+    CommandBase.__init__(self, "GetQzssEphemerisDoubleParam")
+    self.setSvId(svId)
+    self.setParamName(paramName)
+    self.setDataSetName(dataSetName)
+
+  def executePermission(self):
+    return ExecutePermission.EXECUTE_IF_IDLE
+
+  def svId(self):
+    return self.get("SvId")
+
+  def setSvId(self, value):
+    return self.set("SvId", value)
+
+  def paramName(self):
+    return self.get("ParamName")
+
+  def setParamName(self, value):
+    return self.set("ParamName", value)
+
+  def dataSetName(self):
+    return self.get("DataSetName")
+
+  def setDataSetName(self, value):
+    return self.set("DataSetName", value)
+
+  def deprecated(self):
+    return "Please note the command GetQzssEphemerisDoubleParam is deprecated since 23.11. You may use GetConstellationParameterForSV."
+
+#
+# Result of GetQzssEphDoubleParamForSV.
+#
+# Name        Type            Description
+# ----------- --------------- -------------------------------------------------------------------------------------------
+# SvId        int             The satellite's SV ID 1..10 (use 0 to apply to all satellites)
+# ParamName   string          In meters:  "Crs", "Crc"
+#                             In radians: "Cis", "Cic", "Cus", "Cuc"
+#                             In seconds: "Tgd", "IscL1Ca", "IscL2C", "IscL5I5", "IscL5Q5", "IscL1CP", "IscL1CD"
+# Val         double          Parameter value (see ParamName above for unit)
+# DataSetName optional string Optional name of the data set to use. If no value is provided, the active data set is used.
+#
+
+class GetQzssEphDoubleParamForSVResult(CommandResult):
+
+  def __init__(self, svId, paramName, val, dataSetName = None):
+    CommandResult.__init__(self, "GetQzssEphDoubleParamForSVResult")
+    self.setSvId(svId)
+    self.setParamName(paramName)
+    self.setVal(val)
+    self.setDataSetName(dataSetName)
+
+  def isSuccess(self):
+    return True
+
+  def svId(self):
+    return self.get("SvId")
+
+  def setSvId(self, value):
+    return self.set("SvId", value)
+
+  def paramName(self):
+    return self.get("ParamName")
+
+  def setParamName(self, value):
+    return self.set("ParamName", value)
+
+  def val(self):
+    return self.get("Val")
+
+  def setVal(self, value):
+    return self.set("Val", value)
+
+  def dataSetName(self):
+    return self.get("DataSetName")
+
+  def setDataSetName(self, value):
+    return self.set("DataSetName", value)
+
+#
+# Please note the command SetNavICEphDoubleParamForSV is deprecated since 23.11. You may use SetConstellationParameterForSV.
+# 
+# Set various parameters in the NavIC ephemeris
+# 
+#   ParamName         Unit
+#   "ClockBias"       sec
+#   "ClockDrift"      sec/sec
+#   "ClockDriftRate"  sec/sec^2
+#   "Crs"             meter
+#   "Crc"             meter
+#   "Cis"             rad
+#   "Cic"             rad
+#   "Cus"             rad
+#   "Cuc"             rad
+#   "DeltaN"          rad/sec
+#   "M0"              rad
+#   "Eccentricity"    -
+#   "SqrtA"           sqrt(meter)
+#   "BigOmega"        rad
+#   "I0"              rad
+#   "LittleOmega"     rad
+#   "BigOmegaDot"     rad/sec
+#   "Idot"            rad/sec
+#   "Accuracy"        meter
+#   "Adot"            meters/sec
+#   "DeltaN0dot"      rad/sec^2
+#   "Tgd"             sec
+#
+# Name        Type            Description
+# ----------- --------------- -------------------------------------------------------------------------------------------
+# SvId        int             Satellite SV ID 1..14, or use 0 to apply new value to all satellites
+# ParamName   string          Parameter name (see table above for accepted names)
+# Val         double          Parameter value (see table above for unit)
+# DataSetName optional string Optional name of the data set to use. If no value is provided, the active data set is used.
+#
+
+class SetNavICEphDoubleParamForSV(CommandBase):
+
+  def __init__(self, svId, paramName, val, dataSetName = None):
+    CommandBase.__init__(self, "SetNavICEphDoubleParamForSV")
+    self.setSvId(svId)
+    self.setParamName(paramName)
+    self.setVal(val)
+    self.setDataSetName(dataSetName)
+
+  def executePermission(self):
+    return ExecutePermission.EXECUTE_IF_IDLE
+
+  def svId(self):
+    return self.get("SvId")
+
+  def setSvId(self, value):
+    return self.set("SvId", value)
+
+  def paramName(self):
+    return self.get("ParamName")
+
+  def setParamName(self, value):
+    return self.set("ParamName", value)
+
+  def val(self):
+    return self.get("Val")
+
+  def setVal(self, value):
+    return self.set("Val", value)
+
+  def dataSetName(self):
+    return self.get("DataSetName")
+
+  def setDataSetName(self, value):
+    return self.set("DataSetName", value)
+
+  def deprecated(self):
+    return "Please note the command SetNavICEphDoubleParamForSV is deprecated since 23.11. You may use SetConstellationParameterForSV."
+
+#
+# Please note the command SetNavICEphemerisDoubleParam is deprecated since 21.3. You may use SetNavICEphDoubleParamForSV.
+# 
+# Please note the command SetNavICEphDoubleParamForSV is deprecated since 23.11. You may use SetConstellationParameterForSV.
+# 
+# Set various parameters in the NavIC ephemeris
+# 
+#   ParamName         Unit
+#   "ClockBias"       sec
+#   "ClockDrift"      sec/sec
+#   "ClockDriftRate"  sec/sec^2
+#   "Crs"             meter
+#   "Crc"             meter
+#   "Cis"             rad
+#   "Cic"             rad
+#   "Cus"             rad
+#   "Cuc"             rad
+#   "DeltaN"          rad/sec
+#   "M0"              rad
+#   "Eccentricity"    -
+#   "SqrtA"           sqrt(meter)
+#   "BigOmega"        rad
+#   "I0"              rad
+#   "LittleOmega"     rad
+#   "BigOmegaDot"     rad/sec
+#   "Idot"            rad/sec
+#   "Accuracy"        meter
+#   "Adot"            meters/sec
+#   "DeltaN0dot"      rad/sec^2
+#   "Tgd"             sec
+#
+# Name        Type            Description
+# ----------- --------------- -------------------------------------------------------------------------------------------
+# SvId        int             Satellite SV ID 1..14, or use 0 to apply new value to all satellites
+# ParamName   string          Parameter name (see table above for accepted names)
+# Val         double          Parameter value (see table above for unit)
+# DataSetName optional string Optional name of the data set to use. If no value is provided, the active data set is used.
+#
+
+class SetNavICEphemerisDoubleParam(CommandBase):
+
+  def __init__(self, svId, paramName, val, dataSetName = None):
+    CommandBase.__init__(self, "SetNavICEphemerisDoubleParam")
+    self.setSvId(svId)
+    self.setParamName(paramName)
+    self.setVal(val)
+    self.setDataSetName(dataSetName)
+
+  def executePermission(self):
+    return ExecutePermission.EXECUTE_IF_IDLE
+
+  def svId(self):
+    return self.get("SvId")
+
+  def setSvId(self, value):
+    return self.set("SvId", value)
+
+  def paramName(self):
+    return self.get("ParamName")
+
+  def setParamName(self, value):
+    return self.set("ParamName", value)
+
+  def val(self):
+    return self.get("Val")
+
+  def setVal(self, value):
+    return self.set("Val", value)
+
+  def dataSetName(self):
+    return self.get("DataSetName")
+
+  def setDataSetName(self, value):
+    return self.set("DataSetName", value)
+
+  def deprecated(self):
+    return "Please note the command SetNavICEphemerisDoubleParam is deprecated since 23.11. You may use SetConstellationParameterForSV."
+
+#
+# Please note the command GetNavICEphDoubleParamForSV is deprecated since 23.11. You may use GetConstellationParameterForSV.
+# 
+# Get various parameters in the NavIC ephemeris
+# 
+#   ParamName         Unit
+#   "ClockBias"       sec
+#   "ClockDrift"      sec/sec
+#   "ClockDriftRate"  sec/sec^2
+#   "Crs"             meter
+#   "Crc"             meter
+#   "Cis"             rad
+#   "Cic"             rad
+#   "Cus"             rad
+#   "Cuc"             rad
+#   "DeltaN"          rad/sec
+#   "M0"              rad
+#   "Eccentricity"    -
+#   "SqrtA"           sqrt(meter)
+#   "BigOmega"        rad
+#   "I0"              rad
+#   "LittleOmega"     rad
+#   "BigOmegaDot"     rad/sec
+#   "Idot"            rad/sec
+#   "Accuracy"        meter
+#   "Adot"            meters/sec
+#   "DeltaN0dot"      rad/sec^2
+#   "Tgd"             sec
+#
+# Name        Type            Description
+# ----------- --------------- -------------------------------------------------------------------------------------------
+# SvId        int             Satellite SV ID 1..14, or use 0 to apply new value to all satellites
+# ParamName   string          Parameter name (see table above for accepted names)
+# DataSetName optional string Optional name of the data set to use. If no value is provided, the active data set is used.
+#
+
+class GetNavICEphDoubleParamForSV(CommandBase):
+
+  def __init__(self, svId, paramName, dataSetName = None):
+    CommandBase.__init__(self, "GetNavICEphDoubleParamForSV")
+    self.setSvId(svId)
+    self.setParamName(paramName)
+    self.setDataSetName(dataSetName)
+
+  def executePermission(self):
+    return ExecutePermission.EXECUTE_IF_IDLE
+
+  def svId(self):
+    return self.get("SvId")
+
+  def setSvId(self, value):
+    return self.set("SvId", value)
+
+  def paramName(self):
+    return self.get("ParamName")
+
+  def setParamName(self, value):
+    return self.set("ParamName", value)
+
+  def dataSetName(self):
+    return self.get("DataSetName")
+
+  def setDataSetName(self, value):
+    return self.set("DataSetName", value)
+
+  def deprecated(self):
+    return "Please note the command GetNavICEphDoubleParamForSV is deprecated since 23.11. You may use GetConstellationParameterForSV."
+
+#
+# Please note the command GetNavICEphemerisDoubleParam is deprecated since 21.3. You may use GetNavICEphDoubleParamForSV.
+# 
+# Please note the command GetNavICEphDoubleParamForSV is deprecated since 23.11. You may use GetConstellationParameterForSV.
+# 
+# Get various parameters in the NavIC ephemeris
+# 
+#   ParamName         Unit
+#   "ClockBias"       sec
+#   "ClockDrift"      sec/sec
+#   "ClockDriftRate"  sec/sec^2
+#   "Crs"             meter
+#   "Crc"             meter
+#   "Cis"             rad
+#   "Cic"             rad
+#   "Cus"             rad
+#   "Cuc"             rad
+#   "DeltaN"          rad/sec
+#   "M0"              rad
+#   "Eccentricity"    -
+#   "SqrtA"           sqrt(meter)
+#   "BigOmega"        rad
+#   "I0"              rad
+#   "LittleOmega"     rad
+#   "BigOmegaDot"     rad/sec
+#   "Idot"            rad/sec
+#   "Accuracy"        meter
+#   "Adot"            meters/sec
+#   "DeltaN0dot"      rad/sec^2
+#   "Tgd"             sec
+#
+# Name        Type            Description
+# ----------- --------------- -------------------------------------------------------------------------------------------
+# SvId        int             Satellite SV ID 1..14, or use 0 to apply new value to all satellites
+# ParamName   string          Parameter name (see table above for accepted names)
+# DataSetName optional string Optional name of the data set to use. If no value is provided, the active data set is used.
+#
+
+class GetNavICEphemerisDoubleParam(CommandBase):
+
+  def __init__(self, svId, paramName, dataSetName = None):
+    CommandBase.__init__(self, "GetNavICEphemerisDoubleParam")
+    self.setSvId(svId)
+    self.setParamName(paramName)
+    self.setDataSetName(dataSetName)
+
+  def executePermission(self):
+    return ExecutePermission.EXECUTE_IF_IDLE
+
+  def svId(self):
+    return self.get("SvId")
+
+  def setSvId(self, value):
+    return self.set("SvId", value)
+
+  def paramName(self):
+    return self.get("ParamName")
+
+  def setParamName(self, value):
+    return self.set("ParamName", value)
+
+  def dataSetName(self):
+    return self.get("DataSetName")
+
+  def setDataSetName(self, value):
+    return self.set("DataSetName", value)
+
+  def deprecated(self):
+    return "Please note the command GetNavICEphemerisDoubleParam is deprecated since 23.11. You may use GetConstellationParameterForSV."
+
+#
+# Result of GetNavICEphDoubleParamForSV.
+#
+# Name        Type            Description
+# ----------- --------------- -------------------------------------------------------------------------------------------
+# SvId        int             Satellite SV ID 1..14, or use 0 to apply new value to all satellites
+# ParamName   string          Parameter name (see table above for accepted names)
+# Val         double          Parameter value (see table above for unit)
+# DataSetName optional string Optional name of the data set to use. If no value is provided, the active data set is used.
+#
+
+class GetNavICEphDoubleParamForSVResult(CommandResult):
+
+  def __init__(self, svId, paramName, val, dataSetName = None):
+    CommandResult.__init__(self, "GetNavICEphDoubleParamForSVResult")
+    self.setSvId(svId)
+    self.setParamName(paramName)
+    self.setVal(val)
+    self.setDataSetName(dataSetName)
+
+  def isSuccess(self):
+    return True
+
+  def svId(self):
+    return self.get("SvId")
+
+  def setSvId(self, value):
+    return self.set("SvId", value)
+
+  def paramName(self):
+    return self.get("ParamName")
+
+  def setParamName(self, value):
+    return self.set("ParamName", value)
+
+  def val(self):
+    return self.get("Val")
+
+  def setVal(self, value):
+    return self.set("Val", value)
+
+  def dataSetName(self):
+    return self.get("DataSetName")
+
+  def setDataSetName(self, value):
+    return self.set("DataSetName", value)
+
+#
+# Please note the command SetGpsEphDoubleParamForEachSV is deprecated since 23.11. You may use SetConstellationParameterForSV.
+# 
+# Set GPS ephemeris parameter value for all satellites
+#
+# Name        Type            Description
+# ----------- --------------- --------------------------------------------------------------------------------------------------
+# ParamName   string          Refer to SetGpsEphDoubleParamForSV for accepted names
+# Val         array double    Parameter value for each satellite. Zero based index (index 0 => SV ID 1, index 1 => SV ID 2, etc)
+# DataSetName optional string Optional name of the data set to use. If no value is provided, the active data set is used.
+#
+
+class SetGpsEphDoubleParamForEachSV(CommandBase):
+
+  def __init__(self, paramName, val, dataSetName = None):
+    CommandBase.__init__(self, "SetGpsEphDoubleParamForEachSV")
+    self.setParamName(paramName)
+    self.setVal(val)
+    self.setDataSetName(dataSetName)
+
+  def executePermission(self):
+    return ExecutePermission.EXECUTE_IF_IDLE
+
+  def paramName(self):
+    return self.get("ParamName")
+
+  def setParamName(self, value):
+    return self.set("ParamName", value)
+
+  def val(self):
+    return self.get("Val")
+
+  def setVal(self, value):
+    return self.set("Val", value)
+
+  def dataSetName(self):
+    return self.get("DataSetName")
+
+  def setDataSetName(self, value):
+    return self.set("DataSetName", value)
+
+  def deprecated(self):
+    return "Please note the command SetGpsEphDoubleParamForEachSV is deprecated since 23.11. You may use SetConstellationParameterForSV."
+
+#
+# Please note the command SetGpsEphemerisDoubleParams is deprecated since 21.3. You may use SetGpsEphDoubleParamForEachSV.
+# 
+# Please note the command SetGpsEphDoubleParamForEachSV is deprecated since 23.11. You may use SetConstellationParameterForSV.
+# 
+# Set GPS ephemeris parameter value for all satellites
+#
+# Name        Type            Description
+# ----------- --------------- --------------------------------------------------------------------------------------------------
+# ParamName   string          Refer to SetGpsEphDoubleParamForSV for accepted names
+# Val         array double    Parameter value for each satellite. Zero based index (index 0 => SV ID 1, index 1 => SV ID 2, etc)
+# DataSetName optional string Optional name of the data set to use. If no value is provided, the active data set is used.
+#
+
+class SetGpsEphemerisDoubleParams(CommandBase):
+
+  def __init__(self, paramName, val, dataSetName = None):
+    CommandBase.__init__(self, "SetGpsEphemerisDoubleParams")
+    self.setParamName(paramName)
+    self.setVal(val)
+    self.setDataSetName(dataSetName)
+
+  def executePermission(self):
+    return ExecutePermission.EXECUTE_IF_IDLE
+
+  def paramName(self):
+    return self.get("ParamName")
+
+  def setParamName(self, value):
+    return self.set("ParamName", value)
+
+  def val(self):
+    return self.get("Val")
+
+  def setVal(self, value):
+    return self.set("Val", value)
+
+  def dataSetName(self):
+    return self.get("DataSetName")
+
+  def setDataSetName(self, value):
+    return self.set("DataSetName", value)
+
+  def deprecated(self):
+    return "Please note the command SetGpsEphemerisDoubleParams is deprecated since 23.11. You may use SetConstellationParameterForSV."
+
+#
+# Please note the command GetGpsEphDoubleParamForEachSV is deprecated since 23.11. You may use GetConstellationParameterForSV.
+# 
+# Get GPS ephemeris parameter value for all satellites
+#
+# Name        Type            Description
+# ----------- --------------- -------------------------------------------------------------------------------------------
+# ParamName   string          Refer to SetGpsEphDoubleParamForSV for accepted names
+# DataSetName optional string Optional name of the data set to use. If no value is provided, the active data set is used.
+#
+
+class GetGpsEphDoubleParamForEachSV(CommandBase):
+
+  def __init__(self, paramName, dataSetName = None):
+    CommandBase.__init__(self, "GetGpsEphDoubleParamForEachSV")
+    self.setParamName(paramName)
+    self.setDataSetName(dataSetName)
+
+  def executePermission(self):
+    return ExecutePermission.EXECUTE_IF_IDLE
+
+  def paramName(self):
+    return self.get("ParamName")
+
+  def setParamName(self, value):
+    return self.set("ParamName", value)
+
+  def dataSetName(self):
+    return self.get("DataSetName")
+
+  def setDataSetName(self, value):
+    return self.set("DataSetName", value)
+
+  def deprecated(self):
+    return "Please note the command GetGpsEphDoubleParamForEachSV is deprecated since 23.11. You may use GetConstellationParameterForSV."
+
+#
+# Please note the command GetGpsEphemerisDoubleParams is deprecated since 21.3. You may use GetGpsEphDoubleParamForEachSV.
+# 
+# Please note the command GetGpsEphDoubleParamForEachSV is deprecated since 23.11. You may use GetConstellationParameterForSV.
+# 
+# Get GPS ephemeris parameter value for all satellites
+#
+# Name        Type            Description
+# ----------- --------------- -------------------------------------------------------------------------------------------
+# ParamName   string          Refer to SetGpsEphDoubleParamForSV for accepted names
+# DataSetName optional string Optional name of the data set to use. If no value is provided, the active data set is used.
+#
+
+class GetGpsEphemerisDoubleParams(CommandBase):
+
+  def __init__(self, paramName, dataSetName = None):
+    CommandBase.__init__(self, "GetGpsEphemerisDoubleParams")
+    self.setParamName(paramName)
+    self.setDataSetName(dataSetName)
+
+  def executePermission(self):
+    return ExecutePermission.EXECUTE_IF_IDLE
+
+  def paramName(self):
+    return self.get("ParamName")
+
+  def setParamName(self, value):
+    return self.set("ParamName", value)
+
+  def dataSetName(self):
+    return self.get("DataSetName")
+
+  def setDataSetName(self, value):
+    return self.set("DataSetName", value)
+
+  def deprecated(self):
+    return "Please note the command GetGpsEphemerisDoubleParams is deprecated since 23.11. You may use GetConstellationParameterForSV."
+
+#
+# Result of GetGpsEphDoubleParamForEachSV.
+#
+# Name        Type            Description
+# ----------- --------------- --------------------------------------------------------------------------------------------------
+# ParamName   string          Refer to SetGpsEphDoubleParamForSV for accepted names
+# Val         array double    Parameter value for each satellite. Zero based index (index 0 => SV ID 1, index 1 => SV ID 2, etc)
+# DataSetName optional string Optional name of the data set to use. If no value is provided, the active data set is used.
+#
+
+class GetGpsEphDoubleParamForEachSVResult(CommandResult):
+
+  def __init__(self, paramName, val, dataSetName = None):
+    CommandResult.__init__(self, "GetGpsEphDoubleParamForEachSVResult")
+    self.setParamName(paramName)
+    self.setVal(val)
+    self.setDataSetName(dataSetName)
+
+  def isSuccess(self):
+    return True
+
+  def paramName(self):
+    return self.get("ParamName")
+
+  def setParamName(self, value):
+    return self.set("ParamName", value)
+
+  def val(self):
+    return self.get("Val")
+
+  def setVal(self, value):
+    return self.set("Val", value)
+
+  def dataSetName(self):
+    return self.get("DataSetName")
+
+  def setDataSetName(self, value):
+    return self.set("DataSetName", value)
+
+#
+# Please note the command SetGalileoEphDoubleParamForEachSV is deprecated since 23.11. You may use SetConstellationParameterForSV.
+# 
+# Set Galileo ephemeris parameter value for all satellites
+#
+# Name        Type            Description
+# ----------- --------------- --------------------------------------------------------------------------------------------------
+# ParamName   string          Refer to SetGalileoEphDoubleParamForSV for accepted names
+# Val         array double    Parameter value for each satellite. Zero based index (index 0 => SV ID 1, index 1 => SV ID 2, etc)
+# DataSetName optional string Optional name of the data set to use. If no value is provided, the active data set is used.
+#
+
+class SetGalileoEphDoubleParamForEachSV(CommandBase):
+
+  def __init__(self, paramName, val, dataSetName = None):
+    CommandBase.__init__(self, "SetGalileoEphDoubleParamForEachSV")
+    self.setParamName(paramName)
+    self.setVal(val)
+    self.setDataSetName(dataSetName)
+
+  def executePermission(self):
+    return ExecutePermission.EXECUTE_IF_IDLE
+
+  def paramName(self):
+    return self.get("ParamName")
+
+  def setParamName(self, value):
+    return self.set("ParamName", value)
+
+  def val(self):
+    return self.get("Val")
+
+  def setVal(self, value):
+    return self.set("Val", value)
+
+  def dataSetName(self):
+    return self.get("DataSetName")
+
+  def setDataSetName(self, value):
+    return self.set("DataSetName", value)
+
+  def deprecated(self):
+    return "Please note the command SetGalileoEphDoubleParamForEachSV is deprecated since 23.11. You may use SetConstellationParameterForSV."
+
+#
+# Please note the command SetGalileoEphemerisDoubleParams is deprecated since 21.3. You may use SetGalileoEphDoubleParamForEachSV.
+# 
+# Please note the command SetGalileoEphDoubleParamForEachSV is deprecated since 23.11. You may use SetConstellationParameterForSV.
+# 
+# Set Galileo ephemeris parameter value for all satellites
+#
+# Name        Type            Description
+# ----------- --------------- --------------------------------------------------------------------------------------------------
+# ParamName   string          Refer to SetGalileoEphDoubleParamForSV for accepted names
+# Val         array double    Parameter value for each satellite. Zero based index (index 0 => SV ID 1, index 1 => SV ID 2, etc)
+# DataSetName optional string Optional name of the data set to use. If no value is provided, the active data set is used.
+#
+
+class SetGalileoEphemerisDoubleParams(CommandBase):
+
+  def __init__(self, paramName, val, dataSetName = None):
+    CommandBase.__init__(self, "SetGalileoEphemerisDoubleParams")
+    self.setParamName(paramName)
+    self.setVal(val)
+    self.setDataSetName(dataSetName)
+
+  def executePermission(self):
+    return ExecutePermission.EXECUTE_IF_IDLE
+
+  def paramName(self):
+    return self.get("ParamName")
+
+  def setParamName(self, value):
+    return self.set("ParamName", value)
+
+  def val(self):
+    return self.get("Val")
+
+  def setVal(self, value):
+    return self.set("Val", value)
+
+  def dataSetName(self):
+    return self.get("DataSetName")
+
+  def setDataSetName(self, value):
+    return self.set("DataSetName", value)
+
+  def deprecated(self):
+    return "Please note the command SetGalileoEphemerisDoubleParams is deprecated since 23.11. You may use SetConstellationParameterForSV."
+
+#
+# Please note the command GetGalileoEphDoubleParamForEachSV is deprecated since 23.11. You may use GetConstellationParameterForSV.
+# 
+# Get Galileo ephemeris parameter value for all satellites
+#
+# Name        Type            Description
+# ----------- --------------- -------------------------------------------------------------------------------------------
+# ParamName   string          Refer to SetGalileoEphDoubleParamForSV for accepted names
+# DataSetName optional string Optional name of the data set to use. If no value is provided, the active data set is used.
+#
+
+class GetGalileoEphDoubleParamForEachSV(CommandBase):
+
+  def __init__(self, paramName, dataSetName = None):
+    CommandBase.__init__(self, "GetGalileoEphDoubleParamForEachSV")
+    self.setParamName(paramName)
+    self.setDataSetName(dataSetName)
+
+  def executePermission(self):
+    return ExecutePermission.EXECUTE_IF_IDLE
+
+  def paramName(self):
+    return self.get("ParamName")
+
+  def setParamName(self, value):
+    return self.set("ParamName", value)
+
+  def dataSetName(self):
+    return self.get("DataSetName")
+
+  def setDataSetName(self, value):
+    return self.set("DataSetName", value)
+
+  def deprecated(self):
+    return "Please note the command GetGalileoEphDoubleParamForEachSV is deprecated since 23.11. You may use GetConstellationParameterForSV."
+
+#
+# Please note the command GetGalileoEphemerisDoubleParams is deprecated since 21.3. You may use GetGalileoEphDoubleParamForEachSV.
+# 
+# Please note the command GetGalileoEphDoubleParamForEachSV is deprecated since 23.11. You may use GetConstellationParameterForSV.
+# 
+# Get Galileo ephemeris parameter value for all satellites
+#
+# Name        Type            Description
+# ----------- --------------- -------------------------------------------------------------------------------------------
+# ParamName   string          Refer to SetGalileoEphDoubleParamForSV for accepted names
+# DataSetName optional string Optional name of the data set to use. If no value is provided, the active data set is used.
+#
+
+class GetGalileoEphemerisDoubleParams(CommandBase):
+
+  def __init__(self, paramName, dataSetName = None):
+    CommandBase.__init__(self, "GetGalileoEphemerisDoubleParams")
+    self.setParamName(paramName)
+    self.setDataSetName(dataSetName)
+
+  def executePermission(self):
+    return ExecutePermission.EXECUTE_IF_IDLE
+
+  def paramName(self):
+    return self.get("ParamName")
+
+  def setParamName(self, value):
+    return self.set("ParamName", value)
+
+  def dataSetName(self):
+    return self.get("DataSetName")
+
+  def setDataSetName(self, value):
+    return self.set("DataSetName", value)
+
+  def deprecated(self):
+    return "Please note the command GetGalileoEphemerisDoubleParams is deprecated since 23.11. You may use GetConstellationParameterForSV."
+
+#
+# Result of GetGalileoEphDoubleParamForEachSV.
+#
+# Name        Type            Description
+# ----------- --------------- --------------------------------------------------------------------------------------------------
+# ParamName   string          Refer to SetGalileoEphDoubleParamForSV for accepted names
+# Val         array double    Parameter value for each satellite. Zero based index (index 0 => SV ID 1, index 1 => SV ID 2, etc)
+# DataSetName optional string Optional name of the data set to use. If no value is provided, the active data set is used.
+#
+
+class GetGalileoEphDoubleParamForEachSVResult(CommandResult):
+
+  def __init__(self, paramName, val, dataSetName = None):
+    CommandResult.__init__(self, "GetGalileoEphDoubleParamForEachSVResult")
+    self.setParamName(paramName)
+    self.setVal(val)
+    self.setDataSetName(dataSetName)
+
+  def isSuccess(self):
+    return True
+
+  def paramName(self):
+    return self.get("ParamName")
+
+  def setParamName(self, value):
+    return self.set("ParamName", value)
+
+  def val(self):
+    return self.get("Val")
+
+  def setVal(self, value):
+    return self.set("Val", value)
+
+  def dataSetName(self):
+    return self.get("DataSetName")
+
+  def setDataSetName(self, value):
+    return self.set("DataSetName", value)
+
+#
+# Please note the command SetBeiDouEphDoubleParamForEachSV is deprecated since 23.11. You may use SetConstellationParameterForSV.
+# 
+# Set BeiDou ephemeris parameter value for all satellites
+#
+# Name        Type            Description
+# ----------- --------------- --------------------------------------------------------------------------------------------------
+# ParamName   string          Refer to SetBeiDouEphDoubleParamForSV for accepted names
+# Val         array double    Parameter value for each satellite. Zero based index (index 0 => SV ID 1, index 1 => SV ID 2, etc)
+# DataSetName optional string Optional name of the data set to use. If no value is provided, the active data set is used.
+#
+
+class SetBeiDouEphDoubleParamForEachSV(CommandBase):
+
+  def __init__(self, paramName, val, dataSetName = None):
+    CommandBase.__init__(self, "SetBeiDouEphDoubleParamForEachSV")
+    self.setParamName(paramName)
+    self.setVal(val)
+    self.setDataSetName(dataSetName)
+
+  def executePermission(self):
+    return ExecutePermission.EXECUTE_IF_IDLE
+
+  def paramName(self):
+    return self.get("ParamName")
+
+  def setParamName(self, value):
+    return self.set("ParamName", value)
+
+  def val(self):
+    return self.get("Val")
+
+  def setVal(self, value):
+    return self.set("Val", value)
+
+  def dataSetName(self):
+    return self.get("DataSetName")
+
+  def setDataSetName(self, value):
+    return self.set("DataSetName", value)
+
+  def deprecated(self):
+    return "Please note the command SetBeiDouEphDoubleParamForEachSV is deprecated since 23.11. You may use SetConstellationParameterForSV."
+
+#
+# Please note the command SetBeiDouEphemerisDoubleParams is deprecated since 21.3. You may use SetBeiDouEphDoubleParamForEachSV.
+# 
+# Please note the command SetBeiDouEphDoubleParamForEachSV is deprecated since 23.11. You may use SetConstellationParameterForSV.
+# 
+# Set BeiDou ephemeris parameter value for all satellites
+#
+# Name        Type            Description
+# ----------- --------------- --------------------------------------------------------------------------------------------------
+# ParamName   string          Refer to SetBeiDouEphDoubleParamForSV for accepted names
+# Val         array double    Parameter value for each satellite. Zero based index (index 0 => SV ID 1, index 1 => SV ID 2, etc)
+# DataSetName optional string Optional name of the data set to use. If no value is provided, the active data set is used.
+#
+
+class SetBeiDouEphemerisDoubleParams(CommandBase):
+
+  def __init__(self, paramName, val, dataSetName = None):
+    CommandBase.__init__(self, "SetBeiDouEphemerisDoubleParams")
+    self.setParamName(paramName)
+    self.setVal(val)
+    self.setDataSetName(dataSetName)
+
+  def executePermission(self):
+    return ExecutePermission.EXECUTE_IF_IDLE
+
+  def paramName(self):
+    return self.get("ParamName")
+
+  def setParamName(self, value):
+    return self.set("ParamName", value)
+
+  def val(self):
+    return self.get("Val")
+
+  def setVal(self, value):
+    return self.set("Val", value)
+
+  def dataSetName(self):
+    return self.get("DataSetName")
+
+  def setDataSetName(self, value):
+    return self.set("DataSetName", value)
+
+  def deprecated(self):
+    return "Please note the command SetBeiDouEphemerisDoubleParams is deprecated since 23.11. You may use SetConstellationParameterForSV."
+
+#
+# Please note the command GetBeiDouEphDoubleParamForEachSV is deprecated since 23.11. You may use GetConstellationParameterForSV.
+# 
+# Get BeiDou ephemeris parameter value for all satellites
+#
+# Name        Type            Description
+# ----------- --------------- -------------------------------------------------------------------------------------------
+# ParamName   string          Refer to SetBeiDouEphDoubleParamForSV for accepted names
+# DataSetName optional string Optional name of the data set to use. If no value is provided, the active data set is used.
+#
+
+class GetBeiDouEphDoubleParamForEachSV(CommandBase):
+
+  def __init__(self, paramName, dataSetName = None):
+    CommandBase.__init__(self, "GetBeiDouEphDoubleParamForEachSV")
+    self.setParamName(paramName)
+    self.setDataSetName(dataSetName)
+
+  def executePermission(self):
+    return ExecutePermission.EXECUTE_IF_IDLE
+
+  def paramName(self):
+    return self.get("ParamName")
+
+  def setParamName(self, value):
+    return self.set("ParamName", value)
+
+  def dataSetName(self):
+    return self.get("DataSetName")
+
+  def setDataSetName(self, value):
+    return self.set("DataSetName", value)
+
+  def deprecated(self):
+    return "Please note the command GetBeiDouEphDoubleParamForEachSV is deprecated since 23.11. You may use GetConstellationParameterForSV."
+
+#
+# Please note the command GetBeiDouEphemerisDoubleParams is deprecated since 21.3. You may use GetBeiDouEphDoubleParamForEachSV.
+# 
+# Please note the command GetBeiDouEphDoubleParamForEachSV is deprecated since 23.11. You may use GetConstellationParameterForSV.
+# 
+# Get BeiDou ephemeris parameter value for all satellites
+#
+# Name        Type            Description
+# ----------- --------------- -------------------------------------------------------------------------------------------
+# ParamName   string          Refer to SetBeiDouEphDoubleParamForSV for accepted names
+# DataSetName optional string Optional name of the data set to use. If no value is provided, the active data set is used.
+#
+
+class GetBeiDouEphemerisDoubleParams(CommandBase):
+
+  def __init__(self, paramName, dataSetName = None):
+    CommandBase.__init__(self, "GetBeiDouEphemerisDoubleParams")
+    self.setParamName(paramName)
+    self.setDataSetName(dataSetName)
+
+  def executePermission(self):
+    return ExecutePermission.EXECUTE_IF_IDLE
+
+  def paramName(self):
+    return self.get("ParamName")
+
+  def setParamName(self, value):
+    return self.set("ParamName", value)
+
+  def dataSetName(self):
+    return self.get("DataSetName")
+
+  def setDataSetName(self, value):
+    return self.set("DataSetName", value)
+
+  def deprecated(self):
+    return "Please note the command GetBeiDouEphemerisDoubleParams is deprecated since 23.11. You may use GetConstellationParameterForSV."
+
+#
+# Result of GetBeiDouEphDoubleParamForEachSV.
+#
+# Name        Type            Description
+# ----------- --------------- --------------------------------------------------------------------------------------------------
+# ParamName   string          Refer to SetBeiDouEphDoubleParamForSV for accepted names
+# Val         array double    Parameter value for each satellite. Zero based index (index 0 => SV ID 1, index 1 => SV ID 2, etc)
+# DataSetName optional string Optional name of the data set to use. If no value is provided, the active data set is used.
+#
+
+class GetBeiDouEphDoubleParamForEachSVResult(CommandResult):
+
+  def __init__(self, paramName, val, dataSetName = None):
+    CommandResult.__init__(self, "GetBeiDouEphDoubleParamForEachSVResult")
+    self.setParamName(paramName)
+    self.setVal(val)
+    self.setDataSetName(dataSetName)
+
+  def isSuccess(self):
+    return True
+
+  def paramName(self):
+    return self.get("ParamName")
+
+  def setParamName(self, value):
+    return self.set("ParamName", value)
+
+  def val(self):
+    return self.get("Val")
+
+  def setVal(self, value):
+    return self.set("Val", value)
+
+  def dataSetName(self):
+    return self.get("DataSetName")
+
+  def setDataSetName(self, value):
+    return self.set("DataSetName", value)
+
+#
+# Please note the command SetQzssEphDoubleParamForEachSV is deprecated since 23.11. You may use SetConstellationParameterForSV.
+# 
+# Set QZSS ephemeris parameter value for all satellites
+#
+# Name        Type            Description
+# ----------- --------------- --------------------------------------------------------------------------------------------------
+# ParamName   string          Refer to SetQzssEphDoubleParamForSV for accepted names
+# Val         array double    Parameter value for each satellite. Zero based index (index 0 => SV ID 1, index 1 => SV ID 2, etc)
+# DataSetName optional string Optional name of the data set to use. If no value is provided, the active data set is used.
+#
+
+class SetQzssEphDoubleParamForEachSV(CommandBase):
+
+  def __init__(self, paramName, val, dataSetName = None):
+    CommandBase.__init__(self, "SetQzssEphDoubleParamForEachSV")
+    self.setParamName(paramName)
+    self.setVal(val)
+    self.setDataSetName(dataSetName)
+
+  def executePermission(self):
+    return ExecutePermission.EXECUTE_IF_IDLE
+
+  def paramName(self):
+    return self.get("ParamName")
+
+  def setParamName(self, value):
+    return self.set("ParamName", value)
+
+  def val(self):
+    return self.get("Val")
+
+  def setVal(self, value):
+    return self.set("Val", value)
+
+  def dataSetName(self):
+    return self.get("DataSetName")
+
+  def setDataSetName(self, value):
+    return self.set("DataSetName", value)
+
+  def deprecated(self):
+    return "Please note the command SetQzssEphDoubleParamForEachSV is deprecated since 23.11. You may use SetConstellationParameterForSV."
+
+#
+# Please note the command SetQzssEphemerisDoubleParams is deprecated since 21.3. You may use SetQzssEphDoubleParamForEachSV.
+# 
+# Please note the command SetQzssEphDoubleParamForEachSV is deprecated since 23.11. You may use SetConstellationParameterForSV.
+# 
+# Set QZSS ephemeris parameter value for all satellites
+#
+# Name        Type            Description
+# ----------- --------------- --------------------------------------------------------------------------------------------------
+# ParamName   string          Refer to SetQzssEphDoubleParamForSV for accepted names
+# Val         array double    Parameter value for each satellite. Zero based index (index 0 => SV ID 1, index 1 => SV ID 2, etc)
+# DataSetName optional string Optional name of the data set to use. If no value is provided, the active data set is used.
+#
+
+class SetQzssEphemerisDoubleParams(CommandBase):
+
+  def __init__(self, paramName, val, dataSetName = None):
+    CommandBase.__init__(self, "SetQzssEphemerisDoubleParams")
+    self.setParamName(paramName)
+    self.setVal(val)
+    self.setDataSetName(dataSetName)
+
+  def executePermission(self):
+    return ExecutePermission.EXECUTE_IF_IDLE
+
+  def paramName(self):
+    return self.get("ParamName")
+
+  def setParamName(self, value):
+    return self.set("ParamName", value)
+
+  def val(self):
+    return self.get("Val")
+
+  def setVal(self, value):
+    return self.set("Val", value)
+
+  def dataSetName(self):
+    return self.get("DataSetName")
+
+  def setDataSetName(self, value):
+    return self.set("DataSetName", value)
+
+  def deprecated(self):
+    return "Please note the command SetQzssEphemerisDoubleParams is deprecated since 23.11. You may use SetConstellationParameterForSV."
+
+#
+# Please note the command GetQzssEphDoubleParamForEachSV is deprecated since 23.11. You may use GetConstellationParameterForSV.
+# 
+# Get QZSS ephemeris parameter value for all satellites
+#
+# Name        Type            Description
+# ----------- --------------- -------------------------------------------------------------------------------------------
+# ParamName   string          Refer to SetQzssEphDoubleParamForSV for accepted names
+# DataSetName optional string Optional name of the data set to use. If no value is provided, the active data set is used.
+#
+
+class GetQzssEphDoubleParamForEachSV(CommandBase):
+
+  def __init__(self, paramName, dataSetName = None):
+    CommandBase.__init__(self, "GetQzssEphDoubleParamForEachSV")
+    self.setParamName(paramName)
+    self.setDataSetName(dataSetName)
+
+  def executePermission(self):
+    return ExecutePermission.EXECUTE_IF_IDLE
+
+  def paramName(self):
+    return self.get("ParamName")
+
+  def setParamName(self, value):
+    return self.set("ParamName", value)
+
+  def dataSetName(self):
+    return self.get("DataSetName")
+
+  def setDataSetName(self, value):
+    return self.set("DataSetName", value)
+
+  def deprecated(self):
+    return "Please note the command GetQzssEphDoubleParamForEachSV is deprecated since 23.11. You may use GetConstellationParameterForSV."
+
+#
+# Please note the command GetQzssEphemerisDoubleParams is deprecated since 21.3. You may use GetQzssEphDoubleParamForEachSV.
+# 
+# Please note the command GetQzssEphDoubleParamForEachSV is deprecated since 23.11. You may use GetConstellationParameterForSV.
+# 
+# Get QZSS ephemeris parameter value for all satellites
+#
+# Name        Type            Description
+# ----------- --------------- -------------------------------------------------------------------------------------------
+# ParamName   string          Refer to SetQzssEphDoubleParamForSV for accepted names
+# DataSetName optional string Optional name of the data set to use. If no value is provided, the active data set is used.
+#
+
+class GetQzssEphemerisDoubleParams(CommandBase):
+
+  def __init__(self, paramName, dataSetName = None):
+    CommandBase.__init__(self, "GetQzssEphemerisDoubleParams")
+    self.setParamName(paramName)
+    self.setDataSetName(dataSetName)
+
+  def executePermission(self):
+    return ExecutePermission.EXECUTE_IF_IDLE
+
+  def paramName(self):
+    return self.get("ParamName")
+
+  def setParamName(self, value):
+    return self.set("ParamName", value)
+
+  def dataSetName(self):
+    return self.get("DataSetName")
+
+  def setDataSetName(self, value):
+    return self.set("DataSetName", value)
+
+  def deprecated(self):
+    return "Please note the command GetQzssEphemerisDoubleParams is deprecated since 23.11. You may use GetConstellationParameterForSV."
+
+#
+# Result of GetQzssEphDoubleParamForEachSV.
+#
+# Name        Type            Description
+# ----------- --------------- --------------------------------------------------------------------------------------------------
+# ParamName   string          Refer to SetQzssEphDoubleParamForSV for accepted names
+# Val         array double    Parameter value for each satellite. Zero based index (index 0 => SV ID 1, index 1 => SV ID 2, etc)
+# DataSetName optional string Optional name of the data set to use. If no value is provided, the active data set is used.
+#
+
+class GetQzssEphDoubleParamForEachSVResult(CommandResult):
+
+  def __init__(self, paramName, val, dataSetName = None):
+    CommandResult.__init__(self, "GetQzssEphDoubleParamForEachSVResult")
+    self.setParamName(paramName)
+    self.setVal(val)
+    self.setDataSetName(dataSetName)
+
+  def isSuccess(self):
+    return True
+
+  def paramName(self):
+    return self.get("ParamName")
+
+  def setParamName(self, value):
+    return self.set("ParamName", value)
+
+  def val(self):
+    return self.get("Val")
+
+  def setVal(self, value):
+    return self.set("Val", value)
+
+  def dataSetName(self):
+    return self.get("DataSetName")
+
+  def setDataSetName(self, value):
+    return self.set("DataSetName", value)
+
+#
+# Please note the command SetNavICEphDoubleParamForEachSV is deprecated since 23.11. You may use SetConstellationParameterForSV.
+# 
+# Set NavIC ephemeris parameter value for all satellites
+#
+# Name        Type            Description
+# ----------- --------------- --------------------------------------------------------------------------------------------------
+# ParamName   string          Refer to SetNavICEphDoubleParamForSV for accepted names
+# Val         array double    Parameter value for each satellite. Zero based index (index 0 => SV ID 1, index 1 => SV ID 2, etc)
+# DataSetName optional string Optional name of the data set to use. If no value is provided, the active data set is used.
+#
+
+class SetNavICEphDoubleParamForEachSV(CommandBase):
+
+  def __init__(self, paramName, val, dataSetName = None):
+    CommandBase.__init__(self, "SetNavICEphDoubleParamForEachSV")
+    self.setParamName(paramName)
+    self.setVal(val)
+    self.setDataSetName(dataSetName)
+
+  def executePermission(self):
+    return ExecutePermission.EXECUTE_IF_IDLE
+
+  def paramName(self):
+    return self.get("ParamName")
+
+  def setParamName(self, value):
+    return self.set("ParamName", value)
+
+  def val(self):
+    return self.get("Val")
+
+  def setVal(self, value):
+    return self.set("Val", value)
+
+  def dataSetName(self):
+    return self.get("DataSetName")
+
+  def setDataSetName(self, value):
+    return self.set("DataSetName", value)
+
+  def deprecated(self):
+    return "Please note the command SetNavICEphDoubleParamForEachSV is deprecated since 23.11. You may use SetConstellationParameterForSV."
+
+#
+# Please note the command SetNavICEphemerisDoubleParams is deprecated since 21.3. You may use SetNavICEphDoubleParamForEachSV.
+# 
+# Please note the command SetNavICEphDoubleParamForEachSV is deprecated since 23.11. You may use SetConstellationParameterForSV.
+# 
+# Set NavIC ephemeris parameter value for all satellites
+#
+# Name        Type            Description
+# ----------- --------------- --------------------------------------------------------------------------------------------------
+# ParamName   string          Refer to SetNavICEphDoubleParamForSV for accepted names
+# Val         array double    Parameter value for each satellite. Zero based index (index 0 => SV ID 1, index 1 => SV ID 2, etc)
+# DataSetName optional string Optional name of the data set to use. If no value is provided, the active data set is used.
+#
+
+class SetNavICEphemerisDoubleParams(CommandBase):
+
+  def __init__(self, paramName, val, dataSetName = None):
+    CommandBase.__init__(self, "SetNavICEphemerisDoubleParams")
+    self.setParamName(paramName)
+    self.setVal(val)
+    self.setDataSetName(dataSetName)
+
+  def executePermission(self):
+    return ExecutePermission.EXECUTE_IF_IDLE
+
+  def paramName(self):
+    return self.get("ParamName")
+
+  def setParamName(self, value):
+    return self.set("ParamName", value)
+
+  def val(self):
+    return self.get("Val")
+
+  def setVal(self, value):
+    return self.set("Val", value)
+
+  def dataSetName(self):
+    return self.get("DataSetName")
+
+  def setDataSetName(self, value):
+    return self.set("DataSetName", value)
+
+  def deprecated(self):
+    return "Please note the command SetNavICEphemerisDoubleParams is deprecated since 23.11. You may use SetConstellationParameterForSV."
+
+#
+# Please note the command GetNavICEphDoubleParamForEachSV is deprecated since 23.11. You may use GetConstellationParameterForSV.
+# 
+# Get NavIC ephemeris parameter value for all satellites
+#
+# Name        Type            Description
+# ----------- --------------- -------------------------------------------------------------------------------------------
+# ParamName   string          Refer to SetNavICEphDoubleParamForSV for accepted names
+# DataSetName optional string Optional name of the data set to use. If no value is provided, the active data set is used.
+#
+
+class GetNavICEphDoubleParamForEachSV(CommandBase):
+
+  def __init__(self, paramName, dataSetName = None):
+    CommandBase.__init__(self, "GetNavICEphDoubleParamForEachSV")
+    self.setParamName(paramName)
+    self.setDataSetName(dataSetName)
+
+  def executePermission(self):
+    return ExecutePermission.EXECUTE_IF_IDLE
+
+  def paramName(self):
+    return self.get("ParamName")
+
+  def setParamName(self, value):
+    return self.set("ParamName", value)
+
+  def dataSetName(self):
+    return self.get("DataSetName")
+
+  def setDataSetName(self, value):
+    return self.set("DataSetName", value)
+
+  def deprecated(self):
+    return "Please note the command GetNavICEphDoubleParamForEachSV is deprecated since 23.11. You may use GetConstellationParameterForSV."
+
+#
+# Please note the command GetNavICEphemerisDoubleParams is deprecated since 21.3. You may use GetNavICEphDoubleParamForEachSV.
+# 
+# Please note the command GetNavICEphDoubleParamForEachSV is deprecated since 23.11. You may use GetConstellationParameterForSV.
+# 
+# Get NavIC ephemeris parameter value for all satellites
+#
+# Name        Type            Description
+# ----------- --------------- -------------------------------------------------------------------------------------------
+# ParamName   string          Refer to SetNavICEphDoubleParamForSV for accepted names
+# DataSetName optional string Optional name of the data set to use. If no value is provided, the active data set is used.
+#
+
+class GetNavICEphemerisDoubleParams(CommandBase):
+
+  def __init__(self, paramName, dataSetName = None):
+    CommandBase.__init__(self, "GetNavICEphemerisDoubleParams")
+    self.setParamName(paramName)
+    self.setDataSetName(dataSetName)
+
+  def executePermission(self):
+    return ExecutePermission.EXECUTE_IF_IDLE
+
+  def paramName(self):
+    return self.get("ParamName")
+
+  def setParamName(self, value):
+    return self.set("ParamName", value)
+
+  def dataSetName(self):
+    return self.get("DataSetName")
+
+  def setDataSetName(self, value):
+    return self.set("DataSetName", value)
+
+  def deprecated(self):
+    return "Please note the command GetNavICEphemerisDoubleParams is deprecated since 23.11. You may use GetConstellationParameterForSV."
+
+#
+# Result of GetNavICEphDoubleParamForEachSV.
+#
+# Name        Type            Description
+# ----------- --------------- --------------------------------------------------------------------------------------------------
+# ParamName   string          Refer to SetNavICEphDoubleParamForSV for accepted names
+# Val         array double    Parameter value for each satellite. Zero based index (index 0 => SV ID 1, index 1 => SV ID 2, etc)
+# DataSetName optional string Optional name of the data set to use. If no value is provided, the active data set is used.
+#
+
+class GetNavICEphDoubleParamForEachSVResult(CommandResult):
+
+  def __init__(self, paramName, val, dataSetName = None):
+    CommandResult.__init__(self, "GetNavICEphDoubleParamForEachSVResult")
+    self.setParamName(paramName)
+    self.setVal(val)
+    self.setDataSetName(dataSetName)
+
+  def isSuccess(self):
+    return True
+
+  def paramName(self):
+    return self.get("ParamName")
+
+  def setParamName(self, value):
+    return self.set("ParamName", value)
+
+  def val(self):
+    return self.get("Val")
+
+  def setVal(self, value):
+    return self.set("Val", value)
+
+  def dataSetName(self):
+    return self.get("DataSetName")
+
+  def setDataSetName(self, value):
+    return self.set("DataSetName", value)
+
+#
+# Please note the command SetGpsEphBoolParamForSV is deprecated since 23.11. You may use SetConstellationParameterForSV.
+# 
+# Set various boolean parameters in the GPS ephemeris
+# 
+#   ParamName
+# "IscL1CaAvailable"
+# "IscL2CAvailable"
+# "IscL5I5Available"
+# "IscL5Q5Available"
+# "IscL1CPAvailable"
+# "IscL1CDAvailable"
+#
+# Name        Type            Description
+# ----------- --------------- -------------------------------------------------------------------------------------------
+# SvId        int             Satellite SV ID 1..32, or use 0 to apply new value to all satellites
+# ParamName   string          Parameter name (see table above for accepted names)
+# Val         bool            Parameter value (see table above for unit)
+# DataSetName optional string Optional name of the data set to use. If no value is provided, the active data set is used.
+#
+
+class SetGpsEphBoolParamForSV(CommandBase):
+
+  def __init__(self, svId, paramName, val, dataSetName = None):
+    CommandBase.__init__(self, "SetGpsEphBoolParamForSV")
+    self.setSvId(svId)
+    self.setParamName(paramName)
+    self.setVal(val)
+    self.setDataSetName(dataSetName)
+
+  def executePermission(self):
+    return ExecutePermission.EXECUTE_IF_IDLE
+
+  def svId(self):
+    return self.get("SvId")
+
+  def setSvId(self, value):
+    return self.set("SvId", value)
+
+  def paramName(self):
+    return self.get("ParamName")
+
+  def setParamName(self, value):
+    return self.set("ParamName", value)
+
+  def val(self):
+    return self.get("Val")
+
+  def setVal(self, value):
+    return self.set("Val", value)
+
+  def dataSetName(self):
+    return self.get("DataSetName")
+
+  def setDataSetName(self, value):
+    return self.set("DataSetName", value)
+
+  def deprecated(self):
+    return "Please note the command SetGpsEphBoolParamForSV is deprecated since 23.11. You may use SetConstellationParameterForSV."
+
+#
+# Please note the command GetGpsEphBoolParamForSV is deprecated since 23.11. You may use GetConstellationParameterForSV.
+# 
+# Get various boolean parameters in the GPS ephemeris
+# 
+#   ParamName
+# "IscL1CaAvailable"
+# "IscL2CAvailable"
+# "IscL5I5Available"
+# "IscL5Q5Available"
+# "IscL1CPAvailable"
+# "IscL1CDAvailable"
+#
+# Name        Type            Description
+# ----------- --------------- -------------------------------------------------------------------------------------------
+# SvId        int             Satellite SV ID 1..32, or use 0 to apply new value to all satellites
+# ParamName   string          Parameter name (see table above for accepted names)
+# DataSetName optional string Optional name of the data set to use. If no value is provided, the active data set is used.
+#
+
+class GetGpsEphBoolParamForSV(CommandBase):
+
+  def __init__(self, svId, paramName, dataSetName = None):
+    CommandBase.__init__(self, "GetGpsEphBoolParamForSV")
+    self.setSvId(svId)
+    self.setParamName(paramName)
+    self.setDataSetName(dataSetName)
+
+  def executePermission(self):
+    return ExecutePermission.EXECUTE_IF_IDLE
+
+  def svId(self):
+    return self.get("SvId")
+
+  def setSvId(self, value):
+    return self.set("SvId", value)
+
+  def paramName(self):
+    return self.get("ParamName")
+
+  def setParamName(self, value):
+    return self.set("ParamName", value)
+
+  def dataSetName(self):
+    return self.get("DataSetName")
+
+  def setDataSetName(self, value):
+    return self.set("DataSetName", value)
+
+  def deprecated(self):
+    return "Please note the command GetGpsEphBoolParamForSV is deprecated since 23.11. You may use GetConstellationParameterForSV."
+
+#
+# Result of GetGpsEphBoolParamForSV.
+#
+# Name        Type            Description
+# ----------- --------------- -------------------------------------------------------------------------------------------
+# SvId        int             Satellite SV ID 1..32, or use 0 to apply new value to all satellites
+# ParamName   string          Parameter name (see table above for accepted names)
+# Val         bool            Parameter value (see table above for unit)
+# DataSetName optional string Optional name of the data set to use. If no value is provided, the active data set is used.
+#
+
+class GetGpsEphBoolParamForSVResult(CommandResult):
+
+  def __init__(self, svId, paramName, val, dataSetName = None):
+    CommandResult.__init__(self, "GetGpsEphBoolParamForSVResult")
+    self.setSvId(svId)
+    self.setParamName(paramName)
+    self.setVal(val)
+    self.setDataSetName(dataSetName)
+
+  def isSuccess(self):
+    return True
+
+  def svId(self):
+    return self.get("SvId")
+
+  def setSvId(self, value):
+    return self.set("SvId", value)
+
+  def paramName(self):
+    return self.get("ParamName")
+
+  def setParamName(self, value):
+    return self.set("ParamName", value)
+
+  def val(self):
+    return self.get("Val")
+
+  def setVal(self, value):
+    return self.set("Val", value)
+
+  def dataSetName(self):
+    return self.get("DataSetName")
+
+  def setDataSetName(self, value):
+    return self.set("DataSetName", value)
+
+#
+# Please note the command SetGpsEphBoolParamForEachSV is deprecated since 23.11. You may use SetConstellationParameterForSV.
+# 
+# Set GPS ephemeris boolean parameter value for all satellites
+#
+# Name        Type            Description
+# ----------- --------------- --------------------------------------------------------------------------------------------------
+# ParamName   string          Refer to SetGpsEphBoolParamForSV for accepted names
+# Val         array bool      Parameter value for each satellite. Zero based index (index 0 => SV ID 1, index 1 => SV ID 2, etc)
+# DataSetName optional string Optional name of the data set to use. If no value is provided, the active data set is used.
+#
+
+class SetGpsEphBoolParamForEachSV(CommandBase):
+
+  def __init__(self, paramName, val, dataSetName = None):
+    CommandBase.__init__(self, "SetGpsEphBoolParamForEachSV")
+    self.setParamName(paramName)
+    self.setVal(val)
+    self.setDataSetName(dataSetName)
+
+  def executePermission(self):
+    return ExecutePermission.EXECUTE_IF_IDLE
+
+  def paramName(self):
+    return self.get("ParamName")
+
+  def setParamName(self, value):
+    return self.set("ParamName", value)
+
+  def val(self):
+    return self.get("Val")
+
+  def setVal(self, value):
+    return self.set("Val", value)
+
+  def dataSetName(self):
+    return self.get("DataSetName")
+
+  def setDataSetName(self, value):
+    return self.set("DataSetName", value)
+
+  def deprecated(self):
+    return "Please note the command SetGpsEphBoolParamForEachSV is deprecated since 23.11. You may use SetConstellationParameterForSV."
+
+#
+# Please note the command SetGpsEphemerisBoolParams is deprecated since 21.3. You may use SetGpsEphBoolParamForEachSV.
+# 
+# Please note the command SetGpsEphBoolParamForEachSV is deprecated since 23.11. You may use SetConstellationParameterForSV.
+# 
+# Set GPS ephemeris boolean parameter value for all satellites
+#
+# Name        Type            Description
+# ----------- --------------- --------------------------------------------------------------------------------------------------
+# ParamName   string          Refer to SetGpsEphBoolParamForSV for accepted names
+# Val         array bool      Parameter value for each satellite. Zero based index (index 0 => SV ID 1, index 1 => SV ID 2, etc)
+# DataSetName optional string Optional name of the data set to use. If no value is provided, the active data set is used.
+#
+
+class SetGpsEphemerisBoolParams(CommandBase):
+
+  def __init__(self, paramName, val, dataSetName = None):
+    CommandBase.__init__(self, "SetGpsEphemerisBoolParams")
+    self.setParamName(paramName)
+    self.setVal(val)
+    self.setDataSetName(dataSetName)
+
+  def executePermission(self):
+    return ExecutePermission.EXECUTE_IF_IDLE
+
+  def paramName(self):
+    return self.get("ParamName")
+
+  def setParamName(self, value):
+    return self.set("ParamName", value)
+
+  def val(self):
+    return self.get("Val")
+
+  def setVal(self, value):
+    return self.set("Val", value)
+
+  def dataSetName(self):
+    return self.get("DataSetName")
+
+  def setDataSetName(self, value):
+    return self.set("DataSetName", value)
+
+  def deprecated(self):
+    return "Please note the command SetGpsEphemerisBoolParams is deprecated since 23.11. You may use SetConstellationParameterForSV."
+
+#
+# Please note the command GetGpsEphBoolParamForEachSV is deprecated since 23.11. You may use GetConstellationParameterForSV.
+# 
+# Get GPS ephemeris boolean parameter value for all satellites
+#
+# Name        Type            Description
+# ----------- --------------- -------------------------------------------------------------------------------------------
+# ParamName   string          Refer to SetGpsEphBoolParamForSV for accepted names
+# DataSetName optional string Optional name of the data set to use. If no value is provided, the active data set is used.
+#
+
+class GetGpsEphBoolParamForEachSV(CommandBase):
+
+  def __init__(self, paramName, dataSetName = None):
+    CommandBase.__init__(self, "GetGpsEphBoolParamForEachSV")
+    self.setParamName(paramName)
+    self.setDataSetName(dataSetName)
+
+  def executePermission(self):
+    return ExecutePermission.EXECUTE_IF_IDLE
+
+  def paramName(self):
+    return self.get("ParamName")
+
+  def setParamName(self, value):
+    return self.set("ParamName", value)
+
+  def dataSetName(self):
+    return self.get("DataSetName")
+
+  def setDataSetName(self, value):
+    return self.set("DataSetName", value)
+
+  def deprecated(self):
+    return "Please note the command GetGpsEphBoolParamForEachSV is deprecated since 23.11. You may use GetConstellationParameterForSV."
+
+#
+# Please note the command GetGpsEphemerisBoolParams is deprecated since 21.3. You may use GetGpsEphBoolParamForEachSV.
+# 
+# Please note the command GetGpsEphBoolParamForEachSV is deprecated since 23.11. You may use GetConstellationParameterForSV.
+# 
+# Get GPS ephemeris boolean parameter value for all satellites
+#
+# Name        Type            Description
+# ----------- --------------- -------------------------------------------------------------------------------------------
+# ParamName   string          Refer to SetGpsEphBoolParamForSV for accepted names
+# DataSetName optional string Optional name of the data set to use. If no value is provided, the active data set is used.
+#
+
+class GetGpsEphemerisBoolParams(CommandBase):
+
+  def __init__(self, paramName, dataSetName = None):
+    CommandBase.__init__(self, "GetGpsEphemerisBoolParams")
+    self.setParamName(paramName)
+    self.setDataSetName(dataSetName)
+
+  def executePermission(self):
+    return ExecutePermission.EXECUTE_IF_IDLE
+
+  def paramName(self):
+    return self.get("ParamName")
+
+  def setParamName(self, value):
+    return self.set("ParamName", value)
+
+  def dataSetName(self):
+    return self.get("DataSetName")
+
+  def setDataSetName(self, value):
+    return self.set("DataSetName", value)
+
+  def deprecated(self):
+    return "Please note the command GetGpsEphemerisBoolParams is deprecated since 23.11. You may use GetConstellationParameterForSV."
+
+#
+# Result of GetGpsEphBoolParamForEachSV.
+#
+# Name        Type            Description
+# ----------- --------------- --------------------------------------------------------------------------------------------------
+# ParamName   string          Refer to SetGpsEphBoolParamForSV for accepted names
+# Val         array bool      Parameter value for each satellite. Zero based index (index 0 => SV ID 1, index 1 => SV ID 2, etc)
+# DataSetName optional string Optional name of the data set to use. If no value is provided, the active data set is used.
+#
+
+class GetGpsEphBoolParamForEachSVResult(CommandResult):
+
+  def __init__(self, paramName, val, dataSetName = None):
+    CommandResult.__init__(self, "GetGpsEphBoolParamForEachSVResult")
+    self.setParamName(paramName)
+    self.setVal(val)
+    self.setDataSetName(dataSetName)
+
+  def isSuccess(self):
+    return True
+
+  def paramName(self):
+    return self.get("ParamName")
+
+  def setParamName(self, value):
+    return self.set("ParamName", value)
+
+  def val(self):
+    return self.get("Val")
+
+  def setVal(self, value):
+    return self.set("Val", value)
+
+  def dataSetName(self):
+    return self.get("DataSetName")
+
+  def setDataSetName(self, value):
+    return self.set("DataSetName", value)
+
+#
+# Please note the command SetBeiDouEphBoolParamForSV is deprecated since 23.11. You may use SetConstellationParameterForSV.
+# 
+# Set various boolean parameters in the BeiDou ephemeris
+# 
+#   ParamName
+# "IscB1CdAvailable"
+# "IscB2adAvailable"
+#
+# Name        Type            Description
+# ----------- --------------- -------------------------------------------------------------------------------------------
+# SvId        int             Satellite SV ID 1..35, or use 0 to apply new value to all satellites
+# ParamName   string          Parameter name (see table above for accepted names)
+# Val         bool            Parameter value (see table above for unit)
+# DataSetName optional string Optional name of the data set to use. If no value is provided, the active data set is used.
+#
+
+class SetBeiDouEphBoolParamForSV(CommandBase):
+
+  def __init__(self, svId, paramName, val, dataSetName = None):
+    CommandBase.__init__(self, "SetBeiDouEphBoolParamForSV")
+    self.setSvId(svId)
+    self.setParamName(paramName)
+    self.setVal(val)
+    self.setDataSetName(dataSetName)
+
+  def executePermission(self):
+    return ExecutePermission.EXECUTE_IF_IDLE
+
+  def svId(self):
+    return self.get("SvId")
+
+  def setSvId(self, value):
+    return self.set("SvId", value)
+
+  def paramName(self):
+    return self.get("ParamName")
+
+  def setParamName(self, value):
+    return self.set("ParamName", value)
+
+  def val(self):
+    return self.get("Val")
+
+  def setVal(self, value):
+    return self.set("Val", value)
+
+  def dataSetName(self):
+    return self.get("DataSetName")
+
+  def setDataSetName(self, value):
+    return self.set("DataSetName", value)
+
+  def deprecated(self):
+    return "Please note the command SetBeiDouEphBoolParamForSV is deprecated since 23.11. You may use SetConstellationParameterForSV."
+
+#
+# Please note the command GetBeiDouEphBoolParamForSV is deprecated since 23.11. You may use GetConstellationParameterForSV.
+# 
+# Get various boolean parameters in the BeiDou ephemeris
+# 
+#   ParamName
+# "IscB1CdAvailable"
+# "IscB2adAvailable"
+#
+# Name        Type            Description
+# ----------- --------------- -------------------------------------------------------------------------------------------
+# SvId        int             Satellite SV ID 1..35, or use 0 to apply new value to all satellites
+# ParamName   string          Parameter name (see table above for accepted names)
+# DataSetName optional string Optional name of the data set to use. If no value is provided, the active data set is used.
+#
+
+class GetBeiDouEphBoolParamForSV(CommandBase):
+
+  def __init__(self, svId, paramName, dataSetName = None):
+    CommandBase.__init__(self, "GetBeiDouEphBoolParamForSV")
+    self.setSvId(svId)
+    self.setParamName(paramName)
+    self.setDataSetName(dataSetName)
+
+  def executePermission(self):
+    return ExecutePermission.EXECUTE_IF_IDLE
+
+  def svId(self):
+    return self.get("SvId")
+
+  def setSvId(self, value):
+    return self.set("SvId", value)
+
+  def paramName(self):
+    return self.get("ParamName")
+
+  def setParamName(self, value):
+    return self.set("ParamName", value)
+
+  def dataSetName(self):
+    return self.get("DataSetName")
+
+  def setDataSetName(self, value):
+    return self.set("DataSetName", value)
+
+  def deprecated(self):
+    return "Please note the command GetBeiDouEphBoolParamForSV is deprecated since 23.11. You may use GetConstellationParameterForSV."
+
+#
+# Result of GetBeiDouEphBoolParamForSV.
+#
+# Name        Type            Description
+# ----------- --------------- -------------------------------------------------------------------------------------------
+# SvId        int             Satellite SV ID 1..35, or use 0 to apply new value to all satellites
+# ParamName   string          Parameter name (see table above for accepted names)
+# Val         bool            Parameter value (see table above for unit)
+# DataSetName optional string Optional name of the data set to use. If no value is provided, the active data set is used.
+#
+
+class GetBeiDouEphBoolParamForSVResult(CommandResult):
+
+  def __init__(self, svId, paramName, val, dataSetName = None):
+    CommandResult.__init__(self, "GetBeiDouEphBoolParamForSVResult")
+    self.setSvId(svId)
+    self.setParamName(paramName)
+    self.setVal(val)
+    self.setDataSetName(dataSetName)
+
+  def isSuccess(self):
+    return True
+
+  def svId(self):
+    return self.get("SvId")
+
+  def setSvId(self, value):
+    return self.set("SvId", value)
+
+  def paramName(self):
+    return self.get("ParamName")
+
+  def setParamName(self, value):
+    return self.set("ParamName", value)
+
+  def val(self):
+    return self.get("Val")
+
+  def setVal(self, value):
+    return self.set("Val", value)
+
+  def dataSetName(self):
+    return self.get("DataSetName")
+
+  def setDataSetName(self, value):
+    return self.set("DataSetName", value)
+
+#
+# Please note the command SetBeiDouEphBoolParamForEachSV is deprecated since 23.11. You may use SetConstellationParameterForSV.
+# 
+# Set BeiDou ephemeris boolean parameter value for all satellites
+#
+# Name        Type            Description
+# ----------- --------------- --------------------------------------------------------------------------------------------------
+# ParamName   string          Refer to SetBeiDouEphBoolParamForSV for accepted names
+# Val         array bool      Parameter value for each satellite. Zero based index (index 0 => SV ID 1, index 1 => SV ID 2, etc)
+# DataSetName optional string Optional name of the data set to use. If no value is provided, the active data set is used.
+#
+
+class SetBeiDouEphBoolParamForEachSV(CommandBase):
+
+  def __init__(self, paramName, val, dataSetName = None):
+    CommandBase.__init__(self, "SetBeiDouEphBoolParamForEachSV")
+    self.setParamName(paramName)
+    self.setVal(val)
+    self.setDataSetName(dataSetName)
+
+  def executePermission(self):
+    return ExecutePermission.EXECUTE_IF_IDLE
+
+  def paramName(self):
+    return self.get("ParamName")
+
+  def setParamName(self, value):
+    return self.set("ParamName", value)
+
+  def val(self):
+    return self.get("Val")
+
+  def setVal(self, value):
+    return self.set("Val", value)
+
+  def dataSetName(self):
+    return self.get("DataSetName")
+
+  def setDataSetName(self, value):
+    return self.set("DataSetName", value)
+
+  def deprecated(self):
+    return "Please note the command SetBeiDouEphBoolParamForEachSV is deprecated since 23.11. You may use SetConstellationParameterForSV."
+
+#
+# Please note the command SetBeiDouEphemerisBoolParams is deprecated since 21.3. You may use SetBeiDouEphBoolParamForEachSV.
+# 
+# Please note the command SetBeiDouEphBoolParamForEachSV is deprecated since 23.11. You may use SetConstellationParameterForSV.
+# 
+# Set BeiDou ephemeris boolean parameter value for all satellites
+#
+# Name        Type            Description
+# ----------- --------------- --------------------------------------------------------------------------------------------------
+# ParamName   string          Refer to SetBeiDouEphBoolParamForSV for accepted names
+# Val         array bool      Parameter value for each satellite. Zero based index (index 0 => SV ID 1, index 1 => SV ID 2, etc)
+# DataSetName optional string Optional name of the data set to use. If no value is provided, the active data set is used.
+#
+
+class SetBeiDouEphemerisBoolParams(CommandBase):
+
+  def __init__(self, paramName, val, dataSetName = None):
+    CommandBase.__init__(self, "SetBeiDouEphemerisBoolParams")
+    self.setParamName(paramName)
+    self.setVal(val)
+    self.setDataSetName(dataSetName)
+
+  def executePermission(self):
+    return ExecutePermission.EXECUTE_IF_IDLE
+
+  def paramName(self):
+    return self.get("ParamName")
+
+  def setParamName(self, value):
+    return self.set("ParamName", value)
+
+  def val(self):
+    return self.get("Val")
+
+  def setVal(self, value):
+    return self.set("Val", value)
+
+  def dataSetName(self):
+    return self.get("DataSetName")
+
+  def setDataSetName(self, value):
+    return self.set("DataSetName", value)
+
+  def deprecated(self):
+    return "Please note the command SetBeiDouEphemerisBoolParams is deprecated since 23.11. You may use SetConstellationParameterForSV."
+
+#
+# Please note the command GetBeiDouEphBoolParamForEachSV is deprecated since 23.11. You may use GetConstellationParameterForSV.
+# 
+# Get BeiDou ephemeris boolean parameter value for all satellites
+#
+# Name        Type            Description
+# ----------- --------------- -------------------------------------------------------------------------------------------
+# ParamName   string          Refer to SetBeiDouEphBoolParamForSV for accepted names
+# DataSetName optional string Optional name of the data set to use. If no value is provided, the active data set is used.
+#
+
+class GetBeiDouEphBoolParamForEachSV(CommandBase):
+
+  def __init__(self, paramName, dataSetName = None):
+    CommandBase.__init__(self, "GetBeiDouEphBoolParamForEachSV")
+    self.setParamName(paramName)
+    self.setDataSetName(dataSetName)
+
+  def executePermission(self):
+    return ExecutePermission.EXECUTE_IF_IDLE
+
+  def paramName(self):
+    return self.get("ParamName")
+
+  def setParamName(self, value):
+    return self.set("ParamName", value)
+
+  def dataSetName(self):
+    return self.get("DataSetName")
+
+  def setDataSetName(self, value):
+    return self.set("DataSetName", value)
+
+  def deprecated(self):
+    return "Please note the command GetBeiDouEphBoolParamForEachSV is deprecated since 23.11. You may use GetConstellationParameterForSV."
+
+#
+# Please note the command GetBeiDouEphemerisBoolParams is deprecated since 21.3. You may use GetBeiDouEphBoolParamForEachSV.
+# 
+# Please note the command GetBeiDouEphBoolParamForEachSV is deprecated since 23.11. You may use GetConstellationParameterForSV.
+# 
+# Get BeiDou ephemeris boolean parameter value for all satellites
+#
+# Name        Type            Description
+# ----------- --------------- -------------------------------------------------------------------------------------------
+# ParamName   string          Refer to SetBeiDouEphBoolParamForSV for accepted names
+# DataSetName optional string Optional name of the data set to use. If no value is provided, the active data set is used.
+#
+
+class GetBeiDouEphemerisBoolParams(CommandBase):
+
+  def __init__(self, paramName, dataSetName = None):
+    CommandBase.__init__(self, "GetBeiDouEphemerisBoolParams")
+    self.setParamName(paramName)
+    self.setDataSetName(dataSetName)
+
+  def executePermission(self):
+    return ExecutePermission.EXECUTE_IF_IDLE
+
+  def paramName(self):
+    return self.get("ParamName")
+
+  def setParamName(self, value):
+    return self.set("ParamName", value)
+
+  def dataSetName(self):
+    return self.get("DataSetName")
+
+  def setDataSetName(self, value):
+    return self.set("DataSetName", value)
+
+  def deprecated(self):
+    return "Please note the command GetBeiDouEphemerisBoolParams is deprecated since 23.11. You may use GetConstellationParameterForSV."
+
+#
+# Result of GetBeiDouEphBoolParamForEachSV.
+#
+# Name        Type            Description
+# ----------- --------------- --------------------------------------------------------------------------------------------------
+# ParamName   string          Refer to SetBeiDouEphBoolParamForSV for accepted names
+# Val         array bool      Parameter value for each satellite. Zero based index (index 0 => SV ID 1, index 1 => SV ID 2, etc)
+# DataSetName optional string Optional name of the data set to use. If no value is provided, the active data set is used.
+#
+
+class GetBeiDouEphBoolParamForEachSVResult(CommandResult):
+
+  def __init__(self, paramName, val, dataSetName = None):
+    CommandResult.__init__(self, "GetBeiDouEphBoolParamForEachSVResult")
+    self.setParamName(paramName)
+    self.setVal(val)
+    self.setDataSetName(dataSetName)
+
+  def isSuccess(self):
+    return True
+
+  def paramName(self):
+    return self.get("ParamName")
+
+  def setParamName(self, value):
+    return self.set("ParamName", value)
+
+  def val(self):
+    return self.get("Val")
+
+  def setVal(self, value):
+    return self.set("Val", value)
+
+  def dataSetName(self):
+    return self.get("DataSetName")
+
+  def setDataSetName(self, value):
+    return self.set("DataSetName", value)
+
+#
+# Please note the command SetQzssEphBoolParamForSV is deprecated since 23.11. You may use SetConstellationParameterForSV.
+# 
+# Set various boolean parameters in the QZSS ephemeris
+# 
+#   ParamName
+# "IscL1CaAvailable"
+# "IscL2CAvailable"
+# "IscL5I5Available"
+# "IscL5Q5Available"
+# "IscL1CPAvailable"
+# "IscL1CDAvailable"
+#
+# Name        Type            Description
+# ----------- --------------- -------------------------------------------------------------------------------------------
+# SvId        int             Satellite SV ID 1..10, or use 0 to apply new value to all satellites
+# ParamName   string          Parameter name (see table above for accepted names)
+# Val         bool            Parameter value (see table above for unit)
+# DataSetName optional string Optional name of the data set to use. If no value is provided, the active data set is used.
+#
+
+class SetQzssEphBoolParamForSV(CommandBase):
+
+  def __init__(self, svId, paramName, val, dataSetName = None):
+    CommandBase.__init__(self, "SetQzssEphBoolParamForSV")
+    self.setSvId(svId)
+    self.setParamName(paramName)
+    self.setVal(val)
+    self.setDataSetName(dataSetName)
+
+  def executePermission(self):
+    return ExecutePermission.EXECUTE_IF_IDLE
+
+  def svId(self):
+    return self.get("SvId")
+
+  def setSvId(self, value):
+    return self.set("SvId", value)
+
+  def paramName(self):
+    return self.get("ParamName")
+
+  def setParamName(self, value):
+    return self.set("ParamName", value)
+
+  def val(self):
+    return self.get("Val")
+
+  def setVal(self, value):
+    return self.set("Val", value)
+
+  def dataSetName(self):
+    return self.get("DataSetName")
+
+  def setDataSetName(self, value):
+    return self.set("DataSetName", value)
+
+  def deprecated(self):
+    return "Please note the command SetQzssEphBoolParamForSV is deprecated since 23.11. You may use SetConstellationParameterForSV."
+
+#
+# Please note the command SetQzssEphemerisBoolParam is deprecated since 21.3. You may use SetQzssEphBoolParamForSV.
+# 
+# Please note the command SetQzssEphBoolParamForSV is deprecated since 23.11. You may use SetConstellationParameterForSV.
+# 
+# Set various boolean parameters in the QZSS ephemeris
+# 
+#   ParamName
+# "IscL1CaAvailable"
+# "IscL2CAvailable"
+# "IscL5I5Available"
+# "IscL5Q5Available"
+# "IscL1CPAvailable"
+# "IscL1CDAvailable"
+#
+# Name        Type            Description
+# ----------- --------------- -------------------------------------------------------------------------------------------
+# SvId        int             Satellite SV ID 1..10, or use 0 to apply new value to all satellites
+# ParamName   string          Parameter name (see table above for accepted names)
+# Val         bool            Parameter value (see table above for unit)
+# DataSetName optional string Optional name of the data set to use. If no value is provided, the active data set is used.
+#
+
+class SetQzssEphemerisBoolParam(CommandBase):
+
+  def __init__(self, svId, paramName, val, dataSetName = None):
+    CommandBase.__init__(self, "SetQzssEphemerisBoolParam")
+    self.setSvId(svId)
+    self.setParamName(paramName)
+    self.setVal(val)
+    self.setDataSetName(dataSetName)
+
+  def executePermission(self):
+    return ExecutePermission.EXECUTE_IF_IDLE
+
+  def svId(self):
+    return self.get("SvId")
+
+  def setSvId(self, value):
+    return self.set("SvId", value)
+
+  def paramName(self):
+    return self.get("ParamName")
+
+  def setParamName(self, value):
+    return self.set("ParamName", value)
+
+  def val(self):
+    return self.get("Val")
+
+  def setVal(self, value):
+    return self.set("Val", value)
+
+  def dataSetName(self):
+    return self.get("DataSetName")
+
+  def setDataSetName(self, value):
+    return self.set("DataSetName", value)
+
+  def deprecated(self):
+    return "Please note the command SetQzssEphemerisBoolParam is deprecated since 23.11. You may use SetConstellationParameterForSV."
+
+#
+# Please note the command GetQzssEphBoolParamForSV is deprecated since 23.11. You may use GetConstellationParameterForSV.
+# 
+# Get various boolean parameters in the QZSS ephemeris
+# 
+#   ParamName
+# "IscL1CaAvailable"
+# "IscL2CAvailable"
+# "IscL5I5Available"
+# "IscL5Q5Available"
+# "IscL1CPAvailable"
+# "IscL1CDAvailable"
+#
+# Name        Type            Description
+# ----------- --------------- -------------------------------------------------------------------------------------------
+# SvId        int             Satellite SV ID 1..10, or use 0 to apply new value to all satellites
+# ParamName   string          Parameter name (see table above for accepted names)
+# DataSetName optional string Optional name of the data set to use. If no value is provided, the active data set is used.
+#
+
+class GetQzssEphBoolParamForSV(CommandBase):
+
+  def __init__(self, svId, paramName, dataSetName = None):
+    CommandBase.__init__(self, "GetQzssEphBoolParamForSV")
+    self.setSvId(svId)
+    self.setParamName(paramName)
+    self.setDataSetName(dataSetName)
+
+  def executePermission(self):
+    return ExecutePermission.EXECUTE_IF_IDLE
+
+  def svId(self):
+    return self.get("SvId")
+
+  def setSvId(self, value):
+    return self.set("SvId", value)
+
+  def paramName(self):
+    return self.get("ParamName")
+
+  def setParamName(self, value):
+    return self.set("ParamName", value)
+
+  def dataSetName(self):
+    return self.get("DataSetName")
+
+  def setDataSetName(self, value):
+    return self.set("DataSetName", value)
+
+  def deprecated(self):
+    return "Please note the command GetQzssEphBoolParamForSV is deprecated since 23.11. You may use GetConstellationParameterForSV."
+
+#
+# Please note the command GetQzssEphemerisBoolParam is deprecated since 21.3. You may use GetQzssEphBoolParamForSV.
+# 
+# Please note the command GetQzssEphBoolParamForSV is deprecated since 23.11. You may use GetConstellationParameterForSV.
+# 
+# Get various boolean parameters in the QZSS ephemeris
+# 
+#   ParamName
+# "IscL1CaAvailable"
+# "IscL2CAvailable"
+# "IscL5I5Available"
+# "IscL5Q5Available"
+# "IscL1CPAvailable"
+# "IscL1CDAvailable"
+#
+# Name        Type            Description
+# ----------- --------------- -------------------------------------------------------------------------------------------
+# SvId        int             Satellite SV ID 1..10, or use 0 to apply new value to all satellites
+# ParamName   string          Parameter name (see table above for accepted names)
+# DataSetName optional string Optional name of the data set to use. If no value is provided, the active data set is used.
+#
+
+class GetQzssEphemerisBoolParam(CommandBase):
+
+  def __init__(self, svId, paramName, dataSetName = None):
+    CommandBase.__init__(self, "GetQzssEphemerisBoolParam")
+    self.setSvId(svId)
+    self.setParamName(paramName)
+    self.setDataSetName(dataSetName)
+
+  def executePermission(self):
+    return ExecutePermission.EXECUTE_IF_IDLE
+
+  def svId(self):
+    return self.get("SvId")
+
+  def setSvId(self, value):
+    return self.set("SvId", value)
+
+  def paramName(self):
+    return self.get("ParamName")
+
+  def setParamName(self, value):
+    return self.set("ParamName", value)
+
+  def dataSetName(self):
+    return self.get("DataSetName")
+
+  def setDataSetName(self, value):
+    return self.set("DataSetName", value)
+
+  def deprecated(self):
+    return "Please note the command GetQzssEphemerisBoolParam is deprecated since 23.11. You may use GetConstellationParameterForSV."
+
+#
+# Result of GetQzssEphBoolParamForSV.
+#
+# Name        Type            Description
+# ----------- --------------- -------------------------------------------------------------------------------------------
+# SvId        int             Satellite SV ID 1..10, or use 0 to apply new value to all satellites
+# ParamName   string          Parameter name (see table above for accepted names)
+# Val         bool            Parameter value (see table above for unit)
+# DataSetName optional string Optional name of the data set to use. If no value is provided, the active data set is used.
+#
+
+class GetQzssEphBoolParamForSVResult(CommandResult):
+
+  def __init__(self, svId, paramName, val, dataSetName = None):
+    CommandResult.__init__(self, "GetQzssEphBoolParamForSVResult")
+    self.setSvId(svId)
+    self.setParamName(paramName)
+    self.setVal(val)
+    self.setDataSetName(dataSetName)
+
+  def isSuccess(self):
+    return True
+
+  def svId(self):
+    return self.get("SvId")
+
+  def setSvId(self, value):
+    return self.set("SvId", value)
+
+  def paramName(self):
+    return self.get("ParamName")
+
+  def setParamName(self, value):
+    return self.set("ParamName", value)
+
+  def val(self):
+    return self.get("Val")
+
+  def setVal(self, value):
+    return self.set("Val", value)
+
+  def dataSetName(self):
+    return self.get("DataSetName")
+
+  def setDataSetName(self, value):
+    return self.set("DataSetName", value)
+
+#
+# Please note the command SetQzssEphBoolParamForEachSV is deprecated since 23.11. You may use SetConstellationParameterForSV.
+# 
+# Set QZSS ephemeris boolean parameter value for all satellites
+#
+# Name        Type            Description
+# ----------- --------------- --------------------------------------------------------------------------------------------------
+# ParamName   string          Refer to SetQzssEphemerisBoolParam for accepted names
+# Val         array bool      Parameter value for each satellite. Zero based index (index 0 => SV ID 1, index 1 => SV ID 2, etc)
+# DataSetName optional string Optional name of the data set to use. If no value is provided, the active data set is used.
+#
+
+class SetQzssEphBoolParamForEachSV(CommandBase):
+
+  def __init__(self, paramName, val, dataSetName = None):
+    CommandBase.__init__(self, "SetQzssEphBoolParamForEachSV")
+    self.setParamName(paramName)
+    self.setVal(val)
+    self.setDataSetName(dataSetName)
+
+  def executePermission(self):
+    return ExecutePermission.EXECUTE_IF_IDLE
+
+  def paramName(self):
+    return self.get("ParamName")
+
+  def setParamName(self, value):
+    return self.set("ParamName", value)
+
+  def val(self):
+    return self.get("Val")
+
+  def setVal(self, value):
+    return self.set("Val", value)
+
+  def dataSetName(self):
+    return self.get("DataSetName")
+
+  def setDataSetName(self, value):
+    return self.set("DataSetName", value)
+
+  def deprecated(self):
+    return "Please note the command SetQzssEphBoolParamForEachSV is deprecated since 23.11. You may use SetConstellationParameterForSV."
+
+#
+# Please note the command SetQzssEphemerisBoolParams is deprecated since 21.3. You may use SetQzssEphBoolParamForEachSV.
+# 
+# Please note the command SetQzssEphBoolParamForEachSV is deprecated since 23.11. You may use SetConstellationParameterForSV.
+# 
+# Set QZSS ephemeris boolean parameter value for all satellites
+#
+# Name        Type            Description
+# ----------- --------------- --------------------------------------------------------------------------------------------------
+# ParamName   string          Refer to SetQzssEphemerisBoolParam for accepted names
+# Val         array bool      Parameter value for each satellite. Zero based index (index 0 => SV ID 1, index 1 => SV ID 2, etc)
+# DataSetName optional string Optional name of the data set to use. If no value is provided, the active data set is used.
+#
+
+class SetQzssEphemerisBoolParams(CommandBase):
+
+  def __init__(self, paramName, val, dataSetName = None):
+    CommandBase.__init__(self, "SetQzssEphemerisBoolParams")
+    self.setParamName(paramName)
+    self.setVal(val)
+    self.setDataSetName(dataSetName)
+
+  def executePermission(self):
+    return ExecutePermission.EXECUTE_IF_IDLE
+
+  def paramName(self):
+    return self.get("ParamName")
+
+  def setParamName(self, value):
+    return self.set("ParamName", value)
+
+  def val(self):
+    return self.get("Val")
+
+  def setVal(self, value):
+    return self.set("Val", value)
+
+  def dataSetName(self):
+    return self.get("DataSetName")
+
+  def setDataSetName(self, value):
+    return self.set("DataSetName", value)
+
+  def deprecated(self):
+    return "Please note the command SetQzssEphemerisBoolParams is deprecated since 23.11. You may use SetConstellationParameterForSV."
+
+#
+# Please note the command GetQzssEphBoolParamForEachSV is deprecated since 23.11. You may use GetConstellationParameterForSV.
+# 
+# Get QZSS ephemeris boolean parameter value for all satellites
+#
+# Name        Type            Description
+# ----------- --------------- -------------------------------------------------------------------------------------------
+# ParamName   string          Refer to SetQzssEphemerisBoolParam for accepted names
+# DataSetName optional string Optional name of the data set to use. If no value is provided, the active data set is used.
+#
+
+class GetQzssEphBoolParamForEachSV(CommandBase):
+
+  def __init__(self, paramName, dataSetName = None):
+    CommandBase.__init__(self, "GetQzssEphBoolParamForEachSV")
+    self.setParamName(paramName)
+    self.setDataSetName(dataSetName)
+
+  def executePermission(self):
+    return ExecutePermission.EXECUTE_IF_IDLE
+
+  def paramName(self):
+    return self.get("ParamName")
+
+  def setParamName(self, value):
+    return self.set("ParamName", value)
+
+  def dataSetName(self):
+    return self.get("DataSetName")
+
+  def setDataSetName(self, value):
+    return self.set("DataSetName", value)
+
+  def deprecated(self):
+    return "Please note the command GetQzssEphBoolParamForEachSV is deprecated since 23.11. You may use GetConstellationParameterForSV."
+
+#
+# Please note the command GetQzssEphemerisBoolParams is deprecated since 21.3. You may use GetQzssEphBoolParamForEachSV.
+# 
+# Please note the command GetQzssEphBoolParamForEachSV is deprecated since 23.11. You may use GetConstellationParameterForSV.
+# 
+# Get QZSS ephemeris boolean parameter value for all satellites
+#
+# Name        Type            Description
+# ----------- --------------- -------------------------------------------------------------------------------------------
+# ParamName   string          Refer to SetQzssEphemerisBoolParam for accepted names
+# DataSetName optional string Optional name of the data set to use. If no value is provided, the active data set is used.
+#
+
+class GetQzssEphemerisBoolParams(CommandBase):
+
+  def __init__(self, paramName, dataSetName = None):
+    CommandBase.__init__(self, "GetQzssEphemerisBoolParams")
+    self.setParamName(paramName)
+    self.setDataSetName(dataSetName)
+
+  def executePermission(self):
+    return ExecutePermission.EXECUTE_IF_IDLE
+
+  def paramName(self):
+    return self.get("ParamName")
+
+  def setParamName(self, value):
+    return self.set("ParamName", value)
+
+  def dataSetName(self):
+    return self.get("DataSetName")
+
+  def setDataSetName(self, value):
+    return self.set("DataSetName", value)
+
+  def deprecated(self):
+    return "Please note the command GetQzssEphemerisBoolParams is deprecated since 23.11. You may use GetConstellationParameterForSV."
+
+#
+# Result of GetQzssEphBoolParamForEachSV.
+#
+# Name        Type            Description
+# ----------- --------------- --------------------------------------------------------------------------------------------------
+# ParamName   string          Refer to SetQzssEphemerisBoolParam for accepted names
+# Val         array bool      Parameter value for each satellite. Zero based index (index 0 => SV ID 1, index 1 => SV ID 2, etc)
+# DataSetName optional string Optional name of the data set to use. If no value is provided, the active data set is used.
+#
+
+class GetQzssEphBoolParamForEachSVResult(CommandResult):
+
+  def __init__(self, paramName, val, dataSetName = None):
+    CommandResult.__init__(self, "GetQzssEphBoolParamForEachSVResult")
+    self.setParamName(paramName)
+    self.setVal(val)
+    self.setDataSetName(dataSetName)
+
+  def isSuccess(self):
+    return True
+
+  def paramName(self):
+    return self.get("ParamName")
+
+  def setParamName(self, value):
+    return self.set("ParamName", value)
+
+  def val(self):
+    return self.get("Val")
+
+  def setVal(self, value):
+    return self.set("Val", value)
+
+  def dataSetName(self):
+    return self.get("DataSetName")
+
+  def setDataSetName(self, value):
+    return self.set("DataSetName", value)
+
+#
+# Please note the command SetWFAntennaElementOffset is deprecated since 23.11. You may use SetVehicleAntennaOffset.
+# 
+# Set WF antenna offset and orientation relative to CRPA Antenna frame for the specified element index.
+#
+# Name    Type   Description
+# ------- ------ -------------------------------------------------------
+# X       double WF Element X offset in the CRPA antenna frame (meter)
+# Y       double WF Element Y offset in the CRPA antenna frame (meter)
+# Z       double WF Element Z offset in the CRPA antenna frame (meter)
+# Yaw     double WF Element Yaw offset in the CRPA antenna frame (rad)
+# Pitch   double WF Element Pitch offset in the CRPA antenna frame (rad)
+# Roll    double WF Element Roll offset in the CRPA antenna frame (rad)
+# Element int    One-based index for element in antenna.
+#
+
+class SetWFAntennaElementOffset(CommandBase):
+
+  def __init__(self, x, y, z, yaw, pitch, roll, element):
+    CommandBase.__init__(self, "SetWFAntennaElementOffset")
+    self.setX(x)
+    self.setY(y)
+    self.setZ(z)
+    self.setYaw(yaw)
+    self.setPitch(pitch)
+    self.setRoll(roll)
+    self.setElement(element)
+
+  def executePermission(self):
+    return ExecutePermission.EXECUTE_IF_IDLE
+
+  def x(self):
+    return self.get("X")
+
+  def setX(self, value):
+    return self.set("X", value)
+
+  def y(self):
+    return self.get("Y")
+
+  def setY(self, value):
+    return self.set("Y", value)
+
+  def z(self):
+    return self.get("Z")
+
+  def setZ(self, value):
+    return self.set("Z", value)
+
+  def yaw(self):
+    return self.get("Yaw")
+
+  def setYaw(self, value):
+    return self.set("Yaw", value)
+
+  def pitch(self):
+    return self.get("Pitch")
+
+  def setPitch(self, value):
+    return self.set("Pitch", value)
+
+  def roll(self):
+    return self.get("Roll")
+
+  def setRoll(self, value):
+    return self.set("Roll", value)
+
+  def element(self):
+    return self.get("Element")
+
+  def setElement(self, value):
+    return self.set("Element", value)
+
+  def deprecated(self):
+    return "Please note the command SetWFAntennaElementOffset is deprecated since 23.11. You may use SetVehicleAntennaOffset."
+
+#
+# Please note the command GetWFAntennaElementOffset is deprecated since 23.11. You may use GetVehicleAntennaOffset.
+# 
+# Get the WF antenna offset infos for this element.
+#
+# Name    Type Description
+# ------- ---- ---------------------------------------
+# Element int  One-based index for element in antenna.
+#
+
+class GetWFAntennaElementOffset(CommandBase):
+
+  def __init__(self, element):
+    CommandBase.__init__(self, "GetWFAntennaElementOffset")
+    self.setElement(element)
+
+  def executePermission(self):
+    return ExecutePermission.EXECUTE_IF_IDLE
+
+  def element(self):
+    return self.get("Element")
+
+  def setElement(self, value):
+    return self.set("Element", value)
+
+  def deprecated(self):
+    return "Please note the command GetWFAntennaElementOffset is deprecated since 23.11. You may use GetVehicleAntennaOffset."
+
+#
+# Result of GetWFAntennaElementOffset.
+#
+# Name    Type   Description
+# ------- ------ -------------------------------------------------------
+# X       double WF Element X offset in the CRPA antenna frame (meter)
+# Y       double WF Element Y offset in the CRPA antenna frame (meter)
+# Z       double WF Element Z offset in the CRPA antenna frame (meter)
+# Yaw     double WF Element Yaw offset in the CRPA antenna frame (rad)
+# Pitch   double WF Element Pitch offset in the CRPA antenna frame (rad)
+# Roll    double WF Element Roll offset in the CRPA antenna frame (rad)
+# Element int    One-based index for element in antenna.
+#
+
+class GetWFAntennaElementOffsetResult(CommandResult):
+
+  def __init__(self, x, y, z, yaw, pitch, roll, element):
+    CommandResult.__init__(self, "GetWFAntennaElementOffsetResult")
+    self.setX(x)
+    self.setY(y)
+    self.setZ(z)
+    self.setYaw(yaw)
+    self.setPitch(pitch)
+    self.setRoll(roll)
+    self.setElement(element)
+
+  def isSuccess(self):
+    return True
+
+  def x(self):
+    return self.get("X")
+
+  def setX(self, value):
+    return self.set("X", value)
+
+  def y(self):
+    return self.get("Y")
+
+  def setY(self, value):
+    return self.set("Y", value)
+
+  def z(self):
+    return self.get("Z")
+
+  def setZ(self, value):
+    return self.set("Z", value)
+
+  def yaw(self):
+    return self.get("Yaw")
+
+  def setYaw(self, value):
+    return self.set("Yaw", value)
+
+  def pitch(self):
+    return self.get("Pitch")
+
+  def setPitch(self, value):
+    return self.set("Pitch", value)
+
+  def roll(self):
+    return self.get("Roll")
+
+  def setRoll(self, value):
+    return self.set("Roll", value)
+
+  def element(self):
+    return self.get("Element")
+
+  def setElement(self, value):
+    return self.set("Element", value)
+
+#
+# Please note the command SetWFAntennaElementPhasePatternOffset is deprecated since 23.11. You may use AddVehiclePhasePatternOffset.
+# 
+# Set WF Antenna phase pattern offset (in rad) for this element
+#
+# Name        Type   Description
+# ----------- ------ -------------------------------------------------------------------------
+# PhaseOffset double Antenna phase pattern offset (in rad) to set for this element. [-Pi ; Pi]
+# Element     int    One-based index for element in antenna.
+#
+
+class SetWFAntennaElementPhasePatternOffset(CommandBase):
+
+  def __init__(self, phaseOffset, element):
+    CommandBase.__init__(self, "SetWFAntennaElementPhasePatternOffset")
+    self.setPhaseOffset(phaseOffset)
+    self.setElement(element)
+
+  def executePermission(self):
+    return ExecutePermission.EXECUTE_IF_IDLE
+
+  def phaseOffset(self):
+    return self.get("PhaseOffset")
+
+  def setPhaseOffset(self, value):
+    return self.set("PhaseOffset", value)
+
+  def element(self):
+    return self.get("Element")
+
+  def setElement(self, value):
+    return self.set("Element", value)
+
+  def deprecated(self):
+    return "Please note the command SetWFAntennaElementPhasePatternOffset is deprecated since 23.11. You may use AddVehiclePhasePatternOffset."
+
+#
+# Please note the command GetWFAntennaElementPhasePatternOffset is deprecated since 23.11. You may use GetVehiclePhasePatternOffset.
+# 
+# Get WF Antenna phase pattern offset (in rad) for this element
+#
+# Name    Type Description
+# ------- ---- ---------------------------------------
+# Element int  One-based index for element in antenna.
+#
+
+class GetWFAntennaElementPhasePatternOffset(CommandBase):
+
+  def __init__(self, element):
+    CommandBase.__init__(self, "GetWFAntennaElementPhasePatternOffset")
+    self.setElement(element)
+
+  def executePermission(self):
+    return ExecutePermission.EXECUTE_IF_IDLE
+
+  def element(self):
+    return self.get("Element")
+
+  def setElement(self, value):
+    return self.set("Element", value)
+
+  def deprecated(self):
+    return "Please note the command GetWFAntennaElementPhasePatternOffset is deprecated since 23.11. You may use GetVehiclePhasePatternOffset."
+
+#
+# Result of GetWFAntennaElementPhasePatternOffset.
+#
+# Name        Type   Description
+# ----------- ------ -------------------------------------------------------------------------
+# PhaseOffset double Antenna phase pattern offset (in rad) to set for this element. [-Pi ; Pi]
+# Element     int    One-based index for element in antenna.
+#
+
+class GetWFAntennaElementPhasePatternOffsetResult(CommandResult):
+
+  def __init__(self, phaseOffset, element):
+    CommandResult.__init__(self, "GetWFAntennaElementPhasePatternOffsetResult")
+    self.setPhaseOffset(phaseOffset)
+    self.setElement(element)
+
+  def isSuccess(self):
+    return True
+
+  def phaseOffset(self):
+    return self.get("PhaseOffset")
+
+  def setPhaseOffset(self, value):
+    return self.set("PhaseOffset", value)
+
+  def element(self):
+    return self.get("Element")
+
+  def setElement(self, value):
+    return self.set("Element", value)
+
+#
+# Please note the command SetWFAntennaElementModel is deprecated since 23.11. You may use SetWFElement.
+# 
+# Set WF Antenna model for this element
+#
+# Name             Type   Description
+# ---------------- ------ ----------------------------------------------------------------------------------------------------
+# AntennaModelName string Antenna Model name to set for this element. Antenna models must be defined in vehicle antenna model.
+# Element          int    One-based index for element in antenna.
+#
+
+class SetWFAntennaElementModel(CommandBase):
+
+  def __init__(self, antennaModelName, element):
+    CommandBase.__init__(self, "SetWFAntennaElementModel")
+    self.setAntennaModelName(antennaModelName)
+    self.setElement(element)
+
+  def executePermission(self):
+    return ExecutePermission.EXECUTE_IF_IDLE
+
+  def antennaModelName(self):
+    return self.get("AntennaModelName")
+
+  def setAntennaModelName(self, value):
+    return self.set("AntennaModelName", value)
+
+  def element(self):
+    return self.get("Element")
+
+  def setElement(self, value):
+    return self.set("Element", value)
+
+  def deprecated(self):
+    return "Please note the command SetWFAntennaElementModel is deprecated since 23.11. You may use SetWFElement."
+
+#
+# Please note the command GetWFAntennaElementModel is deprecated since 23.11. You may use GetWFElement.
+# 
+# Get WF Antenna model for this element
+#
+# Name    Type Description
+# ------- ---- ---------------------------------------
+# Element int  One-based index for element in antenna.
+#
+
+class GetWFAntennaElementModel(CommandBase):
+
+  def __init__(self, element):
+    CommandBase.__init__(self, "GetWFAntennaElementModel")
+    self.setElement(element)
+
+  def executePermission(self):
+    return ExecutePermission.EXECUTE_IF_IDLE
+
+  def element(self):
+    return self.get("Element")
+
+  def setElement(self, value):
+    return self.set("Element", value)
+
+  def deprecated(self):
+    return "Please note the command GetWFAntennaElementModel is deprecated since 23.11. You may use GetWFElement."
+
+#
+# Result of GetWFAntennaElementModel.
+#
+# Name             Type   Description
+# ---------------- ------ ----------------------------------------------------------------------------------------------------
+# AntennaModelName string Antenna Model name to set for this element. Antenna models must be defined in vehicle antenna model.
+# Element          int    One-based index for element in antenna.
+#
+
+class GetWFAntennaElementModelResult(CommandResult):
+
+  def __init__(self, antennaModelName, element):
+    CommandResult.__init__(self, "GetWFAntennaElementModelResult")
+    self.setAntennaModelName(antennaModelName)
+    self.setElement(element)
+
+  def isSuccess(self):
+    return True
+
+  def antennaModelName(self):
+    return self.get("AntennaModelName")
+
+  def setAntennaModelName(self, value):
+    return self.set("AntennaModelName", value)
+
+  def element(self):
+    return self.get("Element")
+
+  def setElement(self, value):
+    return self.set("Element", value)
+
+#
+# Please note the command SetWFAntennaElementEnabled is deprecated since 23.11. You may use SetWFElement.
+# 
+# Set WF antenna element enabled or disabled. A disabled antenna element is not simulated at all.
+#
+# Name    Type Description
+# ------- ---- -------------------------------------------------
+# Element int  One-based index for element in antenna.
+# Enabled bool If True, this antenna element will bil simulated.
+#
+
+class SetWFAntennaElementEnabled(CommandBase):
+
+  def __init__(self, element, enabled):
+    CommandBase.__init__(self, "SetWFAntennaElementEnabled")
+    self.setElement(element)
+    self.setEnabled(enabled)
+
+  def executePermission(self):
+    return ExecutePermission.EXECUTE_IF_IDLE
+
+  def element(self):
+    return self.get("Element")
+
+  def setElement(self, value):
+    return self.set("Element", value)
+
+  def enabled(self):
+    return self.get("Enabled")
+
+  def setEnabled(self, value):
+    return self.set("Enabled", value)
+
+  def deprecated(self):
+    return "Please note the command SetWFAntennaElementEnabled is deprecated since 23.11. You may use SetWFElement."
+
+#
+# Please note the command IsWFAntennaElementEnabled is deprecated since 23.11. You may use GetWFElement.
+# 
+# Get whether an antenna element is enabled or disabled.
+#
+# Name    Type Description
+# ------- ---- ---------------------------------------
+# Element int  One-based index for element in antenna.
+#
+
+class IsWFAntennaElementEnabled(CommandBase):
+
+  def __init__(self, element):
+    CommandBase.__init__(self, "IsWFAntennaElementEnabled")
+    self.setElement(element)
+
+  def executePermission(self):
+    return ExecutePermission.EXECUTE_IF_IDLE
+
+  def element(self):
+    return self.get("Element")
+
+  def setElement(self, value):
+    return self.set("Element", value)
+
+  def deprecated(self):
+    return "Please note the command IsWFAntennaElementEnabled is deprecated since 23.11. You may use GetWFElement."
+
+#
+# Result of IsWFAntennaElementEnabled.
+#
+# Name    Type Description
+# ------- ---- -------------------------------------------------
+# Element int  One-based index for element in antenna.
+# Enabled bool If True, this antenna element will bil simulated.
+#
+
+class IsWFAntennaElementEnabledResult(CommandResult):
+
+  def __init__(self, element, enabled):
+    CommandResult.__init__(self, "IsWFAntennaElementEnabledResult")
+    self.setElement(element)
+    self.setEnabled(enabled)
+
+  def isSuccess(self):
+    return True
+
+  def element(self):
+    return self.get("Element")
+
+  def setElement(self, value):
+    return self.set("Element", value)
+
+  def enabled(self):
+    return self.get("Enabled")
+
+  def setEnabled(self, value):
+    return self.set("Enabled", value)
 

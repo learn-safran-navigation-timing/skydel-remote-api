@@ -10,7 +10,7 @@ namespace Sdx
   namespace Cmd
   {
     ///
-    /// Get wether the master should send its configuration to every slave when simulation start.
+    /// Get wether the main instance should send its configuration to every worker instance when simulation start.
     ///
     /// 
     ///

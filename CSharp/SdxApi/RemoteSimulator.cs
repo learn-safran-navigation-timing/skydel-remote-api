@@ -79,6 +79,7 @@ namespace Sdx
     private double m_checkRunningTime = 0.0;
     private bool m_beginTrack = false;
     private bool m_beginRoute = false;
+    private HashSet<string> m_beginIntTxTrack = new HashSet<string>();
     private int m_serverApiVersion = 0;
     private DeprecatedMessageMode m_deprecatedMessageMode = DeprecatedMessageMode.LATCH;
     private HashSet<string> m_latchDeprecated = new HashSet<string>();
@@ -204,24 +205,26 @@ namespace Sdx
       PrintLine("Simulation stopped.");
     }
 
-    private void CheckForbidden(CommandBase cmd)
+    private void CheckForbiddenPost(CommandBase cmd)
     {
       if (cmd.Name == "Start")
         throw new Exception("You cannot send a Start() command. Use RemoteSimulator.Start() instead.");
-      if (cmd.Name == "BeginTrackDefinition")
-        throw new Exception("You cannot send a BeginTrackDefinition command. Use RemoteSimulator.BeginTrackDefinition() instead.");
-      if (cmd.Name == "EndTrackDefinition")
-        throw new Exception("You cannot send a EndTrackDefinition command. Use RemoteSimulator.EndTrackDefinition() instead.");
+    }
+
+    private void CheckForbiddenCall(CommandBase cmd)
+    {
+      if (cmd.Name == "Start")
+        throw new Exception("You cannot send a Start() command. Use RemoteSimulator.Start() instead.");
       if (cmd.Name == "PushTrackEcef")
-        throw new Exception("You cannot send a PushTrackEcef command. Use RemoteSimulator.PushTrackEcef() or RemoteSimulator.PushTrackLla() instead.");
+        throw new Exception("You cannot call a PushTrackEcef command. Post it or use RemoteSimulator.PushTrackEcef() or RemoteSimulator.PushTrackLla() instead.");
       if (cmd.Name == "PushTrackEcefNed")
-        throw new Exception("You cannot send a PushTrackEcefNed command. Use RemoteSimulator.PushTrackEcefNed() or RemoteSimulator.PushTrackEcefLlaNed() instead.");
-      if (cmd.Name == "BeginRouteDefinition")
-        throw new Exception("You cannot send a BeginRouteDefinition command. Use RemoteSimulator.BeginRouteDefinition() instead.");
-      if (cmd.Name == "EndRouteDefinition")
-        throw new Exception("You cannot send a EndRouteDefinition command. Use RemoteSimulator.EndRouteDefinition() instead.");
+        throw new Exception("You cannot call a PushTrackEcefNed command. Post it or use RemoteSimulator.PushTrackEcefNed() or RemoteSimulator.PushTrackEcefLlaNed() instead.");
       if (cmd.Name == "PushRouteEcef")
-        throw new Exception("You cannot send a PushRouteNode command. Use RemoteSimulator.PushRouteLla() or RemoteSimulator.PushRouteEcef() instead.");
+        throw new Exception("You cannot call a PushRouteNode command. Post it or use RemoteSimulator.PushRouteLla() or RemoteSimulator.PushRouteEcef() instead.");
+      if (cmd.Name == "PushIntTxTrackEcef")
+        throw new Exception("You cannot call a PushIntTxTrackEcef command. Post it or use RemoteSimulator.PushIntTxTrackEcef() or RemoteSimulator.PushIntTxTrackLla() instead.");
+      if (cmd.Name == "PushIntTxTrackEcefNed")
+        throw new Exception("You cannot call a PushIntTxTrackEcefNed command. Post it or use RemoteSimulator.PushIntTxTrackEcefNed() or RemoteSimulator.PushIntTxTrackLlaNed() instead.");
     }
 
     public bool CheckIfStreaming()
@@ -396,6 +399,66 @@ namespace Sdx
       return result;
     }
 
+    public CommandResult BeginIntTxTrackDefinition(string id)
+    {
+      CommandResult result = CallCommand(new BeginIntTxTrackDefinition(id));
+      if (result.IsSuccess)
+      {
+        m_beginIntTxTrack.Add(id);
+        if (m_verbose)
+          PrintLine("Begin Transmitter Track Definition...");
+      }
+      return result;
+    }
+
+    public void PushIntTxTrackEcef(int elapsedTime, Ecef position, string id)
+    {
+      if (!m_beginIntTxTrack.Contains(id))
+        throw new Exception("You must call BeginIntTxTrackDefinition first.");
+
+      PostCommand(new PushIntTxTrackEcef(elapsedTime, position.X, position.Y, position.Z, id));
+    }
+
+    public void PushIntTxTrackEcefNed(int elapsedTime, Ecef position, Attitude attitude, string id)
+    {
+      if (!m_beginIntTxTrack.Contains(id))
+        throw new Exception("You must call BeginIntTxTrackDefinition first.");
+
+      PostCommand(new PushIntTxTrackEcefNed(elapsedTime, position.X, position.Y, position.Z, attitude.Yaw, attitude.Pitch, attitude.Roll, id));
+    }
+
+    public void PushIntTxTrackLla(int elapsedTime, Lla lla, string id)
+    {
+      PushIntTxTrackEcef(elapsedTime, lla.ToEcef(), id);
+    }
+
+    public void PushIntTxTrackLlaNed(int elapsedTime, Lla lla, Attitude attitude, string id)
+    {
+      PushIntTxTrackEcefNed(elapsedTime, lla.ToEcef(), attitude, id);
+    }
+
+    public CommandResult EndIntTxTrackDefinition(string id, out int numberOfNodesInTrack)
+    {
+      if (!m_beginIntTxTrack.Contains(id))
+        throw new Exception("You must call BeginIntTxTrackDefinition first.");
+      m_beginIntTxTrack.Remove(id);
+      CommandResult result = CallCommand(new EndIntTxTrackDefinition(id));
+      if (result.IsSuccess)
+      {
+        EndIntTxTrackDefinitionResult trackResult = (EndIntTxTrackDefinitionResult)result;
+        numberOfNodesInTrack = trackResult.Count;
+      }
+      else
+      {
+        numberOfNodesInTrack = 0;
+      }
+
+      if (m_verbose)
+        PrintLine("End transmitter track contains " + numberOfNodesInTrack + " nodes.");
+
+      return result;
+    }
+
     private bool HilCheck(double elapsedTime)
     {
       if (m_checkRunningTime < 0.0)
@@ -416,11 +479,29 @@ namespace Sdx
       return true;
     }
 
+    // Send Skydel an HIL timed position of the vehicle. The position is provided in the LLA coordinate system.
+    //
+    //  Parameter     Type               Units          Description
+    //  -----------------------------------------------------------------------------------------------
+    //  elapsedTime                      milliseconds   Time since the beginning of the simulation.
+    //  position      lat, long, alt     rad and m      Position of the vehicle.
+    //  name                                            If empty, sends the position for the vehicle. If set with a
+    //                                                  jammerID, sends the position for the specified jammer's vehicle.
+    //
     public bool PushLla(double elapsedTime, Lla lla, string name = "")
     {
       return PushEcef(elapsedTime, lla.ToEcef(), name);
     }
 
+    // Send Skydel an HIL timed position of the vehicle. The position is provided in the ECEF coordinate system.
+    //
+    //  Parameter     Type      Units          Description
+    //  -----------------------------------------------------------------------------------------------
+    //  elapsedTime             milliseconds   Time since the beginning of the simulation.
+    //  position      x, y, z   m              Position of the vehicle.
+    //  name                                   If empty, sends the position for the vehicle. If set with a jammerID, sends
+    //                                         the position for the specified jammer's vehicle.
+    //
     public bool PushEcef(double elapsedTime, Ecef position, string name = "")
     {
       if (m_hil == null)
@@ -430,6 +511,17 @@ namespace Sdx
       return HilCheck(elapsedTime);
     }
 
+    // Send Skydel an HIL timed position and the associated dynamics of the vehicle. The position is provided in the ECEF
+    // coordinate system.
+    //
+    //  Parameter     Type      Units          Description
+    //  -----------------------------------------------------------------------------------------------
+    //  elapsedTime             milliseconds   Time since the beginning of the simulation.
+    //  position      x, y, z   m              Position of the vehicle.
+    //  velocity      x, y, z   m/s            Velocity of the vehicle.
+    //  name                                   If empty, sends the position for the vehicle. If set with a jammerID, sends
+    //                                         the position for the specified jammer's vehicle.
+    //
     public bool PushEcef(double elapsedTime, Ecef position, Ecef velocity, string name = "")
     {
       if (m_hil == null)
@@ -439,6 +531,18 @@ namespace Sdx
       return HilCheck(elapsedTime);
     }
 
+    // Send Skydel an HIL timed position and the associated dynamics of the vehicle. The position is provided in the ECEF
+    // coordinate system.
+    //
+    //  Parameter      Type      Units          Description
+    //  ------------------------------------------------------------------------------------------------
+    //  elapsedTime              milliseconds   Time since the beginning of the simulation.
+    //  position       x, y, z   m              Position of the vehicle.
+    //  velocity       x, y, z   m/s            Velocity of the vehicle.
+    //  acceleration   x, y, z   m/s²           Acceleration of the vehicle.
+    //  name                                    If empty, sends the position for the vehicle. If set with a jammerID,
+    //                                          sends the position for the specified jammer's vehicle.
+    //
     public bool PushEcef(double elapsedTime, Ecef position, Ecef velocity, Ecef acceleration, string name = "")
     {
       if (m_hil == null)
@@ -448,6 +552,19 @@ namespace Sdx
       return HilCheck(elapsedTime);
     }
 
+    // Send Skydel an HIL timed position and the associated dynamics of the vehicle. The position is provided in the ECEF
+    // coordinate system.
+    //
+    //  Parameter      Type      Units          Description
+    //  ------------------------------------------------------------------------------------------------
+    //  elapsedTime              milliseconds   Time since the beginning of the simulation.
+    //  position       x, y, z   m              Position of the vehicle.
+    //  velocity       x, y, z   m/s            Velocity of the vehicle.
+    //  acceleration   x, y, z   m/s²           Acceleration of the vehicle.
+    //  jerk           x, y, z   m/s³           Jerk of the vehicle.
+    //  name                                    If empty, sends the position for the vehicle. If set with a jammerID,
+    //                                          sends the position for the specified jammer's vehicle.
+    //
     public bool PushEcef(double elapsedTime, Ecef position, Ecef velocity, Ecef acceleration, Ecef jerk, string name = "")
     {
       if (m_hil == null)
@@ -457,11 +574,33 @@ namespace Sdx
       return HilCheck(elapsedTime);
     }
 
+    // Send Skydel an HIL timed position and orientation of the vehicle. The position is provided in the LLA coordinate
+    // system, while the body's orientation is specified relative to the local NED reference frame.
+    //
+    //  Parameter     Type               Units          Description
+    //  -----------------------------------------------------------------------------------------------
+    //  elapsedTime                      milliseconds   Time since the beginning of the simulation.
+    //  position      lat, long, alt     rad and m      Position of the vehicle.
+    //  attitude      yaw, pitch, roll   rad            Orientation of the vehicle's body.
+    //  name                                            If empty, sends the position for the vehicle. If set with a
+    //                                                  jammerID, sends the position for the specified jammer's vehicle.
+    //
     public bool PushLlaNed(double elapsedTime, Lla lla, Attitude attitude, string name = "")
     {
       return PushEcefNed(elapsedTime, lla.ToEcef(), attitude, name);
     }
 
+    // Send Skydel an HIL timed position and orientation of the vehicle. The position is provided in the LLA coordinate
+    // system, while the body's orientation is specified relative to the local NED reference frame.
+    //
+    //  Parameter     Type               Units          Description
+    //  -----------------------------------------------------------------------------------------------
+    //  elapsedTime                      milliseconds   Time since the beginning of the simulation.
+    //  position      lat, long, alt     rad and m      Position of the vehicle.
+    //  attitude      yaw, pitch, roll   rad            Orientation of the vehicle's body.
+    //  name                                            If empty, sends the position for the vehicle. If set with a
+    //                                                  jammerID, sends the position for the specified jammer's vehicle.
+    // 
     public bool PushEcefNed(double elapsedTime, Ecef position, Attitude attitude, string name = "")
     {
       if (m_hil == null)
@@ -471,6 +610,21 @@ namespace Sdx
       return HilCheck(elapsedTime);
     }
 
+    // Send Skydel an HIL timed position, orientation, and the associated dynamics of the vehicle. The position is
+    // provided in the ECEF coordinate system, while the body's orientation is specified relative to the local NED
+    // reference frame.
+    //
+    //  Parameter             Type               Units          Description
+    //  -------------------------------------------------------------------------------------------------------
+    //  elapsedTime                              milliseconds   Time since the beginning of the simulation.
+    //  position              x, y, z            m              Position of the vehicle.
+    //  attitude              yaw, pitch, roll   rad            Orientation of the vehicle's body.
+    //  velocity              x, y, z            m/s            Velocity of the vehicle.
+    //  angularVelocity       yaw, pitch, roll   rad/s          Rotational velocity of the vehicle's body.
+    //  name                                                    If empty, sends the position for the vehicle. If set with
+    //                                                          a jammerID, sends the position for the specified jammer's
+    //                                                          vehicle.
+    //
     public bool PushEcefNed(double elapsedTime, Ecef position, Attitude attitude, Ecef velocity, Attitude angularVelocity, string name = "")
     {
       if (m_hil == null)
@@ -480,6 +634,23 @@ namespace Sdx
       return HilCheck(elapsedTime);
     }
 
+    // Send Skydel an HIL timed position, orientation, and the associated dynamics of the vehicle. The position is
+    // provided in the ECEF coordinate system, while the body's orientation is specified relative to the local NED
+    // reference frame.
+    //
+    //  Parameter             Type               Units          Description
+    //  -------------------------------------------------------------------------------------------------------
+    //  elapsedTime                              milliseconds   Time since the beginning of the simulation.
+    //  position              x, y, z            m              Position of the vehicle.
+    //  attitude              yaw, pitch, roll   rad            Orientation of the vehicle's body.
+    //  velocity              x, y, z            m/s            Velocity of the vehicle.
+    //  angularVelocity       yaw, pitch, roll   rad/s          Rotational velocity of the vehicle's body.
+    //  acceleration          x, y, z            m/s²           Acceleration of the vehicle.
+    //  angularAcceleration   yaw, pitch, roll   rad/s²         Rotational acceleration of the vehicle's body.
+    //  name                                                    If empty, sends the position for the vehicle. If set with
+    //                                                          a jammerID, sends the position for the specified jammer's
+    //                                                          vehicle.
+    //
     public bool PushEcefNed(double elapsedTime, Ecef position, Attitude attitude, Ecef velocity, Attitude angularVelocity, Ecef acceleration, Attitude angularAcceleration, string name = "")
     {
       if (m_hil == null)
@@ -489,6 +660,25 @@ namespace Sdx
       return HilCheck(elapsedTime);
     }
 
+    // Send Skydel an HIL timed position, orientation, and the associated dynamics of the vehicle. The position is
+    // provided in the ECEF coordinate system, while the body's orientation is specified relative to the local NED
+    // reference frame.
+    //
+    //  Parameter             Type               Units          Description
+    //  -------------------------------------------------------------------------------------------------------
+    //  elapsedTime                              milliseconds   Time since the beginning of the simulation.
+    //  position              x, y, z            m              Position of the vehicle.
+    //  attitude              yaw, pitch, roll   rad            Orientation of the vehicle's body.
+    //  velocity              x, y, z            m/s            Velocity of the vehicle.
+    //  angularVelocity       yaw, pitch, roll   rad/s          Rotational velocity of the vehicle's body.
+    //  acceleration          x, y, z            m/s²           Acceleration of the vehicle.
+    //  angularAcceleration   yaw, pitch, roll   rad/s²         Rotational acceleration of the vehicle's body.
+    //  jerk                  x, y, z            m/s³           Jerk of the vehicle.
+    //  angularJerk           yaw, pitch, roll   rad/s³         Rotational jerk of the vehicle's body.
+    //  name                                                    If empty, sends the position for the vehicle. If set with
+    //                                                          a jammerID, sends the position for the specified jammer's
+    //                                                          vehicle.
+    //
     public bool PushEcefNed(double elapsedTime, Ecef position, Attitude attitude, Ecef velocity, Attitude angularVelocity, Ecef acceleration, Attitude angularAcceleration, Ecef jerk, Attitude angularJerk, string name = "")
     {
       if (m_hil == null)
@@ -535,7 +725,7 @@ namespace Sdx
 
     public CommandBase Post(CommandBase cmd, double timestamp)
     {
-      CheckForbidden(cmd);
+      CheckForbiddenPost(cmd);
       Print("Post " + cmd.ToReadableCommand() + " at " + cmd.Timestamp + " secs");
       PostCommand(cmd, timestamp);
       return cmd;
@@ -543,7 +733,7 @@ namespace Sdx
 
     public CommandBase Post(CommandBase cmd)
     {
-      CheckForbidden(cmd);
+      CheckForbiddenPost(cmd);
       PrintLine("Post " + cmd.ToReadableCommand());
       PostCommand(cmd);
       return cmd;
@@ -559,7 +749,7 @@ namespace Sdx
 
     public CommandResult Call(CommandBase cmd, double timestamp)
     {
-      CheckForbidden(cmd);
+      CheckForbiddenCall(cmd);
       PostCommand(cmd, timestamp);
       Print("Call " + cmd.ToReadableCommand() + " at " + cmd.Timestamp + " secs");
       CommandResult result = WaitCommand(cmd);
@@ -569,7 +759,7 @@ namespace Sdx
 
     public CommandResult Call(CommandBase cmd)
     {
-      CheckForbidden(cmd);
+      CheckForbiddenCall(cmd);
       PostCommand(cmd);
       Print("Call " + cmd.ToReadableCommand());
       CommandResult result = WaitCommand(cmd);

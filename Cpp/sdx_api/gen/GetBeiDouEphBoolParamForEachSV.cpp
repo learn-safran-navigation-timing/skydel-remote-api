@@ -14,7 +14,9 @@ namespace Sdx
   namespace Cmd
   {
     const char* const GetBeiDouEphBoolParamForEachSV::CmdName = "GetBeiDouEphBoolParamForEachSV";
-    const char* const GetBeiDouEphBoolParamForEachSV::Documentation = "Get BeiDou ephemeris boolean parameter value for all satellites";
+    const char* const GetBeiDouEphBoolParamForEachSV::Documentation = "Please note the command GetBeiDouEphBoolParamForEachSV is deprecated since 23.11. You may use GetConstellationParameterForSV.\n\nGet BeiDou ephemeris boolean parameter value for all satellites";
+
+    const char* const GetBeiDouEphBoolParamForEachSV::Deprecated = "Please note the command GetBeiDouEphBoolParamForEachSV is deprecated since 23.11. You may use GetConstellationParameterForSV.";
 
     REGISTER_COMMAND_FACTORY(GetBeiDouEphBoolParamForEachSV);
 
@@ -52,6 +54,8 @@ namespace Sdx
     }
 
     std::string GetBeiDouEphBoolParamForEachSV::documentation() const { return Documentation; }
+
+    Sdx::optional<std::string> GetBeiDouEphBoolParamForEachSV::deprecated() const { return Sdx::optional<std::string>{Deprecated}; }
 
 
     int GetBeiDouEphBoolParamForEachSV::executePermission() const

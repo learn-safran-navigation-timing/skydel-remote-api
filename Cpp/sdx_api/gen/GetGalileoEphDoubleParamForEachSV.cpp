@@ -14,7 +14,9 @@ namespace Sdx
   namespace Cmd
   {
     const char* const GetGalileoEphDoubleParamForEachSV::CmdName = "GetGalileoEphDoubleParamForEachSV";
-    const char* const GetGalileoEphDoubleParamForEachSV::Documentation = "Get Galileo ephemeris parameter value for all satellites";
+    const char* const GetGalileoEphDoubleParamForEachSV::Documentation = "Please note the command GetGalileoEphDoubleParamForEachSV is deprecated since 23.11. You may use GetConstellationParameterForSV.\n\nGet Galileo ephemeris parameter value for all satellites";
+
+    const char* const GetGalileoEphDoubleParamForEachSV::Deprecated = "Please note the command GetGalileoEphDoubleParamForEachSV is deprecated since 23.11. You may use GetConstellationParameterForSV.";
 
     REGISTER_COMMAND_FACTORY(GetGalileoEphDoubleParamForEachSV);
 
@@ -52,6 +54,8 @@ namespace Sdx
     }
 
     std::string GetGalileoEphDoubleParamForEachSV::documentation() const { return Documentation; }
+
+    Sdx::optional<std::string> GetGalileoEphDoubleParamForEachSV::deprecated() const { return Sdx::optional<std::string>{Deprecated}; }
 
 
     int GetGalileoEphDoubleParamForEachSV::executePermission() const

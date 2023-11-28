@@ -14,7 +14,7 @@ namespace Sdx
   namespace Cmd
   {
     const char* const EnableSlavePps::CmdName = "EnableSlavePps";
-    const char* const EnableSlavePps::Documentation = "Enable/Disable Time Synchronization Slave.\nThe Slave will wait for the Master to synchronize the simulators.";
+    const char* const EnableSlavePps::Documentation = "Please note the command EnableSlavePps is deprecated since 23.11. You may use EnableWorkerInstanceSync.\n\nEnable/Disable Time Synchronization on worker instance.\nThe worker instance will wait for the main instance to synchronize the simulators.";
 
     REGISTER_COMMAND_FACTORY(EnableSlavePps);
 

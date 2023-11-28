@@ -10,7 +10,7 @@ namespace Sdx
   namespace Cmd
   {
     ///
-    /// Ask the master to broadcast its configuration to all slaves.
+    /// Ask the main instance to broadcast its configuration to all worker instances.
     ///
     /// 
     ///

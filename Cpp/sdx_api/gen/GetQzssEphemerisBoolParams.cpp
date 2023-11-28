@@ -14,7 +14,9 @@ namespace Sdx
   namespace Cmd
   {
     const char* const GetQzssEphemerisBoolParams::CmdName = "GetQzssEphemerisBoolParams";
-    const char* const GetQzssEphemerisBoolParams::Documentation = "Please note the command GetQzssEphemerisBoolParams is deprecated since 21.3. You may use GetQzssEphBoolParamForEachSV.\n\nGet QZSS ephemeris boolean parameter value for all satellites";
+    const char* const GetQzssEphemerisBoolParams::Documentation = "Please note the command GetQzssEphemerisBoolParams is deprecated since 21.3. You may use GetQzssEphBoolParamForEachSV.\n\nPlease note the command GetQzssEphBoolParamForEachSV is deprecated since 23.11. You may use GetConstellationParameterForSV.\n\nGet QZSS ephemeris boolean parameter value for all satellites";
+
+    const char* const GetQzssEphemerisBoolParams::Deprecated = "Please note the command GetQzssEphemerisBoolParams is deprecated since 23.11. You may use GetConstellationParameterForSV.";
 
     REGISTER_COMMAND_FACTORY(GetQzssEphemerisBoolParams);
 
@@ -52,6 +54,8 @@ namespace Sdx
     }
 
     std::string GetQzssEphemerisBoolParams::documentation() const { return Documentation; }
+
+    Sdx::optional<std::string> GetQzssEphemerisBoolParams::deprecated() const { return Sdx::optional<std::string>{Deprecated}; }
 
 
     int GetQzssEphemerisBoolParams::executePermission() const

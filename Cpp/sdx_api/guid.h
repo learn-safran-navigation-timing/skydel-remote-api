@@ -24,11 +24,11 @@ THE SOFTWARE.
 
 #pragma once
 
+#include <iomanip>
 #include <iostream>
-#include <vector>
 #include <sstream>
 #include <string>
-#include <iomanip>
+#include <vector>
 
 #ifdef GUID_ANDROID
 #include <jni.h>
@@ -40,37 +40,35 @@ THE SOFTWARE.
 // string via constructor.
 class Guid
 {
-  public:
+public:
+  // create a guid from vector of bytes
+  Guid(const std::vector<unsigned char>& bytes);
 
-    // create a guid from vector of bytes
-    Guid(const std::vector<unsigned char> &bytes);
+  // create a guid from array of bytes
+  Guid(const unsigned char* bytes);
 
-    // create a guid from array of bytes
-    Guid(const unsigned char *bytes);
+  // create a guid from string
+  Guid(const std::string& fromString);
 
-    // create a guid from string
-    Guid(const std::string &fromString);
+  // create empty guid
+  Guid();
 
-    // create empty guid
-    Guid();
+  // copy constructor
+  Guid(const Guid& other);
 
-    // copy constructor
-    Guid(const Guid &other);
+  // overload assignment operator
+  Guid& operator=(const Guid& other);
 
-    // overload assignment operator
-    Guid &operator=(const Guid &other);
+  // overload equality and inequality operator
+  bool operator==(const Guid& other) const;
+  bool operator!=(const Guid& other) const;
 
-    // overload equality and inequality operator
-    bool operator==(const Guid &other) const;
-    bool operator!=(const Guid &other) const;
+private:
+  // actual data
+  std::vector<unsigned char> _bytes;
 
-  private:
-
-    // actual data
-    std::vector<unsigned char> _bytes;
-
-    // make the << operator a friend so it can access _bytes
-    friend std::ostream &operator<<(std::ostream &s, const Guid &guid);
+  // make the << operator a friend so it can access _bytes
+  friend std::ostream& operator<<(std::ostream& s, const Guid& guid);
 };
 
 // Class that can create new guids. The only reason this exists instead of
@@ -82,21 +80,21 @@ class Guid
 // each platform, but the use of newGuid is uniform.
 class GuidGenerator
 {
-  public:
+public:
 #ifdef GUID_ANDROID
-    GuidGenerator(JNIEnv *env);
+  GuidGenerator(JNIEnv* env);
 #else
-    GuidGenerator() { }
+  GuidGenerator() {}
 #endif
 
-    Guid newGuid();
+  Guid newGuid();
 
 #ifdef GUID_ANDROID
-  private:
-    JNIEnv *_env;
-    jclass _uuidClass;
-    jmethodID _newGuidMethod;
-    jmethodID _mostSignificantBitsMethod;
-    jmethodID _leastSignificantBitsMethod;
+private:
+  JNIEnv* _env;
+  jclass _uuidClass;
+  jmethodID _newGuidMethod;
+  jmethodID _mostSignificantBitsMethod;
+  jmethodID _leastSignificantBitsMethod;
 #endif
 };

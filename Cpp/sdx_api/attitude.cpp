@@ -1,7 +1,7 @@
 #include "attitude.h"
+
 #define _USE_MATH_DEFINES
 #include <math.h>
-#include "gps_constants.h"
 
 namespace Sdx
 {
@@ -29,14 +29,14 @@ double Attitude::rollDeg() const
   return roll / M_PI * 180;
 }
 
-bool Attitude::operator==(const Attitude &other) const
+bool Attitude::operator==(const Attitude& other) const
 {
   return yaw == other.yaw && pitch == other.pitch && roll == other.roll;
 }
 
-bool Attitude::operator!=(const Attitude &other) const
+bool Attitude::operator!=(const Attitude& other) const
 {
   return !(*this == other);
 }
 
-}//namespace Sdx
+} // namespace Sdx

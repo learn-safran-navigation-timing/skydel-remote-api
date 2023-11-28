@@ -114,7 +114,7 @@ sim.call(SetHilTjoin(hilTjoin))
 sim.setHilStreamingCheckEnabled(True)
 
 # Enable the PPS synchronisation
-sim.call(EnableMasterPps(True))
+sim.call(EnableMainInstanceSync(True))
 
 # From here we want to make sure to stop the simulation if something goes wrong
 try:

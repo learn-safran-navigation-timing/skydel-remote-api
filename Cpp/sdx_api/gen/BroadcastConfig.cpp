@@ -14,7 +14,7 @@ namespace Sdx
   namespace Cmd
   {
     const char* const BroadcastConfig::CmdName = "BroadcastConfig";
-    const char* const BroadcastConfig::Documentation = "Ask the master to broadcast its configuration to all slaves.";
+    const char* const BroadcastConfig::Documentation = "Ask the main instance to broadcast its configuration to all worker instances.";
 
     REGISTER_COMMAND_FACTORY(BroadcastConfig);
 

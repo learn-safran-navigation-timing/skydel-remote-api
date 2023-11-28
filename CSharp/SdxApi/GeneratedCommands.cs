@@ -6,7 +6,7 @@ namespace Sdx.Cmd
 
   public static class ApiInfo
   {
-    public const int COMMANDS_API_VERSION = 41;
+    public const int COMMANDS_API_VERSION = 42;
   }
 
   ///
@@ -27,7 +27,7 @@ namespace Sdx.Cmd
   /// The simulator sub-state.
   ///
   
-  public enum SimulatorSubState { SubStateNone, Idle_ConfigNotValid, Idle_ConfigValid, Started_InitPlugins, Started_InitHardware, Started_Streaming, Started_SyncInit, Started_SlaveSync, Started_Armed, Started_SyncStartTime, Error, Started_HILSync, Started_SyncPPSReset, Started_SyncStart, Started_WFSlaveInit, Started_WFMasterInit, Started_WFSyncPPSReset, Started_WFSyncStart }
+  public enum SimulatorSubState { SubStateNone, Idle_ConfigNotValid, Idle_ConfigValid, Started_InitPlugins, Started_InitHardware, Started_Streaming, Started_SyncInit, Started_WorkerSync, Started_Armed, Started_SyncStartTime, Error, Started_HILSync, Started_SyncPPSReset, Started_SyncStart, Started_WFWorkerInit, Started_WFMainInit, Started_WFSyncPPSReset, Started_WFSyncStart }
 
 
   ///
@@ -6311,19 +6311,21 @@ namespace Sdx.Cmd
 
 
   ///
-  /// Enable/Disable Time Synchronization Master.
-  /// The Master will control other Skydel simulators with Slave PPS Enabled.
+  /// Please note the command EnableMasterPps is deprecated since 23.11. You may use EnableMainInstanceSync.
+  /// 
+  /// Enable/Disable Time Synchronization on main instance.
+  /// The main instance will control other Skydel simulators with main instance PPS Enabled.
   ///
   /// Name    Type Description
-  /// ------- ---- ---------------------------------------------------------------------
-  /// Enabled bool If true, this simulator will be the master to synchronize simulators.
+  /// ------- ---- ----------------------------------------------------------------------------
+  /// Enabled bool If true, this simulator will be the main instance to synchronize simulators.
   ///
 
   public class EnableMasterPps : CommandBase
   {
     public override string Documentation
     {
-      get { return "Enable/Disable Time Synchronization Master.\nThe Master will control other Skydel simulators with Slave PPS Enabled."; }
+      get { return "Please note the command EnableMasterPps is deprecated since 23.11. You may use EnableMainInstanceSync.\n\nEnable/Disable Time Synchronization on main instance.\nThe main instance will control other Skydel simulators with main instance PPS Enabled."; }
     }
 
     internal const string CmdName = "EnableMasterPps";
@@ -6362,21 +6364,72 @@ namespace Sdx.Cmd
 
 
   ///
-  /// Request for the master status, returns a GetMasterStatusResult
+  /// Enable/Disable Time Synchronization on main instance.
+  /// The main instance will control other Skydel simulators with main instance PPS Enabled.
+  ///
+  /// Name    Type Description
+  /// ------- ---- ----------------------------------------------------------------------------
+  /// Enabled bool If true, this simulator will be the main instance to synchronize simulators.
+  ///
+
+  public class EnableMainInstanceSync : CommandBase
+  {
+    public override string Documentation
+    {
+      get { return "Enable/Disable Time Synchronization on main instance.\nThe main instance will control other Skydel simulators with main instance PPS Enabled."; }
+    }
+
+    internal const string CmdName = "EnableMainInstanceSync";
+
+    public EnableMainInstanceSync()
+      : base(CmdName)
+    {}
+
+    public EnableMainInstanceSync(bool enabled)
+      : base(CmdName)
+    {
+      Enabled = enabled;
+    }
+      
+    public override bool IsValid
+    {
+      get
+      {
+        return base.IsValid
+        && Contains("Enabled")
+      ;
+      }
+    }
+
+    public override int ExecutePermission { get { return EXECUTE_IF_IDLE; } }
+
+    public bool Enabled
+    {
+      get { return GetValue("Enabled").ToObject<bool>(CommandBase.Serializer); }
+      set
+      {
+          SetValue("Enabled", JToken.FromObject(value, CommandBase.Serializer));
+      }
+    }
+  }
+
+
+  ///
+  /// Request for the main instance status, returns a GetMainInstanceStatusResult
   ///
   /// 
   ///
 
-  public class GetMasterStatus : CommandBase
+  public class GetMainInstanceStatus : CommandBase
   {
     public override string Documentation
     {
-      get { return "Request for the master status, returns a GetMasterStatusResult"; }
+      get { return "Request for the main instance status, returns a GetMainInstanceStatusResult"; }
     }
 
-    internal const string CmdName = "GetMasterStatus";
+    internal const string CmdName = "GetMainInstanceStatus";
 
-    public GetMasterStatus()
+    public GetMainInstanceStatus()
       : base(CmdName)
     {}
       
@@ -6394,33 +6447,33 @@ namespace Sdx.Cmd
 
 
   ///
-  /// Result of GetMasterStatus.
+  /// Result of GetMainInstanceStatus.
   ///
-  /// Name           Type Description
-  /// -------------- ---- -------------------------------------
-  /// IsMaster       bool True if Skydel is in master mode
-  /// SlaveConnected int  The number of connected slaves
-  /// Port           int  The listening port, 0 if not a master
+  /// Name                    Type Description
+  /// ----------------------- ---- --------------------------------------------
+  /// IsMainInstance          bool True if Skydel is in main instance mode
+  /// WorkerInstanceConnected int  The number of connected worker instances
+  /// Port                    int  The listening port, 0 if not a main instance
   ///
 
-  public class GetMasterStatusResult : CommandResult
+  public class GetMainInstanceStatusResult : CommandResult
   {
     public override string Documentation
     {
-      get { return "Result of GetMasterStatus."; }
+      get { return "Result of GetMainInstanceStatus."; }
     }
 
-    internal const string CmdName = "GetMasterStatusResult";
+    internal const string CmdName = "GetMainInstanceStatusResult";
 
-    public GetMasterStatusResult()
+    public GetMainInstanceStatusResult()
       : base(CmdName)
     {}
 
-    public GetMasterStatusResult(CommandBase relatedCommand, bool isMaster, int slaveConnected, int port)
+    public GetMainInstanceStatusResult(CommandBase relatedCommand, bool isMainInstance, int workerInstanceConnected, int port)
       : base(CmdName, relatedCommand)
     {
-      IsMaster = isMaster;
-      SlaveConnected = slaveConnected;
+      IsMainInstance = isMainInstance;
+      WorkerInstanceConnected = workerInstanceConnected;
       Port = port;
     }
       
@@ -6429,28 +6482,28 @@ namespace Sdx.Cmd
       get
       {
         return base.IsValid
-        && Contains("IsMaster")
-        && Contains("SlaveConnected")
+        && Contains("IsMainInstance")
+        && Contains("WorkerInstanceConnected")
         && Contains("Port")
       ;
       }
     }
 
-    public bool IsMaster
+    public bool IsMainInstance
     {
-      get { return GetValue("IsMaster").ToObject<bool>(CommandBase.Serializer); }
+      get { return GetValue("IsMainInstance").ToObject<bool>(CommandBase.Serializer); }
       set
       {
-          SetValue("IsMaster", JToken.FromObject(value, CommandBase.Serializer));
+          SetValue("IsMainInstance", JToken.FromObject(value, CommandBase.Serializer));
       }
     }
 
-    public int SlaveConnected
+    public int WorkerInstanceConnected
     {
-      get { return GetValue("SlaveConnected").ToObject<int>(CommandBase.Serializer); }
+      get { return GetValue("WorkerInstanceConnected").ToObject<int>(CommandBase.Serializer); }
       set
       {
-          SetValue("SlaveConnected", JToken.FromObject(value, CommandBase.Serializer));
+          SetValue("WorkerInstanceConnected", JToken.FromObject(value, CommandBase.Serializer));
       }
     }
 
@@ -6466,19 +6519,21 @@ namespace Sdx.Cmd
 
 
   ///
-  /// Enable/Disable Time Synchronization Slave.
-  /// The Slave will wait for the Master to synchronize the simulators.
+  /// Please note the command EnableSlavePps is deprecated since 23.11. You may use EnableWorkerInstanceSync.
+  /// 
+  /// Enable/Disable Time Synchronization on worker instance.
+  /// The worker instance will wait for the main instance to synchronize the simulators.
   ///
   /// Name    Type Description
-  /// ------- ---- ---------------------------------------------------------------------------
-  /// Enabled bool If true, this simulator will wait for the master to synchronize simulators.
+  /// ------- ---- ----------------------------------------------------------------------------------
+  /// Enabled bool If true, this simulator will wait for the main instance to synchronize simulators.
   ///
 
   public class EnableSlavePps : CommandBase
   {
     public override string Documentation
     {
-      get { return "Enable/Disable Time Synchronization Slave.\nThe Slave will wait for the Master to synchronize the simulators."; }
+      get { return "Please note the command EnableSlavePps is deprecated since 23.11. You may use EnableWorkerInstanceSync.\n\nEnable/Disable Time Synchronization on worker instance.\nThe worker instance will wait for the main instance to synchronize the simulators."; }
     }
 
     internal const string CmdName = "EnableSlavePps";
@@ -6517,21 +6572,72 @@ namespace Sdx.Cmd
 
 
   ///
-  /// Request for the slave status, returns a GetSlaveStatusResult
+  /// Enable/Disable Time Synchronization on worker instance.
+  /// The worker instance will wait for the main instance to synchronize the simulators.
+  ///
+  /// Name    Type Description
+  /// ------- ---- ----------------------------------------------------------------------------------
+  /// Enabled bool If true, this simulator will wait for the main instance to synchronize simulators.
+  ///
+
+  public class EnableWorkerInstanceSync : CommandBase
+  {
+    public override string Documentation
+    {
+      get { return "Enable/Disable Time Synchronization on worker instance.\nThe worker instance will wait for the main instance to synchronize the simulators."; }
+    }
+
+    internal const string CmdName = "EnableWorkerInstanceSync";
+
+    public EnableWorkerInstanceSync()
+      : base(CmdName)
+    {}
+
+    public EnableWorkerInstanceSync(bool enabled)
+      : base(CmdName)
+    {
+      Enabled = enabled;
+    }
+      
+    public override bool IsValid
+    {
+      get
+      {
+        return base.IsValid
+        && Contains("Enabled")
+      ;
+      }
+    }
+
+    public override int ExecutePermission { get { return EXECUTE_IF_IDLE; } }
+
+    public bool Enabled
+    {
+      get { return GetValue("Enabled").ToObject<bool>(CommandBase.Serializer); }
+      set
+      {
+          SetValue("Enabled", JToken.FromObject(value, CommandBase.Serializer));
+      }
+    }
+  }
+
+
+  ///
+  /// Request for the worker instance status, returns a GetWorkerInstanceStatusResult
   ///
   /// 
   ///
 
-  public class GetSlaveStatus : CommandBase
+  public class GetWorkerInstanceStatus : CommandBase
   {
     public override string Documentation
     {
-      get { return "Request for the slave status, returns a GetSlaveStatusResult"; }
+      get { return "Request for the worker instance status, returns a GetWorkerInstanceStatusResult"; }
     }
 
-    internal const string CmdName = "GetSlaveStatus";
+    internal const string CmdName = "GetWorkerInstanceStatus";
 
-    public GetSlaveStatus()
+    public GetWorkerInstanceStatus()
       : base(CmdName)
     {}
       
@@ -6549,33 +6655,33 @@ namespace Sdx.Cmd
 
 
   ///
-  /// Result of GetSlaveStatus.
+  /// Result of GetWorkerInstanceStatus.
   ///
-  /// Name        Type   Description
-  /// ----------- ------ ---------------------------------------
-  /// IsSlave     bool   True if Skydel is in slave mode
-  /// IsConnected bool   True if Skydel is connected to a master
-  /// HostName    string The host name, empty if not a slave
-  /// HostPort    int    The host port, 0 if not a slave
+  /// Name             Type   Description
+  /// ---------------- ------ ----------------------------------------------
+  /// IsWorkerInstance bool   True if Skydel is in worker instance mode
+  /// IsConnected      bool   True if Skydel is connected to a main instance
+  /// HostName         string The host name, empty if not a worker instance
+  /// HostPort         int    The host port, 0 if not a worker instance
   ///
 
-  public class GetSlaveStatusResult : CommandResult
+  public class GetWorkerInstanceStatusResult : CommandResult
   {
     public override string Documentation
     {
-      get { return "Result of GetSlaveStatus."; }
+      get { return "Result of GetWorkerInstanceStatus."; }
     }
 
-    internal const string CmdName = "GetSlaveStatusResult";
+    internal const string CmdName = "GetWorkerInstanceStatusResult";
 
-    public GetSlaveStatusResult()
+    public GetWorkerInstanceStatusResult()
       : base(CmdName)
     {}
 
-    public GetSlaveStatusResult(CommandBase relatedCommand, bool isSlave, bool isConnected, string hostName, int hostPort)
+    public GetWorkerInstanceStatusResult(CommandBase relatedCommand, bool isWorkerInstance, bool isConnected, string hostName, int hostPort)
       : base(CmdName, relatedCommand)
     {
-      IsSlave = isSlave;
+      IsWorkerInstance = isWorkerInstance;
       IsConnected = isConnected;
       HostName = hostName;
       HostPort = hostPort;
@@ -6586,7 +6692,7 @@ namespace Sdx.Cmd
       get
       {
         return base.IsValid
-        && Contains("IsSlave")
+        && Contains("IsWorkerInstance")
         && Contains("IsConnected")
         && Contains("HostName")
         && Contains("HostPort")
@@ -6594,12 +6700,12 @@ namespace Sdx.Cmd
       }
     }
 
-    public bool IsSlave
+    public bool IsWorkerInstance
     {
-      get { return GetValue("IsSlave").ToObject<bool>(CommandBase.Serializer); }
+      get { return GetValue("IsWorkerInstance").ToObject<bool>(CommandBase.Serializer); }
       set
       {
-          SetValue("IsSlave", JToken.FromObject(value, CommandBase.Serializer));
+          SetValue("IsWorkerInstance", JToken.FromObject(value, CommandBase.Serializer));
       }
     }
 
@@ -21259,814 +21365,6 @@ namespace Sdx.Cmd
 
 
   ///
-  /// Set WF antenna offset and orientation relative to CRPA Antenna frame for the specified element index.
-  ///
-  /// Name    Type   Description
-  /// ------- ------ -------------------------------------------------------
-  /// X       double WF Element X offset in the CRPA antenna frame (meter)
-  /// Y       double WF Element Y offset in the CRPA antenna frame (meter)
-  /// Z       double WF Element Z offset in the CRPA antenna frame (meter)
-  /// Yaw     double WF Element Yaw offset in the CRPA antenna frame (rad)
-  /// Pitch   double WF Element Pitch offset in the CRPA antenna frame (rad)
-  /// Roll    double WF Element Roll offset in the CRPA antenna frame (rad)
-  /// Element int    One-based index for element in antenna.
-  ///
-
-  public class SetWFAntennaElementOffset : CommandBase
-  {
-    public override string Documentation
-    {
-      get { return "Set WF antenna offset and orientation relative to CRPA Antenna frame for the specified element index."; }
-    }
-
-    internal const string CmdName = "SetWFAntennaElementOffset";
-
-    public SetWFAntennaElementOffset()
-      : base(CmdName)
-    {}
-
-    public SetWFAntennaElementOffset(double x, double y, double z, double yaw, double pitch, double roll, int element)
-      : base(CmdName)
-    {
-      X = x;
-      Y = y;
-      Z = z;
-      Yaw = yaw;
-      Pitch = pitch;
-      Roll = roll;
-      Element = element;
-    }
-      
-    public override bool IsValid
-    {
-      get
-      {
-        return base.IsValid
-        && Contains("X")
-        && Contains("Y")
-        && Contains("Z")
-        && Contains("Yaw")
-        && Contains("Pitch")
-        && Contains("Roll")
-        && Contains("Element")
-      ;
-      }
-    }
-
-    public override int ExecutePermission { get { return EXECUTE_IF_IDLE; } }
-
-    public double X
-    {
-      get { return GetValue("X").ToObject<double>(CommandBase.Serializer); }
-      set
-      {
-          SetValue("X", JToken.FromObject(value, CommandBase.Serializer));
-      }
-    }
-
-    public double Y
-    {
-      get { return GetValue("Y").ToObject<double>(CommandBase.Serializer); }
-      set
-      {
-          SetValue("Y", JToken.FromObject(value, CommandBase.Serializer));
-      }
-    }
-
-    public double Z
-    {
-      get { return GetValue("Z").ToObject<double>(CommandBase.Serializer); }
-      set
-      {
-          SetValue("Z", JToken.FromObject(value, CommandBase.Serializer));
-      }
-    }
-
-    public double Yaw
-    {
-      get { return GetValue("Yaw").ToObject<double>(CommandBase.Serializer); }
-      set
-      {
-          SetValue("Yaw", JToken.FromObject(value, CommandBase.Serializer));
-      }
-    }
-
-    public double Pitch
-    {
-      get { return GetValue("Pitch").ToObject<double>(CommandBase.Serializer); }
-      set
-      {
-          SetValue("Pitch", JToken.FromObject(value, CommandBase.Serializer));
-      }
-    }
-
-    public double Roll
-    {
-      get { return GetValue("Roll").ToObject<double>(CommandBase.Serializer); }
-      set
-      {
-          SetValue("Roll", JToken.FromObject(value, CommandBase.Serializer));
-      }
-    }
-
-    public int Element
-    {
-      get { return GetValue("Element").ToObject<int>(CommandBase.Serializer); }
-      set
-      {
-          SetValue("Element", JToken.FromObject(value, CommandBase.Serializer));
-      }
-    }
-  }
-
-
-  ///
-  /// Get the WF antenna offset infos for this element.
-  ///
-  /// Name    Type Description
-  /// ------- ---- ---------------------------------------
-  /// Element int  One-based index for element in antenna.
-  ///
-
-  public class GetWFAntennaElementOffset : CommandBase
-  {
-    public override string Documentation
-    {
-      get { return "Get the WF antenna offset infos for this element."; }
-    }
-
-    internal const string CmdName = "GetWFAntennaElementOffset";
-
-    public GetWFAntennaElementOffset()
-      : base(CmdName)
-    {}
-
-    public GetWFAntennaElementOffset(int element)
-      : base(CmdName)
-    {
-      Element = element;
-    }
-      
-    public override bool IsValid
-    {
-      get
-      {
-        return base.IsValid
-        && Contains("Element")
-      ;
-      }
-    }
-
-    public override int ExecutePermission { get { return EXECUTE_IF_IDLE; } }
-
-    public int Element
-    {
-      get { return GetValue("Element").ToObject<int>(CommandBase.Serializer); }
-      set
-      {
-          SetValue("Element", JToken.FromObject(value, CommandBase.Serializer));
-      }
-    }
-  }
-
-
-  ///
-  /// Result of GetWFAntennaElementOffset.
-  ///
-  /// Name    Type   Description
-  /// ------- ------ -------------------------------------------------------
-  /// X       double WF Element X offset in the CRPA antenna frame (meter)
-  /// Y       double WF Element Y offset in the CRPA antenna frame (meter)
-  /// Z       double WF Element Z offset in the CRPA antenna frame (meter)
-  /// Yaw     double WF Element Yaw offset in the CRPA antenna frame (rad)
-  /// Pitch   double WF Element Pitch offset in the CRPA antenna frame (rad)
-  /// Roll    double WF Element Roll offset in the CRPA antenna frame (rad)
-  /// Element int    One-based index for element in antenna.
-  ///
-
-  public class GetWFAntennaElementOffsetResult : CommandResult
-  {
-    public override string Documentation
-    {
-      get { return "Result of GetWFAntennaElementOffset."; }
-    }
-
-    internal const string CmdName = "GetWFAntennaElementOffsetResult";
-
-    public GetWFAntennaElementOffsetResult()
-      : base(CmdName)
-    {}
-
-    public GetWFAntennaElementOffsetResult(CommandBase relatedCommand, double x, double y, double z, double yaw, double pitch, double roll, int element)
-      : base(CmdName, relatedCommand)
-    {
-      X = x;
-      Y = y;
-      Z = z;
-      Yaw = yaw;
-      Pitch = pitch;
-      Roll = roll;
-      Element = element;
-    }
-      
-    public override bool IsValid
-    {
-      get
-      {
-        return base.IsValid
-        && Contains("X")
-        && Contains("Y")
-        && Contains("Z")
-        && Contains("Yaw")
-        && Contains("Pitch")
-        && Contains("Roll")
-        && Contains("Element")
-      ;
-      }
-    }
-
-    public double X
-    {
-      get { return GetValue("X").ToObject<double>(CommandBase.Serializer); }
-      set
-      {
-          SetValue("X", JToken.FromObject(value, CommandBase.Serializer));
-      }
-    }
-
-    public double Y
-    {
-      get { return GetValue("Y").ToObject<double>(CommandBase.Serializer); }
-      set
-      {
-          SetValue("Y", JToken.FromObject(value, CommandBase.Serializer));
-      }
-    }
-
-    public double Z
-    {
-      get { return GetValue("Z").ToObject<double>(CommandBase.Serializer); }
-      set
-      {
-          SetValue("Z", JToken.FromObject(value, CommandBase.Serializer));
-      }
-    }
-
-    public double Yaw
-    {
-      get { return GetValue("Yaw").ToObject<double>(CommandBase.Serializer); }
-      set
-      {
-          SetValue("Yaw", JToken.FromObject(value, CommandBase.Serializer));
-      }
-    }
-
-    public double Pitch
-    {
-      get { return GetValue("Pitch").ToObject<double>(CommandBase.Serializer); }
-      set
-      {
-          SetValue("Pitch", JToken.FromObject(value, CommandBase.Serializer));
-      }
-    }
-
-    public double Roll
-    {
-      get { return GetValue("Roll").ToObject<double>(CommandBase.Serializer); }
-      set
-      {
-          SetValue("Roll", JToken.FromObject(value, CommandBase.Serializer));
-      }
-    }
-
-    public int Element
-    {
-      get { return GetValue("Element").ToObject<int>(CommandBase.Serializer); }
-      set
-      {
-          SetValue("Element", JToken.FromObject(value, CommandBase.Serializer));
-      }
-    }
-  }
-
-
-  ///
-  /// Set WF Antenna model for this element
-  ///
-  /// Name             Type   Description
-  /// ---------------- ------ ----------------------------------------------------------------------------------------------------
-  /// AntennaModelName string Antenna Model name to set for this element. Antenna models must be defined in vehicle antenna model.
-  /// Element          int    One-based index for element in antenna.
-  ///
-
-  public class SetWFAntennaElementModel : CommandBase
-  {
-    public override string Documentation
-    {
-      get { return "Set WF Antenna model for this element"; }
-    }
-
-    internal const string CmdName = "SetWFAntennaElementModel";
-
-    public SetWFAntennaElementModel()
-      : base(CmdName)
-    {}
-
-    public SetWFAntennaElementModel(string antennaModelName, int element)
-      : base(CmdName)
-    {
-      AntennaModelName = antennaModelName;
-      Element = element;
-    }
-      
-    public override bool IsValid
-    {
-      get
-      {
-        return base.IsValid
-        && Contains("AntennaModelName")
-        && Contains("Element")
-      ;
-      }
-    }
-
-    public override int ExecutePermission { get { return EXECUTE_IF_IDLE; } }
-
-    public string AntennaModelName
-    {
-      get { return GetValue("AntennaModelName").ToObject<string>(CommandBase.Serializer); }
-      set
-      {
-          SetValue("AntennaModelName", JToken.FromObject(value, CommandBase.Serializer));
-      }
-    }
-
-    public int Element
-    {
-      get { return GetValue("Element").ToObject<int>(CommandBase.Serializer); }
-      set
-      {
-          SetValue("Element", JToken.FromObject(value, CommandBase.Serializer));
-      }
-    }
-  }
-
-
-  ///
-  /// Get WF Antenna model for this element
-  ///
-  /// Name    Type Description
-  /// ------- ---- ---------------------------------------
-  /// Element int  One-based index for element in antenna.
-  ///
-
-  public class GetWFAntennaElementModel : CommandBase
-  {
-    public override string Documentation
-    {
-      get { return "Get WF Antenna model for this element"; }
-    }
-
-    internal const string CmdName = "GetWFAntennaElementModel";
-
-    public GetWFAntennaElementModel()
-      : base(CmdName)
-    {}
-
-    public GetWFAntennaElementModel(int element)
-      : base(CmdName)
-    {
-      Element = element;
-    }
-      
-    public override bool IsValid
-    {
-      get
-      {
-        return base.IsValid
-        && Contains("Element")
-      ;
-      }
-    }
-
-    public override int ExecutePermission { get { return EXECUTE_IF_IDLE; } }
-
-    public int Element
-    {
-      get { return GetValue("Element").ToObject<int>(CommandBase.Serializer); }
-      set
-      {
-          SetValue("Element", JToken.FromObject(value, CommandBase.Serializer));
-      }
-    }
-  }
-
-
-  ///
-  /// Result of GetWFAntennaElementModel.
-  ///
-  /// Name             Type   Description
-  /// ---------------- ------ ----------------------------------------------------------------------------------------------------
-  /// AntennaModelName string Antenna Model name to set for this element. Antenna models must be defined in vehicle antenna model.
-  /// Element          int    One-based index for element in antenna.
-  ///
-
-  public class GetWFAntennaElementModelResult : CommandResult
-  {
-    public override string Documentation
-    {
-      get { return "Result of GetWFAntennaElementModel."; }
-    }
-
-    internal const string CmdName = "GetWFAntennaElementModelResult";
-
-    public GetWFAntennaElementModelResult()
-      : base(CmdName)
-    {}
-
-    public GetWFAntennaElementModelResult(CommandBase relatedCommand, string antennaModelName, int element)
-      : base(CmdName, relatedCommand)
-    {
-      AntennaModelName = antennaModelName;
-      Element = element;
-    }
-      
-    public override bool IsValid
-    {
-      get
-      {
-        return base.IsValid
-        && Contains("AntennaModelName")
-        && Contains("Element")
-      ;
-      }
-    }
-
-    public string AntennaModelName
-    {
-      get { return GetValue("AntennaModelName").ToObject<string>(CommandBase.Serializer); }
-      set
-      {
-          SetValue("AntennaModelName", JToken.FromObject(value, CommandBase.Serializer));
-      }
-    }
-
-    public int Element
-    {
-      get { return GetValue("Element").ToObject<int>(CommandBase.Serializer); }
-      set
-      {
-          SetValue("Element", JToken.FromObject(value, CommandBase.Serializer));
-      }
-    }
-  }
-
-
-  ///
-  /// Set WF Antenna phase pattern offset (in rad) for this element
-  ///
-  /// Name        Type   Description
-  /// ----------- ------ -------------------------------------------------------------------------
-  /// PhaseOffset double Antenna phase pattern offset (in rad) to set for this element. [-Pi ; Pi]
-  /// Element     int    One-based index for element in antenna.
-  ///
-
-  public class SetWFAntennaElementPhasePatternOffset : CommandBase
-  {
-    public override string Documentation
-    {
-      get { return "Set WF Antenna phase pattern offset (in rad) for this element"; }
-    }
-
-    internal const string CmdName = "SetWFAntennaElementPhasePatternOffset";
-
-    public SetWFAntennaElementPhasePatternOffset()
-      : base(CmdName)
-    {}
-
-    public SetWFAntennaElementPhasePatternOffset(double phaseOffset, int element)
-      : base(CmdName)
-    {
-      PhaseOffset = phaseOffset;
-      Element = element;
-    }
-      
-    public override bool IsValid
-    {
-      get
-      {
-        return base.IsValid
-        && Contains("PhaseOffset")
-        && Contains("Element")
-      ;
-      }
-    }
-
-    public override int ExecutePermission { get { return EXECUTE_IF_IDLE; } }
-
-    public double PhaseOffset
-    {
-      get { return GetValue("PhaseOffset").ToObject<double>(CommandBase.Serializer); }
-      set
-      {
-          SetValue("PhaseOffset", JToken.FromObject(value, CommandBase.Serializer));
-      }
-    }
-
-    public int Element
-    {
-      get { return GetValue("Element").ToObject<int>(CommandBase.Serializer); }
-      set
-      {
-          SetValue("Element", JToken.FromObject(value, CommandBase.Serializer));
-      }
-    }
-  }
-
-
-  ///
-  /// Get WF Antenna phase pattern offset (in rad) for this element
-  ///
-  /// Name    Type Description
-  /// ------- ---- ---------------------------------------
-  /// Element int  One-based index for element in antenna.
-  ///
-
-  public class GetWFAntennaElementPhasePatternOffset : CommandBase
-  {
-    public override string Documentation
-    {
-      get { return "Get WF Antenna phase pattern offset (in rad) for this element"; }
-    }
-
-    internal const string CmdName = "GetWFAntennaElementPhasePatternOffset";
-
-    public GetWFAntennaElementPhasePatternOffset()
-      : base(CmdName)
-    {}
-
-    public GetWFAntennaElementPhasePatternOffset(int element)
-      : base(CmdName)
-    {
-      Element = element;
-    }
-      
-    public override bool IsValid
-    {
-      get
-      {
-        return base.IsValid
-        && Contains("Element")
-      ;
-      }
-    }
-
-    public override int ExecutePermission { get { return EXECUTE_IF_IDLE; } }
-
-    public int Element
-    {
-      get { return GetValue("Element").ToObject<int>(CommandBase.Serializer); }
-      set
-      {
-          SetValue("Element", JToken.FromObject(value, CommandBase.Serializer));
-      }
-    }
-  }
-
-
-  ///
-  /// Result of GetWFAntennaElementPhasePatternOffset.
-  ///
-  /// Name        Type   Description
-  /// ----------- ------ -------------------------------------------------------------------------
-  /// PhaseOffset double Antenna phase pattern offset (in rad) to set for this element. [-Pi ; Pi]
-  /// Element     int    One-based index for element in antenna.
-  ///
-
-  public class GetWFAntennaElementPhasePatternOffsetResult : CommandResult
-  {
-    public override string Documentation
-    {
-      get { return "Result of GetWFAntennaElementPhasePatternOffset."; }
-    }
-
-    internal const string CmdName = "GetWFAntennaElementPhasePatternOffsetResult";
-
-    public GetWFAntennaElementPhasePatternOffsetResult()
-      : base(CmdName)
-    {}
-
-    public GetWFAntennaElementPhasePatternOffsetResult(CommandBase relatedCommand, double phaseOffset, int element)
-      : base(CmdName, relatedCommand)
-    {
-      PhaseOffset = phaseOffset;
-      Element = element;
-    }
-      
-    public override bool IsValid
-    {
-      get
-      {
-        return base.IsValid
-        && Contains("PhaseOffset")
-        && Contains("Element")
-      ;
-      }
-    }
-
-    public double PhaseOffset
-    {
-      get { return GetValue("PhaseOffset").ToObject<double>(CommandBase.Serializer); }
-      set
-      {
-          SetValue("PhaseOffset", JToken.FromObject(value, CommandBase.Serializer));
-      }
-    }
-
-    public int Element
-    {
-      get { return GetValue("Element").ToObject<int>(CommandBase.Serializer); }
-      set
-      {
-          SetValue("Element", JToken.FromObject(value, CommandBase.Serializer));
-      }
-    }
-  }
-
-
-  ///
-  /// Set WF antenna element enabled or disabled. A disabled antenna element is not simulated at all.
-  ///
-  /// Name    Type Description
-  /// ------- ---- -------------------------------------------------
-  /// Element int  One-based index for element in antenna.
-  /// Enabled bool If True, this antenna element will bil simulated.
-  ///
-
-  public class SetWFAntennaElementEnabled : CommandBase
-  {
-    public override string Documentation
-    {
-      get { return "Set WF antenna element enabled or disabled. A disabled antenna element is not simulated at all."; }
-    }
-
-    internal const string CmdName = "SetWFAntennaElementEnabled";
-
-    public SetWFAntennaElementEnabled()
-      : base(CmdName)
-    {}
-
-    public SetWFAntennaElementEnabled(int element, bool enabled)
-      : base(CmdName)
-    {
-      Element = element;
-      Enabled = enabled;
-    }
-      
-    public override bool IsValid
-    {
-      get
-      {
-        return base.IsValid
-        && Contains("Element")
-        && Contains("Enabled")
-      ;
-      }
-    }
-
-    public override int ExecutePermission { get { return EXECUTE_IF_IDLE; } }
-
-    public int Element
-    {
-      get { return GetValue("Element").ToObject<int>(CommandBase.Serializer); }
-      set
-      {
-          SetValue("Element", JToken.FromObject(value, CommandBase.Serializer));
-      }
-    }
-
-    public bool Enabled
-    {
-      get { return GetValue("Enabled").ToObject<bool>(CommandBase.Serializer); }
-      set
-      {
-          SetValue("Enabled", JToken.FromObject(value, CommandBase.Serializer));
-      }
-    }
-  }
-
-
-  ///
-  /// Get whether an antenna element is enabled or disabled.
-  ///
-  /// Name    Type Description
-  /// ------- ---- ---------------------------------------
-  /// Element int  One-based index for element in antenna.
-  ///
-
-  public class IsWFAntennaElementEnabled : CommandBase
-  {
-    public override string Documentation
-    {
-      get { return "Get whether an antenna element is enabled or disabled."; }
-    }
-
-    internal const string CmdName = "IsWFAntennaElementEnabled";
-
-    public IsWFAntennaElementEnabled()
-      : base(CmdName)
-    {}
-
-    public IsWFAntennaElementEnabled(int element)
-      : base(CmdName)
-    {
-      Element = element;
-    }
-      
-    public override bool IsValid
-    {
-      get
-      {
-        return base.IsValid
-        && Contains("Element")
-      ;
-      }
-    }
-
-    public override int ExecutePermission { get { return EXECUTE_IF_IDLE; } }
-
-    public int Element
-    {
-      get { return GetValue("Element").ToObject<int>(CommandBase.Serializer); }
-      set
-      {
-          SetValue("Element", JToken.FromObject(value, CommandBase.Serializer));
-      }
-    }
-  }
-
-
-  ///
-  /// Result of IsWFAntennaElementEnabled.
-  ///
-  /// Name    Type Description
-  /// ------- ---- -------------------------------------------------
-  /// Element int  One-based index for element in antenna.
-  /// Enabled bool If True, this antenna element will bil simulated.
-  ///
-
-  public class IsWFAntennaElementEnabledResult : CommandResult
-  {
-    public override string Documentation
-    {
-      get { return "Result of IsWFAntennaElementEnabled."; }
-    }
-
-    internal const string CmdName = "IsWFAntennaElementEnabledResult";
-
-    public IsWFAntennaElementEnabledResult()
-      : base(CmdName)
-    {}
-
-    public IsWFAntennaElementEnabledResult(CommandBase relatedCommand, int element, bool enabled)
-      : base(CmdName, relatedCommand)
-    {
-      Element = element;
-      Enabled = enabled;
-    }
-      
-    public override bool IsValid
-    {
-      get
-      {
-        return base.IsValid
-        && Contains("Element")
-        && Contains("Enabled")
-      ;
-      }
-    }
-
-    public int Element
-    {
-      get { return GetValue("Element").ToObject<int>(CommandBase.Serializer); }
-      set
-      {
-          SetValue("Element", JToken.FromObject(value, CommandBase.Serializer));
-      }
-    }
-
-    public bool Enabled
-    {
-      get { return GetValue("Enabled").ToObject<bool>(CommandBase.Serializer); }
-      set
-      {
-          SetValue("Enabled", JToken.FromObject(value, CommandBase.Serializer));
-      }
-    }
-  }
-
-
-  ///
   /// Get a list of all space vehicle antenna names.
   ///
   /// Name   Type   Description
@@ -28014,922 +27312,6 @@ namespace Sdx.Cmd
 
 
   ///
-  /// Set various parameters in the GPS ephemeris
-  /// 
-  ///   ParamName         Unit
-  ///   "ClockBias"       sec
-  ///   "ClockDrift"      sec/sec
-  ///   "ClockDriftRate"  sec/sec^2
-  ///   "Crs"             meter
-  ///   "Crc"             meter
-  ///   "Cis"             rad
-  ///   "Cic"             rad
-  ///   "Cus"             rad
-  ///   "Cuc"             rad
-  ///   "DeltaN"          rad/sec
-  ///   "M0"              rad
-  ///   "Eccentricity"    -
-  ///   "SqrtA"           sqrt(meter)
-  ///   "BigOmega"        rad
-  ///   "I0"              rad
-  ///   "LittleOmega"     rad
-  ///   "BigOmegaDot"     rad/sec
-  ///   "Idot"            rad/sec
-  ///   "Accuracy"        meter
-  ///   "Adot"            meters/sec
-  ///   "DeltaN0dot"      rad/sec^2
-  ///   "Tgd"             sec
-  ///   "IscL1Ca"         sec
-  ///   "IscL2C"          sec
-  ///   "IscL5I5"         sec
-  ///   "IscL5Q5"         sec
-  ///   "IscL1CP"         sec
-  ///   "IscL1CD"         sec
-  ///
-  /// Name        Type            Description
-  /// ----------- --------------- -------------------------------------------------------------------------------------------
-  /// SvId        int             Satellite SV ID 1..32, or use 0 to apply new value to all satellites.
-  /// ParamName   string          Parameter name (see table above for accepted names)
-  /// Val         double          Parameter value (see table above for unit)
-  /// DataSetName optional string Optional name of the data set to use. If no value is provided, the active data set is used.
-  ///
-
-  public class SetGpsEphDoubleParamForSV : CommandBase
-  {
-    public override string Documentation
-    {
-      get { return "Set various parameters in the GPS ephemeris\n\n  ParamName         Unit\n  \"ClockBias\"       sec\n  \"ClockDrift\"      sec/sec\n  \"ClockDriftRate\"  sec/sec^2\n  \"Crs\"             meter\n  \"Crc\"             meter\n  \"Cis\"             rad\n  \"Cic\"             rad\n  \"Cus\"             rad\n  \"Cuc\"             rad\n  \"DeltaN\"          rad/sec\n  \"M0\"              rad\n  \"Eccentricity\"    -\n  \"SqrtA\"           sqrt(meter)\n  \"BigOmega\"        rad\n  \"I0\"              rad\n  \"LittleOmega\"     rad\n  \"BigOmegaDot\"     rad/sec\n  \"Idot\"            rad/sec\n  \"Accuracy\"        meter\n  \"Adot\"            meters/sec\n  \"DeltaN0dot\"      rad/sec^2\n  \"Tgd\"             sec\n  \"IscL1Ca\"         sec\n  \"IscL2C\"          sec\n  \"IscL5I5\"         sec\n  \"IscL5Q5\"         sec\n  \"IscL1CP\"         sec\n  \"IscL1CD\"         sec"; }
-    }
-
-    internal const string CmdName = "SetGpsEphDoubleParamForSV";
-
-    public SetGpsEphDoubleParamForSV()
-      : base(CmdName)
-    {}
-
-    public SetGpsEphDoubleParamForSV(int svId, string paramName, double val, string dataSetName = null)
-      : base(CmdName)
-    {
-      SvId = svId;
-      ParamName = paramName;
-      Val = val;
-      DataSetName = dataSetName;
-    }
-      
-    public override bool IsValid
-    {
-      get
-      {
-        return base.IsValid
-        && Contains("SvId")
-        && Contains("ParamName")
-        && Contains("Val")
-      ;
-      }
-    }
-
-    public override int ExecutePermission { get { return EXECUTE_IF_IDLE; } }
-
-    public int SvId
-    {
-      get { return GetValue("SvId").ToObject<int>(CommandBase.Serializer); }
-      set
-      {
-          SetValue("SvId", JToken.FromObject(value, CommandBase.Serializer));
-      }
-    }
-
-    public string ParamName
-    {
-      get { return GetValue("ParamName").ToObject<string>(CommandBase.Serializer); }
-      set
-      {
-          SetValue("ParamName", JToken.FromObject(value, CommandBase.Serializer));
-      }
-    }
-
-    public double Val
-    {
-      get { return GetValue("Val").ToObject<double>(CommandBase.Serializer); }
-      set
-      {
-          SetValue("Val", JToken.FromObject(value, CommandBase.Serializer));
-      }
-    }
-
-    public string DataSetName
-    {
-      get { return GetValue("DataSetName").ToObject<string>(CommandBase.Serializer); }
-      set
-      {
-        if (value == null)
-          RemoveValue("DataSetName");
-        else
-          SetValue("DataSetName", JToken.FromObject(value, CommandBase.Serializer));
-      }
-    }
-  }
-
-
-  ///
-  /// Get various parameters in the GPS ephemeris
-  /// 
-  ///   ParamName         Unit
-  ///   "ClockBias"       sec
-  ///   "ClockDrift"      sec/sec
-  ///   "ClockDriftRate"  sec/sec^2
-  ///   "Crs"             meter
-  ///   "Crc"             meter
-  ///   "Cis"             rad
-  ///   "Cic"             rad
-  ///   "Cus"             rad
-  ///   "Cuc"             rad
-  ///   "DeltaN"          rad/sec
-  ///   "M0"              rad
-  ///   "Eccentricity"    -
-  ///   "SqrtA"           sqrt(meter)
-  ///   "BigOmega"        rad
-  ///   "I0"              rad
-  ///   "LittleOmega"     rad
-  ///   "BigOmegaDot"     rad/sec
-  ///   "Idot"            rad/sec
-  ///   "Accuracy"        meter
-  ///   "Adot"            meters/sec
-  ///   "DeltaN0dot"      rad/sec^2
-  ///   "Tgd"             sec
-  ///   "IscL1Ca"         sec
-  ///   "IscL2C"          sec
-  ///   "IscL5I5"         sec
-  ///   "IscL5Q5"         sec
-  ///   "IscL1CP"         sec
-  ///   "IscL1CD"         sec
-  ///
-  /// Name        Type            Description
-  /// ----------- --------------- -------------------------------------------------------------------------------------------
-  /// SvId        int             Satellite SV ID 1..32, or use 0 to apply new value to all satellites.
-  /// ParamName   string          Parameter name (see table above for accepted names)
-  /// DataSetName optional string Optional name of the data set to use. If no value is provided, the active data set is used.
-  ///
-
-  public class GetGpsEphDoubleParamForSV : CommandBase
-  {
-    public override string Documentation
-    {
-      get { return "Get various parameters in the GPS ephemeris\n\n  ParamName         Unit\n  \"ClockBias\"       sec\n  \"ClockDrift\"      sec/sec\n  \"ClockDriftRate\"  sec/sec^2\n  \"Crs\"             meter\n  \"Crc\"             meter\n  \"Cis\"             rad\n  \"Cic\"             rad\n  \"Cus\"             rad\n  \"Cuc\"             rad\n  \"DeltaN\"          rad/sec\n  \"M0\"              rad\n  \"Eccentricity\"    -\n  \"SqrtA\"           sqrt(meter)\n  \"BigOmega\"        rad\n  \"I0\"              rad\n  \"LittleOmega\"     rad\n  \"BigOmegaDot\"     rad/sec\n  \"Idot\"            rad/sec\n  \"Accuracy\"        meter\n  \"Adot\"            meters/sec\n  \"DeltaN0dot\"      rad/sec^2\n  \"Tgd\"             sec\n  \"IscL1Ca\"         sec\n  \"IscL2C\"          sec\n  \"IscL5I5\"         sec\n  \"IscL5Q5\"         sec\n  \"IscL1CP\"         sec\n  \"IscL1CD\"         sec"; }
-    }
-
-    internal const string CmdName = "GetGpsEphDoubleParamForSV";
-
-    public GetGpsEphDoubleParamForSV()
-      : base(CmdName)
-    {}
-
-    public GetGpsEphDoubleParamForSV(int svId, string paramName, string dataSetName = null)
-      : base(CmdName)
-    {
-      SvId = svId;
-      ParamName = paramName;
-      DataSetName = dataSetName;
-    }
-      
-    public override bool IsValid
-    {
-      get
-      {
-        return base.IsValid
-        && Contains("SvId")
-        && Contains("ParamName")
-      ;
-      }
-    }
-
-    public override int ExecutePermission { get { return EXECUTE_IF_IDLE; } }
-
-    public int SvId
-    {
-      get { return GetValue("SvId").ToObject<int>(CommandBase.Serializer); }
-      set
-      {
-          SetValue("SvId", JToken.FromObject(value, CommandBase.Serializer));
-      }
-    }
-
-    public string ParamName
-    {
-      get { return GetValue("ParamName").ToObject<string>(CommandBase.Serializer); }
-      set
-      {
-          SetValue("ParamName", JToken.FromObject(value, CommandBase.Serializer));
-      }
-    }
-
-    public string DataSetName
-    {
-      get { return GetValue("DataSetName").ToObject<string>(CommandBase.Serializer); }
-      set
-      {
-        if (value == null)
-          RemoveValue("DataSetName");
-        else
-          SetValue("DataSetName", JToken.FromObject(value, CommandBase.Serializer));
-      }
-    }
-  }
-
-
-  ///
-  /// Result of GetGpsEphDoubleParamForSV.
-  ///
-  /// Name        Type            Description
-  /// ----------- --------------- -------------------------------------------------------------------------------------------
-  /// SvId        int             Satellite SV ID 1..32, or use 0 to apply new value to all satellites.
-  /// ParamName   string          Parameter name (see table above for accepted names)
-  /// Val         double          Parameter value (see table above for unit)
-  /// DataSetName optional string Optional name of the data set to use. If no value is provided, the active data set is used.
-  ///
-
-  public class GetGpsEphDoubleParamForSVResult : CommandResult
-  {
-    public override string Documentation
-    {
-      get { return "Result of GetGpsEphDoubleParamForSV."; }
-    }
-
-    internal const string CmdName = "GetGpsEphDoubleParamForSVResult";
-
-    public GetGpsEphDoubleParamForSVResult()
-      : base(CmdName)
-    {}
-
-    public GetGpsEphDoubleParamForSVResult(CommandBase relatedCommand, int svId, string paramName, double val, string dataSetName = null)
-      : base(CmdName, relatedCommand)
-    {
-      SvId = svId;
-      ParamName = paramName;
-      Val = val;
-      DataSetName = dataSetName;
-    }
-      
-    public override bool IsValid
-    {
-      get
-      {
-        return base.IsValid
-        && Contains("SvId")
-        && Contains("ParamName")
-        && Contains("Val")
-      ;
-      }
-    }
-
-    public int SvId
-    {
-      get { return GetValue("SvId").ToObject<int>(CommandBase.Serializer); }
-      set
-      {
-          SetValue("SvId", JToken.FromObject(value, CommandBase.Serializer));
-      }
-    }
-
-    public string ParamName
-    {
-      get { return GetValue("ParamName").ToObject<string>(CommandBase.Serializer); }
-      set
-      {
-          SetValue("ParamName", JToken.FromObject(value, CommandBase.Serializer));
-      }
-    }
-
-    public double Val
-    {
-      get { return GetValue("Val").ToObject<double>(CommandBase.Serializer); }
-      set
-      {
-          SetValue("Val", JToken.FromObject(value, CommandBase.Serializer));
-      }
-    }
-
-    public string DataSetName
-    {
-      get { return GetValue("DataSetName").ToObject<string>(CommandBase.Serializer); }
-      set
-      {
-        if (value == null)
-          RemoveValue("DataSetName");
-        else
-          SetValue("DataSetName", JToken.FromObject(value, CommandBase.Serializer));
-      }
-    }
-  }
-
-
-  ///
-  /// Set various parameters in the Galileo ephemeris
-  /// 
-  ///   ParamName         Unit
-  ///   "ClockBias"       sec
-  ///   "ClockDrift"      sec/sec
-  ///   "ClockDriftRate"  sec/sec^2
-  ///   "Crs"             meter
-  ///   "Crc"             meter
-  ///   "Cis"             rad
-  ///   "Cic"             rad
-  ///   "Cus"             rad
-  ///   "Cuc"             rad
-  ///   "DeltaN"          rad/sec
-  ///   "M0"              rad
-  ///   "Eccentricity"    -
-  ///   "SqrtA"           sqrt(meter)
-  ///   "BigOmega"        rad
-  ///   "I0"              rad
-  ///   "LittleOmega"     rad
-  ///   "BigOmegaDot"     rad/sec
-  ///   "Idot"            rad/sec
-  ///   "Accuracy"        meter
-  ///   "Adot"            meters/sec
-  ///   "DeltaN0dot"      rad/sec^2
-  ///   "Tgd"             sec
-  ///   "BgdE1E5a"        ns
-  ///   "BgdE1E5b"        ns
-  ///
-  /// Name        Type            Description
-  /// ----------- --------------- -------------------------------------------------------------------------------------------
-  /// SvId        int             Satellite SV ID 1..36, or use 0 to apply new value to all satellites
-  /// ParamName   string          Parameter name (see table above for accepted names)
-  /// Val         double          Parameter value (see table above for unit)
-  /// DataSetName optional string Optional name of the data set to use. If no value is provided, the active data set is used.
-  ///
-
-  public class SetGalileoEphDoubleParamForSV : CommandBase
-  {
-    public override string Documentation
-    {
-      get { return "Set various parameters in the Galileo ephemeris\n\n  ParamName         Unit\n  \"ClockBias\"       sec\n  \"ClockDrift\"      sec/sec\n  \"ClockDriftRate\"  sec/sec^2\n  \"Crs\"             meter\n  \"Crc\"             meter\n  \"Cis\"             rad\n  \"Cic\"             rad\n  \"Cus\"             rad\n  \"Cuc\"             rad\n  \"DeltaN\"          rad/sec\n  \"M0\"              rad\n  \"Eccentricity\"    -\n  \"SqrtA\"           sqrt(meter)\n  \"BigOmega\"        rad\n  \"I0\"              rad\n  \"LittleOmega\"     rad\n  \"BigOmegaDot\"     rad/sec\n  \"Idot\"            rad/sec\n  \"Accuracy\"        meter\n  \"Adot\"            meters/sec\n  \"DeltaN0dot\"      rad/sec^2\n  \"Tgd\"             sec\n  \"BgdE1E5a\"        ns\n  \"BgdE1E5b\"        ns"; }
-    }
-
-    internal const string CmdName = "SetGalileoEphDoubleParamForSV";
-
-    public SetGalileoEphDoubleParamForSV()
-      : base(CmdName)
-    {}
-
-    public SetGalileoEphDoubleParamForSV(int svId, string paramName, double val, string dataSetName = null)
-      : base(CmdName)
-    {
-      SvId = svId;
-      ParamName = paramName;
-      Val = val;
-      DataSetName = dataSetName;
-    }
-      
-    public override bool IsValid
-    {
-      get
-      {
-        return base.IsValid
-        && Contains("SvId")
-        && Contains("ParamName")
-        && Contains("Val")
-      ;
-      }
-    }
-
-    public override int ExecutePermission { get { return EXECUTE_IF_IDLE; } }
-
-    public int SvId
-    {
-      get { return GetValue("SvId").ToObject<int>(CommandBase.Serializer); }
-      set
-      {
-          SetValue("SvId", JToken.FromObject(value, CommandBase.Serializer));
-      }
-    }
-
-    public string ParamName
-    {
-      get { return GetValue("ParamName").ToObject<string>(CommandBase.Serializer); }
-      set
-      {
-          SetValue("ParamName", JToken.FromObject(value, CommandBase.Serializer));
-      }
-    }
-
-    public double Val
-    {
-      get { return GetValue("Val").ToObject<double>(CommandBase.Serializer); }
-      set
-      {
-          SetValue("Val", JToken.FromObject(value, CommandBase.Serializer));
-      }
-    }
-
-    public string DataSetName
-    {
-      get { return GetValue("DataSetName").ToObject<string>(CommandBase.Serializer); }
-      set
-      {
-        if (value == null)
-          RemoveValue("DataSetName");
-        else
-          SetValue("DataSetName", JToken.FromObject(value, CommandBase.Serializer));
-      }
-    }
-  }
-
-
-  ///
-  /// Get various parameters in the Galileo ephemeris
-  /// 
-  ///   ParamName         Unit
-  ///   "ClockBias"       sec
-  ///   "ClockDrift"      sec/sec
-  ///   "ClockDriftRate"  sec/sec^2
-  ///   "Crs"             meter
-  ///   "Crc"             meter
-  ///   "Cis"             rad
-  ///   "Cic"             rad
-  ///   "Cus"             rad
-  ///   "Cuc"             rad
-  ///   "DeltaN"          rad/sec
-  ///   "M0"              rad
-  ///   "Eccentricity"    -
-  ///   "SqrtA"           sqrt(meter)
-  ///   "BigOmega"        rad
-  ///   "I0"              rad
-  ///   "LittleOmega"     rad
-  ///   "BigOmegaDot"     rad/sec
-  ///   "Idot"            rad/sec
-  ///   "Accuracy"        meter
-  ///   "Adot"            meters/sec
-  ///   "DeltaN0dot"      rad/sec^2
-  ///   "Tgd"             sec
-  ///   "BgdE1E5a"        ns
-  ///   "BgdE1E5b"        ns
-  ///
-  /// Name        Type            Description
-  /// ----------- --------------- -------------------------------------------------------------------------------------------
-  /// SvId        int             Satellite SV ID 1..36, or use 0 to apply new value to all satellites
-  /// ParamName   string          Parameter name (see table above for accepted names)
-  /// DataSetName optional string Optional name of the data set to use. If no value is provided, the active data set is used.
-  ///
-
-  public class GetGalileoEphDoubleParamForSV : CommandBase
-  {
-    public override string Documentation
-    {
-      get { return "Get various parameters in the Galileo ephemeris\n\n  ParamName         Unit\n  \"ClockBias\"       sec\n  \"ClockDrift\"      sec/sec\n  \"ClockDriftRate\"  sec/sec^2\n  \"Crs\"             meter\n  \"Crc\"             meter\n  \"Cis\"             rad\n  \"Cic\"             rad\n  \"Cus\"             rad\n  \"Cuc\"             rad\n  \"DeltaN\"          rad/sec\n  \"M0\"              rad\n  \"Eccentricity\"    -\n  \"SqrtA\"           sqrt(meter)\n  \"BigOmega\"        rad\n  \"I0\"              rad\n  \"LittleOmega\"     rad\n  \"BigOmegaDot\"     rad/sec\n  \"Idot\"            rad/sec\n  \"Accuracy\"        meter\n  \"Adot\"            meters/sec\n  \"DeltaN0dot\"      rad/sec^2\n  \"Tgd\"             sec\n  \"BgdE1E5a\"        ns\n  \"BgdE1E5b\"        ns"; }
-    }
-
-    internal const string CmdName = "GetGalileoEphDoubleParamForSV";
-
-    public GetGalileoEphDoubleParamForSV()
-      : base(CmdName)
-    {}
-
-    public GetGalileoEphDoubleParamForSV(int svId, string paramName, string dataSetName = null)
-      : base(CmdName)
-    {
-      SvId = svId;
-      ParamName = paramName;
-      DataSetName = dataSetName;
-    }
-      
-    public override bool IsValid
-    {
-      get
-      {
-        return base.IsValid
-        && Contains("SvId")
-        && Contains("ParamName")
-      ;
-      }
-    }
-
-    public override int ExecutePermission { get { return EXECUTE_IF_IDLE; } }
-
-    public int SvId
-    {
-      get { return GetValue("SvId").ToObject<int>(CommandBase.Serializer); }
-      set
-      {
-          SetValue("SvId", JToken.FromObject(value, CommandBase.Serializer));
-      }
-    }
-
-    public string ParamName
-    {
-      get { return GetValue("ParamName").ToObject<string>(CommandBase.Serializer); }
-      set
-      {
-          SetValue("ParamName", JToken.FromObject(value, CommandBase.Serializer));
-      }
-    }
-
-    public string DataSetName
-    {
-      get { return GetValue("DataSetName").ToObject<string>(CommandBase.Serializer); }
-      set
-      {
-        if (value == null)
-          RemoveValue("DataSetName");
-        else
-          SetValue("DataSetName", JToken.FromObject(value, CommandBase.Serializer));
-      }
-    }
-  }
-
-
-  ///
-  /// Result of GetGalileoEphDoubleParamForSV.
-  ///
-  /// Name        Type            Description
-  /// ----------- --------------- -------------------------------------------------------------------------------------------
-  /// SvId        int             Satellite SV ID 1..36, or use 0 to apply new value to all satellites
-  /// ParamName   string          Parameter name (see table above for accepted names)
-  /// Val         double          Parameter value (see table above for unit)
-  /// DataSetName optional string Optional name of the data set to use. If no value is provided, the active data set is used.
-  ///
-
-  public class GetGalileoEphDoubleParamForSVResult : CommandResult
-  {
-    public override string Documentation
-    {
-      get { return "Result of GetGalileoEphDoubleParamForSV."; }
-    }
-
-    internal const string CmdName = "GetGalileoEphDoubleParamForSVResult";
-
-    public GetGalileoEphDoubleParamForSVResult()
-      : base(CmdName)
-    {}
-
-    public GetGalileoEphDoubleParamForSVResult(CommandBase relatedCommand, int svId, string paramName, double val, string dataSetName = null)
-      : base(CmdName, relatedCommand)
-    {
-      SvId = svId;
-      ParamName = paramName;
-      Val = val;
-      DataSetName = dataSetName;
-    }
-      
-    public override bool IsValid
-    {
-      get
-      {
-        return base.IsValid
-        && Contains("SvId")
-        && Contains("ParamName")
-        && Contains("Val")
-      ;
-      }
-    }
-
-    public int SvId
-    {
-      get { return GetValue("SvId").ToObject<int>(CommandBase.Serializer); }
-      set
-      {
-          SetValue("SvId", JToken.FromObject(value, CommandBase.Serializer));
-      }
-    }
-
-    public string ParamName
-    {
-      get { return GetValue("ParamName").ToObject<string>(CommandBase.Serializer); }
-      set
-      {
-          SetValue("ParamName", JToken.FromObject(value, CommandBase.Serializer));
-      }
-    }
-
-    public double Val
-    {
-      get { return GetValue("Val").ToObject<double>(CommandBase.Serializer); }
-      set
-      {
-          SetValue("Val", JToken.FromObject(value, CommandBase.Serializer));
-      }
-    }
-
-    public string DataSetName
-    {
-      get { return GetValue("DataSetName").ToObject<string>(CommandBase.Serializer); }
-      set
-      {
-        if (value == null)
-          RemoveValue("DataSetName");
-        else
-          SetValue("DataSetName", JToken.FromObject(value, CommandBase.Serializer));
-      }
-    }
-  }
-
-
-  ///
-  /// Set various parameters in the BeiDou ephemeris
-  /// 
-  ///   ParamName         Unit
-  ///   "ClockBias"       sec
-  ///   "ClockDrift"      sec/sec
-  ///   "ClockDriftRate"  sec/sec^2
-  ///   "Crs"             meter
-  ///   "Crc"             meter
-  ///   "Cis"             rad
-  ///   "Cic"             rad
-  ///   "Cus"             rad
-  ///   "Cuc"             rad
-  ///   "DeltaN"          rad/sec
-  ///   "M0"              rad
-  ///   "Eccentricity"    -
-  ///   "SqrtA"           sqrt(meter)
-  ///   "BigOmega"        rad
-  ///   "I0"              rad
-  ///   "LittleOmega"     rad
-  ///   "BigOmegaDot"     rad/sec
-  ///   "Idot"            rad/sec
-  ///   "Accuracy"        meter
-  ///   "Adot"            meters/sec
-  ///   "DeltaN0dot"      rad/sec^2
-  ///   "Tgd1"            sec
-  ///   "Tgd2"            sec
-  ///   "TgdB1Cp"         sec
-  ///   "TgdB2Ap"         sec
-  ///
-  /// Name        Type            Description
-  /// ----------- --------------- -------------------------------------------------------------------------------------------
-  /// SvId        int             Satellite SV ID 1..35, or use 0 to apply new value to all satellites
-  /// ParamName   string          Parameter name (see table above for accepted names)
-  /// Val         double          Parameter value (see table above for unit)
-  /// DataSetName optional string Optional name of the data set to use. If no value is provided, the active data set is used.
-  ///
-
-  public class SetBeiDouEphDoubleParamForSV : CommandBase
-  {
-    public override string Documentation
-    {
-      get { return "Set various parameters in the BeiDou ephemeris\n\n  ParamName         Unit\n  \"ClockBias\"       sec\n  \"ClockDrift\"      sec/sec\n  \"ClockDriftRate\"  sec/sec^2\n  \"Crs\"             meter\n  \"Crc\"             meter\n  \"Cis\"             rad\n  \"Cic\"             rad\n  \"Cus\"             rad\n  \"Cuc\"             rad\n  \"DeltaN\"          rad/sec\n  \"M0\"              rad\n  \"Eccentricity\"    -\n  \"SqrtA\"           sqrt(meter)\n  \"BigOmega\"        rad\n  \"I0\"              rad\n  \"LittleOmega\"     rad\n  \"BigOmegaDot\"     rad/sec\n  \"Idot\"            rad/sec\n  \"Accuracy\"        meter\n  \"Adot\"            meters/sec\n  \"DeltaN0dot\"      rad/sec^2\n  \"Tgd1\"            sec\n  \"Tgd2\"            sec\n  \"TgdB1Cp\"         sec\n  \"TgdB2Ap\"         sec"; }
-    }
-
-    internal const string CmdName = "SetBeiDouEphDoubleParamForSV";
-
-    public SetBeiDouEphDoubleParamForSV()
-      : base(CmdName)
-    {}
-
-    public SetBeiDouEphDoubleParamForSV(int svId, string paramName, double val, string dataSetName = null)
-      : base(CmdName)
-    {
-      SvId = svId;
-      ParamName = paramName;
-      Val = val;
-      DataSetName = dataSetName;
-    }
-      
-    public override bool IsValid
-    {
-      get
-      {
-        return base.IsValid
-        && Contains("SvId")
-        && Contains("ParamName")
-        && Contains("Val")
-      ;
-      }
-    }
-
-    public override int ExecutePermission { get { return EXECUTE_IF_IDLE; } }
-
-    public int SvId
-    {
-      get { return GetValue("SvId").ToObject<int>(CommandBase.Serializer); }
-      set
-      {
-          SetValue("SvId", JToken.FromObject(value, CommandBase.Serializer));
-      }
-    }
-
-    public string ParamName
-    {
-      get { return GetValue("ParamName").ToObject<string>(CommandBase.Serializer); }
-      set
-      {
-          SetValue("ParamName", JToken.FromObject(value, CommandBase.Serializer));
-      }
-    }
-
-    public double Val
-    {
-      get { return GetValue("Val").ToObject<double>(CommandBase.Serializer); }
-      set
-      {
-          SetValue("Val", JToken.FromObject(value, CommandBase.Serializer));
-      }
-    }
-
-    public string DataSetName
-    {
-      get { return GetValue("DataSetName").ToObject<string>(CommandBase.Serializer); }
-      set
-      {
-        if (value == null)
-          RemoveValue("DataSetName");
-        else
-          SetValue("DataSetName", JToken.FromObject(value, CommandBase.Serializer));
-      }
-    }
-  }
-
-
-  ///
-  /// Get various parameters in the BeiDou ephemeris
-  /// 
-  ///   ParamName         Unit
-  ///   "ClockBias"       sec
-  ///   "ClockDrift"      sec/sec
-  ///   "ClockDriftRate"  sec/sec^2
-  ///   "Crs"             meter
-  ///   "Crc"             meter
-  ///   "Cis"             rad
-  ///   "Cic"             rad
-  ///   "Cus"             rad
-  ///   "Cuc"             rad
-  ///   "DeltaN"          rad/sec
-  ///   "M0"              rad
-  ///   "Eccentricity"    -
-  ///   "SqrtA"           sqrt(meter)
-  ///   "BigOmega"        rad
-  ///   "I0"              rad
-  ///   "LittleOmega"     rad
-  ///   "BigOmegaDot"     rad/sec
-  ///   "Idot"            rad/sec
-  ///   "Accuracy"        meter
-  ///   "Adot"            meters/sec
-  ///   "DeltaN0dot"      rad/sec^2
-  ///   "Tgd1"            sec
-  ///   "Tgd2"            sec
-  ///   "TgdB1Cp"         sec
-  ///   "TgdB2Ap"         sec
-  ///
-  /// Name        Type            Description
-  /// ----------- --------------- -------------------------------------------------------------------------------------------
-  /// SvId        int             Satellite SV ID 1..35, or use 0 to apply new value to all satellites
-  /// ParamName   string          Parameter name (see table above for accepted names)
-  /// DataSetName optional string Optional name of the data set to use. If no value is provided, the active data set is used.
-  ///
-
-  public class GetBeiDouEphDoubleParamForSV : CommandBase
-  {
-    public override string Documentation
-    {
-      get { return "Get various parameters in the BeiDou ephemeris\n\n  ParamName         Unit\n  \"ClockBias\"       sec\n  \"ClockDrift\"      sec/sec\n  \"ClockDriftRate\"  sec/sec^2\n  \"Crs\"             meter\n  \"Crc\"             meter\n  \"Cis\"             rad\n  \"Cic\"             rad\n  \"Cus\"             rad\n  \"Cuc\"             rad\n  \"DeltaN\"          rad/sec\n  \"M0\"              rad\n  \"Eccentricity\"    -\n  \"SqrtA\"           sqrt(meter)\n  \"BigOmega\"        rad\n  \"I0\"              rad\n  \"LittleOmega\"     rad\n  \"BigOmegaDot\"     rad/sec\n  \"Idot\"            rad/sec\n  \"Accuracy\"        meter\n  \"Adot\"            meters/sec\n  \"DeltaN0dot\"      rad/sec^2\n  \"Tgd1\"            sec\n  \"Tgd2\"            sec\n  \"TgdB1Cp\"         sec\n  \"TgdB2Ap\"         sec"; }
-    }
-
-    internal const string CmdName = "GetBeiDouEphDoubleParamForSV";
-
-    public GetBeiDouEphDoubleParamForSV()
-      : base(CmdName)
-    {}
-
-    public GetBeiDouEphDoubleParamForSV(int svId, string paramName, string dataSetName = null)
-      : base(CmdName)
-    {
-      SvId = svId;
-      ParamName = paramName;
-      DataSetName = dataSetName;
-    }
-      
-    public override bool IsValid
-    {
-      get
-      {
-        return base.IsValid
-        && Contains("SvId")
-        && Contains("ParamName")
-      ;
-      }
-    }
-
-    public override int ExecutePermission { get { return EXECUTE_IF_IDLE; } }
-
-    public int SvId
-    {
-      get { return GetValue("SvId").ToObject<int>(CommandBase.Serializer); }
-      set
-      {
-          SetValue("SvId", JToken.FromObject(value, CommandBase.Serializer));
-      }
-    }
-
-    public string ParamName
-    {
-      get { return GetValue("ParamName").ToObject<string>(CommandBase.Serializer); }
-      set
-      {
-          SetValue("ParamName", JToken.FromObject(value, CommandBase.Serializer));
-      }
-    }
-
-    public string DataSetName
-    {
-      get { return GetValue("DataSetName").ToObject<string>(CommandBase.Serializer); }
-      set
-      {
-        if (value == null)
-          RemoveValue("DataSetName");
-        else
-          SetValue("DataSetName", JToken.FromObject(value, CommandBase.Serializer));
-      }
-    }
-  }
-
-
-  ///
-  /// Result of GetBeiDouEphDoubleParamForSV.
-  ///
-  /// Name        Type            Description
-  /// ----------- --------------- -------------------------------------------------------------------------------------------
-  /// SvId        int             Satellite SV ID 1..35, or use 0 to apply new value to all satellites
-  /// ParamName   string          Parameter name (see table above for accepted names)
-  /// Val         double          Parameter value (see table above for unit)
-  /// DataSetName optional string Optional name of the data set to use. If no value is provided, the active data set is used.
-  ///
-
-  public class GetBeiDouEphDoubleParamForSVResult : CommandResult
-  {
-    public override string Documentation
-    {
-      get { return "Result of GetBeiDouEphDoubleParamForSV."; }
-    }
-
-    internal const string CmdName = "GetBeiDouEphDoubleParamForSVResult";
-
-    public GetBeiDouEphDoubleParamForSVResult()
-      : base(CmdName)
-    {}
-
-    public GetBeiDouEphDoubleParamForSVResult(CommandBase relatedCommand, int svId, string paramName, double val, string dataSetName = null)
-      : base(CmdName, relatedCommand)
-    {
-      SvId = svId;
-      ParamName = paramName;
-      Val = val;
-      DataSetName = dataSetName;
-    }
-      
-    public override bool IsValid
-    {
-      get
-      {
-        return base.IsValid
-        && Contains("SvId")
-        && Contains("ParamName")
-        && Contains("Val")
-      ;
-      }
-    }
-
-    public int SvId
-    {
-      get { return GetValue("SvId").ToObject<int>(CommandBase.Serializer); }
-      set
-      {
-          SetValue("SvId", JToken.FromObject(value, CommandBase.Serializer));
-      }
-    }
-
-    public string ParamName
-    {
-      get { return GetValue("ParamName").ToObject<string>(CommandBase.Serializer); }
-      set
-      {
-          SetValue("ParamName", JToken.FromObject(value, CommandBase.Serializer));
-      }
-    }
-
-    public double Val
-    {
-      get { return GetValue("Val").ToObject<double>(CommandBase.Serializer); }
-      set
-      {
-          SetValue("Val", JToken.FromObject(value, CommandBase.Serializer));
-      }
-    }
-
-    public string DataSetName
-    {
-      get { return GetValue("DataSetName").ToObject<string>(CommandBase.Serializer); }
-      set
-      {
-        if (value == null)
-          RemoveValue("DataSetName");
-        else
-          SetValue("DataSetName", JToken.FromObject(value, CommandBase.Serializer));
-      }
-    }
-  }
-
-
-  ///
   /// Set various parameters for GLONASS
   /// 
   ///   ParamName       Unit               Range          Description
@@ -29157,2085 +27539,6 @@ namespace Sdx.Cmd
       {
           SetValue("Val", JToken.FromObject(value, CommandBase.Serializer));
       }
-    }
-  }
-
-
-  ///
-  /// Please note the command SetQzssEphemerisDoubleParam is deprecated since 21.3. You may use SetQzssEphDoubleParamForSV.
-  /// 
-  /// Set various parameters in the QZSS ephemeris.
-  ///
-  /// Name        Type            Description
-  /// ----------- --------------- -------------------------------------------------------------------------------------------
-  /// SvId        int             The satellite's SV ID 1..10 (use 0 to apply to all satellites)
-  /// ParamName   string          In meters:  "Crs", "Crc"
-  ///                             In radians: "Cis", "Cic", "Cus", "Cuc"
-  ///                             In seconds: "Tgd", "IscL1Ca", "IscL2C", "IscL5I5", "IscL5Q5", "IscL1CP", "IscL1CD"
-  /// Val         double          Parameter value (see ParamName above for unit)
-  /// DataSetName optional string Optional name of the data set to use. If no value is provided, the active data set is used.
-  ///
-
-  public class SetQzssEphemerisDoubleParam : CommandBase
-  {
-    public override string Documentation
-    {
-      get { return "Please note the command SetQzssEphemerisDoubleParam is deprecated since 21.3. You may use SetQzssEphDoubleParamForSV.\n\nSet various parameters in the QZSS ephemeris."; }
-    }
-
-    internal const string CmdName = "SetQzssEphemerisDoubleParam";
-
-    public SetQzssEphemerisDoubleParam()
-      : base(CmdName)
-    {}
-
-    public SetQzssEphemerisDoubleParam(int svId, string paramName, double val, string dataSetName = null)
-      : base(CmdName)
-    {
-      SvId = svId;
-      ParamName = paramName;
-      Val = val;
-      DataSetName = dataSetName;
-    }
-      
-    public override bool IsValid
-    {
-      get
-      {
-        return base.IsValid
-        && Contains("SvId")
-        && Contains("ParamName")
-        && Contains("Val")
-      ;
-      }
-    }
-
-    public override int ExecutePermission { get { return EXECUTE_IF_IDLE; } }
-
-    public int SvId
-    {
-      get { return GetValue("SvId").ToObject<int>(CommandBase.Serializer); }
-      set
-      {
-          SetValue("SvId", JToken.FromObject(value, CommandBase.Serializer));
-      }
-    }
-
-    public string ParamName
-    {
-      get { return GetValue("ParamName").ToObject<string>(CommandBase.Serializer); }
-      set
-      {
-          SetValue("ParamName", JToken.FromObject(value, CommandBase.Serializer));
-      }
-    }
-
-    public double Val
-    {
-      get { return GetValue("Val").ToObject<double>(CommandBase.Serializer); }
-      set
-      {
-          SetValue("Val", JToken.FromObject(value, CommandBase.Serializer));
-      }
-    }
-
-    public string DataSetName
-    {
-      get { return GetValue("DataSetName").ToObject<string>(CommandBase.Serializer); }
-      set
-      {
-        if (value == null)
-          RemoveValue("DataSetName");
-        else
-          SetValue("DataSetName", JToken.FromObject(value, CommandBase.Serializer));
-      }
-    }
-  }
-
-
-  ///
-  /// Set various parameters in the QZSS ephemeris.
-  ///
-  /// Name        Type            Description
-  /// ----------- --------------- -------------------------------------------------------------------------------------------
-  /// SvId        int             The satellite's SV ID 1..10 (use 0 to apply to all satellites)
-  /// ParamName   string          In meters:  "Crs", "Crc"
-  ///                             In radians: "Cis", "Cic", "Cus", "Cuc"
-  ///                             In seconds: "Tgd", "IscL1Ca", "IscL2C", "IscL5I5", "IscL5Q5", "IscL1CP", "IscL1CD"
-  /// Val         double          Parameter value (see ParamName above for unit)
-  /// DataSetName optional string Optional name of the data set to use. If no value is provided, the active data set is used.
-  ///
-
-  public class SetQzssEphDoubleParamForSV : CommandBase
-  {
-    public override string Documentation
-    {
-      get { return "Set various parameters in the QZSS ephemeris."; }
-    }
-
-    internal const string CmdName = "SetQzssEphDoubleParamForSV";
-
-    public SetQzssEphDoubleParamForSV()
-      : base(CmdName)
-    {}
-
-    public SetQzssEphDoubleParamForSV(int svId, string paramName, double val, string dataSetName = null)
-      : base(CmdName)
-    {
-      SvId = svId;
-      ParamName = paramName;
-      Val = val;
-      DataSetName = dataSetName;
-    }
-      
-    public override bool IsValid
-    {
-      get
-      {
-        return base.IsValid
-        && Contains("SvId")
-        && Contains("ParamName")
-        && Contains("Val")
-      ;
-      }
-    }
-
-    public override int ExecutePermission { get { return EXECUTE_IF_IDLE; } }
-
-    public int SvId
-    {
-      get { return GetValue("SvId").ToObject<int>(CommandBase.Serializer); }
-      set
-      {
-          SetValue("SvId", JToken.FromObject(value, CommandBase.Serializer));
-      }
-    }
-
-    public string ParamName
-    {
-      get { return GetValue("ParamName").ToObject<string>(CommandBase.Serializer); }
-      set
-      {
-          SetValue("ParamName", JToken.FromObject(value, CommandBase.Serializer));
-      }
-    }
-
-    public double Val
-    {
-      get { return GetValue("Val").ToObject<double>(CommandBase.Serializer); }
-      set
-      {
-          SetValue("Val", JToken.FromObject(value, CommandBase.Serializer));
-      }
-    }
-
-    public string DataSetName
-    {
-      get { return GetValue("DataSetName").ToObject<string>(CommandBase.Serializer); }
-      set
-      {
-        if (value == null)
-          RemoveValue("DataSetName");
-        else
-          SetValue("DataSetName", JToken.FromObject(value, CommandBase.Serializer));
-      }
-    }
-  }
-
-
-  ///
-  /// Please note the command GetQzssEphemerisDoubleParam is deprecated since 21.3. You may use GetQzssEphDoubleParamForSV.
-  /// 
-  /// Get various parameters in the QZSS ephemeris.
-  ///
-  /// Name        Type            Description
-  /// ----------- --------------- -------------------------------------------------------------------------------------------
-  /// SvId        int             The satellite's SV ID 1..10 (use 0 to apply to all satellites)
-  /// ParamName   string          In meters:  "Crs", "Crc"
-  ///                             In radians: "Cis", "Cic", "Cus", "Cuc"
-  ///                             In seconds: "Tgd", "IscL1Ca", "IscL2C", "IscL5I5", "IscL5Q5", "IscL1CP", "IscL1CD"
-  /// DataSetName optional string Optional name of the data set to use. If no value is provided, the active data set is used.
-  ///
-
-  public class GetQzssEphemerisDoubleParam : CommandBase
-  {
-    public override string Documentation
-    {
-      get { return "Please note the command GetQzssEphemerisDoubleParam is deprecated since 21.3. You may use GetQzssEphDoubleParamForSV.\n\nGet various parameters in the QZSS ephemeris."; }
-    }
-
-    internal const string CmdName = "GetQzssEphemerisDoubleParam";
-
-    public GetQzssEphemerisDoubleParam()
-      : base(CmdName)
-    {}
-
-    public GetQzssEphemerisDoubleParam(int svId, string paramName, string dataSetName = null)
-      : base(CmdName)
-    {
-      SvId = svId;
-      ParamName = paramName;
-      DataSetName = dataSetName;
-    }
-      
-    public override bool IsValid
-    {
-      get
-      {
-        return base.IsValid
-        && Contains("SvId")
-        && Contains("ParamName")
-      ;
-      }
-    }
-
-    public override int ExecutePermission { get { return EXECUTE_IF_IDLE; } }
-
-    public int SvId
-    {
-      get { return GetValue("SvId").ToObject<int>(CommandBase.Serializer); }
-      set
-      {
-          SetValue("SvId", JToken.FromObject(value, CommandBase.Serializer));
-      }
-    }
-
-    public string ParamName
-    {
-      get { return GetValue("ParamName").ToObject<string>(CommandBase.Serializer); }
-      set
-      {
-          SetValue("ParamName", JToken.FromObject(value, CommandBase.Serializer));
-      }
-    }
-
-    public string DataSetName
-    {
-      get { return GetValue("DataSetName").ToObject<string>(CommandBase.Serializer); }
-      set
-      {
-        if (value == null)
-          RemoveValue("DataSetName");
-        else
-          SetValue("DataSetName", JToken.FromObject(value, CommandBase.Serializer));
-      }
-    }
-  }
-
-
-  ///
-  /// Get various parameters in the QZSS ephemeris.
-  ///
-  /// Name        Type            Description
-  /// ----------- --------------- -------------------------------------------------------------------------------------------
-  /// SvId        int             The satellite's SV ID 1..10 (use 0 to apply to all satellites)
-  /// ParamName   string          In meters:  "Crs", "Crc"
-  ///                             In radians: "Cis", "Cic", "Cus", "Cuc"
-  ///                             In seconds: "Tgd", "IscL1Ca", "IscL2C", "IscL5I5", "IscL5Q5", "IscL1CP", "IscL1CD"
-  /// DataSetName optional string Optional name of the data set to use. If no value is provided, the active data set is used.
-  ///
-
-  public class GetQzssEphDoubleParamForSV : CommandBase
-  {
-    public override string Documentation
-    {
-      get { return "Get various parameters in the QZSS ephemeris."; }
-    }
-
-    internal const string CmdName = "GetQzssEphDoubleParamForSV";
-
-    public GetQzssEphDoubleParamForSV()
-      : base(CmdName)
-    {}
-
-    public GetQzssEphDoubleParamForSV(int svId, string paramName, string dataSetName = null)
-      : base(CmdName)
-    {
-      SvId = svId;
-      ParamName = paramName;
-      DataSetName = dataSetName;
-    }
-      
-    public override bool IsValid
-    {
-      get
-      {
-        return base.IsValid
-        && Contains("SvId")
-        && Contains("ParamName")
-      ;
-      }
-    }
-
-    public override int ExecutePermission { get { return EXECUTE_IF_IDLE; } }
-
-    public int SvId
-    {
-      get { return GetValue("SvId").ToObject<int>(CommandBase.Serializer); }
-      set
-      {
-          SetValue("SvId", JToken.FromObject(value, CommandBase.Serializer));
-      }
-    }
-
-    public string ParamName
-    {
-      get { return GetValue("ParamName").ToObject<string>(CommandBase.Serializer); }
-      set
-      {
-          SetValue("ParamName", JToken.FromObject(value, CommandBase.Serializer));
-      }
-    }
-
-    public string DataSetName
-    {
-      get { return GetValue("DataSetName").ToObject<string>(CommandBase.Serializer); }
-      set
-      {
-        if (value == null)
-          RemoveValue("DataSetName");
-        else
-          SetValue("DataSetName", JToken.FromObject(value, CommandBase.Serializer));
-      }
-    }
-  }
-
-
-  ///
-  /// Result of GetQzssEphDoubleParamForSV.
-  ///
-  /// Name        Type            Description
-  /// ----------- --------------- -------------------------------------------------------------------------------------------
-  /// SvId        int             The satellite's SV ID 1..10 (use 0 to apply to all satellites)
-  /// ParamName   string          In meters:  "Crs", "Crc"
-  ///                             In radians: "Cis", "Cic", "Cus", "Cuc"
-  ///                             In seconds: "Tgd", "IscL1Ca", "IscL2C", "IscL5I5", "IscL5Q5", "IscL1CP", "IscL1CD"
-  /// Val         double          Parameter value (see ParamName above for unit)
-  /// DataSetName optional string Optional name of the data set to use. If no value is provided, the active data set is used.
-  ///
-
-  public class GetQzssEphemerisDoubleParamResult : CommandResult
-  {
-    public override string Documentation
-    {
-      get { return "Result of GetQzssEphDoubleParamForSV."; }
-    }
-  
-    internal const string CmdName = "GetQzssEphemerisDoubleParamResult";
-
-    public GetQzssEphemerisDoubleParamResult()
-      : base(CmdName)
-    {}
-
-    public GetQzssEphemerisDoubleParamResult(CommandBase relatedCommand, int svId, string paramName, double val, string dataSetName = null)
-      : base(CmdName, relatedCommand)
-    {
-      SvId = svId;
-      ParamName = paramName;
-      Val = val;
-      DataSetName = dataSetName;
-    }
-
-    public override bool IsValid
-    {
-      get
-      {
-        return base.IsValid
-        && Contains("SvId")
-        && Contains("ParamName")
-        && Contains("Val")
-      ;
-      }
-    }
-
-    public int SvId
-    {
-      get { return GetValue("SvId").ToObject<int>(CommandBase.Serializer); }
-      set { SetValue("SvId", JToken.FromObject(value, CommandBase.Serializer)); }
-    }
-
-    public string ParamName
-    {
-      get { return GetValue("ParamName").ToObject<string>(CommandBase.Serializer); }
-      set { SetValue("ParamName", JToken.FromObject(value, CommandBase.Serializer)); }
-    }
-
-    public double Val
-    {
-      get { return GetValue("Val").ToObject<double>(CommandBase.Serializer); }
-      set { SetValue("Val", JToken.FromObject(value, CommandBase.Serializer)); }
-    }
-
-    public string DataSetName
-    {
-      get { return GetValue("DataSetName").ToObject<string>(CommandBase.Serializer); }
-      set { SetValue("DataSetName", JToken.FromObject(value, CommandBase.Serializer)); }
-    }
-  }
-
-  ///
-  /// Name        Type            Description
-  /// ----------- --------------- -------------------------------------------------------------------------------------------
-  /// SvId        int             The satellite's SV ID 1..10 (use 0 to apply to all satellites)
-  /// ParamName   string          In meters:  "Crs", "Crc"
-  ///                             In radians: "Cis", "Cic", "Cus", "Cuc"
-  ///                             In seconds: "Tgd", "IscL1Ca", "IscL2C", "IscL5I5", "IscL5Q5", "IscL1CP", "IscL1CD"
-  /// Val         double          Parameter value (see ParamName above for unit)
-  /// DataSetName optional string Optional name of the data set to use. If no value is provided, the active data set is used.
-  ///
-
-  public class GetQzssEphDoubleParamForSVResult : GetQzssEphemerisDoubleParamResult
-  {
-    internal new const string CmdName = "GetQzssEphDoubleParamForSVResult";
-
-    public GetQzssEphDoubleParamForSVResult()
-      : base()
-    {
-       Name = CmdName;
-    }
-
-    public GetQzssEphDoubleParamForSVResult(CommandBase relatedCommand, int svId, string paramName, double val, string dataSetName = null)
-      : base(relatedCommand, svId, paramName, val, dataSetName)
-    {
-      Name = CmdName;
-    }
-  }
-
-
-  ///
-  /// Please note the command SetNavICEphemerisDoubleParam is deprecated since 21.3. You may use SetNavICEphDoubleParamForSV.
-  /// 
-  /// Set various parameters in the NavIC ephemeris
-  /// 
-  ///   ParamName         Unit
-  ///   "ClockBias"       sec
-  ///   "ClockDrift"      sec/sec
-  ///   "ClockDriftRate"  sec/sec^2
-  ///   "Crs"             meter
-  ///   "Crc"             meter
-  ///   "Cis"             rad
-  ///   "Cic"             rad
-  ///   "Cus"             rad
-  ///   "Cuc"             rad
-  ///   "DeltaN"          rad/sec
-  ///   "M0"              rad
-  ///   "Eccentricity"    -
-  ///   "SqrtA"           sqrt(meter)
-  ///   "BigOmega"        rad
-  ///   "I0"              rad
-  ///   "LittleOmega"     rad
-  ///   "BigOmegaDot"     rad/sec
-  ///   "Idot"            rad/sec
-  ///   "Accuracy"        meter
-  ///   "Adot"            meters/sec
-  ///   "DeltaN0dot"      rad/sec^2
-  ///   "Tgd"             sec
-  ///
-  /// Name        Type            Description
-  /// ----------- --------------- -------------------------------------------------------------------------------------------
-  /// SvId        int             Satellite SV ID 1..14, or use 0 to apply new value to all satellites
-  /// ParamName   string          Parameter name (see table above for accepted names)
-  /// Val         double          Parameter value (see table above for unit)
-  /// DataSetName optional string Optional name of the data set to use. If no value is provided, the active data set is used.
-  ///
-
-  public class SetNavICEphemerisDoubleParam : CommandBase
-  {
-    public override string Documentation
-    {
-      get { return "Please note the command SetNavICEphemerisDoubleParam is deprecated since 21.3. You may use SetNavICEphDoubleParamForSV.\n\nSet various parameters in the NavIC ephemeris\n\n  ParamName         Unit\n  \"ClockBias\"       sec\n  \"ClockDrift\"      sec/sec\n  \"ClockDriftRate\"  sec/sec^2\n  \"Crs\"             meter\n  \"Crc\"             meter\n  \"Cis\"             rad\n  \"Cic\"             rad\n  \"Cus\"             rad\n  \"Cuc\"             rad\n  \"DeltaN\"          rad/sec\n  \"M0\"              rad\n  \"Eccentricity\"    -\n  \"SqrtA\"           sqrt(meter)\n  \"BigOmega\"        rad\n  \"I0\"              rad\n  \"LittleOmega\"     rad\n  \"BigOmegaDot\"     rad/sec\n  \"Idot\"            rad/sec\n  \"Accuracy\"        meter\n  \"Adot\"            meters/sec\n  \"DeltaN0dot\"      rad/sec^2\n  \"Tgd\"             sec"; }
-    }
-
-    internal const string CmdName = "SetNavICEphemerisDoubleParam";
-
-    public SetNavICEphemerisDoubleParam()
-      : base(CmdName)
-    {}
-
-    public SetNavICEphemerisDoubleParam(int svId, string paramName, double val, string dataSetName = null)
-      : base(CmdName)
-    {
-      SvId = svId;
-      ParamName = paramName;
-      Val = val;
-      DataSetName = dataSetName;
-    }
-      
-    public override bool IsValid
-    {
-      get
-      {
-        return base.IsValid
-        && Contains("SvId")
-        && Contains("ParamName")
-        && Contains("Val")
-      ;
-      }
-    }
-
-    public override int ExecutePermission { get { return EXECUTE_IF_IDLE; } }
-
-    public int SvId
-    {
-      get { return GetValue("SvId").ToObject<int>(CommandBase.Serializer); }
-      set
-      {
-          SetValue("SvId", JToken.FromObject(value, CommandBase.Serializer));
-      }
-    }
-
-    public string ParamName
-    {
-      get { return GetValue("ParamName").ToObject<string>(CommandBase.Serializer); }
-      set
-      {
-          SetValue("ParamName", JToken.FromObject(value, CommandBase.Serializer));
-      }
-    }
-
-    public double Val
-    {
-      get { return GetValue("Val").ToObject<double>(CommandBase.Serializer); }
-      set
-      {
-          SetValue("Val", JToken.FromObject(value, CommandBase.Serializer));
-      }
-    }
-
-    public string DataSetName
-    {
-      get { return GetValue("DataSetName").ToObject<string>(CommandBase.Serializer); }
-      set
-      {
-        if (value == null)
-          RemoveValue("DataSetName");
-        else
-          SetValue("DataSetName", JToken.FromObject(value, CommandBase.Serializer));
-      }
-    }
-  }
-
-
-  ///
-  /// Set various parameters in the NavIC ephemeris
-  /// 
-  ///   ParamName         Unit
-  ///   "ClockBias"       sec
-  ///   "ClockDrift"      sec/sec
-  ///   "ClockDriftRate"  sec/sec^2
-  ///   "Crs"             meter
-  ///   "Crc"             meter
-  ///   "Cis"             rad
-  ///   "Cic"             rad
-  ///   "Cus"             rad
-  ///   "Cuc"             rad
-  ///   "DeltaN"          rad/sec
-  ///   "M0"              rad
-  ///   "Eccentricity"    -
-  ///   "SqrtA"           sqrt(meter)
-  ///   "BigOmega"        rad
-  ///   "I0"              rad
-  ///   "LittleOmega"     rad
-  ///   "BigOmegaDot"     rad/sec
-  ///   "Idot"            rad/sec
-  ///   "Accuracy"        meter
-  ///   "Adot"            meters/sec
-  ///   "DeltaN0dot"      rad/sec^2
-  ///   "Tgd"             sec
-  ///
-  /// Name        Type            Description
-  /// ----------- --------------- -------------------------------------------------------------------------------------------
-  /// SvId        int             Satellite SV ID 1..14, or use 0 to apply new value to all satellites
-  /// ParamName   string          Parameter name (see table above for accepted names)
-  /// Val         double          Parameter value (see table above for unit)
-  /// DataSetName optional string Optional name of the data set to use. If no value is provided, the active data set is used.
-  ///
-
-  public class SetNavICEphDoubleParamForSV : CommandBase
-  {
-    public override string Documentation
-    {
-      get { return "Set various parameters in the NavIC ephemeris\n\n  ParamName         Unit\n  \"ClockBias\"       sec\n  \"ClockDrift\"      sec/sec\n  \"ClockDriftRate\"  sec/sec^2\n  \"Crs\"             meter\n  \"Crc\"             meter\n  \"Cis\"             rad\n  \"Cic\"             rad\n  \"Cus\"             rad\n  \"Cuc\"             rad\n  \"DeltaN\"          rad/sec\n  \"M0\"              rad\n  \"Eccentricity\"    -\n  \"SqrtA\"           sqrt(meter)\n  \"BigOmega\"        rad\n  \"I0\"              rad\n  \"LittleOmega\"     rad\n  \"BigOmegaDot\"     rad/sec\n  \"Idot\"            rad/sec\n  \"Accuracy\"        meter\n  \"Adot\"            meters/sec\n  \"DeltaN0dot\"      rad/sec^2\n  \"Tgd\"             sec"; }
-    }
-
-    internal const string CmdName = "SetNavICEphDoubleParamForSV";
-
-    public SetNavICEphDoubleParamForSV()
-      : base(CmdName)
-    {}
-
-    public SetNavICEphDoubleParamForSV(int svId, string paramName, double val, string dataSetName = null)
-      : base(CmdName)
-    {
-      SvId = svId;
-      ParamName = paramName;
-      Val = val;
-      DataSetName = dataSetName;
-    }
-      
-    public override bool IsValid
-    {
-      get
-      {
-        return base.IsValid
-        && Contains("SvId")
-        && Contains("ParamName")
-        && Contains("Val")
-      ;
-      }
-    }
-
-    public override int ExecutePermission { get { return EXECUTE_IF_IDLE; } }
-
-    public int SvId
-    {
-      get { return GetValue("SvId").ToObject<int>(CommandBase.Serializer); }
-      set
-      {
-          SetValue("SvId", JToken.FromObject(value, CommandBase.Serializer));
-      }
-    }
-
-    public string ParamName
-    {
-      get { return GetValue("ParamName").ToObject<string>(CommandBase.Serializer); }
-      set
-      {
-          SetValue("ParamName", JToken.FromObject(value, CommandBase.Serializer));
-      }
-    }
-
-    public double Val
-    {
-      get { return GetValue("Val").ToObject<double>(CommandBase.Serializer); }
-      set
-      {
-          SetValue("Val", JToken.FromObject(value, CommandBase.Serializer));
-      }
-    }
-
-    public string DataSetName
-    {
-      get { return GetValue("DataSetName").ToObject<string>(CommandBase.Serializer); }
-      set
-      {
-        if (value == null)
-          RemoveValue("DataSetName");
-        else
-          SetValue("DataSetName", JToken.FromObject(value, CommandBase.Serializer));
-      }
-    }
-  }
-
-
-  ///
-  /// Please note the command GetNavICEphemerisDoubleParam is deprecated since 21.3. You may use GetNavICEphDoubleParamForSV.
-  /// 
-  /// Get various parameters in the NavIC ephemeris
-  /// 
-  ///   ParamName         Unit
-  ///   "ClockBias"       sec
-  ///   "ClockDrift"      sec/sec
-  ///   "ClockDriftRate"  sec/sec^2
-  ///   "Crs"             meter
-  ///   "Crc"             meter
-  ///   "Cis"             rad
-  ///   "Cic"             rad
-  ///   "Cus"             rad
-  ///   "Cuc"             rad
-  ///   "DeltaN"          rad/sec
-  ///   "M0"              rad
-  ///   "Eccentricity"    -
-  ///   "SqrtA"           sqrt(meter)
-  ///   "BigOmega"        rad
-  ///   "I0"              rad
-  ///   "LittleOmega"     rad
-  ///   "BigOmegaDot"     rad/sec
-  ///   "Idot"            rad/sec
-  ///   "Accuracy"        meter
-  ///   "Adot"            meters/sec
-  ///   "DeltaN0dot"      rad/sec^2
-  ///   "Tgd"             sec
-  ///
-  /// Name        Type            Description
-  /// ----------- --------------- -------------------------------------------------------------------------------------------
-  /// SvId        int             Satellite SV ID 1..14, or use 0 to apply new value to all satellites
-  /// ParamName   string          Parameter name (see table above for accepted names)
-  /// DataSetName optional string Optional name of the data set to use. If no value is provided, the active data set is used.
-  ///
-
-  public class GetNavICEphemerisDoubleParam : CommandBase
-  {
-    public override string Documentation
-    {
-      get { return "Please note the command GetNavICEphemerisDoubleParam is deprecated since 21.3. You may use GetNavICEphDoubleParamForSV.\n\nGet various parameters in the NavIC ephemeris\n\n  ParamName         Unit\n  \"ClockBias\"       sec\n  \"ClockDrift\"      sec/sec\n  \"ClockDriftRate\"  sec/sec^2\n  \"Crs\"             meter\n  \"Crc\"             meter\n  \"Cis\"             rad\n  \"Cic\"             rad\n  \"Cus\"             rad\n  \"Cuc\"             rad\n  \"DeltaN\"          rad/sec\n  \"M0\"              rad\n  \"Eccentricity\"    -\n  \"SqrtA\"           sqrt(meter)\n  \"BigOmega\"        rad\n  \"I0\"              rad\n  \"LittleOmega\"     rad\n  \"BigOmegaDot\"     rad/sec\n  \"Idot\"            rad/sec\n  \"Accuracy\"        meter\n  \"Adot\"            meters/sec\n  \"DeltaN0dot\"      rad/sec^2\n  \"Tgd\"             sec"; }
-    }
-
-    internal const string CmdName = "GetNavICEphemerisDoubleParam";
-
-    public GetNavICEphemerisDoubleParam()
-      : base(CmdName)
-    {}
-
-    public GetNavICEphemerisDoubleParam(int svId, string paramName, string dataSetName = null)
-      : base(CmdName)
-    {
-      SvId = svId;
-      ParamName = paramName;
-      DataSetName = dataSetName;
-    }
-      
-    public override bool IsValid
-    {
-      get
-      {
-        return base.IsValid
-        && Contains("SvId")
-        && Contains("ParamName")
-      ;
-      }
-    }
-
-    public override int ExecutePermission { get { return EXECUTE_IF_IDLE; } }
-
-    public int SvId
-    {
-      get { return GetValue("SvId").ToObject<int>(CommandBase.Serializer); }
-      set
-      {
-          SetValue("SvId", JToken.FromObject(value, CommandBase.Serializer));
-      }
-    }
-
-    public string ParamName
-    {
-      get { return GetValue("ParamName").ToObject<string>(CommandBase.Serializer); }
-      set
-      {
-          SetValue("ParamName", JToken.FromObject(value, CommandBase.Serializer));
-      }
-    }
-
-    public string DataSetName
-    {
-      get { return GetValue("DataSetName").ToObject<string>(CommandBase.Serializer); }
-      set
-      {
-        if (value == null)
-          RemoveValue("DataSetName");
-        else
-          SetValue("DataSetName", JToken.FromObject(value, CommandBase.Serializer));
-      }
-    }
-  }
-
-
-  ///
-  /// Get various parameters in the NavIC ephemeris
-  /// 
-  ///   ParamName         Unit
-  ///   "ClockBias"       sec
-  ///   "ClockDrift"      sec/sec
-  ///   "ClockDriftRate"  sec/sec^2
-  ///   "Crs"             meter
-  ///   "Crc"             meter
-  ///   "Cis"             rad
-  ///   "Cic"             rad
-  ///   "Cus"             rad
-  ///   "Cuc"             rad
-  ///   "DeltaN"          rad/sec
-  ///   "M0"              rad
-  ///   "Eccentricity"    -
-  ///   "SqrtA"           sqrt(meter)
-  ///   "BigOmega"        rad
-  ///   "I0"              rad
-  ///   "LittleOmega"     rad
-  ///   "BigOmegaDot"     rad/sec
-  ///   "Idot"            rad/sec
-  ///   "Accuracy"        meter
-  ///   "Adot"            meters/sec
-  ///   "DeltaN0dot"      rad/sec^2
-  ///   "Tgd"             sec
-  ///
-  /// Name        Type            Description
-  /// ----------- --------------- -------------------------------------------------------------------------------------------
-  /// SvId        int             Satellite SV ID 1..14, or use 0 to apply new value to all satellites
-  /// ParamName   string          Parameter name (see table above for accepted names)
-  /// DataSetName optional string Optional name of the data set to use. If no value is provided, the active data set is used.
-  ///
-
-  public class GetNavICEphDoubleParamForSV : CommandBase
-  {
-    public override string Documentation
-    {
-      get { return "Get various parameters in the NavIC ephemeris\n\n  ParamName         Unit\n  \"ClockBias\"       sec\n  \"ClockDrift\"      sec/sec\n  \"ClockDriftRate\"  sec/sec^2\n  \"Crs\"             meter\n  \"Crc\"             meter\n  \"Cis\"             rad\n  \"Cic\"             rad\n  \"Cus\"             rad\n  \"Cuc\"             rad\n  \"DeltaN\"          rad/sec\n  \"M0\"              rad\n  \"Eccentricity\"    -\n  \"SqrtA\"           sqrt(meter)\n  \"BigOmega\"        rad\n  \"I0\"              rad\n  \"LittleOmega\"     rad\n  \"BigOmegaDot\"     rad/sec\n  \"Idot\"            rad/sec\n  \"Accuracy\"        meter\n  \"Adot\"            meters/sec\n  \"DeltaN0dot\"      rad/sec^2\n  \"Tgd\"             sec"; }
-    }
-
-    internal const string CmdName = "GetNavICEphDoubleParamForSV";
-
-    public GetNavICEphDoubleParamForSV()
-      : base(CmdName)
-    {}
-
-    public GetNavICEphDoubleParamForSV(int svId, string paramName, string dataSetName = null)
-      : base(CmdName)
-    {
-      SvId = svId;
-      ParamName = paramName;
-      DataSetName = dataSetName;
-    }
-      
-    public override bool IsValid
-    {
-      get
-      {
-        return base.IsValid
-        && Contains("SvId")
-        && Contains("ParamName")
-      ;
-      }
-    }
-
-    public override int ExecutePermission { get { return EXECUTE_IF_IDLE; } }
-
-    public int SvId
-    {
-      get { return GetValue("SvId").ToObject<int>(CommandBase.Serializer); }
-      set
-      {
-          SetValue("SvId", JToken.FromObject(value, CommandBase.Serializer));
-      }
-    }
-
-    public string ParamName
-    {
-      get { return GetValue("ParamName").ToObject<string>(CommandBase.Serializer); }
-      set
-      {
-          SetValue("ParamName", JToken.FromObject(value, CommandBase.Serializer));
-      }
-    }
-
-    public string DataSetName
-    {
-      get { return GetValue("DataSetName").ToObject<string>(CommandBase.Serializer); }
-      set
-      {
-        if (value == null)
-          RemoveValue("DataSetName");
-        else
-          SetValue("DataSetName", JToken.FromObject(value, CommandBase.Serializer));
-      }
-    }
-  }
-
-
-  ///
-  /// Result of GetNavICEphDoubleParamForSV.
-  ///
-  /// Name        Type            Description
-  /// ----------- --------------- -------------------------------------------------------------------------------------------
-  /// SvId        int             Satellite SV ID 1..14, or use 0 to apply new value to all satellites
-  /// ParamName   string          Parameter name (see table above for accepted names)
-  /// Val         double          Parameter value (see table above for unit)
-  /// DataSetName optional string Optional name of the data set to use. If no value is provided, the active data set is used.
-  ///
-
-  public class GetNavICEphemerisDoubleParamResult : CommandResult
-  {
-    public override string Documentation
-    {
-      get { return "Result of GetNavICEphDoubleParamForSV."; }
-    }
-  
-    internal const string CmdName = "GetNavICEphemerisDoubleParamResult";
-
-    public GetNavICEphemerisDoubleParamResult()
-      : base(CmdName)
-    {}
-
-    public GetNavICEphemerisDoubleParamResult(CommandBase relatedCommand, int svId, string paramName, double val, string dataSetName = null)
-      : base(CmdName, relatedCommand)
-    {
-      SvId = svId;
-      ParamName = paramName;
-      Val = val;
-      DataSetName = dataSetName;
-    }
-
-    public override bool IsValid
-    {
-      get
-      {
-        return base.IsValid
-        && Contains("SvId")
-        && Contains("ParamName")
-        && Contains("Val")
-      ;
-      }
-    }
-
-    public int SvId
-    {
-      get { return GetValue("SvId").ToObject<int>(CommandBase.Serializer); }
-      set { SetValue("SvId", JToken.FromObject(value, CommandBase.Serializer)); }
-    }
-
-    public string ParamName
-    {
-      get { return GetValue("ParamName").ToObject<string>(CommandBase.Serializer); }
-      set { SetValue("ParamName", JToken.FromObject(value, CommandBase.Serializer)); }
-    }
-
-    public double Val
-    {
-      get { return GetValue("Val").ToObject<double>(CommandBase.Serializer); }
-      set { SetValue("Val", JToken.FromObject(value, CommandBase.Serializer)); }
-    }
-
-    public string DataSetName
-    {
-      get { return GetValue("DataSetName").ToObject<string>(CommandBase.Serializer); }
-      set { SetValue("DataSetName", JToken.FromObject(value, CommandBase.Serializer)); }
-    }
-  }
-
-  ///
-  /// Name        Type            Description
-  /// ----------- --------------- -------------------------------------------------------------------------------------------
-  /// SvId        int             Satellite SV ID 1..14, or use 0 to apply new value to all satellites
-  /// ParamName   string          Parameter name (see table above for accepted names)
-  /// Val         double          Parameter value (see table above for unit)
-  /// DataSetName optional string Optional name of the data set to use. If no value is provided, the active data set is used.
-  ///
-
-  public class GetNavICEphDoubleParamForSVResult : GetNavICEphemerisDoubleParamResult
-  {
-    internal new const string CmdName = "GetNavICEphDoubleParamForSVResult";
-
-    public GetNavICEphDoubleParamForSVResult()
-      : base()
-    {
-       Name = CmdName;
-    }
-
-    public GetNavICEphDoubleParamForSVResult(CommandBase relatedCommand, int svId, string paramName, double val, string dataSetName = null)
-      : base(relatedCommand, svId, paramName, val, dataSetName)
-    {
-      Name = CmdName;
-    }
-  }
-
-
-  ///
-  /// Please note the command SetGpsEphemerisDoubleParams is deprecated since 21.3. You may use SetGpsEphDoubleParamForEachSV.
-  /// 
-  /// Set GPS ephemeris parameter value for all satellites
-  ///
-  /// Name        Type            Description
-  /// ----------- --------------- --------------------------------------------------------------------------------------------------
-  /// ParamName   string          Refer to SetGpsEphDoubleParamForSV for accepted names
-  /// Val         array double    Parameter value for each satellite. Zero based index (index 0 => SV ID 1, index 1 => SV ID 2, etc)
-  /// DataSetName optional string Optional name of the data set to use. If no value is provided, the active data set is used.
-  ///
-
-  public class SetGpsEphemerisDoubleParams : CommandBase
-  {
-    public override string Documentation
-    {
-      get { return "Please note the command SetGpsEphemerisDoubleParams is deprecated since 21.3. You may use SetGpsEphDoubleParamForEachSV.\n\nSet GPS ephemeris parameter value for all satellites"; }
-    }
-
-    internal const string CmdName = "SetGpsEphemerisDoubleParams";
-
-    public SetGpsEphemerisDoubleParams()
-      : base(CmdName)
-    {}
-
-    public SetGpsEphemerisDoubleParams(string paramName, List<double> val, string dataSetName = null)
-      : base(CmdName)
-    {
-      ParamName = paramName;
-      Val = val;
-      DataSetName = dataSetName;
-    }
-      
-    public override bool IsValid
-    {
-      get
-      {
-        return base.IsValid
-        && Contains("ParamName")
-        && Contains("Val")
-      ;
-      }
-    }
-
-    public override int ExecutePermission { get { return EXECUTE_IF_IDLE; } }
-
-    public string ParamName
-    {
-      get { return GetValue("ParamName").ToObject<string>(CommandBase.Serializer); }
-      set
-      {
-          SetValue("ParamName", JToken.FromObject(value, CommandBase.Serializer));
-      }
-    }
-
-    public List<double> Val
-    {
-      get { return GetValue("Val").ToObject<List<double>>(CommandBase.Serializer); }
-      set
-      {
-          SetValue("Val", JToken.FromObject(value, CommandBase.Serializer));
-      }
-    }
-
-    public string DataSetName
-    {
-      get { return GetValue("DataSetName").ToObject<string>(CommandBase.Serializer); }
-      set
-      {
-        if (value == null)
-          RemoveValue("DataSetName");
-        else
-          SetValue("DataSetName", JToken.FromObject(value, CommandBase.Serializer));
-      }
-    }
-  }
-
-
-  ///
-  /// Set GPS ephemeris parameter value for all satellites
-  ///
-  /// Name        Type            Description
-  /// ----------- --------------- --------------------------------------------------------------------------------------------------
-  /// ParamName   string          Refer to SetGpsEphDoubleParamForSV for accepted names
-  /// Val         array double    Parameter value for each satellite. Zero based index (index 0 => SV ID 1, index 1 => SV ID 2, etc)
-  /// DataSetName optional string Optional name of the data set to use. If no value is provided, the active data set is used.
-  ///
-
-  public class SetGpsEphDoubleParamForEachSV : CommandBase
-  {
-    public override string Documentation
-    {
-      get { return "Set GPS ephemeris parameter value for all satellites"; }
-    }
-
-    internal const string CmdName = "SetGpsEphDoubleParamForEachSV";
-
-    public SetGpsEphDoubleParamForEachSV()
-      : base(CmdName)
-    {}
-
-    public SetGpsEphDoubleParamForEachSV(string paramName, List<double> val, string dataSetName = null)
-      : base(CmdName)
-    {
-      ParamName = paramName;
-      Val = val;
-      DataSetName = dataSetName;
-    }
-      
-    public override bool IsValid
-    {
-      get
-      {
-        return base.IsValid
-        && Contains("ParamName")
-        && Contains("Val")
-      ;
-      }
-    }
-
-    public override int ExecutePermission { get { return EXECUTE_IF_IDLE; } }
-
-    public string ParamName
-    {
-      get { return GetValue("ParamName").ToObject<string>(CommandBase.Serializer); }
-      set
-      {
-          SetValue("ParamName", JToken.FromObject(value, CommandBase.Serializer));
-      }
-    }
-
-    public List<double> Val
-    {
-      get { return GetValue("Val").ToObject<List<double>>(CommandBase.Serializer); }
-      set
-      {
-          SetValue("Val", JToken.FromObject(value, CommandBase.Serializer));
-      }
-    }
-
-    public string DataSetName
-    {
-      get { return GetValue("DataSetName").ToObject<string>(CommandBase.Serializer); }
-      set
-      {
-        if (value == null)
-          RemoveValue("DataSetName");
-        else
-          SetValue("DataSetName", JToken.FromObject(value, CommandBase.Serializer));
-      }
-    }
-  }
-
-
-  ///
-  /// Please note the command GetGpsEphemerisDoubleParams is deprecated since 21.3. You may use GetGpsEphDoubleParamForEachSV.
-  /// 
-  /// Get GPS ephemeris parameter value for all satellites
-  ///
-  /// Name        Type            Description
-  /// ----------- --------------- -------------------------------------------------------------------------------------------
-  /// ParamName   string          Refer to SetGpsEphDoubleParamForSV for accepted names
-  /// DataSetName optional string Optional name of the data set to use. If no value is provided, the active data set is used.
-  ///
-
-  public class GetGpsEphemerisDoubleParams : CommandBase
-  {
-    public override string Documentation
-    {
-      get { return "Please note the command GetGpsEphemerisDoubleParams is deprecated since 21.3. You may use GetGpsEphDoubleParamForEachSV.\n\nGet GPS ephemeris parameter value for all satellites"; }
-    }
-
-    internal const string CmdName = "GetGpsEphemerisDoubleParams";
-
-    public GetGpsEphemerisDoubleParams()
-      : base(CmdName)
-    {}
-
-    public GetGpsEphemerisDoubleParams(string paramName, string dataSetName = null)
-      : base(CmdName)
-    {
-      ParamName = paramName;
-      DataSetName = dataSetName;
-    }
-      
-    public override bool IsValid
-    {
-      get
-      {
-        return base.IsValid
-        && Contains("ParamName")
-      ;
-      }
-    }
-
-    public override int ExecutePermission { get { return EXECUTE_IF_IDLE; } }
-
-    public string ParamName
-    {
-      get { return GetValue("ParamName").ToObject<string>(CommandBase.Serializer); }
-      set
-      {
-          SetValue("ParamName", JToken.FromObject(value, CommandBase.Serializer));
-      }
-    }
-
-    public string DataSetName
-    {
-      get { return GetValue("DataSetName").ToObject<string>(CommandBase.Serializer); }
-      set
-      {
-        if (value == null)
-          RemoveValue("DataSetName");
-        else
-          SetValue("DataSetName", JToken.FromObject(value, CommandBase.Serializer));
-      }
-    }
-  }
-
-
-  ///
-  /// Get GPS ephemeris parameter value for all satellites
-  ///
-  /// Name        Type            Description
-  /// ----------- --------------- -------------------------------------------------------------------------------------------
-  /// ParamName   string          Refer to SetGpsEphDoubleParamForSV for accepted names
-  /// DataSetName optional string Optional name of the data set to use. If no value is provided, the active data set is used.
-  ///
-
-  public class GetGpsEphDoubleParamForEachSV : CommandBase
-  {
-    public override string Documentation
-    {
-      get { return "Get GPS ephemeris parameter value for all satellites"; }
-    }
-
-    internal const string CmdName = "GetGpsEphDoubleParamForEachSV";
-
-    public GetGpsEphDoubleParamForEachSV()
-      : base(CmdName)
-    {}
-
-    public GetGpsEphDoubleParamForEachSV(string paramName, string dataSetName = null)
-      : base(CmdName)
-    {
-      ParamName = paramName;
-      DataSetName = dataSetName;
-    }
-      
-    public override bool IsValid
-    {
-      get
-      {
-        return base.IsValid
-        && Contains("ParamName")
-      ;
-      }
-    }
-
-    public override int ExecutePermission { get { return EXECUTE_IF_IDLE; } }
-
-    public string ParamName
-    {
-      get { return GetValue("ParamName").ToObject<string>(CommandBase.Serializer); }
-      set
-      {
-          SetValue("ParamName", JToken.FromObject(value, CommandBase.Serializer));
-      }
-    }
-
-    public string DataSetName
-    {
-      get { return GetValue("DataSetName").ToObject<string>(CommandBase.Serializer); }
-      set
-      {
-        if (value == null)
-          RemoveValue("DataSetName");
-        else
-          SetValue("DataSetName", JToken.FromObject(value, CommandBase.Serializer));
-      }
-    }
-  }
-
-
-  ///
-  /// Result of GetGpsEphDoubleParamForEachSV.
-  ///
-  /// Name        Type            Description
-  /// ----------- --------------- --------------------------------------------------------------------------------------------------
-  /// ParamName   string          Refer to SetGpsEphDoubleParamForSV for accepted names
-  /// Val         array double    Parameter value for each satellite. Zero based index (index 0 => SV ID 1, index 1 => SV ID 2, etc)
-  /// DataSetName optional string Optional name of the data set to use. If no value is provided, the active data set is used.
-  ///
-
-  public class GetGpsEphemerisDoubleParamsResult : CommandResult
-  {
-    public override string Documentation
-    {
-      get { return "Result of GetGpsEphDoubleParamForEachSV."; }
-    }
-  
-    internal const string CmdName = "GetGpsEphemerisDoubleParamsResult";
-
-    public GetGpsEphemerisDoubleParamsResult()
-      : base(CmdName)
-    {}
-
-    public GetGpsEphemerisDoubleParamsResult(CommandBase relatedCommand, string paramName, List<double> val, string dataSetName = null)
-      : base(CmdName, relatedCommand)
-    {
-      ParamName = paramName;
-      Val = val;
-      DataSetName = dataSetName;
-    }
-
-    public override bool IsValid
-    {
-      get
-      {
-        return base.IsValid
-        && Contains("ParamName")
-        && Contains("Val")
-      ;
-      }
-    }
-
-    public string ParamName
-    {
-      get { return GetValue("ParamName").ToObject<string>(CommandBase.Serializer); }
-      set { SetValue("ParamName", JToken.FromObject(value, CommandBase.Serializer)); }
-    }
-
-    public List<double> Val
-    {
-      get { return GetValue("Val").ToObject<List<double>>(CommandBase.Serializer); }
-      set { SetValue("Val", JToken.FromObject(value, CommandBase.Serializer)); }
-    }
-
-    public string DataSetName
-    {
-      get { return GetValue("DataSetName").ToObject<string>(CommandBase.Serializer); }
-      set { SetValue("DataSetName", JToken.FromObject(value, CommandBase.Serializer)); }
-    }
-  }
-
-  ///
-  /// Name        Type            Description
-  /// ----------- --------------- --------------------------------------------------------------------------------------------------
-  /// ParamName   string          Refer to SetGpsEphDoubleParamForSV for accepted names
-  /// Val         array double    Parameter value for each satellite. Zero based index (index 0 => SV ID 1, index 1 => SV ID 2, etc)
-  /// DataSetName optional string Optional name of the data set to use. If no value is provided, the active data set is used.
-  ///
-
-  public class GetGpsEphDoubleParamForEachSVResult : GetGpsEphemerisDoubleParamsResult
-  {
-    internal new const string CmdName = "GetGpsEphDoubleParamForEachSVResult";
-
-    public GetGpsEphDoubleParamForEachSVResult()
-      : base()
-    {
-       Name = CmdName;
-    }
-
-    public GetGpsEphDoubleParamForEachSVResult(CommandBase relatedCommand, string paramName, List<double> val, string dataSetName = null)
-      : base(relatedCommand, paramName, val, dataSetName)
-    {
-      Name = CmdName;
-    }
-  }
-
-
-  ///
-  /// Please note the command SetGalileoEphemerisDoubleParams is deprecated since 21.3. You may use SetGalileoEphDoubleParamForEachSV.
-  /// 
-  /// Set Galileo ephemeris parameter value for all satellites
-  ///
-  /// Name        Type            Description
-  /// ----------- --------------- --------------------------------------------------------------------------------------------------
-  /// ParamName   string          Refer to SetGalileoEphDoubleParamForSV for accepted names
-  /// Val         array double    Parameter value for each satellite. Zero based index (index 0 => SV ID 1, index 1 => SV ID 2, etc)
-  /// DataSetName optional string Optional name of the data set to use. If no value is provided, the active data set is used.
-  ///
-
-  public class SetGalileoEphemerisDoubleParams : CommandBase
-  {
-    public override string Documentation
-    {
-      get { return "Please note the command SetGalileoEphemerisDoubleParams is deprecated since 21.3. You may use SetGalileoEphDoubleParamForEachSV.\n\nSet Galileo ephemeris parameter value for all satellites"; }
-    }
-
-    internal const string CmdName = "SetGalileoEphemerisDoubleParams";
-
-    public SetGalileoEphemerisDoubleParams()
-      : base(CmdName)
-    {}
-
-    public SetGalileoEphemerisDoubleParams(string paramName, List<double> val, string dataSetName = null)
-      : base(CmdName)
-    {
-      ParamName = paramName;
-      Val = val;
-      DataSetName = dataSetName;
-    }
-      
-    public override bool IsValid
-    {
-      get
-      {
-        return base.IsValid
-        && Contains("ParamName")
-        && Contains("Val")
-      ;
-      }
-    }
-
-    public override int ExecutePermission { get { return EXECUTE_IF_IDLE; } }
-
-    public string ParamName
-    {
-      get { return GetValue("ParamName").ToObject<string>(CommandBase.Serializer); }
-      set
-      {
-          SetValue("ParamName", JToken.FromObject(value, CommandBase.Serializer));
-      }
-    }
-
-    public List<double> Val
-    {
-      get { return GetValue("Val").ToObject<List<double>>(CommandBase.Serializer); }
-      set
-      {
-          SetValue("Val", JToken.FromObject(value, CommandBase.Serializer));
-      }
-    }
-
-    public string DataSetName
-    {
-      get { return GetValue("DataSetName").ToObject<string>(CommandBase.Serializer); }
-      set
-      {
-        if (value == null)
-          RemoveValue("DataSetName");
-        else
-          SetValue("DataSetName", JToken.FromObject(value, CommandBase.Serializer));
-      }
-    }
-  }
-
-
-  ///
-  /// Set Galileo ephemeris parameter value for all satellites
-  ///
-  /// Name        Type            Description
-  /// ----------- --------------- --------------------------------------------------------------------------------------------------
-  /// ParamName   string          Refer to SetGalileoEphDoubleParamForSV for accepted names
-  /// Val         array double    Parameter value for each satellite. Zero based index (index 0 => SV ID 1, index 1 => SV ID 2, etc)
-  /// DataSetName optional string Optional name of the data set to use. If no value is provided, the active data set is used.
-  ///
-
-  public class SetGalileoEphDoubleParamForEachSV : CommandBase
-  {
-    public override string Documentation
-    {
-      get { return "Set Galileo ephemeris parameter value for all satellites"; }
-    }
-
-    internal const string CmdName = "SetGalileoEphDoubleParamForEachSV";
-
-    public SetGalileoEphDoubleParamForEachSV()
-      : base(CmdName)
-    {}
-
-    public SetGalileoEphDoubleParamForEachSV(string paramName, List<double> val, string dataSetName = null)
-      : base(CmdName)
-    {
-      ParamName = paramName;
-      Val = val;
-      DataSetName = dataSetName;
-    }
-      
-    public override bool IsValid
-    {
-      get
-      {
-        return base.IsValid
-        && Contains("ParamName")
-        && Contains("Val")
-      ;
-      }
-    }
-
-    public override int ExecutePermission { get { return EXECUTE_IF_IDLE; } }
-
-    public string ParamName
-    {
-      get { return GetValue("ParamName").ToObject<string>(CommandBase.Serializer); }
-      set
-      {
-          SetValue("ParamName", JToken.FromObject(value, CommandBase.Serializer));
-      }
-    }
-
-    public List<double> Val
-    {
-      get { return GetValue("Val").ToObject<List<double>>(CommandBase.Serializer); }
-      set
-      {
-          SetValue("Val", JToken.FromObject(value, CommandBase.Serializer));
-      }
-    }
-
-    public string DataSetName
-    {
-      get { return GetValue("DataSetName").ToObject<string>(CommandBase.Serializer); }
-      set
-      {
-        if (value == null)
-          RemoveValue("DataSetName");
-        else
-          SetValue("DataSetName", JToken.FromObject(value, CommandBase.Serializer));
-      }
-    }
-  }
-
-
-  ///
-  /// Please note the command GetGalileoEphemerisDoubleParams is deprecated since 21.3. You may use GetGalileoEphDoubleParamForEachSV.
-  /// 
-  /// Get Galileo ephemeris parameter value for all satellites
-  ///
-  /// Name        Type            Description
-  /// ----------- --------------- -------------------------------------------------------------------------------------------
-  /// ParamName   string          Refer to SetGalileoEphDoubleParamForSV for accepted names
-  /// DataSetName optional string Optional name of the data set to use. If no value is provided, the active data set is used.
-  ///
-
-  public class GetGalileoEphemerisDoubleParams : CommandBase
-  {
-    public override string Documentation
-    {
-      get { return "Please note the command GetGalileoEphemerisDoubleParams is deprecated since 21.3. You may use GetGalileoEphDoubleParamForEachSV.\n\nGet Galileo ephemeris parameter value for all satellites"; }
-    }
-
-    internal const string CmdName = "GetGalileoEphemerisDoubleParams";
-
-    public GetGalileoEphemerisDoubleParams()
-      : base(CmdName)
-    {}
-
-    public GetGalileoEphemerisDoubleParams(string paramName, string dataSetName = null)
-      : base(CmdName)
-    {
-      ParamName = paramName;
-      DataSetName = dataSetName;
-    }
-      
-    public override bool IsValid
-    {
-      get
-      {
-        return base.IsValid
-        && Contains("ParamName")
-      ;
-      }
-    }
-
-    public override int ExecutePermission { get { return EXECUTE_IF_IDLE; } }
-
-    public string ParamName
-    {
-      get { return GetValue("ParamName").ToObject<string>(CommandBase.Serializer); }
-      set
-      {
-          SetValue("ParamName", JToken.FromObject(value, CommandBase.Serializer));
-      }
-    }
-
-    public string DataSetName
-    {
-      get { return GetValue("DataSetName").ToObject<string>(CommandBase.Serializer); }
-      set
-      {
-        if (value == null)
-          RemoveValue("DataSetName");
-        else
-          SetValue("DataSetName", JToken.FromObject(value, CommandBase.Serializer));
-      }
-    }
-  }
-
-
-  ///
-  /// Get Galileo ephemeris parameter value for all satellites
-  ///
-  /// Name        Type            Description
-  /// ----------- --------------- -------------------------------------------------------------------------------------------
-  /// ParamName   string          Refer to SetGalileoEphDoubleParamForSV for accepted names
-  /// DataSetName optional string Optional name of the data set to use. If no value is provided, the active data set is used.
-  ///
-
-  public class GetGalileoEphDoubleParamForEachSV : CommandBase
-  {
-    public override string Documentation
-    {
-      get { return "Get Galileo ephemeris parameter value for all satellites"; }
-    }
-
-    internal const string CmdName = "GetGalileoEphDoubleParamForEachSV";
-
-    public GetGalileoEphDoubleParamForEachSV()
-      : base(CmdName)
-    {}
-
-    public GetGalileoEphDoubleParamForEachSV(string paramName, string dataSetName = null)
-      : base(CmdName)
-    {
-      ParamName = paramName;
-      DataSetName = dataSetName;
-    }
-      
-    public override bool IsValid
-    {
-      get
-      {
-        return base.IsValid
-        && Contains("ParamName")
-      ;
-      }
-    }
-
-    public override int ExecutePermission { get { return EXECUTE_IF_IDLE; } }
-
-    public string ParamName
-    {
-      get { return GetValue("ParamName").ToObject<string>(CommandBase.Serializer); }
-      set
-      {
-          SetValue("ParamName", JToken.FromObject(value, CommandBase.Serializer));
-      }
-    }
-
-    public string DataSetName
-    {
-      get { return GetValue("DataSetName").ToObject<string>(CommandBase.Serializer); }
-      set
-      {
-        if (value == null)
-          RemoveValue("DataSetName");
-        else
-          SetValue("DataSetName", JToken.FromObject(value, CommandBase.Serializer));
-      }
-    }
-  }
-
-
-  ///
-  /// Result of GetGalileoEphDoubleParamForEachSV.
-  ///
-  /// Name        Type            Description
-  /// ----------- --------------- --------------------------------------------------------------------------------------------------
-  /// ParamName   string          Refer to SetGalileoEphDoubleParamForSV for accepted names
-  /// Val         array double    Parameter value for each satellite. Zero based index (index 0 => SV ID 1, index 1 => SV ID 2, etc)
-  /// DataSetName optional string Optional name of the data set to use. If no value is provided, the active data set is used.
-  ///
-
-  public class GetGalileoEphemerisDoubleParamsResult : CommandResult
-  {
-    public override string Documentation
-    {
-      get { return "Result of GetGalileoEphDoubleParamForEachSV."; }
-    }
-  
-    internal const string CmdName = "GetGalileoEphemerisDoubleParamsResult";
-
-    public GetGalileoEphemerisDoubleParamsResult()
-      : base(CmdName)
-    {}
-
-    public GetGalileoEphemerisDoubleParamsResult(CommandBase relatedCommand, string paramName, List<double> val, string dataSetName = null)
-      : base(CmdName, relatedCommand)
-    {
-      ParamName = paramName;
-      Val = val;
-      DataSetName = dataSetName;
-    }
-
-    public override bool IsValid
-    {
-      get
-      {
-        return base.IsValid
-        && Contains("ParamName")
-        && Contains("Val")
-      ;
-      }
-    }
-
-    public string ParamName
-    {
-      get { return GetValue("ParamName").ToObject<string>(CommandBase.Serializer); }
-      set { SetValue("ParamName", JToken.FromObject(value, CommandBase.Serializer)); }
-    }
-
-    public List<double> Val
-    {
-      get { return GetValue("Val").ToObject<List<double>>(CommandBase.Serializer); }
-      set { SetValue("Val", JToken.FromObject(value, CommandBase.Serializer)); }
-    }
-
-    public string DataSetName
-    {
-      get { return GetValue("DataSetName").ToObject<string>(CommandBase.Serializer); }
-      set { SetValue("DataSetName", JToken.FromObject(value, CommandBase.Serializer)); }
-    }
-  }
-
-  ///
-  /// Name        Type            Description
-  /// ----------- --------------- --------------------------------------------------------------------------------------------------
-  /// ParamName   string          Refer to SetGalileoEphDoubleParamForSV for accepted names
-  /// Val         array double    Parameter value for each satellite. Zero based index (index 0 => SV ID 1, index 1 => SV ID 2, etc)
-  /// DataSetName optional string Optional name of the data set to use. If no value is provided, the active data set is used.
-  ///
-
-  public class GetGalileoEphDoubleParamForEachSVResult : GetGalileoEphemerisDoubleParamsResult
-  {
-    internal new const string CmdName = "GetGalileoEphDoubleParamForEachSVResult";
-
-    public GetGalileoEphDoubleParamForEachSVResult()
-      : base()
-    {
-       Name = CmdName;
-    }
-
-    public GetGalileoEphDoubleParamForEachSVResult(CommandBase relatedCommand, string paramName, List<double> val, string dataSetName = null)
-      : base(relatedCommand, paramName, val, dataSetName)
-    {
-      Name = CmdName;
-    }
-  }
-
-
-  ///
-  /// Please note the command SetBeiDouEphemerisDoubleParams is deprecated since 21.3. You may use SetBeiDouEphDoubleParamForEachSV.
-  /// 
-  /// Set BeiDou ephemeris parameter value for all satellites
-  ///
-  /// Name        Type            Description
-  /// ----------- --------------- --------------------------------------------------------------------------------------------------
-  /// ParamName   string          Refer to SetBeiDouEphDoubleParamForSV for accepted names
-  /// Val         array double    Parameter value for each satellite. Zero based index (index 0 => SV ID 1, index 1 => SV ID 2, etc)
-  /// DataSetName optional string Optional name of the data set to use. If no value is provided, the active data set is used.
-  ///
-
-  public class SetBeiDouEphemerisDoubleParams : CommandBase
-  {
-    public override string Documentation
-    {
-      get { return "Please note the command SetBeiDouEphemerisDoubleParams is deprecated since 21.3. You may use SetBeiDouEphDoubleParamForEachSV.\n\nSet BeiDou ephemeris parameter value for all satellites"; }
-    }
-
-    internal const string CmdName = "SetBeiDouEphemerisDoubleParams";
-
-    public SetBeiDouEphemerisDoubleParams()
-      : base(CmdName)
-    {}
-
-    public SetBeiDouEphemerisDoubleParams(string paramName, List<double> val, string dataSetName = null)
-      : base(CmdName)
-    {
-      ParamName = paramName;
-      Val = val;
-      DataSetName = dataSetName;
-    }
-      
-    public override bool IsValid
-    {
-      get
-      {
-        return base.IsValid
-        && Contains("ParamName")
-        && Contains("Val")
-      ;
-      }
-    }
-
-    public override int ExecutePermission { get { return EXECUTE_IF_IDLE; } }
-
-    public string ParamName
-    {
-      get { return GetValue("ParamName").ToObject<string>(CommandBase.Serializer); }
-      set
-      {
-          SetValue("ParamName", JToken.FromObject(value, CommandBase.Serializer));
-      }
-    }
-
-    public List<double> Val
-    {
-      get { return GetValue("Val").ToObject<List<double>>(CommandBase.Serializer); }
-      set
-      {
-          SetValue("Val", JToken.FromObject(value, CommandBase.Serializer));
-      }
-    }
-
-    public string DataSetName
-    {
-      get { return GetValue("DataSetName").ToObject<string>(CommandBase.Serializer); }
-      set
-      {
-        if (value == null)
-          RemoveValue("DataSetName");
-        else
-          SetValue("DataSetName", JToken.FromObject(value, CommandBase.Serializer));
-      }
-    }
-  }
-
-
-  ///
-  /// Set BeiDou ephemeris parameter value for all satellites
-  ///
-  /// Name        Type            Description
-  /// ----------- --------------- --------------------------------------------------------------------------------------------------
-  /// ParamName   string          Refer to SetBeiDouEphDoubleParamForSV for accepted names
-  /// Val         array double    Parameter value for each satellite. Zero based index (index 0 => SV ID 1, index 1 => SV ID 2, etc)
-  /// DataSetName optional string Optional name of the data set to use. If no value is provided, the active data set is used.
-  ///
-
-  public class SetBeiDouEphDoubleParamForEachSV : CommandBase
-  {
-    public override string Documentation
-    {
-      get { return "Set BeiDou ephemeris parameter value for all satellites"; }
-    }
-
-    internal const string CmdName = "SetBeiDouEphDoubleParamForEachSV";
-
-    public SetBeiDouEphDoubleParamForEachSV()
-      : base(CmdName)
-    {}
-
-    public SetBeiDouEphDoubleParamForEachSV(string paramName, List<double> val, string dataSetName = null)
-      : base(CmdName)
-    {
-      ParamName = paramName;
-      Val = val;
-      DataSetName = dataSetName;
-    }
-      
-    public override bool IsValid
-    {
-      get
-      {
-        return base.IsValid
-        && Contains("ParamName")
-        && Contains("Val")
-      ;
-      }
-    }
-
-    public override int ExecutePermission { get { return EXECUTE_IF_IDLE; } }
-
-    public string ParamName
-    {
-      get { return GetValue("ParamName").ToObject<string>(CommandBase.Serializer); }
-      set
-      {
-          SetValue("ParamName", JToken.FromObject(value, CommandBase.Serializer));
-      }
-    }
-
-    public List<double> Val
-    {
-      get { return GetValue("Val").ToObject<List<double>>(CommandBase.Serializer); }
-      set
-      {
-          SetValue("Val", JToken.FromObject(value, CommandBase.Serializer));
-      }
-    }
-
-    public string DataSetName
-    {
-      get { return GetValue("DataSetName").ToObject<string>(CommandBase.Serializer); }
-      set
-      {
-        if (value == null)
-          RemoveValue("DataSetName");
-        else
-          SetValue("DataSetName", JToken.FromObject(value, CommandBase.Serializer));
-      }
-    }
-  }
-
-
-  ///
-  /// Please note the command GetBeiDouEphemerisDoubleParams is deprecated since 21.3. You may use GetBeiDouEphDoubleParamForEachSV.
-  /// 
-  /// Get BeiDou ephemeris parameter value for all satellites
-  ///
-  /// Name        Type            Description
-  /// ----------- --------------- -------------------------------------------------------------------------------------------
-  /// ParamName   string          Refer to SetBeiDouEphDoubleParamForSV for accepted names
-  /// DataSetName optional string Optional name of the data set to use. If no value is provided, the active data set is used.
-  ///
-
-  public class GetBeiDouEphemerisDoubleParams : CommandBase
-  {
-    public override string Documentation
-    {
-      get { return "Please note the command GetBeiDouEphemerisDoubleParams is deprecated since 21.3. You may use GetBeiDouEphDoubleParamForEachSV.\n\nGet BeiDou ephemeris parameter value for all satellites"; }
-    }
-
-    internal const string CmdName = "GetBeiDouEphemerisDoubleParams";
-
-    public GetBeiDouEphemerisDoubleParams()
-      : base(CmdName)
-    {}
-
-    public GetBeiDouEphemerisDoubleParams(string paramName, string dataSetName = null)
-      : base(CmdName)
-    {
-      ParamName = paramName;
-      DataSetName = dataSetName;
-    }
-      
-    public override bool IsValid
-    {
-      get
-      {
-        return base.IsValid
-        && Contains("ParamName")
-      ;
-      }
-    }
-
-    public override int ExecutePermission { get { return EXECUTE_IF_IDLE; } }
-
-    public string ParamName
-    {
-      get { return GetValue("ParamName").ToObject<string>(CommandBase.Serializer); }
-      set
-      {
-          SetValue("ParamName", JToken.FromObject(value, CommandBase.Serializer));
-      }
-    }
-
-    public string DataSetName
-    {
-      get { return GetValue("DataSetName").ToObject<string>(CommandBase.Serializer); }
-      set
-      {
-        if (value == null)
-          RemoveValue("DataSetName");
-        else
-          SetValue("DataSetName", JToken.FromObject(value, CommandBase.Serializer));
-      }
-    }
-  }
-
-
-  ///
-  /// Get BeiDou ephemeris parameter value for all satellites
-  ///
-  /// Name        Type            Description
-  /// ----------- --------------- -------------------------------------------------------------------------------------------
-  /// ParamName   string          Refer to SetBeiDouEphDoubleParamForSV for accepted names
-  /// DataSetName optional string Optional name of the data set to use. If no value is provided, the active data set is used.
-  ///
-
-  public class GetBeiDouEphDoubleParamForEachSV : CommandBase
-  {
-    public override string Documentation
-    {
-      get { return "Get BeiDou ephemeris parameter value for all satellites"; }
-    }
-
-    internal const string CmdName = "GetBeiDouEphDoubleParamForEachSV";
-
-    public GetBeiDouEphDoubleParamForEachSV()
-      : base(CmdName)
-    {}
-
-    public GetBeiDouEphDoubleParamForEachSV(string paramName, string dataSetName = null)
-      : base(CmdName)
-    {
-      ParamName = paramName;
-      DataSetName = dataSetName;
-    }
-      
-    public override bool IsValid
-    {
-      get
-      {
-        return base.IsValid
-        && Contains("ParamName")
-      ;
-      }
-    }
-
-    public override int ExecutePermission { get { return EXECUTE_IF_IDLE; } }
-
-    public string ParamName
-    {
-      get { return GetValue("ParamName").ToObject<string>(CommandBase.Serializer); }
-      set
-      {
-          SetValue("ParamName", JToken.FromObject(value, CommandBase.Serializer));
-      }
-    }
-
-    public string DataSetName
-    {
-      get { return GetValue("DataSetName").ToObject<string>(CommandBase.Serializer); }
-      set
-      {
-        if (value == null)
-          RemoveValue("DataSetName");
-        else
-          SetValue("DataSetName", JToken.FromObject(value, CommandBase.Serializer));
-      }
-    }
-  }
-
-
-  ///
-  /// Result of GetBeiDouEphDoubleParamForEachSV.
-  ///
-  /// Name        Type            Description
-  /// ----------- --------------- --------------------------------------------------------------------------------------------------
-  /// ParamName   string          Refer to SetBeiDouEphDoubleParamForSV for accepted names
-  /// Val         array double    Parameter value for each satellite. Zero based index (index 0 => SV ID 1, index 1 => SV ID 2, etc)
-  /// DataSetName optional string Optional name of the data set to use. If no value is provided, the active data set is used.
-  ///
-
-  public class GetBeiDouEphemerisDoubleParamsResult : CommandResult
-  {
-    public override string Documentation
-    {
-      get { return "Result of GetBeiDouEphDoubleParamForEachSV."; }
-    }
-  
-    internal const string CmdName = "GetBeiDouEphemerisDoubleParamsResult";
-
-    public GetBeiDouEphemerisDoubleParamsResult()
-      : base(CmdName)
-    {}
-
-    public GetBeiDouEphemerisDoubleParamsResult(CommandBase relatedCommand, string paramName, List<double> val, string dataSetName = null)
-      : base(CmdName, relatedCommand)
-    {
-      ParamName = paramName;
-      Val = val;
-      DataSetName = dataSetName;
-    }
-
-    public override bool IsValid
-    {
-      get
-      {
-        return base.IsValid
-        && Contains("ParamName")
-        && Contains("Val")
-      ;
-      }
-    }
-
-    public string ParamName
-    {
-      get { return GetValue("ParamName").ToObject<string>(CommandBase.Serializer); }
-      set { SetValue("ParamName", JToken.FromObject(value, CommandBase.Serializer)); }
-    }
-
-    public List<double> Val
-    {
-      get { return GetValue("Val").ToObject<List<double>>(CommandBase.Serializer); }
-      set { SetValue("Val", JToken.FromObject(value, CommandBase.Serializer)); }
-    }
-
-    public string DataSetName
-    {
-      get { return GetValue("DataSetName").ToObject<string>(CommandBase.Serializer); }
-      set { SetValue("DataSetName", JToken.FromObject(value, CommandBase.Serializer)); }
-    }
-  }
-
-  ///
-  /// Name        Type            Description
-  /// ----------- --------------- --------------------------------------------------------------------------------------------------
-  /// ParamName   string          Refer to SetBeiDouEphDoubleParamForSV for accepted names
-  /// Val         array double    Parameter value for each satellite. Zero based index (index 0 => SV ID 1, index 1 => SV ID 2, etc)
-  /// DataSetName optional string Optional name of the data set to use. If no value is provided, the active data set is used.
-  ///
-
-  public class GetBeiDouEphDoubleParamForEachSVResult : GetBeiDouEphemerisDoubleParamsResult
-  {
-    internal new const string CmdName = "GetBeiDouEphDoubleParamForEachSVResult";
-
-    public GetBeiDouEphDoubleParamForEachSVResult()
-      : base()
-    {
-       Name = CmdName;
-    }
-
-    public GetBeiDouEphDoubleParamForEachSVResult(CommandBase relatedCommand, string paramName, List<double> val, string dataSetName = null)
-      : base(relatedCommand, paramName, val, dataSetName)
-    {
-      Name = CmdName;
     }
   }
 
@@ -31622,2846 +27925,6 @@ namespace Sdx.Cmd
       {
           SetValue("FrequencyNumber", JToken.FromObject(value, CommandBase.Serializer));
       }
-    }
-  }
-
-
-  ///
-  /// Please note the command SetQzssEphemerisDoubleParams is deprecated since 21.3. You may use SetQzssEphDoubleParamForEachSV.
-  /// 
-  /// Set QZSS ephemeris parameter value for all satellites
-  ///
-  /// Name        Type            Description
-  /// ----------- --------------- --------------------------------------------------------------------------------------------------
-  /// ParamName   string          Refer to SetQzssEphDoubleParamForSV for accepted names
-  /// Val         array double    Parameter value for each satellite. Zero based index (index 0 => SV ID 1, index 1 => SV ID 2, etc)
-  /// DataSetName optional string Optional name of the data set to use. If no value is provided, the active data set is used.
-  ///
-
-  public class SetQzssEphemerisDoubleParams : CommandBase
-  {
-    public override string Documentation
-    {
-      get { return "Please note the command SetQzssEphemerisDoubleParams is deprecated since 21.3. You may use SetQzssEphDoubleParamForEachSV.\n\nSet QZSS ephemeris parameter value for all satellites"; }
-    }
-
-    internal const string CmdName = "SetQzssEphemerisDoubleParams";
-
-    public SetQzssEphemerisDoubleParams()
-      : base(CmdName)
-    {}
-
-    public SetQzssEphemerisDoubleParams(string paramName, List<double> val, string dataSetName = null)
-      : base(CmdName)
-    {
-      ParamName = paramName;
-      Val = val;
-      DataSetName = dataSetName;
-    }
-      
-    public override bool IsValid
-    {
-      get
-      {
-        return base.IsValid
-        && Contains("ParamName")
-        && Contains("Val")
-      ;
-      }
-    }
-
-    public override int ExecutePermission { get { return EXECUTE_IF_IDLE; } }
-
-    public string ParamName
-    {
-      get { return GetValue("ParamName").ToObject<string>(CommandBase.Serializer); }
-      set
-      {
-          SetValue("ParamName", JToken.FromObject(value, CommandBase.Serializer));
-      }
-    }
-
-    public List<double> Val
-    {
-      get { return GetValue("Val").ToObject<List<double>>(CommandBase.Serializer); }
-      set
-      {
-          SetValue("Val", JToken.FromObject(value, CommandBase.Serializer));
-      }
-    }
-
-    public string DataSetName
-    {
-      get { return GetValue("DataSetName").ToObject<string>(CommandBase.Serializer); }
-      set
-      {
-        if (value == null)
-          RemoveValue("DataSetName");
-        else
-          SetValue("DataSetName", JToken.FromObject(value, CommandBase.Serializer));
-      }
-    }
-  }
-
-
-  ///
-  /// Set QZSS ephemeris parameter value for all satellites
-  ///
-  /// Name        Type            Description
-  /// ----------- --------------- --------------------------------------------------------------------------------------------------
-  /// ParamName   string          Refer to SetQzssEphDoubleParamForSV for accepted names
-  /// Val         array double    Parameter value for each satellite. Zero based index (index 0 => SV ID 1, index 1 => SV ID 2, etc)
-  /// DataSetName optional string Optional name of the data set to use. If no value is provided, the active data set is used.
-  ///
-
-  public class SetQzssEphDoubleParamForEachSV : CommandBase
-  {
-    public override string Documentation
-    {
-      get { return "Set QZSS ephemeris parameter value for all satellites"; }
-    }
-
-    internal const string CmdName = "SetQzssEphDoubleParamForEachSV";
-
-    public SetQzssEphDoubleParamForEachSV()
-      : base(CmdName)
-    {}
-
-    public SetQzssEphDoubleParamForEachSV(string paramName, List<double> val, string dataSetName = null)
-      : base(CmdName)
-    {
-      ParamName = paramName;
-      Val = val;
-      DataSetName = dataSetName;
-    }
-      
-    public override bool IsValid
-    {
-      get
-      {
-        return base.IsValid
-        && Contains("ParamName")
-        && Contains("Val")
-      ;
-      }
-    }
-
-    public override int ExecutePermission { get { return EXECUTE_IF_IDLE; } }
-
-    public string ParamName
-    {
-      get { return GetValue("ParamName").ToObject<string>(CommandBase.Serializer); }
-      set
-      {
-          SetValue("ParamName", JToken.FromObject(value, CommandBase.Serializer));
-      }
-    }
-
-    public List<double> Val
-    {
-      get { return GetValue("Val").ToObject<List<double>>(CommandBase.Serializer); }
-      set
-      {
-          SetValue("Val", JToken.FromObject(value, CommandBase.Serializer));
-      }
-    }
-
-    public string DataSetName
-    {
-      get { return GetValue("DataSetName").ToObject<string>(CommandBase.Serializer); }
-      set
-      {
-        if (value == null)
-          RemoveValue("DataSetName");
-        else
-          SetValue("DataSetName", JToken.FromObject(value, CommandBase.Serializer));
-      }
-    }
-  }
-
-
-  ///
-  /// Please note the command GetQzssEphemerisDoubleParams is deprecated since 21.3. You may use GetQzssEphDoubleParamForEachSV.
-  /// 
-  /// Get QZSS ephemeris parameter value for all satellites
-  ///
-  /// Name        Type            Description
-  /// ----------- --------------- -------------------------------------------------------------------------------------------
-  /// ParamName   string          Refer to SetQzssEphDoubleParamForSV for accepted names
-  /// DataSetName optional string Optional name of the data set to use. If no value is provided, the active data set is used.
-  ///
-
-  public class GetQzssEphemerisDoubleParams : CommandBase
-  {
-    public override string Documentation
-    {
-      get { return "Please note the command GetQzssEphemerisDoubleParams is deprecated since 21.3. You may use GetQzssEphDoubleParamForEachSV.\n\nGet QZSS ephemeris parameter value for all satellites"; }
-    }
-
-    internal const string CmdName = "GetQzssEphemerisDoubleParams";
-
-    public GetQzssEphemerisDoubleParams()
-      : base(CmdName)
-    {}
-
-    public GetQzssEphemerisDoubleParams(string paramName, string dataSetName = null)
-      : base(CmdName)
-    {
-      ParamName = paramName;
-      DataSetName = dataSetName;
-    }
-      
-    public override bool IsValid
-    {
-      get
-      {
-        return base.IsValid
-        && Contains("ParamName")
-      ;
-      }
-    }
-
-    public override int ExecutePermission { get { return EXECUTE_IF_IDLE; } }
-
-    public string ParamName
-    {
-      get { return GetValue("ParamName").ToObject<string>(CommandBase.Serializer); }
-      set
-      {
-          SetValue("ParamName", JToken.FromObject(value, CommandBase.Serializer));
-      }
-    }
-
-    public string DataSetName
-    {
-      get { return GetValue("DataSetName").ToObject<string>(CommandBase.Serializer); }
-      set
-      {
-        if (value == null)
-          RemoveValue("DataSetName");
-        else
-          SetValue("DataSetName", JToken.FromObject(value, CommandBase.Serializer));
-      }
-    }
-  }
-
-
-  ///
-  /// Get QZSS ephemeris parameter value for all satellites
-  ///
-  /// Name        Type            Description
-  /// ----------- --------------- -------------------------------------------------------------------------------------------
-  /// ParamName   string          Refer to SetQzssEphDoubleParamForSV for accepted names
-  /// DataSetName optional string Optional name of the data set to use. If no value is provided, the active data set is used.
-  ///
-
-  public class GetQzssEphDoubleParamForEachSV : CommandBase
-  {
-    public override string Documentation
-    {
-      get { return "Get QZSS ephemeris parameter value for all satellites"; }
-    }
-
-    internal const string CmdName = "GetQzssEphDoubleParamForEachSV";
-
-    public GetQzssEphDoubleParamForEachSV()
-      : base(CmdName)
-    {}
-
-    public GetQzssEphDoubleParamForEachSV(string paramName, string dataSetName = null)
-      : base(CmdName)
-    {
-      ParamName = paramName;
-      DataSetName = dataSetName;
-    }
-      
-    public override bool IsValid
-    {
-      get
-      {
-        return base.IsValid
-        && Contains("ParamName")
-      ;
-      }
-    }
-
-    public override int ExecutePermission { get { return EXECUTE_IF_IDLE; } }
-
-    public string ParamName
-    {
-      get { return GetValue("ParamName").ToObject<string>(CommandBase.Serializer); }
-      set
-      {
-          SetValue("ParamName", JToken.FromObject(value, CommandBase.Serializer));
-      }
-    }
-
-    public string DataSetName
-    {
-      get { return GetValue("DataSetName").ToObject<string>(CommandBase.Serializer); }
-      set
-      {
-        if (value == null)
-          RemoveValue("DataSetName");
-        else
-          SetValue("DataSetName", JToken.FromObject(value, CommandBase.Serializer));
-      }
-    }
-  }
-
-
-  ///
-  /// Result of GetQzssEphDoubleParamForEachSV.
-  ///
-  /// Name        Type            Description
-  /// ----------- --------------- --------------------------------------------------------------------------------------------------
-  /// ParamName   string          Refer to SetQzssEphDoubleParamForSV for accepted names
-  /// Val         array double    Parameter value for each satellite. Zero based index (index 0 => SV ID 1, index 1 => SV ID 2, etc)
-  /// DataSetName optional string Optional name of the data set to use. If no value is provided, the active data set is used.
-  ///
-
-  public class GetQzssEphemerisDoubleParamsResult : CommandResult
-  {
-    public override string Documentation
-    {
-      get { return "Result of GetQzssEphDoubleParamForEachSV."; }
-    }
-  
-    internal const string CmdName = "GetQzssEphemerisDoubleParamsResult";
-
-    public GetQzssEphemerisDoubleParamsResult()
-      : base(CmdName)
-    {}
-
-    public GetQzssEphemerisDoubleParamsResult(CommandBase relatedCommand, string paramName, List<double> val, string dataSetName = null)
-      : base(CmdName, relatedCommand)
-    {
-      ParamName = paramName;
-      Val = val;
-      DataSetName = dataSetName;
-    }
-
-    public override bool IsValid
-    {
-      get
-      {
-        return base.IsValid
-        && Contains("ParamName")
-        && Contains("Val")
-      ;
-      }
-    }
-
-    public string ParamName
-    {
-      get { return GetValue("ParamName").ToObject<string>(CommandBase.Serializer); }
-      set { SetValue("ParamName", JToken.FromObject(value, CommandBase.Serializer)); }
-    }
-
-    public List<double> Val
-    {
-      get { return GetValue("Val").ToObject<List<double>>(CommandBase.Serializer); }
-      set { SetValue("Val", JToken.FromObject(value, CommandBase.Serializer)); }
-    }
-
-    public string DataSetName
-    {
-      get { return GetValue("DataSetName").ToObject<string>(CommandBase.Serializer); }
-      set { SetValue("DataSetName", JToken.FromObject(value, CommandBase.Serializer)); }
-    }
-  }
-
-  ///
-  /// Name        Type            Description
-  /// ----------- --------------- --------------------------------------------------------------------------------------------------
-  /// ParamName   string          Refer to SetQzssEphDoubleParamForSV for accepted names
-  /// Val         array double    Parameter value for each satellite. Zero based index (index 0 => SV ID 1, index 1 => SV ID 2, etc)
-  /// DataSetName optional string Optional name of the data set to use. If no value is provided, the active data set is used.
-  ///
-
-  public class GetQzssEphDoubleParamForEachSVResult : GetQzssEphemerisDoubleParamsResult
-  {
-    internal new const string CmdName = "GetQzssEphDoubleParamForEachSVResult";
-
-    public GetQzssEphDoubleParamForEachSVResult()
-      : base()
-    {
-       Name = CmdName;
-    }
-
-    public GetQzssEphDoubleParamForEachSVResult(CommandBase relatedCommand, string paramName, List<double> val, string dataSetName = null)
-      : base(relatedCommand, paramName, val, dataSetName)
-    {
-      Name = CmdName;
-    }
-  }
-
-
-  ///
-  /// Please note the command SetNavICEphemerisDoubleParams is deprecated since 21.3. You may use SetNavICEphDoubleParamForEachSV.
-  /// 
-  /// Set NavIC ephemeris parameter value for all satellites
-  ///
-  /// Name        Type            Description
-  /// ----------- --------------- --------------------------------------------------------------------------------------------------
-  /// ParamName   string          Refer to SetNavICEphDoubleParamForSV for accepted names
-  /// Val         array double    Parameter value for each satellite. Zero based index (index 0 => SV ID 1, index 1 => SV ID 2, etc)
-  /// DataSetName optional string Optional name of the data set to use. If no value is provided, the active data set is used.
-  ///
-
-  public class SetNavICEphemerisDoubleParams : CommandBase
-  {
-    public override string Documentation
-    {
-      get { return "Please note the command SetNavICEphemerisDoubleParams is deprecated since 21.3. You may use SetNavICEphDoubleParamForEachSV.\n\nSet NavIC ephemeris parameter value for all satellites"; }
-    }
-
-    internal const string CmdName = "SetNavICEphemerisDoubleParams";
-
-    public SetNavICEphemerisDoubleParams()
-      : base(CmdName)
-    {}
-
-    public SetNavICEphemerisDoubleParams(string paramName, List<double> val, string dataSetName = null)
-      : base(CmdName)
-    {
-      ParamName = paramName;
-      Val = val;
-      DataSetName = dataSetName;
-    }
-      
-    public override bool IsValid
-    {
-      get
-      {
-        return base.IsValid
-        && Contains("ParamName")
-        && Contains("Val")
-      ;
-      }
-    }
-
-    public override int ExecutePermission { get { return EXECUTE_IF_IDLE; } }
-
-    public string ParamName
-    {
-      get { return GetValue("ParamName").ToObject<string>(CommandBase.Serializer); }
-      set
-      {
-          SetValue("ParamName", JToken.FromObject(value, CommandBase.Serializer));
-      }
-    }
-
-    public List<double> Val
-    {
-      get { return GetValue("Val").ToObject<List<double>>(CommandBase.Serializer); }
-      set
-      {
-          SetValue("Val", JToken.FromObject(value, CommandBase.Serializer));
-      }
-    }
-
-    public string DataSetName
-    {
-      get { return GetValue("DataSetName").ToObject<string>(CommandBase.Serializer); }
-      set
-      {
-        if (value == null)
-          RemoveValue("DataSetName");
-        else
-          SetValue("DataSetName", JToken.FromObject(value, CommandBase.Serializer));
-      }
-    }
-  }
-
-
-  ///
-  /// Set NavIC ephemeris parameter value for all satellites
-  ///
-  /// Name        Type            Description
-  /// ----------- --------------- --------------------------------------------------------------------------------------------------
-  /// ParamName   string          Refer to SetNavICEphDoubleParamForSV for accepted names
-  /// Val         array double    Parameter value for each satellite. Zero based index (index 0 => SV ID 1, index 1 => SV ID 2, etc)
-  /// DataSetName optional string Optional name of the data set to use. If no value is provided, the active data set is used.
-  ///
-
-  public class SetNavICEphDoubleParamForEachSV : CommandBase
-  {
-    public override string Documentation
-    {
-      get { return "Set NavIC ephemeris parameter value for all satellites"; }
-    }
-
-    internal const string CmdName = "SetNavICEphDoubleParamForEachSV";
-
-    public SetNavICEphDoubleParamForEachSV()
-      : base(CmdName)
-    {}
-
-    public SetNavICEphDoubleParamForEachSV(string paramName, List<double> val, string dataSetName = null)
-      : base(CmdName)
-    {
-      ParamName = paramName;
-      Val = val;
-      DataSetName = dataSetName;
-    }
-      
-    public override bool IsValid
-    {
-      get
-      {
-        return base.IsValid
-        && Contains("ParamName")
-        && Contains("Val")
-      ;
-      }
-    }
-
-    public override int ExecutePermission { get { return EXECUTE_IF_IDLE; } }
-
-    public string ParamName
-    {
-      get { return GetValue("ParamName").ToObject<string>(CommandBase.Serializer); }
-      set
-      {
-          SetValue("ParamName", JToken.FromObject(value, CommandBase.Serializer));
-      }
-    }
-
-    public List<double> Val
-    {
-      get { return GetValue("Val").ToObject<List<double>>(CommandBase.Serializer); }
-      set
-      {
-          SetValue("Val", JToken.FromObject(value, CommandBase.Serializer));
-      }
-    }
-
-    public string DataSetName
-    {
-      get { return GetValue("DataSetName").ToObject<string>(CommandBase.Serializer); }
-      set
-      {
-        if (value == null)
-          RemoveValue("DataSetName");
-        else
-          SetValue("DataSetName", JToken.FromObject(value, CommandBase.Serializer));
-      }
-    }
-  }
-
-
-  ///
-  /// Please note the command GetNavICEphemerisDoubleParams is deprecated since 21.3. You may use GetNavICEphDoubleParamForEachSV.
-  /// 
-  /// Get NavIC ephemeris parameter value for all satellites
-  ///
-  /// Name        Type            Description
-  /// ----------- --------------- -------------------------------------------------------------------------------------------
-  /// ParamName   string          Refer to SetNavICEphDoubleParamForSV for accepted names
-  /// DataSetName optional string Optional name of the data set to use. If no value is provided, the active data set is used.
-  ///
-
-  public class GetNavICEphemerisDoubleParams : CommandBase
-  {
-    public override string Documentation
-    {
-      get { return "Please note the command GetNavICEphemerisDoubleParams is deprecated since 21.3. You may use GetNavICEphDoubleParamForEachSV.\n\nGet NavIC ephemeris parameter value for all satellites"; }
-    }
-
-    internal const string CmdName = "GetNavICEphemerisDoubleParams";
-
-    public GetNavICEphemerisDoubleParams()
-      : base(CmdName)
-    {}
-
-    public GetNavICEphemerisDoubleParams(string paramName, string dataSetName = null)
-      : base(CmdName)
-    {
-      ParamName = paramName;
-      DataSetName = dataSetName;
-    }
-      
-    public override bool IsValid
-    {
-      get
-      {
-        return base.IsValid
-        && Contains("ParamName")
-      ;
-      }
-    }
-
-    public override int ExecutePermission { get { return EXECUTE_IF_IDLE; } }
-
-    public string ParamName
-    {
-      get { return GetValue("ParamName").ToObject<string>(CommandBase.Serializer); }
-      set
-      {
-          SetValue("ParamName", JToken.FromObject(value, CommandBase.Serializer));
-      }
-    }
-
-    public string DataSetName
-    {
-      get { return GetValue("DataSetName").ToObject<string>(CommandBase.Serializer); }
-      set
-      {
-        if (value == null)
-          RemoveValue("DataSetName");
-        else
-          SetValue("DataSetName", JToken.FromObject(value, CommandBase.Serializer));
-      }
-    }
-  }
-
-
-  ///
-  /// Get NavIC ephemeris parameter value for all satellites
-  ///
-  /// Name        Type            Description
-  /// ----------- --------------- -------------------------------------------------------------------------------------------
-  /// ParamName   string          Refer to SetNavICEphDoubleParamForSV for accepted names
-  /// DataSetName optional string Optional name of the data set to use. If no value is provided, the active data set is used.
-  ///
-
-  public class GetNavICEphDoubleParamForEachSV : CommandBase
-  {
-    public override string Documentation
-    {
-      get { return "Get NavIC ephemeris parameter value for all satellites"; }
-    }
-
-    internal const string CmdName = "GetNavICEphDoubleParamForEachSV";
-
-    public GetNavICEphDoubleParamForEachSV()
-      : base(CmdName)
-    {}
-
-    public GetNavICEphDoubleParamForEachSV(string paramName, string dataSetName = null)
-      : base(CmdName)
-    {
-      ParamName = paramName;
-      DataSetName = dataSetName;
-    }
-      
-    public override bool IsValid
-    {
-      get
-      {
-        return base.IsValid
-        && Contains("ParamName")
-      ;
-      }
-    }
-
-    public override int ExecutePermission { get { return EXECUTE_IF_IDLE; } }
-
-    public string ParamName
-    {
-      get { return GetValue("ParamName").ToObject<string>(CommandBase.Serializer); }
-      set
-      {
-          SetValue("ParamName", JToken.FromObject(value, CommandBase.Serializer));
-      }
-    }
-
-    public string DataSetName
-    {
-      get { return GetValue("DataSetName").ToObject<string>(CommandBase.Serializer); }
-      set
-      {
-        if (value == null)
-          RemoveValue("DataSetName");
-        else
-          SetValue("DataSetName", JToken.FromObject(value, CommandBase.Serializer));
-      }
-    }
-  }
-
-
-  ///
-  /// Result of GetNavICEphDoubleParamForEachSV.
-  ///
-  /// Name        Type            Description
-  /// ----------- --------------- --------------------------------------------------------------------------------------------------
-  /// ParamName   string          Refer to SetNavICEphDoubleParamForSV for accepted names
-  /// Val         array double    Parameter value for each satellite. Zero based index (index 0 => SV ID 1, index 1 => SV ID 2, etc)
-  /// DataSetName optional string Optional name of the data set to use. If no value is provided, the active data set is used.
-  ///
-
-  public class GetNavICEphemerisDoubleParamsResult : CommandResult
-  {
-    public override string Documentation
-    {
-      get { return "Result of GetNavICEphDoubleParamForEachSV."; }
-    }
-  
-    internal const string CmdName = "GetNavICEphemerisDoubleParamsResult";
-
-    public GetNavICEphemerisDoubleParamsResult()
-      : base(CmdName)
-    {}
-
-    public GetNavICEphemerisDoubleParamsResult(CommandBase relatedCommand, string paramName, List<double> val, string dataSetName = null)
-      : base(CmdName, relatedCommand)
-    {
-      ParamName = paramName;
-      Val = val;
-      DataSetName = dataSetName;
-    }
-
-    public override bool IsValid
-    {
-      get
-      {
-        return base.IsValid
-        && Contains("ParamName")
-        && Contains("Val")
-      ;
-      }
-    }
-
-    public string ParamName
-    {
-      get { return GetValue("ParamName").ToObject<string>(CommandBase.Serializer); }
-      set { SetValue("ParamName", JToken.FromObject(value, CommandBase.Serializer)); }
-    }
-
-    public List<double> Val
-    {
-      get { return GetValue("Val").ToObject<List<double>>(CommandBase.Serializer); }
-      set { SetValue("Val", JToken.FromObject(value, CommandBase.Serializer)); }
-    }
-
-    public string DataSetName
-    {
-      get { return GetValue("DataSetName").ToObject<string>(CommandBase.Serializer); }
-      set { SetValue("DataSetName", JToken.FromObject(value, CommandBase.Serializer)); }
-    }
-  }
-
-  ///
-  /// Name        Type            Description
-  /// ----------- --------------- --------------------------------------------------------------------------------------------------
-  /// ParamName   string          Refer to SetNavICEphDoubleParamForSV for accepted names
-  /// Val         array double    Parameter value for each satellite. Zero based index (index 0 => SV ID 1, index 1 => SV ID 2, etc)
-  /// DataSetName optional string Optional name of the data set to use. If no value is provided, the active data set is used.
-  ///
-
-  public class GetNavICEphDoubleParamForEachSVResult : GetNavICEphemerisDoubleParamsResult
-  {
-    internal new const string CmdName = "GetNavICEphDoubleParamForEachSVResult";
-
-    public GetNavICEphDoubleParamForEachSVResult()
-      : base()
-    {
-       Name = CmdName;
-    }
-
-    public GetNavICEphDoubleParamForEachSVResult(CommandBase relatedCommand, string paramName, List<double> val, string dataSetName = null)
-      : base(relatedCommand, paramName, val, dataSetName)
-    {
-      Name = CmdName;
-    }
-  }
-
-
-  ///
-  /// Set various boolean parameters in the GPS ephemeris
-  /// 
-  ///   ParamName
-  /// "IscL1CaAvailable"
-  /// "IscL2CAvailable"
-  /// "IscL5I5Available"
-  /// "IscL5Q5Available"
-  /// "IscL1CPAvailable"
-  /// "IscL1CDAvailable"
-  ///
-  /// Name        Type            Description
-  /// ----------- --------------- -------------------------------------------------------------------------------------------
-  /// SvId        int             Satellite SV ID 1..32, or use 0 to apply new value to all satellites
-  /// ParamName   string          Parameter name (see table above for accepted names)
-  /// Val         bool            Parameter value (see table above for unit)
-  /// DataSetName optional string Optional name of the data set to use. If no value is provided, the active data set is used.
-  ///
-
-  public class SetGpsEphBoolParamForSV : CommandBase
-  {
-    public override string Documentation
-    {
-      get { return "Set various boolean parameters in the GPS ephemeris\n\n  ParamName\n\"IscL1CaAvailable\"\n\"IscL2CAvailable\"\n\"IscL5I5Available\"\n\"IscL5Q5Available\"\n\"IscL1CPAvailable\"\n\"IscL1CDAvailable\""; }
-    }
-
-    internal const string CmdName = "SetGpsEphBoolParamForSV";
-
-    public SetGpsEphBoolParamForSV()
-      : base(CmdName)
-    {}
-
-    public SetGpsEphBoolParamForSV(int svId, string paramName, bool val, string dataSetName = null)
-      : base(CmdName)
-    {
-      SvId = svId;
-      ParamName = paramName;
-      Val = val;
-      DataSetName = dataSetName;
-    }
-      
-    public override bool IsValid
-    {
-      get
-      {
-        return base.IsValid
-        && Contains("SvId")
-        && Contains("ParamName")
-        && Contains("Val")
-      ;
-      }
-    }
-
-    public override int ExecutePermission { get { return EXECUTE_IF_IDLE; } }
-
-    public int SvId
-    {
-      get { return GetValue("SvId").ToObject<int>(CommandBase.Serializer); }
-      set
-      {
-          SetValue("SvId", JToken.FromObject(value, CommandBase.Serializer));
-      }
-    }
-
-    public string ParamName
-    {
-      get { return GetValue("ParamName").ToObject<string>(CommandBase.Serializer); }
-      set
-      {
-          SetValue("ParamName", JToken.FromObject(value, CommandBase.Serializer));
-      }
-    }
-
-    public bool Val
-    {
-      get { return GetValue("Val").ToObject<bool>(CommandBase.Serializer); }
-      set
-      {
-          SetValue("Val", JToken.FromObject(value, CommandBase.Serializer));
-      }
-    }
-
-    public string DataSetName
-    {
-      get { return GetValue("DataSetName").ToObject<string>(CommandBase.Serializer); }
-      set
-      {
-        if (value == null)
-          RemoveValue("DataSetName");
-        else
-          SetValue("DataSetName", JToken.FromObject(value, CommandBase.Serializer));
-      }
-    }
-  }
-
-
-  ///
-  /// Get various boolean parameters in the GPS ephemeris
-  /// 
-  ///   ParamName
-  /// "IscL1CaAvailable"
-  /// "IscL2CAvailable"
-  /// "IscL5I5Available"
-  /// "IscL5Q5Available"
-  /// "IscL1CPAvailable"
-  /// "IscL1CDAvailable"
-  ///
-  /// Name        Type            Description
-  /// ----------- --------------- -------------------------------------------------------------------------------------------
-  /// SvId        int             Satellite SV ID 1..32, or use 0 to apply new value to all satellites
-  /// ParamName   string          Parameter name (see table above for accepted names)
-  /// DataSetName optional string Optional name of the data set to use. If no value is provided, the active data set is used.
-  ///
-
-  public class GetGpsEphBoolParamForSV : CommandBase
-  {
-    public override string Documentation
-    {
-      get { return "Get various boolean parameters in the GPS ephemeris\n\n  ParamName\n\"IscL1CaAvailable\"\n\"IscL2CAvailable\"\n\"IscL5I5Available\"\n\"IscL5Q5Available\"\n\"IscL1CPAvailable\"\n\"IscL1CDAvailable\""; }
-    }
-
-    internal const string CmdName = "GetGpsEphBoolParamForSV";
-
-    public GetGpsEphBoolParamForSV()
-      : base(CmdName)
-    {}
-
-    public GetGpsEphBoolParamForSV(int svId, string paramName, string dataSetName = null)
-      : base(CmdName)
-    {
-      SvId = svId;
-      ParamName = paramName;
-      DataSetName = dataSetName;
-    }
-      
-    public override bool IsValid
-    {
-      get
-      {
-        return base.IsValid
-        && Contains("SvId")
-        && Contains("ParamName")
-      ;
-      }
-    }
-
-    public override int ExecutePermission { get { return EXECUTE_IF_IDLE; } }
-
-    public int SvId
-    {
-      get { return GetValue("SvId").ToObject<int>(CommandBase.Serializer); }
-      set
-      {
-          SetValue("SvId", JToken.FromObject(value, CommandBase.Serializer));
-      }
-    }
-
-    public string ParamName
-    {
-      get { return GetValue("ParamName").ToObject<string>(CommandBase.Serializer); }
-      set
-      {
-          SetValue("ParamName", JToken.FromObject(value, CommandBase.Serializer));
-      }
-    }
-
-    public string DataSetName
-    {
-      get { return GetValue("DataSetName").ToObject<string>(CommandBase.Serializer); }
-      set
-      {
-        if (value == null)
-          RemoveValue("DataSetName");
-        else
-          SetValue("DataSetName", JToken.FromObject(value, CommandBase.Serializer));
-      }
-    }
-  }
-
-
-  ///
-  /// Result of GetGpsEphBoolParamForSV.
-  ///
-  /// Name        Type            Description
-  /// ----------- --------------- -------------------------------------------------------------------------------------------
-  /// SvId        int             Satellite SV ID 1..32, or use 0 to apply new value to all satellites
-  /// ParamName   string          Parameter name (see table above for accepted names)
-  /// Val         bool            Parameter value (see table above for unit)
-  /// DataSetName optional string Optional name of the data set to use. If no value is provided, the active data set is used.
-  ///
-
-  public class GetGpsEphBoolParamForSVResult : CommandResult
-  {
-    public override string Documentation
-    {
-      get { return "Result of GetGpsEphBoolParamForSV."; }
-    }
-
-    internal const string CmdName = "GetGpsEphBoolParamForSVResult";
-
-    public GetGpsEphBoolParamForSVResult()
-      : base(CmdName)
-    {}
-
-    public GetGpsEphBoolParamForSVResult(CommandBase relatedCommand, int svId, string paramName, bool val, string dataSetName = null)
-      : base(CmdName, relatedCommand)
-    {
-      SvId = svId;
-      ParamName = paramName;
-      Val = val;
-      DataSetName = dataSetName;
-    }
-      
-    public override bool IsValid
-    {
-      get
-      {
-        return base.IsValid
-        && Contains("SvId")
-        && Contains("ParamName")
-        && Contains("Val")
-      ;
-      }
-    }
-
-    public int SvId
-    {
-      get { return GetValue("SvId").ToObject<int>(CommandBase.Serializer); }
-      set
-      {
-          SetValue("SvId", JToken.FromObject(value, CommandBase.Serializer));
-      }
-    }
-
-    public string ParamName
-    {
-      get { return GetValue("ParamName").ToObject<string>(CommandBase.Serializer); }
-      set
-      {
-          SetValue("ParamName", JToken.FromObject(value, CommandBase.Serializer));
-      }
-    }
-
-    public bool Val
-    {
-      get { return GetValue("Val").ToObject<bool>(CommandBase.Serializer); }
-      set
-      {
-          SetValue("Val", JToken.FromObject(value, CommandBase.Serializer));
-      }
-    }
-
-    public string DataSetName
-    {
-      get { return GetValue("DataSetName").ToObject<string>(CommandBase.Serializer); }
-      set
-      {
-        if (value == null)
-          RemoveValue("DataSetName");
-        else
-          SetValue("DataSetName", JToken.FromObject(value, CommandBase.Serializer));
-      }
-    }
-  }
-
-
-  ///
-  /// Please note the command SetGpsEphemerisBoolParams is deprecated since 21.3. You may use SetGpsEphBoolParamForEachSV.
-  /// 
-  /// Set GPS ephemeris boolean parameter value for all satellites
-  ///
-  /// Name        Type            Description
-  /// ----------- --------------- --------------------------------------------------------------------------------------------------
-  /// ParamName   string          Refer to SetGpsEphBoolParamForSV for accepted names
-  /// Val         array bool      Parameter value for each satellite. Zero based index (index 0 => SV ID 1, index 1 => SV ID 2, etc)
-  /// DataSetName optional string Optional name of the data set to use. If no value is provided, the active data set is used.
-  ///
-
-  public class SetGpsEphemerisBoolParams : CommandBase
-  {
-    public override string Documentation
-    {
-      get { return "Please note the command SetGpsEphemerisBoolParams is deprecated since 21.3. You may use SetGpsEphBoolParamForEachSV.\n\nSet GPS ephemeris boolean parameter value for all satellites"; }
-    }
-
-    internal const string CmdName = "SetGpsEphemerisBoolParams";
-
-    public SetGpsEphemerisBoolParams()
-      : base(CmdName)
-    {}
-
-    public SetGpsEphemerisBoolParams(string paramName, List<bool> val, string dataSetName = null)
-      : base(CmdName)
-    {
-      ParamName = paramName;
-      Val = val;
-      DataSetName = dataSetName;
-    }
-      
-    public override bool IsValid
-    {
-      get
-      {
-        return base.IsValid
-        && Contains("ParamName")
-        && Contains("Val")
-      ;
-      }
-    }
-
-    public override int ExecutePermission { get { return EXECUTE_IF_IDLE; } }
-
-    public string ParamName
-    {
-      get { return GetValue("ParamName").ToObject<string>(CommandBase.Serializer); }
-      set
-      {
-          SetValue("ParamName", JToken.FromObject(value, CommandBase.Serializer));
-      }
-    }
-
-    public List<bool> Val
-    {
-      get { return GetValue("Val").ToObject<List<bool>>(CommandBase.Serializer); }
-      set
-      {
-          SetValue("Val", JToken.FromObject(value, CommandBase.Serializer));
-      }
-    }
-
-    public string DataSetName
-    {
-      get { return GetValue("DataSetName").ToObject<string>(CommandBase.Serializer); }
-      set
-      {
-        if (value == null)
-          RemoveValue("DataSetName");
-        else
-          SetValue("DataSetName", JToken.FromObject(value, CommandBase.Serializer));
-      }
-    }
-  }
-
-
-  ///
-  /// Set GPS ephemeris boolean parameter value for all satellites
-  ///
-  /// Name        Type            Description
-  /// ----------- --------------- --------------------------------------------------------------------------------------------------
-  /// ParamName   string          Refer to SetGpsEphBoolParamForSV for accepted names
-  /// Val         array bool      Parameter value for each satellite. Zero based index (index 0 => SV ID 1, index 1 => SV ID 2, etc)
-  /// DataSetName optional string Optional name of the data set to use. If no value is provided, the active data set is used.
-  ///
-
-  public class SetGpsEphBoolParamForEachSV : CommandBase
-  {
-    public override string Documentation
-    {
-      get { return "Set GPS ephemeris boolean parameter value for all satellites"; }
-    }
-
-    internal const string CmdName = "SetGpsEphBoolParamForEachSV";
-
-    public SetGpsEphBoolParamForEachSV()
-      : base(CmdName)
-    {}
-
-    public SetGpsEphBoolParamForEachSV(string paramName, List<bool> val, string dataSetName = null)
-      : base(CmdName)
-    {
-      ParamName = paramName;
-      Val = val;
-      DataSetName = dataSetName;
-    }
-      
-    public override bool IsValid
-    {
-      get
-      {
-        return base.IsValid
-        && Contains("ParamName")
-        && Contains("Val")
-      ;
-      }
-    }
-
-    public override int ExecutePermission { get { return EXECUTE_IF_IDLE; } }
-
-    public string ParamName
-    {
-      get { return GetValue("ParamName").ToObject<string>(CommandBase.Serializer); }
-      set
-      {
-          SetValue("ParamName", JToken.FromObject(value, CommandBase.Serializer));
-      }
-    }
-
-    public List<bool> Val
-    {
-      get { return GetValue("Val").ToObject<List<bool>>(CommandBase.Serializer); }
-      set
-      {
-          SetValue("Val", JToken.FromObject(value, CommandBase.Serializer));
-      }
-    }
-
-    public string DataSetName
-    {
-      get { return GetValue("DataSetName").ToObject<string>(CommandBase.Serializer); }
-      set
-      {
-        if (value == null)
-          RemoveValue("DataSetName");
-        else
-          SetValue("DataSetName", JToken.FromObject(value, CommandBase.Serializer));
-      }
-    }
-  }
-
-
-  ///
-  /// Please note the command GetGpsEphemerisBoolParams is deprecated since 21.3. You may use GetGpsEphBoolParamForEachSV.
-  /// 
-  /// Get GPS ephemeris boolean parameter value for all satellites
-  ///
-  /// Name        Type            Description
-  /// ----------- --------------- -------------------------------------------------------------------------------------------
-  /// ParamName   string          Refer to SetGpsEphBoolParamForSV for accepted names
-  /// DataSetName optional string Optional name of the data set to use. If no value is provided, the active data set is used.
-  ///
-
-  public class GetGpsEphemerisBoolParams : CommandBase
-  {
-    public override string Documentation
-    {
-      get { return "Please note the command GetGpsEphemerisBoolParams is deprecated since 21.3. You may use GetGpsEphBoolParamForEachSV.\n\nGet GPS ephemeris boolean parameter value for all satellites"; }
-    }
-
-    internal const string CmdName = "GetGpsEphemerisBoolParams";
-
-    public GetGpsEphemerisBoolParams()
-      : base(CmdName)
-    {}
-
-    public GetGpsEphemerisBoolParams(string paramName, string dataSetName = null)
-      : base(CmdName)
-    {
-      ParamName = paramName;
-      DataSetName = dataSetName;
-    }
-      
-    public override bool IsValid
-    {
-      get
-      {
-        return base.IsValid
-        && Contains("ParamName")
-      ;
-      }
-    }
-
-    public override int ExecutePermission { get { return EXECUTE_IF_IDLE; } }
-
-    public string ParamName
-    {
-      get { return GetValue("ParamName").ToObject<string>(CommandBase.Serializer); }
-      set
-      {
-          SetValue("ParamName", JToken.FromObject(value, CommandBase.Serializer));
-      }
-    }
-
-    public string DataSetName
-    {
-      get { return GetValue("DataSetName").ToObject<string>(CommandBase.Serializer); }
-      set
-      {
-        if (value == null)
-          RemoveValue("DataSetName");
-        else
-          SetValue("DataSetName", JToken.FromObject(value, CommandBase.Serializer));
-      }
-    }
-  }
-
-
-  ///
-  /// Get GPS ephemeris boolean parameter value for all satellites
-  ///
-  /// Name        Type            Description
-  /// ----------- --------------- -------------------------------------------------------------------------------------------
-  /// ParamName   string          Refer to SetGpsEphBoolParamForSV for accepted names
-  /// DataSetName optional string Optional name of the data set to use. If no value is provided, the active data set is used.
-  ///
-
-  public class GetGpsEphBoolParamForEachSV : CommandBase
-  {
-    public override string Documentation
-    {
-      get { return "Get GPS ephemeris boolean parameter value for all satellites"; }
-    }
-
-    internal const string CmdName = "GetGpsEphBoolParamForEachSV";
-
-    public GetGpsEphBoolParamForEachSV()
-      : base(CmdName)
-    {}
-
-    public GetGpsEphBoolParamForEachSV(string paramName, string dataSetName = null)
-      : base(CmdName)
-    {
-      ParamName = paramName;
-      DataSetName = dataSetName;
-    }
-      
-    public override bool IsValid
-    {
-      get
-      {
-        return base.IsValid
-        && Contains("ParamName")
-      ;
-      }
-    }
-
-    public override int ExecutePermission { get { return EXECUTE_IF_IDLE; } }
-
-    public string ParamName
-    {
-      get { return GetValue("ParamName").ToObject<string>(CommandBase.Serializer); }
-      set
-      {
-          SetValue("ParamName", JToken.FromObject(value, CommandBase.Serializer));
-      }
-    }
-
-    public string DataSetName
-    {
-      get { return GetValue("DataSetName").ToObject<string>(CommandBase.Serializer); }
-      set
-      {
-        if (value == null)
-          RemoveValue("DataSetName");
-        else
-          SetValue("DataSetName", JToken.FromObject(value, CommandBase.Serializer));
-      }
-    }
-  }
-
-
-  ///
-  /// Result of GetGpsEphBoolParamForEachSV.
-  ///
-  /// Name        Type            Description
-  /// ----------- --------------- --------------------------------------------------------------------------------------------------
-  /// ParamName   string          Refer to SetGpsEphBoolParamForSV for accepted names
-  /// Val         array bool      Parameter value for each satellite. Zero based index (index 0 => SV ID 1, index 1 => SV ID 2, etc)
-  /// DataSetName optional string Optional name of the data set to use. If no value is provided, the active data set is used.
-  ///
-
-  public class GetGpsEphemerisBoolParamsResult : CommandResult
-  {
-    public override string Documentation
-    {
-      get { return "Result of GetGpsEphBoolParamForEachSV."; }
-    }
-  
-    internal const string CmdName = "GetGpsEphemerisBoolParamsResult";
-
-    public GetGpsEphemerisBoolParamsResult()
-      : base(CmdName)
-    {}
-
-    public GetGpsEphemerisBoolParamsResult(CommandBase relatedCommand, string paramName, List<bool> val, string dataSetName = null)
-      : base(CmdName, relatedCommand)
-    {
-      ParamName = paramName;
-      Val = val;
-      DataSetName = dataSetName;
-    }
-
-    public override bool IsValid
-    {
-      get
-      {
-        return base.IsValid
-        && Contains("ParamName")
-        && Contains("Val")
-      ;
-      }
-    }
-
-    public string ParamName
-    {
-      get { return GetValue("ParamName").ToObject<string>(CommandBase.Serializer); }
-      set { SetValue("ParamName", JToken.FromObject(value, CommandBase.Serializer)); }
-    }
-
-    public List<bool> Val
-    {
-      get { return GetValue("Val").ToObject<List<bool>>(CommandBase.Serializer); }
-      set { SetValue("Val", JToken.FromObject(value, CommandBase.Serializer)); }
-    }
-
-    public string DataSetName
-    {
-      get { return GetValue("DataSetName").ToObject<string>(CommandBase.Serializer); }
-      set { SetValue("DataSetName", JToken.FromObject(value, CommandBase.Serializer)); }
-    }
-  }
-
-  ///
-  /// Name        Type            Description
-  /// ----------- --------------- --------------------------------------------------------------------------------------------------
-  /// ParamName   string          Refer to SetGpsEphBoolParamForSV for accepted names
-  /// Val         array bool      Parameter value for each satellite. Zero based index (index 0 => SV ID 1, index 1 => SV ID 2, etc)
-  /// DataSetName optional string Optional name of the data set to use. If no value is provided, the active data set is used.
-  ///
-
-  public class GetGpsEphBoolParamForEachSVResult : GetGpsEphemerisBoolParamsResult
-  {
-    internal new const string CmdName = "GetGpsEphBoolParamForEachSVResult";
-
-    public GetGpsEphBoolParamForEachSVResult()
-      : base()
-    {
-       Name = CmdName;
-    }
-
-    public GetGpsEphBoolParamForEachSVResult(CommandBase relatedCommand, string paramName, List<bool> val, string dataSetName = null)
-      : base(relatedCommand, paramName, val, dataSetName)
-    {
-      Name = CmdName;
-    }
-  }
-
-
-  ///
-  /// Set various boolean parameters in the BeiDou ephemeris
-  /// 
-  ///   ParamName
-  /// "IscB1CdAvailable"
-  /// "IscB2adAvailable"
-  ///
-  /// Name        Type            Description
-  /// ----------- --------------- -------------------------------------------------------------------------------------------
-  /// SvId        int             Satellite SV ID 1..35, or use 0 to apply new value to all satellites
-  /// ParamName   string          Parameter name (see table above for accepted names)
-  /// Val         bool            Parameter value (see table above for unit)
-  /// DataSetName optional string Optional name of the data set to use. If no value is provided, the active data set is used.
-  ///
-
-  public class SetBeiDouEphBoolParamForSV : CommandBase
-  {
-    public override string Documentation
-    {
-      get { return "Set various boolean parameters in the BeiDou ephemeris\n\n  ParamName\n\"IscB1CdAvailable\"\n\"IscB2adAvailable\""; }
-    }
-
-    internal const string CmdName = "SetBeiDouEphBoolParamForSV";
-
-    public SetBeiDouEphBoolParamForSV()
-      : base(CmdName)
-    {}
-
-    public SetBeiDouEphBoolParamForSV(int svId, string paramName, bool val, string dataSetName = null)
-      : base(CmdName)
-    {
-      SvId = svId;
-      ParamName = paramName;
-      Val = val;
-      DataSetName = dataSetName;
-    }
-      
-    public override bool IsValid
-    {
-      get
-      {
-        return base.IsValid
-        && Contains("SvId")
-        && Contains("ParamName")
-        && Contains("Val")
-      ;
-      }
-    }
-
-    public override int ExecutePermission { get { return EXECUTE_IF_IDLE; } }
-
-    public int SvId
-    {
-      get { return GetValue("SvId").ToObject<int>(CommandBase.Serializer); }
-      set
-      {
-          SetValue("SvId", JToken.FromObject(value, CommandBase.Serializer));
-      }
-    }
-
-    public string ParamName
-    {
-      get { return GetValue("ParamName").ToObject<string>(CommandBase.Serializer); }
-      set
-      {
-          SetValue("ParamName", JToken.FromObject(value, CommandBase.Serializer));
-      }
-    }
-
-    public bool Val
-    {
-      get { return GetValue("Val").ToObject<bool>(CommandBase.Serializer); }
-      set
-      {
-          SetValue("Val", JToken.FromObject(value, CommandBase.Serializer));
-      }
-    }
-
-    public string DataSetName
-    {
-      get { return GetValue("DataSetName").ToObject<string>(CommandBase.Serializer); }
-      set
-      {
-        if (value == null)
-          RemoveValue("DataSetName");
-        else
-          SetValue("DataSetName", JToken.FromObject(value, CommandBase.Serializer));
-      }
-    }
-  }
-
-
-  ///
-  /// Get various boolean parameters in the BeiDou ephemeris
-  /// 
-  ///   ParamName
-  /// "IscB1CdAvailable"
-  /// "IscB2adAvailable"
-  ///
-  /// Name        Type            Description
-  /// ----------- --------------- -------------------------------------------------------------------------------------------
-  /// SvId        int             Satellite SV ID 1..35, or use 0 to apply new value to all satellites
-  /// ParamName   string          Parameter name (see table above for accepted names)
-  /// DataSetName optional string Optional name of the data set to use. If no value is provided, the active data set is used.
-  ///
-
-  public class GetBeiDouEphBoolParamForSV : CommandBase
-  {
-    public override string Documentation
-    {
-      get { return "Get various boolean parameters in the BeiDou ephemeris\n\n  ParamName\n\"IscB1CdAvailable\"\n\"IscB2adAvailable\""; }
-    }
-
-    internal const string CmdName = "GetBeiDouEphBoolParamForSV";
-
-    public GetBeiDouEphBoolParamForSV()
-      : base(CmdName)
-    {}
-
-    public GetBeiDouEphBoolParamForSV(int svId, string paramName, string dataSetName = null)
-      : base(CmdName)
-    {
-      SvId = svId;
-      ParamName = paramName;
-      DataSetName = dataSetName;
-    }
-      
-    public override bool IsValid
-    {
-      get
-      {
-        return base.IsValid
-        && Contains("SvId")
-        && Contains("ParamName")
-      ;
-      }
-    }
-
-    public override int ExecutePermission { get { return EXECUTE_IF_IDLE; } }
-
-    public int SvId
-    {
-      get { return GetValue("SvId").ToObject<int>(CommandBase.Serializer); }
-      set
-      {
-          SetValue("SvId", JToken.FromObject(value, CommandBase.Serializer));
-      }
-    }
-
-    public string ParamName
-    {
-      get { return GetValue("ParamName").ToObject<string>(CommandBase.Serializer); }
-      set
-      {
-          SetValue("ParamName", JToken.FromObject(value, CommandBase.Serializer));
-      }
-    }
-
-    public string DataSetName
-    {
-      get { return GetValue("DataSetName").ToObject<string>(CommandBase.Serializer); }
-      set
-      {
-        if (value == null)
-          RemoveValue("DataSetName");
-        else
-          SetValue("DataSetName", JToken.FromObject(value, CommandBase.Serializer));
-      }
-    }
-  }
-
-
-  ///
-  /// Result of GetBeiDouEphBoolParamForSV.
-  ///
-  /// Name        Type            Description
-  /// ----------- --------------- -------------------------------------------------------------------------------------------
-  /// SvId        int             Satellite SV ID 1..35, or use 0 to apply new value to all satellites
-  /// ParamName   string          Parameter name (see table above for accepted names)
-  /// Val         bool            Parameter value (see table above for unit)
-  /// DataSetName optional string Optional name of the data set to use. If no value is provided, the active data set is used.
-  ///
-
-  public class GetBeiDouEphBoolParamForSVResult : CommandResult
-  {
-    public override string Documentation
-    {
-      get { return "Result of GetBeiDouEphBoolParamForSV."; }
-    }
-
-    internal const string CmdName = "GetBeiDouEphBoolParamForSVResult";
-
-    public GetBeiDouEphBoolParamForSVResult()
-      : base(CmdName)
-    {}
-
-    public GetBeiDouEphBoolParamForSVResult(CommandBase relatedCommand, int svId, string paramName, bool val, string dataSetName = null)
-      : base(CmdName, relatedCommand)
-    {
-      SvId = svId;
-      ParamName = paramName;
-      Val = val;
-      DataSetName = dataSetName;
-    }
-      
-    public override bool IsValid
-    {
-      get
-      {
-        return base.IsValid
-        && Contains("SvId")
-        && Contains("ParamName")
-        && Contains("Val")
-      ;
-      }
-    }
-
-    public int SvId
-    {
-      get { return GetValue("SvId").ToObject<int>(CommandBase.Serializer); }
-      set
-      {
-          SetValue("SvId", JToken.FromObject(value, CommandBase.Serializer));
-      }
-    }
-
-    public string ParamName
-    {
-      get { return GetValue("ParamName").ToObject<string>(CommandBase.Serializer); }
-      set
-      {
-          SetValue("ParamName", JToken.FromObject(value, CommandBase.Serializer));
-      }
-    }
-
-    public bool Val
-    {
-      get { return GetValue("Val").ToObject<bool>(CommandBase.Serializer); }
-      set
-      {
-          SetValue("Val", JToken.FromObject(value, CommandBase.Serializer));
-      }
-    }
-
-    public string DataSetName
-    {
-      get { return GetValue("DataSetName").ToObject<string>(CommandBase.Serializer); }
-      set
-      {
-        if (value == null)
-          RemoveValue("DataSetName");
-        else
-          SetValue("DataSetName", JToken.FromObject(value, CommandBase.Serializer));
-      }
-    }
-  }
-
-
-  ///
-  /// Please note the command SetBeiDouEphemerisBoolParams is deprecated since 21.3. You may use SetBeiDouEphBoolParamForEachSV.
-  /// 
-  /// Set BeiDou ephemeris boolean parameter value for all satellites
-  ///
-  /// Name        Type            Description
-  /// ----------- --------------- --------------------------------------------------------------------------------------------------
-  /// ParamName   string          Refer to SetBeiDouEphBoolParamForSV for accepted names
-  /// Val         array bool      Parameter value for each satellite. Zero based index (index 0 => SV ID 1, index 1 => SV ID 2, etc)
-  /// DataSetName optional string Optional name of the data set to use. If no value is provided, the active data set is used.
-  ///
-
-  public class SetBeiDouEphemerisBoolParams : CommandBase
-  {
-    public override string Documentation
-    {
-      get { return "Please note the command SetBeiDouEphemerisBoolParams is deprecated since 21.3. You may use SetBeiDouEphBoolParamForEachSV.\n\nSet BeiDou ephemeris boolean parameter value for all satellites"; }
-    }
-
-    internal const string CmdName = "SetBeiDouEphemerisBoolParams";
-
-    public SetBeiDouEphemerisBoolParams()
-      : base(CmdName)
-    {}
-
-    public SetBeiDouEphemerisBoolParams(string paramName, List<bool> val, string dataSetName = null)
-      : base(CmdName)
-    {
-      ParamName = paramName;
-      Val = val;
-      DataSetName = dataSetName;
-    }
-      
-    public override bool IsValid
-    {
-      get
-      {
-        return base.IsValid
-        && Contains("ParamName")
-        && Contains("Val")
-      ;
-      }
-    }
-
-    public override int ExecutePermission { get { return EXECUTE_IF_IDLE; } }
-
-    public string ParamName
-    {
-      get { return GetValue("ParamName").ToObject<string>(CommandBase.Serializer); }
-      set
-      {
-          SetValue("ParamName", JToken.FromObject(value, CommandBase.Serializer));
-      }
-    }
-
-    public List<bool> Val
-    {
-      get { return GetValue("Val").ToObject<List<bool>>(CommandBase.Serializer); }
-      set
-      {
-          SetValue("Val", JToken.FromObject(value, CommandBase.Serializer));
-      }
-    }
-
-    public string DataSetName
-    {
-      get { return GetValue("DataSetName").ToObject<string>(CommandBase.Serializer); }
-      set
-      {
-        if (value == null)
-          RemoveValue("DataSetName");
-        else
-          SetValue("DataSetName", JToken.FromObject(value, CommandBase.Serializer));
-      }
-    }
-  }
-
-
-  ///
-  /// Set BeiDou ephemeris boolean parameter value for all satellites
-  ///
-  /// Name        Type            Description
-  /// ----------- --------------- --------------------------------------------------------------------------------------------------
-  /// ParamName   string          Refer to SetBeiDouEphBoolParamForSV for accepted names
-  /// Val         array bool      Parameter value for each satellite. Zero based index (index 0 => SV ID 1, index 1 => SV ID 2, etc)
-  /// DataSetName optional string Optional name of the data set to use. If no value is provided, the active data set is used.
-  ///
-
-  public class SetBeiDouEphBoolParamForEachSV : CommandBase
-  {
-    public override string Documentation
-    {
-      get { return "Set BeiDou ephemeris boolean parameter value for all satellites"; }
-    }
-
-    internal const string CmdName = "SetBeiDouEphBoolParamForEachSV";
-
-    public SetBeiDouEphBoolParamForEachSV()
-      : base(CmdName)
-    {}
-
-    public SetBeiDouEphBoolParamForEachSV(string paramName, List<bool> val, string dataSetName = null)
-      : base(CmdName)
-    {
-      ParamName = paramName;
-      Val = val;
-      DataSetName = dataSetName;
-    }
-      
-    public override bool IsValid
-    {
-      get
-      {
-        return base.IsValid
-        && Contains("ParamName")
-        && Contains("Val")
-      ;
-      }
-    }
-
-    public override int ExecutePermission { get { return EXECUTE_IF_IDLE; } }
-
-    public string ParamName
-    {
-      get { return GetValue("ParamName").ToObject<string>(CommandBase.Serializer); }
-      set
-      {
-          SetValue("ParamName", JToken.FromObject(value, CommandBase.Serializer));
-      }
-    }
-
-    public List<bool> Val
-    {
-      get { return GetValue("Val").ToObject<List<bool>>(CommandBase.Serializer); }
-      set
-      {
-          SetValue("Val", JToken.FromObject(value, CommandBase.Serializer));
-      }
-    }
-
-    public string DataSetName
-    {
-      get { return GetValue("DataSetName").ToObject<string>(CommandBase.Serializer); }
-      set
-      {
-        if (value == null)
-          RemoveValue("DataSetName");
-        else
-          SetValue("DataSetName", JToken.FromObject(value, CommandBase.Serializer));
-      }
-    }
-  }
-
-
-  ///
-  /// Please note the command GetBeiDouEphemerisBoolParams is deprecated since 21.3. You may use GetBeiDouEphBoolParamForEachSV.
-  /// 
-  /// Get BeiDou ephemeris boolean parameter value for all satellites
-  ///
-  /// Name        Type            Description
-  /// ----------- --------------- -------------------------------------------------------------------------------------------
-  /// ParamName   string          Refer to SetBeiDouEphBoolParamForSV for accepted names
-  /// DataSetName optional string Optional name of the data set to use. If no value is provided, the active data set is used.
-  ///
-
-  public class GetBeiDouEphemerisBoolParams : CommandBase
-  {
-    public override string Documentation
-    {
-      get { return "Please note the command GetBeiDouEphemerisBoolParams is deprecated since 21.3. You may use GetBeiDouEphBoolParamForEachSV.\n\nGet BeiDou ephemeris boolean parameter value for all satellites"; }
-    }
-
-    internal const string CmdName = "GetBeiDouEphemerisBoolParams";
-
-    public GetBeiDouEphemerisBoolParams()
-      : base(CmdName)
-    {}
-
-    public GetBeiDouEphemerisBoolParams(string paramName, string dataSetName = null)
-      : base(CmdName)
-    {
-      ParamName = paramName;
-      DataSetName = dataSetName;
-    }
-      
-    public override bool IsValid
-    {
-      get
-      {
-        return base.IsValid
-        && Contains("ParamName")
-      ;
-      }
-    }
-
-    public override int ExecutePermission { get { return EXECUTE_IF_IDLE; } }
-
-    public string ParamName
-    {
-      get { return GetValue("ParamName").ToObject<string>(CommandBase.Serializer); }
-      set
-      {
-          SetValue("ParamName", JToken.FromObject(value, CommandBase.Serializer));
-      }
-    }
-
-    public string DataSetName
-    {
-      get { return GetValue("DataSetName").ToObject<string>(CommandBase.Serializer); }
-      set
-      {
-        if (value == null)
-          RemoveValue("DataSetName");
-        else
-          SetValue("DataSetName", JToken.FromObject(value, CommandBase.Serializer));
-      }
-    }
-  }
-
-
-  ///
-  /// Get BeiDou ephemeris boolean parameter value for all satellites
-  ///
-  /// Name        Type            Description
-  /// ----------- --------------- -------------------------------------------------------------------------------------------
-  /// ParamName   string          Refer to SetBeiDouEphBoolParamForSV for accepted names
-  /// DataSetName optional string Optional name of the data set to use. If no value is provided, the active data set is used.
-  ///
-
-  public class GetBeiDouEphBoolParamForEachSV : CommandBase
-  {
-    public override string Documentation
-    {
-      get { return "Get BeiDou ephemeris boolean parameter value for all satellites"; }
-    }
-
-    internal const string CmdName = "GetBeiDouEphBoolParamForEachSV";
-
-    public GetBeiDouEphBoolParamForEachSV()
-      : base(CmdName)
-    {}
-
-    public GetBeiDouEphBoolParamForEachSV(string paramName, string dataSetName = null)
-      : base(CmdName)
-    {
-      ParamName = paramName;
-      DataSetName = dataSetName;
-    }
-      
-    public override bool IsValid
-    {
-      get
-      {
-        return base.IsValid
-        && Contains("ParamName")
-      ;
-      }
-    }
-
-    public override int ExecutePermission { get { return EXECUTE_IF_IDLE; } }
-
-    public string ParamName
-    {
-      get { return GetValue("ParamName").ToObject<string>(CommandBase.Serializer); }
-      set
-      {
-          SetValue("ParamName", JToken.FromObject(value, CommandBase.Serializer));
-      }
-    }
-
-    public string DataSetName
-    {
-      get { return GetValue("DataSetName").ToObject<string>(CommandBase.Serializer); }
-      set
-      {
-        if (value == null)
-          RemoveValue("DataSetName");
-        else
-          SetValue("DataSetName", JToken.FromObject(value, CommandBase.Serializer));
-      }
-    }
-  }
-
-
-  ///
-  /// Result of GetBeiDouEphBoolParamForEachSV.
-  ///
-  /// Name        Type            Description
-  /// ----------- --------------- --------------------------------------------------------------------------------------------------
-  /// ParamName   string          Refer to SetBeiDouEphBoolParamForSV for accepted names
-  /// Val         array bool      Parameter value for each satellite. Zero based index (index 0 => SV ID 1, index 1 => SV ID 2, etc)
-  /// DataSetName optional string Optional name of the data set to use. If no value is provided, the active data set is used.
-  ///
-
-  public class GetBeiDouEphemerisBoolParamsResult : CommandResult
-  {
-    public override string Documentation
-    {
-      get { return "Result of GetBeiDouEphBoolParamForEachSV."; }
-    }
-  
-    internal const string CmdName = "GetBeiDouEphemerisBoolParamsResult";
-
-    public GetBeiDouEphemerisBoolParamsResult()
-      : base(CmdName)
-    {}
-
-    public GetBeiDouEphemerisBoolParamsResult(CommandBase relatedCommand, string paramName, List<bool> val, string dataSetName = null)
-      : base(CmdName, relatedCommand)
-    {
-      ParamName = paramName;
-      Val = val;
-      DataSetName = dataSetName;
-    }
-
-    public override bool IsValid
-    {
-      get
-      {
-        return base.IsValid
-        && Contains("ParamName")
-        && Contains("Val")
-      ;
-      }
-    }
-
-    public string ParamName
-    {
-      get { return GetValue("ParamName").ToObject<string>(CommandBase.Serializer); }
-      set { SetValue("ParamName", JToken.FromObject(value, CommandBase.Serializer)); }
-    }
-
-    public List<bool> Val
-    {
-      get { return GetValue("Val").ToObject<List<bool>>(CommandBase.Serializer); }
-      set { SetValue("Val", JToken.FromObject(value, CommandBase.Serializer)); }
-    }
-
-    public string DataSetName
-    {
-      get { return GetValue("DataSetName").ToObject<string>(CommandBase.Serializer); }
-      set { SetValue("DataSetName", JToken.FromObject(value, CommandBase.Serializer)); }
-    }
-  }
-
-  ///
-  /// Name        Type            Description
-  /// ----------- --------------- --------------------------------------------------------------------------------------------------
-  /// ParamName   string          Refer to SetBeiDouEphBoolParamForSV for accepted names
-  /// Val         array bool      Parameter value for each satellite. Zero based index (index 0 => SV ID 1, index 1 => SV ID 2, etc)
-  /// DataSetName optional string Optional name of the data set to use. If no value is provided, the active data set is used.
-  ///
-
-  public class GetBeiDouEphBoolParamForEachSVResult : GetBeiDouEphemerisBoolParamsResult
-  {
-    internal new const string CmdName = "GetBeiDouEphBoolParamForEachSVResult";
-
-    public GetBeiDouEphBoolParamForEachSVResult()
-      : base()
-    {
-       Name = CmdName;
-    }
-
-    public GetBeiDouEphBoolParamForEachSVResult(CommandBase relatedCommand, string paramName, List<bool> val, string dataSetName = null)
-      : base(relatedCommand, paramName, val, dataSetName)
-    {
-      Name = CmdName;
-    }
-  }
-
-
-  ///
-  /// Please note the command SetQzssEphemerisBoolParam is deprecated since 21.3. You may use SetQzssEphBoolParamForSV.
-  /// 
-  /// Set various boolean parameters in the QZSS ephemeris
-  /// 
-  ///   ParamName
-  /// "IscL1CaAvailable"
-  /// "IscL2CAvailable"
-  /// "IscL5I5Available"
-  /// "IscL5Q5Available"
-  /// "IscL1CPAvailable"
-  /// "IscL1CDAvailable"
-  ///
-  /// Name        Type            Description
-  /// ----------- --------------- -------------------------------------------------------------------------------------------
-  /// SvId        int             Satellite SV ID 1..10, or use 0 to apply new value to all satellites
-  /// ParamName   string          Parameter name (see table above for accepted names)
-  /// Val         bool            Parameter value (see table above for unit)
-  /// DataSetName optional string Optional name of the data set to use. If no value is provided, the active data set is used.
-  ///
-
-  public class SetQzssEphemerisBoolParam : CommandBase
-  {
-    public override string Documentation
-    {
-      get { return "Please note the command SetQzssEphemerisBoolParam is deprecated since 21.3. You may use SetQzssEphBoolParamForSV.\n\nSet various boolean parameters in the QZSS ephemeris\n\n  ParamName\n\"IscL1CaAvailable\"\n\"IscL2CAvailable\"\n\"IscL5I5Available\"\n\"IscL5Q5Available\"\n\"IscL1CPAvailable\"\n\"IscL1CDAvailable\""; }
-    }
-
-    internal const string CmdName = "SetQzssEphemerisBoolParam";
-
-    public SetQzssEphemerisBoolParam()
-      : base(CmdName)
-    {}
-
-    public SetQzssEphemerisBoolParam(int svId, string paramName, bool val, string dataSetName = null)
-      : base(CmdName)
-    {
-      SvId = svId;
-      ParamName = paramName;
-      Val = val;
-      DataSetName = dataSetName;
-    }
-      
-    public override bool IsValid
-    {
-      get
-      {
-        return base.IsValid
-        && Contains("SvId")
-        && Contains("ParamName")
-        && Contains("Val")
-      ;
-      }
-    }
-
-    public override int ExecutePermission { get { return EXECUTE_IF_IDLE; } }
-
-    public int SvId
-    {
-      get { return GetValue("SvId").ToObject<int>(CommandBase.Serializer); }
-      set
-      {
-          SetValue("SvId", JToken.FromObject(value, CommandBase.Serializer));
-      }
-    }
-
-    public string ParamName
-    {
-      get { return GetValue("ParamName").ToObject<string>(CommandBase.Serializer); }
-      set
-      {
-          SetValue("ParamName", JToken.FromObject(value, CommandBase.Serializer));
-      }
-    }
-
-    public bool Val
-    {
-      get { return GetValue("Val").ToObject<bool>(CommandBase.Serializer); }
-      set
-      {
-          SetValue("Val", JToken.FromObject(value, CommandBase.Serializer));
-      }
-    }
-
-    public string DataSetName
-    {
-      get { return GetValue("DataSetName").ToObject<string>(CommandBase.Serializer); }
-      set
-      {
-        if (value == null)
-          RemoveValue("DataSetName");
-        else
-          SetValue("DataSetName", JToken.FromObject(value, CommandBase.Serializer));
-      }
-    }
-  }
-
-
-  ///
-  /// Set various boolean parameters in the QZSS ephemeris
-  /// 
-  ///   ParamName
-  /// "IscL1CaAvailable"
-  /// "IscL2CAvailable"
-  /// "IscL5I5Available"
-  /// "IscL5Q5Available"
-  /// "IscL1CPAvailable"
-  /// "IscL1CDAvailable"
-  ///
-  /// Name        Type            Description
-  /// ----------- --------------- -------------------------------------------------------------------------------------------
-  /// SvId        int             Satellite SV ID 1..10, or use 0 to apply new value to all satellites
-  /// ParamName   string          Parameter name (see table above for accepted names)
-  /// Val         bool            Parameter value (see table above for unit)
-  /// DataSetName optional string Optional name of the data set to use. If no value is provided, the active data set is used.
-  ///
-
-  public class SetQzssEphBoolParamForSV : CommandBase
-  {
-    public override string Documentation
-    {
-      get { return "Set various boolean parameters in the QZSS ephemeris\n\n  ParamName\n\"IscL1CaAvailable\"\n\"IscL2CAvailable\"\n\"IscL5I5Available\"\n\"IscL5Q5Available\"\n\"IscL1CPAvailable\"\n\"IscL1CDAvailable\""; }
-    }
-
-    internal const string CmdName = "SetQzssEphBoolParamForSV";
-
-    public SetQzssEphBoolParamForSV()
-      : base(CmdName)
-    {}
-
-    public SetQzssEphBoolParamForSV(int svId, string paramName, bool val, string dataSetName = null)
-      : base(CmdName)
-    {
-      SvId = svId;
-      ParamName = paramName;
-      Val = val;
-      DataSetName = dataSetName;
-    }
-      
-    public override bool IsValid
-    {
-      get
-      {
-        return base.IsValid
-        && Contains("SvId")
-        && Contains("ParamName")
-        && Contains("Val")
-      ;
-      }
-    }
-
-    public override int ExecutePermission { get { return EXECUTE_IF_IDLE; } }
-
-    public int SvId
-    {
-      get { return GetValue("SvId").ToObject<int>(CommandBase.Serializer); }
-      set
-      {
-          SetValue("SvId", JToken.FromObject(value, CommandBase.Serializer));
-      }
-    }
-
-    public string ParamName
-    {
-      get { return GetValue("ParamName").ToObject<string>(CommandBase.Serializer); }
-      set
-      {
-          SetValue("ParamName", JToken.FromObject(value, CommandBase.Serializer));
-      }
-    }
-
-    public bool Val
-    {
-      get { return GetValue("Val").ToObject<bool>(CommandBase.Serializer); }
-      set
-      {
-          SetValue("Val", JToken.FromObject(value, CommandBase.Serializer));
-      }
-    }
-
-    public string DataSetName
-    {
-      get { return GetValue("DataSetName").ToObject<string>(CommandBase.Serializer); }
-      set
-      {
-        if (value == null)
-          RemoveValue("DataSetName");
-        else
-          SetValue("DataSetName", JToken.FromObject(value, CommandBase.Serializer));
-      }
-    }
-  }
-
-
-  ///
-  /// Please note the command GetQzssEphemerisBoolParam is deprecated since 21.3. You may use GetQzssEphBoolParamForSV.
-  /// 
-  /// Get various boolean parameters in the QZSS ephemeris
-  /// 
-  ///   ParamName
-  /// "IscL1CaAvailable"
-  /// "IscL2CAvailable"
-  /// "IscL5I5Available"
-  /// "IscL5Q5Available"
-  /// "IscL1CPAvailable"
-  /// "IscL1CDAvailable"
-  ///
-  /// Name        Type            Description
-  /// ----------- --------------- -------------------------------------------------------------------------------------------
-  /// SvId        int             Satellite SV ID 1..10, or use 0 to apply new value to all satellites
-  /// ParamName   string          Parameter name (see table above for accepted names)
-  /// DataSetName optional string Optional name of the data set to use. If no value is provided, the active data set is used.
-  ///
-
-  public class GetQzssEphemerisBoolParam : CommandBase
-  {
-    public override string Documentation
-    {
-      get { return "Please note the command GetQzssEphemerisBoolParam is deprecated since 21.3. You may use GetQzssEphBoolParamForSV.\n\nGet various boolean parameters in the QZSS ephemeris\n\n  ParamName\n\"IscL1CaAvailable\"\n\"IscL2CAvailable\"\n\"IscL5I5Available\"\n\"IscL5Q5Available\"\n\"IscL1CPAvailable\"\n\"IscL1CDAvailable\""; }
-    }
-
-    internal const string CmdName = "GetQzssEphemerisBoolParam";
-
-    public GetQzssEphemerisBoolParam()
-      : base(CmdName)
-    {}
-
-    public GetQzssEphemerisBoolParam(int svId, string paramName, string dataSetName = null)
-      : base(CmdName)
-    {
-      SvId = svId;
-      ParamName = paramName;
-      DataSetName = dataSetName;
-    }
-      
-    public override bool IsValid
-    {
-      get
-      {
-        return base.IsValid
-        && Contains("SvId")
-        && Contains("ParamName")
-      ;
-      }
-    }
-
-    public override int ExecutePermission { get { return EXECUTE_IF_IDLE; } }
-
-    public int SvId
-    {
-      get { return GetValue("SvId").ToObject<int>(CommandBase.Serializer); }
-      set
-      {
-          SetValue("SvId", JToken.FromObject(value, CommandBase.Serializer));
-      }
-    }
-
-    public string ParamName
-    {
-      get { return GetValue("ParamName").ToObject<string>(CommandBase.Serializer); }
-      set
-      {
-          SetValue("ParamName", JToken.FromObject(value, CommandBase.Serializer));
-      }
-    }
-
-    public string DataSetName
-    {
-      get { return GetValue("DataSetName").ToObject<string>(CommandBase.Serializer); }
-      set
-      {
-        if (value == null)
-          RemoveValue("DataSetName");
-        else
-          SetValue("DataSetName", JToken.FromObject(value, CommandBase.Serializer));
-      }
-    }
-  }
-
-
-  ///
-  /// Get various boolean parameters in the QZSS ephemeris
-  /// 
-  ///   ParamName
-  /// "IscL1CaAvailable"
-  /// "IscL2CAvailable"
-  /// "IscL5I5Available"
-  /// "IscL5Q5Available"
-  /// "IscL1CPAvailable"
-  /// "IscL1CDAvailable"
-  ///
-  /// Name        Type            Description
-  /// ----------- --------------- -------------------------------------------------------------------------------------------
-  /// SvId        int             Satellite SV ID 1..10, or use 0 to apply new value to all satellites
-  /// ParamName   string          Parameter name (see table above for accepted names)
-  /// DataSetName optional string Optional name of the data set to use. If no value is provided, the active data set is used.
-  ///
-
-  public class GetQzssEphBoolParamForSV : CommandBase
-  {
-    public override string Documentation
-    {
-      get { return "Get various boolean parameters in the QZSS ephemeris\n\n  ParamName\n\"IscL1CaAvailable\"\n\"IscL2CAvailable\"\n\"IscL5I5Available\"\n\"IscL5Q5Available\"\n\"IscL1CPAvailable\"\n\"IscL1CDAvailable\""; }
-    }
-
-    internal const string CmdName = "GetQzssEphBoolParamForSV";
-
-    public GetQzssEphBoolParamForSV()
-      : base(CmdName)
-    {}
-
-    public GetQzssEphBoolParamForSV(int svId, string paramName, string dataSetName = null)
-      : base(CmdName)
-    {
-      SvId = svId;
-      ParamName = paramName;
-      DataSetName = dataSetName;
-    }
-      
-    public override bool IsValid
-    {
-      get
-      {
-        return base.IsValid
-        && Contains("SvId")
-        && Contains("ParamName")
-      ;
-      }
-    }
-
-    public override int ExecutePermission { get { return EXECUTE_IF_IDLE; } }
-
-    public int SvId
-    {
-      get { return GetValue("SvId").ToObject<int>(CommandBase.Serializer); }
-      set
-      {
-          SetValue("SvId", JToken.FromObject(value, CommandBase.Serializer));
-      }
-    }
-
-    public string ParamName
-    {
-      get { return GetValue("ParamName").ToObject<string>(CommandBase.Serializer); }
-      set
-      {
-          SetValue("ParamName", JToken.FromObject(value, CommandBase.Serializer));
-      }
-    }
-
-    public string DataSetName
-    {
-      get { return GetValue("DataSetName").ToObject<string>(CommandBase.Serializer); }
-      set
-      {
-        if (value == null)
-          RemoveValue("DataSetName");
-        else
-          SetValue("DataSetName", JToken.FromObject(value, CommandBase.Serializer));
-      }
-    }
-  }
-
-
-  ///
-  /// Result of GetQzssEphBoolParamForSV.
-  ///
-  /// Name        Type            Description
-  /// ----------- --------------- -------------------------------------------------------------------------------------------
-  /// SvId        int             Satellite SV ID 1..10, or use 0 to apply new value to all satellites
-  /// ParamName   string          Parameter name (see table above for accepted names)
-  /// Val         bool            Parameter value (see table above for unit)
-  /// DataSetName optional string Optional name of the data set to use. If no value is provided, the active data set is used.
-  ///
-
-  public class GetQzssEphemerisBoolParamResult : CommandResult
-  {
-    public override string Documentation
-    {
-      get { return "Result of GetQzssEphBoolParamForSV."; }
-    }
-  
-    internal const string CmdName = "GetQzssEphemerisBoolParamResult";
-
-    public GetQzssEphemerisBoolParamResult()
-      : base(CmdName)
-    {}
-
-    public GetQzssEphemerisBoolParamResult(CommandBase relatedCommand, int svId, string paramName, bool val, string dataSetName = null)
-      : base(CmdName, relatedCommand)
-    {
-      SvId = svId;
-      ParamName = paramName;
-      Val = val;
-      DataSetName = dataSetName;
-    }
-
-    public override bool IsValid
-    {
-      get
-      {
-        return base.IsValid
-        && Contains("SvId")
-        && Contains("ParamName")
-        && Contains("Val")
-      ;
-      }
-    }
-
-    public int SvId
-    {
-      get { return GetValue("SvId").ToObject<int>(CommandBase.Serializer); }
-      set { SetValue("SvId", JToken.FromObject(value, CommandBase.Serializer)); }
-    }
-
-    public string ParamName
-    {
-      get { return GetValue("ParamName").ToObject<string>(CommandBase.Serializer); }
-      set { SetValue("ParamName", JToken.FromObject(value, CommandBase.Serializer)); }
-    }
-
-    public bool Val
-    {
-      get { return GetValue("Val").ToObject<bool>(CommandBase.Serializer); }
-      set { SetValue("Val", JToken.FromObject(value, CommandBase.Serializer)); }
-    }
-
-    public string DataSetName
-    {
-      get { return GetValue("DataSetName").ToObject<string>(CommandBase.Serializer); }
-      set { SetValue("DataSetName", JToken.FromObject(value, CommandBase.Serializer)); }
-    }
-  }
-
-  ///
-  /// Name        Type            Description
-  /// ----------- --------------- -------------------------------------------------------------------------------------------
-  /// SvId        int             Satellite SV ID 1..10, or use 0 to apply new value to all satellites
-  /// ParamName   string          Parameter name (see table above for accepted names)
-  /// Val         bool            Parameter value (see table above for unit)
-  /// DataSetName optional string Optional name of the data set to use. If no value is provided, the active data set is used.
-  ///
-
-  public class GetQzssEphBoolParamForSVResult : GetQzssEphemerisBoolParamResult
-  {
-    internal new const string CmdName = "GetQzssEphBoolParamForSVResult";
-
-    public GetQzssEphBoolParamForSVResult()
-      : base()
-    {
-       Name = CmdName;
-    }
-
-    public GetQzssEphBoolParamForSVResult(CommandBase relatedCommand, int svId, string paramName, bool val, string dataSetName = null)
-      : base(relatedCommand, svId, paramName, val, dataSetName)
-    {
-      Name = CmdName;
-    }
-  }
-
-
-  ///
-  /// Please note the command SetQzssEphemerisBoolParams is deprecated since 21.3. You may use SetQzssEphBoolParamForEachSV.
-  /// 
-  /// Set QZSS ephemeris boolean parameter value for all satellites
-  ///
-  /// Name        Type            Description
-  /// ----------- --------------- --------------------------------------------------------------------------------------------------
-  /// ParamName   string          Refer to SetQzssEphemerisBoolParam for accepted names
-  /// Val         array bool      Parameter value for each satellite. Zero based index (index 0 => SV ID 1, index 1 => SV ID 2, etc)
-  /// DataSetName optional string Optional name of the data set to use. If no value is provided, the active data set is used.
-  ///
-
-  public class SetQzssEphemerisBoolParams : CommandBase
-  {
-    public override string Documentation
-    {
-      get { return "Please note the command SetQzssEphemerisBoolParams is deprecated since 21.3. You may use SetQzssEphBoolParamForEachSV.\n\nSet QZSS ephemeris boolean parameter value for all satellites"; }
-    }
-
-    internal const string CmdName = "SetQzssEphemerisBoolParams";
-
-    public SetQzssEphemerisBoolParams()
-      : base(CmdName)
-    {}
-
-    public SetQzssEphemerisBoolParams(string paramName, List<bool> val, string dataSetName = null)
-      : base(CmdName)
-    {
-      ParamName = paramName;
-      Val = val;
-      DataSetName = dataSetName;
-    }
-      
-    public override bool IsValid
-    {
-      get
-      {
-        return base.IsValid
-        && Contains("ParamName")
-        && Contains("Val")
-      ;
-      }
-    }
-
-    public override int ExecutePermission { get { return EXECUTE_IF_IDLE; } }
-
-    public string ParamName
-    {
-      get { return GetValue("ParamName").ToObject<string>(CommandBase.Serializer); }
-      set
-      {
-          SetValue("ParamName", JToken.FromObject(value, CommandBase.Serializer));
-      }
-    }
-
-    public List<bool> Val
-    {
-      get { return GetValue("Val").ToObject<List<bool>>(CommandBase.Serializer); }
-      set
-      {
-          SetValue("Val", JToken.FromObject(value, CommandBase.Serializer));
-      }
-    }
-
-    public string DataSetName
-    {
-      get { return GetValue("DataSetName").ToObject<string>(CommandBase.Serializer); }
-      set
-      {
-        if (value == null)
-          RemoveValue("DataSetName");
-        else
-          SetValue("DataSetName", JToken.FromObject(value, CommandBase.Serializer));
-      }
-    }
-  }
-
-
-  ///
-  /// Set QZSS ephemeris boolean parameter value for all satellites
-  ///
-  /// Name        Type            Description
-  /// ----------- --------------- --------------------------------------------------------------------------------------------------
-  /// ParamName   string          Refer to SetQzssEphemerisBoolParam for accepted names
-  /// Val         array bool      Parameter value for each satellite. Zero based index (index 0 => SV ID 1, index 1 => SV ID 2, etc)
-  /// DataSetName optional string Optional name of the data set to use. If no value is provided, the active data set is used.
-  ///
-
-  public class SetQzssEphBoolParamForEachSV : CommandBase
-  {
-    public override string Documentation
-    {
-      get { return "Set QZSS ephemeris boolean parameter value for all satellites"; }
-    }
-
-    internal const string CmdName = "SetQzssEphBoolParamForEachSV";
-
-    public SetQzssEphBoolParamForEachSV()
-      : base(CmdName)
-    {}
-
-    public SetQzssEphBoolParamForEachSV(string paramName, List<bool> val, string dataSetName = null)
-      : base(CmdName)
-    {
-      ParamName = paramName;
-      Val = val;
-      DataSetName = dataSetName;
-    }
-      
-    public override bool IsValid
-    {
-      get
-      {
-        return base.IsValid
-        && Contains("ParamName")
-        && Contains("Val")
-      ;
-      }
-    }
-
-    public override int ExecutePermission { get { return EXECUTE_IF_IDLE; } }
-
-    public string ParamName
-    {
-      get { return GetValue("ParamName").ToObject<string>(CommandBase.Serializer); }
-      set
-      {
-          SetValue("ParamName", JToken.FromObject(value, CommandBase.Serializer));
-      }
-    }
-
-    public List<bool> Val
-    {
-      get { return GetValue("Val").ToObject<List<bool>>(CommandBase.Serializer); }
-      set
-      {
-          SetValue("Val", JToken.FromObject(value, CommandBase.Serializer));
-      }
-    }
-
-    public string DataSetName
-    {
-      get { return GetValue("DataSetName").ToObject<string>(CommandBase.Serializer); }
-      set
-      {
-        if (value == null)
-          RemoveValue("DataSetName");
-        else
-          SetValue("DataSetName", JToken.FromObject(value, CommandBase.Serializer));
-      }
-    }
-  }
-
-
-  ///
-  /// Please note the command GetQzssEphemerisBoolParams is deprecated since 21.3. You may use GetQzssEphBoolParamForEachSV.
-  /// 
-  /// Get QZSS ephemeris boolean parameter value for all satellites
-  ///
-  /// Name        Type            Description
-  /// ----------- --------------- -------------------------------------------------------------------------------------------
-  /// ParamName   string          Refer to SetQzssEphemerisBoolParam for accepted names
-  /// DataSetName optional string Optional name of the data set to use. If no value is provided, the active data set is used.
-  ///
-
-  public class GetQzssEphemerisBoolParams : CommandBase
-  {
-    public override string Documentation
-    {
-      get { return "Please note the command GetQzssEphemerisBoolParams is deprecated since 21.3. You may use GetQzssEphBoolParamForEachSV.\n\nGet QZSS ephemeris boolean parameter value for all satellites"; }
-    }
-
-    internal const string CmdName = "GetQzssEphemerisBoolParams";
-
-    public GetQzssEphemerisBoolParams()
-      : base(CmdName)
-    {}
-
-    public GetQzssEphemerisBoolParams(string paramName, string dataSetName = null)
-      : base(CmdName)
-    {
-      ParamName = paramName;
-      DataSetName = dataSetName;
-    }
-      
-    public override bool IsValid
-    {
-      get
-      {
-        return base.IsValid
-        && Contains("ParamName")
-      ;
-      }
-    }
-
-    public override int ExecutePermission { get { return EXECUTE_IF_IDLE; } }
-
-    public string ParamName
-    {
-      get { return GetValue("ParamName").ToObject<string>(CommandBase.Serializer); }
-      set
-      {
-          SetValue("ParamName", JToken.FromObject(value, CommandBase.Serializer));
-      }
-    }
-
-    public string DataSetName
-    {
-      get { return GetValue("DataSetName").ToObject<string>(CommandBase.Serializer); }
-      set
-      {
-        if (value == null)
-          RemoveValue("DataSetName");
-        else
-          SetValue("DataSetName", JToken.FromObject(value, CommandBase.Serializer));
-      }
-    }
-  }
-
-
-  ///
-  /// Get QZSS ephemeris boolean parameter value for all satellites
-  ///
-  /// Name        Type            Description
-  /// ----------- --------------- -------------------------------------------------------------------------------------------
-  /// ParamName   string          Refer to SetQzssEphemerisBoolParam for accepted names
-  /// DataSetName optional string Optional name of the data set to use. If no value is provided, the active data set is used.
-  ///
-
-  public class GetQzssEphBoolParamForEachSV : CommandBase
-  {
-    public override string Documentation
-    {
-      get { return "Get QZSS ephemeris boolean parameter value for all satellites"; }
-    }
-
-    internal const string CmdName = "GetQzssEphBoolParamForEachSV";
-
-    public GetQzssEphBoolParamForEachSV()
-      : base(CmdName)
-    {}
-
-    public GetQzssEphBoolParamForEachSV(string paramName, string dataSetName = null)
-      : base(CmdName)
-    {
-      ParamName = paramName;
-      DataSetName = dataSetName;
-    }
-      
-    public override bool IsValid
-    {
-      get
-      {
-        return base.IsValid
-        && Contains("ParamName")
-      ;
-      }
-    }
-
-    public override int ExecutePermission { get { return EXECUTE_IF_IDLE; } }
-
-    public string ParamName
-    {
-      get { return GetValue("ParamName").ToObject<string>(CommandBase.Serializer); }
-      set
-      {
-          SetValue("ParamName", JToken.FromObject(value, CommandBase.Serializer));
-      }
-    }
-
-    public string DataSetName
-    {
-      get { return GetValue("DataSetName").ToObject<string>(CommandBase.Serializer); }
-      set
-      {
-        if (value == null)
-          RemoveValue("DataSetName");
-        else
-          SetValue("DataSetName", JToken.FromObject(value, CommandBase.Serializer));
-      }
-    }
-  }
-
-
-  ///
-  /// Result of GetQzssEphBoolParamForEachSV.
-  ///
-  /// Name        Type            Description
-  /// ----------- --------------- --------------------------------------------------------------------------------------------------
-  /// ParamName   string          Refer to SetQzssEphemerisBoolParam for accepted names
-  /// Val         array bool      Parameter value for each satellite. Zero based index (index 0 => SV ID 1, index 1 => SV ID 2, etc)
-  /// DataSetName optional string Optional name of the data set to use. If no value is provided, the active data set is used.
-  ///
-
-  public class GetQzssEphemerisBoolParamsResult : CommandResult
-  {
-    public override string Documentation
-    {
-      get { return "Result of GetQzssEphBoolParamForEachSV."; }
-    }
-  
-    internal const string CmdName = "GetQzssEphemerisBoolParamsResult";
-
-    public GetQzssEphemerisBoolParamsResult()
-      : base(CmdName)
-    {}
-
-    public GetQzssEphemerisBoolParamsResult(CommandBase relatedCommand, string paramName, List<bool> val, string dataSetName = null)
-      : base(CmdName, relatedCommand)
-    {
-      ParamName = paramName;
-      Val = val;
-      DataSetName = dataSetName;
-    }
-
-    public override bool IsValid
-    {
-      get
-      {
-        return base.IsValid
-        && Contains("ParamName")
-        && Contains("Val")
-      ;
-      }
-    }
-
-    public string ParamName
-    {
-      get { return GetValue("ParamName").ToObject<string>(CommandBase.Serializer); }
-      set { SetValue("ParamName", JToken.FromObject(value, CommandBase.Serializer)); }
-    }
-
-    public List<bool> Val
-    {
-      get { return GetValue("Val").ToObject<List<bool>>(CommandBase.Serializer); }
-      set { SetValue("Val", JToken.FromObject(value, CommandBase.Serializer)); }
-    }
-
-    public string DataSetName
-    {
-      get { return GetValue("DataSetName").ToObject<string>(CommandBase.Serializer); }
-      set { SetValue("DataSetName", JToken.FromObject(value, CommandBase.Serializer)); }
-    }
-  }
-
-  ///
-  /// Name        Type            Description
-  /// ----------- --------------- --------------------------------------------------------------------------------------------------
-  /// ParamName   string          Refer to SetQzssEphemerisBoolParam for accepted names
-  /// Val         array bool      Parameter value for each satellite. Zero based index (index 0 => SV ID 1, index 1 => SV ID 2, etc)
-  /// DataSetName optional string Optional name of the data set to use. If no value is provided, the active data set is used.
-  ///
-
-  public class GetQzssEphBoolParamForEachSVResult : GetQzssEphemerisBoolParamsResult
-  {
-    internal new const string CmdName = "GetQzssEphBoolParamForEachSVResult";
-
-    public GetQzssEphBoolParamForEachSVResult()
-      : base()
-    {
-       Name = CmdName;
-    }
-
-    public GetQzssEphBoolParamForEachSVResult(CommandBase relatedCommand, string paramName, List<bool> val, string dataSetName = null)
-      : base(relatedCommand, paramName, val, dataSetName)
-    {
-      Name = CmdName;
     }
   }
 
@@ -53714,6 +47177,8 @@ namespace Sdx.Cmd
 
 
   ///
+  /// Please note the command SetSyncTimeMaster is deprecated since 23.11. You may use SetSyncTimeMainInstance.
+  /// 
   /// Set time delay to start streaming after PPS synchronization. A value of 1500
   /// means the simulation will start streaming 1.5 sec after the PPS used for
   /// synchornization.
@@ -53727,7 +47192,7 @@ namespace Sdx.Cmd
   {
     public override string Documentation
     {
-      get { return "Set time delay to start streaming after PPS synchronization. A value of 1500\nmeans the simulation will start streaming 1.5 sec after the PPS used for\nsynchornization."; }
+      get { return "Please note the command SetSyncTimeMaster is deprecated since 23.11. You may use SetSyncTimeMainInstance.\n\nSet time delay to start streaming after PPS synchronization. A value of 1500\nmeans the simulation will start streaming 1.5 sec after the PPS used for\nsynchornization."; }
     }
 
     internal const string CmdName = "SetSyncTimeMaster";
@@ -53766,6 +47231,60 @@ namespace Sdx.Cmd
 
 
   ///
+  /// Set time delay to start streaming after PPS synchronization. A value of 1500
+  /// means the simulation will start streaming 1.5 sec after the PPS used for
+  /// synchornization.
+  ///
+  /// Name Type   Description
+  /// ---- ------ ----------------------------------------
+  /// Time double Time delay in msec (minimum is 500 msec)
+  ///
+
+  public class SetSyncTimeMainInstance : CommandBase
+  {
+    public override string Documentation
+    {
+      get { return "Set time delay to start streaming after PPS synchronization. A value of 1500\nmeans the simulation will start streaming 1.5 sec after the PPS used for\nsynchornization."; }
+    }
+
+    internal const string CmdName = "SetSyncTimeMainInstance";
+
+    public SetSyncTimeMainInstance()
+      : base(CmdName)
+    {}
+
+    public SetSyncTimeMainInstance(double time)
+      : base(CmdName)
+    {
+      Time = time;
+    }
+      
+    public override bool IsValid
+    {
+      get
+      {
+        return base.IsValid
+        && Contains("Time")
+      ;
+      }
+    }
+
+    public override int ExecutePermission { get { return EXECUTE_IF_IDLE; } }
+
+    public double Time
+    {
+      get { return GetValue("Time").ToObject<double>(CommandBase.Serializer); }
+      set
+      {
+          SetValue("Time", JToken.FromObject(value, CommandBase.Serializer));
+      }
+    }
+  }
+
+
+  ///
+  /// Please note the command GetSyncTimeMaster is deprecated since 23.11. You may use GetSyncTimeMainInstance.
+  /// 
   /// Get time delay to start streaming after PPS synchronization. A value of 1500
   /// means the simulation will start streaming 1.5 sec after the PPS used for
   /// synchornization.
@@ -53777,7 +47296,7 @@ namespace Sdx.Cmd
   {
     public override string Documentation
     {
-      get { return "Get time delay to start streaming after PPS synchronization. A value of 1500\nmeans the simulation will start streaming 1.5 sec after the PPS used for\nsynchornization."; }
+      get { return "Please note the command GetSyncTimeMaster is deprecated since 23.11. You may use GetSyncTimeMainInstance.\n\nGet time delay to start streaming after PPS synchronization. A value of 1500\nmeans the simulation will start streaming 1.5 sec after the PPS used for\nsynchornization."; }
     }
 
     internal const string CmdName = "GetSyncTimeMaster";
@@ -53800,7 +47319,41 @@ namespace Sdx.Cmd
 
 
   ///
-  /// Result of GetSyncTimeMaster.
+  /// Get time delay to start streaming after PPS synchronization. A value of 1500
+  /// means the simulation will start streaming 1.5 sec after the PPS used for
+  /// synchornization.
+  ///
+  /// 
+  ///
+
+  public class GetSyncTimeMainInstance : CommandBase
+  {
+    public override string Documentation
+    {
+      get { return "Get time delay to start streaming after PPS synchronization. A value of 1500\nmeans the simulation will start streaming 1.5 sec after the PPS used for\nsynchornization."; }
+    }
+
+    internal const string CmdName = "GetSyncTimeMainInstance";
+
+    public GetSyncTimeMainInstance()
+      : base(CmdName)
+    {}
+      
+    public override bool IsValid
+    {
+      get
+      {
+        return base.IsValid
+      ;
+      }
+    }
+
+    public override int ExecutePermission { get { return EXECUTE_IF_IDLE | EXECUTE_IF_SIMULATING; } }
+  }
+
+
+  ///
+  /// Result of GetSyncTimeMainInstance.
   ///
   /// Name Type   Description
   /// ---- ------ ----------------------------------------
@@ -53811,9 +47364,9 @@ namespace Sdx.Cmd
   {
     public override string Documentation
     {
-      get { return "Result of GetSyncTimeMaster."; }
+      get { return "Result of GetSyncTimeMainInstance."; }
     }
-
+  
     internal const string CmdName = "GetSyncTimeMasterResult";
 
     public GetSyncTimeMasterResult()
@@ -53825,7 +47378,7 @@ namespace Sdx.Cmd
     {
       Time = time;
     }
-      
+
     public override bool IsValid
     {
       get
@@ -53839,10 +47392,30 @@ namespace Sdx.Cmd
     public double Time
     {
       get { return GetValue("Time").ToObject<double>(CommandBase.Serializer); }
-      set
-      {
-          SetValue("Time", JToken.FromObject(value, CommandBase.Serializer));
-      }
+      set { SetValue("Time", JToken.FromObject(value, CommandBase.Serializer)); }
+    }
+  }
+
+  ///
+  /// Name Type   Description
+  /// ---- ------ ----------------------------------------
+  /// Time double Time delay in msec (minimum is 500 msec)
+  ///
+
+  public class GetSyncTimeMainInstanceResult : GetSyncTimeMasterResult
+  {
+    internal new const string CmdName = "GetSyncTimeMainInstanceResult";
+
+    public GetSyncTimeMainInstanceResult()
+      : base()
+    {
+       Name = CmdName;
+    }
+
+    public GetSyncTimeMainInstanceResult(CommandBase relatedCommand, double time)
+      : base(relatedCommand, time)
+    {
+      Name = CmdName;
     }
   }
 
@@ -53978,27 +47551,27 @@ namespace Sdx.Cmd
 
 
   ///
-  /// If enabled, master and all the slaves will stop if a slave stop.
+  /// If enabled, main instance and all the worker instances will stop if a worker instance stops.
   ///
   /// Name    Type Description
-  /// ------- ---- ---------------------------------------
-  /// Enabled bool Enable master stop when slave fail flag
+  /// ------- ---- ---------------------------------------------------------
+  /// Enabled bool Enable main instance stop when worker instance stops flag
   ///
 
-  public class StopMasterWhenSlaveStop : CommandBase
+  public class StopMainInstanceWhenWorkerInstanceStop : CommandBase
   {
     public override string Documentation
     {
-      get { return "If enabled, master and all the slaves will stop if a slave stop."; }
+      get { return "If enabled, main instance and all the worker instances will stop if a worker instance stops."; }
     }
 
-    internal const string CmdName = "StopMasterWhenSlaveStop";
+    internal const string CmdName = "StopMainInstanceWhenWorkerInstanceStop";
 
-    public StopMasterWhenSlaveStop()
+    public StopMainInstanceWhenWorkerInstanceStop()
       : base(CmdName)
     {}
 
-    public StopMasterWhenSlaveStop(bool enabled)
+    public StopMainInstanceWhenWorkerInstanceStop(bool enabled)
       : base(CmdName)
     {
       Enabled = enabled;
@@ -54028,21 +47601,21 @@ namespace Sdx.Cmd
 
 
   ///
-  /// If enabled, master and all the slaves will stop if a slave stop.
+  /// If enabled, main instance and all the worker instances will stop if a worker instance stops.
   ///
   /// 
   ///
 
-  public class IsStopMasterWhenSlaveStop : CommandBase
+  public class IsStopMainInstanceWhenWorkerInstanceStop : CommandBase
   {
     public override string Documentation
     {
-      get { return "If enabled, master and all the slaves will stop if a slave stop."; }
+      get { return "If enabled, main instance and all the worker instances will stop if a worker instance stops."; }
     }
 
-    internal const string CmdName = "IsStopMasterWhenSlaveStop";
+    internal const string CmdName = "IsStopMainInstanceWhenWorkerInstanceStop";
 
-    public IsStopMasterWhenSlaveStop()
+    public IsStopMainInstanceWhenWorkerInstanceStop()
       : base(CmdName)
     {}
       
@@ -54060,27 +47633,27 @@ namespace Sdx.Cmd
 
 
   ///
-  /// Result of IsStopMasterWhenSlaveStop.
+  /// Result of IsStopMainInstanceWhenWorkerInstanceStop.
   ///
   /// Name    Type Description
-  /// ------- ---- ---------------------------------------
-  /// Enabled bool Enable master stop when slave fail flag
+  /// ------- ---- ---------------------------------------------------------
+  /// Enabled bool Enable main instance stop when worker instance stops flag
   ///
 
-  public class IsStopMasterWhenSlaveStopResult : CommandResult
+  public class IsStopMainInstanceWhenWorkerInstanceStopResult : CommandResult
   {
     public override string Documentation
     {
-      get { return "Result of IsStopMasterWhenSlaveStop."; }
+      get { return "Result of IsStopMainInstanceWhenWorkerInstanceStop."; }
     }
 
-    internal const string CmdName = "IsStopMasterWhenSlaveStopResult";
+    internal const string CmdName = "IsStopMainInstanceWhenWorkerInstanceStopResult";
 
-    public IsStopMasterWhenSlaveStopResult()
+    public IsStopMainInstanceWhenWorkerInstanceStopResult()
       : base(CmdName)
     {}
 
-    public IsStopMasterWhenSlaveStopResult(CommandBase relatedCommand, bool enabled)
+    public IsStopMainInstanceWhenWorkerInstanceStopResult(CommandBase relatedCommand, bool enabled)
       : base(CmdName, relatedCommand)
     {
       Enabled = enabled;
@@ -54408,9 +47981,9 @@ namespace Sdx.Cmd
   /// -Initializing
   /// -Armed
   /// -Streaming RF
-  /// -Sync Slave
-  /// -WF Init (Slave)
-  /// -WF Init (Master)
+  /// -Sync Worker Instance
+  /// -WF Init (Worker)
+  /// -WF Init (Main)
   /// -HIL Sync
   /// -Sync Init
   /// -Sync PPS Reset
@@ -54428,7 +48001,7 @@ namespace Sdx.Cmd
   {
     public override string Documentation
     {
-      get { return "Wait until simulator has reached the specified substate unless simulator goes to error state or specified failure substate. Will return a SimulatorStateResult.\nPossible substates are :\n-None\n-Incomplete\n-Ready\n-Initializing\n-Armed\n-Streaming RF\n-Sync Slave\n-WF Init (Slave)\n-WF Init (Master)\n-HIL Sync\n-Sync Init\n-Sync PPS Reset\n-Sync Start Time\n-Sync Start\n-Error"; }
+      get { return "Wait until simulator has reached the specified substate unless simulator goes to error state or specified failure substate. Will return a SimulatorStateResult.\nPossible substates are :\n-None\n-Incomplete\n-Ready\n-Initializing\n-Armed\n-Streaming RF\n-Sync Worker Instance\n-WF Init (Worker)\n-WF Init (Main)\n-HIL Sync\n-Sync Init\n-Sync PPS Reset\n-Sync Start Time\n-Sync Start\n-Error"; }
     }
 
     internal const string CmdName = "WaitSimulatorState";
@@ -54518,9 +48091,9 @@ namespace Sdx.Cmd
   /// -Initializing
   /// -Armed
   /// -Streaming RF
-  /// -Sync Slave
-  /// -WF Init (Slave)
-  /// -WF Init (Master)
+  /// -Sync Worker
+  /// -WF Init (Worker)
+  /// -WF Init (Main)
   /// -HIL Sync
   /// -Sync Init
   /// -Sync PPS Reset
@@ -54540,7 +48113,7 @@ namespace Sdx.Cmd
   {
     public override string Documentation
     {
-      get { return "Simulator State Result.\nPossible substates are :\n-None\n-Incomplete\n-Ready\n-Initializing\n-Armed\n-Streaming RF\n-Sync Slave\n-WF Init (Slave)\n-WF Init (Master)\n-HIL Sync\n-Sync Init\n-Sync PPS Reset\n-Sync Start Time\n-Sync Start\n-Error"; }
+      get { return "Simulator State Result.\nPossible substates are :\n-None\n-Incomplete\n-Ready\n-Initializing\n-Armed\n-Streaming RF\n-Sync Worker\n-WF Init (Worker)\n-WF Init (Main)\n-HIL Sync\n-Sync Init\n-Sync PPS Reset\n-Sync Start Time\n-Sync Start\n-Error"; }
     }
 
     internal const string CmdName = "SimulatorStateResult";
@@ -57215,7 +50788,7 @@ namespace Sdx.Cmd
 
 
   ///
-  /// Ask the master to broadcast its configuration to all slaves.
+  /// Ask the main instance to broadcast its configuration to all worker instances.
   ///
   /// 
   ///
@@ -57224,7 +50797,7 @@ namespace Sdx.Cmd
   {
     public override string Documentation
     {
-      get { return "Ask the master to broadcast its configuration to all slaves."; }
+      get { return "Ask the main instance to broadcast its configuration to all worker instances."; }
     }
 
     internal const string CmdName = "BroadcastConfig";
@@ -57279,7 +50852,7 @@ namespace Sdx.Cmd
 
 
   ///
-  /// Set wether the master should send its configuration to every slave when simulation start.
+  /// Set wether the main instance should send its configuration to every worker instance when simulation start.
   ///
   /// Name             Type Description
   /// ---------------- ---- --------------------------------------------------------------
@@ -57290,7 +50863,7 @@ namespace Sdx.Cmd
   {
     public override string Documentation
     {
-      get { return "Set wether the master should send its configuration to every slave when simulation start."; }
+      get { return "Set wether the main instance should send its configuration to every worker instance when simulation start."; }
     }
 
     internal const string CmdName = "SetConfigBroadcastOnStart";
@@ -57329,7 +50902,7 @@ namespace Sdx.Cmd
 
 
   ///
-  /// Get wether the master should send its configuration to every slave when simulation start.
+  /// Get wether the main instance should send its configuration to every worker instance when simulation start.
   ///
   /// 
   ///
@@ -57338,7 +50911,7 @@ namespace Sdx.Cmd
   {
     public override string Documentation
     {
-      get { return "Get wether the master should send its configuration to every slave when simulation start."; }
+      get { return "Get wether the main instance should send its configuration to every worker instance when simulation start."; }
     }
 
     internal const string CmdName = "GetConfigBroadcastOnStart";
@@ -71199,6 +64772,1156 @@ namespace Sdx.Cmd
 
 
   ///
+  /// Set Wavefront element properties. Properties define if an element is enabled/disabled, and the associated antenna.
+  ///
+  /// Name             Type   Description
+  /// ---------------- ------ -------------------------------------------------------------------------------------------------
+  /// Element          int    One-based index of the element. Value -1 adds a new element at the end of the list.
+  /// Enabled          bool   If True, this antenna element will be simulated.
+  /// AntennaModelName string Antenna Model name for this element. Antenna models can be defined in Vehicle Antenna Model menu.
+  ///
+
+  public class SetWFElement : CommandBase
+  {
+    public override string Documentation
+    {
+      get { return "Set Wavefront element properties. Properties define if an element is enabled/disabled, and the associated antenna."; }
+    }
+
+    internal const string CmdName = "SetWFElement";
+
+    public SetWFElement()
+      : base(CmdName)
+    {}
+
+    public SetWFElement(int element, bool enabled, string antennaModelName)
+      : base(CmdName)
+    {
+      Element = element;
+      Enabled = enabled;
+      AntennaModelName = antennaModelName;
+    }
+      
+    public override bool IsValid
+    {
+      get
+      {
+        return base.IsValid
+        && Contains("Element")
+        && Contains("Enabled")
+        && Contains("AntennaModelName")
+      ;
+      }
+    }
+
+    public override int ExecutePermission { get { return EXECUTE_IF_IDLE; } }
+
+    public int Element
+    {
+      get { return GetValue("Element").ToObject<int>(CommandBase.Serializer); }
+      set
+      {
+          SetValue("Element", JToken.FromObject(value, CommandBase.Serializer));
+      }
+    }
+
+    public bool Enabled
+    {
+      get { return GetValue("Enabled").ToObject<bool>(CommandBase.Serializer); }
+      set
+      {
+          SetValue("Enabled", JToken.FromObject(value, CommandBase.Serializer));
+      }
+    }
+
+    public string AntennaModelName
+    {
+      get { return GetValue("AntennaModelName").ToObject<string>(CommandBase.Serializer); }
+      set
+      {
+          SetValue("AntennaModelName", JToken.FromObject(value, CommandBase.Serializer));
+      }
+    }
+  }
+
+
+  ///
+  /// Get Wavefront element properties. Properties define if an element is enabled/disabled, and the associated antenna.
+  ///
+  /// Name    Type Description
+  /// ------- ---- -----------------------------------------------------------------------------------
+  /// Element int  One-based index of the element. Value -1 adds a new element at the end of the list.
+  ///
+
+  public class GetWFElement : CommandBase
+  {
+    public override string Documentation
+    {
+      get { return "Get Wavefront element properties. Properties define if an element is enabled/disabled, and the associated antenna."; }
+    }
+
+    internal const string CmdName = "GetWFElement";
+
+    public GetWFElement()
+      : base(CmdName)
+    {}
+
+    public GetWFElement(int element)
+      : base(CmdName)
+    {
+      Element = element;
+    }
+      
+    public override bool IsValid
+    {
+      get
+      {
+        return base.IsValid
+        && Contains("Element")
+      ;
+      }
+    }
+
+    public override int ExecutePermission { get { return EXECUTE_IF_IDLE; } }
+
+    public int Element
+    {
+      get { return GetValue("Element").ToObject<int>(CommandBase.Serializer); }
+      set
+      {
+          SetValue("Element", JToken.FromObject(value, CommandBase.Serializer));
+      }
+    }
+  }
+
+
+  ///
+  /// Result of GetWFElement.
+  ///
+  /// Name             Type   Description
+  /// ---------------- ------ -------------------------------------------------------------------------------------------------
+  /// Element          int    One-based index of the element. Value -1 adds a new element at the end of the list.
+  /// Enabled          bool   If True, this antenna element will be simulated.
+  /// AntennaModelName string Antenna Model name for this element. Antenna models can be defined in Vehicle Antenna Model menu.
+  ///
+
+  public class GetWFElementResult : CommandResult
+  {
+    public override string Documentation
+    {
+      get { return "Result of GetWFElement."; }
+    }
+
+    internal const string CmdName = "GetWFElementResult";
+
+    public GetWFElementResult()
+      : base(CmdName)
+    {}
+
+    public GetWFElementResult(CommandBase relatedCommand, int element, bool enabled, string antennaModelName)
+      : base(CmdName, relatedCommand)
+    {
+      Element = element;
+      Enabled = enabled;
+      AntennaModelName = antennaModelName;
+    }
+      
+    public override bool IsValid
+    {
+      get
+      {
+        return base.IsValid
+        && Contains("Element")
+        && Contains("Enabled")
+        && Contains("AntennaModelName")
+      ;
+      }
+    }
+
+    public int Element
+    {
+      get { return GetValue("Element").ToObject<int>(CommandBase.Serializer); }
+      set
+      {
+          SetValue("Element", JToken.FromObject(value, CommandBase.Serializer));
+      }
+    }
+
+    public bool Enabled
+    {
+      get { return GetValue("Enabled").ToObject<bool>(CommandBase.Serializer); }
+      set
+      {
+          SetValue("Enabled", JToken.FromObject(value, CommandBase.Serializer));
+      }
+    }
+
+    public string AntennaModelName
+    {
+      get { return GetValue("AntennaModelName").ToObject<string>(CommandBase.Serializer); }
+      set
+      {
+          SetValue("AntennaModelName", JToken.FromObject(value, CommandBase.Serializer));
+      }
+    }
+  }
+
+
+  ///
+  /// Remove last Wavefront element.
+  ///
+  /// 
+  ///
+
+  public class RemoveWFElement : CommandBase
+  {
+    public override string Documentation
+    {
+      get { return "Remove last Wavefront element."; }
+    }
+
+    internal const string CmdName = "RemoveWFElement";
+
+    public RemoveWFElement()
+      : base(CmdName)
+    {}
+      
+    public override bool IsValid
+    {
+      get
+      {
+        return base.IsValid
+      ;
+      }
+    }
+
+    public override int ExecutePermission { get { return EXECUTE_IF_IDLE; } }
+  }
+
+
+  ///
+  /// Import Wavefront Antenna settings from an XML file.
+  ///
+  /// Name     Type   Description
+  /// -------- ------ -----------------------------------------
+  /// FilePath string File path for Wavefront Antenna settings.
+  ///
+
+  public class ImportWFAntenna : CommandBase
+  {
+    public override string Documentation
+    {
+      get { return "Import Wavefront Antenna settings from an XML file."; }
+    }
+
+    internal const string CmdName = "ImportWFAntenna";
+
+    public ImportWFAntenna()
+      : base(CmdName)
+    {}
+
+    public ImportWFAntenna(string filePath)
+      : base(CmdName)
+    {
+      FilePath = filePath;
+    }
+      
+    public override bool IsValid
+    {
+      get
+      {
+        return base.IsValid
+        && Contains("FilePath")
+      ;
+      }
+    }
+
+    public override int ExecutePermission { get { return EXECUTE_IF_IDLE; } }
+
+    public string FilePath
+    {
+      get { return GetValue("FilePath").ToObject<string>(CommandBase.Serializer); }
+      set
+      {
+          SetValue("FilePath", JToken.FromObject(value, CommandBase.Serializer));
+      }
+    }
+  }
+
+
+  ///
+  /// Export Wavefront Antenna settings to an XML file.
+  ///
+  /// Name          Type   Description
+  /// ------------- ------ -------------------------------------------------
+  /// FilePath      string Export file path for Wavefront Antenna settings.
+  /// OverwriteFile bool   When selected, existing file will be overwritten.
+  ///
+
+  public class ExportWFAntenna : CommandBase
+  {
+    public override string Documentation
+    {
+      get { return "Export Wavefront Antenna settings to an XML file."; }
+    }
+
+    internal const string CmdName = "ExportWFAntenna";
+
+    public ExportWFAntenna()
+      : base(CmdName)
+    {}
+
+    public ExportWFAntenna(string filePath, bool overwriteFile)
+      : base(CmdName)
+    {
+      FilePath = filePath;
+      OverwriteFile = overwriteFile;
+    }
+      
+    public override bool IsValid
+    {
+      get
+      {
+        return base.IsValid
+        && Contains("FilePath")
+        && Contains("OverwriteFile")
+      ;
+      }
+    }
+
+    public override int ExecutePermission { get { return EXECUTE_IF_IDLE; } }
+
+    public string FilePath
+    {
+      get { return GetValue("FilePath").ToObject<string>(CommandBase.Serializer); }
+      set
+      {
+          SetValue("FilePath", JToken.FromObject(value, CommandBase.Serializer));
+      }
+    }
+
+    public bool OverwriteFile
+    {
+      get { return GetValue("OverwriteFile").ToObject<bool>(CommandBase.Serializer); }
+      set
+      {
+          SetValue("OverwriteFile", JToken.FromObject(value, CommandBase.Serializer));
+      }
+    }
+  }
+
+
+  ///
+  /// Set the local oscillator source of the N310. Can be Internal or External. By default, the source is Internal.
+  ///
+  /// Name       Type   Description
+  /// ---------- ------ -------------------------------------------------------------------------------------------
+  /// IsExternal bool   Indicates if the Local Oscillator is external (true) or internal (false). False by default.
+  /// Id         string N310 modulation target Id.
+  ///
+
+  public class SetN310LocalOscillatorSource : CommandBase
+  {
+    public override string Documentation
+    {
+      get { return "Set the local oscillator source of the N310. Can be Internal or External. By default, the source is Internal."; }
+    }
+
+    internal const string CmdName = "SetN310LocalOscillatorSource";
+
+    public SetN310LocalOscillatorSource()
+      : base(CmdName)
+    {}
+
+    public SetN310LocalOscillatorSource(bool isExternal, string id)
+      : base(CmdName)
+    {
+      IsExternal = isExternal;
+      Id = id;
+    }
+      
+    public override bool IsValid
+    {
+      get
+      {
+        return base.IsValid
+        && Contains("IsExternal")
+        && Contains("Id")
+      ;
+      }
+    }
+
+    public override int ExecutePermission { get { return EXECUTE_IF_NO_CONFIG | EXECUTE_IF_IDLE; } }
+
+    public bool IsExternal
+    {
+      get { return GetValue("IsExternal").ToObject<bool>(CommandBase.Serializer); }
+      set
+      {
+          SetValue("IsExternal", JToken.FromObject(value, CommandBase.Serializer));
+      }
+    }
+
+    public string Id
+    {
+      get { return GetValue("Id").ToObject<string>(CommandBase.Serializer); }
+      set
+      {
+          SetValue("Id", JToken.FromObject(value, CommandBase.Serializer));
+      }
+    }
+  }
+
+
+  ///
+  /// Get the local oscillator source of the N310. Can be Internal or External. By default, the source is Internal.
+  ///
+  /// Name Type   Description
+  /// ---- ------ --------------------------
+  /// Id   string N310 modulation target Id.
+  ///
+
+  public class GetN310LocalOscillatorSource : CommandBase
+  {
+    public override string Documentation
+    {
+      get { return "Get the local oscillator source of the N310. Can be Internal or External. By default, the source is Internal."; }
+    }
+
+    internal const string CmdName = "GetN310LocalOscillatorSource";
+
+    public GetN310LocalOscillatorSource()
+      : base(CmdName)
+    {}
+
+    public GetN310LocalOscillatorSource(string id)
+      : base(CmdName)
+    {
+      Id = id;
+    }
+      
+    public override bool IsValid
+    {
+      get
+      {
+        return base.IsValid
+        && Contains("Id")
+      ;
+      }
+    }
+
+    public override int ExecutePermission { get { return EXECUTE_IF_IDLE; } }
+
+    public string Id
+    {
+      get { return GetValue("Id").ToObject<string>(CommandBase.Serializer); }
+      set
+      {
+          SetValue("Id", JToken.FromObject(value, CommandBase.Serializer));
+      }
+    }
+  }
+
+
+  ///
+  /// Result of GetN310LocalOscillatorSource.
+  ///
+  /// Name       Type   Description
+  /// ---------- ------ -------------------------------------------------------------------------------------------
+  /// IsExternal bool   Indicates if the Local Oscillator is external (true) or internal (false). False by default.
+  /// Id         string N310 modulation target Id.
+  ///
+
+  public class GetN310LocalOscillatorSourceResult : CommandResult
+  {
+    public override string Documentation
+    {
+      get { return "Result of GetN310LocalOscillatorSource."; }
+    }
+
+    internal const string CmdName = "GetN310LocalOscillatorSourceResult";
+
+    public GetN310LocalOscillatorSourceResult()
+      : base(CmdName)
+    {}
+
+    public GetN310LocalOscillatorSourceResult(CommandBase relatedCommand, bool isExternal, string id)
+      : base(CmdName, relatedCommand)
+    {
+      IsExternal = isExternal;
+      Id = id;
+    }
+      
+    public override bool IsValid
+    {
+      get
+      {
+        return base.IsValid
+        && Contains("IsExternal")
+        && Contains("Id")
+      ;
+      }
+    }
+
+    public bool IsExternal
+    {
+      get { return GetValue("IsExternal").ToObject<bool>(CommandBase.Serializer); }
+      set
+      {
+          SetValue("IsExternal", JToken.FromObject(value, CommandBase.Serializer));
+      }
+    }
+
+    public string Id
+    {
+      get { return GetValue("Id").ToObject<string>(CommandBase.Serializer); }
+      set
+      {
+          SetValue("Id", JToken.FromObject(value, CommandBase.Serializer));
+      }
+    }
+  }
+
+
+  ///
+  /// Set "GPS", "Galileo", "BeiDou", "QZSS" or "NavIC" constellation parameter value.
+  /// 
+  /// General constellation parameters:
+  /// 
+  ///   Unit         Type     ParamName
+  ///   sec          double   "ClockBias"
+  ///   sec/sec      double   "ClockDrift"
+  ///   sec/sec^2    double   "ClockDriftRate"
+  ///   meter        double   "Crs", "Crc", "Accuracy"
+  ///   meter/sec    double   "Adot"
+  ///   rad          double   "Cis", "Cic", "Cus", "Cuc", "M0", "BigOmega", "I0", "LittleOmega"
+  ///   rad/sec      double   "DeltaN", "BigOmegaDot", "Idot" 
+  ///   rad/sec^2    double   "DeltaN0dot"
+  ///   sqrt(meter)  double   "SqrtA"  
+  ///   -            double   "Eccentricity"
+  ///   -            integer  "Week Number", "Toe", "Transmission Time"
+  /// 
+  /// GPS:
+  /// 
+  ///   Unit         Type     ParamName
+  ///   sec          double   "Tgd", "IscL1Ca", "IscL2C", "IscL5I5", "IscL5Q5", "IscL1CP", "IscL1CD", "IscL1ME", "IscL2ME", "IscL1MR", "IscL2MR"
+  ///   sec          integer  "Fit interval"
+  ///   -            integer  "IODE", "IODC", "UraIndex"
+  ///   -            boolean  "IscL1CaAvailable", "IscL2CAvailable", "IscL5I5Available", "IscL5Q5Available", "IscL1CPAvailable", "IscL1CDAvailable", "IscL1MEAvailable", "IscL2MEAvailable", "IscL1MRAvailable", "IscL2MRAvailable"
+  /// 
+  /// Galileo:
+  /// 
+  ///   Unit         Type     ParamName
+  ///   sec          double   "Tgd"
+  ///   ns           double   "BgdE1E5a", "BgdE1E5b"
+  ///   -            integer  "SisaE1E5a", "SisaE1E5b", "IODNAV" 
+  /// 
+  /// BeiDou:
+  /// 
+  ///   Unit         Type     ParamName
+  ///   sec          double   "Tgd1", "Tgd2", "TgdB1Cp", "TgdB2Ap"
+  ///   -            integer  "IODE", "IODC", "AODE", "AODC"
+  ///   -            boolean  "IscB1CdAvailable", "IscB2adAvailable"
+  /// 
+  /// QZSS:
+  /// 
+  ///   Unit         Type     ParamName
+  ///   sec          double   "Tgd", "IscL1Ca", "IscL2C", "IscL5I5", "IscL5Q5", "IscL1CP", "IscL1CD"
+  ///   sec          integer  "Fit interval"
+  ///   -            integer  "IODE", "IODC", "UraIndex"
+  ///   -            boolean  "IscL1CaAvailable", "IscL2CAvailable", "IscL5I5Available", "IscL5Q5Available", "IscL1CPAvailable", "IscL1CDAvailable"
+  /// 
+  /// NavIC:
+  /// 
+  ///   Unit         Type     ParamName
+  ///   sec          double   "Tgd"
+  ///   -            integer  "IODEC", "UraIndex"
+  ///
+  /// Name        Type                  Description
+  /// ----------- --------------------- -------------------------------------------------------------------------------------------
+  /// System      string                "GPS", "Galileo", "BeiDou", "QZSS" or "NavIC".
+  /// SvId        int                   The Satellite SV ID, or use 0 to apply new value to all satellites.
+  /// ParamName   string                Parameter name (see table above for accepted names).
+  /// Val         double or int or bool Parameter value (see table above for unit and type).
+  /// DataSetName optional string       Optional name of the data set to use. If no value is provided, the active data set is used.
+  ///
+
+  public class SetConstellationParameterForSV : CommandBase
+  {
+    public override string Documentation
+    {
+      get { return "Set \"GPS\", \"Galileo\", \"BeiDou\", \"QZSS\" or \"NavIC\" constellation parameter value.\n\nGeneral constellation parameters:\n\n  Unit         Type     ParamName\n  sec          double   \"ClockBias\"\n  sec/sec      double   \"ClockDrift\"\n  sec/sec^2    double   \"ClockDriftRate\"\n  meter        double   \"Crs\", \"Crc\", \"Accuracy\"\n  meter/sec    double   \"Adot\"\n  rad          double   \"Cis\", \"Cic\", \"Cus\", \"Cuc\", \"M0\", \"BigOmega\", \"I0\", \"LittleOmega\"\n  rad/sec      double   \"DeltaN\", \"BigOmegaDot\", \"Idot\" \n  rad/sec^2    double   \"DeltaN0dot\"\n  sqrt(meter)  double   \"SqrtA\"  \n  -            double   \"Eccentricity\"\n  -            integer  \"Week Number\", \"Toe\", \"Transmission Time\"\n\nGPS:\n\n  Unit         Type     ParamName\n  sec          double   \"Tgd\", \"IscL1Ca\", \"IscL2C\", \"IscL5I5\", \"IscL5Q5\", \"IscL1CP\", \"IscL1CD\", \"IscL1ME\", \"IscL2ME\", \"IscL1MR\", \"IscL2MR\"\n  sec          integer  \"Fit interval\"\n  -            integer  \"IODE\", \"IODC\", \"UraIndex\"\n  -            boolean  \"IscL1CaAvailable\", \"IscL2CAvailable\", \"IscL5I5Available\", \"IscL5Q5Available\", \"IscL1CPAvailable\", \"IscL1CDAvailable\", \"IscL1MEAvailable\", \"IscL2MEAvailable\", \"IscL1MRAvailable\", \"IscL2MRAvailable\"\n\nGalileo:\n\n  Unit         Type     ParamName\n  sec          double   \"Tgd\"\n  ns           double   \"BgdE1E5a\", \"BgdE1E5b\"\n  -            integer  \"SisaE1E5a\", \"SisaE1E5b\", \"IODNAV\" \n\nBeiDou:\n\n  Unit         Type     ParamName\n  sec          double   \"Tgd1\", \"Tgd2\", \"TgdB1Cp\", \"TgdB2Ap\"\n  -            integer  \"IODE\", \"IODC\", \"AODE\", \"AODC\"\n  -            boolean  \"IscB1CdAvailable\", \"IscB2adAvailable\"\n\nQZSS:\n\n  Unit         Type     ParamName\n  sec          double   \"Tgd\", \"IscL1Ca\", \"IscL2C\", \"IscL5I5\", \"IscL5Q5\", \"IscL1CP\", \"IscL1CD\"\n  sec          integer  \"Fit interval\"\n  -            integer  \"IODE\", \"IODC\", \"UraIndex\"\n  -            boolean  \"IscL1CaAvailable\", \"IscL2CAvailable\", \"IscL5I5Available\", \"IscL5Q5Available\", \"IscL1CPAvailable\", \"IscL1CDAvailable\"\n\nNavIC:\n\n  Unit         Type     ParamName\n  sec          double   \"Tgd\"\n  -            integer  \"IODEC\", \"UraIndex\""; }
+    }
+
+    internal const string CmdName = "SetConstellationParameterForSV";
+
+    public SetConstellationParameterForSV()
+      : base(CmdName)
+    {}
+
+    public SetConstellationParameterForSV(string system, int svId, string paramName, Object val, string dataSetName = null)
+      : base(CmdName)
+    {
+      System = system;
+      SvId = svId;
+      ParamName = paramName;
+      Val = val;
+      DataSetName = dataSetName;
+    }
+      
+    public override bool IsValid
+    {
+      get
+      {
+        return base.IsValid
+        && Contains("System")
+        && Contains("SvId")
+        && Contains("ParamName")
+        && Contains("Val")
+      ;
+      }
+    }
+
+    public override int ExecutePermission { get { return EXECUTE_IF_IDLE; } }
+
+    public string System
+    {
+      get { return GetValue("System").ToObject<string>(CommandBase.Serializer); }
+      set
+      {
+          SetValue("System", JToken.FromObject(value, CommandBase.Serializer));
+      }
+    }
+
+    public int SvId
+    {
+      get { return GetValue("SvId").ToObject<int>(CommandBase.Serializer); }
+      set
+      {
+          SetValue("SvId", JToken.FromObject(value, CommandBase.Serializer));
+      }
+    }
+
+    public string ParamName
+    {
+      get { return GetValue("ParamName").ToObject<string>(CommandBase.Serializer); }
+      set
+      {
+          SetValue("ParamName", JToken.FromObject(value, CommandBase.Serializer));
+      }
+    }
+
+    public Object Val
+    {
+      get { return GetValue("Val").ToObject<Object>(CommandBase.Serializer); }
+      set
+      {
+          SetValue("Val", JToken.FromObject(value, CommandBase.Serializer));
+      }
+    }
+
+    public string DataSetName
+    {
+      get { return GetValue("DataSetName").ToObject<string>(CommandBase.Serializer); }
+      set
+      {
+        if (value == null)
+          RemoveValue("DataSetName");
+        else
+          SetValue("DataSetName", JToken.FromObject(value, CommandBase.Serializer));
+      }
+    }
+  }
+
+
+  ///
+  /// Get "GPS", "Galileo", "BeiDou", "QZSS" or "NavIC" constellation parameter value.
+  /// 
+  /// General constellation parameters:
+  /// 
+  ///   Unit         Type     ParamName
+  ///   sec          double   "ClockBias"
+  ///   sec/sec      double   "ClockDrift"
+  ///   sec/sec^2    double   "ClockDriftRate"
+  ///   meter        double   "Crs", "Crc", "Accuracy"
+  ///   meter/sec    double   "Adot"
+  ///   rad          double   "Cis", "Cic", "Cus", "Cuc", "M0", "BigOmega", "I0", "LittleOmega"
+  ///   rad/sec      double   "DeltaN", "BigOmegaDot", "Idot" 
+  ///   rad/sec^2    double   "DeltaN0dot"
+  ///   sqrt(meter)  double   "SqrtA"  
+  ///   -            double   "Eccentricity"
+  ///   -            integer  "Week Number", "Toe", "Transmission Time"
+  /// 
+  /// GPS:
+  /// 
+  ///   Unit         Type     ParamName
+  ///   sec          double   "Tgd", "IscL1Ca", "IscL2C", "IscL5I5", "IscL5Q5", "IscL1CP", "IscL1CD", "IscL1ME", "IscL2ME", "IscL1MR", "IscL2MR"
+  ///   sec          integer  "Fit interval"
+  ///   -            integer  "IODE", "IODC", "UraIndex"
+  ///   -            boolean  "IscL1CaAvailable", "IscL2CAvailable", "IscL5I5Available", "IscL5Q5Available", "IscL1CPAvailable", "IscL1CDAvailable", "IscL1MEAvailable", "IscL2MEAvailable", "IscL1MRAvailable", "IscL2MRAvailable"
+  /// 
+  /// Galileo:
+  /// 
+  ///   Unit         Type     ParamName
+  ///   sec          double   "Tgd"
+  ///   ns           double   "BgdE1E5a", "BgdE1E5b"
+  ///   -            integer  "SisaE1E5a", "SisaE1E5b", "IODNAV" 
+  /// 
+  /// BeiDou:
+  /// 
+  ///   Unit         Type     ParamName
+  ///   sec          double   "Tgd1", "Tgd2", "TgdB1Cp", "TgdB2Ap"
+  ///   -            integer  "IODE", "IODC", "AODE", "AODC"
+  ///   -            boolean  "IscB1CdAvailable", "IscB2adAvailable"
+  /// 
+  /// QZSS:
+  /// 
+  ///   Unit         Type     ParamName
+  ///   sec          double   "Tgd", "IscL1Ca", "IscL2C", "IscL5I5", "IscL5Q5", "IscL1CP", "IscL1CD"
+  ///   sec          integer  "Fit interval"
+  ///   -            integer  "IODE", "IODC", "UraIndex"
+  ///   -            boolean  "IscL1CaAvailable", "IscL2CAvailable", "IscL5I5Available", "IscL5Q5Available", "IscL1CPAvailable", "IscL1CDAvailable"
+  /// 
+  /// NavIC:
+  /// 
+  ///   Unit         Type     ParamName
+  ///   sec          double   "Tgd"
+  ///   -            integer  "IODEC", "UraIndex"
+  ///
+  /// Name        Type            Description
+  /// ----------- --------------- -------------------------------------------------------------------------------------------
+  /// System      string          "GPS", "Galileo", "BeiDou", "QZSS" or "NavIC".
+  /// SvId        int             The Satellite SV ID, or use 0 to apply new value to all satellites.
+  /// ParamName   string          Parameter name (see table above for accepted names).
+  /// DataSetName optional string Optional name of the data set to use. If no value is provided, the active data set is used.
+  ///
+
+  public class GetConstellationParameterForSV : CommandBase
+  {
+    public override string Documentation
+    {
+      get { return "Get \"GPS\", \"Galileo\", \"BeiDou\", \"QZSS\" or \"NavIC\" constellation parameter value.\n\nGeneral constellation parameters:\n\n  Unit         Type     ParamName\n  sec          double   \"ClockBias\"\n  sec/sec      double   \"ClockDrift\"\n  sec/sec^2    double   \"ClockDriftRate\"\n  meter        double   \"Crs\", \"Crc\", \"Accuracy\"\n  meter/sec    double   \"Adot\"\n  rad          double   \"Cis\", \"Cic\", \"Cus\", \"Cuc\", \"M0\", \"BigOmega\", \"I0\", \"LittleOmega\"\n  rad/sec      double   \"DeltaN\", \"BigOmegaDot\", \"Idot\" \n  rad/sec^2    double   \"DeltaN0dot\"\n  sqrt(meter)  double   \"SqrtA\"  \n  -            double   \"Eccentricity\"\n  -            integer  \"Week Number\", \"Toe\", \"Transmission Time\"\n\nGPS:\n\n  Unit         Type     ParamName\n  sec          double   \"Tgd\", \"IscL1Ca\", \"IscL2C\", \"IscL5I5\", \"IscL5Q5\", \"IscL1CP\", \"IscL1CD\", \"IscL1ME\", \"IscL2ME\", \"IscL1MR\", \"IscL2MR\"\n  sec          integer  \"Fit interval\"\n  -            integer  \"IODE\", \"IODC\", \"UraIndex\"\n  -            boolean  \"IscL1CaAvailable\", \"IscL2CAvailable\", \"IscL5I5Available\", \"IscL5Q5Available\", \"IscL1CPAvailable\", \"IscL1CDAvailable\", \"IscL1MEAvailable\", \"IscL2MEAvailable\", \"IscL1MRAvailable\", \"IscL2MRAvailable\"\n\nGalileo:\n\n  Unit         Type     ParamName\n  sec          double   \"Tgd\"\n  ns           double   \"BgdE1E5a\", \"BgdE1E5b\"\n  -            integer  \"SisaE1E5a\", \"SisaE1E5b\", \"IODNAV\" \n\nBeiDou:\n\n  Unit         Type     ParamName\n  sec          double   \"Tgd1\", \"Tgd2\", \"TgdB1Cp\", \"TgdB2Ap\"\n  -            integer  \"IODE\", \"IODC\", \"AODE\", \"AODC\"\n  -            boolean  \"IscB1CdAvailable\", \"IscB2adAvailable\"\n\nQZSS:\n\n  Unit         Type     ParamName\n  sec          double   \"Tgd\", \"IscL1Ca\", \"IscL2C\", \"IscL5I5\", \"IscL5Q5\", \"IscL1CP\", \"IscL1CD\"\n  sec          integer  \"Fit interval\"\n  -            integer  \"IODE\", \"IODC\", \"UraIndex\"\n  -            boolean  \"IscL1CaAvailable\", \"IscL2CAvailable\", \"IscL5I5Available\", \"IscL5Q5Available\", \"IscL1CPAvailable\", \"IscL1CDAvailable\"\n\nNavIC:\n\n  Unit         Type     ParamName\n  sec          double   \"Tgd\"\n  -            integer  \"IODEC\", \"UraIndex\""; }
+    }
+
+    internal const string CmdName = "GetConstellationParameterForSV";
+
+    public GetConstellationParameterForSV()
+      : base(CmdName)
+    {}
+
+    public GetConstellationParameterForSV(string system, int svId, string paramName, string dataSetName = null)
+      : base(CmdName)
+    {
+      System = system;
+      SvId = svId;
+      ParamName = paramName;
+      DataSetName = dataSetName;
+    }
+      
+    public override bool IsValid
+    {
+      get
+      {
+        return base.IsValid
+        && Contains("System")
+        && Contains("SvId")
+        && Contains("ParamName")
+      ;
+      }
+    }
+
+    public override int ExecutePermission { get { return EXECUTE_IF_IDLE; } }
+
+    public string System
+    {
+      get { return GetValue("System").ToObject<string>(CommandBase.Serializer); }
+      set
+      {
+          SetValue("System", JToken.FromObject(value, CommandBase.Serializer));
+      }
+    }
+
+    public int SvId
+    {
+      get { return GetValue("SvId").ToObject<int>(CommandBase.Serializer); }
+      set
+      {
+          SetValue("SvId", JToken.FromObject(value, CommandBase.Serializer));
+      }
+    }
+
+    public string ParamName
+    {
+      get { return GetValue("ParamName").ToObject<string>(CommandBase.Serializer); }
+      set
+      {
+          SetValue("ParamName", JToken.FromObject(value, CommandBase.Serializer));
+      }
+    }
+
+    public string DataSetName
+    {
+      get { return GetValue("DataSetName").ToObject<string>(CommandBase.Serializer); }
+      set
+      {
+        if (value == null)
+          RemoveValue("DataSetName");
+        else
+          SetValue("DataSetName", JToken.FromObject(value, CommandBase.Serializer));
+      }
+    }
+  }
+
+
+  ///
+  /// Result of GetConstellationParameterForSV.
+  ///
+  /// Name        Type                  Description
+  /// ----------- --------------------- -------------------------------------------------------------------------------------------
+  /// System      string                "GPS", "Galileo", "BeiDou", "QZSS" or "NavIC".
+  /// SvId        int                   The Satellite SV ID, or use 0 to apply new value to all satellites.
+  /// ParamName   string                Parameter name (see table above for accepted names).
+  /// Val         double or int or bool Parameter value (see table above for unit and type).
+  /// DataSetName optional string       Optional name of the data set to use. If no value is provided, the active data set is used.
+  ///
+
+  public class GetConstellationParameterForSVResult : CommandResult
+  {
+    public override string Documentation
+    {
+      get { return "Result of GetConstellationParameterForSV."; }
+    }
+
+    internal const string CmdName = "GetConstellationParameterForSVResult";
+
+    public GetConstellationParameterForSVResult()
+      : base(CmdName)
+    {}
+
+    public GetConstellationParameterForSVResult(CommandBase relatedCommand, string system, int svId, string paramName, Object val, string dataSetName = null)
+      : base(CmdName, relatedCommand)
+    {
+      System = system;
+      SvId = svId;
+      ParamName = paramName;
+      Val = val;
+      DataSetName = dataSetName;
+    }
+      
+    public override bool IsValid
+    {
+      get
+      {
+        return base.IsValid
+        && Contains("System")
+        && Contains("SvId")
+        && Contains("ParamName")
+        && Contains("Val")
+      ;
+      }
+    }
+
+    public string System
+    {
+      get { return GetValue("System").ToObject<string>(CommandBase.Serializer); }
+      set
+      {
+          SetValue("System", JToken.FromObject(value, CommandBase.Serializer));
+      }
+    }
+
+    public int SvId
+    {
+      get { return GetValue("SvId").ToObject<int>(CommandBase.Serializer); }
+      set
+      {
+          SetValue("SvId", JToken.FromObject(value, CommandBase.Serializer));
+      }
+    }
+
+    public string ParamName
+    {
+      get { return GetValue("ParamName").ToObject<string>(CommandBase.Serializer); }
+      set
+      {
+          SetValue("ParamName", JToken.FromObject(value, CommandBase.Serializer));
+      }
+    }
+
+    public Object Val
+    {
+      get { return GetValue("Val").ToObject<Object>(CommandBase.Serializer); }
+      set
+      {
+          SetValue("Val", JToken.FromObject(value, CommandBase.Serializer));
+      }
+    }
+
+    public string DataSetName
+    {
+      get { return GetValue("DataSetName").ToObject<string>(CommandBase.Serializer); }
+      set
+      {
+        if (value == null)
+          RemoveValue("DataSetName");
+        else
+          SetValue("DataSetName", JToken.FromObject(value, CommandBase.Serializer));
+      }
+    }
+  }
+
+
+  ///
+  /// Set "GPS", "Galileo", "BeiDou", "QZSS" or "NavIC" constellation parameter value for all satellites.
+  ///
+  /// Name        Type                                    Description
+  /// ----------- --------------------------------------- ----------------------------------------------------------------------------------------------------
+  /// System      string                                  "GPS", "Galileo", "BeiDou", "QZSS" or "NavIC".
+  /// ParamName   string                                  Refer to SetConstellationParameterForSV for accepted names.
+  /// Val         array double or array int or array bool Parameter value for each satellite. Zero based index (index 0 => SV ID 1, index 1 => SV ID 2, etc.).
+  /// DataSetName optional string                         Optional name of the data set to use. If no value is provided, the active data set is used.
+  ///
+
+  public class SetConstellationParameterForEachSV : CommandBase
+  {
+    public override string Documentation
+    {
+      get { return "Set \"GPS\", \"Galileo\", \"BeiDou\", \"QZSS\" or \"NavIC\" constellation parameter value for all satellites."; }
+    }
+
+    internal const string CmdName = "SetConstellationParameterForEachSV";
+
+    public SetConstellationParameterForEachSV()
+      : base(CmdName)
+    {}
+
+    public SetConstellationParameterForEachSV(string system, string paramName, Object val, string dataSetName = null)
+      : base(CmdName)
+    {
+      System = system;
+      ParamName = paramName;
+      Val = val;
+      DataSetName = dataSetName;
+    }
+      
+    public override bool IsValid
+    {
+      get
+      {
+        return base.IsValid
+        && Contains("System")
+        && Contains("ParamName")
+        && Contains("Val")
+      ;
+      }
+    }
+
+    public override int ExecutePermission { get { return EXECUTE_IF_IDLE; } }
+
+    public string System
+    {
+      get { return GetValue("System").ToObject<string>(CommandBase.Serializer); }
+      set
+      {
+          SetValue("System", JToken.FromObject(value, CommandBase.Serializer));
+      }
+    }
+
+    public string ParamName
+    {
+      get { return GetValue("ParamName").ToObject<string>(CommandBase.Serializer); }
+      set
+      {
+          SetValue("ParamName", JToken.FromObject(value, CommandBase.Serializer));
+      }
+    }
+
+    public Object Val
+    {
+      get { return GetValue("Val").ToObject<Object>(CommandBase.Serializer); }
+      set
+      {
+          SetValue("Val", JToken.FromObject(value, CommandBase.Serializer));
+      }
+    }
+
+    public string DataSetName
+    {
+      get { return GetValue("DataSetName").ToObject<string>(CommandBase.Serializer); }
+      set
+      {
+        if (value == null)
+          RemoveValue("DataSetName");
+        else
+          SetValue("DataSetName", JToken.FromObject(value, CommandBase.Serializer));
+      }
+    }
+  }
+
+
+  ///
+  /// Get "GPS", "Galileo", "BeiDou", "QZSS" or "NavIC" constellation parameter value for all satellites.
+  ///
+  /// Name        Type            Description
+  /// ----------- --------------- -------------------------------------------------------------------------------------------
+  /// System      string          "GPS", "Galileo", "BeiDou", "QZSS" or "NavIC".
+  /// ParamName   string          Refer to SetConstellationParameterForSV for accepted names.
+  /// DataSetName optional string Optional name of the data set to use. If no value is provided, the active data set is used.
+  ///
+
+  public class GetConstellationParameterForEachSV : CommandBase
+  {
+    public override string Documentation
+    {
+      get { return "Get \"GPS\", \"Galileo\", \"BeiDou\", \"QZSS\" or \"NavIC\" constellation parameter value for all satellites."; }
+    }
+
+    internal const string CmdName = "GetConstellationParameterForEachSV";
+
+    public GetConstellationParameterForEachSV()
+      : base(CmdName)
+    {}
+
+    public GetConstellationParameterForEachSV(string system, string paramName, string dataSetName = null)
+      : base(CmdName)
+    {
+      System = system;
+      ParamName = paramName;
+      DataSetName = dataSetName;
+    }
+      
+    public override bool IsValid
+    {
+      get
+      {
+        return base.IsValid
+        && Contains("System")
+        && Contains("ParamName")
+      ;
+      }
+    }
+
+    public override int ExecutePermission { get { return EXECUTE_IF_IDLE; } }
+
+    public string System
+    {
+      get { return GetValue("System").ToObject<string>(CommandBase.Serializer); }
+      set
+      {
+          SetValue("System", JToken.FromObject(value, CommandBase.Serializer));
+      }
+    }
+
+    public string ParamName
+    {
+      get { return GetValue("ParamName").ToObject<string>(CommandBase.Serializer); }
+      set
+      {
+          SetValue("ParamName", JToken.FromObject(value, CommandBase.Serializer));
+      }
+    }
+
+    public string DataSetName
+    {
+      get { return GetValue("DataSetName").ToObject<string>(CommandBase.Serializer); }
+      set
+      {
+        if (value == null)
+          RemoveValue("DataSetName");
+        else
+          SetValue("DataSetName", JToken.FromObject(value, CommandBase.Serializer));
+      }
+    }
+  }
+
+
+  ///
+  /// Result of GetConstellationParameterForEachSV.
+  ///
+  /// Name        Type                                    Description
+  /// ----------- --------------------------------------- ----------------------------------------------------------------------------------------------------
+  /// System      string                                  "GPS", "Galileo", "BeiDou", "QZSS" or "NavIC".
+  /// ParamName   string                                  Refer to SetConstellationParameterForSV for accepted names.
+  /// Val         array double or array int or array bool Parameter value for each satellite. Zero based index (index 0 => SV ID 1, index 1 => SV ID 2, etc.).
+  /// DataSetName optional string                         Optional name of the data set to use. If no value is provided, the active data set is used.
+  ///
+
+  public class GetConstellationParameterForEachSVResult : CommandResult
+  {
+    public override string Documentation
+    {
+      get { return "Result of GetConstellationParameterForEachSV."; }
+    }
+
+    internal const string CmdName = "GetConstellationParameterForEachSVResult";
+
+    public GetConstellationParameterForEachSVResult()
+      : base(CmdName)
+    {}
+
+    public GetConstellationParameterForEachSVResult(CommandBase relatedCommand, string system, string paramName, Object val, string dataSetName = null)
+      : base(CmdName, relatedCommand)
+    {
+      System = system;
+      ParamName = paramName;
+      Val = val;
+      DataSetName = dataSetName;
+    }
+      
+    public override bool IsValid
+    {
+      get
+      {
+        return base.IsValid
+        && Contains("System")
+        && Contains("ParamName")
+        && Contains("Val")
+      ;
+      }
+    }
+
+    public string System
+    {
+      get { return GetValue("System").ToObject<string>(CommandBase.Serializer); }
+      set
+      {
+          SetValue("System", JToken.FromObject(value, CommandBase.Serializer));
+      }
+    }
+
+    public string ParamName
+    {
+      get { return GetValue("ParamName").ToObject<string>(CommandBase.Serializer); }
+      set
+      {
+          SetValue("ParamName", JToken.FromObject(value, CommandBase.Serializer));
+      }
+    }
+
+    public Object Val
+    {
+      get { return GetValue("Val").ToObject<Object>(CommandBase.Serializer); }
+      set
+      {
+          SetValue("Val", JToken.FromObject(value, CommandBase.Serializer));
+      }
+    }
+
+    public string DataSetName
+    {
+      get { return GetValue("DataSetName").ToObject<string>(CommandBase.Serializer); }
+      set
+      {
+        if (value == null)
+          RemoveValue("DataSetName");
+        else
+          SetValue("DataSetName", JToken.FromObject(value, CommandBase.Serializer));
+      }
+    }
+  }
+
+
+  ///
   /// A pair of string
   ///
   /// Name   Type   Description
@@ -71785,6 +66508,7461 @@ namespace Sdx.Cmd
       set
       {
           SetValue("Total", JToken.FromObject(value, CommandBase.Serializer));
+      }
+    }
+  }
+
+
+  ///
+  /// Please note the command GetMasterStatus is deprecated since 23.11. You may use GetMainInstanceStatus.
+  /// 
+  /// Request for the master status, returns a GetMasterStatusResult
+  ///
+  /// 
+  ///
+
+  public class GetMasterStatus : CommandBase
+  {
+    public override string Documentation
+    {
+      get { return "Please note the command GetMasterStatus is deprecated since 23.11. You may use GetMainInstanceStatus.\n\nRequest for the master status, returns a GetMasterStatusResult"; }
+    }
+
+    public override string Deprecated
+    {
+      get { return "Please note the command GetMasterStatus is deprecated since 23.11. You may use GetMainInstanceStatus."; }
+    }
+
+    internal const string CmdName = "GetMasterStatus";
+
+    public GetMasterStatus()
+      : base(CmdName)
+    {}
+      
+    public override bool IsValid
+    {
+      get
+      {
+        return base.IsValid
+      ;
+      }
+    }
+
+    public override int ExecutePermission { get { return EXECUTE_IF_IDLE | EXECUTE_IF_SIMULATING; } }
+  }
+
+
+  ///
+  /// Result of GetMasterStatus.
+  ///
+  /// Name           Type Description
+  /// -------------- ---- -------------------------------------
+  /// IsMaster       bool True if Skydel is in master mode
+  /// SlaveConnected int  The number of connected slaves
+  /// Port           int  The listening port, 0 if not a master
+  ///
+
+  public class GetMasterStatusResult : CommandResult
+  {
+    public override string Documentation
+    {
+      get { return "Result of GetMasterStatus."; }
+    }
+
+    internal const string CmdName = "GetMasterStatusResult";
+
+    public GetMasterStatusResult()
+      : base(CmdName)
+    {}
+
+    public GetMasterStatusResult(CommandBase relatedCommand, bool isMaster, int slaveConnected, int port)
+      : base(CmdName, relatedCommand)
+    {
+      IsMaster = isMaster;
+      SlaveConnected = slaveConnected;
+      Port = port;
+    }
+      
+    public override bool IsValid
+    {
+      get
+      {
+        return base.IsValid
+        && Contains("IsMaster")
+        && Contains("SlaveConnected")
+        && Contains("Port")
+      ;
+      }
+    }
+
+    public bool IsMaster
+    {
+      get { return GetValue("IsMaster").ToObject<bool>(CommandBase.Serializer); }
+      set
+      {
+          SetValue("IsMaster", JToken.FromObject(value, CommandBase.Serializer));
+      }
+    }
+
+    public int SlaveConnected
+    {
+      get { return GetValue("SlaveConnected").ToObject<int>(CommandBase.Serializer); }
+      set
+      {
+          SetValue("SlaveConnected", JToken.FromObject(value, CommandBase.Serializer));
+      }
+    }
+
+    public int Port
+    {
+      get { return GetValue("Port").ToObject<int>(CommandBase.Serializer); }
+      set
+      {
+          SetValue("Port", JToken.FromObject(value, CommandBase.Serializer));
+      }
+    }
+  }
+
+
+  ///
+  /// Please note the command GetSlaveStatus is deprecated since 23.11. You may use GetWorkerInstanceStatus.
+  /// 
+  /// Request for the slave status, returns a GetSlaveStatusResult
+  ///
+  /// 
+  ///
+
+  public class GetSlaveStatus : CommandBase
+  {
+    public override string Documentation
+    {
+      get { return "Please note the command GetSlaveStatus is deprecated since 23.11. You may use GetWorkerInstanceStatus.\n\nRequest for the slave status, returns a GetSlaveStatusResult"; }
+    }
+
+    public override string Deprecated
+    {
+      get { return "Please note the command GetSlaveStatus is deprecated since 23.11. You may use GetWorkerInstanceStatus."; }
+    }
+
+    internal const string CmdName = "GetSlaveStatus";
+
+    public GetSlaveStatus()
+      : base(CmdName)
+    {}
+      
+    public override bool IsValid
+    {
+      get
+      {
+        return base.IsValid
+      ;
+      }
+    }
+
+    public override int ExecutePermission { get { return EXECUTE_IF_IDLE | EXECUTE_IF_SIMULATING; } }
+  }
+
+
+  ///
+  /// Result of GetSlaveStatus.
+  ///
+  /// Name        Type   Description
+  /// ----------- ------ ---------------------------------------
+  /// IsSlave     bool   True if Skydel is in slave mode
+  /// IsConnected bool   True if Skydel is connected to a master
+  /// HostName    string The host name, empty if not a slave
+  /// HostPort    int    The host port, 0 if not a slave
+  ///
+
+  public class GetSlaveStatusResult : CommandResult
+  {
+    public override string Documentation
+    {
+      get { return "Result of GetSlaveStatus."; }
+    }
+
+    internal const string CmdName = "GetSlaveStatusResult";
+
+    public GetSlaveStatusResult()
+      : base(CmdName)
+    {}
+
+    public GetSlaveStatusResult(CommandBase relatedCommand, bool isSlave, bool isConnected, string hostName, int hostPort)
+      : base(CmdName, relatedCommand)
+    {
+      IsSlave = isSlave;
+      IsConnected = isConnected;
+      HostName = hostName;
+      HostPort = hostPort;
+    }
+      
+    public override bool IsValid
+    {
+      get
+      {
+        return base.IsValid
+        && Contains("IsSlave")
+        && Contains("IsConnected")
+        && Contains("HostName")
+        && Contains("HostPort")
+      ;
+      }
+    }
+
+    public bool IsSlave
+    {
+      get { return GetValue("IsSlave").ToObject<bool>(CommandBase.Serializer); }
+      set
+      {
+          SetValue("IsSlave", JToken.FromObject(value, CommandBase.Serializer));
+      }
+    }
+
+    public bool IsConnected
+    {
+      get { return GetValue("IsConnected").ToObject<bool>(CommandBase.Serializer); }
+      set
+      {
+          SetValue("IsConnected", JToken.FromObject(value, CommandBase.Serializer));
+      }
+    }
+
+    public string HostName
+    {
+      get { return GetValue("HostName").ToObject<string>(CommandBase.Serializer); }
+      set
+      {
+          SetValue("HostName", JToken.FromObject(value, CommandBase.Serializer));
+      }
+    }
+
+    public int HostPort
+    {
+      get { return GetValue("HostPort").ToObject<int>(CommandBase.Serializer); }
+      set
+      {
+          SetValue("HostPort", JToken.FromObject(value, CommandBase.Serializer));
+      }
+    }
+  }
+
+
+  ///
+  /// Please note the command StopMasterWhenSlaveStop is deprecated since 23.11. You may use StopMainInstanceWhenWorkerInstanceStop.
+  /// 
+  /// If enabled, master and all the slaves will stop if a slave stop.
+  ///
+  /// Name    Type Description
+  /// ------- ---- ---------------------------------------
+  /// Enabled bool Enable master stop when slave fail flag
+  ///
+
+  public class StopMasterWhenSlaveStop : CommandBase
+  {
+    public override string Documentation
+    {
+      get { return "Please note the command StopMasterWhenSlaveStop is deprecated since 23.11. You may use StopMainInstanceWhenWorkerInstanceStop.\n\nIf enabled, master and all the slaves will stop if a slave stop."; }
+    }
+
+    public override string Deprecated
+    {
+      get { return "Please note the command StopMasterWhenSlaveStop is deprecated since 23.11. You may use StopMainInstanceWhenWorkerInstanceStop."; }
+    }
+
+    internal const string CmdName = "StopMasterWhenSlaveStop";
+
+    public StopMasterWhenSlaveStop()
+      : base(CmdName)
+    {}
+
+    public StopMasterWhenSlaveStop(bool enabled)
+      : base(CmdName)
+    {
+      Enabled = enabled;
+    }
+      
+    public override bool IsValid
+    {
+      get
+      {
+        return base.IsValid
+        && Contains("Enabled")
+      ;
+      }
+    }
+
+    public override int ExecutePermission { get { return EXECUTE_IF_NO_CONFIG | EXECUTE_IF_IDLE | EXECUTE_IF_SIMULATING; } }
+
+    public bool Enabled
+    {
+      get { return GetValue("Enabled").ToObject<bool>(CommandBase.Serializer); }
+      set
+      {
+          SetValue("Enabled", JToken.FromObject(value, CommandBase.Serializer));
+      }
+    }
+  }
+
+
+  ///
+  /// Please note the command IsStopMasterWhenSlaveStop is deprecated since 23.11. You may use IsStopMainInstanceWhenWorkerInstanceStop.
+  /// 
+  /// If enabled, master and all the slaves will stop if a slave stop.
+  ///
+  /// 
+  ///
+
+  public class IsStopMasterWhenSlaveStop : CommandBase
+  {
+    public override string Documentation
+    {
+      get { return "Please note the command IsStopMasterWhenSlaveStop is deprecated since 23.11. You may use IsStopMainInstanceWhenWorkerInstanceStop.\n\nIf enabled, master and all the slaves will stop if a slave stop."; }
+    }
+
+    public override string Deprecated
+    {
+      get { return "Please note the command IsStopMasterWhenSlaveStop is deprecated since 23.11. You may use IsStopMainInstanceWhenWorkerInstanceStop."; }
+    }
+
+    internal const string CmdName = "IsStopMasterWhenSlaveStop";
+
+    public IsStopMasterWhenSlaveStop()
+      : base(CmdName)
+    {}
+      
+    public override bool IsValid
+    {
+      get
+      {
+        return base.IsValid
+      ;
+      }
+    }
+
+    public override int ExecutePermission { get { return EXECUTE_IF_IDLE | EXECUTE_IF_SIMULATING; } }
+  }
+
+
+  ///
+  /// Result of IsStopMasterWhenSlaveStop.
+  ///
+  /// Name    Type Description
+  /// ------- ---- ---------------------------------------
+  /// Enabled bool Enable master stop when slave fail flag
+  ///
+
+  public class IsStopMasterWhenSlaveStopResult : CommandResult
+  {
+    public override string Documentation
+    {
+      get { return "Result of IsStopMasterWhenSlaveStop."; }
+    }
+
+    internal const string CmdName = "IsStopMasterWhenSlaveStopResult";
+
+    public IsStopMasterWhenSlaveStopResult()
+      : base(CmdName)
+    {}
+
+    public IsStopMasterWhenSlaveStopResult(CommandBase relatedCommand, bool enabled)
+      : base(CmdName, relatedCommand)
+    {
+      Enabled = enabled;
+    }
+      
+    public override bool IsValid
+    {
+      get
+      {
+        return base.IsValid
+        && Contains("Enabled")
+      ;
+      }
+    }
+
+    public bool Enabled
+    {
+      get { return GetValue("Enabled").ToObject<bool>(CommandBase.Serializer); }
+      set
+      {
+          SetValue("Enabled", JToken.FromObject(value, CommandBase.Serializer));
+      }
+    }
+  }
+
+
+  ///
+  /// Please note the command SetGpsEphDoubleParamForSV is deprecated since 23.11. You may use SetConstellationParameterForSV.
+  /// 
+  /// Set various parameters in the GPS ephemeris
+  /// 
+  ///   ParamName         Unit
+  ///   "ClockBias"       sec
+  ///   "ClockDrift"      sec/sec
+  ///   "ClockDriftRate"  sec/sec^2
+  ///   "Crs"             meter
+  ///   "Crc"             meter
+  ///   "Cis"             rad
+  ///   "Cic"             rad
+  ///   "Cus"             rad
+  ///   "Cuc"             rad
+  ///   "DeltaN"          rad/sec
+  ///   "M0"              rad
+  ///   "Eccentricity"    -
+  ///   "SqrtA"           sqrt(meter)
+  ///   "BigOmega"        rad
+  ///   "I0"              rad
+  ///   "LittleOmega"     rad
+  ///   "BigOmegaDot"     rad/sec
+  ///   "Idot"            rad/sec
+  ///   "Accuracy"        meter
+  ///   "Adot"            meters/sec
+  ///   "DeltaN0dot"      rad/sec^2
+  ///   "Tgd"             sec
+  ///   "IscL1Ca"         sec
+  ///   "IscL2C"          sec
+  ///   "IscL5I5"         sec
+  ///   "IscL5Q5"         sec
+  ///   "IscL1CP"         sec
+  ///   "IscL1CD"         sec
+  ///
+  /// Name        Type            Description
+  /// ----------- --------------- -------------------------------------------------------------------------------------------
+  /// SvId        int             Satellite SV ID 1..32, or use 0 to apply new value to all satellites.
+  /// ParamName   string          Parameter name (see table above for accepted names)
+  /// Val         double          Parameter value (see table above for unit)
+  /// DataSetName optional string Optional name of the data set to use. If no value is provided, the active data set is used.
+  ///
+
+  public class SetGpsEphDoubleParamForSV : CommandBase
+  {
+    public override string Documentation
+    {
+      get { return "Please note the command SetGpsEphDoubleParamForSV is deprecated since 23.11. You may use SetConstellationParameterForSV.\n\nSet various parameters in the GPS ephemeris\n\n  ParamName         Unit\n  \"ClockBias\"       sec\n  \"ClockDrift\"      sec/sec\n  \"ClockDriftRate\"  sec/sec^2\n  \"Crs\"             meter\n  \"Crc\"             meter\n  \"Cis\"             rad\n  \"Cic\"             rad\n  \"Cus\"             rad\n  \"Cuc\"             rad\n  \"DeltaN\"          rad/sec\n  \"M0\"              rad\n  \"Eccentricity\"    -\n  \"SqrtA\"           sqrt(meter)\n  \"BigOmega\"        rad\n  \"I0\"              rad\n  \"LittleOmega\"     rad\n  \"BigOmegaDot\"     rad/sec\n  \"Idot\"            rad/sec\n  \"Accuracy\"        meter\n  \"Adot\"            meters/sec\n  \"DeltaN0dot\"      rad/sec^2\n  \"Tgd\"             sec\n  \"IscL1Ca\"         sec\n  \"IscL2C\"          sec\n  \"IscL5I5\"         sec\n  \"IscL5Q5\"         sec\n  \"IscL1CP\"         sec\n  \"IscL1CD\"         sec"; }
+    }
+
+    public override string Deprecated
+    {
+      get { return "Please note the command SetGpsEphDoubleParamForSV is deprecated since 23.11. You may use SetConstellationParameterForSV."; }
+    }
+
+    internal const string CmdName = "SetGpsEphDoubleParamForSV";
+
+    public SetGpsEphDoubleParamForSV()
+      : base(CmdName)
+    {}
+
+    public SetGpsEphDoubleParamForSV(int svId, string paramName, double val, string dataSetName = null)
+      : base(CmdName)
+    {
+      SvId = svId;
+      ParamName = paramName;
+      Val = val;
+      DataSetName = dataSetName;
+    }
+      
+    public override bool IsValid
+    {
+      get
+      {
+        return base.IsValid
+        && Contains("SvId")
+        && Contains("ParamName")
+        && Contains("Val")
+      ;
+      }
+    }
+
+    public override int ExecutePermission { get { return EXECUTE_IF_IDLE; } }
+
+    public int SvId
+    {
+      get { return GetValue("SvId").ToObject<int>(CommandBase.Serializer); }
+      set
+      {
+          SetValue("SvId", JToken.FromObject(value, CommandBase.Serializer));
+      }
+    }
+
+    public string ParamName
+    {
+      get { return GetValue("ParamName").ToObject<string>(CommandBase.Serializer); }
+      set
+      {
+          SetValue("ParamName", JToken.FromObject(value, CommandBase.Serializer));
+      }
+    }
+
+    public double Val
+    {
+      get { return GetValue("Val").ToObject<double>(CommandBase.Serializer); }
+      set
+      {
+          SetValue("Val", JToken.FromObject(value, CommandBase.Serializer));
+      }
+    }
+
+    public string DataSetName
+    {
+      get { return GetValue("DataSetName").ToObject<string>(CommandBase.Serializer); }
+      set
+      {
+        if (value == null)
+          RemoveValue("DataSetName");
+        else
+          SetValue("DataSetName", JToken.FromObject(value, CommandBase.Serializer));
+      }
+    }
+  }
+
+
+  ///
+  /// Please note the command GetGpsEphDoubleParamForSV is deprecated since 23.11. You may use GetConstellationParameterForSV.
+  /// 
+  /// Get various parameters in the GPS ephemeris
+  /// 
+  ///   ParamName         Unit
+  ///   "ClockBias"       sec
+  ///   "ClockDrift"      sec/sec
+  ///   "ClockDriftRate"  sec/sec^2
+  ///   "Crs"             meter
+  ///   "Crc"             meter
+  ///   "Cis"             rad
+  ///   "Cic"             rad
+  ///   "Cus"             rad
+  ///   "Cuc"             rad
+  ///   "DeltaN"          rad/sec
+  ///   "M0"              rad
+  ///   "Eccentricity"    -
+  ///   "SqrtA"           sqrt(meter)
+  ///   "BigOmega"        rad
+  ///   "I0"              rad
+  ///   "LittleOmega"     rad
+  ///   "BigOmegaDot"     rad/sec
+  ///   "Idot"            rad/sec
+  ///   "Accuracy"        meter
+  ///   "Adot"            meters/sec
+  ///   "DeltaN0dot"      rad/sec^2
+  ///   "Tgd"             sec
+  ///   "IscL1Ca"         sec
+  ///   "IscL2C"          sec
+  ///   "IscL5I5"         sec
+  ///   "IscL5Q5"         sec
+  ///   "IscL1CP"         sec
+  ///   "IscL1CD"         sec
+  ///
+  /// Name        Type            Description
+  /// ----------- --------------- -------------------------------------------------------------------------------------------
+  /// SvId        int             Satellite SV ID 1..32, or use 0 to apply new value to all satellites.
+  /// ParamName   string          Parameter name (see table above for accepted names)
+  /// DataSetName optional string Optional name of the data set to use. If no value is provided, the active data set is used.
+  ///
+
+  public class GetGpsEphDoubleParamForSV : CommandBase
+  {
+    public override string Documentation
+    {
+      get { return "Please note the command GetGpsEphDoubleParamForSV is deprecated since 23.11. You may use GetConstellationParameterForSV.\n\nGet various parameters in the GPS ephemeris\n\n  ParamName         Unit\n  \"ClockBias\"       sec\n  \"ClockDrift\"      sec/sec\n  \"ClockDriftRate\"  sec/sec^2\n  \"Crs\"             meter\n  \"Crc\"             meter\n  \"Cis\"             rad\n  \"Cic\"             rad\n  \"Cus\"             rad\n  \"Cuc\"             rad\n  \"DeltaN\"          rad/sec\n  \"M0\"              rad\n  \"Eccentricity\"    -\n  \"SqrtA\"           sqrt(meter)\n  \"BigOmega\"        rad\n  \"I0\"              rad\n  \"LittleOmega\"     rad\n  \"BigOmegaDot\"     rad/sec\n  \"Idot\"            rad/sec\n  \"Accuracy\"        meter\n  \"Adot\"            meters/sec\n  \"DeltaN0dot\"      rad/sec^2\n  \"Tgd\"             sec\n  \"IscL1Ca\"         sec\n  \"IscL2C\"          sec\n  \"IscL5I5\"         sec\n  \"IscL5Q5\"         sec\n  \"IscL1CP\"         sec\n  \"IscL1CD\"         sec"; }
+    }
+
+    public override string Deprecated
+    {
+      get { return "Please note the command GetGpsEphDoubleParamForSV is deprecated since 23.11. You may use GetConstellationParameterForSV."; }
+    }
+
+    internal const string CmdName = "GetGpsEphDoubleParamForSV";
+
+    public GetGpsEphDoubleParamForSV()
+      : base(CmdName)
+    {}
+
+    public GetGpsEphDoubleParamForSV(int svId, string paramName, string dataSetName = null)
+      : base(CmdName)
+    {
+      SvId = svId;
+      ParamName = paramName;
+      DataSetName = dataSetName;
+    }
+      
+    public override bool IsValid
+    {
+      get
+      {
+        return base.IsValid
+        && Contains("SvId")
+        && Contains("ParamName")
+      ;
+      }
+    }
+
+    public override int ExecutePermission { get { return EXECUTE_IF_IDLE; } }
+
+    public int SvId
+    {
+      get { return GetValue("SvId").ToObject<int>(CommandBase.Serializer); }
+      set
+      {
+          SetValue("SvId", JToken.FromObject(value, CommandBase.Serializer));
+      }
+    }
+
+    public string ParamName
+    {
+      get { return GetValue("ParamName").ToObject<string>(CommandBase.Serializer); }
+      set
+      {
+          SetValue("ParamName", JToken.FromObject(value, CommandBase.Serializer));
+      }
+    }
+
+    public string DataSetName
+    {
+      get { return GetValue("DataSetName").ToObject<string>(CommandBase.Serializer); }
+      set
+      {
+        if (value == null)
+          RemoveValue("DataSetName");
+        else
+          SetValue("DataSetName", JToken.FromObject(value, CommandBase.Serializer));
+      }
+    }
+  }
+
+
+  ///
+  /// Result of GetGpsEphDoubleParamForSV.
+  ///
+  /// Name        Type            Description
+  /// ----------- --------------- -------------------------------------------------------------------------------------------
+  /// SvId        int             Satellite SV ID 1..32, or use 0 to apply new value to all satellites.
+  /// ParamName   string          Parameter name (see table above for accepted names)
+  /// Val         double          Parameter value (see table above for unit)
+  /// DataSetName optional string Optional name of the data set to use. If no value is provided, the active data set is used.
+  ///
+
+  public class GetGpsEphDoubleParamForSVResult : CommandResult
+  {
+    public override string Documentation
+    {
+      get { return "Result of GetGpsEphDoubleParamForSV."; }
+    }
+
+    internal const string CmdName = "GetGpsEphDoubleParamForSVResult";
+
+    public GetGpsEphDoubleParamForSVResult()
+      : base(CmdName)
+    {}
+
+    public GetGpsEphDoubleParamForSVResult(CommandBase relatedCommand, int svId, string paramName, double val, string dataSetName = null)
+      : base(CmdName, relatedCommand)
+    {
+      SvId = svId;
+      ParamName = paramName;
+      Val = val;
+      DataSetName = dataSetName;
+    }
+      
+    public override bool IsValid
+    {
+      get
+      {
+        return base.IsValid
+        && Contains("SvId")
+        && Contains("ParamName")
+        && Contains("Val")
+      ;
+      }
+    }
+
+    public int SvId
+    {
+      get { return GetValue("SvId").ToObject<int>(CommandBase.Serializer); }
+      set
+      {
+          SetValue("SvId", JToken.FromObject(value, CommandBase.Serializer));
+      }
+    }
+
+    public string ParamName
+    {
+      get { return GetValue("ParamName").ToObject<string>(CommandBase.Serializer); }
+      set
+      {
+          SetValue("ParamName", JToken.FromObject(value, CommandBase.Serializer));
+      }
+    }
+
+    public double Val
+    {
+      get { return GetValue("Val").ToObject<double>(CommandBase.Serializer); }
+      set
+      {
+          SetValue("Val", JToken.FromObject(value, CommandBase.Serializer));
+      }
+    }
+
+    public string DataSetName
+    {
+      get { return GetValue("DataSetName").ToObject<string>(CommandBase.Serializer); }
+      set
+      {
+        if (value == null)
+          RemoveValue("DataSetName");
+        else
+          SetValue("DataSetName", JToken.FromObject(value, CommandBase.Serializer));
+      }
+    }
+  }
+
+
+  ///
+  /// Please note the command SetGalileoEphDoubleParamForSV is deprecated since 23.11. You may use SetConstellationParameterForSV.
+  /// 
+  /// Set various parameters in the Galileo ephemeris
+  /// 
+  ///   ParamName         Unit
+  ///   "ClockBias"       sec
+  ///   "ClockDrift"      sec/sec
+  ///   "ClockDriftRate"  sec/sec^2
+  ///   "Crs"             meter
+  ///   "Crc"             meter
+  ///   "Cis"             rad
+  ///   "Cic"             rad
+  ///   "Cus"             rad
+  ///   "Cuc"             rad
+  ///   "DeltaN"          rad/sec
+  ///   "M0"              rad
+  ///   "Eccentricity"    -
+  ///   "SqrtA"           sqrt(meter)
+  ///   "BigOmega"        rad
+  ///   "I0"              rad
+  ///   "LittleOmega"     rad
+  ///   "BigOmegaDot"     rad/sec
+  ///   "Idot"            rad/sec
+  ///   "Accuracy"        meter
+  ///   "Adot"            meters/sec
+  ///   "DeltaN0dot"      rad/sec^2
+  ///   "Tgd"             sec
+  ///   "BgdE1E5a"        ns
+  ///   "BgdE1E5b"        ns
+  ///
+  /// Name        Type            Description
+  /// ----------- --------------- -------------------------------------------------------------------------------------------
+  /// SvId        int             Satellite SV ID 1..36, or use 0 to apply new value to all satellites
+  /// ParamName   string          Parameter name (see table above for accepted names)
+  /// Val         double          Parameter value (see table above for unit)
+  /// DataSetName optional string Optional name of the data set to use. If no value is provided, the active data set is used.
+  ///
+
+  public class SetGalileoEphDoubleParamForSV : CommandBase
+  {
+    public override string Documentation
+    {
+      get { return "Please note the command SetGalileoEphDoubleParamForSV is deprecated since 23.11. You may use SetConstellationParameterForSV.\n\nSet various parameters in the Galileo ephemeris\n\n  ParamName         Unit\n  \"ClockBias\"       sec\n  \"ClockDrift\"      sec/sec\n  \"ClockDriftRate\"  sec/sec^2\n  \"Crs\"             meter\n  \"Crc\"             meter\n  \"Cis\"             rad\n  \"Cic\"             rad\n  \"Cus\"             rad\n  \"Cuc\"             rad\n  \"DeltaN\"          rad/sec\n  \"M0\"              rad\n  \"Eccentricity\"    -\n  \"SqrtA\"           sqrt(meter)\n  \"BigOmega\"        rad\n  \"I0\"              rad\n  \"LittleOmega\"     rad\n  \"BigOmegaDot\"     rad/sec\n  \"Idot\"            rad/sec\n  \"Accuracy\"        meter\n  \"Adot\"            meters/sec\n  \"DeltaN0dot\"      rad/sec^2\n  \"Tgd\"             sec\n  \"BgdE1E5a\"        ns\n  \"BgdE1E5b\"        ns"; }
+    }
+
+    public override string Deprecated
+    {
+      get { return "Please note the command SetGalileoEphDoubleParamForSV is deprecated since 23.11. You may use SetConstellationParameterForSV."; }
+    }
+
+    internal const string CmdName = "SetGalileoEphDoubleParamForSV";
+
+    public SetGalileoEphDoubleParamForSV()
+      : base(CmdName)
+    {}
+
+    public SetGalileoEphDoubleParamForSV(int svId, string paramName, double val, string dataSetName = null)
+      : base(CmdName)
+    {
+      SvId = svId;
+      ParamName = paramName;
+      Val = val;
+      DataSetName = dataSetName;
+    }
+      
+    public override bool IsValid
+    {
+      get
+      {
+        return base.IsValid
+        && Contains("SvId")
+        && Contains("ParamName")
+        && Contains("Val")
+      ;
+      }
+    }
+
+    public override int ExecutePermission { get { return EXECUTE_IF_IDLE; } }
+
+    public int SvId
+    {
+      get { return GetValue("SvId").ToObject<int>(CommandBase.Serializer); }
+      set
+      {
+          SetValue("SvId", JToken.FromObject(value, CommandBase.Serializer));
+      }
+    }
+
+    public string ParamName
+    {
+      get { return GetValue("ParamName").ToObject<string>(CommandBase.Serializer); }
+      set
+      {
+          SetValue("ParamName", JToken.FromObject(value, CommandBase.Serializer));
+      }
+    }
+
+    public double Val
+    {
+      get { return GetValue("Val").ToObject<double>(CommandBase.Serializer); }
+      set
+      {
+          SetValue("Val", JToken.FromObject(value, CommandBase.Serializer));
+      }
+    }
+
+    public string DataSetName
+    {
+      get { return GetValue("DataSetName").ToObject<string>(CommandBase.Serializer); }
+      set
+      {
+        if (value == null)
+          RemoveValue("DataSetName");
+        else
+          SetValue("DataSetName", JToken.FromObject(value, CommandBase.Serializer));
+      }
+    }
+  }
+
+
+  ///
+  /// Please note the command GetGalileoEphDoubleParamForSV is deprecated since 23.11. You may use GetConstellationParameterForSV.
+  /// 
+  /// Get various parameters in the Galileo ephemeris
+  /// 
+  ///   ParamName         Unit
+  ///   "ClockBias"       sec
+  ///   "ClockDrift"      sec/sec
+  ///   "ClockDriftRate"  sec/sec^2
+  ///   "Crs"             meter
+  ///   "Crc"             meter
+  ///   "Cis"             rad
+  ///   "Cic"             rad
+  ///   "Cus"             rad
+  ///   "Cuc"             rad
+  ///   "DeltaN"          rad/sec
+  ///   "M0"              rad
+  ///   "Eccentricity"    -
+  ///   "SqrtA"           sqrt(meter)
+  ///   "BigOmega"        rad
+  ///   "I0"              rad
+  ///   "LittleOmega"     rad
+  ///   "BigOmegaDot"     rad/sec
+  ///   "Idot"            rad/sec
+  ///   "Accuracy"        meter
+  ///   "Adot"            meters/sec
+  ///   "DeltaN0dot"      rad/sec^2
+  ///   "Tgd"             sec
+  ///   "BgdE1E5a"        ns
+  ///   "BgdE1E5b"        ns
+  ///
+  /// Name        Type            Description
+  /// ----------- --------------- -------------------------------------------------------------------------------------------
+  /// SvId        int             Satellite SV ID 1..36, or use 0 to apply new value to all satellites
+  /// ParamName   string          Parameter name (see table above for accepted names)
+  /// DataSetName optional string Optional name of the data set to use. If no value is provided, the active data set is used.
+  ///
+
+  public class GetGalileoEphDoubleParamForSV : CommandBase
+  {
+    public override string Documentation
+    {
+      get { return "Please note the command GetGalileoEphDoubleParamForSV is deprecated since 23.11. You may use GetConstellationParameterForSV.\n\nGet various parameters in the Galileo ephemeris\n\n  ParamName         Unit\n  \"ClockBias\"       sec\n  \"ClockDrift\"      sec/sec\n  \"ClockDriftRate\"  sec/sec^2\n  \"Crs\"             meter\n  \"Crc\"             meter\n  \"Cis\"             rad\n  \"Cic\"             rad\n  \"Cus\"             rad\n  \"Cuc\"             rad\n  \"DeltaN\"          rad/sec\n  \"M0\"              rad\n  \"Eccentricity\"    -\n  \"SqrtA\"           sqrt(meter)\n  \"BigOmega\"        rad\n  \"I0\"              rad\n  \"LittleOmega\"     rad\n  \"BigOmegaDot\"     rad/sec\n  \"Idot\"            rad/sec\n  \"Accuracy\"        meter\n  \"Adot\"            meters/sec\n  \"DeltaN0dot\"      rad/sec^2\n  \"Tgd\"             sec\n  \"BgdE1E5a\"        ns\n  \"BgdE1E5b\"        ns"; }
+    }
+
+    public override string Deprecated
+    {
+      get { return "Please note the command GetGalileoEphDoubleParamForSV is deprecated since 23.11. You may use GetConstellationParameterForSV."; }
+    }
+
+    internal const string CmdName = "GetGalileoEphDoubleParamForSV";
+
+    public GetGalileoEphDoubleParamForSV()
+      : base(CmdName)
+    {}
+
+    public GetGalileoEphDoubleParamForSV(int svId, string paramName, string dataSetName = null)
+      : base(CmdName)
+    {
+      SvId = svId;
+      ParamName = paramName;
+      DataSetName = dataSetName;
+    }
+      
+    public override bool IsValid
+    {
+      get
+      {
+        return base.IsValid
+        && Contains("SvId")
+        && Contains("ParamName")
+      ;
+      }
+    }
+
+    public override int ExecutePermission { get { return EXECUTE_IF_IDLE; } }
+
+    public int SvId
+    {
+      get { return GetValue("SvId").ToObject<int>(CommandBase.Serializer); }
+      set
+      {
+          SetValue("SvId", JToken.FromObject(value, CommandBase.Serializer));
+      }
+    }
+
+    public string ParamName
+    {
+      get { return GetValue("ParamName").ToObject<string>(CommandBase.Serializer); }
+      set
+      {
+          SetValue("ParamName", JToken.FromObject(value, CommandBase.Serializer));
+      }
+    }
+
+    public string DataSetName
+    {
+      get { return GetValue("DataSetName").ToObject<string>(CommandBase.Serializer); }
+      set
+      {
+        if (value == null)
+          RemoveValue("DataSetName");
+        else
+          SetValue("DataSetName", JToken.FromObject(value, CommandBase.Serializer));
+      }
+    }
+  }
+
+
+  ///
+  /// Result of GetGalileoEphDoubleParamForSV.
+  ///
+  /// Name        Type            Description
+  /// ----------- --------------- -------------------------------------------------------------------------------------------
+  /// SvId        int             Satellite SV ID 1..36, or use 0 to apply new value to all satellites
+  /// ParamName   string          Parameter name (see table above for accepted names)
+  /// Val         double          Parameter value (see table above for unit)
+  /// DataSetName optional string Optional name of the data set to use. If no value is provided, the active data set is used.
+  ///
+
+  public class GetGalileoEphDoubleParamForSVResult : CommandResult
+  {
+    public override string Documentation
+    {
+      get { return "Result of GetGalileoEphDoubleParamForSV."; }
+    }
+
+    internal const string CmdName = "GetGalileoEphDoubleParamForSVResult";
+
+    public GetGalileoEphDoubleParamForSVResult()
+      : base(CmdName)
+    {}
+
+    public GetGalileoEphDoubleParamForSVResult(CommandBase relatedCommand, int svId, string paramName, double val, string dataSetName = null)
+      : base(CmdName, relatedCommand)
+    {
+      SvId = svId;
+      ParamName = paramName;
+      Val = val;
+      DataSetName = dataSetName;
+    }
+      
+    public override bool IsValid
+    {
+      get
+      {
+        return base.IsValid
+        && Contains("SvId")
+        && Contains("ParamName")
+        && Contains("Val")
+      ;
+      }
+    }
+
+    public int SvId
+    {
+      get { return GetValue("SvId").ToObject<int>(CommandBase.Serializer); }
+      set
+      {
+          SetValue("SvId", JToken.FromObject(value, CommandBase.Serializer));
+      }
+    }
+
+    public string ParamName
+    {
+      get { return GetValue("ParamName").ToObject<string>(CommandBase.Serializer); }
+      set
+      {
+          SetValue("ParamName", JToken.FromObject(value, CommandBase.Serializer));
+      }
+    }
+
+    public double Val
+    {
+      get { return GetValue("Val").ToObject<double>(CommandBase.Serializer); }
+      set
+      {
+          SetValue("Val", JToken.FromObject(value, CommandBase.Serializer));
+      }
+    }
+
+    public string DataSetName
+    {
+      get { return GetValue("DataSetName").ToObject<string>(CommandBase.Serializer); }
+      set
+      {
+        if (value == null)
+          RemoveValue("DataSetName");
+        else
+          SetValue("DataSetName", JToken.FromObject(value, CommandBase.Serializer));
+      }
+    }
+  }
+
+
+  ///
+  /// Please note the command SetBeiDouEphDoubleParamForSV is deprecated since 23.11. You may use SetConstellationParameterForSV.
+  /// 
+  /// Set various parameters in the BeiDou ephemeris
+  /// 
+  ///   ParamName         Unit
+  ///   "ClockBias"       sec
+  ///   "ClockDrift"      sec/sec
+  ///   "ClockDriftRate"  sec/sec^2
+  ///   "Crs"             meter
+  ///   "Crc"             meter
+  ///   "Cis"             rad
+  ///   "Cic"             rad
+  ///   "Cus"             rad
+  ///   "Cuc"             rad
+  ///   "DeltaN"          rad/sec
+  ///   "M0"              rad
+  ///   "Eccentricity"    -
+  ///   "SqrtA"           sqrt(meter)
+  ///   "BigOmega"        rad
+  ///   "I0"              rad
+  ///   "LittleOmega"     rad
+  ///   "BigOmegaDot"     rad/sec
+  ///   "Idot"            rad/sec
+  ///   "Accuracy"        meter
+  ///   "Adot"            meters/sec
+  ///   "DeltaN0dot"      rad/sec^2
+  ///   "Tgd1"            sec
+  ///   "Tgd2"            sec
+  ///   "TgdB1Cp"         sec
+  ///   "TgdB2Ap"         sec
+  ///
+  /// Name        Type            Description
+  /// ----------- --------------- -------------------------------------------------------------------------------------------
+  /// SvId        int             Satellite SV ID 1..35, or use 0 to apply new value to all satellites
+  /// ParamName   string          Parameter name (see table above for accepted names)
+  /// Val         double          Parameter value (see table above for unit)
+  /// DataSetName optional string Optional name of the data set to use. If no value is provided, the active data set is used.
+  ///
+
+  public class SetBeiDouEphDoubleParamForSV : CommandBase
+  {
+    public override string Documentation
+    {
+      get { return "Please note the command SetBeiDouEphDoubleParamForSV is deprecated since 23.11. You may use SetConstellationParameterForSV.\n\nSet various parameters in the BeiDou ephemeris\n\n  ParamName         Unit\n  \"ClockBias\"       sec\n  \"ClockDrift\"      sec/sec\n  \"ClockDriftRate\"  sec/sec^2\n  \"Crs\"             meter\n  \"Crc\"             meter\n  \"Cis\"             rad\n  \"Cic\"             rad\n  \"Cus\"             rad\n  \"Cuc\"             rad\n  \"DeltaN\"          rad/sec\n  \"M0\"              rad\n  \"Eccentricity\"    -\n  \"SqrtA\"           sqrt(meter)\n  \"BigOmega\"        rad\n  \"I0\"              rad\n  \"LittleOmega\"     rad\n  \"BigOmegaDot\"     rad/sec\n  \"Idot\"            rad/sec\n  \"Accuracy\"        meter\n  \"Adot\"            meters/sec\n  \"DeltaN0dot\"      rad/sec^2\n  \"Tgd1\"            sec\n  \"Tgd2\"            sec\n  \"TgdB1Cp\"         sec\n  \"TgdB2Ap\"         sec"; }
+    }
+
+    public override string Deprecated
+    {
+      get { return "Please note the command SetBeiDouEphDoubleParamForSV is deprecated since 23.11. You may use SetConstellationParameterForSV."; }
+    }
+
+    internal const string CmdName = "SetBeiDouEphDoubleParamForSV";
+
+    public SetBeiDouEphDoubleParamForSV()
+      : base(CmdName)
+    {}
+
+    public SetBeiDouEphDoubleParamForSV(int svId, string paramName, double val, string dataSetName = null)
+      : base(CmdName)
+    {
+      SvId = svId;
+      ParamName = paramName;
+      Val = val;
+      DataSetName = dataSetName;
+    }
+      
+    public override bool IsValid
+    {
+      get
+      {
+        return base.IsValid
+        && Contains("SvId")
+        && Contains("ParamName")
+        && Contains("Val")
+      ;
+      }
+    }
+
+    public override int ExecutePermission { get { return EXECUTE_IF_IDLE; } }
+
+    public int SvId
+    {
+      get { return GetValue("SvId").ToObject<int>(CommandBase.Serializer); }
+      set
+      {
+          SetValue("SvId", JToken.FromObject(value, CommandBase.Serializer));
+      }
+    }
+
+    public string ParamName
+    {
+      get { return GetValue("ParamName").ToObject<string>(CommandBase.Serializer); }
+      set
+      {
+          SetValue("ParamName", JToken.FromObject(value, CommandBase.Serializer));
+      }
+    }
+
+    public double Val
+    {
+      get { return GetValue("Val").ToObject<double>(CommandBase.Serializer); }
+      set
+      {
+          SetValue("Val", JToken.FromObject(value, CommandBase.Serializer));
+      }
+    }
+
+    public string DataSetName
+    {
+      get { return GetValue("DataSetName").ToObject<string>(CommandBase.Serializer); }
+      set
+      {
+        if (value == null)
+          RemoveValue("DataSetName");
+        else
+          SetValue("DataSetName", JToken.FromObject(value, CommandBase.Serializer));
+      }
+    }
+  }
+
+
+  ///
+  /// Please note the command GetBeiDouEphDoubleParamForSV is deprecated since 23.11. You may use GetConstellationParameterForSV.
+  /// 
+  /// Get various parameters in the BeiDou ephemeris
+  /// 
+  ///   ParamName         Unit
+  ///   "ClockBias"       sec
+  ///   "ClockDrift"      sec/sec
+  ///   "ClockDriftRate"  sec/sec^2
+  ///   "Crs"             meter
+  ///   "Crc"             meter
+  ///   "Cis"             rad
+  ///   "Cic"             rad
+  ///   "Cus"             rad
+  ///   "Cuc"             rad
+  ///   "DeltaN"          rad/sec
+  ///   "M0"              rad
+  ///   "Eccentricity"    -
+  ///   "SqrtA"           sqrt(meter)
+  ///   "BigOmega"        rad
+  ///   "I0"              rad
+  ///   "LittleOmega"     rad
+  ///   "BigOmegaDot"     rad/sec
+  ///   "Idot"            rad/sec
+  ///   "Accuracy"        meter
+  ///   "Adot"            meters/sec
+  ///   "DeltaN0dot"      rad/sec^2
+  ///   "Tgd1"            sec
+  ///   "Tgd2"            sec
+  ///   "TgdB1Cp"         sec
+  ///   "TgdB2Ap"         sec
+  ///
+  /// Name        Type            Description
+  /// ----------- --------------- -------------------------------------------------------------------------------------------
+  /// SvId        int             Satellite SV ID 1..35, or use 0 to apply new value to all satellites
+  /// ParamName   string          Parameter name (see table above for accepted names)
+  /// DataSetName optional string Optional name of the data set to use. If no value is provided, the active data set is used.
+  ///
+
+  public class GetBeiDouEphDoubleParamForSV : CommandBase
+  {
+    public override string Documentation
+    {
+      get { return "Please note the command GetBeiDouEphDoubleParamForSV is deprecated since 23.11. You may use GetConstellationParameterForSV.\n\nGet various parameters in the BeiDou ephemeris\n\n  ParamName         Unit\n  \"ClockBias\"       sec\n  \"ClockDrift\"      sec/sec\n  \"ClockDriftRate\"  sec/sec^2\n  \"Crs\"             meter\n  \"Crc\"             meter\n  \"Cis\"             rad\n  \"Cic\"             rad\n  \"Cus\"             rad\n  \"Cuc\"             rad\n  \"DeltaN\"          rad/sec\n  \"M0\"              rad\n  \"Eccentricity\"    -\n  \"SqrtA\"           sqrt(meter)\n  \"BigOmega\"        rad\n  \"I0\"              rad\n  \"LittleOmega\"     rad\n  \"BigOmegaDot\"     rad/sec\n  \"Idot\"            rad/sec\n  \"Accuracy\"        meter\n  \"Adot\"            meters/sec\n  \"DeltaN0dot\"      rad/sec^2\n  \"Tgd1\"            sec\n  \"Tgd2\"            sec\n  \"TgdB1Cp\"         sec\n  \"TgdB2Ap\"         sec"; }
+    }
+
+    public override string Deprecated
+    {
+      get { return "Please note the command GetBeiDouEphDoubleParamForSV is deprecated since 23.11. You may use GetConstellationParameterForSV."; }
+    }
+
+    internal const string CmdName = "GetBeiDouEphDoubleParamForSV";
+
+    public GetBeiDouEphDoubleParamForSV()
+      : base(CmdName)
+    {}
+
+    public GetBeiDouEphDoubleParamForSV(int svId, string paramName, string dataSetName = null)
+      : base(CmdName)
+    {
+      SvId = svId;
+      ParamName = paramName;
+      DataSetName = dataSetName;
+    }
+      
+    public override bool IsValid
+    {
+      get
+      {
+        return base.IsValid
+        && Contains("SvId")
+        && Contains("ParamName")
+      ;
+      }
+    }
+
+    public override int ExecutePermission { get { return EXECUTE_IF_IDLE; } }
+
+    public int SvId
+    {
+      get { return GetValue("SvId").ToObject<int>(CommandBase.Serializer); }
+      set
+      {
+          SetValue("SvId", JToken.FromObject(value, CommandBase.Serializer));
+      }
+    }
+
+    public string ParamName
+    {
+      get { return GetValue("ParamName").ToObject<string>(CommandBase.Serializer); }
+      set
+      {
+          SetValue("ParamName", JToken.FromObject(value, CommandBase.Serializer));
+      }
+    }
+
+    public string DataSetName
+    {
+      get { return GetValue("DataSetName").ToObject<string>(CommandBase.Serializer); }
+      set
+      {
+        if (value == null)
+          RemoveValue("DataSetName");
+        else
+          SetValue("DataSetName", JToken.FromObject(value, CommandBase.Serializer));
+      }
+    }
+  }
+
+
+  ///
+  /// Result of GetBeiDouEphDoubleParamForSV.
+  ///
+  /// Name        Type            Description
+  /// ----------- --------------- -------------------------------------------------------------------------------------------
+  /// SvId        int             Satellite SV ID 1..35, or use 0 to apply new value to all satellites
+  /// ParamName   string          Parameter name (see table above for accepted names)
+  /// Val         double          Parameter value (see table above for unit)
+  /// DataSetName optional string Optional name of the data set to use. If no value is provided, the active data set is used.
+  ///
+
+  public class GetBeiDouEphDoubleParamForSVResult : CommandResult
+  {
+    public override string Documentation
+    {
+      get { return "Result of GetBeiDouEphDoubleParamForSV."; }
+    }
+
+    internal const string CmdName = "GetBeiDouEphDoubleParamForSVResult";
+
+    public GetBeiDouEphDoubleParamForSVResult()
+      : base(CmdName)
+    {}
+
+    public GetBeiDouEphDoubleParamForSVResult(CommandBase relatedCommand, int svId, string paramName, double val, string dataSetName = null)
+      : base(CmdName, relatedCommand)
+    {
+      SvId = svId;
+      ParamName = paramName;
+      Val = val;
+      DataSetName = dataSetName;
+    }
+      
+    public override bool IsValid
+    {
+      get
+      {
+        return base.IsValid
+        && Contains("SvId")
+        && Contains("ParamName")
+        && Contains("Val")
+      ;
+      }
+    }
+
+    public int SvId
+    {
+      get { return GetValue("SvId").ToObject<int>(CommandBase.Serializer); }
+      set
+      {
+          SetValue("SvId", JToken.FromObject(value, CommandBase.Serializer));
+      }
+    }
+
+    public string ParamName
+    {
+      get { return GetValue("ParamName").ToObject<string>(CommandBase.Serializer); }
+      set
+      {
+          SetValue("ParamName", JToken.FromObject(value, CommandBase.Serializer));
+      }
+    }
+
+    public double Val
+    {
+      get { return GetValue("Val").ToObject<double>(CommandBase.Serializer); }
+      set
+      {
+          SetValue("Val", JToken.FromObject(value, CommandBase.Serializer));
+      }
+    }
+
+    public string DataSetName
+    {
+      get { return GetValue("DataSetName").ToObject<string>(CommandBase.Serializer); }
+      set
+      {
+        if (value == null)
+          RemoveValue("DataSetName");
+        else
+          SetValue("DataSetName", JToken.FromObject(value, CommandBase.Serializer));
+      }
+    }
+  }
+
+
+  ///
+  /// Please note the command SetQzssEphemerisDoubleParam is deprecated since 21.3. You may use SetQzssEphDoubleParamForSV.
+  /// 
+  /// Please note the command SetQzssEphDoubleParamForSV is deprecated since 23.11. You may use SetConstellationParameterForSV.
+  /// 
+  /// Set various parameters in the QZSS ephemeris.
+  ///
+  /// Name        Type            Description
+  /// ----------- --------------- -------------------------------------------------------------------------------------------
+  /// SvId        int             The satellite's SV ID 1..10 (use 0 to apply to all satellites)
+  /// ParamName   string          In meters:  "Crs", "Crc"
+  ///                             In radians: "Cis", "Cic", "Cus", "Cuc"
+  ///                             In seconds: "Tgd", "IscL1Ca", "IscL2C", "IscL5I5", "IscL5Q5", "IscL1CP", "IscL1CD"
+  /// Val         double          Parameter value (see ParamName above for unit)
+  /// DataSetName optional string Optional name of the data set to use. If no value is provided, the active data set is used.
+  ///
+
+  public class SetQzssEphemerisDoubleParam : CommandBase
+  {
+    public override string Documentation
+    {
+      get { return "Please note the command SetQzssEphemerisDoubleParam is deprecated since 21.3. You may use SetQzssEphDoubleParamForSV.\n\nPlease note the command SetQzssEphDoubleParamForSV is deprecated since 23.11. You may use SetConstellationParameterForSV.\n\nSet various parameters in the QZSS ephemeris."; }
+    }
+
+    public override string Deprecated
+    {
+      get { return "Please note the command SetQzssEphDoubleParamForSV is deprecated since 23.11. You may use SetConstellationParameterForSV."; }
+    }
+
+    internal const string CmdName = "SetQzssEphemerisDoubleParam";
+
+    public SetQzssEphemerisDoubleParam()
+      : base(CmdName)
+    {}
+
+    public SetQzssEphemerisDoubleParam(int svId, string paramName, double val, string dataSetName = null)
+      : base(CmdName)
+    {
+      SvId = svId;
+      ParamName = paramName;
+      Val = val;
+      DataSetName = dataSetName;
+    }
+      
+    public override bool IsValid
+    {
+      get
+      {
+        return base.IsValid
+        && Contains("SvId")
+        && Contains("ParamName")
+        && Contains("Val")
+      ;
+      }
+    }
+
+    public override int ExecutePermission { get { return EXECUTE_IF_IDLE; } }
+
+    public int SvId
+    {
+      get { return GetValue("SvId").ToObject<int>(CommandBase.Serializer); }
+      set
+      {
+          SetValue("SvId", JToken.FromObject(value, CommandBase.Serializer));
+      }
+    }
+
+    public string ParamName
+    {
+      get { return GetValue("ParamName").ToObject<string>(CommandBase.Serializer); }
+      set
+      {
+          SetValue("ParamName", JToken.FromObject(value, CommandBase.Serializer));
+      }
+    }
+
+    public double Val
+    {
+      get { return GetValue("Val").ToObject<double>(CommandBase.Serializer); }
+      set
+      {
+          SetValue("Val", JToken.FromObject(value, CommandBase.Serializer));
+      }
+    }
+
+    public string DataSetName
+    {
+      get { return GetValue("DataSetName").ToObject<string>(CommandBase.Serializer); }
+      set
+      {
+        if (value == null)
+          RemoveValue("DataSetName");
+        else
+          SetValue("DataSetName", JToken.FromObject(value, CommandBase.Serializer));
+      }
+    }
+  }
+
+
+  ///
+  /// Please note the command SetQzssEphDoubleParamForSV is deprecated since 23.11. You may use SetConstellationParameterForSV.
+  /// 
+  /// Set various parameters in the QZSS ephemeris.
+  ///
+  /// Name        Type            Description
+  /// ----------- --------------- -------------------------------------------------------------------------------------------
+  /// SvId        int             The satellite's SV ID 1..10 (use 0 to apply to all satellites)
+  /// ParamName   string          In meters:  "Crs", "Crc"
+  ///                             In radians: "Cis", "Cic", "Cus", "Cuc"
+  ///                             In seconds: "Tgd", "IscL1Ca", "IscL2C", "IscL5I5", "IscL5Q5", "IscL1CP", "IscL1CD"
+  /// Val         double          Parameter value (see ParamName above for unit)
+  /// DataSetName optional string Optional name of the data set to use. If no value is provided, the active data set is used.
+  ///
+
+  public class SetQzssEphDoubleParamForSV : CommandBase
+  {
+    public override string Documentation
+    {
+      get { return "Please note the command SetQzssEphDoubleParamForSV is deprecated since 23.11. You may use SetConstellationParameterForSV.\n\nSet various parameters in the QZSS ephemeris."; }
+    }
+
+    public override string Deprecated
+    {
+      get { return "Please note the command SetQzssEphDoubleParamForSV is deprecated since 23.11. You may use SetConstellationParameterForSV."; }
+    }
+
+    internal const string CmdName = "SetQzssEphDoubleParamForSV";
+
+    public SetQzssEphDoubleParamForSV()
+      : base(CmdName)
+    {}
+
+    public SetQzssEphDoubleParamForSV(int svId, string paramName, double val, string dataSetName = null)
+      : base(CmdName)
+    {
+      SvId = svId;
+      ParamName = paramName;
+      Val = val;
+      DataSetName = dataSetName;
+    }
+      
+    public override bool IsValid
+    {
+      get
+      {
+        return base.IsValid
+        && Contains("SvId")
+        && Contains("ParamName")
+        && Contains("Val")
+      ;
+      }
+    }
+
+    public override int ExecutePermission { get { return EXECUTE_IF_IDLE; } }
+
+    public int SvId
+    {
+      get { return GetValue("SvId").ToObject<int>(CommandBase.Serializer); }
+      set
+      {
+          SetValue("SvId", JToken.FromObject(value, CommandBase.Serializer));
+      }
+    }
+
+    public string ParamName
+    {
+      get { return GetValue("ParamName").ToObject<string>(CommandBase.Serializer); }
+      set
+      {
+          SetValue("ParamName", JToken.FromObject(value, CommandBase.Serializer));
+      }
+    }
+
+    public double Val
+    {
+      get { return GetValue("Val").ToObject<double>(CommandBase.Serializer); }
+      set
+      {
+          SetValue("Val", JToken.FromObject(value, CommandBase.Serializer));
+      }
+    }
+
+    public string DataSetName
+    {
+      get { return GetValue("DataSetName").ToObject<string>(CommandBase.Serializer); }
+      set
+      {
+        if (value == null)
+          RemoveValue("DataSetName");
+        else
+          SetValue("DataSetName", JToken.FromObject(value, CommandBase.Serializer));
+      }
+    }
+  }
+
+
+  ///
+  /// Please note the command GetQzssEphemerisDoubleParam is deprecated since 21.3. You may use GetQzssEphDoubleParamForSV.
+  /// 
+  /// Please note the command GetQzssEphDoubleParamForSV is deprecated since 23.11. You may use GetConstellationParameterForSV.
+  /// 
+  /// Get various parameters in the QZSS ephemeris.
+  ///
+  /// Name        Type            Description
+  /// ----------- --------------- -------------------------------------------------------------------------------------------
+  /// SvId        int             The satellite's SV ID 1..10 (use 0 to apply to all satellites)
+  /// ParamName   string          In meters:  "Crs", "Crc"
+  ///                             In radians: "Cis", "Cic", "Cus", "Cuc"
+  ///                             In seconds: "Tgd", "IscL1Ca", "IscL2C", "IscL5I5", "IscL5Q5", "IscL1CP", "IscL1CD"
+  /// DataSetName optional string Optional name of the data set to use. If no value is provided, the active data set is used.
+  ///
+
+  public class GetQzssEphemerisDoubleParam : CommandBase
+  {
+    public override string Documentation
+    {
+      get { return "Please note the command GetQzssEphemerisDoubleParam is deprecated since 21.3. You may use GetQzssEphDoubleParamForSV.\n\nPlease note the command GetQzssEphDoubleParamForSV is deprecated since 23.11. You may use GetConstellationParameterForSV.\n\nGet various parameters in the QZSS ephemeris."; }
+    }
+
+    public override string Deprecated
+    {
+      get { return "Please note the command GetQzssEphDoubleParamForSV is deprecated since 23.11. You may use GetConstellationParameterForSV."; }
+    }
+
+    internal const string CmdName = "GetQzssEphemerisDoubleParam";
+
+    public GetQzssEphemerisDoubleParam()
+      : base(CmdName)
+    {}
+
+    public GetQzssEphemerisDoubleParam(int svId, string paramName, string dataSetName = null)
+      : base(CmdName)
+    {
+      SvId = svId;
+      ParamName = paramName;
+      DataSetName = dataSetName;
+    }
+      
+    public override bool IsValid
+    {
+      get
+      {
+        return base.IsValid
+        && Contains("SvId")
+        && Contains("ParamName")
+      ;
+      }
+    }
+
+    public override int ExecutePermission { get { return EXECUTE_IF_IDLE; } }
+
+    public int SvId
+    {
+      get { return GetValue("SvId").ToObject<int>(CommandBase.Serializer); }
+      set
+      {
+          SetValue("SvId", JToken.FromObject(value, CommandBase.Serializer));
+      }
+    }
+
+    public string ParamName
+    {
+      get { return GetValue("ParamName").ToObject<string>(CommandBase.Serializer); }
+      set
+      {
+          SetValue("ParamName", JToken.FromObject(value, CommandBase.Serializer));
+      }
+    }
+
+    public string DataSetName
+    {
+      get { return GetValue("DataSetName").ToObject<string>(CommandBase.Serializer); }
+      set
+      {
+        if (value == null)
+          RemoveValue("DataSetName");
+        else
+          SetValue("DataSetName", JToken.FromObject(value, CommandBase.Serializer));
+      }
+    }
+  }
+
+
+  ///
+  /// Please note the command GetQzssEphDoubleParamForSV is deprecated since 23.11. You may use GetConstellationParameterForSV.
+  /// 
+  /// Get various parameters in the QZSS ephemeris.
+  ///
+  /// Name        Type            Description
+  /// ----------- --------------- -------------------------------------------------------------------------------------------
+  /// SvId        int             The satellite's SV ID 1..10 (use 0 to apply to all satellites)
+  /// ParamName   string          In meters:  "Crs", "Crc"
+  ///                             In radians: "Cis", "Cic", "Cus", "Cuc"
+  ///                             In seconds: "Tgd", "IscL1Ca", "IscL2C", "IscL5I5", "IscL5Q5", "IscL1CP", "IscL1CD"
+  /// DataSetName optional string Optional name of the data set to use. If no value is provided, the active data set is used.
+  ///
+
+  public class GetQzssEphDoubleParamForSV : CommandBase
+  {
+    public override string Documentation
+    {
+      get { return "Please note the command GetQzssEphDoubleParamForSV is deprecated since 23.11. You may use GetConstellationParameterForSV.\n\nGet various parameters in the QZSS ephemeris."; }
+    }
+
+    public override string Deprecated
+    {
+      get { return "Please note the command GetQzssEphDoubleParamForSV is deprecated since 23.11. You may use GetConstellationParameterForSV."; }
+    }
+
+    internal const string CmdName = "GetQzssEphDoubleParamForSV";
+
+    public GetQzssEphDoubleParamForSV()
+      : base(CmdName)
+    {}
+
+    public GetQzssEphDoubleParamForSV(int svId, string paramName, string dataSetName = null)
+      : base(CmdName)
+    {
+      SvId = svId;
+      ParamName = paramName;
+      DataSetName = dataSetName;
+    }
+      
+    public override bool IsValid
+    {
+      get
+      {
+        return base.IsValid
+        && Contains("SvId")
+        && Contains("ParamName")
+      ;
+      }
+    }
+
+    public override int ExecutePermission { get { return EXECUTE_IF_IDLE; } }
+
+    public int SvId
+    {
+      get { return GetValue("SvId").ToObject<int>(CommandBase.Serializer); }
+      set
+      {
+          SetValue("SvId", JToken.FromObject(value, CommandBase.Serializer));
+      }
+    }
+
+    public string ParamName
+    {
+      get { return GetValue("ParamName").ToObject<string>(CommandBase.Serializer); }
+      set
+      {
+          SetValue("ParamName", JToken.FromObject(value, CommandBase.Serializer));
+      }
+    }
+
+    public string DataSetName
+    {
+      get { return GetValue("DataSetName").ToObject<string>(CommandBase.Serializer); }
+      set
+      {
+        if (value == null)
+          RemoveValue("DataSetName");
+        else
+          SetValue("DataSetName", JToken.FromObject(value, CommandBase.Serializer));
+      }
+    }
+  }
+
+
+  ///
+  /// Result of GetQzssEphDoubleParamForSV.
+  ///
+  /// Name        Type            Description
+  /// ----------- --------------- -------------------------------------------------------------------------------------------
+  /// SvId        int             The satellite's SV ID 1..10 (use 0 to apply to all satellites)
+  /// ParamName   string          In meters:  "Crs", "Crc"
+  ///                             In radians: "Cis", "Cic", "Cus", "Cuc"
+  ///                             In seconds: "Tgd", "IscL1Ca", "IscL2C", "IscL5I5", "IscL5Q5", "IscL1CP", "IscL1CD"
+  /// Val         double          Parameter value (see ParamName above for unit)
+  /// DataSetName optional string Optional name of the data set to use. If no value is provided, the active data set is used.
+  ///
+
+  public class GetQzssEphemerisDoubleParamResult : CommandResult
+  {
+    public override string Documentation
+    {
+      get { return "Result of GetQzssEphDoubleParamForSV."; }
+    }
+  
+    internal const string CmdName = "GetQzssEphemerisDoubleParamResult";
+
+    public GetQzssEphemerisDoubleParamResult()
+      : base(CmdName)
+    {}
+
+    public GetQzssEphemerisDoubleParamResult(CommandBase relatedCommand, int svId, string paramName, double val, string dataSetName = null)
+      : base(CmdName, relatedCommand)
+    {
+      SvId = svId;
+      ParamName = paramName;
+      Val = val;
+      DataSetName = dataSetName;
+    }
+
+    public override bool IsValid
+    {
+      get
+      {
+        return base.IsValid
+        && Contains("SvId")
+        && Contains("ParamName")
+        && Contains("Val")
+      ;
+      }
+    }
+
+    public int SvId
+    {
+      get { return GetValue("SvId").ToObject<int>(CommandBase.Serializer); }
+      set { SetValue("SvId", JToken.FromObject(value, CommandBase.Serializer)); }
+    }
+
+    public string ParamName
+    {
+      get { return GetValue("ParamName").ToObject<string>(CommandBase.Serializer); }
+      set { SetValue("ParamName", JToken.FromObject(value, CommandBase.Serializer)); }
+    }
+
+    public double Val
+    {
+      get { return GetValue("Val").ToObject<double>(CommandBase.Serializer); }
+      set { SetValue("Val", JToken.FromObject(value, CommandBase.Serializer)); }
+    }
+
+    public string DataSetName
+    {
+      get { return GetValue("DataSetName").ToObject<string>(CommandBase.Serializer); }
+      set { SetValue("DataSetName", JToken.FromObject(value, CommandBase.Serializer)); }
+    }
+  }
+
+  ///
+  /// Name        Type            Description
+  /// ----------- --------------- -------------------------------------------------------------------------------------------
+  /// SvId        int             The satellite's SV ID 1..10 (use 0 to apply to all satellites)
+  /// ParamName   string          In meters:  "Crs", "Crc"
+  ///                             In radians: "Cis", "Cic", "Cus", "Cuc"
+  ///                             In seconds: "Tgd", "IscL1Ca", "IscL2C", "IscL5I5", "IscL5Q5", "IscL1CP", "IscL1CD"
+  /// Val         double          Parameter value (see ParamName above for unit)
+  /// DataSetName optional string Optional name of the data set to use. If no value is provided, the active data set is used.
+  ///
+
+  public class GetQzssEphDoubleParamForSVResult : GetQzssEphemerisDoubleParamResult
+  {
+    internal new const string CmdName = "GetQzssEphDoubleParamForSVResult";
+
+    public GetQzssEphDoubleParamForSVResult()
+      : base()
+    {
+       Name = CmdName;
+    }
+
+    public GetQzssEphDoubleParamForSVResult(CommandBase relatedCommand, int svId, string paramName, double val, string dataSetName = null)
+      : base(relatedCommand, svId, paramName, val, dataSetName)
+    {
+      Name = CmdName;
+    }
+  }
+
+
+  ///
+  /// Please note the command SetNavICEphemerisDoubleParam is deprecated since 21.3. You may use SetNavICEphDoubleParamForSV.
+  /// 
+  /// Please note the command SetNavICEphDoubleParamForSV is deprecated since 23.11. You may use SetConstellationParameterForSV.
+  /// 
+  /// Set various parameters in the NavIC ephemeris
+  /// 
+  ///   ParamName         Unit
+  ///   "ClockBias"       sec
+  ///   "ClockDrift"      sec/sec
+  ///   "ClockDriftRate"  sec/sec^2
+  ///   "Crs"             meter
+  ///   "Crc"             meter
+  ///   "Cis"             rad
+  ///   "Cic"             rad
+  ///   "Cus"             rad
+  ///   "Cuc"             rad
+  ///   "DeltaN"          rad/sec
+  ///   "M0"              rad
+  ///   "Eccentricity"    -
+  ///   "SqrtA"           sqrt(meter)
+  ///   "BigOmega"        rad
+  ///   "I0"              rad
+  ///   "LittleOmega"     rad
+  ///   "BigOmegaDot"     rad/sec
+  ///   "Idot"            rad/sec
+  ///   "Accuracy"        meter
+  ///   "Adot"            meters/sec
+  ///   "DeltaN0dot"      rad/sec^2
+  ///   "Tgd"             sec
+  ///
+  /// Name        Type            Description
+  /// ----------- --------------- -------------------------------------------------------------------------------------------
+  /// SvId        int             Satellite SV ID 1..14, or use 0 to apply new value to all satellites
+  /// ParamName   string          Parameter name (see table above for accepted names)
+  /// Val         double          Parameter value (see table above for unit)
+  /// DataSetName optional string Optional name of the data set to use. If no value is provided, the active data set is used.
+  ///
+
+  public class SetNavICEphemerisDoubleParam : CommandBase
+  {
+    public override string Documentation
+    {
+      get { return "Please note the command SetNavICEphemerisDoubleParam is deprecated since 21.3. You may use SetNavICEphDoubleParamForSV.\n\nPlease note the command SetNavICEphDoubleParamForSV is deprecated since 23.11. You may use SetConstellationParameterForSV.\n\nSet various parameters in the NavIC ephemeris\n\n  ParamName         Unit\n  \"ClockBias\"       sec\n  \"ClockDrift\"      sec/sec\n  \"ClockDriftRate\"  sec/sec^2\n  \"Crs\"             meter\n  \"Crc\"             meter\n  \"Cis\"             rad\n  \"Cic\"             rad\n  \"Cus\"             rad\n  \"Cuc\"             rad\n  \"DeltaN\"          rad/sec\n  \"M0\"              rad\n  \"Eccentricity\"    -\n  \"SqrtA\"           sqrt(meter)\n  \"BigOmega\"        rad\n  \"I0\"              rad\n  \"LittleOmega\"     rad\n  \"BigOmegaDot\"     rad/sec\n  \"Idot\"            rad/sec\n  \"Accuracy\"        meter\n  \"Adot\"            meters/sec\n  \"DeltaN0dot\"      rad/sec^2\n  \"Tgd\"             sec"; }
+    }
+
+    public override string Deprecated
+    {
+      get { return "Please note the command SetNavICEphDoubleParamForSV is deprecated since 23.11. You may use SetConstellationParameterForSV."; }
+    }
+
+    internal const string CmdName = "SetNavICEphemerisDoubleParam";
+
+    public SetNavICEphemerisDoubleParam()
+      : base(CmdName)
+    {}
+
+    public SetNavICEphemerisDoubleParam(int svId, string paramName, double val, string dataSetName = null)
+      : base(CmdName)
+    {
+      SvId = svId;
+      ParamName = paramName;
+      Val = val;
+      DataSetName = dataSetName;
+    }
+      
+    public override bool IsValid
+    {
+      get
+      {
+        return base.IsValid
+        && Contains("SvId")
+        && Contains("ParamName")
+        && Contains("Val")
+      ;
+      }
+    }
+
+    public override int ExecutePermission { get { return EXECUTE_IF_IDLE; } }
+
+    public int SvId
+    {
+      get { return GetValue("SvId").ToObject<int>(CommandBase.Serializer); }
+      set
+      {
+          SetValue("SvId", JToken.FromObject(value, CommandBase.Serializer));
+      }
+    }
+
+    public string ParamName
+    {
+      get { return GetValue("ParamName").ToObject<string>(CommandBase.Serializer); }
+      set
+      {
+          SetValue("ParamName", JToken.FromObject(value, CommandBase.Serializer));
+      }
+    }
+
+    public double Val
+    {
+      get { return GetValue("Val").ToObject<double>(CommandBase.Serializer); }
+      set
+      {
+          SetValue("Val", JToken.FromObject(value, CommandBase.Serializer));
+      }
+    }
+
+    public string DataSetName
+    {
+      get { return GetValue("DataSetName").ToObject<string>(CommandBase.Serializer); }
+      set
+      {
+        if (value == null)
+          RemoveValue("DataSetName");
+        else
+          SetValue("DataSetName", JToken.FromObject(value, CommandBase.Serializer));
+      }
+    }
+  }
+
+
+  ///
+  /// Please note the command SetNavICEphDoubleParamForSV is deprecated since 23.11. You may use SetConstellationParameterForSV.
+  /// 
+  /// Set various parameters in the NavIC ephemeris
+  /// 
+  ///   ParamName         Unit
+  ///   "ClockBias"       sec
+  ///   "ClockDrift"      sec/sec
+  ///   "ClockDriftRate"  sec/sec^2
+  ///   "Crs"             meter
+  ///   "Crc"             meter
+  ///   "Cis"             rad
+  ///   "Cic"             rad
+  ///   "Cus"             rad
+  ///   "Cuc"             rad
+  ///   "DeltaN"          rad/sec
+  ///   "M0"              rad
+  ///   "Eccentricity"    -
+  ///   "SqrtA"           sqrt(meter)
+  ///   "BigOmega"        rad
+  ///   "I0"              rad
+  ///   "LittleOmega"     rad
+  ///   "BigOmegaDot"     rad/sec
+  ///   "Idot"            rad/sec
+  ///   "Accuracy"        meter
+  ///   "Adot"            meters/sec
+  ///   "DeltaN0dot"      rad/sec^2
+  ///   "Tgd"             sec
+  ///
+  /// Name        Type            Description
+  /// ----------- --------------- -------------------------------------------------------------------------------------------
+  /// SvId        int             Satellite SV ID 1..14, or use 0 to apply new value to all satellites
+  /// ParamName   string          Parameter name (see table above for accepted names)
+  /// Val         double          Parameter value (see table above for unit)
+  /// DataSetName optional string Optional name of the data set to use. If no value is provided, the active data set is used.
+  ///
+
+  public class SetNavICEphDoubleParamForSV : CommandBase
+  {
+    public override string Documentation
+    {
+      get { return "Please note the command SetNavICEphDoubleParamForSV is deprecated since 23.11. You may use SetConstellationParameterForSV.\n\nSet various parameters in the NavIC ephemeris\n\n  ParamName         Unit\n  \"ClockBias\"       sec\n  \"ClockDrift\"      sec/sec\n  \"ClockDriftRate\"  sec/sec^2\n  \"Crs\"             meter\n  \"Crc\"             meter\n  \"Cis\"             rad\n  \"Cic\"             rad\n  \"Cus\"             rad\n  \"Cuc\"             rad\n  \"DeltaN\"          rad/sec\n  \"M0\"              rad\n  \"Eccentricity\"    -\n  \"SqrtA\"           sqrt(meter)\n  \"BigOmega\"        rad\n  \"I0\"              rad\n  \"LittleOmega\"     rad\n  \"BigOmegaDot\"     rad/sec\n  \"Idot\"            rad/sec\n  \"Accuracy\"        meter\n  \"Adot\"            meters/sec\n  \"DeltaN0dot\"      rad/sec^2\n  \"Tgd\"             sec"; }
+    }
+
+    public override string Deprecated
+    {
+      get { return "Please note the command SetNavICEphDoubleParamForSV is deprecated since 23.11. You may use SetConstellationParameterForSV."; }
+    }
+
+    internal const string CmdName = "SetNavICEphDoubleParamForSV";
+
+    public SetNavICEphDoubleParamForSV()
+      : base(CmdName)
+    {}
+
+    public SetNavICEphDoubleParamForSV(int svId, string paramName, double val, string dataSetName = null)
+      : base(CmdName)
+    {
+      SvId = svId;
+      ParamName = paramName;
+      Val = val;
+      DataSetName = dataSetName;
+    }
+      
+    public override bool IsValid
+    {
+      get
+      {
+        return base.IsValid
+        && Contains("SvId")
+        && Contains("ParamName")
+        && Contains("Val")
+      ;
+      }
+    }
+
+    public override int ExecutePermission { get { return EXECUTE_IF_IDLE; } }
+
+    public int SvId
+    {
+      get { return GetValue("SvId").ToObject<int>(CommandBase.Serializer); }
+      set
+      {
+          SetValue("SvId", JToken.FromObject(value, CommandBase.Serializer));
+      }
+    }
+
+    public string ParamName
+    {
+      get { return GetValue("ParamName").ToObject<string>(CommandBase.Serializer); }
+      set
+      {
+          SetValue("ParamName", JToken.FromObject(value, CommandBase.Serializer));
+      }
+    }
+
+    public double Val
+    {
+      get { return GetValue("Val").ToObject<double>(CommandBase.Serializer); }
+      set
+      {
+          SetValue("Val", JToken.FromObject(value, CommandBase.Serializer));
+      }
+    }
+
+    public string DataSetName
+    {
+      get { return GetValue("DataSetName").ToObject<string>(CommandBase.Serializer); }
+      set
+      {
+        if (value == null)
+          RemoveValue("DataSetName");
+        else
+          SetValue("DataSetName", JToken.FromObject(value, CommandBase.Serializer));
+      }
+    }
+  }
+
+
+  ///
+  /// Please note the command GetNavICEphemerisDoubleParam is deprecated since 21.3. You may use GetNavICEphDoubleParamForSV.
+  /// 
+  /// Please note the command GetNavICEphDoubleParamForSV is deprecated since 23.11. You may use GetConstellationParameterForSV.
+  /// 
+  /// Get various parameters in the NavIC ephemeris
+  /// 
+  ///   ParamName         Unit
+  ///   "ClockBias"       sec
+  ///   "ClockDrift"      sec/sec
+  ///   "ClockDriftRate"  sec/sec^2
+  ///   "Crs"             meter
+  ///   "Crc"             meter
+  ///   "Cis"             rad
+  ///   "Cic"             rad
+  ///   "Cus"             rad
+  ///   "Cuc"             rad
+  ///   "DeltaN"          rad/sec
+  ///   "M0"              rad
+  ///   "Eccentricity"    -
+  ///   "SqrtA"           sqrt(meter)
+  ///   "BigOmega"        rad
+  ///   "I0"              rad
+  ///   "LittleOmega"     rad
+  ///   "BigOmegaDot"     rad/sec
+  ///   "Idot"            rad/sec
+  ///   "Accuracy"        meter
+  ///   "Adot"            meters/sec
+  ///   "DeltaN0dot"      rad/sec^2
+  ///   "Tgd"             sec
+  ///
+  /// Name        Type            Description
+  /// ----------- --------------- -------------------------------------------------------------------------------------------
+  /// SvId        int             Satellite SV ID 1..14, or use 0 to apply new value to all satellites
+  /// ParamName   string          Parameter name (see table above for accepted names)
+  /// DataSetName optional string Optional name of the data set to use. If no value is provided, the active data set is used.
+  ///
+
+  public class GetNavICEphemerisDoubleParam : CommandBase
+  {
+    public override string Documentation
+    {
+      get { return "Please note the command GetNavICEphemerisDoubleParam is deprecated since 21.3. You may use GetNavICEphDoubleParamForSV.\n\nPlease note the command GetNavICEphDoubleParamForSV is deprecated since 23.11. You may use GetConstellationParameterForSV.\n\nGet various parameters in the NavIC ephemeris\n\n  ParamName         Unit\n  \"ClockBias\"       sec\n  \"ClockDrift\"      sec/sec\n  \"ClockDriftRate\"  sec/sec^2\n  \"Crs\"             meter\n  \"Crc\"             meter\n  \"Cis\"             rad\n  \"Cic\"             rad\n  \"Cus\"             rad\n  \"Cuc\"             rad\n  \"DeltaN\"          rad/sec\n  \"M0\"              rad\n  \"Eccentricity\"    -\n  \"SqrtA\"           sqrt(meter)\n  \"BigOmega\"        rad\n  \"I0\"              rad\n  \"LittleOmega\"     rad\n  \"BigOmegaDot\"     rad/sec\n  \"Idot\"            rad/sec\n  \"Accuracy\"        meter\n  \"Adot\"            meters/sec\n  \"DeltaN0dot\"      rad/sec^2\n  \"Tgd\"             sec"; }
+    }
+
+    public override string Deprecated
+    {
+      get { return "Please note the command GetNavICEphDoubleParamForSV is deprecated since 23.11. You may use GetConstellationParameterForSV."; }
+    }
+
+    internal const string CmdName = "GetNavICEphemerisDoubleParam";
+
+    public GetNavICEphemerisDoubleParam()
+      : base(CmdName)
+    {}
+
+    public GetNavICEphemerisDoubleParam(int svId, string paramName, string dataSetName = null)
+      : base(CmdName)
+    {
+      SvId = svId;
+      ParamName = paramName;
+      DataSetName = dataSetName;
+    }
+      
+    public override bool IsValid
+    {
+      get
+      {
+        return base.IsValid
+        && Contains("SvId")
+        && Contains("ParamName")
+      ;
+      }
+    }
+
+    public override int ExecutePermission { get { return EXECUTE_IF_IDLE; } }
+
+    public int SvId
+    {
+      get { return GetValue("SvId").ToObject<int>(CommandBase.Serializer); }
+      set
+      {
+          SetValue("SvId", JToken.FromObject(value, CommandBase.Serializer));
+      }
+    }
+
+    public string ParamName
+    {
+      get { return GetValue("ParamName").ToObject<string>(CommandBase.Serializer); }
+      set
+      {
+          SetValue("ParamName", JToken.FromObject(value, CommandBase.Serializer));
+      }
+    }
+
+    public string DataSetName
+    {
+      get { return GetValue("DataSetName").ToObject<string>(CommandBase.Serializer); }
+      set
+      {
+        if (value == null)
+          RemoveValue("DataSetName");
+        else
+          SetValue("DataSetName", JToken.FromObject(value, CommandBase.Serializer));
+      }
+    }
+  }
+
+
+  ///
+  /// Please note the command GetNavICEphDoubleParamForSV is deprecated since 23.11. You may use GetConstellationParameterForSV.
+  /// 
+  /// Get various parameters in the NavIC ephemeris
+  /// 
+  ///   ParamName         Unit
+  ///   "ClockBias"       sec
+  ///   "ClockDrift"      sec/sec
+  ///   "ClockDriftRate"  sec/sec^2
+  ///   "Crs"             meter
+  ///   "Crc"             meter
+  ///   "Cis"             rad
+  ///   "Cic"             rad
+  ///   "Cus"             rad
+  ///   "Cuc"             rad
+  ///   "DeltaN"          rad/sec
+  ///   "M0"              rad
+  ///   "Eccentricity"    -
+  ///   "SqrtA"           sqrt(meter)
+  ///   "BigOmega"        rad
+  ///   "I0"              rad
+  ///   "LittleOmega"     rad
+  ///   "BigOmegaDot"     rad/sec
+  ///   "Idot"            rad/sec
+  ///   "Accuracy"        meter
+  ///   "Adot"            meters/sec
+  ///   "DeltaN0dot"      rad/sec^2
+  ///   "Tgd"             sec
+  ///
+  /// Name        Type            Description
+  /// ----------- --------------- -------------------------------------------------------------------------------------------
+  /// SvId        int             Satellite SV ID 1..14, or use 0 to apply new value to all satellites
+  /// ParamName   string          Parameter name (see table above for accepted names)
+  /// DataSetName optional string Optional name of the data set to use. If no value is provided, the active data set is used.
+  ///
+
+  public class GetNavICEphDoubleParamForSV : CommandBase
+  {
+    public override string Documentation
+    {
+      get { return "Please note the command GetNavICEphDoubleParamForSV is deprecated since 23.11. You may use GetConstellationParameterForSV.\n\nGet various parameters in the NavIC ephemeris\n\n  ParamName         Unit\n  \"ClockBias\"       sec\n  \"ClockDrift\"      sec/sec\n  \"ClockDriftRate\"  sec/sec^2\n  \"Crs\"             meter\n  \"Crc\"             meter\n  \"Cis\"             rad\n  \"Cic\"             rad\n  \"Cus\"             rad\n  \"Cuc\"             rad\n  \"DeltaN\"          rad/sec\n  \"M0\"              rad\n  \"Eccentricity\"    -\n  \"SqrtA\"           sqrt(meter)\n  \"BigOmega\"        rad\n  \"I0\"              rad\n  \"LittleOmega\"     rad\n  \"BigOmegaDot\"     rad/sec\n  \"Idot\"            rad/sec\n  \"Accuracy\"        meter\n  \"Adot\"            meters/sec\n  \"DeltaN0dot\"      rad/sec^2\n  \"Tgd\"             sec"; }
+    }
+
+    public override string Deprecated
+    {
+      get { return "Please note the command GetNavICEphDoubleParamForSV is deprecated since 23.11. You may use GetConstellationParameterForSV."; }
+    }
+
+    internal const string CmdName = "GetNavICEphDoubleParamForSV";
+
+    public GetNavICEphDoubleParamForSV()
+      : base(CmdName)
+    {}
+
+    public GetNavICEphDoubleParamForSV(int svId, string paramName, string dataSetName = null)
+      : base(CmdName)
+    {
+      SvId = svId;
+      ParamName = paramName;
+      DataSetName = dataSetName;
+    }
+      
+    public override bool IsValid
+    {
+      get
+      {
+        return base.IsValid
+        && Contains("SvId")
+        && Contains("ParamName")
+      ;
+      }
+    }
+
+    public override int ExecutePermission { get { return EXECUTE_IF_IDLE; } }
+
+    public int SvId
+    {
+      get { return GetValue("SvId").ToObject<int>(CommandBase.Serializer); }
+      set
+      {
+          SetValue("SvId", JToken.FromObject(value, CommandBase.Serializer));
+      }
+    }
+
+    public string ParamName
+    {
+      get { return GetValue("ParamName").ToObject<string>(CommandBase.Serializer); }
+      set
+      {
+          SetValue("ParamName", JToken.FromObject(value, CommandBase.Serializer));
+      }
+    }
+
+    public string DataSetName
+    {
+      get { return GetValue("DataSetName").ToObject<string>(CommandBase.Serializer); }
+      set
+      {
+        if (value == null)
+          RemoveValue("DataSetName");
+        else
+          SetValue("DataSetName", JToken.FromObject(value, CommandBase.Serializer));
+      }
+    }
+  }
+
+
+  ///
+  /// Result of GetNavICEphDoubleParamForSV.
+  ///
+  /// Name        Type            Description
+  /// ----------- --------------- -------------------------------------------------------------------------------------------
+  /// SvId        int             Satellite SV ID 1..14, or use 0 to apply new value to all satellites
+  /// ParamName   string          Parameter name (see table above for accepted names)
+  /// Val         double          Parameter value (see table above for unit)
+  /// DataSetName optional string Optional name of the data set to use. If no value is provided, the active data set is used.
+  ///
+
+  public class GetNavICEphemerisDoubleParamResult : CommandResult
+  {
+    public override string Documentation
+    {
+      get { return "Result of GetNavICEphDoubleParamForSV."; }
+    }
+  
+    internal const string CmdName = "GetNavICEphemerisDoubleParamResult";
+
+    public GetNavICEphemerisDoubleParamResult()
+      : base(CmdName)
+    {}
+
+    public GetNavICEphemerisDoubleParamResult(CommandBase relatedCommand, int svId, string paramName, double val, string dataSetName = null)
+      : base(CmdName, relatedCommand)
+    {
+      SvId = svId;
+      ParamName = paramName;
+      Val = val;
+      DataSetName = dataSetName;
+    }
+
+    public override bool IsValid
+    {
+      get
+      {
+        return base.IsValid
+        && Contains("SvId")
+        && Contains("ParamName")
+        && Contains("Val")
+      ;
+      }
+    }
+
+    public int SvId
+    {
+      get { return GetValue("SvId").ToObject<int>(CommandBase.Serializer); }
+      set { SetValue("SvId", JToken.FromObject(value, CommandBase.Serializer)); }
+    }
+
+    public string ParamName
+    {
+      get { return GetValue("ParamName").ToObject<string>(CommandBase.Serializer); }
+      set { SetValue("ParamName", JToken.FromObject(value, CommandBase.Serializer)); }
+    }
+
+    public double Val
+    {
+      get { return GetValue("Val").ToObject<double>(CommandBase.Serializer); }
+      set { SetValue("Val", JToken.FromObject(value, CommandBase.Serializer)); }
+    }
+
+    public string DataSetName
+    {
+      get { return GetValue("DataSetName").ToObject<string>(CommandBase.Serializer); }
+      set { SetValue("DataSetName", JToken.FromObject(value, CommandBase.Serializer)); }
+    }
+  }
+
+  ///
+  /// Name        Type            Description
+  /// ----------- --------------- -------------------------------------------------------------------------------------------
+  /// SvId        int             Satellite SV ID 1..14, or use 0 to apply new value to all satellites
+  /// ParamName   string          Parameter name (see table above for accepted names)
+  /// Val         double          Parameter value (see table above for unit)
+  /// DataSetName optional string Optional name of the data set to use. If no value is provided, the active data set is used.
+  ///
+
+  public class GetNavICEphDoubleParamForSVResult : GetNavICEphemerisDoubleParamResult
+  {
+    internal new const string CmdName = "GetNavICEphDoubleParamForSVResult";
+
+    public GetNavICEphDoubleParamForSVResult()
+      : base()
+    {
+       Name = CmdName;
+    }
+
+    public GetNavICEphDoubleParamForSVResult(CommandBase relatedCommand, int svId, string paramName, double val, string dataSetName = null)
+      : base(relatedCommand, svId, paramName, val, dataSetName)
+    {
+      Name = CmdName;
+    }
+  }
+
+
+  ///
+  /// Please note the command SetGpsEphemerisDoubleParams is deprecated since 21.3. You may use SetGpsEphDoubleParamForEachSV.
+  /// 
+  /// Please note the command SetGpsEphDoubleParamForEachSV is deprecated since 23.11. You may use SetConstellationParameterForSV.
+  /// 
+  /// Set GPS ephemeris parameter value for all satellites
+  ///
+  /// Name        Type            Description
+  /// ----------- --------------- --------------------------------------------------------------------------------------------------
+  /// ParamName   string          Refer to SetGpsEphDoubleParamForSV for accepted names
+  /// Val         array double    Parameter value for each satellite. Zero based index (index 0 => SV ID 1, index 1 => SV ID 2, etc)
+  /// DataSetName optional string Optional name of the data set to use. If no value is provided, the active data set is used.
+  ///
+
+  public class SetGpsEphemerisDoubleParams : CommandBase
+  {
+    public override string Documentation
+    {
+      get { return "Please note the command SetGpsEphemerisDoubleParams is deprecated since 21.3. You may use SetGpsEphDoubleParamForEachSV.\n\nPlease note the command SetGpsEphDoubleParamForEachSV is deprecated since 23.11. You may use SetConstellationParameterForSV.\n\nSet GPS ephemeris parameter value for all satellites"; }
+    }
+
+    public override string Deprecated
+    {
+      get { return "Please note the command SetGpsEphDoubleParamForEachSV is deprecated since 23.11. You may use SetConstellationParameterForSV."; }
+    }
+
+    internal const string CmdName = "SetGpsEphemerisDoubleParams";
+
+    public SetGpsEphemerisDoubleParams()
+      : base(CmdName)
+    {}
+
+    public SetGpsEphemerisDoubleParams(string paramName, List<double> val, string dataSetName = null)
+      : base(CmdName)
+    {
+      ParamName = paramName;
+      Val = val;
+      DataSetName = dataSetName;
+    }
+      
+    public override bool IsValid
+    {
+      get
+      {
+        return base.IsValid
+        && Contains("ParamName")
+        && Contains("Val")
+      ;
+      }
+    }
+
+    public override int ExecutePermission { get { return EXECUTE_IF_IDLE; } }
+
+    public string ParamName
+    {
+      get { return GetValue("ParamName").ToObject<string>(CommandBase.Serializer); }
+      set
+      {
+          SetValue("ParamName", JToken.FromObject(value, CommandBase.Serializer));
+      }
+    }
+
+    public List<double> Val
+    {
+      get { return GetValue("Val").ToObject<List<double>>(CommandBase.Serializer); }
+      set
+      {
+          SetValue("Val", JToken.FromObject(value, CommandBase.Serializer));
+      }
+    }
+
+    public string DataSetName
+    {
+      get { return GetValue("DataSetName").ToObject<string>(CommandBase.Serializer); }
+      set
+      {
+        if (value == null)
+          RemoveValue("DataSetName");
+        else
+          SetValue("DataSetName", JToken.FromObject(value, CommandBase.Serializer));
+      }
+    }
+  }
+
+
+  ///
+  /// Please note the command SetGpsEphDoubleParamForEachSV is deprecated since 23.11. You may use SetConstellationParameterForSV.
+  /// 
+  /// Set GPS ephemeris parameter value for all satellites
+  ///
+  /// Name        Type            Description
+  /// ----------- --------------- --------------------------------------------------------------------------------------------------
+  /// ParamName   string          Refer to SetGpsEphDoubleParamForSV for accepted names
+  /// Val         array double    Parameter value for each satellite. Zero based index (index 0 => SV ID 1, index 1 => SV ID 2, etc)
+  /// DataSetName optional string Optional name of the data set to use. If no value is provided, the active data set is used.
+  ///
+
+  public class SetGpsEphDoubleParamForEachSV : CommandBase
+  {
+    public override string Documentation
+    {
+      get { return "Please note the command SetGpsEphDoubleParamForEachSV is deprecated since 23.11. You may use SetConstellationParameterForSV.\n\nSet GPS ephemeris parameter value for all satellites"; }
+    }
+
+    public override string Deprecated
+    {
+      get { return "Please note the command SetGpsEphDoubleParamForEachSV is deprecated since 23.11. You may use SetConstellationParameterForSV."; }
+    }
+
+    internal const string CmdName = "SetGpsEphDoubleParamForEachSV";
+
+    public SetGpsEphDoubleParamForEachSV()
+      : base(CmdName)
+    {}
+
+    public SetGpsEphDoubleParamForEachSV(string paramName, List<double> val, string dataSetName = null)
+      : base(CmdName)
+    {
+      ParamName = paramName;
+      Val = val;
+      DataSetName = dataSetName;
+    }
+      
+    public override bool IsValid
+    {
+      get
+      {
+        return base.IsValid
+        && Contains("ParamName")
+        && Contains("Val")
+      ;
+      }
+    }
+
+    public override int ExecutePermission { get { return EXECUTE_IF_IDLE; } }
+
+    public string ParamName
+    {
+      get { return GetValue("ParamName").ToObject<string>(CommandBase.Serializer); }
+      set
+      {
+          SetValue("ParamName", JToken.FromObject(value, CommandBase.Serializer));
+      }
+    }
+
+    public List<double> Val
+    {
+      get { return GetValue("Val").ToObject<List<double>>(CommandBase.Serializer); }
+      set
+      {
+          SetValue("Val", JToken.FromObject(value, CommandBase.Serializer));
+      }
+    }
+
+    public string DataSetName
+    {
+      get { return GetValue("DataSetName").ToObject<string>(CommandBase.Serializer); }
+      set
+      {
+        if (value == null)
+          RemoveValue("DataSetName");
+        else
+          SetValue("DataSetName", JToken.FromObject(value, CommandBase.Serializer));
+      }
+    }
+  }
+
+
+  ///
+  /// Please note the command GetGpsEphemerisDoubleParams is deprecated since 21.3. You may use GetGpsEphDoubleParamForEachSV.
+  /// 
+  /// Please note the command GetGpsEphDoubleParamForEachSV is deprecated since 23.11. You may use GetConstellationParameterForSV.
+  /// 
+  /// Get GPS ephemeris parameter value for all satellites
+  ///
+  /// Name        Type            Description
+  /// ----------- --------------- -------------------------------------------------------------------------------------------
+  /// ParamName   string          Refer to SetGpsEphDoubleParamForSV for accepted names
+  /// DataSetName optional string Optional name of the data set to use. If no value is provided, the active data set is used.
+  ///
+
+  public class GetGpsEphemerisDoubleParams : CommandBase
+  {
+    public override string Documentation
+    {
+      get { return "Please note the command GetGpsEphemerisDoubleParams is deprecated since 21.3. You may use GetGpsEphDoubleParamForEachSV.\n\nPlease note the command GetGpsEphDoubleParamForEachSV is deprecated since 23.11. You may use GetConstellationParameterForSV.\n\nGet GPS ephemeris parameter value for all satellites"; }
+    }
+
+    public override string Deprecated
+    {
+      get { return "Please note the command GetGpsEphDoubleParamForEachSV is deprecated since 23.11. You may use GetConstellationParameterForSV."; }
+    }
+
+    internal const string CmdName = "GetGpsEphemerisDoubleParams";
+
+    public GetGpsEphemerisDoubleParams()
+      : base(CmdName)
+    {}
+
+    public GetGpsEphemerisDoubleParams(string paramName, string dataSetName = null)
+      : base(CmdName)
+    {
+      ParamName = paramName;
+      DataSetName = dataSetName;
+    }
+      
+    public override bool IsValid
+    {
+      get
+      {
+        return base.IsValid
+        && Contains("ParamName")
+      ;
+      }
+    }
+
+    public override int ExecutePermission { get { return EXECUTE_IF_IDLE; } }
+
+    public string ParamName
+    {
+      get { return GetValue("ParamName").ToObject<string>(CommandBase.Serializer); }
+      set
+      {
+          SetValue("ParamName", JToken.FromObject(value, CommandBase.Serializer));
+      }
+    }
+
+    public string DataSetName
+    {
+      get { return GetValue("DataSetName").ToObject<string>(CommandBase.Serializer); }
+      set
+      {
+        if (value == null)
+          RemoveValue("DataSetName");
+        else
+          SetValue("DataSetName", JToken.FromObject(value, CommandBase.Serializer));
+      }
+    }
+  }
+
+
+  ///
+  /// Please note the command GetGpsEphDoubleParamForEachSV is deprecated since 23.11. You may use GetConstellationParameterForSV.
+  /// 
+  /// Get GPS ephemeris parameter value for all satellites
+  ///
+  /// Name        Type            Description
+  /// ----------- --------------- -------------------------------------------------------------------------------------------
+  /// ParamName   string          Refer to SetGpsEphDoubleParamForSV for accepted names
+  /// DataSetName optional string Optional name of the data set to use. If no value is provided, the active data set is used.
+  ///
+
+  public class GetGpsEphDoubleParamForEachSV : CommandBase
+  {
+    public override string Documentation
+    {
+      get { return "Please note the command GetGpsEphDoubleParamForEachSV is deprecated since 23.11. You may use GetConstellationParameterForSV.\n\nGet GPS ephemeris parameter value for all satellites"; }
+    }
+
+    public override string Deprecated
+    {
+      get { return "Please note the command GetGpsEphDoubleParamForEachSV is deprecated since 23.11. You may use GetConstellationParameterForSV."; }
+    }
+
+    internal const string CmdName = "GetGpsEphDoubleParamForEachSV";
+
+    public GetGpsEphDoubleParamForEachSV()
+      : base(CmdName)
+    {}
+
+    public GetGpsEphDoubleParamForEachSV(string paramName, string dataSetName = null)
+      : base(CmdName)
+    {
+      ParamName = paramName;
+      DataSetName = dataSetName;
+    }
+      
+    public override bool IsValid
+    {
+      get
+      {
+        return base.IsValid
+        && Contains("ParamName")
+      ;
+      }
+    }
+
+    public override int ExecutePermission { get { return EXECUTE_IF_IDLE; } }
+
+    public string ParamName
+    {
+      get { return GetValue("ParamName").ToObject<string>(CommandBase.Serializer); }
+      set
+      {
+          SetValue("ParamName", JToken.FromObject(value, CommandBase.Serializer));
+      }
+    }
+
+    public string DataSetName
+    {
+      get { return GetValue("DataSetName").ToObject<string>(CommandBase.Serializer); }
+      set
+      {
+        if (value == null)
+          RemoveValue("DataSetName");
+        else
+          SetValue("DataSetName", JToken.FromObject(value, CommandBase.Serializer));
+      }
+    }
+  }
+
+
+  ///
+  /// Result of GetGpsEphDoubleParamForEachSV.
+  ///
+  /// Name        Type            Description
+  /// ----------- --------------- --------------------------------------------------------------------------------------------------
+  /// ParamName   string          Refer to SetGpsEphDoubleParamForSV for accepted names
+  /// Val         array double    Parameter value for each satellite. Zero based index (index 0 => SV ID 1, index 1 => SV ID 2, etc)
+  /// DataSetName optional string Optional name of the data set to use. If no value is provided, the active data set is used.
+  ///
+
+  public class GetGpsEphemerisDoubleParamsResult : CommandResult
+  {
+    public override string Documentation
+    {
+      get { return "Result of GetGpsEphDoubleParamForEachSV."; }
+    }
+  
+    internal const string CmdName = "GetGpsEphemerisDoubleParamsResult";
+
+    public GetGpsEphemerisDoubleParamsResult()
+      : base(CmdName)
+    {}
+
+    public GetGpsEphemerisDoubleParamsResult(CommandBase relatedCommand, string paramName, List<double> val, string dataSetName = null)
+      : base(CmdName, relatedCommand)
+    {
+      ParamName = paramName;
+      Val = val;
+      DataSetName = dataSetName;
+    }
+
+    public override bool IsValid
+    {
+      get
+      {
+        return base.IsValid
+        && Contains("ParamName")
+        && Contains("Val")
+      ;
+      }
+    }
+
+    public string ParamName
+    {
+      get { return GetValue("ParamName").ToObject<string>(CommandBase.Serializer); }
+      set { SetValue("ParamName", JToken.FromObject(value, CommandBase.Serializer)); }
+    }
+
+    public List<double> Val
+    {
+      get { return GetValue("Val").ToObject<List<double>>(CommandBase.Serializer); }
+      set { SetValue("Val", JToken.FromObject(value, CommandBase.Serializer)); }
+    }
+
+    public string DataSetName
+    {
+      get { return GetValue("DataSetName").ToObject<string>(CommandBase.Serializer); }
+      set { SetValue("DataSetName", JToken.FromObject(value, CommandBase.Serializer)); }
+    }
+  }
+
+  ///
+  /// Name        Type            Description
+  /// ----------- --------------- --------------------------------------------------------------------------------------------------
+  /// ParamName   string          Refer to SetGpsEphDoubleParamForSV for accepted names
+  /// Val         array double    Parameter value for each satellite. Zero based index (index 0 => SV ID 1, index 1 => SV ID 2, etc)
+  /// DataSetName optional string Optional name of the data set to use. If no value is provided, the active data set is used.
+  ///
+
+  public class GetGpsEphDoubleParamForEachSVResult : GetGpsEphemerisDoubleParamsResult
+  {
+    internal new const string CmdName = "GetGpsEphDoubleParamForEachSVResult";
+
+    public GetGpsEphDoubleParamForEachSVResult()
+      : base()
+    {
+       Name = CmdName;
+    }
+
+    public GetGpsEphDoubleParamForEachSVResult(CommandBase relatedCommand, string paramName, List<double> val, string dataSetName = null)
+      : base(relatedCommand, paramName, val, dataSetName)
+    {
+      Name = CmdName;
+    }
+  }
+
+
+  ///
+  /// Please note the command SetGalileoEphemerisDoubleParams is deprecated since 21.3. You may use SetGalileoEphDoubleParamForEachSV.
+  /// 
+  /// Please note the command SetGalileoEphDoubleParamForEachSV is deprecated since 23.11. You may use SetConstellationParameterForSV.
+  /// 
+  /// Set Galileo ephemeris parameter value for all satellites
+  ///
+  /// Name        Type            Description
+  /// ----------- --------------- --------------------------------------------------------------------------------------------------
+  /// ParamName   string          Refer to SetGalileoEphDoubleParamForSV for accepted names
+  /// Val         array double    Parameter value for each satellite. Zero based index (index 0 => SV ID 1, index 1 => SV ID 2, etc)
+  /// DataSetName optional string Optional name of the data set to use. If no value is provided, the active data set is used.
+  ///
+
+  public class SetGalileoEphemerisDoubleParams : CommandBase
+  {
+    public override string Documentation
+    {
+      get { return "Please note the command SetGalileoEphemerisDoubleParams is deprecated since 21.3. You may use SetGalileoEphDoubleParamForEachSV.\n\nPlease note the command SetGalileoEphDoubleParamForEachSV is deprecated since 23.11. You may use SetConstellationParameterForSV.\n\nSet Galileo ephemeris parameter value for all satellites"; }
+    }
+
+    public override string Deprecated
+    {
+      get { return "Please note the command SetGalileoEphDoubleParamForEachSV is deprecated since 23.11. You may use SetConstellationParameterForSV."; }
+    }
+
+    internal const string CmdName = "SetGalileoEphemerisDoubleParams";
+
+    public SetGalileoEphemerisDoubleParams()
+      : base(CmdName)
+    {}
+
+    public SetGalileoEphemerisDoubleParams(string paramName, List<double> val, string dataSetName = null)
+      : base(CmdName)
+    {
+      ParamName = paramName;
+      Val = val;
+      DataSetName = dataSetName;
+    }
+      
+    public override bool IsValid
+    {
+      get
+      {
+        return base.IsValid
+        && Contains("ParamName")
+        && Contains("Val")
+      ;
+      }
+    }
+
+    public override int ExecutePermission { get { return EXECUTE_IF_IDLE; } }
+
+    public string ParamName
+    {
+      get { return GetValue("ParamName").ToObject<string>(CommandBase.Serializer); }
+      set
+      {
+          SetValue("ParamName", JToken.FromObject(value, CommandBase.Serializer));
+      }
+    }
+
+    public List<double> Val
+    {
+      get { return GetValue("Val").ToObject<List<double>>(CommandBase.Serializer); }
+      set
+      {
+          SetValue("Val", JToken.FromObject(value, CommandBase.Serializer));
+      }
+    }
+
+    public string DataSetName
+    {
+      get { return GetValue("DataSetName").ToObject<string>(CommandBase.Serializer); }
+      set
+      {
+        if (value == null)
+          RemoveValue("DataSetName");
+        else
+          SetValue("DataSetName", JToken.FromObject(value, CommandBase.Serializer));
+      }
+    }
+  }
+
+
+  ///
+  /// Please note the command SetGalileoEphDoubleParamForEachSV is deprecated since 23.11. You may use SetConstellationParameterForSV.
+  /// 
+  /// Set Galileo ephemeris parameter value for all satellites
+  ///
+  /// Name        Type            Description
+  /// ----------- --------------- --------------------------------------------------------------------------------------------------
+  /// ParamName   string          Refer to SetGalileoEphDoubleParamForSV for accepted names
+  /// Val         array double    Parameter value for each satellite. Zero based index (index 0 => SV ID 1, index 1 => SV ID 2, etc)
+  /// DataSetName optional string Optional name of the data set to use. If no value is provided, the active data set is used.
+  ///
+
+  public class SetGalileoEphDoubleParamForEachSV : CommandBase
+  {
+    public override string Documentation
+    {
+      get { return "Please note the command SetGalileoEphDoubleParamForEachSV is deprecated since 23.11. You may use SetConstellationParameterForSV.\n\nSet Galileo ephemeris parameter value for all satellites"; }
+    }
+
+    public override string Deprecated
+    {
+      get { return "Please note the command SetGalileoEphDoubleParamForEachSV is deprecated since 23.11. You may use SetConstellationParameterForSV."; }
+    }
+
+    internal const string CmdName = "SetGalileoEphDoubleParamForEachSV";
+
+    public SetGalileoEphDoubleParamForEachSV()
+      : base(CmdName)
+    {}
+
+    public SetGalileoEphDoubleParamForEachSV(string paramName, List<double> val, string dataSetName = null)
+      : base(CmdName)
+    {
+      ParamName = paramName;
+      Val = val;
+      DataSetName = dataSetName;
+    }
+      
+    public override bool IsValid
+    {
+      get
+      {
+        return base.IsValid
+        && Contains("ParamName")
+        && Contains("Val")
+      ;
+      }
+    }
+
+    public override int ExecutePermission { get { return EXECUTE_IF_IDLE; } }
+
+    public string ParamName
+    {
+      get { return GetValue("ParamName").ToObject<string>(CommandBase.Serializer); }
+      set
+      {
+          SetValue("ParamName", JToken.FromObject(value, CommandBase.Serializer));
+      }
+    }
+
+    public List<double> Val
+    {
+      get { return GetValue("Val").ToObject<List<double>>(CommandBase.Serializer); }
+      set
+      {
+          SetValue("Val", JToken.FromObject(value, CommandBase.Serializer));
+      }
+    }
+
+    public string DataSetName
+    {
+      get { return GetValue("DataSetName").ToObject<string>(CommandBase.Serializer); }
+      set
+      {
+        if (value == null)
+          RemoveValue("DataSetName");
+        else
+          SetValue("DataSetName", JToken.FromObject(value, CommandBase.Serializer));
+      }
+    }
+  }
+
+
+  ///
+  /// Please note the command GetGalileoEphemerisDoubleParams is deprecated since 21.3. You may use GetGalileoEphDoubleParamForEachSV.
+  /// 
+  /// Please note the command GetGalileoEphDoubleParamForEachSV is deprecated since 23.11. You may use GetConstellationParameterForSV.
+  /// 
+  /// Get Galileo ephemeris parameter value for all satellites
+  ///
+  /// Name        Type            Description
+  /// ----------- --------------- -------------------------------------------------------------------------------------------
+  /// ParamName   string          Refer to SetGalileoEphDoubleParamForSV for accepted names
+  /// DataSetName optional string Optional name of the data set to use. If no value is provided, the active data set is used.
+  ///
+
+  public class GetGalileoEphemerisDoubleParams : CommandBase
+  {
+    public override string Documentation
+    {
+      get { return "Please note the command GetGalileoEphemerisDoubleParams is deprecated since 21.3. You may use GetGalileoEphDoubleParamForEachSV.\n\nPlease note the command GetGalileoEphDoubleParamForEachSV is deprecated since 23.11. You may use GetConstellationParameterForSV.\n\nGet Galileo ephemeris parameter value for all satellites"; }
+    }
+
+    public override string Deprecated
+    {
+      get { return "Please note the command GetGalileoEphDoubleParamForEachSV is deprecated since 23.11. You may use GetConstellationParameterForSV."; }
+    }
+
+    internal const string CmdName = "GetGalileoEphemerisDoubleParams";
+
+    public GetGalileoEphemerisDoubleParams()
+      : base(CmdName)
+    {}
+
+    public GetGalileoEphemerisDoubleParams(string paramName, string dataSetName = null)
+      : base(CmdName)
+    {
+      ParamName = paramName;
+      DataSetName = dataSetName;
+    }
+      
+    public override bool IsValid
+    {
+      get
+      {
+        return base.IsValid
+        && Contains("ParamName")
+      ;
+      }
+    }
+
+    public override int ExecutePermission { get { return EXECUTE_IF_IDLE; } }
+
+    public string ParamName
+    {
+      get { return GetValue("ParamName").ToObject<string>(CommandBase.Serializer); }
+      set
+      {
+          SetValue("ParamName", JToken.FromObject(value, CommandBase.Serializer));
+      }
+    }
+
+    public string DataSetName
+    {
+      get { return GetValue("DataSetName").ToObject<string>(CommandBase.Serializer); }
+      set
+      {
+        if (value == null)
+          RemoveValue("DataSetName");
+        else
+          SetValue("DataSetName", JToken.FromObject(value, CommandBase.Serializer));
+      }
+    }
+  }
+
+
+  ///
+  /// Please note the command GetGalileoEphDoubleParamForEachSV is deprecated since 23.11. You may use GetConstellationParameterForSV.
+  /// 
+  /// Get Galileo ephemeris parameter value for all satellites
+  ///
+  /// Name        Type            Description
+  /// ----------- --------------- -------------------------------------------------------------------------------------------
+  /// ParamName   string          Refer to SetGalileoEphDoubleParamForSV for accepted names
+  /// DataSetName optional string Optional name of the data set to use. If no value is provided, the active data set is used.
+  ///
+
+  public class GetGalileoEphDoubleParamForEachSV : CommandBase
+  {
+    public override string Documentation
+    {
+      get { return "Please note the command GetGalileoEphDoubleParamForEachSV is deprecated since 23.11. You may use GetConstellationParameterForSV.\n\nGet Galileo ephemeris parameter value for all satellites"; }
+    }
+
+    public override string Deprecated
+    {
+      get { return "Please note the command GetGalileoEphDoubleParamForEachSV is deprecated since 23.11. You may use GetConstellationParameterForSV."; }
+    }
+
+    internal const string CmdName = "GetGalileoEphDoubleParamForEachSV";
+
+    public GetGalileoEphDoubleParamForEachSV()
+      : base(CmdName)
+    {}
+
+    public GetGalileoEphDoubleParamForEachSV(string paramName, string dataSetName = null)
+      : base(CmdName)
+    {
+      ParamName = paramName;
+      DataSetName = dataSetName;
+    }
+      
+    public override bool IsValid
+    {
+      get
+      {
+        return base.IsValid
+        && Contains("ParamName")
+      ;
+      }
+    }
+
+    public override int ExecutePermission { get { return EXECUTE_IF_IDLE; } }
+
+    public string ParamName
+    {
+      get { return GetValue("ParamName").ToObject<string>(CommandBase.Serializer); }
+      set
+      {
+          SetValue("ParamName", JToken.FromObject(value, CommandBase.Serializer));
+      }
+    }
+
+    public string DataSetName
+    {
+      get { return GetValue("DataSetName").ToObject<string>(CommandBase.Serializer); }
+      set
+      {
+        if (value == null)
+          RemoveValue("DataSetName");
+        else
+          SetValue("DataSetName", JToken.FromObject(value, CommandBase.Serializer));
+      }
+    }
+  }
+
+
+  ///
+  /// Result of GetGalileoEphDoubleParamForEachSV.
+  ///
+  /// Name        Type            Description
+  /// ----------- --------------- --------------------------------------------------------------------------------------------------
+  /// ParamName   string          Refer to SetGalileoEphDoubleParamForSV for accepted names
+  /// Val         array double    Parameter value for each satellite. Zero based index (index 0 => SV ID 1, index 1 => SV ID 2, etc)
+  /// DataSetName optional string Optional name of the data set to use. If no value is provided, the active data set is used.
+  ///
+
+  public class GetGalileoEphemerisDoubleParamsResult : CommandResult
+  {
+    public override string Documentation
+    {
+      get { return "Result of GetGalileoEphDoubleParamForEachSV."; }
+    }
+  
+    internal const string CmdName = "GetGalileoEphemerisDoubleParamsResult";
+
+    public GetGalileoEphemerisDoubleParamsResult()
+      : base(CmdName)
+    {}
+
+    public GetGalileoEphemerisDoubleParamsResult(CommandBase relatedCommand, string paramName, List<double> val, string dataSetName = null)
+      : base(CmdName, relatedCommand)
+    {
+      ParamName = paramName;
+      Val = val;
+      DataSetName = dataSetName;
+    }
+
+    public override bool IsValid
+    {
+      get
+      {
+        return base.IsValid
+        && Contains("ParamName")
+        && Contains("Val")
+      ;
+      }
+    }
+
+    public string ParamName
+    {
+      get { return GetValue("ParamName").ToObject<string>(CommandBase.Serializer); }
+      set { SetValue("ParamName", JToken.FromObject(value, CommandBase.Serializer)); }
+    }
+
+    public List<double> Val
+    {
+      get { return GetValue("Val").ToObject<List<double>>(CommandBase.Serializer); }
+      set { SetValue("Val", JToken.FromObject(value, CommandBase.Serializer)); }
+    }
+
+    public string DataSetName
+    {
+      get { return GetValue("DataSetName").ToObject<string>(CommandBase.Serializer); }
+      set { SetValue("DataSetName", JToken.FromObject(value, CommandBase.Serializer)); }
+    }
+  }
+
+  ///
+  /// Name        Type            Description
+  /// ----------- --------------- --------------------------------------------------------------------------------------------------
+  /// ParamName   string          Refer to SetGalileoEphDoubleParamForSV for accepted names
+  /// Val         array double    Parameter value for each satellite. Zero based index (index 0 => SV ID 1, index 1 => SV ID 2, etc)
+  /// DataSetName optional string Optional name of the data set to use. If no value is provided, the active data set is used.
+  ///
+
+  public class GetGalileoEphDoubleParamForEachSVResult : GetGalileoEphemerisDoubleParamsResult
+  {
+    internal new const string CmdName = "GetGalileoEphDoubleParamForEachSVResult";
+
+    public GetGalileoEphDoubleParamForEachSVResult()
+      : base()
+    {
+       Name = CmdName;
+    }
+
+    public GetGalileoEphDoubleParamForEachSVResult(CommandBase relatedCommand, string paramName, List<double> val, string dataSetName = null)
+      : base(relatedCommand, paramName, val, dataSetName)
+    {
+      Name = CmdName;
+    }
+  }
+
+
+  ///
+  /// Please note the command SetBeiDouEphemerisDoubleParams is deprecated since 21.3. You may use SetBeiDouEphDoubleParamForEachSV.
+  /// 
+  /// Please note the command SetBeiDouEphDoubleParamForEachSV is deprecated since 23.11. You may use SetConstellationParameterForSV.
+  /// 
+  /// Set BeiDou ephemeris parameter value for all satellites
+  ///
+  /// Name        Type            Description
+  /// ----------- --------------- --------------------------------------------------------------------------------------------------
+  /// ParamName   string          Refer to SetBeiDouEphDoubleParamForSV for accepted names
+  /// Val         array double    Parameter value for each satellite. Zero based index (index 0 => SV ID 1, index 1 => SV ID 2, etc)
+  /// DataSetName optional string Optional name of the data set to use. If no value is provided, the active data set is used.
+  ///
+
+  public class SetBeiDouEphemerisDoubleParams : CommandBase
+  {
+    public override string Documentation
+    {
+      get { return "Please note the command SetBeiDouEphemerisDoubleParams is deprecated since 21.3. You may use SetBeiDouEphDoubleParamForEachSV.\n\nPlease note the command SetBeiDouEphDoubleParamForEachSV is deprecated since 23.11. You may use SetConstellationParameterForSV.\n\nSet BeiDou ephemeris parameter value for all satellites"; }
+    }
+
+    public override string Deprecated
+    {
+      get { return "Please note the command SetBeiDouEphDoubleParamForEachSV is deprecated since 23.11. You may use SetConstellationParameterForSV."; }
+    }
+
+    internal const string CmdName = "SetBeiDouEphemerisDoubleParams";
+
+    public SetBeiDouEphemerisDoubleParams()
+      : base(CmdName)
+    {}
+
+    public SetBeiDouEphemerisDoubleParams(string paramName, List<double> val, string dataSetName = null)
+      : base(CmdName)
+    {
+      ParamName = paramName;
+      Val = val;
+      DataSetName = dataSetName;
+    }
+      
+    public override bool IsValid
+    {
+      get
+      {
+        return base.IsValid
+        && Contains("ParamName")
+        && Contains("Val")
+      ;
+      }
+    }
+
+    public override int ExecutePermission { get { return EXECUTE_IF_IDLE; } }
+
+    public string ParamName
+    {
+      get { return GetValue("ParamName").ToObject<string>(CommandBase.Serializer); }
+      set
+      {
+          SetValue("ParamName", JToken.FromObject(value, CommandBase.Serializer));
+      }
+    }
+
+    public List<double> Val
+    {
+      get { return GetValue("Val").ToObject<List<double>>(CommandBase.Serializer); }
+      set
+      {
+          SetValue("Val", JToken.FromObject(value, CommandBase.Serializer));
+      }
+    }
+
+    public string DataSetName
+    {
+      get { return GetValue("DataSetName").ToObject<string>(CommandBase.Serializer); }
+      set
+      {
+        if (value == null)
+          RemoveValue("DataSetName");
+        else
+          SetValue("DataSetName", JToken.FromObject(value, CommandBase.Serializer));
+      }
+    }
+  }
+
+
+  ///
+  /// Please note the command SetBeiDouEphDoubleParamForEachSV is deprecated since 23.11. You may use SetConstellationParameterForSV.
+  /// 
+  /// Set BeiDou ephemeris parameter value for all satellites
+  ///
+  /// Name        Type            Description
+  /// ----------- --------------- --------------------------------------------------------------------------------------------------
+  /// ParamName   string          Refer to SetBeiDouEphDoubleParamForSV for accepted names
+  /// Val         array double    Parameter value for each satellite. Zero based index (index 0 => SV ID 1, index 1 => SV ID 2, etc)
+  /// DataSetName optional string Optional name of the data set to use. If no value is provided, the active data set is used.
+  ///
+
+  public class SetBeiDouEphDoubleParamForEachSV : CommandBase
+  {
+    public override string Documentation
+    {
+      get { return "Please note the command SetBeiDouEphDoubleParamForEachSV is deprecated since 23.11. You may use SetConstellationParameterForSV.\n\nSet BeiDou ephemeris parameter value for all satellites"; }
+    }
+
+    public override string Deprecated
+    {
+      get { return "Please note the command SetBeiDouEphDoubleParamForEachSV is deprecated since 23.11. You may use SetConstellationParameterForSV."; }
+    }
+
+    internal const string CmdName = "SetBeiDouEphDoubleParamForEachSV";
+
+    public SetBeiDouEphDoubleParamForEachSV()
+      : base(CmdName)
+    {}
+
+    public SetBeiDouEphDoubleParamForEachSV(string paramName, List<double> val, string dataSetName = null)
+      : base(CmdName)
+    {
+      ParamName = paramName;
+      Val = val;
+      DataSetName = dataSetName;
+    }
+      
+    public override bool IsValid
+    {
+      get
+      {
+        return base.IsValid
+        && Contains("ParamName")
+        && Contains("Val")
+      ;
+      }
+    }
+
+    public override int ExecutePermission { get { return EXECUTE_IF_IDLE; } }
+
+    public string ParamName
+    {
+      get { return GetValue("ParamName").ToObject<string>(CommandBase.Serializer); }
+      set
+      {
+          SetValue("ParamName", JToken.FromObject(value, CommandBase.Serializer));
+      }
+    }
+
+    public List<double> Val
+    {
+      get { return GetValue("Val").ToObject<List<double>>(CommandBase.Serializer); }
+      set
+      {
+          SetValue("Val", JToken.FromObject(value, CommandBase.Serializer));
+      }
+    }
+
+    public string DataSetName
+    {
+      get { return GetValue("DataSetName").ToObject<string>(CommandBase.Serializer); }
+      set
+      {
+        if (value == null)
+          RemoveValue("DataSetName");
+        else
+          SetValue("DataSetName", JToken.FromObject(value, CommandBase.Serializer));
+      }
+    }
+  }
+
+
+  ///
+  /// Please note the command GetBeiDouEphemerisDoubleParams is deprecated since 21.3. You may use GetBeiDouEphDoubleParamForEachSV.
+  /// 
+  /// Please note the command GetBeiDouEphDoubleParamForEachSV is deprecated since 23.11. You may use GetConstellationParameterForSV.
+  /// 
+  /// Get BeiDou ephemeris parameter value for all satellites
+  ///
+  /// Name        Type            Description
+  /// ----------- --------------- -------------------------------------------------------------------------------------------
+  /// ParamName   string          Refer to SetBeiDouEphDoubleParamForSV for accepted names
+  /// DataSetName optional string Optional name of the data set to use. If no value is provided, the active data set is used.
+  ///
+
+  public class GetBeiDouEphemerisDoubleParams : CommandBase
+  {
+    public override string Documentation
+    {
+      get { return "Please note the command GetBeiDouEphemerisDoubleParams is deprecated since 21.3. You may use GetBeiDouEphDoubleParamForEachSV.\n\nPlease note the command GetBeiDouEphDoubleParamForEachSV is deprecated since 23.11. You may use GetConstellationParameterForSV.\n\nGet BeiDou ephemeris parameter value for all satellites"; }
+    }
+
+    public override string Deprecated
+    {
+      get { return "Please note the command GetBeiDouEphDoubleParamForEachSV is deprecated since 23.11. You may use GetConstellationParameterForSV."; }
+    }
+
+    internal const string CmdName = "GetBeiDouEphemerisDoubleParams";
+
+    public GetBeiDouEphemerisDoubleParams()
+      : base(CmdName)
+    {}
+
+    public GetBeiDouEphemerisDoubleParams(string paramName, string dataSetName = null)
+      : base(CmdName)
+    {
+      ParamName = paramName;
+      DataSetName = dataSetName;
+    }
+      
+    public override bool IsValid
+    {
+      get
+      {
+        return base.IsValid
+        && Contains("ParamName")
+      ;
+      }
+    }
+
+    public override int ExecutePermission { get { return EXECUTE_IF_IDLE; } }
+
+    public string ParamName
+    {
+      get { return GetValue("ParamName").ToObject<string>(CommandBase.Serializer); }
+      set
+      {
+          SetValue("ParamName", JToken.FromObject(value, CommandBase.Serializer));
+      }
+    }
+
+    public string DataSetName
+    {
+      get { return GetValue("DataSetName").ToObject<string>(CommandBase.Serializer); }
+      set
+      {
+        if (value == null)
+          RemoveValue("DataSetName");
+        else
+          SetValue("DataSetName", JToken.FromObject(value, CommandBase.Serializer));
+      }
+    }
+  }
+
+
+  ///
+  /// Please note the command GetBeiDouEphDoubleParamForEachSV is deprecated since 23.11. You may use GetConstellationParameterForSV.
+  /// 
+  /// Get BeiDou ephemeris parameter value for all satellites
+  ///
+  /// Name        Type            Description
+  /// ----------- --------------- -------------------------------------------------------------------------------------------
+  /// ParamName   string          Refer to SetBeiDouEphDoubleParamForSV for accepted names
+  /// DataSetName optional string Optional name of the data set to use. If no value is provided, the active data set is used.
+  ///
+
+  public class GetBeiDouEphDoubleParamForEachSV : CommandBase
+  {
+    public override string Documentation
+    {
+      get { return "Please note the command GetBeiDouEphDoubleParamForEachSV is deprecated since 23.11. You may use GetConstellationParameterForSV.\n\nGet BeiDou ephemeris parameter value for all satellites"; }
+    }
+
+    public override string Deprecated
+    {
+      get { return "Please note the command GetBeiDouEphDoubleParamForEachSV is deprecated since 23.11. You may use GetConstellationParameterForSV."; }
+    }
+
+    internal const string CmdName = "GetBeiDouEphDoubleParamForEachSV";
+
+    public GetBeiDouEphDoubleParamForEachSV()
+      : base(CmdName)
+    {}
+
+    public GetBeiDouEphDoubleParamForEachSV(string paramName, string dataSetName = null)
+      : base(CmdName)
+    {
+      ParamName = paramName;
+      DataSetName = dataSetName;
+    }
+      
+    public override bool IsValid
+    {
+      get
+      {
+        return base.IsValid
+        && Contains("ParamName")
+      ;
+      }
+    }
+
+    public override int ExecutePermission { get { return EXECUTE_IF_IDLE; } }
+
+    public string ParamName
+    {
+      get { return GetValue("ParamName").ToObject<string>(CommandBase.Serializer); }
+      set
+      {
+          SetValue("ParamName", JToken.FromObject(value, CommandBase.Serializer));
+      }
+    }
+
+    public string DataSetName
+    {
+      get { return GetValue("DataSetName").ToObject<string>(CommandBase.Serializer); }
+      set
+      {
+        if (value == null)
+          RemoveValue("DataSetName");
+        else
+          SetValue("DataSetName", JToken.FromObject(value, CommandBase.Serializer));
+      }
+    }
+  }
+
+
+  ///
+  /// Result of GetBeiDouEphDoubleParamForEachSV.
+  ///
+  /// Name        Type            Description
+  /// ----------- --------------- --------------------------------------------------------------------------------------------------
+  /// ParamName   string          Refer to SetBeiDouEphDoubleParamForSV for accepted names
+  /// Val         array double    Parameter value for each satellite. Zero based index (index 0 => SV ID 1, index 1 => SV ID 2, etc)
+  /// DataSetName optional string Optional name of the data set to use. If no value is provided, the active data set is used.
+  ///
+
+  public class GetBeiDouEphemerisDoubleParamsResult : CommandResult
+  {
+    public override string Documentation
+    {
+      get { return "Result of GetBeiDouEphDoubleParamForEachSV."; }
+    }
+  
+    internal const string CmdName = "GetBeiDouEphemerisDoubleParamsResult";
+
+    public GetBeiDouEphemerisDoubleParamsResult()
+      : base(CmdName)
+    {}
+
+    public GetBeiDouEphemerisDoubleParamsResult(CommandBase relatedCommand, string paramName, List<double> val, string dataSetName = null)
+      : base(CmdName, relatedCommand)
+    {
+      ParamName = paramName;
+      Val = val;
+      DataSetName = dataSetName;
+    }
+
+    public override bool IsValid
+    {
+      get
+      {
+        return base.IsValid
+        && Contains("ParamName")
+        && Contains("Val")
+      ;
+      }
+    }
+
+    public string ParamName
+    {
+      get { return GetValue("ParamName").ToObject<string>(CommandBase.Serializer); }
+      set { SetValue("ParamName", JToken.FromObject(value, CommandBase.Serializer)); }
+    }
+
+    public List<double> Val
+    {
+      get { return GetValue("Val").ToObject<List<double>>(CommandBase.Serializer); }
+      set { SetValue("Val", JToken.FromObject(value, CommandBase.Serializer)); }
+    }
+
+    public string DataSetName
+    {
+      get { return GetValue("DataSetName").ToObject<string>(CommandBase.Serializer); }
+      set { SetValue("DataSetName", JToken.FromObject(value, CommandBase.Serializer)); }
+    }
+  }
+
+  ///
+  /// Name        Type            Description
+  /// ----------- --------------- --------------------------------------------------------------------------------------------------
+  /// ParamName   string          Refer to SetBeiDouEphDoubleParamForSV for accepted names
+  /// Val         array double    Parameter value for each satellite. Zero based index (index 0 => SV ID 1, index 1 => SV ID 2, etc)
+  /// DataSetName optional string Optional name of the data set to use. If no value is provided, the active data set is used.
+  ///
+
+  public class GetBeiDouEphDoubleParamForEachSVResult : GetBeiDouEphemerisDoubleParamsResult
+  {
+    internal new const string CmdName = "GetBeiDouEphDoubleParamForEachSVResult";
+
+    public GetBeiDouEphDoubleParamForEachSVResult()
+      : base()
+    {
+       Name = CmdName;
+    }
+
+    public GetBeiDouEphDoubleParamForEachSVResult(CommandBase relatedCommand, string paramName, List<double> val, string dataSetName = null)
+      : base(relatedCommand, paramName, val, dataSetName)
+    {
+      Name = CmdName;
+    }
+  }
+
+
+  ///
+  /// Please note the command SetQzssEphemerisDoubleParams is deprecated since 21.3. You may use SetQzssEphDoubleParamForEachSV.
+  /// 
+  /// Please note the command SetQzssEphDoubleParamForEachSV is deprecated since 23.11. You may use SetConstellationParameterForSV.
+  /// 
+  /// Set QZSS ephemeris parameter value for all satellites
+  ///
+  /// Name        Type            Description
+  /// ----------- --------------- --------------------------------------------------------------------------------------------------
+  /// ParamName   string          Refer to SetQzssEphDoubleParamForSV for accepted names
+  /// Val         array double    Parameter value for each satellite. Zero based index (index 0 => SV ID 1, index 1 => SV ID 2, etc)
+  /// DataSetName optional string Optional name of the data set to use. If no value is provided, the active data set is used.
+  ///
+
+  public class SetQzssEphemerisDoubleParams : CommandBase
+  {
+    public override string Documentation
+    {
+      get { return "Please note the command SetQzssEphemerisDoubleParams is deprecated since 21.3. You may use SetQzssEphDoubleParamForEachSV.\n\nPlease note the command SetQzssEphDoubleParamForEachSV is deprecated since 23.11. You may use SetConstellationParameterForSV.\n\nSet QZSS ephemeris parameter value for all satellites"; }
+    }
+
+    public override string Deprecated
+    {
+      get { return "Please note the command SetQzssEphDoubleParamForEachSV is deprecated since 23.11. You may use SetConstellationParameterForSV."; }
+    }
+
+    internal const string CmdName = "SetQzssEphemerisDoubleParams";
+
+    public SetQzssEphemerisDoubleParams()
+      : base(CmdName)
+    {}
+
+    public SetQzssEphemerisDoubleParams(string paramName, List<double> val, string dataSetName = null)
+      : base(CmdName)
+    {
+      ParamName = paramName;
+      Val = val;
+      DataSetName = dataSetName;
+    }
+      
+    public override bool IsValid
+    {
+      get
+      {
+        return base.IsValid
+        && Contains("ParamName")
+        && Contains("Val")
+      ;
+      }
+    }
+
+    public override int ExecutePermission { get { return EXECUTE_IF_IDLE; } }
+
+    public string ParamName
+    {
+      get { return GetValue("ParamName").ToObject<string>(CommandBase.Serializer); }
+      set
+      {
+          SetValue("ParamName", JToken.FromObject(value, CommandBase.Serializer));
+      }
+    }
+
+    public List<double> Val
+    {
+      get { return GetValue("Val").ToObject<List<double>>(CommandBase.Serializer); }
+      set
+      {
+          SetValue("Val", JToken.FromObject(value, CommandBase.Serializer));
+      }
+    }
+
+    public string DataSetName
+    {
+      get { return GetValue("DataSetName").ToObject<string>(CommandBase.Serializer); }
+      set
+      {
+        if (value == null)
+          RemoveValue("DataSetName");
+        else
+          SetValue("DataSetName", JToken.FromObject(value, CommandBase.Serializer));
+      }
+    }
+  }
+
+
+  ///
+  /// Please note the command SetQzssEphDoubleParamForEachSV is deprecated since 23.11. You may use SetConstellationParameterForSV.
+  /// 
+  /// Set QZSS ephemeris parameter value for all satellites
+  ///
+  /// Name        Type            Description
+  /// ----------- --------------- --------------------------------------------------------------------------------------------------
+  /// ParamName   string          Refer to SetQzssEphDoubleParamForSV for accepted names
+  /// Val         array double    Parameter value for each satellite. Zero based index (index 0 => SV ID 1, index 1 => SV ID 2, etc)
+  /// DataSetName optional string Optional name of the data set to use. If no value is provided, the active data set is used.
+  ///
+
+  public class SetQzssEphDoubleParamForEachSV : CommandBase
+  {
+    public override string Documentation
+    {
+      get { return "Please note the command SetQzssEphDoubleParamForEachSV is deprecated since 23.11. You may use SetConstellationParameterForSV.\n\nSet QZSS ephemeris parameter value for all satellites"; }
+    }
+
+    public override string Deprecated
+    {
+      get { return "Please note the command SetQzssEphDoubleParamForEachSV is deprecated since 23.11. You may use SetConstellationParameterForSV."; }
+    }
+
+    internal const string CmdName = "SetQzssEphDoubleParamForEachSV";
+
+    public SetQzssEphDoubleParamForEachSV()
+      : base(CmdName)
+    {}
+
+    public SetQzssEphDoubleParamForEachSV(string paramName, List<double> val, string dataSetName = null)
+      : base(CmdName)
+    {
+      ParamName = paramName;
+      Val = val;
+      DataSetName = dataSetName;
+    }
+      
+    public override bool IsValid
+    {
+      get
+      {
+        return base.IsValid
+        && Contains("ParamName")
+        && Contains("Val")
+      ;
+      }
+    }
+
+    public override int ExecutePermission { get { return EXECUTE_IF_IDLE; } }
+
+    public string ParamName
+    {
+      get { return GetValue("ParamName").ToObject<string>(CommandBase.Serializer); }
+      set
+      {
+          SetValue("ParamName", JToken.FromObject(value, CommandBase.Serializer));
+      }
+    }
+
+    public List<double> Val
+    {
+      get { return GetValue("Val").ToObject<List<double>>(CommandBase.Serializer); }
+      set
+      {
+          SetValue("Val", JToken.FromObject(value, CommandBase.Serializer));
+      }
+    }
+
+    public string DataSetName
+    {
+      get { return GetValue("DataSetName").ToObject<string>(CommandBase.Serializer); }
+      set
+      {
+        if (value == null)
+          RemoveValue("DataSetName");
+        else
+          SetValue("DataSetName", JToken.FromObject(value, CommandBase.Serializer));
+      }
+    }
+  }
+
+
+  ///
+  /// Please note the command GetQzssEphemerisDoubleParams is deprecated since 21.3. You may use GetQzssEphDoubleParamForEachSV.
+  /// 
+  /// Please note the command GetQzssEphDoubleParamForEachSV is deprecated since 23.11. You may use GetConstellationParameterForSV.
+  /// 
+  /// Get QZSS ephemeris parameter value for all satellites
+  ///
+  /// Name        Type            Description
+  /// ----------- --------------- -------------------------------------------------------------------------------------------
+  /// ParamName   string          Refer to SetQzssEphDoubleParamForSV for accepted names
+  /// DataSetName optional string Optional name of the data set to use. If no value is provided, the active data set is used.
+  ///
+
+  public class GetQzssEphemerisDoubleParams : CommandBase
+  {
+    public override string Documentation
+    {
+      get { return "Please note the command GetQzssEphemerisDoubleParams is deprecated since 21.3. You may use GetQzssEphDoubleParamForEachSV.\n\nPlease note the command GetQzssEphDoubleParamForEachSV is deprecated since 23.11. You may use GetConstellationParameterForSV.\n\nGet QZSS ephemeris parameter value for all satellites"; }
+    }
+
+    public override string Deprecated
+    {
+      get { return "Please note the command GetQzssEphDoubleParamForEachSV is deprecated since 23.11. You may use GetConstellationParameterForSV."; }
+    }
+
+    internal const string CmdName = "GetQzssEphemerisDoubleParams";
+
+    public GetQzssEphemerisDoubleParams()
+      : base(CmdName)
+    {}
+
+    public GetQzssEphemerisDoubleParams(string paramName, string dataSetName = null)
+      : base(CmdName)
+    {
+      ParamName = paramName;
+      DataSetName = dataSetName;
+    }
+      
+    public override bool IsValid
+    {
+      get
+      {
+        return base.IsValid
+        && Contains("ParamName")
+      ;
+      }
+    }
+
+    public override int ExecutePermission { get { return EXECUTE_IF_IDLE; } }
+
+    public string ParamName
+    {
+      get { return GetValue("ParamName").ToObject<string>(CommandBase.Serializer); }
+      set
+      {
+          SetValue("ParamName", JToken.FromObject(value, CommandBase.Serializer));
+      }
+    }
+
+    public string DataSetName
+    {
+      get { return GetValue("DataSetName").ToObject<string>(CommandBase.Serializer); }
+      set
+      {
+        if (value == null)
+          RemoveValue("DataSetName");
+        else
+          SetValue("DataSetName", JToken.FromObject(value, CommandBase.Serializer));
+      }
+    }
+  }
+
+
+  ///
+  /// Please note the command GetQzssEphDoubleParamForEachSV is deprecated since 23.11. You may use GetConstellationParameterForSV.
+  /// 
+  /// Get QZSS ephemeris parameter value for all satellites
+  ///
+  /// Name        Type            Description
+  /// ----------- --------------- -------------------------------------------------------------------------------------------
+  /// ParamName   string          Refer to SetQzssEphDoubleParamForSV for accepted names
+  /// DataSetName optional string Optional name of the data set to use. If no value is provided, the active data set is used.
+  ///
+
+  public class GetQzssEphDoubleParamForEachSV : CommandBase
+  {
+    public override string Documentation
+    {
+      get { return "Please note the command GetQzssEphDoubleParamForEachSV is deprecated since 23.11. You may use GetConstellationParameterForSV.\n\nGet QZSS ephemeris parameter value for all satellites"; }
+    }
+
+    public override string Deprecated
+    {
+      get { return "Please note the command GetQzssEphDoubleParamForEachSV is deprecated since 23.11. You may use GetConstellationParameterForSV."; }
+    }
+
+    internal const string CmdName = "GetQzssEphDoubleParamForEachSV";
+
+    public GetQzssEphDoubleParamForEachSV()
+      : base(CmdName)
+    {}
+
+    public GetQzssEphDoubleParamForEachSV(string paramName, string dataSetName = null)
+      : base(CmdName)
+    {
+      ParamName = paramName;
+      DataSetName = dataSetName;
+    }
+      
+    public override bool IsValid
+    {
+      get
+      {
+        return base.IsValid
+        && Contains("ParamName")
+      ;
+      }
+    }
+
+    public override int ExecutePermission { get { return EXECUTE_IF_IDLE; } }
+
+    public string ParamName
+    {
+      get { return GetValue("ParamName").ToObject<string>(CommandBase.Serializer); }
+      set
+      {
+          SetValue("ParamName", JToken.FromObject(value, CommandBase.Serializer));
+      }
+    }
+
+    public string DataSetName
+    {
+      get { return GetValue("DataSetName").ToObject<string>(CommandBase.Serializer); }
+      set
+      {
+        if (value == null)
+          RemoveValue("DataSetName");
+        else
+          SetValue("DataSetName", JToken.FromObject(value, CommandBase.Serializer));
+      }
+    }
+  }
+
+
+  ///
+  /// Result of GetQzssEphDoubleParamForEachSV.
+  ///
+  /// Name        Type            Description
+  /// ----------- --------------- --------------------------------------------------------------------------------------------------
+  /// ParamName   string          Refer to SetQzssEphDoubleParamForSV for accepted names
+  /// Val         array double    Parameter value for each satellite. Zero based index (index 0 => SV ID 1, index 1 => SV ID 2, etc)
+  /// DataSetName optional string Optional name of the data set to use. If no value is provided, the active data set is used.
+  ///
+
+  public class GetQzssEphemerisDoubleParamsResult : CommandResult
+  {
+    public override string Documentation
+    {
+      get { return "Result of GetQzssEphDoubleParamForEachSV."; }
+    }
+  
+    internal const string CmdName = "GetQzssEphemerisDoubleParamsResult";
+
+    public GetQzssEphemerisDoubleParamsResult()
+      : base(CmdName)
+    {}
+
+    public GetQzssEphemerisDoubleParamsResult(CommandBase relatedCommand, string paramName, List<double> val, string dataSetName = null)
+      : base(CmdName, relatedCommand)
+    {
+      ParamName = paramName;
+      Val = val;
+      DataSetName = dataSetName;
+    }
+
+    public override bool IsValid
+    {
+      get
+      {
+        return base.IsValid
+        && Contains("ParamName")
+        && Contains("Val")
+      ;
+      }
+    }
+
+    public string ParamName
+    {
+      get { return GetValue("ParamName").ToObject<string>(CommandBase.Serializer); }
+      set { SetValue("ParamName", JToken.FromObject(value, CommandBase.Serializer)); }
+    }
+
+    public List<double> Val
+    {
+      get { return GetValue("Val").ToObject<List<double>>(CommandBase.Serializer); }
+      set { SetValue("Val", JToken.FromObject(value, CommandBase.Serializer)); }
+    }
+
+    public string DataSetName
+    {
+      get { return GetValue("DataSetName").ToObject<string>(CommandBase.Serializer); }
+      set { SetValue("DataSetName", JToken.FromObject(value, CommandBase.Serializer)); }
+    }
+  }
+
+  ///
+  /// Name        Type            Description
+  /// ----------- --------------- --------------------------------------------------------------------------------------------------
+  /// ParamName   string          Refer to SetQzssEphDoubleParamForSV for accepted names
+  /// Val         array double    Parameter value for each satellite. Zero based index (index 0 => SV ID 1, index 1 => SV ID 2, etc)
+  /// DataSetName optional string Optional name of the data set to use. If no value is provided, the active data set is used.
+  ///
+
+  public class GetQzssEphDoubleParamForEachSVResult : GetQzssEphemerisDoubleParamsResult
+  {
+    internal new const string CmdName = "GetQzssEphDoubleParamForEachSVResult";
+
+    public GetQzssEphDoubleParamForEachSVResult()
+      : base()
+    {
+       Name = CmdName;
+    }
+
+    public GetQzssEphDoubleParamForEachSVResult(CommandBase relatedCommand, string paramName, List<double> val, string dataSetName = null)
+      : base(relatedCommand, paramName, val, dataSetName)
+    {
+      Name = CmdName;
+    }
+  }
+
+
+  ///
+  /// Please note the command SetNavICEphemerisDoubleParams is deprecated since 21.3. You may use SetNavICEphDoubleParamForEachSV.
+  /// 
+  /// Please note the command SetNavICEphDoubleParamForEachSV is deprecated since 23.11. You may use SetConstellationParameterForSV.
+  /// 
+  /// Set NavIC ephemeris parameter value for all satellites
+  ///
+  /// Name        Type            Description
+  /// ----------- --------------- --------------------------------------------------------------------------------------------------
+  /// ParamName   string          Refer to SetNavICEphDoubleParamForSV for accepted names
+  /// Val         array double    Parameter value for each satellite. Zero based index (index 0 => SV ID 1, index 1 => SV ID 2, etc)
+  /// DataSetName optional string Optional name of the data set to use. If no value is provided, the active data set is used.
+  ///
+
+  public class SetNavICEphemerisDoubleParams : CommandBase
+  {
+    public override string Documentation
+    {
+      get { return "Please note the command SetNavICEphemerisDoubleParams is deprecated since 21.3. You may use SetNavICEphDoubleParamForEachSV.\n\nPlease note the command SetNavICEphDoubleParamForEachSV is deprecated since 23.11. You may use SetConstellationParameterForSV.\n\nSet NavIC ephemeris parameter value for all satellites"; }
+    }
+
+    public override string Deprecated
+    {
+      get { return "Please note the command SetNavICEphDoubleParamForEachSV is deprecated since 23.11. You may use SetConstellationParameterForSV."; }
+    }
+
+    internal const string CmdName = "SetNavICEphemerisDoubleParams";
+
+    public SetNavICEphemerisDoubleParams()
+      : base(CmdName)
+    {}
+
+    public SetNavICEphemerisDoubleParams(string paramName, List<double> val, string dataSetName = null)
+      : base(CmdName)
+    {
+      ParamName = paramName;
+      Val = val;
+      DataSetName = dataSetName;
+    }
+      
+    public override bool IsValid
+    {
+      get
+      {
+        return base.IsValid
+        && Contains("ParamName")
+        && Contains("Val")
+      ;
+      }
+    }
+
+    public override int ExecutePermission { get { return EXECUTE_IF_IDLE; } }
+
+    public string ParamName
+    {
+      get { return GetValue("ParamName").ToObject<string>(CommandBase.Serializer); }
+      set
+      {
+          SetValue("ParamName", JToken.FromObject(value, CommandBase.Serializer));
+      }
+    }
+
+    public List<double> Val
+    {
+      get { return GetValue("Val").ToObject<List<double>>(CommandBase.Serializer); }
+      set
+      {
+          SetValue("Val", JToken.FromObject(value, CommandBase.Serializer));
+      }
+    }
+
+    public string DataSetName
+    {
+      get { return GetValue("DataSetName").ToObject<string>(CommandBase.Serializer); }
+      set
+      {
+        if (value == null)
+          RemoveValue("DataSetName");
+        else
+          SetValue("DataSetName", JToken.FromObject(value, CommandBase.Serializer));
+      }
+    }
+  }
+
+
+  ///
+  /// Please note the command SetNavICEphDoubleParamForEachSV is deprecated since 23.11. You may use SetConstellationParameterForSV.
+  /// 
+  /// Set NavIC ephemeris parameter value for all satellites
+  ///
+  /// Name        Type            Description
+  /// ----------- --------------- --------------------------------------------------------------------------------------------------
+  /// ParamName   string          Refer to SetNavICEphDoubleParamForSV for accepted names
+  /// Val         array double    Parameter value for each satellite. Zero based index (index 0 => SV ID 1, index 1 => SV ID 2, etc)
+  /// DataSetName optional string Optional name of the data set to use. If no value is provided, the active data set is used.
+  ///
+
+  public class SetNavICEphDoubleParamForEachSV : CommandBase
+  {
+    public override string Documentation
+    {
+      get { return "Please note the command SetNavICEphDoubleParamForEachSV is deprecated since 23.11. You may use SetConstellationParameterForSV.\n\nSet NavIC ephemeris parameter value for all satellites"; }
+    }
+
+    public override string Deprecated
+    {
+      get { return "Please note the command SetNavICEphDoubleParamForEachSV is deprecated since 23.11. You may use SetConstellationParameterForSV."; }
+    }
+
+    internal const string CmdName = "SetNavICEphDoubleParamForEachSV";
+
+    public SetNavICEphDoubleParamForEachSV()
+      : base(CmdName)
+    {}
+
+    public SetNavICEphDoubleParamForEachSV(string paramName, List<double> val, string dataSetName = null)
+      : base(CmdName)
+    {
+      ParamName = paramName;
+      Val = val;
+      DataSetName = dataSetName;
+    }
+      
+    public override bool IsValid
+    {
+      get
+      {
+        return base.IsValid
+        && Contains("ParamName")
+        && Contains("Val")
+      ;
+      }
+    }
+
+    public override int ExecutePermission { get { return EXECUTE_IF_IDLE; } }
+
+    public string ParamName
+    {
+      get { return GetValue("ParamName").ToObject<string>(CommandBase.Serializer); }
+      set
+      {
+          SetValue("ParamName", JToken.FromObject(value, CommandBase.Serializer));
+      }
+    }
+
+    public List<double> Val
+    {
+      get { return GetValue("Val").ToObject<List<double>>(CommandBase.Serializer); }
+      set
+      {
+          SetValue("Val", JToken.FromObject(value, CommandBase.Serializer));
+      }
+    }
+
+    public string DataSetName
+    {
+      get { return GetValue("DataSetName").ToObject<string>(CommandBase.Serializer); }
+      set
+      {
+        if (value == null)
+          RemoveValue("DataSetName");
+        else
+          SetValue("DataSetName", JToken.FromObject(value, CommandBase.Serializer));
+      }
+    }
+  }
+
+
+  ///
+  /// Please note the command GetNavICEphemerisDoubleParams is deprecated since 21.3. You may use GetNavICEphDoubleParamForEachSV.
+  /// 
+  /// Please note the command GetNavICEphDoubleParamForEachSV is deprecated since 23.11. You may use GetConstellationParameterForSV.
+  /// 
+  /// Get NavIC ephemeris parameter value for all satellites
+  ///
+  /// Name        Type            Description
+  /// ----------- --------------- -------------------------------------------------------------------------------------------
+  /// ParamName   string          Refer to SetNavICEphDoubleParamForSV for accepted names
+  /// DataSetName optional string Optional name of the data set to use. If no value is provided, the active data set is used.
+  ///
+
+  public class GetNavICEphemerisDoubleParams : CommandBase
+  {
+    public override string Documentation
+    {
+      get { return "Please note the command GetNavICEphemerisDoubleParams is deprecated since 21.3. You may use GetNavICEphDoubleParamForEachSV.\n\nPlease note the command GetNavICEphDoubleParamForEachSV is deprecated since 23.11. You may use GetConstellationParameterForSV.\n\nGet NavIC ephemeris parameter value for all satellites"; }
+    }
+
+    public override string Deprecated
+    {
+      get { return "Please note the command GetNavICEphDoubleParamForEachSV is deprecated since 23.11. You may use GetConstellationParameterForSV."; }
+    }
+
+    internal const string CmdName = "GetNavICEphemerisDoubleParams";
+
+    public GetNavICEphemerisDoubleParams()
+      : base(CmdName)
+    {}
+
+    public GetNavICEphemerisDoubleParams(string paramName, string dataSetName = null)
+      : base(CmdName)
+    {
+      ParamName = paramName;
+      DataSetName = dataSetName;
+    }
+      
+    public override bool IsValid
+    {
+      get
+      {
+        return base.IsValid
+        && Contains("ParamName")
+      ;
+      }
+    }
+
+    public override int ExecutePermission { get { return EXECUTE_IF_IDLE; } }
+
+    public string ParamName
+    {
+      get { return GetValue("ParamName").ToObject<string>(CommandBase.Serializer); }
+      set
+      {
+          SetValue("ParamName", JToken.FromObject(value, CommandBase.Serializer));
+      }
+    }
+
+    public string DataSetName
+    {
+      get { return GetValue("DataSetName").ToObject<string>(CommandBase.Serializer); }
+      set
+      {
+        if (value == null)
+          RemoveValue("DataSetName");
+        else
+          SetValue("DataSetName", JToken.FromObject(value, CommandBase.Serializer));
+      }
+    }
+  }
+
+
+  ///
+  /// Please note the command GetNavICEphDoubleParamForEachSV is deprecated since 23.11. You may use GetConstellationParameterForSV.
+  /// 
+  /// Get NavIC ephemeris parameter value for all satellites
+  ///
+  /// Name        Type            Description
+  /// ----------- --------------- -------------------------------------------------------------------------------------------
+  /// ParamName   string          Refer to SetNavICEphDoubleParamForSV for accepted names
+  /// DataSetName optional string Optional name of the data set to use. If no value is provided, the active data set is used.
+  ///
+
+  public class GetNavICEphDoubleParamForEachSV : CommandBase
+  {
+    public override string Documentation
+    {
+      get { return "Please note the command GetNavICEphDoubleParamForEachSV is deprecated since 23.11. You may use GetConstellationParameterForSV.\n\nGet NavIC ephemeris parameter value for all satellites"; }
+    }
+
+    public override string Deprecated
+    {
+      get { return "Please note the command GetNavICEphDoubleParamForEachSV is deprecated since 23.11. You may use GetConstellationParameterForSV."; }
+    }
+
+    internal const string CmdName = "GetNavICEphDoubleParamForEachSV";
+
+    public GetNavICEphDoubleParamForEachSV()
+      : base(CmdName)
+    {}
+
+    public GetNavICEphDoubleParamForEachSV(string paramName, string dataSetName = null)
+      : base(CmdName)
+    {
+      ParamName = paramName;
+      DataSetName = dataSetName;
+    }
+      
+    public override bool IsValid
+    {
+      get
+      {
+        return base.IsValid
+        && Contains("ParamName")
+      ;
+      }
+    }
+
+    public override int ExecutePermission { get { return EXECUTE_IF_IDLE; } }
+
+    public string ParamName
+    {
+      get { return GetValue("ParamName").ToObject<string>(CommandBase.Serializer); }
+      set
+      {
+          SetValue("ParamName", JToken.FromObject(value, CommandBase.Serializer));
+      }
+    }
+
+    public string DataSetName
+    {
+      get { return GetValue("DataSetName").ToObject<string>(CommandBase.Serializer); }
+      set
+      {
+        if (value == null)
+          RemoveValue("DataSetName");
+        else
+          SetValue("DataSetName", JToken.FromObject(value, CommandBase.Serializer));
+      }
+    }
+  }
+
+
+  ///
+  /// Result of GetNavICEphDoubleParamForEachSV.
+  ///
+  /// Name        Type            Description
+  /// ----------- --------------- --------------------------------------------------------------------------------------------------
+  /// ParamName   string          Refer to SetNavICEphDoubleParamForSV for accepted names
+  /// Val         array double    Parameter value for each satellite. Zero based index (index 0 => SV ID 1, index 1 => SV ID 2, etc)
+  /// DataSetName optional string Optional name of the data set to use. If no value is provided, the active data set is used.
+  ///
+
+  public class GetNavICEphemerisDoubleParamsResult : CommandResult
+  {
+    public override string Documentation
+    {
+      get { return "Result of GetNavICEphDoubleParamForEachSV."; }
+    }
+  
+    internal const string CmdName = "GetNavICEphemerisDoubleParamsResult";
+
+    public GetNavICEphemerisDoubleParamsResult()
+      : base(CmdName)
+    {}
+
+    public GetNavICEphemerisDoubleParamsResult(CommandBase relatedCommand, string paramName, List<double> val, string dataSetName = null)
+      : base(CmdName, relatedCommand)
+    {
+      ParamName = paramName;
+      Val = val;
+      DataSetName = dataSetName;
+    }
+
+    public override bool IsValid
+    {
+      get
+      {
+        return base.IsValid
+        && Contains("ParamName")
+        && Contains("Val")
+      ;
+      }
+    }
+
+    public string ParamName
+    {
+      get { return GetValue("ParamName").ToObject<string>(CommandBase.Serializer); }
+      set { SetValue("ParamName", JToken.FromObject(value, CommandBase.Serializer)); }
+    }
+
+    public List<double> Val
+    {
+      get { return GetValue("Val").ToObject<List<double>>(CommandBase.Serializer); }
+      set { SetValue("Val", JToken.FromObject(value, CommandBase.Serializer)); }
+    }
+
+    public string DataSetName
+    {
+      get { return GetValue("DataSetName").ToObject<string>(CommandBase.Serializer); }
+      set { SetValue("DataSetName", JToken.FromObject(value, CommandBase.Serializer)); }
+    }
+  }
+
+  ///
+  /// Name        Type            Description
+  /// ----------- --------------- --------------------------------------------------------------------------------------------------
+  /// ParamName   string          Refer to SetNavICEphDoubleParamForSV for accepted names
+  /// Val         array double    Parameter value for each satellite. Zero based index (index 0 => SV ID 1, index 1 => SV ID 2, etc)
+  /// DataSetName optional string Optional name of the data set to use. If no value is provided, the active data set is used.
+  ///
+
+  public class GetNavICEphDoubleParamForEachSVResult : GetNavICEphemerisDoubleParamsResult
+  {
+    internal new const string CmdName = "GetNavICEphDoubleParamForEachSVResult";
+
+    public GetNavICEphDoubleParamForEachSVResult()
+      : base()
+    {
+       Name = CmdName;
+    }
+
+    public GetNavICEphDoubleParamForEachSVResult(CommandBase relatedCommand, string paramName, List<double> val, string dataSetName = null)
+      : base(relatedCommand, paramName, val, dataSetName)
+    {
+      Name = CmdName;
+    }
+  }
+
+
+  ///
+  /// Please note the command SetGpsEphBoolParamForSV is deprecated since 23.11. You may use SetConstellationParameterForSV.
+  /// 
+  /// Set various boolean parameters in the GPS ephemeris
+  /// 
+  ///   ParamName
+  /// "IscL1CaAvailable"
+  /// "IscL2CAvailable"
+  /// "IscL5I5Available"
+  /// "IscL5Q5Available"
+  /// "IscL1CPAvailable"
+  /// "IscL1CDAvailable"
+  ///
+  /// Name        Type            Description
+  /// ----------- --------------- -------------------------------------------------------------------------------------------
+  /// SvId        int             Satellite SV ID 1..32, or use 0 to apply new value to all satellites
+  /// ParamName   string          Parameter name (see table above for accepted names)
+  /// Val         bool            Parameter value (see table above for unit)
+  /// DataSetName optional string Optional name of the data set to use. If no value is provided, the active data set is used.
+  ///
+
+  public class SetGpsEphBoolParamForSV : CommandBase
+  {
+    public override string Documentation
+    {
+      get { return "Please note the command SetGpsEphBoolParamForSV is deprecated since 23.11. You may use SetConstellationParameterForSV.\n\nSet various boolean parameters in the GPS ephemeris\n\n  ParamName\n\"IscL1CaAvailable\"\n\"IscL2CAvailable\"\n\"IscL5I5Available\"\n\"IscL5Q5Available\"\n\"IscL1CPAvailable\"\n\"IscL1CDAvailable\""; }
+    }
+
+    public override string Deprecated
+    {
+      get { return "Please note the command SetGpsEphBoolParamForSV is deprecated since 23.11. You may use SetConstellationParameterForSV."; }
+    }
+
+    internal const string CmdName = "SetGpsEphBoolParamForSV";
+
+    public SetGpsEphBoolParamForSV()
+      : base(CmdName)
+    {}
+
+    public SetGpsEphBoolParamForSV(int svId, string paramName, bool val, string dataSetName = null)
+      : base(CmdName)
+    {
+      SvId = svId;
+      ParamName = paramName;
+      Val = val;
+      DataSetName = dataSetName;
+    }
+      
+    public override bool IsValid
+    {
+      get
+      {
+        return base.IsValid
+        && Contains("SvId")
+        && Contains("ParamName")
+        && Contains("Val")
+      ;
+      }
+    }
+
+    public override int ExecutePermission { get { return EXECUTE_IF_IDLE; } }
+
+    public int SvId
+    {
+      get { return GetValue("SvId").ToObject<int>(CommandBase.Serializer); }
+      set
+      {
+          SetValue("SvId", JToken.FromObject(value, CommandBase.Serializer));
+      }
+    }
+
+    public string ParamName
+    {
+      get { return GetValue("ParamName").ToObject<string>(CommandBase.Serializer); }
+      set
+      {
+          SetValue("ParamName", JToken.FromObject(value, CommandBase.Serializer));
+      }
+    }
+
+    public bool Val
+    {
+      get { return GetValue("Val").ToObject<bool>(CommandBase.Serializer); }
+      set
+      {
+          SetValue("Val", JToken.FromObject(value, CommandBase.Serializer));
+      }
+    }
+
+    public string DataSetName
+    {
+      get { return GetValue("DataSetName").ToObject<string>(CommandBase.Serializer); }
+      set
+      {
+        if (value == null)
+          RemoveValue("DataSetName");
+        else
+          SetValue("DataSetName", JToken.FromObject(value, CommandBase.Serializer));
+      }
+    }
+  }
+
+
+  ///
+  /// Please note the command GetGpsEphBoolParamForSV is deprecated since 23.11. You may use GetConstellationParameterForSV.
+  /// 
+  /// Get various boolean parameters in the GPS ephemeris
+  /// 
+  ///   ParamName
+  /// "IscL1CaAvailable"
+  /// "IscL2CAvailable"
+  /// "IscL5I5Available"
+  /// "IscL5Q5Available"
+  /// "IscL1CPAvailable"
+  /// "IscL1CDAvailable"
+  ///
+  /// Name        Type            Description
+  /// ----------- --------------- -------------------------------------------------------------------------------------------
+  /// SvId        int             Satellite SV ID 1..32, or use 0 to apply new value to all satellites
+  /// ParamName   string          Parameter name (see table above for accepted names)
+  /// DataSetName optional string Optional name of the data set to use. If no value is provided, the active data set is used.
+  ///
+
+  public class GetGpsEphBoolParamForSV : CommandBase
+  {
+    public override string Documentation
+    {
+      get { return "Please note the command GetGpsEphBoolParamForSV is deprecated since 23.11. You may use GetConstellationParameterForSV.\n\nGet various boolean parameters in the GPS ephemeris\n\n  ParamName\n\"IscL1CaAvailable\"\n\"IscL2CAvailable\"\n\"IscL5I5Available\"\n\"IscL5Q5Available\"\n\"IscL1CPAvailable\"\n\"IscL1CDAvailable\""; }
+    }
+
+    public override string Deprecated
+    {
+      get { return "Please note the command GetGpsEphBoolParamForSV is deprecated since 23.11. You may use GetConstellationParameterForSV."; }
+    }
+
+    internal const string CmdName = "GetGpsEphBoolParamForSV";
+
+    public GetGpsEphBoolParamForSV()
+      : base(CmdName)
+    {}
+
+    public GetGpsEphBoolParamForSV(int svId, string paramName, string dataSetName = null)
+      : base(CmdName)
+    {
+      SvId = svId;
+      ParamName = paramName;
+      DataSetName = dataSetName;
+    }
+      
+    public override bool IsValid
+    {
+      get
+      {
+        return base.IsValid
+        && Contains("SvId")
+        && Contains("ParamName")
+      ;
+      }
+    }
+
+    public override int ExecutePermission { get { return EXECUTE_IF_IDLE; } }
+
+    public int SvId
+    {
+      get { return GetValue("SvId").ToObject<int>(CommandBase.Serializer); }
+      set
+      {
+          SetValue("SvId", JToken.FromObject(value, CommandBase.Serializer));
+      }
+    }
+
+    public string ParamName
+    {
+      get { return GetValue("ParamName").ToObject<string>(CommandBase.Serializer); }
+      set
+      {
+          SetValue("ParamName", JToken.FromObject(value, CommandBase.Serializer));
+      }
+    }
+
+    public string DataSetName
+    {
+      get { return GetValue("DataSetName").ToObject<string>(CommandBase.Serializer); }
+      set
+      {
+        if (value == null)
+          RemoveValue("DataSetName");
+        else
+          SetValue("DataSetName", JToken.FromObject(value, CommandBase.Serializer));
+      }
+    }
+  }
+
+
+  ///
+  /// Result of GetGpsEphBoolParamForSV.
+  ///
+  /// Name        Type            Description
+  /// ----------- --------------- -------------------------------------------------------------------------------------------
+  /// SvId        int             Satellite SV ID 1..32, or use 0 to apply new value to all satellites
+  /// ParamName   string          Parameter name (see table above for accepted names)
+  /// Val         bool            Parameter value (see table above for unit)
+  /// DataSetName optional string Optional name of the data set to use. If no value is provided, the active data set is used.
+  ///
+
+  public class GetGpsEphBoolParamForSVResult : CommandResult
+  {
+    public override string Documentation
+    {
+      get { return "Result of GetGpsEphBoolParamForSV."; }
+    }
+
+    internal const string CmdName = "GetGpsEphBoolParamForSVResult";
+
+    public GetGpsEphBoolParamForSVResult()
+      : base(CmdName)
+    {}
+
+    public GetGpsEphBoolParamForSVResult(CommandBase relatedCommand, int svId, string paramName, bool val, string dataSetName = null)
+      : base(CmdName, relatedCommand)
+    {
+      SvId = svId;
+      ParamName = paramName;
+      Val = val;
+      DataSetName = dataSetName;
+    }
+      
+    public override bool IsValid
+    {
+      get
+      {
+        return base.IsValid
+        && Contains("SvId")
+        && Contains("ParamName")
+        && Contains("Val")
+      ;
+      }
+    }
+
+    public int SvId
+    {
+      get { return GetValue("SvId").ToObject<int>(CommandBase.Serializer); }
+      set
+      {
+          SetValue("SvId", JToken.FromObject(value, CommandBase.Serializer));
+      }
+    }
+
+    public string ParamName
+    {
+      get { return GetValue("ParamName").ToObject<string>(CommandBase.Serializer); }
+      set
+      {
+          SetValue("ParamName", JToken.FromObject(value, CommandBase.Serializer));
+      }
+    }
+
+    public bool Val
+    {
+      get { return GetValue("Val").ToObject<bool>(CommandBase.Serializer); }
+      set
+      {
+          SetValue("Val", JToken.FromObject(value, CommandBase.Serializer));
+      }
+    }
+
+    public string DataSetName
+    {
+      get { return GetValue("DataSetName").ToObject<string>(CommandBase.Serializer); }
+      set
+      {
+        if (value == null)
+          RemoveValue("DataSetName");
+        else
+          SetValue("DataSetName", JToken.FromObject(value, CommandBase.Serializer));
+      }
+    }
+  }
+
+
+  ///
+  /// Please note the command SetGpsEphemerisBoolParams is deprecated since 21.3. You may use SetGpsEphBoolParamForEachSV.
+  /// 
+  /// Please note the command SetGpsEphBoolParamForEachSV is deprecated since 23.11. You may use SetConstellationParameterForSV.
+  /// 
+  /// Set GPS ephemeris boolean parameter value for all satellites
+  ///
+  /// Name        Type            Description
+  /// ----------- --------------- --------------------------------------------------------------------------------------------------
+  /// ParamName   string          Refer to SetGpsEphBoolParamForSV for accepted names
+  /// Val         array bool      Parameter value for each satellite. Zero based index (index 0 => SV ID 1, index 1 => SV ID 2, etc)
+  /// DataSetName optional string Optional name of the data set to use. If no value is provided, the active data set is used.
+  ///
+
+  public class SetGpsEphemerisBoolParams : CommandBase
+  {
+    public override string Documentation
+    {
+      get { return "Please note the command SetGpsEphemerisBoolParams is deprecated since 21.3. You may use SetGpsEphBoolParamForEachSV.\n\nPlease note the command SetGpsEphBoolParamForEachSV is deprecated since 23.11. You may use SetConstellationParameterForSV.\n\nSet GPS ephemeris boolean parameter value for all satellites"; }
+    }
+
+    public override string Deprecated
+    {
+      get { return "Please note the command SetGpsEphBoolParamForEachSV is deprecated since 23.11. You may use SetConstellationParameterForSV."; }
+    }
+
+    internal const string CmdName = "SetGpsEphemerisBoolParams";
+
+    public SetGpsEphemerisBoolParams()
+      : base(CmdName)
+    {}
+
+    public SetGpsEphemerisBoolParams(string paramName, List<bool> val, string dataSetName = null)
+      : base(CmdName)
+    {
+      ParamName = paramName;
+      Val = val;
+      DataSetName = dataSetName;
+    }
+      
+    public override bool IsValid
+    {
+      get
+      {
+        return base.IsValid
+        && Contains("ParamName")
+        && Contains("Val")
+      ;
+      }
+    }
+
+    public override int ExecutePermission { get { return EXECUTE_IF_IDLE; } }
+
+    public string ParamName
+    {
+      get { return GetValue("ParamName").ToObject<string>(CommandBase.Serializer); }
+      set
+      {
+          SetValue("ParamName", JToken.FromObject(value, CommandBase.Serializer));
+      }
+    }
+
+    public List<bool> Val
+    {
+      get { return GetValue("Val").ToObject<List<bool>>(CommandBase.Serializer); }
+      set
+      {
+          SetValue("Val", JToken.FromObject(value, CommandBase.Serializer));
+      }
+    }
+
+    public string DataSetName
+    {
+      get { return GetValue("DataSetName").ToObject<string>(CommandBase.Serializer); }
+      set
+      {
+        if (value == null)
+          RemoveValue("DataSetName");
+        else
+          SetValue("DataSetName", JToken.FromObject(value, CommandBase.Serializer));
+      }
+    }
+  }
+
+
+  ///
+  /// Please note the command SetGpsEphBoolParamForEachSV is deprecated since 23.11. You may use SetConstellationParameterForSV.
+  /// 
+  /// Set GPS ephemeris boolean parameter value for all satellites
+  ///
+  /// Name        Type            Description
+  /// ----------- --------------- --------------------------------------------------------------------------------------------------
+  /// ParamName   string          Refer to SetGpsEphBoolParamForSV for accepted names
+  /// Val         array bool      Parameter value for each satellite. Zero based index (index 0 => SV ID 1, index 1 => SV ID 2, etc)
+  /// DataSetName optional string Optional name of the data set to use. If no value is provided, the active data set is used.
+  ///
+
+  public class SetGpsEphBoolParamForEachSV : CommandBase
+  {
+    public override string Documentation
+    {
+      get { return "Please note the command SetGpsEphBoolParamForEachSV is deprecated since 23.11. You may use SetConstellationParameterForSV.\n\nSet GPS ephemeris boolean parameter value for all satellites"; }
+    }
+
+    public override string Deprecated
+    {
+      get { return "Please note the command SetGpsEphBoolParamForEachSV is deprecated since 23.11. You may use SetConstellationParameterForSV."; }
+    }
+
+    internal const string CmdName = "SetGpsEphBoolParamForEachSV";
+
+    public SetGpsEphBoolParamForEachSV()
+      : base(CmdName)
+    {}
+
+    public SetGpsEphBoolParamForEachSV(string paramName, List<bool> val, string dataSetName = null)
+      : base(CmdName)
+    {
+      ParamName = paramName;
+      Val = val;
+      DataSetName = dataSetName;
+    }
+      
+    public override bool IsValid
+    {
+      get
+      {
+        return base.IsValid
+        && Contains("ParamName")
+        && Contains("Val")
+      ;
+      }
+    }
+
+    public override int ExecutePermission { get { return EXECUTE_IF_IDLE; } }
+
+    public string ParamName
+    {
+      get { return GetValue("ParamName").ToObject<string>(CommandBase.Serializer); }
+      set
+      {
+          SetValue("ParamName", JToken.FromObject(value, CommandBase.Serializer));
+      }
+    }
+
+    public List<bool> Val
+    {
+      get { return GetValue("Val").ToObject<List<bool>>(CommandBase.Serializer); }
+      set
+      {
+          SetValue("Val", JToken.FromObject(value, CommandBase.Serializer));
+      }
+    }
+
+    public string DataSetName
+    {
+      get { return GetValue("DataSetName").ToObject<string>(CommandBase.Serializer); }
+      set
+      {
+        if (value == null)
+          RemoveValue("DataSetName");
+        else
+          SetValue("DataSetName", JToken.FromObject(value, CommandBase.Serializer));
+      }
+    }
+  }
+
+
+  ///
+  /// Please note the command GetGpsEphemerisBoolParams is deprecated since 21.3. You may use GetGpsEphBoolParamForEachSV.
+  /// 
+  /// Please note the command GetGpsEphBoolParamForEachSV is deprecated since 23.11. You may use GetConstellationParameterForSV.
+  /// 
+  /// Get GPS ephemeris boolean parameter value for all satellites
+  ///
+  /// Name        Type            Description
+  /// ----------- --------------- -------------------------------------------------------------------------------------------
+  /// ParamName   string          Refer to SetGpsEphBoolParamForSV for accepted names
+  /// DataSetName optional string Optional name of the data set to use. If no value is provided, the active data set is used.
+  ///
+
+  public class GetGpsEphemerisBoolParams : CommandBase
+  {
+    public override string Documentation
+    {
+      get { return "Please note the command GetGpsEphemerisBoolParams is deprecated since 21.3. You may use GetGpsEphBoolParamForEachSV.\n\nPlease note the command GetGpsEphBoolParamForEachSV is deprecated since 23.11. You may use GetConstellationParameterForSV.\n\nGet GPS ephemeris boolean parameter value for all satellites"; }
+    }
+
+    public override string Deprecated
+    {
+      get { return "Please note the command GetGpsEphBoolParamForEachSV is deprecated since 23.11. You may use GetConstellationParameterForSV."; }
+    }
+
+    internal const string CmdName = "GetGpsEphemerisBoolParams";
+
+    public GetGpsEphemerisBoolParams()
+      : base(CmdName)
+    {}
+
+    public GetGpsEphemerisBoolParams(string paramName, string dataSetName = null)
+      : base(CmdName)
+    {
+      ParamName = paramName;
+      DataSetName = dataSetName;
+    }
+      
+    public override bool IsValid
+    {
+      get
+      {
+        return base.IsValid
+        && Contains("ParamName")
+      ;
+      }
+    }
+
+    public override int ExecutePermission { get { return EXECUTE_IF_IDLE; } }
+
+    public string ParamName
+    {
+      get { return GetValue("ParamName").ToObject<string>(CommandBase.Serializer); }
+      set
+      {
+          SetValue("ParamName", JToken.FromObject(value, CommandBase.Serializer));
+      }
+    }
+
+    public string DataSetName
+    {
+      get { return GetValue("DataSetName").ToObject<string>(CommandBase.Serializer); }
+      set
+      {
+        if (value == null)
+          RemoveValue("DataSetName");
+        else
+          SetValue("DataSetName", JToken.FromObject(value, CommandBase.Serializer));
+      }
+    }
+  }
+
+
+  ///
+  /// Please note the command GetGpsEphBoolParamForEachSV is deprecated since 23.11. You may use GetConstellationParameterForSV.
+  /// 
+  /// Get GPS ephemeris boolean parameter value for all satellites
+  ///
+  /// Name        Type            Description
+  /// ----------- --------------- -------------------------------------------------------------------------------------------
+  /// ParamName   string          Refer to SetGpsEphBoolParamForSV for accepted names
+  /// DataSetName optional string Optional name of the data set to use. If no value is provided, the active data set is used.
+  ///
+
+  public class GetGpsEphBoolParamForEachSV : CommandBase
+  {
+    public override string Documentation
+    {
+      get { return "Please note the command GetGpsEphBoolParamForEachSV is deprecated since 23.11. You may use GetConstellationParameterForSV.\n\nGet GPS ephemeris boolean parameter value for all satellites"; }
+    }
+
+    public override string Deprecated
+    {
+      get { return "Please note the command GetGpsEphBoolParamForEachSV is deprecated since 23.11. You may use GetConstellationParameterForSV."; }
+    }
+
+    internal const string CmdName = "GetGpsEphBoolParamForEachSV";
+
+    public GetGpsEphBoolParamForEachSV()
+      : base(CmdName)
+    {}
+
+    public GetGpsEphBoolParamForEachSV(string paramName, string dataSetName = null)
+      : base(CmdName)
+    {
+      ParamName = paramName;
+      DataSetName = dataSetName;
+    }
+      
+    public override bool IsValid
+    {
+      get
+      {
+        return base.IsValid
+        && Contains("ParamName")
+      ;
+      }
+    }
+
+    public override int ExecutePermission { get { return EXECUTE_IF_IDLE; } }
+
+    public string ParamName
+    {
+      get { return GetValue("ParamName").ToObject<string>(CommandBase.Serializer); }
+      set
+      {
+          SetValue("ParamName", JToken.FromObject(value, CommandBase.Serializer));
+      }
+    }
+
+    public string DataSetName
+    {
+      get { return GetValue("DataSetName").ToObject<string>(CommandBase.Serializer); }
+      set
+      {
+        if (value == null)
+          RemoveValue("DataSetName");
+        else
+          SetValue("DataSetName", JToken.FromObject(value, CommandBase.Serializer));
+      }
+    }
+  }
+
+
+  ///
+  /// Result of GetGpsEphBoolParamForEachSV.
+  ///
+  /// Name        Type            Description
+  /// ----------- --------------- --------------------------------------------------------------------------------------------------
+  /// ParamName   string          Refer to SetGpsEphBoolParamForSV for accepted names
+  /// Val         array bool      Parameter value for each satellite. Zero based index (index 0 => SV ID 1, index 1 => SV ID 2, etc)
+  /// DataSetName optional string Optional name of the data set to use. If no value is provided, the active data set is used.
+  ///
+
+  public class GetGpsEphemerisBoolParamsResult : CommandResult
+  {
+    public override string Documentation
+    {
+      get { return "Result of GetGpsEphBoolParamForEachSV."; }
+    }
+  
+    internal const string CmdName = "GetGpsEphemerisBoolParamsResult";
+
+    public GetGpsEphemerisBoolParamsResult()
+      : base(CmdName)
+    {}
+
+    public GetGpsEphemerisBoolParamsResult(CommandBase relatedCommand, string paramName, List<bool> val, string dataSetName = null)
+      : base(CmdName, relatedCommand)
+    {
+      ParamName = paramName;
+      Val = val;
+      DataSetName = dataSetName;
+    }
+
+    public override bool IsValid
+    {
+      get
+      {
+        return base.IsValid
+        && Contains("ParamName")
+        && Contains("Val")
+      ;
+      }
+    }
+
+    public string ParamName
+    {
+      get { return GetValue("ParamName").ToObject<string>(CommandBase.Serializer); }
+      set { SetValue("ParamName", JToken.FromObject(value, CommandBase.Serializer)); }
+    }
+
+    public List<bool> Val
+    {
+      get { return GetValue("Val").ToObject<List<bool>>(CommandBase.Serializer); }
+      set { SetValue("Val", JToken.FromObject(value, CommandBase.Serializer)); }
+    }
+
+    public string DataSetName
+    {
+      get { return GetValue("DataSetName").ToObject<string>(CommandBase.Serializer); }
+      set { SetValue("DataSetName", JToken.FromObject(value, CommandBase.Serializer)); }
+    }
+  }
+
+  ///
+  /// Name        Type            Description
+  /// ----------- --------------- --------------------------------------------------------------------------------------------------
+  /// ParamName   string          Refer to SetGpsEphBoolParamForSV for accepted names
+  /// Val         array bool      Parameter value for each satellite. Zero based index (index 0 => SV ID 1, index 1 => SV ID 2, etc)
+  /// DataSetName optional string Optional name of the data set to use. If no value is provided, the active data set is used.
+  ///
+
+  public class GetGpsEphBoolParamForEachSVResult : GetGpsEphemerisBoolParamsResult
+  {
+    internal new const string CmdName = "GetGpsEphBoolParamForEachSVResult";
+
+    public GetGpsEphBoolParamForEachSVResult()
+      : base()
+    {
+       Name = CmdName;
+    }
+
+    public GetGpsEphBoolParamForEachSVResult(CommandBase relatedCommand, string paramName, List<bool> val, string dataSetName = null)
+      : base(relatedCommand, paramName, val, dataSetName)
+    {
+      Name = CmdName;
+    }
+  }
+
+
+  ///
+  /// Please note the command SetBeiDouEphBoolParamForSV is deprecated since 23.11. You may use SetConstellationParameterForSV.
+  /// 
+  /// Set various boolean parameters in the BeiDou ephemeris
+  /// 
+  ///   ParamName
+  /// "IscB1CdAvailable"
+  /// "IscB2adAvailable"
+  ///
+  /// Name        Type            Description
+  /// ----------- --------------- -------------------------------------------------------------------------------------------
+  /// SvId        int             Satellite SV ID 1..35, or use 0 to apply new value to all satellites
+  /// ParamName   string          Parameter name (see table above for accepted names)
+  /// Val         bool            Parameter value (see table above for unit)
+  /// DataSetName optional string Optional name of the data set to use. If no value is provided, the active data set is used.
+  ///
+
+  public class SetBeiDouEphBoolParamForSV : CommandBase
+  {
+    public override string Documentation
+    {
+      get { return "Please note the command SetBeiDouEphBoolParamForSV is deprecated since 23.11. You may use SetConstellationParameterForSV.\n\nSet various boolean parameters in the BeiDou ephemeris\n\n  ParamName\n\"IscB1CdAvailable\"\n\"IscB2adAvailable\""; }
+    }
+
+    public override string Deprecated
+    {
+      get { return "Please note the command SetBeiDouEphBoolParamForSV is deprecated since 23.11. You may use SetConstellationParameterForSV."; }
+    }
+
+    internal const string CmdName = "SetBeiDouEphBoolParamForSV";
+
+    public SetBeiDouEphBoolParamForSV()
+      : base(CmdName)
+    {}
+
+    public SetBeiDouEphBoolParamForSV(int svId, string paramName, bool val, string dataSetName = null)
+      : base(CmdName)
+    {
+      SvId = svId;
+      ParamName = paramName;
+      Val = val;
+      DataSetName = dataSetName;
+    }
+      
+    public override bool IsValid
+    {
+      get
+      {
+        return base.IsValid
+        && Contains("SvId")
+        && Contains("ParamName")
+        && Contains("Val")
+      ;
+      }
+    }
+
+    public override int ExecutePermission { get { return EXECUTE_IF_IDLE; } }
+
+    public int SvId
+    {
+      get { return GetValue("SvId").ToObject<int>(CommandBase.Serializer); }
+      set
+      {
+          SetValue("SvId", JToken.FromObject(value, CommandBase.Serializer));
+      }
+    }
+
+    public string ParamName
+    {
+      get { return GetValue("ParamName").ToObject<string>(CommandBase.Serializer); }
+      set
+      {
+          SetValue("ParamName", JToken.FromObject(value, CommandBase.Serializer));
+      }
+    }
+
+    public bool Val
+    {
+      get { return GetValue("Val").ToObject<bool>(CommandBase.Serializer); }
+      set
+      {
+          SetValue("Val", JToken.FromObject(value, CommandBase.Serializer));
+      }
+    }
+
+    public string DataSetName
+    {
+      get { return GetValue("DataSetName").ToObject<string>(CommandBase.Serializer); }
+      set
+      {
+        if (value == null)
+          RemoveValue("DataSetName");
+        else
+          SetValue("DataSetName", JToken.FromObject(value, CommandBase.Serializer));
+      }
+    }
+  }
+
+
+  ///
+  /// Please note the command GetBeiDouEphBoolParamForSV is deprecated since 23.11. You may use GetConstellationParameterForSV.
+  /// 
+  /// Get various boolean parameters in the BeiDou ephemeris
+  /// 
+  ///   ParamName
+  /// "IscB1CdAvailable"
+  /// "IscB2adAvailable"
+  ///
+  /// Name        Type            Description
+  /// ----------- --------------- -------------------------------------------------------------------------------------------
+  /// SvId        int             Satellite SV ID 1..35, or use 0 to apply new value to all satellites
+  /// ParamName   string          Parameter name (see table above for accepted names)
+  /// DataSetName optional string Optional name of the data set to use. If no value is provided, the active data set is used.
+  ///
+
+  public class GetBeiDouEphBoolParamForSV : CommandBase
+  {
+    public override string Documentation
+    {
+      get { return "Please note the command GetBeiDouEphBoolParamForSV is deprecated since 23.11. You may use GetConstellationParameterForSV.\n\nGet various boolean parameters in the BeiDou ephemeris\n\n  ParamName\n\"IscB1CdAvailable\"\n\"IscB2adAvailable\""; }
+    }
+
+    public override string Deprecated
+    {
+      get { return "Please note the command GetBeiDouEphBoolParamForSV is deprecated since 23.11. You may use GetConstellationParameterForSV."; }
+    }
+
+    internal const string CmdName = "GetBeiDouEphBoolParamForSV";
+
+    public GetBeiDouEphBoolParamForSV()
+      : base(CmdName)
+    {}
+
+    public GetBeiDouEphBoolParamForSV(int svId, string paramName, string dataSetName = null)
+      : base(CmdName)
+    {
+      SvId = svId;
+      ParamName = paramName;
+      DataSetName = dataSetName;
+    }
+      
+    public override bool IsValid
+    {
+      get
+      {
+        return base.IsValid
+        && Contains("SvId")
+        && Contains("ParamName")
+      ;
+      }
+    }
+
+    public override int ExecutePermission { get { return EXECUTE_IF_IDLE; } }
+
+    public int SvId
+    {
+      get { return GetValue("SvId").ToObject<int>(CommandBase.Serializer); }
+      set
+      {
+          SetValue("SvId", JToken.FromObject(value, CommandBase.Serializer));
+      }
+    }
+
+    public string ParamName
+    {
+      get { return GetValue("ParamName").ToObject<string>(CommandBase.Serializer); }
+      set
+      {
+          SetValue("ParamName", JToken.FromObject(value, CommandBase.Serializer));
+      }
+    }
+
+    public string DataSetName
+    {
+      get { return GetValue("DataSetName").ToObject<string>(CommandBase.Serializer); }
+      set
+      {
+        if (value == null)
+          RemoveValue("DataSetName");
+        else
+          SetValue("DataSetName", JToken.FromObject(value, CommandBase.Serializer));
+      }
+    }
+  }
+
+
+  ///
+  /// Result of GetBeiDouEphBoolParamForSV.
+  ///
+  /// Name        Type            Description
+  /// ----------- --------------- -------------------------------------------------------------------------------------------
+  /// SvId        int             Satellite SV ID 1..35, or use 0 to apply new value to all satellites
+  /// ParamName   string          Parameter name (see table above for accepted names)
+  /// Val         bool            Parameter value (see table above for unit)
+  /// DataSetName optional string Optional name of the data set to use. If no value is provided, the active data set is used.
+  ///
+
+  public class GetBeiDouEphBoolParamForSVResult : CommandResult
+  {
+    public override string Documentation
+    {
+      get { return "Result of GetBeiDouEphBoolParamForSV."; }
+    }
+
+    internal const string CmdName = "GetBeiDouEphBoolParamForSVResult";
+
+    public GetBeiDouEphBoolParamForSVResult()
+      : base(CmdName)
+    {}
+
+    public GetBeiDouEphBoolParamForSVResult(CommandBase relatedCommand, int svId, string paramName, bool val, string dataSetName = null)
+      : base(CmdName, relatedCommand)
+    {
+      SvId = svId;
+      ParamName = paramName;
+      Val = val;
+      DataSetName = dataSetName;
+    }
+      
+    public override bool IsValid
+    {
+      get
+      {
+        return base.IsValid
+        && Contains("SvId")
+        && Contains("ParamName")
+        && Contains("Val")
+      ;
+      }
+    }
+
+    public int SvId
+    {
+      get { return GetValue("SvId").ToObject<int>(CommandBase.Serializer); }
+      set
+      {
+          SetValue("SvId", JToken.FromObject(value, CommandBase.Serializer));
+      }
+    }
+
+    public string ParamName
+    {
+      get { return GetValue("ParamName").ToObject<string>(CommandBase.Serializer); }
+      set
+      {
+          SetValue("ParamName", JToken.FromObject(value, CommandBase.Serializer));
+      }
+    }
+
+    public bool Val
+    {
+      get { return GetValue("Val").ToObject<bool>(CommandBase.Serializer); }
+      set
+      {
+          SetValue("Val", JToken.FromObject(value, CommandBase.Serializer));
+      }
+    }
+
+    public string DataSetName
+    {
+      get { return GetValue("DataSetName").ToObject<string>(CommandBase.Serializer); }
+      set
+      {
+        if (value == null)
+          RemoveValue("DataSetName");
+        else
+          SetValue("DataSetName", JToken.FromObject(value, CommandBase.Serializer));
+      }
+    }
+  }
+
+
+  ///
+  /// Please note the command SetBeiDouEphemerisBoolParams is deprecated since 21.3. You may use SetBeiDouEphBoolParamForEachSV.
+  /// 
+  /// Please note the command SetBeiDouEphBoolParamForEachSV is deprecated since 23.11. You may use SetConstellationParameterForSV.
+  /// 
+  /// Set BeiDou ephemeris boolean parameter value for all satellites
+  ///
+  /// Name        Type            Description
+  /// ----------- --------------- --------------------------------------------------------------------------------------------------
+  /// ParamName   string          Refer to SetBeiDouEphBoolParamForSV for accepted names
+  /// Val         array bool      Parameter value for each satellite. Zero based index (index 0 => SV ID 1, index 1 => SV ID 2, etc)
+  /// DataSetName optional string Optional name of the data set to use. If no value is provided, the active data set is used.
+  ///
+
+  public class SetBeiDouEphemerisBoolParams : CommandBase
+  {
+    public override string Documentation
+    {
+      get { return "Please note the command SetBeiDouEphemerisBoolParams is deprecated since 21.3. You may use SetBeiDouEphBoolParamForEachSV.\n\nPlease note the command SetBeiDouEphBoolParamForEachSV is deprecated since 23.11. You may use SetConstellationParameterForSV.\n\nSet BeiDou ephemeris boolean parameter value for all satellites"; }
+    }
+
+    public override string Deprecated
+    {
+      get { return "Please note the command SetBeiDouEphBoolParamForEachSV is deprecated since 23.11. You may use SetConstellationParameterForSV."; }
+    }
+
+    internal const string CmdName = "SetBeiDouEphemerisBoolParams";
+
+    public SetBeiDouEphemerisBoolParams()
+      : base(CmdName)
+    {}
+
+    public SetBeiDouEphemerisBoolParams(string paramName, List<bool> val, string dataSetName = null)
+      : base(CmdName)
+    {
+      ParamName = paramName;
+      Val = val;
+      DataSetName = dataSetName;
+    }
+      
+    public override bool IsValid
+    {
+      get
+      {
+        return base.IsValid
+        && Contains("ParamName")
+        && Contains("Val")
+      ;
+      }
+    }
+
+    public override int ExecutePermission { get { return EXECUTE_IF_IDLE; } }
+
+    public string ParamName
+    {
+      get { return GetValue("ParamName").ToObject<string>(CommandBase.Serializer); }
+      set
+      {
+          SetValue("ParamName", JToken.FromObject(value, CommandBase.Serializer));
+      }
+    }
+
+    public List<bool> Val
+    {
+      get { return GetValue("Val").ToObject<List<bool>>(CommandBase.Serializer); }
+      set
+      {
+          SetValue("Val", JToken.FromObject(value, CommandBase.Serializer));
+      }
+    }
+
+    public string DataSetName
+    {
+      get { return GetValue("DataSetName").ToObject<string>(CommandBase.Serializer); }
+      set
+      {
+        if (value == null)
+          RemoveValue("DataSetName");
+        else
+          SetValue("DataSetName", JToken.FromObject(value, CommandBase.Serializer));
+      }
+    }
+  }
+
+
+  ///
+  /// Please note the command SetBeiDouEphBoolParamForEachSV is deprecated since 23.11. You may use SetConstellationParameterForSV.
+  /// 
+  /// Set BeiDou ephemeris boolean parameter value for all satellites
+  ///
+  /// Name        Type            Description
+  /// ----------- --------------- --------------------------------------------------------------------------------------------------
+  /// ParamName   string          Refer to SetBeiDouEphBoolParamForSV for accepted names
+  /// Val         array bool      Parameter value for each satellite. Zero based index (index 0 => SV ID 1, index 1 => SV ID 2, etc)
+  /// DataSetName optional string Optional name of the data set to use. If no value is provided, the active data set is used.
+  ///
+
+  public class SetBeiDouEphBoolParamForEachSV : CommandBase
+  {
+    public override string Documentation
+    {
+      get { return "Please note the command SetBeiDouEphBoolParamForEachSV is deprecated since 23.11. You may use SetConstellationParameterForSV.\n\nSet BeiDou ephemeris boolean parameter value for all satellites"; }
+    }
+
+    public override string Deprecated
+    {
+      get { return "Please note the command SetBeiDouEphBoolParamForEachSV is deprecated since 23.11. You may use SetConstellationParameterForSV."; }
+    }
+
+    internal const string CmdName = "SetBeiDouEphBoolParamForEachSV";
+
+    public SetBeiDouEphBoolParamForEachSV()
+      : base(CmdName)
+    {}
+
+    public SetBeiDouEphBoolParamForEachSV(string paramName, List<bool> val, string dataSetName = null)
+      : base(CmdName)
+    {
+      ParamName = paramName;
+      Val = val;
+      DataSetName = dataSetName;
+    }
+      
+    public override bool IsValid
+    {
+      get
+      {
+        return base.IsValid
+        && Contains("ParamName")
+        && Contains("Val")
+      ;
+      }
+    }
+
+    public override int ExecutePermission { get { return EXECUTE_IF_IDLE; } }
+
+    public string ParamName
+    {
+      get { return GetValue("ParamName").ToObject<string>(CommandBase.Serializer); }
+      set
+      {
+          SetValue("ParamName", JToken.FromObject(value, CommandBase.Serializer));
+      }
+    }
+
+    public List<bool> Val
+    {
+      get { return GetValue("Val").ToObject<List<bool>>(CommandBase.Serializer); }
+      set
+      {
+          SetValue("Val", JToken.FromObject(value, CommandBase.Serializer));
+      }
+    }
+
+    public string DataSetName
+    {
+      get { return GetValue("DataSetName").ToObject<string>(CommandBase.Serializer); }
+      set
+      {
+        if (value == null)
+          RemoveValue("DataSetName");
+        else
+          SetValue("DataSetName", JToken.FromObject(value, CommandBase.Serializer));
+      }
+    }
+  }
+
+
+  ///
+  /// Please note the command GetBeiDouEphemerisBoolParams is deprecated since 21.3. You may use GetBeiDouEphBoolParamForEachSV.
+  /// 
+  /// Please note the command GetBeiDouEphBoolParamForEachSV is deprecated since 23.11. You may use GetConstellationParameterForSV.
+  /// 
+  /// Get BeiDou ephemeris boolean parameter value for all satellites
+  ///
+  /// Name        Type            Description
+  /// ----------- --------------- -------------------------------------------------------------------------------------------
+  /// ParamName   string          Refer to SetBeiDouEphBoolParamForSV for accepted names
+  /// DataSetName optional string Optional name of the data set to use. If no value is provided, the active data set is used.
+  ///
+
+  public class GetBeiDouEphemerisBoolParams : CommandBase
+  {
+    public override string Documentation
+    {
+      get { return "Please note the command GetBeiDouEphemerisBoolParams is deprecated since 21.3. You may use GetBeiDouEphBoolParamForEachSV.\n\nPlease note the command GetBeiDouEphBoolParamForEachSV is deprecated since 23.11. You may use GetConstellationParameterForSV.\n\nGet BeiDou ephemeris boolean parameter value for all satellites"; }
+    }
+
+    public override string Deprecated
+    {
+      get { return "Please note the command GetBeiDouEphBoolParamForEachSV is deprecated since 23.11. You may use GetConstellationParameterForSV."; }
+    }
+
+    internal const string CmdName = "GetBeiDouEphemerisBoolParams";
+
+    public GetBeiDouEphemerisBoolParams()
+      : base(CmdName)
+    {}
+
+    public GetBeiDouEphemerisBoolParams(string paramName, string dataSetName = null)
+      : base(CmdName)
+    {
+      ParamName = paramName;
+      DataSetName = dataSetName;
+    }
+      
+    public override bool IsValid
+    {
+      get
+      {
+        return base.IsValid
+        && Contains("ParamName")
+      ;
+      }
+    }
+
+    public override int ExecutePermission { get { return EXECUTE_IF_IDLE; } }
+
+    public string ParamName
+    {
+      get { return GetValue("ParamName").ToObject<string>(CommandBase.Serializer); }
+      set
+      {
+          SetValue("ParamName", JToken.FromObject(value, CommandBase.Serializer));
+      }
+    }
+
+    public string DataSetName
+    {
+      get { return GetValue("DataSetName").ToObject<string>(CommandBase.Serializer); }
+      set
+      {
+        if (value == null)
+          RemoveValue("DataSetName");
+        else
+          SetValue("DataSetName", JToken.FromObject(value, CommandBase.Serializer));
+      }
+    }
+  }
+
+
+  ///
+  /// Please note the command GetBeiDouEphBoolParamForEachSV is deprecated since 23.11. You may use GetConstellationParameterForSV.
+  /// 
+  /// Get BeiDou ephemeris boolean parameter value for all satellites
+  ///
+  /// Name        Type            Description
+  /// ----------- --------------- -------------------------------------------------------------------------------------------
+  /// ParamName   string          Refer to SetBeiDouEphBoolParamForSV for accepted names
+  /// DataSetName optional string Optional name of the data set to use. If no value is provided, the active data set is used.
+  ///
+
+  public class GetBeiDouEphBoolParamForEachSV : CommandBase
+  {
+    public override string Documentation
+    {
+      get { return "Please note the command GetBeiDouEphBoolParamForEachSV is deprecated since 23.11. You may use GetConstellationParameterForSV.\n\nGet BeiDou ephemeris boolean parameter value for all satellites"; }
+    }
+
+    public override string Deprecated
+    {
+      get { return "Please note the command GetBeiDouEphBoolParamForEachSV is deprecated since 23.11. You may use GetConstellationParameterForSV."; }
+    }
+
+    internal const string CmdName = "GetBeiDouEphBoolParamForEachSV";
+
+    public GetBeiDouEphBoolParamForEachSV()
+      : base(CmdName)
+    {}
+
+    public GetBeiDouEphBoolParamForEachSV(string paramName, string dataSetName = null)
+      : base(CmdName)
+    {
+      ParamName = paramName;
+      DataSetName = dataSetName;
+    }
+      
+    public override bool IsValid
+    {
+      get
+      {
+        return base.IsValid
+        && Contains("ParamName")
+      ;
+      }
+    }
+
+    public override int ExecutePermission { get { return EXECUTE_IF_IDLE; } }
+
+    public string ParamName
+    {
+      get { return GetValue("ParamName").ToObject<string>(CommandBase.Serializer); }
+      set
+      {
+          SetValue("ParamName", JToken.FromObject(value, CommandBase.Serializer));
+      }
+    }
+
+    public string DataSetName
+    {
+      get { return GetValue("DataSetName").ToObject<string>(CommandBase.Serializer); }
+      set
+      {
+        if (value == null)
+          RemoveValue("DataSetName");
+        else
+          SetValue("DataSetName", JToken.FromObject(value, CommandBase.Serializer));
+      }
+    }
+  }
+
+
+  ///
+  /// Result of GetBeiDouEphBoolParamForEachSV.
+  ///
+  /// Name        Type            Description
+  /// ----------- --------------- --------------------------------------------------------------------------------------------------
+  /// ParamName   string          Refer to SetBeiDouEphBoolParamForSV for accepted names
+  /// Val         array bool      Parameter value for each satellite. Zero based index (index 0 => SV ID 1, index 1 => SV ID 2, etc)
+  /// DataSetName optional string Optional name of the data set to use. If no value is provided, the active data set is used.
+  ///
+
+  public class GetBeiDouEphemerisBoolParamsResult : CommandResult
+  {
+    public override string Documentation
+    {
+      get { return "Result of GetBeiDouEphBoolParamForEachSV."; }
+    }
+  
+    internal const string CmdName = "GetBeiDouEphemerisBoolParamsResult";
+
+    public GetBeiDouEphemerisBoolParamsResult()
+      : base(CmdName)
+    {}
+
+    public GetBeiDouEphemerisBoolParamsResult(CommandBase relatedCommand, string paramName, List<bool> val, string dataSetName = null)
+      : base(CmdName, relatedCommand)
+    {
+      ParamName = paramName;
+      Val = val;
+      DataSetName = dataSetName;
+    }
+
+    public override bool IsValid
+    {
+      get
+      {
+        return base.IsValid
+        && Contains("ParamName")
+        && Contains("Val")
+      ;
+      }
+    }
+
+    public string ParamName
+    {
+      get { return GetValue("ParamName").ToObject<string>(CommandBase.Serializer); }
+      set { SetValue("ParamName", JToken.FromObject(value, CommandBase.Serializer)); }
+    }
+
+    public List<bool> Val
+    {
+      get { return GetValue("Val").ToObject<List<bool>>(CommandBase.Serializer); }
+      set { SetValue("Val", JToken.FromObject(value, CommandBase.Serializer)); }
+    }
+
+    public string DataSetName
+    {
+      get { return GetValue("DataSetName").ToObject<string>(CommandBase.Serializer); }
+      set { SetValue("DataSetName", JToken.FromObject(value, CommandBase.Serializer)); }
+    }
+  }
+
+  ///
+  /// Name        Type            Description
+  /// ----------- --------------- --------------------------------------------------------------------------------------------------
+  /// ParamName   string          Refer to SetBeiDouEphBoolParamForSV for accepted names
+  /// Val         array bool      Parameter value for each satellite. Zero based index (index 0 => SV ID 1, index 1 => SV ID 2, etc)
+  /// DataSetName optional string Optional name of the data set to use. If no value is provided, the active data set is used.
+  ///
+
+  public class GetBeiDouEphBoolParamForEachSVResult : GetBeiDouEphemerisBoolParamsResult
+  {
+    internal new const string CmdName = "GetBeiDouEphBoolParamForEachSVResult";
+
+    public GetBeiDouEphBoolParamForEachSVResult()
+      : base()
+    {
+       Name = CmdName;
+    }
+
+    public GetBeiDouEphBoolParamForEachSVResult(CommandBase relatedCommand, string paramName, List<bool> val, string dataSetName = null)
+      : base(relatedCommand, paramName, val, dataSetName)
+    {
+      Name = CmdName;
+    }
+  }
+
+
+  ///
+  /// Please note the command SetQzssEphemerisBoolParam is deprecated since 21.3. You may use SetQzssEphBoolParamForSV.
+  /// 
+  /// Please note the command SetQzssEphBoolParamForSV is deprecated since 23.11. You may use SetConstellationParameterForSV.
+  /// 
+  /// Set various boolean parameters in the QZSS ephemeris
+  /// 
+  ///   ParamName
+  /// "IscL1CaAvailable"
+  /// "IscL2CAvailable"
+  /// "IscL5I5Available"
+  /// "IscL5Q5Available"
+  /// "IscL1CPAvailable"
+  /// "IscL1CDAvailable"
+  ///
+  /// Name        Type            Description
+  /// ----------- --------------- -------------------------------------------------------------------------------------------
+  /// SvId        int             Satellite SV ID 1..10, or use 0 to apply new value to all satellites
+  /// ParamName   string          Parameter name (see table above for accepted names)
+  /// Val         bool            Parameter value (see table above for unit)
+  /// DataSetName optional string Optional name of the data set to use. If no value is provided, the active data set is used.
+  ///
+
+  public class SetQzssEphemerisBoolParam : CommandBase
+  {
+    public override string Documentation
+    {
+      get { return "Please note the command SetQzssEphemerisBoolParam is deprecated since 21.3. You may use SetQzssEphBoolParamForSV.\n\nPlease note the command SetQzssEphBoolParamForSV is deprecated since 23.11. You may use SetConstellationParameterForSV.\n\nSet various boolean parameters in the QZSS ephemeris\n\n  ParamName\n\"IscL1CaAvailable\"\n\"IscL2CAvailable\"\n\"IscL5I5Available\"\n\"IscL5Q5Available\"\n\"IscL1CPAvailable\"\n\"IscL1CDAvailable\""; }
+    }
+
+    public override string Deprecated
+    {
+      get { return "Please note the command SetQzssEphBoolParamForSV is deprecated since 23.11. You may use SetConstellationParameterForSV."; }
+    }
+
+    internal const string CmdName = "SetQzssEphemerisBoolParam";
+
+    public SetQzssEphemerisBoolParam()
+      : base(CmdName)
+    {}
+
+    public SetQzssEphemerisBoolParam(int svId, string paramName, bool val, string dataSetName = null)
+      : base(CmdName)
+    {
+      SvId = svId;
+      ParamName = paramName;
+      Val = val;
+      DataSetName = dataSetName;
+    }
+      
+    public override bool IsValid
+    {
+      get
+      {
+        return base.IsValid
+        && Contains("SvId")
+        && Contains("ParamName")
+        && Contains("Val")
+      ;
+      }
+    }
+
+    public override int ExecutePermission { get { return EXECUTE_IF_IDLE; } }
+
+    public int SvId
+    {
+      get { return GetValue("SvId").ToObject<int>(CommandBase.Serializer); }
+      set
+      {
+          SetValue("SvId", JToken.FromObject(value, CommandBase.Serializer));
+      }
+    }
+
+    public string ParamName
+    {
+      get { return GetValue("ParamName").ToObject<string>(CommandBase.Serializer); }
+      set
+      {
+          SetValue("ParamName", JToken.FromObject(value, CommandBase.Serializer));
+      }
+    }
+
+    public bool Val
+    {
+      get { return GetValue("Val").ToObject<bool>(CommandBase.Serializer); }
+      set
+      {
+          SetValue("Val", JToken.FromObject(value, CommandBase.Serializer));
+      }
+    }
+
+    public string DataSetName
+    {
+      get { return GetValue("DataSetName").ToObject<string>(CommandBase.Serializer); }
+      set
+      {
+        if (value == null)
+          RemoveValue("DataSetName");
+        else
+          SetValue("DataSetName", JToken.FromObject(value, CommandBase.Serializer));
+      }
+    }
+  }
+
+
+  ///
+  /// Please note the command SetQzssEphBoolParamForSV is deprecated since 23.11. You may use SetConstellationParameterForSV.
+  /// 
+  /// Set various boolean parameters in the QZSS ephemeris
+  /// 
+  ///   ParamName
+  /// "IscL1CaAvailable"
+  /// "IscL2CAvailable"
+  /// "IscL5I5Available"
+  /// "IscL5Q5Available"
+  /// "IscL1CPAvailable"
+  /// "IscL1CDAvailable"
+  ///
+  /// Name        Type            Description
+  /// ----------- --------------- -------------------------------------------------------------------------------------------
+  /// SvId        int             Satellite SV ID 1..10, or use 0 to apply new value to all satellites
+  /// ParamName   string          Parameter name (see table above for accepted names)
+  /// Val         bool            Parameter value (see table above for unit)
+  /// DataSetName optional string Optional name of the data set to use. If no value is provided, the active data set is used.
+  ///
+
+  public class SetQzssEphBoolParamForSV : CommandBase
+  {
+    public override string Documentation
+    {
+      get { return "Please note the command SetQzssEphBoolParamForSV is deprecated since 23.11. You may use SetConstellationParameterForSV.\n\nSet various boolean parameters in the QZSS ephemeris\n\n  ParamName\n\"IscL1CaAvailable\"\n\"IscL2CAvailable\"\n\"IscL5I5Available\"\n\"IscL5Q5Available\"\n\"IscL1CPAvailable\"\n\"IscL1CDAvailable\""; }
+    }
+
+    public override string Deprecated
+    {
+      get { return "Please note the command SetQzssEphBoolParamForSV is deprecated since 23.11. You may use SetConstellationParameterForSV."; }
+    }
+
+    internal const string CmdName = "SetQzssEphBoolParamForSV";
+
+    public SetQzssEphBoolParamForSV()
+      : base(CmdName)
+    {}
+
+    public SetQzssEphBoolParamForSV(int svId, string paramName, bool val, string dataSetName = null)
+      : base(CmdName)
+    {
+      SvId = svId;
+      ParamName = paramName;
+      Val = val;
+      DataSetName = dataSetName;
+    }
+      
+    public override bool IsValid
+    {
+      get
+      {
+        return base.IsValid
+        && Contains("SvId")
+        && Contains("ParamName")
+        && Contains("Val")
+      ;
+      }
+    }
+
+    public override int ExecutePermission { get { return EXECUTE_IF_IDLE; } }
+
+    public int SvId
+    {
+      get { return GetValue("SvId").ToObject<int>(CommandBase.Serializer); }
+      set
+      {
+          SetValue("SvId", JToken.FromObject(value, CommandBase.Serializer));
+      }
+    }
+
+    public string ParamName
+    {
+      get { return GetValue("ParamName").ToObject<string>(CommandBase.Serializer); }
+      set
+      {
+          SetValue("ParamName", JToken.FromObject(value, CommandBase.Serializer));
+      }
+    }
+
+    public bool Val
+    {
+      get { return GetValue("Val").ToObject<bool>(CommandBase.Serializer); }
+      set
+      {
+          SetValue("Val", JToken.FromObject(value, CommandBase.Serializer));
+      }
+    }
+
+    public string DataSetName
+    {
+      get { return GetValue("DataSetName").ToObject<string>(CommandBase.Serializer); }
+      set
+      {
+        if (value == null)
+          RemoveValue("DataSetName");
+        else
+          SetValue("DataSetName", JToken.FromObject(value, CommandBase.Serializer));
+      }
+    }
+  }
+
+
+  ///
+  /// Please note the command GetQzssEphemerisBoolParam is deprecated since 21.3. You may use GetQzssEphBoolParamForSV.
+  /// 
+  /// Please note the command GetQzssEphBoolParamForSV is deprecated since 23.11. You may use GetConstellationParameterForSV.
+  /// 
+  /// Get various boolean parameters in the QZSS ephemeris
+  /// 
+  ///   ParamName
+  /// "IscL1CaAvailable"
+  /// "IscL2CAvailable"
+  /// "IscL5I5Available"
+  /// "IscL5Q5Available"
+  /// "IscL1CPAvailable"
+  /// "IscL1CDAvailable"
+  ///
+  /// Name        Type            Description
+  /// ----------- --------------- -------------------------------------------------------------------------------------------
+  /// SvId        int             Satellite SV ID 1..10, or use 0 to apply new value to all satellites
+  /// ParamName   string          Parameter name (see table above for accepted names)
+  /// DataSetName optional string Optional name of the data set to use. If no value is provided, the active data set is used.
+  ///
+
+  public class GetQzssEphemerisBoolParam : CommandBase
+  {
+    public override string Documentation
+    {
+      get { return "Please note the command GetQzssEphemerisBoolParam is deprecated since 21.3. You may use GetQzssEphBoolParamForSV.\n\nPlease note the command GetQzssEphBoolParamForSV is deprecated since 23.11. You may use GetConstellationParameterForSV.\n\nGet various boolean parameters in the QZSS ephemeris\n\n  ParamName\n\"IscL1CaAvailable\"\n\"IscL2CAvailable\"\n\"IscL5I5Available\"\n\"IscL5Q5Available\"\n\"IscL1CPAvailable\"\n\"IscL1CDAvailable\""; }
+    }
+
+    public override string Deprecated
+    {
+      get { return "Please note the command GetQzssEphBoolParamForSV is deprecated since 23.11. You may use GetConstellationParameterForSV."; }
+    }
+
+    internal const string CmdName = "GetQzssEphemerisBoolParam";
+
+    public GetQzssEphemerisBoolParam()
+      : base(CmdName)
+    {}
+
+    public GetQzssEphemerisBoolParam(int svId, string paramName, string dataSetName = null)
+      : base(CmdName)
+    {
+      SvId = svId;
+      ParamName = paramName;
+      DataSetName = dataSetName;
+    }
+      
+    public override bool IsValid
+    {
+      get
+      {
+        return base.IsValid
+        && Contains("SvId")
+        && Contains("ParamName")
+      ;
+      }
+    }
+
+    public override int ExecutePermission { get { return EXECUTE_IF_IDLE; } }
+
+    public int SvId
+    {
+      get { return GetValue("SvId").ToObject<int>(CommandBase.Serializer); }
+      set
+      {
+          SetValue("SvId", JToken.FromObject(value, CommandBase.Serializer));
+      }
+    }
+
+    public string ParamName
+    {
+      get { return GetValue("ParamName").ToObject<string>(CommandBase.Serializer); }
+      set
+      {
+          SetValue("ParamName", JToken.FromObject(value, CommandBase.Serializer));
+      }
+    }
+
+    public string DataSetName
+    {
+      get { return GetValue("DataSetName").ToObject<string>(CommandBase.Serializer); }
+      set
+      {
+        if (value == null)
+          RemoveValue("DataSetName");
+        else
+          SetValue("DataSetName", JToken.FromObject(value, CommandBase.Serializer));
+      }
+    }
+  }
+
+
+  ///
+  /// Please note the command GetQzssEphBoolParamForSV is deprecated since 23.11. You may use GetConstellationParameterForSV.
+  /// 
+  /// Get various boolean parameters in the QZSS ephemeris
+  /// 
+  ///   ParamName
+  /// "IscL1CaAvailable"
+  /// "IscL2CAvailable"
+  /// "IscL5I5Available"
+  /// "IscL5Q5Available"
+  /// "IscL1CPAvailable"
+  /// "IscL1CDAvailable"
+  ///
+  /// Name        Type            Description
+  /// ----------- --------------- -------------------------------------------------------------------------------------------
+  /// SvId        int             Satellite SV ID 1..10, or use 0 to apply new value to all satellites
+  /// ParamName   string          Parameter name (see table above for accepted names)
+  /// DataSetName optional string Optional name of the data set to use. If no value is provided, the active data set is used.
+  ///
+
+  public class GetQzssEphBoolParamForSV : CommandBase
+  {
+    public override string Documentation
+    {
+      get { return "Please note the command GetQzssEphBoolParamForSV is deprecated since 23.11. You may use GetConstellationParameterForSV.\n\nGet various boolean parameters in the QZSS ephemeris\n\n  ParamName\n\"IscL1CaAvailable\"\n\"IscL2CAvailable\"\n\"IscL5I5Available\"\n\"IscL5Q5Available\"\n\"IscL1CPAvailable\"\n\"IscL1CDAvailable\""; }
+    }
+
+    public override string Deprecated
+    {
+      get { return "Please note the command GetQzssEphBoolParamForSV is deprecated since 23.11. You may use GetConstellationParameterForSV."; }
+    }
+
+    internal const string CmdName = "GetQzssEphBoolParamForSV";
+
+    public GetQzssEphBoolParamForSV()
+      : base(CmdName)
+    {}
+
+    public GetQzssEphBoolParamForSV(int svId, string paramName, string dataSetName = null)
+      : base(CmdName)
+    {
+      SvId = svId;
+      ParamName = paramName;
+      DataSetName = dataSetName;
+    }
+      
+    public override bool IsValid
+    {
+      get
+      {
+        return base.IsValid
+        && Contains("SvId")
+        && Contains("ParamName")
+      ;
+      }
+    }
+
+    public override int ExecutePermission { get { return EXECUTE_IF_IDLE; } }
+
+    public int SvId
+    {
+      get { return GetValue("SvId").ToObject<int>(CommandBase.Serializer); }
+      set
+      {
+          SetValue("SvId", JToken.FromObject(value, CommandBase.Serializer));
+      }
+    }
+
+    public string ParamName
+    {
+      get { return GetValue("ParamName").ToObject<string>(CommandBase.Serializer); }
+      set
+      {
+          SetValue("ParamName", JToken.FromObject(value, CommandBase.Serializer));
+      }
+    }
+
+    public string DataSetName
+    {
+      get { return GetValue("DataSetName").ToObject<string>(CommandBase.Serializer); }
+      set
+      {
+        if (value == null)
+          RemoveValue("DataSetName");
+        else
+          SetValue("DataSetName", JToken.FromObject(value, CommandBase.Serializer));
+      }
+    }
+  }
+
+
+  ///
+  /// Result of GetQzssEphBoolParamForSV.
+  ///
+  /// Name        Type            Description
+  /// ----------- --------------- -------------------------------------------------------------------------------------------
+  /// SvId        int             Satellite SV ID 1..10, or use 0 to apply new value to all satellites
+  /// ParamName   string          Parameter name (see table above for accepted names)
+  /// Val         bool            Parameter value (see table above for unit)
+  /// DataSetName optional string Optional name of the data set to use. If no value is provided, the active data set is used.
+  ///
+
+  public class GetQzssEphemerisBoolParamResult : CommandResult
+  {
+    public override string Documentation
+    {
+      get { return "Result of GetQzssEphBoolParamForSV."; }
+    }
+  
+    internal const string CmdName = "GetQzssEphemerisBoolParamResult";
+
+    public GetQzssEphemerisBoolParamResult()
+      : base(CmdName)
+    {}
+
+    public GetQzssEphemerisBoolParamResult(CommandBase relatedCommand, int svId, string paramName, bool val, string dataSetName = null)
+      : base(CmdName, relatedCommand)
+    {
+      SvId = svId;
+      ParamName = paramName;
+      Val = val;
+      DataSetName = dataSetName;
+    }
+
+    public override bool IsValid
+    {
+      get
+      {
+        return base.IsValid
+        && Contains("SvId")
+        && Contains("ParamName")
+        && Contains("Val")
+      ;
+      }
+    }
+
+    public int SvId
+    {
+      get { return GetValue("SvId").ToObject<int>(CommandBase.Serializer); }
+      set { SetValue("SvId", JToken.FromObject(value, CommandBase.Serializer)); }
+    }
+
+    public string ParamName
+    {
+      get { return GetValue("ParamName").ToObject<string>(CommandBase.Serializer); }
+      set { SetValue("ParamName", JToken.FromObject(value, CommandBase.Serializer)); }
+    }
+
+    public bool Val
+    {
+      get { return GetValue("Val").ToObject<bool>(CommandBase.Serializer); }
+      set { SetValue("Val", JToken.FromObject(value, CommandBase.Serializer)); }
+    }
+
+    public string DataSetName
+    {
+      get { return GetValue("DataSetName").ToObject<string>(CommandBase.Serializer); }
+      set { SetValue("DataSetName", JToken.FromObject(value, CommandBase.Serializer)); }
+    }
+  }
+
+  ///
+  /// Name        Type            Description
+  /// ----------- --------------- -------------------------------------------------------------------------------------------
+  /// SvId        int             Satellite SV ID 1..10, or use 0 to apply new value to all satellites
+  /// ParamName   string          Parameter name (see table above for accepted names)
+  /// Val         bool            Parameter value (see table above for unit)
+  /// DataSetName optional string Optional name of the data set to use. If no value is provided, the active data set is used.
+  ///
+
+  public class GetQzssEphBoolParamForSVResult : GetQzssEphemerisBoolParamResult
+  {
+    internal new const string CmdName = "GetQzssEphBoolParamForSVResult";
+
+    public GetQzssEphBoolParamForSVResult()
+      : base()
+    {
+       Name = CmdName;
+    }
+
+    public GetQzssEphBoolParamForSVResult(CommandBase relatedCommand, int svId, string paramName, bool val, string dataSetName = null)
+      : base(relatedCommand, svId, paramName, val, dataSetName)
+    {
+      Name = CmdName;
+    }
+  }
+
+
+  ///
+  /// Please note the command SetQzssEphemerisBoolParams is deprecated since 21.3. You may use SetQzssEphBoolParamForEachSV.
+  /// 
+  /// Please note the command SetQzssEphBoolParamForEachSV is deprecated since 23.11. You may use SetConstellationParameterForSV.
+  /// 
+  /// Set QZSS ephemeris boolean parameter value for all satellites
+  ///
+  /// Name        Type            Description
+  /// ----------- --------------- --------------------------------------------------------------------------------------------------
+  /// ParamName   string          Refer to SetQzssEphemerisBoolParam for accepted names
+  /// Val         array bool      Parameter value for each satellite. Zero based index (index 0 => SV ID 1, index 1 => SV ID 2, etc)
+  /// DataSetName optional string Optional name of the data set to use. If no value is provided, the active data set is used.
+  ///
+
+  public class SetQzssEphemerisBoolParams : CommandBase
+  {
+    public override string Documentation
+    {
+      get { return "Please note the command SetQzssEphemerisBoolParams is deprecated since 21.3. You may use SetQzssEphBoolParamForEachSV.\n\nPlease note the command SetQzssEphBoolParamForEachSV is deprecated since 23.11. You may use SetConstellationParameterForSV.\n\nSet QZSS ephemeris boolean parameter value for all satellites"; }
+    }
+
+    public override string Deprecated
+    {
+      get { return "Please note the command SetQzssEphBoolParamForEachSV is deprecated since 23.11. You may use SetConstellationParameterForSV."; }
+    }
+
+    internal const string CmdName = "SetQzssEphemerisBoolParams";
+
+    public SetQzssEphemerisBoolParams()
+      : base(CmdName)
+    {}
+
+    public SetQzssEphemerisBoolParams(string paramName, List<bool> val, string dataSetName = null)
+      : base(CmdName)
+    {
+      ParamName = paramName;
+      Val = val;
+      DataSetName = dataSetName;
+    }
+      
+    public override bool IsValid
+    {
+      get
+      {
+        return base.IsValid
+        && Contains("ParamName")
+        && Contains("Val")
+      ;
+      }
+    }
+
+    public override int ExecutePermission { get { return EXECUTE_IF_IDLE; } }
+
+    public string ParamName
+    {
+      get { return GetValue("ParamName").ToObject<string>(CommandBase.Serializer); }
+      set
+      {
+          SetValue("ParamName", JToken.FromObject(value, CommandBase.Serializer));
+      }
+    }
+
+    public List<bool> Val
+    {
+      get { return GetValue("Val").ToObject<List<bool>>(CommandBase.Serializer); }
+      set
+      {
+          SetValue("Val", JToken.FromObject(value, CommandBase.Serializer));
+      }
+    }
+
+    public string DataSetName
+    {
+      get { return GetValue("DataSetName").ToObject<string>(CommandBase.Serializer); }
+      set
+      {
+        if (value == null)
+          RemoveValue("DataSetName");
+        else
+          SetValue("DataSetName", JToken.FromObject(value, CommandBase.Serializer));
+      }
+    }
+  }
+
+
+  ///
+  /// Please note the command SetQzssEphBoolParamForEachSV is deprecated since 23.11. You may use SetConstellationParameterForSV.
+  /// 
+  /// Set QZSS ephemeris boolean parameter value for all satellites
+  ///
+  /// Name        Type            Description
+  /// ----------- --------------- --------------------------------------------------------------------------------------------------
+  /// ParamName   string          Refer to SetQzssEphemerisBoolParam for accepted names
+  /// Val         array bool      Parameter value for each satellite. Zero based index (index 0 => SV ID 1, index 1 => SV ID 2, etc)
+  /// DataSetName optional string Optional name of the data set to use. If no value is provided, the active data set is used.
+  ///
+
+  public class SetQzssEphBoolParamForEachSV : CommandBase
+  {
+    public override string Documentation
+    {
+      get { return "Please note the command SetQzssEphBoolParamForEachSV is deprecated since 23.11. You may use SetConstellationParameterForSV.\n\nSet QZSS ephemeris boolean parameter value for all satellites"; }
+    }
+
+    public override string Deprecated
+    {
+      get { return "Please note the command SetQzssEphBoolParamForEachSV is deprecated since 23.11. You may use SetConstellationParameterForSV."; }
+    }
+
+    internal const string CmdName = "SetQzssEphBoolParamForEachSV";
+
+    public SetQzssEphBoolParamForEachSV()
+      : base(CmdName)
+    {}
+
+    public SetQzssEphBoolParamForEachSV(string paramName, List<bool> val, string dataSetName = null)
+      : base(CmdName)
+    {
+      ParamName = paramName;
+      Val = val;
+      DataSetName = dataSetName;
+    }
+      
+    public override bool IsValid
+    {
+      get
+      {
+        return base.IsValid
+        && Contains("ParamName")
+        && Contains("Val")
+      ;
+      }
+    }
+
+    public override int ExecutePermission { get { return EXECUTE_IF_IDLE; } }
+
+    public string ParamName
+    {
+      get { return GetValue("ParamName").ToObject<string>(CommandBase.Serializer); }
+      set
+      {
+          SetValue("ParamName", JToken.FromObject(value, CommandBase.Serializer));
+      }
+    }
+
+    public List<bool> Val
+    {
+      get { return GetValue("Val").ToObject<List<bool>>(CommandBase.Serializer); }
+      set
+      {
+          SetValue("Val", JToken.FromObject(value, CommandBase.Serializer));
+      }
+    }
+
+    public string DataSetName
+    {
+      get { return GetValue("DataSetName").ToObject<string>(CommandBase.Serializer); }
+      set
+      {
+        if (value == null)
+          RemoveValue("DataSetName");
+        else
+          SetValue("DataSetName", JToken.FromObject(value, CommandBase.Serializer));
+      }
+    }
+  }
+
+
+  ///
+  /// Please note the command GetQzssEphemerisBoolParams is deprecated since 21.3. You may use GetQzssEphBoolParamForEachSV.
+  /// 
+  /// Please note the command GetQzssEphBoolParamForEachSV is deprecated since 23.11. You may use GetConstellationParameterForSV.
+  /// 
+  /// Get QZSS ephemeris boolean parameter value for all satellites
+  ///
+  /// Name        Type            Description
+  /// ----------- --------------- -------------------------------------------------------------------------------------------
+  /// ParamName   string          Refer to SetQzssEphemerisBoolParam for accepted names
+  /// DataSetName optional string Optional name of the data set to use. If no value is provided, the active data set is used.
+  ///
+
+  public class GetQzssEphemerisBoolParams : CommandBase
+  {
+    public override string Documentation
+    {
+      get { return "Please note the command GetQzssEphemerisBoolParams is deprecated since 21.3. You may use GetQzssEphBoolParamForEachSV.\n\nPlease note the command GetQzssEphBoolParamForEachSV is deprecated since 23.11. You may use GetConstellationParameterForSV.\n\nGet QZSS ephemeris boolean parameter value for all satellites"; }
+    }
+
+    public override string Deprecated
+    {
+      get { return "Please note the command GetQzssEphBoolParamForEachSV is deprecated since 23.11. You may use GetConstellationParameterForSV."; }
+    }
+
+    internal const string CmdName = "GetQzssEphemerisBoolParams";
+
+    public GetQzssEphemerisBoolParams()
+      : base(CmdName)
+    {}
+
+    public GetQzssEphemerisBoolParams(string paramName, string dataSetName = null)
+      : base(CmdName)
+    {
+      ParamName = paramName;
+      DataSetName = dataSetName;
+    }
+      
+    public override bool IsValid
+    {
+      get
+      {
+        return base.IsValid
+        && Contains("ParamName")
+      ;
+      }
+    }
+
+    public override int ExecutePermission { get { return EXECUTE_IF_IDLE; } }
+
+    public string ParamName
+    {
+      get { return GetValue("ParamName").ToObject<string>(CommandBase.Serializer); }
+      set
+      {
+          SetValue("ParamName", JToken.FromObject(value, CommandBase.Serializer));
+      }
+    }
+
+    public string DataSetName
+    {
+      get { return GetValue("DataSetName").ToObject<string>(CommandBase.Serializer); }
+      set
+      {
+        if (value == null)
+          RemoveValue("DataSetName");
+        else
+          SetValue("DataSetName", JToken.FromObject(value, CommandBase.Serializer));
+      }
+    }
+  }
+
+
+  ///
+  /// Please note the command GetQzssEphBoolParamForEachSV is deprecated since 23.11. You may use GetConstellationParameterForSV.
+  /// 
+  /// Get QZSS ephemeris boolean parameter value for all satellites
+  ///
+  /// Name        Type            Description
+  /// ----------- --------------- -------------------------------------------------------------------------------------------
+  /// ParamName   string          Refer to SetQzssEphemerisBoolParam for accepted names
+  /// DataSetName optional string Optional name of the data set to use. If no value is provided, the active data set is used.
+  ///
+
+  public class GetQzssEphBoolParamForEachSV : CommandBase
+  {
+    public override string Documentation
+    {
+      get { return "Please note the command GetQzssEphBoolParamForEachSV is deprecated since 23.11. You may use GetConstellationParameterForSV.\n\nGet QZSS ephemeris boolean parameter value for all satellites"; }
+    }
+
+    public override string Deprecated
+    {
+      get { return "Please note the command GetQzssEphBoolParamForEachSV is deprecated since 23.11. You may use GetConstellationParameterForSV."; }
+    }
+
+    internal const string CmdName = "GetQzssEphBoolParamForEachSV";
+
+    public GetQzssEphBoolParamForEachSV()
+      : base(CmdName)
+    {}
+
+    public GetQzssEphBoolParamForEachSV(string paramName, string dataSetName = null)
+      : base(CmdName)
+    {
+      ParamName = paramName;
+      DataSetName = dataSetName;
+    }
+      
+    public override bool IsValid
+    {
+      get
+      {
+        return base.IsValid
+        && Contains("ParamName")
+      ;
+      }
+    }
+
+    public override int ExecutePermission { get { return EXECUTE_IF_IDLE; } }
+
+    public string ParamName
+    {
+      get { return GetValue("ParamName").ToObject<string>(CommandBase.Serializer); }
+      set
+      {
+          SetValue("ParamName", JToken.FromObject(value, CommandBase.Serializer));
+      }
+    }
+
+    public string DataSetName
+    {
+      get { return GetValue("DataSetName").ToObject<string>(CommandBase.Serializer); }
+      set
+      {
+        if (value == null)
+          RemoveValue("DataSetName");
+        else
+          SetValue("DataSetName", JToken.FromObject(value, CommandBase.Serializer));
+      }
+    }
+  }
+
+
+  ///
+  /// Result of GetQzssEphBoolParamForEachSV.
+  ///
+  /// Name        Type            Description
+  /// ----------- --------------- --------------------------------------------------------------------------------------------------
+  /// ParamName   string          Refer to SetQzssEphemerisBoolParam for accepted names
+  /// Val         array bool      Parameter value for each satellite. Zero based index (index 0 => SV ID 1, index 1 => SV ID 2, etc)
+  /// DataSetName optional string Optional name of the data set to use. If no value is provided, the active data set is used.
+  ///
+
+  public class GetQzssEphemerisBoolParamsResult : CommandResult
+  {
+    public override string Documentation
+    {
+      get { return "Result of GetQzssEphBoolParamForEachSV."; }
+    }
+  
+    internal const string CmdName = "GetQzssEphemerisBoolParamsResult";
+
+    public GetQzssEphemerisBoolParamsResult()
+      : base(CmdName)
+    {}
+
+    public GetQzssEphemerisBoolParamsResult(CommandBase relatedCommand, string paramName, List<bool> val, string dataSetName = null)
+      : base(CmdName, relatedCommand)
+    {
+      ParamName = paramName;
+      Val = val;
+      DataSetName = dataSetName;
+    }
+
+    public override bool IsValid
+    {
+      get
+      {
+        return base.IsValid
+        && Contains("ParamName")
+        && Contains("Val")
+      ;
+      }
+    }
+
+    public string ParamName
+    {
+      get { return GetValue("ParamName").ToObject<string>(CommandBase.Serializer); }
+      set { SetValue("ParamName", JToken.FromObject(value, CommandBase.Serializer)); }
+    }
+
+    public List<bool> Val
+    {
+      get { return GetValue("Val").ToObject<List<bool>>(CommandBase.Serializer); }
+      set { SetValue("Val", JToken.FromObject(value, CommandBase.Serializer)); }
+    }
+
+    public string DataSetName
+    {
+      get { return GetValue("DataSetName").ToObject<string>(CommandBase.Serializer); }
+      set { SetValue("DataSetName", JToken.FromObject(value, CommandBase.Serializer)); }
+    }
+  }
+
+  ///
+  /// Name        Type            Description
+  /// ----------- --------------- --------------------------------------------------------------------------------------------------
+  /// ParamName   string          Refer to SetQzssEphemerisBoolParam for accepted names
+  /// Val         array bool      Parameter value for each satellite. Zero based index (index 0 => SV ID 1, index 1 => SV ID 2, etc)
+  /// DataSetName optional string Optional name of the data set to use. If no value is provided, the active data set is used.
+  ///
+
+  public class GetQzssEphBoolParamForEachSVResult : GetQzssEphemerisBoolParamsResult
+  {
+    internal new const string CmdName = "GetQzssEphBoolParamForEachSVResult";
+
+    public GetQzssEphBoolParamForEachSVResult()
+      : base()
+    {
+       Name = CmdName;
+    }
+
+    public GetQzssEphBoolParamForEachSVResult(CommandBase relatedCommand, string paramName, List<bool> val, string dataSetName = null)
+      : base(relatedCommand, paramName, val, dataSetName)
+    {
+      Name = CmdName;
+    }
+  }
+
+
+  ///
+  /// Please note the command SetWFAntennaElementOffset is deprecated since 23.11. You may use SetVehicleAntennaOffset.
+  /// 
+  /// Set WF antenna offset and orientation relative to CRPA Antenna frame for the specified element index.
+  ///
+  /// Name    Type   Description
+  /// ------- ------ -------------------------------------------------------
+  /// X       double WF Element X offset in the CRPA antenna frame (meter)
+  /// Y       double WF Element Y offset in the CRPA antenna frame (meter)
+  /// Z       double WF Element Z offset in the CRPA antenna frame (meter)
+  /// Yaw     double WF Element Yaw offset in the CRPA antenna frame (rad)
+  /// Pitch   double WF Element Pitch offset in the CRPA antenna frame (rad)
+  /// Roll    double WF Element Roll offset in the CRPA antenna frame (rad)
+  /// Element int    One-based index for element in antenna.
+  ///
+
+  public class SetWFAntennaElementOffset : CommandBase
+  {
+    public override string Documentation
+    {
+      get { return "Please note the command SetWFAntennaElementOffset is deprecated since 23.11. You may use SetVehicleAntennaOffset.\n\nSet WF antenna offset and orientation relative to CRPA Antenna frame for the specified element index."; }
+    }
+
+    public override string Deprecated
+    {
+      get { return "Please note the command SetWFAntennaElementOffset is deprecated since 23.11. You may use SetVehicleAntennaOffset."; }
+    }
+
+    internal const string CmdName = "SetWFAntennaElementOffset";
+
+    public SetWFAntennaElementOffset()
+      : base(CmdName)
+    {}
+
+    public SetWFAntennaElementOffset(double x, double y, double z, double yaw, double pitch, double roll, int element)
+      : base(CmdName)
+    {
+      X = x;
+      Y = y;
+      Z = z;
+      Yaw = yaw;
+      Pitch = pitch;
+      Roll = roll;
+      Element = element;
+    }
+      
+    public override bool IsValid
+    {
+      get
+      {
+        return base.IsValid
+        && Contains("X")
+        && Contains("Y")
+        && Contains("Z")
+        && Contains("Yaw")
+        && Contains("Pitch")
+        && Contains("Roll")
+        && Contains("Element")
+      ;
+      }
+    }
+
+    public override int ExecutePermission { get { return EXECUTE_IF_IDLE; } }
+
+    public double X
+    {
+      get { return GetValue("X").ToObject<double>(CommandBase.Serializer); }
+      set
+      {
+          SetValue("X", JToken.FromObject(value, CommandBase.Serializer));
+      }
+    }
+
+    public double Y
+    {
+      get { return GetValue("Y").ToObject<double>(CommandBase.Serializer); }
+      set
+      {
+          SetValue("Y", JToken.FromObject(value, CommandBase.Serializer));
+      }
+    }
+
+    public double Z
+    {
+      get { return GetValue("Z").ToObject<double>(CommandBase.Serializer); }
+      set
+      {
+          SetValue("Z", JToken.FromObject(value, CommandBase.Serializer));
+      }
+    }
+
+    public double Yaw
+    {
+      get { return GetValue("Yaw").ToObject<double>(CommandBase.Serializer); }
+      set
+      {
+          SetValue("Yaw", JToken.FromObject(value, CommandBase.Serializer));
+      }
+    }
+
+    public double Pitch
+    {
+      get { return GetValue("Pitch").ToObject<double>(CommandBase.Serializer); }
+      set
+      {
+          SetValue("Pitch", JToken.FromObject(value, CommandBase.Serializer));
+      }
+    }
+
+    public double Roll
+    {
+      get { return GetValue("Roll").ToObject<double>(CommandBase.Serializer); }
+      set
+      {
+          SetValue("Roll", JToken.FromObject(value, CommandBase.Serializer));
+      }
+    }
+
+    public int Element
+    {
+      get { return GetValue("Element").ToObject<int>(CommandBase.Serializer); }
+      set
+      {
+          SetValue("Element", JToken.FromObject(value, CommandBase.Serializer));
+      }
+    }
+  }
+
+
+  ///
+  /// Please note the command GetWFAntennaElementOffset is deprecated since 23.11. You may use GetVehicleAntennaOffset.
+  /// 
+  /// Get the WF antenna offset infos for this element.
+  ///
+  /// Name    Type Description
+  /// ------- ---- ---------------------------------------
+  /// Element int  One-based index for element in antenna.
+  ///
+
+  public class GetWFAntennaElementOffset : CommandBase
+  {
+    public override string Documentation
+    {
+      get { return "Please note the command GetWFAntennaElementOffset is deprecated since 23.11. You may use GetVehicleAntennaOffset.\n\nGet the WF antenna offset infos for this element."; }
+    }
+
+    public override string Deprecated
+    {
+      get { return "Please note the command GetWFAntennaElementOffset is deprecated since 23.11. You may use GetVehicleAntennaOffset."; }
+    }
+
+    internal const string CmdName = "GetWFAntennaElementOffset";
+
+    public GetWFAntennaElementOffset()
+      : base(CmdName)
+    {}
+
+    public GetWFAntennaElementOffset(int element)
+      : base(CmdName)
+    {
+      Element = element;
+    }
+      
+    public override bool IsValid
+    {
+      get
+      {
+        return base.IsValid
+        && Contains("Element")
+      ;
+      }
+    }
+
+    public override int ExecutePermission { get { return EXECUTE_IF_IDLE; } }
+
+    public int Element
+    {
+      get { return GetValue("Element").ToObject<int>(CommandBase.Serializer); }
+      set
+      {
+          SetValue("Element", JToken.FromObject(value, CommandBase.Serializer));
+      }
+    }
+  }
+
+
+  ///
+  /// Result of GetWFAntennaElementOffset.
+  ///
+  /// Name    Type   Description
+  /// ------- ------ -------------------------------------------------------
+  /// X       double WF Element X offset in the CRPA antenna frame (meter)
+  /// Y       double WF Element Y offset in the CRPA antenna frame (meter)
+  /// Z       double WF Element Z offset in the CRPA antenna frame (meter)
+  /// Yaw     double WF Element Yaw offset in the CRPA antenna frame (rad)
+  /// Pitch   double WF Element Pitch offset in the CRPA antenna frame (rad)
+  /// Roll    double WF Element Roll offset in the CRPA antenna frame (rad)
+  /// Element int    One-based index for element in antenna.
+  ///
+
+  public class GetWFAntennaElementOffsetResult : CommandResult
+  {
+    public override string Documentation
+    {
+      get { return "Result of GetWFAntennaElementOffset."; }
+    }
+
+    internal const string CmdName = "GetWFAntennaElementOffsetResult";
+
+    public GetWFAntennaElementOffsetResult()
+      : base(CmdName)
+    {}
+
+    public GetWFAntennaElementOffsetResult(CommandBase relatedCommand, double x, double y, double z, double yaw, double pitch, double roll, int element)
+      : base(CmdName, relatedCommand)
+    {
+      X = x;
+      Y = y;
+      Z = z;
+      Yaw = yaw;
+      Pitch = pitch;
+      Roll = roll;
+      Element = element;
+    }
+      
+    public override bool IsValid
+    {
+      get
+      {
+        return base.IsValid
+        && Contains("X")
+        && Contains("Y")
+        && Contains("Z")
+        && Contains("Yaw")
+        && Contains("Pitch")
+        && Contains("Roll")
+        && Contains("Element")
+      ;
+      }
+    }
+
+    public double X
+    {
+      get { return GetValue("X").ToObject<double>(CommandBase.Serializer); }
+      set
+      {
+          SetValue("X", JToken.FromObject(value, CommandBase.Serializer));
+      }
+    }
+
+    public double Y
+    {
+      get { return GetValue("Y").ToObject<double>(CommandBase.Serializer); }
+      set
+      {
+          SetValue("Y", JToken.FromObject(value, CommandBase.Serializer));
+      }
+    }
+
+    public double Z
+    {
+      get { return GetValue("Z").ToObject<double>(CommandBase.Serializer); }
+      set
+      {
+          SetValue("Z", JToken.FromObject(value, CommandBase.Serializer));
+      }
+    }
+
+    public double Yaw
+    {
+      get { return GetValue("Yaw").ToObject<double>(CommandBase.Serializer); }
+      set
+      {
+          SetValue("Yaw", JToken.FromObject(value, CommandBase.Serializer));
+      }
+    }
+
+    public double Pitch
+    {
+      get { return GetValue("Pitch").ToObject<double>(CommandBase.Serializer); }
+      set
+      {
+          SetValue("Pitch", JToken.FromObject(value, CommandBase.Serializer));
+      }
+    }
+
+    public double Roll
+    {
+      get { return GetValue("Roll").ToObject<double>(CommandBase.Serializer); }
+      set
+      {
+          SetValue("Roll", JToken.FromObject(value, CommandBase.Serializer));
+      }
+    }
+
+    public int Element
+    {
+      get { return GetValue("Element").ToObject<int>(CommandBase.Serializer); }
+      set
+      {
+          SetValue("Element", JToken.FromObject(value, CommandBase.Serializer));
+      }
+    }
+  }
+
+
+  ///
+  /// Please note the command SetWFAntennaElementPhasePatternOffset is deprecated since 23.11. You may use AddVehiclePhasePatternOffset.
+  /// 
+  /// Set WF Antenna phase pattern offset (in rad) for this element
+  ///
+  /// Name        Type   Description
+  /// ----------- ------ -------------------------------------------------------------------------
+  /// PhaseOffset double Antenna phase pattern offset (in rad) to set for this element. [-Pi ; Pi]
+  /// Element     int    One-based index for element in antenna.
+  ///
+
+  public class SetWFAntennaElementPhasePatternOffset : CommandBase
+  {
+    public override string Documentation
+    {
+      get { return "Please note the command SetWFAntennaElementPhasePatternOffset is deprecated since 23.11. You may use AddVehiclePhasePatternOffset.\n\nSet WF Antenna phase pattern offset (in rad) for this element"; }
+    }
+
+    public override string Deprecated
+    {
+      get { return "Please note the command SetWFAntennaElementPhasePatternOffset is deprecated since 23.11. You may use AddVehiclePhasePatternOffset."; }
+    }
+
+    internal const string CmdName = "SetWFAntennaElementPhasePatternOffset";
+
+    public SetWFAntennaElementPhasePatternOffset()
+      : base(CmdName)
+    {}
+
+    public SetWFAntennaElementPhasePatternOffset(double phaseOffset, int element)
+      : base(CmdName)
+    {
+      PhaseOffset = phaseOffset;
+      Element = element;
+    }
+      
+    public override bool IsValid
+    {
+      get
+      {
+        return base.IsValid
+        && Contains("PhaseOffset")
+        && Contains("Element")
+      ;
+      }
+    }
+
+    public override int ExecutePermission { get { return EXECUTE_IF_IDLE; } }
+
+    public double PhaseOffset
+    {
+      get { return GetValue("PhaseOffset").ToObject<double>(CommandBase.Serializer); }
+      set
+      {
+          SetValue("PhaseOffset", JToken.FromObject(value, CommandBase.Serializer));
+      }
+    }
+
+    public int Element
+    {
+      get { return GetValue("Element").ToObject<int>(CommandBase.Serializer); }
+      set
+      {
+          SetValue("Element", JToken.FromObject(value, CommandBase.Serializer));
+      }
+    }
+  }
+
+
+  ///
+  /// Please note the command GetWFAntennaElementPhasePatternOffset is deprecated since 23.11. You may use GetVehiclePhasePatternOffset.
+  /// 
+  /// Get WF Antenna phase pattern offset (in rad) for this element
+  ///
+  /// Name    Type Description
+  /// ------- ---- ---------------------------------------
+  /// Element int  One-based index for element in antenna.
+  ///
+
+  public class GetWFAntennaElementPhasePatternOffset : CommandBase
+  {
+    public override string Documentation
+    {
+      get { return "Please note the command GetWFAntennaElementPhasePatternOffset is deprecated since 23.11. You may use GetVehiclePhasePatternOffset.\n\nGet WF Antenna phase pattern offset (in rad) for this element"; }
+    }
+
+    public override string Deprecated
+    {
+      get { return "Please note the command GetWFAntennaElementPhasePatternOffset is deprecated since 23.11. You may use GetVehiclePhasePatternOffset."; }
+    }
+
+    internal const string CmdName = "GetWFAntennaElementPhasePatternOffset";
+
+    public GetWFAntennaElementPhasePatternOffset()
+      : base(CmdName)
+    {}
+
+    public GetWFAntennaElementPhasePatternOffset(int element)
+      : base(CmdName)
+    {
+      Element = element;
+    }
+      
+    public override bool IsValid
+    {
+      get
+      {
+        return base.IsValid
+        && Contains("Element")
+      ;
+      }
+    }
+
+    public override int ExecutePermission { get { return EXECUTE_IF_IDLE; } }
+
+    public int Element
+    {
+      get { return GetValue("Element").ToObject<int>(CommandBase.Serializer); }
+      set
+      {
+          SetValue("Element", JToken.FromObject(value, CommandBase.Serializer));
+      }
+    }
+  }
+
+
+  ///
+  /// Result of GetWFAntennaElementPhasePatternOffset.
+  ///
+  /// Name        Type   Description
+  /// ----------- ------ -------------------------------------------------------------------------
+  /// PhaseOffset double Antenna phase pattern offset (in rad) to set for this element. [-Pi ; Pi]
+  /// Element     int    One-based index for element in antenna.
+  ///
+
+  public class GetWFAntennaElementPhasePatternOffsetResult : CommandResult
+  {
+    public override string Documentation
+    {
+      get { return "Result of GetWFAntennaElementPhasePatternOffset."; }
+    }
+
+    internal const string CmdName = "GetWFAntennaElementPhasePatternOffsetResult";
+
+    public GetWFAntennaElementPhasePatternOffsetResult()
+      : base(CmdName)
+    {}
+
+    public GetWFAntennaElementPhasePatternOffsetResult(CommandBase relatedCommand, double phaseOffset, int element)
+      : base(CmdName, relatedCommand)
+    {
+      PhaseOffset = phaseOffset;
+      Element = element;
+    }
+      
+    public override bool IsValid
+    {
+      get
+      {
+        return base.IsValid
+        && Contains("PhaseOffset")
+        && Contains("Element")
+      ;
+      }
+    }
+
+    public double PhaseOffset
+    {
+      get { return GetValue("PhaseOffset").ToObject<double>(CommandBase.Serializer); }
+      set
+      {
+          SetValue("PhaseOffset", JToken.FromObject(value, CommandBase.Serializer));
+      }
+    }
+
+    public int Element
+    {
+      get { return GetValue("Element").ToObject<int>(CommandBase.Serializer); }
+      set
+      {
+          SetValue("Element", JToken.FromObject(value, CommandBase.Serializer));
+      }
+    }
+  }
+
+
+  ///
+  /// Please note the command SetWFAntennaElementModel is deprecated since 23.11. You may use SetWFElement.
+  /// 
+  /// Set WF Antenna model for this element
+  ///
+  /// Name             Type   Description
+  /// ---------------- ------ ----------------------------------------------------------------------------------------------------
+  /// AntennaModelName string Antenna Model name to set for this element. Antenna models must be defined in vehicle antenna model.
+  /// Element          int    One-based index for element in antenna.
+  ///
+
+  public class SetWFAntennaElementModel : CommandBase
+  {
+    public override string Documentation
+    {
+      get { return "Please note the command SetWFAntennaElementModel is deprecated since 23.11. You may use SetWFElement.\n\nSet WF Antenna model for this element"; }
+    }
+
+    public override string Deprecated
+    {
+      get { return "Please note the command SetWFAntennaElementModel is deprecated since 23.11. You may use SetWFElement."; }
+    }
+
+    internal const string CmdName = "SetWFAntennaElementModel";
+
+    public SetWFAntennaElementModel()
+      : base(CmdName)
+    {}
+
+    public SetWFAntennaElementModel(string antennaModelName, int element)
+      : base(CmdName)
+    {
+      AntennaModelName = antennaModelName;
+      Element = element;
+    }
+      
+    public override bool IsValid
+    {
+      get
+      {
+        return base.IsValid
+        && Contains("AntennaModelName")
+        && Contains("Element")
+      ;
+      }
+    }
+
+    public override int ExecutePermission { get { return EXECUTE_IF_IDLE; } }
+
+    public string AntennaModelName
+    {
+      get { return GetValue("AntennaModelName").ToObject<string>(CommandBase.Serializer); }
+      set
+      {
+          SetValue("AntennaModelName", JToken.FromObject(value, CommandBase.Serializer));
+      }
+    }
+
+    public int Element
+    {
+      get { return GetValue("Element").ToObject<int>(CommandBase.Serializer); }
+      set
+      {
+          SetValue("Element", JToken.FromObject(value, CommandBase.Serializer));
+      }
+    }
+  }
+
+
+  ///
+  /// Please note the command GetWFAntennaElementModel is deprecated since 23.11. You may use GetWFElement.
+  /// 
+  /// Get WF Antenna model for this element
+  ///
+  /// Name    Type Description
+  /// ------- ---- ---------------------------------------
+  /// Element int  One-based index for element in antenna.
+  ///
+
+  public class GetWFAntennaElementModel : CommandBase
+  {
+    public override string Documentation
+    {
+      get { return "Please note the command GetWFAntennaElementModel is deprecated since 23.11. You may use GetWFElement.\n\nGet WF Antenna model for this element"; }
+    }
+
+    public override string Deprecated
+    {
+      get { return "Please note the command GetWFAntennaElementModel is deprecated since 23.11. You may use GetWFElement."; }
+    }
+
+    internal const string CmdName = "GetWFAntennaElementModel";
+
+    public GetWFAntennaElementModel()
+      : base(CmdName)
+    {}
+
+    public GetWFAntennaElementModel(int element)
+      : base(CmdName)
+    {
+      Element = element;
+    }
+      
+    public override bool IsValid
+    {
+      get
+      {
+        return base.IsValid
+        && Contains("Element")
+      ;
+      }
+    }
+
+    public override int ExecutePermission { get { return EXECUTE_IF_IDLE; } }
+
+    public int Element
+    {
+      get { return GetValue("Element").ToObject<int>(CommandBase.Serializer); }
+      set
+      {
+          SetValue("Element", JToken.FromObject(value, CommandBase.Serializer));
+      }
+    }
+  }
+
+
+  ///
+  /// Result of GetWFAntennaElementModel.
+  ///
+  /// Name             Type   Description
+  /// ---------------- ------ ----------------------------------------------------------------------------------------------------
+  /// AntennaModelName string Antenna Model name to set for this element. Antenna models must be defined in vehicle antenna model.
+  /// Element          int    One-based index for element in antenna.
+  ///
+
+  public class GetWFAntennaElementModelResult : CommandResult
+  {
+    public override string Documentation
+    {
+      get { return "Result of GetWFAntennaElementModel."; }
+    }
+
+    internal const string CmdName = "GetWFAntennaElementModelResult";
+
+    public GetWFAntennaElementModelResult()
+      : base(CmdName)
+    {}
+
+    public GetWFAntennaElementModelResult(CommandBase relatedCommand, string antennaModelName, int element)
+      : base(CmdName, relatedCommand)
+    {
+      AntennaModelName = antennaModelName;
+      Element = element;
+    }
+      
+    public override bool IsValid
+    {
+      get
+      {
+        return base.IsValid
+        && Contains("AntennaModelName")
+        && Contains("Element")
+      ;
+      }
+    }
+
+    public string AntennaModelName
+    {
+      get { return GetValue("AntennaModelName").ToObject<string>(CommandBase.Serializer); }
+      set
+      {
+          SetValue("AntennaModelName", JToken.FromObject(value, CommandBase.Serializer));
+      }
+    }
+
+    public int Element
+    {
+      get { return GetValue("Element").ToObject<int>(CommandBase.Serializer); }
+      set
+      {
+          SetValue("Element", JToken.FromObject(value, CommandBase.Serializer));
+      }
+    }
+  }
+
+
+  ///
+  /// Please note the command SetWFAntennaElementEnabled is deprecated since 23.11. You may use SetWFElement.
+  /// 
+  /// Set WF antenna element enabled or disabled. A disabled antenna element is not simulated at all.
+  ///
+  /// Name    Type Description
+  /// ------- ---- -------------------------------------------------
+  /// Element int  One-based index for element in antenna.
+  /// Enabled bool If True, this antenna element will bil simulated.
+  ///
+
+  public class SetWFAntennaElementEnabled : CommandBase
+  {
+    public override string Documentation
+    {
+      get { return "Please note the command SetWFAntennaElementEnabled is deprecated since 23.11. You may use SetWFElement.\n\nSet WF antenna element enabled or disabled. A disabled antenna element is not simulated at all."; }
+    }
+
+    public override string Deprecated
+    {
+      get { return "Please note the command SetWFAntennaElementEnabled is deprecated since 23.11. You may use SetWFElement."; }
+    }
+
+    internal const string CmdName = "SetWFAntennaElementEnabled";
+
+    public SetWFAntennaElementEnabled()
+      : base(CmdName)
+    {}
+
+    public SetWFAntennaElementEnabled(int element, bool enabled)
+      : base(CmdName)
+    {
+      Element = element;
+      Enabled = enabled;
+    }
+      
+    public override bool IsValid
+    {
+      get
+      {
+        return base.IsValid
+        && Contains("Element")
+        && Contains("Enabled")
+      ;
+      }
+    }
+
+    public override int ExecutePermission { get { return EXECUTE_IF_IDLE; } }
+
+    public int Element
+    {
+      get { return GetValue("Element").ToObject<int>(CommandBase.Serializer); }
+      set
+      {
+          SetValue("Element", JToken.FromObject(value, CommandBase.Serializer));
+      }
+    }
+
+    public bool Enabled
+    {
+      get { return GetValue("Enabled").ToObject<bool>(CommandBase.Serializer); }
+      set
+      {
+          SetValue("Enabled", JToken.FromObject(value, CommandBase.Serializer));
+      }
+    }
+  }
+
+
+  ///
+  /// Please note the command IsWFAntennaElementEnabled is deprecated since 23.11. You may use GetWFElement.
+  /// 
+  /// Get whether an antenna element is enabled or disabled.
+  ///
+  /// Name    Type Description
+  /// ------- ---- ---------------------------------------
+  /// Element int  One-based index for element in antenna.
+  ///
+
+  public class IsWFAntennaElementEnabled : CommandBase
+  {
+    public override string Documentation
+    {
+      get { return "Please note the command IsWFAntennaElementEnabled is deprecated since 23.11. You may use GetWFElement.\n\nGet whether an antenna element is enabled or disabled."; }
+    }
+
+    public override string Deprecated
+    {
+      get { return "Please note the command IsWFAntennaElementEnabled is deprecated since 23.11. You may use GetWFElement."; }
+    }
+
+    internal const string CmdName = "IsWFAntennaElementEnabled";
+
+    public IsWFAntennaElementEnabled()
+      : base(CmdName)
+    {}
+
+    public IsWFAntennaElementEnabled(int element)
+      : base(CmdName)
+    {
+      Element = element;
+    }
+      
+    public override bool IsValid
+    {
+      get
+      {
+        return base.IsValid
+        && Contains("Element")
+      ;
+      }
+    }
+
+    public override int ExecutePermission { get { return EXECUTE_IF_IDLE; } }
+
+    public int Element
+    {
+      get { return GetValue("Element").ToObject<int>(CommandBase.Serializer); }
+      set
+      {
+          SetValue("Element", JToken.FromObject(value, CommandBase.Serializer));
+      }
+    }
+  }
+
+
+  ///
+  /// Result of IsWFAntennaElementEnabled.
+  ///
+  /// Name    Type Description
+  /// ------- ---- -------------------------------------------------
+  /// Element int  One-based index for element in antenna.
+  /// Enabled bool If True, this antenna element will bil simulated.
+  ///
+
+  public class IsWFAntennaElementEnabledResult : CommandResult
+  {
+    public override string Documentation
+    {
+      get { return "Result of IsWFAntennaElementEnabled."; }
+    }
+
+    internal const string CmdName = "IsWFAntennaElementEnabledResult";
+
+    public IsWFAntennaElementEnabledResult()
+      : base(CmdName)
+    {}
+
+    public IsWFAntennaElementEnabledResult(CommandBase relatedCommand, int element, bool enabled)
+      : base(CmdName, relatedCommand)
+    {
+      Element = element;
+      Enabled = enabled;
+    }
+      
+    public override bool IsValid
+    {
+      get
+      {
+        return base.IsValid
+        && Contains("Element")
+        && Contains("Enabled")
+      ;
+      }
+    }
+
+    public int Element
+    {
+      get { return GetValue("Element").ToObject<int>(CommandBase.Serializer); }
+      set
+      {
+          SetValue("Element", JToken.FromObject(value, CommandBase.Serializer));
+      }
+    }
+
+    public bool Enabled
+    {
+      get { return GetValue("Enabled").ToObject<bool>(CommandBase.Serializer); }
+      set
+      {
+          SetValue("Enabled", JToken.FromObject(value, CommandBase.Serializer));
       }
     }
   }

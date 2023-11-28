@@ -14,7 +14,9 @@ namespace Sdx
   namespace Cmd
   {
     const char* const GetNavICEphDoubleParamForEachSV::CmdName = "GetNavICEphDoubleParamForEachSV";
-    const char* const GetNavICEphDoubleParamForEachSV::Documentation = "Get NavIC ephemeris parameter value for all satellites";
+    const char* const GetNavICEphDoubleParamForEachSV::Documentation = "Please note the command GetNavICEphDoubleParamForEachSV is deprecated since 23.11. You may use GetConstellationParameterForSV.\n\nGet NavIC ephemeris parameter value for all satellites";
+
+    const char* const GetNavICEphDoubleParamForEachSV::Deprecated = "Please note the command GetNavICEphDoubleParamForEachSV is deprecated since 23.11. You may use GetConstellationParameterForSV.";
 
     REGISTER_COMMAND_FACTORY(GetNavICEphDoubleParamForEachSV);
 
@@ -52,6 +54,8 @@ namespace Sdx
     }
 
     std::string GetNavICEphDoubleParamForEachSV::documentation() const { return Documentation; }
+
+    Sdx::optional<std::string> GetNavICEphDoubleParamForEachSV::deprecated() const { return Sdx::optional<std::string>{Deprecated}; }
 
 
     int GetNavICEphDoubleParamForEachSV::executePermission() const

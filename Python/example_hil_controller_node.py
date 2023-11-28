@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 
 # This Python script illustrates how to send the receiver trajectory in real-time 
-# using the hardware-in-the-loop (HIL) feature in Master/Slave mode.
+# using the hardware-in-the-loop (HIL) feature in MainInstance/WorkerInstance mode.
 #
 # Before running this script, make sure Skydel is running, and the splash screen is closed.
 #
@@ -35,26 +35,26 @@ from skydelsdx.commands import *
 from example_hil_helper import *
 
 
-def checkMasterConnection(sim, nbSlaveExpected):
-  getMasterStatusResult = sim.call(GetMasterStatus())
+def checkMainInstanceConnection(sim, nbWorkerInstanceExpected):
+  getMainInstanceStatusResult = sim.call(GetMainInstanceStatus())
 
   # trying to wait few seconds expecting connection may not be set up yet.
-  if not getMasterStatusResult.isMaster() or getMasterStatusResult.slaveConnected() != nbSlaveExpected:
+  if not getMainInstanceStatusResult.isMainInstance() or getMainInstanceStatusResult.workerInstanceConnected() != nbWorkerInstanceExpected:
     time.sleep(1)
-    getMasterStatusResult = sim.call(GetMasterStatus())
+    getMainInstanceStatusResult = sim.call(GetMainInstanceStatus())
 
-  if not getMasterStatusResult.isMaster():
-    raise RuntimeError("Simulator is not Master")
-  if getMasterStatusResult.slaveConnected() != nbSlaveExpected:
-    raise RuntimeError("Only {0} connection, while {1} slave connections were expected".format(getMasterStatusResult.slaveConnected(), nbSlaveExpected))
+  if not getMainInstanceStatusResult.isMainInstance():
+    raise RuntimeError("Simulator is not MainInstance")
+  if getMainInstanceStatusResult.workerInstanceConnected() != nbWorkerInstanceExpected:
+    raise RuntimeError("Only {0} connection, while {1} worker instance connections were expected".format(getMainInstanceStatusResult.workerInstanceConnected(), nbWorkerInstanceExpected))
 
 
-def checkSlaveConnection(sim):
-  getSlaveStatusResult = sim.call(GetSlaveStatus())
+def checkWorkerInstanceConnection(sim):
+  getWorkerInstanceStatusResult = sim.call(GetWorkerInstanceStatus())
 
-  if getSlaveStatusResult.isSlave() == False:
-    raise RuntimeError("Simulator is not Slave")
-  if getSlaveStatusResult.isConnected() == False:
+  if getWorkerInstanceStatusResult.isWorkerInstance() == False:
+    raise RuntimeError("Simulator is not WorkerInstance")
+  if getWorkerInstanceStatusResult.isConnected() == False:
     raise RuntimeError("Simulator is not Connected")
 
 
@@ -101,32 +101,32 @@ def setupSimulator(skydelIpAddress, simInstanceID, skydelEngineLatencyMs, hilTjo
 
 
 # Change these as required
-masterTrajectory = StraightTrajectory(speed=10.0)
-slaveTrajectory = StraightTrajectory(speed=10.0, latDeg=45.001)
+mainInstanceTrajectory = StraightTrajectory(speed=10.0)
+workerInstanceTrajectory = StraightTrajectory(speed=10.0, latDeg=45.001)
 simDurationMs = 60000
 syncDurationMs = 2000
 uniqueRadioId = "uniqueId"
 
 # Can be "NoneRT", "DTA-2115B", "X300" or "N310", but don't combine NoneRT with a radio type for time synchronization
-masterRadioType = "NoneRT" 
-slaveRadioType = "NoneRT"
+mainInstanceRadioType = "NoneRT" 
+workerInstanceRadioType = "NoneRT"
 
 # If this script isn't running on the same PC as the Skydel instances, set to the Skydel instances IP addresses
-masterIpAddress = "127.0.0.1"
-slaveIpAddress = "127.0.0.1"
-masterInstanceId = 0
-slaveInstanceId = 1
-masterPort = 4567
+mainInstanceIpAddress = "127.0.0.1"
+workerInstanceIpAddress = "127.0.0.1"
+mainInstanceInstanceId = 0
+workerInstanceInstanceId = 1
+mainInstancePort = 4567
 
 # Set to True if the computer which runs this script has it's time synchronized with the output radio PPS
 isOsTimeSyncWithPPS = False
 
-if (masterIpAddress != "127.0.0.1" or slaveIpAddress != "127.0.0.1") and not isOsTimeSyncWithPPS:
+if (mainInstanceIpAddress != "127.0.0.1" or workerInstanceIpAddress != "127.0.0.1") and not isOsTimeSyncWithPPS:
   error("Can't run this script on a different computer if the OS time isn't in sync with the radios PPS.")
 
 # Specific to X300 and N310 make sure these addresses points to your USRPs
-masterRadioAddress = "192.168.40.2" 
-slaveRadioAddress  = "192.168.50.2"
+mainInstanceRadioAddress = "192.168.40.2" 
+workerInstanceRadioAddress  = "192.168.50.2"
 
 # We suggest these values as a starting point, but they will have to be modified according 
 # to your hardware, the configuration of the simulation and your requirements.
@@ -136,28 +136,28 @@ timeBetweenPosMs = 15  # Send receiver position every 15 milliseconds
 skydelEngineLatencyMs = 40  # How much in advance can Skydel be versus the radio time
 hilTjoin = 65  # This value should be greater than skydelEngineLatencyMs + timeBetweenPosMs + network latency
 
-# Setup master simulator
-simMaster = setupSimulator(masterIpAddress, masterInstanceId, skydelEngineLatencyMs, hilTjoin, masterRadioType, masterRadioAddress, uniqueRadioId)
-simMaster.call(SetSyncServer(masterPort))
-simMaster.call(EnableMasterPps(True))
+# Setup mainInstance simulator
+simMainInstance = setupSimulator(mainInstanceIpAddress, mainInstanceInstanceId, skydelEngineLatencyMs, hilTjoin, mainInstanceRadioType, mainInstanceRadioAddress, uniqueRadioId)
+simMainInstance.call(SetSyncServer(mainInstancePort))
+simMainInstance.call(EnableMainInstanceSync(True))
 
-# Setup slave simulator
-simSlave = setupSimulator(slaveIpAddress, slaveInstanceId, skydelEngineLatencyMs, hilTjoin, slaveRadioType, slaveRadioAddress, uniqueRadioId)
-simSlave.call(SetSyncClient(masterIpAddress, masterPort))  
-simSlave.call(EnableSlavePps(True))
+# Setup worker instance simulator
+simWorkerInstance = setupSimulator(workerInstanceIpAddress, workerInstanceInstanceId, skydelEngineLatencyMs, hilTjoin, workerInstanceRadioType, workerInstanceRadioAddress, uniqueRadioId)
+simWorkerInstance.call(SetSyncClient(mainInstanceIpAddress, mainInstancePort))  
+simWorkerInstance.call(EnableWorkerInstanceSync(True))
 
-# check connection between slave and master
-checkMasterConnection(simMaster, 1)
-checkSlaveConnection(simSlave)
+# check connection between worker instance and main instance
+checkMainInstanceConnection(simMainInstance, 1)
+checkWorkerInstanceConnection(simWorkerInstance)
 
 # From here we want to make sure to stop the simulation if something goes wrong
 try:
 
   # Arm the simulator, when this command returns, we can start synchronizing with the PPS
-  simMaster.call(ArmPPS())
+  simMainInstance.call(ArmPPS())
 
   # The WaitAndResetPPS command returns immediately after a PPS signal, which is our PPS reference (PPS0)
-  simMaster.call(WaitAndResetPPS())
+  simMainInstance.call(WaitAndResetPPS())
 
   # If our PC clock is synchronized with the PPS, the nearest rounded second is the PPS0
   if isOsTimeSyncWithPPS:
@@ -165,11 +165,11 @@ try:
 
   # The command StartPPS will start the simulation at PPS0 + syncDurationMs
   # You can synchronize with your HIL simulation start, by changing the value of syncDurationMs (resolution in milliseconds)
-  simMaster.call(StartPPS(syncDurationMs))
+  simMainInstance.call(StartPPS(syncDurationMs))
 
   # If the PC clock is NOT synchronized with the PPS, we can ask Skydel to tell us the PC time corresponding to PPS0
   if not isOsTimeSyncWithPPS:
-    pps0TimestampMs = simMaster.call(GetComputerSystemTimeSinceEpochAtPps0()).milliseconds()
+    pps0TimestampMs = simMainInstance.call(GetComputerSystemTimeSinceEpochAtPps0()).milliseconds()
 
   # Compute the timestamp at the beginning of the simulation
   simStartTimestampMs = pps0TimestampMs + syncDurationMs
@@ -181,10 +181,10 @@ try:
   elapsedMs = 0.0
   
   # Skydel must know the initial position of the receiver for initialization
-  masterPosition, masterVelocity = masterTrajectory.generateEcefWithDynamicsGoingEast(elapsedMs)
-  slavePosition, slaveVelocity = slaveTrajectory.generateEcefWithDynamicsGoingEast(elapsedMs)
-  simMaster.pushEcef(elapsedMs, masterPosition, masterVelocity)
-  simSlave.pushEcef(elapsedMs, slavePosition, slaveVelocity)
+  mainInstancePosition, mainInstanceVelocity = mainInstanceTrajectory.generateEcefWithDynamicsGoingEast(elapsedMs)
+  workerInstancePosition, workerInstanceVelocity = workerInstanceTrajectory.generateEcefWithDynamicsGoingEast(elapsedMs)
+  simMainInstance.pushEcef(elapsedMs, mainInstancePosition, mainInstanceVelocity)
+  simWorkerInstance.pushEcef(elapsedMs, workerInstancePosition, workerInstanceVelocity)
 
   # Send positions in real time until the elapsed time reaches the desired simulation duration
   while elapsedMs <= simDurationMs:
@@ -197,17 +197,17 @@ try:
     elapsedMs = getCurrentTimeMs() - simStartTimestampMs
 
     # Generate the positions
-    masterPosition, masterVelocity = masterTrajectory.generateEcefWithDynamicsGoingEast(elapsedMs)
-    slavePosition, slaveVelocity = slaveTrajectory.generateEcefWithDynamicsGoingEast(elapsedMs)
+    mainInstancePosition, mainInstanceVelocity = mainInstanceTrajectory.generateEcefWithDynamicsGoingEast(elapsedMs)
+    workerInstancePosition, workerInstanceVelocity = workerInstanceTrajectory.generateEcefWithDynamicsGoingEast(elapsedMs)
 
     # Push the positions to Skydel
-    simMaster.pushEcef(elapsedMs, masterPosition, masterVelocity)
-    simSlave.pushEcef(elapsedMs, slavePosition, slaveVelocity)
+    simMainInstance.pushEcef(elapsedMs, mainInstancePosition, mainInstanceVelocity)
+    simWorkerInstance.pushEcef(elapsedMs, workerInstancePosition, workerInstanceVelocity)
 
 finally:
   # Stop the simulation
-  simMaster.stop()
+  simMainInstance.stop()
 
   # Disconnect from Skydel
-  simMaster.disconnect()
-  simSlave.disconnect()
+  simMainInstance.disconnect()
+  simWorkerInstance.disconnect()

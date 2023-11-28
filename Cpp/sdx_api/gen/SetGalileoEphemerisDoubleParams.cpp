@@ -14,7 +14,9 @@ namespace Sdx
   namespace Cmd
   {
     const char* const SetGalileoEphemerisDoubleParams::CmdName = "SetGalileoEphemerisDoubleParams";
-    const char* const SetGalileoEphemerisDoubleParams::Documentation = "Please note the command SetGalileoEphemerisDoubleParams is deprecated since 21.3. You may use SetGalileoEphDoubleParamForEachSV.\n\nSet Galileo ephemeris parameter value for all satellites";
+    const char* const SetGalileoEphemerisDoubleParams::Documentation = "Please note the command SetGalileoEphemerisDoubleParams is deprecated since 21.3. You may use SetGalileoEphDoubleParamForEachSV.\n\nPlease note the command SetGalileoEphDoubleParamForEachSV is deprecated since 23.11. You may use SetConstellationParameterForSV.\n\nSet Galileo ephemeris parameter value for all satellites";
+
+    const char* const SetGalileoEphemerisDoubleParams::Deprecated = "Please note the command SetGalileoEphemerisDoubleParams is deprecated since 23.11. You may use SetConstellationParameterForSV.";
 
     REGISTER_COMMAND_FACTORY(SetGalileoEphemerisDoubleParams);
 
@@ -54,6 +56,8 @@ namespace Sdx
     }
 
     std::string SetGalileoEphemerisDoubleParams::documentation() const { return Documentation; }
+
+    Sdx::optional<std::string> SetGalileoEphemerisDoubleParams::deprecated() const { return Sdx::optional<std::string>{Deprecated}; }
 
 
     int SetGalileoEphemerisDoubleParams::executePermission() const

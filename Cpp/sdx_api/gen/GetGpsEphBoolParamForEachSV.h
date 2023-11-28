@@ -11,6 +11,8 @@ namespace Sdx
   namespace Cmd
   {
     ///
+    /// Please note the command GetGpsEphBoolParamForEachSV is deprecated since 23.11. You may use GetConstellationParameterForSV.
+    /// 
     /// Get GPS ephemeris boolean parameter value for all satellites
     ///
     /// Name        Type            Description
@@ -29,6 +31,8 @@ namespace Sdx
       static const char* const CmdName;
       static const char* const Documentation;
 
+      static const char* const Deprecated;
+
 
       GetGpsEphBoolParamForEachSV();
 
@@ -38,6 +42,8 @@ namespace Sdx
       static GetGpsEphBoolParamForEachSVPtr dynamicCast(CommandBasePtr ptr);
       virtual bool isValid() const override;
       virtual std::string documentation() const override;
+
+      virtual Sdx::optional<std::string> deprecated() const override;
 
       virtual int executePermission() const override;
 

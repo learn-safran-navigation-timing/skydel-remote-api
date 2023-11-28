@@ -77,6 +77,21 @@ class ClientHil(Client):
       self.sock.settimeout(oldTimeout)
       raise
    
+  # Send Skydel a timed position, orientation, and the associated dynamics of the vehicle. 
+  # The position is provided in the ECEF coordinate system, while the body's orientation is specified relative 
+  # to the local NED reference frame.
+  #
+  #  Parameter      Type                   Units            Description
+  #  -------------------------------------------------------------------------------------------------------
+  #  elapsedTime    float                  milliseconds     Time since the beginning of the simulation.
+  #  position       Ecef Object            x, y, z (m)      Position of the vehicle.
+  #  velocity       optional Ecef Object   x, y, z (m/s)    Velocity of the vehicle.
+  #  acceleration   optional Ecef Object   x, y, z (m/s²)   Acceleration of the vehicle.
+  #  jerk           optional Ecef Object   x, y, z (m/s³)   Jerk of the vehicle.
+  #  dest           optional string                         If empty, sends the position for the vehicle. 
+  #                                                         If set with a jammerID, sends the position 
+  #                                                         for the specified jammer's vehicle.
+  #
   def pushEcef(self, elapsedTime, position, velocity, acceleration, jerk, dest):
     hasVelocity = velocity is not None
     hasAcceleration = hasVelocity and acceleration is not None 
@@ -109,6 +124,25 @@ class ClientHil(Client):
     message = message + dest.encode("UTF-8")
     self._sendMessage(message)
 
+  # Send Skydel a timed position, orientation, and the associated dynamics of the vehicle. 
+  # The position is provided in the ECEF coordinate system, while the body's orientation is specified relative 
+  # to the local NED reference frame.
+  #
+  #  Parameter             Type                       Units                       Description
+  #  -------------------------------------------------------------------------------------------------------
+  #  elapsedTime           float                      milliseconds                Time since the beginning of the simulation.
+  #  position              Ecef Object                x, y, z (m)                 Position of the vehicle.
+  #  attitude              Attitude Object            yaw, pitch, roll (rad/s)    Orientation of the vehicle's body.
+  #  velocity              optional Ecef Object       x, y, z (m/s)               Velocity of the vehicle.
+  #  angularVelocity       optional Attitude Object   yaw, pitch, roll (rad/s)    Rotational velocity of the vehicle's body.
+  #  acceleration          optional Ecef Object       x, y, z (m/s²)              Acceleration of the vehicle.
+  #  angularAcceleration   optional Attitude Object   yaw, pitch, roll (rad/s²)   Rotational acceleration of the vehicle's body.
+  #  jerk                  optional Ecef Object       x, y, z (m/s³)              Jerk of the vehicle.
+  #  angularJerk           optional Attitude Object   yaw, pitch, roll (rad/s³)   Rotational jerk of the vehicle's body.
+  #  dest                  optional string                                        If empty, sends the position for the vehicle. 
+  #                                                                               If set with a jammerID, sends the position 
+  #                                                                               for the specified jammer's vehicle.
+  #
   def pushEcefNed(self, elapsedTime, position, attitude, velocity, angularVelocity, acceleration, angularAcceleration, jerk, angularJerk, dest):
     hasPosVelocity = velocity is not None
     hasPosAcceleration = acceleration is not None
@@ -116,7 +150,6 @@ class ClientHil(Client):
     hasAngularVelocity = angularVelocity is not None
     hasAngularAcceleration = angularAcceleration is not None
     hasAngularJerk = angularJerk is not None
-    
 
     if (hasPosVelocity != hasAngularVelocity):
       raise Exception("Velocity and angular velocity must be sent in pairs.")

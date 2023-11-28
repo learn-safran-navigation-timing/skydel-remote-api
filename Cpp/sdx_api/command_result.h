@@ -24,8 +24,8 @@ class CommandResult : public CommandBase
 public:
   static const std::string RelatedCommand;
 
-  CommandResult(const std::string &cmdName);
-  CommandResult(const std::string &cmdName, CommandBasePtr relatedCommand);
+  CommandResult(const std::string& cmdName);
+  CommandResult(const std::string& cmdName, CommandBasePtr relatedCommand);
   virtual bool isValid() const;
   static CommandResultPtr dynamicCast(CommandBasePtr ptr);
 
@@ -36,7 +36,7 @@ public:
 
   virtual std::string toReadableCommand(bool includeName = true) const;
 
-  inline virtual std::string errorMsg() const {return "";}
+  inline virtual std::string errorMsg() const { return ""; }
   inline virtual bool isSuccess() const { return true; }
   std::string message() const;
 
@@ -46,6 +46,6 @@ private:
   CommandBasePtr m_relatedCommand;
   friend class CommandResultFactory;
 };
-} //namespace Sdx
+} // namespace Sdx
 
 #endif // COMMANDRESULT_H

@@ -14,7 +14,9 @@ namespace Sdx
   namespace Cmd
   {
     const char* const StopMasterWhenSlaveStop::CmdName = "StopMasterWhenSlaveStop";
-    const char* const StopMasterWhenSlaveStop::Documentation = "If enabled, master and all the slaves will stop if a slave stop.";
+    const char* const StopMasterWhenSlaveStop::Documentation = "Please note the command StopMasterWhenSlaveStop is deprecated since 23.11. You may use StopMainInstanceWhenWorkerInstanceStop.\n\nIf enabled, master and all the slaves will stop if a slave stop.";
+
+    const char* const StopMasterWhenSlaveStop::Deprecated = "Please note the command StopMasterWhenSlaveStop is deprecated since 23.11. You may use StopMainInstanceWhenWorkerInstanceStop.";
 
     REGISTER_COMMAND_FACTORY(StopMasterWhenSlaveStop);
 
@@ -50,6 +52,8 @@ namespace Sdx
     }
 
     std::string StopMasterWhenSlaveStop::documentation() const { return Documentation; }
+
+    Sdx::optional<std::string> StopMasterWhenSlaveStop::deprecated() const { return Sdx::optional<std::string>{Deprecated}; }
 
 
     int StopMasterWhenSlaveStop::executePermission() const

@@ -10,6 +10,8 @@ namespace Sdx
   namespace Cmd
   {
     ///
+    /// Please note the command IsStopMasterWhenSlaveStop is deprecated since 23.11. You may use IsStopMainInstanceWhenWorkerInstanceStop.
+    /// 
     /// If enabled, master and all the slaves will stop if a slave stop.
     ///
     /// 
@@ -25,6 +27,8 @@ namespace Sdx
       static const char* const CmdName;
       static const char* const Documentation;
 
+      static const char* const Deprecated;
+
 
       IsStopMasterWhenSlaveStop();
 
@@ -32,6 +36,8 @@ namespace Sdx
       static IsStopMasterWhenSlaveStopPtr dynamicCast(CommandBasePtr ptr);
       virtual bool isValid() const override;
       virtual std::string documentation() const override;
+
+      virtual Sdx::optional<std::string> deprecated() const override;
 
       virtual int executePermission() const override;
     };

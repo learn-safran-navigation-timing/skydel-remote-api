@@ -11,6 +11,8 @@ namespace Sdx
   namespace Cmd
   {
     ///
+    /// Please note the command SetQzssEphBoolParamForSV is deprecated since 23.11. You may use SetConstellationParameterForSV.
+    /// 
     /// Set various boolean parameters in the QZSS ephemeris
     /// 
     ///   ParamName
@@ -39,6 +41,8 @@ namespace Sdx
       static const char* const CmdName;
       static const char* const Documentation;
 
+      static const char* const Deprecated;
+
 
       SetQzssEphBoolParamForSV();
 
@@ -48,6 +52,8 @@ namespace Sdx
       static SetQzssEphBoolParamForSVPtr dynamicCast(CommandBasePtr ptr);
       virtual bool isValid() const override;
       virtual std::string documentation() const override;
+
+      virtual Sdx::optional<std::string> deprecated() const override;
 
       virtual int executePermission() const override;
 

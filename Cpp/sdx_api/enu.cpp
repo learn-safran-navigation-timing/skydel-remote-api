@@ -1,8 +1,10 @@
-#include <math.h>
 #include "enu.h"
-#include "lla.h"
-#include "gps_constants.h"
+
+#include <math.h>
+
 #include "ecef.h"
+#include "gps_constants.h"
+#include "lla.h"
 
 namespace Sdx
 {
@@ -25,11 +27,9 @@ void Enu::toEcef(const Lla& origin, Ecef& ecef) const
   double sinLat = sin(origin.lat);
   double cosLat = cos(origin.lat);
 
-  ecef = Ecef(
-    -sinLon * e - sinLat * cosLon * n + cosLat * cosLon * u + originEcef.x,
-    cosLon * e - sinLat * sinLon * n + cosLat * sinLon * u + originEcef.y,
-    cosLat * n + sinLat * u + originEcef.z
-  );
+  ecef = Ecef(-sinLon * e - sinLat * cosLon * n + cosLat * cosLon * u + originEcef.x,
+              cosLon * e - sinLat * sinLon * n + cosLat * sinLon * u + originEcef.y,
+              cosLat * n + sinLat * u + originEcef.z);
 }
 
 void Enu::toLla(const Lla& origin, Lla& lla) const
@@ -44,7 +44,7 @@ bool Enu::operator==(const Enu& other) const
   return e == other.e && n == other.n && u == other.u;
 }
 
-bool Enu::operator!=(const Enu &other) const
+bool Enu::operator!=(const Enu& other) const
 {
   return !(*this == other);
 }

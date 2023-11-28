@@ -10,6 +10,8 @@ namespace Sdx
   namespace Cmd
   {
     ///
+    /// Please note the command SetWFAntennaElementOffset is deprecated since 23.11. You may use SetVehicleAntennaOffset.
+    /// 
     /// Set WF antenna offset and orientation relative to CRPA Antenna frame for the specified element index.
     ///
     /// Name    Type   Description
@@ -33,6 +35,8 @@ namespace Sdx
       static const char* const CmdName;
       static const char* const Documentation;
 
+      static const char* const Deprecated;
+
 
       SetWFAntennaElementOffset();
 
@@ -42,6 +46,8 @@ namespace Sdx
       static SetWFAntennaElementOffsetPtr dynamicCast(CommandBasePtr ptr);
       virtual bool isValid() const override;
       virtual std::string documentation() const override;
+
+      virtual Sdx::optional<std::string> deprecated() const override;
 
       virtual int executePermission() const override;
 

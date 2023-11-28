@@ -1,19 +1,21 @@
 #include "remote_simulator.h"
-#include "cmd_client.h"
-#include "hil_client.h"
-#include <iostream>
-#include "all_commands.h"
-#include "command_exception.h"
+
 #include <exception>
-#include "lla.h"
-#include "ecef.h"
-#include "attitude.h"
+#include <iostream>
 #include <sstream>
+
+#include "all_commands.h"
+#include "attitude.h"
+#include "cmd_client.h"
+#include "command_exception.h"
+#include "ecef.h"
+#include "hil_client.h"
+#include "lla.h"
 
 using namespace Sdx;
 
-RemoteSimulator::RemoteSimulator(bool exceptionOnError)
-  : m_exceptionOnError(exceptionOnError),
+RemoteSimulator::RemoteSimulator(bool exceptionOnError) :
+  m_exceptionOnError(exceptionOnError),
   m_client(0),
   m_hil(0),
   m_verbose(false),
@@ -143,7 +145,9 @@ void RemoteSimulator::setDeprecatedMessageMode(DeprecatedMessageMode mode)
 void RemoteSimulator::deprecatedMessage(CommandBasePtr cmd)
 {
   auto deprecated = cmd->deprecated();
-  if (deprecated && (m_deprecatedMessageMode == DeprecatedMessageMode::ALL || (m_deprecatedMessageMode == DeprecatedMessageMode::LATCH && m_latchDeprecated.find(cmd->name()) == m_latchDeprecated.end())))
+  if (deprecated && (m_deprecatedMessageMode == DeprecatedMessageMode::ALL ||
+                     (m_deprecatedMessageMode == DeprecatedMessageMode::LATCH &&
+                      m_latchDeprecated.find(cmd->name()) == m_latchDeprecated.end())))
   {
     std::cout << "Warning: " << *deprecated << std::endl;
     m_latchDeprecated.insert(cmd->name());
@@ -209,7 +213,8 @@ bool RemoteSimulator::start()
   if (isVerbose())
   {
     std::cout << "Simulation started." << std::endl;
-    Cmd::SimulatorStateResultPtr result = Cmd::SimulatorStateResult::dynamicCast(callCommand(std::make_shared<Cmd::GetSimulatorState>()));
+    Cmd::SimulatorStateResultPtr result = Cmd::SimulatorStateResult::dynamicCast(
+      callCommand(std::make_shared<Cmd::GetSimulatorState>()));
     if (!result)
       std::cout << "Unable to find simulator state!" << std::endl;
     else if (result->subStateId() == Sdx::SimulatorSubState::Started_HILSync)
@@ -243,29 +248,37 @@ void RemoteSimulator::stop(double timestamp)
     std::cout << "Simulation stopped." << std::endl;
 }
 
-void RemoteSimulator::checkForbidden(CommandBasePtr cmd)
+void RemoteSimulator::checkForbiddenPost(CommandBasePtr cmd)
 {
   if (cmd->name() == "Start")
     throw std::runtime_error("You cannot send a Start() command. Use RemoteSimulator.start() instead.");
-  if (cmd->name() == "BeginTrackDefinition")
-    throw std::runtime_error("You cannot send a BeginTrackDefinition command. Use RemoteSimulator.beginTrackDefinition() instead.");
-  if (cmd->name() == "EndTrackDefinition")
-    throw std::runtime_error("You cannot send a EndTrackDefinition command. Use RemoteSimulator.endTrackDefinition() instead.");
-  if (cmd->name() == "BeginRouteDefinition")
-    throw std::runtime_error("You cannot send a BeginRouteDefinition command. Use RemoteSimulator.beginRouteDefinition() instead.");
-  if (cmd->name() == "EndRouteDefinition")
-    throw std::runtime_error("You cannot send a EndRouteDefinition command. Use RemoteSimulator.endRouteDefinition() instead.");
+}
+
+void RemoteSimulator::checkForbiddenCall(CommandBasePtr cmd)
+{
+  if (cmd->name() == "Start")
+    throw std::runtime_error("You cannot send a Start() command. Use RemoteSimulator.start() instead.");
   if (cmd->name() == "PushRouteEcef")
-    throw std::runtime_error("You cannot send a PushRouteEcef command. Use RemoteSimulator.pushRouteEcef() or RemoteSimulator.pushRouteLla() instead.");
+    throw std::runtime_error(
+      "You cannot call a PushRouteEcef command. Post it or use RemoteSimulator.pushRouteEcef() or RemoteSimulator.pushRouteLla() instead.");
   if (cmd->name() == "PushTrackEcef")
-    throw std::runtime_error("You cannot send a PushTrackEcef command. Use RemoteSimulator.pushTrackLla() or RemoteSimulator.pushTrackEcef() instead.");
+    throw std::runtime_error(
+      "You cannot call a PushTrackEcef command. Post it or use RemoteSimulator.pushTrackLla() or RemoteSimulator.pushTrackEcef() instead.");
   if (cmd->name() == "PushTrackEcefNed")
-    throw std::runtime_error("You cannot send a PushTrackEcef command. Use RemoteSimulator.pushTrackLlaNed() or RemoteSimulator.pushTrackEcefNed() instead.");
+    throw std::runtime_error(
+      "You cannot call a PushTrackEcef command. Post it or use RemoteSimulator.pushTrackLlaNed() or RemoteSimulator.pushTrackEcefNed() instead.");
+  if (cmd->name() == "PushIntTxTrackEcef")
+    throw std::runtime_error(
+      "You cannot call a PushIntTxTrackEcef command. Post it or use RemoteSimulator.pushIntTxTrackEcef() or RemoteSimulator.PushIntTxTrackLla() instead.");
+  if (cmd->name() == "PushIntTxTrackEcefNed")
+    throw std::runtime_error(
+      "You cannot call a PushIntTxTrackEcefNed command. Post it or use RemoteSimulator.pushIntTxTrackEcefNed() or RemoteSimulator.PushIntTxTrackLlaNed() instead.");
 }
 
 bool RemoteSimulator::checkIfStreaming()
 {
-  Cmd::SimulatorStateResultPtr stateResult = Cmd::SimulatorStateResult::dynamicCast(callCommand(Cmd::GetSimulatorState::create()));
+  Cmd::SimulatorStateResultPtr stateResult = Cmd::SimulatorStateResult::dynamicCast(
+    callCommand(Cmd::GetSimulatorState::create()));
 
   if (stateResult->state() == "Streaming RF")
     return true;
@@ -289,8 +302,8 @@ bool RemoteSimulator::waitState(const std::string& state, const std::string& fai
   if (isVerbose())
     std::cout << "Waiting for simulator state " << std::endl;
 
-  Cmd::SimulatorStateResultPtr stateResult =
-    Cmd::SimulatorStateResult::dynamicCast(callCommand(Cmd::WaitSimulatorState::create(state, failureState)));
+  Cmd::SimulatorStateResultPtr stateResult = Cmd::SimulatorStateResult::dynamicCast(
+    callCommand(Cmd::WaitSimulatorState::create(state, failureState)));
 
   std::string errorMsg;
   if (stateResult->state() == state)
@@ -372,29 +385,38 @@ bool RemoteSimulator::pushEcef(double elapsedTime, const Ecef& position, const s
 
 bool RemoteSimulator::pushEcef(double elapsedTime, const Ecef& position, const Ecef& velocity, const std::string& name)
 {
-	if (!m_hil)
-		throw std::runtime_error("Cannot send position to simulator because you are not connected.");
+  if (!m_hil)
+    throw std::runtime_error("Cannot send position to simulator because you are not connected.");
 
-	m_hil->pushEcef(elapsedTime, position, velocity, name);
-	return hilCheck(elapsedTime);
+  m_hil->pushEcef(elapsedTime, position, velocity, name);
+  return hilCheck(elapsedTime);
 }
 
-bool RemoteSimulator::pushEcef(double elapsedTime, const Ecef& position, const Ecef& velocity, const Ecef& acceleration, const std::string& name)
+bool RemoteSimulator::pushEcef(double elapsedTime,
+                               const Ecef& position,
+                               const Ecef& velocity,
+                               const Ecef& acceleration,
+                               const std::string& name)
 {
-	if (!m_hil)
-		throw std::runtime_error("Cannot send position to simulator because you are not connected.");
+  if (!m_hil)
+    throw std::runtime_error("Cannot send position to simulator because you are not connected.");
 
-	m_hil->pushEcef(elapsedTime, position, velocity, acceleration, name);
-	return hilCheck(elapsedTime);
+  m_hil->pushEcef(elapsedTime, position, velocity, acceleration, name);
+  return hilCheck(elapsedTime);
 }
 
-bool RemoteSimulator::pushEcef(double elapsedTime, const Ecef& position, const Ecef& velocity, const Ecef& acceleration, const Ecef& jerk, const std::string& name)
+bool RemoteSimulator::pushEcef(double elapsedTime,
+                               const Ecef& position,
+                               const Ecef& velocity,
+                               const Ecef& acceleration,
+                               const Ecef& jerk,
+                               const std::string& name)
 {
-	if (!m_hil)
-		throw std::runtime_error("Cannot send position to simulator because you are not connected.");
+  if (!m_hil)
+    throw std::runtime_error("Cannot send position to simulator because you are not connected.");
 
-	m_hil->pushEcef(elapsedTime, position, velocity, acceleration, jerk, name);
-	return hilCheck(elapsedTime);
+  m_hil->pushEcef(elapsedTime, position, velocity, acceleration, jerk, name);
+  return hilCheck(elapsedTime);
 }
 
 bool RemoteSimulator::pushLla(double elapsedTime, const Lla& lla, const std::string& name)
@@ -404,7 +426,10 @@ bool RemoteSimulator::pushLla(double elapsedTime, const Lla& lla, const std::str
   return pushEcef(elapsedTime, ecef, name);
 }
 
-bool RemoteSimulator::pushEcefNed(double elapsedTime, const Ecef& position, const Attitude& attitude, const std::string& name)
+bool RemoteSimulator::pushEcefNed(double elapsedTime,
+                                  const Ecef& position,
+                                  const Attitude& attitude,
+                                  const std::string& name)
 {
   if (!m_hil)
     throw std::runtime_error("Cannot send position to simulator because you are not connected.");
@@ -413,31 +438,62 @@ bool RemoteSimulator::pushEcefNed(double elapsedTime, const Ecef& position, cons
   return hilCheck(elapsedTime);
 }
 
-bool RemoteSimulator::pushEcefNed(double elapsedTime, const Ecef& position, const Attitude& attitude, const Ecef& velocity, const Attitude& angularVelocity, const std::string& name)
+bool RemoteSimulator::pushEcefNed(double elapsedTime,
+                                  const Ecef& position,
+                                  const Attitude& attitude,
+                                  const Ecef& velocity,
+                                  const Attitude& angularVelocity,
+                                  const std::string& name)
 {
-	if (!m_hil)
-		throw std::runtime_error("Cannot send position to simulator because you are not connected.");
+  if (!m_hil)
+    throw std::runtime_error("Cannot send position to simulator because you are not connected.");
 
-	m_hil->pushEcefNed(elapsedTime, position, attitude, velocity, angularVelocity, name);
-	return hilCheck(elapsedTime);
+  m_hil->pushEcefNed(elapsedTime, position, attitude, velocity, angularVelocity, name);
+  return hilCheck(elapsedTime);
 }
 
-bool RemoteSimulator::pushEcefNed(double elapsedTime, const Ecef& position, const Attitude& attitude, const Ecef& velocity, const Attitude& angularVelocity, const Ecef& acceleration, const Attitude& angularAcceleration, const std::string& name)
+bool RemoteSimulator::pushEcefNed(double elapsedTime,
+                                  const Ecef& position,
+                                  const Attitude& attitude,
+                                  const Ecef& velocity,
+                                  const Attitude& angularVelocity,
+                                  const Ecef& acceleration,
+                                  const Attitude& angularAcceleration,
+                                  const std::string& name)
 {
-	if (!m_hil)
-		throw std::runtime_error("Cannot send position to simulator because you are not connected.");
+  if (!m_hil)
+    throw std::runtime_error("Cannot send position to simulator because you are not connected.");
 
-	m_hil->pushEcefNed(elapsedTime, position, attitude, velocity, angularVelocity, acceleration, angularAcceleration, name);
-	return hilCheck(elapsedTime);
+  m_hil
+    ->pushEcefNed(elapsedTime, position, attitude, velocity, angularVelocity, acceleration, angularAcceleration, name);
+  return hilCheck(elapsedTime);
 }
 
-bool RemoteSimulator::pushEcefNed(double elapsedTime, const Ecef& position, const Attitude& attitude, const Ecef& velocity, const Attitude& angularVelocity, const Ecef& acceleration, const Attitude& angularAcceleration, const Ecef& jerk, const  Attitude& angularJerk, const std::string& name)
+bool RemoteSimulator::pushEcefNed(double elapsedTime,
+                                  const Ecef& position,
+                                  const Attitude& attitude,
+                                  const Ecef& velocity,
+                                  const Attitude& angularVelocity,
+                                  const Ecef& acceleration,
+                                  const Attitude& angularAcceleration,
+                                  const Ecef& jerk,
+                                  const Attitude& angularJerk,
+                                  const std::string& name)
 {
-	if (!m_hil)
-		throw std::runtime_error("Cannot send position to simulator because you are not connected.");
+  if (!m_hil)
+    throw std::runtime_error("Cannot send position to simulator because you are not connected.");
 
-	m_hil->pushEcefNed(elapsedTime, position, attitude, velocity, angularVelocity, acceleration, angularAcceleration, jerk, angularJerk, name);
-	return hilCheck(elapsedTime);
+  m_hil->pushEcefNed(elapsedTime,
+                     position,
+                     attitude,
+                     velocity,
+                     angularVelocity,
+                     acceleration,
+                     angularAcceleration,
+                     jerk,
+                     angularJerk,
+                     name);
+  return hilCheck(elapsedTime);
 }
 
 bool RemoteSimulator::pushLlaNed(double elapsedTime, const Lla& lla, const Attitude& attitude, const std::string& name)
@@ -455,29 +511,29 @@ CommandResultPtr RemoteSimulator::beginTrackDefinition()
   return result;
 }
 
-void RemoteSimulator::pushTrackEcef(long long elapsedTime, const Ecef& ecef)
+void RemoteSimulator::pushTrackEcef(int elapsedTime, const Ecef& ecef)
 {
   if (!m_beginTrack)
     throw std::runtime_error("You must call beginTrackDefinition first.");
   postCommand(Cmd::PushTrackEcef::create(elapsedTime, ecef.x, ecef.y, ecef.z));
 }
 
-void RemoteSimulator::pushTrackEcefNed(long long elapsedTime, const Ecef& ecef, const Attitude& attitude)
+void RemoteSimulator::pushTrackEcefNed(int elapsedTime, const Ecef& ecef, const Attitude& attitude)
 {
   if (!m_beginTrack)
     throw std::runtime_error("You must call beginTrackDefinition first.");
-  postCommand(Cmd::PushTrackEcefNed::create(elapsedTime, ecef.x, ecef.y, ecef.z,
-    attitude.yaw, attitude.pitch, attitude.roll));
+  postCommand(
+    Cmd::PushTrackEcefNed::create(elapsedTime, ecef.x, ecef.y, ecef.z, attitude.yaw, attitude.pitch, attitude.roll));
 }
 
-void RemoteSimulator::pushTrackLla(long long elapsedTime, const Lla& lla)
+void RemoteSimulator::pushTrackLla(int elapsedTime, const Lla& lla)
 {
   Ecef ecef;
   lla.toEcef(ecef);
   pushTrackEcef(elapsedTime, ecef);
 }
 
-void RemoteSimulator::pushTrackLlaNed(long long elapsedTime, const Lla& lla, const Attitude& attitude)
+void RemoteSimulator::pushTrackLlaNed(int elapsedTime, const Lla& lla, const Attitude& attitude)
 {
   Ecef ecef;
   lla.toEcef(ecef);
@@ -487,7 +543,8 @@ void RemoteSimulator::pushTrackLlaNed(long long elapsedTime, const Lla& lla, con
 CommandResultPtr RemoteSimulator::endTrackDefinition(int& numberOfNodesInTrack)
 {
   if (!m_beginTrack)
-    throw std::runtime_error("You must call beginTrackDefinition first and pushTrackEcef/pushTrackLla with all the Track nodes before calling endTrackDefinition.");
+    throw std::runtime_error(
+      "You must call beginTrackDefinition first and pushTrackEcef/pushTrackLla with all the Track nodes before calling endTrackDefinition.");
   m_beginTrack = false;
   CommandResultPtr result = callCommand(Cmd::EndTrackDefinition::create());
   if (result->isSuccess())
@@ -501,7 +558,6 @@ CommandResultPtr RemoteSimulator::endTrackDefinition(int& numberOfNodesInTrack)
   }
   return result;
 }
-
 
 CommandResultPtr RemoteSimulator::beginRouteDefinition()
 {
@@ -532,7 +588,8 @@ void RemoteSimulator::pushRouteLla(double speed, const Lla& lla)
 CommandResultPtr RemoteSimulator::endRouteDefinition(int& numberOfNodesInRoute)
 {
   if (!m_beginRoute)
-    throw std::runtime_error("You must call beginRouteDefinition first and pushRouteEcef/pushRouteLla with all the route nodes before calling endRouteDefinition.");
+    throw std::runtime_error(
+      "You must call beginRouteDefinition first and pushRouteEcef/pushRouteLla with all the route nodes before calling endRouteDefinition.");
   m_beginRoute = false;
   CommandResultPtr result = callCommand(Cmd::EndRouteDefinition::create());
   if (result->isSuccess())
@@ -547,12 +604,90 @@ CommandResultPtr RemoteSimulator::endRouteDefinition(int& numberOfNodesInRoute)
   return result;
 }
 
+CommandResultPtr RemoteSimulator::beginIntTxTrackDefinition(const std::string& id)
+{
+  CommandResultPtr result = callCommand(Cmd::BeginIntTxTrackDefinition::create(id));
+  if (result->isSuccess())
+  {
+    m_beginIntTxTrack.emplace(id);
+    if (m_verbose)
+      std::cout << "Begin Transmitter Track Definition..." << std::endl;
+  }
+  return result;
+}
+
+void RemoteSimulator::pushIntTxTrackEcef(int elapsedTime, const Ecef& ecef, const std::string& id)
+{
+  if (m_beginIntTxTrack.find(id) == m_beginIntTxTrack.end())
+    throw std::runtime_error("You must call beginIntTxTrackDefinition first.");
+
+  postCommand(Cmd::PushIntTxTrackEcef::create(elapsedTime, ecef.x, ecef.y, ecef.z, id));
+}
+
+void RemoteSimulator::pushIntTxTrackEcefNed(int elapsedTime,
+                                            const Ecef& ecef,
+                                            const Attitude& attitude,
+                                            const std::string& id)
+{
+  if (m_beginIntTxTrack.find(id) == m_beginIntTxTrack.end())
+    throw std::runtime_error("You must call beginIntTxTrackDefinition first.");
+
+  postCommand(Cmd::PushIntTxTrackEcefNed::create(elapsedTime,
+                                                 ecef.x,
+                                                 ecef.y,
+                                                 ecef.z,
+                                                 attitude.yaw,
+                                                 attitude.pitch,
+                                                 attitude.roll,
+                                                 id));
+}
+
+void RemoteSimulator::pushIntTxTrackLla(int elapsedTime, const Lla& lla, const std::string& id)
+{
+  Ecef ecef;
+  lla.toEcef(ecef);
+  pushIntTxTrackEcef(elapsedTime, ecef, id);
+}
+
+void RemoteSimulator::pushIntTxTrackLlaNed(int elapsedTime,
+                                           const Lla& lla,
+                                           const Attitude& attitude,
+                                           const std::string& id)
+{
+  Ecef ecef;
+  lla.toEcef(ecef);
+  pushIntTxTrackEcefNed(elapsedTime, ecef, attitude, id);
+}
+
+CommandResultPtr RemoteSimulator::endIntTxTrackDefinition(int& numberOfNodesInTrack, const std::string& id)
+{
+  if (m_beginIntTxTrack.find(id) == m_beginIntTxTrack.end())
+    throw std::runtime_error("You must call beginIntTxTrackDefinition first.");
+
+  m_beginIntTxTrack.erase(id);
+  CommandResultPtr result = callCommand(Cmd::EndIntTxTrackDefinition::create(id));
+  if (result->isSuccess())
+  {
+    Cmd::EndIntTxTrackDefinitionResultPtr trackResult = Cmd::EndIntTxTrackDefinitionResult::dynamicCast(result);
+    numberOfNodesInTrack = trackResult->count();
+  }
+  else
+  {
+    numberOfNodesInTrack = 0;
+  }
+
+  if (m_verbose)
+    std::cout << "End transmitter track contains " << numberOfNodesInTrack << " nodes." << std::endl;
+
+  return result;
+}
 
 void RemoteSimulator::handleException(CommandResultPtr result)
 {
   if (m_exceptionOnError && !result->isSuccess())
   {
-    Cmd::SimulatorStateResultPtr stateResult = Cmd::SimulatorStateResult::dynamicCast(call(Cmd::GetSimulatorState::create()));
+    Cmd::SimulatorStateResultPtr stateResult = Cmd::SimulatorStateResult::dynamicCast(
+      call(Cmd::GetSimulatorState::create()));
     std::string errorMsg;
     if (stateResult->state() == "Error")
       errorMsg = "\nAn error occured during simulation. Error message:\n" + stateResult->error();
@@ -565,7 +700,7 @@ void RemoteSimulator::handleException(CommandResultPtr result)
 
 CommandBasePtr RemoteSimulator::post(CommandBasePtr cmd, double timestamp)
 {
-  checkForbidden(cmd);
+  checkForbiddenPost(cmd);
   if (isVerbose())
     std::cout << "Post " << cmd->toReadableCommand() << " at " << cmd->timestamp() << " secs" << std::endl;
   postCommand(cmd, timestamp);
@@ -574,7 +709,7 @@ CommandBasePtr RemoteSimulator::post(CommandBasePtr cmd, double timestamp)
 
 CommandBasePtr RemoteSimulator::post(CommandBasePtr cmd)
 {
-  checkForbidden(cmd);
+  checkForbiddenPost(cmd);
   if (isVerbose())
     std::cout << "Post " << cmd->toReadableCommand() << std::endl;
   postCommand(cmd);
@@ -593,7 +728,7 @@ CommandResultPtr RemoteSimulator::wait(CommandBasePtr cmd)
 
 CommandResultPtr RemoteSimulator::call(CommandBasePtr cmd, double timestamp)
 {
-  checkForbidden(cmd);
+  checkForbiddenCall(cmd);
   postCommand(cmd, timestamp);
   if (isVerbose())
     std::cout << "Call " << cmd->toReadableCommand() << " at " << cmd->timestamp() << " secs" << std::flush;
@@ -605,7 +740,7 @@ CommandResultPtr RemoteSimulator::call(CommandBasePtr cmd, double timestamp)
 
 CommandResultPtr RemoteSimulator::call(CommandBasePtr cmd)
 {
-  checkForbidden(cmd);
+  checkForbiddenCall(cmd);
   postCommand(cmd);
   if (isVerbose())
     std::cout << "Call " << cmd->toReadableCommand() << std::flush;

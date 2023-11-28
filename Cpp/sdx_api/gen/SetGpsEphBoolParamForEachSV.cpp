@@ -14,7 +14,9 @@ namespace Sdx
   namespace Cmd
   {
     const char* const SetGpsEphBoolParamForEachSV::CmdName = "SetGpsEphBoolParamForEachSV";
-    const char* const SetGpsEphBoolParamForEachSV::Documentation = "Set GPS ephemeris boolean parameter value for all satellites";
+    const char* const SetGpsEphBoolParamForEachSV::Documentation = "Please note the command SetGpsEphBoolParamForEachSV is deprecated since 23.11. You may use SetConstellationParameterForSV.\n\nSet GPS ephemeris boolean parameter value for all satellites";
+
+    const char* const SetGpsEphBoolParamForEachSV::Deprecated = "Please note the command SetGpsEphBoolParamForEachSV is deprecated since 23.11. You may use SetConstellationParameterForSV.";
 
     REGISTER_COMMAND_FACTORY(SetGpsEphBoolParamForEachSV);
 
@@ -54,6 +56,8 @@ namespace Sdx
     }
 
     std::string SetGpsEphBoolParamForEachSV::documentation() const { return Documentation; }
+
+    Sdx::optional<std::string> SetGpsEphBoolParamForEachSV::deprecated() const { return Sdx::optional<std::string>{Deprecated}; }
 
 
     int SetGpsEphBoolParamForEachSV::executePermission() const

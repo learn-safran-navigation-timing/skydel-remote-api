@@ -14,7 +14,7 @@ namespace Sdx
   namespace Cmd
   {
     const char* const GetSyncTimeMaster::CmdName = "GetSyncTimeMaster";
-    const char* const GetSyncTimeMaster::Documentation = "Get time delay to start streaming after PPS synchronization. A value of 1500\nmeans the simulation will start streaming 1.5 sec after the PPS used for\nsynchornization.";
+    const char* const GetSyncTimeMaster::Documentation = "Please note the command GetSyncTimeMaster is deprecated since 23.11. You may use GetSyncTimeMainInstance.\n\nGet time delay to start streaming after PPS synchronization. A value of 1500\nmeans the simulation will start streaming 1.5 sec after the PPS used for\nsynchornization.";
 
     REGISTER_COMMAND_FACTORY(GetSyncTimeMaster);
 

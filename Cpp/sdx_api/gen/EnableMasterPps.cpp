@@ -14,7 +14,7 @@ namespace Sdx
   namespace Cmd
   {
     const char* const EnableMasterPps::CmdName = "EnableMasterPps";
-    const char* const EnableMasterPps::Documentation = "Enable/Disable Time Synchronization Master.\nThe Master will control other Skydel simulators with Slave PPS Enabled.";
+    const char* const EnableMasterPps::Documentation = "Please note the command EnableMasterPps is deprecated since 23.11. You may use EnableMainInstanceSync.\n\nEnable/Disable Time Synchronization on main instance.\nThe main instance will control other Skydel simulators with main instance PPS Enabled.";
 
     REGISTER_COMMAND_FACTORY(EnableMasterPps);
 

@@ -1,9 +1,9 @@
 #ifndef HIL_CLIENT_H
 #define HIL_CLIENT_H
 
+#include <cstdint>
 #include <memory>
 #include <string>
-#include <cstdint>
 #include <utility>
 
 namespace Sdx
@@ -23,30 +23,29 @@ enum HilMessageId
 enum class HilDynamics
 {
   Velocity = 0,
-  Acceleration= 1,
+  Acceleration = 1,
   Jerk = 2
 };
 
 struct HilMessageEcef
 {
   double time;
-  double  x;
-  double  y;
-  double  z;
+  double x;
+  double y;
+  double z;
 };
 
 struct HilMessageEcefNed
 {
   double time;
-  double  x;
-  double  y;
-  double  z;
-  double  yaw;
-  double  pitch;
-  double  roll;
+  double x;
+  double y;
+  double z;
+  double yaw;
+  double pitch;
+  double roll;
 };
 
-class Lla;
 class Ecef;
 class Attitude;
 struct VehicleInfo;
@@ -65,15 +64,158 @@ public:
   bool isVerbose() const;
   void setVerbose(bool verbose);
 
+  // Send Skydel a timed position of the vehicle. The position is provided in the ECEF coordinate system.
+  //
+  //  Parameter     Type      Units          Description
+  //  --------------------------------------------------------------------------------------
+  //  elapsedTime             milliseconds   Time since the beginning of the simulation.
+  //  position      x, y, z   m              Position of the vehicle.
+  //  name                                   If empty, sends the position for the vehicle. If set with a jammerID, sends
+  //                                         the position for the specified jammer's vehicle.
+  //
   virtual bool pushEcef(double elapsedTime, const Ecef& position, const std::string& name = "");
-  virtual bool pushEcef(double elapsedTime, const Ecef& position, const Ecef& velocity, const std::string& name = "");
-  virtual bool pushEcef(double elapsedTime, const Ecef& position, const Ecef& velocity, const Ecef& acceleration, const std::string& name = "");
-  virtual bool pushEcef(double elapsedTime, const Ecef& position, const Ecef& velocity, const Ecef& acceleration, const Ecef& jerk, const std::string& name = "");
 
-  virtual bool pushEcefNed(double elapsedTime, const Ecef& position, const Attitude& attitude, const std::string& name = "");
-  virtual bool pushEcefNed(double elapsedTime, const Ecef& position, const Attitude& attitude, const Ecef& velocity, const Attitude& angularVelocity, const std::string& name = "");
-  virtual bool pushEcefNed(double elapsedTime, const Ecef& position, const Attitude& attitude, const Ecef& velocity, const Attitude& angularVelocity, const Ecef& acceleration, const Attitude& angularAcceleration, const std::string& name = "");
-  virtual bool pushEcefNed(double elapsedTime, const Ecef& position, const Attitude& attitude, const Ecef& velocity, const Attitude& angularVelocity, const Ecef& acceleration, const Attitude& angularAcceleration, const Ecef& jerk, const  Attitude& angularJerk, const std::string& name = "");
+  // Send Skydel a timed position and the associated dynamics of the vehicle. The position is provided in the ECEF
+  // coordinate system.
+  //
+  //  Parameter     Type      Units          Description
+  //  --------------------------------------------------------------------------------------
+  //  elapsedTime             milliseconds   Time since the beginning of the simulation.
+  //  position      x, y, z   m              Position of the vehicle.
+  //  velocity      x, y, z   m/s            Velocity of the vehicle.
+  //  name                                   If empty, sends the position for the vehicle. If set with a jammerID, sends
+  //                                         the position for the specified jammer's vehicle.
+  //
+  virtual bool pushEcef(double elapsedTime, const Ecef& position, const Ecef& velocity, const std::string& name = "");
+
+  // Send Skydel a timed position and the associated dynamics of the vehicle. The position is provided in the ECEF
+  // coordinate system.
+  //
+  //  Parameter      Type      Units          Description
+  //  ---------------------------------------------------------------------------------------
+  //  elapsedTime              milliseconds   Time since the beginning of the simulation.
+  //  position       x, y, z   m              Position of the vehicle.
+  //  velocity       x, y, z   m/s            Velocity of the vehicle.
+  //  acceleration   x, y, z   m/s²           Acceleration of the vehicle.
+  //  name                                    If empty, sends the position for the vehicle. If set with a jammerID,
+  //                                          sends the position for the specified jammer's vehicle.
+  //
+  virtual bool pushEcef(double elapsedTime,
+                        const Ecef& position,
+                        const Ecef& velocity,
+                        const Ecef& acceleration,
+                        const std::string& name = "");
+
+  // Send Skydel a timed position and the associated dynamics of the vehicle. The position is provided in the ECEF
+  // coordinate system.
+  //
+  //  Parameter      Type      Units          Description
+  //  ---------------------------------------------------------------------------------------
+  //  elapsedTime              milliseconds   Time since the beginning of the simulation.
+  //  position       x, y, z   m              Position of the vehicle.
+  //  velocity       x, y, z   m/s            Velocity of the vehicle.
+  //  acceleration   x, y, z   m/s²           Acceleration of the vehicle.
+  //  jerk           x, y, z   m/s³           Jerk of the vehicle.
+  //  name                                    If empty, sends the position for the vehicle. If set with a jammerID,
+  //                                          sends the position for the specified jammer's vehicle.
+  //
+  virtual bool pushEcef(double elapsedTime,
+                        const Ecef& position,
+                        const Ecef& velocity,
+                        const Ecef& acceleration,
+                        const Ecef& jerk,
+                        const std::string& name = "");
+
+  // Send Skydel a timed position and orientation of the vehicle. The position is provided in the ECEF coordinate
+  // system, while the body's orientation is specified relative to the local NED reference frame.
+  //
+  //  Parameter     Type               Units          Description
+  //  -----------------------------------------------------------------------------------------------
+  //  elapsedTime                      milliseconds   Time since the beginning of the simulation.
+  //  position      x, y, z            m              Position of the vehicle.
+  //  attitude      yaw, pitch, roll   rad            Orientation of the vehicle's body.
+  //  name                                            If empty, sends the position for the vehicle. If set with a
+  //                                                  jammerID, sends the position for the specified jammer's vehicle.
+  //
+  virtual bool pushEcefNed(double elapsedTime,
+                           const Ecef& position,
+                           const Attitude& attitude,
+                           const std::string& name = "");
+
+  // Send Skydel a timed position, orientation, and the associated dynamics of the vehicle. The position is provided in
+  // the ECEF coordinate system, while the body's orientation is specified relative to the local NED reference frame.
+  //
+  //  Parameter         Type               Units          Description
+  //  ---------------------------------------------------------------------------------------------------
+  //  elapsedTime                          milliseconds   Time since the beginning of the simulation.
+  //  position          x, y, z            m              Position of the vehicle.
+  //  attitude          yaw, pitch, roll   rad            Orientation of the vehicle's body.
+  //  velocity          x, y, z            m/s            Velocity of the vehicle.
+  //  angularVelocity   yaw, pitch, roll   rad/s          Rotational velocity of the vehicle's body.
+  //  name                                                If empty, sends the position for the vehicle. If set with a
+  //                                                      jammerID, sends the position for the specified jammer's
+  //                                                      vehicle.
+  //
+  virtual bool pushEcefNed(double elapsedTime,
+                           const Ecef& position,
+                           const Attitude& attitude,
+                           const Ecef& velocity,
+                           const Attitude& angularVelocity,
+                           const std::string& name = "");
+
+  // Send Skydel a timed position, orientation, and the associated dynamics of the vehicle. The position is provided in
+  // the ECEF coordinate system, while the body's orientation is specified relative to the local NED reference frame.
+  //
+  //  Parameter             Type               Units          Description
+  //  -------------------------------------------------------------------------------------------------------
+  //  elapsedTime                              milliseconds   Time since the beginning of the simulation.
+  //  position              x, y, z            m              Position of the vehicle.
+  //  attitude              yaw, pitch, roll   rad            Orientation of the vehicle's body.
+  //  velocity              x, y, z            m/s            Velocity of the vehicle.
+  //  angularVelocity       yaw, pitch, roll   rad/s          Rotational velocity of the vehicle's body.
+  //  acceleration          x, y, z            m/s²           Acceleration of the vehicle.
+  //  angularAcceleration   yaw, pitch, roll   rad/s²         Rotational acceleration of the vehicle's body.
+  //  name                                                    If empty, sends the position for the vehicle. If set with
+  //                                                          a jammerID, sends the position for the specified jammer's
+  //                                                          vehicle.
+  //
+  virtual bool pushEcefNed(double elapsedTime,
+                           const Ecef& position,
+                           const Attitude& attitude,
+                           const Ecef& velocity,
+                           const Attitude& angularVelocity,
+                           const Ecef& acceleration,
+                           const Attitude& angularAcceleration,
+                           const std::string& name = "");
+
+  // Send Skydel a timed position, orientation, and the associated dynamics of the vehicle. The position is provided in
+  // the ECEF coordinate system, while the body's orientation is specified relative to the local NED reference frame.
+  //
+  //  Parameter             Type               Units          Description
+  //  -------------------------------------------------------------------------------------------------------
+  //  elapsedTime                              milliseconds   Time since the beginning of the simulation.
+  //  position              x, y, z            m              Position of the vehicle.
+  //  attitude              yaw, pitch, roll   rad            Orientation of the vehicle's body.
+  //  velocity              x, y, z            m/s            Velocity of the vehicle.
+  //  angularVelocity       yaw, pitch, roll   rad/s          Rotational velocity of the vehicle's body.
+  //  acceleration          x, y, z            m/s²           Acceleration of the vehicle.
+  //  angularAcceleration   yaw, pitch, roll   rad/s²         Rotational acceleration of the vehicle's body.
+  //  jerk                  x, y, z            m/s³           Jerk of the vehicle.
+  //  angularJerk           yaw, pitch, roll   rad/s³         Rotational jerk of the vehicle's body.
+  //  name                                                    If empty, sends the position for the vehicle. If set with
+  //                                                          a jammerID, sends the position for the specified jammer's
+  //                                                          vehicle.
+  //
+  virtual bool pushEcefNed(double elapsedTime,
+                           const Ecef& position,
+                           const Attitude& attitude,
+                           const Ecef& velocity,
+                           const Attitude& angularVelocity,
+                           const Ecef& acceleration,
+                           const Attitude& angularAcceleration,
+                           const Ecef& jerk,
+                           const Attitude& angularJerk,
+                           const std::string& name = "");
 
   void disconnect();
 

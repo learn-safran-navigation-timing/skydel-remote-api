@@ -3,7 +3,6 @@
 #include <map>
 #include <stdexcept>
 #include <vector>
-#include <stdexcept>
 
 #include "rapidjson/document.h"
 #include "sdx_optional.h"
@@ -15,124 +14,103 @@ struct parse_json;
 template<>
 struct parse_json<bool>
 {
-	static bool is_valid(const rapidjson::Value& value)
-	{
-		return value.IsBool();
-	}
+  static bool is_valid(const rapidjson::Value& value) { return value.IsBool(); }
 
-	static bool parse(const rapidjson::Value& value)
-	{
-		if (!is_valid(value))
-			throw std::runtime_error("Unexpected value");
-		return value.GetBool();
-	}
+  static bool parse(const rapidjson::Value& value)
+  {
+    if (!is_valid(value))
+      throw std::runtime_error("Unexpected value");
+    return value.GetBool();
+  }
 
-	static rapidjson::Value format(bool value, rapidjson::Value::AllocatorType&)
-	{
-		return rapidjson::Value(value);
-	}
+  static rapidjson::Value format(bool value, rapidjson::Value::AllocatorType&) { return rapidjson::Value(value); }
 };
 
 // int specialization
 template<>
 struct parse_json<int>
 {
-	static bool is_valid(const rapidjson::Value& value)
-	{
-		return value.IsInt() || value.IsDouble();
-	}
+  static bool is_valid(const rapidjson::Value& value) { return value.IsInt() || value.IsDouble(); }
 
-	static int parse(const rapidjson::Value& value)
-	{
-		if (!is_valid(value))
-			throw std::runtime_error("Unexpected value");
-		return value.GetInt();
-	}
+  static int parse(const rapidjson::Value& value)
+  {
+    if (!is_valid(value))
+      throw std::runtime_error("Unexpected value");
+    return value.GetInt();
+  }
 
-	static rapidjson::Value format(int value, rapidjson::Value::AllocatorType&)
-	{
-		return rapidjson::Value(value);
-	}
+  static rapidjson::Value format(int value, rapidjson::Value::AllocatorType&) { return rapidjson::Value(value); }
 };
 
 // double specialization
 template<>
 struct parse_json<double>
 {
-	static bool is_valid(const rapidjson::Value& value)
-	{
-		return value.IsDouble() || value.IsInt();
-	}
+  static bool is_valid(const rapidjson::Value& value) { return value.IsDouble() || value.IsInt(); }
 
-	static double parse(const rapidjson::Value& value)
-	{
-		if (!is_valid(value))
-			throw std::runtime_error("Unexpected value");
-		return value.GetDouble();
-	}
+  static double parse(const rapidjson::Value& value)
+  {
+    if (!is_valid(value))
+      throw std::runtime_error("Unexpected value");
+    return value.GetDouble();
+  }
 
-	static rapidjson::Value format(double value, rapidjson::Value::AllocatorType&)
-	{
-		return rapidjson::Value(value);
-	}
+  static rapidjson::Value format(double value, rapidjson::Value::AllocatorType&) { return rapidjson::Value(value); }
 };
 
 // string specialization
 template<>
 struct parse_json<std::string>
 {
-	static bool is_valid(const rapidjson::Value& value)
-	{
-		return value.IsString();
-	}
+  static bool is_valid(const rapidjson::Value& value) { return value.IsString(); }
 
-	static std::string parse(const rapidjson::Value& value)
-	{
-		if (!is_valid(value))
-			throw std::runtime_error("Unexpected value");
-		return std::string(value.GetString(), value.GetStringLength());
-	}
+  static std::string parse(const rapidjson::Value& value)
+  {
+    if (!is_valid(value))
+      throw std::runtime_error("Unexpected value");
+    return std::string(value.GetString(), value.GetStringLength());
+  }
 
-	static rapidjson::Value format(const std::string& value, rapidjson::Value::AllocatorType& alloc)
-	{
-		return rapidjson::Value(value.c_str(), (rapidjson::SizeType)value.size(), alloc);
-	}
+  static rapidjson::Value format(const std::string& value, rapidjson::Value::AllocatorType& alloc)
+  {
+    return rapidjson::Value(value.c_str(), (rapidjson::SizeType)value.size(), alloc);
+  }
 };
 
 // vector specialization
 template<typename T>
 struct parse_json<std::vector<T>>
 {
-	static bool is_valid(const rapidjson::Value& value)
-	{
-		if (!value.IsArray())
-			return false;
-		for (rapidjson::Value::ConstValueIterator itr = value.Begin(); itr != value.End(); ++itr)
-			if (!parse_json<T>::is_valid(*itr))
-				return false;
-		return true;
-	}
+  static bool is_valid(const rapidjson::Value& value)
+  {
+    if (!value.IsArray())
+      return false;
+    for (rapidjson::Value::ConstValueIterator itr = value.Begin(); itr != value.End(); ++itr)
+      if (!parse_json<T>::is_valid(*itr))
+        return false;
+    return true;
+  }
 
-	static std::vector<T> parse(const rapidjson::Value& value)
-	{
-		std::vector<T> sent;
+  static std::vector<T> parse(const rapidjson::Value& value)
+  {
+    std::vector<T> sent;
 
-		if (!is_valid(value))
-			throw std::runtime_error("Unexpected value");
-		for (rapidjson::Value::ConstValueIterator itr = value.Begin(); itr != value.End(); ++itr)
-			sent.push_back(std::move(parse_json<T>::parse(*itr)));
-		return sent;
-	}
+    if (!is_valid(value))
+      throw std::runtime_error("Unexpected value");
+    for (rapidjson::Value::ConstValueIterator itr = value.Begin(); itr != value.End(); ++itr)
+      sent.push_back(std::move(parse_json<T>::parse(*itr)));
+    return sent;
+  }
 
-	static rapidjson::Value format(const std::vector<T>& value, rapidjson::Value::AllocatorType& alloc)
-	{
-		rapidjson::Value sent;
+  static rapidjson::Value format(const std::vector<T>& value, rapidjson::Value::AllocatorType& alloc)
+  {
+    rapidjson::Value sent;
 
-		sent.SetArray();
-		for (const T& v : value)
-			sent.PushBack(std::move(parse_json<T>::format(v, alloc)), alloc);
-		return sent;
-	}
+    sent.SetArray();
+    for (const T& v : value)
+      sent.PushBack(std::move(parse_json<T>::format(v, alloc)), alloc);
+    return sent;
+  }
 };
 
 // map specialization
@@ -179,7 +157,9 @@ struct parse_json<std::map<std::string, TValue>>
 
     for (auto itr = map.begin(); itr != map.end(); ++itr)
     {
-      sent.AddMember(parse_json<std::string>::format(itr->first, alloc), parse_json<TValue>::format(itr->second, alloc), alloc);
+      sent.AddMember(parse_json<std::string>::format(itr->first, alloc),
+                     parse_json<TValue>::format(itr->second, alloc),
+                     alloc);
     }
 
     return sent;
@@ -189,10 +169,7 @@ struct parse_json<std::map<std::string, TValue>>
 template<typename T>
 struct parse_json<Sdx::optional<T>>
 {
-  static bool is_valid(const rapidjson::Value& value)
-  {
-    return value.IsNull() || parse_json<T>::is_valid(value);
-  }
+  static bool is_valid(const rapidjson::Value& value) { return value.IsNull() || parse_json<T>::is_valid(value); }
 
   static Sdx::optional<T> parse(const rapidjson::Value& value)
   {

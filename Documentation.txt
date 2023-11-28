@@ -1,4 +1,4 @@
-Skydel Remote API Version 41
+Skydel Remote API Version 42
 
 Command execution permission flags:
   EXECUTE_IF_NO_CONFIG  : executed even if there is no config
@@ -42,15 +42,15 @@ Possible values:
   Started_InitHardware
   Started_Streaming
   Started_SyncInit
-  Started_SlaveSync
+  Started_WorkerSync
   Started_Armed
   Started_SyncStartTime
   Error
   Started_HILSync
   Started_SyncPPSReset
   Started_SyncStart
-  Started_WFSlaveInit
-  Started_WFMasterInit
+  Started_WFWorkerInit
+  Started_WFMainInit
   Started_WFSyncPPSReset
   Started_WFSyncStart
 
@@ -1395,68 +1395,96 @@ Rate int  Accepted rates are 1 and 10 Hz
 
 ***************************************************************************************************************************
 
+Command EnableMainInstanceSync(enabled)
+Permission: EXECUTE_IF_IDLE
+
+Enable/Disable Time Synchronization on main instance.
+The main instance will control other Skydel simulators with main instance PPS Enabled.
+
+Name    Type Description
+------- ---- ----------------------------------------------------------------------------
+Enabled bool If true, this simulator will be the main instance to synchronize simulators.
+
+***************************************************************************************************************************
+
 Command EnableMasterPps(enabled)
 Permission: EXECUTE_IF_IDLE
 
-Enable/Disable Time Synchronization Master.
-The Master will control other Skydel simulators with Slave PPS Enabled.
+Please note the command EnableMasterPps is deprecated since 23.11. You may use EnableMainInstanceSync.
+
+Enable/Disable Time Synchronization on main instance.
+The main instance will control other Skydel simulators with main instance PPS Enabled.
 
 Name    Type Description
-------- ---- ---------------------------------------------------------------------
-Enabled bool If true, this simulator will be the master to synchronize simulators.
+------- ---- ----------------------------------------------------------------------------
+Enabled bool If true, this simulator will be the main instance to synchronize simulators.
 
 ***************************************************************************************************************************
 
-Command GetMasterStatus()
+Command GetMainInstanceStatus()
 Permission: EXECUTE_IF_IDLE | EXECUTE_IF_SIMULATING
 
-Request for the master status, returns a GetMasterStatusResult
+Request for the main instance status, returns a GetMainInstanceStatusResult
 
 
 ***************************************************************************************************************************
 
-Result GetMasterStatusResult(isMaster, slaveConnected, port)
+Result GetMainInstanceStatusResult(isMainInstance, workerInstanceConnected, port)
 
-Result of GetMasterStatus.
+Result of GetMainInstanceStatus.
 
-Name           Type Description
--------------- ---- -------------------------------------
-IsMaster       bool True if Skydel is in master mode
-SlaveConnected int  The number of connected slaves
-Port           int  The listening port, 0 if not a master
+Name                    Type Description
+----------------------- ---- --------------------------------------------
+IsMainInstance          bool True if Skydel is in main instance mode
+WorkerInstanceConnected int  The number of connected worker instances
+Port                    int  The listening port, 0 if not a main instance
+
+***************************************************************************************************************************
+
+Command EnableWorkerInstanceSync(enabled)
+Permission: EXECUTE_IF_IDLE
+
+Enable/Disable Time Synchronization on worker instance.
+The worker instance will wait for the main instance to synchronize the simulators.
+
+Name    Type Description
+------- ---- ----------------------------------------------------------------------------------
+Enabled bool If true, this simulator will wait for the main instance to synchronize simulators.
 
 ***************************************************************************************************************************
 
 Command EnableSlavePps(enabled)
 Permission: EXECUTE_IF_IDLE
 
-Enable/Disable Time Synchronization Slave.
-The Slave will wait for the Master to synchronize the simulators.
+Please note the command EnableSlavePps is deprecated since 23.11. You may use EnableWorkerInstanceSync.
+
+Enable/Disable Time Synchronization on worker instance.
+The worker instance will wait for the main instance to synchronize the simulators.
 
 Name    Type Description
-------- ---- ---------------------------------------------------------------------------
-Enabled bool If true, this simulator will wait for the master to synchronize simulators.
+------- ---- ----------------------------------------------------------------------------------
+Enabled bool If true, this simulator will wait for the main instance to synchronize simulators.
 
 ***************************************************************************************************************************
 
-Command GetSlaveStatus()
+Command GetWorkerInstanceStatus()
 Permission: EXECUTE_IF_IDLE | EXECUTE_IF_SIMULATING
 
-Request for the slave status, returns a GetSlaveStatusResult
+Request for the worker instance status, returns a GetWorkerInstanceStatusResult
 
 
 ***************************************************************************************************************************
 
-Result GetSlaveStatusResult(isSlave, isConnected, hostName, hostPort)
+Result GetWorkerInstanceStatusResult(isWorkerInstance, isConnected, hostName, hostPort)
 
-Result of GetSlaveStatus.
+Result of GetWorkerInstanceStatus.
 
-Name        Type   Description
------------ ------ ---------------------------------------
-IsSlave     bool   True if Skydel is in slave mode
-IsConnected bool   True if Skydel is connected to a master
-HostName    string The host name, empty if not a slave
-HostPort    int    The host port, 0 if not a slave
+Name             Type   Description
+---------------- ------ ----------------------------------------------
+IsWorkerInstance bool   True if Skydel is in worker instance mode
+IsConnected      bool   True if Skydel is connected to a main instance
+HostName         string The host name, empty if not a worker instance
+HostPort         int    The host port, 0 if not a worker instance
 
 ***************************************************************************************************************************
 
@@ -4112,152 +4140,6 @@ Roll  double WF Antenna Roll offset in the body frame (rad)
 
 ***************************************************************************************************************************
 
-Command SetWFAntennaElementOffset(x, y, z, yaw, pitch, roll, element)
-Permission: EXECUTE_IF_IDLE
-
-Set WF antenna offset and orientation relative to CRPA Antenna frame for the specified element index.
-
-Name    Type   Description
-------- ------ -------------------------------------------------------
-X       double WF Element X offset in the CRPA antenna frame (meter)
-Y       double WF Element Y offset in the CRPA antenna frame (meter)
-Z       double WF Element Z offset in the CRPA antenna frame (meter)
-Yaw     double WF Element Yaw offset in the CRPA antenna frame (rad)
-Pitch   double WF Element Pitch offset in the CRPA antenna frame (rad)
-Roll    double WF Element Roll offset in the CRPA antenna frame (rad)
-Element int    One-based index for element in antenna.
-
-***************************************************************************************************************************
-
-Command GetWFAntennaElementOffset(element)
-Permission: EXECUTE_IF_IDLE
-
-Get the WF antenna offset infos for this element.
-
-Name    Type Description
-------- ---- ---------------------------------------
-Element int  One-based index for element in antenna.
-
-***************************************************************************************************************************
-
-Result GetWFAntennaElementOffsetResult(x, y, z, yaw, pitch, roll, element)
-
-Result of GetWFAntennaElementOffset.
-
-Name    Type   Description
-------- ------ -------------------------------------------------------
-X       double WF Element X offset in the CRPA antenna frame (meter)
-Y       double WF Element Y offset in the CRPA antenna frame (meter)
-Z       double WF Element Z offset in the CRPA antenna frame (meter)
-Yaw     double WF Element Yaw offset in the CRPA antenna frame (rad)
-Pitch   double WF Element Pitch offset in the CRPA antenna frame (rad)
-Roll    double WF Element Roll offset in the CRPA antenna frame (rad)
-Element int    One-based index for element in antenna.
-
-***************************************************************************************************************************
-
-Command SetWFAntennaElementModel(antennaModelName, element)
-Permission: EXECUTE_IF_IDLE
-
-Set WF Antenna model for this element
-
-Name             Type   Description
----------------- ------ ----------------------------------------------------------------------------------------------------
-AntennaModelName string Antenna Model name to set for this element. Antenna models must be defined in vehicle antenna model.
-Element          int    One-based index for element in antenna.
-
-***************************************************************************************************************************
-
-Command GetWFAntennaElementModel(element)
-Permission: EXECUTE_IF_IDLE
-
-Get WF Antenna model for this element
-
-Name    Type Description
-------- ---- ---------------------------------------
-Element int  One-based index for element in antenna.
-
-***************************************************************************************************************************
-
-Result GetWFAntennaElementModelResult(antennaModelName, element)
-
-Result of GetWFAntennaElementModel.
-
-Name             Type   Description
----------------- ------ ----------------------------------------------------------------------------------------------------
-AntennaModelName string Antenna Model name to set for this element. Antenna models must be defined in vehicle antenna model.
-Element          int    One-based index for element in antenna.
-
-***************************************************************************************************************************
-
-Command SetWFAntennaElementPhasePatternOffset(phaseOffset, element)
-Permission: EXECUTE_IF_IDLE
-
-Set WF Antenna phase pattern offset (in rad) for this element
-
-Name        Type   Description
------------ ------ -------------------------------------------------------------------------
-PhaseOffset double Antenna phase pattern offset (in rad) to set for this element. [-Pi ; Pi]
-Element     int    One-based index for element in antenna.
-
-***************************************************************************************************************************
-
-Command GetWFAntennaElementPhasePatternOffset(element)
-Permission: EXECUTE_IF_IDLE
-
-Get WF Antenna phase pattern offset (in rad) for this element
-
-Name    Type Description
-------- ---- ---------------------------------------
-Element int  One-based index for element in antenna.
-
-***************************************************************************************************************************
-
-Result GetWFAntennaElementPhasePatternOffsetResult(phaseOffset, element)
-
-Result of GetWFAntennaElementPhasePatternOffset.
-
-Name        Type   Description
------------ ------ -------------------------------------------------------------------------
-PhaseOffset double Antenna phase pattern offset (in rad) to set for this element. [-Pi ; Pi]
-Element     int    One-based index for element in antenna.
-
-***************************************************************************************************************************
-
-Command SetWFAntennaElementEnabled(element, enabled)
-Permission: EXECUTE_IF_IDLE
-
-Set WF antenna element enabled or disabled. A disabled antenna element is not simulated at all.
-
-Name    Type Description
-------- ---- -------------------------------------------------
-Element int  One-based index for element in antenna.
-Enabled bool If True, this antenna element will bil simulated.
-
-***************************************************************************************************************************
-
-Command IsWFAntennaElementEnabled(element)
-Permission: EXECUTE_IF_IDLE
-
-Get whether an antenna element is enabled or disabled.
-
-Name    Type Description
-------- ---- ---------------------------------------
-Element int  One-based index for element in antenna.
-
-***************************************************************************************************************************
-
-Result IsWFAntennaElementEnabledResult(element, enabled)
-
-Result of IsWFAntennaElementEnabled.
-
-Name    Type Description
-------- ---- -------------------------------------------------
-Element int  One-based index for element in antenna.
-Enabled bool If True, this antenna element will bil simulated.
-
-***************************************************************************************************************************
-
 Command GetAllSVAntennaNames(system)
 Permission: EXECUTE_IF_IDLE
 
@@ -5336,292 +5218,6 @@ DataSetName optional string Optional name of the data set to use. If no value is
 
 ***************************************************************************************************************************
 
-Command SetGpsEphDoubleParamForSV(svId, paramName, val, dataSetName)
-Permission: EXECUTE_IF_IDLE
-
-Set various parameters in the GPS ephemeris
-
-  ParamName         Unit
-  "ClockBias"       sec
-  "ClockDrift"      sec/sec
-  "ClockDriftRate"  sec/sec^2
-  "Crs"             meter
-  "Crc"             meter
-  "Cis"             rad
-  "Cic"             rad
-  "Cus"             rad
-  "Cuc"             rad
-  "DeltaN"          rad/sec
-  "M0"              rad
-  "Eccentricity"    -
-  "SqrtA"           sqrt(meter)
-  "BigOmega"        rad
-  "I0"              rad
-  "LittleOmega"     rad
-  "BigOmegaDot"     rad/sec
-  "Idot"            rad/sec
-  "Accuracy"        meter
-  "Adot"            meters/sec
-  "DeltaN0dot"      rad/sec^2
-  "Tgd"             sec
-  "IscL1Ca"         sec
-  "IscL2C"          sec
-  "IscL5I5"         sec
-  "IscL5Q5"         sec
-  "IscL1CP"         sec
-  "IscL1CD"         sec
-
-Name        Type            Description
------------ --------------- -------------------------------------------------------------------------------------------
-SvId        int             Satellite SV ID 1..32, or use 0 to apply new value to all satellites.
-ParamName   string          Parameter name (see table above for accepted names)
-Val         double          Parameter value (see table above for unit)
-DataSetName optional string Optional name of the data set to use. If no value is provided, the active data set is used.
-
-***************************************************************************************************************************
-
-Command GetGpsEphDoubleParamForSV(svId, paramName, dataSetName)
-Permission: EXECUTE_IF_IDLE
-
-Get various parameters in the GPS ephemeris
-
-  ParamName         Unit
-  "ClockBias"       sec
-  "ClockDrift"      sec/sec
-  "ClockDriftRate"  sec/sec^2
-  "Crs"             meter
-  "Crc"             meter
-  "Cis"             rad
-  "Cic"             rad
-  "Cus"             rad
-  "Cuc"             rad
-  "DeltaN"          rad/sec
-  "M0"              rad
-  "Eccentricity"    -
-  "SqrtA"           sqrt(meter)
-  "BigOmega"        rad
-  "I0"              rad
-  "LittleOmega"     rad
-  "BigOmegaDot"     rad/sec
-  "Idot"            rad/sec
-  "Accuracy"        meter
-  "Adot"            meters/sec
-  "DeltaN0dot"      rad/sec^2
-  "Tgd"             sec
-  "IscL1Ca"         sec
-  "IscL2C"          sec
-  "IscL5I5"         sec
-  "IscL5Q5"         sec
-  "IscL1CP"         sec
-  "IscL1CD"         sec
-
-Name        Type            Description
------------ --------------- -------------------------------------------------------------------------------------------
-SvId        int             Satellite SV ID 1..32, or use 0 to apply new value to all satellites.
-ParamName   string          Parameter name (see table above for accepted names)
-DataSetName optional string Optional name of the data set to use. If no value is provided, the active data set is used.
-
-***************************************************************************************************************************
-
-Result GetGpsEphDoubleParamForSVResult(svId, paramName, val, dataSetName)
-
-Result of GetGpsEphDoubleParamForSV.
-
-Name        Type            Description
------------ --------------- -------------------------------------------------------------------------------------------
-SvId        int             Satellite SV ID 1..32, or use 0 to apply new value to all satellites.
-ParamName   string          Parameter name (see table above for accepted names)
-Val         double          Parameter value (see table above for unit)
-DataSetName optional string Optional name of the data set to use. If no value is provided, the active data set is used.
-
-***************************************************************************************************************************
-
-Command SetGalileoEphDoubleParamForSV(svId, paramName, val, dataSetName)
-Permission: EXECUTE_IF_IDLE
-
-Set various parameters in the Galileo ephemeris
-
-  ParamName         Unit
-  "ClockBias"       sec
-  "ClockDrift"      sec/sec
-  "ClockDriftRate"  sec/sec^2
-  "Crs"             meter
-  "Crc"             meter
-  "Cis"             rad
-  "Cic"             rad
-  "Cus"             rad
-  "Cuc"             rad
-  "DeltaN"          rad/sec
-  "M0"              rad
-  "Eccentricity"    -
-  "SqrtA"           sqrt(meter)
-  "BigOmega"        rad
-  "I0"              rad
-  "LittleOmega"     rad
-  "BigOmegaDot"     rad/sec
-  "Idot"            rad/sec
-  "Accuracy"        meter
-  "Adot"            meters/sec
-  "DeltaN0dot"      rad/sec^2
-  "Tgd"             sec
-  "BgdE1E5a"        ns
-  "BgdE1E5b"        ns
-
-Name        Type            Description
------------ --------------- -------------------------------------------------------------------------------------------
-SvId        int             Satellite SV ID 1..36, or use 0 to apply new value to all satellites
-ParamName   string          Parameter name (see table above for accepted names)
-Val         double          Parameter value (see table above for unit)
-DataSetName optional string Optional name of the data set to use. If no value is provided, the active data set is used.
-
-***************************************************************************************************************************
-
-Command GetGalileoEphDoubleParamForSV(svId, paramName, dataSetName)
-Permission: EXECUTE_IF_IDLE
-
-Get various parameters in the Galileo ephemeris
-
-  ParamName         Unit
-  "ClockBias"       sec
-  "ClockDrift"      sec/sec
-  "ClockDriftRate"  sec/sec^2
-  "Crs"             meter
-  "Crc"             meter
-  "Cis"             rad
-  "Cic"             rad
-  "Cus"             rad
-  "Cuc"             rad
-  "DeltaN"          rad/sec
-  "M0"              rad
-  "Eccentricity"    -
-  "SqrtA"           sqrt(meter)
-  "BigOmega"        rad
-  "I0"              rad
-  "LittleOmega"     rad
-  "BigOmegaDot"     rad/sec
-  "Idot"            rad/sec
-  "Accuracy"        meter
-  "Adot"            meters/sec
-  "DeltaN0dot"      rad/sec^2
-  "Tgd"             sec
-  "BgdE1E5a"        ns
-  "BgdE1E5b"        ns
-
-Name        Type            Description
------------ --------------- -------------------------------------------------------------------------------------------
-SvId        int             Satellite SV ID 1..36, or use 0 to apply new value to all satellites
-ParamName   string          Parameter name (see table above for accepted names)
-DataSetName optional string Optional name of the data set to use. If no value is provided, the active data set is used.
-
-***************************************************************************************************************************
-
-Result GetGalileoEphDoubleParamForSVResult(svId, paramName, val, dataSetName)
-
-Result of GetGalileoEphDoubleParamForSV.
-
-Name        Type            Description
------------ --------------- -------------------------------------------------------------------------------------------
-SvId        int             Satellite SV ID 1..36, or use 0 to apply new value to all satellites
-ParamName   string          Parameter name (see table above for accepted names)
-Val         double          Parameter value (see table above for unit)
-DataSetName optional string Optional name of the data set to use. If no value is provided, the active data set is used.
-
-***************************************************************************************************************************
-
-Command SetBeiDouEphDoubleParamForSV(svId, paramName, val, dataSetName)
-Permission: EXECUTE_IF_IDLE
-
-Set various parameters in the BeiDou ephemeris
-
-  ParamName         Unit
-  "ClockBias"       sec
-  "ClockDrift"      sec/sec
-  "ClockDriftRate"  sec/sec^2
-  "Crs"             meter
-  "Crc"             meter
-  "Cis"             rad
-  "Cic"             rad
-  "Cus"             rad
-  "Cuc"             rad
-  "DeltaN"          rad/sec
-  "M0"              rad
-  "Eccentricity"    -
-  "SqrtA"           sqrt(meter)
-  "BigOmega"        rad
-  "I0"              rad
-  "LittleOmega"     rad
-  "BigOmegaDot"     rad/sec
-  "Idot"            rad/sec
-  "Accuracy"        meter
-  "Adot"            meters/sec
-  "DeltaN0dot"      rad/sec^2
-  "Tgd1"            sec
-  "Tgd2"            sec
-  "TgdB1Cp"         sec
-  "TgdB2Ap"         sec
-
-Name        Type            Description
------------ --------------- -------------------------------------------------------------------------------------------
-SvId        int             Satellite SV ID 1..35, or use 0 to apply new value to all satellites
-ParamName   string          Parameter name (see table above for accepted names)
-Val         double          Parameter value (see table above for unit)
-DataSetName optional string Optional name of the data set to use. If no value is provided, the active data set is used.
-
-***************************************************************************************************************************
-
-Command GetBeiDouEphDoubleParamForSV(svId, paramName, dataSetName)
-Permission: EXECUTE_IF_IDLE
-
-Get various parameters in the BeiDou ephemeris
-
-  ParamName         Unit
-  "ClockBias"       sec
-  "ClockDrift"      sec/sec
-  "ClockDriftRate"  sec/sec^2
-  "Crs"             meter
-  "Crc"             meter
-  "Cis"             rad
-  "Cic"             rad
-  "Cus"             rad
-  "Cuc"             rad
-  "DeltaN"          rad/sec
-  "M0"              rad
-  "Eccentricity"    -
-  "SqrtA"           sqrt(meter)
-  "BigOmega"        rad
-  "I0"              rad
-  "LittleOmega"     rad
-  "BigOmegaDot"     rad/sec
-  "Idot"            rad/sec
-  "Accuracy"        meter
-  "Adot"            meters/sec
-  "DeltaN0dot"      rad/sec^2
-  "Tgd1"            sec
-  "Tgd2"            sec
-  "TgdB1Cp"         sec
-  "TgdB2Ap"         sec
-
-Name        Type            Description
------------ --------------- -------------------------------------------------------------------------------------------
-SvId        int             Satellite SV ID 1..35, or use 0 to apply new value to all satellites
-ParamName   string          Parameter name (see table above for accepted names)
-DataSetName optional string Optional name of the data set to use. If no value is provided, the active data set is used.
-
-***************************************************************************************************************************
-
-Result GetBeiDouEphDoubleParamForSVResult(svId, paramName, val, dataSetName)
-
-Result of GetBeiDouEphDoubleParamForSV.
-
-Name        Type            Description
------------ --------------- -------------------------------------------------------------------------------------------
-SvId        int             Satellite SV ID 1..35, or use 0 to apply new value to all satellites
-ParamName   string          Parameter name (see table above for accepted names)
-Val         double          Parameter value (see table above for unit)
-DataSetName optional string Optional name of the data set to use. If no value is provided, the active data set is used.
-
-***************************************************************************************************************************
-
 Command SetGlonassEphDoubleParamForSV(svId, paramName, val)
 Permission: EXECUTE_IF_IDLE
 
@@ -5680,452 +5276,6 @@ Name      Type   Description
 SvId      int    Satellite SV ID 1..24, or use 0 to apply new value to all satellites
 ParamName string Parameter name (see table above for accepted names)
 Val       double Parameter value (see table above for unit)
-
-***************************************************************************************************************************
-
-Command SetQzssEphDoubleParamForSV(svId, paramName, val, dataSetName)
-Permission: EXECUTE_IF_IDLE
-
-Set various parameters in the QZSS ephemeris.
-
-Name        Type            Description
------------ --------------- -------------------------------------------------------------------------------------------
-SvId        int             The satellite's SV ID 1..10 (use 0 to apply to all satellites)
-ParamName   string          In meters:  "Crs", "Crc"
-                            In radians: "Cis", "Cic", "Cus", "Cuc"
-                            In seconds: "Tgd", "IscL1Ca", "IscL2C", "IscL5I5", "IscL5Q5", "IscL1CP", "IscL1CD"
-Val         double          Parameter value (see ParamName above for unit)
-DataSetName optional string Optional name of the data set to use. If no value is provided, the active data set is used.
-
-***************************************************************************************************************************
-
-Command SetQzssEphemerisDoubleParam(svId, paramName, val, dataSetName)
-Permission: EXECUTE_IF_IDLE
-
-Please note the command SetQzssEphemerisDoubleParam is deprecated since 21.3. You may use SetQzssEphDoubleParamForSV.
-
-Set various parameters in the QZSS ephemeris.
-
-Name        Type            Description
------------ --------------- -------------------------------------------------------------------------------------------
-SvId        int             The satellite's SV ID 1..10 (use 0 to apply to all satellites)
-ParamName   string          In meters:  "Crs", "Crc"
-                            In radians: "Cis", "Cic", "Cus", "Cuc"
-                            In seconds: "Tgd", "IscL1Ca", "IscL2C", "IscL5I5", "IscL5Q5", "IscL1CP", "IscL1CD"
-Val         double          Parameter value (see ParamName above for unit)
-DataSetName optional string Optional name of the data set to use. If no value is provided, the active data set is used.
-
-***************************************************************************************************************************
-
-Command GetQzssEphDoubleParamForSV(svId, paramName, dataSetName)
-Permission: EXECUTE_IF_IDLE
-
-Get various parameters in the QZSS ephemeris.
-
-Name        Type            Description
------------ --------------- -------------------------------------------------------------------------------------------
-SvId        int             The satellite's SV ID 1..10 (use 0 to apply to all satellites)
-ParamName   string          In meters:  "Crs", "Crc"
-                            In radians: "Cis", "Cic", "Cus", "Cuc"
-                            In seconds: "Tgd", "IscL1Ca", "IscL2C", "IscL5I5", "IscL5Q5", "IscL1CP", "IscL1CD"
-DataSetName optional string Optional name of the data set to use. If no value is provided, the active data set is used.
-
-***************************************************************************************************************************
-
-Command GetQzssEphemerisDoubleParam(svId, paramName, dataSetName)
-Permission: EXECUTE_IF_IDLE
-
-Please note the command GetQzssEphemerisDoubleParam is deprecated since 21.3. You may use GetQzssEphDoubleParamForSV.
-
-Get various parameters in the QZSS ephemeris.
-
-Name        Type            Description
------------ --------------- -------------------------------------------------------------------------------------------
-SvId        int             The satellite's SV ID 1..10 (use 0 to apply to all satellites)
-ParamName   string          In meters:  "Crs", "Crc"
-                            In radians: "Cis", "Cic", "Cus", "Cuc"
-                            In seconds: "Tgd", "IscL1Ca", "IscL2C", "IscL5I5", "IscL5Q5", "IscL1CP", "IscL1CD"
-DataSetName optional string Optional name of the data set to use. If no value is provided, the active data set is used.
-
-***************************************************************************************************************************
-
-Result GetQzssEphDoubleParamForSVResult(svId, paramName, val, dataSetName)
-
-Result of GetQzssEphDoubleParamForSV.
-
-Name        Type            Description
------------ --------------- -------------------------------------------------------------------------------------------
-SvId        int             The satellite's SV ID 1..10 (use 0 to apply to all satellites)
-ParamName   string          In meters:  "Crs", "Crc"
-                            In radians: "Cis", "Cic", "Cus", "Cuc"
-                            In seconds: "Tgd", "IscL1Ca", "IscL2C", "IscL5I5", "IscL5Q5", "IscL1CP", "IscL1CD"
-Val         double          Parameter value (see ParamName above for unit)
-DataSetName optional string Optional name of the data set to use. If no value is provided, the active data set is used.
-
-***************************************************************************************************************************
-
-Command SetNavICEphDoubleParamForSV(svId, paramName, val, dataSetName)
-Permission: EXECUTE_IF_IDLE
-
-Set various parameters in the NavIC ephemeris
-
-  ParamName         Unit
-  "ClockBias"       sec
-  "ClockDrift"      sec/sec
-  "ClockDriftRate"  sec/sec^2
-  "Crs"             meter
-  "Crc"             meter
-  "Cis"             rad
-  "Cic"             rad
-  "Cus"             rad
-  "Cuc"             rad
-  "DeltaN"          rad/sec
-  "M0"              rad
-  "Eccentricity"    -
-  "SqrtA"           sqrt(meter)
-  "BigOmega"        rad
-  "I0"              rad
-  "LittleOmega"     rad
-  "BigOmegaDot"     rad/sec
-  "Idot"            rad/sec
-  "Accuracy"        meter
-  "Adot"            meters/sec
-  "DeltaN0dot"      rad/sec^2
-  "Tgd"             sec
-
-Name        Type            Description
------------ --------------- -------------------------------------------------------------------------------------------
-SvId        int             Satellite SV ID 1..14, or use 0 to apply new value to all satellites
-ParamName   string          Parameter name (see table above for accepted names)
-Val         double          Parameter value (see table above for unit)
-DataSetName optional string Optional name of the data set to use. If no value is provided, the active data set is used.
-
-***************************************************************************************************************************
-
-Command SetNavICEphemerisDoubleParam(svId, paramName, val, dataSetName)
-Permission: EXECUTE_IF_IDLE
-
-Please note the command SetNavICEphemerisDoubleParam is deprecated since 21.3. You may use SetNavICEphDoubleParamForSV.
-
-Set various parameters in the NavIC ephemeris
-
-  ParamName         Unit
-  "ClockBias"       sec
-  "ClockDrift"      sec/sec
-  "ClockDriftRate"  sec/sec^2
-  "Crs"             meter
-  "Crc"             meter
-  "Cis"             rad
-  "Cic"             rad
-  "Cus"             rad
-  "Cuc"             rad
-  "DeltaN"          rad/sec
-  "M0"              rad
-  "Eccentricity"    -
-  "SqrtA"           sqrt(meter)
-  "BigOmega"        rad
-  "I0"              rad
-  "LittleOmega"     rad
-  "BigOmegaDot"     rad/sec
-  "Idot"            rad/sec
-  "Accuracy"        meter
-  "Adot"            meters/sec
-  "DeltaN0dot"      rad/sec^2
-  "Tgd"             sec
-
-Name        Type            Description
------------ --------------- -------------------------------------------------------------------------------------------
-SvId        int             Satellite SV ID 1..14, or use 0 to apply new value to all satellites
-ParamName   string          Parameter name (see table above for accepted names)
-Val         double          Parameter value (see table above for unit)
-DataSetName optional string Optional name of the data set to use. If no value is provided, the active data set is used.
-
-***************************************************************************************************************************
-
-Command GetNavICEphDoubleParamForSV(svId, paramName, dataSetName)
-Permission: EXECUTE_IF_IDLE
-
-Get various parameters in the NavIC ephemeris
-
-  ParamName         Unit
-  "ClockBias"       sec
-  "ClockDrift"      sec/sec
-  "ClockDriftRate"  sec/sec^2
-  "Crs"             meter
-  "Crc"             meter
-  "Cis"             rad
-  "Cic"             rad
-  "Cus"             rad
-  "Cuc"             rad
-  "DeltaN"          rad/sec
-  "M0"              rad
-  "Eccentricity"    -
-  "SqrtA"           sqrt(meter)
-  "BigOmega"        rad
-  "I0"              rad
-  "LittleOmega"     rad
-  "BigOmegaDot"     rad/sec
-  "Idot"            rad/sec
-  "Accuracy"        meter
-  "Adot"            meters/sec
-  "DeltaN0dot"      rad/sec^2
-  "Tgd"             sec
-
-Name        Type            Description
------------ --------------- -------------------------------------------------------------------------------------------
-SvId        int             Satellite SV ID 1..14, or use 0 to apply new value to all satellites
-ParamName   string          Parameter name (see table above for accepted names)
-DataSetName optional string Optional name of the data set to use. If no value is provided, the active data set is used.
-
-***************************************************************************************************************************
-
-Command GetNavICEphemerisDoubleParam(svId, paramName, dataSetName)
-Permission: EXECUTE_IF_IDLE
-
-Please note the command GetNavICEphemerisDoubleParam is deprecated since 21.3. You may use GetNavICEphDoubleParamForSV.
-
-Get various parameters in the NavIC ephemeris
-
-  ParamName         Unit
-  "ClockBias"       sec
-  "ClockDrift"      sec/sec
-  "ClockDriftRate"  sec/sec^2
-  "Crs"             meter
-  "Crc"             meter
-  "Cis"             rad
-  "Cic"             rad
-  "Cus"             rad
-  "Cuc"             rad
-  "DeltaN"          rad/sec
-  "M0"              rad
-  "Eccentricity"    -
-  "SqrtA"           sqrt(meter)
-  "BigOmega"        rad
-  "I0"              rad
-  "LittleOmega"     rad
-  "BigOmegaDot"     rad/sec
-  "Idot"            rad/sec
-  "Accuracy"        meter
-  "Adot"            meters/sec
-  "DeltaN0dot"      rad/sec^2
-  "Tgd"             sec
-
-Name        Type            Description
------------ --------------- -------------------------------------------------------------------------------------------
-SvId        int             Satellite SV ID 1..14, or use 0 to apply new value to all satellites
-ParamName   string          Parameter name (see table above for accepted names)
-DataSetName optional string Optional name of the data set to use. If no value is provided, the active data set is used.
-
-***************************************************************************************************************************
-
-Result GetNavICEphDoubleParamForSVResult(svId, paramName, val, dataSetName)
-
-Result of GetNavICEphDoubleParamForSV.
-
-Name        Type            Description
------------ --------------- -------------------------------------------------------------------------------------------
-SvId        int             Satellite SV ID 1..14, or use 0 to apply new value to all satellites
-ParamName   string          Parameter name (see table above for accepted names)
-Val         double          Parameter value (see table above for unit)
-DataSetName optional string Optional name of the data set to use. If no value is provided, the active data set is used.
-
-***************************************************************************************************************************
-
-Command SetGpsEphDoubleParamForEachSV(paramName, val, dataSetName)
-Permission: EXECUTE_IF_IDLE
-
-Set GPS ephemeris parameter value for all satellites
-
-Name        Type            Description
------------ --------------- --------------------------------------------------------------------------------------------------
-ParamName   string          Refer to SetGpsEphDoubleParamForSV for accepted names
-Val         array double    Parameter value for each satellite. Zero based index (index 0 => SV ID 1, index 1 => SV ID 2, etc)
-DataSetName optional string Optional name of the data set to use. If no value is provided, the active data set is used.
-
-***************************************************************************************************************************
-
-Command SetGpsEphemerisDoubleParams(paramName, val, dataSetName)
-Permission: EXECUTE_IF_IDLE
-
-Please note the command SetGpsEphemerisDoubleParams is deprecated since 21.3. You may use SetGpsEphDoubleParamForEachSV.
-
-Set GPS ephemeris parameter value for all satellites
-
-Name        Type            Description
------------ --------------- --------------------------------------------------------------------------------------------------
-ParamName   string          Refer to SetGpsEphDoubleParamForSV for accepted names
-Val         array double    Parameter value for each satellite. Zero based index (index 0 => SV ID 1, index 1 => SV ID 2, etc)
-DataSetName optional string Optional name of the data set to use. If no value is provided, the active data set is used.
-
-***************************************************************************************************************************
-
-Command GetGpsEphDoubleParamForEachSV(paramName, dataSetName)
-Permission: EXECUTE_IF_IDLE
-
-Get GPS ephemeris parameter value for all satellites
-
-Name        Type            Description
------------ --------------- -------------------------------------------------------------------------------------------
-ParamName   string          Refer to SetGpsEphDoubleParamForSV for accepted names
-DataSetName optional string Optional name of the data set to use. If no value is provided, the active data set is used.
-
-***************************************************************************************************************************
-
-Command GetGpsEphemerisDoubleParams(paramName, dataSetName)
-Permission: EXECUTE_IF_IDLE
-
-Please note the command GetGpsEphemerisDoubleParams is deprecated since 21.3. You may use GetGpsEphDoubleParamForEachSV.
-
-Get GPS ephemeris parameter value for all satellites
-
-Name        Type            Description
------------ --------------- -------------------------------------------------------------------------------------------
-ParamName   string          Refer to SetGpsEphDoubleParamForSV for accepted names
-DataSetName optional string Optional name of the data set to use. If no value is provided, the active data set is used.
-
-***************************************************************************************************************************
-
-Result GetGpsEphDoubleParamForEachSVResult(paramName, val, dataSetName)
-
-Result of GetGpsEphDoubleParamForEachSV.
-
-Name        Type            Description
------------ --------------- --------------------------------------------------------------------------------------------------
-ParamName   string          Refer to SetGpsEphDoubleParamForSV for accepted names
-Val         array double    Parameter value for each satellite. Zero based index (index 0 => SV ID 1, index 1 => SV ID 2, etc)
-DataSetName optional string Optional name of the data set to use. If no value is provided, the active data set is used.
-
-***************************************************************************************************************************
-
-Command SetGalileoEphDoubleParamForEachSV(paramName, val, dataSetName)
-Permission: EXECUTE_IF_IDLE
-
-Set Galileo ephemeris parameter value for all satellites
-
-Name        Type            Description
------------ --------------- --------------------------------------------------------------------------------------------------
-ParamName   string          Refer to SetGalileoEphDoubleParamForSV for accepted names
-Val         array double    Parameter value for each satellite. Zero based index (index 0 => SV ID 1, index 1 => SV ID 2, etc)
-DataSetName optional string Optional name of the data set to use. If no value is provided, the active data set is used.
-
-***************************************************************************************************************************
-
-Command SetGalileoEphemerisDoubleParams(paramName, val, dataSetName)
-Permission: EXECUTE_IF_IDLE
-
-Please note the command SetGalileoEphemerisDoubleParams is deprecated since 21.3. You may use SetGalileoEphDoubleParamForEachSV.
-
-Set Galileo ephemeris parameter value for all satellites
-
-Name        Type            Description
------------ --------------- --------------------------------------------------------------------------------------------------
-ParamName   string          Refer to SetGalileoEphDoubleParamForSV for accepted names
-Val         array double    Parameter value for each satellite. Zero based index (index 0 => SV ID 1, index 1 => SV ID 2, etc)
-DataSetName optional string Optional name of the data set to use. If no value is provided, the active data set is used.
-
-***************************************************************************************************************************
-
-Command GetGalileoEphDoubleParamForEachSV(paramName, dataSetName)
-Permission: EXECUTE_IF_IDLE
-
-Get Galileo ephemeris parameter value for all satellites
-
-Name        Type            Description
------------ --------------- -------------------------------------------------------------------------------------------
-ParamName   string          Refer to SetGalileoEphDoubleParamForSV for accepted names
-DataSetName optional string Optional name of the data set to use. If no value is provided, the active data set is used.
-
-***************************************************************************************************************************
-
-Command GetGalileoEphemerisDoubleParams(paramName, dataSetName)
-Permission: EXECUTE_IF_IDLE
-
-Please note the command GetGalileoEphemerisDoubleParams is deprecated since 21.3. You may use GetGalileoEphDoubleParamForEachSV.
-
-Get Galileo ephemeris parameter value for all satellites
-
-Name        Type            Description
------------ --------------- -------------------------------------------------------------------------------------------
-ParamName   string          Refer to SetGalileoEphDoubleParamForSV for accepted names
-DataSetName optional string Optional name of the data set to use. If no value is provided, the active data set is used.
-
-***************************************************************************************************************************
-
-Result GetGalileoEphDoubleParamForEachSVResult(paramName, val, dataSetName)
-
-Result of GetGalileoEphDoubleParamForEachSV.
-
-Name        Type            Description
------------ --------------- --------------------------------------------------------------------------------------------------
-ParamName   string          Refer to SetGalileoEphDoubleParamForSV for accepted names
-Val         array double    Parameter value for each satellite. Zero based index (index 0 => SV ID 1, index 1 => SV ID 2, etc)
-DataSetName optional string Optional name of the data set to use. If no value is provided, the active data set is used.
-
-***************************************************************************************************************************
-
-Command SetBeiDouEphDoubleParamForEachSV(paramName, val, dataSetName)
-Permission: EXECUTE_IF_IDLE
-
-Set BeiDou ephemeris parameter value for all satellites
-
-Name        Type            Description
------------ --------------- --------------------------------------------------------------------------------------------------
-ParamName   string          Refer to SetBeiDouEphDoubleParamForSV for accepted names
-Val         array double    Parameter value for each satellite. Zero based index (index 0 => SV ID 1, index 1 => SV ID 2, etc)
-DataSetName optional string Optional name of the data set to use. If no value is provided, the active data set is used.
-
-***************************************************************************************************************************
-
-Command SetBeiDouEphemerisDoubleParams(paramName, val, dataSetName)
-Permission: EXECUTE_IF_IDLE
-
-Please note the command SetBeiDouEphemerisDoubleParams is deprecated since 21.3. You may use SetBeiDouEphDoubleParamForEachSV.
-
-Set BeiDou ephemeris parameter value for all satellites
-
-Name        Type            Description
------------ --------------- --------------------------------------------------------------------------------------------------
-ParamName   string          Refer to SetBeiDouEphDoubleParamForSV for accepted names
-Val         array double    Parameter value for each satellite. Zero based index (index 0 => SV ID 1, index 1 => SV ID 2, etc)
-DataSetName optional string Optional name of the data set to use. If no value is provided, the active data set is used.
-
-***************************************************************************************************************************
-
-Command GetBeiDouEphDoubleParamForEachSV(paramName, dataSetName)
-Permission: EXECUTE_IF_IDLE
-
-Get BeiDou ephemeris parameter value for all satellites
-
-Name        Type            Description
------------ --------------- -------------------------------------------------------------------------------------------
-ParamName   string          Refer to SetBeiDouEphDoubleParamForSV for accepted names
-DataSetName optional string Optional name of the data set to use. If no value is provided, the active data set is used.
-
-***************************************************************************************************************************
-
-Command GetBeiDouEphemerisDoubleParams(paramName, dataSetName)
-Permission: EXECUTE_IF_IDLE
-
-Please note the command GetBeiDouEphemerisDoubleParams is deprecated since 21.3. You may use GetBeiDouEphDoubleParamForEachSV.
-
-Get BeiDou ephemeris parameter value for all satellites
-
-Name        Type            Description
------------ --------------- -------------------------------------------------------------------------------------------
-ParamName   string          Refer to SetBeiDouEphDoubleParamForSV for accepted names
-DataSetName optional string Optional name of the data set to use. If no value is provided, the active data set is used.
-
-***************************************************************************************************************************
-
-Result GetBeiDouEphDoubleParamForEachSVResult(paramName, val, dataSetName)
-
-Result of GetBeiDouEphDoubleParamForEachSV.
-
-Name        Type            Description
------------ --------------- --------------------------------------------------------------------------------------------------
-ParamName   string          Refer to SetBeiDouEphDoubleParamForSV for accepted names
-Val         array double    Parameter value for each satellite. Zero based index (index 0 => SV ID 1, index 1 => SV ID 2, etc)
-DataSetName optional string Optional name of the data set to use. If no value is provided, the active data set is used.
 
 ***************************************************************************************************************************
 
@@ -6205,543 +5355,6 @@ Result of GetGlonassFrequencyNumberForEachSV
 Name            Type      Description
 --------------- --------- --------------------------------------------------------------------------------------------------
 FrequencyNumber array int Frequency number of each satellite. Zero based index (index 0 => SV ID 1, index 1 => SV ID 2, etc)
-
-***************************************************************************************************************************
-
-Command SetQzssEphDoubleParamForEachSV(paramName, val, dataSetName)
-Permission: EXECUTE_IF_IDLE
-
-Set QZSS ephemeris parameter value for all satellites
-
-Name        Type            Description
------------ --------------- --------------------------------------------------------------------------------------------------
-ParamName   string          Refer to SetQzssEphDoubleParamForSV for accepted names
-Val         array double    Parameter value for each satellite. Zero based index (index 0 => SV ID 1, index 1 => SV ID 2, etc)
-DataSetName optional string Optional name of the data set to use. If no value is provided, the active data set is used.
-
-***************************************************************************************************************************
-
-Command SetQzssEphemerisDoubleParams(paramName, val, dataSetName)
-Permission: EXECUTE_IF_IDLE
-
-Please note the command SetQzssEphemerisDoubleParams is deprecated since 21.3. You may use SetQzssEphDoubleParamForEachSV.
-
-Set QZSS ephemeris parameter value for all satellites
-
-Name        Type            Description
------------ --------------- --------------------------------------------------------------------------------------------------
-ParamName   string          Refer to SetQzssEphDoubleParamForSV for accepted names
-Val         array double    Parameter value for each satellite. Zero based index (index 0 => SV ID 1, index 1 => SV ID 2, etc)
-DataSetName optional string Optional name of the data set to use. If no value is provided, the active data set is used.
-
-***************************************************************************************************************************
-
-Command GetQzssEphDoubleParamForEachSV(paramName, dataSetName)
-Permission: EXECUTE_IF_IDLE
-
-Get QZSS ephemeris parameter value for all satellites
-
-Name        Type            Description
------------ --------------- -------------------------------------------------------------------------------------------
-ParamName   string          Refer to SetQzssEphDoubleParamForSV for accepted names
-DataSetName optional string Optional name of the data set to use. If no value is provided, the active data set is used.
-
-***************************************************************************************************************************
-
-Command GetQzssEphemerisDoubleParams(paramName, dataSetName)
-Permission: EXECUTE_IF_IDLE
-
-Please note the command GetQzssEphemerisDoubleParams is deprecated since 21.3. You may use GetQzssEphDoubleParamForEachSV.
-
-Get QZSS ephemeris parameter value for all satellites
-
-Name        Type            Description
------------ --------------- -------------------------------------------------------------------------------------------
-ParamName   string          Refer to SetQzssEphDoubleParamForSV for accepted names
-DataSetName optional string Optional name of the data set to use. If no value is provided, the active data set is used.
-
-***************************************************************************************************************************
-
-Result GetQzssEphDoubleParamForEachSVResult(paramName, val, dataSetName)
-
-Result of GetQzssEphDoubleParamForEachSV.
-
-Name        Type            Description
------------ --------------- --------------------------------------------------------------------------------------------------
-ParamName   string          Refer to SetQzssEphDoubleParamForSV for accepted names
-Val         array double    Parameter value for each satellite. Zero based index (index 0 => SV ID 1, index 1 => SV ID 2, etc)
-DataSetName optional string Optional name of the data set to use. If no value is provided, the active data set is used.
-
-***************************************************************************************************************************
-
-Command SetNavICEphDoubleParamForEachSV(paramName, val, dataSetName)
-Permission: EXECUTE_IF_IDLE
-
-Set NavIC ephemeris parameter value for all satellites
-
-Name        Type            Description
------------ --------------- --------------------------------------------------------------------------------------------------
-ParamName   string          Refer to SetNavICEphDoubleParamForSV for accepted names
-Val         array double    Parameter value for each satellite. Zero based index (index 0 => SV ID 1, index 1 => SV ID 2, etc)
-DataSetName optional string Optional name of the data set to use. If no value is provided, the active data set is used.
-
-***************************************************************************************************************************
-
-Command SetNavICEphemerisDoubleParams(paramName, val, dataSetName)
-Permission: EXECUTE_IF_IDLE
-
-Please note the command SetNavICEphemerisDoubleParams is deprecated since 21.3. You may use SetNavICEphDoubleParamForEachSV.
-
-Set NavIC ephemeris parameter value for all satellites
-
-Name        Type            Description
------------ --------------- --------------------------------------------------------------------------------------------------
-ParamName   string          Refer to SetNavICEphDoubleParamForSV for accepted names
-Val         array double    Parameter value for each satellite. Zero based index (index 0 => SV ID 1, index 1 => SV ID 2, etc)
-DataSetName optional string Optional name of the data set to use. If no value is provided, the active data set is used.
-
-***************************************************************************************************************************
-
-Command GetNavICEphDoubleParamForEachSV(paramName, dataSetName)
-Permission: EXECUTE_IF_IDLE
-
-Get NavIC ephemeris parameter value for all satellites
-
-Name        Type            Description
------------ --------------- -------------------------------------------------------------------------------------------
-ParamName   string          Refer to SetNavICEphDoubleParamForSV for accepted names
-DataSetName optional string Optional name of the data set to use. If no value is provided, the active data set is used.
-
-***************************************************************************************************************************
-
-Command GetNavICEphemerisDoubleParams(paramName, dataSetName)
-Permission: EXECUTE_IF_IDLE
-
-Please note the command GetNavICEphemerisDoubleParams is deprecated since 21.3. You may use GetNavICEphDoubleParamForEachSV.
-
-Get NavIC ephemeris parameter value for all satellites
-
-Name        Type            Description
------------ --------------- -------------------------------------------------------------------------------------------
-ParamName   string          Refer to SetNavICEphDoubleParamForSV for accepted names
-DataSetName optional string Optional name of the data set to use. If no value is provided, the active data set is used.
-
-***************************************************************************************************************************
-
-Result GetNavICEphDoubleParamForEachSVResult(paramName, val, dataSetName)
-
-Result of GetNavICEphDoubleParamForEachSV.
-
-Name        Type            Description
------------ --------------- --------------------------------------------------------------------------------------------------
-ParamName   string          Refer to SetNavICEphDoubleParamForSV for accepted names
-Val         array double    Parameter value for each satellite. Zero based index (index 0 => SV ID 1, index 1 => SV ID 2, etc)
-DataSetName optional string Optional name of the data set to use. If no value is provided, the active data set is used.
-
-***************************************************************************************************************************
-
-Command SetGpsEphBoolParamForSV(svId, paramName, val, dataSetName)
-Permission: EXECUTE_IF_IDLE
-
-Set various boolean parameters in the GPS ephemeris
-
-  ParamName
-"IscL1CaAvailable"
-"IscL2CAvailable"
-"IscL5I5Available"
-"IscL5Q5Available"
-"IscL1CPAvailable"
-"IscL1CDAvailable"
-
-Name        Type            Description
------------ --------------- -------------------------------------------------------------------------------------------
-SvId        int             Satellite SV ID 1..32, or use 0 to apply new value to all satellites
-ParamName   string          Parameter name (see table above for accepted names)
-Val         bool            Parameter value (see table above for unit)
-DataSetName optional string Optional name of the data set to use. If no value is provided, the active data set is used.
-
-***************************************************************************************************************************
-
-Command GetGpsEphBoolParamForSV(svId, paramName, dataSetName)
-Permission: EXECUTE_IF_IDLE
-
-Get various boolean parameters in the GPS ephemeris
-
-  ParamName
-"IscL1CaAvailable"
-"IscL2CAvailable"
-"IscL5I5Available"
-"IscL5Q5Available"
-"IscL1CPAvailable"
-"IscL1CDAvailable"
-
-Name        Type            Description
------------ --------------- -------------------------------------------------------------------------------------------
-SvId        int             Satellite SV ID 1..32, or use 0 to apply new value to all satellites
-ParamName   string          Parameter name (see table above for accepted names)
-DataSetName optional string Optional name of the data set to use. If no value is provided, the active data set is used.
-
-***************************************************************************************************************************
-
-Result GetGpsEphBoolParamForSVResult(svId, paramName, val, dataSetName)
-
-Result of GetGpsEphBoolParamForSV.
-
-Name        Type            Description
------------ --------------- -------------------------------------------------------------------------------------------
-SvId        int             Satellite SV ID 1..32, or use 0 to apply new value to all satellites
-ParamName   string          Parameter name (see table above for accepted names)
-Val         bool            Parameter value (see table above for unit)
-DataSetName optional string Optional name of the data set to use. If no value is provided, the active data set is used.
-
-***************************************************************************************************************************
-
-Command SetGpsEphBoolParamForEachSV(paramName, val, dataSetName)
-Permission: EXECUTE_IF_IDLE
-
-Set GPS ephemeris boolean parameter value for all satellites
-
-Name        Type            Description
------------ --------------- --------------------------------------------------------------------------------------------------
-ParamName   string          Refer to SetGpsEphBoolParamForSV for accepted names
-Val         array bool      Parameter value for each satellite. Zero based index (index 0 => SV ID 1, index 1 => SV ID 2, etc)
-DataSetName optional string Optional name of the data set to use. If no value is provided, the active data set is used.
-
-***************************************************************************************************************************
-
-Command SetGpsEphemerisBoolParams(paramName, val, dataSetName)
-Permission: EXECUTE_IF_IDLE
-
-Please note the command SetGpsEphemerisBoolParams is deprecated since 21.3. You may use SetGpsEphBoolParamForEachSV.
-
-Set GPS ephemeris boolean parameter value for all satellites
-
-Name        Type            Description
------------ --------------- --------------------------------------------------------------------------------------------------
-ParamName   string          Refer to SetGpsEphBoolParamForSV for accepted names
-Val         array bool      Parameter value for each satellite. Zero based index (index 0 => SV ID 1, index 1 => SV ID 2, etc)
-DataSetName optional string Optional name of the data set to use. If no value is provided, the active data set is used.
-
-***************************************************************************************************************************
-
-Command GetGpsEphBoolParamForEachSV(paramName, dataSetName)
-Permission: EXECUTE_IF_IDLE
-
-Get GPS ephemeris boolean parameter value for all satellites
-
-Name        Type            Description
------------ --------------- -------------------------------------------------------------------------------------------
-ParamName   string          Refer to SetGpsEphBoolParamForSV for accepted names
-DataSetName optional string Optional name of the data set to use. If no value is provided, the active data set is used.
-
-***************************************************************************************************************************
-
-Command GetGpsEphemerisBoolParams(paramName, dataSetName)
-Permission: EXECUTE_IF_IDLE
-
-Please note the command GetGpsEphemerisBoolParams is deprecated since 21.3. You may use GetGpsEphBoolParamForEachSV.
-
-Get GPS ephemeris boolean parameter value for all satellites
-
-Name        Type            Description
------------ --------------- -------------------------------------------------------------------------------------------
-ParamName   string          Refer to SetGpsEphBoolParamForSV for accepted names
-DataSetName optional string Optional name of the data set to use. If no value is provided, the active data set is used.
-
-***************************************************************************************************************************
-
-Result GetGpsEphBoolParamForEachSVResult(paramName, val, dataSetName)
-
-Result of GetGpsEphBoolParamForEachSV.
-
-Name        Type            Description
------------ --------------- --------------------------------------------------------------------------------------------------
-ParamName   string          Refer to SetGpsEphBoolParamForSV for accepted names
-Val         array bool      Parameter value for each satellite. Zero based index (index 0 => SV ID 1, index 1 => SV ID 2, etc)
-DataSetName optional string Optional name of the data set to use. If no value is provided, the active data set is used.
-
-***************************************************************************************************************************
-
-Command SetBeiDouEphBoolParamForSV(svId, paramName, val, dataSetName)
-Permission: EXECUTE_IF_IDLE
-
-Set various boolean parameters in the BeiDou ephemeris
-
-  ParamName
-"IscB1CdAvailable"
-"IscB2adAvailable"
-
-Name        Type            Description
------------ --------------- -------------------------------------------------------------------------------------------
-SvId        int             Satellite SV ID 1..35, or use 0 to apply new value to all satellites
-ParamName   string          Parameter name (see table above for accepted names)
-Val         bool            Parameter value (see table above for unit)
-DataSetName optional string Optional name of the data set to use. If no value is provided, the active data set is used.
-
-***************************************************************************************************************************
-
-Command GetBeiDouEphBoolParamForSV(svId, paramName, dataSetName)
-Permission: EXECUTE_IF_IDLE
-
-Get various boolean parameters in the BeiDou ephemeris
-
-  ParamName
-"IscB1CdAvailable"
-"IscB2adAvailable"
-
-Name        Type            Description
------------ --------------- -------------------------------------------------------------------------------------------
-SvId        int             Satellite SV ID 1..35, or use 0 to apply new value to all satellites
-ParamName   string          Parameter name (see table above for accepted names)
-DataSetName optional string Optional name of the data set to use. If no value is provided, the active data set is used.
-
-***************************************************************************************************************************
-
-Result GetBeiDouEphBoolParamForSVResult(svId, paramName, val, dataSetName)
-
-Result of GetBeiDouEphBoolParamForSV.
-
-Name        Type            Description
------------ --------------- -------------------------------------------------------------------------------------------
-SvId        int             Satellite SV ID 1..35, or use 0 to apply new value to all satellites
-ParamName   string          Parameter name (see table above for accepted names)
-Val         bool            Parameter value (see table above for unit)
-DataSetName optional string Optional name of the data set to use. If no value is provided, the active data set is used.
-
-***************************************************************************************************************************
-
-Command SetBeiDouEphBoolParamForEachSV(paramName, val, dataSetName)
-Permission: EXECUTE_IF_IDLE
-
-Set BeiDou ephemeris boolean parameter value for all satellites
-
-Name        Type            Description
------------ --------------- --------------------------------------------------------------------------------------------------
-ParamName   string          Refer to SetBeiDouEphBoolParamForSV for accepted names
-Val         array bool      Parameter value for each satellite. Zero based index (index 0 => SV ID 1, index 1 => SV ID 2, etc)
-DataSetName optional string Optional name of the data set to use. If no value is provided, the active data set is used.
-
-***************************************************************************************************************************
-
-Command SetBeiDouEphemerisBoolParams(paramName, val, dataSetName)
-Permission: EXECUTE_IF_IDLE
-
-Please note the command SetBeiDouEphemerisBoolParams is deprecated since 21.3. You may use SetBeiDouEphBoolParamForEachSV.
-
-Set BeiDou ephemeris boolean parameter value for all satellites
-
-Name        Type            Description
------------ --------------- --------------------------------------------------------------------------------------------------
-ParamName   string          Refer to SetBeiDouEphBoolParamForSV for accepted names
-Val         array bool      Parameter value for each satellite. Zero based index (index 0 => SV ID 1, index 1 => SV ID 2, etc)
-DataSetName optional string Optional name of the data set to use. If no value is provided, the active data set is used.
-
-***************************************************************************************************************************
-
-Command GetBeiDouEphBoolParamForEachSV(paramName, dataSetName)
-Permission: EXECUTE_IF_IDLE
-
-Get BeiDou ephemeris boolean parameter value for all satellites
-
-Name        Type            Description
------------ --------------- -------------------------------------------------------------------------------------------
-ParamName   string          Refer to SetBeiDouEphBoolParamForSV for accepted names
-DataSetName optional string Optional name of the data set to use. If no value is provided, the active data set is used.
-
-***************************************************************************************************************************
-
-Command GetBeiDouEphemerisBoolParams(paramName, dataSetName)
-Permission: EXECUTE_IF_IDLE
-
-Please note the command GetBeiDouEphemerisBoolParams is deprecated since 21.3. You may use GetBeiDouEphBoolParamForEachSV.
-
-Get BeiDou ephemeris boolean parameter value for all satellites
-
-Name        Type            Description
------------ --------------- -------------------------------------------------------------------------------------------
-ParamName   string          Refer to SetBeiDouEphBoolParamForSV for accepted names
-DataSetName optional string Optional name of the data set to use. If no value is provided, the active data set is used.
-
-***************************************************************************************************************************
-
-Result GetBeiDouEphBoolParamForEachSVResult(paramName, val, dataSetName)
-
-Result of GetBeiDouEphBoolParamForEachSV.
-
-Name        Type            Description
------------ --------------- --------------------------------------------------------------------------------------------------
-ParamName   string          Refer to SetBeiDouEphBoolParamForSV for accepted names
-Val         array bool      Parameter value for each satellite. Zero based index (index 0 => SV ID 1, index 1 => SV ID 2, etc)
-DataSetName optional string Optional name of the data set to use. If no value is provided, the active data set is used.
-
-***************************************************************************************************************************
-
-Command SetQzssEphBoolParamForSV(svId, paramName, val, dataSetName)
-Permission: EXECUTE_IF_IDLE
-
-Set various boolean parameters in the QZSS ephemeris
-
-  ParamName
-"IscL1CaAvailable"
-"IscL2CAvailable"
-"IscL5I5Available"
-"IscL5Q5Available"
-"IscL1CPAvailable"
-"IscL1CDAvailable"
-
-Name        Type            Description
------------ --------------- -------------------------------------------------------------------------------------------
-SvId        int             Satellite SV ID 1..10, or use 0 to apply new value to all satellites
-ParamName   string          Parameter name (see table above for accepted names)
-Val         bool            Parameter value (see table above for unit)
-DataSetName optional string Optional name of the data set to use. If no value is provided, the active data set is used.
-
-***************************************************************************************************************************
-
-Command SetQzssEphemerisBoolParam(svId, paramName, val, dataSetName)
-Permission: EXECUTE_IF_IDLE
-
-Please note the command SetQzssEphemerisBoolParam is deprecated since 21.3. You may use SetQzssEphBoolParamForSV.
-
-Set various boolean parameters in the QZSS ephemeris
-
-  ParamName
-"IscL1CaAvailable"
-"IscL2CAvailable"
-"IscL5I5Available"
-"IscL5Q5Available"
-"IscL1CPAvailable"
-"IscL1CDAvailable"
-
-Name        Type            Description
------------ --------------- -------------------------------------------------------------------------------------------
-SvId        int             Satellite SV ID 1..10, or use 0 to apply new value to all satellites
-ParamName   string          Parameter name (see table above for accepted names)
-Val         bool            Parameter value (see table above for unit)
-DataSetName optional string Optional name of the data set to use. If no value is provided, the active data set is used.
-
-***************************************************************************************************************************
-
-Command GetQzssEphBoolParamForSV(svId, paramName, dataSetName)
-Permission: EXECUTE_IF_IDLE
-
-Get various boolean parameters in the QZSS ephemeris
-
-  ParamName
-"IscL1CaAvailable"
-"IscL2CAvailable"
-"IscL5I5Available"
-"IscL5Q5Available"
-"IscL1CPAvailable"
-"IscL1CDAvailable"
-
-Name        Type            Description
------------ --------------- -------------------------------------------------------------------------------------------
-SvId        int             Satellite SV ID 1..10, or use 0 to apply new value to all satellites
-ParamName   string          Parameter name (see table above for accepted names)
-DataSetName optional string Optional name of the data set to use. If no value is provided, the active data set is used.
-
-***************************************************************************************************************************
-
-Command GetQzssEphemerisBoolParam(svId, paramName, dataSetName)
-Permission: EXECUTE_IF_IDLE
-
-Please note the command GetQzssEphemerisBoolParam is deprecated since 21.3. You may use GetQzssEphBoolParamForSV.
-
-Get various boolean parameters in the QZSS ephemeris
-
-  ParamName
-"IscL1CaAvailable"
-"IscL2CAvailable"
-"IscL5I5Available"
-"IscL5Q5Available"
-"IscL1CPAvailable"
-"IscL1CDAvailable"
-
-Name        Type            Description
------------ --------------- -------------------------------------------------------------------------------------------
-SvId        int             Satellite SV ID 1..10, or use 0 to apply new value to all satellites
-ParamName   string          Parameter name (see table above for accepted names)
-DataSetName optional string Optional name of the data set to use. If no value is provided, the active data set is used.
-
-***************************************************************************************************************************
-
-Result GetQzssEphBoolParamForSVResult(svId, paramName, val, dataSetName)
-
-Result of GetQzssEphBoolParamForSV.
-
-Name        Type            Description
------------ --------------- -------------------------------------------------------------------------------------------
-SvId        int             Satellite SV ID 1..10, or use 0 to apply new value to all satellites
-ParamName   string          Parameter name (see table above for accepted names)
-Val         bool            Parameter value (see table above for unit)
-DataSetName optional string Optional name of the data set to use. If no value is provided, the active data set is used.
-
-***************************************************************************************************************************
-
-Command SetQzssEphBoolParamForEachSV(paramName, val, dataSetName)
-Permission: EXECUTE_IF_IDLE
-
-Set QZSS ephemeris boolean parameter value for all satellites
-
-Name        Type            Description
------------ --------------- --------------------------------------------------------------------------------------------------
-ParamName   string          Refer to SetQzssEphemerisBoolParam for accepted names
-Val         array bool      Parameter value for each satellite. Zero based index (index 0 => SV ID 1, index 1 => SV ID 2, etc)
-DataSetName optional string Optional name of the data set to use. If no value is provided, the active data set is used.
-
-***************************************************************************************************************************
-
-Command SetQzssEphemerisBoolParams(paramName, val, dataSetName)
-Permission: EXECUTE_IF_IDLE
-
-Please note the command SetQzssEphemerisBoolParams is deprecated since 21.3. You may use SetQzssEphBoolParamForEachSV.
-
-Set QZSS ephemeris boolean parameter value for all satellites
-
-Name        Type            Description
------------ --------------- --------------------------------------------------------------------------------------------------
-ParamName   string          Refer to SetQzssEphemerisBoolParam for accepted names
-Val         array bool      Parameter value for each satellite. Zero based index (index 0 => SV ID 1, index 1 => SV ID 2, etc)
-DataSetName optional string Optional name of the data set to use. If no value is provided, the active data set is used.
-
-***************************************************************************************************************************
-
-Command GetQzssEphBoolParamForEachSV(paramName, dataSetName)
-Permission: EXECUTE_IF_IDLE
-
-Get QZSS ephemeris boolean parameter value for all satellites
-
-Name        Type            Description
------------ --------------- -------------------------------------------------------------------------------------------
-ParamName   string          Refer to SetQzssEphemerisBoolParam for accepted names
-DataSetName optional string Optional name of the data set to use. If no value is provided, the active data set is used.
-
-***************************************************************************************************************************
-
-Command GetQzssEphemerisBoolParams(paramName, dataSetName)
-Permission: EXECUTE_IF_IDLE
-
-Please note the command GetQzssEphemerisBoolParams is deprecated since 21.3. You may use GetQzssEphBoolParamForEachSV.
-
-Get QZSS ephemeris boolean parameter value for all satellites
-
-Name        Type            Description
------------ --------------- -------------------------------------------------------------------------------------------
-ParamName   string          Refer to SetQzssEphemerisBoolParam for accepted names
-DataSetName optional string Optional name of the data set to use. If no value is provided, the active data set is used.
-
-***************************************************************************************************************************
-
-Result GetQzssEphBoolParamForEachSVResult(paramName, val, dataSetName)
-
-Result of GetQzssEphBoolParamForEachSV.
-
-Name        Type            Description
------------ --------------- --------------------------------------------------------------------------------------------------
-ParamName   string          Refer to SetQzssEphemerisBoolParam for accepted names
-Val         array bool      Parameter value for each satellite. Zero based index (index 0 => SV ID 1, index 1 => SV ID 2, etc)
-DataSetName optional string Optional name of the data set to use. If no value is provided, the active data set is used.
 
 ***************************************************************************************************************************
 
@@ -10306,7 +8919,7 @@ Time double Time delay in msec (minimum is 500 msec)
 
 ***************************************************************************************************************************
 
-Command SetSyncTimeMaster(time)
+Command SetSyncTimeMainInstance(time)
 Permission: EXECUTE_IF_IDLE
 
 Set time delay to start streaming after PPS synchronization. A value of 1500
@@ -10319,7 +8932,22 @@ Time double Time delay in msec (minimum is 500 msec)
 
 ***************************************************************************************************************************
 
-Command GetSyncTimeMaster()
+Command SetSyncTimeMaster(time)
+Permission: EXECUTE_IF_IDLE
+
+Please note the command SetSyncTimeMaster is deprecated since 23.11. You may use SetSyncTimeMainInstance.
+
+Set time delay to start streaming after PPS synchronization. A value of 1500
+means the simulation will start streaming 1.5 sec after the PPS used for
+synchornization.
+
+Name Type   Description
+---- ------ ----------------------------------------
+Time double Time delay in msec (minimum is 500 msec)
+
+***************************************************************************************************************************
+
+Command GetSyncTimeMainInstance()
 Permission: EXECUTE_IF_IDLE | EXECUTE_IF_SIMULATING
 
 Get time delay to start streaming after PPS synchronization. A value of 1500
@@ -10329,9 +8957,21 @@ synchornization.
 
 ***************************************************************************************************************************
 
-Result GetSyncTimeMasterResult(time)
+Command GetSyncTimeMaster()
+Permission: EXECUTE_IF_IDLE | EXECUTE_IF_SIMULATING
 
-Result of GetSyncTimeMaster.
+Please note the command GetSyncTimeMaster is deprecated since 23.11. You may use GetSyncTimeMainInstance.
+
+Get time delay to start streaming after PPS synchronization. A value of 1500
+means the simulation will start streaming 1.5 sec after the PPS used for
+synchornization.
+
+
+***************************************************************************************************************************
+
+Result GetSyncTimeMainInstanceResult(time)
+
+Result of GetSyncTimeMainInstance.
 
 Name Type   Description
 ---- ------ ----------------------------------------
@@ -10368,32 +9008,32 @@ Enabled bool Enable stop when command fail flag
 
 ***************************************************************************************************************************
 
-Command StopMasterWhenSlaveStop(enabled)
+Command StopMainInstanceWhenWorkerInstanceStop(enabled)
 Permission: EXECUTE_IF_NO_CONFIG | EXECUTE_IF_IDLE | EXECUTE_IF_SIMULATING
 
-If enabled, master and all the slaves will stop if a slave stop.
+If enabled, main instance and all the worker instances will stop if a worker instance stops.
 
 Name    Type Description
-------- ---- ---------------------------------------
-Enabled bool Enable master stop when slave fail flag
+------- ---- ---------------------------------------------------------
+Enabled bool Enable main instance stop when worker instance stops flag
 
 ***************************************************************************************************************************
 
-Command IsStopMasterWhenSlaveStop()
+Command IsStopMainInstanceWhenWorkerInstanceStop()
 Permission: EXECUTE_IF_IDLE | EXECUTE_IF_SIMULATING
 
-If enabled, master and all the slaves will stop if a slave stop.
+If enabled, main instance and all the worker instances will stop if a worker instance stops.
 
 
 ***************************************************************************************************************************
 
-Result IsStopMasterWhenSlaveStopResult(enabled)
+Result IsStopMainInstanceWhenWorkerInstanceStopResult(enabled)
 
-Result of IsStopMasterWhenSlaveStop.
+Result of IsStopMainInstanceWhenWorkerInstanceStop.
 
 Name    Type Description
-------- ---- ---------------------------------------
-Enabled bool Enable master stop when slave fail flag
+------- ---- ---------------------------------------------------------
+Enabled bool Enable main instance stop when worker instance stops flag
 
 ***************************************************************************************************************************
 
@@ -10474,9 +9114,9 @@ Possible substates are :
 -Initializing
 -Armed
 -Streaming RF
--Sync Slave
--WF Init (Slave)
--WF Init (Master)
+-Sync Worker Instance
+-WF Init (Worker)
+-WF Init (Main)
 -HIL Sync
 -Sync Init
 -Sync PPS Reset
@@ -10509,9 +9149,9 @@ Possible substates are :
 -Initializing
 -Armed
 -Streaming RF
--Sync Slave
--WF Init (Slave)
--WF Init (Master)
+-Sync Worker
+-WF Init (Worker)
+-WF Init (Main)
 -HIL Sync
 -Sync Init
 -Sync PPS Reset
@@ -11092,7 +9732,7 @@ Possible values:
 Command BroadcastConfig()
 Permission: EXECUTE_IF_IDLE
 
-Ask the master to broadcast its configuration to all slaves.
+Ask the main instance to broadcast its configuration to all worker instances.
 
 
 ***************************************************************************************************************************
@@ -11108,7 +9748,7 @@ Cancel the current configuration broadcast if any.
 Command SetConfigBroadcastOnStart(broadcastOnStart)
 Permission: EXECUTE_IF_IDLE
 
-Set wether the master should send its configuration to every slave when simulation start.
+Set wether the main instance should send its configuration to every worker instance when simulation start.
 
 Name             Type Description
 ---------------- ---- --------------------------------------------------------------
@@ -11119,7 +9759,7 @@ BroadcastOnStart bool True to broadcast the configuration on start, false otherw
 Command GetConfigBroadcastOnStart()
 Permission: EXECUTE_IF_IDLE
 
-Get wether the master should send its configuration to every slave when simulation start.
+Get wether the main instance should send its configuration to every worker instance when simulation start.
 
 
 ***************************************************************************************************************************
@@ -13742,6 +12382,292 @@ Score double Score of the GPU benchmark execution, a result over 1.15 is recomme
 
 ***************************************************************************************************************************
 
+Command SetWFElement(element, enabled, antennaModelName)
+Permission: EXECUTE_IF_IDLE
+
+Set Wavefront element properties. Properties define if an element is enabled/disabled, and the associated antenna.
+
+Name             Type   Description
+---------------- ------ -------------------------------------------------------------------------------------------------
+Element          int    One-based index of the element. Value -1 adds a new element at the end of the list.
+Enabled          bool   If True, this antenna element will be simulated.
+AntennaModelName string Antenna Model name for this element. Antenna models can be defined in Vehicle Antenna Model menu.
+
+***************************************************************************************************************************
+
+Command GetWFElement(element)
+Permission: EXECUTE_IF_IDLE
+
+Get Wavefront element properties. Properties define if an element is enabled/disabled, and the associated antenna.
+
+Name    Type Description
+------- ---- -----------------------------------------------------------------------------------
+Element int  One-based index of the element. Value -1 adds a new element at the end of the list.
+
+***************************************************************************************************************************
+
+Result GetWFElementResult(element, enabled, antennaModelName)
+
+Result of GetWFElement.
+
+Name             Type   Description
+---------------- ------ -------------------------------------------------------------------------------------------------
+Element          int    One-based index of the element. Value -1 adds a new element at the end of the list.
+Enabled          bool   If True, this antenna element will be simulated.
+AntennaModelName string Antenna Model name for this element. Antenna models can be defined in Vehicle Antenna Model menu.
+
+***************************************************************************************************************************
+
+Command RemoveWFElement()
+Permission: EXECUTE_IF_IDLE
+
+Remove last Wavefront element.
+
+
+***************************************************************************************************************************
+
+Command ImportWFAntenna(filePath)
+Permission: EXECUTE_IF_IDLE
+
+Import Wavefront Antenna settings from an XML file.
+
+Name     Type   Description
+-------- ------ -----------------------------------------
+FilePath string File path for Wavefront Antenna settings.
+
+***************************************************************************************************************************
+
+Command ExportWFAntenna(filePath, overwriteFile)
+Permission: EXECUTE_IF_IDLE
+
+Export Wavefront Antenna settings to an XML file.
+
+Name          Type   Description
+------------- ------ -------------------------------------------------
+FilePath      string Export file path for Wavefront Antenna settings.
+OverwriteFile bool   When selected, existing file will be overwritten.
+
+***************************************************************************************************************************
+
+Command SetN310LocalOscillatorSource(isExternal, id)
+Permission: EXECUTE_IF_NO_CONFIG | EXECUTE_IF_IDLE
+
+Set the local oscillator source of the N310. Can be Internal or External. By default, the source is Internal.
+
+Name       Type   Description
+---------- ------ -------------------------------------------------------------------------------------------
+IsExternal bool   Indicates if the Local Oscillator is external (true) or internal (false). False by default.
+Id         string N310 modulation target Id.
+
+***************************************************************************************************************************
+
+Command GetN310LocalOscillatorSource(id)
+Permission: EXECUTE_IF_IDLE
+
+Get the local oscillator source of the N310. Can be Internal or External. By default, the source is Internal.
+
+Name Type   Description
+---- ------ --------------------------
+Id   string N310 modulation target Id.
+
+***************************************************************************************************************************
+
+Result GetN310LocalOscillatorSourceResult(isExternal, id)
+
+Result of GetN310LocalOscillatorSource.
+
+Name       Type   Description
+---------- ------ -------------------------------------------------------------------------------------------
+IsExternal bool   Indicates if the Local Oscillator is external (true) or internal (false). False by default.
+Id         string N310 modulation target Id.
+
+***************************************************************************************************************************
+
+Command SetConstellationParameterForSV(system, svId, paramName, val, dataSetName)
+Permission: EXECUTE_IF_IDLE
+
+Set "GPS", "Galileo", "BeiDou", "QZSS" or "NavIC" constellation parameter value.
+
+General constellation parameters:
+
+  Unit         Type     ParamName
+  sec          double   "ClockBias"
+  sec/sec      double   "ClockDrift"
+  sec/sec^2    double   "ClockDriftRate"
+  meter        double   "Crs", "Crc", "Accuracy"
+  meter/sec    double   "Adot"
+  rad          double   "Cis", "Cic", "Cus", "Cuc", "M0", "BigOmega", "I0", "LittleOmega"
+  rad/sec      double   "DeltaN", "BigOmegaDot", "Idot" 
+  rad/sec^2    double   "DeltaN0dot"
+  sqrt(meter)  double   "SqrtA"  
+  -            double   "Eccentricity"
+  -            integer  "Week Number", "Toe", "Transmission Time"
+
+GPS:
+
+  Unit         Type     ParamName
+  sec          double   "Tgd", "IscL1Ca", "IscL2C", "IscL5I5", "IscL5Q5", "IscL1CP", "IscL1CD", "IscL1ME", "IscL2ME", "IscL1MR", "IscL2MR"
+  sec          integer  "Fit interval"
+  -            integer  "IODE", "IODC", "UraIndex"
+  -            boolean  "IscL1CaAvailable", "IscL2CAvailable", "IscL5I5Available", "IscL5Q5Available", "IscL1CPAvailable", "IscL1CDAvailable", "IscL1MEAvailable", "IscL2MEAvailable", "IscL1MRAvailable", "IscL2MRAvailable"
+
+Galileo:
+
+  Unit         Type     ParamName
+  sec          double   "Tgd"
+  ns           double   "BgdE1E5a", "BgdE1E5b"
+  -            integer  "SisaE1E5a", "SisaE1E5b", "IODNAV" 
+
+BeiDou:
+
+  Unit         Type     ParamName
+  sec          double   "Tgd1", "Tgd2", "TgdB1Cp", "TgdB2Ap"
+  -            integer  "IODE", "IODC", "AODE", "AODC"
+  -            boolean  "IscB1CdAvailable", "IscB2adAvailable"
+
+QZSS:
+
+  Unit         Type     ParamName
+  sec          double   "Tgd", "IscL1Ca", "IscL2C", "IscL5I5", "IscL5Q5", "IscL1CP", "IscL1CD"
+  sec          integer  "Fit interval"
+  -            integer  "IODE", "IODC", "UraIndex"
+  -            boolean  "IscL1CaAvailable", "IscL2CAvailable", "IscL5I5Available", "IscL5Q5Available", "IscL1CPAvailable", "IscL1CDAvailable"
+
+NavIC:
+
+  Unit         Type     ParamName
+  sec          double   "Tgd"
+  -            integer  "IODEC", "UraIndex"
+
+Name        Type                  Description
+----------- --------------------- -------------------------------------------------------------------------------------------
+System      string                "GPS", "Galileo", "BeiDou", "QZSS" or "NavIC".
+SvId        int                   The Satellite SV ID, or use 0 to apply new value to all satellites.
+ParamName   string                Parameter name (see table above for accepted names).
+Val         double or int or bool Parameter value (see table above for unit and type).
+DataSetName optional string       Optional name of the data set to use. If no value is provided, the active data set is used.
+
+***************************************************************************************************************************
+
+Command GetConstellationParameterForSV(system, svId, paramName, dataSetName)
+Permission: EXECUTE_IF_IDLE
+
+Get "GPS", "Galileo", "BeiDou", "QZSS" or "NavIC" constellation parameter value.
+
+General constellation parameters:
+
+  Unit         Type     ParamName
+  sec          double   "ClockBias"
+  sec/sec      double   "ClockDrift"
+  sec/sec^2    double   "ClockDriftRate"
+  meter        double   "Crs", "Crc", "Accuracy"
+  meter/sec    double   "Adot"
+  rad          double   "Cis", "Cic", "Cus", "Cuc", "M0", "BigOmega", "I0", "LittleOmega"
+  rad/sec      double   "DeltaN", "BigOmegaDot", "Idot" 
+  rad/sec^2    double   "DeltaN0dot"
+  sqrt(meter)  double   "SqrtA"  
+  -            double   "Eccentricity"
+  -            integer  "Week Number", "Toe", "Transmission Time"
+
+GPS:
+
+  Unit         Type     ParamName
+  sec          double   "Tgd", "IscL1Ca", "IscL2C", "IscL5I5", "IscL5Q5", "IscL1CP", "IscL1CD", "IscL1ME", "IscL2ME", "IscL1MR", "IscL2MR"
+  sec          integer  "Fit interval"
+  -            integer  "IODE", "IODC", "UraIndex"
+  -            boolean  "IscL1CaAvailable", "IscL2CAvailable", "IscL5I5Available", "IscL5Q5Available", "IscL1CPAvailable", "IscL1CDAvailable", "IscL1MEAvailable", "IscL2MEAvailable", "IscL1MRAvailable", "IscL2MRAvailable"
+
+Galileo:
+
+  Unit         Type     ParamName
+  sec          double   "Tgd"
+  ns           double   "BgdE1E5a", "BgdE1E5b"
+  -            integer  "SisaE1E5a", "SisaE1E5b", "IODNAV" 
+
+BeiDou:
+
+  Unit         Type     ParamName
+  sec          double   "Tgd1", "Tgd2", "TgdB1Cp", "TgdB2Ap"
+  -            integer  "IODE", "IODC", "AODE", "AODC"
+  -            boolean  "IscB1CdAvailable", "IscB2adAvailable"
+
+QZSS:
+
+  Unit         Type     ParamName
+  sec          double   "Tgd", "IscL1Ca", "IscL2C", "IscL5I5", "IscL5Q5", "IscL1CP", "IscL1CD"
+  sec          integer  "Fit interval"
+  -            integer  "IODE", "IODC", "UraIndex"
+  -            boolean  "IscL1CaAvailable", "IscL2CAvailable", "IscL5I5Available", "IscL5Q5Available", "IscL1CPAvailable", "IscL1CDAvailable"
+
+NavIC:
+
+  Unit         Type     ParamName
+  sec          double   "Tgd"
+  -            integer  "IODEC", "UraIndex"
+
+Name        Type            Description
+----------- --------------- -------------------------------------------------------------------------------------------
+System      string          "GPS", "Galileo", "BeiDou", "QZSS" or "NavIC".
+SvId        int             The Satellite SV ID, or use 0 to apply new value to all satellites.
+ParamName   string          Parameter name (see table above for accepted names).
+DataSetName optional string Optional name of the data set to use. If no value is provided, the active data set is used.
+
+***************************************************************************************************************************
+
+Result GetConstellationParameterForSVResult(system, svId, paramName, val, dataSetName)
+
+Result of GetConstellationParameterForSV.
+
+Name        Type                  Description
+----------- --------------------- -------------------------------------------------------------------------------------------
+System      string                "GPS", "Galileo", "BeiDou", "QZSS" or "NavIC".
+SvId        int                   The Satellite SV ID, or use 0 to apply new value to all satellites.
+ParamName   string                Parameter name (see table above for accepted names).
+Val         double or int or bool Parameter value (see table above for unit and type).
+DataSetName optional string       Optional name of the data set to use. If no value is provided, the active data set is used.
+
+***************************************************************************************************************************
+
+Command SetConstellationParameterForEachSV(system, paramName, val, dataSetName)
+Permission: EXECUTE_IF_IDLE
+
+Set "GPS", "Galileo", "BeiDou", "QZSS" or "NavIC" constellation parameter value for all satellites.
+
+Name        Type                                    Description
+----------- --------------------------------------- ----------------------------------------------------------------------------------------------------
+System      string                                  "GPS", "Galileo", "BeiDou", "QZSS" or "NavIC".
+ParamName   string                                  Refer to SetConstellationParameterForSV for accepted names.
+Val         array double or array int or array bool Parameter value for each satellite. Zero based index (index 0 => SV ID 1, index 1 => SV ID 2, etc.).
+DataSetName optional string                         Optional name of the data set to use. If no value is provided, the active data set is used.
+
+***************************************************************************************************************************
+
+Command GetConstellationParameterForEachSV(system, paramName, dataSetName)
+Permission: EXECUTE_IF_IDLE
+
+Get "GPS", "Galileo", "BeiDou", "QZSS" or "NavIC" constellation parameter value for all satellites.
+
+Name        Type            Description
+----------- --------------- -------------------------------------------------------------------------------------------
+System      string          "GPS", "Galileo", "BeiDou", "QZSS" or "NavIC".
+ParamName   string          Refer to SetConstellationParameterForSV for accepted names.
+DataSetName optional string Optional name of the data set to use. If no value is provided, the active data set is used.
+
+***************************************************************************************************************************
+
+Result GetConstellationParameterForEachSVResult(system, paramName, val, dataSetName)
+
+Result of GetConstellationParameterForEachSV.
+
+Name        Type                                    Description
+----------- --------------------------------------- ----------------------------------------------------------------------------------------------------
+System      string                                  "GPS", "Galileo", "BeiDou", "QZSS" or "NavIC".
+ParamName   string                                  Refer to SetConstellationParameterForSV for accepted names.
+Val         array double or array int or array bool Parameter value for each satellite. Zero based index (index 0 => SV ID 1, index 1 => SV ID 2, etc.).
+DataSetName optional string                         Optional name of the data set to use. If no value is provided, the active data set is used.
+
+***************************************************************************************************************************
+
 Data StringPair(first, second)
 
 A pair of string
@@ -13861,4 +12787,1621 @@ Antenna             double The receiver antenna power offset (dB). It depends on
 SignalLevelOffset   double The global power offset (dB)
 ManualGain          double The power offset provided by the user (dB). See SetPowerForSV
 Total               double The sum of all the other fields (dBm)
+
+***************************************************************************************************************************
+
+Command GetMasterStatus()
+Permission: EXECUTE_IF_IDLE | EXECUTE_IF_SIMULATING
+
+Please note the command GetMasterStatus is deprecated since 23.11. You may use GetMainInstanceStatus.
+
+Request for the master status, returns a GetMasterStatusResult
+
+
+***************************************************************************************************************************
+
+Result GetMasterStatusResult(isMaster, slaveConnected, port)
+
+Result of GetMasterStatus.
+
+Name           Type Description
+-------------- ---- -------------------------------------
+IsMaster       bool True if Skydel is in master mode
+SlaveConnected int  The number of connected slaves
+Port           int  The listening port, 0 if not a master
+
+***************************************************************************************************************************
+
+Command GetSlaveStatus()
+Permission: EXECUTE_IF_IDLE | EXECUTE_IF_SIMULATING
+
+Please note the command GetSlaveStatus is deprecated since 23.11. You may use GetWorkerInstanceStatus.
+
+Request for the slave status, returns a GetSlaveStatusResult
+
+
+***************************************************************************************************************************
+
+Result GetSlaveStatusResult(isSlave, isConnected, hostName, hostPort)
+
+Result of GetSlaveStatus.
+
+Name        Type   Description
+----------- ------ ---------------------------------------
+IsSlave     bool   True if Skydel is in slave mode
+IsConnected bool   True if Skydel is connected to a master
+HostName    string The host name, empty if not a slave
+HostPort    int    The host port, 0 if not a slave
+
+***************************************************************************************************************************
+
+Command StopMasterWhenSlaveStop(enabled)
+Permission: EXECUTE_IF_NO_CONFIG | EXECUTE_IF_IDLE | EXECUTE_IF_SIMULATING
+
+Please note the command StopMasterWhenSlaveStop is deprecated since 23.11. You may use StopMainInstanceWhenWorkerInstanceStop.
+
+If enabled, master and all the slaves will stop if a slave stop.
+
+Name    Type Description
+------- ---- ---------------------------------------
+Enabled bool Enable master stop when slave fail flag
+
+***************************************************************************************************************************
+
+Command IsStopMasterWhenSlaveStop()
+Permission: EXECUTE_IF_IDLE | EXECUTE_IF_SIMULATING
+
+Please note the command IsStopMasterWhenSlaveStop is deprecated since 23.11. You may use IsStopMainInstanceWhenWorkerInstanceStop.
+
+If enabled, master and all the slaves will stop if a slave stop.
+
+
+***************************************************************************************************************************
+
+Result IsStopMasterWhenSlaveStopResult(enabled)
+
+Result of IsStopMasterWhenSlaveStop.
+
+Name    Type Description
+------- ---- ---------------------------------------
+Enabled bool Enable master stop when slave fail flag
+
+***************************************************************************************************************************
+
+Command SetGpsEphDoubleParamForSV(svId, paramName, val, dataSetName)
+Permission: EXECUTE_IF_IDLE
+
+Please note the command SetGpsEphDoubleParamForSV is deprecated since 23.11. You may use SetConstellationParameterForSV.
+
+Set various parameters in the GPS ephemeris
+
+  ParamName         Unit
+  "ClockBias"       sec
+  "ClockDrift"      sec/sec
+  "ClockDriftRate"  sec/sec^2
+  "Crs"             meter
+  "Crc"             meter
+  "Cis"             rad
+  "Cic"             rad
+  "Cus"             rad
+  "Cuc"             rad
+  "DeltaN"          rad/sec
+  "M0"              rad
+  "Eccentricity"    -
+  "SqrtA"           sqrt(meter)
+  "BigOmega"        rad
+  "I0"              rad
+  "LittleOmega"     rad
+  "BigOmegaDot"     rad/sec
+  "Idot"            rad/sec
+  "Accuracy"        meter
+  "Adot"            meters/sec
+  "DeltaN0dot"      rad/sec^2
+  "Tgd"             sec
+  "IscL1Ca"         sec
+  "IscL2C"          sec
+  "IscL5I5"         sec
+  "IscL5Q5"         sec
+  "IscL1CP"         sec
+  "IscL1CD"         sec
+
+Name        Type            Description
+----------- --------------- -------------------------------------------------------------------------------------------
+SvId        int             Satellite SV ID 1..32, or use 0 to apply new value to all satellites.
+ParamName   string          Parameter name (see table above for accepted names)
+Val         double          Parameter value (see table above for unit)
+DataSetName optional string Optional name of the data set to use. If no value is provided, the active data set is used.
+
+***************************************************************************************************************************
+
+Command GetGpsEphDoubleParamForSV(svId, paramName, dataSetName)
+Permission: EXECUTE_IF_IDLE
+
+Please note the command GetGpsEphDoubleParamForSV is deprecated since 23.11. You may use GetConstellationParameterForSV.
+
+Get various parameters in the GPS ephemeris
+
+  ParamName         Unit
+  "ClockBias"       sec
+  "ClockDrift"      sec/sec
+  "ClockDriftRate"  sec/sec^2
+  "Crs"             meter
+  "Crc"             meter
+  "Cis"             rad
+  "Cic"             rad
+  "Cus"             rad
+  "Cuc"             rad
+  "DeltaN"          rad/sec
+  "M0"              rad
+  "Eccentricity"    -
+  "SqrtA"           sqrt(meter)
+  "BigOmega"        rad
+  "I0"              rad
+  "LittleOmega"     rad
+  "BigOmegaDot"     rad/sec
+  "Idot"            rad/sec
+  "Accuracy"        meter
+  "Adot"            meters/sec
+  "DeltaN0dot"      rad/sec^2
+  "Tgd"             sec
+  "IscL1Ca"         sec
+  "IscL2C"          sec
+  "IscL5I5"         sec
+  "IscL5Q5"         sec
+  "IscL1CP"         sec
+  "IscL1CD"         sec
+
+Name        Type            Description
+----------- --------------- -------------------------------------------------------------------------------------------
+SvId        int             Satellite SV ID 1..32, or use 0 to apply new value to all satellites.
+ParamName   string          Parameter name (see table above for accepted names)
+DataSetName optional string Optional name of the data set to use. If no value is provided, the active data set is used.
+
+***************************************************************************************************************************
+
+Result GetGpsEphDoubleParamForSVResult(svId, paramName, val, dataSetName)
+
+Result of GetGpsEphDoubleParamForSV.
+
+Name        Type            Description
+----------- --------------- -------------------------------------------------------------------------------------------
+SvId        int             Satellite SV ID 1..32, or use 0 to apply new value to all satellites.
+ParamName   string          Parameter name (see table above for accepted names)
+Val         double          Parameter value (see table above for unit)
+DataSetName optional string Optional name of the data set to use. If no value is provided, the active data set is used.
+
+***************************************************************************************************************************
+
+Command SetGalileoEphDoubleParamForSV(svId, paramName, val, dataSetName)
+Permission: EXECUTE_IF_IDLE
+
+Please note the command SetGalileoEphDoubleParamForSV is deprecated since 23.11. You may use SetConstellationParameterForSV.
+
+Set various parameters in the Galileo ephemeris
+
+  ParamName         Unit
+  "ClockBias"       sec
+  "ClockDrift"      sec/sec
+  "ClockDriftRate"  sec/sec^2
+  "Crs"             meter
+  "Crc"             meter
+  "Cis"             rad
+  "Cic"             rad
+  "Cus"             rad
+  "Cuc"             rad
+  "DeltaN"          rad/sec
+  "M0"              rad
+  "Eccentricity"    -
+  "SqrtA"           sqrt(meter)
+  "BigOmega"        rad
+  "I0"              rad
+  "LittleOmega"     rad
+  "BigOmegaDot"     rad/sec
+  "Idot"            rad/sec
+  "Accuracy"        meter
+  "Adot"            meters/sec
+  "DeltaN0dot"      rad/sec^2
+  "Tgd"             sec
+  "BgdE1E5a"        ns
+  "BgdE1E5b"        ns
+
+Name        Type            Description
+----------- --------------- -------------------------------------------------------------------------------------------
+SvId        int             Satellite SV ID 1..36, or use 0 to apply new value to all satellites
+ParamName   string          Parameter name (see table above for accepted names)
+Val         double          Parameter value (see table above for unit)
+DataSetName optional string Optional name of the data set to use. If no value is provided, the active data set is used.
+
+***************************************************************************************************************************
+
+Command GetGalileoEphDoubleParamForSV(svId, paramName, dataSetName)
+Permission: EXECUTE_IF_IDLE
+
+Please note the command GetGalileoEphDoubleParamForSV is deprecated since 23.11. You may use GetConstellationParameterForSV.
+
+Get various parameters in the Galileo ephemeris
+
+  ParamName         Unit
+  "ClockBias"       sec
+  "ClockDrift"      sec/sec
+  "ClockDriftRate"  sec/sec^2
+  "Crs"             meter
+  "Crc"             meter
+  "Cis"             rad
+  "Cic"             rad
+  "Cus"             rad
+  "Cuc"             rad
+  "DeltaN"          rad/sec
+  "M0"              rad
+  "Eccentricity"    -
+  "SqrtA"           sqrt(meter)
+  "BigOmega"        rad
+  "I0"              rad
+  "LittleOmega"     rad
+  "BigOmegaDot"     rad/sec
+  "Idot"            rad/sec
+  "Accuracy"        meter
+  "Adot"            meters/sec
+  "DeltaN0dot"      rad/sec^2
+  "Tgd"             sec
+  "BgdE1E5a"        ns
+  "BgdE1E5b"        ns
+
+Name        Type            Description
+----------- --------------- -------------------------------------------------------------------------------------------
+SvId        int             Satellite SV ID 1..36, or use 0 to apply new value to all satellites
+ParamName   string          Parameter name (see table above for accepted names)
+DataSetName optional string Optional name of the data set to use. If no value is provided, the active data set is used.
+
+***************************************************************************************************************************
+
+Result GetGalileoEphDoubleParamForSVResult(svId, paramName, val, dataSetName)
+
+Result of GetGalileoEphDoubleParamForSV.
+
+Name        Type            Description
+----------- --------------- -------------------------------------------------------------------------------------------
+SvId        int             Satellite SV ID 1..36, or use 0 to apply new value to all satellites
+ParamName   string          Parameter name (see table above for accepted names)
+Val         double          Parameter value (see table above for unit)
+DataSetName optional string Optional name of the data set to use. If no value is provided, the active data set is used.
+
+***************************************************************************************************************************
+
+Command SetBeiDouEphDoubleParamForSV(svId, paramName, val, dataSetName)
+Permission: EXECUTE_IF_IDLE
+
+Please note the command SetBeiDouEphDoubleParamForSV is deprecated since 23.11. You may use SetConstellationParameterForSV.
+
+Set various parameters in the BeiDou ephemeris
+
+  ParamName         Unit
+  "ClockBias"       sec
+  "ClockDrift"      sec/sec
+  "ClockDriftRate"  sec/sec^2
+  "Crs"             meter
+  "Crc"             meter
+  "Cis"             rad
+  "Cic"             rad
+  "Cus"             rad
+  "Cuc"             rad
+  "DeltaN"          rad/sec
+  "M0"              rad
+  "Eccentricity"    -
+  "SqrtA"           sqrt(meter)
+  "BigOmega"        rad
+  "I0"              rad
+  "LittleOmega"     rad
+  "BigOmegaDot"     rad/sec
+  "Idot"            rad/sec
+  "Accuracy"        meter
+  "Adot"            meters/sec
+  "DeltaN0dot"      rad/sec^2
+  "Tgd1"            sec
+  "Tgd2"            sec
+  "TgdB1Cp"         sec
+  "TgdB2Ap"         sec
+
+Name        Type            Description
+----------- --------------- -------------------------------------------------------------------------------------------
+SvId        int             Satellite SV ID 1..35, or use 0 to apply new value to all satellites
+ParamName   string          Parameter name (see table above for accepted names)
+Val         double          Parameter value (see table above for unit)
+DataSetName optional string Optional name of the data set to use. If no value is provided, the active data set is used.
+
+***************************************************************************************************************************
+
+Command GetBeiDouEphDoubleParamForSV(svId, paramName, dataSetName)
+Permission: EXECUTE_IF_IDLE
+
+Please note the command GetBeiDouEphDoubleParamForSV is deprecated since 23.11. You may use GetConstellationParameterForSV.
+
+Get various parameters in the BeiDou ephemeris
+
+  ParamName         Unit
+  "ClockBias"       sec
+  "ClockDrift"      sec/sec
+  "ClockDriftRate"  sec/sec^2
+  "Crs"             meter
+  "Crc"             meter
+  "Cis"             rad
+  "Cic"             rad
+  "Cus"             rad
+  "Cuc"             rad
+  "DeltaN"          rad/sec
+  "M0"              rad
+  "Eccentricity"    -
+  "SqrtA"           sqrt(meter)
+  "BigOmega"        rad
+  "I0"              rad
+  "LittleOmega"     rad
+  "BigOmegaDot"     rad/sec
+  "Idot"            rad/sec
+  "Accuracy"        meter
+  "Adot"            meters/sec
+  "DeltaN0dot"      rad/sec^2
+  "Tgd1"            sec
+  "Tgd2"            sec
+  "TgdB1Cp"         sec
+  "TgdB2Ap"         sec
+
+Name        Type            Description
+----------- --------------- -------------------------------------------------------------------------------------------
+SvId        int             Satellite SV ID 1..35, or use 0 to apply new value to all satellites
+ParamName   string          Parameter name (see table above for accepted names)
+DataSetName optional string Optional name of the data set to use. If no value is provided, the active data set is used.
+
+***************************************************************************************************************************
+
+Result GetBeiDouEphDoubleParamForSVResult(svId, paramName, val, dataSetName)
+
+Result of GetBeiDouEphDoubleParamForSV.
+
+Name        Type            Description
+----------- --------------- -------------------------------------------------------------------------------------------
+SvId        int             Satellite SV ID 1..35, or use 0 to apply new value to all satellites
+ParamName   string          Parameter name (see table above for accepted names)
+Val         double          Parameter value (see table above for unit)
+DataSetName optional string Optional name of the data set to use. If no value is provided, the active data set is used.
+
+***************************************************************************************************************************
+
+Command SetQzssEphDoubleParamForSV(svId, paramName, val, dataSetName)
+Permission: EXECUTE_IF_IDLE
+
+Please note the command SetQzssEphDoubleParamForSV is deprecated since 23.11. You may use SetConstellationParameterForSV.
+
+Set various parameters in the QZSS ephemeris.
+
+Name        Type            Description
+----------- --------------- -------------------------------------------------------------------------------------------
+SvId        int             The satellite's SV ID 1..10 (use 0 to apply to all satellites)
+ParamName   string          In meters:  "Crs", "Crc"
+                            In radians: "Cis", "Cic", "Cus", "Cuc"
+                            In seconds: "Tgd", "IscL1Ca", "IscL2C", "IscL5I5", "IscL5Q5", "IscL1CP", "IscL1CD"
+Val         double          Parameter value (see ParamName above for unit)
+DataSetName optional string Optional name of the data set to use. If no value is provided, the active data set is used.
+
+***************************************************************************************************************************
+
+Command SetQzssEphemerisDoubleParam(svId, paramName, val, dataSetName)
+Permission: EXECUTE_IF_IDLE
+
+Please note the command SetQzssEphemerisDoubleParam is deprecated since 21.3. You may use SetQzssEphDoubleParamForSV.
+
+Please note the command SetQzssEphDoubleParamForSV is deprecated since 23.11. You may use SetConstellationParameterForSV.
+
+Set various parameters in the QZSS ephemeris.
+
+Name        Type            Description
+----------- --------------- -------------------------------------------------------------------------------------------
+SvId        int             The satellite's SV ID 1..10 (use 0 to apply to all satellites)
+ParamName   string          In meters:  "Crs", "Crc"
+                            In radians: "Cis", "Cic", "Cus", "Cuc"
+                            In seconds: "Tgd", "IscL1Ca", "IscL2C", "IscL5I5", "IscL5Q5", "IscL1CP", "IscL1CD"
+Val         double          Parameter value (see ParamName above for unit)
+DataSetName optional string Optional name of the data set to use. If no value is provided, the active data set is used.
+
+***************************************************************************************************************************
+
+Command GetQzssEphDoubleParamForSV(svId, paramName, dataSetName)
+Permission: EXECUTE_IF_IDLE
+
+Please note the command GetQzssEphDoubleParamForSV is deprecated since 23.11. You may use GetConstellationParameterForSV.
+
+Get various parameters in the QZSS ephemeris.
+
+Name        Type            Description
+----------- --------------- -------------------------------------------------------------------------------------------
+SvId        int             The satellite's SV ID 1..10 (use 0 to apply to all satellites)
+ParamName   string          In meters:  "Crs", "Crc"
+                            In radians: "Cis", "Cic", "Cus", "Cuc"
+                            In seconds: "Tgd", "IscL1Ca", "IscL2C", "IscL5I5", "IscL5Q5", "IscL1CP", "IscL1CD"
+DataSetName optional string Optional name of the data set to use. If no value is provided, the active data set is used.
+
+***************************************************************************************************************************
+
+Command GetQzssEphemerisDoubleParam(svId, paramName, dataSetName)
+Permission: EXECUTE_IF_IDLE
+
+Please note the command GetQzssEphemerisDoubleParam is deprecated since 21.3. You may use GetQzssEphDoubleParamForSV.
+
+Please note the command GetQzssEphDoubleParamForSV is deprecated since 23.11. You may use GetConstellationParameterForSV.
+
+Get various parameters in the QZSS ephemeris.
+
+Name        Type            Description
+----------- --------------- -------------------------------------------------------------------------------------------
+SvId        int             The satellite's SV ID 1..10 (use 0 to apply to all satellites)
+ParamName   string          In meters:  "Crs", "Crc"
+                            In radians: "Cis", "Cic", "Cus", "Cuc"
+                            In seconds: "Tgd", "IscL1Ca", "IscL2C", "IscL5I5", "IscL5Q5", "IscL1CP", "IscL1CD"
+DataSetName optional string Optional name of the data set to use. If no value is provided, the active data set is used.
+
+***************************************************************************************************************************
+
+Result GetQzssEphDoubleParamForSVResult(svId, paramName, val, dataSetName)
+
+Result of GetQzssEphDoubleParamForSV.
+
+Name        Type            Description
+----------- --------------- -------------------------------------------------------------------------------------------
+SvId        int             The satellite's SV ID 1..10 (use 0 to apply to all satellites)
+ParamName   string          In meters:  "Crs", "Crc"
+                            In radians: "Cis", "Cic", "Cus", "Cuc"
+                            In seconds: "Tgd", "IscL1Ca", "IscL2C", "IscL5I5", "IscL5Q5", "IscL1CP", "IscL1CD"
+Val         double          Parameter value (see ParamName above for unit)
+DataSetName optional string Optional name of the data set to use. If no value is provided, the active data set is used.
+
+***************************************************************************************************************************
+
+Command SetNavICEphDoubleParamForSV(svId, paramName, val, dataSetName)
+Permission: EXECUTE_IF_IDLE
+
+Please note the command SetNavICEphDoubleParamForSV is deprecated since 23.11. You may use SetConstellationParameterForSV.
+
+Set various parameters in the NavIC ephemeris
+
+  ParamName         Unit
+  "ClockBias"       sec
+  "ClockDrift"      sec/sec
+  "ClockDriftRate"  sec/sec^2
+  "Crs"             meter
+  "Crc"             meter
+  "Cis"             rad
+  "Cic"             rad
+  "Cus"             rad
+  "Cuc"             rad
+  "DeltaN"          rad/sec
+  "M0"              rad
+  "Eccentricity"    -
+  "SqrtA"           sqrt(meter)
+  "BigOmega"        rad
+  "I0"              rad
+  "LittleOmega"     rad
+  "BigOmegaDot"     rad/sec
+  "Idot"            rad/sec
+  "Accuracy"        meter
+  "Adot"            meters/sec
+  "DeltaN0dot"      rad/sec^2
+  "Tgd"             sec
+
+Name        Type            Description
+----------- --------------- -------------------------------------------------------------------------------------------
+SvId        int             Satellite SV ID 1..14, or use 0 to apply new value to all satellites
+ParamName   string          Parameter name (see table above for accepted names)
+Val         double          Parameter value (see table above for unit)
+DataSetName optional string Optional name of the data set to use. If no value is provided, the active data set is used.
+
+***************************************************************************************************************************
+
+Command SetNavICEphemerisDoubleParam(svId, paramName, val, dataSetName)
+Permission: EXECUTE_IF_IDLE
+
+Please note the command SetNavICEphemerisDoubleParam is deprecated since 21.3. You may use SetNavICEphDoubleParamForSV.
+
+Please note the command SetNavICEphDoubleParamForSV is deprecated since 23.11. You may use SetConstellationParameterForSV.
+
+Set various parameters in the NavIC ephemeris
+
+  ParamName         Unit
+  "ClockBias"       sec
+  "ClockDrift"      sec/sec
+  "ClockDriftRate"  sec/sec^2
+  "Crs"             meter
+  "Crc"             meter
+  "Cis"             rad
+  "Cic"             rad
+  "Cus"             rad
+  "Cuc"             rad
+  "DeltaN"          rad/sec
+  "M0"              rad
+  "Eccentricity"    -
+  "SqrtA"           sqrt(meter)
+  "BigOmega"        rad
+  "I0"              rad
+  "LittleOmega"     rad
+  "BigOmegaDot"     rad/sec
+  "Idot"            rad/sec
+  "Accuracy"        meter
+  "Adot"            meters/sec
+  "DeltaN0dot"      rad/sec^2
+  "Tgd"             sec
+
+Name        Type            Description
+----------- --------------- -------------------------------------------------------------------------------------------
+SvId        int             Satellite SV ID 1..14, or use 0 to apply new value to all satellites
+ParamName   string          Parameter name (see table above for accepted names)
+Val         double          Parameter value (see table above for unit)
+DataSetName optional string Optional name of the data set to use. If no value is provided, the active data set is used.
+
+***************************************************************************************************************************
+
+Command GetNavICEphDoubleParamForSV(svId, paramName, dataSetName)
+Permission: EXECUTE_IF_IDLE
+
+Please note the command GetNavICEphDoubleParamForSV is deprecated since 23.11. You may use GetConstellationParameterForSV.
+
+Get various parameters in the NavIC ephemeris
+
+  ParamName         Unit
+  "ClockBias"       sec
+  "ClockDrift"      sec/sec
+  "ClockDriftRate"  sec/sec^2
+  "Crs"             meter
+  "Crc"             meter
+  "Cis"             rad
+  "Cic"             rad
+  "Cus"             rad
+  "Cuc"             rad
+  "DeltaN"          rad/sec
+  "M0"              rad
+  "Eccentricity"    -
+  "SqrtA"           sqrt(meter)
+  "BigOmega"        rad
+  "I0"              rad
+  "LittleOmega"     rad
+  "BigOmegaDot"     rad/sec
+  "Idot"            rad/sec
+  "Accuracy"        meter
+  "Adot"            meters/sec
+  "DeltaN0dot"      rad/sec^2
+  "Tgd"             sec
+
+Name        Type            Description
+----------- --------------- -------------------------------------------------------------------------------------------
+SvId        int             Satellite SV ID 1..14, or use 0 to apply new value to all satellites
+ParamName   string          Parameter name (see table above for accepted names)
+DataSetName optional string Optional name of the data set to use. If no value is provided, the active data set is used.
+
+***************************************************************************************************************************
+
+Command GetNavICEphemerisDoubleParam(svId, paramName, dataSetName)
+Permission: EXECUTE_IF_IDLE
+
+Please note the command GetNavICEphemerisDoubleParam is deprecated since 21.3. You may use GetNavICEphDoubleParamForSV.
+
+Please note the command GetNavICEphDoubleParamForSV is deprecated since 23.11. You may use GetConstellationParameterForSV.
+
+Get various parameters in the NavIC ephemeris
+
+  ParamName         Unit
+  "ClockBias"       sec
+  "ClockDrift"      sec/sec
+  "ClockDriftRate"  sec/sec^2
+  "Crs"             meter
+  "Crc"             meter
+  "Cis"             rad
+  "Cic"             rad
+  "Cus"             rad
+  "Cuc"             rad
+  "DeltaN"          rad/sec
+  "M0"              rad
+  "Eccentricity"    -
+  "SqrtA"           sqrt(meter)
+  "BigOmega"        rad
+  "I0"              rad
+  "LittleOmega"     rad
+  "BigOmegaDot"     rad/sec
+  "Idot"            rad/sec
+  "Accuracy"        meter
+  "Adot"            meters/sec
+  "DeltaN0dot"      rad/sec^2
+  "Tgd"             sec
+
+Name        Type            Description
+----------- --------------- -------------------------------------------------------------------------------------------
+SvId        int             Satellite SV ID 1..14, or use 0 to apply new value to all satellites
+ParamName   string          Parameter name (see table above for accepted names)
+DataSetName optional string Optional name of the data set to use. If no value is provided, the active data set is used.
+
+***************************************************************************************************************************
+
+Result GetNavICEphDoubleParamForSVResult(svId, paramName, val, dataSetName)
+
+Result of GetNavICEphDoubleParamForSV.
+
+Name        Type            Description
+----------- --------------- -------------------------------------------------------------------------------------------
+SvId        int             Satellite SV ID 1..14, or use 0 to apply new value to all satellites
+ParamName   string          Parameter name (see table above for accepted names)
+Val         double          Parameter value (see table above for unit)
+DataSetName optional string Optional name of the data set to use. If no value is provided, the active data set is used.
+
+***************************************************************************************************************************
+
+Command SetGpsEphDoubleParamForEachSV(paramName, val, dataSetName)
+Permission: EXECUTE_IF_IDLE
+
+Please note the command SetGpsEphDoubleParamForEachSV is deprecated since 23.11. You may use SetConstellationParameterForSV.
+
+Set GPS ephemeris parameter value for all satellites
+
+Name        Type            Description
+----------- --------------- --------------------------------------------------------------------------------------------------
+ParamName   string          Refer to SetGpsEphDoubleParamForSV for accepted names
+Val         array double    Parameter value for each satellite. Zero based index (index 0 => SV ID 1, index 1 => SV ID 2, etc)
+DataSetName optional string Optional name of the data set to use. If no value is provided, the active data set is used.
+
+***************************************************************************************************************************
+
+Command SetGpsEphemerisDoubleParams(paramName, val, dataSetName)
+Permission: EXECUTE_IF_IDLE
+
+Please note the command SetGpsEphemerisDoubleParams is deprecated since 21.3. You may use SetGpsEphDoubleParamForEachSV.
+
+Please note the command SetGpsEphDoubleParamForEachSV is deprecated since 23.11. You may use SetConstellationParameterForSV.
+
+Set GPS ephemeris parameter value for all satellites
+
+Name        Type            Description
+----------- --------------- --------------------------------------------------------------------------------------------------
+ParamName   string          Refer to SetGpsEphDoubleParamForSV for accepted names
+Val         array double    Parameter value for each satellite. Zero based index (index 0 => SV ID 1, index 1 => SV ID 2, etc)
+DataSetName optional string Optional name of the data set to use. If no value is provided, the active data set is used.
+
+***************************************************************************************************************************
+
+Command GetGpsEphDoubleParamForEachSV(paramName, dataSetName)
+Permission: EXECUTE_IF_IDLE
+
+Please note the command GetGpsEphDoubleParamForEachSV is deprecated since 23.11. You may use GetConstellationParameterForSV.
+
+Get GPS ephemeris parameter value for all satellites
+
+Name        Type            Description
+----------- --------------- -------------------------------------------------------------------------------------------
+ParamName   string          Refer to SetGpsEphDoubleParamForSV for accepted names
+DataSetName optional string Optional name of the data set to use. If no value is provided, the active data set is used.
+
+***************************************************************************************************************************
+
+Command GetGpsEphemerisDoubleParams(paramName, dataSetName)
+Permission: EXECUTE_IF_IDLE
+
+Please note the command GetGpsEphemerisDoubleParams is deprecated since 21.3. You may use GetGpsEphDoubleParamForEachSV.
+
+Please note the command GetGpsEphDoubleParamForEachSV is deprecated since 23.11. You may use GetConstellationParameterForSV.
+
+Get GPS ephemeris parameter value for all satellites
+
+Name        Type            Description
+----------- --------------- -------------------------------------------------------------------------------------------
+ParamName   string          Refer to SetGpsEphDoubleParamForSV for accepted names
+DataSetName optional string Optional name of the data set to use. If no value is provided, the active data set is used.
+
+***************************************************************************************************************************
+
+Result GetGpsEphDoubleParamForEachSVResult(paramName, val, dataSetName)
+
+Result of GetGpsEphDoubleParamForEachSV.
+
+Name        Type            Description
+----------- --------------- --------------------------------------------------------------------------------------------------
+ParamName   string          Refer to SetGpsEphDoubleParamForSV for accepted names
+Val         array double    Parameter value for each satellite. Zero based index (index 0 => SV ID 1, index 1 => SV ID 2, etc)
+DataSetName optional string Optional name of the data set to use. If no value is provided, the active data set is used.
+
+***************************************************************************************************************************
+
+Command SetGalileoEphDoubleParamForEachSV(paramName, val, dataSetName)
+Permission: EXECUTE_IF_IDLE
+
+Please note the command SetGalileoEphDoubleParamForEachSV is deprecated since 23.11. You may use SetConstellationParameterForSV.
+
+Set Galileo ephemeris parameter value for all satellites
+
+Name        Type            Description
+----------- --------------- --------------------------------------------------------------------------------------------------
+ParamName   string          Refer to SetGalileoEphDoubleParamForSV for accepted names
+Val         array double    Parameter value for each satellite. Zero based index (index 0 => SV ID 1, index 1 => SV ID 2, etc)
+DataSetName optional string Optional name of the data set to use. If no value is provided, the active data set is used.
+
+***************************************************************************************************************************
+
+Command SetGalileoEphemerisDoubleParams(paramName, val, dataSetName)
+Permission: EXECUTE_IF_IDLE
+
+Please note the command SetGalileoEphemerisDoubleParams is deprecated since 21.3. You may use SetGalileoEphDoubleParamForEachSV.
+
+Please note the command SetGalileoEphDoubleParamForEachSV is deprecated since 23.11. You may use SetConstellationParameterForSV.
+
+Set Galileo ephemeris parameter value for all satellites
+
+Name        Type            Description
+----------- --------------- --------------------------------------------------------------------------------------------------
+ParamName   string          Refer to SetGalileoEphDoubleParamForSV for accepted names
+Val         array double    Parameter value for each satellite. Zero based index (index 0 => SV ID 1, index 1 => SV ID 2, etc)
+DataSetName optional string Optional name of the data set to use. If no value is provided, the active data set is used.
+
+***************************************************************************************************************************
+
+Command GetGalileoEphDoubleParamForEachSV(paramName, dataSetName)
+Permission: EXECUTE_IF_IDLE
+
+Please note the command GetGalileoEphDoubleParamForEachSV is deprecated since 23.11. You may use GetConstellationParameterForSV.
+
+Get Galileo ephemeris parameter value for all satellites
+
+Name        Type            Description
+----------- --------------- -------------------------------------------------------------------------------------------
+ParamName   string          Refer to SetGalileoEphDoubleParamForSV for accepted names
+DataSetName optional string Optional name of the data set to use. If no value is provided, the active data set is used.
+
+***************************************************************************************************************************
+
+Command GetGalileoEphemerisDoubleParams(paramName, dataSetName)
+Permission: EXECUTE_IF_IDLE
+
+Please note the command GetGalileoEphemerisDoubleParams is deprecated since 21.3. You may use GetGalileoEphDoubleParamForEachSV.
+
+Please note the command GetGalileoEphDoubleParamForEachSV is deprecated since 23.11. You may use GetConstellationParameterForSV.
+
+Get Galileo ephemeris parameter value for all satellites
+
+Name        Type            Description
+----------- --------------- -------------------------------------------------------------------------------------------
+ParamName   string          Refer to SetGalileoEphDoubleParamForSV for accepted names
+DataSetName optional string Optional name of the data set to use. If no value is provided, the active data set is used.
+
+***************************************************************************************************************************
+
+Result GetGalileoEphDoubleParamForEachSVResult(paramName, val, dataSetName)
+
+Result of GetGalileoEphDoubleParamForEachSV.
+
+Name        Type            Description
+----------- --------------- --------------------------------------------------------------------------------------------------
+ParamName   string          Refer to SetGalileoEphDoubleParamForSV for accepted names
+Val         array double    Parameter value for each satellite. Zero based index (index 0 => SV ID 1, index 1 => SV ID 2, etc)
+DataSetName optional string Optional name of the data set to use. If no value is provided, the active data set is used.
+
+***************************************************************************************************************************
+
+Command SetBeiDouEphDoubleParamForEachSV(paramName, val, dataSetName)
+Permission: EXECUTE_IF_IDLE
+
+Please note the command SetBeiDouEphDoubleParamForEachSV is deprecated since 23.11. You may use SetConstellationParameterForSV.
+
+Set BeiDou ephemeris parameter value for all satellites
+
+Name        Type            Description
+----------- --------------- --------------------------------------------------------------------------------------------------
+ParamName   string          Refer to SetBeiDouEphDoubleParamForSV for accepted names
+Val         array double    Parameter value for each satellite. Zero based index (index 0 => SV ID 1, index 1 => SV ID 2, etc)
+DataSetName optional string Optional name of the data set to use. If no value is provided, the active data set is used.
+
+***************************************************************************************************************************
+
+Command SetBeiDouEphemerisDoubleParams(paramName, val, dataSetName)
+Permission: EXECUTE_IF_IDLE
+
+Please note the command SetBeiDouEphemerisDoubleParams is deprecated since 21.3. You may use SetBeiDouEphDoubleParamForEachSV.
+
+Please note the command SetBeiDouEphDoubleParamForEachSV is deprecated since 23.11. You may use SetConstellationParameterForSV.
+
+Set BeiDou ephemeris parameter value for all satellites
+
+Name        Type            Description
+----------- --------------- --------------------------------------------------------------------------------------------------
+ParamName   string          Refer to SetBeiDouEphDoubleParamForSV for accepted names
+Val         array double    Parameter value for each satellite. Zero based index (index 0 => SV ID 1, index 1 => SV ID 2, etc)
+DataSetName optional string Optional name of the data set to use. If no value is provided, the active data set is used.
+
+***************************************************************************************************************************
+
+Command GetBeiDouEphDoubleParamForEachSV(paramName, dataSetName)
+Permission: EXECUTE_IF_IDLE
+
+Please note the command GetBeiDouEphDoubleParamForEachSV is deprecated since 23.11. You may use GetConstellationParameterForSV.
+
+Get BeiDou ephemeris parameter value for all satellites
+
+Name        Type            Description
+----------- --------------- -------------------------------------------------------------------------------------------
+ParamName   string          Refer to SetBeiDouEphDoubleParamForSV for accepted names
+DataSetName optional string Optional name of the data set to use. If no value is provided, the active data set is used.
+
+***************************************************************************************************************************
+
+Command GetBeiDouEphemerisDoubleParams(paramName, dataSetName)
+Permission: EXECUTE_IF_IDLE
+
+Please note the command GetBeiDouEphemerisDoubleParams is deprecated since 21.3. You may use GetBeiDouEphDoubleParamForEachSV.
+
+Please note the command GetBeiDouEphDoubleParamForEachSV is deprecated since 23.11. You may use GetConstellationParameterForSV.
+
+Get BeiDou ephemeris parameter value for all satellites
+
+Name        Type            Description
+----------- --------------- -------------------------------------------------------------------------------------------
+ParamName   string          Refer to SetBeiDouEphDoubleParamForSV for accepted names
+DataSetName optional string Optional name of the data set to use. If no value is provided, the active data set is used.
+
+***************************************************************************************************************************
+
+Result GetBeiDouEphDoubleParamForEachSVResult(paramName, val, dataSetName)
+
+Result of GetBeiDouEphDoubleParamForEachSV.
+
+Name        Type            Description
+----------- --------------- --------------------------------------------------------------------------------------------------
+ParamName   string          Refer to SetBeiDouEphDoubleParamForSV for accepted names
+Val         array double    Parameter value for each satellite. Zero based index (index 0 => SV ID 1, index 1 => SV ID 2, etc)
+DataSetName optional string Optional name of the data set to use. If no value is provided, the active data set is used.
+
+***************************************************************************************************************************
+
+Command SetQzssEphDoubleParamForEachSV(paramName, val, dataSetName)
+Permission: EXECUTE_IF_IDLE
+
+Please note the command SetQzssEphDoubleParamForEachSV is deprecated since 23.11. You may use SetConstellationParameterForSV.
+
+Set QZSS ephemeris parameter value for all satellites
+
+Name        Type            Description
+----------- --------------- --------------------------------------------------------------------------------------------------
+ParamName   string          Refer to SetQzssEphDoubleParamForSV for accepted names
+Val         array double    Parameter value for each satellite. Zero based index (index 0 => SV ID 1, index 1 => SV ID 2, etc)
+DataSetName optional string Optional name of the data set to use. If no value is provided, the active data set is used.
+
+***************************************************************************************************************************
+
+Command SetQzssEphemerisDoubleParams(paramName, val, dataSetName)
+Permission: EXECUTE_IF_IDLE
+
+Please note the command SetQzssEphemerisDoubleParams is deprecated since 21.3. You may use SetQzssEphDoubleParamForEachSV.
+
+Please note the command SetQzssEphDoubleParamForEachSV is deprecated since 23.11. You may use SetConstellationParameterForSV.
+
+Set QZSS ephemeris parameter value for all satellites
+
+Name        Type            Description
+----------- --------------- --------------------------------------------------------------------------------------------------
+ParamName   string          Refer to SetQzssEphDoubleParamForSV for accepted names
+Val         array double    Parameter value for each satellite. Zero based index (index 0 => SV ID 1, index 1 => SV ID 2, etc)
+DataSetName optional string Optional name of the data set to use. If no value is provided, the active data set is used.
+
+***************************************************************************************************************************
+
+Command GetQzssEphDoubleParamForEachSV(paramName, dataSetName)
+Permission: EXECUTE_IF_IDLE
+
+Please note the command GetQzssEphDoubleParamForEachSV is deprecated since 23.11. You may use GetConstellationParameterForSV.
+
+Get QZSS ephemeris parameter value for all satellites
+
+Name        Type            Description
+----------- --------------- -------------------------------------------------------------------------------------------
+ParamName   string          Refer to SetQzssEphDoubleParamForSV for accepted names
+DataSetName optional string Optional name of the data set to use. If no value is provided, the active data set is used.
+
+***************************************************************************************************************************
+
+Command GetQzssEphemerisDoubleParams(paramName, dataSetName)
+Permission: EXECUTE_IF_IDLE
+
+Please note the command GetQzssEphemerisDoubleParams is deprecated since 21.3. You may use GetQzssEphDoubleParamForEachSV.
+
+Please note the command GetQzssEphDoubleParamForEachSV is deprecated since 23.11. You may use GetConstellationParameterForSV.
+
+Get QZSS ephemeris parameter value for all satellites
+
+Name        Type            Description
+----------- --------------- -------------------------------------------------------------------------------------------
+ParamName   string          Refer to SetQzssEphDoubleParamForSV for accepted names
+DataSetName optional string Optional name of the data set to use. If no value is provided, the active data set is used.
+
+***************************************************************************************************************************
+
+Result GetQzssEphDoubleParamForEachSVResult(paramName, val, dataSetName)
+
+Result of GetQzssEphDoubleParamForEachSV.
+
+Name        Type            Description
+----------- --------------- --------------------------------------------------------------------------------------------------
+ParamName   string          Refer to SetQzssEphDoubleParamForSV for accepted names
+Val         array double    Parameter value for each satellite. Zero based index (index 0 => SV ID 1, index 1 => SV ID 2, etc)
+DataSetName optional string Optional name of the data set to use. If no value is provided, the active data set is used.
+
+***************************************************************************************************************************
+
+Command SetNavICEphDoubleParamForEachSV(paramName, val, dataSetName)
+Permission: EXECUTE_IF_IDLE
+
+Please note the command SetNavICEphDoubleParamForEachSV is deprecated since 23.11. You may use SetConstellationParameterForSV.
+
+Set NavIC ephemeris parameter value for all satellites
+
+Name        Type            Description
+----------- --------------- --------------------------------------------------------------------------------------------------
+ParamName   string          Refer to SetNavICEphDoubleParamForSV for accepted names
+Val         array double    Parameter value for each satellite. Zero based index (index 0 => SV ID 1, index 1 => SV ID 2, etc)
+DataSetName optional string Optional name of the data set to use. If no value is provided, the active data set is used.
+
+***************************************************************************************************************************
+
+Command SetNavICEphemerisDoubleParams(paramName, val, dataSetName)
+Permission: EXECUTE_IF_IDLE
+
+Please note the command SetNavICEphemerisDoubleParams is deprecated since 21.3. You may use SetNavICEphDoubleParamForEachSV.
+
+Please note the command SetNavICEphDoubleParamForEachSV is deprecated since 23.11. You may use SetConstellationParameterForSV.
+
+Set NavIC ephemeris parameter value for all satellites
+
+Name        Type            Description
+----------- --------------- --------------------------------------------------------------------------------------------------
+ParamName   string          Refer to SetNavICEphDoubleParamForSV for accepted names
+Val         array double    Parameter value for each satellite. Zero based index (index 0 => SV ID 1, index 1 => SV ID 2, etc)
+DataSetName optional string Optional name of the data set to use. If no value is provided, the active data set is used.
+
+***************************************************************************************************************************
+
+Command GetNavICEphDoubleParamForEachSV(paramName, dataSetName)
+Permission: EXECUTE_IF_IDLE
+
+Please note the command GetNavICEphDoubleParamForEachSV is deprecated since 23.11. You may use GetConstellationParameterForSV.
+
+Get NavIC ephemeris parameter value for all satellites
+
+Name        Type            Description
+----------- --------------- -------------------------------------------------------------------------------------------
+ParamName   string          Refer to SetNavICEphDoubleParamForSV for accepted names
+DataSetName optional string Optional name of the data set to use. If no value is provided, the active data set is used.
+
+***************************************************************************************************************************
+
+Command GetNavICEphemerisDoubleParams(paramName, dataSetName)
+Permission: EXECUTE_IF_IDLE
+
+Please note the command GetNavICEphemerisDoubleParams is deprecated since 21.3. You may use GetNavICEphDoubleParamForEachSV.
+
+Please note the command GetNavICEphDoubleParamForEachSV is deprecated since 23.11. You may use GetConstellationParameterForSV.
+
+Get NavIC ephemeris parameter value for all satellites
+
+Name        Type            Description
+----------- --------------- -------------------------------------------------------------------------------------------
+ParamName   string          Refer to SetNavICEphDoubleParamForSV for accepted names
+DataSetName optional string Optional name of the data set to use. If no value is provided, the active data set is used.
+
+***************************************************************************************************************************
+
+Result GetNavICEphDoubleParamForEachSVResult(paramName, val, dataSetName)
+
+Result of GetNavICEphDoubleParamForEachSV.
+
+Name        Type            Description
+----------- --------------- --------------------------------------------------------------------------------------------------
+ParamName   string          Refer to SetNavICEphDoubleParamForSV for accepted names
+Val         array double    Parameter value for each satellite. Zero based index (index 0 => SV ID 1, index 1 => SV ID 2, etc)
+DataSetName optional string Optional name of the data set to use. If no value is provided, the active data set is used.
+
+***************************************************************************************************************************
+
+Command SetGpsEphBoolParamForSV(svId, paramName, val, dataSetName)
+Permission: EXECUTE_IF_IDLE
+
+Please note the command SetGpsEphBoolParamForSV is deprecated since 23.11. You may use SetConstellationParameterForSV.
+
+Set various boolean parameters in the GPS ephemeris
+
+  ParamName
+"IscL1CaAvailable"
+"IscL2CAvailable"
+"IscL5I5Available"
+"IscL5Q5Available"
+"IscL1CPAvailable"
+"IscL1CDAvailable"
+
+Name        Type            Description
+----------- --------------- -------------------------------------------------------------------------------------------
+SvId        int             Satellite SV ID 1..32, or use 0 to apply new value to all satellites
+ParamName   string          Parameter name (see table above for accepted names)
+Val         bool            Parameter value (see table above for unit)
+DataSetName optional string Optional name of the data set to use. If no value is provided, the active data set is used.
+
+***************************************************************************************************************************
+
+Command GetGpsEphBoolParamForSV(svId, paramName, dataSetName)
+Permission: EXECUTE_IF_IDLE
+
+Please note the command GetGpsEphBoolParamForSV is deprecated since 23.11. You may use GetConstellationParameterForSV.
+
+Get various boolean parameters in the GPS ephemeris
+
+  ParamName
+"IscL1CaAvailable"
+"IscL2CAvailable"
+"IscL5I5Available"
+"IscL5Q5Available"
+"IscL1CPAvailable"
+"IscL1CDAvailable"
+
+Name        Type            Description
+----------- --------------- -------------------------------------------------------------------------------------------
+SvId        int             Satellite SV ID 1..32, or use 0 to apply new value to all satellites
+ParamName   string          Parameter name (see table above for accepted names)
+DataSetName optional string Optional name of the data set to use. If no value is provided, the active data set is used.
+
+***************************************************************************************************************************
+
+Result GetGpsEphBoolParamForSVResult(svId, paramName, val, dataSetName)
+
+Result of GetGpsEphBoolParamForSV.
+
+Name        Type            Description
+----------- --------------- -------------------------------------------------------------------------------------------
+SvId        int             Satellite SV ID 1..32, or use 0 to apply new value to all satellites
+ParamName   string          Parameter name (see table above for accepted names)
+Val         bool            Parameter value (see table above for unit)
+DataSetName optional string Optional name of the data set to use. If no value is provided, the active data set is used.
+
+***************************************************************************************************************************
+
+Command SetGpsEphBoolParamForEachSV(paramName, val, dataSetName)
+Permission: EXECUTE_IF_IDLE
+
+Please note the command SetGpsEphBoolParamForEachSV is deprecated since 23.11. You may use SetConstellationParameterForSV.
+
+Set GPS ephemeris boolean parameter value for all satellites
+
+Name        Type            Description
+----------- --------------- --------------------------------------------------------------------------------------------------
+ParamName   string          Refer to SetGpsEphBoolParamForSV for accepted names
+Val         array bool      Parameter value for each satellite. Zero based index (index 0 => SV ID 1, index 1 => SV ID 2, etc)
+DataSetName optional string Optional name of the data set to use. If no value is provided, the active data set is used.
+
+***************************************************************************************************************************
+
+Command SetGpsEphemerisBoolParams(paramName, val, dataSetName)
+Permission: EXECUTE_IF_IDLE
+
+Please note the command SetGpsEphemerisBoolParams is deprecated since 21.3. You may use SetGpsEphBoolParamForEachSV.
+
+Please note the command SetGpsEphBoolParamForEachSV is deprecated since 23.11. You may use SetConstellationParameterForSV.
+
+Set GPS ephemeris boolean parameter value for all satellites
+
+Name        Type            Description
+----------- --------------- --------------------------------------------------------------------------------------------------
+ParamName   string          Refer to SetGpsEphBoolParamForSV for accepted names
+Val         array bool      Parameter value for each satellite. Zero based index (index 0 => SV ID 1, index 1 => SV ID 2, etc)
+DataSetName optional string Optional name of the data set to use. If no value is provided, the active data set is used.
+
+***************************************************************************************************************************
+
+Command GetGpsEphBoolParamForEachSV(paramName, dataSetName)
+Permission: EXECUTE_IF_IDLE
+
+Please note the command GetGpsEphBoolParamForEachSV is deprecated since 23.11. You may use GetConstellationParameterForSV.
+
+Get GPS ephemeris boolean parameter value for all satellites
+
+Name        Type            Description
+----------- --------------- -------------------------------------------------------------------------------------------
+ParamName   string          Refer to SetGpsEphBoolParamForSV for accepted names
+DataSetName optional string Optional name of the data set to use. If no value is provided, the active data set is used.
+
+***************************************************************************************************************************
+
+Command GetGpsEphemerisBoolParams(paramName, dataSetName)
+Permission: EXECUTE_IF_IDLE
+
+Please note the command GetGpsEphemerisBoolParams is deprecated since 21.3. You may use GetGpsEphBoolParamForEachSV.
+
+Please note the command GetGpsEphBoolParamForEachSV is deprecated since 23.11. You may use GetConstellationParameterForSV.
+
+Get GPS ephemeris boolean parameter value for all satellites
+
+Name        Type            Description
+----------- --------------- -------------------------------------------------------------------------------------------
+ParamName   string          Refer to SetGpsEphBoolParamForSV for accepted names
+DataSetName optional string Optional name of the data set to use. If no value is provided, the active data set is used.
+
+***************************************************************************************************************************
+
+Result GetGpsEphBoolParamForEachSVResult(paramName, val, dataSetName)
+
+Result of GetGpsEphBoolParamForEachSV.
+
+Name        Type            Description
+----------- --------------- --------------------------------------------------------------------------------------------------
+ParamName   string          Refer to SetGpsEphBoolParamForSV for accepted names
+Val         array bool      Parameter value for each satellite. Zero based index (index 0 => SV ID 1, index 1 => SV ID 2, etc)
+DataSetName optional string Optional name of the data set to use. If no value is provided, the active data set is used.
+
+***************************************************************************************************************************
+
+Command SetBeiDouEphBoolParamForSV(svId, paramName, val, dataSetName)
+Permission: EXECUTE_IF_IDLE
+
+Please note the command SetBeiDouEphBoolParamForSV is deprecated since 23.11. You may use SetConstellationParameterForSV.
+
+Set various boolean parameters in the BeiDou ephemeris
+
+  ParamName
+"IscB1CdAvailable"
+"IscB2adAvailable"
+
+Name        Type            Description
+----------- --------------- -------------------------------------------------------------------------------------------
+SvId        int             Satellite SV ID 1..35, or use 0 to apply new value to all satellites
+ParamName   string          Parameter name (see table above for accepted names)
+Val         bool            Parameter value (see table above for unit)
+DataSetName optional string Optional name of the data set to use. If no value is provided, the active data set is used.
+
+***************************************************************************************************************************
+
+Command GetBeiDouEphBoolParamForSV(svId, paramName, dataSetName)
+Permission: EXECUTE_IF_IDLE
+
+Please note the command GetBeiDouEphBoolParamForSV is deprecated since 23.11. You may use GetConstellationParameterForSV.
+
+Get various boolean parameters in the BeiDou ephemeris
+
+  ParamName
+"IscB1CdAvailable"
+"IscB2adAvailable"
+
+Name        Type            Description
+----------- --------------- -------------------------------------------------------------------------------------------
+SvId        int             Satellite SV ID 1..35, or use 0 to apply new value to all satellites
+ParamName   string          Parameter name (see table above for accepted names)
+DataSetName optional string Optional name of the data set to use. If no value is provided, the active data set is used.
+
+***************************************************************************************************************************
+
+Result GetBeiDouEphBoolParamForSVResult(svId, paramName, val, dataSetName)
+
+Result of GetBeiDouEphBoolParamForSV.
+
+Name        Type            Description
+----------- --------------- -------------------------------------------------------------------------------------------
+SvId        int             Satellite SV ID 1..35, or use 0 to apply new value to all satellites
+ParamName   string          Parameter name (see table above for accepted names)
+Val         bool            Parameter value (see table above for unit)
+DataSetName optional string Optional name of the data set to use. If no value is provided, the active data set is used.
+
+***************************************************************************************************************************
+
+Command SetBeiDouEphBoolParamForEachSV(paramName, val, dataSetName)
+Permission: EXECUTE_IF_IDLE
+
+Please note the command SetBeiDouEphBoolParamForEachSV is deprecated since 23.11. You may use SetConstellationParameterForSV.
+
+Set BeiDou ephemeris boolean parameter value for all satellites
+
+Name        Type            Description
+----------- --------------- --------------------------------------------------------------------------------------------------
+ParamName   string          Refer to SetBeiDouEphBoolParamForSV for accepted names
+Val         array bool      Parameter value for each satellite. Zero based index (index 0 => SV ID 1, index 1 => SV ID 2, etc)
+DataSetName optional string Optional name of the data set to use. If no value is provided, the active data set is used.
+
+***************************************************************************************************************************
+
+Command SetBeiDouEphemerisBoolParams(paramName, val, dataSetName)
+Permission: EXECUTE_IF_IDLE
+
+Please note the command SetBeiDouEphemerisBoolParams is deprecated since 21.3. You may use SetBeiDouEphBoolParamForEachSV.
+
+Please note the command SetBeiDouEphBoolParamForEachSV is deprecated since 23.11. You may use SetConstellationParameterForSV.
+
+Set BeiDou ephemeris boolean parameter value for all satellites
+
+Name        Type            Description
+----------- --------------- --------------------------------------------------------------------------------------------------
+ParamName   string          Refer to SetBeiDouEphBoolParamForSV for accepted names
+Val         array bool      Parameter value for each satellite. Zero based index (index 0 => SV ID 1, index 1 => SV ID 2, etc)
+DataSetName optional string Optional name of the data set to use. If no value is provided, the active data set is used.
+
+***************************************************************************************************************************
+
+Command GetBeiDouEphBoolParamForEachSV(paramName, dataSetName)
+Permission: EXECUTE_IF_IDLE
+
+Please note the command GetBeiDouEphBoolParamForEachSV is deprecated since 23.11. You may use GetConstellationParameterForSV.
+
+Get BeiDou ephemeris boolean parameter value for all satellites
+
+Name        Type            Description
+----------- --------------- -------------------------------------------------------------------------------------------
+ParamName   string          Refer to SetBeiDouEphBoolParamForSV for accepted names
+DataSetName optional string Optional name of the data set to use. If no value is provided, the active data set is used.
+
+***************************************************************************************************************************
+
+Command GetBeiDouEphemerisBoolParams(paramName, dataSetName)
+Permission: EXECUTE_IF_IDLE
+
+Please note the command GetBeiDouEphemerisBoolParams is deprecated since 21.3. You may use GetBeiDouEphBoolParamForEachSV.
+
+Please note the command GetBeiDouEphBoolParamForEachSV is deprecated since 23.11. You may use GetConstellationParameterForSV.
+
+Get BeiDou ephemeris boolean parameter value for all satellites
+
+Name        Type            Description
+----------- --------------- -------------------------------------------------------------------------------------------
+ParamName   string          Refer to SetBeiDouEphBoolParamForSV for accepted names
+DataSetName optional string Optional name of the data set to use. If no value is provided, the active data set is used.
+
+***************************************************************************************************************************
+
+Result GetBeiDouEphBoolParamForEachSVResult(paramName, val, dataSetName)
+
+Result of GetBeiDouEphBoolParamForEachSV.
+
+Name        Type            Description
+----------- --------------- --------------------------------------------------------------------------------------------------
+ParamName   string          Refer to SetBeiDouEphBoolParamForSV for accepted names
+Val         array bool      Parameter value for each satellite. Zero based index (index 0 => SV ID 1, index 1 => SV ID 2, etc)
+DataSetName optional string Optional name of the data set to use. If no value is provided, the active data set is used.
+
+***************************************************************************************************************************
+
+Command SetQzssEphBoolParamForSV(svId, paramName, val, dataSetName)
+Permission: EXECUTE_IF_IDLE
+
+Please note the command SetQzssEphBoolParamForSV is deprecated since 23.11. You may use SetConstellationParameterForSV.
+
+Set various boolean parameters in the QZSS ephemeris
+
+  ParamName
+"IscL1CaAvailable"
+"IscL2CAvailable"
+"IscL5I5Available"
+"IscL5Q5Available"
+"IscL1CPAvailable"
+"IscL1CDAvailable"
+
+Name        Type            Description
+----------- --------------- -------------------------------------------------------------------------------------------
+SvId        int             Satellite SV ID 1..10, or use 0 to apply new value to all satellites
+ParamName   string          Parameter name (see table above for accepted names)
+Val         bool            Parameter value (see table above for unit)
+DataSetName optional string Optional name of the data set to use. If no value is provided, the active data set is used.
+
+***************************************************************************************************************************
+
+Command SetQzssEphemerisBoolParam(svId, paramName, val, dataSetName)
+Permission: EXECUTE_IF_IDLE
+
+Please note the command SetQzssEphemerisBoolParam is deprecated since 21.3. You may use SetQzssEphBoolParamForSV.
+
+Please note the command SetQzssEphBoolParamForSV is deprecated since 23.11. You may use SetConstellationParameterForSV.
+
+Set various boolean parameters in the QZSS ephemeris
+
+  ParamName
+"IscL1CaAvailable"
+"IscL2CAvailable"
+"IscL5I5Available"
+"IscL5Q5Available"
+"IscL1CPAvailable"
+"IscL1CDAvailable"
+
+Name        Type            Description
+----------- --------------- -------------------------------------------------------------------------------------------
+SvId        int             Satellite SV ID 1..10, or use 0 to apply new value to all satellites
+ParamName   string          Parameter name (see table above for accepted names)
+Val         bool            Parameter value (see table above for unit)
+DataSetName optional string Optional name of the data set to use. If no value is provided, the active data set is used.
+
+***************************************************************************************************************************
+
+Command GetQzssEphBoolParamForSV(svId, paramName, dataSetName)
+Permission: EXECUTE_IF_IDLE
+
+Please note the command GetQzssEphBoolParamForSV is deprecated since 23.11. You may use GetConstellationParameterForSV.
+
+Get various boolean parameters in the QZSS ephemeris
+
+  ParamName
+"IscL1CaAvailable"
+"IscL2CAvailable"
+"IscL5I5Available"
+"IscL5Q5Available"
+"IscL1CPAvailable"
+"IscL1CDAvailable"
+
+Name        Type            Description
+----------- --------------- -------------------------------------------------------------------------------------------
+SvId        int             Satellite SV ID 1..10, or use 0 to apply new value to all satellites
+ParamName   string          Parameter name (see table above for accepted names)
+DataSetName optional string Optional name of the data set to use. If no value is provided, the active data set is used.
+
+***************************************************************************************************************************
+
+Command GetQzssEphemerisBoolParam(svId, paramName, dataSetName)
+Permission: EXECUTE_IF_IDLE
+
+Please note the command GetQzssEphemerisBoolParam is deprecated since 21.3. You may use GetQzssEphBoolParamForSV.
+
+Please note the command GetQzssEphBoolParamForSV is deprecated since 23.11. You may use GetConstellationParameterForSV.
+
+Get various boolean parameters in the QZSS ephemeris
+
+  ParamName
+"IscL1CaAvailable"
+"IscL2CAvailable"
+"IscL5I5Available"
+"IscL5Q5Available"
+"IscL1CPAvailable"
+"IscL1CDAvailable"
+
+Name        Type            Description
+----------- --------------- -------------------------------------------------------------------------------------------
+SvId        int             Satellite SV ID 1..10, or use 0 to apply new value to all satellites
+ParamName   string          Parameter name (see table above for accepted names)
+DataSetName optional string Optional name of the data set to use. If no value is provided, the active data set is used.
+
+***************************************************************************************************************************
+
+Result GetQzssEphBoolParamForSVResult(svId, paramName, val, dataSetName)
+
+Result of GetQzssEphBoolParamForSV.
+
+Name        Type            Description
+----------- --------------- -------------------------------------------------------------------------------------------
+SvId        int             Satellite SV ID 1..10, or use 0 to apply new value to all satellites
+ParamName   string          Parameter name (see table above for accepted names)
+Val         bool            Parameter value (see table above for unit)
+DataSetName optional string Optional name of the data set to use. If no value is provided, the active data set is used.
+
+***************************************************************************************************************************
+
+Command SetQzssEphBoolParamForEachSV(paramName, val, dataSetName)
+Permission: EXECUTE_IF_IDLE
+
+Please note the command SetQzssEphBoolParamForEachSV is deprecated since 23.11. You may use SetConstellationParameterForSV.
+
+Set QZSS ephemeris boolean parameter value for all satellites
+
+Name        Type            Description
+----------- --------------- --------------------------------------------------------------------------------------------------
+ParamName   string          Refer to SetQzssEphemerisBoolParam for accepted names
+Val         array bool      Parameter value for each satellite. Zero based index (index 0 => SV ID 1, index 1 => SV ID 2, etc)
+DataSetName optional string Optional name of the data set to use. If no value is provided, the active data set is used.
+
+***************************************************************************************************************************
+
+Command SetQzssEphemerisBoolParams(paramName, val, dataSetName)
+Permission: EXECUTE_IF_IDLE
+
+Please note the command SetQzssEphemerisBoolParams is deprecated since 21.3. You may use SetQzssEphBoolParamForEachSV.
+
+Please note the command SetQzssEphBoolParamForEachSV is deprecated since 23.11. You may use SetConstellationParameterForSV.
+
+Set QZSS ephemeris boolean parameter value for all satellites
+
+Name        Type            Description
+----------- --------------- --------------------------------------------------------------------------------------------------
+ParamName   string          Refer to SetQzssEphemerisBoolParam for accepted names
+Val         array bool      Parameter value for each satellite. Zero based index (index 0 => SV ID 1, index 1 => SV ID 2, etc)
+DataSetName optional string Optional name of the data set to use. If no value is provided, the active data set is used.
+
+***************************************************************************************************************************
+
+Command GetQzssEphBoolParamForEachSV(paramName, dataSetName)
+Permission: EXECUTE_IF_IDLE
+
+Please note the command GetQzssEphBoolParamForEachSV is deprecated since 23.11. You may use GetConstellationParameterForSV.
+
+Get QZSS ephemeris boolean parameter value for all satellites
+
+Name        Type            Description
+----------- --------------- -------------------------------------------------------------------------------------------
+ParamName   string          Refer to SetQzssEphemerisBoolParam for accepted names
+DataSetName optional string Optional name of the data set to use. If no value is provided, the active data set is used.
+
+***************************************************************************************************************************
+
+Command GetQzssEphemerisBoolParams(paramName, dataSetName)
+Permission: EXECUTE_IF_IDLE
+
+Please note the command GetQzssEphemerisBoolParams is deprecated since 21.3. You may use GetQzssEphBoolParamForEachSV.
+
+Please note the command GetQzssEphBoolParamForEachSV is deprecated since 23.11. You may use GetConstellationParameterForSV.
+
+Get QZSS ephemeris boolean parameter value for all satellites
+
+Name        Type            Description
+----------- --------------- -------------------------------------------------------------------------------------------
+ParamName   string          Refer to SetQzssEphemerisBoolParam for accepted names
+DataSetName optional string Optional name of the data set to use. If no value is provided, the active data set is used.
+
+***************************************************************************************************************************
+
+Result GetQzssEphBoolParamForEachSVResult(paramName, val, dataSetName)
+
+Result of GetQzssEphBoolParamForEachSV.
+
+Name        Type            Description
+----------- --------------- --------------------------------------------------------------------------------------------------
+ParamName   string          Refer to SetQzssEphemerisBoolParam for accepted names
+Val         array bool      Parameter value for each satellite. Zero based index (index 0 => SV ID 1, index 1 => SV ID 2, etc)
+DataSetName optional string Optional name of the data set to use. If no value is provided, the active data set is used.
+
+***************************************************************************************************************************
+
+Command SetWFAntennaElementOffset(x, y, z, yaw, pitch, roll, element)
+Permission: EXECUTE_IF_IDLE
+
+Please note the command SetWFAntennaElementOffset is deprecated since 23.11. You may use SetVehicleAntennaOffset.
+
+Set WF antenna offset and orientation relative to CRPA Antenna frame for the specified element index.
+
+Name    Type   Description
+------- ------ -------------------------------------------------------
+X       double WF Element X offset in the CRPA antenna frame (meter)
+Y       double WF Element Y offset in the CRPA antenna frame (meter)
+Z       double WF Element Z offset in the CRPA antenna frame (meter)
+Yaw     double WF Element Yaw offset in the CRPA antenna frame (rad)
+Pitch   double WF Element Pitch offset in the CRPA antenna frame (rad)
+Roll    double WF Element Roll offset in the CRPA antenna frame (rad)
+Element int    One-based index for element in antenna.
+
+***************************************************************************************************************************
+
+Command GetWFAntennaElementOffset(element)
+Permission: EXECUTE_IF_IDLE
+
+Please note the command GetWFAntennaElementOffset is deprecated since 23.11. You may use GetVehicleAntennaOffset.
+
+Get the WF antenna offset infos for this element.
+
+Name    Type Description
+------- ---- ---------------------------------------
+Element int  One-based index for element in antenna.
+
+***************************************************************************************************************************
+
+Result GetWFAntennaElementOffsetResult(x, y, z, yaw, pitch, roll, element)
+
+Result of GetWFAntennaElementOffset.
+
+Name    Type   Description
+------- ------ -------------------------------------------------------
+X       double WF Element X offset in the CRPA antenna frame (meter)
+Y       double WF Element Y offset in the CRPA antenna frame (meter)
+Z       double WF Element Z offset in the CRPA antenna frame (meter)
+Yaw     double WF Element Yaw offset in the CRPA antenna frame (rad)
+Pitch   double WF Element Pitch offset in the CRPA antenna frame (rad)
+Roll    double WF Element Roll offset in the CRPA antenna frame (rad)
+Element int    One-based index for element in antenna.
+
+***************************************************************************************************************************
+
+Command SetWFAntennaElementPhasePatternOffset(phaseOffset, element)
+Permission: EXECUTE_IF_IDLE
+
+Please note the command SetWFAntennaElementPhasePatternOffset is deprecated since 23.11. You may use AddVehiclePhasePatternOffset.
+
+Set WF Antenna phase pattern offset (in rad) for this element
+
+Name        Type   Description
+----------- ------ -------------------------------------------------------------------------
+PhaseOffset double Antenna phase pattern offset (in rad) to set for this element. [-Pi ; Pi]
+Element     int    One-based index for element in antenna.
+
+***************************************************************************************************************************
+
+Command GetWFAntennaElementPhasePatternOffset(element)
+Permission: EXECUTE_IF_IDLE
+
+Please note the command GetWFAntennaElementPhasePatternOffset is deprecated since 23.11. You may use GetVehiclePhasePatternOffset.
+
+Get WF Antenna phase pattern offset (in rad) for this element
+
+Name    Type Description
+------- ---- ---------------------------------------
+Element int  One-based index for element in antenna.
+
+***************************************************************************************************************************
+
+Result GetWFAntennaElementPhasePatternOffsetResult(phaseOffset, element)
+
+Result of GetWFAntennaElementPhasePatternOffset.
+
+Name        Type   Description
+----------- ------ -------------------------------------------------------------------------
+PhaseOffset double Antenna phase pattern offset (in rad) to set for this element. [-Pi ; Pi]
+Element     int    One-based index for element in antenna.
+
+***************************************************************************************************************************
+
+Command SetWFAntennaElementModel(antennaModelName, element)
+Permission: EXECUTE_IF_IDLE
+
+Please note the command SetWFAntennaElementModel is deprecated since 23.11. You may use SetWFElement.
+
+Set WF Antenna model for this element
+
+Name             Type   Description
+---------------- ------ ----------------------------------------------------------------------------------------------------
+AntennaModelName string Antenna Model name to set for this element. Antenna models must be defined in vehicle antenna model.
+Element          int    One-based index for element in antenna.
+
+***************************************************************************************************************************
+
+Command GetWFAntennaElementModel(element)
+Permission: EXECUTE_IF_IDLE
+
+Please note the command GetWFAntennaElementModel is deprecated since 23.11. You may use GetWFElement.
+
+Get WF Antenna model for this element
+
+Name    Type Description
+------- ---- ---------------------------------------
+Element int  One-based index for element in antenna.
+
+***************************************************************************************************************************
+
+Result GetWFAntennaElementModelResult(antennaModelName, element)
+
+Result of GetWFAntennaElementModel.
+
+Name             Type   Description
+---------------- ------ ----------------------------------------------------------------------------------------------------
+AntennaModelName string Antenna Model name to set for this element. Antenna models must be defined in vehicle antenna model.
+Element          int    One-based index for element in antenna.
+
+***************************************************************************************************************************
+
+Command SetWFAntennaElementEnabled(element, enabled)
+Permission: EXECUTE_IF_IDLE
+
+Please note the command SetWFAntennaElementEnabled is deprecated since 23.11. You may use SetWFElement.
+
+Set WF antenna element enabled or disabled. A disabled antenna element is not simulated at all.
+
+Name    Type Description
+------- ---- -------------------------------------------------
+Element int  One-based index for element in antenna.
+Enabled bool If True, this antenna element will bil simulated.
+
+***************************************************************************************************************************
+
+Command IsWFAntennaElementEnabled(element)
+Permission: EXECUTE_IF_IDLE
+
+Please note the command IsWFAntennaElementEnabled is deprecated since 23.11. You may use GetWFElement.
+
+Get whether an antenna element is enabled or disabled.
+
+Name    Type Description
+------- ---- ---------------------------------------
+Element int  One-based index for element in antenna.
+
+***************************************************************************************************************************
+
+Result IsWFAntennaElementEnabledResult(element, enabled)
+
+Result of IsWFAntennaElementEnabled.
+
+Name    Type Description
+------- ---- -------------------------------------------------
+Element int  One-based index for element in antenna.
+Enabled bool If True, this antenna element will bil simulated.
 

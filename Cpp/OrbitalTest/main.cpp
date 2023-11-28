@@ -23,9 +23,7 @@ int main()
     sim.call(setModulationTargetCmd);
   }
 
-  EnableMasterPpsPtr enableMasterPps = EnableMasterPps::create(true);
-
-  sim.call(enableMasterPps);
+  sim.call(EnableMainInstanceSync::create(true));
 
   sim.call(ChangeModulationTargetSignals::create(0, 12500000, 12500000, "UpperL", "L1CA", -1, false, "MyOutputId"));
 

@@ -14,7 +14,9 @@ namespace Sdx
   namespace Cmd
   {
     const char* const GetSlaveStatus::CmdName = "GetSlaveStatus";
-    const char* const GetSlaveStatus::Documentation = "Request for the slave status, returns a GetSlaveStatusResult";
+    const char* const GetSlaveStatus::Documentation = "Please note the command GetSlaveStatus is deprecated since 23.11. You may use GetWorkerInstanceStatus.\n\nRequest for the slave status, returns a GetSlaveStatusResult";
+
+    const char* const GetSlaveStatus::Deprecated = "Please note the command GetSlaveStatus is deprecated since 23.11. You may use GetWorkerInstanceStatus.";
 
     REGISTER_COMMAND_FACTORY(GetSlaveStatus);
 
@@ -44,6 +46,8 @@ namespace Sdx
     }
 
     std::string GetSlaveStatus::documentation() const { return Documentation; }
+
+    Sdx::optional<std::string> GetSlaveStatus::deprecated() const { return Sdx::optional<std::string>{Deprecated}; }
 
 
     int GetSlaveStatus::executePermission() const

@@ -43,39 +43,24 @@ THE SOFTWARE.
 using namespace std;
 
 // overload << so that it's easy to convert to a string
-ostream &operator<<(ostream &s, const Guid &guid)
+ostream& operator<<(ostream& s, const Guid& guid)
 {
-  return s << hex << setfill('0')
-    << setw(2) << (int)guid._bytes[0]
-    << setw(2) << (int)guid._bytes[1]
-    << setw(2) << (int)guid._bytes[2]
-    << setw(2) << (int)guid._bytes[3]
-    << "-"
-    << setw(2) << (int)guid._bytes[4]
-    << setw(2) << (int)guid._bytes[5]
-    << "-"
-    << setw(2) << (int)guid._bytes[6]
-    << setw(2) << (int)guid._bytes[7]
-    << "-"
-    << setw(2) << (int)guid._bytes[8]
-    << setw(2) << (int)guid._bytes[9]
-    << "-"
-    << setw(2) << (int)guid._bytes[10]
-    << setw(2) << (int)guid._bytes[11]
-    << setw(2) << (int)guid._bytes[12]
-    << setw(2) << (int)guid._bytes[13]
-    << setw(2) << (int)guid._bytes[14]
-    << setw(2) << (int)guid._bytes[15];
+  return s << hex << setfill('0') << setw(2) << (int)guid._bytes[0] << setw(2) << (int)guid._bytes[1] << setw(2)
+           << (int)guid._bytes[2] << setw(2) << (int)guid._bytes[3] << "-" << setw(2) << (int)guid._bytes[4] << setw(2)
+           << (int)guid._bytes[5] << "-" << setw(2) << (int)guid._bytes[6] << setw(2) << (int)guid._bytes[7] << "-"
+           << setw(2) << (int)guid._bytes[8] << setw(2) << (int)guid._bytes[9] << "-" << setw(2) << (int)guid._bytes[10]
+           << setw(2) << (int)guid._bytes[11] << setw(2) << (int)guid._bytes[12] << setw(2) << (int)guid._bytes[13]
+           << setw(2) << (int)guid._bytes[14] << setw(2) << (int)guid._bytes[15];
 }
 
 // create a guid from vector of bytes
-Guid::Guid(const vector<unsigned char> &bytes)
+Guid::Guid(const vector<unsigned char>& bytes)
 {
   _bytes = bytes;
 }
 
 // create a guid from array of bytes
-Guid::Guid(const unsigned char *bytes)
+Guid::Guid(const unsigned char* bytes)
 {
   _bytes.assign(bytes, bytes + 16);
 }
@@ -102,14 +87,14 @@ unsigned char hexPairToChar(char a, char b)
 }
 
 // create a guid from string
-Guid::Guid(const string &fromString)
+Guid::Guid(const string& fromString)
 {
   _bytes.clear();
 
   char charOne, charTwo;
   bool lookingForFirstChar = true;
 
-  for (const char &ch : fromString)
+  for (const char& ch : fromString)
   {
     if (ch == '-')
       continue;
@@ -127,7 +112,6 @@ Guid::Guid(const string &fromString)
       lookingForFirstChar = true;
     }
   }
-
 }
 
 // create empty guid
@@ -137,26 +121,26 @@ Guid::Guid()
 }
 
 // copy constructor
-Guid::Guid(const Guid &other)
+Guid::Guid(const Guid& other)
 {
   _bytes = other._bytes;
 }
 
 // overload assignment operator
-Guid &Guid::operator=(const Guid &other)
+Guid& Guid::operator=(const Guid& other)
 {
   _bytes = other._bytes;
   return *this;
 }
 
 // overload equality operator
-bool Guid::operator==(const Guid &other) const
+bool Guid::operator==(const Guid& other) const
 {
   return _bytes == other._bytes;
 }
 
 // overload inequality operator
-bool Guid::operator!=(const Guid &other) const
+bool Guid::operator!=(const Guid& other) const
 {
   return !((*this) == other);
 }
@@ -180,25 +164,22 @@ Guid GuidGenerator::newGuid()
   auto bytes = CFUUIDGetUUIDBytes(newId);
   CFRelease(newId);
 
-  const unsigned char byteArray[16] =
-  {
-    bytes.byte0,
-    bytes.byte1,
-    bytes.byte2,
-    bytes.byte3,
-    bytes.byte4,
-    bytes.byte5,
-    bytes.byte6,
-    bytes.byte7,
-    bytes.byte8,
-    bytes.byte9,
-    bytes.byte10,
-    bytes.byte11,
-    bytes.byte12,
-    bytes.byte13,
-    bytes.byte14,
-    bytes.byte15
-  };
+  const unsigned char byteArray[16] = {bytes.byte0,
+                                       bytes.byte1,
+                                       bytes.byte2,
+                                       bytes.byte3,
+                                       bytes.byte4,
+                                       bytes.byte5,
+                                       bytes.byte6,
+                                       bytes.byte7,
+                                       bytes.byte8,
+                                       bytes.byte9,
+                                       bytes.byte10,
+                                       bytes.byte11,
+                                       bytes.byte12,
+                                       bytes.byte13,
+                                       bytes.byte14,
+                                       bytes.byte15};
   return byteArray;
 }
 #endif
@@ -210,28 +191,25 @@ Guid GuidGenerator::newGuid()
   GUID newId;
   CoCreateGuid(&newId);
 
-  const unsigned char bytes[16] =
-  {
-    (newId.Data1 >> 24) & 0xFF,
-    (newId.Data1 >> 16) & 0xFF,
-    (newId.Data1 >> 8) & 0xFF,
-    (newId.Data1) & 0xff,
+  const unsigned char bytes[16] = {(newId.Data1 >> 24) & 0xFF,
+                                   (newId.Data1 >> 16) & 0xFF,
+                                   (newId.Data1 >> 8) & 0xFF,
+                                   (newId.Data1) & 0xff,
 
-    (newId.Data2 >> 8) & 0xFF,
-    (newId.Data2) & 0xff,
+                                   (newId.Data2 >> 8) & 0xFF,
+                                   (newId.Data2) & 0xff,
 
-    (newId.Data3 >> 8) & 0xFF,
-    (newId.Data3) & 0xFF,
+                                   (newId.Data3 >> 8) & 0xFF,
+                                   (newId.Data3) & 0xFF,
 
-    newId.Data4[0],
-    newId.Data4[1],
-    newId.Data4[2],
-    newId.Data4[3],
-    newId.Data4[4],
-    newId.Data4[5],
-    newId.Data4[6],
-    newId.Data4[7]
-  };
+                                   newId.Data4[0],
+                                   newId.Data4[1],
+                                   newId.Data4[2],
+                                   newId.Data4[3],
+                                   newId.Data4[4],
+                                   newId.Data4[5],
+                                   newId.Data4[6],
+                                   newId.Data4[7]};
 
   return bytes;
 }
@@ -239,7 +217,7 @@ Guid GuidGenerator::newGuid()
 
 // android version that uses a call to a java api
 #ifdef GUID_ANDROID
-GuidGenerator::GuidGenerator(JNIEnv *env)
+GuidGenerator::GuidGenerator(JNIEnv* env)
 {
   _env = env;
   _uuidClass = env->FindClass("java/util/UUID");
@@ -254,8 +232,7 @@ Guid GuidGenerator::newGuid()
   jlong mostSignificant = _env->CallLongMethod(javaUuid, _mostSignificantBitsMethod);
   jlong leastSignificant = _env->CallLongMethod(javaUuid, _leastSignificantBitsMethod);
 
-  unsigned char bytes[16] =
-  {
+  unsigned char bytes[16] = {
     (mostSignificant >> 56) & 0xFF,
     (mostSignificant >> 48) & 0xFF,
     (mostSignificant >> 40) & 0xFF,
@@ -263,7 +240,7 @@ Guid GuidGenerator::newGuid()
     (mostSignificant >> 24) & 0xFF,
     (mostSignificant >> 16) & 0xFF,
     (mostSignificant >> 8) & 0xFF,
-    (mostSignificant) & 0xFF,
+    (mostSignificant)&0xFF,
     (leastSignificant >> 56) & 0xFF,
     (leastSignificant >> 48) & 0xFF,
     (leastSignificant >> 40) & 0xFF,
@@ -271,7 +248,7 @@ Guid GuidGenerator::newGuid()
     (leastSignificant >> 24) & 0xFF,
     (leastSignificant >> 16) & 0xFF,
     (leastSignificant >> 8) & 0xFF,
-    (leastSignificant) & 0xFF,
+    (leastSignificant)&0xFF,
   };
   return bytes;
 }

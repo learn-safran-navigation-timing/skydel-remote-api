@@ -14,7 +14,9 @@ namespace Sdx
   namespace Cmd
   {
     const char* const GetMasterStatus::CmdName = "GetMasterStatus";
-    const char* const GetMasterStatus::Documentation = "Request for the master status, returns a GetMasterStatusResult";
+    const char* const GetMasterStatus::Documentation = "Please note the command GetMasterStatus is deprecated since 23.11. You may use GetMainInstanceStatus.\n\nRequest for the master status, returns a GetMasterStatusResult";
+
+    const char* const GetMasterStatus::Deprecated = "Please note the command GetMasterStatus is deprecated since 23.11. You may use GetMainInstanceStatus.";
 
     REGISTER_COMMAND_FACTORY(GetMasterStatus);
 
@@ -44,6 +46,8 @@ namespace Sdx
     }
 
     std::string GetMasterStatus::documentation() const { return Documentation; }
+
+    Sdx::optional<std::string> GetMasterStatus::deprecated() const { return Sdx::optional<std::string>{Deprecated}; }
 
 
     int GetMasterStatus::executePermission() const

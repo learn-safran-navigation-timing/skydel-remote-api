@@ -2,9 +2,10 @@
 #define COMMAND_BASE_H
 
 #include <cstdint>
-#include <string>
-#include "rapidjson/document.h"
 #include <memory>
+#include <string>
+
+#include "rapidjson/document.h"
 #include "sdx_optional.h"
 
 namespace Sdx
@@ -38,8 +39,8 @@ public:
   virtual bool hasExecutePermission(int flags) const;
   virtual std::string documentation() const;
   virtual Sdx::optional<std::string> deprecated() const;
-  inline const std::string& name() const {return m_cmdName;}
-  inline const std::string& splittedName() const {return m_cmdSplittedName;}
+  inline const std::string& name() const { return m_cmdName; }
+  inline const std::string& splittedName() const { return m_cmdSplittedName; }
   inline const std::string& uuid() const { return m_cmdUuid; }
 
   void setHidden(bool isHidden);

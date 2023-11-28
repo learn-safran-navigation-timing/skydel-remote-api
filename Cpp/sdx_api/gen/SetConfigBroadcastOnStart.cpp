@@ -14,7 +14,7 @@ namespace Sdx
   namespace Cmd
   {
     const char* const SetConfigBroadcastOnStart::CmdName = "SetConfigBroadcastOnStart";
-    const char* const SetConfigBroadcastOnStart::Documentation = "Set wether the master should send its configuration to every slave when simulation start.";
+    const char* const SetConfigBroadcastOnStart::Documentation = "Set wether the main instance should send its configuration to every worker instance when simulation start.";
 
     REGISTER_COMMAND_FACTORY(SetConfigBroadcastOnStart);
 

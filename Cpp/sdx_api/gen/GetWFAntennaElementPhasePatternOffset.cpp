@@ -14,7 +14,9 @@ namespace Sdx
   namespace Cmd
   {
     const char* const GetWFAntennaElementPhasePatternOffset::CmdName = "GetWFAntennaElementPhasePatternOffset";
-    const char* const GetWFAntennaElementPhasePatternOffset::Documentation = "Get WF Antenna phase pattern offset (in rad) for this element";
+    const char* const GetWFAntennaElementPhasePatternOffset::Documentation = "Please note the command GetWFAntennaElementPhasePatternOffset is deprecated since 23.11. You may use GetVehiclePhasePatternOffset.\n\nGet WF Antenna phase pattern offset (in rad) for this element";
+
+    const char* const GetWFAntennaElementPhasePatternOffset::Deprecated = "Please note the command GetWFAntennaElementPhasePatternOffset is deprecated since 23.11. You may use GetVehiclePhasePatternOffset.";
 
     REGISTER_COMMAND_FACTORY(GetWFAntennaElementPhasePatternOffset);
 
@@ -50,6 +52,8 @@ namespace Sdx
     }
 
     std::string GetWFAntennaElementPhasePatternOffset::documentation() const { return Documentation; }
+
+    Sdx::optional<std::string> GetWFAntennaElementPhasePatternOffset::deprecated() const { return Sdx::optional<std::string>{Deprecated}; }
 
 
     int GetWFAntennaElementPhasePatternOffset::executePermission() const

@@ -13,6 +13,8 @@ namespace Sdx
     ///
     /// Please note the command GetNavICEphemerisDoubleParam is deprecated since 21.3. You may use GetNavICEphDoubleParamForSV.
     /// 
+    /// Please note the command GetNavICEphDoubleParamForSV is deprecated since 23.11. You may use GetConstellationParameterForSV.
+    /// 
     /// Get various parameters in the NavIC ephemeris
     /// 
     ///   ParamName         Unit
@@ -56,6 +58,8 @@ namespace Sdx
       static const char* const CmdName;
       static const char* const Documentation;
 
+      static const char* const Deprecated;
+
 
       GetNavICEphemerisDoubleParam();
 
@@ -65,6 +69,8 @@ namespace Sdx
       static GetNavICEphemerisDoubleParamPtr dynamicCast(CommandBasePtr ptr);
       virtual bool isValid() const override;
       virtual std::string documentation() const override;
+
+      virtual Sdx::optional<std::string> deprecated() const override;
 
       virtual int executePermission() const override;
 

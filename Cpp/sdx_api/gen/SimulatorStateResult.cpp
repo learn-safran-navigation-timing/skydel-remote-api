@@ -14,7 +14,7 @@ namespace Sdx
   namespace Cmd
   {
     const char* const SimulatorStateResult::CmdName = "SimulatorStateResult";
-    const char* const SimulatorStateResult::Documentation = "Simulator State Result.\nPossible substates are :\n-None\n-Incomplete\n-Ready\n-Initializing\n-Armed\n-Streaming RF\n-Sync Slave\n-WF Init (Slave)\n-WF Init (Master)\n-HIL Sync\n-Sync Init\n-Sync PPS Reset\n-Sync Start Time\n-Sync Start\n-Error";
+    const char* const SimulatorStateResult::Documentation = "Simulator State Result.\nPossible substates are :\n-None\n-Incomplete\n-Ready\n-Initializing\n-Armed\n-Streaming RF\n-Sync Worker\n-WF Init (Worker)\n-WF Init (Main)\n-HIL Sync\n-Sync Init\n-Sync PPS Reset\n-Sync Start Time\n-Sync Start\n-Error";
 
     REGISTER_COMMAND_RESULT_TO_FACTORY_IMPL(SimulatorStateResult);
 
