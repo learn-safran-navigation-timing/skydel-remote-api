@@ -6,7 +6,7 @@ namespace Sdx.Cmd
 
   public static class ApiInfo
   {
-    public const int COMMANDS_API_VERSION = 42;
+    public const int COMMANDS_API_VERSION = 43;
   }
 
   ///
@@ -6052,9 +6052,10 @@ namespace Sdx.Cmd
   /// Set Logging of NMEA for the simulated position enable/disable.
   /// If a receiver is connected, that NMEA is saved as well.
   ///
-  /// Name    Type Description
-  /// ------- ---- --------------------------------------------------
-  /// Enabled bool If true, file(s) will be created during simulation
+  /// Name              Type          Description
+  /// ----------------- ------------- -----------------------------------------------------------------------------
+  /// Enabled           bool          If true, file(s) will be created during simulation
+  /// SerialPortEnabled optional bool If true, the log is streamed to the serial port specified in the Preferences.
   ///
 
   public class EnableLogNmea : CommandBase
@@ -6070,10 +6071,11 @@ namespace Sdx.Cmd
       : base(CmdName)
     {}
 
-    public EnableLogNmea(bool enabled)
+    public EnableLogNmea(bool enabled, bool? serialPortEnabled = null)
       : base(CmdName)
     {
       Enabled = enabled;
+      SerialPortEnabled = serialPortEnabled;
     }
       
     public override bool IsValid
@@ -6094,6 +6096,18 @@ namespace Sdx.Cmd
       set
       {
           SetValue("Enabled", JToken.FromObject(value, CommandBase.Serializer));
+      }
+    }
+
+    public bool? SerialPortEnabled
+    {
+      get { return GetValue("SerialPortEnabled").ToObject<bool?>(CommandBase.Serializer); }
+      set
+      {
+        if (value == null)
+          RemoveValue("SerialPortEnabled");
+        else
+          SetValue("SerialPortEnabled", JToken.FromObject(value, CommandBase.Serializer));
       }
     }
   }
@@ -6135,9 +6149,10 @@ namespace Sdx.Cmd
   ///
   /// Result of IsLogNmeaEnabled.
   ///
-  /// Name    Type Description
-  /// ------- ---- --------------------------------------------------
-  /// Enabled bool If true, file(s) will be created during simulation
+  /// Name              Type          Description
+  /// ----------------- ------------- -----------------------------------------------------------------------------
+  /// Enabled           bool          If true, file(s) will be created during simulation
+  /// SerialPortEnabled optional bool If true, the log is streamed to the serial port specified in the Preferences.
   ///
 
   public class IsLogNmeaEnabledResult : CommandResult
@@ -6153,10 +6168,11 @@ namespace Sdx.Cmd
       : base(CmdName)
     {}
 
-    public IsLogNmeaEnabledResult(CommandBase relatedCommand, bool enabled)
+    public IsLogNmeaEnabledResult(CommandBase relatedCommand, bool enabled, bool? serialPortEnabled = null)
       : base(CmdName, relatedCommand)
     {
       Enabled = enabled;
+      SerialPortEnabled = serialPortEnabled;
     }
       
     public override bool IsValid
@@ -6175,6 +6191,18 @@ namespace Sdx.Cmd
       set
       {
           SetValue("Enabled", JToken.FromObject(value, CommandBase.Serializer));
+      }
+    }
+
+    public bool? SerialPortEnabled
+    {
+      get { return GetValue("SerialPortEnabled").ToObject<bool?>(CommandBase.Serializer); }
+      set
+      {
+        if (value == null)
+          RemoveValue("SerialPortEnabled");
+        else
+          SetValue("SerialPortEnabled", JToken.FromObject(value, CommandBase.Serializer));
       }
     }
   }
@@ -6305,6 +6333,266 @@ namespace Sdx.Cmd
       set
       {
           SetValue("Rate", JToken.FromObject(value, CommandBase.Serializer));
+      }
+    }
+  }
+
+
+  ///
+  /// Set the delay of the NMEA serial port logging.
+  ///
+  /// Name  Type Description
+  /// ----- ---- ---------------------------------
+  /// Delay int  Delay from 0 to 100 milliseconds.
+  ///
+
+  public class SetNmeaLoggerSerialPortDelay : CommandBase
+  {
+    public override string Documentation
+    {
+      get { return "Set the delay of the NMEA serial port logging."; }
+    }
+
+    internal const string CmdName = "SetNmeaLoggerSerialPortDelay";
+
+    public SetNmeaLoggerSerialPortDelay()
+      : base(CmdName)
+    {}
+
+    public SetNmeaLoggerSerialPortDelay(int delay)
+      : base(CmdName)
+    {
+      Delay = delay;
+    }
+      
+    public override bool IsValid
+    {
+      get
+      {
+        return base.IsValid
+        && Contains("Delay")
+      ;
+      }
+    }
+
+    public override int ExecutePermission { get { return EXECUTE_IF_IDLE; } }
+
+    public int Delay
+    {
+      get { return GetValue("Delay").ToObject<int>(CommandBase.Serializer); }
+      set
+      {
+          SetValue("Delay", JToken.FromObject(value, CommandBase.Serializer));
+      }
+    }
+  }
+
+
+  ///
+  /// Get the delay of the NMEA serial port logging.
+  ///
+  /// 
+  ///
+
+  public class GetNmeaLoggerSerialPortDelay : CommandBase
+  {
+    public override string Documentation
+    {
+      get { return "Get the delay of the NMEA serial port logging."; }
+    }
+
+    internal const string CmdName = "GetNmeaLoggerSerialPortDelay";
+
+    public GetNmeaLoggerSerialPortDelay()
+      : base(CmdName)
+    {}
+      
+    public override bool IsValid
+    {
+      get
+      {
+        return base.IsValid
+      ;
+      }
+    }
+
+    public override int ExecutePermission { get { return EXECUTE_IF_IDLE; } }
+  }
+
+
+  ///
+  /// Result of GetNmeaLoggerSerialPortDelay.
+  ///
+  /// Name  Type Description
+  /// ----- ---- ---------------------------------
+  /// Delay int  Delay from 0 to 100 milliseconds.
+  ///
+
+  public class GetNmeaLoggerSerialPortDelayResult : CommandResult
+  {
+    public override string Documentation
+    {
+      get { return "Result of GetNmeaLoggerSerialPortDelay."; }
+    }
+
+    internal const string CmdName = "GetNmeaLoggerSerialPortDelayResult";
+
+    public GetNmeaLoggerSerialPortDelayResult()
+      : base(CmdName)
+    {}
+
+    public GetNmeaLoggerSerialPortDelayResult(CommandBase relatedCommand, int delay)
+      : base(CmdName, relatedCommand)
+    {
+      Delay = delay;
+    }
+      
+    public override bool IsValid
+    {
+      get
+      {
+        return base.IsValid
+        && Contains("Delay")
+      ;
+      }
+    }
+
+    public int Delay
+    {
+      get { return GetValue("Delay").ToObject<int>(CommandBase.Serializer); }
+      set
+      {
+          SetValue("Delay", JToken.FromObject(value, CommandBase.Serializer));
+      }
+    }
+  }
+
+
+  ///
+  /// Set the NMEA sentences that will be generated by the logger.
+  ///
+  /// Name      Type         Description
+  /// --------- ------------ -------------------------------------------------------------------------------------------------------
+  /// Sentences array string Identifiers of the NMEA sentences to generate, only "GGA", "GLL", "GSV", "RMC" and "ZDA" are supported.
+  ///
+
+  public class SetNmeaLoggerSentences : CommandBase
+  {
+    public override string Documentation
+    {
+      get { return "Set the NMEA sentences that will be generated by the logger."; }
+    }
+
+    internal const string CmdName = "SetNmeaLoggerSentences";
+
+    public SetNmeaLoggerSentences()
+      : base(CmdName)
+    {}
+
+    public SetNmeaLoggerSentences(List<string> sentences)
+      : base(CmdName)
+    {
+      Sentences = sentences;
+    }
+      
+    public override bool IsValid
+    {
+      get
+      {
+        return base.IsValid
+        && Contains("Sentences")
+      ;
+      }
+    }
+
+    public override int ExecutePermission { get { return EXECUTE_IF_IDLE | EXECUTE_IF_SIMULATING; } }
+
+    public List<string> Sentences
+    {
+      get { return GetValue("Sentences").ToObject<List<string>>(CommandBase.Serializer); }
+      set
+      {
+          SetValue("Sentences", JToken.FromObject(value, CommandBase.Serializer));
+      }
+    }
+  }
+
+
+  ///
+  /// Get the NMEA sentences that will be generated by the logger.
+  ///
+  /// 
+  ///
+
+  public class GetNmeaLoggerSentences : CommandBase
+  {
+    public override string Documentation
+    {
+      get { return "Get the NMEA sentences that will be generated by the logger."; }
+    }
+
+    internal const string CmdName = "GetNmeaLoggerSentences";
+
+    public GetNmeaLoggerSentences()
+      : base(CmdName)
+    {}
+      
+    public override bool IsValid
+    {
+      get
+      {
+        return base.IsValid
+      ;
+      }
+    }
+
+    public override int ExecutePermission { get { return EXECUTE_IF_IDLE; } }
+  }
+
+
+  ///
+  /// Result of GetNmeaLoggerSentences.
+  ///
+  /// Name      Type         Description
+  /// --------- ------------ -------------------------------------------------------------------------------------------------------
+  /// Sentences array string Identifiers of the NMEA sentences to generate, only "GGA", "GLL", "GSV", "RMC" and "ZDA" are supported.
+  ///
+
+  public class GetNmeaLoggerSentencesResult : CommandResult
+  {
+    public override string Documentation
+    {
+      get { return "Result of GetNmeaLoggerSentences."; }
+    }
+
+    internal const string CmdName = "GetNmeaLoggerSentencesResult";
+
+    public GetNmeaLoggerSentencesResult()
+      : base(CmdName)
+    {}
+
+    public GetNmeaLoggerSentencesResult(CommandBase relatedCommand, List<string> sentences)
+      : base(CmdName, relatedCommand)
+    {
+      Sentences = sentences;
+    }
+      
+    public override bool IsValid
+    {
+      get
+      {
+        return base.IsValid
+        && Contains("Sentences")
+      ;
+      }
+    }
+
+    public List<string> Sentences
+    {
+      get { return GetValue("Sentences").ToObject<List<string>>(CommandBase.Serializer); }
+      set
+      {
+          SetValue("Sentences", JToken.FromObject(value, CommandBase.Serializer));
       }
     }
   }
@@ -20315,6 +20603,9 @@ namespace Sdx.Cmd
   /// GainE6               array array double Gain matrix (dB). The first dimension will be mapped to elevation [-90, 90] and the second dimension to azimuth [0, 360[.
   /// GainTypeE6           AntennaPatternType Pattern type
   /// GainOffsetE6         double             Pattern offset
+  /// GainS                array array double Gain matrix (dB). The first dimension will be mapped to elevation [-90, 90] and the second dimension to azimuth [0, 360[.
+  /// GainTypeS            AntennaPatternType Pattern type
+  /// GainOffsetS          double             Pattern offset
   /// PhaseOffsetL1        array array double Phase offset matrix (rad). The first dimension will be mapped to elevation [-90, 90] and the second dimension to azimuth [0, 360[.
   /// PhaseOffsetTypeL1    AntennaPatternType Pattern type
   /// PhasePatternOffsetL1 double             Pattern offset
@@ -20327,6 +20618,9 @@ namespace Sdx.Cmd
   /// PhaseOffsetE6        array array double Phase offset matrix (rad). The first dimension will be mapped to elevation [-90, 90] and the second dimension to azimuth [0, 360[.
   /// PhaseOffsetTypeE6    AntennaPatternType Pattern type
   /// PhasePatternOffsetE6 double             Pattern offset
+  /// PhaseOffsetS         array array double Phase offset matrix (rad). The first dimension will be mapped to elevation [-90, 90] and the second dimension to azimuth [0, 360[.
+  /// PhaseOffsetTypeS     AntennaPatternType Pattern type
+  /// PhasePatternOffsetS  double             Pattern offset
   /// X                    double             Antenna X offset in the body frame (meter)
   /// Y                    double             Antenna Y offset in the body frame (meter)
   /// Z                    double             Antenna Z offset in the body frame (meter)
@@ -20349,7 +20643,7 @@ namespace Sdx.Cmd
       : base(CmdName)
     {}
 
-    public GetVehicleAntennaModelResult(CommandBase relatedCommand, List<List<double>> gainL1, AntennaPatternType gainTypeL1, double gainOffsetL1, List<List<double>> gainL2, AntennaPatternType gainTypeL2, double gainOffsetL2, List<List<double>> gainL5, AntennaPatternType gainTypeL5, double gainOffsetL5, List<List<double>> gainE6, AntennaPatternType gainTypeE6, double gainOffsetE6, List<List<double>> phaseOffsetL1, AntennaPatternType phaseOffsetTypeL1, double phasePatternOffsetL1, List<List<double>> phaseOffsetL2, AntennaPatternType phaseOffsetTypeL2, double phasePatternOffsetL2, List<List<double>> phaseOffsetL5, AntennaPatternType phaseOffsetTypeL5, double phasePatternOffsetL5, List<List<double>> phaseOffsetE6, AntennaPatternType phaseOffsetTypeE6, double phasePatternOffsetE6, double x, double y, double z, double yaw, double pitch, double roll, string name)
+    public GetVehicleAntennaModelResult(CommandBase relatedCommand, List<List<double>> gainL1, AntennaPatternType gainTypeL1, double gainOffsetL1, List<List<double>> gainL2, AntennaPatternType gainTypeL2, double gainOffsetL2, List<List<double>> gainL5, AntennaPatternType gainTypeL5, double gainOffsetL5, List<List<double>> gainE6, AntennaPatternType gainTypeE6, double gainOffsetE6, List<List<double>> gainS, AntennaPatternType gainTypeS, double gainOffsetS, List<List<double>> phaseOffsetL1, AntennaPatternType phaseOffsetTypeL1, double phasePatternOffsetL1, List<List<double>> phaseOffsetL2, AntennaPatternType phaseOffsetTypeL2, double phasePatternOffsetL2, List<List<double>> phaseOffsetL5, AntennaPatternType phaseOffsetTypeL5, double phasePatternOffsetL5, List<List<double>> phaseOffsetE6, AntennaPatternType phaseOffsetTypeE6, double phasePatternOffsetE6, List<List<double>> phaseOffsetS, AntennaPatternType phaseOffsetTypeS, double phasePatternOffsetS, double x, double y, double z, double yaw, double pitch, double roll, string name)
       : base(CmdName, relatedCommand)
     {
       GainL1 = gainL1;
@@ -20364,6 +20658,9 @@ namespace Sdx.Cmd
       GainE6 = gainE6;
       GainTypeE6 = gainTypeE6;
       GainOffsetE6 = gainOffsetE6;
+      GainS = gainS;
+      GainTypeS = gainTypeS;
+      GainOffsetS = gainOffsetS;
       PhaseOffsetL1 = phaseOffsetL1;
       PhaseOffsetTypeL1 = phaseOffsetTypeL1;
       PhasePatternOffsetL1 = phasePatternOffsetL1;
@@ -20376,6 +20673,9 @@ namespace Sdx.Cmd
       PhaseOffsetE6 = phaseOffsetE6;
       PhaseOffsetTypeE6 = phaseOffsetTypeE6;
       PhasePatternOffsetE6 = phasePatternOffsetE6;
+      PhaseOffsetS = phaseOffsetS;
+      PhaseOffsetTypeS = phaseOffsetTypeS;
+      PhasePatternOffsetS = phasePatternOffsetS;
       X = x;
       Y = y;
       Z = z;
@@ -20402,6 +20702,9 @@ namespace Sdx.Cmd
         && Contains("GainE6")
         && Contains("GainTypeE6")
         && Contains("GainOffsetE6")
+        && Contains("GainS")
+        && Contains("GainTypeS")
+        && Contains("GainOffsetS")
         && Contains("PhaseOffsetL1")
         && Contains("PhaseOffsetTypeL1")
         && Contains("PhasePatternOffsetL1")
@@ -20414,6 +20717,9 @@ namespace Sdx.Cmd
         && Contains("PhaseOffsetE6")
         && Contains("PhaseOffsetTypeE6")
         && Contains("PhasePatternOffsetE6")
+        && Contains("PhaseOffsetS")
+        && Contains("PhaseOffsetTypeS")
+        && Contains("PhasePatternOffsetS")
         && Contains("X")
         && Contains("Y")
         && Contains("Z")
@@ -20533,6 +20839,33 @@ namespace Sdx.Cmd
       }
     }
 
+    public List<List<double>> GainS
+    {
+      get { return GetValue("GainS").ToObject<List<List<double>>>(CommandBase.Serializer); }
+      set
+      {
+          SetValue("GainS", JToken.FromObject(value, CommandBase.Serializer));
+      }
+    }
+
+    public AntennaPatternType GainTypeS
+    {
+      get { return GetValue("GainTypeS").ToObject<AntennaPatternType>(CommandBase.Serializer); }
+      set
+      {
+          SetValue("GainTypeS", JToken.FromObject(value, CommandBase.Serializer));
+      }
+    }
+
+    public double GainOffsetS
+    {
+      get { return GetValue("GainOffsetS").ToObject<double>(CommandBase.Serializer); }
+      set
+      {
+          SetValue("GainOffsetS", JToken.FromObject(value, CommandBase.Serializer));
+      }
+    }
+
     public List<List<double>> PhaseOffsetL1
     {
       get { return GetValue("PhaseOffsetL1").ToObject<List<List<double>>>(CommandBase.Serializer); }
@@ -20638,6 +20971,33 @@ namespace Sdx.Cmd
       set
       {
           SetValue("PhasePatternOffsetE6", JToken.FromObject(value, CommandBase.Serializer));
+      }
+    }
+
+    public List<List<double>> PhaseOffsetS
+    {
+      get { return GetValue("PhaseOffsetS").ToObject<List<List<double>>>(CommandBase.Serializer); }
+      set
+      {
+          SetValue("PhaseOffsetS", JToken.FromObject(value, CommandBase.Serializer));
+      }
+    }
+
+    public AntennaPatternType PhaseOffsetTypeS
+    {
+      get { return GetValue("PhaseOffsetTypeS").ToObject<AntennaPatternType>(CommandBase.Serializer); }
+      set
+      {
+          SetValue("PhaseOffsetTypeS", JToken.FromObject(value, CommandBase.Serializer));
+      }
+    }
+
+    public double PhasePatternOffsetS
+    {
+      get { return GetValue("PhasePatternOffsetS").ToObject<double>(CommandBase.Serializer); }
+      set
+      {
+          SetValue("PhasePatternOffsetS", JToken.FromObject(value, CommandBase.Serializer));
       }
     }
 
@@ -37789,6 +38149,350 @@ namespace Sdx.Cmd
 
 
   ///
+  /// Set the ephemeris update interval in seconds.
+  ///
+  /// Name     Type   Description
+  /// -------- ------ -----------------------------------------------------------------------------------------------------------------------
+  /// System   string "GPS", "Galileo", "BeiDou", "QZSS" or "NavIC"
+  /// Interval int    Interval duration in sec. Accepted range is [1..604800]. Must be a divider of the number of seconds in a week (604800).
+  ///
+
+  public class SetEphemerisUpdateInterval : CommandBase
+  {
+    public override string Documentation
+    {
+      get { return "Set the ephemeris update interval in seconds."; }
+    }
+
+    internal const string CmdName = "SetEphemerisUpdateInterval";
+
+    public SetEphemerisUpdateInterval()
+      : base(CmdName)
+    {}
+
+    public SetEphemerisUpdateInterval(string system, int interval)
+      : base(CmdName)
+    {
+      System = system;
+      Interval = interval;
+    }
+      
+    public override bool IsValid
+    {
+      get
+      {
+        return base.IsValid
+        && Contains("System")
+        && Contains("Interval")
+      ;
+      }
+    }
+
+    public override int ExecutePermission { get { return EXECUTE_IF_IDLE; } }
+
+    public string System
+    {
+      get { return GetValue("System").ToObject<string>(CommandBase.Serializer); }
+      set
+      {
+          SetValue("System", JToken.FromObject(value, CommandBase.Serializer));
+      }
+    }
+
+    public int Interval
+    {
+      get { return GetValue("Interval").ToObject<int>(CommandBase.Serializer); }
+      set
+      {
+          SetValue("Interval", JToken.FromObject(value, CommandBase.Serializer));
+      }
+    }
+  }
+
+
+  ///
+  /// Get the ephemeris update interval in seconds.
+  ///
+  /// Name   Type   Description
+  /// ------ ------ ---------------------------------------------
+  /// System string "GPS", "Galileo", "BeiDou", "QZSS" or "NavIC"
+  ///
+
+  public class GetEphemerisUpdateInterval : CommandBase
+  {
+    public override string Documentation
+    {
+      get { return "Get the ephemeris update interval in seconds."; }
+    }
+
+    internal const string CmdName = "GetEphemerisUpdateInterval";
+
+    public GetEphemerisUpdateInterval()
+      : base(CmdName)
+    {}
+
+    public GetEphemerisUpdateInterval(string system)
+      : base(CmdName)
+    {
+      System = system;
+    }
+      
+    public override bool IsValid
+    {
+      get
+      {
+        return base.IsValid
+        && Contains("System")
+      ;
+      }
+    }
+
+    public override int ExecutePermission { get { return EXECUTE_IF_IDLE; } }
+
+    public string System
+    {
+      get { return GetValue("System").ToObject<string>(CommandBase.Serializer); }
+      set
+      {
+          SetValue("System", JToken.FromObject(value, CommandBase.Serializer));
+      }
+    }
+  }
+
+
+  ///
+  /// Result of GetEphemerisUpdateInterval.
+  ///
+  /// Name     Type   Description
+  /// -------- ------ -----------------------------------------------------------------------------------------------------------------------
+  /// System   string "GPS", "Galileo", "BeiDou", "QZSS" or "NavIC"
+  /// Interval int    Interval duration in sec. Accepted range is [1..604800]. Must be a divider of the number of seconds in a week (604800).
+  ///
+
+  public class GetEphemerisUpdateIntervalResult : CommandResult
+  {
+    public override string Documentation
+    {
+      get { return "Result of GetEphemerisUpdateInterval."; }
+    }
+
+    internal const string CmdName = "GetEphemerisUpdateIntervalResult";
+
+    public GetEphemerisUpdateIntervalResult()
+      : base(CmdName)
+    {}
+
+    public GetEphemerisUpdateIntervalResult(CommandBase relatedCommand, string system, int interval)
+      : base(CmdName, relatedCommand)
+    {
+      System = system;
+      Interval = interval;
+    }
+      
+    public override bool IsValid
+    {
+      get
+      {
+        return base.IsValid
+        && Contains("System")
+        && Contains("Interval")
+      ;
+      }
+    }
+
+    public string System
+    {
+      get { return GetValue("System").ToObject<string>(CommandBase.Serializer); }
+      set
+      {
+          SetValue("System", JToken.FromObject(value, CommandBase.Serializer));
+      }
+    }
+
+    public int Interval
+    {
+      get { return GetValue("Interval").ToObject<int>(CommandBase.Serializer); }
+      set
+      {
+          SetValue("Interval", JToken.FromObject(value, CommandBase.Serializer));
+      }
+    }
+  }
+
+
+  ///
+  /// Set the ephemeris TOC offset in seconds relative to the ephemeris update time.
+  ///
+  /// Name   Type   Description
+  /// ------ ------ ---------------------------------------------------
+  /// System string "GPS", "Galileo", "BeiDou", "QZSS" or "NavIC"
+  /// Offset int    Offset in sec. Accepted range is [-604800..604800].
+  ///
+
+  public class SetEphemerisTocOffset : CommandBase
+  {
+    public override string Documentation
+    {
+      get { return "Set the ephemeris TOC offset in seconds relative to the ephemeris update time."; }
+    }
+
+    internal const string CmdName = "SetEphemerisTocOffset";
+
+    public SetEphemerisTocOffset()
+      : base(CmdName)
+    {}
+
+    public SetEphemerisTocOffset(string system, int offset)
+      : base(CmdName)
+    {
+      System = system;
+      Offset = offset;
+    }
+      
+    public override bool IsValid
+    {
+      get
+      {
+        return base.IsValid
+        && Contains("System")
+        && Contains("Offset")
+      ;
+      }
+    }
+
+    public override int ExecutePermission { get { return EXECUTE_IF_IDLE; } }
+
+    public string System
+    {
+      get { return GetValue("System").ToObject<string>(CommandBase.Serializer); }
+      set
+      {
+          SetValue("System", JToken.FromObject(value, CommandBase.Serializer));
+      }
+    }
+
+    public int Offset
+    {
+      get { return GetValue("Offset").ToObject<int>(CommandBase.Serializer); }
+      set
+      {
+          SetValue("Offset", JToken.FromObject(value, CommandBase.Serializer));
+      }
+    }
+  }
+
+
+  ///
+  /// Get the ephemeris TOC offset in seconds relative to the ephemeris update time.
+  ///
+  /// Name   Type   Description
+  /// ------ ------ ---------------------------------------------
+  /// System string "GPS", "Galileo", "BeiDou", "QZSS" or "NavIC"
+  ///
+
+  public class GetEphemerisTocOffset : CommandBase
+  {
+    public override string Documentation
+    {
+      get { return "Get the ephemeris TOC offset in seconds relative to the ephemeris update time."; }
+    }
+
+    internal const string CmdName = "GetEphemerisTocOffset";
+
+    public GetEphemerisTocOffset()
+      : base(CmdName)
+    {}
+
+    public GetEphemerisTocOffset(string system)
+      : base(CmdName)
+    {
+      System = system;
+    }
+      
+    public override bool IsValid
+    {
+      get
+      {
+        return base.IsValid
+        && Contains("System")
+      ;
+      }
+    }
+
+    public override int ExecutePermission { get { return EXECUTE_IF_IDLE; } }
+
+    public string System
+    {
+      get { return GetValue("System").ToObject<string>(CommandBase.Serializer); }
+      set
+      {
+          SetValue("System", JToken.FromObject(value, CommandBase.Serializer));
+      }
+    }
+  }
+
+
+  ///
+  /// Result of GetEphemerisTocOffset.
+  ///
+  /// Name   Type   Description
+  /// ------ ------ ---------------------------------------------------
+  /// System string "GPS", "Galileo", "BeiDou", "QZSS" or "NavIC"
+  /// Offset int    Offset in sec. Accepted range is [-604800..604800].
+  ///
+
+  public class GetEphemerisTocOffsetResult : CommandResult
+  {
+    public override string Documentation
+    {
+      get { return "Result of GetEphemerisTocOffset."; }
+    }
+
+    internal const string CmdName = "GetEphemerisTocOffsetResult";
+
+    public GetEphemerisTocOffsetResult()
+      : base(CmdName)
+    {}
+
+    public GetEphemerisTocOffsetResult(CommandBase relatedCommand, string system, int offset)
+      : base(CmdName, relatedCommand)
+    {
+      System = system;
+      Offset = offset;
+    }
+      
+    public override bool IsValid
+    {
+      get
+      {
+        return base.IsValid
+        && Contains("System")
+        && Contains("Offset")
+      ;
+      }
+    }
+
+    public string System
+    {
+      get { return GetValue("System").ToObject<string>(CommandBase.Serializer); }
+      set
+      {
+          SetValue("System", JToken.FromObject(value, CommandBase.Serializer));
+      }
+    }
+
+    public int Offset
+    {
+      get { return GetValue("Offset").ToObject<int>(CommandBase.Serializer); }
+      set
+      {
+          SetValue("Offset", JToken.FromObject(value, CommandBase.Serializer));
+      }
+    }
+  }
+
+
+  ///
   /// Add or update signal echo (multipath). Offsets (power loss, pseudorange, Doppler and carrier phase) are all relative to line-of-sight signal.
   /// If Id is not set, or unknown to Skydel, a new echo will be added. Otherwise, existing echo will be updated.
   ///
@@ -50784,7 +51488,7 @@ namespace Sdx.Cmd
   /// The different GNSS bands
   ///
   
-  public enum GNSSBand { L1, L2, L5, E6 }
+  public enum GNSSBand { L1, L2, L5, E6, S }
 
 
   ///
@@ -64326,21 +65030,22 @@ namespace Sdx.Cmd
   ///   NavIC           2400
   /// 
   ///
-  /// Name           Type               Description
-  /// -------------- ------------------ ------------------------------------------------------------------------------
-  /// System         string             "GPS", "Galileo", "BeiDou", "QZSS" or "NavIC".
-  /// SvId           int                Satellite's SV ID.
-  /// Toc            datetime           Time of Clock.
-  /// ParametersDict dict string:double A dictionary of parameters pairs.
-  ///                                   Accepted keys are: "Time of ephemeris", "Week Number", "Transmission Time",
-  ///                                                      "ClockBias", "ClockDrift", "ClockDriftRate", "Crs", "Crc",
-  ///                                                      "Cis", "Cic", "Cus", "Cuc", "DeltaN", "M0", "Eccentricity",
-  ///                                                      "SqrtA", "BigOmega", "I0", "LittleOmega", "BigOmegaDot",
-  ///                                                      "Idot", "Adot", "DeltaN0dot", "UraIndex", "IODE", "IODNAV",
-  ///                                                      "IODEC", "IODC", "Tgd", "IscL1CA", "IscL2C", "IscL5I5",
-  ///                                                      "IscL5Q5", "IscL1CP", "IscL1CD", "BgdE1E5a", "BgdE1E5b",
-  ///                                                      "Tgd1", "Tgd2", "TgdB1Cp", "TgdB2ap", "IscB1Cd", "IscB2ad",
-  ///                                                      "SisaE1E5a" and "SisaE1E5b"
+  /// Name           Type                  Description
+  /// -------------- --------------------- ---------------------------------------------------------------------------------------
+  /// System         string                "GPS", "Galileo", "BeiDou", "QZSS" or "NavIC".
+  /// SvId           int                   Satellite's SV ID.
+  /// Toc            datetime              Time of Clock.
+  /// ParametersDict dict string:double    A dictionary of parameters pairs.
+  ///                                      Accepted keys are: "Time of ephemeris", "Week Number", "Transmission Time",
+  ///                                                         "ClockBias", "ClockDrift", "ClockDriftRate", "Crs", "Crc",
+  ///                                                         "Cis", "Cic", "Cus", "Cuc", "DeltaN", "M0", "Eccentricity",
+  ///                                                         "SqrtA", "BigOmega", "I0", "LittleOmega", "BigOmegaDot",
+  ///                                                         "Idot", "Adot", "DeltaN0dot", "UraIndex", "IODE", "IODNAV",
+  ///                                                         "IODEC", "IODC", "Tgd", "IscL1CA", "IscL2C", "IscL5I5",
+  ///                                                         "IscL5Q5", "IscL1CP", "IscL1CD", "BgdE1E5a", "BgdE1E5b",
+  ///                                                         "Tgd1", "Tgd2", "TgdB1Cp", "TgdB2ap", "IscB1Cd", "IscB2ad",
+  ///                                                         "SisaE1E5a" and "SisaE1E5b"
+  /// DataSetTypes   optional array string Optional data set type array: "Ephemeris" or "Orbit". If not provided, applies to both.
   ///
 
   public class PushDynamicSVData : CommandBase
@@ -64356,13 +65061,14 @@ namespace Sdx.Cmd
       : base(CmdName)
     {}
 
-    public PushDynamicSVData(string system, int svId, DateTime toc, Dictionary<string, double> parametersDict)
+    public PushDynamicSVData(string system, int svId, DateTime toc, Dictionary<string, double> parametersDict, List<string> dataSetTypes = null)
       : base(CmdName)
     {
       System = system;
       SvId = svId;
       Toc = toc;
       ParametersDict = parametersDict;
+      DataSetTypes = dataSetTypes;
     }
       
     public override bool IsValid
@@ -64413,6 +65119,259 @@ namespace Sdx.Cmd
       set
       {
           SetValue("ParametersDict", JToken.FromObject(value, CommandBase.Serializer));
+      }
+    }
+
+    public List<string> DataSetTypes
+    {
+      get { return GetValue("DataSetTypes").ToObject<List<string>>(CommandBase.Serializer); }
+      set
+      {
+        if (value == null)
+          RemoveValue("DataSetTypes");
+        else
+          SetValue("DataSetTypes", JToken.FromObject(value, CommandBase.Serializer));
+      }
+    }
+  }
+
+
+  ///
+  /// Almanac data for a single SV.
+  ///
+  /// Name           Type               Description
+  /// -------------- ------------------ -------------------------------------------------------------------------------
+  /// SvId           int                Satellite's SV ID.
+  /// ParametersDict dict string:double A dictionary of parameters pairs.
+  ///                                   Accepted keys are: "Time of ephemeris", "Week Number", "Transmission Time",
+  ///                                                      "ClockBias", "ClockDrift", "ClockDriftRate", "DeltaN", "M0",
+  ///                                                      "Eccentricity", "SqrtA", "BigOmega", "I0", "LittleOmega",
+  ///                                                      "BigOmegaDot" and "Idot"
+  ///
+
+  public struct AlmanacSVData
+  {
+    public int SvId;
+    public Dictionary<string, double> ParametersDict;
+  }
+
+
+  ///
+  /// Push a block of data defining the orbit, clock, and other parameters for one SV.
+  ///   ParamName           Unit
+  ///   "Time of ephemeris" sec (of GPS week)
+  ///   "Week Number"       week
+  ///   "Transmission Time" sec (of GPS week)
+  ///   "ClockBias"         sec
+  ///   "ClockDrift"        sec/sec
+  ///   "ClockDriftRate"    sec/sec^2
+  ///   "DeltaN"            rad/sec
+  ///   "M0"                rad
+  ///   "Eccentricity"      -
+  ///   "SqrtA"             sqrt(meter)
+  ///   "BigOmega"          rad
+  ///   "I0"                rad
+  ///   "LittleOmega"       rad
+  ///   "BigOmegaDot"       rad/sec
+  ///   "Idot"              rad/sec
+  ///
+  /// Name    Type                Description
+  /// ------- ------------------- ----------------------------------------------
+  /// System  string              "GPS", "Galileo", "BeiDou", "QZSS" or "NavIC".
+  /// Toa     datetime            Time of applicability.
+  /// Almanac array AlmanacSVData Array of almanac data for SVs.
+  ///
+
+  public class PushDynamicAlmanacData : CommandBase
+  {
+    public override string Documentation
+    {
+      get { return "Push a block of data defining the orbit, clock, and other parameters for one SV.\n  ParamName           Unit\n  \"Time of ephemeris\" sec (of GPS week)\n  \"Week Number\"       week\n  \"Transmission Time\" sec (of GPS week)\n  \"ClockBias\"         sec\n  \"ClockDrift\"        sec/sec\n  \"ClockDriftRate\"    sec/sec^2\n  \"DeltaN\"            rad/sec\n  \"M0\"                rad\n  \"Eccentricity\"      -\n  \"SqrtA\"             sqrt(meter)\n  \"BigOmega\"          rad\n  \"I0\"                rad\n  \"LittleOmega\"       rad\n  \"BigOmegaDot\"       rad/sec\n  \"Idot\"              rad/sec"; }
+    }
+
+    internal const string CmdName = "PushDynamicAlmanacData";
+
+    public PushDynamicAlmanacData()
+      : base(CmdName)
+    {}
+
+    public PushDynamicAlmanacData(string system, DateTime toa, List<AlmanacSVData> almanac)
+      : base(CmdName)
+    {
+      System = system;
+      Toa = toa;
+      Almanac = almanac;
+    }
+      
+    public override bool IsValid
+    {
+      get
+      {
+        return base.IsValid
+        && Contains("System")
+        && Contains("Toa")
+        && Contains("Almanac")
+      ;
+      }
+    }
+
+    public override int ExecutePermission { get { return EXECUTE_IF_SIMULATING; } }
+
+    public string System
+    {
+      get { return GetValue("System").ToObject<string>(CommandBase.Serializer); }
+      set
+      {
+          SetValue("System", JToken.FromObject(value, CommandBase.Serializer));
+      }
+    }
+
+    public DateTime Toa
+    {
+      get { return GetValue("Toa").ToObject<DateTime>(CommandBase.Serializer); }
+      set
+      {
+          SetValue("Toa", JToken.FromObject(value, CommandBase.Serializer));
+      }
+    }
+
+    public List<AlmanacSVData> Almanac
+    {
+      get { return GetValue("Almanac").ToObject<List<AlmanacSVData>>(CommandBase.Serializer); }
+      set
+      {
+          SetValue("Almanac", JToken.FromObject(value, CommandBase.Serializer));
+      }
+    }
+  }
+
+
+  ///
+  /// Enable (or disable) extrapolation of the almanac from the ephemeris in Dynamic SV Data mode.
+  /// When disabled, use PushDynamicAlmanacData to push the almanac data
+  ///
+  /// Name    Type Description
+  /// ------- ---- -------------------------------
+  /// Enabled bool State of almanac extrapolation.
+  ///
+
+  public class EnableAlmanacExtrapolationFromEphemeris : CommandBase
+  {
+    public override string Documentation
+    {
+      get { return "Enable (or disable) extrapolation of the almanac from the ephemeris in Dynamic SV Data mode.\nWhen disabled, use PushDynamicAlmanacData to push the almanac data"; }
+    }
+
+    internal const string CmdName = "EnableAlmanacExtrapolationFromEphemeris";
+
+    public EnableAlmanacExtrapolationFromEphemeris()
+      : base(CmdName)
+    {}
+
+    public EnableAlmanacExtrapolationFromEphemeris(bool enabled)
+      : base(CmdName)
+    {
+      Enabled = enabled;
+    }
+      
+    public override bool IsValid
+    {
+      get
+      {
+        return base.IsValid
+        && Contains("Enabled")
+      ;
+      }
+    }
+
+    public override int ExecutePermission { get { return EXECUTE_IF_IDLE; } }
+
+    public bool Enabled
+    {
+      get { return GetValue("Enabled").ToObject<bool>(CommandBase.Serializer); }
+      set
+      {
+          SetValue("Enabled", JToken.FromObject(value, CommandBase.Serializer));
+      }
+    }
+  }
+
+
+  ///
+  /// Get state of almanac extrapolation from ephemeris in Dynamic SV data.
+  ///
+  /// 
+  ///
+
+  public class IsAlmanacExtrapolationFromEphemerisEnabled : CommandBase
+  {
+    public override string Documentation
+    {
+      get { return "Get state of almanac extrapolation from ephemeris in Dynamic SV data."; }
+    }
+
+    internal const string CmdName = "IsAlmanacExtrapolationFromEphemerisEnabled";
+
+    public IsAlmanacExtrapolationFromEphemerisEnabled()
+      : base(CmdName)
+    {}
+      
+    public override bool IsValid
+    {
+      get
+      {
+        return base.IsValid
+      ;
+      }
+    }
+
+    public override int ExecutePermission { get { return EXECUTE_IF_IDLE; } }
+  }
+
+
+  ///
+  /// Result of IsAlmanacExtrapolationFromEphemerisEnabled.
+  ///
+  /// Name    Type Description
+  /// ------- ---- -------------------------------
+  /// Enabled bool State of almanac extrapolation.
+  ///
+
+  public class IsAlmanacExtrapolationFromEphemerisEnabledResult : CommandResult
+  {
+    public override string Documentation
+    {
+      get { return "Result of IsAlmanacExtrapolationFromEphemerisEnabled."; }
+    }
+
+    internal const string CmdName = "IsAlmanacExtrapolationFromEphemerisEnabledResult";
+
+    public IsAlmanacExtrapolationFromEphemerisEnabledResult()
+      : base(CmdName)
+    {}
+
+    public IsAlmanacExtrapolationFromEphemerisEnabledResult(CommandBase relatedCommand, bool enabled)
+      : base(CmdName, relatedCommand)
+    {
+      Enabled = enabled;
+    }
+      
+    public override bool IsValid
+    {
+      get
+      {
+        return base.IsValid
+        && Contains("Enabled")
+      ;
+      }
+    }
+
+    public bool Enabled
+    {
+      get { return GetValue("Enabled").ToObject<bool>(CommandBase.Serializer); }
+      set
+      {
+          SetValue("Enabled", JToken.FromObject(value, CommandBase.Serializer));
       }
     }
   }

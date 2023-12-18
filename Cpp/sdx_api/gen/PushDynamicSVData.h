@@ -4,8 +4,10 @@
 #include "command_base.h"
 
 #include "date_time.h"
+#include "sdx_optional.h"
 #include <map>
 #include <string>
+#include <vector>
 
 namespace Sdx
 {
@@ -48,21 +50,22 @@ namespace Sdx
     ///   NavIC           2400
     /// 
     ///
-    /// Name           Type               Description
-    /// -------------- ------------------ ------------------------------------------------------------------------------
-    /// System         string             "GPS", "Galileo", "BeiDou", "QZSS" or "NavIC".
-    /// SvId           int                Satellite's SV ID.
-    /// Toc            datetime           Time of Clock.
-    /// ParametersDict dict string:double A dictionary of parameters pairs.
-    ///                                   Accepted keys are: "Time of ephemeris", "Week Number", "Transmission Time",
-    ///                                                      "ClockBias", "ClockDrift", "ClockDriftRate", "Crs", "Crc",
-    ///                                                      "Cis", "Cic", "Cus", "Cuc", "DeltaN", "M0", "Eccentricity",
-    ///                                                      "SqrtA", "BigOmega", "I0", "LittleOmega", "BigOmegaDot",
-    ///                                                      "Idot", "Adot", "DeltaN0dot", "UraIndex", "IODE", "IODNAV",
-    ///                                                      "IODEC", "IODC", "Tgd", "IscL1CA", "IscL2C", "IscL5I5",
-    ///                                                      "IscL5Q5", "IscL1CP", "IscL1CD", "BgdE1E5a", "BgdE1E5b",
-    ///                                                      "Tgd1", "Tgd2", "TgdB1Cp", "TgdB2ap", "IscB1Cd", "IscB2ad",
-    ///                                                      "SisaE1E5a" and "SisaE1E5b"
+    /// Name           Type                  Description
+    /// -------------- --------------------- ---------------------------------------------------------------------------------------
+    /// System         string                "GPS", "Galileo", "BeiDou", "QZSS" or "NavIC".
+    /// SvId           int                   Satellite's SV ID.
+    /// Toc            datetime              Time of Clock.
+    /// ParametersDict dict string:double    A dictionary of parameters pairs.
+    ///                                      Accepted keys are: "Time of ephemeris", "Week Number", "Transmission Time",
+    ///                                                         "ClockBias", "ClockDrift", "ClockDriftRate", "Crs", "Crc",
+    ///                                                         "Cis", "Cic", "Cus", "Cuc", "DeltaN", "M0", "Eccentricity",
+    ///                                                         "SqrtA", "BigOmega", "I0", "LittleOmega", "BigOmegaDot",
+    ///                                                         "Idot", "Adot", "DeltaN0dot", "UraIndex", "IODE", "IODNAV",
+    ///                                                         "IODEC", "IODC", "Tgd", "IscL1CA", "IscL2C", "IscL5I5",
+    ///                                                         "IscL5Q5", "IscL1CP", "IscL1CD", "BgdE1E5a", "BgdE1E5b",
+    ///                                                         "Tgd1", "Tgd2", "TgdB1Cp", "TgdB2ap", "IscB1Cd", "IscB2ad",
+    ///                                                         "SisaE1E5a" and "SisaE1E5b"
+    /// DataSetTypes   optional array string Optional data set type array: "Ephemeris" or "Orbit". If not provided, applies to both.
     ///
 
     class PushDynamicSVData;
@@ -78,9 +81,9 @@ namespace Sdx
 
       PushDynamicSVData();
 
-      PushDynamicSVData(const std::string& system, int svId, const Sdx::DateTime& toc, const std::map<std::string, double>& parametersDict);
+      PushDynamicSVData(const std::string& system, int svId, const Sdx::DateTime& toc, const std::map<std::string, double>& parametersDict, const Sdx::optional<std::vector<std::string>>& dataSetTypes = {});
 
-      static PushDynamicSVDataPtr create(const std::string& system, int svId, const Sdx::DateTime& toc, const std::map<std::string, double>& parametersDict);
+      static PushDynamicSVDataPtr create(const std::string& system, int svId, const Sdx::DateTime& toc, const std::map<std::string, double>& parametersDict, const Sdx::optional<std::vector<std::string>>& dataSetTypes = {});
       static PushDynamicSVDataPtr dynamicCast(CommandBasePtr ptr);
       virtual bool isValid() const override;
       virtual std::string documentation() const override;
@@ -106,6 +109,11 @@ namespace Sdx
       // **** parametersDict ****
       std::map<std::string, double> parametersDict() const;
       void setParametersDict(const std::map<std::string, double>& parametersDict);
+
+
+      // **** dataSetTypes ****
+      Sdx::optional<std::vector<std::string>> dataSetTypes() const;
+      void setDataSetTypes(const Sdx::optional<std::vector<std::string>>& dataSetTypes);
     };
     
   }

@@ -23,16 +23,17 @@ namespace Sdx
       : CommandBase(CmdName)
     {}
 
-    EnableLogNmea::EnableLogNmea(bool enabled)
+    EnableLogNmea::EnableLogNmea(bool enabled, const Sdx::optional<bool>& serialPortEnabled)
       : CommandBase(CmdName)
     {
 
       setEnabled(enabled);
+      setSerialPortEnabled(serialPortEnabled);
     }
 
-    EnableLogNmeaPtr EnableLogNmea::create(bool enabled)
+    EnableLogNmeaPtr EnableLogNmea::create(bool enabled, const Sdx::optional<bool>& serialPortEnabled)
     {
-      return std::make_shared<EnableLogNmea>(enabled);
+      return std::make_shared<EnableLogNmea>(enabled, serialPortEnabled);
     }
 
     EnableLogNmeaPtr EnableLogNmea::dynamicCast(CommandBasePtr ptr)
@@ -45,6 +46,7 @@ namespace Sdx
       
         return m_values.IsObject()
           && parse_json<bool>::is_valid(m_values["Enabled"])
+          && parse_json<Sdx::optional<bool>>::is_valid(m_values["SerialPortEnabled"])
         ;
 
     }
@@ -66,6 +68,18 @@ namespace Sdx
     void EnableLogNmea::setEnabled(bool enabled)
     {
       m_values.AddMember("Enabled", parse_json<bool>::format(enabled, m_values.GetAllocator()), m_values.GetAllocator());
+    }
+
+
+
+    Sdx::optional<bool> EnableLogNmea::serialPortEnabled() const
+    {
+      return parse_json<Sdx::optional<bool>>::parse(m_values["SerialPortEnabled"]);
+    }
+
+    void EnableLogNmea::setSerialPortEnabled(const Sdx::optional<bool>& serialPortEnabled)
+    {
+      m_values.AddMember("SerialPortEnabled", parse_json<Sdx::optional<bool>>::format(serialPortEnabled, m_values.GetAllocator()), m_values.GetAllocator());
     }
 
 

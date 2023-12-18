@@ -8,7 +8,7 @@ namespace Sdx
   /// The different GNSS bands
   ///
   
-  enum class GNSSBand : int { L1, L2, L5, E6 };
+  enum class GNSSBand : int { L1, L2, L5, E6, S };
 }
 
 template<>
