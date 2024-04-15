@@ -1,8 +1,7 @@
 
-#include "gen/IsIonoOffsetEnabled.h"
+#include "IsIonoOffsetEnabled.h"
 
 #include "command_factory.h"
-#include "command_result_factory.h"
 #include "parse_json.hpp"
 
 ///
@@ -15,12 +14,14 @@ namespace Sdx
   {
     const char* const IsIonoOffsetEnabled::CmdName = "IsIonoOffsetEnabled";
     const char* const IsIonoOffsetEnabled::Documentation = "Get whether the ionospheric offsets grid should be applied to the ionosphere";
+    const char* const IsIonoOffsetEnabled::TargetId = "";
 
-    REGISTER_COMMAND_FACTORY(IsIonoOffsetEnabled);
+    REGISTER_COMMAND_TO_FACTORY_DECL(IsIonoOffsetEnabled);
+    REGISTER_COMMAND_TO_FACTORY_IMPL(IsIonoOffsetEnabled);
 
 
     IsIonoOffsetEnabled::IsIonoOffsetEnabled()
-      : CommandBase(CmdName)
+      : CommandBase(CmdName, TargetId)
     {
 
     }
@@ -44,6 +45,12 @@ namespace Sdx
     }
 
     std::string IsIonoOffsetEnabled::documentation() const { return Documentation; }
+
+    const std::vector<std::string>& IsIonoOffsetEnabled::fieldNames() const 
+    { 
+      static const std::vector<std::string> names {}; 
+      return names; 
+    }
 
 
     int IsIonoOffsetEnabled::executePermission() const

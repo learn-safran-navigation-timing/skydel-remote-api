@@ -1,8 +1,7 @@
 
-#include "gen/CalibratePilotOutput.h"
+#include "CalibratePilotOutput.h"
 
 #include "command_factory.h"
-#include "command_result_factory.h"
 #include "parse_json.hpp"
 
 ///
@@ -14,17 +13,26 @@ namespace Sdx
   namespace Cmd
   {
     const char* const CalibratePilotOutput::CmdName = "CalibratePilotOutput";
-    const char* const CalibratePilotOutput::Documentation = "Calibrate a pilot output";
+    const char* const CalibratePilotOutput::Documentation = "Calibrate a pilot output\n"
+      "\n"
+      "Name         Type   Description\n"
+      "------------ ------ ---------------------------------------------------\n"
+      "OutputIdx    int    RF Output index (zero-based)\n"
+      "Power        double Power (dB), relative to transmitter reference power\n"
+      "Time         double Code time offset in second\n"
+      "CarrierPhase double Carrier phase offset in radians";
+    const char* const CalibratePilotOutput::TargetId = "";
 
-    REGISTER_COMMAND_FACTORY(CalibratePilotOutput);
+    REGISTER_COMMAND_TO_FACTORY_DECL(CalibratePilotOutput);
+    REGISTER_COMMAND_TO_FACTORY_IMPL(CalibratePilotOutput);
 
 
     CalibratePilotOutput::CalibratePilotOutput()
-      : CommandBase(CmdName)
+      : CommandBase(CmdName, TargetId)
     {}
 
     CalibratePilotOutput::CalibratePilotOutput(int outputIdx, double power, double time, double carrierPhase)
-      : CommandBase(CmdName)
+      : CommandBase(CmdName, TargetId)
     {
 
       setOutputIdx(outputIdx);
@@ -56,6 +64,12 @@ namespace Sdx
     }
 
     std::string CalibratePilotOutput::documentation() const { return Documentation; }
+
+    const std::vector<std::string>& CalibratePilotOutput::fieldNames() const 
+    { 
+      static const std::vector<std::string> names {"OutputIdx", "Power", "Time", "CarrierPhase"}; 
+      return names; 
+    }
 
 
     int CalibratePilotOutput::executePermission() const

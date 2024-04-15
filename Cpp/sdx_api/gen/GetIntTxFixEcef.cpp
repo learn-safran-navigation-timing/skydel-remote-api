@@ -1,8 +1,7 @@
 
-#include "gen/GetIntTxFixEcef.h"
+#include "GetIntTxFixEcef.h"
 
 #include "command_factory.h"
-#include "command_result_factory.h"
 #include "parse_json.hpp"
 
 ///
@@ -14,17 +13,23 @@ namespace Sdx
   namespace Cmd
   {
     const char* const GetIntTxFixEcef::CmdName = "GetIntTxFixEcef";
-    const char* const GetIntTxFixEcef::Documentation = "Get interference transmitter static position and orientation";
+    const char* const GetIntTxFixEcef::Documentation = "Get interference transmitter static position and orientation\n"
+      "\n"
+      "Name Type   Description\n"
+      "---- ------ ------------------------------\n"
+      "Id   string Transmitter unique identifier.";
+    const char* const GetIntTxFixEcef::TargetId = "";
 
-    REGISTER_COMMAND_FACTORY(GetIntTxFixEcef);
+    REGISTER_COMMAND_TO_FACTORY_DECL(GetIntTxFixEcef);
+    REGISTER_COMMAND_TO_FACTORY_IMPL(GetIntTxFixEcef);
 
 
     GetIntTxFixEcef::GetIntTxFixEcef()
-      : CommandBase(CmdName)
+      : CommandBase(CmdName, TargetId)
     {}
 
     GetIntTxFixEcef::GetIntTxFixEcef(const std::string& id)
-      : CommandBase(CmdName)
+      : CommandBase(CmdName, TargetId)
     {
 
       setId(id);
@@ -50,6 +55,12 @@ namespace Sdx
     }
 
     std::string GetIntTxFixEcef::documentation() const { return Documentation; }
+
+    const std::vector<std::string>& GetIntTxFixEcef::fieldNames() const 
+    { 
+      static const std::vector<std::string> names {"Id"}; 
+      return names; 
+    }
 
 
     int GetIntTxFixEcef::executePermission() const

@@ -1,8 +1,7 @@
 
-#include "gen/GetIonoGridGIVEIAllResult.h"
+#include "GetIonoGridGIVEIAllResult.h"
 
 #include "command_factory.h"
-#include "command_result_factory.h"
 #include "parse_json.hpp"
 
 ///
@@ -14,17 +13,23 @@ namespace Sdx
   namespace Cmd
   {
     const char* const GetIonoGridGIVEIAllResult::CmdName = "GetIonoGridGIVEIAllResult";
-    const char* const GetIonoGridGIVEIAllResult::Documentation = "Result of GetIonoGridGIVEIAll.";
+    const char* const GetIonoGridGIVEIAllResult::Documentation = "Result of GetIonoGridGIVEIAll.\n"
+      "\n"
+      "Name            Type            Description\n"
+      "--------------- --------------- ----------------------------------------------------------------------\n"
+      "Grid            array array int Array containing each band, each band is an array containing the GIVEI\n"
+      "ServiceProvider optional string The service provider (optional)";
+    const char* const GetIonoGridGIVEIAllResult::TargetId = "";
 
-    REGISTER_COMMAND_RESULT_TO_FACTORY_IMPL(GetIonoGridGIVEIAllResult);
+    REGISTER_COMMAND_TO_FACTORY_IMPL(GetIonoGridGIVEIAllResult);
 
 
     GetIonoGridGIVEIAllResult::GetIonoGridGIVEIAllResult()
-      : CommandResult(CmdName)
+      : CommandResult(CmdName, TargetId)
     {}
 
     GetIonoGridGIVEIAllResult::GetIonoGridGIVEIAllResult(const std::vector<std::vector<int>>& grid, const Sdx::optional<std::string>& serviceProvider)
-      : CommandResult(CmdName)
+      : CommandResult(CmdName, TargetId)
     {
 
       setGrid(grid);
@@ -32,7 +37,7 @@ namespace Sdx
     }
 
     GetIonoGridGIVEIAllResult::GetIonoGridGIVEIAllResult(CommandBasePtr relatedCommand, const std::vector<std::vector<int>>& grid, const Sdx::optional<std::string>& serviceProvider)
-      : CommandResult(CmdName, relatedCommand)
+      : CommandResult(CmdName, TargetId, relatedCommand)
     {
 
       setGrid(grid);
@@ -66,6 +71,12 @@ namespace Sdx
     }
 
     std::string GetIonoGridGIVEIAllResult::documentation() const { return Documentation; }
+
+    const std::vector<std::string>& GetIonoGridGIVEIAllResult::fieldNames() const 
+    { 
+      static const std::vector<std::string> names {"Grid", "ServiceProvider"}; 
+      return names; 
+    }
 
 
     std::vector<std::vector<int>> GetIonoGridGIVEIAllResult::grid() const

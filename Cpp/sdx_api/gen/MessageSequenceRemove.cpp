@@ -1,8 +1,7 @@
 
-#include "gen/MessageSequenceRemove.h"
+#include "MessageSequenceRemove.h"
 
 #include "command_factory.h"
-#include "command_result_factory.h"
 #include "parse_json.hpp"
 
 ///
@@ -14,17 +13,24 @@ namespace Sdx
   namespace Cmd
   {
     const char* const MessageSequenceRemove::CmdName = "MessageSequenceRemove";
-    const char* const MessageSequenceRemove::Documentation = "Remove message from sequence.";
+    const char* const MessageSequenceRemove::Documentation = "Remove message from sequence.\n"
+      "\n"
+      "Name   Type   Description\n"
+      "------ ------ ----------------------------------------------------------------------------------------\n"
+      "Signal string Signal Name (\"L2C\" for example)\n"
+      "Index  int    Message index in sequence where to remove. Set to -1 to remove last message in sequence.";
+    const char* const MessageSequenceRemove::TargetId = "";
 
-    REGISTER_COMMAND_FACTORY(MessageSequenceRemove);
+    REGISTER_COMMAND_TO_FACTORY_DECL(MessageSequenceRemove);
+    REGISTER_COMMAND_TO_FACTORY_IMPL(MessageSequenceRemove);
 
 
     MessageSequenceRemove::MessageSequenceRemove()
-      : CommandBase(CmdName)
+      : CommandBase(CmdName, TargetId)
     {}
 
     MessageSequenceRemove::MessageSequenceRemove(const std::string& signal, int index)
-      : CommandBase(CmdName)
+      : CommandBase(CmdName, TargetId)
     {
 
       setSignal(signal);
@@ -52,6 +58,12 @@ namespace Sdx
     }
 
     std::string MessageSequenceRemove::documentation() const { return Documentation; }
+
+    const std::vector<std::string>& MessageSequenceRemove::fieldNames() const 
+    { 
+      static const std::vector<std::string> names {"Signal", "Index"}; 
+      return names; 
+    }
 
 
     int MessageSequenceRemove::executePermission() const

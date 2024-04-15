@@ -1,8 +1,7 @@
 
-#include "gen/GetConstellationParameterForSV.h"
+#include "GetConstellationParameterForSV.h"
 
 #include "command_factory.h"
-#include "command_result_factory.h"
 #include "parse_json.hpp"
 
 ///
@@ -14,17 +13,77 @@ namespace Sdx
   namespace Cmd
   {
     const char* const GetConstellationParameterForSV::CmdName = "GetConstellationParameterForSV";
-    const char* const GetConstellationParameterForSV::Documentation = "Get \"GPS\", \"Galileo\", \"BeiDou\", \"QZSS\" or \"NavIC\" constellation parameter value.\n\nGeneral constellation parameters:\n\n  Unit         Type     ParamName\n  sec          double   \"ClockBias\"\n  sec/sec      double   \"ClockDrift\"\n  sec/sec^2    double   \"ClockDriftRate\"\n  meter        double   \"Crs\", \"Crc\", \"Accuracy\"\n  meter/sec    double   \"Adot\"\n  rad          double   \"Cis\", \"Cic\", \"Cus\", \"Cuc\", \"M0\", \"BigOmega\", \"I0\", \"LittleOmega\"\n  rad/sec      double   \"DeltaN\", \"BigOmegaDot\", \"Idot\" \n  rad/sec^2    double   \"DeltaN0dot\"\n  sqrt(meter)  double   \"SqrtA\"  \n  -            double   \"Eccentricity\"\n  -            integer  \"Week Number\", \"Toe\", \"Transmission Time\"\n\nGPS:\n\n  Unit         Type     ParamName\n  sec          double   \"Tgd\", \"IscL1Ca\", \"IscL2C\", \"IscL5I5\", \"IscL5Q5\", \"IscL1CP\", \"IscL1CD\", \"IscL1ME\", \"IscL2ME\", \"IscL1MR\", \"IscL2MR\"\n  sec          integer  \"Fit interval\"\n  -            integer  \"IODE\", \"IODC\", \"UraIndex\"\n  -            boolean  \"IscL1CaAvailable\", \"IscL2CAvailable\", \"IscL5I5Available\", \"IscL5Q5Available\", \"IscL1CPAvailable\", \"IscL1CDAvailable\", \"IscL1MEAvailable\", \"IscL2MEAvailable\", \"IscL1MRAvailable\", \"IscL2MRAvailable\"\n\nGalileo:\n\n  Unit         Type     ParamName\n  sec          double   \"Tgd\"\n  ns           double   \"BgdE1E5a\", \"BgdE1E5b\"\n  -            integer  \"SisaE1E5a\", \"SisaE1E5b\", \"IODNAV\" \n\nBeiDou:\n\n  Unit         Type     ParamName\n  sec          double   \"Tgd1\", \"Tgd2\", \"TgdB1Cp\", \"TgdB2Ap\"\n  -            integer  \"IODE\", \"IODC\", \"AODE\", \"AODC\"\n  -            boolean  \"IscB1CdAvailable\", \"IscB2adAvailable\"\n\nQZSS:\n\n  Unit         Type     ParamName\n  sec          double   \"Tgd\", \"IscL1Ca\", \"IscL2C\", \"IscL5I5\", \"IscL5Q5\", \"IscL1CP\", \"IscL1CD\"\n  sec          integer  \"Fit interval\"\n  -            integer  \"IODE\", \"IODC\", \"UraIndex\"\n  -            boolean  \"IscL1CaAvailable\", \"IscL2CAvailable\", \"IscL5I5Available\", \"IscL5Q5Available\", \"IscL1CPAvailable\", \"IscL1CDAvailable\"\n\nNavIC:\n\n  Unit         Type     ParamName\n  sec          double   \"Tgd\"\n  -            integer  \"IODEC\", \"UraIndex\"";
+    const char* const GetConstellationParameterForSV::Documentation = "Get \"GPS\", \"Galileo\", \"BeiDou\", \"QZSS\", \"NavIC\" or \"PULSAR\" constellation parameter value.\n"
+      "\n"
+      "General constellation parameters:\n"
+      "\n"
+      "  Unit         Type     ParamName\n"
+      "  sec          double   \"ClockBias\"\n"
+      "  sec/sec      double   \"ClockDrift\"\n"
+      "  sec/sec^2    double   \"ClockDriftRate\"\n"
+      "  meter        double   \"Crs\", \"Crc\", \"Accuracy\"\n"
+      "  meter/sec    double   \"Adot\"\n"
+      "  rad          double   \"Cis\", \"Cic\", \"Cus\", \"Cuc\", \"M0\", \"BigOmega\", \"I0\", \"LittleOmega\"\n"
+      "  rad/sec      double   \"DeltaN\", \"BigOmegaDot\", \"Idot\" \n"
+      "  rad/sec^2    double   \"DeltaN0dot\"\n"
+      "  sqrt(meter)  double   \"SqrtA\"  \n"
+      "  -            double   \"Eccentricity\"\n"
+      "  -            integer  \"Week Number\", \"Toe\", \"Transmission Time\"\n"
+      "\n"
+      "GPS:\n"
+      "\n"
+      "  Unit         Type     ParamName\n"
+      "  sec          double   \"Tgd\", \"IscL1Ca\", \"IscL2C\", \"IscL5I5\", \"IscL5Q5\", \"IscL1CP\", \"IscL1CD\", \"IscL1ME\", \"IscL2ME\", \"IscL1MR\", \"IscL2MR\"\n"
+      "  sec          integer  \"Fit interval\"\n"
+      "  -            integer  \"IODE\", \"IODC\", \"UraIndex\"\n"
+      "  -            boolean  \"IscL1CaAvailable\", \"IscL2CAvailable\", \"IscL5I5Available\", \"IscL5Q5Available\", \"IscL1CPAvailable\", \"IscL1CDAvailable\", \"IscL1MEAvailable\", \"IscL2MEAvailable\", \"IscL1MRAvailable\", \"IscL2MRAvailable\"\n"
+      "\n"
+      "Galileo:\n"
+      "\n"
+      "  Unit         Type     ParamName\n"
+      "  sec          double   \"Tgd\"\n"
+      "  ns           double   \"BgdE1E5a\", \"BgdE1E5b\"\n"
+      "  -            integer  \"SisaE1E5a\", \"SisaE1E5b\", \"IODNAV\" \n"
+      "\n"
+      "BeiDou:\n"
+      "\n"
+      "  Unit         Type     ParamName\n"
+      "  sec          double   \"Tgd1\", \"Tgd2\", \"TgdB1Cp\", \"TgdB2Ap\"\n"
+      "  -            integer  \"IODE\", \"IODC\", \"AODE\", \"AODC\"\n"
+      "  -            boolean  \"IscB1CdAvailable\", \"IscB2adAvailable\"\n"
+      "\n"
+      "QZSS:\n"
+      "\n"
+      "  Unit         Type     ParamName\n"
+      "  sec          double   \"Tgd\", \"IscL1Ca\", \"IscL2C\", \"IscL5I5\", \"IscL5Q5\", \"IscL1CP\", \"IscL1CD\"\n"
+      "  sec          integer  \"Fit interval\"\n"
+      "  -            integer  \"IODE\", \"IODC\", \"UraIndex\"\n"
+      "  -            boolean  \"IscL1CaAvailable\", \"IscL2CAvailable\", \"IscL5I5Available\", \"IscL5Q5Available\", \"IscL1CPAvailable\", \"IscL1CDAvailable\"\n"
+      "\n"
+      "NavIC:\n"
+      "\n"
+      "  Unit         Type     ParamName\n"
+      "  sec          double   \"Tgd\"\n"
+      "  -            integer  \"IODEC\", \"UraIndex\"\n"
+      "\n"
+      "Name        Type            Description\n"
+      "----------- --------------- -------------------------------------------------------------------------------------------\n"
+      "System      string          \"GPS\", \"Galileo\", \"BeiDou\", \"QZSS\", \"NavIC\" or \"PULSAR\".\n"
+      "SvId        int             The Satellite SV ID, or use 0 to apply new value to all satellites.\n"
+      "ParamName   string          Parameter name (see table above for accepted names).\n"
+      "DataSetName optional string Optional name of the data set to use. If no value is provided, the active data set is used.";
+    const char* const GetConstellationParameterForSV::TargetId = "";
 
-    REGISTER_COMMAND_FACTORY(GetConstellationParameterForSV);
+    REGISTER_COMMAND_TO_FACTORY_DECL(GetConstellationParameterForSV);
+    REGISTER_COMMAND_TO_FACTORY_IMPL(GetConstellationParameterForSV);
 
 
     GetConstellationParameterForSV::GetConstellationParameterForSV()
-      : CommandBase(CmdName)
+      : CommandBase(CmdName, TargetId)
     {}
 
     GetConstellationParameterForSV::GetConstellationParameterForSV(const std::string& system, int svId, const std::string& paramName, const Sdx::optional<std::string>& dataSetName)
-      : CommandBase(CmdName)
+      : CommandBase(CmdName, TargetId)
     {
 
       setSystem(system);
@@ -56,6 +115,12 @@ namespace Sdx
     }
 
     std::string GetConstellationParameterForSV::documentation() const { return Documentation; }
+
+    const std::vector<std::string>& GetConstellationParameterForSV::fieldNames() const 
+    { 
+      static const std::vector<std::string> names {"System", "SvId", "ParamName", "DataSetName"}; 
+      return names; 
+    }
 
 
     int GetConstellationParameterForSV::executePermission() const

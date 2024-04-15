@@ -1,8 +1,7 @@
 
-#include "gen/SetAllSatellitesPseudorangeNoiseOffset.h"
+#include "SetAllSatellitesPseudorangeNoiseOffset.h"
 
 #include "command_factory.h"
-#include "command_result_factory.h"
 #include "parse_json.hpp"
 
 ///
@@ -14,17 +13,27 @@ namespace Sdx
   namespace Cmd
   {
     const char* const SetAllSatellitesPseudorangeNoiseOffset::CmdName = "SetAllSatellitesPseudorangeNoiseOffset";
-    const char* const SetAllSatellitesPseudorangeNoiseOffset::Documentation = "Please note the command SetAllSatellitesPseudorangeNoiseOffset is deprecated since 21.3. You may use SetPseudorangeNoiseOffsetForEachSV.\n\nSet the satellite pseudorange noise constant offset for all satellites.";
+    const char* const SetAllSatellitesPseudorangeNoiseOffset::Documentation = "Please note the command SetAllSatellitesPseudorangeNoiseOffset is deprecated since 21.3. You may use SetPseudorangeNoiseOffsetForEachSV.\n"
+      "\n"
+      "Set the satellite pseudorange noise constant offset for all satellites.\n"
+      "\n"
+      "Name    Type         Description\n"
+      "------- ------------ --------------------------------------------------------------------------\n"
+      "System  string       \"GPS\", \"GLONASS\", \"Galileo\", \"BeiDou\", \"SBAS\", \"QZSS\", \"NavIC\" or \"PULSAR\"\n"
+      "Enabled array bool   If true, the offset is enabled (applied)\n"
+      "Offset  array double The constant offset in metters";
+    const char* const SetAllSatellitesPseudorangeNoiseOffset::TargetId = "";
 
-    REGISTER_COMMAND_FACTORY(SetAllSatellitesPseudorangeNoiseOffset);
+    REGISTER_COMMAND_TO_FACTORY_DECL(SetAllSatellitesPseudorangeNoiseOffset);
+    REGISTER_COMMAND_TO_FACTORY_IMPL(SetAllSatellitesPseudorangeNoiseOffset);
 
 
     SetAllSatellitesPseudorangeNoiseOffset::SetAllSatellitesPseudorangeNoiseOffset()
-      : CommandBase(CmdName)
+      : CommandBase(CmdName, TargetId)
     {}
 
     SetAllSatellitesPseudorangeNoiseOffset::SetAllSatellitesPseudorangeNoiseOffset(const std::string& system, const std::vector<bool>& enabled, const std::vector<double>& offset)
-      : CommandBase(CmdName)
+      : CommandBase(CmdName, TargetId)
     {
 
       setSystem(system);
@@ -54,6 +63,12 @@ namespace Sdx
     }
 
     std::string SetAllSatellitesPseudorangeNoiseOffset::documentation() const { return Documentation; }
+
+    const std::vector<std::string>& SetAllSatellitesPseudorangeNoiseOffset::fieldNames() const 
+    { 
+      static const std::vector<std::string> names {"System", "Enabled", "Offset"}; 
+      return names; 
+    }
 
 
     int SetAllSatellitesPseudorangeNoiseOffset::executePermission() const

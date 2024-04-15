@@ -1,8 +1,7 @@
 
-#include "gen/SetNavICL5HealthForSV.h"
+#include "SetNavICL5HealthForSV.h"
 
 #include "command_factory.h"
-#include "command_result_factory.h"
 #include "parse_json.hpp"
 
 ///
@@ -14,17 +13,25 @@ namespace Sdx
   namespace Cmd
   {
     const char* const SetNavICL5HealthForSV::CmdName = "SetNavICL5HealthForSV";
-    const char* const SetNavICL5HealthForSV::Documentation = "Set NavIC L5 health (Health of L5 signal)";
+    const char* const SetNavICL5HealthForSV::Documentation = "Set NavIC L5 health (Health of L5 signal)\n"
+      "\n"
+      "Name        Type            Description\n"
+      "----------- --------------- -------------------------------------------------------------------------------------------\n"
+      "SvId        int             Satellite SV ID 1..14, or use 0 to apply new value to all satellites.\n"
+      "Health      bool            L5 health, false = signal OK, true = signal bad\n"
+      "DataSetName optional string Optional name of the data set to use. If no value is provided, the active data set is used.";
+    const char* const SetNavICL5HealthForSV::TargetId = "";
 
-    REGISTER_COMMAND_FACTORY(SetNavICL5HealthForSV);
+    REGISTER_COMMAND_TO_FACTORY_DECL(SetNavICL5HealthForSV);
+    REGISTER_COMMAND_TO_FACTORY_IMPL(SetNavICL5HealthForSV);
 
 
     SetNavICL5HealthForSV::SetNavICL5HealthForSV()
-      : CommandBase(CmdName)
+      : CommandBase(CmdName, TargetId)
     {}
 
     SetNavICL5HealthForSV::SetNavICL5HealthForSV(int svId, bool health, const Sdx::optional<std::string>& dataSetName)
-      : CommandBase(CmdName)
+      : CommandBase(CmdName, TargetId)
     {
 
       setSvId(svId);
@@ -54,6 +61,12 @@ namespace Sdx
     }
 
     std::string SetNavICL5HealthForSV::documentation() const { return Documentation; }
+
+    const std::vector<std::string>& SetNavICL5HealthForSV::fieldNames() const 
+    { 
+      static const std::vector<std::string> names {"SvId", "Health", "DataSetName"}; 
+      return names; 
+    }
 
 
     int SetNavICL5HealthForSV::executePermission() const

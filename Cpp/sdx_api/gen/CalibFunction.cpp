@@ -1,8 +1,7 @@
 
-#include "gen/CalibFunction.h"
+#include "CalibFunction.h"
 
 #include "command_factory.h"
-#include "command_result_factory.h"
 #include "parse_json.hpp"
 
 ///
@@ -14,17 +13,27 @@ namespace Sdx
   namespace Cmd
   {
     const char* const CalibFunction::CmdName = "CalibFunction";
-    const char* const CalibFunction::Documentation = "Skydel special calibration function, internal use only";
+    const char* const CalibFunction::Documentation = "Skydel special calibration function, internal use only\n"
+      "\n"
+      "Name          Type   Description\n"
+      "------------- ------ -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------\n"
+      "SvId          int    SV ID for GPS, Galileo, BeiDou, GLONASS, QZSS and SBAS.\n"
+      "Signal        string Accepted signal keys: \"L1CA\", \"L1C\", \"L1P\", \"L1ME\", \"L1MR\", \"L2C\", \"L2P\", \"L2ME\", \"L2MR\", \"L5\", \"G1\", \"G2\", \"E1\", \"E5a\", \"E5b\", \"B1\", \"B2\", \"B1C\", \"B2a\", \"B3I\", \"SBASL1\", \"QZSSL1CA\", \"QZSSL1CB\", \"QZSSL1C\", \"QZSSL2C\", \"QZSSL5\", \"QZSSL1S\", \"QZSSL5S\"\n"
+      "EnableSV      bool   Enable/Disable multiplication by satellite and Navigation Message\n"
+      "EnableDoppler bool   Enable/Disable Doppler Frequency and Phase offset\n"
+      "PhaseOffet    double Carrier Phase Offset applied to Line Of Sight";
+    const char* const CalibFunction::TargetId = "";
 
-    REGISTER_COMMAND_FACTORY(CalibFunction);
+    REGISTER_COMMAND_TO_FACTORY_DECL(CalibFunction);
+    REGISTER_COMMAND_TO_FACTORY_IMPL(CalibFunction);
 
 
     CalibFunction::CalibFunction()
-      : CommandBase(CmdName)
+      : CommandBase(CmdName, TargetId)
     {}
 
     CalibFunction::CalibFunction(int svId, const std::string& signal, bool enableSV, bool enableDoppler, double phaseOffet)
-      : CommandBase(CmdName)
+      : CommandBase(CmdName, TargetId)
     {
 
       setSvId(svId);
@@ -58,6 +67,12 @@ namespace Sdx
     }
 
     std::string CalibFunction::documentation() const { return Documentation; }
+
+    const std::vector<std::string>& CalibFunction::fieldNames() const 
+    { 
+      static const std::vector<std::string> names {"SvId", "Signal", "EnableSV", "EnableDoppler", "PhaseOffet"}; 
+      return names; 
+    }
 
 
     int CalibFunction::executePermission() const

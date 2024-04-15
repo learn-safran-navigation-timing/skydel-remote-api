@@ -1,8 +1,7 @@
 
-#include "gen/SetSVAntennaModelForEachSV.h"
+#include "SetSVAntennaModelForEachSV.h"
 
 #include "command_factory.h"
-#include "command_result_factory.h"
 #include "parse_json.hpp"
 
 ///
@@ -14,17 +13,24 @@ namespace Sdx
   namespace Cmd
   {
     const char* const SetSVAntennaModelForEachSV::CmdName = "SetSVAntennaModelForEachSV";
-    const char* const SetSVAntennaModelForEachSV::Documentation = "Set the antenna model for all satellites.";
+    const char* const SetSVAntennaModelForEachSV::Documentation = "Set the antenna model for all satellites.\n"
+      "\n"
+      "Name              Type         Description\n"
+      "----------------- ------------ -----------------------------------------------------------------------------------------------------\n"
+      "System            string       \"GPS\", \"GLONASS\", \"Galileo\", \"BeiDou\", \"SBAS\", \"QZSS\", \"NavIC\" or \"PULSAR\"\n"
+      "AntennaModelNames array string Antenna model name for each satellite. Zero based index (index 0 => SV ID 1, index 1 => SV ID 2, etc)";
+    const char* const SetSVAntennaModelForEachSV::TargetId = "";
 
-    REGISTER_COMMAND_FACTORY(SetSVAntennaModelForEachSV);
+    REGISTER_COMMAND_TO_FACTORY_DECL(SetSVAntennaModelForEachSV);
+    REGISTER_COMMAND_TO_FACTORY_IMPL(SetSVAntennaModelForEachSV);
 
 
     SetSVAntennaModelForEachSV::SetSVAntennaModelForEachSV()
-      : CommandBase(CmdName)
+      : CommandBase(CmdName, TargetId)
     {}
 
     SetSVAntennaModelForEachSV::SetSVAntennaModelForEachSV(const std::string& system, const std::vector<std::string>& antennaModelNames)
-      : CommandBase(CmdName)
+      : CommandBase(CmdName, TargetId)
     {
 
       setSystem(system);
@@ -52,6 +58,12 @@ namespace Sdx
     }
 
     std::string SetSVAntennaModelForEachSV::documentation() const { return Documentation; }
+
+    const std::vector<std::string>& SetSVAntennaModelForEachSV::fieldNames() const 
+    { 
+      static const std::vector<std::string> names {"System", "AntennaModelNames"}; 
+      return names; 
+    }
 
 
     int SetSVAntennaModelForEachSV::executePermission() const

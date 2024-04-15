@@ -2,7 +2,7 @@
 
 #include <memory>
 #include "command_result.h"
-#include "command_result_factory.h"
+#include "command_factory.h"
 #include <string>
 #include <vector>
 
@@ -15,7 +15,7 @@ namespace Sdx
     ///
     /// Name              Type         Description
     /// ----------------- ------------ -----------------------------------------------------------------------------------------------------
-    /// System            string       "GPS", "GLONASS", "Galileo", "BeiDou", "SBAS", "QZSS" or "NavIC"
+    /// System            string       "GPS", "GLONASS", "Galileo", "BeiDou", "SBAS", "QZSS", "NavIC" or "PULSAR"
     /// AntennaModelNames array string Antenna model name for each satellite. Zero based index (index 0 => SV ID 1, index 1 => SV ID 2, etc)
     ///
 
@@ -28,6 +28,7 @@ namespace Sdx
     public:
       static const char* const CmdName;
       static const char* const Documentation;
+      static const char* const TargetId;
 
 
       GetSVAntennaModelForEachSVResult();
@@ -42,6 +43,7 @@ namespace Sdx
       static GetSVAntennaModelForEachSVResultPtr dynamicCast(CommandBasePtr ptr);
       virtual bool isValid() const override;
       virtual std::string documentation() const override;
+      virtual const std::vector<std::string>& fieldNames() const override;
 
 
       // **** system ****
@@ -53,7 +55,7 @@ namespace Sdx
       std::vector<std::string> antennaModelNames() const;
       void setAntennaModelNames(const std::vector<std::string>& antennaModelNames);
     };
-    REGISTER_COMMAND_RESULT_TO_FACTORY_DECL(GetSVAntennaModelForEachSVResult);
+    REGISTER_COMMAND_TO_FACTORY_DECL(GetSVAntennaModelForEachSVResult);
   }
 }
 

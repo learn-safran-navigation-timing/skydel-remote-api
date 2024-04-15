@@ -1,8 +1,7 @@
 
-#include "gen/GetQzssL5HealthForSV.h"
+#include "GetQzssL5HealthForSV.h"
 
 #include "command_factory.h"
-#include "command_result_factory.h"
 #include "parse_json.hpp"
 
 ///
@@ -14,17 +13,24 @@ namespace Sdx
   namespace Cmd
   {
     const char* const GetQzssL5HealthForSV::CmdName = "GetQzssL5HealthForSV";
-    const char* const GetQzssL5HealthForSV::Documentation = "Get QZSS L5 health (Health of L5 signal)";
+    const char* const GetQzssL5HealthForSV::Documentation = "Get QZSS L5 health (Health of L5 signal)\n"
+      "\n"
+      "Name        Type            Description\n"
+      "----------- --------------- -------------------------------------------------------------------------------------------\n"
+      "SvId        int             Satellite SV ID 1..10, or use 0 to apply new value to all satellites.\n"
+      "DataSetName optional string Optional name of the data set to use. If no value is provided, the active data set is used.";
+    const char* const GetQzssL5HealthForSV::TargetId = "";
 
-    REGISTER_COMMAND_FACTORY(GetQzssL5HealthForSV);
+    REGISTER_COMMAND_TO_FACTORY_DECL(GetQzssL5HealthForSV);
+    REGISTER_COMMAND_TO_FACTORY_IMPL(GetQzssL5HealthForSV);
 
 
     GetQzssL5HealthForSV::GetQzssL5HealthForSV()
-      : CommandBase(CmdName)
+      : CommandBase(CmdName, TargetId)
     {}
 
     GetQzssL5HealthForSV::GetQzssL5HealthForSV(int svId, const Sdx::optional<std::string>& dataSetName)
-      : CommandBase(CmdName)
+      : CommandBase(CmdName, TargetId)
     {
 
       setSvId(svId);
@@ -52,6 +58,12 @@ namespace Sdx
     }
 
     std::string GetQzssL5HealthForSV::documentation() const { return Documentation; }
+
+    const std::vector<std::string>& GetQzssL5HealthForSV::fieldNames() const 
+    { 
+      static const std::vector<std::string> names {"SvId", "DataSetName"}; 
+      return names; 
+    }
 
 
     int GetQzssL5HealthForSV::executePermission() const

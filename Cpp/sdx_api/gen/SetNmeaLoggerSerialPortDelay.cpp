@@ -1,8 +1,7 @@
 
-#include "gen/SetNmeaLoggerSerialPortDelay.h"
+#include "SetNmeaLoggerSerialPortDelay.h"
 
 #include "command_factory.h"
-#include "command_result_factory.h"
 #include "parse_json.hpp"
 
 ///
@@ -14,17 +13,23 @@ namespace Sdx
   namespace Cmd
   {
     const char* const SetNmeaLoggerSerialPortDelay::CmdName = "SetNmeaLoggerSerialPortDelay";
-    const char* const SetNmeaLoggerSerialPortDelay::Documentation = "Set the delay of the NMEA serial port logging.";
+    const char* const SetNmeaLoggerSerialPortDelay::Documentation = "Set the delay of the NMEA serial port logging.\n"
+      "\n"
+      "Name  Type Description\n"
+      "----- ---- ---------------------------------\n"
+      "Delay int  Delay from 0 to 100 milliseconds.";
+    const char* const SetNmeaLoggerSerialPortDelay::TargetId = "";
 
-    REGISTER_COMMAND_FACTORY(SetNmeaLoggerSerialPortDelay);
+    REGISTER_COMMAND_TO_FACTORY_DECL(SetNmeaLoggerSerialPortDelay);
+    REGISTER_COMMAND_TO_FACTORY_IMPL(SetNmeaLoggerSerialPortDelay);
 
 
     SetNmeaLoggerSerialPortDelay::SetNmeaLoggerSerialPortDelay()
-      : CommandBase(CmdName)
+      : CommandBase(CmdName, TargetId)
     {}
 
     SetNmeaLoggerSerialPortDelay::SetNmeaLoggerSerialPortDelay(int delay)
-      : CommandBase(CmdName)
+      : CommandBase(CmdName, TargetId)
     {
 
       setDelay(delay);
@@ -50,6 +55,12 @@ namespace Sdx
     }
 
     std::string SetNmeaLoggerSerialPortDelay::documentation() const { return Documentation; }
+
+    const std::vector<std::string>& SetNmeaLoggerSerialPortDelay::fieldNames() const 
+    { 
+      static const std::vector<std::string> names {"Delay"}; 
+      return names; 
+    }
 
 
     int SetNmeaLoggerSerialPortDelay::executePermission() const

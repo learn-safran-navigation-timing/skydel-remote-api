@@ -1,8 +1,7 @@
 
-#include "gen/GetMessageModificationToQzssCNav.h"
+#include "GetMessageModificationToQzssCNav.h"
 
 #include "command_factory.h"
-#include "command_result_factory.h"
 #include "parse_json.hpp"
 
 ///
@@ -14,17 +13,23 @@ namespace Sdx
   namespace Cmd
   {
     const char* const GetMessageModificationToQzssCNav::CmdName = "GetMessageModificationToQzssCNav";
-    const char* const GetMessageModificationToQzssCNav::Documentation = "Get infos about the QZSS CNAV message modification with this ID.";
+    const char* const GetMessageModificationToQzssCNav::Documentation = "Get infos about the QZSS CNAV message modification with this ID.\n"
+      "\n"
+      "Name Type   Description\n"
+      "---- ------ ------------------------------\n"
+      "Id   string Unique identifier of the event";
+    const char* const GetMessageModificationToQzssCNav::TargetId = "";
 
-    REGISTER_COMMAND_FACTORY(GetMessageModificationToQzssCNav);
+    REGISTER_COMMAND_TO_FACTORY_DECL(GetMessageModificationToQzssCNav);
+    REGISTER_COMMAND_TO_FACTORY_IMPL(GetMessageModificationToQzssCNav);
 
 
     GetMessageModificationToQzssCNav::GetMessageModificationToQzssCNav()
-      : CommandBase(CmdName)
+      : CommandBase(CmdName, TargetId)
     {}
 
     GetMessageModificationToQzssCNav::GetMessageModificationToQzssCNav(const std::string& id)
-      : CommandBase(CmdName)
+      : CommandBase(CmdName, TargetId)
     {
 
       setId(id);
@@ -50,6 +55,12 @@ namespace Sdx
     }
 
     std::string GetMessageModificationToQzssCNav::documentation() const { return Documentation; }
+
+    const std::vector<std::string>& GetMessageModificationToQzssCNav::fieldNames() const 
+    { 
+      static const std::vector<std::string> names {"Id"}; 
+      return names; 
+    }
 
 
     int GetMessageModificationToQzssCNav::executePermission() const

@@ -1,8 +1,7 @@
 
-#include "gen/SetSbasEphParamsForSV.h"
+#include "SetSbasEphParamsForSV.h"
 
 #include "command_factory.h"
-#include "command_result_factory.h"
 #include "parse_json.hpp"
 
 ///
@@ -14,17 +13,28 @@ namespace Sdx
   namespace Cmd
   {
     const char* const SetSbasEphParamsForSV::CmdName = "SetSbasEphParamsForSV";
-    const char* const SetSbasEphParamsForSV::Documentation = "Set parameters for a SBAS satellite ephemeris (runtime modification only available for health parameter)";
+    const char* const SetSbasEphParamsForSV::Documentation = "Set parameters for a SBAS satellite ephemeris (runtime modification only available for health parameter)\n"
+      "\n"
+      "Name           Type               Description\n"
+      "-------------- ------------------ --------------------------------------------------------------------------\n"
+      "SvId           int                The satellite's SV ID\n"
+      "ParamValueDict dict string:double A dictionary of param value pairs.\n"
+      "                                  Accepted keys are: \"ClockBias\", \"RelativeFrequencyBias\", \"X\", \"Y\", \"Z\",\n"
+      "                                                     \"VelocityX\", \"VelocityY\", \"VelocityZ\", \"AccelerationX\",\n"
+      "                                                     \"AccelerationY\", \"AccelerationZ\", \"Health\", \"URA\" and\n"
+      "                                                     \"UraIndex\"";
+    const char* const SetSbasEphParamsForSV::TargetId = "";
 
-    REGISTER_COMMAND_FACTORY(SetSbasEphParamsForSV);
+    REGISTER_COMMAND_TO_FACTORY_DECL(SetSbasEphParamsForSV);
+    REGISTER_COMMAND_TO_FACTORY_IMPL(SetSbasEphParamsForSV);
 
 
     SetSbasEphParamsForSV::SetSbasEphParamsForSV()
-      : CommandBase(CmdName)
+      : CommandBase(CmdName, TargetId)
     {}
 
     SetSbasEphParamsForSV::SetSbasEphParamsForSV(int svId, const std::map<std::string, double>& paramValueDict)
-      : CommandBase(CmdName)
+      : CommandBase(CmdName, TargetId)
     {
 
       setSvId(svId);
@@ -52,6 +62,12 @@ namespace Sdx
     }
 
     std::string SetSbasEphParamsForSV::documentation() const { return Documentation; }
+
+    const std::vector<std::string>& SetSbasEphParamsForSV::fieldNames() const 
+    { 
+      static const std::vector<std::string> names {"SvId", "ParamValueDict"}; 
+      return names; 
+    }
 
 
     int SetSbasEphParamsForSV::executePermission() const

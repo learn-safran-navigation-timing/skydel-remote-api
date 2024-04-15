@@ -1,8 +1,7 @@
 
-#include "gen/GetIonoGridErrorResult.h"
+#include "GetIonoGridErrorResult.h"
 
 #include "command_factory.h"
-#include "command_result_factory.h"
 #include "parse_json.hpp"
 
 ///
@@ -14,17 +13,24 @@ namespace Sdx
   namespace Cmd
   {
     const char* const GetIonoGridErrorResult::CmdName = "GetIonoGridErrorResult";
-    const char* const GetIonoGridErrorResult::Documentation = "Result of GetIonoGridError.";
+    const char* const GetIonoGridErrorResult::Documentation = "Result of GetIonoGridError.\n"
+      "\n"
+      "Name  Type   Description\n"
+      "----- ------ -------------------------------\n"
+      "Band  int    The ionospheric grid band index\n"
+      "Point int    The IGP index\n"
+      "Error double The error offset at the IGP";
+    const char* const GetIonoGridErrorResult::TargetId = "";
 
-    REGISTER_COMMAND_RESULT_TO_FACTORY_IMPL(GetIonoGridErrorResult);
+    REGISTER_COMMAND_TO_FACTORY_IMPL(GetIonoGridErrorResult);
 
 
     GetIonoGridErrorResult::GetIonoGridErrorResult()
-      : CommandResult(CmdName)
+      : CommandResult(CmdName, TargetId)
     {}
 
     GetIonoGridErrorResult::GetIonoGridErrorResult(int band, int point, double error)
-      : CommandResult(CmdName)
+      : CommandResult(CmdName, TargetId)
     {
 
       setBand(band);
@@ -33,7 +39,7 @@ namespace Sdx
     }
 
     GetIonoGridErrorResult::GetIonoGridErrorResult(CommandBasePtr relatedCommand, int band, int point, double error)
-      : CommandResult(CmdName, relatedCommand)
+      : CommandResult(CmdName, TargetId, relatedCommand)
     {
 
       setBand(band);
@@ -69,6 +75,12 @@ namespace Sdx
     }
 
     std::string GetIonoGridErrorResult::documentation() const { return Documentation; }
+
+    const std::vector<std::string>& GetIonoGridErrorResult::fieldNames() const 
+    { 
+      static const std::vector<std::string> names {"Band", "Point", "Error"}; 
+      return names; 
+    }
 
 
     int GetIonoGridErrorResult::band() const

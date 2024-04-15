@@ -1,8 +1,7 @@
 
-#include "gen/IsSimulationStopAtTrajectoryEndEnabledResult.h"
+#include "IsSimulationStopAtTrajectoryEndEnabledResult.h"
 
 #include "command_factory.h"
-#include "command_result_factory.h"
 #include "parse_json.hpp"
 
 ///
@@ -14,24 +13,29 @@ namespace Sdx
   namespace Cmd
   {
     const char* const IsSimulationStopAtTrajectoryEndEnabledResult::CmdName = "IsSimulationStopAtTrajectoryEndEnabledResult";
-    const char* const IsSimulationStopAtTrajectoryEndEnabledResult::Documentation = "Result of IsSimulationStopAtTrajectoryEndEnabled.";
+    const char* const IsSimulationStopAtTrajectoryEndEnabledResult::Documentation = "Result of IsSimulationStopAtTrajectoryEndEnabled.\n"
+      "\n"
+      "Name    Type Description\n"
+      "------- ---- ------------------------------------------------------------------------\n"
+      "Enabled bool If true, simulation will stop when the vehicle will reach trajectory end";
+    const char* const IsSimulationStopAtTrajectoryEndEnabledResult::TargetId = "";
 
-    REGISTER_COMMAND_RESULT_TO_FACTORY_IMPL(IsSimulationStopAtTrajectoryEndEnabledResult);
+    REGISTER_COMMAND_TO_FACTORY_IMPL(IsSimulationStopAtTrajectoryEndEnabledResult);
 
 
     IsSimulationStopAtTrajectoryEndEnabledResult::IsSimulationStopAtTrajectoryEndEnabledResult()
-      : CommandResult(CmdName)
+      : CommandResult(CmdName, TargetId)
     {}
 
     IsSimulationStopAtTrajectoryEndEnabledResult::IsSimulationStopAtTrajectoryEndEnabledResult(bool enabled)
-      : CommandResult(CmdName)
+      : CommandResult(CmdName, TargetId)
     {
 
       setEnabled(enabled);
     }
 
     IsSimulationStopAtTrajectoryEndEnabledResult::IsSimulationStopAtTrajectoryEndEnabledResult(CommandBasePtr relatedCommand, bool enabled)
-      : CommandResult(CmdName, relatedCommand)
+      : CommandResult(CmdName, TargetId, relatedCommand)
     {
 
       setEnabled(enabled);
@@ -63,6 +67,12 @@ namespace Sdx
     }
 
     std::string IsSimulationStopAtTrajectoryEndEnabledResult::documentation() const { return Documentation; }
+
+    const std::vector<std::string>& IsSimulationStopAtTrajectoryEndEnabledResult::fieldNames() const 
+    { 
+      static const std::vector<std::string> names {"Enabled"}; 
+      return names; 
+    }
 
 
     bool IsSimulationStopAtTrajectoryEndEnabledResult::enabled() const

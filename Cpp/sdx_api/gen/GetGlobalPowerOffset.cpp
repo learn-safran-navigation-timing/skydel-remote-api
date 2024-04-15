@@ -1,8 +1,7 @@
 
-#include "gen/GetGlobalPowerOffset.h"
+#include "GetGlobalPowerOffset.h"
 
 #include "command_factory.h"
-#include "command_result_factory.h"
 #include "parse_json.hpp"
 
 ///
@@ -15,12 +14,14 @@ namespace Sdx
   {
     const char* const GetGlobalPowerOffset::CmdName = "GetGlobalPowerOffset";
     const char* const GetGlobalPowerOffset::Documentation = "Get global power offset default value for all signals and all systems";
+    const char* const GetGlobalPowerOffset::TargetId = "";
 
-    REGISTER_COMMAND_FACTORY(GetGlobalPowerOffset);
+    REGISTER_COMMAND_TO_FACTORY_DECL(GetGlobalPowerOffset);
+    REGISTER_COMMAND_TO_FACTORY_IMPL(GetGlobalPowerOffset);
 
 
     GetGlobalPowerOffset::GetGlobalPowerOffset()
-      : CommandBase(CmdName)
+      : CommandBase(CmdName, TargetId)
     {
 
     }
@@ -44,6 +45,12 @@ namespace Sdx
     }
 
     std::string GetGlobalPowerOffset::documentation() const { return Documentation; }
+
+    const std::vector<std::string>& GetGlobalPowerOffset::fieldNames() const 
+    { 
+      static const std::vector<std::string> names {}; 
+      return names; 
+    }
 
 
     int GetGlobalPowerOffset::executePermission() const

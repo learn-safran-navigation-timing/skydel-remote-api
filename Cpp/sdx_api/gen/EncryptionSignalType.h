@@ -19,8 +19,8 @@ struct parse_json<Sdx::EncryptionSignalType>
   {
     if (!is_valid(value))
       throw std::runtime_error("Unexpected value");
-    return (Sdx::EncryptionSignalType)value.GetInt();
+    return static_cast<Sdx::EncryptionSignalType>(value.GetInt());
   }
-  static rapidjson::Value format(Sdx::EncryptionSignalType value, rapidjson::Value::AllocatorType&) { return rapidjson::Value((int)value); }
+  static rapidjson::Value format(Sdx::EncryptionSignalType value, rapidjson::Value::AllocatorType&) { return rapidjson::Value(static_cast<int>(value)); }
 };
 

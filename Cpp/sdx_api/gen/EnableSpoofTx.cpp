@@ -1,8 +1,7 @@
 
-#include "gen/EnableSpoofTx.h"
+#include "EnableSpoofTx.h"
 
 #include "command_factory.h"
-#include "command_result_factory.h"
 #include "parse_json.hpp"
 
 ///
@@ -14,17 +13,24 @@ namespace Sdx
   namespace Cmd
   {
     const char* const EnableSpoofTx::CmdName = "EnableSpoofTx";
-    const char* const EnableSpoofTx::Documentation = "Enable/Disable the spoofer.";
+    const char* const EnableSpoofTx::Documentation = "Enable/Disable the spoofer.\n"
+      "\n"
+      "Name    Type   Description\n"
+      "------- ------ ------------------------------------------------\n"
+      "Enabled bool   Enable (true) or disable (false) the transmitter\n"
+      "Id      string Transmitter unique identifier.";
+    const char* const EnableSpoofTx::TargetId = "";
 
-    REGISTER_COMMAND_FACTORY(EnableSpoofTx);
+    REGISTER_COMMAND_TO_FACTORY_DECL(EnableSpoofTx);
+    REGISTER_COMMAND_TO_FACTORY_IMPL(EnableSpoofTx);
 
 
     EnableSpoofTx::EnableSpoofTx()
-      : CommandBase(CmdName)
+      : CommandBase(CmdName, TargetId)
     {}
 
     EnableSpoofTx::EnableSpoofTx(bool enabled, const std::string& id)
-      : CommandBase(CmdName)
+      : CommandBase(CmdName, TargetId)
     {
 
       setEnabled(enabled);
@@ -52,6 +58,12 @@ namespace Sdx
     }
 
     std::string EnableSpoofTx::documentation() const { return Documentation; }
+
+    const std::vector<std::string>& EnableSpoofTx::fieldNames() const 
+    { 
+      static const std::vector<std::string> names {"Enabled", "Id"}; 
+      return names; 
+    }
 
 
     int EnableSpoofTx::executePermission() const

@@ -1,8 +1,7 @@
 
-#include "gen/EnableMultipath.h"
+#include "EnableMultipath.h"
 
 #include "command_factory.h"
-#include "command_result_factory.h"
 #include "parse_json.hpp"
 
 ///
@@ -14,17 +13,24 @@ namespace Sdx
   namespace Cmd
   {
     const char* const EnableMultipath::CmdName = "EnableMultipath";
-    const char* const EnableMultipath::Documentation = "Enable/Disable a multipath signal.";
+    const char* const EnableMultipath::Documentation = "Enable/Disable a multipath signal.\n"
+      "\n"
+      "Name    Type   Description\n"
+      "------- ------ ---------------------------------------------------------------\n"
+      "Enabled bool   Enable (true) or disable (false) multipath.\n"
+      "Id      string Unique identifier of the multipath signal to enable or disable.";
+    const char* const EnableMultipath::TargetId = "";
 
-    REGISTER_COMMAND_FACTORY(EnableMultipath);
+    REGISTER_COMMAND_TO_FACTORY_DECL(EnableMultipath);
+    REGISTER_COMMAND_TO_FACTORY_IMPL(EnableMultipath);
 
 
     EnableMultipath::EnableMultipath()
-      : CommandBase(CmdName)
+      : CommandBase(CmdName, TargetId)
     {}
 
     EnableMultipath::EnableMultipath(bool enabled, const std::string& id)
-      : CommandBase(CmdName)
+      : CommandBase(CmdName, TargetId)
     {
 
       setEnabled(enabled);
@@ -52,6 +58,12 @@ namespace Sdx
     }
 
     std::string EnableMultipath::documentation() const { return Documentation; }
+
+    const std::vector<std::string>& EnableMultipath::fieldNames() const 
+    { 
+      static const std::vector<std::string> names {"Enabled", "Id"}; 
+      return names; 
+    }
 
 
     int EnableMultipath::executePermission() const

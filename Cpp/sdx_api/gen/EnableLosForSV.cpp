@@ -1,8 +1,7 @@
 
-#include "gen/EnableLosForSV.h"
+#include "EnableLosForSV.h"
 
 #include "command_factory.h"
-#include "command_result_factory.h"
 #include "parse_json.hpp"
 
 ///
@@ -14,17 +13,25 @@ namespace Sdx
   namespace Cmd
   {
     const char* const EnableLosForSV::CmdName = "EnableLosForSV";
-    const char* const EnableLosForSV::Documentation = "Set Direct Line Of Sight signal from satellite enabled or disabled. Generally used when only multipaths signal is visible.";
+    const char* const EnableLosForSV::Documentation = "Set Direct Line Of Sight signal from satellite enabled or disabled. Generally used when only multipaths signal is visible.\n"
+      "\n"
+      "Name    Type   Description\n"
+      "------- ------ --------------------------------------------------------------------------\n"
+      "System  string \"GPS\", \"GLONASS\", \"Galileo\", \"BeiDou\", \"SBAS\", \"QZSS\", \"NavIC\" or \"PULSAR\"\n"
+      "SvId    int    The satellite's SV ID\n"
+      "Enabled bool   Direct Line of Sight enabled or not";
+    const char* const EnableLosForSV::TargetId = "";
 
-    REGISTER_COMMAND_FACTORY(EnableLosForSV);
+    REGISTER_COMMAND_TO_FACTORY_DECL(EnableLosForSV);
+    REGISTER_COMMAND_TO_FACTORY_IMPL(EnableLosForSV);
 
 
     EnableLosForSV::EnableLosForSV()
-      : CommandBase(CmdName)
+      : CommandBase(CmdName, TargetId)
     {}
 
     EnableLosForSV::EnableLosForSV(const std::string& system, int svId, bool enabled)
-      : CommandBase(CmdName)
+      : CommandBase(CmdName, TargetId)
     {
 
       setSystem(system);
@@ -54,6 +61,12 @@ namespace Sdx
     }
 
     std::string EnableLosForSV::documentation() const { return Documentation; }
+
+    const std::vector<std::string>& EnableLosForSV::fieldNames() const 
+    { 
+      static const std::vector<std::string> names {"System", "SvId", "Enabled"}; 
+      return names; 
+    }
 
 
     int EnableLosForSV::executePermission() const

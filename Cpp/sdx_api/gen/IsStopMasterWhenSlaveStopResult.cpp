@@ -1,8 +1,7 @@
 
-#include "gen/IsStopMasterWhenSlaveStopResult.h"
+#include "IsStopMasterWhenSlaveStopResult.h"
 
 #include "command_factory.h"
-#include "command_result_factory.h"
 #include "parse_json.hpp"
 
 ///
@@ -14,24 +13,29 @@ namespace Sdx
   namespace Cmd
   {
     const char* const IsStopMasterWhenSlaveStopResult::CmdName = "IsStopMasterWhenSlaveStopResult";
-    const char* const IsStopMasterWhenSlaveStopResult::Documentation = "Result of IsStopMasterWhenSlaveStop.";
+    const char* const IsStopMasterWhenSlaveStopResult::Documentation = "Result of IsStopMasterWhenSlaveStop.\n"
+      "\n"
+      "Name    Type Description\n"
+      "------- ---- ---------------------------------------\n"
+      "Enabled bool Enable master stop when slave fail flag";
+    const char* const IsStopMasterWhenSlaveStopResult::TargetId = "";
 
-    REGISTER_COMMAND_RESULT_TO_FACTORY_IMPL(IsStopMasterWhenSlaveStopResult);
+    REGISTER_COMMAND_TO_FACTORY_IMPL(IsStopMasterWhenSlaveStopResult);
 
 
     IsStopMasterWhenSlaveStopResult::IsStopMasterWhenSlaveStopResult()
-      : CommandResult(CmdName)
+      : CommandResult(CmdName, TargetId)
     {}
 
     IsStopMasterWhenSlaveStopResult::IsStopMasterWhenSlaveStopResult(bool enabled)
-      : CommandResult(CmdName)
+      : CommandResult(CmdName, TargetId)
     {
 
       setEnabled(enabled);
     }
 
     IsStopMasterWhenSlaveStopResult::IsStopMasterWhenSlaveStopResult(CommandBasePtr relatedCommand, bool enabled)
-      : CommandResult(CmdName, relatedCommand)
+      : CommandResult(CmdName, TargetId, relatedCommand)
     {
 
       setEnabled(enabled);
@@ -63,6 +67,12 @@ namespace Sdx
     }
 
     std::string IsStopMasterWhenSlaveStopResult::documentation() const { return Documentation; }
+
+    const std::vector<std::string>& IsStopMasterWhenSlaveStopResult::fieldNames() const 
+    { 
+      static const std::vector<std::string> names {"Enabled"}; 
+      return names; 
+    }
 
 
     bool IsStopMasterWhenSlaveStopResult::enabled() const

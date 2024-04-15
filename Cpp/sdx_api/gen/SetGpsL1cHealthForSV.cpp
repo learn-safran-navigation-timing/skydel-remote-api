@@ -1,8 +1,7 @@
 
-#include "gen/SetGpsL1cHealthForSV.h"
+#include "SetGpsL1cHealthForSV.h"
 
 #include "command_factory.h"
-#include "command_result_factory.h"
 #include "parse_json.hpp"
 
 ///
@@ -14,17 +13,25 @@ namespace Sdx
   namespace Cmd
   {
     const char* const SetGpsL1cHealthForSV::CmdName = "SetGpsL1cHealthForSV";
-    const char* const SetGpsL1cHealthForSV::Documentation = "Set GPS L1C health (used in CNAV2 only)";
+    const char* const SetGpsL1cHealthForSV::Documentation = "Set GPS L1C health (used in CNAV2 only)\n"
+      "\n"
+      "Name        Type            Description\n"
+      "----------- --------------- -------------------------------------------------------------------------------------------\n"
+      "SvId        int             Satellite's SV ID 1..32, or use 0 to apply new value to all satellites.\n"
+      "Health      bool            L1C health, false = signal OK, true = signal bad or unavailable\n"
+      "DataSetName optional string Optional name of the data set to use. If no value is provided, the active data set is used.";
+    const char* const SetGpsL1cHealthForSV::TargetId = "";
 
-    REGISTER_COMMAND_FACTORY(SetGpsL1cHealthForSV);
+    REGISTER_COMMAND_TO_FACTORY_DECL(SetGpsL1cHealthForSV);
+    REGISTER_COMMAND_TO_FACTORY_IMPL(SetGpsL1cHealthForSV);
 
 
     SetGpsL1cHealthForSV::SetGpsL1cHealthForSV()
-      : CommandBase(CmdName)
+      : CommandBase(CmdName, TargetId)
     {}
 
     SetGpsL1cHealthForSV::SetGpsL1cHealthForSV(int svId, bool health, const Sdx::optional<std::string>& dataSetName)
-      : CommandBase(CmdName)
+      : CommandBase(CmdName, TargetId)
     {
 
       setSvId(svId);
@@ -54,6 +61,12 @@ namespace Sdx
     }
 
     std::string SetGpsL1cHealthForSV::documentation() const { return Documentation; }
+
+    const std::vector<std::string>& SetGpsL1cHealthForSV::fieldNames() const 
+    { 
+      static const std::vector<std::string> names {"SvId", "Health", "DataSetName"}; 
+      return names; 
+    }
 
 
     int SetGpsL1cHealthForSV::executePermission() const

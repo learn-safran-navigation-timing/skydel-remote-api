@@ -1,8 +1,7 @@
 
-#include "gen/RemoveMessageModification.h"
+#include "RemoveMessageModification.h"
 
 #include "command_factory.h"
-#include "command_result_factory.h"
 #include "parse_json.hpp"
 
 ///
@@ -14,17 +13,26 @@ namespace Sdx
   namespace Cmd
   {
     const char* const RemoveMessageModification::CmdName = "RemoveMessageModification";
-    const char* const RemoveMessageModification::Documentation = "Please note the command RemoveMessageModification is deprecated since 21.3. You may use RemoveMessageModificationForSignal.\n\nRemoves the signal for the message modification.";
+    const char* const RemoveMessageModification::Documentation = "Please note the command RemoveMessageModification is deprecated since 21.3. You may use RemoveMessageModificationForSignal.\n"
+      "\n"
+      "Removes the signal for the message modification.\n"
+      "\n"
+      "Name   Type   Description\n"
+      "------ ------ --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------\n"
+      "Signal string Signal key, accepted values : \"L1CA\", \"L1C\", \"L1P\", \"L1ME\", \"L1MR\", \"L2C\", \"L2P\", \"L2ME\", \"L2MR\", \"L5\", \"G1\", \"G2\", \"E1\", \"E5a\", \"E5b\", \"B1\", \"B2\", \"B2a\", \"B1C\", \"B3I\", \"QZSSL1CA\", \"QZSSL1CB\", \"QZSSL1S\", \"NAVICL5\", \"SBASL1\", \"SBASL5\" and \"PULSARXL\"\n"
+      "Id     string Unique identifier";
+    const char* const RemoveMessageModification::TargetId = "";
 
-    REGISTER_COMMAND_FACTORY(RemoveMessageModification);
+    REGISTER_COMMAND_TO_FACTORY_DECL(RemoveMessageModification);
+    REGISTER_COMMAND_TO_FACTORY_IMPL(RemoveMessageModification);
 
 
     RemoveMessageModification::RemoveMessageModification()
-      : CommandBase(CmdName)
+      : CommandBase(CmdName, TargetId)
     {}
 
     RemoveMessageModification::RemoveMessageModification(const std::string& signal, const std::string& id)
-      : CommandBase(CmdName)
+      : CommandBase(CmdName, TargetId)
     {
 
       setSignal(signal);
@@ -52,6 +60,12 @@ namespace Sdx
     }
 
     std::string RemoveMessageModification::documentation() const { return Documentation; }
+
+    const std::vector<std::string>& RemoveMessageModification::fieldNames() const 
+    { 
+      static const std::vector<std::string> names {"Signal", "Id"}; 
+      return names; 
+    }
 
 
     int RemoveMessageModification::executePermission() const

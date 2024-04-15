@@ -13,8 +13,8 @@ namespace Sdx
     /// Set the PRN transmitted by the SV ID for this signal.
     ///
     /// Name   Type   Description
-    /// ------ ------ ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
-    /// Signal string Accepted signal keys: "L1CA", "L1C", "L2C", "L5", "E1", "E6BC", "B1", "B2", "B1C", "B2a", "B3I", "SBASL1", "SBASL5", "QZSSL1CA", "QZSSL1CB", "QZSSL1C", "QZSSL2C", "QZSSL5", "QZSSL1S", "QZSSL5S", "NAVICL5"
+    /// ------ ------ ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+    /// Signal string Accepted signal keys: "L1CA", "L1C", "L2C", "L5", "E1", "E6BC", "B1", "B2", "B1C", "B2a", "B3I", "SBASL1", "SBASL5", "QZSSL1CA", "QZSSL1CB", "QZSSL1C", "QZSSL2C", "QZSSL5", "QZSSL1S", "QZSSL5S", "NAVICL5", "PULSARXL"
     /// SvId   int    Satellite SV ID.
     /// Prn    int    PRN number.
     ///
@@ -28,6 +28,7 @@ namespace Sdx
     public:
       static const char* const CmdName;
       static const char* const Documentation;
+      static const char* const TargetId;
 
 
       SetPrnOfSVID();
@@ -38,6 +39,7 @@ namespace Sdx
       static SetPrnOfSVIDPtr dynamicCast(CommandBasePtr ptr);
       virtual bool isValid() const override;
       virtual std::string documentation() const override;
+      virtual const std::vector<std::string>& fieldNames() const override;
 
       virtual int executePermission() const override;
 

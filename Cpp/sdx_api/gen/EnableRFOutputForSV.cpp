@@ -1,8 +1,7 @@
 
-#include "gen/EnableRFOutputForSV.h"
+#include "EnableRFOutputForSV.h"
 
 #include "command_factory.h"
-#include "command_result_factory.h"
 #include "parse_json.hpp"
 
 ///
@@ -14,17 +13,25 @@ namespace Sdx
   namespace Cmd
   {
     const char* const EnableRFOutputForSV::CmdName = "EnableRFOutputForSV";
-    const char* const EnableRFOutputForSV::Documentation = "Enable (or disable) RF output for specified satellite. Use SV ID 0 to enabled/disable all satellites.";
+    const char* const EnableRFOutputForSV::Documentation = "Enable (or disable) RF output for specified satellite. Use SV ID 0 to enabled/disable all satellites.\n"
+      "\n"
+      "Name    Type   Description\n"
+      "------- ------ --------------------------------------------------------------------------\n"
+      "System  string \"GPS\", \"GLONASS\", \"Galileo\", \"BeiDou\", \"SBAS\", \"QZSS\", \"NavIC\" or \"PULSAR\"\n"
+      "SvId    int    The satellite's SV ID\n"
+      "Enabled bool   RF is enabled when value is True";
+    const char* const EnableRFOutputForSV::TargetId = "";
 
-    REGISTER_COMMAND_FACTORY(EnableRFOutputForSV);
+    REGISTER_COMMAND_TO_FACTORY_DECL(EnableRFOutputForSV);
+    REGISTER_COMMAND_TO_FACTORY_IMPL(EnableRFOutputForSV);
 
 
     EnableRFOutputForSV::EnableRFOutputForSV()
-      : CommandBase(CmdName)
+      : CommandBase(CmdName, TargetId)
     {}
 
     EnableRFOutputForSV::EnableRFOutputForSV(const std::string& system, int svId, bool enabled)
-      : CommandBase(CmdName)
+      : CommandBase(CmdName, TargetId)
     {
 
       setSystem(system);
@@ -54,6 +61,12 @@ namespace Sdx
     }
 
     std::string EnableRFOutputForSV::documentation() const { return Documentation; }
+
+    const std::vector<std::string>& EnableRFOutputForSV::fieldNames() const 
+    { 
+      static const std::vector<std::string> names {"System", "SvId", "Enabled"}; 
+      return names; 
+    }
 
 
     int EnableRFOutputForSV::executePermission() const

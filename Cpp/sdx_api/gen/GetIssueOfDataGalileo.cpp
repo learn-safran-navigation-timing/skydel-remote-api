@@ -1,8 +1,7 @@
 
-#include "gen/GetIssueOfDataGalileo.h"
+#include "GetIssueOfDataGalileo.h"
 
 #include "command_factory.h"
-#include "command_result_factory.h"
 #include "parse_json.hpp"
 
 ///
@@ -15,12 +14,14 @@ namespace Sdx
   {
     const char* const GetIssueOfDataGalileo::CmdName = "GetIssueOfDataGalileo";
     const char* const GetIssueOfDataGalileo::Documentation = "Get Galileo Issue of data, Navigation (IODNAV) and Issue of data, Almanac (IODA)";
+    const char* const GetIssueOfDataGalileo::TargetId = "";
 
-    REGISTER_COMMAND_FACTORY(GetIssueOfDataGalileo);
+    REGISTER_COMMAND_TO_FACTORY_DECL(GetIssueOfDataGalileo);
+    REGISTER_COMMAND_TO_FACTORY_IMPL(GetIssueOfDataGalileo);
 
 
     GetIssueOfDataGalileo::GetIssueOfDataGalileo()
-      : CommandBase(CmdName)
+      : CommandBase(CmdName, TargetId)
     {
 
     }
@@ -44,6 +45,12 @@ namespace Sdx
     }
 
     std::string GetIssueOfDataGalileo::documentation() const { return Documentation; }
+
+    const std::vector<std::string>& GetIssueOfDataGalileo::fieldNames() const 
+    { 
+      static const std::vector<std::string> names {}; 
+      return names; 
+    }
 
 
     int GetIssueOfDataGalileo::executePermission() const

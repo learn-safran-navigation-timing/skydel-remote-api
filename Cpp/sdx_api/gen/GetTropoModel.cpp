@@ -1,8 +1,7 @@
 
-#include "gen/GetTropoModel.h"
+#include "GetTropoModel.h"
 
 #include "command_factory.h"
-#include "command_result_factory.h"
 #include "parse_json.hpp"
 
 ///
@@ -15,12 +14,14 @@ namespace Sdx
   {
     const char* const GetTropoModel::CmdName = "GetTropoModel";
     const char* const GetTropoModel::Documentation = "Get tropospheric model";
+    const char* const GetTropoModel::TargetId = "";
 
-    REGISTER_COMMAND_FACTORY(GetTropoModel);
+    REGISTER_COMMAND_TO_FACTORY_DECL(GetTropoModel);
+    REGISTER_COMMAND_TO_FACTORY_IMPL(GetTropoModel);
 
 
     GetTropoModel::GetTropoModel()
-      : CommandBase(CmdName)
+      : CommandBase(CmdName, TargetId)
     {
 
     }
@@ -44,6 +45,12 @@ namespace Sdx
     }
 
     std::string GetTropoModel::documentation() const { return Documentation; }
+
+    const std::vector<std::string>& GetTropoModel::fieldNames() const 
+    { 
+      static const std::vector<std::string> names {}; 
+      return names; 
+    }
 
 
     int GetTropoModel::executePermission() const

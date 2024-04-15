@@ -2,7 +2,7 @@
 
 #include <memory>
 #include "command_result.h"
-#include "command_result_factory.h"
+#include "command_factory.h"
 #include <string>
 
 namespace Sdx
@@ -13,8 +13,8 @@ namespace Sdx
     /// Result of IsLosEnabledForSV.
     ///
     /// Name    Type   Description
-    /// ------- ------ ----------------------------------------------------------------
-    /// System  string "GPS", "GLONASS", "Galileo", "BeiDou", "SBAS", "QZSS" or "NavIC"
+    /// ------- ------ --------------------------------------------------------------------------
+    /// System  string "GPS", "GLONASS", "Galileo", "BeiDou", "SBAS", "QZSS", "NavIC" or "PULSAR"
     /// SvId    int    The satellite's SV ID
     /// Enabled bool   Direct Line of Sight enabled or not
     ///
@@ -28,6 +28,7 @@ namespace Sdx
     public:
       static const char* const CmdName;
       static const char* const Documentation;
+      static const char* const TargetId;
 
 
       IsLosEnabledForSVResult();
@@ -42,6 +43,7 @@ namespace Sdx
       static IsLosEnabledForSVResultPtr dynamicCast(CommandBasePtr ptr);
       virtual bool isValid() const override;
       virtual std::string documentation() const override;
+      virtual const std::vector<std::string>& fieldNames() const override;
 
 
       // **** system ****
@@ -58,7 +60,7 @@ namespace Sdx
       bool enabled() const;
       void setEnabled(bool enabled);
     };
-    REGISTER_COMMAND_RESULT_TO_FACTORY_DECL(IsLosEnabledForSVResult);
+    REGISTER_COMMAND_TO_FACTORY_DECL(IsLosEnabledForSVResult);
   }
 }
 

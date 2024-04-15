@@ -1,8 +1,7 @@
 
-#include "gen/SetWFAntennaElementEnabled.h"
+#include "SetWFAntennaElementEnabled.h"
 
 #include "command_factory.h"
-#include "command_result_factory.h"
 #include "parse_json.hpp"
 
 ///
@@ -14,19 +13,28 @@ namespace Sdx
   namespace Cmd
   {
     const char* const SetWFAntennaElementEnabled::CmdName = "SetWFAntennaElementEnabled";
-    const char* const SetWFAntennaElementEnabled::Documentation = "Please note the command SetWFAntennaElementEnabled is deprecated since 23.11. You may use SetWFElement.\n\nSet WF antenna element enabled or disabled. A disabled antenna element is not simulated at all.";
+    const char* const SetWFAntennaElementEnabled::Documentation = "Please note the command SetWFAntennaElementEnabled is deprecated since 23.11. You may use SetWFElement.\n"
+      "\n"
+      "Set WF antenna element enabled or disabled. A disabled antenna element is not simulated at all.\n"
+      "\n"
+      "Name    Type Description\n"
+      "------- ---- -------------------------------------------------\n"
+      "Element int  One-based index for element in antenna.\n"
+      "Enabled bool If True, this antenna element will bil simulated.";
+    const char* const SetWFAntennaElementEnabled::TargetId = "";
 
     const char* const SetWFAntennaElementEnabled::Deprecated = "Please note the command SetWFAntennaElementEnabled is deprecated since 23.11. You may use SetWFElement.";
 
-    REGISTER_COMMAND_FACTORY(SetWFAntennaElementEnabled);
+    REGISTER_COMMAND_TO_FACTORY_DECL(SetWFAntennaElementEnabled);
+    REGISTER_COMMAND_TO_FACTORY_IMPL(SetWFAntennaElementEnabled);
 
 
     SetWFAntennaElementEnabled::SetWFAntennaElementEnabled()
-      : CommandBase(CmdName)
+      : CommandBase(CmdName, TargetId)
     {}
 
     SetWFAntennaElementEnabled::SetWFAntennaElementEnabled(int element, bool enabled)
-      : CommandBase(CmdName)
+      : CommandBase(CmdName, TargetId)
     {
 
       setElement(element);
@@ -54,6 +62,12 @@ namespace Sdx
     }
 
     std::string SetWFAntennaElementEnabled::documentation() const { return Documentation; }
+
+    const std::vector<std::string>& SetWFAntennaElementEnabled::fieldNames() const 
+    { 
+      static const std::vector<std::string> names {"Element", "Enabled"}; 
+      return names; 
+    }
 
     Sdx::optional<std::string> SetWFAntennaElementEnabled::deprecated() const { return Sdx::optional<std::string>{Deprecated}; }
 

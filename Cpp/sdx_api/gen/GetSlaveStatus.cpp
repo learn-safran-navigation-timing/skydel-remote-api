@@ -1,8 +1,7 @@
 
-#include "gen/GetSlaveStatus.h"
+#include "GetSlaveStatus.h"
 
 #include "command_factory.h"
-#include "command_result_factory.h"
 #include "parse_json.hpp"
 
 ///
@@ -14,15 +13,19 @@ namespace Sdx
   namespace Cmd
   {
     const char* const GetSlaveStatus::CmdName = "GetSlaveStatus";
-    const char* const GetSlaveStatus::Documentation = "Please note the command GetSlaveStatus is deprecated since 23.11. You may use GetWorkerInstanceStatus.\n\nRequest for the slave status, returns a GetSlaveStatusResult";
+    const char* const GetSlaveStatus::Documentation = "Please note the command GetSlaveStatus is deprecated since 23.11. You may use GetWorkerInstanceStatus.\n"
+      "\n"
+      "Request for the slave status, returns a GetSlaveStatusResult";
+    const char* const GetSlaveStatus::TargetId = "";
 
     const char* const GetSlaveStatus::Deprecated = "Please note the command GetSlaveStatus is deprecated since 23.11. You may use GetWorkerInstanceStatus.";
 
-    REGISTER_COMMAND_FACTORY(GetSlaveStatus);
+    REGISTER_COMMAND_TO_FACTORY_DECL(GetSlaveStatus);
+    REGISTER_COMMAND_TO_FACTORY_IMPL(GetSlaveStatus);
 
 
     GetSlaveStatus::GetSlaveStatus()
-      : CommandBase(CmdName)
+      : CommandBase(CmdName, TargetId)
     {
 
     }
@@ -46,6 +49,12 @@ namespace Sdx
     }
 
     std::string GetSlaveStatus::documentation() const { return Documentation; }
+
+    const std::vector<std::string>& GetSlaveStatus::fieldNames() const 
+    { 
+      static const std::vector<std::string> names {}; 
+      return names; 
+    }
 
     Sdx::optional<std::string> GetSlaveStatus::deprecated() const { return Sdx::optional<std::string>{Deprecated}; }
 

@@ -1,8 +1,7 @@
 
-#include "gen/GetPseudorangeRampForSV.h"
+#include "GetPseudorangeRampForSV.h"
 
 #include "command_factory.h"
-#include "command_result_factory.h"
 #include "parse_json.hpp"
 
 ///
@@ -14,17 +13,36 @@ namespace Sdx
   namespace Cmd
   {
     const char* const GetPseudorangeRampForSV::CmdName = "GetPseudorangeRampForSV";
-    const char* const GetPseudorangeRampForSV::Documentation = "Get PSR ramp event. This function lets user change the pseudorange of any satellite.\nIf SV ID is set to 0, the change is applied to all satellites.\n\n          Hold Start Time\n          |         Hold Stop Time\n          |         |\n          ...........\n         ..         ...\n        ..            ...\n  .......               .........> Time\n        |               |\n        Start Time      Stop Time\n";
+    const char* const GetPseudorangeRampForSV::Documentation = "Get PSR ramp event. This function lets user change the pseudorange of any satellite.\n"
+      "If SV ID is set to 0, the change is applied to all satellites.\n"
+      "\n"
+      "          Hold Start Time\n"
+      "          |         Hold Stop Time\n"
+      "          |         |\n"
+      "          ...........\n"
+      "         ..         ...\n"
+      "        ..            ...\n"
+      "  .......               .........> Time\n"
+      "        |               |\n"
+      "        Start Time      Stop Time\n"
+      "\n"
+      "\n"
+      "Name Type   Description\n"
+      "---- ------ -----------------------------------------------------------------\n"
+      "Id   string Unique identifier automatically set by simulator if empty string.\n"
+      "            The IDs pool is common between all system.";
+    const char* const GetPseudorangeRampForSV::TargetId = "";
 
-    REGISTER_COMMAND_FACTORY(GetPseudorangeRampForSV);
+    REGISTER_COMMAND_TO_FACTORY_DECL(GetPseudorangeRampForSV);
+    REGISTER_COMMAND_TO_FACTORY_IMPL(GetPseudorangeRampForSV);
 
 
     GetPseudorangeRampForSV::GetPseudorangeRampForSV()
-      : CommandBase(CmdName)
+      : CommandBase(CmdName, TargetId)
     {}
 
     GetPseudorangeRampForSV::GetPseudorangeRampForSV(const std::string& id)
-      : CommandBase(CmdName)
+      : CommandBase(CmdName, TargetId)
     {
 
       setId(id);
@@ -50,6 +68,12 @@ namespace Sdx
     }
 
     std::string GetPseudorangeRampForSV::documentation() const { return Documentation; }
+
+    const std::vector<std::string>& GetPseudorangeRampForSV::fieldNames() const 
+    { 
+      static const std::vector<std::string> names {"Id"}; 
+      return names; 
+    }
 
 
     int GetPseudorangeRampForSV::executePermission() const

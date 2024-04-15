@@ -1,8 +1,7 @@
 
-#include "gen/IsLogNmeaEnabled.h"
+#include "IsLogNmeaEnabled.h"
 
 #include "command_factory.h"
-#include "command_result_factory.h"
 #include "parse_json.hpp"
 
 ///
@@ -14,13 +13,16 @@ namespace Sdx
   namespace Cmd
   {
     const char* const IsLogNmeaEnabled::CmdName = "IsLogNmeaEnabled";
-    const char* const IsLogNmeaEnabled::Documentation = "Get Logging of NMEA for the simulated position enable/disable.\nIf a receiver is connected, that NMEA is saved as well.";
+    const char* const IsLogNmeaEnabled::Documentation = "Get Logging of NMEA for the simulated position enable/disable.\n"
+      "If a receiver is connected, that NMEA is saved as well.";
+    const char* const IsLogNmeaEnabled::TargetId = "";
 
-    REGISTER_COMMAND_FACTORY(IsLogNmeaEnabled);
+    REGISTER_COMMAND_TO_FACTORY_DECL(IsLogNmeaEnabled);
+    REGISTER_COMMAND_TO_FACTORY_IMPL(IsLogNmeaEnabled);
 
 
     IsLogNmeaEnabled::IsLogNmeaEnabled()
-      : CommandBase(CmdName)
+      : CommandBase(CmdName, TargetId)
     {
 
     }
@@ -44,6 +46,12 @@ namespace Sdx
     }
 
     std::string IsLogNmeaEnabled::documentation() const { return Documentation; }
+
+    const std::vector<std::string>& IsLogNmeaEnabled::fieldNames() const 
+    { 
+      static const std::vector<std::string> names {}; 
+      return names; 
+    }
 
 
     int IsLogNmeaEnabled::executePermission() const

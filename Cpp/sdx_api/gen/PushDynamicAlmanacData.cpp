@@ -1,8 +1,7 @@
 
-#include "gen/PushDynamicAlmanacData.h"
+#include "PushDynamicAlmanacData.h"
 
 #include "command_factory.h"
-#include "command_result_factory.h"
 #include "parse_json.hpp"
 
 ///
@@ -14,17 +13,41 @@ namespace Sdx
   namespace Cmd
   {
     const char* const PushDynamicAlmanacData::CmdName = "PushDynamicAlmanacData";
-    const char* const PushDynamicAlmanacData::Documentation = "Push a block of data defining the orbit, clock, and other parameters for one SV.\n  ParamName           Unit\n  \"Time of ephemeris\" sec (of GPS week)\n  \"Week Number\"       week\n  \"Transmission Time\" sec (of GPS week)\n  \"ClockBias\"         sec\n  \"ClockDrift\"        sec/sec\n  \"ClockDriftRate\"    sec/sec^2\n  \"DeltaN\"            rad/sec\n  \"M0\"                rad\n  \"Eccentricity\"      -\n  \"SqrtA\"             sqrt(meter)\n  \"BigOmega\"          rad\n  \"I0\"                rad\n  \"LittleOmega\"       rad\n  \"BigOmegaDot\"       rad/sec\n  \"Idot\"              rad/sec";
+    const char* const PushDynamicAlmanacData::Documentation = "Push a block of data defining the orbit, clock, and other parameters for one SV.\n"
+      "  ParamName           Unit\n"
+      "  \"Time of ephemeris\" sec (of GPS week)\n"
+      "  \"Week Number\"       week\n"
+      "  \"Transmission Time\" sec (of GPS week)\n"
+      "  \"ClockBias\"         sec\n"
+      "  \"ClockDrift\"        sec/sec\n"
+      "  \"ClockDriftRate\"    sec/sec^2\n"
+      "  \"DeltaN\"            rad/sec\n"
+      "  \"M0\"                rad\n"
+      "  \"Eccentricity\"      -\n"
+      "  \"SqrtA\"             sqrt(meter)\n"
+      "  \"BigOmega\"          rad\n"
+      "  \"I0\"                rad\n"
+      "  \"LittleOmega\"       rad\n"
+      "  \"BigOmegaDot\"       rad/sec\n"
+      "  \"Idot\"              rad/sec\n"
+      "\n"
+      "Name    Type                Description\n"
+      "------- ------------------- --------------------------------------------------------\n"
+      "System  string              \"GPS\", \"Galileo\", \"BeiDou\", \"QZSS\", \"NavIC\" or \"PULSAR\".\n"
+      "Toa     datetime            Time of applicability.\n"
+      "Almanac array AlmanacSVData Array of almanac data for SVs.";
+    const char* const PushDynamicAlmanacData::TargetId = "";
 
-    REGISTER_COMMAND_FACTORY(PushDynamicAlmanacData);
+    REGISTER_COMMAND_TO_FACTORY_DECL(PushDynamicAlmanacData);
+    REGISTER_COMMAND_TO_FACTORY_IMPL(PushDynamicAlmanacData);
 
 
     PushDynamicAlmanacData::PushDynamicAlmanacData()
-      : CommandBase(CmdName)
+      : CommandBase(CmdName, TargetId)
     {}
 
     PushDynamicAlmanacData::PushDynamicAlmanacData(const std::string& system, const Sdx::DateTime& toa, const std::vector<Sdx::AlmanacSVData>& almanac)
-      : CommandBase(CmdName)
+      : CommandBase(CmdName, TargetId)
     {
 
       setSystem(system);
@@ -54,6 +77,12 @@ namespace Sdx
     }
 
     std::string PushDynamicAlmanacData::documentation() const { return Documentation; }
+
+    const std::vector<std::string>& PushDynamicAlmanacData::fieldNames() const 
+    { 
+      static const std::vector<std::string> names {"System", "Toa", "Almanac"}; 
+      return names; 
+    }
 
 
     int PushDynamicAlmanacData::executePermission() const

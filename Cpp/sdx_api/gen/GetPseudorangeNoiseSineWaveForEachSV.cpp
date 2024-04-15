@@ -1,8 +1,7 @@
 
-#include "gen/GetPseudorangeNoiseSineWaveForEachSV.h"
+#include "GetPseudorangeNoiseSineWaveForEachSV.h"
 
 #include "command_factory.h"
-#include "command_result_factory.h"
 #include "parse_json.hpp"
 
 ///
@@ -14,17 +13,24 @@ namespace Sdx
   namespace Cmd
   {
     const char* const GetPseudorangeNoiseSineWaveForEachSV::CmdName = "GetPseudorangeNoiseSineWaveForEachSV";
-    const char* const GetPseudorangeNoiseSineWaveForEachSV::Documentation = "Get the satellite pseudorange noise sine wave attributes for all satellites.";
+    const char* const GetPseudorangeNoiseSineWaveForEachSV::Documentation = "Get the satellite pseudorange noise sine wave attributes for all satellites.\n"
+      "\n"
+      "Name     Type   Description\n"
+      "-------- ------ --------------------------------------------------------------------------\n"
+      "System   string \"GPS\", \"GLONASS\", \"Galileo\", \"BeiDou\", \"SBAS\", \"QZSS\", \"NavIC\" or \"PULSAR\"\n"
+      "SineWave int    Sine wave number (0 or 1)";
+    const char* const GetPseudorangeNoiseSineWaveForEachSV::TargetId = "";
 
-    REGISTER_COMMAND_FACTORY(GetPseudorangeNoiseSineWaveForEachSV);
+    REGISTER_COMMAND_TO_FACTORY_DECL(GetPseudorangeNoiseSineWaveForEachSV);
+    REGISTER_COMMAND_TO_FACTORY_IMPL(GetPseudorangeNoiseSineWaveForEachSV);
 
 
     GetPseudorangeNoiseSineWaveForEachSV::GetPseudorangeNoiseSineWaveForEachSV()
-      : CommandBase(CmdName)
+      : CommandBase(CmdName, TargetId)
     {}
 
     GetPseudorangeNoiseSineWaveForEachSV::GetPseudorangeNoiseSineWaveForEachSV(const std::string& system, int sineWave)
-      : CommandBase(CmdName)
+      : CommandBase(CmdName, TargetId)
     {
 
       setSystem(system);
@@ -52,6 +58,12 @@ namespace Sdx
     }
 
     std::string GetPseudorangeNoiseSineWaveForEachSV::documentation() const { return Documentation; }
+
+    const std::vector<std::string>& GetPseudorangeNoiseSineWaveForEachSV::fieldNames() const 
+    { 
+      static const std::vector<std::string> names {"System", "SineWave"}; 
+      return names; 
+    }
 
 
     int GetPseudorangeNoiseSineWaveForEachSV::executePermission() const

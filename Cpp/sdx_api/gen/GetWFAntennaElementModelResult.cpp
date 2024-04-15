@@ -1,8 +1,7 @@
 
-#include "gen/GetWFAntennaElementModelResult.h"
+#include "GetWFAntennaElementModelResult.h"
 
 #include "command_factory.h"
-#include "command_result_factory.h"
 #include "parse_json.hpp"
 
 ///
@@ -14,17 +13,23 @@ namespace Sdx
   namespace Cmd
   {
     const char* const GetWFAntennaElementModelResult::CmdName = "GetWFAntennaElementModelResult";
-    const char* const GetWFAntennaElementModelResult::Documentation = "Result of GetWFAntennaElementModel.";
+    const char* const GetWFAntennaElementModelResult::Documentation = "Result of GetWFAntennaElementModel.\n"
+      "\n"
+      "Name             Type   Description\n"
+      "---------------- ------ ----------------------------------------------------------------------------------------------------\n"
+      "AntennaModelName string Antenna Model name to set for this element. Antenna models must be defined in vehicle antenna model.\n"
+      "Element          int    One-based index for element in antenna.";
+    const char* const GetWFAntennaElementModelResult::TargetId = "";
 
-    REGISTER_COMMAND_RESULT_TO_FACTORY_IMPL(GetWFAntennaElementModelResult);
+    REGISTER_COMMAND_TO_FACTORY_IMPL(GetWFAntennaElementModelResult);
 
 
     GetWFAntennaElementModelResult::GetWFAntennaElementModelResult()
-      : CommandResult(CmdName)
+      : CommandResult(CmdName, TargetId)
     {}
 
     GetWFAntennaElementModelResult::GetWFAntennaElementModelResult(const std::string& antennaModelName, int element)
-      : CommandResult(CmdName)
+      : CommandResult(CmdName, TargetId)
     {
 
       setAntennaModelName(antennaModelName);
@@ -32,7 +37,7 @@ namespace Sdx
     }
 
     GetWFAntennaElementModelResult::GetWFAntennaElementModelResult(CommandBasePtr relatedCommand, const std::string& antennaModelName, int element)
-      : CommandResult(CmdName, relatedCommand)
+      : CommandResult(CmdName, TargetId, relatedCommand)
     {
 
       setAntennaModelName(antennaModelName);
@@ -66,6 +71,12 @@ namespace Sdx
     }
 
     std::string GetWFAntennaElementModelResult::documentation() const { return Documentation; }
+
+    const std::vector<std::string>& GetWFAntennaElementModelResult::fieldNames() const 
+    { 
+      static const std::vector<std::string> names {"AntennaModelName", "Element"}; 
+      return names; 
+    }
 
 
     std::string GetWFAntennaElementModelResult::antennaModelName() const

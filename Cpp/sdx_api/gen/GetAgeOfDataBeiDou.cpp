@@ -1,8 +1,7 @@
 
-#include "gen/GetAgeOfDataBeiDou.h"
+#include "GetAgeOfDataBeiDou.h"
 
 #include "command_factory.h"
-#include "command_result_factory.h"
 #include "parse_json.hpp"
 
 ///
@@ -15,12 +14,14 @@ namespace Sdx
   {
     const char* const GetAgeOfDataBeiDou::CmdName = "GetAgeOfDataBeiDou";
     const char* const GetAgeOfDataBeiDou::Documentation = "Get BeiDou Age of data, Ephemeris (AODE) and Age of data, Clock (AODC)";
+    const char* const GetAgeOfDataBeiDou::TargetId = "";
 
-    REGISTER_COMMAND_FACTORY(GetAgeOfDataBeiDou);
+    REGISTER_COMMAND_TO_FACTORY_DECL(GetAgeOfDataBeiDou);
+    REGISTER_COMMAND_TO_FACTORY_IMPL(GetAgeOfDataBeiDou);
 
 
     GetAgeOfDataBeiDou::GetAgeOfDataBeiDou()
-      : CommandBase(CmdName)
+      : CommandBase(CmdName, TargetId)
     {
 
     }
@@ -44,6 +45,12 @@ namespace Sdx
     }
 
     std::string GetAgeOfDataBeiDou::documentation() const { return Documentation; }
+
+    const std::vector<std::string>& GetAgeOfDataBeiDou::fieldNames() const 
+    { 
+      static const std::vector<std::string> names {}; 
+      return names; 
+    }
 
 
     int GetAgeOfDataBeiDou::executePermission() const

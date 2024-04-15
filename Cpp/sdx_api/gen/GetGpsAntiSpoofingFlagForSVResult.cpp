@@ -1,8 +1,7 @@
 
-#include "gen/GetGpsAntiSpoofingFlagForSVResult.h"
+#include "GetGpsAntiSpoofingFlagForSVResult.h"
 
 #include "command_factory.h"
-#include "command_result_factory.h"
 #include "parse_json.hpp"
 
 ///
@@ -14,17 +13,24 @@ namespace Sdx
   namespace Cmd
   {
     const char* const GetGpsAntiSpoofingFlagForSVResult::CmdName = "GetGpsAntiSpoofingFlagForSVResult";
-    const char* const GetGpsAntiSpoofingFlagForSVResult::Documentation = "Result of GetGpsAntiSpoofingFlagForSV.";
+    const char* const GetGpsAntiSpoofingFlagForSVResult::Documentation = "Result of GetGpsAntiSpoofingFlagForSV.\n"
+      "\n"
+      "Name         Type            Description\n"
+      "------------ --------------- -------------------------------------------------------------------------------------------\n"
+      "SvId         int             Satellite's SV ID 1..32, or use 0 to apply new value to all satellites.\n"
+      "AntiSpoofing GpsASFlag       GPS Anti-Spoofing Flag.\n"
+      "DataSetName  optional string Optional name of the data set to use. If no value is provided, the active data set is used.";
+    const char* const GetGpsAntiSpoofingFlagForSVResult::TargetId = "";
 
-    REGISTER_COMMAND_RESULT_TO_FACTORY_IMPL(GetGpsAntiSpoofingFlagForSVResult);
+    REGISTER_COMMAND_TO_FACTORY_IMPL(GetGpsAntiSpoofingFlagForSVResult);
 
 
     GetGpsAntiSpoofingFlagForSVResult::GetGpsAntiSpoofingFlagForSVResult()
-      : CommandResult(CmdName)
+      : CommandResult(CmdName, TargetId)
     {}
 
     GetGpsAntiSpoofingFlagForSVResult::GetGpsAntiSpoofingFlagForSVResult(int svId, const Sdx::GpsASFlag& antiSpoofing, const Sdx::optional<std::string>& dataSetName)
-      : CommandResult(CmdName)
+      : CommandResult(CmdName, TargetId)
     {
 
       setSvId(svId);
@@ -33,7 +39,7 @@ namespace Sdx
     }
 
     GetGpsAntiSpoofingFlagForSVResult::GetGpsAntiSpoofingFlagForSVResult(CommandBasePtr relatedCommand, int svId, const Sdx::GpsASFlag& antiSpoofing, const Sdx::optional<std::string>& dataSetName)
-      : CommandResult(CmdName, relatedCommand)
+      : CommandResult(CmdName, TargetId, relatedCommand)
     {
 
       setSvId(svId);
@@ -69,6 +75,12 @@ namespace Sdx
     }
 
     std::string GetGpsAntiSpoofingFlagForSVResult::documentation() const { return Documentation; }
+
+    const std::vector<std::string>& GetGpsAntiSpoofingFlagForSVResult::fieldNames() const 
+    { 
+      static const std::vector<std::string> names {"SvId", "AntiSpoofing", "DataSetName"}; 
+      return names; 
+    }
 
 
     int GetGpsAntiSpoofingFlagForSVResult::svId() const

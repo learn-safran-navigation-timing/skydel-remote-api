@@ -1,8 +1,7 @@
 
-#include "gen/GetPseudorangeNoiseSineWaveForSVResult.h"
+#include "GetPseudorangeNoiseSineWaveForSVResult.h"
 
 #include "command_factory.h"
-#include "command_result_factory.h"
 #include "parse_json.hpp"
 
 ///
@@ -14,17 +13,28 @@ namespace Sdx
   namespace Cmd
   {
     const char* const GetPseudorangeNoiseSineWaveForSVResult::CmdName = "GetPseudorangeNoiseSineWaveForSVResult";
-    const char* const GetPseudorangeNoiseSineWaveForSVResult::Documentation = "Result of GetPseudorangeNoiseSineWaveForSV.";
+    const char* const GetPseudorangeNoiseSineWaveForSVResult::Documentation = "Result of GetPseudorangeNoiseSineWaveForSV.\n"
+      "\n"
+      "Name      Type   Description\n"
+      "--------- ------ --------------------------------------------------------------------------\n"
+      "System    string \"GPS\", \"GLONASS\", \"Galileo\", \"BeiDou\", \"SBAS\", \"QZSS\", \"NavIC\" or \"PULSAR\"\n"
+      "SvId      int    The satellite's SV ID\n"
+      "SineWave  int    Sine wave number (0 or 1)\n"
+      "Enabled   bool   If true, sine wave is enabled\n"
+      "Amplitude double Sine wave amplitude in meters\n"
+      "Period    int    Sine wave period in seconds (minimum 3 seconds)\n"
+      "Offset    double Phase offset in radians";
+    const char* const GetPseudorangeNoiseSineWaveForSVResult::TargetId = "";
 
-    REGISTER_COMMAND_RESULT_TO_FACTORY_IMPL(GetPseudorangeNoiseSineWaveForSVResult);
+    REGISTER_COMMAND_TO_FACTORY_IMPL(GetPseudorangeNoiseSineWaveForSVResult);
 
 
     GetPseudorangeNoiseSineWaveForSVResult::GetPseudorangeNoiseSineWaveForSVResult()
-      : CommandResult(CmdName)
+      : CommandResult(CmdName, TargetId)
     {}
 
     GetPseudorangeNoiseSineWaveForSVResult::GetPseudorangeNoiseSineWaveForSVResult(const std::string& system, int svId, int sineWave, bool enabled, double amplitude, int period, double offset)
-      : CommandResult(CmdName)
+      : CommandResult(CmdName, TargetId)
     {
 
       setSystem(system);
@@ -37,7 +47,7 @@ namespace Sdx
     }
 
     GetPseudorangeNoiseSineWaveForSVResult::GetPseudorangeNoiseSineWaveForSVResult(CommandBasePtr relatedCommand, const std::string& system, int svId, int sineWave, bool enabled, double amplitude, int period, double offset)
-      : CommandResult(CmdName, relatedCommand)
+      : CommandResult(CmdName, TargetId, relatedCommand)
     {
 
       setSystem(system);
@@ -81,6 +91,12 @@ namespace Sdx
     }
 
     std::string GetPseudorangeNoiseSineWaveForSVResult::documentation() const { return Documentation; }
+
+    const std::vector<std::string>& GetPseudorangeNoiseSineWaveForSVResult::fieldNames() const 
+    { 
+      static const std::vector<std::string> names {"System", "SvId", "SineWave", "Enabled", "Amplitude", "Period", "Offset"}; 
+      return names; 
+    }
 
 
     std::string GetPseudorangeNoiseSineWaveForSVResult::system() const

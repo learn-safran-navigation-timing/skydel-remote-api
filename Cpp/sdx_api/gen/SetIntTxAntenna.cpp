@@ -1,8 +1,7 @@
 
-#include "gen/SetIntTxAntenna.h"
+#include "SetIntTxAntenna.h"
 
 #include "command_factory.h"
-#include "command_result_factory.h"
 #include "parse_json.hpp"
 
 ///
@@ -14,17 +13,25 @@ namespace Sdx
   namespace Cmd
   {
     const char* const SetIntTxAntenna::CmdName = "SetIntTxAntenna";
-    const char* const SetIntTxAntenna::Documentation = "Set transmitter antenna pattern.";
+    const char* const SetIntTxAntenna::Documentation = "Set transmitter antenna pattern.\n"
+      "\n"
+      "Name Type               Description\n"
+      "---- ------------------ -------------------------------------------------------------------------------------------------------------------------\n"
+      "Gain array array double Gain matrix (dB). The first dimension will be mapped to elevation [-90, 90] and the second dimension to azimuth [0, 360[.\n"
+      "Type AntennaPatternType Pattern type\n"
+      "Id   string             Transmitter unique identifier.";
+    const char* const SetIntTxAntenna::TargetId = "";
 
-    REGISTER_COMMAND_FACTORY(SetIntTxAntenna);
+    REGISTER_COMMAND_TO_FACTORY_DECL(SetIntTxAntenna);
+    REGISTER_COMMAND_TO_FACTORY_IMPL(SetIntTxAntenna);
 
 
     SetIntTxAntenna::SetIntTxAntenna()
-      : CommandBase(CmdName)
+      : CommandBase(CmdName, TargetId)
     {}
 
     SetIntTxAntenna::SetIntTxAntenna(const std::vector<std::vector<double>>& gain, const Sdx::AntennaPatternType& type, const std::string& id)
-      : CommandBase(CmdName)
+      : CommandBase(CmdName, TargetId)
     {
 
       setGain(gain);
@@ -54,6 +61,12 @@ namespace Sdx
     }
 
     std::string SetIntTxAntenna::documentation() const { return Documentation; }
+
+    const std::vector<std::string>& SetIntTxAntenna::fieldNames() const 
+    { 
+      static const std::vector<std::string> names {"Gain", "Type", "Id"}; 
+      return names; 
+    }
 
 
     int SetIntTxAntenna::executePermission() const

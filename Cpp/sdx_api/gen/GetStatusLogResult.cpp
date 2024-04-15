@@ -1,8 +1,7 @@
 
-#include "gen/GetStatusLogResult.h"
+#include "GetStatusLogResult.h"
 
 #include "command_factory.h"
-#include "command_result_factory.h"
 #include "parse_json.hpp"
 
 ///
@@ -14,24 +13,29 @@ namespace Sdx
   namespace Cmd
   {
     const char* const GetStatusLogResult::CmdName = "GetStatusLogResult";
-    const char* const GetStatusLogResult::Documentation = "Result of GetStatusLog.";
+    const char* const GetStatusLogResult::Documentation = "Result of GetStatusLog.\n"
+      "\n"
+      "Name    Type            Description\n"
+      "------- --------------- ----------------\n"
+      "Records array LogRecord The log records.";
+    const char* const GetStatusLogResult::TargetId = "";
 
-    REGISTER_COMMAND_RESULT_TO_FACTORY_IMPL(GetStatusLogResult);
+    REGISTER_COMMAND_TO_FACTORY_IMPL(GetStatusLogResult);
 
 
     GetStatusLogResult::GetStatusLogResult()
-      : CommandResult(CmdName)
+      : CommandResult(CmdName, TargetId)
     {}
 
     GetStatusLogResult::GetStatusLogResult(const std::vector<Sdx::LogRecord>& records)
-      : CommandResult(CmdName)
+      : CommandResult(CmdName, TargetId)
     {
 
       setRecords(records);
     }
 
     GetStatusLogResult::GetStatusLogResult(CommandBasePtr relatedCommand, const std::vector<Sdx::LogRecord>& records)
-      : CommandResult(CmdName, relatedCommand)
+      : CommandResult(CmdName, TargetId, relatedCommand)
     {
 
       setRecords(records);
@@ -63,6 +67,12 @@ namespace Sdx
     }
 
     std::string GetStatusLogResult::documentation() const { return Documentation; }
+
+    const std::vector<std::string>& GetStatusLogResult::fieldNames() const 
+    { 
+      static const std::vector<std::string> names {"Records"}; 
+      return names; 
+    }
 
 
     std::vector<Sdx::LogRecord> GetStatusLogResult::records() const

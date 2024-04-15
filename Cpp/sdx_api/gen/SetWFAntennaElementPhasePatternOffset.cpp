@@ -1,8 +1,7 @@
 
-#include "gen/SetWFAntennaElementPhasePatternOffset.h"
+#include "SetWFAntennaElementPhasePatternOffset.h"
 
 #include "command_factory.h"
-#include "command_result_factory.h"
 #include "parse_json.hpp"
 
 ///
@@ -14,19 +13,28 @@ namespace Sdx
   namespace Cmd
   {
     const char* const SetWFAntennaElementPhasePatternOffset::CmdName = "SetWFAntennaElementPhasePatternOffset";
-    const char* const SetWFAntennaElementPhasePatternOffset::Documentation = "Please note the command SetWFAntennaElementPhasePatternOffset is deprecated since 23.11. You may use AddVehiclePhasePatternOffset.\n\nSet WF Antenna phase pattern offset (in rad) for this element";
+    const char* const SetWFAntennaElementPhasePatternOffset::Documentation = "Please note the command SetWFAntennaElementPhasePatternOffset is deprecated since 23.11. You may use AddVehiclePhasePatternOffset.\n"
+      "\n"
+      "Set WF Antenna phase pattern offset (in rad) for this element\n"
+      "\n"
+      "Name        Type   Description\n"
+      "----------- ------ -------------------------------------------------------------------------\n"
+      "PhaseOffset double Antenna phase pattern offset (in rad) to set for this element. [-Pi ; Pi]\n"
+      "Element     int    One-based index for element in antenna.";
+    const char* const SetWFAntennaElementPhasePatternOffset::TargetId = "";
 
     const char* const SetWFAntennaElementPhasePatternOffset::Deprecated = "Please note the command SetWFAntennaElementPhasePatternOffset is deprecated since 23.11. You may use AddVehiclePhasePatternOffset.";
 
-    REGISTER_COMMAND_FACTORY(SetWFAntennaElementPhasePatternOffset);
+    REGISTER_COMMAND_TO_FACTORY_DECL(SetWFAntennaElementPhasePatternOffset);
+    REGISTER_COMMAND_TO_FACTORY_IMPL(SetWFAntennaElementPhasePatternOffset);
 
 
     SetWFAntennaElementPhasePatternOffset::SetWFAntennaElementPhasePatternOffset()
-      : CommandBase(CmdName)
+      : CommandBase(CmdName, TargetId)
     {}
 
     SetWFAntennaElementPhasePatternOffset::SetWFAntennaElementPhasePatternOffset(double phaseOffset, int element)
-      : CommandBase(CmdName)
+      : CommandBase(CmdName, TargetId)
     {
 
       setPhaseOffset(phaseOffset);
@@ -54,6 +62,12 @@ namespace Sdx
     }
 
     std::string SetWFAntennaElementPhasePatternOffset::documentation() const { return Documentation; }
+
+    const std::vector<std::string>& SetWFAntennaElementPhasePatternOffset::fieldNames() const 
+    { 
+      static const std::vector<std::string> names {"PhaseOffset", "Element"}; 
+      return names; 
+    }
 
     Sdx::optional<std::string> SetWFAntennaElementPhasePatternOffset::deprecated() const { return Sdx::optional<std::string>{Deprecated}; }
 

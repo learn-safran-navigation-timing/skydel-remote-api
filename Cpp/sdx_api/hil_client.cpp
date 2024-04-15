@@ -88,7 +88,7 @@ bool HilClient::isVerbose() const
 
 bool HilClient::connectToHost(const std::string& ip, int port)
 {
-  m->s = (int)socket(AF_INET, SOCK_DGRAM, 0);
+  m->s = static_cast<int>(socket(AF_INET, SOCK_DGRAM, 0));
   if (m->s < 0)
   {
     m->s = -1;
@@ -106,7 +106,7 @@ bool HilClient::connectToHost(const std::string& ip, int port)
   m->servAddr.sin_family = AF_INET;
   memcpy(&m->servAddr.sin_addr.s_addr, m->server->h_addr, m->server->h_length);
   m->servAddr.sin_port = htons(static_cast<u_short>(port));
-  if (connect(m->s, (struct sockaddr*)&m->servAddr, sizeof(m->servAddr)) < 0)
+  if (connect(m->s, reinterpret_cast<sockaddr*>(&m->servAddr), sizeof(m->servAddr)) < 0)
   {
     disconnect();
     errorMessage("Unable to connect to the Simulator HIL Server");
@@ -115,7 +115,7 @@ bool HilClient::connectToHost(const std::string& ip, int port)
   m->connected = true;
 
   // Send Hello
-  char message = (char)HilMsgId_Hello;
+  char message = static_cast<char>(HilMsgId_Hello);
   return sendMessage(&message, 1);
 }
 
@@ -156,14 +156,14 @@ void append(char*& ptr, const Attitude& attitude)
 
 bool HilClient::pushEcef(double elapsedTime, const Ecef& position, const std::string& name)
 {
-  auto size = 37 + (int)name.size();
+  auto size = 37 + static_cast<int>(name.size());
   char* message = new char[size];
   char* ptr = message;
 
-  append(ptr, (char)HilMsgId_PushEcef);   // 1 bytes
-  append(ptr, elapsedTime);               // 8 bytes
-  append(ptr, position);                  // 24 bytes
-  append(ptr, (unsigned int)name.size()); // 4 bytes
+  append(ptr, static_cast<char>(HilMsgId_PushEcef));   // 1 bytes
+  append(ptr, elapsedTime);                            // 8 bytes
+  append(ptr, position);                               // 24 bytes
+  append(ptr, static_cast<unsigned int>(name.size())); // 4 bytes
 
   memcpy(ptr, name.c_str(), name.size());
   bool result = sendMessage(message, size);
@@ -173,16 +173,16 @@ bool HilClient::pushEcef(double elapsedTime, const Ecef& position, const std::st
 
 bool HilClient::pushEcef(double elapsedTime, const Ecef& position, const Ecef& velocity, const std::string& name)
 {
-  auto size = 62 + (int)name.size();
+  auto size = 62 + static_cast<int>(name.size());
   char* message = new char[size];
   char* ptr = message;
 
-  append(ptr, (char)HilMsgId_PushEcefDynamics); // 1 bytes
-  append(ptr, (char)HilDynamics::Velocity);     // 1 bytes
-  append(ptr, elapsedTime);                     // 8 bytes
-  append(ptr, position);                        // 24 bytes
-  append(ptr, velocity);                        // 24 bytes
-  append(ptr, (unsigned int)name.size());       // 4 bytes
+  append(ptr, static_cast<char>(HilMsgId_PushEcefDynamics)); // 1 bytes
+  append(ptr, static_cast<char>(HilDynamics::Velocity));     // 1 bytes
+  append(ptr, elapsedTime);                                  // 8 bytes
+  append(ptr, position);                                     // 24 bytes
+  append(ptr, velocity);                                     // 24 bytes
+  append(ptr, static_cast<unsigned int>(name.size()));       // 4 bytes
 
   memcpy(ptr, name.c_str(), name.size());
   bool result = sendMessage(message, size);
@@ -196,17 +196,17 @@ bool HilClient::pushEcef(double elapsedTime,
                          const Ecef& acceleration,
                          const std::string& name)
 {
-  auto size = 86 + (int)name.size();
+  auto size = 86 + static_cast<int>(name.size());
   char* message = new char[size];
   char* ptr = message;
 
-  append(ptr, (char)HilMsgId_PushEcefDynamics); // 1 bytes
-  append(ptr, (char)HilDynamics::Acceleration); // 1 bytes
-  append(ptr, elapsedTime);                     // 8 bytes
-  append(ptr, position);                        // 24 bytes
-  append(ptr, velocity);                        // 24 bytes
-  append(ptr, acceleration);                    // 24 bytes
-  append(ptr, (unsigned int)name.size());       // 4 bytes
+  append(ptr, static_cast<char>(HilMsgId_PushEcefDynamics)); // 1 bytes
+  append(ptr, static_cast<char>(HilDynamics::Acceleration)); // 1 bytes
+  append(ptr, elapsedTime);                                  // 8 bytes
+  append(ptr, position);                                     // 24 bytes
+  append(ptr, velocity);                                     // 24 bytes
+  append(ptr, acceleration);                                 // 24 bytes
+  append(ptr, static_cast<unsigned int>(name.size()));       // 4 bytes
 
   memcpy(ptr, name.c_str(), name.size());
   bool result = sendMessage(message, size);
@@ -221,18 +221,18 @@ bool HilClient::pushEcef(double elapsedTime,
                          const Ecef& jerk,
                          const std::string& name)
 {
-  auto size = 110 + (int)name.size();
+  auto size = 110 + static_cast<int>(name.size());
   char* message = new char[size];
   char* ptr = message;
 
-  append(ptr, (char)HilMsgId_PushEcefDynamics); // 1 bytes
-  append(ptr, (char)HilDynamics::Jerk);         // 1 bytes
-  append(ptr, elapsedTime);                     // 8 bytes
-  append(ptr, position);                        // 24 bytes
-  append(ptr, velocity);                        // 24 bytes
-  append(ptr, acceleration);                    // 24 bytes
-  append(ptr, jerk);                            // 24 bytes
-  append(ptr, (unsigned int)name.size());       // 4 bytes
+  append(ptr, static_cast<char>(HilMsgId_PushEcefDynamics)); // 1 bytes
+  append(ptr, static_cast<char>(HilDynamics::Jerk));         // 1 bytes
+  append(ptr, elapsedTime);                                  // 8 bytes
+  append(ptr, position);                                     // 24 bytes
+  append(ptr, velocity);                                     // 24 bytes
+  append(ptr, acceleration);                                 // 24 bytes
+  append(ptr, jerk);                                         // 24 bytes
+  append(ptr, static_cast<unsigned int>(name.size()));       // 4 bytes
 
   memcpy(ptr, name.c_str(), name.size());
   bool result = sendMessage(message, size);
@@ -242,15 +242,15 @@ bool HilClient::pushEcef(double elapsedTime,
 
 bool HilClient::pushEcefNed(double elapsedTime, const Ecef& position, const Attitude& attitude, const std::string& name)
 {
-  auto size = 61 + (int)name.size();
+  auto size = 61 + static_cast<int>(name.size());
   char* message = new char[size];
   char* ptr = message;
 
-  append(ptr, (char)HilMsgId_PushEcefNed); // 1 bytes
-  append(ptr, elapsedTime);                // 8 bytes
-  append(ptr, position);                   // 24 bytes
-  append(ptr, attitude);                   // 24 bytes
-  append(ptr, (unsigned int)name.size());  // 4 bytes
+  append(ptr, static_cast<char>(HilMsgId_PushEcefNed)); // 1 bytes
+  append(ptr, elapsedTime);                             // 8 bytes
+  append(ptr, position);                                // 24 bytes
+  append(ptr, attitude);                                // 24 bytes
+  append(ptr, static_cast<unsigned int>(name.size()));  // 4 bytes
 
   memcpy(ptr, name.c_str(), name.size());
   bool result = sendMessage(message, size);
@@ -265,18 +265,18 @@ bool HilClient::pushEcefNed(double elapsedTime,
                             const Attitude& angularVelocity,
                             const std::string& name)
 {
-  auto size = 110 + (int)name.size();
+  auto size = 110 + static_cast<int>(name.size());
   char* message = new char[size];
   char* ptr = message;
 
-  append(ptr, (char)HilMsgId_PushEcefNedDynamics); // 1 bytes
-  append(ptr, (char)HilDynamics::Velocity);        // 1 bytes
-  append(ptr, elapsedTime);                        // 8 bytes
-  append(ptr, position);                           // 24 bytes
-  append(ptr, attitude);                           // 24 bytes
-  append(ptr, velocity);                           // 24 bytes
-  append(ptr, angularVelocity);                    // 24 bytes
-  append(ptr, (unsigned int)name.size());          // 4 bytes
+  append(ptr, static_cast<char>(HilMsgId_PushEcefNedDynamics)); // 1 bytes
+  append(ptr, static_cast<char>(HilDynamics::Velocity));        // 1 bytes
+  append(ptr, elapsedTime);                                     // 8 bytes
+  append(ptr, position);                                        // 24 bytes
+  append(ptr, attitude);                                        // 24 bytes
+  append(ptr, velocity);                                        // 24 bytes
+  append(ptr, angularVelocity);                                 // 24 bytes
+  append(ptr, static_cast<unsigned int>(name.size()));          // 4 bytes
 
   memcpy(ptr, name.c_str(), name.size());
   bool result = sendMessage(message, size);
@@ -293,20 +293,20 @@ bool HilClient::pushEcefNed(double elapsedTime,
                             const Attitude& angularAcceleration,
                             const std::string& name)
 {
-  auto size = 158 + (int)name.size();
+  auto size = 158 + static_cast<int>(name.size());
   char* message = new char[size];
   char* ptr = message;
 
-  append(ptr, (char)HilMsgId_PushEcefNedDynamics); // 1 bytes
-  append(ptr, (char)HilDynamics::Acceleration);    // 1 bytes
-  append(ptr, elapsedTime);                        // 8 bytes
-  append(ptr, position);                           // 24 bytes
-  append(ptr, attitude);                           // 24 bytes
-  append(ptr, velocity);                           // 24 bytes
-  append(ptr, angularVelocity);                    // 24 bytes
-  append(ptr, acceleration);                       // 24 bytes
-  append(ptr, angularAcceleration);                // 24 bytes
-  append(ptr, (unsigned int)name.size());          // 4 bytes
+  append(ptr, static_cast<char>(HilMsgId_PushEcefNedDynamics)); // 1 bytes
+  append(ptr, static_cast<char>(HilDynamics::Acceleration));    // 1 bytes
+  append(ptr, elapsedTime);                                     // 8 bytes
+  append(ptr, position);                                        // 24 bytes
+  append(ptr, attitude);                                        // 24 bytes
+  append(ptr, velocity);                                        // 24 bytes
+  append(ptr, angularVelocity);                                 // 24 bytes
+  append(ptr, acceleration);                                    // 24 bytes
+  append(ptr, angularAcceleration);                             // 24 bytes
+  append(ptr, static_cast<unsigned int>(name.size()));          // 4 bytes
 
   memcpy(ptr, name.c_str(), name.size());
   bool result = sendMessage(message, size);
@@ -325,22 +325,22 @@ bool HilClient::pushEcefNed(double elapsedTime,
                             const Attitude& angularJerk,
                             const std::string& name)
 {
-  auto size = 206 + (int)name.size();
+  auto size = 206 + static_cast<int>(name.size());
   char* message = new char[size];
   char* ptr = message;
 
-  append(ptr, (char)HilMsgId_PushEcefNedDynamics); // 1 bytes
-  append(ptr, (char)HilDynamics::Jerk);            // 1 bytes
-  append(ptr, elapsedTime);                        // 8 bytes
-  append(ptr, position);                           // 24 bytes
-  append(ptr, attitude);                           // 24 bytes
-  append(ptr, velocity);                           // 24 bytes
-  append(ptr, angularVelocity);                    // 24 bytes
-  append(ptr, acceleration);                       // 24 bytes
-  append(ptr, angularAcceleration);                // 24 bytes
-  append(ptr, jerk);                               // 24 bytes
-  append(ptr, angularJerk);                        // 24 bytes
-  append(ptr, (unsigned int)name.size());          // 4 bytes
+  append(ptr, static_cast<char>(HilMsgId_PushEcefNedDynamics)); // 1 bytes
+  append(ptr, static_cast<char>(HilDynamics::Jerk));            // 1 bytes
+  append(ptr, elapsedTime);                                     // 8 bytes
+  append(ptr, position);                                        // 24 bytes
+  append(ptr, attitude);                                        // 24 bytes
+  append(ptr, velocity);                                        // 24 bytes
+  append(ptr, angularVelocity);                                 // 24 bytes
+  append(ptr, acceleration);                                    // 24 bytes
+  append(ptr, angularAcceleration);                             // 24 bytes
+  append(ptr, jerk);                                            // 24 bytes
+  append(ptr, angularJerk);                                     // 24 bytes
+  append(ptr, static_cast<unsigned int>(name.size()));          // 4 bytes
 
   memcpy(ptr, name.c_str(), name.size());
   bool result = sendMessage(message, size);
@@ -426,7 +426,7 @@ bool HilClient::recvNextVehicleInfo(VehicleInfo& simStats)
 
 bool HilClient::recvVehicleInfo(VehicleInfo& simStats)
 {
-  if (m->message[0] == (char)HilMsgId_VehicleInfo)
+  if (m->message[0] == static_cast<char>(HilMsgId_VehicleInfo))
   {
     memcpy(&simStats.elapsedTime, &m->message[1], 8);
     memcpy(&simStats.ecef, &m->message[9], 24);
@@ -447,7 +447,7 @@ void HilClient::disconnect()
     return;
 
   // Send Bye
-  char message = (char)HilMsgId_Bye;
+  char message = static_cast<char>(HilMsgId_Bye);
   sendMessage(&message, 1);
 
 #ifdef _WIN32

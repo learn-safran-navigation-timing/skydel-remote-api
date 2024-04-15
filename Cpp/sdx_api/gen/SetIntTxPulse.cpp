@@ -1,8 +1,7 @@
 
-#include "gen/SetIntTxPulse.h"
+#include "SetIntTxPulse.h"
 
 #include "command_factory.h"
-#include "command_result_factory.h"
 #include "parse_json.hpp"
 
 ///
@@ -14,17 +13,30 @@ namespace Sdx
   namespace Cmd
   {
     const char* const SetIntTxPulse::CmdName = "SetIntTxPulse";
-    const char* const SetIntTxPulse::Documentation = "Set pulse signal interference.";
+    const char* const SetIntTxPulse::Documentation = "Set pulse signal interference.\n"
+      "\n"
+      "Name          Type         Description\n"
+      "------------- ------------ --------------------------------------------------------------\n"
+      "Enabled       bool         Enable (true) or disable (false) the signal\n"
+      "CentralFreq   double       Central frequency (Hz)\n"
+      "Power         double       Power (dB), relative to transmitter reference power\n"
+      "DutyCycle     double       Duty Cycle between 0.01 and 100, as a percentage of Pulse Rate\n"
+      "PulseRate     int          Pulse rate (Hz), between 1 and 100000\n"
+      "TransmitterId string       Transmitter unique identifier.\n"
+      "SignalId      string       Pulse unique identifier.\n"
+      "Group         optional int Group, if not using default group.";
+    const char* const SetIntTxPulse::TargetId = "";
 
-    REGISTER_COMMAND_FACTORY(SetIntTxPulse);
+    REGISTER_COMMAND_TO_FACTORY_DECL(SetIntTxPulse);
+    REGISTER_COMMAND_TO_FACTORY_IMPL(SetIntTxPulse);
 
 
     SetIntTxPulse::SetIntTxPulse()
-      : CommandBase(CmdName)
+      : CommandBase(CmdName, TargetId)
     {}
 
     SetIntTxPulse::SetIntTxPulse(bool enabled, double centralFreq, double power, double dutyCycle, int pulseRate, const std::string& transmitterId, const std::string& signalId, const Sdx::optional<int>& group)
-      : CommandBase(CmdName)
+      : CommandBase(CmdName, TargetId)
     {
 
       setEnabled(enabled);
@@ -64,6 +76,12 @@ namespace Sdx
     }
 
     std::string SetIntTxPulse::documentation() const { return Documentation; }
+
+    const std::vector<std::string>& SetIntTxPulse::fieldNames() const 
+    { 
+      static const std::vector<std::string> names {"Enabled", "CentralFreq", "Power", "DutyCycle", "PulseRate", "TransmitterId", "SignalId", "Group"}; 
+      return names; 
+    }
 
 
     int SetIntTxPulse::executePermission() const

@@ -1,8 +1,7 @@
 
-#include "gen/GetLogNmeaRate.h"
+#include "GetLogNmeaRate.h"
 
 #include "command_factory.h"
-#include "command_result_factory.h"
 #include "parse_json.hpp"
 
 ///
@@ -15,12 +14,14 @@ namespace Sdx
   {
     const char* const GetLogNmeaRate::CmdName = "GetLogNmeaRate";
     const char* const GetLogNmeaRate::Documentation = "Get Rate logging of NMEA data";
+    const char* const GetLogNmeaRate::TargetId = "";
 
-    REGISTER_COMMAND_FACTORY(GetLogNmeaRate);
+    REGISTER_COMMAND_TO_FACTORY_DECL(GetLogNmeaRate);
+    REGISTER_COMMAND_TO_FACTORY_IMPL(GetLogNmeaRate);
 
 
     GetLogNmeaRate::GetLogNmeaRate()
-      : CommandBase(CmdName)
+      : CommandBase(CmdName, TargetId)
     {
 
     }
@@ -44,6 +45,12 @@ namespace Sdx
     }
 
     std::string GetLogNmeaRate::documentation() const { return Documentation; }
+
+    const std::vector<std::string>& GetLogNmeaRate::fieldNames() const 
+    { 
+      static const std::vector<std::string> names {}; 
+      return names; 
+    }
 
 
     int GetLogNmeaRate::executePermission() const

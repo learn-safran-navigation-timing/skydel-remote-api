@@ -1,8 +1,7 @@
 
-#include "gen/ResetManualPowerOffsets.h"
+#include "ResetManualPowerOffsets.h"
 
 #include "command_factory.h"
-#include "command_result_factory.h"
 #include "parse_json.hpp"
 
 ///
@@ -14,17 +13,23 @@ namespace Sdx
   namespace Cmd
   {
     const char* const ResetManualPowerOffsets::CmdName = "ResetManualPowerOffsets";
-    const char* const ResetManualPowerOffsets::Documentation = "Reset power offset for all satellites is specified system to default value";
+    const char* const ResetManualPowerOffsets::Documentation = "Reset power offset for all satellites is specified system to default value\n"
+      "\n"
+      "Name   Type   Description\n"
+      "------ ------ ---------------------------------------------------------------------------\n"
+      "System string \"GPS\", \"GLONASS\", \"Galileo\", \"BeiDou\", \"SBAS\", \"QZSS\", \"NavIC\" or \"PULSAR\".";
+    const char* const ResetManualPowerOffsets::TargetId = "";
 
-    REGISTER_COMMAND_FACTORY(ResetManualPowerOffsets);
+    REGISTER_COMMAND_TO_FACTORY_DECL(ResetManualPowerOffsets);
+    REGISTER_COMMAND_TO_FACTORY_IMPL(ResetManualPowerOffsets);
 
 
     ResetManualPowerOffsets::ResetManualPowerOffsets()
-      : CommandBase(CmdName)
+      : CommandBase(CmdName, TargetId)
     {}
 
     ResetManualPowerOffsets::ResetManualPowerOffsets(const std::string& system)
-      : CommandBase(CmdName)
+      : CommandBase(CmdName, TargetId)
     {
 
       setSystem(system);
@@ -50,6 +55,12 @@ namespace Sdx
     }
 
     std::string ResetManualPowerOffsets::documentation() const { return Documentation; }
+
+    const std::vector<std::string>& ResetManualPowerOffsets::fieldNames() const 
+    { 
+      static const std::vector<std::string> names {"System"}; 
+      return names; 
+    }
 
 
     int ResetManualPowerOffsets::executePermission() const

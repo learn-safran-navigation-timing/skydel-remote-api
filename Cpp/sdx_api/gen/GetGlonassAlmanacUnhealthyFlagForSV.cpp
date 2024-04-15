@@ -1,8 +1,7 @@
 
-#include "gen/GetGlonassAlmanacUnhealthyFlagForSV.h"
+#include "GetGlonassAlmanacUnhealthyFlagForSV.h"
 
 #include "command_factory.h"
-#include "command_result_factory.h"
 #include "parse_json.hpp"
 
 ///
@@ -14,17 +13,23 @@ namespace Sdx
   namespace Cmd
   {
     const char* const GetGlonassAlmanacUnhealthyFlagForSV::CmdName = "GetGlonassAlmanacUnhealthyFlagForSV";
-    const char* const GetGlonassAlmanacUnhealthyFlagForSV::Documentation = "Get GLONASS satellite Almanac Unhealthy Flag Cn";
+    const char* const GetGlonassAlmanacUnhealthyFlagForSV::Documentation = "Get GLONASS satellite Almanac Unhealthy Flag Cn\n"
+      "\n"
+      "Name Type Description\n"
+      "---- ---- ---------------------------\n"
+      "SvId int  The satellite's SV ID 1..24";
+    const char* const GetGlonassAlmanacUnhealthyFlagForSV::TargetId = "";
 
-    REGISTER_COMMAND_FACTORY(GetGlonassAlmanacUnhealthyFlagForSV);
+    REGISTER_COMMAND_TO_FACTORY_DECL(GetGlonassAlmanacUnhealthyFlagForSV);
+    REGISTER_COMMAND_TO_FACTORY_IMPL(GetGlonassAlmanacUnhealthyFlagForSV);
 
 
     GetGlonassAlmanacUnhealthyFlagForSV::GetGlonassAlmanacUnhealthyFlagForSV()
-      : CommandBase(CmdName)
+      : CommandBase(CmdName, TargetId)
     {}
 
     GetGlonassAlmanacUnhealthyFlagForSV::GetGlonassAlmanacUnhealthyFlagForSV(int svId)
-      : CommandBase(CmdName)
+      : CommandBase(CmdName, TargetId)
     {
 
       setSvId(svId);
@@ -50,6 +55,12 @@ namespace Sdx
     }
 
     std::string GetGlonassAlmanacUnhealthyFlagForSV::documentation() const { return Documentation; }
+
+    const std::vector<std::string>& GetGlonassAlmanacUnhealthyFlagForSV::fieldNames() const 
+    { 
+      static const std::vector<std::string> names {"SvId"}; 
+      return names; 
+    }
 
 
     int GetGlonassAlmanacUnhealthyFlagForSV::executePermission() const

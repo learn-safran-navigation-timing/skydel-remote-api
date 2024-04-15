@@ -1,8 +1,7 @@
 
-#include "gen/SetSpoofTxAntenna.h"
+#include "SetSpoofTxAntenna.h"
 
 #include "command_factory.h"
-#include "command_result_factory.h"
 #include "parse_json.hpp"
 
 ///
@@ -14,17 +13,25 @@ namespace Sdx
   namespace Cmd
   {
     const char* const SetSpoofTxAntenna::CmdName = "SetSpoofTxAntenna";
-    const char* const SetSpoofTxAntenna::Documentation = "Set transmitter antenna pattern.";
+    const char* const SetSpoofTxAntenna::Documentation = "Set transmitter antenna pattern.\n"
+      "\n"
+      "Name Type               Description\n"
+      "---- ------------------ -------------------------------------------------------------------------------------------------------------------------\n"
+      "Gain array array double Gain matrix (dB). The first dimension will be mapped to elevation [-90, 90] and the second dimension to azimuth [0, 360[.\n"
+      "Type AntennaPatternType Pattern type\n"
+      "Id   string             Transmitter unique identifier.";
+    const char* const SetSpoofTxAntenna::TargetId = "";
 
-    REGISTER_COMMAND_FACTORY(SetSpoofTxAntenna);
+    REGISTER_COMMAND_TO_FACTORY_DECL(SetSpoofTxAntenna);
+    REGISTER_COMMAND_TO_FACTORY_IMPL(SetSpoofTxAntenna);
 
 
     SetSpoofTxAntenna::SetSpoofTxAntenna()
-      : CommandBase(CmdName)
+      : CommandBase(CmdName, TargetId)
     {}
 
     SetSpoofTxAntenna::SetSpoofTxAntenna(const std::vector<std::vector<double>>& gain, const Sdx::AntennaPatternType& type, const std::string& id)
-      : CommandBase(CmdName)
+      : CommandBase(CmdName, TargetId)
     {
 
       setGain(gain);
@@ -54,6 +61,12 @@ namespace Sdx
     }
 
     std::string SetSpoofTxAntenna::documentation() const { return Documentation; }
+
+    const std::vector<std::string>& SetSpoofTxAntenna::fieldNames() const 
+    { 
+      static const std::vector<std::string> names {"Gain", "Type", "Id"}; 
+      return names; 
+    }
 
 
     int SetSpoofTxAntenna::executePermission() const

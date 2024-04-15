@@ -1,8 +1,7 @@
 
-#include "gen/GetNmeaLoggerSentencesResult.h"
+#include "GetNmeaLoggerSentencesResult.h"
 
 #include "command_factory.h"
-#include "command_result_factory.h"
 #include "parse_json.hpp"
 
 ///
@@ -14,24 +13,29 @@ namespace Sdx
   namespace Cmd
   {
     const char* const GetNmeaLoggerSentencesResult::CmdName = "GetNmeaLoggerSentencesResult";
-    const char* const GetNmeaLoggerSentencesResult::Documentation = "Result of GetNmeaLoggerSentences.";
+    const char* const GetNmeaLoggerSentencesResult::Documentation = "Result of GetNmeaLoggerSentences.\n"
+      "\n"
+      "Name      Type         Description\n"
+      "--------- ------------ -------------------------------------------------------------------------------------------------------\n"
+      "Sentences array string Identifiers of the NMEA sentences to generate, only \"GGA\", \"GLL\", \"GSV\", \"RMC\" and \"ZDA\" are supported.";
+    const char* const GetNmeaLoggerSentencesResult::TargetId = "";
 
-    REGISTER_COMMAND_RESULT_TO_FACTORY_IMPL(GetNmeaLoggerSentencesResult);
+    REGISTER_COMMAND_TO_FACTORY_IMPL(GetNmeaLoggerSentencesResult);
 
 
     GetNmeaLoggerSentencesResult::GetNmeaLoggerSentencesResult()
-      : CommandResult(CmdName)
+      : CommandResult(CmdName, TargetId)
     {}
 
     GetNmeaLoggerSentencesResult::GetNmeaLoggerSentencesResult(const std::vector<std::string>& sentences)
-      : CommandResult(CmdName)
+      : CommandResult(CmdName, TargetId)
     {
 
       setSentences(sentences);
     }
 
     GetNmeaLoggerSentencesResult::GetNmeaLoggerSentencesResult(CommandBasePtr relatedCommand, const std::vector<std::string>& sentences)
-      : CommandResult(CmdName, relatedCommand)
+      : CommandResult(CmdName, TargetId, relatedCommand)
     {
 
       setSentences(sentences);
@@ -63,6 +67,12 @@ namespace Sdx
     }
 
     std::string GetNmeaLoggerSentencesResult::documentation() const { return Documentation; }
+
+    const std::vector<std::string>& GetNmeaLoggerSentencesResult::fieldNames() const 
+    { 
+      static const std::vector<std::string> names {"Sentences"}; 
+      return names; 
+    }
 
 
     std::vector<std::string> GetNmeaLoggerSentencesResult::sentences() const

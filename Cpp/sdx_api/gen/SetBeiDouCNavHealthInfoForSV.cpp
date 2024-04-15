@@ -1,8 +1,7 @@
 
-#include "gen/SetBeiDouCNavHealthInfoForSV.h"
+#include "SetBeiDouCNavHealthInfoForSV.h"
 
 #include "command_factory.h"
-#include "command_result_factory.h"
 #include "parse_json.hpp"
 
 ///
@@ -14,17 +13,25 @@ namespace Sdx
   namespace Cmd
   {
     const char* const SetBeiDouCNavHealthInfoForSV::CmdName = "SetBeiDouCNavHealthInfoForSV";
-    const char* const SetBeiDouCNavHealthInfoForSV::Documentation = "Set BeiDou CNav satellite health info";
+    const char* const SetBeiDouCNavHealthInfoForSV::Documentation = "Set BeiDou CNav satellite health info\n"
+      "\n"
+      "Name        Type            Description\n"
+      "----------- --------------- -------------------------------------------------------------------------------------------\n"
+      "SvId        int             Satellite SV ID 1..35, or use 0 to apply new value to all satellites.\n"
+      "Health      int             Health Info, 8-bit integer : 0, 32, 64, 96, 128 or 255\n"
+      "DataSetName optional string Optional name of the data set to use. If no value is provided, the active data set is used.";
+    const char* const SetBeiDouCNavHealthInfoForSV::TargetId = "";
 
-    REGISTER_COMMAND_FACTORY(SetBeiDouCNavHealthInfoForSV);
+    REGISTER_COMMAND_TO_FACTORY_DECL(SetBeiDouCNavHealthInfoForSV);
+    REGISTER_COMMAND_TO_FACTORY_IMPL(SetBeiDouCNavHealthInfoForSV);
 
 
     SetBeiDouCNavHealthInfoForSV::SetBeiDouCNavHealthInfoForSV()
-      : CommandBase(CmdName)
+      : CommandBase(CmdName, TargetId)
     {}
 
     SetBeiDouCNavHealthInfoForSV::SetBeiDouCNavHealthInfoForSV(int svId, int health, const Sdx::optional<std::string>& dataSetName)
-      : CommandBase(CmdName)
+      : CommandBase(CmdName, TargetId)
     {
 
       setSvId(svId);
@@ -54,6 +61,12 @@ namespace Sdx
     }
 
     std::string SetBeiDouCNavHealthInfoForSV::documentation() const { return Documentation; }
+
+    const std::vector<std::string>& SetBeiDouCNavHealthInfoForSV::fieldNames() const 
+    { 
+      static const std::vector<std::string> names {"SvId", "Health", "DataSetName"}; 
+      return names; 
+    }
 
 
     int SetBeiDouCNavHealthInfoForSV::executePermission() const

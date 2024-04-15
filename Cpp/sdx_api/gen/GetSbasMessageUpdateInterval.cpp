@@ -1,8 +1,7 @@
 
-#include "gen/GetSbasMessageUpdateInterval.h"
+#include "GetSbasMessageUpdateInterval.h"
 
 #include "command_factory.h"
-#include "command_result_factory.h"
 #include "parse_json.hpp"
 
 ///
@@ -14,17 +13,23 @@ namespace Sdx
   namespace Cmd
   {
     const char* const GetSbasMessageUpdateInterval::CmdName = "GetSbasMessageUpdateInterval";
-    const char* const GetSbasMessageUpdateInterval::Documentation = "Get the SBAS message update interval.";
+    const char* const GetSbasMessageUpdateInterval::Documentation = "Get the SBAS message update interval.\n"
+      "\n"
+      "Name    Type Description\n"
+      "------- ---- -----------------\n"
+      "Message int  The message type.";
+    const char* const GetSbasMessageUpdateInterval::TargetId = "";
 
-    REGISTER_COMMAND_FACTORY(GetSbasMessageUpdateInterval);
+    REGISTER_COMMAND_TO_FACTORY_DECL(GetSbasMessageUpdateInterval);
+    REGISTER_COMMAND_TO_FACTORY_IMPL(GetSbasMessageUpdateInterval);
 
 
     GetSbasMessageUpdateInterval::GetSbasMessageUpdateInterval()
-      : CommandBase(CmdName)
+      : CommandBase(CmdName, TargetId)
     {}
 
     GetSbasMessageUpdateInterval::GetSbasMessageUpdateInterval(int message)
-      : CommandBase(CmdName)
+      : CommandBase(CmdName, TargetId)
     {
 
       setMessage(message);
@@ -50,6 +55,12 @@ namespace Sdx
     }
 
     std::string GetSbasMessageUpdateInterval::documentation() const { return Documentation; }
+
+    const std::vector<std::string>& GetSbasMessageUpdateInterval::fieldNames() const 
+    { 
+      static const std::vector<std::string> names {"Message"}; 
+      return names; 
+    }
 
 
     int GetSbasMessageUpdateInterval::executePermission() const

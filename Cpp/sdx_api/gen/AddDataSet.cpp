@@ -1,8 +1,7 @@
 
-#include "gen/AddDataSet.h"
+#include "AddDataSet.h"
 
 #include "command_factory.h"
-#include "command_result_factory.h"
 #include "parse_json.hpp"
 
 ///
@@ -14,17 +13,26 @@ namespace Sdx
   namespace Cmd
   {
     const char* const AddDataSet::CmdName = "AddDataSet";
-    const char* const AddDataSet::Documentation = "Add a new data set for the specified constellation. This could come from a Rinex, SEM or YUMA file for GPS. Only Rinex for the others.";
+    const char* const AddDataSet::Documentation = "Add a new data set for the specified constellation. This could come from a Rinex, SEM or YUMA file for GPS. Only Rinex for the others.\n"
+      "\n"
+      "Name        Type            Description\n"
+      "----------- --------------- --------------------------------------------------------------------------------------------------------------------\n"
+      "System      string          \"GPS\", \"Galileo\", \"BeiDou\", \"QZSS\", \"NavIC\" or \"PULSAR\"\n"
+      "Path        string          Data set file path\n"
+      "Rollover    optional int    Rollover for file types that does not precise it (YUMA, SEM). Default value is the current rollover.\n"
+      "DataSetName optional string Name of the data set to import. This parameter is optional, the default value will be the name of the imported file.";
+    const char* const AddDataSet::TargetId = "";
 
-    REGISTER_COMMAND_FACTORY(AddDataSet);
+    REGISTER_COMMAND_TO_FACTORY_DECL(AddDataSet);
+    REGISTER_COMMAND_TO_FACTORY_IMPL(AddDataSet);
 
 
     AddDataSet::AddDataSet()
-      : CommandBase(CmdName)
+      : CommandBase(CmdName, TargetId)
     {}
 
     AddDataSet::AddDataSet(const std::string& system, const std::string& path, const Sdx::optional<int>& rollover, const Sdx::optional<std::string>& dataSetName)
-      : CommandBase(CmdName)
+      : CommandBase(CmdName, TargetId)
     {
 
       setSystem(system);
@@ -56,6 +64,12 @@ namespace Sdx
     }
 
     std::string AddDataSet::documentation() const { return Documentation; }
+
+    const std::vector<std::string>& AddDataSet::fieldNames() const 
+    { 
+      static const std::vector<std::string> names {"System", "Path", "Rollover", "DataSetName"}; 
+      return names; 
+    }
 
 
     int AddDataSet::executePermission() const

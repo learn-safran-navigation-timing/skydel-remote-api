@@ -1,8 +1,7 @@
 
-#include "gen/SetIntTxChirp.h"
+#include "SetIntTxChirp.h"
 
 #include "command_factory.h"
-#include "command_result_factory.h"
 #include "parse_json.hpp"
 
 ///
@@ -14,17 +13,33 @@ namespace Sdx
   namespace Cmd
   {
     const char* const SetIntTxChirp::CmdName = "SetIntTxChirp";
-    const char* const SetIntTxChirp::Documentation = "Set Chirp signal to interference transmitter. A transmitter can combine\nmultiple signals of different types to create complex waveform. The signal id (SignalId) can be an empty\nstring. In such case, Skydel will assign a unique ID. If the signal id is already in use for the\nspecified transmitted, the existing signal is updated, ortherwise a new signal is added.";
+    const char* const SetIntTxChirp::Documentation = "Set Chirp signal to interference transmitter. A transmitter can combine\n"
+      "multiple signals of different types to create complex waveform. The signal id (SignalId) can be an empty\n"
+      "string. In such case, Skydel will assign a unique ID. If the signal id is already in use for the\n"
+      "specified transmitted, the existing signal is updated, ortherwise a new signal is added.\n"
+      "\n"
+      "Name          Type         Description\n"
+      "------------- ------------ ---------------------------------------------------\n"
+      "Enabled       bool         Enable (true) or disable (false) the signal\n"
+      "CentralFreq   double       Central frequency (Hz)\n"
+      "Power         double       Power (dB), relative to transmitter reference power\n"
+      "Bandwidth     double       Bandwidth (Hz)\n"
+      "SweepTime     double       sweep Time (us)\n"
+      "TransmitterId string       Transmitter unique identifier.\n"
+      "SignalId      string       Chirp unique identifier.\n"
+      "Group         optional int Group, if not using default group.";
+    const char* const SetIntTxChirp::TargetId = "";
 
-    REGISTER_COMMAND_FACTORY(SetIntTxChirp);
+    REGISTER_COMMAND_TO_FACTORY_DECL(SetIntTxChirp);
+    REGISTER_COMMAND_TO_FACTORY_IMPL(SetIntTxChirp);
 
 
     SetIntTxChirp::SetIntTxChirp()
-      : CommandBase(CmdName)
+      : CommandBase(CmdName, TargetId)
     {}
 
     SetIntTxChirp::SetIntTxChirp(bool enabled, double centralFreq, double power, double bandwidth, double sweepTime, const std::string& transmitterId, const std::string& signalId, const Sdx::optional<int>& group)
-      : CommandBase(CmdName)
+      : CommandBase(CmdName, TargetId)
     {
 
       setEnabled(enabled);
@@ -64,6 +79,12 @@ namespace Sdx
     }
 
     std::string SetIntTxChirp::documentation() const { return Documentation; }
+
+    const std::vector<std::string>& SetIntTxChirp::fieldNames() const 
+    { 
+      static const std::vector<std::string> names {"Enabled", "CentralFreq", "Power", "Bandwidth", "SweepTime", "TransmitterId", "SignalId", "Group"}; 
+      return names; 
+    }
 
 
     int SetIntTxChirp::executePermission() const

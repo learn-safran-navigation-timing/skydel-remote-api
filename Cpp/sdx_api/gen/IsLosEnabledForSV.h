@@ -13,8 +13,8 @@ namespace Sdx
     /// Get Direct Line Of Sight signal from satellite enabled or disabled. Generally used when only multipaths signal is visible.
     ///
     /// Name   Type   Description
-    /// ------ ------ ----------------------------------------------------------------
-    /// System string "GPS", "GLONASS", "Galileo", "BeiDou", "SBAS", "QZSS" or "NavIC"
+    /// ------ ------ --------------------------------------------------------------------------
+    /// System string "GPS", "GLONASS", "Galileo", "BeiDou", "SBAS", "QZSS", "NavIC" or "PULSAR"
     /// SvId   int    The satellite's SV ID
     ///
 
@@ -27,6 +27,7 @@ namespace Sdx
     public:
       static const char* const CmdName;
       static const char* const Documentation;
+      static const char* const TargetId;
 
 
       IsLosEnabledForSV();
@@ -37,6 +38,7 @@ namespace Sdx
       static IsLosEnabledForSVPtr dynamicCast(CommandBasePtr ptr);
       virtual bool isValid() const override;
       virtual std::string documentation() const override;
+      virtual const std::vector<std::string>& fieldNames() const override;
 
       virtual int executePermission() const override;
 

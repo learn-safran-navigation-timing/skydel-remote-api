@@ -1,8 +1,7 @@
 
-#include "gen/GetVehicleGainPatternOffset.h"
+#include "GetVehicleGainPatternOffset.h"
 
 #include "command_factory.h"
-#include "command_result_factory.h"
 #include "parse_json.hpp"
 
 ///
@@ -14,17 +13,24 @@ namespace Sdx
   namespace Cmd
   {
     const char* const GetVehicleGainPatternOffset::CmdName = "GetVehicleGainPatternOffset";
-    const char* const GetVehicleGainPatternOffset::Documentation = "Get the offset (in dB) for the antenna gain pattern of the band.";
+    const char* const GetVehicleGainPatternOffset::Documentation = "Get the offset (in dB) for the antenna gain pattern of the band.\n"
+      "\n"
+      "Name        Type            Description\n"
+      "----------- --------------- ------------------------------------------------------------------------------------\n"
+      "Band        GNSSBand        Offset will be apply to this band.\n"
+      "AntennaName optional string Vehicle antenna name. If no name is specified, apply the offset to the Basic Antenna";
+    const char* const GetVehicleGainPatternOffset::TargetId = "";
 
-    REGISTER_COMMAND_FACTORY(GetVehicleGainPatternOffset);
+    REGISTER_COMMAND_TO_FACTORY_DECL(GetVehicleGainPatternOffset);
+    REGISTER_COMMAND_TO_FACTORY_IMPL(GetVehicleGainPatternOffset);
 
 
     GetVehicleGainPatternOffset::GetVehicleGainPatternOffset()
-      : CommandBase(CmdName)
+      : CommandBase(CmdName, TargetId)
     {}
 
     GetVehicleGainPatternOffset::GetVehicleGainPatternOffset(const Sdx::GNSSBand& band, const Sdx::optional<std::string>& antennaName)
-      : CommandBase(CmdName)
+      : CommandBase(CmdName, TargetId)
     {
 
       setBand(band);
@@ -52,6 +58,12 @@ namespace Sdx
     }
 
     std::string GetVehicleGainPatternOffset::documentation() const { return Documentation; }
+
+    const std::vector<std::string>& GetVehicleGainPatternOffset::fieldNames() const 
+    { 
+      static const std::vector<std::string> names {"Band", "AntennaName"}; 
+      return names; 
+    }
 
 
     int GetVehicleGainPatternOffset::executePermission() const

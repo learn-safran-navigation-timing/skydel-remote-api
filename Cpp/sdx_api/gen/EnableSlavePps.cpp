@@ -1,8 +1,7 @@
 
-#include "gen/EnableSlavePps.h"
+#include "EnableSlavePps.h"
 
 #include "command_factory.h"
-#include "command_result_factory.h"
 #include "parse_json.hpp"
 
 ///
@@ -14,17 +13,26 @@ namespace Sdx
   namespace Cmd
   {
     const char* const EnableSlavePps::CmdName = "EnableSlavePps";
-    const char* const EnableSlavePps::Documentation = "Please note the command EnableSlavePps is deprecated since 23.11. You may use EnableWorkerInstanceSync.\n\nEnable/Disable Time Synchronization on worker instance.\nThe worker instance will wait for the main instance to synchronize the simulators.";
+    const char* const EnableSlavePps::Documentation = "Please note the command EnableSlavePps is deprecated since 23.11. You may use EnableWorkerInstanceSync.\n"
+      "\n"
+      "Enable/Disable Time Synchronization on worker instance.\n"
+      "The worker instance will wait for the main instance to synchronize the simulators.\n"
+      "\n"
+      "Name    Type Description\n"
+      "------- ---- ----------------------------------------------------------------------------------\n"
+      "Enabled bool If true, this simulator will wait for the main instance to synchronize simulators.";
+    const char* const EnableSlavePps::TargetId = "";
 
-    REGISTER_COMMAND_FACTORY(EnableSlavePps);
+    REGISTER_COMMAND_TO_FACTORY_DECL(EnableSlavePps);
+    REGISTER_COMMAND_TO_FACTORY_IMPL(EnableSlavePps);
 
 
     EnableSlavePps::EnableSlavePps()
-      : CommandBase(CmdName)
+      : CommandBase(CmdName, TargetId)
     {}
 
     EnableSlavePps::EnableSlavePps(bool enabled)
-      : CommandBase(CmdName)
+      : CommandBase(CmdName, TargetId)
     {
 
       setEnabled(enabled);
@@ -50,6 +58,12 @@ namespace Sdx
     }
 
     std::string EnableSlavePps::documentation() const { return Documentation; }
+
+    const std::vector<std::string>& EnableSlavePps::fieldNames() const 
+    { 
+      static const std::vector<std::string> names {"Enabled"}; 
+      return names; 
+    }
 
 
     int EnableSlavePps::executePermission() const

@@ -1,8 +1,7 @@
 
-#include "gen/GetVehicleTrajectoryResult.h"
+#include "GetVehicleTrajectoryResult.h"
 
 #include "command_factory.h"
-#include "command_result_factory.h"
 #include "parse_json.hpp"
 
 ///
@@ -14,24 +13,29 @@ namespace Sdx
   namespace Cmd
   {
     const char* const GetVehicleTrajectoryResult::CmdName = "GetVehicleTrajectoryResult";
-    const char* const GetVehicleTrajectoryResult::Documentation = "Result of GetVehicleTrajectory.";
+    const char* const GetVehicleTrajectoryResult::Documentation = "Result of GetVehicleTrajectory.\n"
+      "\n"
+      "Name Type   Description\n"
+      "---- ------ -----------------------------------------------------------------------\n"
+      "Type string Trajectory type (\"Fix\", \"Circular\", \"HIL\", \"Track\", \"Route\" or \"Orbit\")";
+    const char* const GetVehicleTrajectoryResult::TargetId = "";
 
-    REGISTER_COMMAND_RESULT_TO_FACTORY_IMPL(GetVehicleTrajectoryResult);
+    REGISTER_COMMAND_TO_FACTORY_IMPL(GetVehicleTrajectoryResult);
 
 
     GetVehicleTrajectoryResult::GetVehicleTrajectoryResult()
-      : CommandResult(CmdName)
+      : CommandResult(CmdName, TargetId)
     {}
 
     GetVehicleTrajectoryResult::GetVehicleTrajectoryResult(const std::string& type)
-      : CommandResult(CmdName)
+      : CommandResult(CmdName, TargetId)
     {
 
       setType(type);
     }
 
     GetVehicleTrajectoryResult::GetVehicleTrajectoryResult(CommandBasePtr relatedCommand, const std::string& type)
-      : CommandResult(CmdName, relatedCommand)
+      : CommandResult(CmdName, TargetId, relatedCommand)
     {
 
       setType(type);
@@ -63,6 +67,12 @@ namespace Sdx
     }
 
     std::string GetVehicleTrajectoryResult::documentation() const { return Documentation; }
+
+    const std::vector<std::string>& GetVehicleTrajectoryResult::fieldNames() const 
+    { 
+      static const std::vector<std::string> names {"Type"}; 
+      return names; 
+    }
 
 
     std::string GetVehicleTrajectoryResult::type() const

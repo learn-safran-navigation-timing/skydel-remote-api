@@ -1,8 +1,7 @@
 
-#include "gen/EnableSimulationStopAtTrajectoryEnd.h"
+#include "EnableSimulationStopAtTrajectoryEnd.h"
 
 #include "command_factory.h"
-#include "command_result_factory.h"
 #include "parse_json.hpp"
 
 ///
@@ -14,17 +13,23 @@ namespace Sdx
   namespace Cmd
   {
     const char* const EnableSimulationStopAtTrajectoryEnd::CmdName = "EnableSimulationStopAtTrajectoryEnd";
-    const char* const EnableSimulationStopAtTrajectoryEnd::Documentation = "Set simulation automatic stop when the vehicle reaches trajectory end enabled or disabled. Only effective with Tracks and Routes";
+    const char* const EnableSimulationStopAtTrajectoryEnd::Documentation = "Set simulation automatic stop when the vehicle reaches trajectory end enabled or disabled. Only effective with Tracks and Routes\n"
+      "\n"
+      "Name    Type Description\n"
+      "------- ---- ------------------------------------------------------------------------\n"
+      "Enabled bool If true, simulation will stop when the vehicle will reach trajectory end";
+    const char* const EnableSimulationStopAtTrajectoryEnd::TargetId = "";
 
-    REGISTER_COMMAND_FACTORY(EnableSimulationStopAtTrajectoryEnd);
+    REGISTER_COMMAND_TO_FACTORY_DECL(EnableSimulationStopAtTrajectoryEnd);
+    REGISTER_COMMAND_TO_FACTORY_IMPL(EnableSimulationStopAtTrajectoryEnd);
 
 
     EnableSimulationStopAtTrajectoryEnd::EnableSimulationStopAtTrajectoryEnd()
-      : CommandBase(CmdName)
+      : CommandBase(CmdName, TargetId)
     {}
 
     EnableSimulationStopAtTrajectoryEnd::EnableSimulationStopAtTrajectoryEnd(bool enabled)
-      : CommandBase(CmdName)
+      : CommandBase(CmdName, TargetId)
     {
 
       setEnabled(enabled);
@@ -50,6 +55,12 @@ namespace Sdx
     }
 
     std::string EnableSimulationStopAtTrajectoryEnd::documentation() const { return Documentation; }
+
+    const std::vector<std::string>& EnableSimulationStopAtTrajectoryEnd::fieldNames() const 
+    { 
+      static const std::vector<std::string> names {"Enabled"}; 
+      return names; 
+    }
 
 
     int EnableSimulationStopAtTrajectoryEnd::executePermission() const

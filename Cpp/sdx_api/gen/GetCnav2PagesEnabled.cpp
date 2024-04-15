@@ -1,8 +1,7 @@
 
-#include "gen/GetCnav2PagesEnabled.h"
+#include "GetCnav2PagesEnabled.h"
 
 #include "command_factory.h"
-#include "command_result_factory.h"
 #include "parse_json.hpp"
 
 ///
@@ -15,12 +14,14 @@ namespace Sdx
   {
     const char* const GetCnav2PagesEnabled::CmdName = "GetCnav2PagesEnabled";
     const char* const GetCnav2PagesEnabled::Documentation = "Get the enabled L1C CNAV2 pages";
+    const char* const GetCnav2PagesEnabled::TargetId = "";
 
-    REGISTER_COMMAND_FACTORY(GetCnav2PagesEnabled);
+    REGISTER_COMMAND_TO_FACTORY_DECL(GetCnav2PagesEnabled);
+    REGISTER_COMMAND_TO_FACTORY_IMPL(GetCnav2PagesEnabled);
 
 
     GetCnav2PagesEnabled::GetCnav2PagesEnabled()
-      : CommandBase(CmdName)
+      : CommandBase(CmdName, TargetId)
     {
 
     }
@@ -44,6 +45,12 @@ namespace Sdx
     }
 
     std::string GetCnav2PagesEnabled::documentation() const { return Documentation; }
+
+    const std::vector<std::string>& GetCnav2PagesEnabled::fieldNames() const 
+    { 
+      static const std::vector<std::string> names {}; 
+      return names; 
+    }
 
 
     int GetCnav2PagesEnabled::executePermission() const

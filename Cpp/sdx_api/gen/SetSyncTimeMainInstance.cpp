@@ -1,8 +1,7 @@
 
-#include "gen/SetSyncTimeMainInstance.h"
+#include "SetSyncTimeMainInstance.h"
 
 #include "command_factory.h"
-#include "command_result_factory.h"
 #include "parse_json.hpp"
 
 ///
@@ -14,17 +13,25 @@ namespace Sdx
   namespace Cmd
   {
     const char* const SetSyncTimeMainInstance::CmdName = "SetSyncTimeMainInstance";
-    const char* const SetSyncTimeMainInstance::Documentation = "Set time delay to start streaming after PPS synchronization. A value of 1500\nmeans the simulation will start streaming 1.5 sec after the PPS used for\nsynchornization.";
+    const char* const SetSyncTimeMainInstance::Documentation = "Set time delay to start streaming after PPS synchronization. A value of 1500\n"
+      "means the simulation will start streaming 1.5 sec after the PPS used for\n"
+      "synchornization.\n"
+      "\n"
+      "Name Type   Description\n"
+      "---- ------ ----------------------------------------\n"
+      "Time double Time delay in msec (minimum is 500 msec)";
+    const char* const SetSyncTimeMainInstance::TargetId = "";
 
-    REGISTER_COMMAND_FACTORY(SetSyncTimeMainInstance);
+    REGISTER_COMMAND_TO_FACTORY_DECL(SetSyncTimeMainInstance);
+    REGISTER_COMMAND_TO_FACTORY_IMPL(SetSyncTimeMainInstance);
 
 
     SetSyncTimeMainInstance::SetSyncTimeMainInstance()
-      : CommandBase(CmdName)
+      : CommandBase(CmdName, TargetId)
     {}
 
     SetSyncTimeMainInstance::SetSyncTimeMainInstance(double time)
-      : CommandBase(CmdName)
+      : CommandBase(CmdName, TargetId)
     {
 
       setTime(time);
@@ -50,6 +57,12 @@ namespace Sdx
     }
 
     std::string SetSyncTimeMainInstance::documentation() const { return Documentation; }
+
+    const std::vector<std::string>& SetSyncTimeMainInstance::fieldNames() const 
+    { 
+      static const std::vector<std::string> names {"Time"}; 
+      return names; 
+    }
 
 
     int SetSyncTimeMainInstance::executePermission() const

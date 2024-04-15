@@ -1,8 +1,7 @@
 
-#include "gen/GetIonoGridErrorAll.h"
+#include "GetIonoGridErrorAll.h"
 
 #include "command_factory.h"
-#include "command_result_factory.h"
 #include "parse_json.hpp"
 
 ///
@@ -15,12 +14,14 @@ namespace Sdx
   {
     const char* const GetIonoGridErrorAll::CmdName = "GetIonoGridErrorAll";
     const char* const GetIonoGridErrorAll::Documentation = "Get Error offsets in the ionospheric grid.  The array is zero based, the index 0 in a band array is for the IGP with an index 1, etc.";
+    const char* const GetIonoGridErrorAll::TargetId = "";
 
-    REGISTER_COMMAND_FACTORY(GetIonoGridErrorAll);
+    REGISTER_COMMAND_TO_FACTORY_DECL(GetIonoGridErrorAll);
+    REGISTER_COMMAND_TO_FACTORY_IMPL(GetIonoGridErrorAll);
 
 
     GetIonoGridErrorAll::GetIonoGridErrorAll()
-      : CommandBase(CmdName)
+      : CommandBase(CmdName, TargetId)
     {
 
     }
@@ -44,6 +45,12 @@ namespace Sdx
     }
 
     std::string GetIonoGridErrorAll::documentation() const { return Documentation; }
+
+    const std::vector<std::string>& GetIonoGridErrorAll::fieldNames() const 
+    { 
+      static const std::vector<std::string> names {}; 
+      return names; 
+    }
 
 
     int GetIonoGridErrorAll::executePermission() const

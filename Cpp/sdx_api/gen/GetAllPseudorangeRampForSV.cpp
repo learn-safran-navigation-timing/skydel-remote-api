@@ -1,8 +1,7 @@
 
-#include "gen/GetAllPseudorangeRampForSV.h"
+#include "GetAllPseudorangeRampForSV.h"
 
 #include "command_factory.h"
-#include "command_result_factory.h"
 #include "parse_json.hpp"
 
 ///
@@ -14,17 +13,24 @@ namespace Sdx
   namespace Cmd
   {
     const char* const GetAllPseudorangeRampForSV::CmdName = "GetAllPseudorangeRampForSV";
-    const char* const GetAllPseudorangeRampForSV::Documentation = "Get a list of all the pseudorange ramps IDs for a system's satellite.";
+    const char* const GetAllPseudorangeRampForSV::Documentation = "Get a list of all the pseudorange ramps IDs for a system's satellite.\n"
+      "\n"
+      "Name   Type   Description\n"
+      "------ ------ --------------------------------------------------------------------------\n"
+      "System string \"GPS\", \"GLONASS\", \"Galileo\", \"BeiDou\", \"SBAS\", \"QZSS\", \"NavIC\" or \"PULSAR\"\n"
+      "SvId   int    The satellite's SV ID.";
+    const char* const GetAllPseudorangeRampForSV::TargetId = "";
 
-    REGISTER_COMMAND_FACTORY(GetAllPseudorangeRampForSV);
+    REGISTER_COMMAND_TO_FACTORY_DECL(GetAllPseudorangeRampForSV);
+    REGISTER_COMMAND_TO_FACTORY_IMPL(GetAllPseudorangeRampForSV);
 
 
     GetAllPseudorangeRampForSV::GetAllPseudorangeRampForSV()
-      : CommandBase(CmdName)
+      : CommandBase(CmdName, TargetId)
     {}
 
     GetAllPseudorangeRampForSV::GetAllPseudorangeRampForSV(const std::string& system, int svId)
-      : CommandBase(CmdName)
+      : CommandBase(CmdName, TargetId)
     {
 
       setSystem(system);
@@ -52,6 +58,12 @@ namespace Sdx
     }
 
     std::string GetAllPseudorangeRampForSV::documentation() const { return Documentation; }
+
+    const std::vector<std::string>& GetAllPseudorangeRampForSV::fieldNames() const 
+    { 
+      static const std::vector<std::string> names {"System", "SvId"}; 
+      return names; 
+    }
 
 
     int GetAllPseudorangeRampForSV::executePermission() const

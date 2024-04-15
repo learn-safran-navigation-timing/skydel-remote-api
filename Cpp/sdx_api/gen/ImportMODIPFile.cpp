@@ -1,8 +1,7 @@
 
-#include "gen/ImportMODIPFile.h"
+#include "ImportMODIPFile.h"
 
 #include "command_factory.h"
-#include "command_result_factory.h"
 #include "parse_json.hpp"
 
 ///
@@ -14,17 +13,23 @@ namespace Sdx
   namespace Cmd
   {
     const char* const ImportMODIPFile::CmdName = "ImportMODIPFile";
-    const char* const ImportMODIPFile::Documentation = "Import MODIP data file.";
+    const char* const ImportMODIPFile::Documentation = "Import MODIP data file.\n"
+      "\n"
+      "Name Type   Description\n"
+      "---- ------ -----------\n"
+      "Path string File path.";
+    const char* const ImportMODIPFile::TargetId = "";
 
-    REGISTER_COMMAND_FACTORY(ImportMODIPFile);
+    REGISTER_COMMAND_TO_FACTORY_DECL(ImportMODIPFile);
+    REGISTER_COMMAND_TO_FACTORY_IMPL(ImportMODIPFile);
 
 
     ImportMODIPFile::ImportMODIPFile()
-      : CommandBase(CmdName)
+      : CommandBase(CmdName, TargetId)
     {}
 
     ImportMODIPFile::ImportMODIPFile(const std::string& path)
-      : CommandBase(CmdName)
+      : CommandBase(CmdName, TargetId)
     {
 
       setPath(path);
@@ -50,6 +55,12 @@ namespace Sdx
     }
 
     std::string ImportMODIPFile::documentation() const { return Documentation; }
+
+    const std::vector<std::string>& ImportMODIPFile::fieldNames() const 
+    { 
+      static const std::vector<std::string> names {"Path"}; 
+      return names; 
+    }
 
 
     int ImportMODIPFile::executePermission() const

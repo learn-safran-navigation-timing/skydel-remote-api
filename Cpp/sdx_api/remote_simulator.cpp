@@ -113,7 +113,7 @@ bool RemoteSimulator::isConnected() const
 
 int RemoteSimulator::clientApiVersion()
 {
-  return COMMANDS_API_VERSION;
+  return Cmd::COMMANDS_API_VERSION;
 }
 
 int RemoteSimulator::serverApiVersion() const
@@ -702,8 +702,19 @@ CommandBasePtr RemoteSimulator::post(CommandBasePtr cmd, double timestamp)
 {
   checkForbiddenPost(cmd);
   if (isVerbose())
-    std::cout << "Post " << cmd->toReadableCommand() << " at " << cmd->timestamp() << " secs" << std::endl;
+    std::cout << "Post " << cmd->toReadableCommand() << " at " << timestamp << " secs" << std::endl;
   postCommand(cmd, timestamp);
+  return cmd;
+}
+
+CommandBasePtr RemoteSimulator::post(CommandBasePtr cmd, const Sdx::DateTime& gpsTimestamp)
+{
+  checkForbiddenPost(cmd);
+  if (isVerbose())
+    std::cout << "Post " << cmd->toReadableCommand() << " at " << gpsTimestamp.year << "-" << gpsTimestamp.month << "-"
+              << gpsTimestamp.day << " " << gpsTimestamp.hour << ":" << gpsTimestamp.minute << ":"
+              << gpsTimestamp.second << std::endl;
+  postCommand(cmd, gpsTimestamp);
   return cmd;
 }
 
@@ -731,7 +742,21 @@ CommandResultPtr RemoteSimulator::call(CommandBasePtr cmd, double timestamp)
   checkForbiddenCall(cmd);
   postCommand(cmd, timestamp);
   if (isVerbose())
-    std::cout << "Call " << cmd->toReadableCommand() << " at " << cmd->timestamp() << " secs" << std::flush;
+    std::cout << "Call " << cmd->toReadableCommand() << " at " << timestamp << " secs" << std::flush;
+  CommandResultPtr result = waitCommand(cmd);
+  if (isVerbose())
+    std::cout << " => " << result->message() << std::endl;
+  return result;
+}
+
+CommandResultPtr RemoteSimulator::call(CommandBasePtr cmd, const Sdx::DateTime& gpsTimestamp)
+{
+  checkForbiddenCall(cmd);
+  postCommand(cmd, gpsTimestamp);
+  if (isVerbose())
+    std::cout << "Post " << cmd->toReadableCommand() << " at " << gpsTimestamp.year << "-" << gpsTimestamp.month << "-"
+              << gpsTimestamp.day << " " << gpsTimestamp.hour << ":" << gpsTimestamp.minute << ":"
+              << gpsTimestamp.second << std::flush;
   CommandResultPtr result = waitCommand(cmd);
   if (isVerbose())
     std::cout << " => " << result->message() << std::endl;
@@ -758,6 +783,14 @@ CommandBasePtr RemoteSimulator::postCommand(CommandBasePtr cmd, double timestamp
   return cmd;
 }
 
+CommandBasePtr RemoteSimulator::postCommand(CommandBasePtr cmd, const Sdx::DateTime& gpsTimestamp)
+{
+  deprecatedMessage(cmd);
+  cmd->setGpsTimestamp(gpsTimestamp);
+  m_client->sendCommand(cmd);
+  return cmd;
+}
+
 CommandBasePtr RemoteSimulator::postCommand(CommandBasePtr cmd)
 {
   deprecatedMessage(cmd);
@@ -775,6 +808,12 @@ CommandResultPtr RemoteSimulator::waitCommand(CommandBasePtr cmd)
 CommandResultPtr RemoteSimulator::callCommand(CommandBasePtr cmd, double timestamp)
 {
   postCommand(cmd, timestamp);
+  return waitCommand(cmd);
+}
+
+CommandResultPtr RemoteSimulator::callCommand(CommandBasePtr cmd, const Sdx::DateTime& gpsTimestamp)
+{
+  postCommand(cmd, gpsTimestamp);
   return waitCommand(cmd);
 }
 

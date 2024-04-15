@@ -1,8 +1,7 @@
 
-#include "gen/CommandGroup.h"
+#include "CommandGroup.h"
 
 #include "command_factory.h"
-#include "command_result_factory.h"
 #include "parse_json.hpp"
 
 ///
@@ -14,17 +13,23 @@ namespace Sdx
   namespace Cmd
   {
     const char* const CommandGroup::CmdName = "CommandGroup";
-    const char* const CommandGroup::Documentation = "Group multiple commands as one";
+    const char* const CommandGroup::Documentation = "Group multiple commands as one\n"
+      "\n"
+      "Name     Type               Description\n"
+      "-------- ------------------ -----------------------\n"
+      "Commands array command_base The commands to execute";
+    const char* const CommandGroup::TargetId = "";
 
-    REGISTER_COMMAND_FACTORY(CommandGroup);
+    REGISTER_COMMAND_TO_FACTORY_DECL(CommandGroup);
+    REGISTER_COMMAND_TO_FACTORY_IMPL(CommandGroup);
 
 
     CommandGroup::CommandGroup()
-      : CommandBase(CmdName)
+      : CommandBase(CmdName, TargetId)
     {}
 
     CommandGroup::CommandGroup(const std::vector<Sdx::CommandBasePtr>& commands)
-      : CommandBase(CmdName)
+      : CommandBase(CmdName, TargetId)
     {
 
       setCommands(commands);
@@ -50,6 +55,12 @@ namespace Sdx
     }
 
     std::string CommandGroup::documentation() const { return Documentation; }
+
+    const std::vector<std::string>& CommandGroup::fieldNames() const 
+    { 
+      static const std::vector<std::string> names {"Commands"}; 
+      return names; 
+    }
 
 
     int CommandGroup::executePermission() const

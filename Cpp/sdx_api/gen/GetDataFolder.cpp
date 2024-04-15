@@ -1,8 +1,7 @@
 
-#include "gen/GetDataFolder.h"
+#include "GetDataFolder.h"
 
 #include "command_factory.h"
-#include "command_result_factory.h"
 #include "parse_json.hpp"
 
 ///
@@ -15,12 +14,14 @@ namespace Sdx
   {
     const char* const GetDataFolder::CmdName = "GetDataFolder";
     const char* const GetDataFolder::Documentation = "Get Skydel's Data Folder. The user can changed it in the GUI's Preferences.";
+    const char* const GetDataFolder::TargetId = "";
 
-    REGISTER_COMMAND_FACTORY(GetDataFolder);
+    REGISTER_COMMAND_TO_FACTORY_DECL(GetDataFolder);
+    REGISTER_COMMAND_TO_FACTORY_IMPL(GetDataFolder);
 
 
     GetDataFolder::GetDataFolder()
-      : CommandBase(CmdName)
+      : CommandBase(CmdName, TargetId)
     {
 
     }
@@ -44,6 +45,12 @@ namespace Sdx
     }
 
     std::string GetDataFolder::documentation() const { return Documentation; }
+
+    const std::vector<std::string>& GetDataFolder::fieldNames() const 
+    { 
+      static const std::vector<std::string> names {}; 
+      return names; 
+    }
 
 
     int GetDataFolder::executePermission() const

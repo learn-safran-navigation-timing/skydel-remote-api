@@ -1,8 +1,7 @@
 
-#include "gen/GetNavICEphemerisDoubleParams.h"
+#include "GetNavICEphemerisDoubleParams.h"
 
 #include "command_factory.h"
-#include "command_result_factory.h"
 #include "parse_json.hpp"
 
 ///
@@ -14,19 +13,30 @@ namespace Sdx
   namespace Cmd
   {
     const char* const GetNavICEphemerisDoubleParams::CmdName = "GetNavICEphemerisDoubleParams";
-    const char* const GetNavICEphemerisDoubleParams::Documentation = "Please note the command GetNavICEphemerisDoubleParams is deprecated since 21.3. You may use GetNavICEphDoubleParamForEachSV.\n\nPlease note the command GetNavICEphDoubleParamForEachSV is deprecated since 23.11. You may use GetConstellationParameterForSV.\n\nGet NavIC ephemeris parameter value for all satellites";
+    const char* const GetNavICEphemerisDoubleParams::Documentation = "Please note the command GetNavICEphemerisDoubleParams is deprecated since 21.3. You may use GetNavICEphDoubleParamForEachSV.\n"
+      "\n"
+      "Please note the command GetNavICEphDoubleParamForEachSV is deprecated since 23.11. You may use GetConstellationParameterForSV.\n"
+      "\n"
+      "Get NavIC ephemeris parameter value for all satellites\n"
+      "\n"
+      "Name        Type            Description\n"
+      "----------- --------------- -------------------------------------------------------------------------------------------\n"
+      "ParamName   string          Refer to SetNavICEphDoubleParamForSV for accepted names\n"
+      "DataSetName optional string Optional name of the data set to use. If no value is provided, the active data set is used.";
+    const char* const GetNavICEphemerisDoubleParams::TargetId = "";
 
     const char* const GetNavICEphemerisDoubleParams::Deprecated = "Please note the command GetNavICEphemerisDoubleParams is deprecated since 23.11. You may use GetConstellationParameterForSV.";
 
-    REGISTER_COMMAND_FACTORY(GetNavICEphemerisDoubleParams);
+    REGISTER_COMMAND_TO_FACTORY_DECL(GetNavICEphemerisDoubleParams);
+    REGISTER_COMMAND_TO_FACTORY_IMPL(GetNavICEphemerisDoubleParams);
 
 
     GetNavICEphemerisDoubleParams::GetNavICEphemerisDoubleParams()
-      : CommandBase(CmdName)
+      : CommandBase(CmdName, TargetId)
     {}
 
     GetNavICEphemerisDoubleParams::GetNavICEphemerisDoubleParams(const std::string& paramName, const Sdx::optional<std::string>& dataSetName)
-      : CommandBase(CmdName)
+      : CommandBase(CmdName, TargetId)
     {
 
       setParamName(paramName);
@@ -54,6 +64,12 @@ namespace Sdx
     }
 
     std::string GetNavICEphemerisDoubleParams::documentation() const { return Documentation; }
+
+    const std::vector<std::string>& GetNavICEphemerisDoubleParams::fieldNames() const 
+    { 
+      static const std::vector<std::string> names {"ParamName", "DataSetName"}; 
+      return names; 
+    }
 
     Sdx::optional<std::string> GetNavICEphemerisDoubleParams::deprecated() const { return Sdx::optional<std::string>{Deprecated}; }
 

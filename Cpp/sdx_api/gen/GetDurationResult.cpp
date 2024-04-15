@@ -1,8 +1,7 @@
 
-#include "gen/GetDurationResult.h"
+#include "GetDurationResult.h"
 
 #include "command_factory.h"
-#include "command_result_factory.h"
 #include "parse_json.hpp"
 
 ///
@@ -14,24 +13,29 @@ namespace Sdx
   namespace Cmd
   {
     const char* const GetDurationResult::CmdName = "GetDurationResult";
-    const char* const GetDurationResult::Documentation = "Result of GetDuration.";
+    const char* const GetDurationResult::Documentation = "Result of GetDuration.\n"
+      "\n"
+      "Name   Type Description\n"
+      "------ ---- -----------------------\n"
+      "Second int  The duration in seconds";
+    const char* const GetDurationResult::TargetId = "";
 
-    REGISTER_COMMAND_RESULT_TO_FACTORY_IMPL(GetDurationResult);
+    REGISTER_COMMAND_TO_FACTORY_IMPL(GetDurationResult);
 
 
     GetDurationResult::GetDurationResult()
-      : CommandResult(CmdName)
+      : CommandResult(CmdName, TargetId)
     {}
 
     GetDurationResult::GetDurationResult(int second)
-      : CommandResult(CmdName)
+      : CommandResult(CmdName, TargetId)
     {
 
       setSecond(second);
     }
 
     GetDurationResult::GetDurationResult(CommandBasePtr relatedCommand, int second)
-      : CommandResult(CmdName, relatedCommand)
+      : CommandResult(CmdName, TargetId, relatedCommand)
     {
 
       setSecond(second);
@@ -63,6 +67,12 @@ namespace Sdx
     }
 
     std::string GetDurationResult::documentation() const { return Documentation; }
+
+    const std::vector<std::string>& GetDurationResult::fieldNames() const 
+    { 
+      static const std::vector<std::string> names {"Second"}; 
+      return names; 
+    }
 
 
     int GetDurationResult::second() const

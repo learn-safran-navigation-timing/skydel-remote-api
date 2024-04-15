@@ -1,8 +1,7 @@
 
-#include "gen/GetSbasMessagesEnabledResult.h"
+#include "GetSbasMessagesEnabledResult.h"
 
 #include "command_factory.h"
-#include "command_result_factory.h"
 #include "parse_json.hpp"
 
 ///
@@ -14,24 +13,29 @@ namespace Sdx
   namespace Cmd
   {
     const char* const GetSbasMessagesEnabledResult::CmdName = "GetSbasMessagesEnabledResult";
-    const char* const GetSbasMessagesEnabledResult::Documentation = "Result of GetSbasMessagesEnabled.";
+    const char* const GetSbasMessagesEnabledResult::Documentation = "Result of GetSbasMessagesEnabled.\n"
+      "\n"
+      "Name     Type      Description\n"
+      "-------- --------- --------------------\n"
+      "Messages array int The enabled messages";
+    const char* const GetSbasMessagesEnabledResult::TargetId = "";
 
-    REGISTER_COMMAND_RESULT_TO_FACTORY_IMPL(GetSbasMessagesEnabledResult);
+    REGISTER_COMMAND_TO_FACTORY_IMPL(GetSbasMessagesEnabledResult);
 
 
     GetSbasMessagesEnabledResult::GetSbasMessagesEnabledResult()
-      : CommandResult(CmdName)
+      : CommandResult(CmdName, TargetId)
     {}
 
     GetSbasMessagesEnabledResult::GetSbasMessagesEnabledResult(const std::vector<int>& messages)
-      : CommandResult(CmdName)
+      : CommandResult(CmdName, TargetId)
     {
 
       setMessages(messages);
     }
 
     GetSbasMessagesEnabledResult::GetSbasMessagesEnabledResult(CommandBasePtr relatedCommand, const std::vector<int>& messages)
-      : CommandResult(CmdName, relatedCommand)
+      : CommandResult(CmdName, TargetId, relatedCommand)
     {
 
       setMessages(messages);
@@ -63,6 +67,12 @@ namespace Sdx
     }
 
     std::string GetSbasMessagesEnabledResult::documentation() const { return Documentation; }
+
+    const std::vector<std::string>& GetSbasMessagesEnabledResult::fieldNames() const 
+    { 
+      static const std::vector<std::string> names {"Messages"}; 
+      return names; 
+    }
 
 
     std::vector<int> GetSbasMessagesEnabledResult::messages() const

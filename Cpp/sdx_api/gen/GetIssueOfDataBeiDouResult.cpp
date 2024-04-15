@@ -1,8 +1,7 @@
 
-#include "gen/GetIssueOfDataBeiDouResult.h"
+#include "GetIssueOfDataBeiDouResult.h"
 
 #include "command_factory.h"
-#include "command_result_factory.h"
 #include "parse_json.hpp"
 
 ///
@@ -14,17 +13,23 @@ namespace Sdx
   namespace Cmd
   {
     const char* const GetIssueOfDataBeiDouResult::CmdName = "GetIssueOfDataBeiDouResult";
-    const char* const GetIssueOfDataBeiDouResult::Documentation = "Result of GetIssueOfDataBeiDou.";
+    const char* const GetIssueOfDataBeiDouResult::Documentation = "Result of GetIssueOfDataBeiDou.\n"
+      "\n"
+      "Name      Type Description\n"
+      "--------- ---- ------------------------\n"
+      "Clock     int  Issue of data, clock\n"
+      "Ephemeris int  Issue of data, ephemeris";
+    const char* const GetIssueOfDataBeiDouResult::TargetId = "";
 
-    REGISTER_COMMAND_RESULT_TO_FACTORY_IMPL(GetIssueOfDataBeiDouResult);
+    REGISTER_COMMAND_TO_FACTORY_IMPL(GetIssueOfDataBeiDouResult);
 
 
     GetIssueOfDataBeiDouResult::GetIssueOfDataBeiDouResult()
-      : CommandResult(CmdName)
+      : CommandResult(CmdName, TargetId)
     {}
 
     GetIssueOfDataBeiDouResult::GetIssueOfDataBeiDouResult(int clock, int ephemeris)
-      : CommandResult(CmdName)
+      : CommandResult(CmdName, TargetId)
     {
 
       setClock(clock);
@@ -32,7 +37,7 @@ namespace Sdx
     }
 
     GetIssueOfDataBeiDouResult::GetIssueOfDataBeiDouResult(CommandBasePtr relatedCommand, int clock, int ephemeris)
-      : CommandResult(CmdName, relatedCommand)
+      : CommandResult(CmdName, TargetId, relatedCommand)
     {
 
       setClock(clock);
@@ -66,6 +71,12 @@ namespace Sdx
     }
 
     std::string GetIssueOfDataBeiDouResult::documentation() const { return Documentation; }
+
+    const std::vector<std::string>& GetIssueOfDataBeiDouResult::fieldNames() const 
+    { 
+      static const std::vector<std::string> names {"Clock", "Ephemeris"}; 
+      return names; 
+    }
 
 
     int GetIssueOfDataBeiDouResult::clock() const

@@ -1,8 +1,7 @@
 
-#include "gen/GetSignalPowerOffsetResult.h"
+#include "GetSignalPowerOffsetResult.h"
 
 #include "command_factory.h"
-#include "command_result_factory.h"
 #include "parse_json.hpp"
 
 ///
@@ -14,17 +13,26 @@ namespace Sdx
   namespace Cmd
   {
     const char* const GetSignalPowerOffsetResult::CmdName = "GetSignalPowerOffsetResult";
-    const char* const GetSignalPowerOffsetResult::Documentation = "Result of GetSignalPowerOffset.";
+    const char* const GetSignalPowerOffsetResult::Documentation = "Result of GetSignalPowerOffset.\n"
+      "\n"
+      "Name   Type   Description\n"
+      "------ ------ -----------------------------------------------------------------------------------------------\n"
+      "Signal string Accepted signal keys: \"L1CA\", \"L1C\", \"L1P\", \"L1ME\", \"L1MR\", \"L2C\", \"L2P\", \"L2ME\", \"L2MR\", \"L5\",\n"
+      "                                    \"G1\", \"G2\", \"E1\", \"E1PRS\", \"E5a\", \"E5b\", \"E6BC\", \"E6PRS\",\n"
+      "                                    \"B1\", \"B2\", \"B1C\", \"B2a\", \"B3I\", \"QZSSL1CA\", \"QZSSL1CB\", \"QZSSL1C\",\n"
+      "                                    \"QZSSL2C\", \"QZSSL5\", \"QZSSL1S\", \"QZSSL5S\", \"NAVICL5\", \"PULSARXL\"\n"
+      "Offset double Offset in dB (negative value will attenuate signal)";
+    const char* const GetSignalPowerOffsetResult::TargetId = "";
 
-    REGISTER_COMMAND_RESULT_TO_FACTORY_IMPL(GetSignalPowerOffsetResult);
+    REGISTER_COMMAND_TO_FACTORY_IMPL(GetSignalPowerOffsetResult);
 
 
     GetSignalPowerOffsetResult::GetSignalPowerOffsetResult()
-      : CommandResult(CmdName)
+      : CommandResult(CmdName, TargetId)
     {}
 
     GetSignalPowerOffsetResult::GetSignalPowerOffsetResult(const std::string& signal, double offset)
-      : CommandResult(CmdName)
+      : CommandResult(CmdName, TargetId)
     {
 
       setSignal(signal);
@@ -32,7 +40,7 @@ namespace Sdx
     }
 
     GetSignalPowerOffsetResult::GetSignalPowerOffsetResult(CommandBasePtr relatedCommand, const std::string& signal, double offset)
-      : CommandResult(CmdName, relatedCommand)
+      : CommandResult(CmdName, TargetId, relatedCommand)
     {
 
       setSignal(signal);
@@ -66,6 +74,12 @@ namespace Sdx
     }
 
     std::string GetSignalPowerOffsetResult::documentation() const { return Documentation; }
+
+    const std::vector<std::string>& GetSignalPowerOffsetResult::fieldNames() const 
+    { 
+      static const std::vector<std::string> names {"Signal", "Offset"}; 
+      return names; 
+    }
 
 
     std::string GetSignalPowerOffsetResult::signal() const

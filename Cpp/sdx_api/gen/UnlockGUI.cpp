@@ -1,8 +1,7 @@
 
-#include "gen/UnlockGUI.h"
+#include "UnlockGUI.h"
 
 #include "command_factory.h"
-#include "command_result_factory.h"
 #include "parse_json.hpp"
 
 ///
@@ -15,12 +14,14 @@ namespace Sdx
   {
     const char* const UnlockGUI::CmdName = "UnlockGUI";
     const char* const UnlockGUI::Documentation = "Resume GUI updates and force one update immediately.";
+    const char* const UnlockGUI::TargetId = "";
 
-    REGISTER_COMMAND_FACTORY(UnlockGUI);
+    REGISTER_COMMAND_TO_FACTORY_DECL(UnlockGUI);
+    REGISTER_COMMAND_TO_FACTORY_IMPL(UnlockGUI);
 
 
     UnlockGUI::UnlockGUI()
-      : CommandBase(CmdName)
+      : CommandBase(CmdName, TargetId)
     {
 
     }
@@ -44,6 +45,12 @@ namespace Sdx
     }
 
     std::string UnlockGUI::documentation() const { return Documentation; }
+
+    const std::vector<std::string>& UnlockGUI::fieldNames() const 
+    { 
+      static const std::vector<std::string> names {}; 
+      return names; 
+    }
 
 
     int UnlockGUI::executePermission() const

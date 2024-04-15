@@ -1,8 +1,7 @@
 
-#include "gen/GetEngineLatency.h"
+#include "GetEngineLatency.h"
 
 #include "command_factory.h"
-#include "command_result_factory.h"
 #include "parse_json.hpp"
 
 ///
@@ -15,12 +14,14 @@ namespace Sdx
   {
     const char* const GetEngineLatency::CmdName = "GetEngineLatency";
     const char* const GetEngineLatency::Documentation = "Get engine latency.";
+    const char* const GetEngineLatency::TargetId = "";
 
-    REGISTER_COMMAND_FACTORY(GetEngineLatency);
+    REGISTER_COMMAND_TO_FACTORY_DECL(GetEngineLatency);
+    REGISTER_COMMAND_TO_FACTORY_IMPL(GetEngineLatency);
 
 
     GetEngineLatency::GetEngineLatency()
-      : CommandBase(CmdName)
+      : CommandBase(CmdName, TargetId)
     {
 
     }
@@ -44,6 +45,12 @@ namespace Sdx
     }
 
     std::string GetEngineLatency::documentation() const { return Documentation; }
+
+    const std::vector<std::string>& GetEngineLatency::fieldNames() const 
+    { 
+      static const std::vector<std::string> names {}; 
+      return names; 
+    }
 
 
     int GetEngineLatency::executePermission() const

@@ -1,8 +1,7 @@
 
-#include "gen/GetEphemerisErrorForSVResult.h"
+#include "GetEphemerisErrorForSVResult.h"
 
 #include "command_factory.h"
-#include "command_result_factory.h"
 #include "parse_json.hpp"
 
 ///
@@ -14,17 +13,26 @@ namespace Sdx
   namespace Cmd
   {
     const char* const GetEphemerisErrorForSVResult::CmdName = "GetEphemerisErrorForSVResult";
-    const char* const GetEphemerisErrorForSVResult::Documentation = "Result of GetEphemerisErrorForSV.";
+    const char* const GetEphemerisErrorForSVResult::Documentation = "Result of GetEphemerisErrorForSV.\n"
+      "\n"
+      "Name     Type   Description\n"
+      "-------- ------ -----------------------------------------------------------------------------------\n"
+      "System   string \"GPS\", \"Galileo\", \"GLONASS\", \"BeiDou\", \"QZSS\", \"NavIC\" or \"PULSAR\"\n"
+      "SvId     int    Satellite SV ID.\n"
+      "Orbit    RIC    The orbit error, in relative orbit frame. In-track error not available for GLONASS.\n"
+      "DeltaAf0 double The clock bias error, in second. DeltaTaun for GLONASS.\n"
+      "DeltaAf1 double The clock drift error, in second/second. Not available for GLONASS.";
+    const char* const GetEphemerisErrorForSVResult::TargetId = "";
 
-    REGISTER_COMMAND_RESULT_TO_FACTORY_IMPL(GetEphemerisErrorForSVResult);
+    REGISTER_COMMAND_TO_FACTORY_IMPL(GetEphemerisErrorForSVResult);
 
 
     GetEphemerisErrorForSVResult::GetEphemerisErrorForSVResult()
-      : CommandResult(CmdName)
+      : CommandResult(CmdName, TargetId)
     {}
 
     GetEphemerisErrorForSVResult::GetEphemerisErrorForSVResult(const std::string& system, int svId, const Sdx::RIC& orbit, double deltaAf0, double deltaAf1)
-      : CommandResult(CmdName)
+      : CommandResult(CmdName, TargetId)
     {
 
       setSystem(system);
@@ -35,7 +43,7 @@ namespace Sdx
     }
 
     GetEphemerisErrorForSVResult::GetEphemerisErrorForSVResult(CommandBasePtr relatedCommand, const std::string& system, int svId, const Sdx::RIC& orbit, double deltaAf0, double deltaAf1)
-      : CommandResult(CmdName, relatedCommand)
+      : CommandResult(CmdName, TargetId, relatedCommand)
     {
 
       setSystem(system);
@@ -75,6 +83,12 @@ namespace Sdx
     }
 
     std::string GetEphemerisErrorForSVResult::documentation() const { return Documentation; }
+
+    const std::vector<std::string>& GetEphemerisErrorForSVResult::fieldNames() const 
+    { 
+      static const std::vector<std::string> names {"System", "SvId", "Orbit", "DeltaAf0", "DeltaAf1"}; 
+      return names; 
+    }
 
 
     std::string GetEphemerisErrorForSVResult::system() const

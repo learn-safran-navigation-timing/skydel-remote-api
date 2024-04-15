@@ -1,8 +1,7 @@
 
-#include "gen/SetGlobalPowerOffset.h"
+#include "SetGlobalPowerOffset.h"
 
 #include "command_factory.h"
-#include "command_result_factory.h"
 #include "parse_json.hpp"
 
 ///
@@ -14,17 +13,23 @@ namespace Sdx
   namespace Cmd
   {
     const char* const SetGlobalPowerOffset::CmdName = "SetGlobalPowerOffset";
-    const char* const SetGlobalPowerOffset::Documentation = "Set global power offset default value for all signals and all systems";
+    const char* const SetGlobalPowerOffset::Documentation = "Set global power offset default value for all signals and all systems\n"
+      "\n"
+      "Name   Type   Description\n"
+      "------ ------ ---------------------------------------------------\n"
+      "Offset double Offset in dB (negative value will attenuate signal)";
+    const char* const SetGlobalPowerOffset::TargetId = "";
 
-    REGISTER_COMMAND_FACTORY(SetGlobalPowerOffset);
+    REGISTER_COMMAND_TO_FACTORY_DECL(SetGlobalPowerOffset);
+    REGISTER_COMMAND_TO_FACTORY_IMPL(SetGlobalPowerOffset);
 
 
     SetGlobalPowerOffset::SetGlobalPowerOffset()
-      : CommandBase(CmdName)
+      : CommandBase(CmdName, TargetId)
     {}
 
     SetGlobalPowerOffset::SetGlobalPowerOffset(double offset)
-      : CommandBase(CmdName)
+      : CommandBase(CmdName, TargetId)
     {
 
       setOffset(offset);
@@ -50,6 +55,12 @@ namespace Sdx
     }
 
     std::string SetGlobalPowerOffset::documentation() const { return Documentation; }
+
+    const std::vector<std::string>& SetGlobalPowerOffset::fieldNames() const 
+    { 
+      static const std::vector<std::string> names {"Offset"}; 
+      return names; 
+    }
 
 
     int SetGlobalPowerOffset::executePermission() const

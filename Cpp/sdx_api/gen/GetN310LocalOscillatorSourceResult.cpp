@@ -1,8 +1,7 @@
 
-#include "gen/GetN310LocalOscillatorSourceResult.h"
+#include "GetN310LocalOscillatorSourceResult.h"
 
 #include "command_factory.h"
-#include "command_result_factory.h"
 #include "parse_json.hpp"
 
 ///
@@ -14,17 +13,23 @@ namespace Sdx
   namespace Cmd
   {
     const char* const GetN310LocalOscillatorSourceResult::CmdName = "GetN310LocalOscillatorSourceResult";
-    const char* const GetN310LocalOscillatorSourceResult::Documentation = "Result of GetN310LocalOscillatorSource.";
+    const char* const GetN310LocalOscillatorSourceResult::Documentation = "Result of GetN310LocalOscillatorSource.\n"
+      "\n"
+      "Name       Type   Description\n"
+      "---------- ------ -------------------------------------------------------------------------------------------\n"
+      "IsExternal bool   Indicates if the Local Oscillator is external (true) or internal (false). False by default.\n"
+      "Id         string N310 modulation target Id.";
+    const char* const GetN310LocalOscillatorSourceResult::TargetId = "";
 
-    REGISTER_COMMAND_RESULT_TO_FACTORY_IMPL(GetN310LocalOscillatorSourceResult);
+    REGISTER_COMMAND_TO_FACTORY_IMPL(GetN310LocalOscillatorSourceResult);
 
 
     GetN310LocalOscillatorSourceResult::GetN310LocalOscillatorSourceResult()
-      : CommandResult(CmdName)
+      : CommandResult(CmdName, TargetId)
     {}
 
     GetN310LocalOscillatorSourceResult::GetN310LocalOscillatorSourceResult(bool isExternal, const std::string& id)
-      : CommandResult(CmdName)
+      : CommandResult(CmdName, TargetId)
     {
 
       setIsExternal(isExternal);
@@ -32,7 +37,7 @@ namespace Sdx
     }
 
     GetN310LocalOscillatorSourceResult::GetN310LocalOscillatorSourceResult(CommandBasePtr relatedCommand, bool isExternal, const std::string& id)
-      : CommandResult(CmdName, relatedCommand)
+      : CommandResult(CmdName, TargetId, relatedCommand)
     {
 
       setIsExternal(isExternal);
@@ -66,6 +71,12 @@ namespace Sdx
     }
 
     std::string GetN310LocalOscillatorSourceResult::documentation() const { return Documentation; }
+
+    const std::vector<std::string>& GetN310LocalOscillatorSourceResult::fieldNames() const 
+    { 
+      static const std::vector<std::string> names {"IsExternal", "Id"}; 
+      return names; 
+    }
 
 
     bool GetN310LocalOscillatorSourceResult::isExternal() const

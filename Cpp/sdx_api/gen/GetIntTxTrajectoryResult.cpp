@@ -1,8 +1,7 @@
 
-#include "gen/GetIntTxTrajectoryResult.h"
+#include "GetIntTxTrajectoryResult.h"
 
 #include "command_factory.h"
-#include "command_result_factory.h"
 #include "parse_json.hpp"
 
 ///
@@ -14,17 +13,23 @@ namespace Sdx
   namespace Cmd
   {
     const char* const GetIntTxTrajectoryResult::CmdName = "GetIntTxTrajectoryResult";
-    const char* const GetIntTxTrajectoryResult::Documentation = "Result of GetIntTxTrajectory.";
+    const char* const GetIntTxTrajectoryResult::Documentation = "Result of GetIntTxTrajectory.\n"
+      "\n"
+      "Name           Type   Description\n"
+      "-------------- ------ ---------------------------------------------------------\n"
+      "TrajectoryType string Type of the trajectory of the interferences transmitters.\n"
+      "Id             string Transmitter unique identifier.";
+    const char* const GetIntTxTrajectoryResult::TargetId = "";
 
-    REGISTER_COMMAND_RESULT_TO_FACTORY_IMPL(GetIntTxTrajectoryResult);
+    REGISTER_COMMAND_TO_FACTORY_IMPL(GetIntTxTrajectoryResult);
 
 
     GetIntTxTrajectoryResult::GetIntTxTrajectoryResult()
-      : CommandResult(CmdName)
+      : CommandResult(CmdName, TargetId)
     {}
 
     GetIntTxTrajectoryResult::GetIntTxTrajectoryResult(const std::string& trajectoryType, const std::string& id)
-      : CommandResult(CmdName)
+      : CommandResult(CmdName, TargetId)
     {
 
       setTrajectoryType(trajectoryType);
@@ -32,7 +37,7 @@ namespace Sdx
     }
 
     GetIntTxTrajectoryResult::GetIntTxTrajectoryResult(CommandBasePtr relatedCommand, const std::string& trajectoryType, const std::string& id)
-      : CommandResult(CmdName, relatedCommand)
+      : CommandResult(CmdName, TargetId, relatedCommand)
     {
 
       setTrajectoryType(trajectoryType);
@@ -66,6 +71,12 @@ namespace Sdx
     }
 
     std::string GetIntTxTrajectoryResult::documentation() const { return Documentation; }
+
+    const std::vector<std::string>& GetIntTxTrajectoryResult::fieldNames() const 
+    { 
+      static const std::vector<std::string> names {"TrajectoryType", "Id"}; 
+      return names; 
+    }
 
 
     std::string GetIntTxTrajectoryResult::trajectoryType() const

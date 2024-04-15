@@ -1,8 +1,7 @@
 
-#include "gen/ExportMessageSequenceToCSV.h"
+#include "ExportMessageSequenceToCSV.h"
 
 #include "command_factory.h"
-#include "command_result_factory.h"
 #include "parse_json.hpp"
 
 ///
@@ -14,17 +13,25 @@ namespace Sdx
   namespace Cmd
   {
     const char* const ExportMessageSequenceToCSV::CmdName = "ExportMessageSequenceToCSV";
-    const char* const ExportMessageSequenceToCSV::Documentation = "Export the signal's message sequence into a csv file.";
+    const char* const ExportMessageSequenceToCSV::Documentation = "Export the signal's message sequence into a csv file.\n"
+      "\n"
+      "Name        Type   Description\n"
+      "----------- ------ -------------------------------------------------------------------------------------------------\n"
+      "Signal      string Signal key (\"L2C\" for example).\n"
+      "Path        string The full path to the csv file.\n"
+      "Overwriting bool   Overwrites an existing file if set to true, returns an error if set to false and the file exists.";
+    const char* const ExportMessageSequenceToCSV::TargetId = "";
 
-    REGISTER_COMMAND_FACTORY(ExportMessageSequenceToCSV);
+    REGISTER_COMMAND_TO_FACTORY_DECL(ExportMessageSequenceToCSV);
+    REGISTER_COMMAND_TO_FACTORY_IMPL(ExportMessageSequenceToCSV);
 
 
     ExportMessageSequenceToCSV::ExportMessageSequenceToCSV()
-      : CommandBase(CmdName)
+      : CommandBase(CmdName, TargetId)
     {}
 
     ExportMessageSequenceToCSV::ExportMessageSequenceToCSV(const std::string& signal, const std::string& path, bool overwriting)
-      : CommandBase(CmdName)
+      : CommandBase(CmdName, TargetId)
     {
 
       setSignal(signal);
@@ -54,6 +61,12 @@ namespace Sdx
     }
 
     std::string ExportMessageSequenceToCSV::documentation() const { return Documentation; }
+
+    const std::vector<std::string>& ExportMessageSequenceToCSV::fieldNames() const 
+    { 
+      static const std::vector<std::string> names {"Signal", "Path", "Overwriting"}; 
+      return names; 
+    }
 
 
     int ExportMessageSequenceToCSV::executePermission() const

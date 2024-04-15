@@ -1,8 +1,7 @@
 
-#include "gen/IsEachSVEnabledResult.h"
+#include "IsEachSVEnabledResult.h"
 
 #include "command_factory.h"
-#include "command_result_factory.h"
 #include "parse_json.hpp"
 
 ///
@@ -14,17 +13,23 @@ namespace Sdx
   namespace Cmd
   {
     const char* const IsEachSVEnabledResult::CmdName = "IsEachSVEnabledResult";
-    const char* const IsEachSVEnabledResult::Documentation = "Result of IsEachSVEnabled.";
+    const char* const IsEachSVEnabledResult::Documentation = "Result of IsEachSVEnabled.\n"
+      "\n"
+      "Name    Type       Description\n"
+      "------- ---------- ----------------------------------------------------------------------------------------------------------------\n"
+      "System  string     The satellites' constellation. Can be \"GPS\", \"GLONASS\", \"Galileo\", \"BeiDou\", \"SBAS\", \"QZSS\", \"NavIC\" or \"PULSAR\"\n"
+      "Enabled array bool Array of present/absent flags for the constellation";
+    const char* const IsEachSVEnabledResult::TargetId = "";
 
-    REGISTER_COMMAND_RESULT_TO_FACTORY_IMPL(IsEachSVEnabledResult);
+    REGISTER_COMMAND_TO_FACTORY_IMPL(IsEachSVEnabledResult);
 
 
     IsEachSVEnabledResult::IsEachSVEnabledResult()
-      : CommandResult(CmdName)
+      : CommandResult(CmdName, TargetId)
     {}
 
     IsEachSVEnabledResult::IsEachSVEnabledResult(const std::string& system, const std::vector<bool>& enabled)
-      : CommandResult(CmdName)
+      : CommandResult(CmdName, TargetId)
     {
 
       setSystem(system);
@@ -32,7 +37,7 @@ namespace Sdx
     }
 
     IsEachSVEnabledResult::IsEachSVEnabledResult(CommandBasePtr relatedCommand, const std::string& system, const std::vector<bool>& enabled)
-      : CommandResult(CmdName, relatedCommand)
+      : CommandResult(CmdName, TargetId, relatedCommand)
     {
 
       setSystem(system);
@@ -66,6 +71,12 @@ namespace Sdx
     }
 
     std::string IsEachSVEnabledResult::documentation() const { return Documentation; }
+
+    const std::vector<std::string>& IsEachSVEnabledResult::fieldNames() const 
+    { 
+      static const std::vector<std::string> names {"System", "Enabled"}; 
+      return names; 
+    }
 
 
     std::string IsEachSVEnabledResult::system() const

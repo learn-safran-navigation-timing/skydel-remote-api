@@ -1,8 +1,7 @@
 
-#include "gen/SetSpoofTxIgnoreRxAntennaPhasePattern.h"
+#include "SetSpoofTxIgnoreRxAntennaPhasePattern.h"
 
 #include "command_factory.h"
-#include "command_result_factory.h"
 #include "parse_json.hpp"
 
 ///
@@ -14,17 +13,24 @@ namespace Sdx
   namespace Cmd
   {
     const char* const SetSpoofTxIgnoreRxAntennaPhasePattern::CmdName = "SetSpoofTxIgnoreRxAntennaPhasePattern";
-    const char* const SetSpoofTxIgnoreRxAntennaPhasePattern::Documentation = "Set whether a spoofer should ignore the receiver's antenna phase pattern.";
+    const char* const SetSpoofTxIgnoreRxAntennaPhasePattern::Documentation = "Set whether a spoofer should ignore the receiver's antenna phase pattern.\n"
+      "\n"
+      "Name   Type   Description\n"
+      "------ ------ --------------------------------------------------------------\n"
+      "Ignore bool   If true, the receiver's antenna phase pattern will be ignored.\n"
+      "Id     string Transmitter unique identifier.";
+    const char* const SetSpoofTxIgnoreRxAntennaPhasePattern::TargetId = "";
 
-    REGISTER_COMMAND_FACTORY(SetSpoofTxIgnoreRxAntennaPhasePattern);
+    REGISTER_COMMAND_TO_FACTORY_DECL(SetSpoofTxIgnoreRxAntennaPhasePattern);
+    REGISTER_COMMAND_TO_FACTORY_IMPL(SetSpoofTxIgnoreRxAntennaPhasePattern);
 
 
     SetSpoofTxIgnoreRxAntennaPhasePattern::SetSpoofTxIgnoreRxAntennaPhasePattern()
-      : CommandBase(CmdName)
+      : CommandBase(CmdName, TargetId)
     {}
 
     SetSpoofTxIgnoreRxAntennaPhasePattern::SetSpoofTxIgnoreRxAntennaPhasePattern(bool ignore, const std::string& id)
-      : CommandBase(CmdName)
+      : CommandBase(CmdName, TargetId)
     {
 
       setIgnore(ignore);
@@ -52,6 +58,12 @@ namespace Sdx
     }
 
     std::string SetSpoofTxIgnoreRxAntennaPhasePattern::documentation() const { return Documentation; }
+
+    const std::vector<std::string>& SetSpoofTxIgnoreRxAntennaPhasePattern::fieldNames() const 
+    { 
+      static const std::vector<std::string> names {"Ignore", "Id"}; 
+      return names; 
+    }
 
 
     int SetSpoofTxIgnoreRxAntennaPhasePattern::executePermission() const

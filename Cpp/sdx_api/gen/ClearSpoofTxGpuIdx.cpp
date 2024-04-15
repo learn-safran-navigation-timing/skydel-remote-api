@@ -1,8 +1,7 @@
 
-#include "gen/ClearSpoofTxGpuIdx.h"
+#include "ClearSpoofTxGpuIdx.h"
 
 #include "command_factory.h"
-#include "command_result_factory.h"
 #include "parse_json.hpp"
 
 ///
@@ -14,17 +13,24 @@ namespace Sdx
   namespace Cmd
   {
     const char* const ClearSpoofTxGpuIdx::CmdName = "ClearSpoofTxGpuIdx";
-    const char* const ClearSpoofTxGpuIdx::Documentation = "Reset the spoofer's signal GPU index to default.";
+    const char* const ClearSpoofTxGpuIdx::Documentation = "Reset the spoofer's signal GPU index to default.\n"
+      "\n"
+      "Name     Type   Description\n"
+      "-------- ------ -------------------------------\n"
+      "SignalId int    Spoofer output number, 0-based.\n"
+      "Id       string Transmitter unique identifier.";
+    const char* const ClearSpoofTxGpuIdx::TargetId = "";
 
-    REGISTER_COMMAND_FACTORY(ClearSpoofTxGpuIdx);
+    REGISTER_COMMAND_TO_FACTORY_DECL(ClearSpoofTxGpuIdx);
+    REGISTER_COMMAND_TO_FACTORY_IMPL(ClearSpoofTxGpuIdx);
 
 
     ClearSpoofTxGpuIdx::ClearSpoofTxGpuIdx()
-      : CommandBase(CmdName)
+      : CommandBase(CmdName, TargetId)
     {}
 
     ClearSpoofTxGpuIdx::ClearSpoofTxGpuIdx(int signalId, const std::string& id)
-      : CommandBase(CmdName)
+      : CommandBase(CmdName, TargetId)
     {
 
       setSignalId(signalId);
@@ -52,6 +58,12 @@ namespace Sdx
     }
 
     std::string ClearSpoofTxGpuIdx::documentation() const { return Documentation; }
+
+    const std::vector<std::string>& ClearSpoofTxGpuIdx::fieldNames() const 
+    { 
+      static const std::vector<std::string> names {"SignalId", "Id"}; 
+      return names; 
+    }
 
 
     int ClearSpoofTxGpuIdx::executePermission() const

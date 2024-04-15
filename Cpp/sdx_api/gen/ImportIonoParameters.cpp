@@ -1,8 +1,7 @@
 
-#include "gen/ImportIonoParameters.h"
+#include "ImportIonoParameters.h"
 
 #include "command_factory.h"
-#include "command_result_factory.h"
 #include "parse_json.hpp"
 
 ///
@@ -14,17 +13,24 @@ namespace Sdx
   namespace Cmd
   {
     const char* const ImportIonoParameters::CmdName = "ImportIonoParameters";
-    const char* const ImportIonoParameters::Documentation = "Import ionospheric parameters from a Rinex file.";
+    const char* const ImportIonoParameters::Documentation = "Import ionospheric parameters from a Rinex file.\n"
+      "\n"
+      "Name Type            Description\n"
+      "---- --------------- ------------------------------------------------------------------------------\n"
+      "Path string          File path\n"
+      "Type optional string Ionospheric parameters type: \"Klobuchar\" or \"BDGIM\". The default is Klobuchar.";
+    const char* const ImportIonoParameters::TargetId = "";
 
-    REGISTER_COMMAND_FACTORY(ImportIonoParameters);
+    REGISTER_COMMAND_TO_FACTORY_DECL(ImportIonoParameters);
+    REGISTER_COMMAND_TO_FACTORY_IMPL(ImportIonoParameters);
 
 
     ImportIonoParameters::ImportIonoParameters()
-      : CommandBase(CmdName)
+      : CommandBase(CmdName, TargetId)
     {}
 
     ImportIonoParameters::ImportIonoParameters(const std::string& path, const Sdx::optional<std::string>& type)
-      : CommandBase(CmdName)
+      : CommandBase(CmdName, TargetId)
     {
 
       setPath(path);
@@ -52,6 +58,12 @@ namespace Sdx
     }
 
     std::string ImportIonoParameters::documentation() const { return Documentation; }
+
+    const std::vector<std::string>& ImportIonoParameters::fieldNames() const 
+    { 
+      static const std::vector<std::string> names {"Path", "Type"}; 
+      return names; 
+    }
 
 
     int ImportIonoParameters::executePermission() const

@@ -1,8 +1,7 @@
 
-#include "gen/GetIonoAlphaResult.h"
+#include "GetIonoAlphaResult.h"
 
 #include "command_factory.h"
-#include "command_result_factory.h"
 #include "parse_json.hpp"
 
 ///
@@ -14,17 +13,23 @@ namespace Sdx
   namespace Cmd
   {
     const char* const GetIonoAlphaResult::CmdName = "GetIonoAlphaResult";
-    const char* const GetIonoAlphaResult::Documentation = "Result of GetIonoAlpha.";
+    const char* const GetIonoAlphaResult::Documentation = "Result of GetIonoAlpha.\n"
+      "\n"
+      "Name  Type   Description\n"
+      "----- ------ ------------------------\n"
+      "Index int    Coefficient index [0..3]\n"
+      "Val   double Coefficient value";
+    const char* const GetIonoAlphaResult::TargetId = "";
 
-    REGISTER_COMMAND_RESULT_TO_FACTORY_IMPL(GetIonoAlphaResult);
+    REGISTER_COMMAND_TO_FACTORY_IMPL(GetIonoAlphaResult);
 
 
     GetIonoAlphaResult::GetIonoAlphaResult()
-      : CommandResult(CmdName)
+      : CommandResult(CmdName, TargetId)
     {}
 
     GetIonoAlphaResult::GetIonoAlphaResult(int index, double val)
-      : CommandResult(CmdName)
+      : CommandResult(CmdName, TargetId)
     {
 
       setIndex(index);
@@ -32,7 +37,7 @@ namespace Sdx
     }
 
     GetIonoAlphaResult::GetIonoAlphaResult(CommandBasePtr relatedCommand, int index, double val)
-      : CommandResult(CmdName, relatedCommand)
+      : CommandResult(CmdName, TargetId, relatedCommand)
     {
 
       setIndex(index);
@@ -66,6 +71,12 @@ namespace Sdx
     }
 
     std::string GetIonoAlphaResult::documentation() const { return Documentation; }
+
+    const std::vector<std::string>& GetIonoAlphaResult::fieldNames() const 
+    { 
+      static const std::vector<std::string> names {"Index", "Val"}; 
+      return names; 
+    }
 
 
     int GetIonoAlphaResult::index() const

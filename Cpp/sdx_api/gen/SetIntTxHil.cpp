@@ -1,8 +1,7 @@
 
-#include "gen/SetIntTxHil.h"
+#include "SetIntTxHil.h"
 
 #include "command_factory.h"
-#include "command_result_factory.h"
 #include "parse_json.hpp"
 
 ///
@@ -14,17 +13,23 @@ namespace Sdx
   namespace Cmd
   {
     const char* const SetIntTxHil::CmdName = "SetIntTxHil";
-    const char* const SetIntTxHil::Documentation = "Set interference transmitter HIL trajectory";
+    const char* const SetIntTxHil::Documentation = "Set interference transmitter HIL trajectory\n"
+      "\n"
+      "Name Type   Description\n"
+      "---- ------ ------------------------------\n"
+      "Id   string Transmitter unique identifier.";
+    const char* const SetIntTxHil::TargetId = "";
 
-    REGISTER_COMMAND_FACTORY(SetIntTxHil);
+    REGISTER_COMMAND_TO_FACTORY_DECL(SetIntTxHil);
+    REGISTER_COMMAND_TO_FACTORY_IMPL(SetIntTxHil);
 
 
     SetIntTxHil::SetIntTxHil()
-      : CommandBase(CmdName)
+      : CommandBase(CmdName, TargetId)
     {}
 
     SetIntTxHil::SetIntTxHil(const std::string& id)
-      : CommandBase(CmdName)
+      : CommandBase(CmdName, TargetId)
     {
 
       setId(id);
@@ -50,6 +55,12 @@ namespace Sdx
     }
 
     std::string SetIntTxHil::documentation() const { return Documentation; }
+
+    const std::vector<std::string>& SetIntTxHil::fieldNames() const 
+    { 
+      static const std::vector<std::string> names {"Id"}; 
+      return names; 
+    }
 
 
     int SetIntTxHil::executePermission() const

@@ -1,17 +1,38 @@
 #include "command_factory.h"
 
-#include <iostream>
-#include <map>
+#include <rapidjson/document.h>
 
-#include "rapidjson/document.h"
+#include <iostream>
+#include <unordered_map>
+
+#include "command_base.h"
+#include "command_result.h"
 
 namespace Sdx
 {
 
 struct CommandFactory::Pimpl
 {
-  typedef std::map<std::string, FactoryFunction> FactoryMap;
+  using FactoryMap = std::unordered_map<std::string, FactoryFunction>;
+  using TargetFactoryMap = std::unordered_map<std::string, FactoryMap>;
+
+  const FactoryMap& getFactoryFromJson(const rapidjson::Document& doc)
+  {
+    if (doc.HasMember(CommandBase::CmdTargetIdKey.c_str()))
+    {
+      const std::string targetID = doc[CommandBase::CmdTargetIdKey.c_str()].GetString();
+
+      if (const auto it = targetFactory.find(targetID); it != targetFactory.end())
+      {
+        return it->second;
+      }
+    }
+
+    return factory;
+  }
+
   FactoryMap factory;
+  TargetFactoryMap targetFactory;
 };
 
 CommandFactory* CommandFactory::instance()
@@ -20,61 +41,86 @@ CommandFactory* CommandFactory::instance()
   return &uniqueInstance;
 }
 
-CommandFactory::CommandFactory()
+CommandFactory::CommandFactory() : m(std::make_unique<Pimpl>())
 {
-  m = new Pimpl;
 }
 
-CommandFactory::~CommandFactory()
-{
-  delete m;
-  m = 0;
-}
+CommandFactory::~CommandFactory() = default;
 
 CommandBasePtr CommandFactory::createCommand(const std::string& serializedCommand, std::string* errorMsg)
 {
   if (errorMsg)
+  {
     errorMsg->clear();
+  }
 
   rapidjson::Document doc;
-  if (!Sdx::CommandBase::parse(serializedCommand, doc, errorMsg))
+  if (!CommandBase::parse(serializedCommand, doc, errorMsg))
   {
-    return CommandBasePtr();
+    return nullptr;
   }
-  std::string cmdName = doc[Sdx::CommandBase::CmdNameKey.c_str()].GetString();
 
-  if (m->factory.find(cmdName) != m->factory.end())
+  const auto& factory = m->getFactoryFromJson(doc);
+  const std::string cmdName = doc[CommandBase::CmdNameKey.c_str()].GetString();
+
+  if (const auto it = factory.find(cmdName); it != m->factory.end())
   {
-    FactoryFunction fct = m->factory[cmdName];
-    CommandBasePtr cmd = (*fct)();
+    auto cmd = it->second();
     cmd->m_values.CopyFrom(doc, cmd->m_values.GetAllocator());
+
     rapidjson::Value& uuidValue = doc[CommandBase::CmdUuidKey.c_str()];
     cmd->m_cmdUuid = uuidValue.GetString();
+
     rapidjson::Value newValue;
     newValue.SetString(cmd->m_cmdUuid.c_str(),
-                       (rapidjson::SizeType)cmd->m_cmdUuid.size(),
+                       static_cast<rapidjson::SizeType>(cmd->m_cmdUuid.size()),
                        cmd->m_values.GetAllocator());
     cmd->setValue(CommandBase::CmdUuidKey, newValue);
+
     if (cmd->isValid())
     {
       return cmd;
     }
+
     if (errorMsg)
+    {
       *errorMsg = "Invalid command: " + serializedCommand;
+    }
   }
   else
   {
     if (errorMsg)
+    {
       *errorMsg = "Factory function not found for " + cmdName;
+    }
   }
-  return CommandBasePtr();
+  return nullptr;
 }
 
-void CommandFactory::registerFactoryFunction(const std::string& cmdName, CommandFactory::FactoryFunction fct)
+CommandResultPtr CommandFactory::createCommandResult(const std::string& serializedCommand, std::string* errorMsg)
 {
-  if (m->factory.find(cmdName) == m->factory.end())
+  if (auto result = CommandResult::dynamicCast(createCommand(serializedCommand, errorMsg)))
   {
-    m->factory[cmdName] = fct;
+    result->m_relatedCommand = createCommand(result->value(CommandResult::RelatedCommand).GetString(), errorMsg);
+
+    if (result->m_relatedCommand)
+    {
+      return result;
+    }
+  }
+
+  return nullptr;
+}
+
+void CommandFactory::registerFactoryFunction(const std::string& targetID,
+                                             const std::string& cmdName,
+                                             FactoryFunction fct)
+{
+  auto& factory = targetID.empty() ? m->factory : m->targetFactory[targetID];
+
+  if (factory.find(cmdName) == factory.end())
+  {
+    factory[cmdName] = fct;
   }
   else
   {

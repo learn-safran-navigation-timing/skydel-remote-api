@@ -1,8 +1,7 @@
 
-#include "gen/GetIntTxPulse.h"
+#include "GetIntTxPulse.h"
 
 #include "command_factory.h"
-#include "command_result_factory.h"
 #include "parse_json.hpp"
 
 ///
@@ -14,17 +13,24 @@ namespace Sdx
   namespace Cmd
   {
     const char* const GetIntTxPulse::CmdName = "GetIntTxPulse";
-    const char* const GetIntTxPulse::Documentation = "Get pulse signal interference.";
+    const char* const GetIntTxPulse::Documentation = "Get pulse signal interference.\n"
+      "\n"
+      "Name          Type   Description\n"
+      "------------- ------ ------------------------------\n"
+      "TransmitterId string Transmitter unique identifier.\n"
+      "SignalId      string Pulse unique identifier.";
+    const char* const GetIntTxPulse::TargetId = "";
 
-    REGISTER_COMMAND_FACTORY(GetIntTxPulse);
+    REGISTER_COMMAND_TO_FACTORY_DECL(GetIntTxPulse);
+    REGISTER_COMMAND_TO_FACTORY_IMPL(GetIntTxPulse);
 
 
     GetIntTxPulse::GetIntTxPulse()
-      : CommandBase(CmdName)
+      : CommandBase(CmdName, TargetId)
     {}
 
     GetIntTxPulse::GetIntTxPulse(const std::string& transmitterId, const std::string& signalId)
-      : CommandBase(CmdName)
+      : CommandBase(CmdName, TargetId)
     {
 
       setTransmitterId(transmitterId);
@@ -52,6 +58,12 @@ namespace Sdx
     }
 
     std::string GetIntTxPulse::documentation() const { return Documentation; }
+
+    const std::vector<std::string>& GetIntTxPulse::fieldNames() const 
+    { 
+      static const std::vector<std::string> names {"TransmitterId", "SignalId"}; 
+      return names; 
+    }
 
 
     int GetIntTxPulse::executePermission() const

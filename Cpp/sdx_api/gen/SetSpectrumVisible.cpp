@@ -1,8 +1,7 @@
 
-#include "gen/SetSpectrumVisible.h"
+#include "SetSpectrumVisible.h"
 
 #include "command_factory.h"
-#include "command_result_factory.h"
 #include "parse_json.hpp"
 
 ///
@@ -14,17 +13,23 @@ namespace Sdx
   namespace Cmd
   {
     const char* const SetSpectrumVisible::CmdName = "SetSpectrumVisible";
-    const char* const SetSpectrumVisible::Documentation = "Set if spectrums are show/hide.";
+    const char* const SetSpectrumVisible::Documentation = "Set if spectrums are show/hide.\n"
+      "\n"
+      "Name    Type Description\n"
+      "------- ---- ------------------\n"
+      "Visible bool Show spectrum flag";
+    const char* const SetSpectrumVisible::TargetId = "";
 
-    REGISTER_COMMAND_FACTORY(SetSpectrumVisible);
+    REGISTER_COMMAND_TO_FACTORY_DECL(SetSpectrumVisible);
+    REGISTER_COMMAND_TO_FACTORY_IMPL(SetSpectrumVisible);
 
 
     SetSpectrumVisible::SetSpectrumVisible()
-      : CommandBase(CmdName)
+      : CommandBase(CmdName, TargetId)
     {}
 
     SetSpectrumVisible::SetSpectrumVisible(bool visible)
-      : CommandBase(CmdName)
+      : CommandBase(CmdName, TargetId)
     {
 
       setVisible(visible);
@@ -50,6 +55,12 @@ namespace Sdx
     }
 
     std::string SetSpectrumVisible::documentation() const { return Documentation; }
+
+    const std::vector<std::string>& SetSpectrumVisible::fieldNames() const 
+    { 
+      static const std::vector<std::string> names {"Visible"}; 
+      return names; 
+    }
 
 
     int SetSpectrumVisible::executePermission() const

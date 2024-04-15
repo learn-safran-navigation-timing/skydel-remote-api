@@ -1,8 +1,7 @@
 
-#include "gen/SetIonoGridMask.h"
+#include "SetIonoGridMask.h"
 
 #include "command_factory.h"
-#include "command_result_factory.h"
 #include "parse_json.hpp"
 
 ///
@@ -14,17 +13,26 @@ namespace Sdx
   namespace Cmd
   {
     const char* const SetIonoGridMask::CmdName = "SetIonoGridMask";
-    const char* const SetIonoGridMask::Documentation = "Set the flag for a ionospheric grid point in the SBAS message 18 mask";
+    const char* const SetIonoGridMask::Documentation = "Set the flag for a ionospheric grid point in the SBAS message 18 mask\n"
+      "\n"
+      "Name            Type   Description\n"
+      "--------------- ------ -------------------------------\n"
+      "ServiceProvider string The service provider\n"
+      "Band            int    The ionospheric grid band index\n"
+      "Point           int    The IGP index\n"
+      "Flag            bool   Is the IGP monitored";
+    const char* const SetIonoGridMask::TargetId = "";
 
-    REGISTER_COMMAND_FACTORY(SetIonoGridMask);
+    REGISTER_COMMAND_TO_FACTORY_DECL(SetIonoGridMask);
+    REGISTER_COMMAND_TO_FACTORY_IMPL(SetIonoGridMask);
 
 
     SetIonoGridMask::SetIonoGridMask()
-      : CommandBase(CmdName)
+      : CommandBase(CmdName, TargetId)
     {}
 
     SetIonoGridMask::SetIonoGridMask(const std::string& serviceProvider, int band, int point, bool flag)
-      : CommandBase(CmdName)
+      : CommandBase(CmdName, TargetId)
     {
 
       setServiceProvider(serviceProvider);
@@ -56,6 +64,12 @@ namespace Sdx
     }
 
     std::string SetIonoGridMask::documentation() const { return Documentation; }
+
+    const std::vector<std::string>& SetIonoGridMask::fieldNames() const 
+    { 
+      static const std::vector<std::string> names {"ServiceProvider", "Band", "Point", "Flag"}; 
+      return names; 
+    }
 
 
     int SetIonoGridMask::executePermission() const

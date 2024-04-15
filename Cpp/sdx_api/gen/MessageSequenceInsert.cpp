@@ -1,8 +1,7 @@
 
-#include "gen/MessageSequenceInsert.h"
+#include "MessageSequenceInsert.h"
 
 #include "command_factory.h"
-#include "command_result_factory.h"
 #include "parse_json.hpp"
 
 ///
@@ -14,17 +13,25 @@ namespace Sdx
   namespace Cmd
   {
     const char* const MessageSequenceInsert::CmdName = "MessageSequenceInsert";
-    const char* const MessageSequenceInsert::Documentation = "Insert message to sequence.";
+    const char* const MessageSequenceInsert::Documentation = "Insert message to sequence.\n"
+      "\n"
+      "Name   Type   Description\n"
+      "------ ------ -----------------------------------------------------------------------------------------------------------\n"
+      "Signal string Signal Name (\"L2C\" for example)\n"
+      "Index  int    Message index in sequence where to insert. Set to -1 to append the message type at the end of the sequence.\n"
+      "Type   int    Message type to insert";
+    const char* const MessageSequenceInsert::TargetId = "";
 
-    REGISTER_COMMAND_FACTORY(MessageSequenceInsert);
+    REGISTER_COMMAND_TO_FACTORY_DECL(MessageSequenceInsert);
+    REGISTER_COMMAND_TO_FACTORY_IMPL(MessageSequenceInsert);
 
 
     MessageSequenceInsert::MessageSequenceInsert()
-      : CommandBase(CmdName)
+      : CommandBase(CmdName, TargetId)
     {}
 
     MessageSequenceInsert::MessageSequenceInsert(const std::string& signal, int index, int type)
-      : CommandBase(CmdName)
+      : CommandBase(CmdName, TargetId)
     {
 
       setSignal(signal);
@@ -54,6 +61,12 @@ namespace Sdx
     }
 
     std::string MessageSequenceInsert::documentation() const { return Documentation; }
+
+    const std::vector<std::string>& MessageSequenceInsert::fieldNames() const 
+    { 
+      static const std::vector<std::string> names {"Signal", "Index", "Type"}; 
+      return names; 
+    }
 
 
     int MessageSequenceInsert::executePermission() const

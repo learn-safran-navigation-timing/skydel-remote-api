@@ -1,8 +1,7 @@
 
-#include "gen/SetStatusLogMaxEntriesCountMode.h"
+#include "SetStatusLogMaxEntriesCountMode.h"
 
 #include "command_factory.h"
-#include "command_result_factory.h"
 #include "parse_json.hpp"
 
 ///
@@ -14,17 +13,23 @@ namespace Sdx
   namespace Cmd
   {
     const char* const SetStatusLogMaxEntriesCountMode::CmdName = "SetStatusLogMaxEntriesCountMode";
-    const char* const SetStatusLogMaxEntriesCountMode::Documentation = "Sets the mode for how the maximum number of entries in the Status Log is handled. The \"Unlimited\" mode allows the Status Log to have an infinite amount of entries. The \"Custom\" mode allows to set a maximum entries count for the Status Log. In that mode, when the maximum count is reached, Skydel will start overwritting the older entries in the Status Log.";
+    const char* const SetStatusLogMaxEntriesCountMode::Documentation = "Sets the mode for how the maximum number of entries in the Status Log is handled. The \"Unlimited\" mode allows the Status Log to have an infinite amount of entries. The \"Custom\" mode allows to set a maximum entries count for the Status Log. In that mode, when the maximum count is reached, Skydel will start overwritting the older entries in the Status Log.\n"
+      "\n"
+      "Name Type   Description\n"
+      "---- ------ ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------\n"
+      "Mode string Status Log maximum count mode, accepts \"Unlimited\" and \"Custom\". If \"Custom\" mode is set, use the command SetStatusLogMaxEntriesCount to set the maximum number of entries in the Status Log.";
+    const char* const SetStatusLogMaxEntriesCountMode::TargetId = "";
 
-    REGISTER_COMMAND_FACTORY(SetStatusLogMaxEntriesCountMode);
+    REGISTER_COMMAND_TO_FACTORY_DECL(SetStatusLogMaxEntriesCountMode);
+    REGISTER_COMMAND_TO_FACTORY_IMPL(SetStatusLogMaxEntriesCountMode);
 
 
     SetStatusLogMaxEntriesCountMode::SetStatusLogMaxEntriesCountMode()
-      : CommandBase(CmdName)
+      : CommandBase(CmdName, TargetId)
     {}
 
     SetStatusLogMaxEntriesCountMode::SetStatusLogMaxEntriesCountMode(const std::string& mode)
-      : CommandBase(CmdName)
+      : CommandBase(CmdName, TargetId)
     {
 
       setMode(mode);
@@ -50,6 +55,12 @@ namespace Sdx
     }
 
     std::string SetStatusLogMaxEntriesCountMode::documentation() const { return Documentation; }
+
+    const std::vector<std::string>& SetStatusLogMaxEntriesCountMode::fieldNames() const 
+    { 
+      static const std::vector<std::string> names {"Mode"}; 
+      return names; 
+    }
 
 
     int SetStatusLogMaxEntriesCountMode::executePermission() const

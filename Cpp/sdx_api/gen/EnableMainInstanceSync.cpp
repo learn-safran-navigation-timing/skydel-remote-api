@@ -1,8 +1,7 @@
 
-#include "gen/EnableMainInstanceSync.h"
+#include "EnableMainInstanceSync.h"
 
 #include "command_factory.h"
-#include "command_result_factory.h"
 #include "parse_json.hpp"
 
 ///
@@ -14,17 +13,24 @@ namespace Sdx
   namespace Cmd
   {
     const char* const EnableMainInstanceSync::CmdName = "EnableMainInstanceSync";
-    const char* const EnableMainInstanceSync::Documentation = "Enable/Disable Time Synchronization on main instance.\nThe main instance will control other Skydel simulators with main instance PPS Enabled.";
+    const char* const EnableMainInstanceSync::Documentation = "Enable/Disable Time Synchronization on main instance.\n"
+      "The main instance will control other Skydel simulators with main instance PPS Enabled.\n"
+      "\n"
+      "Name    Type Description\n"
+      "------- ---- ----------------------------------------------------------------------------\n"
+      "Enabled bool If true, this simulator will be the main instance to synchronize simulators.";
+    const char* const EnableMainInstanceSync::TargetId = "";
 
-    REGISTER_COMMAND_FACTORY(EnableMainInstanceSync);
+    REGISTER_COMMAND_TO_FACTORY_DECL(EnableMainInstanceSync);
+    REGISTER_COMMAND_TO_FACTORY_IMPL(EnableMainInstanceSync);
 
 
     EnableMainInstanceSync::EnableMainInstanceSync()
-      : CommandBase(CmdName)
+      : CommandBase(CmdName, TargetId)
     {}
 
     EnableMainInstanceSync::EnableMainInstanceSync(bool enabled)
-      : CommandBase(CmdName)
+      : CommandBase(CmdName, TargetId)
     {
 
       setEnabled(enabled);
@@ -50,6 +56,12 @@ namespace Sdx
     }
 
     std::string EnableMainInstanceSync::documentation() const { return Documentation; }
+
+    const std::vector<std::string>& EnableMainInstanceSync::fieldNames() const 
+    { 
+      static const std::vector<std::string> names {"Enabled"}; 
+      return names; 
+    }
 
 
     int EnableMainInstanceSync::executePermission() const

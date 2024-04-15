@@ -1,8 +1,7 @@
 
-#include "gen/GetIntTxTrajectory.h"
+#include "GetIntTxTrajectory.h"
 
 #include "command_factory.h"
-#include "command_result_factory.h"
 #include "parse_json.hpp"
 
 ///
@@ -14,17 +13,23 @@ namespace Sdx
   namespace Cmd
   {
     const char* const GetIntTxTrajectory::CmdName = "GetIntTxTrajectory";
-    const char* const GetIntTxTrajectory::Documentation = "Get interference transmitter trajectory.";
+    const char* const GetIntTxTrajectory::Documentation = "Get interference transmitter trajectory.\n"
+      "\n"
+      "Name Type   Description\n"
+      "---- ------ ------------------------------\n"
+      "Id   string Transmitter unique identifier.";
+    const char* const GetIntTxTrajectory::TargetId = "";
 
-    REGISTER_COMMAND_FACTORY(GetIntTxTrajectory);
+    REGISTER_COMMAND_TO_FACTORY_DECL(GetIntTxTrajectory);
+    REGISTER_COMMAND_TO_FACTORY_IMPL(GetIntTxTrajectory);
 
 
     GetIntTxTrajectory::GetIntTxTrajectory()
-      : CommandBase(CmdName)
+      : CommandBase(CmdName, TargetId)
     {}
 
     GetIntTxTrajectory::GetIntTxTrajectory(const std::string& id)
-      : CommandBase(CmdName)
+      : CommandBase(CmdName, TargetId)
     {
 
       setId(id);
@@ -50,6 +55,12 @@ namespace Sdx
     }
 
     std::string GetIntTxTrajectory::documentation() const { return Documentation; }
+
+    const std::vector<std::string>& GetIntTxTrajectory::fieldNames() const 
+    { 
+      static const std::vector<std::string> names {"Id"}; 
+      return names; 
+    }
 
 
     int GetIntTxTrajectory::executePermission() const

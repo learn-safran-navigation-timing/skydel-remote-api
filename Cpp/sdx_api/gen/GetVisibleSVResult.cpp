@@ -1,8 +1,7 @@
 
-#include "gen/GetVisibleSVResult.h"
+#include "GetVisibleSVResult.h"
 
 #include "command_factory.h"
-#include "command_result_factory.h"
 #include "parse_json.hpp"
 
 ///
@@ -14,17 +13,23 @@ namespace Sdx
   namespace Cmd
   {
     const char* const GetVisibleSVResult::CmdName = "GetVisibleSVResult";
-    const char* const GetVisibleSVResult::Documentation = "Result of GetVisibleSV.";
+    const char* const GetVisibleSVResult::Documentation = "Result of GetVisibleSV.\n"
+      "\n"
+      "Name   Type      Description\n"
+      "------ --------- ---------------------------------------------------------------------------------------------\n"
+      "System string    The system, can be \"GPS\", \"GLONASS\", \"Galileo\", \"BeiDou\", \"SBAS\", \"QZSS\", \"NavIC\" or \"PULSAR\"\n"
+      "SvId   array int A list containing the visible satellites' SV IDs";
+    const char* const GetVisibleSVResult::TargetId = "";
 
-    REGISTER_COMMAND_RESULT_TO_FACTORY_IMPL(GetVisibleSVResult);
+    REGISTER_COMMAND_TO_FACTORY_IMPL(GetVisibleSVResult);
 
 
     GetVisibleSVResult::GetVisibleSVResult()
-      : CommandResult(CmdName)
+      : CommandResult(CmdName, TargetId)
     {}
 
     GetVisibleSVResult::GetVisibleSVResult(const std::string& system, const std::vector<int>& svId)
-      : CommandResult(CmdName)
+      : CommandResult(CmdName, TargetId)
     {
 
       setSystem(system);
@@ -32,7 +37,7 @@ namespace Sdx
     }
 
     GetVisibleSVResult::GetVisibleSVResult(CommandBasePtr relatedCommand, const std::string& system, const std::vector<int>& svId)
-      : CommandResult(CmdName, relatedCommand)
+      : CommandResult(CmdName, TargetId, relatedCommand)
     {
 
       setSystem(system);
@@ -66,6 +71,12 @@ namespace Sdx
     }
 
     std::string GetVisibleSVResult::documentation() const { return Documentation; }
+
+    const std::vector<std::string>& GetVisibleSVResult::fieldNames() const 
+    { 
+      static const std::vector<std::string> names {"System", "SvId"}; 
+      return names; 
+    }
 
 
     std::string GetVisibleSVResult::system() const

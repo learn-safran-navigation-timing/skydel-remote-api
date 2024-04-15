@@ -1,8 +1,7 @@
 
-#include "gen/GetGalileoSignalHealthForSVResult.h"
+#include "GetGalileoSignalHealthForSVResult.h"
 
 #include "command_factory.h"
-#include "command_result_factory.h"
 #include "parse_json.hpp"
 
 ///
@@ -14,17 +13,25 @@ namespace Sdx
   namespace Cmd
   {
     const char* const GetGalileoSignalHealthForSVResult::CmdName = "GetGalileoSignalHealthForSVResult";
-    const char* const GetGalileoSignalHealthForSVResult::Documentation = "Result of GetGalileoSignalHealthForSV.";
+    const char* const GetGalileoSignalHealthForSVResult::Documentation = "Result of GetGalileoSignalHealthForSV.\n"
+      "\n"
+      "Name        Type            Description\n"
+      "----------- --------------- -------------------------------------------------------------------------------------------\n"
+      "SvId        int             The satellite's SV ID 1..36\n"
+      "Component   string          Component is either \"E5a\", \"E5b\", or \"E1B\"\n"
+      "Health      int             Signal health 0..3\n"
+      "DataSetName optional string Optional name of the data set to use. If no value is provided, the active data set is used.";
+    const char* const GetGalileoSignalHealthForSVResult::TargetId = "";
 
-    REGISTER_COMMAND_RESULT_TO_FACTORY_IMPL(GetGalileoSignalHealthForSVResult);
+    REGISTER_COMMAND_TO_FACTORY_IMPL(GetGalileoSignalHealthForSVResult);
 
 
     GetGalileoSignalHealthForSVResult::GetGalileoSignalHealthForSVResult()
-      : CommandResult(CmdName)
+      : CommandResult(CmdName, TargetId)
     {}
 
     GetGalileoSignalHealthForSVResult::GetGalileoSignalHealthForSVResult(int svId, const std::string& component, int health, const Sdx::optional<std::string>& dataSetName)
-      : CommandResult(CmdName)
+      : CommandResult(CmdName, TargetId)
     {
 
       setSvId(svId);
@@ -34,7 +41,7 @@ namespace Sdx
     }
 
     GetGalileoSignalHealthForSVResult::GetGalileoSignalHealthForSVResult(CommandBasePtr relatedCommand, int svId, const std::string& component, int health, const Sdx::optional<std::string>& dataSetName)
-      : CommandResult(CmdName, relatedCommand)
+      : CommandResult(CmdName, TargetId, relatedCommand)
     {
 
       setSvId(svId);
@@ -72,6 +79,12 @@ namespace Sdx
     }
 
     std::string GetGalileoSignalHealthForSVResult::documentation() const { return Documentation; }
+
+    const std::vector<std::string>& GetGalileoSignalHealthForSVResult::fieldNames() const 
+    { 
+      static const std::vector<std::string> names {"SvId", "Component", "Health", "DataSetName"}; 
+      return names; 
+    }
 
 
     int GetGalileoSignalHealthForSVResult::svId() const

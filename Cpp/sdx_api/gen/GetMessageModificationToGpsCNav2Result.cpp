@@ -1,8 +1,7 @@
 
-#include "gen/GetMessageModificationToGpsCNav2Result.h"
+#include "GetMessageModificationToGpsCNav2Result.h"
 
 #include "command_factory.h"
-#include "command_result_factory.h"
 #include "parse_json.hpp"
 
 ///
@@ -14,17 +13,30 @@ namespace Sdx
   namespace Cmd
   {
     const char* const GetMessageModificationToGpsCNav2Result::CmdName = "GetMessageModificationToGpsCNav2Result";
-    const char* const GetMessageModificationToGpsCNav2Result::Documentation = "Result of GetMessageModificationToGpsCNav2.";
+    const char* const GetMessageModificationToGpsCNav2Result::Documentation = "Result of GetMessageModificationToGpsCNav2.\n"
+      "\n"
+      "Name             Type         Description\n"
+      "---------------- ------------ ------------------------------------------------------------------------------------\n"
+      "SignalArray      array string Array of signals to apply the message modification to, accepts \"L1C\" (empty for all)\n"
+      "SvId             int          The satellite's SV ID 1..32 (use 0 to apply modification to all SVs)\n"
+      "StartTime        int          Elapsed time in seconds since start of simulation\n"
+      "StopTime         int          Elapsed time in seconds since start of simulation (use 0 for no stop time)\n"
+      "Page             int          CNAV-2 page (use 0 to apply modification to all pages)\n"
+      "Condition        string       Optional condition to match message content, ex: \"EQUAL(45, 10, 0x3f)\"\n"
+      "UpdateCRC        bool         Recalculate CRC after making modification\n"
+      "BitModifications string       Comma separated bit modifications\n"
+      "Id               string       Unique identifier of the event";
+    const char* const GetMessageModificationToGpsCNav2Result::TargetId = "";
 
-    REGISTER_COMMAND_RESULT_TO_FACTORY_IMPL(GetMessageModificationToGpsCNav2Result);
+    REGISTER_COMMAND_TO_FACTORY_IMPL(GetMessageModificationToGpsCNav2Result);
 
 
     GetMessageModificationToGpsCNav2Result::GetMessageModificationToGpsCNav2Result()
-      : CommandResult(CmdName)
+      : CommandResult(CmdName, TargetId)
     {}
 
     GetMessageModificationToGpsCNav2Result::GetMessageModificationToGpsCNav2Result(const std::vector<std::string>& signalArray, int svId, int startTime, int stopTime, int page, const std::string& condition, bool updateCRC, const std::string& bitModifications, const std::string& id)
-      : CommandResult(CmdName)
+      : CommandResult(CmdName, TargetId)
     {
 
       setSignalArray(signalArray);
@@ -39,7 +51,7 @@ namespace Sdx
     }
 
     GetMessageModificationToGpsCNav2Result::GetMessageModificationToGpsCNav2Result(CommandBasePtr relatedCommand, const std::vector<std::string>& signalArray, int svId, int startTime, int stopTime, int page, const std::string& condition, bool updateCRC, const std::string& bitModifications, const std::string& id)
-      : CommandResult(CmdName, relatedCommand)
+      : CommandResult(CmdName, TargetId, relatedCommand)
     {
 
       setSignalArray(signalArray);
@@ -87,6 +99,12 @@ namespace Sdx
     }
 
     std::string GetMessageModificationToGpsCNav2Result::documentation() const { return Documentation; }
+
+    const std::vector<std::string>& GetMessageModificationToGpsCNav2Result::fieldNames() const 
+    { 
+      static const std::vector<std::string> names {"SignalArray", "SvId", "StartTime", "StopTime", "Page", "Condition", "UpdateCRC", "BitModifications", "Id"}; 
+      return names; 
+    }
 
 
     std::vector<std::string> GetMessageModificationToGpsCNav2Result::signalArray() const

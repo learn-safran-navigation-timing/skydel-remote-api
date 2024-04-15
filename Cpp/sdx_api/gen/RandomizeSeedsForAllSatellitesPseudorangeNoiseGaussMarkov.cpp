@@ -1,8 +1,7 @@
 
-#include "gen/RandomizeSeedsForAllSatellitesPseudorangeNoiseGaussMarkov.h"
+#include "RandomizeSeedsForAllSatellitesPseudorangeNoiseGaussMarkov.h"
 
 #include "command_factory.h"
-#include "command_result_factory.h"
 #include "parse_json.hpp"
 
 ///
@@ -14,17 +13,25 @@ namespace Sdx
   namespace Cmd
   {
     const char* const RandomizeSeedsForAllSatellitesPseudorangeNoiseGaussMarkov::CmdName = "RandomizeSeedsForAllSatellitesPseudorangeNoiseGaussMarkov";
-    const char* const RandomizeSeedsForAllSatellitesPseudorangeNoiseGaussMarkov::Documentation = "Please note the command RandomizeSeedsForAllSatellitesPseudorangeNoiseGaussMarkov is deprecated since 21.3. You may use RandomizePseudorangeNoiseGaussMarkovSeedsForAllSV.\n\nGenerate new seeds for pseudorange noise Gauss-Markov process error on all satellites.";
+    const char* const RandomizeSeedsForAllSatellitesPseudorangeNoiseGaussMarkov::Documentation = "Please note the command RandomizeSeedsForAllSatellitesPseudorangeNoiseGaussMarkov is deprecated since 21.3. You may use RandomizePseudorangeNoiseGaussMarkovSeedsForAllSV.\n"
+      "\n"
+      "Generate new seeds for pseudorange noise Gauss-Markov process error on all satellites.\n"
+      "\n"
+      "Name   Type   Description\n"
+      "------ ------ --------------------------------------------------------------------------\n"
+      "System string \"GPS\", \"GLONASS\", \"Galileo\", \"BeiDou\", \"SBAS\", \"QZSS\", \"NavIC\" or \"PULSAR\"";
+    const char* const RandomizeSeedsForAllSatellitesPseudorangeNoiseGaussMarkov::TargetId = "";
 
-    REGISTER_COMMAND_FACTORY(RandomizeSeedsForAllSatellitesPseudorangeNoiseGaussMarkov);
+    REGISTER_COMMAND_TO_FACTORY_DECL(RandomizeSeedsForAllSatellitesPseudorangeNoiseGaussMarkov);
+    REGISTER_COMMAND_TO_FACTORY_IMPL(RandomizeSeedsForAllSatellitesPseudorangeNoiseGaussMarkov);
 
 
     RandomizeSeedsForAllSatellitesPseudorangeNoiseGaussMarkov::RandomizeSeedsForAllSatellitesPseudorangeNoiseGaussMarkov()
-      : CommandBase(CmdName)
+      : CommandBase(CmdName, TargetId)
     {}
 
     RandomizeSeedsForAllSatellitesPseudorangeNoiseGaussMarkov::RandomizeSeedsForAllSatellitesPseudorangeNoiseGaussMarkov(const std::string& system)
-      : CommandBase(CmdName)
+      : CommandBase(CmdName, TargetId)
     {
 
       setSystem(system);
@@ -50,6 +57,12 @@ namespace Sdx
     }
 
     std::string RandomizeSeedsForAllSatellitesPseudorangeNoiseGaussMarkov::documentation() const { return Documentation; }
+
+    const std::vector<std::string>& RandomizeSeedsForAllSatellitesPseudorangeNoiseGaussMarkov::fieldNames() const 
+    { 
+      static const std::vector<std::string> names {"System"}; 
+      return names; 
+    }
 
 
     int RandomizeSeedsForAllSatellitesPseudorangeNoiseGaussMarkov::executePermission() const

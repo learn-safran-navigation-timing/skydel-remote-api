@@ -1,4 +1,4 @@
-Skydel Remote API Version 43
+Skydel Remote API Version 44
 
 Command execution permission flags:
   EXECUTE_IF_NO_CONFIG  : executed even if there is no config
@@ -309,8 +309,8 @@ Permission: EXECUTE_IF_SIMULATING | EXECUTE_IF_IDLE
 Enable (or disable) RF output for specified satellite. Use SV ID 0 to enabled/disable all satellites.
 
 Name    Type   Description
-------- ------ ----------------------------------------------------------------
-System  string "GPS", "GLONASS", "Galileo", "BeiDou", "SBAS", "QZSS" or "NavIC"
+------- ------ --------------------------------------------------------------------------
+System  string "GPS", "GLONASS", "Galileo", "BeiDou", "SBAS", "QZSS", "NavIC" or "PULSAR"
 SvId    int    The satellite's SV ID
 Enabled bool   RF is enabled when value is True
 
@@ -322,8 +322,8 @@ Permission: EXECUTE_IF_IDLE
 Tells if the RF output is enabled or disabled for the specified satellite.
 
 Name   Type   Description
------- ------ ----------------------------------------------------------------
-System string "GPS", "GLONASS", "Galileo", "BeiDou", "SBAS", "QZSS" or "NavIC"
+------ ------ --------------------------------------------------------------------------
+System string "GPS", "GLONASS", "Galileo", "BeiDou", "SBAS", "QZSS", "NavIC" or "PULSAR"
 SvId   int    The satellite's SV ID
 
 ***************************************************************************************************************************
@@ -333,8 +333,8 @@ Result IsRFOutputEnabledResult(system, svId, enabled)
 Result of IsRFOutputEnabled.
 
 Name    Type   Description
-------- ------ ----------------------------------------------------------------
-System  string "GPS", "GLONASS", "Galileo", "BeiDou", "SBAS", "QZSS" or "NavIC"
+------- ------ --------------------------------------------------------------------------
+System  string "GPS", "GLONASS", "Galileo", "BeiDou", "SBAS", "QZSS", "NavIC" or "PULSAR"
 SvId    int    The satellite's SV ID
 Enabled bool   RF is enabled when value is True
 
@@ -347,7 +347,7 @@ Enable (or disable) RF output for each satellite individually.
 
 Name    Type       Description
 ------- ---------- -------------------------------------------------------------------------------------------------
-System  string     "GPS", "GLONASS", "Galileo", "BeiDou", "SBAS", "QZSS" or "NavIC"
+System  string     "GPS", "GLONASS", "Galileo", "BeiDou", "SBAS", "QZSS", "NavIC" or "PULSAR"
 Enabled array bool RF is enabled when value is True. Zero based index (index 0 => SV ID 1, index 1 => SV ID 2, etc).
 
 ***************************************************************************************************************************
@@ -358,8 +358,8 @@ Permission: EXECUTE_IF_IDLE
 Tells if the RF output is enabled or disabled for each satellite.
 
 Name   Type   Description
------- ------ ----------------------------------------------------------------
-System string "GPS", "GLONASS", "Galileo", "BeiDou", "SBAS", "QZSS" or "NavIC"
+------ ------ --------------------------------------------------------------------------
+System string "GPS", "GLONASS", "Galileo", "BeiDou", "SBAS", "QZSS", "NavIC" or "PULSAR"
 
 ***************************************************************************************************************************
 
@@ -369,7 +369,7 @@ Result of IsRFOutputEnabledForEachSV.
 
 Name    Type       Description
 ------- ---------- -------------------------------------------------------------------------------------------------
-System  string     "GPS", "GLONASS", "Galileo", "BeiDou", "SBAS", "QZSS" or "NavIC"
+System  string     "GPS", "GLONASS", "Galileo", "BeiDou", "SBAS", "QZSS", "NavIC" or "PULSAR"
 Enabled array bool RF is enabled when value is True. Zero based index (index 0 => SV ID 1, index 1 => SV ID 2, etc).
 
 ***************************************************************************************************************************
@@ -380,11 +380,11 @@ Permission: EXECUTE_IF_SIMULATING | EXECUTE_IF_IDLE
 Enable (or disable) signal for specified satellite.
 
 Name    Type   Description
-------- ------ -------------------------------------------------------------------------------------------------
+------- ------ -------------------------------------------------------------------------------------------------------------
 Signal  string Accepted signal keys: "L1CA", "L1C", "L1P", "L1ME", "L1MR", "L2C", "L2P", "L2ME", "L2MR", "L5",
                                      "G1", "G2", "E1", "E1PRS", "E5a", "E5b", "E6BC", "E6PRS",
                                      "B1", "B2", "B1C", "B2a", "B3I", "SBASL1", "SBASL5", "QZSSL1CA"
-                                     "QZSSL1CB", "QZSSL1C", "QZSSL2C", "QZSSL5", "QZSSL1S", "QZSSL5S", "NAVICL5"
+                                     "QZSSL1CB", "QZSSL1C", "QZSSL2C", "QZSSL5", "QZSSL1S", "QZSSL5S", "NAVICL5", "PULSARXL"
 SvId    int    The satellite's SV ID (use 0 for all constellation's satellites)
 Enabled bool   Signal is enabled when value is True
 
@@ -396,11 +396,11 @@ Permission: EXECUTE_IF_IDLE
 Tells if the signal is enabled or disabled.
 
 Name   Type   Description
------- ------ -------------------------------------------------------------------------------------------------
+------ ------ -------------------------------------------------------------------------------------------------------------
 Signal string Accepted signal keys: "L1CA", "L1C", "L1P", "L1ME", "L1MR", "L2C", "L2P", "L2ME", "L2MR", "L5",
                                     "G1", "G2", "E1", "E1PRS", "E5a", "E5b", "E6BC", "E6PRS",
                                     "B1", "B2", "B1C", "B2a", "B3I", "SBASL1", "SBASL5", "QZSSL1CA"
-                                    "QZSSL1CB", "QZSSL1C", "QZSSL2C", "QZSSL5", "QZSSL1S", "QZSSL5S", "NAVICL5"
+                                    "QZSSL1CB", "QZSSL1C", "QZSSL2C", "QZSSL5", "QZSSL1S", "QZSSL5S", "NAVICL5", "PULSARXL"
 SvId   int    The satellite's SV ID (use 0 for all constellation's satellites)
 
 ***************************************************************************************************************************
@@ -410,11 +410,11 @@ Result IsSignalEnabledForSVResult(signal, svId, enabled)
 Result of IsSignalEnabledForSV.
 
 Name    Type   Description
-------- ------ -------------------------------------------------------------------------------------------------
+------- ------ -------------------------------------------------------------------------------------------------------------
 Signal  string Accepted signal keys: "L1CA", "L1C", "L1P", "L1ME", "L1MR", "L2C", "L2P", "L2ME", "L2MR", "L5",
                                      "G1", "G2", "E1", "E1PRS", "E5a", "E5b", "E6BC", "E6PRS",
                                      "B1", "B2", "B1C", "B2a", "B3I", "SBASL1", "SBASL5", "QZSSL1CA"
-                                     "QZSSL1CB", "QZSSL1C", "QZSSL2C", "QZSSL5", "QZSSL1S", "QZSSL5S", "NAVICL5"
+                                     "QZSSL1CB", "QZSSL1C", "QZSSL2C", "QZSSL5", "QZSSL1S", "QZSSL5S", "NAVICL5", "PULSARXL"
 SvId    int    The satellite's SV ID (use 0 for all constellation's satellites)
 Enabled bool   Signal is enabled when value is True
 
@@ -426,8 +426,8 @@ Permission: EXECUTE_IF_SIMULATING | EXECUTE_IF_IDLE
 Get the list of enabled signals for a specified SV ID.
 
 Name   Type   Description
------- ------ ------------------------------------------------------------------------------------
-System string The system, can be "GPS", "GLONASS", "Galileo", "BeiDou", "SBAS", "QZSS" or "NavIC".
+------ ------ ----------------------------------------------------------------------------------------------
+System string The system, can be "GPS", "GLONASS", "Galileo", "BeiDou", "SBAS", "QZSS", "NavIC" or "PULSAR".
 SvId   int    The satellite SV ID.
 
 ***************************************************************************************************************************
@@ -437,8 +437,8 @@ Result GetEnabledSignalsForSVResult(system, svId, signalArray)
 Result of GetEnabledSignalsForSV.
 
 Name        Type         Description
------------ ------------ ------------------------------------------------------------------------------------
-System      string       The system, can be "GPS", "GLONASS", "Galileo", "BeiDou", "SBAS", "QZSS" or "NavIC".
+----------- ------------ ----------------------------------------------------------------------------------------------
+System      string       The system, can be "GPS", "GLONASS", "Galileo", "BeiDou", "SBAS", "QZSS", "NavIC" or "PULSAR".
 SvId        int          The satellite SV ID.
 SignalArray array string The list of enabled signals.
 
@@ -454,7 +454,7 @@ Name    Type       Description
 Signal  string     Accepted signal keys: "L1CA", "L1C", "L1P", "L1ME", "L1MR", "L2C", "L2P", "L2ME", "L2MR", "L5",
                                          "G1", "G2", "E1", "E1PRS", "E5a", "E5b", "E6BC", "E6PRS",
                                          "B1", "B2", "B1C", "B2a", "B3I", "SBASL1", "SBASL5", "QZSSL1CA",
-                                         "QZSSL1CB", "QZSSL1C", "QZSSL2C", "QZSSL5", "QZSSL1S", "QZSSL5S", "NAVICL5"
+                                         "QZSSL1CB", "QZSSL1C", "QZSSL2C", "QZSSL5", "QZSSL1S", "QZSSL5S", "NAVICL5", "PULSARXL"
 Enabled array bool Signal is enabled when value is True. Zero based index (index 0 => first SV ID, index 1 => second SV ID, etc).
 
 ***************************************************************************************************************************
@@ -465,11 +465,11 @@ Permission: EXECUTE_IF_IDLE
 Tells if the signal is enabled or disabled for each satellite.
 
 Name   Type   Description
------- ------ -------------------------------------------------------------------------------------------------
+------ ------ -------------------------------------------------------------------------------------------------------------
 Signal string Accepted signal keys: "L1CA", "L1C", "L1P", "L1ME", "L1MR", "L2C", "L2P", "L2ME", "L2MR", "L5",
                                     "G1", "G2", "E1", "E1PRS", "E5a", "E5b", "E6BC", "E6PRS",
                                     "B1", "B2", "B1C", "B2a", "B3I", "SBASL1", "SBASL5", "QZSSL1CA",
-                                    "QZSSL1CB", "QZSSL1C", "QZSSL2C", "QZSSL5", "QZSSL1S", "QZSSL5S", "NAVICL5"
+                                    "QZSSL1CB", "QZSSL1C", "QZSSL2C", "QZSSL5", "QZSSL1S", "QZSSL5S", "NAVICL5", "PULSARXL"
 
 ***************************************************************************************************************************
 
@@ -482,7 +482,7 @@ Name    Type       Description
 Signal  string     Accepted signal keys: "L1CA", "L1C", "L1P", "L1ME", "L1MR", "L2C", "L2P", "L2ME", "L2MR", "L5",
                                          "G1", "G2", "E1", "E1PRS", "E5a", "E5b", "E6BC", "E6PRS",
                                          "B1", "B2", "B1C", "B2a", "B3I", "SBASL1", "SBASL5", "QZSSL1CA",
-                                         "QZSSL1CB", "QZSSL1C", "QZSSL2C", "QZSSL5", "QZSSL1S", "QZSSL5S", "NAVICL5"
+                                         "QZSSL1CB", "QZSSL1C", "QZSSL2C", "QZSSL5", "QZSSL1S", "QZSSL5S", "NAVICL5", "PULSARXL"
 Enabled array bool Signal is enabled when value is True. Zero based index (index 0 => first SV ID, index 1 => second SV ID, etc).
 
 ***************************************************************************************************************************
@@ -565,14 +565,15 @@ Set the power offsets applied to the signals of a satellite. Use SV ID 0 to set 
 
 Name                  Type               Description
 --------------------- ------------------ -----------------------------------------------------------------------------
-System                string             "GPS", "GLONASS", "Galileo", "BeiDou", "SBAS", "QZSS" or "NavIC".
+System                string             "GPS", "GLONASS", "Galileo", "BeiDou", "SBAS", "QZSS", "NavIC" or "PULSAR".
 SvId                  int                The satellite's SV ID.
 SignalPowerOffsetDict dict string:double A dictionary of signal poweroffset pairs.
                                          Accepted keys are: "All", "L1CA", "L1C", "L1P", "L1ME", "L1MR", "L2C", "L2P",
                                                             "L2ME", "L2MR", "L5", "G1", "G2", "E1", "E1PRS", "E5a",
                                                             "E5b", "E6BC", "E6PRS", "B1", "B2", "B1C", "B2a", "B3I",
                                                             "SBASL1", "SBASL5", "QZSSL1CA", "QZSSL1CB", "QZSSL1C",
-                                                            "QZSSL2C", "QZSSL5", "QZSSL1S", "QZSSL5S" and "NAVICL5"
+                                                            "QZSSL2C", "QZSSL5", "QZSSL1S", "QZSSL5S", "NAVICL5" and
+                                                            "PULSARXL"
 IsRelativePowerOffset bool               If true, the power offset(s) are added to the current value(s).
 
 ***************************************************************************************************************************
@@ -584,14 +585,15 @@ Get the power offsets for specific signals of a satellite.
 
 Name        Type         Description
 ----------- ------------ -------------------------------------------------------------------------------
-System      string       "GPS", "GLONASS", "Galileo", "BeiDou", "SBAS", "QZSS" or "NavIC".
+System      string       "GPS", "GLONASS", "Galileo", "BeiDou", "SBAS", "QZSS", "NavIC" or "PULSAR".
 SvId        int          The satellite's SV ID.
 SignalArray array string An array of signals.
                          Accepted values are: "All", "L1CA", "L1C", "L1P", "L1ME", "L1MR", "L2C", "L2P",
                                               "L2ME", "L2MR", "L5", "G1", "G2", "E1", "E1PRS", "E5a",
                                               "E5b", "E6BC", "E6PRS", "B1", "B2", "B1C", "B2a", "B3I",
                                               "SBASL1", "SBASL5", "QZSSL1CA", "QZSSL1CB", "QZSSL1C",
-                                              "QZSSL2C", "QZSSL5", "QZSSL1S", "QZSSL5S" and "NAVICL5"
+                                              "QZSSL2C", "QZSSL5", "QZSSL1S", "QZSSL5S", "NAVICL5" and
+                                              "PULSARXL"
 
 ***************************************************************************************************************************
 
@@ -601,14 +603,15 @@ Result of GetManualPowerOffsetForSV.
 
 Name                  Type               Description
 --------------------- ------------------ -----------------------------------------------------------------------------
-System                string             "GPS", "GLONASS", "Galileo", "BeiDou", "SBAS", "QZSS" or "NavIC".
+System                string             "GPS", "GLONASS", "Galileo", "BeiDou", "SBAS", "QZSS", "NavIC" or "PULSAR".
 SvId                  int                The satellite's SV ID.
 SignalPowerOffsetDict dict string:double A dictionary of signal poweroffset pairs.
                                          Accepted keys are: "All", "L1CA", "L1C", "L1P", "L1ME", "L1MR", "L2C", "L2P",
                                                             "L2ME", "L2MR", "L5", "G1", "G2", "E1", "E1PRS", "E5a",
                                                             "E5b", "E6BC", "E6PRS", "B1", "B2", "B1C", "B2a", "B3I",
                                                             "SBASL1", "SBASL5", "QZSSL1CA", "QZSSL1CB", "QZSSL1C",
-                                                            "QZSSL2C", "QZSSL5", "QZSSL1S", "QZSSL5S" and "NAVICL5"
+                                                            "QZSSL2C", "QZSSL5", "QZSSL1S", "QZSSL5S", "NAVICL5" and
+                                                            "PULSARXL"
 
 ***************************************************************************************************************************
 
@@ -618,8 +621,8 @@ Permission: EXECUTE_IF_SIMULATING
 Reset power offset for all satellites is specified system to default value
 
 Name   Type   Description
------- ------ -----------------------------------------------------------------
-System string "GPS", "GLONASS", "Galileo", "BeiDou", "SBAS", "QZSS" or "NavIC".
+------ ------ ---------------------------------------------------------------------------
+System string "GPS", "GLONASS", "Galileo", "BeiDou", "SBAS", "QZSS", "NavIC" or "PULSAR".
 
 ***************************************************************************************************************************
 
@@ -631,8 +634,8 @@ Please note the command ResetAllSatPower is deprecated since 21.7. You may use R
 Reset power offset for all satellites is specified system to default value
 
 Name   Type   Description
------- ------ -----------------------------------------------------------------
-System string "GPS", "GLONASS", "Galileo", "BeiDou", "SBAS", "QZSS" or "NavIC".
+------ ------ ---------------------------------------------------------------------------
+System string "GPS", "GLONASS", "Galileo", "BeiDou", "SBAS", "QZSS", "NavIC" or "PULSAR".
 
 ***************************************************************************************************************************
 
@@ -657,14 +660,15 @@ Get the power information for the specified satellite.
 
 Name        Type         Description
 ----------- ------------ -------------------------------------------------------------------------------
-System      string       "GPS", "GLONASS", "Galileo", "BeiDou", "SBAS", "QZSS" or "NavIC".
+System      string       "GPS", "GLONASS", "Galileo", "BeiDou", "SBAS", "QZSS", "NavIC" or "PULSAR".
 SvId        int          The Satellite's SV ID.
 SignalArray array string An array of signals.
                          Accepted values are: "All", "L1CA", "L1C", "L1P", "L1ME", "L1MR", "L2C", "L2P",
                                               "L2ME", "L2MR", "L5", "G1", "G2", "E1", "E1PRS", "E5a",
                                               "E5b", "E6BC", "E6PRS", "B1", "B2", "B1C", "B2a", "B3I",
                                               "SBASL1", "SBASL5", "QZSSL1CA", "QZSSL1CB", "QZSSL1C",
-                                              "QZSSL2C", "QZSSL5", "QZSSL1S", "QZSSL5S" and "NAVICL5"
+                                              "QZSSL2C", "QZSSL5", "QZSSL1S", "QZSSL5S", "NAVICL5" and
+                                              "PULSARXL"
 
 ***************************************************************************************************************************
 
@@ -674,7 +678,7 @@ Result of GetAllPowerForSV.
 
 Name            Type                    Description
 --------------- ----------------------- -----------------------------------------------------------------------------
-System          string                  "GPS", "GLONASS", "Galileo", "BeiDou", "SBAS", "QZSS" or "NavIC".
+System          string                  "GPS", "GLONASS", "Galileo", "BeiDou", "SBAS", "QZSS", "NavIC" or "PULSAR".
 SvId            int                     The Satellite's SV ID.
 NominalPower    double                  The nominal power in dBm.
 GlobalOffset    double                  The global power offset (dB).
@@ -683,7 +687,8 @@ SignalPowerDict dict string:SignalPower A dictionary of signal power pairs.
                                                            "L2ME", "L2MR", "L5", "G1", "G2", "E1", "E1PRS", "E5a",
                                                            "E5b", "E6BC", "E6PRS", "B1", "B2", "B1C", "B2a", "B3I",
                                                            "SBASL1", "SBASL5", "QZSSL1CA", "QZSSL1CB", "QZSSL1C",
-                                                           "QZSSL2C", "QZSSL5", "QZSSL1S", "QZSSL5S" and "NAVICL5"
+                                                           "QZSSL2C", "QZSSL5", "QZSSL1S", "QZSSL5S", "NAVICL5" and
+                                                           "PULSARXL"
 
 ***************************************************************************************************************************
 
@@ -719,7 +724,7 @@ by the receiver. The delay should always be enabled, unless your are doing a PPS
 
 Name    Type   Description
 ------- ------ -------------------------------------------------------------------------------------------------
-System  string "GPS", "GLONASS", "Galileo", "BeiDou", "SBAS", "QZSS" or "NavIC"
+System  string "GPS", "GLONASS", "Galileo", "BeiDou", "SBAS", "QZSS", "NavIC" or "PULSAR"
 Enabled bool   If false, the propagation delay between the GPS satellite and the receiver is forced to 0 second.
 
 ***************************************************************************************************************************
@@ -730,8 +735,8 @@ Permission: EXECUTE_IF_IDLE
 Tells if the propagation delay is enabled.
 
 Name   Type   Description
------- ------ ----------------------------------------------------------------
-System string "GPS", "GLONASS", "Galileo", "BeiDou", "SBAS", "QZSS" or "NavIC"
+------ ------ --------------------------------------------------------------------------
+System string "GPS", "GLONASS", "Galileo", "BeiDou", "SBAS", "QZSS", "NavIC" or "PULSAR"
 
 ***************************************************************************************************************************
 
@@ -741,7 +746,7 @@ Result of IsPropagationDelayEnabled.
 
 Name    Type   Description
 ------- ------ -------------------------------------------------------------------------------------------------
-System  string "GPS", "GLONASS", "Galileo", "BeiDou", "SBAS", "QZSS" or "NavIC"
+System  string "GPS", "GLONASS", "Galileo", "BeiDou", "SBAS", "QZSS", "NavIC" or "PULSAR"
 Enabled bool   If false, the propagation delay between the GPS satellite and the receiver is forced to 0 second.
 
 ***************************************************************************************************************************
@@ -753,7 +758,7 @@ If IsFixed is set to true, the satellite will not move during the simulation and
 
 Name    Type   Description
 ------- ------ --------------------------------------------------------------------------------------------------------------
-System  string "GPS", "Galileo", "BeiDou", "QZSS" or "NavIC"
+System  string "GPS", "Galileo", "BeiDou", "QZSS", "NavIC" or "PULSAR"
 SvId    int    The satellite's SV ID.
 IsFixed bool   If true, the satellite relative position is fixed, if false, the satellite motion follows a normal trajectory.
 
@@ -765,8 +770,8 @@ Permission: EXECUTE_IF_IDLE
 Tells if the satellite is fixed (True) or not fixed (false).
 
 Name   Type   Description
------- ------ ---------------------------------------------
-System string "GPS", "Galileo", "BeiDou", "QZSS" or "NavIC"
+------ ------ -------------------------------------------------------
+System string "GPS", "Galileo", "BeiDou", "QZSS", "NavIC" or "PULSAR"
 SvId   int    The satellite's SV ID.
 
 ***************************************************************************************************************************
@@ -777,7 +782,7 @@ Result of IsSatMotionFixed.
 
 Name    Type   Description
 ------- ------ --------------------------------------------------------------------------------------------------------------
-System  string "GPS", "Galileo", "BeiDou", "QZSS" or "NavIC"
+System  string "GPS", "Galileo", "BeiDou", "QZSS", "NavIC" or "PULSAR"
 SvId    int    The satellite's SV ID.
 IsFixed bool   If true, the satellite relative position is fixed, if false, the satellite motion follows a normal trajectory.
 
@@ -3237,7 +3242,7 @@ Name   Type   Description
 Signal string Accepted signal keys: "L1CA", "L1C", "L1P", "L1ME", "L1MR", "L2C", "L2P", "L2ME", "L2MR", "L5",
                                     "G1", "G2", "E1", "E1PRS", "E5a", "E5b", "E6BC", "E6PRS",
                                     "B1", "B2", "B1C", "B2a", "B3I", "QZSSL1CA", "QZSSL1CB", "QZSSL1C",
-                                    "QZSSL2C", "QZSSL5", "QZSSL1S", "QZSSL5S", "NAVICL5"
+                                    "QZSSL2C", "QZSSL5", "QZSSL1S", "QZSSL5S", "NAVICL5", "PULSARXL"
 Offset double Offset in dB (negative value will attenuate signal)
 
 ***************************************************************************************************************************
@@ -3254,7 +3259,7 @@ Name   Type   Description
 Signal string Accepted signal keys: "L1CA", "L1C", "L1P", "L1ME", "L1MR", "L2C", "L2P", "L2ME", "L2MR", "L5",
                                     "G1", "G2", "E1", "E1PRS", "E5a", "E5b", "E6BC", "E6PRS",
                                     "B1", "B2", "B1C", "B2a", "B3I", "QZSSL1CA", "QZSSL1CB", "QZSSL1C",
-                                    "QZSSL2C", "QZSSL5", "QZSSL1S", "QZSSL5S", "NAVICL5"
+                                    "QZSSL2C", "QZSSL5", "QZSSL1S", "QZSSL5S", "NAVICL5", "PULSARXL"
 Offset double Offset in dB (negative value will attenuate signal)
 
 ***************************************************************************************************************************
@@ -3269,7 +3274,7 @@ Name   Type   Description
 Signal string Accepted signal keys: "L1CA", "L1C", "L1P", "L1ME", "L1MR", "L2C", "L2P", "L2ME", "L2MR", "L5",
                                     "G1", "G2", "E1", "E1PRS", "E5a", "E5b", "E6BC", "E6PRS",
                                     "B1", "B2", "B1C", "B2a", "B3I", "QZSSL1CA", "QZSSL1CB", "QZSSL1C",
-                                    "QZSSL2C", "QZSSL5", "QZSSL1S", "QZSSL5S", "NAVICL5"
+                                    "QZSSL2C", "QZSSL5", "QZSSL1S", "QZSSL5S", "NAVICL5", "PULSARXL"
 
 ***************************************************************************************************************************
 
@@ -3285,7 +3290,7 @@ Name   Type   Description
 Signal string Accepted signal keys: "L1CA", "L1C", "L1P", "L1ME", "L1MR", "L2C", "L2P", "L2ME", "L2MR", "L5",
                                     "G1", "G2", "E1", "E1PRS", "E5a", "E5b", "E6BC", "E6PRS",
                                     "B1", "B2", "B1C", "B2a", "B3I", "QZSSL1CA", "QZSSL1CB", "QZSSL1C",
-                                    "QZSSL2C", "QZSSL5", "QZSSL1S", "QZSSL5S", "NAVICL5"
+                                    "QZSSL2C", "QZSSL5", "QZSSL1S", "QZSSL5S", "NAVICL5", "PULSARXL"
 
 ***************************************************************************************************************************
 
@@ -3298,7 +3303,7 @@ Name   Type   Description
 Signal string Accepted signal keys: "L1CA", "L1C", "L1P", "L1ME", "L1MR", "L2C", "L2P", "L2ME", "L2MR", "L5",
                                     "G1", "G2", "E1", "E1PRS", "E5a", "E5b", "E6BC", "E6PRS",
                                     "B1", "B2", "B1C", "B2a", "B3I", "QZSSL1CA", "QZSSL1CB", "QZSSL1C",
-                                    "QZSSL2C", "QZSSL5", "QZSSL1S", "QZSSL5S", "NAVICL5"
+                                    "QZSSL2C", "QZSSL5", "QZSSL1S", "QZSSL5S", "NAVICL5", "PULSARXL"
 Offset double Offset in dB (negative value will attenuate signal)
 
 ***************************************************************************************************************************
@@ -3346,7 +3351,7 @@ For setter : If the Id is already used, the corresponding target is updated.
 
 Name            Type   Description
 --------------- ------ ------------------------------------------------------------------------------------------------------------------------------------
-Type            string Target type can be "Anechoic Chamber", "DTA-2115B", "File", "N310", "None", "NoneRT", "X300" or "Wavefront Controller".
+Type            string Target type can be "DTA-2115B", "File", "N310", "None", "NoneRT", "X300" or "Wavefront Controller".
 Path            string File path. Optional, use only if type is "File".
 Address         string Optional. IP Address if type is "N310" or "X300".
 ClockIsExternal bool   Indicate 10 MHz reference clock is external (true) or internal (false). Optional, use only if type is "DTA-2115B", "N310" or "X300".
@@ -3373,7 +3378,7 @@ Result of GetModulationTarget.
 
 Name            Type   Description
 --------------- ------ ------------------------------------------------------------------------------------------------------------------------------------
-Type            string Target type can be "Anechoic Chamber", "DTA-2115B", "File", "N310", "None", "NoneRT", "X300" or "Wavefront Controller".
+Type            string Target type can be "DTA-2115B", "File", "N310", "None", "NoneRT", "X300" or "Wavefront Controller".
 Path            string File path. Optional, use only if type is "File".
 Address         string Optional. IP Address if type is "N310" or "X300".
 ClockIsExternal bool   Indicate 10 MHz reference clock is external (true) or internal (false). Optional, use only if type is "DTA-2115B", "N310" or "X300".
@@ -3475,12 +3480,12 @@ Skydel tries to keep the sampling rate as low as possible,
 but it is possible to set constaints with MinRate and MaxRate.
 
 Name             Type            Description
----------------- --------------- -----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+---------------- --------------- -----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 Output           int             Output index (zero based)
 MinRate          int             Minimum sampling rate (12500000, 25000000, 50000000, 60000000, 100000000)
 MaxRate          int             Maximum sampling rate (12500000, 25000000, 50000000, 60000000, 100000000)
 Band             string          Frequency band is "LowerL" or "UpperL"
-Signal           string          Comma separated signal keys, accepted signal keys: "L1CA", "L1C", "L1P", "L1ME", "L1MR", "L2C", "L2P", "L2ME", "L2MR", "L5", "G1", "G2", "E1", "E5a", "E5b", "B1", "B2", "B1C", "B2a", "B3I", "SBASL1", "QZSSL1CA", "QZSSL1CB", "QZSSL1C", "QZSSL2C", "QZSSL5", "QZSSL1S", "QZSSL5S", "NAVICL5"
+Signal           string          Comma separated signal keys, accepted signal keys: "L1CA", "L1C", "L1P", "L1ME", "L1MR", "L2C", "L2P", "L2ME", "L2MR", "L5", "G1", "G2", "E1", "E5a", "E5b", "B1", "B2", "B1C", "B2a", "B3I", "SBASL1", "QZSSL1CA", "QZSSL1CB", "QZSSL1C", "QZSSL2C", "QZSSL5", "QZSSL1S", "QZSSL5S", "NAVICL5", "PULSARXL"
 Gain             int             The gain associated to this output (dB). This value has to be between the radio minimum value and 115. A negative value means to use the radio default value.
 GaussianNoise    bool            If true, add Gaussian noise to ensure realistic signal to noise ratio. When combining multiple outputs, only one should have Gaussian noise enabled.
 Id               string          Target identifier
@@ -3507,12 +3512,12 @@ Result GetModulationTargetSignalsResult(output, minRate, maxRate, band, signal, 
 Result of GetModulationTargetSignals.
 
 Name             Type            Description
----------------- --------------- -----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+---------------- --------------- -----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 Output           int             Output index (zero based)
 MinRate          int             Minimum sampling rate (12500000, 25000000, 50000000, 60000000, 100000000)
 MaxRate          int             Maximum sampling rate (12500000, 25000000, 50000000, 60000000, 100000000)
 Band             string          Frequency band is "LowerL" or "UpperL"
-Signal           string          Comma separated signal keys, accepted signal keys: "L1CA", "L1C", "L1P", "L1ME", "L1MR", "L2C", "L2P", "L2ME", "L2MR", "L5", "G1", "G2", "E1", "E5a", "E5b", "B1", "B2", "B1C", "B2a", "B3I", "SBASL1", "QZSSL1CA", "QZSSL1CB", "QZSSL1C", "QZSSL2C", "QZSSL5", "QZSSL1S", "QZSSL5S", "NAVICL5"
+Signal           string          Comma separated signal keys, accepted signal keys: "L1CA", "L1C", "L1P", "L1ME", "L1MR", "L2C", "L2P", "L2ME", "L2MR", "L5", "G1", "G2", "E1", "E5a", "E5b", "B1", "B2", "B1C", "B2a", "B3I", "SBASL1", "QZSSL1CA", "QZSSL1CB", "QZSSL1C", "QZSSL2C", "QZSSL5", "QZSSL1S", "QZSSL5S", "NAVICL5", "PULSARXL"
 Gain             int             The gain associated to this output (dB). This value has to be between the radio minimum value and 115. A negative value means to use the radio default value.
 GaussianNoise    bool            If true, add Gaussian noise to ensure realistic signal to noise ratio. When combining multiple outputs, only one should have Gaussian noise enabled.
 Id               string          Target identifier
@@ -3529,7 +3534,7 @@ Skydel tries to keep the sampling rate as low as possible,
 but it is possible to set constaints with MinRate and MaxRate.
 
 Name        Type            Description
------------ --------------- ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+----------- --------------- ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 Output      int             Output index (zero based)
 MinRate     int             Minimum sampling rate (12500000, 25000000, 50000000, 60000000, 100000000)
 MaxRate     int             Maximum sampling rate (12500000, 25000000, 50000000. 60000000, 100000000)
@@ -3537,7 +3542,7 @@ Group       int             Interference group number [1..16] or 0 for no group
 CentralFreq double          Central frequency (Hz). Put 0.0 and complete signal list to let Skydel choose automaticly the central frequency.
 Gain        int             The gain associated to this output (dB). As of today, accepted values are 0, 20, 40, 60 and 80. Values at 40 and under are not recommended. Use a negative value to use the default value (60).
 Id          string          Target identifier
-Signal      optional string Comma separated signal keys if you want to match central frequency and sampling rate with a particular list of signals. Accepted signal keys: "L1CA", "L1C", "L1P", "L1ME", "L1MR", "L2C", "L2P", "L2ME", "L2MR", "L5", "G1", "G2", "E1", "E5a", "E5b", "B1", "B2", "B1C", "B2a", "B3I", "SBASL1", "QZSSL1CA", "QZSSL1CB", "QZSSL1C", "QZSSL2C", "QZSSL5", "QZSSL1S", "QZSSL5S", "NAVICL5"
+Signal      optional string Comma separated signal keys if you want to match central frequency and sampling rate with a particular list of signals. Accepted signal keys: "L1CA", "L1C", "L1P", "L1ME", "L1MR", "L2C", "L2P", "L2ME", "L2MR", "L5", "G1", "G2", "E1", "E5a", "E5b", "B1", "B2", "B1C", "B2a", "B3I", "SBASL1", "QZSSL1CA", "QZSSL1CB", "QZSSL1C", "QZSSL2C", "QZSSL5", "QZSSL1S", "QZSSL5S", "NAVICL5", "PULSARXL"
 
 ***************************************************************************************************************************
 
@@ -3561,7 +3566,7 @@ Result GetModulationTargetInterferencesResult(output, minRate, maxRate, group, c
 Result of GetModulationTargetInterferences.
 
 Name        Type            Description
------------ --------------- ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+----------- --------------- ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 Output      int             Output index (zero based)
 MinRate     int             Minimum sampling rate (12500000, 25000000, 50000000, 60000000, 100000000)
 MaxRate     int             Maximum sampling rate (12500000, 25000000, 50000000. 60000000, 100000000)
@@ -3569,33 +3574,7 @@ Group       int             Interference group number [1..16] or 0 for no group
 CentralFreq double          Central frequency (Hz). Put 0.0 and complete signal list to let Skydel choose automaticly the central frequency.
 Gain        int             The gain associated to this output (dB). As of today, accepted values are 0, 20, 40, 60 and 80. Values at 40 and under are not recommended. Use a negative value to use the default value (60).
 Id          string          Target identifier
-Signal      optional string Comma separated signal keys if you want to match central frequency and sampling rate with a particular list of signals. Accepted signal keys: "L1CA", "L1C", "L1P", "L1ME", "L1MR", "L2C", "L2P", "L2ME", "L2MR", "L5", "G1", "G2", "E1", "E5a", "E5b", "B1", "B2", "B1C", "B2a", "B3I", "SBASL1", "QZSSL1CA", "QZSSL1CB", "QZSSL1C", "QZSSL2C", "QZSSL5", "QZSSL1S", "QZSSL5S", "NAVICL5"
-
-***************************************************************************************************************************
-
-Command ChangeModulationAnechoicTargetInterference(group, output, centralFreq)
-Permission: EXECUTE_IF_IDLE
-
-Assign an output to a specific interference group. This command works only
-for Anechoic Chamber target.
-
-Name        Type   Description
------------ ------ -------------------------------------------------------------------------------------------
-Group       int    Interference group number [1..16]
-Output      string Output is radio name and RF output. For example, RF output B on radio 3 is referred as "3B"
-CentralFreq double Central frequency (Hz)
-
-***************************************************************************************************************************
-
-Command RemoveModulationAnechoicTargetInterference(group)
-Permission: EXECUTE_IF_IDLE
-
-Remove output assignation. This command works only for Anechoic Chamber
-target.
-
-Name  Type Description
------ ---- ---------------------------------
-Group int  Interference group number [1..16]
+Signal      optional string Comma separated signal keys if you want to match central frequency and sampling rate with a particular list of signals. Accepted signal keys: "L1CA", "L1C", "L1P", "L1ME", "L1MR", "L2C", "L2P", "L2ME", "L2MR", "L5", "G1", "G2", "E1", "E5a", "E5b", "B1", "B2", "B1C", "B2a", "B3I", "SBASL1", "QZSSL1CA", "QZSSL1CB", "QZSSL1C", "QZSSL2C", "QZSSL5", "QZSSL1S", "QZSSL5S", "NAVICL5", "PULSARXL"
 
 ***************************************************************************************************************************
 
@@ -3618,7 +3597,7 @@ Import navigation message file for the specified constellation. This could be Ri
 
 Name        Type            Description
 ----------- --------------- -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
-System      string          "GPS", "GLONASS", "Galileo", "SBAS", "BeiDou", "QZSS" or "NavIC"
+System      string          "GPS", "GLONASS", "Galileo", "SBAS", "BeiDou", "QZSS", "NavIC" or "PULSAR"
 Path        string          File path
 Rollover    optional int    Rollover for file types that does not precise it (YUMA, SEM). Default value is the current rollover.
 DataSetName optional string Name of the data set to import. This parameter is optional, the default value will be the name of the imported file. Constellations that support this parameter are  "GPS", "Galileo", "BeiDou", "QZSS" and "NavIC"
@@ -4212,8 +4191,8 @@ Permission: EXECUTE_IF_IDLE
 Get a list of all space vehicle antenna names.
 
 Name   Type   Description
------- ------ ----------------------------------------------------------------
-System string "GPS", "GLONASS", "Galileo", "BeiDou", "SBAS", "QZSS" or "NavIC"
+------ ------ --------------------------------------------------------------------------
+System string "GPS", "GLONASS", "Galileo", "BeiDou", "SBAS", "QZSS", "NavIC" or "PULSAR"
 
 ***************************************************************************************************************************
 
@@ -4222,8 +4201,8 @@ Result GetAllSVAntennaNamesResult(system, antennaNames)
 Result of GetAllSVAntennaNames.
 
 Name         Type         Description
------------- ------------ ----------------------------------------------------------------
-System       string       "GPS", "GLONASS", "Galileo", "BeiDou", "SBAS", "QZSS" or "NavIC"
+------------ ------------ --------------------------------------------------------------------------
+System       string       "GPS", "GLONASS", "Galileo", "BeiDou", "SBAS", "QZSS", "NavIC" or "PULSAR"
 AntennaNames array string A list of antenna model names.
 
 ***************************************************************************************************************************
@@ -4236,7 +4215,7 @@ Add an offset (in dB) for all values of the pattern.
 Name        Type            Description
 ----------- --------------- ------------------------------------------------------------------------------------
 Band        GNSSBand        Offset will be apply to this band. ("L1", "L2" or "L5")
-System      string          "GPS", "GLONASS", "Galileo", "BeiDou", "SBAS", "QZSS" or "NavIC"
+System      string          "GPS", "GLONASS", "Galileo", "BeiDou", "SBAS", "QZSS", "NavIC" or "PULSAR"
 Offset      double          Power offset
 AntennaName optional string Vehicle antenna name. If no name is specified, apply the offset to the Basic Antenna
 
@@ -4250,7 +4229,7 @@ Get the offset (in dB) for the antenna gain pattern of the band.
 Name        Type            Description
 ----------- --------------- ------------------------------------------------------------------------------------
 Band        GNSSBand        Offset will be apply to this band. ("L1", "L2" or "L5")
-System      string          "GPS", "GLONASS", "Galileo", "BeiDou", "SBAS", "QZSS" or "NavIC"
+System      string          "GPS", "GLONASS", "Galileo", "BeiDou", "SBAS", "QZSS", "NavIC" or "PULSAR"
 AntennaName optional string Vehicle antenna name. If no name is specified, apply the offset to the Basic Antenna
 
 ***************************************************************************************************************************
@@ -4262,7 +4241,7 @@ Result of GetSVGainPatternOffset.
 Name        Type            Description
 ----------- --------------- ------------------------------------------------------------------------------------
 Band        GNSSBand        Offset will be apply to this band. ("L1", "L2" or "L5")
-System      string          "GPS", "GLONASS", "Galileo", "BeiDou", "SBAS", "QZSS" or "NavIC"
+System      string          "GPS", "GLONASS", "Galileo", "BeiDou", "SBAS", "QZSS", "NavIC" or "PULSAR"
 Offset      double          Power offset
 AntennaName optional string Vehicle antenna name. If no name is specified, apply the offset to the Basic Antenna
 
@@ -4276,7 +4255,7 @@ Add an offset (in rad) for all values of the phase pattern.
 Name        Type            Description
 ----------- --------------- ------------------------------------------------------------------------------------
 Band        GNSSBand        Offset will be apply to this band. ("L1", "L2" or "L5")
-System      string          "GPS", "GLONASS", "Galileo", "BeiDou", "SBAS", "QZSS" or "NavIC"
+System      string          "GPS", "GLONASS", "Galileo", "BeiDou", "SBAS", "QZSS", "NavIC" or "PULSAR"
 Offset      double          Phase offset (in rad)
 AntennaName optional string Vehicle antenna name. If no name is specified, apply the offset to the Basic Antenna
 
@@ -4290,7 +4269,7 @@ Get the offset (in rad) for the antenna phase pattern of the band.
 Name        Type            Description
 ----------- --------------- ------------------------------------------------------------------------------------
 Band        GNSSBand        Offset will be apply to this band. ("L1", "L2" or "L5")
-System      string          "GPS", "GLONASS", "Galileo", "BeiDou", "SBAS", "QZSS" or "NavIC"
+System      string          "GPS", "GLONASS", "Galileo", "BeiDou", "SBAS", "QZSS", "NavIC" or "PULSAR"
 AntennaName optional string Vehicle antenna name. If no name is specified, apply the offset to the Basic Antenna
 
 ***************************************************************************************************************************
@@ -4302,7 +4281,7 @@ Result of GetSVPhasePatternOffset.
 Name        Type            Description
 ----------- --------------- ------------------------------------------------------------------------------------
 Band        GNSSBand        Offset will be apply to this band. ("L1", "L2" or "L5")
-System      string          "GPS", "GLONASS", "Galileo", "BeiDou", "SBAS", "QZSS" or "NavIC"
+System      string          "GPS", "GLONASS", "Galileo", "BeiDou", "SBAS", "QZSS", "NavIC" or "PULSAR"
 Offset      double          Phase offset (in rad)
 AntennaName optional string Vehicle antenna name. If no name is specified, apply the offset to the Basic Antenna
 
@@ -4318,7 +4297,7 @@ Name   Type               Description
 Gain   array array double Gain matrix (dB). The first dimension will be mapped to elevation [-90, 90] and the second dimension to azimuth [0, 360[.
 Type   AntennaPatternType Pattern type
 Band   GNSSBand           Frequency band
-System string             "GPS", "GLONASS", "Galileo", "BeiDou", "SBAS", "QZSS" or "NavIC"
+System string             "GPS", "GLONASS", "Galileo", "BeiDou", "SBAS", "QZSS", "NavIC" or "PULSAR"
 Name   optional string    SV antenna name
 
 ***************************************************************************************************************************
@@ -4329,9 +4308,9 @@ Permission: EXECUTE_IF_IDLE
 Get space vehicle gain antenna pattern. If no name is specified, the command is aplied to Basic SV Antenna.
 
 Name   Type            Description
------- --------------- ----------------------------------------------------------------
+------ --------------- --------------------------------------------------------------------------
 Band   GNSSBand        Frequency band
-System string          "GPS", "GLONASS", "Galileo", "BeiDou", "SBAS", "QZSS" or "NavIC"
+System string          "GPS", "GLONASS", "Galileo", "BeiDou", "SBAS", "QZSS", "NavIC" or "PULSAR"
 Name   optional string SV antenna name
 
 ***************************************************************************************************************************
@@ -4345,7 +4324,7 @@ Name   Type               Description
 Gain   array array double Gain matrix (dB). The first dimension will be mapped to elevation [-90, 90] and the second dimension to azimuth [0, 360[.
 Type   AntennaPatternType Pattern type
 Band   GNSSBand           Frequency band
-System string             "GPS", "GLONASS", "Galileo", "BeiDou", "SBAS", "QZSS" or "NavIC"
+System string             "GPS", "GLONASS", "Galileo", "BeiDou", "SBAS", "QZSS", "NavIC" or "PULSAR"
 Name   optional string    SV antenna name
 
 ***************************************************************************************************************************
@@ -4360,7 +4339,7 @@ Name        Type               Description
 PhaseOffset array array double Phase offset matrix (rad). The first dimension will be mapped to elevation [-90, 90] and the second dimension to azimuth [0, 360[.
 Type        AntennaPatternType Pattern type
 Band        GNSSBand           Frequency band
-System      string             "GPS", "GLONASS", "Galileo", "BeiDou", "SBAS", "QZSS" or "NavIC"
+System      string             "GPS", "GLONASS", "Galileo", "BeiDou", "SBAS", "QZSS", "NavIC" or "PULSAR"
 Name        optional string    SV antenna name
 
 ***************************************************************************************************************************
@@ -4371,9 +4350,9 @@ Permission: EXECUTE_IF_IDLE
 Get space vehicle phase offset antenna pattern. If no name is specified, the command is aplied to Basic Vehicle Antenna.
 
 Name   Type            Description
------- --------------- ----------------------------------------------------------------
+------ --------------- --------------------------------------------------------------------------
 Band   GNSSBand        Frequency band
-System string          "GPS", "GLONASS", "Galileo", "BeiDou", "SBAS", "QZSS" or "NavIC"
+System string          "GPS", "GLONASS", "Galileo", "BeiDou", "SBAS", "QZSS", "NavIC" or "PULSAR"
 Name   optional string SV antenna name
 
 ***************************************************************************************************************************
@@ -4387,7 +4366,7 @@ Name        Type               Description
 PhaseOffset array array double Phase offset matrix (rad). The first dimension will be mapped to elevation [-90, 90] and the second dimension to azimuth [0, 360[.
 Type        AntennaPatternType Pattern type
 Band        GNSSBand           Frequency band
-System      string             "GPS", "GLONASS", "Galileo", "BeiDou", "SBAS", "QZSS" or "NavIC"
+System      string             "GPS", "GLONASS", "Galileo", "BeiDou", "SBAS", "QZSS", "NavIC" or "PULSAR"
 Name        optional string    SV antenna name
 
 ***************************************************************************************************************************
@@ -4402,7 +4381,7 @@ Name     Type               Description
 FilePath string             File path of the CSV. For Default and None type, lets it empty. See formats in user manual part 8.7.9.2.1. Models.
 Type     AntennaPatternType Pattern type
 Band     GNSSBand           Frequency band
-System   string             "GPS", "GLONASS", "Galileo", "BeiDou", "SBAS", "QZSS" or "NavIC"
+System   string             "GPS", "GLONASS", "Galileo", "BeiDou", "SBAS", "QZSS", "NavIC" or "PULSAR"
 Name     optional string    Vehicle antenna name
 
 ***************************************************************************************************************************
@@ -4418,7 +4397,7 @@ FilePath   string                 File path of the CSV. For Default and None typ
 FileFormat AntennaPatternFileType Values' unit of the CSV File: "Degrees", "Radians" or "NoneFile" in case of None-pattern type.
 Type       AntennaPatternType     Pattern type
 Band       GNSSBand               Frequency band
-System     string                 "GPS", "GLONASS", "Galileo", "BeiDou", "SBAS", "QZSS" or "NavIC"
+System     string                 "GPS", "GLONASS", "Galileo", "BeiDou", "SBAS", "QZSS", "NavIC" or "PULSAR"
 Name       optional string        SV antenna name
 
 ***************************************************************************************************************************
@@ -4429,9 +4408,9 @@ Permission: EXECUTE_IF_IDLE
 Create an empty space vehicle antenna model.
 
 Name   Type   Description
------- ------ ----------------------------------------------------------------
+------ ------ --------------------------------------------------------------------------
 Name   string SV antenna model name
-System string "GPS", "GLONASS", "Galileo", "BeiDou", "SBAS", "QZSS" or "NavIC"
+System string "GPS", "GLONASS", "Galileo", "BeiDou", "SBAS", "QZSS", "NavIC" or "PULSAR"
 
 ***************************************************************************************************************************
 
@@ -4441,9 +4420,9 @@ Permission: EXECUTE_IF_IDLE
 Delete a space vehicle antenna model. The default SV antenna model can't be deleted.
 
 Name   Type   Description
------- ------ ----------------------------------------------------------------
+------ ------ --------------------------------------------------------------------------
 Name   string SV antenna model name
-System string "GPS", "GLONASS", "Galileo", "BeiDou", "SBAS", "QZSS" or "NavIC"
+System string "GPS", "GLONASS", "Galileo", "BeiDou", "SBAS", "QZSS", "NavIC" or "PULSAR"
 
 ***************************************************************************************************************************
 
@@ -4453,10 +4432,10 @@ Permission: EXECUTE_IF_IDLE
 Rename a space vehicle antenna model.
 
 Name    Type   Description
-------- ------ ----------------------------------------------------------------
+------- ------ --------------------------------------------------------------------------
 Name    string Reference space vehicle antenna model name
 NewName string New space vehicle antenna model name
-System  string "GPS", "GLONASS", "Galileo", "BeiDou", "SBAS", "QZSS" or "NavIC"
+System  string "GPS", "GLONASS", "Galileo", "BeiDou", "SBAS", "QZSS", "NavIC" or "PULSAR"
 
 ***************************************************************************************************************************
 
@@ -4466,10 +4445,10 @@ Permission: EXECUTE_IF_IDLE
 Copy a space vehicle antenna model.
 
 Name     Type   Description
--------- ------ ----------------------------------------------------------------
+-------- ------ --------------------------------------------------------------------------
 Name     string Reference space vehicle antenna model name
 CopyName string Copy space vehicle antenna model name
-System   string "GPS", "GLONASS", "Galileo", "BeiDou", "SBAS", "QZSS" or "NavIC"
+System   string "GPS", "GLONASS", "Galileo", "BeiDou", "SBAS", "QZSS", "NavIC" or "PULSAR"
 
 ***************************************************************************************************************************
 
@@ -4479,9 +4458,9 @@ Permission: EXECUTE_IF_IDLE
 Import a space vehicle antenna model from a XML file.
 
 Name     Type   Description
--------- ------ ----------------------------------------------------------------
+-------- ------ --------------------------------------------------------------------------
 FilePath string File path of the antenna model
-System   string "GPS", "GLONASS", "Galileo", "BeiDou", "SBAS", "QZSS" or "NavIC"
+System   string "GPS", "GLONASS", "Galileo", "BeiDou", "SBAS", "QZSS", "NavIC" or "PULSAR"
 
 ***************************************************************************************************************************
 
@@ -4491,9 +4470,9 @@ Permission: EXECUTE_IF_IDLE
 Export a space vehicle antenna model in a XML file.
 
 Name        Type   Description
------------ ------ ----------------------------------------------------------------
+----------- ------ --------------------------------------------------------------------------
 AntennaName string SV antenna model name
-System      string "GPS", "GLONASS", "Galileo", "BeiDou", "SBAS", "QZSS" or "NavIC"
+System      string "GPS", "GLONASS", "Galileo", "BeiDou", "SBAS", "QZSS", "NavIC" or "PULSAR"
 FilePath    string The antenna model will be exported in this file path.
 Overwriting bool   Overwrite the old file if true.
 
@@ -4505,8 +4484,8 @@ Permission: EXECUTE_IF_IDLE
 Set the antenna model used by the SV.
 
 Name             Type   Description
----------------- ------ -----------------------------------------------------------------
-System           string "GPS", "GLONASS", "Galileo", "BeiDou", "SBAS", "QZSS" or "NavIC".
+---------------- ------ ---------------------------------------------------------------------------
+System           string "GPS", "GLONASS", "Galileo", "BeiDou", "SBAS", "QZSS", "NavIC" or "PULSAR".
 SvId             int    The satellite's SV ID.
 AntennaModelName string SV antenna model name.
 
@@ -4518,8 +4497,8 @@ Permission: EXECUTE_IF_IDLE
 Get the antenna model used by the SV.
 
 Name   Type   Description
------- ------ -----------------------------------------------------------------
-System string "GPS", "GLONASS", "Galileo", "BeiDou", "SBAS", "QZSS" or "NavIC".
+------ ------ ---------------------------------------------------------------------------
+System string "GPS", "GLONASS", "Galileo", "BeiDou", "SBAS", "QZSS", "NavIC" or "PULSAR".
 SvId   int    The satellite's SV ID.
 
 ***************************************************************************************************************************
@@ -4529,8 +4508,8 @@ Result GetSVAntennaModelForSVResult(system, svId, antennaModelName)
 Result of GetSVAntennaModelForSV.
 
 Name             Type   Description
----------------- ------ -----------------------------------------------------------------
-System           string "GPS", "GLONASS", "Galileo", "BeiDou", "SBAS", "QZSS" or "NavIC".
+---------------- ------ ---------------------------------------------------------------------------
+System           string "GPS", "GLONASS", "Galileo", "BeiDou", "SBAS", "QZSS", "NavIC" or "PULSAR".
 SvId             int    The satellite's SV ID.
 AntennaModelName string SV antenna model name.
 
@@ -4543,7 +4522,7 @@ Set the antenna model for all satellites.
 
 Name              Type         Description
 ----------------- ------------ -----------------------------------------------------------------------------------------------------
-System            string       "GPS", "GLONASS", "Galileo", "BeiDou", "SBAS", "QZSS" or "NavIC"
+System            string       "GPS", "GLONASS", "Galileo", "BeiDou", "SBAS", "QZSS", "NavIC" or "PULSAR"
 AntennaModelNames array string Antenna model name for each satellite. Zero based index (index 0 => SV ID 1, index 1 => SV ID 2, etc)
 
 ***************************************************************************************************************************
@@ -4554,8 +4533,8 @@ Permission: EXECUTE_IF_IDLE
 Get the antenna model for all satellites.
 
 Name   Type   Description
------- ------ ----------------------------------------------------------------
-System string "GPS", "GLONASS", "Galileo", "BeiDou", "SBAS", "QZSS" or "NavIC"
+------ ------ --------------------------------------------------------------------------
+System string "GPS", "GLONASS", "Galileo", "BeiDou", "SBAS", "QZSS", "NavIC" or "PULSAR"
 
 ***************************************************************************************************************************
 
@@ -4565,7 +4544,7 @@ Result of GetSVAntennaModelForEachSV.
 
 Name              Type         Description
 ----------------- ------------ -----------------------------------------------------------------------------------------------------
-System            string       "GPS", "GLONASS", "Galileo", "BeiDou", "SBAS", "QZSS" or "NavIC"
+System            string       "GPS", "GLONASS", "Galileo", "BeiDou", "SBAS", "QZSS", "NavIC" or "PULSAR"
 AntennaModelNames array string Antenna model name for each satellite. Zero based index (index 0 => SV ID 1, index 1 => SV ID 2, etc)
 
 ***************************************************************************************************************************
@@ -4664,8 +4643,8 @@ Permission: EXECUTE_IF_IDLE
 Set the PRN transmitted by the SV ID for this signal.
 
 Name   Type   Description
------- ------ ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
-Signal string Accepted signal keys: "L1CA", "L1C", "L2C", "L5", "E1", "E6BC", "B1", "B2", "B1C", "B2a", "B3I", "SBASL1", "SBASL5", "QZSSL1CA", "QZSSL1CB", "QZSSL1C", "QZSSL2C", "QZSSL5", "QZSSL1S", "QZSSL5S", "NAVICL5"
+------ ------ ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+Signal string Accepted signal keys: "L1CA", "L1C", "L2C", "L5", "E1", "E6BC", "B1", "B2", "B1C", "B2a", "B3I", "SBASL1", "SBASL5", "QZSSL1CA", "QZSSL1CB", "QZSSL1C", "QZSSL2C", "QZSSL5", "QZSSL1S", "QZSSL5S", "NAVICL5", "PULSARXL"
 SvId   int    Satellite SV ID.
 Prn    int    PRN number.
 
@@ -4677,8 +4656,8 @@ Permission: EXECUTE_IF_IDLE
 Get the PRN transmitted by the SV ID for this signal.
 
 Name   Type   Description
------- ------ ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
-Signal string Accepted signal keys: "L1CA", "L1C", "L2C", "L5", "E1", "E6BC", "B1", "B2", "B1C", "B2a", "B3I", "SBASL1", "SBASL5", "QZSSL1CA", "QZSSL1CB", "QZSSL1C", "QZSSL2C", "QZSSL5", "QZSSL1S", "QZSSL5S", "NAVICL5"
+------ ------ ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+Signal string Accepted signal keys: "L1CA", "L1C", "L2C", "L5", "E1", "E6BC", "B1", "B2", "B1C", "B2a", "B3I", "SBASL1", "SBASL5", "QZSSL1CA", "QZSSL1CB", "QZSSL1C", "QZSSL2C", "QZSSL5", "QZSSL1S", "QZSSL5S", "NAVICL5", "PULSARXL"
 SvId   int    Satellite SV ID.
 
 ***************************************************************************************************************************
@@ -4688,8 +4667,8 @@ Result GetPrnOfSVIDResult(signal, svId, prn)
 Result of GetPrnOfSVID.
 
 Name   Type   Description
------- ------ ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
-Signal string Accepted signal keys: "L1CA", "L1C", "L2C", "L5", "E1", "E6BC", "B1", "B2", "B1C", "B2a", "B3I", "SBASL1", "SBASL5", "QZSSL1CA", "QZSSL1CB", "QZSSL1C", "QZSSL2C", "QZSSL5", "QZSSL1S", "QZSSL5S", "NAVICL5"
+------ ------ ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+Signal string Accepted signal keys: "L1CA", "L1C", "L2C", "L5", "E1", "E6BC", "B1", "B2", "B1C", "B2a", "B3I", "SBASL1", "SBASL5", "QZSSL1CA", "QZSSL1CB", "QZSSL1C", "QZSSL2C", "QZSSL5", "QZSSL1S", "QZSSL5S", "NAVICL5", "PULSARXL"
 SvId   int    Satellite SV ID.
 Prn    int    PRN number.
 
@@ -4701,8 +4680,8 @@ Permission: EXECUTE_IF_IDLE
 Set the PRN for each satellite for specified signals.
 
 Name   Type      Description
------- --------- ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
-Signal string    Accepted signal keys: "L1CA", "L1C", "L2C", "L5", "E1", "E6BC", "B1", "B2", "B1C", "B2a", "B3I", "SBASL1", "SBASL5", "QZSSL1CA", "QZSSL1CB", "QZSSL1C", "QZSSL2C", "QZSSL5", "QZSSL1S", "QZSSL5S", "NAVICL5"
+------ --------- ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+Signal string    Accepted signal keys: "L1CA", "L1C", "L2C", "L5", "E1", "E6BC", "B1", "B2", "B1C", "B2a", "B3I", "SBASL1", "SBASL5", "QZSSL1CA", "QZSSL1CB", "QZSSL1C", "QZSSL2C", "QZSSL5", "QZSSL1S", "QZSSL5S", "NAVICL5", "PULSARXL"
 Prn    array int PRN value to set for each satellite. Zero based index (index 0 => PRN for SV ID 1, index 1 => PRN for SV ID 2, etc)
 
 ***************************************************************************************************************************
@@ -4713,8 +4692,8 @@ Permission: EXECUTE_IF_IDLE
 Get the PRN for each satellite for specified signals.
 
 Name   Type   Description
------- ------ ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
-Signal string Accepted signal keys: "L1CA", "L1C", "L2C", "L5", "E1", "E6BC", "B1", "B2", "B1C", "B2a", "B3I", "SBASL1", "SBASL5", "QZSSL1CA", "QZSSL1CB", "QZSSL1C", "QZSSL2C", "QZSSL5", "QZSSL1S", "QZSSL5S", "NAVICL5"
+------ ------ ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+Signal string Accepted signal keys: "L1CA", "L1C", "L2C", "L5", "E1", "E6BC", "B1", "B2", "B1C", "B2a", "B3I", "SBASL1", "SBASL5", "QZSSL1CA", "QZSSL1CB", "QZSSL1C", "QZSSL2C", "QZSSL5", "QZSSL1S", "QZSSL5S", "NAVICL5", "PULSARXL"
 
 ***************************************************************************************************************************
 
@@ -4723,8 +4702,8 @@ Result GetPrnForEachSVResult(signal, prn)
 Result of GetPrnForEachSV.
 
 Name   Type      Description
------- --------- ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
-Signal string    Accepted signal keys: "L1CA", "L1C", "L2C", "L5", "E1", "E6BC", "B1", "B2", "B1C", "B2a", "B3I", "SBASL1", "SBASL5", "QZSSL1CA", "QZSSL1CB", "QZSSL1C", "QZSSL2C", "QZSSL5", "QZSSL1S", "QZSSL5S", "NAVICL5"
+------ --------- ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+Signal string    Accepted signal keys: "L1CA", "L1C", "L2C", "L5", "E1", "E6BC", "B1", "B2", "B1C", "B2a", "B3I", "SBASL1", "SBASL5", "QZSSL1CA", "QZSSL1CB", "QZSSL1C", "QZSSL2C", "QZSSL5", "QZSSL1S", "QZSSL5S", "NAVICL5", "PULSARXL"
 Prn    array int PRN value to set for each satellite. Zero based index (index 0 => PRN for SV ID 1, index 1 => PRN for SV ID 2, etc)
 
 ***************************************************************************************************************************
@@ -4735,8 +4714,8 @@ Permission: EXECUTE_IF_IDLE
 Reset the PRNs of all satellites in specified system, for all signals.
 
 Name   Type   Description
------- ------ ----------------------------------------------------------------
-System string "GPS", "GLONASS", "Galileo", "BeiDou", "SBAS", "QZSS" or "NavIC"
+------ ------ --------------------------------------------------------------------------
+System string "GPS", "GLONASS", "Galileo", "BeiDou", "SBAS", "QZSS", "NavIC" or "PULSAR"
 
 ***************************************************************************************************************************
 
@@ -5220,7 +5199,7 @@ Set the ephemeris reference time for the specified constellation.
 
 Name        Type            Description
 ----------- --------------- -------------------------------------------------------------------------------------------
-System      string          "GPS", "Galileo", "BeiDou", "QZSS" or "NavIC"
+System      string          "GPS", "Galileo", "BeiDou", "QZSS", "NavIC" or "PULSAR"
 SvId        int             The satellite's SV ID.
 Time        datetime        GPS date and time (it is the GPS time expressed in UTC format)
 DataSetName optional string Optional name of the data set to use. If no value is provided, the active data set is used.
@@ -5236,7 +5215,7 @@ Set the ephemeris reference time for the specified constellation.
 
 Name        Type            Description
 ----------- --------------- -------------------------------------------------------------------------------------------
-System      string          "GPS", "Galileo", "BeiDou", "QZSS" or "NavIC"
+System      string          "GPS", "Galileo", "BeiDou", "QZSS", "NavIC" or "PULSAR"
 SvId        int             The satellite's SV ID.
 Time        datetime        GPS date and time (it is the GPS time expressed in UTC format)
 DataSetName optional string Optional name of the data set to use. If no value is provided, the active data set is used.
@@ -5250,7 +5229,7 @@ Get the ephemeris reference time for the specified constellation.
 
 Name        Type            Description
 ----------- --------------- -------------------------------------------------------------------------------------------
-System      string          "GPS", "Galileo", "BeiDou", "QZSS" or "NavIC"
+System      string          "GPS", "Galileo", "BeiDou", "QZSS", "NavIC" or "PULSAR"
 SvId        int             The satellite's SV ID.
 DataSetName optional string Optional name of the data set to use. If no value is provided, the active data set is used.
 
@@ -5265,7 +5244,7 @@ Get the ephemeris reference time for the specified constellation.
 
 Name        Type            Description
 ----------- --------------- -------------------------------------------------------------------------------------------
-System      string          "GPS", "Galileo", "BeiDou", "QZSS" or "NavIC"
+System      string          "GPS", "Galileo", "BeiDou", "QZSS", "NavIC" or "PULSAR"
 SvId        int             The satellite's SV ID.
 DataSetName optional string Optional name of the data set to use. If no value is provided, the active data set is used.
 
@@ -5277,7 +5256,7 @@ Result of GetEphemerisReferenceTimeForSV.
 
 Name        Type            Description
 ----------- --------------- -------------------------------------------------------------------------------------------
-System      string          "GPS", "Galileo", "BeiDou", "QZSS" or "NavIC"
+System      string          "GPS", "Galileo", "BeiDou", "QZSS", "NavIC" or "PULSAR"
 SvId        int             The satellite's SV ID.
 Time        datetime        GPS date and time (it is the GPS time expressed in UTC format)
 DataSetName optional string Optional name of the data set to use. If no value is provided, the active data set is used.
@@ -5538,7 +5517,7 @@ Set orbit perturbations (Crs, Crc, Cis, Cic, Cus and Cuc) to zero for the specif
 
 Name        Type            Description
 ----------- --------------- -------------------------------------------------------------------------------------------
-System      string          "GPS", "Galileo", "BeiDou", "QZSS" or "NavIC"
+System      string          "GPS", "Galileo", "BeiDou", "QZSS", "NavIC" or "PULSAR"
 SvId        int             The satellite's SV ID. Use 0 to apply new value to all satellites in the constellation.
 DataSetName optional string Optional name of the data set to use. If no value is provided, the active data set is used.
 
@@ -5551,7 +5530,7 @@ Set orbit perturbations (Crs, Crc, Cis, Cic, Cus and Cuc) for the specified cons
 
 Name        Type            Description
 ----------- --------------- -------------------------------------------------------------------------------------------
-System      string          "GPS", "Galileo", "BeiDou", "QZSS" or "NavIC"
+System      string          "GPS", "Galileo", "BeiDou", "QZSS", "NavIC" or "PULSAR"
 SvId        int             The satellite's SV ID.
 Crs         double          Crs (meter)
 Crc         double          Crc (meter)
@@ -5570,7 +5549,7 @@ Get orbit perturbations (Crs, Crc, Cis, Cic, Cus and Cuc) for the specified cons
 
 Name        Type            Description
 ----------- --------------- -------------------------------------------------------------------------------------------
-System      string          "GPS", "Galileo", "BeiDou", "QZSS" or "NavIC"
+System      string          "GPS", "Galileo", "BeiDou", "QZSS", "NavIC" or "PULSAR"
 SvId        int             The satellite's SV ID.
 DataSetName optional string Optional name of the data set to use. If no value is provided, the active data set is used.
 
@@ -5582,7 +5561,7 @@ Result of GetPerturbations.
 
 Name        Type            Description
 ----------- --------------- -------------------------------------------------------------------------------------------
-System      string          "GPS", "Galileo", "BeiDou", "QZSS" or "NavIC"
+System      string          "GPS", "Galileo", "BeiDou", "QZSS", "NavIC" or "PULSAR"
 SvId        int             The satellite's SV ID.
 Crs         double          Crs (meter)
 Crc         double          Crc (meter)
@@ -5602,7 +5581,7 @@ All parameters are zero based index (index 0 => SV ID 1, index 1 => SV ID 2, etc
 
 Name        Type            Description
 ----------- --------------- -------------------------------------------------------------------------------------------
-System      string          "GPS", "Galileo", "BeiDou", "QZSS" or "NavIC"
+System      string          "GPS", "Galileo", "BeiDou", "QZSS", "NavIC" or "PULSAR"
 Crs         array double    Crs (meter)
 Crc         array double    Crc (meter)
 Cis         array double    Cis (rad)
@@ -5621,7 +5600,7 @@ All parameters are zero based index (index 0 => SV ID 1, index 1 => SV ID 2, etc
 
 Name        Type            Description
 ----------- --------------- -------------------------------------------------------------------------------------------
-System      string          "GPS", "Galileo", "BeiDou", "QZSS" or "NavIC"
+System      string          "GPS", "Galileo", "BeiDou", "QZSS", "NavIC" or "PULSAR"
 DataSetName optional string Optional name of the data set to use. If no value is provided, the active data set is used.
 
 ***************************************************************************************************************************
@@ -5632,7 +5611,7 @@ Result of GetPerturbationsForAllSat.
 
 Name        Type            Description
 ----------- --------------- -------------------------------------------------------------------------------------------
-System      string          "GPS", "Galileo", "BeiDou", "QZSS" or "NavIC"
+System      string          "GPS", "Galileo", "BeiDou", "QZSS", "NavIC" or "PULSAR"
 Crs         array double    Crs (meter)
 Crc         array double    Crc (meter)
 Cis         array double    Cis (rad)
@@ -6947,6 +6926,78 @@ Id               string       Unique identifier of the event
 
 ***************************************************************************************************************************
 
+Command SetMessageModificationToPulsarNav(signalArray, svId, startTime, stopTime, condition, updateCRC, bitModifications, id)
+Permission: EXECUTE_IF_SIMULATING | EXECUTE_IF_IDLE
+
+Set (or Modify) event to change PULSAR NAV message bits. If you send this command without setting the ID
+parameter, or if you set the ID with a value never used before, a new Modification event will be
+created. If you reuse the same event ID, it will modify the existing event.
+
+Note that start and stop time are automatically extended to beginning and ending of overlapped
+messages.
+
+The Condition parameter is optional and allows you to add content matching condition before applying
+bit modifications.
+
+BitModifications can be an empty string. The Modification will have no effect until you modify it with at
+least one bits mod.
+
+A bits mod is represented with a string using the following format: "I:Bits" where I is a bit
+index (1 refers to the first transmitted bit) and Bits is a modification mask where each
+character describes a modification to a single bit. The allowed characters are:
+   0 : force bit to 0
+   1 : force bit to 1
+   - : leave bit unchanged
+   X : revert bit (0 becomes 1 and 1 becomes 0)
+
+For example: "24:X---10XX" will: revert bits 24, 30 and 31
+                 set bit 28 to 1
+                 set bit 29 to 0
+The other bits are not affected.
+
+You can add multiple bit modifications using commas. For example: "24:X---10XX,127:100X,231:01"
+
+Name             Type         Description
+---------------- ------------ -----------------------------------------------------------------------------------------
+SignalArray      array string Array of signals to apply the message modification to, accepts "PULSARXL" (empty for all)
+SvId             int          The satellite's SV ID 1..258 (use 0 to apply modification to all SVs)
+StartTime        int          Elapsed time in seconds since start of simulation
+StopTime         int          Elapsed time in seconds since start of simulation (use 0 for no stop time)
+Condition        string       Optional condition to match message content, ex: "EQUAL(45, 10, 0x3f)"
+UpdateCRC        bool         Recalculate CRC after making modification
+BitModifications string       Comma separated bit modifications
+Id               string       Unique identifier of the event
+
+***************************************************************************************************************************
+
+Command GetMessageModificationToPulsarNav(id)
+Permission: EXECUTE_IF_IDLE
+
+Get infos about the PULSAR NAV message modification with this ID.
+
+Name Type   Description
+---- ------ ------------------------------
+Id   string Unique identifier of the event
+
+***************************************************************************************************************************
+
+Result GetMessageModificationToPulsarNavResult(signalArray, svId, startTime, stopTime, condition, updateCRC, bitModifications, id)
+
+Result of GetMessageModificationToPulsarNav.
+
+Name             Type         Description
+---------------- ------------ -----------------------------------------------------------------------------------------
+SignalArray      array string Array of signals to apply the message modification to, accepts "PULSARXL" (empty for all)
+SvId             int          The satellite's SV ID 1..258 (use 0 to apply modification to all SVs)
+StartTime        int          Elapsed time in seconds since start of simulation
+StopTime         int          Elapsed time in seconds since start of simulation (use 0 for no stop time)
+Condition        string       Optional condition to match message content, ex: "EQUAL(45, 10, 0x3f)"
+UpdateCRC        bool         Recalculate CRC after making modification
+BitModifications string       Comma separated bit modifications
+Id               string       Unique identifier of the event
+
+***************************************************************************************************************************
+
 Command RemoveMessageModificationForNavMsgFamily(navMsgFamily, id)
 Permission: EXECUTE_IF_IDLE
 
@@ -6998,8 +7049,8 @@ Permission: EXECUTE_IF_IDLE
 Removes the signal for the message modification.
 
 Name   Type   Description
------- ------ --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
-Signal string Signal key, accepted values : "L1CA", "L1C", "L1P", "L1ME", "L1MR", "L2C", "L2P", "L2ME", "L2MR", "L5", "G1", "G2", "E1", "E5a", "E5b", "B1", "B2", "B2a", "B1C", "B3I", "QZSSL1CA", "QZSSL1CB", "QZSSL1S", "NAVICL5", "SBASL1" and "SBASL5"
+------ ------ --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+Signal string Signal key, accepted values : "L1CA", "L1C", "L1P", "L1ME", "L1MR", "L2C", "L2P", "L2ME", "L2MR", "L5", "G1", "G2", "E1", "E5a", "E5b", "B1", "B2", "B2a", "B1C", "B3I", "QZSSL1CA", "QZSSL1CB", "QZSSL1S", "NAVICL5", "SBASL1", "SBASL5" and "PULSARXL"
 Id     string Unique identifier
 
 ***************************************************************************************************************************
@@ -7012,8 +7063,8 @@ Please note the command RemoveMessageModification is deprecated since 21.3. You 
 Removes the signal for the message modification.
 
 Name   Type   Description
------- ------ --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
-Signal string Signal key, accepted values : "L1CA", "L1C", "L1P", "L1ME", "L1MR", "L2C", "L2P", "L2ME", "L2MR", "L5", "G1", "G2", "E1", "E5a", "E5b", "B1", "B2", "B2a", "B1C", "B3I", "QZSSL1CA", "QZSSL1CB", "QZSSL1S", "NAVICL5", "SBASL1" and "SBASL5"
+------ ------ --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+Signal string Signal key, accepted values : "L1CA", "L1C", "L1P", "L1ME", "L1MR", "L2C", "L2P", "L2ME", "L2MR", "L5", "G1", "G2", "E1", "E5a", "E5b", "B1", "B2", "B2a", "B1C", "B3I", "QZSSL1CA", "QZSSL1CB", "QZSSL1S", "NAVICL5", "SBASL1", "SBASL5" and "PULSARXL"
 Id     string Unique identifier
 
 ***************************************************************************************************************************
@@ -7024,8 +7075,8 @@ Permission: EXECUTE_IF_IDLE
 Clear the signal for all message modifications.
 
 Name   Type   Description
------- ------ --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
-Signal string Signal key, accepted values : "L1CA", "L1C", "L1P", "L1ME", "L1MR", "L2C", "L2P", "L2ME", "L2MR", "L5", "G1", "G2", "E1", "E5a", "E5b", "B1", "B2", "B2a", "B1C", "B3I", "QZSSL1CA", "QZSSL1CB", "QZSSL1S", "NAVICL5", "SBASL1" and "SBASL5"
+------ ------ --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+Signal string Signal key, accepted values : "L1CA", "L1C", "L1P", "L1ME", "L1MR", "L2C", "L2P", "L2ME", "L2MR", "L5", "G1", "G2", "E1", "E5a", "E5b", "B1", "B2", "B2a", "B1C", "B3I", "QZSSL1CA", "QZSSL1CB", "QZSSL1S", "NAVICL5", "SBASL1", "SBASL5" and "PULSARXL"
 
 ***************************************************************************************************************************
 
@@ -7037,8 +7088,8 @@ Please note the command ClearAllMessageModifications is deprecated since 21.3. Y
 Clear the signal for all message modifications.
 
 Name   Type   Description
------- ------ --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
-Signal string Signal key, accepted values : "L1CA", "L1C", "L1P", "L1ME", "L1MR", "L2C", "L2P", "L2ME", "L2MR", "L5", "G1", "G2", "E1", "E5a", "E5b", "B1", "B2", "B2a", "B1C", "B3I", "QZSSL1CA", "QZSSL1CB", "QZSSL1S", "NAVICL5", "SBASL1" and "SBASL5"
+------ ------ --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+Signal string Signal key, accepted values : "L1CA", "L1C", "L1P", "L1ME", "L1MR", "L2C", "L2P", "L2ME", "L2MR", "L5", "G1", "G2", "E1", "E5a", "E5b", "B1", "B2", "B2a", "B1C", "B3I", "QZSSL1CA", "QZSSL1CB", "QZSSL1S", "NAVICL5", "SBASL1", "SBASL5" and "PULSARXL"
 
 ***************************************************************************************************************************
 
@@ -7048,8 +7099,8 @@ Permission: EXECUTE_IF_IDLE
 Get all the message modification event's IDs for this signal and SV ID.
 
 Name   Type   Description
------- ------ --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
-Signal string Signal key, accepted values : "L1CA", "L1C", "L1P", "L1ME", "L1MR", "L2C", "L2P", "L2ME", "L2MR", "L5", "G1", "G2", "E1", "E5a", "E5b", "B1", "B2", "B2a", "B1C", "B3I", "QZSSL1CA", "QZSSL1CB", "QZSSL1S", "NAVICL5", "SBASL1" and "SBASL5"
+------ ------ --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+Signal string Signal key, accepted values : "L1CA", "L1C", "L1P", "L1ME", "L1MR", "L2C", "L2P", "L2ME", "L2MR", "L5", "G1", "G2", "E1", "E5a", "E5b", "B1", "B2", "B2a", "B1C", "B3I", "QZSSL1CA", "QZSSL1CB", "QZSSL1S", "NAVICL5", "SBASL1", "SBASL5" and "PULSARXL"
 SvId   int    The satellite's SV ID
 
 ***************************************************************************************************************************
@@ -7136,7 +7187,7 @@ If SV ID is set to 0, the change is applied to all satellites.
 
 Name          Type   Description
 ------------- ------ ----------------------------------------------------------------------------------
-System        string "GPS", "GLONASS", "Galileo", "BeiDou", "SBAS", "QZSS" or "NavIC"
+System        string "GPS", "GLONASS", "Galileo", "BeiDou", "SBAS", "QZSS", "NavIC" or "PULSAR"
 SvId          int    The satellite's SV ID.
 Offset        double Change to satellite pseudorange in meter when ramp is at maximum. Range -1e7..+1e7
 StartTime     int    Elapsed time in seconds since start of simulation.
@@ -7177,7 +7228,7 @@ Result of GetPseudorangeRampForSV.
 
 Name          Type   Description
 ------------- ------ ----------------------------------------------------------------------------------
-System        string "GPS", "GLONASS", "Galileo", "BeiDou", "SBAS", "QZSS" or "NavIC"
+System        string "GPS", "GLONASS", "Galileo", "BeiDou", "SBAS", "QZSS", "NavIC" or "PULSAR"
 SvId          int    The satellite's SV ID.
 Offset        double Change to satellite pseudorange in meter when ramp is at maximum. Range -1e7..+1e7
 StartTime     int    Elapsed time in seconds since start of simulation.
@@ -7195,8 +7246,8 @@ Permission: EXECUTE_IF_IDLE
 Get a list of all the pseudorange ramps IDs for a system's satellite.
 
 Name   Type   Description
------- ------ ----------------------------------------------------------------
-System string "GPS", "GLONASS", "Galileo", "BeiDou", "SBAS", "QZSS" or "NavIC"
+------ ------ --------------------------------------------------------------------------
+System string "GPS", "GLONASS", "Galileo", "BeiDou", "SBAS", "QZSS", "NavIC" or "PULSAR"
 SvId   int    The satellite's SV ID.
 
 ***************************************************************************************************************************
@@ -7206,8 +7257,8 @@ Result GetAllPseudorangeRampForSVResult(system, svId, ids)
 Result of GetAllPseudorangeRampForSV.
 
 Name   Type         Description
------- ------------ ------------------------------------------------------------------
-System string       "GPS", "GLONASS", "Galileo", "BeiDou", "SBAS", "QZSS" or "NavIC"
+------ ------------ --------------------------------------------------------------------------
+System string       "GPS", "GLONASS", "Galileo", "BeiDou", "SBAS", "QZSS", "NavIC" or "PULSAR"
 SvId   int          The satellite's SV ID.
 Ids    array string List of all the pseudorange ramps IDs for this system's satellite.
 
@@ -7220,8 +7271,8 @@ Removes a PSR ramp events. When adding an event, the simulator
 sets the Id parameter. Use that Id here to remove the associated ramp.
 
 Name   Type   Description
------- ------ ----------------------------------------------------------------
-System string "GPS", "GLONASS", "Galileo", "BeiDou", "SBAS", "QZSS" or "NavIC"
+------ ------ --------------------------------------------------------------------------
+System string "GPS", "GLONASS", "Galileo", "BeiDou", "SBAS", "QZSS", "NavIC" or "PULSAR"
 Id     string Unique identifier of the PSR ramp to remove.
 
 ***************************************************************************************************************************
@@ -7232,8 +7283,8 @@ Permission: EXECUTE_IF_IDLE
 Remove all PSR Ramps for the specified system's satellite.
 
 Name   Type   Description
------- ------ ----------------------------------------------------------------
-System string "GPS", "GLONASS", "Galileo", "BeiDou", "SBAS", "QZSS" or "NavIC"
+------ ------ --------------------------------------------------------------------------
+System string "GPS", "GLONASS", "Galileo", "BeiDou", "SBAS", "QZSS", "NavIC" or "PULSAR"
 SvId   int    The satellite's SV ID (use 0 for all SVs).
 
 ***************************************************************************************************************************
@@ -7244,8 +7295,8 @@ Permission: EXECUTE_IF_IDLE
 Remove all PSR Ramps for all satellites of the specified system.
 
 Name   Type   Description
------- ------ ----------------------------------------------------------------
-System string "GPS", "GLONASS", "Galileo", "BeiDou", "SBAS", "QZSS" or "NavIC"
+------ ------ --------------------------------------------------------------------------
+System string "GPS", "GLONASS", "Galileo", "BeiDou", "SBAS", "QZSS", "NavIC" or "PULSAR"
 
 ***************************************************************************************************************************
 
@@ -7257,8 +7308,8 @@ Please note the command RemoveAllPseudorangeRamp is deprecated since 21.3. You m
 Remove all PSR Ramps for all satellites of the specified system.
 
 Name   Type   Description
------- ------ ----------------------------------------------------------------
-System string "GPS", "GLONASS", "Galileo", "BeiDou", "SBAS", "QZSS" or "NavIC"
+------ ------ --------------------------------------------------------------------------
+System string "GPS", "GLONASS", "Galileo", "BeiDou", "SBAS", "QZSS", "NavIC" or "PULSAR"
 
 ***************************************************************************************************************************
 
@@ -7333,7 +7384,7 @@ Set the ephemeris update interval in seconds.
 
 Name     Type   Description
 -------- ------ -----------------------------------------------------------------------------------------------------------------------
-System   string "GPS", "Galileo", "BeiDou", "QZSS" or "NavIC"
+System   string "GPS", "Galileo", "BeiDou", "QZSS", "NavIC" or "PULSAR"
 Interval int    Interval duration in sec. Accepted range is [1..604800]. Must be a divider of the number of seconds in a week (604800).
 
 ***************************************************************************************************************************
@@ -7344,8 +7395,8 @@ Permission: EXECUTE_IF_IDLE
 Get the ephemeris update interval in seconds.
 
 Name   Type   Description
------- ------ ---------------------------------------------
-System string "GPS", "Galileo", "BeiDou", "QZSS" or "NavIC"
+------ ------ -------------------------------------------------------
+System string "GPS", "Galileo", "BeiDou", "QZSS", "NavIC" or "PULSAR"
 
 ***************************************************************************************************************************
 
@@ -7355,7 +7406,7 @@ Result of GetEphemerisUpdateInterval.
 
 Name     Type   Description
 -------- ------ -----------------------------------------------------------------------------------------------------------------------
-System   string "GPS", "Galileo", "BeiDou", "QZSS" or "NavIC"
+System   string "GPS", "Galileo", "BeiDou", "QZSS", "NavIC" or "PULSAR"
 Interval int    Interval duration in sec. Accepted range is [1..604800]. Must be a divider of the number of seconds in a week (604800).
 
 ***************************************************************************************************************************
@@ -7366,8 +7417,8 @@ Permission: EXECUTE_IF_IDLE
 Set the ephemeris TOC offset in seconds relative to the ephemeris update time.
 
 Name   Type   Description
------- ------ ---------------------------------------------------
-System string "GPS", "Galileo", "BeiDou", "QZSS" or "NavIC"
+------ ------ -------------------------------------------------------
+System string "GPS", "Galileo", "BeiDou", "QZSS", "NavIC" or "PULSAR"
 Offset int    Offset in sec. Accepted range is [-604800..604800].
 
 ***************************************************************************************************************************
@@ -7378,8 +7429,8 @@ Permission: EXECUTE_IF_IDLE
 Get the ephemeris TOC offset in seconds relative to the ephemeris update time.
 
 Name   Type   Description
------- ------ ---------------------------------------------
-System string "GPS", "Galileo", "BeiDou", "QZSS" or "NavIC"
+------ ------ -------------------------------------------------------
+System string "GPS", "Galileo", "BeiDou", "QZSS", "NavIC" or "PULSAR"
 
 ***************************************************************************************************************************
 
@@ -7388,8 +7439,8 @@ Result GetEphemerisTocOffsetResult(system, offset)
 Result of GetEphemerisTocOffset.
 
 Name   Type   Description
------- ------ ---------------------------------------------------
-System string "GPS", "Galileo", "BeiDou", "QZSS" or "NavIC"
+------ ------ -------------------------------------------------------
+System string "GPS", "Galileo", "BeiDou", "QZSS", "NavIC" or "PULSAR"
 Offset int    Offset in sec. Accepted range is [-604800..604800].
 
 ***************************************************************************************************************************
@@ -7401,8 +7452,8 @@ Add or update signal echo (multipath). Offsets (power loss, pseudorange, Doppler
 If Id is not set, or unknown to Skydel, a new echo will be added. Otherwise, existing echo will be updated.
 
 Name         Type   Description
------------- ------ ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
-Signal       string Accepted signal keys: "L1CA", "L1C", "L1P", "L1ME", "L1MR", "L2C", "L2P", "L2ME", "L2MR", "L5", "G1", "G2", "E1", "E5a", "E5b", "B1", "B2", "B1C", "B2a", "B3I", "SBASL1", "QZSSL1CA", "QZSSL1CB", "QZSSL1C", "QZSSL2C", "QZSSL5", "QZSSL1S", "QZSSL5S", "NAVICL5"
+------------ ------ ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+Signal       string Accepted signal keys: "L1CA", "L1C", "L1P", "L1ME", "L1MR", "L2C", "L2P", "L2ME", "L2MR", "L5", "G1", "G2", "E1", "E5a", "E5b", "B1", "B2", "B1C", "B2a", "B3I", "SBASL1", "QZSSL1CA", "QZSSL1CB", "QZSSL1C", "QZSSL2C", "QZSSL5", "QZSSL1S", "QZSSL5S", "NAVICL5", "PULSARXL"
 SvId         int    The satellite's SV ID
 PowerLoss    double Power loss in dB (value must be positive)
 Pseudorange  double Pseudorange offset in meters (value must be positive)
@@ -7442,8 +7493,8 @@ Permission: EXECUTE_IF_IDLE
 Disable all multipath in all satellites but only for the specified signal.
 
 Name   Type   Description
------- ------ ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
-Signal string Accepted signal keys: "L1CA", "L1C", "L1P", "L1ME", "L1MR", "L2C", "L2P", "L2ME", "L2MR", "L5", "G1", "G2", "E1", "E5a", "E5b", "B1", "B2", "B1C", "B2a", "B3I", "SBASL1", "QZSSL1CA", "QZSSL1CB", "QZSSL1C", "QZSSL2C", "QZSSL5", "QZSSL1S", "QZSSL5S", "NAVICL5"
+------ ------ ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+Signal string Accepted signal keys: "L1CA", "L1C", "L1P", "L1ME", "L1MR", "L2C", "L2P", "L2ME", "L2MR", "L5", "G1", "G2", "E1", "E5a", "E5b", "B1", "B2", "B1C", "B2a", "B3I", "SBASL1", "QZSSL1CA", "QZSSL1CB", "QZSSL1C", "QZSSL2C", "QZSSL5", "QZSSL1S", "QZSSL5S", "NAVICL5", "PULSARXL"
 Reset  bool   Reset attributes (PSR offset, power loss, Doppler shift and carrier phase offset are set to zero)
 
 ***************************************************************************************************************************
@@ -7455,7 +7506,7 @@ Disable all multipath for the specified satellite.
 
 Name   Type   Description
 ------ ------ -------------------------------------------------------------------------------------------------
-System string "GPS", "GLONASS", "Galileo", "BeiDou", "SBAS", "QZSS" or "NavIC"
+System string "GPS", "GLONASS", "Galileo", "BeiDou", "SBAS", "QZSS", "NavIC" or "PULSAR"
 SvId   int    The satellite's SV ID
 Reset  bool   Reset attributes (PSR offset, power loss, Doppler shift and carrier phase offset are set to zero)
 
@@ -7468,7 +7519,7 @@ Disable all multipath for the specified constellation.
 
 Name   Type   Description
 ------ ------ -------------------------------------------------------------------------------------------------
-System string "GPS", "GLONASS", "Galileo", "BeiDou", "SBAS", "QZSS" or "NavIC"
+System string "GPS", "GLONASS", "Galileo", "BeiDou", "SBAS", "QZSS", "NavIC" or "PULSAR"
 Reset  bool   Reset attributes (PSR offset, power loss, Doppler shift and carrier phase offset are set to zero)
 
 ***************************************************************************************************************************
@@ -7489,10 +7540,10 @@ Result GetMultipathForIDResult(id, system, signal, svId, powerLoss, pseudorange,
 Result of GetMultipathForID.
 
 Name         Type   Description
------------- ------ ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+------------ ------ ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 Id           string A multipath ID
-System       string "GPS", "GLONASS", "Galileo", "BeiDou", "SBAS", "QZSS" or "NavIC"
-Signal       string Accepted signal keys: "L1CA", "L1C", "L1P", "L1ME", "L1MR", "L2C", "L2P", "L2ME", "L2MR", "L5", "G1", "G2", "E1", "E5a", "E5b", "B1", "B2", "B1C", "B2a", "B3I", "SBASL1", "QZSSL1CA", "QZSSL1CB", "QZSSL1C", "QZSSL2C", "QZSSL5", "QZSSL1S", "QZSSL5S", "NAVICL5"
+System       string "GPS", "GLONASS", "Galileo", "BeiDou", "SBAS", "QZSS", "NavIC" or "PULSAR"
+Signal       string Accepted signal keys: "L1CA", "L1C", "L1P", "L1ME", "L1MR", "L2C", "L2P", "L2ME", "L2MR", "L5", "G1", "G2", "E1", "E5a", "E5b", "B1", "B2", "B1C", "B2a", "B3I", "SBASL1", "QZSSL1CA", "QZSSL1CB", "QZSSL1C", "QZSSL2C", "QZSSL5", "QZSSL1S", "QZSSL5S", "NAVICL5", "PULSARXL"
 SvId         int    The satellite's SV ID
 PowerLoss    double Power loss in dB (value must be positive)
 Pseudorange  double Pseudorange offset in meters (value must be positive)
@@ -7508,8 +7559,8 @@ Permission: EXECUTE_IF_IDLE
 Get all multipath ID for the specified constellation.
 
 Name   Type   Description
------- ------ ----------------------------------------------------------------
-System string "GPS", "GLONASS", "Galileo", "BeiDou", "SBAS", "QZSS" or "NavIC"
+------ ------ --------------------------------------------------------------------------
+System string "GPS", "GLONASS", "Galileo", "BeiDou", "SBAS", "QZSS", "NavIC" or "PULSAR"
 
 ***************************************************************************************************************************
 
@@ -7519,8 +7570,8 @@ Permission: EXECUTE_IF_IDLE
 Get all multipath ID for the specified satellite of the constellation.
 
 Name   Type   Description
------- ------ ----------------------------------------------------------------
-System string "GPS", "GLONASS", "Galileo", "BeiDou", "SBAS", "QZSS" or "NavIC"
+------ ------ --------------------------------------------------------------------------
+System string "GPS", "GLONASS", "Galileo", "BeiDou", "SBAS", "QZSS", "NavIC" or "PULSAR"
 SvId   int    The satellite's SV ID
 
 ***************************************************************************************************************************
@@ -7531,8 +7582,8 @@ Permission: EXECUTE_IF_IDLE
 Get all multipath ID for the specified signal.
 
 Name   Type   Description
------- ------ ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
-Signal string Accepted signal keys: "L1CA", "L1C", "L1P", "L1ME", "L1MR", "L2C", "L2P", "L2ME", "L2MR", "L5", "G1", "G2", "E1", "E5a", "E5b", "B1", "B2", "B1C", "B2a", "B3I", "SBASL1", "QZSSL1CA", "QZSSL1CB", "QZSSL1C", "QZSSL2C", "QZSSL5", "QZSSL1S", "QZSSL5S", "NAVICL5"
+------ ------ ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+Signal string Accepted signal keys: "L1CA", "L1C", "L1P", "L1ME", "L1MR", "L2C", "L2P", "L2ME", "L2MR", "L5", "G1", "G2", "E1", "E5a", "E5b", "B1", "B2", "B1C", "B2a", "B3I", "SBASL1", "QZSSL1CA", "QZSSL1CB", "QZSSL1C", "QZSSL2C", "QZSSL5", "QZSSL1S", "QZSSL5S", "NAVICL5", "PULSARXL"
 
 ***************************************************************************************************************************
 
@@ -7552,8 +7603,8 @@ Permission: EXECUTE_IF_SIMULATING | EXECUTE_IF_IDLE
 Set Direct Line Of Sight signal from satellite enabled or disabled. Generally used when only multipaths signal is visible.
 
 Name    Type   Description
-------- ------ ----------------------------------------------------------------
-System  string "GPS", "GLONASS", "Galileo", "BeiDou", "SBAS", "QZSS" or "NavIC"
+------- ------ --------------------------------------------------------------------------
+System  string "GPS", "GLONASS", "Galileo", "BeiDou", "SBAS", "QZSS", "NavIC" or "PULSAR"
 SvId    int    The satellite's SV ID
 Enabled bool   Direct Line of Sight enabled or not
 
@@ -7565,8 +7616,8 @@ Permission: EXECUTE_IF_IDLE
 Get Direct Line Of Sight signal from satellite enabled or disabled. Generally used when only multipaths signal is visible.
 
 Name   Type   Description
------- ------ ----------------------------------------------------------------
-System string "GPS", "GLONASS", "Galileo", "BeiDou", "SBAS", "QZSS" or "NavIC"
+------ ------ --------------------------------------------------------------------------
+System string "GPS", "GLONASS", "Galileo", "BeiDou", "SBAS", "QZSS", "NavIC" or "PULSAR"
 SvId   int    The satellite's SV ID
 
 ***************************************************************************************************************************
@@ -7576,8 +7627,8 @@ Result IsLosEnabledForSVResult(system, svId, enabled)
 Result of IsLosEnabledForSV.
 
 Name    Type   Description
-------- ------ ----------------------------------------------------------------
-System  string "GPS", "GLONASS", "Galileo", "BeiDou", "SBAS", "QZSS" or "NavIC"
+------- ------ --------------------------------------------------------------------------
+System  string "GPS", "GLONASS", "Galileo", "BeiDou", "SBAS", "QZSS", "NavIC" or "PULSAR"
 SvId    int    The satellite's SV ID
 Enabled bool   Direct Line of Sight enabled or not
 
@@ -7589,8 +7640,8 @@ Permission: EXECUTE_IF_SIMULATING | EXECUTE_IF_IDLE
 Enable Direct Line of Sight (LoS) of all satellites for the specified constellation.
 
 Name   Type   Description
------- ------ ----------------------------------------------------------------
-System string "GPS", "GLONASS", "Galileo", "BeiDou", "SBAS", "QZSS" or "NavIC"
+------ ------ --------------------------------------------------------------------------
+System string "GPS", "GLONASS", "Galileo", "BeiDou", "SBAS", "QZSS", "NavIC" or "PULSAR"
 
 ***************************************************************************************************************************
 
@@ -7601,7 +7652,7 @@ Set Direct Line Of Sight signal from satellite disabled or enabled. Generally us
 
 Name    Type       Description
 ------- ---------- -----------------------------------------------------------------------------------------------------------
-System  string     "GPS", "GLONASS", "Galileo", "BeiDou", "SBAS", "QZSS" or "NavIC"
+System  string     "GPS", "GLONASS", "Galileo", "BeiDou", "SBAS", "QZSS", "NavIC" or "PULSAR"
 Enabled array bool Direct Line of Sight enabled or not. Zero based index (index 0 => SV ID 1, index 1 => second SV ID 2, etc).
 
 ***************************************************************************************************************************
@@ -7612,8 +7663,8 @@ Permission: EXECUTE_IF_IDLE
 Get Direct Line Of Sight signal from satellite disabled or enabled. Generally used when only multipaths signal is visible.
 
 Name   Type   Description
------- ------ ----------------------------------------------------------------
-System string "GPS", "GLONASS", "Galileo", "BeiDou", "SBAS", "QZSS" or "NavIC"
+------ ------ --------------------------------------------------------------------------
+System string "GPS", "GLONASS", "Galileo", "BeiDou", "SBAS", "QZSS", "NavIC" or "PULSAR"
 
 ***************************************************************************************************************************
 
@@ -7623,50 +7674,67 @@ Result of IsLOSEnabledForEachSV.
 
 Name    Type       Description
 ------- ---------- -----------------------------------------------------------------------------------------------------------
-System  string     "GPS", "GLONASS", "Galileo", "BeiDou", "SBAS", "QZSS" or "NavIC"
+System  string     "GPS", "GLONASS", "Galileo", "BeiDou", "SBAS", "QZSS", "NavIC" or "PULSAR"
 Enabled array bool Direct Line of Sight enabled or not. Zero based index (index 0 => SV ID 1, index 1 => second SV ID 2, etc).
 
 ***************************************************************************************************************************
 
-Command AddPlugInInstance(name, type)
+Command EnablePlugin(id, enabled)
 Permission: EXECUTE_IF_IDLE
 
-Add a plug-in instance of specified type.
-
-Name Type   Description
----- ------ -------------------------------------
-Name string Unique name for the plug-in instance.
-Type string Type of the plug-in instance.
-
-***************************************************************************************************************************
-
-Command RemovePlugInInstance(name)
-Permission: EXECUTE_IF_IDLE
-
-Removes the plug-in instance.
-
-Name Type   Description
----- ------ -----------------------------
-Name string Plug-in instance unique name.
-
-***************************************************************************************************************************
-
-Command PlugInCommand(name, command)
-Permission: EXECUTE_IF_SIMULATING | EXECUTE_IF_IDLE
-
-Sends a command to a plug-in instance.
+Enable a plug-in for the whole system.
 
 Name    Type   Description
-------- ------ --------------------------------------------------
-Name    string Plug-in instance unique name.
-Command string The command to be handled by the plug-in instance.
+------- ------ --------------------------------------------------------------------------
+Id      string Plug-in ID.
+Enabled bool   Whether the plug-in is enabled for the whole system (true) or not (false).
+
+***************************************************************************************************************************
+
+Command IsPluginEnabled(id)
+Permission: EXECUTE_IF_IDLE
+
+Get whether a plug-in is enabled for the whole system.
+
+Name Type   Description
+---- ------ -----------
+Id   string Plug-in ID.
+
+***************************************************************************************************************************
+
+Result IsPluginEnabledResult(id, enabled)
+
+Result of IsPluginEnabled.
+
+Name    Type   Description
+------- ------ --------------------------------------------------------------------------
+Id      string Plug-in ID.
+Enabled bool   Whether the plug-in is enabled for the whole system (true) or not (false).
+
+***************************************************************************************************************************
+
+Command GetPlugins()
+Permission: EXECUTE_IF_IDLE
+
+Get all Plug-ins present on the system (regardless of state).
+
+
+***************************************************************************************************************************
+
+Result GetPluginsResult(plugins)
+
+Result of GetPlugins.
+
+Name    Type         Description
+------- ------------ ---------------------------------------------------------------------
+Plugins array string List of all Plug-ins present on the system (regardless of the state).
 
 ***************************************************************************************************************************
 
 Command SetDefaultIntTxPersistence(defaultValue)
 Permission: EXECUTE_IF_IDLE
 
-Set wether by default transmitters should keep the modification done during simulation.
+Set whether by default transmitters should keep the modification done during simulation.
 
 Name         Type Description
 ------------ ---- --------------------------------------------------------------------------------
@@ -7677,7 +7745,7 @@ DefaultValue bool True if jammers should keep the modifications done during simu
 Command GetDefaultIntTxPersistence()
 Permission: EXECUTE_IF_IDLE
 
-Get wether by default transmitters should keep the modification done during simulation.
+Get whether by default transmitters should keep the modification done during simulation.
 
 
 ***************************************************************************************************************************
@@ -7839,7 +7907,7 @@ Id    string Transmitter unique identifier.
 Command SetIntTxPersistence(persistence, id)
 Permission: EXECUTE_IF_SIMULATING | EXECUTE_IF_IDLE
 
-Set wether the transmitter should keep the modifications done during the simulation.
+Set whether the transmitter should keep the modifications done during the simulation.
 
 Name        Type   Description
 ----------- ------ ------------------------------------------------------
@@ -7851,7 +7919,7 @@ Id          string Transmitter unique identifier.
 Command GetIntTxPersistence(id)
 Permission: EXECUTE_IF_IDLE
 
-Get wether the transmitter should keep the modifications done during the simulation.
+Get whether the transmitter should keep the modifications done during the simulation.
 
 Name Type   Description
 ---- ------ ------------------------------
@@ -8346,11 +8414,11 @@ Id      string Transmitter unique identifier.
 Command SetIntTxVehicleType(type, id)
 Permission: EXECUTE_IF_IDLE
 
-Set Set interference vehicle type for Track Trajectory
+Set interference vehicle type for Track Trajectory.
 
 Name Type   Description
----- ------ ----------------------------------------------------------
-Type string Vehicle type ("Ground / Water" or "Airborne / Spaceborne")
+---- ------ -----------------------------------------------------------
+Type string Vehicle type ("Ground / Water" or "Airborne / Spaceborne").
 Id   string Transmitter unique identifier.
 
 ***************************************************************************************************************************
@@ -8358,7 +8426,7 @@ Id   string Transmitter unique identifier.
 Command GetIntTxVehicleType(id)
 Permission: EXECUTE_IF_IDLE
 
-Get Set interference vehicle type for Track Trajectory
+Get interference vehicle type for Track Trajectory.
 
 Name Type   Description
 ---- ------ ------------------------------
@@ -8371,8 +8439,8 @@ Result GetIntTxVehicleTypeResult(type, id)
 Result of GetIntTxVehicleType.
 
 Name Type   Description
----- ------ ----------------------------------------------------------
-Type string Vehicle type ("Ground / Water" or "Airborne / Spaceborne")
+---- ------ -----------------------------------------------------------
+Type string Vehicle type ("Ground / Water" or "Airborne / Spaceborne").
 Id   string Transmitter unique identifier.
 
 ***************************************************************************************************************************
@@ -9522,8 +9590,8 @@ Permission: EXECUTE_IF_SIMULATING
 Get a list of visible satellites' SV IDs within a system, returns a GetVisibleSVResult
 
 Name   Type   Description
------- ------ -----------------------------------------------------------------------------------
-System string The system, can be "GPS", "GLONASS", "Galileo", "BeiDou", "SBAS", "QZSS" or "NavIC"
+------ ------ ---------------------------------------------------------------------------------------------
+System string The system, can be "GPS", "GLONASS", "Galileo", "BeiDou", "SBAS", "QZSS", "NavIC" or "PULSAR"
 
 ***************************************************************************************************************************
 
@@ -9532,8 +9600,8 @@ Result GetVisibleSVResult(system, svId)
 Result of GetVisibleSV.
 
 Name   Type      Description
------- --------- -----------------------------------------------------------------------------------
-System string    The system, can be "GPS", "GLONASS", "Galileo", "BeiDou", "SBAS", "QZSS" or "NavIC"
+------ --------- ---------------------------------------------------------------------------------------------
+System string    The system, can be "GPS", "GLONASS", "Galileo", "BeiDou", "SBAS", "QZSS", "NavIC" or "PULSAR"
 SvId   array int A list containing the visible satellites' SV IDs
 
 ***************************************************************************************************************************
@@ -9571,8 +9639,8 @@ Permission: EXECUTE_IF_IDLE
 Enable or disable a satellite for this constellation.
 
 Name    Type   Description
-------- ------ ------------------------------------------------------------------------------------------------------
-System  string The satellite's constellation. Can be "GPS", "GLONASS", "Galileo", "BeiDou", "SBAS", "QZSS" or "NavIC"
+------- ------ ----------------------------------------------------------------------------------------------------------------
+System  string The satellite's constellation. Can be "GPS", "GLONASS", "Galileo", "BeiDou", "SBAS", "QZSS", "NavIC" or "PULSAR"
 SvId    int    The satellite's SV ID (use 0 for all SVs).
 Enabled bool   The satellite will be present/absent from the constellation
 
@@ -9584,8 +9652,8 @@ Permission: EXECUTE_IF_IDLE
 Get whether a satellite is enabled or disabled for this constellation.
 
 Name   Type   Description
------- ------ ------------------------------------------------------------------------------------------------------
-System string The satellite's constellation. Can be "GPS", "GLONASS", "Galileo", "BeiDou", "SBAS", "QZSS" or "NavIC"
+------ ------ ----------------------------------------------------------------------------------------------------------------
+System string The satellite's constellation. Can be "GPS", "GLONASS", "Galileo", "BeiDou", "SBAS", "QZSS", "NavIC" or "PULSAR"
 SvId   int    The satellite's SV ID (use 0 for all SVs).
 
 ***************************************************************************************************************************
@@ -9595,8 +9663,8 @@ Result IsSVEnabledResult(system, svId, enabled)
 Result of IsSVEnabled.
 
 Name    Type   Description
-------- ------ ------------------------------------------------------------------------------------------------------
-System  string The satellite's constellation. Can be "GPS", "GLONASS", "Galileo", "BeiDou", "SBAS", "QZSS" or "NavIC"
+------- ------ ----------------------------------------------------------------------------------------------------------------
+System  string The satellite's constellation. Can be "GPS", "GLONASS", "Galileo", "BeiDou", "SBAS", "QZSS", "NavIC" or "PULSAR"
 SvId    int    The satellite's SV ID (use 0 for all SVs).
 Enabled bool   The satellite will be present/absent from the constellation
 
@@ -9608,8 +9676,8 @@ Permission: EXECUTE_IF_IDLE
 Enable or disable each satellite for this constellation.
 
 Name    Type       Description
-------- ---------- ------------------------------------------------------------------------------------------------------
-System  string     The satellites' constellation. Can be "GPS", "GLONASS", "Galileo", "BeiDou", "SBAS", "QZSS" or "NavIC"
+------- ---------- ----------------------------------------------------------------------------------------------------------------
+System  string     The satellites' constellation. Can be "GPS", "GLONASS", "Galileo", "BeiDou", "SBAS", "QZSS", "NavIC" or "PULSAR"
 Enabled array bool Array of present/absent flags for the constellation
 
 ***************************************************************************************************************************
@@ -9620,8 +9688,8 @@ Permission: EXECUTE_IF_IDLE
 Get whether each satellite is enabled or disabled for this constellation.
 
 Name   Type   Description
------- ------ ------------------------------------------------------------------------------------------------------
-System string The satellites' constellation. Can be "GPS", "GLONASS", "Galileo", "BeiDou", "SBAS", "QZSS" or "NavIC"
+------ ------ ----------------------------------------------------------------------------------------------------------------
+System string The satellites' constellation. Can be "GPS", "GLONASS", "Galileo", "BeiDou", "SBAS", "QZSS", "NavIC" or "PULSAR"
 
 ***************************************************************************************************************************
 
@@ -9630,8 +9698,8 @@ Result IsEachSVEnabledResult(system, enabled)
 Result of IsEachSVEnabled.
 
 Name    Type       Description
-------- ---------- ------------------------------------------------------------------------------------------------------
-System  string     The satellites' constellation. Can be "GPS", "GLONASS", "Galileo", "BeiDou", "SBAS", "QZSS" or "NavIC"
+------- ---------- ----------------------------------------------------------------------------------------------------------------
+System  string     The satellites' constellation. Can be "GPS", "GLONASS", "Galileo", "BeiDou", "SBAS", "QZSS", "NavIC" or "PULSAR"
 Enabled array bool Array of present/absent flags for the constellation
 
 ***************************************************************************************************************************
@@ -9883,7 +9951,7 @@ Cancel the current configuration broadcast if any.
 Command SetConfigBroadcastOnStart(broadcastOnStart)
 Permission: EXECUTE_IF_IDLE
 
-Set wether the main instance should send its configuration to every worker instance when simulation start.
+Set whether the main instance should send its configuration to every worker instance when simulation start.
 
 Name             Type Description
 ---------------- ---- --------------------------------------------------------------
@@ -9894,7 +9962,7 @@ BroadcastOnStart bool True to broadcast the configuration on start, false otherw
 Command GetConfigBroadcastOnStart()
 Permission: EXECUTE_IF_IDLE
 
-Get wether the main instance should send its configuration to every worker instance when simulation start.
+Get whether the main instance should send its configuration to every worker instance when simulation start.
 
 
 ***************************************************************************************************************************
@@ -9958,8 +10026,8 @@ Permission: EXECUTE_IF_IDLE
 Set the satellite pseudorange noise constant offset.
 
 Name    Type   Description
-------- ------ ----------------------------------------------------------------
-System  string "GPS", "GLONASS", "Galileo", "BeiDou", "SBAS", "QZSS" or "NavIC"
+------- ------ --------------------------------------------------------------------------
+System  string "GPS", "GLONASS", "Galileo", "BeiDou", "SBAS", "QZSS", "NavIC" or "PULSAR"
 SvId    int    Satellite SV ID.
 Enabled bool   If true, the offset is enabled (applied)
 Offset  double The constant offset in metters
@@ -9972,8 +10040,8 @@ Permission: EXECUTE_IF_IDLE
 Get the satellite pseudorange noise constant offset.
 
 Name   Type   Description
------- ------ ----------------------------------------------------------------
-System string "GPS", "GLONASS", "Galileo", "BeiDou", "SBAS", "QZSS" or "NavIC"
+------ ------ --------------------------------------------------------------------------
+System string "GPS", "GLONASS", "Galileo", "BeiDou", "SBAS", "QZSS", "NavIC" or "PULSAR"
 SvId   int    Satellite SV ID.
 
 ***************************************************************************************************************************
@@ -9983,8 +10051,8 @@ Result GetPseudorangeNoiseOffsetForSVResult(system, svId, enabled, offset)
 Result of GetPseudorangeNoiseOffsetForSV.
 
 Name    Type   Description
-------- ------ ----------------------------------------------------------------
-System  string "GPS", "GLONASS", "Galileo", "BeiDou", "SBAS", "QZSS" or "NavIC"
+------- ------ --------------------------------------------------------------------------
+System  string "GPS", "GLONASS", "Galileo", "BeiDou", "SBAS", "QZSS", "NavIC" or "PULSAR"
 SvId    int    Satellite SV ID.
 Enabled bool   If true, the offset is enabled (applied)
 Offset  double The constant offset in metters
@@ -9997,8 +10065,8 @@ Permission: EXECUTE_IF_IDLE
 Set the satellite pseudorange noise constant offset for all satellites.
 
 Name    Type         Description
-------- ------------ ----------------------------------------------------------------
-System  string       "GPS", "GLONASS", "Galileo", "BeiDou", "SBAS", "QZSS" or "NavIC"
+------- ------------ --------------------------------------------------------------------------
+System  string       "GPS", "GLONASS", "Galileo", "BeiDou", "SBAS", "QZSS", "NavIC" or "PULSAR"
 Enabled array bool   If true, the offset is enabled (applied)
 Offset  array double The constant offset in metters
 
@@ -10012,8 +10080,8 @@ Please note the command SetAllSatellitesPseudorangeNoiseOffset is deprecated sin
 Set the satellite pseudorange noise constant offset for all satellites.
 
 Name    Type         Description
-------- ------------ ----------------------------------------------------------------
-System  string       "GPS", "GLONASS", "Galileo", "BeiDou", "SBAS", "QZSS" or "NavIC"
+------- ------------ --------------------------------------------------------------------------
+System  string       "GPS", "GLONASS", "Galileo", "BeiDou", "SBAS", "QZSS", "NavIC" or "PULSAR"
 Enabled array bool   If true, the offset is enabled (applied)
 Offset  array double The constant offset in metters
 
@@ -10025,8 +10093,8 @@ Permission: EXECUTE_IF_IDLE
 Get the satellite pseudorange noise constant offset for all satellites.
 
 Name   Type   Description
------- ------ ----------------------------------------------------------------
-System string "GPS", "GLONASS", "Galileo", "BeiDou", "SBAS", "QZSS" or "NavIC"
+------ ------ --------------------------------------------------------------------------
+System string "GPS", "GLONASS", "Galileo", "BeiDou", "SBAS", "QZSS", "NavIC" or "PULSAR"
 
 ***************************************************************************************************************************
 
@@ -10038,8 +10106,8 @@ Please note the command GetAllSatellitesPseudorangeNoiseOffset is deprecated sin
 Get the satellite pseudorange noise constant offset for all satellites.
 
 Name   Type   Description
------- ------ ----------------------------------------------------------------
-System string "GPS", "GLONASS", "Galileo", "BeiDou", "SBAS", "QZSS" or "NavIC"
+------ ------ --------------------------------------------------------------------------
+System string "GPS", "GLONASS", "Galileo", "BeiDou", "SBAS", "QZSS", "NavIC" or "PULSAR"
 
 ***************************************************************************************************************************
 
@@ -10048,8 +10116,8 @@ Result GetPseudorangeNoiseOffsetForEachSVResult(system, enabled, offset)
 Result of GetPseudorangeNoiseOffsetForEachSV.
 
 Name    Type         Description
-------- ------------ ----------------------------------------------------------------
-System  string       "GPS", "GLONASS", "Galileo", "BeiDou", "SBAS", "QZSS" or "NavIC"
+------- ------------ --------------------------------------------------------------------------
+System  string       "GPS", "GLONASS", "Galileo", "BeiDou", "SBAS", "QZSS", "NavIC" or "PULSAR"
 Enabled array bool   If true, the offset is enabled (applied)
 Offset  array double The constant offset in metters
 
@@ -10061,8 +10129,8 @@ Permission: EXECUTE_IF_IDLE
 Set the satellite pseudorange noise sine wave attributes.
 
 Name      Type   Description
---------- ------ ----------------------------------------------------------------
-System    string "GPS", "GLONASS", "Galileo", "BeiDou", "SBAS", "QZSS" or "NavIC"
+--------- ------ --------------------------------------------------------------------------
+System    string "GPS", "GLONASS", "Galileo", "BeiDou", "SBAS", "QZSS", "NavIC" or "PULSAR"
 SvId      int    The satellite's SV ID
 SineWave  int    Sine wave number (0 or 1)
 Enabled   bool   If true, sine wave is enabled
@@ -10078,8 +10146,8 @@ Permission: EXECUTE_IF_IDLE
 Get the satellite pseudorange noise sine wave attributes.
 
 Name     Type   Description
--------- ------ ----------------------------------------------------------------
-System   string "GPS", "GLONASS", "Galileo", "BeiDou", "SBAS", "QZSS" or "NavIC"
+-------- ------ --------------------------------------------------------------------------
+System   string "GPS", "GLONASS", "Galileo", "BeiDou", "SBAS", "QZSS", "NavIC" or "PULSAR"
 SvId     int    The satellite's SV ID
 SineWave int    Sine wave number (0 or 1)
 
@@ -10090,8 +10158,8 @@ Result GetPseudorangeNoiseSineWaveForSVResult(system, svId, sineWave, enabled, a
 Result of GetPseudorangeNoiseSineWaveForSV.
 
 Name      Type   Description
---------- ------ ----------------------------------------------------------------
-System    string "GPS", "GLONASS", "Galileo", "BeiDou", "SBAS", "QZSS" or "NavIC"
+--------- ------ --------------------------------------------------------------------------
+System    string "GPS", "GLONASS", "Galileo", "BeiDou", "SBAS", "QZSS", "NavIC" or "PULSAR"
 SvId      int    The satellite's SV ID
 SineWave  int    Sine wave number (0 or 1)
 Enabled   bool   If true, sine wave is enabled
@@ -10107,8 +10175,8 @@ Permission: EXECUTE_IF_IDLE
 Set the satellite pseudorange noise sine wave attributes for all satellites.
 
 Name      Type         Description
---------- ------------ ----------------------------------------------------------------
-System    string       "GPS", "GLONASS", "Galileo", "BeiDou", "SBAS", "QZSS" or "NavIC"
+--------- ------------ --------------------------------------------------------------------------
+System    string       "GPS", "GLONASS", "Galileo", "BeiDou", "SBAS", "QZSS", "NavIC" or "PULSAR"
 SineWave  int          Sine wave number (0 or 1)
 Enabled   array bool   If true, sine wave is enabled
 Amplitude array double Sine wave amplitude in meters
@@ -10125,8 +10193,8 @@ Please note the command SetAllSatellitesPseudorangeNoiseSineWave is deprecated s
 Set the satellite pseudorange noise sine wave attributes for all satellites.
 
 Name      Type         Description
---------- ------------ ----------------------------------------------------------------
-System    string       "GPS", "GLONASS", "Galileo", "BeiDou", "SBAS", "QZSS" or "NavIC"
+--------- ------------ --------------------------------------------------------------------------
+System    string       "GPS", "GLONASS", "Galileo", "BeiDou", "SBAS", "QZSS", "NavIC" or "PULSAR"
 SineWave  int          Sine wave number (0 or 1)
 Enabled   array bool   If true, sine wave is enabled
 Amplitude array double Sine wave amplitude in meters
@@ -10141,8 +10209,8 @@ Permission: EXECUTE_IF_IDLE
 Get the satellite pseudorange noise sine wave attributes for all satellites.
 
 Name     Type   Description
--------- ------ ----------------------------------------------------------------
-System   string "GPS", "GLONASS", "Galileo", "BeiDou", "SBAS", "QZSS" or "NavIC"
+-------- ------ --------------------------------------------------------------------------
+System   string "GPS", "GLONASS", "Galileo", "BeiDou", "SBAS", "QZSS", "NavIC" or "PULSAR"
 SineWave int    Sine wave number (0 or 1)
 
 ***************************************************************************************************************************
@@ -10155,8 +10223,8 @@ Please note the command GetAllSatellitesPseudorangeNoiseSineWave is deprecated s
 Get the satellite pseudorange noise sine wave attributes for all satellites.
 
 Name     Type   Description
--------- ------ ----------------------------------------------------------------
-System   string "GPS", "GLONASS", "Galileo", "BeiDou", "SBAS", "QZSS" or "NavIC"
+-------- ------ --------------------------------------------------------------------------
+System   string "GPS", "GLONASS", "Galileo", "BeiDou", "SBAS", "QZSS", "NavIC" or "PULSAR"
 SineWave int    Sine wave number (0 or 1)
 
 ***************************************************************************************************************************
@@ -10166,8 +10234,8 @@ Result GetPseudorangeNoiseSineWaveForEachSVResult(system, sineWave, enabled, amp
 Result of GetPseudorangeNoiseSineWaveForEachSV.
 
 Name      Type         Description
---------- ------------ ----------------------------------------------------------------
-System    string       "GPS", "GLONASS", "Galileo", "BeiDou", "SBAS", "QZSS" or "NavIC"
+--------- ------------ --------------------------------------------------------------------------
+System    string       "GPS", "GLONASS", "Galileo", "BeiDou", "SBAS", "QZSS", "NavIC" or "PULSAR"
 SineWave  int          Sine wave number (0 or 1)
 Enabled   array bool   If true, sine wave is enabled
 Amplitude array double Sine wave amplitude in meters
@@ -10182,8 +10250,8 @@ Permission: EXECUTE_IF_IDLE
 Set the satellite pseudorange noise Gauss-Markov process attributes.
 
 Name    Type   Description
-------- ------ ----------------------------------------------------------------
-System  string "GPS", "GLONASS", "Galileo", "BeiDou", "SBAS", "QZSS" or "NavIC"
+------- ------ --------------------------------------------------------------------------
+System  string "GPS", "GLONASS", "Galileo", "BeiDou", "SBAS", "QZSS", "NavIC" or "PULSAR"
 SvId    int    Satellite SV ID.
 Process int    Gauss-Markov Process number (0 or 1)
 Enabled bool   If true, Gauss-Markov process is enabled
@@ -10199,8 +10267,8 @@ Permission: EXECUTE_IF_IDLE
 Get the satellite pseudorange noise Gauss-Markov process attributes.
 
 Name    Type   Description
-------- ------ ----------------------------------------------------------------
-System  string "GPS", "GLONASS", "Galileo", "BeiDou", "SBAS", "QZSS" or "NavIC"
+------- ------ --------------------------------------------------------------------------
+System  string "GPS", "GLONASS", "Galileo", "BeiDou", "SBAS", "QZSS", "NavIC" or "PULSAR"
 SvId    int    Satellite SV ID.
 Process int    Gauss-Markov Process number (0 or 1)
 
@@ -10211,8 +10279,8 @@ Result GetPseudorangeNoiseGaussMarkovForSVResult(system, svId, process, enabled,
 Result of GetPseudorangeNoiseGaussMarkovForSV.
 
 Name    Type   Description
-------- ------ ----------------------------------------------------------------
-System  string "GPS", "GLONASS", "Galileo", "BeiDou", "SBAS", "QZSS" or "NavIC"
+------- ------ --------------------------------------------------------------------------
+System  string "GPS", "GLONASS", "Galileo", "BeiDou", "SBAS", "QZSS", "NavIC" or "PULSAR"
 SvId    int    Satellite SV ID.
 Process int    Gauss-Markov Process number (0 or 1)
 Enabled bool   If true, Gauss-Markov process is enabled
@@ -10228,8 +10296,8 @@ Permission: EXECUTE_IF_IDLE
 Set the satellite pseudorange noise Gauss-Markov process attributes for all satellites.
 
 Name    Type         Description
-------- ------------ ----------------------------------------------------------------
-System  string       "GPS", "GLONASS", "Galileo", "BeiDou", "SBAS", "QZSS" or "NavIC"
+------- ------------ --------------------------------------------------------------------------
+System  string       "GPS", "GLONASS", "Galileo", "BeiDou", "SBAS", "QZSS", "NavIC" or "PULSAR"
 Process int          Gauss-Markov Process number (0 or 1)
 Enabled array bool   If true, Gauss-Markov process is enabled
 Sigma   array double Standard devition
@@ -10246,8 +10314,8 @@ Please note the command SetAllSatellitesPseudorangeNoiseGaussMarkov is deprecate
 Set the satellite pseudorange noise Gauss-Markov process attributes for all satellites.
 
 Name    Type         Description
-------- ------------ ----------------------------------------------------------------
-System  string       "GPS", "GLONASS", "Galileo", "BeiDou", "SBAS", "QZSS" or "NavIC"
+------- ------------ --------------------------------------------------------------------------
+System  string       "GPS", "GLONASS", "Galileo", "BeiDou", "SBAS", "QZSS", "NavIC" or "PULSAR"
 Process int          Gauss-Markov Process number (0 or 1)
 Enabled array bool   If true, Gauss-Markov process is enabled
 Sigma   array double Standard devition
@@ -10262,8 +10330,8 @@ Permission: EXECUTE_IF_IDLE
 Get the satellite pseudorange noise Gauss-Markov process attributes for all satellites.
 
 Name    Type   Description
-------- ------ ----------------------------------------------------------------
-System  string "GPS", "GLONASS", "Galileo", "BeiDou", "SBAS", "QZSS" or "NavIC"
+------- ------ --------------------------------------------------------------------------
+System  string "GPS", "GLONASS", "Galileo", "BeiDou", "SBAS", "QZSS", "NavIC" or "PULSAR"
 Process int    Gauss-Markov Process number (0 or 1)
 
 ***************************************************************************************************************************
@@ -10276,8 +10344,8 @@ Please note the command GetAllSatellitesPseudorangeNoiseGaussMarkov is deprecate
 Get the satellite pseudorange noise Gauss-Markov process attributes for all satellites.
 
 Name    Type   Description
-------- ------ ----------------------------------------------------------------
-System  string "GPS", "GLONASS", "Galileo", "BeiDou", "SBAS", "QZSS" or "NavIC"
+------- ------ --------------------------------------------------------------------------
+System  string "GPS", "GLONASS", "Galileo", "BeiDou", "SBAS", "QZSS", "NavIC" or "PULSAR"
 Process int    Gauss-Markov Process number (0 or 1)
 
 ***************************************************************************************************************************
@@ -10287,8 +10355,8 @@ Result GetPseudorangeNoiseGaussMarkovForEachSVResult(system, process, enabled, s
 Result of GetPseudorangeNoiseGaussMarkovForEachSV.
 
 Name    Type         Description
-------- ------------ ----------------------------------------------------------------
-System  string       "GPS", "GLONASS", "Galileo", "BeiDou", "SBAS", "QZSS" or "NavIC"
+------- ------------ --------------------------------------------------------------------------
+System  string       "GPS", "GLONASS", "Galileo", "BeiDou", "SBAS", "QZSS", "NavIC" or "PULSAR"
 Process int          Gauss-Markov Process number (0 or 1)
 Enabled array bool   If true, Gauss-Markov process is enabled
 Sigma   array double Standard devition
@@ -10303,8 +10371,8 @@ Permission: EXECUTE_IF_IDLE
 Generate new seeds for pseudorange noise Gauss-Markov process error on all satellites.
 
 Name   Type   Description
------- ------ ----------------------------------------------------------------
-System string "GPS", "GLONASS", "Galileo", "BeiDou", "SBAS", "QZSS" or "NavIC"
+------ ------ --------------------------------------------------------------------------
+System string "GPS", "GLONASS", "Galileo", "BeiDou", "SBAS", "QZSS", "NavIC" or "PULSAR"
 
 ***************************************************************************************************************************
 
@@ -10316,8 +10384,8 @@ Please note the command RandomizeSeedsForAllSatellitesPseudorangeNoiseGaussMarko
 Generate new seeds for pseudorange noise Gauss-Markov process error on all satellites.
 
 Name   Type   Description
------- ------ ----------------------------------------------------------------
-System string "GPS", "GLONASS", "Galileo", "BeiDou", "SBAS", "QZSS" or "NavIC"
+------ ------ --------------------------------------------------------------------------
+System string "GPS", "GLONASS", "Galileo", "BeiDou", "SBAS", "QZSS", "NavIC" or "PULSAR"
 
 ***************************************************************************************************************************
 
@@ -10340,7 +10408,7 @@ Set the satellite ephemeris error.
 
 Name     Type   Description
 -------- ------ -----------------------------------------------------------------------------------
-System   string "GPS", "Galileo", "GLONASS", "BeiDou", "QZSS" or "NavIC"
+System   string "GPS", "Galileo", "GLONASS", "BeiDou", "QZSS", "NavIC" or "PULSAR"
 SvId     int    Satellite SV ID.
 Orbit    RIC    The orbit error, in relative orbit frame. In-track error not available for GLONASS.
 DeltaAf0 double The clock bias error, in second. DeltaTaun for GLONASS.
@@ -10354,8 +10422,8 @@ Permission: EXECUTE_IF_IDLE
 Get the satellite ephemeris error.
 
 Name   Type   Description
------- ------ --------------------------------------------------------
-System string "GPS", "Galileo", "GLONASS", "BeiDou", "QZSS" or "NavIC"
+------ ------ ------------------------------------------------------------------
+System string "GPS", "Galileo", "GLONASS", "BeiDou", "QZSS", "NavIC" or "PULSAR"
 SvId   int    Satellite SV ID.
 
 ***************************************************************************************************************************
@@ -10366,7 +10434,7 @@ Result of GetEphemerisErrorForSV.
 
 Name     Type   Description
 -------- ------ -----------------------------------------------------------------------------------
-System   string "GPS", "Galileo", "GLONASS", "BeiDou", "QZSS" or "NavIC"
+System   string "GPS", "Galileo", "GLONASS", "BeiDou", "QZSS", "NavIC" or "PULSAR"
 SvId     int    Satellite SV ID.
 Orbit    RIC    The orbit error, in relative orbit frame. In-track error not available for GLONASS.
 DeltaAf0 double The clock bias error, in second. DeltaTaun for GLONASS.
@@ -10439,7 +10507,7 @@ Set whether a satellite is geostationary
 
 Name        Type            Description
 ----------- --------------- -------------------------------------------------------------------------------------------
-System      string          "GPS", "Galileo", "BeiDou", "QZSS" or "NavIC"
+System      string          "GPS", "Galileo", "BeiDou", "QZSS", "NavIC" or "PULSAR"
 SvId        int             The satellite SV ID
 IsGeo       bool            True for geostationary satellite
 Longitude   double          The longitude to use, in degree
@@ -10454,7 +10522,7 @@ Get whether a satellite is geostationary
 
 Name        Type            Description
 ----------- --------------- -------------------------------------------------------------------------------------------
-System      string          "GPS", "Galileo", "BeiDou", "QZSS" or "NavIC"
+System      string          "GPS", "Galileo", "BeiDou", "QZSS", "NavIC" or "PULSAR"
 SvId        int             The satellite SV ID
 DataSetName optional string Optional name of the data set to use. If no value is provided, the active data set is used.
 
@@ -10466,7 +10534,7 @@ Result of IsSVForcedGeo.
 
 Name        Type            Description
 ----------- --------------- -------------------------------------------------------------------------------------------
-System      string          "GPS", "Galileo", "BeiDou", "QZSS" or "NavIC"
+System      string          "GPS", "Galileo", "BeiDou", "QZSS", "NavIC" or "PULSAR"
 SvId        int             The satellite SV ID
 IsGeo       bool            True for geostationary satellite
 Longitude   double          The longitude to use, in degree
@@ -10781,17 +10849,18 @@ Remove all pilots on all outputs
 
 ***************************************************************************************************************************
 
-Command SetRFOutputOffsets(outputIdx, powerOffset, timeOffset, phaseOffset)
+Command SetRFOutputOffsets(outputIdx, powerOffset, timeOffset, phaseOffset, phaseStep)
 Permission: EXECUTE_IF_SIMULATING
 
 Change modulation offsets of one RF output
 
-Name        Type   Description
------------ ------ ----------------------------------------------------------------
-OutputIdx   int    RF Output index (zero-based)
-PowerOffset double Power offset (dB), to apply on all signals of the RF Output
-TimeOffset  double Time offset (seconds), to apply on all signals of the RF Output
-PhaseOffset double Phase offset (radians), to apply on all signals of the RF Output
+Name        Type            Description
+----------- --------------- ----------------------------------------------------------------
+OutputIdx   int             RF Output index (zero-based)
+PowerOffset double          Power offset (dB), to apply on all signals of the RF Output
+TimeOffset  double          Time offset (seconds), to apply on all signals of the RF Output
+PhaseOffset double          Phase offset (radians), to apply on all signals of the RF Output
+PhaseStep   optional double How much the phase (radians) should change per millisecond
 
 ***************************************************************************************************************************
 
@@ -11662,6 +11731,192 @@ Id             string Transmitter unique identifier.
 
 ***************************************************************************************************************************
 
+Command BeginSpoofTxTrackDefinition(id)
+Permission: EXECUTE_IF_IDLE
+
+Begins a new spoofer transmitter track definition. Actual track remains unchanged until
+EndSpoofTxTrackDefinition command is sent and successful. After this command, the
+client must push time and position pairs to form a complete track. Once all the
+positions are sent, the client must send the command EndSpoofTxTrackDefinition.
+
+Name Type   Description
+---- ------ ------------------------------
+Id   string Transmitter unique identifier.
+
+***************************************************************************************************************************
+
+Command PushSpoofTxTrackEcef(time, x, y, z, id)
+Permission: EXECUTE_IF_IDLE
+
+Push an spoofer transmitter track ecef node. Must be called after BeginSpoofTxTrackDefinition and before EndSpoofTxTrackDefinition.
+
+Name Type   Description
+---- ------ ---------------------------------------
+Time int    Node Timestamp in miliseconds.
+X    double X distance from earth-center in meters.
+Y    double Y distance from earth-center in meters.
+Z    double Z distance from earth-center in meters.
+Id   string Transmitter unique identifier.
+
+***************************************************************************************************************************
+
+Command PushSpoofTxTrackEcefNed(time, x, y, z, yaw, pitch, roll, id)
+Permission: EXECUTE_IF_IDLE
+
+Push a spoofer transmitter track ECEF and NED attitude node. Must be called after BeginSpoofTxTrackDefinition and before EndSpoofTxTrackDefinition.
+
+Name  Type   Description
+----- ------ ---------------------------------------
+Time  int    Node Timestamp in miliseconds.
+X     double X distance from earth-center in meters.
+Y     double Y distance from earth-center in meters.
+Z     double Z distance from earth-center in meters.
+Yaw   double Yaw in radians.
+Pitch double Pitch in radians.
+Roll  double Roll in radians.
+Id    string Transmitter unique identifier.
+
+***************************************************************************************************************************
+
+Command EndSpoofTxTrackDefinition(id)
+Permission: EXECUTE_IF_IDLE
+
+This command completes the track started with the BeginSpoofTxTrackDefinition command. If
+the track is accepted, the current track in the configuration is replaced with
+this new track. If the track is not accepted, the current track in the config
+remains unchanged.
+
+Name Type   Description
+---- ------ ------------------------------
+Id   string Transmitter unique identifier.
+
+***************************************************************************************************************************
+
+Result EndSpoofTxTrackDefinitionResult(count, id)
+
+EndSpoofTxTrackDefinition Result with created track informations.
+
+Name  Type   Description
+----- ------ ----------------------------------------------------------------------------------------------------
+Count int    Number of nodes in the track. The client can compare this value with the number of positions pushed.
+Id    string Transmitter unique identifier.
+
+***************************************************************************************************************************
+
+Command ImportNmeaSpoofTxTrack(path, id)
+Permission: EXECUTE_IF_IDLE
+
+Import NMEA spoofer transmitter track file.
+
+Name Type   Description
+---- ------ ------------------------------
+Path string NMEA file path.
+Id   string Transmitter unique identifier.
+
+***************************************************************************************************************************
+
+Command EnableSpoofTxTrajectorySmoothing(enabled, id)
+Permission: EXECUTE_IF_IDLE
+
+Set trajectory smoothing for spoofer transmitter Track enabled or disabled
+
+Name    Type   Description
+------- ------ ---------------------------------------------------------------------------
+Enabled bool   If true, spoofer transmitter trajectory will be smoothed during simulation.
+Id      string Transmitter unique identifier.
+
+***************************************************************************************************************************
+
+Command IsSpoofTxTrajectorySmoothingEnabled(id)
+Permission: EXECUTE_IF_IDLE
+
+Get trajectory smoothing for spoofer transmitter Track enabled or disabled
+
+Name Type   Description
+---- ------ ------------------------------
+Id   string Transmitter unique identifier.
+
+***************************************************************************************************************************
+
+Result IsSpoofTxTrajectorySmoothingEnabledResult(enabled, id)
+
+Result of IsSpoofTxTrajectorySmoothingEnabled.
+
+Name    Type   Description
+------- ------ ---------------------------------------------------------------------------
+Enabled bool   If true, spoofer transmitter trajectory will be smoothed during simulation.
+Id      string Transmitter unique identifier.
+
+***************************************************************************************************************************
+
+Command ForceSpoofTxAttitudeToZero(enabled, id)
+Permission: EXECUTE_IF_IDLE
+
+Set whether the spoofer transmitter vehicle yaw, pitch and roll should be forced to zero.
+
+Name    Type   Description
+------- ------ -------------------------------------------------------------------
+Enabled bool   If true, spoofer transmitter vehicle won't rotate during simulation
+Id      string Transmitter unique identifier.
+
+***************************************************************************************************************************
+
+Command IsSpoofTxAttitudeToZeroForced(id)
+Permission: EXECUTE_IF_IDLE
+
+Get whether the spoofer transmitter vehicle yaw, pitch and roll should be forced to zero.
+
+Name Type   Description
+---- ------ ------------------------------
+Id   string Transmitter unique identifier.
+
+***************************************************************************************************************************
+
+Result IsSpoofTxAttitudeToZeroForcedResult(enabled, id)
+
+Result of IsSpoofTxAttitudeToZeroForced.
+
+Name    Type   Description
+------- ------ -------------------------------------------------------------------
+Enabled bool   If true, spoofer transmitter vehicle won't rotate during simulation
+Id      string Transmitter unique identifier.
+
+***************************************************************************************************************************
+
+Command SetSpoofTxVehicleType(type, id)
+Permission: EXECUTE_IF_IDLE
+
+Set spoofer transmitter vehicle type for Track Trajectory.
+
+Name Type   Description
+---- ------ -----------------------------------------------------------
+Type string Vehicle type ("Ground / Water" or "Airborne / Spaceborne").
+Id   string Transmitter unique identifier.
+
+***************************************************************************************************************************
+
+Command GetSpoofTxVehicleType(id)
+Permission: EXECUTE_IF_IDLE
+
+Get spoofer transmitter vehicle type for Track Trajectory.
+
+Name Type   Description
+---- ------ ------------------------------
+Id   string Transmitter unique identifier.
+
+***************************************************************************************************************************
+
+Result GetSpoofTxVehicleTypeResult(type, id)
+
+Result of GetSpoofTxVehicleType.
+
+Name Type   Description
+---- ------ -----------------------------------------------------------
+Type string Vehicle type ("Ground / Water" or "Airborne / Spaceborne").
+Id   string Transmitter unique identifier.
+
+***************************************************************************************************************************
+
 Command SetSpoofTxAntenna(gain, type, id)
 Permission: EXECUTE_IF_IDLE
 
@@ -11843,7 +12098,7 @@ Path string Path to the sdxpand directory
 Command GetSVIDsOfPrn(signal, prn)
 Permission: EXECUTE_IF_IDLE
 
-Mapping PRN to the corresponding SV ID. Get a list of SV IDs based on a specific signal. Accepted signal keys: "L1CA", "L1C", "L1P", "L1ME", "L1MR", "L2C", "L2P", "L5", "G1", "G2", "E1", "E1PRS", "E5a", "E5b", "E6BC", "E6PRS", "B1", "B2", "B2a", "B1C", "B3I", "SBASL1", "SBASL5", "QZSSL1CA", "QZSSL1CB", "QZSSL1C", "QZSSL2C", "QZSSL5", "QZSSL1S", "QZSSL5S" and "NAVICL5"
+Mapping PRN to the corresponding SV ID. Get a list of SV IDs based on a specific signal. Accepted signal keys: "L1CA", "L1C", "L1P", "L1ME", "L1MR", "L2C", "L2P", "L5", "G1", "G2", "E1", "E1PRS", "E5a", "E5b", "E6BC", "E6PRS", "B1", "B2", "B2a", "B1C", "B3I", "SBASL1", "SBASL5", "QZSSL1CA", "QZSSL1CB", "QZSSL1C", "QZSSL2C", "QZSSL5", "QZSSL1S", "QZSSL5S", "NAVICL5" and "PULSARXL"
 
 Name   Type   Description
 ------ ------ ----------------------------------------------------------------------
@@ -11961,7 +12216,7 @@ Add a new data set for the specified constellation. This could come from a Rinex
 
 Name        Type            Description
 ----------- --------------- --------------------------------------------------------------------------------------------------------------------
-System      string          "GPS", "Galileo", "BeiDou", "NavIC" or "QZSS"
+System      string          "GPS", "Galileo", "BeiDou", "QZSS", "NavIC" or "PULSAR"
 Path        string          Data set file path
 Rollover    optional int    Rollover for file types that does not precise it (YUMA, SEM). Default value is the current rollover.
 DataSetName optional string Name of the data set to import. This parameter is optional, the default value will be the name of the imported file.
@@ -11974,8 +12229,8 @@ Permission: EXECUTE_IF_IDLE
 Set data set assignation for the specified constellation.
 
 Name        Type   Description
------------ ------ ---------------------------------------------
-System      string "GPS", "Galileo", "BeiDou", "NavIC" or "QZSS"
+----------- ------ -------------------------------------------------------
+System      string "GPS", "Galileo", "BeiDou", "QZSS", "NavIC" or "PULSAR"
 DataSetType string "Almanac", "Ephemeris" or "Orbit"
 DataSetName string The name of the assigned data set.
 
@@ -11987,8 +12242,8 @@ Permission: EXECUTE_IF_IDLE
 Get data set assignation for the specified constellation.
 
 Name        Type   Description
------------ ------ ---------------------------------------------
-System      string "GPS", "Galileo", "BeiDou", "NavIC" or "QZSS"
+----------- ------ -------------------------------------------------------
+System      string "GPS", "Galileo", "BeiDou", "QZSS", "NavIC" or "PULSAR"
 DataSetType string "Almanac", "Ephemeris" or "Orbit"
 
 ***************************************************************************************************************************
@@ -11998,8 +12253,8 @@ Result GetDataSetAssignationResult(system, dataSetType, dataSetName)
 Result of GetDataSetAssignation.
 
 Name        Type   Description
------------ ------ ---------------------------------------------
-System      string "GPS", "Galileo", "BeiDou", "NavIC" or "QZSS"
+----------- ------ -------------------------------------------------------
+System      string "GPS", "Galileo", "BeiDou", "QZSS", "NavIC" or "PULSAR"
 DataSetType string "Almanac", "Ephemeris" or "Orbit"
 DataSetName string The name of the assigned data set.
 
@@ -12011,8 +12266,8 @@ Permission: EXECUTE_IF_IDLE
 Rename data set.
 
 Name           Type   Description
--------------- ------ ---------------------------------------------
-System         string "GPS", "Galileo", "BeiDou", "NavIC" or "QZSS"
+-------------- ------ -------------------------------------------------------
+System         string "GPS", "Galileo", "BeiDou", "QZSS", "NavIC" or "PULSAR"
 DataSetName    string The name of the data set to rename.
 NewDataSetName string The new name to be given to the data set.
 
@@ -12024,8 +12279,8 @@ Permission: EXECUTE_IF_IDLE
 Delete data set.
 
 Name        Type   Description
------------ ------ ---------------------------------------------
-System      string "GPS", "Galileo", "BeiDou", "NavIC" or "QZSS"
+----------- ------ -------------------------------------------------------
+System      string "GPS", "Galileo", "BeiDou", "QZSS", "NavIC" or "PULSAR"
 DataSetName string The name of the data set to delete.
 
 ***************************************************************************************************************************
@@ -12036,8 +12291,8 @@ Permission: EXECUTE_IF_IDLE | EXECUTE_IF_SIMULATING
 Set active data set.
 
 Name        Type   Description
------------ ------ ---------------------------------------------
-System      string "GPS", "Galileo", "BeiDou", "NavIC" or "QZSS"
+----------- ------ -------------------------------------------------------
+System      string "GPS", "Galileo", "BeiDou", "QZSS", "NavIC" or "PULSAR"
 DataSetName string The name of the data set to set as active.
 
 ***************************************************************************************************************************
@@ -12048,8 +12303,8 @@ Permission: EXECUTE_IF_IDLE
 Get active data set.
 
 Name   Type   Description
------- ------ ---------------------------------------------
-System string "GPS", "Galileo", "BeiDou", "NavIC" or "QZSS"
+------ ------ -------------------------------------------------------
+System string "GPS", "Galileo", "BeiDou", "QZSS", "NavIC" or "PULSAR"
 
 ***************************************************************************************************************************
 
@@ -12058,8 +12313,8 @@ Result GetActiveDataSetResult(system, dataSetName)
 Result of GetActiveDataSet.
 
 Name        Type   Description
------------ ------ ---------------------------------------------
-System      string "GPS", "Galileo", "BeiDou", "NavIC" or "QZSS"
+----------- ------ -------------------------------------------------------
+System      string "GPS", "Galileo", "BeiDou", "QZSS", "NavIC" or "PULSAR"
 DataSetName string The name of the data set to set as active.
 
 ***************************************************************************************************************************
@@ -12071,7 +12326,7 @@ Duplicate an existing data set.
 
 Name           Type            Description
 -------------- --------------- ----------------------------------------------------------------------------------
-System         string          "GPS", "Galileo", "BeiDou", "NavIC" or "QZSS"
+System         string          "GPS", "Galileo", "BeiDou", "QZSS", "NavIC" or "PULSAR"
 DataSetName    string          The name of the data set to duplicate.
 NewDataSetName optional string The name of the new duplicate data set. If omitted, a copy name will be generated.
 
@@ -12094,8 +12349,8 @@ Permission: EXECUTE_IF_IDLE | EXECUTE_IF_SIMULATING
 Get elevation and azimuth position angles for all satellites.
 
 Name   Type   Description
------- ------ -----------------------------------------------------------------
-System string "GPS", "GLONASS", "Galileo", "BeiDou", "SBAS", "QZSS" or "NavIC".
+------ ------ ---------------------------------------------------------------------------
+System string "GPS", "GLONASS", "Galileo", "BeiDou", "SBAS", "QZSS", "NavIC" or "PULSAR".
 
 ***************************************************************************************************************************
 
@@ -12104,8 +12359,8 @@ Result GetElevationAzimuthForEachSVResult(system, elevationAzimuths)
 Result of GetElevationAzimuthForEachSV.
 
 Name              Type                            Description
------------------ ------------------------------- -----------------------------------------------------------------
-System            string                          "GPS", "GLONASS", "Galileo", "BeiDou", "SBAS", "QZSS" or "NavIC".
+----------------- ------------------------------- ---------------------------------------------------------------------------
+System            string                          "GPS", "GLONASS", "Galileo", "BeiDou", "SBAS", "QZSS", "NavIC" or "PULSAR".
 ElevationAzimuths array optional ElevationAzimuth Elevation and Azimuth position angles of the satellites.
 
 ***************************************************************************************************************************
@@ -12116,8 +12371,8 @@ Permission: EXECUTE_IF_IDLE | EXECUTE_IF_SIMULATING
 Get elevation and azimuth position angles for satellite.
 
 Name   Type   Description
------- ------ -----------------------------------------------------------------
-System string "GPS", "GLONASS", "Galileo", "BeiDou", "SBAS", "QZSS" or "NavIC".
+------ ------ ---------------------------------------------------------------------------
+System string "GPS", "GLONASS", "Galileo", "BeiDou", "SBAS", "QZSS", "NavIC" or "PULSAR".
 SvId   int    Satellite's SV ID.
 
 ***************************************************************************************************************************
@@ -12127,8 +12382,8 @@ Result GetElevationAzimuthForSVResult(system, svId, elevationAzimuth)
 Result of GetElevationAzimuthForSV.
 
 Name             Type                      Description
----------------- ------------------------- -----------------------------------------------------------------
-System           string                    "GPS", "GLONASS", "Galileo", "BeiDou", "SBAS", "QZSS" or "NavIC".
+---------------- ------------------------- ---------------------------------------------------------------------------
+System           string                    "GPS", "GLONASS", "Galileo", "BeiDou", "SBAS", "QZSS", "NavIC" or "PULSAR".
 SvId             int                       Satellite's SV ID.
 ElevationAzimuth optional ElevationAzimuth Elevation and Azimuth position angles of the satellite.
 
@@ -12420,7 +12675,7 @@ After a block is pushed for a SV, no other block can be pushed for that SV until
 
 Name           Type                  Description
 -------------- --------------------- ---------------------------------------------------------------------------------------
-System         string                "GPS", "Galileo", "BeiDou", "QZSS" or "NavIC".
+System         string                "GPS", "Galileo", "BeiDou", "QZSS", "NavIC" or "PULSAR".
 SvId           int                   Satellite's SV ID.
 Toc            datetime              Time of Clock.
 ParametersDict dict string:double    A dictionary of parameters pairs.
@@ -12474,8 +12729,8 @@ Push a block of data defining the orbit, clock, and other parameters for one SV.
   "Idot"              rad/sec
 
 Name    Type                Description
-------- ------------------- ----------------------------------------------
-System  string              "GPS", "Galileo", "BeiDou", "QZSS" or "NavIC".
+------- ------------------- --------------------------------------------------------
+System  string              "GPS", "Galileo", "BeiDou", "QZSS", "NavIC" or "PULSAR".
 Toa     datetime            Time of applicability.
 Almanac array AlmanacSVData Array of almanac data for SVs.
 
@@ -12696,7 +12951,7 @@ Id         string N310 modulation target Id.
 Command SetConstellationParameterForSV(system, svId, paramName, val, dataSetName)
 Permission: EXECUTE_IF_IDLE
 
-Set "GPS", "Galileo", "BeiDou", "QZSS" or "NavIC" constellation parameter value.
+Set "GPS", "Galileo", "BeiDou", "QZSS", "NavIC" or "PULSAR" constellation parameter value.
 
 General constellation parameters:
 
@@ -12751,7 +13006,7 @@ NavIC:
 
 Name        Type                  Description
 ----------- --------------------- -------------------------------------------------------------------------------------------
-System      string                "GPS", "Galileo", "BeiDou", "QZSS" or "NavIC".
+System      string                "GPS", "Galileo", "BeiDou", "QZSS", "NavIC" or "PULSAR".
 SvId        int                   The Satellite SV ID, or use 0 to apply new value to all satellites.
 ParamName   string                Parameter name (see table above for accepted names).
 Val         double or int or bool Parameter value (see table above for unit and type).
@@ -12762,7 +13017,7 @@ DataSetName optional string       Optional name of the data set to use. If no va
 Command GetConstellationParameterForSV(system, svId, paramName, dataSetName)
 Permission: EXECUTE_IF_IDLE
 
-Get "GPS", "Galileo", "BeiDou", "QZSS" or "NavIC" constellation parameter value.
+Get "GPS", "Galileo", "BeiDou", "QZSS", "NavIC" or "PULSAR" constellation parameter value.
 
 General constellation parameters:
 
@@ -12817,7 +13072,7 @@ NavIC:
 
 Name        Type            Description
 ----------- --------------- -------------------------------------------------------------------------------------------
-System      string          "GPS", "Galileo", "BeiDou", "QZSS" or "NavIC".
+System      string          "GPS", "Galileo", "BeiDou", "QZSS", "NavIC" or "PULSAR".
 SvId        int             The Satellite SV ID, or use 0 to apply new value to all satellites.
 ParamName   string          Parameter name (see table above for accepted names).
 DataSetName optional string Optional name of the data set to use. If no value is provided, the active data set is used.
@@ -12830,7 +13085,7 @@ Result of GetConstellationParameterForSV.
 
 Name        Type                  Description
 ----------- --------------------- -------------------------------------------------------------------------------------------
-System      string                "GPS", "Galileo", "BeiDou", "QZSS" or "NavIC".
+System      string                "GPS", "Galileo", "BeiDou", "QZSS", "NavIC" or "PULSAR".
 SvId        int                   The Satellite SV ID, or use 0 to apply new value to all satellites.
 ParamName   string                Parameter name (see table above for accepted names).
 Val         double or int or bool Parameter value (see table above for unit and type).
@@ -12841,11 +13096,11 @@ DataSetName optional string       Optional name of the data set to use. If no va
 Command SetConstellationParameterForEachSV(system, paramName, val, dataSetName)
 Permission: EXECUTE_IF_IDLE
 
-Set "GPS", "Galileo", "BeiDou", "QZSS" or "NavIC" constellation parameter value for all satellites.
+Set "GPS", "Galileo", "BeiDou", "QZSS", "NavIC" or "PULSAR" constellation parameter value for all satellites.
 
 Name        Type                                    Description
 ----------- --------------------------------------- ----------------------------------------------------------------------------------------------------
-System      string                                  "GPS", "Galileo", "BeiDou", "QZSS" or "NavIC".
+System      string                                  "GPS", "Galileo", "BeiDou", "QZSS", "NavIC" or "PULSAR".
 ParamName   string                                  Refer to SetConstellationParameterForSV for accepted names.
 Val         array double or array int or array bool Parameter value for each satellite. Zero based index (index 0 => SV ID 1, index 1 => SV ID 2, etc.).
 DataSetName optional string                         Optional name of the data set to use. If no value is provided, the active data set is used.
@@ -12855,11 +13110,11 @@ DataSetName optional string                         Optional name of the data se
 Command GetConstellationParameterForEachSV(system, paramName, dataSetName)
 Permission: EXECUTE_IF_IDLE
 
-Get "GPS", "Galileo", "BeiDou", "QZSS" or "NavIC" constellation parameter value for all satellites.
+Get "GPS", "Galileo", "BeiDou", "QZSS", "NavIC" or "PULSAR" constellation parameter value for all satellites.
 
 Name        Type            Description
 ----------- --------------- -------------------------------------------------------------------------------------------
-System      string          "GPS", "Galileo", "BeiDou", "QZSS" or "NavIC".
+System      string          "GPS", "Galileo", "BeiDou", "QZSS", "NavIC" or "PULSAR".
 ParamName   string          Refer to SetConstellationParameterForSV for accepted names.
 DataSetName optional string Optional name of the data set to use. If no value is provided, the active data set is used.
 
@@ -12871,132 +13126,452 @@ Result of GetConstellationParameterForEachSV.
 
 Name        Type                                    Description
 ----------- --------------------------------------- ----------------------------------------------------------------------------------------------------
-System      string                                  "GPS", "Galileo", "BeiDou", "QZSS" or "NavIC".
+System      string                                  "GPS", "Galileo", "BeiDou", "QZSS", "NavIC" or "PULSAR".
 ParamName   string                                  Refer to SetConstellationParameterForSV for accepted names.
 Val         array double or array int or array bool Parameter value for each satellite. Zero based index (index 0 => SV ID 1, index 1 => SV ID 2, etc.).
 DataSetName optional string                         Optional name of the data set to use. If no value is provided, the active data set is used.
 
 ***************************************************************************************************************************
 
-Data StringPair(first, second)
-
-A pair of string
-
-Name   Type   Description
------- ------ ---------------------
-First  string First string in pair
-Second string Second string in pair
-
-***************************************************************************************************************************
-
-Command ResetHilWarning()
-Permission: EXECUTE_IF_SIMULATING
-
-Please note the command ResetHilWarning is deprecated since 22.5. You may use GetHilExtrapolationState.
-
-Reset Hardware in the loop trajectory server warning message.
-
-
-***************************************************************************************************************************
-
-Command GetLastHilWarning()
-Permission: EXECUTE_IF_SIMULATING
-
-Please note the command GetLastHilWarning is deprecated since 22.5. You may use GetHilExtrapolationState.
-
-Get last Hardware in the loop trajectory server warning message. Returns HilWarningResult.
-
-
-***************************************************************************************************************************
-
-Result HilWarningResult(isExtrapolated, extrapolationTime)
-
-Result of GetLastHilWarning.
-
-Name              Type Description
------------------ ---- -----------------------------------------------------------------------------------------------------------------------------------
-IsExtrapolated    bool Indicate if there is receiver position has been extrapolated because of the HIL client that did not send receiver position in time.
-ExtrapolationTime int  Time of last extrapolated position
-
-***************************************************************************************************************************
-
-Command SetSbasUdrei(udrei)
+Command EnableDektecAdjustedNoise(enable)
 Permission: EXECUTE_IF_IDLE
 
-Please note the command SetSbasUdrei is deprecated since 22.2. You may use SetUdreiForSV.
+Adjusts the Advanced Jammer IQ data amplitude on the Dektec output by adding noise to ensure power level linearity on weak jammer signals. Note that enabling this option will increase the noise observed at the RF output for all jammer signal power levels.
 
-Set the global UDREI value transmitted by SBAS
-
-Name  Type Description
------ ---- ---------------
-Udrei int  The UDREI value
+Name   Type Description
+------ ---- ----------------------------------------------------------------
+Enable bool True to enable Advance Jammer noise adjustment on Dektec output.
 
 ***************************************************************************************************************************
 
-Command GetSbasUdrei()
+Command IsDektecAdjustedNoiseEnabled()
 Permission: EXECUTE_IF_IDLE
 
-Please note the command GetSbasUdrei is deprecated since 22.2. You may use GetUdreiForSV.
-
-Get the global UDREI value transmitted by SBAS
+Indicates if noise level adjustment for Advanced Jammers on Dektec is enabled.
 
 
 ***************************************************************************************************************************
 
-Result GetSbasUdreiResult(udrei)
+Result IsDektecAdjustedNoiseEnabledResult(enable)
 
-Result of GetSbasUdrei.
+Result of IsDektecAdjustedNoiseEnabled.
 
-Name  Type Description
------ ---- ---------------
-Udrei int  The UDREI value
-
-***************************************************************************************************************************
-
-Command SetPowerForSV(system, svId, powerOffset, otherSatsFollow)
-Permission: EXECUTE_IF_SIMULATING
-
-Please note the command SetPowerForSV is deprecated since 22.7. You may use SetManualPowerOffsetForSV.
-
-Set power offset for specified satellite SV ID. Use SV ID 0 to set power for all satellites.
-
-Name            Type   Description
---------------- ------ -----------------------------------------------------------------------------------------
-System          string "GPS", "GLONASS", "Galileo", "BeiDou", "SBAS", "QZSS" or "NavIC"
-SvId            int    The Satellite SV ID
-PowerOffset     double Power offset in dB (relative to signal power reference level)
-OtherSatsFollow bool   If true, other sats power will be adjusted to maintain current offsets between satellites
+Name   Type Description
+------ ---- ----------------------------------------------------------------
+Enable bool True to enable Advance Jammer noise adjustment on Dektec output.
 
 ***************************************************************************************************************************
 
-Command GetPowerForSV(system, svId)
-Permission: EXECUTE_IF_SIMULATING
+Command GetCurrentConfigPath()
+Permission: EXECUTE_IF_IDLE | EXECUTE_IF_SIMULATING
 
-Please note the command GetPowerForSV is deprecated since 22.7. You may use GetAllPowerForSV.
+Get the config file path currently used by Skydel.
 
-Get the power offset for specified satellite SV ID.
-
-Name   Type   Description
------- ------ -----------------------------------------------------------------------------------
-System string The system, can be "GPS", "GLONASS", "Galileo", "BeiDou", "SBAS", "QZSS" or "NavIC"
-SvId   int    The Satellite SV ID
 
 ***************************************************************************************************************************
 
-Result GetPowerForSVResult(system, svId, nominalPower, signalStrengthModel, antenna, signalLevelOffset, manualGain, total)
+Result GetCurrentConfigPathResult(configPath)
 
-Result of GetPowerForSV.
+Result of GetCurrentConfigPath.
 
-Name                Type   Description
-------------------- ------ -----------------------------------------------------------------------------------------------------------
-System              string The system, can be "GPS", "GLONASS", "Galileo", "BeiDou", "SBAS", "QZSS" or "NavIC"
-SvId                int    The Satellite SV ID
-NominalPower        double The nominal power in dBm
-SignalStrengthModel double The power difference coming from the Signal Strength Model (dB)
-Antenna             double The receiver antenna power offset (dB). It depends on antenna pattern and relative orientation with signal.
-SignalLevelOffset   double The global power offset (dB)
-ManualGain          double The power offset provided by the user (dB). See SetPowerForSV
-Total               double The sum of all the other fields (dBm)
+Name       Type   Description
+---------- ------ ----------------------------------------------
+ConfigPath string The config file path currently used by Skydel.
+
+***************************************************************************************************************************
+
+Command SetGaussianNoisePowerDensityOffset(id, outputIdx, powerDensityOffset)
+Permission: EXECUTE_IF_IDLE
+
+Set the Noise Power Density Offset (dB/Hz) added to the base Gaussian Noise power density on the GNSS output (-174 dB/Hz). Default offset value is 0. If Gaussian Noise is not enabled on the output, this offset has no effect.
+
+Name               Type   Description
+------------------ ------ -------------------------------------------------------------------------------------
+Id                 string Target identifier
+OutputIdx          int    RF Output index (zero-based)
+PowerDensityOffset double Gaussian Noise power density offset (dB/Hz). Value must be between -10 and +10 dB/Hz.
+
+***************************************************************************************************************************
+
+Command GetGaussianNoisePowerDensityOffset(id, outputIdx)
+Permission: EXECUTE_IF_IDLE
+
+Get the Noise Power Density Offset (dB/Hz) added to the base Gaussian Noise power density on the GNSS output (-174 dB/Hz). Default offset value is 0. If Gaussian Noise is not enabled on the output, this offset has no effect.
+
+Name      Type   Description
+--------- ------ ----------------------------
+Id        string Target identifier
+OutputIdx int    RF Output index (zero-based)
+
+***************************************************************************************************************************
+
+Result GetGaussianNoisePowerDensityOffsetResult(id, outputIdx, powerDensityOffset)
+
+Result of GetGaussianNoisePowerDensityOffset.
+
+Name               Type   Description
+------------------ ------ -------------------------------------------------------------------------------------
+Id                 string Target identifier
+OutputIdx          int    RF Output index (zero-based)
+PowerDensityOffset double Gaussian Noise power density offset (dB/Hz). Value must be between -10 and +10 dB/Hz.
+
+***************************************************************************************************************************
+
+Command EnableOsnmaForSV(svId, enabled)
+Permission: EXECUTE_IF_SIMULATING | EXECUTE_IF_IDLE
+
+Enable (or disable) OSNMA for specified Galileo's satellite.
+
+Name    Type Description
+------- ---- -----------------------------------------------------------
+SvId    int  The satellite's SV ID (use 0 for all Galileo's satellites).
+Enabled bool OSNMA is enabled when value is True.
+
+***************************************************************************************************************************
+
+Command IsOsnmaEnabledForSV(svId)
+Permission: EXECUTE_IF_IDLE
+
+Tells if OSNMA is enabled or disabled.
+
+Name Type Description
+---- ---- -----------------------------------------------------------
+SvId int  The satellite's SV ID (use 0 for all Galileo's satellites).
+
+***************************************************************************************************************************
+
+Result IsOsnmaEnabledForSVResult(svId, enabled)
+
+Result of IsOsnmaEnabledForSV.
+
+Name    Type Description
+------- ---- -----------------------------------------------------------
+SvId    int  The satellite's SV ID (use 0 for all Galileo's satellites).
+Enabled bool OSNMA is enabled when value is True.
+
+***************************************************************************************************************************
+
+Command EnableOsnmaForEachSV(enabled)
+Permission: EXECUTE_IF_SIMULATING | EXECUTE_IF_IDLE
+
+Enable (or disable) OSNMA for each Galileo's satellite individually.
+
+Name    Type       Description
+------- ---------- -------------------------------------------------------------------------------------------------------------
+Enabled array bool OSNMA is enabled when value is True. Zero based index (index 0 => first SV ID, index 1 => second SV ID, etc).
+
+***************************************************************************************************************************
+
+Command IsOsnmaEnabledForEachSV()
+Permission: EXECUTE_IF_IDLE
+
+Tells if OSNMA is enabled or disabled for each satellite.
+
+
+***************************************************************************************************************************
+
+Result IsOsnmaEnabledForEachSVResult(enabled)
+
+Result of IsOsnmaEnabledForEachSV.
+
+Name    Type       Description
+------- ---------- -------------------------------------------------------------------------------------------------------------
+Enabled array bool OSNMA is enabled when value is True. Zero based index (index 0 => first SV ID, index 1 => second SV ID, etc).
+
+***************************************************************************************************************************
+
+Command SetCrossAuthenticatedSatellitesForSV(svId, svIdList)
+Permission: EXECUTE_IF_SIMULATING | EXECUTE_IF_IDLE
+
+Set the list of satellites that are cross-authenticated by the specified satellite.
+
+Name     Type      Description
+-------- --------- -------------------------------------------------------------------
+SvId     int       The satellite's SV ID (use 0 to apply on all Galileo's satellites).
+SvIdList array int A list of the cross-authenticated satellites' SV IDs.
+
+***************************************************************************************************************************
+
+Command GetCrossAuthenticatedSatellitesForSV(svId)
+Permission: EXECUTE_IF_IDLE
+
+Get the list of satellites that are cross-authenticated by the specified satellite.
+
+Name Type Description
+---- ---- -------------------------------------------------------------------
+SvId int  The satellite's SV ID (use 0 to apply on all Galileo's satellites).
+
+***************************************************************************************************************************
+
+Result GetCrossAuthenticatedSatellitesForSVResult(svId, svIdList)
+
+Result of GetCrossAuthenticatedSatellitesForSV.
+
+Name     Type      Description
+-------- --------- -------------------------------------------------------------------
+SvId     int       The satellite's SV ID (use 0 to apply on all Galileo's satellites).
+SvIdList array int A list of the cross-authenticated satellites' SV IDs.
+
+***************************************************************************************************************************
+
+Command SetMerkleTreeParameters(id, keyType, hashFunction, beginApplicability, endApplicability)
+Permission: EXECUTE_IF_IDLE
+
+Set OSNMA Merkle Tree parameters. If ID is not set (or if new), a Merkle Tree is generated.
+ Note that changing Merkle Tree parameters will modify its XML representation, and may result in Public Keys and Tree Nodes being regenerated.
+
+Name               Type              Description
+------------------ ----------------- --------------------------------------------------------------------------------------------------------------------------------------------------------------------
+Id                 string            Merkle Tree unique identifier. Automatically set for new Merkle Trees.
+KeyType            string            Type of Key used to generate the Merkle Tree. Key Type is the same for all Merkle Tree Public Keys. Key types are : "ECDSA P-256/SHA-256" and "ECDSA P-521/SHA-512".
+                                     Modifying the Merkle Tree Keys Type will regenerate the Public Keys and Tree Nodes.
+HashFunction       string            Hash function used to generate the Merkle Tree. Hash functions are : "SHA-256", "SHA3-224" and "SHA3-256".
+BeginApplicability datetime          Merkle Tree applicability begin date.
+EndApplicability   optional datetime Optional Merkle Tree applicability end date.
+
+***************************************************************************************************************************
+
+Command GetMerkleTreeParameters(id)
+Permission: EXECUTE_IF_IDLE
+
+Get Merkle Tree parameters.
+
+Name Type   Description
+---- ------ ----------------------------------------------------------------------
+Id   string Merkle Tree unique identifier. Automatically set for new Merkle Trees.
+
+***************************************************************************************************************************
+
+Result GetMerkleTreeParametersResult(id, keyType, hashFunction, beginApplicability, endApplicability)
+
+Result of GetMerkleTreeParameters.
+
+Name               Type              Description
+------------------ ----------------- --------------------------------------------------------------------------------------------------------------------------------------------------------------------
+Id                 string            Merkle Tree unique identifier. Automatically set for new Merkle Trees.
+KeyType            string            Type of Key used to generate the Merkle Tree. Key Type is the same for all Merkle Tree Public Keys. Key types are : "ECDSA P-256/SHA-256" and "ECDSA P-521/SHA-512".
+                                     Modifying the Merkle Tree Keys Type will regenerate the Public Keys and Tree Nodes.
+HashFunction       string            Hash function used to generate the Merkle Tree. Hash functions are : "SHA-256", "SHA3-224" and "SHA3-256".
+BeginApplicability datetime          Merkle Tree applicability begin date.
+EndApplicability   optional datetime Optional Merkle Tree applicability end date.
+
+***************************************************************************************************************************
+
+Command GetAllMerkleTreeID()
+Permission: EXECUTE_IF_IDLE
+
+Get Get all OSNMA Merkle Trees unique identifiers.
+
+
+***************************************************************************************************************************
+
+Result GetAllMerkleTreeIDResult(ids)
+
+Result of GetAllMerkleTreeID.
+
+Name Type         Description
+---- ------------ ----------------------------------------
+Ids  array string Array of Merkle Trees unique identifiers
+
+***************************************************************************************************************************
+
+Command RemoveMerkleTree(id)
+Permission: EXECUTE_IF_IDLE
+
+Remove an OSNMA Merkle Tree.
+
+Name Type   Description
+---- ------ -----------------------------------------------
+Id   string Unique identifier of the Merkle Tree to remove.
+
+***************************************************************************************************************************
+
+Command ExportMerkleTree(id, publicKeyIndexes, filePath, overwriteFile)
+Permission: EXECUTE_IF_IDLE
+
+Export an OSNMA Merkle Tree to an XML file with the format defined in the Galileo OSNMA IDD ICD.
+
+Name             Type      Description
+---------------- --------- ----------------------------------------------------------------------------------------------------------
+Id               string    Merkle Tree unique identifier.
+PublicKeyIndexes array int Indexes (0-based) of Public Keys to export in the Merkle Tree. If empty, all Public Keys will be exported.
+FilePath         string    Export file path for the Merkle Tree.
+OverwriteFile    bool      When selected, existing file will be overwritten.
+
+***************************************************************************************************************************
+
+Command GetMerkleTreeXML(id, publicKeyIndexes)
+Permission: EXECUTE_IF_IDLE
+
+Get Get an OSNMA Merkle Tree XML representation with the format defined in the Galileo OSNMA IDD ICD.
+
+Name             Type      Description
+---------------- --------- ---------------------------------------------------------------------------------------------------------------------------
+Id               string    Merkle Tree unique identifier.
+PublicKeyIndexes array int Indexes (0-based) of Public Keys to export in the Merkle Tree. If empty, only the Public Key with index 0 will be exported.
+
+***************************************************************************************************************************
+
+Result GetMerkleTreeXMLResult(id, publicKeyIndexes, merkleTreeXML)
+
+Result of GetMerkleTreeXML.
+
+Name             Type      Description
+---------------- --------- ---------------------------------------------------------------------------------------------------------------------------
+Id               string    Merkle Tree unique identifier.
+PublicKeyIndexes array int Indexes (0-based) of Public Keys to export in the Merkle Tree. If empty, only the Public Key with index 0 will be exported.
+MerkleTreeXML    string    Merkle Tree XML representation.
+
+***************************************************************************************************************************
+
+Command SetOsnmaTagSize(tagSize)
+Permission: EXECUTE_IF_IDLE
+
+Set OSNMA tag size.
+
+Name    Type Description
+------- ---- ----------------------------------------------------------------
+TagSize int  Tag size in bits. Accepted tag sizes are: 20, 24, 28, 32 and 40.
+
+***************************************************************************************************************************
+
+Command GetOsnmaTagSize()
+Permission: EXECUTE_IF_IDLE
+
+Get OSNMA tag size.
+
+
+***************************************************************************************************************************
+
+Result GetOsnmaTagSizeResult(tagSize)
+
+Result of GetOsnmaTagSize.
+
+Name    Type Description
+------- ---- ----------------------------------------------------------------
+TagSize int  Tag size in bits. Accepted tag sizes are: 20, 24, 28, 32 and 40.
+
+***************************************************************************************************************************
+
+Command SetOsnmaTeslaKeySize(keySize)
+Permission: EXECUTE_IF_IDLE
+
+Set OSNMA TESLA key size.
+
+Name    Type Description
+------- ---- ----------------------------------------------------------------------------------------------
+KeySize int  TESLA key size in bits. Accepted key sizes are: 96, 104, 112, 120, 128, 160, 192, 224 and 256.
+             Note: Only 128, 192 and 256 bits keys can be be used with CMAC-AES.
+
+***************************************************************************************************************************
+
+Command GetOsnmaTeslaKeySize()
+Permission: EXECUTE_IF_IDLE
+
+Get OSNMA TESLA key size.
+
+
+***************************************************************************************************************************
+
+Result GetOsnmaTeslaKeySizeResult(keySize)
+
+Result of GetOsnmaTeslaKeySize.
+
+Name    Type Description
+------- ---- ----------------------------------------------------------------------------------------------
+KeySize int  TESLA key size in bits. Accepted key sizes are: 96, 104, 112, 120, 128, 160, 192, 224 and 256.
+             Note: Only 128, 192 and 256 bits keys can be be used with CMAC-AES.
+
+***************************************************************************************************************************
+
+Command SetOsnmaTeslaHashFunction(hashFunction)
+Permission: EXECUTE_IF_IDLE
+
+Set OSNMA TESLA hash function.
+
+Name         Type   Description
+------------ ------ -------------------------------------------------------------------------------------
+HashFunction string Hash function used for the TESLA chain. Hash functions are: "SHA-256" and "SHA3-256".
+
+***************************************************************************************************************************
+
+Command GetOsnmaTeslaHashFunction()
+Permission: EXECUTE_IF_IDLE
+
+Get OSNMA TESLA hash function.
+
+
+***************************************************************************************************************************
+
+Result GetOsnmaTeslaHashFunctionResult(hashFunction)
+
+Result of GetOsnmaTeslaHashFunction.
+
+Name         Type   Description
+------------ ------ -------------------------------------------------------------------------------------
+HashFunction string Hash function used for the TESLA chain. Hash functions are: "SHA-256" and "SHA3-256".
+
+***************************************************************************************************************************
+
+Command SetOsnmaMacFunction(macFunction)
+Permission: EXECUTE_IF_IDLE
+
+Set OSNMA MAC function.
+
+Name        Type   Description
+----------- ------ --------------------------------------------------------------------------------------------------------
+MacFunction string MAC function used to authenticate the navigation data. MAC functions are: "HMAC-SHA-256" and "CMAC-AES".
+                   Note: CMAC-AES can only be used with 128, 192 and 256 bits keys.
+
+***************************************************************************************************************************
+
+Command GetOsnmaMacFunction()
+Permission: EXECUTE_IF_IDLE
+
+Get OSNMA MAC function.
+
+
+***************************************************************************************************************************
+
+Result GetOsnmaMacFunctionResult(macFunction)
+
+Result of GetOsnmaMacFunction.
+
+Name        Type   Description
+----------- ------ --------------------------------------------------------------------------------------------------------
+MacFunction string MAC function used to authenticate the navigation data. MAC functions are: "HMAC-SHA-256" and "CMAC-AES".
+                   Note: CMAC-AES can only be used with 128, 192 and 256 bits keys.
+
+***************************************************************************************************************************
+
+Command SetOsnmaMacLtId(macLtId)
+Permission: EXECUTE_IF_IDLE
+
+Set OSNMA MAC look-up table ID.
+
+Name    Type Description
+------- ---- ---------------------------------------------------------------------------------------------------------------------------
+MacLtId int  MAC look-up table ID to get associated ADKD sequences. Accepted IDs are: 27, 28, 31, 33, 34, 35, 36, 37, 38, 39, 40 and 41.
+             Note: The MAC look-up table can be found in Galileo OSNMA SIS ICD v1.1 - ANNEX C MAC Look-up Table.
+
+***************************************************************************************************************************
+
+Command GetOsnmaMacLtId()
+Permission: EXECUTE_IF_IDLE
+
+Get OSNMA MAC look-up table ID.
+
+
+***************************************************************************************************************************
+
+Result GetOsnmaMacLtIdResult(macLtId)
+
+Result of GetOsnmaMacLtId.
+
+Name    Type Description
+------- ---- ---------------------------------------------------------------------------------------------------------------------------
+MacLtId int  MAC look-up table ID to get associated ADKD sequences. Accepted IDs are: 27, 28, 31, 33, 34, 35, 36, 37, 38, 39, 40 and 41.
+             Note: The MAC look-up table can be found in Galileo OSNMA SIS ICD v1.1 - ANNEX C MAC Look-up Table.
 
 ***************************************************************************************************************************
 

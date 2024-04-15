@@ -1,8 +1,7 @@
 
-#include "gen/GetNavICEphDoubleParamForEachSVResult.h"
+#include "GetNavICEphDoubleParamForEachSVResult.h"
 
 #include "command_factory.h"
-#include "command_result_factory.h"
 #include "parse_json.hpp"
 
 ///
@@ -14,17 +13,24 @@ namespace Sdx
   namespace Cmd
   {
     const char* const GetNavICEphDoubleParamForEachSVResult::CmdName = "GetNavICEphDoubleParamForEachSVResult";
-    const char* const GetNavICEphDoubleParamForEachSVResult::Documentation = "Result of GetNavICEphDoubleParamForEachSV.";
+    const char* const GetNavICEphDoubleParamForEachSVResult::Documentation = "Result of GetNavICEphDoubleParamForEachSV.\n"
+      "\n"
+      "Name        Type            Description\n"
+      "----------- --------------- --------------------------------------------------------------------------------------------------\n"
+      "ParamName   string          Refer to SetNavICEphDoubleParamForSV for accepted names\n"
+      "Val         array double    Parameter value for each satellite. Zero based index (index 0 => SV ID 1, index 1 => SV ID 2, etc)\n"
+      "DataSetName optional string Optional name of the data set to use. If no value is provided, the active data set is used.";
+    const char* const GetNavICEphDoubleParamForEachSVResult::TargetId = "";
 
-    REGISTER_COMMAND_RESULT_TO_FACTORY_IMPL(GetNavICEphDoubleParamForEachSVResult);
+    REGISTER_COMMAND_TO_FACTORY_IMPL(GetNavICEphDoubleParamForEachSVResult);
 
 
     GetNavICEphDoubleParamForEachSVResult::GetNavICEphDoubleParamForEachSVResult()
-      : CommandResult(CmdName)
+      : CommandResult(CmdName, TargetId)
     {}
 
     GetNavICEphDoubleParamForEachSVResult::GetNavICEphDoubleParamForEachSVResult(const std::string& paramName, const std::vector<double>& val, const Sdx::optional<std::string>& dataSetName)
-      : CommandResult(CmdName)
+      : CommandResult(CmdName, TargetId)
     {
 
       setParamName(paramName);
@@ -33,7 +39,7 @@ namespace Sdx
     }
 
     GetNavICEphDoubleParamForEachSVResult::GetNavICEphDoubleParamForEachSVResult(CommandBasePtr relatedCommand, const std::string& paramName, const std::vector<double>& val, const Sdx::optional<std::string>& dataSetName)
-      : CommandResult(CmdName, relatedCommand)
+      : CommandResult(CmdName, TargetId, relatedCommand)
     {
 
       setParamName(paramName);
@@ -69,6 +75,12 @@ namespace Sdx
     }
 
     std::string GetNavICEphDoubleParamForEachSVResult::documentation() const { return Documentation; }
+
+    const std::vector<std::string>& GetNavICEphDoubleParamForEachSVResult::fieldNames() const 
+    { 
+      static const std::vector<std::string> names {"ParamName", "Val", "DataSetName"}; 
+      return names; 
+    }
 
 
     std::string GetNavICEphDoubleParamForEachSVResult::paramName() const

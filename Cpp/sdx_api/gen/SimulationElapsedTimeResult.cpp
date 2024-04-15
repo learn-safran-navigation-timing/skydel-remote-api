@@ -1,8 +1,7 @@
 
-#include "gen/SimulationElapsedTimeResult.h"
+#include "SimulationElapsedTimeResult.h"
 
 #include "command_factory.h"
-#include "command_result_factory.h"
 #include "parse_json.hpp"
 
 ///
@@ -14,24 +13,29 @@ namespace Sdx
   namespace Cmd
   {
     const char* const SimulationElapsedTimeResult::CmdName = "SimulationElapsedTimeResult";
-    const char* const SimulationElapsedTimeResult::Documentation = "Result of GetSimulationElapsedTime.";
+    const char* const SimulationElapsedTimeResult::Documentation = "Result of GetSimulationElapsedTime.\n"
+      "\n"
+      "Name         Type Description\n"
+      "------------ ---- -----------------------------------------------------------------------------\n"
+      "Milliseconds int  Simulation elapsed time in milliseconds. Note: Resolution is limited to 10Hz.";
+    const char* const SimulationElapsedTimeResult::TargetId = "";
 
-    REGISTER_COMMAND_RESULT_TO_FACTORY_IMPL(SimulationElapsedTimeResult);
+    REGISTER_COMMAND_TO_FACTORY_IMPL(SimulationElapsedTimeResult);
 
 
     SimulationElapsedTimeResult::SimulationElapsedTimeResult()
-      : CommandResult(CmdName)
+      : CommandResult(CmdName, TargetId)
     {}
 
     SimulationElapsedTimeResult::SimulationElapsedTimeResult(int milliseconds)
-      : CommandResult(CmdName)
+      : CommandResult(CmdName, TargetId)
     {
 
       setMilliseconds(milliseconds);
     }
 
     SimulationElapsedTimeResult::SimulationElapsedTimeResult(CommandBasePtr relatedCommand, int milliseconds)
-      : CommandResult(CmdName, relatedCommand)
+      : CommandResult(CmdName, TargetId, relatedCommand)
     {
 
       setMilliseconds(milliseconds);
@@ -63,6 +67,12 @@ namespace Sdx
     }
 
     std::string SimulationElapsedTimeResult::documentation() const { return Documentation; }
+
+    const std::vector<std::string>& SimulationElapsedTimeResult::fieldNames() const 
+    { 
+      static const std::vector<std::string> names {"Milliseconds"}; 
+      return names; 
+    }
 
 
     int SimulationElapsedTimeResult::milliseconds() const

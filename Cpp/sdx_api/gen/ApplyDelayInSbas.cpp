@@ -1,8 +1,7 @@
 
-#include "gen/ApplyDelayInSbas.h"
+#include "ApplyDelayInSbas.h"
 
 #include "command_factory.h"
-#include "command_result_factory.h"
 #include "parse_json.hpp"
 
 ///
@@ -14,17 +13,23 @@ namespace Sdx
   namespace Cmd
   {
     const char* const ApplyDelayInSbas::CmdName = "ApplyDelayInSbas";
-    const char* const ApplyDelayInSbas::Documentation = "Set whether the ionospheric offsets grid should be used for SBAS corrections in message 26";
+    const char* const ApplyDelayInSbas::Documentation = "Set whether the ionospheric offsets grid should be used for SBAS corrections in message 26\n"
+      "\n"
+      "Name      Type Description\n"
+      "--------- ---- --------------------------------------------\n"
+      "IsEnabled bool True if offsets are applied in Sbas messages";
+    const char* const ApplyDelayInSbas::TargetId = "";
 
-    REGISTER_COMMAND_FACTORY(ApplyDelayInSbas);
+    REGISTER_COMMAND_TO_FACTORY_DECL(ApplyDelayInSbas);
+    REGISTER_COMMAND_TO_FACTORY_IMPL(ApplyDelayInSbas);
 
 
     ApplyDelayInSbas::ApplyDelayInSbas()
-      : CommandBase(CmdName)
+      : CommandBase(CmdName, TargetId)
     {}
 
     ApplyDelayInSbas::ApplyDelayInSbas(bool isEnabled)
-      : CommandBase(CmdName)
+      : CommandBase(CmdName, TargetId)
     {
 
       setIsEnabled(isEnabled);
@@ -50,6 +55,12 @@ namespace Sdx
     }
 
     std::string ApplyDelayInSbas::documentation() const { return Documentation; }
+
+    const std::vector<std::string>& ApplyDelayInSbas::fieldNames() const 
+    { 
+      static const std::vector<std::string> names {"IsEnabled"}; 
+      return names; 
+    }
 
 
     int ApplyDelayInSbas::executePermission() const

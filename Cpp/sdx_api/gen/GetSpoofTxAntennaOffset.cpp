@@ -1,8 +1,7 @@
 
-#include "gen/GetSpoofTxAntennaOffset.h"
+#include "GetSpoofTxAntennaOffset.h"
 
 #include "command_factory.h"
-#include "command_result_factory.h"
 #include "parse_json.hpp"
 
 ///
@@ -14,17 +13,29 @@ namespace Sdx
   namespace Cmd
   {
     const char* const GetSpoofTxAntennaOffset::CmdName = "GetSpoofTxAntennaOffset";
-    const char* const GetSpoofTxAntennaOffset::Documentation = "Get antenna offset and orientation relative to body frame.\nThe origin of the body frame follows the transmitter trajectory.\nWhen the body yaw/pitch/roll are zeros, the body X-axis is pointing north\n                         Y-axis is pointing east\n                         Z-axis is pointing down\nThe antenna Yaw is rotating around Z-axis. Pitch is rotating around Y-axis and\nthe Roll is rotating arond the X-axis of the body frame.";
+    const char* const GetSpoofTxAntennaOffset::Documentation = "Get antenna offset and orientation relative to body frame.\n"
+      "The origin of the body frame follows the transmitter trajectory.\n"
+      "When the body yaw/pitch/roll are zeros, the body X-axis is pointing north\n"
+      "                         Y-axis is pointing east\n"
+      "                         Z-axis is pointing down\n"
+      "The antenna Yaw is rotating around Z-axis. Pitch is rotating around Y-axis and\n"
+      "the Roll is rotating arond the X-axis of the body frame.\n"
+      "\n"
+      "Name Type   Description\n"
+      "---- ------ ------------------------------\n"
+      "Id   string Transmitter unique identifier.";
+    const char* const GetSpoofTxAntennaOffset::TargetId = "";
 
-    REGISTER_COMMAND_FACTORY(GetSpoofTxAntennaOffset);
+    REGISTER_COMMAND_TO_FACTORY_DECL(GetSpoofTxAntennaOffset);
+    REGISTER_COMMAND_TO_FACTORY_IMPL(GetSpoofTxAntennaOffset);
 
 
     GetSpoofTxAntennaOffset::GetSpoofTxAntennaOffset()
-      : CommandBase(CmdName)
+      : CommandBase(CmdName, TargetId)
     {}
 
     GetSpoofTxAntennaOffset::GetSpoofTxAntennaOffset(const std::string& id)
-      : CommandBase(CmdName)
+      : CommandBase(CmdName, TargetId)
     {
 
       setId(id);
@@ -50,6 +61,12 @@ namespace Sdx
     }
 
     std::string GetSpoofTxAntennaOffset::documentation() const { return Documentation; }
+
+    const std::vector<std::string>& GetSpoofTxAntennaOffset::fieldNames() const 
+    { 
+      static const std::vector<std::string> names {"Id"}; 
+      return names; 
+    }
 
 
     int GetSpoofTxAntennaOffset::executePermission() const

@@ -1,8 +1,7 @@
 
-#include "gen/EnableIntTx.h"
+#include "EnableIntTx.h"
 
 #include "command_factory.h"
-#include "command_result_factory.h"
 #include "parse_json.hpp"
 
 ///
@@ -14,17 +13,24 @@ namespace Sdx
   namespace Cmd
   {
     const char* const EnableIntTx::CmdName = "EnableIntTx";
-    const char* const EnableIntTx::Documentation = "Enable/Disable the interference transmitter.";
+    const char* const EnableIntTx::Documentation = "Enable/Disable the interference transmitter.\n"
+      "\n"
+      "Name    Type   Description\n"
+      "------- ------ ------------------------------------------------\n"
+      "Enabled bool   Enable (true) or disable (false) the transmitter\n"
+      "Id      string Transmitter unique identifier.";
+    const char* const EnableIntTx::TargetId = "";
 
-    REGISTER_COMMAND_FACTORY(EnableIntTx);
+    REGISTER_COMMAND_TO_FACTORY_DECL(EnableIntTx);
+    REGISTER_COMMAND_TO_FACTORY_IMPL(EnableIntTx);
 
 
     EnableIntTx::EnableIntTx()
-      : CommandBase(CmdName)
+      : CommandBase(CmdName, TargetId)
     {}
 
     EnableIntTx::EnableIntTx(bool enabled, const std::string& id)
-      : CommandBase(CmdName)
+      : CommandBase(CmdName, TargetId)
     {
 
       setEnabled(enabled);
@@ -52,6 +58,12 @@ namespace Sdx
     }
 
     std::string EnableIntTx::documentation() const { return Documentation; }
+
+    const std::vector<std::string>& EnableIntTx::fieldNames() const 
+    { 
+      static const std::vector<std::string> names {"Enabled", "Id"}; 
+      return names; 
+    }
 
 
     int EnableIntTx::executePermission() const

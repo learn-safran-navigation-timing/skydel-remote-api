@@ -1,8 +1,7 @@
 
-#include "gen/GetAllSatellitesPseudorangeNoiseGaussMarkov.h"
+#include "GetAllSatellitesPseudorangeNoiseGaussMarkov.h"
 
 #include "command_factory.h"
-#include "command_result_factory.h"
 #include "parse_json.hpp"
 
 ///
@@ -14,17 +13,26 @@ namespace Sdx
   namespace Cmd
   {
     const char* const GetAllSatellitesPseudorangeNoiseGaussMarkov::CmdName = "GetAllSatellitesPseudorangeNoiseGaussMarkov";
-    const char* const GetAllSatellitesPseudorangeNoiseGaussMarkov::Documentation = "Please note the command GetAllSatellitesPseudorangeNoiseGaussMarkov is deprecated since 21.3. You may use GetPseudorangeNoiseGaussMarkovForEachSV.\n\nGet the satellite pseudorange noise Gauss-Markov process attributes for all satellites.";
+    const char* const GetAllSatellitesPseudorangeNoiseGaussMarkov::Documentation = "Please note the command GetAllSatellitesPseudorangeNoiseGaussMarkov is deprecated since 21.3. You may use GetPseudorangeNoiseGaussMarkovForEachSV.\n"
+      "\n"
+      "Get the satellite pseudorange noise Gauss-Markov process attributes for all satellites.\n"
+      "\n"
+      "Name    Type   Description\n"
+      "------- ------ --------------------------------------------------------------------------\n"
+      "System  string \"GPS\", \"GLONASS\", \"Galileo\", \"BeiDou\", \"SBAS\", \"QZSS\", \"NavIC\" or \"PULSAR\"\n"
+      "Process int    Gauss-Markov Process number (0 or 1)";
+    const char* const GetAllSatellitesPseudorangeNoiseGaussMarkov::TargetId = "";
 
-    REGISTER_COMMAND_FACTORY(GetAllSatellitesPseudorangeNoiseGaussMarkov);
+    REGISTER_COMMAND_TO_FACTORY_DECL(GetAllSatellitesPseudorangeNoiseGaussMarkov);
+    REGISTER_COMMAND_TO_FACTORY_IMPL(GetAllSatellitesPseudorangeNoiseGaussMarkov);
 
 
     GetAllSatellitesPseudorangeNoiseGaussMarkov::GetAllSatellitesPseudorangeNoiseGaussMarkov()
-      : CommandBase(CmdName)
+      : CommandBase(CmdName, TargetId)
     {}
 
     GetAllSatellitesPseudorangeNoiseGaussMarkov::GetAllSatellitesPseudorangeNoiseGaussMarkov(const std::string& system, int process)
-      : CommandBase(CmdName)
+      : CommandBase(CmdName, TargetId)
     {
 
       setSystem(system);
@@ -52,6 +60,12 @@ namespace Sdx
     }
 
     std::string GetAllSatellitesPseudorangeNoiseGaussMarkov::documentation() const { return Documentation; }
+
+    const std::vector<std::string>& GetAllSatellitesPseudorangeNoiseGaussMarkov::fieldNames() const 
+    { 
+      static const std::vector<std::string> names {"System", "Process"}; 
+      return names; 
+    }
 
 
     int GetAllSatellitesPseudorangeNoiseGaussMarkov::executePermission() const

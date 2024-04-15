@@ -1,8 +1,7 @@
 
-#include "gen/EnablePYCodeForSV.h"
+#include "EnablePYCodeForSV.h"
 
 #include "command_factory.h"
-#include "command_result_factory.h"
 #include "parse_json.hpp"
 
 ///
@@ -14,17 +13,25 @@ namespace Sdx
   namespace Cmd
   {
     const char* const EnablePYCodeForSV::CmdName = "EnablePYCodeForSV";
-    const char* const EnablePYCodeForSV::Documentation = "Enable (or disable) P(Y)-Code for specified satellite.";
+    const char* const EnablePYCodeForSV::Documentation = "Enable (or disable) P(Y)-Code for specified satellite.\n"
+      "\n"
+      "Name    Type   Description\n"
+      "------- ------ -----------------------------------------------\n"
+      "Signal  string Accepted signal keys: \"L1P\", \"L2P\"\n"
+      "SvId    int    The satellite's SV ID 1..32 (use 0 for all SVs)\n"
+      "Enabled bool   Enable P(Y)-Code if True";
+    const char* const EnablePYCodeForSV::TargetId = "";
 
-    REGISTER_COMMAND_FACTORY(EnablePYCodeForSV);
+    REGISTER_COMMAND_TO_FACTORY_DECL(EnablePYCodeForSV);
+    REGISTER_COMMAND_TO_FACTORY_IMPL(EnablePYCodeForSV);
 
 
     EnablePYCodeForSV::EnablePYCodeForSV()
-      : CommandBase(CmdName)
+      : CommandBase(CmdName, TargetId)
     {}
 
     EnablePYCodeForSV::EnablePYCodeForSV(const std::string& signal, int svId, bool enabled)
-      : CommandBase(CmdName)
+      : CommandBase(CmdName, TargetId)
     {
 
       setSignal(signal);
@@ -54,6 +61,12 @@ namespace Sdx
     }
 
     std::string EnablePYCodeForSV::documentation() const { return Documentation; }
+
+    const std::vector<std::string>& EnablePYCodeForSV::fieldNames() const 
+    { 
+      static const std::vector<std::string> names {"Signal", "SvId", "Enabled"}; 
+      return names; 
+    }
 
 
     int EnablePYCodeForSV::executePermission() const

@@ -1,8 +1,7 @@
 
-#include "gen/GetAntennaChangeResult.h"
+#include "GetAntennaChangeResult.h"
 
 #include "command_factory.h"
-#include "command_result_factory.h"
 #include "parse_json.hpp"
 
 ///
@@ -14,17 +13,24 @@ namespace Sdx
   namespace Cmd
   {
     const char* const GetAntennaChangeResult::CmdName = "GetAntennaChangeResult";
-    const char* const GetAntennaChangeResult::Documentation = "Result of GetAntennaChange.";
+    const char* const GetAntennaChangeResult::Documentation = "Result of GetAntennaChange.\n"
+      "\n"
+      "Name      Type   Description\n"
+      "--------- ------ --------------------------------------------------\n"
+      "StartTime double Elapsed time in seconds since start of simulation.\n"
+      "Antenna   string Antenna model name\n"
+      "Id        string Unique identifier of the event";
+    const char* const GetAntennaChangeResult::TargetId = "";
 
-    REGISTER_COMMAND_RESULT_TO_FACTORY_IMPL(GetAntennaChangeResult);
+    REGISTER_COMMAND_TO_FACTORY_IMPL(GetAntennaChangeResult);
 
 
     GetAntennaChangeResult::GetAntennaChangeResult()
-      : CommandResult(CmdName)
+      : CommandResult(CmdName, TargetId)
     {}
 
     GetAntennaChangeResult::GetAntennaChangeResult(double startTime, const std::string& antenna, const std::string& id)
-      : CommandResult(CmdName)
+      : CommandResult(CmdName, TargetId)
     {
 
       setStartTime(startTime);
@@ -33,7 +39,7 @@ namespace Sdx
     }
 
     GetAntennaChangeResult::GetAntennaChangeResult(CommandBasePtr relatedCommand, double startTime, const std::string& antenna, const std::string& id)
-      : CommandResult(CmdName, relatedCommand)
+      : CommandResult(CmdName, TargetId, relatedCommand)
     {
 
       setStartTime(startTime);
@@ -69,6 +75,12 @@ namespace Sdx
     }
 
     std::string GetAntennaChangeResult::documentation() const { return Documentation; }
+
+    const std::vector<std::string>& GetAntennaChangeResult::fieldNames() const 
+    { 
+      static const std::vector<std::string> names {"StartTime", "Antenna", "Id"}; 
+      return names; 
+    }
 
 
     double GetAntennaChangeResult::startTime() const

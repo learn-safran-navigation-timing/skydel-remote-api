@@ -1,8 +1,7 @@
 
-#include "gen/SetNavICSatelliteL5Health.h"
+#include "SetNavICSatelliteL5Health.h"
 
 #include "command_factory.h"
-#include "command_result_factory.h"
 #include "parse_json.hpp"
 
 ///
@@ -14,17 +13,27 @@ namespace Sdx
   namespace Cmd
   {
     const char* const SetNavICSatelliteL5Health::CmdName = "SetNavICSatelliteL5Health";
-    const char* const SetNavICSatelliteL5Health::Documentation = "Please note the command SetNavICSatelliteL5Health is deprecated since 21.3. You may use SetNavICL5HealthForSV.\n\nSet NavIC L5 health (Health of L5 signal)";
+    const char* const SetNavICSatelliteL5Health::Documentation = "Please note the command SetNavICSatelliteL5Health is deprecated since 21.3. You may use SetNavICL5HealthForSV.\n"
+      "\n"
+      "Set NavIC L5 health (Health of L5 signal)\n"
+      "\n"
+      "Name        Type            Description\n"
+      "----------- --------------- -------------------------------------------------------------------------------------------\n"
+      "SvId        int             Satellite SV ID 1..14, or use 0 to apply new value to all satellites.\n"
+      "Health      bool            L5 health, false = signal OK, true = signal bad\n"
+      "DataSetName optional string Optional name of the data set to use. If no value is provided, the active data set is used.";
+    const char* const SetNavICSatelliteL5Health::TargetId = "";
 
-    REGISTER_COMMAND_FACTORY(SetNavICSatelliteL5Health);
+    REGISTER_COMMAND_TO_FACTORY_DECL(SetNavICSatelliteL5Health);
+    REGISTER_COMMAND_TO_FACTORY_IMPL(SetNavICSatelliteL5Health);
 
 
     SetNavICSatelliteL5Health::SetNavICSatelliteL5Health()
-      : CommandBase(CmdName)
+      : CommandBase(CmdName, TargetId)
     {}
 
     SetNavICSatelliteL5Health::SetNavICSatelliteL5Health(int svId, bool health, const Sdx::optional<std::string>& dataSetName)
-      : CommandBase(CmdName)
+      : CommandBase(CmdName, TargetId)
     {
 
       setSvId(svId);
@@ -54,6 +63,12 @@ namespace Sdx
     }
 
     std::string SetNavICSatelliteL5Health::documentation() const { return Documentation; }
+
+    const std::vector<std::string>& SetNavICSatelliteL5Health::fieldNames() const 
+    { 
+      static const std::vector<std::string> names {"SvId", "Health", "DataSetName"}; 
+      return names; 
+    }
 
 
     int SetNavICSatelliteL5Health::executePermission() const

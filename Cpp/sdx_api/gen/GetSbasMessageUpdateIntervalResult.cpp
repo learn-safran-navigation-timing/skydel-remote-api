@@ -1,8 +1,7 @@
 
-#include "gen/GetSbasMessageUpdateIntervalResult.h"
+#include "GetSbasMessageUpdateIntervalResult.h"
 
 #include "command_factory.h"
-#include "command_result_factory.h"
 #include "parse_json.hpp"
 
 ///
@@ -14,17 +13,23 @@ namespace Sdx
   namespace Cmd
   {
     const char* const GetSbasMessageUpdateIntervalResult::CmdName = "GetSbasMessageUpdateIntervalResult";
-    const char* const GetSbasMessageUpdateIntervalResult::Documentation = "Result of GetSbasMessageUpdateInterval.";
+    const char* const GetSbasMessageUpdateIntervalResult::Documentation = "Result of GetSbasMessageUpdateInterval.\n"
+      "\n"
+      "Name           Type Description\n"
+      "-------------- ---- -----------------------------------------------------------------------------------------------\n"
+      "Message        int  The message type.\n"
+      "UpdateInterval int  The message update interval in seconds. Accepted range is [6..300] and must be a multiple of 6.";
+    const char* const GetSbasMessageUpdateIntervalResult::TargetId = "";
 
-    REGISTER_COMMAND_RESULT_TO_FACTORY_IMPL(GetSbasMessageUpdateIntervalResult);
+    REGISTER_COMMAND_TO_FACTORY_IMPL(GetSbasMessageUpdateIntervalResult);
 
 
     GetSbasMessageUpdateIntervalResult::GetSbasMessageUpdateIntervalResult()
-      : CommandResult(CmdName)
+      : CommandResult(CmdName, TargetId)
     {}
 
     GetSbasMessageUpdateIntervalResult::GetSbasMessageUpdateIntervalResult(int message, int updateInterval)
-      : CommandResult(CmdName)
+      : CommandResult(CmdName, TargetId)
     {
 
       setMessage(message);
@@ -32,7 +37,7 @@ namespace Sdx
     }
 
     GetSbasMessageUpdateIntervalResult::GetSbasMessageUpdateIntervalResult(CommandBasePtr relatedCommand, int message, int updateInterval)
-      : CommandResult(CmdName, relatedCommand)
+      : CommandResult(CmdName, TargetId, relatedCommand)
     {
 
       setMessage(message);
@@ -66,6 +71,12 @@ namespace Sdx
     }
 
     std::string GetSbasMessageUpdateIntervalResult::documentation() const { return Documentation; }
+
+    const std::vector<std::string>& GetSbasMessageUpdateIntervalResult::fieldNames() const 
+    { 
+      static const std::vector<std::string> names {"Message", "UpdateInterval"}; 
+      return names; 
+    }
 
 
     int GetSbasMessageUpdateIntervalResult::message() const

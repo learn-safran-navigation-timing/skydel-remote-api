@@ -1,8 +1,7 @@
 
-#include "gen/SetSpoofTxRefPower.h"
+#include "SetSpoofTxRefPower.h"
 
 #include "command_factory.h"
-#include "command_result_factory.h"
 #include "parse_json.hpp"
 
 ///
@@ -14,17 +13,24 @@ namespace Sdx
   namespace Cmd
   {
     const char* const SetSpoofTxRefPower::CmdName = "SetSpoofTxRefPower";
-    const char* const SetSpoofTxRefPower::Documentation = "Set the spoofing transmitter reference power.";
+    const char* const SetSpoofTxRefPower::Documentation = "Set the spoofing transmitter reference power.\n"
+      "\n"
+      "Name  Type   Description\n"
+      "----- ------ ------------------------------\n"
+      "Power double Reference Power (dBm)\n"
+      "Id    string Transmitter unique identifier.";
+    const char* const SetSpoofTxRefPower::TargetId = "";
 
-    REGISTER_COMMAND_FACTORY(SetSpoofTxRefPower);
+    REGISTER_COMMAND_TO_FACTORY_DECL(SetSpoofTxRefPower);
+    REGISTER_COMMAND_TO_FACTORY_IMPL(SetSpoofTxRefPower);
 
 
     SetSpoofTxRefPower::SetSpoofTxRefPower()
-      : CommandBase(CmdName)
+      : CommandBase(CmdName, TargetId)
     {}
 
     SetSpoofTxRefPower::SetSpoofTxRefPower(double power, const std::string& id)
-      : CommandBase(CmdName)
+      : CommandBase(CmdName, TargetId)
     {
 
       setPower(power);
@@ -52,6 +58,12 @@ namespace Sdx
     }
 
     std::string SetSpoofTxRefPower::documentation() const { return Documentation; }
+
+    const std::vector<std::string>& SetSpoofTxRefPower::fieldNames() const 
+    { 
+      static const std::vector<std::string> names {"Power", "Id"}; 
+      return names; 
+    }
 
 
     int SetSpoofTxRefPower::executePermission() const

@@ -1,8 +1,7 @@
 
-#include "gen/GetSbasServiceMessageRegionGroupResult.h"
+#include "GetSbasServiceMessageRegionGroupResult.h"
 
 #include "command_factory.h"
-#include "command_result_factory.h"
 #include "parse_json.hpp"
 
 ///
@@ -14,17 +13,26 @@ namespace Sdx
   namespace Cmd
   {
     const char* const GetSbasServiceMessageRegionGroupResult::CmdName = "GetSbasServiceMessageRegionGroupResult";
-    const char* const GetSbasServiceMessageRegionGroupResult::Documentation = "Result of GetSbasServiceMessageRegionGroup.";
+    const char* const GetSbasServiceMessageRegionGroupResult::Documentation = "Result of GetSbasServiceMessageRegionGroup.\n"
+      "\n"
+      "Name            Type                           Description\n"
+      "--------------- ------------------------------ ---------------------------------------------------------------------------------\n"
+      "ServiceProvider string                         Service providers, accepts \"WAAS\", \"EGNOS\", \"MSAS\", \"GAGAN\" and \"SDCM\".\n"
+      "DeltaUdrei      int                            Delta UDREI applicable inside the defined regions. Accepted range is [0..15].\n"
+      "PriorityCode    int                            Priority code of the SBAS service message region group. Accepted range is [0..3].\n"
+      "Regions         array SbasServiceMessageRegion Array of SBAS service message regions. Accepted size range is [1..5].\n"
+      "Id              string                         Unique identifier of the SBAS service message region group.";
+    const char* const GetSbasServiceMessageRegionGroupResult::TargetId = "";
 
-    REGISTER_COMMAND_RESULT_TO_FACTORY_IMPL(GetSbasServiceMessageRegionGroupResult);
+    REGISTER_COMMAND_TO_FACTORY_IMPL(GetSbasServiceMessageRegionGroupResult);
 
 
     GetSbasServiceMessageRegionGroupResult::GetSbasServiceMessageRegionGroupResult()
-      : CommandResult(CmdName)
+      : CommandResult(CmdName, TargetId)
     {}
 
     GetSbasServiceMessageRegionGroupResult::GetSbasServiceMessageRegionGroupResult(const std::string& serviceProvider, int deltaUdrei, int priorityCode, const std::vector<Sdx::SbasServiceMessageRegion>& regions, const std::string& id)
-      : CommandResult(CmdName)
+      : CommandResult(CmdName, TargetId)
     {
 
       setServiceProvider(serviceProvider);
@@ -35,7 +43,7 @@ namespace Sdx
     }
 
     GetSbasServiceMessageRegionGroupResult::GetSbasServiceMessageRegionGroupResult(CommandBasePtr relatedCommand, const std::string& serviceProvider, int deltaUdrei, int priorityCode, const std::vector<Sdx::SbasServiceMessageRegion>& regions, const std::string& id)
-      : CommandResult(CmdName, relatedCommand)
+      : CommandResult(CmdName, TargetId, relatedCommand)
     {
 
       setServiceProvider(serviceProvider);
@@ -75,6 +83,12 @@ namespace Sdx
     }
 
     std::string GetSbasServiceMessageRegionGroupResult::documentation() const { return Documentation; }
+
+    const std::vector<std::string>& GetSbasServiceMessageRegionGroupResult::fieldNames() const 
+    { 
+      static const std::vector<std::string> names {"ServiceProvider", "DeltaUdrei", "PriorityCode", "Regions", "Id"}; 
+      return names; 
+    }
 
 
     std::string GetSbasServiceMessageRegionGroupResult::serviceProvider() const

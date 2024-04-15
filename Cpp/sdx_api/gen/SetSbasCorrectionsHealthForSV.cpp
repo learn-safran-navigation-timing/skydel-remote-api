@@ -1,8 +1,7 @@
 
-#include "gen/SetSbasCorrectionsHealthForSV.h"
+#include "SetSbasCorrectionsHealthForSV.h"
 
 #include "command_factory.h"
-#include "command_result_factory.h"
 #include "parse_json.hpp"
 
 ///
@@ -14,17 +13,24 @@ namespace Sdx
   namespace Cmd
   {
     const char* const SetSbasCorrectionsHealthForSV::CmdName = "SetSbasCorrectionsHealthForSV";
-    const char* const SetSbasCorrectionsHealthForSV::Documentation = "Apply correction flag for a SBAS satellite";
+    const char* const SetSbasCorrectionsHealthForSV::Documentation = "Apply correction flag for a SBAS satellite\n"
+      "\n"
+      "Name   Type Description\n"
+      "------ ---- -----------------------------\n"
+      "SvId   int  The satellite's SV ID\n"
+      "Health bool The correction unhealthy flag";
+    const char* const SetSbasCorrectionsHealthForSV::TargetId = "";
 
-    REGISTER_COMMAND_FACTORY(SetSbasCorrectionsHealthForSV);
+    REGISTER_COMMAND_TO_FACTORY_DECL(SetSbasCorrectionsHealthForSV);
+    REGISTER_COMMAND_TO_FACTORY_IMPL(SetSbasCorrectionsHealthForSV);
 
 
     SetSbasCorrectionsHealthForSV::SetSbasCorrectionsHealthForSV()
-      : CommandBase(CmdName)
+      : CommandBase(CmdName, TargetId)
     {}
 
     SetSbasCorrectionsHealthForSV::SetSbasCorrectionsHealthForSV(int svId, bool health)
-      : CommandBase(CmdName)
+      : CommandBase(CmdName, TargetId)
     {
 
       setSvId(svId);
@@ -52,6 +58,12 @@ namespace Sdx
     }
 
     std::string SetSbasCorrectionsHealthForSV::documentation() const { return Documentation; }
+
+    const std::vector<std::string>& SetSbasCorrectionsHealthForSV::fieldNames() const 
+    { 
+      static const std::vector<std::string> names {"SvId", "Health"}; 
+      return names; 
+    }
 
 
     int SetSbasCorrectionsHealthForSV::executePermission() const

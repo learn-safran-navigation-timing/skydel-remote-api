@@ -1,8 +1,7 @@
 
-#include "gen/GetAllVehicleAntennaNamesResult.h"
+#include "GetAllVehicleAntennaNamesResult.h"
 
 #include "command_factory.h"
-#include "command_result_factory.h"
 #include "parse_json.hpp"
 
 ///
@@ -14,24 +13,29 @@ namespace Sdx
   namespace Cmd
   {
     const char* const GetAllVehicleAntennaNamesResult::CmdName = "GetAllVehicleAntennaNamesResult";
-    const char* const GetAllVehicleAntennaNamesResult::Documentation = "Result of GetAllVehicleAntennaNames.";
+    const char* const GetAllVehicleAntennaNamesResult::Documentation = "Result of GetAllVehicleAntennaNames.\n"
+      "\n"
+      "Name         Type         Description\n"
+      "------------ ------------ -----------------------------\n"
+      "AntennaNames array string A list of antenna model names";
+    const char* const GetAllVehicleAntennaNamesResult::TargetId = "";
 
-    REGISTER_COMMAND_RESULT_TO_FACTORY_IMPL(GetAllVehicleAntennaNamesResult);
+    REGISTER_COMMAND_TO_FACTORY_IMPL(GetAllVehicleAntennaNamesResult);
 
 
     GetAllVehicleAntennaNamesResult::GetAllVehicleAntennaNamesResult()
-      : CommandResult(CmdName)
+      : CommandResult(CmdName, TargetId)
     {}
 
     GetAllVehicleAntennaNamesResult::GetAllVehicleAntennaNamesResult(const std::vector<std::string>& antennaNames)
-      : CommandResult(CmdName)
+      : CommandResult(CmdName, TargetId)
     {
 
       setAntennaNames(antennaNames);
     }
 
     GetAllVehicleAntennaNamesResult::GetAllVehicleAntennaNamesResult(CommandBasePtr relatedCommand, const std::vector<std::string>& antennaNames)
-      : CommandResult(CmdName, relatedCommand)
+      : CommandResult(CmdName, TargetId, relatedCommand)
     {
 
       setAntennaNames(antennaNames);
@@ -63,6 +67,12 @@ namespace Sdx
     }
 
     std::string GetAllVehicleAntennaNamesResult::documentation() const { return Documentation; }
+
+    const std::vector<std::string>& GetAllVehicleAntennaNamesResult::fieldNames() const 
+    { 
+      static const std::vector<std::string> names {"AntennaNames"}; 
+      return names; 
+    }
 
 
     std::vector<std::string> GetAllVehicleAntennaNamesResult::antennaNames() const

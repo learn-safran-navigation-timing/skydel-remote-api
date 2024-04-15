@@ -1,8 +1,7 @@
 
-#include "gen/GetHilExtrapolationStateResult.h"
+#include "GetHilExtrapolationStateResult.h"
 
 #include "command_factory.h"
-#include "command_result_factory.h"
 #include "parse_json.hpp"
 
 ///
@@ -14,17 +13,23 @@ namespace Sdx
   namespace Cmd
   {
     const char* const GetHilExtrapolationStateResult::CmdName = "GetHilExtrapolationStateResult";
-    const char* const GetHilExtrapolationStateResult::Documentation = "Result of GetHilExtrapolationState.";
+    const char* const GetHilExtrapolationStateResult::Documentation = "Result of GetHilExtrapolationState.\n"
+      "\n"
+      "Name        Type                  Description\n"
+      "----------- --------------------- ---------------------------------------------------------\n"
+      "State       HilExtrapolationState HIL Extrapolation State.\n"
+      "ElapsedTime int                   Time in milliseconds of the returned extrapolation state.";
+    const char* const GetHilExtrapolationStateResult::TargetId = "";
 
-    REGISTER_COMMAND_RESULT_TO_FACTORY_IMPL(GetHilExtrapolationStateResult);
+    REGISTER_COMMAND_TO_FACTORY_IMPL(GetHilExtrapolationStateResult);
 
 
     GetHilExtrapolationStateResult::GetHilExtrapolationStateResult()
-      : CommandResult(CmdName)
+      : CommandResult(CmdName, TargetId)
     {}
 
     GetHilExtrapolationStateResult::GetHilExtrapolationStateResult(const Sdx::HilExtrapolationState& state, int elapsedTime)
-      : CommandResult(CmdName)
+      : CommandResult(CmdName, TargetId)
     {
 
       setState(state);
@@ -32,7 +37,7 @@ namespace Sdx
     }
 
     GetHilExtrapolationStateResult::GetHilExtrapolationStateResult(CommandBasePtr relatedCommand, const Sdx::HilExtrapolationState& state, int elapsedTime)
-      : CommandResult(CmdName, relatedCommand)
+      : CommandResult(CmdName, TargetId, relatedCommand)
     {
 
       setState(state);
@@ -66,6 +71,12 @@ namespace Sdx
     }
 
     std::string GetHilExtrapolationStateResult::documentation() const { return Documentation; }
+
+    const std::vector<std::string>& GetHilExtrapolationStateResult::fieldNames() const 
+    { 
+      static const std::vector<std::string> names {"State", "ElapsedTime"}; 
+      return names; 
+    }
 
 
     Sdx::HilExtrapolationState GetHilExtrapolationStateResult::state() const

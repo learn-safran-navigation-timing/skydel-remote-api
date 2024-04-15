@@ -1,8 +1,7 @@
 
-#include "gen/RemoveIntTx.h"
+#include "RemoveIntTx.h"
 
 #include "command_factory.h"
-#include "command_result_factory.h"
 #include "parse_json.hpp"
 
 ///
@@ -14,17 +13,24 @@ namespace Sdx
   namespace Cmd
   {
     const char* const RemoveIntTx::CmdName = "RemoveIntTx";
-    const char* const RemoveIntTx::Documentation = "Removes the interference transmitter. See EnableIntTx if all you want is to\ndisable the interference temporarily.";
+    const char* const RemoveIntTx::Documentation = "Removes the interference transmitter. See EnableIntTx if all you want is to\n"
+      "disable the interference temporarily.\n"
+      "\n"
+      "Name Type   Description\n"
+      "---- ------ ------------------------------\n"
+      "Id   string Transmitter unique identifier.";
+    const char* const RemoveIntTx::TargetId = "";
 
-    REGISTER_COMMAND_FACTORY(RemoveIntTx);
+    REGISTER_COMMAND_TO_FACTORY_DECL(RemoveIntTx);
+    REGISTER_COMMAND_TO_FACTORY_IMPL(RemoveIntTx);
 
 
     RemoveIntTx::RemoveIntTx()
-      : CommandBase(CmdName)
+      : CommandBase(CmdName, TargetId)
     {}
 
     RemoveIntTx::RemoveIntTx(const std::string& id)
-      : CommandBase(CmdName)
+      : CommandBase(CmdName, TargetId)
     {
 
       setId(id);
@@ -50,6 +56,12 @@ namespace Sdx
     }
 
     std::string RemoveIntTx::documentation() const { return Documentation; }
+
+    const std::vector<std::string>& RemoveIntTx::fieldNames() const 
+    { 
+      static const std::vector<std::string> names {"Id"}; 
+      return names; 
+    }
 
 
     int RemoveIntTx::executePermission() const

@@ -1,8 +1,7 @@
 
-#include "gen/ExportSbasMessageSequence.h"
+#include "ExportSbasMessageSequence.h"
 
 #include "command_factory.h"
-#include "command_result_factory.h"
 #include "parse_json.hpp"
 
 ///
@@ -14,17 +13,24 @@ namespace Sdx
   namespace Cmd
   {
     const char* const ExportSbasMessageSequence::CmdName = "ExportSbasMessageSequence";
-    const char* const ExportSbasMessageSequence::Documentation = "Export the SBAS message sequence into a csv file.";
+    const char* const ExportSbasMessageSequence::Documentation = "Export the SBAS message sequence into a csv file.\n"
+      "\n"
+      "Name        Type   Description\n"
+      "----------- ------ -----------------------------------------------------------------------------------------------\n"
+      "Path        string The full path to the csv file.\n"
+      "Overwriting bool   Overwrite an existing file if set to true, return an error if set to false and the file exists.";
+    const char* const ExportSbasMessageSequence::TargetId = "";
 
-    REGISTER_COMMAND_FACTORY(ExportSbasMessageSequence);
+    REGISTER_COMMAND_TO_FACTORY_DECL(ExportSbasMessageSequence);
+    REGISTER_COMMAND_TO_FACTORY_IMPL(ExportSbasMessageSequence);
 
 
     ExportSbasMessageSequence::ExportSbasMessageSequence()
-      : CommandBase(CmdName)
+      : CommandBase(CmdName, TargetId)
     {}
 
     ExportSbasMessageSequence::ExportSbasMessageSequence(const std::string& path, bool overwriting)
-      : CommandBase(CmdName)
+      : CommandBase(CmdName, TargetId)
     {
 
       setPath(path);
@@ -52,6 +58,12 @@ namespace Sdx
     }
 
     std::string ExportSbasMessageSequence::documentation() const { return Documentation; }
+
+    const std::vector<std::string>& ExportSbasMessageSequence::fieldNames() const 
+    { 
+      static const std::vector<std::string> names {"Path", "Overwriting"}; 
+      return names; 
+    }
 
 
     int ExportSbasMessageSequence::executePermission() const

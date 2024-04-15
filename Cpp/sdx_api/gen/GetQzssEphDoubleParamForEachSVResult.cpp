@@ -1,8 +1,7 @@
 
-#include "gen/GetQzssEphDoubleParamForEachSVResult.h"
+#include "GetQzssEphDoubleParamForEachSVResult.h"
 
 #include "command_factory.h"
-#include "command_result_factory.h"
 #include "parse_json.hpp"
 
 ///
@@ -14,17 +13,24 @@ namespace Sdx
   namespace Cmd
   {
     const char* const GetQzssEphDoubleParamForEachSVResult::CmdName = "GetQzssEphDoubleParamForEachSVResult";
-    const char* const GetQzssEphDoubleParamForEachSVResult::Documentation = "Result of GetQzssEphDoubleParamForEachSV.";
+    const char* const GetQzssEphDoubleParamForEachSVResult::Documentation = "Result of GetQzssEphDoubleParamForEachSV.\n"
+      "\n"
+      "Name        Type            Description\n"
+      "----------- --------------- --------------------------------------------------------------------------------------------------\n"
+      "ParamName   string          Refer to SetQzssEphDoubleParamForSV for accepted names\n"
+      "Val         array double    Parameter value for each satellite. Zero based index (index 0 => SV ID 1, index 1 => SV ID 2, etc)\n"
+      "DataSetName optional string Optional name of the data set to use. If no value is provided, the active data set is used.";
+    const char* const GetQzssEphDoubleParamForEachSVResult::TargetId = "";
 
-    REGISTER_COMMAND_RESULT_TO_FACTORY_IMPL(GetQzssEphDoubleParamForEachSVResult);
+    REGISTER_COMMAND_TO_FACTORY_IMPL(GetQzssEphDoubleParamForEachSVResult);
 
 
     GetQzssEphDoubleParamForEachSVResult::GetQzssEphDoubleParamForEachSVResult()
-      : CommandResult(CmdName)
+      : CommandResult(CmdName, TargetId)
     {}
 
     GetQzssEphDoubleParamForEachSVResult::GetQzssEphDoubleParamForEachSVResult(const std::string& paramName, const std::vector<double>& val, const Sdx::optional<std::string>& dataSetName)
-      : CommandResult(CmdName)
+      : CommandResult(CmdName, TargetId)
     {
 
       setParamName(paramName);
@@ -33,7 +39,7 @@ namespace Sdx
     }
 
     GetQzssEphDoubleParamForEachSVResult::GetQzssEphDoubleParamForEachSVResult(CommandBasePtr relatedCommand, const std::string& paramName, const std::vector<double>& val, const Sdx::optional<std::string>& dataSetName)
-      : CommandResult(CmdName, relatedCommand)
+      : CommandResult(CmdName, TargetId, relatedCommand)
     {
 
       setParamName(paramName);
@@ -69,6 +75,12 @@ namespace Sdx
     }
 
     std::string GetQzssEphDoubleParamForEachSVResult::documentation() const { return Documentation; }
+
+    const std::vector<std::string>& GetQzssEphDoubleParamForEachSVResult::fieldNames() const 
+    { 
+      static const std::vector<std::string> names {"ParamName", "Val", "DataSetName"}; 
+      return names; 
+    }
 
 
     std::string GetQzssEphDoubleParamForEachSVResult::paramName() const

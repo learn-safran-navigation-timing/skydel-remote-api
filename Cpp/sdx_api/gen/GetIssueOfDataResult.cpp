@@ -1,8 +1,7 @@
 
-#include "gen/GetIssueOfDataResult.h"
+#include "GetIssueOfDataResult.h"
 
 #include "command_factory.h"
-#include "command_result_factory.h"
 #include "parse_json.hpp"
 
 ///
@@ -14,17 +13,24 @@ namespace Sdx
   namespace Cmd
   {
     const char* const GetIssueOfDataResult::CmdName = "GetIssueOfDataResult";
-    const char* const GetIssueOfDataResult::Documentation = "Result of GetIssueOfData.";
+    const char* const GetIssueOfDataResult::Documentation = "Result of GetIssueOfData.\n"
+      "\n"
+      "Name          Type          Description\n"
+      "------------- ------------- ---------------------------------------------------\n"
+      "Clock         int           Issue of data, clock\n"
+      "Ephemeris     int           Issue of data, ephemeris\n"
+      "OverrideRinex optional bool If the IOD overrides the RINEX IOD, default is True";
+    const char* const GetIssueOfDataResult::TargetId = "";
 
-    REGISTER_COMMAND_RESULT_TO_FACTORY_IMPL(GetIssueOfDataResult);
+    REGISTER_COMMAND_TO_FACTORY_IMPL(GetIssueOfDataResult);
 
 
     GetIssueOfDataResult::GetIssueOfDataResult()
-      : CommandResult(CmdName)
+      : CommandResult(CmdName, TargetId)
     {}
 
     GetIssueOfDataResult::GetIssueOfDataResult(int clock, int ephemeris, const Sdx::optional<bool>& overrideRinex)
-      : CommandResult(CmdName)
+      : CommandResult(CmdName, TargetId)
     {
 
       setClock(clock);
@@ -33,7 +39,7 @@ namespace Sdx
     }
 
     GetIssueOfDataResult::GetIssueOfDataResult(CommandBasePtr relatedCommand, int clock, int ephemeris, const Sdx::optional<bool>& overrideRinex)
-      : CommandResult(CmdName, relatedCommand)
+      : CommandResult(CmdName, TargetId, relatedCommand)
     {
 
       setClock(clock);
@@ -69,6 +75,12 @@ namespace Sdx
     }
 
     std::string GetIssueOfDataResult::documentation() const { return Documentation; }
+
+    const std::vector<std::string>& GetIssueOfDataResult::fieldNames() const 
+    { 
+      static const std::vector<std::string> names {"Clock", "Ephemeris", "OverrideRinex"}; 
+      return names; 
+    }
 
 
     int GetIssueOfDataResult::clock() const

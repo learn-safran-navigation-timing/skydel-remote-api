@@ -1,8 +1,7 @@
 
-#include "gen/SetSVAntennaPhaseOffset.h"
+#include "SetSVAntennaPhaseOffset.h"
 
 #include "command_factory.h"
-#include "command_result_factory.h"
 #include "parse_json.hpp"
 
 ///
@@ -14,17 +13,27 @@ namespace Sdx
   namespace Cmd
   {
     const char* const SetSVAntennaPhaseOffset::CmdName = "SetSVAntennaPhaseOffset";
-    const char* const SetSVAntennaPhaseOffset::Documentation = "Set space vehicle phase offset antenna pattern. If no name is specified, the command is aplied to Basic Vehicle Antenna.";
+    const char* const SetSVAntennaPhaseOffset::Documentation = "Set space vehicle phase offset antenna pattern. If no name is specified, the command is aplied to Basic Vehicle Antenna.\n"
+      "\n"
+      "Name        Type               Description\n"
+      "----------- ------------------ ----------------------------------------------------------------------------------------------------------------------------------\n"
+      "PhaseOffset array array double Phase offset matrix (rad). The first dimension will be mapped to elevation [-90, 90] and the second dimension to azimuth [0, 360[.\n"
+      "Type        AntennaPatternType Pattern type\n"
+      "Band        GNSSBand           Frequency band\n"
+      "System      string             \"GPS\", \"GLONASS\", \"Galileo\", \"BeiDou\", \"SBAS\", \"QZSS\", \"NavIC\" or \"PULSAR\"\n"
+      "Name        optional string    SV antenna name";
+    const char* const SetSVAntennaPhaseOffset::TargetId = "";
 
-    REGISTER_COMMAND_FACTORY(SetSVAntennaPhaseOffset);
+    REGISTER_COMMAND_TO_FACTORY_DECL(SetSVAntennaPhaseOffset);
+    REGISTER_COMMAND_TO_FACTORY_IMPL(SetSVAntennaPhaseOffset);
 
 
     SetSVAntennaPhaseOffset::SetSVAntennaPhaseOffset()
-      : CommandBase(CmdName)
+      : CommandBase(CmdName, TargetId)
     {}
 
     SetSVAntennaPhaseOffset::SetSVAntennaPhaseOffset(const std::vector<std::vector<double>>& phaseOffset, const Sdx::AntennaPatternType& type, const Sdx::GNSSBand& band, const std::string& system, const Sdx::optional<std::string>& name)
-      : CommandBase(CmdName)
+      : CommandBase(CmdName, TargetId)
     {
 
       setPhaseOffset(phaseOffset);
@@ -58,6 +67,12 @@ namespace Sdx
     }
 
     std::string SetSVAntennaPhaseOffset::documentation() const { return Documentation; }
+
+    const std::vector<std::string>& SetSVAntennaPhaseOffset::fieldNames() const 
+    { 
+      static const std::vector<std::string> names {"PhaseOffset", "Type", "Band", "System", "Name"}; 
+      return names; 
+    }
 
 
     int SetSVAntennaPhaseOffset::executePermission() const

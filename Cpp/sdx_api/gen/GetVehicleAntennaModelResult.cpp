@@ -1,8 +1,7 @@
 
-#include "gen/GetVehicleAntennaModelResult.h"
+#include "GetVehicleAntennaModelResult.h"
 
 #include "command_factory.h"
-#include "command_result_factory.h"
 #include "parse_json.hpp"
 
 ///
@@ -14,17 +13,58 @@ namespace Sdx
   namespace Cmd
   {
     const char* const GetVehicleAntennaModelResult::CmdName = "GetVehicleAntennaModelResult";
-    const char* const GetVehicleAntennaModelResult::Documentation = "Result of GetVehicleAntennaModel.";
+    const char* const GetVehicleAntennaModelResult::Documentation = "Result of GetVehicleAntennaModel.\n"
+      "\n"
+      "Name                 Type               Description\n"
+      "-------------------- ------------------ ----------------------------------------------------------------------------------------------------------------------------------\n"
+      "GainL1               array array double Gain matrix (dB). The first dimension will be mapped to elevation [-90, 90] and the second dimension to azimuth [0, 360[.\n"
+      "GainTypeL1           AntennaPatternType Pattern type\n"
+      "GainOffsetL1         double             Pattern offset\n"
+      "GainL2               array array double Gain matrix (dB). The first dimension will be mapped to elevation [-90, 90] and the second dimension to azimuth [0, 360[.\n"
+      "GainTypeL2           AntennaPatternType Pattern type\n"
+      "GainOffsetL2         double             Pattern offset\n"
+      "GainL5               array array double Gain matrix (dB). The first dimension will be mapped to elevation [-90, 90] and the second dimension to azimuth [0, 360[.\n"
+      "GainTypeL5           AntennaPatternType Pattern type\n"
+      "GainOffsetL5         double             Pattern offset\n"
+      "GainE6               array array double Gain matrix (dB). The first dimension will be mapped to elevation [-90, 90] and the second dimension to azimuth [0, 360[.\n"
+      "GainTypeE6           AntennaPatternType Pattern type\n"
+      "GainOffsetE6         double             Pattern offset\n"
+      "GainS                array array double Gain matrix (dB). The first dimension will be mapped to elevation [-90, 90] and the second dimension to azimuth [0, 360[.\n"
+      "GainTypeS            AntennaPatternType Pattern type\n"
+      "GainOffsetS          double             Pattern offset\n"
+      "PhaseOffsetL1        array array double Phase offset matrix (rad). The first dimension will be mapped to elevation [-90, 90] and the second dimension to azimuth [0, 360[.\n"
+      "PhaseOffsetTypeL1    AntennaPatternType Pattern type\n"
+      "PhasePatternOffsetL1 double             Pattern offset\n"
+      "PhaseOffsetL2        array array double Phase offset matrix (rad). The first dimension will be mapped to elevation [-90, 90] and the second dimension to azimuth [0, 360[.\n"
+      "PhaseOffsetTypeL2    AntennaPatternType Pattern type\n"
+      "PhasePatternOffsetL2 double             Pattern offset\n"
+      "PhaseOffsetL5        array array double Phase offset matrix (rad). The first dimension will be mapped to elevation [-90, 90] and the second dimension to azimuth [0, 360[.\n"
+      "PhaseOffsetTypeL5    AntennaPatternType Pattern type\n"
+      "PhasePatternOffsetL5 double             Pattern offset\n"
+      "PhaseOffsetE6        array array double Phase offset matrix (rad). The first dimension will be mapped to elevation [-90, 90] and the second dimension to azimuth [0, 360[.\n"
+      "PhaseOffsetTypeE6    AntennaPatternType Pattern type\n"
+      "PhasePatternOffsetE6 double             Pattern offset\n"
+      "PhaseOffsetS         array array double Phase offset matrix (rad). The first dimension will be mapped to elevation [-90, 90] and the second dimension to azimuth [0, 360[.\n"
+      "PhaseOffsetTypeS     AntennaPatternType Pattern type\n"
+      "PhasePatternOffsetS  double             Pattern offset\n"
+      "X                    double             Antenna X offset in the body frame (meter)\n"
+      "Y                    double             Antenna Y offset in the body frame (meter)\n"
+      "Z                    double             Antenna Z offset in the body frame (meter)\n"
+      "Yaw                  double             Antenna Yaw offset in the body frame (rad)\n"
+      "Pitch                double             Antenna Pitch offset in the body frame (rad)\n"
+      "Roll                 double             Antenna Roll offset in the body frame (rad)\n"
+      "Name                 string             Vehicle antenna model name";
+    const char* const GetVehicleAntennaModelResult::TargetId = "";
 
-    REGISTER_COMMAND_RESULT_TO_FACTORY_IMPL(GetVehicleAntennaModelResult);
+    REGISTER_COMMAND_TO_FACTORY_IMPL(GetVehicleAntennaModelResult);
 
 
     GetVehicleAntennaModelResult::GetVehicleAntennaModelResult()
-      : CommandResult(CmdName)
+      : CommandResult(CmdName, TargetId)
     {}
 
     GetVehicleAntennaModelResult::GetVehicleAntennaModelResult(const std::vector<std::vector<double>>& gainL1, const Sdx::AntennaPatternType& gainTypeL1, double gainOffsetL1, const std::vector<std::vector<double>>& gainL2, const Sdx::AntennaPatternType& gainTypeL2, double gainOffsetL2, const std::vector<std::vector<double>>& gainL5, const Sdx::AntennaPatternType& gainTypeL5, double gainOffsetL5, const std::vector<std::vector<double>>& gainE6, const Sdx::AntennaPatternType& gainTypeE6, double gainOffsetE6, const std::vector<std::vector<double>>& gainS, const Sdx::AntennaPatternType& gainTypeS, double gainOffsetS, const std::vector<std::vector<double>>& phaseOffsetL1, const Sdx::AntennaPatternType& phaseOffsetTypeL1, double phasePatternOffsetL1, const std::vector<std::vector<double>>& phaseOffsetL2, const Sdx::AntennaPatternType& phaseOffsetTypeL2, double phasePatternOffsetL2, const std::vector<std::vector<double>>& phaseOffsetL5, const Sdx::AntennaPatternType& phaseOffsetTypeL5, double phasePatternOffsetL5, const std::vector<std::vector<double>>& phaseOffsetE6, const Sdx::AntennaPatternType& phaseOffsetTypeE6, double phasePatternOffsetE6, const std::vector<std::vector<double>>& phaseOffsetS, const Sdx::AntennaPatternType& phaseOffsetTypeS, double phasePatternOffsetS, double x, double y, double z, double yaw, double pitch, double roll, const std::string& name)
-      : CommandResult(CmdName)
+      : CommandResult(CmdName, TargetId)
     {
 
       setGainL1(gainL1);
@@ -67,7 +107,7 @@ namespace Sdx
     }
 
     GetVehicleAntennaModelResult::GetVehicleAntennaModelResult(CommandBasePtr relatedCommand, const std::vector<std::vector<double>>& gainL1, const Sdx::AntennaPatternType& gainTypeL1, double gainOffsetL1, const std::vector<std::vector<double>>& gainL2, const Sdx::AntennaPatternType& gainTypeL2, double gainOffsetL2, const std::vector<std::vector<double>>& gainL5, const Sdx::AntennaPatternType& gainTypeL5, double gainOffsetL5, const std::vector<std::vector<double>>& gainE6, const Sdx::AntennaPatternType& gainTypeE6, double gainOffsetE6, const std::vector<std::vector<double>>& gainS, const Sdx::AntennaPatternType& gainTypeS, double gainOffsetS, const std::vector<std::vector<double>>& phaseOffsetL1, const Sdx::AntennaPatternType& phaseOffsetTypeL1, double phasePatternOffsetL1, const std::vector<std::vector<double>>& phaseOffsetL2, const Sdx::AntennaPatternType& phaseOffsetTypeL2, double phasePatternOffsetL2, const std::vector<std::vector<double>>& phaseOffsetL5, const Sdx::AntennaPatternType& phaseOffsetTypeL5, double phasePatternOffsetL5, const std::vector<std::vector<double>>& phaseOffsetE6, const Sdx::AntennaPatternType& phaseOffsetTypeE6, double phasePatternOffsetE6, const std::vector<std::vector<double>>& phaseOffsetS, const Sdx::AntennaPatternType& phaseOffsetTypeS, double phasePatternOffsetS, double x, double y, double z, double yaw, double pitch, double roll, const std::string& name)
-      : CommandResult(CmdName, relatedCommand)
+      : CommandResult(CmdName, TargetId, relatedCommand)
     {
 
       setGainL1(gainL1);
@@ -171,6 +211,12 @@ namespace Sdx
     }
 
     std::string GetVehicleAntennaModelResult::documentation() const { return Documentation; }
+
+    const std::vector<std::string>& GetVehicleAntennaModelResult::fieldNames() const 
+    { 
+      static const std::vector<std::string> names {"GainL1", "GainTypeL1", "GainOffsetL1", "GainL2", "GainTypeL2", "GainOffsetL2", "GainL5", "GainTypeL5", "GainOffsetL5", "GainE6", "GainTypeE6", "GainOffsetE6", "GainS", "GainTypeS", "GainOffsetS", "PhaseOffsetL1", "PhaseOffsetTypeL1", "PhasePatternOffsetL1", "PhaseOffsetL2", "PhaseOffsetTypeL2", "PhasePatternOffsetL2", "PhaseOffsetL5", "PhaseOffsetTypeL5", "PhasePatternOffsetL5", "PhaseOffsetE6", "PhaseOffsetTypeE6", "PhasePatternOffsetE6", "PhaseOffsetS", "PhaseOffsetTypeS", "PhasePatternOffsetS", "X", "Y", "Z", "Yaw", "Pitch", "Roll", "Name"}; 
+      return names; 
+    }
 
 
     std::vector<std::vector<double>> GetVehicleAntennaModelResult::gainL1() const

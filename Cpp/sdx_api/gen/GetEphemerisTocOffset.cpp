@@ -1,8 +1,7 @@
 
-#include "gen/GetEphemerisTocOffset.h"
+#include "GetEphemerisTocOffset.h"
 
 #include "command_factory.h"
-#include "command_result_factory.h"
 #include "parse_json.hpp"
 
 ///
@@ -14,17 +13,23 @@ namespace Sdx
   namespace Cmd
   {
     const char* const GetEphemerisTocOffset::CmdName = "GetEphemerisTocOffset";
-    const char* const GetEphemerisTocOffset::Documentation = "Get the ephemeris TOC offset in seconds relative to the ephemeris update time.";
+    const char* const GetEphemerisTocOffset::Documentation = "Get the ephemeris TOC offset in seconds relative to the ephemeris update time.\n"
+      "\n"
+      "Name   Type   Description\n"
+      "------ ------ -------------------------------------------------------\n"
+      "System string \"GPS\", \"Galileo\", \"BeiDou\", \"QZSS\", \"NavIC\" or \"PULSAR\"";
+    const char* const GetEphemerisTocOffset::TargetId = "";
 
-    REGISTER_COMMAND_FACTORY(GetEphemerisTocOffset);
+    REGISTER_COMMAND_TO_FACTORY_DECL(GetEphemerisTocOffset);
+    REGISTER_COMMAND_TO_FACTORY_IMPL(GetEphemerisTocOffset);
 
 
     GetEphemerisTocOffset::GetEphemerisTocOffset()
-      : CommandBase(CmdName)
+      : CommandBase(CmdName, TargetId)
     {}
 
     GetEphemerisTocOffset::GetEphemerisTocOffset(const std::string& system)
-      : CommandBase(CmdName)
+      : CommandBase(CmdName, TargetId)
     {
 
       setSystem(system);
@@ -50,6 +55,12 @@ namespace Sdx
     }
 
     std::string GetEphemerisTocOffset::documentation() const { return Documentation; }
+
+    const std::vector<std::string>& GetEphemerisTocOffset::fieldNames() const 
+    { 
+      static const std::vector<std::string> names {"System"}; 
+      return names; 
+    }
 
 
     int GetEphemerisTocOffset::executePermission() const

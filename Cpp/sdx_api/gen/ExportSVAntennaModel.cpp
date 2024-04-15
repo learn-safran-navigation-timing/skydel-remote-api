@@ -1,8 +1,7 @@
 
-#include "gen/ExportSVAntennaModel.h"
+#include "ExportSVAntennaModel.h"
 
 #include "command_factory.h"
-#include "command_result_factory.h"
 #include "parse_json.hpp"
 
 ///
@@ -14,17 +13,26 @@ namespace Sdx
   namespace Cmd
   {
     const char* const ExportSVAntennaModel::CmdName = "ExportSVAntennaModel";
-    const char* const ExportSVAntennaModel::Documentation = "Export a space vehicle antenna model in a XML file.";
+    const char* const ExportSVAntennaModel::Documentation = "Export a space vehicle antenna model in a XML file.\n"
+      "\n"
+      "Name        Type   Description\n"
+      "----------- ------ --------------------------------------------------------------------------\n"
+      "AntennaName string SV antenna model name\n"
+      "System      string \"GPS\", \"GLONASS\", \"Galileo\", \"BeiDou\", \"SBAS\", \"QZSS\", \"NavIC\" or \"PULSAR\"\n"
+      "FilePath    string The antenna model will be exported in this file path.\n"
+      "Overwriting bool   Overwrite the old file if true.";
+    const char* const ExportSVAntennaModel::TargetId = "";
 
-    REGISTER_COMMAND_FACTORY(ExportSVAntennaModel);
+    REGISTER_COMMAND_TO_FACTORY_DECL(ExportSVAntennaModel);
+    REGISTER_COMMAND_TO_FACTORY_IMPL(ExportSVAntennaModel);
 
 
     ExportSVAntennaModel::ExportSVAntennaModel()
-      : CommandBase(CmdName)
+      : CommandBase(CmdName, TargetId)
     {}
 
     ExportSVAntennaModel::ExportSVAntennaModel(const std::string& antennaName, const std::string& system, const std::string& filePath, bool overwriting)
-      : CommandBase(CmdName)
+      : CommandBase(CmdName, TargetId)
     {
 
       setAntennaName(antennaName);
@@ -56,6 +64,12 @@ namespace Sdx
     }
 
     std::string ExportSVAntennaModel::documentation() const { return Documentation; }
+
+    const std::vector<std::string>& ExportSVAntennaModel::fieldNames() const 
+    { 
+      static const std::vector<std::string> names {"AntennaName", "System", "FilePath", "Overwriting"}; 
+      return names; 
+    }
 
 
     int ExportSVAntennaModel::executePermission() const

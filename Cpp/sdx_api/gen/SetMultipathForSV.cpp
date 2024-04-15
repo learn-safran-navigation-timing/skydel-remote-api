@@ -1,8 +1,7 @@
 
-#include "gen/SetMultipathForSV.h"
+#include "SetMultipathForSV.h"
 
 #include "command_factory.h"
-#include "command_result_factory.h"
 #include "parse_json.hpp"
 
 ///
@@ -14,17 +13,31 @@ namespace Sdx
   namespace Cmd
   {
     const char* const SetMultipathForSV::CmdName = "SetMultipathForSV";
-    const char* const SetMultipathForSV::Documentation = "Add or update signal echo (multipath). Offsets (power loss, pseudorange, Doppler and carrier phase) are all relative to line-of-sight signal.\nIf Id is not set, or unknown to Skydel, a new echo will be added. Otherwise, existing echo will be updated.";
+    const char* const SetMultipathForSV::Documentation = "Add or update signal echo (multipath). Offsets (power loss, pseudorange, Doppler and carrier phase) are all relative to line-of-sight signal.\n"
+      "If Id is not set, or unknown to Skydel, a new echo will be added. Otherwise, existing echo will be updated.\n"
+      "\n"
+      "Name         Type   Description\n"
+      "------------ ------ ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------\n"
+      "Signal       string Accepted signal keys: \"L1CA\", \"L1C\", \"L1P\", \"L1ME\", \"L1MR\", \"L2C\", \"L2P\", \"L2ME\", \"L2MR\", \"L5\", \"G1\", \"G2\", \"E1\", \"E5a\", \"E5b\", \"B1\", \"B2\", \"B1C\", \"B2a\", \"B3I\", \"SBASL1\", \"QZSSL1CA\", \"QZSSL1CB\", \"QZSSL1C\", \"QZSSL2C\", \"QZSSL5\", \"QZSSL1S\", \"QZSSL5S\", \"NAVICL5\", \"PULSARXL\"\n"
+      "SvId         int    The satellite's SV ID\n"
+      "PowerLoss    double Power loss in dB (value must be positive)\n"
+      "Pseudorange  double Pseudorange offset in meters (value must be positive)\n"
+      "Doppler      double Doppler frequency offset in Hz\n"
+      "CarrierPhase double Carrier phase offset in radians\n"
+      "Echo         int    Echo number [1..4], or use zero to let Skydel assign an echo number.\n"
+      "Id           string Unique identifier.";
+    const char* const SetMultipathForSV::TargetId = "";
 
-    REGISTER_COMMAND_FACTORY(SetMultipathForSV);
+    REGISTER_COMMAND_TO_FACTORY_DECL(SetMultipathForSV);
+    REGISTER_COMMAND_TO_FACTORY_IMPL(SetMultipathForSV);
 
 
     SetMultipathForSV::SetMultipathForSV()
-      : CommandBase(CmdName)
+      : CommandBase(CmdName, TargetId)
     {}
 
     SetMultipathForSV::SetMultipathForSV(const std::string& signal, int svId, double powerLoss, double pseudorange, double doppler, double carrierPhase, int echo, const std::string& id)
-      : CommandBase(CmdName)
+      : CommandBase(CmdName, TargetId)
     {
 
       setSignal(signal);
@@ -64,6 +77,12 @@ namespace Sdx
     }
 
     std::string SetMultipathForSV::documentation() const { return Documentation; }
+
+    const std::vector<std::string>& SetMultipathForSV::fieldNames() const 
+    { 
+      static const std::vector<std::string> names {"Signal", "SvId", "PowerLoss", "Pseudorange", "Doppler", "CarrierPhase", "Echo", "Id"}; 
+      return names; 
+    }
 
 
     int SetMultipathForSV::executePermission() const

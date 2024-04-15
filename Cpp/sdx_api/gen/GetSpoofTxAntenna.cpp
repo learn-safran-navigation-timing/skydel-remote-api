@@ -1,8 +1,7 @@
 
-#include "gen/GetSpoofTxAntenna.h"
+#include "GetSpoofTxAntenna.h"
 
 #include "command_factory.h"
-#include "command_result_factory.h"
 #include "parse_json.hpp"
 
 ///
@@ -14,17 +13,23 @@ namespace Sdx
   namespace Cmd
   {
     const char* const GetSpoofTxAntenna::CmdName = "GetSpoofTxAntenna";
-    const char* const GetSpoofTxAntenna::Documentation = "Get transmitter antenna pattern.";
+    const char* const GetSpoofTxAntenna::Documentation = "Get transmitter antenna pattern.\n"
+      "\n"
+      "Name Type   Description\n"
+      "---- ------ ------------------------------\n"
+      "Id   string Transmitter unique identifier.";
+    const char* const GetSpoofTxAntenna::TargetId = "";
 
-    REGISTER_COMMAND_FACTORY(GetSpoofTxAntenna);
+    REGISTER_COMMAND_TO_FACTORY_DECL(GetSpoofTxAntenna);
+    REGISTER_COMMAND_TO_FACTORY_IMPL(GetSpoofTxAntenna);
 
 
     GetSpoofTxAntenna::GetSpoofTxAntenna()
-      : CommandBase(CmdName)
+      : CommandBase(CmdName, TargetId)
     {}
 
     GetSpoofTxAntenna::GetSpoofTxAntenna(const std::string& id)
-      : CommandBase(CmdName)
+      : CommandBase(CmdName, TargetId)
     {
 
       setId(id);
@@ -50,6 +55,12 @@ namespace Sdx
     }
 
     std::string GetSpoofTxAntenna::documentation() const { return Documentation; }
+
+    const std::vector<std::string>& GetSpoofTxAntenna::fieldNames() const 
+    { 
+      static const std::vector<std::string> names {"Id"}; 
+      return names; 
+    }
 
 
     int GetSpoofTxAntenna::executePermission() const

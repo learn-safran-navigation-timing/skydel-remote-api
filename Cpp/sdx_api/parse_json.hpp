@@ -1,10 +1,11 @@
 #pragma once
 
+#include <rapidjson/document.h>
+
 #include <map>
 #include <stdexcept>
 #include <vector>
 
-#include "rapidjson/document.h"
 #include "sdx_optional.h"
 
 template<typename T>
@@ -73,7 +74,7 @@ struct parse_json<std::string>
 
   static rapidjson::Value format(const std::string& value, rapidjson::Value::AllocatorType& alloc)
   {
-    return rapidjson::Value(value.c_str(), (rapidjson::SizeType)value.size(), alloc);
+    return rapidjson::Value(value.c_str(), static_cast<rapidjson::SizeType>(value.size()), alloc);
   }
 };
 

@@ -1,8 +1,7 @@
 
-#include "gen/SetSpoofTxAntennaOffset.h"
+#include "SetSpoofTxAntennaOffset.h"
 
 #include "command_factory.h"
-#include "command_result_factory.h"
 #include "parse_json.hpp"
 
 ///
@@ -14,17 +13,35 @@ namespace Sdx
   namespace Cmd
   {
     const char* const SetSpoofTxAntennaOffset::CmdName = "SetSpoofTxAntennaOffset";
-    const char* const SetSpoofTxAntennaOffset::Documentation = "Set antenna offset and orientation relative to body frame.\nThe origin of the body frame follows the transmitter trajectory.\nWhen the body yaw/pitch/roll are zeros, the body X-axis is pointing north\n                         Y-axis is pointing east\n                         Z-axis is pointing down\nThe antenna Yaw is rotating around Z-axis. Pitch is rotating around Y-axis and\nthe Roll is rotating arond the X-axis of the body frame.";
+    const char* const SetSpoofTxAntennaOffset::Documentation = "Set antenna offset and orientation relative to body frame.\n"
+      "The origin of the body frame follows the transmitter trajectory.\n"
+      "When the body yaw/pitch/roll are zeros, the body X-axis is pointing north\n"
+      "                         Y-axis is pointing east\n"
+      "                         Z-axis is pointing down\n"
+      "The antenna Yaw is rotating around Z-axis. Pitch is rotating around Y-axis and\n"
+      "the Roll is rotating arond the X-axis of the body frame.\n"
+      "\n"
+      "Name  Type   Description\n"
+      "----- ------ --------------------------------------\n"
+      "X     double Antenna X offset in the body frame\n"
+      "Y     double Antenna Y offset in the body frame\n"
+      "Z     double Antenna Z offset in the body frame\n"
+      "Yaw   double Antenna Yaw offset in the body frame\n"
+      "Pitch double Antenna Pitch offset in the body frame\n"
+      "Roll  double Antenna Roll offset in the body frame\n"
+      "Id    string Transmitter unique identifier.";
+    const char* const SetSpoofTxAntennaOffset::TargetId = "";
 
-    REGISTER_COMMAND_FACTORY(SetSpoofTxAntennaOffset);
+    REGISTER_COMMAND_TO_FACTORY_DECL(SetSpoofTxAntennaOffset);
+    REGISTER_COMMAND_TO_FACTORY_IMPL(SetSpoofTxAntennaOffset);
 
 
     SetSpoofTxAntennaOffset::SetSpoofTxAntennaOffset()
-      : CommandBase(CmdName)
+      : CommandBase(CmdName, TargetId)
     {}
 
     SetSpoofTxAntennaOffset::SetSpoofTxAntennaOffset(double x, double y, double z, double yaw, double pitch, double roll, const std::string& id)
-      : CommandBase(CmdName)
+      : CommandBase(CmdName, TargetId)
     {
 
       setX(x);
@@ -62,6 +79,12 @@ namespace Sdx
     }
 
     std::string SetSpoofTxAntennaOffset::documentation() const { return Documentation; }
+
+    const std::vector<std::string>& SetSpoofTxAntennaOffset::fieldNames() const 
+    { 
+      static const std::vector<std::string> names {"X", "Y", "Z", "Yaw", "Pitch", "Roll", "Id"}; 
+      return names; 
+    }
 
 
     int SetSpoofTxAntennaOffset::executePermission() const

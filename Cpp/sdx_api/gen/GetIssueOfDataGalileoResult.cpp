@@ -1,8 +1,7 @@
 
-#include "gen/GetIssueOfDataGalileoResult.h"
+#include "GetIssueOfDataGalileoResult.h"
 
 #include "command_factory.h"
-#include "command_result_factory.h"
 #include "parse_json.hpp"
 
 ///
@@ -14,17 +13,24 @@ namespace Sdx
   namespace Cmd
   {
     const char* const GetIssueOfDataGalileoResult::CmdName = "GetIssueOfDataGalileoResult";
-    const char* const GetIssueOfDataGalileoResult::Documentation = "Result of GetIssueOfDataGalileo.";
+    const char* const GetIssueOfDataGalileoResult::Documentation = "Result of GetIssueOfDataGalileo.\n"
+      "\n"
+      "Name          Type          Description\n"
+      "------------- ------------- ---------------------------------------------------------\n"
+      "Navigation    int           Issue of data, navigation\n"
+      "Almanac       int           Issue of data, almanac\n"
+      "OverrideRinex optional bool If the IODNAV overrides the RINEX IODNAV, default is True";
+    const char* const GetIssueOfDataGalileoResult::TargetId = "";
 
-    REGISTER_COMMAND_RESULT_TO_FACTORY_IMPL(GetIssueOfDataGalileoResult);
+    REGISTER_COMMAND_TO_FACTORY_IMPL(GetIssueOfDataGalileoResult);
 
 
     GetIssueOfDataGalileoResult::GetIssueOfDataGalileoResult()
-      : CommandResult(CmdName)
+      : CommandResult(CmdName, TargetId)
     {}
 
     GetIssueOfDataGalileoResult::GetIssueOfDataGalileoResult(int navigation, int almanac, const Sdx::optional<bool>& overrideRinex)
-      : CommandResult(CmdName)
+      : CommandResult(CmdName, TargetId)
     {
 
       setNavigation(navigation);
@@ -33,7 +39,7 @@ namespace Sdx
     }
 
     GetIssueOfDataGalileoResult::GetIssueOfDataGalileoResult(CommandBasePtr relatedCommand, int navigation, int almanac, const Sdx::optional<bool>& overrideRinex)
-      : CommandResult(CmdName, relatedCommand)
+      : CommandResult(CmdName, TargetId, relatedCommand)
     {
 
       setNavigation(navigation);
@@ -69,6 +75,12 @@ namespace Sdx
     }
 
     std::string GetIssueOfDataGalileoResult::documentation() const { return Documentation; }
+
+    const std::vector<std::string>& GetIssueOfDataGalileoResult::fieldNames() const 
+    { 
+      static const std::vector<std::string> names {"Navigation", "Almanac", "OverrideRinex"}; 
+      return names; 
+    }
 
 
     int GetIssueOfDataGalileoResult::navigation() const

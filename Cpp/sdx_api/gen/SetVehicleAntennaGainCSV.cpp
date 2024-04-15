@@ -1,8 +1,7 @@
 
-#include "gen/SetVehicleAntennaGainCSV.h"
+#include "SetVehicleAntennaGainCSV.h"
 
 #include "command_factory.h"
-#include "command_result_factory.h"
 #include "parse_json.hpp"
 
 ///
@@ -14,17 +13,26 @@ namespace Sdx
   namespace Cmd
   {
     const char* const SetVehicleAntennaGainCSV::CmdName = "SetVehicleAntennaGainCSV";
-    const char* const SetVehicleAntennaGainCSV::Documentation = "Set vehicle gain antenna pattern from a CSV file. If no name is specified, the command is aplied to Basic vehicle Antenna.";
+    const char* const SetVehicleAntennaGainCSV::Documentation = "Set vehicle gain antenna pattern from a CSV file. If no name is specified, the command is aplied to Basic vehicle Antenna.\n"
+      "\n"
+      "Name     Type               Description\n"
+      "-------- ------------------ ----------------------------------------------------------------------------------------------------------------------\n"
+      "FilePath string             File path of the CSV (see user manual for CSV file format details). For Default and None types, leave this field empty\n"
+      "Type     AntennaPatternType Pattern type\n"
+      "Band     GNSSBand           Frequency band\n"
+      "Name     optional string    Vehicle antenna name";
+    const char* const SetVehicleAntennaGainCSV::TargetId = "";
 
-    REGISTER_COMMAND_FACTORY(SetVehicleAntennaGainCSV);
+    REGISTER_COMMAND_TO_FACTORY_DECL(SetVehicleAntennaGainCSV);
+    REGISTER_COMMAND_TO_FACTORY_IMPL(SetVehicleAntennaGainCSV);
 
 
     SetVehicleAntennaGainCSV::SetVehicleAntennaGainCSV()
-      : CommandBase(CmdName)
+      : CommandBase(CmdName, TargetId)
     {}
 
     SetVehicleAntennaGainCSV::SetVehicleAntennaGainCSV(const std::string& filePath, const Sdx::AntennaPatternType& type, const Sdx::GNSSBand& band, const Sdx::optional<std::string>& name)
-      : CommandBase(CmdName)
+      : CommandBase(CmdName, TargetId)
     {
 
       setFilePath(filePath);
@@ -56,6 +64,12 @@ namespace Sdx
     }
 
     std::string SetVehicleAntennaGainCSV::documentation() const { return Documentation; }
+
+    const std::vector<std::string>& SetVehicleAntennaGainCSV::fieldNames() const 
+    { 
+      static const std::vector<std::string> names {"FilePath", "Type", "Band", "Name"}; 
+      return names; 
+    }
 
 
     int SetVehicleAntennaGainCSV::executePermission() const

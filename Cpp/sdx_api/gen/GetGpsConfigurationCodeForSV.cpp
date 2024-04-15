@@ -1,8 +1,7 @@
 
-#include "gen/GetGpsConfigurationCodeForSV.h"
+#include "GetGpsConfigurationCodeForSV.h"
 
 #include "command_factory.h"
-#include "command_result_factory.h"
 #include "parse_json.hpp"
 
 ///
@@ -14,17 +13,24 @@ namespace Sdx
   namespace Cmd
   {
     const char* const GetGpsConfigurationCodeForSV::CmdName = "GetGpsConfigurationCodeForSV";
-    const char* const GetGpsConfigurationCodeForSV::Documentation = "Get GPS SV configuration flag for one satellite";
+    const char* const GetGpsConfigurationCodeForSV::Documentation = "Get GPS SV configuration flag for one satellite\n"
+      "\n"
+      "Name        Type            Description\n"
+      "----------- --------------- -------------------------------------------------------------------------------------------\n"
+      "SvId        int             Satellite SV ID 1..32\n"
+      "DataSetName optional string Optional name of the data set to use. If no value is provided, the active data set is used.";
+    const char* const GetGpsConfigurationCodeForSV::TargetId = "";
 
-    REGISTER_COMMAND_FACTORY(GetGpsConfigurationCodeForSV);
+    REGISTER_COMMAND_TO_FACTORY_DECL(GetGpsConfigurationCodeForSV);
+    REGISTER_COMMAND_TO_FACTORY_IMPL(GetGpsConfigurationCodeForSV);
 
 
     GetGpsConfigurationCodeForSV::GetGpsConfigurationCodeForSV()
-      : CommandBase(CmdName)
+      : CommandBase(CmdName, TargetId)
     {}
 
     GetGpsConfigurationCodeForSV::GetGpsConfigurationCodeForSV(int svId, const Sdx::optional<std::string>& dataSetName)
-      : CommandBase(CmdName)
+      : CommandBase(CmdName, TargetId)
     {
 
       setSvId(svId);
@@ -52,6 +58,12 @@ namespace Sdx
     }
 
     std::string GetGpsConfigurationCodeForSV::documentation() const { return Documentation; }
+
+    const std::vector<std::string>& GetGpsConfigurationCodeForSV::fieldNames() const 
+    { 
+      static const std::vector<std::string> names {"SvId", "DataSetName"}; 
+      return names; 
+    }
 
 
     int GetGpsConfigurationCodeForSV::executePermission() const

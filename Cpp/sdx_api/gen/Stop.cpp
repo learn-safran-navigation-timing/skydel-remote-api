@@ -1,8 +1,7 @@
 
-#include "gen/Stop.h"
+#include "Stop.h"
 
 #include "command_factory.h"
-#include "command_result_factory.h"
 #include "parse_json.hpp"
 
 ///
@@ -15,12 +14,14 @@ namespace Sdx
   {
     const char* const Stop::CmdName = "Stop";
     const char* const Stop::Documentation = "Stop the simulation.";
+    const char* const Stop::TargetId = "";
 
-    REGISTER_COMMAND_FACTORY(Stop);
+    REGISTER_COMMAND_TO_FACTORY_DECL(Stop);
+    REGISTER_COMMAND_TO_FACTORY_IMPL(Stop);
 
 
     Stop::Stop()
-      : CommandBase(CmdName)
+      : CommandBase(CmdName, TargetId)
     {
 
     }
@@ -44,6 +45,12 @@ namespace Sdx
     }
 
     std::string Stop::documentation() const { return Documentation; }
+
+    const std::vector<std::string>& Stop::fieldNames() const 
+    { 
+      static const std::vector<std::string> names {}; 
+      return names; 
+    }
 
 
     int Stop::executePermission() const

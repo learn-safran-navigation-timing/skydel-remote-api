@@ -1,8 +1,7 @@
 
-#include "gen/GetBeiDouEphBoolParamForSV.h"
+#include "GetBeiDouEphBoolParamForSV.h"
 
 #include "command_factory.h"
-#include "command_result_factory.h"
 #include "parse_json.hpp"
 
 ///
@@ -14,19 +13,33 @@ namespace Sdx
   namespace Cmd
   {
     const char* const GetBeiDouEphBoolParamForSV::CmdName = "GetBeiDouEphBoolParamForSV";
-    const char* const GetBeiDouEphBoolParamForSV::Documentation = "Please note the command GetBeiDouEphBoolParamForSV is deprecated since 23.11. You may use GetConstellationParameterForSV.\n\nGet various boolean parameters in the BeiDou ephemeris\n\n  ParamName\n\"IscB1CdAvailable\"\n\"IscB2adAvailable\"";
+    const char* const GetBeiDouEphBoolParamForSV::Documentation = "Please note the command GetBeiDouEphBoolParamForSV is deprecated since 23.11. You may use GetConstellationParameterForSV.\n"
+      "\n"
+      "Get various boolean parameters in the BeiDou ephemeris\n"
+      "\n"
+      "  ParamName\n"
+      "\"IscB1CdAvailable\"\n"
+      "\"IscB2adAvailable\"\n"
+      "\n"
+      "Name        Type            Description\n"
+      "----------- --------------- -------------------------------------------------------------------------------------------\n"
+      "SvId        int             Satellite SV ID 1..35, or use 0 to apply new value to all satellites\n"
+      "ParamName   string          Parameter name (see table above for accepted names)\n"
+      "DataSetName optional string Optional name of the data set to use. If no value is provided, the active data set is used.";
+    const char* const GetBeiDouEphBoolParamForSV::TargetId = "";
 
     const char* const GetBeiDouEphBoolParamForSV::Deprecated = "Please note the command GetBeiDouEphBoolParamForSV is deprecated since 23.11. You may use GetConstellationParameterForSV.";
 
-    REGISTER_COMMAND_FACTORY(GetBeiDouEphBoolParamForSV);
+    REGISTER_COMMAND_TO_FACTORY_DECL(GetBeiDouEphBoolParamForSV);
+    REGISTER_COMMAND_TO_FACTORY_IMPL(GetBeiDouEphBoolParamForSV);
 
 
     GetBeiDouEphBoolParamForSV::GetBeiDouEphBoolParamForSV()
-      : CommandBase(CmdName)
+      : CommandBase(CmdName, TargetId)
     {}
 
     GetBeiDouEphBoolParamForSV::GetBeiDouEphBoolParamForSV(int svId, const std::string& paramName, const Sdx::optional<std::string>& dataSetName)
-      : CommandBase(CmdName)
+      : CommandBase(CmdName, TargetId)
     {
 
       setSvId(svId);
@@ -56,6 +69,12 @@ namespace Sdx
     }
 
     std::string GetBeiDouEphBoolParamForSV::documentation() const { return Documentation; }
+
+    const std::vector<std::string>& GetBeiDouEphBoolParamForSV::fieldNames() const 
+    { 
+      static const std::vector<std::string> names {"SvId", "ParamName", "DataSetName"}; 
+      return names; 
+    }
 
     Sdx::optional<std::string> GetBeiDouEphBoolParamForSV::deprecated() const { return Sdx::optional<std::string>{Deprecated}; }
 

@@ -1,8 +1,7 @@
 
-#include "gen/GetEphemerisUpdateInterval.h"
+#include "GetEphemerisUpdateInterval.h"
 
 #include "command_factory.h"
-#include "command_result_factory.h"
 #include "parse_json.hpp"
 
 ///
@@ -14,17 +13,23 @@ namespace Sdx
   namespace Cmd
   {
     const char* const GetEphemerisUpdateInterval::CmdName = "GetEphemerisUpdateInterval";
-    const char* const GetEphemerisUpdateInterval::Documentation = "Get the ephemeris update interval in seconds.";
+    const char* const GetEphemerisUpdateInterval::Documentation = "Get the ephemeris update interval in seconds.\n"
+      "\n"
+      "Name   Type   Description\n"
+      "------ ------ -------------------------------------------------------\n"
+      "System string \"GPS\", \"Galileo\", \"BeiDou\", \"QZSS\", \"NavIC\" or \"PULSAR\"";
+    const char* const GetEphemerisUpdateInterval::TargetId = "";
 
-    REGISTER_COMMAND_FACTORY(GetEphemerisUpdateInterval);
+    REGISTER_COMMAND_TO_FACTORY_DECL(GetEphemerisUpdateInterval);
+    REGISTER_COMMAND_TO_FACTORY_IMPL(GetEphemerisUpdateInterval);
 
 
     GetEphemerisUpdateInterval::GetEphemerisUpdateInterval()
-      : CommandBase(CmdName)
+      : CommandBase(CmdName, TargetId)
     {}
 
     GetEphemerisUpdateInterval::GetEphemerisUpdateInterval(const std::string& system)
-      : CommandBase(CmdName)
+      : CommandBase(CmdName, TargetId)
     {
 
       setSystem(system);
@@ -50,6 +55,12 @@ namespace Sdx
     }
 
     std::string GetEphemerisUpdateInterval::documentation() const { return Documentation; }
+
+    const std::vector<std::string>& GetEphemerisUpdateInterval::fieldNames() const 
+    { 
+      static const std::vector<std::string> names {"System"}; 
+      return names; 
+    }
 
 
     int GetEphemerisUpdateInterval::executePermission() const

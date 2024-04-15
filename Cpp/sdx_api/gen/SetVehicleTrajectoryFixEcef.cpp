@@ -1,8 +1,7 @@
 
-#include "gen/SetVehicleTrajectoryFixEcef.h"
+#include "SetVehicleTrajectoryFixEcef.h"
 
 #include "command_factory.h"
-#include "command_result_factory.h"
 #include "parse_json.hpp"
 
 ///
@@ -14,17 +13,29 @@ namespace Sdx
   namespace Cmd
   {
     const char* const SetVehicleTrajectoryFixEcef::CmdName = "SetVehicleTrajectoryFixEcef";
-    const char* const SetVehicleTrajectoryFixEcef::Documentation = "Set vehicle static position and orientation";
+    const char* const SetVehicleTrajectoryFixEcef::Documentation = "Set vehicle static position and orientation\n"
+      "\n"
+      "Name  Type   Description\n"
+      "----- ------ -----------------------\n"
+      "Type  string Trajectory type (\"Fix\")\n"
+      "X     double ECEF X (m)\n"
+      "Y     double ECEF Y (m)\n"
+      "Z     double ECEF Z (m)\n"
+      "Yaw   double Yaw (rad)\n"
+      "Pitch double Pitch (rad)\n"
+      "Roll  double Roll (rad)";
+    const char* const SetVehicleTrajectoryFixEcef::TargetId = "";
 
-    REGISTER_COMMAND_FACTORY(SetVehicleTrajectoryFixEcef);
+    REGISTER_COMMAND_TO_FACTORY_DECL(SetVehicleTrajectoryFixEcef);
+    REGISTER_COMMAND_TO_FACTORY_IMPL(SetVehicleTrajectoryFixEcef);
 
 
     SetVehicleTrajectoryFixEcef::SetVehicleTrajectoryFixEcef()
-      : CommandBase(CmdName)
+      : CommandBase(CmdName, TargetId)
     {}
 
     SetVehicleTrajectoryFixEcef::SetVehicleTrajectoryFixEcef(const std::string& type, double x, double y, double z, double yaw, double pitch, double roll)
-      : CommandBase(CmdName)
+      : CommandBase(CmdName, TargetId)
     {
 
       setType(type);
@@ -62,6 +73,12 @@ namespace Sdx
     }
 
     std::string SetVehicleTrajectoryFixEcef::documentation() const { return Documentation; }
+
+    const std::vector<std::string>& SetVehicleTrajectoryFixEcef::fieldNames() const 
+    { 
+      static const std::vector<std::string> names {"Type", "X", "Y", "Z", "Yaw", "Pitch", "Roll"}; 
+      return names; 
+    }
 
 
     int SetVehicleTrajectoryFixEcef::executePermission() const

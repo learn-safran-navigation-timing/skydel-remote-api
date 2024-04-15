@@ -1,8 +1,7 @@
 
-#include "gen/IsEachSVEnabled.h"
+#include "IsEachSVEnabled.h"
 
 #include "command_factory.h"
-#include "command_result_factory.h"
 #include "parse_json.hpp"
 
 ///
@@ -14,17 +13,23 @@ namespace Sdx
   namespace Cmd
   {
     const char* const IsEachSVEnabled::CmdName = "IsEachSVEnabled";
-    const char* const IsEachSVEnabled::Documentation = "Get whether each satellite is enabled or disabled for this constellation.";
+    const char* const IsEachSVEnabled::Documentation = "Get whether each satellite is enabled or disabled for this constellation.\n"
+      "\n"
+      "Name   Type   Description\n"
+      "------ ------ ----------------------------------------------------------------------------------------------------------------\n"
+      "System string The satellites' constellation. Can be \"GPS\", \"GLONASS\", \"Galileo\", \"BeiDou\", \"SBAS\", \"QZSS\", \"NavIC\" or \"PULSAR\"";
+    const char* const IsEachSVEnabled::TargetId = "";
 
-    REGISTER_COMMAND_FACTORY(IsEachSVEnabled);
+    REGISTER_COMMAND_TO_FACTORY_DECL(IsEachSVEnabled);
+    REGISTER_COMMAND_TO_FACTORY_IMPL(IsEachSVEnabled);
 
 
     IsEachSVEnabled::IsEachSVEnabled()
-      : CommandBase(CmdName)
+      : CommandBase(CmdName, TargetId)
     {}
 
     IsEachSVEnabled::IsEachSVEnabled(const std::string& system)
-      : CommandBase(CmdName)
+      : CommandBase(CmdName, TargetId)
     {
 
       setSystem(system);
@@ -50,6 +55,12 @@ namespace Sdx
     }
 
     std::string IsEachSVEnabled::documentation() const { return Documentation; }
+
+    const std::vector<std::string>& IsEachSVEnabled::fieldNames() const 
+    { 
+      static const std::vector<std::string> names {"System"}; 
+      return names; 
+    }
 
 
     int IsEachSVEnabled::executePermission() const

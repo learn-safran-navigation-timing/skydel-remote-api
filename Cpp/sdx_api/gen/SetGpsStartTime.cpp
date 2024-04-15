@@ -1,8 +1,7 @@
 
-#include "gen/SetGpsStartTime.h"
+#include "SetGpsStartTime.h"
 
 #include "command_factory.h"
-#include "command_result_factory.h"
 #include "parse_json.hpp"
 
 ///
@@ -14,17 +13,23 @@ namespace Sdx
   namespace Cmd
   {
     const char* const SetGpsStartTime::CmdName = "SetGpsStartTime";
-    const char* const SetGpsStartTime::Documentation = "Set the simulation start date and time";
+    const char* const SetGpsStartTime::Documentation = "Set the simulation start date and time\n"
+      "\n"
+      "Name  Type     Description\n"
+      "----- -------- --------------------------------------------------------------\n"
+      "Start datetime GPS date and time (it is the GPS time expressed in UTC format)";
+    const char* const SetGpsStartTime::TargetId = "";
 
-    REGISTER_COMMAND_FACTORY(SetGpsStartTime);
+    REGISTER_COMMAND_TO_FACTORY_DECL(SetGpsStartTime);
+    REGISTER_COMMAND_TO_FACTORY_IMPL(SetGpsStartTime);
 
 
     SetGpsStartTime::SetGpsStartTime()
-      : CommandBase(CmdName)
+      : CommandBase(CmdName, TargetId)
     {}
 
     SetGpsStartTime::SetGpsStartTime(const Sdx::DateTime& start)
-      : CommandBase(CmdName)
+      : CommandBase(CmdName, TargetId)
     {
 
       setStart(start);
@@ -50,6 +55,12 @@ namespace Sdx
     }
 
     std::string SetGpsStartTime::documentation() const { return Documentation; }
+
+    const std::vector<std::string>& SetGpsStartTime::fieldNames() const 
+    { 
+      static const std::vector<std::string> names {"Start"}; 
+      return names; 
+    }
 
 
     int SetGpsStartTime::executePermission() const

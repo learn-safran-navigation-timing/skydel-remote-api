@@ -1,8 +1,7 @@
 
-#include "gen/SetQzssSatelliteL2Health.h"
+#include "SetQzssSatelliteL2Health.h"
 
 #include "command_factory.h"
-#include "command_result_factory.h"
 #include "parse_json.hpp"
 
 ///
@@ -14,17 +13,27 @@ namespace Sdx
   namespace Cmd
   {
     const char* const SetQzssSatelliteL2Health::CmdName = "SetQzssSatelliteL2Health";
-    const char* const SetQzssSatelliteL2Health::Documentation = "Please note the command SetQzssSatelliteL2Health is deprecated since 21.3. You may use SetQzssL2HealthForSV.\n\nSet QZSS L2 health (Health of L2C signal)";
+    const char* const SetQzssSatelliteL2Health::Documentation = "Please note the command SetQzssSatelliteL2Health is deprecated since 21.3. You may use SetQzssL2HealthForSV.\n"
+      "\n"
+      "Set QZSS L2 health (Health of L2C signal)\n"
+      "\n"
+      "Name        Type            Description\n"
+      "----------- --------------- -------------------------------------------------------------------------------------------\n"
+      "SvId        int             Satellite SV ID 1..10, or use 0 to apply new value to all satellites.\n"
+      "Health      bool            L2 health, false = signal OK, true = signal bad\n"
+      "DataSetName optional string Optional name of the data set to use. If no value is provided, the active data set is used.";
+    const char* const SetQzssSatelliteL2Health::TargetId = "";
 
-    REGISTER_COMMAND_FACTORY(SetQzssSatelliteL2Health);
+    REGISTER_COMMAND_TO_FACTORY_DECL(SetQzssSatelliteL2Health);
+    REGISTER_COMMAND_TO_FACTORY_IMPL(SetQzssSatelliteL2Health);
 
 
     SetQzssSatelliteL2Health::SetQzssSatelliteL2Health()
-      : CommandBase(CmdName)
+      : CommandBase(CmdName, TargetId)
     {}
 
     SetQzssSatelliteL2Health::SetQzssSatelliteL2Health(int svId, bool health, const Sdx::optional<std::string>& dataSetName)
-      : CommandBase(CmdName)
+      : CommandBase(CmdName, TargetId)
     {
 
       setSvId(svId);
@@ -54,6 +63,12 @@ namespace Sdx
     }
 
     std::string SetQzssSatelliteL2Health::documentation() const { return Documentation; }
+
+    const std::vector<std::string>& SetQzssSatelliteL2Health::fieldNames() const 
+    { 
+      static const std::vector<std::string> names {"SvId", "Health", "DataSetName"}; 
+      return names; 
+    }
 
 
     int SetQzssSatelliteL2Health::executePermission() const

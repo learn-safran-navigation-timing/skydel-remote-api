@@ -1,8 +1,7 @@
 
-#include "gen/Pause.h"
+#include "Pause.h"
 
 #include "command_factory.h"
-#include "command_result_factory.h"
 #include "parse_json.hpp"
 
 ///
@@ -15,12 +14,14 @@ namespace Sdx
   {
     const char* const Pause::CmdName = "Pause";
     const char* const Pause::Documentation = "Pause vehicle motion during simulation.";
+    const char* const Pause::TargetId = "";
 
-    REGISTER_COMMAND_FACTORY(Pause);
+    REGISTER_COMMAND_TO_FACTORY_DECL(Pause);
+    REGISTER_COMMAND_TO_FACTORY_IMPL(Pause);
 
 
     Pause::Pause()
-      : CommandBase(CmdName)
+      : CommandBase(CmdName, TargetId)
     {
 
     }
@@ -44,6 +45,12 @@ namespace Sdx
     }
 
     std::string Pause::documentation() const { return Documentation; }
+
+    const std::vector<std::string>& Pause::fieldNames() const 
+    { 
+      static const std::vector<std::string> names {}; 
+      return names; 
+    }
 
 
     int Pause::executePermission() const

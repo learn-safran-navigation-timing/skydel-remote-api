@@ -1,8 +1,7 @@
 
-#include "gen/IsAlmanacExtrapolationFromEphemerisEnabledResult.h"
+#include "IsAlmanacExtrapolationFromEphemerisEnabledResult.h"
 
 #include "command_factory.h"
-#include "command_result_factory.h"
 #include "parse_json.hpp"
 
 ///
@@ -14,24 +13,29 @@ namespace Sdx
   namespace Cmd
   {
     const char* const IsAlmanacExtrapolationFromEphemerisEnabledResult::CmdName = "IsAlmanacExtrapolationFromEphemerisEnabledResult";
-    const char* const IsAlmanacExtrapolationFromEphemerisEnabledResult::Documentation = "Result of IsAlmanacExtrapolationFromEphemerisEnabled.";
+    const char* const IsAlmanacExtrapolationFromEphemerisEnabledResult::Documentation = "Result of IsAlmanacExtrapolationFromEphemerisEnabled.\n"
+      "\n"
+      "Name    Type Description\n"
+      "------- ---- -------------------------------\n"
+      "Enabled bool State of almanac extrapolation.";
+    const char* const IsAlmanacExtrapolationFromEphemerisEnabledResult::TargetId = "";
 
-    REGISTER_COMMAND_RESULT_TO_FACTORY_IMPL(IsAlmanacExtrapolationFromEphemerisEnabledResult);
+    REGISTER_COMMAND_TO_FACTORY_IMPL(IsAlmanacExtrapolationFromEphemerisEnabledResult);
 
 
     IsAlmanacExtrapolationFromEphemerisEnabledResult::IsAlmanacExtrapolationFromEphemerisEnabledResult()
-      : CommandResult(CmdName)
+      : CommandResult(CmdName, TargetId)
     {}
 
     IsAlmanacExtrapolationFromEphemerisEnabledResult::IsAlmanacExtrapolationFromEphemerisEnabledResult(bool enabled)
-      : CommandResult(CmdName)
+      : CommandResult(CmdName, TargetId)
     {
 
       setEnabled(enabled);
     }
 
     IsAlmanacExtrapolationFromEphemerisEnabledResult::IsAlmanacExtrapolationFromEphemerisEnabledResult(CommandBasePtr relatedCommand, bool enabled)
-      : CommandResult(CmdName, relatedCommand)
+      : CommandResult(CmdName, TargetId, relatedCommand)
     {
 
       setEnabled(enabled);
@@ -63,6 +67,12 @@ namespace Sdx
     }
 
     std::string IsAlmanacExtrapolationFromEphemerisEnabledResult::documentation() const { return Documentation; }
+
+    const std::vector<std::string>& IsAlmanacExtrapolationFromEphemerisEnabledResult::fieldNames() const 
+    { 
+      static const std::vector<std::string> names {"Enabled"}; 
+      return names; 
+    }
 
 
     bool IsAlmanacExtrapolationFromEphemerisEnabledResult::enabled() const

@@ -1,8 +1,7 @@
 
-#include "gen/GetDefaultIntTxPersistenceResult.h"
+#include "GetDefaultIntTxPersistenceResult.h"
 
 #include "command_factory.h"
-#include "command_result_factory.h"
 #include "parse_json.hpp"
 
 ///
@@ -14,24 +13,29 @@ namespace Sdx
   namespace Cmd
   {
     const char* const GetDefaultIntTxPersistenceResult::CmdName = "GetDefaultIntTxPersistenceResult";
-    const char* const GetDefaultIntTxPersistenceResult::Documentation = "Result of GetDefaultIntTxPersistence.";
+    const char* const GetDefaultIntTxPersistenceResult::Documentation = "Result of GetDefaultIntTxPersistence.\n"
+      "\n"
+      "Name         Type Description\n"
+      "------------ ---- --------------------------------------------------------------------------------\n"
+      "DefaultValue bool True if jammers should keep the modifications done during simulation by default.";
+    const char* const GetDefaultIntTxPersistenceResult::TargetId = "";
 
-    REGISTER_COMMAND_RESULT_TO_FACTORY_IMPL(GetDefaultIntTxPersistenceResult);
+    REGISTER_COMMAND_TO_FACTORY_IMPL(GetDefaultIntTxPersistenceResult);
 
 
     GetDefaultIntTxPersistenceResult::GetDefaultIntTxPersistenceResult()
-      : CommandResult(CmdName)
+      : CommandResult(CmdName, TargetId)
     {}
 
     GetDefaultIntTxPersistenceResult::GetDefaultIntTxPersistenceResult(bool defaultValue)
-      : CommandResult(CmdName)
+      : CommandResult(CmdName, TargetId)
     {
 
       setDefaultValue(defaultValue);
     }
 
     GetDefaultIntTxPersistenceResult::GetDefaultIntTxPersistenceResult(CommandBasePtr relatedCommand, bool defaultValue)
-      : CommandResult(CmdName, relatedCommand)
+      : CommandResult(CmdName, TargetId, relatedCommand)
     {
 
       setDefaultValue(defaultValue);
@@ -63,6 +67,12 @@ namespace Sdx
     }
 
     std::string GetDefaultIntTxPersistenceResult::documentation() const { return Documentation; }
+
+    const std::vector<std::string>& GetDefaultIntTxPersistenceResult::fieldNames() const 
+    { 
+      static const std::vector<std::string> names {"DefaultValue"}; 
+      return names; 
+    }
 
 
     bool GetDefaultIntTxPersistenceResult::defaultValue() const

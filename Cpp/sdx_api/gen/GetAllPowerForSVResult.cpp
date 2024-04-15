@@ -1,8 +1,7 @@
 
-#include "gen/GetAllPowerForSVResult.h"
+#include "GetAllPowerForSVResult.h"
 
 #include "command_factory.h"
-#include "command_result_factory.h"
 #include "parse_json.hpp"
 
 ///
@@ -14,17 +13,32 @@ namespace Sdx
   namespace Cmd
   {
     const char* const GetAllPowerForSVResult::CmdName = "GetAllPowerForSVResult";
-    const char* const GetAllPowerForSVResult::Documentation = "Result of GetAllPowerForSV.";
+    const char* const GetAllPowerForSVResult::Documentation = "Result of GetAllPowerForSV.\n"
+      "\n"
+      "Name            Type                    Description\n"
+      "--------------- ----------------------- -----------------------------------------------------------------------------\n"
+      "System          string                  \"GPS\", \"GLONASS\", \"Galileo\", \"BeiDou\", \"SBAS\", \"QZSS\", \"NavIC\" or \"PULSAR\".\n"
+      "SvId            int                     The Satellite's SV ID.\n"
+      "NominalPower    double                  The nominal power in dBm.\n"
+      "GlobalOffset    double                  The global power offset (dB).\n"
+      "SignalPowerDict dict string:SignalPower A dictionary of signal power pairs.\n"
+      "                                        Accepted keys are: \"All\", \"L1CA\", \"L1C\", \"L1P\", \"L1ME\", \"L1MR\", \"L2C\", \"L2P\",\n"
+      "                                                           \"L2ME\", \"L2MR\", \"L5\", \"G1\", \"G2\", \"E1\", \"E1PRS\", \"E5a\",\n"
+      "                                                           \"E5b\", \"E6BC\", \"E6PRS\", \"B1\", \"B2\", \"B1C\", \"B2a\", \"B3I\",\n"
+      "                                                           \"SBASL1\", \"SBASL5\", \"QZSSL1CA\", \"QZSSL1CB\", \"QZSSL1C\",\n"
+      "                                                           \"QZSSL2C\", \"QZSSL5\", \"QZSSL1S\", \"QZSSL5S\", \"NAVICL5\" and\n"
+      "                                                           \"PULSARXL\"";
+    const char* const GetAllPowerForSVResult::TargetId = "";
 
-    REGISTER_COMMAND_RESULT_TO_FACTORY_IMPL(GetAllPowerForSVResult);
+    REGISTER_COMMAND_TO_FACTORY_IMPL(GetAllPowerForSVResult);
 
 
     GetAllPowerForSVResult::GetAllPowerForSVResult()
-      : CommandResult(CmdName)
+      : CommandResult(CmdName, TargetId)
     {}
 
     GetAllPowerForSVResult::GetAllPowerForSVResult(const std::string& system, int svId, double nominalPower, double globalOffset, const std::map<std::string, Sdx::SignalPower>& signalPowerDict)
-      : CommandResult(CmdName)
+      : CommandResult(CmdName, TargetId)
     {
 
       setSystem(system);
@@ -35,7 +49,7 @@ namespace Sdx
     }
 
     GetAllPowerForSVResult::GetAllPowerForSVResult(CommandBasePtr relatedCommand, const std::string& system, int svId, double nominalPower, double globalOffset, const std::map<std::string, Sdx::SignalPower>& signalPowerDict)
-      : CommandResult(CmdName, relatedCommand)
+      : CommandResult(CmdName, TargetId, relatedCommand)
     {
 
       setSystem(system);
@@ -75,6 +89,12 @@ namespace Sdx
     }
 
     std::string GetAllPowerForSVResult::documentation() const { return Documentation; }
+
+    const std::vector<std::string>& GetAllPowerForSVResult::fieldNames() const 
+    { 
+      static const std::vector<std::string> names {"System", "SvId", "NominalPower", "GlobalOffset", "SignalPowerDict"}; 
+      return names; 
+    }
 
 
     std::string GetAllPowerForSVResult::system() const

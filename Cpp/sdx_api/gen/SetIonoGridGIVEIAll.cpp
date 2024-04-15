@@ -1,8 +1,7 @@
 
-#include "gen/SetIonoGridGIVEIAll.h"
+#include "SetIonoGridGIVEIAll.h"
 
 #include "command_factory.h"
-#include "command_result_factory.h"
 #include "parse_json.hpp"
 
 ///
@@ -14,17 +13,24 @@ namespace Sdx
   namespace Cmd
   {
     const char* const SetIonoGridGIVEIAll::CmdName = "SetIonoGridGIVEIAll";
-    const char* const SetIonoGridGIVEIAll::Documentation = "Set GIVEI in the ionospheric grid.  The array is zero based, the index 0 in a band array is for the IGP with an index 1, etc.";
+    const char* const SetIonoGridGIVEIAll::Documentation = "Set GIVEI in the ionospheric grid.  The array is zero based, the index 0 in a band array is for the IGP with an index 1, etc.\n"
+      "\n"
+      "Name            Type            Description\n"
+      "--------------- --------------- ----------------------------------------------------------------------\n"
+      "Grid            array array int Array containing each band, each band is an array containing the GIVEI\n"
+      "ServiceProvider optional string The service provider (optional)";
+    const char* const SetIonoGridGIVEIAll::TargetId = "";
 
-    REGISTER_COMMAND_FACTORY(SetIonoGridGIVEIAll);
+    REGISTER_COMMAND_TO_FACTORY_DECL(SetIonoGridGIVEIAll);
+    REGISTER_COMMAND_TO_FACTORY_IMPL(SetIonoGridGIVEIAll);
 
 
     SetIonoGridGIVEIAll::SetIonoGridGIVEIAll()
-      : CommandBase(CmdName)
+      : CommandBase(CmdName, TargetId)
     {}
 
     SetIonoGridGIVEIAll::SetIonoGridGIVEIAll(const std::vector<std::vector<int>>& grid, const Sdx::optional<std::string>& serviceProvider)
-      : CommandBase(CmdName)
+      : CommandBase(CmdName, TargetId)
     {
 
       setGrid(grid);
@@ -52,6 +58,12 @@ namespace Sdx
     }
 
     std::string SetIonoGridGIVEIAll::documentation() const { return Documentation; }
+
+    const std::vector<std::string>& SetIonoGridGIVEIAll::fieldNames() const 
+    { 
+      static const std::vector<std::string> names {"Grid", "ServiceProvider"}; 
+      return names; 
+    }
 
 
     int SetIonoGridGIVEIAll::executePermission() const

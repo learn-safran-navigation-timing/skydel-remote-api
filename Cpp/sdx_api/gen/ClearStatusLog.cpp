@@ -1,8 +1,7 @@
 
-#include "gen/ClearStatusLog.h"
+#include "ClearStatusLog.h"
 
 #include "command_factory.h"
-#include "command_result_factory.h"
 #include "parse_json.hpp"
 
 ///
@@ -15,12 +14,14 @@ namespace Sdx
   {
     const char* const ClearStatusLog::CmdName = "ClearStatusLog";
     const char* const ClearStatusLog::Documentation = "Clears the status log";
+    const char* const ClearStatusLog::TargetId = "";
 
-    REGISTER_COMMAND_FACTORY(ClearStatusLog);
+    REGISTER_COMMAND_TO_FACTORY_DECL(ClearStatusLog);
+    REGISTER_COMMAND_TO_FACTORY_IMPL(ClearStatusLog);
 
 
     ClearStatusLog::ClearStatusLog()
-      : CommandBase(CmdName)
+      : CommandBase(CmdName, TargetId)
     {
 
     }
@@ -44,6 +45,12 @@ namespace Sdx
     }
 
     std::string ClearStatusLog::documentation() const { return Documentation; }
+
+    const std::vector<std::string>& ClearStatusLog::fieldNames() const 
+    { 
+      static const std::vector<std::string> names {}; 
+      return names; 
+    }
 
 
     int ClearStatusLog::executePermission() const

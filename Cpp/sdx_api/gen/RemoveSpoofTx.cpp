@@ -1,8 +1,7 @@
 
-#include "gen/RemoveSpoofTx.h"
+#include "RemoveSpoofTx.h"
 
 #include "command_factory.h"
-#include "command_result_factory.h"
 #include "parse_json.hpp"
 
 ///
@@ -14,17 +13,24 @@ namespace Sdx
   namespace Cmd
   {
     const char* const RemoveSpoofTx::CmdName = "RemoveSpoofTx";
-    const char* const RemoveSpoofTx::Documentation = "Removes the spoofer transmitter. See EnableSpoofTx if all you want is to\ndisable the interference temporarily.";
+    const char* const RemoveSpoofTx::Documentation = "Removes the spoofer transmitter. See EnableSpoofTx if all you want is to\n"
+      "disable the interference temporarily.\n"
+      "\n"
+      "Name Type   Description\n"
+      "---- ------ ------------------------------\n"
+      "Id   string Transmitter unique identifier.";
+    const char* const RemoveSpoofTx::TargetId = "";
 
-    REGISTER_COMMAND_FACTORY(RemoveSpoofTx);
+    REGISTER_COMMAND_TO_FACTORY_DECL(RemoveSpoofTx);
+    REGISTER_COMMAND_TO_FACTORY_IMPL(RemoveSpoofTx);
 
 
     RemoveSpoofTx::RemoveSpoofTx()
-      : CommandBase(CmdName)
+      : CommandBase(CmdName, TargetId)
     {}
 
     RemoveSpoofTx::RemoveSpoofTx(const std::string& id)
-      : CommandBase(CmdName)
+      : CommandBase(CmdName, TargetId)
     {
 
       setId(id);
@@ -50,6 +56,12 @@ namespace Sdx
     }
 
     std::string RemoveSpoofTx::documentation() const { return Documentation; }
+
+    const std::vector<std::string>& RemoveSpoofTx::fieldNames() const 
+    { 
+      static const std::vector<std::string> names {"Id"}; 
+      return names; 
+    }
 
 
     int RemoveSpoofTx::executePermission() const

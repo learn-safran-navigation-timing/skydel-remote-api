@@ -1,8 +1,7 @@
 
-#include "gen/SetStartTimeOffset.h"
+#include "SetStartTimeOffset.h"
 
 #include "command_factory.h"
-#include "command_result_factory.h"
 #include "parse_json.hpp"
 
 ///
@@ -14,17 +13,24 @@ namespace Sdx
   namespace Cmd
   {
     const char* const SetStartTimeOffset::CmdName = "SetStartTimeOffset";
-    const char* const SetStartTimeOffset::Documentation = "Set offset between the simulated GPS time and time given by GPS Timing receiver when using GPS Timing receiver to set the start time of the simulation.\nThis value has no effect when GPS start time is \"custom\" or \"computer\".";
+    const char* const SetStartTimeOffset::Documentation = "Set offset between the simulated GPS time and time given by GPS Timing receiver when using GPS Timing receiver to set the start time of the simulation.\n"
+      "This value has no effect when GPS start time is \"custom\" or \"computer\".\n"
+      "\n"
+      "Name   Type Description\n"
+      "------ ---- -----------------------------------------------------------------------------------------\n"
+      "Offset int  Time Offset, in seconds, between simulated GPS time and time given by GPS Timing receiver";
+    const char* const SetStartTimeOffset::TargetId = "";
 
-    REGISTER_COMMAND_FACTORY(SetStartTimeOffset);
+    REGISTER_COMMAND_TO_FACTORY_DECL(SetStartTimeOffset);
+    REGISTER_COMMAND_TO_FACTORY_IMPL(SetStartTimeOffset);
 
 
     SetStartTimeOffset::SetStartTimeOffset()
-      : CommandBase(CmdName)
+      : CommandBase(CmdName, TargetId)
     {}
 
     SetStartTimeOffset::SetStartTimeOffset(int offset)
-      : CommandBase(CmdName)
+      : CommandBase(CmdName, TargetId)
     {
 
       setOffset(offset);
@@ -50,6 +56,12 @@ namespace Sdx
     }
 
     std::string SetStartTimeOffset::documentation() const { return Documentation; }
+
+    const std::vector<std::string>& SetStartTimeOffset::fieldNames() const 
+    { 
+      static const std::vector<std::string> names {"Offset"}; 
+      return names; 
+    }
 
 
     int SetStartTimeOffset::executePermission() const

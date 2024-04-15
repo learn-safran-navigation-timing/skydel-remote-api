@@ -1,8 +1,7 @@
 
-#include "gen/GetGlonassEphDoubleParamForEachSVResult.h"
+#include "GetGlonassEphDoubleParamForEachSVResult.h"
 
 #include "command_factory.h"
-#include "command_result_factory.h"
 #include "parse_json.hpp"
 
 ///
@@ -14,17 +13,23 @@ namespace Sdx
   namespace Cmd
   {
     const char* const GetGlonassEphDoubleParamForEachSVResult::CmdName = "GetGlonassEphDoubleParamForEachSVResult";
-    const char* const GetGlonassEphDoubleParamForEachSVResult::Documentation = "Result of GetGlonassEphDoubleParamForEachSV.";
+    const char* const GetGlonassEphDoubleParamForEachSVResult::Documentation = "Result of GetGlonassEphDoubleParamForEachSV.\n"
+      "\n"
+      "Name      Type         Description\n"
+      "--------- ------------ --------------------------------------------------------------------------------------------------\n"
+      "ParamName string       Refer to SetGlonassEphDoubleParamForSV for accepted names\n"
+      "Val       array double Parameter value for each satellite. Zero based index (index 0 => SV ID 1, index 1 => SV ID 2, etc)";
+    const char* const GetGlonassEphDoubleParamForEachSVResult::TargetId = "";
 
-    REGISTER_COMMAND_RESULT_TO_FACTORY_IMPL(GetGlonassEphDoubleParamForEachSVResult);
+    REGISTER_COMMAND_TO_FACTORY_IMPL(GetGlonassEphDoubleParamForEachSVResult);
 
 
     GetGlonassEphDoubleParamForEachSVResult::GetGlonassEphDoubleParamForEachSVResult()
-      : CommandResult(CmdName)
+      : CommandResult(CmdName, TargetId)
     {}
 
     GetGlonassEphDoubleParamForEachSVResult::GetGlonassEphDoubleParamForEachSVResult(const std::string& paramName, const std::vector<double>& val)
-      : CommandResult(CmdName)
+      : CommandResult(CmdName, TargetId)
     {
 
       setParamName(paramName);
@@ -32,7 +37,7 @@ namespace Sdx
     }
 
     GetGlonassEphDoubleParamForEachSVResult::GetGlonassEphDoubleParamForEachSVResult(CommandBasePtr relatedCommand, const std::string& paramName, const std::vector<double>& val)
-      : CommandResult(CmdName, relatedCommand)
+      : CommandResult(CmdName, TargetId, relatedCommand)
     {
 
       setParamName(paramName);
@@ -66,6 +71,12 @@ namespace Sdx
     }
 
     std::string GetGlonassEphDoubleParamForEachSVResult::documentation() const { return Documentation; }
+
+    const std::vector<std::string>& GetGlonassEphDoubleParamForEachSVResult::fieldNames() const 
+    { 
+      static const std::vector<std::string> names {"ParamName", "Val"}; 
+      return names; 
+    }
 
 
     std::string GetGlonassEphDoubleParamForEachSVResult::paramName() const

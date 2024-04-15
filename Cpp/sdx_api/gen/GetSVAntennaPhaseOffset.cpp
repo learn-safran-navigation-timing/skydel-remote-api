@@ -1,8 +1,7 @@
 
-#include "gen/GetSVAntennaPhaseOffset.h"
+#include "GetSVAntennaPhaseOffset.h"
 
 #include "command_factory.h"
-#include "command_result_factory.h"
 #include "parse_json.hpp"
 
 ///
@@ -14,17 +13,25 @@ namespace Sdx
   namespace Cmd
   {
     const char* const GetSVAntennaPhaseOffset::CmdName = "GetSVAntennaPhaseOffset";
-    const char* const GetSVAntennaPhaseOffset::Documentation = "Get space vehicle phase offset antenna pattern. If no name is specified, the command is aplied to Basic Vehicle Antenna.";
+    const char* const GetSVAntennaPhaseOffset::Documentation = "Get space vehicle phase offset antenna pattern. If no name is specified, the command is aplied to Basic Vehicle Antenna.\n"
+      "\n"
+      "Name   Type            Description\n"
+      "------ --------------- --------------------------------------------------------------------------\n"
+      "Band   GNSSBand        Frequency band\n"
+      "System string          \"GPS\", \"GLONASS\", \"Galileo\", \"BeiDou\", \"SBAS\", \"QZSS\", \"NavIC\" or \"PULSAR\"\n"
+      "Name   optional string SV antenna name";
+    const char* const GetSVAntennaPhaseOffset::TargetId = "";
 
-    REGISTER_COMMAND_FACTORY(GetSVAntennaPhaseOffset);
+    REGISTER_COMMAND_TO_FACTORY_DECL(GetSVAntennaPhaseOffset);
+    REGISTER_COMMAND_TO_FACTORY_IMPL(GetSVAntennaPhaseOffset);
 
 
     GetSVAntennaPhaseOffset::GetSVAntennaPhaseOffset()
-      : CommandBase(CmdName)
+      : CommandBase(CmdName, TargetId)
     {}
 
     GetSVAntennaPhaseOffset::GetSVAntennaPhaseOffset(const Sdx::GNSSBand& band, const std::string& system, const Sdx::optional<std::string>& name)
-      : CommandBase(CmdName)
+      : CommandBase(CmdName, TargetId)
     {
 
       setBand(band);
@@ -54,6 +61,12 @@ namespace Sdx
     }
 
     std::string GetSVAntennaPhaseOffset::documentation() const { return Documentation; }
+
+    const std::vector<std::string>& GetSVAntennaPhaseOffset::fieldNames() const 
+    { 
+      static const std::vector<std::string> names {"Band", "System", "Name"}; 
+      return names; 
+    }
 
 
     int GetSVAntennaPhaseOffset::executePermission() const

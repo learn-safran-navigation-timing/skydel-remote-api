@@ -1,8 +1,7 @@
 
-#include "gen/GetQzssL1HealthForSVResult.h"
+#include "GetQzssL1HealthForSVResult.h"
 
 #include "command_factory.h"
-#include "command_result_factory.h"
 #include "parse_json.hpp"
 
 ///
@@ -14,17 +13,24 @@ namespace Sdx
   namespace Cmd
   {
     const char* const GetQzssL1HealthForSVResult::CmdName = "GetQzssL1HealthForSVResult";
-    const char* const GetQzssL1HealthForSVResult::Documentation = "Result of GetQzssL1HealthForSV.";
+    const char* const GetQzssL1HealthForSVResult::Documentation = "Result of GetQzssL1HealthForSV.\n"
+      "\n"
+      "Name        Type            Description\n"
+      "----------- --------------- -------------------------------------------------------------------------------------------\n"
+      "SvId        int             Satellite SV ID 1..10, or use 0 to apply new value to all satellites.\n"
+      "Health      bool            L1 health, false = signal OK, true = signal bad\n"
+      "DataSetName optional string Optional name of the data set to use. If no value is provided, the active data set is used.";
+    const char* const GetQzssL1HealthForSVResult::TargetId = "";
 
-    REGISTER_COMMAND_RESULT_TO_FACTORY_IMPL(GetQzssL1HealthForSVResult);
+    REGISTER_COMMAND_TO_FACTORY_IMPL(GetQzssL1HealthForSVResult);
 
 
     GetQzssL1HealthForSVResult::GetQzssL1HealthForSVResult()
-      : CommandResult(CmdName)
+      : CommandResult(CmdName, TargetId)
     {}
 
     GetQzssL1HealthForSVResult::GetQzssL1HealthForSVResult(int svId, bool health, const Sdx::optional<std::string>& dataSetName)
-      : CommandResult(CmdName)
+      : CommandResult(CmdName, TargetId)
     {
 
       setSvId(svId);
@@ -33,7 +39,7 @@ namespace Sdx
     }
 
     GetQzssL1HealthForSVResult::GetQzssL1HealthForSVResult(CommandBasePtr relatedCommand, int svId, bool health, const Sdx::optional<std::string>& dataSetName)
-      : CommandResult(CmdName, relatedCommand)
+      : CommandResult(CmdName, TargetId, relatedCommand)
     {
 
       setSvId(svId);
@@ -69,6 +75,12 @@ namespace Sdx
     }
 
     std::string GetQzssL1HealthForSVResult::documentation() const { return Documentation; }
+
+    const std::vector<std::string>& GetQzssL1HealthForSVResult::fieldNames() const 
+    { 
+      static const std::vector<std::string> names {"SvId", "Health", "DataSetName"}; 
+      return names; 
+    }
 
 
     int GetQzssL1HealthForSVResult::svId() const

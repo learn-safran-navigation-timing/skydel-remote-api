@@ -1,8 +1,7 @@
 
-#include "gen/PushDynamicSVData.h"
+#include "PushDynamicSVData.h"
 
 #include "command_factory.h"
-#include "command_result_factory.h"
 #include "parse_json.hpp"
 
 ///
@@ -14,17 +13,70 @@ namespace Sdx
   namespace Cmd
   {
     const char* const PushDynamicSVData::CmdName = "PushDynamicSVData";
-    const char* const PushDynamicSVData::Documentation = "Push a block of data defining the orbit, clock, and other parameters for one SV.\n  ParamName           Unit\n  \"Time of ephemeris\" sec (of GPS week)\n  \"Week Number\"       week\n  \"Transmission Time\" sec (of GPS week)\n  \"ClockBias\"         sec\n  \"ClockDrift\"        sec/sec\n  \"ClockDriftRate\"    sec/sec^2\n  \"Crs\"               meter\n  \"Crc\"               meter\n  \"Cis\"               rad\n  \"Cic\"               rad\n  \"Cus\"               rad\n  \"Cuc\"               rad\n  \"DeltaN\"            rad/sec\n  \"M0\"                rad\n  \"Eccentricity\"      -\n  \"SqrtA\"             sqrt(meter)\n  \"BigOmega\"          rad\n  \"I0\"                rad\n  \"LittleOmega\"       rad\n  \"BigOmegaDot\"       rad/sec\n  \"Idot\"              rad/sec\n  \"Accuracy\"          meter\n  \"Adot\"              meters/sec\n  \"DeltaN0dot\"        rad/sec^2\n\nAfter a block is pushed for a SV, no other block can be pushed for that SV until the interpolation period is over.\n  Constellation   Interpolation period (sec)\n  GPS             3600\n  Galileo         300\n  BeiDou          1800\n  QZSS            1800\n  NavIC           2400\n";
+    const char* const PushDynamicSVData::Documentation = "Push a block of data defining the orbit, clock, and other parameters for one SV.\n"
+      "  ParamName           Unit\n"
+      "  \"Time of ephemeris\" sec (of GPS week)\n"
+      "  \"Week Number\"       week\n"
+      "  \"Transmission Time\" sec (of GPS week)\n"
+      "  \"ClockBias\"         sec\n"
+      "  \"ClockDrift\"        sec/sec\n"
+      "  \"ClockDriftRate\"    sec/sec^2\n"
+      "  \"Crs\"               meter\n"
+      "  \"Crc\"               meter\n"
+      "  \"Cis\"               rad\n"
+      "  \"Cic\"               rad\n"
+      "  \"Cus\"               rad\n"
+      "  \"Cuc\"               rad\n"
+      "  \"DeltaN\"            rad/sec\n"
+      "  \"M0\"                rad\n"
+      "  \"Eccentricity\"      -\n"
+      "  \"SqrtA\"             sqrt(meter)\n"
+      "  \"BigOmega\"          rad\n"
+      "  \"I0\"                rad\n"
+      "  \"LittleOmega\"       rad\n"
+      "  \"BigOmegaDot\"       rad/sec\n"
+      "  \"Idot\"              rad/sec\n"
+      "  \"Accuracy\"          meter\n"
+      "  \"Adot\"              meters/sec\n"
+      "  \"DeltaN0dot\"        rad/sec^2\n"
+      "\n"
+      "After a block is pushed for a SV, no other block can be pushed for that SV until the interpolation period is over.\n"
+      "  Constellation   Interpolation period (sec)\n"
+      "  GPS             3600\n"
+      "  Galileo         300\n"
+      "  BeiDou          1800\n"
+      "  QZSS            1800\n"
+      "  NavIC           2400\n"
+      "\n"
+      "\n"
+      "Name           Type                  Description\n"
+      "-------------- --------------------- ---------------------------------------------------------------------------------------\n"
+      "System         string                \"GPS\", \"Galileo\", \"BeiDou\", \"QZSS\", \"NavIC\" or \"PULSAR\".\n"
+      "SvId           int                   Satellite's SV ID.\n"
+      "Toc            datetime              Time of Clock.\n"
+      "ParametersDict dict string:double    A dictionary of parameters pairs.\n"
+      "                                     Accepted keys are: \"Time of ephemeris\", \"Week Number\", \"Transmission Time\",\n"
+      "                                                        \"ClockBias\", \"ClockDrift\", \"ClockDriftRate\", \"Crs\", \"Crc\",\n"
+      "                                                        \"Cis\", \"Cic\", \"Cus\", \"Cuc\", \"DeltaN\", \"M0\", \"Eccentricity\",\n"
+      "                                                        \"SqrtA\", \"BigOmega\", \"I0\", \"LittleOmega\", \"BigOmegaDot\",\n"
+      "                                                        \"Idot\", \"Adot\", \"DeltaN0dot\", \"UraIndex\", \"IODE\", \"IODNAV\",\n"
+      "                                                        \"IODEC\", \"IODC\", \"Tgd\", \"IscL1CA\", \"IscL2C\", \"IscL5I5\",\n"
+      "                                                        \"IscL5Q5\", \"IscL1CP\", \"IscL1CD\", \"BgdE1E5a\", \"BgdE1E5b\",\n"
+      "                                                        \"Tgd1\", \"Tgd2\", \"TgdB1Cp\", \"TgdB2ap\", \"IscB1Cd\", \"IscB2ad\",\n"
+      "                                                        \"SisaE1E5a\" and \"SisaE1E5b\"\n"
+      "DataSetTypes   optional array string Optional data set type array: \"Ephemeris\" or \"Orbit\". If not provided, applies to both.";
+    const char* const PushDynamicSVData::TargetId = "";
 
-    REGISTER_COMMAND_FACTORY(PushDynamicSVData);
+    REGISTER_COMMAND_TO_FACTORY_DECL(PushDynamicSVData);
+    REGISTER_COMMAND_TO_FACTORY_IMPL(PushDynamicSVData);
 
 
     PushDynamicSVData::PushDynamicSVData()
-      : CommandBase(CmdName)
+      : CommandBase(CmdName, TargetId)
     {}
 
     PushDynamicSVData::PushDynamicSVData(const std::string& system, int svId, const Sdx::DateTime& toc, const std::map<std::string, double>& parametersDict, const Sdx::optional<std::vector<std::string>>& dataSetTypes)
-      : CommandBase(CmdName)
+      : CommandBase(CmdName, TargetId)
     {
 
       setSystem(system);
@@ -58,6 +110,12 @@ namespace Sdx
     }
 
     std::string PushDynamicSVData::documentation() const { return Documentation; }
+
+    const std::vector<std::string>& PushDynamicSVData::fieldNames() const 
+    { 
+      static const std::vector<std::string> names {"System", "SvId", "Toc", "ParametersDict", "DataSetTypes"}; 
+      return names; 
+    }
 
 
     int PushDynamicSVData::executePermission() const

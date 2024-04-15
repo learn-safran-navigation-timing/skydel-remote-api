@@ -1,8 +1,7 @@
 
-#include "gen/GetQzssSatelliteL1DataHealth.h"
+#include "GetQzssSatelliteL1DataHealth.h"
 
 #include "command_factory.h"
-#include "command_result_factory.h"
 #include "parse_json.hpp"
 
 ///
@@ -14,17 +13,26 @@ namespace Sdx
   namespace Cmd
   {
     const char* const GetQzssSatelliteL1DataHealth::CmdName = "GetQzssSatelliteL1DataHealth";
-    const char* const GetQzssSatelliteL1DataHealth::Documentation = "Please note the command GetQzssSatelliteL1DataHealth is deprecated since 21.3. You may use GetQzssL1DataHealthForSV.\n\nGet QZSS L1 C/A nav data health";
+    const char* const GetQzssSatelliteL1DataHealth::Documentation = "Please note the command GetQzssSatelliteL1DataHealth is deprecated since 21.3. You may use GetQzssL1DataHealthForSV.\n"
+      "\n"
+      "Get QZSS L1 C/A nav data health\n"
+      "\n"
+      "Name        Type            Description\n"
+      "----------- --------------- -------------------------------------------------------------------------------------------\n"
+      "SvId        int             Satellite SV ID 1..10, or use 0 to apply new value to all satellites.\n"
+      "DataSetName optional string Optional name of the data set to use. If no value is provided, the active data set is used.";
+    const char* const GetQzssSatelliteL1DataHealth::TargetId = "";
 
-    REGISTER_COMMAND_FACTORY(GetQzssSatelliteL1DataHealth);
+    REGISTER_COMMAND_TO_FACTORY_DECL(GetQzssSatelliteL1DataHealth);
+    REGISTER_COMMAND_TO_FACTORY_IMPL(GetQzssSatelliteL1DataHealth);
 
 
     GetQzssSatelliteL1DataHealth::GetQzssSatelliteL1DataHealth()
-      : CommandBase(CmdName)
+      : CommandBase(CmdName, TargetId)
     {}
 
     GetQzssSatelliteL1DataHealth::GetQzssSatelliteL1DataHealth(int svId, const Sdx::optional<std::string>& dataSetName)
-      : CommandBase(CmdName)
+      : CommandBase(CmdName, TargetId)
     {
 
       setSvId(svId);
@@ -52,6 +60,12 @@ namespace Sdx
     }
 
     std::string GetQzssSatelliteL1DataHealth::documentation() const { return Documentation; }
+
+    const std::vector<std::string>& GetQzssSatelliteL1DataHealth::fieldNames() const 
+    { 
+      static const std::vector<std::string> names {"SvId", "DataSetName"}; 
+      return names; 
+    }
 
 
     int GetQzssSatelliteL1DataHealth::executePermission() const

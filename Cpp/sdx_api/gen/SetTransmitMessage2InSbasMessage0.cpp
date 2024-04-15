@@ -1,8 +1,7 @@
 
-#include "gen/SetTransmitMessage2InSbasMessage0.h"
+#include "SetTransmitMessage2InSbasMessage0.h"
 
 #include "command_factory.h"
-#include "command_result_factory.h"
 #include "parse_json.hpp"
 
 ///
@@ -14,17 +13,23 @@ namespace Sdx
   namespace Cmd
   {
     const char* const SetTransmitMessage2InSbasMessage0::CmdName = "SetTransmitMessage2InSbasMessage0";
-    const char* const SetTransmitMessage2InSbasMessage0::Documentation = "Set whether SBAS should transmit message 2 instead of message 0.";
+    const char* const SetTransmitMessage2InSbasMessage0::Documentation = "Set whether SBAS should transmit message 2 instead of message 0.\n"
+      "\n"
+      "Name             Type Description\n"
+      "---------------- ---- ---------------------------------------------------------\n"
+      "TransmitMessage2 bool Whether SBAS should transmit message type 2 instead of 0.";
+    const char* const SetTransmitMessage2InSbasMessage0::TargetId = "";
 
-    REGISTER_COMMAND_FACTORY(SetTransmitMessage2InSbasMessage0);
+    REGISTER_COMMAND_TO_FACTORY_DECL(SetTransmitMessage2InSbasMessage0);
+    REGISTER_COMMAND_TO_FACTORY_IMPL(SetTransmitMessage2InSbasMessage0);
 
 
     SetTransmitMessage2InSbasMessage0::SetTransmitMessage2InSbasMessage0()
-      : CommandBase(CmdName)
+      : CommandBase(CmdName, TargetId)
     {}
 
     SetTransmitMessage2InSbasMessage0::SetTransmitMessage2InSbasMessage0(bool transmitMessage2)
-      : CommandBase(CmdName)
+      : CommandBase(CmdName, TargetId)
     {
 
       setTransmitMessage2(transmitMessage2);
@@ -50,6 +55,12 @@ namespace Sdx
     }
 
     std::string SetTransmitMessage2InSbasMessage0::documentation() const { return Documentation; }
+
+    const std::vector<std::string>& SetTransmitMessage2InSbasMessage0::fieldNames() const 
+    { 
+      static const std::vector<std::string> names {"TransmitMessage2"}; 
+      return names; 
+    }
 
 
     int SetTransmitMessage2InSbasMessage0::executePermission() const

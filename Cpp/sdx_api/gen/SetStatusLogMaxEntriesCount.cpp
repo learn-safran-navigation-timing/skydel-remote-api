@@ -1,8 +1,7 @@
 
-#include "gen/SetStatusLogMaxEntriesCount.h"
+#include "SetStatusLogMaxEntriesCount.h"
 
 #include "command_factory.h"
-#include "command_result_factory.h"
 #include "parse_json.hpp"
 
 ///
@@ -14,17 +13,23 @@ namespace Sdx
   namespace Cmd
   {
     const char* const SetStatusLogMaxEntriesCount::CmdName = "SetStatusLogMaxEntriesCount";
-    const char* const SetStatusLogMaxEntriesCount::Documentation = "When SetStatusLogMaxEntriesCountMode is set to \"Custom\", this commands sets the maximum number of entries in the Status Log. Default value is 1000 entries.";
+    const char* const SetStatusLogMaxEntriesCount::Documentation = "When SetStatusLogMaxEntriesCountMode is set to \"Custom\", this commands sets the maximum number of entries in the Status Log. Default value is 1000 entries.\n"
+      "\n"
+      "Name     Type Description\n"
+      "-------- ---- --------------------------\n"
+      "MaxCount int  Maximum number of entries.";
+    const char* const SetStatusLogMaxEntriesCount::TargetId = "";
 
-    REGISTER_COMMAND_FACTORY(SetStatusLogMaxEntriesCount);
+    REGISTER_COMMAND_TO_FACTORY_DECL(SetStatusLogMaxEntriesCount);
+    REGISTER_COMMAND_TO_FACTORY_IMPL(SetStatusLogMaxEntriesCount);
 
 
     SetStatusLogMaxEntriesCount::SetStatusLogMaxEntriesCount()
-      : CommandBase(CmdName)
+      : CommandBase(CmdName, TargetId)
     {}
 
     SetStatusLogMaxEntriesCount::SetStatusLogMaxEntriesCount(int maxCount)
-      : CommandBase(CmdName)
+      : CommandBase(CmdName, TargetId)
     {
 
       setMaxCount(maxCount);
@@ -50,6 +55,12 @@ namespace Sdx
     }
 
     std::string SetStatusLogMaxEntriesCount::documentation() const { return Documentation; }
+
+    const std::vector<std::string>& SetStatusLogMaxEntriesCount::fieldNames() const 
+    { 
+      static const std::vector<std::string> names {"MaxCount"}; 
+      return names; 
+    }
 
 
     int SetStatusLogMaxEntriesCount::executePermission() const

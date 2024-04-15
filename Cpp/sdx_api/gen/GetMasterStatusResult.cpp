@@ -1,8 +1,7 @@
 
-#include "gen/GetMasterStatusResult.h"
+#include "GetMasterStatusResult.h"
 
 #include "command_factory.h"
-#include "command_result_factory.h"
 #include "parse_json.hpp"
 
 ///
@@ -14,17 +13,24 @@ namespace Sdx
   namespace Cmd
   {
     const char* const GetMasterStatusResult::CmdName = "GetMasterStatusResult";
-    const char* const GetMasterStatusResult::Documentation = "Result of GetMasterStatus.";
+    const char* const GetMasterStatusResult::Documentation = "Result of GetMasterStatus.\n"
+      "\n"
+      "Name           Type Description\n"
+      "-------------- ---- -------------------------------------\n"
+      "IsMaster       bool True if Skydel is in master mode\n"
+      "SlaveConnected int  The number of connected slaves\n"
+      "Port           int  The listening port, 0 if not a master";
+    const char* const GetMasterStatusResult::TargetId = "";
 
-    REGISTER_COMMAND_RESULT_TO_FACTORY_IMPL(GetMasterStatusResult);
+    REGISTER_COMMAND_TO_FACTORY_IMPL(GetMasterStatusResult);
 
 
     GetMasterStatusResult::GetMasterStatusResult()
-      : CommandResult(CmdName)
+      : CommandResult(CmdName, TargetId)
     {}
 
     GetMasterStatusResult::GetMasterStatusResult(bool isMaster, int slaveConnected, int port)
-      : CommandResult(CmdName)
+      : CommandResult(CmdName, TargetId)
     {
 
       setIsMaster(isMaster);
@@ -33,7 +39,7 @@ namespace Sdx
     }
 
     GetMasterStatusResult::GetMasterStatusResult(CommandBasePtr relatedCommand, bool isMaster, int slaveConnected, int port)
-      : CommandResult(CmdName, relatedCommand)
+      : CommandResult(CmdName, TargetId, relatedCommand)
     {
 
       setIsMaster(isMaster);
@@ -69,6 +75,12 @@ namespace Sdx
     }
 
     std::string GetMasterStatusResult::documentation() const { return Documentation; }
+
+    const std::vector<std::string>& GetMasterStatusResult::fieldNames() const 
+    { 
+      static const std::vector<std::string> names {"IsMaster", "SlaveConnected", "Port"}; 
+      return names; 
+    }
 
 
     bool GetMasterStatusResult::isMaster() const

@@ -1,8 +1,7 @@
 
-#include "gen/SetRawDataLoggingInterval.h"
+#include "SetRawDataLoggingInterval.h"
 
 #include "command_factory.h"
-#include "command_result_factory.h"
 #include "parse_json.hpp"
 
 ///
@@ -14,17 +13,27 @@ namespace Sdx
   namespace Cmd
   {
     const char* const SetRawDataLoggingInterval::CmdName = "SetRawDataLoggingInterval";
-    const char* const SetRawDataLoggingInterval::Documentation = "Set the time interval of the Raw Data logging.";
+    const char* const SetRawDataLoggingInterval::Documentation = "Set the time interval of the Raw Data logging.\n"
+      "\n"
+      "Name         Type Description\n"
+      "------------ ---- -------------------------\n"
+      "Days         int  Interval in days.\n"
+      "Hours        int  Interval in hours.\n"
+      "Minutes      int  Interval in minutes.\n"
+      "Seconds      int  Interval in seconds.\n"
+      "Milliseconds int  Interval in milliseconds.";
+    const char* const SetRawDataLoggingInterval::TargetId = "";
 
-    REGISTER_COMMAND_FACTORY(SetRawDataLoggingInterval);
+    REGISTER_COMMAND_TO_FACTORY_DECL(SetRawDataLoggingInterval);
+    REGISTER_COMMAND_TO_FACTORY_IMPL(SetRawDataLoggingInterval);
 
 
     SetRawDataLoggingInterval::SetRawDataLoggingInterval()
-      : CommandBase(CmdName)
+      : CommandBase(CmdName, TargetId)
     {}
 
     SetRawDataLoggingInterval::SetRawDataLoggingInterval(int days, int hours, int minutes, int seconds, int milliseconds)
-      : CommandBase(CmdName)
+      : CommandBase(CmdName, TargetId)
     {
 
       setDays(days);
@@ -58,6 +67,12 @@ namespace Sdx
     }
 
     std::string SetRawDataLoggingInterval::documentation() const { return Documentation; }
+
+    const std::vector<std::string>& SetRawDataLoggingInterval::fieldNames() const 
+    { 
+      static const std::vector<std::string> names {"Days", "Hours", "Minutes", "Seconds", "Milliseconds"}; 
+      return names; 
+    }
 
 
     int SetRawDataLoggingInterval::executePermission() const

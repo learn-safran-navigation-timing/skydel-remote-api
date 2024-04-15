@@ -1,8 +1,7 @@
 
-#include "gen/EnableLogHILInput.h"
+#include "EnableLogHILInput.h"
 
 #include "command_factory.h"
-#include "command_result_factory.h"
 #include "parse_json.hpp"
 
 ///
@@ -14,17 +13,23 @@ namespace Sdx
   namespace Cmd
   {
     const char* const EnableLogHILInput::CmdName = "EnableLogHILInput";
-    const char* const EnableLogHILInput::Documentation = "Enable (or disable) log of all the data received on the HIL API in a CSV format";
+    const char* const EnableLogHILInput::Documentation = "Enable (or disable) log of all the data received on the HIL API in a CSV format\n"
+      "\n"
+      "Name    Type Description\n"
+      "------- ---- ------------------------------------------------\n"
+      "Enabled bool If true, files will be created during simulation";
+    const char* const EnableLogHILInput::TargetId = "";
 
-    REGISTER_COMMAND_FACTORY(EnableLogHILInput);
+    REGISTER_COMMAND_TO_FACTORY_DECL(EnableLogHILInput);
+    REGISTER_COMMAND_TO_FACTORY_IMPL(EnableLogHILInput);
 
 
     EnableLogHILInput::EnableLogHILInput()
-      : CommandBase(CmdName)
+      : CommandBase(CmdName, TargetId)
     {}
 
     EnableLogHILInput::EnableLogHILInput(bool enabled)
-      : CommandBase(CmdName)
+      : CommandBase(CmdName, TargetId)
     {
 
       setEnabled(enabled);
@@ -50,6 +55,12 @@ namespace Sdx
     }
 
     std::string EnableLogHILInput::documentation() const { return Documentation; }
+
+    const std::vector<std::string>& EnableLogHILInput::fieldNames() const 
+    { 
+      static const std::vector<std::string> names {"Enabled"}; 
+      return names; 
+    }
 
 
     int EnableLogHILInput::executePermission() const

@@ -13,9 +13,9 @@ namespace Sdx
     /// Export a space vehicle antenna model in a XML file.
     ///
     /// Name        Type   Description
-    /// ----------- ------ ----------------------------------------------------------------
+    /// ----------- ------ --------------------------------------------------------------------------
     /// AntennaName string SV antenna model name
-    /// System      string "GPS", "GLONASS", "Galileo", "BeiDou", "SBAS", "QZSS" or "NavIC"
+    /// System      string "GPS", "GLONASS", "Galileo", "BeiDou", "SBAS", "QZSS", "NavIC" or "PULSAR"
     /// FilePath    string The antenna model will be exported in this file path.
     /// Overwriting bool   Overwrite the old file if true.
     ///
@@ -29,6 +29,7 @@ namespace Sdx
     public:
       static const char* const CmdName;
       static const char* const Documentation;
+      static const char* const TargetId;
 
 
       ExportSVAntennaModel();
@@ -39,6 +40,7 @@ namespace Sdx
       static ExportSVAntennaModelPtr dynamicCast(CommandBasePtr ptr);
       virtual bool isValid() const override;
       virtual std::string documentation() const override;
+      virtual const std::vector<std::string>& fieldNames() const override;
 
       virtual int executePermission() const override;
 

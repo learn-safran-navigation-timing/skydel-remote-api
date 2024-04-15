@@ -1,8 +1,7 @@
 
-#include "gen/SetSpoofTxCircular.h"
+#include "SetSpoofTxCircular.h"
 
 #include "command_factory.h"
-#include "command_result_factory.h"
 #include "parse_json.hpp"
 
 ///
@@ -14,17 +13,30 @@ namespace Sdx
   namespace Cmd
   {
     const char* const SetSpoofTxCircular::CmdName = "SetSpoofTxCircular";
-    const char* const SetSpoofTxCircular::Documentation = "Set spoofer transmitter circular trajectory";
+    const char* const SetSpoofTxCircular::Documentation = "Set spoofer transmitter circular trajectory\n"
+      "\n"
+      "Name        Type            Description\n"
+      "----------- --------------- --------------------------------\n"
+      "Lat         double          Center latitude (rad)\n"
+      "Lon         double          Center longitude (rad)\n"
+      "Alt         double          Altitude (m)\n"
+      "Radius      double          Radius (m)\n"
+      "Speed       double          Speed (m/s)\n"
+      "Clockwise   bool            If true, vehicle turns clockwise\n"
+      "Id          string          Transmitter unique identifier.\n"
+      "OriginAngle optional double Vehicle angle at elapsed time 0.";
+    const char* const SetSpoofTxCircular::TargetId = "";
 
-    REGISTER_COMMAND_FACTORY(SetSpoofTxCircular);
+    REGISTER_COMMAND_TO_FACTORY_DECL(SetSpoofTxCircular);
+    REGISTER_COMMAND_TO_FACTORY_IMPL(SetSpoofTxCircular);
 
 
     SetSpoofTxCircular::SetSpoofTxCircular()
-      : CommandBase(CmdName)
+      : CommandBase(CmdName, TargetId)
     {}
 
     SetSpoofTxCircular::SetSpoofTxCircular(double lat, double lon, double alt, double radius, double speed, bool clockwise, const std::string& id, const Sdx::optional<double>& originAngle)
-      : CommandBase(CmdName)
+      : CommandBase(CmdName, TargetId)
     {
 
       setLat(lat);
@@ -64,6 +76,12 @@ namespace Sdx
     }
 
     std::string SetSpoofTxCircular::documentation() const { return Documentation; }
+
+    const std::vector<std::string>& SetSpoofTxCircular::fieldNames() const 
+    { 
+      static const std::vector<std::string> names {"Lat", "Lon", "Alt", "Radius", "Speed", "Clockwise", "Id", "OriginAngle"}; 
+      return names; 
+    }
 
 
     int SetSpoofTxCircular::executePermission() const

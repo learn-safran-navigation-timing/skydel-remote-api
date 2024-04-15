@@ -1,8 +1,7 @@
 
-#include "gen/SetSatMotionFixed.h"
+#include "SetSatMotionFixed.h"
 
 #include "command_factory.h"
-#include "command_result_factory.h"
 #include "parse_json.hpp"
 
 ///
@@ -14,17 +13,25 @@ namespace Sdx
   namespace Cmd
   {
     const char* const SetSatMotionFixed::CmdName = "SetSatMotionFixed";
-    const char* const SetSatMotionFixed::Documentation = "If IsFixed is set to true, the satellite will not move during the simulation and keep its initial position calculated at the beginning of the simulation.";
+    const char* const SetSatMotionFixed::Documentation = "If IsFixed is set to true, the satellite will not move during the simulation and keep its initial position calculated at the beginning of the simulation.\n"
+      "\n"
+      "Name    Type   Description\n"
+      "------- ------ --------------------------------------------------------------------------------------------------------------\n"
+      "System  string \"GPS\", \"Galileo\", \"BeiDou\", \"QZSS\", \"NavIC\" or \"PULSAR\"\n"
+      "SvId    int    The satellite's SV ID.\n"
+      "IsFixed bool   If true, the satellite relative position is fixed, if false, the satellite motion follows a normal trajectory.";
+    const char* const SetSatMotionFixed::TargetId = "";
 
-    REGISTER_COMMAND_FACTORY(SetSatMotionFixed);
+    REGISTER_COMMAND_TO_FACTORY_DECL(SetSatMotionFixed);
+    REGISTER_COMMAND_TO_FACTORY_IMPL(SetSatMotionFixed);
 
 
     SetSatMotionFixed::SetSatMotionFixed()
-      : CommandBase(CmdName)
+      : CommandBase(CmdName, TargetId)
     {}
 
     SetSatMotionFixed::SetSatMotionFixed(const std::string& system, int svId, bool isFixed)
-      : CommandBase(CmdName)
+      : CommandBase(CmdName, TargetId)
     {
 
       setSystem(system);
@@ -54,6 +61,12 @@ namespace Sdx
     }
 
     std::string SetSatMotionFixed::documentation() const { return Documentation; }
+
+    const std::vector<std::string>& SetSatMotionFixed::fieldNames() const 
+    { 
+      static const std::vector<std::string> names {"System", "SvId", "IsFixed"}; 
+      return names; 
+    }
 
 
     int SetSatMotionFixed::executePermission() const

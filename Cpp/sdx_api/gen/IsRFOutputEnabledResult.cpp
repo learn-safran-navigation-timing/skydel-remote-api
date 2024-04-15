@@ -1,8 +1,7 @@
 
-#include "gen/IsRFOutputEnabledResult.h"
+#include "IsRFOutputEnabledResult.h"
 
 #include "command_factory.h"
-#include "command_result_factory.h"
 #include "parse_json.hpp"
 
 ///
@@ -14,17 +13,24 @@ namespace Sdx
   namespace Cmd
   {
     const char* const IsRFOutputEnabledResult::CmdName = "IsRFOutputEnabledResult";
-    const char* const IsRFOutputEnabledResult::Documentation = "Result of IsRFOutputEnabled.";
+    const char* const IsRFOutputEnabledResult::Documentation = "Result of IsRFOutputEnabled.\n"
+      "\n"
+      "Name    Type   Description\n"
+      "------- ------ --------------------------------------------------------------------------\n"
+      "System  string \"GPS\", \"GLONASS\", \"Galileo\", \"BeiDou\", \"SBAS\", \"QZSS\", \"NavIC\" or \"PULSAR\"\n"
+      "SvId    int    The satellite's SV ID\n"
+      "Enabled bool   RF is enabled when value is True";
+    const char* const IsRFOutputEnabledResult::TargetId = "";
 
-    REGISTER_COMMAND_RESULT_TO_FACTORY_IMPL(IsRFOutputEnabledResult);
+    REGISTER_COMMAND_TO_FACTORY_IMPL(IsRFOutputEnabledResult);
 
 
     IsRFOutputEnabledResult::IsRFOutputEnabledResult()
-      : CommandResult(CmdName)
+      : CommandResult(CmdName, TargetId)
     {}
 
     IsRFOutputEnabledResult::IsRFOutputEnabledResult(const std::string& system, int svId, bool enabled)
-      : CommandResult(CmdName)
+      : CommandResult(CmdName, TargetId)
     {
 
       setSystem(system);
@@ -33,7 +39,7 @@ namespace Sdx
     }
 
     IsRFOutputEnabledResult::IsRFOutputEnabledResult(CommandBasePtr relatedCommand, const std::string& system, int svId, bool enabled)
-      : CommandResult(CmdName, relatedCommand)
+      : CommandResult(CmdName, TargetId, relatedCommand)
     {
 
       setSystem(system);
@@ -69,6 +75,12 @@ namespace Sdx
     }
 
     std::string IsRFOutputEnabledResult::documentation() const { return Documentation; }
+
+    const std::vector<std::string>& IsRFOutputEnabledResult::fieldNames() const 
+    { 
+      static const std::vector<std::string> names {"System", "SvId", "Enabled"}; 
+      return names; 
+    }
 
 
     std::string IsRFOutputEnabledResult::system() const

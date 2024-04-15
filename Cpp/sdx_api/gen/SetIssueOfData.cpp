@@ -1,8 +1,7 @@
 
-#include "gen/SetIssueOfData.h"
+#include "SetIssueOfData.h"
 
 #include "command_factory.h"
-#include "command_result_factory.h"
 #include "parse_json.hpp"
 
 ///
@@ -14,17 +13,25 @@ namespace Sdx
   namespace Cmd
   {
     const char* const SetIssueOfData::CmdName = "SetIssueOfData";
-    const char* const SetIssueOfData::Documentation = "Set GPS Issue of data, Ephemeris (IODE) and Issue of data, Clock (IODC)";
+    const char* const SetIssueOfData::Documentation = "Set GPS Issue of data, Ephemeris (IODE) and Issue of data, Clock (IODC)\n"
+      "\n"
+      "Name          Type          Description\n"
+      "------------- ------------- ---------------------------------------------------\n"
+      "Clock         int           Issue of data, clock\n"
+      "Ephemeris     int           Issue of data, ephemeris\n"
+      "OverrideRinex optional bool If the IOD overrides the RINEX IOD, default is True";
+    const char* const SetIssueOfData::TargetId = "";
 
-    REGISTER_COMMAND_FACTORY(SetIssueOfData);
+    REGISTER_COMMAND_TO_FACTORY_DECL(SetIssueOfData);
+    REGISTER_COMMAND_TO_FACTORY_IMPL(SetIssueOfData);
 
 
     SetIssueOfData::SetIssueOfData()
-      : CommandBase(CmdName)
+      : CommandBase(CmdName, TargetId)
     {}
 
     SetIssueOfData::SetIssueOfData(int clock, int ephemeris, const Sdx::optional<bool>& overrideRinex)
-      : CommandBase(CmdName)
+      : CommandBase(CmdName, TargetId)
     {
 
       setClock(clock);
@@ -54,6 +61,12 @@ namespace Sdx
     }
 
     std::string SetIssueOfData::documentation() const { return Documentation; }
+
+    const std::vector<std::string>& SetIssueOfData::fieldNames() const 
+    { 
+      static const std::vector<std::string> names {"Clock", "Ephemeris", "OverrideRinex"}; 
+      return names; 
+    }
 
 
     int SetIssueOfData::executePermission() const

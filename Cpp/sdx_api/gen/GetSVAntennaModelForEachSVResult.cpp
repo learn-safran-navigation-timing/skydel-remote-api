@@ -1,8 +1,7 @@
 
-#include "gen/GetSVAntennaModelForEachSVResult.h"
+#include "GetSVAntennaModelForEachSVResult.h"
 
 #include "command_factory.h"
-#include "command_result_factory.h"
 #include "parse_json.hpp"
 
 ///
@@ -14,17 +13,23 @@ namespace Sdx
   namespace Cmd
   {
     const char* const GetSVAntennaModelForEachSVResult::CmdName = "GetSVAntennaModelForEachSVResult";
-    const char* const GetSVAntennaModelForEachSVResult::Documentation = "Result of GetSVAntennaModelForEachSV.";
+    const char* const GetSVAntennaModelForEachSVResult::Documentation = "Result of GetSVAntennaModelForEachSV.\n"
+      "\n"
+      "Name              Type         Description\n"
+      "----------------- ------------ -----------------------------------------------------------------------------------------------------\n"
+      "System            string       \"GPS\", \"GLONASS\", \"Galileo\", \"BeiDou\", \"SBAS\", \"QZSS\", \"NavIC\" or \"PULSAR\"\n"
+      "AntennaModelNames array string Antenna model name for each satellite. Zero based index (index 0 => SV ID 1, index 1 => SV ID 2, etc)";
+    const char* const GetSVAntennaModelForEachSVResult::TargetId = "";
 
-    REGISTER_COMMAND_RESULT_TO_FACTORY_IMPL(GetSVAntennaModelForEachSVResult);
+    REGISTER_COMMAND_TO_FACTORY_IMPL(GetSVAntennaModelForEachSVResult);
 
 
     GetSVAntennaModelForEachSVResult::GetSVAntennaModelForEachSVResult()
-      : CommandResult(CmdName)
+      : CommandResult(CmdName, TargetId)
     {}
 
     GetSVAntennaModelForEachSVResult::GetSVAntennaModelForEachSVResult(const std::string& system, const std::vector<std::string>& antennaModelNames)
-      : CommandResult(CmdName)
+      : CommandResult(CmdName, TargetId)
     {
 
       setSystem(system);
@@ -32,7 +37,7 @@ namespace Sdx
     }
 
     GetSVAntennaModelForEachSVResult::GetSVAntennaModelForEachSVResult(CommandBasePtr relatedCommand, const std::string& system, const std::vector<std::string>& antennaModelNames)
-      : CommandResult(CmdName, relatedCommand)
+      : CommandResult(CmdName, TargetId, relatedCommand)
     {
 
       setSystem(system);
@@ -66,6 +71,12 @@ namespace Sdx
     }
 
     std::string GetSVAntennaModelForEachSVResult::documentation() const { return Documentation; }
+
+    const std::vector<std::string>& GetSVAntennaModelForEachSVResult::fieldNames() const 
+    { 
+      static const std::vector<std::string> names {"System", "AntennaModelNames"}; 
+      return names; 
+    }
 
 
     std::string GetSVAntennaModelForEachSVResult::system() const

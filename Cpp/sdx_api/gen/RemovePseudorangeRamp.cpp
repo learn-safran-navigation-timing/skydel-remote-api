@@ -1,8 +1,7 @@
 
-#include "gen/RemovePseudorangeRamp.h"
+#include "RemovePseudorangeRamp.h"
 
 #include "command_factory.h"
-#include "command_result_factory.h"
 #include "parse_json.hpp"
 
 ///
@@ -14,17 +13,25 @@ namespace Sdx
   namespace Cmd
   {
     const char* const RemovePseudorangeRamp::CmdName = "RemovePseudorangeRamp";
-    const char* const RemovePseudorangeRamp::Documentation = "Removes a PSR ramp events. When adding an event, the simulator\nsets the Id parameter. Use that Id here to remove the associated ramp.";
+    const char* const RemovePseudorangeRamp::Documentation = "Removes a PSR ramp events. When adding an event, the simulator\n"
+      "sets the Id parameter. Use that Id here to remove the associated ramp.\n"
+      "\n"
+      "Name   Type   Description\n"
+      "------ ------ --------------------------------------------------------------------------\n"
+      "System string \"GPS\", \"GLONASS\", \"Galileo\", \"BeiDou\", \"SBAS\", \"QZSS\", \"NavIC\" or \"PULSAR\"\n"
+      "Id     string Unique identifier of the PSR ramp to remove.";
+    const char* const RemovePseudorangeRamp::TargetId = "";
 
-    REGISTER_COMMAND_FACTORY(RemovePseudorangeRamp);
+    REGISTER_COMMAND_TO_FACTORY_DECL(RemovePseudorangeRamp);
+    REGISTER_COMMAND_TO_FACTORY_IMPL(RemovePseudorangeRamp);
 
 
     RemovePseudorangeRamp::RemovePseudorangeRamp()
-      : CommandBase(CmdName)
+      : CommandBase(CmdName, TargetId)
     {}
 
     RemovePseudorangeRamp::RemovePseudorangeRamp(const std::string& system, const std::string& id)
-      : CommandBase(CmdName)
+      : CommandBase(CmdName, TargetId)
     {
 
       setSystem(system);
@@ -52,6 +59,12 @@ namespace Sdx
     }
 
     std::string RemovePseudorangeRamp::documentation() const { return Documentation; }
+
+    const std::vector<std::string>& RemovePseudorangeRamp::fieldNames() const 
+    { 
+      static const std::vector<std::string> names {"System", "Id"}; 
+      return names; 
+    }
 
 
     int RemovePseudorangeRamp::executePermission() const

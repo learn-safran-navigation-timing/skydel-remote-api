@@ -1,8 +1,7 @@
 
-#include "gen/GetMessageModificationToGpsLNavResult.h"
+#include "GetMessageModificationToGpsLNavResult.h"
 
 #include "command_factory.h"
-#include "command_result_factory.h"
 #include "parse_json.hpp"
 
 ///
@@ -14,17 +13,31 @@ namespace Sdx
   namespace Cmd
   {
     const char* const GetMessageModificationToGpsLNavResult::CmdName = "GetMessageModificationToGpsLNavResult";
-    const char* const GetMessageModificationToGpsLNavResult::Documentation = "Result of GetMessageModificationToGpsLNav.";
+    const char* const GetMessageModificationToGpsLNavResult::Documentation = "Result of GetMessageModificationToGpsLNav.\n"
+      "\n"
+      "Name             Type         Description\n"
+      "---------------- ------------ ------------------------------------------------------------------------------------------------------\n"
+      "SignalArray      array string Array of signals to apply the message modification to, accepts \"L1CA\", \"L1P\" and \"L2P\" (empty for all)\n"
+      "SvId             int          The satellite's SV ID 1..32 (use 0 to apply modification to all SVs)\n"
+      "StartTime        int          Elapsed time in seconds since start of simulation\n"
+      "StopTime         int          Elapsed time in seconds since start of simulation (use 0 for no stop time)\n"
+      "Subframe         int          Subframe 1..5 (use 0 to apply modification to all subframes)\n"
+      "Page             int          Page 1..25 (use 0 to apply modification to all pages)\n"
+      "Word             int          Word 1..10 (use 0 to apply modification to all words)\n"
+      "UpdateParity     bool         Recalculate parity after making modification\n"
+      "WordModification string       Modification string must be 30 bits long\n"
+      "Id               string       Unique identifier of the event";
+    const char* const GetMessageModificationToGpsLNavResult::TargetId = "";
 
-    REGISTER_COMMAND_RESULT_TO_FACTORY_IMPL(GetMessageModificationToGpsLNavResult);
+    REGISTER_COMMAND_TO_FACTORY_IMPL(GetMessageModificationToGpsLNavResult);
 
 
     GetMessageModificationToGpsLNavResult::GetMessageModificationToGpsLNavResult()
-      : CommandResult(CmdName)
+      : CommandResult(CmdName, TargetId)
     {}
 
     GetMessageModificationToGpsLNavResult::GetMessageModificationToGpsLNavResult(const std::vector<std::string>& signalArray, int svId, int startTime, int stopTime, int subframe, int page, int word, bool updateParity, const std::string& wordModification, const std::string& id)
-      : CommandResult(CmdName)
+      : CommandResult(CmdName, TargetId)
     {
 
       setSignalArray(signalArray);
@@ -40,7 +53,7 @@ namespace Sdx
     }
 
     GetMessageModificationToGpsLNavResult::GetMessageModificationToGpsLNavResult(CommandBasePtr relatedCommand, const std::vector<std::string>& signalArray, int svId, int startTime, int stopTime, int subframe, int page, int word, bool updateParity, const std::string& wordModification, const std::string& id)
-      : CommandResult(CmdName, relatedCommand)
+      : CommandResult(CmdName, TargetId, relatedCommand)
     {
 
       setSignalArray(signalArray);
@@ -90,6 +103,12 @@ namespace Sdx
     }
 
     std::string GetMessageModificationToGpsLNavResult::documentation() const { return Documentation; }
+
+    const std::vector<std::string>& GetMessageModificationToGpsLNavResult::fieldNames() const 
+    { 
+      static const std::vector<std::string> names {"SignalArray", "SvId", "StartTime", "StopTime", "Subframe", "Page", "Word", "UpdateParity", "WordModification", "Id"}; 
+      return names; 
+    }
 
 
     std::vector<std::string> GetMessageModificationToGpsLNavResult::signalArray() const

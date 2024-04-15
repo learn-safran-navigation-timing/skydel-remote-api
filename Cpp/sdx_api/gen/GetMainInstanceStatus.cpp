@@ -1,8 +1,7 @@
 
-#include "gen/GetMainInstanceStatus.h"
+#include "GetMainInstanceStatus.h"
 
 #include "command_factory.h"
-#include "command_result_factory.h"
 #include "parse_json.hpp"
 
 ///
@@ -15,12 +14,14 @@ namespace Sdx
   {
     const char* const GetMainInstanceStatus::CmdName = "GetMainInstanceStatus";
     const char* const GetMainInstanceStatus::Documentation = "Request for the main instance status, returns a GetMainInstanceStatusResult";
+    const char* const GetMainInstanceStatus::TargetId = "";
 
-    REGISTER_COMMAND_FACTORY(GetMainInstanceStatus);
+    REGISTER_COMMAND_TO_FACTORY_DECL(GetMainInstanceStatus);
+    REGISTER_COMMAND_TO_FACTORY_IMPL(GetMainInstanceStatus);
 
 
     GetMainInstanceStatus::GetMainInstanceStatus()
-      : CommandBase(CmdName)
+      : CommandBase(CmdName, TargetId)
     {
 
     }
@@ -44,6 +45,12 @@ namespace Sdx
     }
 
     std::string GetMainInstanceStatus::documentation() const { return Documentation; }
+
+    const std::vector<std::string>& GetMainInstanceStatus::fieldNames() const 
+    { 
+      static const std::vector<std::string> names {}; 
+      return names; 
+    }
 
 
     int GetMainInstanceStatus::executePermission() const

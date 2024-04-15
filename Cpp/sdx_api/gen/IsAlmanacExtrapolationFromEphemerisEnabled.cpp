@@ -1,8 +1,7 @@
 
-#include "gen/IsAlmanacExtrapolationFromEphemerisEnabled.h"
+#include "IsAlmanacExtrapolationFromEphemerisEnabled.h"
 
 #include "command_factory.h"
-#include "command_result_factory.h"
 #include "parse_json.hpp"
 
 ///
@@ -15,12 +14,14 @@ namespace Sdx
   {
     const char* const IsAlmanacExtrapolationFromEphemerisEnabled::CmdName = "IsAlmanacExtrapolationFromEphemerisEnabled";
     const char* const IsAlmanacExtrapolationFromEphemerisEnabled::Documentation = "Get state of almanac extrapolation from ephemeris in Dynamic SV data.";
+    const char* const IsAlmanacExtrapolationFromEphemerisEnabled::TargetId = "";
 
-    REGISTER_COMMAND_FACTORY(IsAlmanacExtrapolationFromEphemerisEnabled);
+    REGISTER_COMMAND_TO_FACTORY_DECL(IsAlmanacExtrapolationFromEphemerisEnabled);
+    REGISTER_COMMAND_TO_FACTORY_IMPL(IsAlmanacExtrapolationFromEphemerisEnabled);
 
 
     IsAlmanacExtrapolationFromEphemerisEnabled::IsAlmanacExtrapolationFromEphemerisEnabled()
-      : CommandBase(CmdName)
+      : CommandBase(CmdName, TargetId)
     {
 
     }
@@ -44,6 +45,12 @@ namespace Sdx
     }
 
     std::string IsAlmanacExtrapolationFromEphemerisEnabled::documentation() const { return Documentation; }
+
+    const std::vector<std::string>& IsAlmanacExtrapolationFromEphemerisEnabled::fieldNames() const 
+    { 
+      static const std::vector<std::string> names {}; 
+      return names; 
+    }
 
 
     int IsAlmanacExtrapolationFromEphemerisEnabled::executePermission() const

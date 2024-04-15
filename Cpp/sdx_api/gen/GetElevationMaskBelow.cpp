@@ -1,8 +1,7 @@
 
-#include "gen/GetElevationMaskBelow.h"
+#include "GetElevationMaskBelow.h"
 
 #include "command_factory.h"
-#include "command_result_factory.h"
 #include "parse_json.hpp"
 
 ///
@@ -15,12 +14,14 @@ namespace Sdx
   {
     const char* const GetElevationMaskBelow::CmdName = "GetElevationMaskBelow";
     const char* const GetElevationMaskBelow::Documentation = "Get elevation mask angle. See command EnableElevationMaskBelow";
+    const char* const GetElevationMaskBelow::TargetId = "";
 
-    REGISTER_COMMAND_FACTORY(GetElevationMaskBelow);
+    REGISTER_COMMAND_TO_FACTORY_DECL(GetElevationMaskBelow);
+    REGISTER_COMMAND_TO_FACTORY_IMPL(GetElevationMaskBelow);
 
 
     GetElevationMaskBelow::GetElevationMaskBelow()
-      : CommandBase(CmdName)
+      : CommandBase(CmdName, TargetId)
     {
 
     }
@@ -44,6 +45,12 @@ namespace Sdx
     }
 
     std::string GetElevationMaskBelow::documentation() const { return Documentation; }
+
+    const std::vector<std::string>& GetElevationMaskBelow::fieldNames() const 
+    { 
+      static const std::vector<std::string> names {}; 
+      return names; 
+    }
 
 
     int GetElevationMaskBelow::executePermission() const

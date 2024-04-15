@@ -1,8 +1,7 @@
 
-#include "gen/GetWFAntennaElementPhasePatternOffset.h"
+#include "GetWFAntennaElementPhasePatternOffset.h"
 
 #include "command_factory.h"
-#include "command_result_factory.h"
 #include "parse_json.hpp"
 
 ///
@@ -14,19 +13,27 @@ namespace Sdx
   namespace Cmd
   {
     const char* const GetWFAntennaElementPhasePatternOffset::CmdName = "GetWFAntennaElementPhasePatternOffset";
-    const char* const GetWFAntennaElementPhasePatternOffset::Documentation = "Please note the command GetWFAntennaElementPhasePatternOffset is deprecated since 23.11. You may use GetVehiclePhasePatternOffset.\n\nGet WF Antenna phase pattern offset (in rad) for this element";
+    const char* const GetWFAntennaElementPhasePatternOffset::Documentation = "Please note the command GetWFAntennaElementPhasePatternOffset is deprecated since 23.11. You may use GetVehiclePhasePatternOffset.\n"
+      "\n"
+      "Get WF Antenna phase pattern offset (in rad) for this element\n"
+      "\n"
+      "Name    Type Description\n"
+      "------- ---- ---------------------------------------\n"
+      "Element int  One-based index for element in antenna.";
+    const char* const GetWFAntennaElementPhasePatternOffset::TargetId = "";
 
     const char* const GetWFAntennaElementPhasePatternOffset::Deprecated = "Please note the command GetWFAntennaElementPhasePatternOffset is deprecated since 23.11. You may use GetVehiclePhasePatternOffset.";
 
-    REGISTER_COMMAND_FACTORY(GetWFAntennaElementPhasePatternOffset);
+    REGISTER_COMMAND_TO_FACTORY_DECL(GetWFAntennaElementPhasePatternOffset);
+    REGISTER_COMMAND_TO_FACTORY_IMPL(GetWFAntennaElementPhasePatternOffset);
 
 
     GetWFAntennaElementPhasePatternOffset::GetWFAntennaElementPhasePatternOffset()
-      : CommandBase(CmdName)
+      : CommandBase(CmdName, TargetId)
     {}
 
     GetWFAntennaElementPhasePatternOffset::GetWFAntennaElementPhasePatternOffset(int element)
-      : CommandBase(CmdName)
+      : CommandBase(CmdName, TargetId)
     {
 
       setElement(element);
@@ -52,6 +59,12 @@ namespace Sdx
     }
 
     std::string GetWFAntennaElementPhasePatternOffset::documentation() const { return Documentation; }
+
+    const std::vector<std::string>& GetWFAntennaElementPhasePatternOffset::fieldNames() const 
+    { 
+      static const std::vector<std::string> names {"Element"}; 
+      return names; 
+    }
 
     Sdx::optional<std::string> GetWFAntennaElementPhasePatternOffset::deprecated() const { return Sdx::optional<std::string>{Deprecated}; }
 

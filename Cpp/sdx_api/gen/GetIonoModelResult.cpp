@@ -1,8 +1,7 @@
 
-#include "gen/GetIonoModelResult.h"
+#include "GetIonoModelResult.h"
 
 #include "command_factory.h"
-#include "command_result_factory.h"
 #include "parse_json.hpp"
 
 ///
@@ -14,24 +13,29 @@ namespace Sdx
   namespace Cmd
   {
     const char* const GetIonoModelResult::CmdName = "GetIonoModelResult";
-    const char* const GetIonoModelResult::Documentation = "Result of GetIonoModel.";
+    const char* const GetIonoModelResult::Documentation = "Result of GetIonoModel.\n"
+      "\n"
+      "Name  Type   Description\n"
+      "----- ------ ------------------------------------------------------------------\n"
+      "Model string Ionospheric model (\"None\", \"Klobuchar\", \"Spacecraft\" or \"NeQuick\")";
+    const char* const GetIonoModelResult::TargetId = "";
 
-    REGISTER_COMMAND_RESULT_TO_FACTORY_IMPL(GetIonoModelResult);
+    REGISTER_COMMAND_TO_FACTORY_IMPL(GetIonoModelResult);
 
 
     GetIonoModelResult::GetIonoModelResult()
-      : CommandResult(CmdName)
+      : CommandResult(CmdName, TargetId)
     {}
 
     GetIonoModelResult::GetIonoModelResult(const std::string& model)
-      : CommandResult(CmdName)
+      : CommandResult(CmdName, TargetId)
     {
 
       setModel(model);
     }
 
     GetIonoModelResult::GetIonoModelResult(CommandBasePtr relatedCommand, const std::string& model)
-      : CommandResult(CmdName, relatedCommand)
+      : CommandResult(CmdName, TargetId, relatedCommand)
     {
 
       setModel(model);
@@ -63,6 +67,12 @@ namespace Sdx
     }
 
     std::string GetIonoModelResult::documentation() const { return Documentation; }
+
+    const std::vector<std::string>& GetIonoModelResult::fieldNames() const 
+    { 
+      static const std::vector<std::string> names {"Model"}; 
+      return names; 
+    }
 
 
     std::string GetIonoModelResult::model() const

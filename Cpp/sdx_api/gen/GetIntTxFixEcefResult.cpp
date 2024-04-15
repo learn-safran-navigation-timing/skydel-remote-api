@@ -1,8 +1,7 @@
 
-#include "gen/GetIntTxFixEcefResult.h"
+#include "GetIntTxFixEcefResult.h"
 
 #include "command_factory.h"
-#include "command_result_factory.h"
 #include "parse_json.hpp"
 
 ///
@@ -14,17 +13,28 @@ namespace Sdx
   namespace Cmd
   {
     const char* const GetIntTxFixEcefResult::CmdName = "GetIntTxFixEcefResult";
-    const char* const GetIntTxFixEcefResult::Documentation = "Result of GetIntTxFixEcef.";
+    const char* const GetIntTxFixEcefResult::Documentation = "Result of GetIntTxFixEcef.\n"
+      "\n"
+      "Name  Type   Description\n"
+      "----- ------ ------------------------------\n"
+      "X     double ECEF X (m)\n"
+      "Y     double ECEF Y (m)\n"
+      "Z     double ECEF Z (m)\n"
+      "Yaw   double Yaw (rad)\n"
+      "Pitch double Pitch (rad)\n"
+      "Roll  double Roll (rad)\n"
+      "Id    string Transmitter unique identifier.";
+    const char* const GetIntTxFixEcefResult::TargetId = "";
 
-    REGISTER_COMMAND_RESULT_TO_FACTORY_IMPL(GetIntTxFixEcefResult);
+    REGISTER_COMMAND_TO_FACTORY_IMPL(GetIntTxFixEcefResult);
 
 
     GetIntTxFixEcefResult::GetIntTxFixEcefResult()
-      : CommandResult(CmdName)
+      : CommandResult(CmdName, TargetId)
     {}
 
     GetIntTxFixEcefResult::GetIntTxFixEcefResult(double x, double y, double z, double yaw, double pitch, double roll, const std::string& id)
-      : CommandResult(CmdName)
+      : CommandResult(CmdName, TargetId)
     {
 
       setX(x);
@@ -37,7 +47,7 @@ namespace Sdx
     }
 
     GetIntTxFixEcefResult::GetIntTxFixEcefResult(CommandBasePtr relatedCommand, double x, double y, double z, double yaw, double pitch, double roll, const std::string& id)
-      : CommandResult(CmdName, relatedCommand)
+      : CommandResult(CmdName, TargetId, relatedCommand)
     {
 
       setX(x);
@@ -81,6 +91,12 @@ namespace Sdx
     }
 
     std::string GetIntTxFixEcefResult::documentation() const { return Documentation; }
+
+    const std::vector<std::string>& GetIntTxFixEcefResult::fieldNames() const 
+    { 
+      static const std::vector<std::string> names {"X", "Y", "Z", "Yaw", "Pitch", "Roll", "Id"}; 
+      return names; 
+    }
 
 
     double GetIntTxFixEcefResult::x() const

@@ -1,8 +1,7 @@
 
-#include "gen/RemoveAllInterferences.h"
+#include "RemoveAllInterferences.h"
 
 #include "command_factory.h"
-#include "command_result_factory.h"
 #include "parse_json.hpp"
 
 ///
@@ -15,12 +14,14 @@ namespace Sdx
   {
     const char* const RemoveAllInterferences::CmdName = "RemoveAllInterferences";
     const char* const RemoveAllInterferences::Documentation = "Clear all interferences";
+    const char* const RemoveAllInterferences::TargetId = "";
 
-    REGISTER_COMMAND_FACTORY(RemoveAllInterferences);
+    REGISTER_COMMAND_TO_FACTORY_DECL(RemoveAllInterferences);
+    REGISTER_COMMAND_TO_FACTORY_IMPL(RemoveAllInterferences);
 
 
     RemoveAllInterferences::RemoveAllInterferences()
-      : CommandBase(CmdName)
+      : CommandBase(CmdName, TargetId)
     {
 
     }
@@ -44,6 +45,12 @@ namespace Sdx
     }
 
     std::string RemoveAllInterferences::documentation() const { return Documentation; }
+
+    const std::vector<std::string>& RemoveAllInterferences::fieldNames() const 
+    { 
+      static const std::vector<std::string> names {}; 
+      return names; 
+    }
 
 
     int RemoveAllInterferences::executePermission() const

@@ -1,8 +1,7 @@
 
-#include "gen/IsSbasFastCorrectionsEnabledForResult.h"
+#include "IsSbasFastCorrectionsEnabledForResult.h"
 
 #include "command_factory.h"
-#include "command_result_factory.h"
 #include "parse_json.hpp"
 
 ///
@@ -14,17 +13,25 @@ namespace Sdx
   namespace Cmd
   {
     const char* const IsSbasFastCorrectionsEnabledForResult::CmdName = "IsSbasFastCorrectionsEnabledForResult";
-    const char* const IsSbasFastCorrectionsEnabledForResult::Documentation = "Result of IsSbasFastCorrectionsEnabledFor.";
+    const char* const IsSbasFastCorrectionsEnabledForResult::Documentation = "Result of IsSbasFastCorrectionsEnabledFor.\n"
+      "\n"
+      "Name      Type            Description\n"
+      "--------- --------------- ----------------------------------------------------------------------------------------------------\n"
+      "System    string          \"GPS\" or \"SBAS\"\n"
+      "IsEnabled bool            True if corrections are enabled\n"
+      "ErrorType optional string Comma separated error type to enable/disable. Accepted error types are \"PSR offset\" and \"PSR error\".\n"
+      "                          Default value is \"PSR error\". Getter only accepts one error type.";
+    const char* const IsSbasFastCorrectionsEnabledForResult::TargetId = "";
 
-    REGISTER_COMMAND_RESULT_TO_FACTORY_IMPL(IsSbasFastCorrectionsEnabledForResult);
+    REGISTER_COMMAND_TO_FACTORY_IMPL(IsSbasFastCorrectionsEnabledForResult);
 
 
     IsSbasFastCorrectionsEnabledForResult::IsSbasFastCorrectionsEnabledForResult()
-      : CommandResult(CmdName)
+      : CommandResult(CmdName, TargetId)
     {}
 
     IsSbasFastCorrectionsEnabledForResult::IsSbasFastCorrectionsEnabledForResult(const std::string& system, bool isEnabled, const Sdx::optional<std::string>& errorType)
-      : CommandResult(CmdName)
+      : CommandResult(CmdName, TargetId)
     {
 
       setSystem(system);
@@ -33,7 +40,7 @@ namespace Sdx
     }
 
     IsSbasFastCorrectionsEnabledForResult::IsSbasFastCorrectionsEnabledForResult(CommandBasePtr relatedCommand, const std::string& system, bool isEnabled, const Sdx::optional<std::string>& errorType)
-      : CommandResult(CmdName, relatedCommand)
+      : CommandResult(CmdName, TargetId, relatedCommand)
     {
 
       setSystem(system);
@@ -69,6 +76,12 @@ namespace Sdx
     }
 
     std::string IsSbasFastCorrectionsEnabledForResult::documentation() const { return Documentation; }
+
+    const std::vector<std::string>& IsSbasFastCorrectionsEnabledForResult::fieldNames() const 
+    { 
+      static const std::vector<std::string> names {"System", "IsEnabled", "ErrorType"}; 
+      return names; 
+    }
 
 
     std::string IsSbasFastCorrectionsEnabledForResult::system() const

@@ -1,8 +1,7 @@
 
-#include "gen/SetAgeOfDataBeiDou.h"
+#include "SetAgeOfDataBeiDou.h"
 
 #include "command_factory.h"
-#include "command_result_factory.h"
 #include "parse_json.hpp"
 
 ///
@@ -14,17 +13,25 @@ namespace Sdx
   namespace Cmd
   {
     const char* const SetAgeOfDataBeiDou::CmdName = "SetAgeOfDataBeiDou";
-    const char* const SetAgeOfDataBeiDou::Documentation = "Set BeiDou Age of data, Ephemeris (AODE) and Age of data, Clock (AODC)";
+    const char* const SetAgeOfDataBeiDou::Documentation = "Set BeiDou Age of data, Ephemeris (AODE) and Age of data, Clock (AODC)\n"
+      "\n"
+      "Name          Type          Description\n"
+      "------------- ------------- ---------------------------------------------------\n"
+      "Clock         int           Age of data, clock\n"
+      "Ephemeris     int           Age of data, ephemeris\n"
+      "OverrideRinex optional bool If the AOD overrides the RINEX AOD, default is True";
+    const char* const SetAgeOfDataBeiDou::TargetId = "";
 
-    REGISTER_COMMAND_FACTORY(SetAgeOfDataBeiDou);
+    REGISTER_COMMAND_TO_FACTORY_DECL(SetAgeOfDataBeiDou);
+    REGISTER_COMMAND_TO_FACTORY_IMPL(SetAgeOfDataBeiDou);
 
 
     SetAgeOfDataBeiDou::SetAgeOfDataBeiDou()
-      : CommandBase(CmdName)
+      : CommandBase(CmdName, TargetId)
     {}
 
     SetAgeOfDataBeiDou::SetAgeOfDataBeiDou(int clock, int ephemeris, const Sdx::optional<bool>& overrideRinex)
-      : CommandBase(CmdName)
+      : CommandBase(CmdName, TargetId)
     {
 
       setClock(clock);
@@ -54,6 +61,12 @@ namespace Sdx
     }
 
     std::string SetAgeOfDataBeiDou::documentation() const { return Documentation; }
+
+    const std::vector<std::string>& SetAgeOfDataBeiDou::fieldNames() const 
+    { 
+      static const std::vector<std::string> names {"Clock", "Ephemeris", "OverrideRinex"}; 
+      return names; 
+    }
 
 
     int SetAgeOfDataBeiDou::executePermission() const

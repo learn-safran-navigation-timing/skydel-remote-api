@@ -1,8 +1,7 @@
 
-#include "gen/SetIntTxVehicleType.h"
+#include "SetIntTxVehicleType.h"
 
 #include "command_factory.h"
-#include "command_result_factory.h"
 #include "parse_json.hpp"
 
 ///
@@ -14,17 +13,24 @@ namespace Sdx
   namespace Cmd
   {
     const char* const SetIntTxVehicleType::CmdName = "SetIntTxVehicleType";
-    const char* const SetIntTxVehicleType::Documentation = "Set Set interference vehicle type for Track Trajectory";
+    const char* const SetIntTxVehicleType::Documentation = "Set interference vehicle type for Track Trajectory.\n"
+      "\n"
+      "Name Type   Description\n"
+      "---- ------ -----------------------------------------------------------\n"
+      "Type string Vehicle type (\"Ground / Water\" or \"Airborne / Spaceborne\").\n"
+      "Id   string Transmitter unique identifier.";
+    const char* const SetIntTxVehicleType::TargetId = "";
 
-    REGISTER_COMMAND_FACTORY(SetIntTxVehicleType);
+    REGISTER_COMMAND_TO_FACTORY_DECL(SetIntTxVehicleType);
+    REGISTER_COMMAND_TO_FACTORY_IMPL(SetIntTxVehicleType);
 
 
     SetIntTxVehicleType::SetIntTxVehicleType()
-      : CommandBase(CmdName)
+      : CommandBase(CmdName, TargetId)
     {}
 
     SetIntTxVehicleType::SetIntTxVehicleType(const std::string& type, const std::string& id)
-      : CommandBase(CmdName)
+      : CommandBase(CmdName, TargetId)
     {
 
       setType(type);
@@ -52,6 +58,12 @@ namespace Sdx
     }
 
     std::string SetIntTxVehicleType::documentation() const { return Documentation; }
+
+    const std::vector<std::string>& SetIntTxVehicleType::fieldNames() const 
+    { 
+      static const std::vector<std::string> names {"Type", "Id"}; 
+      return names; 
+    }
 
 
     int SetIntTxVehicleType::executePermission() const

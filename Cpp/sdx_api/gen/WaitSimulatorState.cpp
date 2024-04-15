@@ -1,8 +1,7 @@
 
-#include "gen/WaitSimulatorState.h"
+#include "WaitSimulatorState.h"
 
 #include "command_factory.h"
-#include "command_result_factory.h"
 #include "parse_json.hpp"
 
 ///
@@ -14,17 +13,40 @@ namespace Sdx
   namespace Cmd
   {
     const char* const WaitSimulatorState::CmdName = "WaitSimulatorState";
-    const char* const WaitSimulatorState::Documentation = "Wait until simulator has reached the specified substate unless simulator goes to error state or specified failure substate. Will return a SimulatorStateResult.\nPossible substates are :\n-None\n-Incomplete\n-Ready\n-Initializing\n-Armed\n-Streaming RF\n-Sync Worker Instance\n-WF Init (Worker)\n-WF Init (Main)\n-HIL Sync\n-Sync Init\n-Sync PPS Reset\n-Sync Start Time\n-Sync Start\n-Error";
+    const char* const WaitSimulatorState::Documentation = "Wait until simulator has reached the specified substate unless simulator goes to error state or specified failure substate. Will return a SimulatorStateResult.\n"
+      "Possible substates are :\n"
+      "-None\n"
+      "-Incomplete\n"
+      "-Ready\n"
+      "-Initializing\n"
+      "-Armed\n"
+      "-Streaming RF\n"
+      "-Sync Worker Instance\n"
+      "-WF Init (Worker)\n"
+      "-WF Init (Main)\n"
+      "-HIL Sync\n"
+      "-Sync Init\n"
+      "-Sync PPS Reset\n"
+      "-Sync Start Time\n"
+      "-Sync Start\n"
+      "-Error\n"
+      "\n"
+      "Name         Type   Description\n"
+      "------------ ------ ----------------------------------------------------------\n"
+      "State        string Simulator sub state string.\n"
+      "FailureState string Abort waiting if simulator goes to this sub state instead.";
+    const char* const WaitSimulatorState::TargetId = "";
 
-    REGISTER_COMMAND_FACTORY(WaitSimulatorState);
+    REGISTER_COMMAND_TO_FACTORY_DECL(WaitSimulatorState);
+    REGISTER_COMMAND_TO_FACTORY_IMPL(WaitSimulatorState);
 
 
     WaitSimulatorState::WaitSimulatorState()
-      : CommandBase(CmdName)
+      : CommandBase(CmdName, TargetId)
     {}
 
     WaitSimulatorState::WaitSimulatorState(const std::string& state, const std::string& failureState)
-      : CommandBase(CmdName)
+      : CommandBase(CmdName, TargetId)
     {
 
       setState(state);
@@ -52,6 +74,12 @@ namespace Sdx
     }
 
     std::string WaitSimulatorState::documentation() const { return Documentation; }
+
+    const std::vector<std::string>& WaitSimulatorState::fieldNames() const 
+    { 
+      static const std::vector<std::string> names {"State", "FailureState"}; 
+      return names; 
+    }
 
 
     int WaitSimulatorState::executePermission() const

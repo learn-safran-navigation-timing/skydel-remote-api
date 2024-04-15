@@ -1,8 +1,7 @@
 
-#include "gen/SetRfGain.h"
+#include "SetRfGain.h"
 
 #include "command_factory.h"
-#include "command_result_factory.h"
 #include "parse_json.hpp"
 
 ///
@@ -14,17 +13,24 @@ namespace Sdx
   namespace Cmd
   {
     const char* const SetRfGain::CmdName = "SetRfGain";
-    const char* const SetRfGain::Documentation = "USE AT YOUR OWN RISKS. Set the RF Gain of the SDR";
+    const char* const SetRfGain::Documentation = "USE AT YOUR OWN RISKS. Set the RF Gain of the SDR\n"
+      "\n"
+      "Name   Type   Description\n"
+      "------ ------ -----------------------------------------------------------------------\n"
+      "Output int    Output index (zero based)\n"
+      "Gain   double RF Gain of the SDR, in dB. Default value is 0. Only supported for USRP.";
+    const char* const SetRfGain::TargetId = "";
 
-    REGISTER_COMMAND_FACTORY(SetRfGain);
+    REGISTER_COMMAND_TO_FACTORY_DECL(SetRfGain);
+    REGISTER_COMMAND_TO_FACTORY_IMPL(SetRfGain);
 
 
     SetRfGain::SetRfGain()
-      : CommandBase(CmdName)
+      : CommandBase(CmdName, TargetId)
     {}
 
     SetRfGain::SetRfGain(int output, double gain)
-      : CommandBase(CmdName)
+      : CommandBase(CmdName, TargetId)
     {
 
       setOutput(output);
@@ -52,6 +58,12 @@ namespace Sdx
     }
 
     std::string SetRfGain::documentation() const { return Documentation; }
+
+    const std::vector<std::string>& SetRfGain::fieldNames() const 
+    { 
+      static const std::vector<std::string> names {"Output", "Gain"}; 
+      return names; 
+    }
 
 
     int SetRfGain::executePermission() const

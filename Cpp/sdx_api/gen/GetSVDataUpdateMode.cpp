@@ -1,8 +1,7 @@
 
-#include "gen/GetSVDataUpdateMode.h"
+#include "GetSVDataUpdateMode.h"
 
 #include "command_factory.h"
-#include "command_result_factory.h"
 #include "parse_json.hpp"
 
 ///
@@ -15,12 +14,14 @@ namespace Sdx
   {
     const char* const GetSVDataUpdateMode::CmdName = "GetSVDataUpdateMode";
     const char* const GetSVDataUpdateMode::Documentation = "Get the SV Data Update Mode.";
+    const char* const GetSVDataUpdateMode::TargetId = "";
 
-    REGISTER_COMMAND_FACTORY(GetSVDataUpdateMode);
+    REGISTER_COMMAND_TO_FACTORY_DECL(GetSVDataUpdateMode);
+    REGISTER_COMMAND_TO_FACTORY_IMPL(GetSVDataUpdateMode);
 
 
     GetSVDataUpdateMode::GetSVDataUpdateMode()
-      : CommandBase(CmdName)
+      : CommandBase(CmdName, TargetId)
     {
 
     }
@@ -44,6 +45,12 @@ namespace Sdx
     }
 
     std::string GetSVDataUpdateMode::documentation() const { return Documentation; }
+
+    const std::vector<std::string>& GetSVDataUpdateMode::fieldNames() const 
+    { 
+      static const std::vector<std::string> names {}; 
+      return names; 
+    }
 
 
     int GetSVDataUpdateMode::executePermission() const

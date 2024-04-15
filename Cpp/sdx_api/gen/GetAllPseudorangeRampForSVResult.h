@@ -2,7 +2,7 @@
 
 #include <memory>
 #include "command_result.h"
-#include "command_result_factory.h"
+#include "command_factory.h"
 #include <string>
 #include <vector>
 
@@ -14,8 +14,8 @@ namespace Sdx
     /// Result of GetAllPseudorangeRampForSV.
     ///
     /// Name   Type         Description
-    /// ------ ------------ ------------------------------------------------------------------
-    /// System string       "GPS", "GLONASS", "Galileo", "BeiDou", "SBAS", "QZSS" or "NavIC"
+    /// ------ ------------ --------------------------------------------------------------------------
+    /// System string       "GPS", "GLONASS", "Galileo", "BeiDou", "SBAS", "QZSS", "NavIC" or "PULSAR"
     /// SvId   int          The satellite's SV ID.
     /// Ids    array string List of all the pseudorange ramps IDs for this system's satellite.
     ///
@@ -29,6 +29,7 @@ namespace Sdx
     public:
       static const char* const CmdName;
       static const char* const Documentation;
+      static const char* const TargetId;
 
 
       GetAllPseudorangeRampForSVResult();
@@ -43,6 +44,7 @@ namespace Sdx
       static GetAllPseudorangeRampForSVResultPtr dynamicCast(CommandBasePtr ptr);
       virtual bool isValid() const override;
       virtual std::string documentation() const override;
+      virtual const std::vector<std::string>& fieldNames() const override;
 
 
       // **** system ****
@@ -59,7 +61,7 @@ namespace Sdx
       std::vector<std::string> ids() const;
       void setIds(const std::vector<std::string>& ids);
     };
-    REGISTER_COMMAND_RESULT_TO_FACTORY_DECL(GetAllPseudorangeRampForSVResult);
+    REGISTER_COMMAND_TO_FACTORY_DECL(GetAllPseudorangeRampForSVResult);
   }
 }
 

@@ -1,8 +1,7 @@
 
-#include "gen/ExportIonoGridMask.h"
+#include "ExportIonoGridMask.h"
 
 #include "command_factory.h"
-#include "command_result_factory.h"
 #include "parse_json.hpp"
 
 ///
@@ -14,17 +13,25 @@ namespace Sdx
   namespace Cmd
   {
     const char* const ExportIonoGridMask::CmdName = "ExportIonoGridMask";
-    const char* const ExportIonoGridMask::Documentation = "Export ionospheric grid mask for a given service provider.";
+    const char* const ExportIonoGridMask::Documentation = "Export ionospheric grid mask for a given service provider.\n"
+      "\n"
+      "Name            Type   Description\n"
+      "--------------- ------ -------------------------------\n"
+      "ServiceProvider string The service provider\n"
+      "Overwriting     bool   Overwrite the old file if true.\n"
+      "Path            string Grid file path";
+    const char* const ExportIonoGridMask::TargetId = "";
 
-    REGISTER_COMMAND_FACTORY(ExportIonoGridMask);
+    REGISTER_COMMAND_TO_FACTORY_DECL(ExportIonoGridMask);
+    REGISTER_COMMAND_TO_FACTORY_IMPL(ExportIonoGridMask);
 
 
     ExportIonoGridMask::ExportIonoGridMask()
-      : CommandBase(CmdName)
+      : CommandBase(CmdName, TargetId)
     {}
 
     ExportIonoGridMask::ExportIonoGridMask(const std::string& serviceProvider, bool overwriting, const std::string& path)
-      : CommandBase(CmdName)
+      : CommandBase(CmdName, TargetId)
     {
 
       setServiceProvider(serviceProvider);
@@ -54,6 +61,12 @@ namespace Sdx
     }
 
     std::string ExportIonoGridMask::documentation() const { return Documentation; }
+
+    const std::vector<std::string>& ExportIonoGridMask::fieldNames() const 
+    { 
+      static const std::vector<std::string> names {"ServiceProvider", "Overwriting", "Path"}; 
+      return names; 
+    }
 
 
     int ExportIonoGridMask::executePermission() const

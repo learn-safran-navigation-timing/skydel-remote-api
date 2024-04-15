@@ -1,8 +1,7 @@
 
-#include "gen/SetQzssEphemerisDoubleParams.h"
+#include "SetQzssEphemerisDoubleParams.h"
 
 #include "command_factory.h"
-#include "command_result_factory.h"
 #include "parse_json.hpp"
 
 ///
@@ -14,19 +13,31 @@ namespace Sdx
   namespace Cmd
   {
     const char* const SetQzssEphemerisDoubleParams::CmdName = "SetQzssEphemerisDoubleParams";
-    const char* const SetQzssEphemerisDoubleParams::Documentation = "Please note the command SetQzssEphemerisDoubleParams is deprecated since 21.3. You may use SetQzssEphDoubleParamForEachSV.\n\nPlease note the command SetQzssEphDoubleParamForEachSV is deprecated since 23.11. You may use SetConstellationParameterForSV.\n\nSet QZSS ephemeris parameter value for all satellites";
+    const char* const SetQzssEphemerisDoubleParams::Documentation = "Please note the command SetQzssEphemerisDoubleParams is deprecated since 21.3. You may use SetQzssEphDoubleParamForEachSV.\n"
+      "\n"
+      "Please note the command SetQzssEphDoubleParamForEachSV is deprecated since 23.11. You may use SetConstellationParameterForSV.\n"
+      "\n"
+      "Set QZSS ephemeris parameter value for all satellites\n"
+      "\n"
+      "Name        Type            Description\n"
+      "----------- --------------- --------------------------------------------------------------------------------------------------\n"
+      "ParamName   string          Refer to SetQzssEphDoubleParamForSV for accepted names\n"
+      "Val         array double    Parameter value for each satellite. Zero based index (index 0 => SV ID 1, index 1 => SV ID 2, etc)\n"
+      "DataSetName optional string Optional name of the data set to use. If no value is provided, the active data set is used.";
+    const char* const SetQzssEphemerisDoubleParams::TargetId = "";
 
     const char* const SetQzssEphemerisDoubleParams::Deprecated = "Please note the command SetQzssEphemerisDoubleParams is deprecated since 23.11. You may use SetConstellationParameterForSV.";
 
-    REGISTER_COMMAND_FACTORY(SetQzssEphemerisDoubleParams);
+    REGISTER_COMMAND_TO_FACTORY_DECL(SetQzssEphemerisDoubleParams);
+    REGISTER_COMMAND_TO_FACTORY_IMPL(SetQzssEphemerisDoubleParams);
 
 
     SetQzssEphemerisDoubleParams::SetQzssEphemerisDoubleParams()
-      : CommandBase(CmdName)
+      : CommandBase(CmdName, TargetId)
     {}
 
     SetQzssEphemerisDoubleParams::SetQzssEphemerisDoubleParams(const std::string& paramName, const std::vector<double>& val, const Sdx::optional<std::string>& dataSetName)
-      : CommandBase(CmdName)
+      : CommandBase(CmdName, TargetId)
     {
 
       setParamName(paramName);
@@ -56,6 +67,12 @@ namespace Sdx
     }
 
     std::string SetQzssEphemerisDoubleParams::documentation() const { return Documentation; }
+
+    const std::vector<std::string>& SetQzssEphemerisDoubleParams::fieldNames() const 
+    { 
+      static const std::vector<std::string> names {"ParamName", "Val", "DataSetName"}; 
+      return names; 
+    }
 
     Sdx::optional<std::string> SetQzssEphemerisDoubleParams::deprecated() const { return Sdx::optional<std::string>{Deprecated}; }
 

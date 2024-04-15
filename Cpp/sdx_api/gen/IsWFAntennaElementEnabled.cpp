@@ -1,8 +1,7 @@
 
-#include "gen/IsWFAntennaElementEnabled.h"
+#include "IsWFAntennaElementEnabled.h"
 
 #include "command_factory.h"
-#include "command_result_factory.h"
 #include "parse_json.hpp"
 
 ///
@@ -14,19 +13,27 @@ namespace Sdx
   namespace Cmd
   {
     const char* const IsWFAntennaElementEnabled::CmdName = "IsWFAntennaElementEnabled";
-    const char* const IsWFAntennaElementEnabled::Documentation = "Please note the command IsWFAntennaElementEnabled is deprecated since 23.11. You may use GetWFElement.\n\nGet whether an antenna element is enabled or disabled.";
+    const char* const IsWFAntennaElementEnabled::Documentation = "Please note the command IsWFAntennaElementEnabled is deprecated since 23.11. You may use GetWFElement.\n"
+      "\n"
+      "Get whether an antenna element is enabled or disabled.\n"
+      "\n"
+      "Name    Type Description\n"
+      "------- ---- ---------------------------------------\n"
+      "Element int  One-based index for element in antenna.";
+    const char* const IsWFAntennaElementEnabled::TargetId = "";
 
     const char* const IsWFAntennaElementEnabled::Deprecated = "Please note the command IsWFAntennaElementEnabled is deprecated since 23.11. You may use GetWFElement.";
 
-    REGISTER_COMMAND_FACTORY(IsWFAntennaElementEnabled);
+    REGISTER_COMMAND_TO_FACTORY_DECL(IsWFAntennaElementEnabled);
+    REGISTER_COMMAND_TO_FACTORY_IMPL(IsWFAntennaElementEnabled);
 
 
     IsWFAntennaElementEnabled::IsWFAntennaElementEnabled()
-      : CommandBase(CmdName)
+      : CommandBase(CmdName, TargetId)
     {}
 
     IsWFAntennaElementEnabled::IsWFAntennaElementEnabled(int element)
-      : CommandBase(CmdName)
+      : CommandBase(CmdName, TargetId)
     {
 
       setElement(element);
@@ -52,6 +59,12 @@ namespace Sdx
     }
 
     std::string IsWFAntennaElementEnabled::documentation() const { return Documentation; }
+
+    const std::vector<std::string>& IsWFAntennaElementEnabled::fieldNames() const 
+    { 
+      static const std::vector<std::string> names {"Element"}; 
+      return names; 
+    }
 
     Sdx::optional<std::string> IsWFAntennaElementEnabled::deprecated() const { return Sdx::optional<std::string>{Deprecated}; }
 

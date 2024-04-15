@@ -1,8 +1,7 @@
 
-#include "gen/StopMainInstanceWhenWorkerInstanceStop.h"
+#include "StopMainInstanceWhenWorkerInstanceStop.h"
 
 #include "command_factory.h"
-#include "command_result_factory.h"
 #include "parse_json.hpp"
 
 ///
@@ -14,17 +13,23 @@ namespace Sdx
   namespace Cmd
   {
     const char* const StopMainInstanceWhenWorkerInstanceStop::CmdName = "StopMainInstanceWhenWorkerInstanceStop";
-    const char* const StopMainInstanceWhenWorkerInstanceStop::Documentation = "If enabled, main instance and all the worker instances will stop if a worker instance stops.";
+    const char* const StopMainInstanceWhenWorkerInstanceStop::Documentation = "If enabled, main instance and all the worker instances will stop if a worker instance stops.\n"
+      "\n"
+      "Name    Type Description\n"
+      "------- ---- ---------------------------------------------------------\n"
+      "Enabled bool Enable main instance stop when worker instance stops flag";
+    const char* const StopMainInstanceWhenWorkerInstanceStop::TargetId = "";
 
-    REGISTER_COMMAND_FACTORY(StopMainInstanceWhenWorkerInstanceStop);
+    REGISTER_COMMAND_TO_FACTORY_DECL(StopMainInstanceWhenWorkerInstanceStop);
+    REGISTER_COMMAND_TO_FACTORY_IMPL(StopMainInstanceWhenWorkerInstanceStop);
 
 
     StopMainInstanceWhenWorkerInstanceStop::StopMainInstanceWhenWorkerInstanceStop()
-      : CommandBase(CmdName)
+      : CommandBase(CmdName, TargetId)
     {}
 
     StopMainInstanceWhenWorkerInstanceStop::StopMainInstanceWhenWorkerInstanceStop(bool enabled)
-      : CommandBase(CmdName)
+      : CommandBase(CmdName, TargetId)
     {
 
       setEnabled(enabled);
@@ -50,6 +55,12 @@ namespace Sdx
     }
 
     std::string StopMainInstanceWhenWorkerInstanceStop::documentation() const { return Documentation; }
+
+    const std::vector<std::string>& StopMainInstanceWhenWorkerInstanceStop::fieldNames() const 
+    { 
+      static const std::vector<std::string> names {"Enabled"}; 
+      return names; 
+    }
 
 
     int StopMainInstanceWhenWorkerInstanceStop::executePermission() const

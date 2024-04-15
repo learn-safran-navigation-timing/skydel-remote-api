@@ -1,8 +1,7 @@
 
-#include "gen/SetPseudorangeNoiseSineWaveForSV.h"
+#include "SetPseudorangeNoiseSineWaveForSV.h"
 
 #include "command_factory.h"
-#include "command_result_factory.h"
 #include "parse_json.hpp"
 
 ///
@@ -14,17 +13,29 @@ namespace Sdx
   namespace Cmd
   {
     const char* const SetPseudorangeNoiseSineWaveForSV::CmdName = "SetPseudorangeNoiseSineWaveForSV";
-    const char* const SetPseudorangeNoiseSineWaveForSV::Documentation = "Set the satellite pseudorange noise sine wave attributes.";
+    const char* const SetPseudorangeNoiseSineWaveForSV::Documentation = "Set the satellite pseudorange noise sine wave attributes.\n"
+      "\n"
+      "Name      Type   Description\n"
+      "--------- ------ --------------------------------------------------------------------------\n"
+      "System    string \"GPS\", \"GLONASS\", \"Galileo\", \"BeiDou\", \"SBAS\", \"QZSS\", \"NavIC\" or \"PULSAR\"\n"
+      "SvId      int    The satellite's SV ID\n"
+      "SineWave  int    Sine wave number (0 or 1)\n"
+      "Enabled   bool   If true, sine wave is enabled\n"
+      "Amplitude double Sine wave amplitude in meters\n"
+      "Period    int    Sine wave period in seconds (minimum 3 seconds)\n"
+      "Offset    double Phase offset in radians";
+    const char* const SetPseudorangeNoiseSineWaveForSV::TargetId = "";
 
-    REGISTER_COMMAND_FACTORY(SetPseudorangeNoiseSineWaveForSV);
+    REGISTER_COMMAND_TO_FACTORY_DECL(SetPseudorangeNoiseSineWaveForSV);
+    REGISTER_COMMAND_TO_FACTORY_IMPL(SetPseudorangeNoiseSineWaveForSV);
 
 
     SetPseudorangeNoiseSineWaveForSV::SetPseudorangeNoiseSineWaveForSV()
-      : CommandBase(CmdName)
+      : CommandBase(CmdName, TargetId)
     {}
 
     SetPseudorangeNoiseSineWaveForSV::SetPseudorangeNoiseSineWaveForSV(const std::string& system, int svId, int sineWave, bool enabled, double amplitude, int period, double offset)
-      : CommandBase(CmdName)
+      : CommandBase(CmdName, TargetId)
     {
 
       setSystem(system);
@@ -62,6 +73,12 @@ namespace Sdx
     }
 
     std::string SetPseudorangeNoiseSineWaveForSV::documentation() const { return Documentation; }
+
+    const std::vector<std::string>& SetPseudorangeNoiseSineWaveForSV::fieldNames() const 
+    { 
+      static const std::vector<std::string> names {"System", "SvId", "SineWave", "Enabled", "Amplitude", "Period", "Offset"}; 
+      return names; 
+    }
 
 
     int SetPseudorangeNoiseSineWaveForSV::executePermission() const

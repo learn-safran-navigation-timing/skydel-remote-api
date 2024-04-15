@@ -13,8 +13,8 @@ namespace Sdx
     /// Get whether a satellite is enabled or disabled for this constellation.
     ///
     /// Name   Type   Description
-    /// ------ ------ ------------------------------------------------------------------------------------------------------
-    /// System string The satellite's constellation. Can be "GPS", "GLONASS", "Galileo", "BeiDou", "SBAS", "QZSS" or "NavIC"
+    /// ------ ------ ----------------------------------------------------------------------------------------------------------------
+    /// System string The satellite's constellation. Can be "GPS", "GLONASS", "Galileo", "BeiDou", "SBAS", "QZSS", "NavIC" or "PULSAR"
     /// SvId   int    The satellite's SV ID (use 0 for all SVs).
     ///
 
@@ -27,6 +27,7 @@ namespace Sdx
     public:
       static const char* const CmdName;
       static const char* const Documentation;
+      static const char* const TargetId;
 
 
       IsSVEnabled();
@@ -37,6 +38,7 @@ namespace Sdx
       static IsSVEnabledPtr dynamicCast(CommandBasePtr ptr);
       virtual bool isValid() const override;
       virtual std::string documentation() const override;
+      virtual const std::vector<std::string>& fieldNames() const override;
 
       virtual int executePermission() const override;
 

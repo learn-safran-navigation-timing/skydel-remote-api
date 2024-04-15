@@ -1,4 +1,10 @@
 #pragma once
 
-#define COMMANDS_API_VERSION 43
+namespace Sdx
+{
+  namespace Cmd
+  {
+    constexpr auto COMMANDS_API_VERSION = 44;
+  }
+}
 

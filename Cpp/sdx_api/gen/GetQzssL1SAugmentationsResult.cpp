@@ -1,8 +1,7 @@
 
-#include "gen/GetQzssL1SAugmentationsResult.h"
+#include "GetQzssL1SAugmentationsResult.h"
 
 #include "command_factory.h"
-#include "command_result_factory.h"
 #include "parse_json.hpp"
 
 ///
@@ -14,24 +13,29 @@ namespace Sdx
   namespace Cmd
   {
     const char* const GetQzssL1SAugmentationsResult::CmdName = "GetQzssL1SAugmentationsResult";
-    const char* const GetQzssL1SAugmentationsResult::Documentation = "Result of GetQzssL1SAugmentations.";
+    const char* const GetQzssL1SAugmentationsResult::Documentation = "Result of GetQzssL1SAugmentations.\n"
+      "\n"
+      "Name Type         Description\n"
+      "---- ------------ --------------------------------------\n"
+      "Ids  array string List of IDs of QZSS L1S augmentations.";
+    const char* const GetQzssL1SAugmentationsResult::TargetId = "";
 
-    REGISTER_COMMAND_RESULT_TO_FACTORY_IMPL(GetQzssL1SAugmentationsResult);
+    REGISTER_COMMAND_TO_FACTORY_IMPL(GetQzssL1SAugmentationsResult);
 
 
     GetQzssL1SAugmentationsResult::GetQzssL1SAugmentationsResult()
-      : CommandResult(CmdName)
+      : CommandResult(CmdName, TargetId)
     {}
 
     GetQzssL1SAugmentationsResult::GetQzssL1SAugmentationsResult(const std::vector<std::string>& ids)
-      : CommandResult(CmdName)
+      : CommandResult(CmdName, TargetId)
     {
 
       setIds(ids);
     }
 
     GetQzssL1SAugmentationsResult::GetQzssL1SAugmentationsResult(CommandBasePtr relatedCommand, const std::vector<std::string>& ids)
-      : CommandResult(CmdName, relatedCommand)
+      : CommandResult(CmdName, TargetId, relatedCommand)
     {
 
       setIds(ids);
@@ -63,6 +67,12 @@ namespace Sdx
     }
 
     std::string GetQzssL1SAugmentationsResult::documentation() const { return Documentation; }
+
+    const std::vector<std::string>& GetQzssL1SAugmentationsResult::fieldNames() const 
+    { 
+      static const std::vector<std::string> names {"Ids"}; 
+      return names; 
+    }
 
 
     std::vector<std::string> GetQzssL1SAugmentationsResult::ids() const

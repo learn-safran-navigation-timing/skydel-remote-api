@@ -1,8 +1,7 @@
 
-#include "gen/GetEnabledSignalsForSV.h"
+#include "GetEnabledSignalsForSV.h"
 
 #include "command_factory.h"
-#include "command_result_factory.h"
 #include "parse_json.hpp"
 
 ///
@@ -14,17 +13,24 @@ namespace Sdx
   namespace Cmd
   {
     const char* const GetEnabledSignalsForSV::CmdName = "GetEnabledSignalsForSV";
-    const char* const GetEnabledSignalsForSV::Documentation = "Get the list of enabled signals for a specified SV ID.";
+    const char* const GetEnabledSignalsForSV::Documentation = "Get the list of enabled signals for a specified SV ID.\n"
+      "\n"
+      "Name   Type   Description\n"
+      "------ ------ ----------------------------------------------------------------------------------------------\n"
+      "System string The system, can be \"GPS\", \"GLONASS\", \"Galileo\", \"BeiDou\", \"SBAS\", \"QZSS\", \"NavIC\" or \"PULSAR\".\n"
+      "SvId   int    The satellite SV ID.";
+    const char* const GetEnabledSignalsForSV::TargetId = "";
 
-    REGISTER_COMMAND_FACTORY(GetEnabledSignalsForSV);
+    REGISTER_COMMAND_TO_FACTORY_DECL(GetEnabledSignalsForSV);
+    REGISTER_COMMAND_TO_FACTORY_IMPL(GetEnabledSignalsForSV);
 
 
     GetEnabledSignalsForSV::GetEnabledSignalsForSV()
-      : CommandBase(CmdName)
+      : CommandBase(CmdName, TargetId)
     {}
 
     GetEnabledSignalsForSV::GetEnabledSignalsForSV(const std::string& system, int svId)
-      : CommandBase(CmdName)
+      : CommandBase(CmdName, TargetId)
     {
 
       setSystem(system);
@@ -52,6 +58,12 @@ namespace Sdx
     }
 
     std::string GetEnabledSignalsForSV::documentation() const { return Documentation; }
+
+    const std::vector<std::string>& GetEnabledSignalsForSV::fieldNames() const 
+    { 
+      static const std::vector<std::string> names {"System", "SvId"}; 
+      return names; 
+    }
 
 
     int GetEnabledSignalsForSV::executePermission() const

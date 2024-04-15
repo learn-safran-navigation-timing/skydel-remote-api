@@ -1,8 +1,7 @@
 
-#include "gen/GetSVAntennaPhaseOffsetResult.h"
+#include "GetSVAntennaPhaseOffsetResult.h"
 
 #include "command_factory.h"
-#include "command_result_factory.h"
 #include "parse_json.hpp"
 
 ///
@@ -14,17 +13,26 @@ namespace Sdx
   namespace Cmd
   {
     const char* const GetSVAntennaPhaseOffsetResult::CmdName = "GetSVAntennaPhaseOffsetResult";
-    const char* const GetSVAntennaPhaseOffsetResult::Documentation = "Result of GetSVAntennaPhaseOffset.";
+    const char* const GetSVAntennaPhaseOffsetResult::Documentation = "Result of GetSVAntennaPhaseOffset.\n"
+      "\n"
+      "Name        Type               Description\n"
+      "----------- ------------------ ----------------------------------------------------------------------------------------------------------------------------------\n"
+      "PhaseOffset array array double Phase offset matrix (rad). The first dimension will be mapped to elevation [-90, 90] and the second dimension to azimuth [0, 360[.\n"
+      "Type        AntennaPatternType Pattern type\n"
+      "Band        GNSSBand           Frequency band\n"
+      "System      string             \"GPS\", \"GLONASS\", \"Galileo\", \"BeiDou\", \"SBAS\", \"QZSS\", \"NavIC\" or \"PULSAR\"\n"
+      "Name        optional string    SV antenna name";
+    const char* const GetSVAntennaPhaseOffsetResult::TargetId = "";
 
-    REGISTER_COMMAND_RESULT_TO_FACTORY_IMPL(GetSVAntennaPhaseOffsetResult);
+    REGISTER_COMMAND_TO_FACTORY_IMPL(GetSVAntennaPhaseOffsetResult);
 
 
     GetSVAntennaPhaseOffsetResult::GetSVAntennaPhaseOffsetResult()
-      : CommandResult(CmdName)
+      : CommandResult(CmdName, TargetId)
     {}
 
     GetSVAntennaPhaseOffsetResult::GetSVAntennaPhaseOffsetResult(const std::vector<std::vector<double>>& phaseOffset, const Sdx::AntennaPatternType& type, const Sdx::GNSSBand& band, const std::string& system, const Sdx::optional<std::string>& name)
-      : CommandResult(CmdName)
+      : CommandResult(CmdName, TargetId)
     {
 
       setPhaseOffset(phaseOffset);
@@ -35,7 +43,7 @@ namespace Sdx
     }
 
     GetSVAntennaPhaseOffsetResult::GetSVAntennaPhaseOffsetResult(CommandBasePtr relatedCommand, const std::vector<std::vector<double>>& phaseOffset, const Sdx::AntennaPatternType& type, const Sdx::GNSSBand& band, const std::string& system, const Sdx::optional<std::string>& name)
-      : CommandResult(CmdName, relatedCommand)
+      : CommandResult(CmdName, TargetId, relatedCommand)
     {
 
       setPhaseOffset(phaseOffset);
@@ -75,6 +83,12 @@ namespace Sdx
     }
 
     std::string GetSVAntennaPhaseOffsetResult::documentation() const { return Documentation; }
+
+    const std::vector<std::string>& GetSVAntennaPhaseOffsetResult::fieldNames() const 
+    { 
+      static const std::vector<std::string> names {"PhaseOffset", "Type", "Band", "System", "Name"}; 
+      return names; 
+    }
 
 
     std::vector<std::vector<double>> GetSVAntennaPhaseOffsetResult::phaseOffset() const

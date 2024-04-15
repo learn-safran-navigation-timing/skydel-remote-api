@@ -1,8 +1,7 @@
 
-#include "gen/ChangeCustomSignalColor.h"
+#include "ChangeCustomSignalColor.h"
 
 #include "command_factory.h"
-#include "command_result_factory.h"
 #include "parse_json.hpp"
 
 ///
@@ -14,17 +13,24 @@ namespace Sdx
   namespace Cmd
   {
     const char* const ChangeCustomSignalColor::CmdName = "ChangeCustomSignalColor";
-    const char* const ChangeCustomSignalColor::Documentation = "Changes the custom signal color";
+    const char* const ChangeCustomSignalColor::Documentation = "Changes the custom signal color\n"
+      "\n"
+      "Name  Type   Description\n"
+      "----- ------ -------------------------------------------------------------------------------\n"
+      "Color string Color 'name'. Either a common color (red, white, ...) or an hex code (#FFFFFF).\n"
+      "Id    string Custom signal ID";
+    const char* const ChangeCustomSignalColor::TargetId = "";
 
-    REGISTER_COMMAND_FACTORY(ChangeCustomSignalColor);
+    REGISTER_COMMAND_TO_FACTORY_DECL(ChangeCustomSignalColor);
+    REGISTER_COMMAND_TO_FACTORY_IMPL(ChangeCustomSignalColor);
 
 
     ChangeCustomSignalColor::ChangeCustomSignalColor()
-      : CommandBase(CmdName)
+      : CommandBase(CmdName, TargetId)
     {}
 
     ChangeCustomSignalColor::ChangeCustomSignalColor(const std::string& color, const std::string& id)
-      : CommandBase(CmdName)
+      : CommandBase(CmdName, TargetId)
     {
 
       setColor(color);
@@ -52,6 +58,12 @@ namespace Sdx
     }
 
     std::string ChangeCustomSignalColor::documentation() const { return Documentation; }
+
+    const std::vector<std::string>& ChangeCustomSignalColor::fieldNames() const 
+    { 
+      static const std::vector<std::string> names {"Color", "Id"}; 
+      return names; 
+    }
 
 
     int ChangeCustomSignalColor::executePermission() const

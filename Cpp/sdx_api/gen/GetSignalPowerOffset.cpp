@@ -1,8 +1,7 @@
 
-#include "gen/GetSignalPowerOffset.h"
+#include "GetSignalPowerOffset.h"
 
 #include "command_factory.h"
-#include "command_result_factory.h"
 #include "parse_json.hpp"
 
 ///
@@ -14,17 +13,26 @@ namespace Sdx
   namespace Cmd
   {
     const char* const GetSignalPowerOffset::CmdName = "GetSignalPowerOffset";
-    const char* const GetSignalPowerOffset::Documentation = "Get power offset default value for the signal given in argument";
+    const char* const GetSignalPowerOffset::Documentation = "Get power offset default value for the signal given in argument\n"
+      "\n"
+      "Name   Type   Description\n"
+      "------ ------ -----------------------------------------------------------------------------------------------\n"
+      "Signal string Accepted signal keys: \"L1CA\", \"L1C\", \"L1P\", \"L1ME\", \"L1MR\", \"L2C\", \"L2P\", \"L2ME\", \"L2MR\", \"L5\",\n"
+      "                                    \"G1\", \"G2\", \"E1\", \"E1PRS\", \"E5a\", \"E5b\", \"E6BC\", \"E6PRS\",\n"
+      "                                    \"B1\", \"B2\", \"B1C\", \"B2a\", \"B3I\", \"QZSSL1CA\", \"QZSSL1CB\", \"QZSSL1C\",\n"
+      "                                    \"QZSSL2C\", \"QZSSL5\", \"QZSSL1S\", \"QZSSL5S\", \"NAVICL5\", \"PULSARXL\"";
+    const char* const GetSignalPowerOffset::TargetId = "";
 
-    REGISTER_COMMAND_FACTORY(GetSignalPowerOffset);
+    REGISTER_COMMAND_TO_FACTORY_DECL(GetSignalPowerOffset);
+    REGISTER_COMMAND_TO_FACTORY_IMPL(GetSignalPowerOffset);
 
 
     GetSignalPowerOffset::GetSignalPowerOffset()
-      : CommandBase(CmdName)
+      : CommandBase(CmdName, TargetId)
     {}
 
     GetSignalPowerOffset::GetSignalPowerOffset(const std::string& signal)
-      : CommandBase(CmdName)
+      : CommandBase(CmdName, TargetId)
     {
 
       setSignal(signal);
@@ -50,6 +58,12 @@ namespace Sdx
     }
 
     std::string GetSignalPowerOffset::documentation() const { return Documentation; }
+
+    const std::vector<std::string>& GetSignalPowerOffset::fieldNames() const 
+    { 
+      static const std::vector<std::string> names {"Signal"}; 
+      return names; 
+    }
 
 
     int GetSignalPowerOffset::executePermission() const

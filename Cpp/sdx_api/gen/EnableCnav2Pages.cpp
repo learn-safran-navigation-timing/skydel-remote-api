@@ -1,8 +1,7 @@
 
-#include "gen/EnableCnav2Pages.h"
+#include "EnableCnav2Pages.h"
 
 #include "command_factory.h"
-#include "command_result_factory.h"
 #include "parse_json.hpp"
 
 ///
@@ -14,17 +13,23 @@ namespace Sdx
   namespace Cmd
   {
     const char* const EnableCnav2Pages::CmdName = "EnableCnav2Pages";
-    const char* const EnableCnav2Pages::Documentation = "Set the enabled L1C CNAV2 pages";
+    const char* const EnableCnav2Pages::Documentation = "Set the enabled L1C CNAV2 pages\n"
+      "\n"
+      "Name     Type      Description\n"
+      "-------- --------- -----------------\n"
+      "Messages array int The enabled pages";
+    const char* const EnableCnav2Pages::TargetId = "";
 
-    REGISTER_COMMAND_FACTORY(EnableCnav2Pages);
+    REGISTER_COMMAND_TO_FACTORY_DECL(EnableCnav2Pages);
+    REGISTER_COMMAND_TO_FACTORY_IMPL(EnableCnav2Pages);
 
 
     EnableCnav2Pages::EnableCnav2Pages()
-      : CommandBase(CmdName)
+      : CommandBase(CmdName, TargetId)
     {}
 
     EnableCnav2Pages::EnableCnav2Pages(const std::vector<int>& messages)
-      : CommandBase(CmdName)
+      : CommandBase(CmdName, TargetId)
     {
 
       setMessages(messages);
@@ -50,6 +55,12 @@ namespace Sdx
     }
 
     std::string EnableCnav2Pages::documentation() const { return Documentation; }
+
+    const std::vector<std::string>& EnableCnav2Pages::fieldNames() const 
+    { 
+      static const std::vector<std::string> names {"Messages"}; 
+      return names; 
+    }
 
 
     int EnableCnav2Pages::executePermission() const

@@ -2,7 +2,7 @@
 
 #include <memory>
 #include "command_result.h"
-#include "command_result_factory.h"
+#include "command_factory.h"
 #include <string>
 #include <vector>
 
@@ -36,6 +36,7 @@ namespace Sdx
     public:
       static const char* const CmdName;
       static const char* const Documentation;
+      static const char* const TargetId;
 
 
       GetMessageModificationToBeiDouD2NavResult();
@@ -50,6 +51,7 @@ namespace Sdx
       static GetMessageModificationToBeiDouD2NavResultPtr dynamicCast(CommandBasePtr ptr);
       virtual bool isValid() const override;
       virtual std::string documentation() const override;
+      virtual const std::vector<std::string>& fieldNames() const override;
 
 
       // **** signalArray ****
@@ -101,7 +103,7 @@ namespace Sdx
       std::string id() const;
       void setId(const std::string& id);
     };
-    REGISTER_COMMAND_RESULT_TO_FACTORY_DECL(GetMessageModificationToBeiDouD2NavResult);
+    REGISTER_COMMAND_TO_FACTORY_DECL(GetMessageModificationToBeiDouD2NavResult);
   }
 }
 

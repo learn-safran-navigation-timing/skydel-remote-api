@@ -1,8 +1,7 @@
 
-#include "gen/SetIntTxUseManualPropagationLoss.h"
+#include "SetIntTxUseManualPropagationLoss.h"
 
 #include "command_factory.h"
-#include "command_result_factory.h"
 #include "parse_json.hpp"
 
 ///
@@ -14,17 +13,24 @@ namespace Sdx
   namespace Cmd
   {
     const char* const SetIntTxUseManualPropagationLoss::CmdName = "SetIntTxUseManualPropagationLoss";
-    const char* const SetIntTxUseManualPropagationLoss::Documentation = "Set whether a dynamic transmitter should only use user-provided propagation loss values. Propagation loss will not update automatically if set. This state is not preserved after simulation end.";
+    const char* const SetIntTxUseManualPropagationLoss::Documentation = "Set whether a dynamic transmitter should only use user-provided propagation loss values. Propagation loss will not update automatically if set. This state is not preserved after simulation end.\n"
+      "\n"
+      "Name   Type   Description\n"
+      "------ ------ -------------------------------------------------------------\n"
+      "Manual bool   If true, propagation loss will be 1000 dB until set manually.\n"
+      "Id     string Interference transmitter unique identifier.";
+    const char* const SetIntTxUseManualPropagationLoss::TargetId = "";
 
-    REGISTER_COMMAND_FACTORY(SetIntTxUseManualPropagationLoss);
+    REGISTER_COMMAND_TO_FACTORY_DECL(SetIntTxUseManualPropagationLoss);
+    REGISTER_COMMAND_TO_FACTORY_IMPL(SetIntTxUseManualPropagationLoss);
 
 
     SetIntTxUseManualPropagationLoss::SetIntTxUseManualPropagationLoss()
-      : CommandBase(CmdName)
+      : CommandBase(CmdName, TargetId)
     {}
 
     SetIntTxUseManualPropagationLoss::SetIntTxUseManualPropagationLoss(bool manual, const std::string& id)
-      : CommandBase(CmdName)
+      : CommandBase(CmdName, TargetId)
     {
 
       setManual(manual);
@@ -52,6 +58,12 @@ namespace Sdx
     }
 
     std::string SetIntTxUseManualPropagationLoss::documentation() const { return Documentation; }
+
+    const std::vector<std::string>& SetIntTxUseManualPropagationLoss::fieldNames() const 
+    { 
+      static const std::vector<std::string> names {"Manual", "Id"}; 
+      return names; 
+    }
 
 
     int SetIntTxUseManualPropagationLoss::executePermission() const

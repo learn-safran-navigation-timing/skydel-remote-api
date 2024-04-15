@@ -1,8 +1,7 @@
 
-#include "gen/AddSpoofTx.h"
+#include "AddSpoofTx.h"
 
 #include "command_factory.h"
-#include "command_result_factory.h"
 #include "parse_json.hpp"
 
 ///
@@ -14,17 +13,29 @@ namespace Sdx
   namespace Cmd
   {
     const char* const AddSpoofTx::CmdName = "AddSpoofTx";
-    const char* const AddSpoofTx::Documentation = "Set a spoofer transmitter. For set : the transmitter Id parameter is not set (empty string),\nSkydel will assign a unique Id to the transmitter. If the Id is set and already used by Skydel, the\ncommand will fail.";
+    const char* const AddSpoofTx::Documentation = "Set a spoofer transmitter. For set : the transmitter Id parameter is not set (empty string),\n"
+      "Skydel will assign a unique Id to the transmitter. If the Id is set and already used by Skydel, the\n"
+      "command will fail.\n"
+      "\n"
+      "Name       Type   Description\n"
+      "---------- ------ ------------------------------------------------\n"
+      "UsualName  string Usual name for the transmitter.\n"
+      "Enabled    bool   Enable (true) or disable (false) the transmitter\n"
+      "Address    string Remote instance IP address.\n"
+      "InstanceId int    Remote instance ID.\n"
+      "Id         string Transmitter unique identifier.";
+    const char* const AddSpoofTx::TargetId = "";
 
-    REGISTER_COMMAND_FACTORY(AddSpoofTx);
+    REGISTER_COMMAND_TO_FACTORY_DECL(AddSpoofTx);
+    REGISTER_COMMAND_TO_FACTORY_IMPL(AddSpoofTx);
 
 
     AddSpoofTx::AddSpoofTx()
-      : CommandBase(CmdName)
+      : CommandBase(CmdName, TargetId)
     {}
 
     AddSpoofTx::AddSpoofTx(const std::string& usualName, bool enabled, const std::string& address, int instanceId, const std::string& id)
-      : CommandBase(CmdName)
+      : CommandBase(CmdName, TargetId)
     {
 
       setUsualName(usualName);
@@ -58,6 +69,12 @@ namespace Sdx
     }
 
     std::string AddSpoofTx::documentation() const { return Documentation; }
+
+    const std::vector<std::string>& AddSpoofTx::fieldNames() const 
+    { 
+      static const std::vector<std::string> names {"UsualName", "Enabled", "Address", "InstanceId", "Id"}; 
+      return names; 
+    }
 
 
     int AddSpoofTx::executePermission() const

@@ -19,6 +19,7 @@ namespace Sdx
     protected const string CmdUuidKey = "CmdUuid";
     protected const string CmdTimestampKey = "CmdTimestamp";
     protected const string CmdHidden = "CmdHidden";
+    internal const string CmdTargetIdKey = "CmdTargetId";
 
     public const int EXECUTE_IF_IDLE = 1 << 1;
     public const int EXECUTE_IF_SIMULATING = 1 << 2;
@@ -42,6 +43,16 @@ namespace Sdx
         SetValue(CmdTimestampKey, value);
       }
     }
+    public virtual DateTime GpsTimestamp
+    {
+        get { return HasTimestamp ? GetValue(CmdTimestampKey).ToObject<DateTime>(Serializer) : new DateTime(); }
+        set
+        {
+            if (!HasExecutePermission(EXECUTE_IF_SIMULATING))
+                throw new Exception("Cannot set timestamp to this command");
+            SetValue(CmdTimestampKey, JToken.FromObject(value, Serializer));
+        }
+    }
     public virtual bool IsValid { get { return true; } }
 
     private JObject m_json;
@@ -51,11 +62,14 @@ namespace Sdx
       get { return m_json; }
     }
 
-    public CommandBase(string cmdName)
+    public CommandBase(string cmdName, string targetId)
     {
       Name = cmdName;
       m_json = new JObject();
       SetValue(CmdNameKey, cmdName);
+
+      if (!String.IsNullOrEmpty(targetId))
+        SetValue(CmdTargetIdKey, targetId);
 
       Guid newGuid = Guid.NewGuid();
       SetValue(CmdUuidKey, "{" + newGuid.ToString() + "}");

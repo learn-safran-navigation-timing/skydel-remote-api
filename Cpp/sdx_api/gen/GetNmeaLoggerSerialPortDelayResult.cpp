@@ -1,8 +1,7 @@
 
-#include "gen/GetNmeaLoggerSerialPortDelayResult.h"
+#include "GetNmeaLoggerSerialPortDelayResult.h"
 
 #include "command_factory.h"
-#include "command_result_factory.h"
 #include "parse_json.hpp"
 
 ///
@@ -14,24 +13,29 @@ namespace Sdx
   namespace Cmd
   {
     const char* const GetNmeaLoggerSerialPortDelayResult::CmdName = "GetNmeaLoggerSerialPortDelayResult";
-    const char* const GetNmeaLoggerSerialPortDelayResult::Documentation = "Result of GetNmeaLoggerSerialPortDelay.";
+    const char* const GetNmeaLoggerSerialPortDelayResult::Documentation = "Result of GetNmeaLoggerSerialPortDelay.\n"
+      "\n"
+      "Name  Type Description\n"
+      "----- ---- ---------------------------------\n"
+      "Delay int  Delay from 0 to 100 milliseconds.";
+    const char* const GetNmeaLoggerSerialPortDelayResult::TargetId = "";
 
-    REGISTER_COMMAND_RESULT_TO_FACTORY_IMPL(GetNmeaLoggerSerialPortDelayResult);
+    REGISTER_COMMAND_TO_FACTORY_IMPL(GetNmeaLoggerSerialPortDelayResult);
 
 
     GetNmeaLoggerSerialPortDelayResult::GetNmeaLoggerSerialPortDelayResult()
-      : CommandResult(CmdName)
+      : CommandResult(CmdName, TargetId)
     {}
 
     GetNmeaLoggerSerialPortDelayResult::GetNmeaLoggerSerialPortDelayResult(int delay)
-      : CommandResult(CmdName)
+      : CommandResult(CmdName, TargetId)
     {
 
       setDelay(delay);
     }
 
     GetNmeaLoggerSerialPortDelayResult::GetNmeaLoggerSerialPortDelayResult(CommandBasePtr relatedCommand, int delay)
-      : CommandResult(CmdName, relatedCommand)
+      : CommandResult(CmdName, TargetId, relatedCommand)
     {
 
       setDelay(delay);
@@ -63,6 +67,12 @@ namespace Sdx
     }
 
     std::string GetNmeaLoggerSerialPortDelayResult::documentation() const { return Documentation; }
+
+    const std::vector<std::string>& GetNmeaLoggerSerialPortDelayResult::fieldNames() const 
+    { 
+      static const std::vector<std::string> names {"Delay"}; 
+      return names; 
+    }
 
 
     int GetNmeaLoggerSerialPortDelayResult::delay() const

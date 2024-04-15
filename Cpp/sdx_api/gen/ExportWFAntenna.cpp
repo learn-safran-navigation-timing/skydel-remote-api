@@ -1,8 +1,7 @@
 
-#include "gen/ExportWFAntenna.h"
+#include "ExportWFAntenna.h"
 
 #include "command_factory.h"
-#include "command_result_factory.h"
 #include "parse_json.hpp"
 
 ///
@@ -14,17 +13,24 @@ namespace Sdx
   namespace Cmd
   {
     const char* const ExportWFAntenna::CmdName = "ExportWFAntenna";
-    const char* const ExportWFAntenna::Documentation = "Export Wavefront Antenna settings to an XML file.";
+    const char* const ExportWFAntenna::Documentation = "Export Wavefront Antenna settings to an XML file.\n"
+      "\n"
+      "Name          Type   Description\n"
+      "------------- ------ -------------------------------------------------\n"
+      "FilePath      string Export file path for Wavefront Antenna settings.\n"
+      "OverwriteFile bool   When selected, existing file will be overwritten.";
+    const char* const ExportWFAntenna::TargetId = "";
 
-    REGISTER_COMMAND_FACTORY(ExportWFAntenna);
+    REGISTER_COMMAND_TO_FACTORY_DECL(ExportWFAntenna);
+    REGISTER_COMMAND_TO_FACTORY_IMPL(ExportWFAntenna);
 
 
     ExportWFAntenna::ExportWFAntenna()
-      : CommandBase(CmdName)
+      : CommandBase(CmdName, TargetId)
     {}
 
     ExportWFAntenna::ExportWFAntenna(const std::string& filePath, bool overwriteFile)
-      : CommandBase(CmdName)
+      : CommandBase(CmdName, TargetId)
     {
 
       setFilePath(filePath);
@@ -52,6 +58,12 @@ namespace Sdx
     }
 
     std::string ExportWFAntenna::documentation() const { return Documentation; }
+
+    const std::vector<std::string>& ExportWFAntenna::fieldNames() const 
+    { 
+      static const std::vector<std::string> names {"FilePath", "OverwriteFile"}; 
+      return names; 
+    }
 
 
     int ExportWFAntenna::executePermission() const

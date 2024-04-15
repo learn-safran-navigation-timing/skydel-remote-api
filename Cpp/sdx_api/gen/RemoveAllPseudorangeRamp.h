@@ -15,8 +15,8 @@ namespace Sdx
     /// Remove all PSR Ramps for all satellites of the specified system.
     ///
     /// Name   Type   Description
-    /// ------ ------ ----------------------------------------------------------------
-    /// System string "GPS", "GLONASS", "Galileo", "BeiDou", "SBAS", "QZSS" or "NavIC"
+    /// ------ ------ --------------------------------------------------------------------------
+    /// System string "GPS", "GLONASS", "Galileo", "BeiDou", "SBAS", "QZSS", "NavIC" or "PULSAR"
     ///
 
     class RemoveAllPseudorangeRamp;
@@ -28,6 +28,7 @@ namespace Sdx
     public:
       static const char* const CmdName;
       static const char* const Documentation;
+      static const char* const TargetId;
 
 
       RemoveAllPseudorangeRamp();
@@ -38,6 +39,7 @@ namespace Sdx
       static RemoveAllPseudorangeRampPtr dynamicCast(CommandBasePtr ptr);
       virtual bool isValid() const override;
       virtual std::string documentation() const override;
+      virtual const std::vector<std::string>& fieldNames() const override;
 
       virtual int executePermission() const override;
 

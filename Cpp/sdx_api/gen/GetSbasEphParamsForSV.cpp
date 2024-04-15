@@ -1,8 +1,7 @@
 
-#include "gen/GetSbasEphParamsForSV.h"
+#include "GetSbasEphParamsForSV.h"
 
 #include "command_factory.h"
-#include "command_result_factory.h"
 #include "parse_json.hpp"
 
 ///
@@ -14,17 +13,28 @@ namespace Sdx
   namespace Cmd
   {
     const char* const GetSbasEphParamsForSV::CmdName = "GetSbasEphParamsForSV";
-    const char* const GetSbasEphParamsForSV::Documentation = "Get parameters for a SBAS satellite ephemeris (runtime modification only available for health parameter)";
+    const char* const GetSbasEphParamsForSV::Documentation = "Get parameters for a SBAS satellite ephemeris (runtime modification only available for health parameter)\n"
+      "\n"
+      "Name       Type         Description\n"
+      "---------- ------------ ----------------------------------------------------------------------------\n"
+      "SvId       int          The satellite's SV ID\n"
+      "ParamArray array string An array of params.\n"
+      "                        Accepted values are: \"ClockBias\", \"RelativeFrequencyBias\", \"X\", \"Y\", \"Z\",\n"
+      "                                             \"VelocityX\", \"VelocityY\", \"VelocityZ\", \"AccelerationX\",\n"
+      "                                             \"AccelerationY\", \"AccelerationZ\", \"Health\", \"URA\" and\n"
+      "                                             \"UraIndex\"";
+    const char* const GetSbasEphParamsForSV::TargetId = "";
 
-    REGISTER_COMMAND_FACTORY(GetSbasEphParamsForSV);
+    REGISTER_COMMAND_TO_FACTORY_DECL(GetSbasEphParamsForSV);
+    REGISTER_COMMAND_TO_FACTORY_IMPL(GetSbasEphParamsForSV);
 
 
     GetSbasEphParamsForSV::GetSbasEphParamsForSV()
-      : CommandBase(CmdName)
+      : CommandBase(CmdName, TargetId)
     {}
 
     GetSbasEphParamsForSV::GetSbasEphParamsForSV(int svId, const std::vector<std::string>& paramArray)
-      : CommandBase(CmdName)
+      : CommandBase(CmdName, TargetId)
     {
 
       setSvId(svId);
@@ -52,6 +62,12 @@ namespace Sdx
     }
 
     std::string GetSbasEphParamsForSV::documentation() const { return Documentation; }
+
+    const std::vector<std::string>& GetSbasEphParamsForSV::fieldNames() const 
+    { 
+      static const std::vector<std::string> names {"SvId", "ParamArray"}; 
+      return names; 
+    }
 
 
     int GetSbasEphParamsForSV::executePermission() const

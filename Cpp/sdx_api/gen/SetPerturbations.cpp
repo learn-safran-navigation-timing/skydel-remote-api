@@ -1,8 +1,7 @@
 
-#include "gen/SetPerturbations.h"
+#include "SetPerturbations.h"
 
 #include "command_factory.h"
-#include "command_result_factory.h"
 #include "parse_json.hpp"
 
 ///
@@ -14,17 +13,31 @@ namespace Sdx
   namespace Cmd
   {
     const char* const SetPerturbations::CmdName = "SetPerturbations";
-    const char* const SetPerturbations::Documentation = "Set orbit perturbations (Crs, Crc, Cis, Cic, Cus and Cuc) for the specified constellation.";
+    const char* const SetPerturbations::Documentation = "Set orbit perturbations (Crs, Crc, Cis, Cic, Cus and Cuc) for the specified constellation.\n"
+      "\n"
+      "Name        Type            Description\n"
+      "----------- --------------- -------------------------------------------------------------------------------------------\n"
+      "System      string          \"GPS\", \"Galileo\", \"BeiDou\", \"QZSS\", \"NavIC\" or \"PULSAR\"\n"
+      "SvId        int             The satellite's SV ID.\n"
+      "Crs         double          Crs (meter)\n"
+      "Crc         double          Crc (meter)\n"
+      "Cis         double          Cis (rad)\n"
+      "Cic         double          Cic (rad)\n"
+      "Cus         double          Cus (rad)\n"
+      "Cuc         double          Cuc (rad)\n"
+      "DataSetName optional string Optional name of the data set to use. If no value is provided, the active data set is used.";
+    const char* const SetPerturbations::TargetId = "";
 
-    REGISTER_COMMAND_FACTORY(SetPerturbations);
+    REGISTER_COMMAND_TO_FACTORY_DECL(SetPerturbations);
+    REGISTER_COMMAND_TO_FACTORY_IMPL(SetPerturbations);
 
 
     SetPerturbations::SetPerturbations()
-      : CommandBase(CmdName)
+      : CommandBase(CmdName, TargetId)
     {}
 
     SetPerturbations::SetPerturbations(const std::string& system, int svId, double crs, double crc, double cis, double cic, double cus, double cuc, const Sdx::optional<std::string>& dataSetName)
-      : CommandBase(CmdName)
+      : CommandBase(CmdName, TargetId)
     {
 
       setSystem(system);
@@ -66,6 +79,12 @@ namespace Sdx
     }
 
     std::string SetPerturbations::documentation() const { return Documentation; }
+
+    const std::vector<std::string>& SetPerturbations::fieldNames() const 
+    { 
+      static const std::vector<std::string> names {"System", "SvId", "Crs", "Crc", "Cis", "Cic", "Cus", "Cuc", "DataSetName"}; 
+      return names; 
+    }
 
 
     int SetPerturbations::executePermission() const

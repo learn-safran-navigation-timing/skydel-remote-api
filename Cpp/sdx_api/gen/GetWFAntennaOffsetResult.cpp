@@ -1,8 +1,7 @@
 
-#include "gen/GetWFAntennaOffsetResult.h"
+#include "GetWFAntennaOffsetResult.h"
 
 #include "command_factory.h"
-#include "command_result_factory.h"
 #include "parse_json.hpp"
 
 ///
@@ -14,17 +13,27 @@ namespace Sdx
   namespace Cmd
   {
     const char* const GetWFAntennaOffsetResult::CmdName = "GetWFAntennaOffsetResult";
-    const char* const GetWFAntennaOffsetResult::Documentation = "Result of GetWFAntennaOffset.";
+    const char* const GetWFAntennaOffsetResult::Documentation = "Result of GetWFAntennaOffset.\n"
+      "\n"
+      "Name  Type   Description\n"
+      "----- ------ -----------------------------------------------\n"
+      "X     double WF Antenna X offset in the body frame (meter)\n"
+      "Y     double WF Antenna Y offset in the body frame (meter)\n"
+      "Z     double WF Antenna Z offset in the body frame (meter)\n"
+      "Yaw   double WF Antenna Yaw offset in the body frame (rad)\n"
+      "Pitch double WF Antenna Pitch offset in the body frame (rad)\n"
+      "Roll  double WF Antenna Roll offset in the body frame (rad)";
+    const char* const GetWFAntennaOffsetResult::TargetId = "";
 
-    REGISTER_COMMAND_RESULT_TO_FACTORY_IMPL(GetWFAntennaOffsetResult);
+    REGISTER_COMMAND_TO_FACTORY_IMPL(GetWFAntennaOffsetResult);
 
 
     GetWFAntennaOffsetResult::GetWFAntennaOffsetResult()
-      : CommandResult(CmdName)
+      : CommandResult(CmdName, TargetId)
     {}
 
     GetWFAntennaOffsetResult::GetWFAntennaOffsetResult(double x, double y, double z, double yaw, double pitch, double roll)
-      : CommandResult(CmdName)
+      : CommandResult(CmdName, TargetId)
     {
 
       setX(x);
@@ -36,7 +45,7 @@ namespace Sdx
     }
 
     GetWFAntennaOffsetResult::GetWFAntennaOffsetResult(CommandBasePtr relatedCommand, double x, double y, double z, double yaw, double pitch, double roll)
-      : CommandResult(CmdName, relatedCommand)
+      : CommandResult(CmdName, TargetId, relatedCommand)
     {
 
       setX(x);
@@ -78,6 +87,12 @@ namespace Sdx
     }
 
     std::string GetWFAntennaOffsetResult::documentation() const { return Documentation; }
+
+    const std::vector<std::string>& GetWFAntennaOffsetResult::fieldNames() const 
+    { 
+      static const std::vector<std::string> names {"X", "Y", "Z", "Yaw", "Pitch", "Roll"}; 
+      return names; 
+    }
 
 
     double GetWFAntennaOffsetResult::x() const

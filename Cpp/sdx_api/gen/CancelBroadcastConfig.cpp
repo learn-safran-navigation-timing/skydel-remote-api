@@ -1,8 +1,7 @@
 
-#include "gen/CancelBroadcastConfig.h"
+#include "CancelBroadcastConfig.h"
 
 #include "command_factory.h"
-#include "command_result_factory.h"
 #include "parse_json.hpp"
 
 ///
@@ -15,12 +14,14 @@ namespace Sdx
   {
     const char* const CancelBroadcastConfig::CmdName = "CancelBroadcastConfig";
     const char* const CancelBroadcastConfig::Documentation = "Cancel the current configuration broadcast if any.";
+    const char* const CancelBroadcastConfig::TargetId = "";
 
-    REGISTER_COMMAND_FACTORY(CancelBroadcastConfig);
+    REGISTER_COMMAND_TO_FACTORY_DECL(CancelBroadcastConfig);
+    REGISTER_COMMAND_TO_FACTORY_IMPL(CancelBroadcastConfig);
 
 
     CancelBroadcastConfig::CancelBroadcastConfig()
-      : CommandBase(CmdName)
+      : CommandBase(CmdName, TargetId)
     {
 
     }
@@ -44,6 +45,12 @@ namespace Sdx
     }
 
     std::string CancelBroadcastConfig::documentation() const { return Documentation; }
+
+    const std::vector<std::string>& CancelBroadcastConfig::fieldNames() const 
+    { 
+      static const std::vector<std::string> names {}; 
+      return names; 
+    }
 
 
     int CancelBroadcastConfig::executePermission() const

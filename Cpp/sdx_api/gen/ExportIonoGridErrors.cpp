@@ -1,8 +1,7 @@
 
-#include "gen/ExportIonoGridErrors.h"
+#include "ExportIonoGridErrors.h"
 
 #include "command_factory.h"
-#include "command_result_factory.h"
 #include "parse_json.hpp"
 
 ///
@@ -14,17 +13,24 @@ namespace Sdx
   namespace Cmd
   {
     const char* const ExportIonoGridErrors::CmdName = "ExportIonoGridErrors";
-    const char* const ExportIonoGridErrors::Documentation = "Export ionospheric grid errors.";
+    const char* const ExportIonoGridErrors::Documentation = "Export ionospheric grid errors.\n"
+      "\n"
+      "Name        Type   Description\n"
+      "----------- ------ -------------------------------\n"
+      "Overwriting bool   Overwrite the old file if true.\n"
+      "Path        string Grid file path";
+    const char* const ExportIonoGridErrors::TargetId = "";
 
-    REGISTER_COMMAND_FACTORY(ExportIonoGridErrors);
+    REGISTER_COMMAND_TO_FACTORY_DECL(ExportIonoGridErrors);
+    REGISTER_COMMAND_TO_FACTORY_IMPL(ExportIonoGridErrors);
 
 
     ExportIonoGridErrors::ExportIonoGridErrors()
-      : CommandBase(CmdName)
+      : CommandBase(CmdName, TargetId)
     {}
 
     ExportIonoGridErrors::ExportIonoGridErrors(bool overwriting, const std::string& path)
-      : CommandBase(CmdName)
+      : CommandBase(CmdName, TargetId)
     {
 
       setOverwriting(overwriting);
@@ -52,6 +58,12 @@ namespace Sdx
     }
 
     std::string ExportIonoGridErrors::documentation() const { return Documentation; }
+
+    const std::vector<std::string>& ExportIonoGridErrors::fieldNames() const 
+    { 
+      static const std::vector<std::string> names {"Overwriting", "Path"}; 
+      return names; 
+    }
 
 
     int ExportIonoGridErrors::executePermission() const

@@ -1,8 +1,7 @@
 
-#include "gen/GetStartTimeOffsetResult.h"
+#include "GetStartTimeOffsetResult.h"
 
 #include "command_factory.h"
-#include "command_result_factory.h"
 #include "parse_json.hpp"
 
 ///
@@ -14,24 +13,29 @@ namespace Sdx
   namespace Cmd
   {
     const char* const GetStartTimeOffsetResult::CmdName = "GetStartTimeOffsetResult";
-    const char* const GetStartTimeOffsetResult::Documentation = "Result of GetStartTimeOffset.";
+    const char* const GetStartTimeOffsetResult::Documentation = "Result of GetStartTimeOffset.\n"
+      "\n"
+      "Name   Type Description\n"
+      "------ ---- -----------------------------------------------------------------------------------------\n"
+      "Offset int  Time Offset, in seconds, between simulated GPS time and time given by GPS Timing receiver";
+    const char* const GetStartTimeOffsetResult::TargetId = "";
 
-    REGISTER_COMMAND_RESULT_TO_FACTORY_IMPL(GetStartTimeOffsetResult);
+    REGISTER_COMMAND_TO_FACTORY_IMPL(GetStartTimeOffsetResult);
 
 
     GetStartTimeOffsetResult::GetStartTimeOffsetResult()
-      : CommandResult(CmdName)
+      : CommandResult(CmdName, TargetId)
     {}
 
     GetStartTimeOffsetResult::GetStartTimeOffsetResult(int offset)
-      : CommandResult(CmdName)
+      : CommandResult(CmdName, TargetId)
     {
 
       setOffset(offset);
     }
 
     GetStartTimeOffsetResult::GetStartTimeOffsetResult(CommandBasePtr relatedCommand, int offset)
-      : CommandResult(CmdName, relatedCommand)
+      : CommandResult(CmdName, TargetId, relatedCommand)
     {
 
       setOffset(offset);
@@ -63,6 +67,12 @@ namespace Sdx
     }
 
     std::string GetStartTimeOffsetResult::documentation() const { return Documentation; }
+
+    const std::vector<std::string>& GetStartTimeOffsetResult::fieldNames() const 
+    { 
+      static const std::vector<std::string> names {"Offset"}; 
+      return names; 
+    }
 
 
     int GetStartTimeOffsetResult::offset() const

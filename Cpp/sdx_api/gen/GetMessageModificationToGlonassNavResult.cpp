@@ -1,8 +1,7 @@
 
-#include "gen/GetMessageModificationToGlonassNavResult.h"
+#include "GetMessageModificationToGlonassNavResult.h"
 
 #include "command_factory.h"
-#include "command_result_factory.h"
 #include "parse_json.hpp"
 
 ///
@@ -14,17 +13,30 @@ namespace Sdx
   namespace Cmd
   {
     const char* const GetMessageModificationToGlonassNavResult::CmdName = "GetMessageModificationToGlonassNavResult";
-    const char* const GetMessageModificationToGlonassNavResult::Documentation = "Result of GetMessageModificationToGlonassNav.";
+    const char* const GetMessageModificationToGlonassNavResult::Documentation = "Result of GetMessageModificationToGlonassNav.\n"
+      "\n"
+      "Name               Type         Description\n"
+      "------------------ ------------ --------------------------------------------------------------------------------------------\n"
+      "SignalArray        array string Array of signals to apply the message modification to, accepts \"G1\" and \"G2\" (empty for all)\n"
+      "SvId               int          The satellite's SV ID number 1..24 (use 0 to apply modification to all SVs)\n"
+      "StartTime          int          Elapsed time in seconds since start of simulation\n"
+      "StopTime           int          Elapsed time in seconds since start of simulation (use 0 for no stop time)\n"
+      "Frame              int          Frame 1..5 (use 0 to apply modification to all frames)\n"
+      "StringNumber       int          String 1..15 (use 0 to apply modification to all strings)\n"
+      "UpdateHammingCode  bool         Recalculate Hamming Code after making modification\n"
+      "StringModification string       Modification string must be 85 bits long (or more if using white spaces)\n"
+      "Id                 string       Unique identifier of the event";
+    const char* const GetMessageModificationToGlonassNavResult::TargetId = "";
 
-    REGISTER_COMMAND_RESULT_TO_FACTORY_IMPL(GetMessageModificationToGlonassNavResult);
+    REGISTER_COMMAND_TO_FACTORY_IMPL(GetMessageModificationToGlonassNavResult);
 
 
     GetMessageModificationToGlonassNavResult::GetMessageModificationToGlonassNavResult()
-      : CommandResult(CmdName)
+      : CommandResult(CmdName, TargetId)
     {}
 
     GetMessageModificationToGlonassNavResult::GetMessageModificationToGlonassNavResult(const std::vector<std::string>& signalArray, int svId, int startTime, int stopTime, int frame, int stringNumber, bool updateHammingCode, const std::string& stringModification, const std::string& id)
-      : CommandResult(CmdName)
+      : CommandResult(CmdName, TargetId)
     {
 
       setSignalArray(signalArray);
@@ -39,7 +51,7 @@ namespace Sdx
     }
 
     GetMessageModificationToGlonassNavResult::GetMessageModificationToGlonassNavResult(CommandBasePtr relatedCommand, const std::vector<std::string>& signalArray, int svId, int startTime, int stopTime, int frame, int stringNumber, bool updateHammingCode, const std::string& stringModification, const std::string& id)
-      : CommandResult(CmdName, relatedCommand)
+      : CommandResult(CmdName, TargetId, relatedCommand)
     {
 
       setSignalArray(signalArray);
@@ -87,6 +99,12 @@ namespace Sdx
     }
 
     std::string GetMessageModificationToGlonassNavResult::documentation() const { return Documentation; }
+
+    const std::vector<std::string>& GetMessageModificationToGlonassNavResult::fieldNames() const 
+    { 
+      static const std::vector<std::string> names {"SignalArray", "SvId", "StartTime", "StopTime", "Frame", "StringNumber", "UpdateHammingCode", "StringModification", "Id"}; 
+      return names; 
+    }
 
 
     std::vector<std::string> GetMessageModificationToGlonassNavResult::signalArray() const

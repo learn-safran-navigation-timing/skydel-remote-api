@@ -1,8 +1,7 @@
 
-#include "gen/ExecuteGpuBenchmarkResult.h"
+#include "ExecuteGpuBenchmarkResult.h"
 
 #include "command_factory.h"
-#include "command_result_factory.h"
 #include "parse_json.hpp"
 
 ///
@@ -14,24 +13,29 @@ namespace Sdx
   namespace Cmd
   {
     const char* const ExecuteGpuBenchmarkResult::CmdName = "ExecuteGpuBenchmarkResult";
-    const char* const ExecuteGpuBenchmarkResult::Documentation = "Result of the GPU benchmark execution.";
+    const char* const ExecuteGpuBenchmarkResult::Documentation = "Result of the GPU benchmark execution.\n"
+      "\n"
+      "Name  Type   Description\n"
+      "----- ------ -------------------------------------------------------------------------------------------------\n"
+      "Score double Score of the GPU benchmark execution, a result over 1.15 is recommended for real-time simulation.";
+    const char* const ExecuteGpuBenchmarkResult::TargetId = "";
 
-    REGISTER_COMMAND_RESULT_TO_FACTORY_IMPL(ExecuteGpuBenchmarkResult);
+    REGISTER_COMMAND_TO_FACTORY_IMPL(ExecuteGpuBenchmarkResult);
 
 
     ExecuteGpuBenchmarkResult::ExecuteGpuBenchmarkResult()
-      : CommandResult(CmdName)
+      : CommandResult(CmdName, TargetId)
     {}
 
     ExecuteGpuBenchmarkResult::ExecuteGpuBenchmarkResult(double score)
-      : CommandResult(CmdName)
+      : CommandResult(CmdName, TargetId)
     {
 
       setScore(score);
     }
 
     ExecuteGpuBenchmarkResult::ExecuteGpuBenchmarkResult(CommandBasePtr relatedCommand, double score)
-      : CommandResult(CmdName, relatedCommand)
+      : CommandResult(CmdName, TargetId, relatedCommand)
     {
 
       setScore(score);
@@ -63,6 +67,12 @@ namespace Sdx
     }
 
     std::string ExecuteGpuBenchmarkResult::documentation() const { return Documentation; }
+
+    const std::vector<std::string>& ExecuteGpuBenchmarkResult::fieldNames() const 
+    { 
+      static const std::vector<std::string> names {"Score"}; 
+      return names; 
+    }
 
 
     double ExecuteGpuBenchmarkResult::score() const

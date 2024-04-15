@@ -1,8 +1,7 @@
 
-#include "gen/GetGpsL1cHealthForSVResult.h"
+#include "GetGpsL1cHealthForSVResult.h"
 
 #include "command_factory.h"
-#include "command_result_factory.h"
 #include "parse_json.hpp"
 
 ///
@@ -14,17 +13,24 @@ namespace Sdx
   namespace Cmd
   {
     const char* const GetGpsL1cHealthForSVResult::CmdName = "GetGpsL1cHealthForSVResult";
-    const char* const GetGpsL1cHealthForSVResult::Documentation = "Result of GetGpsL1cHealthForSV.";
+    const char* const GetGpsL1cHealthForSVResult::Documentation = "Result of GetGpsL1cHealthForSV.\n"
+      "\n"
+      "Name        Type            Description\n"
+      "----------- --------------- -------------------------------------------------------------------------------------------\n"
+      "SvId        int             Satellite's SV ID 1..32, or use 0 to apply new value to all satellites.\n"
+      "Health      bool            L1C health, false = signal OK, true = signal bad or unavailable\n"
+      "DataSetName optional string Optional name of the data set to use. If no value is provided, the active data set is used.";
+    const char* const GetGpsL1cHealthForSVResult::TargetId = "";
 
-    REGISTER_COMMAND_RESULT_TO_FACTORY_IMPL(GetGpsL1cHealthForSVResult);
+    REGISTER_COMMAND_TO_FACTORY_IMPL(GetGpsL1cHealthForSVResult);
 
 
     GetGpsL1cHealthForSVResult::GetGpsL1cHealthForSVResult()
-      : CommandResult(CmdName)
+      : CommandResult(CmdName, TargetId)
     {}
 
     GetGpsL1cHealthForSVResult::GetGpsL1cHealthForSVResult(int svId, bool health, const Sdx::optional<std::string>& dataSetName)
-      : CommandResult(CmdName)
+      : CommandResult(CmdName, TargetId)
     {
 
       setSvId(svId);
@@ -33,7 +39,7 @@ namespace Sdx
     }
 
     GetGpsL1cHealthForSVResult::GetGpsL1cHealthForSVResult(CommandBasePtr relatedCommand, int svId, bool health, const Sdx::optional<std::string>& dataSetName)
-      : CommandResult(CmdName, relatedCommand)
+      : CommandResult(CmdName, TargetId, relatedCommand)
     {
 
       setSvId(svId);
@@ -69,6 +75,12 @@ namespace Sdx
     }
 
     std::string GetGpsL1cHealthForSVResult::documentation() const { return Documentation; }
+
+    const std::vector<std::string>& GetGpsL1cHealthForSVResult::fieldNames() const 
+    { 
+      static const std::vector<std::string> names {"SvId", "Health", "DataSetName"}; 
+      return names; 
+    }
 
 
     int GetGpsL1cHealthForSVResult::svId() const

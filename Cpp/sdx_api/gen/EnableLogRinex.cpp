@@ -1,8 +1,7 @@
 
-#include "gen/EnableLogRinex.h"
+#include "EnableLogRinex.h"
 
 #include "command_factory.h"
-#include "command_result_factory.h"
 #include "parse_json.hpp"
 
 ///
@@ -14,17 +13,23 @@ namespace Sdx
   namespace Cmd
   {
     const char* const EnableLogRinex::CmdName = "EnableLogRinex";
-    const char* const EnableLogRinex::Documentation = "Enable (or disable) ephemeris data logging in RINEX v3.03 format";
+    const char* const EnableLogRinex::Documentation = "Enable (or disable) ephemeris data logging in RINEX v3.03 format\n"
+      "\n"
+      "Name    Type Description\n"
+      "------- ---- ------------------------------------------------\n"
+      "Enabled bool If true, files will be created during simulation";
+    const char* const EnableLogRinex::TargetId = "";
 
-    REGISTER_COMMAND_FACTORY(EnableLogRinex);
+    REGISTER_COMMAND_TO_FACTORY_DECL(EnableLogRinex);
+    REGISTER_COMMAND_TO_FACTORY_IMPL(EnableLogRinex);
 
 
     EnableLogRinex::EnableLogRinex()
-      : CommandBase(CmdName)
+      : CommandBase(CmdName, TargetId)
     {}
 
     EnableLogRinex::EnableLogRinex(bool enabled)
-      : CommandBase(CmdName)
+      : CommandBase(CmdName, TargetId)
     {
 
       setEnabled(enabled);
@@ -50,6 +55,12 @@ namespace Sdx
     }
 
     std::string EnableLogRinex::documentation() const { return Documentation; }
+
+    const std::vector<std::string>& EnableLogRinex::fieldNames() const 
+    { 
+      static const std::vector<std::string> names {"Enabled"}; 
+      return names; 
+    }
 
 
     int EnableLogRinex::executePermission() const

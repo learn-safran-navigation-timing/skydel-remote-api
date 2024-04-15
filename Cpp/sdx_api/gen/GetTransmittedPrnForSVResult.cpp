@@ -1,8 +1,7 @@
 
-#include "gen/GetTransmittedPrnForSVResult.h"
+#include "GetTransmittedPrnForSVResult.h"
 
 #include "command_factory.h"
-#include "command_result_factory.h"
 #include "parse_json.hpp"
 
 ///
@@ -14,17 +13,27 @@ namespace Sdx
   namespace Cmd
   {
     const char* const GetTransmittedPrnForSVResult::CmdName = "GetTransmittedPrnForSVResult";
-    const char* const GetTransmittedPrnForSVResult::Documentation = "Result of GetTransmittedPrnForSV.";
+    const char* const GetTransmittedPrnForSVResult::Documentation = "Result of GetTransmittedPrnForSV.\n"
+      "\n"
+      "Name          Type            Description\n"
+      "------------- --------------- -------------------------------------------------------------------------------\n"
+      "SvId          int             Satellite SV ID.\n"
+      "SignalPrnDict dict string:int A dictionary of signal prn pairs.\n"
+      "                              Accepted keys are: \"L1CA\", \"L1C\", \"L2C\", \"L5\", \"E1\", \"E6BC\", \"B1\", \"B2\", \"B1C\",\n"
+      "                                                 \"B2a\", \"B3I\", \"SBASL1\", \"SBASL5\", \"QZSSL1CA\", \"QZSSL1CB\",\n"
+      "                                                 \"QZSSL1C\", \"QZSSL2C\", \"QZSSL5\", \"QZSSL1S\", \"QZSSL5S\" and\n"
+      "                                                 \"NAVICL5\"";
+    const char* const GetTransmittedPrnForSVResult::TargetId = "";
 
-    REGISTER_COMMAND_RESULT_TO_FACTORY_IMPL(GetTransmittedPrnForSVResult);
+    REGISTER_COMMAND_TO_FACTORY_IMPL(GetTransmittedPrnForSVResult);
 
 
     GetTransmittedPrnForSVResult::GetTransmittedPrnForSVResult()
-      : CommandResult(CmdName)
+      : CommandResult(CmdName, TargetId)
     {}
 
     GetTransmittedPrnForSVResult::GetTransmittedPrnForSVResult(int svId, const std::map<std::string, int>& signalPrnDict)
-      : CommandResult(CmdName)
+      : CommandResult(CmdName, TargetId)
     {
 
       setSvId(svId);
@@ -32,7 +41,7 @@ namespace Sdx
     }
 
     GetTransmittedPrnForSVResult::GetTransmittedPrnForSVResult(CommandBasePtr relatedCommand, int svId, const std::map<std::string, int>& signalPrnDict)
-      : CommandResult(CmdName, relatedCommand)
+      : CommandResult(CmdName, TargetId, relatedCommand)
     {
 
       setSvId(svId);
@@ -66,6 +75,12 @@ namespace Sdx
     }
 
     std::string GetTransmittedPrnForSVResult::documentation() const { return Documentation; }
+
+    const std::vector<std::string>& GetTransmittedPrnForSVResult::fieldNames() const 
+    { 
+      static const std::vector<std::string> names {"SvId", "SignalPrnDict"}; 
+      return names; 
+    }
 
 
     int GetTransmittedPrnForSVResult::svId() const

@@ -1,8 +1,7 @@
 
-#include "gen/EnableEachSV.h"
+#include "EnableEachSV.h"
 
 #include "command_factory.h"
-#include "command_result_factory.h"
 #include "parse_json.hpp"
 
 ///
@@ -14,17 +13,24 @@ namespace Sdx
   namespace Cmd
   {
     const char* const EnableEachSV::CmdName = "EnableEachSV";
-    const char* const EnableEachSV::Documentation = "Enable or disable each satellite for this constellation.";
+    const char* const EnableEachSV::Documentation = "Enable or disable each satellite for this constellation.\n"
+      "\n"
+      "Name    Type       Description\n"
+      "------- ---------- ----------------------------------------------------------------------------------------------------------------\n"
+      "System  string     The satellites' constellation. Can be \"GPS\", \"GLONASS\", \"Galileo\", \"BeiDou\", \"SBAS\", \"QZSS\", \"NavIC\" or \"PULSAR\"\n"
+      "Enabled array bool Array of present/absent flags for the constellation";
+    const char* const EnableEachSV::TargetId = "";
 
-    REGISTER_COMMAND_FACTORY(EnableEachSV);
+    REGISTER_COMMAND_TO_FACTORY_DECL(EnableEachSV);
+    REGISTER_COMMAND_TO_FACTORY_IMPL(EnableEachSV);
 
 
     EnableEachSV::EnableEachSV()
-      : CommandBase(CmdName)
+      : CommandBase(CmdName, TargetId)
     {}
 
     EnableEachSV::EnableEachSV(const std::string& system, const std::vector<bool>& enabled)
-      : CommandBase(CmdName)
+      : CommandBase(CmdName, TargetId)
     {
 
       setSystem(system);
@@ -52,6 +58,12 @@ namespace Sdx
     }
 
     std::string EnableEachSV::documentation() const { return Documentation; }
+
+    const std::vector<std::string>& EnableEachSV::fieldNames() const 
+    { 
+      static const std::vector<std::string> names {"System", "Enabled"}; 
+      return names; 
+    }
 
 
     int EnableEachSV::executePermission() const

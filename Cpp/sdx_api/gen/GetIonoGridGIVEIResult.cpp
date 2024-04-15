@@ -1,8 +1,7 @@
 
-#include "gen/GetIonoGridGIVEIResult.h"
+#include "GetIonoGridGIVEIResult.h"
 
 #include "command_factory.h"
-#include "command_result_factory.h"
 #include "parse_json.hpp"
 
 ///
@@ -14,17 +13,25 @@ namespace Sdx
   namespace Cmd
   {
     const char* const GetIonoGridGIVEIResult::CmdName = "GetIonoGridGIVEIResult";
-    const char* const GetIonoGridGIVEIResult::Documentation = "Result of GetIonoGridGIVEI.";
+    const char* const GetIonoGridGIVEIResult::Documentation = "Result of GetIonoGridGIVEI.\n"
+      "\n"
+      "Name            Type            Description\n"
+      "--------------- --------------- -------------------------------\n"
+      "Band            int             The ionospheric grid band index\n"
+      "Point           int             The IGP index\n"
+      "GiveI           int             The GIVEI at the IGP\n"
+      "ServiceProvider optional string The service provider (optional)";
+    const char* const GetIonoGridGIVEIResult::TargetId = "";
 
-    REGISTER_COMMAND_RESULT_TO_FACTORY_IMPL(GetIonoGridGIVEIResult);
+    REGISTER_COMMAND_TO_FACTORY_IMPL(GetIonoGridGIVEIResult);
 
 
     GetIonoGridGIVEIResult::GetIonoGridGIVEIResult()
-      : CommandResult(CmdName)
+      : CommandResult(CmdName, TargetId)
     {}
 
     GetIonoGridGIVEIResult::GetIonoGridGIVEIResult(int band, int point, int giveI, const Sdx::optional<std::string>& serviceProvider)
-      : CommandResult(CmdName)
+      : CommandResult(CmdName, TargetId)
     {
 
       setBand(band);
@@ -34,7 +41,7 @@ namespace Sdx
     }
 
     GetIonoGridGIVEIResult::GetIonoGridGIVEIResult(CommandBasePtr relatedCommand, int band, int point, int giveI, const Sdx::optional<std::string>& serviceProvider)
-      : CommandResult(CmdName, relatedCommand)
+      : CommandResult(CmdName, TargetId, relatedCommand)
     {
 
       setBand(band);
@@ -72,6 +79,12 @@ namespace Sdx
     }
 
     std::string GetIonoGridGIVEIResult::documentation() const { return Documentation; }
+
+    const std::vector<std::string>& GetIonoGridGIVEIResult::fieldNames() const 
+    { 
+      static const std::vector<std::string> names {"Band", "Point", "GiveI", "ServiceProvider"}; 
+      return names; 
+    }
 
 
     int GetIonoGridGIVEIResult::band() const

@@ -1,8 +1,7 @@
 
-#include "gen/SetVehicleTrajectoryOrbit.h"
+#include "SetVehicleTrajectoryOrbit.h"
 
 #include "command_factory.h"
-#include "command_result_factory.h"
 #include "parse_json.hpp"
 
 ///
@@ -14,17 +13,30 @@ namespace Sdx
   namespace Cmd
   {
     const char* const SetVehicleTrajectoryOrbit::CmdName = "SetVehicleTrajectoryOrbit";
-    const char* const SetVehicleTrajectoryOrbit::Documentation = "Set earth-orbiting spacecraft trajectory.";
+    const char* const SetVehicleTrajectoryOrbit::Documentation = "Set earth-orbiting spacecraft trajectory.\n"
+      "\n"
+      "Name              Type     Description\n"
+      "----------------- -------- ---------------------------------------------------------------------\n"
+      "Type              string   Trajectory type (\"Orbit\")\n"
+      "Reference         datetime Orbital parameters reference time (UTC)\n"
+      "SemiMajorAxis     double   Semi-major axis (meter)\n"
+      "Inclination       double   Inclination angle (rad)\n"
+      "RightAscension    double   Geographic longitude of the ascending node of the orbital plane (rad)\n"
+      "Eccentricity      double   Eccentricity\n"
+      "MeanAnomaly       double   Mean anomaly (rad)\n"
+      "ArgumentOfPerigee double   Argument of perigee (rad)";
+    const char* const SetVehicleTrajectoryOrbit::TargetId = "";
 
-    REGISTER_COMMAND_FACTORY(SetVehicleTrajectoryOrbit);
+    REGISTER_COMMAND_TO_FACTORY_DECL(SetVehicleTrajectoryOrbit);
+    REGISTER_COMMAND_TO_FACTORY_IMPL(SetVehicleTrajectoryOrbit);
 
 
     SetVehicleTrajectoryOrbit::SetVehicleTrajectoryOrbit()
-      : CommandBase(CmdName)
+      : CommandBase(CmdName, TargetId)
     {}
 
     SetVehicleTrajectoryOrbit::SetVehicleTrajectoryOrbit(const std::string& type, const Sdx::DateTime& reference, double semiMajorAxis, double inclination, double rightAscension, double eccentricity, double meanAnomaly, double argumentOfPerigee)
-      : CommandBase(CmdName)
+      : CommandBase(CmdName, TargetId)
     {
 
       setType(type);
@@ -64,6 +76,12 @@ namespace Sdx
     }
 
     std::string SetVehicleTrajectoryOrbit::documentation() const { return Documentation; }
+
+    const std::vector<std::string>& SetVehicleTrajectoryOrbit::fieldNames() const 
+    { 
+      static const std::vector<std::string> names {"Type", "Reference", "SemiMajorAxis", "Inclination", "RightAscension", "Eccentricity", "MeanAnomaly", "ArgumentOfPerigee"}; 
+      return names; 
+    }
 
 
     int SetVehicleTrajectoryOrbit::executePermission() const

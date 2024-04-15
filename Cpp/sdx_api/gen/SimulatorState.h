@@ -19,8 +19,8 @@ struct parse_json<Sdx::SimulatorState>
   {
     if (!is_valid(value))
       throw std::runtime_error("Unexpected value");
-    return (Sdx::SimulatorState)value.GetInt();
+    return static_cast<Sdx::SimulatorState>(value.GetInt());
   }
-  static rapidjson::Value format(Sdx::SimulatorState value, rapidjson::Value::AllocatorType&) { return rapidjson::Value((int)value); }
+  static rapidjson::Value format(Sdx::SimulatorState value, rapidjson::Value::AllocatorType&) { return rapidjson::Value(static_cast<int>(value)); }
 };
 

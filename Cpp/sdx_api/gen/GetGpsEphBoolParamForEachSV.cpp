@@ -1,8 +1,7 @@
 
-#include "gen/GetGpsEphBoolParamForEachSV.h"
+#include "GetGpsEphBoolParamForEachSV.h"
 
 #include "command_factory.h"
-#include "command_result_factory.h"
 #include "parse_json.hpp"
 
 ///
@@ -14,19 +13,28 @@ namespace Sdx
   namespace Cmd
   {
     const char* const GetGpsEphBoolParamForEachSV::CmdName = "GetGpsEphBoolParamForEachSV";
-    const char* const GetGpsEphBoolParamForEachSV::Documentation = "Please note the command GetGpsEphBoolParamForEachSV is deprecated since 23.11. You may use GetConstellationParameterForSV.\n\nGet GPS ephemeris boolean parameter value for all satellites";
+    const char* const GetGpsEphBoolParamForEachSV::Documentation = "Please note the command GetGpsEphBoolParamForEachSV is deprecated since 23.11. You may use GetConstellationParameterForSV.\n"
+      "\n"
+      "Get GPS ephemeris boolean parameter value for all satellites\n"
+      "\n"
+      "Name        Type            Description\n"
+      "----------- --------------- -------------------------------------------------------------------------------------------\n"
+      "ParamName   string          Refer to SetGpsEphBoolParamForSV for accepted names\n"
+      "DataSetName optional string Optional name of the data set to use. If no value is provided, the active data set is used.";
+    const char* const GetGpsEphBoolParamForEachSV::TargetId = "";
 
     const char* const GetGpsEphBoolParamForEachSV::Deprecated = "Please note the command GetGpsEphBoolParamForEachSV is deprecated since 23.11. You may use GetConstellationParameterForSV.";
 
-    REGISTER_COMMAND_FACTORY(GetGpsEphBoolParamForEachSV);
+    REGISTER_COMMAND_TO_FACTORY_DECL(GetGpsEphBoolParamForEachSV);
+    REGISTER_COMMAND_TO_FACTORY_IMPL(GetGpsEphBoolParamForEachSV);
 
 
     GetGpsEphBoolParamForEachSV::GetGpsEphBoolParamForEachSV()
-      : CommandBase(CmdName)
+      : CommandBase(CmdName, TargetId)
     {}
 
     GetGpsEphBoolParamForEachSV::GetGpsEphBoolParamForEachSV(const std::string& paramName, const Sdx::optional<std::string>& dataSetName)
-      : CommandBase(CmdName)
+      : CommandBase(CmdName, TargetId)
     {
 
       setParamName(paramName);
@@ -54,6 +62,12 @@ namespace Sdx
     }
 
     std::string GetGpsEphBoolParamForEachSV::documentation() const { return Documentation; }
+
+    const std::vector<std::string>& GetGpsEphBoolParamForEachSV::fieldNames() const 
+    { 
+      static const std::vector<std::string> names {"ParamName", "DataSetName"}; 
+      return names; 
+    }
 
     Sdx::optional<std::string> GetGpsEphBoolParamForEachSV::deprecated() const { return Sdx::optional<std::string>{Deprecated}; }
 

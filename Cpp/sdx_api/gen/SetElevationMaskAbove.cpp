@@ -1,8 +1,7 @@
 
-#include "gen/SetElevationMaskAbove.h"
+#include "SetElevationMaskAbove.h"
 
 #include "command_factory.h"
-#include "command_result_factory.h"
 #include "parse_json.hpp"
 
 ///
@@ -14,17 +13,23 @@ namespace Sdx
   namespace Cmd
   {
     const char* const SetElevationMaskAbove::CmdName = "SetElevationMaskAbove";
-    const char* const SetElevationMaskAbove::Documentation = "Set elevation mask angle. See command EnableElevationMaskAbove";
+    const char* const SetElevationMaskAbove::Documentation = "Set elevation mask angle. See command EnableElevationMaskAbove\n"
+      "\n"
+      "Name  Type   Description\n"
+      "----- ------ ---------------------------\n"
+      "Angle double Elevation mask angle in rad";
+    const char* const SetElevationMaskAbove::TargetId = "";
 
-    REGISTER_COMMAND_FACTORY(SetElevationMaskAbove);
+    REGISTER_COMMAND_TO_FACTORY_DECL(SetElevationMaskAbove);
+    REGISTER_COMMAND_TO_FACTORY_IMPL(SetElevationMaskAbove);
 
 
     SetElevationMaskAbove::SetElevationMaskAbove()
-      : CommandBase(CmdName)
+      : CommandBase(CmdName, TargetId)
     {}
 
     SetElevationMaskAbove::SetElevationMaskAbove(double angle)
-      : CommandBase(CmdName)
+      : CommandBase(CmdName, TargetId)
     {
 
       setAngle(angle);
@@ -50,6 +55,12 @@ namespace Sdx
     }
 
     std::string SetElevationMaskAbove::documentation() const { return Documentation; }
+
+    const std::vector<std::string>& SetElevationMaskAbove::fieldNames() const 
+    { 
+      static const std::vector<std::string> names {"Angle"}; 
+      return names; 
+    }
 
 
     int SetElevationMaskAbove::executePermission() const

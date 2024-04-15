@@ -1,8 +1,7 @@
 
-#include "gen/GetIssueOfDataNavICResult.h"
+#include "GetIssueOfDataNavICResult.h"
 
 #include "command_factory.h"
-#include "command_result_factory.h"
 #include "parse_json.hpp"
 
 ///
@@ -14,17 +13,23 @@ namespace Sdx
   namespace Cmd
   {
     const char* const GetIssueOfDataNavICResult::CmdName = "GetIssueOfDataNavICResult";
-    const char* const GetIssueOfDataNavICResult::Documentation = "Result of GetIssueOfDataNavIC.";
+    const char* const GetIssueOfDataNavICResult::Documentation = "Result of GetIssueOfDataNavIC.\n"
+      "\n"
+      "Name              Type          Description\n"
+      "----------------- ------------- -------------------------------------------------------\n"
+      "EphemerisAndClock int           Issue of data, ephemeris and clock\n"
+      "OverrideRinex     optional bool If the IODEC overrides the RINEX IODEC, default is True";
+    const char* const GetIssueOfDataNavICResult::TargetId = "";
 
-    REGISTER_COMMAND_RESULT_TO_FACTORY_IMPL(GetIssueOfDataNavICResult);
+    REGISTER_COMMAND_TO_FACTORY_IMPL(GetIssueOfDataNavICResult);
 
 
     GetIssueOfDataNavICResult::GetIssueOfDataNavICResult()
-      : CommandResult(CmdName)
+      : CommandResult(CmdName, TargetId)
     {}
 
     GetIssueOfDataNavICResult::GetIssueOfDataNavICResult(int ephemerisAndClock, const Sdx::optional<bool>& overrideRinex)
-      : CommandResult(CmdName)
+      : CommandResult(CmdName, TargetId)
     {
 
       setEphemerisAndClock(ephemerisAndClock);
@@ -32,7 +37,7 @@ namespace Sdx
     }
 
     GetIssueOfDataNavICResult::GetIssueOfDataNavICResult(CommandBasePtr relatedCommand, int ephemerisAndClock, const Sdx::optional<bool>& overrideRinex)
-      : CommandResult(CmdName, relatedCommand)
+      : CommandResult(CmdName, TargetId, relatedCommand)
     {
 
       setEphemerisAndClock(ephemerisAndClock);
@@ -66,6 +71,12 @@ namespace Sdx
     }
 
     std::string GetIssueOfDataNavICResult::documentation() const { return Documentation; }
+
+    const std::vector<std::string>& GetIssueOfDataNavICResult::fieldNames() const 
+    { 
+      static const std::vector<std::string> names {"EphemerisAndClock", "OverrideRinex"}; 
+      return names; 
+    }
 
 
     int GetIssueOfDataNavICResult::ephemerisAndClock() const

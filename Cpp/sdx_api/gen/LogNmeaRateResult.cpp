@@ -1,8 +1,7 @@
 
-#include "gen/LogNmeaRateResult.h"
+#include "LogNmeaRateResult.h"
 
 #include "command_factory.h"
-#include "command_result_factory.h"
 #include "parse_json.hpp"
 
 ///
@@ -14,24 +13,29 @@ namespace Sdx
   namespace Cmd
   {
     const char* const LogNmeaRateResult::CmdName = "LogNmeaRateResult";
-    const char* const LogNmeaRateResult::Documentation = "Result of GetLogNmeaRate.";
+    const char* const LogNmeaRateResult::Documentation = "Result of GetLogNmeaRate.\n"
+      "\n"
+      "Name Type Description\n"
+      "---- ---- ------------------------------\n"
+      "Rate int  Accepted rates are 1 and 10 Hz";
+    const char* const LogNmeaRateResult::TargetId = "";
 
-    REGISTER_COMMAND_RESULT_TO_FACTORY_IMPL(LogNmeaRateResult);
+    REGISTER_COMMAND_TO_FACTORY_IMPL(LogNmeaRateResult);
 
 
     LogNmeaRateResult::LogNmeaRateResult()
-      : CommandResult(CmdName)
+      : CommandResult(CmdName, TargetId)
     {}
 
     LogNmeaRateResult::LogNmeaRateResult(int rate)
-      : CommandResult(CmdName)
+      : CommandResult(CmdName, TargetId)
     {
 
       setRate(rate);
     }
 
     LogNmeaRateResult::LogNmeaRateResult(CommandBasePtr relatedCommand, int rate)
-      : CommandResult(CmdName, relatedCommand)
+      : CommandResult(CmdName, TargetId, relatedCommand)
     {
 
       setRate(rate);
@@ -63,6 +67,12 @@ namespace Sdx
     }
 
     std::string LogNmeaRateResult::documentation() const { return Documentation; }
+
+    const std::vector<std::string>& LogNmeaRateResult::fieldNames() const 
+    { 
+      static const std::vector<std::string> names {"Rate"}; 
+      return names; 
+    }
 
 
     int LogNmeaRateResult::rate() const

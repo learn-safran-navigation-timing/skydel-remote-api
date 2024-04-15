@@ -1,8 +1,7 @@
 
-#include "gen/GetMessageModificationToBeiDouCNav1.h"
+#include "GetMessageModificationToBeiDouCNav1.h"
 
 #include "command_factory.h"
-#include "command_result_factory.h"
 #include "parse_json.hpp"
 
 ///
@@ -14,17 +13,23 @@ namespace Sdx
   namespace Cmd
   {
     const char* const GetMessageModificationToBeiDouCNav1::CmdName = "GetMessageModificationToBeiDouCNav1";
-    const char* const GetMessageModificationToBeiDouCNav1::Documentation = "Get infos about the BeiDou CNAV1 message modification with this ID.";
+    const char* const GetMessageModificationToBeiDouCNav1::Documentation = "Get infos about the BeiDou CNAV1 message modification with this ID.\n"
+      "\n"
+      "Name Type   Description\n"
+      "---- ------ ------------------------------\n"
+      "Id   string Unique identifier of the event";
+    const char* const GetMessageModificationToBeiDouCNav1::TargetId = "";
 
-    REGISTER_COMMAND_FACTORY(GetMessageModificationToBeiDouCNav1);
+    REGISTER_COMMAND_TO_FACTORY_DECL(GetMessageModificationToBeiDouCNav1);
+    REGISTER_COMMAND_TO_FACTORY_IMPL(GetMessageModificationToBeiDouCNav1);
 
 
     GetMessageModificationToBeiDouCNav1::GetMessageModificationToBeiDouCNav1()
-      : CommandBase(CmdName)
+      : CommandBase(CmdName, TargetId)
     {}
 
     GetMessageModificationToBeiDouCNav1::GetMessageModificationToBeiDouCNav1(const std::string& id)
-      : CommandBase(CmdName)
+      : CommandBase(CmdName, TargetId)
     {
 
       setId(id);
@@ -50,6 +55,12 @@ namespace Sdx
     }
 
     std::string GetMessageModificationToBeiDouCNav1::documentation() const { return Documentation; }
+
+    const std::vector<std::string>& GetMessageModificationToBeiDouCNav1::fieldNames() const 
+    { 
+      static const std::vector<std::string> names {"Id"}; 
+      return names; 
+    }
 
 
     int GetMessageModificationToBeiDouCNav1::executePermission() const

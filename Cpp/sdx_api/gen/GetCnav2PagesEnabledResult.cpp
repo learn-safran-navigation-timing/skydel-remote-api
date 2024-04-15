@@ -1,8 +1,7 @@
 
-#include "gen/GetCnav2PagesEnabledResult.h"
+#include "GetCnav2PagesEnabledResult.h"
 
 #include "command_factory.h"
-#include "command_result_factory.h"
 #include "parse_json.hpp"
 
 ///
@@ -14,24 +13,29 @@ namespace Sdx
   namespace Cmd
   {
     const char* const GetCnav2PagesEnabledResult::CmdName = "GetCnav2PagesEnabledResult";
-    const char* const GetCnav2PagesEnabledResult::Documentation = "Result of GetCnav2PagesEnabled.";
+    const char* const GetCnav2PagesEnabledResult::Documentation = "Result of GetCnav2PagesEnabled.\n"
+      "\n"
+      "Name     Type      Description\n"
+      "-------- --------- -----------------\n"
+      "Messages array int The enabled pages";
+    const char* const GetCnav2PagesEnabledResult::TargetId = "";
 
-    REGISTER_COMMAND_RESULT_TO_FACTORY_IMPL(GetCnav2PagesEnabledResult);
+    REGISTER_COMMAND_TO_FACTORY_IMPL(GetCnav2PagesEnabledResult);
 
 
     GetCnav2PagesEnabledResult::GetCnav2PagesEnabledResult()
-      : CommandResult(CmdName)
+      : CommandResult(CmdName, TargetId)
     {}
 
     GetCnav2PagesEnabledResult::GetCnav2PagesEnabledResult(const std::vector<int>& messages)
-      : CommandResult(CmdName)
+      : CommandResult(CmdName, TargetId)
     {
 
       setMessages(messages);
     }
 
     GetCnav2PagesEnabledResult::GetCnav2PagesEnabledResult(CommandBasePtr relatedCommand, const std::vector<int>& messages)
-      : CommandResult(CmdName, relatedCommand)
+      : CommandResult(CmdName, TargetId, relatedCommand)
     {
 
       setMessages(messages);
@@ -63,6 +67,12 @@ namespace Sdx
     }
 
     std::string GetCnav2PagesEnabledResult::documentation() const { return Documentation; }
+
+    const std::vector<std::string>& GetCnav2PagesEnabledResult::fieldNames() const 
+    { 
+      static const std::vector<std::string> names {"Messages"}; 
+      return names; 
+    }
 
 
     std::vector<int> GetCnav2PagesEnabledResult::messages() const

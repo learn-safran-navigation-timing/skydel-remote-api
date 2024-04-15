@@ -1,8 +1,7 @@
 
-#include "gen/IsSimStopWhenCommandFailEnabledResult.h"
+#include "IsSimStopWhenCommandFailEnabledResult.h"
 
 #include "command_factory.h"
-#include "command_result_factory.h"
 #include "parse_json.hpp"
 
 ///
@@ -14,24 +13,29 @@ namespace Sdx
   namespace Cmd
   {
     const char* const IsSimStopWhenCommandFailEnabledResult::CmdName = "IsSimStopWhenCommandFailEnabledResult";
-    const char* const IsSimStopWhenCommandFailEnabledResult::Documentation = "Result of IsSimStopWhenCommandFailEnabled.";
+    const char* const IsSimStopWhenCommandFailEnabledResult::Documentation = "Result of IsSimStopWhenCommandFailEnabled.\n"
+      "\n"
+      "Name    Type Description\n"
+      "------- ---- ----------------------------------\n"
+      "Enabled bool Enable stop when command fail flag";
+    const char* const IsSimStopWhenCommandFailEnabledResult::TargetId = "";
 
-    REGISTER_COMMAND_RESULT_TO_FACTORY_IMPL(IsSimStopWhenCommandFailEnabledResult);
+    REGISTER_COMMAND_TO_FACTORY_IMPL(IsSimStopWhenCommandFailEnabledResult);
 
 
     IsSimStopWhenCommandFailEnabledResult::IsSimStopWhenCommandFailEnabledResult()
-      : CommandResult(CmdName)
+      : CommandResult(CmdName, TargetId)
     {}
 
     IsSimStopWhenCommandFailEnabledResult::IsSimStopWhenCommandFailEnabledResult(bool enabled)
-      : CommandResult(CmdName)
+      : CommandResult(CmdName, TargetId)
     {
 
       setEnabled(enabled);
     }
 
     IsSimStopWhenCommandFailEnabledResult::IsSimStopWhenCommandFailEnabledResult(CommandBasePtr relatedCommand, bool enabled)
-      : CommandResult(CmdName, relatedCommand)
+      : CommandResult(CmdName, TargetId, relatedCommand)
     {
 
       setEnabled(enabled);
@@ -63,6 +67,12 @@ namespace Sdx
     }
 
     std::string IsSimStopWhenCommandFailEnabledResult::documentation() const { return Documentation; }
+
+    const std::vector<std::string>& IsSimStopWhenCommandFailEnabledResult::fieldNames() const 
+    { 
+      static const std::vector<std::string> names {"Enabled"}; 
+      return names; 
+    }
 
 
     bool IsSimStopWhenCommandFailEnabledResult::enabled() const

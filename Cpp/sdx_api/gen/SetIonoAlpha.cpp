@@ -1,8 +1,7 @@
 
-#include "gen/SetIonoAlpha.h"
+#include "SetIonoAlpha.h"
 
 #include "command_factory.h"
-#include "command_result_factory.h"
 #include "parse_json.hpp"
 
 ///
@@ -14,17 +13,28 @@ namespace Sdx
   namespace Cmd
   {
     const char* const SetIonoAlpha::CmdName = "SetIonoAlpha";
-    const char* const SetIonoAlpha::Documentation = "Set the GPS ionospheric Alpha coefficient\nAlpha 0 is in seconds\nAlpha 1 is in seconds/semicircle\nAlpha 2 is in seconds/semicircle^2\nAlpha 3 is in seconds/semicircle^3";
+    const char* const SetIonoAlpha::Documentation = "Set the GPS ionospheric Alpha coefficient\n"
+      "Alpha 0 is in seconds\n"
+      "Alpha 1 is in seconds/semicircle\n"
+      "Alpha 2 is in seconds/semicircle^2\n"
+      "Alpha 3 is in seconds/semicircle^3\n"
+      "\n"
+      "Name  Type   Description\n"
+      "----- ------ ------------------------\n"
+      "Index int    Coefficient index [0..3]\n"
+      "Val   double Coefficient value";
+    const char* const SetIonoAlpha::TargetId = "";
 
-    REGISTER_COMMAND_FACTORY(SetIonoAlpha);
+    REGISTER_COMMAND_TO_FACTORY_DECL(SetIonoAlpha);
+    REGISTER_COMMAND_TO_FACTORY_IMPL(SetIonoAlpha);
 
 
     SetIonoAlpha::SetIonoAlpha()
-      : CommandBase(CmdName)
+      : CommandBase(CmdName, TargetId)
     {}
 
     SetIonoAlpha::SetIonoAlpha(int index, double val)
-      : CommandBase(CmdName)
+      : CommandBase(CmdName, TargetId)
     {
 
       setIndex(index);
@@ -52,6 +62,12 @@ namespace Sdx
     }
 
     std::string SetIonoAlpha::documentation() const { return Documentation; }
+
+    const std::vector<std::string>& SetIonoAlpha::fieldNames() const 
+    { 
+      static const std::vector<std::string> names {"Index", "Val"}; 
+      return names; 
+    }
 
 
     int SetIonoAlpha::executePermission() const

@@ -1,8 +1,7 @@
 
-#include "gen/PushIntTxTrackEcef.h"
+#include "PushIntTxTrackEcef.h"
 
 #include "command_factory.h"
-#include "command_result_factory.h"
 #include "parse_json.hpp"
 
 ///
@@ -14,17 +13,27 @@ namespace Sdx
   namespace Cmd
   {
     const char* const PushIntTxTrackEcef::CmdName = "PushIntTxTrackEcef";
-    const char* const PushIntTxTrackEcef::Documentation = "Push an interference track ecef node. Must be called after BeginIntTxTrackDefinition and before EndIntTxTrackDefinition.";
+    const char* const PushIntTxTrackEcef::Documentation = "Push an interference track ecef node. Must be called after BeginIntTxTrackDefinition and before EndIntTxTrackDefinition.\n"
+      "\n"
+      "Name Type   Description\n"
+      "---- ------ --------------------------------------\n"
+      "Time int    Node Timestamp in miliseconds\n"
+      "X    double X distance from earth-center in meters\n"
+      "Y    double Y distance from earth-center in meters\n"
+      "Z    double Z distance from earth-center in meters\n"
+      "Id   string Transmitter unique identifier.";
+    const char* const PushIntTxTrackEcef::TargetId = "";
 
-    REGISTER_COMMAND_FACTORY(PushIntTxTrackEcef);
+    REGISTER_COMMAND_TO_FACTORY_DECL(PushIntTxTrackEcef);
+    REGISTER_COMMAND_TO_FACTORY_IMPL(PushIntTxTrackEcef);
 
 
     PushIntTxTrackEcef::PushIntTxTrackEcef()
-      : CommandBase(CmdName)
+      : CommandBase(CmdName, TargetId)
     {}
 
     PushIntTxTrackEcef::PushIntTxTrackEcef(int time, double x, double y, double z, const std::string& id)
-      : CommandBase(CmdName)
+      : CommandBase(CmdName, TargetId)
     {
 
       setTime(time);
@@ -58,6 +67,12 @@ namespace Sdx
     }
 
     std::string PushIntTxTrackEcef::documentation() const { return Documentation; }
+
+    const std::vector<std::string>& PushIntTxTrackEcef::fieldNames() const 
+    { 
+      static const std::vector<std::string> names {"Time", "X", "Y", "Z", "Id"}; 
+      return names; 
+    }
 
 
     int PushIntTxTrackEcef::executePermission() const

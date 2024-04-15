@@ -1,8 +1,7 @@
 
-#include "gen/IsIntTxAttitudeToZeroForced.h"
+#include "IsIntTxAttitudeToZeroForced.h"
 
 #include "command_factory.h"
-#include "command_result_factory.h"
 #include "parse_json.hpp"
 
 ///
@@ -14,17 +13,23 @@ namespace Sdx
   namespace Cmd
   {
     const char* const IsIntTxAttitudeToZeroForced::CmdName = "IsIntTxAttitudeToZeroForced";
-    const char* const IsIntTxAttitudeToZeroForced::Documentation = "Get force interference vehicle yaw, pitch and roll to zero enabled or disabled";
+    const char* const IsIntTxAttitudeToZeroForced::Documentation = "Get force interference vehicle yaw, pitch and roll to zero enabled or disabled\n"
+      "\n"
+      "Name Type   Description\n"
+      "---- ------ ------------------------------\n"
+      "Id   string Transmitter unique identifier.";
+    const char* const IsIntTxAttitudeToZeroForced::TargetId = "";
 
-    REGISTER_COMMAND_FACTORY(IsIntTxAttitudeToZeroForced);
+    REGISTER_COMMAND_TO_FACTORY_DECL(IsIntTxAttitudeToZeroForced);
+    REGISTER_COMMAND_TO_FACTORY_IMPL(IsIntTxAttitudeToZeroForced);
 
 
     IsIntTxAttitudeToZeroForced::IsIntTxAttitudeToZeroForced()
-      : CommandBase(CmdName)
+      : CommandBase(CmdName, TargetId)
     {}
 
     IsIntTxAttitudeToZeroForced::IsIntTxAttitudeToZeroForced(const std::string& id)
-      : CommandBase(CmdName)
+      : CommandBase(CmdName, TargetId)
     {
 
       setId(id);
@@ -50,6 +55,12 @@ namespace Sdx
     }
 
     std::string IsIntTxAttitudeToZeroForced::documentation() const { return Documentation; }
+
+    const std::vector<std::string>& IsIntTxAttitudeToZeroForced::fieldNames() const 
+    { 
+      static const std::vector<std::string> names {"Id"}; 
+      return names; 
+    }
 
 
     int IsIntTxAttitudeToZeroForced::executePermission() const

@@ -1,8 +1,7 @@
 
-#include "gen/GetMessageModificationToQzssSlasResult.h"
+#include "GetMessageModificationToQzssSlasResult.h"
 
 #include "command_factory.h"
-#include "command_result_factory.h"
 #include "parse_json.hpp"
 
 ///
@@ -14,17 +13,30 @@ namespace Sdx
   namespace Cmd
   {
     const char* const GetMessageModificationToQzssSlasResult::CmdName = "GetMessageModificationToQzssSlasResult";
-    const char* const GetMessageModificationToQzssSlasResult::Documentation = "Result of GetMessageModificationToQzssSlas.";
+    const char* const GetMessageModificationToQzssSlasResult::Documentation = "Result of GetMessageModificationToQzssSlas.\n"
+      "\n"
+      "Name             Type         Description\n"
+      "---------------- ------------ ----------------------------------------------------------------------------------------\n"
+      "SignalArray      array string Array of signals to apply the message modification to, accepts \"QZSSL1S\" (empty for all)\n"
+      "SvId             int          The satellite's SV ID 1..10 (use 0 to apply modification to all SVs)\n"
+      "StartTime        int          Elapsed time in seconds since start of simulation\n"
+      "StopTime         int          Elapsed time in seconds since start of simulation (use 0 for no stop time)\n"
+      "MessageType      int          SLAS Message type (use -1 to apply modification to all message types)\n"
+      "Condition        string       Optional condition to match message content, ex: \"EQUAL(45, 10, 0x3f)\"\n"
+      "UpdateCRC        bool         Recalculate CRC after making modification\n"
+      "BitModifications string       Comma separated bit modifications\n"
+      "Id               string       Unique identifier of the event";
+    const char* const GetMessageModificationToQzssSlasResult::TargetId = "";
 
-    REGISTER_COMMAND_RESULT_TO_FACTORY_IMPL(GetMessageModificationToQzssSlasResult);
+    REGISTER_COMMAND_TO_FACTORY_IMPL(GetMessageModificationToQzssSlasResult);
 
 
     GetMessageModificationToQzssSlasResult::GetMessageModificationToQzssSlasResult()
-      : CommandResult(CmdName)
+      : CommandResult(CmdName, TargetId)
     {}
 
     GetMessageModificationToQzssSlasResult::GetMessageModificationToQzssSlasResult(const std::vector<std::string>& signalArray, int svId, int startTime, int stopTime, int messageType, const std::string& condition, bool updateCRC, const std::string& bitModifications, const std::string& id)
-      : CommandResult(CmdName)
+      : CommandResult(CmdName, TargetId)
     {
 
       setSignalArray(signalArray);
@@ -39,7 +51,7 @@ namespace Sdx
     }
 
     GetMessageModificationToQzssSlasResult::GetMessageModificationToQzssSlasResult(CommandBasePtr relatedCommand, const std::vector<std::string>& signalArray, int svId, int startTime, int stopTime, int messageType, const std::string& condition, bool updateCRC, const std::string& bitModifications, const std::string& id)
-      : CommandResult(CmdName, relatedCommand)
+      : CommandResult(CmdName, TargetId, relatedCommand)
     {
 
       setSignalArray(signalArray);
@@ -87,6 +99,12 @@ namespace Sdx
     }
 
     std::string GetMessageModificationToQzssSlasResult::documentation() const { return Documentation; }
+
+    const std::vector<std::string>& GetMessageModificationToQzssSlasResult::fieldNames() const 
+    { 
+      static const std::vector<std::string> names {"SignalArray", "SvId", "StartTime", "StopTime", "MessageType", "Condition", "UpdateCRC", "BitModifications", "Id"}; 
+      return names; 
+    }
 
 
     std::vector<std::string> GetMessageModificationToQzssSlasResult::signalArray() const

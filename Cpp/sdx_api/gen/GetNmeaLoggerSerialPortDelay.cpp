@@ -1,8 +1,7 @@
 
-#include "gen/GetNmeaLoggerSerialPortDelay.h"
+#include "GetNmeaLoggerSerialPortDelay.h"
 
 #include "command_factory.h"
-#include "command_result_factory.h"
 #include "parse_json.hpp"
 
 ///
@@ -15,12 +14,14 @@ namespace Sdx
   {
     const char* const GetNmeaLoggerSerialPortDelay::CmdName = "GetNmeaLoggerSerialPortDelay";
     const char* const GetNmeaLoggerSerialPortDelay::Documentation = "Get the delay of the NMEA serial port logging.";
+    const char* const GetNmeaLoggerSerialPortDelay::TargetId = "";
 
-    REGISTER_COMMAND_FACTORY(GetNmeaLoggerSerialPortDelay);
+    REGISTER_COMMAND_TO_FACTORY_DECL(GetNmeaLoggerSerialPortDelay);
+    REGISTER_COMMAND_TO_FACTORY_IMPL(GetNmeaLoggerSerialPortDelay);
 
 
     GetNmeaLoggerSerialPortDelay::GetNmeaLoggerSerialPortDelay()
-      : CommandBase(CmdName)
+      : CommandBase(CmdName, TargetId)
     {
 
     }
@@ -44,6 +45,12 @@ namespace Sdx
     }
 
     std::string GetNmeaLoggerSerialPortDelay::documentation() const { return Documentation; }
+
+    const std::vector<std::string>& GetNmeaLoggerSerialPortDelay::fieldNames() const 
+    { 
+      static const std::vector<std::string> names {}; 
+      return names; 
+    }
 
 
     int GetNmeaLoggerSerialPortDelay::executePermission() const

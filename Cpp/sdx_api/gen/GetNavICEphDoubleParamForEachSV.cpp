@@ -1,8 +1,7 @@
 
-#include "gen/GetNavICEphDoubleParamForEachSV.h"
+#include "GetNavICEphDoubleParamForEachSV.h"
 
 #include "command_factory.h"
-#include "command_result_factory.h"
 #include "parse_json.hpp"
 
 ///
@@ -14,19 +13,28 @@ namespace Sdx
   namespace Cmd
   {
     const char* const GetNavICEphDoubleParamForEachSV::CmdName = "GetNavICEphDoubleParamForEachSV";
-    const char* const GetNavICEphDoubleParamForEachSV::Documentation = "Please note the command GetNavICEphDoubleParamForEachSV is deprecated since 23.11. You may use GetConstellationParameterForSV.\n\nGet NavIC ephemeris parameter value for all satellites";
+    const char* const GetNavICEphDoubleParamForEachSV::Documentation = "Please note the command GetNavICEphDoubleParamForEachSV is deprecated since 23.11. You may use GetConstellationParameterForSV.\n"
+      "\n"
+      "Get NavIC ephemeris parameter value for all satellites\n"
+      "\n"
+      "Name        Type            Description\n"
+      "----------- --------------- -------------------------------------------------------------------------------------------\n"
+      "ParamName   string          Refer to SetNavICEphDoubleParamForSV for accepted names\n"
+      "DataSetName optional string Optional name of the data set to use. If no value is provided, the active data set is used.";
+    const char* const GetNavICEphDoubleParamForEachSV::TargetId = "";
 
     const char* const GetNavICEphDoubleParamForEachSV::Deprecated = "Please note the command GetNavICEphDoubleParamForEachSV is deprecated since 23.11. You may use GetConstellationParameterForSV.";
 
-    REGISTER_COMMAND_FACTORY(GetNavICEphDoubleParamForEachSV);
+    REGISTER_COMMAND_TO_FACTORY_DECL(GetNavICEphDoubleParamForEachSV);
+    REGISTER_COMMAND_TO_FACTORY_IMPL(GetNavICEphDoubleParamForEachSV);
 
 
     GetNavICEphDoubleParamForEachSV::GetNavICEphDoubleParamForEachSV()
-      : CommandBase(CmdName)
+      : CommandBase(CmdName, TargetId)
     {}
 
     GetNavICEphDoubleParamForEachSV::GetNavICEphDoubleParamForEachSV(const std::string& paramName, const Sdx::optional<std::string>& dataSetName)
-      : CommandBase(CmdName)
+      : CommandBase(CmdName, TargetId)
     {
 
       setParamName(paramName);
@@ -54,6 +62,12 @@ namespace Sdx
     }
 
     std::string GetNavICEphDoubleParamForEachSV::documentation() const { return Documentation; }
+
+    const std::vector<std::string>& GetNavICEphDoubleParamForEachSV::fieldNames() const 
+    { 
+      static const std::vector<std::string> names {"ParamName", "DataSetName"}; 
+      return names; 
+    }
 
     Sdx::optional<std::string> GetNavICEphDoubleParamForEachSV::deprecated() const { return Sdx::optional<std::string>{Deprecated}; }
 

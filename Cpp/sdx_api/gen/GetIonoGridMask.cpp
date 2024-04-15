@@ -1,8 +1,7 @@
 
-#include "gen/GetIonoGridMask.h"
+#include "GetIonoGridMask.h"
 
 #include "command_factory.h"
-#include "command_result_factory.h"
 #include "parse_json.hpp"
 
 ///
@@ -14,17 +13,25 @@ namespace Sdx
   namespace Cmd
   {
     const char* const GetIonoGridMask::CmdName = "GetIonoGridMask";
-    const char* const GetIonoGridMask::Documentation = "Get the flag for a ionospheric grid point in the SBAS message 18 mask";
+    const char* const GetIonoGridMask::Documentation = "Get the flag for a ionospheric grid point in the SBAS message 18 mask\n"
+      "\n"
+      "Name            Type   Description\n"
+      "--------------- ------ -------------------------------\n"
+      "ServiceProvider string The service provider\n"
+      "Band            int    The ionospheric grid band index\n"
+      "Point           int    The IGP index";
+    const char* const GetIonoGridMask::TargetId = "";
 
-    REGISTER_COMMAND_FACTORY(GetIonoGridMask);
+    REGISTER_COMMAND_TO_FACTORY_DECL(GetIonoGridMask);
+    REGISTER_COMMAND_TO_FACTORY_IMPL(GetIonoGridMask);
 
 
     GetIonoGridMask::GetIonoGridMask()
-      : CommandBase(CmdName)
+      : CommandBase(CmdName, TargetId)
     {}
 
     GetIonoGridMask::GetIonoGridMask(const std::string& serviceProvider, int band, int point)
-      : CommandBase(CmdName)
+      : CommandBase(CmdName, TargetId)
     {
 
       setServiceProvider(serviceProvider);
@@ -54,6 +61,12 @@ namespace Sdx
     }
 
     std::string GetIonoGridMask::documentation() const { return Documentation; }
+
+    const std::vector<std::string>& GetIonoGridMask::fieldNames() const 
+    { 
+      static const std::vector<std::string> names {"ServiceProvider", "Band", "Point"}; 
+      return names; 
+    }
 
 
     int GetIonoGridMask::executePermission() const

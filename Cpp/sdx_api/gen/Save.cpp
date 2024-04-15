@@ -1,8 +1,7 @@
 
-#include "gen/Save.h"
+#include "Save.h"
 
 #include "command_factory.h"
-#include "command_result_factory.h"
 #include "parse_json.hpp"
 
 ///
@@ -15,12 +14,14 @@ namespace Sdx
   {
     const char* const Save::CmdName = "Save";
     const char* const Save::Documentation = "Save configuration.";
+    const char* const Save::TargetId = "";
 
-    REGISTER_COMMAND_FACTORY(Save);
+    REGISTER_COMMAND_TO_FACTORY_DECL(Save);
+    REGISTER_COMMAND_TO_FACTORY_IMPL(Save);
 
 
     Save::Save()
-      : CommandBase(CmdName)
+      : CommandBase(CmdName, TargetId)
     {
 
     }
@@ -44,6 +45,12 @@ namespace Sdx
     }
 
     std::string Save::documentation() const { return Documentation; }
+
+    const std::vector<std::string>& Save::fieldNames() const 
+    { 
+      static const std::vector<std::string> names {}; 
+      return names; 
+    }
 
 
     int Save::executePermission() const

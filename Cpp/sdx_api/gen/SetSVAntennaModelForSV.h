@@ -13,8 +13,8 @@ namespace Sdx
     /// Set the antenna model used by the SV.
     ///
     /// Name             Type   Description
-    /// ---------------- ------ -----------------------------------------------------------------
-    /// System           string "GPS", "GLONASS", "Galileo", "BeiDou", "SBAS", "QZSS" or "NavIC".
+    /// ---------------- ------ ---------------------------------------------------------------------------
+    /// System           string "GPS", "GLONASS", "Galileo", "BeiDou", "SBAS", "QZSS", "NavIC" or "PULSAR".
     /// SvId             int    The satellite's SV ID.
     /// AntennaModelName string SV antenna model name.
     ///
@@ -28,6 +28,7 @@ namespace Sdx
     public:
       static const char* const CmdName;
       static const char* const Documentation;
+      static const char* const TargetId;
 
 
       SetSVAntennaModelForSV();
@@ -38,6 +39,7 @@ namespace Sdx
       static SetSVAntennaModelForSVPtr dynamicCast(CommandBasePtr ptr);
       virtual bool isValid() const override;
       virtual std::string documentation() const override;
+      virtual const std::vector<std::string>& fieldNames() const override;
 
       virtual int executePermission() const override;
 

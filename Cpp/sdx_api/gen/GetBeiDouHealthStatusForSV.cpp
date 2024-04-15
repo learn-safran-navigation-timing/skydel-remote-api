@@ -1,8 +1,7 @@
 
-#include "gen/GetBeiDouHealthStatusForSV.h"
+#include "GetBeiDouHealthStatusForSV.h"
 
 #include "command_factory.h"
-#include "command_result_factory.h"
 #include "parse_json.hpp"
 
 ///
@@ -14,17 +13,24 @@ namespace Sdx
   namespace Cmd
   {
     const char* const GetBeiDouHealthStatusForSV::CmdName = "GetBeiDouHealthStatusForSV";
-    const char* const GetBeiDouHealthStatusForSV::Documentation = "Get BeiDou satellite health status";
+    const char* const GetBeiDouHealthStatusForSV::Documentation = "Get BeiDou satellite health status\n"
+      "\n"
+      "Name        Type            Description\n"
+      "----------- --------------- -------------------------------------------------------------------------------------------\n"
+      "SvId        int             Satellite SV ID 1..35, or use 0 to apply new value to all satellites.\n"
+      "DataSetName optional string Optional name of the data set to use. If no value is provided, the active data set is used.";
+    const char* const GetBeiDouHealthStatusForSV::TargetId = "";
 
-    REGISTER_COMMAND_FACTORY(GetBeiDouHealthStatusForSV);
+    REGISTER_COMMAND_TO_FACTORY_DECL(GetBeiDouHealthStatusForSV);
+    REGISTER_COMMAND_TO_FACTORY_IMPL(GetBeiDouHealthStatusForSV);
 
 
     GetBeiDouHealthStatusForSV::GetBeiDouHealthStatusForSV()
-      : CommandBase(CmdName)
+      : CommandBase(CmdName, TargetId)
     {}
 
     GetBeiDouHealthStatusForSV::GetBeiDouHealthStatusForSV(int svId, const Sdx::optional<std::string>& dataSetName)
-      : CommandBase(CmdName)
+      : CommandBase(CmdName, TargetId)
     {
 
       setSvId(svId);
@@ -52,6 +58,12 @@ namespace Sdx
     }
 
     std::string GetBeiDouHealthStatusForSV::documentation() const { return Documentation; }
+
+    const std::vector<std::string>& GetBeiDouHealthStatusForSV::fieldNames() const 
+    { 
+      static const std::vector<std::string> names {"SvId", "DataSetName"}; 
+      return names; 
+    }
 
 
     int GetBeiDouHealthStatusForSV::executePermission() const

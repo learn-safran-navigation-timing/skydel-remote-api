@@ -1,8 +1,7 @@
 
-#include "gen/GetPseudorangeNoiseOffsetForSVResult.h"
+#include "GetPseudorangeNoiseOffsetForSVResult.h"
 
 #include "command_factory.h"
-#include "command_result_factory.h"
 #include "parse_json.hpp"
 
 ///
@@ -14,17 +13,25 @@ namespace Sdx
   namespace Cmd
   {
     const char* const GetPseudorangeNoiseOffsetForSVResult::CmdName = "GetPseudorangeNoiseOffsetForSVResult";
-    const char* const GetPseudorangeNoiseOffsetForSVResult::Documentation = "Result of GetPseudorangeNoiseOffsetForSV.";
+    const char* const GetPseudorangeNoiseOffsetForSVResult::Documentation = "Result of GetPseudorangeNoiseOffsetForSV.\n"
+      "\n"
+      "Name    Type   Description\n"
+      "------- ------ --------------------------------------------------------------------------\n"
+      "System  string \"GPS\", \"GLONASS\", \"Galileo\", \"BeiDou\", \"SBAS\", \"QZSS\", \"NavIC\" or \"PULSAR\"\n"
+      "SvId    int    Satellite SV ID.\n"
+      "Enabled bool   If true, the offset is enabled (applied)\n"
+      "Offset  double The constant offset in metters";
+    const char* const GetPseudorangeNoiseOffsetForSVResult::TargetId = "";
 
-    REGISTER_COMMAND_RESULT_TO_FACTORY_IMPL(GetPseudorangeNoiseOffsetForSVResult);
+    REGISTER_COMMAND_TO_FACTORY_IMPL(GetPseudorangeNoiseOffsetForSVResult);
 
 
     GetPseudorangeNoiseOffsetForSVResult::GetPseudorangeNoiseOffsetForSVResult()
-      : CommandResult(CmdName)
+      : CommandResult(CmdName, TargetId)
     {}
 
     GetPseudorangeNoiseOffsetForSVResult::GetPseudorangeNoiseOffsetForSVResult(const std::string& system, int svId, bool enabled, double offset)
-      : CommandResult(CmdName)
+      : CommandResult(CmdName, TargetId)
     {
 
       setSystem(system);
@@ -34,7 +41,7 @@ namespace Sdx
     }
 
     GetPseudorangeNoiseOffsetForSVResult::GetPseudorangeNoiseOffsetForSVResult(CommandBasePtr relatedCommand, const std::string& system, int svId, bool enabled, double offset)
-      : CommandResult(CmdName, relatedCommand)
+      : CommandResult(CmdName, TargetId, relatedCommand)
     {
 
       setSystem(system);
@@ -72,6 +79,12 @@ namespace Sdx
     }
 
     std::string GetPseudorangeNoiseOffsetForSVResult::documentation() const { return Documentation; }
+
+    const std::vector<std::string>& GetPseudorangeNoiseOffsetForSVResult::fieldNames() const 
+    { 
+      static const std::vector<std::string> names {"System", "SvId", "Enabled", "Offset"}; 
+      return names; 
+    }
 
 
     std::string GetPseudorangeNoiseOffsetForSVResult::system() const

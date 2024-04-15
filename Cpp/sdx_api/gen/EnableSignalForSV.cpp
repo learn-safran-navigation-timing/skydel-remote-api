@@ -1,8 +1,7 @@
 
-#include "gen/EnableSignalForSV.h"
+#include "EnableSignalForSV.h"
 
 #include "command_factory.h"
-#include "command_result_factory.h"
 #include "parse_json.hpp"
 
 ///
@@ -14,17 +13,28 @@ namespace Sdx
   namespace Cmd
   {
     const char* const EnableSignalForSV::CmdName = "EnableSignalForSV";
-    const char* const EnableSignalForSV::Documentation = "Enable (or disable) signal for specified satellite.";
+    const char* const EnableSignalForSV::Documentation = "Enable (or disable) signal for specified satellite.\n"
+      "\n"
+      "Name    Type   Description\n"
+      "------- ------ -------------------------------------------------------------------------------------------------------------\n"
+      "Signal  string Accepted signal keys: \"L1CA\", \"L1C\", \"L1P\", \"L1ME\", \"L1MR\", \"L2C\", \"L2P\", \"L2ME\", \"L2MR\", \"L5\",\n"
+      "                                     \"G1\", \"G2\", \"E1\", \"E1PRS\", \"E5a\", \"E5b\", \"E6BC\", \"E6PRS\",\n"
+      "                                     \"B1\", \"B2\", \"B1C\", \"B2a\", \"B3I\", \"SBASL1\", \"SBASL5\", \"QZSSL1CA\"\n"
+      "                                     \"QZSSL1CB\", \"QZSSL1C\", \"QZSSL2C\", \"QZSSL5\", \"QZSSL1S\", \"QZSSL5S\", \"NAVICL5\", \"PULSARXL\"\n"
+      "SvId    int    The satellite's SV ID (use 0 for all constellation's satellites)\n"
+      "Enabled bool   Signal is enabled when value is True";
+    const char* const EnableSignalForSV::TargetId = "";
 
-    REGISTER_COMMAND_FACTORY(EnableSignalForSV);
+    REGISTER_COMMAND_TO_FACTORY_DECL(EnableSignalForSV);
+    REGISTER_COMMAND_TO_FACTORY_IMPL(EnableSignalForSV);
 
 
     EnableSignalForSV::EnableSignalForSV()
-      : CommandBase(CmdName)
+      : CommandBase(CmdName, TargetId)
     {}
 
     EnableSignalForSV::EnableSignalForSV(const std::string& signal, int svId, bool enabled)
-      : CommandBase(CmdName)
+      : CommandBase(CmdName, TargetId)
     {
 
       setSignal(signal);
@@ -54,6 +64,12 @@ namespace Sdx
     }
 
     std::string EnableSignalForSV::documentation() const { return Documentation; }
+
+    const std::vector<std::string>& EnableSignalForSV::fieldNames() const 
+    { 
+      static const std::vector<std::string> names {"Signal", "SvId", "Enabled"}; 
+      return names; 
+    }
 
 
     int EnableSignalForSV::executePermission() const

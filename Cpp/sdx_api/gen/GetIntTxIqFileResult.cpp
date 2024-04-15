@@ -1,8 +1,7 @@
 
-#include "gen/GetIntTxIqFileResult.h"
+#include "GetIntTxIqFileResult.h"
 
 #include "command_factory.h"
-#include "command_result_factory.h"
 #include "parse_json.hpp"
 
 ///
@@ -14,17 +13,28 @@ namespace Sdx
   namespace Cmd
   {
     const char* const GetIntTxIqFileResult::CmdName = "GetIntTxIqFileResult";
-    const char* const GetIntTxIqFileResult::Documentation = "Result of GetIntTxIqFile.";
+    const char* const GetIntTxIqFileResult::Documentation = "Result of GetIntTxIqFile.\n"
+      "\n"
+      "Name          Type         Description\n"
+      "------------- ------------ ---------------------------------------------------\n"
+      "Enabled       bool         Enable (true) or disable (false) the signal\n"
+      "CentralFreq   double       Central frequency (Hz)\n"
+      "Power         double       Power (dB), relative to transmitter reference power\n"
+      "Path          string       Path to the file to play\n"
+      "TransmitterId string       Transmitter unique identifier.\n"
+      "SignalId      string       AWGN unique identifier.\n"
+      "Group         optional int Group, if not using default group.";
+    const char* const GetIntTxIqFileResult::TargetId = "";
 
-    REGISTER_COMMAND_RESULT_TO_FACTORY_IMPL(GetIntTxIqFileResult);
+    REGISTER_COMMAND_TO_FACTORY_IMPL(GetIntTxIqFileResult);
 
 
     GetIntTxIqFileResult::GetIntTxIqFileResult()
-      : CommandResult(CmdName)
+      : CommandResult(CmdName, TargetId)
     {}
 
     GetIntTxIqFileResult::GetIntTxIqFileResult(bool enabled, double centralFreq, double power, const std::string& path, const std::string& transmitterId, const std::string& signalId, const Sdx::optional<int>& group)
-      : CommandResult(CmdName)
+      : CommandResult(CmdName, TargetId)
     {
 
       setEnabled(enabled);
@@ -37,7 +47,7 @@ namespace Sdx
     }
 
     GetIntTxIqFileResult::GetIntTxIqFileResult(CommandBasePtr relatedCommand, bool enabled, double centralFreq, double power, const std::string& path, const std::string& transmitterId, const std::string& signalId, const Sdx::optional<int>& group)
-      : CommandResult(CmdName, relatedCommand)
+      : CommandResult(CmdName, TargetId, relatedCommand)
     {
 
       setEnabled(enabled);
@@ -81,6 +91,12 @@ namespace Sdx
     }
 
     std::string GetIntTxIqFileResult::documentation() const { return Documentation; }
+
+    const std::vector<std::string>& GetIntTxIqFileResult::fieldNames() const 
+    { 
+      static const std::vector<std::string> names {"Enabled", "CentralFreq", "Power", "Path", "TransmitterId", "SignalId", "Group"}; 
+      return names; 
+    }
 
 
     bool GetIntTxIqFileResult::enabled() const

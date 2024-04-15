@@ -11,11 +11,11 @@ namespace Sdx
   namespace Cmd
   {
     ///
-    /// Get "GPS", "Galileo", "BeiDou", "QZSS" or "NavIC" constellation parameter value for all satellites.
+    /// Get "GPS", "Galileo", "BeiDou", "QZSS", "NavIC" or "PULSAR" constellation parameter value for all satellites.
     ///
     /// Name        Type            Description
     /// ----------- --------------- -------------------------------------------------------------------------------------------
-    /// System      string          "GPS", "Galileo", "BeiDou", "QZSS" or "NavIC".
+    /// System      string          "GPS", "Galileo", "BeiDou", "QZSS", "NavIC" or "PULSAR".
     /// ParamName   string          Refer to SetConstellationParameterForSV for accepted names.
     /// DataSetName optional string Optional name of the data set to use. If no value is provided, the active data set is used.
     ///
@@ -29,6 +29,7 @@ namespace Sdx
     public:
       static const char* const CmdName;
       static const char* const Documentation;
+      static const char* const TargetId;
 
 
       GetConstellationParameterForEachSV();
@@ -39,6 +40,7 @@ namespace Sdx
       static GetConstellationParameterForEachSVPtr dynamicCast(CommandBasePtr ptr);
       virtual bool isValid() const override;
       virtual std::string documentation() const override;
+      virtual const std::vector<std::string>& fieldNames() const override;
 
       virtual int executePermission() const override;
 

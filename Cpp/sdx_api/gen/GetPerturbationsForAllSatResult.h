@@ -2,7 +2,7 @@
 
 #include <memory>
 #include "command_result.h"
-#include "command_result_factory.h"
+#include "command_factory.h"
 #include "sdx_optional.h"
 #include <string>
 #include <vector>
@@ -16,7 +16,7 @@ namespace Sdx
     ///
     /// Name        Type            Description
     /// ----------- --------------- -------------------------------------------------------------------------------------------
-    /// System      string          "GPS", "Galileo", "BeiDou", "QZSS" or "NavIC"
+    /// System      string          "GPS", "Galileo", "BeiDou", "QZSS", "NavIC" or "PULSAR"
     /// Crs         array double    Crs (meter)
     /// Crc         array double    Crc (meter)
     /// Cis         array double    Cis (rad)
@@ -35,6 +35,7 @@ namespace Sdx
     public:
       static const char* const CmdName;
       static const char* const Documentation;
+      static const char* const TargetId;
 
 
       GetPerturbationsForAllSatResult();
@@ -49,6 +50,7 @@ namespace Sdx
       static GetPerturbationsForAllSatResultPtr dynamicCast(CommandBasePtr ptr);
       virtual bool isValid() const override;
       virtual std::string documentation() const override;
+      virtual const std::vector<std::string>& fieldNames() const override;
 
 
       // **** system ****
@@ -90,7 +92,7 @@ namespace Sdx
       Sdx::optional<std::string> dataSetName() const;
       void setDataSetName(const Sdx::optional<std::string>& dataSetName);
     };
-    REGISTER_COMMAND_RESULT_TO_FACTORY_DECL(GetPerturbationsForAllSatResult);
+    REGISTER_COMMAND_TO_FACTORY_DECL(GetPerturbationsForAllSatResult);
   }
 }
 

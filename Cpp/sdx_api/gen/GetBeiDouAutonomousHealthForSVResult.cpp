@@ -1,8 +1,7 @@
 
-#include "gen/GetBeiDouAutonomousHealthForSVResult.h"
+#include "GetBeiDouAutonomousHealthForSVResult.h"
 
 #include "command_factory.h"
-#include "command_result_factory.h"
 #include "parse_json.hpp"
 
 ///
@@ -14,17 +13,24 @@ namespace Sdx
   namespace Cmd
   {
     const char* const GetBeiDouAutonomousHealthForSVResult::CmdName = "GetBeiDouAutonomousHealthForSVResult";
-    const char* const GetBeiDouAutonomousHealthForSVResult::Documentation = "Result of GetBeiDouAutonomousHealthForSV.";
+    const char* const GetBeiDouAutonomousHealthForSVResult::Documentation = "Result of GetBeiDouAutonomousHealthForSV.\n"
+      "\n"
+      "Name        Type            Description\n"
+      "----------- --------------- -------------------------------------------------------------------------------------------\n"
+      "SvId        int             Satellite SV ID 1..35, or use 0 to apply new value to all satellites.\n"
+      "Health      bool            Status, false = Good, true = Not Good\n"
+      "DataSetName optional string Optional name of the data set to use. If no value is provided, the active data set is used.";
+    const char* const GetBeiDouAutonomousHealthForSVResult::TargetId = "";
 
-    REGISTER_COMMAND_RESULT_TO_FACTORY_IMPL(GetBeiDouAutonomousHealthForSVResult);
+    REGISTER_COMMAND_TO_FACTORY_IMPL(GetBeiDouAutonomousHealthForSVResult);
 
 
     GetBeiDouAutonomousHealthForSVResult::GetBeiDouAutonomousHealthForSVResult()
-      : CommandResult(CmdName)
+      : CommandResult(CmdName, TargetId)
     {}
 
     GetBeiDouAutonomousHealthForSVResult::GetBeiDouAutonomousHealthForSVResult(int svId, bool health, const Sdx::optional<std::string>& dataSetName)
-      : CommandResult(CmdName)
+      : CommandResult(CmdName, TargetId)
     {
 
       setSvId(svId);
@@ -33,7 +39,7 @@ namespace Sdx
     }
 
     GetBeiDouAutonomousHealthForSVResult::GetBeiDouAutonomousHealthForSVResult(CommandBasePtr relatedCommand, int svId, bool health, const Sdx::optional<std::string>& dataSetName)
-      : CommandResult(CmdName, relatedCommand)
+      : CommandResult(CmdName, TargetId, relatedCommand)
     {
 
       setSvId(svId);
@@ -69,6 +75,12 @@ namespace Sdx
     }
 
     std::string GetBeiDouAutonomousHealthForSVResult::documentation() const { return Documentation; }
+
+    const std::vector<std::string>& GetBeiDouAutonomousHealthForSVResult::fieldNames() const 
+    { 
+      static const std::vector<std::string> names {"SvId", "Health", "DataSetName"}; 
+      return names; 
+    }
 
 
     int GetBeiDouAutonomousHealthForSVResult::svId() const

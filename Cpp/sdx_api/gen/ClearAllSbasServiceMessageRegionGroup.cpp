@@ -1,8 +1,7 @@
 
-#include "gen/ClearAllSbasServiceMessageRegionGroup.h"
+#include "ClearAllSbasServiceMessageRegionGroup.h"
 
 #include "command_factory.h"
-#include "command_result_factory.h"
 #include "parse_json.hpp"
 
 ///
@@ -14,17 +13,23 @@ namespace Sdx
   namespace Cmd
   {
     const char* const ClearAllSbasServiceMessageRegionGroup::CmdName = "ClearAllSbasServiceMessageRegionGroup";
-    const char* const ClearAllSbasServiceMessageRegionGroup::Documentation = "Clears all SBAS service message region group for this service provider.";
+    const char* const ClearAllSbasServiceMessageRegionGroup::Documentation = "Clears all SBAS service message region group for this service provider.\n"
+      "\n"
+      "Name            Type   Description\n"
+      "--------------- ------ -----------------------------------------------------------------------\n"
+      "ServiceProvider string Service providers, accepts \"WAAS\", \"EGNOS\", \"MSAS\", \"GAGAN\" and \"SDCM\".";
+    const char* const ClearAllSbasServiceMessageRegionGroup::TargetId = "";
 
-    REGISTER_COMMAND_FACTORY(ClearAllSbasServiceMessageRegionGroup);
+    REGISTER_COMMAND_TO_FACTORY_DECL(ClearAllSbasServiceMessageRegionGroup);
+    REGISTER_COMMAND_TO_FACTORY_IMPL(ClearAllSbasServiceMessageRegionGroup);
 
 
     ClearAllSbasServiceMessageRegionGroup::ClearAllSbasServiceMessageRegionGroup()
-      : CommandBase(CmdName)
+      : CommandBase(CmdName, TargetId)
     {}
 
     ClearAllSbasServiceMessageRegionGroup::ClearAllSbasServiceMessageRegionGroup(const std::string& serviceProvider)
-      : CommandBase(CmdName)
+      : CommandBase(CmdName, TargetId)
     {
 
       setServiceProvider(serviceProvider);
@@ -50,6 +55,12 @@ namespace Sdx
     }
 
     std::string ClearAllSbasServiceMessageRegionGroup::documentation() const { return Documentation; }
+
+    const std::vector<std::string>& ClearAllSbasServiceMessageRegionGroup::fieldNames() const 
+    { 
+      static const std::vector<std::string> names {"ServiceProvider"}; 
+      return names; 
+    }
 
 
     int ClearAllSbasServiceMessageRegionGroup::executePermission() const

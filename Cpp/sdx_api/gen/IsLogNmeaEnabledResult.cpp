@@ -1,8 +1,7 @@
 
-#include "gen/IsLogNmeaEnabledResult.h"
+#include "IsLogNmeaEnabledResult.h"
 
 #include "command_factory.h"
-#include "command_result_factory.h"
 #include "parse_json.hpp"
 
 ///
@@ -14,17 +13,23 @@ namespace Sdx
   namespace Cmd
   {
     const char* const IsLogNmeaEnabledResult::CmdName = "IsLogNmeaEnabledResult";
-    const char* const IsLogNmeaEnabledResult::Documentation = "Result of IsLogNmeaEnabled.";
+    const char* const IsLogNmeaEnabledResult::Documentation = "Result of IsLogNmeaEnabled.\n"
+      "\n"
+      "Name              Type          Description\n"
+      "----------------- ------------- -----------------------------------------------------------------------------\n"
+      "Enabled           bool          If true, file(s) will be created during simulation\n"
+      "SerialPortEnabled optional bool If true, the log is streamed to the serial port specified in the Preferences.";
+    const char* const IsLogNmeaEnabledResult::TargetId = "";
 
-    REGISTER_COMMAND_RESULT_TO_FACTORY_IMPL(IsLogNmeaEnabledResult);
+    REGISTER_COMMAND_TO_FACTORY_IMPL(IsLogNmeaEnabledResult);
 
 
     IsLogNmeaEnabledResult::IsLogNmeaEnabledResult()
-      : CommandResult(CmdName)
+      : CommandResult(CmdName, TargetId)
     {}
 
     IsLogNmeaEnabledResult::IsLogNmeaEnabledResult(bool enabled, const Sdx::optional<bool>& serialPortEnabled)
-      : CommandResult(CmdName)
+      : CommandResult(CmdName, TargetId)
     {
 
       setEnabled(enabled);
@@ -32,7 +37,7 @@ namespace Sdx
     }
 
     IsLogNmeaEnabledResult::IsLogNmeaEnabledResult(CommandBasePtr relatedCommand, bool enabled, const Sdx::optional<bool>& serialPortEnabled)
-      : CommandResult(CmdName, relatedCommand)
+      : CommandResult(CmdName, TargetId, relatedCommand)
     {
 
       setEnabled(enabled);
@@ -66,6 +71,12 @@ namespace Sdx
     }
 
     std::string IsLogNmeaEnabledResult::documentation() const { return Documentation; }
+
+    const std::vector<std::string>& IsLogNmeaEnabledResult::fieldNames() const 
+    { 
+      static const std::vector<std::string> names {"Enabled", "SerialPortEnabled"}; 
+      return names; 
+    }
 
 
     bool IsLogNmeaEnabledResult::enabled() const

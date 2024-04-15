@@ -1,8 +1,7 @@
 
-#include "gen/ImportIonoGridGIVEI.h"
+#include "ImportIonoGridGIVEI.h"
 
 #include "command_factory.h"
-#include "command_result_factory.h"
 #include "parse_json.hpp"
 
 ///
@@ -14,17 +13,25 @@ namespace Sdx
   namespace Cmd
   {
     const char* const ImportIonoGridGIVEI::CmdName = "ImportIonoGridGIVEI";
-    const char* const ImportIonoGridGIVEI::Documentation = "Import ionospheric grid GIVEI.";
+    const char* const ImportIonoGridGIVEI::Documentation = "Import ionospheric grid GIVEI.\n"
+      "\n"
+      "Name            Type            Description\n"
+      "--------------- --------------- ------------------------------------\n"
+      "Overwriting     bool            Overwrite the previous grid if true.\n"
+      "Path            string          Grid file path\n"
+      "ServiceProvider optional string The service provider (optional)";
+    const char* const ImportIonoGridGIVEI::TargetId = "";
 
-    REGISTER_COMMAND_FACTORY(ImportIonoGridGIVEI);
+    REGISTER_COMMAND_TO_FACTORY_DECL(ImportIonoGridGIVEI);
+    REGISTER_COMMAND_TO_FACTORY_IMPL(ImportIonoGridGIVEI);
 
 
     ImportIonoGridGIVEI::ImportIonoGridGIVEI()
-      : CommandBase(CmdName)
+      : CommandBase(CmdName, TargetId)
     {}
 
     ImportIonoGridGIVEI::ImportIonoGridGIVEI(bool overwriting, const std::string& path, const Sdx::optional<std::string>& serviceProvider)
-      : CommandBase(CmdName)
+      : CommandBase(CmdName, TargetId)
     {
 
       setOverwriting(overwriting);
@@ -54,6 +61,12 @@ namespace Sdx
     }
 
     std::string ImportIonoGridGIVEI::documentation() const { return Documentation; }
+
+    const std::vector<std::string>& ImportIonoGridGIVEI::fieldNames() const 
+    { 
+      static const std::vector<std::string> names {"Overwriting", "Path", "ServiceProvider"}; 
+      return names; 
+    }
 
 
     int ImportIonoGridGIVEI::executePermission() const

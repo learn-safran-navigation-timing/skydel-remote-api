@@ -1,8 +1,7 @@
 
-#include "gen/GetVehicleTrajectory.h"
+#include "GetVehicleTrajectory.h"
 
 #include "command_factory.h"
-#include "command_result_factory.h"
 #include "parse_json.hpp"
 
 ///
@@ -15,12 +14,14 @@ namespace Sdx
   {
     const char* const GetVehicleTrajectory::CmdName = "GetVehicleTrajectory";
     const char* const GetVehicleTrajectory::Documentation = "Get vehicle trajectory type";
+    const char* const GetVehicleTrajectory::TargetId = "";
 
-    REGISTER_COMMAND_FACTORY(GetVehicleTrajectory);
+    REGISTER_COMMAND_TO_FACTORY_DECL(GetVehicleTrajectory);
+    REGISTER_COMMAND_TO_FACTORY_IMPL(GetVehicleTrajectory);
 
 
     GetVehicleTrajectory::GetVehicleTrajectory()
-      : CommandBase(CmdName)
+      : CommandBase(CmdName, TargetId)
     {
 
     }
@@ -44,6 +45,12 @@ namespace Sdx
     }
 
     std::string GetVehicleTrajectory::documentation() const { return Documentation; }
+
+    const std::vector<std::string>& GetVehicleTrajectory::fieldNames() const 
+    { 
+      static const std::vector<std::string> names {}; 
+      return names; 
+    }
 
 
     int GetVehicleTrajectory::executePermission() const

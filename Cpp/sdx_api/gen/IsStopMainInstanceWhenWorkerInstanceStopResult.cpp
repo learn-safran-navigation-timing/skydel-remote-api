@@ -1,8 +1,7 @@
 
-#include "gen/IsStopMainInstanceWhenWorkerInstanceStopResult.h"
+#include "IsStopMainInstanceWhenWorkerInstanceStopResult.h"
 
 #include "command_factory.h"
-#include "command_result_factory.h"
 #include "parse_json.hpp"
 
 ///
@@ -14,24 +13,29 @@ namespace Sdx
   namespace Cmd
   {
     const char* const IsStopMainInstanceWhenWorkerInstanceStopResult::CmdName = "IsStopMainInstanceWhenWorkerInstanceStopResult";
-    const char* const IsStopMainInstanceWhenWorkerInstanceStopResult::Documentation = "Result of IsStopMainInstanceWhenWorkerInstanceStop.";
+    const char* const IsStopMainInstanceWhenWorkerInstanceStopResult::Documentation = "Result of IsStopMainInstanceWhenWorkerInstanceStop.\n"
+      "\n"
+      "Name    Type Description\n"
+      "------- ---- ---------------------------------------------------------\n"
+      "Enabled bool Enable main instance stop when worker instance stops flag";
+    const char* const IsStopMainInstanceWhenWorkerInstanceStopResult::TargetId = "";
 
-    REGISTER_COMMAND_RESULT_TO_FACTORY_IMPL(IsStopMainInstanceWhenWorkerInstanceStopResult);
+    REGISTER_COMMAND_TO_FACTORY_IMPL(IsStopMainInstanceWhenWorkerInstanceStopResult);
 
 
     IsStopMainInstanceWhenWorkerInstanceStopResult::IsStopMainInstanceWhenWorkerInstanceStopResult()
-      : CommandResult(CmdName)
+      : CommandResult(CmdName, TargetId)
     {}
 
     IsStopMainInstanceWhenWorkerInstanceStopResult::IsStopMainInstanceWhenWorkerInstanceStopResult(bool enabled)
-      : CommandResult(CmdName)
+      : CommandResult(CmdName, TargetId)
     {
 
       setEnabled(enabled);
     }
 
     IsStopMainInstanceWhenWorkerInstanceStopResult::IsStopMainInstanceWhenWorkerInstanceStopResult(CommandBasePtr relatedCommand, bool enabled)
-      : CommandResult(CmdName, relatedCommand)
+      : CommandResult(CmdName, TargetId, relatedCommand)
     {
 
       setEnabled(enabled);
@@ -63,6 +67,12 @@ namespace Sdx
     }
 
     std::string IsStopMainInstanceWhenWorkerInstanceStopResult::documentation() const { return Documentation; }
+
+    const std::vector<std::string>& IsStopMainInstanceWhenWorkerInstanceStopResult::fieldNames() const 
+    { 
+      static const std::vector<std::string> names {"Enabled"}; 
+      return names; 
+    }
 
 
     bool IsStopMainInstanceWhenWorkerInstanceStopResult::enabled() const

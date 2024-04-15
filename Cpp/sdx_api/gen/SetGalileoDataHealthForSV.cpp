@@ -1,8 +1,7 @@
 
-#include "gen/SetGalileoDataHealthForSV.h"
+#include "SetGalileoDataHealthForSV.h"
 
 #include "command_factory.h"
-#include "command_result_factory.h"
 #include "parse_json.hpp"
 
 ///
@@ -14,17 +13,26 @@ namespace Sdx
   namespace Cmd
   {
     const char* const SetGalileoDataHealthForSV::CmdName = "SetGalileoDataHealthForSV";
-    const char* const SetGalileoDataHealthForSV::Documentation = "Set Galileo data health for I/NAV and F/NAV message";
+    const char* const SetGalileoDataHealthForSV::Documentation = "Set Galileo data health for I/NAV and F/NAV message\n"
+      "\n"
+      "Name        Type            Description\n"
+      "----------- --------------- -------------------------------------------------------------------------------------------\n"
+      "SvId        int             Satellite SV ID number 1..36.\n"
+      "Component   string          Component is either \"E5a\", \"E5b\", or \"E1B\"\n"
+      "Health      bool            False means Navigation data valid; True means Working without guarantee\n"
+      "DataSetName optional string Optional name of the data set to use. If no value is provided, the active data set is used.";
+    const char* const SetGalileoDataHealthForSV::TargetId = "";
 
-    REGISTER_COMMAND_FACTORY(SetGalileoDataHealthForSV);
+    REGISTER_COMMAND_TO_FACTORY_DECL(SetGalileoDataHealthForSV);
+    REGISTER_COMMAND_TO_FACTORY_IMPL(SetGalileoDataHealthForSV);
 
 
     SetGalileoDataHealthForSV::SetGalileoDataHealthForSV()
-      : CommandBase(CmdName)
+      : CommandBase(CmdName, TargetId)
     {}
 
     SetGalileoDataHealthForSV::SetGalileoDataHealthForSV(int svId, const std::string& component, bool health, const Sdx::optional<std::string>& dataSetName)
-      : CommandBase(CmdName)
+      : CommandBase(CmdName, TargetId)
     {
 
       setSvId(svId);
@@ -56,6 +64,12 @@ namespace Sdx
     }
 
     std::string SetGalileoDataHealthForSV::documentation() const { return Documentation; }
+
+    const std::vector<std::string>& SetGalileoDataHealthForSV::fieldNames() const 
+    { 
+      static const std::vector<std::string> names {"SvId", "Component", "Health", "DataSetName"}; 
+      return names; 
+    }
 
 
     int SetGalileoDataHealthForSV::executePermission() const

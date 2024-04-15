@@ -1,8 +1,7 @@
 
-#include "gen/EnableLosForEachSV.h"
+#include "EnableLosForEachSV.h"
 
 #include "command_factory.h"
-#include "command_result_factory.h"
 #include "parse_json.hpp"
 
 ///
@@ -14,17 +13,24 @@ namespace Sdx
   namespace Cmd
   {
     const char* const EnableLosForEachSV::CmdName = "EnableLosForEachSV";
-    const char* const EnableLosForEachSV::Documentation = "Set Direct Line Of Sight signal from satellite disabled or enabled. Generally used when only multipaths signal is visible.";
+    const char* const EnableLosForEachSV::Documentation = "Set Direct Line Of Sight signal from satellite disabled or enabled. Generally used when only multipaths signal is visible.\n"
+      "\n"
+      "Name    Type       Description\n"
+      "------- ---------- -----------------------------------------------------------------------------------------------------------\n"
+      "System  string     \"GPS\", \"GLONASS\", \"Galileo\", \"BeiDou\", \"SBAS\", \"QZSS\", \"NavIC\" or \"PULSAR\"\n"
+      "Enabled array bool Direct Line of Sight enabled or not. Zero based index (index 0 => SV ID 1, index 1 => second SV ID 2, etc).";
+    const char* const EnableLosForEachSV::TargetId = "";
 
-    REGISTER_COMMAND_FACTORY(EnableLosForEachSV);
+    REGISTER_COMMAND_TO_FACTORY_DECL(EnableLosForEachSV);
+    REGISTER_COMMAND_TO_FACTORY_IMPL(EnableLosForEachSV);
 
 
     EnableLosForEachSV::EnableLosForEachSV()
-      : CommandBase(CmdName)
+      : CommandBase(CmdName, TargetId)
     {}
 
     EnableLosForEachSV::EnableLosForEachSV(const std::string& system, const std::vector<bool>& enabled)
-      : CommandBase(CmdName)
+      : CommandBase(CmdName, TargetId)
     {
 
       setSystem(system);
@@ -52,6 +58,12 @@ namespace Sdx
     }
 
     std::string EnableLosForEachSV::documentation() const { return Documentation; }
+
+    const std::vector<std::string>& EnableLosForEachSV::fieldNames() const 
+    { 
+      static const std::vector<std::string> names {"System", "Enabled"}; 
+      return names; 
+    }
 
 
     int EnableLosForEachSV::executePermission() const

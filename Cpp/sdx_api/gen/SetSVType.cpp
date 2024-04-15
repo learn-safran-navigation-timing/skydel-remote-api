@@ -1,8 +1,7 @@
 
-#include "gen/SetSVType.h"
+#include "SetSVType.h"
 
 #include "command_factory.h"
-#include "command_result_factory.h"
 #include "parse_json.hpp"
 
 ///
@@ -14,17 +13,27 @@ namespace Sdx
   namespace Cmd
   {
     const char* const SetSVType::CmdName = "SetSVType";
-    const char* const SetSVType::Documentation = "Set the type of a SV.\nSatellite SV ID accepted values (0 for all SVs):\nQZSS 1..10";
+    const char* const SetSVType::Documentation = "Set the type of a SV.\n"
+      "Satellite SV ID accepted values (0 for all SVs):\n"
+      "QZSS 1..10\n"
+      "\n"
+      "Name   Type   Description\n"
+      "------ ------ -------------------------------------------------------------\n"
+      "System string Only \"QZSS\" supported.\n"
+      "SvId   int    Satellite SV ID, see command description for accepted values.\n"
+      "SvType string Type of the SV. QZSS: \"BlockI\", \"BlockII\".";
+    const char* const SetSVType::TargetId = "";
 
-    REGISTER_COMMAND_FACTORY(SetSVType);
+    REGISTER_COMMAND_TO_FACTORY_DECL(SetSVType);
+    REGISTER_COMMAND_TO_FACTORY_IMPL(SetSVType);
 
 
     SetSVType::SetSVType()
-      : CommandBase(CmdName)
+      : CommandBase(CmdName, TargetId)
     {}
 
     SetSVType::SetSVType(const std::string& system, int svId, const std::string& svType)
-      : CommandBase(CmdName)
+      : CommandBase(CmdName, TargetId)
     {
 
       setSystem(system);
@@ -54,6 +63,12 @@ namespace Sdx
     }
 
     std::string SetSVType::documentation() const { return Documentation; }
+
+    const std::vector<std::string>& SetSVType::fieldNames() const 
+    { 
+      static const std::vector<std::string> names {"System", "SvId", "SvType"}; 
+      return names; 
+    }
 
 
     int SetSVType::executePermission() const

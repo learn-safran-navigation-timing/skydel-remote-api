@@ -1,8 +1,7 @@
 
-#include "gen/IsPYCodeEnabledForEachSVResult.h"
+#include "IsPYCodeEnabledForEachSVResult.h"
 
 #include "command_factory.h"
-#include "command_result_factory.h"
 #include "parse_json.hpp"
 
 ///
@@ -14,17 +13,23 @@ namespace Sdx
   namespace Cmd
   {
     const char* const IsPYCodeEnabledForEachSVResult::CmdName = "IsPYCodeEnabledForEachSVResult";
-    const char* const IsPYCodeEnabledForEachSVResult::Documentation = "Result of IsPYCodeEnabledForEachSV.";
+    const char* const IsPYCodeEnabledForEachSVResult::Documentation = "Result of IsPYCodeEnabledForEachSV.\n"
+      "\n"
+      "Name    Type       Description\n"
+      "------- ---------- ----------------------------------------------------------------------------------------\n"
+      "Signal  string     Accepted signal keys: \"L1P\", \"L2P\"\n"
+      "Enabled array bool Enable P(Y)-Code if True. Zero based index (index 0 => SV ID 1, index 1 => SV ID 2, etc)";
+    const char* const IsPYCodeEnabledForEachSVResult::TargetId = "";
 
-    REGISTER_COMMAND_RESULT_TO_FACTORY_IMPL(IsPYCodeEnabledForEachSVResult);
+    REGISTER_COMMAND_TO_FACTORY_IMPL(IsPYCodeEnabledForEachSVResult);
 
 
     IsPYCodeEnabledForEachSVResult::IsPYCodeEnabledForEachSVResult()
-      : CommandResult(CmdName)
+      : CommandResult(CmdName, TargetId)
     {}
 
     IsPYCodeEnabledForEachSVResult::IsPYCodeEnabledForEachSVResult(const std::string& signal, const std::vector<bool>& enabled)
-      : CommandResult(CmdName)
+      : CommandResult(CmdName, TargetId)
     {
 
       setSignal(signal);
@@ -32,7 +37,7 @@ namespace Sdx
     }
 
     IsPYCodeEnabledForEachSVResult::IsPYCodeEnabledForEachSVResult(CommandBasePtr relatedCommand, const std::string& signal, const std::vector<bool>& enabled)
-      : CommandResult(CmdName, relatedCommand)
+      : CommandResult(CmdName, TargetId, relatedCommand)
     {
 
       setSignal(signal);
@@ -66,6 +71,12 @@ namespace Sdx
     }
 
     std::string IsPYCodeEnabledForEachSVResult::documentation() const { return Documentation; }
+
+    const std::vector<std::string>& IsPYCodeEnabledForEachSVResult::fieldNames() const 
+    { 
+      static const std::vector<std::string> names {"Signal", "Enabled"}; 
+      return names; 
+    }
 
 
     std::string IsPYCodeEnabledForEachSVResult::signal() const

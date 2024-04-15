@@ -1,8 +1,7 @@
 
-#include "gen/GetMessageSequenceResult.h"
+#include "GetMessageSequenceResult.h"
 
 #include "command_factory.h"
-#include "command_result_factory.h"
 #include "parse_json.hpp"
 
 ///
@@ -14,17 +13,23 @@ namespace Sdx
   namespace Cmd
   {
     const char* const GetMessageSequenceResult::CmdName = "GetMessageSequenceResult";
-    const char* const GetMessageSequenceResult::Documentation = "Result of GetMessageSequence.";
+    const char* const GetMessageSequenceResult::Documentation = "Result of GetMessageSequence.\n"
+      "\n"
+      "Name     Type      Description\n"
+      "-------- --------- -------------------------------\n"
+      "Signal   string    Signal Name (\"L2C\" for example)\n"
+      "Sequence array int List of message type";
+    const char* const GetMessageSequenceResult::TargetId = "";
 
-    REGISTER_COMMAND_RESULT_TO_FACTORY_IMPL(GetMessageSequenceResult);
+    REGISTER_COMMAND_TO_FACTORY_IMPL(GetMessageSequenceResult);
 
 
     GetMessageSequenceResult::GetMessageSequenceResult()
-      : CommandResult(CmdName)
+      : CommandResult(CmdName, TargetId)
     {}
 
     GetMessageSequenceResult::GetMessageSequenceResult(const std::string& signal, const std::vector<int>& sequence)
-      : CommandResult(CmdName)
+      : CommandResult(CmdName, TargetId)
     {
 
       setSignal(signal);
@@ -32,7 +37,7 @@ namespace Sdx
     }
 
     GetMessageSequenceResult::GetMessageSequenceResult(CommandBasePtr relatedCommand, const std::string& signal, const std::vector<int>& sequence)
-      : CommandResult(CmdName, relatedCommand)
+      : CommandResult(CmdName, TargetId, relatedCommand)
     {
 
       setSignal(signal);
@@ -66,6 +71,12 @@ namespace Sdx
     }
 
     std::string GetMessageSequenceResult::documentation() const { return Documentation; }
+
+    const std::vector<std::string>& GetMessageSequenceResult::fieldNames() const 
+    { 
+      static const std::vector<std::string> names {"Signal", "Sequence"}; 
+      return names; 
+    }
 
 
     std::string GetMessageSequenceResult::signal() const

@@ -13,8 +13,8 @@ namespace Sdx
     /// Tells if the satellite is fixed (True) or not fixed (false).
     ///
     /// Name   Type   Description
-    /// ------ ------ ---------------------------------------------
-    /// System string "GPS", "Galileo", "BeiDou", "QZSS" or "NavIC"
+    /// ------ ------ -------------------------------------------------------
+    /// System string "GPS", "Galileo", "BeiDou", "QZSS", "NavIC" or "PULSAR"
     /// SvId   int    The satellite's SV ID.
     ///
 
@@ -27,6 +27,7 @@ namespace Sdx
     public:
       static const char* const CmdName;
       static const char* const Documentation;
+      static const char* const TargetId;
 
 
       IsSatMotionFixed();
@@ -37,6 +38,7 @@ namespace Sdx
       static IsSatMotionFixedPtr dynamicCast(CommandBasePtr ptr);
       virtual bool isValid() const override;
       virtual std::string documentation() const override;
+      virtual const std::vector<std::string>& fieldNames() const override;
 
       virtual int executePermission() const override;
 

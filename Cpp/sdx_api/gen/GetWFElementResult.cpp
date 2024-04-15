@@ -1,8 +1,7 @@
 
-#include "gen/GetWFElementResult.h"
+#include "GetWFElementResult.h"
 
 #include "command_factory.h"
-#include "command_result_factory.h"
 #include "parse_json.hpp"
 
 ///
@@ -14,17 +13,24 @@ namespace Sdx
   namespace Cmd
   {
     const char* const GetWFElementResult::CmdName = "GetWFElementResult";
-    const char* const GetWFElementResult::Documentation = "Result of GetWFElement.";
+    const char* const GetWFElementResult::Documentation = "Result of GetWFElement.\n"
+      "\n"
+      "Name             Type   Description\n"
+      "---------------- ------ -------------------------------------------------------------------------------------------------\n"
+      "Element          int    One-based index of the element. Value -1 adds a new element at the end of the list.\n"
+      "Enabled          bool   If True, this antenna element will be simulated.\n"
+      "AntennaModelName string Antenna Model name for this element. Antenna models can be defined in Vehicle Antenna Model menu.";
+    const char* const GetWFElementResult::TargetId = "";
 
-    REGISTER_COMMAND_RESULT_TO_FACTORY_IMPL(GetWFElementResult);
+    REGISTER_COMMAND_TO_FACTORY_IMPL(GetWFElementResult);
 
 
     GetWFElementResult::GetWFElementResult()
-      : CommandResult(CmdName)
+      : CommandResult(CmdName, TargetId)
     {}
 
     GetWFElementResult::GetWFElementResult(int element, bool enabled, const std::string& antennaModelName)
-      : CommandResult(CmdName)
+      : CommandResult(CmdName, TargetId)
     {
 
       setElement(element);
@@ -33,7 +39,7 @@ namespace Sdx
     }
 
     GetWFElementResult::GetWFElementResult(CommandBasePtr relatedCommand, int element, bool enabled, const std::string& antennaModelName)
-      : CommandResult(CmdName, relatedCommand)
+      : CommandResult(CmdName, TargetId, relatedCommand)
     {
 
       setElement(element);
@@ -69,6 +75,12 @@ namespace Sdx
     }
 
     std::string GetWFElementResult::documentation() const { return Documentation; }
+
+    const std::vector<std::string>& GetWFElementResult::fieldNames() const 
+    { 
+      static const std::vector<std::string> names {"Element", "Enabled", "AntennaModelName"}; 
+      return names; 
+    }
 
 
     int GetWFElementResult::element() const

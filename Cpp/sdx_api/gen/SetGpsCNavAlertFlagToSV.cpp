@@ -1,8 +1,7 @@
 
-#include "gen/SetGpsCNavAlertFlagToSV.h"
+#include "SetGpsCNavAlertFlagToSV.h"
 
 #include "command_factory.h"
-#include "command_result_factory.h"
 #include "parse_json.hpp"
 
 ///
@@ -14,17 +13,25 @@ namespace Sdx
   namespace Cmd
   {
     const char* const SetGpsCNavAlertFlagToSV::CmdName = "SetGpsCNavAlertFlagToSV";
-    const char* const SetGpsCNavAlertFlagToSV::Documentation = "Set GPS CNAV Alert Flag";
+    const char* const SetGpsCNavAlertFlagToSV::Documentation = "Set GPS CNAV Alert Flag\n"
+      "\n"
+      "Name        Type            Description\n"
+      "----------- --------------- -------------------------------------------------------------------------------------------\n"
+      "SvId        int             Satellite's SV ID 1..32, or use 0 to apply new value to all satellites.\n"
+      "Alert       bool            GPS CNAV Alert Flag, false = No Alert, true = Alert\n"
+      "DataSetName optional string Optional name of the data set to use. If no value is provided, the active data set is used.";
+    const char* const SetGpsCNavAlertFlagToSV::TargetId = "";
 
-    REGISTER_COMMAND_FACTORY(SetGpsCNavAlertFlagToSV);
+    REGISTER_COMMAND_TO_FACTORY_DECL(SetGpsCNavAlertFlagToSV);
+    REGISTER_COMMAND_TO_FACTORY_IMPL(SetGpsCNavAlertFlagToSV);
 
 
     SetGpsCNavAlertFlagToSV::SetGpsCNavAlertFlagToSV()
-      : CommandBase(CmdName)
+      : CommandBase(CmdName, TargetId)
     {}
 
     SetGpsCNavAlertFlagToSV::SetGpsCNavAlertFlagToSV(int svId, bool alert, const Sdx::optional<std::string>& dataSetName)
-      : CommandBase(CmdName)
+      : CommandBase(CmdName, TargetId)
     {
 
       setSvId(svId);
@@ -54,6 +61,12 @@ namespace Sdx
     }
 
     std::string SetGpsCNavAlertFlagToSV::documentation() const { return Documentation; }
+
+    const std::vector<std::string>& SetGpsCNavAlertFlagToSV::fieldNames() const 
+    { 
+      static const std::vector<std::string> names {"SvId", "Alert", "DataSetName"}; 
+      return names; 
+    }
 
 
     int SetGpsCNavAlertFlagToSV::executePermission() const

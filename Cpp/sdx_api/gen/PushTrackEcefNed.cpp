@@ -1,8 +1,7 @@
 
-#include "gen/PushTrackEcefNed.h"
+#include "PushTrackEcefNed.h"
 
 #include "command_factory.h"
-#include "command_result_factory.h"
 #include "parse_json.hpp"
 
 ///
@@ -14,17 +13,29 @@ namespace Sdx
   namespace Cmd
   {
     const char* const PushTrackEcefNed::CmdName = "PushTrackEcefNed";
-    const char* const PushTrackEcefNed::Documentation = "Push a track ecef and ned attitude node. Must be called after BeginTrackDefinition and before EndTrackDefinition.";
+    const char* const PushTrackEcefNed::Documentation = "Push a track ecef and ned attitude node. Must be called after BeginTrackDefinition and before EndTrackDefinition.\n"
+      "\n"
+      "Name  Type   Description\n"
+      "----- ------ --------------------------------------\n"
+      "Time  int    Node Timestamp in miliseconds\n"
+      "X     double X distance from earth-center in meters\n"
+      "Y     double Y distance from earth-center in meters\n"
+      "Z     double Z distance from earth-center in meters\n"
+      "Yaw   double Yaw in radians\n"
+      "Pitch double Pitch in radians\n"
+      "Roll  double Roll in radians";
+    const char* const PushTrackEcefNed::TargetId = "";
 
-    REGISTER_COMMAND_FACTORY(PushTrackEcefNed);
+    REGISTER_COMMAND_TO_FACTORY_DECL(PushTrackEcefNed);
+    REGISTER_COMMAND_TO_FACTORY_IMPL(PushTrackEcefNed);
 
 
     PushTrackEcefNed::PushTrackEcefNed()
-      : CommandBase(CmdName)
+      : CommandBase(CmdName, TargetId)
     {}
 
     PushTrackEcefNed::PushTrackEcefNed(int time, double x, double y, double z, double yaw, double pitch, double roll)
-      : CommandBase(CmdName)
+      : CommandBase(CmdName, TargetId)
     {
 
       setTime(time);
@@ -62,6 +73,12 @@ namespace Sdx
     }
 
     std::string PushTrackEcefNed::documentation() const { return Documentation; }
+
+    const std::vector<std::string>& PushTrackEcefNed::fieldNames() const 
+    { 
+      static const std::vector<std::string> names {"Time", "X", "Y", "Z", "Yaw", "Pitch", "Roll"}; 
+      return names; 
+    }
 
 
     int PushTrackEcefNed::executePermission() const

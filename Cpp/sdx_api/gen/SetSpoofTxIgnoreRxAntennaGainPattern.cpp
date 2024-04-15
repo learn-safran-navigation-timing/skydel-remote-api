@@ -1,8 +1,7 @@
 
-#include "gen/SetSpoofTxIgnoreRxAntennaGainPattern.h"
+#include "SetSpoofTxIgnoreRxAntennaGainPattern.h"
 
 #include "command_factory.h"
-#include "command_result_factory.h"
 #include "parse_json.hpp"
 
 ///
@@ -14,17 +13,24 @@ namespace Sdx
   namespace Cmd
   {
     const char* const SetSpoofTxIgnoreRxAntennaGainPattern::CmdName = "SetSpoofTxIgnoreRxAntennaGainPattern";
-    const char* const SetSpoofTxIgnoreRxAntennaGainPattern::Documentation = "Set whether a spoofer should ignore the receiver's antenna gain pattern.";
+    const char* const SetSpoofTxIgnoreRxAntennaGainPattern::Documentation = "Set whether a spoofer should ignore the receiver's antenna gain pattern.\n"
+      "\n"
+      "Name   Type   Description\n"
+      "------ ------ -------------------------------------------------------------\n"
+      "Ignore bool   If true, the receiver's antenna gain pattern will be ignored.\n"
+      "Id     string Transmitter unique identifier.";
+    const char* const SetSpoofTxIgnoreRxAntennaGainPattern::TargetId = "";
 
-    REGISTER_COMMAND_FACTORY(SetSpoofTxIgnoreRxAntennaGainPattern);
+    REGISTER_COMMAND_TO_FACTORY_DECL(SetSpoofTxIgnoreRxAntennaGainPattern);
+    REGISTER_COMMAND_TO_FACTORY_IMPL(SetSpoofTxIgnoreRxAntennaGainPattern);
 
 
     SetSpoofTxIgnoreRxAntennaGainPattern::SetSpoofTxIgnoreRxAntennaGainPattern()
-      : CommandBase(CmdName)
+      : CommandBase(CmdName, TargetId)
     {}
 
     SetSpoofTxIgnoreRxAntennaGainPattern::SetSpoofTxIgnoreRxAntennaGainPattern(bool ignore, const std::string& id)
-      : CommandBase(CmdName)
+      : CommandBase(CmdName, TargetId)
     {
 
       setIgnore(ignore);
@@ -52,6 +58,12 @@ namespace Sdx
     }
 
     std::string SetSpoofTxIgnoreRxAntennaGainPattern::documentation() const { return Documentation; }
+
+    const std::vector<std::string>& SetSpoofTxIgnoreRxAntennaGainPattern::fieldNames() const 
+    { 
+      static const std::vector<std::string> names {"Ignore", "Id"}; 
+      return names; 
+    }
 
 
     int SetSpoofTxIgnoreRxAntennaGainPattern::executePermission() const

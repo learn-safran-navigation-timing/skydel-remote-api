@@ -1,8 +1,7 @@
 
-#include "gen/SetNavICSatelliteNavAlertFlag.h"
+#include "SetNavICSatelliteNavAlertFlag.h"
 
 #include "command_factory.h"
-#include "command_result_factory.h"
 #include "parse_json.hpp"
 
 ///
@@ -14,17 +13,27 @@ namespace Sdx
   namespace Cmd
   {
     const char* const SetNavICSatelliteNavAlertFlag::CmdName = "SetNavICSatelliteNavAlertFlag";
-    const char* const SetNavICSatelliteNavAlertFlag::Documentation = "Please note the command SetNavICSatelliteNavAlertFlag is deprecated since 21.3. You may use SetNavICNavAlertFlagForSV.\n\nSet NavIC NAV Alert Flag";
+    const char* const SetNavICSatelliteNavAlertFlag::Documentation = "Please note the command SetNavICSatelliteNavAlertFlag is deprecated since 21.3. You may use SetNavICNavAlertFlagForSV.\n"
+      "\n"
+      "Set NavIC NAV Alert Flag\n"
+      "\n"
+      "Name        Type            Description\n"
+      "----------- --------------- -------------------------------------------------------------------------------------------\n"
+      "SvId        int             Satellite SV ID 1..14, or use 0 to apply new value to all satellites.\n"
+      "Alert       bool            NavIC NAV Alert Flag, false = No Alert, true = Alert\n"
+      "DataSetName optional string Optional name of the data set to use. If no value is provided, the active data set is used.";
+    const char* const SetNavICSatelliteNavAlertFlag::TargetId = "";
 
-    REGISTER_COMMAND_FACTORY(SetNavICSatelliteNavAlertFlag);
+    REGISTER_COMMAND_TO_FACTORY_DECL(SetNavICSatelliteNavAlertFlag);
+    REGISTER_COMMAND_TO_FACTORY_IMPL(SetNavICSatelliteNavAlertFlag);
 
 
     SetNavICSatelliteNavAlertFlag::SetNavICSatelliteNavAlertFlag()
-      : CommandBase(CmdName)
+      : CommandBase(CmdName, TargetId)
     {}
 
     SetNavICSatelliteNavAlertFlag::SetNavICSatelliteNavAlertFlag(int svId, bool alert, const Sdx::optional<std::string>& dataSetName)
-      : CommandBase(CmdName)
+      : CommandBase(CmdName, TargetId)
     {
 
       setSvId(svId);
@@ -54,6 +63,12 @@ namespace Sdx
     }
 
     std::string SetNavICSatelliteNavAlertFlag::documentation() const { return Documentation; }
+
+    const std::vector<std::string>& SetNavICSatelliteNavAlertFlag::fieldNames() const 
+    { 
+      static const std::vector<std::string> names {"SvId", "Alert", "DataSetName"}; 
+      return names; 
+    }
 
 
     int SetNavICSatelliteNavAlertFlag::executePermission() const

@@ -1,8 +1,7 @@
 
-#include "gen/GetConfigBroadcastOnStart.h"
+#include "GetConfigBroadcastOnStart.h"
 
 #include "command_factory.h"
-#include "command_result_factory.h"
 #include "parse_json.hpp"
 
 ///
@@ -14,13 +13,15 @@ namespace Sdx
   namespace Cmd
   {
     const char* const GetConfigBroadcastOnStart::CmdName = "GetConfigBroadcastOnStart";
-    const char* const GetConfigBroadcastOnStart::Documentation = "Get wether the main instance should send its configuration to every worker instance when simulation start.";
+    const char* const GetConfigBroadcastOnStart::Documentation = "Get whether the main instance should send its configuration to every worker instance when simulation start.";
+    const char* const GetConfigBroadcastOnStart::TargetId = "";
 
-    REGISTER_COMMAND_FACTORY(GetConfigBroadcastOnStart);
+    REGISTER_COMMAND_TO_FACTORY_DECL(GetConfigBroadcastOnStart);
+    REGISTER_COMMAND_TO_FACTORY_IMPL(GetConfigBroadcastOnStart);
 
 
     GetConfigBroadcastOnStart::GetConfigBroadcastOnStart()
-      : CommandBase(CmdName)
+      : CommandBase(CmdName, TargetId)
     {
 
     }
@@ -44,6 +45,12 @@ namespace Sdx
     }
 
     std::string GetConfigBroadcastOnStart::documentation() const { return Documentation; }
+
+    const std::vector<std::string>& GetConfigBroadcastOnStart::fieldNames() const 
+    { 
+      static const std::vector<std::string> names {}; 
+      return names; 
+    }
 
 
     int GetConfigBroadcastOnStart::executePermission() const

@@ -1,8 +1,7 @@
 
-#include "gen/MessageSequenceSwap.h"
+#include "MessageSequenceSwap.h"
 
 #include "command_factory.h"
-#include "command_result_factory.h"
 #include "parse_json.hpp"
 
 ///
@@ -14,17 +13,25 @@ namespace Sdx
   namespace Cmd
   {
     const char* const MessageSequenceSwap::CmdName = "MessageSequenceSwap";
-    const char* const MessageSequenceSwap::Documentation = "Swap 2 messages in sequence.";
+    const char* const MessageSequenceSwap::Documentation = "Swap 2 messages in sequence.\n"
+      "\n"
+      "Name   Type   Description\n"
+      "------ ------ -------------------------------\n"
+      "Signal string Signal Name (\"L2C\" for example)\n"
+      "IndexI int    Message index i in sequence.\n"
+      "IndexJ int    Message index j in sequence.";
+    const char* const MessageSequenceSwap::TargetId = "";
 
-    REGISTER_COMMAND_FACTORY(MessageSequenceSwap);
+    REGISTER_COMMAND_TO_FACTORY_DECL(MessageSequenceSwap);
+    REGISTER_COMMAND_TO_FACTORY_IMPL(MessageSequenceSwap);
 
 
     MessageSequenceSwap::MessageSequenceSwap()
-      : CommandBase(CmdName)
+      : CommandBase(CmdName, TargetId)
     {}
 
     MessageSequenceSwap::MessageSequenceSwap(const std::string& signal, int indexI, int indexJ)
-      : CommandBase(CmdName)
+      : CommandBase(CmdName, TargetId)
     {
 
       setSignal(signal);
@@ -54,6 +61,12 @@ namespace Sdx
     }
 
     std::string MessageSequenceSwap::documentation() const { return Documentation; }
+
+    const std::vector<std::string>& MessageSequenceSwap::fieldNames() const 
+    { 
+      static const std::vector<std::string> names {"Signal", "IndexI", "IndexJ"}; 
+      return names; 
+    }
 
 
     int MessageSequenceSwap::executePermission() const

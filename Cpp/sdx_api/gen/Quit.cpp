@@ -1,8 +1,7 @@
 
-#include "gen/Quit.h"
+#include "Quit.h"
 
 #include "command_factory.h"
-#include "command_result_factory.h"
 #include "parse_json.hpp"
 
 ///
@@ -14,17 +13,23 @@ namespace Sdx
   namespace Cmd
   {
     const char* const Quit::CmdName = "Quit";
-    const char* const Quit::Documentation = "Quit/Exit Skydel. Simulation must be stopped to be able to quit Skydel";
+    const char* const Quit::Documentation = "Quit/Exit Skydel. Simulation must be stopped to be able to quit Skydel\n"
+      "\n"
+      "Name      Type Description\n"
+      "--------- ---- --------------------------------------------------------\n"
+      "ForceQuit bool Force to quit Skydel even if current config is not saved";
+    const char* const Quit::TargetId = "";
 
-    REGISTER_COMMAND_FACTORY(Quit);
+    REGISTER_COMMAND_TO_FACTORY_DECL(Quit);
+    REGISTER_COMMAND_TO_FACTORY_IMPL(Quit);
 
 
     Quit::Quit()
-      : CommandBase(CmdName)
+      : CommandBase(CmdName, TargetId)
     {}
 
     Quit::Quit(bool forceQuit)
-      : CommandBase(CmdName)
+      : CommandBase(CmdName, TargetId)
     {
 
       setForceQuit(forceQuit);
@@ -50,6 +55,12 @@ namespace Sdx
     }
 
     std::string Quit::documentation() const { return Documentation; }
+
+    const std::vector<std::string>& Quit::fieldNames() const 
+    { 
+      static const std::vector<std::string> names {"ForceQuit"}; 
+      return names; 
+    }
 
 
     int Quit::executePermission() const

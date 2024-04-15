@@ -1,8 +1,7 @@
 
-#include "gen/SetGalileoFnavSatelliteK.h"
+#include "SetGalileoFnavSatelliteK.h"
 
 #include "command_factory.h"
-#include "command_result_factory.h"
 #include "parse_json.hpp"
 
 ///
@@ -14,17 +13,24 @@ namespace Sdx
   namespace Cmd
   {
     const char* const SetGalileoFnavSatelliteK::CmdName = "SetGalileoFnavSatelliteK";
-    const char* const SetGalileoFnavSatelliteK::Documentation = "Set the almanac satellite id for subframe 1 (Parameter K described in ICD 4.2.3 Frame Layout).";
+    const char* const SetGalileoFnavSatelliteK::Documentation = "Set the almanac satellite id for subframe 1 (Parameter K described in ICD 4.2.3 Frame Layout).\n"
+      "\n"
+      "Name Type Description\n"
+      "---- ---- -----------------------\n"
+      "Prn  int  Satellite PRN number\n"
+      "K    int  Satellite K PRN number.";
+    const char* const SetGalileoFnavSatelliteK::TargetId = "";
 
-    REGISTER_COMMAND_FACTORY(SetGalileoFnavSatelliteK);
+    REGISTER_COMMAND_TO_FACTORY_DECL(SetGalileoFnavSatelliteK);
+    REGISTER_COMMAND_TO_FACTORY_IMPL(SetGalileoFnavSatelliteK);
 
 
     SetGalileoFnavSatelliteK::SetGalileoFnavSatelliteK()
-      : CommandBase(CmdName)
+      : CommandBase(CmdName, TargetId)
     {}
 
     SetGalileoFnavSatelliteK::SetGalileoFnavSatelliteK(int prn, int k)
-      : CommandBase(CmdName)
+      : CommandBase(CmdName, TargetId)
     {
 
       setPrn(prn);
@@ -52,6 +58,12 @@ namespace Sdx
     }
 
     std::string SetGalileoFnavSatelliteK::documentation() const { return Documentation; }
+
+    const std::vector<std::string>& SetGalileoFnavSatelliteK::fieldNames() const 
+    { 
+      static const std::vector<std::string> names {"Prn", "K"}; 
+      return names; 
+    }
 
 
     int SetGalileoFnavSatelliteK::executePermission() const

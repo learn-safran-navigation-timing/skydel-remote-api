@@ -1,8 +1,7 @@
 
-#include "gen/CopyVehicleAntennaModel.h"
+#include "CopyVehicleAntennaModel.h"
 
 #include "command_factory.h"
-#include "command_result_factory.h"
 #include "parse_json.hpp"
 
 ///
@@ -14,17 +13,24 @@ namespace Sdx
   namespace Cmd
   {
     const char* const CopyVehicleAntennaModel::CmdName = "CopyVehicleAntennaModel";
-    const char* const CopyVehicleAntennaModel::Documentation = "Copy a vehicle antenna model.";
+    const char* const CopyVehicleAntennaModel::Documentation = "Copy a vehicle antenna model.\n"
+      "\n"
+      "Name     Type   Description\n"
+      "-------- ------ ------------------------------------\n"
+      "Name     string Reference vehicle antenna model name\n"
+      "CopyName string Copy vehicle antenna model name";
+    const char* const CopyVehicleAntennaModel::TargetId = "";
 
-    REGISTER_COMMAND_FACTORY(CopyVehicleAntennaModel);
+    REGISTER_COMMAND_TO_FACTORY_DECL(CopyVehicleAntennaModel);
+    REGISTER_COMMAND_TO_FACTORY_IMPL(CopyVehicleAntennaModel);
 
 
     CopyVehicleAntennaModel::CopyVehicleAntennaModel()
-      : CommandBase(CmdName)
+      : CommandBase(CmdName, TargetId)
     {}
 
     CopyVehicleAntennaModel::CopyVehicleAntennaModel(const std::string& name, const std::string& copyName)
-      : CommandBase(CmdName)
+      : CommandBase(CmdName, TargetId)
     {
 
       setName(name);
@@ -52,6 +58,12 @@ namespace Sdx
     }
 
     std::string CopyVehicleAntennaModel::documentation() const { return Documentation; }
+
+    const std::vector<std::string>& CopyVehicleAntennaModel::fieldNames() const 
+    { 
+      static const std::vector<std::string> names {"Name", "CopyName"}; 
+      return names; 
+    }
 
 
     int CopyVehicleAntennaModel::executePermission() const

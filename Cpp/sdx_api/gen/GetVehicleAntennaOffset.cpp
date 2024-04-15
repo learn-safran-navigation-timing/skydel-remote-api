@@ -1,8 +1,7 @@
 
-#include "gen/GetVehicleAntennaOffset.h"
+#include "GetVehicleAntennaOffset.h"
 
 #include "command_factory.h"
-#include "command_result_factory.h"
 #include "parse_json.hpp"
 
 ///
@@ -14,13 +13,19 @@ namespace Sdx
   namespace Cmd
   {
     const char* const GetVehicleAntennaOffset::CmdName = "GetVehicleAntennaOffset";
-    const char* const GetVehicleAntennaOffset::Documentation = "Get the vehicle antenna offset infos. If no name is specified, the default vehicle antenna is get.";
+    const char* const GetVehicleAntennaOffset::Documentation = "Get the vehicle antenna offset infos. If no name is specified, the default vehicle antenna is get.\n"
+      "\n"
+      "Name Type            Description\n"
+      "---- --------------- ---------------------------\n"
+      "Name optional string Unique vehicle antenna name";
+    const char* const GetVehicleAntennaOffset::TargetId = "";
 
-    REGISTER_COMMAND_FACTORY(GetVehicleAntennaOffset);
+    REGISTER_COMMAND_TO_FACTORY_DECL(GetVehicleAntennaOffset);
+    REGISTER_COMMAND_TO_FACTORY_IMPL(GetVehicleAntennaOffset);
 
 
     GetVehicleAntennaOffset::GetVehicleAntennaOffset(const Sdx::optional<std::string>& name)
-      : CommandBase(CmdName)
+      : CommandBase(CmdName, TargetId)
     {
 
       setName(name);
@@ -46,6 +51,12 @@ namespace Sdx
     }
 
     std::string GetVehicleAntennaOffset::documentation() const { return Documentation; }
+
+    const std::vector<std::string>& GetVehicleAntennaOffset::fieldNames() const 
+    { 
+      static const std::vector<std::string> names {"Name"}; 
+      return names; 
+    }
 
 
     int GetVehicleAntennaOffset::executePermission() const

@@ -1,8 +1,7 @@
 
-#include "gen/DisconnectSerialPortReceiver.h"
+#include "DisconnectSerialPortReceiver.h"
 
 #include "command_factory.h"
-#include "command_result_factory.h"
 #include "parse_json.hpp"
 
 ///
@@ -15,12 +14,14 @@ namespace Sdx
   {
     const char* const DisconnectSerialPortReceiver::CmdName = "DisconnectSerialPortReceiver";
     const char* const DisconnectSerialPortReceiver::Documentation = "Disconnects the connected receiver. Does nothing if no receiver is connected.";
+    const char* const DisconnectSerialPortReceiver::TargetId = "";
 
-    REGISTER_COMMAND_FACTORY(DisconnectSerialPortReceiver);
+    REGISTER_COMMAND_TO_FACTORY_DECL(DisconnectSerialPortReceiver);
+    REGISTER_COMMAND_TO_FACTORY_IMPL(DisconnectSerialPortReceiver);
 
 
     DisconnectSerialPortReceiver::DisconnectSerialPortReceiver()
-      : CommandBase(CmdName)
+      : CommandBase(CmdName, TargetId)
     {
 
     }
@@ -44,6 +45,12 @@ namespace Sdx
     }
 
     std::string DisconnectSerialPortReceiver::documentation() const { return Documentation; }
+
+    const std::vector<std::string>& DisconnectSerialPortReceiver::fieldNames() const 
+    { 
+      static const std::vector<std::string> names {}; 
+      return names; 
+    }
 
 
     int DisconnectSerialPortReceiver::executePermission() const

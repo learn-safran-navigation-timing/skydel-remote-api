@@ -1,8 +1,7 @@
 
-#include "gen/SetQzssEphemerisBoolParams.h"
+#include "SetQzssEphemerisBoolParams.h"
 
 #include "command_factory.h"
-#include "command_result_factory.h"
 #include "parse_json.hpp"
 
 ///
@@ -14,19 +13,31 @@ namespace Sdx
   namespace Cmd
   {
     const char* const SetQzssEphemerisBoolParams::CmdName = "SetQzssEphemerisBoolParams";
-    const char* const SetQzssEphemerisBoolParams::Documentation = "Please note the command SetQzssEphemerisBoolParams is deprecated since 21.3. You may use SetQzssEphBoolParamForEachSV.\n\nPlease note the command SetQzssEphBoolParamForEachSV is deprecated since 23.11. You may use SetConstellationParameterForSV.\n\nSet QZSS ephemeris boolean parameter value for all satellites";
+    const char* const SetQzssEphemerisBoolParams::Documentation = "Please note the command SetQzssEphemerisBoolParams is deprecated since 21.3. You may use SetQzssEphBoolParamForEachSV.\n"
+      "\n"
+      "Please note the command SetQzssEphBoolParamForEachSV is deprecated since 23.11. You may use SetConstellationParameterForSV.\n"
+      "\n"
+      "Set QZSS ephemeris boolean parameter value for all satellites\n"
+      "\n"
+      "Name        Type            Description\n"
+      "----------- --------------- --------------------------------------------------------------------------------------------------\n"
+      "ParamName   string          Refer to SetQzssEphemerisBoolParam for accepted names\n"
+      "Val         array bool      Parameter value for each satellite. Zero based index (index 0 => SV ID 1, index 1 => SV ID 2, etc)\n"
+      "DataSetName optional string Optional name of the data set to use. If no value is provided, the active data set is used.";
+    const char* const SetQzssEphemerisBoolParams::TargetId = "";
 
     const char* const SetQzssEphemerisBoolParams::Deprecated = "Please note the command SetQzssEphemerisBoolParams is deprecated since 23.11. You may use SetConstellationParameterForSV.";
 
-    REGISTER_COMMAND_FACTORY(SetQzssEphemerisBoolParams);
+    REGISTER_COMMAND_TO_FACTORY_DECL(SetQzssEphemerisBoolParams);
+    REGISTER_COMMAND_TO_FACTORY_IMPL(SetQzssEphemerisBoolParams);
 
 
     SetQzssEphemerisBoolParams::SetQzssEphemerisBoolParams()
-      : CommandBase(CmdName)
+      : CommandBase(CmdName, TargetId)
     {}
 
     SetQzssEphemerisBoolParams::SetQzssEphemerisBoolParams(const std::string& paramName, const std::vector<bool>& val, const Sdx::optional<std::string>& dataSetName)
-      : CommandBase(CmdName)
+      : CommandBase(CmdName, TargetId)
     {
 
       setParamName(paramName);
@@ -56,6 +67,12 @@ namespace Sdx
     }
 
     std::string SetQzssEphemerisBoolParams::documentation() const { return Documentation; }
+
+    const std::vector<std::string>& SetQzssEphemerisBoolParams::fieldNames() const 
+    { 
+      static const std::vector<std::string> names {"ParamName", "Val", "DataSetName"}; 
+      return names; 
+    }
 
     Sdx::optional<std::string> SetQzssEphemerisBoolParams::deprecated() const { return Sdx::optional<std::string>{Deprecated}; }
 

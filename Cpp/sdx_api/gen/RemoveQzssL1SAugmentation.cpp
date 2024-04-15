@@ -1,8 +1,7 @@
 
-#include "gen/RemoveQzssL1SAugmentation.h"
+#include "RemoveQzssL1SAugmentation.h"
 
 #include "command_factory.h"
-#include "command_result_factory.h"
 #include "parse_json.hpp"
 
 ///
@@ -14,17 +13,23 @@ namespace Sdx
   namespace Cmd
   {
     const char* const RemoveQzssL1SAugmentation::CmdName = "RemoveQzssL1SAugmentation";
-    const char* const RemoveQzssL1SAugmentation::Documentation = "Removes a QZSS L1S augmentation.";
+    const char* const RemoveQzssL1SAugmentation::Documentation = "Removes a QZSS L1S augmentation.\n"
+      "\n"
+      "Name Type   Description\n"
+      "---- ------ ----------------------------------------------\n"
+      "Id   string Unique identifier (see SetQzssL1SAugmentation)";
+    const char* const RemoveQzssL1SAugmentation::TargetId = "";
 
-    REGISTER_COMMAND_FACTORY(RemoveQzssL1SAugmentation);
+    REGISTER_COMMAND_TO_FACTORY_DECL(RemoveQzssL1SAugmentation);
+    REGISTER_COMMAND_TO_FACTORY_IMPL(RemoveQzssL1SAugmentation);
 
 
     RemoveQzssL1SAugmentation::RemoveQzssL1SAugmentation()
-      : CommandBase(CmdName)
+      : CommandBase(CmdName, TargetId)
     {}
 
     RemoveQzssL1SAugmentation::RemoveQzssL1SAugmentation(const std::string& id)
-      : CommandBase(CmdName)
+      : CommandBase(CmdName, TargetId)
     {
 
       setId(id);
@@ -50,6 +55,12 @@ namespace Sdx
     }
 
     std::string RemoveQzssL1SAugmentation::documentation() const { return Documentation; }
+
+    const std::vector<std::string>& RemoveQzssL1SAugmentation::fieldNames() const 
+    { 
+      static const std::vector<std::string> names {"Id"}; 
+      return names; 
+    }
 
 
     int RemoveQzssL1SAugmentation::executePermission() const

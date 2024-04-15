@@ -1,8 +1,7 @@
 
-#include "gen/GetVehicleAntennaGainResult.h"
+#include "GetVehicleAntennaGainResult.h"
 
 #include "command_factory.h"
-#include "command_result_factory.h"
 #include "parse_json.hpp"
 
 ///
@@ -14,17 +13,25 @@ namespace Sdx
   namespace Cmd
   {
     const char* const GetVehicleAntennaGainResult::CmdName = "GetVehicleAntennaGainResult";
-    const char* const GetVehicleAntennaGainResult::Documentation = "Result of GetVehicleAntennaGain.";
+    const char* const GetVehicleAntennaGainResult::Documentation = "Result of GetVehicleAntennaGain.\n"
+      "\n"
+      "Name Type               Description\n"
+      "---- ------------------ -------------------------------------------------------------------------------------------------------------------------\n"
+      "Gain array array double Gain matrix (dB). The first dimension will be mapped to elevation [-90, 90] and the second dimension to azimuth [0, 360[.\n"
+      "Type AntennaPatternType Pattern type\n"
+      "Band GNSSBand           Frequency band\n"
+      "Name optional string    Vehicle antenna name";
+    const char* const GetVehicleAntennaGainResult::TargetId = "";
 
-    REGISTER_COMMAND_RESULT_TO_FACTORY_IMPL(GetVehicleAntennaGainResult);
+    REGISTER_COMMAND_TO_FACTORY_IMPL(GetVehicleAntennaGainResult);
 
 
     GetVehicleAntennaGainResult::GetVehicleAntennaGainResult()
-      : CommandResult(CmdName)
+      : CommandResult(CmdName, TargetId)
     {}
 
     GetVehicleAntennaGainResult::GetVehicleAntennaGainResult(const std::vector<std::vector<double>>& gain, const Sdx::AntennaPatternType& type, const Sdx::GNSSBand& band, const Sdx::optional<std::string>& name)
-      : CommandResult(CmdName)
+      : CommandResult(CmdName, TargetId)
     {
 
       setGain(gain);
@@ -34,7 +41,7 @@ namespace Sdx
     }
 
     GetVehicleAntennaGainResult::GetVehicleAntennaGainResult(CommandBasePtr relatedCommand, const std::vector<std::vector<double>>& gain, const Sdx::AntennaPatternType& type, const Sdx::GNSSBand& band, const Sdx::optional<std::string>& name)
-      : CommandResult(CmdName, relatedCommand)
+      : CommandResult(CmdName, TargetId, relatedCommand)
     {
 
       setGain(gain);
@@ -72,6 +79,12 @@ namespace Sdx
     }
 
     std::string GetVehicleAntennaGainResult::documentation() const { return Documentation; }
+
+    const std::vector<std::string>& GetVehicleAntennaGainResult::fieldNames() const 
+    { 
+      static const std::vector<std::string> names {"Gain", "Type", "Band", "Name"}; 
+      return names; 
+    }
 
 
     std::vector<std::vector<double>> GetVehicleAntennaGainResult::gain() const

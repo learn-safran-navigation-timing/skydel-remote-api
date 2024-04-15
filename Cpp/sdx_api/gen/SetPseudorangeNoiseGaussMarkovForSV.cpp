@@ -1,8 +1,7 @@
 
-#include "gen/SetPseudorangeNoiseGaussMarkovForSV.h"
+#include "SetPseudorangeNoiseGaussMarkovForSV.h"
 
 #include "command_factory.h"
-#include "command_result_factory.h"
 #include "parse_json.hpp"
 
 ///
@@ -14,17 +13,29 @@ namespace Sdx
   namespace Cmd
   {
     const char* const SetPseudorangeNoiseGaussMarkovForSV::CmdName = "SetPseudorangeNoiseGaussMarkovForSV";
-    const char* const SetPseudorangeNoiseGaussMarkovForSV::Documentation = "Set the satellite pseudorange noise Gauss-Markov process attributes.";
+    const char* const SetPseudorangeNoiseGaussMarkovForSV::Documentation = "Set the satellite pseudorange noise Gauss-Markov process attributes.\n"
+      "\n"
+      "Name    Type   Description\n"
+      "------- ------ --------------------------------------------------------------------------\n"
+      "System  string \"GPS\", \"GLONASS\", \"Galileo\", \"BeiDou\", \"SBAS\", \"QZSS\", \"NavIC\" or \"PULSAR\"\n"
+      "SvId    int    Satellite SV ID.\n"
+      "Process int    Gauss-Markov Process number (0 or 1)\n"
+      "Enabled bool   If true, Gauss-Markov process is enabled\n"
+      "Sigma   double Standard devition in meters [0..5000]\n"
+      "Time    double Time constant [1..2000]\n"
+      "Seed    int    Random seed";
+    const char* const SetPseudorangeNoiseGaussMarkovForSV::TargetId = "";
 
-    REGISTER_COMMAND_FACTORY(SetPseudorangeNoiseGaussMarkovForSV);
+    REGISTER_COMMAND_TO_FACTORY_DECL(SetPseudorangeNoiseGaussMarkovForSV);
+    REGISTER_COMMAND_TO_FACTORY_IMPL(SetPseudorangeNoiseGaussMarkovForSV);
 
 
     SetPseudorangeNoiseGaussMarkovForSV::SetPseudorangeNoiseGaussMarkovForSV()
-      : CommandBase(CmdName)
+      : CommandBase(CmdName, TargetId)
     {}
 
     SetPseudorangeNoiseGaussMarkovForSV::SetPseudorangeNoiseGaussMarkovForSV(const std::string& system, int svId, int process, bool enabled, double sigma, double time, int seed)
-      : CommandBase(CmdName)
+      : CommandBase(CmdName, TargetId)
     {
 
       setSystem(system);
@@ -62,6 +73,12 @@ namespace Sdx
     }
 
     std::string SetPseudorangeNoiseGaussMarkovForSV::documentation() const { return Documentation; }
+
+    const std::vector<std::string>& SetPseudorangeNoiseGaussMarkovForSV::fieldNames() const 
+    { 
+      static const std::vector<std::string> names {"System", "SvId", "Process", "Enabled", "Sigma", "Time", "Seed"}; 
+      return names; 
+    }
 
 
     int SetPseudorangeNoiseGaussMarkovForSV::executePermission() const

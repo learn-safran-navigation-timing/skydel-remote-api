@@ -1,8 +1,7 @@
 
-#include "gen/ClearQzssL1SAugmentations.h"
+#include "ClearQzssL1SAugmentations.h"
 
 #include "command_factory.h"
-#include "command_result_factory.h"
 #include "parse_json.hpp"
 
 ///
@@ -15,12 +14,14 @@ namespace Sdx
   {
     const char* const ClearQzssL1SAugmentations::CmdName = "ClearQzssL1SAugmentations";
     const char* const ClearQzssL1SAugmentations::Documentation = "Clears all QZSS L1S augmentations.";
+    const char* const ClearQzssL1SAugmentations::TargetId = "";
 
-    REGISTER_COMMAND_FACTORY(ClearQzssL1SAugmentations);
+    REGISTER_COMMAND_TO_FACTORY_DECL(ClearQzssL1SAugmentations);
+    REGISTER_COMMAND_TO_FACTORY_IMPL(ClearQzssL1SAugmentations);
 
 
     ClearQzssL1SAugmentations::ClearQzssL1SAugmentations()
-      : CommandBase(CmdName)
+      : CommandBase(CmdName, TargetId)
     {
 
     }
@@ -44,6 +45,12 @@ namespace Sdx
     }
 
     std::string ClearQzssL1SAugmentations::documentation() const { return Documentation; }
+
+    const std::vector<std::string>& ClearQzssL1SAugmentations::fieldNames() const 
+    { 
+      static const std::vector<std::string> names {}; 
+      return names; 
+    }
 
 
     int ClearQzssL1SAugmentations::executePermission() const

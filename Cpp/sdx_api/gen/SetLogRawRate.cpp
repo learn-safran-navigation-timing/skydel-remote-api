@@ -1,8 +1,7 @@
 
-#include "gen/SetLogRawRate.h"
+#include "SetLogRawRate.h"
 
 #include "command_factory.h"
-#include "command_result_factory.h"
 #include "parse_json.hpp"
 
 ///
@@ -14,17 +13,23 @@ namespace Sdx
   namespace Cmd
   {
     const char* const SetLogRawRate::CmdName = "SetLogRawRate";
-    const char* const SetLogRawRate::Documentation = "Set Rate logging of raw data";
+    const char* const SetLogRawRate::Documentation = "Set Rate logging of raw data\n"
+      "\n"
+      "Name Type Description\n"
+      "---- ---- --------------------------------------\n"
+      "Rate int  Accepted rates are 10, 100 and 1000 Hz";
+    const char* const SetLogRawRate::TargetId = "";
 
-    REGISTER_COMMAND_FACTORY(SetLogRawRate);
+    REGISTER_COMMAND_TO_FACTORY_DECL(SetLogRawRate);
+    REGISTER_COMMAND_TO_FACTORY_IMPL(SetLogRawRate);
 
 
     SetLogRawRate::SetLogRawRate()
-      : CommandBase(CmdName)
+      : CommandBase(CmdName, TargetId)
     {}
 
     SetLogRawRate::SetLogRawRate(int rate)
-      : CommandBase(CmdName)
+      : CommandBase(CmdName, TargetId)
     {
 
       setRate(rate);
@@ -50,6 +55,12 @@ namespace Sdx
     }
 
     std::string SetLogRawRate::documentation() const { return Documentation; }
+
+    const std::vector<std::string>& SetLogRawRate::fieldNames() const 
+    { 
+      static const std::vector<std::string> names {"Rate"}; 
+      return names; 
+    }
 
 
     int SetLogRawRate::executePermission() const

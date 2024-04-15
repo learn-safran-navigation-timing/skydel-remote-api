@@ -1,8 +1,7 @@
 
-#include "gen/GetQzssL1SAugmentation.h"
+#include "GetQzssL1SAugmentation.h"
 
 #include "command_factory.h"
-#include "command_result_factory.h"
 #include "parse_json.hpp"
 
 ///
@@ -14,17 +13,23 @@ namespace Sdx
   namespace Cmd
   {
     const char* const GetQzssL1SAugmentation::CmdName = "GetQzssL1SAugmentation";
-    const char* const GetQzssL1SAugmentation::Documentation = "Get Add an augmentation to the L1S navigation messages.";
+    const char* const GetQzssL1SAugmentation::Documentation = "Get Add an augmentation to the L1S navigation messages.\n"
+      "\n"
+      "Name Type   Description\n"
+      "---- ------ --------------------------------------\n"
+      "Id   string Unique identifier of the augmentation.";
+    const char* const GetQzssL1SAugmentation::TargetId = "";
 
-    REGISTER_COMMAND_FACTORY(GetQzssL1SAugmentation);
+    REGISTER_COMMAND_TO_FACTORY_DECL(GetQzssL1SAugmentation);
+    REGISTER_COMMAND_TO_FACTORY_IMPL(GetQzssL1SAugmentation);
 
 
     GetQzssL1SAugmentation::GetQzssL1SAugmentation()
-      : CommandBase(CmdName)
+      : CommandBase(CmdName, TargetId)
     {}
 
     GetQzssL1SAugmentation::GetQzssL1SAugmentation(const std::string& id)
-      : CommandBase(CmdName)
+      : CommandBase(CmdName, TargetId)
     {
 
       setId(id);
@@ -50,6 +55,12 @@ namespace Sdx
     }
 
     std::string GetQzssL1SAugmentation::documentation() const { return Documentation; }
+
+    const std::vector<std::string>& GetQzssL1SAugmentation::fieldNames() const 
+    { 
+      static const std::vector<std::string> names {"Id"}; 
+      return names; 
+    }
 
 
     int GetQzssL1SAugmentation::executePermission() const

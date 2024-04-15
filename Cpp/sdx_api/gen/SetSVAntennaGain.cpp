@@ -1,8 +1,7 @@
 
-#include "gen/SetSVAntennaGain.h"
+#include "SetSVAntennaGain.h"
 
 #include "command_factory.h"
-#include "command_result_factory.h"
 #include "parse_json.hpp"
 
 ///
@@ -14,17 +13,27 @@ namespace Sdx
   namespace Cmd
   {
     const char* const SetSVAntennaGain::CmdName = "SetSVAntennaGain";
-    const char* const SetSVAntennaGain::Documentation = "Set space vehicle gain antenna pattern. If no name is specified, the command is aplied to Basic SV Antenna.";
+    const char* const SetSVAntennaGain::Documentation = "Set space vehicle gain antenna pattern. If no name is specified, the command is aplied to Basic SV Antenna.\n"
+      "\n"
+      "Name   Type               Description\n"
+      "------ ------------------ -------------------------------------------------------------------------------------------------------------------------\n"
+      "Gain   array array double Gain matrix (dB). The first dimension will be mapped to elevation [-90, 90] and the second dimension to azimuth [0, 360[.\n"
+      "Type   AntennaPatternType Pattern type\n"
+      "Band   GNSSBand           Frequency band\n"
+      "System string             \"GPS\", \"GLONASS\", \"Galileo\", \"BeiDou\", \"SBAS\", \"QZSS\", \"NavIC\" or \"PULSAR\"\n"
+      "Name   optional string    SV antenna name";
+    const char* const SetSVAntennaGain::TargetId = "";
 
-    REGISTER_COMMAND_FACTORY(SetSVAntennaGain);
+    REGISTER_COMMAND_TO_FACTORY_DECL(SetSVAntennaGain);
+    REGISTER_COMMAND_TO_FACTORY_IMPL(SetSVAntennaGain);
 
 
     SetSVAntennaGain::SetSVAntennaGain()
-      : CommandBase(CmdName)
+      : CommandBase(CmdName, TargetId)
     {}
 
     SetSVAntennaGain::SetSVAntennaGain(const std::vector<std::vector<double>>& gain, const Sdx::AntennaPatternType& type, const Sdx::GNSSBand& band, const std::string& system, const Sdx::optional<std::string>& name)
-      : CommandBase(CmdName)
+      : CommandBase(CmdName, TargetId)
     {
 
       setGain(gain);
@@ -58,6 +67,12 @@ namespace Sdx
     }
 
     std::string SetSVAntennaGain::documentation() const { return Documentation; }
+
+    const std::vector<std::string>& SetSVAntennaGain::fieldNames() const 
+    { 
+      static const std::vector<std::string> names {"Gain", "Type", "Band", "System", "Name"}; 
+      return names; 
+    }
 
 
     int SetSVAntennaGain::executePermission() const

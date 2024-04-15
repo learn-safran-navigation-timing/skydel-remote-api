@@ -1,8 +1,7 @@
 
-#include "gen/GetSVGainPatternOffset.h"
+#include "GetSVGainPatternOffset.h"
 
 #include "command_factory.h"
-#include "command_result_factory.h"
 #include "parse_json.hpp"
 
 ///
@@ -14,17 +13,25 @@ namespace Sdx
   namespace Cmd
   {
     const char* const GetSVGainPatternOffset::CmdName = "GetSVGainPatternOffset";
-    const char* const GetSVGainPatternOffset::Documentation = "Get the offset (in dB) for the antenna gain pattern of the band.";
+    const char* const GetSVGainPatternOffset::Documentation = "Get the offset (in dB) for the antenna gain pattern of the band.\n"
+      "\n"
+      "Name        Type            Description\n"
+      "----------- --------------- ------------------------------------------------------------------------------------\n"
+      "Band        GNSSBand        Offset will be apply to this band. (\"L1\", \"L2\" or \"L5\")\n"
+      "System      string          \"GPS\", \"GLONASS\", \"Galileo\", \"BeiDou\", \"SBAS\", \"QZSS\", \"NavIC\" or \"PULSAR\"\n"
+      "AntennaName optional string Vehicle antenna name. If no name is specified, apply the offset to the Basic Antenna";
+    const char* const GetSVGainPatternOffset::TargetId = "";
 
-    REGISTER_COMMAND_FACTORY(GetSVGainPatternOffset);
+    REGISTER_COMMAND_TO_FACTORY_DECL(GetSVGainPatternOffset);
+    REGISTER_COMMAND_TO_FACTORY_IMPL(GetSVGainPatternOffset);
 
 
     GetSVGainPatternOffset::GetSVGainPatternOffset()
-      : CommandBase(CmdName)
+      : CommandBase(CmdName, TargetId)
     {}
 
     GetSVGainPatternOffset::GetSVGainPatternOffset(const Sdx::GNSSBand& band, const std::string& system, const Sdx::optional<std::string>& antennaName)
-      : CommandBase(CmdName)
+      : CommandBase(CmdName, TargetId)
     {
 
       setBand(band);
@@ -54,6 +61,12 @@ namespace Sdx
     }
 
     std::string GetSVGainPatternOffset::documentation() const { return Documentation; }
+
+    const std::vector<std::string>& GetSVGainPatternOffset::fieldNames() const 
+    { 
+      static const std::vector<std::string> names {"Band", "System", "AntennaName"}; 
+      return names; 
+    }
 
 
     int GetSVGainPatternOffset::executePermission() const

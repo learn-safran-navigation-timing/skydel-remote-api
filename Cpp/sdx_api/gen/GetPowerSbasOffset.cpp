@@ -1,8 +1,7 @@
 
-#include "gen/GetPowerSbasOffset.h"
+#include "GetPowerSbasOffset.h"
 
 #include "command_factory.h"
-#include "command_result_factory.h"
 #include "parse_json.hpp"
 
 ///
@@ -14,17 +13,23 @@ namespace Sdx
   namespace Cmd
   {
     const char* const GetPowerSbasOffset::CmdName = "GetPowerSbasOffset";
-    const char* const GetPowerSbasOffset::Documentation = "Get power offset default value for the SBAS Service Provider given in argument";
+    const char* const GetPowerSbasOffset::Documentation = "Get power offset default value for the SBAS Service Provider given in argument\n"
+      "\n"
+      "Name            Type   Description\n"
+      "--------------- ------ ------------------------------------------------------------------------------\n"
+      "ServiceProvider string Service Provider key, allowed values: \"WAAS\", \"EGNOS\", \"MSAS\", \"GAGAN\", \"SDCM\"";
+    const char* const GetPowerSbasOffset::TargetId = "";
 
-    REGISTER_COMMAND_FACTORY(GetPowerSbasOffset);
+    REGISTER_COMMAND_TO_FACTORY_DECL(GetPowerSbasOffset);
+    REGISTER_COMMAND_TO_FACTORY_IMPL(GetPowerSbasOffset);
 
 
     GetPowerSbasOffset::GetPowerSbasOffset()
-      : CommandBase(CmdName)
+      : CommandBase(CmdName, TargetId)
     {}
 
     GetPowerSbasOffset::GetPowerSbasOffset(const std::string& serviceProvider)
-      : CommandBase(CmdName)
+      : CommandBase(CmdName, TargetId)
     {
 
       setServiceProvider(serviceProvider);
@@ -50,6 +55,12 @@ namespace Sdx
     }
 
     std::string GetPowerSbasOffset::documentation() const { return Documentation; }
+
+    const std::vector<std::string>& GetPowerSbasOffset::fieldNames() const 
+    { 
+      static const std::vector<std::string> names {"ServiceProvider"}; 
+      return names; 
+    }
 
 
     int GetPowerSbasOffset::executePermission() const

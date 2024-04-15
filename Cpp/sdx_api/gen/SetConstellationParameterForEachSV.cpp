@@ -1,8 +1,7 @@
 
-#include "gen/SetConstellationParameterForEachSV.h"
+#include "SetConstellationParameterForEachSV.h"
 
 #include "command_factory.h"
-#include "command_result_factory.h"
 #include "parse_json.hpp"
 
 ///
@@ -14,17 +13,26 @@ namespace Sdx
   namespace Cmd
   {
     const char* const SetConstellationParameterForEachSV::CmdName = "SetConstellationParameterForEachSV";
-    const char* const SetConstellationParameterForEachSV::Documentation = "Set \"GPS\", \"Galileo\", \"BeiDou\", \"QZSS\" or \"NavIC\" constellation parameter value for all satellites.";
+    const char* const SetConstellationParameterForEachSV::Documentation = "Set \"GPS\", \"Galileo\", \"BeiDou\", \"QZSS\", \"NavIC\" or \"PULSAR\" constellation parameter value for all satellites.\n"
+      "\n"
+      "Name        Type                                    Description\n"
+      "----------- --------------------------------------- ----------------------------------------------------------------------------------------------------\n"
+      "System      string                                  \"GPS\", \"Galileo\", \"BeiDou\", \"QZSS\", \"NavIC\" or \"PULSAR\".\n"
+      "ParamName   string                                  Refer to SetConstellationParameterForSV for accepted names.\n"
+      "Val         array double or array int or array bool Parameter value for each satellite. Zero based index (index 0 => SV ID 1, index 1 => SV ID 2, etc.).\n"
+      "DataSetName optional string                         Optional name of the data set to use. If no value is provided, the active data set is used.";
+    const char* const SetConstellationParameterForEachSV::TargetId = "";
 
-    REGISTER_COMMAND_FACTORY(SetConstellationParameterForEachSV);
+    REGISTER_COMMAND_TO_FACTORY_DECL(SetConstellationParameterForEachSV);
+    REGISTER_COMMAND_TO_FACTORY_IMPL(SetConstellationParameterForEachSV);
 
 
     SetConstellationParameterForEachSV::SetConstellationParameterForEachSV()
-      : CommandBase(CmdName)
+      : CommandBase(CmdName, TargetId)
     {}
 
     SetConstellationParameterForEachSV::SetConstellationParameterForEachSV(const std::string& system, const std::string& paramName, const std::vector<double>& val, const Sdx::optional<std::string>& dataSetName)
-      : CommandBase(CmdName)
+      : CommandBase(CmdName, TargetId)
     {
 
       setSystem(system);
@@ -34,7 +42,7 @@ namespace Sdx
     }
 
     SetConstellationParameterForEachSV::SetConstellationParameterForEachSV(const std::string& system, const std::string& paramName, const std::vector<int>& val, const Sdx::optional<std::string>& dataSetName)
-      : CommandBase(CmdName)
+      : CommandBase(CmdName, TargetId)
     {
 
       setSystem(system);
@@ -44,7 +52,7 @@ namespace Sdx
     }
 
     SetConstellationParameterForEachSV::SetConstellationParameterForEachSV(const std::string& system, const std::string& paramName, const std::vector<bool>& val, const Sdx::optional<std::string>& dataSetName)
-      : CommandBase(CmdName)
+      : CommandBase(CmdName, TargetId)
     {
 
       setSystem(system);
@@ -86,6 +94,12 @@ namespace Sdx
     }
 
     std::string SetConstellationParameterForEachSV::documentation() const { return Documentation; }
+
+    const std::vector<std::string>& SetConstellationParameterForEachSV::fieldNames() const 
+    { 
+      static const std::vector<std::string> names {"System", "ParamName", "Val", "DataSetName"}; 
+      return names; 
+    }
 
 
     int SetConstellationParameterForEachSV::executePermission() const

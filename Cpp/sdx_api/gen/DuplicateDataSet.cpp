@@ -1,8 +1,7 @@
 
-#include "gen/DuplicateDataSet.h"
+#include "DuplicateDataSet.h"
 
 #include "command_factory.h"
-#include "command_result_factory.h"
 #include "parse_json.hpp"
 
 ///
@@ -14,17 +13,25 @@ namespace Sdx
   namespace Cmd
   {
     const char* const DuplicateDataSet::CmdName = "DuplicateDataSet";
-    const char* const DuplicateDataSet::Documentation = "Duplicate an existing data set.";
+    const char* const DuplicateDataSet::Documentation = "Duplicate an existing data set.\n"
+      "\n"
+      "Name           Type            Description\n"
+      "-------------- --------------- ----------------------------------------------------------------------------------\n"
+      "System         string          \"GPS\", \"Galileo\", \"BeiDou\", \"QZSS\", \"NavIC\" or \"PULSAR\"\n"
+      "DataSetName    string          The name of the data set to duplicate.\n"
+      "NewDataSetName optional string The name of the new duplicate data set. If omitted, a copy name will be generated.";
+    const char* const DuplicateDataSet::TargetId = "";
 
-    REGISTER_COMMAND_FACTORY(DuplicateDataSet);
+    REGISTER_COMMAND_TO_FACTORY_DECL(DuplicateDataSet);
+    REGISTER_COMMAND_TO_FACTORY_IMPL(DuplicateDataSet);
 
 
     DuplicateDataSet::DuplicateDataSet()
-      : CommandBase(CmdName)
+      : CommandBase(CmdName, TargetId)
     {}
 
     DuplicateDataSet::DuplicateDataSet(const std::string& system, const std::string& dataSetName, const Sdx::optional<std::string>& newDataSetName)
-      : CommandBase(CmdName)
+      : CommandBase(CmdName, TargetId)
     {
 
       setSystem(system);
@@ -54,6 +61,12 @@ namespace Sdx
     }
 
     std::string DuplicateDataSet::documentation() const { return Documentation; }
+
+    const std::vector<std::string>& DuplicateDataSet::fieldNames() const 
+    { 
+      static const std::vector<std::string> names {"System", "DataSetName", "NewDataSetName"}; 
+      return names; 
+    }
 
 
     int DuplicateDataSet::executePermission() const

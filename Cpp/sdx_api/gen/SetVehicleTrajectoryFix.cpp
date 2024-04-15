@@ -1,8 +1,7 @@
 
-#include "gen/SetVehicleTrajectoryFix.h"
+#include "SetVehicleTrajectoryFix.h"
 
 #include "command_factory.h"
-#include "command_result_factory.h"
 #include "parse_json.hpp"
 
 ///
@@ -14,17 +13,29 @@ namespace Sdx
   namespace Cmd
   {
     const char* const SetVehicleTrajectoryFix::CmdName = "SetVehicleTrajectoryFix";
-    const char* const SetVehicleTrajectoryFix::Documentation = "Set vehicle static position and orientation";
+    const char* const SetVehicleTrajectoryFix::Documentation = "Set vehicle static position and orientation\n"
+      "\n"
+      "Name  Type   Description\n"
+      "----- ------ -----------------------\n"
+      "Type  string Trajectory type (\"Fix\")\n"
+      "Lat   double Latitude (rad)\n"
+      "Lon   double Longitude (rad)\n"
+      "Alt   double Altitude (m)\n"
+      "Yaw   double Yaw (rad)\n"
+      "Pitch double Pitch (rad)\n"
+      "Roll  double Roll (rad)";
+    const char* const SetVehicleTrajectoryFix::TargetId = "";
 
-    REGISTER_COMMAND_FACTORY(SetVehicleTrajectoryFix);
+    REGISTER_COMMAND_TO_FACTORY_DECL(SetVehicleTrajectoryFix);
+    REGISTER_COMMAND_TO_FACTORY_IMPL(SetVehicleTrajectoryFix);
 
 
     SetVehicleTrajectoryFix::SetVehicleTrajectoryFix()
-      : CommandBase(CmdName)
+      : CommandBase(CmdName, TargetId)
     {}
 
     SetVehicleTrajectoryFix::SetVehicleTrajectoryFix(const std::string& type, double lat, double lon, double alt, double yaw, double pitch, double roll)
-      : CommandBase(CmdName)
+      : CommandBase(CmdName, TargetId)
     {
 
       setType(type);
@@ -62,6 +73,12 @@ namespace Sdx
     }
 
     std::string SetVehicleTrajectoryFix::documentation() const { return Documentation; }
+
+    const std::vector<std::string>& SetVehicleTrajectoryFix::fieldNames() const 
+    { 
+      static const std::vector<std::string> names {"Type", "Lat", "Lon", "Alt", "Yaw", "Pitch", "Roll"}; 
+      return names; 
+    }
 
 
     int SetVehicleTrajectoryFix::executePermission() const

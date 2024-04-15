@@ -1,8 +1,7 @@
 
-#include "gen/SetDefaultConfiguration.h"
+#include "SetDefaultConfiguration.h"
 
 #include "command_factory.h"
-#include "command_result_factory.h"
 #include "parse_json.hpp"
 
 ///
@@ -15,12 +14,14 @@ namespace Sdx
   {
     const char* const SetDefaultConfiguration::CmdName = "SetDefaultConfiguration";
     const char* const SetDefaultConfiguration::Documentation = "Set current configuration as default configuration.";
+    const char* const SetDefaultConfiguration::TargetId = "";
 
-    REGISTER_COMMAND_FACTORY(SetDefaultConfiguration);
+    REGISTER_COMMAND_TO_FACTORY_DECL(SetDefaultConfiguration);
+    REGISTER_COMMAND_TO_FACTORY_IMPL(SetDefaultConfiguration);
 
 
     SetDefaultConfiguration::SetDefaultConfiguration()
-      : CommandBase(CmdName)
+      : CommandBase(CmdName, TargetId)
     {
 
     }
@@ -44,6 +45,12 @@ namespace Sdx
     }
 
     std::string SetDefaultConfiguration::documentation() const { return Documentation; }
+
+    const std::vector<std::string>& SetDefaultConfiguration::fieldNames() const 
+    { 
+      static const std::vector<std::string> names {}; 
+      return names; 
+    }
 
 
     int SetDefaultConfiguration::executePermission() const

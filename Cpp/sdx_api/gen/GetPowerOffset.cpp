@@ -1,8 +1,7 @@
 
-#include "gen/GetPowerOffset.h"
+#include "GetPowerOffset.h"
 
 #include "command_factory.h"
-#include "command_result_factory.h"
 #include "parse_json.hpp"
 
 ///
@@ -14,17 +13,28 @@ namespace Sdx
   namespace Cmd
   {
     const char* const GetPowerOffset::CmdName = "GetPowerOffset";
-    const char* const GetPowerOffset::Documentation = "Please note the command GetPowerOffset is deprecated since 21.7. You may use GetSignalPowerOffset.\n\nGet power offset default value for the signal given in argument";
+    const char* const GetPowerOffset::Documentation = "Please note the command GetPowerOffset is deprecated since 21.7. You may use GetSignalPowerOffset.\n"
+      "\n"
+      "Get power offset default value for the signal given in argument\n"
+      "\n"
+      "Name   Type   Description\n"
+      "------ ------ -----------------------------------------------------------------------------------------------\n"
+      "Signal string Accepted signal keys: \"L1CA\", \"L1C\", \"L1P\", \"L1ME\", \"L1MR\", \"L2C\", \"L2P\", \"L2ME\", \"L2MR\", \"L5\",\n"
+      "                                    \"G1\", \"G2\", \"E1\", \"E1PRS\", \"E5a\", \"E5b\", \"E6BC\", \"E6PRS\",\n"
+      "                                    \"B1\", \"B2\", \"B1C\", \"B2a\", \"B3I\", \"QZSSL1CA\", \"QZSSL1CB\", \"QZSSL1C\",\n"
+      "                                    \"QZSSL2C\", \"QZSSL5\", \"QZSSL1S\", \"QZSSL5S\", \"NAVICL5\", \"PULSARXL\"";
+    const char* const GetPowerOffset::TargetId = "";
 
-    REGISTER_COMMAND_FACTORY(GetPowerOffset);
+    REGISTER_COMMAND_TO_FACTORY_DECL(GetPowerOffset);
+    REGISTER_COMMAND_TO_FACTORY_IMPL(GetPowerOffset);
 
 
     GetPowerOffset::GetPowerOffset()
-      : CommandBase(CmdName)
+      : CommandBase(CmdName, TargetId)
     {}
 
     GetPowerOffset::GetPowerOffset(const std::string& signal)
-      : CommandBase(CmdName)
+      : CommandBase(CmdName, TargetId)
     {
 
       setSignal(signal);
@@ -50,6 +60,12 @@ namespace Sdx
     }
 
     std::string GetPowerOffset::documentation() const { return Documentation; }
+
+    const std::vector<std::string>& GetPowerOffset::fieldNames() const 
+    { 
+      static const std::vector<std::string> names {"Signal"}; 
+      return names; 
+    }
 
 
     int GetPowerOffset::executePermission() const

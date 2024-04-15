@@ -1,8 +1,7 @@
 
-#include "gen/GetSpoofTxColor.h"
+#include "GetSpoofTxColor.h"
 
 #include "command_factory.h"
-#include "command_result_factory.h"
 #include "parse_json.hpp"
 
 ///
@@ -14,17 +13,23 @@ namespace Sdx
   namespace Cmd
   {
     const char* const GetSpoofTxColor::CmdName = "GetSpoofTxColor";
-    const char* const GetSpoofTxColor::Documentation = "Get a spoofer color in spectrums";
+    const char* const GetSpoofTxColor::Documentation = "Get a spoofer color in spectrums\n"
+      "\n"
+      "Name Type   Description\n"
+      "---- ------ ------------------------------\n"
+      "Id   string Transmitter unique identifier.";
+    const char* const GetSpoofTxColor::TargetId = "";
 
-    REGISTER_COMMAND_FACTORY(GetSpoofTxColor);
+    REGISTER_COMMAND_TO_FACTORY_DECL(GetSpoofTxColor);
+    REGISTER_COMMAND_TO_FACTORY_IMPL(GetSpoofTxColor);
 
 
     GetSpoofTxColor::GetSpoofTxColor()
-      : CommandBase(CmdName)
+      : CommandBase(CmdName, TargetId)
     {}
 
     GetSpoofTxColor::GetSpoofTxColor(const std::string& id)
-      : CommandBase(CmdName)
+      : CommandBase(CmdName, TargetId)
     {
 
       setId(id);
@@ -50,6 +55,12 @@ namespace Sdx
     }
 
     std::string GetSpoofTxColor::documentation() const { return Documentation; }
+
+    const std::vector<std::string>& GetSpoofTxColor::fieldNames() const 
+    { 
+      static const std::vector<std::string> names {"Id"}; 
+      return names; 
+    }
 
 
     int GetSpoofTxColor::executePermission() const

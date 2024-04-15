@@ -6,7 +6,7 @@ namespace Sdx.Cmd
 
   public static class ApiInfo
   {
-    public const int COMMANDS_API_VERSION = 43;
+    public const int COMMANDS_API_VERSION = 44;
   }
 
   ///
@@ -58,13 +58,14 @@ namespace Sdx.Cmd
     }
 
     internal const string CmdName = "SuccessResult";
+    internal const string TargetId = "";
 
     public SuccessResult()
-      : base(CmdName)
+      : base(CmdName, TargetId)
     {}
 
     public SuccessResult(CommandBase relatedCommand)
-      : base(CmdName, relatedCommand)
+      : base(CmdName, TargetId, relatedCommand)
     {
     }
       
@@ -95,13 +96,14 @@ namespace Sdx.Cmd
     }
 
     internal const string CmdName = "FailureResult";
+    internal const string TargetId = "";
 
     public FailureResult()
-      : base(CmdName)
+      : base(CmdName, TargetId)
     {}
 
     public FailureResult(CommandBase relatedCommand, string errorMsg)
-      : base(CmdName, relatedCommand)
+      : base(CmdName, TargetId, relatedCommand)
     {
       ErrorMsg = errorMsg;
     }
@@ -143,9 +145,10 @@ namespace Sdx.Cmd
     }
 
     internal const string CmdName = "UndoCmd";
+    internal const string TargetId = "";
 
     public UndoCmd()
-      : base(CmdName)
+      : base(CmdName, TargetId)
     {}
       
     public override bool IsValid
@@ -175,9 +178,10 @@ namespace Sdx.Cmd
     }
 
     internal const string CmdName = "RedoCmd";
+    internal const string TargetId = "";
 
     public RedoCmd()
-      : base(CmdName)
+      : base(CmdName, TargetId)
     {}
       
     public override bool IsValid
@@ -207,9 +211,10 @@ namespace Sdx.Cmd
     }
 
     internal const string CmdName = "GetDataFolder";
+    internal const string TargetId = "";
 
     public GetDataFolder()
-      : base(CmdName)
+      : base(CmdName, TargetId)
     {}
       
     public override bool IsValid
@@ -241,13 +246,14 @@ namespace Sdx.Cmd
     }
 
     internal const string CmdName = "DataFolderResult";
+    internal const string TargetId = "";
 
     public DataFolderResult()
-      : base(CmdName)
+      : base(CmdName, TargetId)
     {}
 
     public DataFolderResult(CommandBase relatedCommand, string folder)
-      : base(CmdName, relatedCommand)
+      : base(CmdName, TargetId, relatedCommand)
     {
       Folder = folder;
     }
@@ -287,9 +293,10 @@ namespace Sdx.Cmd
     }
 
     internal const string CmdName = "GetVersion";
+    internal const string TargetId = "";
 
     public GetVersion()
-      : base(CmdName)
+      : base(CmdName, TargetId)
     {}
       
     public override bool IsValid
@@ -321,13 +328,14 @@ namespace Sdx.Cmd
     }
 
     internal const string CmdName = "VersionResult";
+    internal const string TargetId = "";
 
     public VersionResult()
-      : base(CmdName)
+      : base(CmdName, TargetId)
     {}
 
     public VersionResult(CommandBase relatedCommand, string version)
-      : base(CmdName, relatedCommand)
+      : base(CmdName, TargetId, relatedCommand)
     {
       Version = version;
     }
@@ -367,9 +375,10 @@ namespace Sdx.Cmd
     }
 
     internal const string CmdName = "GetSimulationElapsedTime";
+    internal const string TargetId = "";
 
     public GetSimulationElapsedTime()
-      : base(CmdName)
+      : base(CmdName, TargetId)
     {}
       
     public override bool IsValid
@@ -401,13 +410,14 @@ namespace Sdx.Cmd
     }
 
     internal const string CmdName = "SimulationElapsedTimeResult";
+    internal const string TargetId = "";
 
     public SimulationElapsedTimeResult()
-      : base(CmdName)
+      : base(CmdName, TargetId)
     {}
 
     public SimulationElapsedTimeResult(CommandBase relatedCommand, int milliseconds)
-      : base(CmdName, relatedCommand)
+      : base(CmdName, TargetId, relatedCommand)
     {
       Milliseconds = milliseconds;
     }
@@ -450,13 +460,14 @@ namespace Sdx.Cmd
     }
 
     internal const string CmdName = "New";
+    internal const string TargetId = "";
 
     public New()
-      : base(CmdName)
+      : base(CmdName, TargetId)
     {}
 
     public New(bool discardCurrentConfig, bool? loadDefaultConfig = null)
-      : base(CmdName)
+      : base(CmdName, TargetId)
     {
       DiscardCurrentConfig = discardCurrentConfig;
       LoadDefaultConfig = loadDefaultConfig;
@@ -514,13 +525,14 @@ namespace Sdx.Cmd
     }
 
     internal const string CmdName = "SaveAs";
+    internal const string TargetId = "";
 
     public SaveAs()
-      : base(CmdName)
+      : base(CmdName, TargetId)
     {}
 
     public SaveAs(string path, bool overwrite)
-      : base(CmdName)
+      : base(CmdName, TargetId)
     {
       Path = path;
       Overwrite = overwrite;
@@ -573,9 +585,10 @@ namespace Sdx.Cmd
     }
 
     internal const string CmdName = "Save";
+    internal const string TargetId = "";
 
     public Save()
-      : base(CmdName)
+      : base(CmdName, TargetId)
     {}
       
     public override bool IsValid
@@ -608,13 +621,14 @@ namespace Sdx.Cmd
     }
 
     internal const string CmdName = "Open";
+    internal const string TargetId = "";
 
     public Open()
-      : base(CmdName)
+      : base(CmdName, TargetId)
     {}
 
     public Open(string path, bool discardCurrentConfig)
-      : base(CmdName)
+      : base(CmdName, TargetId)
     {
       Path = path;
       DiscardCurrentConfig = discardCurrentConfig;
@@ -667,9 +681,10 @@ namespace Sdx.Cmd
     }
 
     internal const string CmdName = "SetDefaultConfiguration";
+    internal const string TargetId = "";
 
     public SetDefaultConfiguration()
-      : base(CmdName)
+      : base(CmdName, TargetId)
     {}
       
     public override bool IsValid
@@ -699,9 +714,10 @@ namespace Sdx.Cmd
     }
 
     internal const string CmdName = "ResetDefaultConfiguration";
+    internal const string TargetId = "";
 
     public ResetDefaultConfiguration()
-      : base(CmdName)
+      : base(CmdName, TargetId)
     {}
       
     public override bool IsValid
@@ -731,9 +747,10 @@ namespace Sdx.Cmd
     }
 
     internal const string CmdName = "ClearAutomatePage";
+    internal const string TargetId = "";
 
     public ClearAutomatePage()
-      : base(CmdName)
+      : base(CmdName, TargetId)
     {}
       
     public override bool IsValid
@@ -763,9 +780,10 @@ namespace Sdx.Cmd
     }
 
     internal const string CmdName = "Start";
+    internal const string TargetId = "";
 
     public Start()
-      : base(CmdName)
+      : base(CmdName, TargetId)
     {}
       
     public override bool IsValid
@@ -795,9 +813,10 @@ namespace Sdx.Cmd
     }
 
     internal const string CmdName = "Arm";
+    internal const string TargetId = "";
 
     public Arm()
-      : base(CmdName)
+      : base(CmdName, TargetId)
     {}
       
     public override bool IsValid
@@ -827,9 +846,10 @@ namespace Sdx.Cmd
     }
 
     internal const string CmdName = "Pause";
+    internal const string TargetId = "";
 
     public Pause()
-      : base(CmdName)
+      : base(CmdName, TargetId)
     {}
       
     public override bool IsValid
@@ -859,9 +879,10 @@ namespace Sdx.Cmd
     }
 
     internal const string CmdName = "Resume";
+    internal const string TargetId = "";
 
     public Resume()
-      : base(CmdName)
+      : base(CmdName, TargetId)
     {}
       
     public override bool IsValid
@@ -891,9 +912,10 @@ namespace Sdx.Cmd
     }
 
     internal const string CmdName = "Stop";
+    internal const string TargetId = "";
 
     public Stop()
-      : base(CmdName)
+      : base(CmdName, TargetId)
     {}
       
     public override bool IsValid
@@ -925,13 +947,14 @@ namespace Sdx.Cmd
     }
 
     internal const string CmdName = "Quit";
+    internal const string TargetId = "";
 
     public Quit()
-      : base(CmdName)
+      : base(CmdName, TargetId)
     {}
 
     public Quit(bool forceQuit)
-      : base(CmdName)
+      : base(CmdName, TargetId)
     {
       ForceQuit = forceQuit;
     }
@@ -974,9 +997,10 @@ namespace Sdx.Cmd
     }
 
     internal const string CmdName = "LockGUI";
+    internal const string TargetId = "";
 
     public LockGUI()
-      : base(CmdName)
+      : base(CmdName, TargetId)
     {}
       
     public override bool IsValid
@@ -1006,9 +1030,10 @@ namespace Sdx.Cmd
     }
 
     internal const string CmdName = "UnlockGUI";
+    internal const string TargetId = "";
 
     public UnlockGUI()
-      : base(CmdName)
+      : base(CmdName, TargetId)
     {}
       
     public override bool IsValid
@@ -1028,8 +1053,8 @@ namespace Sdx.Cmd
   /// Enable (or disable) RF output for specified satellite. Use SV ID 0 to enabled/disable all satellites.
   ///
   /// Name    Type   Description
-  /// ------- ------ ----------------------------------------------------------------
-  /// System  string "GPS", "GLONASS", "Galileo", "BeiDou", "SBAS", "QZSS" or "NavIC"
+  /// ------- ------ --------------------------------------------------------------------------
+  /// System  string "GPS", "GLONASS", "Galileo", "BeiDou", "SBAS", "QZSS", "NavIC" or "PULSAR"
   /// SvId    int    The satellite's SV ID
   /// Enabled bool   RF is enabled when value is True
   ///
@@ -1042,13 +1067,14 @@ namespace Sdx.Cmd
     }
 
     internal const string CmdName = "EnableRFOutputForSV";
+    internal const string TargetId = "";
 
     public EnableRFOutputForSV()
-      : base(CmdName)
+      : base(CmdName, TargetId)
     {}
 
     public EnableRFOutputForSV(string system, int svId, bool enabled)
-      : base(CmdName)
+      : base(CmdName, TargetId)
     {
       System = system;
       SvId = svId;
@@ -1102,8 +1128,8 @@ namespace Sdx.Cmd
   /// Tells if the RF output is enabled or disabled for the specified satellite.
   ///
   /// Name   Type   Description
-  /// ------ ------ ----------------------------------------------------------------
-  /// System string "GPS", "GLONASS", "Galileo", "BeiDou", "SBAS", "QZSS" or "NavIC"
+  /// ------ ------ --------------------------------------------------------------------------
+  /// System string "GPS", "GLONASS", "Galileo", "BeiDou", "SBAS", "QZSS", "NavIC" or "PULSAR"
   /// SvId   int    The satellite's SV ID
   ///
 
@@ -1115,13 +1141,14 @@ namespace Sdx.Cmd
     }
 
     internal const string CmdName = "IsRFOutputEnabled";
+    internal const string TargetId = "";
 
     public IsRFOutputEnabled()
-      : base(CmdName)
+      : base(CmdName, TargetId)
     {}
 
     public IsRFOutputEnabled(string system, int svId)
-      : base(CmdName)
+      : base(CmdName, TargetId)
     {
       System = system;
       SvId = svId;
@@ -1164,8 +1191,8 @@ namespace Sdx.Cmd
   /// Result of IsRFOutputEnabled.
   ///
   /// Name    Type   Description
-  /// ------- ------ ----------------------------------------------------------------
-  /// System  string "GPS", "GLONASS", "Galileo", "BeiDou", "SBAS", "QZSS" or "NavIC"
+  /// ------- ------ --------------------------------------------------------------------------
+  /// System  string "GPS", "GLONASS", "Galileo", "BeiDou", "SBAS", "QZSS", "NavIC" or "PULSAR"
   /// SvId    int    The satellite's SV ID
   /// Enabled bool   RF is enabled when value is True
   ///
@@ -1178,13 +1205,14 @@ namespace Sdx.Cmd
     }
 
     internal const string CmdName = "IsRFOutputEnabledResult";
+    internal const string TargetId = "";
 
     public IsRFOutputEnabledResult()
-      : base(CmdName)
+      : base(CmdName, TargetId)
     {}
 
     public IsRFOutputEnabledResult(CommandBase relatedCommand, string system, int svId, bool enabled)
-      : base(CmdName, relatedCommand)
+      : base(CmdName, TargetId, relatedCommand)
     {
       System = system;
       SvId = svId;
@@ -1237,7 +1265,7 @@ namespace Sdx.Cmd
   ///
   /// Name    Type       Description
   /// ------- ---------- -------------------------------------------------------------------------------------------------
-  /// System  string     "GPS", "GLONASS", "Galileo", "BeiDou", "SBAS", "QZSS" or "NavIC"
+  /// System  string     "GPS", "GLONASS", "Galileo", "BeiDou", "SBAS", "QZSS", "NavIC" or "PULSAR"
   /// Enabled array bool RF is enabled when value is True. Zero based index (index 0 => SV ID 1, index 1 => SV ID 2, etc).
   ///
 
@@ -1249,13 +1277,14 @@ namespace Sdx.Cmd
     }
 
     internal const string CmdName = "EnableRFOutputForEachSV";
+    internal const string TargetId = "";
 
     public EnableRFOutputForEachSV()
-      : base(CmdName)
+      : base(CmdName, TargetId)
     {}
 
     public EnableRFOutputForEachSV(string system, List<bool> enabled)
-      : base(CmdName)
+      : base(CmdName, TargetId)
     {
       System = system;
       Enabled = enabled;
@@ -1298,8 +1327,8 @@ namespace Sdx.Cmd
   /// Tells if the RF output is enabled or disabled for each satellite.
   ///
   /// Name   Type   Description
-  /// ------ ------ ----------------------------------------------------------------
-  /// System string "GPS", "GLONASS", "Galileo", "BeiDou", "SBAS", "QZSS" or "NavIC"
+  /// ------ ------ --------------------------------------------------------------------------
+  /// System string "GPS", "GLONASS", "Galileo", "BeiDou", "SBAS", "QZSS", "NavIC" or "PULSAR"
   ///
 
   public class IsRFOutputEnabledForEachSV : CommandBase
@@ -1310,13 +1339,14 @@ namespace Sdx.Cmd
     }
 
     internal const string CmdName = "IsRFOutputEnabledForEachSV";
+    internal const string TargetId = "";
 
     public IsRFOutputEnabledForEachSV()
-      : base(CmdName)
+      : base(CmdName, TargetId)
     {}
 
     public IsRFOutputEnabledForEachSV(string system)
-      : base(CmdName)
+      : base(CmdName, TargetId)
     {
       System = system;
     }
@@ -1349,7 +1379,7 @@ namespace Sdx.Cmd
   ///
   /// Name    Type       Description
   /// ------- ---------- -------------------------------------------------------------------------------------------------
-  /// System  string     "GPS", "GLONASS", "Galileo", "BeiDou", "SBAS", "QZSS" or "NavIC"
+  /// System  string     "GPS", "GLONASS", "Galileo", "BeiDou", "SBAS", "QZSS", "NavIC" or "PULSAR"
   /// Enabled array bool RF is enabled when value is True. Zero based index (index 0 => SV ID 1, index 1 => SV ID 2, etc).
   ///
 
@@ -1361,13 +1391,14 @@ namespace Sdx.Cmd
     }
 
     internal const string CmdName = "IsRFOutputEnabledForEachSVResult";
+    internal const string TargetId = "";
 
     public IsRFOutputEnabledForEachSVResult()
-      : base(CmdName)
+      : base(CmdName, TargetId)
     {}
 
     public IsRFOutputEnabledForEachSVResult(CommandBase relatedCommand, string system, List<bool> enabled)
-      : base(CmdName, relatedCommand)
+      : base(CmdName, TargetId, relatedCommand)
     {
       System = system;
       Enabled = enabled;
@@ -1408,11 +1439,11 @@ namespace Sdx.Cmd
   /// Enable (or disable) signal for specified satellite.
   ///
   /// Name    Type   Description
-  /// ------- ------ -------------------------------------------------------------------------------------------------
+  /// ------- ------ -------------------------------------------------------------------------------------------------------------
   /// Signal  string Accepted signal keys: "L1CA", "L1C", "L1P", "L1ME", "L1MR", "L2C", "L2P", "L2ME", "L2MR", "L5",
   ///                                      "G1", "G2", "E1", "E1PRS", "E5a", "E5b", "E6BC", "E6PRS",
   ///                                      "B1", "B2", "B1C", "B2a", "B3I", "SBASL1", "SBASL5", "QZSSL1CA"
-  ///                                      "QZSSL1CB", "QZSSL1C", "QZSSL2C", "QZSSL5", "QZSSL1S", "QZSSL5S", "NAVICL5"
+  ///                                      "QZSSL1CB", "QZSSL1C", "QZSSL2C", "QZSSL5", "QZSSL1S", "QZSSL5S", "NAVICL5", "PULSARXL"
   /// SvId    int    The satellite's SV ID (use 0 for all constellation's satellites)
   /// Enabled bool   Signal is enabled when value is True
   ///
@@ -1425,13 +1456,14 @@ namespace Sdx.Cmd
     }
 
     internal const string CmdName = "EnableSignalForSV";
+    internal const string TargetId = "";
 
     public EnableSignalForSV()
-      : base(CmdName)
+      : base(CmdName, TargetId)
     {}
 
     public EnableSignalForSV(string signal, int svId, bool enabled)
-      : base(CmdName)
+      : base(CmdName, TargetId)
     {
       Signal = signal;
       SvId = svId;
@@ -1485,11 +1517,11 @@ namespace Sdx.Cmd
   /// Tells if the signal is enabled or disabled.
   ///
   /// Name   Type   Description
-  /// ------ ------ -------------------------------------------------------------------------------------------------
+  /// ------ ------ -------------------------------------------------------------------------------------------------------------
   /// Signal string Accepted signal keys: "L1CA", "L1C", "L1P", "L1ME", "L1MR", "L2C", "L2P", "L2ME", "L2MR", "L5",
   ///                                     "G1", "G2", "E1", "E1PRS", "E5a", "E5b", "E6BC", "E6PRS",
   ///                                     "B1", "B2", "B1C", "B2a", "B3I", "SBASL1", "SBASL5", "QZSSL1CA"
-  ///                                     "QZSSL1CB", "QZSSL1C", "QZSSL2C", "QZSSL5", "QZSSL1S", "QZSSL5S", "NAVICL5"
+  ///                                     "QZSSL1CB", "QZSSL1C", "QZSSL2C", "QZSSL5", "QZSSL1S", "QZSSL5S", "NAVICL5", "PULSARXL"
   /// SvId   int    The satellite's SV ID (use 0 for all constellation's satellites)
   ///
 
@@ -1501,13 +1533,14 @@ namespace Sdx.Cmd
     }
 
     internal const string CmdName = "IsSignalEnabledForSV";
+    internal const string TargetId = "";
 
     public IsSignalEnabledForSV()
-      : base(CmdName)
+      : base(CmdName, TargetId)
     {}
 
     public IsSignalEnabledForSV(string signal, int svId)
-      : base(CmdName)
+      : base(CmdName, TargetId)
     {
       Signal = signal;
       SvId = svId;
@@ -1550,11 +1583,11 @@ namespace Sdx.Cmd
   /// Result of IsSignalEnabledForSV.
   ///
   /// Name    Type   Description
-  /// ------- ------ -------------------------------------------------------------------------------------------------
+  /// ------- ------ -------------------------------------------------------------------------------------------------------------
   /// Signal  string Accepted signal keys: "L1CA", "L1C", "L1P", "L1ME", "L1MR", "L2C", "L2P", "L2ME", "L2MR", "L5",
   ///                                      "G1", "G2", "E1", "E1PRS", "E5a", "E5b", "E6BC", "E6PRS",
   ///                                      "B1", "B2", "B1C", "B2a", "B3I", "SBASL1", "SBASL5", "QZSSL1CA"
-  ///                                      "QZSSL1CB", "QZSSL1C", "QZSSL2C", "QZSSL5", "QZSSL1S", "QZSSL5S", "NAVICL5"
+  ///                                      "QZSSL1CB", "QZSSL1C", "QZSSL2C", "QZSSL5", "QZSSL1S", "QZSSL5S", "NAVICL5", "PULSARXL"
   /// SvId    int    The satellite's SV ID (use 0 for all constellation's satellites)
   /// Enabled bool   Signal is enabled when value is True
   ///
@@ -1567,13 +1600,14 @@ namespace Sdx.Cmd
     }
 
     internal const string CmdName = "IsSignalEnabledForSVResult";
+    internal const string TargetId = "";
 
     public IsSignalEnabledForSVResult()
-      : base(CmdName)
+      : base(CmdName, TargetId)
     {}
 
     public IsSignalEnabledForSVResult(CommandBase relatedCommand, string signal, int svId, bool enabled)
-      : base(CmdName, relatedCommand)
+      : base(CmdName, TargetId, relatedCommand)
     {
       Signal = signal;
       SvId = svId;
@@ -1625,8 +1659,8 @@ namespace Sdx.Cmd
   /// Get the list of enabled signals for a specified SV ID.
   ///
   /// Name   Type   Description
-  /// ------ ------ ------------------------------------------------------------------------------------
-  /// System string The system, can be "GPS", "GLONASS", "Galileo", "BeiDou", "SBAS", "QZSS" or "NavIC".
+  /// ------ ------ ----------------------------------------------------------------------------------------------
+  /// System string The system, can be "GPS", "GLONASS", "Galileo", "BeiDou", "SBAS", "QZSS", "NavIC" or "PULSAR".
   /// SvId   int    The satellite SV ID.
   ///
 
@@ -1638,13 +1672,14 @@ namespace Sdx.Cmd
     }
 
     internal const string CmdName = "GetEnabledSignalsForSV";
+    internal const string TargetId = "";
 
     public GetEnabledSignalsForSV()
-      : base(CmdName)
+      : base(CmdName, TargetId)
     {}
 
     public GetEnabledSignalsForSV(string system, int svId)
-      : base(CmdName)
+      : base(CmdName, TargetId)
     {
       System = system;
       SvId = svId;
@@ -1687,8 +1722,8 @@ namespace Sdx.Cmd
   /// Result of GetEnabledSignalsForSV.
   ///
   /// Name        Type         Description
-  /// ----------- ------------ ------------------------------------------------------------------------------------
-  /// System      string       The system, can be "GPS", "GLONASS", "Galileo", "BeiDou", "SBAS", "QZSS" or "NavIC".
+  /// ----------- ------------ ----------------------------------------------------------------------------------------------
+  /// System      string       The system, can be "GPS", "GLONASS", "Galileo", "BeiDou", "SBAS", "QZSS", "NavIC" or "PULSAR".
   /// SvId        int          The satellite SV ID.
   /// SignalArray array string The list of enabled signals.
   ///
@@ -1701,13 +1736,14 @@ namespace Sdx.Cmd
     }
 
     internal const string CmdName = "GetEnabledSignalsForSVResult";
+    internal const string TargetId = "";
 
     public GetEnabledSignalsForSVResult()
-      : base(CmdName)
+      : base(CmdName, TargetId)
     {}
 
     public GetEnabledSignalsForSVResult(CommandBase relatedCommand, string system, int svId, List<string> signalArray)
-      : base(CmdName, relatedCommand)
+      : base(CmdName, TargetId, relatedCommand)
     {
       System = system;
       SvId = svId;
@@ -1763,7 +1799,7 @@ namespace Sdx.Cmd
   /// Signal  string     Accepted signal keys: "L1CA", "L1C", "L1P", "L1ME", "L1MR", "L2C", "L2P", "L2ME", "L2MR", "L5",
   ///                                          "G1", "G2", "E1", "E1PRS", "E5a", "E5b", "E6BC", "E6PRS",
   ///                                          "B1", "B2", "B1C", "B2a", "B3I", "SBASL1", "SBASL5", "QZSSL1CA",
-  ///                                          "QZSSL1CB", "QZSSL1C", "QZSSL2C", "QZSSL5", "QZSSL1S", "QZSSL5S", "NAVICL5"
+  ///                                          "QZSSL1CB", "QZSSL1C", "QZSSL2C", "QZSSL5", "QZSSL1S", "QZSSL5S", "NAVICL5", "PULSARXL"
   /// Enabled array bool Signal is enabled when value is True. Zero based index (index 0 => first SV ID, index 1 => second SV ID, etc).
   ///
 
@@ -1775,13 +1811,14 @@ namespace Sdx.Cmd
     }
 
     internal const string CmdName = "EnableSignalForEachSV";
+    internal const string TargetId = "";
 
     public EnableSignalForEachSV()
-      : base(CmdName)
+      : base(CmdName, TargetId)
     {}
 
     public EnableSignalForEachSV(string signal, List<bool> enabled)
-      : base(CmdName)
+      : base(CmdName, TargetId)
     {
       Signal = signal;
       Enabled = enabled;
@@ -1824,11 +1861,11 @@ namespace Sdx.Cmd
   /// Tells if the signal is enabled or disabled for each satellite.
   ///
   /// Name   Type   Description
-  /// ------ ------ -------------------------------------------------------------------------------------------------
+  /// ------ ------ -------------------------------------------------------------------------------------------------------------
   /// Signal string Accepted signal keys: "L1CA", "L1C", "L1P", "L1ME", "L1MR", "L2C", "L2P", "L2ME", "L2MR", "L5",
   ///                                     "G1", "G2", "E1", "E1PRS", "E5a", "E5b", "E6BC", "E6PRS",
   ///                                     "B1", "B2", "B1C", "B2a", "B3I", "SBASL1", "SBASL5", "QZSSL1CA",
-  ///                                     "QZSSL1CB", "QZSSL1C", "QZSSL2C", "QZSSL5", "QZSSL1S", "QZSSL5S", "NAVICL5"
+  ///                                     "QZSSL1CB", "QZSSL1C", "QZSSL2C", "QZSSL5", "QZSSL1S", "QZSSL5S", "NAVICL5", "PULSARXL"
   ///
 
   public class IsSignalEnabledForEachSV : CommandBase
@@ -1839,13 +1876,14 @@ namespace Sdx.Cmd
     }
 
     internal const string CmdName = "IsSignalEnabledForEachSV";
+    internal const string TargetId = "";
 
     public IsSignalEnabledForEachSV()
-      : base(CmdName)
+      : base(CmdName, TargetId)
     {}
 
     public IsSignalEnabledForEachSV(string signal)
-      : base(CmdName)
+      : base(CmdName, TargetId)
     {
       Signal = signal;
     }
@@ -1881,7 +1919,7 @@ namespace Sdx.Cmd
   /// Signal  string     Accepted signal keys: "L1CA", "L1C", "L1P", "L1ME", "L1MR", "L2C", "L2P", "L2ME", "L2MR", "L5",
   ///                                          "G1", "G2", "E1", "E1PRS", "E5a", "E5b", "E6BC", "E6PRS",
   ///                                          "B1", "B2", "B1C", "B2a", "B3I", "SBASL1", "SBASL5", "QZSSL1CA",
-  ///                                          "QZSSL1CB", "QZSSL1C", "QZSSL2C", "QZSSL5", "QZSSL1S", "QZSSL5S", "NAVICL5"
+  ///                                          "QZSSL1CB", "QZSSL1C", "QZSSL2C", "QZSSL5", "QZSSL1S", "QZSSL5S", "NAVICL5", "PULSARXL"
   /// Enabled array bool Signal is enabled when value is True. Zero based index (index 0 => first SV ID, index 1 => second SV ID, etc).
   ///
 
@@ -1893,13 +1931,14 @@ namespace Sdx.Cmd
     }
 
     internal const string CmdName = "IsSignalEnabledForEachSVResult";
+    internal const string TargetId = "";
 
     public IsSignalEnabledForEachSVResult()
-      : base(CmdName)
+      : base(CmdName, TargetId)
     {}
 
     public IsSignalEnabledForEachSVResult(CommandBase relatedCommand, string signal, List<bool> enabled)
-      : base(CmdName, relatedCommand)
+      : base(CmdName, TargetId, relatedCommand)
     {
       Signal = signal;
       Enabled = enabled;
@@ -1954,13 +1993,14 @@ namespace Sdx.Cmd
     }
 
     internal const string CmdName = "EnablePYCodeForSV";
+    internal const string TargetId = "";
 
     public EnablePYCodeForSV()
-      : base(CmdName)
+      : base(CmdName, TargetId)
     {}
 
     public EnablePYCodeForSV(string signal, int svId, bool enabled)
-      : base(CmdName)
+      : base(CmdName, TargetId)
     {
       Signal = signal;
       SvId = svId;
@@ -2027,13 +2067,14 @@ namespace Sdx.Cmd
     }
 
     internal const string CmdName = "IsPYCodeEnabledForSV";
+    internal const string TargetId = "";
 
     public IsPYCodeEnabledForSV()
-      : base(CmdName)
+      : base(CmdName, TargetId)
     {}
 
     public IsPYCodeEnabledForSV(string signal, int svId)
-      : base(CmdName)
+      : base(CmdName, TargetId)
     {
       Signal = signal;
       SvId = svId;
@@ -2090,13 +2131,14 @@ namespace Sdx.Cmd
     }
 
     internal const string CmdName = "IsPYCodeEnabledForSVResult";
+    internal const string TargetId = "";
 
     public IsPYCodeEnabledForSVResult()
-      : base(CmdName)
+      : base(CmdName, TargetId)
     {}
 
     public IsPYCodeEnabledForSVResult(CommandBase relatedCommand, string signal, int svId, bool enabled)
-      : base(CmdName, relatedCommand)
+      : base(CmdName, TargetId, relatedCommand)
     {
       Signal = signal;
       SvId = svId;
@@ -2161,13 +2203,14 @@ namespace Sdx.Cmd
     }
 
     internal const string CmdName = "EnablePYCodeForEachSV";
+    internal const string TargetId = "";
 
     public EnablePYCodeForEachSV()
-      : base(CmdName)
+      : base(CmdName, TargetId)
     {}
 
     public EnablePYCodeForEachSV(string signal, List<bool> enabled)
-      : base(CmdName)
+      : base(CmdName, TargetId)
     {
       Signal = signal;
       Enabled = enabled;
@@ -2222,13 +2265,14 @@ namespace Sdx.Cmd
     }
 
     internal const string CmdName = "IsPYCodeEnabledForEachSV";
+    internal const string TargetId = "";
 
     public IsPYCodeEnabledForEachSV()
-      : base(CmdName)
+      : base(CmdName, TargetId)
     {}
 
     public IsPYCodeEnabledForEachSV(string signal)
-      : base(CmdName)
+      : base(CmdName, TargetId)
     {
       Signal = signal;
     }
@@ -2273,13 +2317,14 @@ namespace Sdx.Cmd
     }
 
     internal const string CmdName = "IsPYCodeEnabledForEachSVResult";
+    internal const string TargetId = "";
 
     public IsPYCodeEnabledForEachSVResult()
-      : base(CmdName)
+      : base(CmdName, TargetId)
     {}
 
     public IsPYCodeEnabledForEachSVResult(CommandBase relatedCommand, string signal, List<bool> enabled)
-      : base(CmdName, relatedCommand)
+      : base(CmdName, TargetId, relatedCommand)
     {
       Signal = signal;
       Enabled = enabled;
@@ -2321,14 +2366,15 @@ namespace Sdx.Cmd
   ///
   /// Name                  Type               Description
   /// --------------------- ------------------ -----------------------------------------------------------------------------
-  /// System                string             "GPS", "GLONASS", "Galileo", "BeiDou", "SBAS", "QZSS" or "NavIC".
+  /// System                string             "GPS", "GLONASS", "Galileo", "BeiDou", "SBAS", "QZSS", "NavIC" or "PULSAR".
   /// SvId                  int                The satellite's SV ID.
   /// SignalPowerOffsetDict dict string:double A dictionary of signal poweroffset pairs.
   ///                                          Accepted keys are: "All", "L1CA", "L1C", "L1P", "L1ME", "L1MR", "L2C", "L2P",
   ///                                                             "L2ME", "L2MR", "L5", "G1", "G2", "E1", "E1PRS", "E5a",
   ///                                                             "E5b", "E6BC", "E6PRS", "B1", "B2", "B1C", "B2a", "B3I",
   ///                                                             "SBASL1", "SBASL5", "QZSSL1CA", "QZSSL1CB", "QZSSL1C",
-  ///                                                             "QZSSL2C", "QZSSL5", "QZSSL1S", "QZSSL5S" and "NAVICL5"
+  ///                                                             "QZSSL2C", "QZSSL5", "QZSSL1S", "QZSSL5S", "NAVICL5" and
+  ///                                                             "PULSARXL"
   /// IsRelativePowerOffset bool               If true, the power offset(s) are added to the current value(s).
   ///
 
@@ -2340,13 +2386,14 @@ namespace Sdx.Cmd
     }
 
     internal const string CmdName = "SetManualPowerOffsetForSV";
+    internal const string TargetId = "";
 
     public SetManualPowerOffsetForSV()
-      : base(CmdName)
+      : base(CmdName, TargetId)
     {}
 
     public SetManualPowerOffsetForSV(string system, int svId, Dictionary<string, double> signalPowerOffsetDict, bool isRelativePowerOffset)
-      : base(CmdName)
+      : base(CmdName, TargetId)
     {
       System = system;
       SvId = svId;
@@ -2412,14 +2459,15 @@ namespace Sdx.Cmd
   ///
   /// Name        Type         Description
   /// ----------- ------------ -------------------------------------------------------------------------------
-  /// System      string       "GPS", "GLONASS", "Galileo", "BeiDou", "SBAS", "QZSS" or "NavIC".
+  /// System      string       "GPS", "GLONASS", "Galileo", "BeiDou", "SBAS", "QZSS", "NavIC" or "PULSAR".
   /// SvId        int          The satellite's SV ID.
   /// SignalArray array string An array of signals.
   ///                          Accepted values are: "All", "L1CA", "L1C", "L1P", "L1ME", "L1MR", "L2C", "L2P",
   ///                                               "L2ME", "L2MR", "L5", "G1", "G2", "E1", "E1PRS", "E5a",
   ///                                               "E5b", "E6BC", "E6PRS", "B1", "B2", "B1C", "B2a", "B3I",
   ///                                               "SBASL1", "SBASL5", "QZSSL1CA", "QZSSL1CB", "QZSSL1C",
-  ///                                               "QZSSL2C", "QZSSL5", "QZSSL1S", "QZSSL5S" and "NAVICL5"
+  ///                                               "QZSSL2C", "QZSSL5", "QZSSL1S", "QZSSL5S", "NAVICL5" and
+  ///                                               "PULSARXL"
   ///
 
   public class GetManualPowerOffsetForSV : CommandBase
@@ -2430,13 +2478,14 @@ namespace Sdx.Cmd
     }
 
     internal const string CmdName = "GetManualPowerOffsetForSV";
+    internal const string TargetId = "";
 
     public GetManualPowerOffsetForSV()
-      : base(CmdName)
+      : base(CmdName, TargetId)
     {}
 
     public GetManualPowerOffsetForSV(string system, int svId, List<string> signalArray)
-      : base(CmdName)
+      : base(CmdName, TargetId)
     {
       System = system;
       SvId = svId;
@@ -2491,14 +2540,15 @@ namespace Sdx.Cmd
   ///
   /// Name                  Type               Description
   /// --------------------- ------------------ -----------------------------------------------------------------------------
-  /// System                string             "GPS", "GLONASS", "Galileo", "BeiDou", "SBAS", "QZSS" or "NavIC".
+  /// System                string             "GPS", "GLONASS", "Galileo", "BeiDou", "SBAS", "QZSS", "NavIC" or "PULSAR".
   /// SvId                  int                The satellite's SV ID.
   /// SignalPowerOffsetDict dict string:double A dictionary of signal poweroffset pairs.
   ///                                          Accepted keys are: "All", "L1CA", "L1C", "L1P", "L1ME", "L1MR", "L2C", "L2P",
   ///                                                             "L2ME", "L2MR", "L5", "G1", "G2", "E1", "E1PRS", "E5a",
   ///                                                             "E5b", "E6BC", "E6PRS", "B1", "B2", "B1C", "B2a", "B3I",
   ///                                                             "SBASL1", "SBASL5", "QZSSL1CA", "QZSSL1CB", "QZSSL1C",
-  ///                                                             "QZSSL2C", "QZSSL5", "QZSSL1S", "QZSSL5S" and "NAVICL5"
+  ///                                                             "QZSSL2C", "QZSSL5", "QZSSL1S", "QZSSL5S", "NAVICL5" and
+  ///                                                             "PULSARXL"
   ///
 
   public class GetManualPowerOffsetForSVResult : CommandResult
@@ -2509,13 +2559,14 @@ namespace Sdx.Cmd
     }
 
     internal const string CmdName = "GetManualPowerOffsetForSVResult";
+    internal const string TargetId = "";
 
     public GetManualPowerOffsetForSVResult()
-      : base(CmdName)
+      : base(CmdName, TargetId)
     {}
 
     public GetManualPowerOffsetForSVResult(CommandBase relatedCommand, string system, int svId, Dictionary<string, double> signalPowerOffsetDict)
-      : base(CmdName, relatedCommand)
+      : base(CmdName, TargetId, relatedCommand)
     {
       System = system;
       SvId = svId;
@@ -2569,8 +2620,8 @@ namespace Sdx.Cmd
   /// Reset power offset for all satellites is specified system to default value
   ///
   /// Name   Type   Description
-  /// ------ ------ -----------------------------------------------------------------
-  /// System string "GPS", "GLONASS", "Galileo", "BeiDou", "SBAS", "QZSS" or "NavIC".
+  /// ------ ------ ---------------------------------------------------------------------------
+  /// System string "GPS", "GLONASS", "Galileo", "BeiDou", "SBAS", "QZSS", "NavIC" or "PULSAR".
   ///
 
   public class ResetAllSatPower : CommandBase
@@ -2581,13 +2632,14 @@ namespace Sdx.Cmd
     }
 
     internal const string CmdName = "ResetAllSatPower";
+    internal const string TargetId = "";
 
     public ResetAllSatPower()
-      : base(CmdName)
+      : base(CmdName, TargetId)
     {}
 
     public ResetAllSatPower(string system)
-      : base(CmdName)
+      : base(CmdName, TargetId)
     {
       System = system;
     }
@@ -2619,8 +2671,8 @@ namespace Sdx.Cmd
   /// Reset power offset for all satellites is specified system to default value
   ///
   /// Name   Type   Description
-  /// ------ ------ -----------------------------------------------------------------
-  /// System string "GPS", "GLONASS", "Galileo", "BeiDou", "SBAS", "QZSS" or "NavIC".
+  /// ------ ------ ---------------------------------------------------------------------------
+  /// System string "GPS", "GLONASS", "Galileo", "BeiDou", "SBAS", "QZSS", "NavIC" or "PULSAR".
   ///
 
   public class ResetManualPowerOffsets : CommandBase
@@ -2631,13 +2683,14 @@ namespace Sdx.Cmd
     }
 
     internal const string CmdName = "ResetManualPowerOffsets";
+    internal const string TargetId = "";
 
     public ResetManualPowerOffsets()
-      : base(CmdName)
+      : base(CmdName, TargetId)
     {}
 
     public ResetManualPowerOffsets(string system)
-      : base(CmdName)
+      : base(CmdName, TargetId)
     {
       System = system;
     }
@@ -2692,14 +2745,15 @@ namespace Sdx.Cmd
   ///
   /// Name        Type         Description
   /// ----------- ------------ -------------------------------------------------------------------------------
-  /// System      string       "GPS", "GLONASS", "Galileo", "BeiDou", "SBAS", "QZSS" or "NavIC".
+  /// System      string       "GPS", "GLONASS", "Galileo", "BeiDou", "SBAS", "QZSS", "NavIC" or "PULSAR".
   /// SvId        int          The Satellite's SV ID.
   /// SignalArray array string An array of signals.
   ///                          Accepted values are: "All", "L1CA", "L1C", "L1P", "L1ME", "L1MR", "L2C", "L2P",
   ///                                               "L2ME", "L2MR", "L5", "G1", "G2", "E1", "E1PRS", "E5a",
   ///                                               "E5b", "E6BC", "E6PRS", "B1", "B2", "B1C", "B2a", "B3I",
   ///                                               "SBASL1", "SBASL5", "QZSSL1CA", "QZSSL1CB", "QZSSL1C",
-  ///                                               "QZSSL2C", "QZSSL5", "QZSSL1S", "QZSSL5S" and "NAVICL5"
+  ///                                               "QZSSL2C", "QZSSL5", "QZSSL1S", "QZSSL5S", "NAVICL5" and
+  ///                                               "PULSARXL"
   ///
 
   public class GetAllPowerForSV : CommandBase
@@ -2710,13 +2764,14 @@ namespace Sdx.Cmd
     }
 
     internal const string CmdName = "GetAllPowerForSV";
+    internal const string TargetId = "";
 
     public GetAllPowerForSV()
-      : base(CmdName)
+      : base(CmdName, TargetId)
     {}
 
     public GetAllPowerForSV(string system, int svId, List<string> signalArray)
-      : base(CmdName)
+      : base(CmdName, TargetId)
     {
       System = system;
       SvId = svId;
@@ -2771,7 +2826,7 @@ namespace Sdx.Cmd
   ///
   /// Name            Type                    Description
   /// --------------- ----------------------- -----------------------------------------------------------------------------
-  /// System          string                  "GPS", "GLONASS", "Galileo", "BeiDou", "SBAS", "QZSS" or "NavIC".
+  /// System          string                  "GPS", "GLONASS", "Galileo", "BeiDou", "SBAS", "QZSS", "NavIC" or "PULSAR".
   /// SvId            int                     The Satellite's SV ID.
   /// NominalPower    double                  The nominal power in dBm.
   /// GlobalOffset    double                  The global power offset (dB).
@@ -2780,7 +2835,8 @@ namespace Sdx.Cmd
   ///                                                            "L2ME", "L2MR", "L5", "G1", "G2", "E1", "E1PRS", "E5a",
   ///                                                            "E5b", "E6BC", "E6PRS", "B1", "B2", "B1C", "B2a", "B3I",
   ///                                                            "SBASL1", "SBASL5", "QZSSL1CA", "QZSSL1CB", "QZSSL1C",
-  ///                                                            "QZSSL2C", "QZSSL5", "QZSSL1S", "QZSSL5S" and "NAVICL5"
+  ///                                                            "QZSSL2C", "QZSSL5", "QZSSL1S", "QZSSL5S", "NAVICL5" and
+  ///                                                            "PULSARXL"
   ///
 
   public class GetAllPowerForSVResult : CommandResult
@@ -2791,13 +2847,14 @@ namespace Sdx.Cmd
     }
 
     internal const string CmdName = "GetAllPowerForSVResult";
+    internal const string TargetId = "";
 
     public GetAllPowerForSVResult()
-      : base(CmdName)
+      : base(CmdName, TargetId)
     {}
 
     public GetAllPowerForSVResult(CommandBase relatedCommand, string system, int svId, double nominalPower, double globalOffset, Dictionary<string, SignalPower> signalPowerDict)
-      : base(CmdName, relatedCommand)
+      : base(CmdName, TargetId, relatedCommand)
     {
       System = system;
       SvId = svId;
@@ -2884,13 +2941,14 @@ namespace Sdx.Cmd
     }
 
     internal const string CmdName = "ExportPerformanceDataToCSV";
+    internal const string TargetId = "";
 
     public ExportPerformanceDataToCSV()
-      : base(CmdName)
+      : base(CmdName, TargetId)
     {}
 
     public ExportPerformanceDataToCSV(string path, bool overwriting)
-      : base(CmdName)
+      : base(CmdName, TargetId)
     {
       Path = path;
       Overwriting = overwriting;
@@ -2946,13 +3004,14 @@ namespace Sdx.Cmd
     }
 
     internal const string CmdName = "ExportHilGraphDataToCSV";
+    internal const string TargetId = "";
 
     public ExportHilGraphDataToCSV()
-      : base(CmdName)
+      : base(CmdName, TargetId)
     {}
 
     public ExportHilGraphDataToCSV(string path, bool overwriting)
-      : base(CmdName)
+      : base(CmdName, TargetId)
     {
       Path = path;
       Overwriting = overwriting;
@@ -2997,7 +3056,7 @@ namespace Sdx.Cmd
   ///
   /// Name    Type   Description
   /// ------- ------ -------------------------------------------------------------------------------------------------
-  /// System  string "GPS", "GLONASS", "Galileo", "BeiDou", "SBAS", "QZSS" or "NavIC"
+  /// System  string "GPS", "GLONASS", "Galileo", "BeiDou", "SBAS", "QZSS", "NavIC" or "PULSAR"
   /// Enabled bool   If false, the propagation delay between the GPS satellite and the receiver is forced to 0 second.
   ///
 
@@ -3009,13 +3068,14 @@ namespace Sdx.Cmd
     }
 
     internal const string CmdName = "SetPropagationDelay";
+    internal const string TargetId = "";
 
     public SetPropagationDelay()
-      : base(CmdName)
+      : base(CmdName, TargetId)
     {}
 
     public SetPropagationDelay(string system, bool enabled)
-      : base(CmdName)
+      : base(CmdName, TargetId)
     {
       System = system;
       Enabled = enabled;
@@ -3058,8 +3118,8 @@ namespace Sdx.Cmd
   /// Tells if the propagation delay is enabled.
   ///
   /// Name   Type   Description
-  /// ------ ------ ----------------------------------------------------------------
-  /// System string "GPS", "GLONASS", "Galileo", "BeiDou", "SBAS", "QZSS" or "NavIC"
+  /// ------ ------ --------------------------------------------------------------------------
+  /// System string "GPS", "GLONASS", "Galileo", "BeiDou", "SBAS", "QZSS", "NavIC" or "PULSAR"
   ///
 
   public class IsPropagationDelayEnabled : CommandBase
@@ -3070,13 +3130,14 @@ namespace Sdx.Cmd
     }
 
     internal const string CmdName = "IsPropagationDelayEnabled";
+    internal const string TargetId = "";
 
     public IsPropagationDelayEnabled()
-      : base(CmdName)
+      : base(CmdName, TargetId)
     {}
 
     public IsPropagationDelayEnabled(string system)
-      : base(CmdName)
+      : base(CmdName, TargetId)
     {
       System = system;
     }
@@ -3109,7 +3170,7 @@ namespace Sdx.Cmd
   ///
   /// Name    Type   Description
   /// ------- ------ -------------------------------------------------------------------------------------------------
-  /// System  string "GPS", "GLONASS", "Galileo", "BeiDou", "SBAS", "QZSS" or "NavIC"
+  /// System  string "GPS", "GLONASS", "Galileo", "BeiDou", "SBAS", "QZSS", "NavIC" or "PULSAR"
   /// Enabled bool   If false, the propagation delay between the GPS satellite and the receiver is forced to 0 second.
   ///
 
@@ -3121,13 +3182,14 @@ namespace Sdx.Cmd
     }
 
     internal const string CmdName = "IsPropagationDelayEnabledResult";
+    internal const string TargetId = "";
 
     public IsPropagationDelayEnabledResult()
-      : base(CmdName)
+      : base(CmdName, TargetId)
     {}
 
     public IsPropagationDelayEnabledResult(CommandBase relatedCommand, string system, bool enabled)
-      : base(CmdName, relatedCommand)
+      : base(CmdName, TargetId, relatedCommand)
     {
       System = system;
       Enabled = enabled;
@@ -3169,7 +3231,7 @@ namespace Sdx.Cmd
   ///
   /// Name    Type   Description
   /// ------- ------ --------------------------------------------------------------------------------------------------------------
-  /// System  string "GPS", "Galileo", "BeiDou", "QZSS" or "NavIC"
+  /// System  string "GPS", "Galileo", "BeiDou", "QZSS", "NavIC" or "PULSAR"
   /// SvId    int    The satellite's SV ID.
   /// IsFixed bool   If true, the satellite relative position is fixed, if false, the satellite motion follows a normal trajectory.
   ///
@@ -3182,13 +3244,14 @@ namespace Sdx.Cmd
     }
 
     internal const string CmdName = "SetSatMotionFixed";
+    internal const string TargetId = "";
 
     public SetSatMotionFixed()
-      : base(CmdName)
+      : base(CmdName, TargetId)
     {}
 
     public SetSatMotionFixed(string system, int svId, bool isFixed)
-      : base(CmdName)
+      : base(CmdName, TargetId)
     {
       System = system;
       SvId = svId;
@@ -3242,8 +3305,8 @@ namespace Sdx.Cmd
   /// Tells if the satellite is fixed (True) or not fixed (false).
   ///
   /// Name   Type   Description
-  /// ------ ------ ---------------------------------------------
-  /// System string "GPS", "Galileo", "BeiDou", "QZSS" or "NavIC"
+  /// ------ ------ -------------------------------------------------------
+  /// System string "GPS", "Galileo", "BeiDou", "QZSS", "NavIC" or "PULSAR"
   /// SvId   int    The satellite's SV ID.
   ///
 
@@ -3255,13 +3318,14 @@ namespace Sdx.Cmd
     }
 
     internal const string CmdName = "IsSatMotionFixed";
+    internal const string TargetId = "";
 
     public IsSatMotionFixed()
-      : base(CmdName)
+      : base(CmdName, TargetId)
     {}
 
     public IsSatMotionFixed(string system, int svId)
-      : base(CmdName)
+      : base(CmdName, TargetId)
     {
       System = system;
       SvId = svId;
@@ -3305,7 +3369,7 @@ namespace Sdx.Cmd
   ///
   /// Name    Type   Description
   /// ------- ------ --------------------------------------------------------------------------------------------------------------
-  /// System  string "GPS", "Galileo", "BeiDou", "QZSS" or "NavIC"
+  /// System  string "GPS", "Galileo", "BeiDou", "QZSS", "NavIC" or "PULSAR"
   /// SvId    int    The satellite's SV ID.
   /// IsFixed bool   If true, the satellite relative position is fixed, if false, the satellite motion follows a normal trajectory.
   ///
@@ -3318,13 +3382,14 @@ namespace Sdx.Cmd
     }
 
     internal const string CmdName = "IsSatMotionFixedResult";
+    internal const string TargetId = "";
 
     public IsSatMotionFixedResult()
-      : base(CmdName)
+      : base(CmdName, TargetId)
     {}
 
     public IsSatMotionFixedResult(CommandBase relatedCommand, string system, int svId, bool isFixed)
-      : base(CmdName, relatedCommand)
+      : base(CmdName, TargetId, relatedCommand)
     {
       System = system;
       SvId = svId;
@@ -3393,13 +3458,14 @@ namespace Sdx.Cmd
     }
 
     internal const string CmdName = "SetIonoAlpha";
+    internal const string TargetId = "";
 
     public SetIonoAlpha()
-      : base(CmdName)
+      : base(CmdName, TargetId)
     {}
 
     public SetIonoAlpha(int index, double val)
-      : base(CmdName)
+      : base(CmdName, TargetId)
     {
       Index = index;
       Val = val;
@@ -3458,13 +3524,14 @@ namespace Sdx.Cmd
     }
 
     internal const string CmdName = "GetIonoAlpha";
+    internal const string TargetId = "";
 
     public GetIonoAlpha()
-      : base(CmdName)
+      : base(CmdName, TargetId)
     {}
 
     public GetIonoAlpha(int index)
-      : base(CmdName)
+      : base(CmdName, TargetId)
     {
       Index = index;
     }
@@ -3509,13 +3576,14 @@ namespace Sdx.Cmd
     }
 
     internal const string CmdName = "GetIonoAlphaResult";
+    internal const string TargetId = "";
 
     public GetIonoAlphaResult()
-      : base(CmdName)
+      : base(CmdName, TargetId)
     {}
 
     public GetIonoAlphaResult(CommandBase relatedCommand, int index, double val)
-      : base(CmdName, relatedCommand)
+      : base(CmdName, TargetId, relatedCommand)
     {
       Index = index;
       Val = val;
@@ -3573,13 +3641,14 @@ namespace Sdx.Cmd
     }
 
     internal const string CmdName = "SetIonoBeta";
+    internal const string TargetId = "";
 
     public SetIonoBeta()
-      : base(CmdName)
+      : base(CmdName, TargetId)
     {}
 
     public SetIonoBeta(int index, double val)
-      : base(CmdName)
+      : base(CmdName, TargetId)
     {
       Index = index;
       Val = val;
@@ -3638,13 +3707,14 @@ namespace Sdx.Cmd
     }
 
     internal const string CmdName = "GetIonoBeta";
+    internal const string TargetId = "";
 
     public GetIonoBeta()
-      : base(CmdName)
+      : base(CmdName, TargetId)
     {}
 
     public GetIonoBeta(int index)
-      : base(CmdName)
+      : base(CmdName, TargetId)
     {
       Index = index;
     }
@@ -3689,13 +3759,14 @@ namespace Sdx.Cmd
     }
 
     internal const string CmdName = "GetIonoBetaResult";
+    internal const string TargetId = "";
 
     public GetIonoBetaResult()
-      : base(CmdName)
+      : base(CmdName, TargetId)
     {}
 
     public GetIonoBetaResult(CommandBase relatedCommand, int index, double val)
-      : base(CmdName, relatedCommand)
+      : base(CmdName, TargetId, relatedCommand)
     {
       Index = index;
       Val = val;
@@ -3749,13 +3820,14 @@ namespace Sdx.Cmd
     }
 
     internal const string CmdName = "SetIonoBdgimAlpha";
+    internal const string TargetId = "";
 
     public SetIonoBdgimAlpha()
-      : base(CmdName)
+      : base(CmdName, TargetId)
     {}
 
     public SetIonoBdgimAlpha(int index, double val)
-      : base(CmdName)
+      : base(CmdName, TargetId)
     {
       Index = index;
       Val = val;
@@ -3810,13 +3882,14 @@ namespace Sdx.Cmd
     }
 
     internal const string CmdName = "GetIonoBdgimAlpha";
+    internal const string TargetId = "";
 
     public GetIonoBdgimAlpha()
-      : base(CmdName)
+      : base(CmdName, TargetId)
     {}
 
     public GetIonoBdgimAlpha(int index)
-      : base(CmdName)
+      : base(CmdName, TargetId)
     {
       Index = index;
     }
@@ -3861,13 +3934,14 @@ namespace Sdx.Cmd
     }
 
     internal const string CmdName = "GetIonoBdgimAlphaResult";
+    internal const string TargetId = "";
 
     public GetIonoBdgimAlphaResult()
-      : base(CmdName)
+      : base(CmdName, TargetId)
     {}
 
     public GetIonoBdgimAlphaResult(CommandBase relatedCommand, int index, double val)
-      : base(CmdName, relatedCommand)
+      : base(CmdName, TargetId, relatedCommand)
     {
       Index = index;
       Val = val;
@@ -3921,13 +3995,14 @@ namespace Sdx.Cmd
     }
 
     internal const string CmdName = "SetEffectiveIonisationLevelCoefficient";
+    internal const string TargetId = "";
 
     public SetEffectiveIonisationLevelCoefficient()
-      : base(CmdName)
+      : base(CmdName, TargetId)
     {}
 
     public SetEffectiveIonisationLevelCoefficient(int index, double val)
-      : base(CmdName)
+      : base(CmdName, TargetId)
     {
       Index = index;
       Val = val;
@@ -3982,13 +4057,14 @@ namespace Sdx.Cmd
     }
 
     internal const string CmdName = "GetEffectiveIonisationLevelCoefficient";
+    internal const string TargetId = "";
 
     public GetEffectiveIonisationLevelCoefficient()
-      : base(CmdName)
+      : base(CmdName, TargetId)
     {}
 
     public GetEffectiveIonisationLevelCoefficient(int index)
-      : base(CmdName)
+      : base(CmdName, TargetId)
     {
       Index = index;
     }
@@ -4033,13 +4109,14 @@ namespace Sdx.Cmd
     }
 
     internal const string CmdName = "GetEffectiveIonisationLevelCoefficientResult";
+    internal const string TargetId = "";
 
     public GetEffectiveIonisationLevelCoefficientResult()
-      : base(CmdName)
+      : base(CmdName, TargetId)
     {}
 
     public GetEffectiveIonisationLevelCoefficientResult(CommandBase relatedCommand, int index, double val)
-      : base(CmdName, relatedCommand)
+      : base(CmdName, TargetId, relatedCommand)
     {
       Index = index;
       Val = val;
@@ -4092,13 +4169,14 @@ namespace Sdx.Cmd
     }
 
     internal const string CmdName = "SetIonoModel";
+    internal const string TargetId = "";
 
     public SetIonoModel()
-      : base(CmdName)
+      : base(CmdName, TargetId)
     {}
 
     public SetIonoModel(string model)
-      : base(CmdName)
+      : base(CmdName, TargetId)
     {
       Model = model;
     }
@@ -4140,9 +4218,10 @@ namespace Sdx.Cmd
     }
 
     internal const string CmdName = "GetIonoModel";
+    internal const string TargetId = "";
 
     public GetIonoModel()
-      : base(CmdName)
+      : base(CmdName, TargetId)
     {}
       
     public override bool IsValid
@@ -4174,13 +4253,14 @@ namespace Sdx.Cmd
     }
 
     internal const string CmdName = "GetIonoModelResult";
+    internal const string TargetId = "";
 
     public GetIonoModelResult()
-      : base(CmdName)
+      : base(CmdName, TargetId)
     {}
 
     public GetIonoModelResult(CommandBase relatedCommand, string model)
-      : base(CmdName, relatedCommand)
+      : base(CmdName, TargetId, relatedCommand)
     {
       Model = model;
     }
@@ -4222,13 +4302,14 @@ namespace Sdx.Cmd
     }
 
     internal const string CmdName = "SetTropoModel";
+    internal const string TargetId = "";
 
     public SetTropoModel()
-      : base(CmdName)
+      : base(CmdName, TargetId)
     {}
 
     public SetTropoModel(string model)
-      : base(CmdName)
+      : base(CmdName, TargetId)
     {
       Model = model;
     }
@@ -4270,9 +4351,10 @@ namespace Sdx.Cmd
     }
 
     internal const string CmdName = "GetTropoModel";
+    internal const string TargetId = "";
 
     public GetTropoModel()
-      : base(CmdName)
+      : base(CmdName, TargetId)
     {}
       
     public override bool IsValid
@@ -4304,13 +4386,14 @@ namespace Sdx.Cmd
     }
 
     internal const string CmdName = "GetTropoModelResult";
+    internal const string TargetId = "";
 
     public GetTropoModelResult()
-      : base(CmdName)
+      : base(CmdName, TargetId)
     {}
 
     public GetTropoModelResult(CommandBase relatedCommand, string model)
-      : base(CmdName, relatedCommand)
+      : base(CmdName, TargetId, relatedCommand)
     {
       Model = model;
     }
@@ -4352,13 +4435,14 @@ namespace Sdx.Cmd
     }
 
     internal const string CmdName = "SetStartTimeMode";
+    internal const string TargetId = "";
 
     public SetStartTimeMode()
-      : base(CmdName)
+      : base(CmdName, TargetId)
     {}
 
     public SetStartTimeMode(string mode)
-      : base(CmdName)
+      : base(CmdName, TargetId)
     {
       Mode = mode;
     }
@@ -4400,9 +4484,10 @@ namespace Sdx.Cmd
     }
 
     internal const string CmdName = "GetStartTimeMode";
+    internal const string TargetId = "";
 
     public GetStartTimeMode()
-      : base(CmdName)
+      : base(CmdName, TargetId)
     {}
       
     public override bool IsValid
@@ -4434,13 +4519,14 @@ namespace Sdx.Cmd
     }
 
     internal const string CmdName = "GetStartTimeModeResult";
+    internal const string TargetId = "";
 
     public GetStartTimeModeResult()
-      : base(CmdName)
+      : base(CmdName, TargetId)
     {}
 
     public GetStartTimeModeResult(CommandBase relatedCommand, string mode)
-      : base(CmdName, relatedCommand)
+      : base(CmdName, TargetId, relatedCommand)
     {
       Mode = mode;
     }
@@ -4487,13 +4573,14 @@ namespace Sdx.Cmd
     }
 
     internal const string CmdName = "ConnectSerialPortReceiver";
+    internal const string TargetId = "";
 
     public ConnectSerialPortReceiver()
-      : base(CmdName)
+      : base(CmdName, TargetId)
     {}
 
     public ConnectSerialPortReceiver(string port, int? baudRate = null, int? dataBits = null, SerialPortParity? parity = null, int? stopBits = null, SerialPortFlowControl? flowControl = null)
-      : base(CmdName)
+      : base(CmdName, TargetId)
     {
       Port = port;
       BaudRate = baudRate;
@@ -4600,9 +4687,10 @@ namespace Sdx.Cmd
     }
 
     internal const string CmdName = "DisconnectSerialPortReceiver";
+    internal const string TargetId = "";
 
     public DisconnectSerialPortReceiver()
-      : base(CmdName)
+      : base(CmdName, TargetId)
     {}
       
     public override bool IsValid
@@ -4639,13 +4727,14 @@ namespace Sdx.Cmd
     }
 
     internal const string CmdName = "SetGpsTimingReceiver";
+    internal const string TargetId = "";
 
     public SetGpsTimingReceiver()
-      : base(CmdName)
+      : base(CmdName, TargetId)
     {}
 
     public SetGpsTimingReceiver(string port, int? baudRate = null, int? dataBits = null, SerialPortParity? parity = null, int? stopBits = null, SerialPortFlowControl? flowControl = null)
-      : base(CmdName)
+      : base(CmdName, TargetId)
     {
       Port = port;
       BaudRate = baudRate;
@@ -4752,9 +4841,10 @@ namespace Sdx.Cmd
     }
 
     internal const string CmdName = "GetGpsTimingReceiver";
+    internal const string TargetId = "";
 
     public GetGpsTimingReceiver()
-      : base(CmdName)
+      : base(CmdName, TargetId)
     {}
       
     public override bool IsValid
@@ -4791,13 +4881,14 @@ namespace Sdx.Cmd
     }
 
     internal const string CmdName = "GetGpsTimingReceiverResult";
+    internal const string TargetId = "";
 
     public GetGpsTimingReceiverResult()
-      : base(CmdName)
+      : base(CmdName, TargetId)
     {}
 
     public GetGpsTimingReceiverResult(CommandBase relatedCommand, string port, int? baudRate = null, int? dataBits = null, SerialPortParity? parity = null, int? stopBits = null, SerialPortFlowControl? flowControl = null)
-      : base(CmdName, relatedCommand)
+      : base(CmdName, TargetId, relatedCommand)
     {
       Port = port;
       BaudRate = baudRate;
@@ -4905,13 +4996,14 @@ namespace Sdx.Cmd
     }
 
     internal const string CmdName = "SetStartTimeOffset";
+    internal const string TargetId = "";
 
     public SetStartTimeOffset()
-      : base(CmdName)
+      : base(CmdName, TargetId)
     {}
 
     public SetStartTimeOffset(int offset)
-      : base(CmdName)
+      : base(CmdName, TargetId)
     {
       Offset = offset;
     }
@@ -4954,9 +5046,10 @@ namespace Sdx.Cmd
     }
 
     internal const string CmdName = "GetStartTimeOffset";
+    internal const string TargetId = "";
 
     public GetStartTimeOffset()
-      : base(CmdName)
+      : base(CmdName, TargetId)
     {}
       
     public override bool IsValid
@@ -4988,13 +5081,14 @@ namespace Sdx.Cmd
     }
 
     internal const string CmdName = "GetStartTimeOffsetResult";
+    internal const string TargetId = "";
 
     public GetStartTimeOffsetResult()
-      : base(CmdName)
+      : base(CmdName, TargetId)
     {}
 
     public GetStartTimeOffsetResult(CommandBase relatedCommand, int offset)
-      : base(CmdName, relatedCommand)
+      : base(CmdName, TargetId, relatedCommand)
     {
       Offset = offset;
     }
@@ -5036,13 +5130,14 @@ namespace Sdx.Cmd
     }
 
     internal const string CmdName = "SetLeapSecond";
+    internal const string TargetId = "";
 
     public SetLeapSecond()
-      : base(CmdName)
+      : base(CmdName, TargetId)
     {}
 
     public SetLeapSecond(int leapSecond)
-      : base(CmdName)
+      : base(CmdName, TargetId)
     {
       LeapSecond = leapSecond;
     }
@@ -5086,13 +5181,14 @@ namespace Sdx.Cmd
     }
 
     internal const string CmdName = "SetGpsStartTime";
+    internal const string TargetId = "";
 
     public SetGpsStartTime()
-      : base(CmdName)
+      : base(CmdName, TargetId)
     {}
 
     public SetGpsStartTime(DateTime start)
-      : base(CmdName)
+      : base(CmdName, TargetId)
     {
       Start = start;
     }
@@ -5134,9 +5230,10 @@ namespace Sdx.Cmd
     }
 
     internal const string CmdName = "GetGpsStartTime";
+    internal const string TargetId = "";
 
     public GetGpsStartTime()
-      : base(CmdName)
+      : base(CmdName, TargetId)
     {}
       
     public override bool IsValid
@@ -5169,13 +5266,14 @@ namespace Sdx.Cmd
     }
 
     internal const string CmdName = "GetGpsStartTimeResult";
+    internal const string TargetId = "";
 
     public GetGpsStartTimeResult()
-      : base(CmdName)
+      : base(CmdName, TargetId)
     {}
 
     public GetGpsStartTimeResult(CommandBase relatedCommand, DateTime startTime, int leapSecond)
-      : base(CmdName, relatedCommand)
+      : base(CmdName, TargetId, relatedCommand)
     {
       StartTime = startTime;
       LeapSecond = leapSecond;
@@ -5228,13 +5326,14 @@ namespace Sdx.Cmd
     }
 
     internal const string CmdName = "SetDuration";
+    internal const string TargetId = "";
 
     public SetDuration()
-      : base(CmdName)
+      : base(CmdName, TargetId)
     {}
 
     public SetDuration(int second)
-      : base(CmdName)
+      : base(CmdName, TargetId)
     {
       Second = second;
     }
@@ -5276,9 +5375,10 @@ namespace Sdx.Cmd
     }
 
     internal const string CmdName = "GetDuration";
+    internal const string TargetId = "";
 
     public GetDuration()
-      : base(CmdName)
+      : base(CmdName, TargetId)
     {}
       
     public override bool IsValid
@@ -5310,13 +5410,14 @@ namespace Sdx.Cmd
     }
 
     internal const string CmdName = "GetDurationResult";
+    internal const string TargetId = "";
 
     public GetDurationResult()
-      : base(CmdName)
+      : base(CmdName, TargetId)
     {}
 
     public GetDurationResult(CommandBase relatedCommand, int second)
-      : base(CmdName, relatedCommand)
+      : base(CmdName, TargetId, relatedCommand)
     {
       Second = second;
     }
@@ -5358,13 +5459,14 @@ namespace Sdx.Cmd
     }
 
     internal const string CmdName = "EnableLogRaw";
+    internal const string TargetId = "";
 
     public EnableLogRaw()
-      : base(CmdName)
+      : base(CmdName, TargetId)
     {}
 
     public EnableLogRaw(bool enabled)
-      : base(CmdName)
+      : base(CmdName, TargetId)
     {
       Enabled = enabled;
     }
@@ -5406,9 +5508,10 @@ namespace Sdx.Cmd
     }
 
     internal const string CmdName = "IsLogRawEnabled";
+    internal const string TargetId = "";
 
     public IsLogRawEnabled()
-      : base(CmdName)
+      : base(CmdName, TargetId)
     {}
       
     public override bool IsValid
@@ -5440,13 +5543,14 @@ namespace Sdx.Cmd
     }
 
     internal const string CmdName = "IsLogRawEnabledResult";
+    internal const string TargetId = "";
 
     public IsLogRawEnabledResult()
-      : base(CmdName)
+      : base(CmdName, TargetId)
     {}
 
     public IsLogRawEnabledResult(CommandBase relatedCommand, bool enabled)
-      : base(CmdName, relatedCommand)
+      : base(CmdName, TargetId, relatedCommand)
     {
       Enabled = enabled;
     }
@@ -5490,13 +5594,14 @@ namespace Sdx.Cmd
     }
 
     internal const string CmdName = "EnableLogDownlink";
+    internal const string TargetId = "";
 
     public EnableLogDownlink()
-      : base(CmdName)
+      : base(CmdName, TargetId)
     {}
 
     public EnableLogDownlink(bool enabled, bool? beforeEncoding = null, bool? afterEncoding = null)
-      : base(CmdName)
+      : base(CmdName, TargetId)
     {
       Enabled = enabled;
       BeforeEncoding = beforeEncoding;
@@ -5564,9 +5669,10 @@ namespace Sdx.Cmd
     }
 
     internal const string CmdName = "IsLogDownlinkEnabled";
+    internal const string TargetId = "";
 
     public IsLogDownlinkEnabled()
-      : base(CmdName)
+      : base(CmdName, TargetId)
     {}
       
     public override bool IsValid
@@ -5600,13 +5706,14 @@ namespace Sdx.Cmd
     }
 
     internal const string CmdName = "IsLogDownlinkEnabledResult";
+    internal const string TargetId = "";
 
     public IsLogDownlinkEnabledResult()
-      : base(CmdName)
+      : base(CmdName, TargetId)
     {}
 
     public IsLogDownlinkEnabledResult(CommandBase relatedCommand, bool enabled, bool? beforeEncoding = null, bool? afterEncoding = null)
-      : base(CmdName, relatedCommand)
+      : base(CmdName, TargetId, relatedCommand)
     {
       Enabled = enabled;
       BeforeEncoding = beforeEncoding;
@@ -5674,13 +5781,14 @@ namespace Sdx.Cmd
     }
 
     internal const string CmdName = "EnableLogRinex";
+    internal const string TargetId = "";
 
     public EnableLogRinex()
-      : base(CmdName)
+      : base(CmdName, TargetId)
     {}
 
     public EnableLogRinex(bool enabled)
-      : base(CmdName)
+      : base(CmdName, TargetId)
     {
       Enabled = enabled;
     }
@@ -5722,9 +5830,10 @@ namespace Sdx.Cmd
     }
 
     internal const string CmdName = "IsLogRinexEnabled";
+    internal const string TargetId = "";
 
     public IsLogRinexEnabled()
-      : base(CmdName)
+      : base(CmdName, TargetId)
     {}
       
     public override bool IsValid
@@ -5756,13 +5865,14 @@ namespace Sdx.Cmd
     }
 
     internal const string CmdName = "IsLogRinexEnabledResult";
+    internal const string TargetId = "";
 
     public IsLogRinexEnabledResult()
-      : base(CmdName)
+      : base(CmdName, TargetId)
     {}
 
     public IsLogRinexEnabledResult(CommandBase relatedCommand, bool enabled)
-      : base(CmdName, relatedCommand)
+      : base(CmdName, TargetId, relatedCommand)
     {
       Enabled = enabled;
     }
@@ -5804,13 +5914,14 @@ namespace Sdx.Cmd
     }
 
     internal const string CmdName = "EnableLogHILInput";
+    internal const string TargetId = "";
 
     public EnableLogHILInput()
-      : base(CmdName)
+      : base(CmdName, TargetId)
     {}
 
     public EnableLogHILInput(bool enabled)
-      : base(CmdName)
+      : base(CmdName, TargetId)
     {
       Enabled = enabled;
     }
@@ -5852,9 +5963,10 @@ namespace Sdx.Cmd
     }
 
     internal const string CmdName = "IsLogHILInputEnabled";
+    internal const string TargetId = "";
 
     public IsLogHILInputEnabled()
-      : base(CmdName)
+      : base(CmdName, TargetId)
     {}
       
     public override bool IsValid
@@ -5886,13 +5998,14 @@ namespace Sdx.Cmd
     }
 
     internal const string CmdName = "IsLogHILInputEnabledResult";
+    internal const string TargetId = "";
 
     public IsLogHILInputEnabledResult()
-      : base(CmdName)
+      : base(CmdName, TargetId)
     {}
 
     public IsLogHILInputEnabledResult(CommandBase relatedCommand, bool enabled)
-      : base(CmdName, relatedCommand)
+      : base(CmdName, TargetId, relatedCommand)
     {
       Enabled = enabled;
     }
@@ -5934,13 +6047,14 @@ namespace Sdx.Cmd
     }
 
     internal const string CmdName = "SetLogRawRate";
+    internal const string TargetId = "";
 
     public SetLogRawRate()
-      : base(CmdName)
+      : base(CmdName, TargetId)
     {}
 
     public SetLogRawRate(int rate)
-      : base(CmdName)
+      : base(CmdName, TargetId)
     {
       Rate = rate;
     }
@@ -5982,9 +6096,10 @@ namespace Sdx.Cmd
     }
 
     internal const string CmdName = "GetLogRawRate";
+    internal const string TargetId = "";
 
     public GetLogRawRate()
-      : base(CmdName)
+      : base(CmdName, TargetId)
     {}
       
     public override bool IsValid
@@ -6016,13 +6131,14 @@ namespace Sdx.Cmd
     }
 
     internal const string CmdName = "LogRawRateResult";
+    internal const string TargetId = "";
 
     public LogRawRateResult()
-      : base(CmdName)
+      : base(CmdName, TargetId)
     {}
 
     public LogRawRateResult(CommandBase relatedCommand, int rate)
-      : base(CmdName, relatedCommand)
+      : base(CmdName, TargetId, relatedCommand)
     {
       Rate = rate;
     }
@@ -6066,13 +6182,14 @@ namespace Sdx.Cmd
     }
 
     internal const string CmdName = "EnableLogNmea";
+    internal const string TargetId = "";
 
     public EnableLogNmea()
-      : base(CmdName)
+      : base(CmdName, TargetId)
     {}
 
     public EnableLogNmea(bool enabled, bool? serialPortEnabled = null)
-      : base(CmdName)
+      : base(CmdName, TargetId)
     {
       Enabled = enabled;
       SerialPortEnabled = serialPortEnabled;
@@ -6128,9 +6245,10 @@ namespace Sdx.Cmd
     }
 
     internal const string CmdName = "IsLogNmeaEnabled";
+    internal const string TargetId = "";
 
     public IsLogNmeaEnabled()
-      : base(CmdName)
+      : base(CmdName, TargetId)
     {}
       
     public override bool IsValid
@@ -6163,13 +6281,14 @@ namespace Sdx.Cmd
     }
 
     internal const string CmdName = "IsLogNmeaEnabledResult";
+    internal const string TargetId = "";
 
     public IsLogNmeaEnabledResult()
-      : base(CmdName)
+      : base(CmdName, TargetId)
     {}
 
     public IsLogNmeaEnabledResult(CommandBase relatedCommand, bool enabled, bool? serialPortEnabled = null)
-      : base(CmdName, relatedCommand)
+      : base(CmdName, TargetId, relatedCommand)
     {
       Enabled = enabled;
       SerialPortEnabled = serialPortEnabled;
@@ -6224,13 +6343,14 @@ namespace Sdx.Cmd
     }
 
     internal const string CmdName = "SetLogNmeaRate";
+    internal const string TargetId = "";
 
     public SetLogNmeaRate()
-      : base(CmdName)
+      : base(CmdName, TargetId)
     {}
 
     public SetLogNmeaRate(int rate)
-      : base(CmdName)
+      : base(CmdName, TargetId)
     {
       Rate = rate;
     }
@@ -6272,9 +6392,10 @@ namespace Sdx.Cmd
     }
 
     internal const string CmdName = "GetLogNmeaRate";
+    internal const string TargetId = "";
 
     public GetLogNmeaRate()
-      : base(CmdName)
+      : base(CmdName, TargetId)
     {}
       
     public override bool IsValid
@@ -6306,13 +6427,14 @@ namespace Sdx.Cmd
     }
 
     internal const string CmdName = "LogNmeaRateResult";
+    internal const string TargetId = "";
 
     public LogNmeaRateResult()
-      : base(CmdName)
+      : base(CmdName, TargetId)
     {}
 
     public LogNmeaRateResult(CommandBase relatedCommand, int rate)
-      : base(CmdName, relatedCommand)
+      : base(CmdName, TargetId, relatedCommand)
     {
       Rate = rate;
     }
@@ -6354,13 +6476,14 @@ namespace Sdx.Cmd
     }
 
     internal const string CmdName = "SetNmeaLoggerSerialPortDelay";
+    internal const string TargetId = "";
 
     public SetNmeaLoggerSerialPortDelay()
-      : base(CmdName)
+      : base(CmdName, TargetId)
     {}
 
     public SetNmeaLoggerSerialPortDelay(int delay)
-      : base(CmdName)
+      : base(CmdName, TargetId)
     {
       Delay = delay;
     }
@@ -6402,9 +6525,10 @@ namespace Sdx.Cmd
     }
 
     internal const string CmdName = "GetNmeaLoggerSerialPortDelay";
+    internal const string TargetId = "";
 
     public GetNmeaLoggerSerialPortDelay()
-      : base(CmdName)
+      : base(CmdName, TargetId)
     {}
       
     public override bool IsValid
@@ -6436,13 +6560,14 @@ namespace Sdx.Cmd
     }
 
     internal const string CmdName = "GetNmeaLoggerSerialPortDelayResult";
+    internal const string TargetId = "";
 
     public GetNmeaLoggerSerialPortDelayResult()
-      : base(CmdName)
+      : base(CmdName, TargetId)
     {}
 
     public GetNmeaLoggerSerialPortDelayResult(CommandBase relatedCommand, int delay)
-      : base(CmdName, relatedCommand)
+      : base(CmdName, TargetId, relatedCommand)
     {
       Delay = delay;
     }
@@ -6484,13 +6609,14 @@ namespace Sdx.Cmd
     }
 
     internal const string CmdName = "SetNmeaLoggerSentences";
+    internal const string TargetId = "";
 
     public SetNmeaLoggerSentences()
-      : base(CmdName)
+      : base(CmdName, TargetId)
     {}
 
     public SetNmeaLoggerSentences(List<string> sentences)
-      : base(CmdName)
+      : base(CmdName, TargetId)
     {
       Sentences = sentences;
     }
@@ -6532,9 +6658,10 @@ namespace Sdx.Cmd
     }
 
     internal const string CmdName = "GetNmeaLoggerSentences";
+    internal const string TargetId = "";
 
     public GetNmeaLoggerSentences()
-      : base(CmdName)
+      : base(CmdName, TargetId)
     {}
       
     public override bool IsValid
@@ -6566,13 +6693,14 @@ namespace Sdx.Cmd
     }
 
     internal const string CmdName = "GetNmeaLoggerSentencesResult";
+    internal const string TargetId = "";
 
     public GetNmeaLoggerSentencesResult()
-      : base(CmdName)
+      : base(CmdName, TargetId)
     {}
 
     public GetNmeaLoggerSentencesResult(CommandBase relatedCommand, List<string> sentences)
-      : base(CmdName, relatedCommand)
+      : base(CmdName, TargetId, relatedCommand)
     {
       Sentences = sentences;
     }
@@ -6617,13 +6745,14 @@ namespace Sdx.Cmd
     }
 
     internal const string CmdName = "EnableMasterPps";
+    internal const string TargetId = "";
 
     public EnableMasterPps()
-      : base(CmdName)
+      : base(CmdName, TargetId)
     {}
 
     public EnableMasterPps(bool enabled)
-      : base(CmdName)
+      : base(CmdName, TargetId)
     {
       Enabled = enabled;
     }
@@ -6668,13 +6797,14 @@ namespace Sdx.Cmd
     }
 
     internal const string CmdName = "EnableMainInstanceSync";
+    internal const string TargetId = "";
 
     public EnableMainInstanceSync()
-      : base(CmdName)
+      : base(CmdName, TargetId)
     {}
 
     public EnableMainInstanceSync(bool enabled)
-      : base(CmdName)
+      : base(CmdName, TargetId)
     {
       Enabled = enabled;
     }
@@ -6716,9 +6846,10 @@ namespace Sdx.Cmd
     }
 
     internal const string CmdName = "GetMainInstanceStatus";
+    internal const string TargetId = "";
 
     public GetMainInstanceStatus()
-      : base(CmdName)
+      : base(CmdName, TargetId)
     {}
       
     public override bool IsValid
@@ -6752,13 +6883,14 @@ namespace Sdx.Cmd
     }
 
     internal const string CmdName = "GetMainInstanceStatusResult";
+    internal const string TargetId = "";
 
     public GetMainInstanceStatusResult()
-      : base(CmdName)
+      : base(CmdName, TargetId)
     {}
 
     public GetMainInstanceStatusResult(CommandBase relatedCommand, bool isMainInstance, int workerInstanceConnected, int port)
-      : base(CmdName, relatedCommand)
+      : base(CmdName, TargetId, relatedCommand)
     {
       IsMainInstance = isMainInstance;
       WorkerInstanceConnected = workerInstanceConnected;
@@ -6825,13 +6957,14 @@ namespace Sdx.Cmd
     }
 
     internal const string CmdName = "EnableSlavePps";
+    internal const string TargetId = "";
 
     public EnableSlavePps()
-      : base(CmdName)
+      : base(CmdName, TargetId)
     {}
 
     public EnableSlavePps(bool enabled)
-      : base(CmdName)
+      : base(CmdName, TargetId)
     {
       Enabled = enabled;
     }
@@ -6876,13 +7009,14 @@ namespace Sdx.Cmd
     }
 
     internal const string CmdName = "EnableWorkerInstanceSync";
+    internal const string TargetId = "";
 
     public EnableWorkerInstanceSync()
-      : base(CmdName)
+      : base(CmdName, TargetId)
     {}
 
     public EnableWorkerInstanceSync(bool enabled)
-      : base(CmdName)
+      : base(CmdName, TargetId)
     {
       Enabled = enabled;
     }
@@ -6924,9 +7058,10 @@ namespace Sdx.Cmd
     }
 
     internal const string CmdName = "GetWorkerInstanceStatus";
+    internal const string TargetId = "";
 
     public GetWorkerInstanceStatus()
-      : base(CmdName)
+      : base(CmdName, TargetId)
     {}
       
     public override bool IsValid
@@ -6961,13 +7096,14 @@ namespace Sdx.Cmd
     }
 
     internal const string CmdName = "GetWorkerInstanceStatusResult";
+    internal const string TargetId = "";
 
     public GetWorkerInstanceStatusResult()
-      : base(CmdName)
+      : base(CmdName, TargetId)
     {}
 
     public GetWorkerInstanceStatusResult(CommandBase relatedCommand, bool isWorkerInstance, bool isConnected, string hostName, int hostPort)
-      : base(CmdName, relatedCommand)
+      : base(CmdName, TargetId, relatedCommand)
     {
       IsWorkerInstance = isWorkerInstance;
       IsConnected = isConnected;
@@ -7044,13 +7180,14 @@ namespace Sdx.Cmd
     }
 
     internal const string CmdName = "SetLeapSecondFuture";
+    internal const string TargetId = "";
 
     public SetLeapSecondFuture()
-      : base(CmdName)
+      : base(CmdName, TargetId)
     {}
 
     public SetLeapSecondFuture(bool enabled, int seconds, DateTime date)
-      : base(CmdName)
+      : base(CmdName, TargetId)
     {
       Enabled = enabled;
       Seconds = seconds;
@@ -7114,9 +7251,10 @@ namespace Sdx.Cmd
     }
 
     internal const string CmdName = "GetLeapSecondFuture";
+    internal const string TargetId = "";
 
     public GetLeapSecondFuture()
-      : base(CmdName)
+      : base(CmdName, TargetId)
     {}
       
     public override bool IsValid
@@ -7150,13 +7288,14 @@ namespace Sdx.Cmd
     }
 
     internal const string CmdName = "GetLeapSecondFutureResult";
+    internal const string TargetId = "";
 
     public GetLeapSecondFutureResult()
-      : base(CmdName)
+      : base(CmdName, TargetId)
     {}
 
     public GetLeapSecondFutureResult(CommandBase relatedCommand, bool enabled, int seconds, DateTime date)
-      : base(CmdName, relatedCommand)
+      : base(CmdName, TargetId, relatedCommand)
     {
       Enabled = enabled;
       Seconds = seconds;
@@ -7220,13 +7359,14 @@ namespace Sdx.Cmd
     }
 
     internal const string CmdName = "EnableSignalStrengthModel";
+    internal const string TargetId = "";
 
     public EnableSignalStrengthModel()
-      : base(CmdName)
+      : base(CmdName, TargetId)
     {}
 
     public EnableSignalStrengthModel(bool enabled)
-      : base(CmdName)
+      : base(CmdName, TargetId)
     {
       Enabled = enabled;
     }
@@ -7268,9 +7408,10 @@ namespace Sdx.Cmd
     }
 
     internal const string CmdName = "IsSignalStrengthModelEnabled";
+    internal const string TargetId = "";
 
     public IsSignalStrengthModelEnabled()
-      : base(CmdName)
+      : base(CmdName, TargetId)
     {}
       
     public override bool IsValid
@@ -7302,13 +7443,14 @@ namespace Sdx.Cmd
     }
 
     internal const string CmdName = "IsSignalStrengthModelEnabledResult";
+    internal const string TargetId = "";
 
     public IsSignalStrengthModelEnabledResult()
-      : base(CmdName)
+      : base(CmdName, TargetId)
     {}
 
     public IsSignalStrengthModelEnabledResult(CommandBase relatedCommand, bool enabled)
-      : base(CmdName, relatedCommand)
+      : base(CmdName, TargetId, relatedCommand)
     {
       Enabled = enabled;
     }
@@ -7350,13 +7492,14 @@ namespace Sdx.Cmd
     }
 
     internal const string CmdName = "EnableElevationMaskBelow";
+    internal const string TargetId = "";
 
     public EnableElevationMaskBelow()
-      : base(CmdName)
+      : base(CmdName, TargetId)
     {}
 
     public EnableElevationMaskBelow(bool enabled)
-      : base(CmdName)
+      : base(CmdName, TargetId)
     {
       Enabled = enabled;
     }
@@ -7398,9 +7541,10 @@ namespace Sdx.Cmd
     }
 
     internal const string CmdName = "IsElevationMaskBelowEnabled";
+    internal const string TargetId = "";
 
     public IsElevationMaskBelowEnabled()
-      : base(CmdName)
+      : base(CmdName, TargetId)
     {}
       
     public override bool IsValid
@@ -7432,13 +7576,14 @@ namespace Sdx.Cmd
     }
 
     internal const string CmdName = "IsElevationMaskBelowEnabledResult";
+    internal const string TargetId = "";
 
     public IsElevationMaskBelowEnabledResult()
-      : base(CmdName)
+      : base(CmdName, TargetId)
     {}
 
     public IsElevationMaskBelowEnabledResult(CommandBase relatedCommand, bool enabled)
-      : base(CmdName, relatedCommand)
+      : base(CmdName, TargetId, relatedCommand)
     {
       Enabled = enabled;
     }
@@ -7480,13 +7625,14 @@ namespace Sdx.Cmd
     }
 
     internal const string CmdName = "EnableElevationMaskAbove";
+    internal const string TargetId = "";
 
     public EnableElevationMaskAbove()
-      : base(CmdName)
+      : base(CmdName, TargetId)
     {}
 
     public EnableElevationMaskAbove(bool enabled)
-      : base(CmdName)
+      : base(CmdName, TargetId)
     {
       Enabled = enabled;
     }
@@ -7528,9 +7674,10 @@ namespace Sdx.Cmd
     }
 
     internal const string CmdName = "IsElevationMaskAboveEnabled";
+    internal const string TargetId = "";
 
     public IsElevationMaskAboveEnabled()
-      : base(CmdName)
+      : base(CmdName, TargetId)
     {}
       
     public override bool IsValid
@@ -7562,13 +7709,14 @@ namespace Sdx.Cmd
     }
 
     internal const string CmdName = "IsElevationMaskAboveEnabledResult";
+    internal const string TargetId = "";
 
     public IsElevationMaskAboveEnabledResult()
-      : base(CmdName)
+      : base(CmdName, TargetId)
     {}
 
     public IsElevationMaskAboveEnabledResult(CommandBase relatedCommand, bool enabled)
-      : base(CmdName, relatedCommand)
+      : base(CmdName, TargetId, relatedCommand)
     {
       Enabled = enabled;
     }
@@ -7610,13 +7758,14 @@ namespace Sdx.Cmd
     }
 
     internal const string CmdName = "SetElevationMaskBelow";
+    internal const string TargetId = "";
 
     public SetElevationMaskBelow()
-      : base(CmdName)
+      : base(CmdName, TargetId)
     {}
 
     public SetElevationMaskBelow(double angle)
-      : base(CmdName)
+      : base(CmdName, TargetId)
     {
       Angle = angle;
     }
@@ -7658,9 +7807,10 @@ namespace Sdx.Cmd
     }
 
     internal const string CmdName = "GetElevationMaskBelow";
+    internal const string TargetId = "";
 
     public GetElevationMaskBelow()
-      : base(CmdName)
+      : base(CmdName, TargetId)
     {}
       
     public override bool IsValid
@@ -7692,13 +7842,14 @@ namespace Sdx.Cmd
     }
 
     internal const string CmdName = "GetElevationMaskBelowResult";
+    internal const string TargetId = "";
 
     public GetElevationMaskBelowResult()
-      : base(CmdName)
+      : base(CmdName, TargetId)
     {}
 
     public GetElevationMaskBelowResult(CommandBase relatedCommand, double angle)
-      : base(CmdName, relatedCommand)
+      : base(CmdName, TargetId, relatedCommand)
     {
       Angle = angle;
     }
@@ -7740,13 +7891,14 @@ namespace Sdx.Cmd
     }
 
     internal const string CmdName = "SetElevationMaskAbove";
+    internal const string TargetId = "";
 
     public SetElevationMaskAbove()
-      : base(CmdName)
+      : base(CmdName, TargetId)
     {}
 
     public SetElevationMaskAbove(double angle)
-      : base(CmdName)
+      : base(CmdName, TargetId)
     {
       Angle = angle;
     }
@@ -7788,9 +7940,10 @@ namespace Sdx.Cmd
     }
 
     internal const string CmdName = "GetElevationMaskAbove";
+    internal const string TargetId = "";
 
     public GetElevationMaskAbove()
-      : base(CmdName)
+      : base(CmdName, TargetId)
     {}
       
     public override bool IsValid
@@ -7822,13 +7975,14 @@ namespace Sdx.Cmd
     }
 
     internal const string CmdName = "GetElevationMaskAboveResult";
+    internal const string TargetId = "";
 
     public GetElevationMaskAboveResult()
-      : base(CmdName)
+      : base(CmdName, TargetId)
     {}
 
     public GetElevationMaskAboveResult(CommandBase relatedCommand, double angle)
-      : base(CmdName, relatedCommand)
+      : base(CmdName, TargetId, relatedCommand)
     {
       Angle = angle;
     }
@@ -7872,13 +8026,14 @@ namespace Sdx.Cmd
     }
 
     internal const string CmdName = "SetIssueOfData";
+    internal const string TargetId = "";
 
     public SetIssueOfData()
-      : base(CmdName)
+      : base(CmdName, TargetId)
     {}
 
     public SetIssueOfData(int clock, int ephemeris, bool? overrideRinex = null)
-      : base(CmdName)
+      : base(CmdName, TargetId)
     {
       Clock = clock;
       Ephemeris = ephemeris;
@@ -7944,9 +8099,10 @@ namespace Sdx.Cmd
     }
 
     internal const string CmdName = "GetIssueOfData";
+    internal const string TargetId = "";
 
     public GetIssueOfData()
-      : base(CmdName)
+      : base(CmdName, TargetId)
     {}
       
     public override bool IsValid
@@ -7980,13 +8136,14 @@ namespace Sdx.Cmd
     }
 
     internal const string CmdName = "GetIssueOfDataResult";
+    internal const string TargetId = "";
 
     public GetIssueOfDataResult()
-      : base(CmdName)
+      : base(CmdName, TargetId)
     {}
 
     public GetIssueOfDataResult(CommandBase relatedCommand, int clock, int ephemeris, bool? overrideRinex = null)
-      : base(CmdName, relatedCommand)
+      : base(CmdName, TargetId, relatedCommand)
     {
       Clock = clock;
       Ephemeris = ephemeris;
@@ -8054,13 +8211,14 @@ namespace Sdx.Cmd
     }
 
     internal const string CmdName = "SetIssueOfDataGalileo";
+    internal const string TargetId = "";
 
     public SetIssueOfDataGalileo()
-      : base(CmdName)
+      : base(CmdName, TargetId)
     {}
 
     public SetIssueOfDataGalileo(int navigation, int almanac, bool? overrideRinex = null)
-      : base(CmdName)
+      : base(CmdName, TargetId)
     {
       Navigation = navigation;
       Almanac = almanac;
@@ -8126,9 +8284,10 @@ namespace Sdx.Cmd
     }
 
     internal const string CmdName = "GetIssueOfDataGalileo";
+    internal const string TargetId = "";
 
     public GetIssueOfDataGalileo()
-      : base(CmdName)
+      : base(CmdName, TargetId)
     {}
       
     public override bool IsValid
@@ -8162,13 +8321,14 @@ namespace Sdx.Cmd
     }
 
     internal const string CmdName = "GetIssueOfDataGalileoResult";
+    internal const string TargetId = "";
 
     public GetIssueOfDataGalileoResult()
-      : base(CmdName)
+      : base(CmdName, TargetId)
     {}
 
     public GetIssueOfDataGalileoResult(CommandBase relatedCommand, int navigation, int almanac, bool? overrideRinex = null)
-      : base(CmdName, relatedCommand)
+      : base(CmdName, TargetId, relatedCommand)
     {
       Navigation = navigation;
       Almanac = almanac;
@@ -8236,13 +8396,14 @@ namespace Sdx.Cmd
     }
 
     internal const string CmdName = "SetAgeOfDataBeiDou";
+    internal const string TargetId = "";
 
     public SetAgeOfDataBeiDou()
-      : base(CmdName)
+      : base(CmdName, TargetId)
     {}
 
     public SetAgeOfDataBeiDou(int clock, int ephemeris, bool? overrideRinex = null)
-      : base(CmdName)
+      : base(CmdName, TargetId)
     {
       Clock = clock;
       Ephemeris = ephemeris;
@@ -8308,9 +8469,10 @@ namespace Sdx.Cmd
     }
 
     internal const string CmdName = "GetAgeOfDataBeiDou";
+    internal const string TargetId = "";
 
     public GetAgeOfDataBeiDou()
-      : base(CmdName)
+      : base(CmdName, TargetId)
     {}
       
     public override bool IsValid
@@ -8344,13 +8506,14 @@ namespace Sdx.Cmd
     }
 
     internal const string CmdName = "GetAgeOfDataBeiDouResult";
+    internal const string TargetId = "";
 
     public GetAgeOfDataBeiDouResult()
-      : base(CmdName)
+      : base(CmdName, TargetId)
     {}
 
     public GetAgeOfDataBeiDouResult(CommandBase relatedCommand, int clock, int ephemeris, bool? overrideRinex = null)
-      : base(CmdName, relatedCommand)
+      : base(CmdName, TargetId, relatedCommand)
     {
       Clock = clock;
       Ephemeris = ephemeris;
@@ -8417,13 +8580,14 @@ namespace Sdx.Cmd
     }
 
     internal const string CmdName = "SetIssueOfDataBeiDou";
+    internal const string TargetId = "";
 
     public SetIssueOfDataBeiDou()
-      : base(CmdName)
+      : base(CmdName, TargetId)
     {}
 
     public SetIssueOfDataBeiDou(int clock, int ephemeris)
-      : base(CmdName)
+      : base(CmdName, TargetId)
     {
       Clock = clock;
       Ephemeris = ephemeris;
@@ -8476,9 +8640,10 @@ namespace Sdx.Cmd
     }
 
     internal const string CmdName = "GetIssueOfDataBeiDou";
+    internal const string TargetId = "";
 
     public GetIssueOfDataBeiDou()
-      : base(CmdName)
+      : base(CmdName, TargetId)
     {}
       
     public override bool IsValid
@@ -8511,13 +8676,14 @@ namespace Sdx.Cmd
     }
 
     internal const string CmdName = "GetIssueOfDataBeiDouResult";
+    internal const string TargetId = "";
 
     public GetIssueOfDataBeiDouResult()
-      : base(CmdName)
+      : base(CmdName, TargetId)
     {}
 
     public GetIssueOfDataBeiDouResult(CommandBase relatedCommand, int clock, int ephemeris)
-      : base(CmdName, relatedCommand)
+      : base(CmdName, TargetId, relatedCommand)
     {
       Clock = clock;
       Ephemeris = ephemeris;
@@ -8572,13 +8738,14 @@ namespace Sdx.Cmd
     }
 
     internal const string CmdName = "SetIssueOfDataQzss";
+    internal const string TargetId = "";
 
     public SetIssueOfDataQzss()
-      : base(CmdName)
+      : base(CmdName, TargetId)
     {}
 
     public SetIssueOfDataQzss(int clock, int ephemeris, bool? overrideRinex = null)
-      : base(CmdName)
+      : base(CmdName, TargetId)
     {
       Clock = clock;
       Ephemeris = ephemeris;
@@ -8644,9 +8811,10 @@ namespace Sdx.Cmd
     }
 
     internal const string CmdName = "GetIssueOfDataQzss";
+    internal const string TargetId = "";
 
     public GetIssueOfDataQzss()
-      : base(CmdName)
+      : base(CmdName, TargetId)
     {}
       
     public override bool IsValid
@@ -8680,13 +8848,14 @@ namespace Sdx.Cmd
     }
 
     internal const string CmdName = "GetIssueOfDataQzssResult";
+    internal const string TargetId = "";
 
     public GetIssueOfDataQzssResult()
-      : base(CmdName)
+      : base(CmdName, TargetId)
     {}
 
     public GetIssueOfDataQzssResult(CommandBase relatedCommand, int clock, int ephemeris, bool? overrideRinex = null)
-      : base(CmdName, relatedCommand)
+      : base(CmdName, TargetId, relatedCommand)
     {
       Clock = clock;
       Ephemeris = ephemeris;
@@ -8753,13 +8922,14 @@ namespace Sdx.Cmd
     }
 
     internal const string CmdName = "SetIssueOfDataNavIC";
+    internal const string TargetId = "";
 
     public SetIssueOfDataNavIC()
-      : base(CmdName)
+      : base(CmdName, TargetId)
     {}
 
     public SetIssueOfDataNavIC(int ephemerisAndClock, bool? overrideRinex = null)
-      : base(CmdName)
+      : base(CmdName, TargetId)
     {
       EphemerisAndClock = ephemerisAndClock;
       OverrideRinex = overrideRinex;
@@ -8814,9 +8984,10 @@ namespace Sdx.Cmd
     }
 
     internal const string CmdName = "GetIssueOfDataNavIC";
+    internal const string TargetId = "";
 
     public GetIssueOfDataNavIC()
-      : base(CmdName)
+      : base(CmdName, TargetId)
     {}
       
     public override bool IsValid
@@ -8849,13 +9020,14 @@ namespace Sdx.Cmd
     }
 
     internal const string CmdName = "GetIssueOfDataNavICResult";
+    internal const string TargetId = "";
 
     public GetIssueOfDataNavICResult()
-      : base(CmdName)
+      : base(CmdName, TargetId)
     {}
 
     public GetIssueOfDataNavICResult(CommandBase relatedCommand, int ephemerisAndClock, bool? overrideRinex = null)
-      : base(CmdName, relatedCommand)
+      : base(CmdName, TargetId, relatedCommand)
     {
       EphemerisAndClock = ephemerisAndClock;
       OverrideRinex = overrideRinex;
@@ -8912,13 +9084,14 @@ namespace Sdx.Cmd
     }
 
     internal const string CmdName = "SetGpsConfigurationCodeForSV";
+    internal const string TargetId = "";
 
     public SetGpsConfigurationCodeForSV()
-      : base(CmdName)
+      : base(CmdName, TargetId)
     {}
 
     public SetGpsConfigurationCodeForSV(int svId, int svConfig, string dataSetName = null)
-      : base(CmdName)
+      : base(CmdName, TargetId)
     {
       SvId = svId;
       SvConfig = svConfig;
@@ -8987,13 +9160,14 @@ namespace Sdx.Cmd
     }
 
     internal const string CmdName = "GetGpsConfigurationCodeForSV";
+    internal const string TargetId = "";
 
     public GetGpsConfigurationCodeForSV()
-      : base(CmdName)
+      : base(CmdName, TargetId)
     {}
 
     public GetGpsConfigurationCodeForSV(int svId, string dataSetName = null)
-      : base(CmdName)
+      : base(CmdName, TargetId)
     {
       SvId = svId;
       DataSetName = dataSetName;
@@ -9052,13 +9226,14 @@ namespace Sdx.Cmd
     }
 
     internal const string CmdName = "GetGpsConfigurationCodeForSVResult";
+    internal const string TargetId = "";
 
     public GetGpsConfigurationCodeForSVResult()
-      : base(CmdName)
+      : base(CmdName, TargetId)
     {}
 
     public GetGpsConfigurationCodeForSVResult(CommandBase relatedCommand, int svId, int svConfig, string dataSetName = null)
-      : base(CmdName, relatedCommand)
+      : base(CmdName, TargetId, relatedCommand)
     {
       SvId = svId;
       SvConfig = svConfig;
@@ -9127,13 +9302,14 @@ namespace Sdx.Cmd
     }
 
     internal const string CmdName = "SetGpsSVConfigurationForAllSat";
+    internal const string TargetId = "";
 
     public SetGpsSVConfigurationForAllSat()
-      : base(CmdName)
+      : base(CmdName, TargetId)
     {}
 
     public SetGpsSVConfigurationForAllSat(List<int> svConfigs, string dataSetName = null)
-      : base(CmdName)
+      : base(CmdName, TargetId)
     {
       SvConfigs = svConfigs;
       DataSetName = dataSetName;
@@ -9191,13 +9367,14 @@ namespace Sdx.Cmd
     }
 
     internal const string CmdName = "SetGpsConfigurationForEachSV";
+    internal const string TargetId = "";
 
     public SetGpsConfigurationForEachSV()
-      : base(CmdName)
+      : base(CmdName, TargetId)
     {}
 
     public SetGpsConfigurationForEachSV(List<int> svConfigs, string dataSetName = null)
-      : base(CmdName)
+      : base(CmdName, TargetId)
     {
       SvConfigs = svConfigs;
       DataSetName = dataSetName;
@@ -9256,13 +9433,14 @@ namespace Sdx.Cmd
     }
 
     internal const string CmdName = "GetGpsSVConfigurationForAllSat";
+    internal const string TargetId = "";
 
     public GetGpsSVConfigurationForAllSat()
-      : base(CmdName)
+      : base(CmdName, TargetId)
     {}
 
     public GetGpsSVConfigurationForAllSat(string dataSetName = null)
-      : base(CmdName)
+      : base(CmdName, TargetId)
     {
       DataSetName = dataSetName;
     }
@@ -9308,13 +9486,14 @@ namespace Sdx.Cmd
     }
 
     internal const string CmdName = "GetGpsConfigurationForEachSV";
+    internal const string TargetId = "";
 
     public GetGpsConfigurationForEachSV()
-      : base(CmdName)
+      : base(CmdName, TargetId)
     {}
 
     public GetGpsConfigurationForEachSV(string dataSetName = null)
-      : base(CmdName)
+      : base(CmdName, TargetId)
     {
       DataSetName = dataSetName;
     }
@@ -9361,13 +9540,14 @@ namespace Sdx.Cmd
     }
   
     internal const string CmdName = "GetGpsSVConfigurationForAllSatResult";
+    internal const string TargetId = "";
 
     public GetGpsSVConfigurationForAllSatResult()
-      : base(CmdName)
+      : base(CmdName, TargetId)
     {}
 
     public GetGpsSVConfigurationForAllSatResult(CommandBase relatedCommand, List<int> svConfigs, string dataSetName = null)
-      : base(CmdName, relatedCommand)
+      : base(CmdName, TargetId, relatedCommand)
     {
       SvConfigs = svConfigs;
       DataSetName = dataSetName;
@@ -9439,13 +9619,14 @@ namespace Sdx.Cmd
     }
 
     internal const string CmdName = "SetGpsDataHealthForSV";
+    internal const string TargetId = "";
 
     public SetGpsDataHealthForSV()
-      : base(CmdName)
+      : base(CmdName, TargetId)
     {}
 
     public SetGpsDataHealthForSV(int svId, int health, string dataSetName = null)
-      : base(CmdName)
+      : base(CmdName, TargetId)
     {
       SvId = svId;
       Health = health;
@@ -9514,13 +9695,14 @@ namespace Sdx.Cmd
     }
 
     internal const string CmdName = "GetGpsDataHealthForSV";
+    internal const string TargetId = "";
 
     public GetGpsDataHealthForSV()
-      : base(CmdName)
+      : base(CmdName, TargetId)
     {}
 
     public GetGpsDataHealthForSV(int svId, string dataSetName = null)
-      : base(CmdName)
+      : base(CmdName, TargetId)
     {
       SvId = svId;
       DataSetName = dataSetName;
@@ -9579,13 +9761,14 @@ namespace Sdx.Cmd
     }
 
     internal const string CmdName = "GetGpsDataHealthForSVResult";
+    internal const string TargetId = "";
 
     public GetGpsDataHealthForSVResult()
-      : base(CmdName)
+      : base(CmdName, TargetId)
     {}
 
     public GetGpsDataHealthForSVResult(CommandBase relatedCommand, int svId, int health, string dataSetName = null)
-      : base(CmdName, relatedCommand)
+      : base(CmdName, TargetId, relatedCommand)
     {
       SvId = svId;
       Health = health;
@@ -9653,13 +9836,14 @@ namespace Sdx.Cmd
     }
 
     internal const string CmdName = "SetGpsSignalHealthForSV";
+    internal const string TargetId = "";
 
     public SetGpsSignalHealthForSV()
-      : base(CmdName)
+      : base(CmdName, TargetId)
     {}
 
     public SetGpsSignalHealthForSV(int svId, int health, string dataSetName = null)
-      : base(CmdName)
+      : base(CmdName, TargetId)
     {
       SvId = svId;
       Health = health;
@@ -9728,13 +9912,14 @@ namespace Sdx.Cmd
     }
 
     internal const string CmdName = "GetGpsSignalHealthForSV";
+    internal const string TargetId = "";
 
     public GetGpsSignalHealthForSV()
-      : base(CmdName)
+      : base(CmdName, TargetId)
     {}
 
     public GetGpsSignalHealthForSV(int svId, string dataSetName = null)
-      : base(CmdName)
+      : base(CmdName, TargetId)
     {
       SvId = svId;
       DataSetName = dataSetName;
@@ -9793,13 +9978,14 @@ namespace Sdx.Cmd
     }
 
     internal const string CmdName = "GetGpsSignalHealthForSVResult";
+    internal const string TargetId = "";
 
     public GetGpsSignalHealthForSVResult()
-      : base(CmdName)
+      : base(CmdName, TargetId)
     {}
 
     public GetGpsSignalHealthForSVResult(CommandBase relatedCommand, int svId, int health, string dataSetName = null)
-      : base(CmdName, relatedCommand)
+      : base(CmdName, TargetId, relatedCommand)
     {
       SvId = svId;
       Health = health;
@@ -9868,13 +10054,14 @@ namespace Sdx.Cmd
     }
 
     internal const string CmdName = "SetGalileoDataHealthForSV";
+    internal const string TargetId = "";
 
     public SetGalileoDataHealthForSV()
-      : base(CmdName)
+      : base(CmdName, TargetId)
     {}
 
     public SetGalileoDataHealthForSV(int svId, string component, bool health, string dataSetName = null)
-      : base(CmdName)
+      : base(CmdName, TargetId)
     {
       SvId = svId;
       Component = component;
@@ -9955,13 +10142,14 @@ namespace Sdx.Cmd
     }
 
     internal const string CmdName = "GetGalileoDataHealthForSV";
+    internal const string TargetId = "";
 
     public GetGalileoDataHealthForSV()
-      : base(CmdName)
+      : base(CmdName, TargetId)
     {}
 
     public GetGalileoDataHealthForSV(int svId, string component, string dataSetName = null)
-      : base(CmdName)
+      : base(CmdName, TargetId)
     {
       SvId = svId;
       Component = component;
@@ -10032,13 +10220,14 @@ namespace Sdx.Cmd
     }
 
     internal const string CmdName = "GetGalileoDataHealthForSVResult";
+    internal const string TargetId = "";
 
     public GetGalileoDataHealthForSVResult()
-      : base(CmdName)
+      : base(CmdName, TargetId)
     {}
 
     public GetGalileoDataHealthForSVResult(CommandBase relatedCommand, int svId, string component, bool health, string dataSetName = null)
-      : base(CmdName, relatedCommand)
+      : base(CmdName, TargetId, relatedCommand)
     {
       SvId = svId;
       Component = component;
@@ -10118,13 +10307,14 @@ namespace Sdx.Cmd
     }
 
     internal const string CmdName = "SetGalileoSignalHealthForSV";
+    internal const string TargetId = "";
 
     public SetGalileoSignalHealthForSV()
-      : base(CmdName)
+      : base(CmdName, TargetId)
     {}
 
     public SetGalileoSignalHealthForSV(int svId, string component, int health, string dataSetName = null)
-      : base(CmdName)
+      : base(CmdName, TargetId)
     {
       SvId = svId;
       Component = component;
@@ -10205,13 +10395,14 @@ namespace Sdx.Cmd
     }
 
     internal const string CmdName = "GetGalileoSignalHealthForSV";
+    internal const string TargetId = "";
 
     public GetGalileoSignalHealthForSV()
-      : base(CmdName)
+      : base(CmdName, TargetId)
     {}
 
     public GetGalileoSignalHealthForSV(int svId, string component, string dataSetName = null)
-      : base(CmdName)
+      : base(CmdName, TargetId)
     {
       SvId = svId;
       Component = component;
@@ -10282,13 +10473,14 @@ namespace Sdx.Cmd
     }
 
     internal const string CmdName = "GetGalileoSignalHealthForSVResult";
+    internal const string TargetId = "";
 
     public GetGalileoSignalHealthForSVResult()
-      : base(CmdName)
+      : base(CmdName, TargetId)
     {}
 
     public GetGalileoSignalHealthForSVResult(CommandBase relatedCommand, int svId, string component, int health, string dataSetName = null)
-      : base(CmdName, relatedCommand)
+      : base(CmdName, TargetId, relatedCommand)
     {
       SvId = svId;
       Component = component;
@@ -10367,13 +10559,14 @@ namespace Sdx.Cmd
     }
 
     internal const string CmdName = "SetGpsL1HealthForSV";
+    internal const string TargetId = "";
 
     public SetGpsL1HealthForSV()
-      : base(CmdName)
+      : base(CmdName, TargetId)
     {}
 
     public SetGpsL1HealthForSV(int svId, bool health, string dataSetName = null)
-      : base(CmdName)
+      : base(CmdName, TargetId)
     {
       SvId = svId;
       Health = health;
@@ -10442,13 +10635,14 @@ namespace Sdx.Cmd
     }
 
     internal const string CmdName = "GetGpsL1HealthForSV";
+    internal const string TargetId = "";
 
     public GetGpsL1HealthForSV()
-      : base(CmdName)
+      : base(CmdName, TargetId)
     {}
 
     public GetGpsL1HealthForSV(int svId, string dataSetName = null)
-      : base(CmdName)
+      : base(CmdName, TargetId)
     {
       SvId = svId;
       DataSetName = dataSetName;
@@ -10507,13 +10701,14 @@ namespace Sdx.Cmd
     }
 
     internal const string CmdName = "GetGpsL1HealthForSVResult";
+    internal const string TargetId = "";
 
     public GetGpsL1HealthForSVResult()
-      : base(CmdName)
+      : base(CmdName, TargetId)
     {}
 
     public GetGpsL1HealthForSVResult(CommandBase relatedCommand, int svId, bool health, string dataSetName = null)
-      : base(CmdName, relatedCommand)
+      : base(CmdName, TargetId, relatedCommand)
     {
       SvId = svId;
       Health = health;
@@ -10581,13 +10776,14 @@ namespace Sdx.Cmd
     }
 
     internal const string CmdName = "SetGpsL2HealthForSV";
+    internal const string TargetId = "";
 
     public SetGpsL2HealthForSV()
-      : base(CmdName)
+      : base(CmdName, TargetId)
     {}
 
     public SetGpsL2HealthForSV(int svId, bool health, string dataSetName = null)
-      : base(CmdName)
+      : base(CmdName, TargetId)
     {
       SvId = svId;
       Health = health;
@@ -10656,13 +10852,14 @@ namespace Sdx.Cmd
     }
 
     internal const string CmdName = "GetGpsL2HealthForSV";
+    internal const string TargetId = "";
 
     public GetGpsL2HealthForSV()
-      : base(CmdName)
+      : base(CmdName, TargetId)
     {}
 
     public GetGpsL2HealthForSV(int svId, string dataSetName = null)
-      : base(CmdName)
+      : base(CmdName, TargetId)
     {
       SvId = svId;
       DataSetName = dataSetName;
@@ -10721,13 +10918,14 @@ namespace Sdx.Cmd
     }
 
     internal const string CmdName = "GetGpsL2HealthForSVResult";
+    internal const string TargetId = "";
 
     public GetGpsL2HealthForSVResult()
-      : base(CmdName)
+      : base(CmdName, TargetId)
     {}
 
     public GetGpsL2HealthForSVResult(CommandBase relatedCommand, int svId, bool health, string dataSetName = null)
-      : base(CmdName, relatedCommand)
+      : base(CmdName, TargetId, relatedCommand)
     {
       SvId = svId;
       Health = health;
@@ -10795,13 +10993,14 @@ namespace Sdx.Cmd
     }
 
     internal const string CmdName = "SetGpsL5HealthForSV";
+    internal const string TargetId = "";
 
     public SetGpsL5HealthForSV()
-      : base(CmdName)
+      : base(CmdName, TargetId)
     {}
 
     public SetGpsL5HealthForSV(int svId, bool health, string dataSetName = null)
-      : base(CmdName)
+      : base(CmdName, TargetId)
     {
       SvId = svId;
       Health = health;
@@ -10870,13 +11069,14 @@ namespace Sdx.Cmd
     }
 
     internal const string CmdName = "GetGpsL5HealthForSV";
+    internal const string TargetId = "";
 
     public GetGpsL5HealthForSV()
-      : base(CmdName)
+      : base(CmdName, TargetId)
     {}
 
     public GetGpsL5HealthForSV(int svId, string dataSetName = null)
-      : base(CmdName)
+      : base(CmdName, TargetId)
     {
       SvId = svId;
       DataSetName = dataSetName;
@@ -10935,13 +11135,14 @@ namespace Sdx.Cmd
     }
 
     internal const string CmdName = "GetGpsL5HealthForSVResult";
+    internal const string TargetId = "";
 
     public GetGpsL5HealthForSVResult()
-      : base(CmdName)
+      : base(CmdName, TargetId)
     {}
 
     public GetGpsL5HealthForSVResult(CommandBase relatedCommand, int svId, bool health, string dataSetName = null)
-      : base(CmdName, relatedCommand)
+      : base(CmdName, TargetId, relatedCommand)
     {
       SvId = svId;
       Health = health;
@@ -11009,13 +11210,14 @@ namespace Sdx.Cmd
     }
 
     internal const string CmdName = "SetGpsL1cHealthForSV";
+    internal const string TargetId = "";
 
     public SetGpsL1cHealthForSV()
-      : base(CmdName)
+      : base(CmdName, TargetId)
     {}
 
     public SetGpsL1cHealthForSV(int svId, bool health, string dataSetName = null)
-      : base(CmdName)
+      : base(CmdName, TargetId)
     {
       SvId = svId;
       Health = health;
@@ -11084,13 +11286,14 @@ namespace Sdx.Cmd
     }
 
     internal const string CmdName = "GetGpsL1cHealthForSV";
+    internal const string TargetId = "";
 
     public GetGpsL1cHealthForSV()
-      : base(CmdName)
+      : base(CmdName, TargetId)
     {}
 
     public GetGpsL1cHealthForSV(int svId, string dataSetName = null)
-      : base(CmdName)
+      : base(CmdName, TargetId)
     {
       SvId = svId;
       DataSetName = dataSetName;
@@ -11149,13 +11352,14 @@ namespace Sdx.Cmd
     }
 
     internal const string CmdName = "GetGpsL1cHealthForSVResult";
+    internal const string TargetId = "";
 
     public GetGpsL1cHealthForSVResult()
-      : base(CmdName)
+      : base(CmdName, TargetId)
     {}
 
     public GetGpsL1cHealthForSVResult(CommandBase relatedCommand, int svId, bool health, string dataSetName = null)
-      : base(CmdName, relatedCommand)
+      : base(CmdName, TargetId, relatedCommand)
     {
       SvId = svId;
       Health = health;
@@ -11223,13 +11427,14 @@ namespace Sdx.Cmd
     }
 
     internal const string CmdName = "SetGpsAntiSpoofingFlagForSV";
+    internal const string TargetId = "";
 
     public SetGpsAntiSpoofingFlagForSV()
-      : base(CmdName)
+      : base(CmdName, TargetId)
     {}
 
     public SetGpsAntiSpoofingFlagForSV(int svId, GpsASFlag antiSpoofing, string dataSetName = null)
-      : base(CmdName)
+      : base(CmdName, TargetId)
     {
       SvId = svId;
       AntiSpoofing = antiSpoofing;
@@ -11298,13 +11503,14 @@ namespace Sdx.Cmd
     }
 
     internal const string CmdName = "GetGpsAntiSpoofingFlagForSV";
+    internal const string TargetId = "";
 
     public GetGpsAntiSpoofingFlagForSV()
-      : base(CmdName)
+      : base(CmdName, TargetId)
     {}
 
     public GetGpsAntiSpoofingFlagForSV(int svId, string dataSetName = null)
-      : base(CmdName)
+      : base(CmdName, TargetId)
     {
       SvId = svId;
       DataSetName = dataSetName;
@@ -11363,13 +11569,14 @@ namespace Sdx.Cmd
     }
 
     internal const string CmdName = "GetGpsAntiSpoofingFlagForSVResult";
+    internal const string TargetId = "";
 
     public GetGpsAntiSpoofingFlagForSVResult()
-      : base(CmdName)
+      : base(CmdName, TargetId)
     {}
 
     public GetGpsAntiSpoofingFlagForSVResult(CommandBase relatedCommand, int svId, GpsASFlag antiSpoofing, string dataSetName = null)
-      : base(CmdName, relatedCommand)
+      : base(CmdName, TargetId, relatedCommand)
     {
       SvId = svId;
       AntiSpoofing = antiSpoofing;
@@ -11437,13 +11644,14 @@ namespace Sdx.Cmd
     }
 
     internal const string CmdName = "SetGpsNavAlertFlagForSV";
+    internal const string TargetId = "";
 
     public SetGpsNavAlertFlagForSV()
-      : base(CmdName)
+      : base(CmdName, TargetId)
     {}
 
     public SetGpsNavAlertFlagForSV(int svId, bool alert, string dataSetName = null)
-      : base(CmdName)
+      : base(CmdName, TargetId)
     {
       SvId = svId;
       Alert = alert;
@@ -11512,13 +11720,14 @@ namespace Sdx.Cmd
     }
 
     internal const string CmdName = "GetGpsNavAlertFlagForSV";
+    internal const string TargetId = "";
 
     public GetGpsNavAlertFlagForSV()
-      : base(CmdName)
+      : base(CmdName, TargetId)
     {}
 
     public GetGpsNavAlertFlagForSV(int svId, string dataSetName = null)
-      : base(CmdName)
+      : base(CmdName, TargetId)
     {
       SvId = svId;
       DataSetName = dataSetName;
@@ -11577,13 +11786,14 @@ namespace Sdx.Cmd
     }
 
     internal const string CmdName = "GetGpsNavAlertFlagForSVResult";
+    internal const string TargetId = "";
 
     public GetGpsNavAlertFlagForSVResult()
-      : base(CmdName)
+      : base(CmdName, TargetId)
     {}
 
     public GetGpsNavAlertFlagForSVResult(CommandBase relatedCommand, int svId, bool alert, string dataSetName = null)
-      : base(CmdName, relatedCommand)
+      : base(CmdName, TargetId, relatedCommand)
     {
       SvId = svId;
       Alert = alert;
@@ -11651,13 +11861,14 @@ namespace Sdx.Cmd
     }
 
     internal const string CmdName = "SetGpsCNavAlertFlagToSV";
+    internal const string TargetId = "";
 
     public SetGpsCNavAlertFlagToSV()
-      : base(CmdName)
+      : base(CmdName, TargetId)
     {}
 
     public SetGpsCNavAlertFlagToSV(int svId, bool alert, string dataSetName = null)
-      : base(CmdName)
+      : base(CmdName, TargetId)
     {
       SvId = svId;
       Alert = alert;
@@ -11726,13 +11937,14 @@ namespace Sdx.Cmd
     }
 
     internal const string CmdName = "GetGpsCNavAlertFlagToSV";
+    internal const string TargetId = "";
 
     public GetGpsCNavAlertFlagToSV()
-      : base(CmdName)
+      : base(CmdName, TargetId)
     {}
 
     public GetGpsCNavAlertFlagToSV(int svId, string dataSetName = null)
-      : base(CmdName)
+      : base(CmdName, TargetId)
     {
       SvId = svId;
       DataSetName = dataSetName;
@@ -11791,13 +12003,14 @@ namespace Sdx.Cmd
     }
 
     internal const string CmdName = "GetGpsCNavAlertFlagToSVResult";
+    internal const string TargetId = "";
 
     public GetGpsCNavAlertFlagToSVResult()
-      : base(CmdName)
+      : base(CmdName, TargetId)
     {}
 
     public GetGpsCNavAlertFlagToSVResult(CommandBase relatedCommand, int svId, bool alert, string dataSetName = null)
-      : base(CmdName, relatedCommand)
+      : base(CmdName, TargetId, relatedCommand)
     {
       SvId = svId;
       Alert = alert;
@@ -11865,13 +12078,14 @@ namespace Sdx.Cmd
     }
 
     internal const string CmdName = "SetBeiDouHealthInfoForSV";
+    internal const string TargetId = "";
 
     public SetBeiDouHealthInfoForSV()
-      : base(CmdName)
+      : base(CmdName, TargetId)
     {}
 
     public SetBeiDouHealthInfoForSV(int svId, int health, string dataSetName = null)
-      : base(CmdName)
+      : base(CmdName, TargetId)
     {
       SvId = svId;
       Health = health;
@@ -11940,13 +12154,14 @@ namespace Sdx.Cmd
     }
 
     internal const string CmdName = "GetBeiDouHealthInfoForSV";
+    internal const string TargetId = "";
 
     public GetBeiDouHealthInfoForSV()
-      : base(CmdName)
+      : base(CmdName, TargetId)
     {}
 
     public GetBeiDouHealthInfoForSV(int svId, string dataSetName = null)
-      : base(CmdName)
+      : base(CmdName, TargetId)
     {
       SvId = svId;
       DataSetName = dataSetName;
@@ -12005,13 +12220,14 @@ namespace Sdx.Cmd
     }
 
     internal const string CmdName = "GetBeiDouHealthInfoForSVResult";
+    internal const string TargetId = "";
 
     public GetBeiDouHealthInfoForSVResult()
-      : base(CmdName)
+      : base(CmdName, TargetId)
     {}
 
     public GetBeiDouHealthInfoForSVResult(CommandBase relatedCommand, int svId, int health, string dataSetName = null)
-      : base(CmdName, relatedCommand)
+      : base(CmdName, TargetId, relatedCommand)
     {
       SvId = svId;
       Health = health;
@@ -12079,13 +12295,14 @@ namespace Sdx.Cmd
     }
 
     internal const string CmdName = "SetBeiDouAutonomousHealthForSV";
+    internal const string TargetId = "";
 
     public SetBeiDouAutonomousHealthForSV()
-      : base(CmdName)
+      : base(CmdName, TargetId)
     {}
 
     public SetBeiDouAutonomousHealthForSV(int svId, bool health, string dataSetName = null)
-      : base(CmdName)
+      : base(CmdName, TargetId)
     {
       SvId = svId;
       Health = health;
@@ -12154,13 +12371,14 @@ namespace Sdx.Cmd
     }
 
     internal const string CmdName = "GetBeiDouAutonomousHealthForSV";
+    internal const string TargetId = "";
 
     public GetBeiDouAutonomousHealthForSV()
-      : base(CmdName)
+      : base(CmdName, TargetId)
     {}
 
     public GetBeiDouAutonomousHealthForSV(int svId, string dataSetName = null)
-      : base(CmdName)
+      : base(CmdName, TargetId)
     {
       SvId = svId;
       DataSetName = dataSetName;
@@ -12219,13 +12437,14 @@ namespace Sdx.Cmd
     }
 
     internal const string CmdName = "GetBeiDouAutonomousHealthForSVResult";
+    internal const string TargetId = "";
 
     public GetBeiDouAutonomousHealthForSVResult()
-      : base(CmdName)
+      : base(CmdName, TargetId)
     {}
 
     public GetBeiDouAutonomousHealthForSVResult(CommandBase relatedCommand, int svId, bool health, string dataSetName = null)
-      : base(CmdName, relatedCommand)
+      : base(CmdName, TargetId, relatedCommand)
     {
       SvId = svId;
       Health = health;
@@ -12293,13 +12512,14 @@ namespace Sdx.Cmd
     }
 
     internal const string CmdName = "SetBeiDouCNavHealthInfoForSV";
+    internal const string TargetId = "";
 
     public SetBeiDouCNavHealthInfoForSV()
-      : base(CmdName)
+      : base(CmdName, TargetId)
     {}
 
     public SetBeiDouCNavHealthInfoForSV(int svId, int health, string dataSetName = null)
-      : base(CmdName)
+      : base(CmdName, TargetId)
     {
       SvId = svId;
       Health = health;
@@ -12368,13 +12588,14 @@ namespace Sdx.Cmd
     }
 
     internal const string CmdName = "GetBeiDouCNavHealthInfoForSV";
+    internal const string TargetId = "";
 
     public GetBeiDouCNavHealthInfoForSV()
-      : base(CmdName)
+      : base(CmdName, TargetId)
     {}
 
     public GetBeiDouCNavHealthInfoForSV(int svId, string dataSetName = null)
-      : base(CmdName)
+      : base(CmdName, TargetId)
     {
       SvId = svId;
       DataSetName = dataSetName;
@@ -12433,13 +12654,14 @@ namespace Sdx.Cmd
     }
 
     internal const string CmdName = "GetBeiDouCNavHealthInfoForSVResult";
+    internal const string TargetId = "";
 
     public GetBeiDouCNavHealthInfoForSVResult()
-      : base(CmdName)
+      : base(CmdName, TargetId)
     {}
 
     public GetBeiDouCNavHealthInfoForSVResult(CommandBase relatedCommand, int svId, int health, string dataSetName = null)
-      : base(CmdName, relatedCommand)
+      : base(CmdName, TargetId, relatedCommand)
     {
       SvId = svId;
       Health = health;
@@ -12507,13 +12729,14 @@ namespace Sdx.Cmd
     }
 
     internal const string CmdName = "SetBeiDouHealthStatusForSV";
+    internal const string TargetId = "";
 
     public SetBeiDouHealthStatusForSV()
-      : base(CmdName)
+      : base(CmdName, TargetId)
     {}
 
     public SetBeiDouHealthStatusForSV(int svId, int health, string dataSetName = null)
-      : base(CmdName)
+      : base(CmdName, TargetId)
     {
       SvId = svId;
       Health = health;
@@ -12582,13 +12805,14 @@ namespace Sdx.Cmd
     }
 
     internal const string CmdName = "GetBeiDouHealthStatusForSV";
+    internal const string TargetId = "";
 
     public GetBeiDouHealthStatusForSV()
-      : base(CmdName)
+      : base(CmdName, TargetId)
     {}
 
     public GetBeiDouHealthStatusForSV(int svId, string dataSetName = null)
-      : base(CmdName)
+      : base(CmdName, TargetId)
     {
       SvId = svId;
       DataSetName = dataSetName;
@@ -12647,13 +12871,14 @@ namespace Sdx.Cmd
     }
 
     internal const string CmdName = "GetBeiDouHealthStatusForSVResult";
+    internal const string TargetId = "";
 
     public GetBeiDouHealthStatusForSVResult()
-      : base(CmdName)
+      : base(CmdName, TargetId)
     {}
 
     public GetBeiDouHealthStatusForSVResult(CommandBase relatedCommand, int svId, int health, string dataSetName = null)
-      : base(CmdName, relatedCommand)
+      : base(CmdName, TargetId, relatedCommand)
     {
       SvId = svId;
       Health = health;
@@ -12720,13 +12945,14 @@ namespace Sdx.Cmd
     }
 
     internal const string CmdName = "SetGlonassEphemerisHealthFlagForSV";
+    internal const string TargetId = "";
 
     public SetGlonassEphemerisHealthFlagForSV()
-      : base(CmdName)
+      : base(CmdName, TargetId)
     {}
 
     public SetGlonassEphemerisHealthFlagForSV(int svId, bool health)
-      : base(CmdName)
+      : base(CmdName, TargetId)
     {
       SvId = svId;
       Health = health;
@@ -12781,13 +13007,14 @@ namespace Sdx.Cmd
     }
 
     internal const string CmdName = "GetGlonassEphemerisHealthFlagForSV";
+    internal const string TargetId = "";
 
     public GetGlonassEphemerisHealthFlagForSV()
-      : base(CmdName)
+      : base(CmdName, TargetId)
     {}
 
     public GetGlonassEphemerisHealthFlagForSV(int svId)
-      : base(CmdName)
+      : base(CmdName, TargetId)
     {
       SvId = svId;
     }
@@ -12832,13 +13059,14 @@ namespace Sdx.Cmd
     }
 
     internal const string CmdName = "GetGlonassEphemerisHealthFlagForSVResult";
+    internal const string TargetId = "";
 
     public GetGlonassEphemerisHealthFlagForSVResult()
-      : base(CmdName)
+      : base(CmdName, TargetId)
     {}
 
     public GetGlonassEphemerisHealthFlagForSVResult(CommandBase relatedCommand, int svId, bool health)
-      : base(CmdName, relatedCommand)
+      : base(CmdName, TargetId, relatedCommand)
     {
       SvId = svId;
       Health = health;
@@ -12892,13 +13120,14 @@ namespace Sdx.Cmd
     }
 
     internal const string CmdName = "SetGlonassAlmanacUnhealthyFlagForSV";
+    internal const string TargetId = "";
 
     public SetGlonassAlmanacUnhealthyFlagForSV()
-      : base(CmdName)
+      : base(CmdName, TargetId)
     {}
 
     public SetGlonassAlmanacUnhealthyFlagForSV(int svId, bool health)
-      : base(CmdName)
+      : base(CmdName, TargetId)
     {
       SvId = svId;
       Health = health;
@@ -12953,13 +13182,14 @@ namespace Sdx.Cmd
     }
 
     internal const string CmdName = "GetGlonassAlmanacUnhealthyFlagForSV";
+    internal const string TargetId = "";
 
     public GetGlonassAlmanacUnhealthyFlagForSV()
-      : base(CmdName)
+      : base(CmdName, TargetId)
     {}
 
     public GetGlonassAlmanacUnhealthyFlagForSV(int svId)
-      : base(CmdName)
+      : base(CmdName, TargetId)
     {
       SvId = svId;
     }
@@ -13004,13 +13234,14 @@ namespace Sdx.Cmd
     }
 
     internal const string CmdName = "GetGlonassAlmanacUnhealthyFlagForSVResult";
+    internal const string TargetId = "";
 
     public GetGlonassAlmanacUnhealthyFlagForSVResult()
-      : base(CmdName)
+      : base(CmdName, TargetId)
     {}
 
     public GetGlonassAlmanacUnhealthyFlagForSVResult(CommandBase relatedCommand, int svId, bool health)
-      : base(CmdName, relatedCommand)
+      : base(CmdName, TargetId, relatedCommand)
     {
       SvId = svId;
       Health = health;
@@ -13067,13 +13298,14 @@ namespace Sdx.Cmd
     }
 
     internal const string CmdName = "SetQzssSatelliteL1DataHealth";
+    internal const string TargetId = "";
 
     public SetQzssSatelliteL1DataHealth()
-      : base(CmdName)
+      : base(CmdName, TargetId)
     {}
 
     public SetQzssSatelliteL1DataHealth(int svId, int health, string dataSetName = null)
-      : base(CmdName)
+      : base(CmdName, TargetId)
     {
       SvId = svId;
       Health = health;
@@ -13143,13 +13375,14 @@ namespace Sdx.Cmd
     }
 
     internal const string CmdName = "SetQzssL1DataHealthForSV";
+    internal const string TargetId = "";
 
     public SetQzssL1DataHealthForSV()
-      : base(CmdName)
+      : base(CmdName, TargetId)
     {}
 
     public SetQzssL1DataHealthForSV(int svId, int health, string dataSetName = null)
-      : base(CmdName)
+      : base(CmdName, TargetId)
     {
       SvId = svId;
       Health = health;
@@ -13220,13 +13453,14 @@ namespace Sdx.Cmd
     }
 
     internal const string CmdName = "GetQzssSatelliteL1DataHealth";
+    internal const string TargetId = "";
 
     public GetQzssSatelliteL1DataHealth()
-      : base(CmdName)
+      : base(CmdName, TargetId)
     {}
 
     public GetQzssSatelliteL1DataHealth(int svId, string dataSetName = null)
-      : base(CmdName)
+      : base(CmdName, TargetId)
     {
       SvId = svId;
       DataSetName = dataSetName;
@@ -13284,13 +13518,14 @@ namespace Sdx.Cmd
     }
 
     internal const string CmdName = "GetQzssL1DataHealthForSV";
+    internal const string TargetId = "";
 
     public GetQzssL1DataHealthForSV()
-      : base(CmdName)
+      : base(CmdName, TargetId)
     {}
 
     public GetQzssL1DataHealthForSV(int svId, string dataSetName = null)
-      : base(CmdName)
+      : base(CmdName, TargetId)
     {
       SvId = svId;
       DataSetName = dataSetName;
@@ -13349,13 +13584,14 @@ namespace Sdx.Cmd
     }
   
     internal const string CmdName = "GetQzssSatelliteL1DataHealthResult";
+    internal const string TargetId = "";
 
     public GetQzssSatelliteL1DataHealthResult()
-      : base(CmdName)
+      : base(CmdName, TargetId)
     {}
 
     public GetQzssSatelliteL1DataHealthResult(CommandBase relatedCommand, int svId, int health, string dataSetName = null)
-      : base(CmdName, relatedCommand)
+      : base(CmdName, TargetId, relatedCommand)
     {
       SvId = svId;
       Health = health;
@@ -13438,13 +13674,14 @@ namespace Sdx.Cmd
     }
 
     internal const string CmdName = "SetQzssSatelliteL1Health";
+    internal const string TargetId = "";
 
     public SetQzssSatelliteL1Health()
-      : base(CmdName)
+      : base(CmdName, TargetId)
     {}
 
     public SetQzssSatelliteL1Health(int svId, bool health, string dataSetName = null)
-      : base(CmdName)
+      : base(CmdName, TargetId)
     {
       SvId = svId;
       Health = health;
@@ -13514,13 +13751,14 @@ namespace Sdx.Cmd
     }
 
     internal const string CmdName = "SetQzssL1HealthForSV";
+    internal const string TargetId = "";
 
     public SetQzssL1HealthForSV()
-      : base(CmdName)
+      : base(CmdName, TargetId)
     {}
 
     public SetQzssL1HealthForSV(int svId, bool health, string dataSetName = null)
-      : base(CmdName)
+      : base(CmdName, TargetId)
     {
       SvId = svId;
       Health = health;
@@ -13591,13 +13829,14 @@ namespace Sdx.Cmd
     }
 
     internal const string CmdName = "GetQzssSatelliteL1Health";
+    internal const string TargetId = "";
 
     public GetQzssSatelliteL1Health()
-      : base(CmdName)
+      : base(CmdName, TargetId)
     {}
 
     public GetQzssSatelliteL1Health(int svId, string dataSetName = null)
-      : base(CmdName)
+      : base(CmdName, TargetId)
     {
       SvId = svId;
       DataSetName = dataSetName;
@@ -13655,13 +13894,14 @@ namespace Sdx.Cmd
     }
 
     internal const string CmdName = "GetQzssL1HealthForSV";
+    internal const string TargetId = "";
 
     public GetQzssL1HealthForSV()
-      : base(CmdName)
+      : base(CmdName, TargetId)
     {}
 
     public GetQzssL1HealthForSV(int svId, string dataSetName = null)
-      : base(CmdName)
+      : base(CmdName, TargetId)
     {
       SvId = svId;
       DataSetName = dataSetName;
@@ -13720,13 +13960,14 @@ namespace Sdx.Cmd
     }
   
     internal const string CmdName = "GetQzssSatelliteL1HealthResult";
+    internal const string TargetId = "";
 
     public GetQzssSatelliteL1HealthResult()
-      : base(CmdName)
+      : base(CmdName, TargetId)
     {}
 
     public GetQzssSatelliteL1HealthResult(CommandBase relatedCommand, int svId, bool health, string dataSetName = null)
-      : base(CmdName, relatedCommand)
+      : base(CmdName, TargetId, relatedCommand)
     {
       SvId = svId;
       Health = health;
@@ -13809,13 +14050,14 @@ namespace Sdx.Cmd
     }
 
     internal const string CmdName = "SetQzssSatelliteL2Health";
+    internal const string TargetId = "";
 
     public SetQzssSatelliteL2Health()
-      : base(CmdName)
+      : base(CmdName, TargetId)
     {}
 
     public SetQzssSatelliteL2Health(int svId, bool health, string dataSetName = null)
-      : base(CmdName)
+      : base(CmdName, TargetId)
     {
       SvId = svId;
       Health = health;
@@ -13885,13 +14127,14 @@ namespace Sdx.Cmd
     }
 
     internal const string CmdName = "SetQzssL2HealthForSV";
+    internal const string TargetId = "";
 
     public SetQzssL2HealthForSV()
-      : base(CmdName)
+      : base(CmdName, TargetId)
     {}
 
     public SetQzssL2HealthForSV(int svId, bool health, string dataSetName = null)
-      : base(CmdName)
+      : base(CmdName, TargetId)
     {
       SvId = svId;
       Health = health;
@@ -13962,13 +14205,14 @@ namespace Sdx.Cmd
     }
 
     internal const string CmdName = "GetQzssSatelliteL2Health";
+    internal const string TargetId = "";
 
     public GetQzssSatelliteL2Health()
-      : base(CmdName)
+      : base(CmdName, TargetId)
     {}
 
     public GetQzssSatelliteL2Health(int svId, string dataSetName = null)
-      : base(CmdName)
+      : base(CmdName, TargetId)
     {
       SvId = svId;
       DataSetName = dataSetName;
@@ -14026,13 +14270,14 @@ namespace Sdx.Cmd
     }
 
     internal const string CmdName = "GetQzssL2HealthForSV";
+    internal const string TargetId = "";
 
     public GetQzssL2HealthForSV()
-      : base(CmdName)
+      : base(CmdName, TargetId)
     {}
 
     public GetQzssL2HealthForSV(int svId, string dataSetName = null)
-      : base(CmdName)
+      : base(CmdName, TargetId)
     {
       SvId = svId;
       DataSetName = dataSetName;
@@ -14091,13 +14336,14 @@ namespace Sdx.Cmd
     }
   
     internal const string CmdName = "GetQzssSatelliteL2HealthResult";
+    internal const string TargetId = "";
 
     public GetQzssSatelliteL2HealthResult()
-      : base(CmdName)
+      : base(CmdName, TargetId)
     {}
 
     public GetQzssSatelliteL2HealthResult(CommandBase relatedCommand, int svId, bool health, string dataSetName = null)
-      : base(CmdName, relatedCommand)
+      : base(CmdName, TargetId, relatedCommand)
     {
       SvId = svId;
       Health = health;
@@ -14180,13 +14426,14 @@ namespace Sdx.Cmd
     }
 
     internal const string CmdName = "SetQzssSatelliteL5Health";
+    internal const string TargetId = "";
 
     public SetQzssSatelliteL5Health()
-      : base(CmdName)
+      : base(CmdName, TargetId)
     {}
 
     public SetQzssSatelliteL5Health(int svId, bool health, string dataSetName = null)
-      : base(CmdName)
+      : base(CmdName, TargetId)
     {
       SvId = svId;
       Health = health;
@@ -14256,13 +14503,14 @@ namespace Sdx.Cmd
     }
 
     internal const string CmdName = "SetQzssL5HealthForSV";
+    internal const string TargetId = "";
 
     public SetQzssL5HealthForSV()
-      : base(CmdName)
+      : base(CmdName, TargetId)
     {}
 
     public SetQzssL5HealthForSV(int svId, bool health, string dataSetName = null)
-      : base(CmdName)
+      : base(CmdName, TargetId)
     {
       SvId = svId;
       Health = health;
@@ -14333,13 +14581,14 @@ namespace Sdx.Cmd
     }
 
     internal const string CmdName = "GetQzssSatelliteL5Health";
+    internal const string TargetId = "";
 
     public GetQzssSatelliteL5Health()
-      : base(CmdName)
+      : base(CmdName, TargetId)
     {}
 
     public GetQzssSatelliteL5Health(int svId, string dataSetName = null)
-      : base(CmdName)
+      : base(CmdName, TargetId)
     {
       SvId = svId;
       DataSetName = dataSetName;
@@ -14397,13 +14646,14 @@ namespace Sdx.Cmd
     }
 
     internal const string CmdName = "GetQzssL5HealthForSV";
+    internal const string TargetId = "";
 
     public GetQzssL5HealthForSV()
-      : base(CmdName)
+      : base(CmdName, TargetId)
     {}
 
     public GetQzssL5HealthForSV(int svId, string dataSetName = null)
-      : base(CmdName)
+      : base(CmdName, TargetId)
     {
       SvId = svId;
       DataSetName = dataSetName;
@@ -14462,13 +14712,14 @@ namespace Sdx.Cmd
     }
   
     internal const string CmdName = "GetQzssSatelliteL5HealthResult";
+    internal const string TargetId = "";
 
     public GetQzssSatelliteL5HealthResult()
-      : base(CmdName)
+      : base(CmdName, TargetId)
     {}
 
     public GetQzssSatelliteL5HealthResult(CommandBase relatedCommand, int svId, bool health, string dataSetName = null)
-      : base(CmdName, relatedCommand)
+      : base(CmdName, TargetId, relatedCommand)
     {
       SvId = svId;
       Health = health;
@@ -14551,13 +14802,14 @@ namespace Sdx.Cmd
     }
 
     internal const string CmdName = "SetQzssSatelliteL1cHealth";
+    internal const string TargetId = "";
 
     public SetQzssSatelliteL1cHealth()
-      : base(CmdName)
+      : base(CmdName, TargetId)
     {}
 
     public SetQzssSatelliteL1cHealth(int svId, bool health, string dataSetName = null)
-      : base(CmdName)
+      : base(CmdName, TargetId)
     {
       SvId = svId;
       Health = health;
@@ -14627,13 +14879,14 @@ namespace Sdx.Cmd
     }
 
     internal const string CmdName = "SetQzssL1cHealthForSV";
+    internal const string TargetId = "";
 
     public SetQzssL1cHealthForSV()
-      : base(CmdName)
+      : base(CmdName, TargetId)
     {}
 
     public SetQzssL1cHealthForSV(int svId, bool health, string dataSetName = null)
-      : base(CmdName)
+      : base(CmdName, TargetId)
     {
       SvId = svId;
       Health = health;
@@ -14704,13 +14957,14 @@ namespace Sdx.Cmd
     }
 
     internal const string CmdName = "GetQzssSatelliteL1cHealth";
+    internal const string TargetId = "";
 
     public GetQzssSatelliteL1cHealth()
-      : base(CmdName)
+      : base(CmdName, TargetId)
     {}
 
     public GetQzssSatelliteL1cHealth(int svId, string dataSetName = null)
-      : base(CmdName)
+      : base(CmdName, TargetId)
     {
       SvId = svId;
       DataSetName = dataSetName;
@@ -14768,13 +15022,14 @@ namespace Sdx.Cmd
     }
 
     internal const string CmdName = "GetQzssL1cHealthForSV";
+    internal const string TargetId = "";
 
     public GetQzssL1cHealthForSV()
-      : base(CmdName)
+      : base(CmdName, TargetId)
     {}
 
     public GetQzssL1cHealthForSV(int svId, string dataSetName = null)
-      : base(CmdName)
+      : base(CmdName, TargetId)
     {
       SvId = svId;
       DataSetName = dataSetName;
@@ -14833,13 +15088,14 @@ namespace Sdx.Cmd
     }
   
     internal const string CmdName = "GetQzssSatelliteL1cHealthResult";
+    internal const string TargetId = "";
 
     public GetQzssSatelliteL1cHealthResult()
-      : base(CmdName)
+      : base(CmdName, TargetId)
     {}
 
     public GetQzssSatelliteL1cHealthResult(CommandBase relatedCommand, int svId, bool health, string dataSetName = null)
-      : base(CmdName, relatedCommand)
+      : base(CmdName, TargetId, relatedCommand)
     {
       SvId = svId;
       Health = health;
@@ -14922,13 +15178,14 @@ namespace Sdx.Cmd
     }
 
     internal const string CmdName = "SetQzssSatelliteNavAlertFlag";
+    internal const string TargetId = "";
 
     public SetQzssSatelliteNavAlertFlag()
-      : base(CmdName)
+      : base(CmdName, TargetId)
     {}
 
     public SetQzssSatelliteNavAlertFlag(int svId, bool alert, string dataSetName = null)
-      : base(CmdName)
+      : base(CmdName, TargetId)
     {
       SvId = svId;
       Alert = alert;
@@ -14998,13 +15255,14 @@ namespace Sdx.Cmd
     }
 
     internal const string CmdName = "SetQzssNavAlertFlagForSV";
+    internal const string TargetId = "";
 
     public SetQzssNavAlertFlagForSV()
-      : base(CmdName)
+      : base(CmdName, TargetId)
     {}
 
     public SetQzssNavAlertFlagForSV(int svId, bool alert, string dataSetName = null)
-      : base(CmdName)
+      : base(CmdName, TargetId)
     {
       SvId = svId;
       Alert = alert;
@@ -15075,13 +15333,14 @@ namespace Sdx.Cmd
     }
 
     internal const string CmdName = "GetQzssSatelliteNavAlertFlag";
+    internal const string TargetId = "";
 
     public GetQzssSatelliteNavAlertFlag()
-      : base(CmdName)
+      : base(CmdName, TargetId)
     {}
 
     public GetQzssSatelliteNavAlertFlag(int svId, string dataSetName = null)
-      : base(CmdName)
+      : base(CmdName, TargetId)
     {
       SvId = svId;
       DataSetName = dataSetName;
@@ -15139,13 +15398,14 @@ namespace Sdx.Cmd
     }
 
     internal const string CmdName = "GetQzssNavAlertFlagForSV";
+    internal const string TargetId = "";
 
     public GetQzssNavAlertFlagForSV()
-      : base(CmdName)
+      : base(CmdName, TargetId)
     {}
 
     public GetQzssNavAlertFlagForSV(int svId, string dataSetName = null)
-      : base(CmdName)
+      : base(CmdName, TargetId)
     {
       SvId = svId;
       DataSetName = dataSetName;
@@ -15204,13 +15464,14 @@ namespace Sdx.Cmd
     }
   
     internal const string CmdName = "GetQzssSatelliteNavAlertFlagResult";
+    internal const string TargetId = "";
 
     public GetQzssSatelliteNavAlertFlagResult()
-      : base(CmdName)
+      : base(CmdName, TargetId)
     {}
 
     public GetQzssSatelliteNavAlertFlagResult(CommandBase relatedCommand, int svId, bool alert, string dataSetName = null)
-      : base(CmdName, relatedCommand)
+      : base(CmdName, TargetId, relatedCommand)
     {
       SvId = svId;
       Alert = alert;
@@ -15293,13 +15554,14 @@ namespace Sdx.Cmd
     }
 
     internal const string CmdName = "SetNavICSatelliteL5Health";
+    internal const string TargetId = "";
 
     public SetNavICSatelliteL5Health()
-      : base(CmdName)
+      : base(CmdName, TargetId)
     {}
 
     public SetNavICSatelliteL5Health(int svId, bool health, string dataSetName = null)
-      : base(CmdName)
+      : base(CmdName, TargetId)
     {
       SvId = svId;
       Health = health;
@@ -15369,13 +15631,14 @@ namespace Sdx.Cmd
     }
 
     internal const string CmdName = "SetNavICL5HealthForSV";
+    internal const string TargetId = "";
 
     public SetNavICL5HealthForSV()
-      : base(CmdName)
+      : base(CmdName, TargetId)
     {}
 
     public SetNavICL5HealthForSV(int svId, bool health, string dataSetName = null)
-      : base(CmdName)
+      : base(CmdName, TargetId)
     {
       SvId = svId;
       Health = health;
@@ -15446,13 +15709,14 @@ namespace Sdx.Cmd
     }
 
     internal const string CmdName = "GetNavICSatelliteL5Health";
+    internal const string TargetId = "";
 
     public GetNavICSatelliteL5Health()
-      : base(CmdName)
+      : base(CmdName, TargetId)
     {}
 
     public GetNavICSatelliteL5Health(int svId, string dataSetName = null)
-      : base(CmdName)
+      : base(CmdName, TargetId)
     {
       SvId = svId;
       DataSetName = dataSetName;
@@ -15510,13 +15774,14 @@ namespace Sdx.Cmd
     }
 
     internal const string CmdName = "GetNavICL5HealthForSV";
+    internal const string TargetId = "";
 
     public GetNavICL5HealthForSV()
-      : base(CmdName)
+      : base(CmdName, TargetId)
     {}
 
     public GetNavICL5HealthForSV(int svId, string dataSetName = null)
-      : base(CmdName)
+      : base(CmdName, TargetId)
     {
       SvId = svId;
       DataSetName = dataSetName;
@@ -15575,13 +15840,14 @@ namespace Sdx.Cmd
     }
   
     internal const string CmdName = "GetNavICSatelliteL5HealthResult";
+    internal const string TargetId = "";
 
     public GetNavICSatelliteL5HealthResult()
-      : base(CmdName)
+      : base(CmdName, TargetId)
     {}
 
     public GetNavICSatelliteL5HealthResult(CommandBase relatedCommand, int svId, bool health, string dataSetName = null)
-      : base(CmdName, relatedCommand)
+      : base(CmdName, TargetId, relatedCommand)
     {
       SvId = svId;
       Health = health;
@@ -15664,13 +15930,14 @@ namespace Sdx.Cmd
     }
 
     internal const string CmdName = "SetNavICSatelliteNavAlertFlag";
+    internal const string TargetId = "";
 
     public SetNavICSatelliteNavAlertFlag()
-      : base(CmdName)
+      : base(CmdName, TargetId)
     {}
 
     public SetNavICSatelliteNavAlertFlag(int svId, bool alert, string dataSetName = null)
-      : base(CmdName)
+      : base(CmdName, TargetId)
     {
       SvId = svId;
       Alert = alert;
@@ -15740,13 +16007,14 @@ namespace Sdx.Cmd
     }
 
     internal const string CmdName = "SetNavICNavAlertFlagForSV";
+    internal const string TargetId = "";
 
     public SetNavICNavAlertFlagForSV()
-      : base(CmdName)
+      : base(CmdName, TargetId)
     {}
 
     public SetNavICNavAlertFlagForSV(int svId, bool alert, string dataSetName = null)
-      : base(CmdName)
+      : base(CmdName, TargetId)
     {
       SvId = svId;
       Alert = alert;
@@ -15817,13 +16085,14 @@ namespace Sdx.Cmd
     }
 
     internal const string CmdName = "GetNavICSatelliteNavAlertFlag";
+    internal const string TargetId = "";
 
     public GetNavICSatelliteNavAlertFlag()
-      : base(CmdName)
+      : base(CmdName, TargetId)
     {}
 
     public GetNavICSatelliteNavAlertFlag(int svId, string dataSetName = null)
-      : base(CmdName)
+      : base(CmdName, TargetId)
     {
       SvId = svId;
       DataSetName = dataSetName;
@@ -15881,13 +16150,14 @@ namespace Sdx.Cmd
     }
 
     internal const string CmdName = "GetNavICNavAlertFlagForSV";
+    internal const string TargetId = "";
 
     public GetNavICNavAlertFlagForSV()
-      : base(CmdName)
+      : base(CmdName, TargetId)
     {}
 
     public GetNavICNavAlertFlagForSV(int svId, string dataSetName = null)
-      : base(CmdName)
+      : base(CmdName, TargetId)
     {
       SvId = svId;
       DataSetName = dataSetName;
@@ -15946,13 +16216,14 @@ namespace Sdx.Cmd
     }
   
     internal const string CmdName = "GetNavICSatelliteNavAlertFlagResult";
+    internal const string TargetId = "";
 
     public GetNavICSatelliteNavAlertFlagResult()
-      : base(CmdName)
+      : base(CmdName, TargetId)
     {}
 
     public GetNavICSatelliteNavAlertFlagResult(CommandBase relatedCommand, int svId, bool alert, string dataSetName = null)
-      : base(CmdName, relatedCommand)
+      : base(CmdName, TargetId, relatedCommand)
     {
       SvId = svId;
       Alert = alert;
@@ -16033,13 +16304,14 @@ namespace Sdx.Cmd
     }
 
     internal const string CmdName = "SetPowerGlobalOffset";
+    internal const string TargetId = "";
 
     public SetPowerGlobalOffset()
-      : base(CmdName)
+      : base(CmdName, TargetId)
     {}
 
     public SetPowerGlobalOffset(double offset)
-      : base(CmdName)
+      : base(CmdName, TargetId)
     {
       Offset = offset;
     }
@@ -16083,13 +16355,14 @@ namespace Sdx.Cmd
     }
 
     internal const string CmdName = "SetGlobalPowerOffset";
+    internal const string TargetId = "";
 
     public SetGlobalPowerOffset()
-      : base(CmdName)
+      : base(CmdName, TargetId)
     {}
 
     public SetGlobalPowerOffset(double offset)
-      : base(CmdName)
+      : base(CmdName, TargetId)
     {
       Offset = offset;
     }
@@ -16133,9 +16406,10 @@ namespace Sdx.Cmd
     }
 
     internal const string CmdName = "GetPowerGlobalOffset";
+    internal const string TargetId = "";
 
     public GetPowerGlobalOffset()
-      : base(CmdName)
+      : base(CmdName, TargetId)
     {}
       
     public override bool IsValid
@@ -16165,9 +16439,10 @@ namespace Sdx.Cmd
     }
 
     internal const string CmdName = "GetGlobalPowerOffset";
+    internal const string TargetId = "";
 
     public GetGlobalPowerOffset()
-      : base(CmdName)
+      : base(CmdName, TargetId)
     {}
       
     public override bool IsValid
@@ -16199,13 +16474,14 @@ namespace Sdx.Cmd
     }
   
     internal const string CmdName = "GetPowerGlobalOffsetResult";
+    internal const string TargetId = "";
 
     public GetPowerGlobalOffsetResult()
-      : base(CmdName)
+      : base(CmdName, TargetId)
     {}
 
     public GetPowerGlobalOffsetResult(CommandBase relatedCommand, double offset)
-      : base(CmdName, relatedCommand)
+      : base(CmdName, TargetId, relatedCommand)
     {
       Offset = offset;
     }
@@ -16261,7 +16537,7 @@ namespace Sdx.Cmd
   /// Signal string Accepted signal keys: "L1CA", "L1C", "L1P", "L1ME", "L1MR", "L2C", "L2P", "L2ME", "L2MR", "L5",
   ///                                     "G1", "G2", "E1", "E1PRS", "E5a", "E5b", "E6BC", "E6PRS",
   ///                                     "B1", "B2", "B1C", "B2a", "B3I", "QZSSL1CA", "QZSSL1CB", "QZSSL1C",
-  ///                                     "QZSSL2C", "QZSSL5", "QZSSL1S", "QZSSL5S", "NAVICL5"
+  ///                                     "QZSSL2C", "QZSSL5", "QZSSL1S", "QZSSL5S", "NAVICL5", "PULSARXL"
   /// Offset double Offset in dB (negative value will attenuate signal)
   ///
 
@@ -16273,13 +16549,14 @@ namespace Sdx.Cmd
     }
 
     internal const string CmdName = "SetPowerOffset";
+    internal const string TargetId = "";
 
     public SetPowerOffset()
-      : base(CmdName)
+      : base(CmdName, TargetId)
     {}
 
     public SetPowerOffset(string signal, double offset)
-      : base(CmdName)
+      : base(CmdName, TargetId)
     {
       Signal = signal;
       Offset = offset;
@@ -16326,7 +16603,7 @@ namespace Sdx.Cmd
   /// Signal string Accepted signal keys: "L1CA", "L1C", "L1P", "L1ME", "L1MR", "L2C", "L2P", "L2ME", "L2MR", "L5",
   ///                                     "G1", "G2", "E1", "E1PRS", "E5a", "E5b", "E6BC", "E6PRS",
   ///                                     "B1", "B2", "B1C", "B2a", "B3I", "QZSSL1CA", "QZSSL1CB", "QZSSL1C",
-  ///                                     "QZSSL2C", "QZSSL5", "QZSSL1S", "QZSSL5S", "NAVICL5"
+  ///                                     "QZSSL2C", "QZSSL5", "QZSSL1S", "QZSSL5S", "NAVICL5", "PULSARXL"
   /// Offset double Offset in dB (negative value will attenuate signal)
   ///
 
@@ -16338,13 +16615,14 @@ namespace Sdx.Cmd
     }
 
     internal const string CmdName = "SetSignalPowerOffset";
+    internal const string TargetId = "";
 
     public SetSignalPowerOffset()
-      : base(CmdName)
+      : base(CmdName, TargetId)
     {}
 
     public SetSignalPowerOffset(string signal, double offset)
-      : base(CmdName)
+      : base(CmdName, TargetId)
     {
       Signal = signal;
       Offset = offset;
@@ -16393,7 +16671,7 @@ namespace Sdx.Cmd
   /// Signal string Accepted signal keys: "L1CA", "L1C", "L1P", "L1ME", "L1MR", "L2C", "L2P", "L2ME", "L2MR", "L5",
   ///                                     "G1", "G2", "E1", "E1PRS", "E5a", "E5b", "E6BC", "E6PRS",
   ///                                     "B1", "B2", "B1C", "B2a", "B3I", "QZSSL1CA", "QZSSL1CB", "QZSSL1C",
-  ///                                     "QZSSL2C", "QZSSL5", "QZSSL1S", "QZSSL5S", "NAVICL5"
+  ///                                     "QZSSL2C", "QZSSL5", "QZSSL1S", "QZSSL5S", "NAVICL5", "PULSARXL"
   ///
 
   public class GetPowerOffset : CommandBase
@@ -16404,13 +16682,14 @@ namespace Sdx.Cmd
     }
 
     internal const string CmdName = "GetPowerOffset";
+    internal const string TargetId = "";
 
     public GetPowerOffset()
-      : base(CmdName)
+      : base(CmdName, TargetId)
     {}
 
     public GetPowerOffset(string signal)
-      : base(CmdName)
+      : base(CmdName, TargetId)
     {
       Signal = signal;
     }
@@ -16446,7 +16725,7 @@ namespace Sdx.Cmd
   /// Signal string Accepted signal keys: "L1CA", "L1C", "L1P", "L1ME", "L1MR", "L2C", "L2P", "L2ME", "L2MR", "L5",
   ///                                     "G1", "G2", "E1", "E1PRS", "E5a", "E5b", "E6BC", "E6PRS",
   ///                                     "B1", "B2", "B1C", "B2a", "B3I", "QZSSL1CA", "QZSSL1CB", "QZSSL1C",
-  ///                                     "QZSSL2C", "QZSSL5", "QZSSL1S", "QZSSL5S", "NAVICL5"
+  ///                                     "QZSSL2C", "QZSSL5", "QZSSL1S", "QZSSL5S", "NAVICL5", "PULSARXL"
   ///
 
   public class GetSignalPowerOffset : CommandBase
@@ -16457,13 +16736,14 @@ namespace Sdx.Cmd
     }
 
     internal const string CmdName = "GetSignalPowerOffset";
+    internal const string TargetId = "";
 
     public GetSignalPowerOffset()
-      : base(CmdName)
+      : base(CmdName, TargetId)
     {}
 
     public GetSignalPowerOffset(string signal)
-      : base(CmdName)
+      : base(CmdName, TargetId)
     {
       Signal = signal;
     }
@@ -16499,7 +16779,7 @@ namespace Sdx.Cmd
   /// Signal string Accepted signal keys: "L1CA", "L1C", "L1P", "L1ME", "L1MR", "L2C", "L2P", "L2ME", "L2MR", "L5",
   ///                                     "G1", "G2", "E1", "E1PRS", "E5a", "E5b", "E6BC", "E6PRS",
   ///                                     "B1", "B2", "B1C", "B2a", "B3I", "QZSSL1CA", "QZSSL1CB", "QZSSL1C",
-  ///                                     "QZSSL2C", "QZSSL5", "QZSSL1S", "QZSSL5S", "NAVICL5"
+  ///                                     "QZSSL2C", "QZSSL5", "QZSSL1S", "QZSSL5S", "NAVICL5", "PULSARXL"
   /// Offset double Offset in dB (negative value will attenuate signal)
   ///
 
@@ -16511,13 +16791,14 @@ namespace Sdx.Cmd
     }
   
     internal const string CmdName = "GetPowerOffsetResult";
+    internal const string TargetId = "";
 
     public GetPowerOffsetResult()
-      : base(CmdName)
+      : base(CmdName, TargetId)
     {}
 
     public GetPowerOffsetResult(CommandBase relatedCommand, string signal, double offset)
-      : base(CmdName, relatedCommand)
+      : base(CmdName, TargetId, relatedCommand)
     {
       Signal = signal;
       Offset = offset;
@@ -16553,7 +16834,7 @@ namespace Sdx.Cmd
   /// Signal string Accepted signal keys: "L1CA", "L1C", "L1P", "L1ME", "L1MR", "L2C", "L2P", "L2ME", "L2MR", "L5",
   ///                                     "G1", "G2", "E1", "E1PRS", "E5a", "E5b", "E6BC", "E6PRS",
   ///                                     "B1", "B2", "B1C", "B2a", "B3I", "QZSSL1CA", "QZSSL1CB", "QZSSL1C",
-  ///                                     "QZSSL2C", "QZSSL5", "QZSSL1S", "QZSSL5S", "NAVICL5"
+  ///                                     "QZSSL2C", "QZSSL5", "QZSSL1S", "QZSSL5S", "NAVICL5", "PULSARXL"
   /// Offset double Offset in dB (negative value will attenuate signal)
   ///
 
@@ -16592,13 +16873,14 @@ namespace Sdx.Cmd
     }
 
     internal const string CmdName = "SetPowerSbasOffset";
+    internal const string TargetId = "";
 
     public SetPowerSbasOffset()
-      : base(CmdName)
+      : base(CmdName, TargetId)
     {}
 
     public SetPowerSbasOffset(string serviceProvider, double offset)
-      : base(CmdName)
+      : base(CmdName, TargetId)
     {
       ServiceProvider = serviceProvider;
       Offset = offset;
@@ -16653,13 +16935,14 @@ namespace Sdx.Cmd
     }
 
     internal const string CmdName = "GetPowerSbasOffset";
+    internal const string TargetId = "";
 
     public GetPowerSbasOffset()
-      : base(CmdName)
+      : base(CmdName, TargetId)
     {}
 
     public GetPowerSbasOffset(string serviceProvider)
-      : base(CmdName)
+      : base(CmdName, TargetId)
     {
       ServiceProvider = serviceProvider;
     }
@@ -16704,13 +16987,14 @@ namespace Sdx.Cmd
     }
 
     internal const string CmdName = "GetPowerSbasOffsetResult";
+    internal const string TargetId = "";
 
     public GetPowerSbasOffsetResult()
-      : base(CmdName)
+      : base(CmdName, TargetId)
     {}
 
     public GetPowerSbasOffsetResult(CommandBase relatedCommand, string serviceProvider, double offset)
-      : base(CmdName, relatedCommand)
+      : base(CmdName, TargetId, relatedCommand)
     {
       ServiceProvider = serviceProvider;
       Offset = offset;
@@ -16754,7 +17038,7 @@ namespace Sdx.Cmd
   ///
   /// Name            Type   Description
   /// --------------- ------ ------------------------------------------------------------------------------------------------------------------------------------
-  /// Type            string Target type can be "Anechoic Chamber", "DTA-2115B", "File", "N310", "None", "NoneRT", "X300" or "Wavefront Controller".
+  /// Type            string Target type can be "DTA-2115B", "File", "N310", "None", "NoneRT", "X300" or "Wavefront Controller".
   /// Path            string File path. Optional, use only if type is "File".
   /// Address         string Optional. IP Address if type is "N310" or "X300".
   /// ClockIsExternal bool   Indicate 10 MHz reference clock is external (true) or internal (false). Optional, use only if type is "DTA-2115B", "N310" or "X300".
@@ -16769,13 +17053,14 @@ namespace Sdx.Cmd
     }
 
     internal const string CmdName = "SetModulationTarget";
+    internal const string TargetId = "";
 
     public SetModulationTarget()
-      : base(CmdName)
+      : base(CmdName, TargetId)
     {}
 
     public SetModulationTarget(string type, string path, string address, bool clockIsExternal, string id)
-      : base(CmdName)
+      : base(CmdName, TargetId)
     {
       Type = type;
       Path = path;
@@ -16865,13 +17150,14 @@ namespace Sdx.Cmd
     }
 
     internal const string CmdName = "GetModulationTarget";
+    internal const string TargetId = "";
 
     public GetModulationTarget()
-      : base(CmdName)
+      : base(CmdName, TargetId)
     {}
 
     public GetModulationTarget(string id)
-      : base(CmdName)
+      : base(CmdName, TargetId)
     {
       Id = id;
     }
@@ -16904,7 +17190,7 @@ namespace Sdx.Cmd
   ///
   /// Name            Type   Description
   /// --------------- ------ ------------------------------------------------------------------------------------------------------------------------------------
-  /// Type            string Target type can be "Anechoic Chamber", "DTA-2115B", "File", "N310", "None", "NoneRT", "X300" or "Wavefront Controller".
+  /// Type            string Target type can be "DTA-2115B", "File", "N310", "None", "NoneRT", "X300" or "Wavefront Controller".
   /// Path            string File path. Optional, use only if type is "File".
   /// Address         string Optional. IP Address if type is "N310" or "X300".
   /// ClockIsExternal bool   Indicate 10 MHz reference clock is external (true) or internal (false). Optional, use only if type is "DTA-2115B", "N310" or "X300".
@@ -16919,13 +17205,14 @@ namespace Sdx.Cmd
     }
 
     internal const string CmdName = "GetModulationTargetResult";
+    internal const string TargetId = "";
 
     public GetModulationTargetResult()
-      : base(CmdName)
+      : base(CmdName, TargetId)
     {}
 
     public GetModulationTargetResult(CommandBase relatedCommand, string type, string path, string address, bool clockIsExternal, string id)
-      : base(CmdName, relatedCommand)
+      : base(CmdName, TargetId, relatedCommand)
     {
       Type = type;
       Path = path;
@@ -17013,13 +17300,14 @@ namespace Sdx.Cmd
     }
 
     internal const string CmdName = "SetGpu";
+    internal const string TargetId = "";
 
     public SetGpu()
-      : base(CmdName)
+      : base(CmdName, TargetId)
     {}
 
     public SetGpu(int gpuIdx, int output, string id)
-      : base(CmdName)
+      : base(CmdName, TargetId)
     {
       GpuIdx = gpuIdx;
       Output = output;
@@ -17086,13 +17374,14 @@ namespace Sdx.Cmd
     }
 
     internal const string CmdName = "GetGpu";
+    internal const string TargetId = "";
 
     public GetGpu()
-      : base(CmdName)
+      : base(CmdName, TargetId)
     {}
 
     public GetGpu(int output, string id)
-      : base(CmdName)
+      : base(CmdName, TargetId)
     {
       Output = output;
       Id = id;
@@ -17149,13 +17438,14 @@ namespace Sdx.Cmd
     }
 
     internal const string CmdName = "GetGpuResult";
+    internal const string TargetId = "";
 
     public GetGpuResult()
-      : base(CmdName)
+      : base(CmdName, TargetId)
     {}
 
     public GetGpuResult(CommandBase relatedCommand, int gpuIdx, int output, string id)
-      : base(CmdName, relatedCommand)
+      : base(CmdName, TargetId, relatedCommand)
     {
       GpuIdx = gpuIdx;
       Output = output;
@@ -17217,9 +17507,10 @@ namespace Sdx.Cmd
     }
 
     internal const string CmdName = "GetAllModulationTargets";
+    internal const string TargetId = "";
 
     public GetAllModulationTargets()
-      : base(CmdName)
+      : base(CmdName, TargetId)
     {}
       
     public override bool IsValid
@@ -17251,13 +17542,14 @@ namespace Sdx.Cmd
     }
 
     internal const string CmdName = "GetAllModulationTargetsResult";
+    internal const string TargetId = "";
 
     public GetAllModulationTargetsResult()
-      : base(CmdName)
+      : base(CmdName, TargetId)
     {}
 
     public GetAllModulationTargetsResult(CommandBase relatedCommand, List<string> ids)
-      : base(CmdName, relatedCommand)
+      : base(CmdName, TargetId, relatedCommand)
     {
       Ids = ids;
     }
@@ -17299,13 +17591,14 @@ namespace Sdx.Cmd
     }
 
     internal const string CmdName = "RemoveModulationTarget";
+    internal const string TargetId = "";
 
     public RemoveModulationTarget()
-      : base(CmdName)
+      : base(CmdName, TargetId)
     {}
 
     public RemoveModulationTarget(string id)
-      : base(CmdName)
+      : base(CmdName, TargetId)
     {
       Id = id;
     }
@@ -17347,9 +17640,10 @@ namespace Sdx.Cmd
     }
 
     internal const string CmdName = "RemoveAllModulationTargets";
+    internal const string TargetId = "";
 
     public RemoveAllModulationTargets()
-      : base(CmdName)
+      : base(CmdName, TargetId)
     {}
       
     public override bool IsValid
@@ -17382,13 +17676,14 @@ namespace Sdx.Cmd
     }
 
     internal const string CmdName = "ChangeModulationTargetName";
+    internal const string TargetId = "";
 
     public ChangeModulationTargetName()
-      : base(CmdName)
+      : base(CmdName, TargetId)
     {}
 
     public ChangeModulationTargetName(string targetName, string id)
-      : base(CmdName)
+      : base(CmdName, TargetId)
     {
       TargetName = targetName;
       Id = id;
@@ -17433,12 +17728,12 @@ namespace Sdx.Cmd
   /// but it is possible to set constaints with MinRate and MaxRate.
   ///
   /// Name             Type            Description
-  /// ---------------- --------------- -----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+  /// ---------------- --------------- -----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
   /// Output           int             Output index (zero based)
   /// MinRate          int             Minimum sampling rate (12500000, 25000000, 50000000, 60000000, 100000000)
   /// MaxRate          int             Maximum sampling rate (12500000, 25000000, 50000000, 60000000, 100000000)
   /// Band             string          Frequency band is "LowerL" or "UpperL"
-  /// Signal           string          Comma separated signal keys, accepted signal keys: "L1CA", "L1C", "L1P", "L1ME", "L1MR", "L2C", "L2P", "L2ME", "L2MR", "L5", "G1", "G2", "E1", "E5a", "E5b", "B1", "B2", "B1C", "B2a", "B3I", "SBASL1", "QZSSL1CA", "QZSSL1CB", "QZSSL1C", "QZSSL2C", "QZSSL5", "QZSSL1S", "QZSSL5S", "NAVICL5"
+  /// Signal           string          Comma separated signal keys, accepted signal keys: "L1CA", "L1C", "L1P", "L1ME", "L1MR", "L2C", "L2P", "L2ME", "L2MR", "L5", "G1", "G2", "E1", "E5a", "E5b", "B1", "B2", "B1C", "B2a", "B3I", "SBASL1", "QZSSL1CA", "QZSSL1CB", "QZSSL1C", "QZSSL2C", "QZSSL5", "QZSSL1S", "QZSSL5S", "NAVICL5", "PULSARXL"
   /// Gain             int             The gain associated to this output (dB). This value has to be between the radio minimum value and 115. A negative value means to use the radio default value.
   /// GaussianNoise    bool            If true, add Gaussian noise to ensure realistic signal to noise ratio. When combining multiple outputs, only one should have Gaussian noise enabled.
   /// Id               string          Target identifier
@@ -17453,13 +17748,14 @@ namespace Sdx.Cmd
     }
 
     internal const string CmdName = "ChangeModulationTargetSignals";
+    internal const string TargetId = "";
 
     public ChangeModulationTargetSignals()
-      : base(CmdName)
+      : base(CmdName, TargetId)
     {}
 
     public ChangeModulationTargetSignals(int output, int minRate, int maxRate, string band, string signal, int gain, bool gaussianNoise, string id, double? centralFrequency = null)
-      : base(CmdName)
+      : base(CmdName, TargetId)
     {
       Output = output;
       MinRate = minRate;
@@ -17596,13 +17892,14 @@ namespace Sdx.Cmd
     }
 
     internal const string CmdName = "GetModulationTargetSignals";
+    internal const string TargetId = "";
 
     public GetModulationTargetSignals()
-      : base(CmdName)
+      : base(CmdName, TargetId)
     {}
 
     public GetModulationTargetSignals(int output, string id)
-      : base(CmdName)
+      : base(CmdName, TargetId)
     {
       Output = output;
       Id = id;
@@ -17645,12 +17942,12 @@ namespace Sdx.Cmd
   /// Result of GetModulationTargetSignals.
   ///
   /// Name             Type            Description
-  /// ---------------- --------------- -----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+  /// ---------------- --------------- -----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
   /// Output           int             Output index (zero based)
   /// MinRate          int             Minimum sampling rate (12500000, 25000000, 50000000, 60000000, 100000000)
   /// MaxRate          int             Maximum sampling rate (12500000, 25000000, 50000000, 60000000, 100000000)
   /// Band             string          Frequency band is "LowerL" or "UpperL"
-  /// Signal           string          Comma separated signal keys, accepted signal keys: "L1CA", "L1C", "L1P", "L1ME", "L1MR", "L2C", "L2P", "L2ME", "L2MR", "L5", "G1", "G2", "E1", "E5a", "E5b", "B1", "B2", "B1C", "B2a", "B3I", "SBASL1", "QZSSL1CA", "QZSSL1CB", "QZSSL1C", "QZSSL2C", "QZSSL5", "QZSSL1S", "QZSSL5S", "NAVICL5"
+  /// Signal           string          Comma separated signal keys, accepted signal keys: "L1CA", "L1C", "L1P", "L1ME", "L1MR", "L2C", "L2P", "L2ME", "L2MR", "L5", "G1", "G2", "E1", "E5a", "E5b", "B1", "B2", "B1C", "B2a", "B3I", "SBASL1", "QZSSL1CA", "QZSSL1CB", "QZSSL1C", "QZSSL2C", "QZSSL5", "QZSSL1S", "QZSSL5S", "NAVICL5", "PULSARXL"
   /// Gain             int             The gain associated to this output (dB). This value has to be between the radio minimum value and 115. A negative value means to use the radio default value.
   /// GaussianNoise    bool            If true, add Gaussian noise to ensure realistic signal to noise ratio. When combining multiple outputs, only one should have Gaussian noise enabled.
   /// Id               string          Target identifier
@@ -17665,13 +17962,14 @@ namespace Sdx.Cmd
     }
 
     internal const string CmdName = "GetModulationTargetSignalsResult";
+    internal const string TargetId = "";
 
     public GetModulationTargetSignalsResult()
-      : base(CmdName)
+      : base(CmdName, TargetId)
     {}
 
     public GetModulationTargetSignalsResult(CommandBase relatedCommand, int output, int minRate, int maxRate, string band, string signal, int gain, bool gaussianNoise, string id, double? centralFrequency = null)
-      : base(CmdName, relatedCommand)
+      : base(CmdName, TargetId, relatedCommand)
     {
       Output = output;
       MinRate = minRate;
@@ -17794,7 +18092,7 @@ namespace Sdx.Cmd
   /// but it is possible to set constaints with MinRate and MaxRate.
   ///
   /// Name        Type            Description
-  /// ----------- --------------- ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+  /// ----------- --------------- ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
   /// Output      int             Output index (zero based)
   /// MinRate     int             Minimum sampling rate (12500000, 25000000, 50000000, 60000000, 100000000)
   /// MaxRate     int             Maximum sampling rate (12500000, 25000000, 50000000. 60000000, 100000000)
@@ -17802,7 +18100,7 @@ namespace Sdx.Cmd
   /// CentralFreq double          Central frequency (Hz). Put 0.0 and complete signal list to let Skydel choose automaticly the central frequency.
   /// Gain        int             The gain associated to this output (dB). As of today, accepted values are 0, 20, 40, 60 and 80. Values at 40 and under are not recommended. Use a negative value to use the default value (60).
   /// Id          string          Target identifier
-  /// Signal      optional string Comma separated signal keys if you want to match central frequency and sampling rate with a particular list of signals. Accepted signal keys: "L1CA", "L1C", "L1P", "L1ME", "L1MR", "L2C", "L2P", "L2ME", "L2MR", "L5", "G1", "G2", "E1", "E5a", "E5b", "B1", "B2", "B1C", "B2a", "B3I", "SBASL1", "QZSSL1CA", "QZSSL1CB", "QZSSL1C", "QZSSL2C", "QZSSL5", "QZSSL1S", "QZSSL5S", "NAVICL5"
+  /// Signal      optional string Comma separated signal keys if you want to match central frequency and sampling rate with a particular list of signals. Accepted signal keys: "L1CA", "L1C", "L1P", "L1ME", "L1MR", "L2C", "L2P", "L2ME", "L2MR", "L5", "G1", "G2", "E1", "E5a", "E5b", "B1", "B2", "B1C", "B2a", "B3I", "SBASL1", "QZSSL1CA", "QZSSL1CB", "QZSSL1C", "QZSSL2C", "QZSSL5", "QZSSL1S", "QZSSL5S", "NAVICL5", "PULSARXL"
   ///
 
   public class ChangeModulationTargetInterference : CommandBase
@@ -17813,13 +18111,14 @@ namespace Sdx.Cmd
     }
 
     internal const string CmdName = "ChangeModulationTargetInterference";
+    internal const string TargetId = "";
 
     public ChangeModulationTargetInterference()
-      : base(CmdName)
+      : base(CmdName, TargetId)
     {}
 
     public ChangeModulationTargetInterference(int output, int minRate, int maxRate, int group, double centralFreq, int gain, string id, string signal = null)
-      : base(CmdName)
+      : base(CmdName, TargetId)
     {
       Output = output;
       MinRate = minRate;
@@ -17946,13 +18245,14 @@ namespace Sdx.Cmd
     }
 
     internal const string CmdName = "GetModulationTargetInterferences";
+    internal const string TargetId = "";
 
     public GetModulationTargetInterferences()
-      : base(CmdName)
+      : base(CmdName, TargetId)
     {}
 
     public GetModulationTargetInterferences(int output, string id)
-      : base(CmdName)
+      : base(CmdName, TargetId)
     {
       Output = output;
       Id = id;
@@ -17995,7 +18295,7 @@ namespace Sdx.Cmd
   /// Result of GetModulationTargetInterferences.
   ///
   /// Name        Type            Description
-  /// ----------- --------------- ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+  /// ----------- --------------- ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
   /// Output      int             Output index (zero based)
   /// MinRate     int             Minimum sampling rate (12500000, 25000000, 50000000, 60000000, 100000000)
   /// MaxRate     int             Maximum sampling rate (12500000, 25000000, 50000000. 60000000, 100000000)
@@ -18003,7 +18303,7 @@ namespace Sdx.Cmd
   /// CentralFreq double          Central frequency (Hz). Put 0.0 and complete signal list to let Skydel choose automaticly the central frequency.
   /// Gain        int             The gain associated to this output (dB). As of today, accepted values are 0, 20, 40, 60 and 80. Values at 40 and under are not recommended. Use a negative value to use the default value (60).
   /// Id          string          Target identifier
-  /// Signal      optional string Comma separated signal keys if you want to match central frequency and sampling rate with a particular list of signals. Accepted signal keys: "L1CA", "L1C", "L1P", "L1ME", "L1MR", "L2C", "L2P", "L2ME", "L2MR", "L5", "G1", "G2", "E1", "E5a", "E5b", "B1", "B2", "B1C", "B2a", "B3I", "SBASL1", "QZSSL1CA", "QZSSL1CB", "QZSSL1C", "QZSSL2C", "QZSSL5", "QZSSL1S", "QZSSL5S", "NAVICL5"
+  /// Signal      optional string Comma separated signal keys if you want to match central frequency and sampling rate with a particular list of signals. Accepted signal keys: "L1CA", "L1C", "L1P", "L1ME", "L1MR", "L2C", "L2P", "L2ME", "L2MR", "L5", "G1", "G2", "E1", "E5a", "E5b", "B1", "B2", "B1C", "B2a", "B3I", "SBASL1", "QZSSL1CA", "QZSSL1CB", "QZSSL1C", "QZSSL2C", "QZSSL5", "QZSSL1S", "QZSSL5S", "NAVICL5", "PULSARXL"
   ///
 
   public class GetModulationTargetInterferencesResult : CommandResult
@@ -18014,13 +18314,14 @@ namespace Sdx.Cmd
     }
 
     internal const string CmdName = "GetModulationTargetInterferencesResult";
+    internal const string TargetId = "";
 
     public GetModulationTargetInterferencesResult()
-      : base(CmdName)
+      : base(CmdName, TargetId)
     {}
 
     public GetModulationTargetInterferencesResult(CommandBase relatedCommand, int output, int minRate, int maxRate, int group, double centralFreq, int gain, string id, string signal = null)
-      : base(CmdName, relatedCommand)
+      : base(CmdName, TargetId, relatedCommand)
     {
       Output = output;
       MinRate = minRate;
@@ -18126,132 +18427,6 @@ namespace Sdx.Cmd
 
 
   ///
-  /// Assign an output to a specific interference group. This command works only
-  /// for Anechoic Chamber target.
-  ///
-  /// Name        Type   Description
-  /// ----------- ------ -------------------------------------------------------------------------------------------
-  /// Group       int    Interference group number [1..16]
-  /// Output      string Output is radio name and RF output. For example, RF output B on radio 3 is referred as "3B"
-  /// CentralFreq double Central frequency (Hz)
-  ///
-
-  public class ChangeModulationAnechoicTargetInterference : CommandBase
-  {
-    public override string Documentation
-    {
-      get { return "Assign an output to a specific interference group. This command works only\nfor Anechoic Chamber target."; }
-    }
-
-    internal const string CmdName = "ChangeModulationAnechoicTargetInterference";
-
-    public ChangeModulationAnechoicTargetInterference()
-      : base(CmdName)
-    {}
-
-    public ChangeModulationAnechoicTargetInterference(int group, string output, double centralFreq)
-      : base(CmdName)
-    {
-      Group = group;
-      Output = output;
-      CentralFreq = centralFreq;
-    }
-      
-    public override bool IsValid
-    {
-      get
-      {
-        return base.IsValid
-        && Contains("Group")
-        && Contains("Output")
-        && Contains("CentralFreq")
-      ;
-      }
-    }
-
-    public override int ExecutePermission { get { return EXECUTE_IF_IDLE; } }
-
-    public int Group
-    {
-      get { return GetValue("Group").ToObject<int>(CommandBase.Serializer); }
-      set
-      {
-          SetValue("Group", JToken.FromObject(value, CommandBase.Serializer));
-      }
-    }
-
-    public string Output
-    {
-      get { return GetValue("Output").ToObject<string>(CommandBase.Serializer); }
-      set
-      {
-          SetValue("Output", JToken.FromObject(value, CommandBase.Serializer));
-      }
-    }
-
-    public double CentralFreq
-    {
-      get { return GetValue("CentralFreq").ToObject<double>(CommandBase.Serializer); }
-      set
-      {
-          SetValue("CentralFreq", JToken.FromObject(value, CommandBase.Serializer));
-      }
-    }
-  }
-
-
-  ///
-  /// Remove output assignation. This command works only for Anechoic Chamber
-  /// target.
-  ///
-  /// Name  Type Description
-  /// ----- ---- ---------------------------------
-  /// Group int  Interference group number [1..16]
-  ///
-
-  public class RemoveModulationAnechoicTargetInterference : CommandBase
-  {
-    public override string Documentation
-    {
-      get { return "Remove output assignation. This command works only for Anechoic Chamber\ntarget."; }
-    }
-
-    internal const string CmdName = "RemoveModulationAnechoicTargetInterference";
-
-    public RemoveModulationAnechoicTargetInterference()
-      : base(CmdName)
-    {}
-
-    public RemoveModulationAnechoicTargetInterference(int group)
-      : base(CmdName)
-    {
-      Group = group;
-    }
-      
-    public override bool IsValid
-    {
-      get
-      {
-        return base.IsValid
-        && Contains("Group")
-      ;
-      }
-    }
-
-    public override int ExecutePermission { get { return EXECUTE_IF_IDLE; } }
-
-    public int Group
-    {
-      get { return GetValue("Group").ToObject<int>(CommandBase.Serializer); }
-      set
-      {
-          SetValue("Group", JToken.FromObject(value, CommandBase.Serializer));
-      }
-    }
-  }
-
-
-  ///
   /// USE AT YOUR OWN RISKS. Set the RF Gain of the SDR
   ///
   /// Name   Type   Description
@@ -18268,13 +18443,14 @@ namespace Sdx.Cmd
     }
 
     internal const string CmdName = "SetRfGain";
+    internal const string TargetId = "";
 
     public SetRfGain()
-      : base(CmdName)
+      : base(CmdName, TargetId)
     {}
 
     public SetRfGain(int output, double gain)
-      : base(CmdName)
+      : base(CmdName, TargetId)
     {
       Output = output;
       Gain = gain;
@@ -18318,7 +18494,7 @@ namespace Sdx.Cmd
   ///
   /// Name        Type            Description
   /// ----------- --------------- -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
-  /// System      string          "GPS", "GLONASS", "Galileo", "SBAS", "BeiDou", "QZSS" or "NavIC"
+  /// System      string          "GPS", "GLONASS", "Galileo", "SBAS", "BeiDou", "QZSS", "NavIC" or "PULSAR"
   /// Path        string          File path
   /// Rollover    optional int    Rollover for file types that does not precise it (YUMA, SEM). Default value is the current rollover.
   /// DataSetName optional string Name of the data set to import. This parameter is optional, the default value will be the name of the imported file. Constellations that support this parameter are  "GPS", "Galileo", "BeiDou", "QZSS" and "NavIC"
@@ -18332,13 +18508,14 @@ namespace Sdx.Cmd
     }
 
     internal const string CmdName = "ImportConstellationParameters";
+    internal const string TargetId = "";
 
     public ImportConstellationParameters()
-      : base(CmdName)
+      : base(CmdName, TargetId)
     {}
 
     public ImportConstellationParameters(string system, string path, int? rollover = null, string dataSetName = null)
-      : base(CmdName)
+      : base(CmdName, TargetId)
     {
       System = system;
       Path = path;
@@ -18420,13 +18597,14 @@ namespace Sdx.Cmd
     }
 
     internal const string CmdName = "ImportIonoParameters";
+    internal const string TargetId = "";
 
     public ImportIonoParameters()
-      : base(CmdName)
+      : base(CmdName, TargetId)
     {}
 
     public ImportIonoParameters(string path, string type = null)
-      : base(CmdName)
+      : base(CmdName, TargetId)
     {
       Path = path;
       Type = type;
@@ -18483,13 +18661,14 @@ namespace Sdx.Cmd
     }
 
     internal const string CmdName = "ImportMODIPFile";
+    internal const string TargetId = "";
 
     public ImportMODIPFile()
-      : base(CmdName)
+      : base(CmdName, TargetId)
     {}
 
     public ImportMODIPFile(string path)
-      : base(CmdName)
+      : base(CmdName, TargetId)
     {
       Path = path;
     }
@@ -18533,13 +18712,14 @@ namespace Sdx.Cmd
     }
 
     internal const string CmdName = "ImportCCIRFilesFromDirectory";
+    internal const string TargetId = "";
 
     public ImportCCIRFilesFromDirectory()
-      : base(CmdName)
+      : base(CmdName, TargetId)
     {}
 
     public ImportCCIRFilesFromDirectory(string path)
-      : base(CmdName)
+      : base(CmdName, TargetId)
     {
       Path = path;
     }
@@ -18583,13 +18763,14 @@ namespace Sdx.Cmd
     }
 
     internal const string CmdName = "ImportGlonassAlmanac";
+    internal const string TargetId = "";
 
     public ImportGlonassAlmanac()
-      : base(CmdName)
+      : base(CmdName, TargetId)
     {}
 
     public ImportGlonassAlmanac(string path)
-      : base(CmdName)
+      : base(CmdName, TargetId)
     {
       Path = path;
     }
@@ -18633,13 +18814,14 @@ namespace Sdx.Cmd
     }
 
     internal const string CmdName = "ImportNmeaTrack";
+    internal const string TargetId = "";
 
     public ImportNmeaTrack()
-      : base(CmdName)
+      : base(CmdName, TargetId)
     {}
 
     public ImportNmeaTrack(string path)
-      : base(CmdName)
+      : base(CmdName, TargetId)
     {
       Path = path;
     }
@@ -18681,9 +18863,10 @@ namespace Sdx.Cmd
     }
 
     internal const string CmdName = "ClearVehiculeTrajectory";
+    internal const string TargetId = "";
 
     public ClearVehiculeTrajectory()
-      : base(CmdName)
+      : base(CmdName, TargetId)
     {}
       
     public override bool IsValid
@@ -18715,13 +18898,14 @@ namespace Sdx.Cmd
     }
 
     internal const string CmdName = "SetDefaultVehicleAntennaModel";
+    internal const string TargetId = "";
 
     public SetDefaultVehicleAntennaModel()
-      : base(CmdName)
+      : base(CmdName, TargetId)
     {}
 
     public SetDefaultVehicleAntennaModel(string name)
-      : base(CmdName)
+      : base(CmdName, TargetId)
     {
       Name = name;
     }
@@ -18763,9 +18947,10 @@ namespace Sdx.Cmd
     }
 
     internal const string CmdName = "GetDefaultVehicleAntennaModel";
+    internal const string TargetId = "";
 
     public GetDefaultVehicleAntennaModel()
-      : base(CmdName)
+      : base(CmdName, TargetId)
     {}
       
     public override bool IsValid
@@ -18797,13 +18982,14 @@ namespace Sdx.Cmd
     }
 
     internal const string CmdName = "GetDefaultVehicleAntennaModelResult";
+    internal const string TargetId = "";
 
     public GetDefaultVehicleAntennaModelResult()
-      : base(CmdName)
+      : base(CmdName, TargetId)
     {}
 
     public GetDefaultVehicleAntennaModelResult(CommandBase relatedCommand, string name)
-      : base(CmdName, relatedCommand)
+      : base(CmdName, TargetId, relatedCommand)
     {
       Name = name;
     }
@@ -18843,9 +19029,10 @@ namespace Sdx.Cmd
     }
 
     internal const string CmdName = "GetAllVehicleAntennaNames";
+    internal const string TargetId = "";
 
     public GetAllVehicleAntennaNames()
-      : base(CmdName)
+      : base(CmdName, TargetId)
     {}
       
     public override bool IsValid
@@ -18877,13 +19064,14 @@ namespace Sdx.Cmd
     }
 
     internal const string CmdName = "GetAllVehicleAntennaNamesResult";
+    internal const string TargetId = "";
 
     public GetAllVehicleAntennaNamesResult()
-      : base(CmdName)
+      : base(CmdName, TargetId)
     {}
 
     public GetAllVehicleAntennaNamesResult(CommandBase relatedCommand, List<string> antennaNames)
-      : base(CmdName, relatedCommand)
+      : base(CmdName, TargetId, relatedCommand)
     {
       AntennaNames = antennaNames;
     }
@@ -18928,13 +19116,14 @@ namespace Sdx.Cmd
     }
 
     internal const string CmdName = "SetVehicleAntennaGain";
+    internal const string TargetId = "";
 
     public SetVehicleAntennaGain()
-      : base(CmdName)
+      : base(CmdName, TargetId)
     {}
 
     public SetVehicleAntennaGain(List<List<double>> gain, AntennaPatternType type, GNSSBand band, string name = null)
-      : base(CmdName)
+      : base(CmdName, TargetId)
     {
       Gain = gain;
       Type = type;
@@ -19014,13 +19203,14 @@ namespace Sdx.Cmd
     }
 
     internal const string CmdName = "GetVehicleAntennaGain";
+    internal const string TargetId = "";
 
     public GetVehicleAntennaGain()
-      : base(CmdName)
+      : base(CmdName, TargetId)
     {}
 
     public GetVehicleAntennaGain(GNSSBand band, string name = null)
-      : base(CmdName)
+      : base(CmdName, TargetId)
     {
       Band = band;
       Name = name;
@@ -19080,13 +19270,14 @@ namespace Sdx.Cmd
     }
 
     internal const string CmdName = "GetVehicleAntennaGainResult";
+    internal const string TargetId = "";
 
     public GetVehicleAntennaGainResult()
-      : base(CmdName)
+      : base(CmdName, TargetId)
     {}
 
     public GetVehicleAntennaGainResult(CommandBase relatedCommand, List<List<double>> gain, AntennaPatternType type, GNSSBand band, string name = null)
-      : base(CmdName, relatedCommand)
+      : base(CmdName, TargetId, relatedCommand)
     {
       Gain = gain;
       Type = type;
@@ -19166,13 +19357,14 @@ namespace Sdx.Cmd
     }
 
     internal const string CmdName = "SetVehicleAntennaPhaseOffset";
+    internal const string TargetId = "";
 
     public SetVehicleAntennaPhaseOffset()
-      : base(CmdName)
+      : base(CmdName, TargetId)
     {}
 
     public SetVehicleAntennaPhaseOffset(List<List<double>> phaseOffset, AntennaPatternType type, GNSSBand band, string name = null)
-      : base(CmdName)
+      : base(CmdName, TargetId)
     {
       PhaseOffset = phaseOffset;
       Type = type;
@@ -19252,13 +19444,14 @@ namespace Sdx.Cmd
     }
 
     internal const string CmdName = "GetVehicleAntennaPhaseOffset";
+    internal const string TargetId = "";
 
     public GetVehicleAntennaPhaseOffset()
-      : base(CmdName)
+      : base(CmdName, TargetId)
     {}
 
     public GetVehicleAntennaPhaseOffset(GNSSBand band, string name = null)
-      : base(CmdName)
+      : base(CmdName, TargetId)
     {
       Band = band;
       Name = name;
@@ -19318,13 +19511,14 @@ namespace Sdx.Cmd
     }
 
     internal const string CmdName = "GetVehicleAntennaPhaseOffsetResult";
+    internal const string TargetId = "";
 
     public GetVehicleAntennaPhaseOffsetResult()
-      : base(CmdName)
+      : base(CmdName, TargetId)
     {}
 
     public GetVehicleAntennaPhaseOffsetResult(CommandBase relatedCommand, List<List<double>> phaseOffset, AntennaPatternType type, GNSSBand band, string name = null)
-      : base(CmdName, relatedCommand)
+      : base(CmdName, TargetId, relatedCommand)
     {
       PhaseOffset = phaseOffset;
       Type = type;
@@ -19404,13 +19598,14 @@ namespace Sdx.Cmd
     }
 
     internal const string CmdName = "SetVehicleAntennaGainCSV";
+    internal const string TargetId = "";
 
     public SetVehicleAntennaGainCSV()
-      : base(CmdName)
+      : base(CmdName, TargetId)
     {}
 
     public SetVehicleAntennaGainCSV(string filePath, AntennaPatternType type, GNSSBand band, string name = null)
-      : base(CmdName)
+      : base(CmdName, TargetId)
     {
       FilePath = filePath;
       Type = type;
@@ -19493,13 +19688,14 @@ namespace Sdx.Cmd
     }
 
     internal const string CmdName = "SetVehicleAntennaPhaseOffsetCSV";
+    internal const string TargetId = "";
 
     public SetVehicleAntennaPhaseOffsetCSV()
-      : base(CmdName)
+      : base(CmdName, TargetId)
     {}
 
     public SetVehicleAntennaPhaseOffsetCSV(string filePath, AntennaPatternFileType fileFormat, AntennaPatternType type, GNSSBand band, string name = null)
-      : base(CmdName)
+      : base(CmdName, TargetId)
     {
       FilePath = filePath;
       FileFormat = fileFormat;
@@ -19591,13 +19787,14 @@ namespace Sdx.Cmd
     }
 
     internal const string CmdName = "AddVehicleGainPatternOffset";
+    internal const string TargetId = "";
 
     public AddVehicleGainPatternOffset()
-      : base(CmdName)
+      : base(CmdName, TargetId)
     {}
 
     public AddVehicleGainPatternOffset(GNSSBand band, double offset, string antennaName = null)
-      : base(CmdName)
+      : base(CmdName, TargetId)
     {
       Band = band;
       Offset = offset;
@@ -19666,13 +19863,14 @@ namespace Sdx.Cmd
     }
 
     internal const string CmdName = "GetVehicleGainPatternOffset";
+    internal const string TargetId = "";
 
     public GetVehicleGainPatternOffset()
-      : base(CmdName)
+      : base(CmdName, TargetId)
     {}
 
     public GetVehicleGainPatternOffset(GNSSBand band, string antennaName = null)
-      : base(CmdName)
+      : base(CmdName, TargetId)
     {
       Band = band;
       AntennaName = antennaName;
@@ -19731,13 +19929,14 @@ namespace Sdx.Cmd
     }
 
     internal const string CmdName = "GetVehicleGainPatternOffsetResult";
+    internal const string TargetId = "";
 
     public GetVehicleGainPatternOffsetResult()
-      : base(CmdName)
+      : base(CmdName, TargetId)
     {}
 
     public GetVehicleGainPatternOffsetResult(CommandBase relatedCommand, GNSSBand band, double offset, string antennaName = null)
-      : base(CmdName, relatedCommand)
+      : base(CmdName, TargetId, relatedCommand)
     {
       Band = band;
       Offset = offset;
@@ -19805,13 +20004,14 @@ namespace Sdx.Cmd
     }
 
     internal const string CmdName = "AddVehiclePhasePatternOffset";
+    internal const string TargetId = "";
 
     public AddVehiclePhasePatternOffset()
-      : base(CmdName)
+      : base(CmdName, TargetId)
     {}
 
     public AddVehiclePhasePatternOffset(GNSSBand band, double offset, string antennaName = null)
-      : base(CmdName)
+      : base(CmdName, TargetId)
     {
       Band = band;
       Offset = offset;
@@ -19880,13 +20080,14 @@ namespace Sdx.Cmd
     }
 
     internal const string CmdName = "GetVehiclePhasePatternOffset";
+    internal const string TargetId = "";
 
     public GetVehiclePhasePatternOffset()
-      : base(CmdName)
+      : base(CmdName, TargetId)
     {}
 
     public GetVehiclePhasePatternOffset(GNSSBand band, string antennaName = null)
-      : base(CmdName)
+      : base(CmdName, TargetId)
     {
       Band = band;
       AntennaName = antennaName;
@@ -19945,13 +20146,14 @@ namespace Sdx.Cmd
     }
 
     internal const string CmdName = "GetVehiclePhasePatternOffsetResult";
+    internal const string TargetId = "";
 
     public GetVehiclePhasePatternOffsetResult()
-      : base(CmdName)
+      : base(CmdName, TargetId)
     {}
 
     public GetVehiclePhasePatternOffsetResult(CommandBase relatedCommand, GNSSBand band, double offset, string antennaName = null)
-      : base(CmdName, relatedCommand)
+      : base(CmdName, TargetId, relatedCommand)
     {
       Band = band;
       Offset = offset;
@@ -20036,13 +20238,14 @@ namespace Sdx.Cmd
     }
 
     internal const string CmdName = "SetVehicleAntennaOffset";
+    internal const string TargetId = "";
 
     public SetVehicleAntennaOffset()
-      : base(CmdName)
+      : base(CmdName, TargetId)
     {}
 
     public SetVehicleAntennaOffset(double x, double y, double z, double yaw, double pitch, double roll, string name = null)
-      : base(CmdName)
+      : base(CmdName, TargetId)
     {
       X = x;
       Y = y;
@@ -20154,13 +20357,14 @@ namespace Sdx.Cmd
     }
 
     internal const string CmdName = "GetVehicleAntennaOffset";
+    internal const string TargetId = "";
 
     public GetVehicleAntennaOffset()
-      : base(CmdName)
+      : base(CmdName, TargetId)
     {}
 
     public GetVehicleAntennaOffset(string name = null)
-      : base(CmdName)
+      : base(CmdName, TargetId)
     {
       Name = name;
     }
@@ -20212,13 +20416,14 @@ namespace Sdx.Cmd
     }
 
     internal const string CmdName = "GetVehicleAntennaOffsetResult";
+    internal const string TargetId = "";
 
     public GetVehicleAntennaOffsetResult()
-      : base(CmdName)
+      : base(CmdName, TargetId)
     {}
 
     public GetVehicleAntennaOffsetResult(CommandBase relatedCommand, double x, double y, double z, double yaw, double pitch, double roll, string name = null)
-      : base(CmdName, relatedCommand)
+      : base(CmdName, TargetId, relatedCommand)
     {
       X = x;
       Y = y;
@@ -20328,13 +20533,14 @@ namespace Sdx.Cmd
     }
 
     internal const string CmdName = "AddEmptyVehicleAntennaModel";
+    internal const string TargetId = "";
 
     public AddEmptyVehicleAntennaModel()
-      : base(CmdName)
+      : base(CmdName, TargetId)
     {}
 
     public AddEmptyVehicleAntennaModel(string name)
-      : base(CmdName)
+      : base(CmdName, TargetId)
     {
       Name = name;
     }
@@ -20378,13 +20584,14 @@ namespace Sdx.Cmd
     }
 
     internal const string CmdName = "DeleteVehicleAntennaModel";
+    internal const string TargetId = "";
 
     public DeleteVehicleAntennaModel()
-      : base(CmdName)
+      : base(CmdName, TargetId)
     {}
 
     public DeleteVehicleAntennaModel(string name)
-      : base(CmdName)
+      : base(CmdName, TargetId)
     {
       Name = name;
     }
@@ -20429,13 +20636,14 @@ namespace Sdx.Cmd
     }
 
     internal const string CmdName = "RenameVehicleAntennaModel";
+    internal const string TargetId = "";
 
     public RenameVehicleAntennaModel()
-      : base(CmdName)
+      : base(CmdName, TargetId)
     {}
 
     public RenameVehicleAntennaModel(string name, string newName)
-      : base(CmdName)
+      : base(CmdName, TargetId)
     {
       Name = name;
       NewName = newName;
@@ -20491,13 +20699,14 @@ namespace Sdx.Cmd
     }
 
     internal const string CmdName = "CopyVehicleAntennaModel";
+    internal const string TargetId = "";
 
     public CopyVehicleAntennaModel()
-      : base(CmdName)
+      : base(CmdName, TargetId)
     {}
 
     public CopyVehicleAntennaModel(string name, string copyName)
-      : base(CmdName)
+      : base(CmdName, TargetId)
     {
       Name = name;
       CopyName = copyName;
@@ -20552,13 +20761,14 @@ namespace Sdx.Cmd
     }
 
     internal const string CmdName = "GetVehicleAntennaModel";
+    internal const string TargetId = "";
 
     public GetVehicleAntennaModel()
-      : base(CmdName)
+      : base(CmdName, TargetId)
     {}
 
     public GetVehicleAntennaModel(string name)
-      : base(CmdName)
+      : base(CmdName, TargetId)
     {
       Name = name;
     }
@@ -20638,13 +20848,14 @@ namespace Sdx.Cmd
     }
 
     internal const string CmdName = "GetVehicleAntennaModelResult";
+    internal const string TargetId = "";
 
     public GetVehicleAntennaModelResult()
-      : base(CmdName)
+      : base(CmdName, TargetId)
     {}
 
     public GetVehicleAntennaModelResult(CommandBase relatedCommand, List<List<double>> gainL1, AntennaPatternType gainTypeL1, double gainOffsetL1, List<List<double>> gainL2, AntennaPatternType gainTypeL2, double gainOffsetL2, List<List<double>> gainL5, AntennaPatternType gainTypeL5, double gainOffsetL5, List<List<double>> gainE6, AntennaPatternType gainTypeE6, double gainOffsetE6, List<List<double>> gainS, AntennaPatternType gainTypeS, double gainOffsetS, List<List<double>> phaseOffsetL1, AntennaPatternType phaseOffsetTypeL1, double phasePatternOffsetL1, List<List<double>> phaseOffsetL2, AntennaPatternType phaseOffsetTypeL2, double phasePatternOffsetL2, List<List<double>> phaseOffsetL5, AntennaPatternType phaseOffsetTypeL5, double phasePatternOffsetL5, List<List<double>> phaseOffsetE6, AntennaPatternType phaseOffsetTypeE6, double phasePatternOffsetE6, List<List<double>> phaseOffsetS, AntennaPatternType phaseOffsetTypeS, double phasePatternOffsetS, double x, double y, double z, double yaw, double pitch, double roll, string name)
-      : base(CmdName, relatedCommand)
+      : base(CmdName, TargetId, relatedCommand)
     {
       GainL1 = gainL1;
       GainTypeL1 = gainTypeL1;
@@ -21082,13 +21293,14 @@ namespace Sdx.Cmd
     }
 
     internal const string CmdName = "ImportVehicleAntennaModel";
+    internal const string TargetId = "";
 
     public ImportVehicleAntennaModel()
-      : base(CmdName)
+      : base(CmdName, TargetId)
     {}
 
     public ImportVehicleAntennaModel(string filePath)
-      : base(CmdName)
+      : base(CmdName, TargetId)
     {
       FilePath = filePath;
     }
@@ -21134,13 +21346,14 @@ namespace Sdx.Cmd
     }
 
     internal const string CmdName = "ExportVehicleAntennaModel";
+    internal const string TargetId = "";
 
     public ExportVehicleAntennaModel()
-      : base(CmdName)
+      : base(CmdName, TargetId)
     {}
 
     public ExportVehicleAntennaModel(string antennaName, string filePath, bool overwriting)
-      : base(CmdName)
+      : base(CmdName, TargetId)
     {
       AntennaName = antennaName;
       FilePath = filePath;
@@ -21208,13 +21421,14 @@ namespace Sdx.Cmd
     }
 
     internal const string CmdName = "SetAntennaChange";
+    internal const string TargetId = "";
 
     public SetAntennaChange()
-      : base(CmdName)
+      : base(CmdName, TargetId)
     {}
 
     public SetAntennaChange(double startTime, string antenna, string id)
-      : base(CmdName)
+      : base(CmdName, TargetId)
     {
       StartTime = startTime;
       Antenna = antenna;
@@ -21280,13 +21494,14 @@ namespace Sdx.Cmd
     }
 
     internal const string CmdName = "GetAntennaChange";
+    internal const string TargetId = "";
 
     public GetAntennaChange()
-      : base(CmdName)
+      : base(CmdName, TargetId)
     {}
 
     public GetAntennaChange(string id)
-      : base(CmdName)
+      : base(CmdName, TargetId)
     {
       Id = id;
     }
@@ -21332,13 +21547,14 @@ namespace Sdx.Cmd
     }
 
     internal const string CmdName = "GetAntennaChangeResult";
+    internal const string TargetId = "";
 
     public GetAntennaChangeResult()
-      : base(CmdName)
+      : base(CmdName, TargetId)
     {}
 
     public GetAntennaChangeResult(CommandBase relatedCommand, double startTime, string antenna, string id)
-      : base(CmdName, relatedCommand)
+      : base(CmdName, TargetId, relatedCommand)
     {
       StartTime = startTime;
       Antenna = antenna;
@@ -21402,13 +21618,14 @@ namespace Sdx.Cmd
     }
 
     internal const string CmdName = "RemoveAntennaChange";
+    internal const string TargetId = "";
 
     public RemoveAntennaChange()
-      : base(CmdName)
+      : base(CmdName, TargetId)
     {}
 
     public RemoveAntennaChange(string id)
-      : base(CmdName)
+      : base(CmdName, TargetId)
     {
       Id = id;
     }
@@ -21450,9 +21667,10 @@ namespace Sdx.Cmd
     }
 
     internal const string CmdName = "ClearAllAntennaChanges";
+    internal const string TargetId = "";
 
     public ClearAllAntennaChanges()
-      : base(CmdName)
+      : base(CmdName, TargetId)
     {}
       
     public override bool IsValid
@@ -21495,13 +21713,14 @@ namespace Sdx.Cmd
     }
 
     internal const string CmdName = "SetWFAntennaOffset";
+    internal const string TargetId = "";
 
     public SetWFAntennaOffset()
-      : base(CmdName)
+      : base(CmdName, TargetId)
     {}
 
     public SetWFAntennaOffset(double x, double y, double z, double yaw, double pitch, double roll)
-      : base(CmdName)
+      : base(CmdName, TargetId)
     {
       X = x;
       Y = y;
@@ -21598,9 +21817,10 @@ namespace Sdx.Cmd
     }
 
     internal const string CmdName = "GetWFAntennaOffset";
+    internal const string TargetId = "";
 
     public GetWFAntennaOffset()
-      : base(CmdName)
+      : base(CmdName, TargetId)
     {}
       
     public override bool IsValid
@@ -21637,13 +21857,14 @@ namespace Sdx.Cmd
     }
 
     internal const string CmdName = "GetWFAntennaOffsetResult";
+    internal const string TargetId = "";
 
     public GetWFAntennaOffsetResult()
-      : base(CmdName)
+      : base(CmdName, TargetId)
     {}
 
     public GetWFAntennaOffsetResult(CommandBase relatedCommand, double x, double y, double z, double yaw, double pitch, double roll)
-      : base(CmdName, relatedCommand)
+      : base(CmdName, TargetId, relatedCommand)
     {
       X = x;
       Y = y;
@@ -21728,8 +21949,8 @@ namespace Sdx.Cmd
   /// Get a list of all space vehicle antenna names.
   ///
   /// Name   Type   Description
-  /// ------ ------ ----------------------------------------------------------------
-  /// System string "GPS", "GLONASS", "Galileo", "BeiDou", "SBAS", "QZSS" or "NavIC"
+  /// ------ ------ --------------------------------------------------------------------------
+  /// System string "GPS", "GLONASS", "Galileo", "BeiDou", "SBAS", "QZSS", "NavIC" or "PULSAR"
   ///
 
   public class GetAllSVAntennaNames : CommandBase
@@ -21740,13 +21961,14 @@ namespace Sdx.Cmd
     }
 
     internal const string CmdName = "GetAllSVAntennaNames";
+    internal const string TargetId = "";
 
     public GetAllSVAntennaNames()
-      : base(CmdName)
+      : base(CmdName, TargetId)
     {}
 
     public GetAllSVAntennaNames(string system)
-      : base(CmdName)
+      : base(CmdName, TargetId)
     {
       System = system;
     }
@@ -21778,8 +22000,8 @@ namespace Sdx.Cmd
   /// Result of GetAllSVAntennaNames.
   ///
   /// Name         Type         Description
-  /// ------------ ------------ ----------------------------------------------------------------
-  /// System       string       "GPS", "GLONASS", "Galileo", "BeiDou", "SBAS", "QZSS" or "NavIC"
+  /// ------------ ------------ --------------------------------------------------------------------------
+  /// System       string       "GPS", "GLONASS", "Galileo", "BeiDou", "SBAS", "QZSS", "NavIC" or "PULSAR"
   /// AntennaNames array string A list of antenna model names.
   ///
 
@@ -21791,13 +22013,14 @@ namespace Sdx.Cmd
     }
 
     internal const string CmdName = "GetAllSVAntennaNamesResult";
+    internal const string TargetId = "";
 
     public GetAllSVAntennaNamesResult()
-      : base(CmdName)
+      : base(CmdName, TargetId)
     {}
 
     public GetAllSVAntennaNamesResult(CommandBase relatedCommand, string system, List<string> antennaNames)
-      : base(CmdName, relatedCommand)
+      : base(CmdName, TargetId, relatedCommand)
     {
       System = system;
       AntennaNames = antennaNames;
@@ -21840,7 +22063,7 @@ namespace Sdx.Cmd
   /// Name        Type            Description
   /// ----------- --------------- ------------------------------------------------------------------------------------
   /// Band        GNSSBand        Offset will be apply to this band. ("L1", "L2" or "L5")
-  /// System      string          "GPS", "GLONASS", "Galileo", "BeiDou", "SBAS", "QZSS" or "NavIC"
+  /// System      string          "GPS", "GLONASS", "Galileo", "BeiDou", "SBAS", "QZSS", "NavIC" or "PULSAR"
   /// Offset      double          Power offset
   /// AntennaName optional string Vehicle antenna name. If no name is specified, apply the offset to the Basic Antenna
   ///
@@ -21853,13 +22076,14 @@ namespace Sdx.Cmd
     }
 
     internal const string CmdName = "AddSVGainPatternOffset";
+    internal const string TargetId = "";
 
     public AddSVGainPatternOffset()
-      : base(CmdName)
+      : base(CmdName, TargetId)
     {}
 
     public AddSVGainPatternOffset(GNSSBand band, string system, double offset, string antennaName = null)
-      : base(CmdName)
+      : base(CmdName, TargetId)
     {
       Band = band;
       System = system;
@@ -21928,7 +22152,7 @@ namespace Sdx.Cmd
   /// Name        Type            Description
   /// ----------- --------------- ------------------------------------------------------------------------------------
   /// Band        GNSSBand        Offset will be apply to this band. ("L1", "L2" or "L5")
-  /// System      string          "GPS", "GLONASS", "Galileo", "BeiDou", "SBAS", "QZSS" or "NavIC"
+  /// System      string          "GPS", "GLONASS", "Galileo", "BeiDou", "SBAS", "QZSS", "NavIC" or "PULSAR"
   /// AntennaName optional string Vehicle antenna name. If no name is specified, apply the offset to the Basic Antenna
   ///
 
@@ -21940,13 +22164,14 @@ namespace Sdx.Cmd
     }
 
     internal const string CmdName = "GetSVGainPatternOffset";
+    internal const string TargetId = "";
 
     public GetSVGainPatternOffset()
-      : base(CmdName)
+      : base(CmdName, TargetId)
     {}
 
     public GetSVGainPatternOffset(GNSSBand band, string system, string antennaName = null)
-      : base(CmdName)
+      : base(CmdName, TargetId)
     {
       Band = band;
       System = system;
@@ -22004,7 +22229,7 @@ namespace Sdx.Cmd
   /// Name        Type            Description
   /// ----------- --------------- ------------------------------------------------------------------------------------
   /// Band        GNSSBand        Offset will be apply to this band. ("L1", "L2" or "L5")
-  /// System      string          "GPS", "GLONASS", "Galileo", "BeiDou", "SBAS", "QZSS" or "NavIC"
+  /// System      string          "GPS", "GLONASS", "Galileo", "BeiDou", "SBAS", "QZSS", "NavIC" or "PULSAR"
   /// Offset      double          Power offset
   /// AntennaName optional string Vehicle antenna name. If no name is specified, apply the offset to the Basic Antenna
   ///
@@ -22017,13 +22242,14 @@ namespace Sdx.Cmd
     }
 
     internal const string CmdName = "GetSVGainPatternOffsetResult";
+    internal const string TargetId = "";
 
     public GetSVGainPatternOffsetResult()
-      : base(CmdName)
+      : base(CmdName, TargetId)
     {}
 
     public GetSVGainPatternOffsetResult(CommandBase relatedCommand, GNSSBand band, string system, double offset, string antennaName = null)
-      : base(CmdName, relatedCommand)
+      : base(CmdName, TargetId, relatedCommand)
     {
       Band = band;
       System = system;
@@ -22090,7 +22316,7 @@ namespace Sdx.Cmd
   /// Name        Type            Description
   /// ----------- --------------- ------------------------------------------------------------------------------------
   /// Band        GNSSBand        Offset will be apply to this band. ("L1", "L2" or "L5")
-  /// System      string          "GPS", "GLONASS", "Galileo", "BeiDou", "SBAS", "QZSS" or "NavIC"
+  /// System      string          "GPS", "GLONASS", "Galileo", "BeiDou", "SBAS", "QZSS", "NavIC" or "PULSAR"
   /// Offset      double          Phase offset (in rad)
   /// AntennaName optional string Vehicle antenna name. If no name is specified, apply the offset to the Basic Antenna
   ///
@@ -22103,13 +22329,14 @@ namespace Sdx.Cmd
     }
 
     internal const string CmdName = "AddSVPhasePatternOffset";
+    internal const string TargetId = "";
 
     public AddSVPhasePatternOffset()
-      : base(CmdName)
+      : base(CmdName, TargetId)
     {}
 
     public AddSVPhasePatternOffset(GNSSBand band, string system, double offset, string antennaName = null)
-      : base(CmdName)
+      : base(CmdName, TargetId)
     {
       Band = band;
       System = system;
@@ -22178,7 +22405,7 @@ namespace Sdx.Cmd
   /// Name        Type            Description
   /// ----------- --------------- ------------------------------------------------------------------------------------
   /// Band        GNSSBand        Offset will be apply to this band. ("L1", "L2" or "L5")
-  /// System      string          "GPS", "GLONASS", "Galileo", "BeiDou", "SBAS", "QZSS" or "NavIC"
+  /// System      string          "GPS", "GLONASS", "Galileo", "BeiDou", "SBAS", "QZSS", "NavIC" or "PULSAR"
   /// AntennaName optional string Vehicle antenna name. If no name is specified, apply the offset to the Basic Antenna
   ///
 
@@ -22190,13 +22417,14 @@ namespace Sdx.Cmd
     }
 
     internal const string CmdName = "GetSVPhasePatternOffset";
+    internal const string TargetId = "";
 
     public GetSVPhasePatternOffset()
-      : base(CmdName)
+      : base(CmdName, TargetId)
     {}
 
     public GetSVPhasePatternOffset(GNSSBand band, string system, string antennaName = null)
-      : base(CmdName)
+      : base(CmdName, TargetId)
     {
       Band = band;
       System = system;
@@ -22254,7 +22482,7 @@ namespace Sdx.Cmd
   /// Name        Type            Description
   /// ----------- --------------- ------------------------------------------------------------------------------------
   /// Band        GNSSBand        Offset will be apply to this band. ("L1", "L2" or "L5")
-  /// System      string          "GPS", "GLONASS", "Galileo", "BeiDou", "SBAS", "QZSS" or "NavIC"
+  /// System      string          "GPS", "GLONASS", "Galileo", "BeiDou", "SBAS", "QZSS", "NavIC" or "PULSAR"
   /// Offset      double          Phase offset (in rad)
   /// AntennaName optional string Vehicle antenna name. If no name is specified, apply the offset to the Basic Antenna
   ///
@@ -22267,13 +22495,14 @@ namespace Sdx.Cmd
     }
 
     internal const string CmdName = "GetSVPhasePatternOffsetResult";
+    internal const string TargetId = "";
 
     public GetSVPhasePatternOffsetResult()
-      : base(CmdName)
+      : base(CmdName, TargetId)
     {}
 
     public GetSVPhasePatternOffsetResult(CommandBase relatedCommand, GNSSBand band, string system, double offset, string antennaName = null)
-      : base(CmdName, relatedCommand)
+      : base(CmdName, TargetId, relatedCommand)
     {
       Band = band;
       System = system;
@@ -22342,7 +22571,7 @@ namespace Sdx.Cmd
   /// Gain   array array double Gain matrix (dB). The first dimension will be mapped to elevation [-90, 90] and the second dimension to azimuth [0, 360[.
   /// Type   AntennaPatternType Pattern type
   /// Band   GNSSBand           Frequency band
-  /// System string             "GPS", "GLONASS", "Galileo", "BeiDou", "SBAS", "QZSS" or "NavIC"
+  /// System string             "GPS", "GLONASS", "Galileo", "BeiDou", "SBAS", "QZSS", "NavIC" or "PULSAR"
   /// Name   optional string    SV antenna name
   ///
 
@@ -22354,13 +22583,14 @@ namespace Sdx.Cmd
     }
 
     internal const string CmdName = "SetSVAntennaGain";
+    internal const string TargetId = "";
 
     public SetSVAntennaGain()
-      : base(CmdName)
+      : base(CmdName, TargetId)
     {}
 
     public SetSVAntennaGain(List<List<double>> gain, AntennaPatternType type, GNSSBand band, string system, string name = null)
-      : base(CmdName)
+      : base(CmdName, TargetId)
     {
       Gain = gain;
       Type = type;
@@ -22438,9 +22668,9 @@ namespace Sdx.Cmd
   /// Get space vehicle gain antenna pattern. If no name is specified, the command is aplied to Basic SV Antenna.
   ///
   /// Name   Type            Description
-  /// ------ --------------- ----------------------------------------------------------------
+  /// ------ --------------- --------------------------------------------------------------------------
   /// Band   GNSSBand        Frequency band
-  /// System string          "GPS", "GLONASS", "Galileo", "BeiDou", "SBAS", "QZSS" or "NavIC"
+  /// System string          "GPS", "GLONASS", "Galileo", "BeiDou", "SBAS", "QZSS", "NavIC" or "PULSAR"
   /// Name   optional string SV antenna name
   ///
 
@@ -22452,13 +22682,14 @@ namespace Sdx.Cmd
     }
 
     internal const string CmdName = "GetSVAntennaGain";
+    internal const string TargetId = "";
 
     public GetSVAntennaGain()
-      : base(CmdName)
+      : base(CmdName, TargetId)
     {}
 
     public GetSVAntennaGain(GNSSBand band, string system, string name = null)
-      : base(CmdName)
+      : base(CmdName, TargetId)
     {
       Band = band;
       System = system;
@@ -22518,7 +22749,7 @@ namespace Sdx.Cmd
   /// Gain   array array double Gain matrix (dB). The first dimension will be mapped to elevation [-90, 90] and the second dimension to azimuth [0, 360[.
   /// Type   AntennaPatternType Pattern type
   /// Band   GNSSBand           Frequency band
-  /// System string             "GPS", "GLONASS", "Galileo", "BeiDou", "SBAS", "QZSS" or "NavIC"
+  /// System string             "GPS", "GLONASS", "Galileo", "BeiDou", "SBAS", "QZSS", "NavIC" or "PULSAR"
   /// Name   optional string    SV antenna name
   ///
 
@@ -22530,13 +22761,14 @@ namespace Sdx.Cmd
     }
 
     internal const string CmdName = "GetSVAntennaGainResult";
+    internal const string TargetId = "";
 
     public GetSVAntennaGainResult()
-      : base(CmdName)
+      : base(CmdName, TargetId)
     {}
 
     public GetSVAntennaGainResult(CommandBase relatedCommand, List<List<double>> gain, AntennaPatternType type, GNSSBand band, string system, string name = null)
-      : base(CmdName, relatedCommand)
+      : base(CmdName, TargetId, relatedCommand)
     {
       Gain = gain;
       Type = type;
@@ -22616,7 +22848,7 @@ namespace Sdx.Cmd
   /// PhaseOffset array array double Phase offset matrix (rad). The first dimension will be mapped to elevation [-90, 90] and the second dimension to azimuth [0, 360[.
   /// Type        AntennaPatternType Pattern type
   /// Band        GNSSBand           Frequency band
-  /// System      string             "GPS", "GLONASS", "Galileo", "BeiDou", "SBAS", "QZSS" or "NavIC"
+  /// System      string             "GPS", "GLONASS", "Galileo", "BeiDou", "SBAS", "QZSS", "NavIC" or "PULSAR"
   /// Name        optional string    SV antenna name
   ///
 
@@ -22628,13 +22860,14 @@ namespace Sdx.Cmd
     }
 
     internal const string CmdName = "SetSVAntennaPhaseOffset";
+    internal const string TargetId = "";
 
     public SetSVAntennaPhaseOffset()
-      : base(CmdName)
+      : base(CmdName, TargetId)
     {}
 
     public SetSVAntennaPhaseOffset(List<List<double>> phaseOffset, AntennaPatternType type, GNSSBand band, string system, string name = null)
-      : base(CmdName)
+      : base(CmdName, TargetId)
     {
       PhaseOffset = phaseOffset;
       Type = type;
@@ -22712,9 +22945,9 @@ namespace Sdx.Cmd
   /// Get space vehicle phase offset antenna pattern. If no name is specified, the command is aplied to Basic Vehicle Antenna.
   ///
   /// Name   Type            Description
-  /// ------ --------------- ----------------------------------------------------------------
+  /// ------ --------------- --------------------------------------------------------------------------
   /// Band   GNSSBand        Frequency band
-  /// System string          "GPS", "GLONASS", "Galileo", "BeiDou", "SBAS", "QZSS" or "NavIC"
+  /// System string          "GPS", "GLONASS", "Galileo", "BeiDou", "SBAS", "QZSS", "NavIC" or "PULSAR"
   /// Name   optional string SV antenna name
   ///
 
@@ -22726,13 +22959,14 @@ namespace Sdx.Cmd
     }
 
     internal const string CmdName = "GetSVAntennaPhaseOffset";
+    internal const string TargetId = "";
 
     public GetSVAntennaPhaseOffset()
-      : base(CmdName)
+      : base(CmdName, TargetId)
     {}
 
     public GetSVAntennaPhaseOffset(GNSSBand band, string system, string name = null)
-      : base(CmdName)
+      : base(CmdName, TargetId)
     {
       Band = band;
       System = system;
@@ -22792,7 +23026,7 @@ namespace Sdx.Cmd
   /// PhaseOffset array array double Phase offset matrix (rad). The first dimension will be mapped to elevation [-90, 90] and the second dimension to azimuth [0, 360[.
   /// Type        AntennaPatternType Pattern type
   /// Band        GNSSBand           Frequency band
-  /// System      string             "GPS", "GLONASS", "Galileo", "BeiDou", "SBAS", "QZSS" or "NavIC"
+  /// System      string             "GPS", "GLONASS", "Galileo", "BeiDou", "SBAS", "QZSS", "NavIC" or "PULSAR"
   /// Name        optional string    SV antenna name
   ///
 
@@ -22804,13 +23038,14 @@ namespace Sdx.Cmd
     }
 
     internal const string CmdName = "GetSVAntennaPhaseOffsetResult";
+    internal const string TargetId = "";
 
     public GetSVAntennaPhaseOffsetResult()
-      : base(CmdName)
+      : base(CmdName, TargetId)
     {}
 
     public GetSVAntennaPhaseOffsetResult(CommandBase relatedCommand, List<List<double>> phaseOffset, AntennaPatternType type, GNSSBand band, string system, string name = null)
-      : base(CmdName, relatedCommand)
+      : base(CmdName, TargetId, relatedCommand)
     {
       PhaseOffset = phaseOffset;
       Type = type;
@@ -22890,7 +23125,7 @@ namespace Sdx.Cmd
   /// FilePath string             File path of the CSV. For Default and None type, lets it empty. See formats in user manual part 8.7.9.2.1. Models.
   /// Type     AntennaPatternType Pattern type
   /// Band     GNSSBand           Frequency band
-  /// System   string             "GPS", "GLONASS", "Galileo", "BeiDou", "SBAS", "QZSS" or "NavIC"
+  /// System   string             "GPS", "GLONASS", "Galileo", "BeiDou", "SBAS", "QZSS", "NavIC" or "PULSAR"
   /// Name     optional string    Vehicle antenna name
   ///
 
@@ -22902,13 +23137,14 @@ namespace Sdx.Cmd
     }
 
     internal const string CmdName = "SetSVAntennaGainCSV";
+    internal const string TargetId = "";
 
     public SetSVAntennaGainCSV()
-      : base(CmdName)
+      : base(CmdName, TargetId)
     {}
 
     public SetSVAntennaGainCSV(string filePath, AntennaPatternType type, GNSSBand band, string system, string name = null)
-      : base(CmdName)
+      : base(CmdName, TargetId)
     {
       FilePath = filePath;
       Type = type;
@@ -22991,7 +23227,7 @@ namespace Sdx.Cmd
   /// FileFormat AntennaPatternFileType Values' unit of the CSV File: "Degrees", "Radians" or "NoneFile" in case of None-pattern type.
   /// Type       AntennaPatternType     Pattern type
   /// Band       GNSSBand               Frequency band
-  /// System     string                 "GPS", "GLONASS", "Galileo", "BeiDou", "SBAS", "QZSS" or "NavIC"
+  /// System     string                 "GPS", "GLONASS", "Galileo", "BeiDou", "SBAS", "QZSS", "NavIC" or "PULSAR"
   /// Name       optional string        SV antenna name
   ///
 
@@ -23003,13 +23239,14 @@ namespace Sdx.Cmd
     }
 
     internal const string CmdName = "SetSVAntennaPhaseOffsetCSV";
+    internal const string TargetId = "";
 
     public SetSVAntennaPhaseOffsetCSV()
-      : base(CmdName)
+      : base(CmdName, TargetId)
     {}
 
     public SetSVAntennaPhaseOffsetCSV(string filePath, AntennaPatternFileType fileFormat, AntennaPatternType type, GNSSBand band, string system, string name = null)
-      : base(CmdName)
+      : base(CmdName, TargetId)
     {
       FilePath = filePath;
       FileFormat = fileFormat;
@@ -23098,9 +23335,9 @@ namespace Sdx.Cmd
   /// Create an empty space vehicle antenna model.
   ///
   /// Name   Type   Description
-  /// ------ ------ ----------------------------------------------------------------
+  /// ------ ------ --------------------------------------------------------------------------
   /// Name   string SV antenna model name
-  /// System string "GPS", "GLONASS", "Galileo", "BeiDou", "SBAS", "QZSS" or "NavIC"
+  /// System string "GPS", "GLONASS", "Galileo", "BeiDou", "SBAS", "QZSS", "NavIC" or "PULSAR"
   ///
 
   public class AddEmptySVAntennaModel : CommandBase
@@ -23111,13 +23348,14 @@ namespace Sdx.Cmd
     }
 
     internal const string CmdName = "AddEmptySVAntennaModel";
+    internal const string TargetId = "";
 
     public AddEmptySVAntennaModel()
-      : base(CmdName)
+      : base(CmdName, TargetId)
     {}
 
     public AddEmptySVAntennaModel(string name, string system)
-      : base(CmdName)
+      : base(CmdName, TargetId)
     {
       Name = name;
       System = system;
@@ -23160,9 +23398,9 @@ namespace Sdx.Cmd
   /// Delete a space vehicle antenna model. The default SV antenna model can't be deleted.
   ///
   /// Name   Type   Description
-  /// ------ ------ ----------------------------------------------------------------
+  /// ------ ------ --------------------------------------------------------------------------
   /// Name   string SV antenna model name
-  /// System string "GPS", "GLONASS", "Galileo", "BeiDou", "SBAS", "QZSS" or "NavIC"
+  /// System string "GPS", "GLONASS", "Galileo", "BeiDou", "SBAS", "QZSS", "NavIC" or "PULSAR"
   ///
 
   public class DeleteSVAntennaModel : CommandBase
@@ -23173,13 +23411,14 @@ namespace Sdx.Cmd
     }
 
     internal const string CmdName = "DeleteSVAntennaModel";
+    internal const string TargetId = "";
 
     public DeleteSVAntennaModel()
-      : base(CmdName)
+      : base(CmdName, TargetId)
     {}
 
     public DeleteSVAntennaModel(string name, string system)
-      : base(CmdName)
+      : base(CmdName, TargetId)
     {
       Name = name;
       System = system;
@@ -23222,10 +23461,10 @@ namespace Sdx.Cmd
   /// Rename a space vehicle antenna model.
   ///
   /// Name    Type   Description
-  /// ------- ------ ----------------------------------------------------------------
+  /// ------- ------ --------------------------------------------------------------------------
   /// Name    string Reference space vehicle antenna model name
   /// NewName string New space vehicle antenna model name
-  /// System  string "GPS", "GLONASS", "Galileo", "BeiDou", "SBAS", "QZSS" or "NavIC"
+  /// System  string "GPS", "GLONASS", "Galileo", "BeiDou", "SBAS", "QZSS", "NavIC" or "PULSAR"
   ///
 
   public class RenameSVAntennaModel : CommandBase
@@ -23236,13 +23475,14 @@ namespace Sdx.Cmd
     }
 
     internal const string CmdName = "RenameSVAntennaModel";
+    internal const string TargetId = "";
 
     public RenameSVAntennaModel()
-      : base(CmdName)
+      : base(CmdName, TargetId)
     {}
 
     public RenameSVAntennaModel(string name, string newName, string system)
-      : base(CmdName)
+      : base(CmdName, TargetId)
     {
       Name = name;
       NewName = newName;
@@ -23296,10 +23536,10 @@ namespace Sdx.Cmd
   /// Copy a space vehicle antenna model.
   ///
   /// Name     Type   Description
-  /// -------- ------ ----------------------------------------------------------------
+  /// -------- ------ --------------------------------------------------------------------------
   /// Name     string Reference space vehicle antenna model name
   /// CopyName string Copy space vehicle antenna model name
-  /// System   string "GPS", "GLONASS", "Galileo", "BeiDou", "SBAS", "QZSS" or "NavIC"
+  /// System   string "GPS", "GLONASS", "Galileo", "BeiDou", "SBAS", "QZSS", "NavIC" or "PULSAR"
   ///
 
   public class CopySVAntennaModel : CommandBase
@@ -23310,13 +23550,14 @@ namespace Sdx.Cmd
     }
 
     internal const string CmdName = "CopySVAntennaModel";
+    internal const string TargetId = "";
 
     public CopySVAntennaModel()
-      : base(CmdName)
+      : base(CmdName, TargetId)
     {}
 
     public CopySVAntennaModel(string name, string copyName, string system)
-      : base(CmdName)
+      : base(CmdName, TargetId)
     {
       Name = name;
       CopyName = copyName;
@@ -23370,9 +23611,9 @@ namespace Sdx.Cmd
   /// Import a space vehicle antenna model from a XML file.
   ///
   /// Name     Type   Description
-  /// -------- ------ ----------------------------------------------------------------
+  /// -------- ------ --------------------------------------------------------------------------
   /// FilePath string File path of the antenna model
-  /// System   string "GPS", "GLONASS", "Galileo", "BeiDou", "SBAS", "QZSS" or "NavIC"
+  /// System   string "GPS", "GLONASS", "Galileo", "BeiDou", "SBAS", "QZSS", "NavIC" or "PULSAR"
   ///
 
   public class ImportSVAntennaModel : CommandBase
@@ -23383,13 +23624,14 @@ namespace Sdx.Cmd
     }
 
     internal const string CmdName = "ImportSVAntennaModel";
+    internal const string TargetId = "";
 
     public ImportSVAntennaModel()
-      : base(CmdName)
+      : base(CmdName, TargetId)
     {}
 
     public ImportSVAntennaModel(string filePath, string system)
-      : base(CmdName)
+      : base(CmdName, TargetId)
     {
       FilePath = filePath;
       System = system;
@@ -23432,9 +23674,9 @@ namespace Sdx.Cmd
   /// Export a space vehicle antenna model in a XML file.
   ///
   /// Name        Type   Description
-  /// ----------- ------ ----------------------------------------------------------------
+  /// ----------- ------ --------------------------------------------------------------------------
   /// AntennaName string SV antenna model name
-  /// System      string "GPS", "GLONASS", "Galileo", "BeiDou", "SBAS", "QZSS" or "NavIC"
+  /// System      string "GPS", "GLONASS", "Galileo", "BeiDou", "SBAS", "QZSS", "NavIC" or "PULSAR"
   /// FilePath    string The antenna model will be exported in this file path.
   /// Overwriting bool   Overwrite the old file if true.
   ///
@@ -23447,13 +23689,14 @@ namespace Sdx.Cmd
     }
 
     internal const string CmdName = "ExportSVAntennaModel";
+    internal const string TargetId = "";
 
     public ExportSVAntennaModel()
-      : base(CmdName)
+      : base(CmdName, TargetId)
     {}
 
     public ExportSVAntennaModel(string antennaName, string system, string filePath, bool overwriting)
-      : base(CmdName)
+      : base(CmdName, TargetId)
     {
       AntennaName = antennaName;
       System = system;
@@ -23518,8 +23761,8 @@ namespace Sdx.Cmd
   /// Set the antenna model used by the SV.
   ///
   /// Name             Type   Description
-  /// ---------------- ------ -----------------------------------------------------------------
-  /// System           string "GPS", "GLONASS", "Galileo", "BeiDou", "SBAS", "QZSS" or "NavIC".
+  /// ---------------- ------ ---------------------------------------------------------------------------
+  /// System           string "GPS", "GLONASS", "Galileo", "BeiDou", "SBAS", "QZSS", "NavIC" or "PULSAR".
   /// SvId             int    The satellite's SV ID.
   /// AntennaModelName string SV antenna model name.
   ///
@@ -23532,13 +23775,14 @@ namespace Sdx.Cmd
     }
 
     internal const string CmdName = "SetSVAntennaModelForSV";
+    internal const string TargetId = "";
 
     public SetSVAntennaModelForSV()
-      : base(CmdName)
+      : base(CmdName, TargetId)
     {}
 
     public SetSVAntennaModelForSV(string system, int svId, string antennaModelName)
-      : base(CmdName)
+      : base(CmdName, TargetId)
     {
       System = system;
       SvId = svId;
@@ -23592,8 +23836,8 @@ namespace Sdx.Cmd
   /// Get the antenna model used by the SV.
   ///
   /// Name   Type   Description
-  /// ------ ------ -----------------------------------------------------------------
-  /// System string "GPS", "GLONASS", "Galileo", "BeiDou", "SBAS", "QZSS" or "NavIC".
+  /// ------ ------ ---------------------------------------------------------------------------
+  /// System string "GPS", "GLONASS", "Galileo", "BeiDou", "SBAS", "QZSS", "NavIC" or "PULSAR".
   /// SvId   int    The satellite's SV ID.
   ///
 
@@ -23605,13 +23849,14 @@ namespace Sdx.Cmd
     }
 
     internal const string CmdName = "GetSVAntennaModelForSV";
+    internal const string TargetId = "";
 
     public GetSVAntennaModelForSV()
-      : base(CmdName)
+      : base(CmdName, TargetId)
     {}
 
     public GetSVAntennaModelForSV(string system, int svId)
-      : base(CmdName)
+      : base(CmdName, TargetId)
     {
       System = system;
       SvId = svId;
@@ -23654,8 +23899,8 @@ namespace Sdx.Cmd
   /// Result of GetSVAntennaModelForSV.
   ///
   /// Name             Type   Description
-  /// ---------------- ------ -----------------------------------------------------------------
-  /// System           string "GPS", "GLONASS", "Galileo", "BeiDou", "SBAS", "QZSS" or "NavIC".
+  /// ---------------- ------ ---------------------------------------------------------------------------
+  /// System           string "GPS", "GLONASS", "Galileo", "BeiDou", "SBAS", "QZSS", "NavIC" or "PULSAR".
   /// SvId             int    The satellite's SV ID.
   /// AntennaModelName string SV antenna model name.
   ///
@@ -23668,13 +23913,14 @@ namespace Sdx.Cmd
     }
 
     internal const string CmdName = "GetSVAntennaModelForSVResult";
+    internal const string TargetId = "";
 
     public GetSVAntennaModelForSVResult()
-      : base(CmdName)
+      : base(CmdName, TargetId)
     {}
 
     public GetSVAntennaModelForSVResult(CommandBase relatedCommand, string system, int svId, string antennaModelName)
-      : base(CmdName, relatedCommand)
+      : base(CmdName, TargetId, relatedCommand)
     {
       System = system;
       SvId = svId;
@@ -23727,7 +23973,7 @@ namespace Sdx.Cmd
   ///
   /// Name              Type         Description
   /// ----------------- ------------ -----------------------------------------------------------------------------------------------------
-  /// System            string       "GPS", "GLONASS", "Galileo", "BeiDou", "SBAS", "QZSS" or "NavIC"
+  /// System            string       "GPS", "GLONASS", "Galileo", "BeiDou", "SBAS", "QZSS", "NavIC" or "PULSAR"
   /// AntennaModelNames array string Antenna model name for each satellite. Zero based index (index 0 => SV ID 1, index 1 => SV ID 2, etc)
   ///
 
@@ -23739,13 +23985,14 @@ namespace Sdx.Cmd
     }
 
     internal const string CmdName = "SetSVAntennaModelForEachSV";
+    internal const string TargetId = "";
 
     public SetSVAntennaModelForEachSV()
-      : base(CmdName)
+      : base(CmdName, TargetId)
     {}
 
     public SetSVAntennaModelForEachSV(string system, List<string> antennaModelNames)
-      : base(CmdName)
+      : base(CmdName, TargetId)
     {
       System = system;
       AntennaModelNames = antennaModelNames;
@@ -23788,8 +24035,8 @@ namespace Sdx.Cmd
   /// Get the antenna model for all satellites.
   ///
   /// Name   Type   Description
-  /// ------ ------ ----------------------------------------------------------------
-  /// System string "GPS", "GLONASS", "Galileo", "BeiDou", "SBAS", "QZSS" or "NavIC"
+  /// ------ ------ --------------------------------------------------------------------------
+  /// System string "GPS", "GLONASS", "Galileo", "BeiDou", "SBAS", "QZSS", "NavIC" or "PULSAR"
   ///
 
   public class GetSVAntennaModelForEachSV : CommandBase
@@ -23800,13 +24047,14 @@ namespace Sdx.Cmd
     }
 
     internal const string CmdName = "GetSVAntennaModelForEachSV";
+    internal const string TargetId = "";
 
     public GetSVAntennaModelForEachSV()
-      : base(CmdName)
+      : base(CmdName, TargetId)
     {}
 
     public GetSVAntennaModelForEachSV(string system)
-      : base(CmdName)
+      : base(CmdName, TargetId)
     {
       System = system;
     }
@@ -23839,7 +24087,7 @@ namespace Sdx.Cmd
   ///
   /// Name              Type         Description
   /// ----------------- ------------ -----------------------------------------------------------------------------------------------------
-  /// System            string       "GPS", "GLONASS", "Galileo", "BeiDou", "SBAS", "QZSS" or "NavIC"
+  /// System            string       "GPS", "GLONASS", "Galileo", "BeiDou", "SBAS", "QZSS", "NavIC" or "PULSAR"
   /// AntennaModelNames array string Antenna model name for each satellite. Zero based index (index 0 => SV ID 1, index 1 => SV ID 2, etc)
   ///
 
@@ -23851,13 +24099,14 @@ namespace Sdx.Cmd
     }
 
     internal const string CmdName = "GetSVAntennaModelForEachSVResult";
+    internal const string TargetId = "";
 
     public GetSVAntennaModelForEachSVResult()
-      : base(CmdName)
+      : base(CmdName, TargetId)
     {}
 
     public GetSVAntennaModelForEachSVResult(CommandBase relatedCommand, string system, List<string> antennaModelNames)
-      : base(CmdName, relatedCommand)
+      : base(CmdName, TargetId, relatedCommand)
     {
       System = system;
       AntennaModelNames = antennaModelNames;
@@ -23914,13 +24163,14 @@ namespace Sdx.Cmd
     }
 
     internal const string CmdName = "SetSVType";
+    internal const string TargetId = "";
 
     public SetSVType()
-      : base(CmdName)
+      : base(CmdName, TargetId)
     {}
 
     public SetSVType(string system, int svId, string svType)
-      : base(CmdName)
+      : base(CmdName, TargetId)
     {
       System = system;
       SvId = svId;
@@ -23989,13 +24239,14 @@ namespace Sdx.Cmd
     }
 
     internal const string CmdName = "GetSVType";
+    internal const string TargetId = "";
 
     public GetSVType()
-      : base(CmdName)
+      : base(CmdName, TargetId)
     {}
 
     public GetSVType(string system, int svId)
-      : base(CmdName)
+      : base(CmdName, TargetId)
     {
       System = system;
       SvId = svId;
@@ -24052,13 +24303,14 @@ namespace Sdx.Cmd
     }
 
     internal const string CmdName = "GetSVTypeResult";
+    internal const string TargetId = "";
 
     public GetSVTypeResult()
-      : base(CmdName)
+      : base(CmdName, TargetId)
     {}
 
     public GetSVTypeResult(CommandBase relatedCommand, string system, int svId, string svType)
-      : base(CmdName, relatedCommand)
+      : base(CmdName, TargetId, relatedCommand)
     {
       System = system;
       SvId = svId;
@@ -24127,13 +24379,14 @@ namespace Sdx.Cmd
     }
 
     internal const string CmdName = "SetTransmittedPrnForSV";
+    internal const string TargetId = "";
 
     public SetTransmittedPrnForSV()
-      : base(CmdName)
+      : base(CmdName, TargetId)
     {}
 
     public SetTransmittedPrnForSV(int svId, Dictionary<string, int> signalPrnDict)
-      : base(CmdName)
+      : base(CmdName, TargetId)
     {
       SvId = svId;
       SignalPrnDict = signalPrnDict;
@@ -24193,13 +24446,14 @@ namespace Sdx.Cmd
     }
 
     internal const string CmdName = "GetTransmittedPrnForSV";
+    internal const string TargetId = "";
 
     public GetTransmittedPrnForSV()
-      : base(CmdName)
+      : base(CmdName, TargetId)
     {}
 
     public GetTransmittedPrnForSV(int svId, List<string> signalArray)
-      : base(CmdName)
+      : base(CmdName, TargetId)
     {
       SvId = svId;
       SignalArray = signalArray;
@@ -24259,13 +24513,14 @@ namespace Sdx.Cmd
     }
 
     internal const string CmdName = "GetTransmittedPrnForSVResult";
+    internal const string TargetId = "";
 
     public GetTransmittedPrnForSVResult()
-      : base(CmdName)
+      : base(CmdName, TargetId)
     {}
 
     public GetTransmittedPrnForSVResult(CommandBase relatedCommand, int svId, Dictionary<string, int> signalPrnDict)
-      : base(CmdName, relatedCommand)
+      : base(CmdName, TargetId, relatedCommand)
     {
       SvId = svId;
       SignalPrnDict = signalPrnDict;
@@ -24306,8 +24561,8 @@ namespace Sdx.Cmd
   /// Set the PRN transmitted by the SV ID for this signal.
   ///
   /// Name   Type   Description
-  /// ------ ------ ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
-  /// Signal string Accepted signal keys: "L1CA", "L1C", "L2C", "L5", "E1", "E6BC", "B1", "B2", "B1C", "B2a", "B3I", "SBASL1", "SBASL5", "QZSSL1CA", "QZSSL1CB", "QZSSL1C", "QZSSL2C", "QZSSL5", "QZSSL1S", "QZSSL5S", "NAVICL5"
+  /// ------ ------ ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+  /// Signal string Accepted signal keys: "L1CA", "L1C", "L2C", "L5", "E1", "E6BC", "B1", "B2", "B1C", "B2a", "B3I", "SBASL1", "SBASL5", "QZSSL1CA", "QZSSL1CB", "QZSSL1C", "QZSSL2C", "QZSSL5", "QZSSL1S", "QZSSL5S", "NAVICL5", "PULSARXL"
   /// SvId   int    Satellite SV ID.
   /// Prn    int    PRN number.
   ///
@@ -24320,13 +24575,14 @@ namespace Sdx.Cmd
     }
 
     internal const string CmdName = "SetPrnOfSVID";
+    internal const string TargetId = "";
 
     public SetPrnOfSVID()
-      : base(CmdName)
+      : base(CmdName, TargetId)
     {}
 
     public SetPrnOfSVID(string signal, int svId, int prn)
-      : base(CmdName)
+      : base(CmdName, TargetId)
     {
       Signal = signal;
       SvId = svId;
@@ -24380,8 +24636,8 @@ namespace Sdx.Cmd
   /// Get the PRN transmitted by the SV ID for this signal.
   ///
   /// Name   Type   Description
-  /// ------ ------ ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
-  /// Signal string Accepted signal keys: "L1CA", "L1C", "L2C", "L5", "E1", "E6BC", "B1", "B2", "B1C", "B2a", "B3I", "SBASL1", "SBASL5", "QZSSL1CA", "QZSSL1CB", "QZSSL1C", "QZSSL2C", "QZSSL5", "QZSSL1S", "QZSSL5S", "NAVICL5"
+  /// ------ ------ ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+  /// Signal string Accepted signal keys: "L1CA", "L1C", "L2C", "L5", "E1", "E6BC", "B1", "B2", "B1C", "B2a", "B3I", "SBASL1", "SBASL5", "QZSSL1CA", "QZSSL1CB", "QZSSL1C", "QZSSL2C", "QZSSL5", "QZSSL1S", "QZSSL5S", "NAVICL5", "PULSARXL"
   /// SvId   int    Satellite SV ID.
   ///
 
@@ -24393,13 +24649,14 @@ namespace Sdx.Cmd
     }
 
     internal const string CmdName = "GetPrnOfSVID";
+    internal const string TargetId = "";
 
     public GetPrnOfSVID()
-      : base(CmdName)
+      : base(CmdName, TargetId)
     {}
 
     public GetPrnOfSVID(string signal, int svId)
-      : base(CmdName)
+      : base(CmdName, TargetId)
     {
       Signal = signal;
       SvId = svId;
@@ -24442,8 +24699,8 @@ namespace Sdx.Cmd
   /// Result of GetPrnOfSVID.
   ///
   /// Name   Type   Description
-  /// ------ ------ ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
-  /// Signal string Accepted signal keys: "L1CA", "L1C", "L2C", "L5", "E1", "E6BC", "B1", "B2", "B1C", "B2a", "B3I", "SBASL1", "SBASL5", "QZSSL1CA", "QZSSL1CB", "QZSSL1C", "QZSSL2C", "QZSSL5", "QZSSL1S", "QZSSL5S", "NAVICL5"
+  /// ------ ------ ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+  /// Signal string Accepted signal keys: "L1CA", "L1C", "L2C", "L5", "E1", "E6BC", "B1", "B2", "B1C", "B2a", "B3I", "SBASL1", "SBASL5", "QZSSL1CA", "QZSSL1CB", "QZSSL1C", "QZSSL2C", "QZSSL5", "QZSSL1S", "QZSSL5S", "NAVICL5", "PULSARXL"
   /// SvId   int    Satellite SV ID.
   /// Prn    int    PRN number.
   ///
@@ -24456,13 +24713,14 @@ namespace Sdx.Cmd
     }
 
     internal const string CmdName = "GetPrnOfSVIDResult";
+    internal const string TargetId = "";
 
     public GetPrnOfSVIDResult()
-      : base(CmdName)
+      : base(CmdName, TargetId)
     {}
 
     public GetPrnOfSVIDResult(CommandBase relatedCommand, string signal, int svId, int prn)
-      : base(CmdName, relatedCommand)
+      : base(CmdName, TargetId, relatedCommand)
     {
       Signal = signal;
       SvId = svId;
@@ -24514,8 +24772,8 @@ namespace Sdx.Cmd
   /// Set the PRN for each satellite for specified signals.
   ///
   /// Name   Type      Description
-  /// ------ --------- ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
-  /// Signal string    Accepted signal keys: "L1CA", "L1C", "L2C", "L5", "E1", "E6BC", "B1", "B2", "B1C", "B2a", "B3I", "SBASL1", "SBASL5", "QZSSL1CA", "QZSSL1CB", "QZSSL1C", "QZSSL2C", "QZSSL5", "QZSSL1S", "QZSSL5S", "NAVICL5"
+  /// ------ --------- ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+  /// Signal string    Accepted signal keys: "L1CA", "L1C", "L2C", "L5", "E1", "E6BC", "B1", "B2", "B1C", "B2a", "B3I", "SBASL1", "SBASL5", "QZSSL1CA", "QZSSL1CB", "QZSSL1C", "QZSSL2C", "QZSSL5", "QZSSL1S", "QZSSL5S", "NAVICL5", "PULSARXL"
   /// Prn    array int PRN value to set for each satellite. Zero based index (index 0 => PRN for SV ID 1, index 1 => PRN for SV ID 2, etc)
   ///
 
@@ -24527,13 +24785,14 @@ namespace Sdx.Cmd
     }
 
     internal const string CmdName = "SetPrnForEachSV";
+    internal const string TargetId = "";
 
     public SetPrnForEachSV()
-      : base(CmdName)
+      : base(CmdName, TargetId)
     {}
 
     public SetPrnForEachSV(string signal, List<int> prn)
-      : base(CmdName)
+      : base(CmdName, TargetId)
     {
       Signal = signal;
       Prn = prn;
@@ -24576,8 +24835,8 @@ namespace Sdx.Cmd
   /// Get the PRN for each satellite for specified signals.
   ///
   /// Name   Type   Description
-  /// ------ ------ ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
-  /// Signal string Accepted signal keys: "L1CA", "L1C", "L2C", "L5", "E1", "E6BC", "B1", "B2", "B1C", "B2a", "B3I", "SBASL1", "SBASL5", "QZSSL1CA", "QZSSL1CB", "QZSSL1C", "QZSSL2C", "QZSSL5", "QZSSL1S", "QZSSL5S", "NAVICL5"
+  /// ------ ------ ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+  /// Signal string Accepted signal keys: "L1CA", "L1C", "L2C", "L5", "E1", "E6BC", "B1", "B2", "B1C", "B2a", "B3I", "SBASL1", "SBASL5", "QZSSL1CA", "QZSSL1CB", "QZSSL1C", "QZSSL2C", "QZSSL5", "QZSSL1S", "QZSSL5S", "NAVICL5", "PULSARXL"
   ///
 
   public class GetPrnForEachSV : CommandBase
@@ -24588,13 +24847,14 @@ namespace Sdx.Cmd
     }
 
     internal const string CmdName = "GetPrnForEachSV";
+    internal const string TargetId = "";
 
     public GetPrnForEachSV()
-      : base(CmdName)
+      : base(CmdName, TargetId)
     {}
 
     public GetPrnForEachSV(string signal)
-      : base(CmdName)
+      : base(CmdName, TargetId)
     {
       Signal = signal;
     }
@@ -24626,8 +24886,8 @@ namespace Sdx.Cmd
   /// Result of GetPrnForEachSV.
   ///
   /// Name   Type      Description
-  /// ------ --------- ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
-  /// Signal string    Accepted signal keys: "L1CA", "L1C", "L2C", "L5", "E1", "E6BC", "B1", "B2", "B1C", "B2a", "B3I", "SBASL1", "SBASL5", "QZSSL1CA", "QZSSL1CB", "QZSSL1C", "QZSSL2C", "QZSSL5", "QZSSL1S", "QZSSL5S", "NAVICL5"
+  /// ------ --------- ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+  /// Signal string    Accepted signal keys: "L1CA", "L1C", "L2C", "L5", "E1", "E6BC", "B1", "B2", "B1C", "B2a", "B3I", "SBASL1", "SBASL5", "QZSSL1CA", "QZSSL1CB", "QZSSL1C", "QZSSL2C", "QZSSL5", "QZSSL1S", "QZSSL5S", "NAVICL5", "PULSARXL"
   /// Prn    array int PRN value to set for each satellite. Zero based index (index 0 => PRN for SV ID 1, index 1 => PRN for SV ID 2, etc)
   ///
 
@@ -24639,13 +24899,14 @@ namespace Sdx.Cmd
     }
 
     internal const string CmdName = "GetPrnForEachSVResult";
+    internal const string TargetId = "";
 
     public GetPrnForEachSVResult()
-      : base(CmdName)
+      : base(CmdName, TargetId)
     {}
 
     public GetPrnForEachSVResult(CommandBase relatedCommand, string signal, List<int> prn)
-      : base(CmdName, relatedCommand)
+      : base(CmdName, TargetId, relatedCommand)
     {
       Signal = signal;
       Prn = prn;
@@ -24686,8 +24947,8 @@ namespace Sdx.Cmd
   /// Reset the PRNs of all satellites in specified system, for all signals.
   ///
   /// Name   Type   Description
-  /// ------ ------ ----------------------------------------------------------------
-  /// System string "GPS", "GLONASS", "Galileo", "BeiDou", "SBAS", "QZSS" or "NavIC"
+  /// ------ ------ --------------------------------------------------------------------------
+  /// System string "GPS", "GLONASS", "Galileo", "BeiDou", "SBAS", "QZSS", "NavIC" or "PULSAR"
   ///
 
   public class ResetToDefaultPrn : CommandBase
@@ -24698,13 +24959,14 @@ namespace Sdx.Cmd
     }
 
     internal const string CmdName = "ResetToDefaultPrn";
+    internal const string TargetId = "";
 
     public ResetToDefaultPrn()
-      : base(CmdName)
+      : base(CmdName, TargetId)
     {}
 
     public ResetToDefaultPrn(string system)
-      : base(CmdName)
+      : base(CmdName, TargetId)
     {
       System = system;
     }
@@ -24748,13 +25010,14 @@ namespace Sdx.Cmd
     }
 
     internal const string CmdName = "EnableTrajectorySmoothing";
+    internal const string TargetId = "";
 
     public EnableTrajectorySmoothing()
-      : base(CmdName)
+      : base(CmdName, TargetId)
     {}
 
     public EnableTrajectorySmoothing(bool enabled)
-      : base(CmdName)
+      : base(CmdName, TargetId)
     {
       Enabled = enabled;
     }
@@ -24796,9 +25059,10 @@ namespace Sdx.Cmd
     }
 
     internal const string CmdName = "IsTrajectorySmoothingEnabled";
+    internal const string TargetId = "";
 
     public IsTrajectorySmoothingEnabled()
-      : base(CmdName)
+      : base(CmdName, TargetId)
     {}
       
     public override bool IsValid
@@ -24830,13 +25094,14 @@ namespace Sdx.Cmd
     }
 
     internal const string CmdName = "IsTrajectorySmoothingEnabledResult";
+    internal const string TargetId = "";
 
     public IsTrajectorySmoothingEnabledResult()
-      : base(CmdName)
+      : base(CmdName, TargetId)
     {}
 
     public IsTrajectorySmoothingEnabledResult(CommandBase relatedCommand, bool enabled)
-      : base(CmdName, relatedCommand)
+      : base(CmdName, TargetId, relatedCommand)
     {
       Enabled = enabled;
     }
@@ -24878,13 +25143,14 @@ namespace Sdx.Cmd
     }
 
     internal const string CmdName = "EnableSimulationStopAtTrajectoryEnd";
+    internal const string TargetId = "";
 
     public EnableSimulationStopAtTrajectoryEnd()
-      : base(CmdName)
+      : base(CmdName, TargetId)
     {}
 
     public EnableSimulationStopAtTrajectoryEnd(bool enabled)
-      : base(CmdName)
+      : base(CmdName, TargetId)
     {
       Enabled = enabled;
     }
@@ -24926,9 +25192,10 @@ namespace Sdx.Cmd
     }
 
     internal const string CmdName = "IsSimulationStopAtTrajectoryEndEnabled";
+    internal const string TargetId = "";
 
     public IsSimulationStopAtTrajectoryEndEnabled()
-      : base(CmdName)
+      : base(CmdName, TargetId)
     {}
       
     public override bool IsValid
@@ -24960,13 +25227,14 @@ namespace Sdx.Cmd
     }
 
     internal const string CmdName = "IsSimulationStopAtTrajectoryEndEnabledResult";
+    internal const string TargetId = "";
 
     public IsSimulationStopAtTrajectoryEndEnabledResult()
-      : base(CmdName)
+      : base(CmdName, TargetId)
     {}
 
     public IsSimulationStopAtTrajectoryEndEnabledResult(CommandBase relatedCommand, bool enabled)
-      : base(CmdName, relatedCommand)
+      : base(CmdName, TargetId, relatedCommand)
     {
       Enabled = enabled;
     }
@@ -25008,13 +25276,14 @@ namespace Sdx.Cmd
     }
 
     internal const string CmdName = "ForceAttitudeToZero";
+    internal const string TargetId = "";
 
     public ForceAttitudeToZero()
-      : base(CmdName)
+      : base(CmdName, TargetId)
     {}
 
     public ForceAttitudeToZero(bool enabled)
-      : base(CmdName)
+      : base(CmdName, TargetId)
     {
       Enabled = enabled;
     }
@@ -25056,9 +25325,10 @@ namespace Sdx.Cmd
     }
 
     internal const string CmdName = "IsAttitudeToZeroForced";
+    internal const string TargetId = "";
 
     public IsAttitudeToZeroForced()
-      : base(CmdName)
+      : base(CmdName, TargetId)
     {}
       
     public override bool IsValid
@@ -25090,13 +25360,14 @@ namespace Sdx.Cmd
     }
 
     internal const string CmdName = "IsAttitudeToZeroForcedResult";
+    internal const string TargetId = "";
 
     public IsAttitudeToZeroForcedResult()
-      : base(CmdName)
+      : base(CmdName, TargetId)
     {}
 
     public IsAttitudeToZeroForcedResult(CommandBase relatedCommand, bool enabled)
-      : base(CmdName, relatedCommand)
+      : base(CmdName, TargetId, relatedCommand)
     {
       Enabled = enabled;
     }
@@ -25138,13 +25409,14 @@ namespace Sdx.Cmd
     }
 
     internal const string CmdName = "SetVehicleTrajectory";
+    internal const string TargetId = "";
 
     public SetVehicleTrajectory()
-      : base(CmdName)
+      : base(CmdName, TargetId)
     {}
 
     public SetVehicleTrajectory(string type)
-      : base(CmdName)
+      : base(CmdName, TargetId)
     {
       Type = type;
     }
@@ -25186,9 +25458,10 @@ namespace Sdx.Cmd
     }
 
     internal const string CmdName = "GetVehicleTrajectory";
+    internal const string TargetId = "";
 
     public GetVehicleTrajectory()
-      : base(CmdName)
+      : base(CmdName, TargetId)
     {}
       
     public override bool IsValid
@@ -25220,13 +25493,14 @@ namespace Sdx.Cmd
     }
 
     internal const string CmdName = "GetVehicleTrajectoryResult";
+    internal const string TargetId = "";
 
     public GetVehicleTrajectoryResult()
-      : base(CmdName)
+      : base(CmdName, TargetId)
     {}
 
     public GetVehicleTrajectoryResult(CommandBase relatedCommand, string type)
-      : base(CmdName, relatedCommand)
+      : base(CmdName, TargetId, relatedCommand)
     {
       Type = type;
     }
@@ -25268,13 +25542,14 @@ namespace Sdx.Cmd
     }
 
     internal const string CmdName = "SetVehicleType";
+    internal const string TargetId = "";
 
     public SetVehicleType()
-      : base(CmdName)
+      : base(CmdName, TargetId)
     {}
 
     public SetVehicleType(string type)
-      : base(CmdName)
+      : base(CmdName, TargetId)
     {
       Type = type;
     }
@@ -25316,9 +25591,10 @@ namespace Sdx.Cmd
     }
 
     internal const string CmdName = "GetVehicleType";
+    internal const string TargetId = "";
 
     public GetVehicleType()
-      : base(CmdName)
+      : base(CmdName, TargetId)
     {}
       
     public override bool IsValid
@@ -25350,13 +25626,14 @@ namespace Sdx.Cmd
     }
 
     internal const string CmdName = "GetVehicleTypeResult";
+    internal const string TargetId = "";
 
     public GetVehicleTypeResult()
-      : base(CmdName)
+      : base(CmdName, TargetId)
     {}
 
     public GetVehicleTypeResult(CommandBase relatedCommand, string type)
-      : base(CmdName, relatedCommand)
+      : base(CmdName, TargetId, relatedCommand)
     {
       Type = type;
     }
@@ -25399,9 +25676,10 @@ namespace Sdx.Cmd
     }
 
     internal const string CmdName = "BeginTrackDefinition";
+    internal const string TargetId = "";
 
     public BeginTrackDefinition()
-      : base(CmdName)
+      : base(CmdName, TargetId)
     {}
       
     public override bool IsValid
@@ -25436,13 +25714,14 @@ namespace Sdx.Cmd
     }
 
     internal const string CmdName = "PushTrackEcef";
+    internal const string TargetId = "";
 
     public PushTrackEcef()
-      : base(CmdName)
+      : base(CmdName, TargetId)
     {}
 
     public PushTrackEcef(int time, double x, double y, double z)
-      : base(CmdName)
+      : base(CmdName, TargetId)
     {
       Time = time;
       X = x;
@@ -25525,13 +25804,14 @@ namespace Sdx.Cmd
     }
 
     internal const string CmdName = "PushTrackEcefNed";
+    internal const string TargetId = "";
 
     public PushTrackEcefNed()
-      : base(CmdName)
+      : base(CmdName, TargetId)
     {}
 
     public PushTrackEcefNed(int time, double x, double y, double z, double yaw, double pitch, double roll)
-      : base(CmdName)
+      : base(CmdName, TargetId)
     {
       Time = time;
       X = x;
@@ -25642,9 +25922,10 @@ namespace Sdx.Cmd
     }
 
     internal const string CmdName = "EndTrackDefinition";
+    internal const string TargetId = "";
 
     public EndTrackDefinition()
-      : base(CmdName)
+      : base(CmdName, TargetId)
     {}
       
     public override bool IsValid
@@ -25676,13 +25957,14 @@ namespace Sdx.Cmd
     }
 
     internal const string CmdName = "EndTrackDefinitionResult";
+    internal const string TargetId = "";
 
     public EndTrackDefinitionResult()
-      : base(CmdName)
+      : base(CmdName, TargetId)
     {}
 
     public EndTrackDefinitionResult(CommandBase relatedCommand, int count)
-      : base(CmdName, relatedCommand)
+      : base(CmdName, TargetId, relatedCommand)
     {
       Count = count;
     }
@@ -25725,9 +26007,10 @@ namespace Sdx.Cmd
     }
 
     internal const string CmdName = "BeginRouteDefinition";
+    internal const string TargetId = "";
 
     public BeginRouteDefinition()
-      : base(CmdName)
+      : base(CmdName, TargetId)
     {}
       
     public override bool IsValid
@@ -25762,13 +26045,14 @@ namespace Sdx.Cmd
     }
 
     internal const string CmdName = "PushRouteEcef";
+    internal const string TargetId = "";
 
     public PushRouteEcef()
-      : base(CmdName)
+      : base(CmdName, TargetId)
     {}
 
     public PushRouteEcef(double speed, double x, double y, double z)
-      : base(CmdName)
+      : base(CmdName, TargetId)
     {
       Speed = speed;
       X = x;
@@ -25846,9 +26130,10 @@ namespace Sdx.Cmd
     }
 
     internal const string CmdName = "EndRouteDefinition";
+    internal const string TargetId = "";
 
     public EndRouteDefinition()
-      : base(CmdName)
+      : base(CmdName, TargetId)
     {}
       
     public override bool IsValid
@@ -25880,13 +26165,14 @@ namespace Sdx.Cmd
     }
 
     internal const string CmdName = "EndRouteDefinitionResult";
+    internal const string TargetId = "";
 
     public EndRouteDefinitionResult()
-      : base(CmdName)
+      : base(CmdName, TargetId)
     {}
 
     public EndRouteDefinitionResult(CommandBase relatedCommand, int count)
-      : base(CmdName, relatedCommand)
+      : base(CmdName, TargetId, relatedCommand)
     {
       Count = count;
     }
@@ -25934,13 +26220,14 @@ namespace Sdx.Cmd
     }
 
     internal const string CmdName = "SetVehicleTrajectoryFix";
+    internal const string TargetId = "";
 
     public SetVehicleTrajectoryFix()
-      : base(CmdName)
+      : base(CmdName, TargetId)
     {}
 
     public SetVehicleTrajectoryFix(string type, double lat, double lon, double alt, double yaw, double pitch, double roll)
-      : base(CmdName)
+      : base(CmdName, TargetId)
     {
       Type = type;
       Lat = lat;
@@ -26048,9 +26335,10 @@ namespace Sdx.Cmd
     }
 
     internal const string CmdName = "GetVehicleTrajectoryFix";
+    internal const string TargetId = "";
 
     public GetVehicleTrajectoryFix()
-      : base(CmdName)
+      : base(CmdName, TargetId)
     {}
       
     public override bool IsValid
@@ -26088,13 +26376,14 @@ namespace Sdx.Cmd
     }
 
     internal const string CmdName = "GetVehicleTrajectoryFixResult";
+    internal const string TargetId = "";
 
     public GetVehicleTrajectoryFixResult()
-      : base(CmdName)
+      : base(CmdName, TargetId)
     {}
 
     public GetVehicleTrajectoryFixResult(CommandBase relatedCommand, string type, double lat, double lon, double alt, double yaw, double pitch, double roll)
-      : base(CmdName, relatedCommand)
+      : base(CmdName, TargetId, relatedCommand)
     {
       Type = type;
       Lat = lat;
@@ -26208,13 +26497,14 @@ namespace Sdx.Cmd
     }
 
     internal const string CmdName = "SetVehicleTrajectoryFixEcef";
+    internal const string TargetId = "";
 
     public SetVehicleTrajectoryFixEcef()
-      : base(CmdName)
+      : base(CmdName, TargetId)
     {}
 
     public SetVehicleTrajectoryFixEcef(string type, double x, double y, double z, double yaw, double pitch, double roll)
-      : base(CmdName)
+      : base(CmdName, TargetId)
     {
       Type = type;
       X = x;
@@ -26322,9 +26612,10 @@ namespace Sdx.Cmd
     }
 
     internal const string CmdName = "GetVehicleTrajectoryFixEcef";
+    internal const string TargetId = "";
 
     public GetVehicleTrajectoryFixEcef()
-      : base(CmdName)
+      : base(CmdName, TargetId)
     {}
       
     public override bool IsValid
@@ -26362,13 +26653,14 @@ namespace Sdx.Cmd
     }
 
     internal const string CmdName = "GetVehicleTrajectoryFixEcefResult";
+    internal const string TargetId = "";
 
     public GetVehicleTrajectoryFixEcefResult()
-      : base(CmdName)
+      : base(CmdName, TargetId)
     {}
 
     public GetVehicleTrajectoryFixEcefResult(CommandBase relatedCommand, string type, double x, double y, double z, double yaw, double pitch, double roll)
-      : base(CmdName, relatedCommand)
+      : base(CmdName, TargetId, relatedCommand)
     {
       Type = type;
       X = x;
@@ -26483,13 +26775,14 @@ namespace Sdx.Cmd
     }
 
     internal const string CmdName = "SetVehicleTrajectoryCircular";
+    internal const string TargetId = "";
 
     public SetVehicleTrajectoryCircular()
-      : base(CmdName)
+      : base(CmdName, TargetId)
     {}
 
     public SetVehicleTrajectoryCircular(string type, double lat, double lon, double alt, double radius, double speed, bool clockwise, double? originAngle = null)
-      : base(CmdName)
+      : base(CmdName, TargetId)
     {
       Type = type;
       Lat = lat;
@@ -26610,9 +26903,10 @@ namespace Sdx.Cmd
     }
 
     internal const string CmdName = "GetVehicleTrajectoryCircular";
+    internal const string TargetId = "";
 
     public GetVehicleTrajectoryCircular()
-      : base(CmdName)
+      : base(CmdName, TargetId)
     {}
       
     public override bool IsValid
@@ -26651,13 +26945,14 @@ namespace Sdx.Cmd
     }
 
     internal const string CmdName = "GetVehicleTrajectoryCircularResult";
+    internal const string TargetId = "";
 
     public GetVehicleTrajectoryCircularResult()
-      : base(CmdName)
+      : base(CmdName, TargetId)
     {}
 
     public GetVehicleTrajectoryCircularResult(CommandBase relatedCommand, string type, double lat, double lon, double alt, double radius, double speed, bool clockwise, double? originAngle = null)
-      : base(CmdName, relatedCommand)
+      : base(CmdName, TargetId, relatedCommand)
     {
       Type = type;
       Lat = lat;
@@ -26785,13 +27080,14 @@ namespace Sdx.Cmd
     }
 
     internal const string CmdName = "SetVehicleTrajectoryOrbit";
+    internal const string TargetId = "";
 
     public SetVehicleTrajectoryOrbit()
-      : base(CmdName)
+      : base(CmdName, TargetId)
     {}
 
     public SetVehicleTrajectoryOrbit(string type, DateTime reference, double semiMajorAxis, double inclination, double rightAscension, double eccentricity, double meanAnomaly, double argumentOfPerigee)
-      : base(CmdName)
+      : base(CmdName, TargetId)
     {
       Type = type;
       Reference = reference;
@@ -26910,9 +27206,10 @@ namespace Sdx.Cmd
     }
 
     internal const string CmdName = "GetVehicleTrajectoryOrbit";
+    internal const string TargetId = "";
 
     public GetVehicleTrajectoryOrbit()
-      : base(CmdName)
+      : base(CmdName, TargetId)
     {}
       
     public override bool IsValid
@@ -26951,13 +27248,14 @@ namespace Sdx.Cmd
     }
 
     internal const string CmdName = "GetVehicleTrajectoryOrbitResult";
+    internal const string TargetId = "";
 
     public GetVehicleTrajectoryOrbitResult()
-      : base(CmdName)
+      : base(CmdName, TargetId)
     {}
 
     public GetVehicleTrajectoryOrbitResult(CommandBase relatedCommand, string type, DateTime reference, double semiMajorAxis, double inclination, double rightAscension, double eccentricity, double meanAnomaly, double argumentOfPerigee)
-      : base(CmdName, relatedCommand)
+      : base(CmdName, TargetId, relatedCommand)
     {
       Type = type;
       Reference = reference;
@@ -27074,9 +27372,10 @@ namespace Sdx.Cmd
     }
 
     internal const string CmdName = "GetHilPort";
+    internal const string TargetId = "";
 
     public GetHilPort()
-      : base(CmdName)
+      : base(CmdName, TargetId)
     {}
       
     public override bool IsValid
@@ -27108,13 +27407,14 @@ namespace Sdx.Cmd
     }
 
     internal const string CmdName = "HilPortResult";
+    internal const string TargetId = "";
 
     public HilPortResult()
-      : base(CmdName)
+      : base(CmdName, TargetId)
     {}
 
     public HilPortResult(CommandBase relatedCommand, int port)
-      : base(CmdName, relatedCommand)
+      : base(CmdName, TargetId, relatedCommand)
     {
       Port = port;
     }
@@ -27164,9 +27464,10 @@ namespace Sdx.Cmd
     }
 
     internal const string CmdName = "GetHilExtrapolationState";
+    internal const string TargetId = "";
 
     public GetHilExtrapolationState()
-      : base(CmdName)
+      : base(CmdName, TargetId)
     {}
       
     public override bool IsValid
@@ -27199,13 +27500,14 @@ namespace Sdx.Cmd
     }
 
     internal const string CmdName = "GetHilExtrapolationStateResult";
+    internal const string TargetId = "";
 
     public GetHilExtrapolationStateResult()
-      : base(CmdName)
+      : base(CmdName, TargetId)
     {}
 
     public GetHilExtrapolationStateResult(CommandBase relatedCommand, HilExtrapolationState state, int elapsedTime)
-      : base(CmdName, relatedCommand)
+      : base(CmdName, TargetId, relatedCommand)
     {
       State = state;
       ElapsedTime = elapsedTime;
@@ -27249,7 +27551,7 @@ namespace Sdx.Cmd
   ///
   /// Name        Type            Description
   /// ----------- --------------- -------------------------------------------------------------------------------------------
-  /// System      string          "GPS", "Galileo", "BeiDou", "QZSS" or "NavIC"
+  /// System      string          "GPS", "Galileo", "BeiDou", "QZSS", "NavIC" or "PULSAR"
   /// SvId        int             The satellite's SV ID.
   /// Time        datetime        GPS date and time (it is the GPS time expressed in UTC format)
   /// DataSetName optional string Optional name of the data set to use. If no value is provided, the active data set is used.
@@ -27263,13 +27565,14 @@ namespace Sdx.Cmd
     }
 
     internal const string CmdName = "SetEphemerisReferenceTime";
+    internal const string TargetId = "";
 
     public SetEphemerisReferenceTime()
-      : base(CmdName)
+      : base(CmdName, TargetId)
     {}
 
     public SetEphemerisReferenceTime(string system, int svId, DateTime time, string dataSetName = null)
-      : base(CmdName)
+      : base(CmdName, TargetId)
     {
       System = system;
       SvId = svId;
@@ -27337,7 +27640,7 @@ namespace Sdx.Cmd
   ///
   /// Name        Type            Description
   /// ----------- --------------- -------------------------------------------------------------------------------------------
-  /// System      string          "GPS", "Galileo", "BeiDou", "QZSS" or "NavIC"
+  /// System      string          "GPS", "Galileo", "BeiDou", "QZSS", "NavIC" or "PULSAR"
   /// SvId        int             The satellite's SV ID.
   /// Time        datetime        GPS date and time (it is the GPS time expressed in UTC format)
   /// DataSetName optional string Optional name of the data set to use. If no value is provided, the active data set is used.
@@ -27351,13 +27654,14 @@ namespace Sdx.Cmd
     }
 
     internal const string CmdName = "SetEphemerisReferenceTimeForSV";
+    internal const string TargetId = "";
 
     public SetEphemerisReferenceTimeForSV()
-      : base(CmdName)
+      : base(CmdName, TargetId)
     {}
 
     public SetEphemerisReferenceTimeForSV(string system, int svId, DateTime time, string dataSetName = null)
-      : base(CmdName)
+      : base(CmdName, TargetId)
     {
       System = system;
       SvId = svId;
@@ -27427,7 +27731,7 @@ namespace Sdx.Cmd
   ///
   /// Name        Type            Description
   /// ----------- --------------- -------------------------------------------------------------------------------------------
-  /// System      string          "GPS", "Galileo", "BeiDou", "QZSS" or "NavIC"
+  /// System      string          "GPS", "Galileo", "BeiDou", "QZSS", "NavIC" or "PULSAR"
   /// SvId        int             The satellite's SV ID.
   /// DataSetName optional string Optional name of the data set to use. If no value is provided, the active data set is used.
   ///
@@ -27440,13 +27744,14 @@ namespace Sdx.Cmd
     }
 
     internal const string CmdName = "GetEphemerisReferenceTime";
+    internal const string TargetId = "";
 
     public GetEphemerisReferenceTime()
-      : base(CmdName)
+      : base(CmdName, TargetId)
     {}
 
     public GetEphemerisReferenceTime(string system, int svId, string dataSetName = null)
-      : base(CmdName)
+      : base(CmdName, TargetId)
     {
       System = system;
       SvId = svId;
@@ -27503,7 +27808,7 @@ namespace Sdx.Cmd
   ///
   /// Name        Type            Description
   /// ----------- --------------- -------------------------------------------------------------------------------------------
-  /// System      string          "GPS", "Galileo", "BeiDou", "QZSS" or "NavIC"
+  /// System      string          "GPS", "Galileo", "BeiDou", "QZSS", "NavIC" or "PULSAR"
   /// SvId        int             The satellite's SV ID.
   /// DataSetName optional string Optional name of the data set to use. If no value is provided, the active data set is used.
   ///
@@ -27516,13 +27821,14 @@ namespace Sdx.Cmd
     }
 
     internal const string CmdName = "GetEphemerisReferenceTimeForSV";
+    internal const string TargetId = "";
 
     public GetEphemerisReferenceTimeForSV()
-      : base(CmdName)
+      : base(CmdName, TargetId)
     {}
 
     public GetEphemerisReferenceTimeForSV(string system, int svId, string dataSetName = null)
-      : base(CmdName)
+      : base(CmdName, TargetId)
     {
       System = system;
       SvId = svId;
@@ -27579,7 +27885,7 @@ namespace Sdx.Cmd
   ///
   /// Name        Type            Description
   /// ----------- --------------- -------------------------------------------------------------------------------------------
-  /// System      string          "GPS", "Galileo", "BeiDou", "QZSS" or "NavIC"
+  /// System      string          "GPS", "Galileo", "BeiDou", "QZSS", "NavIC" or "PULSAR"
   /// SvId        int             The satellite's SV ID.
   /// Time        datetime        GPS date and time (it is the GPS time expressed in UTC format)
   /// DataSetName optional string Optional name of the data set to use. If no value is provided, the active data set is used.
@@ -27593,13 +27899,14 @@ namespace Sdx.Cmd
     }
   
     internal const string CmdName = "GetEphemerisReferenceTimeResult";
+    internal const string TargetId = "";
 
     public GetEphemerisReferenceTimeResult()
-      : base(CmdName)
+      : base(CmdName, TargetId)
     {}
 
     public GetEphemerisReferenceTimeResult(CommandBase relatedCommand, string system, int svId, DateTime time, string dataSetName = null)
-      : base(CmdName, relatedCommand)
+      : base(CmdName, TargetId, relatedCommand)
     {
       System = system;
       SvId = svId;
@@ -27647,7 +27954,7 @@ namespace Sdx.Cmd
   ///
   /// Name        Type            Description
   /// ----------- --------------- -------------------------------------------------------------------------------------------
-  /// System      string          "GPS", "Galileo", "BeiDou", "QZSS" or "NavIC"
+  /// System      string          "GPS", "Galileo", "BeiDou", "QZSS", "NavIC" or "PULSAR"
   /// SvId        int             The satellite's SV ID.
   /// Time        datetime        GPS date and time (it is the GPS time expressed in UTC format)
   /// DataSetName optional string Optional name of the data set to use. If no value is provided, the active data set is used.
@@ -27701,13 +28008,14 @@ namespace Sdx.Cmd
     }
 
     internal const string CmdName = "SetGlonassEphDoubleParamForSV";
+    internal const string TargetId = "";
 
     public SetGlonassEphDoubleParamForSV()
-      : base(CmdName)
+      : base(CmdName, TargetId)
     {}
 
     public SetGlonassEphDoubleParamForSV(int svId, string paramName, double val)
-      : base(CmdName)
+      : base(CmdName, TargetId)
     {
       SvId = svId;
       ParamName = paramName;
@@ -27786,13 +28094,14 @@ namespace Sdx.Cmd
     }
 
     internal const string CmdName = "GetGlonassEphDoubleParamForSV";
+    internal const string TargetId = "";
 
     public GetGlonassEphDoubleParamForSV()
-      : base(CmdName)
+      : base(CmdName, TargetId)
     {}
 
     public GetGlonassEphDoubleParamForSV(int svId, string paramName)
-      : base(CmdName)
+      : base(CmdName, TargetId)
     {
       SvId = svId;
       ParamName = paramName;
@@ -27849,13 +28158,14 @@ namespace Sdx.Cmd
     }
 
     internal const string CmdName = "GetGlonassEphDoubleParamForSVResult";
+    internal const string TargetId = "";
 
     public GetGlonassEphDoubleParamForSVResult()
-      : base(CmdName)
+      : base(CmdName, TargetId)
     {}
 
     public GetGlonassEphDoubleParamForSVResult(CommandBase relatedCommand, int svId, string paramName, double val)
-      : base(CmdName, relatedCommand)
+      : base(CmdName, TargetId, relatedCommand)
     {
       SvId = svId;
       ParamName = paramName;
@@ -27922,13 +28232,14 @@ namespace Sdx.Cmd
     }
 
     internal const string CmdName = "SetGlonassDoubleParams";
+    internal const string TargetId = "";
 
     public SetGlonassDoubleParams()
-      : base(CmdName)
+      : base(CmdName, TargetId)
     {}
 
     public SetGlonassDoubleParams(string paramName, List<double> val)
-      : base(CmdName)
+      : base(CmdName, TargetId)
     {
       ParamName = paramName;
       Val = val;
@@ -27984,13 +28295,14 @@ namespace Sdx.Cmd
     }
 
     internal const string CmdName = "SetGlonassEphDoubleParamForEachSV";
+    internal const string TargetId = "";
 
     public SetGlonassEphDoubleParamForEachSV()
-      : base(CmdName)
+      : base(CmdName, TargetId)
     {}
 
     public SetGlonassEphDoubleParamForEachSV(string paramName, List<double> val)
-      : base(CmdName)
+      : base(CmdName, TargetId)
     {
       ParamName = paramName;
       Val = val;
@@ -28047,13 +28359,14 @@ namespace Sdx.Cmd
     }
 
     internal const string CmdName = "GetGlonassDoubleParams";
+    internal const string TargetId = "";
 
     public GetGlonassDoubleParams()
-      : base(CmdName)
+      : base(CmdName, TargetId)
     {}
 
     public GetGlonassDoubleParams(string paramName)
-      : base(CmdName)
+      : base(CmdName, TargetId)
     {
       ParamName = paramName;
     }
@@ -28097,13 +28410,14 @@ namespace Sdx.Cmd
     }
 
     internal const string CmdName = "GetGlonassEphDoubleParamForEachSV";
+    internal const string TargetId = "";
 
     public GetGlonassEphDoubleParamForEachSV()
-      : base(CmdName)
+      : base(CmdName, TargetId)
     {}
 
     public GetGlonassEphDoubleParamForEachSV(string paramName)
-      : base(CmdName)
+      : base(CmdName, TargetId)
     {
       ParamName = paramName;
     }
@@ -28148,13 +28462,14 @@ namespace Sdx.Cmd
     }
   
     internal const string CmdName = "GetGlonassDoubleParamsResult";
+    internal const string TargetId = "";
 
     public GetGlonassDoubleParamsResult()
-      : base(CmdName)
+      : base(CmdName, TargetId)
     {}
 
     public GetGlonassDoubleParamsResult(CommandBase relatedCommand, string paramName, List<double> val)
-      : base(CmdName, relatedCommand)
+      : base(CmdName, TargetId, relatedCommand)
     {
       ParamName = paramName;
       Val = val;
@@ -28223,9 +28538,10 @@ namespace Sdx.Cmd
     }
 
     internal const string CmdName = "GetGlonassFrequencyNumberForEachSV";
+    internal const string TargetId = "";
 
     public GetGlonassFrequencyNumberForEachSV()
-      : base(CmdName)
+      : base(CmdName, TargetId)
     {}
       
     public override bool IsValid
@@ -28257,13 +28573,14 @@ namespace Sdx.Cmd
     }
 
     internal const string CmdName = "GetGlonassFrequencyNumberForEachSVResult";
+    internal const string TargetId = "";
 
     public GetGlonassFrequencyNumberForEachSVResult()
-      : base(CmdName)
+      : base(CmdName, TargetId)
     {}
 
     public GetGlonassFrequencyNumberForEachSVResult(CommandBase relatedCommand, List<int> frequencyNumber)
-      : base(CmdName, relatedCommand)
+      : base(CmdName, TargetId, relatedCommand)
     {
       FrequencyNumber = frequencyNumber;
     }
@@ -28310,13 +28627,14 @@ namespace Sdx.Cmd
     }
 
     internal const string CmdName = "SetSbasEphParamsForSV";
+    internal const string TargetId = "";
 
     public SetSbasEphParamsForSV()
-      : base(CmdName)
+      : base(CmdName, TargetId)
     {}
 
     public SetSbasEphParamsForSV(int svId, Dictionary<string, double> paramValueDict)
-      : base(CmdName)
+      : base(CmdName, TargetId)
     {
       SvId = svId;
       ParamValueDict = paramValueDict;
@@ -28376,13 +28694,14 @@ namespace Sdx.Cmd
     }
 
     internal const string CmdName = "GetSbasEphParamsForSV";
+    internal const string TargetId = "";
 
     public GetSbasEphParamsForSV()
-      : base(CmdName)
+      : base(CmdName, TargetId)
     {}
 
     public GetSbasEphParamsForSV(int svId, List<string> paramArray)
-      : base(CmdName)
+      : base(CmdName, TargetId)
     {
       SvId = svId;
       ParamArray = paramArray;
@@ -28442,13 +28761,14 @@ namespace Sdx.Cmd
     }
 
     internal const string CmdName = "GetSbasEphParamsForSVResult";
+    internal const string TargetId = "";
 
     public GetSbasEphParamsForSVResult()
-      : base(CmdName)
+      : base(CmdName, TargetId)
     {}
 
     public GetSbasEphParamsForSVResult(CommandBase relatedCommand, int svId, Dictionary<string, double> paramValueDict)
-      : base(CmdName, relatedCommand)
+      : base(CmdName, TargetId, relatedCommand)
     {
       SvId = svId;
       ParamValueDict = paramValueDict;
@@ -28502,13 +28822,14 @@ namespace Sdx.Cmd
     }
 
     internal const string CmdName = "SetSbasRangingHealthForSV";
+    internal const string TargetId = "";
 
     public SetSbasRangingHealthForSV()
-      : base(CmdName)
+      : base(CmdName, TargetId)
     {}
 
     public SetSbasRangingHealthForSV(int svId, bool health)
-      : base(CmdName)
+      : base(CmdName, TargetId)
     {
       SvId = svId;
       Health = health;
@@ -28564,13 +28885,14 @@ namespace Sdx.Cmd
     }
 
     internal const string CmdName = "SetSbasCorrectionsHealthForSV";
+    internal const string TargetId = "";
 
     public SetSbasCorrectionsHealthForSV()
-      : base(CmdName)
+      : base(CmdName, TargetId)
     {}
 
     public SetSbasCorrectionsHealthForSV(int svId, bool health)
-      : base(CmdName)
+      : base(CmdName, TargetId)
     {
       SvId = svId;
       Health = health;
@@ -28626,13 +28948,14 @@ namespace Sdx.Cmd
     }
 
     internal const string CmdName = "SetSbasIntegrityHealthForSV";
+    internal const string TargetId = "";
 
     public SetSbasIntegrityHealthForSV()
-      : base(CmdName)
+      : base(CmdName, TargetId)
     {}
 
     public SetSbasIntegrityHealthForSV(int svId, bool health)
-      : base(CmdName)
+      : base(CmdName, TargetId)
     {
       SvId = svId;
       Health = health;
@@ -28688,13 +29011,14 @@ namespace Sdx.Cmd
     }
 
     internal const string CmdName = "SetSbasReservedHealthForSV";
+    internal const string TargetId = "";
 
     public SetSbasReservedHealthForSV()
-      : base(CmdName)
+      : base(CmdName, TargetId)
     {}
 
     public SetSbasReservedHealthForSV(int svId, bool health)
-      : base(CmdName)
+      : base(CmdName, TargetId)
     {
       SvId = svId;
       Health = health;
@@ -28750,13 +29074,14 @@ namespace Sdx.Cmd
     }
 
     internal const string CmdName = "SetSbasServiceHealthForSV";
+    internal const string TargetId = "";
 
     public SetSbasServiceHealthForSV()
-      : base(CmdName)
+      : base(CmdName, TargetId)
     {}
 
     public SetSbasServiceHealthForSV(int svId, int health)
-      : base(CmdName)
+      : base(CmdName, TargetId)
     {
       SvId = svId;
       Health = health;
@@ -28800,7 +29125,7 @@ namespace Sdx.Cmd
   ///
   /// Name        Type            Description
   /// ----------- --------------- -------------------------------------------------------------------------------------------
-  /// System      string          "GPS", "Galileo", "BeiDou", "QZSS" or "NavIC"
+  /// System      string          "GPS", "Galileo", "BeiDou", "QZSS", "NavIC" or "PULSAR"
   /// SvId        int             The satellite's SV ID. Use 0 to apply new value to all satellites in the constellation.
   /// DataSetName optional string Optional name of the data set to use. If no value is provided, the active data set is used.
   ///
@@ -28813,13 +29138,14 @@ namespace Sdx.Cmd
     }
 
     internal const string CmdName = "ResetPerturbations";
+    internal const string TargetId = "";
 
     public ResetPerturbations()
-      : base(CmdName)
+      : base(CmdName, TargetId)
     {}
 
     public ResetPerturbations(string system, int svId, string dataSetName = null)
-      : base(CmdName)
+      : base(CmdName, TargetId)
     {
       System = system;
       SvId = svId;
@@ -28876,7 +29202,7 @@ namespace Sdx.Cmd
   ///
   /// Name        Type            Description
   /// ----------- --------------- -------------------------------------------------------------------------------------------
-  /// System      string          "GPS", "Galileo", "BeiDou", "QZSS" or "NavIC"
+  /// System      string          "GPS", "Galileo", "BeiDou", "QZSS", "NavIC" or "PULSAR"
   /// SvId        int             The satellite's SV ID.
   /// Crs         double          Crs (meter)
   /// Crc         double          Crc (meter)
@@ -28895,13 +29221,14 @@ namespace Sdx.Cmd
     }
 
     internal const string CmdName = "SetPerturbations";
+    internal const string TargetId = "";
 
     public SetPerturbations()
-      : base(CmdName)
+      : base(CmdName, TargetId)
     {}
 
     public SetPerturbations(string system, int svId, double crs, double crc, double cis, double cic, double cus, double cuc, string dataSetName = null)
-      : base(CmdName)
+      : base(CmdName, TargetId)
     {
       System = system;
       SvId = svId;
@@ -29024,7 +29351,7 @@ namespace Sdx.Cmd
   ///
   /// Name        Type            Description
   /// ----------- --------------- -------------------------------------------------------------------------------------------
-  /// System      string          "GPS", "Galileo", "BeiDou", "QZSS" or "NavIC"
+  /// System      string          "GPS", "Galileo", "BeiDou", "QZSS", "NavIC" or "PULSAR"
   /// SvId        int             The satellite's SV ID.
   /// DataSetName optional string Optional name of the data set to use. If no value is provided, the active data set is used.
   ///
@@ -29037,13 +29364,14 @@ namespace Sdx.Cmd
     }
 
     internal const string CmdName = "GetPerturbations";
+    internal const string TargetId = "";
 
     public GetPerturbations()
-      : base(CmdName)
+      : base(CmdName, TargetId)
     {}
 
     public GetPerturbations(string system, int svId, string dataSetName = null)
-      : base(CmdName)
+      : base(CmdName, TargetId)
     {
       System = system;
       SvId = svId;
@@ -29100,7 +29428,7 @@ namespace Sdx.Cmd
   ///
   /// Name        Type            Description
   /// ----------- --------------- -------------------------------------------------------------------------------------------
-  /// System      string          "GPS", "Galileo", "BeiDou", "QZSS" or "NavIC"
+  /// System      string          "GPS", "Galileo", "BeiDou", "QZSS", "NavIC" or "PULSAR"
   /// SvId        int             The satellite's SV ID.
   /// Crs         double          Crs (meter)
   /// Crc         double          Crc (meter)
@@ -29119,13 +29447,14 @@ namespace Sdx.Cmd
     }
 
     internal const string CmdName = "GetPerturbationsResult";
+    internal const string TargetId = "";
 
     public GetPerturbationsResult()
-      : base(CmdName)
+      : base(CmdName, TargetId)
     {}
 
     public GetPerturbationsResult(CommandBase relatedCommand, string system, int svId, double crs, double crc, double cis, double cic, double cus, double cuc, string dataSetName = null)
-      : base(CmdName, relatedCommand)
+      : base(CmdName, TargetId, relatedCommand)
     {
       System = system;
       SvId = svId;
@@ -29247,7 +29576,7 @@ namespace Sdx.Cmd
   ///
   /// Name        Type            Description
   /// ----------- --------------- -------------------------------------------------------------------------------------------
-  /// System      string          "GPS", "Galileo", "BeiDou", "QZSS" or "NavIC"
+  /// System      string          "GPS", "Galileo", "BeiDou", "QZSS", "NavIC" or "PULSAR"
   /// Crs         array double    Crs (meter)
   /// Crc         array double    Crc (meter)
   /// Cis         array double    Cis (rad)
@@ -29265,13 +29594,14 @@ namespace Sdx.Cmd
     }
 
     internal const string CmdName = "SetPerturbationsForAllSat";
+    internal const string TargetId = "";
 
     public SetPerturbationsForAllSat()
-      : base(CmdName)
+      : base(CmdName, TargetId)
     {}
 
     public SetPerturbationsForAllSat(string system, List<double> crs, List<double> crc, List<double> cis, List<double> cic, List<double> cus, List<double> cuc, string dataSetName = null)
-      : base(CmdName)
+      : base(CmdName, TargetId)
     {
       System = system;
       Crs = crs;
@@ -29384,7 +29714,7 @@ namespace Sdx.Cmd
   ///
   /// Name        Type            Description
   /// ----------- --------------- -------------------------------------------------------------------------------------------
-  /// System      string          "GPS", "Galileo", "BeiDou", "QZSS" or "NavIC"
+  /// System      string          "GPS", "Galileo", "BeiDou", "QZSS", "NavIC" or "PULSAR"
   /// DataSetName optional string Optional name of the data set to use. If no value is provided, the active data set is used.
   ///
 
@@ -29396,13 +29726,14 @@ namespace Sdx.Cmd
     }
 
     internal const string CmdName = "GetPerturbationsForAllSat";
+    internal const string TargetId = "";
 
     public GetPerturbationsForAllSat()
-      : base(CmdName)
+      : base(CmdName, TargetId)
     {}
 
     public GetPerturbationsForAllSat(string system, string dataSetName = null)
-      : base(CmdName)
+      : base(CmdName, TargetId)
     {
       System = system;
       DataSetName = dataSetName;
@@ -29448,7 +29779,7 @@ namespace Sdx.Cmd
   ///
   /// Name        Type            Description
   /// ----------- --------------- -------------------------------------------------------------------------------------------
-  /// System      string          "GPS", "Galileo", "BeiDou", "QZSS" or "NavIC"
+  /// System      string          "GPS", "Galileo", "BeiDou", "QZSS", "NavIC" or "PULSAR"
   /// Crs         array double    Crs (meter)
   /// Crc         array double    Crc (meter)
   /// Cis         array double    Cis (rad)
@@ -29466,13 +29797,14 @@ namespace Sdx.Cmd
     }
 
     internal const string CmdName = "GetPerturbationsForAllSatResult";
+    internal const string TargetId = "";
 
     public GetPerturbationsForAllSatResult()
-      : base(CmdName)
+      : base(CmdName, TargetId)
     {}
 
     public GetPerturbationsForAllSatResult(CommandBase relatedCommand, string system, List<double> crs, List<double> crc, List<double> cis, List<double> cic, List<double> cus, List<double> cuc, string dataSetName = null)
-      : base(CmdName, relatedCommand)
+      : base(CmdName, TargetId, relatedCommand)
     {
       System = system;
       Crs = crs;
@@ -29627,13 +29959,14 @@ namespace Sdx.Cmd
     }
 
     internal const string CmdName = "SetMessageModificationToGpsCNav";
+    internal const string TargetId = "";
 
     public SetMessageModificationToGpsCNav()
-      : base(CmdName)
+      : base(CmdName, TargetId)
     {}
 
     public SetMessageModificationToGpsCNav(List<string> signalArray, int svId, int startTime, int stopTime, int messageType, string condition, bool updateCRC, string bitModifications, string id)
-      : base(CmdName)
+      : base(CmdName, TargetId)
     {
       SignalArray = signalArray;
       SvId = svId;
@@ -29765,13 +30098,14 @@ namespace Sdx.Cmd
     }
 
     internal const string CmdName = "GetMessageModificationToGpsCNav";
+    internal const string TargetId = "";
 
     public GetMessageModificationToGpsCNav()
-      : base(CmdName)
+      : base(CmdName, TargetId)
     {}
 
     public GetMessageModificationToGpsCNav(string id)
-      : base(CmdName)
+      : base(CmdName, TargetId)
     {
       Id = id;
     }
@@ -29823,13 +30157,14 @@ namespace Sdx.Cmd
     }
 
     internal const string CmdName = "GetMessageModificationToGpsCNavResult";
+    internal const string TargetId = "";
 
     public GetMessageModificationToGpsCNavResult()
-      : base(CmdName)
+      : base(CmdName, TargetId)
     {}
 
     public GetMessageModificationToGpsCNavResult(CommandBase relatedCommand, List<string> signalArray, int svId, int startTime, int stopTime, int messageType, string condition, bool updateCRC, string bitModifications, string id)
-      : base(CmdName, relatedCommand)
+      : base(CmdName, TargetId, relatedCommand)
     {
       SignalArray = signalArray;
       SvId = svId;
@@ -29993,13 +30328,14 @@ namespace Sdx.Cmd
     }
 
     internal const string CmdName = "SetMessageModificationToGpsMNav";
+    internal const string TargetId = "";
 
     public SetMessageModificationToGpsMNav()
-      : base(CmdName)
+      : base(CmdName, TargetId)
     {}
 
     public SetMessageModificationToGpsMNav(List<string> signalArray, int svId, int startTime, int stopTime, int messageType, int occurrence, string condition, string bitModifications, string id)
-      : base(CmdName)
+      : base(CmdName, TargetId)
     {
       SignalArray = signalArray;
       SvId = svId;
@@ -30131,13 +30467,14 @@ namespace Sdx.Cmd
     }
 
     internal const string CmdName = "GetMessageModificationToGpsMNav";
+    internal const string TargetId = "";
 
     public GetMessageModificationToGpsMNav()
-      : base(CmdName)
+      : base(CmdName, TargetId)
     {}
 
     public GetMessageModificationToGpsMNav(string id)
-      : base(CmdName)
+      : base(CmdName, TargetId)
     {
       Id = id;
     }
@@ -30189,13 +30526,14 @@ namespace Sdx.Cmd
     }
 
     internal const string CmdName = "GetMessageModificationToGpsMNavResult";
+    internal const string TargetId = "";
 
     public GetMessageModificationToGpsMNavResult()
-      : base(CmdName)
+      : base(CmdName, TargetId)
     {}
 
     public GetMessageModificationToGpsMNavResult(CommandBase relatedCommand, List<string> signalArray, int svId, int startTime, int stopTime, int messageType, int occurrence, string condition, string bitModifications, string id)
-      : base(CmdName, relatedCommand)
+      : base(CmdName, TargetId, relatedCommand)
     {
       SignalArray = signalArray;
       SvId = svId;
@@ -30359,13 +30697,14 @@ namespace Sdx.Cmd
     }
 
     internal const string CmdName = "SetMessageModificationToGpsCNav2";
+    internal const string TargetId = "";
 
     public SetMessageModificationToGpsCNav2()
-      : base(CmdName)
+      : base(CmdName, TargetId)
     {}
 
     public SetMessageModificationToGpsCNav2(List<string> signalArray, int svId, int startTime, int stopTime, int page, string condition, bool updateCRC, string bitModifications, string id)
-      : base(CmdName)
+      : base(CmdName, TargetId)
     {
       SignalArray = signalArray;
       SvId = svId;
@@ -30497,13 +30836,14 @@ namespace Sdx.Cmd
     }
 
     internal const string CmdName = "GetMessageModificationToGpsCNav2";
+    internal const string TargetId = "";
 
     public GetMessageModificationToGpsCNav2()
-      : base(CmdName)
+      : base(CmdName, TargetId)
     {}
 
     public GetMessageModificationToGpsCNav2(string id)
-      : base(CmdName)
+      : base(CmdName, TargetId)
     {
       Id = id;
     }
@@ -30555,13 +30895,14 @@ namespace Sdx.Cmd
     }
 
     internal const string CmdName = "GetMessageModificationToGpsCNav2Result";
+    internal const string TargetId = "";
 
     public GetMessageModificationToGpsCNav2Result()
-      : base(CmdName)
+      : base(CmdName, TargetId)
     {}
 
     public GetMessageModificationToGpsCNav2Result(CommandBase relatedCommand, List<string> signalArray, int svId, int startTime, int stopTime, int page, string condition, bool updateCRC, string bitModifications, string id)
-      : base(CmdName, relatedCommand)
+      : base(CmdName, TargetId, relatedCommand)
     {
       SignalArray = signalArray;
       SvId = svId;
@@ -30719,13 +31060,14 @@ namespace Sdx.Cmd
     }
 
     internal const string CmdName = "SetMessageModificationToGpsLNav";
+    internal const string TargetId = "";
 
     public SetMessageModificationToGpsLNav()
-      : base(CmdName)
+      : base(CmdName, TargetId)
     {}
 
     public SetMessageModificationToGpsLNav(List<string> signalArray, int svId, int startTime, int stopTime, int subframe, int page, int word, bool updateParity, string wordModification, string id)
-      : base(CmdName)
+      : base(CmdName, TargetId)
     {
       SignalArray = signalArray;
       SvId = svId;
@@ -30868,13 +31210,14 @@ namespace Sdx.Cmd
     }
 
     internal const string CmdName = "GetMessageModificationToGpsLNav";
+    internal const string TargetId = "";
 
     public GetMessageModificationToGpsLNav()
-      : base(CmdName)
+      : base(CmdName, TargetId)
     {}
 
     public GetMessageModificationToGpsLNav(string id)
-      : base(CmdName)
+      : base(CmdName, TargetId)
     {
       Id = id;
     }
@@ -30927,13 +31270,14 @@ namespace Sdx.Cmd
     }
 
     internal const string CmdName = "GetMessageModificationToGpsLNavResult";
+    internal const string TargetId = "";
 
     public GetMessageModificationToGpsLNavResult()
-      : base(CmdName)
+      : base(CmdName, TargetId)
     {}
 
     public GetMessageModificationToGpsLNavResult(CommandBase relatedCommand, List<string> signalArray, int svId, int startTime, int stopTime, int subframe, int page, int word, bool updateParity, string wordModification, string id)
-      : base(CmdName, relatedCommand)
+      : base(CmdName, TargetId, relatedCommand)
     {
       SignalArray = signalArray;
       SvId = svId;
@@ -31103,13 +31447,14 @@ namespace Sdx.Cmd
     }
 
     internal const string CmdName = "SetMessageModificationToGalileoCNav";
+    internal const string TargetId = "";
 
     public SetMessageModificationToGalileoCNav()
-      : base(CmdName)
+      : base(CmdName, TargetId)
     {}
 
     public SetMessageModificationToGalileoCNav(List<string> signalArray, int svId, int startTime, int stopTime, bool updateCRC, string bitModifications, string id)
-      : base(CmdName)
+      : base(CmdName, TargetId)
     {
       SignalArray = signalArray;
       SvId = svId;
@@ -31219,13 +31564,14 @@ namespace Sdx.Cmd
     }
 
     internal const string CmdName = "GetMessageModificationToGalileoCNav";
+    internal const string TargetId = "";
 
     public GetMessageModificationToGalileoCNav()
-      : base(CmdName)
+      : base(CmdName, TargetId)
     {}
 
     public GetMessageModificationToGalileoCNav(string id)
-      : base(CmdName)
+      : base(CmdName, TargetId)
     {
       Id = id;
     }
@@ -31275,13 +31621,14 @@ namespace Sdx.Cmd
     }
 
     internal const string CmdName = "GetMessageModificationToGalileoCNavResult";
+    internal const string TargetId = "";
 
     public GetMessageModificationToGalileoCNavResult()
-      : base(CmdName)
+      : base(CmdName, TargetId)
     {}
 
     public GetMessageModificationToGalileoCNavResult(CommandBase relatedCommand, List<string> signalArray, int svId, int startTime, int stopTime, bool updateCRC, string bitModifications, string id)
-      : base(CmdName, relatedCommand)
+      : base(CmdName, TargetId, relatedCommand)
     {
       SignalArray = signalArray;
       SvId = svId;
@@ -31421,13 +31768,14 @@ namespace Sdx.Cmd
     }
 
     internal const string CmdName = "SetMessageModificationToGalileoFNav";
+    internal const string TargetId = "";
 
     public SetMessageModificationToGalileoFNav()
-      : base(CmdName)
+      : base(CmdName, TargetId)
     {}
 
     public SetMessageModificationToGalileoFNav(List<string> signalArray, int svId, int startTime, int stopTime, int subframe, int page, string condition, bool updateCRC, string bitModifications, string id)
-      : base(CmdName)
+      : base(CmdName, TargetId)
     {
       SignalArray = signalArray;
       SvId = svId;
@@ -31570,13 +31918,14 @@ namespace Sdx.Cmd
     }
 
     internal const string CmdName = "GetMessageModificationToGalileoFNav";
+    internal const string TargetId = "";
 
     public GetMessageModificationToGalileoFNav()
-      : base(CmdName)
+      : base(CmdName, TargetId)
     {}
 
     public GetMessageModificationToGalileoFNav(string id)
-      : base(CmdName)
+      : base(CmdName, TargetId)
     {
       Id = id;
     }
@@ -31629,13 +31978,14 @@ namespace Sdx.Cmd
     }
 
     internal const string CmdName = "GetMessageModificationToGalileoFNavResult";
+    internal const string TargetId = "";
 
     public GetMessageModificationToGalileoFNavResult()
-      : base(CmdName)
+      : base(CmdName, TargetId)
     {}
 
     public GetMessageModificationToGalileoFNavResult(CommandBase relatedCommand, List<string> signalArray, int svId, int startTime, int stopTime, int subframe, int page, string condition, bool updateCRC, string bitModifications, string id)
-      : base(CmdName, relatedCommand)
+      : base(CmdName, TargetId, relatedCommand)
     {
       SignalArray = signalArray;
       SvId = svId;
@@ -31808,13 +32158,14 @@ namespace Sdx.Cmd
     }
 
     internal const string CmdName = "SetMessageModificationToGalileoINav";
+    internal const string TargetId = "";
 
     public SetMessageModificationToGalileoINav()
-      : base(CmdName)
+      : base(CmdName, TargetId)
     {}
 
     public SetMessageModificationToGalileoINav(List<string> signalArray, int svId, int startTime, int stopTime, int subframe, int page, string condition, bool updateCRC, string bitModifications, string id)
-      : base(CmdName)
+      : base(CmdName, TargetId)
     {
       SignalArray = signalArray;
       SvId = svId;
@@ -31957,13 +32308,14 @@ namespace Sdx.Cmd
     }
 
     internal const string CmdName = "GetMessageModificationToGalileoINav";
+    internal const string TargetId = "";
 
     public GetMessageModificationToGalileoINav()
-      : base(CmdName)
+      : base(CmdName, TargetId)
     {}
 
     public GetMessageModificationToGalileoINav(string id)
-      : base(CmdName)
+      : base(CmdName, TargetId)
     {
       Id = id;
     }
@@ -32016,13 +32368,14 @@ namespace Sdx.Cmd
     }
 
     internal const string CmdName = "GetMessageModificationToGalileoINavResult";
+    internal const string TargetId = "";
 
     public GetMessageModificationToGalileoINavResult()
-      : base(CmdName)
+      : base(CmdName, TargetId)
     {}
 
     public GetMessageModificationToGalileoINavResult(CommandBase relatedCommand, List<string> signalArray, int svId, int startTime, int stopTime, int subframe, int page, string condition, bool updateCRC, string bitModifications, string id)
-      : base(CmdName, relatedCommand)
+      : base(CmdName, TargetId, relatedCommand)
     {
       SignalArray = signalArray;
       SvId = svId;
@@ -32196,13 +32549,14 @@ namespace Sdx.Cmd
     }
 
     internal const string CmdName = "SetMessageModificationToGlonassNav";
+    internal const string TargetId = "";
 
     public SetMessageModificationToGlonassNav()
-      : base(CmdName)
+      : base(CmdName, TargetId)
     {}
 
     public SetMessageModificationToGlonassNav(List<string> signalArray, int svId, int startTime, int stopTime, int frame, int stringNumber, bool updateHammingCode, string stringModification, string id)
-      : base(CmdName)
+      : base(CmdName, TargetId)
     {
       SignalArray = signalArray;
       SvId = svId;
@@ -32334,13 +32688,14 @@ namespace Sdx.Cmd
     }
 
     internal const string CmdName = "GetMessageModificationToGlonassNav";
+    internal const string TargetId = "";
 
     public GetMessageModificationToGlonassNav()
-      : base(CmdName)
+      : base(CmdName, TargetId)
     {}
 
     public GetMessageModificationToGlonassNav(string id)
-      : base(CmdName)
+      : base(CmdName, TargetId)
     {
       Id = id;
     }
@@ -32392,13 +32747,14 @@ namespace Sdx.Cmd
     }
 
     internal const string CmdName = "GetMessageModificationToGlonassNavResult";
+    internal const string TargetId = "";
 
     public GetMessageModificationToGlonassNavResult()
-      : base(CmdName)
+      : base(CmdName, TargetId)
     {}
 
     public GetMessageModificationToGlonassNavResult(CommandBase relatedCommand, List<string> signalArray, int svId, int startTime, int stopTime, int frame, int stringNumber, bool updateHammingCode, string stringModification, string id)
-      : base(CmdName, relatedCommand)
+      : base(CmdName, TargetId, relatedCommand)
     {
       SignalArray = signalArray;
       SvId = svId;
@@ -32556,13 +32912,14 @@ namespace Sdx.Cmd
     }
 
     internal const string CmdName = "SetMessageModificationToBeiDouD1Nav";
+    internal const string TargetId = "";
 
     public SetMessageModificationToBeiDouD1Nav()
-      : base(CmdName)
+      : base(CmdName, TargetId)
     {}
 
     public SetMessageModificationToBeiDouD1Nav(List<string> signalArray, int svId, int startTime, int stopTime, int subframe, int page, int word, bool updateParity, string wordModification, string id)
-      : base(CmdName)
+      : base(CmdName, TargetId)
     {
       SignalArray = signalArray;
       SvId = svId;
@@ -32705,13 +33062,14 @@ namespace Sdx.Cmd
     }
 
     internal const string CmdName = "GetMessageModificationToBeiDouD1Nav";
+    internal const string TargetId = "";
 
     public GetMessageModificationToBeiDouD1Nav()
-      : base(CmdName)
+      : base(CmdName, TargetId)
     {}
 
     public GetMessageModificationToBeiDouD1Nav(string id)
-      : base(CmdName)
+      : base(CmdName, TargetId)
     {
       Id = id;
     }
@@ -32764,13 +33122,14 @@ namespace Sdx.Cmd
     }
 
     internal const string CmdName = "GetMessageModificationToBeiDouD1NavResult";
+    internal const string TargetId = "";
 
     public GetMessageModificationToBeiDouD1NavResult()
-      : base(CmdName)
+      : base(CmdName, TargetId)
     {}
 
     public GetMessageModificationToBeiDouD1NavResult(CommandBase relatedCommand, List<string> signalArray, int svId, int startTime, int stopTime, int subframe, int page, int word, bool updateParity, string wordModification, string id)
-      : base(CmdName, relatedCommand)
+      : base(CmdName, TargetId, relatedCommand)
     {
       SignalArray = signalArray;
       SvId = svId;
@@ -32939,13 +33298,14 @@ namespace Sdx.Cmd
     }
 
     internal const string CmdName = "SetMessageModificationToBeiDouD2Nav";
+    internal const string TargetId = "";
 
     public SetMessageModificationToBeiDouD2Nav()
-      : base(CmdName)
+      : base(CmdName, TargetId)
     {}
 
     public SetMessageModificationToBeiDouD2Nav(List<string> signalArray, int svId, int startTime, int stopTime, int subframe, int page, int word, bool updateParity, string wordModification, string id)
-      : base(CmdName)
+      : base(CmdName, TargetId)
     {
       SignalArray = signalArray;
       SvId = svId;
@@ -33088,13 +33448,14 @@ namespace Sdx.Cmd
     }
 
     internal const string CmdName = "GetMessageModificationToBeiDouD2Nav";
+    internal const string TargetId = "";
 
     public GetMessageModificationToBeiDouD2Nav()
-      : base(CmdName)
+      : base(CmdName, TargetId)
     {}
 
     public GetMessageModificationToBeiDouD2Nav(string id)
-      : base(CmdName)
+      : base(CmdName, TargetId)
     {
       Id = id;
     }
@@ -33147,13 +33508,14 @@ namespace Sdx.Cmd
     }
 
     internal const string CmdName = "GetMessageModificationToBeiDouD2NavResult";
+    internal const string TargetId = "";
 
     public GetMessageModificationToBeiDouD2NavResult()
-      : base(CmdName)
+      : base(CmdName, TargetId)
     {}
 
     public GetMessageModificationToBeiDouD2NavResult(CommandBase relatedCommand, List<string> signalArray, int svId, int startTime, int stopTime, int subframe, int page, int word, bool updateParity, string wordModification, string id)
-      : base(CmdName, relatedCommand)
+      : base(CmdName, TargetId, relatedCommand)
     {
       SignalArray = signalArray;
       SvId = svId;
@@ -33328,13 +33690,14 @@ namespace Sdx.Cmd
     }
 
     internal const string CmdName = "SetMessageModificationToBeiDouCNav1";
+    internal const string TargetId = "";
 
     public SetMessageModificationToBeiDouCNav1()
-      : base(CmdName)
+      : base(CmdName, TargetId)
     {}
 
     public SetMessageModificationToBeiDouCNav1(List<string> signalArray, int svId, int startTime, int stopTime, int page, string condition, bool updateCRC, string bitModifications, string id)
-      : base(CmdName)
+      : base(CmdName, TargetId)
     {
       SignalArray = signalArray;
       SvId = svId;
@@ -33466,13 +33829,14 @@ namespace Sdx.Cmd
     }
 
     internal const string CmdName = "GetMessageModificationToBeiDouCNav1";
+    internal const string TargetId = "";
 
     public GetMessageModificationToBeiDouCNav1()
-      : base(CmdName)
+      : base(CmdName, TargetId)
     {}
 
     public GetMessageModificationToBeiDouCNav1(string id)
-      : base(CmdName)
+      : base(CmdName, TargetId)
     {
       Id = id;
     }
@@ -33524,13 +33888,14 @@ namespace Sdx.Cmd
     }
 
     internal const string CmdName = "GetMessageModificationToBeiDouCNav1Result";
+    internal const string TargetId = "";
 
     public GetMessageModificationToBeiDouCNav1Result()
-      : base(CmdName)
+      : base(CmdName, TargetId)
     {}
 
     public GetMessageModificationToBeiDouCNav1Result(CommandBase relatedCommand, List<string> signalArray, int svId, int startTime, int stopTime, int page, string condition, bool updateCRC, string bitModifications, string id)
-      : base(CmdName, relatedCommand)
+      : base(CmdName, TargetId, relatedCommand)
     {
       SignalArray = signalArray;
       SvId = svId;
@@ -33694,13 +34059,14 @@ namespace Sdx.Cmd
     }
 
     internal const string CmdName = "SetMessageModificationToBeiDouCNav2";
+    internal const string TargetId = "";
 
     public SetMessageModificationToBeiDouCNav2()
-      : base(CmdName)
+      : base(CmdName, TargetId)
     {}
 
     public SetMessageModificationToBeiDouCNav2(List<string> signalArray, int svId, int startTime, int stopTime, int messageType, string condition, bool updateCRC, string bitModifications, string id)
-      : base(CmdName)
+      : base(CmdName, TargetId)
     {
       SignalArray = signalArray;
       SvId = svId;
@@ -33832,13 +34198,14 @@ namespace Sdx.Cmd
     }
 
     internal const string CmdName = "GetMessageModificationToBeiDouCNav2";
+    internal const string TargetId = "";
 
     public GetMessageModificationToBeiDouCNav2()
-      : base(CmdName)
+      : base(CmdName, TargetId)
     {}
 
     public GetMessageModificationToBeiDouCNav2(string id)
-      : base(CmdName)
+      : base(CmdName, TargetId)
     {
       Id = id;
     }
@@ -33890,13 +34257,14 @@ namespace Sdx.Cmd
     }
 
     internal const string CmdName = "GetMessageModificationToBeiDouCNav2Result";
+    internal const string TargetId = "";
 
     public GetMessageModificationToBeiDouCNav2Result()
-      : base(CmdName)
+      : base(CmdName, TargetId)
     {}
 
     public GetMessageModificationToBeiDouCNav2Result(CommandBase relatedCommand, List<string> signalArray, int svId, int startTime, int stopTime, int messageType, string condition, bool updateCRC, string bitModifications, string id)
-      : base(CmdName, relatedCommand)
+      : base(CmdName, TargetId, relatedCommand)
     {
       SignalArray = signalArray;
       SvId = svId;
@@ -34054,13 +34422,14 @@ namespace Sdx.Cmd
     }
 
     internal const string CmdName = "SetMessageModificationToQzssLNav";
+    internal const string TargetId = "";
 
     public SetMessageModificationToQzssLNav()
-      : base(CmdName)
+      : base(CmdName, TargetId)
     {}
 
     public SetMessageModificationToQzssLNav(List<string> signalArray, int svId, int startTime, int stopTime, int subframe, int lNavSvId, int word, bool updateParity, string wordModification, string id)
-      : base(CmdName)
+      : base(CmdName, TargetId)
     {
       SignalArray = signalArray;
       SvId = svId;
@@ -34203,13 +34572,14 @@ namespace Sdx.Cmd
     }
 
     internal const string CmdName = "GetMessageModificationToQzssLNav";
+    internal const string TargetId = "";
 
     public GetMessageModificationToQzssLNav()
-      : base(CmdName)
+      : base(CmdName, TargetId)
     {}
 
     public GetMessageModificationToQzssLNav(string id)
-      : base(CmdName)
+      : base(CmdName, TargetId)
     {
       Id = id;
     }
@@ -34262,13 +34632,14 @@ namespace Sdx.Cmd
     }
 
     internal const string CmdName = "GetMessageModificationToQzssLNavResult";
+    internal const string TargetId = "";
 
     public GetMessageModificationToQzssLNavResult()
-      : base(CmdName)
+      : base(CmdName, TargetId)
     {}
 
     public GetMessageModificationToQzssLNavResult(CommandBase relatedCommand, List<string> signalArray, int svId, int startTime, int stopTime, int subframe, int lNavSvId, int word, bool updateParity, string wordModification, string id)
-      : base(CmdName, relatedCommand)
+      : base(CmdName, TargetId, relatedCommand)
     {
       SignalArray = signalArray;
       SvId = svId;
@@ -34443,13 +34814,14 @@ namespace Sdx.Cmd
     }
 
     internal const string CmdName = "SetMessageModificationToQzssSlas";
+    internal const string TargetId = "";
 
     public SetMessageModificationToQzssSlas()
-      : base(CmdName)
+      : base(CmdName, TargetId)
     {}
 
     public SetMessageModificationToQzssSlas(List<string> signalArray, int svId, int startTime, int stopTime, int messageType, string condition, bool updateCRC, string bitModifications, string id)
-      : base(CmdName)
+      : base(CmdName, TargetId)
     {
       SignalArray = signalArray;
       SvId = svId;
@@ -34581,13 +34953,14 @@ namespace Sdx.Cmd
     }
 
     internal const string CmdName = "GetMessageModificationToQzssSlas";
+    internal const string TargetId = "";
 
     public GetMessageModificationToQzssSlas()
-      : base(CmdName)
+      : base(CmdName, TargetId)
     {}
 
     public GetMessageModificationToQzssSlas(string id)
-      : base(CmdName)
+      : base(CmdName, TargetId)
     {
       Id = id;
     }
@@ -34639,13 +35012,14 @@ namespace Sdx.Cmd
     }
 
     internal const string CmdName = "GetMessageModificationToQzssSlasResult";
+    internal const string TargetId = "";
 
     public GetMessageModificationToQzssSlasResult()
-      : base(CmdName)
+      : base(CmdName, TargetId)
     {}
 
     public GetMessageModificationToQzssSlasResult(CommandBase relatedCommand, List<string> signalArray, int svId, int startTime, int stopTime, int messageType, string condition, bool updateCRC, string bitModifications, string id)
-      : base(CmdName, relatedCommand)
+      : base(CmdName, TargetId, relatedCommand)
     {
       SignalArray = signalArray;
       SvId = svId;
@@ -34809,13 +35183,14 @@ namespace Sdx.Cmd
     }
 
     internal const string CmdName = "SetMessageModificationToQzssCNav";
+    internal const string TargetId = "";
 
     public SetMessageModificationToQzssCNav()
-      : base(CmdName)
+      : base(CmdName, TargetId)
     {}
 
     public SetMessageModificationToQzssCNav(List<string> signalArray, int svId, int startTime, int stopTime, int messageType, string condition, bool updateCRC, string bitModifications, string id)
-      : base(CmdName)
+      : base(CmdName, TargetId)
     {
       SignalArray = signalArray;
       SvId = svId;
@@ -34947,13 +35322,14 @@ namespace Sdx.Cmd
     }
 
     internal const string CmdName = "GetMessageModificationToQzssCNav";
+    internal const string TargetId = "";
 
     public GetMessageModificationToQzssCNav()
-      : base(CmdName)
+      : base(CmdName, TargetId)
     {}
 
     public GetMessageModificationToQzssCNav(string id)
-      : base(CmdName)
+      : base(CmdName, TargetId)
     {
       Id = id;
     }
@@ -35005,13 +35381,14 @@ namespace Sdx.Cmd
     }
 
     internal const string CmdName = "GetMessageModificationToQzssCNavResult";
+    internal const string TargetId = "";
 
     public GetMessageModificationToQzssCNavResult()
-      : base(CmdName)
+      : base(CmdName, TargetId)
     {}
 
     public GetMessageModificationToQzssCNavResult(CommandBase relatedCommand, List<string> signalArray, int svId, int startTime, int stopTime, int messageType, string condition, bool updateCRC, string bitModifications, string id)
-      : base(CmdName, relatedCommand)
+      : base(CmdName, TargetId, relatedCommand)
     {
       SignalArray = signalArray;
       SvId = svId;
@@ -35175,13 +35552,14 @@ namespace Sdx.Cmd
     }
 
     internal const string CmdName = "SetMessageModificationToQzssCNav2";
+    internal const string TargetId = "";
 
     public SetMessageModificationToQzssCNav2()
-      : base(CmdName)
+      : base(CmdName, TargetId)
     {}
 
     public SetMessageModificationToQzssCNav2(List<string> signalArray, int svId, int startTime, int stopTime, int page, string condition, bool updateCRC, string bitModifications, string id)
-      : base(CmdName)
+      : base(CmdName, TargetId)
     {
       SignalArray = signalArray;
       SvId = svId;
@@ -35313,13 +35691,14 @@ namespace Sdx.Cmd
     }
 
     internal const string CmdName = "GetMessageModificationToQzssCNav2";
+    internal const string TargetId = "";
 
     public GetMessageModificationToQzssCNav2()
-      : base(CmdName)
+      : base(CmdName, TargetId)
     {}
 
     public GetMessageModificationToQzssCNav2(string id)
-      : base(CmdName)
+      : base(CmdName, TargetId)
     {
       Id = id;
     }
@@ -35371,13 +35750,14 @@ namespace Sdx.Cmd
     }
 
     internal const string CmdName = "GetMessageModificationToQzssCNav2Result";
+    internal const string TargetId = "";
 
     public GetMessageModificationToQzssCNav2Result()
-      : base(CmdName)
+      : base(CmdName, TargetId)
     {}
 
     public GetMessageModificationToQzssCNav2Result(CommandBase relatedCommand, List<string> signalArray, int svId, int startTime, int stopTime, int page, string condition, bool updateCRC, string bitModifications, string id)
-      : base(CmdName, relatedCommand)
+      : base(CmdName, TargetId, relatedCommand)
     {
       SignalArray = signalArray;
       SvId = svId;
@@ -35542,13 +35922,14 @@ namespace Sdx.Cmd
     }
 
     internal const string CmdName = "SetMessageModificationToNavICNav";
+    internal const string TargetId = "";
 
     public SetMessageModificationToNavICNav()
-      : base(CmdName)
+      : base(CmdName, TargetId)
     {}
 
     public SetMessageModificationToNavICNav(List<string> signalArray, int svId, int startTime, int stopTime, int subframe, int messageType, string condition, bool updateCRC, string bitModifications, string id)
-      : base(CmdName)
+      : base(CmdName, TargetId)
     {
       SignalArray = signalArray;
       SvId = svId;
@@ -35691,13 +36072,14 @@ namespace Sdx.Cmd
     }
 
     internal const string CmdName = "GetMessageModificationToNavICNav";
+    internal const string TargetId = "";
 
     public GetMessageModificationToNavICNav()
-      : base(CmdName)
+      : base(CmdName, TargetId)
     {}
 
     public GetMessageModificationToNavICNav(string id)
-      : base(CmdName)
+      : base(CmdName, TargetId)
     {
       Id = id;
     }
@@ -35750,13 +36132,14 @@ namespace Sdx.Cmd
     }
 
     internal const string CmdName = "GetMessageModificationToNavICNavResult";
+    internal const string TargetId = "";
 
     public GetMessageModificationToNavICNavResult()
-      : base(CmdName)
+      : base(CmdName, TargetId)
     {}
 
     public GetMessageModificationToNavICNavResult(CommandBase relatedCommand, List<string> signalArray, int svId, int startTime, int stopTime, int subframe, int messageType, string condition, bool updateCRC, string bitModifications, string id)
-      : base(CmdName, relatedCommand)
+      : base(CmdName, TargetId, relatedCommand)
     {
       SignalArray = signalArray;
       SvId = svId;
@@ -35931,13 +36314,14 @@ namespace Sdx.Cmd
     }
 
     internal const string CmdName = "SetMessageModificationToSbasNav";
+    internal const string TargetId = "";
 
     public SetMessageModificationToSbasNav()
-      : base(CmdName)
+      : base(CmdName, TargetId)
     {}
 
     public SetMessageModificationToSbasNav(List<string> signalArray, int svId, int startTime, int stopTime, int messageType, string condition, bool updateCRC, string bitModifications, string id)
-      : base(CmdName)
+      : base(CmdName, TargetId)
     {
       SignalArray = signalArray;
       SvId = svId;
@@ -36069,13 +36453,14 @@ namespace Sdx.Cmd
     }
 
     internal const string CmdName = "GetMessageModificationToSbasNav";
+    internal const string TargetId = "";
 
     public GetMessageModificationToSbasNav()
-      : base(CmdName)
+      : base(CmdName, TargetId)
     {}
 
     public GetMessageModificationToSbasNav(string id)
-      : base(CmdName)
+      : base(CmdName, TargetId)
     {
       Id = id;
     }
@@ -36127,13 +36512,14 @@ namespace Sdx.Cmd
     }
 
     internal const string CmdName = "GetMessageModificationToSbasNavResult";
+    internal const string TargetId = "";
 
     public GetMessageModificationToSbasNavResult()
-      : base(CmdName)
+      : base(CmdName, TargetId)
     {}
 
     public GetMessageModificationToSbasNavResult(CommandBase relatedCommand, List<string> signalArray, int svId, int startTime, int stopTime, int messageType, string condition, bool updateCRC, string bitModifications, string id)
-      : base(CmdName, relatedCommand)
+      : base(CmdName, TargetId, relatedCommand)
     {
       SignalArray = signalArray;
       SvId = svId;
@@ -36248,6 +36634,351 @@ namespace Sdx.Cmd
 
 
   ///
+  /// Set (or Modify) event to change PULSAR NAV message bits. If you send this command without setting the ID
+  /// parameter, or if you set the ID with a value never used before, a new Modification event will be
+  /// created. If you reuse the same event ID, it will modify the existing event.
+  /// 
+  /// Note that start and stop time are automatically extended to beginning and ending of overlapped
+  /// messages.
+  /// 
+  /// The Condition parameter is optional and allows you to add content matching condition before applying
+  /// bit modifications.
+  /// 
+  /// BitModifications can be an empty string. The Modification will have no effect until you modify it with at
+  /// least one bits mod.
+  /// 
+  /// A bits mod is represented with a string using the following format: "I:Bits" where I is a bit
+  /// index (1 refers to the first transmitted bit) and Bits is a modification mask where each
+  /// character describes a modification to a single bit. The allowed characters are:
+  ///    0 : force bit to 0
+  ///    1 : force bit to 1
+  ///    - : leave bit unchanged
+  ///    X : revert bit (0 becomes 1 and 1 becomes 0)
+  /// 
+  /// For example: "24:X---10XX" will: revert bits 24, 30 and 31
+  ///                  set bit 28 to 1
+  ///                  set bit 29 to 0
+  /// The other bits are not affected.
+  /// 
+  /// You can add multiple bit modifications using commas. For example: "24:X---10XX,127:100X,231:01"
+  ///
+  /// Name             Type         Description
+  /// ---------------- ------------ -----------------------------------------------------------------------------------------
+  /// SignalArray      array string Array of signals to apply the message modification to, accepts "PULSARXL" (empty for all)
+  /// SvId             int          The satellite's SV ID 1..258 (use 0 to apply modification to all SVs)
+  /// StartTime        int          Elapsed time in seconds since start of simulation
+  /// StopTime         int          Elapsed time in seconds since start of simulation (use 0 for no stop time)
+  /// Condition        string       Optional condition to match message content, ex: "EQUAL(45, 10, 0x3f)"
+  /// UpdateCRC        bool         Recalculate CRC after making modification
+  /// BitModifications string       Comma separated bit modifications
+  /// Id               string       Unique identifier of the event
+  ///
+
+  public class SetMessageModificationToPulsarNav : CommandBase
+  {
+    public override string Documentation
+    {
+      get { return "Set (or Modify) event to change PULSAR NAV message bits. If you send this command without setting the ID\nparameter, or if you set the ID with a value never used before, a new Modification event will be\ncreated. If you reuse the same event ID, it will modify the existing event.\n\nNote that start and stop time are automatically extended to beginning and ending of overlapped\nmessages.\n\nThe Condition parameter is optional and allows you to add content matching condition before applying\nbit modifications.\n\nBitModifications can be an empty string. The Modification will have no effect until you modify it with at\nleast one bits mod.\n\nA bits mod is represented with a string using the following format: \"I:Bits\" where I is a bit\nindex (1 refers to the first transmitted bit) and Bits is a modification mask where each\ncharacter describes a modification to a single bit. The allowed characters are:\n   0 : force bit to 0\n   1 : force bit to 1\n   - : leave bit unchanged\n   X : revert bit (0 becomes 1 and 1 becomes 0)\n\nFor example: \"24:X---10XX\" will: revert bits 24, 30 and 31\n                 set bit 28 to 1\n                 set bit 29 to 0\nThe other bits are not affected.\n\nYou can add multiple bit modifications using commas. For example: \"24:X---10XX,127:100X,231:01\""; }
+    }
+
+    internal const string CmdName = "SetMessageModificationToPulsarNav";
+    internal const string TargetId = "";
+
+    public SetMessageModificationToPulsarNav()
+      : base(CmdName, TargetId)
+    {}
+
+    public SetMessageModificationToPulsarNav(List<string> signalArray, int svId, int startTime, int stopTime, string condition, bool updateCRC, string bitModifications, string id)
+      : base(CmdName, TargetId)
+    {
+      SignalArray = signalArray;
+      SvId = svId;
+      StartTime = startTime;
+      StopTime = stopTime;
+      Condition = condition;
+      UpdateCRC = updateCRC;
+      BitModifications = bitModifications;
+      Id = id;
+    }
+      
+    public override bool IsValid
+    {
+      get
+      {
+        return base.IsValid
+        && Contains("SignalArray")
+        && Contains("SvId")
+        && Contains("StartTime")
+        && Contains("StopTime")
+        && Contains("Condition")
+        && Contains("UpdateCRC")
+        && Contains("BitModifications")
+        && Contains("Id")
+      ;
+      }
+    }
+
+    public override int ExecutePermission { get { return EXECUTE_IF_SIMULATING | EXECUTE_IF_IDLE; } }
+
+    public List<string> SignalArray
+    {
+      get { return GetValue("SignalArray").ToObject<List<string>>(CommandBase.Serializer); }
+      set
+      {
+          SetValue("SignalArray", JToken.FromObject(value, CommandBase.Serializer));
+      }
+    }
+
+    public int SvId
+    {
+      get { return GetValue("SvId").ToObject<int>(CommandBase.Serializer); }
+      set
+      {
+          SetValue("SvId", JToken.FromObject(value, CommandBase.Serializer));
+      }
+    }
+
+    public int StartTime
+    {
+      get { return GetValue("StartTime").ToObject<int>(CommandBase.Serializer); }
+      set
+      {
+          SetValue("StartTime", JToken.FromObject(value, CommandBase.Serializer));
+      }
+    }
+
+    public int StopTime
+    {
+      get { return GetValue("StopTime").ToObject<int>(CommandBase.Serializer); }
+      set
+      {
+          SetValue("StopTime", JToken.FromObject(value, CommandBase.Serializer));
+      }
+    }
+
+    public string Condition
+    {
+      get { return GetValue("Condition").ToObject<string>(CommandBase.Serializer); }
+      set
+      {
+          SetValue("Condition", JToken.FromObject(value, CommandBase.Serializer));
+      }
+    }
+
+    public bool UpdateCRC
+    {
+      get { return GetValue("UpdateCRC").ToObject<bool>(CommandBase.Serializer); }
+      set
+      {
+          SetValue("UpdateCRC", JToken.FromObject(value, CommandBase.Serializer));
+      }
+    }
+
+    public string BitModifications
+    {
+      get { return GetValue("BitModifications").ToObject<string>(CommandBase.Serializer); }
+      set
+      {
+          SetValue("BitModifications", JToken.FromObject(value, CommandBase.Serializer));
+      }
+    }
+
+    public string Id
+    {
+      get { return GetValue("Id").ToObject<string>(CommandBase.Serializer); }
+      set
+      {
+          SetValue("Id", JToken.FromObject(value, CommandBase.Serializer));
+      }
+    }
+  }
+
+
+  ///
+  /// Get infos about the PULSAR NAV message modification with this ID.
+  ///
+  /// Name Type   Description
+  /// ---- ------ ------------------------------
+  /// Id   string Unique identifier of the event
+  ///
+
+  public class GetMessageModificationToPulsarNav : CommandBase
+  {
+    public override string Documentation
+    {
+      get { return "Get infos about the PULSAR NAV message modification with this ID."; }
+    }
+
+    internal const string CmdName = "GetMessageModificationToPulsarNav";
+    internal const string TargetId = "";
+
+    public GetMessageModificationToPulsarNav()
+      : base(CmdName, TargetId)
+    {}
+
+    public GetMessageModificationToPulsarNav(string id)
+      : base(CmdName, TargetId)
+    {
+      Id = id;
+    }
+      
+    public override bool IsValid
+    {
+      get
+      {
+        return base.IsValid
+        && Contains("Id")
+      ;
+      }
+    }
+
+    public override int ExecutePermission { get { return EXECUTE_IF_IDLE; } }
+
+    public string Id
+    {
+      get { return GetValue("Id").ToObject<string>(CommandBase.Serializer); }
+      set
+      {
+          SetValue("Id", JToken.FromObject(value, CommandBase.Serializer));
+      }
+    }
+  }
+
+
+  ///
+  /// Result of GetMessageModificationToPulsarNav.
+  ///
+  /// Name             Type         Description
+  /// ---------------- ------------ -----------------------------------------------------------------------------------------
+  /// SignalArray      array string Array of signals to apply the message modification to, accepts "PULSARXL" (empty for all)
+  /// SvId             int          The satellite's SV ID 1..258 (use 0 to apply modification to all SVs)
+  /// StartTime        int          Elapsed time in seconds since start of simulation
+  /// StopTime         int          Elapsed time in seconds since start of simulation (use 0 for no stop time)
+  /// Condition        string       Optional condition to match message content, ex: "EQUAL(45, 10, 0x3f)"
+  /// UpdateCRC        bool         Recalculate CRC after making modification
+  /// BitModifications string       Comma separated bit modifications
+  /// Id               string       Unique identifier of the event
+  ///
+
+  public class GetMessageModificationToPulsarNavResult : CommandResult
+  {
+    public override string Documentation
+    {
+      get { return "Result of GetMessageModificationToPulsarNav."; }
+    }
+
+    internal const string CmdName = "GetMessageModificationToPulsarNavResult";
+    internal const string TargetId = "";
+
+    public GetMessageModificationToPulsarNavResult()
+      : base(CmdName, TargetId)
+    {}
+
+    public GetMessageModificationToPulsarNavResult(CommandBase relatedCommand, List<string> signalArray, int svId, int startTime, int stopTime, string condition, bool updateCRC, string bitModifications, string id)
+      : base(CmdName, TargetId, relatedCommand)
+    {
+      SignalArray = signalArray;
+      SvId = svId;
+      StartTime = startTime;
+      StopTime = stopTime;
+      Condition = condition;
+      UpdateCRC = updateCRC;
+      BitModifications = bitModifications;
+      Id = id;
+    }
+      
+    public override bool IsValid
+    {
+      get
+      {
+        return base.IsValid
+        && Contains("SignalArray")
+        && Contains("SvId")
+        && Contains("StartTime")
+        && Contains("StopTime")
+        && Contains("Condition")
+        && Contains("UpdateCRC")
+        && Contains("BitModifications")
+        && Contains("Id")
+      ;
+      }
+    }
+
+    public List<string> SignalArray
+    {
+      get { return GetValue("SignalArray").ToObject<List<string>>(CommandBase.Serializer); }
+      set
+      {
+          SetValue("SignalArray", JToken.FromObject(value, CommandBase.Serializer));
+      }
+    }
+
+    public int SvId
+    {
+      get { return GetValue("SvId").ToObject<int>(CommandBase.Serializer); }
+      set
+      {
+          SetValue("SvId", JToken.FromObject(value, CommandBase.Serializer));
+      }
+    }
+
+    public int StartTime
+    {
+      get { return GetValue("StartTime").ToObject<int>(CommandBase.Serializer); }
+      set
+      {
+          SetValue("StartTime", JToken.FromObject(value, CommandBase.Serializer));
+      }
+    }
+
+    public int StopTime
+    {
+      get { return GetValue("StopTime").ToObject<int>(CommandBase.Serializer); }
+      set
+      {
+          SetValue("StopTime", JToken.FromObject(value, CommandBase.Serializer));
+      }
+    }
+
+    public string Condition
+    {
+      get { return GetValue("Condition").ToObject<string>(CommandBase.Serializer); }
+      set
+      {
+          SetValue("Condition", JToken.FromObject(value, CommandBase.Serializer));
+      }
+    }
+
+    public bool UpdateCRC
+    {
+      get { return GetValue("UpdateCRC").ToObject<bool>(CommandBase.Serializer); }
+      set
+      {
+          SetValue("UpdateCRC", JToken.FromObject(value, CommandBase.Serializer));
+      }
+    }
+
+    public string BitModifications
+    {
+      get { return GetValue("BitModifications").ToObject<string>(CommandBase.Serializer); }
+      set
+      {
+          SetValue("BitModifications", JToken.FromObject(value, CommandBase.Serializer));
+      }
+    }
+
+    public string Id
+    {
+      get { return GetValue("Id").ToObject<string>(CommandBase.Serializer); }
+      set
+      {
+          SetValue("Id", JToken.FromObject(value, CommandBase.Serializer));
+      }
+    }
+  }
+
+
+  ///
   /// Removes a message modification event for the navigation message family.
   ///
   /// Name         Type   Description
@@ -36264,13 +36995,14 @@ namespace Sdx.Cmd
     }
 
     internal const string CmdName = "RemoveMessageModificationForNavMsgFamily";
+    internal const string TargetId = "";
 
     public RemoveMessageModificationForNavMsgFamily()
-      : base(CmdName)
+      : base(CmdName, TargetId)
     {}
 
     public RemoveMessageModificationForNavMsgFamily(string navMsgFamily, string id)
-      : base(CmdName)
+      : base(CmdName, TargetId)
     {
       NavMsgFamily = navMsgFamily;
       Id = id;
@@ -36325,13 +37057,14 @@ namespace Sdx.Cmd
     }
 
     internal const string CmdName = "ClearAllMessageModificationsForNavMsgFamily";
+    internal const string TargetId = "";
 
     public ClearAllMessageModificationsForNavMsgFamily()
-      : base(CmdName)
+      : base(CmdName, TargetId)
     {}
 
     public ClearAllMessageModificationsForNavMsgFamily(string navMsgFamily)
-      : base(CmdName)
+      : base(CmdName, TargetId)
     {
       NavMsgFamily = navMsgFamily;
     }
@@ -36376,13 +37109,14 @@ namespace Sdx.Cmd
     }
 
     internal const string CmdName = "GetAllMessageModificationIdsForNavMsgFamily";
+    internal const string TargetId = "";
 
     public GetAllMessageModificationIdsForNavMsgFamily()
-      : base(CmdName)
+      : base(CmdName, TargetId)
     {}
 
     public GetAllMessageModificationIdsForNavMsgFamily(string navMsgFamily, int svId)
-      : base(CmdName)
+      : base(CmdName, TargetId)
     {
       NavMsgFamily = navMsgFamily;
       SvId = svId;
@@ -36437,13 +37171,14 @@ namespace Sdx.Cmd
     }
 
     internal const string CmdName = "GetAllMessageModificationIdsForNavMsgFamilyResult";
+    internal const string TargetId = "";
 
     public GetAllMessageModificationIdsForNavMsgFamilyResult()
-      : base(CmdName)
+      : base(CmdName, TargetId)
     {}
 
     public GetAllMessageModificationIdsForNavMsgFamilyResult(CommandBase relatedCommand, List<string> ids)
-      : base(CmdName, relatedCommand)
+      : base(CmdName, TargetId, relatedCommand)
     {
       Ids = ids;
     }
@@ -36475,8 +37210,8 @@ namespace Sdx.Cmd
   /// Removes the signal for the message modification.
   ///
   /// Name   Type   Description
-  /// ------ ------ --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
-  /// Signal string Signal key, accepted values : "L1CA", "L1C", "L1P", "L1ME", "L1MR", "L2C", "L2P", "L2ME", "L2MR", "L5", "G1", "G2", "E1", "E5a", "E5b", "B1", "B2", "B2a", "B1C", "B3I", "QZSSL1CA", "QZSSL1CB", "QZSSL1S", "NAVICL5", "SBASL1" and "SBASL5"
+  /// ------ ------ --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+  /// Signal string Signal key, accepted values : "L1CA", "L1C", "L1P", "L1ME", "L1MR", "L2C", "L2P", "L2ME", "L2MR", "L5", "G1", "G2", "E1", "E5a", "E5b", "B1", "B2", "B2a", "B1C", "B3I", "QZSSL1CA", "QZSSL1CB", "QZSSL1S", "NAVICL5", "SBASL1", "SBASL5" and "PULSARXL"
   /// Id     string Unique identifier
   ///
 
@@ -36488,13 +37223,14 @@ namespace Sdx.Cmd
     }
 
     internal const string CmdName = "RemoveMessageModification";
+    internal const string TargetId = "";
 
     public RemoveMessageModification()
-      : base(CmdName)
+      : base(CmdName, TargetId)
     {}
 
     public RemoveMessageModification(string signal, string id)
-      : base(CmdName)
+      : base(CmdName, TargetId)
     {
       Signal = signal;
       Id = id;
@@ -36537,8 +37273,8 @@ namespace Sdx.Cmd
   /// Removes the signal for the message modification.
   ///
   /// Name   Type   Description
-  /// ------ ------ --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
-  /// Signal string Signal key, accepted values : "L1CA", "L1C", "L1P", "L1ME", "L1MR", "L2C", "L2P", "L2ME", "L2MR", "L5", "G1", "G2", "E1", "E5a", "E5b", "B1", "B2", "B2a", "B1C", "B3I", "QZSSL1CA", "QZSSL1CB", "QZSSL1S", "NAVICL5", "SBASL1" and "SBASL5"
+  /// ------ ------ --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+  /// Signal string Signal key, accepted values : "L1CA", "L1C", "L1P", "L1ME", "L1MR", "L2C", "L2P", "L2ME", "L2MR", "L5", "G1", "G2", "E1", "E5a", "E5b", "B1", "B2", "B2a", "B1C", "B3I", "QZSSL1CA", "QZSSL1CB", "QZSSL1S", "NAVICL5", "SBASL1", "SBASL5" and "PULSARXL"
   /// Id     string Unique identifier
   ///
 
@@ -36550,13 +37286,14 @@ namespace Sdx.Cmd
     }
 
     internal const string CmdName = "RemoveMessageModificationForSignal";
+    internal const string TargetId = "";
 
     public RemoveMessageModificationForSignal()
-      : base(CmdName)
+      : base(CmdName, TargetId)
     {}
 
     public RemoveMessageModificationForSignal(string signal, string id)
-      : base(CmdName)
+      : base(CmdName, TargetId)
     {
       Signal = signal;
       Id = id;
@@ -36601,8 +37338,8 @@ namespace Sdx.Cmd
   /// Clear the signal for all message modifications.
   ///
   /// Name   Type   Description
-  /// ------ ------ --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
-  /// Signal string Signal key, accepted values : "L1CA", "L1C", "L1P", "L1ME", "L1MR", "L2C", "L2P", "L2ME", "L2MR", "L5", "G1", "G2", "E1", "E5a", "E5b", "B1", "B2", "B2a", "B1C", "B3I", "QZSSL1CA", "QZSSL1CB", "QZSSL1S", "NAVICL5", "SBASL1" and "SBASL5"
+  /// ------ ------ --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+  /// Signal string Signal key, accepted values : "L1CA", "L1C", "L1P", "L1ME", "L1MR", "L2C", "L2P", "L2ME", "L2MR", "L5", "G1", "G2", "E1", "E5a", "E5b", "B1", "B2", "B2a", "B1C", "B3I", "QZSSL1CA", "QZSSL1CB", "QZSSL1S", "NAVICL5", "SBASL1", "SBASL5" and "PULSARXL"
   ///
 
   public class ClearAllMessageModifications : CommandBase
@@ -36613,13 +37350,14 @@ namespace Sdx.Cmd
     }
 
     internal const string CmdName = "ClearAllMessageModifications";
+    internal const string TargetId = "";
 
     public ClearAllMessageModifications()
-      : base(CmdName)
+      : base(CmdName, TargetId)
     {}
 
     public ClearAllMessageModifications(string signal)
-      : base(CmdName)
+      : base(CmdName, TargetId)
     {
       Signal = signal;
     }
@@ -36651,8 +37389,8 @@ namespace Sdx.Cmd
   /// Clear the signal for all message modifications.
   ///
   /// Name   Type   Description
-  /// ------ ------ --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
-  /// Signal string Signal key, accepted values : "L1CA", "L1C", "L1P", "L1ME", "L1MR", "L2C", "L2P", "L2ME", "L2MR", "L5", "G1", "G2", "E1", "E5a", "E5b", "B1", "B2", "B2a", "B1C", "B3I", "QZSSL1CA", "QZSSL1CB", "QZSSL1S", "NAVICL5", "SBASL1" and "SBASL5"
+  /// ------ ------ --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+  /// Signal string Signal key, accepted values : "L1CA", "L1C", "L1P", "L1ME", "L1MR", "L2C", "L2P", "L2ME", "L2MR", "L5", "G1", "G2", "E1", "E5a", "E5b", "B1", "B2", "B2a", "B1C", "B3I", "QZSSL1CA", "QZSSL1CB", "QZSSL1S", "NAVICL5", "SBASL1", "SBASL5" and "PULSARXL"
   ///
 
   public class ClearAllMessageModificationsForSignal : CommandBase
@@ -36663,13 +37401,14 @@ namespace Sdx.Cmd
     }
 
     internal const string CmdName = "ClearAllMessageModificationsForSignal";
+    internal const string TargetId = "";
 
     public ClearAllMessageModificationsForSignal()
-      : base(CmdName)
+      : base(CmdName, TargetId)
     {}
 
     public ClearAllMessageModificationsForSignal(string signal)
-      : base(CmdName)
+      : base(CmdName, TargetId)
     {
       Signal = signal;
     }
@@ -36701,8 +37440,8 @@ namespace Sdx.Cmd
   /// Get all the message modification event's IDs for this signal and SV ID.
   ///
   /// Name   Type   Description
-  /// ------ ------ --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
-  /// Signal string Signal key, accepted values : "L1CA", "L1C", "L1P", "L1ME", "L1MR", "L2C", "L2P", "L2ME", "L2MR", "L5", "G1", "G2", "E1", "E5a", "E5b", "B1", "B2", "B2a", "B1C", "B3I", "QZSSL1CA", "QZSSL1CB", "QZSSL1S", "NAVICL5", "SBASL1" and "SBASL5"
+  /// ------ ------ --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+  /// Signal string Signal key, accepted values : "L1CA", "L1C", "L1P", "L1ME", "L1MR", "L2C", "L2P", "L2ME", "L2MR", "L5", "G1", "G2", "E1", "E5a", "E5b", "B1", "B2", "B2a", "B1C", "B3I", "QZSSL1CA", "QZSSL1CB", "QZSSL1S", "NAVICL5", "SBASL1", "SBASL5" and "PULSARXL"
   /// SvId   int    The satellite's SV ID
   ///
 
@@ -36714,13 +37453,14 @@ namespace Sdx.Cmd
     }
 
     internal const string CmdName = "GetAllMessageModificationIdsForSignal";
+    internal const string TargetId = "";
 
     public GetAllMessageModificationIdsForSignal()
-      : base(CmdName)
+      : base(CmdName, TargetId)
     {}
 
     public GetAllMessageModificationIdsForSignal(string signal, int svId)
-      : base(CmdName)
+      : base(CmdName, TargetId)
     {
       Signal = signal;
       SvId = svId;
@@ -36775,13 +37515,14 @@ namespace Sdx.Cmd
     }
 
     internal const string CmdName = "GetAllMessageModificationIdsForSignalResult";
+    internal const string TargetId = "";
 
     public GetAllMessageModificationIdsForSignalResult()
-      : base(CmdName)
+      : base(CmdName, TargetId)
     {}
 
     public GetAllMessageModificationIdsForSignalResult(CommandBase relatedCommand, List<string> ids)
-      : base(CmdName, relatedCommand)
+      : base(CmdName, TargetId, relatedCommand)
     {
       Ids = ids;
     }
@@ -36828,13 +37569,14 @@ namespace Sdx.Cmd
     }
 
     internal const string CmdName = "SetInterferenceCW";
+    internal const string TargetId = "";
 
     public SetInterferenceCW()
-      : base(CmdName)
+      : base(CmdName, TargetId)
     {}
 
     public SetInterferenceCW(int startTime, int stopTime, double centralFreq, double power, bool enabled, string id)
-      : base(CmdName)
+      : base(CmdName, TargetId)
     {
       StartTime = startTime;
       StopTime = stopTime;
@@ -36940,13 +37682,14 @@ namespace Sdx.Cmd
     }
 
     internal const string CmdName = "SetInterferenceChirp";
+    internal const string TargetId = "";
 
     public SetInterferenceChirp()
-      : base(CmdName)
+      : base(CmdName, TargetId)
     {}
 
     public SetInterferenceChirp(int startTime, int stopTime, double centralFreq, double power, double bandwidth, double sweepTime, bool enabled, string id)
-      : base(CmdName)
+      : base(CmdName, TargetId)
     {
       StartTime = startTime;
       StopTime = stopTime;
@@ -37068,13 +37811,14 @@ namespace Sdx.Cmd
     }
 
     internal const string CmdName = "RemoveInterference";
+    internal const string TargetId = "";
 
     public RemoveInterference()
-      : base(CmdName)
+      : base(CmdName, TargetId)
     {}
 
     public RemoveInterference(string id)
-      : base(CmdName)
+      : base(CmdName, TargetId)
     {
       Id = id;
     }
@@ -37116,9 +37860,10 @@ namespace Sdx.Cmd
     }
 
     internal const string CmdName = "RemoveAllInterferences";
+    internal const string TargetId = "";
 
     public RemoveAllInterferences()
-      : base(CmdName)
+      : base(CmdName, TargetId)
     {}
       
     public override bool IsValid
@@ -37151,7 +37896,7 @@ namespace Sdx.Cmd
   ///
   /// Name          Type   Description
   /// ------------- ------ ----------------------------------------------------------------------------------
-  /// System        string "GPS", "GLONASS", "Galileo", "BeiDou", "SBAS", "QZSS" or "NavIC"
+  /// System        string "GPS", "GLONASS", "Galileo", "BeiDou", "SBAS", "QZSS", "NavIC" or "PULSAR"
   /// SvId          int    The satellite's SV ID.
   /// Offset        double Change to satellite pseudorange in meter when ramp is at maximum. Range -1e7..+1e7
   /// StartTime     int    Elapsed time in seconds since start of simulation.
@@ -37170,13 +37915,14 @@ namespace Sdx.Cmd
     }
 
     internal const string CmdName = "SetPseudorangeRampForSV";
+    internal const string TargetId = "";
 
     public SetPseudorangeRampForSV()
-      : base(CmdName)
+      : base(CmdName, TargetId)
     {}
 
     public SetPseudorangeRampForSV(string system, int svId, double offset, int startTime, int holdStartTime, int holdStopTime, int stopTime, string id)
-      : base(CmdName)
+      : base(CmdName, TargetId)
     {
       System = system;
       SvId = svId;
@@ -37310,13 +38056,14 @@ namespace Sdx.Cmd
     }
 
     internal const string CmdName = "GetPseudorangeRampForSV";
+    internal const string TargetId = "";
 
     public GetPseudorangeRampForSV()
-      : base(CmdName)
+      : base(CmdName, TargetId)
     {}
 
     public GetPseudorangeRampForSV(string id)
-      : base(CmdName)
+      : base(CmdName, TargetId)
     {
       Id = id;
     }
@@ -37349,7 +38096,7 @@ namespace Sdx.Cmd
   ///
   /// Name          Type   Description
   /// ------------- ------ ----------------------------------------------------------------------------------
-  /// System        string "GPS", "GLONASS", "Galileo", "BeiDou", "SBAS", "QZSS" or "NavIC"
+  /// System        string "GPS", "GLONASS", "Galileo", "BeiDou", "SBAS", "QZSS", "NavIC" or "PULSAR"
   /// SvId          int    The satellite's SV ID.
   /// Offset        double Change to satellite pseudorange in meter when ramp is at maximum. Range -1e7..+1e7
   /// StartTime     int    Elapsed time in seconds since start of simulation.
@@ -37368,13 +38115,14 @@ namespace Sdx.Cmd
     }
 
     internal const string CmdName = "GetPseudorangeRampForSVResult";
+    internal const string TargetId = "";
 
     public GetPseudorangeRampForSVResult()
-      : base(CmdName)
+      : base(CmdName, TargetId)
     {}
 
     public GetPseudorangeRampForSVResult(CommandBase relatedCommand, string system, int svId, double offset, int startTime, int holdStartTime, int holdStopTime, int stopTime, string id)
-      : base(CmdName, relatedCommand)
+      : base(CmdName, TargetId, relatedCommand)
     {
       System = system;
       SvId = svId;
@@ -37481,8 +38229,8 @@ namespace Sdx.Cmd
   /// Get a list of all the pseudorange ramps IDs for a system's satellite.
   ///
   /// Name   Type   Description
-  /// ------ ------ ----------------------------------------------------------------
-  /// System string "GPS", "GLONASS", "Galileo", "BeiDou", "SBAS", "QZSS" or "NavIC"
+  /// ------ ------ --------------------------------------------------------------------------
+  /// System string "GPS", "GLONASS", "Galileo", "BeiDou", "SBAS", "QZSS", "NavIC" or "PULSAR"
   /// SvId   int    The satellite's SV ID.
   ///
 
@@ -37494,13 +38242,14 @@ namespace Sdx.Cmd
     }
 
     internal const string CmdName = "GetAllPseudorangeRampForSV";
+    internal const string TargetId = "";
 
     public GetAllPseudorangeRampForSV()
-      : base(CmdName)
+      : base(CmdName, TargetId)
     {}
 
     public GetAllPseudorangeRampForSV(string system, int svId)
-      : base(CmdName)
+      : base(CmdName, TargetId)
     {
       System = system;
       SvId = svId;
@@ -37543,8 +38292,8 @@ namespace Sdx.Cmd
   /// Result of GetAllPseudorangeRampForSV.
   ///
   /// Name   Type         Description
-  /// ------ ------------ ------------------------------------------------------------------
-  /// System string       "GPS", "GLONASS", "Galileo", "BeiDou", "SBAS", "QZSS" or "NavIC"
+  /// ------ ------------ --------------------------------------------------------------------------
+  /// System string       "GPS", "GLONASS", "Galileo", "BeiDou", "SBAS", "QZSS", "NavIC" or "PULSAR"
   /// SvId   int          The satellite's SV ID.
   /// Ids    array string List of all the pseudorange ramps IDs for this system's satellite.
   ///
@@ -37557,13 +38306,14 @@ namespace Sdx.Cmd
     }
 
     internal const string CmdName = "GetAllPseudorangeRampForSVResult";
+    internal const string TargetId = "";
 
     public GetAllPseudorangeRampForSVResult()
-      : base(CmdName)
+      : base(CmdName, TargetId)
     {}
 
     public GetAllPseudorangeRampForSVResult(CommandBase relatedCommand, string system, int svId, List<string> ids)
-      : base(CmdName, relatedCommand)
+      : base(CmdName, TargetId, relatedCommand)
     {
       System = system;
       SvId = svId;
@@ -37616,8 +38366,8 @@ namespace Sdx.Cmd
   /// sets the Id parameter. Use that Id here to remove the associated ramp.
   ///
   /// Name   Type   Description
-  /// ------ ------ ----------------------------------------------------------------
-  /// System string "GPS", "GLONASS", "Galileo", "BeiDou", "SBAS", "QZSS" or "NavIC"
+  /// ------ ------ --------------------------------------------------------------------------
+  /// System string "GPS", "GLONASS", "Galileo", "BeiDou", "SBAS", "QZSS", "NavIC" or "PULSAR"
   /// Id     string Unique identifier of the PSR ramp to remove.
   ///
 
@@ -37629,13 +38379,14 @@ namespace Sdx.Cmd
     }
 
     internal const string CmdName = "RemovePseudorangeRamp";
+    internal const string TargetId = "";
 
     public RemovePseudorangeRamp()
-      : base(CmdName)
+      : base(CmdName, TargetId)
     {}
 
     public RemovePseudorangeRamp(string system, string id)
-      : base(CmdName)
+      : base(CmdName, TargetId)
     {
       System = system;
       Id = id;
@@ -37678,8 +38429,8 @@ namespace Sdx.Cmd
   /// Remove all PSR Ramps for the specified system's satellite.
   ///
   /// Name   Type   Description
-  /// ------ ------ ----------------------------------------------------------------
-  /// System string "GPS", "GLONASS", "Galileo", "BeiDou", "SBAS", "QZSS" or "NavIC"
+  /// ------ ------ --------------------------------------------------------------------------
+  /// System string "GPS", "GLONASS", "Galileo", "BeiDou", "SBAS", "QZSS", "NavIC" or "PULSAR"
   /// SvId   int    The satellite's SV ID (use 0 for all SVs).
   ///
 
@@ -37691,13 +38442,14 @@ namespace Sdx.Cmd
     }
 
     internal const string CmdName = "RemoveAllPseudorangeRampForSV";
+    internal const string TargetId = "";
 
     public RemoveAllPseudorangeRampForSV()
-      : base(CmdName)
+      : base(CmdName, TargetId)
     {}
 
     public RemoveAllPseudorangeRampForSV(string system, int svId)
-      : base(CmdName)
+      : base(CmdName, TargetId)
     {
       System = system;
       SvId = svId;
@@ -37742,8 +38494,8 @@ namespace Sdx.Cmd
   /// Remove all PSR Ramps for all satellites of the specified system.
   ///
   /// Name   Type   Description
-  /// ------ ------ ----------------------------------------------------------------
-  /// System string "GPS", "GLONASS", "Galileo", "BeiDou", "SBAS", "QZSS" or "NavIC"
+  /// ------ ------ --------------------------------------------------------------------------
+  /// System string "GPS", "GLONASS", "Galileo", "BeiDou", "SBAS", "QZSS", "NavIC" or "PULSAR"
   ///
 
   public class RemoveAllPseudorangeRamp : CommandBase
@@ -37754,13 +38506,14 @@ namespace Sdx.Cmd
     }
 
     internal const string CmdName = "RemoveAllPseudorangeRamp";
+    internal const string TargetId = "";
 
     public RemoveAllPseudorangeRamp()
-      : base(CmdName)
+      : base(CmdName, TargetId)
     {}
 
     public RemoveAllPseudorangeRamp(string system)
-      : base(CmdName)
+      : base(CmdName, TargetId)
     {
       System = system;
     }
@@ -37792,8 +38545,8 @@ namespace Sdx.Cmd
   /// Remove all PSR Ramps for all satellites of the specified system.
   ///
   /// Name   Type   Description
-  /// ------ ------ ----------------------------------------------------------------
-  /// System string "GPS", "GLONASS", "Galileo", "BeiDou", "SBAS", "QZSS" or "NavIC"
+  /// ------ ------ --------------------------------------------------------------------------
+  /// System string "GPS", "GLONASS", "Galileo", "BeiDou", "SBAS", "QZSS", "NavIC" or "PULSAR"
   ///
 
   public class RemoveAllPseudorangeRampForSystem : CommandBase
@@ -37804,13 +38557,14 @@ namespace Sdx.Cmd
     }
 
     internal const string CmdName = "RemoveAllPseudorangeRampForSystem";
+    internal const string TargetId = "";
 
     public RemoveAllPseudorangeRampForSystem()
-      : base(CmdName)
+      : base(CmdName, TargetId)
     {}
 
     public RemoveAllPseudorangeRampForSystem(string system)
-      : base(CmdName)
+      : base(CmdName, TargetId)
     {
       System = system;
     }
@@ -37855,13 +38609,14 @@ namespace Sdx.Cmd
     }
 
     internal const string CmdName = "SetAlmanacInitialUploadTimeOffset";
+    internal const string TargetId = "";
 
     public SetAlmanacInitialUploadTimeOffset()
-      : base(CmdName)
+      : base(CmdName, TargetId)
     {}
 
     public SetAlmanacInitialUploadTimeOffset(string system, int offset)
-      : base(CmdName)
+      : base(CmdName, TargetId)
     {
       System = system;
       Offset = offset;
@@ -37914,9 +38669,10 @@ namespace Sdx.Cmd
     }
 
     internal const string CmdName = "GetAlmanacInitialUploadTimeOffset";
+    internal const string TargetId = "";
 
     public GetAlmanacInitialUploadTimeOffset()
-      : base(CmdName)
+      : base(CmdName, TargetId)
     {}
       
     public override bool IsValid
@@ -37949,13 +38705,14 @@ namespace Sdx.Cmd
     }
 
     internal const string CmdName = "GetAlmanacInitialUploadTimeOffsetResult";
+    internal const string TargetId = "";
 
     public GetAlmanacInitialUploadTimeOffsetResult()
-      : base(CmdName)
+      : base(CmdName, TargetId)
     {}
 
     public GetAlmanacInitialUploadTimeOffsetResult(CommandBase relatedCommand, string system, int offset)
-      : base(CmdName, relatedCommand)
+      : base(CmdName, TargetId, relatedCommand)
     {
       System = system;
       Offset = offset;
@@ -38010,13 +38767,14 @@ namespace Sdx.Cmd
     }
 
     internal const string CmdName = "SetAlmanacUploadTimeInterval";
+    internal const string TargetId = "";
 
     public SetAlmanacUploadTimeInterval()
-      : base(CmdName)
+      : base(CmdName, TargetId)
     {}
 
     public SetAlmanacUploadTimeInterval(string system, int interval)
-      : base(CmdName)
+      : base(CmdName, TargetId)
     {
       System = system;
       Interval = interval;
@@ -38070,9 +38828,10 @@ namespace Sdx.Cmd
     }
 
     internal const string CmdName = "GetAlmanacUploadTimeInterval";
+    internal const string TargetId = "";
 
     public GetAlmanacUploadTimeInterval()
-      : base(CmdName)
+      : base(CmdName, TargetId)
     {}
       
     public override bool IsValid
@@ -38105,13 +38864,14 @@ namespace Sdx.Cmd
     }
 
     internal const string CmdName = "GetAlmanacUploadTimeIntervalResult";
+    internal const string TargetId = "";
 
     public GetAlmanacUploadTimeIntervalResult()
-      : base(CmdName)
+      : base(CmdName, TargetId)
     {}
 
     public GetAlmanacUploadTimeIntervalResult(CommandBase relatedCommand, string system, int interval)
-      : base(CmdName, relatedCommand)
+      : base(CmdName, TargetId, relatedCommand)
     {
       System = system;
       Interval = interval;
@@ -38153,7 +38913,7 @@ namespace Sdx.Cmd
   ///
   /// Name     Type   Description
   /// -------- ------ -----------------------------------------------------------------------------------------------------------------------
-  /// System   string "GPS", "Galileo", "BeiDou", "QZSS" or "NavIC"
+  /// System   string "GPS", "Galileo", "BeiDou", "QZSS", "NavIC" or "PULSAR"
   /// Interval int    Interval duration in sec. Accepted range is [1..604800]. Must be a divider of the number of seconds in a week (604800).
   ///
 
@@ -38165,13 +38925,14 @@ namespace Sdx.Cmd
     }
 
     internal const string CmdName = "SetEphemerisUpdateInterval";
+    internal const string TargetId = "";
 
     public SetEphemerisUpdateInterval()
-      : base(CmdName)
+      : base(CmdName, TargetId)
     {}
 
     public SetEphemerisUpdateInterval(string system, int interval)
-      : base(CmdName)
+      : base(CmdName, TargetId)
     {
       System = system;
       Interval = interval;
@@ -38214,8 +38975,8 @@ namespace Sdx.Cmd
   /// Get the ephemeris update interval in seconds.
   ///
   /// Name   Type   Description
-  /// ------ ------ ---------------------------------------------
-  /// System string "GPS", "Galileo", "BeiDou", "QZSS" or "NavIC"
+  /// ------ ------ -------------------------------------------------------
+  /// System string "GPS", "Galileo", "BeiDou", "QZSS", "NavIC" or "PULSAR"
   ///
 
   public class GetEphemerisUpdateInterval : CommandBase
@@ -38226,13 +38987,14 @@ namespace Sdx.Cmd
     }
 
     internal const string CmdName = "GetEphemerisUpdateInterval";
+    internal const string TargetId = "";
 
     public GetEphemerisUpdateInterval()
-      : base(CmdName)
+      : base(CmdName, TargetId)
     {}
 
     public GetEphemerisUpdateInterval(string system)
-      : base(CmdName)
+      : base(CmdName, TargetId)
     {
       System = system;
     }
@@ -38265,7 +39027,7 @@ namespace Sdx.Cmd
   ///
   /// Name     Type   Description
   /// -------- ------ -----------------------------------------------------------------------------------------------------------------------
-  /// System   string "GPS", "Galileo", "BeiDou", "QZSS" or "NavIC"
+  /// System   string "GPS", "Galileo", "BeiDou", "QZSS", "NavIC" or "PULSAR"
   /// Interval int    Interval duration in sec. Accepted range is [1..604800]. Must be a divider of the number of seconds in a week (604800).
   ///
 
@@ -38277,13 +39039,14 @@ namespace Sdx.Cmd
     }
 
     internal const string CmdName = "GetEphemerisUpdateIntervalResult";
+    internal const string TargetId = "";
 
     public GetEphemerisUpdateIntervalResult()
-      : base(CmdName)
+      : base(CmdName, TargetId)
     {}
 
     public GetEphemerisUpdateIntervalResult(CommandBase relatedCommand, string system, int interval)
-      : base(CmdName, relatedCommand)
+      : base(CmdName, TargetId, relatedCommand)
     {
       System = system;
       Interval = interval;
@@ -38324,8 +39087,8 @@ namespace Sdx.Cmd
   /// Set the ephemeris TOC offset in seconds relative to the ephemeris update time.
   ///
   /// Name   Type   Description
-  /// ------ ------ ---------------------------------------------------
-  /// System string "GPS", "Galileo", "BeiDou", "QZSS" or "NavIC"
+  /// ------ ------ -------------------------------------------------------
+  /// System string "GPS", "Galileo", "BeiDou", "QZSS", "NavIC" or "PULSAR"
   /// Offset int    Offset in sec. Accepted range is [-604800..604800].
   ///
 
@@ -38337,13 +39100,14 @@ namespace Sdx.Cmd
     }
 
     internal const string CmdName = "SetEphemerisTocOffset";
+    internal const string TargetId = "";
 
     public SetEphemerisTocOffset()
-      : base(CmdName)
+      : base(CmdName, TargetId)
     {}
 
     public SetEphemerisTocOffset(string system, int offset)
-      : base(CmdName)
+      : base(CmdName, TargetId)
     {
       System = system;
       Offset = offset;
@@ -38386,8 +39150,8 @@ namespace Sdx.Cmd
   /// Get the ephemeris TOC offset in seconds relative to the ephemeris update time.
   ///
   /// Name   Type   Description
-  /// ------ ------ ---------------------------------------------
-  /// System string "GPS", "Galileo", "BeiDou", "QZSS" or "NavIC"
+  /// ------ ------ -------------------------------------------------------
+  /// System string "GPS", "Galileo", "BeiDou", "QZSS", "NavIC" or "PULSAR"
   ///
 
   public class GetEphemerisTocOffset : CommandBase
@@ -38398,13 +39162,14 @@ namespace Sdx.Cmd
     }
 
     internal const string CmdName = "GetEphemerisTocOffset";
+    internal const string TargetId = "";
 
     public GetEphemerisTocOffset()
-      : base(CmdName)
+      : base(CmdName, TargetId)
     {}
 
     public GetEphemerisTocOffset(string system)
-      : base(CmdName)
+      : base(CmdName, TargetId)
     {
       System = system;
     }
@@ -38436,8 +39201,8 @@ namespace Sdx.Cmd
   /// Result of GetEphemerisTocOffset.
   ///
   /// Name   Type   Description
-  /// ------ ------ ---------------------------------------------------
-  /// System string "GPS", "Galileo", "BeiDou", "QZSS" or "NavIC"
+  /// ------ ------ -------------------------------------------------------
+  /// System string "GPS", "Galileo", "BeiDou", "QZSS", "NavIC" or "PULSAR"
   /// Offset int    Offset in sec. Accepted range is [-604800..604800].
   ///
 
@@ -38449,13 +39214,14 @@ namespace Sdx.Cmd
     }
 
     internal const string CmdName = "GetEphemerisTocOffsetResult";
+    internal const string TargetId = "";
 
     public GetEphemerisTocOffsetResult()
-      : base(CmdName)
+      : base(CmdName, TargetId)
     {}
 
     public GetEphemerisTocOffsetResult(CommandBase relatedCommand, string system, int offset)
-      : base(CmdName, relatedCommand)
+      : base(CmdName, TargetId, relatedCommand)
     {
       System = system;
       Offset = offset;
@@ -38497,8 +39263,8 @@ namespace Sdx.Cmd
   /// If Id is not set, or unknown to Skydel, a new echo will be added. Otherwise, existing echo will be updated.
   ///
   /// Name         Type   Description
-  /// ------------ ------ ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
-  /// Signal       string Accepted signal keys: "L1CA", "L1C", "L1P", "L1ME", "L1MR", "L2C", "L2P", "L2ME", "L2MR", "L5", "G1", "G2", "E1", "E5a", "E5b", "B1", "B2", "B1C", "B2a", "B3I", "SBASL1", "QZSSL1CA", "QZSSL1CB", "QZSSL1C", "QZSSL2C", "QZSSL5", "QZSSL1S", "QZSSL5S", "NAVICL5"
+  /// ------------ ------ ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+  /// Signal       string Accepted signal keys: "L1CA", "L1C", "L1P", "L1ME", "L1MR", "L2C", "L2P", "L2ME", "L2MR", "L5", "G1", "G2", "E1", "E5a", "E5b", "B1", "B2", "B1C", "B2a", "B3I", "SBASL1", "QZSSL1CA", "QZSSL1CB", "QZSSL1C", "QZSSL2C", "QZSSL5", "QZSSL1S", "QZSSL5S", "NAVICL5", "PULSARXL"
   /// SvId         int    The satellite's SV ID
   /// PowerLoss    double Power loss in dB (value must be positive)
   /// Pseudorange  double Pseudorange offset in meters (value must be positive)
@@ -38516,13 +39282,14 @@ namespace Sdx.Cmd
     }
 
     internal const string CmdName = "SetMultipathForSV";
+    internal const string TargetId = "";
 
     public SetMultipathForSV()
-      : base(CmdName)
+      : base(CmdName, TargetId)
     {}
 
     public SetMultipathForSV(string signal, int svId, double powerLoss, double pseudorange, double doppler, double carrierPhase, int echo, string id)
-      : base(CmdName)
+      : base(CmdName, TargetId)
     {
       Signal = signal;
       SvId = svId;
@@ -38644,13 +39411,14 @@ namespace Sdx.Cmd
     }
 
     internal const string CmdName = "EnableMultipath";
+    internal const string TargetId = "";
 
     public EnableMultipath()
-      : base(CmdName)
+      : base(CmdName, TargetId)
     {}
 
     public EnableMultipath(bool enabled, string id)
-      : base(CmdName)
+      : base(CmdName, TargetId)
     {
       Enabled = enabled;
       Id = id;
@@ -38705,13 +39473,14 @@ namespace Sdx.Cmd
     }
 
     internal const string CmdName = "RemoveMultipath";
+    internal const string TargetId = "";
 
     public RemoveMultipath()
-      : base(CmdName)
+      : base(CmdName, TargetId)
     {}
 
     public RemoveMultipath(string id)
-      : base(CmdName)
+      : base(CmdName, TargetId)
     {
       Id = id;
     }
@@ -38743,8 +39512,8 @@ namespace Sdx.Cmd
   /// Disable all multipath in all satellites but only for the specified signal.
   ///
   /// Name   Type   Description
-  /// ------ ------ ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
-  /// Signal string Accepted signal keys: "L1CA", "L1C", "L1P", "L1ME", "L1MR", "L2C", "L2P", "L2ME", "L2MR", "L5", "G1", "G2", "E1", "E5a", "E5b", "B1", "B2", "B1C", "B2a", "B3I", "SBASL1", "QZSSL1CA", "QZSSL1CB", "QZSSL1C", "QZSSL2C", "QZSSL5", "QZSSL1S", "QZSSL5S", "NAVICL5"
+  /// ------ ------ ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+  /// Signal string Accepted signal keys: "L1CA", "L1C", "L1P", "L1ME", "L1MR", "L2C", "L2P", "L2ME", "L2MR", "L5", "G1", "G2", "E1", "E5a", "E5b", "B1", "B2", "B1C", "B2a", "B3I", "SBASL1", "QZSSL1CA", "QZSSL1CB", "QZSSL1C", "QZSSL2C", "QZSSL5", "QZSSL1S", "QZSSL5S", "NAVICL5", "PULSARXL"
   /// Reset  bool   Reset attributes (PSR offset, power loss, Doppler shift and carrier phase offset are set to zero)
   ///
 
@@ -38756,13 +39525,14 @@ namespace Sdx.Cmd
     }
 
     internal const string CmdName = "RemoveAllMultipathForSignal";
+    internal const string TargetId = "";
 
     public RemoveAllMultipathForSignal()
-      : base(CmdName)
+      : base(CmdName, TargetId)
     {}
 
     public RemoveAllMultipathForSignal(string signal, bool reset)
-      : base(CmdName)
+      : base(CmdName, TargetId)
     {
       Signal = signal;
       Reset = reset;
@@ -38806,7 +39576,7 @@ namespace Sdx.Cmd
   ///
   /// Name   Type   Description
   /// ------ ------ -------------------------------------------------------------------------------------------------
-  /// System string "GPS", "GLONASS", "Galileo", "BeiDou", "SBAS", "QZSS" or "NavIC"
+  /// System string "GPS", "GLONASS", "Galileo", "BeiDou", "SBAS", "QZSS", "NavIC" or "PULSAR"
   /// SvId   int    The satellite's SV ID
   /// Reset  bool   Reset attributes (PSR offset, power loss, Doppler shift and carrier phase offset are set to zero)
   ///
@@ -38819,13 +39589,14 @@ namespace Sdx.Cmd
     }
 
     internal const string CmdName = "RemoveAllMultipathForSV";
+    internal const string TargetId = "";
 
     public RemoveAllMultipathForSV()
-      : base(CmdName)
+      : base(CmdName, TargetId)
     {}
 
     public RemoveAllMultipathForSV(string system, int svId, bool reset)
-      : base(CmdName)
+      : base(CmdName, TargetId)
     {
       System = system;
       SvId = svId;
@@ -38880,7 +39651,7 @@ namespace Sdx.Cmd
   ///
   /// Name   Type   Description
   /// ------ ------ -------------------------------------------------------------------------------------------------
-  /// System string "GPS", "GLONASS", "Galileo", "BeiDou", "SBAS", "QZSS" or "NavIC"
+  /// System string "GPS", "GLONASS", "Galileo", "BeiDou", "SBAS", "QZSS", "NavIC" or "PULSAR"
   /// Reset  bool   Reset attributes (PSR offset, power loss, Doppler shift and carrier phase offset are set to zero)
   ///
 
@@ -38892,13 +39663,14 @@ namespace Sdx.Cmd
     }
 
     internal const string CmdName = "RemoveAllMultipathForSystem";
+    internal const string TargetId = "";
 
     public RemoveAllMultipathForSystem()
-      : base(CmdName)
+      : base(CmdName, TargetId)
     {}
 
     public RemoveAllMultipathForSystem(string system, bool reset)
-      : base(CmdName)
+      : base(CmdName, TargetId)
     {
       System = system;
       Reset = reset;
@@ -38953,13 +39725,14 @@ namespace Sdx.Cmd
     }
 
     internal const string CmdName = "GetMultipathForID";
+    internal const string TargetId = "";
 
     public GetMultipathForID()
-      : base(CmdName)
+      : base(CmdName, TargetId)
     {}
 
     public GetMultipathForID(string id)
-      : base(CmdName)
+      : base(CmdName, TargetId)
     {
       Id = id;
     }
@@ -38991,10 +39764,10 @@ namespace Sdx.Cmd
   /// Result of GetMultipathForID.
   ///
   /// Name         Type   Description
-  /// ------------ ------ ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+  /// ------------ ------ ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
   /// Id           string A multipath ID
-  /// System       string "GPS", "GLONASS", "Galileo", "BeiDou", "SBAS", "QZSS" or "NavIC"
-  /// Signal       string Accepted signal keys: "L1CA", "L1C", "L1P", "L1ME", "L1MR", "L2C", "L2P", "L2ME", "L2MR", "L5", "G1", "G2", "E1", "E5a", "E5b", "B1", "B2", "B1C", "B2a", "B3I", "SBASL1", "QZSSL1CA", "QZSSL1CB", "QZSSL1C", "QZSSL2C", "QZSSL5", "QZSSL1S", "QZSSL5S", "NAVICL5"
+  /// System       string "GPS", "GLONASS", "Galileo", "BeiDou", "SBAS", "QZSS", "NavIC" or "PULSAR"
+  /// Signal       string Accepted signal keys: "L1CA", "L1C", "L1P", "L1ME", "L1MR", "L2C", "L2P", "L2ME", "L2MR", "L5", "G1", "G2", "E1", "E5a", "E5b", "B1", "B2", "B1C", "B2a", "B3I", "SBASL1", "QZSSL1CA", "QZSSL1CB", "QZSSL1C", "QZSSL2C", "QZSSL5", "QZSSL1S", "QZSSL5S", "NAVICL5", "PULSARXL"
   /// SvId         int    The satellite's SV ID
   /// PowerLoss    double Power loss in dB (value must be positive)
   /// Pseudorange  double Pseudorange offset in meters (value must be positive)
@@ -39011,13 +39784,14 @@ namespace Sdx.Cmd
     }
 
     internal const string CmdName = "GetMultipathForIDResult";
+    internal const string TargetId = "";
 
     public GetMultipathForIDResult()
-      : base(CmdName)
+      : base(CmdName, TargetId)
     {}
 
     public GetMultipathForIDResult(CommandBase relatedCommand, string id, string system, string signal, int svId, double powerLoss, double pseudorange, double doppler, double carrierPhase, int echo)
-      : base(CmdName, relatedCommand)
+      : base(CmdName, TargetId, relatedCommand)
     {
       Id = id;
       System = system;
@@ -39135,8 +39909,8 @@ namespace Sdx.Cmd
   /// Get all multipath ID for the specified constellation.
   ///
   /// Name   Type   Description
-  /// ------ ------ ----------------------------------------------------------------
-  /// System string "GPS", "GLONASS", "Galileo", "BeiDou", "SBAS", "QZSS" or "NavIC"
+  /// ------ ------ --------------------------------------------------------------------------
+  /// System string "GPS", "GLONASS", "Galileo", "BeiDou", "SBAS", "QZSS", "NavIC" or "PULSAR"
   ///
 
   public class GetAllMultipathForSystem : CommandBase
@@ -39147,13 +39921,14 @@ namespace Sdx.Cmd
     }
 
     internal const string CmdName = "GetAllMultipathForSystem";
+    internal const string TargetId = "";
 
     public GetAllMultipathForSystem()
-      : base(CmdName)
+      : base(CmdName, TargetId)
     {}
 
     public GetAllMultipathForSystem(string system)
-      : base(CmdName)
+      : base(CmdName, TargetId)
     {
       System = system;
     }
@@ -39185,8 +39960,8 @@ namespace Sdx.Cmd
   /// Get all multipath ID for the specified satellite of the constellation.
   ///
   /// Name   Type   Description
-  /// ------ ------ ----------------------------------------------------------------
-  /// System string "GPS", "GLONASS", "Galileo", "BeiDou", "SBAS", "QZSS" or "NavIC"
+  /// ------ ------ --------------------------------------------------------------------------
+  /// System string "GPS", "GLONASS", "Galileo", "BeiDou", "SBAS", "QZSS", "NavIC" or "PULSAR"
   /// SvId   int    The satellite's SV ID
   ///
 
@@ -39198,13 +39973,14 @@ namespace Sdx.Cmd
     }
 
     internal const string CmdName = "GetAllMultipathForSV";
+    internal const string TargetId = "";
 
     public GetAllMultipathForSV()
-      : base(CmdName)
+      : base(CmdName, TargetId)
     {}
 
     public GetAllMultipathForSV(string system, int svId)
-      : base(CmdName)
+      : base(CmdName, TargetId)
     {
       System = system;
       SvId = svId;
@@ -39247,8 +40023,8 @@ namespace Sdx.Cmd
   /// Get all multipath ID for the specified signal.
   ///
   /// Name   Type   Description
-  /// ------ ------ ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
-  /// Signal string Accepted signal keys: "L1CA", "L1C", "L1P", "L1ME", "L1MR", "L2C", "L2P", "L2ME", "L2MR", "L5", "G1", "G2", "E1", "E5a", "E5b", "B1", "B2", "B1C", "B2a", "B3I", "SBASL1", "QZSSL1CA", "QZSSL1CB", "QZSSL1C", "QZSSL2C", "QZSSL5", "QZSSL1S", "QZSSL5S", "NAVICL5"
+  /// ------ ------ ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+  /// Signal string Accepted signal keys: "L1CA", "L1C", "L1P", "L1ME", "L1MR", "L2C", "L2P", "L2ME", "L2MR", "L5", "G1", "G2", "E1", "E5a", "E5b", "B1", "B2", "B1C", "B2a", "B3I", "SBASL1", "QZSSL1CA", "QZSSL1CB", "QZSSL1C", "QZSSL2C", "QZSSL5", "QZSSL1S", "QZSSL5S", "NAVICL5", "PULSARXL"
   ///
 
   public class GetAllMultipathForSignal : CommandBase
@@ -39259,13 +40035,14 @@ namespace Sdx.Cmd
     }
 
     internal const string CmdName = "GetAllMultipathForSignal";
+    internal const string TargetId = "";
 
     public GetAllMultipathForSignal()
-      : base(CmdName)
+      : base(CmdName, TargetId)
     {}
 
     public GetAllMultipathForSignal(string signal)
-      : base(CmdName)
+      : base(CmdName, TargetId)
     {
       Signal = signal;
     }
@@ -39309,13 +40086,14 @@ namespace Sdx.Cmd
     }
 
     internal const string CmdName = "GetAllMultipathForResult";
+    internal const string TargetId = "";
 
     public GetAllMultipathForResult()
-      : base(CmdName)
+      : base(CmdName, TargetId)
     {}
 
     public GetAllMultipathForResult(CommandBase relatedCommand, List<string> ids)
-      : base(CmdName, relatedCommand)
+      : base(CmdName, TargetId, relatedCommand)
     {
       Ids = ids;
     }
@@ -39345,8 +40123,8 @@ namespace Sdx.Cmd
   /// Set Direct Line Of Sight signal from satellite enabled or disabled. Generally used when only multipaths signal is visible.
   ///
   /// Name    Type   Description
-  /// ------- ------ ----------------------------------------------------------------
-  /// System  string "GPS", "GLONASS", "Galileo", "BeiDou", "SBAS", "QZSS" or "NavIC"
+  /// ------- ------ --------------------------------------------------------------------------
+  /// System  string "GPS", "GLONASS", "Galileo", "BeiDou", "SBAS", "QZSS", "NavIC" or "PULSAR"
   /// SvId    int    The satellite's SV ID
   /// Enabled bool   Direct Line of Sight enabled or not
   ///
@@ -39359,13 +40137,14 @@ namespace Sdx.Cmd
     }
 
     internal const string CmdName = "EnableLosForSV";
+    internal const string TargetId = "";
 
     public EnableLosForSV()
-      : base(CmdName)
+      : base(CmdName, TargetId)
     {}
 
     public EnableLosForSV(string system, int svId, bool enabled)
-      : base(CmdName)
+      : base(CmdName, TargetId)
     {
       System = system;
       SvId = svId;
@@ -39419,8 +40198,8 @@ namespace Sdx.Cmd
   /// Get Direct Line Of Sight signal from satellite enabled or disabled. Generally used when only multipaths signal is visible.
   ///
   /// Name   Type   Description
-  /// ------ ------ ----------------------------------------------------------------
-  /// System string "GPS", "GLONASS", "Galileo", "BeiDou", "SBAS", "QZSS" or "NavIC"
+  /// ------ ------ --------------------------------------------------------------------------
+  /// System string "GPS", "GLONASS", "Galileo", "BeiDou", "SBAS", "QZSS", "NavIC" or "PULSAR"
   /// SvId   int    The satellite's SV ID
   ///
 
@@ -39432,13 +40211,14 @@ namespace Sdx.Cmd
     }
 
     internal const string CmdName = "IsLosEnabledForSV";
+    internal const string TargetId = "";
 
     public IsLosEnabledForSV()
-      : base(CmdName)
+      : base(CmdName, TargetId)
     {}
 
     public IsLosEnabledForSV(string system, int svId)
-      : base(CmdName)
+      : base(CmdName, TargetId)
     {
       System = system;
       SvId = svId;
@@ -39481,8 +40261,8 @@ namespace Sdx.Cmd
   /// Result of IsLosEnabledForSV.
   ///
   /// Name    Type   Description
-  /// ------- ------ ----------------------------------------------------------------
-  /// System  string "GPS", "GLONASS", "Galileo", "BeiDou", "SBAS", "QZSS" or "NavIC"
+  /// ------- ------ --------------------------------------------------------------------------
+  /// System  string "GPS", "GLONASS", "Galileo", "BeiDou", "SBAS", "QZSS", "NavIC" or "PULSAR"
   /// SvId    int    The satellite's SV ID
   /// Enabled bool   Direct Line of Sight enabled or not
   ///
@@ -39495,13 +40275,14 @@ namespace Sdx.Cmd
     }
 
     internal const string CmdName = "IsLosEnabledForSVResult";
+    internal const string TargetId = "";
 
     public IsLosEnabledForSVResult()
-      : base(CmdName)
+      : base(CmdName, TargetId)
     {}
 
     public IsLosEnabledForSVResult(CommandBase relatedCommand, string system, int svId, bool enabled)
-      : base(CmdName, relatedCommand)
+      : base(CmdName, TargetId, relatedCommand)
     {
       System = system;
       SvId = svId;
@@ -39553,8 +40334,8 @@ namespace Sdx.Cmd
   /// Enable Direct Line of Sight (LoS) of all satellites for the specified constellation.
   ///
   /// Name   Type   Description
-  /// ------ ------ ----------------------------------------------------------------
-  /// System string "GPS", "GLONASS", "Galileo", "BeiDou", "SBAS", "QZSS" or "NavIC"
+  /// ------ ------ --------------------------------------------------------------------------
+  /// System string "GPS", "GLONASS", "Galileo", "BeiDou", "SBAS", "QZSS", "NavIC" or "PULSAR"
   ///
 
   public class ClearAllLOSForSystem : CommandBase
@@ -39565,13 +40346,14 @@ namespace Sdx.Cmd
     }
 
     internal const string CmdName = "ClearAllLOSForSystem";
+    internal const string TargetId = "";
 
     public ClearAllLOSForSystem()
-      : base(CmdName)
+      : base(CmdName, TargetId)
     {}
 
     public ClearAllLOSForSystem(string system)
-      : base(CmdName)
+      : base(CmdName, TargetId)
     {
       System = system;
     }
@@ -39604,7 +40386,7 @@ namespace Sdx.Cmd
   ///
   /// Name    Type       Description
   /// ------- ---------- -----------------------------------------------------------------------------------------------------------
-  /// System  string     "GPS", "GLONASS", "Galileo", "BeiDou", "SBAS", "QZSS" or "NavIC"
+  /// System  string     "GPS", "GLONASS", "Galileo", "BeiDou", "SBAS", "QZSS", "NavIC" or "PULSAR"
   /// Enabled array bool Direct Line of Sight enabled or not. Zero based index (index 0 => SV ID 1, index 1 => second SV ID 2, etc).
   ///
 
@@ -39616,13 +40398,14 @@ namespace Sdx.Cmd
     }
 
     internal const string CmdName = "EnableLosForEachSV";
+    internal const string TargetId = "";
 
     public EnableLosForEachSV()
-      : base(CmdName)
+      : base(CmdName, TargetId)
     {}
 
     public EnableLosForEachSV(string system, List<bool> enabled)
-      : base(CmdName)
+      : base(CmdName, TargetId)
     {
       System = system;
       Enabled = enabled;
@@ -39665,8 +40448,8 @@ namespace Sdx.Cmd
   /// Get Direct Line Of Sight signal from satellite disabled or enabled. Generally used when only multipaths signal is visible.
   ///
   /// Name   Type   Description
-  /// ------ ------ ----------------------------------------------------------------
-  /// System string "GPS", "GLONASS", "Galileo", "BeiDou", "SBAS", "QZSS" or "NavIC"
+  /// ------ ------ --------------------------------------------------------------------------
+  /// System string "GPS", "GLONASS", "Galileo", "BeiDou", "SBAS", "QZSS", "NavIC" or "PULSAR"
   ///
 
   public class IsLOSEnabledForEachSV : CommandBase
@@ -39677,13 +40460,14 @@ namespace Sdx.Cmd
     }
 
     internal const string CmdName = "IsLOSEnabledForEachSV";
+    internal const string TargetId = "";
 
     public IsLOSEnabledForEachSV()
-      : base(CmdName)
+      : base(CmdName, TargetId)
     {}
 
     public IsLOSEnabledForEachSV(string system)
-      : base(CmdName)
+      : base(CmdName, TargetId)
     {
       System = system;
     }
@@ -39716,7 +40500,7 @@ namespace Sdx.Cmd
   ///
   /// Name    Type       Description
   /// ------- ---------- -----------------------------------------------------------------------------------------------------------
-  /// System  string     "GPS", "GLONASS", "Galileo", "BeiDou", "SBAS", "QZSS" or "NavIC"
+  /// System  string     "GPS", "GLONASS", "Galileo", "BeiDou", "SBAS", "QZSS", "NavIC" or "PULSAR"
   /// Enabled array bool Direct Line of Sight enabled or not. Zero based index (index 0 => SV ID 1, index 1 => second SV ID 2, etc).
   ///
 
@@ -39728,13 +40512,14 @@ namespace Sdx.Cmd
     }
 
     internal const string CmdName = "IsLOSEnabledForEachSVResult";
+    internal const string TargetId = "";
 
     public IsLOSEnabledForEachSVResult()
-      : base(CmdName)
+      : base(CmdName, TargetId)
     {}
 
     public IsLOSEnabledForEachSVResult(CommandBase relatedCommand, string system, List<bool> enabled)
-      : base(CmdName, relatedCommand)
+      : base(CmdName, TargetId, relatedCommand)
     {
       System = system;
       Enabled = enabled;
@@ -39772,144 +40557,33 @@ namespace Sdx.Cmd
 
 
   ///
-  /// Add a plug-in instance of specified type.
-  ///
-  /// Name Type   Description
-  /// ---- ------ -------------------------------------
-  /// Name string Unique name for the plug-in instance.
-  /// Type string Type of the plug-in instance.
-  ///
-
-  public class AddPlugInInstance : CommandBase
-  {
-    public override string Documentation
-    {
-      get { return "Add a plug-in instance of specified type."; }
-    }
-
-    internal const string CmdName = "AddPlugInInstance";
-
-    public AddPlugInInstance()
-      : base(CmdName)
-    {}
-
-    public AddPlugInInstance(string name, string type)
-      : base(CmdName)
-    {
-      Name = name;
-      Type = type;
-    }
-      
-    public override bool IsValid
-    {
-      get
-      {
-        return base.IsValid
-        && Contains("Name")
-        && Contains("Type")
-      ;
-      }
-    }
-
-    public override int ExecutePermission { get { return EXECUTE_IF_IDLE; } }
-
-    public new string Name
-    {
-      get { return GetValue("Name").ToObject<string>(CommandBase.Serializer); }
-      set
-      {
-          SetValue("Name", JToken.FromObject(value, CommandBase.Serializer));
-      }
-    }
-
-    public string Type
-    {
-      get { return GetValue("Type").ToObject<string>(CommandBase.Serializer); }
-      set
-      {
-          SetValue("Type", JToken.FromObject(value, CommandBase.Serializer));
-      }
-    }
-  }
-
-
-  ///
-  /// Removes the plug-in instance.
-  ///
-  /// Name Type   Description
-  /// ---- ------ -----------------------------
-  /// Name string Plug-in instance unique name.
-  ///
-
-  public class RemovePlugInInstance : CommandBase
-  {
-    public override string Documentation
-    {
-      get { return "Removes the plug-in instance."; }
-    }
-
-    internal const string CmdName = "RemovePlugInInstance";
-
-    public RemovePlugInInstance()
-      : base(CmdName)
-    {}
-
-    public RemovePlugInInstance(string name)
-      : base(CmdName)
-    {
-      Name = name;
-    }
-      
-    public override bool IsValid
-    {
-      get
-      {
-        return base.IsValid
-        && Contains("Name")
-      ;
-      }
-    }
-
-    public override int ExecutePermission { get { return EXECUTE_IF_IDLE; } }
-
-    public new string Name
-    {
-      get { return GetValue("Name").ToObject<string>(CommandBase.Serializer); }
-      set
-      {
-          SetValue("Name", JToken.FromObject(value, CommandBase.Serializer));
-      }
-    }
-  }
-
-
-  ///
-  /// Sends a command to a plug-in instance.
+  /// Enable a plug-in for the whole system.
   ///
   /// Name    Type   Description
-  /// ------- ------ --------------------------------------------------
-  /// Name    string Plug-in instance unique name.
-  /// Command string The command to be handled by the plug-in instance.
+  /// ------- ------ --------------------------------------------------------------------------
+  /// Id      string Plug-in ID.
+  /// Enabled bool   Whether the plug-in is enabled for the whole system (true) or not (false).
   ///
 
-  public class PlugInCommand : CommandBase
+  public class EnablePlugin : CommandBase
   {
     public override string Documentation
     {
-      get { return "Sends a command to a plug-in instance."; }
+      get { return "Enable a plug-in for the whole system."; }
     }
 
-    internal const string CmdName = "PlugInCommand";
+    internal const string CmdName = "EnablePlugin";
+    internal const string TargetId = "";
 
-    public PlugInCommand()
-      : base(CmdName)
+    public EnablePlugin()
+      : base(CmdName, TargetId)
     {}
 
-    public PlugInCommand(string name, string command)
-      : base(CmdName)
+    public EnablePlugin(string id, bool enabled)
+      : base(CmdName, TargetId)
     {
-      Name = name;
-      Command = command;
+      Id = id;
+      Enabled = enabled;
     }
       
     public override bool IsValid
@@ -39917,36 +40591,230 @@ namespace Sdx.Cmd
       get
       {
         return base.IsValid
-        && Contains("Name")
-        && Contains("Command")
+        && Contains("Id")
+        && Contains("Enabled")
       ;
       }
     }
 
-    public override int ExecutePermission { get { return EXECUTE_IF_SIMULATING | EXECUTE_IF_IDLE; } }
+    public override int ExecutePermission { get { return EXECUTE_IF_IDLE; } }
 
-    public new string Name
+    public string Id
     {
-      get { return GetValue("Name").ToObject<string>(CommandBase.Serializer); }
+      get { return GetValue("Id").ToObject<string>(CommandBase.Serializer); }
       set
       {
-          SetValue("Name", JToken.FromObject(value, CommandBase.Serializer));
+          SetValue("Id", JToken.FromObject(value, CommandBase.Serializer));
       }
     }
 
-    public string Command
+    public bool Enabled
     {
-      get { return GetValue("Command").ToObject<string>(CommandBase.Serializer); }
+      get { return GetValue("Enabled").ToObject<bool>(CommandBase.Serializer); }
       set
       {
-          SetValue("Command", JToken.FromObject(value, CommandBase.Serializer));
+          SetValue("Enabled", JToken.FromObject(value, CommandBase.Serializer));
       }
     }
   }
 
 
   ///
-  /// Set wether by default transmitters should keep the modification done during simulation.
+  /// Get whether a plug-in is enabled for the whole system.
+  ///
+  /// Name Type   Description
+  /// ---- ------ -----------
+  /// Id   string Plug-in ID.
+  ///
+
+  public class IsPluginEnabled : CommandBase
+  {
+    public override string Documentation
+    {
+      get { return "Get whether a plug-in is enabled for the whole system."; }
+    }
+
+    internal const string CmdName = "IsPluginEnabled";
+    internal const string TargetId = "";
+
+    public IsPluginEnabled()
+      : base(CmdName, TargetId)
+    {}
+
+    public IsPluginEnabled(string id)
+      : base(CmdName, TargetId)
+    {
+      Id = id;
+    }
+      
+    public override bool IsValid
+    {
+      get
+      {
+        return base.IsValid
+        && Contains("Id")
+      ;
+      }
+    }
+
+    public override int ExecutePermission { get { return EXECUTE_IF_IDLE; } }
+
+    public string Id
+    {
+      get { return GetValue("Id").ToObject<string>(CommandBase.Serializer); }
+      set
+      {
+          SetValue("Id", JToken.FromObject(value, CommandBase.Serializer));
+      }
+    }
+  }
+
+
+  ///
+  /// Result of IsPluginEnabled.
+  ///
+  /// Name    Type   Description
+  /// ------- ------ --------------------------------------------------------------------------
+  /// Id      string Plug-in ID.
+  /// Enabled bool   Whether the plug-in is enabled for the whole system (true) or not (false).
+  ///
+
+  public class IsPluginEnabledResult : CommandResult
+  {
+    public override string Documentation
+    {
+      get { return "Result of IsPluginEnabled."; }
+    }
+
+    internal const string CmdName = "IsPluginEnabledResult";
+    internal const string TargetId = "";
+
+    public IsPluginEnabledResult()
+      : base(CmdName, TargetId)
+    {}
+
+    public IsPluginEnabledResult(CommandBase relatedCommand, string id, bool enabled)
+      : base(CmdName, TargetId, relatedCommand)
+    {
+      Id = id;
+      Enabled = enabled;
+    }
+      
+    public override bool IsValid
+    {
+      get
+      {
+        return base.IsValid
+        && Contains("Id")
+        && Contains("Enabled")
+      ;
+      }
+    }
+
+    public string Id
+    {
+      get { return GetValue("Id").ToObject<string>(CommandBase.Serializer); }
+      set
+      {
+          SetValue("Id", JToken.FromObject(value, CommandBase.Serializer));
+      }
+    }
+
+    public bool Enabled
+    {
+      get { return GetValue("Enabled").ToObject<bool>(CommandBase.Serializer); }
+      set
+      {
+          SetValue("Enabled", JToken.FromObject(value, CommandBase.Serializer));
+      }
+    }
+  }
+
+
+  ///
+  /// Get all Plug-ins present on the system (regardless of state).
+  ///
+  /// 
+  ///
+
+  public class GetPlugins : CommandBase
+  {
+    public override string Documentation
+    {
+      get { return "Get all Plug-ins present on the system (regardless of state)."; }
+    }
+
+    internal const string CmdName = "GetPlugins";
+    internal const string TargetId = "";
+
+    public GetPlugins()
+      : base(CmdName, TargetId)
+    {}
+      
+    public override bool IsValid
+    {
+      get
+      {
+        return base.IsValid
+      ;
+      }
+    }
+
+    public override int ExecutePermission { get { return EXECUTE_IF_IDLE; } }
+  }
+
+
+  ///
+  /// Result of GetPlugins.
+  ///
+  /// Name    Type         Description
+  /// ------- ------------ ---------------------------------------------------------------------
+  /// Plugins array string List of all Plug-ins present on the system (regardless of the state).
+  ///
+
+  public class GetPluginsResult : CommandResult
+  {
+    public override string Documentation
+    {
+      get { return "Result of GetPlugins."; }
+    }
+
+    internal const string CmdName = "GetPluginsResult";
+    internal const string TargetId = "";
+
+    public GetPluginsResult()
+      : base(CmdName, TargetId)
+    {}
+
+    public GetPluginsResult(CommandBase relatedCommand, List<string> plugins)
+      : base(CmdName, TargetId, relatedCommand)
+    {
+      Plugins = plugins;
+    }
+      
+    public override bool IsValid
+    {
+      get
+      {
+        return base.IsValid
+        && Contains("Plugins")
+      ;
+      }
+    }
+
+    public List<string> Plugins
+    {
+      get { return GetValue("Plugins").ToObject<List<string>>(CommandBase.Serializer); }
+      set
+      {
+          SetValue("Plugins", JToken.FromObject(value, CommandBase.Serializer));
+      }
+    }
+  }
+
+
+  ///
+  /// Set whether by default transmitters should keep the modification done during simulation.
   ///
   /// Name         Type Description
   /// ------------ ---- --------------------------------------------------------------------------------
@@ -39957,17 +40825,18 @@ namespace Sdx.Cmd
   {
     public override string Documentation
     {
-      get { return "Set wether by default transmitters should keep the modification done during simulation."; }
+      get { return "Set whether by default transmitters should keep the modification done during simulation."; }
     }
 
     internal const string CmdName = "SetDefaultIntTxPersistence";
+    internal const string TargetId = "";
 
     public SetDefaultIntTxPersistence()
-      : base(CmdName)
+      : base(CmdName, TargetId)
     {}
 
     public SetDefaultIntTxPersistence(bool defaultValue)
-      : base(CmdName)
+      : base(CmdName, TargetId)
     {
       DefaultValue = defaultValue;
     }
@@ -39996,7 +40865,7 @@ namespace Sdx.Cmd
 
 
   ///
-  /// Get wether by default transmitters should keep the modification done during simulation.
+  /// Get whether by default transmitters should keep the modification done during simulation.
   ///
   /// 
   ///
@@ -40005,13 +40874,14 @@ namespace Sdx.Cmd
   {
     public override string Documentation
     {
-      get { return "Get wether by default transmitters should keep the modification done during simulation."; }
+      get { return "Get whether by default transmitters should keep the modification done during simulation."; }
     }
 
     internal const string CmdName = "GetDefaultIntTxPersistence";
+    internal const string TargetId = "";
 
     public GetDefaultIntTxPersistence()
-      : base(CmdName)
+      : base(CmdName, TargetId)
     {}
       
     public override bool IsValid
@@ -40043,13 +40913,14 @@ namespace Sdx.Cmd
     }
 
     internal const string CmdName = "GetDefaultIntTxPersistenceResult";
+    internal const string TargetId = "";
 
     public GetDefaultIntTxPersistenceResult()
-      : base(CmdName)
+      : base(CmdName, TargetId)
     {}
 
     public GetDefaultIntTxPersistenceResult(CommandBase relatedCommand, bool defaultValue)
-      : base(CmdName, relatedCommand)
+      : base(CmdName, TargetId, relatedCommand)
     {
       DefaultValue = defaultValue;
     }
@@ -40089,9 +40960,10 @@ namespace Sdx.Cmd
     }
 
     internal const string CmdName = "GetAllIntTxID";
+    internal const string TargetId = "";
 
     public GetAllIntTxID()
-      : base(CmdName)
+      : base(CmdName, TargetId)
     {}
       
     public override bool IsValid
@@ -40123,13 +40995,14 @@ namespace Sdx.Cmd
     }
 
     internal const string CmdName = "GetAllIntTxIDResult";
+    internal const string TargetId = "";
 
     public GetAllIntTxIDResult()
-      : base(CmdName)
+      : base(CmdName, TargetId)
     {}
 
     public GetAllIntTxIDResult(CommandBase relatedCommand, List<string> ids)
-      : base(CmdName, relatedCommand)
+      : base(CmdName, TargetId, relatedCommand)
     {
       Ids = ids;
     }
@@ -40178,13 +41051,14 @@ namespace Sdx.Cmd
     }
 
     internal const string CmdName = "AddIntTx";
+    internal const string TargetId = "";
 
     public AddIntTx()
-      : base(CmdName)
+      : base(CmdName, TargetId)
     {}
 
     public AddIntTx(string usualName, bool enabled, int group, bool dynamic, double power, string id)
-      : base(CmdName)
+      : base(CmdName, TargetId)
     {
       UsualName = usualName;
       Enabled = enabled;
@@ -40283,13 +41157,14 @@ namespace Sdx.Cmd
     }
 
     internal const string CmdName = "GetIntTx";
+    internal const string TargetId = "";
 
     public GetIntTx()
-      : base(CmdName)
+      : base(CmdName, TargetId)
     {}
 
     public GetIntTx(string id)
-      : base(CmdName)
+      : base(CmdName, TargetId)
     {
       Id = id;
     }
@@ -40338,13 +41213,14 @@ namespace Sdx.Cmd
     }
 
     internal const string CmdName = "GetIntTxResult";
+    internal const string TargetId = "";
 
     public GetIntTxResult()
-      : base(CmdName)
+      : base(CmdName, TargetId)
     {}
 
     public GetIntTxResult(CommandBase relatedCommand, string usualName, bool enabled, int group, bool dynamic, double power, string id)
-      : base(CmdName, relatedCommand)
+      : base(CmdName, TargetId, relatedCommand)
     {
       UsualName = usualName;
       Enabled = enabled;
@@ -40442,13 +41318,14 @@ namespace Sdx.Cmd
     }
 
     internal const string CmdName = "RenameIntTx";
+    internal const string TargetId = "";
 
     public RenameIntTx()
-      : base(CmdName)
+      : base(CmdName, TargetId)
     {}
 
     public RenameIntTx(string usualName, string id)
-      : base(CmdName)
+      : base(CmdName, TargetId)
     {
       UsualName = usualName;
       Id = id;
@@ -40504,13 +41381,14 @@ namespace Sdx.Cmd
     }
 
     internal const string CmdName = "ChangeIntTxColor";
+    internal const string TargetId = "";
 
     public ChangeIntTxColor()
-      : base(CmdName)
+      : base(CmdName, TargetId)
     {}
 
     public ChangeIntTxColor(string color, string id)
-      : base(CmdName)
+      : base(CmdName, TargetId)
     {
       Color = color;
       Id = id;
@@ -40565,13 +41443,14 @@ namespace Sdx.Cmd
     }
 
     internal const string CmdName = "GetIntTxColor";
+    internal const string TargetId = "";
 
     public GetIntTxColor()
-      : base(CmdName)
+      : base(CmdName, TargetId)
     {}
 
     public GetIntTxColor(string id)
-      : base(CmdName)
+      : base(CmdName, TargetId)
     {
       Id = id;
     }
@@ -40616,13 +41495,14 @@ namespace Sdx.Cmd
     }
 
     internal const string CmdName = "GetIntTxColorResult";
+    internal const string TargetId = "";
 
     public GetIntTxColorResult()
-      : base(CmdName)
+      : base(CmdName, TargetId)
     {}
 
     public GetIntTxColorResult(CommandBase relatedCommand, string color, string id)
-      : base(CmdName, relatedCommand)
+      : base(CmdName, TargetId, relatedCommand)
     {
       Color = color;
       Id = id;
@@ -40676,13 +41556,14 @@ namespace Sdx.Cmd
     }
 
     internal const string CmdName = "EnableIntTx";
+    internal const string TargetId = "";
 
     public EnableIntTx()
-      : base(CmdName)
+      : base(CmdName, TargetId)
     {}
 
     public EnableIntTx(bool enabled, string id)
-      : base(CmdName)
+      : base(CmdName, TargetId)
     {
       Enabled = enabled;
       Id = id;
@@ -40738,13 +41619,14 @@ namespace Sdx.Cmd
     }
 
     internal const string CmdName = "SetIntTxGroup";
+    internal const string TargetId = "";
 
     public SetIntTxGroup()
-      : base(CmdName)
+      : base(CmdName, TargetId)
     {}
 
     public SetIntTxGroup(int group, string id)
-      : base(CmdName)
+      : base(CmdName, TargetId)
     {
       Group = group;
       Id = id;
@@ -40800,13 +41682,14 @@ namespace Sdx.Cmd
     }
 
     internal const string CmdName = "SetIntTxRefPower";
+    internal const string TargetId = "";
 
     public SetIntTxRefPower()
-      : base(CmdName)
+      : base(CmdName, TargetId)
     {}
 
     public SetIntTxRefPower(double power, string id)
-      : base(CmdName)
+      : base(CmdName, TargetId)
     {
       Power = power;
       Id = id;
@@ -40846,7 +41729,7 @@ namespace Sdx.Cmd
 
 
   ///
-  /// Set wether the transmitter should keep the modifications done during the simulation.
+  /// Set whether the transmitter should keep the modifications done during the simulation.
   ///
   /// Name        Type   Description
   /// ----------- ------ ------------------------------------------------------
@@ -40858,17 +41741,18 @@ namespace Sdx.Cmd
   {
     public override string Documentation
     {
-      get { return "Set wether the transmitter should keep the modifications done during the simulation."; }
+      get { return "Set whether the transmitter should keep the modifications done during the simulation."; }
     }
 
     internal const string CmdName = "SetIntTxPersistence";
+    internal const string TargetId = "";
 
     public SetIntTxPersistence()
-      : base(CmdName)
+      : base(CmdName, TargetId)
     {}
 
     public SetIntTxPersistence(bool persistence, string id)
-      : base(CmdName)
+      : base(CmdName, TargetId)
     {
       Persistence = persistence;
       Id = id;
@@ -40908,7 +41792,7 @@ namespace Sdx.Cmd
 
 
   ///
-  /// Get wether the transmitter should keep the modifications done during the simulation.
+  /// Get whether the transmitter should keep the modifications done during the simulation.
   ///
   /// Name Type   Description
   /// ---- ------ ------------------------------
@@ -40919,17 +41803,18 @@ namespace Sdx.Cmd
   {
     public override string Documentation
     {
-      get { return "Get wether the transmitter should keep the modifications done during the simulation."; }
+      get { return "Get whether the transmitter should keep the modifications done during the simulation."; }
     }
 
     internal const string CmdName = "GetIntTxPersistence";
+    internal const string TargetId = "";
 
     public GetIntTxPersistence()
-      : base(CmdName)
+      : base(CmdName, TargetId)
     {}
 
     public GetIntTxPersistence(string id)
-      : base(CmdName)
+      : base(CmdName, TargetId)
     {
       Id = id;
     }
@@ -40974,13 +41859,14 @@ namespace Sdx.Cmd
     }
 
     internal const string CmdName = "GetIntTxPersistenceResult";
+    internal const string TargetId = "";
 
     public GetIntTxPersistenceResult()
-      : base(CmdName)
+      : base(CmdName, TargetId)
     {}
 
     public GetIntTxPersistenceResult(CommandBase relatedCommand, bool persistence, string id)
-      : base(CmdName, relatedCommand)
+      : base(CmdName, TargetId, relatedCommand)
     {
       Persistence = persistence;
       Id = id;
@@ -41035,13 +41921,14 @@ namespace Sdx.Cmd
     }
 
     internal const string CmdName = "SetIntTxSignalManualPropagationLoss";
+    internal const string TargetId = "";
 
     public SetIntTxSignalManualPropagationLoss()
-      : base(CmdName)
+      : base(CmdName, TargetId)
     {}
 
     public SetIntTxSignalManualPropagationLoss(double propagationLoss, string transmitterId, string signalId)
-      : base(CmdName)
+      : base(CmdName, TargetId)
     {
       PropagationLoss = propagationLoss;
       TransmitterId = transmitterId;
@@ -41108,13 +41995,14 @@ namespace Sdx.Cmd
     }
 
     internal const string CmdName = "SetIntTxUseManualPropagationLoss";
+    internal const string TargetId = "";
 
     public SetIntTxUseManualPropagationLoss()
-      : base(CmdName)
+      : base(CmdName, TargetId)
     {}
 
     public SetIntTxUseManualPropagationLoss(bool manual, string id)
-      : base(CmdName)
+      : base(CmdName, TargetId)
     {
       Manual = manual;
       Id = id;
@@ -41170,13 +42058,14 @@ namespace Sdx.Cmd
     }
 
     internal const string CmdName = "SetIntTxIgnorePropagationLoss";
+    internal const string TargetId = "";
 
     public SetIntTxIgnorePropagationLoss()
-      : base(CmdName)
+      : base(CmdName, TargetId)
     {}
 
     public SetIntTxIgnorePropagationLoss(bool ignore, string id)
-      : base(CmdName)
+      : base(CmdName, TargetId)
     {
       Ignore = ignore;
       Id = id;
@@ -41234,13 +42123,14 @@ namespace Sdx.Cmd
     }
 
     internal const string CmdName = "SetIntTxIgnoreVehicleAntennaPattern";
+    internal const string TargetId = "";
 
     public SetIntTxIgnoreVehicleAntennaPattern()
-      : base(CmdName)
+      : base(CmdName, TargetId)
     {}
 
     public SetIntTxIgnoreVehicleAntennaPattern(bool ignore, string id)
-      : base(CmdName)
+      : base(CmdName, TargetId)
     {
       Ignore = ignore;
       Id = id;
@@ -41296,13 +42186,14 @@ namespace Sdx.Cmd
     }
 
     internal const string CmdName = "SetIntTxIgnoreRxAntennaPatterns";
+    internal const string TargetId = "";
 
     public SetIntTxIgnoreRxAntennaPatterns()
-      : base(CmdName)
+      : base(CmdName, TargetId)
     {}
 
     public SetIntTxIgnoreRxAntennaPatterns(bool ignore, string id)
-      : base(CmdName)
+      : base(CmdName, TargetId)
     {
       Ignore = ignore;
       Id = id;
@@ -41358,13 +42249,14 @@ namespace Sdx.Cmd
     }
 
     internal const string CmdName = "SetIntTxHiddenOnMap";
+    internal const string TargetId = "";
 
     public SetIntTxHiddenOnMap()
-      : base(CmdName)
+      : base(CmdName, TargetId)
     {}
 
     public SetIntTxHiddenOnMap(bool hiddenOnMap, string id)
-      : base(CmdName)
+      : base(CmdName, TargetId)
     {
       HiddenOnMap = hiddenOnMap;
       Id = id;
@@ -41419,13 +42311,14 @@ namespace Sdx.Cmd
     }
 
     internal const string CmdName = "GetIntTxHiddenOnMap";
+    internal const string TargetId = "";
 
     public GetIntTxHiddenOnMap()
-      : base(CmdName)
+      : base(CmdName, TargetId)
     {}
 
     public GetIntTxHiddenOnMap(string id)
-      : base(CmdName)
+      : base(CmdName, TargetId)
     {
       Id = id;
     }
@@ -41470,13 +42363,14 @@ namespace Sdx.Cmd
     }
 
     internal const string CmdName = "GetIntTxHiddenOnMapResult";
+    internal const string TargetId = "";
 
     public GetIntTxHiddenOnMapResult()
-      : base(CmdName)
+      : base(CmdName, TargetId)
     {}
 
     public GetIntTxHiddenOnMapResult(CommandBase relatedCommand, bool hiddenOnMap, string id)
-      : base(CmdName, relatedCommand)
+      : base(CmdName, TargetId, relatedCommand)
     {
       HiddenOnMap = hiddenOnMap;
       Id = id;
@@ -41530,13 +42424,14 @@ namespace Sdx.Cmd
     }
 
     internal const string CmdName = "SetIntTxIgnoreRxAntennaGainPattern";
+    internal const string TargetId = "";
 
     public SetIntTxIgnoreRxAntennaGainPattern()
-      : base(CmdName)
+      : base(CmdName, TargetId)
     {}
 
     public SetIntTxIgnoreRxAntennaGainPattern(bool ignore, string id)
-      : base(CmdName)
+      : base(CmdName, TargetId)
     {
       Ignore = ignore;
       Id = id;
@@ -41591,13 +42486,14 @@ namespace Sdx.Cmd
     }
 
     internal const string CmdName = "IsIntTxIgnoreRxAntennaGainPattern";
+    internal const string TargetId = "";
 
     public IsIntTxIgnoreRxAntennaGainPattern()
-      : base(CmdName)
+      : base(CmdName, TargetId)
     {}
 
     public IsIntTxIgnoreRxAntennaGainPattern(string id)
-      : base(CmdName)
+      : base(CmdName, TargetId)
     {
       Id = id;
     }
@@ -41642,13 +42538,14 @@ namespace Sdx.Cmd
     }
 
     internal const string CmdName = "IsIntTxIgnoreRxAntennaGainPatternResult";
+    internal const string TargetId = "";
 
     public IsIntTxIgnoreRxAntennaGainPatternResult()
-      : base(CmdName)
+      : base(CmdName, TargetId)
     {}
 
     public IsIntTxIgnoreRxAntennaGainPatternResult(CommandBase relatedCommand, bool ignore, string id)
-      : base(CmdName, relatedCommand)
+      : base(CmdName, TargetId, relatedCommand)
     {
       Ignore = ignore;
       Id = id;
@@ -41702,13 +42599,14 @@ namespace Sdx.Cmd
     }
 
     internal const string CmdName = "SetIntTxIgnoreRxAntennaPhasePattern";
+    internal const string TargetId = "";
 
     public SetIntTxIgnoreRxAntennaPhasePattern()
-      : base(CmdName)
+      : base(CmdName, TargetId)
     {}
 
     public SetIntTxIgnoreRxAntennaPhasePattern(bool ignore, string id)
-      : base(CmdName)
+      : base(CmdName, TargetId)
     {
       Ignore = ignore;
       Id = id;
@@ -41763,13 +42661,14 @@ namespace Sdx.Cmd
     }
 
     internal const string CmdName = "IsIntTxIgnoreRxAntennaPhasePattern";
+    internal const string TargetId = "";
 
     public IsIntTxIgnoreRxAntennaPhasePattern()
-      : base(CmdName)
+      : base(CmdName, TargetId)
     {}
 
     public IsIntTxIgnoreRxAntennaPhasePattern(string id)
-      : base(CmdName)
+      : base(CmdName, TargetId)
     {
       Id = id;
     }
@@ -41814,13 +42713,14 @@ namespace Sdx.Cmd
     }
 
     internal const string CmdName = "IsIntTxIgnoreRxAntennaPhasePatternResult";
+    internal const string TargetId = "";
 
     public IsIntTxIgnoreRxAntennaPhasePatternResult()
-      : base(CmdName)
+      : base(CmdName, TargetId)
     {}
 
     public IsIntTxIgnoreRxAntennaPhasePatternResult(CommandBase relatedCommand, bool ignore, string id)
-      : base(CmdName, relatedCommand)
+      : base(CmdName, TargetId, relatedCommand)
     {
       Ignore = ignore;
       Id = id;
@@ -41873,13 +42773,14 @@ namespace Sdx.Cmd
     }
 
     internal const string CmdName = "SetIntTxNone";
+    internal const string TargetId = "";
 
     public SetIntTxNone()
-      : base(CmdName)
+      : base(CmdName, TargetId)
     {}
 
     public SetIntTxNone(string id)
-      : base(CmdName)
+      : base(CmdName, TargetId)
     {
       Id = id;
     }
@@ -41929,13 +42830,14 @@ namespace Sdx.Cmd
     }
 
     internal const string CmdName = "SetIntTxFix";
+    internal const string TargetId = "";
 
     public SetIntTxFix()
-      : base(CmdName)
+      : base(CmdName, TargetId)
     {}
 
     public SetIntTxFix(double lat, double lon, double alt, double yaw, double pitch, double roll, string id)
-      : base(CmdName)
+      : base(CmdName, TargetId)
     {
       Lat = lat;
       Lon = lon;
@@ -42045,13 +42947,14 @@ namespace Sdx.Cmd
     }
 
     internal const string CmdName = "GetIntTxFix";
+    internal const string TargetId = "";
 
     public GetIntTxFix()
-      : base(CmdName)
+      : base(CmdName, TargetId)
     {}
 
     public GetIntTxFix(string id)
-      : base(CmdName)
+      : base(CmdName, TargetId)
     {
       Id = id;
     }
@@ -42101,13 +43004,14 @@ namespace Sdx.Cmd
     }
 
     internal const string CmdName = "GetIntTxFixResult";
+    internal const string TargetId = "";
 
     public GetIntTxFixResult()
-      : base(CmdName)
+      : base(CmdName, TargetId)
     {}
 
     public GetIntTxFixResult(CommandBase relatedCommand, double lat, double lon, double alt, double yaw, double pitch, double roll, string id)
-      : base(CmdName, relatedCommand)
+      : base(CmdName, TargetId, relatedCommand)
     {
       Lat = lat;
       Lon = lon;
@@ -42221,13 +43125,14 @@ namespace Sdx.Cmd
     }
 
     internal const string CmdName = "SetIntTxFixEcef";
+    internal const string TargetId = "";
 
     public SetIntTxFixEcef()
-      : base(CmdName)
+      : base(CmdName, TargetId)
     {}
 
     public SetIntTxFixEcef(double x, double y, double z, double yaw, double pitch, double roll, string id)
-      : base(CmdName)
+      : base(CmdName, TargetId)
     {
       X = x;
       Y = y;
@@ -42337,13 +43242,14 @@ namespace Sdx.Cmd
     }
 
     internal const string CmdName = "GetIntTxFixEcef";
+    internal const string TargetId = "";
 
     public GetIntTxFixEcef()
-      : base(CmdName)
+      : base(CmdName, TargetId)
     {}
 
     public GetIntTxFixEcef(string id)
-      : base(CmdName)
+      : base(CmdName, TargetId)
     {
       Id = id;
     }
@@ -42393,13 +43299,14 @@ namespace Sdx.Cmd
     }
 
     internal const string CmdName = "GetIntTxFixEcefResult";
+    internal const string TargetId = "";
 
     public GetIntTxFixEcefResult()
-      : base(CmdName)
+      : base(CmdName, TargetId)
     {}
 
     public GetIntTxFixEcefResult(CommandBase relatedCommand, double x, double y, double z, double yaw, double pitch, double roll, string id)
-      : base(CmdName, relatedCommand)
+      : base(CmdName, TargetId, relatedCommand)
     {
       X = x;
       Y = y;
@@ -42514,13 +43421,14 @@ namespace Sdx.Cmd
     }
 
     internal const string CmdName = "SetIntTxCircular";
+    internal const string TargetId = "";
 
     public SetIntTxCircular()
-      : base(CmdName)
+      : base(CmdName, TargetId)
     {}
 
     public SetIntTxCircular(double lat, double lon, double alt, double radius, double speed, bool clockwise, string id, double? originAngle = null)
-      : base(CmdName)
+      : base(CmdName, TargetId)
     {
       Lat = lat;
       Lon = lon;
@@ -42643,13 +43551,14 @@ namespace Sdx.Cmd
     }
 
     internal const string CmdName = "GetIntTxCircular";
+    internal const string TargetId = "";
 
     public GetIntTxCircular()
-      : base(CmdName)
+      : base(CmdName, TargetId)
     {}
 
     public GetIntTxCircular(string id)
-      : base(CmdName)
+      : base(CmdName, TargetId)
     {
       Id = id;
     }
@@ -42700,13 +43609,14 @@ namespace Sdx.Cmd
     }
 
     internal const string CmdName = "GetIntTxCircularResult";
+    internal const string TargetId = "";
 
     public GetIntTxCircularResult()
-      : base(CmdName)
+      : base(CmdName, TargetId)
     {}
 
     public GetIntTxCircularResult(CommandBase relatedCommand, double lat, double lon, double alt, double radius, double speed, bool clockwise, string id, double? originAngle = null)
-      : base(CmdName, relatedCommand)
+      : base(CmdName, TargetId, relatedCommand)
     {
       Lat = lat;
       Lon = lon;
@@ -42827,13 +43737,14 @@ namespace Sdx.Cmd
     }
 
     internal const string CmdName = "SetIntTxHil";
+    internal const string TargetId = "";
 
     public SetIntTxHil()
-      : base(CmdName)
+      : base(CmdName, TargetId)
     {}
 
     public SetIntTxHil(string id)
-      : base(CmdName)
+      : base(CmdName, TargetId)
     {
       Id = id;
     }
@@ -42880,13 +43791,14 @@ namespace Sdx.Cmd
     }
 
     internal const string CmdName = "BeginIntTxTrackDefinition";
+    internal const string TargetId = "";
 
     public BeginIntTxTrackDefinition()
-      : base(CmdName)
+      : base(CmdName, TargetId)
     {}
 
     public BeginIntTxTrackDefinition(string id)
-      : base(CmdName)
+      : base(CmdName, TargetId)
     {
       Id = id;
     }
@@ -42934,13 +43846,14 @@ namespace Sdx.Cmd
     }
 
     internal const string CmdName = "PushIntTxTrackEcef";
+    internal const string TargetId = "";
 
     public PushIntTxTrackEcef()
-      : base(CmdName)
+      : base(CmdName, TargetId)
     {}
 
     public PushIntTxTrackEcef(int time, double x, double y, double z, string id)
-      : base(CmdName)
+      : base(CmdName, TargetId)
     {
       Time = time;
       X = x;
@@ -43035,13 +43948,14 @@ namespace Sdx.Cmd
     }
 
     internal const string CmdName = "PushIntTxTrackEcefNed";
+    internal const string TargetId = "";
 
     public PushIntTxTrackEcefNed()
-      : base(CmdName)
+      : base(CmdName, TargetId)
     {}
 
     public PushIntTxTrackEcefNed(int time, double x, double y, double z, double yaw, double pitch, double roll, string id)
-      : base(CmdName)
+      : base(CmdName, TargetId)
     {
       Time = time;
       X = x;
@@ -43165,13 +44079,14 @@ namespace Sdx.Cmd
     }
 
     internal const string CmdName = "EndIntTxTrackDefinition";
+    internal const string TargetId = "";
 
     public EndIntTxTrackDefinition()
-      : base(CmdName)
+      : base(CmdName, TargetId)
     {}
 
     public EndIntTxTrackDefinition(string id)
-      : base(CmdName)
+      : base(CmdName, TargetId)
     {
       Id = id;
     }
@@ -43216,13 +44131,14 @@ namespace Sdx.Cmd
     }
 
     internal const string CmdName = "EndIntTxTrackDefinitionResult";
+    internal const string TargetId = "";
 
     public EndIntTxTrackDefinitionResult()
-      : base(CmdName)
+      : base(CmdName, TargetId)
     {}
 
     public EndIntTxTrackDefinitionResult(CommandBase relatedCommand, int count, string id)
-      : base(CmdName, relatedCommand)
+      : base(CmdName, TargetId, relatedCommand)
     {
       Count = count;
       Id = id;
@@ -43276,13 +44192,14 @@ namespace Sdx.Cmd
     }
 
     internal const string CmdName = "ImportNmeaIntTxTrack";
+    internal const string TargetId = "";
 
     public ImportNmeaIntTxTrack()
-      : base(CmdName)
+      : base(CmdName, TargetId)
     {}
 
     public ImportNmeaIntTxTrack(string path, string id)
-      : base(CmdName)
+      : base(CmdName, TargetId)
     {
       Path = path;
       Id = id;
@@ -43338,13 +44255,14 @@ namespace Sdx.Cmd
     }
 
     internal const string CmdName = "EnableIntTxTrajectorySmoothing";
+    internal const string TargetId = "";
 
     public EnableIntTxTrajectorySmoothing()
-      : base(CmdName)
+      : base(CmdName, TargetId)
     {}
 
     public EnableIntTxTrajectorySmoothing(bool enabled, string id)
-      : base(CmdName)
+      : base(CmdName, TargetId)
     {
       Enabled = enabled;
       Id = id;
@@ -43399,13 +44317,14 @@ namespace Sdx.Cmd
     }
 
     internal const string CmdName = "IsIntTxTrajectorySmoothingEnabled";
+    internal const string TargetId = "";
 
     public IsIntTxTrajectorySmoothingEnabled()
-      : base(CmdName)
+      : base(CmdName, TargetId)
     {}
 
     public IsIntTxTrajectorySmoothingEnabled(string id)
-      : base(CmdName)
+      : base(CmdName, TargetId)
     {
       Id = id;
     }
@@ -43450,13 +44369,14 @@ namespace Sdx.Cmd
     }
 
     internal const string CmdName = "IsIntTxTrajectorySmoothingEnabledResult";
+    internal const string TargetId = "";
 
     public IsIntTxTrajectorySmoothingEnabledResult()
-      : base(CmdName)
+      : base(CmdName, TargetId)
     {}
 
     public IsIntTxTrajectorySmoothingEnabledResult(CommandBase relatedCommand, bool enabled, string id)
-      : base(CmdName, relatedCommand)
+      : base(CmdName, TargetId, relatedCommand)
     {
       Enabled = enabled;
       Id = id;
@@ -43510,13 +44430,14 @@ namespace Sdx.Cmd
     }
 
     internal const string CmdName = "ForceIntTxAttitudeToZero";
+    internal const string TargetId = "";
 
     public ForceIntTxAttitudeToZero()
-      : base(CmdName)
+      : base(CmdName, TargetId)
     {}
 
     public ForceIntTxAttitudeToZero(bool enabled, string id)
-      : base(CmdName)
+      : base(CmdName, TargetId)
     {
       Enabled = enabled;
       Id = id;
@@ -43571,13 +44492,14 @@ namespace Sdx.Cmd
     }
 
     internal const string CmdName = "IsIntTxAttitudeToZeroForced";
+    internal const string TargetId = "";
 
     public IsIntTxAttitudeToZeroForced()
-      : base(CmdName)
+      : base(CmdName, TargetId)
     {}
 
     public IsIntTxAttitudeToZeroForced(string id)
-      : base(CmdName)
+      : base(CmdName, TargetId)
     {
       Id = id;
     }
@@ -43622,13 +44544,14 @@ namespace Sdx.Cmd
     }
 
     internal const string CmdName = "IsIntTxAttitudeToZeroForcedResult";
+    internal const string TargetId = "";
 
     public IsIntTxAttitudeToZeroForcedResult()
-      : base(CmdName)
+      : base(CmdName, TargetId)
     {}
 
     public IsIntTxAttitudeToZeroForcedResult(CommandBase relatedCommand, bool enabled, string id)
-      : base(CmdName, relatedCommand)
+      : base(CmdName, TargetId, relatedCommand)
     {
       Enabled = enabled;
       Id = id;
@@ -43666,11 +44589,11 @@ namespace Sdx.Cmd
 
 
   ///
-  /// Set Set interference vehicle type for Track Trajectory
+  /// Set interference vehicle type for Track Trajectory.
   ///
   /// Name Type   Description
-  /// ---- ------ ----------------------------------------------------------
-  /// Type string Vehicle type ("Ground / Water" or "Airborne / Spaceborne")
+  /// ---- ------ -----------------------------------------------------------
+  /// Type string Vehicle type ("Ground / Water" or "Airborne / Spaceborne").
   /// Id   string Transmitter unique identifier.
   ///
 
@@ -43678,17 +44601,18 @@ namespace Sdx.Cmd
   {
     public override string Documentation
     {
-      get { return "Set Set interference vehicle type for Track Trajectory"; }
+      get { return "Set interference vehicle type for Track Trajectory."; }
     }
 
     internal const string CmdName = "SetIntTxVehicleType";
+    internal const string TargetId = "";
 
     public SetIntTxVehicleType()
-      : base(CmdName)
+      : base(CmdName, TargetId)
     {}
 
     public SetIntTxVehicleType(string type, string id)
-      : base(CmdName)
+      : base(CmdName, TargetId)
     {
       Type = type;
       Id = id;
@@ -43728,7 +44652,7 @@ namespace Sdx.Cmd
 
 
   ///
-  /// Get Set interference vehicle type for Track Trajectory
+  /// Get interference vehicle type for Track Trajectory.
   ///
   /// Name Type   Description
   /// ---- ------ ------------------------------
@@ -43739,17 +44663,18 @@ namespace Sdx.Cmd
   {
     public override string Documentation
     {
-      get { return "Get Set interference vehicle type for Track Trajectory"; }
+      get { return "Get interference vehicle type for Track Trajectory."; }
     }
 
     internal const string CmdName = "GetIntTxVehicleType";
+    internal const string TargetId = "";
 
     public GetIntTxVehicleType()
-      : base(CmdName)
+      : base(CmdName, TargetId)
     {}
 
     public GetIntTxVehicleType(string id)
-      : base(CmdName)
+      : base(CmdName, TargetId)
     {
       Id = id;
     }
@@ -43781,8 +44706,8 @@ namespace Sdx.Cmd
   /// Result of GetIntTxVehicleType.
   ///
   /// Name Type   Description
-  /// ---- ------ ----------------------------------------------------------
-  /// Type string Vehicle type ("Ground / Water" or "Airborne / Spaceborne")
+  /// ---- ------ -----------------------------------------------------------
+  /// Type string Vehicle type ("Ground / Water" or "Airborne / Spaceborne").
   /// Id   string Transmitter unique identifier.
   ///
 
@@ -43794,13 +44719,14 @@ namespace Sdx.Cmd
     }
 
     internal const string CmdName = "GetIntTxVehicleTypeResult";
+    internal const string TargetId = "";
 
     public GetIntTxVehicleTypeResult()
-      : base(CmdName)
+      : base(CmdName, TargetId)
     {}
 
     public GetIntTxVehicleTypeResult(CommandBase relatedCommand, string type, string id)
-      : base(CmdName, relatedCommand)
+      : base(CmdName, TargetId, relatedCommand)
     {
       Type = type;
       Id = id;
@@ -43853,13 +44779,14 @@ namespace Sdx.Cmd
     }
 
     internal const string CmdName = "GetIntTxTrajectory";
+    internal const string TargetId = "";
 
     public GetIntTxTrajectory()
-      : base(CmdName)
+      : base(CmdName, TargetId)
     {}
 
     public GetIntTxTrajectory(string id)
-      : base(CmdName)
+      : base(CmdName, TargetId)
     {
       Id = id;
     }
@@ -43904,13 +44831,14 @@ namespace Sdx.Cmd
     }
 
     internal const string CmdName = "GetIntTxTrajectoryResult";
+    internal const string TargetId = "";
 
     public GetIntTxTrajectoryResult()
-      : base(CmdName)
+      : base(CmdName, TargetId)
     {}
 
     public GetIntTxTrajectoryResult(CommandBase relatedCommand, string trajectoryType, string id)
-      : base(CmdName, relatedCommand)
+      : base(CmdName, TargetId, relatedCommand)
     {
       TrajectoryType = trajectoryType;
       Id = id;
@@ -43965,13 +44893,14 @@ namespace Sdx.Cmd
     }
 
     internal const string CmdName = "SetIntTxAntenna";
+    internal const string TargetId = "";
 
     public SetIntTxAntenna()
-      : base(CmdName)
+      : base(CmdName, TargetId)
     {}
 
     public SetIntTxAntenna(List<List<double>> gain, AntennaPatternType type, string id)
-      : base(CmdName)
+      : base(CmdName, TargetId)
     {
       Gain = gain;
       Type = type;
@@ -44037,13 +44966,14 @@ namespace Sdx.Cmd
     }
 
     internal const string CmdName = "GetIntTxAntenna";
+    internal const string TargetId = "";
 
     public GetIntTxAntenna()
-      : base(CmdName)
+      : base(CmdName, TargetId)
     {}
 
     public GetIntTxAntenna(string id)
-      : base(CmdName)
+      : base(CmdName, TargetId)
     {
       Id = id;
     }
@@ -44089,13 +45019,14 @@ namespace Sdx.Cmd
     }
 
     internal const string CmdName = "GetIntTxAntennaResult";
+    internal const string TargetId = "";
 
     public GetIntTxAntennaResult()
-      : base(CmdName)
+      : base(CmdName, TargetId)
     {}
 
     public GetIntTxAntennaResult(CommandBase relatedCommand, List<List<double>> gain, AntennaPatternType type, string id)
-      : base(CmdName, relatedCommand)
+      : base(CmdName, TargetId, relatedCommand)
     {
       Gain = gain;
       Type = type;
@@ -44171,13 +45102,14 @@ namespace Sdx.Cmd
     }
 
     internal const string CmdName = "SetIntTxAntennaOffset";
+    internal const string TargetId = "";
 
     public SetIntTxAntennaOffset()
-      : base(CmdName)
+      : base(CmdName, TargetId)
     {}
 
     public SetIntTxAntennaOffset(double x, double y, double z, double yaw, double pitch, double roll, string id)
-      : base(CmdName)
+      : base(CmdName, TargetId)
     {
       X = x;
       Y = y;
@@ -44293,13 +45225,14 @@ namespace Sdx.Cmd
     }
 
     internal const string CmdName = "GetIntTxAntennaOffset";
+    internal const string TargetId = "";
 
     public GetIntTxAntennaOffset()
-      : base(CmdName)
+      : base(CmdName, TargetId)
     {}
 
     public GetIntTxAntennaOffset(string id)
-      : base(CmdName)
+      : base(CmdName, TargetId)
     {
       Id = id;
     }
@@ -44349,13 +45282,14 @@ namespace Sdx.Cmd
     }
 
     internal const string CmdName = "GetIntTxAntennaOffsetResult";
+    internal const string TargetId = "";
 
     public GetIntTxAntennaOffsetResult()
-      : base(CmdName)
+      : base(CmdName, TargetId)
     {}
 
     public GetIntTxAntennaOffsetResult(CommandBase relatedCommand, double x, double y, double z, double yaw, double pitch, double roll, string id)
-      : base(CmdName, relatedCommand)
+      : base(CmdName, TargetId, relatedCommand)
     {
       X = x;
       Y = y;
@@ -44464,13 +45398,14 @@ namespace Sdx.Cmd
     }
 
     internal const string CmdName = "RemoveIntTx";
+    internal const string TargetId = "";
 
     public RemoveIntTx()
-      : base(CmdName)
+      : base(CmdName, TargetId)
     {}
 
     public RemoveIntTx(string id)
-      : base(CmdName)
+      : base(CmdName, TargetId)
     {
       Id = id;
     }
@@ -44512,9 +45447,10 @@ namespace Sdx.Cmd
     }
 
     internal const string CmdName = "RemoveAllIntTx";
+    internal const string TargetId = "";
 
     public RemoveAllIntTx()
-      : base(CmdName)
+      : base(CmdName, TargetId)
     {}
       
     public override bool IsValid
@@ -44546,13 +45482,14 @@ namespace Sdx.Cmd
     }
 
     internal const string CmdName = "GetAllSignalsFromIntTx";
+    internal const string TargetId = "";
 
     public GetAllSignalsFromIntTx()
-      : base(CmdName)
+      : base(CmdName, TargetId)
     {}
 
     public GetAllSignalsFromIntTx(string id)
-      : base(CmdName)
+      : base(CmdName, TargetId)
     {
       Id = id;
     }
@@ -44597,13 +45534,14 @@ namespace Sdx.Cmd
     }
 
     internal const string CmdName = "GetAllSignalsFromIntTxResult";
+    internal const string TargetId = "";
 
     public GetAllSignalsFromIntTxResult()
-      : base(CmdName)
+      : base(CmdName, TargetId)
     {}
 
     public GetAllSignalsFromIntTxResult(CommandBase relatedCommand, string id, List<string> idsSignal)
-      : base(CmdName, relatedCommand)
+      : base(CmdName, TargetId, relatedCommand)
     {
       Id = id;
       IdsSignal = idsSignal;
@@ -44657,13 +45595,14 @@ namespace Sdx.Cmd
     }
 
     internal const string CmdName = "GetSignalFromIntTx";
+    internal const string TargetId = "";
 
     public GetSignalFromIntTx()
-      : base(CmdName)
+      : base(CmdName, TargetId)
     {}
 
     public GetSignalFromIntTx(string idTransmitter, string signalType)
-      : base(CmdName)
+      : base(CmdName, TargetId)
     {
       IdTransmitter = idTransmitter;
       SignalType = signalType;
@@ -44720,13 +45659,14 @@ namespace Sdx.Cmd
     }
 
     internal const string CmdName = "GetSignalFromIntTxResult";
+    internal const string TargetId = "";
 
     public GetSignalFromIntTxResult()
-      : base(CmdName)
+      : base(CmdName, TargetId)
     {}
 
     public GetSignalFromIntTxResult(CommandBase relatedCommand, string idTransmitter, string signalType, List<string> idsSignal)
-      : base(CmdName, relatedCommand)
+      : base(CmdName, TargetId, relatedCommand)
     {
       IdTransmitter = idTransmitter;
       SignalType = signalType;
@@ -44799,13 +45739,14 @@ namespace Sdx.Cmd
     }
 
     internal const string CmdName = "SetIntTxCW";
+    internal const string TargetId = "";
 
     public SetIntTxCW()
-      : base(CmdName)
+      : base(CmdName, TargetId)
     {}
 
     public SetIntTxCW(bool enabled, double centralFreq, double power, string transmitterId, string signalId, double? initialPhaseOffset = null, int? group = null)
-      : base(CmdName)
+      : base(CmdName, TargetId)
     {
       Enabled = enabled;
       CentralFreq = centralFreq;
@@ -44920,13 +45861,14 @@ namespace Sdx.Cmd
     }
 
     internal const string CmdName = "GetIntTxCW";
+    internal const string TargetId = "";
 
     public GetIntTxCW()
-      : base(CmdName)
+      : base(CmdName, TargetId)
     {}
 
     public GetIntTxCW(string transmitterId, string signalId)
-      : base(CmdName)
+      : base(CmdName, TargetId)
     {
       TransmitterId = transmitterId;
       SignalId = signalId;
@@ -44987,13 +45929,14 @@ namespace Sdx.Cmd
     }
 
     internal const string CmdName = "GetIntTxCWResult";
+    internal const string TargetId = "";
 
     public GetIntTxCWResult()
-      : base(CmdName)
+      : base(CmdName, TargetId)
     {}
 
     public GetIntTxCWResult(CommandBase relatedCommand, bool enabled, double centralFreq, double power, string transmitterId, string signalId, double? initialPhaseOffset = null, int? group = null)
-      : base(CmdName, relatedCommand)
+      : base(CmdName, TargetId, relatedCommand)
     {
       Enabled = enabled;
       CentralFreq = centralFreq;
@@ -45115,13 +46058,14 @@ namespace Sdx.Cmd
     }
 
     internal const string CmdName = "SetIntTxChirp";
+    internal const string TargetId = "";
 
     public SetIntTxChirp()
-      : base(CmdName)
+      : base(CmdName, TargetId)
     {}
 
     public SetIntTxChirp(bool enabled, double centralFreq, double power, double bandwidth, double sweepTime, string transmitterId, string signalId, int? group = null)
-      : base(CmdName)
+      : base(CmdName, TargetId)
     {
       Enabled = enabled;
       CentralFreq = centralFreq;
@@ -45245,13 +46189,14 @@ namespace Sdx.Cmd
     }
 
     internal const string CmdName = "GetIntTxChirp";
+    internal const string TargetId = "";
 
     public GetIntTxChirp()
-      : base(CmdName)
+      : base(CmdName, TargetId)
     {}
 
     public GetIntTxChirp(string transmitterId, string signalId)
-      : base(CmdName)
+      : base(CmdName, TargetId)
     {
       TransmitterId = transmitterId;
       SignalId = signalId;
@@ -45313,13 +46258,14 @@ namespace Sdx.Cmd
     }
 
     internal const string CmdName = "GetIntTxChirpResult";
+    internal const string TargetId = "";
 
     public GetIntTxChirpResult()
-      : base(CmdName)
+      : base(CmdName, TargetId)
     {}
 
     public GetIntTxChirpResult(CommandBase relatedCommand, bool enabled, double centralFreq, double power, double bandwidth, double sweepTime, string transmitterId, string signalId, int? group = null)
-      : base(CmdName, relatedCommand)
+      : base(CmdName, TargetId, relatedCommand)
     {
       Enabled = enabled;
       CentralFreq = centralFreq;
@@ -45447,13 +46393,14 @@ namespace Sdx.Cmd
     }
 
     internal const string CmdName = "SetIntTxPulse";
+    internal const string TargetId = "";
 
     public SetIntTxPulse()
-      : base(CmdName)
+      : base(CmdName, TargetId)
     {}
 
     public SetIntTxPulse(bool enabled, double centralFreq, double power, double dutyCycle, int pulseRate, string transmitterId, string signalId, int? group = null)
-      : base(CmdName)
+      : base(CmdName, TargetId)
     {
       Enabled = enabled;
       CentralFreq = centralFreq;
@@ -45577,13 +46524,14 @@ namespace Sdx.Cmd
     }
 
     internal const string CmdName = "GetIntTxPulse";
+    internal const string TargetId = "";
 
     public GetIntTxPulse()
-      : base(CmdName)
+      : base(CmdName, TargetId)
     {}
 
     public GetIntTxPulse(string transmitterId, string signalId)
-      : base(CmdName)
+      : base(CmdName, TargetId)
     {
       TransmitterId = transmitterId;
       SignalId = signalId;
@@ -45645,13 +46593,14 @@ namespace Sdx.Cmd
     }
 
     internal const string CmdName = "GetIntTxPulseResult";
+    internal const string TargetId = "";
 
     public GetIntTxPulseResult()
-      : base(CmdName)
+      : base(CmdName, TargetId)
     {}
 
     public GetIntTxPulseResult(CommandBase relatedCommand, bool enabled, double centralFreq, double power, double dutyCycle, int pulseRate, string transmitterId, string signalId, int? group = null)
-      : base(CmdName, relatedCommand)
+      : base(CmdName, TargetId, relatedCommand)
     {
       Enabled = enabled;
       CentralFreq = centralFreq;
@@ -45780,13 +46729,14 @@ namespace Sdx.Cmd
     }
 
     internal const string CmdName = "SetIntTxBPSK";
+    internal const string TargetId = "";
 
     public SetIntTxBPSK()
-      : base(CmdName)
+      : base(CmdName, TargetId)
     {}
 
     public SetIntTxBPSK(bool enabled, double centralFreq, double power, int codeRate, int codeLengthMs, string transmitterId, string signalId, int? group = null, int? prn = null)
-      : base(CmdName)
+      : base(CmdName, TargetId)
     {
       Enabled = enabled;
       CentralFreq = centralFreq;
@@ -45923,13 +46873,14 @@ namespace Sdx.Cmd
     }
 
     internal const string CmdName = "GetIntTxBPSK";
+    internal const string TargetId = "";
 
     public GetIntTxBPSK()
-      : base(CmdName)
+      : base(CmdName, TargetId)
     {}
 
     public GetIntTxBPSK(string transmitterId, string signalId)
-      : base(CmdName)
+      : base(CmdName, TargetId)
     {
       TransmitterId = transmitterId;
       SignalId = signalId;
@@ -45992,13 +46943,14 @@ namespace Sdx.Cmd
     }
 
     internal const string CmdName = "GetIntTxBPSKResult";
+    internal const string TargetId = "";
 
     public GetIntTxBPSKResult()
-      : base(CmdName)
+      : base(CmdName, TargetId)
     {}
 
     public GetIntTxBPSKResult(CommandBase relatedCommand, bool enabled, double centralFreq, double power, int codeRate, int codeLengthMs, string transmitterId, string signalId, int? group = null, int? prn = null)
-      : base(CmdName, relatedCommand)
+      : base(CmdName, TargetId, relatedCommand)
     {
       Enabled = enabled;
       CentralFreq = centralFreq;
@@ -46141,13 +47093,14 @@ namespace Sdx.Cmd
     }
 
     internal const string CmdName = "SetIntTxBOC";
+    internal const string TargetId = "";
 
     public SetIntTxBOC()
-      : base(CmdName)
+      : base(CmdName, TargetId)
     {}
 
     public SetIntTxBOC(bool enabled, double centralFreq, double power, int codeRate, int codeLengthMs, int subCarrierRate, bool cosinePhaseBoc, string transmitterId, string signalId, int? group = null)
-      : base(CmdName)
+      : base(CmdName, TargetId)
     {
       Enabled = enabled;
       CentralFreq = centralFreq;
@@ -46293,13 +47246,14 @@ namespace Sdx.Cmd
     }
 
     internal const string CmdName = "GetIntTxBOC";
+    internal const string TargetId = "";
 
     public GetIntTxBOC()
-      : base(CmdName)
+      : base(CmdName, TargetId)
     {}
 
     public GetIntTxBOC(string transmitterId, string signalId)
-      : base(CmdName)
+      : base(CmdName, TargetId)
     {
       TransmitterId = transmitterId;
       SignalId = signalId;
@@ -46363,13 +47317,14 @@ namespace Sdx.Cmd
     }
 
     internal const string CmdName = "GetIntTxBOCResult";
+    internal const string TargetId = "";
 
     public GetIntTxBOCResult()
-      : base(CmdName)
+      : base(CmdName, TargetId)
     {}
 
     public GetIntTxBOCResult(CommandBase relatedCommand, bool enabled, double centralFreq, double power, int codeRate, int codeLengthMs, int subCarrierRate, bool cosinePhaseBoc, string transmitterId, string signalId, int? group = null)
-      : base(CmdName, relatedCommand)
+      : base(CmdName, TargetId, relatedCommand)
     {
       Enabled = enabled;
       CentralFreq = centralFreq;
@@ -46519,13 +47474,14 @@ namespace Sdx.Cmd
     }
 
     internal const string CmdName = "SetIntTxAWGN";
+    internal const string TargetId = "";
 
     public SetIntTxAWGN()
-      : base(CmdName)
+      : base(CmdName, TargetId)
     {}
 
     public SetIntTxAWGN(bool enabled, double centralFreq, double power, double bandwidth, string transmitterId, string signalId, int? seed = null, int? group = null)
-      : base(CmdName)
+      : base(CmdName, TargetId)
     {
       Enabled = enabled;
       CentralFreq = centralFreq;
@@ -46651,13 +47607,14 @@ namespace Sdx.Cmd
     }
 
     internal const string CmdName = "GetIntTxAWGN";
+    internal const string TargetId = "";
 
     public GetIntTxAWGN()
-      : base(CmdName)
+      : base(CmdName, TargetId)
     {}
 
     public GetIntTxAWGN(string transmitterId, string signalId)
-      : base(CmdName)
+      : base(CmdName, TargetId)
     {
       TransmitterId = transmitterId;
       SignalId = signalId;
@@ -46719,13 +47676,14 @@ namespace Sdx.Cmd
     }
 
     internal const string CmdName = "GetIntTxAWGNResult";
+    internal const string TargetId = "";
 
     public GetIntTxAWGNResult()
-      : base(CmdName)
+      : base(CmdName, TargetId)
     {}
 
     public GetIntTxAWGNResult(CommandBase relatedCommand, bool enabled, double centralFreq, double power, double bandwidth, string transmitterId, string signalId, int? seed = null, int? group = null)
-      : base(CmdName, relatedCommand)
+      : base(CmdName, TargetId, relatedCommand)
     {
       Enabled = enabled;
       CentralFreq = centralFreq;
@@ -46854,13 +47812,14 @@ namespace Sdx.Cmd
     }
 
     internal const string CmdName = "SetIntTxIqFile";
+    internal const string TargetId = "";
 
     public SetIntTxIqFile()
-      : base(CmdName)
+      : base(CmdName, TargetId)
     {}
 
     public SetIntTxIqFile(bool enabled, double centralFreq, double power, string path, string transmitterId, string signalId, int? group = null)
-      : base(CmdName)
+      : base(CmdName, TargetId)
     {
       Enabled = enabled;
       CentralFreq = centralFreq;
@@ -46973,13 +47932,14 @@ namespace Sdx.Cmd
     }
 
     internal const string CmdName = "GetIntTxIqFile";
+    internal const string TargetId = "";
 
     public GetIntTxIqFile()
-      : base(CmdName)
+      : base(CmdName, TargetId)
     {}
 
     public GetIntTxIqFile(string transmitterId, string signalId)
-      : base(CmdName)
+      : base(CmdName, TargetId)
     {
       TransmitterId = transmitterId;
       SignalId = signalId;
@@ -47040,13 +48000,14 @@ namespace Sdx.Cmd
     }
 
     internal const string CmdName = "GetIntTxIqFileResult";
+    internal const string TargetId = "";
 
     public GetIntTxIqFileResult()
-      : base(CmdName)
+      : base(CmdName, TargetId)
     {}
 
     public GetIntTxIqFileResult(CommandBase relatedCommand, bool enabled, double centralFreq, double power, string path, string transmitterId, string signalId, int? group = null)
-      : base(CmdName, relatedCommand)
+      : base(CmdName, TargetId, relatedCommand)
     {
       Enabled = enabled;
       CentralFreq = centralFreq;
@@ -47158,13 +48119,14 @@ namespace Sdx.Cmd
     }
 
     internal const string CmdName = "EnableIntTxSignal";
+    internal const string TargetId = "";
 
     public EnableIntTxSignal()
-      : base(CmdName)
+      : base(CmdName, TargetId)
     {}
 
     public EnableIntTxSignal(bool enabled, string transmitterId, string signalId)
-      : base(CmdName)
+      : base(CmdName, TargetId)
     {
       Enabled = enabled;
       TransmitterId = transmitterId;
@@ -47231,13 +48193,14 @@ namespace Sdx.Cmd
     }
 
     internal const string CmdName = "RemoveSignalFromIntTx";
+    internal const string TargetId = "";
 
     public RemoveSignalFromIntTx()
-      : base(CmdName)
+      : base(CmdName, TargetId)
     {}
 
     public RemoveSignalFromIntTx(string transmitterId, string signalId)
-      : base(CmdName)
+      : base(CmdName, TargetId)
     {
       TransmitterId = transmitterId;
       SignalId = signalId;
@@ -47292,13 +48255,14 @@ namespace Sdx.Cmd
     }
 
     internal const string CmdName = "RemoveAllSignalsFromIntTx";
+    internal const string TargetId = "";
 
     public RemoveAllSignalsFromIntTx()
-      : base(CmdName)
+      : base(CmdName, TargetId)
     {}
 
     public RemoveAllSignalsFromIntTx(string transmitterId)
-      : base(CmdName)
+      : base(CmdName, TargetId)
     {
       TransmitterId = transmitterId;
     }
@@ -47342,13 +48306,14 @@ namespace Sdx.Cmd
     }
 
     internal const string CmdName = "SetStreamingBuffer";
+    internal const string TargetId = "";
 
     public SetStreamingBuffer()
-      : base(CmdName)
+      : base(CmdName, TargetId)
     {}
 
     public SetStreamingBuffer(int size)
-      : base(CmdName)
+      : base(CmdName, TargetId)
     {
       Size = size;
     }
@@ -47390,9 +48355,10 @@ namespace Sdx.Cmd
     }
 
     internal const string CmdName = "GetStreamingBuffer";
+    internal const string TargetId = "";
 
     public GetStreamingBuffer()
-      : base(CmdName)
+      : base(CmdName, TargetId)
     {}
       
     public override bool IsValid
@@ -47424,13 +48390,14 @@ namespace Sdx.Cmd
     }
 
     internal const string CmdName = "GetStreamingBufferResult";
+    internal const string TargetId = "";
 
     public GetStreamingBufferResult()
-      : base(CmdName)
+      : base(CmdName, TargetId)
     {}
 
     public GetStreamingBufferResult(CommandBase relatedCommand, int size)
-      : base(CmdName, relatedCommand)
+      : base(CmdName, TargetId, relatedCommand)
     {
       Size = size;
     }
@@ -47472,13 +48439,14 @@ namespace Sdx.Cmd
     }
 
     internal const string CmdName = "SetEngineLatency";
+    internal const string TargetId = "";
 
     public SetEngineLatency()
-      : base(CmdName)
+      : base(CmdName, TargetId)
     {}
 
     public SetEngineLatency(int latency)
-      : base(CmdName)
+      : base(CmdName, TargetId)
     {
       Latency = latency;
     }
@@ -47520,9 +48488,10 @@ namespace Sdx.Cmd
     }
 
     internal const string CmdName = "GetEngineLatency";
+    internal const string TargetId = "";
 
     public GetEngineLatency()
-      : base(CmdName)
+      : base(CmdName, TargetId)
     {}
       
     public override bool IsValid
@@ -47554,13 +48523,14 @@ namespace Sdx.Cmd
     }
 
     internal const string CmdName = "GetEngineLatencyResult";
+    internal const string TargetId = "";
 
     public GetEngineLatencyResult()
-      : base(CmdName)
+      : base(CmdName, TargetId)
     {}
 
     public GetEngineLatencyResult(CommandBase relatedCommand, int latency)
-      : base(CmdName, relatedCommand)
+      : base(CmdName, TargetId, relatedCommand)
     {
       Latency = latency;
     }
@@ -47602,13 +48572,14 @@ namespace Sdx.Cmd
     }
 
     internal const string CmdName = "SetHilTjoin";
+    internal const string TargetId = "";
 
     public SetHilTjoin()
-      : base(CmdName)
+      : base(CmdName, TargetId)
     {}
 
     public SetHilTjoin(int hilTjoin)
-      : base(CmdName)
+      : base(CmdName, TargetId)
     {
       HilTjoin = hilTjoin;
     }
@@ -47652,13 +48623,14 @@ namespace Sdx.Cmd
     }
 
     internal const string CmdName = "SetSyncServer";
+    internal const string TargetId = "";
 
     public SetSyncServer()
-      : base(CmdName)
+      : base(CmdName, TargetId)
     {}
 
     public SetSyncServer(int port)
-      : base(CmdName)
+      : base(CmdName, TargetId)
     {
       Port = port;
     }
@@ -47703,13 +48675,14 @@ namespace Sdx.Cmd
     }
 
     internal const string CmdName = "SetSyncClient";
+    internal const string TargetId = "";
 
     public SetSyncClient()
-      : base(CmdName)
+      : base(CmdName, TargetId)
     {}
 
     public SetSyncClient(string host, int port)
-      : base(CmdName)
+      : base(CmdName, TargetId)
     {
       Host = host;
       Port = port;
@@ -47765,13 +48738,14 @@ namespace Sdx.Cmd
     }
 
     internal const string CmdName = "SetSyncTime";
+    internal const string TargetId = "";
 
     public SetSyncTime()
-      : base(CmdName)
+      : base(CmdName, TargetId)
     {}
 
     public SetSyncTime(double time)
-      : base(CmdName)
+      : base(CmdName, TargetId)
     {
       Time = time;
     }
@@ -47814,9 +48788,10 @@ namespace Sdx.Cmd
     }
 
     internal const string CmdName = "GetSyncTime";
+    internal const string TargetId = "";
 
     public GetSyncTime()
-      : base(CmdName)
+      : base(CmdName, TargetId)
     {}
       
     public override bool IsValid
@@ -47848,13 +48823,14 @@ namespace Sdx.Cmd
     }
 
     internal const string CmdName = "GetSyncTimeResult";
+    internal const string TargetId = "";
 
     public GetSyncTimeResult()
-      : base(CmdName)
+      : base(CmdName, TargetId)
     {}
 
     public GetSyncTimeResult(CommandBase relatedCommand, double time)
-      : base(CmdName, relatedCommand)
+      : base(CmdName, TargetId, relatedCommand)
     {
       Time = time;
     }
@@ -47900,13 +48876,14 @@ namespace Sdx.Cmd
     }
 
     internal const string CmdName = "SetSyncTimeMaster";
+    internal const string TargetId = "";
 
     public SetSyncTimeMaster()
-      : base(CmdName)
+      : base(CmdName, TargetId)
     {}
 
     public SetSyncTimeMaster(double time)
-      : base(CmdName)
+      : base(CmdName, TargetId)
     {
       Time = time;
     }
@@ -47952,13 +48929,14 @@ namespace Sdx.Cmd
     }
 
     internal const string CmdName = "SetSyncTimeMainInstance";
+    internal const string TargetId = "";
 
     public SetSyncTimeMainInstance()
-      : base(CmdName)
+      : base(CmdName, TargetId)
     {}
 
     public SetSyncTimeMainInstance(double time)
-      : base(CmdName)
+      : base(CmdName, TargetId)
     {
       Time = time;
     }
@@ -48004,9 +48982,10 @@ namespace Sdx.Cmd
     }
 
     internal const string CmdName = "GetSyncTimeMaster";
+    internal const string TargetId = "";
 
     public GetSyncTimeMaster()
-      : base(CmdName)
+      : base(CmdName, TargetId)
     {}
       
     public override bool IsValid
@@ -48038,9 +49017,10 @@ namespace Sdx.Cmd
     }
 
     internal const string CmdName = "GetSyncTimeMainInstance";
+    internal const string TargetId = "";
 
     public GetSyncTimeMainInstance()
-      : base(CmdName)
+      : base(CmdName, TargetId)
     {}
       
     public override bool IsValid
@@ -48072,13 +49052,14 @@ namespace Sdx.Cmd
     }
   
     internal const string CmdName = "GetSyncTimeMasterResult";
+    internal const string TargetId = "";
 
     public GetSyncTimeMasterResult()
-      : base(CmdName)
+      : base(CmdName, TargetId)
     {}
 
     public GetSyncTimeMasterResult(CommandBase relatedCommand, double time)
-      : base(CmdName, relatedCommand)
+      : base(CmdName, TargetId, relatedCommand)
     {
       Time = time;
     }
@@ -48140,13 +49121,14 @@ namespace Sdx.Cmd
     }
 
     internal const string CmdName = "StopWhenCommandFail";
+    internal const string TargetId = "";
 
     public StopWhenCommandFail()
-      : base(CmdName)
+      : base(CmdName, TargetId)
     {}
 
     public StopWhenCommandFail(bool enabled)
-      : base(CmdName)
+      : base(CmdName, TargetId)
     {
       Enabled = enabled;
     }
@@ -48188,9 +49170,10 @@ namespace Sdx.Cmd
     }
 
     internal const string CmdName = "IsSimStopWhenCommandFailEnabled";
+    internal const string TargetId = "";
 
     public IsSimStopWhenCommandFailEnabled()
-      : base(CmdName)
+      : base(CmdName, TargetId)
     {}
       
     public override bool IsValid
@@ -48222,13 +49205,14 @@ namespace Sdx.Cmd
     }
 
     internal const string CmdName = "IsSimStopWhenCommandFailEnabledResult";
+    internal const string TargetId = "";
 
     public IsSimStopWhenCommandFailEnabledResult()
-      : base(CmdName)
+      : base(CmdName, TargetId)
     {}
 
     public IsSimStopWhenCommandFailEnabledResult(CommandBase relatedCommand, bool enabled)
-      : base(CmdName, relatedCommand)
+      : base(CmdName, TargetId, relatedCommand)
     {
       Enabled = enabled;
     }
@@ -48270,13 +49254,14 @@ namespace Sdx.Cmd
     }
 
     internal const string CmdName = "StopMainInstanceWhenWorkerInstanceStop";
+    internal const string TargetId = "";
 
     public StopMainInstanceWhenWorkerInstanceStop()
-      : base(CmdName)
+      : base(CmdName, TargetId)
     {}
 
     public StopMainInstanceWhenWorkerInstanceStop(bool enabled)
-      : base(CmdName)
+      : base(CmdName, TargetId)
     {
       Enabled = enabled;
     }
@@ -48318,9 +49303,10 @@ namespace Sdx.Cmd
     }
 
     internal const string CmdName = "IsStopMainInstanceWhenWorkerInstanceStop";
+    internal const string TargetId = "";
 
     public IsStopMainInstanceWhenWorkerInstanceStop()
-      : base(CmdName)
+      : base(CmdName, TargetId)
     {}
       
     public override bool IsValid
@@ -48352,13 +49338,14 @@ namespace Sdx.Cmd
     }
 
     internal const string CmdName = "IsStopMainInstanceWhenWorkerInstanceStopResult";
+    internal const string TargetId = "";
 
     public IsStopMainInstanceWhenWorkerInstanceStopResult()
-      : base(CmdName)
+      : base(CmdName, TargetId)
     {}
 
     public IsStopMainInstanceWhenWorkerInstanceStopResult(CommandBase relatedCommand, bool enabled)
-      : base(CmdName, relatedCommand)
+      : base(CmdName, TargetId, relatedCommand)
     {
       Enabled = enabled;
     }
@@ -48400,13 +49387,14 @@ namespace Sdx.Cmd
     }
 
     internal const string CmdName = "ShowMapAnalysis";
+    internal const string TargetId = "";
 
     public ShowMapAnalysis()
-      : base(CmdName)
+      : base(CmdName, TargetId)
     {}
 
     public ShowMapAnalysis(bool show)
-      : base(CmdName)
+      : base(CmdName, TargetId)
     {
       Show = show;
     }
@@ -48448,9 +49436,10 @@ namespace Sdx.Cmd
     }
 
     internal const string CmdName = "IsMapAnalysisEnabled";
+    internal const string TargetId = "";
 
     public IsMapAnalysisEnabled()
-      : base(CmdName)
+      : base(CmdName, TargetId)
     {}
       
     public override bool IsValid
@@ -48482,13 +49471,14 @@ namespace Sdx.Cmd
     }
 
     internal const string CmdName = "IsMapAnalysisEnabledResult";
+    internal const string TargetId = "";
 
     public IsMapAnalysisEnabledResult()
-      : base(CmdName)
+      : base(CmdName, TargetId)
     {}
 
     public IsMapAnalysisEnabledResult(CommandBase relatedCommand, bool show)
-      : base(CmdName, relatedCommand)
+      : base(CmdName, TargetId, relatedCommand)
     {
       Show = show;
     }
@@ -48530,13 +49520,14 @@ namespace Sdx.Cmd
     }
 
     internal const string CmdName = "SetSpectrumVisible";
+    internal const string TargetId = "";
 
     public SetSpectrumVisible()
-      : base(CmdName)
+      : base(CmdName, TargetId)
     {}
 
     public SetSpectrumVisible(bool visible)
-      : base(CmdName)
+      : base(CmdName, TargetId)
     {
       Visible = visible;
     }
@@ -48578,9 +49569,10 @@ namespace Sdx.Cmd
     }
 
     internal const string CmdName = "IsSpectrumVisible";
+    internal const string TargetId = "";
 
     public IsSpectrumVisible()
-      : base(CmdName)
+      : base(CmdName, TargetId)
     {}
       
     public override bool IsValid
@@ -48612,13 +49604,14 @@ namespace Sdx.Cmd
     }
 
     internal const string CmdName = "IsSpectrumVisibleResult";
+    internal const string TargetId = "";
 
     public IsSpectrumVisibleResult()
-      : base(CmdName)
+      : base(CmdName, TargetId)
     {}
 
     public IsSpectrumVisibleResult(CommandBase relatedCommand, bool visible)
-      : base(CmdName, relatedCommand)
+      : base(CmdName, TargetId, relatedCommand)
     {
       Visible = visible;
     }
@@ -48658,9 +49651,10 @@ namespace Sdx.Cmd
     }
 
     internal const string CmdName = "GetSimulatorState";
+    internal const string TargetId = "";
 
     public GetSimulatorState()
-      : base(CmdName)
+      : base(CmdName, TargetId)
     {}
       
     public override bool IsValid
@@ -48709,13 +49703,14 @@ namespace Sdx.Cmd
     }
 
     internal const string CmdName = "WaitSimulatorState";
+    internal const string TargetId = "";
 
     public WaitSimulatorState()
-      : base(CmdName)
+      : base(CmdName, TargetId)
     {}
 
     public WaitSimulatorState(string state, string failureState)
-      : base(CmdName)
+      : base(CmdName, TargetId)
     {
       State = state;
       FailureState = failureState;
@@ -48768,9 +49763,10 @@ namespace Sdx.Cmd
     }
 
     internal const string CmdName = "AbortWaitSimulatorState";
+    internal const string TargetId = "";
 
     public AbortWaitSimulatorState()
-      : base(CmdName)
+      : base(CmdName, TargetId)
     {}
       
     public override bool IsValid
@@ -48821,13 +49817,14 @@ namespace Sdx.Cmd
     }
 
     internal const string CmdName = "SimulatorStateResult";
+    internal const string TargetId = "";
 
     public SimulatorStateResult()
-      : base(CmdName)
+      : base(CmdName, TargetId)
     {}
 
     public SimulatorStateResult(CommandBase relatedCommand, string state, string error, SimulatorState stateId, SimulatorSubState subStateId)
-      : base(CmdName, relatedCommand)
+      : base(CmdName, TargetId, relatedCommand)
     {
       State = state;
       Error = error;
@@ -48901,9 +49898,10 @@ namespace Sdx.Cmd
     }
 
     internal const string CmdName = "BeginVehicleInfo";
+    internal const string TargetId = "";
 
     public BeginVehicleInfo()
-      : base(CmdName)
+      : base(CmdName, TargetId)
     {}
       
     public override bool IsValid
@@ -48933,9 +49931,10 @@ namespace Sdx.Cmd
     }
 
     internal const string CmdName = "EndVehicleInfo";
+    internal const string TargetId = "";
 
     public EndVehicleInfo()
-      : base(CmdName)
+      : base(CmdName, TargetId)
     {}
       
     public override bool IsValid
@@ -48969,13 +49968,14 @@ namespace Sdx.Cmd
     }
 
     internal const string CmdName = "MessageSequenceInsert";
+    internal const string TargetId = "";
 
     public MessageSequenceInsert()
-      : base(CmdName)
+      : base(CmdName, TargetId)
     {}
 
     public MessageSequenceInsert(string signal, int index, int type)
-      : base(CmdName)
+      : base(CmdName, TargetId)
     {
       Signal = signal;
       Index = index;
@@ -49042,13 +50042,14 @@ namespace Sdx.Cmd
     }
 
     internal const string CmdName = "MessageSequenceRemove";
+    internal const string TargetId = "";
 
     public MessageSequenceRemove()
-      : base(CmdName)
+      : base(CmdName, TargetId)
     {}
 
     public MessageSequenceRemove(string signal, int index)
-      : base(CmdName)
+      : base(CmdName, TargetId)
     {
       Signal = signal;
       Index = index;
@@ -49105,13 +50106,14 @@ namespace Sdx.Cmd
     }
 
     internal const string CmdName = "MessageSequenceSwap";
+    internal const string TargetId = "";
 
     public MessageSequenceSwap()
-      : base(CmdName)
+      : base(CmdName, TargetId)
     {}
 
     public MessageSequenceSwap(string signal, int indexI, int indexJ)
-      : base(CmdName)
+      : base(CmdName, TargetId)
     {
       Signal = signal;
       IndexI = indexI;
@@ -49179,13 +50181,14 @@ namespace Sdx.Cmd
     }
 
     internal const string CmdName = "MessageSequenceImport";
+    internal const string TargetId = "";
 
     public MessageSequenceImport()
-      : base(CmdName)
+      : base(CmdName, TargetId)
     {}
 
     public MessageSequenceImport(string signal, string filename)
-      : base(CmdName)
+      : base(CmdName, TargetId)
     {
       Signal = signal;
       Filename = filename;
@@ -49242,13 +50245,14 @@ namespace Sdx.Cmd
     }
 
     internal const string CmdName = "ExportMessageSequenceToCSV";
+    internal const string TargetId = "";
 
     public ExportMessageSequenceToCSV()
-      : base(CmdName)
+      : base(CmdName, TargetId)
     {}
 
     public ExportMessageSequenceToCSV(string signal, string path, bool overwriting)
-      : base(CmdName)
+      : base(CmdName, TargetId)
     {
       Signal = signal;
       Path = path;
@@ -49314,13 +50318,14 @@ namespace Sdx.Cmd
     }
 
     internal const string CmdName = "GetMessageSequence";
+    internal const string TargetId = "";
 
     public GetMessageSequence()
-      : base(CmdName)
+      : base(CmdName, TargetId)
     {}
 
     public GetMessageSequence(string signal)
-      : base(CmdName)
+      : base(CmdName, TargetId)
     {
       Signal = signal;
     }
@@ -49365,13 +50370,14 @@ namespace Sdx.Cmd
     }
 
     internal const string CmdName = "GetMessageSequenceResult";
+    internal const string TargetId = "";
 
     public GetMessageSequenceResult()
-      : base(CmdName)
+      : base(CmdName, TargetId)
     {}
 
     public GetMessageSequenceResult(CommandBase relatedCommand, string signal, List<int> sequence)
-      : base(CmdName, relatedCommand)
+      : base(CmdName, TargetId, relatedCommand)
     {
       Signal = signal;
       Sequence = sequence;
@@ -49425,13 +50431,14 @@ namespace Sdx.Cmd
     }
 
     internal const string CmdName = "SetGalileoFnavSatelliteK";
+    internal const string TargetId = "";
 
     public SetGalileoFnavSatelliteK()
-      : base(CmdName)
+      : base(CmdName, TargetId)
     {}
 
     public SetGalileoFnavSatelliteK(int prn, int k)
-      : base(CmdName)
+      : base(CmdName, TargetId)
     {
       Prn = prn;
       K = k;
@@ -49486,13 +50493,14 @@ namespace Sdx.Cmd
     }
 
     internal const string CmdName = "GetGalileoFnavSatelliteK";
+    internal const string TargetId = "";
 
     public GetGalileoFnavSatelliteK()
-      : base(CmdName)
+      : base(CmdName, TargetId)
     {}
 
     public GetGalileoFnavSatelliteK(int prn)
-      : base(CmdName)
+      : base(CmdName, TargetId)
     {
       Prn = prn;
     }
@@ -49537,13 +50545,14 @@ namespace Sdx.Cmd
     }
 
     internal const string CmdName = "GetGalileoFnavSatelliteKResult";
+    internal const string TargetId = "";
 
     public GetGalileoFnavSatelliteKResult()
-      : base(CmdName)
+      : base(CmdName, TargetId)
     {}
 
     public GetGalileoFnavSatelliteKResult(CommandBase relatedCommand, int prn, int k)
-      : base(CmdName, relatedCommand)
+      : base(CmdName, TargetId, relatedCommand)
     {
       Prn = prn;
       K = k;
@@ -49600,13 +50609,14 @@ namespace Sdx.Cmd
     }
 
     internal const string CmdName = "CalibFunction";
+    internal const string TargetId = "";
 
     public CalibFunction()
-      : base(CmdName)
+      : base(CmdName, TargetId)
     {}
 
     public CalibFunction(int svId, string signal, bool enableSV, bool enableDoppler, double phaseOffet)
-      : base(CmdName)
+      : base(CmdName, TargetId)
     {
       SvId = svId;
       Signal = signal;
@@ -49692,9 +50702,10 @@ namespace Sdx.Cmd
     }
 
     internal const string CmdName = "ClearStatusLog";
+    internal const string TargetId = "";
 
     public ClearStatusLog()
-      : base(CmdName)
+      : base(CmdName, TargetId)
     {}
       
     public override bool IsValid
@@ -49753,9 +50764,10 @@ namespace Sdx.Cmd
     }
 
     internal const string CmdName = "GetStatusLog";
+    internal const string TargetId = "";
 
     public GetStatusLog()
-      : base(CmdName)
+      : base(CmdName, TargetId)
     {}
       
     public override bool IsValid
@@ -49787,13 +50799,14 @@ namespace Sdx.Cmd
     }
 
     internal const string CmdName = "GetStatusLogResult";
+    internal const string TargetId = "";
 
     public GetStatusLogResult()
-      : base(CmdName)
+      : base(CmdName, TargetId)
     {}
 
     public GetStatusLogResult(CommandBase relatedCommand, List<LogRecord> records)
-      : base(CmdName, relatedCommand)
+      : base(CmdName, TargetId, relatedCommand)
     {
       Records = records;
     }
@@ -49835,13 +50848,14 @@ namespace Sdx.Cmd
     }
 
     internal const string CmdName = "CommandGroup";
+    internal const string TargetId = "";
 
     public CommandGroup()
-      : base(CmdName)
+      : base(CmdName, TargetId)
     {}
 
     public CommandGroup(List<CommandBase> commands)
-      : base(CmdName)
+      : base(CmdName, TargetId)
     {
       Commands = commands;
     }
@@ -49873,8 +50887,8 @@ namespace Sdx.Cmd
   /// Get a list of visible satellites' SV IDs within a system, returns a GetVisibleSVResult
   ///
   /// Name   Type   Description
-  /// ------ ------ -----------------------------------------------------------------------------------
-  /// System string The system, can be "GPS", "GLONASS", "Galileo", "BeiDou", "SBAS", "QZSS" or "NavIC"
+  /// ------ ------ ---------------------------------------------------------------------------------------------
+  /// System string The system, can be "GPS", "GLONASS", "Galileo", "BeiDou", "SBAS", "QZSS", "NavIC" or "PULSAR"
   ///
 
   public class GetVisibleSV : CommandBase
@@ -49885,13 +50899,14 @@ namespace Sdx.Cmd
     }
 
     internal const string CmdName = "GetVisibleSV";
+    internal const string TargetId = "";
 
     public GetVisibleSV()
-      : base(CmdName)
+      : base(CmdName, TargetId)
     {}
 
     public GetVisibleSV(string system)
-      : base(CmdName)
+      : base(CmdName, TargetId)
     {
       System = system;
     }
@@ -49923,8 +50938,8 @@ namespace Sdx.Cmd
   /// Result of GetVisibleSV.
   ///
   /// Name   Type      Description
-  /// ------ --------- -----------------------------------------------------------------------------------
-  /// System string    The system, can be "GPS", "GLONASS", "Galileo", "BeiDou", "SBAS", "QZSS" or "NavIC"
+  /// ------ --------- ---------------------------------------------------------------------------------------------
+  /// System string    The system, can be "GPS", "GLONASS", "Galileo", "BeiDou", "SBAS", "QZSS", "NavIC" or "PULSAR"
   /// SvId   array int A list containing the visible satellites' SV IDs
   ///
 
@@ -49936,13 +50951,14 @@ namespace Sdx.Cmd
     }
 
     internal const string CmdName = "GetVisibleSVResult";
+    internal const string TargetId = "";
 
     public GetVisibleSVResult()
-      : base(CmdName)
+      : base(CmdName, TargetId)
     {}
 
     public GetVisibleSVResult(CommandBase relatedCommand, string system, List<int> svId)
-      : base(CmdName, relatedCommand)
+      : base(CmdName, TargetId, relatedCommand)
     {
       System = system;
       SvId = svId;
@@ -49993,9 +51009,10 @@ namespace Sdx.Cmd
     }
 
     internal const string CmdName = "ArmPPS";
+    internal const string TargetId = "";
 
     public ArmPPS()
-      : base(CmdName)
+      : base(CmdName, TargetId)
     {}
       
     public override bool IsValid
@@ -50025,9 +51042,10 @@ namespace Sdx.Cmd
     }
 
     internal const string CmdName = "WaitAndResetPPS";
+    internal const string TargetId = "";
 
     public WaitAndResetPPS()
-      : base(CmdName)
+      : base(CmdName, TargetId)
     {}
       
     public override bool IsValid
@@ -50059,13 +51077,14 @@ namespace Sdx.Cmd
     }
 
     internal const string CmdName = "StartPPS";
+    internal const string TargetId = "";
 
     public StartPPS()
-      : base(CmdName)
+      : base(CmdName, TargetId)
     {}
 
     public StartPPS(int msec)
-      : base(CmdName)
+      : base(CmdName, TargetId)
     {
       Msec = msec;
     }
@@ -50097,8 +51116,8 @@ namespace Sdx.Cmd
   /// Enable or disable a satellite for this constellation.
   ///
   /// Name    Type   Description
-  /// ------- ------ ------------------------------------------------------------------------------------------------------
-  /// System  string The satellite's constellation. Can be "GPS", "GLONASS", "Galileo", "BeiDou", "SBAS", "QZSS" or "NavIC"
+  /// ------- ------ ----------------------------------------------------------------------------------------------------------------
+  /// System  string The satellite's constellation. Can be "GPS", "GLONASS", "Galileo", "BeiDou", "SBAS", "QZSS", "NavIC" or "PULSAR"
   /// SvId    int    The satellite's SV ID (use 0 for all SVs).
   /// Enabled bool   The satellite will be present/absent from the constellation
   ///
@@ -50111,13 +51130,14 @@ namespace Sdx.Cmd
     }
 
     internal const string CmdName = "EnableSV";
+    internal const string TargetId = "";
 
     public EnableSV()
-      : base(CmdName)
+      : base(CmdName, TargetId)
     {}
 
     public EnableSV(string system, int svId, bool enabled)
-      : base(CmdName)
+      : base(CmdName, TargetId)
     {
       System = system;
       SvId = svId;
@@ -50171,8 +51191,8 @@ namespace Sdx.Cmd
   /// Get whether a satellite is enabled or disabled for this constellation.
   ///
   /// Name   Type   Description
-  /// ------ ------ ------------------------------------------------------------------------------------------------------
-  /// System string The satellite's constellation. Can be "GPS", "GLONASS", "Galileo", "BeiDou", "SBAS", "QZSS" or "NavIC"
+  /// ------ ------ ----------------------------------------------------------------------------------------------------------------
+  /// System string The satellite's constellation. Can be "GPS", "GLONASS", "Galileo", "BeiDou", "SBAS", "QZSS", "NavIC" or "PULSAR"
   /// SvId   int    The satellite's SV ID (use 0 for all SVs).
   ///
 
@@ -50184,13 +51204,14 @@ namespace Sdx.Cmd
     }
 
     internal const string CmdName = "IsSVEnabled";
+    internal const string TargetId = "";
 
     public IsSVEnabled()
-      : base(CmdName)
+      : base(CmdName, TargetId)
     {}
 
     public IsSVEnabled(string system, int svId)
-      : base(CmdName)
+      : base(CmdName, TargetId)
     {
       System = system;
       SvId = svId;
@@ -50233,8 +51254,8 @@ namespace Sdx.Cmd
   /// Result of IsSVEnabled.
   ///
   /// Name    Type   Description
-  /// ------- ------ ------------------------------------------------------------------------------------------------------
-  /// System  string The satellite's constellation. Can be "GPS", "GLONASS", "Galileo", "BeiDou", "SBAS", "QZSS" or "NavIC"
+  /// ------- ------ ----------------------------------------------------------------------------------------------------------------
+  /// System  string The satellite's constellation. Can be "GPS", "GLONASS", "Galileo", "BeiDou", "SBAS", "QZSS", "NavIC" or "PULSAR"
   /// SvId    int    The satellite's SV ID (use 0 for all SVs).
   /// Enabled bool   The satellite will be present/absent from the constellation
   ///
@@ -50247,13 +51268,14 @@ namespace Sdx.Cmd
     }
 
     internal const string CmdName = "IsSVEnabledResult";
+    internal const string TargetId = "";
 
     public IsSVEnabledResult()
-      : base(CmdName)
+      : base(CmdName, TargetId)
     {}
 
     public IsSVEnabledResult(CommandBase relatedCommand, string system, int svId, bool enabled)
-      : base(CmdName, relatedCommand)
+      : base(CmdName, TargetId, relatedCommand)
     {
       System = system;
       SvId = svId;
@@ -50305,8 +51327,8 @@ namespace Sdx.Cmd
   /// Enable or disable each satellite for this constellation.
   ///
   /// Name    Type       Description
-  /// ------- ---------- ------------------------------------------------------------------------------------------------------
-  /// System  string     The satellites' constellation. Can be "GPS", "GLONASS", "Galileo", "BeiDou", "SBAS", "QZSS" or "NavIC"
+  /// ------- ---------- ----------------------------------------------------------------------------------------------------------------
+  /// System  string     The satellites' constellation. Can be "GPS", "GLONASS", "Galileo", "BeiDou", "SBAS", "QZSS", "NavIC" or "PULSAR"
   /// Enabled array bool Array of present/absent flags for the constellation
   ///
 
@@ -50318,13 +51340,14 @@ namespace Sdx.Cmd
     }
 
     internal const string CmdName = "EnableEachSV";
+    internal const string TargetId = "";
 
     public EnableEachSV()
-      : base(CmdName)
+      : base(CmdName, TargetId)
     {}
 
     public EnableEachSV(string system, List<bool> enabled)
-      : base(CmdName)
+      : base(CmdName, TargetId)
     {
       System = system;
       Enabled = enabled;
@@ -50367,8 +51390,8 @@ namespace Sdx.Cmd
   /// Get whether each satellite is enabled or disabled for this constellation.
   ///
   /// Name   Type   Description
-  /// ------ ------ ------------------------------------------------------------------------------------------------------
-  /// System string The satellites' constellation. Can be "GPS", "GLONASS", "Galileo", "BeiDou", "SBAS", "QZSS" or "NavIC"
+  /// ------ ------ ----------------------------------------------------------------------------------------------------------------
+  /// System string The satellites' constellation. Can be "GPS", "GLONASS", "Galileo", "BeiDou", "SBAS", "QZSS", "NavIC" or "PULSAR"
   ///
 
   public class IsEachSVEnabled : CommandBase
@@ -50379,13 +51402,14 @@ namespace Sdx.Cmd
     }
 
     internal const string CmdName = "IsEachSVEnabled";
+    internal const string TargetId = "";
 
     public IsEachSVEnabled()
-      : base(CmdName)
+      : base(CmdName, TargetId)
     {}
 
     public IsEachSVEnabled(string system)
-      : base(CmdName)
+      : base(CmdName, TargetId)
     {
       System = system;
     }
@@ -50417,8 +51441,8 @@ namespace Sdx.Cmd
   /// Result of IsEachSVEnabled.
   ///
   /// Name    Type       Description
-  /// ------- ---------- ------------------------------------------------------------------------------------------------------
-  /// System  string     The satellites' constellation. Can be "GPS", "GLONASS", "Galileo", "BeiDou", "SBAS", "QZSS" or "NavIC"
+  /// ------- ---------- ----------------------------------------------------------------------------------------------------------------
+  /// System  string     The satellites' constellation. Can be "GPS", "GLONASS", "Galileo", "BeiDou", "SBAS", "QZSS", "NavIC" or "PULSAR"
   /// Enabled array bool Array of present/absent flags for the constellation
   ///
 
@@ -50430,13 +51454,14 @@ namespace Sdx.Cmd
     }
 
     internal const string CmdName = "IsEachSVEnabledResult";
+    internal const string TargetId = "";
 
     public IsEachSVEnabledResult()
-      : base(CmdName)
+      : base(CmdName, TargetId)
     {}
 
     public IsEachSVEnabledResult(CommandBase relatedCommand, string system, List<bool> enabled)
-      : base(CmdName, relatedCommand)
+      : base(CmdName, TargetId, relatedCommand)
     {
       System = system;
       Enabled = enabled;
@@ -50489,13 +51514,14 @@ namespace Sdx.Cmd
     }
 
     internal const string CmdName = "EnableCnav2Pages";
+    internal const string TargetId = "";
 
     public EnableCnav2Pages()
-      : base(CmdName)
+      : base(CmdName, TargetId)
     {}
 
     public EnableCnav2Pages(List<int> messages)
-      : base(CmdName)
+      : base(CmdName, TargetId)
     {
       Messages = messages;
     }
@@ -50537,9 +51563,10 @@ namespace Sdx.Cmd
     }
 
     internal const string CmdName = "GetCnav2PagesEnabled";
+    internal const string TargetId = "";
 
     public GetCnav2PagesEnabled()
-      : base(CmdName)
+      : base(CmdName, TargetId)
     {}
       
     public override bool IsValid
@@ -50571,13 +51598,14 @@ namespace Sdx.Cmd
     }
 
     internal const string CmdName = "GetCnav2PagesEnabledResult";
+    internal const string TargetId = "";
 
     public GetCnav2PagesEnabledResult()
-      : base(CmdName)
+      : base(CmdName, TargetId)
     {}
 
     public GetCnav2PagesEnabledResult(CommandBase relatedCommand, List<int> messages)
-      : base(CmdName, relatedCommand)
+      : base(CmdName, TargetId, relatedCommand)
     {
       Messages = messages;
     }
@@ -50619,13 +51647,14 @@ namespace Sdx.Cmd
     }
 
     internal const string CmdName = "EnableSbasMessages";
+    internal const string TargetId = "";
 
     public EnableSbasMessages()
-      : base(CmdName)
+      : base(CmdName, TargetId)
     {}
 
     public EnableSbasMessages(List<int> messages)
-      : base(CmdName)
+      : base(CmdName, TargetId)
     {
       Messages = messages;
     }
@@ -50667,9 +51696,10 @@ namespace Sdx.Cmd
     }
 
     internal const string CmdName = "GetSbasMessagesEnabled";
+    internal const string TargetId = "";
 
     public GetSbasMessagesEnabled()
-      : base(CmdName)
+      : base(CmdName, TargetId)
     {}
       
     public override bool IsValid
@@ -50701,13 +51731,14 @@ namespace Sdx.Cmd
     }
 
     internal const string CmdName = "GetSbasMessagesEnabledResult";
+    internal const string TargetId = "";
 
     public GetSbasMessagesEnabledResult()
-      : base(CmdName)
+      : base(CmdName, TargetId)
     {}
 
     public GetSbasMessagesEnabledResult(CommandBase relatedCommand, List<int> messages)
-      : base(CmdName, relatedCommand)
+      : base(CmdName, TargetId, relatedCommand)
     {
       Messages = messages;
     }
@@ -50750,13 +51781,14 @@ namespace Sdx.Cmd
     }
 
     internal const string CmdName = "SetSbasMessageUpdateInterval";
+    internal const string TargetId = "";
 
     public SetSbasMessageUpdateInterval()
-      : base(CmdName)
+      : base(CmdName, TargetId)
     {}
 
     public SetSbasMessageUpdateInterval(int message, int updateInterval)
-      : base(CmdName)
+      : base(CmdName, TargetId)
     {
       Message = message;
       UpdateInterval = updateInterval;
@@ -50811,13 +51843,14 @@ namespace Sdx.Cmd
     }
 
     internal const string CmdName = "GetSbasMessageUpdateInterval";
+    internal const string TargetId = "";
 
     public GetSbasMessageUpdateInterval()
-      : base(CmdName)
+      : base(CmdName, TargetId)
     {}
 
     public GetSbasMessageUpdateInterval(int message)
-      : base(CmdName)
+      : base(CmdName, TargetId)
     {
       Message = message;
     }
@@ -50862,13 +51895,14 @@ namespace Sdx.Cmd
     }
 
     internal const string CmdName = "GetSbasMessageUpdateIntervalResult";
+    internal const string TargetId = "";
 
     public GetSbasMessageUpdateIntervalResult()
-      : base(CmdName)
+      : base(CmdName, TargetId)
     {}
 
     public GetSbasMessageUpdateIntervalResult(CommandBase relatedCommand, int message, int updateInterval)
-      : base(CmdName, relatedCommand)
+      : base(CmdName, TargetId, relatedCommand)
     {
       Message = message;
       UpdateInterval = updateInterval;
@@ -50922,13 +51956,14 @@ namespace Sdx.Cmd
     }
 
     internal const string CmdName = "ExportSbasMessageSequence";
+    internal const string TargetId = "";
 
     public ExportSbasMessageSequence()
-      : base(CmdName)
+      : base(CmdName, TargetId)
     {}
 
     public ExportSbasMessageSequence(string path, bool overwriting)
-      : base(CmdName)
+      : base(CmdName, TargetId)
     {
       Path = path;
       Overwriting = overwriting;
@@ -50983,13 +52018,14 @@ namespace Sdx.Cmd
     }
 
     internal const string CmdName = "SetSbasMonitoredSystems";
+    internal const string TargetId = "";
 
     public SetSbasMonitoredSystems()
-      : base(CmdName)
+      : base(CmdName, TargetId)
     {}
 
     public SetSbasMonitoredSystems(List<string> systems)
-      : base(CmdName)
+      : base(CmdName, TargetId)
     {
       Systems = systems;
     }
@@ -51031,9 +52067,10 @@ namespace Sdx.Cmd
     }
 
     internal const string CmdName = "GetSbasMonitoredSystems";
+    internal const string TargetId = "";
 
     public GetSbasMonitoredSystems()
-      : base(CmdName)
+      : base(CmdName, TargetId)
     {}
       
     public override bool IsValid
@@ -51065,13 +52102,14 @@ namespace Sdx.Cmd
     }
 
     internal const string CmdName = "GetSbasMonitoredSystemsResult";
+    internal const string TargetId = "";
 
     public GetSbasMonitoredSystemsResult()
-      : base(CmdName)
+      : base(CmdName, TargetId)
     {}
 
     public GetSbasMonitoredSystemsResult(CommandBase relatedCommand, List<string> systems)
-      : base(CmdName, relatedCommand)
+      : base(CmdName, TargetId, relatedCommand)
     {
       Systems = systems;
     }
@@ -51115,13 +52153,14 @@ namespace Sdx.Cmd
     }
 
     internal const string CmdName = "SetUdreiForSV";
+    internal const string TargetId = "";
 
     public SetUdreiForSV()
-      : base(CmdName)
+      : base(CmdName, TargetId)
     {}
 
     public SetUdreiForSV(string system, int svId, int udrei)
-      : base(CmdName)
+      : base(CmdName, TargetId)
     {
       System = system;
       SvId = svId;
@@ -51188,13 +52227,14 @@ namespace Sdx.Cmd
     }
 
     internal const string CmdName = "GetUdreiForSV";
+    internal const string TargetId = "";
 
     public GetUdreiForSV()
-      : base(CmdName)
+      : base(CmdName, TargetId)
     {}
 
     public GetUdreiForSV(string system, int svId)
-      : base(CmdName)
+      : base(CmdName, TargetId)
     {
       System = system;
       SvId = svId;
@@ -51251,13 +52291,14 @@ namespace Sdx.Cmd
     }
 
     internal const string CmdName = "GetUdreiForSVResult";
+    internal const string TargetId = "";
 
     public GetUdreiForSVResult()
-      : base(CmdName)
+      : base(CmdName, TargetId)
     {}
 
     public GetUdreiForSVResult(CommandBase relatedCommand, string system, int svId, int udrei)
-      : base(CmdName, relatedCommand)
+      : base(CmdName, TargetId, relatedCommand)
     {
       System = system;
       SvId = svId;
@@ -51322,13 +52363,14 @@ namespace Sdx.Cmd
     }
 
     internal const string CmdName = "SetUdreiForEachSV";
+    internal const string TargetId = "";
 
     public SetUdreiForEachSV()
-      : base(CmdName)
+      : base(CmdName, TargetId)
     {}
 
     public SetUdreiForEachSV(string system, List<int> udreis)
-      : base(CmdName)
+      : base(CmdName, TargetId)
     {
       System = system;
       Udreis = udreis;
@@ -51383,13 +52425,14 @@ namespace Sdx.Cmd
     }
 
     internal const string CmdName = "GetUdreiForEachSV";
+    internal const string TargetId = "";
 
     public GetUdreiForEachSV()
-      : base(CmdName)
+      : base(CmdName, TargetId)
     {}
 
     public GetUdreiForEachSV(string system)
-      : base(CmdName)
+      : base(CmdName, TargetId)
     {
       System = system;
     }
@@ -51434,13 +52477,14 @@ namespace Sdx.Cmd
     }
 
     internal const string CmdName = "GetUdreiForEachSVResult";
+    internal const string TargetId = "";
 
     public GetUdreiForEachSVResult()
-      : base(CmdName)
+      : base(CmdName, TargetId)
     {}
 
     public GetUdreiForEachSVResult(CommandBase relatedCommand, string system, List<int> udreis)
-      : base(CmdName, relatedCommand)
+      : base(CmdName, TargetId, relatedCommand)
     {
       System = system;
       Udreis = udreis;
@@ -51505,9 +52549,10 @@ namespace Sdx.Cmd
     }
 
     internal const string CmdName = "BroadcastConfig";
+    internal const string TargetId = "";
 
     public BroadcastConfig()
-      : base(CmdName)
+      : base(CmdName, TargetId)
     {}
       
     public override bool IsValid
@@ -51537,9 +52582,10 @@ namespace Sdx.Cmd
     }
 
     internal const string CmdName = "CancelBroadcastConfig";
+    internal const string TargetId = "";
 
     public CancelBroadcastConfig()
-      : base(CmdName)
+      : base(CmdName, TargetId)
     {}
       
     public override bool IsValid
@@ -51556,7 +52602,7 @@ namespace Sdx.Cmd
 
 
   ///
-  /// Set wether the main instance should send its configuration to every worker instance when simulation start.
+  /// Set whether the main instance should send its configuration to every worker instance when simulation start.
   ///
   /// Name             Type Description
   /// ---------------- ---- --------------------------------------------------------------
@@ -51567,17 +52613,18 @@ namespace Sdx.Cmd
   {
     public override string Documentation
     {
-      get { return "Set wether the main instance should send its configuration to every worker instance when simulation start."; }
+      get { return "Set whether the main instance should send its configuration to every worker instance when simulation start."; }
     }
 
     internal const string CmdName = "SetConfigBroadcastOnStart";
+    internal const string TargetId = "";
 
     public SetConfigBroadcastOnStart()
-      : base(CmdName)
+      : base(CmdName, TargetId)
     {}
 
     public SetConfigBroadcastOnStart(bool broadcastOnStart)
-      : base(CmdName)
+      : base(CmdName, TargetId)
     {
       BroadcastOnStart = broadcastOnStart;
     }
@@ -51606,7 +52653,7 @@ namespace Sdx.Cmd
 
 
   ///
-  /// Get wether the main instance should send its configuration to every worker instance when simulation start.
+  /// Get whether the main instance should send its configuration to every worker instance when simulation start.
   ///
   /// 
   ///
@@ -51615,13 +52662,14 @@ namespace Sdx.Cmd
   {
     public override string Documentation
     {
-      get { return "Get wether the main instance should send its configuration to every worker instance when simulation start."; }
+      get { return "Get whether the main instance should send its configuration to every worker instance when simulation start."; }
     }
 
     internal const string CmdName = "GetConfigBroadcastOnStart";
+    internal const string TargetId = "";
 
     public GetConfigBroadcastOnStart()
-      : base(CmdName)
+      : base(CmdName, TargetId)
     {}
       
     public override bool IsValid
@@ -51653,13 +52701,14 @@ namespace Sdx.Cmd
     }
 
     internal const string CmdName = "GetConfigBroadcastOnStartResult";
+    internal const string TargetId = "";
 
     public GetConfigBroadcastOnStartResult()
-      : base(CmdName)
+      : base(CmdName, TargetId)
     {}
 
     public GetConfigBroadcastOnStartResult(CommandBase relatedCommand, bool broadcastOnStart)
-      : base(CmdName, relatedCommand)
+      : base(CmdName, TargetId, relatedCommand)
     {
       BroadcastOnStart = broadcastOnStart;
     }
@@ -51708,13 +52757,14 @@ namespace Sdx.Cmd
     }
 
     internal const string CmdName = "SetConfigBroadcastFilter";
+    internal const string TargetId = "";
 
     public SetConfigBroadcastFilter()
-      : base(CmdName)
+      : base(CmdName, TargetId)
     {}
 
     public SetConfigBroadcastFilter(List<ConfigFilter> filter)
-      : base(CmdName)
+      : base(CmdName, TargetId)
     {
       Filter = filter;
     }
@@ -51756,9 +52806,10 @@ namespace Sdx.Cmd
     }
 
     internal const string CmdName = "GetConfigBroadcastFilter";
+    internal const string TargetId = "";
 
     public GetConfigBroadcastFilter()
-      : base(CmdName)
+      : base(CmdName, TargetId)
     {}
       
     public override bool IsValid
@@ -51790,13 +52841,14 @@ namespace Sdx.Cmd
     }
 
     internal const string CmdName = "GetConfigBroadcastFilterResult";
+    internal const string TargetId = "";
 
     public GetConfigBroadcastFilterResult()
-      : base(CmdName)
+      : base(CmdName, TargetId)
     {}
 
     public GetConfigBroadcastFilterResult(CommandBase relatedCommand, List<ConfigFilter> filter)
-      : base(CmdName, relatedCommand)
+      : base(CmdName, TargetId, relatedCommand)
     {
       Filter = filter;
     }
@@ -51826,8 +52878,8 @@ namespace Sdx.Cmd
   /// Set the satellite pseudorange noise constant offset.
   ///
   /// Name    Type   Description
-  /// ------- ------ ----------------------------------------------------------------
-  /// System  string "GPS", "GLONASS", "Galileo", "BeiDou", "SBAS", "QZSS" or "NavIC"
+  /// ------- ------ --------------------------------------------------------------------------
+  /// System  string "GPS", "GLONASS", "Galileo", "BeiDou", "SBAS", "QZSS", "NavIC" or "PULSAR"
   /// SvId    int    Satellite SV ID.
   /// Enabled bool   If true, the offset is enabled (applied)
   /// Offset  double The constant offset in metters
@@ -51841,13 +52893,14 @@ namespace Sdx.Cmd
     }
 
     internal const string CmdName = "SetPseudorangeNoiseOffsetForSV";
+    internal const string TargetId = "";
 
     public SetPseudorangeNoiseOffsetForSV()
-      : base(CmdName)
+      : base(CmdName, TargetId)
     {}
 
     public SetPseudorangeNoiseOffsetForSV(string system, int svId, bool enabled, double offset)
-      : base(CmdName)
+      : base(CmdName, TargetId)
     {
       System = system;
       SvId = svId;
@@ -51912,8 +52965,8 @@ namespace Sdx.Cmd
   /// Get the satellite pseudorange noise constant offset.
   ///
   /// Name   Type   Description
-  /// ------ ------ ----------------------------------------------------------------
-  /// System string "GPS", "GLONASS", "Galileo", "BeiDou", "SBAS", "QZSS" or "NavIC"
+  /// ------ ------ --------------------------------------------------------------------------
+  /// System string "GPS", "GLONASS", "Galileo", "BeiDou", "SBAS", "QZSS", "NavIC" or "PULSAR"
   /// SvId   int    Satellite SV ID.
   ///
 
@@ -51925,13 +52978,14 @@ namespace Sdx.Cmd
     }
 
     internal const string CmdName = "GetPseudorangeNoiseOffsetForSV";
+    internal const string TargetId = "";
 
     public GetPseudorangeNoiseOffsetForSV()
-      : base(CmdName)
+      : base(CmdName, TargetId)
     {}
 
     public GetPseudorangeNoiseOffsetForSV(string system, int svId)
-      : base(CmdName)
+      : base(CmdName, TargetId)
     {
       System = system;
       SvId = svId;
@@ -51974,8 +53028,8 @@ namespace Sdx.Cmd
   /// Result of GetPseudorangeNoiseOffsetForSV.
   ///
   /// Name    Type   Description
-  /// ------- ------ ----------------------------------------------------------------
-  /// System  string "GPS", "GLONASS", "Galileo", "BeiDou", "SBAS", "QZSS" or "NavIC"
+  /// ------- ------ --------------------------------------------------------------------------
+  /// System  string "GPS", "GLONASS", "Galileo", "BeiDou", "SBAS", "QZSS", "NavIC" or "PULSAR"
   /// SvId    int    Satellite SV ID.
   /// Enabled bool   If true, the offset is enabled (applied)
   /// Offset  double The constant offset in metters
@@ -51989,13 +53043,14 @@ namespace Sdx.Cmd
     }
 
     internal const string CmdName = "GetPseudorangeNoiseOffsetForSVResult";
+    internal const string TargetId = "";
 
     public GetPseudorangeNoiseOffsetForSVResult()
-      : base(CmdName)
+      : base(CmdName, TargetId)
     {}
 
     public GetPseudorangeNoiseOffsetForSVResult(CommandBase relatedCommand, string system, int svId, bool enabled, double offset)
-      : base(CmdName, relatedCommand)
+      : base(CmdName, TargetId, relatedCommand)
     {
       System = system;
       SvId = svId;
@@ -52060,8 +53115,8 @@ namespace Sdx.Cmd
   /// Set the satellite pseudorange noise constant offset for all satellites.
   ///
   /// Name    Type         Description
-  /// ------- ------------ ----------------------------------------------------------------
-  /// System  string       "GPS", "GLONASS", "Galileo", "BeiDou", "SBAS", "QZSS" or "NavIC"
+  /// ------- ------------ --------------------------------------------------------------------------
+  /// System  string       "GPS", "GLONASS", "Galileo", "BeiDou", "SBAS", "QZSS", "NavIC" or "PULSAR"
   /// Enabled array bool   If true, the offset is enabled (applied)
   /// Offset  array double The constant offset in metters
   ///
@@ -52074,13 +53129,14 @@ namespace Sdx.Cmd
     }
 
     internal const string CmdName = "SetAllSatellitesPseudorangeNoiseOffset";
+    internal const string TargetId = "";
 
     public SetAllSatellitesPseudorangeNoiseOffset()
-      : base(CmdName)
+      : base(CmdName, TargetId)
     {}
 
     public SetAllSatellitesPseudorangeNoiseOffset(string system, List<bool> enabled, List<double> offset)
-      : base(CmdName)
+      : base(CmdName, TargetId)
     {
       System = system;
       Enabled = enabled;
@@ -52134,8 +53190,8 @@ namespace Sdx.Cmd
   /// Set the satellite pseudorange noise constant offset for all satellites.
   ///
   /// Name    Type         Description
-  /// ------- ------------ ----------------------------------------------------------------
-  /// System  string       "GPS", "GLONASS", "Galileo", "BeiDou", "SBAS", "QZSS" or "NavIC"
+  /// ------- ------------ --------------------------------------------------------------------------
+  /// System  string       "GPS", "GLONASS", "Galileo", "BeiDou", "SBAS", "QZSS", "NavIC" or "PULSAR"
   /// Enabled array bool   If true, the offset is enabled (applied)
   /// Offset  array double The constant offset in metters
   ///
@@ -52148,13 +53204,14 @@ namespace Sdx.Cmd
     }
 
     internal const string CmdName = "SetPseudorangeNoiseOffsetForEachSV";
+    internal const string TargetId = "";
 
     public SetPseudorangeNoiseOffsetForEachSV()
-      : base(CmdName)
+      : base(CmdName, TargetId)
     {}
 
     public SetPseudorangeNoiseOffsetForEachSV(string system, List<bool> enabled, List<double> offset)
-      : base(CmdName)
+      : base(CmdName, TargetId)
     {
       System = system;
       Enabled = enabled;
@@ -52210,8 +53267,8 @@ namespace Sdx.Cmd
   /// Get the satellite pseudorange noise constant offset for all satellites.
   ///
   /// Name   Type   Description
-  /// ------ ------ ----------------------------------------------------------------
-  /// System string "GPS", "GLONASS", "Galileo", "BeiDou", "SBAS", "QZSS" or "NavIC"
+  /// ------ ------ --------------------------------------------------------------------------
+  /// System string "GPS", "GLONASS", "Galileo", "BeiDou", "SBAS", "QZSS", "NavIC" or "PULSAR"
   ///
 
   public class GetAllSatellitesPseudorangeNoiseOffset : CommandBase
@@ -52222,13 +53279,14 @@ namespace Sdx.Cmd
     }
 
     internal const string CmdName = "GetAllSatellitesPseudorangeNoiseOffset";
+    internal const string TargetId = "";
 
     public GetAllSatellitesPseudorangeNoiseOffset()
-      : base(CmdName)
+      : base(CmdName, TargetId)
     {}
 
     public GetAllSatellitesPseudorangeNoiseOffset(string system)
-      : base(CmdName)
+      : base(CmdName, TargetId)
     {
       System = system;
     }
@@ -52260,8 +53318,8 @@ namespace Sdx.Cmd
   /// Get the satellite pseudorange noise constant offset for all satellites.
   ///
   /// Name   Type   Description
-  /// ------ ------ ----------------------------------------------------------------
-  /// System string "GPS", "GLONASS", "Galileo", "BeiDou", "SBAS", "QZSS" or "NavIC"
+  /// ------ ------ --------------------------------------------------------------------------
+  /// System string "GPS", "GLONASS", "Galileo", "BeiDou", "SBAS", "QZSS", "NavIC" or "PULSAR"
   ///
 
   public class GetPseudorangeNoiseOffsetForEachSV : CommandBase
@@ -52272,13 +53330,14 @@ namespace Sdx.Cmd
     }
 
     internal const string CmdName = "GetPseudorangeNoiseOffsetForEachSV";
+    internal const string TargetId = "";
 
     public GetPseudorangeNoiseOffsetForEachSV()
-      : base(CmdName)
+      : base(CmdName, TargetId)
     {}
 
     public GetPseudorangeNoiseOffsetForEachSV(string system)
-      : base(CmdName)
+      : base(CmdName, TargetId)
     {
       System = system;
     }
@@ -52310,8 +53369,8 @@ namespace Sdx.Cmd
   /// Result of GetPseudorangeNoiseOffsetForEachSV.
   ///
   /// Name    Type         Description
-  /// ------- ------------ ----------------------------------------------------------------
-  /// System  string       "GPS", "GLONASS", "Galileo", "BeiDou", "SBAS", "QZSS" or "NavIC"
+  /// ------- ------------ --------------------------------------------------------------------------
+  /// System  string       "GPS", "GLONASS", "Galileo", "BeiDou", "SBAS", "QZSS", "NavIC" or "PULSAR"
   /// Enabled array bool   If true, the offset is enabled (applied)
   /// Offset  array double The constant offset in metters
   ///
@@ -52324,13 +53383,14 @@ namespace Sdx.Cmd
     }
   
     internal const string CmdName = "GetAllSatellitesPseudorangeNoiseOffsetResult";
+    internal const string TargetId = "";
 
     public GetAllSatellitesPseudorangeNoiseOffsetResult()
-      : base(CmdName)
+      : base(CmdName, TargetId)
     {}
 
     public GetAllSatellitesPseudorangeNoiseOffsetResult(CommandBase relatedCommand, string system, List<bool> enabled, List<double> offset)
-      : base(CmdName, relatedCommand)
+      : base(CmdName, TargetId, relatedCommand)
     {
       System = system;
       Enabled = enabled;
@@ -52370,8 +53430,8 @@ namespace Sdx.Cmd
 
   ///
   /// Name    Type         Description
-  /// ------- ------------ ----------------------------------------------------------------
-  /// System  string       "GPS", "GLONASS", "Galileo", "BeiDou", "SBAS", "QZSS" or "NavIC"
+  /// ------- ------------ --------------------------------------------------------------------------
+  /// System  string       "GPS", "GLONASS", "Galileo", "BeiDou", "SBAS", "QZSS", "NavIC" or "PULSAR"
   /// Enabled array bool   If true, the offset is enabled (applied)
   /// Offset  array double The constant offset in metters
   ///
@@ -52398,8 +53458,8 @@ namespace Sdx.Cmd
   /// Set the satellite pseudorange noise sine wave attributes.
   ///
   /// Name      Type   Description
-  /// --------- ------ ----------------------------------------------------------------
-  /// System    string "GPS", "GLONASS", "Galileo", "BeiDou", "SBAS", "QZSS" or "NavIC"
+  /// --------- ------ --------------------------------------------------------------------------
+  /// System    string "GPS", "GLONASS", "Galileo", "BeiDou", "SBAS", "QZSS", "NavIC" or "PULSAR"
   /// SvId      int    The satellite's SV ID
   /// SineWave  int    Sine wave number (0 or 1)
   /// Enabled   bool   If true, sine wave is enabled
@@ -52416,13 +53476,14 @@ namespace Sdx.Cmd
     }
 
     internal const string CmdName = "SetPseudorangeNoiseSineWaveForSV";
+    internal const string TargetId = "";
 
     public SetPseudorangeNoiseSineWaveForSV()
-      : base(CmdName)
+      : base(CmdName, TargetId)
     {}
 
     public SetPseudorangeNoiseSineWaveForSV(string system, int svId, int sineWave, bool enabled, double amplitude, int period, double offset)
-      : base(CmdName)
+      : base(CmdName, TargetId)
     {
       System = system;
       SvId = svId;
@@ -52520,8 +53581,8 @@ namespace Sdx.Cmd
   /// Get the satellite pseudorange noise sine wave attributes.
   ///
   /// Name     Type   Description
-  /// -------- ------ ----------------------------------------------------------------
-  /// System   string "GPS", "GLONASS", "Galileo", "BeiDou", "SBAS", "QZSS" or "NavIC"
+  /// -------- ------ --------------------------------------------------------------------------
+  /// System   string "GPS", "GLONASS", "Galileo", "BeiDou", "SBAS", "QZSS", "NavIC" or "PULSAR"
   /// SvId     int    The satellite's SV ID
   /// SineWave int    Sine wave number (0 or 1)
   ///
@@ -52534,13 +53595,14 @@ namespace Sdx.Cmd
     }
 
     internal const string CmdName = "GetPseudorangeNoiseSineWaveForSV";
+    internal const string TargetId = "";
 
     public GetPseudorangeNoiseSineWaveForSV()
-      : base(CmdName)
+      : base(CmdName, TargetId)
     {}
 
     public GetPseudorangeNoiseSineWaveForSV(string system, int svId, int sineWave)
-      : base(CmdName)
+      : base(CmdName, TargetId)
     {
       System = system;
       SvId = svId;
@@ -52594,8 +53656,8 @@ namespace Sdx.Cmd
   /// Result of GetPseudorangeNoiseSineWaveForSV.
   ///
   /// Name      Type   Description
-  /// --------- ------ ----------------------------------------------------------------
-  /// System    string "GPS", "GLONASS", "Galileo", "BeiDou", "SBAS", "QZSS" or "NavIC"
+  /// --------- ------ --------------------------------------------------------------------------
+  /// System    string "GPS", "GLONASS", "Galileo", "BeiDou", "SBAS", "QZSS", "NavIC" or "PULSAR"
   /// SvId      int    The satellite's SV ID
   /// SineWave  int    Sine wave number (0 or 1)
   /// Enabled   bool   If true, sine wave is enabled
@@ -52612,13 +53674,14 @@ namespace Sdx.Cmd
     }
 
     internal const string CmdName = "GetPseudorangeNoiseSineWaveForSVResult";
+    internal const string TargetId = "";
 
     public GetPseudorangeNoiseSineWaveForSVResult()
-      : base(CmdName)
+      : base(CmdName, TargetId)
     {}
 
     public GetPseudorangeNoiseSineWaveForSVResult(CommandBase relatedCommand, string system, int svId, int sineWave, bool enabled, double amplitude, int period, double offset)
-      : base(CmdName, relatedCommand)
+      : base(CmdName, TargetId, relatedCommand)
     {
       System = system;
       SvId = svId;
@@ -52716,8 +53779,8 @@ namespace Sdx.Cmd
   /// Set the satellite pseudorange noise sine wave attributes for all satellites.
   ///
   /// Name      Type         Description
-  /// --------- ------------ ----------------------------------------------------------------
-  /// System    string       "GPS", "GLONASS", "Galileo", "BeiDou", "SBAS", "QZSS" or "NavIC"
+  /// --------- ------------ --------------------------------------------------------------------------
+  /// System    string       "GPS", "GLONASS", "Galileo", "BeiDou", "SBAS", "QZSS", "NavIC" or "PULSAR"
   /// SineWave  int          Sine wave number (0 or 1)
   /// Enabled   array bool   If true, sine wave is enabled
   /// Amplitude array double Sine wave amplitude in meters
@@ -52733,13 +53796,14 @@ namespace Sdx.Cmd
     }
 
     internal const string CmdName = "SetAllSatellitesPseudorangeNoiseSineWave";
+    internal const string TargetId = "";
 
     public SetAllSatellitesPseudorangeNoiseSineWave()
-      : base(CmdName)
+      : base(CmdName, TargetId)
     {}
 
     public SetAllSatellitesPseudorangeNoiseSineWave(string system, int sineWave, List<bool> enabled, List<double> amplitude, List<int> period, List<double> offset)
-      : base(CmdName)
+      : base(CmdName, TargetId)
     {
       System = system;
       SineWave = sineWave;
@@ -52826,8 +53890,8 @@ namespace Sdx.Cmd
   /// Set the satellite pseudorange noise sine wave attributes for all satellites.
   ///
   /// Name      Type         Description
-  /// --------- ------------ ----------------------------------------------------------------
-  /// System    string       "GPS", "GLONASS", "Galileo", "BeiDou", "SBAS", "QZSS" or "NavIC"
+  /// --------- ------------ --------------------------------------------------------------------------
+  /// System    string       "GPS", "GLONASS", "Galileo", "BeiDou", "SBAS", "QZSS", "NavIC" or "PULSAR"
   /// SineWave  int          Sine wave number (0 or 1)
   /// Enabled   array bool   If true, sine wave is enabled
   /// Amplitude array double Sine wave amplitude in meters
@@ -52843,13 +53907,14 @@ namespace Sdx.Cmd
     }
 
     internal const string CmdName = "SetPseudorangeNoiseSineWaveForEachSV";
+    internal const string TargetId = "";
 
     public SetPseudorangeNoiseSineWaveForEachSV()
-      : base(CmdName)
+      : base(CmdName, TargetId)
     {}
 
     public SetPseudorangeNoiseSineWaveForEachSV(string system, int sineWave, List<bool> enabled, List<double> amplitude, List<int> period, List<double> offset)
-      : base(CmdName)
+      : base(CmdName, TargetId)
     {
       System = system;
       SineWave = sineWave;
@@ -52938,8 +54003,8 @@ namespace Sdx.Cmd
   /// Get the satellite pseudorange noise sine wave attributes for all satellites.
   ///
   /// Name     Type   Description
-  /// -------- ------ ----------------------------------------------------------------
-  /// System   string "GPS", "GLONASS", "Galileo", "BeiDou", "SBAS", "QZSS" or "NavIC"
+  /// -------- ------ --------------------------------------------------------------------------
+  /// System   string "GPS", "GLONASS", "Galileo", "BeiDou", "SBAS", "QZSS", "NavIC" or "PULSAR"
   /// SineWave int    Sine wave number (0 or 1)
   ///
 
@@ -52951,13 +54016,14 @@ namespace Sdx.Cmd
     }
 
     internal const string CmdName = "GetAllSatellitesPseudorangeNoiseSineWave";
+    internal const string TargetId = "";
 
     public GetAllSatellitesPseudorangeNoiseSineWave()
-      : base(CmdName)
+      : base(CmdName, TargetId)
     {}
 
     public GetAllSatellitesPseudorangeNoiseSineWave(string system, int sineWave)
-      : base(CmdName)
+      : base(CmdName, TargetId)
     {
       System = system;
       SineWave = sineWave;
@@ -53000,8 +54066,8 @@ namespace Sdx.Cmd
   /// Get the satellite pseudorange noise sine wave attributes for all satellites.
   ///
   /// Name     Type   Description
-  /// -------- ------ ----------------------------------------------------------------
-  /// System   string "GPS", "GLONASS", "Galileo", "BeiDou", "SBAS", "QZSS" or "NavIC"
+  /// -------- ------ --------------------------------------------------------------------------
+  /// System   string "GPS", "GLONASS", "Galileo", "BeiDou", "SBAS", "QZSS", "NavIC" or "PULSAR"
   /// SineWave int    Sine wave number (0 or 1)
   ///
 
@@ -53013,13 +54079,14 @@ namespace Sdx.Cmd
     }
 
     internal const string CmdName = "GetPseudorangeNoiseSineWaveForEachSV";
+    internal const string TargetId = "";
 
     public GetPseudorangeNoiseSineWaveForEachSV()
-      : base(CmdName)
+      : base(CmdName, TargetId)
     {}
 
     public GetPseudorangeNoiseSineWaveForEachSV(string system, int sineWave)
-      : base(CmdName)
+      : base(CmdName, TargetId)
     {
       System = system;
       SineWave = sineWave;
@@ -53062,8 +54129,8 @@ namespace Sdx.Cmd
   /// Result of GetPseudorangeNoiseSineWaveForEachSV.
   ///
   /// Name      Type         Description
-  /// --------- ------------ ----------------------------------------------------------------
-  /// System    string       "GPS", "GLONASS", "Galileo", "BeiDou", "SBAS", "QZSS" or "NavIC"
+  /// --------- ------------ --------------------------------------------------------------------------
+  /// System    string       "GPS", "GLONASS", "Galileo", "BeiDou", "SBAS", "QZSS", "NavIC" or "PULSAR"
   /// SineWave  int          Sine wave number (0 or 1)
   /// Enabled   array bool   If true, sine wave is enabled
   /// Amplitude array double Sine wave amplitude in meters
@@ -53079,13 +54146,14 @@ namespace Sdx.Cmd
     }
   
     internal const string CmdName = "GetAllSatellitesPseudorangeNoiseSineWaveResult";
+    internal const string TargetId = "";
 
     public GetAllSatellitesPseudorangeNoiseSineWaveResult()
-      : base(CmdName)
+      : base(CmdName, TargetId)
     {}
 
     public GetAllSatellitesPseudorangeNoiseSineWaveResult(CommandBase relatedCommand, string system, int sineWave, List<bool> enabled, List<double> amplitude, List<int> period, List<double> offset)
-      : base(CmdName, relatedCommand)
+      : base(CmdName, TargetId, relatedCommand)
     {
       System = system;
       SineWave = sineWave;
@@ -53149,8 +54217,8 @@ namespace Sdx.Cmd
 
   ///
   /// Name      Type         Description
-  /// --------- ------------ ----------------------------------------------------------------
-  /// System    string       "GPS", "GLONASS", "Galileo", "BeiDou", "SBAS", "QZSS" or "NavIC"
+  /// --------- ------------ --------------------------------------------------------------------------
+  /// System    string       "GPS", "GLONASS", "Galileo", "BeiDou", "SBAS", "QZSS", "NavIC" or "PULSAR"
   /// SineWave  int          Sine wave number (0 or 1)
   /// Enabled   array bool   If true, sine wave is enabled
   /// Amplitude array double Sine wave amplitude in meters
@@ -53180,8 +54248,8 @@ namespace Sdx.Cmd
   /// Set the satellite pseudorange noise Gauss-Markov process attributes.
   ///
   /// Name    Type   Description
-  /// ------- ------ ----------------------------------------------------------------
-  /// System  string "GPS", "GLONASS", "Galileo", "BeiDou", "SBAS", "QZSS" or "NavIC"
+  /// ------- ------ --------------------------------------------------------------------------
+  /// System  string "GPS", "GLONASS", "Galileo", "BeiDou", "SBAS", "QZSS", "NavIC" or "PULSAR"
   /// SvId    int    Satellite SV ID.
   /// Process int    Gauss-Markov Process number (0 or 1)
   /// Enabled bool   If true, Gauss-Markov process is enabled
@@ -53198,13 +54266,14 @@ namespace Sdx.Cmd
     }
 
     internal const string CmdName = "SetPseudorangeNoiseGaussMarkovForSV";
+    internal const string TargetId = "";
 
     public SetPseudorangeNoiseGaussMarkovForSV()
-      : base(CmdName)
+      : base(CmdName, TargetId)
     {}
 
     public SetPseudorangeNoiseGaussMarkovForSV(string system, int svId, int process, bool enabled, double sigma, double time, int seed)
-      : base(CmdName)
+      : base(CmdName, TargetId)
     {
       System = system;
       SvId = svId;
@@ -53302,8 +54371,8 @@ namespace Sdx.Cmd
   /// Get the satellite pseudorange noise Gauss-Markov process attributes.
   ///
   /// Name    Type   Description
-  /// ------- ------ ----------------------------------------------------------------
-  /// System  string "GPS", "GLONASS", "Galileo", "BeiDou", "SBAS", "QZSS" or "NavIC"
+  /// ------- ------ --------------------------------------------------------------------------
+  /// System  string "GPS", "GLONASS", "Galileo", "BeiDou", "SBAS", "QZSS", "NavIC" or "PULSAR"
   /// SvId    int    Satellite SV ID.
   /// Process int    Gauss-Markov Process number (0 or 1)
   ///
@@ -53316,13 +54385,14 @@ namespace Sdx.Cmd
     }
 
     internal const string CmdName = "GetPseudorangeNoiseGaussMarkovForSV";
+    internal const string TargetId = "";
 
     public GetPseudorangeNoiseGaussMarkovForSV()
-      : base(CmdName)
+      : base(CmdName, TargetId)
     {}
 
     public GetPseudorangeNoiseGaussMarkovForSV(string system, int svId, int process)
-      : base(CmdName)
+      : base(CmdName, TargetId)
     {
       System = system;
       SvId = svId;
@@ -53376,8 +54446,8 @@ namespace Sdx.Cmd
   /// Result of GetPseudorangeNoiseGaussMarkovForSV.
   ///
   /// Name    Type   Description
-  /// ------- ------ ----------------------------------------------------------------
-  /// System  string "GPS", "GLONASS", "Galileo", "BeiDou", "SBAS", "QZSS" or "NavIC"
+  /// ------- ------ --------------------------------------------------------------------------
+  /// System  string "GPS", "GLONASS", "Galileo", "BeiDou", "SBAS", "QZSS", "NavIC" or "PULSAR"
   /// SvId    int    Satellite SV ID.
   /// Process int    Gauss-Markov Process number (0 or 1)
   /// Enabled bool   If true, Gauss-Markov process is enabled
@@ -53394,13 +54464,14 @@ namespace Sdx.Cmd
     }
 
     internal const string CmdName = "GetPseudorangeNoiseGaussMarkovForSVResult";
+    internal const string TargetId = "";
 
     public GetPseudorangeNoiseGaussMarkovForSVResult()
-      : base(CmdName)
+      : base(CmdName, TargetId)
     {}
 
     public GetPseudorangeNoiseGaussMarkovForSVResult(CommandBase relatedCommand, string system, int svId, int process, bool enabled, double sigma, double time, int seed)
-      : base(CmdName, relatedCommand)
+      : base(CmdName, TargetId, relatedCommand)
     {
       System = system;
       SvId = svId;
@@ -53498,8 +54569,8 @@ namespace Sdx.Cmd
   /// Set the satellite pseudorange noise Gauss-Markov process attributes for all satellites.
   ///
   /// Name    Type         Description
-  /// ------- ------------ ----------------------------------------------------------------
-  /// System  string       "GPS", "GLONASS", "Galileo", "BeiDou", "SBAS", "QZSS" or "NavIC"
+  /// ------- ------------ --------------------------------------------------------------------------
+  /// System  string       "GPS", "GLONASS", "Galileo", "BeiDou", "SBAS", "QZSS", "NavIC" or "PULSAR"
   /// Process int          Gauss-Markov Process number (0 or 1)
   /// Enabled array bool   If true, Gauss-Markov process is enabled
   /// Sigma   array double Standard devition
@@ -53515,13 +54586,14 @@ namespace Sdx.Cmd
     }
 
     internal const string CmdName = "SetAllSatellitesPseudorangeNoiseGaussMarkov";
+    internal const string TargetId = "";
 
     public SetAllSatellitesPseudorangeNoiseGaussMarkov()
-      : base(CmdName)
+      : base(CmdName, TargetId)
     {}
 
     public SetAllSatellitesPseudorangeNoiseGaussMarkov(string system, int process, List<bool> enabled, List<double> sigma, List<double> time, List<int> seed)
-      : base(CmdName)
+      : base(CmdName, TargetId)
     {
       System = system;
       Process = process;
@@ -53608,8 +54680,8 @@ namespace Sdx.Cmd
   /// Set the satellite pseudorange noise Gauss-Markov process attributes for all satellites.
   ///
   /// Name    Type         Description
-  /// ------- ------------ ----------------------------------------------------------------
-  /// System  string       "GPS", "GLONASS", "Galileo", "BeiDou", "SBAS", "QZSS" or "NavIC"
+  /// ------- ------------ --------------------------------------------------------------------------
+  /// System  string       "GPS", "GLONASS", "Galileo", "BeiDou", "SBAS", "QZSS", "NavIC" or "PULSAR"
   /// Process int          Gauss-Markov Process number (0 or 1)
   /// Enabled array bool   If true, Gauss-Markov process is enabled
   /// Sigma   array double Standard devition
@@ -53625,13 +54697,14 @@ namespace Sdx.Cmd
     }
 
     internal const string CmdName = "SetPseudorangeNoiseGaussMarkovForEachSV";
+    internal const string TargetId = "";
 
     public SetPseudorangeNoiseGaussMarkovForEachSV()
-      : base(CmdName)
+      : base(CmdName, TargetId)
     {}
 
     public SetPseudorangeNoiseGaussMarkovForEachSV(string system, int process, List<bool> enabled, List<double> sigma, List<double> time, List<int> seed)
-      : base(CmdName)
+      : base(CmdName, TargetId)
     {
       System = system;
       Process = process;
@@ -53720,8 +54793,8 @@ namespace Sdx.Cmd
   /// Get the satellite pseudorange noise Gauss-Markov process attributes for all satellites.
   ///
   /// Name    Type   Description
-  /// ------- ------ ----------------------------------------------------------------
-  /// System  string "GPS", "GLONASS", "Galileo", "BeiDou", "SBAS", "QZSS" or "NavIC"
+  /// ------- ------ --------------------------------------------------------------------------
+  /// System  string "GPS", "GLONASS", "Galileo", "BeiDou", "SBAS", "QZSS", "NavIC" or "PULSAR"
   /// Process int    Gauss-Markov Process number (0 or 1)
   ///
 
@@ -53733,13 +54806,14 @@ namespace Sdx.Cmd
     }
 
     internal const string CmdName = "GetAllSatellitesPseudorangeNoiseGaussMarkov";
+    internal const string TargetId = "";
 
     public GetAllSatellitesPseudorangeNoiseGaussMarkov()
-      : base(CmdName)
+      : base(CmdName, TargetId)
     {}
 
     public GetAllSatellitesPseudorangeNoiseGaussMarkov(string system, int process)
-      : base(CmdName)
+      : base(CmdName, TargetId)
     {
       System = system;
       Process = process;
@@ -53782,8 +54856,8 @@ namespace Sdx.Cmd
   /// Get the satellite pseudorange noise Gauss-Markov process attributes for all satellites.
   ///
   /// Name    Type   Description
-  /// ------- ------ ----------------------------------------------------------------
-  /// System  string "GPS", "GLONASS", "Galileo", "BeiDou", "SBAS", "QZSS" or "NavIC"
+  /// ------- ------ --------------------------------------------------------------------------
+  /// System  string "GPS", "GLONASS", "Galileo", "BeiDou", "SBAS", "QZSS", "NavIC" or "PULSAR"
   /// Process int    Gauss-Markov Process number (0 or 1)
   ///
 
@@ -53795,13 +54869,14 @@ namespace Sdx.Cmd
     }
 
     internal const string CmdName = "GetPseudorangeNoiseGaussMarkovForEachSV";
+    internal const string TargetId = "";
 
     public GetPseudorangeNoiseGaussMarkovForEachSV()
-      : base(CmdName)
+      : base(CmdName, TargetId)
     {}
 
     public GetPseudorangeNoiseGaussMarkovForEachSV(string system, int process)
-      : base(CmdName)
+      : base(CmdName, TargetId)
     {
       System = system;
       Process = process;
@@ -53844,8 +54919,8 @@ namespace Sdx.Cmd
   /// Result of GetPseudorangeNoiseGaussMarkovForEachSV.
   ///
   /// Name    Type         Description
-  /// ------- ------------ ----------------------------------------------------------------
-  /// System  string       "GPS", "GLONASS", "Galileo", "BeiDou", "SBAS", "QZSS" or "NavIC"
+  /// ------- ------------ --------------------------------------------------------------------------
+  /// System  string       "GPS", "GLONASS", "Galileo", "BeiDou", "SBAS", "QZSS", "NavIC" or "PULSAR"
   /// Process int          Gauss-Markov Process number (0 or 1)
   /// Enabled array bool   If true, Gauss-Markov process is enabled
   /// Sigma   array double Standard devition
@@ -53861,13 +54936,14 @@ namespace Sdx.Cmd
     }
   
     internal const string CmdName = "GetAllSatellitesPseudorangeNoiseGaussMarkovResult";
+    internal const string TargetId = "";
 
     public GetAllSatellitesPseudorangeNoiseGaussMarkovResult()
-      : base(CmdName)
+      : base(CmdName, TargetId)
     {}
 
     public GetAllSatellitesPseudorangeNoiseGaussMarkovResult(CommandBase relatedCommand, string system, int process, List<bool> enabled, List<double> sigma, List<double> time, List<int> seed)
-      : base(CmdName, relatedCommand)
+      : base(CmdName, TargetId, relatedCommand)
     {
       System = system;
       Process = process;
@@ -53931,8 +55007,8 @@ namespace Sdx.Cmd
 
   ///
   /// Name    Type         Description
-  /// ------- ------------ ----------------------------------------------------------------
-  /// System  string       "GPS", "GLONASS", "Galileo", "BeiDou", "SBAS", "QZSS" or "NavIC"
+  /// ------- ------------ --------------------------------------------------------------------------
+  /// System  string       "GPS", "GLONASS", "Galileo", "BeiDou", "SBAS", "QZSS", "NavIC" or "PULSAR"
   /// Process int          Gauss-Markov Process number (0 or 1)
   /// Enabled array bool   If true, Gauss-Markov process is enabled
   /// Sigma   array double Standard devition
@@ -53964,8 +55040,8 @@ namespace Sdx.Cmd
   /// Generate new seeds for pseudorange noise Gauss-Markov process error on all satellites.
   ///
   /// Name   Type   Description
-  /// ------ ------ ----------------------------------------------------------------
-  /// System string "GPS", "GLONASS", "Galileo", "BeiDou", "SBAS", "QZSS" or "NavIC"
+  /// ------ ------ --------------------------------------------------------------------------
+  /// System string "GPS", "GLONASS", "Galileo", "BeiDou", "SBAS", "QZSS", "NavIC" or "PULSAR"
   ///
 
   public class RandomizeSeedsForAllSatellitesPseudorangeNoiseGaussMarkov : CommandBase
@@ -53976,13 +55052,14 @@ namespace Sdx.Cmd
     }
 
     internal const string CmdName = "RandomizeSeedsForAllSatellitesPseudorangeNoiseGaussMarkov";
+    internal const string TargetId = "";
 
     public RandomizeSeedsForAllSatellitesPseudorangeNoiseGaussMarkov()
-      : base(CmdName)
+      : base(CmdName, TargetId)
     {}
 
     public RandomizeSeedsForAllSatellitesPseudorangeNoiseGaussMarkov(string system)
-      : base(CmdName)
+      : base(CmdName, TargetId)
     {
       System = system;
     }
@@ -54014,8 +55091,8 @@ namespace Sdx.Cmd
   /// Generate new seeds for pseudorange noise Gauss-Markov process error on all satellites.
   ///
   /// Name   Type   Description
-  /// ------ ------ ----------------------------------------------------------------
-  /// System string "GPS", "GLONASS", "Galileo", "BeiDou", "SBAS", "QZSS" or "NavIC"
+  /// ------ ------ --------------------------------------------------------------------------
+  /// System string "GPS", "GLONASS", "Galileo", "BeiDou", "SBAS", "QZSS", "NavIC" or "PULSAR"
   ///
 
   public class RandomizePseudorangeNoiseGaussMarkovSeedsForAllSV : CommandBase
@@ -54026,13 +55103,14 @@ namespace Sdx.Cmd
     }
 
     internal const string CmdName = "RandomizePseudorangeNoiseGaussMarkovSeedsForAllSV";
+    internal const string TargetId = "";
 
     public RandomizePseudorangeNoiseGaussMarkovSeedsForAllSV()
-      : base(CmdName)
+      : base(CmdName, TargetId)
     {}
 
     public RandomizePseudorangeNoiseGaussMarkovSeedsForAllSV(string system)
-      : base(CmdName)
+      : base(CmdName, TargetId)
     {
       System = system;
     }
@@ -54083,7 +55161,7 @@ namespace Sdx.Cmd
   ///
   /// Name     Type   Description
   /// -------- ------ -----------------------------------------------------------------------------------
-  /// System   string "GPS", "Galileo", "GLONASS", "BeiDou", "QZSS" or "NavIC"
+  /// System   string "GPS", "Galileo", "GLONASS", "BeiDou", "QZSS", "NavIC" or "PULSAR"
   /// SvId     int    Satellite SV ID.
   /// Orbit    RIC    The orbit error, in relative orbit frame. In-track error not available for GLONASS.
   /// DeltaAf0 double The clock bias error, in second. DeltaTaun for GLONASS.
@@ -54098,13 +55176,14 @@ namespace Sdx.Cmd
     }
 
     internal const string CmdName = "SetEphemerisErrorForSV";
+    internal const string TargetId = "";
 
     public SetEphemerisErrorForSV()
-      : base(CmdName)
+      : base(CmdName, TargetId)
     {}
 
     public SetEphemerisErrorForSV(string system, int svId, RIC orbit, double deltaAf0, double deltaAf1)
-      : base(CmdName)
+      : base(CmdName, TargetId)
     {
       System = system;
       SvId = svId;
@@ -54180,8 +55259,8 @@ namespace Sdx.Cmd
   /// Get the satellite ephemeris error.
   ///
   /// Name   Type   Description
-  /// ------ ------ --------------------------------------------------------
-  /// System string "GPS", "Galileo", "GLONASS", "BeiDou", "QZSS" or "NavIC"
+  /// ------ ------ ------------------------------------------------------------------
+  /// System string "GPS", "Galileo", "GLONASS", "BeiDou", "QZSS", "NavIC" or "PULSAR"
   /// SvId   int    Satellite SV ID.
   ///
 
@@ -54193,13 +55272,14 @@ namespace Sdx.Cmd
     }
 
     internal const string CmdName = "GetEphemerisErrorForSV";
+    internal const string TargetId = "";
 
     public GetEphemerisErrorForSV()
-      : base(CmdName)
+      : base(CmdName, TargetId)
     {}
 
     public GetEphemerisErrorForSV(string system, int svId)
-      : base(CmdName)
+      : base(CmdName, TargetId)
     {
       System = system;
       SvId = svId;
@@ -54243,7 +55323,7 @@ namespace Sdx.Cmd
   ///
   /// Name     Type   Description
   /// -------- ------ -----------------------------------------------------------------------------------
-  /// System   string "GPS", "Galileo", "GLONASS", "BeiDou", "QZSS" or "NavIC"
+  /// System   string "GPS", "Galileo", "GLONASS", "BeiDou", "QZSS", "NavIC" or "PULSAR"
   /// SvId     int    Satellite SV ID.
   /// Orbit    RIC    The orbit error, in relative orbit frame. In-track error not available for GLONASS.
   /// DeltaAf0 double The clock bias error, in second. DeltaTaun for GLONASS.
@@ -54258,13 +55338,14 @@ namespace Sdx.Cmd
     }
 
     internal const string CmdName = "GetEphemerisErrorForSVResult";
+    internal const string TargetId = "";
 
     public GetEphemerisErrorForSVResult()
-      : base(CmdName)
+      : base(CmdName, TargetId)
     {}
 
     public GetEphemerisErrorForSVResult(CommandBase relatedCommand, string system, int svId, RIC orbit, double deltaAf0, double deltaAf1)
-      : base(CmdName, relatedCommand)
+      : base(CmdName, TargetId, relatedCommand)
     {
       System = system;
       SvId = svId;
@@ -54350,13 +55431,14 @@ namespace Sdx.Cmd
     }
 
     internal const string CmdName = "SetUsingVelocityInSbasMessage25";
+    internal const string TargetId = "";
 
     public SetUsingVelocityInSbasMessage25()
-      : base(CmdName)
+      : base(CmdName, TargetId)
     {}
 
     public SetUsingVelocityInSbasMessage25(bool useVelocity)
-      : base(CmdName)
+      : base(CmdName, TargetId)
     {
       UseVelocity = useVelocity;
     }
@@ -54398,9 +55480,10 @@ namespace Sdx.Cmd
     }
 
     internal const string CmdName = "IsUsingVelocityInSbasMessage25";
+    internal const string TargetId = "";
 
     public IsUsingVelocityInSbasMessage25()
-      : base(CmdName)
+      : base(CmdName, TargetId)
     {}
       
     public override bool IsValid
@@ -54432,13 +55515,14 @@ namespace Sdx.Cmd
     }
 
     internal const string CmdName = "IsUsingVelocityInSbasMessage25Result";
+    internal const string TargetId = "";
 
     public IsUsingVelocityInSbasMessage25Result()
-      : base(CmdName)
+      : base(CmdName, TargetId)
     {}
 
     public IsUsingVelocityInSbasMessage25Result(CommandBase relatedCommand, bool useVelocity)
-      : base(CmdName, relatedCommand)
+      : base(CmdName, TargetId, relatedCommand)
     {
       UseVelocity = useVelocity;
     }
@@ -54480,13 +55564,14 @@ namespace Sdx.Cmd
     }
 
     internal const string CmdName = "SetTransmitMessage2InSbasMessage0";
+    internal const string TargetId = "";
 
     public SetTransmitMessage2InSbasMessage0()
-      : base(CmdName)
+      : base(CmdName, TargetId)
     {}
 
     public SetTransmitMessage2InSbasMessage0(bool transmitMessage2)
-      : base(CmdName)
+      : base(CmdName, TargetId)
     {
       TransmitMessage2 = transmitMessage2;
     }
@@ -54528,9 +55613,10 @@ namespace Sdx.Cmd
     }
 
     internal const string CmdName = "IsTransmitMessage2InSbasMessage0";
+    internal const string TargetId = "";
 
     public IsTransmitMessage2InSbasMessage0()
-      : base(CmdName)
+      : base(CmdName, TargetId)
     {}
       
     public override bool IsValid
@@ -54562,13 +55648,14 @@ namespace Sdx.Cmd
     }
 
     internal const string CmdName = "IsTransmitMessage2InSbasMessage0Result";
+    internal const string TargetId = "";
 
     public IsTransmitMessage2InSbasMessage0Result()
-      : base(CmdName)
+      : base(CmdName, TargetId)
     {}
 
     public IsTransmitMessage2InSbasMessage0Result(CommandBase relatedCommand, bool transmitMessage2)
-      : base(CmdName, relatedCommand)
+      : base(CmdName, TargetId, relatedCommand)
     {
       TransmitMessage2 = transmitMessage2;
     }
@@ -54599,7 +55686,7 @@ namespace Sdx.Cmd
   ///
   /// Name        Type            Description
   /// ----------- --------------- -------------------------------------------------------------------------------------------
-  /// System      string          "GPS", "Galileo", "BeiDou", "QZSS" or "NavIC"
+  /// System      string          "GPS", "Galileo", "BeiDou", "QZSS", "NavIC" or "PULSAR"
   /// SvId        int             The satellite SV ID
   /// IsGeo       bool            True for geostationary satellite
   /// Longitude   double          The longitude to use, in degree
@@ -54614,13 +55701,14 @@ namespace Sdx.Cmd
     }
 
     internal const string CmdName = "ForceSVGeo";
+    internal const string TargetId = "";
 
     public ForceSVGeo()
-      : base(CmdName)
+      : base(CmdName, TargetId)
     {}
 
     public ForceSVGeo(string system, int svId, bool isGeo, double longitude, string dataSetName = null)
-      : base(CmdName)
+      : base(CmdName, TargetId)
     {
       System = system;
       SvId = svId;
@@ -54699,7 +55787,7 @@ namespace Sdx.Cmd
   ///
   /// Name        Type            Description
   /// ----------- --------------- -------------------------------------------------------------------------------------------
-  /// System      string          "GPS", "Galileo", "BeiDou", "QZSS" or "NavIC"
+  /// System      string          "GPS", "Galileo", "BeiDou", "QZSS", "NavIC" or "PULSAR"
   /// SvId        int             The satellite SV ID
   /// DataSetName optional string Optional name of the data set to use. If no value is provided, the active data set is used.
   ///
@@ -54712,13 +55800,14 @@ namespace Sdx.Cmd
     }
 
     internal const string CmdName = "IsSVForcedGeo";
+    internal const string TargetId = "";
 
     public IsSVForcedGeo()
-      : base(CmdName)
+      : base(CmdName, TargetId)
     {}
 
     public IsSVForcedGeo(string system, int svId, string dataSetName = null)
-      : base(CmdName)
+      : base(CmdName, TargetId)
     {
       System = system;
       SvId = svId;
@@ -54775,7 +55864,7 @@ namespace Sdx.Cmd
   ///
   /// Name        Type            Description
   /// ----------- --------------- -------------------------------------------------------------------------------------------
-  /// System      string          "GPS", "Galileo", "BeiDou", "QZSS" or "NavIC"
+  /// System      string          "GPS", "Galileo", "BeiDou", "QZSS", "NavIC" or "PULSAR"
   /// SvId        int             The satellite SV ID
   /// IsGeo       bool            True for geostationary satellite
   /// Longitude   double          The longitude to use, in degree
@@ -54790,13 +55879,14 @@ namespace Sdx.Cmd
     }
 
     internal const string CmdName = "IsSVForcedGeoResult";
+    internal const string TargetId = "";
 
     public IsSVForcedGeoResult()
-      : base(CmdName)
+      : base(CmdName, TargetId)
     {}
 
     public IsSVForcedGeoResult(CommandBase relatedCommand, string system, int svId, bool isGeo, double longitude, string dataSetName = null)
-      : base(CmdName, relatedCommand)
+      : base(CmdName, TargetId, relatedCommand)
     {
       System = system;
       SvId = svId;
@@ -54887,13 +55977,14 @@ namespace Sdx.Cmd
     }
 
     internal const string CmdName = "EnableSbasFastCorrectionsFor";
+    internal const string TargetId = "";
 
     public EnableSbasFastCorrectionsFor()
-      : base(CmdName)
+      : base(CmdName, TargetId)
     {}
 
     public EnableSbasFastCorrectionsFor(string system, bool isEnabled, string errorType = null)
-      : base(CmdName)
+      : base(CmdName, TargetId)
     {
       System = system;
       IsEnabled = isEnabled;
@@ -54963,13 +56054,14 @@ namespace Sdx.Cmd
     }
 
     internal const string CmdName = "IsSbasFastCorrectionsEnabledFor";
+    internal const string TargetId = "";
 
     public IsSbasFastCorrectionsEnabledFor()
-      : base(CmdName)
+      : base(CmdName, TargetId)
     {}
 
     public IsSbasFastCorrectionsEnabledFor(string system, string errorType = null)
-      : base(CmdName)
+      : base(CmdName, TargetId)
     {
       System = system;
       ErrorType = errorType;
@@ -55029,13 +56121,14 @@ namespace Sdx.Cmd
     }
 
     internal const string CmdName = "IsSbasFastCorrectionsEnabledForResult";
+    internal const string TargetId = "";
 
     public IsSbasFastCorrectionsEnabledForResult()
-      : base(CmdName)
+      : base(CmdName, TargetId)
     {}
 
     public IsSbasFastCorrectionsEnabledForResult(CommandBase relatedCommand, string system, bool isEnabled, string errorType = null)
-      : base(CmdName, relatedCommand)
+      : base(CmdName, TargetId, relatedCommand)
     {
       System = system;
       IsEnabled = isEnabled;
@@ -55101,13 +56194,14 @@ namespace Sdx.Cmd
     }
 
     internal const string CmdName = "ApplyDelayInSbas";
+    internal const string TargetId = "";
 
     public ApplyDelayInSbas()
-      : base(CmdName)
+      : base(CmdName, TargetId)
     {}
 
     public ApplyDelayInSbas(bool isEnabled)
-      : base(CmdName)
+      : base(CmdName, TargetId)
     {
       IsEnabled = isEnabled;
     }
@@ -55149,9 +56243,10 @@ namespace Sdx.Cmd
     }
 
     internal const string CmdName = "IsDelayAppliedInSbas";
+    internal const string TargetId = "";
 
     public IsDelayAppliedInSbas()
-      : base(CmdName)
+      : base(CmdName, TargetId)
     {}
       
     public override bool IsValid
@@ -55183,13 +56278,14 @@ namespace Sdx.Cmd
     }
 
     internal const string CmdName = "IsDelayAppliedInSbasResult";
+    internal const string TargetId = "";
 
     public IsDelayAppliedInSbasResult()
-      : base(CmdName)
+      : base(CmdName, TargetId)
     {}
 
     public IsDelayAppliedInSbasResult(CommandBase relatedCommand, bool isEnabled)
-      : base(CmdName, relatedCommand)
+      : base(CmdName, TargetId, relatedCommand)
     {
       IsEnabled = isEnabled;
     }
@@ -55231,13 +56327,14 @@ namespace Sdx.Cmd
     }
 
     internal const string CmdName = "EnableIonoOffset";
+    internal const string TargetId = "";
 
     public EnableIonoOffset()
-      : base(CmdName)
+      : base(CmdName, TargetId)
     {}
 
     public EnableIonoOffset(bool isEnabled)
-      : base(CmdName)
+      : base(CmdName, TargetId)
     {
       IsEnabled = isEnabled;
     }
@@ -55279,9 +56376,10 @@ namespace Sdx.Cmd
     }
 
     internal const string CmdName = "IsIonoOffsetEnabled";
+    internal const string TargetId = "";
 
     public IsIonoOffsetEnabled()
-      : base(CmdName)
+      : base(CmdName, TargetId)
     {}
       
     public override bool IsValid
@@ -55313,13 +56411,14 @@ namespace Sdx.Cmd
     }
 
     internal const string CmdName = "IsIonoOffsetEnabledResult";
+    internal const string TargetId = "";
 
     public IsIonoOffsetEnabledResult()
-      : base(CmdName)
+      : base(CmdName, TargetId)
     {}
 
     public IsIonoOffsetEnabledResult(CommandBase relatedCommand, bool isEnabled)
-      : base(CmdName, relatedCommand)
+      : base(CmdName, TargetId, relatedCommand)
     {
       IsEnabled = isEnabled;
     }
@@ -55362,13 +56461,14 @@ namespace Sdx.Cmd
     }
 
     internal const string CmdName = "EnableSbasLongTermCorrectionsFor";
+    internal const string TargetId = "";
 
     public EnableSbasLongTermCorrectionsFor()
-      : base(CmdName)
+      : base(CmdName, TargetId)
     {}
 
     public EnableSbasLongTermCorrectionsFor(string system, bool isEnabled)
-      : base(CmdName)
+      : base(CmdName, TargetId)
     {
       System = system;
       IsEnabled = isEnabled;
@@ -55423,13 +56523,14 @@ namespace Sdx.Cmd
     }
 
     internal const string CmdName = "IsSbasLongTermCorrectionsEnabledFor";
+    internal const string TargetId = "";
 
     public IsSbasLongTermCorrectionsEnabledFor()
-      : base(CmdName)
+      : base(CmdName, TargetId)
     {}
 
     public IsSbasLongTermCorrectionsEnabledFor(string system)
-      : base(CmdName)
+      : base(CmdName, TargetId)
     {
       System = system;
     }
@@ -55474,13 +56575,14 @@ namespace Sdx.Cmd
     }
 
     internal const string CmdName = "IsSbasLongTermCorrectionsEnabledForResult";
+    internal const string TargetId = "";
 
     public IsSbasLongTermCorrectionsEnabledForResult()
-      : base(CmdName)
+      : base(CmdName, TargetId)
     {}
 
     public IsSbasLongTermCorrectionsEnabledForResult(CommandBase relatedCommand, string system, bool isEnabled)
-      : base(CmdName, relatedCommand)
+      : base(CmdName, TargetId, relatedCommand)
     {
       System = system;
       IsEnabled = isEnabled;
@@ -55535,13 +56637,14 @@ namespace Sdx.Cmd
     }
 
     internal const string CmdName = "SetGpsUraIndexForSV";
+    internal const string TargetId = "";
 
     public SetGpsUraIndexForSV()
-      : base(CmdName)
+      : base(CmdName, TargetId)
     {}
 
     public SetGpsUraIndexForSV(int svId, int urai, string dataSetName = null)
-      : base(CmdName)
+      : base(CmdName, TargetId)
     {
       SvId = svId;
       Urai = urai;
@@ -55611,13 +56714,14 @@ namespace Sdx.Cmd
     }
 
     internal const string CmdName = "SetBeiDouUraIndexForSV";
+    internal const string TargetId = "";
 
     public SetBeiDouUraIndexForSV()
-      : base(CmdName)
+      : base(CmdName, TargetId)
     {}
 
     public SetBeiDouUraIndexForSV(int svId, int urai, string dataSetName = null)
-      : base(CmdName)
+      : base(CmdName, TargetId)
     {
       SvId = svId;
       Urai = urai;
@@ -55689,13 +56793,14 @@ namespace Sdx.Cmd
     }
 
     internal const string CmdName = "SetQzssUraIndex";
+    internal const string TargetId = "";
 
     public SetQzssUraIndex()
-      : base(CmdName)
+      : base(CmdName, TargetId)
     {}
 
     public SetQzssUraIndex(int svId, int urai, string dataSetName = null)
-      : base(CmdName)
+      : base(CmdName, TargetId)
     {
       SvId = svId;
       Urai = urai;
@@ -55765,13 +56870,14 @@ namespace Sdx.Cmd
     }
 
     internal const string CmdName = "SetQzssUraIndexForSV";
+    internal const string TargetId = "";
 
     public SetQzssUraIndexForSV()
-      : base(CmdName)
+      : base(CmdName, TargetId)
     {}
 
     public SetQzssUraIndexForSV(int svId, int urai, string dataSetName = null)
-      : base(CmdName)
+      : base(CmdName, TargetId)
     {
       SvId = svId;
       Urai = urai;
@@ -55843,13 +56949,14 @@ namespace Sdx.Cmd
     }
 
     internal const string CmdName = "SetNavICUraIndex";
+    internal const string TargetId = "";
 
     public SetNavICUraIndex()
-      : base(CmdName)
+      : base(CmdName, TargetId)
     {}
 
     public SetNavICUraIndex(int svId, int urai, string dataSetName = null)
-      : base(CmdName)
+      : base(CmdName, TargetId)
     {
       SvId = svId;
       Urai = urai;
@@ -55919,13 +57026,14 @@ namespace Sdx.Cmd
     }
 
     internal const string CmdName = "SetNavICUraIndexForSV";
+    internal const string TargetId = "";
 
     public SetNavICUraIndexForSV()
-      : base(CmdName)
+      : base(CmdName, TargetId)
     {}
 
     public SetNavICUraIndexForSV(int svId, int urai, string dataSetName = null)
-      : base(CmdName)
+      : base(CmdName, TargetId)
     {
       SvId = svId;
       Urai = urai;
@@ -55995,13 +57103,14 @@ namespace Sdx.Cmd
     }
 
     internal const string CmdName = "SetSbasUraIndexForSV";
+    internal const string TargetId = "";
 
     public SetSbasUraIndexForSV()
-      : base(CmdName)
+      : base(CmdName, TargetId)
     {}
 
     public SetSbasUraIndexForSV(int svId, int urai, string dataSetName = null)
-      : base(CmdName)
+      : base(CmdName, TargetId)
     {
       SvId = svId;
       Urai = urai;
@@ -56071,13 +57180,14 @@ namespace Sdx.Cmd
     }
 
     internal const string CmdName = "SetGalileoSisaE1E5aIndexForSV";
+    internal const string TargetId = "";
 
     public SetGalileoSisaE1E5aIndexForSV()
-      : base(CmdName)
+      : base(CmdName, TargetId)
     {}
 
     public SetGalileoSisaE1E5aIndexForSV(int svId, int sisai, string dataSetName = null)
-      : base(CmdName)
+      : base(CmdName, TargetId)
     {
       SvId = svId;
       Sisai = sisai;
@@ -56147,13 +57257,14 @@ namespace Sdx.Cmd
     }
 
     internal const string CmdName = "SetGalileoSisaE1E5bIndexForSV";
+    internal const string TargetId = "";
 
     public SetGalileoSisaE1E5bIndexForSV()
-      : base(CmdName)
+      : base(CmdName, TargetId)
     {}
 
     public SetGalileoSisaE1E5bIndexForSV(int svId, int sisai, string dataSetName = null)
-      : base(CmdName)
+      : base(CmdName, TargetId)
     {
       SvId = svId;
       Sisai = sisai;
@@ -56225,13 +57336,14 @@ namespace Sdx.Cmd
     }
 
     internal const string CmdName = "SetPilotCW";
+    internal const string TargetId = "";
 
     public SetPilotCW()
-      : base(CmdName)
+      : base(CmdName, TargetId)
     {}
 
     public SetPilotCW(bool enabled, int outputIdx, double centralFreqOffset, double power, string pilotId)
-      : base(CmdName)
+      : base(CmdName, TargetId)
     {
       Enabled = enabled;
       OutputIdx = outputIdx;
@@ -56325,13 +57437,14 @@ namespace Sdx.Cmd
     }
 
     internal const string CmdName = "SetPilotPRN";
+    internal const string TargetId = "";
 
     public SetPilotPRN()
-      : base(CmdName)
+      : base(CmdName, TargetId)
     {}
 
     public SetPilotPRN(bool enabled, int outputIdx, double centralFreqOffset, double power, int prn, string type, string pilotId)
-      : base(CmdName)
+      : base(CmdName, TargetId)
     {
       Enabled = enabled;
       OutputIdx = outputIdx;
@@ -56444,13 +57557,14 @@ namespace Sdx.Cmd
     }
 
     internal const string CmdName = "CalibratePilotOutput";
+    internal const string TargetId = "";
 
     public CalibratePilotOutput()
-      : base(CmdName)
+      : base(CmdName, TargetId)
     {}
 
     public CalibratePilotOutput(int outputIdx, double power, double time, double carrierPhase)
-      : base(CmdName)
+      : base(CmdName, TargetId)
     {
       OutputIdx = outputIdx;
       Power = power;
@@ -56525,9 +57639,10 @@ namespace Sdx.Cmd
     }
 
     internal const string CmdName = "RemoveAllPilots";
+    internal const string TargetId = "";
 
     public RemoveAllPilots()
-      : base(CmdName)
+      : base(CmdName, TargetId)
     {}
       
     public override bool IsValid
@@ -56546,12 +57661,13 @@ namespace Sdx.Cmd
   ///
   /// Change modulation offsets of one RF output
   ///
-  /// Name        Type   Description
-  /// ----------- ------ ----------------------------------------------------------------
-  /// OutputIdx   int    RF Output index (zero-based)
-  /// PowerOffset double Power offset (dB), to apply on all signals of the RF Output
-  /// TimeOffset  double Time offset (seconds), to apply on all signals of the RF Output
-  /// PhaseOffset double Phase offset (radians), to apply on all signals of the RF Output
+  /// Name        Type            Description
+  /// ----------- --------------- ----------------------------------------------------------------
+  /// OutputIdx   int             RF Output index (zero-based)
+  /// PowerOffset double          Power offset (dB), to apply on all signals of the RF Output
+  /// TimeOffset  double          Time offset (seconds), to apply on all signals of the RF Output
+  /// PhaseOffset double          Phase offset (radians), to apply on all signals of the RF Output
+  /// PhaseStep   optional double How much the phase (radians) should change per millisecond
   ///
 
   public class SetRFOutputOffsets : CommandBase
@@ -56562,18 +57678,20 @@ namespace Sdx.Cmd
     }
 
     internal const string CmdName = "SetRFOutputOffsets";
+    internal const string TargetId = "";
 
     public SetRFOutputOffsets()
-      : base(CmdName)
+      : base(CmdName, TargetId)
     {}
 
-    public SetRFOutputOffsets(int outputIdx, double powerOffset, double timeOffset, double phaseOffset)
-      : base(CmdName)
+    public SetRFOutputOffsets(int outputIdx, double powerOffset, double timeOffset, double phaseOffset, double? phaseStep = null)
+      : base(CmdName, TargetId)
     {
       OutputIdx = outputIdx;
       PowerOffset = powerOffset;
       TimeOffset = timeOffset;
       PhaseOffset = phaseOffset;
+      PhaseStep = phaseStep;
     }
       
     public override bool IsValid
@@ -56626,6 +57744,18 @@ namespace Sdx.Cmd
           SetValue("PhaseOffset", JToken.FromObject(value, CommandBase.Serializer));
       }
     }
+
+    public double? PhaseStep
+    {
+      get { return GetValue("PhaseStep").ToObject<double?>(CommandBase.Serializer); }
+      set
+      {
+        if (value == null)
+          RemoveValue("PhaseStep");
+        else
+          SetValue("PhaseStep", JToken.FromObject(value, CommandBase.Serializer));
+      }
+    }
   }
 
 
@@ -56646,9 +57776,10 @@ namespace Sdx.Cmd
     }
 
     internal const string CmdName = "IsTrajectoryCompleted";
+    internal const string TargetId = "";
 
     public IsTrajectoryCompleted()
-      : base(CmdName)
+      : base(CmdName, TargetId)
     {}
       
     public override bool IsValid
@@ -56680,13 +57811,14 @@ namespace Sdx.Cmd
     }
 
     internal const string CmdName = "IsTrajectoryCompletedResult";
+    internal const string TargetId = "";
 
     public IsTrajectoryCompletedResult()
-      : base(CmdName)
+      : base(CmdName, TargetId)
     {}
 
     public IsTrajectoryCompletedResult(CommandBase relatedCommand, bool isCompleted)
-      : base(CmdName, relatedCommand)
+      : base(CmdName, TargetId, relatedCommand)
     {
       IsCompleted = isCompleted;
     }
@@ -56730,13 +57862,14 @@ namespace Sdx.Cmd
     }
 
     internal const string CmdName = "SetIonoGridError";
+    internal const string TargetId = "";
 
     public SetIonoGridError()
-      : base(CmdName)
+      : base(CmdName, TargetId)
     {}
 
     public SetIonoGridError(int band, int point, double error)
-      : base(CmdName)
+      : base(CmdName, TargetId)
     {
       Band = band;
       Point = point;
@@ -56803,13 +57936,14 @@ namespace Sdx.Cmd
     }
 
     internal const string CmdName = "GetIonoGridError";
+    internal const string TargetId = "";
 
     public GetIonoGridError()
-      : base(CmdName)
+      : base(CmdName, TargetId)
     {}
 
     public GetIonoGridError(int band, int point)
-      : base(CmdName)
+      : base(CmdName, TargetId)
     {
       Band = band;
       Point = point;
@@ -56866,13 +58000,14 @@ namespace Sdx.Cmd
     }
 
     internal const string CmdName = "GetIonoGridErrorResult";
+    internal const string TargetId = "";
 
     public GetIonoGridErrorResult()
-      : base(CmdName)
+      : base(CmdName, TargetId)
     {}
 
     public GetIonoGridErrorResult(CommandBase relatedCommand, int band, int point, double error)
-      : base(CmdName, relatedCommand)
+      : base(CmdName, TargetId, relatedCommand)
     {
       Band = band;
       Point = point;
@@ -56939,13 +58074,14 @@ namespace Sdx.Cmd
     }
 
     internal const string CmdName = "SetIonoGridGIVEI";
+    internal const string TargetId = "";
 
     public SetIonoGridGIVEI()
-      : base(CmdName)
+      : base(CmdName, TargetId)
     {}
 
     public SetIonoGridGIVEI(int band, int point, int giveI, string serviceProvider = null)
-      : base(CmdName)
+      : base(CmdName, TargetId)
     {
       Band = band;
       Point = point;
@@ -57026,13 +58162,14 @@ namespace Sdx.Cmd
     }
 
     internal const string CmdName = "GetIonoGridGIVEI";
+    internal const string TargetId = "";
 
     public GetIonoGridGIVEI()
-      : base(CmdName)
+      : base(CmdName, TargetId)
     {}
 
     public GetIonoGridGIVEI(int band, int point, string serviceProvider = null)
-      : base(CmdName)
+      : base(CmdName, TargetId)
     {
       Band = band;
       Point = point;
@@ -57103,13 +58240,14 @@ namespace Sdx.Cmd
     }
 
     internal const string CmdName = "GetIonoGridGIVEIResult";
+    internal const string TargetId = "";
 
     public GetIonoGridGIVEIResult()
-      : base(CmdName)
+      : base(CmdName, TargetId)
     {}
 
     public GetIonoGridGIVEIResult(CommandBase relatedCommand, int band, int point, int giveI, string serviceProvider = null)
-      : base(CmdName, relatedCommand)
+      : base(CmdName, TargetId, relatedCommand)
     {
       Band = band;
       Point = point;
@@ -57186,13 +58324,14 @@ namespace Sdx.Cmd
     }
 
     internal const string CmdName = "SetIonoGridErrorAll";
+    internal const string TargetId = "";
 
     public SetIonoGridErrorAll()
-      : base(CmdName)
+      : base(CmdName, TargetId)
     {}
 
     public SetIonoGridErrorAll(List<List<double>> grid)
-      : base(CmdName)
+      : base(CmdName, TargetId)
     {
       Grid = grid;
     }
@@ -57234,9 +58373,10 @@ namespace Sdx.Cmd
     }
 
     internal const string CmdName = "GetIonoGridErrorAll";
+    internal const string TargetId = "";
 
     public GetIonoGridErrorAll()
-      : base(CmdName)
+      : base(CmdName, TargetId)
     {}
       
     public override bool IsValid
@@ -57268,13 +58408,14 @@ namespace Sdx.Cmd
     }
 
     internal const string CmdName = "GetIonoGridErrorAllResult";
+    internal const string TargetId = "";
 
     public GetIonoGridErrorAllResult()
-      : base(CmdName)
+      : base(CmdName, TargetId)
     {}
 
     public GetIonoGridErrorAllResult(CommandBase relatedCommand, List<List<double>> grid)
-      : base(CmdName, relatedCommand)
+      : base(CmdName, TargetId, relatedCommand)
     {
       Grid = grid;
     }
@@ -57317,13 +58458,14 @@ namespace Sdx.Cmd
     }
 
     internal const string CmdName = "SetIonoGridGIVEIAll";
+    internal const string TargetId = "";
 
     public SetIonoGridGIVEIAll()
-      : base(CmdName)
+      : base(CmdName, TargetId)
     {}
 
     public SetIonoGridGIVEIAll(List<List<int>> grid, string serviceProvider = null)
-      : base(CmdName)
+      : base(CmdName, TargetId)
     {
       Grid = grid;
       ServiceProvider = serviceProvider;
@@ -57380,13 +58522,14 @@ namespace Sdx.Cmd
     }
 
     internal const string CmdName = "GetIonoGridGIVEIAll";
+    internal const string TargetId = "";
 
     public GetIonoGridGIVEIAll()
-      : base(CmdName)
+      : base(CmdName, TargetId)
     {}
 
     public GetIonoGridGIVEIAll(string serviceProvider = null)
-      : base(CmdName)
+      : base(CmdName, TargetId)
     {
       ServiceProvider = serviceProvider;
     }
@@ -57433,13 +58576,14 @@ namespace Sdx.Cmd
     }
 
     internal const string CmdName = "GetIonoGridGIVEIAllResult";
+    internal const string TargetId = "";
 
     public GetIonoGridGIVEIAllResult()
-      : base(CmdName)
+      : base(CmdName, TargetId)
     {}
 
     public GetIonoGridGIVEIAllResult(CommandBase relatedCommand, List<List<int>> grid, string serviceProvider = null)
-      : base(CmdName, relatedCommand)
+      : base(CmdName, TargetId, relatedCommand)
     {
       Grid = grid;
       ServiceProvider = serviceProvider;
@@ -57497,13 +58641,14 @@ namespace Sdx.Cmd
     }
 
     internal const string CmdName = "SetIonoGridMask";
+    internal const string TargetId = "";
 
     public SetIonoGridMask()
-      : base(CmdName)
+      : base(CmdName, TargetId)
     {}
 
     public SetIonoGridMask(string serviceProvider, int band, int point, bool flag)
-      : base(CmdName)
+      : base(CmdName, TargetId)
     {
       ServiceProvider = serviceProvider;
       Band = band;
@@ -57582,13 +58727,14 @@ namespace Sdx.Cmd
     }
 
     internal const string CmdName = "GetIonoGridMask";
+    internal const string TargetId = "";
 
     public GetIonoGridMask()
-      : base(CmdName)
+      : base(CmdName, TargetId)
     {}
 
     public GetIonoGridMask(string serviceProvider, int band, int point)
-      : base(CmdName)
+      : base(CmdName, TargetId)
     {
       ServiceProvider = serviceProvider;
       Band = band;
@@ -57657,13 +58803,14 @@ namespace Sdx.Cmd
     }
 
     internal const string CmdName = "GetIonoGridMaskResult";
+    internal const string TargetId = "";
 
     public GetIonoGridMaskResult()
-      : base(CmdName)
+      : base(CmdName, TargetId)
     {}
 
     public GetIonoGridMaskResult(CommandBase relatedCommand, string serviceProvider, int band, int point, bool flag)
-      : base(CmdName, relatedCommand)
+      : base(CmdName, TargetId, relatedCommand)
     {
       ServiceProvider = serviceProvider;
       Band = band;
@@ -57739,13 +58886,14 @@ namespace Sdx.Cmd
     }
 
     internal const string CmdName = "SetIonoGridMaskAll";
+    internal const string TargetId = "";
 
     public SetIonoGridMaskAll()
-      : base(CmdName)
+      : base(CmdName, TargetId)
     {}
 
     public SetIonoGridMaskAll(string serviceProvider, List<List<bool>> grid)
-      : base(CmdName)
+      : base(CmdName, TargetId)
     {
       ServiceProvider = serviceProvider;
       Grid = grid;
@@ -57800,13 +58948,14 @@ namespace Sdx.Cmd
     }
 
     internal const string CmdName = "GetIonoGridMaskAll";
+    internal const string TargetId = "";
 
     public GetIonoGridMaskAll()
-      : base(CmdName)
+      : base(CmdName, TargetId)
     {}
 
     public GetIonoGridMaskAll(string serviceProvider)
-      : base(CmdName)
+      : base(CmdName, TargetId)
     {
       ServiceProvider = serviceProvider;
     }
@@ -57851,13 +59000,14 @@ namespace Sdx.Cmd
     }
 
     internal const string CmdName = "GetIonoGridMaskAllResult";
+    internal const string TargetId = "";
 
     public GetIonoGridMaskAllResult()
-      : base(CmdName)
+      : base(CmdName, TargetId)
     {}
 
     public GetIonoGridMaskAllResult(CommandBase relatedCommand, string serviceProvider, List<List<bool>> grid)
-      : base(CmdName, relatedCommand)
+      : base(CmdName, TargetId, relatedCommand)
     {
       ServiceProvider = serviceProvider;
       Grid = grid;
@@ -57911,13 +59061,14 @@ namespace Sdx.Cmd
     }
 
     internal const string CmdName = "ImportIonoGridErrors";
+    internal const string TargetId = "";
 
     public ImportIonoGridErrors()
-      : base(CmdName)
+      : base(CmdName, TargetId)
     {}
 
     public ImportIonoGridErrors(bool overwriting, string path)
-      : base(CmdName)
+      : base(CmdName, TargetId)
     {
       Overwriting = overwriting;
       Path = path;
@@ -57974,13 +59125,14 @@ namespace Sdx.Cmd
     }
 
     internal const string CmdName = "ImportIonoGridGIVEI";
+    internal const string TargetId = "";
 
     public ImportIonoGridGIVEI()
-      : base(CmdName)
+      : base(CmdName, TargetId)
     {}
 
     public ImportIonoGridGIVEI(bool overwriting, string path, string serviceProvider = null)
-      : base(CmdName)
+      : base(CmdName, TargetId)
     {
       Overwriting = overwriting;
       Path = path;
@@ -58050,13 +59202,14 @@ namespace Sdx.Cmd
     }
 
     internal const string CmdName = "ImportIonoGridMask";
+    internal const string TargetId = "";
 
     public ImportIonoGridMask()
-      : base(CmdName)
+      : base(CmdName, TargetId)
     {}
 
     public ImportIonoGridMask(string serviceProvider, bool overwriting, string path)
-      : base(CmdName)
+      : base(CmdName, TargetId)
     {
       ServiceProvider = serviceProvider;
       Overwriting = overwriting;
@@ -58123,13 +59276,14 @@ namespace Sdx.Cmd
     }
 
     internal const string CmdName = "ExportIonoGridErrors";
+    internal const string TargetId = "";
 
     public ExportIonoGridErrors()
-      : base(CmdName)
+      : base(CmdName, TargetId)
     {}
 
     public ExportIonoGridErrors(bool overwriting, string path)
-      : base(CmdName)
+      : base(CmdName, TargetId)
     {
       Overwriting = overwriting;
       Path = path;
@@ -58186,13 +59340,14 @@ namespace Sdx.Cmd
     }
 
     internal const string CmdName = "ExportIonoGridGIVEI";
+    internal const string TargetId = "";
 
     public ExportIonoGridGIVEI()
-      : base(CmdName)
+      : base(CmdName, TargetId)
     {}
 
     public ExportIonoGridGIVEI(bool overwriting, string path, string serviceProvider = null)
-      : base(CmdName)
+      : base(CmdName, TargetId)
     {
       Overwriting = overwriting;
       Path = path;
@@ -58262,13 +59417,14 @@ namespace Sdx.Cmd
     }
 
     internal const string CmdName = "ExportIonoGridMask";
+    internal const string TargetId = "";
 
     public ExportIonoGridMask()
-      : base(CmdName)
+      : base(CmdName, TargetId)
     {}
 
     public ExportIonoGridMask(string serviceProvider, bool overwriting, string path)
-      : base(CmdName)
+      : base(CmdName, TargetId)
     {
       ServiceProvider = serviceProvider;
       Overwriting = overwriting;
@@ -58332,9 +59488,10 @@ namespace Sdx.Cmd
     }
 
     internal const string CmdName = "GetConfigPaths";
+    internal const string TargetId = "";
 
     public GetConfigPaths()
-      : base(CmdName)
+      : base(CmdName, TargetId)
     {}
       
     public override bool IsValid
@@ -58366,13 +59523,14 @@ namespace Sdx.Cmd
     }
 
     internal const string CmdName = "GetConfigPathsResult";
+    internal const string TargetId = "";
 
     public GetConfigPathsResult()
-      : base(CmdName)
+      : base(CmdName, TargetId)
     {}
 
     public GetConfigPathsResult(CommandBase relatedCommand, List<string> paths)
-      : base(CmdName, relatedCommand)
+      : base(CmdName, TargetId, relatedCommand)
     {
       Paths = paths;
     }
@@ -58414,13 +59572,14 @@ namespace Sdx.Cmd
     }
 
     internal const string CmdName = "SetPps0GpsTime";
+    internal const string TargetId = "";
 
     public SetPps0GpsTime()
-      : base(CmdName)
+      : base(CmdName, TargetId)
     {}
 
     public SetPps0GpsTime(DateTime gpsTime)
-      : base(CmdName)
+      : base(CmdName, TargetId)
     {
       GpsTime = gpsTime;
     }
@@ -58464,13 +59623,14 @@ namespace Sdx.Cmd
     }
 
     internal const string CmdName = "GetOfficialLeapSecond";
+    internal const string TargetId = "";
 
     public GetOfficialLeapSecond()
-      : base(CmdName)
+      : base(CmdName, TargetId)
     {}
 
     public GetOfficialLeapSecond(DateTime date)
-      : base(CmdName)
+      : base(CmdName, TargetId)
     {
       Date = date;
     }
@@ -58514,13 +59674,14 @@ namespace Sdx.Cmd
     }
 
     internal const string CmdName = "GetOfficialLeapSecondResult";
+    internal const string TargetId = "";
 
     public GetOfficialLeapSecondResult()
-      : base(CmdName)
+      : base(CmdName, TargetId)
     {}
 
     public GetOfficialLeapSecondResult(CommandBase relatedCommand, int leapSecond)
-      : base(CmdName, relatedCommand)
+      : base(CmdName, TargetId, relatedCommand)
     {
       LeapSecond = leapSecond;
     }
@@ -58560,9 +59721,10 @@ namespace Sdx.Cmd
     }
 
     internal const string CmdName = "GetLastLeapSecondDate";
+    internal const string TargetId = "";
 
     public GetLastLeapSecondDate()
-      : base(CmdName)
+      : base(CmdName, TargetId)
     {}
       
     public override bool IsValid
@@ -58594,13 +59756,14 @@ namespace Sdx.Cmd
     }
 
     internal const string CmdName = "GetLastLeapSecondDateResult";
+    internal const string TargetId = "";
 
     public GetLastLeapSecondDateResult()
-      : base(CmdName)
+      : base(CmdName, TargetId)
     {}
 
     public GetLastLeapSecondDateResult(CommandBase relatedCommand, DateTime date)
-      : base(CmdName, relatedCommand)
+      : base(CmdName, TargetId, relatedCommand)
     {
       Date = date;
     }
@@ -58642,13 +59805,14 @@ namespace Sdx.Cmd
     }
 
     internal const string CmdName = "SetWFAntennaGain";
+    internal const string TargetId = "";
 
     public SetWFAntennaGain()
-      : base(CmdName)
+      : base(CmdName, TargetId)
     {}
 
     public SetWFAntennaGain(int gain)
-      : base(CmdName)
+      : base(CmdName, TargetId)
     {
       Gain = gain;
     }
@@ -58690,9 +59854,10 @@ namespace Sdx.Cmd
     }
 
     internal const string CmdName = "GetWFAntennaGain";
+    internal const string TargetId = "";
 
     public GetWFAntennaGain()
-      : base(CmdName)
+      : base(CmdName, TargetId)
     {}
       
     public override bool IsValid
@@ -58724,13 +59889,14 @@ namespace Sdx.Cmd
     }
 
     internal const string CmdName = "GetWFAntennaGainResult";
+    internal const string TargetId = "";
 
     public GetWFAntennaGainResult()
-      : base(CmdName)
+      : base(CmdName, TargetId)
     {}
 
     public GetWFAntennaGainResult(CommandBase relatedCommand, int gain)
-      : base(CmdName, relatedCommand)
+      : base(CmdName, TargetId, relatedCommand)
     {
       Gain = gain;
     }
@@ -58773,13 +59939,14 @@ namespace Sdx.Cmd
     }
 
     internal const string CmdName = "AddCustomSignal";
+    internal const string TargetId = "";
 
     public AddCustomSignal()
-      : base(CmdName)
+      : base(CmdName, TargetId)
     {}
 
     public AddCustomSignal(string path, string id)
-      : base(CmdName)
+      : base(CmdName, TargetId)
     {
       Path = path;
       Id = id;
@@ -58834,13 +60001,14 @@ namespace Sdx.Cmd
     }
 
     internal const string CmdName = "RemoveCustomSignal";
+    internal const string TargetId = "";
 
     public RemoveCustomSignal()
-      : base(CmdName)
+      : base(CmdName, TargetId)
     {}
 
     public RemoveCustomSignal(string id)
-      : base(CmdName)
+      : base(CmdName, TargetId)
     {
       Id = id;
     }
@@ -58882,9 +60050,10 @@ namespace Sdx.Cmd
     }
 
     internal const string CmdName = "RemoveAllCustomSignals";
+    internal const string TargetId = "";
 
     public RemoveAllCustomSignals()
-      : base(CmdName)
+      : base(CmdName, TargetId)
     {}
       
     public override bool IsValid
@@ -58917,13 +60086,14 @@ namespace Sdx.Cmd
     }
 
     internal const string CmdName = "ChangeCustomSignalColor";
+    internal const string TargetId = "";
 
     public ChangeCustomSignalColor()
-      : base(CmdName)
+      : base(CmdName, TargetId)
     {}
 
     public ChangeCustomSignalColor(string color, string id)
-      : base(CmdName)
+      : base(CmdName, TargetId)
     {
       Color = color;
       Id = id;
@@ -58976,9 +60146,10 @@ namespace Sdx.Cmd
     }
 
     internal const string CmdName = "GetAllSpoofTxID";
+    internal const string TargetId = "";
 
     public GetAllSpoofTxID()
-      : base(CmdName)
+      : base(CmdName, TargetId)
     {}
       
     public override bool IsValid
@@ -59010,13 +60181,14 @@ namespace Sdx.Cmd
     }
 
     internal const string CmdName = "GetAllSpoofTxIDResult";
+    internal const string TargetId = "";
 
     public GetAllSpoofTxIDResult()
-      : base(CmdName)
+      : base(CmdName, TargetId)
     {}
 
     public GetAllSpoofTxIDResult(CommandBase relatedCommand, List<string> ids)
-      : base(CmdName, relatedCommand)
+      : base(CmdName, TargetId, relatedCommand)
     {
       Ids = ids;
     }
@@ -59064,13 +60236,14 @@ namespace Sdx.Cmd
     }
 
     internal const string CmdName = "AddSpoofTx";
+    internal const string TargetId = "";
 
     public AddSpoofTx()
-      : base(CmdName)
+      : base(CmdName, TargetId)
     {}
 
     public AddSpoofTx(string usualName, bool enabled, string address, int instanceId, string id)
-      : base(CmdName)
+      : base(CmdName, TargetId)
     {
       UsualName = usualName;
       Enabled = enabled;
@@ -59160,13 +60333,14 @@ namespace Sdx.Cmd
     }
 
     internal const string CmdName = "GetSpoofTx";
+    internal const string TargetId = "";
 
     public GetSpoofTx()
-      : base(CmdName)
+      : base(CmdName, TargetId)
     {}
 
     public GetSpoofTx(string id)
-      : base(CmdName)
+      : base(CmdName, TargetId)
     {
       Id = id;
     }
@@ -59214,13 +60388,14 @@ namespace Sdx.Cmd
     }
 
     internal const string CmdName = "GetSpoofTxResult";
+    internal const string TargetId = "";
 
     public GetSpoofTxResult()
-      : base(CmdName)
+      : base(CmdName, TargetId)
     {}
 
     public GetSpoofTxResult(CommandBase relatedCommand, string usualName, bool enabled, string address, int instanceId, string id)
-      : base(CmdName, relatedCommand)
+      : base(CmdName, TargetId, relatedCommand)
     {
       UsualName = usualName;
       Enabled = enabled;
@@ -59307,13 +60482,14 @@ namespace Sdx.Cmd
     }
 
     internal const string CmdName = "RemoveSpoofTx";
+    internal const string TargetId = "";
 
     public RemoveSpoofTx()
-      : base(CmdName)
+      : base(CmdName, TargetId)
     {}
 
     public RemoveSpoofTx(string id)
-      : base(CmdName)
+      : base(CmdName, TargetId)
     {
       Id = id;
     }
@@ -59358,13 +60534,14 @@ namespace Sdx.Cmd
     }
 
     internal const string CmdName = "RenameSpoofTx";
+    internal const string TargetId = "";
 
     public RenameSpoofTx()
-      : base(CmdName)
+      : base(CmdName, TargetId)
     {}
 
     public RenameSpoofTx(string usualName, string id)
-      : base(CmdName)
+      : base(CmdName, TargetId)
     {
       UsualName = usualName;
       Id = id;
@@ -59420,13 +60597,14 @@ namespace Sdx.Cmd
     }
 
     internal const string CmdName = "ChangeSpoofTxColor";
+    internal const string TargetId = "";
 
     public ChangeSpoofTxColor()
-      : base(CmdName)
+      : base(CmdName, TargetId)
     {}
 
     public ChangeSpoofTxColor(string color, string id)
-      : base(CmdName)
+      : base(CmdName, TargetId)
     {
       Color = color;
       Id = id;
@@ -59481,13 +60659,14 @@ namespace Sdx.Cmd
     }
 
     internal const string CmdName = "GetSpoofTxColor";
+    internal const string TargetId = "";
 
     public GetSpoofTxColor()
-      : base(CmdName)
+      : base(CmdName, TargetId)
     {}
 
     public GetSpoofTxColor(string id)
-      : base(CmdName)
+      : base(CmdName, TargetId)
     {
       Id = id;
     }
@@ -59532,13 +60711,14 @@ namespace Sdx.Cmd
     }
 
     internal const string CmdName = "GetSpoofTxColorResult";
+    internal const string TargetId = "";
 
     public GetSpoofTxColorResult()
-      : base(CmdName)
+      : base(CmdName, TargetId)
     {}
 
     public GetSpoofTxColorResult(CommandBase relatedCommand, string color, string id)
-      : base(CmdName, relatedCommand)
+      : base(CmdName, TargetId, relatedCommand)
     {
       Color = color;
       Id = id;
@@ -59592,13 +60772,14 @@ namespace Sdx.Cmd
     }
 
     internal const string CmdName = "EnableSpoofTx";
+    internal const string TargetId = "";
 
     public EnableSpoofTx()
-      : base(CmdName)
+      : base(CmdName, TargetId)
     {}
 
     public EnableSpoofTx(bool enabled, string id)
-      : base(CmdName)
+      : base(CmdName, TargetId)
     {
       Enabled = enabled;
       Id = id;
@@ -59655,13 +60836,14 @@ namespace Sdx.Cmd
     }
 
     internal const string CmdName = "SetSpoofSignalManualPropagationLoss";
+    internal const string TargetId = "";
 
     public SetSpoofSignalManualPropagationLoss()
-      : base(CmdName)
+      : base(CmdName, TargetId)
     {}
 
     public SetSpoofSignalManualPropagationLoss(double propagationLoss, string transmitterId, string signalId)
-      : base(CmdName)
+      : base(CmdName, TargetId)
     {
       PropagationLoss = propagationLoss;
       TransmitterId = transmitterId;
@@ -59728,13 +60910,14 @@ namespace Sdx.Cmd
     }
 
     internal const string CmdName = "SetSpoofTxUseManualPropagationLoss";
+    internal const string TargetId = "";
 
     public SetSpoofTxUseManualPropagationLoss()
-      : base(CmdName)
+      : base(CmdName, TargetId)
     {}
 
     public SetSpoofTxUseManualPropagationLoss(bool manual, string id)
-      : base(CmdName)
+      : base(CmdName, TargetId)
     {
       Manual = manual;
       Id = id;
@@ -59790,13 +60973,14 @@ namespace Sdx.Cmd
     }
 
     internal const string CmdName = "SetSpoofTxIgnorePropagationLoss";
+    internal const string TargetId = "";
 
     public SetSpoofTxIgnorePropagationLoss()
-      : base(CmdName)
+      : base(CmdName, TargetId)
     {}
 
     public SetSpoofTxIgnorePropagationLoss(bool ignore, string id)
-      : base(CmdName)
+      : base(CmdName, TargetId)
     {
       Ignore = ignore;
       Id = id;
@@ -59852,13 +61036,14 @@ namespace Sdx.Cmd
     }
 
     internal const string CmdName = "SetSpoofTxIgnoreRxAntennaPatterns";
+    internal const string TargetId = "";
 
     public SetSpoofTxIgnoreRxAntennaPatterns()
-      : base(CmdName)
+      : base(CmdName, TargetId)
     {}
 
     public SetSpoofTxIgnoreRxAntennaPatterns(bool ignore, string id)
-      : base(CmdName)
+      : base(CmdName, TargetId)
     {
       Ignore = ignore;
       Id = id;
@@ -59914,13 +61099,14 @@ namespace Sdx.Cmd
     }
 
     internal const string CmdName = "SetSpoofTxIgnoreRxAntennaGainPattern";
+    internal const string TargetId = "";
 
     public SetSpoofTxIgnoreRxAntennaGainPattern()
-      : base(CmdName)
+      : base(CmdName, TargetId)
     {}
 
     public SetSpoofTxIgnoreRxAntennaGainPattern(bool ignore, string id)
-      : base(CmdName)
+      : base(CmdName, TargetId)
     {
       Ignore = ignore;
       Id = id;
@@ -59975,13 +61161,14 @@ namespace Sdx.Cmd
     }
 
     internal const string CmdName = "IsSpoofTxIgnoreRxAntennaGainPattern";
+    internal const string TargetId = "";
 
     public IsSpoofTxIgnoreRxAntennaGainPattern()
-      : base(CmdName)
+      : base(CmdName, TargetId)
     {}
 
     public IsSpoofTxIgnoreRxAntennaGainPattern(string id)
-      : base(CmdName)
+      : base(CmdName, TargetId)
     {
       Id = id;
     }
@@ -60026,13 +61213,14 @@ namespace Sdx.Cmd
     }
 
     internal const string CmdName = "IsSpoofTxIgnoreRxAntennaGainPatternResult";
+    internal const string TargetId = "";
 
     public IsSpoofTxIgnoreRxAntennaGainPatternResult()
-      : base(CmdName)
+      : base(CmdName, TargetId)
     {}
 
     public IsSpoofTxIgnoreRxAntennaGainPatternResult(CommandBase relatedCommand, bool ignore, string id)
-      : base(CmdName, relatedCommand)
+      : base(CmdName, TargetId, relatedCommand)
     {
       Ignore = ignore;
       Id = id;
@@ -60086,13 +61274,14 @@ namespace Sdx.Cmd
     }
 
     internal const string CmdName = "SetSpoofTxIgnoreRxAntennaPhasePattern";
+    internal const string TargetId = "";
 
     public SetSpoofTxIgnoreRxAntennaPhasePattern()
-      : base(CmdName)
+      : base(CmdName, TargetId)
     {}
 
     public SetSpoofTxIgnoreRxAntennaPhasePattern(bool ignore, string id)
-      : base(CmdName)
+      : base(CmdName, TargetId)
     {
       Ignore = ignore;
       Id = id;
@@ -60147,13 +61336,14 @@ namespace Sdx.Cmd
     }
 
     internal const string CmdName = "IsSpoofTxIgnoreRxAntennaPhasePattern";
+    internal const string TargetId = "";
 
     public IsSpoofTxIgnoreRxAntennaPhasePattern()
-      : base(CmdName)
+      : base(CmdName, TargetId)
     {}
 
     public IsSpoofTxIgnoreRxAntennaPhasePattern(string id)
-      : base(CmdName)
+      : base(CmdName, TargetId)
     {
       Id = id;
     }
@@ -60198,13 +61388,14 @@ namespace Sdx.Cmd
     }
 
     internal const string CmdName = "IsSpoofTxIgnoreRxAntennaPhasePatternResult";
+    internal const string TargetId = "";
 
     public IsSpoofTxIgnoreRxAntennaPhasePatternResult()
-      : base(CmdName)
+      : base(CmdName, TargetId)
     {}
 
     public IsSpoofTxIgnoreRxAntennaPhasePatternResult(CommandBase relatedCommand, bool ignore, string id)
-      : base(CmdName, relatedCommand)
+      : base(CmdName, TargetId, relatedCommand)
     {
       Ignore = ignore;
       Id = id;
@@ -60263,13 +61454,14 @@ namespace Sdx.Cmd
     }
 
     internal const string CmdName = "SetSpoofTxFix";
+    internal const string TargetId = "";
 
     public SetSpoofTxFix()
-      : base(CmdName)
+      : base(CmdName, TargetId)
     {}
 
     public SetSpoofTxFix(double lat, double lon, double alt, double yaw, double pitch, double roll, string id)
-      : base(CmdName)
+      : base(CmdName, TargetId)
     {
       Lat = lat;
       Lon = lon;
@@ -60379,13 +61571,14 @@ namespace Sdx.Cmd
     }
 
     internal const string CmdName = "GetSpoofTxFix";
+    internal const string TargetId = "";
 
     public GetSpoofTxFix()
-      : base(CmdName)
+      : base(CmdName, TargetId)
     {}
 
     public GetSpoofTxFix(string id)
-      : base(CmdName)
+      : base(CmdName, TargetId)
     {
       Id = id;
     }
@@ -60435,13 +61628,14 @@ namespace Sdx.Cmd
     }
 
     internal const string CmdName = "GetSpoofTxFixResult";
+    internal const string TargetId = "";
 
     public GetSpoofTxFixResult()
-      : base(CmdName)
+      : base(CmdName, TargetId)
     {}
 
     public GetSpoofTxFixResult(CommandBase relatedCommand, double lat, double lon, double alt, double yaw, double pitch, double roll, string id)
-      : base(CmdName, relatedCommand)
+      : base(CmdName, TargetId, relatedCommand)
     {
       Lat = lat;
       Lon = lon;
@@ -60555,13 +61749,14 @@ namespace Sdx.Cmd
     }
 
     internal const string CmdName = "SetSpoofTxFixEcef";
+    internal const string TargetId = "";
 
     public SetSpoofTxFixEcef()
-      : base(CmdName)
+      : base(CmdName, TargetId)
     {}
 
     public SetSpoofTxFixEcef(double x, double y, double z, double yaw, double pitch, double roll, string id)
-      : base(CmdName)
+      : base(CmdName, TargetId)
     {
       X = x;
       Y = y;
@@ -60671,13 +61866,14 @@ namespace Sdx.Cmd
     }
 
     internal const string CmdName = "GetSpoofTxFixEcef";
+    internal const string TargetId = "";
 
     public GetSpoofTxFixEcef()
-      : base(CmdName)
+      : base(CmdName, TargetId)
     {}
 
     public GetSpoofTxFixEcef(string id)
-      : base(CmdName)
+      : base(CmdName, TargetId)
     {
       Id = id;
     }
@@ -60727,13 +61923,14 @@ namespace Sdx.Cmd
     }
 
     internal const string CmdName = "GetSpoofTxFixEcefResult";
+    internal const string TargetId = "";
 
     public GetSpoofTxFixEcefResult()
-      : base(CmdName)
+      : base(CmdName, TargetId)
     {}
 
     public GetSpoofTxFixEcefResult(CommandBase relatedCommand, double x, double y, double z, double yaw, double pitch, double roll, string id)
-      : base(CmdName, relatedCommand)
+      : base(CmdName, TargetId, relatedCommand)
     {
       X = x;
       Y = y;
@@ -60848,13 +62045,14 @@ namespace Sdx.Cmd
     }
 
     internal const string CmdName = "SetSpoofTxCircular";
+    internal const string TargetId = "";
 
     public SetSpoofTxCircular()
-      : base(CmdName)
+      : base(CmdName, TargetId)
     {}
 
     public SetSpoofTxCircular(double lat, double lon, double alt, double radius, double speed, bool clockwise, string id, double? originAngle = null)
-      : base(CmdName)
+      : base(CmdName, TargetId)
     {
       Lat = lat;
       Lon = lon;
@@ -60977,13 +62175,14 @@ namespace Sdx.Cmd
     }
 
     internal const string CmdName = "GetSpoofTxCircular";
+    internal const string TargetId = "";
 
     public GetSpoofTxCircular()
-      : base(CmdName)
+      : base(CmdName, TargetId)
     {}
 
     public GetSpoofTxCircular(string id)
-      : base(CmdName)
+      : base(CmdName, TargetId)
     {
       Id = id;
     }
@@ -61034,13 +62233,14 @@ namespace Sdx.Cmd
     }
 
     internal const string CmdName = "GetSpoofTxCircularResult";
+    internal const string TargetId = "";
 
     public GetSpoofTxCircularResult()
-      : base(CmdName)
+      : base(CmdName, TargetId)
     {}
 
     public GetSpoofTxCircularResult(CommandBase relatedCommand, double lat, double lon, double alt, double radius, double speed, bool clockwise, string id, double? originAngle = null)
-      : base(CmdName, relatedCommand)
+      : base(CmdName, TargetId, relatedCommand)
     {
       Lat = lat;
       Lon = lon;
@@ -61161,13 +62361,14 @@ namespace Sdx.Cmd
     }
 
     internal const string CmdName = "SetSpoofTxHil";
+    internal const string TargetId = "";
 
     public SetSpoofTxHil()
-      : base(CmdName)
+      : base(CmdName, TargetId)
     {}
 
     public SetSpoofTxHil(string id)
-      : base(CmdName)
+      : base(CmdName, TargetId)
     {
       Id = id;
     }
@@ -61211,13 +62412,14 @@ namespace Sdx.Cmd
     }
 
     internal const string CmdName = "GetSpoofTxTrajectory";
+    internal const string TargetId = "";
 
     public GetSpoofTxTrajectory()
-      : base(CmdName)
+      : base(CmdName, TargetId)
     {}
 
     public GetSpoofTxTrajectory(string id)
-      : base(CmdName)
+      : base(CmdName, TargetId)
     {
       Id = id;
     }
@@ -61262,13 +62464,14 @@ namespace Sdx.Cmd
     }
 
     internal const string CmdName = "GetSpoofTxTrajectoryResult";
+    internal const string TargetId = "";
 
     public GetSpoofTxTrajectoryResult()
-      : base(CmdName)
+      : base(CmdName, TargetId)
     {}
 
     public GetSpoofTxTrajectoryResult(CommandBase relatedCommand, string trajectoryType, string id)
-      : base(CmdName, relatedCommand)
+      : base(CmdName, TargetId, relatedCommand)
     {
       TrajectoryType = trajectoryType;
       Id = id;
@@ -61306,6 +62509,997 @@ namespace Sdx.Cmd
 
 
   ///
+  /// Begins a new spoofer transmitter track definition. Actual track remains unchanged until
+  /// EndSpoofTxTrackDefinition command is sent and successful. After this command, the
+  /// client must push time and position pairs to form a complete track. Once all the
+  /// positions are sent, the client must send the command EndSpoofTxTrackDefinition.
+  ///
+  /// Name Type   Description
+  /// ---- ------ ------------------------------
+  /// Id   string Transmitter unique identifier.
+  ///
+
+  public class BeginSpoofTxTrackDefinition : CommandBase
+  {
+    public override string Documentation
+    {
+      get { return "Begins a new spoofer transmitter track definition. Actual track remains unchanged until\nEndSpoofTxTrackDefinition command is sent and successful. After this command, the\nclient must push time and position pairs to form a complete track. Once all the\npositions are sent, the client must send the command EndSpoofTxTrackDefinition."; }
+    }
+
+    internal const string CmdName = "BeginSpoofTxTrackDefinition";
+    internal const string TargetId = "";
+
+    public BeginSpoofTxTrackDefinition()
+      : base(CmdName, TargetId)
+    {}
+
+    public BeginSpoofTxTrackDefinition(string id)
+      : base(CmdName, TargetId)
+    {
+      Id = id;
+    }
+      
+    public override bool IsValid
+    {
+      get
+      {
+        return base.IsValid
+        && Contains("Id")
+      ;
+      }
+    }
+
+    public override int ExecutePermission { get { return EXECUTE_IF_IDLE; } }
+
+    public string Id
+    {
+      get { return GetValue("Id").ToObject<string>(CommandBase.Serializer); }
+      set
+      {
+          SetValue("Id", JToken.FromObject(value, CommandBase.Serializer));
+      }
+    }
+  }
+
+
+  ///
+  /// Push an spoofer transmitter track ecef node. Must be called after BeginSpoofTxTrackDefinition and before EndSpoofTxTrackDefinition.
+  ///
+  /// Name Type   Description
+  /// ---- ------ ---------------------------------------
+  /// Time int    Node Timestamp in miliseconds.
+  /// X    double X distance from earth-center in meters.
+  /// Y    double Y distance from earth-center in meters.
+  /// Z    double Z distance from earth-center in meters.
+  /// Id   string Transmitter unique identifier.
+  ///
+
+  public class PushSpoofTxTrackEcef : CommandBase
+  {
+    public override string Documentation
+    {
+      get { return "Push an spoofer transmitter track ecef node. Must be called after BeginSpoofTxTrackDefinition and before EndSpoofTxTrackDefinition."; }
+    }
+
+    internal const string CmdName = "PushSpoofTxTrackEcef";
+    internal const string TargetId = "";
+
+    public PushSpoofTxTrackEcef()
+      : base(CmdName, TargetId)
+    {}
+
+    public PushSpoofTxTrackEcef(int time, double x, double y, double z, string id)
+      : base(CmdName, TargetId)
+    {
+      Time = time;
+      X = x;
+      Y = y;
+      Z = z;
+      Id = id;
+    }
+      
+    public override bool IsValid
+    {
+      get
+      {
+        return base.IsValid
+        && Contains("Time")
+        && Contains("X")
+        && Contains("Y")
+        && Contains("Z")
+        && Contains("Id")
+      ;
+      }
+    }
+
+    public override int ExecutePermission { get { return EXECUTE_IF_IDLE; } }
+
+    public int Time
+    {
+      get { return GetValue("Time").ToObject<int>(CommandBase.Serializer); }
+      set
+      {
+          SetValue("Time", JToken.FromObject(value, CommandBase.Serializer));
+      }
+    }
+
+    public double X
+    {
+      get { return GetValue("X").ToObject<double>(CommandBase.Serializer); }
+      set
+      {
+          SetValue("X", JToken.FromObject(value, CommandBase.Serializer));
+      }
+    }
+
+    public double Y
+    {
+      get { return GetValue("Y").ToObject<double>(CommandBase.Serializer); }
+      set
+      {
+          SetValue("Y", JToken.FromObject(value, CommandBase.Serializer));
+      }
+    }
+
+    public double Z
+    {
+      get { return GetValue("Z").ToObject<double>(CommandBase.Serializer); }
+      set
+      {
+          SetValue("Z", JToken.FromObject(value, CommandBase.Serializer));
+      }
+    }
+
+    public string Id
+    {
+      get { return GetValue("Id").ToObject<string>(CommandBase.Serializer); }
+      set
+      {
+          SetValue("Id", JToken.FromObject(value, CommandBase.Serializer));
+      }
+    }
+  }
+
+
+  ///
+  /// Push a spoofer transmitter track ECEF and NED attitude node. Must be called after BeginSpoofTxTrackDefinition and before EndSpoofTxTrackDefinition.
+  ///
+  /// Name  Type   Description
+  /// ----- ------ ---------------------------------------
+  /// Time  int    Node Timestamp in miliseconds.
+  /// X     double X distance from earth-center in meters.
+  /// Y     double Y distance from earth-center in meters.
+  /// Z     double Z distance from earth-center in meters.
+  /// Yaw   double Yaw in radians.
+  /// Pitch double Pitch in radians.
+  /// Roll  double Roll in radians.
+  /// Id    string Transmitter unique identifier.
+  ///
+
+  public class PushSpoofTxTrackEcefNed : CommandBase
+  {
+    public override string Documentation
+    {
+      get { return "Push a spoofer transmitter track ECEF and NED attitude node. Must be called after BeginSpoofTxTrackDefinition and before EndSpoofTxTrackDefinition."; }
+    }
+
+    internal const string CmdName = "PushSpoofTxTrackEcefNed";
+    internal const string TargetId = "";
+
+    public PushSpoofTxTrackEcefNed()
+      : base(CmdName, TargetId)
+    {}
+
+    public PushSpoofTxTrackEcefNed(int time, double x, double y, double z, double yaw, double pitch, double roll, string id)
+      : base(CmdName, TargetId)
+    {
+      Time = time;
+      X = x;
+      Y = y;
+      Z = z;
+      Yaw = yaw;
+      Pitch = pitch;
+      Roll = roll;
+      Id = id;
+    }
+      
+    public override bool IsValid
+    {
+      get
+      {
+        return base.IsValid
+        && Contains("Time")
+        && Contains("X")
+        && Contains("Y")
+        && Contains("Z")
+        && Contains("Yaw")
+        && Contains("Pitch")
+        && Contains("Roll")
+        && Contains("Id")
+      ;
+      }
+    }
+
+    public override int ExecutePermission { get { return EXECUTE_IF_IDLE; } }
+
+    public int Time
+    {
+      get { return GetValue("Time").ToObject<int>(CommandBase.Serializer); }
+      set
+      {
+          SetValue("Time", JToken.FromObject(value, CommandBase.Serializer));
+      }
+    }
+
+    public double X
+    {
+      get { return GetValue("X").ToObject<double>(CommandBase.Serializer); }
+      set
+      {
+          SetValue("X", JToken.FromObject(value, CommandBase.Serializer));
+      }
+    }
+
+    public double Y
+    {
+      get { return GetValue("Y").ToObject<double>(CommandBase.Serializer); }
+      set
+      {
+          SetValue("Y", JToken.FromObject(value, CommandBase.Serializer));
+      }
+    }
+
+    public double Z
+    {
+      get { return GetValue("Z").ToObject<double>(CommandBase.Serializer); }
+      set
+      {
+          SetValue("Z", JToken.FromObject(value, CommandBase.Serializer));
+      }
+    }
+
+    public double Yaw
+    {
+      get { return GetValue("Yaw").ToObject<double>(CommandBase.Serializer); }
+      set
+      {
+          SetValue("Yaw", JToken.FromObject(value, CommandBase.Serializer));
+      }
+    }
+
+    public double Pitch
+    {
+      get { return GetValue("Pitch").ToObject<double>(CommandBase.Serializer); }
+      set
+      {
+          SetValue("Pitch", JToken.FromObject(value, CommandBase.Serializer));
+      }
+    }
+
+    public double Roll
+    {
+      get { return GetValue("Roll").ToObject<double>(CommandBase.Serializer); }
+      set
+      {
+          SetValue("Roll", JToken.FromObject(value, CommandBase.Serializer));
+      }
+    }
+
+    public string Id
+    {
+      get { return GetValue("Id").ToObject<string>(CommandBase.Serializer); }
+      set
+      {
+          SetValue("Id", JToken.FromObject(value, CommandBase.Serializer));
+      }
+    }
+  }
+
+
+  ///
+  /// This command completes the track started with the BeginSpoofTxTrackDefinition command. If
+  /// the track is accepted, the current track in the configuration is replaced with
+  /// this new track. If the track is not accepted, the current track in the config
+  /// remains unchanged.
+  ///
+  /// Name Type   Description
+  /// ---- ------ ------------------------------
+  /// Id   string Transmitter unique identifier.
+  ///
+
+  public class EndSpoofTxTrackDefinition : CommandBase
+  {
+    public override string Documentation
+    {
+      get { return "This command completes the track started with the BeginSpoofTxTrackDefinition command. If\nthe track is accepted, the current track in the configuration is replaced with\nthis new track. If the track is not accepted, the current track in the config\nremains unchanged."; }
+    }
+
+    internal const string CmdName = "EndSpoofTxTrackDefinition";
+    internal const string TargetId = "";
+
+    public EndSpoofTxTrackDefinition()
+      : base(CmdName, TargetId)
+    {}
+
+    public EndSpoofTxTrackDefinition(string id)
+      : base(CmdName, TargetId)
+    {
+      Id = id;
+    }
+      
+    public override bool IsValid
+    {
+      get
+      {
+        return base.IsValid
+        && Contains("Id")
+      ;
+      }
+    }
+
+    public override int ExecutePermission { get { return EXECUTE_IF_IDLE; } }
+
+    public string Id
+    {
+      get { return GetValue("Id").ToObject<string>(CommandBase.Serializer); }
+      set
+      {
+          SetValue("Id", JToken.FromObject(value, CommandBase.Serializer));
+      }
+    }
+  }
+
+
+  ///
+  /// EndSpoofTxTrackDefinition Result with created track informations.
+  ///
+  /// Name  Type   Description
+  /// ----- ------ ----------------------------------------------------------------------------------------------------
+  /// Count int    Number of nodes in the track. The client can compare this value with the number of positions pushed.
+  /// Id    string Transmitter unique identifier.
+  ///
+
+  public class EndSpoofTxTrackDefinitionResult : CommandResult
+  {
+    public override string Documentation
+    {
+      get { return "EndSpoofTxTrackDefinition Result with created track informations."; }
+    }
+
+    internal const string CmdName = "EndSpoofTxTrackDefinitionResult";
+    internal const string TargetId = "";
+
+    public EndSpoofTxTrackDefinitionResult()
+      : base(CmdName, TargetId)
+    {}
+
+    public EndSpoofTxTrackDefinitionResult(CommandBase relatedCommand, int count, string id)
+      : base(CmdName, TargetId, relatedCommand)
+    {
+      Count = count;
+      Id = id;
+    }
+      
+    public override bool IsValid
+    {
+      get
+      {
+        return base.IsValid
+        && Contains("Count")
+        && Contains("Id")
+      ;
+      }
+    }
+
+    public int Count
+    {
+      get { return GetValue("Count").ToObject<int>(CommandBase.Serializer); }
+      set
+      {
+          SetValue("Count", JToken.FromObject(value, CommandBase.Serializer));
+      }
+    }
+
+    public string Id
+    {
+      get { return GetValue("Id").ToObject<string>(CommandBase.Serializer); }
+      set
+      {
+          SetValue("Id", JToken.FromObject(value, CommandBase.Serializer));
+      }
+    }
+  }
+
+
+  ///
+  /// Import NMEA spoofer transmitter track file.
+  ///
+  /// Name Type   Description
+  /// ---- ------ ------------------------------
+  /// Path string NMEA file path.
+  /// Id   string Transmitter unique identifier.
+  ///
+
+  public class ImportNmeaSpoofTxTrack : CommandBase
+  {
+    public override string Documentation
+    {
+      get { return "Import NMEA spoofer transmitter track file."; }
+    }
+
+    internal const string CmdName = "ImportNmeaSpoofTxTrack";
+    internal const string TargetId = "";
+
+    public ImportNmeaSpoofTxTrack()
+      : base(CmdName, TargetId)
+    {}
+
+    public ImportNmeaSpoofTxTrack(string path, string id)
+      : base(CmdName, TargetId)
+    {
+      Path = path;
+      Id = id;
+    }
+      
+    public override bool IsValid
+    {
+      get
+      {
+        return base.IsValid
+        && Contains("Path")
+        && Contains("Id")
+      ;
+      }
+    }
+
+    public override int ExecutePermission { get { return EXECUTE_IF_IDLE; } }
+
+    public string Path
+    {
+      get { return GetValue("Path").ToObject<string>(CommandBase.Serializer); }
+      set
+      {
+          SetValue("Path", JToken.FromObject(value, CommandBase.Serializer));
+      }
+    }
+
+    public string Id
+    {
+      get { return GetValue("Id").ToObject<string>(CommandBase.Serializer); }
+      set
+      {
+          SetValue("Id", JToken.FromObject(value, CommandBase.Serializer));
+      }
+    }
+  }
+
+
+  ///
+  /// Set trajectory smoothing for spoofer transmitter Track enabled or disabled
+  ///
+  /// Name    Type   Description
+  /// ------- ------ ---------------------------------------------------------------------------
+  /// Enabled bool   If true, spoofer transmitter trajectory will be smoothed during simulation.
+  /// Id      string Transmitter unique identifier.
+  ///
+
+  public class EnableSpoofTxTrajectorySmoothing : CommandBase
+  {
+    public override string Documentation
+    {
+      get { return "Set trajectory smoothing for spoofer transmitter Track enabled or disabled"; }
+    }
+
+    internal const string CmdName = "EnableSpoofTxTrajectorySmoothing";
+    internal const string TargetId = "";
+
+    public EnableSpoofTxTrajectorySmoothing()
+      : base(CmdName, TargetId)
+    {}
+
+    public EnableSpoofTxTrajectorySmoothing(bool enabled, string id)
+      : base(CmdName, TargetId)
+    {
+      Enabled = enabled;
+      Id = id;
+    }
+      
+    public override bool IsValid
+    {
+      get
+      {
+        return base.IsValid
+        && Contains("Enabled")
+        && Contains("Id")
+      ;
+      }
+    }
+
+    public override int ExecutePermission { get { return EXECUTE_IF_IDLE; } }
+
+    public bool Enabled
+    {
+      get { return GetValue("Enabled").ToObject<bool>(CommandBase.Serializer); }
+      set
+      {
+          SetValue("Enabled", JToken.FromObject(value, CommandBase.Serializer));
+      }
+    }
+
+    public string Id
+    {
+      get { return GetValue("Id").ToObject<string>(CommandBase.Serializer); }
+      set
+      {
+          SetValue("Id", JToken.FromObject(value, CommandBase.Serializer));
+      }
+    }
+  }
+
+
+  ///
+  /// Get trajectory smoothing for spoofer transmitter Track enabled or disabled
+  ///
+  /// Name Type   Description
+  /// ---- ------ ------------------------------
+  /// Id   string Transmitter unique identifier.
+  ///
+
+  public class IsSpoofTxTrajectorySmoothingEnabled : CommandBase
+  {
+    public override string Documentation
+    {
+      get { return "Get trajectory smoothing for spoofer transmitter Track enabled or disabled"; }
+    }
+
+    internal const string CmdName = "IsSpoofTxTrajectorySmoothingEnabled";
+    internal const string TargetId = "";
+
+    public IsSpoofTxTrajectorySmoothingEnabled()
+      : base(CmdName, TargetId)
+    {}
+
+    public IsSpoofTxTrajectorySmoothingEnabled(string id)
+      : base(CmdName, TargetId)
+    {
+      Id = id;
+    }
+      
+    public override bool IsValid
+    {
+      get
+      {
+        return base.IsValid
+        && Contains("Id")
+      ;
+      }
+    }
+
+    public override int ExecutePermission { get { return EXECUTE_IF_IDLE; } }
+
+    public string Id
+    {
+      get { return GetValue("Id").ToObject<string>(CommandBase.Serializer); }
+      set
+      {
+          SetValue("Id", JToken.FromObject(value, CommandBase.Serializer));
+      }
+    }
+  }
+
+
+  ///
+  /// Result of IsSpoofTxTrajectorySmoothingEnabled.
+  ///
+  /// Name    Type   Description
+  /// ------- ------ ---------------------------------------------------------------------------
+  /// Enabled bool   If true, spoofer transmitter trajectory will be smoothed during simulation.
+  /// Id      string Transmitter unique identifier.
+  ///
+
+  public class IsSpoofTxTrajectorySmoothingEnabledResult : CommandResult
+  {
+    public override string Documentation
+    {
+      get { return "Result of IsSpoofTxTrajectorySmoothingEnabled."; }
+    }
+
+    internal const string CmdName = "IsSpoofTxTrajectorySmoothingEnabledResult";
+    internal const string TargetId = "";
+
+    public IsSpoofTxTrajectorySmoothingEnabledResult()
+      : base(CmdName, TargetId)
+    {}
+
+    public IsSpoofTxTrajectorySmoothingEnabledResult(CommandBase relatedCommand, bool enabled, string id)
+      : base(CmdName, TargetId, relatedCommand)
+    {
+      Enabled = enabled;
+      Id = id;
+    }
+      
+    public override bool IsValid
+    {
+      get
+      {
+        return base.IsValid
+        && Contains("Enabled")
+        && Contains("Id")
+      ;
+      }
+    }
+
+    public bool Enabled
+    {
+      get { return GetValue("Enabled").ToObject<bool>(CommandBase.Serializer); }
+      set
+      {
+          SetValue("Enabled", JToken.FromObject(value, CommandBase.Serializer));
+      }
+    }
+
+    public string Id
+    {
+      get { return GetValue("Id").ToObject<string>(CommandBase.Serializer); }
+      set
+      {
+          SetValue("Id", JToken.FromObject(value, CommandBase.Serializer));
+      }
+    }
+  }
+
+
+  ///
+  /// Set whether the spoofer transmitter vehicle yaw, pitch and roll should be forced to zero.
+  ///
+  /// Name    Type   Description
+  /// ------- ------ -------------------------------------------------------------------
+  /// Enabled bool   If true, spoofer transmitter vehicle won't rotate during simulation
+  /// Id      string Transmitter unique identifier.
+  ///
+
+  public class ForceSpoofTxAttitudeToZero : CommandBase
+  {
+    public override string Documentation
+    {
+      get { return "Set whether the spoofer transmitter vehicle yaw, pitch and roll should be forced to zero."; }
+    }
+
+    internal const string CmdName = "ForceSpoofTxAttitudeToZero";
+    internal const string TargetId = "";
+
+    public ForceSpoofTxAttitudeToZero()
+      : base(CmdName, TargetId)
+    {}
+
+    public ForceSpoofTxAttitudeToZero(bool enabled, string id)
+      : base(CmdName, TargetId)
+    {
+      Enabled = enabled;
+      Id = id;
+    }
+      
+    public override bool IsValid
+    {
+      get
+      {
+        return base.IsValid
+        && Contains("Enabled")
+        && Contains("Id")
+      ;
+      }
+    }
+
+    public override int ExecutePermission { get { return EXECUTE_IF_IDLE; } }
+
+    public bool Enabled
+    {
+      get { return GetValue("Enabled").ToObject<bool>(CommandBase.Serializer); }
+      set
+      {
+          SetValue("Enabled", JToken.FromObject(value, CommandBase.Serializer));
+      }
+    }
+
+    public string Id
+    {
+      get { return GetValue("Id").ToObject<string>(CommandBase.Serializer); }
+      set
+      {
+          SetValue("Id", JToken.FromObject(value, CommandBase.Serializer));
+      }
+    }
+  }
+
+
+  ///
+  /// Get whether the spoofer transmitter vehicle yaw, pitch and roll should be forced to zero.
+  ///
+  /// Name Type   Description
+  /// ---- ------ ------------------------------
+  /// Id   string Transmitter unique identifier.
+  ///
+
+  public class IsSpoofTxAttitudeToZeroForced : CommandBase
+  {
+    public override string Documentation
+    {
+      get { return "Get whether the spoofer transmitter vehicle yaw, pitch and roll should be forced to zero."; }
+    }
+
+    internal const string CmdName = "IsSpoofTxAttitudeToZeroForced";
+    internal const string TargetId = "";
+
+    public IsSpoofTxAttitudeToZeroForced()
+      : base(CmdName, TargetId)
+    {}
+
+    public IsSpoofTxAttitudeToZeroForced(string id)
+      : base(CmdName, TargetId)
+    {
+      Id = id;
+    }
+      
+    public override bool IsValid
+    {
+      get
+      {
+        return base.IsValid
+        && Contains("Id")
+      ;
+      }
+    }
+
+    public override int ExecutePermission { get { return EXECUTE_IF_IDLE; } }
+
+    public string Id
+    {
+      get { return GetValue("Id").ToObject<string>(CommandBase.Serializer); }
+      set
+      {
+          SetValue("Id", JToken.FromObject(value, CommandBase.Serializer));
+      }
+    }
+  }
+
+
+  ///
+  /// Result of IsSpoofTxAttitudeToZeroForced.
+  ///
+  /// Name    Type   Description
+  /// ------- ------ -------------------------------------------------------------------
+  /// Enabled bool   If true, spoofer transmitter vehicle won't rotate during simulation
+  /// Id      string Transmitter unique identifier.
+  ///
+
+  public class IsSpoofTxAttitudeToZeroForcedResult : CommandResult
+  {
+    public override string Documentation
+    {
+      get { return "Result of IsSpoofTxAttitudeToZeroForced."; }
+    }
+
+    internal const string CmdName = "IsSpoofTxAttitudeToZeroForcedResult";
+    internal const string TargetId = "";
+
+    public IsSpoofTxAttitudeToZeroForcedResult()
+      : base(CmdName, TargetId)
+    {}
+
+    public IsSpoofTxAttitudeToZeroForcedResult(CommandBase relatedCommand, bool enabled, string id)
+      : base(CmdName, TargetId, relatedCommand)
+    {
+      Enabled = enabled;
+      Id = id;
+    }
+      
+    public override bool IsValid
+    {
+      get
+      {
+        return base.IsValid
+        && Contains("Enabled")
+        && Contains("Id")
+      ;
+      }
+    }
+
+    public bool Enabled
+    {
+      get { return GetValue("Enabled").ToObject<bool>(CommandBase.Serializer); }
+      set
+      {
+          SetValue("Enabled", JToken.FromObject(value, CommandBase.Serializer));
+      }
+    }
+
+    public string Id
+    {
+      get { return GetValue("Id").ToObject<string>(CommandBase.Serializer); }
+      set
+      {
+          SetValue("Id", JToken.FromObject(value, CommandBase.Serializer));
+      }
+    }
+  }
+
+
+  ///
+  /// Set spoofer transmitter vehicle type for Track Trajectory.
+  ///
+  /// Name Type   Description
+  /// ---- ------ -----------------------------------------------------------
+  /// Type string Vehicle type ("Ground / Water" or "Airborne / Spaceborne").
+  /// Id   string Transmitter unique identifier.
+  ///
+
+  public class SetSpoofTxVehicleType : CommandBase
+  {
+    public override string Documentation
+    {
+      get { return "Set spoofer transmitter vehicle type for Track Trajectory."; }
+    }
+
+    internal const string CmdName = "SetSpoofTxVehicleType";
+    internal const string TargetId = "";
+
+    public SetSpoofTxVehicleType()
+      : base(CmdName, TargetId)
+    {}
+
+    public SetSpoofTxVehicleType(string type, string id)
+      : base(CmdName, TargetId)
+    {
+      Type = type;
+      Id = id;
+    }
+      
+    public override bool IsValid
+    {
+      get
+      {
+        return base.IsValid
+        && Contains("Type")
+        && Contains("Id")
+      ;
+      }
+    }
+
+    public override int ExecutePermission { get { return EXECUTE_IF_IDLE; } }
+
+    public string Type
+    {
+      get { return GetValue("Type").ToObject<string>(CommandBase.Serializer); }
+      set
+      {
+          SetValue("Type", JToken.FromObject(value, CommandBase.Serializer));
+      }
+    }
+
+    public string Id
+    {
+      get { return GetValue("Id").ToObject<string>(CommandBase.Serializer); }
+      set
+      {
+          SetValue("Id", JToken.FromObject(value, CommandBase.Serializer));
+      }
+    }
+  }
+
+
+  ///
+  /// Get spoofer transmitter vehicle type for Track Trajectory.
+  ///
+  /// Name Type   Description
+  /// ---- ------ ------------------------------
+  /// Id   string Transmitter unique identifier.
+  ///
+
+  public class GetSpoofTxVehicleType : CommandBase
+  {
+    public override string Documentation
+    {
+      get { return "Get spoofer transmitter vehicle type for Track Trajectory."; }
+    }
+
+    internal const string CmdName = "GetSpoofTxVehicleType";
+    internal const string TargetId = "";
+
+    public GetSpoofTxVehicleType()
+      : base(CmdName, TargetId)
+    {}
+
+    public GetSpoofTxVehicleType(string id)
+      : base(CmdName, TargetId)
+    {
+      Id = id;
+    }
+      
+    public override bool IsValid
+    {
+      get
+      {
+        return base.IsValid
+        && Contains("Id")
+      ;
+      }
+    }
+
+    public override int ExecutePermission { get { return EXECUTE_IF_IDLE; } }
+
+    public string Id
+    {
+      get { return GetValue("Id").ToObject<string>(CommandBase.Serializer); }
+      set
+      {
+          SetValue("Id", JToken.FromObject(value, CommandBase.Serializer));
+      }
+    }
+  }
+
+
+  ///
+  /// Result of GetSpoofTxVehicleType.
+  ///
+  /// Name Type   Description
+  /// ---- ------ -----------------------------------------------------------
+  /// Type string Vehicle type ("Ground / Water" or "Airborne / Spaceborne").
+  /// Id   string Transmitter unique identifier.
+  ///
+
+  public class GetSpoofTxVehicleTypeResult : CommandResult
+  {
+    public override string Documentation
+    {
+      get { return "Result of GetSpoofTxVehicleType."; }
+    }
+
+    internal const string CmdName = "GetSpoofTxVehicleTypeResult";
+    internal const string TargetId = "";
+
+    public GetSpoofTxVehicleTypeResult()
+      : base(CmdName, TargetId)
+    {}
+
+    public GetSpoofTxVehicleTypeResult(CommandBase relatedCommand, string type, string id)
+      : base(CmdName, TargetId, relatedCommand)
+    {
+      Type = type;
+      Id = id;
+    }
+      
+    public override bool IsValid
+    {
+      get
+      {
+        return base.IsValid
+        && Contains("Type")
+        && Contains("Id")
+      ;
+      }
+    }
+
+    public string Type
+    {
+      get { return GetValue("Type").ToObject<string>(CommandBase.Serializer); }
+      set
+      {
+          SetValue("Type", JToken.FromObject(value, CommandBase.Serializer));
+      }
+    }
+
+    public string Id
+    {
+      get { return GetValue("Id").ToObject<string>(CommandBase.Serializer); }
+      set
+      {
+          SetValue("Id", JToken.FromObject(value, CommandBase.Serializer));
+      }
+    }
+  }
+
+
+  ///
   /// Set transmitter antenna pattern.
   ///
   /// Name Type               Description
@@ -61323,13 +63517,14 @@ namespace Sdx.Cmd
     }
 
     internal const string CmdName = "SetSpoofTxAntenna";
+    internal const string TargetId = "";
 
     public SetSpoofTxAntenna()
-      : base(CmdName)
+      : base(CmdName, TargetId)
     {}
 
     public SetSpoofTxAntenna(List<List<double>> gain, AntennaPatternType type, string id)
-      : base(CmdName)
+      : base(CmdName, TargetId)
     {
       Gain = gain;
       Type = type;
@@ -61395,13 +63590,14 @@ namespace Sdx.Cmd
     }
 
     internal const string CmdName = "GetSpoofTxAntenna";
+    internal const string TargetId = "";
 
     public GetSpoofTxAntenna()
-      : base(CmdName)
+      : base(CmdName, TargetId)
     {}
 
     public GetSpoofTxAntenna(string id)
-      : base(CmdName)
+      : base(CmdName, TargetId)
     {
       Id = id;
     }
@@ -61447,13 +63643,14 @@ namespace Sdx.Cmd
     }
 
     internal const string CmdName = "GetSpoofTxAntennaResult";
+    internal const string TargetId = "";
 
     public GetSpoofTxAntennaResult()
-      : base(CmdName)
+      : base(CmdName, TargetId)
     {}
 
     public GetSpoofTxAntennaResult(CommandBase relatedCommand, List<List<double>> gain, AntennaPatternType type, string id)
-      : base(CmdName, relatedCommand)
+      : base(CmdName, TargetId, relatedCommand)
     {
       Gain = gain;
       Type = type;
@@ -61529,13 +63726,14 @@ namespace Sdx.Cmd
     }
 
     internal const string CmdName = "SetSpoofTxAntennaOffset";
+    internal const string TargetId = "";
 
     public SetSpoofTxAntennaOffset()
-      : base(CmdName)
+      : base(CmdName, TargetId)
     {}
 
     public SetSpoofTxAntennaOffset(double x, double y, double z, double yaw, double pitch, double roll, string id)
-      : base(CmdName)
+      : base(CmdName, TargetId)
     {
       X = x;
       Y = y;
@@ -61651,13 +63849,14 @@ namespace Sdx.Cmd
     }
 
     internal const string CmdName = "GetSpoofTxAntennaOffset";
+    internal const string TargetId = "";
 
     public GetSpoofTxAntennaOffset()
-      : base(CmdName)
+      : base(CmdName, TargetId)
     {}
 
     public GetSpoofTxAntennaOffset(string id)
-      : base(CmdName)
+      : base(CmdName, TargetId)
     {
       Id = id;
     }
@@ -61707,13 +63906,14 @@ namespace Sdx.Cmd
     }
 
     internal const string CmdName = "GetSpoofTxAntennaOffsetResult";
+    internal const string TargetId = "";
 
     public GetSpoofTxAntennaOffsetResult()
-      : base(CmdName)
+      : base(CmdName, TargetId)
     {}
 
     public GetSpoofTxAntennaOffsetResult(CommandBase relatedCommand, double x, double y, double z, double yaw, double pitch, double roll, string id)
-      : base(CmdName, relatedCommand)
+      : base(CmdName, TargetId, relatedCommand)
     {
       X = x;
       Y = y;
@@ -61824,13 +64024,14 @@ namespace Sdx.Cmd
     }
 
     internal const string CmdName = "SetSpoofTxRemoteAddress";
+    internal const string TargetId = "";
 
     public SetSpoofTxRemoteAddress()
-      : base(CmdName)
+      : base(CmdName, TargetId)
     {}
 
     public SetSpoofTxRemoteAddress(string address, int instanceId, string id)
-      : base(CmdName)
+      : base(CmdName, TargetId)
     {
       Address = address;
       InstanceId = instanceId;
@@ -61897,13 +64098,14 @@ namespace Sdx.Cmd
     }
 
     internal const string CmdName = "GetSpoofTxRemoteAddress";
+    internal const string TargetId = "";
 
     public GetSpoofTxRemoteAddress()
-      : base(CmdName)
+      : base(CmdName, TargetId)
     {}
 
     public GetSpoofTxRemoteAddress(string id)
-      : base(CmdName)
+      : base(CmdName, TargetId)
     {
       Id = id;
     }
@@ -61949,13 +64151,14 @@ namespace Sdx.Cmd
     }
 
     internal const string CmdName = "GetSpoofTxRemoteAddressResult";
+    internal const string TargetId = "";
 
     public GetSpoofTxRemoteAddressResult()
-      : base(CmdName)
+      : base(CmdName, TargetId)
     {}
 
     public GetSpoofTxRemoteAddressResult(CommandBase relatedCommand, string address, int instanceId, string id)
-      : base(CmdName, relatedCommand)
+      : base(CmdName, TargetId, relatedCommand)
     {
       Address = address;
       InstanceId = instanceId;
@@ -62020,13 +64223,14 @@ namespace Sdx.Cmd
     }
 
     internal const string CmdName = "SetSpoofTxRefPower";
+    internal const string TargetId = "";
 
     public SetSpoofTxRefPower()
-      : base(CmdName)
+      : base(CmdName, TargetId)
     {}
 
     public SetSpoofTxRefPower(double power, string id)
-      : base(CmdName)
+      : base(CmdName, TargetId)
     {
       Power = power;
       Id = id;
@@ -62082,13 +64286,14 @@ namespace Sdx.Cmd
     }
 
     internal const string CmdName = "ClearSpoofTxGpuIdx";
+    internal const string TargetId = "";
 
     public ClearSpoofTxGpuIdx()
-      : base(CmdName)
+      : base(CmdName, TargetId)
     {}
 
     public ClearSpoofTxGpuIdx(int signalId, string id)
-      : base(CmdName)
+      : base(CmdName, TargetId)
     {
       SignalId = signalId;
       Id = id;
@@ -62145,13 +64350,14 @@ namespace Sdx.Cmd
     }
 
     internal const string CmdName = "SetSpoofTxGpuIdx";
+    internal const string TargetId = "";
 
     public SetSpoofTxGpuIdx()
-      : base(CmdName)
+      : base(CmdName, TargetId)
     {}
 
     public SetSpoofTxGpuIdx(int gpuIdx, int signalId, string id)
-      : base(CmdName)
+      : base(CmdName, TargetId)
     {
       GpuIdx = gpuIdx;
       SignalId = signalId;
@@ -62217,13 +64423,14 @@ namespace Sdx.Cmd
     }
 
     internal const string CmdName = "SetExternalChannelsPath";
+    internal const string TargetId = "";
 
     public SetExternalChannelsPath()
-      : base(CmdName)
+      : base(CmdName, TargetId)
     {}
 
     public SetExternalChannelsPath(string path)
-      : base(CmdName)
+      : base(CmdName, TargetId)
     {
       Path = path;
     }
@@ -62252,7 +64459,7 @@ namespace Sdx.Cmd
 
 
   ///
-  /// Mapping PRN to the corresponding SV ID. Get a list of SV IDs based on a specific signal. Accepted signal keys: "L1CA", "L1C", "L1P", "L1ME", "L1MR", "L2C", "L2P", "L5", "G1", "G2", "E1", "E1PRS", "E5a", "E5b", "E6BC", "E6PRS", "B1", "B2", "B2a", "B1C", "B3I", "SBASL1", "SBASL5", "QZSSL1CA", "QZSSL1CB", "QZSSL1C", "QZSSL2C", "QZSSL5", "QZSSL1S", "QZSSL5S" and "NAVICL5"
+  /// Mapping PRN to the corresponding SV ID. Get a list of SV IDs based on a specific signal. Accepted signal keys: "L1CA", "L1C", "L1P", "L1ME", "L1MR", "L2C", "L2P", "L5", "G1", "G2", "E1", "E1PRS", "E5a", "E5b", "E6BC", "E6PRS", "B1", "B2", "B2a", "B1C", "B3I", "SBASL1", "SBASL5", "QZSSL1CA", "QZSSL1CB", "QZSSL1C", "QZSSL2C", "QZSSL5", "QZSSL1S", "QZSSL5S", "NAVICL5" and "PULSARXL"
   ///
   /// Name   Type   Description
   /// ------ ------ ----------------------------------------------------------------------
@@ -62264,17 +64471,18 @@ namespace Sdx.Cmd
   {
     public override string Documentation
     {
-      get { return "Mapping PRN to the corresponding SV ID. Get a list of SV IDs based on a specific signal. Accepted signal keys: \"L1CA\", \"L1C\", \"L1P\", \"L1ME\", \"L1MR\", \"L2C\", \"L2P\", \"L5\", \"G1\", \"G2\", \"E1\", \"E1PRS\", \"E5a\", \"E5b\", \"E6BC\", \"E6PRS\", \"B1\", \"B2\", \"B2a\", \"B1C\", \"B3I\", \"SBASL1\", \"SBASL5\", \"QZSSL1CA\", \"QZSSL1CB\", \"QZSSL1C\", \"QZSSL2C\", \"QZSSL5\", \"QZSSL1S\", \"QZSSL5S\" and \"NAVICL5\""; }
+      get { return "Mapping PRN to the corresponding SV ID. Get a list of SV IDs based on a specific signal. Accepted signal keys: \"L1CA\", \"L1C\", \"L1P\", \"L1ME\", \"L1MR\", \"L2C\", \"L2P\", \"L5\", \"G1\", \"G2\", \"E1\", \"E1PRS\", \"E5a\", \"E5b\", \"E6BC\", \"E6PRS\", \"B1\", \"B2\", \"B2a\", \"B1C\", \"B3I\", \"SBASL1\", \"SBASL5\", \"QZSSL1CA\", \"QZSSL1CB\", \"QZSSL1C\", \"QZSSL2C\", \"QZSSL5\", \"QZSSL1S\", \"QZSSL5S\", \"NAVICL5\" and \"PULSARXL\""; }
     }
 
     internal const string CmdName = "GetSVIDsOfPrn";
+    internal const string TargetId = "";
 
     public GetSVIDsOfPrn()
-      : base(CmdName)
+      : base(CmdName, TargetId)
     {}
 
     public GetSVIDsOfPrn(string signal, int prn)
-      : base(CmdName)
+      : base(CmdName, TargetId)
     {
       Signal = signal;
       Prn = prn;
@@ -62331,13 +64539,14 @@ namespace Sdx.Cmd
     }
 
     internal const string CmdName = "GetSVIDsOfPrnResult";
+    internal const string TargetId = "";
 
     public GetSVIDsOfPrnResult()
-      : base(CmdName)
+      : base(CmdName, TargetId)
     {}
 
     public GetSVIDsOfPrnResult(CommandBase relatedCommand, string signal, int prn, List<int> svIdList)
-      : base(CmdName, relatedCommand)
+      : base(CmdName, TargetId, relatedCommand)
     {
       Signal = signal;
       Prn = prn;
@@ -62406,13 +64615,14 @@ namespace Sdx.Cmd
     }
 
     internal const string CmdName = "SetQzssL1SAugmentation";
+    internal const string TargetId = "";
 
     public SetQzssL1SAugmentation()
-      : base(CmdName)
+      : base(CmdName, TargetId)
     {}
 
     public SetQzssL1SAugmentation(string system, int prn, bool augmentIOD, bool augmentPRC, double prc, string id)
-      : base(CmdName)
+      : base(CmdName, TargetId)
     {
       System = system;
       Prn = prn;
@@ -62511,13 +64721,14 @@ namespace Sdx.Cmd
     }
 
     internal const string CmdName = "GetQzssL1SAugmentation";
+    internal const string TargetId = "";
 
     public GetQzssL1SAugmentation()
-      : base(CmdName)
+      : base(CmdName, TargetId)
     {}
 
     public GetQzssL1SAugmentation(string id)
-      : base(CmdName)
+      : base(CmdName, TargetId)
     {
       Id = id;
     }
@@ -62566,13 +64777,14 @@ namespace Sdx.Cmd
     }
 
     internal const string CmdName = "GetQzssL1SAugmentationResult";
+    internal const string TargetId = "";
 
     public GetQzssL1SAugmentationResult()
-      : base(CmdName)
+      : base(CmdName, TargetId)
     {}
 
     public GetQzssL1SAugmentationResult(CommandBase relatedCommand, string system, int prn, bool augmentIOD, bool augmentPRC, double prc, string id)
-      : base(CmdName, relatedCommand)
+      : base(CmdName, TargetId, relatedCommand)
     {
       System = system;
       Prn = prn;
@@ -62669,13 +64881,14 @@ namespace Sdx.Cmd
     }
 
     internal const string CmdName = "RemoveQzssL1SAugmentation";
+    internal const string TargetId = "";
 
     public RemoveQzssL1SAugmentation()
-      : base(CmdName)
+      : base(CmdName, TargetId)
     {}
 
     public RemoveQzssL1SAugmentation(string id)
-      : base(CmdName)
+      : base(CmdName, TargetId)
     {
       Id = id;
     }
@@ -62717,9 +64930,10 @@ namespace Sdx.Cmd
     }
 
     internal const string CmdName = "ClearQzssL1SAugmentations";
+    internal const string TargetId = "";
 
     public ClearQzssL1SAugmentations()
-      : base(CmdName)
+      : base(CmdName, TargetId)
     {}
       
     public override bool IsValid
@@ -62749,9 +64963,10 @@ namespace Sdx.Cmd
     }
 
     internal const string CmdName = "GetQzssL1SAugmentations";
+    internal const string TargetId = "";
 
     public GetQzssL1SAugmentations()
-      : base(CmdName)
+      : base(CmdName, TargetId)
     {}
       
     public override bool IsValid
@@ -62783,13 +64998,14 @@ namespace Sdx.Cmd
     }
 
     internal const string CmdName = "GetQzssL1SAugmentationsResult";
+    internal const string TargetId = "";
 
     public GetQzssL1SAugmentationsResult()
-      : base(CmdName)
+      : base(CmdName, TargetId)
     {}
 
     public GetQzssL1SAugmentationsResult(CommandBase relatedCommand, List<string> ids)
-      : base(CmdName, relatedCommand)
+      : base(CmdName, TargetId, relatedCommand)
     {
       Ids = ids;
     }
@@ -62831,13 +65047,14 @@ namespace Sdx.Cmd
     }
 
     internal const string CmdName = "SetWavefrontJamCalibrationState";
+    internal const string TargetId = "";
 
     public SetWavefrontJamCalibrationState()
-      : base(CmdName)
+      : base(CmdName, TargetId)
     {}
 
     public SetWavefrontJamCalibrationState(bool state)
-      : base(CmdName)
+      : base(CmdName, TargetId)
     {
       State = state;
     }
@@ -62870,7 +65087,7 @@ namespace Sdx.Cmd
   ///
   /// Name        Type            Description
   /// ----------- --------------- --------------------------------------------------------------------------------------------------------------------
-  /// System      string          "GPS", "Galileo", "BeiDou", "NavIC" or "QZSS"
+  /// System      string          "GPS", "Galileo", "BeiDou", "QZSS", "NavIC" or "PULSAR"
   /// Path        string          Data set file path
   /// Rollover    optional int    Rollover for file types that does not precise it (YUMA, SEM). Default value is the current rollover.
   /// DataSetName optional string Name of the data set to import. This parameter is optional, the default value will be the name of the imported file.
@@ -62884,13 +65101,14 @@ namespace Sdx.Cmd
     }
 
     internal const string CmdName = "AddDataSet";
+    internal const string TargetId = "";
 
     public AddDataSet()
-      : base(CmdName)
+      : base(CmdName, TargetId)
     {}
 
     public AddDataSet(string system, string path, int? rollover = null, string dataSetName = null)
-      : base(CmdName)
+      : base(CmdName, TargetId)
     {
       System = system;
       Path = path;
@@ -62959,8 +65177,8 @@ namespace Sdx.Cmd
   /// Set data set assignation for the specified constellation.
   ///
   /// Name        Type   Description
-  /// ----------- ------ ---------------------------------------------
-  /// System      string "GPS", "Galileo", "BeiDou", "NavIC" or "QZSS"
+  /// ----------- ------ -------------------------------------------------------
+  /// System      string "GPS", "Galileo", "BeiDou", "QZSS", "NavIC" or "PULSAR"
   /// DataSetType string "Almanac", "Ephemeris" or "Orbit"
   /// DataSetName string The name of the assigned data set.
   ///
@@ -62973,13 +65191,14 @@ namespace Sdx.Cmd
     }
 
     internal const string CmdName = "SetDataSetAssignation";
+    internal const string TargetId = "";
 
     public SetDataSetAssignation()
-      : base(CmdName)
+      : base(CmdName, TargetId)
     {}
 
     public SetDataSetAssignation(string system, string dataSetType, string dataSetName)
-      : base(CmdName)
+      : base(CmdName, TargetId)
     {
       System = system;
       DataSetType = dataSetType;
@@ -63033,8 +65252,8 @@ namespace Sdx.Cmd
   /// Get data set assignation for the specified constellation.
   ///
   /// Name        Type   Description
-  /// ----------- ------ ---------------------------------------------
-  /// System      string "GPS", "Galileo", "BeiDou", "NavIC" or "QZSS"
+  /// ----------- ------ -------------------------------------------------------
+  /// System      string "GPS", "Galileo", "BeiDou", "QZSS", "NavIC" or "PULSAR"
   /// DataSetType string "Almanac", "Ephemeris" or "Orbit"
   ///
 
@@ -63046,13 +65265,14 @@ namespace Sdx.Cmd
     }
 
     internal const string CmdName = "GetDataSetAssignation";
+    internal const string TargetId = "";
 
     public GetDataSetAssignation()
-      : base(CmdName)
+      : base(CmdName, TargetId)
     {}
 
     public GetDataSetAssignation(string system, string dataSetType)
-      : base(CmdName)
+      : base(CmdName, TargetId)
     {
       System = system;
       DataSetType = dataSetType;
@@ -63095,8 +65315,8 @@ namespace Sdx.Cmd
   /// Result of GetDataSetAssignation.
   ///
   /// Name        Type   Description
-  /// ----------- ------ ---------------------------------------------
-  /// System      string "GPS", "Galileo", "BeiDou", "NavIC" or "QZSS"
+  /// ----------- ------ -------------------------------------------------------
+  /// System      string "GPS", "Galileo", "BeiDou", "QZSS", "NavIC" or "PULSAR"
   /// DataSetType string "Almanac", "Ephemeris" or "Orbit"
   /// DataSetName string The name of the assigned data set.
   ///
@@ -63109,13 +65329,14 @@ namespace Sdx.Cmd
     }
 
     internal const string CmdName = "GetDataSetAssignationResult";
+    internal const string TargetId = "";
 
     public GetDataSetAssignationResult()
-      : base(CmdName)
+      : base(CmdName, TargetId)
     {}
 
     public GetDataSetAssignationResult(CommandBase relatedCommand, string system, string dataSetType, string dataSetName)
-      : base(CmdName, relatedCommand)
+      : base(CmdName, TargetId, relatedCommand)
     {
       System = system;
       DataSetType = dataSetType;
@@ -63167,8 +65388,8 @@ namespace Sdx.Cmd
   /// Rename data set.
   ///
   /// Name           Type   Description
-  /// -------------- ------ ---------------------------------------------
-  /// System         string "GPS", "Galileo", "BeiDou", "NavIC" or "QZSS"
+  /// -------------- ------ -------------------------------------------------------
+  /// System         string "GPS", "Galileo", "BeiDou", "QZSS", "NavIC" or "PULSAR"
   /// DataSetName    string The name of the data set to rename.
   /// NewDataSetName string The new name to be given to the data set.
   ///
@@ -63181,13 +65402,14 @@ namespace Sdx.Cmd
     }
 
     internal const string CmdName = "RenameDataSet";
+    internal const string TargetId = "";
 
     public RenameDataSet()
-      : base(CmdName)
+      : base(CmdName, TargetId)
     {}
 
     public RenameDataSet(string system, string dataSetName, string newDataSetName)
-      : base(CmdName)
+      : base(CmdName, TargetId)
     {
       System = system;
       DataSetName = dataSetName;
@@ -63241,8 +65463,8 @@ namespace Sdx.Cmd
   /// Delete data set.
   ///
   /// Name        Type   Description
-  /// ----------- ------ ---------------------------------------------
-  /// System      string "GPS", "Galileo", "BeiDou", "NavIC" or "QZSS"
+  /// ----------- ------ -------------------------------------------------------
+  /// System      string "GPS", "Galileo", "BeiDou", "QZSS", "NavIC" or "PULSAR"
   /// DataSetName string The name of the data set to delete.
   ///
 
@@ -63254,13 +65476,14 @@ namespace Sdx.Cmd
     }
 
     internal const string CmdName = "DeleteDataSet";
+    internal const string TargetId = "";
 
     public DeleteDataSet()
-      : base(CmdName)
+      : base(CmdName, TargetId)
     {}
 
     public DeleteDataSet(string system, string dataSetName)
-      : base(CmdName)
+      : base(CmdName, TargetId)
     {
       System = system;
       DataSetName = dataSetName;
@@ -63303,8 +65526,8 @@ namespace Sdx.Cmd
   /// Set active data set.
   ///
   /// Name        Type   Description
-  /// ----------- ------ ---------------------------------------------
-  /// System      string "GPS", "Galileo", "BeiDou", "NavIC" or "QZSS"
+  /// ----------- ------ -------------------------------------------------------
+  /// System      string "GPS", "Galileo", "BeiDou", "QZSS", "NavIC" or "PULSAR"
   /// DataSetName string The name of the data set to set as active.
   ///
 
@@ -63316,13 +65539,14 @@ namespace Sdx.Cmd
     }
 
     internal const string CmdName = "SetActiveDataSet";
+    internal const string TargetId = "";
 
     public SetActiveDataSet()
-      : base(CmdName)
+      : base(CmdName, TargetId)
     {}
 
     public SetActiveDataSet(string system, string dataSetName)
-      : base(CmdName)
+      : base(CmdName, TargetId)
     {
       System = system;
       DataSetName = dataSetName;
@@ -63365,8 +65589,8 @@ namespace Sdx.Cmd
   /// Get active data set.
   ///
   /// Name   Type   Description
-  /// ------ ------ ---------------------------------------------
-  /// System string "GPS", "Galileo", "BeiDou", "NavIC" or "QZSS"
+  /// ------ ------ -------------------------------------------------------
+  /// System string "GPS", "Galileo", "BeiDou", "QZSS", "NavIC" or "PULSAR"
   ///
 
   public class GetActiveDataSet : CommandBase
@@ -63377,13 +65601,14 @@ namespace Sdx.Cmd
     }
 
     internal const string CmdName = "GetActiveDataSet";
+    internal const string TargetId = "";
 
     public GetActiveDataSet()
-      : base(CmdName)
+      : base(CmdName, TargetId)
     {}
 
     public GetActiveDataSet(string system)
-      : base(CmdName)
+      : base(CmdName, TargetId)
     {
       System = system;
     }
@@ -63415,8 +65640,8 @@ namespace Sdx.Cmd
   /// Result of GetActiveDataSet.
   ///
   /// Name        Type   Description
-  /// ----------- ------ ---------------------------------------------
-  /// System      string "GPS", "Galileo", "BeiDou", "NavIC" or "QZSS"
+  /// ----------- ------ -------------------------------------------------------
+  /// System      string "GPS", "Galileo", "BeiDou", "QZSS", "NavIC" or "PULSAR"
   /// DataSetName string The name of the data set to set as active.
   ///
 
@@ -63428,13 +65653,14 @@ namespace Sdx.Cmd
     }
 
     internal const string CmdName = "GetActiveDataSetResult";
+    internal const string TargetId = "";
 
     public GetActiveDataSetResult()
-      : base(CmdName)
+      : base(CmdName, TargetId)
     {}
 
     public GetActiveDataSetResult(CommandBase relatedCommand, string system, string dataSetName)
-      : base(CmdName, relatedCommand)
+      : base(CmdName, TargetId, relatedCommand)
     {
       System = system;
       DataSetName = dataSetName;
@@ -63476,7 +65702,7 @@ namespace Sdx.Cmd
   ///
   /// Name           Type            Description
   /// -------------- --------------- ----------------------------------------------------------------------------------
-  /// System         string          "GPS", "Galileo", "BeiDou", "NavIC" or "QZSS"
+  /// System         string          "GPS", "Galileo", "BeiDou", "QZSS", "NavIC" or "PULSAR"
   /// DataSetName    string          The name of the data set to duplicate.
   /// NewDataSetName optional string The name of the new duplicate data set. If omitted, a copy name will be generated.
   ///
@@ -63489,13 +65715,14 @@ namespace Sdx.Cmd
     }
 
     internal const string CmdName = "DuplicateDataSet";
+    internal const string TargetId = "";
 
     public DuplicateDataSet()
-      : base(CmdName)
+      : base(CmdName, TargetId)
     {}
 
     public DuplicateDataSet(string system, string dataSetName, string newDataSetName = null)
-      : base(CmdName)
+      : base(CmdName, TargetId)
     {
       System = system;
       DataSetName = dataSetName;
@@ -63567,8 +65794,8 @@ namespace Sdx.Cmd
   /// Get elevation and azimuth position angles for all satellites.
   ///
   /// Name   Type   Description
-  /// ------ ------ -----------------------------------------------------------------
-  /// System string "GPS", "GLONASS", "Galileo", "BeiDou", "SBAS", "QZSS" or "NavIC".
+  /// ------ ------ ---------------------------------------------------------------------------
+  /// System string "GPS", "GLONASS", "Galileo", "BeiDou", "SBAS", "QZSS", "NavIC" or "PULSAR".
   ///
 
   public class GetElevationAzimuthForEachSV : CommandBase
@@ -63579,13 +65806,14 @@ namespace Sdx.Cmd
     }
 
     internal const string CmdName = "GetElevationAzimuthForEachSV";
+    internal const string TargetId = "";
 
     public GetElevationAzimuthForEachSV()
-      : base(CmdName)
+      : base(CmdName, TargetId)
     {}
 
     public GetElevationAzimuthForEachSV(string system)
-      : base(CmdName)
+      : base(CmdName, TargetId)
     {
       System = system;
     }
@@ -63617,8 +65845,8 @@ namespace Sdx.Cmd
   /// Result of GetElevationAzimuthForEachSV.
   ///
   /// Name              Type                            Description
-  /// ----------------- ------------------------------- -----------------------------------------------------------------
-  /// System            string                          "GPS", "GLONASS", "Galileo", "BeiDou", "SBAS", "QZSS" or "NavIC".
+  /// ----------------- ------------------------------- ---------------------------------------------------------------------------
+  /// System            string                          "GPS", "GLONASS", "Galileo", "BeiDou", "SBAS", "QZSS", "NavIC" or "PULSAR".
   /// ElevationAzimuths array optional ElevationAzimuth Elevation and Azimuth position angles of the satellites.
   ///
 
@@ -63630,13 +65858,14 @@ namespace Sdx.Cmd
     }
 
     internal const string CmdName = "GetElevationAzimuthForEachSVResult";
+    internal const string TargetId = "";
 
     public GetElevationAzimuthForEachSVResult()
-      : base(CmdName)
+      : base(CmdName, TargetId)
     {}
 
     public GetElevationAzimuthForEachSVResult(CommandBase relatedCommand, string system, List<ElevationAzimuth?> elevationAzimuths)
-      : base(CmdName, relatedCommand)
+      : base(CmdName, TargetId, relatedCommand)
     {
       System = system;
       ElevationAzimuths = elevationAzimuths;
@@ -63677,8 +65906,8 @@ namespace Sdx.Cmd
   /// Get elevation and azimuth position angles for satellite.
   ///
   /// Name   Type   Description
-  /// ------ ------ -----------------------------------------------------------------
-  /// System string "GPS", "GLONASS", "Galileo", "BeiDou", "SBAS", "QZSS" or "NavIC".
+  /// ------ ------ ---------------------------------------------------------------------------
+  /// System string "GPS", "GLONASS", "Galileo", "BeiDou", "SBAS", "QZSS", "NavIC" or "PULSAR".
   /// SvId   int    Satellite's SV ID.
   ///
 
@@ -63690,13 +65919,14 @@ namespace Sdx.Cmd
     }
 
     internal const string CmdName = "GetElevationAzimuthForSV";
+    internal const string TargetId = "";
 
     public GetElevationAzimuthForSV()
-      : base(CmdName)
+      : base(CmdName, TargetId)
     {}
 
     public GetElevationAzimuthForSV(string system, int svId)
-      : base(CmdName)
+      : base(CmdName, TargetId)
     {
       System = system;
       SvId = svId;
@@ -63739,8 +65969,8 @@ namespace Sdx.Cmd
   /// Result of GetElevationAzimuthForSV.
   ///
   /// Name             Type                      Description
-  /// ---------------- ------------------------- -----------------------------------------------------------------
-  /// System           string                    "GPS", "GLONASS", "Galileo", "BeiDou", "SBAS", "QZSS" or "NavIC".
+  /// ---------------- ------------------------- ---------------------------------------------------------------------------
+  /// System           string                    "GPS", "GLONASS", "Galileo", "BeiDou", "SBAS", "QZSS", "NavIC" or "PULSAR".
   /// SvId             int                       Satellite's SV ID.
   /// ElevationAzimuth optional ElevationAzimuth Elevation and Azimuth position angles of the satellite.
   ///
@@ -63753,13 +65983,14 @@ namespace Sdx.Cmd
     }
 
     internal const string CmdName = "GetElevationAzimuthForSVResult";
+    internal const string TargetId = "";
 
     public GetElevationAzimuthForSVResult()
-      : base(CmdName)
+      : base(CmdName, TargetId)
     {}
 
     public GetElevationAzimuthForSVResult(CommandBase relatedCommand, string system, int svId, ElevationAzimuth? elevationAzimuth = null)
-      : base(CmdName, relatedCommand)
+      : base(CmdName, TargetId, relatedCommand)
     {
       System = system;
       SvId = svId;
@@ -63851,13 +66082,14 @@ namespace Sdx.Cmd
     }
 
     internal const string CmdName = "SetSbasServiceMessageRegionGroup";
+    internal const string TargetId = "";
 
     public SetSbasServiceMessageRegionGroup()
-      : base(CmdName)
+      : base(CmdName, TargetId)
     {}
 
     public SetSbasServiceMessageRegionGroup(string serviceProvider, int deltaUdrei, int priorityCode, List<SbasServiceMessageRegion> regions, string id)
-      : base(CmdName)
+      : base(CmdName, TargetId)
     {
       ServiceProvider = serviceProvider;
       DeltaUdrei = deltaUdrei;
@@ -63946,13 +66178,14 @@ namespace Sdx.Cmd
     }
 
     internal const string CmdName = "GetSbasServiceMessageRegionGroup";
+    internal const string TargetId = "";
 
     public GetSbasServiceMessageRegionGroup()
-      : base(CmdName)
+      : base(CmdName, TargetId)
     {}
 
     public GetSbasServiceMessageRegionGroup(string serviceProvider, string id)
-      : base(CmdName)
+      : base(CmdName, TargetId)
     {
       ServiceProvider = serviceProvider;
       Id = id;
@@ -64011,13 +66244,14 @@ namespace Sdx.Cmd
     }
 
     internal const string CmdName = "GetSbasServiceMessageRegionGroupResult";
+    internal const string TargetId = "";
 
     public GetSbasServiceMessageRegionGroupResult()
-      : base(CmdName)
+      : base(CmdName, TargetId)
     {}
 
     public GetSbasServiceMessageRegionGroupResult(CommandBase relatedCommand, string serviceProvider, int deltaUdrei, int priorityCode, List<SbasServiceMessageRegion> regions, string id)
-      : base(CmdName, relatedCommand)
+      : base(CmdName, TargetId, relatedCommand)
     {
       ServiceProvider = serviceProvider;
       DeltaUdrei = deltaUdrei;
@@ -64104,13 +66338,14 @@ namespace Sdx.Cmd
     }
 
     internal const string CmdName = "SetSbasDeltaUdreiOutsideOfRegions";
+    internal const string TargetId = "";
 
     public SetSbasDeltaUdreiOutsideOfRegions()
-      : base(CmdName)
+      : base(CmdName, TargetId)
     {}
 
     public SetSbasDeltaUdreiOutsideOfRegions(string serviceProvider, int deltaUdrei)
-      : base(CmdName)
+      : base(CmdName, TargetId)
     {
       ServiceProvider = serviceProvider;
       DeltaUdrei = deltaUdrei;
@@ -64165,13 +66400,14 @@ namespace Sdx.Cmd
     }
 
     internal const string CmdName = "GetSbasDeltaUdreiOutsideOfRegions";
+    internal const string TargetId = "";
 
     public GetSbasDeltaUdreiOutsideOfRegions()
-      : base(CmdName)
+      : base(CmdName, TargetId)
     {}
 
     public GetSbasDeltaUdreiOutsideOfRegions(string serviceProvider)
-      : base(CmdName)
+      : base(CmdName, TargetId)
     {
       ServiceProvider = serviceProvider;
     }
@@ -64216,13 +66452,14 @@ namespace Sdx.Cmd
     }
 
     internal const string CmdName = "GetSbasDeltaUdreiOutsideOfRegionsResult";
+    internal const string TargetId = "";
 
     public GetSbasDeltaUdreiOutsideOfRegionsResult()
-      : base(CmdName)
+      : base(CmdName, TargetId)
     {}
 
     public GetSbasDeltaUdreiOutsideOfRegionsResult(CommandBase relatedCommand, string serviceProvider, int deltaUdrei)
-      : base(CmdName, relatedCommand)
+      : base(CmdName, TargetId, relatedCommand)
     {
       ServiceProvider = serviceProvider;
       DeltaUdrei = deltaUdrei;
@@ -64276,13 +66513,14 @@ namespace Sdx.Cmd
     }
 
     internal const string CmdName = "RemoveSbasServiceMessageRegionGroup";
+    internal const string TargetId = "";
 
     public RemoveSbasServiceMessageRegionGroup()
-      : base(CmdName)
+      : base(CmdName, TargetId)
     {}
 
     public RemoveSbasServiceMessageRegionGroup(string serviceProvider, string id)
-      : base(CmdName)
+      : base(CmdName, TargetId)
     {
       ServiceProvider = serviceProvider;
       Id = id;
@@ -64337,13 +66575,14 @@ namespace Sdx.Cmd
     }
 
     internal const string CmdName = "ClearAllSbasServiceMessageRegionGroup";
+    internal const string TargetId = "";
 
     public ClearAllSbasServiceMessageRegionGroup()
-      : base(CmdName)
+      : base(CmdName, TargetId)
     {}
 
     public ClearAllSbasServiceMessageRegionGroup(string serviceProvider)
-      : base(CmdName)
+      : base(CmdName, TargetId)
     {
       ServiceProvider = serviceProvider;
     }
@@ -64389,13 +66628,14 @@ namespace Sdx.Cmd
     }
 
     internal const string CmdName = "SwapSbasServiceMessageRegionGroup";
+    internal const string TargetId = "";
 
     public SwapSbasServiceMessageRegionGroup()
-      : base(CmdName)
+      : base(CmdName, TargetId)
     {}
 
     public SwapSbasServiceMessageRegionGroup(string serviceProvider, string firstId, string secondId)
-      : base(CmdName)
+      : base(CmdName, TargetId)
     {
       ServiceProvider = serviceProvider;
       FirstId = firstId;
@@ -64460,9 +66700,10 @@ namespace Sdx.Cmd
     }
 
     internal const string CmdName = "GetComputerSystemTimeSinceEpochAtPps0";
+    internal const string TargetId = "";
 
     public GetComputerSystemTimeSinceEpochAtPps0()
-      : base(CmdName)
+      : base(CmdName, TargetId)
     {}
       
     public override bool IsValid
@@ -64494,13 +66735,14 @@ namespace Sdx.Cmd
     }
 
     internal const string CmdName = "GetComputerSystemTimeSinceEpochAtPps0Result";
+    internal const string TargetId = "";
 
     public GetComputerSystemTimeSinceEpochAtPps0Result()
-      : base(CmdName)
+      : base(CmdName, TargetId)
     {}
 
     public GetComputerSystemTimeSinceEpochAtPps0Result(CommandBase relatedCommand, double milliseconds)
-      : base(CmdName, relatedCommand)
+      : base(CmdName, TargetId, relatedCommand)
     {
       Milliseconds = milliseconds;
     }
@@ -64546,13 +66788,14 @@ namespace Sdx.Cmd
     }
 
     internal const string CmdName = "SetRawDataLoggingInterval";
+    internal const string TargetId = "";
 
     public SetRawDataLoggingInterval()
-      : base(CmdName)
+      : base(CmdName, TargetId)
     {}
 
     public SetRawDataLoggingInterval(int days, int hours, int minutes, int seconds, int milliseconds)
-      : base(CmdName)
+      : base(CmdName, TargetId)
     {
       Days = days;
       Hours = hours;
@@ -64638,9 +66881,10 @@ namespace Sdx.Cmd
     }
 
     internal const string CmdName = "GetRawDataLoggingInterval";
+    internal const string TargetId = "";
 
     public GetRawDataLoggingInterval()
-      : base(CmdName)
+      : base(CmdName, TargetId)
     {}
       
     public override bool IsValid
@@ -64676,13 +66920,14 @@ namespace Sdx.Cmd
     }
 
     internal const string CmdName = "RawDataLoggingIntervalResult";
+    internal const string TargetId = "";
 
     public RawDataLoggingIntervalResult()
-      : base(CmdName)
+      : base(CmdName, TargetId)
     {}
 
     public RawDataLoggingIntervalResult(CommandBase relatedCommand, int days, int hours, int minutes, int seconds, int milliseconds)
-      : base(CmdName, relatedCommand)
+      : base(CmdName, TargetId, relatedCommand)
     {
       Days = days;
       Hours = hours;
@@ -64768,13 +67013,14 @@ namespace Sdx.Cmd
     }
 
     internal const string CmdName = "SetStatusLogMaxEntriesCountMode";
+    internal const string TargetId = "";
 
     public SetStatusLogMaxEntriesCountMode()
-      : base(CmdName)
+      : base(CmdName, TargetId)
     {}
 
     public SetStatusLogMaxEntriesCountMode(string mode)
-      : base(CmdName)
+      : base(CmdName, TargetId)
     {
       Mode = mode;
     }
@@ -64818,13 +67064,14 @@ namespace Sdx.Cmd
     }
 
     internal const string CmdName = "SetStatusLogMaxEntriesCount";
+    internal const string TargetId = "";
 
     public SetStatusLogMaxEntriesCount()
-      : base(CmdName)
+      : base(CmdName, TargetId)
     {}
 
     public SetStatusLogMaxEntriesCount(int maxCount)
-      : base(CmdName)
+      : base(CmdName, TargetId)
     {
       MaxCount = maxCount;
     }
@@ -64877,13 +67124,14 @@ namespace Sdx.Cmd
     }
 
     internal const string CmdName = "SetSVDataUpdateMode";
+    internal const string TargetId = "";
 
     public SetSVDataUpdateMode()
-      : base(CmdName)
+      : base(CmdName, TargetId)
     {}
 
     public SetSVDataUpdateMode(SVDataUpdateMode mode)
-      : base(CmdName)
+      : base(CmdName, TargetId)
     {
       Mode = mode;
     }
@@ -64925,9 +67173,10 @@ namespace Sdx.Cmd
     }
 
     internal const string CmdName = "GetSVDataUpdateMode";
+    internal const string TargetId = "";
 
     public GetSVDataUpdateMode()
-      : base(CmdName)
+      : base(CmdName, TargetId)
     {}
       
     public override bool IsValid
@@ -64961,13 +67210,14 @@ namespace Sdx.Cmd
     }
 
     internal const string CmdName = "GetSVDataUpdateModeResult";
+    internal const string TargetId = "";
 
     public GetSVDataUpdateModeResult()
-      : base(CmdName)
+      : base(CmdName, TargetId)
     {}
 
     public GetSVDataUpdateModeResult(CommandBase relatedCommand, SVDataUpdateMode mode)
-      : base(CmdName, relatedCommand)
+      : base(CmdName, TargetId, relatedCommand)
     {
       Mode = mode;
     }
@@ -65032,7 +67282,7 @@ namespace Sdx.Cmd
   ///
   /// Name           Type                  Description
   /// -------------- --------------------- ---------------------------------------------------------------------------------------
-  /// System         string                "GPS", "Galileo", "BeiDou", "QZSS" or "NavIC".
+  /// System         string                "GPS", "Galileo", "BeiDou", "QZSS", "NavIC" or "PULSAR".
   /// SvId           int                   Satellite's SV ID.
   /// Toc            datetime              Time of Clock.
   /// ParametersDict dict string:double    A dictionary of parameters pairs.
@@ -65056,13 +67306,14 @@ namespace Sdx.Cmd
     }
 
     internal const string CmdName = "PushDynamicSVData";
+    internal const string TargetId = "";
 
     public PushDynamicSVData()
-      : base(CmdName)
+      : base(CmdName, TargetId)
     {}
 
     public PushDynamicSVData(string system, int svId, DateTime toc, Dictionary<string, double> parametersDict, List<string> dataSetTypes = null)
-      : base(CmdName)
+      : base(CmdName, TargetId)
     {
       System = system;
       SvId = svId;
@@ -65176,8 +67427,8 @@ namespace Sdx.Cmd
   ///   "Idot"              rad/sec
   ///
   /// Name    Type                Description
-  /// ------- ------------------- ----------------------------------------------
-  /// System  string              "GPS", "Galileo", "BeiDou", "QZSS" or "NavIC".
+  /// ------- ------------------- --------------------------------------------------------
+  /// System  string              "GPS", "Galileo", "BeiDou", "QZSS", "NavIC" or "PULSAR".
   /// Toa     datetime            Time of applicability.
   /// Almanac array AlmanacSVData Array of almanac data for SVs.
   ///
@@ -65190,13 +67441,14 @@ namespace Sdx.Cmd
     }
 
     internal const string CmdName = "PushDynamicAlmanacData";
+    internal const string TargetId = "";
 
     public PushDynamicAlmanacData()
-      : base(CmdName)
+      : base(CmdName, TargetId)
     {}
 
     public PushDynamicAlmanacData(string system, DateTime toa, List<AlmanacSVData> almanac)
-      : base(CmdName)
+      : base(CmdName, TargetId)
     {
       System = system;
       Toa = toa;
@@ -65263,13 +67515,14 @@ namespace Sdx.Cmd
     }
 
     internal const string CmdName = "EnableAlmanacExtrapolationFromEphemeris";
+    internal const string TargetId = "";
 
     public EnableAlmanacExtrapolationFromEphemeris()
-      : base(CmdName)
+      : base(CmdName, TargetId)
     {}
 
     public EnableAlmanacExtrapolationFromEphemeris(bool enabled)
-      : base(CmdName)
+      : base(CmdName, TargetId)
     {
       Enabled = enabled;
     }
@@ -65311,9 +67564,10 @@ namespace Sdx.Cmd
     }
 
     internal const string CmdName = "IsAlmanacExtrapolationFromEphemerisEnabled";
+    internal const string TargetId = "";
 
     public IsAlmanacExtrapolationFromEphemerisEnabled()
-      : base(CmdName)
+      : base(CmdName, TargetId)
     {}
       
     public override bool IsValid
@@ -65345,13 +67599,14 @@ namespace Sdx.Cmd
     }
 
     internal const string CmdName = "IsAlmanacExtrapolationFromEphemerisEnabledResult";
+    internal const string TargetId = "";
 
     public IsAlmanacExtrapolationFromEphemerisEnabledResult()
-      : base(CmdName)
+      : base(CmdName, TargetId)
     {}
 
     public IsAlmanacExtrapolationFromEphemerisEnabledResult(CommandBase relatedCommand, bool enabled)
-      : base(CmdName, relatedCommand)
+      : base(CmdName, TargetId, relatedCommand)
     {
       Enabled = enabled;
     }
@@ -65401,13 +67656,14 @@ namespace Sdx.Cmd
     }
 
     internal const string CmdName = "SetEncryptionLibraryPath";
+    internal const string TargetId = "";
 
     public SetEncryptionLibraryPath()
-      : base(CmdName)
+      : base(CmdName, TargetId)
     {}
 
     public SetEncryptionLibraryPath(EncryptionSignalType type, string path)
-      : base(CmdName)
+      : base(CmdName, TargetId)
     {
       Type = type;
       Path = path;
@@ -65462,13 +67718,14 @@ namespace Sdx.Cmd
     }
 
     internal const string CmdName = "GetEncryptionLibraryPath";
+    internal const string TargetId = "";
 
     public GetEncryptionLibraryPath()
-      : base(CmdName)
+      : base(CmdName, TargetId)
     {}
 
     public GetEncryptionLibraryPath(EncryptionSignalType type)
-      : base(CmdName)
+      : base(CmdName, TargetId)
     {
       Type = type;
     }
@@ -65513,13 +67770,14 @@ namespace Sdx.Cmd
     }
 
     internal const string CmdName = "GetEncryptionLibraryPathResult";
+    internal const string TargetId = "";
 
     public GetEncryptionLibraryPathResult()
-      : base(CmdName)
+      : base(CmdName, TargetId)
     {}
 
     public GetEncryptionLibraryPathResult(CommandBase relatedCommand, EncryptionSignalType type, string path)
-      : base(CmdName, relatedCommand)
+      : base(CmdName, TargetId, relatedCommand)
     {
       Type = type;
       Path = path;
@@ -65572,13 +67830,14 @@ namespace Sdx.Cmd
     }
 
     internal const string CmdName = "TestEncryptionLibrary";
+    internal const string TargetId = "";
 
     public TestEncryptionLibrary()
-      : base(CmdName)
+      : base(CmdName, TargetId)
     {}
 
     public TestEncryptionLibrary(EncryptionSignalType type)
-      : base(CmdName)
+      : base(CmdName, TargetId)
     {
       Type = type;
     }
@@ -65626,13 +67885,14 @@ namespace Sdx.Cmd
     }
 
     internal const string CmdName = "ExecuteGpuBenchmark";
+    internal const string TargetId = "";
 
     public ExecuteGpuBenchmark()
-      : base(CmdName)
+      : base(CmdName, TargetId)
     {}
 
     public ExecuteGpuBenchmark(int durationMs, Dictionary<string, int> systemSvCountDict, int echoCount)
-      : base(CmdName)
+      : base(CmdName, TargetId)
     {
       DurationMs = durationMs;
       SystemSvCountDict = systemSvCountDict;
@@ -65698,13 +67958,14 @@ namespace Sdx.Cmd
     }
 
     internal const string CmdName = "ExecuteGpuBenchmarkResult";
+    internal const string TargetId = "";
 
     public ExecuteGpuBenchmarkResult()
-      : base(CmdName)
+      : base(CmdName, TargetId)
     {}
 
     public ExecuteGpuBenchmarkResult(CommandBase relatedCommand, double score)
-      : base(CmdName, relatedCommand)
+      : base(CmdName, TargetId, relatedCommand)
     {
       Score = score;
     }
@@ -65748,13 +68009,14 @@ namespace Sdx.Cmd
     }
 
     internal const string CmdName = "SetWFElement";
+    internal const string TargetId = "";
 
     public SetWFElement()
-      : base(CmdName)
+      : base(CmdName, TargetId)
     {}
 
     public SetWFElement(int element, bool enabled, string antennaModelName)
-      : base(CmdName)
+      : base(CmdName, TargetId)
     {
       Element = element;
       Enabled = enabled;
@@ -65820,13 +68082,14 @@ namespace Sdx.Cmd
     }
 
     internal const string CmdName = "GetWFElement";
+    internal const string TargetId = "";
 
     public GetWFElement()
-      : base(CmdName)
+      : base(CmdName, TargetId)
     {}
 
     public GetWFElement(int element)
-      : base(CmdName)
+      : base(CmdName, TargetId)
     {
       Element = element;
     }
@@ -65872,13 +68135,14 @@ namespace Sdx.Cmd
     }
 
     internal const string CmdName = "GetWFElementResult";
+    internal const string TargetId = "";
 
     public GetWFElementResult()
-      : base(CmdName)
+      : base(CmdName, TargetId)
     {}
 
     public GetWFElementResult(CommandBase relatedCommand, int element, bool enabled, string antennaModelName)
-      : base(CmdName, relatedCommand)
+      : base(CmdName, TargetId, relatedCommand)
     {
       Element = element;
       Enabled = enabled;
@@ -65940,9 +68204,10 @@ namespace Sdx.Cmd
     }
 
     internal const string CmdName = "RemoveWFElement";
+    internal const string TargetId = "";
 
     public RemoveWFElement()
-      : base(CmdName)
+      : base(CmdName, TargetId)
     {}
       
     public override bool IsValid
@@ -65974,13 +68239,14 @@ namespace Sdx.Cmd
     }
 
     internal const string CmdName = "ImportWFAntenna";
+    internal const string TargetId = "";
 
     public ImportWFAntenna()
-      : base(CmdName)
+      : base(CmdName, TargetId)
     {}
 
     public ImportWFAntenna(string filePath)
-      : base(CmdName)
+      : base(CmdName, TargetId)
     {
       FilePath = filePath;
     }
@@ -66025,13 +68291,14 @@ namespace Sdx.Cmd
     }
 
     internal const string CmdName = "ExportWFAntenna";
+    internal const string TargetId = "";
 
     public ExportWFAntenna()
-      : base(CmdName)
+      : base(CmdName, TargetId)
     {}
 
     public ExportWFAntenna(string filePath, bool overwriteFile)
-      : base(CmdName)
+      : base(CmdName, TargetId)
     {
       FilePath = filePath;
       OverwriteFile = overwriteFile;
@@ -66087,13 +68354,14 @@ namespace Sdx.Cmd
     }
 
     internal const string CmdName = "SetN310LocalOscillatorSource";
+    internal const string TargetId = "";
 
     public SetN310LocalOscillatorSource()
-      : base(CmdName)
+      : base(CmdName, TargetId)
     {}
 
     public SetN310LocalOscillatorSource(bool isExternal, string id)
-      : base(CmdName)
+      : base(CmdName, TargetId)
     {
       IsExternal = isExternal;
       Id = id;
@@ -66148,13 +68416,14 @@ namespace Sdx.Cmd
     }
 
     internal const string CmdName = "GetN310LocalOscillatorSource";
+    internal const string TargetId = "";
 
     public GetN310LocalOscillatorSource()
-      : base(CmdName)
+      : base(CmdName, TargetId)
     {}
 
     public GetN310LocalOscillatorSource(string id)
-      : base(CmdName)
+      : base(CmdName, TargetId)
     {
       Id = id;
     }
@@ -66199,13 +68468,14 @@ namespace Sdx.Cmd
     }
 
     internal const string CmdName = "GetN310LocalOscillatorSourceResult";
+    internal const string TargetId = "";
 
     public GetN310LocalOscillatorSourceResult()
-      : base(CmdName)
+      : base(CmdName, TargetId)
     {}
 
     public GetN310LocalOscillatorSourceResult(CommandBase relatedCommand, bool isExternal, string id)
-      : base(CmdName, relatedCommand)
+      : base(CmdName, TargetId, relatedCommand)
     {
       IsExternal = isExternal;
       Id = id;
@@ -66243,7 +68513,7 @@ namespace Sdx.Cmd
 
 
   ///
-  /// Set "GPS", "Galileo", "BeiDou", "QZSS" or "NavIC" constellation parameter value.
+  /// Set "GPS", "Galileo", "BeiDou", "QZSS", "NavIC" or "PULSAR" constellation parameter value.
   /// 
   /// General constellation parameters:
   /// 
@@ -66298,7 +68568,7 @@ namespace Sdx.Cmd
   ///
   /// Name        Type                  Description
   /// ----------- --------------------- -------------------------------------------------------------------------------------------
-  /// System      string                "GPS", "Galileo", "BeiDou", "QZSS" or "NavIC".
+  /// System      string                "GPS", "Galileo", "BeiDou", "QZSS", "NavIC" or "PULSAR".
   /// SvId        int                   The Satellite SV ID, or use 0 to apply new value to all satellites.
   /// ParamName   string                Parameter name (see table above for accepted names).
   /// Val         double or int or bool Parameter value (see table above for unit and type).
@@ -66309,17 +68579,18 @@ namespace Sdx.Cmd
   {
     public override string Documentation
     {
-      get { return "Set \"GPS\", \"Galileo\", \"BeiDou\", \"QZSS\" or \"NavIC\" constellation parameter value.\n\nGeneral constellation parameters:\n\n  Unit         Type     ParamName\n  sec          double   \"ClockBias\"\n  sec/sec      double   \"ClockDrift\"\n  sec/sec^2    double   \"ClockDriftRate\"\n  meter        double   \"Crs\", \"Crc\", \"Accuracy\"\n  meter/sec    double   \"Adot\"\n  rad          double   \"Cis\", \"Cic\", \"Cus\", \"Cuc\", \"M0\", \"BigOmega\", \"I0\", \"LittleOmega\"\n  rad/sec      double   \"DeltaN\", \"BigOmegaDot\", \"Idot\" \n  rad/sec^2    double   \"DeltaN0dot\"\n  sqrt(meter)  double   \"SqrtA\"  \n  -            double   \"Eccentricity\"\n  -            integer  \"Week Number\", \"Toe\", \"Transmission Time\"\n\nGPS:\n\n  Unit         Type     ParamName\n  sec          double   \"Tgd\", \"IscL1Ca\", \"IscL2C\", \"IscL5I5\", \"IscL5Q5\", \"IscL1CP\", \"IscL1CD\", \"IscL1ME\", \"IscL2ME\", \"IscL1MR\", \"IscL2MR\"\n  sec          integer  \"Fit interval\"\n  -            integer  \"IODE\", \"IODC\", \"UraIndex\"\n  -            boolean  \"IscL1CaAvailable\", \"IscL2CAvailable\", \"IscL5I5Available\", \"IscL5Q5Available\", \"IscL1CPAvailable\", \"IscL1CDAvailable\", \"IscL1MEAvailable\", \"IscL2MEAvailable\", \"IscL1MRAvailable\", \"IscL2MRAvailable\"\n\nGalileo:\n\n  Unit         Type     ParamName\n  sec          double   \"Tgd\"\n  ns           double   \"BgdE1E5a\", \"BgdE1E5b\"\n  -            integer  \"SisaE1E5a\", \"SisaE1E5b\", \"IODNAV\" \n\nBeiDou:\n\n  Unit         Type     ParamName\n  sec          double   \"Tgd1\", \"Tgd2\", \"TgdB1Cp\", \"TgdB2Ap\"\n  -            integer  \"IODE\", \"IODC\", \"AODE\", \"AODC\"\n  -            boolean  \"IscB1CdAvailable\", \"IscB2adAvailable\"\n\nQZSS:\n\n  Unit         Type     ParamName\n  sec          double   \"Tgd\", \"IscL1Ca\", \"IscL2C\", \"IscL5I5\", \"IscL5Q5\", \"IscL1CP\", \"IscL1CD\"\n  sec          integer  \"Fit interval\"\n  -            integer  \"IODE\", \"IODC\", \"UraIndex\"\n  -            boolean  \"IscL1CaAvailable\", \"IscL2CAvailable\", \"IscL5I5Available\", \"IscL5Q5Available\", \"IscL1CPAvailable\", \"IscL1CDAvailable\"\n\nNavIC:\n\n  Unit         Type     ParamName\n  sec          double   \"Tgd\"\n  -            integer  \"IODEC\", \"UraIndex\""; }
+      get { return "Set \"GPS\", \"Galileo\", \"BeiDou\", \"QZSS\", \"NavIC\" or \"PULSAR\" constellation parameter value.\n\nGeneral constellation parameters:\n\n  Unit         Type     ParamName\n  sec          double   \"ClockBias\"\n  sec/sec      double   \"ClockDrift\"\n  sec/sec^2    double   \"ClockDriftRate\"\n  meter        double   \"Crs\", \"Crc\", \"Accuracy\"\n  meter/sec    double   \"Adot\"\n  rad          double   \"Cis\", \"Cic\", \"Cus\", \"Cuc\", \"M0\", \"BigOmega\", \"I0\", \"LittleOmega\"\n  rad/sec      double   \"DeltaN\", \"BigOmegaDot\", \"Idot\" \n  rad/sec^2    double   \"DeltaN0dot\"\n  sqrt(meter)  double   \"SqrtA\"  \n  -            double   \"Eccentricity\"\n  -            integer  \"Week Number\", \"Toe\", \"Transmission Time\"\n\nGPS:\n\n  Unit         Type     ParamName\n  sec          double   \"Tgd\", \"IscL1Ca\", \"IscL2C\", \"IscL5I5\", \"IscL5Q5\", \"IscL1CP\", \"IscL1CD\", \"IscL1ME\", \"IscL2ME\", \"IscL1MR\", \"IscL2MR\"\n  sec          integer  \"Fit interval\"\n  -            integer  \"IODE\", \"IODC\", \"UraIndex\"\n  -            boolean  \"IscL1CaAvailable\", \"IscL2CAvailable\", \"IscL5I5Available\", \"IscL5Q5Available\", \"IscL1CPAvailable\", \"IscL1CDAvailable\", \"IscL1MEAvailable\", \"IscL2MEAvailable\", \"IscL1MRAvailable\", \"IscL2MRAvailable\"\n\nGalileo:\n\n  Unit         Type     ParamName\n  sec          double   \"Tgd\"\n  ns           double   \"BgdE1E5a\", \"BgdE1E5b\"\n  -            integer  \"SisaE1E5a\", \"SisaE1E5b\", \"IODNAV\" \n\nBeiDou:\n\n  Unit         Type     ParamName\n  sec          double   \"Tgd1\", \"Tgd2\", \"TgdB1Cp\", \"TgdB2Ap\"\n  -            integer  \"IODE\", \"IODC\", \"AODE\", \"AODC\"\n  -            boolean  \"IscB1CdAvailable\", \"IscB2adAvailable\"\n\nQZSS:\n\n  Unit         Type     ParamName\n  sec          double   \"Tgd\", \"IscL1Ca\", \"IscL2C\", \"IscL5I5\", \"IscL5Q5\", \"IscL1CP\", \"IscL1CD\"\n  sec          integer  \"Fit interval\"\n  -            integer  \"IODE\", \"IODC\", \"UraIndex\"\n  -            boolean  \"IscL1CaAvailable\", \"IscL2CAvailable\", \"IscL5I5Available\", \"IscL5Q5Available\", \"IscL1CPAvailable\", \"IscL1CDAvailable\"\n\nNavIC:\n\n  Unit         Type     ParamName\n  sec          double   \"Tgd\"\n  -            integer  \"IODEC\", \"UraIndex\""; }
     }
 
     internal const string CmdName = "SetConstellationParameterForSV";
+    internal const string TargetId = "";
 
     public SetConstellationParameterForSV()
-      : base(CmdName)
+      : base(CmdName, TargetId)
     {}
 
     public SetConstellationParameterForSV(string system, int svId, string paramName, Object val, string dataSetName = null)
-      : base(CmdName)
+      : base(CmdName, TargetId)
     {
       System = system;
       SvId = svId;
@@ -66394,7 +68665,7 @@ namespace Sdx.Cmd
 
 
   ///
-  /// Get "GPS", "Galileo", "BeiDou", "QZSS" or "NavIC" constellation parameter value.
+  /// Get "GPS", "Galileo", "BeiDou", "QZSS", "NavIC" or "PULSAR" constellation parameter value.
   /// 
   /// General constellation parameters:
   /// 
@@ -66449,7 +68720,7 @@ namespace Sdx.Cmd
   ///
   /// Name        Type            Description
   /// ----------- --------------- -------------------------------------------------------------------------------------------
-  /// System      string          "GPS", "Galileo", "BeiDou", "QZSS" or "NavIC".
+  /// System      string          "GPS", "Galileo", "BeiDou", "QZSS", "NavIC" or "PULSAR".
   /// SvId        int             The Satellite SV ID, or use 0 to apply new value to all satellites.
   /// ParamName   string          Parameter name (see table above for accepted names).
   /// DataSetName optional string Optional name of the data set to use. If no value is provided, the active data set is used.
@@ -66459,17 +68730,18 @@ namespace Sdx.Cmd
   {
     public override string Documentation
     {
-      get { return "Get \"GPS\", \"Galileo\", \"BeiDou\", \"QZSS\" or \"NavIC\" constellation parameter value.\n\nGeneral constellation parameters:\n\n  Unit         Type     ParamName\n  sec          double   \"ClockBias\"\n  sec/sec      double   \"ClockDrift\"\n  sec/sec^2    double   \"ClockDriftRate\"\n  meter        double   \"Crs\", \"Crc\", \"Accuracy\"\n  meter/sec    double   \"Adot\"\n  rad          double   \"Cis\", \"Cic\", \"Cus\", \"Cuc\", \"M0\", \"BigOmega\", \"I0\", \"LittleOmega\"\n  rad/sec      double   \"DeltaN\", \"BigOmegaDot\", \"Idot\" \n  rad/sec^2    double   \"DeltaN0dot\"\n  sqrt(meter)  double   \"SqrtA\"  \n  -            double   \"Eccentricity\"\n  -            integer  \"Week Number\", \"Toe\", \"Transmission Time\"\n\nGPS:\n\n  Unit         Type     ParamName\n  sec          double   \"Tgd\", \"IscL1Ca\", \"IscL2C\", \"IscL5I5\", \"IscL5Q5\", \"IscL1CP\", \"IscL1CD\", \"IscL1ME\", \"IscL2ME\", \"IscL1MR\", \"IscL2MR\"\n  sec          integer  \"Fit interval\"\n  -            integer  \"IODE\", \"IODC\", \"UraIndex\"\n  -            boolean  \"IscL1CaAvailable\", \"IscL2CAvailable\", \"IscL5I5Available\", \"IscL5Q5Available\", \"IscL1CPAvailable\", \"IscL1CDAvailable\", \"IscL1MEAvailable\", \"IscL2MEAvailable\", \"IscL1MRAvailable\", \"IscL2MRAvailable\"\n\nGalileo:\n\n  Unit         Type     ParamName\n  sec          double   \"Tgd\"\n  ns           double   \"BgdE1E5a\", \"BgdE1E5b\"\n  -            integer  \"SisaE1E5a\", \"SisaE1E5b\", \"IODNAV\" \n\nBeiDou:\n\n  Unit         Type     ParamName\n  sec          double   \"Tgd1\", \"Tgd2\", \"TgdB1Cp\", \"TgdB2Ap\"\n  -            integer  \"IODE\", \"IODC\", \"AODE\", \"AODC\"\n  -            boolean  \"IscB1CdAvailable\", \"IscB2adAvailable\"\n\nQZSS:\n\n  Unit         Type     ParamName\n  sec          double   \"Tgd\", \"IscL1Ca\", \"IscL2C\", \"IscL5I5\", \"IscL5Q5\", \"IscL1CP\", \"IscL1CD\"\n  sec          integer  \"Fit interval\"\n  -            integer  \"IODE\", \"IODC\", \"UraIndex\"\n  -            boolean  \"IscL1CaAvailable\", \"IscL2CAvailable\", \"IscL5I5Available\", \"IscL5Q5Available\", \"IscL1CPAvailable\", \"IscL1CDAvailable\"\n\nNavIC:\n\n  Unit         Type     ParamName\n  sec          double   \"Tgd\"\n  -            integer  \"IODEC\", \"UraIndex\""; }
+      get { return "Get \"GPS\", \"Galileo\", \"BeiDou\", \"QZSS\", \"NavIC\" or \"PULSAR\" constellation parameter value.\n\nGeneral constellation parameters:\n\n  Unit         Type     ParamName\n  sec          double   \"ClockBias\"\n  sec/sec      double   \"ClockDrift\"\n  sec/sec^2    double   \"ClockDriftRate\"\n  meter        double   \"Crs\", \"Crc\", \"Accuracy\"\n  meter/sec    double   \"Adot\"\n  rad          double   \"Cis\", \"Cic\", \"Cus\", \"Cuc\", \"M0\", \"BigOmega\", \"I0\", \"LittleOmega\"\n  rad/sec      double   \"DeltaN\", \"BigOmegaDot\", \"Idot\" \n  rad/sec^2    double   \"DeltaN0dot\"\n  sqrt(meter)  double   \"SqrtA\"  \n  -            double   \"Eccentricity\"\n  -            integer  \"Week Number\", \"Toe\", \"Transmission Time\"\n\nGPS:\n\n  Unit         Type     ParamName\n  sec          double   \"Tgd\", \"IscL1Ca\", \"IscL2C\", \"IscL5I5\", \"IscL5Q5\", \"IscL1CP\", \"IscL1CD\", \"IscL1ME\", \"IscL2ME\", \"IscL1MR\", \"IscL2MR\"\n  sec          integer  \"Fit interval\"\n  -            integer  \"IODE\", \"IODC\", \"UraIndex\"\n  -            boolean  \"IscL1CaAvailable\", \"IscL2CAvailable\", \"IscL5I5Available\", \"IscL5Q5Available\", \"IscL1CPAvailable\", \"IscL1CDAvailable\", \"IscL1MEAvailable\", \"IscL2MEAvailable\", \"IscL1MRAvailable\", \"IscL2MRAvailable\"\n\nGalileo:\n\n  Unit         Type     ParamName\n  sec          double   \"Tgd\"\n  ns           double   \"BgdE1E5a\", \"BgdE1E5b\"\n  -            integer  \"SisaE1E5a\", \"SisaE1E5b\", \"IODNAV\" \n\nBeiDou:\n\n  Unit         Type     ParamName\n  sec          double   \"Tgd1\", \"Tgd2\", \"TgdB1Cp\", \"TgdB2Ap\"\n  -            integer  \"IODE\", \"IODC\", \"AODE\", \"AODC\"\n  -            boolean  \"IscB1CdAvailable\", \"IscB2adAvailable\"\n\nQZSS:\n\n  Unit         Type     ParamName\n  sec          double   \"Tgd\", \"IscL1Ca\", \"IscL2C\", \"IscL5I5\", \"IscL5Q5\", \"IscL1CP\", \"IscL1CD\"\n  sec          integer  \"Fit interval\"\n  -            integer  \"IODE\", \"IODC\", \"UraIndex\"\n  -            boolean  \"IscL1CaAvailable\", \"IscL2CAvailable\", \"IscL5I5Available\", \"IscL5Q5Available\", \"IscL1CPAvailable\", \"IscL1CDAvailable\"\n\nNavIC:\n\n  Unit         Type     ParamName\n  sec          double   \"Tgd\"\n  -            integer  \"IODEC\", \"UraIndex\""; }
     }
 
     internal const string CmdName = "GetConstellationParameterForSV";
+    internal const string TargetId = "";
 
     public GetConstellationParameterForSV()
-      : base(CmdName)
+      : base(CmdName, TargetId)
     {}
 
     public GetConstellationParameterForSV(string system, int svId, string paramName, string dataSetName = null)
-      : base(CmdName)
+      : base(CmdName, TargetId)
     {
       System = system;
       SvId = svId;
@@ -66537,7 +68809,7 @@ namespace Sdx.Cmd
   ///
   /// Name        Type                  Description
   /// ----------- --------------------- -------------------------------------------------------------------------------------------
-  /// System      string                "GPS", "Galileo", "BeiDou", "QZSS" or "NavIC".
+  /// System      string                "GPS", "Galileo", "BeiDou", "QZSS", "NavIC" or "PULSAR".
   /// SvId        int                   The Satellite SV ID, or use 0 to apply new value to all satellites.
   /// ParamName   string                Parameter name (see table above for accepted names).
   /// Val         double or int or bool Parameter value (see table above for unit and type).
@@ -66552,13 +68824,14 @@ namespace Sdx.Cmd
     }
 
     internal const string CmdName = "GetConstellationParameterForSVResult";
+    internal const string TargetId = "";
 
     public GetConstellationParameterForSVResult()
-      : base(CmdName)
+      : base(CmdName, TargetId)
     {}
 
     public GetConstellationParameterForSVResult(CommandBase relatedCommand, string system, int svId, string paramName, Object val, string dataSetName = null)
-      : base(CmdName, relatedCommand)
+      : base(CmdName, TargetId, relatedCommand)
     {
       System = system;
       SvId = svId;
@@ -66631,11 +68904,11 @@ namespace Sdx.Cmd
 
 
   ///
-  /// Set "GPS", "Galileo", "BeiDou", "QZSS" or "NavIC" constellation parameter value for all satellites.
+  /// Set "GPS", "Galileo", "BeiDou", "QZSS", "NavIC" or "PULSAR" constellation parameter value for all satellites.
   ///
   /// Name        Type                                    Description
   /// ----------- --------------------------------------- ----------------------------------------------------------------------------------------------------
-  /// System      string                                  "GPS", "Galileo", "BeiDou", "QZSS" or "NavIC".
+  /// System      string                                  "GPS", "Galileo", "BeiDou", "QZSS", "NavIC" or "PULSAR".
   /// ParamName   string                                  Refer to SetConstellationParameterForSV for accepted names.
   /// Val         array double or array int or array bool Parameter value for each satellite. Zero based index (index 0 => SV ID 1, index 1 => SV ID 2, etc.).
   /// DataSetName optional string                         Optional name of the data set to use. If no value is provided, the active data set is used.
@@ -66645,17 +68918,18 @@ namespace Sdx.Cmd
   {
     public override string Documentation
     {
-      get { return "Set \"GPS\", \"Galileo\", \"BeiDou\", \"QZSS\" or \"NavIC\" constellation parameter value for all satellites."; }
+      get { return "Set \"GPS\", \"Galileo\", \"BeiDou\", \"QZSS\", \"NavIC\" or \"PULSAR\" constellation parameter value for all satellites."; }
     }
 
     internal const string CmdName = "SetConstellationParameterForEachSV";
+    internal const string TargetId = "";
 
     public SetConstellationParameterForEachSV()
-      : base(CmdName)
+      : base(CmdName, TargetId)
     {}
 
     public SetConstellationParameterForEachSV(string system, string paramName, Object val, string dataSetName = null)
-      : base(CmdName)
+      : base(CmdName, TargetId)
     {
       System = system;
       ParamName = paramName;
@@ -66719,11 +68993,11 @@ namespace Sdx.Cmd
 
 
   ///
-  /// Get "GPS", "Galileo", "BeiDou", "QZSS" or "NavIC" constellation parameter value for all satellites.
+  /// Get "GPS", "Galileo", "BeiDou", "QZSS", "NavIC" or "PULSAR" constellation parameter value for all satellites.
   ///
   /// Name        Type            Description
   /// ----------- --------------- -------------------------------------------------------------------------------------------
-  /// System      string          "GPS", "Galileo", "BeiDou", "QZSS" or "NavIC".
+  /// System      string          "GPS", "Galileo", "BeiDou", "QZSS", "NavIC" or "PULSAR".
   /// ParamName   string          Refer to SetConstellationParameterForSV for accepted names.
   /// DataSetName optional string Optional name of the data set to use. If no value is provided, the active data set is used.
   ///
@@ -66732,17 +69006,18 @@ namespace Sdx.Cmd
   {
     public override string Documentation
     {
-      get { return "Get \"GPS\", \"Galileo\", \"BeiDou\", \"QZSS\" or \"NavIC\" constellation parameter value for all satellites."; }
+      get { return "Get \"GPS\", \"Galileo\", \"BeiDou\", \"QZSS\", \"NavIC\" or \"PULSAR\" constellation parameter value for all satellites."; }
     }
 
     internal const string CmdName = "GetConstellationParameterForEachSV";
+    internal const string TargetId = "";
 
     public GetConstellationParameterForEachSV()
-      : base(CmdName)
+      : base(CmdName, TargetId)
     {}
 
     public GetConstellationParameterForEachSV(string system, string paramName, string dataSetName = null)
-      : base(CmdName)
+      : base(CmdName, TargetId)
     {
       System = system;
       ParamName = paramName;
@@ -66799,7 +69074,7 @@ namespace Sdx.Cmd
   ///
   /// Name        Type                                    Description
   /// ----------- --------------------------------------- ----------------------------------------------------------------------------------------------------
-  /// System      string                                  "GPS", "Galileo", "BeiDou", "QZSS" or "NavIC".
+  /// System      string                                  "GPS", "Galileo", "BeiDou", "QZSS", "NavIC" or "PULSAR".
   /// ParamName   string                                  Refer to SetConstellationParameterForSV for accepted names.
   /// Val         array double or array int or array bool Parameter value for each satellite. Zero based index (index 0 => SV ID 1, index 1 => SV ID 2, etc.).
   /// DataSetName optional string                         Optional name of the data set to use. If no value is provided, the active data set is used.
@@ -66813,13 +69088,14 @@ namespace Sdx.Cmd
     }
 
     internal const string CmdName = "GetConstellationParameterForEachSVResult";
+    internal const string TargetId = "";
 
     public GetConstellationParameterForEachSVResult()
-      : base(CmdName)
+      : base(CmdName, TargetId)
     {}
 
     public GetConstellationParameterForEachSVResult(CommandBase relatedCommand, string system, string paramName, Object val, string dataSetName = null)
-      : base(CmdName, relatedCommand)
+      : base(CmdName, TargetId, relatedCommand)
     {
       System = system;
       ParamName = paramName;
@@ -66881,126 +69157,31 @@ namespace Sdx.Cmd
 
 
   ///
-  /// A pair of string
+  /// Adjusts the Advanced Jammer IQ data amplitude on the Dektec output by adding noise to ensure power level linearity on weak jammer signals. Note that enabling this option will increase the noise observed at the RF output for all jammer signal power levels.
   ///
-  /// Name   Type   Description
-  /// ------ ------ ---------------------
-  /// First  string First string in pair
-  /// Second string Second string in pair
-  ///
-
-  public struct StringPair
-  {
-    public string First;
-    public string Second;
-  }
-
-
-  ///
-  /// Please note the command ResetHilWarning is deprecated since 22.5. You may use GetHilExtrapolationState.
-  /// 
-  /// Reset Hardware in the loop trajectory server warning message.
-  ///
-  /// 
+  /// Name   Type Description
+  /// ------ ---- ----------------------------------------------------------------
+  /// Enable bool True to enable Advance Jammer noise adjustment on Dektec output.
   ///
 
-  public class ResetHilWarning : CommandBase
+  public class EnableDektecAdjustedNoise : CommandBase
   {
     public override string Documentation
     {
-      get { return "Please note the command ResetHilWarning is deprecated since 22.5. You may use GetHilExtrapolationState.\n\nReset Hardware in the loop trajectory server warning message."; }
+      get { return "Adjusts the Advanced Jammer IQ data amplitude on the Dektec output by adding noise to ensure power level linearity on weak jammer signals. Note that enabling this option will increase the noise observed at the RF output for all jammer signal power levels."; }
     }
 
-    public override string Deprecated
-    {
-      get { return "Please note the command ResetHilWarning is deprecated since 22.5. You may use GetHilExtrapolationState."; }
-    }
+    internal const string CmdName = "EnableDektecAdjustedNoise";
+    internal const string TargetId = "";
 
-    internal const string CmdName = "ResetHilWarning";
-
-    public ResetHilWarning()
-      : base(CmdName)
-    {}
-      
-    public override bool IsValid
-    {
-      get
-      {
-        return base.IsValid
-      ;
-      }
-    }
-
-    public override int ExecutePermission { get { return EXECUTE_IF_SIMULATING; } }
-  }
-
-
-  ///
-  /// Please note the command GetLastHilWarning is deprecated since 22.5. You may use GetHilExtrapolationState.
-  /// 
-  /// Get last Hardware in the loop trajectory server warning message. Returns HilWarningResult.
-  ///
-  /// 
-  ///
-
-  public class GetLastHilWarning : CommandBase
-  {
-    public override string Documentation
-    {
-      get { return "Please note the command GetLastHilWarning is deprecated since 22.5. You may use GetHilExtrapolationState.\n\nGet last Hardware in the loop trajectory server warning message. Returns HilWarningResult."; }
-    }
-
-    public override string Deprecated
-    {
-      get { return "Please note the command GetLastHilWarning is deprecated since 22.5. You may use GetHilExtrapolationState."; }
-    }
-
-    internal const string CmdName = "GetLastHilWarning";
-
-    public GetLastHilWarning()
-      : base(CmdName)
-    {}
-      
-    public override bool IsValid
-    {
-      get
-      {
-        return base.IsValid
-      ;
-      }
-    }
-
-    public override int ExecutePermission { get { return EXECUTE_IF_SIMULATING; } }
-  }
-
-
-  ///
-  /// Result of GetLastHilWarning.
-  ///
-  /// Name              Type Description
-  /// ----------------- ---- -----------------------------------------------------------------------------------------------------------------------------------
-  /// IsExtrapolated    bool Indicate if there is receiver position has been extrapolated because of the HIL client that did not send receiver position in time.
-  /// ExtrapolationTime int  Time of last extrapolated position
-  ///
-
-  public class HilWarningResult : CommandResult
-  {
-    public override string Documentation
-    {
-      get { return "Result of GetLastHilWarning."; }
-    }
-
-    internal const string CmdName = "HilWarningResult";
-
-    public HilWarningResult()
-      : base(CmdName)
+    public EnableDektecAdjustedNoise()
+      : base(CmdName, TargetId)
     {}
 
-    public HilWarningResult(CommandBase relatedCommand, bool isExtrapolated, int extrapolationTime)
-      : base(CmdName, relatedCommand)
+    public EnableDektecAdjustedNoise(bool enable)
+      : base(CmdName, TargetId)
     {
-      IsExtrapolated = isExtrapolated;
-      ExtrapolationTime = extrapolationTime;
+      Enable = enable;
     }
       
     public override bool IsValid
@@ -67008,113 +69189,42 @@ namespace Sdx.Cmd
       get
       {
         return base.IsValid
-        && Contains("IsExtrapolated")
-        && Contains("ExtrapolationTime")
-      ;
-      }
-    }
-
-    public bool IsExtrapolated
-    {
-      get { return GetValue("IsExtrapolated").ToObject<bool>(CommandBase.Serializer); }
-      set
-      {
-          SetValue("IsExtrapolated", JToken.FromObject(value, CommandBase.Serializer));
-      }
-    }
-
-    public int ExtrapolationTime
-    {
-      get { return GetValue("ExtrapolationTime").ToObject<int>(CommandBase.Serializer); }
-      set
-      {
-          SetValue("ExtrapolationTime", JToken.FromObject(value, CommandBase.Serializer));
-      }
-    }
-  }
-
-
-  ///
-  /// Please note the command SetSbasUdrei is deprecated since 22.2. You may use SetUdreiForSV.
-  /// 
-  /// Set the global UDREI value transmitted by SBAS
-  ///
-  /// Name  Type Description
-  /// ----- ---- ---------------
-  /// Udrei int  The UDREI value
-  ///
-
-  public class SetSbasUdrei : CommandBase
-  {
-    public override string Documentation
-    {
-      get { return "Please note the command SetSbasUdrei is deprecated since 22.2. You may use SetUdreiForSV.\n\nSet the global UDREI value transmitted by SBAS"; }
-    }
-
-    public override string Deprecated
-    {
-      get { return "Please note the command SetSbasUdrei is deprecated since 22.2. You may use SetUdreiForSV."; }
-    }
-
-    internal const string CmdName = "SetSbasUdrei";
-
-    public SetSbasUdrei()
-      : base(CmdName)
-    {}
-
-    public SetSbasUdrei(int udrei)
-      : base(CmdName)
-    {
-      Udrei = udrei;
-    }
-      
-    public override bool IsValid
-    {
-      get
-      {
-        return base.IsValid
-        && Contains("Udrei")
+        && Contains("Enable")
       ;
       }
     }
 
     public override int ExecutePermission { get { return EXECUTE_IF_IDLE; } }
 
-    public int Udrei
+    public bool Enable
     {
-      get { return GetValue("Udrei").ToObject<int>(CommandBase.Serializer); }
+      get { return GetValue("Enable").ToObject<bool>(CommandBase.Serializer); }
       set
       {
-          SetValue("Udrei", JToken.FromObject(value, CommandBase.Serializer));
+          SetValue("Enable", JToken.FromObject(value, CommandBase.Serializer));
       }
     }
   }
 
 
   ///
-  /// Please note the command GetSbasUdrei is deprecated since 22.2. You may use GetUdreiForSV.
-  /// 
-  /// Get the global UDREI value transmitted by SBAS
+  /// Indicates if noise level adjustment for Advanced Jammers on Dektec is enabled.
   ///
   /// 
   ///
 
-  public class GetSbasUdrei : CommandBase
+  public class IsDektecAdjustedNoiseEnabled : CommandBase
   {
     public override string Documentation
     {
-      get { return "Please note the command GetSbasUdrei is deprecated since 22.2. You may use GetUdreiForSV.\n\nGet the global UDREI value transmitted by SBAS"; }
+      get { return "Indicates if noise level adjustment for Advanced Jammers on Dektec is enabled."; }
     }
 
-    public override string Deprecated
-    {
-      get { return "Please note the command GetSbasUdrei is deprecated since 22.2. You may use GetUdreiForSV."; }
-    }
+    internal const string CmdName = "IsDektecAdjustedNoiseEnabled";
+    internal const string TargetId = "";
 
-    internal const string CmdName = "GetSbasUdrei";
-
-    public GetSbasUdrei()
-      : base(CmdName)
+    public IsDektecAdjustedNoiseEnabled()
+      : base(CmdName, TargetId)
     {}
       
     public override bool IsValid
@@ -67131,30 +69241,31 @@ namespace Sdx.Cmd
 
 
   ///
-  /// Result of GetSbasUdrei.
+  /// Result of IsDektecAdjustedNoiseEnabled.
   ///
-  /// Name  Type Description
-  /// ----- ---- ---------------
-  /// Udrei int  The UDREI value
+  /// Name   Type Description
+  /// ------ ---- ----------------------------------------------------------------
+  /// Enable bool True to enable Advance Jammer noise adjustment on Dektec output.
   ///
 
-  public class GetSbasUdreiResult : CommandResult
+  public class IsDektecAdjustedNoiseEnabledResult : CommandResult
   {
     public override string Documentation
     {
-      get { return "Result of GetSbasUdrei."; }
+      get { return "Result of IsDektecAdjustedNoiseEnabled."; }
     }
 
-    internal const string CmdName = "GetSbasUdreiResult";
+    internal const string CmdName = "IsDektecAdjustedNoiseEnabledResult";
+    internal const string TargetId = "";
 
-    public GetSbasUdreiResult()
-      : base(CmdName)
+    public IsDektecAdjustedNoiseEnabledResult()
+      : base(CmdName, TargetId)
     {}
 
-    public GetSbasUdreiResult(CommandBase relatedCommand, int udrei)
-      : base(CmdName, relatedCommand)
+    public IsDektecAdjustedNoiseEnabledResult(CommandBase relatedCommand, bool enable)
+      : base(CmdName, TargetId, relatedCommand)
     {
-      Udrei = udrei;
+      Enable = enable;
     }
       
     public override bool IsValid
@@ -67162,60 +69273,81 @@ namespace Sdx.Cmd
       get
       {
         return base.IsValid
-        && Contains("Udrei")
+        && Contains("Enable")
       ;
       }
     }
 
-    public int Udrei
+    public bool Enable
     {
-      get { return GetValue("Udrei").ToObject<int>(CommandBase.Serializer); }
+      get { return GetValue("Enable").ToObject<bool>(CommandBase.Serializer); }
       set
       {
-          SetValue("Udrei", JToken.FromObject(value, CommandBase.Serializer));
+          SetValue("Enable", JToken.FromObject(value, CommandBase.Serializer));
       }
     }
   }
 
 
   ///
-  /// Please note the command SetPowerForSV is deprecated since 22.7. You may use SetManualPowerOffsetForSV.
+  /// Get the config file path currently used by Skydel.
+  ///
   /// 
-  /// Set power offset for specified satellite SV ID. Use SV ID 0 to set power for all satellites.
-  ///
-  /// Name            Type   Description
-  /// --------------- ------ -----------------------------------------------------------------------------------------
-  /// System          string "GPS", "GLONASS", "Galileo", "BeiDou", "SBAS", "QZSS" or "NavIC"
-  /// SvId            int    The Satellite SV ID
-  /// PowerOffset     double Power offset in dB (relative to signal power reference level)
-  /// OtherSatsFollow bool   If true, other sats power will be adjusted to maintain current offsets between satellites
   ///
 
-  public class SetPowerForSV : CommandBase
+  public class GetCurrentConfigPath : CommandBase
   {
     public override string Documentation
     {
-      get { return "Please note the command SetPowerForSV is deprecated since 22.7. You may use SetManualPowerOffsetForSV.\n\nSet power offset for specified satellite SV ID. Use SV ID 0 to set power for all satellites."; }
+      get { return "Get the config file path currently used by Skydel."; }
     }
 
-    public override string Deprecated
+    internal const string CmdName = "GetCurrentConfigPath";
+    internal const string TargetId = "";
+
+    public GetCurrentConfigPath()
+      : base(CmdName, TargetId)
+    {}
+      
+    public override bool IsValid
     {
-      get { return "Please note the command SetPowerForSV is deprecated since 22.7. You may use SetManualPowerOffsetForSV."; }
+      get
+      {
+        return base.IsValid
+      ;
+      }
     }
 
-    internal const string CmdName = "SetPowerForSV";
+    public override int ExecutePermission { get { return EXECUTE_IF_IDLE | EXECUTE_IF_SIMULATING; } }
+  }
 
-    public SetPowerForSV()
-      : base(CmdName)
+
+  ///
+  /// Result of GetCurrentConfigPath.
+  ///
+  /// Name       Type   Description
+  /// ---------- ------ ----------------------------------------------
+  /// ConfigPath string The config file path currently used by Skydel.
+  ///
+
+  public class GetCurrentConfigPathResult : CommandResult
+  {
+    public override string Documentation
+    {
+      get { return "Result of GetCurrentConfigPath."; }
+    }
+
+    internal const string CmdName = "GetCurrentConfigPathResult";
+    internal const string TargetId = "";
+
+    public GetCurrentConfigPathResult()
+      : base(CmdName, TargetId)
     {}
 
-    public SetPowerForSV(string system, int svId, double powerOffset, bool otherSatsFollow)
-      : base(CmdName)
+    public GetCurrentConfigPathResult(CommandBase relatedCommand, string configPath)
+      : base(CmdName, TargetId, relatedCommand)
     {
-      System = system;
-      SvId = svId;
-      PowerOffset = powerOffset;
-      OtherSatsFollow = otherSatsFollow;
+      ConfigPath = configPath;
     }
       
     public override bool IsValid
@@ -67223,22 +69355,385 @@ namespace Sdx.Cmd
       get
       {
         return base.IsValid
-        && Contains("System")
-        && Contains("SvId")
-        && Contains("PowerOffset")
-        && Contains("OtherSatsFollow")
+        && Contains("ConfigPath")
       ;
       }
     }
 
-    public override int ExecutePermission { get { return EXECUTE_IF_SIMULATING; } }
-
-    public string System
+    public string ConfigPath
     {
-      get { return GetValue("System").ToObject<string>(CommandBase.Serializer); }
+      get { return GetValue("ConfigPath").ToObject<string>(CommandBase.Serializer); }
       set
       {
-          SetValue("System", JToken.FromObject(value, CommandBase.Serializer));
+          SetValue("ConfigPath", JToken.FromObject(value, CommandBase.Serializer));
+      }
+    }
+  }
+
+
+  ///
+  /// Set the Noise Power Density Offset (dB/Hz) added to the base Gaussian Noise power density on the GNSS output (-174 dB/Hz). Default offset value is 0. If Gaussian Noise is not enabled on the output, this offset has no effect.
+  ///
+  /// Name               Type   Description
+  /// ------------------ ------ -------------------------------------------------------------------------------------
+  /// Id                 string Target identifier
+  /// OutputIdx          int    RF Output index (zero-based)
+  /// PowerDensityOffset double Gaussian Noise power density offset (dB/Hz). Value must be between -10 and +10 dB/Hz.
+  ///
+
+  public class SetGaussianNoisePowerDensityOffset : CommandBase
+  {
+    public override string Documentation
+    {
+      get { return "Set the Noise Power Density Offset (dB/Hz) added to the base Gaussian Noise power density on the GNSS output (-174 dB/Hz). Default offset value is 0. If Gaussian Noise is not enabled on the output, this offset has no effect."; }
+    }
+
+    internal const string CmdName = "SetGaussianNoisePowerDensityOffset";
+    internal const string TargetId = "";
+
+    public SetGaussianNoisePowerDensityOffset()
+      : base(CmdName, TargetId)
+    {}
+
+    public SetGaussianNoisePowerDensityOffset(string id, int outputIdx, double powerDensityOffset)
+      : base(CmdName, TargetId)
+    {
+      Id = id;
+      OutputIdx = outputIdx;
+      PowerDensityOffset = powerDensityOffset;
+    }
+      
+    public override bool IsValid
+    {
+      get
+      {
+        return base.IsValid
+        && Contains("Id")
+        && Contains("OutputIdx")
+        && Contains("PowerDensityOffset")
+      ;
+      }
+    }
+
+    public override int ExecutePermission { get { return EXECUTE_IF_IDLE; } }
+
+    public string Id
+    {
+      get { return GetValue("Id").ToObject<string>(CommandBase.Serializer); }
+      set
+      {
+          SetValue("Id", JToken.FromObject(value, CommandBase.Serializer));
+      }
+    }
+
+    public int OutputIdx
+    {
+      get { return GetValue("OutputIdx").ToObject<int>(CommandBase.Serializer); }
+      set
+      {
+          SetValue("OutputIdx", JToken.FromObject(value, CommandBase.Serializer));
+      }
+    }
+
+    public double PowerDensityOffset
+    {
+      get { return GetValue("PowerDensityOffset").ToObject<double>(CommandBase.Serializer); }
+      set
+      {
+          SetValue("PowerDensityOffset", JToken.FromObject(value, CommandBase.Serializer));
+      }
+    }
+  }
+
+
+  ///
+  /// Get the Noise Power Density Offset (dB/Hz) added to the base Gaussian Noise power density on the GNSS output (-174 dB/Hz). Default offset value is 0. If Gaussian Noise is not enabled on the output, this offset has no effect.
+  ///
+  /// Name      Type   Description
+  /// --------- ------ ----------------------------
+  /// Id        string Target identifier
+  /// OutputIdx int    RF Output index (zero-based)
+  ///
+
+  public class GetGaussianNoisePowerDensityOffset : CommandBase
+  {
+    public override string Documentation
+    {
+      get { return "Get the Noise Power Density Offset (dB/Hz) added to the base Gaussian Noise power density on the GNSS output (-174 dB/Hz). Default offset value is 0. If Gaussian Noise is not enabled on the output, this offset has no effect."; }
+    }
+
+    internal const string CmdName = "GetGaussianNoisePowerDensityOffset";
+    internal const string TargetId = "";
+
+    public GetGaussianNoisePowerDensityOffset()
+      : base(CmdName, TargetId)
+    {}
+
+    public GetGaussianNoisePowerDensityOffset(string id, int outputIdx)
+      : base(CmdName, TargetId)
+    {
+      Id = id;
+      OutputIdx = outputIdx;
+    }
+      
+    public override bool IsValid
+    {
+      get
+      {
+        return base.IsValid
+        && Contains("Id")
+        && Contains("OutputIdx")
+      ;
+      }
+    }
+
+    public override int ExecutePermission { get { return EXECUTE_IF_IDLE; } }
+
+    public string Id
+    {
+      get { return GetValue("Id").ToObject<string>(CommandBase.Serializer); }
+      set
+      {
+          SetValue("Id", JToken.FromObject(value, CommandBase.Serializer));
+      }
+    }
+
+    public int OutputIdx
+    {
+      get { return GetValue("OutputIdx").ToObject<int>(CommandBase.Serializer); }
+      set
+      {
+          SetValue("OutputIdx", JToken.FromObject(value, CommandBase.Serializer));
+      }
+    }
+  }
+
+
+  ///
+  /// Result of GetGaussianNoisePowerDensityOffset.
+  ///
+  /// Name               Type   Description
+  /// ------------------ ------ -------------------------------------------------------------------------------------
+  /// Id                 string Target identifier
+  /// OutputIdx          int    RF Output index (zero-based)
+  /// PowerDensityOffset double Gaussian Noise power density offset (dB/Hz). Value must be between -10 and +10 dB/Hz.
+  ///
+
+  public class GetGaussianNoisePowerDensityOffsetResult : CommandResult
+  {
+    public override string Documentation
+    {
+      get { return "Result of GetGaussianNoisePowerDensityOffset."; }
+    }
+
+    internal const string CmdName = "GetGaussianNoisePowerDensityOffsetResult";
+    internal const string TargetId = "";
+
+    public GetGaussianNoisePowerDensityOffsetResult()
+      : base(CmdName, TargetId)
+    {}
+
+    public GetGaussianNoisePowerDensityOffsetResult(CommandBase relatedCommand, string id, int outputIdx, double powerDensityOffset)
+      : base(CmdName, TargetId, relatedCommand)
+    {
+      Id = id;
+      OutputIdx = outputIdx;
+      PowerDensityOffset = powerDensityOffset;
+    }
+      
+    public override bool IsValid
+    {
+      get
+      {
+        return base.IsValid
+        && Contains("Id")
+        && Contains("OutputIdx")
+        && Contains("PowerDensityOffset")
+      ;
+      }
+    }
+
+    public string Id
+    {
+      get { return GetValue("Id").ToObject<string>(CommandBase.Serializer); }
+      set
+      {
+          SetValue("Id", JToken.FromObject(value, CommandBase.Serializer));
+      }
+    }
+
+    public int OutputIdx
+    {
+      get { return GetValue("OutputIdx").ToObject<int>(CommandBase.Serializer); }
+      set
+      {
+          SetValue("OutputIdx", JToken.FromObject(value, CommandBase.Serializer));
+      }
+    }
+
+    public double PowerDensityOffset
+    {
+      get { return GetValue("PowerDensityOffset").ToObject<double>(CommandBase.Serializer); }
+      set
+      {
+          SetValue("PowerDensityOffset", JToken.FromObject(value, CommandBase.Serializer));
+      }
+    }
+  }
+
+
+  ///
+  /// Enable (or disable) OSNMA for specified Galileo's satellite.
+  ///
+  /// Name    Type Description
+  /// ------- ---- -----------------------------------------------------------
+  /// SvId    int  The satellite's SV ID (use 0 for all Galileo's satellites).
+  /// Enabled bool OSNMA is enabled when value is True.
+  ///
+
+  public class EnableOsnmaForSV : CommandBase
+  {
+    public override string Documentation
+    {
+      get { return "Enable (or disable) OSNMA for specified Galileo's satellite."; }
+    }
+
+    internal const string CmdName = "EnableOsnmaForSV";
+    internal const string TargetId = "";
+
+    public EnableOsnmaForSV()
+      : base(CmdName, TargetId)
+    {}
+
+    public EnableOsnmaForSV(int svId, bool enabled)
+      : base(CmdName, TargetId)
+    {
+      SvId = svId;
+      Enabled = enabled;
+    }
+      
+    public override bool IsValid
+    {
+      get
+      {
+        return base.IsValid
+        && Contains("SvId")
+        && Contains("Enabled")
+      ;
+      }
+    }
+
+    public override int ExecutePermission { get { return EXECUTE_IF_SIMULATING | EXECUTE_IF_IDLE; } }
+
+    public int SvId
+    {
+      get { return GetValue("SvId").ToObject<int>(CommandBase.Serializer); }
+      set
+      {
+          SetValue("SvId", JToken.FromObject(value, CommandBase.Serializer));
+      }
+    }
+
+    public bool Enabled
+    {
+      get { return GetValue("Enabled").ToObject<bool>(CommandBase.Serializer); }
+      set
+      {
+          SetValue("Enabled", JToken.FromObject(value, CommandBase.Serializer));
+      }
+    }
+  }
+
+
+  ///
+  /// Tells if OSNMA is enabled or disabled.
+  ///
+  /// Name Type Description
+  /// ---- ---- -----------------------------------------------------------
+  /// SvId int  The satellite's SV ID (use 0 for all Galileo's satellites).
+  ///
+
+  public class IsOsnmaEnabledForSV : CommandBase
+  {
+    public override string Documentation
+    {
+      get { return "Tells if OSNMA is enabled or disabled."; }
+    }
+
+    internal const string CmdName = "IsOsnmaEnabledForSV";
+    internal const string TargetId = "";
+
+    public IsOsnmaEnabledForSV()
+      : base(CmdName, TargetId)
+    {}
+
+    public IsOsnmaEnabledForSV(int svId)
+      : base(CmdName, TargetId)
+    {
+      SvId = svId;
+    }
+      
+    public override bool IsValid
+    {
+      get
+      {
+        return base.IsValid
+        && Contains("SvId")
+      ;
+      }
+    }
+
+    public override int ExecutePermission { get { return EXECUTE_IF_IDLE; } }
+
+    public int SvId
+    {
+      get { return GetValue("SvId").ToObject<int>(CommandBase.Serializer); }
+      set
+      {
+          SetValue("SvId", JToken.FromObject(value, CommandBase.Serializer));
+      }
+    }
+  }
+
+
+  ///
+  /// Result of IsOsnmaEnabledForSV.
+  ///
+  /// Name    Type Description
+  /// ------- ---- -----------------------------------------------------------
+  /// SvId    int  The satellite's SV ID (use 0 for all Galileo's satellites).
+  /// Enabled bool OSNMA is enabled when value is True.
+  ///
+
+  public class IsOsnmaEnabledForSVResult : CommandResult
+  {
+    public override string Documentation
+    {
+      get { return "Result of IsOsnmaEnabledForSV."; }
+    }
+
+    internal const string CmdName = "IsOsnmaEnabledForSVResult";
+    internal const string TargetId = "";
+
+    public IsOsnmaEnabledForSVResult()
+      : base(CmdName, TargetId)
+    {}
+
+    public IsOsnmaEnabledForSVResult(CommandBase relatedCommand, int svId, bool enabled)
+      : base(CmdName, TargetId, relatedCommand)
+    {
+      SvId = svId;
+      Enabled = enabled;
+    }
+      
+    public override bool IsValid
+    {
+      get
+      {
+        return base.IsValid
+        && Contains("SvId")
+        && Contains("Enabled")
+      ;
       }
     }
 
@@ -67251,59 +69746,238 @@ namespace Sdx.Cmd
       }
     }
 
-    public double PowerOffset
+    public bool Enabled
     {
-      get { return GetValue("PowerOffset").ToObject<double>(CommandBase.Serializer); }
+      get { return GetValue("Enabled").ToObject<bool>(CommandBase.Serializer); }
       set
       {
-          SetValue("PowerOffset", JToken.FromObject(value, CommandBase.Serializer));
-      }
-    }
-
-    public bool OtherSatsFollow
-    {
-      get { return GetValue("OtherSatsFollow").ToObject<bool>(CommandBase.Serializer); }
-      set
-      {
-          SetValue("OtherSatsFollow", JToken.FromObject(value, CommandBase.Serializer));
+          SetValue("Enabled", JToken.FromObject(value, CommandBase.Serializer));
       }
     }
   }
 
 
   ///
-  /// Please note the command GetPowerForSV is deprecated since 22.7. You may use GetAllPowerForSV.
+  /// Enable (or disable) OSNMA for each Galileo's satellite individually.
+  ///
+  /// Name    Type       Description
+  /// ------- ---------- -------------------------------------------------------------------------------------------------------------
+  /// Enabled array bool OSNMA is enabled when value is True. Zero based index (index 0 => first SV ID, index 1 => second SV ID, etc).
+  ///
+
+  public class EnableOsnmaForEachSV : CommandBase
+  {
+    public override string Documentation
+    {
+      get { return "Enable (or disable) OSNMA for each Galileo's satellite individually."; }
+    }
+
+    internal const string CmdName = "EnableOsnmaForEachSV";
+    internal const string TargetId = "";
+
+    public EnableOsnmaForEachSV()
+      : base(CmdName, TargetId)
+    {}
+
+    public EnableOsnmaForEachSV(List<bool> enabled)
+      : base(CmdName, TargetId)
+    {
+      Enabled = enabled;
+    }
+      
+    public override bool IsValid
+    {
+      get
+      {
+        return base.IsValid
+        && Contains("Enabled")
+      ;
+      }
+    }
+
+    public override int ExecutePermission { get { return EXECUTE_IF_SIMULATING | EXECUTE_IF_IDLE; } }
+
+    public List<bool> Enabled
+    {
+      get { return GetValue("Enabled").ToObject<List<bool>>(CommandBase.Serializer); }
+      set
+      {
+          SetValue("Enabled", JToken.FromObject(value, CommandBase.Serializer));
+      }
+    }
+  }
+
+
+  ///
+  /// Tells if OSNMA is enabled or disabled for each satellite.
+  ///
   /// 
-  /// Get the power offset for specified satellite SV ID.
-  ///
-  /// Name   Type   Description
-  /// ------ ------ -----------------------------------------------------------------------------------
-  /// System string The system, can be "GPS", "GLONASS", "Galileo", "BeiDou", "SBAS", "QZSS" or "NavIC"
-  /// SvId   int    The Satellite SV ID
   ///
 
-  public class GetPowerForSV : CommandBase
+  public class IsOsnmaEnabledForEachSV : CommandBase
   {
     public override string Documentation
     {
-      get { return "Please note the command GetPowerForSV is deprecated since 22.7. You may use GetAllPowerForSV.\n\nGet the power offset for specified satellite SV ID."; }
+      get { return "Tells if OSNMA is enabled or disabled for each satellite."; }
     }
 
-    public override string Deprecated
+    internal const string CmdName = "IsOsnmaEnabledForEachSV";
+    internal const string TargetId = "";
+
+    public IsOsnmaEnabledForEachSV()
+      : base(CmdName, TargetId)
+    {}
+      
+    public override bool IsValid
     {
-      get { return "Please note the command GetPowerForSV is deprecated since 22.7. You may use GetAllPowerForSV."; }
+      get
+      {
+        return base.IsValid
+      ;
+      }
     }
 
-    internal const string CmdName = "GetPowerForSV";
+    public override int ExecutePermission { get { return EXECUTE_IF_IDLE; } }
+  }
 
-    public GetPowerForSV()
-      : base(CmdName)
+
+  ///
+  /// Result of IsOsnmaEnabledForEachSV.
+  ///
+  /// Name    Type       Description
+  /// ------- ---------- -------------------------------------------------------------------------------------------------------------
+  /// Enabled array bool OSNMA is enabled when value is True. Zero based index (index 0 => first SV ID, index 1 => second SV ID, etc).
+  ///
+
+  public class IsOsnmaEnabledForEachSVResult : CommandResult
+  {
+    public override string Documentation
+    {
+      get { return "Result of IsOsnmaEnabledForEachSV."; }
+    }
+
+    internal const string CmdName = "IsOsnmaEnabledForEachSVResult";
+    internal const string TargetId = "";
+
+    public IsOsnmaEnabledForEachSVResult()
+      : base(CmdName, TargetId)
     {}
 
-    public GetPowerForSV(string system, int svId)
-      : base(CmdName)
+    public IsOsnmaEnabledForEachSVResult(CommandBase relatedCommand, List<bool> enabled)
+      : base(CmdName, TargetId, relatedCommand)
     {
-      System = system;
+      Enabled = enabled;
+    }
+      
+    public override bool IsValid
+    {
+      get
+      {
+        return base.IsValid
+        && Contains("Enabled")
+      ;
+      }
+    }
+
+    public List<bool> Enabled
+    {
+      get { return GetValue("Enabled").ToObject<List<bool>>(CommandBase.Serializer); }
+      set
+      {
+          SetValue("Enabled", JToken.FromObject(value, CommandBase.Serializer));
+      }
+    }
+  }
+
+
+  ///
+  /// Set the list of satellites that are cross-authenticated by the specified satellite.
+  ///
+  /// Name     Type      Description
+  /// -------- --------- -------------------------------------------------------------------
+  /// SvId     int       The satellite's SV ID (use 0 to apply on all Galileo's satellites).
+  /// SvIdList array int A list of the cross-authenticated satellites' SV IDs.
+  ///
+
+  public class SetCrossAuthenticatedSatellitesForSV : CommandBase
+  {
+    public override string Documentation
+    {
+      get { return "Set the list of satellites that are cross-authenticated by the specified satellite."; }
+    }
+
+    internal const string CmdName = "SetCrossAuthenticatedSatellitesForSV";
+    internal const string TargetId = "";
+
+    public SetCrossAuthenticatedSatellitesForSV()
+      : base(CmdName, TargetId)
+    {}
+
+    public SetCrossAuthenticatedSatellitesForSV(int svId, List<int> svIdList)
+      : base(CmdName, TargetId)
+    {
+      SvId = svId;
+      SvIdList = svIdList;
+    }
+      
+    public override bool IsValid
+    {
+      get
+      {
+        return base.IsValid
+        && Contains("SvId")
+        && Contains("SvIdList")
+      ;
+      }
+    }
+
+    public override int ExecutePermission { get { return EXECUTE_IF_SIMULATING | EXECUTE_IF_IDLE; } }
+
+    public int SvId
+    {
+      get { return GetValue("SvId").ToObject<int>(CommandBase.Serializer); }
+      set
+      {
+          SetValue("SvId", JToken.FromObject(value, CommandBase.Serializer));
+      }
+    }
+
+    public List<int> SvIdList
+    {
+      get { return GetValue("SvIdList").ToObject<List<int>>(CommandBase.Serializer); }
+      set
+      {
+          SetValue("SvIdList", JToken.FromObject(value, CommandBase.Serializer));
+      }
+    }
+  }
+
+
+  ///
+  /// Get the list of satellites that are cross-authenticated by the specified satellite.
+  ///
+  /// Name Type Description
+  /// ---- ---- -------------------------------------------------------------------
+  /// SvId int  The satellite's SV ID (use 0 to apply on all Galileo's satellites).
+  ///
+
+  public class GetCrossAuthenticatedSatellitesForSV : CommandBase
+  {
+    public override string Documentation
+    {
+      get { return "Get the list of satellites that are cross-authenticated by the specified satellite."; }
+    }
+
+    internal const string CmdName = "GetCrossAuthenticatedSatellitesForSV";
+    internal const string TargetId = "";
+
+    public GetCrossAuthenticatedSatellitesForSV()
+      : base(CmdName, TargetId)
+    {}
+
+    public GetCrossAuthenticatedSatellitesForSV(int svId)
+      : base(CmdName, TargetId)
+    {
       SvId = svId;
     }
       
@@ -67312,22 +69986,12 @@ namespace Sdx.Cmd
       get
       {
         return base.IsValid
-        && Contains("System")
         && Contains("SvId")
       ;
       }
     }
 
-    public override int ExecutePermission { get { return EXECUTE_IF_SIMULATING; } }
-
-    public string System
-    {
-      get { return GetValue("System").ToObject<string>(CommandBase.Serializer); }
-      set
-      {
-          SetValue("System", JToken.FromObject(value, CommandBase.Serializer));
-      }
-    }
+    public override int ExecutePermission { get { return EXECUTE_IF_IDLE; } }
 
     public int SvId
     {
@@ -67341,44 +70005,33 @@ namespace Sdx.Cmd
 
 
   ///
-  /// Result of GetPowerForSV.
+  /// Result of GetCrossAuthenticatedSatellitesForSV.
   ///
-  /// Name                Type   Description
-  /// ------------------- ------ -----------------------------------------------------------------------------------------------------------
-  /// System              string The system, can be "GPS", "GLONASS", "Galileo", "BeiDou", "SBAS", "QZSS" or "NavIC"
-  /// SvId                int    The Satellite SV ID
-  /// NominalPower        double The nominal power in dBm
-  /// SignalStrengthModel double The power difference coming from the Signal Strength Model (dB)
-  /// Antenna             double The receiver antenna power offset (dB). It depends on antenna pattern and relative orientation with signal.
-  /// SignalLevelOffset   double The global power offset (dB)
-  /// ManualGain          double The power offset provided by the user (dB). See SetPowerForSV
-  /// Total               double The sum of all the other fields (dBm)
+  /// Name     Type      Description
+  /// -------- --------- -------------------------------------------------------------------
+  /// SvId     int       The satellite's SV ID (use 0 to apply on all Galileo's satellites).
+  /// SvIdList array int A list of the cross-authenticated satellites' SV IDs.
   ///
 
-  public class GetPowerForSVResult : CommandResult
+  public class GetCrossAuthenticatedSatellitesForSVResult : CommandResult
   {
     public override string Documentation
     {
-      get { return "Result of GetPowerForSV."; }
+      get { return "Result of GetCrossAuthenticatedSatellitesForSV."; }
     }
 
-    internal const string CmdName = "GetPowerForSVResult";
+    internal const string CmdName = "GetCrossAuthenticatedSatellitesForSVResult";
+    internal const string TargetId = "";
 
-    public GetPowerForSVResult()
-      : base(CmdName)
+    public GetCrossAuthenticatedSatellitesForSVResult()
+      : base(CmdName, TargetId)
     {}
 
-    public GetPowerForSVResult(CommandBase relatedCommand, string system, int svId, double nominalPower, double signalStrengthModel, double antenna, double signalLevelOffset, double manualGain, double total)
-      : base(CmdName, relatedCommand)
+    public GetCrossAuthenticatedSatellitesForSVResult(CommandBase relatedCommand, int svId, List<int> svIdList)
+      : base(CmdName, TargetId, relatedCommand)
     {
-      System = system;
       SvId = svId;
-      NominalPower = nominalPower;
-      SignalStrengthModel = signalStrengthModel;
-      Antenna = antenna;
-      SignalLevelOffset = signalLevelOffset;
-      ManualGain = manualGain;
-      Total = total;
+      SvIdList = svIdList;
     }
       
     public override bool IsValid
@@ -67386,24 +70039,9 @@ namespace Sdx.Cmd
       get
       {
         return base.IsValid
-        && Contains("System")
         && Contains("SvId")
-        && Contains("NominalPower")
-        && Contains("SignalStrengthModel")
-        && Contains("Antenna")
-        && Contains("SignalLevelOffset")
-        && Contains("ManualGain")
-        && Contains("Total")
+        && Contains("SvIdList")
       ;
-      }
-    }
-
-    public string System
-    {
-      get { return GetValue("System").ToObject<string>(CommandBase.Serializer); }
-      set
-      {
-          SetValue("System", JToken.FromObject(value, CommandBase.Serializer));
       }
     }
 
@@ -67416,57 +70054,1293 @@ namespace Sdx.Cmd
       }
     }
 
-    public double NominalPower
+    public List<int> SvIdList
     {
-      get { return GetValue("NominalPower").ToObject<double>(CommandBase.Serializer); }
+      get { return GetValue("SvIdList").ToObject<List<int>>(CommandBase.Serializer); }
       set
       {
-          SetValue("NominalPower", JToken.FromObject(value, CommandBase.Serializer));
+          SetValue("SvIdList", JToken.FromObject(value, CommandBase.Serializer));
+      }
+    }
+  }
+
+
+  ///
+  /// Set OSNMA Merkle Tree parameters. If ID is not set (or if new), a Merkle Tree is generated.
+  ///  Note that changing Merkle Tree parameters will modify its XML representation, and may result in Public Keys and Tree Nodes being regenerated.
+  ///
+  /// Name               Type              Description
+  /// ------------------ ----------------- --------------------------------------------------------------------------------------------------------------------------------------------------------------------
+  /// Id                 string            Merkle Tree unique identifier. Automatically set for new Merkle Trees.
+  /// KeyType            string            Type of Key used to generate the Merkle Tree. Key Type is the same for all Merkle Tree Public Keys. Key types are : "ECDSA P-256/SHA-256" and "ECDSA P-521/SHA-512".
+  ///                                      Modifying the Merkle Tree Keys Type will regenerate the Public Keys and Tree Nodes.
+  /// HashFunction       string            Hash function used to generate the Merkle Tree. Hash functions are : "SHA-256", "SHA3-224" and "SHA3-256".
+  /// BeginApplicability datetime          Merkle Tree applicability begin date.
+  /// EndApplicability   optional datetime Optional Merkle Tree applicability end date.
+  ///
+
+  public class SetMerkleTreeParameters : CommandBase
+  {
+    public override string Documentation
+    {
+      get { return "Set OSNMA Merkle Tree parameters. If ID is not set (or if new), a Merkle Tree is generated.\n Note that changing Merkle Tree parameters will modify its XML representation, and may result in Public Keys and Tree Nodes being regenerated."; }
+    }
+
+    internal const string CmdName = "SetMerkleTreeParameters";
+    internal const string TargetId = "";
+
+    public SetMerkleTreeParameters()
+      : base(CmdName, TargetId)
+    {}
+
+    public SetMerkleTreeParameters(string id, string keyType, string hashFunction, DateTime beginApplicability, DateTime endApplicability = default)
+      : base(CmdName, TargetId)
+    {
+      Id = id;
+      KeyType = keyType;
+      HashFunction = hashFunction;
+      BeginApplicability = beginApplicability;
+      EndApplicability = endApplicability;
+    }
+      
+    public override bool IsValid
+    {
+      get
+      {
+        return base.IsValid
+        && Contains("Id")
+        && Contains("KeyType")
+        && Contains("HashFunction")
+        && Contains("BeginApplicability")
+      ;
       }
     }
 
-    public double SignalStrengthModel
+    public override int ExecutePermission { get { return EXECUTE_IF_IDLE; } }
+
+    public string Id
     {
-      get { return GetValue("SignalStrengthModel").ToObject<double>(CommandBase.Serializer); }
+      get { return GetValue("Id").ToObject<string>(CommandBase.Serializer); }
       set
       {
-          SetValue("SignalStrengthModel", JToken.FromObject(value, CommandBase.Serializer));
+          SetValue("Id", JToken.FromObject(value, CommandBase.Serializer));
       }
     }
 
-    public double Antenna
+    public string KeyType
     {
-      get { return GetValue("Antenna").ToObject<double>(CommandBase.Serializer); }
+      get { return GetValue("KeyType").ToObject<string>(CommandBase.Serializer); }
       set
       {
-          SetValue("Antenna", JToken.FromObject(value, CommandBase.Serializer));
+          SetValue("KeyType", JToken.FromObject(value, CommandBase.Serializer));
       }
     }
 
-    public double SignalLevelOffset
+    public string HashFunction
     {
-      get { return GetValue("SignalLevelOffset").ToObject<double>(CommandBase.Serializer); }
+      get { return GetValue("HashFunction").ToObject<string>(CommandBase.Serializer); }
       set
       {
-          SetValue("SignalLevelOffset", JToken.FromObject(value, CommandBase.Serializer));
+          SetValue("HashFunction", JToken.FromObject(value, CommandBase.Serializer));
       }
     }
 
-    public double ManualGain
+    public DateTime BeginApplicability
     {
-      get { return GetValue("ManualGain").ToObject<double>(CommandBase.Serializer); }
+      get { return GetValue("BeginApplicability").ToObject<DateTime>(CommandBase.Serializer); }
       set
       {
-          SetValue("ManualGain", JToken.FromObject(value, CommandBase.Serializer));
+          SetValue("BeginApplicability", JToken.FromObject(value, CommandBase.Serializer));
       }
     }
 
-    public double Total
+    public DateTime EndApplicability
     {
-      get { return GetValue("Total").ToObject<double>(CommandBase.Serializer); }
+      get { return GetValue("EndApplicability").ToObject<DateTime>(CommandBase.Serializer); }
       set
       {
-          SetValue("Total", JToken.FromObject(value, CommandBase.Serializer));
+        if (value == null)
+          RemoveValue("EndApplicability");
+        else
+          SetValue("EndApplicability", JToken.FromObject(value, CommandBase.Serializer));
+      }
+    }
+  }
+
+
+  ///
+  /// Get Merkle Tree parameters.
+  ///
+  /// Name Type   Description
+  /// ---- ------ ----------------------------------------------------------------------
+  /// Id   string Merkle Tree unique identifier. Automatically set for new Merkle Trees.
+  ///
+
+  public class GetMerkleTreeParameters : CommandBase
+  {
+    public override string Documentation
+    {
+      get { return "Get Merkle Tree parameters."; }
+    }
+
+    internal const string CmdName = "GetMerkleTreeParameters";
+    internal const string TargetId = "";
+
+    public GetMerkleTreeParameters()
+      : base(CmdName, TargetId)
+    {}
+
+    public GetMerkleTreeParameters(string id)
+      : base(CmdName, TargetId)
+    {
+      Id = id;
+    }
+      
+    public override bool IsValid
+    {
+      get
+      {
+        return base.IsValid
+        && Contains("Id")
+      ;
+      }
+    }
+
+    public override int ExecutePermission { get { return EXECUTE_IF_IDLE; } }
+
+    public string Id
+    {
+      get { return GetValue("Id").ToObject<string>(CommandBase.Serializer); }
+      set
+      {
+          SetValue("Id", JToken.FromObject(value, CommandBase.Serializer));
+      }
+    }
+  }
+
+
+  ///
+  /// Result of GetMerkleTreeParameters.
+  ///
+  /// Name               Type              Description
+  /// ------------------ ----------------- --------------------------------------------------------------------------------------------------------------------------------------------------------------------
+  /// Id                 string            Merkle Tree unique identifier. Automatically set for new Merkle Trees.
+  /// KeyType            string            Type of Key used to generate the Merkle Tree. Key Type is the same for all Merkle Tree Public Keys. Key types are : "ECDSA P-256/SHA-256" and "ECDSA P-521/SHA-512".
+  ///                                      Modifying the Merkle Tree Keys Type will regenerate the Public Keys and Tree Nodes.
+  /// HashFunction       string            Hash function used to generate the Merkle Tree. Hash functions are : "SHA-256", "SHA3-224" and "SHA3-256".
+  /// BeginApplicability datetime          Merkle Tree applicability begin date.
+  /// EndApplicability   optional datetime Optional Merkle Tree applicability end date.
+  ///
+
+  public class GetMerkleTreeParametersResult : CommandResult
+  {
+    public override string Documentation
+    {
+      get { return "Result of GetMerkleTreeParameters."; }
+    }
+
+    internal const string CmdName = "GetMerkleTreeParametersResult";
+    internal const string TargetId = "";
+
+    public GetMerkleTreeParametersResult()
+      : base(CmdName, TargetId)
+    {}
+
+    public GetMerkleTreeParametersResult(CommandBase relatedCommand, string id, string keyType, string hashFunction, DateTime beginApplicability, DateTime endApplicability = default)
+      : base(CmdName, TargetId, relatedCommand)
+    {
+      Id = id;
+      KeyType = keyType;
+      HashFunction = hashFunction;
+      BeginApplicability = beginApplicability;
+      EndApplicability = endApplicability;
+    }
+      
+    public override bool IsValid
+    {
+      get
+      {
+        return base.IsValid
+        && Contains("Id")
+        && Contains("KeyType")
+        && Contains("HashFunction")
+        && Contains("BeginApplicability")
+      ;
+      }
+    }
+
+    public string Id
+    {
+      get { return GetValue("Id").ToObject<string>(CommandBase.Serializer); }
+      set
+      {
+          SetValue("Id", JToken.FromObject(value, CommandBase.Serializer));
+      }
+    }
+
+    public string KeyType
+    {
+      get { return GetValue("KeyType").ToObject<string>(CommandBase.Serializer); }
+      set
+      {
+          SetValue("KeyType", JToken.FromObject(value, CommandBase.Serializer));
+      }
+    }
+
+    public string HashFunction
+    {
+      get { return GetValue("HashFunction").ToObject<string>(CommandBase.Serializer); }
+      set
+      {
+          SetValue("HashFunction", JToken.FromObject(value, CommandBase.Serializer));
+      }
+    }
+
+    public DateTime BeginApplicability
+    {
+      get { return GetValue("BeginApplicability").ToObject<DateTime>(CommandBase.Serializer); }
+      set
+      {
+          SetValue("BeginApplicability", JToken.FromObject(value, CommandBase.Serializer));
+      }
+    }
+
+    public DateTime EndApplicability
+    {
+      get { return GetValue("EndApplicability").ToObject<DateTime>(CommandBase.Serializer); }
+      set
+      {
+        if (value == null)
+          RemoveValue("EndApplicability");
+        else
+          SetValue("EndApplicability", JToken.FromObject(value, CommandBase.Serializer));
+      }
+    }
+  }
+
+
+  ///
+  /// Get Get all OSNMA Merkle Trees unique identifiers.
+  ///
+  /// 
+  ///
+
+  public class GetAllMerkleTreeID : CommandBase
+  {
+    public override string Documentation
+    {
+      get { return "Get Get all OSNMA Merkle Trees unique identifiers."; }
+    }
+
+    internal const string CmdName = "GetAllMerkleTreeID";
+    internal const string TargetId = "";
+
+    public GetAllMerkleTreeID()
+      : base(CmdName, TargetId)
+    {}
+      
+    public override bool IsValid
+    {
+      get
+      {
+        return base.IsValid
+      ;
+      }
+    }
+
+    public override int ExecutePermission { get { return EXECUTE_IF_IDLE; } }
+  }
+
+
+  ///
+  /// Result of GetAllMerkleTreeID.
+  ///
+  /// Name Type         Description
+  /// ---- ------------ ----------------------------------------
+  /// Ids  array string Array of Merkle Trees unique identifiers
+  ///
+
+  public class GetAllMerkleTreeIDResult : CommandResult
+  {
+    public override string Documentation
+    {
+      get { return "Result of GetAllMerkleTreeID."; }
+    }
+
+    internal const string CmdName = "GetAllMerkleTreeIDResult";
+    internal const string TargetId = "";
+
+    public GetAllMerkleTreeIDResult()
+      : base(CmdName, TargetId)
+    {}
+
+    public GetAllMerkleTreeIDResult(CommandBase relatedCommand, List<string> ids)
+      : base(CmdName, TargetId, relatedCommand)
+    {
+      Ids = ids;
+    }
+      
+    public override bool IsValid
+    {
+      get
+      {
+        return base.IsValid
+        && Contains("Ids")
+      ;
+      }
+    }
+
+    public List<string> Ids
+    {
+      get { return GetValue("Ids").ToObject<List<string>>(CommandBase.Serializer); }
+      set
+      {
+          SetValue("Ids", JToken.FromObject(value, CommandBase.Serializer));
+      }
+    }
+  }
+
+
+  ///
+  /// Remove an OSNMA Merkle Tree.
+  ///
+  /// Name Type   Description
+  /// ---- ------ -----------------------------------------------
+  /// Id   string Unique identifier of the Merkle Tree to remove.
+  ///
+
+  public class RemoveMerkleTree : CommandBase
+  {
+    public override string Documentation
+    {
+      get { return "Remove an OSNMA Merkle Tree."; }
+    }
+
+    internal const string CmdName = "RemoveMerkleTree";
+    internal const string TargetId = "";
+
+    public RemoveMerkleTree()
+      : base(CmdName, TargetId)
+    {}
+
+    public RemoveMerkleTree(string id)
+      : base(CmdName, TargetId)
+    {
+      Id = id;
+    }
+      
+    public override bool IsValid
+    {
+      get
+      {
+        return base.IsValid
+        && Contains("Id")
+      ;
+      }
+    }
+
+    public override int ExecutePermission { get { return EXECUTE_IF_IDLE; } }
+
+    public string Id
+    {
+      get { return GetValue("Id").ToObject<string>(CommandBase.Serializer); }
+      set
+      {
+          SetValue("Id", JToken.FromObject(value, CommandBase.Serializer));
+      }
+    }
+  }
+
+
+  ///
+  /// Export an OSNMA Merkle Tree to an XML file with the format defined in the Galileo OSNMA IDD ICD.
+  ///
+  /// Name             Type      Description
+  /// ---------------- --------- ----------------------------------------------------------------------------------------------------------
+  /// Id               string    Merkle Tree unique identifier.
+  /// PublicKeyIndexes array int Indexes (0-based) of Public Keys to export in the Merkle Tree. If empty, all Public Keys will be exported.
+  /// FilePath         string    Export file path for the Merkle Tree.
+  /// OverwriteFile    bool      When selected, existing file will be overwritten.
+  ///
+
+  public class ExportMerkleTree : CommandBase
+  {
+    public override string Documentation
+    {
+      get { return "Export an OSNMA Merkle Tree to an XML file with the format defined in the Galileo OSNMA IDD ICD."; }
+    }
+
+    internal const string CmdName = "ExportMerkleTree";
+    internal const string TargetId = "";
+
+    public ExportMerkleTree()
+      : base(CmdName, TargetId)
+    {}
+
+    public ExportMerkleTree(string id, List<int> publicKeyIndexes, string filePath, bool overwriteFile)
+      : base(CmdName, TargetId)
+    {
+      Id = id;
+      PublicKeyIndexes = publicKeyIndexes;
+      FilePath = filePath;
+      OverwriteFile = overwriteFile;
+    }
+      
+    public override bool IsValid
+    {
+      get
+      {
+        return base.IsValid
+        && Contains("Id")
+        && Contains("PublicKeyIndexes")
+        && Contains("FilePath")
+        && Contains("OverwriteFile")
+      ;
+      }
+    }
+
+    public override int ExecutePermission { get { return EXECUTE_IF_IDLE; } }
+
+    public string Id
+    {
+      get { return GetValue("Id").ToObject<string>(CommandBase.Serializer); }
+      set
+      {
+          SetValue("Id", JToken.FromObject(value, CommandBase.Serializer));
+      }
+    }
+
+    public List<int> PublicKeyIndexes
+    {
+      get { return GetValue("PublicKeyIndexes").ToObject<List<int>>(CommandBase.Serializer); }
+      set
+      {
+          SetValue("PublicKeyIndexes", JToken.FromObject(value, CommandBase.Serializer));
+      }
+    }
+
+    public string FilePath
+    {
+      get { return GetValue("FilePath").ToObject<string>(CommandBase.Serializer); }
+      set
+      {
+          SetValue("FilePath", JToken.FromObject(value, CommandBase.Serializer));
+      }
+    }
+
+    public bool OverwriteFile
+    {
+      get { return GetValue("OverwriteFile").ToObject<bool>(CommandBase.Serializer); }
+      set
+      {
+          SetValue("OverwriteFile", JToken.FromObject(value, CommandBase.Serializer));
+      }
+    }
+  }
+
+
+  ///
+  /// Get Get an OSNMA Merkle Tree XML representation with the format defined in the Galileo OSNMA IDD ICD.
+  ///
+  /// Name             Type      Description
+  /// ---------------- --------- ---------------------------------------------------------------------------------------------------------------------------
+  /// Id               string    Merkle Tree unique identifier.
+  /// PublicKeyIndexes array int Indexes (0-based) of Public Keys to export in the Merkle Tree. If empty, only the Public Key with index 0 will be exported.
+  ///
+
+  public class GetMerkleTreeXML : CommandBase
+  {
+    public override string Documentation
+    {
+      get { return "Get Get an OSNMA Merkle Tree XML representation with the format defined in the Galileo OSNMA IDD ICD."; }
+    }
+
+    internal const string CmdName = "GetMerkleTreeXML";
+    internal const string TargetId = "";
+
+    public GetMerkleTreeXML()
+      : base(CmdName, TargetId)
+    {}
+
+    public GetMerkleTreeXML(string id, List<int> publicKeyIndexes)
+      : base(CmdName, TargetId)
+    {
+      Id = id;
+      PublicKeyIndexes = publicKeyIndexes;
+    }
+      
+    public override bool IsValid
+    {
+      get
+      {
+        return base.IsValid
+        && Contains("Id")
+        && Contains("PublicKeyIndexes")
+      ;
+      }
+    }
+
+    public override int ExecutePermission { get { return EXECUTE_IF_IDLE; } }
+
+    public string Id
+    {
+      get { return GetValue("Id").ToObject<string>(CommandBase.Serializer); }
+      set
+      {
+          SetValue("Id", JToken.FromObject(value, CommandBase.Serializer));
+      }
+    }
+
+    public List<int> PublicKeyIndexes
+    {
+      get { return GetValue("PublicKeyIndexes").ToObject<List<int>>(CommandBase.Serializer); }
+      set
+      {
+          SetValue("PublicKeyIndexes", JToken.FromObject(value, CommandBase.Serializer));
+      }
+    }
+  }
+
+
+  ///
+  /// Result of GetMerkleTreeXML.
+  ///
+  /// Name             Type      Description
+  /// ---------------- --------- ---------------------------------------------------------------------------------------------------------------------------
+  /// Id               string    Merkle Tree unique identifier.
+  /// PublicKeyIndexes array int Indexes (0-based) of Public Keys to export in the Merkle Tree. If empty, only the Public Key with index 0 will be exported.
+  /// MerkleTreeXML    string    Merkle Tree XML representation.
+  ///
+
+  public class GetMerkleTreeXMLResult : CommandResult
+  {
+    public override string Documentation
+    {
+      get { return "Result of GetMerkleTreeXML."; }
+    }
+
+    internal const string CmdName = "GetMerkleTreeXMLResult";
+    internal const string TargetId = "";
+
+    public GetMerkleTreeXMLResult()
+      : base(CmdName, TargetId)
+    {}
+
+    public GetMerkleTreeXMLResult(CommandBase relatedCommand, string id, List<int> publicKeyIndexes, string merkleTreeXML)
+      : base(CmdName, TargetId, relatedCommand)
+    {
+      Id = id;
+      PublicKeyIndexes = publicKeyIndexes;
+      MerkleTreeXML = merkleTreeXML;
+    }
+      
+    public override bool IsValid
+    {
+      get
+      {
+        return base.IsValid
+        && Contains("Id")
+        && Contains("PublicKeyIndexes")
+        && Contains("MerkleTreeXML")
+      ;
+      }
+    }
+
+    public string Id
+    {
+      get { return GetValue("Id").ToObject<string>(CommandBase.Serializer); }
+      set
+      {
+          SetValue("Id", JToken.FromObject(value, CommandBase.Serializer));
+      }
+    }
+
+    public List<int> PublicKeyIndexes
+    {
+      get { return GetValue("PublicKeyIndexes").ToObject<List<int>>(CommandBase.Serializer); }
+      set
+      {
+          SetValue("PublicKeyIndexes", JToken.FromObject(value, CommandBase.Serializer));
+      }
+    }
+
+    public string MerkleTreeXML
+    {
+      get { return GetValue("MerkleTreeXML").ToObject<string>(CommandBase.Serializer); }
+      set
+      {
+          SetValue("MerkleTreeXML", JToken.FromObject(value, CommandBase.Serializer));
+      }
+    }
+  }
+
+
+  ///
+  /// Set OSNMA tag size.
+  ///
+  /// Name    Type Description
+  /// ------- ---- ----------------------------------------------------------------
+  /// TagSize int  Tag size in bits. Accepted tag sizes are: 20, 24, 28, 32 and 40.
+  ///
+
+  public class SetOsnmaTagSize : CommandBase
+  {
+    public override string Documentation
+    {
+      get { return "Set OSNMA tag size."; }
+    }
+
+    internal const string CmdName = "SetOsnmaTagSize";
+    internal const string TargetId = "";
+
+    public SetOsnmaTagSize()
+      : base(CmdName, TargetId)
+    {}
+
+    public SetOsnmaTagSize(int tagSize)
+      : base(CmdName, TargetId)
+    {
+      TagSize = tagSize;
+    }
+      
+    public override bool IsValid
+    {
+      get
+      {
+        return base.IsValid
+        && Contains("TagSize")
+      ;
+      }
+    }
+
+    public override int ExecutePermission { get { return EXECUTE_IF_IDLE; } }
+
+    public int TagSize
+    {
+      get { return GetValue("TagSize").ToObject<int>(CommandBase.Serializer); }
+      set
+      {
+          SetValue("TagSize", JToken.FromObject(value, CommandBase.Serializer));
+      }
+    }
+  }
+
+
+  ///
+  /// Get OSNMA tag size.
+  ///
+  /// 
+  ///
+
+  public class GetOsnmaTagSize : CommandBase
+  {
+    public override string Documentation
+    {
+      get { return "Get OSNMA tag size."; }
+    }
+
+    internal const string CmdName = "GetOsnmaTagSize";
+    internal const string TargetId = "";
+
+    public GetOsnmaTagSize()
+      : base(CmdName, TargetId)
+    {}
+      
+    public override bool IsValid
+    {
+      get
+      {
+        return base.IsValid
+      ;
+      }
+    }
+
+    public override int ExecutePermission { get { return EXECUTE_IF_IDLE; } }
+  }
+
+
+  ///
+  /// Result of GetOsnmaTagSize.
+  ///
+  /// Name    Type Description
+  /// ------- ---- ----------------------------------------------------------------
+  /// TagSize int  Tag size in bits. Accepted tag sizes are: 20, 24, 28, 32 and 40.
+  ///
+
+  public class GetOsnmaTagSizeResult : CommandResult
+  {
+    public override string Documentation
+    {
+      get { return "Result of GetOsnmaTagSize."; }
+    }
+
+    internal const string CmdName = "GetOsnmaTagSizeResult";
+    internal const string TargetId = "";
+
+    public GetOsnmaTagSizeResult()
+      : base(CmdName, TargetId)
+    {}
+
+    public GetOsnmaTagSizeResult(CommandBase relatedCommand, int tagSize)
+      : base(CmdName, TargetId, relatedCommand)
+    {
+      TagSize = tagSize;
+    }
+      
+    public override bool IsValid
+    {
+      get
+      {
+        return base.IsValid
+        && Contains("TagSize")
+      ;
+      }
+    }
+
+    public int TagSize
+    {
+      get { return GetValue("TagSize").ToObject<int>(CommandBase.Serializer); }
+      set
+      {
+          SetValue("TagSize", JToken.FromObject(value, CommandBase.Serializer));
+      }
+    }
+  }
+
+
+  ///
+  /// Set OSNMA TESLA key size.
+  ///
+  /// Name    Type Description
+  /// ------- ---- ----------------------------------------------------------------------------------------------
+  /// KeySize int  TESLA key size in bits. Accepted key sizes are: 96, 104, 112, 120, 128, 160, 192, 224 and 256.
+  ///              Note: Only 128, 192 and 256 bits keys can be be used with CMAC-AES.
+  ///
+
+  public class SetOsnmaTeslaKeySize : CommandBase
+  {
+    public override string Documentation
+    {
+      get { return "Set OSNMA TESLA key size."; }
+    }
+
+    internal const string CmdName = "SetOsnmaTeslaKeySize";
+    internal const string TargetId = "";
+
+    public SetOsnmaTeslaKeySize()
+      : base(CmdName, TargetId)
+    {}
+
+    public SetOsnmaTeslaKeySize(int keySize)
+      : base(CmdName, TargetId)
+    {
+      KeySize = keySize;
+    }
+      
+    public override bool IsValid
+    {
+      get
+      {
+        return base.IsValid
+        && Contains("KeySize")
+      ;
+      }
+    }
+
+    public override int ExecutePermission { get { return EXECUTE_IF_IDLE; } }
+
+    public int KeySize
+    {
+      get { return GetValue("KeySize").ToObject<int>(CommandBase.Serializer); }
+      set
+      {
+          SetValue("KeySize", JToken.FromObject(value, CommandBase.Serializer));
+      }
+    }
+  }
+
+
+  ///
+  /// Get OSNMA TESLA key size.
+  ///
+  /// 
+  ///
+
+  public class GetOsnmaTeslaKeySize : CommandBase
+  {
+    public override string Documentation
+    {
+      get { return "Get OSNMA TESLA key size."; }
+    }
+
+    internal const string CmdName = "GetOsnmaTeslaKeySize";
+    internal const string TargetId = "";
+
+    public GetOsnmaTeslaKeySize()
+      : base(CmdName, TargetId)
+    {}
+      
+    public override bool IsValid
+    {
+      get
+      {
+        return base.IsValid
+      ;
+      }
+    }
+
+    public override int ExecutePermission { get { return EXECUTE_IF_IDLE; } }
+  }
+
+
+  ///
+  /// Result of GetOsnmaTeslaKeySize.
+  ///
+  /// Name    Type Description
+  /// ------- ---- ----------------------------------------------------------------------------------------------
+  /// KeySize int  TESLA key size in bits. Accepted key sizes are: 96, 104, 112, 120, 128, 160, 192, 224 and 256.
+  ///              Note: Only 128, 192 and 256 bits keys can be be used with CMAC-AES.
+  ///
+
+  public class GetOsnmaTeslaKeySizeResult : CommandResult
+  {
+    public override string Documentation
+    {
+      get { return "Result of GetOsnmaTeslaKeySize."; }
+    }
+
+    internal const string CmdName = "GetOsnmaTeslaKeySizeResult";
+    internal const string TargetId = "";
+
+    public GetOsnmaTeslaKeySizeResult()
+      : base(CmdName, TargetId)
+    {}
+
+    public GetOsnmaTeslaKeySizeResult(CommandBase relatedCommand, int keySize)
+      : base(CmdName, TargetId, relatedCommand)
+    {
+      KeySize = keySize;
+    }
+      
+    public override bool IsValid
+    {
+      get
+      {
+        return base.IsValid
+        && Contains("KeySize")
+      ;
+      }
+    }
+
+    public int KeySize
+    {
+      get { return GetValue("KeySize").ToObject<int>(CommandBase.Serializer); }
+      set
+      {
+          SetValue("KeySize", JToken.FromObject(value, CommandBase.Serializer));
+      }
+    }
+  }
+
+
+  ///
+  /// Set OSNMA TESLA hash function.
+  ///
+  /// Name         Type   Description
+  /// ------------ ------ -------------------------------------------------------------------------------------
+  /// HashFunction string Hash function used for the TESLA chain. Hash functions are: "SHA-256" and "SHA3-256".
+  ///
+
+  public class SetOsnmaTeslaHashFunction : CommandBase
+  {
+    public override string Documentation
+    {
+      get { return "Set OSNMA TESLA hash function."; }
+    }
+
+    internal const string CmdName = "SetOsnmaTeslaHashFunction";
+    internal const string TargetId = "";
+
+    public SetOsnmaTeslaHashFunction()
+      : base(CmdName, TargetId)
+    {}
+
+    public SetOsnmaTeslaHashFunction(string hashFunction)
+      : base(CmdName, TargetId)
+    {
+      HashFunction = hashFunction;
+    }
+      
+    public override bool IsValid
+    {
+      get
+      {
+        return base.IsValid
+        && Contains("HashFunction")
+      ;
+      }
+    }
+
+    public override int ExecutePermission { get { return EXECUTE_IF_IDLE; } }
+
+    public string HashFunction
+    {
+      get { return GetValue("HashFunction").ToObject<string>(CommandBase.Serializer); }
+      set
+      {
+          SetValue("HashFunction", JToken.FromObject(value, CommandBase.Serializer));
+      }
+    }
+  }
+
+
+  ///
+  /// Get OSNMA TESLA hash function.
+  ///
+  /// 
+  ///
+
+  public class GetOsnmaTeslaHashFunction : CommandBase
+  {
+    public override string Documentation
+    {
+      get { return "Get OSNMA TESLA hash function."; }
+    }
+
+    internal const string CmdName = "GetOsnmaTeslaHashFunction";
+    internal const string TargetId = "";
+
+    public GetOsnmaTeslaHashFunction()
+      : base(CmdName, TargetId)
+    {}
+      
+    public override bool IsValid
+    {
+      get
+      {
+        return base.IsValid
+      ;
+      }
+    }
+
+    public override int ExecutePermission { get { return EXECUTE_IF_IDLE; } }
+  }
+
+
+  ///
+  /// Result of GetOsnmaTeslaHashFunction.
+  ///
+  /// Name         Type   Description
+  /// ------------ ------ -------------------------------------------------------------------------------------
+  /// HashFunction string Hash function used for the TESLA chain. Hash functions are: "SHA-256" and "SHA3-256".
+  ///
+
+  public class GetOsnmaTeslaHashFunctionResult : CommandResult
+  {
+    public override string Documentation
+    {
+      get { return "Result of GetOsnmaTeslaHashFunction."; }
+    }
+
+    internal const string CmdName = "GetOsnmaTeslaHashFunctionResult";
+    internal const string TargetId = "";
+
+    public GetOsnmaTeslaHashFunctionResult()
+      : base(CmdName, TargetId)
+    {}
+
+    public GetOsnmaTeslaHashFunctionResult(CommandBase relatedCommand, string hashFunction)
+      : base(CmdName, TargetId, relatedCommand)
+    {
+      HashFunction = hashFunction;
+    }
+      
+    public override bool IsValid
+    {
+      get
+      {
+        return base.IsValid
+        && Contains("HashFunction")
+      ;
+      }
+    }
+
+    public string HashFunction
+    {
+      get { return GetValue("HashFunction").ToObject<string>(CommandBase.Serializer); }
+      set
+      {
+          SetValue("HashFunction", JToken.FromObject(value, CommandBase.Serializer));
+      }
+    }
+  }
+
+
+  ///
+  /// Set OSNMA MAC function.
+  ///
+  /// Name        Type   Description
+  /// ----------- ------ --------------------------------------------------------------------------------------------------------
+  /// MacFunction string MAC function used to authenticate the navigation data. MAC functions are: "HMAC-SHA-256" and "CMAC-AES".
+  ///                    Note: CMAC-AES can only be used with 128, 192 and 256 bits keys.
+  ///
+
+  public class SetOsnmaMacFunction : CommandBase
+  {
+    public override string Documentation
+    {
+      get { return "Set OSNMA MAC function."; }
+    }
+
+    internal const string CmdName = "SetOsnmaMacFunction";
+    internal const string TargetId = "";
+
+    public SetOsnmaMacFunction()
+      : base(CmdName, TargetId)
+    {}
+
+    public SetOsnmaMacFunction(string macFunction)
+      : base(CmdName, TargetId)
+    {
+      MacFunction = macFunction;
+    }
+      
+    public override bool IsValid
+    {
+      get
+      {
+        return base.IsValid
+        && Contains("MacFunction")
+      ;
+      }
+    }
+
+    public override int ExecutePermission { get { return EXECUTE_IF_IDLE; } }
+
+    public string MacFunction
+    {
+      get { return GetValue("MacFunction").ToObject<string>(CommandBase.Serializer); }
+      set
+      {
+          SetValue("MacFunction", JToken.FromObject(value, CommandBase.Serializer));
+      }
+    }
+  }
+
+
+  ///
+  /// Get OSNMA MAC function.
+  ///
+  /// 
+  ///
+
+  public class GetOsnmaMacFunction : CommandBase
+  {
+    public override string Documentation
+    {
+      get { return "Get OSNMA MAC function."; }
+    }
+
+    internal const string CmdName = "GetOsnmaMacFunction";
+    internal const string TargetId = "";
+
+    public GetOsnmaMacFunction()
+      : base(CmdName, TargetId)
+    {}
+      
+    public override bool IsValid
+    {
+      get
+      {
+        return base.IsValid
+      ;
+      }
+    }
+
+    public override int ExecutePermission { get { return EXECUTE_IF_IDLE; } }
+  }
+
+
+  ///
+  /// Result of GetOsnmaMacFunction.
+  ///
+  /// Name        Type   Description
+  /// ----------- ------ --------------------------------------------------------------------------------------------------------
+  /// MacFunction string MAC function used to authenticate the navigation data. MAC functions are: "HMAC-SHA-256" and "CMAC-AES".
+  ///                    Note: CMAC-AES can only be used with 128, 192 and 256 bits keys.
+  ///
+
+  public class GetOsnmaMacFunctionResult : CommandResult
+  {
+    public override string Documentation
+    {
+      get { return "Result of GetOsnmaMacFunction."; }
+    }
+
+    internal const string CmdName = "GetOsnmaMacFunctionResult";
+    internal const string TargetId = "";
+
+    public GetOsnmaMacFunctionResult()
+      : base(CmdName, TargetId)
+    {}
+
+    public GetOsnmaMacFunctionResult(CommandBase relatedCommand, string macFunction)
+      : base(CmdName, TargetId, relatedCommand)
+    {
+      MacFunction = macFunction;
+    }
+      
+    public override bool IsValid
+    {
+      get
+      {
+        return base.IsValid
+        && Contains("MacFunction")
+      ;
+      }
+    }
+
+    public string MacFunction
+    {
+      get { return GetValue("MacFunction").ToObject<string>(CommandBase.Serializer); }
+      set
+      {
+          SetValue("MacFunction", JToken.FromObject(value, CommandBase.Serializer));
+      }
+    }
+  }
+
+
+  ///
+  /// Set OSNMA MAC look-up table ID.
+  ///
+  /// Name    Type Description
+  /// ------- ---- ---------------------------------------------------------------------------------------------------------------------------
+  /// MacLtId int  MAC look-up table ID to get associated ADKD sequences. Accepted IDs are: 27, 28, 31, 33, 34, 35, 36, 37, 38, 39, 40 and 41.
+  ///              Note: The MAC look-up table can be found in Galileo OSNMA SIS ICD v1.1 - ANNEX C MAC Look-up Table.
+  ///
+
+  public class SetOsnmaMacLtId : CommandBase
+  {
+    public override string Documentation
+    {
+      get { return "Set OSNMA MAC look-up table ID."; }
+    }
+
+    internal const string CmdName = "SetOsnmaMacLtId";
+    internal const string TargetId = "";
+
+    public SetOsnmaMacLtId()
+      : base(CmdName, TargetId)
+    {}
+
+    public SetOsnmaMacLtId(int macLtId)
+      : base(CmdName, TargetId)
+    {
+      MacLtId = macLtId;
+    }
+      
+    public override bool IsValid
+    {
+      get
+      {
+        return base.IsValid
+        && Contains("MacLtId")
+      ;
+      }
+    }
+
+    public override int ExecutePermission { get { return EXECUTE_IF_IDLE; } }
+
+    public int MacLtId
+    {
+      get { return GetValue("MacLtId").ToObject<int>(CommandBase.Serializer); }
+      set
+      {
+          SetValue("MacLtId", JToken.FromObject(value, CommandBase.Serializer));
+      }
+    }
+  }
+
+
+  ///
+  /// Get OSNMA MAC look-up table ID.
+  ///
+  /// 
+  ///
+
+  public class GetOsnmaMacLtId : CommandBase
+  {
+    public override string Documentation
+    {
+      get { return "Get OSNMA MAC look-up table ID."; }
+    }
+
+    internal const string CmdName = "GetOsnmaMacLtId";
+    internal const string TargetId = "";
+
+    public GetOsnmaMacLtId()
+      : base(CmdName, TargetId)
+    {}
+      
+    public override bool IsValid
+    {
+      get
+      {
+        return base.IsValid
+      ;
+      }
+    }
+
+    public override int ExecutePermission { get { return EXECUTE_IF_IDLE; } }
+  }
+
+
+  ///
+  /// Result of GetOsnmaMacLtId.
+  ///
+  /// Name    Type Description
+  /// ------- ---- ---------------------------------------------------------------------------------------------------------------------------
+  /// MacLtId int  MAC look-up table ID to get associated ADKD sequences. Accepted IDs are: 27, 28, 31, 33, 34, 35, 36, 37, 38, 39, 40 and 41.
+  ///              Note: The MAC look-up table can be found in Galileo OSNMA SIS ICD v1.1 - ANNEX C MAC Look-up Table.
+  ///
+
+  public class GetOsnmaMacLtIdResult : CommandResult
+  {
+    public override string Documentation
+    {
+      get { return "Result of GetOsnmaMacLtId."; }
+    }
+
+    internal const string CmdName = "GetOsnmaMacLtIdResult";
+    internal const string TargetId = "";
+
+    public GetOsnmaMacLtIdResult()
+      : base(CmdName, TargetId)
+    {}
+
+    public GetOsnmaMacLtIdResult(CommandBase relatedCommand, int macLtId)
+      : base(CmdName, TargetId, relatedCommand)
+    {
+      MacLtId = macLtId;
+    }
+      
+    public override bool IsValid
+    {
+      get
+      {
+        return base.IsValid
+        && Contains("MacLtId")
+      ;
+      }
+    }
+
+    public int MacLtId
+    {
+      get { return GetValue("MacLtId").ToObject<int>(CommandBase.Serializer); }
+      set
+      {
+          SetValue("MacLtId", JToken.FromObject(value, CommandBase.Serializer));
       }
     }
   }
@@ -67493,9 +71367,10 @@ namespace Sdx.Cmd
     }
 
     internal const string CmdName = "GetMasterStatus";
+    internal const string TargetId = "";
 
     public GetMasterStatus()
-      : base(CmdName)
+      : base(CmdName, TargetId)
     {}
       
     public override bool IsValid
@@ -67529,13 +71404,14 @@ namespace Sdx.Cmd
     }
 
     internal const string CmdName = "GetMasterStatusResult";
+    internal const string TargetId = "";
 
     public GetMasterStatusResult()
-      : base(CmdName)
+      : base(CmdName, TargetId)
     {}
 
     public GetMasterStatusResult(CommandBase relatedCommand, bool isMaster, int slaveConnected, int port)
-      : base(CmdName, relatedCommand)
+      : base(CmdName, TargetId, relatedCommand)
     {
       IsMaster = isMaster;
       SlaveConnected = slaveConnected;
@@ -67604,9 +71480,10 @@ namespace Sdx.Cmd
     }
 
     internal const string CmdName = "GetSlaveStatus";
+    internal const string TargetId = "";
 
     public GetSlaveStatus()
-      : base(CmdName)
+      : base(CmdName, TargetId)
     {}
       
     public override bool IsValid
@@ -67641,13 +71518,14 @@ namespace Sdx.Cmd
     }
 
     internal const string CmdName = "GetSlaveStatusResult";
+    internal const string TargetId = "";
 
     public GetSlaveStatusResult()
-      : base(CmdName)
+      : base(CmdName, TargetId)
     {}
 
     public GetSlaveStatusResult(CommandBase relatedCommand, bool isSlave, bool isConnected, string hostName, int hostPort)
-      : base(CmdName, relatedCommand)
+      : base(CmdName, TargetId, relatedCommand)
     {
       IsSlave = isSlave;
       IsConnected = isConnected;
@@ -67729,13 +71607,14 @@ namespace Sdx.Cmd
     }
 
     internal const string CmdName = "StopMasterWhenSlaveStop";
+    internal const string TargetId = "";
 
     public StopMasterWhenSlaveStop()
-      : base(CmdName)
+      : base(CmdName, TargetId)
     {}
 
     public StopMasterWhenSlaveStop(bool enabled)
-      : base(CmdName)
+      : base(CmdName, TargetId)
     {
       Enabled = enabled;
     }
@@ -67784,9 +71663,10 @@ namespace Sdx.Cmd
     }
 
     internal const string CmdName = "IsStopMasterWhenSlaveStop";
+    internal const string TargetId = "";
 
     public IsStopMasterWhenSlaveStop()
-      : base(CmdName)
+      : base(CmdName, TargetId)
     {}
       
     public override bool IsValid
@@ -67818,13 +71698,14 @@ namespace Sdx.Cmd
     }
 
     internal const string CmdName = "IsStopMasterWhenSlaveStopResult";
+    internal const string TargetId = "";
 
     public IsStopMasterWhenSlaveStopResult()
-      : base(CmdName)
+      : base(CmdName, TargetId)
     {}
 
     public IsStopMasterWhenSlaveStopResult(CommandBase relatedCommand, bool enabled)
-      : base(CmdName, relatedCommand)
+      : base(CmdName, TargetId, relatedCommand)
     {
       Enabled = enabled;
     }
@@ -67906,13 +71787,14 @@ namespace Sdx.Cmd
     }
 
     internal const string CmdName = "SetGpsEphDoubleParamForSV";
+    internal const string TargetId = "";
 
     public SetGpsEphDoubleParamForSV()
-      : base(CmdName)
+      : base(CmdName, TargetId)
     {}
 
     public SetGpsEphDoubleParamForSV(int svId, string paramName, double val, string dataSetName = null)
-      : base(CmdName)
+      : base(CmdName, TargetId)
     {
       SvId = svId;
       ParamName = paramName;
@@ -68030,13 +71912,14 @@ namespace Sdx.Cmd
     }
 
     internal const string CmdName = "GetGpsEphDoubleParamForSV";
+    internal const string TargetId = "";
 
     public GetGpsEphDoubleParamForSV()
-      : base(CmdName)
+      : base(CmdName, TargetId)
     {}
 
     public GetGpsEphDoubleParamForSV(int svId, string paramName, string dataSetName = null)
-      : base(CmdName)
+      : base(CmdName, TargetId)
     {
       SvId = svId;
       ParamName = paramName;
@@ -68107,13 +71990,14 @@ namespace Sdx.Cmd
     }
 
     internal const string CmdName = "GetGpsEphDoubleParamForSVResult";
+    internal const string TargetId = "";
 
     public GetGpsEphDoubleParamForSVResult()
-      : base(CmdName)
+      : base(CmdName, TargetId)
     {}
 
     public GetGpsEphDoubleParamForSVResult(CommandBase relatedCommand, int svId, string paramName, double val, string dataSetName = null)
-      : base(CmdName, relatedCommand)
+      : base(CmdName, TargetId, relatedCommand)
     {
       SvId = svId;
       ParamName = paramName;
@@ -68226,13 +72110,14 @@ namespace Sdx.Cmd
     }
 
     internal const string CmdName = "SetGalileoEphDoubleParamForSV";
+    internal const string TargetId = "";
 
     public SetGalileoEphDoubleParamForSV()
-      : base(CmdName)
+      : base(CmdName, TargetId)
     {}
 
     public SetGalileoEphDoubleParamForSV(int svId, string paramName, double val, string dataSetName = null)
-      : base(CmdName)
+      : base(CmdName, TargetId)
     {
       SvId = svId;
       ParamName = paramName;
@@ -68346,13 +72231,14 @@ namespace Sdx.Cmd
     }
 
     internal const string CmdName = "GetGalileoEphDoubleParamForSV";
+    internal const string TargetId = "";
 
     public GetGalileoEphDoubleParamForSV()
-      : base(CmdName)
+      : base(CmdName, TargetId)
     {}
 
     public GetGalileoEphDoubleParamForSV(int svId, string paramName, string dataSetName = null)
-      : base(CmdName)
+      : base(CmdName, TargetId)
     {
       SvId = svId;
       ParamName = paramName;
@@ -68423,13 +72309,14 @@ namespace Sdx.Cmd
     }
 
     internal const string CmdName = "GetGalileoEphDoubleParamForSVResult";
+    internal const string TargetId = "";
 
     public GetGalileoEphDoubleParamForSVResult()
-      : base(CmdName)
+      : base(CmdName, TargetId)
     {}
 
     public GetGalileoEphDoubleParamForSVResult(CommandBase relatedCommand, int svId, string paramName, double val, string dataSetName = null)
-      : base(CmdName, relatedCommand)
+      : base(CmdName, TargetId, relatedCommand)
     {
       SvId = svId;
       ParamName = paramName;
@@ -68543,13 +72430,14 @@ namespace Sdx.Cmd
     }
 
     internal const string CmdName = "SetBeiDouEphDoubleParamForSV";
+    internal const string TargetId = "";
 
     public SetBeiDouEphDoubleParamForSV()
-      : base(CmdName)
+      : base(CmdName, TargetId)
     {}
 
     public SetBeiDouEphDoubleParamForSV(int svId, string paramName, double val, string dataSetName = null)
-      : base(CmdName)
+      : base(CmdName, TargetId)
     {
       SvId = svId;
       ParamName = paramName;
@@ -68664,13 +72552,14 @@ namespace Sdx.Cmd
     }
 
     internal const string CmdName = "GetBeiDouEphDoubleParamForSV";
+    internal const string TargetId = "";
 
     public GetBeiDouEphDoubleParamForSV()
-      : base(CmdName)
+      : base(CmdName, TargetId)
     {}
 
     public GetBeiDouEphDoubleParamForSV(int svId, string paramName, string dataSetName = null)
-      : base(CmdName)
+      : base(CmdName, TargetId)
     {
       SvId = svId;
       ParamName = paramName;
@@ -68741,13 +72630,14 @@ namespace Sdx.Cmd
     }
 
     internal const string CmdName = "GetBeiDouEphDoubleParamForSVResult";
+    internal const string TargetId = "";
 
     public GetBeiDouEphDoubleParamForSVResult()
-      : base(CmdName)
+      : base(CmdName, TargetId)
     {}
 
     public GetBeiDouEphDoubleParamForSVResult(CommandBase relatedCommand, int svId, string paramName, double val, string dataSetName = null)
-      : base(CmdName, relatedCommand)
+      : base(CmdName, TargetId, relatedCommand)
     {
       SvId = svId;
       ParamName = paramName;
@@ -68838,13 +72728,14 @@ namespace Sdx.Cmd
     }
 
     internal const string CmdName = "SetQzssEphemerisDoubleParam";
+    internal const string TargetId = "";
 
     public SetQzssEphemerisDoubleParam()
-      : base(CmdName)
+      : base(CmdName, TargetId)
     {}
 
     public SetQzssEphemerisDoubleParam(int svId, string paramName, double val, string dataSetName = null)
-      : base(CmdName)
+      : base(CmdName, TargetId)
     {
       SvId = svId;
       ParamName = paramName;
@@ -68935,13 +72826,14 @@ namespace Sdx.Cmd
     }
 
     internal const string CmdName = "SetQzssEphDoubleParamForSV";
+    internal const string TargetId = "";
 
     public SetQzssEphDoubleParamForSV()
-      : base(CmdName)
+      : base(CmdName, TargetId)
     {}
 
     public SetQzssEphDoubleParamForSV(int svId, string paramName, double val, string dataSetName = null)
-      : base(CmdName)
+      : base(CmdName, TargetId)
     {
       SvId = svId;
       ParamName = paramName;
@@ -69033,13 +72925,14 @@ namespace Sdx.Cmd
     }
 
     internal const string CmdName = "GetQzssEphemerisDoubleParam";
+    internal const string TargetId = "";
 
     public GetQzssEphemerisDoubleParam()
-      : base(CmdName)
+      : base(CmdName, TargetId)
     {}
 
     public GetQzssEphemerisDoubleParam(int svId, string paramName, string dataSetName = null)
-      : base(CmdName)
+      : base(CmdName, TargetId)
     {
       SvId = svId;
       ParamName = paramName;
@@ -69118,13 +73011,14 @@ namespace Sdx.Cmd
     }
 
     internal const string CmdName = "GetQzssEphDoubleParamForSV";
+    internal const string TargetId = "";
 
     public GetQzssEphDoubleParamForSV()
-      : base(CmdName)
+      : base(CmdName, TargetId)
     {}
 
     public GetQzssEphDoubleParamForSV(int svId, string paramName, string dataSetName = null)
-      : base(CmdName)
+      : base(CmdName, TargetId)
     {
       SvId = svId;
       ParamName = paramName;
@@ -69197,13 +73091,14 @@ namespace Sdx.Cmd
     }
   
     internal const string CmdName = "GetQzssEphemerisDoubleParamResult";
+    internal const string TargetId = "";
 
     public GetQzssEphemerisDoubleParamResult()
-      : base(CmdName)
+      : base(CmdName, TargetId)
     {}
 
     public GetQzssEphemerisDoubleParamResult(CommandBase relatedCommand, int svId, string paramName, double val, string dataSetName = null)
-      : base(CmdName, relatedCommand)
+      : base(CmdName, TargetId, relatedCommand)
     {
       SvId = svId;
       ParamName = paramName;
@@ -69329,13 +73224,14 @@ namespace Sdx.Cmd
     }
 
     internal const string CmdName = "SetNavICEphemerisDoubleParam";
+    internal const string TargetId = "";
 
     public SetNavICEphemerisDoubleParam()
-      : base(CmdName)
+      : base(CmdName, TargetId)
     {}
 
     public SetNavICEphemerisDoubleParam(int svId, string paramName, double val, string dataSetName = null)
-      : base(CmdName)
+      : base(CmdName, TargetId)
     {
       SvId = svId;
       ParamName = paramName;
@@ -69448,13 +73344,14 @@ namespace Sdx.Cmd
     }
 
     internal const string CmdName = "SetNavICEphDoubleParamForSV";
+    internal const string TargetId = "";
 
     public SetNavICEphDoubleParamForSV()
-      : base(CmdName)
+      : base(CmdName, TargetId)
     {}
 
     public SetNavICEphDoubleParamForSV(int svId, string paramName, double val, string dataSetName = null)
-      : base(CmdName)
+      : base(CmdName, TargetId)
     {
       SvId = svId;
       ParamName = paramName;
@@ -69568,13 +73465,14 @@ namespace Sdx.Cmd
     }
 
     internal const string CmdName = "GetNavICEphemerisDoubleParam";
+    internal const string TargetId = "";
 
     public GetNavICEphemerisDoubleParam()
-      : base(CmdName)
+      : base(CmdName, TargetId)
     {}
 
     public GetNavICEphemerisDoubleParam(int svId, string paramName, string dataSetName = null)
-      : base(CmdName)
+      : base(CmdName, TargetId)
     {
       SvId = svId;
       ParamName = paramName;
@@ -69675,13 +73573,14 @@ namespace Sdx.Cmd
     }
 
     internal const string CmdName = "GetNavICEphDoubleParamForSV";
+    internal const string TargetId = "";
 
     public GetNavICEphDoubleParamForSV()
-      : base(CmdName)
+      : base(CmdName, TargetId)
     {}
 
     public GetNavICEphDoubleParamForSV(int svId, string paramName, string dataSetName = null)
-      : base(CmdName)
+      : base(CmdName, TargetId)
     {
       SvId = svId;
       ParamName = paramName;
@@ -69752,13 +73651,14 @@ namespace Sdx.Cmd
     }
   
     internal const string CmdName = "GetNavICEphemerisDoubleParamResult";
+    internal const string TargetId = "";
 
     public GetNavICEphemerisDoubleParamResult()
-      : base(CmdName)
+      : base(CmdName, TargetId)
     {}
 
     public GetNavICEphemerisDoubleParamResult(CommandBase relatedCommand, int svId, string paramName, double val, string dataSetName = null)
-      : base(CmdName, relatedCommand)
+      : base(CmdName, TargetId, relatedCommand)
     {
       SvId = svId;
       ParamName = paramName;
@@ -69857,13 +73757,14 @@ namespace Sdx.Cmd
     }
 
     internal const string CmdName = "SetGpsEphemerisDoubleParams";
+    internal const string TargetId = "";
 
     public SetGpsEphemerisDoubleParams()
-      : base(CmdName)
+      : base(CmdName, TargetId)
     {}
 
     public SetGpsEphemerisDoubleParams(string paramName, List<double> val, string dataSetName = null)
-      : base(CmdName)
+      : base(CmdName, TargetId)
     {
       ParamName = paramName;
       Val = val;
@@ -69940,13 +73841,14 @@ namespace Sdx.Cmd
     }
 
     internal const string CmdName = "SetGpsEphDoubleParamForEachSV";
+    internal const string TargetId = "";
 
     public SetGpsEphDoubleParamForEachSV()
-      : base(CmdName)
+      : base(CmdName, TargetId)
     {}
 
     public SetGpsEphDoubleParamForEachSV(string paramName, List<double> val, string dataSetName = null)
-      : base(CmdName)
+      : base(CmdName, TargetId)
     {
       ParamName = paramName;
       Val = val;
@@ -70024,13 +73926,14 @@ namespace Sdx.Cmd
     }
 
     internal const string CmdName = "GetGpsEphemerisDoubleParams";
+    internal const string TargetId = "";
 
     public GetGpsEphemerisDoubleParams()
-      : base(CmdName)
+      : base(CmdName, TargetId)
     {}
 
     public GetGpsEphemerisDoubleParams(string paramName, string dataSetName = null)
-      : base(CmdName)
+      : base(CmdName, TargetId)
     {
       ParamName = paramName;
       DataSetName = dataSetName;
@@ -70095,13 +73998,14 @@ namespace Sdx.Cmd
     }
 
     internal const string CmdName = "GetGpsEphDoubleParamForEachSV";
+    internal const string TargetId = "";
 
     public GetGpsEphDoubleParamForEachSV()
-      : base(CmdName)
+      : base(CmdName, TargetId)
     {}
 
     public GetGpsEphDoubleParamForEachSV(string paramName, string dataSetName = null)
-      : base(CmdName)
+      : base(CmdName, TargetId)
     {
       ParamName = paramName;
       DataSetName = dataSetName;
@@ -70160,13 +74064,14 @@ namespace Sdx.Cmd
     }
   
     internal const string CmdName = "GetGpsEphemerisDoubleParamsResult";
+    internal const string TargetId = "";
 
     public GetGpsEphemerisDoubleParamsResult()
-      : base(CmdName)
+      : base(CmdName, TargetId)
     {}
 
     public GetGpsEphemerisDoubleParamsResult(CommandBase relatedCommand, string paramName, List<double> val, string dataSetName = null)
-      : base(CmdName, relatedCommand)
+      : base(CmdName, TargetId, relatedCommand)
     {
       ParamName = paramName;
       Val = val;
@@ -70256,13 +74161,14 @@ namespace Sdx.Cmd
     }
 
     internal const string CmdName = "SetGalileoEphemerisDoubleParams";
+    internal const string TargetId = "";
 
     public SetGalileoEphemerisDoubleParams()
-      : base(CmdName)
+      : base(CmdName, TargetId)
     {}
 
     public SetGalileoEphemerisDoubleParams(string paramName, List<double> val, string dataSetName = null)
-      : base(CmdName)
+      : base(CmdName, TargetId)
     {
       ParamName = paramName;
       Val = val;
@@ -70339,13 +74245,14 @@ namespace Sdx.Cmd
     }
 
     internal const string CmdName = "SetGalileoEphDoubleParamForEachSV";
+    internal const string TargetId = "";
 
     public SetGalileoEphDoubleParamForEachSV()
-      : base(CmdName)
+      : base(CmdName, TargetId)
     {}
 
     public SetGalileoEphDoubleParamForEachSV(string paramName, List<double> val, string dataSetName = null)
-      : base(CmdName)
+      : base(CmdName, TargetId)
     {
       ParamName = paramName;
       Val = val;
@@ -70423,13 +74330,14 @@ namespace Sdx.Cmd
     }
 
     internal const string CmdName = "GetGalileoEphemerisDoubleParams";
+    internal const string TargetId = "";
 
     public GetGalileoEphemerisDoubleParams()
-      : base(CmdName)
+      : base(CmdName, TargetId)
     {}
 
     public GetGalileoEphemerisDoubleParams(string paramName, string dataSetName = null)
-      : base(CmdName)
+      : base(CmdName, TargetId)
     {
       ParamName = paramName;
       DataSetName = dataSetName;
@@ -70494,13 +74402,14 @@ namespace Sdx.Cmd
     }
 
     internal const string CmdName = "GetGalileoEphDoubleParamForEachSV";
+    internal const string TargetId = "";
 
     public GetGalileoEphDoubleParamForEachSV()
-      : base(CmdName)
+      : base(CmdName, TargetId)
     {}
 
     public GetGalileoEphDoubleParamForEachSV(string paramName, string dataSetName = null)
-      : base(CmdName)
+      : base(CmdName, TargetId)
     {
       ParamName = paramName;
       DataSetName = dataSetName;
@@ -70559,13 +74468,14 @@ namespace Sdx.Cmd
     }
   
     internal const string CmdName = "GetGalileoEphemerisDoubleParamsResult";
+    internal const string TargetId = "";
 
     public GetGalileoEphemerisDoubleParamsResult()
-      : base(CmdName)
+      : base(CmdName, TargetId)
     {}
 
     public GetGalileoEphemerisDoubleParamsResult(CommandBase relatedCommand, string paramName, List<double> val, string dataSetName = null)
-      : base(CmdName, relatedCommand)
+      : base(CmdName, TargetId, relatedCommand)
     {
       ParamName = paramName;
       Val = val;
@@ -70655,13 +74565,14 @@ namespace Sdx.Cmd
     }
 
     internal const string CmdName = "SetBeiDouEphemerisDoubleParams";
+    internal const string TargetId = "";
 
     public SetBeiDouEphemerisDoubleParams()
-      : base(CmdName)
+      : base(CmdName, TargetId)
     {}
 
     public SetBeiDouEphemerisDoubleParams(string paramName, List<double> val, string dataSetName = null)
-      : base(CmdName)
+      : base(CmdName, TargetId)
     {
       ParamName = paramName;
       Val = val;
@@ -70738,13 +74649,14 @@ namespace Sdx.Cmd
     }
 
     internal const string CmdName = "SetBeiDouEphDoubleParamForEachSV";
+    internal const string TargetId = "";
 
     public SetBeiDouEphDoubleParamForEachSV()
-      : base(CmdName)
+      : base(CmdName, TargetId)
     {}
 
     public SetBeiDouEphDoubleParamForEachSV(string paramName, List<double> val, string dataSetName = null)
-      : base(CmdName)
+      : base(CmdName, TargetId)
     {
       ParamName = paramName;
       Val = val;
@@ -70822,13 +74734,14 @@ namespace Sdx.Cmd
     }
 
     internal const string CmdName = "GetBeiDouEphemerisDoubleParams";
+    internal const string TargetId = "";
 
     public GetBeiDouEphemerisDoubleParams()
-      : base(CmdName)
+      : base(CmdName, TargetId)
     {}
 
     public GetBeiDouEphemerisDoubleParams(string paramName, string dataSetName = null)
-      : base(CmdName)
+      : base(CmdName, TargetId)
     {
       ParamName = paramName;
       DataSetName = dataSetName;
@@ -70893,13 +74806,14 @@ namespace Sdx.Cmd
     }
 
     internal const string CmdName = "GetBeiDouEphDoubleParamForEachSV";
+    internal const string TargetId = "";
 
     public GetBeiDouEphDoubleParamForEachSV()
-      : base(CmdName)
+      : base(CmdName, TargetId)
     {}
 
     public GetBeiDouEphDoubleParamForEachSV(string paramName, string dataSetName = null)
-      : base(CmdName)
+      : base(CmdName, TargetId)
     {
       ParamName = paramName;
       DataSetName = dataSetName;
@@ -70958,13 +74872,14 @@ namespace Sdx.Cmd
     }
   
     internal const string CmdName = "GetBeiDouEphemerisDoubleParamsResult";
+    internal const string TargetId = "";
 
     public GetBeiDouEphemerisDoubleParamsResult()
-      : base(CmdName)
+      : base(CmdName, TargetId)
     {}
 
     public GetBeiDouEphemerisDoubleParamsResult(CommandBase relatedCommand, string paramName, List<double> val, string dataSetName = null)
-      : base(CmdName, relatedCommand)
+      : base(CmdName, TargetId, relatedCommand)
     {
       ParamName = paramName;
       Val = val;
@@ -71054,13 +74969,14 @@ namespace Sdx.Cmd
     }
 
     internal const string CmdName = "SetQzssEphemerisDoubleParams";
+    internal const string TargetId = "";
 
     public SetQzssEphemerisDoubleParams()
-      : base(CmdName)
+      : base(CmdName, TargetId)
     {}
 
     public SetQzssEphemerisDoubleParams(string paramName, List<double> val, string dataSetName = null)
-      : base(CmdName)
+      : base(CmdName, TargetId)
     {
       ParamName = paramName;
       Val = val;
@@ -71137,13 +75053,14 @@ namespace Sdx.Cmd
     }
 
     internal const string CmdName = "SetQzssEphDoubleParamForEachSV";
+    internal const string TargetId = "";
 
     public SetQzssEphDoubleParamForEachSV()
-      : base(CmdName)
+      : base(CmdName, TargetId)
     {}
 
     public SetQzssEphDoubleParamForEachSV(string paramName, List<double> val, string dataSetName = null)
-      : base(CmdName)
+      : base(CmdName, TargetId)
     {
       ParamName = paramName;
       Val = val;
@@ -71221,13 +75138,14 @@ namespace Sdx.Cmd
     }
 
     internal const string CmdName = "GetQzssEphemerisDoubleParams";
+    internal const string TargetId = "";
 
     public GetQzssEphemerisDoubleParams()
-      : base(CmdName)
+      : base(CmdName, TargetId)
     {}
 
     public GetQzssEphemerisDoubleParams(string paramName, string dataSetName = null)
-      : base(CmdName)
+      : base(CmdName, TargetId)
     {
       ParamName = paramName;
       DataSetName = dataSetName;
@@ -71292,13 +75210,14 @@ namespace Sdx.Cmd
     }
 
     internal const string CmdName = "GetQzssEphDoubleParamForEachSV";
+    internal const string TargetId = "";
 
     public GetQzssEphDoubleParamForEachSV()
-      : base(CmdName)
+      : base(CmdName, TargetId)
     {}
 
     public GetQzssEphDoubleParamForEachSV(string paramName, string dataSetName = null)
-      : base(CmdName)
+      : base(CmdName, TargetId)
     {
       ParamName = paramName;
       DataSetName = dataSetName;
@@ -71357,13 +75276,14 @@ namespace Sdx.Cmd
     }
   
     internal const string CmdName = "GetQzssEphemerisDoubleParamsResult";
+    internal const string TargetId = "";
 
     public GetQzssEphemerisDoubleParamsResult()
-      : base(CmdName)
+      : base(CmdName, TargetId)
     {}
 
     public GetQzssEphemerisDoubleParamsResult(CommandBase relatedCommand, string paramName, List<double> val, string dataSetName = null)
-      : base(CmdName, relatedCommand)
+      : base(CmdName, TargetId, relatedCommand)
     {
       ParamName = paramName;
       Val = val;
@@ -71453,13 +75373,14 @@ namespace Sdx.Cmd
     }
 
     internal const string CmdName = "SetNavICEphemerisDoubleParams";
+    internal const string TargetId = "";
 
     public SetNavICEphemerisDoubleParams()
-      : base(CmdName)
+      : base(CmdName, TargetId)
     {}
 
     public SetNavICEphemerisDoubleParams(string paramName, List<double> val, string dataSetName = null)
-      : base(CmdName)
+      : base(CmdName, TargetId)
     {
       ParamName = paramName;
       Val = val;
@@ -71536,13 +75457,14 @@ namespace Sdx.Cmd
     }
 
     internal const string CmdName = "SetNavICEphDoubleParamForEachSV";
+    internal const string TargetId = "";
 
     public SetNavICEphDoubleParamForEachSV()
-      : base(CmdName)
+      : base(CmdName, TargetId)
     {}
 
     public SetNavICEphDoubleParamForEachSV(string paramName, List<double> val, string dataSetName = null)
-      : base(CmdName)
+      : base(CmdName, TargetId)
     {
       ParamName = paramName;
       Val = val;
@@ -71620,13 +75542,14 @@ namespace Sdx.Cmd
     }
 
     internal const string CmdName = "GetNavICEphemerisDoubleParams";
+    internal const string TargetId = "";
 
     public GetNavICEphemerisDoubleParams()
-      : base(CmdName)
+      : base(CmdName, TargetId)
     {}
 
     public GetNavICEphemerisDoubleParams(string paramName, string dataSetName = null)
-      : base(CmdName)
+      : base(CmdName, TargetId)
     {
       ParamName = paramName;
       DataSetName = dataSetName;
@@ -71691,13 +75614,14 @@ namespace Sdx.Cmd
     }
 
     internal const string CmdName = "GetNavICEphDoubleParamForEachSV";
+    internal const string TargetId = "";
 
     public GetNavICEphDoubleParamForEachSV()
-      : base(CmdName)
+      : base(CmdName, TargetId)
     {}
 
     public GetNavICEphDoubleParamForEachSV(string paramName, string dataSetName = null)
-      : base(CmdName)
+      : base(CmdName, TargetId)
     {
       ParamName = paramName;
       DataSetName = dataSetName;
@@ -71756,13 +75680,14 @@ namespace Sdx.Cmd
     }
   
     internal const string CmdName = "GetNavICEphemerisDoubleParamsResult";
+    internal const string TargetId = "";
 
     public GetNavICEphemerisDoubleParamsResult()
-      : base(CmdName)
+      : base(CmdName, TargetId)
     {}
 
     public GetNavICEphemerisDoubleParamsResult(CommandBase relatedCommand, string paramName, List<double> val, string dataSetName = null)
-      : base(CmdName, relatedCommand)
+      : base(CmdName, TargetId, relatedCommand)
     {
       ParamName = paramName;
       Val = val;
@@ -71859,13 +75784,14 @@ namespace Sdx.Cmd
     }
 
     internal const string CmdName = "SetGpsEphBoolParamForSV";
+    internal const string TargetId = "";
 
     public SetGpsEphBoolParamForSV()
-      : base(CmdName)
+      : base(CmdName, TargetId)
     {}
 
     public SetGpsEphBoolParamForSV(int svId, string paramName, bool val, string dataSetName = null)
-      : base(CmdName)
+      : base(CmdName, TargetId)
     {
       SvId = svId;
       ParamName = paramName;
@@ -71961,13 +75887,14 @@ namespace Sdx.Cmd
     }
 
     internal const string CmdName = "GetGpsEphBoolParamForSV";
+    internal const string TargetId = "";
 
     public GetGpsEphBoolParamForSV()
-      : base(CmdName)
+      : base(CmdName, TargetId)
     {}
 
     public GetGpsEphBoolParamForSV(int svId, string paramName, string dataSetName = null)
-      : base(CmdName)
+      : base(CmdName, TargetId)
     {
       SvId = svId;
       ParamName = paramName;
@@ -72038,13 +75965,14 @@ namespace Sdx.Cmd
     }
 
     internal const string CmdName = "GetGpsEphBoolParamForSVResult";
+    internal const string TargetId = "";
 
     public GetGpsEphBoolParamForSVResult()
-      : base(CmdName)
+      : base(CmdName, TargetId)
     {}
 
     public GetGpsEphBoolParamForSVResult(CommandBase relatedCommand, int svId, string paramName, bool val, string dataSetName = null)
-      : base(CmdName, relatedCommand)
+      : base(CmdName, TargetId, relatedCommand)
     {
       SvId = svId;
       ParamName = paramName;
@@ -72132,13 +76060,14 @@ namespace Sdx.Cmd
     }
 
     internal const string CmdName = "SetGpsEphemerisBoolParams";
+    internal const string TargetId = "";
 
     public SetGpsEphemerisBoolParams()
-      : base(CmdName)
+      : base(CmdName, TargetId)
     {}
 
     public SetGpsEphemerisBoolParams(string paramName, List<bool> val, string dataSetName = null)
-      : base(CmdName)
+      : base(CmdName, TargetId)
     {
       ParamName = paramName;
       Val = val;
@@ -72215,13 +76144,14 @@ namespace Sdx.Cmd
     }
 
     internal const string CmdName = "SetGpsEphBoolParamForEachSV";
+    internal const string TargetId = "";
 
     public SetGpsEphBoolParamForEachSV()
-      : base(CmdName)
+      : base(CmdName, TargetId)
     {}
 
     public SetGpsEphBoolParamForEachSV(string paramName, List<bool> val, string dataSetName = null)
-      : base(CmdName)
+      : base(CmdName, TargetId)
     {
       ParamName = paramName;
       Val = val;
@@ -72299,13 +76229,14 @@ namespace Sdx.Cmd
     }
 
     internal const string CmdName = "GetGpsEphemerisBoolParams";
+    internal const string TargetId = "";
 
     public GetGpsEphemerisBoolParams()
-      : base(CmdName)
+      : base(CmdName, TargetId)
     {}
 
     public GetGpsEphemerisBoolParams(string paramName, string dataSetName = null)
-      : base(CmdName)
+      : base(CmdName, TargetId)
     {
       ParamName = paramName;
       DataSetName = dataSetName;
@@ -72370,13 +76301,14 @@ namespace Sdx.Cmd
     }
 
     internal const string CmdName = "GetGpsEphBoolParamForEachSV";
+    internal const string TargetId = "";
 
     public GetGpsEphBoolParamForEachSV()
-      : base(CmdName)
+      : base(CmdName, TargetId)
     {}
 
     public GetGpsEphBoolParamForEachSV(string paramName, string dataSetName = null)
-      : base(CmdName)
+      : base(CmdName, TargetId)
     {
       ParamName = paramName;
       DataSetName = dataSetName;
@@ -72435,13 +76367,14 @@ namespace Sdx.Cmd
     }
   
     internal const string CmdName = "GetGpsEphemerisBoolParamsResult";
+    internal const string TargetId = "";
 
     public GetGpsEphemerisBoolParamsResult()
-      : base(CmdName)
+      : base(CmdName, TargetId)
     {}
 
     public GetGpsEphemerisBoolParamsResult(CommandBase relatedCommand, string paramName, List<bool> val, string dataSetName = null)
-      : base(CmdName, relatedCommand)
+      : base(CmdName, TargetId, relatedCommand)
     {
       ParamName = paramName;
       Val = val;
@@ -72534,13 +76467,14 @@ namespace Sdx.Cmd
     }
 
     internal const string CmdName = "SetBeiDouEphBoolParamForSV";
+    internal const string TargetId = "";
 
     public SetBeiDouEphBoolParamForSV()
-      : base(CmdName)
+      : base(CmdName, TargetId)
     {}
 
     public SetBeiDouEphBoolParamForSV(int svId, string paramName, bool val, string dataSetName = null)
-      : base(CmdName)
+      : base(CmdName, TargetId)
     {
       SvId = svId;
       ParamName = paramName;
@@ -72632,13 +76566,14 @@ namespace Sdx.Cmd
     }
 
     internal const string CmdName = "GetBeiDouEphBoolParamForSV";
+    internal const string TargetId = "";
 
     public GetBeiDouEphBoolParamForSV()
-      : base(CmdName)
+      : base(CmdName, TargetId)
     {}
 
     public GetBeiDouEphBoolParamForSV(int svId, string paramName, string dataSetName = null)
-      : base(CmdName)
+      : base(CmdName, TargetId)
     {
       SvId = svId;
       ParamName = paramName;
@@ -72709,13 +76644,14 @@ namespace Sdx.Cmd
     }
 
     internal const string CmdName = "GetBeiDouEphBoolParamForSVResult";
+    internal const string TargetId = "";
 
     public GetBeiDouEphBoolParamForSVResult()
-      : base(CmdName)
+      : base(CmdName, TargetId)
     {}
 
     public GetBeiDouEphBoolParamForSVResult(CommandBase relatedCommand, int svId, string paramName, bool val, string dataSetName = null)
-      : base(CmdName, relatedCommand)
+      : base(CmdName, TargetId, relatedCommand)
     {
       SvId = svId;
       ParamName = paramName;
@@ -72803,13 +76739,14 @@ namespace Sdx.Cmd
     }
 
     internal const string CmdName = "SetBeiDouEphemerisBoolParams";
+    internal const string TargetId = "";
 
     public SetBeiDouEphemerisBoolParams()
-      : base(CmdName)
+      : base(CmdName, TargetId)
     {}
 
     public SetBeiDouEphemerisBoolParams(string paramName, List<bool> val, string dataSetName = null)
-      : base(CmdName)
+      : base(CmdName, TargetId)
     {
       ParamName = paramName;
       Val = val;
@@ -72886,13 +76823,14 @@ namespace Sdx.Cmd
     }
 
     internal const string CmdName = "SetBeiDouEphBoolParamForEachSV";
+    internal const string TargetId = "";
 
     public SetBeiDouEphBoolParamForEachSV()
-      : base(CmdName)
+      : base(CmdName, TargetId)
     {}
 
     public SetBeiDouEphBoolParamForEachSV(string paramName, List<bool> val, string dataSetName = null)
-      : base(CmdName)
+      : base(CmdName, TargetId)
     {
       ParamName = paramName;
       Val = val;
@@ -72970,13 +76908,14 @@ namespace Sdx.Cmd
     }
 
     internal const string CmdName = "GetBeiDouEphemerisBoolParams";
+    internal const string TargetId = "";
 
     public GetBeiDouEphemerisBoolParams()
-      : base(CmdName)
+      : base(CmdName, TargetId)
     {}
 
     public GetBeiDouEphemerisBoolParams(string paramName, string dataSetName = null)
-      : base(CmdName)
+      : base(CmdName, TargetId)
     {
       ParamName = paramName;
       DataSetName = dataSetName;
@@ -73041,13 +76980,14 @@ namespace Sdx.Cmd
     }
 
     internal const string CmdName = "GetBeiDouEphBoolParamForEachSV";
+    internal const string TargetId = "";
 
     public GetBeiDouEphBoolParamForEachSV()
-      : base(CmdName)
+      : base(CmdName, TargetId)
     {}
 
     public GetBeiDouEphBoolParamForEachSV(string paramName, string dataSetName = null)
-      : base(CmdName)
+      : base(CmdName, TargetId)
     {
       ParamName = paramName;
       DataSetName = dataSetName;
@@ -73106,13 +77046,14 @@ namespace Sdx.Cmd
     }
   
     internal const string CmdName = "GetBeiDouEphemerisBoolParamsResult";
+    internal const string TargetId = "";
 
     public GetBeiDouEphemerisBoolParamsResult()
-      : base(CmdName)
+      : base(CmdName, TargetId)
     {}
 
     public GetBeiDouEphemerisBoolParamsResult(CommandBase relatedCommand, string paramName, List<bool> val, string dataSetName = null)
-      : base(CmdName, relatedCommand)
+      : base(CmdName, TargetId, relatedCommand)
     {
       ParamName = paramName;
       Val = val;
@@ -73211,13 +77152,14 @@ namespace Sdx.Cmd
     }
 
     internal const string CmdName = "SetQzssEphemerisBoolParam";
+    internal const string TargetId = "";
 
     public SetQzssEphemerisBoolParam()
-      : base(CmdName)
+      : base(CmdName, TargetId)
     {}
 
     public SetQzssEphemerisBoolParam(int svId, string paramName, bool val, string dataSetName = null)
-      : base(CmdName)
+      : base(CmdName, TargetId)
     {
       SvId = svId;
       ParamName = paramName;
@@ -73314,13 +77256,14 @@ namespace Sdx.Cmd
     }
 
     internal const string CmdName = "SetQzssEphBoolParamForSV";
+    internal const string TargetId = "";
 
     public SetQzssEphBoolParamForSV()
-      : base(CmdName)
+      : base(CmdName, TargetId)
     {}
 
     public SetQzssEphBoolParamForSV(int svId, string paramName, bool val, string dataSetName = null)
-      : base(CmdName)
+      : base(CmdName, TargetId)
     {
       SvId = svId;
       ParamName = paramName;
@@ -73418,13 +77361,14 @@ namespace Sdx.Cmd
     }
 
     internal const string CmdName = "GetQzssEphemerisBoolParam";
+    internal const string TargetId = "";
 
     public GetQzssEphemerisBoolParam()
-      : base(CmdName)
+      : base(CmdName, TargetId)
     {}
 
     public GetQzssEphemerisBoolParam(int svId, string paramName, string dataSetName = null)
-      : base(CmdName)
+      : base(CmdName, TargetId)
     {
       SvId = svId;
       ParamName = paramName;
@@ -73509,13 +77453,14 @@ namespace Sdx.Cmd
     }
 
     internal const string CmdName = "GetQzssEphBoolParamForSV";
+    internal const string TargetId = "";
 
     public GetQzssEphBoolParamForSV()
-      : base(CmdName)
+      : base(CmdName, TargetId)
     {}
 
     public GetQzssEphBoolParamForSV(int svId, string paramName, string dataSetName = null)
-      : base(CmdName)
+      : base(CmdName, TargetId)
     {
       SvId = svId;
       ParamName = paramName;
@@ -73586,13 +77531,14 @@ namespace Sdx.Cmd
     }
   
     internal const string CmdName = "GetQzssEphemerisBoolParamResult";
+    internal const string TargetId = "";
 
     public GetQzssEphemerisBoolParamResult()
-      : base(CmdName)
+      : base(CmdName, TargetId)
     {}
 
     public GetQzssEphemerisBoolParamResult(CommandBase relatedCommand, int svId, string paramName, bool val, string dataSetName = null)
-      : base(CmdName, relatedCommand)
+      : base(CmdName, TargetId, relatedCommand)
     {
       SvId = svId;
       ParamName = paramName;
@@ -73691,13 +77637,14 @@ namespace Sdx.Cmd
     }
 
     internal const string CmdName = "SetQzssEphemerisBoolParams";
+    internal const string TargetId = "";
 
     public SetQzssEphemerisBoolParams()
-      : base(CmdName)
+      : base(CmdName, TargetId)
     {}
 
     public SetQzssEphemerisBoolParams(string paramName, List<bool> val, string dataSetName = null)
-      : base(CmdName)
+      : base(CmdName, TargetId)
     {
       ParamName = paramName;
       Val = val;
@@ -73774,13 +77721,14 @@ namespace Sdx.Cmd
     }
 
     internal const string CmdName = "SetQzssEphBoolParamForEachSV";
+    internal const string TargetId = "";
 
     public SetQzssEphBoolParamForEachSV()
-      : base(CmdName)
+      : base(CmdName, TargetId)
     {}
 
     public SetQzssEphBoolParamForEachSV(string paramName, List<bool> val, string dataSetName = null)
-      : base(CmdName)
+      : base(CmdName, TargetId)
     {
       ParamName = paramName;
       Val = val;
@@ -73858,13 +77806,14 @@ namespace Sdx.Cmd
     }
 
     internal const string CmdName = "GetQzssEphemerisBoolParams";
+    internal const string TargetId = "";
 
     public GetQzssEphemerisBoolParams()
-      : base(CmdName)
+      : base(CmdName, TargetId)
     {}
 
     public GetQzssEphemerisBoolParams(string paramName, string dataSetName = null)
-      : base(CmdName)
+      : base(CmdName, TargetId)
     {
       ParamName = paramName;
       DataSetName = dataSetName;
@@ -73929,13 +77878,14 @@ namespace Sdx.Cmd
     }
 
     internal const string CmdName = "GetQzssEphBoolParamForEachSV";
+    internal const string TargetId = "";
 
     public GetQzssEphBoolParamForEachSV()
-      : base(CmdName)
+      : base(CmdName, TargetId)
     {}
 
     public GetQzssEphBoolParamForEachSV(string paramName, string dataSetName = null)
-      : base(CmdName)
+      : base(CmdName, TargetId)
     {
       ParamName = paramName;
       DataSetName = dataSetName;
@@ -73994,13 +77944,14 @@ namespace Sdx.Cmd
     }
   
     internal const string CmdName = "GetQzssEphemerisBoolParamsResult";
+    internal const string TargetId = "";
 
     public GetQzssEphemerisBoolParamsResult()
-      : base(CmdName)
+      : base(CmdName, TargetId)
     {}
 
     public GetQzssEphemerisBoolParamsResult(CommandBase relatedCommand, string paramName, List<bool> val, string dataSetName = null)
-      : base(CmdName, relatedCommand)
+      : base(CmdName, TargetId, relatedCommand)
     {
       ParamName = paramName;
       Val = val;
@@ -74092,13 +78043,14 @@ namespace Sdx.Cmd
     }
 
     internal const string CmdName = "SetWFAntennaElementOffset";
+    internal const string TargetId = "";
 
     public SetWFAntennaElementOffset()
-      : base(CmdName)
+      : base(CmdName, TargetId)
     {}
 
     public SetWFAntennaElementOffset(double x, double y, double z, double yaw, double pitch, double roll, int element)
-      : base(CmdName)
+      : base(CmdName, TargetId)
     {
       X = x;
       Y = y;
@@ -74215,13 +78167,14 @@ namespace Sdx.Cmd
     }
 
     internal const string CmdName = "GetWFAntennaElementOffset";
+    internal const string TargetId = "";
 
     public GetWFAntennaElementOffset()
-      : base(CmdName)
+      : base(CmdName, TargetId)
     {}
 
     public GetWFAntennaElementOffset(int element)
-      : base(CmdName)
+      : base(CmdName, TargetId)
     {
       Element = element;
     }
@@ -74271,13 +78224,14 @@ namespace Sdx.Cmd
     }
 
     internal const string CmdName = "GetWFAntennaElementOffsetResult";
+    internal const string TargetId = "";
 
     public GetWFAntennaElementOffsetResult()
-      : base(CmdName)
+      : base(CmdName, TargetId)
     {}
 
     public GetWFAntennaElementOffsetResult(CommandBase relatedCommand, double x, double y, double z, double yaw, double pitch, double roll, int element)
-      : base(CmdName, relatedCommand)
+      : base(CmdName, TargetId, relatedCommand)
     {
       X = x;
       Y = y;
@@ -74393,13 +78347,14 @@ namespace Sdx.Cmd
     }
 
     internal const string CmdName = "SetWFAntennaElementPhasePatternOffset";
+    internal const string TargetId = "";
 
     public SetWFAntennaElementPhasePatternOffset()
-      : base(CmdName)
+      : base(CmdName, TargetId)
     {}
 
     public SetWFAntennaElementPhasePatternOffset(double phaseOffset, int element)
-      : base(CmdName)
+      : base(CmdName, TargetId)
     {
       PhaseOffset = phaseOffset;
       Element = element;
@@ -74461,13 +78416,14 @@ namespace Sdx.Cmd
     }
 
     internal const string CmdName = "GetWFAntennaElementPhasePatternOffset";
+    internal const string TargetId = "";
 
     public GetWFAntennaElementPhasePatternOffset()
-      : base(CmdName)
+      : base(CmdName, TargetId)
     {}
 
     public GetWFAntennaElementPhasePatternOffset(int element)
-      : base(CmdName)
+      : base(CmdName, TargetId)
     {
       Element = element;
     }
@@ -74512,13 +78468,14 @@ namespace Sdx.Cmd
     }
 
     internal const string CmdName = "GetWFAntennaElementPhasePatternOffsetResult";
+    internal const string TargetId = "";
 
     public GetWFAntennaElementPhasePatternOffsetResult()
-      : base(CmdName)
+      : base(CmdName, TargetId)
     {}
 
     public GetWFAntennaElementPhasePatternOffsetResult(CommandBase relatedCommand, double phaseOffset, int element)
-      : base(CmdName, relatedCommand)
+      : base(CmdName, TargetId, relatedCommand)
     {
       PhaseOffset = phaseOffset;
       Element = element;
@@ -74579,13 +78536,14 @@ namespace Sdx.Cmd
     }
 
     internal const string CmdName = "SetWFAntennaElementModel";
+    internal const string TargetId = "";
 
     public SetWFAntennaElementModel()
-      : base(CmdName)
+      : base(CmdName, TargetId)
     {}
 
     public SetWFAntennaElementModel(string antennaModelName, int element)
-      : base(CmdName)
+      : base(CmdName, TargetId)
     {
       AntennaModelName = antennaModelName;
       Element = element;
@@ -74647,13 +78605,14 @@ namespace Sdx.Cmd
     }
 
     internal const string CmdName = "GetWFAntennaElementModel";
+    internal const string TargetId = "";
 
     public GetWFAntennaElementModel()
-      : base(CmdName)
+      : base(CmdName, TargetId)
     {}
 
     public GetWFAntennaElementModel(int element)
-      : base(CmdName)
+      : base(CmdName, TargetId)
     {
       Element = element;
     }
@@ -74698,13 +78657,14 @@ namespace Sdx.Cmd
     }
 
     internal const string CmdName = "GetWFAntennaElementModelResult";
+    internal const string TargetId = "";
 
     public GetWFAntennaElementModelResult()
-      : base(CmdName)
+      : base(CmdName, TargetId)
     {}
 
     public GetWFAntennaElementModelResult(CommandBase relatedCommand, string antennaModelName, int element)
-      : base(CmdName, relatedCommand)
+      : base(CmdName, TargetId, relatedCommand)
     {
       AntennaModelName = antennaModelName;
       Element = element;
@@ -74765,13 +78725,14 @@ namespace Sdx.Cmd
     }
 
     internal const string CmdName = "SetWFAntennaElementEnabled";
+    internal const string TargetId = "";
 
     public SetWFAntennaElementEnabled()
-      : base(CmdName)
+      : base(CmdName, TargetId)
     {}
 
     public SetWFAntennaElementEnabled(int element, bool enabled)
-      : base(CmdName)
+      : base(CmdName, TargetId)
     {
       Element = element;
       Enabled = enabled;
@@ -74833,13 +78794,14 @@ namespace Sdx.Cmd
     }
 
     internal const string CmdName = "IsWFAntennaElementEnabled";
+    internal const string TargetId = "";
 
     public IsWFAntennaElementEnabled()
-      : base(CmdName)
+      : base(CmdName, TargetId)
     {}
 
     public IsWFAntennaElementEnabled(int element)
-      : base(CmdName)
+      : base(CmdName, TargetId)
     {
       Element = element;
     }
@@ -74884,13 +78846,14 @@ namespace Sdx.Cmd
     }
 
     internal const string CmdName = "IsWFAntennaElementEnabledResult";
+    internal const string TargetId = "";
 
     public IsWFAntennaElementEnabledResult()
-      : base(CmdName)
+      : base(CmdName, TargetId)
     {}
 
     public IsWFAntennaElementEnabledResult(CommandBase relatedCommand, int element, bool enabled)
-      : base(CmdName, relatedCommand)
+      : base(CmdName, TargetId, relatedCommand)
     {
       Element = element;
       Enabled = enabled;

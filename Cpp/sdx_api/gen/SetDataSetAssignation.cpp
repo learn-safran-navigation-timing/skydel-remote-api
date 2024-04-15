@@ -1,8 +1,7 @@
 
-#include "gen/SetDataSetAssignation.h"
+#include "SetDataSetAssignation.h"
 
 #include "command_factory.h"
-#include "command_result_factory.h"
 #include "parse_json.hpp"
 
 ///
@@ -14,17 +13,25 @@ namespace Sdx
   namespace Cmd
   {
     const char* const SetDataSetAssignation::CmdName = "SetDataSetAssignation";
-    const char* const SetDataSetAssignation::Documentation = "Set data set assignation for the specified constellation.";
+    const char* const SetDataSetAssignation::Documentation = "Set data set assignation for the specified constellation.\n"
+      "\n"
+      "Name        Type   Description\n"
+      "----------- ------ -------------------------------------------------------\n"
+      "System      string \"GPS\", \"Galileo\", \"BeiDou\", \"QZSS\", \"NavIC\" or \"PULSAR\"\n"
+      "DataSetType string \"Almanac\", \"Ephemeris\" or \"Orbit\"\n"
+      "DataSetName string The name of the assigned data set.";
+    const char* const SetDataSetAssignation::TargetId = "";
 
-    REGISTER_COMMAND_FACTORY(SetDataSetAssignation);
+    REGISTER_COMMAND_TO_FACTORY_DECL(SetDataSetAssignation);
+    REGISTER_COMMAND_TO_FACTORY_IMPL(SetDataSetAssignation);
 
 
     SetDataSetAssignation::SetDataSetAssignation()
-      : CommandBase(CmdName)
+      : CommandBase(CmdName, TargetId)
     {}
 
     SetDataSetAssignation::SetDataSetAssignation(const std::string& system, const std::string& dataSetType, const std::string& dataSetName)
-      : CommandBase(CmdName)
+      : CommandBase(CmdName, TargetId)
     {
 
       setSystem(system);
@@ -54,6 +61,12 @@ namespace Sdx
     }
 
     std::string SetDataSetAssignation::documentation() const { return Documentation; }
+
+    const std::vector<std::string>& SetDataSetAssignation::fieldNames() const 
+    { 
+      static const std::vector<std::string> names {"System", "DataSetType", "DataSetName"}; 
+      return names; 
+    }
 
 
     int SetDataSetAssignation::executePermission() const

@@ -1,8 +1,7 @@
 
-#include "gen/SetSpoofTxFixEcef.h"
+#include "SetSpoofTxFixEcef.h"
 
 #include "command_factory.h"
-#include "command_result_factory.h"
 #include "parse_json.hpp"
 
 ///
@@ -14,17 +13,29 @@ namespace Sdx
   namespace Cmd
   {
     const char* const SetSpoofTxFixEcef::CmdName = "SetSpoofTxFixEcef";
-    const char* const SetSpoofTxFixEcef::Documentation = "Set spoofer transmitter static position and orientation";
+    const char* const SetSpoofTxFixEcef::Documentation = "Set spoofer transmitter static position and orientation\n"
+      "\n"
+      "Name  Type   Description\n"
+      "----- ------ ------------------------------\n"
+      "X     double ECEF X (m)\n"
+      "Y     double ECEF Y (m)\n"
+      "Z     double ECEF Z (m)\n"
+      "Yaw   double Yaw (rad)\n"
+      "Pitch double Pitch (rad)\n"
+      "Roll  double Roll (rad)\n"
+      "Id    string Transmitter unique identifier.";
+    const char* const SetSpoofTxFixEcef::TargetId = "";
 
-    REGISTER_COMMAND_FACTORY(SetSpoofTxFixEcef);
+    REGISTER_COMMAND_TO_FACTORY_DECL(SetSpoofTxFixEcef);
+    REGISTER_COMMAND_TO_FACTORY_IMPL(SetSpoofTxFixEcef);
 
 
     SetSpoofTxFixEcef::SetSpoofTxFixEcef()
-      : CommandBase(CmdName)
+      : CommandBase(CmdName, TargetId)
     {}
 
     SetSpoofTxFixEcef::SetSpoofTxFixEcef(double x, double y, double z, double yaw, double pitch, double roll, const std::string& id)
-      : CommandBase(CmdName)
+      : CommandBase(CmdName, TargetId)
     {
 
       setX(x);
@@ -62,6 +73,12 @@ namespace Sdx
     }
 
     std::string SetSpoofTxFixEcef::documentation() const { return Documentation; }
+
+    const std::vector<std::string>& SetSpoofTxFixEcef::fieldNames() const 
+    { 
+      static const std::vector<std::string> names {"X", "Y", "Z", "Yaw", "Pitch", "Roll", "Id"}; 
+      return names; 
+    }
 
 
     int SetSpoofTxFixEcef::executePermission() const

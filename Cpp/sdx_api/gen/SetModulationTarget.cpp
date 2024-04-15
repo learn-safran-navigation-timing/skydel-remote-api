@@ -1,8 +1,7 @@
 
-#include "gen/SetModulationTarget.h"
+#include "SetModulationTarget.h"
 
 #include "command_factory.h"
-#include "command_result_factory.h"
 #include "parse_json.hpp"
 
 ///
@@ -14,17 +13,29 @@ namespace Sdx
   namespace Cmd
   {
     const char* const SetModulationTarget::CmdName = "SetModulationTarget";
-    const char* const SetModulationTarget::Documentation = "Set a modulation target.\nIf Id is not set, or if new, a new target is added.\nFor setter : If the Id is already used, the corresponding target is updated.";
+    const char* const SetModulationTarget::Documentation = "Set a modulation target.\n"
+      "If Id is not set, or if new, a new target is added.\n"
+      "For setter : If the Id is already used, the corresponding target is updated.\n"
+      "\n"
+      "Name            Type   Description\n"
+      "--------------- ------ ------------------------------------------------------------------------------------------------------------------------------------\n"
+      "Type            string Target type can be \"DTA-2115B\", \"File\", \"N310\", \"None\", \"NoneRT\", \"X300\" or \"Wavefront Controller\".\n"
+      "Path            string File path. Optional, use only if type is \"File\".\n"
+      "Address         string Optional. IP Address if type is \"N310\" or \"X300\".\n"
+      "ClockIsExternal bool   Indicate 10 MHz reference clock is external (true) or internal (false). Optional, use only if type is \"DTA-2115B\", \"N310\" or \"X300\".\n"
+      "Id              string Unique identifier automatically set by simulator";
+    const char* const SetModulationTarget::TargetId = "";
 
-    REGISTER_COMMAND_FACTORY(SetModulationTarget);
+    REGISTER_COMMAND_TO_FACTORY_DECL(SetModulationTarget);
+    REGISTER_COMMAND_TO_FACTORY_IMPL(SetModulationTarget);
 
 
     SetModulationTarget::SetModulationTarget()
-      : CommandBase(CmdName)
+      : CommandBase(CmdName, TargetId)
     {}
 
     SetModulationTarget::SetModulationTarget(const std::string& type, const std::string& path, const std::string& address, bool clockIsExternal, const std::string& id)
-      : CommandBase(CmdName)
+      : CommandBase(CmdName, TargetId)
     {
 
       setType(type);
@@ -58,6 +69,12 @@ namespace Sdx
     }
 
     std::string SetModulationTarget::documentation() const { return Documentation; }
+
+    const std::vector<std::string>& SetModulationTarget::fieldNames() const 
+    { 
+      static const std::vector<std::string> names {"Type", "Path", "Address", "ClockIsExternal", "Id"}; 
+      return names; 
+    }
 
 
     int SetModulationTarget::executePermission() const

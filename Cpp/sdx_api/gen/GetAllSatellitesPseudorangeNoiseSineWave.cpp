@@ -1,8 +1,7 @@
 
-#include "gen/GetAllSatellitesPseudorangeNoiseSineWave.h"
+#include "GetAllSatellitesPseudorangeNoiseSineWave.h"
 
 #include "command_factory.h"
-#include "command_result_factory.h"
 #include "parse_json.hpp"
 
 ///
@@ -14,17 +13,26 @@ namespace Sdx
   namespace Cmd
   {
     const char* const GetAllSatellitesPseudorangeNoiseSineWave::CmdName = "GetAllSatellitesPseudorangeNoiseSineWave";
-    const char* const GetAllSatellitesPseudorangeNoiseSineWave::Documentation = "Please note the command GetAllSatellitesPseudorangeNoiseSineWave is deprecated since 21.3. You may use GetPseudorangeNoiseSineWaveForEachSV.\n\nGet the satellite pseudorange noise sine wave attributes for all satellites.";
+    const char* const GetAllSatellitesPseudorangeNoiseSineWave::Documentation = "Please note the command GetAllSatellitesPseudorangeNoiseSineWave is deprecated since 21.3. You may use GetPseudorangeNoiseSineWaveForEachSV.\n"
+      "\n"
+      "Get the satellite pseudorange noise sine wave attributes for all satellites.\n"
+      "\n"
+      "Name     Type   Description\n"
+      "-------- ------ --------------------------------------------------------------------------\n"
+      "System   string \"GPS\", \"GLONASS\", \"Galileo\", \"BeiDou\", \"SBAS\", \"QZSS\", \"NavIC\" or \"PULSAR\"\n"
+      "SineWave int    Sine wave number (0 or 1)";
+    const char* const GetAllSatellitesPseudorangeNoiseSineWave::TargetId = "";
 
-    REGISTER_COMMAND_FACTORY(GetAllSatellitesPseudorangeNoiseSineWave);
+    REGISTER_COMMAND_TO_FACTORY_DECL(GetAllSatellitesPseudorangeNoiseSineWave);
+    REGISTER_COMMAND_TO_FACTORY_IMPL(GetAllSatellitesPseudorangeNoiseSineWave);
 
 
     GetAllSatellitesPseudorangeNoiseSineWave::GetAllSatellitesPseudorangeNoiseSineWave()
-      : CommandBase(CmdName)
+      : CommandBase(CmdName, TargetId)
     {}
 
     GetAllSatellitesPseudorangeNoiseSineWave::GetAllSatellitesPseudorangeNoiseSineWave(const std::string& system, int sineWave)
-      : CommandBase(CmdName)
+      : CommandBase(CmdName, TargetId)
     {
 
       setSystem(system);
@@ -52,6 +60,12 @@ namespace Sdx
     }
 
     std::string GetAllSatellitesPseudorangeNoiseSineWave::documentation() const { return Documentation; }
+
+    const std::vector<std::string>& GetAllSatellitesPseudorangeNoiseSineWave::fieldNames() const 
+    { 
+      static const std::vector<std::string> names {"System", "SineWave"}; 
+      return names; 
+    }
 
 
     int GetAllSatellitesPseudorangeNoiseSineWave::executePermission() const

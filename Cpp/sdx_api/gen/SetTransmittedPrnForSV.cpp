@@ -1,8 +1,7 @@
 
-#include "gen/SetTransmittedPrnForSV.h"
+#include "SetTransmittedPrnForSV.h"
 
 #include "command_factory.h"
-#include "command_result_factory.h"
 #include "parse_json.hpp"
 
 ///
@@ -14,17 +13,28 @@ namespace Sdx
   namespace Cmd
   {
     const char* const SetTransmittedPrnForSV::CmdName = "SetTransmittedPrnForSV";
-    const char* const SetTransmittedPrnForSV::Documentation = "Set the PRNs transmitted by the SV ID for these signals.";
+    const char* const SetTransmittedPrnForSV::Documentation = "Set the PRNs transmitted by the SV ID for these signals.\n"
+      "\n"
+      "Name          Type            Description\n"
+      "------------- --------------- -------------------------------------------------------------------------------\n"
+      "SvId          int             Satellite SV ID.\n"
+      "SignalPrnDict dict string:int A dictionary of signal prn pairs.\n"
+      "                              Accepted keys are: \"L1CA\", \"L1C\", \"L2C\", \"L5\", \"E1\", \"E6BC\", \"B1\", \"B2\", \"B1C\",\n"
+      "                                                 \"B2a\", \"B3I\", \"SBASL1\", \"SBASL5\", \"QZSSL1CA\", \"QZSSL1CB\",\n"
+      "                                                 \"QZSSL1C\", \"QZSSL2C\", \"QZSSL5\", \"QZSSL1S\", \"QZSSL5S\" and\n"
+      "                                                 \"NAVICL5\"";
+    const char* const SetTransmittedPrnForSV::TargetId = "";
 
-    REGISTER_COMMAND_FACTORY(SetTransmittedPrnForSV);
+    REGISTER_COMMAND_TO_FACTORY_DECL(SetTransmittedPrnForSV);
+    REGISTER_COMMAND_TO_FACTORY_IMPL(SetTransmittedPrnForSV);
 
 
     SetTransmittedPrnForSV::SetTransmittedPrnForSV()
-      : CommandBase(CmdName)
+      : CommandBase(CmdName, TargetId)
     {}
 
     SetTransmittedPrnForSV::SetTransmittedPrnForSV(int svId, const std::map<std::string, int>& signalPrnDict)
-      : CommandBase(CmdName)
+      : CommandBase(CmdName, TargetId)
     {
 
       setSvId(svId);
@@ -52,6 +62,12 @@ namespace Sdx
     }
 
     std::string SetTransmittedPrnForSV::documentation() const { return Documentation; }
+
+    const std::vector<std::string>& SetTransmittedPrnForSV::fieldNames() const 
+    { 
+      static const std::vector<std::string> names {"SvId", "SignalPrnDict"}; 
+      return names; 
+    }
 
 
     int SetTransmittedPrnForSV::executePermission() const

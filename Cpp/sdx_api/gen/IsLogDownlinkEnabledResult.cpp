@@ -1,8 +1,7 @@
 
-#include "gen/IsLogDownlinkEnabledResult.h"
+#include "IsLogDownlinkEnabledResult.h"
 
 #include "command_factory.h"
-#include "command_result_factory.h"
 #include "parse_json.hpp"
 
 ///
@@ -14,17 +13,24 @@ namespace Sdx
   namespace Cmd
   {
     const char* const IsLogDownlinkEnabledResult::CmdName = "IsLogDownlinkEnabledResult";
-    const char* const IsLogDownlinkEnabledResult::Documentation = "Result of IsLogDownlinkEnabled.";
+    const char* const IsLogDownlinkEnabledResult::Documentation = "Result of IsLogDownlinkEnabled.\n"
+      "\n"
+      "Name           Type          Description\n"
+      "-------------- ------------- ----------------------------------------------------------------------------------------------------------------------\n"
+      "Enabled        bool          If true, files will be created during simulation. By default, the downlink files will be created after signal encoding\n"
+      "BeforeEncoding optional bool (Optional) If true, files will be created before signal encoding. Can be used with AfterEncoding\n"
+      "AfterEncoding  optional bool (Optional) If true, files will be created after signal encoding. Can be used with BeforeEncoding";
+    const char* const IsLogDownlinkEnabledResult::TargetId = "";
 
-    REGISTER_COMMAND_RESULT_TO_FACTORY_IMPL(IsLogDownlinkEnabledResult);
+    REGISTER_COMMAND_TO_FACTORY_IMPL(IsLogDownlinkEnabledResult);
 
 
     IsLogDownlinkEnabledResult::IsLogDownlinkEnabledResult()
-      : CommandResult(CmdName)
+      : CommandResult(CmdName, TargetId)
     {}
 
     IsLogDownlinkEnabledResult::IsLogDownlinkEnabledResult(bool enabled, const Sdx::optional<bool>& beforeEncoding, const Sdx::optional<bool>& afterEncoding)
-      : CommandResult(CmdName)
+      : CommandResult(CmdName, TargetId)
     {
 
       setEnabled(enabled);
@@ -33,7 +39,7 @@ namespace Sdx
     }
 
     IsLogDownlinkEnabledResult::IsLogDownlinkEnabledResult(CommandBasePtr relatedCommand, bool enabled, const Sdx::optional<bool>& beforeEncoding, const Sdx::optional<bool>& afterEncoding)
-      : CommandResult(CmdName, relatedCommand)
+      : CommandResult(CmdName, TargetId, relatedCommand)
     {
 
       setEnabled(enabled);
@@ -69,6 +75,12 @@ namespace Sdx
     }
 
     std::string IsLogDownlinkEnabledResult::documentation() const { return Documentation; }
+
+    const std::vector<std::string>& IsLogDownlinkEnabledResult::fieldNames() const 
+    { 
+      static const std::vector<std::string> names {"Enabled", "BeforeEncoding", "AfterEncoding"}; 
+      return names; 
+    }
 
 
     bool IsLogDownlinkEnabledResult::enabled() const

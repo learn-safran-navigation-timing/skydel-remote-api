@@ -1,8 +1,7 @@
 
-#include "gen/GetSlaveStatusResult.h"
+#include "GetSlaveStatusResult.h"
 
 #include "command_factory.h"
-#include "command_result_factory.h"
 #include "parse_json.hpp"
 
 ///
@@ -14,17 +13,25 @@ namespace Sdx
   namespace Cmd
   {
     const char* const GetSlaveStatusResult::CmdName = "GetSlaveStatusResult";
-    const char* const GetSlaveStatusResult::Documentation = "Result of GetSlaveStatus.";
+    const char* const GetSlaveStatusResult::Documentation = "Result of GetSlaveStatus.\n"
+      "\n"
+      "Name        Type   Description\n"
+      "----------- ------ ---------------------------------------\n"
+      "IsSlave     bool   True if Skydel is in slave mode\n"
+      "IsConnected bool   True if Skydel is connected to a master\n"
+      "HostName    string The host name, empty if not a slave\n"
+      "HostPort    int    The host port, 0 if not a slave";
+    const char* const GetSlaveStatusResult::TargetId = "";
 
-    REGISTER_COMMAND_RESULT_TO_FACTORY_IMPL(GetSlaveStatusResult);
+    REGISTER_COMMAND_TO_FACTORY_IMPL(GetSlaveStatusResult);
 
 
     GetSlaveStatusResult::GetSlaveStatusResult()
-      : CommandResult(CmdName)
+      : CommandResult(CmdName, TargetId)
     {}
 
     GetSlaveStatusResult::GetSlaveStatusResult(bool isSlave, bool isConnected, const std::string& hostName, int hostPort)
-      : CommandResult(CmdName)
+      : CommandResult(CmdName, TargetId)
     {
 
       setIsSlave(isSlave);
@@ -34,7 +41,7 @@ namespace Sdx
     }
 
     GetSlaveStatusResult::GetSlaveStatusResult(CommandBasePtr relatedCommand, bool isSlave, bool isConnected, const std::string& hostName, int hostPort)
-      : CommandResult(CmdName, relatedCommand)
+      : CommandResult(CmdName, TargetId, relatedCommand)
     {
 
       setIsSlave(isSlave);
@@ -72,6 +79,12 @@ namespace Sdx
     }
 
     std::string GetSlaveStatusResult::documentation() const { return Documentation; }
+
+    const std::vector<std::string>& GetSlaveStatusResult::fieldNames() const 
+    { 
+      static const std::vector<std::string> names {"IsSlave", "IsConnected", "HostName", "HostPort"}; 
+      return names; 
+    }
 
 
     bool GetSlaveStatusResult::isSlave() const

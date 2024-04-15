@@ -1,8 +1,7 @@
 
-#include "gen/RedoCmd.h"
+#include "RedoCmd.h"
 
 #include "command_factory.h"
-#include "command_result_factory.h"
 #include "parse_json.hpp"
 
 ///
@@ -15,12 +14,14 @@ namespace Sdx
   {
     const char* const RedoCmd::CmdName = "RedoCmd";
     const char* const RedoCmd::Documentation = "Redo the last undone command like Ctrl+Shift+Z in the UI";
+    const char* const RedoCmd::TargetId = "";
 
-    REGISTER_COMMAND_FACTORY(RedoCmd);
+    REGISTER_COMMAND_TO_FACTORY_DECL(RedoCmd);
+    REGISTER_COMMAND_TO_FACTORY_IMPL(RedoCmd);
 
 
     RedoCmd::RedoCmd()
-      : CommandBase(CmdName)
+      : CommandBase(CmdName, TargetId)
     {
 
     }
@@ -44,6 +45,12 @@ namespace Sdx
     }
 
     std::string RedoCmd::documentation() const { return Documentation; }
+
+    const std::vector<std::string>& RedoCmd::fieldNames() const 
+    { 
+      static const std::vector<std::string> names {}; 
+      return names; 
+    }
 
 
     int RedoCmd::executePermission() const

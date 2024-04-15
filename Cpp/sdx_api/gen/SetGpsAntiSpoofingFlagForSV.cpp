@@ -1,8 +1,7 @@
 
-#include "gen/SetGpsAntiSpoofingFlagForSV.h"
+#include "SetGpsAntiSpoofingFlagForSV.h"
 
 #include "command_factory.h"
-#include "command_result_factory.h"
 #include "parse_json.hpp"
 
 ///
@@ -14,17 +13,25 @@ namespace Sdx
   namespace Cmd
   {
     const char* const SetGpsAntiSpoofingFlagForSV::CmdName = "SetGpsAntiSpoofingFlagForSV";
-    const char* const SetGpsAntiSpoofingFlagForSV::Documentation = "Set GPS Anti-Spoofing Flag";
+    const char* const SetGpsAntiSpoofingFlagForSV::Documentation = "Set GPS Anti-Spoofing Flag\n"
+      "\n"
+      "Name         Type            Description\n"
+      "------------ --------------- -------------------------------------------------------------------------------------------\n"
+      "SvId         int             Satellite's SV ID 1..32, or use 0 to apply new value to all satellites.\n"
+      "AntiSpoofing GpsASFlag       GPS Anti-Spoofing Flag.\n"
+      "DataSetName  optional string Optional name of the data set to use. If no value is provided, the active data set is used.";
+    const char* const SetGpsAntiSpoofingFlagForSV::TargetId = "";
 
-    REGISTER_COMMAND_FACTORY(SetGpsAntiSpoofingFlagForSV);
+    REGISTER_COMMAND_TO_FACTORY_DECL(SetGpsAntiSpoofingFlagForSV);
+    REGISTER_COMMAND_TO_FACTORY_IMPL(SetGpsAntiSpoofingFlagForSV);
 
 
     SetGpsAntiSpoofingFlagForSV::SetGpsAntiSpoofingFlagForSV()
-      : CommandBase(CmdName)
+      : CommandBase(CmdName, TargetId)
     {}
 
     SetGpsAntiSpoofingFlagForSV::SetGpsAntiSpoofingFlagForSV(int svId, const Sdx::GpsASFlag& antiSpoofing, const Sdx::optional<std::string>& dataSetName)
-      : CommandBase(CmdName)
+      : CommandBase(CmdName, TargetId)
     {
 
       setSvId(svId);
@@ -54,6 +61,12 @@ namespace Sdx
     }
 
     std::string SetGpsAntiSpoofingFlagForSV::documentation() const { return Documentation; }
+
+    const std::vector<std::string>& SetGpsAntiSpoofingFlagForSV::fieldNames() const 
+    { 
+      static const std::vector<std::string> names {"SvId", "AntiSpoofing", "DataSetName"}; 
+      return names; 
+    }
 
 
     int SetGpsAntiSpoofingFlagForSV::executePermission() const

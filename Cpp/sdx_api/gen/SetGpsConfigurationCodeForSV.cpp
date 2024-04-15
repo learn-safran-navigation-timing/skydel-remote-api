@@ -1,8 +1,7 @@
 
-#include "gen/SetGpsConfigurationCodeForSV.h"
+#include "SetGpsConfigurationCodeForSV.h"
 
 #include "command_factory.h"
-#include "command_result_factory.h"
 #include "parse_json.hpp"
 
 ///
@@ -14,17 +13,25 @@ namespace Sdx
   namespace Cmd
   {
     const char* const SetGpsConfigurationCodeForSV::CmdName = "SetGpsConfigurationCodeForSV";
-    const char* const SetGpsConfigurationCodeForSV::Documentation = "Set GPS SV configuration flag for one satellite";
+    const char* const SetGpsConfigurationCodeForSV::Documentation = "Set GPS SV configuration flag for one satellite\n"
+      "\n"
+      "Name        Type            Description\n"
+      "----------- --------------- -------------------------------------------------------------------------------------------\n"
+      "SvId        int             Satellite SV ID 1..32\n"
+      "SvConfig    int             SV Config 0..4\n"
+      "DataSetName optional string Optional name of the data set to use. If no value is provided, the active data set is used.";
+    const char* const SetGpsConfigurationCodeForSV::TargetId = "";
 
-    REGISTER_COMMAND_FACTORY(SetGpsConfigurationCodeForSV);
+    REGISTER_COMMAND_TO_FACTORY_DECL(SetGpsConfigurationCodeForSV);
+    REGISTER_COMMAND_TO_FACTORY_IMPL(SetGpsConfigurationCodeForSV);
 
 
     SetGpsConfigurationCodeForSV::SetGpsConfigurationCodeForSV()
-      : CommandBase(CmdName)
+      : CommandBase(CmdName, TargetId)
     {}
 
     SetGpsConfigurationCodeForSV::SetGpsConfigurationCodeForSV(int svId, int svConfig, const Sdx::optional<std::string>& dataSetName)
-      : CommandBase(CmdName)
+      : CommandBase(CmdName, TargetId)
     {
 
       setSvId(svId);
@@ -54,6 +61,12 @@ namespace Sdx
     }
 
     std::string SetGpsConfigurationCodeForSV::documentation() const { return Documentation; }
+
+    const std::vector<std::string>& SetGpsConfigurationCodeForSV::fieldNames() const 
+    { 
+      static const std::vector<std::string> names {"SvId", "SvConfig", "DataSetName"}; 
+      return names; 
+    }
 
 
     int SetGpsConfigurationCodeForSV::executePermission() const

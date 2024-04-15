@@ -1,8 +1,7 @@
 
-#include "gen/SetSpoofTxUseManualPropagationLoss.h"
+#include "SetSpoofTxUseManualPropagationLoss.h"
 
 #include "command_factory.h"
-#include "command_result_factory.h"
 #include "parse_json.hpp"
 
 ///
@@ -14,17 +13,24 @@ namespace Sdx
   namespace Cmd
   {
     const char* const SetSpoofTxUseManualPropagationLoss::CmdName = "SetSpoofTxUseManualPropagationLoss";
-    const char* const SetSpoofTxUseManualPropagationLoss::Documentation = "Set whether a spoofer should only use user-provided propagation loss values. Propagation loss will not update automatically if set. This state is not preserved after simulation end.";
+    const char* const SetSpoofTxUseManualPropagationLoss::Documentation = "Set whether a spoofer should only use user-provided propagation loss values. Propagation loss will not update automatically if set. This state is not preserved after simulation end.\n"
+      "\n"
+      "Name   Type   Description\n"
+      "------ ------ -------------------------------------------------------------\n"
+      "Manual bool   If true, propagation loss will be 1000 dB until set manually.\n"
+      "Id     string Spoofing transmitter unique identifier.";
+    const char* const SetSpoofTxUseManualPropagationLoss::TargetId = "";
 
-    REGISTER_COMMAND_FACTORY(SetSpoofTxUseManualPropagationLoss);
+    REGISTER_COMMAND_TO_FACTORY_DECL(SetSpoofTxUseManualPropagationLoss);
+    REGISTER_COMMAND_TO_FACTORY_IMPL(SetSpoofTxUseManualPropagationLoss);
 
 
     SetSpoofTxUseManualPropagationLoss::SetSpoofTxUseManualPropagationLoss()
-      : CommandBase(CmdName)
+      : CommandBase(CmdName, TargetId)
     {}
 
     SetSpoofTxUseManualPropagationLoss::SetSpoofTxUseManualPropagationLoss(bool manual, const std::string& id)
-      : CommandBase(CmdName)
+      : CommandBase(CmdName, TargetId)
     {
 
       setManual(manual);
@@ -52,6 +58,12 @@ namespace Sdx
     }
 
     std::string SetSpoofTxUseManualPropagationLoss::documentation() const { return Documentation; }
+
+    const std::vector<std::string>& SetSpoofTxUseManualPropagationLoss::fieldNames() const 
+    { 
+      static const std::vector<std::string> names {"Manual", "Id"}; 
+      return names; 
+    }
 
 
     int SetSpoofTxUseManualPropagationLoss::executePermission() const

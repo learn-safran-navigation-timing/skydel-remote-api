@@ -1,8 +1,7 @@
 
-#include "gen/RemoveAllPilots.h"
+#include "RemoveAllPilots.h"
 
 #include "command_factory.h"
-#include "command_result_factory.h"
 #include "parse_json.hpp"
 
 ///
@@ -15,12 +14,14 @@ namespace Sdx
   {
     const char* const RemoveAllPilots::CmdName = "RemoveAllPilots";
     const char* const RemoveAllPilots::Documentation = "Remove all pilots on all outputs";
+    const char* const RemoveAllPilots::TargetId = "";
 
-    REGISTER_COMMAND_FACTORY(RemoveAllPilots);
+    REGISTER_COMMAND_TO_FACTORY_DECL(RemoveAllPilots);
+    REGISTER_COMMAND_TO_FACTORY_IMPL(RemoveAllPilots);
 
 
     RemoveAllPilots::RemoveAllPilots()
-      : CommandBase(CmdName)
+      : CommandBase(CmdName, TargetId)
     {
 
     }
@@ -44,6 +45,12 @@ namespace Sdx
     }
 
     std::string RemoveAllPilots::documentation() const { return Documentation; }
+
+    const std::vector<std::string>& RemoveAllPilots::fieldNames() const 
+    { 
+      static const std::vector<std::string> names {}; 
+      return names; 
+    }
 
 
     int RemoveAllPilots::executePermission() const

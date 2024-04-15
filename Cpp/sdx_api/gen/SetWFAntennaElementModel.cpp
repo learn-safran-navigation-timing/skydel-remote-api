@@ -1,8 +1,7 @@
 
-#include "gen/SetWFAntennaElementModel.h"
+#include "SetWFAntennaElementModel.h"
 
 #include "command_factory.h"
-#include "command_result_factory.h"
 #include "parse_json.hpp"
 
 ///
@@ -14,19 +13,28 @@ namespace Sdx
   namespace Cmd
   {
     const char* const SetWFAntennaElementModel::CmdName = "SetWFAntennaElementModel";
-    const char* const SetWFAntennaElementModel::Documentation = "Please note the command SetWFAntennaElementModel is deprecated since 23.11. You may use SetWFElement.\n\nSet WF Antenna model for this element";
+    const char* const SetWFAntennaElementModel::Documentation = "Please note the command SetWFAntennaElementModel is deprecated since 23.11. You may use SetWFElement.\n"
+      "\n"
+      "Set WF Antenna model for this element\n"
+      "\n"
+      "Name             Type   Description\n"
+      "---------------- ------ ----------------------------------------------------------------------------------------------------\n"
+      "AntennaModelName string Antenna Model name to set for this element. Antenna models must be defined in vehicle antenna model.\n"
+      "Element          int    One-based index for element in antenna.";
+    const char* const SetWFAntennaElementModel::TargetId = "";
 
     const char* const SetWFAntennaElementModel::Deprecated = "Please note the command SetWFAntennaElementModel is deprecated since 23.11. You may use SetWFElement.";
 
-    REGISTER_COMMAND_FACTORY(SetWFAntennaElementModel);
+    REGISTER_COMMAND_TO_FACTORY_DECL(SetWFAntennaElementModel);
+    REGISTER_COMMAND_TO_FACTORY_IMPL(SetWFAntennaElementModel);
 
 
     SetWFAntennaElementModel::SetWFAntennaElementModel()
-      : CommandBase(CmdName)
+      : CommandBase(CmdName, TargetId)
     {}
 
     SetWFAntennaElementModel::SetWFAntennaElementModel(const std::string& antennaModelName, int element)
-      : CommandBase(CmdName)
+      : CommandBase(CmdName, TargetId)
     {
 
       setAntennaModelName(antennaModelName);
@@ -54,6 +62,12 @@ namespace Sdx
     }
 
     std::string SetWFAntennaElementModel::documentation() const { return Documentation; }
+
+    const std::vector<std::string>& SetWFAntennaElementModel::fieldNames() const 
+    { 
+      static const std::vector<std::string> names {"AntennaModelName", "Element"}; 
+      return names; 
+    }
 
     Sdx::optional<std::string> SetWFAntennaElementModel::deprecated() const { return Sdx::optional<std::string>{Deprecated}; }
 

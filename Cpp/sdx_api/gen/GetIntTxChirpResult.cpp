@@ -1,8 +1,7 @@
 
-#include "gen/GetIntTxChirpResult.h"
+#include "GetIntTxChirpResult.h"
 
 #include "command_factory.h"
-#include "command_result_factory.h"
 #include "parse_json.hpp"
 
 ///
@@ -14,17 +13,29 @@ namespace Sdx
   namespace Cmd
   {
     const char* const GetIntTxChirpResult::CmdName = "GetIntTxChirpResult";
-    const char* const GetIntTxChirpResult::Documentation = "Result of GetIntTxChirp.";
+    const char* const GetIntTxChirpResult::Documentation = "Result of GetIntTxChirp.\n"
+      "\n"
+      "Name          Type         Description\n"
+      "------------- ------------ ---------------------------------------------------\n"
+      "Enabled       bool         Enable (true) or disable (false) the signal\n"
+      "CentralFreq   double       Central frequency (Hz)\n"
+      "Power         double       Power (dB), relative to transmitter reference power\n"
+      "Bandwidth     double       Bandwidth (Hz)\n"
+      "SweepTime     double       sweep Time (us)\n"
+      "TransmitterId string       Transmitter unique identifier.\n"
+      "SignalId      string       Chirp unique identifier.\n"
+      "Group         optional int Group, if not using default group.";
+    const char* const GetIntTxChirpResult::TargetId = "";
 
-    REGISTER_COMMAND_RESULT_TO_FACTORY_IMPL(GetIntTxChirpResult);
+    REGISTER_COMMAND_TO_FACTORY_IMPL(GetIntTxChirpResult);
 
 
     GetIntTxChirpResult::GetIntTxChirpResult()
-      : CommandResult(CmdName)
+      : CommandResult(CmdName, TargetId)
     {}
 
     GetIntTxChirpResult::GetIntTxChirpResult(bool enabled, double centralFreq, double power, double bandwidth, double sweepTime, const std::string& transmitterId, const std::string& signalId, const Sdx::optional<int>& group)
-      : CommandResult(CmdName)
+      : CommandResult(CmdName, TargetId)
     {
 
       setEnabled(enabled);
@@ -38,7 +49,7 @@ namespace Sdx
     }
 
     GetIntTxChirpResult::GetIntTxChirpResult(CommandBasePtr relatedCommand, bool enabled, double centralFreq, double power, double bandwidth, double sweepTime, const std::string& transmitterId, const std::string& signalId, const Sdx::optional<int>& group)
-      : CommandResult(CmdName, relatedCommand)
+      : CommandResult(CmdName, TargetId, relatedCommand)
     {
 
       setEnabled(enabled);
@@ -84,6 +95,12 @@ namespace Sdx
     }
 
     std::string GetIntTxChirpResult::documentation() const { return Documentation; }
+
+    const std::vector<std::string>& GetIntTxChirpResult::fieldNames() const 
+    { 
+      static const std::vector<std::string> names {"Enabled", "CentralFreq", "Power", "Bandwidth", "SweepTime", "TransmitterId", "SignalId", "Group"}; 
+      return names; 
+    }
 
 
     bool GetIntTxChirpResult::enabled() const

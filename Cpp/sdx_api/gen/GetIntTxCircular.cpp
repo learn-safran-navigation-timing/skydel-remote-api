@@ -1,8 +1,7 @@
 
-#include "gen/GetIntTxCircular.h"
+#include "GetIntTxCircular.h"
 
 #include "command_factory.h"
-#include "command_result_factory.h"
 #include "parse_json.hpp"
 
 ///
@@ -14,17 +13,23 @@ namespace Sdx
   namespace Cmd
   {
     const char* const GetIntTxCircular::CmdName = "GetIntTxCircular";
-    const char* const GetIntTxCircular::Documentation = "Get interference transmitter circular trajectory";
+    const char* const GetIntTxCircular::Documentation = "Get interference transmitter circular trajectory\n"
+      "\n"
+      "Name Type   Description\n"
+      "---- ------ ------------------------------\n"
+      "Id   string Transmitter unique identifier.";
+    const char* const GetIntTxCircular::TargetId = "";
 
-    REGISTER_COMMAND_FACTORY(GetIntTxCircular);
+    REGISTER_COMMAND_TO_FACTORY_DECL(GetIntTxCircular);
+    REGISTER_COMMAND_TO_FACTORY_IMPL(GetIntTxCircular);
 
 
     GetIntTxCircular::GetIntTxCircular()
-      : CommandBase(CmdName)
+      : CommandBase(CmdName, TargetId)
     {}
 
     GetIntTxCircular::GetIntTxCircular(const std::string& id)
-      : CommandBase(CmdName)
+      : CommandBase(CmdName, TargetId)
     {
 
       setId(id);
@@ -50,6 +55,12 @@ namespace Sdx
     }
 
     std::string GetIntTxCircular::documentation() const { return Documentation; }
+
+    const std::vector<std::string>& GetIntTxCircular::fieldNames() const 
+    { 
+      static const std::vector<std::string> names {"Id"}; 
+      return names; 
+    }
 
 
     int GetIntTxCircular::executePermission() const

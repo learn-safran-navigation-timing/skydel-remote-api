@@ -1,8 +1,7 @@
 
-#include "gen/ChangeModulationTargetSignals.h"
+#include "ChangeModulationTargetSignals.h"
 
 #include "command_factory.h"
-#include "command_result_factory.h"
 #include "parse_json.hpp"
 
 ///
@@ -14,17 +13,33 @@ namespace Sdx
   namespace Cmd
   {
     const char* const ChangeModulationTargetSignals::CmdName = "ChangeModulationTargetSignals";
-    const char* const ChangeModulationTargetSignals::Documentation = "Set the signals for the specified target and output index.\nSkydel tries to keep the sampling rate as low as possible,\nbut it is possible to set constaints with MinRate and MaxRate.";
+    const char* const ChangeModulationTargetSignals::Documentation = "Set the signals for the specified target and output index.\n"
+      "Skydel tries to keep the sampling rate as low as possible,\n"
+      "but it is possible to set constaints with MinRate and MaxRate.\n"
+      "\n"
+      "Name             Type            Description\n"
+      "---------------- --------------- -----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------\n"
+      "Output           int             Output index (zero based)\n"
+      "MinRate          int             Minimum sampling rate (12500000, 25000000, 50000000, 60000000, 100000000)\n"
+      "MaxRate          int             Maximum sampling rate (12500000, 25000000, 50000000, 60000000, 100000000)\n"
+      "Band             string          Frequency band is \"LowerL\" or \"UpperL\"\n"
+      "Signal           string          Comma separated signal keys, accepted signal keys: \"L1CA\", \"L1C\", \"L1P\", \"L1ME\", \"L1MR\", \"L2C\", \"L2P\", \"L2ME\", \"L2MR\", \"L5\", \"G1\", \"G2\", \"E1\", \"E5a\", \"E5b\", \"B1\", \"B2\", \"B1C\", \"B2a\", \"B3I\", \"SBASL1\", \"QZSSL1CA\", \"QZSSL1CB\", \"QZSSL1C\", \"QZSSL2C\", \"QZSSL5\", \"QZSSL1S\", \"QZSSL5S\", \"NAVICL5\", \"PULSARXL\"\n"
+      "Gain             int             The gain associated to this output (dB). This value has to be between the radio minimum value and 115. A negative value means to use the radio default value.\n"
+      "GaussianNoise    bool            If true, add Gaussian noise to ensure realistic signal to noise ratio. When combining multiple outputs, only one should have Gaussian noise enabled.\n"
+      "Id               string          Target identifier\n"
+      "CentralFrequency optional double Forced central frequency to this value. Central frequency can only be one of this values: 1176450000, 1191795000, 1202000000, 1207140000, 1217370000, 1222000000, 1227000000, 1227600000, 1230000000, 1235000000, 1246000000, 1561098000, 1575420000, 1582000000, 1584000000, 1586000000, 1602000000.";
+    const char* const ChangeModulationTargetSignals::TargetId = "";
 
-    REGISTER_COMMAND_FACTORY(ChangeModulationTargetSignals);
+    REGISTER_COMMAND_TO_FACTORY_DECL(ChangeModulationTargetSignals);
+    REGISTER_COMMAND_TO_FACTORY_IMPL(ChangeModulationTargetSignals);
 
 
     ChangeModulationTargetSignals::ChangeModulationTargetSignals()
-      : CommandBase(CmdName)
+      : CommandBase(CmdName, TargetId)
     {}
 
     ChangeModulationTargetSignals::ChangeModulationTargetSignals(int output, int minRate, int maxRate, const std::string& band, const std::string& signal, int gain, bool gaussianNoise, const std::string& id, const Sdx::optional<double>& centralFrequency)
-      : CommandBase(CmdName)
+      : CommandBase(CmdName, TargetId)
     {
 
       setOutput(output);
@@ -66,6 +81,12 @@ namespace Sdx
     }
 
     std::string ChangeModulationTargetSignals::documentation() const { return Documentation; }
+
+    const std::vector<std::string>& ChangeModulationTargetSignals::fieldNames() const 
+    { 
+      static const std::vector<std::string> names {"Output", "MinRate", "MaxRate", "Band", "Signal", "Gain", "GaussianNoise", "Id", "CentralFrequency"}; 
+      return names; 
+    }
 
 
     int ChangeModulationTargetSignals::executePermission() const

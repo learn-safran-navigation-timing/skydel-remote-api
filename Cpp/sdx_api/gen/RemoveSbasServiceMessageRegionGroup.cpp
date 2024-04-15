@@ -1,8 +1,7 @@
 
-#include "gen/RemoveSbasServiceMessageRegionGroup.h"
+#include "RemoveSbasServiceMessageRegionGroup.h"
 
 #include "command_factory.h"
-#include "command_result_factory.h"
 #include "parse_json.hpp"
 
 ///
@@ -14,17 +13,24 @@ namespace Sdx
   namespace Cmd
   {
     const char* const RemoveSbasServiceMessageRegionGroup::CmdName = "RemoveSbasServiceMessageRegionGroup";
-    const char* const RemoveSbasServiceMessageRegionGroup::Documentation = "Removes a SBAS service message region group for the service provider.";
+    const char* const RemoveSbasServiceMessageRegionGroup::Documentation = "Removes a SBAS service message region group for the service provider.\n"
+      "\n"
+      "Name            Type   Description\n"
+      "--------------- ------ -----------------------------------------------------------------------\n"
+      "ServiceProvider string Service providers, accepts \"WAAS\", \"EGNOS\", \"MSAS\", \"GAGAN\" and \"SDCM\".\n"
+      "Id              string Unique identifier of the SBAS service message region group to remove.";
+    const char* const RemoveSbasServiceMessageRegionGroup::TargetId = "";
 
-    REGISTER_COMMAND_FACTORY(RemoveSbasServiceMessageRegionGroup);
+    REGISTER_COMMAND_TO_FACTORY_DECL(RemoveSbasServiceMessageRegionGroup);
+    REGISTER_COMMAND_TO_FACTORY_IMPL(RemoveSbasServiceMessageRegionGroup);
 
 
     RemoveSbasServiceMessageRegionGroup::RemoveSbasServiceMessageRegionGroup()
-      : CommandBase(CmdName)
+      : CommandBase(CmdName, TargetId)
     {}
 
     RemoveSbasServiceMessageRegionGroup::RemoveSbasServiceMessageRegionGroup(const std::string& serviceProvider, const std::string& id)
-      : CommandBase(CmdName)
+      : CommandBase(CmdName, TargetId)
     {
 
       setServiceProvider(serviceProvider);
@@ -52,6 +58,12 @@ namespace Sdx
     }
 
     std::string RemoveSbasServiceMessageRegionGroup::documentation() const { return Documentation; }
+
+    const std::vector<std::string>& RemoveSbasServiceMessageRegionGroup::fieldNames() const 
+    { 
+      static const std::vector<std::string> names {"ServiceProvider", "Id"}; 
+      return names; 
+    }
 
 
     int RemoveSbasServiceMessageRegionGroup::executePermission() const

@@ -1,8 +1,7 @@
 
-#include "gen/SetGpsSVConfigurationForAllSat.h"
+#include "SetGpsSVConfigurationForAllSat.h"
 
 #include "command_factory.h"
-#include "command_result_factory.h"
 #include "parse_json.hpp"
 
 ///
@@ -14,17 +13,26 @@ namespace Sdx
   namespace Cmd
   {
     const char* const SetGpsSVConfigurationForAllSat::CmdName = "SetGpsSVConfigurationForAllSat";
-    const char* const SetGpsSVConfigurationForAllSat::Documentation = "Please note the command SetGpsSVConfigurationForAllSat is deprecated since 21.3. You may use SetGpsConfigurationForEachSV.\n\nSet GPS SV configuration flag for each SVs";
+    const char* const SetGpsSVConfigurationForAllSat::Documentation = "Please note the command SetGpsSVConfigurationForAllSat is deprecated since 21.3. You may use SetGpsConfigurationForEachSV.\n"
+      "\n"
+      "Set GPS SV configuration flag for each SVs\n"
+      "\n"
+      "Name        Type            Description\n"
+      "----------- --------------- -------------------------------------------------------------------------------------------\n"
+      "SvConfigs   array int       SV Config of all satellite\n"
+      "DataSetName optional string Optional name of the data set to use. If no value is provided, the active data set is used.";
+    const char* const SetGpsSVConfigurationForAllSat::TargetId = "";
 
-    REGISTER_COMMAND_FACTORY(SetGpsSVConfigurationForAllSat);
+    REGISTER_COMMAND_TO_FACTORY_DECL(SetGpsSVConfigurationForAllSat);
+    REGISTER_COMMAND_TO_FACTORY_IMPL(SetGpsSVConfigurationForAllSat);
 
 
     SetGpsSVConfigurationForAllSat::SetGpsSVConfigurationForAllSat()
-      : CommandBase(CmdName)
+      : CommandBase(CmdName, TargetId)
     {}
 
     SetGpsSVConfigurationForAllSat::SetGpsSVConfigurationForAllSat(const std::vector<int>& svConfigs, const Sdx::optional<std::string>& dataSetName)
-      : CommandBase(CmdName)
+      : CommandBase(CmdName, TargetId)
     {
 
       setSvConfigs(svConfigs);
@@ -52,6 +60,12 @@ namespace Sdx
     }
 
     std::string SetGpsSVConfigurationForAllSat::documentation() const { return Documentation; }
+
+    const std::vector<std::string>& SetGpsSVConfigurationForAllSat::fieldNames() const 
+    { 
+      static const std::vector<std::string> names {"SvConfigs", "DataSetName"}; 
+      return names; 
+    }
 
 
     int SetGpsSVConfigurationForAllSat::executePermission() const

@@ -1,8 +1,7 @@
 
-#include "gen/ClearAllMessageModificationsForSignal.h"
+#include "ClearAllMessageModificationsForSignal.h"
 
 #include "command_factory.h"
-#include "command_result_factory.h"
 #include "parse_json.hpp"
 
 ///
@@ -14,17 +13,23 @@ namespace Sdx
   namespace Cmd
   {
     const char* const ClearAllMessageModificationsForSignal::CmdName = "ClearAllMessageModificationsForSignal";
-    const char* const ClearAllMessageModificationsForSignal::Documentation = "Clear the signal for all message modifications.";
+    const char* const ClearAllMessageModificationsForSignal::Documentation = "Clear the signal for all message modifications.\n"
+      "\n"
+      "Name   Type   Description\n"
+      "------ ------ --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------\n"
+      "Signal string Signal key, accepted values : \"L1CA\", \"L1C\", \"L1P\", \"L1ME\", \"L1MR\", \"L2C\", \"L2P\", \"L2ME\", \"L2MR\", \"L5\", \"G1\", \"G2\", \"E1\", \"E5a\", \"E5b\", \"B1\", \"B2\", \"B2a\", \"B1C\", \"B3I\", \"QZSSL1CA\", \"QZSSL1CB\", \"QZSSL1S\", \"NAVICL5\", \"SBASL1\", \"SBASL5\" and \"PULSARXL\"";
+    const char* const ClearAllMessageModificationsForSignal::TargetId = "";
 
-    REGISTER_COMMAND_FACTORY(ClearAllMessageModificationsForSignal);
+    REGISTER_COMMAND_TO_FACTORY_DECL(ClearAllMessageModificationsForSignal);
+    REGISTER_COMMAND_TO_FACTORY_IMPL(ClearAllMessageModificationsForSignal);
 
 
     ClearAllMessageModificationsForSignal::ClearAllMessageModificationsForSignal()
-      : CommandBase(CmdName)
+      : CommandBase(CmdName, TargetId)
     {}
 
     ClearAllMessageModificationsForSignal::ClearAllMessageModificationsForSignal(const std::string& signal)
-      : CommandBase(CmdName)
+      : CommandBase(CmdName, TargetId)
     {
 
       setSignal(signal);
@@ -50,6 +55,12 @@ namespace Sdx
     }
 
     std::string ClearAllMessageModificationsForSignal::documentation() const { return Documentation; }
+
+    const std::vector<std::string>& ClearAllMessageModificationsForSignal::fieldNames() const 
+    { 
+      static const std::vector<std::string> names {"Signal"}; 
+      return names; 
+    }
 
 
     int ClearAllMessageModificationsForSignal::executePermission() const

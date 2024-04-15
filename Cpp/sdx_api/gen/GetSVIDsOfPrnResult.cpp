@@ -1,8 +1,7 @@
 
-#include "gen/GetSVIDsOfPrnResult.h"
+#include "GetSVIDsOfPrnResult.h"
 
 #include "command_factory.h"
-#include "command_result_factory.h"
 #include "parse_json.hpp"
 
 ///
@@ -14,17 +13,24 @@ namespace Sdx
   namespace Cmd
   {
     const char* const GetSVIDsOfPrnResult::CmdName = "GetSVIDsOfPrnResult";
-    const char* const GetSVIDsOfPrnResult::Documentation = "Result of GetSVIDsOfPrn.";
+    const char* const GetSVIDsOfPrnResult::Documentation = "Result of GetSVIDsOfPrn.\n"
+      "\n"
+      "Name     Type      Description\n"
+      "-------- --------- ----------------------------------------------------------------------\n"
+      "Signal   string    Signal key - see GetSVIDsOfPrn command description for possible values\n"
+      "Prn      int       Satellite PRN number\n"
+      "SvIdList array int A list containing all SV ID of a specific signal";
+    const char* const GetSVIDsOfPrnResult::TargetId = "";
 
-    REGISTER_COMMAND_RESULT_TO_FACTORY_IMPL(GetSVIDsOfPrnResult);
+    REGISTER_COMMAND_TO_FACTORY_IMPL(GetSVIDsOfPrnResult);
 
 
     GetSVIDsOfPrnResult::GetSVIDsOfPrnResult()
-      : CommandResult(CmdName)
+      : CommandResult(CmdName, TargetId)
     {}
 
     GetSVIDsOfPrnResult::GetSVIDsOfPrnResult(const std::string& signal, int prn, const std::vector<int>& svIdList)
-      : CommandResult(CmdName)
+      : CommandResult(CmdName, TargetId)
     {
 
       setSignal(signal);
@@ -33,7 +39,7 @@ namespace Sdx
     }
 
     GetSVIDsOfPrnResult::GetSVIDsOfPrnResult(CommandBasePtr relatedCommand, const std::string& signal, int prn, const std::vector<int>& svIdList)
-      : CommandResult(CmdName, relatedCommand)
+      : CommandResult(CmdName, TargetId, relatedCommand)
     {
 
       setSignal(signal);
@@ -69,6 +75,12 @@ namespace Sdx
     }
 
     std::string GetSVIDsOfPrnResult::documentation() const { return Documentation; }
+
+    const std::vector<std::string>& GetSVIDsOfPrnResult::fieldNames() const 
+    { 
+      static const std::vector<std::string> names {"Signal", "Prn", "SvIdList"}; 
+      return names; 
+    }
 
 
     std::string GetSVIDsOfPrnResult::signal() const

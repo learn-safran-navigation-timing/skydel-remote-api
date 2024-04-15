@@ -1,8 +1,7 @@
 
-#include "gen/GetGpsDataHealthForSVResult.h"
+#include "GetGpsDataHealthForSVResult.h"
 
 #include "command_factory.h"
-#include "command_result_factory.h"
 #include "parse_json.hpp"
 
 ///
@@ -14,17 +13,24 @@ namespace Sdx
   namespace Cmd
   {
     const char* const GetGpsDataHealthForSVResult::CmdName = "GetGpsDataHealthForSVResult";
-    const char* const GetGpsDataHealthForSVResult::Documentation = "Result of GetGpsDataHealthForSV.";
+    const char* const GetGpsDataHealthForSVResult::Documentation = "Result of GetGpsDataHealthForSV.\n"
+      "\n"
+      "Name        Type            Description\n"
+      "----------- --------------- -------------------------------------------------------------------------------------------\n"
+      "SvId        int             Satellite's SV ID 1..32\n"
+      "Health      int             Data health 0..7\n"
+      "DataSetName optional string Optional name of the data set to use. If no value is provided, the active data set is used.";
+    const char* const GetGpsDataHealthForSVResult::TargetId = "";
 
-    REGISTER_COMMAND_RESULT_TO_FACTORY_IMPL(GetGpsDataHealthForSVResult);
+    REGISTER_COMMAND_TO_FACTORY_IMPL(GetGpsDataHealthForSVResult);
 
 
     GetGpsDataHealthForSVResult::GetGpsDataHealthForSVResult()
-      : CommandResult(CmdName)
+      : CommandResult(CmdName, TargetId)
     {}
 
     GetGpsDataHealthForSVResult::GetGpsDataHealthForSVResult(int svId, int health, const Sdx::optional<std::string>& dataSetName)
-      : CommandResult(CmdName)
+      : CommandResult(CmdName, TargetId)
     {
 
       setSvId(svId);
@@ -33,7 +39,7 @@ namespace Sdx
     }
 
     GetGpsDataHealthForSVResult::GetGpsDataHealthForSVResult(CommandBasePtr relatedCommand, int svId, int health, const Sdx::optional<std::string>& dataSetName)
-      : CommandResult(CmdName, relatedCommand)
+      : CommandResult(CmdName, TargetId, relatedCommand)
     {
 
       setSvId(svId);
@@ -69,6 +75,12 @@ namespace Sdx
     }
 
     std::string GetGpsDataHealthForSVResult::documentation() const { return Documentation; }
+
+    const std::vector<std::string>& GetGpsDataHealthForSVResult::fieldNames() const 
+    { 
+      static const std::vector<std::string> names {"SvId", "Health", "DataSetName"}; 
+      return names; 
+    }
 
 
     int GetGpsDataHealthForSVResult::svId() const

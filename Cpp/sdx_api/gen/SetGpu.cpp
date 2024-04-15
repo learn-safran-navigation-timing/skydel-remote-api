@@ -1,8 +1,7 @@
 
-#include "gen/SetGpu.h"
+#include "SetGpu.h"
 
 #include "command_factory.h"
-#include "command_result_factory.h"
 #include "parse_json.hpp"
 
 ///
@@ -14,17 +13,25 @@ namespace Sdx
   namespace Cmd
   {
     const char* const SetGpu::CmdName = "SetGpu";
-    const char* const SetGpu::Documentation = "Set the GPU associated with a RF output of a modulation target.";
+    const char* const SetGpu::Documentation = "Set the GPU associated with a RF output of a modulation target.\n"
+      "\n"
+      "Name   Type   Description\n"
+      "------ ------ --------------------------------------\n"
+      "GpuIdx int    The gpu associated with the RF output.\n"
+      "Output int    Output index (zero based)\n"
+      "Id     string Target identifier";
+    const char* const SetGpu::TargetId = "";
 
-    REGISTER_COMMAND_FACTORY(SetGpu);
+    REGISTER_COMMAND_TO_FACTORY_DECL(SetGpu);
+    REGISTER_COMMAND_TO_FACTORY_IMPL(SetGpu);
 
 
     SetGpu::SetGpu()
-      : CommandBase(CmdName)
+      : CommandBase(CmdName, TargetId)
     {}
 
     SetGpu::SetGpu(int gpuIdx, int output, const std::string& id)
-      : CommandBase(CmdName)
+      : CommandBase(CmdName, TargetId)
     {
 
       setGpuIdx(gpuIdx);
@@ -54,6 +61,12 @@ namespace Sdx
     }
 
     std::string SetGpu::documentation() const { return Documentation; }
+
+    const std::vector<std::string>& SetGpu::fieldNames() const 
+    { 
+      static const std::vector<std::string> names {"GpuIdx", "Output", "Id"}; 
+      return names; 
+    }
 
 
     int SetGpu::executePermission() const

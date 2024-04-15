@@ -1,8 +1,7 @@
 
-#include "gen/GetEphemerisUpdateIntervalResult.h"
+#include "GetEphemerisUpdateIntervalResult.h"
 
 #include "command_factory.h"
-#include "command_result_factory.h"
 #include "parse_json.hpp"
 
 ///
@@ -14,17 +13,23 @@ namespace Sdx
   namespace Cmd
   {
     const char* const GetEphemerisUpdateIntervalResult::CmdName = "GetEphemerisUpdateIntervalResult";
-    const char* const GetEphemerisUpdateIntervalResult::Documentation = "Result of GetEphemerisUpdateInterval.";
+    const char* const GetEphemerisUpdateIntervalResult::Documentation = "Result of GetEphemerisUpdateInterval.\n"
+      "\n"
+      "Name     Type   Description\n"
+      "-------- ------ -----------------------------------------------------------------------------------------------------------------------\n"
+      "System   string \"GPS\", \"Galileo\", \"BeiDou\", \"QZSS\", \"NavIC\" or \"PULSAR\"\n"
+      "Interval int    Interval duration in sec. Accepted range is [1..604800]. Must be a divider of the number of seconds in a week (604800).";
+    const char* const GetEphemerisUpdateIntervalResult::TargetId = "";
 
-    REGISTER_COMMAND_RESULT_TO_FACTORY_IMPL(GetEphemerisUpdateIntervalResult);
+    REGISTER_COMMAND_TO_FACTORY_IMPL(GetEphemerisUpdateIntervalResult);
 
 
     GetEphemerisUpdateIntervalResult::GetEphemerisUpdateIntervalResult()
-      : CommandResult(CmdName)
+      : CommandResult(CmdName, TargetId)
     {}
 
     GetEphemerisUpdateIntervalResult::GetEphemerisUpdateIntervalResult(const std::string& system, int interval)
-      : CommandResult(CmdName)
+      : CommandResult(CmdName, TargetId)
     {
 
       setSystem(system);
@@ -32,7 +37,7 @@ namespace Sdx
     }
 
     GetEphemerisUpdateIntervalResult::GetEphemerisUpdateIntervalResult(CommandBasePtr relatedCommand, const std::string& system, int interval)
-      : CommandResult(CmdName, relatedCommand)
+      : CommandResult(CmdName, TargetId, relatedCommand)
     {
 
       setSystem(system);
@@ -66,6 +71,12 @@ namespace Sdx
     }
 
     std::string GetEphemerisUpdateIntervalResult::documentation() const { return Documentation; }
+
+    const std::vector<std::string>& GetEphemerisUpdateIntervalResult::fieldNames() const 
+    { 
+      static const std::vector<std::string> names {"System", "Interval"}; 
+      return names; 
+    }
 
 
     std::string GetEphemerisUpdateIntervalResult::system() const

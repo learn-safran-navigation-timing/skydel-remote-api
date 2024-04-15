@@ -1,8 +1,7 @@
 
-#include "gen/SetAlmanacUploadTimeInterval.h"
+#include "SetAlmanacUploadTimeInterval.h"
 
 #include "command_factory.h"
-#include "command_result_factory.h"
 #include "parse_json.hpp"
 
 ///
@@ -14,17 +13,25 @@ namespace Sdx
   namespace Cmd
   {
     const char* const SetAlmanacUploadTimeInterval::CmdName = "SetAlmanacUploadTimeInterval";
-    const char* const SetAlmanacUploadTimeInterval::Documentation = "Set almanac upload interval in seconds. After the initial upload set with command \nSetAlmanacInitialUploadTimeOffset, the almanac will automatically update at each interval.";
+    const char* const SetAlmanacUploadTimeInterval::Documentation = "Set almanac upload interval in seconds. After the initial upload set with command \n"
+      "SetAlmanacInitialUploadTimeOffset, the almanac will automatically update at each interval.\n"
+      "\n"
+      "Name     Type   Description\n"
+      "-------- ------ ----------------------------------------------------------\n"
+      "System   string Must be \"GPS\"\n"
+      "Interval int    Interval duration in sec. Accepted range is [3600..259200]";
+    const char* const SetAlmanacUploadTimeInterval::TargetId = "";
 
-    REGISTER_COMMAND_FACTORY(SetAlmanacUploadTimeInterval);
+    REGISTER_COMMAND_TO_FACTORY_DECL(SetAlmanacUploadTimeInterval);
+    REGISTER_COMMAND_TO_FACTORY_IMPL(SetAlmanacUploadTimeInterval);
 
 
     SetAlmanacUploadTimeInterval::SetAlmanacUploadTimeInterval()
-      : CommandBase(CmdName)
+      : CommandBase(CmdName, TargetId)
     {}
 
     SetAlmanacUploadTimeInterval::SetAlmanacUploadTimeInterval(const std::string& system, int interval)
-      : CommandBase(CmdName)
+      : CommandBase(CmdName, TargetId)
     {
 
       setSystem(system);
@@ -52,6 +59,12 @@ namespace Sdx
     }
 
     std::string SetAlmanacUploadTimeInterval::documentation() const { return Documentation; }
+
+    const std::vector<std::string>& SetAlmanacUploadTimeInterval::fieldNames() const 
+    { 
+      static const std::vector<std::string> names {"System", "Interval"}; 
+      return names; 
+    }
 
 
     int SetAlmanacUploadTimeInterval::executePermission() const

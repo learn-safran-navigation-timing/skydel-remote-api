@@ -1,8 +1,7 @@
 
-#include "gen/SetAntennaChange.h"
+#include "SetAntennaChange.h"
 
 #include "command_factory.h"
-#include "command_result_factory.h"
 #include "parse_json.hpp"
 
 ///
@@ -14,17 +13,25 @@ namespace Sdx
   namespace Cmd
   {
     const char* const SetAntennaChange::CmdName = "SetAntennaChange";
-    const char* const SetAntennaChange::Documentation = "Add/edit an antenna change.";
+    const char* const SetAntennaChange::Documentation = "Add/edit an antenna change.\n"
+      "\n"
+      "Name      Type   Description\n"
+      "--------- ------ --------------------------------------------------\n"
+      "StartTime double Elapsed time in seconds since start of simulation.\n"
+      "Antenna   string Antenna model name\n"
+      "Id        string Unique identifier of the event";
+    const char* const SetAntennaChange::TargetId = "";
 
-    REGISTER_COMMAND_FACTORY(SetAntennaChange);
+    REGISTER_COMMAND_TO_FACTORY_DECL(SetAntennaChange);
+    REGISTER_COMMAND_TO_FACTORY_IMPL(SetAntennaChange);
 
 
     SetAntennaChange::SetAntennaChange()
-      : CommandBase(CmdName)
+      : CommandBase(CmdName, TargetId)
     {}
 
     SetAntennaChange::SetAntennaChange(double startTime, const std::string& antenna, const std::string& id)
-      : CommandBase(CmdName)
+      : CommandBase(CmdName, TargetId)
     {
 
       setStartTime(startTime);
@@ -54,6 +61,12 @@ namespace Sdx
     }
 
     std::string SetAntennaChange::documentation() const { return Documentation; }
+
+    const std::vector<std::string>& SetAntennaChange::fieldNames() const 
+    { 
+      static const std::vector<std::string> names {"StartTime", "Antenna", "Id"}; 
+      return names; 
+    }
 
 
     int SetAntennaChange::executePermission() const

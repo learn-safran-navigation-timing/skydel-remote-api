@@ -1,8 +1,7 @@
 
-#include "gen/RemoveMultipath.h"
+#include "RemoveMultipath.h"
 
 #include "command_factory.h"
-#include "command_result_factory.h"
 #include "parse_json.hpp"
 
 ///
@@ -14,17 +13,23 @@ namespace Sdx
   namespace Cmd
   {
     const char* const RemoveMultipath::CmdName = "RemoveMultipath";
-    const char* const RemoveMultipath::Documentation = "Removes a multipath signal.";
+    const char* const RemoveMultipath::Documentation = "Removes a multipath signal.\n"
+      "\n"
+      "Name Type   Description\n"
+      "---- ------ ----------------------------------------------------\n"
+      "Id   string Unique identifier of the multipath signal to remove.";
+    const char* const RemoveMultipath::TargetId = "";
 
-    REGISTER_COMMAND_FACTORY(RemoveMultipath);
+    REGISTER_COMMAND_TO_FACTORY_DECL(RemoveMultipath);
+    REGISTER_COMMAND_TO_FACTORY_IMPL(RemoveMultipath);
 
 
     RemoveMultipath::RemoveMultipath()
-      : CommandBase(CmdName)
+      : CommandBase(CmdName, TargetId)
     {}
 
     RemoveMultipath::RemoveMultipath(const std::string& id)
-      : CommandBase(CmdName)
+      : CommandBase(CmdName, TargetId)
     {
 
       setId(id);
@@ -50,6 +55,12 @@ namespace Sdx
     }
 
     std::string RemoveMultipath::documentation() const { return Documentation; }
+
+    const std::vector<std::string>& RemoveMultipath::fieldNames() const 
+    { 
+      static const std::vector<std::string> names {"Id"}; 
+      return names; 
+    }
 
 
     int RemoveMultipath::executePermission() const

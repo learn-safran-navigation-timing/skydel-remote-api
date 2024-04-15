@@ -1,8 +1,7 @@
 
-#include "gen/IsIntTxAttitudeToZeroForcedResult.h"
+#include "IsIntTxAttitudeToZeroForcedResult.h"
 
 #include "command_factory.h"
-#include "command_result_factory.h"
 #include "parse_json.hpp"
 
 ///
@@ -14,17 +13,23 @@ namespace Sdx
   namespace Cmd
   {
     const char* const IsIntTxAttitudeToZeroForcedResult::CmdName = "IsIntTxAttitudeToZeroForcedResult";
-    const char* const IsIntTxAttitudeToZeroForcedResult::Documentation = "Result of IsIntTxAttitudeToZeroForced.";
+    const char* const IsIntTxAttitudeToZeroForcedResult::Documentation = "Result of IsIntTxAttitudeToZeroForced.\n"
+      "\n"
+      "Name    Type   Description\n"
+      "------- ------ ------------------------------------------------------------\n"
+      "Enabled bool   If true, interference vehicle won't rotate during simulation\n"
+      "Id      string Transmitter unique identifier.";
+    const char* const IsIntTxAttitudeToZeroForcedResult::TargetId = "";
 
-    REGISTER_COMMAND_RESULT_TO_FACTORY_IMPL(IsIntTxAttitudeToZeroForcedResult);
+    REGISTER_COMMAND_TO_FACTORY_IMPL(IsIntTxAttitudeToZeroForcedResult);
 
 
     IsIntTxAttitudeToZeroForcedResult::IsIntTxAttitudeToZeroForcedResult()
-      : CommandResult(CmdName)
+      : CommandResult(CmdName, TargetId)
     {}
 
     IsIntTxAttitudeToZeroForcedResult::IsIntTxAttitudeToZeroForcedResult(bool enabled, const std::string& id)
-      : CommandResult(CmdName)
+      : CommandResult(CmdName, TargetId)
     {
 
       setEnabled(enabled);
@@ -32,7 +37,7 @@ namespace Sdx
     }
 
     IsIntTxAttitudeToZeroForcedResult::IsIntTxAttitudeToZeroForcedResult(CommandBasePtr relatedCommand, bool enabled, const std::string& id)
-      : CommandResult(CmdName, relatedCommand)
+      : CommandResult(CmdName, TargetId, relatedCommand)
     {
 
       setEnabled(enabled);
@@ -66,6 +71,12 @@ namespace Sdx
     }
 
     std::string IsIntTxAttitudeToZeroForcedResult::documentation() const { return Documentation; }
+
+    const std::vector<std::string>& IsIntTxAttitudeToZeroForcedResult::fieldNames() const 
+    { 
+      static const std::vector<std::string> names {"Enabled", "Id"}; 
+      return names; 
+    }
 
 
     bool IsIntTxAttitudeToZeroForcedResult::enabled() const

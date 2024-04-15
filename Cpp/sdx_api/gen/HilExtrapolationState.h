@@ -19,8 +19,8 @@ struct parse_json<Sdx::HilExtrapolationState>
   {
     if (!is_valid(value))
       throw std::runtime_error("Unexpected value");
-    return (Sdx::HilExtrapolationState)value.GetInt();
+    return static_cast<Sdx::HilExtrapolationState>(value.GetInt());
   }
-  static rapidjson::Value format(Sdx::HilExtrapolationState value, rapidjson::Value::AllocatorType&) { return rapidjson::Value((int)value); }
+  static rapidjson::Value format(Sdx::HilExtrapolationState value, rapidjson::Value::AllocatorType&) { return rapidjson::Value(static_cast<int>(value)); }
 };
 

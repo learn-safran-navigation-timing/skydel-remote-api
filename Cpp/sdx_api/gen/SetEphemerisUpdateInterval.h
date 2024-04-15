@@ -14,7 +14,7 @@ namespace Sdx
     ///
     /// Name     Type   Description
     /// -------- ------ -----------------------------------------------------------------------------------------------------------------------
-    /// System   string "GPS", "Galileo", "BeiDou", "QZSS" or "NavIC"
+    /// System   string "GPS", "Galileo", "BeiDou", "QZSS", "NavIC" or "PULSAR"
     /// Interval int    Interval duration in sec. Accepted range is [1..604800]. Must be a divider of the number of seconds in a week (604800).
     ///
 
@@ -27,6 +27,7 @@ namespace Sdx
     public:
       static const char* const CmdName;
       static const char* const Documentation;
+      static const char* const TargetId;
 
 
       SetEphemerisUpdateInterval();
@@ -37,6 +38,7 @@ namespace Sdx
       static SetEphemerisUpdateIntervalPtr dynamicCast(CommandBasePtr ptr);
       virtual bool isValid() const override;
       virtual std::string documentation() const override;
+      virtual const std::vector<std::string>& fieldNames() const override;
 
       virtual int executePermission() const override;
 

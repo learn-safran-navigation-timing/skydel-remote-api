@@ -1,8 +1,7 @@
 
-#include "gen/SetIssueOfDataGalileo.h"
+#include "SetIssueOfDataGalileo.h"
 
 #include "command_factory.h"
-#include "command_result_factory.h"
 #include "parse_json.hpp"
 
 ///
@@ -14,17 +13,25 @@ namespace Sdx
   namespace Cmd
   {
     const char* const SetIssueOfDataGalileo::CmdName = "SetIssueOfDataGalileo";
-    const char* const SetIssueOfDataGalileo::Documentation = "Set Galileo Issue of data, Navigation (IODNAV) and Issue of data, Almanac (IODA)";
+    const char* const SetIssueOfDataGalileo::Documentation = "Set Galileo Issue of data, Navigation (IODNAV) and Issue of data, Almanac (IODA)\n"
+      "\n"
+      "Name          Type          Description\n"
+      "------------- ------------- ---------------------------------------------------------\n"
+      "Navigation    int           Issue of data, navigation\n"
+      "Almanac       int           Issue of data, almanac\n"
+      "OverrideRinex optional bool If the IODNAV overrides the RINEX IODNAV, default is True";
+    const char* const SetIssueOfDataGalileo::TargetId = "";
 
-    REGISTER_COMMAND_FACTORY(SetIssueOfDataGalileo);
+    REGISTER_COMMAND_TO_FACTORY_DECL(SetIssueOfDataGalileo);
+    REGISTER_COMMAND_TO_FACTORY_IMPL(SetIssueOfDataGalileo);
 
 
     SetIssueOfDataGalileo::SetIssueOfDataGalileo()
-      : CommandBase(CmdName)
+      : CommandBase(CmdName, TargetId)
     {}
 
     SetIssueOfDataGalileo::SetIssueOfDataGalileo(int navigation, int almanac, const Sdx::optional<bool>& overrideRinex)
-      : CommandBase(CmdName)
+      : CommandBase(CmdName, TargetId)
     {
 
       setNavigation(navigation);
@@ -54,6 +61,12 @@ namespace Sdx
     }
 
     std::string SetIssueOfDataGalileo::documentation() const { return Documentation; }
+
+    const std::vector<std::string>& SetIssueOfDataGalileo::fieldNames() const 
+    { 
+      static const std::vector<std::string> names {"Navigation", "Almanac", "OverrideRinex"}; 
+      return names; 
+    }
 
 
     int SetIssueOfDataGalileo::executePermission() const

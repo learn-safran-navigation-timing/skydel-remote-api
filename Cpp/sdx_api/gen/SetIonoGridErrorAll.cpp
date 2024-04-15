@@ -1,8 +1,7 @@
 
-#include "gen/SetIonoGridErrorAll.h"
+#include "SetIonoGridErrorAll.h"
 
 #include "command_factory.h"
-#include "command_result_factory.h"
 #include "parse_json.hpp"
 
 ///
@@ -14,17 +13,23 @@ namespace Sdx
   namespace Cmd
   {
     const char* const SetIonoGridErrorAll::CmdName = "SetIonoGridErrorAll";
-    const char* const SetIonoGridErrorAll::Documentation = "Set Error offsets in the ionospheric grid.  The array is zero based, the index 0 in a band array is for the IGP with an index 1, etc.";
+    const char* const SetIonoGridErrorAll::Documentation = "Set Error offsets in the ionospheric grid.  The array is zero based, the index 0 in a band array is for the IGP with an index 1, etc.\n"
+      "\n"
+      "Name Type               Description\n"
+      "---- ------------------ -----------------------------------------------------------------------\n"
+      "Grid array array double Array containing each band, each band is an array containing the errors";
+    const char* const SetIonoGridErrorAll::TargetId = "";
 
-    REGISTER_COMMAND_FACTORY(SetIonoGridErrorAll);
+    REGISTER_COMMAND_TO_FACTORY_DECL(SetIonoGridErrorAll);
+    REGISTER_COMMAND_TO_FACTORY_IMPL(SetIonoGridErrorAll);
 
 
     SetIonoGridErrorAll::SetIonoGridErrorAll()
-      : CommandBase(CmdName)
+      : CommandBase(CmdName, TargetId)
     {}
 
     SetIonoGridErrorAll::SetIonoGridErrorAll(const std::vector<std::vector<double>>& grid)
-      : CommandBase(CmdName)
+      : CommandBase(CmdName, TargetId)
     {
 
       setGrid(grid);
@@ -50,6 +55,12 @@ namespace Sdx
     }
 
     std::string SetIonoGridErrorAll::documentation() const { return Documentation; }
+
+    const std::vector<std::string>& SetIonoGridErrorAll::fieldNames() const 
+    { 
+      static const std::vector<std::string> names {"Grid"}; 
+      return names; 
+    }
 
 
     int SetIonoGridErrorAll::executePermission() const

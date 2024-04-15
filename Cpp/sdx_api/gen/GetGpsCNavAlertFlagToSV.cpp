@@ -1,8 +1,7 @@
 
-#include "gen/GetGpsCNavAlertFlagToSV.h"
+#include "GetGpsCNavAlertFlagToSV.h"
 
 #include "command_factory.h"
-#include "command_result_factory.h"
 #include "parse_json.hpp"
 
 ///
@@ -14,17 +13,24 @@ namespace Sdx
   namespace Cmd
   {
     const char* const GetGpsCNavAlertFlagToSV::CmdName = "GetGpsCNavAlertFlagToSV";
-    const char* const GetGpsCNavAlertFlagToSV::Documentation = "Get GPS CNAV Alert Flag";
+    const char* const GetGpsCNavAlertFlagToSV::Documentation = "Get GPS CNAV Alert Flag\n"
+      "\n"
+      "Name        Type            Description\n"
+      "----------- --------------- -------------------------------------------------------------------------------------------\n"
+      "SvId        int             Satellite's SV ID 1..32, or use 0 to apply new value to all satellites.\n"
+      "DataSetName optional string Optional name of the data set to use. If no value is provided, the active data set is used.";
+    const char* const GetGpsCNavAlertFlagToSV::TargetId = "";
 
-    REGISTER_COMMAND_FACTORY(GetGpsCNavAlertFlagToSV);
+    REGISTER_COMMAND_TO_FACTORY_DECL(GetGpsCNavAlertFlagToSV);
+    REGISTER_COMMAND_TO_FACTORY_IMPL(GetGpsCNavAlertFlagToSV);
 
 
     GetGpsCNavAlertFlagToSV::GetGpsCNavAlertFlagToSV()
-      : CommandBase(CmdName)
+      : CommandBase(CmdName, TargetId)
     {}
 
     GetGpsCNavAlertFlagToSV::GetGpsCNavAlertFlagToSV(int svId, const Sdx::optional<std::string>& dataSetName)
-      : CommandBase(CmdName)
+      : CommandBase(CmdName, TargetId)
     {
 
       setSvId(svId);
@@ -52,6 +58,12 @@ namespace Sdx
     }
 
     std::string GetGpsCNavAlertFlagToSV::documentation() const { return Documentation; }
+
+    const std::vector<std::string>& GetGpsCNavAlertFlagToSV::fieldNames() const 
+    { 
+      static const std::vector<std::string> names {"SvId", "DataSetName"}; 
+      return names; 
+    }
 
 
     int GetGpsCNavAlertFlagToSV::executePermission() const

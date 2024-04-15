@@ -1,8 +1,7 @@
 
-#include "gen/GetMessageModificationToGalileoINav.h"
+#include "GetMessageModificationToGalileoINav.h"
 
 #include "command_factory.h"
-#include "command_result_factory.h"
 #include "parse_json.hpp"
 
 ///
@@ -14,17 +13,23 @@ namespace Sdx
   namespace Cmd
   {
     const char* const GetMessageModificationToGalileoINav::CmdName = "GetMessageModificationToGalileoINav";
-    const char* const GetMessageModificationToGalileoINav::Documentation = "Get infos about the Galileo I/NAV message modification with this ID.";
+    const char* const GetMessageModificationToGalileoINav::Documentation = "Get infos about the Galileo I/NAV message modification with this ID.\n"
+      "\n"
+      "Name Type   Description\n"
+      "---- ------ ------------------------------\n"
+      "Id   string Unique identifier of the event";
+    const char* const GetMessageModificationToGalileoINav::TargetId = "";
 
-    REGISTER_COMMAND_FACTORY(GetMessageModificationToGalileoINav);
+    REGISTER_COMMAND_TO_FACTORY_DECL(GetMessageModificationToGalileoINav);
+    REGISTER_COMMAND_TO_FACTORY_IMPL(GetMessageModificationToGalileoINav);
 
 
     GetMessageModificationToGalileoINav::GetMessageModificationToGalileoINav()
-      : CommandBase(CmdName)
+      : CommandBase(CmdName, TargetId)
     {}
 
     GetMessageModificationToGalileoINav::GetMessageModificationToGalileoINav(const std::string& id)
-      : CommandBase(CmdName)
+      : CommandBase(CmdName, TargetId)
     {
 
       setId(id);
@@ -50,6 +55,12 @@ namespace Sdx
     }
 
     std::string GetMessageModificationToGalileoINav::documentation() const { return Documentation; }
+
+    const std::vector<std::string>& GetMessageModificationToGalileoINav::fieldNames() const 
+    { 
+      static const std::vector<std::string> names {"Id"}; 
+      return names; 
+    }
 
 
     int GetMessageModificationToGalileoINav::executePermission() const

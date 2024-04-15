@@ -1,8 +1,7 @@
 
-#include "gen/ForceIntTxAttitudeToZero.h"
+#include "ForceIntTxAttitudeToZero.h"
 
 #include "command_factory.h"
-#include "command_result_factory.h"
 #include "parse_json.hpp"
 
 ///
@@ -14,17 +13,24 @@ namespace Sdx
   namespace Cmd
   {
     const char* const ForceIntTxAttitudeToZero::CmdName = "ForceIntTxAttitudeToZero";
-    const char* const ForceIntTxAttitudeToZero::Documentation = "Set force interference vehicle yaw, pitch and roll to zero enabled or disabled";
+    const char* const ForceIntTxAttitudeToZero::Documentation = "Set force interference vehicle yaw, pitch and roll to zero enabled or disabled\n"
+      "\n"
+      "Name    Type   Description\n"
+      "------- ------ ------------------------------------------------------------\n"
+      "Enabled bool   If true, interference vehicle won't rotate during simulation\n"
+      "Id      string Transmitter unique identifier.";
+    const char* const ForceIntTxAttitudeToZero::TargetId = "";
 
-    REGISTER_COMMAND_FACTORY(ForceIntTxAttitudeToZero);
+    REGISTER_COMMAND_TO_FACTORY_DECL(ForceIntTxAttitudeToZero);
+    REGISTER_COMMAND_TO_FACTORY_IMPL(ForceIntTxAttitudeToZero);
 
 
     ForceIntTxAttitudeToZero::ForceIntTxAttitudeToZero()
-      : CommandBase(CmdName)
+      : CommandBase(CmdName, TargetId)
     {}
 
     ForceIntTxAttitudeToZero::ForceIntTxAttitudeToZero(bool enabled, const std::string& id)
-      : CommandBase(CmdName)
+      : CommandBase(CmdName, TargetId)
     {
 
       setEnabled(enabled);
@@ -52,6 +58,12 @@ namespace Sdx
     }
 
     std::string ForceIntTxAttitudeToZero::documentation() const { return Documentation; }
+
+    const std::vector<std::string>& ForceIntTxAttitudeToZero::fieldNames() const 
+    { 
+      static const std::vector<std::string> names {"Enabled", "Id"}; 
+      return names; 
+    }
 
 
     int ForceIntTxAttitudeToZero::executePermission() const

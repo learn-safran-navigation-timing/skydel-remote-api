@@ -1,8 +1,7 @@
 
-#include "gen/EnableSbasFastCorrectionsFor.h"
+#include "EnableSbasFastCorrectionsFor.h"
 
 #include "command_factory.h"
-#include "command_result_factory.h"
 #include "parse_json.hpp"
 
 ///
@@ -14,17 +13,26 @@ namespace Sdx
   namespace Cmd
   {
     const char* const EnableSbasFastCorrectionsFor::CmdName = "EnableSbasFastCorrectionsFor";
-    const char* const EnableSbasFastCorrectionsFor::Documentation = "Set whether specific errors type for this constellation should be compensated in SBAS fast corrections";
+    const char* const EnableSbasFastCorrectionsFor::Documentation = "Set whether specific errors type for this constellation should be compensated in SBAS fast corrections\n"
+      "\n"
+      "Name      Type            Description\n"
+      "--------- --------------- ----------------------------------------------------------------------------------------------------\n"
+      "System    string          \"GPS\" or \"SBAS\"\n"
+      "IsEnabled bool            True if corrections are enabled\n"
+      "ErrorType optional string Comma separated error type to enable/disable. Accepted error types are \"PSR offset\" and \"PSR error\".\n"
+      "                          Default value is \"PSR error\". Getter only accepts one error type.";
+    const char* const EnableSbasFastCorrectionsFor::TargetId = "";
 
-    REGISTER_COMMAND_FACTORY(EnableSbasFastCorrectionsFor);
+    REGISTER_COMMAND_TO_FACTORY_DECL(EnableSbasFastCorrectionsFor);
+    REGISTER_COMMAND_TO_FACTORY_IMPL(EnableSbasFastCorrectionsFor);
 
 
     EnableSbasFastCorrectionsFor::EnableSbasFastCorrectionsFor()
-      : CommandBase(CmdName)
+      : CommandBase(CmdName, TargetId)
     {}
 
     EnableSbasFastCorrectionsFor::EnableSbasFastCorrectionsFor(const std::string& system, bool isEnabled, const Sdx::optional<std::string>& errorType)
-      : CommandBase(CmdName)
+      : CommandBase(CmdName, TargetId)
     {
 
       setSystem(system);
@@ -54,6 +62,12 @@ namespace Sdx
     }
 
     std::string EnableSbasFastCorrectionsFor::documentation() const { return Documentation; }
+
+    const std::vector<std::string>& EnableSbasFastCorrectionsFor::fieldNames() const 
+    { 
+      static const std::vector<std::string> names {"System", "IsEnabled", "ErrorType"}; 
+      return names; 
+    }
 
 
     int EnableSbasFastCorrectionsFor::executePermission() const

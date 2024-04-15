@@ -1,8 +1,7 @@
 
-#include "gen/ExecuteGpuBenchmark.h"
+#include "ExecuteGpuBenchmark.h"
 
 #include "command_factory.h"
-#include "command_result_factory.h"
 #include "parse_json.hpp"
 
 ///
@@ -14,17 +13,27 @@ namespace Sdx
   namespace Cmd
   {
     const char* const ExecuteGpuBenchmark::CmdName = "ExecuteGpuBenchmark";
-    const char* const ExecuteGpuBenchmark::Documentation = "Execute the GPU benchmark and get the result score (will block Skydel's user interface).";
+    const char* const ExecuteGpuBenchmark::Documentation = "Execute the GPU benchmark and get the result score (will block Skydel's user interface).\n"
+      "\n"
+      "Name              Type            Description\n"
+      "----------------- --------------- ----------------------------------------------------------------------------\n"
+      "DurationMs        int             Duration of execution in milliseconds.\n"
+      "SystemSvCountDict dict string:int A dictionary of system svcount pairs.\n"
+      "                                  Accepted keys are: \"GPS\", \"GLONASS\", \"Galileo\", \"BeiDou\", \"SBAS\", \"QZSS\" and\n"
+      "                                                     \"NavIC\"\n"
+      "EchoCount         int             Number of echos per signal.";
+    const char* const ExecuteGpuBenchmark::TargetId = "";
 
-    REGISTER_COMMAND_FACTORY(ExecuteGpuBenchmark);
+    REGISTER_COMMAND_TO_FACTORY_DECL(ExecuteGpuBenchmark);
+    REGISTER_COMMAND_TO_FACTORY_IMPL(ExecuteGpuBenchmark);
 
 
     ExecuteGpuBenchmark::ExecuteGpuBenchmark()
-      : CommandBase(CmdName)
+      : CommandBase(CmdName, TargetId)
     {}
 
     ExecuteGpuBenchmark::ExecuteGpuBenchmark(int durationMs, const std::map<std::string, int>& systemSvCountDict, int echoCount)
-      : CommandBase(CmdName)
+      : CommandBase(CmdName, TargetId)
     {
 
       setDurationMs(durationMs);
@@ -54,6 +63,12 @@ namespace Sdx
     }
 
     std::string ExecuteGpuBenchmark::documentation() const { return Documentation; }
+
+    const std::vector<std::string>& ExecuteGpuBenchmark::fieldNames() const 
+    { 
+      static const std::vector<std::string> names {"DurationMs", "SystemSvCountDict", "EchoCount"}; 
+      return names; 
+    }
 
 
     int ExecuteGpuBenchmark::executePermission() const

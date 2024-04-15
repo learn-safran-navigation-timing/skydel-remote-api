@@ -1,8 +1,7 @@
 
-#include "gen/RemoveMessageModificationForNavMsgFamily.h"
+#include "RemoveMessageModificationForNavMsgFamily.h"
 
 #include "command_factory.h"
-#include "command_result_factory.h"
 #include "parse_json.hpp"
 
 ///
@@ -14,17 +13,24 @@ namespace Sdx
   namespace Cmd
   {
     const char* const RemoveMessageModificationForNavMsgFamily::CmdName = "RemoveMessageModificationForNavMsgFamily";
-    const char* const RemoveMessageModificationForNavMsgFamily::Documentation = "Removes a message modification event for the navigation message family.";
+    const char* const RemoveMessageModificationForNavMsgFamily::Documentation = "Removes a message modification event for the navigation message family.\n"
+      "\n"
+      "Name         Type   Description\n"
+      "------------ ------ ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------\n"
+      "NavMsgFamily string Navigation message family key, accepted values : \"GPS_LNAV\", \"GPS_CNAV\", \"GPS_CNAV2\", \"GPS_MNAV\", \"GLONASS_NAV\", \"GALILEO_FNAV\", \"GALILEO_INAV\", \"BEIDOU_D1_NAV\", \"BEIDOU_CNAV1\", \"BEIDOU_CNAV2\", \"QZSS_LNAV\", \"QZSS_SLAS\", \"NAVIC_NAV\" and \"SBAS_NAV\"\n"
+      "Id           string Unique identifier";
+    const char* const RemoveMessageModificationForNavMsgFamily::TargetId = "";
 
-    REGISTER_COMMAND_FACTORY(RemoveMessageModificationForNavMsgFamily);
+    REGISTER_COMMAND_TO_FACTORY_DECL(RemoveMessageModificationForNavMsgFamily);
+    REGISTER_COMMAND_TO_FACTORY_IMPL(RemoveMessageModificationForNavMsgFamily);
 
 
     RemoveMessageModificationForNavMsgFamily::RemoveMessageModificationForNavMsgFamily()
-      : CommandBase(CmdName)
+      : CommandBase(CmdName, TargetId)
     {}
 
     RemoveMessageModificationForNavMsgFamily::RemoveMessageModificationForNavMsgFamily(const std::string& navMsgFamily, const std::string& id)
-      : CommandBase(CmdName)
+      : CommandBase(CmdName, TargetId)
     {
 
       setNavMsgFamily(navMsgFamily);
@@ -52,6 +58,12 @@ namespace Sdx
     }
 
     std::string RemoveMessageModificationForNavMsgFamily::documentation() const { return Documentation; }
+
+    const std::vector<std::string>& RemoveMessageModificationForNavMsgFamily::fieldNames() const 
+    { 
+      static const std::vector<std::string> names {"NavMsgFamily", "Id"}; 
+      return names; 
+    }
 
 
     int RemoveMessageModificationForNavMsgFamily::executePermission() const

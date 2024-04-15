@@ -1,8 +1,7 @@
 
-#include "gen/IsIntTxIgnoreRxAntennaPhasePatternResult.h"
+#include "IsIntTxIgnoreRxAntennaPhasePatternResult.h"
 
 #include "command_factory.h"
-#include "command_result_factory.h"
 #include "parse_json.hpp"
 
 ///
@@ -14,17 +13,23 @@ namespace Sdx
   namespace Cmd
   {
     const char* const IsIntTxIgnoreRxAntennaPhasePatternResult::CmdName = "IsIntTxIgnoreRxAntennaPhasePatternResult";
-    const char* const IsIntTxIgnoreRxAntennaPhasePatternResult::Documentation = "Result of IsIntTxIgnoreRxAntennaPhasePattern.";
+    const char* const IsIntTxIgnoreRxAntennaPhasePatternResult::Documentation = "Result of IsIntTxIgnoreRxAntennaPhasePattern.\n"
+      "\n"
+      "Name   Type   Description\n"
+      "------ ------ --------------------------------------------------------------\n"
+      "Ignore bool   If true, the receiver's antenna phase pattern will be ignored.\n"
+      "Id     string Transmitter unique identifier.";
+    const char* const IsIntTxIgnoreRxAntennaPhasePatternResult::TargetId = "";
 
-    REGISTER_COMMAND_RESULT_TO_FACTORY_IMPL(IsIntTxIgnoreRxAntennaPhasePatternResult);
+    REGISTER_COMMAND_TO_FACTORY_IMPL(IsIntTxIgnoreRxAntennaPhasePatternResult);
 
 
     IsIntTxIgnoreRxAntennaPhasePatternResult::IsIntTxIgnoreRxAntennaPhasePatternResult()
-      : CommandResult(CmdName)
+      : CommandResult(CmdName, TargetId)
     {}
 
     IsIntTxIgnoreRxAntennaPhasePatternResult::IsIntTxIgnoreRxAntennaPhasePatternResult(bool ignore, const std::string& id)
-      : CommandResult(CmdName)
+      : CommandResult(CmdName, TargetId)
     {
 
       setIgnore(ignore);
@@ -32,7 +37,7 @@ namespace Sdx
     }
 
     IsIntTxIgnoreRxAntennaPhasePatternResult::IsIntTxIgnoreRxAntennaPhasePatternResult(CommandBasePtr relatedCommand, bool ignore, const std::string& id)
-      : CommandResult(CmdName, relatedCommand)
+      : CommandResult(CmdName, TargetId, relatedCommand)
     {
 
       setIgnore(ignore);
@@ -66,6 +71,12 @@ namespace Sdx
     }
 
     std::string IsIntTxIgnoreRxAntennaPhasePatternResult::documentation() const { return Documentation; }
+
+    const std::vector<std::string>& IsIntTxIgnoreRxAntennaPhasePatternResult::fieldNames() const 
+    { 
+      static const std::vector<std::string> names {"Ignore", "Id"}; 
+      return names; 
+    }
 
 
     bool IsIntTxIgnoreRxAntennaPhasePatternResult::ignore() const

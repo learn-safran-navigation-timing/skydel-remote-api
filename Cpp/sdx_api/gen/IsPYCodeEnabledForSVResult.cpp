@@ -1,8 +1,7 @@
 
-#include "gen/IsPYCodeEnabledForSVResult.h"
+#include "IsPYCodeEnabledForSVResult.h"
 
 #include "command_factory.h"
-#include "command_result_factory.h"
 #include "parse_json.hpp"
 
 ///
@@ -14,17 +13,24 @@ namespace Sdx
   namespace Cmd
   {
     const char* const IsPYCodeEnabledForSVResult::CmdName = "IsPYCodeEnabledForSVResult";
-    const char* const IsPYCodeEnabledForSVResult::Documentation = "Result of IsPYCodeEnabledForSV.";
+    const char* const IsPYCodeEnabledForSVResult::Documentation = "Result of IsPYCodeEnabledForSV.\n"
+      "\n"
+      "Name    Type   Description\n"
+      "------- ------ -----------------------------------------------\n"
+      "Signal  string Accepted signal keys: \"L1P\", \"L2P\"\n"
+      "SvId    int    The satellite's SV ID 1..32 (use 0 for all SVs)\n"
+      "Enabled bool   Enable P(Y)-Code if True";
+    const char* const IsPYCodeEnabledForSVResult::TargetId = "";
 
-    REGISTER_COMMAND_RESULT_TO_FACTORY_IMPL(IsPYCodeEnabledForSVResult);
+    REGISTER_COMMAND_TO_FACTORY_IMPL(IsPYCodeEnabledForSVResult);
 
 
     IsPYCodeEnabledForSVResult::IsPYCodeEnabledForSVResult()
-      : CommandResult(CmdName)
+      : CommandResult(CmdName, TargetId)
     {}
 
     IsPYCodeEnabledForSVResult::IsPYCodeEnabledForSVResult(const std::string& signal, int svId, bool enabled)
-      : CommandResult(CmdName)
+      : CommandResult(CmdName, TargetId)
     {
 
       setSignal(signal);
@@ -33,7 +39,7 @@ namespace Sdx
     }
 
     IsPYCodeEnabledForSVResult::IsPYCodeEnabledForSVResult(CommandBasePtr relatedCommand, const std::string& signal, int svId, bool enabled)
-      : CommandResult(CmdName, relatedCommand)
+      : CommandResult(CmdName, TargetId, relatedCommand)
     {
 
       setSignal(signal);
@@ -69,6 +75,12 @@ namespace Sdx
     }
 
     std::string IsPYCodeEnabledForSVResult::documentation() const { return Documentation; }
+
+    const std::vector<std::string>& IsPYCodeEnabledForSVResult::fieldNames() const 
+    { 
+      static const std::vector<std::string> names {"Signal", "SvId", "Enabled"}; 
+      return names; 
+    }
 
 
     std::string IsPYCodeEnabledForSVResult::signal() const

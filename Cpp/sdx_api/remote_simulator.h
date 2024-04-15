@@ -14,6 +14,7 @@ class HilClient;
 class Ecef;
 class Lla;
 class Attitude;
+struct DateTime;
 struct VehicleInfo;
 
 int spooferInstance(int id);
@@ -43,11 +44,13 @@ public:
   void stop();
 
   CommandBasePtr post(CommandBasePtr cmd, double timestamp);
+  CommandBasePtr post(CommandBasePtr cmd, const Sdx::DateTime& gpsTimestamp);
   CommandBasePtr post(CommandBasePtr cmd);
 
   CommandResultPtr wait(CommandBasePtr cmd);
 
   CommandResultPtr call(CommandBasePtr cmd, double timestamp);
+  CommandResultPtr call(CommandBasePtr cmd, const Sdx::DateTime& gpsTimestamp);
   CommandResultPtr call(CommandBasePtr cmd);
 
   CommandResultPtr beginTrackDefinition();
@@ -273,11 +276,13 @@ public:
 
 private:
   CommandBasePtr postCommand(CommandBasePtr cmd, double timestamp);
+  CommandBasePtr postCommand(CommandBasePtr cmd, const Sdx::DateTime& gpsTimestamp);
   CommandBasePtr postCommand(CommandBasePtr cmd);
 
   CommandResultPtr waitCommand(CommandBasePtr cmd);
 
   CommandResultPtr callCommand(CommandBasePtr cmd, double timestamp);
+  CommandResultPtr callCommand(CommandBasePtr cmd, const Sdx::DateTime& gpsTimestamp);
   CommandResultPtr callCommand(CommandBasePtr cmd);
 
   void resetTime();

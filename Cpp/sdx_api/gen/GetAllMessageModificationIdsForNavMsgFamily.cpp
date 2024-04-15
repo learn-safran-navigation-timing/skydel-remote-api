@@ -1,8 +1,7 @@
 
-#include "gen/GetAllMessageModificationIdsForNavMsgFamily.h"
+#include "GetAllMessageModificationIdsForNavMsgFamily.h"
 
 #include "command_factory.h"
-#include "command_result_factory.h"
 #include "parse_json.hpp"
 
 ///
@@ -14,17 +13,24 @@ namespace Sdx
   namespace Cmd
   {
     const char* const GetAllMessageModificationIdsForNavMsgFamily::CmdName = "GetAllMessageModificationIdsForNavMsgFamily";
-    const char* const GetAllMessageModificationIdsForNavMsgFamily::Documentation = "Get all the message modification event's IDs for this navigation message family and SV ID.";
+    const char* const GetAllMessageModificationIdsForNavMsgFamily::Documentation = "Get all the message modification event's IDs for this navigation message family and SV ID.\n"
+      "\n"
+      "Name         Type   Description\n"
+      "------------ ------ ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------\n"
+      "NavMsgFamily string Navigation message family key, accepted values : \"GPS_LNAV\", \"GPS_CNAV\", \"GPS_CNAV2\", \"GPS_MNAV\", \"GLONASS_NAV\", \"GALILEO_FNAV\", \"GALILEO_INAV\", \"BEIDOU_D1_NAV\", \"BEIDOU_CNAV1\", \"BEIDOU_CNAV2\", \"QZSS_LNAV\", \"QZSS_SLAS\", \"NAVIC_NAV\" and \"SBAS_NAV\"\n"
+      "SvId         int    The satellite's SV ID";
+    const char* const GetAllMessageModificationIdsForNavMsgFamily::TargetId = "";
 
-    REGISTER_COMMAND_FACTORY(GetAllMessageModificationIdsForNavMsgFamily);
+    REGISTER_COMMAND_TO_FACTORY_DECL(GetAllMessageModificationIdsForNavMsgFamily);
+    REGISTER_COMMAND_TO_FACTORY_IMPL(GetAllMessageModificationIdsForNavMsgFamily);
 
 
     GetAllMessageModificationIdsForNavMsgFamily::GetAllMessageModificationIdsForNavMsgFamily()
-      : CommandBase(CmdName)
+      : CommandBase(CmdName, TargetId)
     {}
 
     GetAllMessageModificationIdsForNavMsgFamily::GetAllMessageModificationIdsForNavMsgFamily(const std::string& navMsgFamily, int svId)
-      : CommandBase(CmdName)
+      : CommandBase(CmdName, TargetId)
     {
 
       setNavMsgFamily(navMsgFamily);
@@ -52,6 +58,12 @@ namespace Sdx
     }
 
     std::string GetAllMessageModificationIdsForNavMsgFamily::documentation() const { return Documentation; }
+
+    const std::vector<std::string>& GetAllMessageModificationIdsForNavMsgFamily::fieldNames() const 
+    { 
+      static const std::vector<std::string> names {"NavMsgFamily", "SvId"}; 
+      return names; 
+    }
 
 
     int GetAllMessageModificationIdsForNavMsgFamily::executePermission() const

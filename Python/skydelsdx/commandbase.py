@@ -68,12 +68,15 @@ class CommandBase:
   CmdNameKey = "CmdName"
   CmdUuidKey = "CmdUuid"
   CmdTimestampKey = "CmdTimestamp"
+  CmdTargetId = "CmdTargetId"
  
-  def __init__(self, cmd_name):
+  def __init__(self, cmd_name, target_id = None):
     self.values = {}
     if cmd_name:
       self.values[CommandBase.CmdNameKey] = cmd_name
       self.values[CommandBase.CmdUuidKey] = "{" + uuid.uuid1().urn[9:] + "}"
+    if target_id:
+      self.values[CommandBase.CmdTargetId] = target_id
   
   def executePermission(self):
     return ExecutePermission.EXECUTE_IF_IDLE

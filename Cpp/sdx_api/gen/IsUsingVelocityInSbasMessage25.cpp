@@ -1,8 +1,7 @@
 
-#include "gen/IsUsingVelocityInSbasMessage25.h"
+#include "IsUsingVelocityInSbasMessage25.h"
 
 #include "command_factory.h"
-#include "command_result_factory.h"
 #include "parse_json.hpp"
 
 ///
@@ -15,12 +14,14 @@ namespace Sdx
   {
     const char* const IsUsingVelocityInSbasMessage25::CmdName = "IsUsingVelocityInSbasMessage25";
     const char* const IsUsingVelocityInSbasMessage25::Documentation = "Get whether SBAS message 25 should send velocity corrections";
+    const char* const IsUsingVelocityInSbasMessage25::TargetId = "";
 
-    REGISTER_COMMAND_FACTORY(IsUsingVelocityInSbasMessage25);
+    REGISTER_COMMAND_TO_FACTORY_DECL(IsUsingVelocityInSbasMessage25);
+    REGISTER_COMMAND_TO_FACTORY_IMPL(IsUsingVelocityInSbasMessage25);
 
 
     IsUsingVelocityInSbasMessage25::IsUsingVelocityInSbasMessage25()
-      : CommandBase(CmdName)
+      : CommandBase(CmdName, TargetId)
     {
 
     }
@@ -44,6 +45,12 @@ namespace Sdx
     }
 
     std::string IsUsingVelocityInSbasMessage25::documentation() const { return Documentation; }
+
+    const std::vector<std::string>& IsUsingVelocityInSbasMessage25::fieldNames() const 
+    { 
+      static const std::vector<std::string> names {}; 
+      return names; 
+    }
 
 
     int IsUsingVelocityInSbasMessage25::executePermission() const

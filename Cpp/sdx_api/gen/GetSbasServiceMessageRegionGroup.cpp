@@ -1,8 +1,7 @@
 
-#include "gen/GetSbasServiceMessageRegionGroup.h"
+#include "GetSbasServiceMessageRegionGroup.h"
 
 #include "command_factory.h"
-#include "command_result_factory.h"
 #include "parse_json.hpp"
 
 ///
@@ -14,17 +13,24 @@ namespace Sdx
   namespace Cmd
   {
     const char* const GetSbasServiceMessageRegionGroup::CmdName = "GetSbasServiceMessageRegionGroup";
-    const char* const GetSbasServiceMessageRegionGroup::Documentation = "Get infos about the SBAS service message region group at this index.";
+    const char* const GetSbasServiceMessageRegionGroup::Documentation = "Get infos about the SBAS service message region group at this index.\n"
+      "\n"
+      "Name            Type   Description\n"
+      "--------------- ------ -----------------------------------------------------------------------\n"
+      "ServiceProvider string Service providers, accepts \"WAAS\", \"EGNOS\", \"MSAS\", \"GAGAN\" and \"SDCM\".\n"
+      "Id              string Unique identifier of the SBAS service message region group.";
+    const char* const GetSbasServiceMessageRegionGroup::TargetId = "";
 
-    REGISTER_COMMAND_FACTORY(GetSbasServiceMessageRegionGroup);
+    REGISTER_COMMAND_TO_FACTORY_DECL(GetSbasServiceMessageRegionGroup);
+    REGISTER_COMMAND_TO_FACTORY_IMPL(GetSbasServiceMessageRegionGroup);
 
 
     GetSbasServiceMessageRegionGroup::GetSbasServiceMessageRegionGroup()
-      : CommandBase(CmdName)
+      : CommandBase(CmdName, TargetId)
     {}
 
     GetSbasServiceMessageRegionGroup::GetSbasServiceMessageRegionGroup(const std::string& serviceProvider, const std::string& id)
-      : CommandBase(CmdName)
+      : CommandBase(CmdName, TargetId)
     {
 
       setServiceProvider(serviceProvider);
@@ -52,6 +58,12 @@ namespace Sdx
     }
 
     std::string GetSbasServiceMessageRegionGroup::documentation() const { return Documentation; }
+
+    const std::vector<std::string>& GetSbasServiceMessageRegionGroup::fieldNames() const 
+    { 
+      static const std::vector<std::string> names {"ServiceProvider", "Id"}; 
+      return names; 
+    }
 
 
     int GetSbasServiceMessageRegionGroup::executePermission() const

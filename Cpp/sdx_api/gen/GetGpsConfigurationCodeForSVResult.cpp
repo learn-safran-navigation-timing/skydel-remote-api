@@ -1,8 +1,7 @@
 
-#include "gen/GetGpsConfigurationCodeForSVResult.h"
+#include "GetGpsConfigurationCodeForSVResult.h"
 
 #include "command_factory.h"
-#include "command_result_factory.h"
 #include "parse_json.hpp"
 
 ///
@@ -14,17 +13,24 @@ namespace Sdx
   namespace Cmd
   {
     const char* const GetGpsConfigurationCodeForSVResult::CmdName = "GetGpsConfigurationCodeForSVResult";
-    const char* const GetGpsConfigurationCodeForSVResult::Documentation = "Result of GetGpsConfigurationCodeForSV.";
+    const char* const GetGpsConfigurationCodeForSVResult::Documentation = "Result of GetGpsConfigurationCodeForSV.\n"
+      "\n"
+      "Name        Type            Description\n"
+      "----------- --------------- -------------------------------------------------------------------------------------------\n"
+      "SvId        int             Satellite SV ID 1..32\n"
+      "SvConfig    int             SV Config 0..4\n"
+      "DataSetName optional string Optional name of the data set to use. If no value is provided, the active data set is used.";
+    const char* const GetGpsConfigurationCodeForSVResult::TargetId = "";
 
-    REGISTER_COMMAND_RESULT_TO_FACTORY_IMPL(GetGpsConfigurationCodeForSVResult);
+    REGISTER_COMMAND_TO_FACTORY_IMPL(GetGpsConfigurationCodeForSVResult);
 
 
     GetGpsConfigurationCodeForSVResult::GetGpsConfigurationCodeForSVResult()
-      : CommandResult(CmdName)
+      : CommandResult(CmdName, TargetId)
     {}
 
     GetGpsConfigurationCodeForSVResult::GetGpsConfigurationCodeForSVResult(int svId, int svConfig, const Sdx::optional<std::string>& dataSetName)
-      : CommandResult(CmdName)
+      : CommandResult(CmdName, TargetId)
     {
 
       setSvId(svId);
@@ -33,7 +39,7 @@ namespace Sdx
     }
 
     GetGpsConfigurationCodeForSVResult::GetGpsConfigurationCodeForSVResult(CommandBasePtr relatedCommand, int svId, int svConfig, const Sdx::optional<std::string>& dataSetName)
-      : CommandResult(CmdName, relatedCommand)
+      : CommandResult(CmdName, TargetId, relatedCommand)
     {
 
       setSvId(svId);
@@ -69,6 +75,12 @@ namespace Sdx
     }
 
     std::string GetGpsConfigurationCodeForSVResult::documentation() const { return Documentation; }
+
+    const std::vector<std::string>& GetGpsConfigurationCodeForSVResult::fieldNames() const 
+    { 
+      static const std::vector<std::string> names {"SvId", "SvConfig", "DataSetName"}; 
+      return names; 
+    }
 
 
     int GetGpsConfigurationCodeForSVResult::svId() const

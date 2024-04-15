@@ -12,4 +12,6 @@ if(WIN32)
 else()
   target_compile_definitions(sdx_api PRIVATE GUID_LIBUUID=1)
   target_link_libraries(sdx_api PUBLIC uuid)
+  target_compile_options(sdx_api PRIVATE -Wno-old-style-cast
+                                         -Wno-zero-as-null-pointer-constant)
 endif()

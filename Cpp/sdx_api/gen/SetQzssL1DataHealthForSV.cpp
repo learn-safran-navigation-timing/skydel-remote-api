@@ -1,8 +1,7 @@
 
-#include "gen/SetQzssL1DataHealthForSV.h"
+#include "SetQzssL1DataHealthForSV.h"
 
 #include "command_factory.h"
-#include "command_result_factory.h"
 #include "parse_json.hpp"
 
 ///
@@ -14,17 +13,25 @@ namespace Sdx
   namespace Cmd
   {
     const char* const SetQzssL1DataHealthForSV::CmdName = "SetQzssL1DataHealthForSV";
-    const char* const SetQzssL1DataHealthForSV::Documentation = "Set QZSS L1 C/A nav data health";
+    const char* const SetQzssL1DataHealthForSV::Documentation = "Set QZSS L1 C/A nav data health\n"
+      "\n"
+      "Name        Type            Description\n"
+      "----------- --------------- -------------------------------------------------------------------------------------------\n"
+      "SvId        int             Satellite SV ID 1..10, or use 0 to apply new value to all satellites.\n"
+      "Health      int             Data health 0..7\n"
+      "DataSetName optional string Optional name of the data set to use. If no value is provided, the active data set is used.";
+    const char* const SetQzssL1DataHealthForSV::TargetId = "";
 
-    REGISTER_COMMAND_FACTORY(SetQzssL1DataHealthForSV);
+    REGISTER_COMMAND_TO_FACTORY_DECL(SetQzssL1DataHealthForSV);
+    REGISTER_COMMAND_TO_FACTORY_IMPL(SetQzssL1DataHealthForSV);
 
 
     SetQzssL1DataHealthForSV::SetQzssL1DataHealthForSV()
-      : CommandBase(CmdName)
+      : CommandBase(CmdName, TargetId)
     {}
 
     SetQzssL1DataHealthForSV::SetQzssL1DataHealthForSV(int svId, int health, const Sdx::optional<std::string>& dataSetName)
-      : CommandBase(CmdName)
+      : CommandBase(CmdName, TargetId)
     {
 
       setSvId(svId);
@@ -54,6 +61,12 @@ namespace Sdx
     }
 
     std::string SetQzssL1DataHealthForSV::documentation() const { return Documentation; }
+
+    const std::vector<std::string>& SetQzssL1DataHealthForSV::fieldNames() const 
+    { 
+      static const std::vector<std::string> names {"SvId", "Health", "DataSetName"}; 
+      return names; 
+    }
 
 
     int SetQzssL1DataHealthForSV::executePermission() const

@@ -731,6 +731,14 @@ namespace Sdx
       return cmd;
     }
 
+    public CommandBase Post(CommandBase cmd, DateTime gpsTimestamp)
+    {
+        CheckForbiddenPost(cmd);
+        Print("Post " + cmd.ToReadableCommand() + " at " + gpsTimestamp);
+        PostCommand(cmd, gpsTimestamp);
+        return cmd;
+    }
+
     public CommandBase Post(CommandBase cmd)
     {
       CheckForbiddenPost(cmd);
@@ -785,6 +793,14 @@ namespace Sdx
       return cmd;
     }
 
+    private CommandBase PostCommand(CommandBase cmd, DateTime timestamp)
+    {
+        DeprecatedMessage(cmd);
+        cmd.GpsTimestamp = timestamp;
+        m_client.SendCommand(cmd);
+        return cmd;
+    }
+
     private CommandBase PostCommand(CommandBase cmd)
     {
       DeprecatedMessage(cmd);
@@ -803,6 +819,12 @@ namespace Sdx
     {
       PostCommand(cmd, timestamp);
       return WaitCommand(cmd);
+    }
+
+    private CommandResult CallCommand(CommandBase cmd, DateTime gpsTimestamp)
+    {
+        PostCommand(cmd, gpsTimestamp);
+        return WaitCommand(cmd);
     }
 
     private CommandResult CallCommand(CommandBase cmd)

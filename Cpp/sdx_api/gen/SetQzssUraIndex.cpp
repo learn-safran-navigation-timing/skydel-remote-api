@@ -1,8 +1,7 @@
 
-#include "gen/SetQzssUraIndex.h"
+#include "SetQzssUraIndex.h"
 
 #include "command_factory.h"
-#include "command_result_factory.h"
 #include "parse_json.hpp"
 
 ///
@@ -14,17 +13,27 @@ namespace Sdx
   namespace Cmd
   {
     const char* const SetQzssUraIndex::CmdName = "SetQzssUraIndex";
-    const char* const SetQzssUraIndex::Documentation = "Please note the command SetQzssUraIndex is deprecated since 21.3. You may use SetQzssUraIndexForSV.\n\nSet the URA index of a QZSS satellite";
+    const char* const SetQzssUraIndex::Documentation = "Please note the command SetQzssUraIndex is deprecated since 21.3. You may use SetQzssUraIndexForSV.\n"
+      "\n"
+      "Set the URA index of a QZSS satellite\n"
+      "\n"
+      "Name        Type            Description\n"
+      "----------- --------------- -------------------------------------------------------------------------------------------\n"
+      "SvId        int             The satellite SV ID, or use 0 to apply new value to all satellites.\n"
+      "Urai        int             URA index.\n"
+      "DataSetName optional string Optional name of the data set to use. If no value is provided, the active data set is used.";
+    const char* const SetQzssUraIndex::TargetId = "";
 
-    REGISTER_COMMAND_FACTORY(SetQzssUraIndex);
+    REGISTER_COMMAND_TO_FACTORY_DECL(SetQzssUraIndex);
+    REGISTER_COMMAND_TO_FACTORY_IMPL(SetQzssUraIndex);
 
 
     SetQzssUraIndex::SetQzssUraIndex()
-      : CommandBase(CmdName)
+      : CommandBase(CmdName, TargetId)
     {}
 
     SetQzssUraIndex::SetQzssUraIndex(int svId, int urai, const Sdx::optional<std::string>& dataSetName)
-      : CommandBase(CmdName)
+      : CommandBase(CmdName, TargetId)
     {
 
       setSvId(svId);
@@ -54,6 +63,12 @@ namespace Sdx
     }
 
     std::string SetQzssUraIndex::documentation() const { return Documentation; }
+
+    const std::vector<std::string>& SetQzssUraIndex::fieldNames() const 
+    { 
+      static const std::vector<std::string> names {"SvId", "Urai", "DataSetName"}; 
+      return names; 
+    }
 
 
     int SetQzssUraIndex::executePermission() const

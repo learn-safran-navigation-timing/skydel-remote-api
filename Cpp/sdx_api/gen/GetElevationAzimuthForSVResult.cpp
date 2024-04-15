@@ -1,8 +1,7 @@
 
-#include "gen/GetElevationAzimuthForSVResult.h"
+#include "GetElevationAzimuthForSVResult.h"
 
 #include "command_factory.h"
-#include "command_result_factory.h"
 #include "parse_json.hpp"
 
 ///
@@ -14,17 +13,24 @@ namespace Sdx
   namespace Cmd
   {
     const char* const GetElevationAzimuthForSVResult::CmdName = "GetElevationAzimuthForSVResult";
-    const char* const GetElevationAzimuthForSVResult::Documentation = "Result of GetElevationAzimuthForSV.";
+    const char* const GetElevationAzimuthForSVResult::Documentation = "Result of GetElevationAzimuthForSV.\n"
+      "\n"
+      "Name             Type                      Description\n"
+      "---------------- ------------------------- ---------------------------------------------------------------------------\n"
+      "System           string                    \"GPS\", \"GLONASS\", \"Galileo\", \"BeiDou\", \"SBAS\", \"QZSS\", \"NavIC\" or \"PULSAR\".\n"
+      "SvId             int                       Satellite's SV ID.\n"
+      "ElevationAzimuth optional ElevationAzimuth Elevation and Azimuth position angles of the satellite.";
+    const char* const GetElevationAzimuthForSVResult::TargetId = "";
 
-    REGISTER_COMMAND_RESULT_TO_FACTORY_IMPL(GetElevationAzimuthForSVResult);
+    REGISTER_COMMAND_TO_FACTORY_IMPL(GetElevationAzimuthForSVResult);
 
 
     GetElevationAzimuthForSVResult::GetElevationAzimuthForSVResult()
-      : CommandResult(CmdName)
+      : CommandResult(CmdName, TargetId)
     {}
 
     GetElevationAzimuthForSVResult::GetElevationAzimuthForSVResult(const std::string& system, int svId, const Sdx::optional<Sdx::ElevationAzimuth>& elevationAzimuth)
-      : CommandResult(CmdName)
+      : CommandResult(CmdName, TargetId)
     {
 
       setSystem(system);
@@ -33,7 +39,7 @@ namespace Sdx
     }
 
     GetElevationAzimuthForSVResult::GetElevationAzimuthForSVResult(CommandBasePtr relatedCommand, const std::string& system, int svId, const Sdx::optional<Sdx::ElevationAzimuth>& elevationAzimuth)
-      : CommandResult(CmdName, relatedCommand)
+      : CommandResult(CmdName, TargetId, relatedCommand)
     {
 
       setSystem(system);
@@ -69,6 +75,12 @@ namespace Sdx
     }
 
     std::string GetElevationAzimuthForSVResult::documentation() const { return Documentation; }
+
+    const std::vector<std::string>& GetElevationAzimuthForSVResult::fieldNames() const 
+    { 
+      static const std::vector<std::string> names {"System", "SvId", "ElevationAzimuth"}; 
+      return names; 
+    }
 
 
     std::string GetElevationAzimuthForSVResult::system() const

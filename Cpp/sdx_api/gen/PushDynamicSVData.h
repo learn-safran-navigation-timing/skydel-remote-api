@@ -52,7 +52,7 @@ namespace Sdx
     ///
     /// Name           Type                  Description
     /// -------------- --------------------- ---------------------------------------------------------------------------------------
-    /// System         string                "GPS", "Galileo", "BeiDou", "QZSS" or "NavIC".
+    /// System         string                "GPS", "Galileo", "BeiDou", "QZSS", "NavIC" or "PULSAR".
     /// SvId           int                   Satellite's SV ID.
     /// Toc            datetime              Time of Clock.
     /// ParametersDict dict string:double    A dictionary of parameters pairs.
@@ -77,6 +77,7 @@ namespace Sdx
     public:
       static const char* const CmdName;
       static const char* const Documentation;
+      static const char* const TargetId;
 
 
       PushDynamicSVData();
@@ -87,6 +88,7 @@ namespace Sdx
       static PushDynamicSVDataPtr dynamicCast(CommandBasePtr ptr);
       virtual bool isValid() const override;
       virtual std::string documentation() const override;
+      virtual const std::vector<std::string>& fieldNames() const override;
 
       virtual int executePermission() const override;
 

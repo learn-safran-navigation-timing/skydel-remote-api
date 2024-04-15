@@ -1,8 +1,7 @@
 
-#include "gen/GetSVPhasePatternOffset.h"
+#include "GetSVPhasePatternOffset.h"
 
 #include "command_factory.h"
-#include "command_result_factory.h"
 #include "parse_json.hpp"
 
 ///
@@ -14,17 +13,25 @@ namespace Sdx
   namespace Cmd
   {
     const char* const GetSVPhasePatternOffset::CmdName = "GetSVPhasePatternOffset";
-    const char* const GetSVPhasePatternOffset::Documentation = "Get the offset (in rad) for the antenna phase pattern of the band.";
+    const char* const GetSVPhasePatternOffset::Documentation = "Get the offset (in rad) for the antenna phase pattern of the band.\n"
+      "\n"
+      "Name        Type            Description\n"
+      "----------- --------------- ------------------------------------------------------------------------------------\n"
+      "Band        GNSSBand        Offset will be apply to this band. (\"L1\", \"L2\" or \"L5\")\n"
+      "System      string          \"GPS\", \"GLONASS\", \"Galileo\", \"BeiDou\", \"SBAS\", \"QZSS\", \"NavIC\" or \"PULSAR\"\n"
+      "AntennaName optional string Vehicle antenna name. If no name is specified, apply the offset to the Basic Antenna";
+    const char* const GetSVPhasePatternOffset::TargetId = "";
 
-    REGISTER_COMMAND_FACTORY(GetSVPhasePatternOffset);
+    REGISTER_COMMAND_TO_FACTORY_DECL(GetSVPhasePatternOffset);
+    REGISTER_COMMAND_TO_FACTORY_IMPL(GetSVPhasePatternOffset);
 
 
     GetSVPhasePatternOffset::GetSVPhasePatternOffset()
-      : CommandBase(CmdName)
+      : CommandBase(CmdName, TargetId)
     {}
 
     GetSVPhasePatternOffset::GetSVPhasePatternOffset(const Sdx::GNSSBand& band, const std::string& system, const Sdx::optional<std::string>& antennaName)
-      : CommandBase(CmdName)
+      : CommandBase(CmdName, TargetId)
     {
 
       setBand(band);
@@ -54,6 +61,12 @@ namespace Sdx
     }
 
     std::string GetSVPhasePatternOffset::documentation() const { return Documentation; }
+
+    const std::vector<std::string>& GetSVPhasePatternOffset::fieldNames() const 
+    { 
+      static const std::vector<std::string> names {"Band", "System", "AntennaName"}; 
+      return names; 
+    }
 
 
     int GetSVPhasePatternOffset::executePermission() const

@@ -1,8 +1,7 @@
 
-#include "gen/GetOfficialLeapSecondResult.h"
+#include "GetOfficialLeapSecondResult.h"
 
 #include "command_factory.h"
-#include "command_result_factory.h"
 #include "parse_json.hpp"
 
 ///
@@ -14,24 +13,29 @@ namespace Sdx
   namespace Cmd
   {
     const char* const GetOfficialLeapSecondResult::CmdName = "GetOfficialLeapSecondResult";
-    const char* const GetOfficialLeapSecondResult::Documentation = "Result of GetOfficialLeapSecond";
+    const char* const GetOfficialLeapSecondResult::Documentation = "Result of GetOfficialLeapSecond\n"
+      "\n"
+      "Name       Type Description\n"
+      "---------- ---- -----------------\n"
+      "LeapSecond int  Leap second value";
+    const char* const GetOfficialLeapSecondResult::TargetId = "";
 
-    REGISTER_COMMAND_RESULT_TO_FACTORY_IMPL(GetOfficialLeapSecondResult);
+    REGISTER_COMMAND_TO_FACTORY_IMPL(GetOfficialLeapSecondResult);
 
 
     GetOfficialLeapSecondResult::GetOfficialLeapSecondResult()
-      : CommandResult(CmdName)
+      : CommandResult(CmdName, TargetId)
     {}
 
     GetOfficialLeapSecondResult::GetOfficialLeapSecondResult(int leapSecond)
-      : CommandResult(CmdName)
+      : CommandResult(CmdName, TargetId)
     {
 
       setLeapSecond(leapSecond);
     }
 
     GetOfficialLeapSecondResult::GetOfficialLeapSecondResult(CommandBasePtr relatedCommand, int leapSecond)
-      : CommandResult(CmdName, relatedCommand)
+      : CommandResult(CmdName, TargetId, relatedCommand)
     {
 
       setLeapSecond(leapSecond);
@@ -63,6 +67,12 @@ namespace Sdx
     }
 
     std::string GetOfficialLeapSecondResult::documentation() const { return Documentation; }
+
+    const std::vector<std::string>& GetOfficialLeapSecondResult::fieldNames() const 
+    { 
+      static const std::vector<std::string> names {"LeapSecond"}; 
+      return names; 
+    }
 
 
     int GetOfficialLeapSecondResult::leapSecond() const

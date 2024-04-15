@@ -1,8 +1,7 @@
 
-#include "gen/SetIntTxCW.h"
+#include "SetIntTxCW.h"
 
 #include "command_factory.h"
-#include "command_result_factory.h"
 #include "parse_json.hpp"
 
 ///
@@ -14,17 +13,32 @@ namespace Sdx
   namespace Cmd
   {
     const char* const SetIntTxCW::CmdName = "SetIntTxCW";
-    const char* const SetIntTxCW::Documentation = "Set continuous wave (CW) signal to interference transmitter. A transmitter can combine\nmultiple signals of different types to create complex waveform. The CW id (SignalId) can be an empty\nstring. In such case, Skydel will assign a unique ID. If the signal id is already in use for the\nspecified transmitted, the existing signal is updated, ortherwise a new signal is added.";
+    const char* const SetIntTxCW::Documentation = "Set continuous wave (CW) signal to interference transmitter. A transmitter can combine\n"
+      "multiple signals of different types to create complex waveform. The CW id (SignalId) can be an empty\n"
+      "string. In such case, Skydel will assign a unique ID. If the signal id is already in use for the\n"
+      "specified transmitted, the existing signal is updated, ortherwise a new signal is added.\n"
+      "\n"
+      "Name               Type            Description\n"
+      "------------------ --------------- ---------------------------------------------------\n"
+      "Enabled            bool            Enable (true) or disable (false) the signal\n"
+      "CentralFreq        double          Central frequency (Hz)\n"
+      "Power              double          Power (dB), relative to transmitter reference power\n"
+      "TransmitterId      string          Transmitter unique identifier.\n"
+      "SignalId           string          CW unique identifier.\n"
+      "InitialPhaseOffset optional double Initial phase offset, in radians. Defaults to 0.\n"
+      "Group              optional int    Group, if not using default group.";
+    const char* const SetIntTxCW::TargetId = "";
 
-    REGISTER_COMMAND_FACTORY(SetIntTxCW);
+    REGISTER_COMMAND_TO_FACTORY_DECL(SetIntTxCW);
+    REGISTER_COMMAND_TO_FACTORY_IMPL(SetIntTxCW);
 
 
     SetIntTxCW::SetIntTxCW()
-      : CommandBase(CmdName)
+      : CommandBase(CmdName, TargetId)
     {}
 
     SetIntTxCW::SetIntTxCW(bool enabled, double centralFreq, double power, const std::string& transmitterId, const std::string& signalId, const Sdx::optional<double>& initialPhaseOffset, const Sdx::optional<int>& group)
-      : CommandBase(CmdName)
+      : CommandBase(CmdName, TargetId)
     {
 
       setEnabled(enabled);
@@ -62,6 +76,12 @@ namespace Sdx
     }
 
     std::string SetIntTxCW::documentation() const { return Documentation; }
+
+    const std::vector<std::string>& SetIntTxCW::fieldNames() const 
+    { 
+      static const std::vector<std::string> names {"Enabled", "CentralFreq", "Power", "TransmitterId", "SignalId", "InitialPhaseOffset", "Group"}; 
+      return names; 
+    }
 
 
     int SetIntTxCW::executePermission() const

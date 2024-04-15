@@ -1,8 +1,7 @@
 
-#include "gen/IsSpoofTxIgnoreRxAntennaGainPattern.h"
+#include "IsSpoofTxIgnoreRxAntennaGainPattern.h"
 
 #include "command_factory.h"
-#include "command_result_factory.h"
 #include "parse_json.hpp"
 
 ///
@@ -14,17 +13,23 @@ namespace Sdx
   namespace Cmd
   {
     const char* const IsSpoofTxIgnoreRxAntennaGainPattern::CmdName = "IsSpoofTxIgnoreRxAntennaGainPattern";
-    const char* const IsSpoofTxIgnoreRxAntennaGainPattern::Documentation = "Get whether a spoofer ignore the receiver's antenna gain pattern.";
+    const char* const IsSpoofTxIgnoreRxAntennaGainPattern::Documentation = "Get whether a spoofer ignore the receiver's antenna gain pattern.\n"
+      "\n"
+      "Name Type   Description\n"
+      "---- ------ ------------------------------\n"
+      "Id   string Transmitter unique identifier.";
+    const char* const IsSpoofTxIgnoreRxAntennaGainPattern::TargetId = "";
 
-    REGISTER_COMMAND_FACTORY(IsSpoofTxIgnoreRxAntennaGainPattern);
+    REGISTER_COMMAND_TO_FACTORY_DECL(IsSpoofTxIgnoreRxAntennaGainPattern);
+    REGISTER_COMMAND_TO_FACTORY_IMPL(IsSpoofTxIgnoreRxAntennaGainPattern);
 
 
     IsSpoofTxIgnoreRxAntennaGainPattern::IsSpoofTxIgnoreRxAntennaGainPattern()
-      : CommandBase(CmdName)
+      : CommandBase(CmdName, TargetId)
     {}
 
     IsSpoofTxIgnoreRxAntennaGainPattern::IsSpoofTxIgnoreRxAntennaGainPattern(const std::string& id)
-      : CommandBase(CmdName)
+      : CommandBase(CmdName, TargetId)
     {
 
       setId(id);
@@ -50,6 +55,12 @@ namespace Sdx
     }
 
     std::string IsSpoofTxIgnoreRxAntennaGainPattern::documentation() const { return Documentation; }
+
+    const std::vector<std::string>& IsSpoofTxIgnoreRxAntennaGainPattern::fieldNames() const 
+    { 
+      static const std::vector<std::string> names {"Id"}; 
+      return names; 
+    }
 
 
     int IsSpoofTxIgnoreRxAntennaGainPattern::executePermission() const

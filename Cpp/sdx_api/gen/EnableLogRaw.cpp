@@ -1,8 +1,7 @@
 
-#include "gen/EnableLogRaw.h"
+#include "EnableLogRaw.h"
 
 #include "command_factory.h"
-#include "command_result_factory.h"
 #include "parse_json.hpp"
 
 ///
@@ -14,17 +13,23 @@ namespace Sdx
   namespace Cmd
   {
     const char* const EnableLogRaw::CmdName = "EnableLogRaw";
-    const char* const EnableLogRaw::Documentation = "Enable (or disable) raw data logging (pseudorange, antenna gain, receiver position, satellite position, etc.)";
+    const char* const EnableLogRaw::Documentation = "Enable (or disable) raw data logging (pseudorange, antenna gain, receiver position, satellite position, etc.)\n"
+      "\n"
+      "Name    Type Description\n"
+      "------- ---- -----------------------------------------------\n"
+      "Enabled bool If true, file will be created during simulation";
+    const char* const EnableLogRaw::TargetId = "";
 
-    REGISTER_COMMAND_FACTORY(EnableLogRaw);
+    REGISTER_COMMAND_TO_FACTORY_DECL(EnableLogRaw);
+    REGISTER_COMMAND_TO_FACTORY_IMPL(EnableLogRaw);
 
 
     EnableLogRaw::EnableLogRaw()
-      : CommandBase(CmdName)
+      : CommandBase(CmdName, TargetId)
     {}
 
     EnableLogRaw::EnableLogRaw(bool enabled)
-      : CommandBase(CmdName)
+      : CommandBase(CmdName, TargetId)
     {
 
       setEnabled(enabled);
@@ -50,6 +55,12 @@ namespace Sdx
     }
 
     std::string EnableLogRaw::documentation() const { return Documentation; }
+
+    const std::vector<std::string>& EnableLogRaw::fieldNames() const 
+    { 
+      static const std::vector<std::string> names {"Enabled"}; 
+      return names; 
+    }
 
 
     int EnableLogRaw::executePermission() const

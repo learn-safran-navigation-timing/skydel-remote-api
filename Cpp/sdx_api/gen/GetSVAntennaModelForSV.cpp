@@ -1,8 +1,7 @@
 
-#include "gen/GetSVAntennaModelForSV.h"
+#include "GetSVAntennaModelForSV.h"
 
 #include "command_factory.h"
-#include "command_result_factory.h"
 #include "parse_json.hpp"
 
 ///
@@ -14,17 +13,24 @@ namespace Sdx
   namespace Cmd
   {
     const char* const GetSVAntennaModelForSV::CmdName = "GetSVAntennaModelForSV";
-    const char* const GetSVAntennaModelForSV::Documentation = "Get the antenna model used by the SV.";
+    const char* const GetSVAntennaModelForSV::Documentation = "Get the antenna model used by the SV.\n"
+      "\n"
+      "Name   Type   Description\n"
+      "------ ------ ---------------------------------------------------------------------------\n"
+      "System string \"GPS\", \"GLONASS\", \"Galileo\", \"BeiDou\", \"SBAS\", \"QZSS\", \"NavIC\" or \"PULSAR\".\n"
+      "SvId   int    The satellite's SV ID.";
+    const char* const GetSVAntennaModelForSV::TargetId = "";
 
-    REGISTER_COMMAND_FACTORY(GetSVAntennaModelForSV);
+    REGISTER_COMMAND_TO_FACTORY_DECL(GetSVAntennaModelForSV);
+    REGISTER_COMMAND_TO_FACTORY_IMPL(GetSVAntennaModelForSV);
 
 
     GetSVAntennaModelForSV::GetSVAntennaModelForSV()
-      : CommandBase(CmdName)
+      : CommandBase(CmdName, TargetId)
     {}
 
     GetSVAntennaModelForSV::GetSVAntennaModelForSV(const std::string& system, int svId)
-      : CommandBase(CmdName)
+      : CommandBase(CmdName, TargetId)
     {
 
       setSystem(system);
@@ -52,6 +58,12 @@ namespace Sdx
     }
 
     std::string GetSVAntennaModelForSV::documentation() const { return Documentation; }
+
+    const std::vector<std::string>& GetSVAntennaModelForSV::fieldNames() const 
+    { 
+      static const std::vector<std::string> names {"System", "SvId"}; 
+      return names; 
+    }
 
 
     int GetSVAntennaModelForSV::executePermission() const

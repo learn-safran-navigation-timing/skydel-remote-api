@@ -1,8 +1,7 @@
 
-#include "gen/IsSimulationStopAtTrajectoryEndEnabled.h"
+#include "IsSimulationStopAtTrajectoryEndEnabled.h"
 
 #include "command_factory.h"
-#include "command_result_factory.h"
 #include "parse_json.hpp"
 
 ///
@@ -15,12 +14,14 @@ namespace Sdx
   {
     const char* const IsSimulationStopAtTrajectoryEndEnabled::CmdName = "IsSimulationStopAtTrajectoryEndEnabled";
     const char* const IsSimulationStopAtTrajectoryEndEnabled::Documentation = "Get simulation automatic stop when the vehicle reaches trajectory end enabled or disabled. Only effective with Tracks and Routes";
+    const char* const IsSimulationStopAtTrajectoryEndEnabled::TargetId = "";
 
-    REGISTER_COMMAND_FACTORY(IsSimulationStopAtTrajectoryEndEnabled);
+    REGISTER_COMMAND_TO_FACTORY_DECL(IsSimulationStopAtTrajectoryEndEnabled);
+    REGISTER_COMMAND_TO_FACTORY_IMPL(IsSimulationStopAtTrajectoryEndEnabled);
 
 
     IsSimulationStopAtTrajectoryEndEnabled::IsSimulationStopAtTrajectoryEndEnabled()
-      : CommandBase(CmdName)
+      : CommandBase(CmdName, TargetId)
     {
 
     }
@@ -44,6 +45,12 @@ namespace Sdx
     }
 
     std::string IsSimulationStopAtTrajectoryEndEnabled::documentation() const { return Documentation; }
+
+    const std::vector<std::string>& IsSimulationStopAtTrajectoryEndEnabled::fieldNames() const 
+    { 
+      static const std::vector<std::string> names {}; 
+      return names; 
+    }
 
 
     int IsSimulationStopAtTrajectoryEndEnabled::executePermission() const

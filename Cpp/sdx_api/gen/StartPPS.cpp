@@ -1,8 +1,7 @@
 
-#include "gen/StartPPS.h"
+#include "StartPPS.h"
 
 #include "command_factory.h"
-#include "command_result_factory.h"
 #include "parse_json.hpp"
 
 ///
@@ -14,17 +13,23 @@ namespace Sdx
   namespace Cmd
   {
     const char* const StartPPS::CmdName = "StartPPS";
-    const char* const StartPPS::Documentation = "Start the simulation at the given PPS count.";
+    const char* const StartPPS::Documentation = "Start the simulation at the given PPS count.\n"
+      "\n"
+      "Name Type Description\n"
+      "---- ---- -------------------------------------------------------------\n"
+      "Msec int  The number of ms after PPS to wait before starting simulation";
+    const char* const StartPPS::TargetId = "";
 
-    REGISTER_COMMAND_FACTORY(StartPPS);
+    REGISTER_COMMAND_TO_FACTORY_DECL(StartPPS);
+    REGISTER_COMMAND_TO_FACTORY_IMPL(StartPPS);
 
 
     StartPPS::StartPPS()
-      : CommandBase(CmdName)
+      : CommandBase(CmdName, TargetId)
     {}
 
     StartPPS::StartPPS(int msec)
-      : CommandBase(CmdName)
+      : CommandBase(CmdName, TargetId)
     {
 
       setMsec(msec);
@@ -50,6 +55,12 @@ namespace Sdx
     }
 
     std::string StartPPS::documentation() const { return Documentation; }
+
+    const std::vector<std::string>& StartPPS::fieldNames() const 
+    { 
+      static const std::vector<std::string> names {"Msec"}; 
+      return names; 
+    }
 
 
     int StartPPS::executePermission() const

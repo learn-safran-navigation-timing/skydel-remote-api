@@ -1,8 +1,7 @@
 
-#include "gen/IsWFAntennaElementEnabledResult.h"
+#include "IsWFAntennaElementEnabledResult.h"
 
 #include "command_factory.h"
-#include "command_result_factory.h"
 #include "parse_json.hpp"
 
 ///
@@ -14,17 +13,23 @@ namespace Sdx
   namespace Cmd
   {
     const char* const IsWFAntennaElementEnabledResult::CmdName = "IsWFAntennaElementEnabledResult";
-    const char* const IsWFAntennaElementEnabledResult::Documentation = "Result of IsWFAntennaElementEnabled.";
+    const char* const IsWFAntennaElementEnabledResult::Documentation = "Result of IsWFAntennaElementEnabled.\n"
+      "\n"
+      "Name    Type Description\n"
+      "------- ---- -------------------------------------------------\n"
+      "Element int  One-based index for element in antenna.\n"
+      "Enabled bool If True, this antenna element will bil simulated.";
+    const char* const IsWFAntennaElementEnabledResult::TargetId = "";
 
-    REGISTER_COMMAND_RESULT_TO_FACTORY_IMPL(IsWFAntennaElementEnabledResult);
+    REGISTER_COMMAND_TO_FACTORY_IMPL(IsWFAntennaElementEnabledResult);
 
 
     IsWFAntennaElementEnabledResult::IsWFAntennaElementEnabledResult()
-      : CommandResult(CmdName)
+      : CommandResult(CmdName, TargetId)
     {}
 
     IsWFAntennaElementEnabledResult::IsWFAntennaElementEnabledResult(int element, bool enabled)
-      : CommandResult(CmdName)
+      : CommandResult(CmdName, TargetId)
     {
 
       setElement(element);
@@ -32,7 +37,7 @@ namespace Sdx
     }
 
     IsWFAntennaElementEnabledResult::IsWFAntennaElementEnabledResult(CommandBasePtr relatedCommand, int element, bool enabled)
-      : CommandResult(CmdName, relatedCommand)
+      : CommandResult(CmdName, TargetId, relatedCommand)
     {
 
       setElement(element);
@@ -66,6 +71,12 @@ namespace Sdx
     }
 
     std::string IsWFAntennaElementEnabledResult::documentation() const { return Documentation; }
+
+    const std::vector<std::string>& IsWFAntennaElementEnabledResult::fieldNames() const 
+    { 
+      static const std::vector<std::string> names {"Element", "Enabled"}; 
+      return names; 
+    }
 
 
     int IsWFAntennaElementEnabledResult::element() const

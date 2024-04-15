@@ -1,8 +1,7 @@
 
-#include "gen/SetIntTxNone.h"
+#include "SetIntTxNone.h"
 
 #include "command_factory.h"
-#include "command_result_factory.h"
 #include "parse_json.hpp"
 
 ///
@@ -14,17 +13,23 @@ namespace Sdx
   namespace Cmd
   {
     const char* const SetIntTxNone::CmdName = "SetIntTxNone";
-    const char* const SetIntTxNone::Documentation = "Set an undefined trajectory to a transmitter, thus preventing it to be modulated (default value).";
+    const char* const SetIntTxNone::Documentation = "Set an undefined trajectory to a transmitter, thus preventing it to be modulated (default value).\n"
+      "\n"
+      "Name Type   Description\n"
+      "---- ------ ------------------------------\n"
+      "Id   string Transmitter unique identifier.";
+    const char* const SetIntTxNone::TargetId = "";
 
-    REGISTER_COMMAND_FACTORY(SetIntTxNone);
+    REGISTER_COMMAND_TO_FACTORY_DECL(SetIntTxNone);
+    REGISTER_COMMAND_TO_FACTORY_IMPL(SetIntTxNone);
 
 
     SetIntTxNone::SetIntTxNone()
-      : CommandBase(CmdName)
+      : CommandBase(CmdName, TargetId)
     {}
 
     SetIntTxNone::SetIntTxNone(const std::string& id)
-      : CommandBase(CmdName)
+      : CommandBase(CmdName, TargetId)
     {
 
       setId(id);
@@ -50,6 +55,12 @@ namespace Sdx
     }
 
     std::string SetIntTxNone::documentation() const { return Documentation; }
+
+    const std::vector<std::string>& SetIntTxNone::fieldNames() const 
+    { 
+      static const std::vector<std::string> names {"Id"}; 
+      return names; 
+    }
 
 
     int SetIntTxNone::executePermission() const

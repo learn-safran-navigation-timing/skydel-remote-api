@@ -1,8 +1,7 @@
 
-#include "gen/ImportConstellationParameters.h"
+#include "ImportConstellationParameters.h"
 
 #include "command_factory.h"
-#include "command_result_factory.h"
 #include "parse_json.hpp"
 
 ///
@@ -14,17 +13,26 @@ namespace Sdx
   namespace Cmd
   {
     const char* const ImportConstellationParameters::CmdName = "ImportConstellationParameters";
-    const char* const ImportConstellationParameters::Documentation = "Import navigation message file for the specified constellation. This could be Rinex, SEM or YUMA file for GPS. Only Rinex for the others.";
+    const char* const ImportConstellationParameters::Documentation = "Import navigation message file for the specified constellation. This could be Rinex, SEM or YUMA file for GPS. Only Rinex for the others.\n"
+      "\n"
+      "Name        Type            Description\n"
+      "----------- --------------- -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------\n"
+      "System      string          \"GPS\", \"GLONASS\", \"Galileo\", \"SBAS\", \"BeiDou\", \"QZSS\", \"NavIC\" or \"PULSAR\"\n"
+      "Path        string          File path\n"
+      "Rollover    optional int    Rollover for file types that does not precise it (YUMA, SEM). Default value is the current rollover.\n"
+      "DataSetName optional string Name of the data set to import. This parameter is optional, the default value will be the name of the imported file. Constellations that support this parameter are  \"GPS\", \"Galileo\", \"BeiDou\", \"QZSS\" and \"NavIC\"";
+    const char* const ImportConstellationParameters::TargetId = "";
 
-    REGISTER_COMMAND_FACTORY(ImportConstellationParameters);
+    REGISTER_COMMAND_TO_FACTORY_DECL(ImportConstellationParameters);
+    REGISTER_COMMAND_TO_FACTORY_IMPL(ImportConstellationParameters);
 
 
     ImportConstellationParameters::ImportConstellationParameters()
-      : CommandBase(CmdName)
+      : CommandBase(CmdName, TargetId)
     {}
 
     ImportConstellationParameters::ImportConstellationParameters(const std::string& system, const std::string& path, const Sdx::optional<int>& rollover, const Sdx::optional<std::string>& dataSetName)
-      : CommandBase(CmdName)
+      : CommandBase(CmdName, TargetId)
     {
 
       setSystem(system);
@@ -56,6 +64,12 @@ namespace Sdx
     }
 
     std::string ImportConstellationParameters::documentation() const { return Documentation; }
+
+    const std::vector<std::string>& ImportConstellationParameters::fieldNames() const 
+    { 
+      static const std::vector<std::string> names {"System", "Path", "Rollover", "DataSetName"}; 
+      return names; 
+    }
 
 
     int ImportConstellationParameters::executePermission() const

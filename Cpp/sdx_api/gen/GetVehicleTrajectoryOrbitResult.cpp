@@ -1,8 +1,7 @@
 
-#include "gen/GetVehicleTrajectoryOrbitResult.h"
+#include "GetVehicleTrajectoryOrbitResult.h"
 
 #include "command_factory.h"
-#include "command_result_factory.h"
 #include "parse_json.hpp"
 
 ///
@@ -14,17 +13,29 @@ namespace Sdx
   namespace Cmd
   {
     const char* const GetVehicleTrajectoryOrbitResult::CmdName = "GetVehicleTrajectoryOrbitResult";
-    const char* const GetVehicleTrajectoryOrbitResult::Documentation = "Result of GetVehicleTrajectoryOrbit.";
+    const char* const GetVehicleTrajectoryOrbitResult::Documentation = "Result of GetVehicleTrajectoryOrbit.\n"
+      "\n"
+      "Name              Type     Description\n"
+      "----------------- -------- ---------------------------------------------------------------------\n"
+      "Type              string   Trajectory type (\"Orbit\")\n"
+      "Reference         datetime Orbital parameters reference time (UTC)\n"
+      "SemiMajorAxis     double   Semi-major axis (meter)\n"
+      "Inclination       double   Inclination angle (rad)\n"
+      "RightAscension    double   Geographic longitude of the ascending node of the orbital plane (rad)\n"
+      "Eccentricity      double   Eccentricity\n"
+      "MeanAnomaly       double   Mean anomaly (rad)\n"
+      "ArgumentOfPerigee double   Argument of perigee (rad)";
+    const char* const GetVehicleTrajectoryOrbitResult::TargetId = "";
 
-    REGISTER_COMMAND_RESULT_TO_FACTORY_IMPL(GetVehicleTrajectoryOrbitResult);
+    REGISTER_COMMAND_TO_FACTORY_IMPL(GetVehicleTrajectoryOrbitResult);
 
 
     GetVehicleTrajectoryOrbitResult::GetVehicleTrajectoryOrbitResult()
-      : CommandResult(CmdName)
+      : CommandResult(CmdName, TargetId)
     {}
 
     GetVehicleTrajectoryOrbitResult::GetVehicleTrajectoryOrbitResult(const std::string& type, const Sdx::DateTime& reference, double semiMajorAxis, double inclination, double rightAscension, double eccentricity, double meanAnomaly, double argumentOfPerigee)
-      : CommandResult(CmdName)
+      : CommandResult(CmdName, TargetId)
     {
 
       setType(type);
@@ -38,7 +49,7 @@ namespace Sdx
     }
 
     GetVehicleTrajectoryOrbitResult::GetVehicleTrajectoryOrbitResult(CommandBasePtr relatedCommand, const std::string& type, const Sdx::DateTime& reference, double semiMajorAxis, double inclination, double rightAscension, double eccentricity, double meanAnomaly, double argumentOfPerigee)
-      : CommandResult(CmdName, relatedCommand)
+      : CommandResult(CmdName, TargetId, relatedCommand)
     {
 
       setType(type);
@@ -84,6 +95,12 @@ namespace Sdx
     }
 
     std::string GetVehicleTrajectoryOrbitResult::documentation() const { return Documentation; }
+
+    const std::vector<std::string>& GetVehicleTrajectoryOrbitResult::fieldNames() const 
+    { 
+      static const std::vector<std::string> names {"Type", "Reference", "SemiMajorAxis", "Inclination", "RightAscension", "Eccentricity", "MeanAnomaly", "ArgumentOfPerigee"}; 
+      return names; 
+    }
 
 
     std::string GetVehicleTrajectoryOrbitResult::type() const

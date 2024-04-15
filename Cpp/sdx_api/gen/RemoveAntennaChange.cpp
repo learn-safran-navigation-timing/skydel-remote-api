@@ -1,8 +1,7 @@
 
-#include "gen/RemoveAntennaChange.h"
+#include "RemoveAntennaChange.h"
 
 #include "command_factory.h"
-#include "command_result_factory.h"
 #include "parse_json.hpp"
 
 ///
@@ -14,17 +13,23 @@ namespace Sdx
   namespace Cmd
   {
     const char* const RemoveAntennaChange::CmdName = "RemoveAntennaChange";
-    const char* const RemoveAntennaChange::Documentation = "Removes an antenna change.";
+    const char* const RemoveAntennaChange::Documentation = "Removes an antenna change.\n"
+      "\n"
+      "Name Type   Description\n"
+      "---- ------ -------------------------------------\n"
+      "Id   string Unique identifier (see AntennaChange)";
+    const char* const RemoveAntennaChange::TargetId = "";
 
-    REGISTER_COMMAND_FACTORY(RemoveAntennaChange);
+    REGISTER_COMMAND_TO_FACTORY_DECL(RemoveAntennaChange);
+    REGISTER_COMMAND_TO_FACTORY_IMPL(RemoveAntennaChange);
 
 
     RemoveAntennaChange::RemoveAntennaChange()
-      : CommandBase(CmdName)
+      : CommandBase(CmdName, TargetId)
     {}
 
     RemoveAntennaChange::RemoveAntennaChange(const std::string& id)
-      : CommandBase(CmdName)
+      : CommandBase(CmdName, TargetId)
     {
 
       setId(id);
@@ -50,6 +55,12 @@ namespace Sdx
     }
 
     std::string RemoveAntennaChange::documentation() const { return Documentation; }
+
+    const std::vector<std::string>& RemoveAntennaChange::fieldNames() const 
+    { 
+      static const std::vector<std::string> names {"Id"}; 
+      return names; 
+    }
 
 
     int RemoveAntennaChange::executePermission() const

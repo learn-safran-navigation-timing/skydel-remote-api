@@ -1,8 +1,7 @@
 
-#include "gen/SetQzssSatelliteL1cHealth.h"
+#include "SetQzssSatelliteL1cHealth.h"
 
 #include "command_factory.h"
-#include "command_result_factory.h"
 #include "parse_json.hpp"
 
 ///
@@ -14,17 +13,27 @@ namespace Sdx
   namespace Cmd
   {
     const char* const SetQzssSatelliteL1cHealth::CmdName = "SetQzssSatelliteL1cHealth";
-    const char* const SetQzssSatelliteL1cHealth::Documentation = "Please note the command SetQzssSatelliteL1cHealth is deprecated since 21.3. You may use SetQzssL1cHealthForSV.\n\nSet QZSS L1C health (Health of L1C signal)";
+    const char* const SetQzssSatelliteL1cHealth::Documentation = "Please note the command SetQzssSatelliteL1cHealth is deprecated since 21.3. You may use SetQzssL1cHealthForSV.\n"
+      "\n"
+      "Set QZSS L1C health (Health of L1C signal)\n"
+      "\n"
+      "Name        Type            Description\n"
+      "----------- --------------- -------------------------------------------------------------------------------------------\n"
+      "SvId        int             Satellite SV ID 1..10, or use 0 to apply new value to all satellites.\n"
+      "Health      bool            L1C health, false = signal OK, true = signal bad\n"
+      "DataSetName optional string Optional name of the data set to use. If no value is provided, the active data set is used.";
+    const char* const SetQzssSatelliteL1cHealth::TargetId = "";
 
-    REGISTER_COMMAND_FACTORY(SetQzssSatelliteL1cHealth);
+    REGISTER_COMMAND_TO_FACTORY_DECL(SetQzssSatelliteL1cHealth);
+    REGISTER_COMMAND_TO_FACTORY_IMPL(SetQzssSatelliteL1cHealth);
 
 
     SetQzssSatelliteL1cHealth::SetQzssSatelliteL1cHealth()
-      : CommandBase(CmdName)
+      : CommandBase(CmdName, TargetId)
     {}
 
     SetQzssSatelliteL1cHealth::SetQzssSatelliteL1cHealth(int svId, bool health, const Sdx::optional<std::string>& dataSetName)
-      : CommandBase(CmdName)
+      : CommandBase(CmdName, TargetId)
     {
 
       setSvId(svId);
@@ -54,6 +63,12 @@ namespace Sdx
     }
 
     std::string SetQzssSatelliteL1cHealth::documentation() const { return Documentation; }
+
+    const std::vector<std::string>& SetQzssSatelliteL1cHealth::fieldNames() const 
+    { 
+      static const std::vector<std::string> names {"SvId", "Health", "DataSetName"}; 
+      return names; 
+    }
 
 
     int SetQzssSatelliteL1cHealth::executePermission() const

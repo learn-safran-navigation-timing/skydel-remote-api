@@ -1,8 +1,7 @@
 
-#include "gen/SetSVDataUpdateMode.h"
+#include "SetSVDataUpdateMode.h"
 
 #include "command_factory.h"
-#include "command_result_factory.h"
 #include "parse_json.hpp"
 
 ///
@@ -14,17 +13,25 @@ namespace Sdx
   namespace Cmd
   {
     const char* const SetSVDataUpdateMode::CmdName = "SetSVDataUpdateMode";
-    const char* const SetSVDataUpdateMode::Documentation = "Set the SV Data Update Mode.";
+    const char* const SetSVDataUpdateMode::Documentation = "Set the SV Data Update Mode.\n"
+      "\n"
+      "Name Type             Description\n"
+      "---- ---------------- ------------------------------------------------------------------\n"
+      "Mode SVDataUpdateMode SV Data Update Mode:\n"
+      "                      Extrapolation: Skydel extrapolates from the first block (default).\n"
+      "                      Dynamic: Blocks must be pushed during the simulation.";
+    const char* const SetSVDataUpdateMode::TargetId = "";
 
-    REGISTER_COMMAND_FACTORY(SetSVDataUpdateMode);
+    REGISTER_COMMAND_TO_FACTORY_DECL(SetSVDataUpdateMode);
+    REGISTER_COMMAND_TO_FACTORY_IMPL(SetSVDataUpdateMode);
 
 
     SetSVDataUpdateMode::SetSVDataUpdateMode()
-      : CommandBase(CmdName)
+      : CommandBase(CmdName, TargetId)
     {}
 
     SetSVDataUpdateMode::SetSVDataUpdateMode(const Sdx::SVDataUpdateMode& mode)
-      : CommandBase(CmdName)
+      : CommandBase(CmdName, TargetId)
     {
 
       setMode(mode);
@@ -50,6 +57,12 @@ namespace Sdx
     }
 
     std::string SetSVDataUpdateMode::documentation() const { return Documentation; }
+
+    const std::vector<std::string>& SetSVDataUpdateMode::fieldNames() const 
+    { 
+      static const std::vector<std::string> names {"Mode"}; 
+      return names; 
+    }
 
 
     int SetSVDataUpdateMode::executePermission() const

@@ -2,7 +2,7 @@
 
 #include <memory>
 #include "command_result.h"
-#include "command_result_factory.h"
+#include "command_factory.h"
 #include <string>
 
 namespace Sdx
@@ -17,7 +17,7 @@ namespace Sdx
     /// Signal string Accepted signal keys: "L1CA", "L1C", "L1P", "L1ME", "L1MR", "L2C", "L2P", "L2ME", "L2MR", "L5",
     ///                                     "G1", "G2", "E1", "E1PRS", "E5a", "E5b", "E6BC", "E6PRS",
     ///                                     "B1", "B2", "B1C", "B2a", "B3I", "QZSSL1CA", "QZSSL1CB", "QZSSL1C",
-    ///                                     "QZSSL2C", "QZSSL5", "QZSSL1S", "QZSSL5S", "NAVICL5"
+    ///                                     "QZSSL2C", "QZSSL5", "QZSSL1S", "QZSSL5S", "NAVICL5", "PULSARXL"
     /// Offset double Offset in dB (negative value will attenuate signal)
     ///
 
@@ -31,6 +31,7 @@ namespace Sdx
     public:
       static const char* const CmdName;
       static const char* const Documentation;
+      static const char* const TargetId;
 
 
       GetSignalPowerOffsetResult();
@@ -45,6 +46,7 @@ namespace Sdx
       static GetSignalPowerOffsetResultPtr dynamicCast(CommandBasePtr ptr);
       virtual bool isValid() const override;
       virtual std::string documentation() const override;
+      virtual const std::vector<std::string>& fieldNames() const override;
 
 
       // **** signal ****
@@ -56,7 +58,7 @@ namespace Sdx
       double offset() const;
       void setOffset(double offset);
     };
-    REGISTER_COMMAND_RESULT_TO_FACTORY_DECL(GetSignalPowerOffsetResult);
+    REGISTER_COMMAND_TO_FACTORY_DECL(GetSignalPowerOffsetResult);
   }
 }
 

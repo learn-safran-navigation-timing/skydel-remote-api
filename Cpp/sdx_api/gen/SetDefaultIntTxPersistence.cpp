@@ -1,8 +1,7 @@
 
-#include "gen/SetDefaultIntTxPersistence.h"
+#include "SetDefaultIntTxPersistence.h"
 
 #include "command_factory.h"
-#include "command_result_factory.h"
 #include "parse_json.hpp"
 
 ///
@@ -14,17 +13,23 @@ namespace Sdx
   namespace Cmd
   {
     const char* const SetDefaultIntTxPersistence::CmdName = "SetDefaultIntTxPersistence";
-    const char* const SetDefaultIntTxPersistence::Documentation = "Set wether by default transmitters should keep the modification done during simulation.";
+    const char* const SetDefaultIntTxPersistence::Documentation = "Set whether by default transmitters should keep the modification done during simulation.\n"
+      "\n"
+      "Name         Type Description\n"
+      "------------ ---- --------------------------------------------------------------------------------\n"
+      "DefaultValue bool True if jammers should keep the modifications done during simulation by default.";
+    const char* const SetDefaultIntTxPersistence::TargetId = "";
 
-    REGISTER_COMMAND_FACTORY(SetDefaultIntTxPersistence);
+    REGISTER_COMMAND_TO_FACTORY_DECL(SetDefaultIntTxPersistence);
+    REGISTER_COMMAND_TO_FACTORY_IMPL(SetDefaultIntTxPersistence);
 
 
     SetDefaultIntTxPersistence::SetDefaultIntTxPersistence()
-      : CommandBase(CmdName)
+      : CommandBase(CmdName, TargetId)
     {}
 
     SetDefaultIntTxPersistence::SetDefaultIntTxPersistence(bool defaultValue)
-      : CommandBase(CmdName)
+      : CommandBase(CmdName, TargetId)
     {
 
       setDefaultValue(defaultValue);
@@ -50,6 +55,12 @@ namespace Sdx
     }
 
     std::string SetDefaultIntTxPersistence::documentation() const { return Documentation; }
+
+    const std::vector<std::string>& SetDefaultIntTxPersistence::fieldNames() const 
+    { 
+      static const std::vector<std::string> names {"DefaultValue"}; 
+      return names; 
+    }
 
 
     int SetDefaultIntTxPersistence::executePermission() const

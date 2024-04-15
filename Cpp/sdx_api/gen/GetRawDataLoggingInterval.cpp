@@ -1,8 +1,7 @@
 
-#include "gen/GetRawDataLoggingInterval.h"
+#include "GetRawDataLoggingInterval.h"
 
 #include "command_factory.h"
-#include "command_result_factory.h"
 #include "parse_json.hpp"
 
 ///
@@ -15,12 +14,14 @@ namespace Sdx
   {
     const char* const GetRawDataLoggingInterval::CmdName = "GetRawDataLoggingInterval";
     const char* const GetRawDataLoggingInterval::Documentation = "Get the time interval of the Raw Data logging.";
+    const char* const GetRawDataLoggingInterval::TargetId = "";
 
-    REGISTER_COMMAND_FACTORY(GetRawDataLoggingInterval);
+    REGISTER_COMMAND_TO_FACTORY_DECL(GetRawDataLoggingInterval);
+    REGISTER_COMMAND_TO_FACTORY_IMPL(GetRawDataLoggingInterval);
 
 
     GetRawDataLoggingInterval::GetRawDataLoggingInterval()
-      : CommandBase(CmdName)
+      : CommandBase(CmdName, TargetId)
     {
 
     }
@@ -44,6 +45,12 @@ namespace Sdx
     }
 
     std::string GetRawDataLoggingInterval::documentation() const { return Documentation; }
+
+    const std::vector<std::string>& GetRawDataLoggingInterval::fieldNames() const 
+    { 
+      static const std::vector<std::string> names {}; 
+      return names; 
+    }
 
 
     int GetRawDataLoggingInterval::executePermission() const

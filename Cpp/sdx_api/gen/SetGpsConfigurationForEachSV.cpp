@@ -1,8 +1,7 @@
 
-#include "gen/SetGpsConfigurationForEachSV.h"
+#include "SetGpsConfigurationForEachSV.h"
 
 #include "command_factory.h"
-#include "command_result_factory.h"
 #include "parse_json.hpp"
 
 ///
@@ -14,17 +13,24 @@ namespace Sdx
   namespace Cmd
   {
     const char* const SetGpsConfigurationForEachSV::CmdName = "SetGpsConfigurationForEachSV";
-    const char* const SetGpsConfigurationForEachSV::Documentation = "Set GPS SV configuration flag for each SVs";
+    const char* const SetGpsConfigurationForEachSV::Documentation = "Set GPS SV configuration flag for each SVs\n"
+      "\n"
+      "Name        Type            Description\n"
+      "----------- --------------- -------------------------------------------------------------------------------------------\n"
+      "SvConfigs   array int       SV Config of all satellite\n"
+      "DataSetName optional string Optional name of the data set to use. If no value is provided, the active data set is used.";
+    const char* const SetGpsConfigurationForEachSV::TargetId = "";
 
-    REGISTER_COMMAND_FACTORY(SetGpsConfigurationForEachSV);
+    REGISTER_COMMAND_TO_FACTORY_DECL(SetGpsConfigurationForEachSV);
+    REGISTER_COMMAND_TO_FACTORY_IMPL(SetGpsConfigurationForEachSV);
 
 
     SetGpsConfigurationForEachSV::SetGpsConfigurationForEachSV()
-      : CommandBase(CmdName)
+      : CommandBase(CmdName, TargetId)
     {}
 
     SetGpsConfigurationForEachSV::SetGpsConfigurationForEachSV(const std::vector<int>& svConfigs, const Sdx::optional<std::string>& dataSetName)
-      : CommandBase(CmdName)
+      : CommandBase(CmdName, TargetId)
     {
 
       setSvConfigs(svConfigs);
@@ -52,6 +58,12 @@ namespace Sdx
     }
 
     std::string SetGpsConfigurationForEachSV::documentation() const { return Documentation; }
+
+    const std::vector<std::string>& SetGpsConfigurationForEachSV::fieldNames() const 
+    { 
+      static const std::vector<std::string> names {"SvConfigs", "DataSetName"}; 
+      return names; 
+    }
 
 
     int SetGpsConfigurationForEachSV::executePermission() const

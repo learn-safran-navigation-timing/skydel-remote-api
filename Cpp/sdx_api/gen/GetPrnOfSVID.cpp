@@ -1,8 +1,7 @@
 
-#include "gen/GetPrnOfSVID.h"
+#include "GetPrnOfSVID.h"
 
 #include "command_factory.h"
-#include "command_result_factory.h"
 #include "parse_json.hpp"
 
 ///
@@ -14,17 +13,24 @@ namespace Sdx
   namespace Cmd
   {
     const char* const GetPrnOfSVID::CmdName = "GetPrnOfSVID";
-    const char* const GetPrnOfSVID::Documentation = "Get the PRN transmitted by the SV ID for this signal.";
+    const char* const GetPrnOfSVID::Documentation = "Get the PRN transmitted by the SV ID for this signal.\n"
+      "\n"
+      "Name   Type   Description\n"
+      "------ ------ ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------\n"
+      "Signal string Accepted signal keys: \"L1CA\", \"L1C\", \"L2C\", \"L5\", \"E1\", \"E6BC\", \"B1\", \"B2\", \"B1C\", \"B2a\", \"B3I\", \"SBASL1\", \"SBASL5\", \"QZSSL1CA\", \"QZSSL1CB\", \"QZSSL1C\", \"QZSSL2C\", \"QZSSL5\", \"QZSSL1S\", \"QZSSL5S\", \"NAVICL5\", \"PULSARXL\"\n"
+      "SvId   int    Satellite SV ID.";
+    const char* const GetPrnOfSVID::TargetId = "";
 
-    REGISTER_COMMAND_FACTORY(GetPrnOfSVID);
+    REGISTER_COMMAND_TO_FACTORY_DECL(GetPrnOfSVID);
+    REGISTER_COMMAND_TO_FACTORY_IMPL(GetPrnOfSVID);
 
 
     GetPrnOfSVID::GetPrnOfSVID()
-      : CommandBase(CmdName)
+      : CommandBase(CmdName, TargetId)
     {}
 
     GetPrnOfSVID::GetPrnOfSVID(const std::string& signal, int svId)
-      : CommandBase(CmdName)
+      : CommandBase(CmdName, TargetId)
     {
 
       setSignal(signal);
@@ -52,6 +58,12 @@ namespace Sdx
     }
 
     std::string GetPrnOfSVID::documentation() const { return Documentation; }
+
+    const std::vector<std::string>& GetPrnOfSVID::fieldNames() const 
+    { 
+      static const std::vector<std::string> names {"Signal", "SvId"}; 
+      return names; 
+    }
 
 
     int GetPrnOfSVID::executePermission() const

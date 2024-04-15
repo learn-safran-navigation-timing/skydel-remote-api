@@ -1,8 +1,7 @@
 
-#include "gen/ExportVehicleAntennaModel.h"
+#include "ExportVehicleAntennaModel.h"
 
 #include "command_factory.h"
-#include "command_result_factory.h"
 #include "parse_json.hpp"
 
 ///
@@ -14,17 +13,25 @@ namespace Sdx
   namespace Cmd
   {
     const char* const ExportVehicleAntennaModel::CmdName = "ExportVehicleAntennaModel";
-    const char* const ExportVehicleAntennaModel::Documentation = "Export a vehicle antenna model in a XML file.";
+    const char* const ExportVehicleAntennaModel::Documentation = "Export a vehicle antenna model in a XML file.\n"
+      "\n"
+      "Name        Type   Description\n"
+      "----------- ------ -----------------------------------------------------\n"
+      "AntennaName string Vehicle antenna model name\n"
+      "FilePath    string The antenna model will be exported in this file path.\n"
+      "Overwriting bool   Overwrite the old file if true.";
+    const char* const ExportVehicleAntennaModel::TargetId = "";
 
-    REGISTER_COMMAND_FACTORY(ExportVehicleAntennaModel);
+    REGISTER_COMMAND_TO_FACTORY_DECL(ExportVehicleAntennaModel);
+    REGISTER_COMMAND_TO_FACTORY_IMPL(ExportVehicleAntennaModel);
 
 
     ExportVehicleAntennaModel::ExportVehicleAntennaModel()
-      : CommandBase(CmdName)
+      : CommandBase(CmdName, TargetId)
     {}
 
     ExportVehicleAntennaModel::ExportVehicleAntennaModel(const std::string& antennaName, const std::string& filePath, bool overwriting)
-      : CommandBase(CmdName)
+      : CommandBase(CmdName, TargetId)
     {
 
       setAntennaName(antennaName);
@@ -54,6 +61,12 @@ namespace Sdx
     }
 
     std::string ExportVehicleAntennaModel::documentation() const { return Documentation; }
+
+    const std::vector<std::string>& ExportVehicleAntennaModel::fieldNames() const 
+    { 
+      static const std::vector<std::string> names {"AntennaName", "FilePath", "Overwriting"}; 
+      return names; 
+    }
 
 
     int ExportVehicleAntennaModel::executePermission() const

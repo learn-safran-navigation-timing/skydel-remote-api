@@ -1,8 +1,7 @@
 
-#include "gen/GetQzssEphDoubleParamForSV.h"
+#include "GetQzssEphDoubleParamForSV.h"
 
 #include "command_factory.h"
-#include "command_result_factory.h"
 #include "parse_json.hpp"
 
 ///
@@ -14,19 +13,31 @@ namespace Sdx
   namespace Cmd
   {
     const char* const GetQzssEphDoubleParamForSV::CmdName = "GetQzssEphDoubleParamForSV";
-    const char* const GetQzssEphDoubleParamForSV::Documentation = "Please note the command GetQzssEphDoubleParamForSV is deprecated since 23.11. You may use GetConstellationParameterForSV.\n\nGet various parameters in the QZSS ephemeris.";
+    const char* const GetQzssEphDoubleParamForSV::Documentation = "Please note the command GetQzssEphDoubleParamForSV is deprecated since 23.11. You may use GetConstellationParameterForSV.\n"
+      "\n"
+      "Get various parameters in the QZSS ephemeris.\n"
+      "\n"
+      "Name        Type            Description\n"
+      "----------- --------------- -------------------------------------------------------------------------------------------\n"
+      "SvId        int             The satellite's SV ID 1..10 (use 0 to apply to all satellites)\n"
+      "ParamName   string          In meters:  \"Crs\", \"Crc\"\n"
+      "                            In radians: \"Cis\", \"Cic\", \"Cus\", \"Cuc\"\n"
+      "                            In seconds: \"Tgd\", \"IscL1Ca\", \"IscL2C\", \"IscL5I5\", \"IscL5Q5\", \"IscL1CP\", \"IscL1CD\"\n"
+      "DataSetName optional string Optional name of the data set to use. If no value is provided, the active data set is used.";
+    const char* const GetQzssEphDoubleParamForSV::TargetId = "";
 
     const char* const GetQzssEphDoubleParamForSV::Deprecated = "Please note the command GetQzssEphDoubleParamForSV is deprecated since 23.11. You may use GetConstellationParameterForSV.";
 
-    REGISTER_COMMAND_FACTORY(GetQzssEphDoubleParamForSV);
+    REGISTER_COMMAND_TO_FACTORY_DECL(GetQzssEphDoubleParamForSV);
+    REGISTER_COMMAND_TO_FACTORY_IMPL(GetQzssEphDoubleParamForSV);
 
 
     GetQzssEphDoubleParamForSV::GetQzssEphDoubleParamForSV()
-      : CommandBase(CmdName)
+      : CommandBase(CmdName, TargetId)
     {}
 
     GetQzssEphDoubleParamForSV::GetQzssEphDoubleParamForSV(int svId, const std::string& paramName, const Sdx::optional<std::string>& dataSetName)
-      : CommandBase(CmdName)
+      : CommandBase(CmdName, TargetId)
     {
 
       setSvId(svId);
@@ -56,6 +67,12 @@ namespace Sdx
     }
 
     std::string GetQzssEphDoubleParamForSV::documentation() const { return Documentation; }
+
+    const std::vector<std::string>& GetQzssEphDoubleParamForSV::fieldNames() const 
+    { 
+      static const std::vector<std::string> names {"SvId", "ParamName", "DataSetName"}; 
+      return names; 
+    }
 
     Sdx::optional<std::string> GetQzssEphDoubleParamForSV::deprecated() const { return Sdx::optional<std::string>{Deprecated}; }
 

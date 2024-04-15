@@ -1,8 +1,7 @@
 
-#include "gen/GetAllModulationTargets.h"
+#include "GetAllModulationTargets.h"
 
 #include "command_factory.h"
-#include "command_result_factory.h"
 #include "parse_json.hpp"
 
 ///
@@ -15,12 +14,14 @@ namespace Sdx
   {
     const char* const GetAllModulationTargets::CmdName = "GetAllModulationTargets";
     const char* const GetAllModulationTargets::Documentation = "Get all the modulation targets IDs";
+    const char* const GetAllModulationTargets::TargetId = "";
 
-    REGISTER_COMMAND_FACTORY(GetAllModulationTargets);
+    REGISTER_COMMAND_TO_FACTORY_DECL(GetAllModulationTargets);
+    REGISTER_COMMAND_TO_FACTORY_IMPL(GetAllModulationTargets);
 
 
     GetAllModulationTargets::GetAllModulationTargets()
-      : CommandBase(CmdName)
+      : CommandBase(CmdName, TargetId)
     {
 
     }
@@ -44,6 +45,12 @@ namespace Sdx
     }
 
     std::string GetAllModulationTargets::documentation() const { return Documentation; }
+
+    const std::vector<std::string>& GetAllModulationTargets::fieldNames() const 
+    { 
+      static const std::vector<std::string> names {}; 
+      return names; 
+    }
 
 
     int GetAllModulationTargets::executePermission() const

@@ -1,8 +1,7 @@
 
-#include "gen/GetEphemerisTocOffsetResult.h"
+#include "GetEphemerisTocOffsetResult.h"
 
 #include "command_factory.h"
-#include "command_result_factory.h"
 #include "parse_json.hpp"
 
 ///
@@ -14,17 +13,23 @@ namespace Sdx
   namespace Cmd
   {
     const char* const GetEphemerisTocOffsetResult::CmdName = "GetEphemerisTocOffsetResult";
-    const char* const GetEphemerisTocOffsetResult::Documentation = "Result of GetEphemerisTocOffset.";
+    const char* const GetEphemerisTocOffsetResult::Documentation = "Result of GetEphemerisTocOffset.\n"
+      "\n"
+      "Name   Type   Description\n"
+      "------ ------ -------------------------------------------------------\n"
+      "System string \"GPS\", \"Galileo\", \"BeiDou\", \"QZSS\", \"NavIC\" or \"PULSAR\"\n"
+      "Offset int    Offset in sec. Accepted range is [-604800..604800].";
+    const char* const GetEphemerisTocOffsetResult::TargetId = "";
 
-    REGISTER_COMMAND_RESULT_TO_FACTORY_IMPL(GetEphemerisTocOffsetResult);
+    REGISTER_COMMAND_TO_FACTORY_IMPL(GetEphemerisTocOffsetResult);
 
 
     GetEphemerisTocOffsetResult::GetEphemerisTocOffsetResult()
-      : CommandResult(CmdName)
+      : CommandResult(CmdName, TargetId)
     {}
 
     GetEphemerisTocOffsetResult::GetEphemerisTocOffsetResult(const std::string& system, int offset)
-      : CommandResult(CmdName)
+      : CommandResult(CmdName, TargetId)
     {
 
       setSystem(system);
@@ -32,7 +37,7 @@ namespace Sdx
     }
 
     GetEphemerisTocOffsetResult::GetEphemerisTocOffsetResult(CommandBasePtr relatedCommand, const std::string& system, int offset)
-      : CommandResult(CmdName, relatedCommand)
+      : CommandResult(CmdName, TargetId, relatedCommand)
     {
 
       setSystem(system);
@@ -66,6 +71,12 @@ namespace Sdx
     }
 
     std::string GetEphemerisTocOffsetResult::documentation() const { return Documentation; }
+
+    const std::vector<std::string>& GetEphemerisTocOffsetResult::fieldNames() const 
+    { 
+      static const std::vector<std::string> names {"System", "Offset"}; 
+      return names; 
+    }
 
 
     std::string GetEphemerisTocOffsetResult::system() const

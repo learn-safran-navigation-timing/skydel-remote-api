@@ -1,8 +1,7 @@
 
-#include "gen/SetN310LocalOscillatorSource.h"
+#include "SetN310LocalOscillatorSource.h"
 
 #include "command_factory.h"
-#include "command_result_factory.h"
 #include "parse_json.hpp"
 
 ///
@@ -14,17 +13,24 @@ namespace Sdx
   namespace Cmd
   {
     const char* const SetN310LocalOscillatorSource::CmdName = "SetN310LocalOscillatorSource";
-    const char* const SetN310LocalOscillatorSource::Documentation = "Set the local oscillator source of the N310. Can be Internal or External. By default, the source is Internal.";
+    const char* const SetN310LocalOscillatorSource::Documentation = "Set the local oscillator source of the N310. Can be Internal or External. By default, the source is Internal.\n"
+      "\n"
+      "Name       Type   Description\n"
+      "---------- ------ -------------------------------------------------------------------------------------------\n"
+      "IsExternal bool   Indicates if the Local Oscillator is external (true) or internal (false). False by default.\n"
+      "Id         string N310 modulation target Id.";
+    const char* const SetN310LocalOscillatorSource::TargetId = "";
 
-    REGISTER_COMMAND_FACTORY(SetN310LocalOscillatorSource);
+    REGISTER_COMMAND_TO_FACTORY_DECL(SetN310LocalOscillatorSource);
+    REGISTER_COMMAND_TO_FACTORY_IMPL(SetN310LocalOscillatorSource);
 
 
     SetN310LocalOscillatorSource::SetN310LocalOscillatorSource()
-      : CommandBase(CmdName)
+      : CommandBase(CmdName, TargetId)
     {}
 
     SetN310LocalOscillatorSource::SetN310LocalOscillatorSource(bool isExternal, const std::string& id)
-      : CommandBase(CmdName)
+      : CommandBase(CmdName, TargetId)
     {
 
       setIsExternal(isExternal);
@@ -52,6 +58,12 @@ namespace Sdx
     }
 
     std::string SetN310LocalOscillatorSource::documentation() const { return Documentation; }
+
+    const std::vector<std::string>& SetN310LocalOscillatorSource::fieldNames() const 
+    { 
+      static const std::vector<std::string> names {"IsExternal", "Id"}; 
+      return names; 
+    }
 
 
     int SetN310LocalOscillatorSource::executePermission() const

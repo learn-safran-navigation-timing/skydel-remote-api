@@ -1,8 +1,7 @@
 
-#include "gen/GetIntTxChirp.h"
+#include "GetIntTxChirp.h"
 
 #include "command_factory.h"
-#include "command_result_factory.h"
 #include "parse_json.hpp"
 
 ///
@@ -14,17 +13,24 @@ namespace Sdx
   namespace Cmd
   {
     const char* const GetIntTxChirp::CmdName = "GetIntTxChirp";
-    const char* const GetIntTxChirp::Documentation = "Get informations about the Chirp signal of the transmitter.";
+    const char* const GetIntTxChirp::Documentation = "Get informations about the Chirp signal of the transmitter.\n"
+      "\n"
+      "Name          Type   Description\n"
+      "------------- ------ ------------------------------\n"
+      "TransmitterId string Transmitter unique identifier.\n"
+      "SignalId      string Chirp unique identifier.";
+    const char* const GetIntTxChirp::TargetId = "";
 
-    REGISTER_COMMAND_FACTORY(GetIntTxChirp);
+    REGISTER_COMMAND_TO_FACTORY_DECL(GetIntTxChirp);
+    REGISTER_COMMAND_TO_FACTORY_IMPL(GetIntTxChirp);
 
 
     GetIntTxChirp::GetIntTxChirp()
-      : CommandBase(CmdName)
+      : CommandBase(CmdName, TargetId)
     {}
 
     GetIntTxChirp::GetIntTxChirp(const std::string& transmitterId, const std::string& signalId)
-      : CommandBase(CmdName)
+      : CommandBase(CmdName, TargetId)
     {
 
       setTransmitterId(transmitterId);
@@ -52,6 +58,12 @@ namespace Sdx
     }
 
     std::string GetIntTxChirp::documentation() const { return Documentation; }
+
+    const std::vector<std::string>& GetIntTxChirp::fieldNames() const 
+    { 
+      static const std::vector<std::string> names {"TransmitterId", "SignalId"}; 
+      return names; 
+    }
 
 
     int GetIntTxChirp::executePermission() const

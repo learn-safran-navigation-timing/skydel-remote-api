@@ -1,8 +1,7 @@
 
-#include "gen/RemoveAllIntTx.h"
+#include "RemoveAllIntTx.h"
 
 #include "command_factory.h"
-#include "command_result_factory.h"
 #include "parse_json.hpp"
 
 ///
@@ -15,12 +14,14 @@ namespace Sdx
   {
     const char* const RemoveAllIntTx::CmdName = "RemoveAllIntTx";
     const char* const RemoveAllIntTx::Documentation = "Remove all the interference transmitters.";
+    const char* const RemoveAllIntTx::TargetId = "";
 
-    REGISTER_COMMAND_FACTORY(RemoveAllIntTx);
+    REGISTER_COMMAND_TO_FACTORY_DECL(RemoveAllIntTx);
+    REGISTER_COMMAND_TO_FACTORY_IMPL(RemoveAllIntTx);
 
 
     RemoveAllIntTx::RemoveAllIntTx()
-      : CommandBase(CmdName)
+      : CommandBase(CmdName, TargetId)
     {
 
     }
@@ -44,6 +45,12 @@ namespace Sdx
     }
 
     std::string RemoveAllIntTx::documentation() const { return Documentation; }
+
+    const std::vector<std::string>& RemoveAllIntTx::fieldNames() const 
+    { 
+      static const std::vector<std::string> names {}; 
+      return names; 
+    }
 
 
     int RemoveAllIntTx::executePermission() const

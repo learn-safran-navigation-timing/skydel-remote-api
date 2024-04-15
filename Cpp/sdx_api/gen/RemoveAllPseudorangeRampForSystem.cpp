@@ -1,8 +1,7 @@
 
-#include "gen/RemoveAllPseudorangeRampForSystem.h"
+#include "RemoveAllPseudorangeRampForSystem.h"
 
 #include "command_factory.h"
-#include "command_result_factory.h"
 #include "parse_json.hpp"
 
 ///
@@ -14,17 +13,23 @@ namespace Sdx
   namespace Cmd
   {
     const char* const RemoveAllPseudorangeRampForSystem::CmdName = "RemoveAllPseudorangeRampForSystem";
-    const char* const RemoveAllPseudorangeRampForSystem::Documentation = "Remove all PSR Ramps for all satellites of the specified system.";
+    const char* const RemoveAllPseudorangeRampForSystem::Documentation = "Remove all PSR Ramps for all satellites of the specified system.\n"
+      "\n"
+      "Name   Type   Description\n"
+      "------ ------ --------------------------------------------------------------------------\n"
+      "System string \"GPS\", \"GLONASS\", \"Galileo\", \"BeiDou\", \"SBAS\", \"QZSS\", \"NavIC\" or \"PULSAR\"";
+    const char* const RemoveAllPseudorangeRampForSystem::TargetId = "";
 
-    REGISTER_COMMAND_FACTORY(RemoveAllPseudorangeRampForSystem);
+    REGISTER_COMMAND_TO_FACTORY_DECL(RemoveAllPseudorangeRampForSystem);
+    REGISTER_COMMAND_TO_FACTORY_IMPL(RemoveAllPseudorangeRampForSystem);
 
 
     RemoveAllPseudorangeRampForSystem::RemoveAllPseudorangeRampForSystem()
-      : CommandBase(CmdName)
+      : CommandBase(CmdName, TargetId)
     {}
 
     RemoveAllPseudorangeRampForSystem::RemoveAllPseudorangeRampForSystem(const std::string& system)
-      : CommandBase(CmdName)
+      : CommandBase(CmdName, TargetId)
     {
 
       setSystem(system);
@@ -50,6 +55,12 @@ namespace Sdx
     }
 
     std::string RemoveAllPseudorangeRampForSystem::documentation() const { return Documentation; }
+
+    const std::vector<std::string>& RemoveAllPseudorangeRampForSystem::fieldNames() const 
+    { 
+      static const std::vector<std::string> names {"System"}; 
+      return names; 
+    }
 
 
     int RemoveAllPseudorangeRampForSystem::executePermission() const

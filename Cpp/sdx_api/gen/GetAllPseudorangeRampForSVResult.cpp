@@ -1,8 +1,7 @@
 
-#include "gen/GetAllPseudorangeRampForSVResult.h"
+#include "GetAllPseudorangeRampForSVResult.h"
 
 #include "command_factory.h"
-#include "command_result_factory.h"
 #include "parse_json.hpp"
 
 ///
@@ -14,17 +13,24 @@ namespace Sdx
   namespace Cmd
   {
     const char* const GetAllPseudorangeRampForSVResult::CmdName = "GetAllPseudorangeRampForSVResult";
-    const char* const GetAllPseudorangeRampForSVResult::Documentation = "Result of GetAllPseudorangeRampForSV.";
+    const char* const GetAllPseudorangeRampForSVResult::Documentation = "Result of GetAllPseudorangeRampForSV.\n"
+      "\n"
+      "Name   Type         Description\n"
+      "------ ------------ --------------------------------------------------------------------------\n"
+      "System string       \"GPS\", \"GLONASS\", \"Galileo\", \"BeiDou\", \"SBAS\", \"QZSS\", \"NavIC\" or \"PULSAR\"\n"
+      "SvId   int          The satellite's SV ID.\n"
+      "Ids    array string List of all the pseudorange ramps IDs for this system's satellite.";
+    const char* const GetAllPseudorangeRampForSVResult::TargetId = "";
 
-    REGISTER_COMMAND_RESULT_TO_FACTORY_IMPL(GetAllPseudorangeRampForSVResult);
+    REGISTER_COMMAND_TO_FACTORY_IMPL(GetAllPseudorangeRampForSVResult);
 
 
     GetAllPseudorangeRampForSVResult::GetAllPseudorangeRampForSVResult()
-      : CommandResult(CmdName)
+      : CommandResult(CmdName, TargetId)
     {}
 
     GetAllPseudorangeRampForSVResult::GetAllPseudorangeRampForSVResult(const std::string& system, int svId, const std::vector<std::string>& ids)
-      : CommandResult(CmdName)
+      : CommandResult(CmdName, TargetId)
     {
 
       setSystem(system);
@@ -33,7 +39,7 @@ namespace Sdx
     }
 
     GetAllPseudorangeRampForSVResult::GetAllPseudorangeRampForSVResult(CommandBasePtr relatedCommand, const std::string& system, int svId, const std::vector<std::string>& ids)
-      : CommandResult(CmdName, relatedCommand)
+      : CommandResult(CmdName, TargetId, relatedCommand)
     {
 
       setSystem(system);
@@ -69,6 +75,12 @@ namespace Sdx
     }
 
     std::string GetAllPseudorangeRampForSVResult::documentation() const { return Documentation; }
+
+    const std::vector<std::string>& GetAllPseudorangeRampForSVResult::fieldNames() const 
+    { 
+      static const std::vector<std::string> names {"System", "SvId", "Ids"}; 
+      return names; 
+    }
 
 
     std::string GetAllPseudorangeRampForSVResult::system() const

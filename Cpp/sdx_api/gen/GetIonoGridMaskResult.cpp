@@ -1,8 +1,7 @@
 
-#include "gen/GetIonoGridMaskResult.h"
+#include "GetIonoGridMaskResult.h"
 
 #include "command_factory.h"
-#include "command_result_factory.h"
 #include "parse_json.hpp"
 
 ///
@@ -14,17 +13,25 @@ namespace Sdx
   namespace Cmd
   {
     const char* const GetIonoGridMaskResult::CmdName = "GetIonoGridMaskResult";
-    const char* const GetIonoGridMaskResult::Documentation = "Result of GetIonoGridMask.";
+    const char* const GetIonoGridMaskResult::Documentation = "Result of GetIonoGridMask.\n"
+      "\n"
+      "Name            Type   Description\n"
+      "--------------- ------ -------------------------------\n"
+      "ServiceProvider string The service provider\n"
+      "Band            int    The ionospheric grid band index\n"
+      "Point           int    The IGP index\n"
+      "Flag            bool   Is the IGP monitored";
+    const char* const GetIonoGridMaskResult::TargetId = "";
 
-    REGISTER_COMMAND_RESULT_TO_FACTORY_IMPL(GetIonoGridMaskResult);
+    REGISTER_COMMAND_TO_FACTORY_IMPL(GetIonoGridMaskResult);
 
 
     GetIonoGridMaskResult::GetIonoGridMaskResult()
-      : CommandResult(CmdName)
+      : CommandResult(CmdName, TargetId)
     {}
 
     GetIonoGridMaskResult::GetIonoGridMaskResult(const std::string& serviceProvider, int band, int point, bool flag)
-      : CommandResult(CmdName)
+      : CommandResult(CmdName, TargetId)
     {
 
       setServiceProvider(serviceProvider);
@@ -34,7 +41,7 @@ namespace Sdx
     }
 
     GetIonoGridMaskResult::GetIonoGridMaskResult(CommandBasePtr relatedCommand, const std::string& serviceProvider, int band, int point, bool flag)
-      : CommandResult(CmdName, relatedCommand)
+      : CommandResult(CmdName, TargetId, relatedCommand)
     {
 
       setServiceProvider(serviceProvider);
@@ -72,6 +79,12 @@ namespace Sdx
     }
 
     std::string GetIonoGridMaskResult::documentation() const { return Documentation; }
+
+    const std::vector<std::string>& GetIonoGridMaskResult::fieldNames() const 
+    { 
+      static const std::vector<std::string> names {"ServiceProvider", "Band", "Point", "Flag"}; 
+      return names; 
+    }
 
 
     std::string GetIonoGridMaskResult::serviceProvider() const

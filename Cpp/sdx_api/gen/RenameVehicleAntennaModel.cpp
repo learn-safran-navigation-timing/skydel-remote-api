@@ -1,8 +1,7 @@
 
-#include "gen/RenameVehicleAntennaModel.h"
+#include "RenameVehicleAntennaModel.h"
 
 #include "command_factory.h"
-#include "command_result_factory.h"
 #include "parse_json.hpp"
 
 ///
@@ -14,17 +13,24 @@ namespace Sdx
   namespace Cmd
   {
     const char* const RenameVehicleAntennaModel::CmdName = "RenameVehicleAntennaModel";
-    const char* const RenameVehicleAntennaModel::Documentation = "Rename a vehicle antenna model.";
+    const char* const RenameVehicleAntennaModel::Documentation = "Rename a vehicle antenna model.\n"
+      "\n"
+      "Name    Type   Description\n"
+      "------- ------ ------------------------------------\n"
+      "Name    string Reference vehicle antenna model name\n"
+      "NewName string New vehicle antenna model name";
+    const char* const RenameVehicleAntennaModel::TargetId = "";
 
-    REGISTER_COMMAND_FACTORY(RenameVehicleAntennaModel);
+    REGISTER_COMMAND_TO_FACTORY_DECL(RenameVehicleAntennaModel);
+    REGISTER_COMMAND_TO_FACTORY_IMPL(RenameVehicleAntennaModel);
 
 
     RenameVehicleAntennaModel::RenameVehicleAntennaModel()
-      : CommandBase(CmdName)
+      : CommandBase(CmdName, TargetId)
     {}
 
     RenameVehicleAntennaModel::RenameVehicleAntennaModel(const std::string& name, const std::string& newName)
-      : CommandBase(CmdName)
+      : CommandBase(CmdName, TargetId)
     {
 
       setName(name);
@@ -52,6 +58,12 @@ namespace Sdx
     }
 
     std::string RenameVehicleAntennaModel::documentation() const { return Documentation; }
+
+    const std::vector<std::string>& RenameVehicleAntennaModel::fieldNames() const 
+    { 
+      static const std::vector<std::string> names {"Name", "NewName"}; 
+      return names; 
+    }
 
 
     int RenameVehicleAntennaModel::executePermission() const

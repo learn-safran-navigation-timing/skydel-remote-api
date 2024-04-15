@@ -1,8 +1,7 @@
 
-#include "gen/SetGpsTimingReceiver.h"
+#include "SetGpsTimingReceiver.h"
 
 #include "command_factory.h"
-#include "command_result_factory.h"
 #include "parse_json.hpp"
 
 ///
@@ -14,17 +13,28 @@ namespace Sdx
   namespace Cmd
   {
     const char* const SetGpsTimingReceiver::CmdName = "SetGpsTimingReceiver";
-    const char* const SetGpsTimingReceiver::Documentation = "Set the connection parameters to the GPS Receiver from which the simulator will get the simulation start time.";
+    const char* const SetGpsTimingReceiver::Documentation = "Set the connection parameters to the GPS Receiver from which the simulator will get the simulation start time.\n"
+      "\n"
+      "Name        Type                           Description\n"
+      "----------- ------------------------------ -----------------------------------------------------------------------------------------\n"
+      "Port        string                         IP Address (Octoclock-G ex: \"192.168.11.3\") OR Serial Port (ex: \"COM5\")\n"
+      "BaudRate    optional int                   Data baud rate of the serial port (optional)\n"
+      "DataBits    optional int                   Number of data bits used by the serial port. Possible values are 5, 6, 7 and 8 (optional)\n"
+      "Parity      optional SerialPortParity      Parity scheme used by the serial port (optional)\n"
+      "StopBits    optional int                   Number of stop bits used by the serial port. Possible values are 1 and 2 (optional)\n"
+      "FlowControl optional SerialPortFlowControl Flow control used by the serial port (optional)";
+    const char* const SetGpsTimingReceiver::TargetId = "";
 
-    REGISTER_COMMAND_FACTORY(SetGpsTimingReceiver);
+    REGISTER_COMMAND_TO_FACTORY_DECL(SetGpsTimingReceiver);
+    REGISTER_COMMAND_TO_FACTORY_IMPL(SetGpsTimingReceiver);
 
 
     SetGpsTimingReceiver::SetGpsTimingReceiver()
-      : CommandBase(CmdName)
+      : CommandBase(CmdName, TargetId)
     {}
 
     SetGpsTimingReceiver::SetGpsTimingReceiver(const std::string& port, const Sdx::optional<int>& baudRate, const Sdx::optional<int>& dataBits, const Sdx::optional<Sdx::SerialPortParity>& parity, const Sdx::optional<int>& stopBits, const Sdx::optional<Sdx::SerialPortFlowControl>& flowControl)
-      : CommandBase(CmdName)
+      : CommandBase(CmdName, TargetId)
     {
 
       setPort(port);
@@ -60,6 +70,12 @@ namespace Sdx
     }
 
     std::string SetGpsTimingReceiver::documentation() const { return Documentation; }
+
+    const std::vector<std::string>& SetGpsTimingReceiver::fieldNames() const 
+    { 
+      static const std::vector<std::string> names {"Port", "BaudRate", "DataBits", "Parity", "StopBits", "FlowControl"}; 
+      return names; 
+    }
 
 
     int SetGpsTimingReceiver::executePermission() const

@@ -1,8 +1,7 @@
 
-#include "gen/SetWFElement.h"
+#include "SetWFElement.h"
 
 #include "command_factory.h"
-#include "command_result_factory.h"
 #include "parse_json.hpp"
 
 ///
@@ -14,17 +13,25 @@ namespace Sdx
   namespace Cmd
   {
     const char* const SetWFElement::CmdName = "SetWFElement";
-    const char* const SetWFElement::Documentation = "Set Wavefront element properties. Properties define if an element is enabled/disabled, and the associated antenna.";
+    const char* const SetWFElement::Documentation = "Set Wavefront element properties. Properties define if an element is enabled/disabled, and the associated antenna.\n"
+      "\n"
+      "Name             Type   Description\n"
+      "---------------- ------ -------------------------------------------------------------------------------------------------\n"
+      "Element          int    One-based index of the element. Value -1 adds a new element at the end of the list.\n"
+      "Enabled          bool   If True, this antenna element will be simulated.\n"
+      "AntennaModelName string Antenna Model name for this element. Antenna models can be defined in Vehicle Antenna Model menu.";
+    const char* const SetWFElement::TargetId = "";
 
-    REGISTER_COMMAND_FACTORY(SetWFElement);
+    REGISTER_COMMAND_TO_FACTORY_DECL(SetWFElement);
+    REGISTER_COMMAND_TO_FACTORY_IMPL(SetWFElement);
 
 
     SetWFElement::SetWFElement()
-      : CommandBase(CmdName)
+      : CommandBase(CmdName, TargetId)
     {}
 
     SetWFElement::SetWFElement(int element, bool enabled, const std::string& antennaModelName)
-      : CommandBase(CmdName)
+      : CommandBase(CmdName, TargetId)
     {
 
       setElement(element);
@@ -54,6 +61,12 @@ namespace Sdx
     }
 
     std::string SetWFElement::documentation() const { return Documentation; }
+
+    const std::vector<std::string>& SetWFElement::fieldNames() const 
+    { 
+      static const std::vector<std::string> names {"Element", "Enabled", "AntennaModelName"}; 
+      return names; 
+    }
 
 
     int SetWFElement::executePermission() const

@@ -1,8 +1,7 @@
 
-#include "gen/GetSVDataUpdateModeResult.h"
+#include "GetSVDataUpdateModeResult.h"
 
 #include "command_factory.h"
-#include "command_result_factory.h"
 #include "parse_json.hpp"
 
 ///
@@ -14,24 +13,31 @@ namespace Sdx
   namespace Cmd
   {
     const char* const GetSVDataUpdateModeResult::CmdName = "GetSVDataUpdateModeResult";
-    const char* const GetSVDataUpdateModeResult::Documentation = "Result of GetSVDataUpdateMode.";
+    const char* const GetSVDataUpdateModeResult::Documentation = "Result of GetSVDataUpdateMode.\n"
+      "\n"
+      "Name Type             Description\n"
+      "---- ---------------- ------------------------------------------------------------------\n"
+      "Mode SVDataUpdateMode SV Data Update Mode:\n"
+      "                      Extrapolation: Skydel extrapolates from the first block (default).\n"
+      "                      Dynamic: Blocks must be pushed during the simulation.";
+    const char* const GetSVDataUpdateModeResult::TargetId = "";
 
-    REGISTER_COMMAND_RESULT_TO_FACTORY_IMPL(GetSVDataUpdateModeResult);
+    REGISTER_COMMAND_TO_FACTORY_IMPL(GetSVDataUpdateModeResult);
 
 
     GetSVDataUpdateModeResult::GetSVDataUpdateModeResult()
-      : CommandResult(CmdName)
+      : CommandResult(CmdName, TargetId)
     {}
 
     GetSVDataUpdateModeResult::GetSVDataUpdateModeResult(const Sdx::SVDataUpdateMode& mode)
-      : CommandResult(CmdName)
+      : CommandResult(CmdName, TargetId)
     {
 
       setMode(mode);
     }
 
     GetSVDataUpdateModeResult::GetSVDataUpdateModeResult(CommandBasePtr relatedCommand, const Sdx::SVDataUpdateMode& mode)
-      : CommandResult(CmdName, relatedCommand)
+      : CommandResult(CmdName, TargetId, relatedCommand)
     {
 
       setMode(mode);
@@ -63,6 +69,12 @@ namespace Sdx
     }
 
     std::string GetSVDataUpdateModeResult::documentation() const { return Documentation; }
+
+    const std::vector<std::string>& GetSVDataUpdateModeResult::fieldNames() const 
+    { 
+      static const std::vector<std::string> names {"Mode"}; 
+      return names; 
+    }
 
 
     Sdx::SVDataUpdateMode GetSVDataUpdateModeResult::mode() const

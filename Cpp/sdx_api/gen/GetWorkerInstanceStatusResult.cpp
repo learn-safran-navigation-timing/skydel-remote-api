@@ -1,8 +1,7 @@
 
-#include "gen/GetWorkerInstanceStatusResult.h"
+#include "GetWorkerInstanceStatusResult.h"
 
 #include "command_factory.h"
-#include "command_result_factory.h"
 #include "parse_json.hpp"
 
 ///
@@ -14,17 +13,25 @@ namespace Sdx
   namespace Cmd
   {
     const char* const GetWorkerInstanceStatusResult::CmdName = "GetWorkerInstanceStatusResult";
-    const char* const GetWorkerInstanceStatusResult::Documentation = "Result of GetWorkerInstanceStatus.";
+    const char* const GetWorkerInstanceStatusResult::Documentation = "Result of GetWorkerInstanceStatus.\n"
+      "\n"
+      "Name             Type   Description\n"
+      "---------------- ------ ----------------------------------------------\n"
+      "IsWorkerInstance bool   True if Skydel is in worker instance mode\n"
+      "IsConnected      bool   True if Skydel is connected to a main instance\n"
+      "HostName         string The host name, empty if not a worker instance\n"
+      "HostPort         int    The host port, 0 if not a worker instance";
+    const char* const GetWorkerInstanceStatusResult::TargetId = "";
 
-    REGISTER_COMMAND_RESULT_TO_FACTORY_IMPL(GetWorkerInstanceStatusResult);
+    REGISTER_COMMAND_TO_FACTORY_IMPL(GetWorkerInstanceStatusResult);
 
 
     GetWorkerInstanceStatusResult::GetWorkerInstanceStatusResult()
-      : CommandResult(CmdName)
+      : CommandResult(CmdName, TargetId)
     {}
 
     GetWorkerInstanceStatusResult::GetWorkerInstanceStatusResult(bool isWorkerInstance, bool isConnected, const std::string& hostName, int hostPort)
-      : CommandResult(CmdName)
+      : CommandResult(CmdName, TargetId)
     {
 
       setIsWorkerInstance(isWorkerInstance);
@@ -34,7 +41,7 @@ namespace Sdx
     }
 
     GetWorkerInstanceStatusResult::GetWorkerInstanceStatusResult(CommandBasePtr relatedCommand, bool isWorkerInstance, bool isConnected, const std::string& hostName, int hostPort)
-      : CommandResult(CmdName, relatedCommand)
+      : CommandResult(CmdName, TargetId, relatedCommand)
     {
 
       setIsWorkerInstance(isWorkerInstance);
@@ -72,6 +79,12 @@ namespace Sdx
     }
 
     std::string GetWorkerInstanceStatusResult::documentation() const { return Documentation; }
+
+    const std::vector<std::string>& GetWorkerInstanceStatusResult::fieldNames() const 
+    { 
+      static const std::vector<std::string> names {"IsWorkerInstance", "IsConnected", "HostName", "HostPort"}; 
+      return names; 
+    }
 
 
     bool GetWorkerInstanceStatusResult::isWorkerInstance() const

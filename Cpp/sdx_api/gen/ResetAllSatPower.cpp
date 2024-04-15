@@ -1,8 +1,7 @@
 
-#include "gen/ResetAllSatPower.h"
+#include "ResetAllSatPower.h"
 
 #include "command_factory.h"
-#include "command_result_factory.h"
 #include "parse_json.hpp"
 
 ///
@@ -14,17 +13,25 @@ namespace Sdx
   namespace Cmd
   {
     const char* const ResetAllSatPower::CmdName = "ResetAllSatPower";
-    const char* const ResetAllSatPower::Documentation = "Please note the command ResetAllSatPower is deprecated since 21.7. You may use ResetManualPowerOffsets.\n\nReset power offset for all satellites is specified system to default value";
+    const char* const ResetAllSatPower::Documentation = "Please note the command ResetAllSatPower is deprecated since 21.7. You may use ResetManualPowerOffsets.\n"
+      "\n"
+      "Reset power offset for all satellites is specified system to default value\n"
+      "\n"
+      "Name   Type   Description\n"
+      "------ ------ ---------------------------------------------------------------------------\n"
+      "System string \"GPS\", \"GLONASS\", \"Galileo\", \"BeiDou\", \"SBAS\", \"QZSS\", \"NavIC\" or \"PULSAR\".";
+    const char* const ResetAllSatPower::TargetId = "";
 
-    REGISTER_COMMAND_FACTORY(ResetAllSatPower);
+    REGISTER_COMMAND_TO_FACTORY_DECL(ResetAllSatPower);
+    REGISTER_COMMAND_TO_FACTORY_IMPL(ResetAllSatPower);
 
 
     ResetAllSatPower::ResetAllSatPower()
-      : CommandBase(CmdName)
+      : CommandBase(CmdName, TargetId)
     {}
 
     ResetAllSatPower::ResetAllSatPower(const std::string& system)
-      : CommandBase(CmdName)
+      : CommandBase(CmdName, TargetId)
     {
 
       setSystem(system);
@@ -50,6 +57,12 @@ namespace Sdx
     }
 
     std::string ResetAllSatPower::documentation() const { return Documentation; }
+
+    const std::vector<std::string>& ResetAllSatPower::fieldNames() const 
+    { 
+      static const std::vector<std::string> names {"System"}; 
+      return names; 
+    }
 
 
     int ResetAllSatPower::executePermission() const

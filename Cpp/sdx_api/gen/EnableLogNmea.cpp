@@ -1,8 +1,7 @@
 
-#include "gen/EnableLogNmea.h"
+#include "EnableLogNmea.h"
 
 #include "command_factory.h"
-#include "command_result_factory.h"
 #include "parse_json.hpp"
 
 ///
@@ -14,17 +13,25 @@ namespace Sdx
   namespace Cmd
   {
     const char* const EnableLogNmea::CmdName = "EnableLogNmea";
-    const char* const EnableLogNmea::Documentation = "Set Logging of NMEA for the simulated position enable/disable.\nIf a receiver is connected, that NMEA is saved as well.";
+    const char* const EnableLogNmea::Documentation = "Set Logging of NMEA for the simulated position enable/disable.\n"
+      "If a receiver is connected, that NMEA is saved as well.\n"
+      "\n"
+      "Name              Type          Description\n"
+      "----------------- ------------- -----------------------------------------------------------------------------\n"
+      "Enabled           bool          If true, file(s) will be created during simulation\n"
+      "SerialPortEnabled optional bool If true, the log is streamed to the serial port specified in the Preferences.";
+    const char* const EnableLogNmea::TargetId = "";
 
-    REGISTER_COMMAND_FACTORY(EnableLogNmea);
+    REGISTER_COMMAND_TO_FACTORY_DECL(EnableLogNmea);
+    REGISTER_COMMAND_TO_FACTORY_IMPL(EnableLogNmea);
 
 
     EnableLogNmea::EnableLogNmea()
-      : CommandBase(CmdName)
+      : CommandBase(CmdName, TargetId)
     {}
 
     EnableLogNmea::EnableLogNmea(bool enabled, const Sdx::optional<bool>& serialPortEnabled)
-      : CommandBase(CmdName)
+      : CommandBase(CmdName, TargetId)
     {
 
       setEnabled(enabled);
@@ -52,6 +59,12 @@ namespace Sdx
     }
 
     std::string EnableLogNmea::documentation() const { return Documentation; }
+
+    const std::vector<std::string>& EnableLogNmea::fieldNames() const 
+    { 
+      static const std::vector<std::string> names {"Enabled", "SerialPortEnabled"}; 
+      return names; 
+    }
 
 
     int EnableLogNmea::executePermission() const

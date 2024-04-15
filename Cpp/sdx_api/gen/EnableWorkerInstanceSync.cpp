@@ -1,8 +1,7 @@
 
-#include "gen/EnableWorkerInstanceSync.h"
+#include "EnableWorkerInstanceSync.h"
 
 #include "command_factory.h"
-#include "command_result_factory.h"
 #include "parse_json.hpp"
 
 ///
@@ -14,17 +13,24 @@ namespace Sdx
   namespace Cmd
   {
     const char* const EnableWorkerInstanceSync::CmdName = "EnableWorkerInstanceSync";
-    const char* const EnableWorkerInstanceSync::Documentation = "Enable/Disable Time Synchronization on worker instance.\nThe worker instance will wait for the main instance to synchronize the simulators.";
+    const char* const EnableWorkerInstanceSync::Documentation = "Enable/Disable Time Synchronization on worker instance.\n"
+      "The worker instance will wait for the main instance to synchronize the simulators.\n"
+      "\n"
+      "Name    Type Description\n"
+      "------- ---- ----------------------------------------------------------------------------------\n"
+      "Enabled bool If true, this simulator will wait for the main instance to synchronize simulators.";
+    const char* const EnableWorkerInstanceSync::TargetId = "";
 
-    REGISTER_COMMAND_FACTORY(EnableWorkerInstanceSync);
+    REGISTER_COMMAND_TO_FACTORY_DECL(EnableWorkerInstanceSync);
+    REGISTER_COMMAND_TO_FACTORY_IMPL(EnableWorkerInstanceSync);
 
 
     EnableWorkerInstanceSync::EnableWorkerInstanceSync()
-      : CommandBase(CmdName)
+      : CommandBase(CmdName, TargetId)
     {}
 
     EnableWorkerInstanceSync::EnableWorkerInstanceSync(bool enabled)
-      : CommandBase(CmdName)
+      : CommandBase(CmdName, TargetId)
     {
 
       setEnabled(enabled);
@@ -50,6 +56,12 @@ namespace Sdx
     }
 
     std::string EnableWorkerInstanceSync::documentation() const { return Documentation; }
+
+    const std::vector<std::string>& EnableWorkerInstanceSync::fieldNames() const 
+    { 
+      static const std::vector<std::string> names {"Enabled"}; 
+      return names; 
+    }
 
 
     int EnableWorkerInstanceSync::executePermission() const

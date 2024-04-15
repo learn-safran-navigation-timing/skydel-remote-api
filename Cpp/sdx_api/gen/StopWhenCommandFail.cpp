@@ -1,8 +1,7 @@
 
-#include "gen/StopWhenCommandFail.h"
+#include "StopWhenCommandFail.h"
 
 #include "command_factory.h"
-#include "command_result_factory.h"
 #include "parse_json.hpp"
 
 ///
@@ -14,17 +13,23 @@ namespace Sdx
   namespace Cmd
   {
     const char* const StopWhenCommandFail::CmdName = "StopWhenCommandFail";
-    const char* const StopWhenCommandFail::Documentation = "If enabled, simulation stops when a command result fail.";
+    const char* const StopWhenCommandFail::Documentation = "If enabled, simulation stops when a command result fail.\n"
+      "\n"
+      "Name    Type Description\n"
+      "------- ---- ----------------------------------\n"
+      "Enabled bool Enable stop when command fail flag";
+    const char* const StopWhenCommandFail::TargetId = "";
 
-    REGISTER_COMMAND_FACTORY(StopWhenCommandFail);
+    REGISTER_COMMAND_TO_FACTORY_DECL(StopWhenCommandFail);
+    REGISTER_COMMAND_TO_FACTORY_IMPL(StopWhenCommandFail);
 
 
     StopWhenCommandFail::StopWhenCommandFail()
-      : CommandBase(CmdName)
+      : CommandBase(CmdName, TargetId)
     {}
 
     StopWhenCommandFail::StopWhenCommandFail(bool enabled)
-      : CommandBase(CmdName)
+      : CommandBase(CmdName, TargetId)
     {
 
       setEnabled(enabled);
@@ -50,6 +55,12 @@ namespace Sdx
     }
 
     std::string StopWhenCommandFail::documentation() const { return Documentation; }
+
+    const std::vector<std::string>& StopWhenCommandFail::fieldNames() const 
+    { 
+      static const std::vector<std::string> names {"Enabled"}; 
+      return names; 
+    }
 
 
     int StopWhenCommandFail::executePermission() const

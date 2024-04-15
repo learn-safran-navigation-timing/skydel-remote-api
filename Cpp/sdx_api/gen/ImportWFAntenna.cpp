@@ -1,8 +1,7 @@
 
-#include "gen/ImportWFAntenna.h"
+#include "ImportWFAntenna.h"
 
 #include "command_factory.h"
-#include "command_result_factory.h"
 #include "parse_json.hpp"
 
 ///
@@ -14,17 +13,23 @@ namespace Sdx
   namespace Cmd
   {
     const char* const ImportWFAntenna::CmdName = "ImportWFAntenna";
-    const char* const ImportWFAntenna::Documentation = "Import Wavefront Antenna settings from an XML file.";
+    const char* const ImportWFAntenna::Documentation = "Import Wavefront Antenna settings from an XML file.\n"
+      "\n"
+      "Name     Type   Description\n"
+      "-------- ------ -----------------------------------------\n"
+      "FilePath string File path for Wavefront Antenna settings.";
+    const char* const ImportWFAntenna::TargetId = "";
 
-    REGISTER_COMMAND_FACTORY(ImportWFAntenna);
+    REGISTER_COMMAND_TO_FACTORY_DECL(ImportWFAntenna);
+    REGISTER_COMMAND_TO_FACTORY_IMPL(ImportWFAntenna);
 
 
     ImportWFAntenna::ImportWFAntenna()
-      : CommandBase(CmdName)
+      : CommandBase(CmdName, TargetId)
     {}
 
     ImportWFAntenna::ImportWFAntenna(const std::string& filePath)
-      : CommandBase(CmdName)
+      : CommandBase(CmdName, TargetId)
     {
 
       setFilePath(filePath);
@@ -50,6 +55,12 @@ namespace Sdx
     }
 
     std::string ImportWFAntenna::documentation() const { return Documentation; }
+
+    const std::vector<std::string>& ImportWFAntenna::fieldNames() const 
+    { 
+      static const std::vector<std::string> names {"FilePath"}; 
+      return names; 
+    }
 
 
     int ImportWFAntenna::executePermission() const

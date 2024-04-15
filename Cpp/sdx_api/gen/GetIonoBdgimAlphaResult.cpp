@@ -1,8 +1,7 @@
 
-#include "gen/GetIonoBdgimAlphaResult.h"
+#include "GetIonoBdgimAlphaResult.h"
 
 #include "command_factory.h"
-#include "command_result_factory.h"
 #include "parse_json.hpp"
 
 ///
@@ -14,17 +13,23 @@ namespace Sdx
   namespace Cmd
   {
     const char* const GetIonoBdgimAlphaResult::CmdName = "GetIonoBdgimAlphaResult";
-    const char* const GetIonoBdgimAlphaResult::Documentation = "Result of GetIonoBdgimAlpha.";
+    const char* const GetIonoBdgimAlphaResult::Documentation = "Result of GetIonoBdgimAlpha.\n"
+      "\n"
+      "Name  Type   Description\n"
+      "----- ------ ------------------------\n"
+      "Index int    Coefficient index [1..9]\n"
+      "Val   double Coefficient value";
+    const char* const GetIonoBdgimAlphaResult::TargetId = "";
 
-    REGISTER_COMMAND_RESULT_TO_FACTORY_IMPL(GetIonoBdgimAlphaResult);
+    REGISTER_COMMAND_TO_FACTORY_IMPL(GetIonoBdgimAlphaResult);
 
 
     GetIonoBdgimAlphaResult::GetIonoBdgimAlphaResult()
-      : CommandResult(CmdName)
+      : CommandResult(CmdName, TargetId)
     {}
 
     GetIonoBdgimAlphaResult::GetIonoBdgimAlphaResult(int index, double val)
-      : CommandResult(CmdName)
+      : CommandResult(CmdName, TargetId)
     {
 
       setIndex(index);
@@ -32,7 +37,7 @@ namespace Sdx
     }
 
     GetIonoBdgimAlphaResult::GetIonoBdgimAlphaResult(CommandBasePtr relatedCommand, int index, double val)
-      : CommandResult(CmdName, relatedCommand)
+      : CommandResult(CmdName, TargetId, relatedCommand)
     {
 
       setIndex(index);
@@ -66,6 +71,12 @@ namespace Sdx
     }
 
     std::string GetIonoBdgimAlphaResult::documentation() const { return Documentation; }
+
+    const std::vector<std::string>& GetIonoBdgimAlphaResult::fieldNames() const 
+    { 
+      static const std::vector<std::string> names {"Index", "Val"}; 
+      return names; 
+    }
 
 
     int GetIonoBdgimAlphaResult::index() const

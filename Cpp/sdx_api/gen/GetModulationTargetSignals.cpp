@@ -1,8 +1,7 @@
 
-#include "gen/GetModulationTargetSignals.h"
+#include "GetModulationTargetSignals.h"
 
 #include "command_factory.h"
-#include "command_result_factory.h"
 #include "parse_json.hpp"
 
 ///
@@ -14,17 +13,26 @@ namespace Sdx
   namespace Cmd
   {
     const char* const GetModulationTargetSignals::CmdName = "GetModulationTargetSignals";
-    const char* const GetModulationTargetSignals::Documentation = "Get the signals for the specified target and output index.\nSkydel tries to keep the sampling rate as low as possible,\nbut it is possible to set constaints with MinRate and MaxRate.";
+    const char* const GetModulationTargetSignals::Documentation = "Get the signals for the specified target and output index.\n"
+      "Skydel tries to keep the sampling rate as low as possible,\n"
+      "but it is possible to set constaints with MinRate and MaxRate.\n"
+      "\n"
+      "Name   Type   Description\n"
+      "------ ------ -------------------------\n"
+      "Output int    Output index (zero based)\n"
+      "Id     string Target identifier";
+    const char* const GetModulationTargetSignals::TargetId = "";
 
-    REGISTER_COMMAND_FACTORY(GetModulationTargetSignals);
+    REGISTER_COMMAND_TO_FACTORY_DECL(GetModulationTargetSignals);
+    REGISTER_COMMAND_TO_FACTORY_IMPL(GetModulationTargetSignals);
 
 
     GetModulationTargetSignals::GetModulationTargetSignals()
-      : CommandBase(CmdName)
+      : CommandBase(CmdName, TargetId)
     {}
 
     GetModulationTargetSignals::GetModulationTargetSignals(int output, const std::string& id)
-      : CommandBase(CmdName)
+      : CommandBase(CmdName, TargetId)
     {
 
       setOutput(output);
@@ -52,6 +60,12 @@ namespace Sdx
     }
 
     std::string GetModulationTargetSignals::documentation() const { return Documentation; }
+
+    const std::vector<std::string>& GetModulationTargetSignals::fieldNames() const 
+    { 
+      static const std::vector<std::string> names {"Output", "Id"}; 
+      return names; 
+    }
 
 
     int GetModulationTargetSignals::executePermission() const

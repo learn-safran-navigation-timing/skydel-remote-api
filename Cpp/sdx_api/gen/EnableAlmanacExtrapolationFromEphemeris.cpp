@@ -1,8 +1,7 @@
 
-#include "gen/EnableAlmanacExtrapolationFromEphemeris.h"
+#include "EnableAlmanacExtrapolationFromEphemeris.h"
 
 #include "command_factory.h"
-#include "command_result_factory.h"
 #include "parse_json.hpp"
 
 ///
@@ -14,17 +13,24 @@ namespace Sdx
   namespace Cmd
   {
     const char* const EnableAlmanacExtrapolationFromEphemeris::CmdName = "EnableAlmanacExtrapolationFromEphemeris";
-    const char* const EnableAlmanacExtrapolationFromEphemeris::Documentation = "Enable (or disable) extrapolation of the almanac from the ephemeris in Dynamic SV Data mode.\nWhen disabled, use PushDynamicAlmanacData to push the almanac data";
+    const char* const EnableAlmanacExtrapolationFromEphemeris::Documentation = "Enable (or disable) extrapolation of the almanac from the ephemeris in Dynamic SV Data mode.\n"
+      "When disabled, use PushDynamicAlmanacData to push the almanac data\n"
+      "\n"
+      "Name    Type Description\n"
+      "------- ---- -------------------------------\n"
+      "Enabled bool State of almanac extrapolation.";
+    const char* const EnableAlmanacExtrapolationFromEphemeris::TargetId = "";
 
-    REGISTER_COMMAND_FACTORY(EnableAlmanacExtrapolationFromEphemeris);
+    REGISTER_COMMAND_TO_FACTORY_DECL(EnableAlmanacExtrapolationFromEphemeris);
+    REGISTER_COMMAND_TO_FACTORY_IMPL(EnableAlmanacExtrapolationFromEphemeris);
 
 
     EnableAlmanacExtrapolationFromEphemeris::EnableAlmanacExtrapolationFromEphemeris()
-      : CommandBase(CmdName)
+      : CommandBase(CmdName, TargetId)
     {}
 
     EnableAlmanacExtrapolationFromEphemeris::EnableAlmanacExtrapolationFromEphemeris(bool enabled)
-      : CommandBase(CmdName)
+      : CommandBase(CmdName, TargetId)
     {
 
       setEnabled(enabled);
@@ -50,6 +56,12 @@ namespace Sdx
     }
 
     std::string EnableAlmanacExtrapolationFromEphemeris::documentation() const { return Documentation; }
+
+    const std::vector<std::string>& EnableAlmanacExtrapolationFromEphemeris::fieldNames() const 
+    { 
+      static const std::vector<std::string> names {"Enabled"}; 
+      return names; 
+    }
 
 
     int EnableAlmanacExtrapolationFromEphemeris::executePermission() const

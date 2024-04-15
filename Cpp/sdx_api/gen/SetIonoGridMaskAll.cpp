@@ -1,8 +1,7 @@
 
-#include "gen/SetIonoGridMaskAll.h"
+#include "SetIonoGridMaskAll.h"
 
 #include "command_factory.h"
-#include "command_result_factory.h"
 #include "parse_json.hpp"
 
 ///
@@ -14,17 +13,24 @@ namespace Sdx
   namespace Cmd
   {
     const char* const SetIonoGridMaskAll::CmdName = "SetIonoGridMaskAll";
-    const char* const SetIonoGridMaskAll::Documentation = "Set Mask flags in the ionospheric grid for a given service provider. The array is zero based, the index 0 in a band array is for the IGP with an index 1, etc.";
+    const char* const SetIonoGridMaskAll::Documentation = "Set Mask flags in the ionospheric grid for a given service provider. The array is zero based, the index 0 in a band array is for the IGP with an index 1, etc.\n"
+      "\n"
+      "Name            Type             Description\n"
+      "--------------- ---------------- ----------------------------------------------------------------------\n"
+      "ServiceProvider string           The service provider\n"
+      "Grid            array array bool Array containing each band, each band is an array containing the flags";
+    const char* const SetIonoGridMaskAll::TargetId = "";
 
-    REGISTER_COMMAND_FACTORY(SetIonoGridMaskAll);
+    REGISTER_COMMAND_TO_FACTORY_DECL(SetIonoGridMaskAll);
+    REGISTER_COMMAND_TO_FACTORY_IMPL(SetIonoGridMaskAll);
 
 
     SetIonoGridMaskAll::SetIonoGridMaskAll()
-      : CommandBase(CmdName)
+      : CommandBase(CmdName, TargetId)
     {}
 
     SetIonoGridMaskAll::SetIonoGridMaskAll(const std::string& serviceProvider, const std::vector<std::vector<bool>>& grid)
-      : CommandBase(CmdName)
+      : CommandBase(CmdName, TargetId)
     {
 
       setServiceProvider(serviceProvider);
@@ -52,6 +58,12 @@ namespace Sdx
     }
 
     std::string SetIonoGridMaskAll::documentation() const { return Documentation; }
+
+    const std::vector<std::string>& SetIonoGridMaskAll::fieldNames() const 
+    { 
+      static const std::vector<std::string> names {"ServiceProvider", "Grid"}; 
+      return names; 
+    }
 
 
     int SetIonoGridMaskAll::executePermission() const

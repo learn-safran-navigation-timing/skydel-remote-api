@@ -1,8 +1,7 @@
 
-#include "gen/GetVehicleAntennaPhaseOffset.h"
+#include "GetVehicleAntennaPhaseOffset.h"
 
 #include "command_factory.h"
-#include "command_result_factory.h"
 #include "parse_json.hpp"
 
 ///
@@ -14,17 +13,24 @@ namespace Sdx
   namespace Cmd
   {
     const char* const GetVehicleAntennaPhaseOffset::CmdName = "GetVehicleAntennaPhaseOffset";
-    const char* const GetVehicleAntennaPhaseOffset::Documentation = "Get Vehicle phase offset antenna pattern. If no name is specified, the command is aplied to Basic Vehicle Antenna.";
+    const char* const GetVehicleAntennaPhaseOffset::Documentation = "Get Vehicle phase offset antenna pattern. If no name is specified, the command is aplied to Basic Vehicle Antenna.\n"
+      "\n"
+      "Name Type            Description\n"
+      "---- --------------- --------------------\n"
+      "Band GNSSBand        Frequency band\n"
+      "Name optional string Vehicle antenna name";
+    const char* const GetVehicleAntennaPhaseOffset::TargetId = "";
 
-    REGISTER_COMMAND_FACTORY(GetVehicleAntennaPhaseOffset);
+    REGISTER_COMMAND_TO_FACTORY_DECL(GetVehicleAntennaPhaseOffset);
+    REGISTER_COMMAND_TO_FACTORY_IMPL(GetVehicleAntennaPhaseOffset);
 
 
     GetVehicleAntennaPhaseOffset::GetVehicleAntennaPhaseOffset()
-      : CommandBase(CmdName)
+      : CommandBase(CmdName, TargetId)
     {}
 
     GetVehicleAntennaPhaseOffset::GetVehicleAntennaPhaseOffset(const Sdx::GNSSBand& band, const Sdx::optional<std::string>& name)
-      : CommandBase(CmdName)
+      : CommandBase(CmdName, TargetId)
     {
 
       setBand(band);
@@ -52,6 +58,12 @@ namespace Sdx
     }
 
     std::string GetVehicleAntennaPhaseOffset::documentation() const { return Documentation; }
+
+    const std::vector<std::string>& GetVehicleAntennaPhaseOffset::fieldNames() const 
+    { 
+      static const std::vector<std::string> names {"Band", "Name"}; 
+      return names; 
+    }
 
 
     int GetVehicleAntennaPhaseOffset::executePermission() const

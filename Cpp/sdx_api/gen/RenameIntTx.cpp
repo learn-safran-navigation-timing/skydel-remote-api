@@ -1,8 +1,7 @@
 
-#include "gen/RenameIntTx.h"
+#include "RenameIntTx.h"
 
 #include "command_factory.h"
-#include "command_result_factory.h"
 #include "parse_json.hpp"
 
 ///
@@ -14,17 +13,24 @@ namespace Sdx
   namespace Cmd
   {
     const char* const RenameIntTx::CmdName = "RenameIntTx";
-    const char* const RenameIntTx::Documentation = "Rename a transmitter.";
+    const char* const RenameIntTx::Documentation = "Rename a transmitter.\n"
+      "\n"
+      "Name      Type   Description\n"
+      "--------- ------ -------------------------------\n"
+      "UsualName string Usual name for the transmitter.\n"
+      "Id        string Transmitter unique identifier.";
+    const char* const RenameIntTx::TargetId = "";
 
-    REGISTER_COMMAND_FACTORY(RenameIntTx);
+    REGISTER_COMMAND_TO_FACTORY_DECL(RenameIntTx);
+    REGISTER_COMMAND_TO_FACTORY_IMPL(RenameIntTx);
 
 
     RenameIntTx::RenameIntTx()
-      : CommandBase(CmdName)
+      : CommandBase(CmdName, TargetId)
     {}
 
     RenameIntTx::RenameIntTx(const std::string& usualName, const std::string& id)
-      : CommandBase(CmdName)
+      : CommandBase(CmdName, TargetId)
     {
 
       setUsualName(usualName);
@@ -52,6 +58,12 @@ namespace Sdx
     }
 
     std::string RenameIntTx::documentation() const { return Documentation; }
+
+    const std::vector<std::string>& RenameIntTx::fieldNames() const 
+    { 
+      static const std::vector<std::string> names {"UsualName", "Id"}; 
+      return names; 
+    }
 
 
     int RenameIntTx::executePermission() const

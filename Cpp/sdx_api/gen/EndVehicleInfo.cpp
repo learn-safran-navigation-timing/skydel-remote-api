@@ -1,8 +1,7 @@
 
-#include "gen/EndVehicleInfo.h"
+#include "EndVehicleInfo.h"
 
 #include "command_factory.h"
-#include "command_result_factory.h"
 #include "parse_json.hpp"
 
 ///
@@ -15,12 +14,14 @@ namespace Sdx
   {
     const char* const EndVehicleInfo::CmdName = "EndVehicleInfo";
     const char* const EndVehicleInfo::Documentation = "End receiving simulated vehicle informations.";
+    const char* const EndVehicleInfo::TargetId = "";
 
-    REGISTER_COMMAND_FACTORY(EndVehicleInfo);
+    REGISTER_COMMAND_TO_FACTORY_DECL(EndVehicleInfo);
+    REGISTER_COMMAND_TO_FACTORY_IMPL(EndVehicleInfo);
 
 
     EndVehicleInfo::EndVehicleInfo()
-      : CommandBase(CmdName)
+      : CommandBase(CmdName, TargetId)
     {
 
     }
@@ -44,6 +45,12 @@ namespace Sdx
     }
 
     std::string EndVehicleInfo::documentation() const { return Documentation; }
+
+    const std::vector<std::string>& EndVehicleInfo::fieldNames() const 
+    { 
+      static const std::vector<std::string> names {}; 
+      return names; 
+    }
 
 
     int EndVehicleInfo::executePermission() const

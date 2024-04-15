@@ -1,8 +1,7 @@
 
-#include "gen/DeleteVehicleAntennaModel.h"
+#include "DeleteVehicleAntennaModel.h"
 
 #include "command_factory.h"
-#include "command_result_factory.h"
 #include "parse_json.hpp"
 
 ///
@@ -14,17 +13,23 @@ namespace Sdx
   namespace Cmd
   {
     const char* const DeleteVehicleAntennaModel::CmdName = "DeleteVehicleAntennaModel";
-    const char* const DeleteVehicleAntennaModel::Documentation = "Delete a vehicle antenna model. The default vehicle antenna model can't be deleted.";
+    const char* const DeleteVehicleAntennaModel::Documentation = "Delete a vehicle antenna model. The default vehicle antenna model can't be deleted.\n"
+      "\n"
+      "Name Type   Description\n"
+      "---- ------ --------------------------\n"
+      "Name string Vehicle antenna model name";
+    const char* const DeleteVehicleAntennaModel::TargetId = "";
 
-    REGISTER_COMMAND_FACTORY(DeleteVehicleAntennaModel);
+    REGISTER_COMMAND_TO_FACTORY_DECL(DeleteVehicleAntennaModel);
+    REGISTER_COMMAND_TO_FACTORY_IMPL(DeleteVehicleAntennaModel);
 
 
     DeleteVehicleAntennaModel::DeleteVehicleAntennaModel()
-      : CommandBase(CmdName)
+      : CommandBase(CmdName, TargetId)
     {}
 
     DeleteVehicleAntennaModel::DeleteVehicleAntennaModel(const std::string& name)
-      : CommandBase(CmdName)
+      : CommandBase(CmdName, TargetId)
     {
 
       setName(name);
@@ -50,6 +55,12 @@ namespace Sdx
     }
 
     std::string DeleteVehicleAntennaModel::documentation() const { return Documentation; }
+
+    const std::vector<std::string>& DeleteVehicleAntennaModel::fieldNames() const 
+    { 
+      static const std::vector<std::string> names {"Name"}; 
+      return names; 
+    }
 
 
     int DeleteVehicleAntennaModel::executePermission() const

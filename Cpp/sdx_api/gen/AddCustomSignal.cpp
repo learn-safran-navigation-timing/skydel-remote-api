@@ -1,8 +1,7 @@
 
-#include "gen/AddCustomSignal.h"
+#include "AddCustomSignal.h"
 
 #include "command_factory.h"
-#include "command_result_factory.h"
 #include "parse_json.hpp"
 
 ///
@@ -14,17 +13,24 @@ namespace Sdx
   namespace Cmd
   {
     const char* const AddCustomSignal::CmdName = "AddCustomSignal";
-    const char* const AddCustomSignal::Documentation = "Adds a custom signal";
+    const char* const AddCustomSignal::Documentation = "Adds a custom signal\n"
+      "\n"
+      "Name Type   Description\n"
+      "---- ------ ------------------------------------------------\n"
+      "Path string Path to the custom signal XML file\n"
+      "Id   string Unique identifier automatically set by simulator";
+    const char* const AddCustomSignal::TargetId = "";
 
-    REGISTER_COMMAND_FACTORY(AddCustomSignal);
+    REGISTER_COMMAND_TO_FACTORY_DECL(AddCustomSignal);
+    REGISTER_COMMAND_TO_FACTORY_IMPL(AddCustomSignal);
 
 
     AddCustomSignal::AddCustomSignal()
-      : CommandBase(CmdName)
+      : CommandBase(CmdName, TargetId)
     {}
 
     AddCustomSignal::AddCustomSignal(const std::string& path, const std::string& id)
-      : CommandBase(CmdName)
+      : CommandBase(CmdName, TargetId)
     {
 
       setPath(path);
@@ -52,6 +58,12 @@ namespace Sdx
     }
 
     std::string AddCustomSignal::documentation() const { return Documentation; }
+
+    const std::vector<std::string>& AddCustomSignal::fieldNames() const 
+    { 
+      static const std::vector<std::string> names {"Path", "Id"}; 
+      return names; 
+    }
 
 
     int AddCustomSignal::executePermission() const

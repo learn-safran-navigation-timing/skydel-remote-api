@@ -1,8 +1,7 @@
 
-#include "gen/RandomizePseudorangeNoiseGaussMarkovSeedsForAllSV.h"
+#include "RandomizePseudorangeNoiseGaussMarkovSeedsForAllSV.h"
 
 #include "command_factory.h"
-#include "command_result_factory.h"
 #include "parse_json.hpp"
 
 ///
@@ -14,17 +13,23 @@ namespace Sdx
   namespace Cmd
   {
     const char* const RandomizePseudorangeNoiseGaussMarkovSeedsForAllSV::CmdName = "RandomizePseudorangeNoiseGaussMarkovSeedsForAllSV";
-    const char* const RandomizePseudorangeNoiseGaussMarkovSeedsForAllSV::Documentation = "Generate new seeds for pseudorange noise Gauss-Markov process error on all satellites.";
+    const char* const RandomizePseudorangeNoiseGaussMarkovSeedsForAllSV::Documentation = "Generate new seeds for pseudorange noise Gauss-Markov process error on all satellites.\n"
+      "\n"
+      "Name   Type   Description\n"
+      "------ ------ --------------------------------------------------------------------------\n"
+      "System string \"GPS\", \"GLONASS\", \"Galileo\", \"BeiDou\", \"SBAS\", \"QZSS\", \"NavIC\" or \"PULSAR\"";
+    const char* const RandomizePseudorangeNoiseGaussMarkovSeedsForAllSV::TargetId = "";
 
-    REGISTER_COMMAND_FACTORY(RandomizePseudorangeNoiseGaussMarkovSeedsForAllSV);
+    REGISTER_COMMAND_TO_FACTORY_DECL(RandomizePseudorangeNoiseGaussMarkovSeedsForAllSV);
+    REGISTER_COMMAND_TO_FACTORY_IMPL(RandomizePseudorangeNoiseGaussMarkovSeedsForAllSV);
 
 
     RandomizePseudorangeNoiseGaussMarkovSeedsForAllSV::RandomizePseudorangeNoiseGaussMarkovSeedsForAllSV()
-      : CommandBase(CmdName)
+      : CommandBase(CmdName, TargetId)
     {}
 
     RandomizePseudorangeNoiseGaussMarkovSeedsForAllSV::RandomizePseudorangeNoiseGaussMarkovSeedsForAllSV(const std::string& system)
-      : CommandBase(CmdName)
+      : CommandBase(CmdName, TargetId)
     {
 
       setSystem(system);
@@ -50,6 +55,12 @@ namespace Sdx
     }
 
     std::string RandomizePseudorangeNoiseGaussMarkovSeedsForAllSV::documentation() const { return Documentation; }
+
+    const std::vector<std::string>& RandomizePseudorangeNoiseGaussMarkovSeedsForAllSV::fieldNames() const 
+    { 
+      static const std::vector<std::string> names {"System"}; 
+      return names; 
+    }
 
 
     int RandomizePseudorangeNoiseGaussMarkovSeedsForAllSV::executePermission() const

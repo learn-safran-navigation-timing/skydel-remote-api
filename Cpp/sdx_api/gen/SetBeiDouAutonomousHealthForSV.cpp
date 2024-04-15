@@ -1,8 +1,7 @@
 
-#include "gen/SetBeiDouAutonomousHealthForSV.h"
+#include "SetBeiDouAutonomousHealthForSV.h"
 
 #include "command_factory.h"
-#include "command_result_factory.h"
 #include "parse_json.hpp"
 
 ///
@@ -14,17 +13,25 @@ namespace Sdx
   namespace Cmd
   {
     const char* const SetBeiDouAutonomousHealthForSV::CmdName = "SetBeiDouAutonomousHealthForSV";
-    const char* const SetBeiDouAutonomousHealthForSV::Documentation = "Set BeiDou satellite autonomous health";
+    const char* const SetBeiDouAutonomousHealthForSV::Documentation = "Set BeiDou satellite autonomous health\n"
+      "\n"
+      "Name        Type            Description\n"
+      "----------- --------------- -------------------------------------------------------------------------------------------\n"
+      "SvId        int             Satellite SV ID 1..35, or use 0 to apply new value to all satellites.\n"
+      "Health      bool            Status, false = Good, true = Not Good\n"
+      "DataSetName optional string Optional name of the data set to use. If no value is provided, the active data set is used.";
+    const char* const SetBeiDouAutonomousHealthForSV::TargetId = "";
 
-    REGISTER_COMMAND_FACTORY(SetBeiDouAutonomousHealthForSV);
+    REGISTER_COMMAND_TO_FACTORY_DECL(SetBeiDouAutonomousHealthForSV);
+    REGISTER_COMMAND_TO_FACTORY_IMPL(SetBeiDouAutonomousHealthForSV);
 
 
     SetBeiDouAutonomousHealthForSV::SetBeiDouAutonomousHealthForSV()
-      : CommandBase(CmdName)
+      : CommandBase(CmdName, TargetId)
     {}
 
     SetBeiDouAutonomousHealthForSV::SetBeiDouAutonomousHealthForSV(int svId, bool health, const Sdx::optional<std::string>& dataSetName)
-      : CommandBase(CmdName)
+      : CommandBase(CmdName, TargetId)
     {
 
       setSvId(svId);
@@ -54,6 +61,12 @@ namespace Sdx
     }
 
     std::string SetBeiDouAutonomousHealthForSV::documentation() const { return Documentation; }
+
+    const std::vector<std::string>& SetBeiDouAutonomousHealthForSV::fieldNames() const 
+    { 
+      static const std::vector<std::string> names {"SvId", "Health", "DataSetName"}; 
+      return names; 
+    }
 
 
     int SetBeiDouAutonomousHealthForSV::executePermission() const

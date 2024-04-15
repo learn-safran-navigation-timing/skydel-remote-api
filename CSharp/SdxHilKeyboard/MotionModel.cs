@@ -123,9 +123,9 @@ namespace SdxKeyboard
 
         private void _CheckErrors()
         {
-            var result = _simulator.Call(new GetLastHilWarning()) as HilWarningResult;
-            if (result != null && result.IsExtrapolated)
-                LastExtrapolation = result.ExtrapolationTime;
+            var result = _simulator.Call(new GetHilExtrapolationState()) as GetHilExtrapolationStateResult;
+            if (result != null && result.State != HilExtrapolationState.Deterministic)
+                LastExtrapolation = result.ElapsedTime;
         }
 
         private void _PushPosition()

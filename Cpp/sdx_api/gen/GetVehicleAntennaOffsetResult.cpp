@@ -1,8 +1,7 @@
 
-#include "gen/GetVehicleAntennaOffsetResult.h"
+#include "GetVehicleAntennaOffsetResult.h"
 
 #include "command_factory.h"
-#include "command_result_factory.h"
 #include "parse_json.hpp"
 
 ///
@@ -14,17 +13,28 @@ namespace Sdx
   namespace Cmd
   {
     const char* const GetVehicleAntennaOffsetResult::CmdName = "GetVehicleAntennaOffsetResult";
-    const char* const GetVehicleAntennaOffsetResult::Documentation = "Result of GetVehicleAntennaOffset.";
+    const char* const GetVehicleAntennaOffsetResult::Documentation = "Result of GetVehicleAntennaOffset.\n"
+      "\n"
+      "Name  Type            Description\n"
+      "----- --------------- --------------------------------------------\n"
+      "X     double          Antenna X offset in the body frame (meter)\n"
+      "Y     double          Antenna Y offset in the body frame (meter)\n"
+      "Z     double          Antenna Z offset in the body frame (meter)\n"
+      "Yaw   double          Antenna Yaw offset in the body frame (rad)\n"
+      "Pitch double          Antenna Pitch offset in the body frame (rad)\n"
+      "Roll  double          Antenna Roll offset in the body frame (rad)\n"
+      "Name  optional string Unique vehicle antenna name";
+    const char* const GetVehicleAntennaOffsetResult::TargetId = "";
 
-    REGISTER_COMMAND_RESULT_TO_FACTORY_IMPL(GetVehicleAntennaOffsetResult);
+    REGISTER_COMMAND_TO_FACTORY_IMPL(GetVehicleAntennaOffsetResult);
 
 
     GetVehicleAntennaOffsetResult::GetVehicleAntennaOffsetResult()
-      : CommandResult(CmdName)
+      : CommandResult(CmdName, TargetId)
     {}
 
     GetVehicleAntennaOffsetResult::GetVehicleAntennaOffsetResult(double x, double y, double z, double yaw, double pitch, double roll, const Sdx::optional<std::string>& name)
-      : CommandResult(CmdName)
+      : CommandResult(CmdName, TargetId)
     {
 
       setX(x);
@@ -37,7 +47,7 @@ namespace Sdx
     }
 
     GetVehicleAntennaOffsetResult::GetVehicleAntennaOffsetResult(CommandBasePtr relatedCommand, double x, double y, double z, double yaw, double pitch, double roll, const Sdx::optional<std::string>& name)
-      : CommandResult(CmdName, relatedCommand)
+      : CommandResult(CmdName, TargetId, relatedCommand)
     {
 
       setX(x);
@@ -81,6 +91,12 @@ namespace Sdx
     }
 
     std::string GetVehicleAntennaOffsetResult::documentation() const { return Documentation; }
+
+    const std::vector<std::string>& GetVehicleAntennaOffsetResult::fieldNames() const 
+    { 
+      static const std::vector<std::string> names {"X", "Y", "Z", "Yaw", "Pitch", "Roll", "Name"}; 
+      return names; 
+    }
 
 
     double GetVehicleAntennaOffsetResult::x() const

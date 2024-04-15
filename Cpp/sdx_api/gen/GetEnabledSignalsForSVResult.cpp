@@ -1,8 +1,7 @@
 
-#include "gen/GetEnabledSignalsForSVResult.h"
+#include "GetEnabledSignalsForSVResult.h"
 
 #include "command_factory.h"
-#include "command_result_factory.h"
 #include "parse_json.hpp"
 
 ///
@@ -14,17 +13,24 @@ namespace Sdx
   namespace Cmd
   {
     const char* const GetEnabledSignalsForSVResult::CmdName = "GetEnabledSignalsForSVResult";
-    const char* const GetEnabledSignalsForSVResult::Documentation = "Result of GetEnabledSignalsForSV.";
+    const char* const GetEnabledSignalsForSVResult::Documentation = "Result of GetEnabledSignalsForSV.\n"
+      "\n"
+      "Name        Type         Description\n"
+      "----------- ------------ ----------------------------------------------------------------------------------------------\n"
+      "System      string       The system, can be \"GPS\", \"GLONASS\", \"Galileo\", \"BeiDou\", \"SBAS\", \"QZSS\", \"NavIC\" or \"PULSAR\".\n"
+      "SvId        int          The satellite SV ID.\n"
+      "SignalArray array string The list of enabled signals.";
+    const char* const GetEnabledSignalsForSVResult::TargetId = "";
 
-    REGISTER_COMMAND_RESULT_TO_FACTORY_IMPL(GetEnabledSignalsForSVResult);
+    REGISTER_COMMAND_TO_FACTORY_IMPL(GetEnabledSignalsForSVResult);
 
 
     GetEnabledSignalsForSVResult::GetEnabledSignalsForSVResult()
-      : CommandResult(CmdName)
+      : CommandResult(CmdName, TargetId)
     {}
 
     GetEnabledSignalsForSVResult::GetEnabledSignalsForSVResult(const std::string& system, int svId, const std::vector<std::string>& signalArray)
-      : CommandResult(CmdName)
+      : CommandResult(CmdName, TargetId)
     {
 
       setSystem(system);
@@ -33,7 +39,7 @@ namespace Sdx
     }
 
     GetEnabledSignalsForSVResult::GetEnabledSignalsForSVResult(CommandBasePtr relatedCommand, const std::string& system, int svId, const std::vector<std::string>& signalArray)
-      : CommandResult(CmdName, relatedCommand)
+      : CommandResult(CmdName, TargetId, relatedCommand)
     {
 
       setSystem(system);
@@ -69,6 +75,12 @@ namespace Sdx
     }
 
     std::string GetEnabledSignalsForSVResult::documentation() const { return Documentation; }
+
+    const std::vector<std::string>& GetEnabledSignalsForSVResult::fieldNames() const 
+    { 
+      static const std::vector<std::string> names {"System", "SvId", "SignalArray"}; 
+      return names; 
+    }
 
 
     std::string GetEnabledSignalsForSVResult::system() const

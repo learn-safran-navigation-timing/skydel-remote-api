@@ -1,8 +1,7 @@
 
-#include "gen/GetMessageModificationToQzssSlas.h"
+#include "GetMessageModificationToQzssSlas.h"
 
 #include "command_factory.h"
-#include "command_result_factory.h"
 #include "parse_json.hpp"
 
 ///
@@ -14,17 +13,23 @@ namespace Sdx
   namespace Cmd
   {
     const char* const GetMessageModificationToQzssSlas::CmdName = "GetMessageModificationToQzssSlas";
-    const char* const GetMessageModificationToQzssSlas::Documentation = "Get infos about the QZSS SLAS message modification with this ID.";
+    const char* const GetMessageModificationToQzssSlas::Documentation = "Get infos about the QZSS SLAS message modification with this ID.\n"
+      "\n"
+      "Name Type   Description\n"
+      "---- ------ ------------------------------\n"
+      "Id   string Unique identifier of the event";
+    const char* const GetMessageModificationToQzssSlas::TargetId = "";
 
-    REGISTER_COMMAND_FACTORY(GetMessageModificationToQzssSlas);
+    REGISTER_COMMAND_TO_FACTORY_DECL(GetMessageModificationToQzssSlas);
+    REGISTER_COMMAND_TO_FACTORY_IMPL(GetMessageModificationToQzssSlas);
 
 
     GetMessageModificationToQzssSlas::GetMessageModificationToQzssSlas()
-      : CommandBase(CmdName)
+      : CommandBase(CmdName, TargetId)
     {}
 
     GetMessageModificationToQzssSlas::GetMessageModificationToQzssSlas(const std::string& id)
-      : CommandBase(CmdName)
+      : CommandBase(CmdName, TargetId)
     {
 
       setId(id);
@@ -50,6 +55,12 @@ namespace Sdx
     }
 
     std::string GetMessageModificationToQzssSlas::documentation() const { return Documentation; }
+
+    const std::vector<std::string>& GetMessageModificationToQzssSlas::fieldNames() const 
+    { 
+      static const std::vector<std::string> names {"Id"}; 
+      return names; 
+    }
 
 
     int GetMessageModificationToQzssSlas::executePermission() const

@@ -1,8 +1,7 @@
 
-#include "gen/GetIonoGridError.h"
+#include "GetIonoGridError.h"
 
 #include "command_factory.h"
-#include "command_result_factory.h"
 #include "parse_json.hpp"
 
 ///
@@ -14,17 +13,24 @@ namespace Sdx
   namespace Cmd
   {
     const char* const GetIonoGridError::CmdName = "GetIonoGridError";
-    const char* const GetIonoGridError::Documentation = "Get the error offset for a ionospheric grid point";
+    const char* const GetIonoGridError::Documentation = "Get the error offset for a ionospheric grid point\n"
+      "\n"
+      "Name  Type Description\n"
+      "----- ---- -------------------------------\n"
+      "Band  int  The ionospheric grid band index\n"
+      "Point int  The IGP index";
+    const char* const GetIonoGridError::TargetId = "";
 
-    REGISTER_COMMAND_FACTORY(GetIonoGridError);
+    REGISTER_COMMAND_TO_FACTORY_DECL(GetIonoGridError);
+    REGISTER_COMMAND_TO_FACTORY_IMPL(GetIonoGridError);
 
 
     GetIonoGridError::GetIonoGridError()
-      : CommandBase(CmdName)
+      : CommandBase(CmdName, TargetId)
     {}
 
     GetIonoGridError::GetIonoGridError(int band, int point)
-      : CommandBase(CmdName)
+      : CommandBase(CmdName, TargetId)
     {
 
       setBand(band);
@@ -52,6 +58,12 @@ namespace Sdx
     }
 
     std::string GetIonoGridError::documentation() const { return Documentation; }
+
+    const std::vector<std::string>& GetIonoGridError::fieldNames() const 
+    { 
+      static const std::vector<std::string> names {"Band", "Point"}; 
+      return names; 
+    }
 
 
     int GetIonoGridError::executePermission() const

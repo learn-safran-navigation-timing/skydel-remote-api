@@ -2,7 +2,7 @@
 
 #include <memory>
 #include "command_result.h"
-#include "command_result_factory.h"
+#include "command_factory.h"
 #include "gen/AntennaPatternType.h"
 #include "gen/GNSSBand.h"
 #include "sdx_optional.h"
@@ -33,6 +33,7 @@ namespace Sdx
     public:
       static const char* const CmdName;
       static const char* const Documentation;
+      static const char* const TargetId;
 
 
       GetVehicleAntennaPhaseOffsetResult();
@@ -47,6 +48,7 @@ namespace Sdx
       static GetVehicleAntennaPhaseOffsetResultPtr dynamicCast(CommandBasePtr ptr);
       virtual bool isValid() const override;
       virtual std::string documentation() const override;
+      virtual const std::vector<std::string>& fieldNames() const override;
 
 
       // **** phaseOffset ****
@@ -68,7 +70,7 @@ namespace Sdx
       Sdx::optional<std::string> name() const;
       void setName(const Sdx::optional<std::string>& name);
     };
-    REGISTER_COMMAND_RESULT_TO_FACTORY_DECL(GetVehicleAntennaPhaseOffsetResult);
+    REGISTER_COMMAND_TO_FACTORY_DECL(GetVehicleAntennaPhaseOffsetResult);
   }
 }
 

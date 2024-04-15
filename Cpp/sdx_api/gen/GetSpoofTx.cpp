@@ -1,8 +1,7 @@
 
-#include "gen/GetSpoofTx.h"
+#include "GetSpoofTx.h"
 
 #include "command_factory.h"
-#include "command_result_factory.h"
 #include "parse_json.hpp"
 
 ///
@@ -14,17 +13,25 @@ namespace Sdx
   namespace Cmd
   {
     const char* const GetSpoofTx::CmdName = "GetSpoofTx";
-    const char* const GetSpoofTx::Documentation = "Get a spoofer transmitter. For set : the transmitter Id parameter is not set (empty string),\nSkydel will assign a unique Id to the transmitter. If the Id is set and already used by Skydel, the\ncommand will fail.";
+    const char* const GetSpoofTx::Documentation = "Get a spoofer transmitter. For set : the transmitter Id parameter is not set (empty string),\n"
+      "Skydel will assign a unique Id to the transmitter. If the Id is set and already used by Skydel, the\n"
+      "command will fail.\n"
+      "\n"
+      "Name Type   Description\n"
+      "---- ------ ------------------------------\n"
+      "Id   string Transmitter unique identifier.";
+    const char* const GetSpoofTx::TargetId = "";
 
-    REGISTER_COMMAND_FACTORY(GetSpoofTx);
+    REGISTER_COMMAND_TO_FACTORY_DECL(GetSpoofTx);
+    REGISTER_COMMAND_TO_FACTORY_IMPL(GetSpoofTx);
 
 
     GetSpoofTx::GetSpoofTx()
-      : CommandBase(CmdName)
+      : CommandBase(CmdName, TargetId)
     {}
 
     GetSpoofTx::GetSpoofTx(const std::string& id)
-      : CommandBase(CmdName)
+      : CommandBase(CmdName, TargetId)
     {
 
       setId(id);
@@ -50,6 +57,12 @@ namespace Sdx
     }
 
     std::string GetSpoofTx::documentation() const { return Documentation; }
+
+    const std::vector<std::string>& GetSpoofTx::fieldNames() const 
+    { 
+      static const std::vector<std::string> names {"Id"}; 
+      return names; 
+    }
 
 
     int GetSpoofTx::executePermission() const

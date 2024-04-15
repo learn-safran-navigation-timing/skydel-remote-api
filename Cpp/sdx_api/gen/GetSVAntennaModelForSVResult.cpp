@@ -1,8 +1,7 @@
 
-#include "gen/GetSVAntennaModelForSVResult.h"
+#include "GetSVAntennaModelForSVResult.h"
 
 #include "command_factory.h"
-#include "command_result_factory.h"
 #include "parse_json.hpp"
 
 ///
@@ -14,17 +13,24 @@ namespace Sdx
   namespace Cmd
   {
     const char* const GetSVAntennaModelForSVResult::CmdName = "GetSVAntennaModelForSVResult";
-    const char* const GetSVAntennaModelForSVResult::Documentation = "Result of GetSVAntennaModelForSV.";
+    const char* const GetSVAntennaModelForSVResult::Documentation = "Result of GetSVAntennaModelForSV.\n"
+      "\n"
+      "Name             Type   Description\n"
+      "---------------- ------ ---------------------------------------------------------------------------\n"
+      "System           string \"GPS\", \"GLONASS\", \"Galileo\", \"BeiDou\", \"SBAS\", \"QZSS\", \"NavIC\" or \"PULSAR\".\n"
+      "SvId             int    The satellite's SV ID.\n"
+      "AntennaModelName string SV antenna model name.";
+    const char* const GetSVAntennaModelForSVResult::TargetId = "";
 
-    REGISTER_COMMAND_RESULT_TO_FACTORY_IMPL(GetSVAntennaModelForSVResult);
+    REGISTER_COMMAND_TO_FACTORY_IMPL(GetSVAntennaModelForSVResult);
 
 
     GetSVAntennaModelForSVResult::GetSVAntennaModelForSVResult()
-      : CommandResult(CmdName)
+      : CommandResult(CmdName, TargetId)
     {}
 
     GetSVAntennaModelForSVResult::GetSVAntennaModelForSVResult(const std::string& system, int svId, const std::string& antennaModelName)
-      : CommandResult(CmdName)
+      : CommandResult(CmdName, TargetId)
     {
 
       setSystem(system);
@@ -33,7 +39,7 @@ namespace Sdx
     }
 
     GetSVAntennaModelForSVResult::GetSVAntennaModelForSVResult(CommandBasePtr relatedCommand, const std::string& system, int svId, const std::string& antennaModelName)
-      : CommandResult(CmdName, relatedCommand)
+      : CommandResult(CmdName, TargetId, relatedCommand)
     {
 
       setSystem(system);
@@ -69,6 +75,12 @@ namespace Sdx
     }
 
     std::string GetSVAntennaModelForSVResult::documentation() const { return Documentation; }
+
+    const std::vector<std::string>& GetSVAntennaModelForSVResult::fieldNames() const 
+    { 
+      static const std::vector<std::string> names {"System", "SvId", "AntennaModelName"}; 
+      return names; 
+    }
 
 
     std::string GetSVAntennaModelForSVResult::system() const

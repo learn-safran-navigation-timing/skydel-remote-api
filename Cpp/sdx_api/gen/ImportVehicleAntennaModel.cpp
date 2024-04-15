@@ -1,8 +1,7 @@
 
-#include "gen/ImportVehicleAntennaModel.h"
+#include "ImportVehicleAntennaModel.h"
 
 #include "command_factory.h"
-#include "command_result_factory.h"
 #include "parse_json.hpp"
 
 ///
@@ -14,17 +13,23 @@ namespace Sdx
   namespace Cmd
   {
     const char* const ImportVehicleAntennaModel::CmdName = "ImportVehicleAntennaModel";
-    const char* const ImportVehicleAntennaModel::Documentation = "Import a vehicle antenna model from a XML file.";
+    const char* const ImportVehicleAntennaModel::Documentation = "Import a vehicle antenna model from a XML file.\n"
+      "\n"
+      "Name     Type   Description\n"
+      "-------- ------ ------------------------------\n"
+      "FilePath string File path of the antenna model";
+    const char* const ImportVehicleAntennaModel::TargetId = "";
 
-    REGISTER_COMMAND_FACTORY(ImportVehicleAntennaModel);
+    REGISTER_COMMAND_TO_FACTORY_DECL(ImportVehicleAntennaModel);
+    REGISTER_COMMAND_TO_FACTORY_IMPL(ImportVehicleAntennaModel);
 
 
     ImportVehicleAntennaModel::ImportVehicleAntennaModel()
-      : CommandBase(CmdName)
+      : CommandBase(CmdName, TargetId)
     {}
 
     ImportVehicleAntennaModel::ImportVehicleAntennaModel(const std::string& filePath)
-      : CommandBase(CmdName)
+      : CommandBase(CmdName, TargetId)
     {
 
       setFilePath(filePath);
@@ -50,6 +55,12 @@ namespace Sdx
     }
 
     std::string ImportVehicleAntennaModel::documentation() const { return Documentation; }
+
+    const std::vector<std::string>& ImportVehicleAntennaModel::fieldNames() const 
+    { 
+      static const std::vector<std::string> names {"FilePath"}; 
+      return names; 
+    }
 
 
     int ImportVehicleAntennaModel::executePermission() const

@@ -1,8 +1,7 @@
 
-#include "gen/GetQzssEphemerisDoubleParam.h"
+#include "GetQzssEphemerisDoubleParam.h"
 
 #include "command_factory.h"
-#include "command_result_factory.h"
 #include "parse_json.hpp"
 
 ///
@@ -14,19 +13,33 @@ namespace Sdx
   namespace Cmd
   {
     const char* const GetQzssEphemerisDoubleParam::CmdName = "GetQzssEphemerisDoubleParam";
-    const char* const GetQzssEphemerisDoubleParam::Documentation = "Please note the command GetQzssEphemerisDoubleParam is deprecated since 21.3. You may use GetQzssEphDoubleParamForSV.\n\nPlease note the command GetQzssEphDoubleParamForSV is deprecated since 23.11. You may use GetConstellationParameterForSV.\n\nGet various parameters in the QZSS ephemeris.";
+    const char* const GetQzssEphemerisDoubleParam::Documentation = "Please note the command GetQzssEphemerisDoubleParam is deprecated since 21.3. You may use GetQzssEphDoubleParamForSV.\n"
+      "\n"
+      "Please note the command GetQzssEphDoubleParamForSV is deprecated since 23.11. You may use GetConstellationParameterForSV.\n"
+      "\n"
+      "Get various parameters in the QZSS ephemeris.\n"
+      "\n"
+      "Name        Type            Description\n"
+      "----------- --------------- -------------------------------------------------------------------------------------------\n"
+      "SvId        int             The satellite's SV ID 1..10 (use 0 to apply to all satellites)\n"
+      "ParamName   string          In meters:  \"Crs\", \"Crc\"\n"
+      "                            In radians: \"Cis\", \"Cic\", \"Cus\", \"Cuc\"\n"
+      "                            In seconds: \"Tgd\", \"IscL1Ca\", \"IscL2C\", \"IscL5I5\", \"IscL5Q5\", \"IscL1CP\", \"IscL1CD\"\n"
+      "DataSetName optional string Optional name of the data set to use. If no value is provided, the active data set is used.";
+    const char* const GetQzssEphemerisDoubleParam::TargetId = "";
 
     const char* const GetQzssEphemerisDoubleParam::Deprecated = "Please note the command GetQzssEphemerisDoubleParam is deprecated since 23.11. You may use GetConstellationParameterForSV.";
 
-    REGISTER_COMMAND_FACTORY(GetQzssEphemerisDoubleParam);
+    REGISTER_COMMAND_TO_FACTORY_DECL(GetQzssEphemerisDoubleParam);
+    REGISTER_COMMAND_TO_FACTORY_IMPL(GetQzssEphemerisDoubleParam);
 
 
     GetQzssEphemerisDoubleParam::GetQzssEphemerisDoubleParam()
-      : CommandBase(CmdName)
+      : CommandBase(CmdName, TargetId)
     {}
 
     GetQzssEphemerisDoubleParam::GetQzssEphemerisDoubleParam(int svId, const std::string& paramName, const Sdx::optional<std::string>& dataSetName)
-      : CommandBase(CmdName)
+      : CommandBase(CmdName, TargetId)
     {
 
       setSvId(svId);
@@ -56,6 +69,12 @@ namespace Sdx
     }
 
     std::string GetQzssEphemerisDoubleParam::documentation() const { return Documentation; }
+
+    const std::vector<std::string>& GetQzssEphemerisDoubleParam::fieldNames() const 
+    { 
+      static const std::vector<std::string> names {"SvId", "ParamName", "DataSetName"}; 
+      return names; 
+    }
 
     Sdx::optional<std::string> GetQzssEphemerisDoubleParam::deprecated() const { return Sdx::optional<std::string>{Deprecated}; }
 

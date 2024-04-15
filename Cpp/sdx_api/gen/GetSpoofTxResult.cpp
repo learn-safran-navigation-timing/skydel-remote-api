@@ -1,8 +1,7 @@
 
-#include "gen/GetSpoofTxResult.h"
+#include "GetSpoofTxResult.h"
 
 #include "command_factory.h"
-#include "command_result_factory.h"
 #include "parse_json.hpp"
 
 ///
@@ -14,17 +13,26 @@ namespace Sdx
   namespace Cmd
   {
     const char* const GetSpoofTxResult::CmdName = "GetSpoofTxResult";
-    const char* const GetSpoofTxResult::Documentation = "Result of GetSpoofTx.";
+    const char* const GetSpoofTxResult::Documentation = "Result of GetSpoofTx.\n"
+      "\n"
+      "Name       Type   Description\n"
+      "---------- ------ ------------------------------------------------\n"
+      "UsualName  string Usual name for the transmitter.\n"
+      "Enabled    bool   Enable (true) or disable (false) the transmitter\n"
+      "Address    string Remote instance IP address.\n"
+      "InstanceId int    Remote instance ID.\n"
+      "Id         string Transmitter unique identifier.";
+    const char* const GetSpoofTxResult::TargetId = "";
 
-    REGISTER_COMMAND_RESULT_TO_FACTORY_IMPL(GetSpoofTxResult);
+    REGISTER_COMMAND_TO_FACTORY_IMPL(GetSpoofTxResult);
 
 
     GetSpoofTxResult::GetSpoofTxResult()
-      : CommandResult(CmdName)
+      : CommandResult(CmdName, TargetId)
     {}
 
     GetSpoofTxResult::GetSpoofTxResult(const std::string& usualName, bool enabled, const std::string& address, int instanceId, const std::string& id)
-      : CommandResult(CmdName)
+      : CommandResult(CmdName, TargetId)
     {
 
       setUsualName(usualName);
@@ -35,7 +43,7 @@ namespace Sdx
     }
 
     GetSpoofTxResult::GetSpoofTxResult(CommandBasePtr relatedCommand, const std::string& usualName, bool enabled, const std::string& address, int instanceId, const std::string& id)
-      : CommandResult(CmdName, relatedCommand)
+      : CommandResult(CmdName, TargetId, relatedCommand)
     {
 
       setUsualName(usualName);
@@ -75,6 +83,12 @@ namespace Sdx
     }
 
     std::string GetSpoofTxResult::documentation() const { return Documentation; }
+
+    const std::vector<std::string>& GetSpoofTxResult::fieldNames() const 
+    { 
+      static const std::vector<std::string> names {"UsualName", "Enabled", "Address", "InstanceId", "Id"}; 
+      return names; 
+    }
 
 
     std::string GetSpoofTxResult::usualName() const

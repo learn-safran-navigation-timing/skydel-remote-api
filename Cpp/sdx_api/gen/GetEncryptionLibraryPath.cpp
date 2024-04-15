@@ -1,8 +1,7 @@
 
-#include "gen/GetEncryptionLibraryPath.h"
+#include "GetEncryptionLibraryPath.h"
 
 #include "command_factory.h"
-#include "command_result_factory.h"
 #include "parse_json.hpp"
 
 ///
@@ -14,17 +13,23 @@ namespace Sdx
   namespace Cmd
   {
     const char* const GetEncryptionLibraryPath::CmdName = "GetEncryptionLibraryPath";
-    const char* const GetEncryptionLibraryPath::Documentation = "Get the specific encryption signal library path.";
+    const char* const GetEncryptionLibraryPath::Documentation = "Get the specific encryption signal library path.\n"
+      "\n"
+      "Name Type                 Description\n"
+      "---- -------------------- -----------------------\n"
+      "Type EncryptionSignalType Encryption signal type.";
+    const char* const GetEncryptionLibraryPath::TargetId = "";
 
-    REGISTER_COMMAND_FACTORY(GetEncryptionLibraryPath);
+    REGISTER_COMMAND_TO_FACTORY_DECL(GetEncryptionLibraryPath);
+    REGISTER_COMMAND_TO_FACTORY_IMPL(GetEncryptionLibraryPath);
 
 
     GetEncryptionLibraryPath::GetEncryptionLibraryPath()
-      : CommandBase(CmdName)
+      : CommandBase(CmdName, TargetId)
     {}
 
     GetEncryptionLibraryPath::GetEncryptionLibraryPath(const Sdx::EncryptionSignalType& type)
-      : CommandBase(CmdName)
+      : CommandBase(CmdName, TargetId)
     {
 
       setType(type);
@@ -50,6 +55,12 @@ namespace Sdx
     }
 
     std::string GetEncryptionLibraryPath::documentation() const { return Documentation; }
+
+    const std::vector<std::string>& GetEncryptionLibraryPath::fieldNames() const 
+    { 
+      static const std::vector<std::string> names {"Type"}; 
+      return names; 
+    }
 
 
     int GetEncryptionLibraryPath::executePermission() const

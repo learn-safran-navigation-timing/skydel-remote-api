@@ -1,8 +1,7 @@
 
-#include "gen/SetIonoBdgimAlpha.h"
+#include "SetIonoBdgimAlpha.h"
 
 #include "command_factory.h"
-#include "command_result_factory.h"
 #include "parse_json.hpp"
 
 ///
@@ -14,17 +13,24 @@ namespace Sdx
   namespace Cmd
   {
     const char* const SetIonoBdgimAlpha::CmdName = "SetIonoBdgimAlpha";
-    const char* const SetIonoBdgimAlpha::Documentation = "Set the BeiDou (BDGIM) ionospheric Alpha coefficient (in TECu)";
+    const char* const SetIonoBdgimAlpha::Documentation = "Set the BeiDou (BDGIM) ionospheric Alpha coefficient (in TECu)\n"
+      "\n"
+      "Name  Type   Description\n"
+      "----- ------ ------------------------\n"
+      "Index int    Coefficient index [1..9]\n"
+      "Val   double Coefficient value";
+    const char* const SetIonoBdgimAlpha::TargetId = "";
 
-    REGISTER_COMMAND_FACTORY(SetIonoBdgimAlpha);
+    REGISTER_COMMAND_TO_FACTORY_DECL(SetIonoBdgimAlpha);
+    REGISTER_COMMAND_TO_FACTORY_IMPL(SetIonoBdgimAlpha);
 
 
     SetIonoBdgimAlpha::SetIonoBdgimAlpha()
-      : CommandBase(CmdName)
+      : CommandBase(CmdName, TargetId)
     {}
 
     SetIonoBdgimAlpha::SetIonoBdgimAlpha(int index, double val)
-      : CommandBase(CmdName)
+      : CommandBase(CmdName, TargetId)
     {
 
       setIndex(index);
@@ -52,6 +58,12 @@ namespace Sdx
     }
 
     std::string SetIonoBdgimAlpha::documentation() const { return Documentation; }
+
+    const std::vector<std::string>& SetIonoBdgimAlpha::fieldNames() const 
+    { 
+      static const std::vector<std::string> names {"Index", "Val"}; 
+      return names; 
+    }
 
 
     int SetIonoBdgimAlpha::executePermission() const

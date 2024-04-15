@@ -1,8 +1,7 @@
 
-#include "gen/GetSbasDeltaUdreiOutsideOfRegionsResult.h"
+#include "GetSbasDeltaUdreiOutsideOfRegionsResult.h"
 
 #include "command_factory.h"
-#include "command_result_factory.h"
 #include "parse_json.hpp"
 
 ///
@@ -14,17 +13,23 @@ namespace Sdx
   namespace Cmd
   {
     const char* const GetSbasDeltaUdreiOutsideOfRegionsResult::CmdName = "GetSbasDeltaUdreiOutsideOfRegionsResult";
-    const char* const GetSbasDeltaUdreiOutsideOfRegionsResult::Documentation = "Result of GetSbasDeltaUdreiOutsideOfRegions.";
+    const char* const GetSbasDeltaUdreiOutsideOfRegionsResult::Documentation = "Result of GetSbasDeltaUdreiOutsideOfRegions.\n"
+      "\n"
+      "Name            Type   Description\n"
+      "--------------- ------ ----------------------------------------------------------------------------------\n"
+      "ServiceProvider string Service providers, accepts \"WAAS\", \"EGNOS\", \"MSAS\", \"GAGAN\" and \"SDCM\".\n"
+      "DeltaUdrei      int    Delta UDREI applicable outside all the defined regions. Accepted range is [0..15].";
+    const char* const GetSbasDeltaUdreiOutsideOfRegionsResult::TargetId = "";
 
-    REGISTER_COMMAND_RESULT_TO_FACTORY_IMPL(GetSbasDeltaUdreiOutsideOfRegionsResult);
+    REGISTER_COMMAND_TO_FACTORY_IMPL(GetSbasDeltaUdreiOutsideOfRegionsResult);
 
 
     GetSbasDeltaUdreiOutsideOfRegionsResult::GetSbasDeltaUdreiOutsideOfRegionsResult()
-      : CommandResult(CmdName)
+      : CommandResult(CmdName, TargetId)
     {}
 
     GetSbasDeltaUdreiOutsideOfRegionsResult::GetSbasDeltaUdreiOutsideOfRegionsResult(const std::string& serviceProvider, int deltaUdrei)
-      : CommandResult(CmdName)
+      : CommandResult(CmdName, TargetId)
     {
 
       setServiceProvider(serviceProvider);
@@ -32,7 +37,7 @@ namespace Sdx
     }
 
     GetSbasDeltaUdreiOutsideOfRegionsResult::GetSbasDeltaUdreiOutsideOfRegionsResult(CommandBasePtr relatedCommand, const std::string& serviceProvider, int deltaUdrei)
-      : CommandResult(CmdName, relatedCommand)
+      : CommandResult(CmdName, TargetId, relatedCommand)
     {
 
       setServiceProvider(serviceProvider);
@@ -66,6 +71,12 @@ namespace Sdx
     }
 
     std::string GetSbasDeltaUdreiOutsideOfRegionsResult::documentation() const { return Documentation; }
+
+    const std::vector<std::string>& GetSbasDeltaUdreiOutsideOfRegionsResult::fieldNames() const 
+    { 
+      static const std::vector<std::string> names {"ServiceProvider", "DeltaUdrei"}; 
+      return names; 
+    }
 
 
     std::string GetSbasDeltaUdreiOutsideOfRegionsResult::serviceProvider() const

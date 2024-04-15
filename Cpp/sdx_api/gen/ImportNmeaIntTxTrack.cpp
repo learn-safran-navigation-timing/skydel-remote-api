@@ -1,8 +1,7 @@
 
-#include "gen/ImportNmeaIntTxTrack.h"
+#include "ImportNmeaIntTxTrack.h"
 
 #include "command_factory.h"
-#include "command_result_factory.h"
 #include "parse_json.hpp"
 
 ///
@@ -14,17 +13,24 @@ namespace Sdx
   namespace Cmd
   {
     const char* const ImportNmeaIntTxTrack::CmdName = "ImportNmeaIntTxTrack";
-    const char* const ImportNmeaIntTxTrack::Documentation = "Import NMEA interference track file";
+    const char* const ImportNmeaIntTxTrack::Documentation = "Import NMEA interference track file\n"
+      "\n"
+      "Name Type   Description\n"
+      "---- ------ ------------------------------\n"
+      "Path string NMEA file path\n"
+      "Id   string Transmitter unique identifier.";
+    const char* const ImportNmeaIntTxTrack::TargetId = "";
 
-    REGISTER_COMMAND_FACTORY(ImportNmeaIntTxTrack);
+    REGISTER_COMMAND_TO_FACTORY_DECL(ImportNmeaIntTxTrack);
+    REGISTER_COMMAND_TO_FACTORY_IMPL(ImportNmeaIntTxTrack);
 
 
     ImportNmeaIntTxTrack::ImportNmeaIntTxTrack()
-      : CommandBase(CmdName)
+      : CommandBase(CmdName, TargetId)
     {}
 
     ImportNmeaIntTxTrack::ImportNmeaIntTxTrack(const std::string& path, const std::string& id)
-      : CommandBase(CmdName)
+      : CommandBase(CmdName, TargetId)
     {
 
       setPath(path);
@@ -52,6 +58,12 @@ namespace Sdx
     }
 
     std::string ImportNmeaIntTxTrack::documentation() const { return Documentation; }
+
+    const std::vector<std::string>& ImportNmeaIntTxTrack::fieldNames() const 
+    { 
+      static const std::vector<std::string> names {"Path", "Id"}; 
+      return names; 
+    }
 
 
     int ImportNmeaIntTxTrack::executePermission() const

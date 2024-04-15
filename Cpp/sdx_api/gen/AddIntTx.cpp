@@ -1,8 +1,7 @@
 
-#include "gen/AddIntTx.h"
+#include "AddIntTx.h"
 
 #include "command_factory.h"
-#include "command_result_factory.h"
 #include "parse_json.hpp"
 
 ///
@@ -14,17 +13,30 @@ namespace Sdx
   namespace Cmd
   {
     const char* const AddIntTx::CmdName = "AddIntTx";
-    const char* const AddIntTx::Documentation = "Set an interference transmitter. If the transmitter ID parameter is not set (empty string),\nSkydel will assign a unique ID to the transmitter. If the ID is set and already used by Skydel, the\ncommand will fail.";
+    const char* const AddIntTx::Documentation = "Set an interference transmitter. If the transmitter ID parameter is not set (empty string),\n"
+      "Skydel will assign a unique ID to the transmitter. If the ID is set and already used by Skydel, the\n"
+      "command will fail.\n"
+      "\n"
+      "Name      Type   Description\n"
+      "--------- ------ ----------------------------------------------------------------------------------------\n"
+      "UsualName string Usual name for the transmitter.\n"
+      "Enabled   bool   Enable (true) or disable (false) the transmitter\n"
+      "Group     int    Interference group number [1..16]\n"
+      "Dynamic   bool   Set to true for a dynamic transmitter (propagation loss and doppler shift are simulated)\n"
+      "Power     double Set the transmitter reference power\n"
+      "Id        string Transmitter unique identifier.";
+    const char* const AddIntTx::TargetId = "";
 
-    REGISTER_COMMAND_FACTORY(AddIntTx);
+    REGISTER_COMMAND_TO_FACTORY_DECL(AddIntTx);
+    REGISTER_COMMAND_TO_FACTORY_IMPL(AddIntTx);
 
 
     AddIntTx::AddIntTx()
-      : CommandBase(CmdName)
+      : CommandBase(CmdName, TargetId)
     {}
 
     AddIntTx::AddIntTx(const std::string& usualName, bool enabled, int group, bool dynamic, double power, const std::string& id)
-      : CommandBase(CmdName)
+      : CommandBase(CmdName, TargetId)
     {
 
       setUsualName(usualName);
@@ -60,6 +72,12 @@ namespace Sdx
     }
 
     std::string AddIntTx::documentation() const { return Documentation; }
+
+    const std::vector<std::string>& AddIntTx::fieldNames() const 
+    { 
+      static const std::vector<std::string> names {"UsualName", "Enabled", "Group", "Dynamic", "Power", "Id"}; 
+      return names; 
+    }
 
 
     int AddIntTx::executePermission() const

@@ -1,8 +1,7 @@
 
-#include "gen/GetMultipathForID.h"
+#include "GetMultipathForID.h"
 
 #include "command_factory.h"
-#include "command_result_factory.h"
 #include "parse_json.hpp"
 
 ///
@@ -14,17 +13,23 @@ namespace Sdx
   namespace Cmd
   {
     const char* const GetMultipathForID::CmdName = "GetMultipathForID";
-    const char* const GetMultipathForID::Documentation = "Get multipath infos for the specified multipath ID.";
+    const char* const GetMultipathForID::Documentation = "Get multipath infos for the specified multipath ID.\n"
+      "\n"
+      "Name Type   Description\n"
+      "---- ------ --------------\n"
+      "Id   string A multipath ID";
+    const char* const GetMultipathForID::TargetId = "";
 
-    REGISTER_COMMAND_FACTORY(GetMultipathForID);
+    REGISTER_COMMAND_TO_FACTORY_DECL(GetMultipathForID);
+    REGISTER_COMMAND_TO_FACTORY_IMPL(GetMultipathForID);
 
 
     GetMultipathForID::GetMultipathForID()
-      : CommandBase(CmdName)
+      : CommandBase(CmdName, TargetId)
     {}
 
     GetMultipathForID::GetMultipathForID(const std::string& id)
-      : CommandBase(CmdName)
+      : CommandBase(CmdName, TargetId)
     {
 
       setId(id);
@@ -50,6 +55,12 @@ namespace Sdx
     }
 
     std::string GetMultipathForID::documentation() const { return Documentation; }
+
+    const std::vector<std::string>& GetMultipathForID::fieldNames() const 
+    { 
+      static const std::vector<std::string> names {"Id"}; 
+      return names; 
+    }
 
 
     int GetMultipathForID::executePermission() const

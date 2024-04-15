@@ -1,8 +1,7 @@
 
-#include "gen/GetSpoofTxRemoteAddressResult.h"
+#include "GetSpoofTxRemoteAddressResult.h"
 
 #include "command_factory.h"
-#include "command_result_factory.h"
 #include "parse_json.hpp"
 
 ///
@@ -14,17 +13,24 @@ namespace Sdx
   namespace Cmd
   {
     const char* const GetSpoofTxRemoteAddressResult::CmdName = "GetSpoofTxRemoteAddressResult";
-    const char* const GetSpoofTxRemoteAddressResult::Documentation = "Result of GetSpoofTxRemoteAddress.";
+    const char* const GetSpoofTxRemoteAddressResult::Documentation = "Result of GetSpoofTxRemoteAddress.\n"
+      "\n"
+      "Name       Type   Description\n"
+      "---------- ------ ------------------------------\n"
+      "Address    string Remote instance IP address.\n"
+      "InstanceId int    Remote instance ID.\n"
+      "Id         string Transmitter unique identifier.";
+    const char* const GetSpoofTxRemoteAddressResult::TargetId = "";
 
-    REGISTER_COMMAND_RESULT_TO_FACTORY_IMPL(GetSpoofTxRemoteAddressResult);
+    REGISTER_COMMAND_TO_FACTORY_IMPL(GetSpoofTxRemoteAddressResult);
 
 
     GetSpoofTxRemoteAddressResult::GetSpoofTxRemoteAddressResult()
-      : CommandResult(CmdName)
+      : CommandResult(CmdName, TargetId)
     {}
 
     GetSpoofTxRemoteAddressResult::GetSpoofTxRemoteAddressResult(const std::string& address, int instanceId, const std::string& id)
-      : CommandResult(CmdName)
+      : CommandResult(CmdName, TargetId)
     {
 
       setAddress(address);
@@ -33,7 +39,7 @@ namespace Sdx
     }
 
     GetSpoofTxRemoteAddressResult::GetSpoofTxRemoteAddressResult(CommandBasePtr relatedCommand, const std::string& address, int instanceId, const std::string& id)
-      : CommandResult(CmdName, relatedCommand)
+      : CommandResult(CmdName, TargetId, relatedCommand)
     {
 
       setAddress(address);
@@ -69,6 +75,12 @@ namespace Sdx
     }
 
     std::string GetSpoofTxRemoteAddressResult::documentation() const { return Documentation; }
+
+    const std::vector<std::string>& GetSpoofTxRemoteAddressResult::fieldNames() const 
+    { 
+      static const std::vector<std::string> names {"Address", "InstanceId", "Id"}; 
+      return names; 
+    }
 
 
     std::string GetSpoofTxRemoteAddressResult::address() const

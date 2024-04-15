@@ -1,8 +1,7 @@
 
-#include "gen/SetPrnForEachSV.h"
+#include "SetPrnForEachSV.h"
 
 #include "command_factory.h"
-#include "command_result_factory.h"
 #include "parse_json.hpp"
 
 ///
@@ -14,17 +13,24 @@ namespace Sdx
   namespace Cmd
   {
     const char* const SetPrnForEachSV::CmdName = "SetPrnForEachSV";
-    const char* const SetPrnForEachSV::Documentation = "Set the PRN for each satellite for specified signals.";
+    const char* const SetPrnForEachSV::Documentation = "Set the PRN for each satellite for specified signals.\n"
+      "\n"
+      "Name   Type      Description\n"
+      "------ --------- ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------\n"
+      "Signal string    Accepted signal keys: \"L1CA\", \"L1C\", \"L2C\", \"L5\", \"E1\", \"E6BC\", \"B1\", \"B2\", \"B1C\", \"B2a\", \"B3I\", \"SBASL1\", \"SBASL5\", \"QZSSL1CA\", \"QZSSL1CB\", \"QZSSL1C\", \"QZSSL2C\", \"QZSSL5\", \"QZSSL1S\", \"QZSSL5S\", \"NAVICL5\", \"PULSARXL\"\n"
+      "Prn    array int PRN value to set for each satellite. Zero based index (index 0 => PRN for SV ID 1, index 1 => PRN for SV ID 2, etc)";
+    const char* const SetPrnForEachSV::TargetId = "";
 
-    REGISTER_COMMAND_FACTORY(SetPrnForEachSV);
+    REGISTER_COMMAND_TO_FACTORY_DECL(SetPrnForEachSV);
+    REGISTER_COMMAND_TO_FACTORY_IMPL(SetPrnForEachSV);
 
 
     SetPrnForEachSV::SetPrnForEachSV()
-      : CommandBase(CmdName)
+      : CommandBase(CmdName, TargetId)
     {}
 
     SetPrnForEachSV::SetPrnForEachSV(const std::string& signal, const std::vector<int>& prn)
-      : CommandBase(CmdName)
+      : CommandBase(CmdName, TargetId)
     {
 
       setSignal(signal);
@@ -52,6 +58,12 @@ namespace Sdx
     }
 
     std::string SetPrnForEachSV::documentation() const { return Documentation; }
+
+    const std::vector<std::string>& SetPrnForEachSV::fieldNames() const 
+    { 
+      static const std::vector<std::string> names {"Signal", "Prn"}; 
+      return names; 
+    }
 
 
     int SetPrnForEachSV::executePermission() const

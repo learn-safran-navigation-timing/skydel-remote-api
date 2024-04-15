@@ -1,8 +1,7 @@
 
-#include "gen/SetQzssEphBoolParamForEachSV.h"
+#include "SetQzssEphBoolParamForEachSV.h"
 
 #include "command_factory.h"
-#include "command_result_factory.h"
 #include "parse_json.hpp"
 
 ///
@@ -14,19 +13,29 @@ namespace Sdx
   namespace Cmd
   {
     const char* const SetQzssEphBoolParamForEachSV::CmdName = "SetQzssEphBoolParamForEachSV";
-    const char* const SetQzssEphBoolParamForEachSV::Documentation = "Please note the command SetQzssEphBoolParamForEachSV is deprecated since 23.11. You may use SetConstellationParameterForSV.\n\nSet QZSS ephemeris boolean parameter value for all satellites";
+    const char* const SetQzssEphBoolParamForEachSV::Documentation = "Please note the command SetQzssEphBoolParamForEachSV is deprecated since 23.11. You may use SetConstellationParameterForSV.\n"
+      "\n"
+      "Set QZSS ephemeris boolean parameter value for all satellites\n"
+      "\n"
+      "Name        Type            Description\n"
+      "----------- --------------- --------------------------------------------------------------------------------------------------\n"
+      "ParamName   string          Refer to SetQzssEphemerisBoolParam for accepted names\n"
+      "Val         array bool      Parameter value for each satellite. Zero based index (index 0 => SV ID 1, index 1 => SV ID 2, etc)\n"
+      "DataSetName optional string Optional name of the data set to use. If no value is provided, the active data set is used.";
+    const char* const SetQzssEphBoolParamForEachSV::TargetId = "";
 
     const char* const SetQzssEphBoolParamForEachSV::Deprecated = "Please note the command SetQzssEphBoolParamForEachSV is deprecated since 23.11. You may use SetConstellationParameterForSV.";
 
-    REGISTER_COMMAND_FACTORY(SetQzssEphBoolParamForEachSV);
+    REGISTER_COMMAND_TO_FACTORY_DECL(SetQzssEphBoolParamForEachSV);
+    REGISTER_COMMAND_TO_FACTORY_IMPL(SetQzssEphBoolParamForEachSV);
 
 
     SetQzssEphBoolParamForEachSV::SetQzssEphBoolParamForEachSV()
-      : CommandBase(CmdName)
+      : CommandBase(CmdName, TargetId)
     {}
 
     SetQzssEphBoolParamForEachSV::SetQzssEphBoolParamForEachSV(const std::string& paramName, const std::vector<bool>& val, const Sdx::optional<std::string>& dataSetName)
-      : CommandBase(CmdName)
+      : CommandBase(CmdName, TargetId)
     {
 
       setParamName(paramName);
@@ -56,6 +65,12 @@ namespace Sdx
     }
 
     std::string SetQzssEphBoolParamForEachSV::documentation() const { return Documentation; }
+
+    const std::vector<std::string>& SetQzssEphBoolParamForEachSV::fieldNames() const 
+    { 
+      static const std::vector<std::string> names {"ParamName", "Val", "DataSetName"}; 
+      return names; 
+    }
 
     Sdx::optional<std::string> SetQzssEphBoolParamForEachSV::deprecated() const { return Sdx::optional<std::string>{Deprecated}; }
 

@@ -1,8 +1,7 @@
 
-#include "gen/IsSVForcedGeo.h"
+#include "IsSVForcedGeo.h"
 
 #include "command_factory.h"
-#include "command_result_factory.h"
 #include "parse_json.hpp"
 
 ///
@@ -14,17 +13,25 @@ namespace Sdx
   namespace Cmd
   {
     const char* const IsSVForcedGeo::CmdName = "IsSVForcedGeo";
-    const char* const IsSVForcedGeo::Documentation = "Get whether a satellite is geostationary";
+    const char* const IsSVForcedGeo::Documentation = "Get whether a satellite is geostationary\n"
+      "\n"
+      "Name        Type            Description\n"
+      "----------- --------------- -------------------------------------------------------------------------------------------\n"
+      "System      string          \"GPS\", \"Galileo\", \"BeiDou\", \"QZSS\", \"NavIC\" or \"PULSAR\"\n"
+      "SvId        int             The satellite SV ID\n"
+      "DataSetName optional string Optional name of the data set to use. If no value is provided, the active data set is used.";
+    const char* const IsSVForcedGeo::TargetId = "";
 
-    REGISTER_COMMAND_FACTORY(IsSVForcedGeo);
+    REGISTER_COMMAND_TO_FACTORY_DECL(IsSVForcedGeo);
+    REGISTER_COMMAND_TO_FACTORY_IMPL(IsSVForcedGeo);
 
 
     IsSVForcedGeo::IsSVForcedGeo()
-      : CommandBase(CmdName)
+      : CommandBase(CmdName, TargetId)
     {}
 
     IsSVForcedGeo::IsSVForcedGeo(const std::string& system, int svId, const Sdx::optional<std::string>& dataSetName)
-      : CommandBase(CmdName)
+      : CommandBase(CmdName, TargetId)
     {
 
       setSystem(system);
@@ -54,6 +61,12 @@ namespace Sdx
     }
 
     std::string IsSVForcedGeo::documentation() const { return Documentation; }
+
+    const std::vector<std::string>& IsSVForcedGeo::fieldNames() const 
+    { 
+      static const std::vector<std::string> names {"System", "SvId", "DataSetName"}; 
+      return names; 
+    }
 
 
     int IsSVForcedGeo::executePermission() const

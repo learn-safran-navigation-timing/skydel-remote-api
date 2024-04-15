@@ -1,8 +1,7 @@
 
-#include "gen/IsSbasLongTermCorrectionsEnabledForResult.h"
+#include "IsSbasLongTermCorrectionsEnabledForResult.h"
 
 #include "command_factory.h"
-#include "command_result_factory.h"
 #include "parse_json.hpp"
 
 ///
@@ -14,17 +13,23 @@ namespace Sdx
   namespace Cmd
   {
     const char* const IsSbasLongTermCorrectionsEnabledForResult::CmdName = "IsSbasLongTermCorrectionsEnabledForResult";
-    const char* const IsSbasLongTermCorrectionsEnabledForResult::Documentation = "Result of IsSbasLongTermCorrectionsEnabledFor.";
+    const char* const IsSbasLongTermCorrectionsEnabledForResult::Documentation = "Result of IsSbasLongTermCorrectionsEnabledFor.\n"
+      "\n"
+      "Name      Type   Description\n"
+      "--------- ------ -------------------------------------\n"
+      "System    string As of today, only \"GPS\" is supported.\n"
+      "IsEnabled bool   True if corrections are enabled.";
+    const char* const IsSbasLongTermCorrectionsEnabledForResult::TargetId = "";
 
-    REGISTER_COMMAND_RESULT_TO_FACTORY_IMPL(IsSbasLongTermCorrectionsEnabledForResult);
+    REGISTER_COMMAND_TO_FACTORY_IMPL(IsSbasLongTermCorrectionsEnabledForResult);
 
 
     IsSbasLongTermCorrectionsEnabledForResult::IsSbasLongTermCorrectionsEnabledForResult()
-      : CommandResult(CmdName)
+      : CommandResult(CmdName, TargetId)
     {}
 
     IsSbasLongTermCorrectionsEnabledForResult::IsSbasLongTermCorrectionsEnabledForResult(const std::string& system, bool isEnabled)
-      : CommandResult(CmdName)
+      : CommandResult(CmdName, TargetId)
     {
 
       setSystem(system);
@@ -32,7 +37,7 @@ namespace Sdx
     }
 
     IsSbasLongTermCorrectionsEnabledForResult::IsSbasLongTermCorrectionsEnabledForResult(CommandBasePtr relatedCommand, const std::string& system, bool isEnabled)
-      : CommandResult(CmdName, relatedCommand)
+      : CommandResult(CmdName, TargetId, relatedCommand)
     {
 
       setSystem(system);
@@ -66,6 +71,12 @@ namespace Sdx
     }
 
     std::string IsSbasLongTermCorrectionsEnabledForResult::documentation() const { return Documentation; }
+
+    const std::vector<std::string>& IsSbasLongTermCorrectionsEnabledForResult::fieldNames() const 
+    { 
+      static const std::vector<std::string> names {"System", "IsEnabled"}; 
+      return names; 
+    }
 
 
     std::string IsSbasLongTermCorrectionsEnabledForResult::system() const

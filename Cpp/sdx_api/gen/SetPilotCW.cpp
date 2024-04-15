@@ -1,8 +1,7 @@
 
-#include "gen/SetPilotCW.h"
+#include "SetPilotCW.h"
 
 #include "command_factory.h"
-#include "command_result_factory.h"
 #include "parse_json.hpp"
 
 ///
@@ -14,17 +13,27 @@ namespace Sdx
   namespace Cmd
   {
     const char* const SetPilotCW::CmdName = "SetPilotCW";
-    const char* const SetPilotCW::Documentation = "Set CW pilot added to signal";
+    const char* const SetPilotCW::Documentation = "Set CW pilot added to signal\n"
+      "\n"
+      "Name              Type   Description\n"
+      "----------------- ------ ---------------------------------------------------\n"
+      "Enabled           bool   Enable (true) or disable (false) the signal\n"
+      "OutputIdx         int    RF Output index (zero-based)\n"
+      "CentralFreqOffset double Central frequency offset of the Pilot (Hz)\n"
+      "Power             double Power (dB), relative to transmitter reference power\n"
+      "PilotId           string CW Pilot unique identifier.";
+    const char* const SetPilotCW::TargetId = "";
 
-    REGISTER_COMMAND_FACTORY(SetPilotCW);
+    REGISTER_COMMAND_TO_FACTORY_DECL(SetPilotCW);
+    REGISTER_COMMAND_TO_FACTORY_IMPL(SetPilotCW);
 
 
     SetPilotCW::SetPilotCW()
-      : CommandBase(CmdName)
+      : CommandBase(CmdName, TargetId)
     {}
 
     SetPilotCW::SetPilotCW(bool enabled, int outputIdx, double centralFreqOffset, double power, const std::string& pilotId)
-      : CommandBase(CmdName)
+      : CommandBase(CmdName, TargetId)
     {
 
       setEnabled(enabled);
@@ -58,6 +67,12 @@ namespace Sdx
     }
 
     std::string SetPilotCW::documentation() const { return Documentation; }
+
+    const std::vector<std::string>& SetPilotCW::fieldNames() const 
+    { 
+      static const std::vector<std::string> names {"Enabled", "OutputIdx", "CentralFreqOffset", "Power", "PilotId"}; 
+      return names; 
+    }
 
 
     int SetPilotCW::executePermission() const

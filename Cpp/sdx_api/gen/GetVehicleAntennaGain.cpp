@@ -1,8 +1,7 @@
 
-#include "gen/GetVehicleAntennaGain.h"
+#include "GetVehicleAntennaGain.h"
 
 #include "command_factory.h"
-#include "command_result_factory.h"
 #include "parse_json.hpp"
 
 ///
@@ -14,17 +13,24 @@ namespace Sdx
   namespace Cmd
   {
     const char* const GetVehicleAntennaGain::CmdName = "GetVehicleAntennaGain";
-    const char* const GetVehicleAntennaGain::Documentation = "Get Vehicle gain antenna pattern. If no name is specified, the command is aplied to Basic vehicle Antenna.";
+    const char* const GetVehicleAntennaGain::Documentation = "Get Vehicle gain antenna pattern. If no name is specified, the command is aplied to Basic vehicle Antenna.\n"
+      "\n"
+      "Name Type            Description\n"
+      "---- --------------- --------------------\n"
+      "Band GNSSBand        Frequency band\n"
+      "Name optional string Vehicle antenna name";
+    const char* const GetVehicleAntennaGain::TargetId = "";
 
-    REGISTER_COMMAND_FACTORY(GetVehicleAntennaGain);
+    REGISTER_COMMAND_TO_FACTORY_DECL(GetVehicleAntennaGain);
+    REGISTER_COMMAND_TO_FACTORY_IMPL(GetVehicleAntennaGain);
 
 
     GetVehicleAntennaGain::GetVehicleAntennaGain()
-      : CommandBase(CmdName)
+      : CommandBase(CmdName, TargetId)
     {}
 
     GetVehicleAntennaGain::GetVehicleAntennaGain(const Sdx::GNSSBand& band, const Sdx::optional<std::string>& name)
-      : CommandBase(CmdName)
+      : CommandBase(CmdName, TargetId)
     {
 
       setBand(band);
@@ -52,6 +58,12 @@ namespace Sdx
     }
 
     std::string GetVehicleAntennaGain::documentation() const { return Documentation; }
+
+    const std::vector<std::string>& GetVehicleAntennaGain::fieldNames() const 
+    { 
+      static const std::vector<std::string> names {"Band", "Name"}; 
+      return names; 
+    }
 
 
     int GetVehicleAntennaGain::executePermission() const

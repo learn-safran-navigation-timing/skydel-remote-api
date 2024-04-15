@@ -2,7 +2,7 @@
 
 #include <memory>
 #include "command_result.h"
-#include "command_result_factory.h"
+#include "command_factory.h"
 #include <string>
 
 namespace Sdx
@@ -27,6 +27,7 @@ namespace Sdx
     public:
       static const char* const CmdName;
       static const char* const Documentation;
+      static const char* const TargetId;
 
 
       GetWFAntennaElementModelResult();
@@ -41,6 +42,7 @@ namespace Sdx
       static GetWFAntennaElementModelResultPtr dynamicCast(CommandBasePtr ptr);
       virtual bool isValid() const override;
       virtual std::string documentation() const override;
+      virtual const std::vector<std::string>& fieldNames() const override;
 
 
       // **** antennaModelName ****
@@ -52,7 +54,7 @@ namespace Sdx
       int element() const;
       void setElement(int element);
     };
-    REGISTER_COMMAND_RESULT_TO_FACTORY_DECL(GetWFAntennaElementModelResult);
+    REGISTER_COMMAND_TO_FACTORY_DECL(GetWFAntennaElementModelResult);
   }
 }
 

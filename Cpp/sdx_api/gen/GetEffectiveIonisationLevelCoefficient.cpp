@@ -1,8 +1,7 @@
 
-#include "gen/GetEffectiveIonisationLevelCoefficient.h"
+#include "GetEffectiveIonisationLevelCoefficient.h"
 
 #include "command_factory.h"
-#include "command_result_factory.h"
 #include "parse_json.hpp"
 
 ///
@@ -14,17 +13,23 @@ namespace Sdx
   namespace Cmd
   {
     const char* const GetEffectiveIonisationLevelCoefficient::CmdName = "GetEffectiveIonisationLevelCoefficient";
-    const char* const GetEffectiveIonisationLevelCoefficient::Documentation = "Get the effective ionisation level coefficient for the 1st, 2nd or 3rd order, (ai0 , ai1 , ai2).";
+    const char* const GetEffectiveIonisationLevelCoefficient::Documentation = "Get the effective ionisation level coefficient for the 1st, 2nd or 3rd order, (ai0 , ai1 , ai2).\n"
+      "\n"
+      "Name  Type Description\n"
+      "----- ---- ---------------------------------------------------------------\n"
+      "Index int  Coefficient index, 0, 1 or 2 for ai0, ai1 and ai2 respectively.";
+    const char* const GetEffectiveIonisationLevelCoefficient::TargetId = "";
 
-    REGISTER_COMMAND_FACTORY(GetEffectiveIonisationLevelCoefficient);
+    REGISTER_COMMAND_TO_FACTORY_DECL(GetEffectiveIonisationLevelCoefficient);
+    REGISTER_COMMAND_TO_FACTORY_IMPL(GetEffectiveIonisationLevelCoefficient);
 
 
     GetEffectiveIonisationLevelCoefficient::GetEffectiveIonisationLevelCoefficient()
-      : CommandBase(CmdName)
+      : CommandBase(CmdName, TargetId)
     {}
 
     GetEffectiveIonisationLevelCoefficient::GetEffectiveIonisationLevelCoefficient(int index)
-      : CommandBase(CmdName)
+      : CommandBase(CmdName, TargetId)
     {
 
       setIndex(index);
@@ -50,6 +55,12 @@ namespace Sdx
     }
 
     std::string GetEffectiveIonisationLevelCoefficient::documentation() const { return Documentation; }
+
+    const std::vector<std::string>& GetEffectiveIonisationLevelCoefficient::fieldNames() const 
+    { 
+      static const std::vector<std::string> names {"Index"}; 
+      return names; 
+    }
 
 
     int GetEffectiveIonisationLevelCoefficient::executePermission() const

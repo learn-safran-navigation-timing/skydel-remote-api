@@ -1,8 +1,7 @@
 
-#include "gen/SetIonoGridGIVEI.h"
+#include "SetIonoGridGIVEI.h"
 
 #include "command_factory.h"
-#include "command_result_factory.h"
 #include "parse_json.hpp"
 
 ///
@@ -14,17 +13,26 @@ namespace Sdx
   namespace Cmd
   {
     const char* const SetIonoGridGIVEI::CmdName = "SetIonoGridGIVEI";
-    const char* const SetIonoGridGIVEI::Documentation = "Set the GIVEI for a ionospheric grid point";
+    const char* const SetIonoGridGIVEI::Documentation = "Set the GIVEI for a ionospheric grid point\n"
+      "\n"
+      "Name            Type            Description\n"
+      "--------------- --------------- -------------------------------\n"
+      "Band            int             The ionospheric grid band index\n"
+      "Point           int             The IGP index\n"
+      "GiveI           int             The GIVEI at the IGP\n"
+      "ServiceProvider optional string The service provider (optional)";
+    const char* const SetIonoGridGIVEI::TargetId = "";
 
-    REGISTER_COMMAND_FACTORY(SetIonoGridGIVEI);
+    REGISTER_COMMAND_TO_FACTORY_DECL(SetIonoGridGIVEI);
+    REGISTER_COMMAND_TO_FACTORY_IMPL(SetIonoGridGIVEI);
 
 
     SetIonoGridGIVEI::SetIonoGridGIVEI()
-      : CommandBase(CmdName)
+      : CommandBase(CmdName, TargetId)
     {}
 
     SetIonoGridGIVEI::SetIonoGridGIVEI(int band, int point, int giveI, const Sdx::optional<std::string>& serviceProvider)
-      : CommandBase(CmdName)
+      : CommandBase(CmdName, TargetId)
     {
 
       setBand(band);
@@ -56,6 +64,12 @@ namespace Sdx
     }
 
     std::string SetIonoGridGIVEI::documentation() const { return Documentation; }
+
+    const std::vector<std::string>& SetIonoGridGIVEI::fieldNames() const 
+    { 
+      static const std::vector<std::string> names {"Band", "Point", "GiveI", "ServiceProvider"}; 
+      return names; 
+    }
 
 
     int SetIonoGridGIVEI::executePermission() const

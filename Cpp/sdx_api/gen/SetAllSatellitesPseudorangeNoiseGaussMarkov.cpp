@@ -1,8 +1,7 @@
 
-#include "gen/SetAllSatellitesPseudorangeNoiseGaussMarkov.h"
+#include "SetAllSatellitesPseudorangeNoiseGaussMarkov.h"
 
 #include "command_factory.h"
-#include "command_result_factory.h"
 #include "parse_json.hpp"
 
 ///
@@ -14,17 +13,30 @@ namespace Sdx
   namespace Cmd
   {
     const char* const SetAllSatellitesPseudorangeNoiseGaussMarkov::CmdName = "SetAllSatellitesPseudorangeNoiseGaussMarkov";
-    const char* const SetAllSatellitesPseudorangeNoiseGaussMarkov::Documentation = "Please note the command SetAllSatellitesPseudorangeNoiseGaussMarkov is deprecated since 21.3. You may use SetPseudorangeNoiseGaussMarkovForEachSV.\n\nSet the satellite pseudorange noise Gauss-Markov process attributes for all satellites.";
+    const char* const SetAllSatellitesPseudorangeNoiseGaussMarkov::Documentation = "Please note the command SetAllSatellitesPseudorangeNoiseGaussMarkov is deprecated since 21.3. You may use SetPseudorangeNoiseGaussMarkovForEachSV.\n"
+      "\n"
+      "Set the satellite pseudorange noise Gauss-Markov process attributes for all satellites.\n"
+      "\n"
+      "Name    Type         Description\n"
+      "------- ------------ --------------------------------------------------------------------------\n"
+      "System  string       \"GPS\", \"GLONASS\", \"Galileo\", \"BeiDou\", \"SBAS\", \"QZSS\", \"NavIC\" or \"PULSAR\"\n"
+      "Process int          Gauss-Markov Process number (0 or 1)\n"
+      "Enabled array bool   If true, Gauss-Markov process is enabled\n"
+      "Sigma   array double Standard devition\n"
+      "Time    array double Time constant\n"
+      "Seed    array int    Random seed";
+    const char* const SetAllSatellitesPseudorangeNoiseGaussMarkov::TargetId = "";
 
-    REGISTER_COMMAND_FACTORY(SetAllSatellitesPseudorangeNoiseGaussMarkov);
+    REGISTER_COMMAND_TO_FACTORY_DECL(SetAllSatellitesPseudorangeNoiseGaussMarkov);
+    REGISTER_COMMAND_TO_FACTORY_IMPL(SetAllSatellitesPseudorangeNoiseGaussMarkov);
 
 
     SetAllSatellitesPseudorangeNoiseGaussMarkov::SetAllSatellitesPseudorangeNoiseGaussMarkov()
-      : CommandBase(CmdName)
+      : CommandBase(CmdName, TargetId)
     {}
 
     SetAllSatellitesPseudorangeNoiseGaussMarkov::SetAllSatellitesPseudorangeNoiseGaussMarkov(const std::string& system, int process, const std::vector<bool>& enabled, const std::vector<double>& sigma, const std::vector<double>& time, const std::vector<int>& seed)
-      : CommandBase(CmdName)
+      : CommandBase(CmdName, TargetId)
     {
 
       setSystem(system);
@@ -60,6 +72,12 @@ namespace Sdx
     }
 
     std::string SetAllSatellitesPseudorangeNoiseGaussMarkov::documentation() const { return Documentation; }
+
+    const std::vector<std::string>& SetAllSatellitesPseudorangeNoiseGaussMarkov::fieldNames() const 
+    { 
+      static const std::vector<std::string> names {"System", "Process", "Enabled", "Sigma", "Time", "Seed"}; 
+      return names; 
+    }
 
 
     int SetAllSatellitesPseudorangeNoiseGaussMarkov::executePermission() const

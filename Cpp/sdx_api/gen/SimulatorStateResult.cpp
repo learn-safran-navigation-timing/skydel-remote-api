@@ -1,8 +1,7 @@
 
-#include "gen/SimulatorStateResult.h"
+#include "SimulatorStateResult.h"
 
 #include "command_factory.h"
-#include "command_result_factory.h"
 #include "parse_json.hpp"
 
 ///
@@ -14,17 +13,41 @@ namespace Sdx
   namespace Cmd
   {
     const char* const SimulatorStateResult::CmdName = "SimulatorStateResult";
-    const char* const SimulatorStateResult::Documentation = "Simulator State Result.\nPossible substates are :\n-None\n-Incomplete\n-Ready\n-Initializing\n-Armed\n-Streaming RF\n-Sync Worker\n-WF Init (Worker)\n-WF Init (Main)\n-HIL Sync\n-Sync Init\n-Sync PPS Reset\n-Sync Start Time\n-Sync Start\n-Error";
+    const char* const SimulatorStateResult::Documentation = "Simulator State Result.\n"
+      "Possible substates are :\n"
+      "-None\n"
+      "-Incomplete\n"
+      "-Ready\n"
+      "-Initializing\n"
+      "-Armed\n"
+      "-Streaming RF\n"
+      "-Sync Worker\n"
+      "-WF Init (Worker)\n"
+      "-WF Init (Main)\n"
+      "-HIL Sync\n"
+      "-Sync Init\n"
+      "-Sync PPS Reset\n"
+      "-Sync Start Time\n"
+      "-Sync Start\n"
+      "-Error\n"
+      "\n"
+      "Name       Type              Description\n"
+      "---------- ----------------- ------------------------------------\n"
+      "State      string            Simulator substate.\n"
+      "Error      string            Error Message if state is Error.\n"
+      "StateId    SimulatorState    Simulator State value as an enum.\n"
+      "SubStateId SimulatorSubState Simulator SubState value as an enum.";
+    const char* const SimulatorStateResult::TargetId = "";
 
-    REGISTER_COMMAND_RESULT_TO_FACTORY_IMPL(SimulatorStateResult);
+    REGISTER_COMMAND_TO_FACTORY_IMPL(SimulatorStateResult);
 
 
     SimulatorStateResult::SimulatorStateResult()
-      : CommandResult(CmdName)
+      : CommandResult(CmdName, TargetId)
     {}
 
     SimulatorStateResult::SimulatorStateResult(const std::string& state, const std::string& error, const Sdx::SimulatorState& stateId, const Sdx::SimulatorSubState& subStateId)
-      : CommandResult(CmdName)
+      : CommandResult(CmdName, TargetId)
     {
 
       setState(state);
@@ -34,7 +57,7 @@ namespace Sdx
     }
 
     SimulatorStateResult::SimulatorStateResult(CommandBasePtr relatedCommand, const std::string& state, const std::string& error, const Sdx::SimulatorState& stateId, const Sdx::SimulatorSubState& subStateId)
-      : CommandResult(CmdName, relatedCommand)
+      : CommandResult(CmdName, TargetId, relatedCommand)
     {
 
       setState(state);
@@ -72,6 +95,12 @@ namespace Sdx
     }
 
     std::string SimulatorStateResult::documentation() const { return Documentation; }
+
+    const std::vector<std::string>& SimulatorStateResult::fieldNames() const 
+    { 
+      static const std::vector<std::string> names {"State", "Error", "StateId", "SubStateId"}; 
+      return names; 
+    }
 
 
     std::string SimulatorStateResult::state() const

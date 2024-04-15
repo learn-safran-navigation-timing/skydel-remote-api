@@ -1,8 +1,7 @@
 
-#include "gen/SetIntTxSignalManualPropagationLoss.h"
+#include "SetIntTxSignalManualPropagationLoss.h"
 
 #include "command_factory.h"
-#include "command_result_factory.h"
 #include "parse_json.hpp"
 
 ///
@@ -14,17 +13,25 @@ namespace Sdx
   namespace Cmd
   {
     const char* const SetIntTxSignalManualPropagationLoss::CmdName = "SetIntTxSignalManualPropagationLoss";
-    const char* const SetIntTxSignalManualPropagationLoss::Documentation = "Set the manual propagation loss for the given interference signal. Value is used only if SetIntTxUseManualPropagationLoss has been set on the corresponding transmitter. This value is not preserved after simulation end.";
+    const char* const SetIntTxSignalManualPropagationLoss::Documentation = "Set the manual propagation loss for the given interference signal. Value is used only if SetIntTxUseManualPropagationLoss has been set on the corresponding transmitter. This value is not preserved after simulation end.\n"
+      "\n"
+      "Name            Type   Description\n"
+      "--------------- ------ --------------------------------------------------------------------------------------------------------\n"
+      "PropagationLoss double The propagation loss in dB to use until the next call of this command, or until manual mode is disabled.\n"
+      "TransmitterId   string Transmitter unique identifier.\n"
+      "SignalId        string Signal unique identifier.";
+    const char* const SetIntTxSignalManualPropagationLoss::TargetId = "";
 
-    REGISTER_COMMAND_FACTORY(SetIntTxSignalManualPropagationLoss);
+    REGISTER_COMMAND_TO_FACTORY_DECL(SetIntTxSignalManualPropagationLoss);
+    REGISTER_COMMAND_TO_FACTORY_IMPL(SetIntTxSignalManualPropagationLoss);
 
 
     SetIntTxSignalManualPropagationLoss::SetIntTxSignalManualPropagationLoss()
-      : CommandBase(CmdName)
+      : CommandBase(CmdName, TargetId)
     {}
 
     SetIntTxSignalManualPropagationLoss::SetIntTxSignalManualPropagationLoss(double propagationLoss, const std::string& transmitterId, const std::string& signalId)
-      : CommandBase(CmdName)
+      : CommandBase(CmdName, TargetId)
     {
 
       setPropagationLoss(propagationLoss);
@@ -54,6 +61,12 @@ namespace Sdx
     }
 
     std::string SetIntTxSignalManualPropagationLoss::documentation() const { return Documentation; }
+
+    const std::vector<std::string>& SetIntTxSignalManualPropagationLoss::fieldNames() const 
+    { 
+      static const std::vector<std::string> names {"PropagationLoss", "TransmitterId", "SignalId"}; 
+      return names; 
+    }
 
 
     int SetIntTxSignalManualPropagationLoss::executePermission() const

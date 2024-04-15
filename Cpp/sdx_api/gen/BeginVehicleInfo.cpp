@@ -1,8 +1,7 @@
 
-#include "gen/BeginVehicleInfo.h"
+#include "BeginVehicleInfo.h"
 
 #include "command_factory.h"
-#include "command_result_factory.h"
 #include "parse_json.hpp"
 
 ///
@@ -14,13 +13,16 @@ namespace Sdx
   namespace Cmd
   {
     const char* const BeginVehicleInfo::CmdName = "BeginVehicleInfo";
-    const char* const BeginVehicleInfo::Documentation = "Begin receiving simulated vehicle informations. \nDuring simulation, you must call RemoteSimulator.lastVehicleInfo to get current simulation statistics or RemoteSimulator.nextVehicleInfo to get pending simulation statistics";
+    const char* const BeginVehicleInfo::Documentation = "Begin receiving simulated vehicle informations. \n"
+      "During simulation, you must call RemoteSimulator.lastVehicleInfo to get current simulation statistics or RemoteSimulator.nextVehicleInfo to get pending simulation statistics";
+    const char* const BeginVehicleInfo::TargetId = "";
 
-    REGISTER_COMMAND_FACTORY(BeginVehicleInfo);
+    REGISTER_COMMAND_TO_FACTORY_DECL(BeginVehicleInfo);
+    REGISTER_COMMAND_TO_FACTORY_IMPL(BeginVehicleInfo);
 
 
     BeginVehicleInfo::BeginVehicleInfo()
-      : CommandBase(CmdName)
+      : CommandBase(CmdName, TargetId)
     {
 
     }
@@ -44,6 +46,12 @@ namespace Sdx
     }
 
     std::string BeginVehicleInfo::documentation() const { return Documentation; }
+
+    const std::vector<std::string>& BeginVehicleInfo::fieldNames() const 
+    { 
+      static const std::vector<std::string> names {}; 
+      return names; 
+    }
 
 
     int BeginVehicleInfo::executePermission() const

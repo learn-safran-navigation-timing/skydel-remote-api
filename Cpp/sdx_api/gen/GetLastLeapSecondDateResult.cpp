@@ -1,8 +1,7 @@
 
-#include "gen/GetLastLeapSecondDateResult.h"
+#include "GetLastLeapSecondDateResult.h"
 
 #include "command_factory.h"
-#include "command_result_factory.h"
 #include "parse_json.hpp"
 
 ///
@@ -14,24 +13,29 @@ namespace Sdx
   namespace Cmd
   {
     const char* const GetLastLeapSecondDateResult::CmdName = "GetLastLeapSecondDateResult";
-    const char* const GetLastLeapSecondDateResult::Documentation = "Result of GetLastLeapSecondDate.";
+    const char* const GetLastLeapSecondDateResult::Documentation = "Result of GetLastLeapSecondDate.\n"
+      "\n"
+      "Name Type Description\n"
+      "---- ---- ----------------\n"
+      "Date date Leap second date";
+    const char* const GetLastLeapSecondDateResult::TargetId = "";
 
-    REGISTER_COMMAND_RESULT_TO_FACTORY_IMPL(GetLastLeapSecondDateResult);
+    REGISTER_COMMAND_TO_FACTORY_IMPL(GetLastLeapSecondDateResult);
 
 
     GetLastLeapSecondDateResult::GetLastLeapSecondDateResult()
-      : CommandResult(CmdName)
+      : CommandResult(CmdName, TargetId)
     {}
 
     GetLastLeapSecondDateResult::GetLastLeapSecondDateResult(const Sdx::Date& date)
-      : CommandResult(CmdName)
+      : CommandResult(CmdName, TargetId)
     {
 
       setDate(date);
     }
 
     GetLastLeapSecondDateResult::GetLastLeapSecondDateResult(CommandBasePtr relatedCommand, const Sdx::Date& date)
-      : CommandResult(CmdName, relatedCommand)
+      : CommandResult(CmdName, TargetId, relatedCommand)
     {
 
       setDate(date);
@@ -63,6 +67,12 @@ namespace Sdx
     }
 
     std::string GetLastLeapSecondDateResult::documentation() const { return Documentation; }
+
+    const std::vector<std::string>& GetLastLeapSecondDateResult::fieldNames() const 
+    { 
+      static const std::vector<std::string> names {"Date"}; 
+      return names; 
+    }
 
 
     Sdx::Date GetLastLeapSecondDateResult::date() const

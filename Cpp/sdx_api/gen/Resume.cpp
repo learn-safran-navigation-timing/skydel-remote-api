@@ -1,8 +1,7 @@
 
-#include "gen/Resume.h"
+#include "Resume.h"
 
 #include "command_factory.h"
-#include "command_result_factory.h"
 #include "parse_json.hpp"
 
 ///
@@ -15,12 +14,14 @@ namespace Sdx
   {
     const char* const Resume::CmdName = "Resume";
     const char* const Resume::Documentation = "Resume vehicle motion during simulation.";
+    const char* const Resume::TargetId = "";
 
-    REGISTER_COMMAND_FACTORY(Resume);
+    REGISTER_COMMAND_TO_FACTORY_DECL(Resume);
+    REGISTER_COMMAND_TO_FACTORY_IMPL(Resume);
 
 
     Resume::Resume()
-      : CommandBase(CmdName)
+      : CommandBase(CmdName, TargetId)
     {
 
     }
@@ -44,6 +45,12 @@ namespace Sdx
     }
 
     std::string Resume::documentation() const { return Documentation; }
+
+    const std::vector<std::string>& Resume::fieldNames() const 
+    { 
+      static const std::vector<std::string> names {}; 
+      return names; 
+    }
 
 
     int Resume::executePermission() const

@@ -1,8 +1,7 @@
 
-#include "gen/EnableSbasMessages.h"
+#include "EnableSbasMessages.h"
 
 #include "command_factory.h"
-#include "command_result_factory.h"
 #include "parse_json.hpp"
 
 ///
@@ -14,17 +13,23 @@ namespace Sdx
   namespace Cmd
   {
     const char* const EnableSbasMessages::CmdName = "EnableSbasMessages";
-    const char* const EnableSbasMessages::Documentation = "Set the enabled SBAS messages. Message 63 is always enabled";
+    const char* const EnableSbasMessages::Documentation = "Set the enabled SBAS messages. Message 63 is always enabled\n"
+      "\n"
+      "Name     Type      Description\n"
+      "-------- --------- --------------------\n"
+      "Messages array int The enabled messages";
+    const char* const EnableSbasMessages::TargetId = "";
 
-    REGISTER_COMMAND_FACTORY(EnableSbasMessages);
+    REGISTER_COMMAND_TO_FACTORY_DECL(EnableSbasMessages);
+    REGISTER_COMMAND_TO_FACTORY_IMPL(EnableSbasMessages);
 
 
     EnableSbasMessages::EnableSbasMessages()
-      : CommandBase(CmdName)
+      : CommandBase(CmdName, TargetId)
     {}
 
     EnableSbasMessages::EnableSbasMessages(const std::vector<int>& messages)
-      : CommandBase(CmdName)
+      : CommandBase(CmdName, TargetId)
     {
 
       setMessages(messages);
@@ -50,6 +55,12 @@ namespace Sdx
     }
 
     std::string EnableSbasMessages::documentation() const { return Documentation; }
+
+    const std::vector<std::string>& EnableSbasMessages::fieldNames() const 
+    { 
+      static const std::vector<std::string> names {"Messages"}; 
+      return names; 
+    }
 
 
     int EnableSbasMessages::executePermission() const

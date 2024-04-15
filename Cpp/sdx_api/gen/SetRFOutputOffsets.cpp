@@ -1,8 +1,7 @@
 
-#include "gen/SetRFOutputOffsets.h"
+#include "SetRFOutputOffsets.h"
 
 #include "command_factory.h"
-#include "command_result_factory.h"
 #include "parse_json.hpp"
 
 ///
@@ -14,28 +13,39 @@ namespace Sdx
   namespace Cmd
   {
     const char* const SetRFOutputOffsets::CmdName = "SetRFOutputOffsets";
-    const char* const SetRFOutputOffsets::Documentation = "Change modulation offsets of one RF output";
+    const char* const SetRFOutputOffsets::Documentation = "Change modulation offsets of one RF output\n"
+      "\n"
+      "Name        Type            Description\n"
+      "----------- --------------- ----------------------------------------------------------------\n"
+      "OutputIdx   int             RF Output index (zero-based)\n"
+      "PowerOffset double          Power offset (dB), to apply on all signals of the RF Output\n"
+      "TimeOffset  double          Time offset (seconds), to apply on all signals of the RF Output\n"
+      "PhaseOffset double          Phase offset (radians), to apply on all signals of the RF Output\n"
+      "PhaseStep   optional double How much the phase (radians) should change per millisecond";
+    const char* const SetRFOutputOffsets::TargetId = "";
 
-    REGISTER_COMMAND_FACTORY(SetRFOutputOffsets);
+    REGISTER_COMMAND_TO_FACTORY_DECL(SetRFOutputOffsets);
+    REGISTER_COMMAND_TO_FACTORY_IMPL(SetRFOutputOffsets);
 
 
     SetRFOutputOffsets::SetRFOutputOffsets()
-      : CommandBase(CmdName)
+      : CommandBase(CmdName, TargetId)
     {}
 
-    SetRFOutputOffsets::SetRFOutputOffsets(int outputIdx, double powerOffset, double timeOffset, double phaseOffset)
-      : CommandBase(CmdName)
+    SetRFOutputOffsets::SetRFOutputOffsets(int outputIdx, double powerOffset, double timeOffset, double phaseOffset, const Sdx::optional<double>& phaseStep)
+      : CommandBase(CmdName, TargetId)
     {
 
       setOutputIdx(outputIdx);
       setPowerOffset(powerOffset);
       setTimeOffset(timeOffset);
       setPhaseOffset(phaseOffset);
+      setPhaseStep(phaseStep);
     }
 
-    SetRFOutputOffsetsPtr SetRFOutputOffsets::create(int outputIdx, double powerOffset, double timeOffset, double phaseOffset)
+    SetRFOutputOffsetsPtr SetRFOutputOffsets::create(int outputIdx, double powerOffset, double timeOffset, double phaseOffset, const Sdx::optional<double>& phaseStep)
     {
-      return std::make_shared<SetRFOutputOffsets>(outputIdx, powerOffset, timeOffset, phaseOffset);
+      return std::make_shared<SetRFOutputOffsets>(outputIdx, powerOffset, timeOffset, phaseOffset, phaseStep);
     }
 
     SetRFOutputOffsetsPtr SetRFOutputOffsets::dynamicCast(CommandBasePtr ptr)
@@ -51,11 +61,18 @@ namespace Sdx
           && parse_json<double>::is_valid(m_values["PowerOffset"])
           && parse_json<double>::is_valid(m_values["TimeOffset"])
           && parse_json<double>::is_valid(m_values["PhaseOffset"])
+          && parse_json<Sdx::optional<double>>::is_valid(m_values["PhaseStep"])
         ;
 
     }
 
     std::string SetRFOutputOffsets::documentation() const { return Documentation; }
+
+    const std::vector<std::string>& SetRFOutputOffsets::fieldNames() const 
+    { 
+      static const std::vector<std::string> names {"OutputIdx", "PowerOffset", "TimeOffset", "PhaseOffset", "PhaseStep"}; 
+      return names; 
+    }
 
 
     int SetRFOutputOffsets::executePermission() const
@@ -108,6 +125,18 @@ namespace Sdx
     void SetRFOutputOffsets::setPhaseOffset(double phaseOffset)
     {
       m_values.AddMember("PhaseOffset", parse_json<double>::format(phaseOffset, m_values.GetAllocator()), m_values.GetAllocator());
+    }
+
+
+
+    Sdx::optional<double> SetRFOutputOffsets::phaseStep() const
+    {
+      return parse_json<Sdx::optional<double>>::parse(m_values["PhaseStep"]);
+    }
+
+    void SetRFOutputOffsets::setPhaseStep(const Sdx::optional<double>& phaseStep)
+    {
+      m_values.AddMember("PhaseStep", parse_json<Sdx::optional<double>>::format(phaseStep, m_values.GetAllocator()), m_values.GetAllocator());
     }
 
 

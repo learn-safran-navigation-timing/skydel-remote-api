@@ -1,8 +1,7 @@
 
-#include "gen/SetQzssEphemerisBoolParam.h"
+#include "SetQzssEphemerisBoolParam.h"
 
 #include "command_factory.h"
-#include "command_result_factory.h"
 #include "parse_json.hpp"
 
 ///
@@ -14,19 +13,40 @@ namespace Sdx
   namespace Cmd
   {
     const char* const SetQzssEphemerisBoolParam::CmdName = "SetQzssEphemerisBoolParam";
-    const char* const SetQzssEphemerisBoolParam::Documentation = "Please note the command SetQzssEphemerisBoolParam is deprecated since 21.3. You may use SetQzssEphBoolParamForSV.\n\nPlease note the command SetQzssEphBoolParamForSV is deprecated since 23.11. You may use SetConstellationParameterForSV.\n\nSet various boolean parameters in the QZSS ephemeris\n\n  ParamName\n\"IscL1CaAvailable\"\n\"IscL2CAvailable\"\n\"IscL5I5Available\"\n\"IscL5Q5Available\"\n\"IscL1CPAvailable\"\n\"IscL1CDAvailable\"";
+    const char* const SetQzssEphemerisBoolParam::Documentation = "Please note the command SetQzssEphemerisBoolParam is deprecated since 21.3. You may use SetQzssEphBoolParamForSV.\n"
+      "\n"
+      "Please note the command SetQzssEphBoolParamForSV is deprecated since 23.11. You may use SetConstellationParameterForSV.\n"
+      "\n"
+      "Set various boolean parameters in the QZSS ephemeris\n"
+      "\n"
+      "  ParamName\n"
+      "\"IscL1CaAvailable\"\n"
+      "\"IscL2CAvailable\"\n"
+      "\"IscL5I5Available\"\n"
+      "\"IscL5Q5Available\"\n"
+      "\"IscL1CPAvailable\"\n"
+      "\"IscL1CDAvailable\"\n"
+      "\n"
+      "Name        Type            Description\n"
+      "----------- --------------- -------------------------------------------------------------------------------------------\n"
+      "SvId        int             Satellite SV ID 1..10, or use 0 to apply new value to all satellites\n"
+      "ParamName   string          Parameter name (see table above for accepted names)\n"
+      "Val         bool            Parameter value (see table above for unit)\n"
+      "DataSetName optional string Optional name of the data set to use. If no value is provided, the active data set is used.";
+    const char* const SetQzssEphemerisBoolParam::TargetId = "";
 
     const char* const SetQzssEphemerisBoolParam::Deprecated = "Please note the command SetQzssEphemerisBoolParam is deprecated since 23.11. You may use SetConstellationParameterForSV.";
 
-    REGISTER_COMMAND_FACTORY(SetQzssEphemerisBoolParam);
+    REGISTER_COMMAND_TO_FACTORY_DECL(SetQzssEphemerisBoolParam);
+    REGISTER_COMMAND_TO_FACTORY_IMPL(SetQzssEphemerisBoolParam);
 
 
     SetQzssEphemerisBoolParam::SetQzssEphemerisBoolParam()
-      : CommandBase(CmdName)
+      : CommandBase(CmdName, TargetId)
     {}
 
     SetQzssEphemerisBoolParam::SetQzssEphemerisBoolParam(int svId, const std::string& paramName, bool val, const Sdx::optional<std::string>& dataSetName)
-      : CommandBase(CmdName)
+      : CommandBase(CmdName, TargetId)
     {
 
       setSvId(svId);
@@ -58,6 +78,12 @@ namespace Sdx
     }
 
     std::string SetQzssEphemerisBoolParam::documentation() const { return Documentation; }
+
+    const std::vector<std::string>& SetQzssEphemerisBoolParam::fieldNames() const 
+    { 
+      static const std::vector<std::string> names {"SvId", "ParamName", "Val", "DataSetName"}; 
+      return names; 
+    }
 
     Sdx::optional<std::string> SetQzssEphemerisBoolParam::deprecated() const { return Sdx::optional<std::string>{Deprecated}; }
 

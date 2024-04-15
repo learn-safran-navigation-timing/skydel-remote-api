@@ -1,8 +1,7 @@
 
-#include "gen/EnableIonoOffset.h"
+#include "EnableIonoOffset.h"
 
 #include "command_factory.h"
-#include "command_result_factory.h"
 #include "parse_json.hpp"
 
 ///
@@ -14,17 +13,23 @@ namespace Sdx
   namespace Cmd
   {
     const char* const EnableIonoOffset::CmdName = "EnableIonoOffset";
-    const char* const EnableIonoOffset::Documentation = "Set whether the ionospheric offsets grid should be applied to the ionosphere";
+    const char* const EnableIonoOffset::Documentation = "Set whether the ionospheric offsets grid should be applied to the ionosphere\n"
+      "\n"
+      "Name      Type Description\n"
+      "--------- ---- ---------------------------------------------\n"
+      "IsEnabled bool True if offsets are applied on the ionosphere";
+    const char* const EnableIonoOffset::TargetId = "";
 
-    REGISTER_COMMAND_FACTORY(EnableIonoOffset);
+    REGISTER_COMMAND_TO_FACTORY_DECL(EnableIonoOffset);
+    REGISTER_COMMAND_TO_FACTORY_IMPL(EnableIonoOffset);
 
 
     EnableIonoOffset::EnableIonoOffset()
-      : CommandBase(CmdName)
+      : CommandBase(CmdName, TargetId)
     {}
 
     EnableIonoOffset::EnableIonoOffset(bool isEnabled)
-      : CommandBase(CmdName)
+      : CommandBase(CmdName, TargetId)
     {
 
       setIsEnabled(isEnabled);
@@ -50,6 +55,12 @@ namespace Sdx
     }
 
     std::string EnableIonoOffset::documentation() const { return Documentation; }
+
+    const std::vector<std::string>& EnableIonoOffset::fieldNames() const 
+    { 
+      static const std::vector<std::string> names {"IsEnabled"}; 
+      return names; 
+    }
 
 
     int EnableIonoOffset::executePermission() const

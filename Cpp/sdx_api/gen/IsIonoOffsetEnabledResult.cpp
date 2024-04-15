@@ -1,8 +1,7 @@
 
-#include "gen/IsIonoOffsetEnabledResult.h"
+#include "IsIonoOffsetEnabledResult.h"
 
 #include "command_factory.h"
-#include "command_result_factory.h"
 #include "parse_json.hpp"
 
 ///
@@ -14,24 +13,29 @@ namespace Sdx
   namespace Cmd
   {
     const char* const IsIonoOffsetEnabledResult::CmdName = "IsIonoOffsetEnabledResult";
-    const char* const IsIonoOffsetEnabledResult::Documentation = "Result of IsIonoOffsetEnabled.";
+    const char* const IsIonoOffsetEnabledResult::Documentation = "Result of IsIonoOffsetEnabled.\n"
+      "\n"
+      "Name      Type Description\n"
+      "--------- ---- ---------------------------------------------\n"
+      "IsEnabled bool True if offsets are applied on the ionosphere";
+    const char* const IsIonoOffsetEnabledResult::TargetId = "";
 
-    REGISTER_COMMAND_RESULT_TO_FACTORY_IMPL(IsIonoOffsetEnabledResult);
+    REGISTER_COMMAND_TO_FACTORY_IMPL(IsIonoOffsetEnabledResult);
 
 
     IsIonoOffsetEnabledResult::IsIonoOffsetEnabledResult()
-      : CommandResult(CmdName)
+      : CommandResult(CmdName, TargetId)
     {}
 
     IsIonoOffsetEnabledResult::IsIonoOffsetEnabledResult(bool isEnabled)
-      : CommandResult(CmdName)
+      : CommandResult(CmdName, TargetId)
     {
 
       setIsEnabled(isEnabled);
     }
 
     IsIonoOffsetEnabledResult::IsIonoOffsetEnabledResult(CommandBasePtr relatedCommand, bool isEnabled)
-      : CommandResult(CmdName, relatedCommand)
+      : CommandResult(CmdName, TargetId, relatedCommand)
     {
 
       setIsEnabled(isEnabled);
@@ -63,6 +67,12 @@ namespace Sdx
     }
 
     std::string IsIonoOffsetEnabledResult::documentation() const { return Documentation; }
+
+    const std::vector<std::string>& IsIonoOffsetEnabledResult::fieldNames() const 
+    { 
+      static const std::vector<std::string> names {"IsEnabled"}; 
+      return names; 
+    }
 
 
     bool IsIonoOffsetEnabledResult::isEnabled() const

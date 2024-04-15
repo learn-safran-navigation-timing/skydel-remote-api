@@ -1,8 +1,7 @@
 
-#include "gen/SetIntTxBOC.h"
+#include "SetIntTxBOC.h"
 
 #include "command_factory.h"
-#include "command_result_factory.h"
 #include "parse_json.hpp"
 
 ///
@@ -14,17 +13,32 @@ namespace Sdx
   namespace Cmd
   {
     const char* const SetIntTxBOC::CmdName = "SetIntTxBOC";
-    const char* const SetIntTxBOC::Documentation = "Set BOC signal interference.";
+    const char* const SetIntTxBOC::Documentation = "Set BOC signal interference.\n"
+      "\n"
+      "Name           Type         Description\n"
+      "-------------- ------------ -------------------------------------------------------------------------\n"
+      "Enabled        bool         Enable (true) or disable (false) the signal\n"
+      "CentralFreq    double       Central frequency (Hz)\n"
+      "Power          double       Power (dB), relative to transmitter reference power\n"
+      "CodeRate       int          Code rate (Hz). Must be between 1000 and 60000000 and a multiple of 1KHz.\n"
+      "CodeLengthMs   int          Code length (ms). Must be between 1 and 100.\n"
+      "SubCarrierRate int          Code rate (Hz). Must be between 1000 and 60000000 and a multiple of 1KHz.\n"
+      "CosinePhaseBoc bool         Use Cosine-Phase BOC instead of default Sine-Phase BOC.\n"
+      "TransmitterId  string       Transmitter unique identifier.\n"
+      "SignalId       string       BOC unique identifier.\n"
+      "Group          optional int Group, if not using default group.";
+    const char* const SetIntTxBOC::TargetId = "";
 
-    REGISTER_COMMAND_FACTORY(SetIntTxBOC);
+    REGISTER_COMMAND_TO_FACTORY_DECL(SetIntTxBOC);
+    REGISTER_COMMAND_TO_FACTORY_IMPL(SetIntTxBOC);
 
 
     SetIntTxBOC::SetIntTxBOC()
-      : CommandBase(CmdName)
+      : CommandBase(CmdName, TargetId)
     {}
 
     SetIntTxBOC::SetIntTxBOC(bool enabled, double centralFreq, double power, int codeRate, int codeLengthMs, int subCarrierRate, bool cosinePhaseBoc, const std::string& transmitterId, const std::string& signalId, const Sdx::optional<int>& group)
-      : CommandBase(CmdName)
+      : CommandBase(CmdName, TargetId)
     {
 
       setEnabled(enabled);
@@ -68,6 +82,12 @@ namespace Sdx
     }
 
     std::string SetIntTxBOC::documentation() const { return Documentation; }
+
+    const std::vector<std::string>& SetIntTxBOC::fieldNames() const 
+    { 
+      static const std::vector<std::string> names {"Enabled", "CentralFreq", "Power", "CodeRate", "CodeLengthMs", "SubCarrierRate", "CosinePhaseBoc", "TransmitterId", "SignalId", "Group"}; 
+      return names; 
+    }
 
 
     int SetIntTxBOC::executePermission() const

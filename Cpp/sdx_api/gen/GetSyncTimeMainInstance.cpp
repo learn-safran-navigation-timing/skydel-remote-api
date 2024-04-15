@@ -1,8 +1,7 @@
 
-#include "gen/GetSyncTimeMainInstance.h"
+#include "GetSyncTimeMainInstance.h"
 
 #include "command_factory.h"
-#include "command_result_factory.h"
 #include "parse_json.hpp"
 
 ///
@@ -14,13 +13,17 @@ namespace Sdx
   namespace Cmd
   {
     const char* const GetSyncTimeMainInstance::CmdName = "GetSyncTimeMainInstance";
-    const char* const GetSyncTimeMainInstance::Documentation = "Get time delay to start streaming after PPS synchronization. A value of 1500\nmeans the simulation will start streaming 1.5 sec after the PPS used for\nsynchornization.";
+    const char* const GetSyncTimeMainInstance::Documentation = "Get time delay to start streaming after PPS synchronization. A value of 1500\n"
+      "means the simulation will start streaming 1.5 sec after the PPS used for\n"
+      "synchornization.";
+    const char* const GetSyncTimeMainInstance::TargetId = "";
 
-    REGISTER_COMMAND_FACTORY(GetSyncTimeMainInstance);
+    REGISTER_COMMAND_TO_FACTORY_DECL(GetSyncTimeMainInstance);
+    REGISTER_COMMAND_TO_FACTORY_IMPL(GetSyncTimeMainInstance);
 
 
     GetSyncTimeMainInstance::GetSyncTimeMainInstance()
-      : CommandBase(CmdName)
+      : CommandBase(CmdName, TargetId)
     {
 
     }
@@ -44,6 +47,12 @@ namespace Sdx
     }
 
     std::string GetSyncTimeMainInstance::documentation() const { return Documentation; }
+
+    const std::vector<std::string>& GetSyncTimeMainInstance::fieldNames() const 
+    { 
+      static const std::vector<std::string> names {}; 
+      return names; 
+    }
 
 
     int GetSyncTimeMainInstance::executePermission() const

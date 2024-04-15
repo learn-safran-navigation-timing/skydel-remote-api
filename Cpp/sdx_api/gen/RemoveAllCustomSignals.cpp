@@ -1,8 +1,7 @@
 
-#include "gen/RemoveAllCustomSignals.h"
+#include "RemoveAllCustomSignals.h"
 
 #include "command_factory.h"
-#include "command_result_factory.h"
 #include "parse_json.hpp"
 
 ///
@@ -15,12 +14,14 @@ namespace Sdx
   {
     const char* const RemoveAllCustomSignals::CmdName = "RemoveAllCustomSignals";
     const char* const RemoveAllCustomSignals::Documentation = "Removes all the custom signals";
+    const char* const RemoveAllCustomSignals::TargetId = "";
 
-    REGISTER_COMMAND_FACTORY(RemoveAllCustomSignals);
+    REGISTER_COMMAND_TO_FACTORY_DECL(RemoveAllCustomSignals);
+    REGISTER_COMMAND_TO_FACTORY_IMPL(RemoveAllCustomSignals);
 
 
     RemoveAllCustomSignals::RemoveAllCustomSignals()
-      : CommandBase(CmdName)
+      : CommandBase(CmdName, TargetId)
     {
 
     }
@@ -44,6 +45,12 @@ namespace Sdx
     }
 
     std::string RemoveAllCustomSignals::documentation() const { return Documentation; }
+
+    const std::vector<std::string>& RemoveAllCustomSignals::fieldNames() const 
+    { 
+      static const std::vector<std::string> names {}; 
+      return names; 
+    }
 
 
     int RemoveAllCustomSignals::executePermission() const

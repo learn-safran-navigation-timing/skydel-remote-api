@@ -1,8 +1,7 @@
 
-#include "gen/GetGlonassEphemerisHealthFlagForSV.h"
+#include "GetGlonassEphemerisHealthFlagForSV.h"
 
 #include "command_factory.h"
-#include "command_result_factory.h"
 #include "parse_json.hpp"
 
 ///
@@ -14,17 +13,23 @@ namespace Sdx
   namespace Cmd
   {
     const char* const GetGlonassEphemerisHealthFlagForSV::CmdName = "GetGlonassEphemerisHealthFlagForSV";
-    const char* const GetGlonassEphemerisHealthFlagForSV::Documentation = "Get GLONASS satellite Ephemeris Health Flag Bn(ln)";
+    const char* const GetGlonassEphemerisHealthFlagForSV::Documentation = "Get GLONASS satellite Ephemeris Health Flag Bn(ln)\n"
+      "\n"
+      "Name Type Description\n"
+      "---- ---- ---------------------------\n"
+      "SvId int  The satellite's SV ID 1..24";
+    const char* const GetGlonassEphemerisHealthFlagForSV::TargetId = "";
 
-    REGISTER_COMMAND_FACTORY(GetGlonassEphemerisHealthFlagForSV);
+    REGISTER_COMMAND_TO_FACTORY_DECL(GetGlonassEphemerisHealthFlagForSV);
+    REGISTER_COMMAND_TO_FACTORY_IMPL(GetGlonassEphemerisHealthFlagForSV);
 
 
     GetGlonassEphemerisHealthFlagForSV::GetGlonassEphemerisHealthFlagForSV()
-      : CommandBase(CmdName)
+      : CommandBase(CmdName, TargetId)
     {}
 
     GetGlonassEphemerisHealthFlagForSV::GetGlonassEphemerisHealthFlagForSV(int svId)
-      : CommandBase(CmdName)
+      : CommandBase(CmdName, TargetId)
     {
 
       setSvId(svId);
@@ -50,6 +55,12 @@ namespace Sdx
     }
 
     std::string GetGlonassEphemerisHealthFlagForSV::documentation() const { return Documentation; }
+
+    const std::vector<std::string>& GetGlonassEphemerisHealthFlagForSV::fieldNames() const 
+    { 
+      static const std::vector<std::string> names {"SvId"}; 
+      return names; 
+    }
 
 
     int GetGlonassEphemerisHealthFlagForSV::executePermission() const

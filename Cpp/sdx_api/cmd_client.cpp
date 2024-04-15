@@ -22,8 +22,8 @@
 
 #include "all_commands.h"
 #include "command_base.h"
+#include "command_factory.h"
 #include "command_result.h"
-#include "command_result_factory.h"
 
 #define CMD_BLOCK_SIZE 65535
 
@@ -74,7 +74,7 @@ CmdClient::~CmdClient(void)
 
 int CmdClient::port() const
 {
-  return (int)m->serv_addr.sin_port;
+  return static_cast<int>(m->serv_addr.sin_port);
 }
 
 const std::string& CmdClient::address() const
@@ -121,7 +121,7 @@ bool CmdClient::connectToHost(const std::string& ip, int port)
   setsockopt(m->s, SOL_SOCKET, SO_SNDTIMEO, &timeout, sizeof(timeout));
 #endif
 
-  if (connect(m->s, (struct sockaddr*)&m->serv_addr, sizeof(m->serv_addr)) < 0)
+  if (connect(m->s, reinterpret_cast<sockaddr*>(&m->serv_addr), sizeof(m->serv_addr)) < 0)
   {
     closeSocket();
     errorMessage("Unable to connect to the Simulator. Please, make sure that the simulator process is running");
@@ -158,9 +158,9 @@ bool CmdClient::isConnected() const
 int CmdClient::getServerApiVersion()
 {
   int msgSize = 7;
-  ((uint16_t*)&m->message2Send)[0] = msgSize - 2;
-  m->message2Send[2] = (char)CmdMsgId_ApiVersion;
-  ((uint32_t*)&m->message2Send[3])[0] = COMMANDS_API_VERSION;
+  reinterpret_cast<uint16_t*>(&m->message2Send)[0] = msgSize - 2;
+  m->message2Send[2] = static_cast<char>(CmdMsgId_ApiVersion);
+  reinterpret_cast<uint32_t*>(&m->message2Send[3])[0] = Cmd::COMMANDS_API_VERSION;
 
   if (sendMessage(m->message2Send, msgSize))
   {
@@ -169,11 +169,11 @@ int CmdClient::getServerApiVersion()
       if (!receiveMessage())
         return 0;
 
-      int msgId = (int)m->message[2];
+      int msgId = static_cast<int>(m->message[2]);
       switch (msgId)
       {
         case CmdMsgId_ApiVersion:
-          return ((uint32_t*)&m->message[3])[0];
+          return reinterpret_cast<uint32_t*>(&m->message[3])[0];
         default:
           break;
       }
@@ -186,11 +186,11 @@ int CmdClient::getServerApiVersion()
 bool CmdClient::sendCommand(CommandBasePtr cmd)
 {
   std::string jsonStr = cmd->toString();
-  m->message2Send[2] = (char)CmdMsgId_Command;
+  m->message2Send[2] = static_cast<char>(CmdMsgId_Command);
   memcpy(&m->message2Send[3], jsonStr.c_str(), jsonStr.size() + 1);
 
-  int msgSize = (int)jsonStr.size() + 4;
-  ((uint16_t*)&m->message2Send)[0] = msgSize - 2;
+  int msgSize = static_cast<int>(jsonStr.size()) + 4;
+  reinterpret_cast<uint16_t*>(&m->message2Send)[0] = msgSize - 2;
 
   return sendMessage(m->message2Send, msgSize);
 }
@@ -205,22 +205,24 @@ CommandResultPtr CmdClient::waitCommand(CommandBasePtr cmd)
       throw std::runtime_error("Failed to receive command result. Is server still running?");
     }
 
-    int msgId = (int)m->message[2];
+    int msgId = static_cast<int>(m->message[2]);
     switch (msgId)
     {
       case CmdMsgId_Result:
       {
         char* msgJson = &m->message[7];
         std::string errorMsg;
-        CommandResultPtr result = CommandResultFactory::instance()->createCommandResult(msgJson, &errorMsg);
-        if (!result)
+        if (auto result = CommandFactory::instance()->createCommandResult(msgJson, &errorMsg))
+        {
+          if (cmd->uuid() == result->relatedCommand()->uuid())
+            return result;
+        }
+        else
         {
           std::cout << "Failed to parse " << msgJson << std::endl;
           std::cout << errorMsg << std::endl;
           throw std::runtime_error(errorMsg.c_str());
         }
-        if (cmd->uuid() == result->relatedCommand()->uuid())
-          return result;
         break;
       }
       default:
@@ -244,7 +246,7 @@ bool CmdClient::receiveMessage()
     }
   } while (rx < 2);
 
-  int bytesToRead = (int)((uint16_t*)&m->message[0])[0] + 2;
+  int bytesToRead = static_cast<int>(reinterpret_cast<uint16_t*>(&m->message[0])[0]) + 2;
   char* messagePtr = m->message;
 
   do
@@ -272,8 +274,8 @@ bool haveInput(int fd, double timeout)
   struct timeval tv;
   FD_ZERO(&fds);
   FD_SET(fd, &fds);
-  tv.tv_sec = (long)timeout;                            // cast needed for C++
-  tv.tv_usec = (long)((timeout - tv.tv_sec) * 1000000); // 'suseconds_t'
+  tv.tv_sec = static_cast<long>(timeout);                          // cast needed for C++
+  tv.tv_usec = static_cast<long>((timeout - tv.tv_sec) * 1000000); // 'suseconds_t'
 
   while (1)
   {

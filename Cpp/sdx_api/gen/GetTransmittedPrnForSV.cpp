@@ -1,8 +1,7 @@
 
-#include "gen/GetTransmittedPrnForSV.h"
+#include "GetTransmittedPrnForSV.h"
 
 #include "command_factory.h"
-#include "command_result_factory.h"
 #include "parse_json.hpp"
 
 ///
@@ -14,17 +13,28 @@ namespace Sdx
   namespace Cmd
   {
     const char* const GetTransmittedPrnForSV::CmdName = "GetTransmittedPrnForSV";
-    const char* const GetTransmittedPrnForSV::Documentation = "Get the PRNs transmitted by the SV ID for these signals.";
+    const char* const GetTransmittedPrnForSV::Documentation = "Get the PRNs transmitted by the SV ID for these signals.\n"
+      "\n"
+      "Name        Type         Description\n"
+      "----------- ------------ ---------------------------------------------------------------------------\n"
+      "SvId        int          Satellite SV ID.\n"
+      "SignalArray array string An array of signals.\n"
+      "                         Accepted values are: \"L1CA\", \"L1C\", \"L2C\", \"L5\", \"E1\", \"E6BC\", \"B1\", \"B2\",\n"
+      "                                              \"B1C\", \"B2a\", \"B3I\", \"SBASL1\", \"SBASL5\", \"QZSSL1CA\",\n"
+      "                                              \"QZSSL1CB\", \"QZSSL1C\", \"QZSSL2C\", \"QZSSL5\", \"QZSSL1S\",\n"
+      "                                              \"QZSSL5S\" and \"NAVICL5\"";
+    const char* const GetTransmittedPrnForSV::TargetId = "";
 
-    REGISTER_COMMAND_FACTORY(GetTransmittedPrnForSV);
+    REGISTER_COMMAND_TO_FACTORY_DECL(GetTransmittedPrnForSV);
+    REGISTER_COMMAND_TO_FACTORY_IMPL(GetTransmittedPrnForSV);
 
 
     GetTransmittedPrnForSV::GetTransmittedPrnForSV()
-      : CommandBase(CmdName)
+      : CommandBase(CmdName, TargetId)
     {}
 
     GetTransmittedPrnForSV::GetTransmittedPrnForSV(int svId, const std::vector<std::string>& signalArray)
-      : CommandBase(CmdName)
+      : CommandBase(CmdName, TargetId)
     {
 
       setSvId(svId);
@@ -52,6 +62,12 @@ namespace Sdx
     }
 
     std::string GetTransmittedPrnForSV::documentation() const { return Documentation; }
+
+    const std::vector<std::string>& GetTransmittedPrnForSV::fieldNames() const 
+    { 
+      static const std::vector<std::string> names {"SvId", "SignalArray"}; 
+      return names; 
+    }
 
 
     int GetTransmittedPrnForSV::executePermission() const

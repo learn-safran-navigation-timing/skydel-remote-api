@@ -1,8 +1,7 @@
 
-#include "gen/SetSVAntennaGainCSV.h"
+#include "SetSVAntennaGainCSV.h"
 
 #include "command_factory.h"
-#include "command_result_factory.h"
 #include "parse_json.hpp"
 
 ///
@@ -14,17 +13,27 @@ namespace Sdx
   namespace Cmd
   {
     const char* const SetSVAntennaGainCSV::CmdName = "SetSVAntennaGainCSV";
-    const char* const SetSVAntennaGainCSV::Documentation = "Set space vehicle gain antenna pattern from a CSV file. If no name is specified, the command is aplied to Basic SV Antenna.";
+    const char* const SetSVAntennaGainCSV::Documentation = "Set space vehicle gain antenna pattern from a CSV file. If no name is specified, the command is aplied to Basic SV Antenna.\n"
+      "\n"
+      "Name     Type               Description\n"
+      "-------- ------------------ ------------------------------------------------------------------------------------------------------------------\n"
+      "FilePath string             File path of the CSV. For Default and None type, lets it empty. See formats in user manual part 8.7.9.2.1. Models.\n"
+      "Type     AntennaPatternType Pattern type\n"
+      "Band     GNSSBand           Frequency band\n"
+      "System   string             \"GPS\", \"GLONASS\", \"Galileo\", \"BeiDou\", \"SBAS\", \"QZSS\", \"NavIC\" or \"PULSAR\"\n"
+      "Name     optional string    Vehicle antenna name";
+    const char* const SetSVAntennaGainCSV::TargetId = "";
 
-    REGISTER_COMMAND_FACTORY(SetSVAntennaGainCSV);
+    REGISTER_COMMAND_TO_FACTORY_DECL(SetSVAntennaGainCSV);
+    REGISTER_COMMAND_TO_FACTORY_IMPL(SetSVAntennaGainCSV);
 
 
     SetSVAntennaGainCSV::SetSVAntennaGainCSV()
-      : CommandBase(CmdName)
+      : CommandBase(CmdName, TargetId)
     {}
 
     SetSVAntennaGainCSV::SetSVAntennaGainCSV(const std::string& filePath, const Sdx::AntennaPatternType& type, const Sdx::GNSSBand& band, const std::string& system, const Sdx::optional<std::string>& name)
-      : CommandBase(CmdName)
+      : CommandBase(CmdName, TargetId)
     {
 
       setFilePath(filePath);
@@ -58,6 +67,12 @@ namespace Sdx
     }
 
     std::string SetSVAntennaGainCSV::documentation() const { return Documentation; }
+
+    const std::vector<std::string>& SetSVAntennaGainCSV::fieldNames() const 
+    { 
+      static const std::vector<std::string> names {"FilePath", "Type", "Band", "System", "Name"}; 
+      return names; 
+    }
 
 
     int SetSVAntennaGainCSV::executePermission() const

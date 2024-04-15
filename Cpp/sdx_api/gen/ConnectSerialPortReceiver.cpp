@@ -1,8 +1,7 @@
 
-#include "gen/ConnectSerialPortReceiver.h"
+#include "ConnectSerialPortReceiver.h"
 
 #include "command_factory.h"
-#include "command_result_factory.h"
 #include "parse_json.hpp"
 
 ///
@@ -14,17 +13,28 @@ namespace Sdx
   namespace Cmd
   {
     const char* const ConnectSerialPortReceiver::CmdName = "ConnectSerialPortReceiver";
-    const char* const ConnectSerialPortReceiver::Documentation = "Connect a receiver.";
+    const char* const ConnectSerialPortReceiver::Documentation = "Connect a receiver.\n"
+      "\n"
+      "Name        Type                           Description\n"
+      "----------- ------------------------------ -------------------------------------------------------------------------------------------------------------------------------------\n"
+      "Port        string                         Serial Port (ex: \"COM5\").\n"
+      "BaudRate    optional int                   Data baud rate of the serial port. Can be 1200 | 2400 | 4800 | 9600 | 19200 | 38400 | 57600 | 115200 | 460800. Default value is 9600.\n"
+      "DataBits    optional int                   Number of data bits used by the serial port. Possible values are 5, 6, 7 and 8. Default value is 8.\n"
+      "Parity      optional SerialPortParity      Parity scheme used by the serial port. Default value is NoParity.\n"
+      "StopBits    optional int                   Number of stop bits used by the serial port. Possible values are 1 and 2. Default value is 1.\n"
+      "FlowControl optional SerialPortFlowControl Flow control used by the serial port. Default value is NoFlowControl.";
+    const char* const ConnectSerialPortReceiver::TargetId = "";
 
-    REGISTER_COMMAND_FACTORY(ConnectSerialPortReceiver);
+    REGISTER_COMMAND_TO_FACTORY_DECL(ConnectSerialPortReceiver);
+    REGISTER_COMMAND_TO_FACTORY_IMPL(ConnectSerialPortReceiver);
 
 
     ConnectSerialPortReceiver::ConnectSerialPortReceiver()
-      : CommandBase(CmdName)
+      : CommandBase(CmdName, TargetId)
     {}
 
     ConnectSerialPortReceiver::ConnectSerialPortReceiver(const std::string& port, const Sdx::optional<int>& baudRate, const Sdx::optional<int>& dataBits, const Sdx::optional<Sdx::SerialPortParity>& parity, const Sdx::optional<int>& stopBits, const Sdx::optional<Sdx::SerialPortFlowControl>& flowControl)
-      : CommandBase(CmdName)
+      : CommandBase(CmdName, TargetId)
     {
 
       setPort(port);
@@ -60,6 +70,12 @@ namespace Sdx
     }
 
     std::string ConnectSerialPortReceiver::documentation() const { return Documentation; }
+
+    const std::vector<std::string>& ConnectSerialPortReceiver::fieldNames() const 
+    { 
+      static const std::vector<std::string> names {"Port", "BaudRate", "DataBits", "Parity", "StopBits", "FlowControl"}; 
+      return names; 
+    }
 
 
     int ConnectSerialPortReceiver::executePermission() const

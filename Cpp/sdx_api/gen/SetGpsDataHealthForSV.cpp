@@ -1,8 +1,7 @@
 
-#include "gen/SetGpsDataHealthForSV.h"
+#include "SetGpsDataHealthForSV.h"
 
 #include "command_factory.h"
-#include "command_result_factory.h"
 #include "parse_json.hpp"
 
 ///
@@ -14,17 +13,25 @@ namespace Sdx
   namespace Cmd
   {
     const char* const SetGpsDataHealthForSV::CmdName = "SetGpsDataHealthForSV";
-    const char* const SetGpsDataHealthForSV::Documentation = "Set GPS nav data health";
+    const char* const SetGpsDataHealthForSV::Documentation = "Set GPS nav data health\n"
+      "\n"
+      "Name        Type            Description\n"
+      "----------- --------------- -------------------------------------------------------------------------------------------\n"
+      "SvId        int             Satellite's SV ID 1..32\n"
+      "Health      int             Data health 0..7\n"
+      "DataSetName optional string Optional name of the data set to use. If no value is provided, the active data set is used.";
+    const char* const SetGpsDataHealthForSV::TargetId = "";
 
-    REGISTER_COMMAND_FACTORY(SetGpsDataHealthForSV);
+    REGISTER_COMMAND_TO_FACTORY_DECL(SetGpsDataHealthForSV);
+    REGISTER_COMMAND_TO_FACTORY_IMPL(SetGpsDataHealthForSV);
 
 
     SetGpsDataHealthForSV::SetGpsDataHealthForSV()
-      : CommandBase(CmdName)
+      : CommandBase(CmdName, TargetId)
     {}
 
     SetGpsDataHealthForSV::SetGpsDataHealthForSV(int svId, int health, const Sdx::optional<std::string>& dataSetName)
-      : CommandBase(CmdName)
+      : CommandBase(CmdName, TargetId)
     {
 
       setSvId(svId);
@@ -54,6 +61,12 @@ namespace Sdx
     }
 
     std::string SetGpsDataHealthForSV::documentation() const { return Documentation; }
+
+    const std::vector<std::string>& SetGpsDataHealthForSV::fieldNames() const 
+    { 
+      static const std::vector<std::string> names {"SvId", "Health", "DataSetName"}; 
+      return names; 
+    }
 
 
     int SetGpsDataHealthForSV::executePermission() const

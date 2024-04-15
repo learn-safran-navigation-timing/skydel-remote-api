@@ -1,8 +1,7 @@
 
-#include "gen/AddVehicleGainPatternOffset.h"
+#include "AddVehicleGainPatternOffset.h"
 
 #include "command_factory.h"
-#include "command_result_factory.h"
 #include "parse_json.hpp"
 
 ///
@@ -14,17 +13,25 @@ namespace Sdx
   namespace Cmd
   {
     const char* const AddVehicleGainPatternOffset::CmdName = "AddVehicleGainPatternOffset";
-    const char* const AddVehicleGainPatternOffset::Documentation = "Add an offset (in db) for all values of the pattern.";
+    const char* const AddVehicleGainPatternOffset::Documentation = "Add an offset (in db) for all values of the pattern.\n"
+      "\n"
+      "Name        Type            Description\n"
+      "----------- --------------- ------------------------------------------------------------------------------------\n"
+      "Band        GNSSBand        Offset will be apply to this band.\n"
+      "Offset      double          Power offset\n"
+      "AntennaName optional string Vehicle antenna name. If no name is specified, apply the offset to the Basic Antenna";
+    const char* const AddVehicleGainPatternOffset::TargetId = "";
 
-    REGISTER_COMMAND_FACTORY(AddVehicleGainPatternOffset);
+    REGISTER_COMMAND_TO_FACTORY_DECL(AddVehicleGainPatternOffset);
+    REGISTER_COMMAND_TO_FACTORY_IMPL(AddVehicleGainPatternOffset);
 
 
     AddVehicleGainPatternOffset::AddVehicleGainPatternOffset()
-      : CommandBase(CmdName)
+      : CommandBase(CmdName, TargetId)
     {}
 
     AddVehicleGainPatternOffset::AddVehicleGainPatternOffset(const Sdx::GNSSBand& band, double offset, const Sdx::optional<std::string>& antennaName)
-      : CommandBase(CmdName)
+      : CommandBase(CmdName, TargetId)
     {
 
       setBand(band);
@@ -54,6 +61,12 @@ namespace Sdx
     }
 
     std::string AddVehicleGainPatternOffset::documentation() const { return Documentation; }
+
+    const std::vector<std::string>& AddVehicleGainPatternOffset::fieldNames() const 
+    { 
+      static const std::vector<std::string> names {"Band", "Offset", "AntennaName"}; 
+      return names; 
+    }
 
 
     int AddVehicleGainPatternOffset::executePermission() const

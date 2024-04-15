@@ -1,8 +1,7 @@
 
-#include "gen/GetPrnForEachSV.h"
+#include "GetPrnForEachSV.h"
 
 #include "command_factory.h"
-#include "command_result_factory.h"
 #include "parse_json.hpp"
 
 ///
@@ -14,17 +13,23 @@ namespace Sdx
   namespace Cmd
   {
     const char* const GetPrnForEachSV::CmdName = "GetPrnForEachSV";
-    const char* const GetPrnForEachSV::Documentation = "Get the PRN for each satellite for specified signals.";
+    const char* const GetPrnForEachSV::Documentation = "Get the PRN for each satellite for specified signals.\n"
+      "\n"
+      "Name   Type   Description\n"
+      "------ ------ ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------\n"
+      "Signal string Accepted signal keys: \"L1CA\", \"L1C\", \"L2C\", \"L5\", \"E1\", \"E6BC\", \"B1\", \"B2\", \"B1C\", \"B2a\", \"B3I\", \"SBASL1\", \"SBASL5\", \"QZSSL1CA\", \"QZSSL1CB\", \"QZSSL1C\", \"QZSSL2C\", \"QZSSL5\", \"QZSSL1S\", \"QZSSL5S\", \"NAVICL5\", \"PULSARXL\"";
+    const char* const GetPrnForEachSV::TargetId = "";
 
-    REGISTER_COMMAND_FACTORY(GetPrnForEachSV);
+    REGISTER_COMMAND_TO_FACTORY_DECL(GetPrnForEachSV);
+    REGISTER_COMMAND_TO_FACTORY_IMPL(GetPrnForEachSV);
 
 
     GetPrnForEachSV::GetPrnForEachSV()
-      : CommandBase(CmdName)
+      : CommandBase(CmdName, TargetId)
     {}
 
     GetPrnForEachSV::GetPrnForEachSV(const std::string& signal)
-      : CommandBase(CmdName)
+      : CommandBase(CmdName, TargetId)
     {
 
       setSignal(signal);
@@ -50,6 +55,12 @@ namespace Sdx
     }
 
     std::string GetPrnForEachSV::documentation() const { return Documentation; }
+
+    const std::vector<std::string>& GetPrnForEachSV::fieldNames() const 
+    { 
+      static const std::vector<std::string> names {"Signal"}; 
+      return names; 
+    }
 
 
     int GetPrnForEachSV::executePermission() const

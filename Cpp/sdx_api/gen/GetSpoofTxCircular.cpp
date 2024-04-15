@@ -1,8 +1,7 @@
 
-#include "gen/GetSpoofTxCircular.h"
+#include "GetSpoofTxCircular.h"
 
 #include "command_factory.h"
-#include "command_result_factory.h"
 #include "parse_json.hpp"
 
 ///
@@ -14,17 +13,23 @@ namespace Sdx
   namespace Cmd
   {
     const char* const GetSpoofTxCircular::CmdName = "GetSpoofTxCircular";
-    const char* const GetSpoofTxCircular::Documentation = "Get spoofer transmitter circular trajectory";
+    const char* const GetSpoofTxCircular::Documentation = "Get spoofer transmitter circular trajectory\n"
+      "\n"
+      "Name Type   Description\n"
+      "---- ------ ------------------------------\n"
+      "Id   string Transmitter unique identifier.";
+    const char* const GetSpoofTxCircular::TargetId = "";
 
-    REGISTER_COMMAND_FACTORY(GetSpoofTxCircular);
+    REGISTER_COMMAND_TO_FACTORY_DECL(GetSpoofTxCircular);
+    REGISTER_COMMAND_TO_FACTORY_IMPL(GetSpoofTxCircular);
 
 
     GetSpoofTxCircular::GetSpoofTxCircular()
-      : CommandBase(CmdName)
+      : CommandBase(CmdName, TargetId)
     {}
 
     GetSpoofTxCircular::GetSpoofTxCircular(const std::string& id)
-      : CommandBase(CmdName)
+      : CommandBase(CmdName, TargetId)
     {
 
       setId(id);
@@ -50,6 +55,12 @@ namespace Sdx
     }
 
     std::string GetSpoofTxCircular::documentation() const { return Documentation; }
+
+    const std::vector<std::string>& GetSpoofTxCircular::fieldNames() const 
+    { 
+      static const std::vector<std::string> names {"Id"}; 
+      return names; 
+    }
 
 
     int GetSpoofTxCircular::executePermission() const

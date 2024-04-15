@@ -1,8 +1,7 @@
 
-#include "gen/GetIntTxPersistenceResult.h"
+#include "GetIntTxPersistenceResult.h"
 
 #include "command_factory.h"
-#include "command_result_factory.h"
 #include "parse_json.hpp"
 
 ///
@@ -14,17 +13,23 @@ namespace Sdx
   namespace Cmd
   {
     const char* const GetIntTxPersistenceResult::CmdName = "GetIntTxPersistenceResult";
-    const char* const GetIntTxPersistenceResult::Documentation = "Result of GetIntTxPersistence.";
+    const char* const GetIntTxPersistenceResult::Documentation = "Result of GetIntTxPersistence.\n"
+      "\n"
+      "Name        Type   Description\n"
+      "----------- ------ ------------------------------------------------------\n"
+      "Persistence bool   True to keep the modifications, false to discard them.\n"
+      "Id          string Transmitter unique identifier.";
+    const char* const GetIntTxPersistenceResult::TargetId = "";
 
-    REGISTER_COMMAND_RESULT_TO_FACTORY_IMPL(GetIntTxPersistenceResult);
+    REGISTER_COMMAND_TO_FACTORY_IMPL(GetIntTxPersistenceResult);
 
 
     GetIntTxPersistenceResult::GetIntTxPersistenceResult()
-      : CommandResult(CmdName)
+      : CommandResult(CmdName, TargetId)
     {}
 
     GetIntTxPersistenceResult::GetIntTxPersistenceResult(bool persistence, const std::string& id)
-      : CommandResult(CmdName)
+      : CommandResult(CmdName, TargetId)
     {
 
       setPersistence(persistence);
@@ -32,7 +37,7 @@ namespace Sdx
     }
 
     GetIntTxPersistenceResult::GetIntTxPersistenceResult(CommandBasePtr relatedCommand, bool persistence, const std::string& id)
-      : CommandResult(CmdName, relatedCommand)
+      : CommandResult(CmdName, TargetId, relatedCommand)
     {
 
       setPersistence(persistence);
@@ -66,6 +71,12 @@ namespace Sdx
     }
 
     std::string GetIntTxPersistenceResult::documentation() const { return Documentation; }
+
+    const std::vector<std::string>& GetIntTxPersistenceResult::fieldNames() const 
+    { 
+      static const std::vector<std::string> names {"Persistence", "Id"}; 
+      return names; 
+    }
 
 
     bool GetIntTxPersistenceResult::persistence() const

@@ -1,8 +1,7 @@
 
-#include "gen/RenameDataSet.h"
+#include "RenameDataSet.h"
 
 #include "command_factory.h"
-#include "command_result_factory.h"
 #include "parse_json.hpp"
 
 ///
@@ -14,17 +13,25 @@ namespace Sdx
   namespace Cmd
   {
     const char* const RenameDataSet::CmdName = "RenameDataSet";
-    const char* const RenameDataSet::Documentation = "Rename data set.";
+    const char* const RenameDataSet::Documentation = "Rename data set.\n"
+      "\n"
+      "Name           Type   Description\n"
+      "-------------- ------ -------------------------------------------------------\n"
+      "System         string \"GPS\", \"Galileo\", \"BeiDou\", \"QZSS\", \"NavIC\" or \"PULSAR\"\n"
+      "DataSetName    string The name of the data set to rename.\n"
+      "NewDataSetName string The new name to be given to the data set.";
+    const char* const RenameDataSet::TargetId = "";
 
-    REGISTER_COMMAND_FACTORY(RenameDataSet);
+    REGISTER_COMMAND_TO_FACTORY_DECL(RenameDataSet);
+    REGISTER_COMMAND_TO_FACTORY_IMPL(RenameDataSet);
 
 
     RenameDataSet::RenameDataSet()
-      : CommandBase(CmdName)
+      : CommandBase(CmdName, TargetId)
     {}
 
     RenameDataSet::RenameDataSet(const std::string& system, const std::string& dataSetName, const std::string& newDataSetName)
-      : CommandBase(CmdName)
+      : CommandBase(CmdName, TargetId)
     {
 
       setSystem(system);
@@ -54,6 +61,12 @@ namespace Sdx
     }
 
     std::string RenameDataSet::documentation() const { return Documentation; }
+
+    const std::vector<std::string>& RenameDataSet::fieldNames() const 
+    { 
+      static const std::vector<std::string> names {"System", "DataSetName", "NewDataSetName"}; 
+      return names; 
+    }
 
 
     int RenameDataSet::executePermission() const

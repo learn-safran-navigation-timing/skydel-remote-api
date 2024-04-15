@@ -1,8 +1,7 @@
 
-#include "gen/SetVehicleTrajectory.h"
+#include "SetVehicleTrajectory.h"
 
 #include "command_factory.h"
-#include "command_result_factory.h"
 #include "parse_json.hpp"
 
 ///
@@ -14,17 +13,23 @@ namespace Sdx
   namespace Cmd
   {
     const char* const SetVehicleTrajectory::CmdName = "SetVehicleTrajectory";
-    const char* const SetVehicleTrajectory::Documentation = "Set vehicle trajectory type";
+    const char* const SetVehicleTrajectory::Documentation = "Set vehicle trajectory type\n"
+      "\n"
+      "Name Type   Description\n"
+      "---- ------ -----------------------------------------------------------------------\n"
+      "Type string Trajectory type (\"Fix\", \"Circular\", \"HIL\", \"Track\", \"Route\" or \"Orbit\")";
+    const char* const SetVehicleTrajectory::TargetId = "";
 
-    REGISTER_COMMAND_FACTORY(SetVehicleTrajectory);
+    REGISTER_COMMAND_TO_FACTORY_DECL(SetVehicleTrajectory);
+    REGISTER_COMMAND_TO_FACTORY_IMPL(SetVehicleTrajectory);
 
 
     SetVehicleTrajectory::SetVehicleTrajectory()
-      : CommandBase(CmdName)
+      : CommandBase(CmdName, TargetId)
     {}
 
     SetVehicleTrajectory::SetVehicleTrajectory(const std::string& type)
-      : CommandBase(CmdName)
+      : CommandBase(CmdName, TargetId)
     {
 
       setType(type);
@@ -50,6 +55,12 @@ namespace Sdx
     }
 
     std::string SetVehicleTrajectory::documentation() const { return Documentation; }
+
+    const std::vector<std::string>& SetVehicleTrajectory::fieldNames() const 
+    { 
+      static const std::vector<std::string> names {"Type"}; 
+      return names; 
+    }
 
 
     int SetVehicleTrajectory::executePermission() const

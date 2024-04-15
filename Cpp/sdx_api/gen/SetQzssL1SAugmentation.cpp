@@ -1,8 +1,7 @@
 
-#include "gen/SetQzssL1SAugmentation.h"
+#include "SetQzssL1SAugmentation.h"
 
 #include "command_factory.h"
-#include "command_result_factory.h"
 #include "parse_json.hpp"
 
 ///
@@ -14,17 +13,28 @@ namespace Sdx
   namespace Cmd
   {
     const char* const SetQzssL1SAugmentation::CmdName = "SetQzssL1SAugmentation";
-    const char* const SetQzssL1SAugmentation::Documentation = "Set Add an augmentation to the L1S navigation messages.";
+    const char* const SetQzssL1SAugmentation::Documentation = "Set Add an augmentation to the L1S navigation messages.\n"
+      "\n"
+      "Name       Type   Description\n"
+      "---------- ------ ----------------------------------------------------------------------------------\n"
+      "System     string \"GPS\", \"GLONASS\", \"Galileo\", \"BeiDou\" or \"QZSS\"\n"
+      "Prn        int    Satellite PRN number.\n"
+      "AugmentIOD bool   Include the satellite Issue Of Data in L1S message.\n"
+      "AugmentPRC bool   Include the satellite Pseudorange Correction in L1S message.\n"
+      "Prc        double Pseudorange Correction to include in L1S message. Only used if AugmentPSR is True.\n"
+      "Id         string Unique identifier of the augmentation.";
+    const char* const SetQzssL1SAugmentation::TargetId = "";
 
-    REGISTER_COMMAND_FACTORY(SetQzssL1SAugmentation);
+    REGISTER_COMMAND_TO_FACTORY_DECL(SetQzssL1SAugmentation);
+    REGISTER_COMMAND_TO_FACTORY_IMPL(SetQzssL1SAugmentation);
 
 
     SetQzssL1SAugmentation::SetQzssL1SAugmentation()
-      : CommandBase(CmdName)
+      : CommandBase(CmdName, TargetId)
     {}
 
     SetQzssL1SAugmentation::SetQzssL1SAugmentation(const std::string& system, int prn, bool augmentIOD, bool augmentPRC, double prc, const std::string& id)
-      : CommandBase(CmdName)
+      : CommandBase(CmdName, TargetId)
     {
 
       setSystem(system);
@@ -60,6 +70,12 @@ namespace Sdx
     }
 
     std::string SetQzssL1SAugmentation::documentation() const { return Documentation; }
+
+    const std::vector<std::string>& SetQzssL1SAugmentation::fieldNames() const 
+    { 
+      static const std::vector<std::string> names {"System", "Prn", "AugmentIOD", "AugmentPRC", "Prc", "Id"}; 
+      return names; 
+    }
 
 
     int SetQzssL1SAugmentation::executePermission() const

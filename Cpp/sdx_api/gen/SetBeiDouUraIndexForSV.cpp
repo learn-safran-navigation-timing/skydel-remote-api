@@ -1,8 +1,7 @@
 
-#include "gen/SetBeiDouUraIndexForSV.h"
+#include "SetBeiDouUraIndexForSV.h"
 
 #include "command_factory.h"
-#include "command_result_factory.h"
 #include "parse_json.hpp"
 
 ///
@@ -14,17 +13,25 @@ namespace Sdx
   namespace Cmd
   {
     const char* const SetBeiDouUraIndexForSV::CmdName = "SetBeiDouUraIndexForSV";
-    const char* const SetBeiDouUraIndexForSV::Documentation = "Set the ura index of a BeiDou satellite";
+    const char* const SetBeiDouUraIndexForSV::Documentation = "Set the ura index of a BeiDou satellite\n"
+      "\n"
+      "Name        Type            Description\n"
+      "----------- --------------- -------------------------------------------------------------------------------------------\n"
+      "SvId        int             The satellite SV ID, or use 0 to apply new value to all satellites.\n"
+      "Urai        int             URA index.\n"
+      "DataSetName optional string Optional name of the data set to use. If no value is provided, the active data set is used.";
+    const char* const SetBeiDouUraIndexForSV::TargetId = "";
 
-    REGISTER_COMMAND_FACTORY(SetBeiDouUraIndexForSV);
+    REGISTER_COMMAND_TO_FACTORY_DECL(SetBeiDouUraIndexForSV);
+    REGISTER_COMMAND_TO_FACTORY_IMPL(SetBeiDouUraIndexForSV);
 
 
     SetBeiDouUraIndexForSV::SetBeiDouUraIndexForSV()
-      : CommandBase(CmdName)
+      : CommandBase(CmdName, TargetId)
     {}
 
     SetBeiDouUraIndexForSV::SetBeiDouUraIndexForSV(int svId, int urai, const Sdx::optional<std::string>& dataSetName)
-      : CommandBase(CmdName)
+      : CommandBase(CmdName, TargetId)
     {
 
       setSvId(svId);
@@ -54,6 +61,12 @@ namespace Sdx
     }
 
     std::string SetBeiDouUraIndexForSV::documentation() const { return Documentation; }
+
+    const std::vector<std::string>& SetBeiDouUraIndexForSV::fieldNames() const 
+    { 
+      static const std::vector<std::string> names {"SvId", "Urai", "DataSetName"}; 
+      return names; 
+    }
 
 
     int SetBeiDouUraIndexForSV::executePermission() const

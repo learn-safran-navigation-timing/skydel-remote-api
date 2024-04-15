@@ -1,8 +1,7 @@
 
-#include "gen/RemoveSignalFromIntTx.h"
+#include "RemoveSignalFromIntTx.h"
 
 #include "command_factory.h"
-#include "command_result_factory.h"
 #include "parse_json.hpp"
 
 ///
@@ -14,17 +13,24 @@ namespace Sdx
   namespace Cmd
   {
     const char* const RemoveSignalFromIntTx::CmdName = "RemoveSignalFromIntTx";
-    const char* const RemoveSignalFromIntTx::Documentation = "Removes the specified signal from the interference transmitter.";
+    const char* const RemoveSignalFromIntTx::Documentation = "Removes the specified signal from the interference transmitter.\n"
+      "\n"
+      "Name          Type   Description\n"
+      "------------- ------ ------------------------------\n"
+      "TransmitterId string Transmitter unique identifier.\n"
+      "SignalId      string Signal unique identifier.";
+    const char* const RemoveSignalFromIntTx::TargetId = "";
 
-    REGISTER_COMMAND_FACTORY(RemoveSignalFromIntTx);
+    REGISTER_COMMAND_TO_FACTORY_DECL(RemoveSignalFromIntTx);
+    REGISTER_COMMAND_TO_FACTORY_IMPL(RemoveSignalFromIntTx);
 
 
     RemoveSignalFromIntTx::RemoveSignalFromIntTx()
-      : CommandBase(CmdName)
+      : CommandBase(CmdName, TargetId)
     {}
 
     RemoveSignalFromIntTx::RemoveSignalFromIntTx(const std::string& transmitterId, const std::string& signalId)
-      : CommandBase(CmdName)
+      : CommandBase(CmdName, TargetId)
     {
 
       setTransmitterId(transmitterId);
@@ -52,6 +58,12 @@ namespace Sdx
     }
 
     std::string RemoveSignalFromIntTx::documentation() const { return Documentation; }
+
+    const std::vector<std::string>& RemoveSignalFromIntTx::fieldNames() const 
+    { 
+      static const std::vector<std::string> names {"TransmitterId", "SignalId"}; 
+      return names; 
+    }
 
 
     int RemoveSignalFromIntTx::executePermission() const

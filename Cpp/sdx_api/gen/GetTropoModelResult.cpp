@@ -1,8 +1,7 @@
 
-#include "gen/GetTropoModelResult.h"
+#include "GetTropoModelResult.h"
 
 #include "command_factory.h"
-#include "command_result_factory.h"
 #include "parse_json.hpp"
 
 ///
@@ -14,24 +13,29 @@ namespace Sdx
   namespace Cmd
   {
     const char* const GetTropoModelResult::CmdName = "GetTropoModelResult";
-    const char* const GetTropoModelResult::Documentation = "Result of GetTropoModel.";
+    const char* const GetTropoModelResult::Documentation = "Result of GetTropoModel.\n"
+      "\n"
+      "Name  Type   Description\n"
+      "----- ------ -----------------------------------------------------------------\n"
+      "Model string Tropospheric model (\"None\", \"Saastamoinen\", \"Stanag\" or \"DO-229\")";
+    const char* const GetTropoModelResult::TargetId = "";
 
-    REGISTER_COMMAND_RESULT_TO_FACTORY_IMPL(GetTropoModelResult);
+    REGISTER_COMMAND_TO_FACTORY_IMPL(GetTropoModelResult);
 
 
     GetTropoModelResult::GetTropoModelResult()
-      : CommandResult(CmdName)
+      : CommandResult(CmdName, TargetId)
     {}
 
     GetTropoModelResult::GetTropoModelResult(const std::string& model)
-      : CommandResult(CmdName)
+      : CommandResult(CmdName, TargetId)
     {
 
       setModel(model);
     }
 
     GetTropoModelResult::GetTropoModelResult(CommandBasePtr relatedCommand, const std::string& model)
-      : CommandResult(CmdName, relatedCommand)
+      : CommandResult(CmdName, TargetId, relatedCommand)
     {
 
       setModel(model);
@@ -63,6 +67,12 @@ namespace Sdx
     }
 
     std::string GetTropoModelResult::documentation() const { return Documentation; }
+
+    const std::vector<std::string>& GetTropoModelResult::fieldNames() const 
+    { 
+      static const std::vector<std::string> names {"Model"}; 
+      return names; 
+    }
 
 
     std::string GetTropoModelResult::model() const

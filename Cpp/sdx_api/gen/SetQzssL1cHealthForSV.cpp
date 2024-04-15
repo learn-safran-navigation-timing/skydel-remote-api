@@ -1,8 +1,7 @@
 
-#include "gen/SetQzssL1cHealthForSV.h"
+#include "SetQzssL1cHealthForSV.h"
 
 #include "command_factory.h"
-#include "command_result_factory.h"
 #include "parse_json.hpp"
 
 ///
@@ -14,17 +13,25 @@ namespace Sdx
   namespace Cmd
   {
     const char* const SetQzssL1cHealthForSV::CmdName = "SetQzssL1cHealthForSV";
-    const char* const SetQzssL1cHealthForSV::Documentation = "Set QZSS L1C health (Health of L1C signal)";
+    const char* const SetQzssL1cHealthForSV::Documentation = "Set QZSS L1C health (Health of L1C signal)\n"
+      "\n"
+      "Name        Type            Description\n"
+      "----------- --------------- -------------------------------------------------------------------------------------------\n"
+      "SvId        int             Satellite SV ID 1..10, or use 0 to apply new value to all satellites.\n"
+      "Health      bool            L1C health, false = signal OK, true = signal bad\n"
+      "DataSetName optional string Optional name of the data set to use. If no value is provided, the active data set is used.";
+    const char* const SetQzssL1cHealthForSV::TargetId = "";
 
-    REGISTER_COMMAND_FACTORY(SetQzssL1cHealthForSV);
+    REGISTER_COMMAND_TO_FACTORY_DECL(SetQzssL1cHealthForSV);
+    REGISTER_COMMAND_TO_FACTORY_IMPL(SetQzssL1cHealthForSV);
 
 
     SetQzssL1cHealthForSV::SetQzssL1cHealthForSV()
-      : CommandBase(CmdName)
+      : CommandBase(CmdName, TargetId)
     {}
 
     SetQzssL1cHealthForSV::SetQzssL1cHealthForSV(int svId, bool health, const Sdx::optional<std::string>& dataSetName)
-      : CommandBase(CmdName)
+      : CommandBase(CmdName, TargetId)
     {
 
       setSvId(svId);
@@ -54,6 +61,12 @@ namespace Sdx
     }
 
     std::string SetQzssL1cHealthForSV::documentation() const { return Documentation; }
+
+    const std::vector<std::string>& SetQzssL1cHealthForSV::fieldNames() const 
+    { 
+      static const std::vector<std::string> names {"SvId", "Health", "DataSetName"}; 
+      return names; 
+    }
 
 
     int SetQzssL1cHealthForSV::executePermission() const

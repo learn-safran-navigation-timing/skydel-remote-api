@@ -19,8 +19,8 @@ struct parse_json<Sdx::AntennaPatternType>
   {
     if (!is_valid(value))
       throw std::runtime_error("Unexpected value");
-    return (Sdx::AntennaPatternType)value.GetInt();
+    return static_cast<Sdx::AntennaPatternType>(value.GetInt());
   }
-  static rapidjson::Value format(Sdx::AntennaPatternType value, rapidjson::Value::AllocatorType&) { return rapidjson::Value((int)value); }
+  static rapidjson::Value format(Sdx::AntennaPatternType value, rapidjson::Value::AllocatorType&) { return rapidjson::Value(static_cast<int>(value)); }
 };
 

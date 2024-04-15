@@ -1,8 +1,7 @@
 
-#include "gen/GetAllMessageModificationIdsForSignal.h"
+#include "GetAllMessageModificationIdsForSignal.h"
 
 #include "command_factory.h"
-#include "command_result_factory.h"
 #include "parse_json.hpp"
 
 ///
@@ -14,17 +13,24 @@ namespace Sdx
   namespace Cmd
   {
     const char* const GetAllMessageModificationIdsForSignal::CmdName = "GetAllMessageModificationIdsForSignal";
-    const char* const GetAllMessageModificationIdsForSignal::Documentation = "Get all the message modification event's IDs for this signal and SV ID.";
+    const char* const GetAllMessageModificationIdsForSignal::Documentation = "Get all the message modification event's IDs for this signal and SV ID.\n"
+      "\n"
+      "Name   Type   Description\n"
+      "------ ------ --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------\n"
+      "Signal string Signal key, accepted values : \"L1CA\", \"L1C\", \"L1P\", \"L1ME\", \"L1MR\", \"L2C\", \"L2P\", \"L2ME\", \"L2MR\", \"L5\", \"G1\", \"G2\", \"E1\", \"E5a\", \"E5b\", \"B1\", \"B2\", \"B2a\", \"B1C\", \"B3I\", \"QZSSL1CA\", \"QZSSL1CB\", \"QZSSL1S\", \"NAVICL5\", \"SBASL1\", \"SBASL5\" and \"PULSARXL\"\n"
+      "SvId   int    The satellite's SV ID";
+    const char* const GetAllMessageModificationIdsForSignal::TargetId = "";
 
-    REGISTER_COMMAND_FACTORY(GetAllMessageModificationIdsForSignal);
+    REGISTER_COMMAND_TO_FACTORY_DECL(GetAllMessageModificationIdsForSignal);
+    REGISTER_COMMAND_TO_FACTORY_IMPL(GetAllMessageModificationIdsForSignal);
 
 
     GetAllMessageModificationIdsForSignal::GetAllMessageModificationIdsForSignal()
-      : CommandBase(CmdName)
+      : CommandBase(CmdName, TargetId)
     {}
 
     GetAllMessageModificationIdsForSignal::GetAllMessageModificationIdsForSignal(const std::string& signal, int svId)
-      : CommandBase(CmdName)
+      : CommandBase(CmdName, TargetId)
     {
 
       setSignal(signal);
@@ -52,6 +58,12 @@ namespace Sdx
     }
 
     std::string GetAllMessageModificationIdsForSignal::documentation() const { return Documentation; }
+
+    const std::vector<std::string>& GetAllMessageModificationIdsForSignal::fieldNames() const 
+    { 
+      static const std::vector<std::string> names {"Signal", "SvId"}; 
+      return names; 
+    }
 
 
     int GetAllMessageModificationIdsForSignal::executePermission() const

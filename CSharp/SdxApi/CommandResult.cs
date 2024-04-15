@@ -15,6 +15,7 @@ namespace Sdx
     public virtual string ErrorMsg { get { return ""; } set { } }
     public virtual CommandBase RelatedCommand { get; internal set; }
     public override double Timestamp { get { return RelatedCommand.Timestamp; } set { } }
+    public override DateTime GpsTimestamp { get { return RelatedCommand.GpsTimestamp; } set { } }
     public override bool IsValid { get { return Contains(CmdRelatedCommand); } }
 
     public string Message
@@ -30,13 +31,13 @@ namespace Sdx
       }
     }
 
-    public CommandResult(string cmdName) :
-      base(cmdName)
+    public CommandResult(string cmdName, string targetId) :
+      base(cmdName, targetId)
     {
     }
 
-    public CommandResult(string cmdName, CommandBase relatedCmd) :
-      base(cmdName)
+    public CommandResult(string cmdName, string targetId, CommandBase relatedCmd) :
+      base(cmdName, targetId)
     {
       RelatedCommand = relatedCmd;
       SetValue(CmdRelatedCommand, relatedCmd.ToString());
@@ -62,8 +63,9 @@ namespace Sdx
       string cmdJsonStr = (string)GetValue(CmdRelatedCommand);
       JObject cmdJson = JObject.Parse(cmdJsonStr);
 
+      string cmdNamespace =  cmdJson.ContainsKey(CmdTargetIdKey) ? (string)cmdJson[CmdTargetIdKey] : "Cmd";
       string cmdName = (string)cmdJson[CmdNameKey];
-      CommandBase cmd = (CommandBase)Activator.CreateInstance(Type.GetType("Sdx.Cmd." + cmdName), true);
+      CommandBase cmd = (CommandBase)Activator.CreateInstance(Type.GetType("Sdx." + cmdNamespace + "." + cmdName), true);
       cmd.Parse(cmdJson);
       RelatedCommand = cmd;
     }

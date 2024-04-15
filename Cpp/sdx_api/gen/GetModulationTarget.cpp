@@ -1,8 +1,7 @@
 
-#include "gen/GetModulationTarget.h"
+#include "GetModulationTarget.h"
 
 #include "command_factory.h"
-#include "command_result_factory.h"
 #include "parse_json.hpp"
 
 ///
@@ -14,17 +13,25 @@ namespace Sdx
   namespace Cmd
   {
     const char* const GetModulationTarget::CmdName = "GetModulationTarget";
-    const char* const GetModulationTarget::Documentation = "Get a modulation target.\nIf Id is not set, or if new, a new target is added.\nFor setter : If the Id is already used, the corresponding target is updated.";
+    const char* const GetModulationTarget::Documentation = "Get a modulation target.\n"
+      "If Id is not set, or if new, a new target is added.\n"
+      "For setter : If the Id is already used, the corresponding target is updated.\n"
+      "\n"
+      "Name Type   Description\n"
+      "---- ------ ------------------------------------------------\n"
+      "Id   string Unique identifier automatically set by simulator";
+    const char* const GetModulationTarget::TargetId = "";
 
-    REGISTER_COMMAND_FACTORY(GetModulationTarget);
+    REGISTER_COMMAND_TO_FACTORY_DECL(GetModulationTarget);
+    REGISTER_COMMAND_TO_FACTORY_IMPL(GetModulationTarget);
 
 
     GetModulationTarget::GetModulationTarget()
-      : CommandBase(CmdName)
+      : CommandBase(CmdName, TargetId)
     {}
 
     GetModulationTarget::GetModulationTarget(const std::string& id)
-      : CommandBase(CmdName)
+      : CommandBase(CmdName, TargetId)
     {
 
       setId(id);
@@ -50,6 +57,12 @@ namespace Sdx
     }
 
     std::string GetModulationTarget::documentation() const { return Documentation; }
+
+    const std::vector<std::string>& GetModulationTarget::fieldNames() const 
+    { 
+      static const std::vector<std::string> names {"Id"}; 
+      return names; 
+    }
 
 
     int GetModulationTarget::executePermission() const

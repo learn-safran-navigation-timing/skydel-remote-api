@@ -1,8 +1,7 @@
 
-#include "gen/GetIntTxBPSK.h"
+#include "GetIntTxBPSK.h"
 
 #include "command_factory.h"
-#include "command_result_factory.h"
 #include "parse_json.hpp"
 
 ///
@@ -14,17 +13,24 @@ namespace Sdx
   namespace Cmd
   {
     const char* const GetIntTxBPSK::CmdName = "GetIntTxBPSK";
-    const char* const GetIntTxBPSK::Documentation = "Get BPSK signal interference.";
+    const char* const GetIntTxBPSK::Documentation = "Get BPSK signal interference.\n"
+      "\n"
+      "Name          Type   Description\n"
+      "------------- ------ ------------------------------\n"
+      "TransmitterId string Transmitter unique identifier.\n"
+      "SignalId      string BPSK unique identifier.";
+    const char* const GetIntTxBPSK::TargetId = "";
 
-    REGISTER_COMMAND_FACTORY(GetIntTxBPSK);
+    REGISTER_COMMAND_TO_FACTORY_DECL(GetIntTxBPSK);
+    REGISTER_COMMAND_TO_FACTORY_IMPL(GetIntTxBPSK);
 
 
     GetIntTxBPSK::GetIntTxBPSK()
-      : CommandBase(CmdName)
+      : CommandBase(CmdName, TargetId)
     {}
 
     GetIntTxBPSK::GetIntTxBPSK(const std::string& transmitterId, const std::string& signalId)
-      : CommandBase(CmdName)
+      : CommandBase(CmdName, TargetId)
     {
 
       setTransmitterId(transmitterId);
@@ -52,6 +58,12 @@ namespace Sdx
     }
 
     std::string GetIntTxBPSK::documentation() const { return Documentation; }
+
+    const std::vector<std::string>& GetIntTxBPSK::fieldNames() const 
+    { 
+      static const std::vector<std::string> names {"TransmitterId", "SignalId"}; 
+      return names; 
+    }
 
 
     int GetIntTxBPSK::executePermission() const

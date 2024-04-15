@@ -1,8 +1,7 @@
 
-#include "gen/SaveAs.h"
+#include "SaveAs.h"
 
 #include "command_factory.h"
-#include "command_result_factory.h"
 #include "parse_json.hpp"
 
 ///
@@ -14,17 +13,24 @@ namespace Sdx
   namespace Cmd
   {
     const char* const SaveAs::CmdName = "SaveAs";
-    const char* const SaveAs::Documentation = "Save configuration with new name.";
+    const char* const SaveAs::Documentation = "Save configuration with new name.\n"
+      "\n"
+      "Name      Type   Description\n"
+      "--------- ------ ---------------------------------------------------------------------------------------------------------\n"
+      "Path      string Configuration path. Automatically add file suffix if missing. If folder not defined, user default folder.\n"
+      "Overwrite bool   Overwrite existing configuration if is exists";
+    const char* const SaveAs::TargetId = "";
 
-    REGISTER_COMMAND_FACTORY(SaveAs);
+    REGISTER_COMMAND_TO_FACTORY_DECL(SaveAs);
+    REGISTER_COMMAND_TO_FACTORY_IMPL(SaveAs);
 
 
     SaveAs::SaveAs()
-      : CommandBase(CmdName)
+      : CommandBase(CmdName, TargetId)
     {}
 
     SaveAs::SaveAs(const std::string& path, bool overwrite)
-      : CommandBase(CmdName)
+      : CommandBase(CmdName, TargetId)
     {
 
       setPath(path);
@@ -52,6 +58,12 @@ namespace Sdx
     }
 
     std::string SaveAs::documentation() const { return Documentation; }
+
+    const std::vector<std::string>& SaveAs::fieldNames() const 
+    { 
+      static const std::vector<std::string> names {"Path", "Overwrite"}; 
+      return names; 
+    }
 
 
     int SaveAs::executePermission() const

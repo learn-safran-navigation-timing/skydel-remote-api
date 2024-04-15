@@ -61,6 +61,7 @@
     <Compile Include="RemoteSimulator.cs" />
     <Compile Include="VehicleInfo.cs" />
     <Compile Include="HilHelper.cs" />
+    <Compile Include="Plugins\**\**\GeneratedCommands.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />

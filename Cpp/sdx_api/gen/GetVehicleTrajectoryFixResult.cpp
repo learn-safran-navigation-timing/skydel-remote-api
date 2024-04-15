@@ -1,8 +1,7 @@
 
-#include "gen/GetVehicleTrajectoryFixResult.h"
+#include "GetVehicleTrajectoryFixResult.h"
 
 #include "command_factory.h"
-#include "command_result_factory.h"
 #include "parse_json.hpp"
 
 ///
@@ -14,17 +13,28 @@ namespace Sdx
   namespace Cmd
   {
     const char* const GetVehicleTrajectoryFixResult::CmdName = "GetVehicleTrajectoryFixResult";
-    const char* const GetVehicleTrajectoryFixResult::Documentation = "Result of GetVehicleTrajectoryFix.";
+    const char* const GetVehicleTrajectoryFixResult::Documentation = "Result of GetVehicleTrajectoryFix.\n"
+      "\n"
+      "Name  Type   Description\n"
+      "----- ------ -----------------------\n"
+      "Type  string Trajectory type (\"Fix\")\n"
+      "Lat   double Latitude (rad)\n"
+      "Lon   double Longitude (rad)\n"
+      "Alt   double Altitude (m)\n"
+      "Yaw   double Yaw (rad)\n"
+      "Pitch double Pitch (rad)\n"
+      "Roll  double Roll (rad)";
+    const char* const GetVehicleTrajectoryFixResult::TargetId = "";
 
-    REGISTER_COMMAND_RESULT_TO_FACTORY_IMPL(GetVehicleTrajectoryFixResult);
+    REGISTER_COMMAND_TO_FACTORY_IMPL(GetVehicleTrajectoryFixResult);
 
 
     GetVehicleTrajectoryFixResult::GetVehicleTrajectoryFixResult()
-      : CommandResult(CmdName)
+      : CommandResult(CmdName, TargetId)
     {}
 
     GetVehicleTrajectoryFixResult::GetVehicleTrajectoryFixResult(const std::string& type, double lat, double lon, double alt, double yaw, double pitch, double roll)
-      : CommandResult(CmdName)
+      : CommandResult(CmdName, TargetId)
     {
 
       setType(type);
@@ -37,7 +47,7 @@ namespace Sdx
     }
 
     GetVehicleTrajectoryFixResult::GetVehicleTrajectoryFixResult(CommandBasePtr relatedCommand, const std::string& type, double lat, double lon, double alt, double yaw, double pitch, double roll)
-      : CommandResult(CmdName, relatedCommand)
+      : CommandResult(CmdName, TargetId, relatedCommand)
     {
 
       setType(type);
@@ -81,6 +91,12 @@ namespace Sdx
     }
 
     std::string GetVehicleTrajectoryFixResult::documentation() const { return Documentation; }
+
+    const std::vector<std::string>& GetVehicleTrajectoryFixResult::fieldNames() const 
+    { 
+      static const std::vector<std::string> names {"Type", "Lat", "Lon", "Alt", "Yaw", "Pitch", "Roll"}; 
+      return names; 
+    }
 
 
     std::string GetVehicleTrajectoryFixResult::type() const

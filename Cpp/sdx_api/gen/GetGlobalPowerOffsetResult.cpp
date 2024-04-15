@@ -1,8 +1,7 @@
 
-#include "gen/GetGlobalPowerOffsetResult.h"
+#include "GetGlobalPowerOffsetResult.h"
 
 #include "command_factory.h"
-#include "command_result_factory.h"
 #include "parse_json.hpp"
 
 ///
@@ -14,24 +13,29 @@ namespace Sdx
   namespace Cmd
   {
     const char* const GetGlobalPowerOffsetResult::CmdName = "GetGlobalPowerOffsetResult";
-    const char* const GetGlobalPowerOffsetResult::Documentation = "Result of GetGlobalPowerOffset.";
+    const char* const GetGlobalPowerOffsetResult::Documentation = "Result of GetGlobalPowerOffset.\n"
+      "\n"
+      "Name   Type   Description\n"
+      "------ ------ ---------------------------------------------------\n"
+      "Offset double Offset in dB (negative value will attenuate signal)";
+    const char* const GetGlobalPowerOffsetResult::TargetId = "";
 
-    REGISTER_COMMAND_RESULT_TO_FACTORY_IMPL(GetGlobalPowerOffsetResult);
+    REGISTER_COMMAND_TO_FACTORY_IMPL(GetGlobalPowerOffsetResult);
 
 
     GetGlobalPowerOffsetResult::GetGlobalPowerOffsetResult()
-      : CommandResult(CmdName)
+      : CommandResult(CmdName, TargetId)
     {}
 
     GetGlobalPowerOffsetResult::GetGlobalPowerOffsetResult(double offset)
-      : CommandResult(CmdName)
+      : CommandResult(CmdName, TargetId)
     {
 
       setOffset(offset);
     }
 
     GetGlobalPowerOffsetResult::GetGlobalPowerOffsetResult(CommandBasePtr relatedCommand, double offset)
-      : CommandResult(CmdName, relatedCommand)
+      : CommandResult(CmdName, TargetId, relatedCommand)
     {
 
       setOffset(offset);
@@ -63,6 +67,12 @@ namespace Sdx
     }
 
     std::string GetGlobalPowerOffsetResult::documentation() const { return Documentation; }
+
+    const std::vector<std::string>& GetGlobalPowerOffsetResult::fieldNames() const 
+    { 
+      static const std::vector<std::string> names {"Offset"}; 
+      return names; 
+    }
 
 
     double GetGlobalPowerOffsetResult::offset() const

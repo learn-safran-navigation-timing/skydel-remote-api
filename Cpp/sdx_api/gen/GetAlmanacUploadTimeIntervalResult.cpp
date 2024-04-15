@@ -1,8 +1,7 @@
 
-#include "gen/GetAlmanacUploadTimeIntervalResult.h"
+#include "GetAlmanacUploadTimeIntervalResult.h"
 
 #include "command_factory.h"
-#include "command_result_factory.h"
 #include "parse_json.hpp"
 
 ///
@@ -14,17 +13,23 @@ namespace Sdx
   namespace Cmd
   {
     const char* const GetAlmanacUploadTimeIntervalResult::CmdName = "GetAlmanacUploadTimeIntervalResult";
-    const char* const GetAlmanacUploadTimeIntervalResult::Documentation = "Result of GetAlmanacUploadTimeInterval.";
+    const char* const GetAlmanacUploadTimeIntervalResult::Documentation = "Result of GetAlmanacUploadTimeInterval.\n"
+      "\n"
+      "Name     Type   Description\n"
+      "-------- ------ ----------------------------------------------------------\n"
+      "System   string Must be \"GPS\"\n"
+      "Interval int    Interval duration in sec. Accepted range is [3600..259200]";
+    const char* const GetAlmanacUploadTimeIntervalResult::TargetId = "";
 
-    REGISTER_COMMAND_RESULT_TO_FACTORY_IMPL(GetAlmanacUploadTimeIntervalResult);
+    REGISTER_COMMAND_TO_FACTORY_IMPL(GetAlmanacUploadTimeIntervalResult);
 
 
     GetAlmanacUploadTimeIntervalResult::GetAlmanacUploadTimeIntervalResult()
-      : CommandResult(CmdName)
+      : CommandResult(CmdName, TargetId)
     {}
 
     GetAlmanacUploadTimeIntervalResult::GetAlmanacUploadTimeIntervalResult(const std::string& system, int interval)
-      : CommandResult(CmdName)
+      : CommandResult(CmdName, TargetId)
     {
 
       setSystem(system);
@@ -32,7 +37,7 @@ namespace Sdx
     }
 
     GetAlmanacUploadTimeIntervalResult::GetAlmanacUploadTimeIntervalResult(CommandBasePtr relatedCommand, const std::string& system, int interval)
-      : CommandResult(CmdName, relatedCommand)
+      : CommandResult(CmdName, TargetId, relatedCommand)
     {
 
       setSystem(system);
@@ -66,6 +71,12 @@ namespace Sdx
     }
 
     std::string GetAlmanacUploadTimeIntervalResult::documentation() const { return Documentation; }
+
+    const std::vector<std::string>& GetAlmanacUploadTimeIntervalResult::fieldNames() const 
+    { 
+      static const std::vector<std::string> names {"System", "Interval"}; 
+      return names; 
+    }
 
 
     std::string GetAlmanacUploadTimeIntervalResult::system() const

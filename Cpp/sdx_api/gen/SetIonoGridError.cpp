@@ -1,8 +1,7 @@
 
-#include "gen/SetIonoGridError.h"
+#include "SetIonoGridError.h"
 
 #include "command_factory.h"
-#include "command_result_factory.h"
 #include "parse_json.hpp"
 
 ///
@@ -14,17 +13,25 @@ namespace Sdx
   namespace Cmd
   {
     const char* const SetIonoGridError::CmdName = "SetIonoGridError";
-    const char* const SetIonoGridError::Documentation = "Set the error offset for a ionospheric grid point";
+    const char* const SetIonoGridError::Documentation = "Set the error offset for a ionospheric grid point\n"
+      "\n"
+      "Name  Type   Description\n"
+      "----- ------ -------------------------------\n"
+      "Band  int    The ionospheric grid band index\n"
+      "Point int    The IGP index\n"
+      "Error double The error offset at the IGP";
+    const char* const SetIonoGridError::TargetId = "";
 
-    REGISTER_COMMAND_FACTORY(SetIonoGridError);
+    REGISTER_COMMAND_TO_FACTORY_DECL(SetIonoGridError);
+    REGISTER_COMMAND_TO_FACTORY_IMPL(SetIonoGridError);
 
 
     SetIonoGridError::SetIonoGridError()
-      : CommandBase(CmdName)
+      : CommandBase(CmdName, TargetId)
     {}
 
     SetIonoGridError::SetIonoGridError(int band, int point, double error)
-      : CommandBase(CmdName)
+      : CommandBase(CmdName, TargetId)
     {
 
       setBand(band);
@@ -54,6 +61,12 @@ namespace Sdx
     }
 
     std::string SetIonoGridError::documentation() const { return Documentation; }
+
+    const std::vector<std::string>& SetIonoGridError::fieldNames() const 
+    { 
+      static const std::vector<std::string> names {"Band", "Point", "Error"}; 
+      return names; 
+    }
 
 
     int SetIonoGridError::executePermission() const

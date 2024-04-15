@@ -1,8 +1,7 @@
 
-#include "gen/SetGpsL5HealthForSV.h"
+#include "SetGpsL5HealthForSV.h"
 
 #include "command_factory.h"
-#include "command_result_factory.h"
 #include "parse_json.hpp"
 
 ///
@@ -14,17 +13,25 @@ namespace Sdx
   namespace Cmd
   {
     const char* const SetGpsL5HealthForSV::CmdName = "SetGpsL5HealthForSV";
-    const char* const SetGpsL5HealthForSV::Documentation = "Set GPS L5 health (used with CNAV and CNAV2)";
+    const char* const SetGpsL5HealthForSV::Documentation = "Set GPS L5 health (used with CNAV and CNAV2)\n"
+      "\n"
+      "Name        Type            Description\n"
+      "----------- --------------- -------------------------------------------------------------------------------------------\n"
+      "SvId        int             Satellite's SV ID 1..32, or use 0 to apply new value to all satellites.\n"
+      "Health      bool            L5 health, false = signal OK, true = signal bad or unavailable\n"
+      "DataSetName optional string Optional name of the data set to use. If no value is provided, the active data set is used.";
+    const char* const SetGpsL5HealthForSV::TargetId = "";
 
-    REGISTER_COMMAND_FACTORY(SetGpsL5HealthForSV);
+    REGISTER_COMMAND_TO_FACTORY_DECL(SetGpsL5HealthForSV);
+    REGISTER_COMMAND_TO_FACTORY_IMPL(SetGpsL5HealthForSV);
 
 
     SetGpsL5HealthForSV::SetGpsL5HealthForSV()
-      : CommandBase(CmdName)
+      : CommandBase(CmdName, TargetId)
     {}
 
     SetGpsL5HealthForSV::SetGpsL5HealthForSV(int svId, bool health, const Sdx::optional<std::string>& dataSetName)
-      : CommandBase(CmdName)
+      : CommandBase(CmdName, TargetId)
     {
 
       setSvId(svId);
@@ -54,6 +61,12 @@ namespace Sdx
     }
 
     std::string SetGpsL5HealthForSV::documentation() const { return Documentation; }
+
+    const std::vector<std::string>& SetGpsL5HealthForSV::fieldNames() const 
+    { 
+      static const std::vector<std::string> names {"SvId", "Health", "DataSetName"}; 
+      return names; 
+    }
 
 
     int SetGpsL5HealthForSV::executePermission() const

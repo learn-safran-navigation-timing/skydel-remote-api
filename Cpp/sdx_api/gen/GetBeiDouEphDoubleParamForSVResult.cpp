@@ -1,8 +1,7 @@
 
-#include "gen/GetBeiDouEphDoubleParamForSVResult.h"
+#include "GetBeiDouEphDoubleParamForSVResult.h"
 
 #include "command_factory.h"
-#include "command_result_factory.h"
 #include "parse_json.hpp"
 
 ///
@@ -14,17 +13,25 @@ namespace Sdx
   namespace Cmd
   {
     const char* const GetBeiDouEphDoubleParamForSVResult::CmdName = "GetBeiDouEphDoubleParamForSVResult";
-    const char* const GetBeiDouEphDoubleParamForSVResult::Documentation = "Result of GetBeiDouEphDoubleParamForSV.";
+    const char* const GetBeiDouEphDoubleParamForSVResult::Documentation = "Result of GetBeiDouEphDoubleParamForSV.\n"
+      "\n"
+      "Name        Type            Description\n"
+      "----------- --------------- -------------------------------------------------------------------------------------------\n"
+      "SvId        int             Satellite SV ID 1..35, or use 0 to apply new value to all satellites\n"
+      "ParamName   string          Parameter name (see table above for accepted names)\n"
+      "Val         double          Parameter value (see table above for unit)\n"
+      "DataSetName optional string Optional name of the data set to use. If no value is provided, the active data set is used.";
+    const char* const GetBeiDouEphDoubleParamForSVResult::TargetId = "";
 
-    REGISTER_COMMAND_RESULT_TO_FACTORY_IMPL(GetBeiDouEphDoubleParamForSVResult);
+    REGISTER_COMMAND_TO_FACTORY_IMPL(GetBeiDouEphDoubleParamForSVResult);
 
 
     GetBeiDouEphDoubleParamForSVResult::GetBeiDouEphDoubleParamForSVResult()
-      : CommandResult(CmdName)
+      : CommandResult(CmdName, TargetId)
     {}
 
     GetBeiDouEphDoubleParamForSVResult::GetBeiDouEphDoubleParamForSVResult(int svId, const std::string& paramName, double val, const Sdx::optional<std::string>& dataSetName)
-      : CommandResult(CmdName)
+      : CommandResult(CmdName, TargetId)
     {
 
       setSvId(svId);
@@ -34,7 +41,7 @@ namespace Sdx
     }
 
     GetBeiDouEphDoubleParamForSVResult::GetBeiDouEphDoubleParamForSVResult(CommandBasePtr relatedCommand, int svId, const std::string& paramName, double val, const Sdx::optional<std::string>& dataSetName)
-      : CommandResult(CmdName, relatedCommand)
+      : CommandResult(CmdName, TargetId, relatedCommand)
     {
 
       setSvId(svId);
@@ -72,6 +79,12 @@ namespace Sdx
     }
 
     std::string GetBeiDouEphDoubleParamForSVResult::documentation() const { return Documentation; }
+
+    const std::vector<std::string>& GetBeiDouEphDoubleParamForSVResult::fieldNames() const 
+    { 
+      static const std::vector<std::string> names {"SvId", "ParamName", "Val", "DataSetName"}; 
+      return names; 
+    }
 
 
     int GetBeiDouEphDoubleParamForSVResult::svId() const

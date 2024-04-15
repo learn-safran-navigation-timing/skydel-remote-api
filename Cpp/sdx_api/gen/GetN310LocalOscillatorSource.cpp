@@ -1,8 +1,7 @@
 
-#include "gen/GetN310LocalOscillatorSource.h"
+#include "GetN310LocalOscillatorSource.h"
 
 #include "command_factory.h"
-#include "command_result_factory.h"
 #include "parse_json.hpp"
 
 ///
@@ -14,17 +13,23 @@ namespace Sdx
   namespace Cmd
   {
     const char* const GetN310LocalOscillatorSource::CmdName = "GetN310LocalOscillatorSource";
-    const char* const GetN310LocalOscillatorSource::Documentation = "Get the local oscillator source of the N310. Can be Internal or External. By default, the source is Internal.";
+    const char* const GetN310LocalOscillatorSource::Documentation = "Get the local oscillator source of the N310. Can be Internal or External. By default, the source is Internal.\n"
+      "\n"
+      "Name Type   Description\n"
+      "---- ------ --------------------------\n"
+      "Id   string N310 modulation target Id.";
+    const char* const GetN310LocalOscillatorSource::TargetId = "";
 
-    REGISTER_COMMAND_FACTORY(GetN310LocalOscillatorSource);
+    REGISTER_COMMAND_TO_FACTORY_DECL(GetN310LocalOscillatorSource);
+    REGISTER_COMMAND_TO_FACTORY_IMPL(GetN310LocalOscillatorSource);
 
 
     GetN310LocalOscillatorSource::GetN310LocalOscillatorSource()
-      : CommandBase(CmdName)
+      : CommandBase(CmdName, TargetId)
     {}
 
     GetN310LocalOscillatorSource::GetN310LocalOscillatorSource(const std::string& id)
-      : CommandBase(CmdName)
+      : CommandBase(CmdName, TargetId)
     {
 
       setId(id);
@@ -50,6 +55,12 @@ namespace Sdx
     }
 
     std::string GetN310LocalOscillatorSource::documentation() const { return Documentation; }
+
+    const std::vector<std::string>& GetN310LocalOscillatorSource::fieldNames() const 
+    { 
+      static const std::vector<std::string> names {"Id"}; 
+      return names; 
+    }
 
 
     int GetN310LocalOscillatorSource::executePermission() const

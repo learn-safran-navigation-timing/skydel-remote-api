@@ -1,8 +1,7 @@
 
-#include "gen/IsLogDownlinkEnabled.h"
+#include "IsLogDownlinkEnabled.h"
 
 #include "command_factory.h"
-#include "command_result_factory.h"
 #include "parse_json.hpp"
 
 ///
@@ -15,12 +14,14 @@ namespace Sdx
   {
     const char* const IsLogDownlinkEnabled::CmdName = "IsLogDownlinkEnabled";
     const char* const IsLogDownlinkEnabled::Documentation = "Tells if downlink data Logging is enabled";
+    const char* const IsLogDownlinkEnabled::TargetId = "";
 
-    REGISTER_COMMAND_FACTORY(IsLogDownlinkEnabled);
+    REGISTER_COMMAND_TO_FACTORY_DECL(IsLogDownlinkEnabled);
+    REGISTER_COMMAND_TO_FACTORY_IMPL(IsLogDownlinkEnabled);
 
 
     IsLogDownlinkEnabled::IsLogDownlinkEnabled()
-      : CommandBase(CmdName)
+      : CommandBase(CmdName, TargetId)
     {
 
     }
@@ -44,6 +45,12 @@ namespace Sdx
     }
 
     std::string IsLogDownlinkEnabled::documentation() const { return Documentation; }
+
+    const std::vector<std::string>& IsLogDownlinkEnabled::fieldNames() const 
+    { 
+      static const std::vector<std::string> names {}; 
+      return names; 
+    }
 
 
     int IsLogDownlinkEnabled::executePermission() const

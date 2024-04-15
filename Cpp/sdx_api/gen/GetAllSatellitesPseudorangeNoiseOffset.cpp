@@ -1,8 +1,7 @@
 
-#include "gen/GetAllSatellitesPseudorangeNoiseOffset.h"
+#include "GetAllSatellitesPseudorangeNoiseOffset.h"
 
 #include "command_factory.h"
-#include "command_result_factory.h"
 #include "parse_json.hpp"
 
 ///
@@ -14,17 +13,25 @@ namespace Sdx
   namespace Cmd
   {
     const char* const GetAllSatellitesPseudorangeNoiseOffset::CmdName = "GetAllSatellitesPseudorangeNoiseOffset";
-    const char* const GetAllSatellitesPseudorangeNoiseOffset::Documentation = "Please note the command GetAllSatellitesPseudorangeNoiseOffset is deprecated since 21.3. You may use GetPseudorangeNoiseOffsetForEachSV.\n\nGet the satellite pseudorange noise constant offset for all satellites.";
+    const char* const GetAllSatellitesPseudorangeNoiseOffset::Documentation = "Please note the command GetAllSatellitesPseudorangeNoiseOffset is deprecated since 21.3. You may use GetPseudorangeNoiseOffsetForEachSV.\n"
+      "\n"
+      "Get the satellite pseudorange noise constant offset for all satellites.\n"
+      "\n"
+      "Name   Type   Description\n"
+      "------ ------ --------------------------------------------------------------------------\n"
+      "System string \"GPS\", \"GLONASS\", \"Galileo\", \"BeiDou\", \"SBAS\", \"QZSS\", \"NavIC\" or \"PULSAR\"";
+    const char* const GetAllSatellitesPseudorangeNoiseOffset::TargetId = "";
 
-    REGISTER_COMMAND_FACTORY(GetAllSatellitesPseudorangeNoiseOffset);
+    REGISTER_COMMAND_TO_FACTORY_DECL(GetAllSatellitesPseudorangeNoiseOffset);
+    REGISTER_COMMAND_TO_FACTORY_IMPL(GetAllSatellitesPseudorangeNoiseOffset);
 
 
     GetAllSatellitesPseudorangeNoiseOffset::GetAllSatellitesPseudorangeNoiseOffset()
-      : CommandBase(CmdName)
+      : CommandBase(CmdName, TargetId)
     {}
 
     GetAllSatellitesPseudorangeNoiseOffset::GetAllSatellitesPseudorangeNoiseOffset(const std::string& system)
-      : CommandBase(CmdName)
+      : CommandBase(CmdName, TargetId)
     {
 
       setSystem(system);
@@ -50,6 +57,12 @@ namespace Sdx
     }
 
     std::string GetAllSatellitesPseudorangeNoiseOffset::documentation() const { return Documentation; }
+
+    const std::vector<std::string>& GetAllSatellitesPseudorangeNoiseOffset::fieldNames() const 
+    { 
+      static const std::vector<std::string> names {"System"}; 
+      return names; 
+    }
 
 
     int GetAllSatellitesPseudorangeNoiseOffset::executePermission() const

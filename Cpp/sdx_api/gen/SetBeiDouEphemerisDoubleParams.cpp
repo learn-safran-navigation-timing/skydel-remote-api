@@ -1,8 +1,7 @@
 
-#include "gen/SetBeiDouEphemerisDoubleParams.h"
+#include "SetBeiDouEphemerisDoubleParams.h"
 
 #include "command_factory.h"
-#include "command_result_factory.h"
 #include "parse_json.hpp"
 
 ///
@@ -14,19 +13,31 @@ namespace Sdx
   namespace Cmd
   {
     const char* const SetBeiDouEphemerisDoubleParams::CmdName = "SetBeiDouEphemerisDoubleParams";
-    const char* const SetBeiDouEphemerisDoubleParams::Documentation = "Please note the command SetBeiDouEphemerisDoubleParams is deprecated since 21.3. You may use SetBeiDouEphDoubleParamForEachSV.\n\nPlease note the command SetBeiDouEphDoubleParamForEachSV is deprecated since 23.11. You may use SetConstellationParameterForSV.\n\nSet BeiDou ephemeris parameter value for all satellites";
+    const char* const SetBeiDouEphemerisDoubleParams::Documentation = "Please note the command SetBeiDouEphemerisDoubleParams is deprecated since 21.3. You may use SetBeiDouEphDoubleParamForEachSV.\n"
+      "\n"
+      "Please note the command SetBeiDouEphDoubleParamForEachSV is deprecated since 23.11. You may use SetConstellationParameterForSV.\n"
+      "\n"
+      "Set BeiDou ephemeris parameter value for all satellites\n"
+      "\n"
+      "Name        Type            Description\n"
+      "----------- --------------- --------------------------------------------------------------------------------------------------\n"
+      "ParamName   string          Refer to SetBeiDouEphDoubleParamForSV for accepted names\n"
+      "Val         array double    Parameter value for each satellite. Zero based index (index 0 => SV ID 1, index 1 => SV ID 2, etc)\n"
+      "DataSetName optional string Optional name of the data set to use. If no value is provided, the active data set is used.";
+    const char* const SetBeiDouEphemerisDoubleParams::TargetId = "";
 
     const char* const SetBeiDouEphemerisDoubleParams::Deprecated = "Please note the command SetBeiDouEphemerisDoubleParams is deprecated since 23.11. You may use SetConstellationParameterForSV.";
 
-    REGISTER_COMMAND_FACTORY(SetBeiDouEphemerisDoubleParams);
+    REGISTER_COMMAND_TO_FACTORY_DECL(SetBeiDouEphemerisDoubleParams);
+    REGISTER_COMMAND_TO_FACTORY_IMPL(SetBeiDouEphemerisDoubleParams);
 
 
     SetBeiDouEphemerisDoubleParams::SetBeiDouEphemerisDoubleParams()
-      : CommandBase(CmdName)
+      : CommandBase(CmdName, TargetId)
     {}
 
     SetBeiDouEphemerisDoubleParams::SetBeiDouEphemerisDoubleParams(const std::string& paramName, const std::vector<double>& val, const Sdx::optional<std::string>& dataSetName)
-      : CommandBase(CmdName)
+      : CommandBase(CmdName, TargetId)
     {
 
       setParamName(paramName);
@@ -56,6 +67,12 @@ namespace Sdx
     }
 
     std::string SetBeiDouEphemerisDoubleParams::documentation() const { return Documentation; }
+
+    const std::vector<std::string>& SetBeiDouEphemerisDoubleParams::fieldNames() const 
+    { 
+      static const std::vector<std::string> names {"ParamName", "Val", "DataSetName"}; 
+      return names; 
+    }
 
     Sdx::optional<std::string> SetBeiDouEphemerisDoubleParams::deprecated() const { return Sdx::optional<std::string>{Deprecated}; }
 

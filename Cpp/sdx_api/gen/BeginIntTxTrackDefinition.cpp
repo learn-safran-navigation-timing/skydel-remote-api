@@ -1,8 +1,7 @@
 
-#include "gen/BeginIntTxTrackDefinition.h"
+#include "BeginIntTxTrackDefinition.h"
 
 #include "command_factory.h"
-#include "command_result_factory.h"
 #include "parse_json.hpp"
 
 ///
@@ -14,17 +13,26 @@ namespace Sdx
   namespace Cmd
   {
     const char* const BeginIntTxTrackDefinition::CmdName = "BeginIntTxTrackDefinition";
-    const char* const BeginIntTxTrackDefinition::Documentation = "Begins a new interference track definition. Actual track remains unchanged until\nEndIntTxTrackDefinition command is sent and successful. After this command, the\nclient must push time and position pairs to form a complete track. Once all the\npositions are sent, the client must send the command EndIntTxTrackDefinition.";
+    const char* const BeginIntTxTrackDefinition::Documentation = "Begins a new interference track definition. Actual track remains unchanged until\n"
+      "EndIntTxTrackDefinition command is sent and successful. After this command, the\n"
+      "client must push time and position pairs to form a complete track. Once all the\n"
+      "positions are sent, the client must send the command EndIntTxTrackDefinition.\n"
+      "\n"
+      "Name Type   Description\n"
+      "---- ------ ------------------------------\n"
+      "Id   string Transmitter unique identifier.";
+    const char* const BeginIntTxTrackDefinition::TargetId = "";
 
-    REGISTER_COMMAND_FACTORY(BeginIntTxTrackDefinition);
+    REGISTER_COMMAND_TO_FACTORY_DECL(BeginIntTxTrackDefinition);
+    REGISTER_COMMAND_TO_FACTORY_IMPL(BeginIntTxTrackDefinition);
 
 
     BeginIntTxTrackDefinition::BeginIntTxTrackDefinition()
-      : CommandBase(CmdName)
+      : CommandBase(CmdName, TargetId)
     {}
 
     BeginIntTxTrackDefinition::BeginIntTxTrackDefinition(const std::string& id)
-      : CommandBase(CmdName)
+      : CommandBase(CmdName, TargetId)
     {
 
       setId(id);
@@ -50,6 +58,12 @@ namespace Sdx
     }
 
     std::string BeginIntTxTrackDefinition::documentation() const { return Documentation; }
+
+    const std::vector<std::string>& BeginIntTxTrackDefinition::fieldNames() const 
+    { 
+      static const std::vector<std::string> names {"Id"}; 
+      return names; 
+    }
 
 
     int BeginIntTxTrackDefinition::executePermission() const

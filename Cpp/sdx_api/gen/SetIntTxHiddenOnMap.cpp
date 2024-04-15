@@ -1,8 +1,7 @@
 
-#include "gen/SetIntTxHiddenOnMap.h"
+#include "SetIntTxHiddenOnMap.h"
 
 #include "command_factory.h"
-#include "command_result_factory.h"
 #include "parse_json.hpp"
 
 ///
@@ -14,17 +13,24 @@ namespace Sdx
   namespace Cmd
   {
     const char* const SetIntTxHiddenOnMap::CmdName = "SetIntTxHiddenOnMap";
-    const char* const SetIntTxHiddenOnMap::Documentation = "Set whether a transmitter should be hidden on the map.";
+    const char* const SetIntTxHiddenOnMap::Documentation = "Set whether a transmitter should be hidden on the map.\n"
+      "\n"
+      "Name        Type   Description\n"
+      "----------- ------ -----------------------------------------------\n"
+      "HiddenOnMap bool   If true, transmitter will be hidden on the map.\n"
+      "Id          string Transmitter unique identifier.";
+    const char* const SetIntTxHiddenOnMap::TargetId = "";
 
-    REGISTER_COMMAND_FACTORY(SetIntTxHiddenOnMap);
+    REGISTER_COMMAND_TO_FACTORY_DECL(SetIntTxHiddenOnMap);
+    REGISTER_COMMAND_TO_FACTORY_IMPL(SetIntTxHiddenOnMap);
 
 
     SetIntTxHiddenOnMap::SetIntTxHiddenOnMap()
-      : CommandBase(CmdName)
+      : CommandBase(CmdName, TargetId)
     {}
 
     SetIntTxHiddenOnMap::SetIntTxHiddenOnMap(bool hiddenOnMap, const std::string& id)
-      : CommandBase(CmdName)
+      : CommandBase(CmdName, TargetId)
     {
 
       setHiddenOnMap(hiddenOnMap);
@@ -52,6 +58,12 @@ namespace Sdx
     }
 
     std::string SetIntTxHiddenOnMap::documentation() const { return Documentation; }
+
+    const std::vector<std::string>& SetIntTxHiddenOnMap::fieldNames() const 
+    { 
+      static const std::vector<std::string> names {"HiddenOnMap", "Id"}; 
+      return names; 
+    }
 
 
     int SetIntTxHiddenOnMap::executePermission() const

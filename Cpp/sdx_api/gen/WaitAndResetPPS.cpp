@@ -1,8 +1,7 @@
 
-#include "gen/WaitAndResetPPS.h"
+#include "WaitAndResetPPS.h"
 
 #include "command_factory.h"
-#include "command_result_factory.h"
 #include "parse_json.hpp"
 
 ///
@@ -15,12 +14,14 @@ namespace Sdx
   {
     const char* const WaitAndResetPPS::CmdName = "WaitAndResetPPS";
     const char* const WaitAndResetPPS::Documentation = "Ask Skydel to reset its PPS counter.";
+    const char* const WaitAndResetPPS::TargetId = "";
 
-    REGISTER_COMMAND_FACTORY(WaitAndResetPPS);
+    REGISTER_COMMAND_TO_FACTORY_DECL(WaitAndResetPPS);
+    REGISTER_COMMAND_TO_FACTORY_IMPL(WaitAndResetPPS);
 
 
     WaitAndResetPPS::WaitAndResetPPS()
-      : CommandBase(CmdName)
+      : CommandBase(CmdName, TargetId)
     {
 
     }
@@ -44,6 +45,12 @@ namespace Sdx
     }
 
     std::string WaitAndResetPPS::documentation() const { return Documentation; }
+
+    const std::vector<std::string>& WaitAndResetPPS::fieldNames() const 
+    { 
+      static const std::vector<std::string> names {}; 
+      return names; 
+    }
 
 
     int WaitAndResetPPS::executePermission() const

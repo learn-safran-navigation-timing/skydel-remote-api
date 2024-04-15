@@ -1,8 +1,7 @@
 
-#include "gen/EnableMasterPps.h"
+#include "EnableMasterPps.h"
 
 #include "command_factory.h"
-#include "command_result_factory.h"
 #include "parse_json.hpp"
 
 ///
@@ -14,17 +13,26 @@ namespace Sdx
   namespace Cmd
   {
     const char* const EnableMasterPps::CmdName = "EnableMasterPps";
-    const char* const EnableMasterPps::Documentation = "Please note the command EnableMasterPps is deprecated since 23.11. You may use EnableMainInstanceSync.\n\nEnable/Disable Time Synchronization on main instance.\nThe main instance will control other Skydel simulators with main instance PPS Enabled.";
+    const char* const EnableMasterPps::Documentation = "Please note the command EnableMasterPps is deprecated since 23.11. You may use EnableMainInstanceSync.\n"
+      "\n"
+      "Enable/Disable Time Synchronization on main instance.\n"
+      "The main instance will control other Skydel simulators with main instance PPS Enabled.\n"
+      "\n"
+      "Name    Type Description\n"
+      "------- ---- ----------------------------------------------------------------------------\n"
+      "Enabled bool If true, this simulator will be the main instance to synchronize simulators.";
+    const char* const EnableMasterPps::TargetId = "";
 
-    REGISTER_COMMAND_FACTORY(EnableMasterPps);
+    REGISTER_COMMAND_TO_FACTORY_DECL(EnableMasterPps);
+    REGISTER_COMMAND_TO_FACTORY_IMPL(EnableMasterPps);
 
 
     EnableMasterPps::EnableMasterPps()
-      : CommandBase(CmdName)
+      : CommandBase(CmdName, TargetId)
     {}
 
     EnableMasterPps::EnableMasterPps(bool enabled)
-      : CommandBase(CmdName)
+      : CommandBase(CmdName, TargetId)
     {
 
       setEnabled(enabled);
@@ -50,6 +58,12 @@ namespace Sdx
     }
 
     std::string EnableMasterPps::documentation() const { return Documentation; }
+
+    const std::vector<std::string>& EnableMasterPps::fieldNames() const 
+    { 
+      static const std::vector<std::string> names {"Enabled"}; 
+      return names; 
+    }
 
 
     int EnableMasterPps::executePermission() const

@@ -11,6 +11,18 @@ class SatelliteSystem(Enum):
     NAVIC = "I"
     QZSS = "J"
 
+def SatelliteSystemToString(satellite_system):
+    if satellite_system == SatelliteSystem.BEIDOU:
+        return "BEIDOU"
+    elif satellite_system == SatelliteSystem.GALILEO:
+        return "GALILEO"
+    elif satellite_system == SatelliteSystem.GPS:
+        return "GPS"
+    elif satellite_system == SatelliteSystem.NAVIC:
+        return "NAVIC"
+    elif satellite_system == SatelliteSystem.QZSS:
+        return "QZSS"
+
 class RinexLineType(Enum):
     SV_EPOCH_SV_CLK = 0
     BROADCAST_ORBIT_1 = 1
@@ -26,8 +38,9 @@ class RinexLineType(Enum):
 
 class RinexBlock:
 
-    def __init__(self):
+    def __init__(self, satellite_system):
         self.params = {}
+        self.satellite_system = satellite_system
 
     def set_sv_id(self, sv_id):
         self.sv_id = sv_id
@@ -59,7 +72,7 @@ def parse(rinex_path):
             elif striped_line:
                 try:
                     satellite_system = SatelliteSystem(striped_line[0])
-                    blocks.append(RinexBlock())
+                    blocks.append(RinexBlock(satellite_system))
                     rinex_line_type = RinexLineType.SV_EPOCH_SV_CLK
                 except:
                     pass

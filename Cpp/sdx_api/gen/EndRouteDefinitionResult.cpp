@@ -1,8 +1,7 @@
 
-#include "gen/EndRouteDefinitionResult.h"
+#include "EndRouteDefinitionResult.h"
 
 #include "command_factory.h"
-#include "command_result_factory.h"
 #include "parse_json.hpp"
 
 ///
@@ -14,24 +13,29 @@ namespace Sdx
   namespace Cmd
   {
     const char* const EndRouteDefinitionResult::CmdName = "EndRouteDefinitionResult";
-    const char* const EndRouteDefinitionResult::Documentation = "EndRouteDefinition Result with created route informations.";
+    const char* const EndRouteDefinitionResult::Documentation = "EndRouteDefinition Result with created route informations.\n"
+      "\n"
+      "Name  Type Description\n"
+      "----- ---- ----------------------------------------------------------------------------------------------------\n"
+      "Count int  Number of nodes in the route. The client can compare this value with the number of positions pushed.";
+    const char* const EndRouteDefinitionResult::TargetId = "";
 
-    REGISTER_COMMAND_RESULT_TO_FACTORY_IMPL(EndRouteDefinitionResult);
+    REGISTER_COMMAND_TO_FACTORY_IMPL(EndRouteDefinitionResult);
 
 
     EndRouteDefinitionResult::EndRouteDefinitionResult()
-      : CommandResult(CmdName)
+      : CommandResult(CmdName, TargetId)
     {}
 
     EndRouteDefinitionResult::EndRouteDefinitionResult(int count)
-      : CommandResult(CmdName)
+      : CommandResult(CmdName, TargetId)
     {
 
       setCount(count);
     }
 
     EndRouteDefinitionResult::EndRouteDefinitionResult(CommandBasePtr relatedCommand, int count)
-      : CommandResult(CmdName, relatedCommand)
+      : CommandResult(CmdName, TargetId, relatedCommand)
     {
 
       setCount(count);
@@ -63,6 +67,12 @@ namespace Sdx
     }
 
     std::string EndRouteDefinitionResult::documentation() const { return Documentation; }
+
+    const std::vector<std::string>& EndRouteDefinitionResult::fieldNames() const 
+    { 
+      static const std::vector<std::string> names {"Count"}; 
+      return names; 
+    }
 
 
     int EndRouteDefinitionResult::count() const

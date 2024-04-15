@@ -1,8 +1,7 @@
 
-#include "gen/EndIntTxTrackDefinitionResult.h"
+#include "EndIntTxTrackDefinitionResult.h"
 
 #include "command_factory.h"
-#include "command_result_factory.h"
 #include "parse_json.hpp"
 
 ///
@@ -14,17 +13,23 @@ namespace Sdx
   namespace Cmd
   {
     const char* const EndIntTxTrackDefinitionResult::CmdName = "EndIntTxTrackDefinitionResult";
-    const char* const EndIntTxTrackDefinitionResult::Documentation = "EndIntTxTrackDefinition Result with created track informations.";
+    const char* const EndIntTxTrackDefinitionResult::Documentation = "EndIntTxTrackDefinition Result with created track informations.\n"
+      "\n"
+      "Name  Type   Description\n"
+      "----- ------ ----------------------------------------------------------------------------------------------------\n"
+      "Count int    Number of nodes in the track. The client can compare this value with the number of positions pushed.\n"
+      "Id    string Transmitter unique identifier.";
+    const char* const EndIntTxTrackDefinitionResult::TargetId = "";
 
-    REGISTER_COMMAND_RESULT_TO_FACTORY_IMPL(EndIntTxTrackDefinitionResult);
+    REGISTER_COMMAND_TO_FACTORY_IMPL(EndIntTxTrackDefinitionResult);
 
 
     EndIntTxTrackDefinitionResult::EndIntTxTrackDefinitionResult()
-      : CommandResult(CmdName)
+      : CommandResult(CmdName, TargetId)
     {}
 
     EndIntTxTrackDefinitionResult::EndIntTxTrackDefinitionResult(int count, const std::string& id)
-      : CommandResult(CmdName)
+      : CommandResult(CmdName, TargetId)
     {
 
       setCount(count);
@@ -32,7 +37,7 @@ namespace Sdx
     }
 
     EndIntTxTrackDefinitionResult::EndIntTxTrackDefinitionResult(CommandBasePtr relatedCommand, int count, const std::string& id)
-      : CommandResult(CmdName, relatedCommand)
+      : CommandResult(CmdName, TargetId, relatedCommand)
     {
 
       setCount(count);
@@ -66,6 +71,12 @@ namespace Sdx
     }
 
     std::string EndIntTxTrackDefinitionResult::documentation() const { return Documentation; }
+
+    const std::vector<std::string>& EndIntTxTrackDefinitionResult::fieldNames() const 
+    { 
+      static const std::vector<std::string> names {"Count", "Id"}; 
+      return names; 
+    }
 
 
     int EndIntTxTrackDefinitionResult::count() const

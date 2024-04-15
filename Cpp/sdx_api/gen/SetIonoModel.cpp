@@ -1,8 +1,7 @@
 
-#include "gen/SetIonoModel.h"
+#include "SetIonoModel.h"
 
 #include "command_factory.h"
-#include "command_result_factory.h"
 #include "parse_json.hpp"
 
 ///
@@ -14,17 +13,23 @@ namespace Sdx
   namespace Cmd
   {
     const char* const SetIonoModel::CmdName = "SetIonoModel";
-    const char* const SetIonoModel::Documentation = "Set ionospheric model";
+    const char* const SetIonoModel::Documentation = "Set ionospheric model\n"
+      "\n"
+      "Name  Type   Description\n"
+      "----- ------ ------------------------------------------------------------------\n"
+      "Model string Ionospheric model (\"None\", \"Klobuchar\", \"Spacecraft\" or \"NeQuick\")";
+    const char* const SetIonoModel::TargetId = "";
 
-    REGISTER_COMMAND_FACTORY(SetIonoModel);
+    REGISTER_COMMAND_TO_FACTORY_DECL(SetIonoModel);
+    REGISTER_COMMAND_TO_FACTORY_IMPL(SetIonoModel);
 
 
     SetIonoModel::SetIonoModel()
-      : CommandBase(CmdName)
+      : CommandBase(CmdName, TargetId)
     {}
 
     SetIonoModel::SetIonoModel(const std::string& model)
-      : CommandBase(CmdName)
+      : CommandBase(CmdName, TargetId)
     {
 
       setModel(model);
@@ -50,6 +55,12 @@ namespace Sdx
     }
 
     std::string SetIonoModel::documentation() const { return Documentation; }
+
+    const std::vector<std::string>& SetIonoModel::fieldNames() const 
+    { 
+      static const std::vector<std::string> names {"Model"}; 
+      return names; 
+    }
 
 
     int SetIonoModel::executePermission() const

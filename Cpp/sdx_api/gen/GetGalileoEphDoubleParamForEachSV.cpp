@@ -1,8 +1,7 @@
 
-#include "gen/GetGalileoEphDoubleParamForEachSV.h"
+#include "GetGalileoEphDoubleParamForEachSV.h"
 
 #include "command_factory.h"
-#include "command_result_factory.h"
 #include "parse_json.hpp"
 
 ///
@@ -14,19 +13,28 @@ namespace Sdx
   namespace Cmd
   {
     const char* const GetGalileoEphDoubleParamForEachSV::CmdName = "GetGalileoEphDoubleParamForEachSV";
-    const char* const GetGalileoEphDoubleParamForEachSV::Documentation = "Please note the command GetGalileoEphDoubleParamForEachSV is deprecated since 23.11. You may use GetConstellationParameterForSV.\n\nGet Galileo ephemeris parameter value for all satellites";
+    const char* const GetGalileoEphDoubleParamForEachSV::Documentation = "Please note the command GetGalileoEphDoubleParamForEachSV is deprecated since 23.11. You may use GetConstellationParameterForSV.\n"
+      "\n"
+      "Get Galileo ephemeris parameter value for all satellites\n"
+      "\n"
+      "Name        Type            Description\n"
+      "----------- --------------- -------------------------------------------------------------------------------------------\n"
+      "ParamName   string          Refer to SetGalileoEphDoubleParamForSV for accepted names\n"
+      "DataSetName optional string Optional name of the data set to use. If no value is provided, the active data set is used.";
+    const char* const GetGalileoEphDoubleParamForEachSV::TargetId = "";
 
     const char* const GetGalileoEphDoubleParamForEachSV::Deprecated = "Please note the command GetGalileoEphDoubleParamForEachSV is deprecated since 23.11. You may use GetConstellationParameterForSV.";
 
-    REGISTER_COMMAND_FACTORY(GetGalileoEphDoubleParamForEachSV);
+    REGISTER_COMMAND_TO_FACTORY_DECL(GetGalileoEphDoubleParamForEachSV);
+    REGISTER_COMMAND_TO_FACTORY_IMPL(GetGalileoEphDoubleParamForEachSV);
 
 
     GetGalileoEphDoubleParamForEachSV::GetGalileoEphDoubleParamForEachSV()
-      : CommandBase(CmdName)
+      : CommandBase(CmdName, TargetId)
     {}
 
     GetGalileoEphDoubleParamForEachSV::GetGalileoEphDoubleParamForEachSV(const std::string& paramName, const Sdx::optional<std::string>& dataSetName)
-      : CommandBase(CmdName)
+      : CommandBase(CmdName, TargetId)
     {
 
       setParamName(paramName);
@@ -54,6 +62,12 @@ namespace Sdx
     }
 
     std::string GetGalileoEphDoubleParamForEachSV::documentation() const { return Documentation; }
+
+    const std::vector<std::string>& GetGalileoEphDoubleParamForEachSV::fieldNames() const 
+    { 
+      static const std::vector<std::string> names {"ParamName", "DataSetName"}; 
+      return names; 
+    }
 
     Sdx::optional<std::string> GetGalileoEphDoubleParamForEachSV::deprecated() const { return Sdx::optional<std::string>{Deprecated}; }
 

@@ -19,8 +19,8 @@ struct parse_json<Sdx::GNSSBand>
   {
     if (!is_valid(value))
       throw std::runtime_error("Unexpected value");
-    return (Sdx::GNSSBand)value.GetInt();
+    return static_cast<Sdx::GNSSBand>(value.GetInt());
   }
-  static rapidjson::Value format(Sdx::GNSSBand value, rapidjson::Value::AllocatorType&) { return rapidjson::Value((int)value); }
+  static rapidjson::Value format(Sdx::GNSSBand value, rapidjson::Value::AllocatorType&) { return rapidjson::Value(static_cast<int>(value)); }
 };
 

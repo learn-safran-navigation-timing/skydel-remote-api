@@ -21,7 +21,7 @@ namespace Sdx
     /// PhaseOffset array array double Phase offset matrix (rad). The first dimension will be mapped to elevation [-90, 90] and the second dimension to azimuth [0, 360[.
     /// Type        AntennaPatternType Pattern type
     /// Band        GNSSBand           Frequency band
-    /// System      string             "GPS", "GLONASS", "Galileo", "BeiDou", "SBAS", "QZSS" or "NavIC"
+    /// System      string             "GPS", "GLONASS", "Galileo", "BeiDou", "SBAS", "QZSS", "NavIC" or "PULSAR"
     /// Name        optional string    SV antenna name
     ///
 
@@ -34,6 +34,7 @@ namespace Sdx
     public:
       static const char* const CmdName;
       static const char* const Documentation;
+      static const char* const TargetId;
 
 
       SetSVAntennaPhaseOffset();
@@ -44,6 +45,7 @@ namespace Sdx
       static SetSVAntennaPhaseOffsetPtr dynamicCast(CommandBasePtr ptr);
       virtual bool isValid() const override;
       virtual std::string documentation() const override;
+      virtual const std::vector<std::string>& fieldNames() const override;
 
       virtual int executePermission() const override;
 

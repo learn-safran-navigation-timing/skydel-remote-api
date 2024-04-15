@@ -1,8 +1,7 @@
 
-#include "gen/GetActiveDataSetResult.h"
+#include "GetActiveDataSetResult.h"
 
 #include "command_factory.h"
-#include "command_result_factory.h"
 #include "parse_json.hpp"
 
 ///
@@ -14,17 +13,23 @@ namespace Sdx
   namespace Cmd
   {
     const char* const GetActiveDataSetResult::CmdName = "GetActiveDataSetResult";
-    const char* const GetActiveDataSetResult::Documentation = "Result of GetActiveDataSet.";
+    const char* const GetActiveDataSetResult::Documentation = "Result of GetActiveDataSet.\n"
+      "\n"
+      "Name        Type   Description\n"
+      "----------- ------ -------------------------------------------------------\n"
+      "System      string \"GPS\", \"Galileo\", \"BeiDou\", \"QZSS\", \"NavIC\" or \"PULSAR\"\n"
+      "DataSetName string The name of the data set to set as active.";
+    const char* const GetActiveDataSetResult::TargetId = "";
 
-    REGISTER_COMMAND_RESULT_TO_FACTORY_IMPL(GetActiveDataSetResult);
+    REGISTER_COMMAND_TO_FACTORY_IMPL(GetActiveDataSetResult);
 
 
     GetActiveDataSetResult::GetActiveDataSetResult()
-      : CommandResult(CmdName)
+      : CommandResult(CmdName, TargetId)
     {}
 
     GetActiveDataSetResult::GetActiveDataSetResult(const std::string& system, const std::string& dataSetName)
-      : CommandResult(CmdName)
+      : CommandResult(CmdName, TargetId)
     {
 
       setSystem(system);
@@ -32,7 +37,7 @@ namespace Sdx
     }
 
     GetActiveDataSetResult::GetActiveDataSetResult(CommandBasePtr relatedCommand, const std::string& system, const std::string& dataSetName)
-      : CommandResult(CmdName, relatedCommand)
+      : CommandResult(CmdName, TargetId, relatedCommand)
     {
 
       setSystem(system);
@@ -66,6 +71,12 @@ namespace Sdx
     }
 
     std::string GetActiveDataSetResult::documentation() const { return Documentation; }
+
+    const std::vector<std::string>& GetActiveDataSetResult::fieldNames() const 
+    { 
+      static const std::vector<std::string> names {"System", "DataSetName"}; 
+      return names; 
+    }
 
 
     std::string GetActiveDataSetResult::system() const

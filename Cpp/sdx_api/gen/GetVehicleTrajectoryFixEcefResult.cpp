@@ -1,8 +1,7 @@
 
-#include "gen/GetVehicleTrajectoryFixEcefResult.h"
+#include "GetVehicleTrajectoryFixEcefResult.h"
 
 #include "command_factory.h"
-#include "command_result_factory.h"
 #include "parse_json.hpp"
 
 ///
@@ -14,17 +13,28 @@ namespace Sdx
   namespace Cmd
   {
     const char* const GetVehicleTrajectoryFixEcefResult::CmdName = "GetVehicleTrajectoryFixEcefResult";
-    const char* const GetVehicleTrajectoryFixEcefResult::Documentation = "Result of GetVehicleTrajectoryFixEcef.";
+    const char* const GetVehicleTrajectoryFixEcefResult::Documentation = "Result of GetVehicleTrajectoryFixEcef.\n"
+      "\n"
+      "Name  Type   Description\n"
+      "----- ------ -----------------------\n"
+      "Type  string Trajectory type (\"Fix\")\n"
+      "X     double ECEF X (m)\n"
+      "Y     double ECEF Y (m)\n"
+      "Z     double ECEF Z (m)\n"
+      "Yaw   double Yaw (rad)\n"
+      "Pitch double Pitch (rad)\n"
+      "Roll  double Roll (rad)";
+    const char* const GetVehicleTrajectoryFixEcefResult::TargetId = "";
 
-    REGISTER_COMMAND_RESULT_TO_FACTORY_IMPL(GetVehicleTrajectoryFixEcefResult);
+    REGISTER_COMMAND_TO_FACTORY_IMPL(GetVehicleTrajectoryFixEcefResult);
 
 
     GetVehicleTrajectoryFixEcefResult::GetVehicleTrajectoryFixEcefResult()
-      : CommandResult(CmdName)
+      : CommandResult(CmdName, TargetId)
     {}
 
     GetVehicleTrajectoryFixEcefResult::GetVehicleTrajectoryFixEcefResult(const std::string& type, double x, double y, double z, double yaw, double pitch, double roll)
-      : CommandResult(CmdName)
+      : CommandResult(CmdName, TargetId)
     {
 
       setType(type);
@@ -37,7 +47,7 @@ namespace Sdx
     }
 
     GetVehicleTrajectoryFixEcefResult::GetVehicleTrajectoryFixEcefResult(CommandBasePtr relatedCommand, const std::string& type, double x, double y, double z, double yaw, double pitch, double roll)
-      : CommandResult(CmdName, relatedCommand)
+      : CommandResult(CmdName, TargetId, relatedCommand)
     {
 
       setType(type);
@@ -81,6 +91,12 @@ namespace Sdx
     }
 
     std::string GetVehicleTrajectoryFixEcefResult::documentation() const { return Documentation; }
+
+    const std::vector<std::string>& GetVehicleTrajectoryFixEcefResult::fieldNames() const 
+    { 
+      static const std::vector<std::string> names {"Type", "X", "Y", "Z", "Yaw", "Pitch", "Roll"}; 
+      return names; 
+    }
 
 
     std::string GetVehicleTrajectoryFixEcefResult::type() const

@@ -1,8 +1,7 @@
 
-#include "gen/GetMessageModificationToGalileoCNavResult.h"
+#include "GetMessageModificationToGalileoCNavResult.h"
 
 #include "command_factory.h"
-#include "command_result_factory.h"
 #include "parse_json.hpp"
 
 ///
@@ -14,17 +13,28 @@ namespace Sdx
   namespace Cmd
   {
     const char* const GetMessageModificationToGalileoCNavResult::CmdName = "GetMessageModificationToGalileoCNavResult";
-    const char* const GetMessageModificationToGalileoCNavResult::Documentation = "Result of GetMessageModificationToGalileoCNav.";
+    const char* const GetMessageModificationToGalileoCNavResult::Documentation = "Result of GetMessageModificationToGalileoCNav.\n"
+      "\n"
+      "Name             Type         Description\n"
+      "---------------- ------------ -------------------------------------------------------------------------------------\n"
+      "SignalArray      array string Array of signals to apply the message modification to, accepts \"E6BC\" (empty for all)\n"
+      "SvId             int          The satellite's SV ID 1..36 (use 0 to apply modification to all SVs)\n"
+      "StartTime        int          Elapsed time in seconds since start of simulation\n"
+      "StopTime         int          Elapsed time in seconds since start of simulation (use 0 for no stop time)\n"
+      "UpdateCRC        bool         Recalculate CRC after making modification\n"
+      "BitModifications string       Comma separated bit modifications\n"
+      "Id               string       Unique identifier of the event";
+    const char* const GetMessageModificationToGalileoCNavResult::TargetId = "";
 
-    REGISTER_COMMAND_RESULT_TO_FACTORY_IMPL(GetMessageModificationToGalileoCNavResult);
+    REGISTER_COMMAND_TO_FACTORY_IMPL(GetMessageModificationToGalileoCNavResult);
 
 
     GetMessageModificationToGalileoCNavResult::GetMessageModificationToGalileoCNavResult()
-      : CommandResult(CmdName)
+      : CommandResult(CmdName, TargetId)
     {}
 
     GetMessageModificationToGalileoCNavResult::GetMessageModificationToGalileoCNavResult(const std::vector<std::string>& signalArray, int svId, int startTime, int stopTime, bool updateCRC, const std::string& bitModifications, const std::string& id)
-      : CommandResult(CmdName)
+      : CommandResult(CmdName, TargetId)
     {
 
       setSignalArray(signalArray);
@@ -37,7 +47,7 @@ namespace Sdx
     }
 
     GetMessageModificationToGalileoCNavResult::GetMessageModificationToGalileoCNavResult(CommandBasePtr relatedCommand, const std::vector<std::string>& signalArray, int svId, int startTime, int stopTime, bool updateCRC, const std::string& bitModifications, const std::string& id)
-      : CommandResult(CmdName, relatedCommand)
+      : CommandResult(CmdName, TargetId, relatedCommand)
     {
 
       setSignalArray(signalArray);
@@ -81,6 +91,12 @@ namespace Sdx
     }
 
     std::string GetMessageModificationToGalileoCNavResult::documentation() const { return Documentation; }
+
+    const std::vector<std::string>& GetMessageModificationToGalileoCNavResult::fieldNames() const 
+    { 
+      static const std::vector<std::string> names {"SignalArray", "SvId", "StartTime", "StopTime", "UpdateCRC", "BitModifications", "Id"}; 
+      return names; 
+    }
 
 
     std::vector<std::string> GetMessageModificationToGalileoCNavResult::signalArray() const

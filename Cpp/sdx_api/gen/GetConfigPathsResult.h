@@ -2,7 +2,7 @@
 
 #include <memory>
 #include "command_result.h"
-#include "command_result_factory.h"
+#include "command_factory.h"
 #include <string>
 #include <vector>
 
@@ -27,6 +27,7 @@ namespace Sdx
     public:
       static const char* const CmdName;
       static const char* const Documentation;
+      static const char* const TargetId;
 
 
       GetConfigPathsResult();
@@ -41,13 +42,14 @@ namespace Sdx
       static GetConfigPathsResultPtr dynamicCast(CommandBasePtr ptr);
       virtual bool isValid() const override;
       virtual std::string documentation() const override;
+      virtual const std::vector<std::string>& fieldNames() const override;
 
 
       // **** paths ****
       std::vector<std::string> paths() const;
       void setPaths(const std::vector<std::string>& paths);
     };
-    REGISTER_COMMAND_RESULT_TO_FACTORY_DECL(GetConfigPathsResult);
+    REGISTER_COMMAND_TO_FACTORY_DECL(GetConfigPathsResult);
   }
 }
 

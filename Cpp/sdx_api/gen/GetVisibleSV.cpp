@@ -1,8 +1,7 @@
 
-#include "gen/GetVisibleSV.h"
+#include "GetVisibleSV.h"
 
 #include "command_factory.h"
-#include "command_result_factory.h"
 #include "parse_json.hpp"
 
 ///
@@ -14,17 +13,23 @@ namespace Sdx
   namespace Cmd
   {
     const char* const GetVisibleSV::CmdName = "GetVisibleSV";
-    const char* const GetVisibleSV::Documentation = "Get a list of visible satellites' SV IDs within a system, returns a GetVisibleSVResult";
+    const char* const GetVisibleSV::Documentation = "Get a list of visible satellites' SV IDs within a system, returns a GetVisibleSVResult\n"
+      "\n"
+      "Name   Type   Description\n"
+      "------ ------ ---------------------------------------------------------------------------------------------\n"
+      "System string The system, can be \"GPS\", \"GLONASS\", \"Galileo\", \"BeiDou\", \"SBAS\", \"QZSS\", \"NavIC\" or \"PULSAR\"";
+    const char* const GetVisibleSV::TargetId = "";
 
-    REGISTER_COMMAND_FACTORY(GetVisibleSV);
+    REGISTER_COMMAND_TO_FACTORY_DECL(GetVisibleSV);
+    REGISTER_COMMAND_TO_FACTORY_IMPL(GetVisibleSV);
 
 
     GetVisibleSV::GetVisibleSV()
-      : CommandBase(CmdName)
+      : CommandBase(CmdName, TargetId)
     {}
 
     GetVisibleSV::GetVisibleSV(const std::string& system)
-      : CommandBase(CmdName)
+      : CommandBase(CmdName, TargetId)
     {
 
       setSystem(system);
@@ -50,6 +55,12 @@ namespace Sdx
     }
 
     std::string GetVisibleSV::documentation() const { return Documentation; }
+
+    const std::vector<std::string>& GetVisibleSV::fieldNames() const 
+    { 
+      static const std::vector<std::string> names {"System"}; 
+      return names; 
+    }
 
 
     int GetVisibleSV::executePermission() const

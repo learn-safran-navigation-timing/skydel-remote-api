@@ -1,8 +1,7 @@
 
-#include "gen/GetGlonassEphemerisHealthFlagForSVResult.h"
+#include "GetGlonassEphemerisHealthFlagForSVResult.h"
 
 #include "command_factory.h"
-#include "command_result_factory.h"
 #include "parse_json.hpp"
 
 ///
@@ -14,17 +13,23 @@ namespace Sdx
   namespace Cmd
   {
     const char* const GetGlonassEphemerisHealthFlagForSVResult::CmdName = "GetGlonassEphemerisHealthFlagForSVResult";
-    const char* const GetGlonassEphemerisHealthFlagForSVResult::Documentation = "Result of GetGlonassEphemerisHealthFlagForSV.";
+    const char* const GetGlonassEphemerisHealthFlagForSVResult::Documentation = "Result of GetGlonassEphemerisHealthFlagForSV.\n"
+      "\n"
+      "Name   Type Description\n"
+      "------ ---- --------------------------------------\n"
+      "SvId   int  The satellite's SV ID 1..24\n"
+      "Health bool Status, false = OK, true = Malfunction";
+    const char* const GetGlonassEphemerisHealthFlagForSVResult::TargetId = "";
 
-    REGISTER_COMMAND_RESULT_TO_FACTORY_IMPL(GetGlonassEphemerisHealthFlagForSVResult);
+    REGISTER_COMMAND_TO_FACTORY_IMPL(GetGlonassEphemerisHealthFlagForSVResult);
 
 
     GetGlonassEphemerisHealthFlagForSVResult::GetGlonassEphemerisHealthFlagForSVResult()
-      : CommandResult(CmdName)
+      : CommandResult(CmdName, TargetId)
     {}
 
     GetGlonassEphemerisHealthFlagForSVResult::GetGlonassEphemerisHealthFlagForSVResult(int svId, bool health)
-      : CommandResult(CmdName)
+      : CommandResult(CmdName, TargetId)
     {
 
       setSvId(svId);
@@ -32,7 +37,7 @@ namespace Sdx
     }
 
     GetGlonassEphemerisHealthFlagForSVResult::GetGlonassEphemerisHealthFlagForSVResult(CommandBasePtr relatedCommand, int svId, bool health)
-      : CommandResult(CmdName, relatedCommand)
+      : CommandResult(CmdName, TargetId, relatedCommand)
     {
 
       setSvId(svId);
@@ -66,6 +71,12 @@ namespace Sdx
     }
 
     std::string GetGlonassEphemerisHealthFlagForSVResult::documentation() const { return Documentation; }
+
+    const std::vector<std::string>& GetGlonassEphemerisHealthFlagForSVResult::fieldNames() const 
+    { 
+      static const std::vector<std::string> names {"SvId", "Health"}; 
+      return names; 
+    }
 
 
     int GetGlonassEphemerisHealthFlagForSVResult::svId() const

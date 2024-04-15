@@ -1,8 +1,7 @@
 
-#include "gen/AddSVPhasePatternOffset.h"
+#include "AddSVPhasePatternOffset.h"
 
 #include "command_factory.h"
-#include "command_result_factory.h"
 #include "parse_json.hpp"
 
 ///
@@ -14,17 +13,26 @@ namespace Sdx
   namespace Cmd
   {
     const char* const AddSVPhasePatternOffset::CmdName = "AddSVPhasePatternOffset";
-    const char* const AddSVPhasePatternOffset::Documentation = "Add an offset (in rad) for all values of the phase pattern.";
+    const char* const AddSVPhasePatternOffset::Documentation = "Add an offset (in rad) for all values of the phase pattern.\n"
+      "\n"
+      "Name        Type            Description\n"
+      "----------- --------------- ------------------------------------------------------------------------------------\n"
+      "Band        GNSSBand        Offset will be apply to this band. (\"L1\", \"L2\" or \"L5\")\n"
+      "System      string          \"GPS\", \"GLONASS\", \"Galileo\", \"BeiDou\", \"SBAS\", \"QZSS\", \"NavIC\" or \"PULSAR\"\n"
+      "Offset      double          Phase offset (in rad)\n"
+      "AntennaName optional string Vehicle antenna name. If no name is specified, apply the offset to the Basic Antenna";
+    const char* const AddSVPhasePatternOffset::TargetId = "";
 
-    REGISTER_COMMAND_FACTORY(AddSVPhasePatternOffset);
+    REGISTER_COMMAND_TO_FACTORY_DECL(AddSVPhasePatternOffset);
+    REGISTER_COMMAND_TO_FACTORY_IMPL(AddSVPhasePatternOffset);
 
 
     AddSVPhasePatternOffset::AddSVPhasePatternOffset()
-      : CommandBase(CmdName)
+      : CommandBase(CmdName, TargetId)
     {}
 
     AddSVPhasePatternOffset::AddSVPhasePatternOffset(const Sdx::GNSSBand& band, const std::string& system, double offset, const Sdx::optional<std::string>& antennaName)
-      : CommandBase(CmdName)
+      : CommandBase(CmdName, TargetId)
     {
 
       setBand(band);
@@ -56,6 +64,12 @@ namespace Sdx
     }
 
     std::string AddSVPhasePatternOffset::documentation() const { return Documentation; }
+
+    const std::vector<std::string>& AddSVPhasePatternOffset::fieldNames() const 
+    { 
+      static const std::vector<std::string> names {"Band", "System", "Offset", "AntennaName"}; 
+      return names; 
+    }
 
 
     int AddSVPhasePatternOffset::executePermission() const

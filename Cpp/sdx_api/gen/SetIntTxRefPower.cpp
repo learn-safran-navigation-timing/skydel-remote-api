@@ -1,8 +1,7 @@
 
-#include "gen/SetIntTxRefPower.h"
+#include "SetIntTxRefPower.h"
 
 #include "command_factory.h"
-#include "command_result_factory.h"
 #include "parse_json.hpp"
 
 ///
@@ -14,17 +13,24 @@ namespace Sdx
   namespace Cmd
   {
     const char* const SetIntTxRefPower::CmdName = "SetIntTxRefPower";
-    const char* const SetIntTxRefPower::Documentation = "Set the interference transmitter reference power.";
+    const char* const SetIntTxRefPower::Documentation = "Set the interference transmitter reference power.\n"
+      "\n"
+      "Name  Type   Description\n"
+      "----- ------ ------------------------------\n"
+      "Power double Reference Power (dBm)\n"
+      "Id    string Transmitter unique identifier.";
+    const char* const SetIntTxRefPower::TargetId = "";
 
-    REGISTER_COMMAND_FACTORY(SetIntTxRefPower);
+    REGISTER_COMMAND_TO_FACTORY_DECL(SetIntTxRefPower);
+    REGISTER_COMMAND_TO_FACTORY_IMPL(SetIntTxRefPower);
 
 
     SetIntTxRefPower::SetIntTxRefPower()
-      : CommandBase(CmdName)
+      : CommandBase(CmdName, TargetId)
     {}
 
     SetIntTxRefPower::SetIntTxRefPower(double power, const std::string& id)
-      : CommandBase(CmdName)
+      : CommandBase(CmdName, TargetId)
     {
 
       setPower(power);
@@ -52,6 +58,12 @@ namespace Sdx
     }
 
     std::string SetIntTxRefPower::documentation() const { return Documentation; }
+
+    const std::vector<std::string>& SetIntTxRefPower::fieldNames() const 
+    { 
+      static const std::vector<std::string> names {"Power", "Id"}; 
+      return names; 
+    }
 
 
     int SetIntTxRefPower::executePermission() const

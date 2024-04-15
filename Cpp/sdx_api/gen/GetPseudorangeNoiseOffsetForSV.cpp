@@ -1,8 +1,7 @@
 
-#include "gen/GetPseudorangeNoiseOffsetForSV.h"
+#include "GetPseudorangeNoiseOffsetForSV.h"
 
 #include "command_factory.h"
-#include "command_result_factory.h"
 #include "parse_json.hpp"
 
 ///
@@ -14,17 +13,24 @@ namespace Sdx
   namespace Cmd
   {
     const char* const GetPseudorangeNoiseOffsetForSV::CmdName = "GetPseudorangeNoiseOffsetForSV";
-    const char* const GetPseudorangeNoiseOffsetForSV::Documentation = "Get the satellite pseudorange noise constant offset.";
+    const char* const GetPseudorangeNoiseOffsetForSV::Documentation = "Get the satellite pseudorange noise constant offset.\n"
+      "\n"
+      "Name   Type   Description\n"
+      "------ ------ --------------------------------------------------------------------------\n"
+      "System string \"GPS\", \"GLONASS\", \"Galileo\", \"BeiDou\", \"SBAS\", \"QZSS\", \"NavIC\" or \"PULSAR\"\n"
+      "SvId   int    Satellite SV ID.";
+    const char* const GetPseudorangeNoiseOffsetForSV::TargetId = "";
 
-    REGISTER_COMMAND_FACTORY(GetPseudorangeNoiseOffsetForSV);
+    REGISTER_COMMAND_TO_FACTORY_DECL(GetPseudorangeNoiseOffsetForSV);
+    REGISTER_COMMAND_TO_FACTORY_IMPL(GetPseudorangeNoiseOffsetForSV);
 
 
     GetPseudorangeNoiseOffsetForSV::GetPseudorangeNoiseOffsetForSV()
-      : CommandBase(CmdName)
+      : CommandBase(CmdName, TargetId)
     {}
 
     GetPseudorangeNoiseOffsetForSV::GetPseudorangeNoiseOffsetForSV(const std::string& system, int svId)
-      : CommandBase(CmdName)
+      : CommandBase(CmdName, TargetId)
     {
 
       setSystem(system);
@@ -52,6 +58,12 @@ namespace Sdx
     }
 
     std::string GetPseudorangeNoiseOffsetForSV::documentation() const { return Documentation; }
+
+    const std::vector<std::string>& GetPseudorangeNoiseOffsetForSV::fieldNames() const 
+    { 
+      static const std::vector<std::string> names {"System", "SvId"}; 
+      return names; 
+    }
 
 
     int GetPseudorangeNoiseOffsetForSV::executePermission() const

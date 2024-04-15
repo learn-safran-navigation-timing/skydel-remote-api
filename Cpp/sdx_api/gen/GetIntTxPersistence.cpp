@@ -1,8 +1,7 @@
 
-#include "gen/GetIntTxPersistence.h"
+#include "GetIntTxPersistence.h"
 
 #include "command_factory.h"
-#include "command_result_factory.h"
 #include "parse_json.hpp"
 
 ///
@@ -14,17 +13,23 @@ namespace Sdx
   namespace Cmd
   {
     const char* const GetIntTxPersistence::CmdName = "GetIntTxPersistence";
-    const char* const GetIntTxPersistence::Documentation = "Get wether the transmitter should keep the modifications done during the simulation.";
+    const char* const GetIntTxPersistence::Documentation = "Get whether the transmitter should keep the modifications done during the simulation.\n"
+      "\n"
+      "Name Type   Description\n"
+      "---- ------ ------------------------------\n"
+      "Id   string Transmitter unique identifier.";
+    const char* const GetIntTxPersistence::TargetId = "";
 
-    REGISTER_COMMAND_FACTORY(GetIntTxPersistence);
+    REGISTER_COMMAND_TO_FACTORY_DECL(GetIntTxPersistence);
+    REGISTER_COMMAND_TO_FACTORY_IMPL(GetIntTxPersistence);
 
 
     GetIntTxPersistence::GetIntTxPersistence()
-      : CommandBase(CmdName)
+      : CommandBase(CmdName, TargetId)
     {}
 
     GetIntTxPersistence::GetIntTxPersistence(const std::string& id)
-      : CommandBase(CmdName)
+      : CommandBase(CmdName, TargetId)
     {
 
       setId(id);
@@ -50,6 +55,12 @@ namespace Sdx
     }
 
     std::string GetIntTxPersistence::documentation() const { return Documentation; }
+
+    const std::vector<std::string>& GetIntTxPersistence::fieldNames() const 
+    { 
+      static const std::vector<std::string> names {"Id"}; 
+      return names; 
+    }
 
 
     int GetIntTxPersistence::executePermission() const

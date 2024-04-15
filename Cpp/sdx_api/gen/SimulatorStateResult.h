@@ -2,7 +2,7 @@
 
 #include <memory>
 #include "command_result.h"
-#include "command_result_factory.h"
+#include "command_factory.h"
 #include "gen/SimulatorState.h"
 #include "gen/SimulatorSubState.h"
 #include <string>
@@ -47,6 +47,7 @@ namespace Sdx
     public:
       static const char* const CmdName;
       static const char* const Documentation;
+      static const char* const TargetId;
 
 
       SimulatorStateResult();
@@ -61,6 +62,7 @@ namespace Sdx
       static SimulatorStateResultPtr dynamicCast(CommandBasePtr ptr);
       virtual bool isValid() const override;
       virtual std::string documentation() const override;
+      virtual const std::vector<std::string>& fieldNames() const override;
 
 
       // **** state ****
@@ -82,7 +84,7 @@ namespace Sdx
       Sdx::SimulatorSubState subStateId() const;
       void setSubStateId(const Sdx::SimulatorSubState& subStateId);
     };
-    REGISTER_COMMAND_RESULT_TO_FACTORY_DECL(SimulatorStateResult);
+    REGISTER_COMMAND_TO_FACTORY_DECL(SimulatorStateResult);
   }
 }
 

@@ -1,8 +1,7 @@
 
-#include "gen/AddSVGainPatternOffset.h"
+#include "AddSVGainPatternOffset.h"
 
 #include "command_factory.h"
-#include "command_result_factory.h"
 #include "parse_json.hpp"
 
 ///
@@ -14,17 +13,26 @@ namespace Sdx
   namespace Cmd
   {
     const char* const AddSVGainPatternOffset::CmdName = "AddSVGainPatternOffset";
-    const char* const AddSVGainPatternOffset::Documentation = "Add an offset (in dB) for all values of the pattern.";
+    const char* const AddSVGainPatternOffset::Documentation = "Add an offset (in dB) for all values of the pattern.\n"
+      "\n"
+      "Name        Type            Description\n"
+      "----------- --------------- ------------------------------------------------------------------------------------\n"
+      "Band        GNSSBand        Offset will be apply to this band. (\"L1\", \"L2\" or \"L5\")\n"
+      "System      string          \"GPS\", \"GLONASS\", \"Galileo\", \"BeiDou\", \"SBAS\", \"QZSS\", \"NavIC\" or \"PULSAR\"\n"
+      "Offset      double          Power offset\n"
+      "AntennaName optional string Vehicle antenna name. If no name is specified, apply the offset to the Basic Antenna";
+    const char* const AddSVGainPatternOffset::TargetId = "";
 
-    REGISTER_COMMAND_FACTORY(AddSVGainPatternOffset);
+    REGISTER_COMMAND_TO_FACTORY_DECL(AddSVGainPatternOffset);
+    REGISTER_COMMAND_TO_FACTORY_IMPL(AddSVGainPatternOffset);
 
 
     AddSVGainPatternOffset::AddSVGainPatternOffset()
-      : CommandBase(CmdName)
+      : CommandBase(CmdName, TargetId)
     {}
 
     AddSVGainPatternOffset::AddSVGainPatternOffset(const Sdx::GNSSBand& band, const std::string& system, double offset, const Sdx::optional<std::string>& antennaName)
-      : CommandBase(CmdName)
+      : CommandBase(CmdName, TargetId)
     {
 
       setBand(band);
@@ -56,6 +64,12 @@ namespace Sdx
     }
 
     std::string AddSVGainPatternOffset::documentation() const { return Documentation; }
+
+    const std::vector<std::string>& AddSVGainPatternOffset::fieldNames() const 
+    { 
+      static const std::vector<std::string> names {"Band", "System", "Offset", "AntennaName"}; 
+      return names; 
+    }
 
 
     int AddSVGainPatternOffset::executePermission() const

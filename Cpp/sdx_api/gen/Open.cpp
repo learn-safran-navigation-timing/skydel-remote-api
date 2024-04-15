@@ -1,8 +1,7 @@
 
-#include "gen/Open.h"
+#include "Open.h"
 
 #include "command_factory.h"
-#include "command_result_factory.h"
 #include "parse_json.hpp"
 
 ///
@@ -14,17 +13,24 @@ namespace Sdx
   namespace Cmd
   {
     const char* const Open::CmdName = "Open";
-    const char* const Open::Documentation = "Open configuration.";
+    const char* const Open::Documentation = "Open configuration.\n"
+      "\n"
+      "Name                 Type   Description\n"
+      "-------------------- ------ ----------------------------------------------------------------------------------------------------\n"
+      "Path                 string Filename path, Automatically add file suffix if missing. If folder not defined, user default folder.\n"
+      "DiscardCurrentConfig bool   Discard current config even if it is not saved";
+    const char* const Open::TargetId = "";
 
-    REGISTER_COMMAND_FACTORY(Open);
+    REGISTER_COMMAND_TO_FACTORY_DECL(Open);
+    REGISTER_COMMAND_TO_FACTORY_IMPL(Open);
 
 
     Open::Open()
-      : CommandBase(CmdName)
+      : CommandBase(CmdName, TargetId)
     {}
 
     Open::Open(const std::string& path, bool discardCurrentConfig)
-      : CommandBase(CmdName)
+      : CommandBase(CmdName, TargetId)
     {
 
       setPath(path);
@@ -52,6 +58,12 @@ namespace Sdx
     }
 
     std::string Open::documentation() const { return Documentation; }
+
+    const std::vector<std::string>& Open::fieldNames() const 
+    { 
+      static const std::vector<std::string> names {"Path", "DiscardCurrentConfig"}; 
+      return names; 
+    }
 
 
     int Open::executePermission() const

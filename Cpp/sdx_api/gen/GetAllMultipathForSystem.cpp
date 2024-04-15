@@ -1,8 +1,7 @@
 
-#include "gen/GetAllMultipathForSystem.h"
+#include "GetAllMultipathForSystem.h"
 
 #include "command_factory.h"
-#include "command_result_factory.h"
 #include "parse_json.hpp"
 
 ///
@@ -14,17 +13,23 @@ namespace Sdx
   namespace Cmd
   {
     const char* const GetAllMultipathForSystem::CmdName = "GetAllMultipathForSystem";
-    const char* const GetAllMultipathForSystem::Documentation = "Get all multipath ID for the specified constellation.";
+    const char* const GetAllMultipathForSystem::Documentation = "Get all multipath ID for the specified constellation.\n"
+      "\n"
+      "Name   Type   Description\n"
+      "------ ------ --------------------------------------------------------------------------\n"
+      "System string \"GPS\", \"GLONASS\", \"Galileo\", \"BeiDou\", \"SBAS\", \"QZSS\", \"NavIC\" or \"PULSAR\"";
+    const char* const GetAllMultipathForSystem::TargetId = "";
 
-    REGISTER_COMMAND_FACTORY(GetAllMultipathForSystem);
+    REGISTER_COMMAND_TO_FACTORY_DECL(GetAllMultipathForSystem);
+    REGISTER_COMMAND_TO_FACTORY_IMPL(GetAllMultipathForSystem);
 
 
     GetAllMultipathForSystem::GetAllMultipathForSystem()
-      : CommandBase(CmdName)
+      : CommandBase(CmdName, TargetId)
     {}
 
     GetAllMultipathForSystem::GetAllMultipathForSystem(const std::string& system)
-      : CommandBase(CmdName)
+      : CommandBase(CmdName, TargetId)
     {
 
       setSystem(system);
@@ -50,6 +55,12 @@ namespace Sdx
     }
 
     std::string GetAllMultipathForSystem::documentation() const { return Documentation; }
+
+    const std::vector<std::string>& GetAllMultipathForSystem::fieldNames() const 
+    { 
+      static const std::vector<std::string> names {"System"}; 
+      return names; 
+    }
 
 
     int GetAllMultipathForSystem::executePermission() const

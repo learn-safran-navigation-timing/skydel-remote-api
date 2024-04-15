@@ -1,8 +1,7 @@
 
-#include "gen/GetAllSignalsFromIntTxResult.h"
+#include "GetAllSignalsFromIntTxResult.h"
 
 #include "command_factory.h"
-#include "command_result_factory.h"
 #include "parse_json.hpp"
 
 ///
@@ -14,17 +13,23 @@ namespace Sdx
   namespace Cmd
   {
     const char* const GetAllSignalsFromIntTxResult::CmdName = "GetAllSignalsFromIntTxResult";
-    const char* const GetAllSignalsFromIntTxResult::Documentation = "Result of GetAllSignalsFromIntTx.";
+    const char* const GetAllSignalsFromIntTxResult::Documentation = "Result of GetAllSignalsFromIntTx.\n"
+      "\n"
+      "Name      Type         Description\n"
+      "--------- ------------ -----------------------------------------------------\n"
+      "Id        string       Transmitter unique identifier.\n"
+      "IdsSignal array string List of signal ID for this interferences transmitter.";
+    const char* const GetAllSignalsFromIntTxResult::TargetId = "";
 
-    REGISTER_COMMAND_RESULT_TO_FACTORY_IMPL(GetAllSignalsFromIntTxResult);
+    REGISTER_COMMAND_TO_FACTORY_IMPL(GetAllSignalsFromIntTxResult);
 
 
     GetAllSignalsFromIntTxResult::GetAllSignalsFromIntTxResult()
-      : CommandResult(CmdName)
+      : CommandResult(CmdName, TargetId)
     {}
 
     GetAllSignalsFromIntTxResult::GetAllSignalsFromIntTxResult(const std::string& id, const std::vector<std::string>& idsSignal)
-      : CommandResult(CmdName)
+      : CommandResult(CmdName, TargetId)
     {
 
       setId(id);
@@ -32,7 +37,7 @@ namespace Sdx
     }
 
     GetAllSignalsFromIntTxResult::GetAllSignalsFromIntTxResult(CommandBasePtr relatedCommand, const std::string& id, const std::vector<std::string>& idsSignal)
-      : CommandResult(CmdName, relatedCommand)
+      : CommandResult(CmdName, TargetId, relatedCommand)
     {
 
       setId(id);
@@ -66,6 +71,12 @@ namespace Sdx
     }
 
     std::string GetAllSignalsFromIntTxResult::documentation() const { return Documentation; }
+
+    const std::vector<std::string>& GetAllSignalsFromIntTxResult::fieldNames() const 
+    { 
+      static const std::vector<std::string> names {"Id", "IdsSignal"}; 
+      return names; 
+    }
 
 
     std::string GetAllSignalsFromIntTxResult::id() const

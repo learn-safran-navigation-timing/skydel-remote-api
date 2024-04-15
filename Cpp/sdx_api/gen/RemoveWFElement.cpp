@@ -1,8 +1,7 @@
 
-#include "gen/RemoveWFElement.h"
+#include "RemoveWFElement.h"
 
 #include "command_factory.h"
-#include "command_result_factory.h"
 #include "parse_json.hpp"
 
 ///
@@ -15,12 +14,14 @@ namespace Sdx
   {
     const char* const RemoveWFElement::CmdName = "RemoveWFElement";
     const char* const RemoveWFElement::Documentation = "Remove last Wavefront element.";
+    const char* const RemoveWFElement::TargetId = "";
 
-    REGISTER_COMMAND_FACTORY(RemoveWFElement);
+    REGISTER_COMMAND_TO_FACTORY_DECL(RemoveWFElement);
+    REGISTER_COMMAND_TO_FACTORY_IMPL(RemoveWFElement);
 
 
     RemoveWFElement::RemoveWFElement()
-      : CommandBase(CmdName)
+      : CommandBase(CmdName, TargetId)
     {
 
     }
@@ -44,6 +45,12 @@ namespace Sdx
     }
 
     std::string RemoveWFElement::documentation() const { return Documentation; }
+
+    const std::vector<std::string>& RemoveWFElement::fieldNames() const 
+    { 
+      static const std::vector<std::string> names {}; 
+      return names; 
+    }
 
 
     int RemoveWFElement::executePermission() const

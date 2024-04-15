@@ -1,8 +1,7 @@
 
-#include "gen/IsSatMotionFixedResult.h"
+#include "IsSatMotionFixedResult.h"
 
 #include "command_factory.h"
-#include "command_result_factory.h"
 #include "parse_json.hpp"
 
 ///
@@ -14,17 +13,24 @@ namespace Sdx
   namespace Cmd
   {
     const char* const IsSatMotionFixedResult::CmdName = "IsSatMotionFixedResult";
-    const char* const IsSatMotionFixedResult::Documentation = "Result of IsSatMotionFixed.";
+    const char* const IsSatMotionFixedResult::Documentation = "Result of IsSatMotionFixed.\n"
+      "\n"
+      "Name    Type   Description\n"
+      "------- ------ --------------------------------------------------------------------------------------------------------------\n"
+      "System  string \"GPS\", \"Galileo\", \"BeiDou\", \"QZSS\", \"NavIC\" or \"PULSAR\"\n"
+      "SvId    int    The satellite's SV ID.\n"
+      "IsFixed bool   If true, the satellite relative position is fixed, if false, the satellite motion follows a normal trajectory.";
+    const char* const IsSatMotionFixedResult::TargetId = "";
 
-    REGISTER_COMMAND_RESULT_TO_FACTORY_IMPL(IsSatMotionFixedResult);
+    REGISTER_COMMAND_TO_FACTORY_IMPL(IsSatMotionFixedResult);
 
 
     IsSatMotionFixedResult::IsSatMotionFixedResult()
-      : CommandResult(CmdName)
+      : CommandResult(CmdName, TargetId)
     {}
 
     IsSatMotionFixedResult::IsSatMotionFixedResult(const std::string& system, int svId, bool isFixed)
-      : CommandResult(CmdName)
+      : CommandResult(CmdName, TargetId)
     {
 
       setSystem(system);
@@ -33,7 +39,7 @@ namespace Sdx
     }
 
     IsSatMotionFixedResult::IsSatMotionFixedResult(CommandBasePtr relatedCommand, const std::string& system, int svId, bool isFixed)
-      : CommandResult(CmdName, relatedCommand)
+      : CommandResult(CmdName, TargetId, relatedCommand)
     {
 
       setSystem(system);
@@ -69,6 +75,12 @@ namespace Sdx
     }
 
     std::string IsSatMotionFixedResult::documentation() const { return Documentation; }
+
+    const std::vector<std::string>& IsSatMotionFixedResult::fieldNames() const 
+    { 
+      static const std::vector<std::string> names {"System", "SvId", "IsFixed"}; 
+      return names; 
+    }
 
 
     std::string IsSatMotionFixedResult::system() const

@@ -1,8 +1,7 @@
 
-#include "gen/GetEncryptionLibraryPathResult.h"
+#include "GetEncryptionLibraryPathResult.h"
 
 #include "command_factory.h"
-#include "command_result_factory.h"
 #include "parse_json.hpp"
 
 ///
@@ -14,17 +13,23 @@ namespace Sdx
   namespace Cmd
   {
     const char* const GetEncryptionLibraryPathResult::CmdName = "GetEncryptionLibraryPathResult";
-    const char* const GetEncryptionLibraryPathResult::Documentation = "Result of GetEncryptionLibraryPath.";
+    const char* const GetEncryptionLibraryPathResult::Documentation = "Result of GetEncryptionLibraryPath.\n"
+      "\n"
+      "Name Type                 Description\n"
+      "---- -------------------- -------------------------\n"
+      "Type EncryptionSignalType Encryption signal type.\n"
+      "Path string               Path to the library file.";
+    const char* const GetEncryptionLibraryPathResult::TargetId = "";
 
-    REGISTER_COMMAND_RESULT_TO_FACTORY_IMPL(GetEncryptionLibraryPathResult);
+    REGISTER_COMMAND_TO_FACTORY_IMPL(GetEncryptionLibraryPathResult);
 
 
     GetEncryptionLibraryPathResult::GetEncryptionLibraryPathResult()
-      : CommandResult(CmdName)
+      : CommandResult(CmdName, TargetId)
     {}
 
     GetEncryptionLibraryPathResult::GetEncryptionLibraryPathResult(const Sdx::EncryptionSignalType& type, const std::string& path)
-      : CommandResult(CmdName)
+      : CommandResult(CmdName, TargetId)
     {
 
       setType(type);
@@ -32,7 +37,7 @@ namespace Sdx
     }
 
     GetEncryptionLibraryPathResult::GetEncryptionLibraryPathResult(CommandBasePtr relatedCommand, const Sdx::EncryptionSignalType& type, const std::string& path)
-      : CommandResult(CmdName, relatedCommand)
+      : CommandResult(CmdName, TargetId, relatedCommand)
     {
 
       setType(type);
@@ -66,6 +71,12 @@ namespace Sdx
     }
 
     std::string GetEncryptionLibraryPathResult::documentation() const { return Documentation; }
+
+    const std::vector<std::string>& GetEncryptionLibraryPathResult::fieldNames() const 
+    { 
+      static const std::vector<std::string> names {"Type", "Path"}; 
+      return names; 
+    }
 
 
     Sdx::EncryptionSignalType GetEncryptionLibraryPathResult::type() const

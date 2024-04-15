@@ -1,8 +1,7 @@
 
-#include "gen/ExportPerformanceDataToCSV.h"
+#include "ExportPerformanceDataToCSV.h"
 
 #include "command_factory.h"
-#include "command_result_factory.h"
 #include "parse_json.hpp"
 
 ///
@@ -14,17 +13,24 @@ namespace Sdx
   namespace Cmd
   {
     const char* const ExportPerformanceDataToCSV::CmdName = "ExportPerformanceDataToCSV";
-    const char* const ExportPerformanceDataToCSV::Documentation = "Export the performance graph data into a csv file.";
+    const char* const ExportPerformanceDataToCSV::Documentation = "Export the performance graph data into a csv file.\n"
+      "\n"
+      "Name        Type   Description\n"
+      "----------- ------ -----------------------------------------------------------------------------------------------\n"
+      "Path        string The full path to the csv file.\n"
+      "Overwriting bool   Overwrite an existing file if set to true, return an error if set to false and the file exists.";
+    const char* const ExportPerformanceDataToCSV::TargetId = "";
 
-    REGISTER_COMMAND_FACTORY(ExportPerformanceDataToCSV);
+    REGISTER_COMMAND_TO_FACTORY_DECL(ExportPerformanceDataToCSV);
+    REGISTER_COMMAND_TO_FACTORY_IMPL(ExportPerformanceDataToCSV);
 
 
     ExportPerformanceDataToCSV::ExportPerformanceDataToCSV()
-      : CommandBase(CmdName)
+      : CommandBase(CmdName, TargetId)
     {}
 
     ExportPerformanceDataToCSV::ExportPerformanceDataToCSV(const std::string& path, bool overwriting)
-      : CommandBase(CmdName)
+      : CommandBase(CmdName, TargetId)
     {
 
       setPath(path);
@@ -52,6 +58,12 @@ namespace Sdx
     }
 
     std::string ExportPerformanceDataToCSV::documentation() const { return Documentation; }
+
+    const std::vector<std::string>& ExportPerformanceDataToCSV::fieldNames() const 
+    { 
+      static const std::vector<std::string> names {"Path", "Overwriting"}; 
+      return names; 
+    }
 
 
     int ExportPerformanceDataToCSV::executePermission() const

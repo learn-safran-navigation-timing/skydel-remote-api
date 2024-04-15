@@ -1,8 +1,7 @@
 
-#include "gen/GetGalileoFnavSatelliteK.h"
+#include "GetGalileoFnavSatelliteK.h"
 
 #include "command_factory.h"
-#include "command_result_factory.h"
 #include "parse_json.hpp"
 
 ///
@@ -14,17 +13,23 @@ namespace Sdx
   namespace Cmd
   {
     const char* const GetGalileoFnavSatelliteK::CmdName = "GetGalileoFnavSatelliteK";
-    const char* const GetGalileoFnavSatelliteK::Documentation = "Get the almanac satellite id for subframe 1 (Parameter K described in ICD 4.2.3 Frame Layout).";
+    const char* const GetGalileoFnavSatelliteK::Documentation = "Get the almanac satellite id for subframe 1 (Parameter K described in ICD 4.2.3 Frame Layout).\n"
+      "\n"
+      "Name Type Description\n"
+      "---- ---- --------------------\n"
+      "Prn  int  Satellite PRN number";
+    const char* const GetGalileoFnavSatelliteK::TargetId = "";
 
-    REGISTER_COMMAND_FACTORY(GetGalileoFnavSatelliteK);
+    REGISTER_COMMAND_TO_FACTORY_DECL(GetGalileoFnavSatelliteK);
+    REGISTER_COMMAND_TO_FACTORY_IMPL(GetGalileoFnavSatelliteK);
 
 
     GetGalileoFnavSatelliteK::GetGalileoFnavSatelliteK()
-      : CommandBase(CmdName)
+      : CommandBase(CmdName, TargetId)
     {}
 
     GetGalileoFnavSatelliteK::GetGalileoFnavSatelliteK(int prn)
-      : CommandBase(CmdName)
+      : CommandBase(CmdName, TargetId)
     {
 
       setPrn(prn);
@@ -50,6 +55,12 @@ namespace Sdx
     }
 
     std::string GetGalileoFnavSatelliteK::documentation() const { return Documentation; }
+
+    const std::vector<std::string>& GetGalileoFnavSatelliteK::fieldNames() const 
+    { 
+      static const std::vector<std::string> names {"Prn"}; 
+      return names; 
+    }
 
 
     int GetGalileoFnavSatelliteK::executePermission() const

@@ -1,8 +1,7 @@
 
-#include "gen/ExportHilGraphDataToCSV.h"
+#include "ExportHilGraphDataToCSV.h"
 
 #include "command_factory.h"
-#include "command_result_factory.h"
 #include "parse_json.hpp"
 
 ///
@@ -14,17 +13,24 @@ namespace Sdx
   namespace Cmd
   {
     const char* const ExportHilGraphDataToCSV::CmdName = "ExportHilGraphDataToCSV";
-    const char* const ExportHilGraphDataToCSV::Documentation = "Export the hil graph data into a csv file.";
+    const char* const ExportHilGraphDataToCSV::Documentation = "Export the hil graph data into a csv file.\n"
+      "\n"
+      "Name        Type   Description\n"
+      "----------- ------ -----------------------------------------------------------------------------------------------\n"
+      "Path        string The full path to the csv file.\n"
+      "Overwriting bool   Overwrite an existing file if set to true, return an error if set to false and the file exists.";
+    const char* const ExportHilGraphDataToCSV::TargetId = "";
 
-    REGISTER_COMMAND_FACTORY(ExportHilGraphDataToCSV);
+    REGISTER_COMMAND_TO_FACTORY_DECL(ExportHilGraphDataToCSV);
+    REGISTER_COMMAND_TO_FACTORY_IMPL(ExportHilGraphDataToCSV);
 
 
     ExportHilGraphDataToCSV::ExportHilGraphDataToCSV()
-      : CommandBase(CmdName)
+      : CommandBase(CmdName, TargetId)
     {}
 
     ExportHilGraphDataToCSV::ExportHilGraphDataToCSV(const std::string& path, bool overwriting)
-      : CommandBase(CmdName)
+      : CommandBase(CmdName, TargetId)
     {
 
       setPath(path);
@@ -52,6 +58,12 @@ namespace Sdx
     }
 
     std::string ExportHilGraphDataToCSV::documentation() const { return Documentation; }
+
+    const std::vector<std::string>& ExportHilGraphDataToCSV::fieldNames() const 
+    { 
+      static const std::vector<std::string> names {"Path", "Overwriting"}; 
+      return names; 
+    }
 
 
     int ExportHilGraphDataToCSV::executePermission() const

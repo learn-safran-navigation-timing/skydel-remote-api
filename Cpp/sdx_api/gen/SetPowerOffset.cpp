@@ -1,8 +1,7 @@
 
-#include "gen/SetPowerOffset.h"
+#include "SetPowerOffset.h"
 
 #include "command_factory.h"
-#include "command_result_factory.h"
 #include "parse_json.hpp"
 
 ///
@@ -14,17 +13,29 @@ namespace Sdx
   namespace Cmd
   {
     const char* const SetPowerOffset::CmdName = "SetPowerOffset";
-    const char* const SetPowerOffset::Documentation = "Please note the command SetPowerOffset is deprecated since 21.7. You may use SetSignalPowerOffset.\n\nSet power offset default value for the signal given in argument";
+    const char* const SetPowerOffset::Documentation = "Please note the command SetPowerOffset is deprecated since 21.7. You may use SetSignalPowerOffset.\n"
+      "\n"
+      "Set power offset default value for the signal given in argument\n"
+      "\n"
+      "Name   Type   Description\n"
+      "------ ------ -----------------------------------------------------------------------------------------------\n"
+      "Signal string Accepted signal keys: \"L1CA\", \"L1C\", \"L1P\", \"L1ME\", \"L1MR\", \"L2C\", \"L2P\", \"L2ME\", \"L2MR\", \"L5\",\n"
+      "                                    \"G1\", \"G2\", \"E1\", \"E1PRS\", \"E5a\", \"E5b\", \"E6BC\", \"E6PRS\",\n"
+      "                                    \"B1\", \"B2\", \"B1C\", \"B2a\", \"B3I\", \"QZSSL1CA\", \"QZSSL1CB\", \"QZSSL1C\",\n"
+      "                                    \"QZSSL2C\", \"QZSSL5\", \"QZSSL1S\", \"QZSSL5S\", \"NAVICL5\", \"PULSARXL\"\n"
+      "Offset double Offset in dB (negative value will attenuate signal)";
+    const char* const SetPowerOffset::TargetId = "";
 
-    REGISTER_COMMAND_FACTORY(SetPowerOffset);
+    REGISTER_COMMAND_TO_FACTORY_DECL(SetPowerOffset);
+    REGISTER_COMMAND_TO_FACTORY_IMPL(SetPowerOffset);
 
 
     SetPowerOffset::SetPowerOffset()
-      : CommandBase(CmdName)
+      : CommandBase(CmdName, TargetId)
     {}
 
     SetPowerOffset::SetPowerOffset(const std::string& signal, double offset)
-      : CommandBase(CmdName)
+      : CommandBase(CmdName, TargetId)
     {
 
       setSignal(signal);
@@ -52,6 +63,12 @@ namespace Sdx
     }
 
     std::string SetPowerOffset::documentation() const { return Documentation; }
+
+    const std::vector<std::string>& SetPowerOffset::fieldNames() const 
+    { 
+      static const std::vector<std::string> names {"Signal", "Offset"}; 
+      return names; 
+    }
 
 
     int SetPowerOffset::executePermission() const

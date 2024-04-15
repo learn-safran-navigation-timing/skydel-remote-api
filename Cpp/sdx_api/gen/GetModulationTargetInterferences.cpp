@@ -1,8 +1,7 @@
 
-#include "gen/GetModulationTargetInterferences.h"
+#include "GetModulationTargetInterferences.h"
 
 #include "command_factory.h"
-#include "command_result_factory.h"
 #include "parse_json.hpp"
 
 ///
@@ -14,17 +13,27 @@ namespace Sdx
   namespace Cmd
   {
     const char* const GetModulationTargetInterferences::CmdName = "GetModulationTargetInterferences";
-    const char* const GetModulationTargetInterferences::Documentation = "Get the specified target and output index to a group of interferences.\nAn interference transmitter is mapped to a specific RF output by using the same Interference Group Number.\nSkydel tries to keep the sampling rate as low as possible,\nbut it is possible to set constaints with MinRate and MaxRate.";
+    const char* const GetModulationTargetInterferences::Documentation = "Get the specified target and output index to a group of interferences.\n"
+      "An interference transmitter is mapped to a specific RF output by using the same Interference Group Number.\n"
+      "Skydel tries to keep the sampling rate as low as possible,\n"
+      "but it is possible to set constaints with MinRate and MaxRate.\n"
+      "\n"
+      "Name   Type   Description\n"
+      "------ ------ -------------------------\n"
+      "Output int    Output index (zero based)\n"
+      "Id     string Target identifier";
+    const char* const GetModulationTargetInterferences::TargetId = "";
 
-    REGISTER_COMMAND_FACTORY(GetModulationTargetInterferences);
+    REGISTER_COMMAND_TO_FACTORY_DECL(GetModulationTargetInterferences);
+    REGISTER_COMMAND_TO_FACTORY_IMPL(GetModulationTargetInterferences);
 
 
     GetModulationTargetInterferences::GetModulationTargetInterferences()
-      : CommandBase(CmdName)
+      : CommandBase(CmdName, TargetId)
     {}
 
     GetModulationTargetInterferences::GetModulationTargetInterferences(int output, const std::string& id)
-      : CommandBase(CmdName)
+      : CommandBase(CmdName, TargetId)
     {
 
       setOutput(output);
@@ -52,6 +61,12 @@ namespace Sdx
     }
 
     std::string GetModulationTargetInterferences::documentation() const { return Documentation; }
+
+    const std::vector<std::string>& GetModulationTargetInterferences::fieldNames() const 
+    { 
+      static const std::vector<std::string> names {"Output", "Id"}; 
+      return names; 
+    }
 
 
     int GetModulationTargetInterferences::executePermission() const

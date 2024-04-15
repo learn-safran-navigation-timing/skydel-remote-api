@@ -1,8 +1,7 @@
 
-#include "gen/SwapSbasServiceMessageRegionGroup.h"
+#include "SwapSbasServiceMessageRegionGroup.h"
 
 #include "command_factory.h"
-#include "command_result_factory.h"
 #include "parse_json.hpp"
 
 ///
@@ -14,17 +13,25 @@ namespace Sdx
   namespace Cmd
   {
     const char* const SwapSbasServiceMessageRegionGroup::CmdName = "SwapSbasServiceMessageRegionGroup";
-    const char* const SwapSbasServiceMessageRegionGroup::Documentation = "Swaps 2 SBAS service message region group.";
+    const char* const SwapSbasServiceMessageRegionGroup::Documentation = "Swaps 2 SBAS service message region group.\n"
+      "\n"
+      "Name            Type   Description\n"
+      "--------------- ------ ---------------------------------------------------------------------------------\n"
+      "ServiceProvider string Service providers, accepts \"WAAS\", \"EGNOS\", \"MSAS\", \"GAGAN\" and \"SDCM\".\n"
+      "FirstId         string Unique identifier of the SBAS service message region group to swap with SecondId.\n"
+      "SecondId        string Unique identifier of the SBAS service message region group to swap with FirstId.";
+    const char* const SwapSbasServiceMessageRegionGroup::TargetId = "";
 
-    REGISTER_COMMAND_FACTORY(SwapSbasServiceMessageRegionGroup);
+    REGISTER_COMMAND_TO_FACTORY_DECL(SwapSbasServiceMessageRegionGroup);
+    REGISTER_COMMAND_TO_FACTORY_IMPL(SwapSbasServiceMessageRegionGroup);
 
 
     SwapSbasServiceMessageRegionGroup::SwapSbasServiceMessageRegionGroup()
-      : CommandBase(CmdName)
+      : CommandBase(CmdName, TargetId)
     {}
 
     SwapSbasServiceMessageRegionGroup::SwapSbasServiceMessageRegionGroup(const std::string& serviceProvider, const std::string& firstId, const std::string& secondId)
-      : CommandBase(CmdName)
+      : CommandBase(CmdName, TargetId)
     {
 
       setServiceProvider(serviceProvider);
@@ -54,6 +61,12 @@ namespace Sdx
     }
 
     std::string SwapSbasServiceMessageRegionGroup::documentation() const { return Documentation; }
+
+    const std::vector<std::string>& SwapSbasServiceMessageRegionGroup::fieldNames() const 
+    { 
+      static const std::vector<std::string> names {"ServiceProvider", "FirstId", "SecondId"}; 
+      return names; 
+    }
 
 
     int SwapSbasServiceMessageRegionGroup::executePermission() const

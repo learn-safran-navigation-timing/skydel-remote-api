@@ -1,8 +1,7 @@
 
-#include "gen/IsSignalEnabledForEachSVResult.h"
+#include "IsSignalEnabledForEachSVResult.h"
 
 #include "command_factory.h"
-#include "command_result_factory.h"
 #include "parse_json.hpp"
 
 ///
@@ -14,17 +13,26 @@ namespace Sdx
   namespace Cmd
   {
     const char* const IsSignalEnabledForEachSVResult::CmdName = "IsSignalEnabledForEachSVResult";
-    const char* const IsSignalEnabledForEachSVResult::Documentation = "Result of IsSignalEnabledForEachSV.";
+    const char* const IsSignalEnabledForEachSVResult::Documentation = "Result of IsSignalEnabledForEachSV.\n"
+      "\n"
+      "Name    Type       Description\n"
+      "------- ---------- --------------------------------------------------------------------------------------------------------------\n"
+      "Signal  string     Accepted signal keys: \"L1CA\", \"L1C\", \"L1P\", \"L1ME\", \"L1MR\", \"L2C\", \"L2P\", \"L2ME\", \"L2MR\", \"L5\",\n"
+      "                                         \"G1\", \"G2\", \"E1\", \"E1PRS\", \"E5a\", \"E5b\", \"E6BC\", \"E6PRS\",\n"
+      "                                         \"B1\", \"B2\", \"B1C\", \"B2a\", \"B3I\", \"SBASL1\", \"SBASL5\", \"QZSSL1CA\",\n"
+      "                                         \"QZSSL1CB\", \"QZSSL1C\", \"QZSSL2C\", \"QZSSL5\", \"QZSSL1S\", \"QZSSL5S\", \"NAVICL5\", \"PULSARXL\"\n"
+      "Enabled array bool Signal is enabled when value is True. Zero based index (index 0 => first SV ID, index 1 => second SV ID, etc).";
+    const char* const IsSignalEnabledForEachSVResult::TargetId = "";
 
-    REGISTER_COMMAND_RESULT_TO_FACTORY_IMPL(IsSignalEnabledForEachSVResult);
+    REGISTER_COMMAND_TO_FACTORY_IMPL(IsSignalEnabledForEachSVResult);
 
 
     IsSignalEnabledForEachSVResult::IsSignalEnabledForEachSVResult()
-      : CommandResult(CmdName)
+      : CommandResult(CmdName, TargetId)
     {}
 
     IsSignalEnabledForEachSVResult::IsSignalEnabledForEachSVResult(const std::string& signal, const std::vector<bool>& enabled)
-      : CommandResult(CmdName)
+      : CommandResult(CmdName, TargetId)
     {
 
       setSignal(signal);
@@ -32,7 +40,7 @@ namespace Sdx
     }
 
     IsSignalEnabledForEachSVResult::IsSignalEnabledForEachSVResult(CommandBasePtr relatedCommand, const std::string& signal, const std::vector<bool>& enabled)
-      : CommandResult(CmdName, relatedCommand)
+      : CommandResult(CmdName, TargetId, relatedCommand)
     {
 
       setSignal(signal);
@@ -66,6 +74,12 @@ namespace Sdx
     }
 
     std::string IsSignalEnabledForEachSVResult::documentation() const { return Documentation; }
+
+    const std::vector<std::string>& IsSignalEnabledForEachSVResult::fieldNames() const 
+    { 
+      static const std::vector<std::string> names {"Signal", "Enabled"}; 
+      return names; 
+    }
 
 
     std::string IsSignalEnabledForEachSVResult::signal() const

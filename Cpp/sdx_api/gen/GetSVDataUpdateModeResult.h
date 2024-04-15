@@ -2,7 +2,7 @@
 
 #include <memory>
 #include "command_result.h"
-#include "command_result_factory.h"
+#include "command_factory.h"
 #include "gen/SVDataUpdateMode.h"
 
 namespace Sdx
@@ -28,6 +28,7 @@ namespace Sdx
     public:
       static const char* const CmdName;
       static const char* const Documentation;
+      static const char* const TargetId;
 
 
       GetSVDataUpdateModeResult();
@@ -42,13 +43,14 @@ namespace Sdx
       static GetSVDataUpdateModeResultPtr dynamicCast(CommandBasePtr ptr);
       virtual bool isValid() const override;
       virtual std::string documentation() const override;
+      virtual const std::vector<std::string>& fieldNames() const override;
 
 
       // **** mode ****
       Sdx::SVDataUpdateMode mode() const;
       void setMode(const Sdx::SVDataUpdateMode& mode);
     };
-    REGISTER_COMMAND_RESULT_TO_FACTORY_DECL(GetSVDataUpdateModeResult);
+    REGISTER_COMMAND_TO_FACTORY_DECL(GetSVDataUpdateModeResult);
   }
 }
 

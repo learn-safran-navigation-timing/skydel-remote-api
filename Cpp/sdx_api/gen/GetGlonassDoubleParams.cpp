@@ -1,8 +1,7 @@
 
-#include "gen/GetGlonassDoubleParams.h"
+#include "GetGlonassDoubleParams.h"
 
 #include "command_factory.h"
-#include "command_result_factory.h"
 #include "parse_json.hpp"
 
 ///
@@ -14,17 +13,25 @@ namespace Sdx
   namespace Cmd
   {
     const char* const GetGlonassDoubleParams::CmdName = "GetGlonassDoubleParams";
-    const char* const GetGlonassDoubleParams::Documentation = "Please note the command GetGlonassDoubleParams is deprecated since 21.3. You may use GetGlonassEphDoubleParamForEachSV.\n\nGet GLONASS parameter value for all satellites";
+    const char* const GetGlonassDoubleParams::Documentation = "Please note the command GetGlonassDoubleParams is deprecated since 21.3. You may use GetGlonassEphDoubleParamForEachSV.\n"
+      "\n"
+      "Get GLONASS parameter value for all satellites\n"
+      "\n"
+      "Name      Type   Description\n"
+      "--------- ------ ---------------------------------------------------------\n"
+      "ParamName string Refer to SetGlonassEphDoubleParamForSV for accepted names";
+    const char* const GetGlonassDoubleParams::TargetId = "";
 
-    REGISTER_COMMAND_FACTORY(GetGlonassDoubleParams);
+    REGISTER_COMMAND_TO_FACTORY_DECL(GetGlonassDoubleParams);
+    REGISTER_COMMAND_TO_FACTORY_IMPL(GetGlonassDoubleParams);
 
 
     GetGlonassDoubleParams::GetGlonassDoubleParams()
-      : CommandBase(CmdName)
+      : CommandBase(CmdName, TargetId)
     {}
 
     GetGlonassDoubleParams::GetGlonassDoubleParams(const std::string& paramName)
-      : CommandBase(CmdName)
+      : CommandBase(CmdName, TargetId)
     {
 
       setParamName(paramName);
@@ -50,6 +57,12 @@ namespace Sdx
     }
 
     std::string GetGlonassDoubleParams::documentation() const { return Documentation; }
+
+    const std::vector<std::string>& GetGlonassDoubleParams::fieldNames() const 
+    { 
+      static const std::vector<std::string> names {"ParamName"}; 
+      return names; 
+    }
 
 
     int GetGlonassDoubleParams::executePermission() const

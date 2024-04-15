@@ -1,8 +1,7 @@
 
-#include "gen/GetIntTxBOC.h"
+#include "GetIntTxBOC.h"
 
 #include "command_factory.h"
-#include "command_result_factory.h"
 #include "parse_json.hpp"
 
 ///
@@ -14,17 +13,24 @@ namespace Sdx
   namespace Cmd
   {
     const char* const GetIntTxBOC::CmdName = "GetIntTxBOC";
-    const char* const GetIntTxBOC::Documentation = "Get BOC signal interference.";
+    const char* const GetIntTxBOC::Documentation = "Get BOC signal interference.\n"
+      "\n"
+      "Name          Type   Description\n"
+      "------------- ------ ------------------------------\n"
+      "TransmitterId string Transmitter unique identifier.\n"
+      "SignalId      string BOC unique identifier.";
+    const char* const GetIntTxBOC::TargetId = "";
 
-    REGISTER_COMMAND_FACTORY(GetIntTxBOC);
+    REGISTER_COMMAND_TO_FACTORY_DECL(GetIntTxBOC);
+    REGISTER_COMMAND_TO_FACTORY_IMPL(GetIntTxBOC);
 
 
     GetIntTxBOC::GetIntTxBOC()
-      : CommandBase(CmdName)
+      : CommandBase(CmdName, TargetId)
     {}
 
     GetIntTxBOC::GetIntTxBOC(const std::string& transmitterId, const std::string& signalId)
-      : CommandBase(CmdName)
+      : CommandBase(CmdName, TargetId)
     {
 
       setTransmitterId(transmitterId);
@@ -52,6 +58,12 @@ namespace Sdx
     }
 
     std::string GetIntTxBOC::documentation() const { return Documentation; }
+
+    const std::vector<std::string>& GetIntTxBOC::fieldNames() const 
+    { 
+      static const std::vector<std::string> names {"TransmitterId", "SignalId"}; 
+      return names; 
+    }
 
 
     int GetIntTxBOC::executePermission() const

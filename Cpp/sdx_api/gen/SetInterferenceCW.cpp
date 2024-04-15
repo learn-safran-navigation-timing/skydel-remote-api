@@ -1,8 +1,7 @@
 
-#include "gen/SetInterferenceCW.h"
+#include "SetInterferenceCW.h"
 
 #include "command_factory.h"
-#include "command_result_factory.h"
 #include "parse_json.hpp"
 
 ///
@@ -14,17 +13,28 @@ namespace Sdx
   namespace Cmd
   {
     const char* const SetInterferenceCW::CmdName = "SetInterferenceCW";
-    const char* const SetInterferenceCW::Documentation = "Add or update continuous wave interference.";
+    const char* const SetInterferenceCW::Documentation = "Add or update continuous wave interference.\n"
+      "\n"
+      "Name        Type   Description\n"
+      "----------- ------ -------------------------------------------------\n"
+      "StartTime   int    Elapsed time in seconds since start of simulation\n"
+      "StopTime    int    Elapsed time in seconds since start of simulation\n"
+      "CentralFreq double Central frequency (Hz)\n"
+      "Power       double Power (dB) relative to nominal power\n"
+      "Enabled     bool   Interference enable or not\n"
+      "Id          string Unique identifier automatically set by simulator";
+    const char* const SetInterferenceCW::TargetId = "";
 
-    REGISTER_COMMAND_FACTORY(SetInterferenceCW);
+    REGISTER_COMMAND_TO_FACTORY_DECL(SetInterferenceCW);
+    REGISTER_COMMAND_TO_FACTORY_IMPL(SetInterferenceCW);
 
 
     SetInterferenceCW::SetInterferenceCW()
-      : CommandBase(CmdName)
+      : CommandBase(CmdName, TargetId)
     {}
 
     SetInterferenceCW::SetInterferenceCW(int startTime, int stopTime, double centralFreq, double power, bool enabled, const std::string& id)
-      : CommandBase(CmdName)
+      : CommandBase(CmdName, TargetId)
     {
 
       setStartTime(startTime);
@@ -60,6 +70,12 @@ namespace Sdx
     }
 
     std::string SetInterferenceCW::documentation() const { return Documentation; }
+
+    const std::vector<std::string>& SetInterferenceCW::fieldNames() const 
+    { 
+      static const std::vector<std::string> names {"StartTime", "StopTime", "CentralFreq", "Power", "Enabled", "Id"}; 
+      return names; 
+    }
 
 
     int SetInterferenceCW::executePermission() const

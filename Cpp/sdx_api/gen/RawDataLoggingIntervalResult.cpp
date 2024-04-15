@@ -1,8 +1,7 @@
 
-#include "gen/RawDataLoggingIntervalResult.h"
+#include "RawDataLoggingIntervalResult.h"
 
 #include "command_factory.h"
-#include "command_result_factory.h"
 #include "parse_json.hpp"
 
 ///
@@ -14,17 +13,26 @@ namespace Sdx
   namespace Cmd
   {
     const char* const RawDataLoggingIntervalResult::CmdName = "RawDataLoggingIntervalResult";
-    const char* const RawDataLoggingIntervalResult::Documentation = "Result of GetRawDataLoggingInterval.";
+    const char* const RawDataLoggingIntervalResult::Documentation = "Result of GetRawDataLoggingInterval.\n"
+      "\n"
+      "Name         Type Description\n"
+      "------------ ---- -------------------------\n"
+      "Days         int  Interval in days.\n"
+      "Hours        int  Interval in hours.\n"
+      "Minutes      int  Interval in minutes.\n"
+      "Seconds      int  Interval in seconds.\n"
+      "Milliseconds int  Interval in milliseconds.";
+    const char* const RawDataLoggingIntervalResult::TargetId = "";
 
-    REGISTER_COMMAND_RESULT_TO_FACTORY_IMPL(RawDataLoggingIntervalResult);
+    REGISTER_COMMAND_TO_FACTORY_IMPL(RawDataLoggingIntervalResult);
 
 
     RawDataLoggingIntervalResult::RawDataLoggingIntervalResult()
-      : CommandResult(CmdName)
+      : CommandResult(CmdName, TargetId)
     {}
 
     RawDataLoggingIntervalResult::RawDataLoggingIntervalResult(int days, int hours, int minutes, int seconds, int milliseconds)
-      : CommandResult(CmdName)
+      : CommandResult(CmdName, TargetId)
     {
 
       setDays(days);
@@ -35,7 +43,7 @@ namespace Sdx
     }
 
     RawDataLoggingIntervalResult::RawDataLoggingIntervalResult(CommandBasePtr relatedCommand, int days, int hours, int minutes, int seconds, int milliseconds)
-      : CommandResult(CmdName, relatedCommand)
+      : CommandResult(CmdName, TargetId, relatedCommand)
     {
 
       setDays(days);
@@ -75,6 +83,12 @@ namespace Sdx
     }
 
     std::string RawDataLoggingIntervalResult::documentation() const { return Documentation; }
+
+    const std::vector<std::string>& RawDataLoggingIntervalResult::fieldNames() const 
+    { 
+      static const std::vector<std::string> names {"Days", "Hours", "Minutes", "Seconds", "Milliseconds"}; 
+      return names; 
+    }
 
 
     int RawDataLoggingIntervalResult::days() const

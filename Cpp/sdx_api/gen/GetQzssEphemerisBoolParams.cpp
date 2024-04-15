@@ -1,8 +1,7 @@
 
-#include "gen/GetQzssEphemerisBoolParams.h"
+#include "GetQzssEphemerisBoolParams.h"
 
 #include "command_factory.h"
-#include "command_result_factory.h"
 #include "parse_json.hpp"
 
 ///
@@ -14,19 +13,30 @@ namespace Sdx
   namespace Cmd
   {
     const char* const GetQzssEphemerisBoolParams::CmdName = "GetQzssEphemerisBoolParams";
-    const char* const GetQzssEphemerisBoolParams::Documentation = "Please note the command GetQzssEphemerisBoolParams is deprecated since 21.3. You may use GetQzssEphBoolParamForEachSV.\n\nPlease note the command GetQzssEphBoolParamForEachSV is deprecated since 23.11. You may use GetConstellationParameterForSV.\n\nGet QZSS ephemeris boolean parameter value for all satellites";
+    const char* const GetQzssEphemerisBoolParams::Documentation = "Please note the command GetQzssEphemerisBoolParams is deprecated since 21.3. You may use GetQzssEphBoolParamForEachSV.\n"
+      "\n"
+      "Please note the command GetQzssEphBoolParamForEachSV is deprecated since 23.11. You may use GetConstellationParameterForSV.\n"
+      "\n"
+      "Get QZSS ephemeris boolean parameter value for all satellites\n"
+      "\n"
+      "Name        Type            Description\n"
+      "----------- --------------- -------------------------------------------------------------------------------------------\n"
+      "ParamName   string          Refer to SetQzssEphemerisBoolParam for accepted names\n"
+      "DataSetName optional string Optional name of the data set to use. If no value is provided, the active data set is used.";
+    const char* const GetQzssEphemerisBoolParams::TargetId = "";
 
     const char* const GetQzssEphemerisBoolParams::Deprecated = "Please note the command GetQzssEphemerisBoolParams is deprecated since 23.11. You may use GetConstellationParameterForSV.";
 
-    REGISTER_COMMAND_FACTORY(GetQzssEphemerisBoolParams);
+    REGISTER_COMMAND_TO_FACTORY_DECL(GetQzssEphemerisBoolParams);
+    REGISTER_COMMAND_TO_FACTORY_IMPL(GetQzssEphemerisBoolParams);
 
 
     GetQzssEphemerisBoolParams::GetQzssEphemerisBoolParams()
-      : CommandBase(CmdName)
+      : CommandBase(CmdName, TargetId)
     {}
 
     GetQzssEphemerisBoolParams::GetQzssEphemerisBoolParams(const std::string& paramName, const Sdx::optional<std::string>& dataSetName)
-      : CommandBase(CmdName)
+      : CommandBase(CmdName, TargetId)
     {
 
       setParamName(paramName);
@@ -54,6 +64,12 @@ namespace Sdx
     }
 
     std::string GetQzssEphemerisBoolParams::documentation() const { return Documentation; }
+
+    const std::vector<std::string>& GetQzssEphemerisBoolParams::fieldNames() const 
+    { 
+      static const std::vector<std::string> names {"ParamName", "DataSetName"}; 
+      return names; 
+    }
 
     Sdx::optional<std::string> GetQzssEphemerisBoolParams::deprecated() const { return Sdx::optional<std::string>{Deprecated}; }
 

@@ -2,7 +2,7 @@
 
 #include <memory>
 #include "command_result.h"
-#include "command_result_factory.h"
+#include "command_factory.h"
 #include <map>
 #include <string>
 
@@ -32,6 +32,7 @@ namespace Sdx
     public:
       static const char* const CmdName;
       static const char* const Documentation;
+      static const char* const TargetId;
 
 
       GetTransmittedPrnForSVResult();
@@ -46,6 +47,7 @@ namespace Sdx
       static GetTransmittedPrnForSVResultPtr dynamicCast(CommandBasePtr ptr);
       virtual bool isValid() const override;
       virtual std::string documentation() const override;
+      virtual const std::vector<std::string>& fieldNames() const override;
 
 
       // **** svId ****
@@ -57,7 +59,7 @@ namespace Sdx
       std::map<std::string, int> signalPrnDict() const;
       void setSignalPrnDict(const std::map<std::string, int>& signalPrnDict);
     };
-    REGISTER_COMMAND_RESULT_TO_FACTORY_DECL(GetTransmittedPrnForSVResult);
+    REGISTER_COMMAND_TO_FACTORY_DECL(GetTransmittedPrnForSVResult);
   }
 }
 

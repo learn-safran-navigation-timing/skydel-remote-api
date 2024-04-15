@@ -1,8 +1,7 @@
 
-#include "gen/IsLogRawEnabledResult.h"
+#include "IsLogRawEnabledResult.h"
 
 #include "command_factory.h"
-#include "command_result_factory.h"
 #include "parse_json.hpp"
 
 ///
@@ -14,24 +13,29 @@ namespace Sdx
   namespace Cmd
   {
     const char* const IsLogRawEnabledResult::CmdName = "IsLogRawEnabledResult";
-    const char* const IsLogRawEnabledResult::Documentation = "Result of IsLogRawEnabled.";
+    const char* const IsLogRawEnabledResult::Documentation = "Result of IsLogRawEnabled.\n"
+      "\n"
+      "Name    Type Description\n"
+      "------- ---- -----------------------------------------------\n"
+      "Enabled bool If true, file will be created during simulation";
+    const char* const IsLogRawEnabledResult::TargetId = "";
 
-    REGISTER_COMMAND_RESULT_TO_FACTORY_IMPL(IsLogRawEnabledResult);
+    REGISTER_COMMAND_TO_FACTORY_IMPL(IsLogRawEnabledResult);
 
 
     IsLogRawEnabledResult::IsLogRawEnabledResult()
-      : CommandResult(CmdName)
+      : CommandResult(CmdName, TargetId)
     {}
 
     IsLogRawEnabledResult::IsLogRawEnabledResult(bool enabled)
-      : CommandResult(CmdName)
+      : CommandResult(CmdName, TargetId)
     {
 
       setEnabled(enabled);
     }
 
     IsLogRawEnabledResult::IsLogRawEnabledResult(CommandBasePtr relatedCommand, bool enabled)
-      : CommandResult(CmdName, relatedCommand)
+      : CommandResult(CmdName, TargetId, relatedCommand)
     {
 
       setEnabled(enabled);
@@ -63,6 +67,12 @@ namespace Sdx
     }
 
     std::string IsLogRawEnabledResult::documentation() const { return Documentation; }
+
+    const std::vector<std::string>& IsLogRawEnabledResult::fieldNames() const 
+    { 
+      static const std::vector<std::string> names {"Enabled"}; 
+      return names; 
+    }
 
 
     bool IsLogRawEnabledResult::enabled() const

@@ -1,8 +1,7 @@
 
-#include "gen/GetAllSVAntennaNamesResult.h"
+#include "GetAllSVAntennaNamesResult.h"
 
 #include "command_factory.h"
-#include "command_result_factory.h"
 #include "parse_json.hpp"
 
 ///
@@ -14,17 +13,23 @@ namespace Sdx
   namespace Cmd
   {
     const char* const GetAllSVAntennaNamesResult::CmdName = "GetAllSVAntennaNamesResult";
-    const char* const GetAllSVAntennaNamesResult::Documentation = "Result of GetAllSVAntennaNames.";
+    const char* const GetAllSVAntennaNamesResult::Documentation = "Result of GetAllSVAntennaNames.\n"
+      "\n"
+      "Name         Type         Description\n"
+      "------------ ------------ --------------------------------------------------------------------------\n"
+      "System       string       \"GPS\", \"GLONASS\", \"Galileo\", \"BeiDou\", \"SBAS\", \"QZSS\", \"NavIC\" or \"PULSAR\"\n"
+      "AntennaNames array string A list of antenna model names.";
+    const char* const GetAllSVAntennaNamesResult::TargetId = "";
 
-    REGISTER_COMMAND_RESULT_TO_FACTORY_IMPL(GetAllSVAntennaNamesResult);
+    REGISTER_COMMAND_TO_FACTORY_IMPL(GetAllSVAntennaNamesResult);
 
 
     GetAllSVAntennaNamesResult::GetAllSVAntennaNamesResult()
-      : CommandResult(CmdName)
+      : CommandResult(CmdName, TargetId)
     {}
 
     GetAllSVAntennaNamesResult::GetAllSVAntennaNamesResult(const std::string& system, const std::vector<std::string>& antennaNames)
-      : CommandResult(CmdName)
+      : CommandResult(CmdName, TargetId)
     {
 
       setSystem(system);
@@ -32,7 +37,7 @@ namespace Sdx
     }
 
     GetAllSVAntennaNamesResult::GetAllSVAntennaNamesResult(CommandBasePtr relatedCommand, const std::string& system, const std::vector<std::string>& antennaNames)
-      : CommandResult(CmdName, relatedCommand)
+      : CommandResult(CmdName, TargetId, relatedCommand)
     {
 
       setSystem(system);
@@ -66,6 +71,12 @@ namespace Sdx
     }
 
     std::string GetAllSVAntennaNamesResult::documentation() const { return Documentation; }
+
+    const std::vector<std::string>& GetAllSVAntennaNamesResult::fieldNames() const 
+    { 
+      static const std::vector<std::string> names {"System", "AntennaNames"}; 
+      return names; 
+    }
 
 
     std::string GetAllSVAntennaNamesResult::system() const

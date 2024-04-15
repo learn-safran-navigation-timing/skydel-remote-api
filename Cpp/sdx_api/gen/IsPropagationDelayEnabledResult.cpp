@@ -1,8 +1,7 @@
 
-#include "gen/IsPropagationDelayEnabledResult.h"
+#include "IsPropagationDelayEnabledResult.h"
 
 #include "command_factory.h"
-#include "command_result_factory.h"
 #include "parse_json.hpp"
 
 ///
@@ -14,17 +13,23 @@ namespace Sdx
   namespace Cmd
   {
     const char* const IsPropagationDelayEnabledResult::CmdName = "IsPropagationDelayEnabledResult";
-    const char* const IsPropagationDelayEnabledResult::Documentation = "Result of IsPropagationDelayEnabled.";
+    const char* const IsPropagationDelayEnabledResult::Documentation = "Result of IsPropagationDelayEnabled.\n"
+      "\n"
+      "Name    Type   Description\n"
+      "------- ------ -------------------------------------------------------------------------------------------------\n"
+      "System  string \"GPS\", \"GLONASS\", \"Galileo\", \"BeiDou\", \"SBAS\", \"QZSS\", \"NavIC\" or \"PULSAR\"\n"
+      "Enabled bool   If false, the propagation delay between the GPS satellite and the receiver is forced to 0 second.";
+    const char* const IsPropagationDelayEnabledResult::TargetId = "";
 
-    REGISTER_COMMAND_RESULT_TO_FACTORY_IMPL(IsPropagationDelayEnabledResult);
+    REGISTER_COMMAND_TO_FACTORY_IMPL(IsPropagationDelayEnabledResult);
 
 
     IsPropagationDelayEnabledResult::IsPropagationDelayEnabledResult()
-      : CommandResult(CmdName)
+      : CommandResult(CmdName, TargetId)
     {}
 
     IsPropagationDelayEnabledResult::IsPropagationDelayEnabledResult(const std::string& system, bool enabled)
-      : CommandResult(CmdName)
+      : CommandResult(CmdName, TargetId)
     {
 
       setSystem(system);
@@ -32,7 +37,7 @@ namespace Sdx
     }
 
     IsPropagationDelayEnabledResult::IsPropagationDelayEnabledResult(CommandBasePtr relatedCommand, const std::string& system, bool enabled)
-      : CommandResult(CmdName, relatedCommand)
+      : CommandResult(CmdName, TargetId, relatedCommand)
     {
 
       setSystem(system);
@@ -66,6 +71,12 @@ namespace Sdx
     }
 
     std::string IsPropagationDelayEnabledResult::documentation() const { return Documentation; }
+
+    const std::vector<std::string>& IsPropagationDelayEnabledResult::fieldNames() const 
+    { 
+      static const std::vector<std::string> names {"System", "Enabled"}; 
+      return names; 
+    }
 
 
     std::string IsPropagationDelayEnabledResult::system() const

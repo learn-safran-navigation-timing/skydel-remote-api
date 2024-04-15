@@ -1,8 +1,7 @@
 
-#include "gen/GetSyncTimeResult.h"
+#include "GetSyncTimeResult.h"
 
 #include "command_factory.h"
-#include "command_result_factory.h"
 #include "parse_json.hpp"
 
 ///
@@ -14,24 +13,29 @@ namespace Sdx
   namespace Cmd
   {
     const char* const GetSyncTimeResult::CmdName = "GetSyncTimeResult";
-    const char* const GetSyncTimeResult::Documentation = "Result of GetSyncTime.";
+    const char* const GetSyncTimeResult::Documentation = "Result of GetSyncTime.\n"
+      "\n"
+      "Name Type   Description\n"
+      "---- ------ ----------------------------------------\n"
+      "Time double Time delay in msec (minimum is 500 msec)";
+    const char* const GetSyncTimeResult::TargetId = "";
 
-    REGISTER_COMMAND_RESULT_TO_FACTORY_IMPL(GetSyncTimeResult);
+    REGISTER_COMMAND_TO_FACTORY_IMPL(GetSyncTimeResult);
 
 
     GetSyncTimeResult::GetSyncTimeResult()
-      : CommandResult(CmdName)
+      : CommandResult(CmdName, TargetId)
     {}
 
     GetSyncTimeResult::GetSyncTimeResult(double time)
-      : CommandResult(CmdName)
+      : CommandResult(CmdName, TargetId)
     {
 
       setTime(time);
     }
 
     GetSyncTimeResult::GetSyncTimeResult(CommandBasePtr relatedCommand, double time)
-      : CommandResult(CmdName, relatedCommand)
+      : CommandResult(CmdName, TargetId, relatedCommand)
     {
 
       setTime(time);
@@ -63,6 +67,12 @@ namespace Sdx
     }
 
     std::string GetSyncTimeResult::documentation() const { return Documentation; }
+
+    const std::vector<std::string>& GetSyncTimeResult::fieldNames() const 
+    { 
+      static const std::vector<std::string> names {"Time"}; 
+      return names; 
+    }
 
 
     double GetSyncTimeResult::time() const

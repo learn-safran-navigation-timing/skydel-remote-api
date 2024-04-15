@@ -1,8 +1,7 @@
 
-#include "gen/GetBeiDouHealthStatusForSVResult.h"
+#include "GetBeiDouHealthStatusForSVResult.h"
 
 #include "command_factory.h"
-#include "command_result_factory.h"
 #include "parse_json.hpp"
 
 ///
@@ -14,17 +13,24 @@ namespace Sdx
   namespace Cmd
   {
     const char* const GetBeiDouHealthStatusForSVResult::CmdName = "GetBeiDouHealthStatusForSVResult";
-    const char* const GetBeiDouHealthStatusForSVResult::Documentation = "Result of GetBeiDouHealthStatusForSV.";
+    const char* const GetBeiDouHealthStatusForSVResult::Documentation = "Result of GetBeiDouHealthStatusForSV.\n"
+      "\n"
+      "Name        Type            Description\n"
+      "----------- --------------- -------------------------------------------------------------------------------------------\n"
+      "SvId        int             Satellite SV ID 1..35, or use 0 to apply new value to all satellites.\n"
+      "Health      int             Health Info, 2-bit integer : 0, 1, 2 or 3\n"
+      "DataSetName optional string Optional name of the data set to use. If no value is provided, the active data set is used.";
+    const char* const GetBeiDouHealthStatusForSVResult::TargetId = "";
 
-    REGISTER_COMMAND_RESULT_TO_FACTORY_IMPL(GetBeiDouHealthStatusForSVResult);
+    REGISTER_COMMAND_TO_FACTORY_IMPL(GetBeiDouHealthStatusForSVResult);
 
 
     GetBeiDouHealthStatusForSVResult::GetBeiDouHealthStatusForSVResult()
-      : CommandResult(CmdName)
+      : CommandResult(CmdName, TargetId)
     {}
 
     GetBeiDouHealthStatusForSVResult::GetBeiDouHealthStatusForSVResult(int svId, int health, const Sdx::optional<std::string>& dataSetName)
-      : CommandResult(CmdName)
+      : CommandResult(CmdName, TargetId)
     {
 
       setSvId(svId);
@@ -33,7 +39,7 @@ namespace Sdx
     }
 
     GetBeiDouHealthStatusForSVResult::GetBeiDouHealthStatusForSVResult(CommandBasePtr relatedCommand, int svId, int health, const Sdx::optional<std::string>& dataSetName)
-      : CommandResult(CmdName, relatedCommand)
+      : CommandResult(CmdName, TargetId, relatedCommand)
     {
 
       setSvId(svId);
@@ -69,6 +75,12 @@ namespace Sdx
     }
 
     std::string GetBeiDouHealthStatusForSVResult::documentation() const { return Documentation; }
+
+    const std::vector<std::string>& GetBeiDouHealthStatusForSVResult::fieldNames() const 
+    { 
+      static const std::vector<std::string> names {"SvId", "Health", "DataSetName"}; 
+      return names; 
+    }
 
 
     int GetBeiDouHealthStatusForSVResult::svId() const

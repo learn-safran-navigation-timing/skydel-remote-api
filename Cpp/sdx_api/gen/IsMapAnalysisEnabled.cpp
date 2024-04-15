@@ -1,8 +1,7 @@
 
-#include "gen/IsMapAnalysisEnabled.h"
+#include "IsMapAnalysisEnabled.h"
 
 #include "command_factory.h"
-#include "command_result_factory.h"
 #include "parse_json.hpp"
 
 ///
@@ -15,12 +14,14 @@ namespace Sdx
   {
     const char* const IsMapAnalysisEnabled::CmdName = "IsMapAnalysisEnabled";
     const char* const IsMapAnalysisEnabled::Documentation = "Get if map is show/hide in Analysis tab.";
+    const char* const IsMapAnalysisEnabled::TargetId = "";
 
-    REGISTER_COMMAND_FACTORY(IsMapAnalysisEnabled);
+    REGISTER_COMMAND_TO_FACTORY_DECL(IsMapAnalysisEnabled);
+    REGISTER_COMMAND_TO_FACTORY_IMPL(IsMapAnalysisEnabled);
 
 
     IsMapAnalysisEnabled::IsMapAnalysisEnabled()
-      : CommandBase(CmdName)
+      : CommandBase(CmdName, TargetId)
     {
 
     }
@@ -44,6 +45,12 @@ namespace Sdx
     }
 
     std::string IsMapAnalysisEnabled::documentation() const { return Documentation; }
+
+    const std::vector<std::string>& IsMapAnalysisEnabled::fieldNames() const 
+    { 
+      static const std::vector<std::string> names {}; 
+      return names; 
+    }
 
 
     int IsMapAnalysisEnabled::executePermission() const

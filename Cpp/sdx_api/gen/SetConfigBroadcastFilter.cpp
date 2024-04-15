@@ -1,8 +1,7 @@
 
-#include "gen/SetConfigBroadcastFilter.h"
+#include "SetConfigBroadcastFilter.h"
 
 #include "command_factory.h"
-#include "command_result_factory.h"
 #include "parse_json.hpp"
 
 ///
@@ -14,17 +13,23 @@ namespace Sdx
   namespace Cmd
   {
     const char* const SetConfigBroadcastFilter::CmdName = "SetConfigBroadcastFilter";
-    const char* const SetConfigBroadcastFilter::Documentation = "Set the filter for configuration broadcast.";
+    const char* const SetConfigBroadcastFilter::Documentation = "Set the filter for configuration broadcast.\n"
+      "\n"
+      "Name   Type               Description\n"
+      "------ ------------------ ------------------------------------------------------------------------------\n"
+      "Filter array ConfigFilter Every configuration section set in this array will be excluded from broadcast.";
+    const char* const SetConfigBroadcastFilter::TargetId = "";
 
-    REGISTER_COMMAND_FACTORY(SetConfigBroadcastFilter);
+    REGISTER_COMMAND_TO_FACTORY_DECL(SetConfigBroadcastFilter);
+    REGISTER_COMMAND_TO_FACTORY_IMPL(SetConfigBroadcastFilter);
 
 
     SetConfigBroadcastFilter::SetConfigBroadcastFilter()
-      : CommandBase(CmdName)
+      : CommandBase(CmdName, TargetId)
     {}
 
     SetConfigBroadcastFilter::SetConfigBroadcastFilter(const std::vector<Sdx::ConfigFilter>& filter)
-      : CommandBase(CmdName)
+      : CommandBase(CmdName, TargetId)
     {
 
       setFilter(filter);
@@ -50,6 +55,12 @@ namespace Sdx
     }
 
     std::string SetConfigBroadcastFilter::documentation() const { return Documentation; }
+
+    const std::vector<std::string>& SetConfigBroadcastFilter::fieldNames() const 
+    { 
+      static const std::vector<std::string> names {"Filter"}; 
+      return names; 
+    }
 
 
     int SetConfigBroadcastFilter::executePermission() const

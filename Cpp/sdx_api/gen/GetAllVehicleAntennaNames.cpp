@@ -1,8 +1,7 @@
 
-#include "gen/GetAllVehicleAntennaNames.h"
+#include "GetAllVehicleAntennaNames.h"
 
 #include "command_factory.h"
-#include "command_result_factory.h"
 #include "parse_json.hpp"
 
 ///
@@ -15,12 +14,14 @@ namespace Sdx
   {
     const char* const GetAllVehicleAntennaNames::CmdName = "GetAllVehicleAntennaNames";
     const char* const GetAllVehicleAntennaNames::Documentation = "Get a list of all vehicle antenna names";
+    const char* const GetAllVehicleAntennaNames::TargetId = "";
 
-    REGISTER_COMMAND_FACTORY(GetAllVehicleAntennaNames);
+    REGISTER_COMMAND_TO_FACTORY_DECL(GetAllVehicleAntennaNames);
+    REGISTER_COMMAND_TO_FACTORY_IMPL(GetAllVehicleAntennaNames);
 
 
     GetAllVehicleAntennaNames::GetAllVehicleAntennaNames()
-      : CommandBase(CmdName)
+      : CommandBase(CmdName, TargetId)
     {
 
     }
@@ -44,6 +45,12 @@ namespace Sdx
     }
 
     std::string GetAllVehicleAntennaNames::documentation() const { return Documentation; }
+
+    const std::vector<std::string>& GetAllVehicleAntennaNames::fieldNames() const 
+    { 
+      static const std::vector<std::string> names {}; 
+      return names; 
+    }
 
 
     int GetAllVehicleAntennaNames::executePermission() const

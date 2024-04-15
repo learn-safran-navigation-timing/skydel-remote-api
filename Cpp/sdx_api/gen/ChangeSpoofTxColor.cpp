@@ -1,8 +1,7 @@
 
-#include "gen/ChangeSpoofTxColor.h"
+#include "ChangeSpoofTxColor.h"
 
 #include "command_factory.h"
-#include "command_result_factory.h"
 #include "parse_json.hpp"
 
 ///
@@ -14,17 +13,24 @@ namespace Sdx
   namespace Cmd
   {
     const char* const ChangeSpoofTxColor::CmdName = "ChangeSpoofTxColor";
-    const char* const ChangeSpoofTxColor::Documentation = "Set a spoofer color in spectrums";
+    const char* const ChangeSpoofTxColor::Documentation = "Set a spoofer color in spectrums\n"
+      "\n"
+      "Name  Type   Description\n"
+      "----- ------ -------------------------------------------------------------------------------\n"
+      "Color string Color 'name'. Either a common color (red, white, ...) or an hex code (#FFFFFF).\n"
+      "Id    string Transmitter unique identifier.";
+    const char* const ChangeSpoofTxColor::TargetId = "";
 
-    REGISTER_COMMAND_FACTORY(ChangeSpoofTxColor);
+    REGISTER_COMMAND_TO_FACTORY_DECL(ChangeSpoofTxColor);
+    REGISTER_COMMAND_TO_FACTORY_IMPL(ChangeSpoofTxColor);
 
 
     ChangeSpoofTxColor::ChangeSpoofTxColor()
-      : CommandBase(CmdName)
+      : CommandBase(CmdName, TargetId)
     {}
 
     ChangeSpoofTxColor::ChangeSpoofTxColor(const std::string& color, const std::string& id)
-      : CommandBase(CmdName)
+      : CommandBase(CmdName, TargetId)
     {
 
       setColor(color);
@@ -52,6 +58,12 @@ namespace Sdx
     }
 
     std::string ChangeSpoofTxColor::documentation() const { return Documentation; }
+
+    const std::vector<std::string>& ChangeSpoofTxColor::fieldNames() const 
+    { 
+      static const std::vector<std::string> names {"Color", "Id"}; 
+      return names; 
+    }
 
 
     int ChangeSpoofTxColor::executePermission() const

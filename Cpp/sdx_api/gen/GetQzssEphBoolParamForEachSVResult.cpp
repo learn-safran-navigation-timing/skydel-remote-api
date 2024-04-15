@@ -1,8 +1,7 @@
 
-#include "gen/GetQzssEphBoolParamForEachSVResult.h"
+#include "GetQzssEphBoolParamForEachSVResult.h"
 
 #include "command_factory.h"
-#include "command_result_factory.h"
 #include "parse_json.hpp"
 
 ///
@@ -14,17 +13,24 @@ namespace Sdx
   namespace Cmd
   {
     const char* const GetQzssEphBoolParamForEachSVResult::CmdName = "GetQzssEphBoolParamForEachSVResult";
-    const char* const GetQzssEphBoolParamForEachSVResult::Documentation = "Result of GetQzssEphBoolParamForEachSV.";
+    const char* const GetQzssEphBoolParamForEachSVResult::Documentation = "Result of GetQzssEphBoolParamForEachSV.\n"
+      "\n"
+      "Name        Type            Description\n"
+      "----------- --------------- --------------------------------------------------------------------------------------------------\n"
+      "ParamName   string          Refer to SetQzssEphemerisBoolParam for accepted names\n"
+      "Val         array bool      Parameter value for each satellite. Zero based index (index 0 => SV ID 1, index 1 => SV ID 2, etc)\n"
+      "DataSetName optional string Optional name of the data set to use. If no value is provided, the active data set is used.";
+    const char* const GetQzssEphBoolParamForEachSVResult::TargetId = "";
 
-    REGISTER_COMMAND_RESULT_TO_FACTORY_IMPL(GetQzssEphBoolParamForEachSVResult);
+    REGISTER_COMMAND_TO_FACTORY_IMPL(GetQzssEphBoolParamForEachSVResult);
 
 
     GetQzssEphBoolParamForEachSVResult::GetQzssEphBoolParamForEachSVResult()
-      : CommandResult(CmdName)
+      : CommandResult(CmdName, TargetId)
     {}
 
     GetQzssEphBoolParamForEachSVResult::GetQzssEphBoolParamForEachSVResult(const std::string& paramName, const std::vector<bool>& val, const Sdx::optional<std::string>& dataSetName)
-      : CommandResult(CmdName)
+      : CommandResult(CmdName, TargetId)
     {
 
       setParamName(paramName);
@@ -33,7 +39,7 @@ namespace Sdx
     }
 
     GetQzssEphBoolParamForEachSVResult::GetQzssEphBoolParamForEachSVResult(CommandBasePtr relatedCommand, const std::string& paramName, const std::vector<bool>& val, const Sdx::optional<std::string>& dataSetName)
-      : CommandResult(CmdName, relatedCommand)
+      : CommandResult(CmdName, TargetId, relatedCommand)
     {
 
       setParamName(paramName);
@@ -69,6 +75,12 @@ namespace Sdx
     }
 
     std::string GetQzssEphBoolParamForEachSVResult::documentation() const { return Documentation; }
+
+    const std::vector<std::string>& GetQzssEphBoolParamForEachSVResult::fieldNames() const 
+    { 
+      static const std::vector<std::string> names {"ParamName", "Val", "DataSetName"}; 
+      return names; 
+    }
 
 
     std::string GetQzssEphBoolParamForEachSVResult::paramName() const

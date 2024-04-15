@@ -1,8 +1,7 @@
 
-#include "gen/VersionResult.h"
+#include "VersionResult.h"
 
 #include "command_factory.h"
-#include "command_result_factory.h"
 #include "parse_json.hpp"
 
 ///
@@ -14,24 +13,29 @@ namespace Sdx
   namespace Cmd
   {
     const char* const VersionResult::CmdName = "VersionResult";
-    const char* const VersionResult::Documentation = "Result of GetVersion.";
+    const char* const VersionResult::Documentation = "Result of GetVersion.\n"
+      "\n"
+      "Name    Type   Description\n"
+      "------- ------ --------------\n"
+      "Version string Skydel version";
+    const char* const VersionResult::TargetId = "";
 
-    REGISTER_COMMAND_RESULT_TO_FACTORY_IMPL(VersionResult);
+    REGISTER_COMMAND_TO_FACTORY_IMPL(VersionResult);
 
 
     VersionResult::VersionResult()
-      : CommandResult(CmdName)
+      : CommandResult(CmdName, TargetId)
     {}
 
     VersionResult::VersionResult(const std::string& version)
-      : CommandResult(CmdName)
+      : CommandResult(CmdName, TargetId)
     {
 
       setVersion(version);
     }
 
     VersionResult::VersionResult(CommandBasePtr relatedCommand, const std::string& version)
-      : CommandResult(CmdName, relatedCommand)
+      : CommandResult(CmdName, TargetId, relatedCommand)
     {
 
       setVersion(version);
@@ -63,6 +67,12 @@ namespace Sdx
     }
 
     std::string VersionResult::documentation() const { return Documentation; }
+
+    const std::vector<std::string>& VersionResult::fieldNames() const 
+    { 
+      static const std::vector<std::string> names {"Version"}; 
+      return names; 
+    }
 
 
     std::string VersionResult::version() const

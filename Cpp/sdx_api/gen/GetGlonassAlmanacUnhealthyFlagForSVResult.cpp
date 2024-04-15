@@ -1,8 +1,7 @@
 
-#include "gen/GetGlonassAlmanacUnhealthyFlagForSVResult.h"
+#include "GetGlonassAlmanacUnhealthyFlagForSVResult.h"
 
 #include "command_factory.h"
-#include "command_result_factory.h"
 #include "parse_json.hpp"
 
 ///
@@ -14,17 +13,23 @@ namespace Sdx
   namespace Cmd
   {
     const char* const GetGlonassAlmanacUnhealthyFlagForSVResult::CmdName = "GetGlonassAlmanacUnhealthyFlagForSVResult";
-    const char* const GetGlonassAlmanacUnhealthyFlagForSVResult::Documentation = "Result of GetGlonassAlmanacUnhealthyFlagForSV.";
+    const char* const GetGlonassAlmanacUnhealthyFlagForSVResult::Documentation = "Result of GetGlonassAlmanacUnhealthyFlagForSV.\n"
+      "\n"
+      "Name   Type Description\n"
+      "------ ---- ----------------------------------------------------------\n"
+      "SvId   int  The satellite's SV ID 1..24\n"
+      "Health bool Status, false = Non-operability, true = Operability (Good)";
+    const char* const GetGlonassAlmanacUnhealthyFlagForSVResult::TargetId = "";
 
-    REGISTER_COMMAND_RESULT_TO_FACTORY_IMPL(GetGlonassAlmanacUnhealthyFlagForSVResult);
+    REGISTER_COMMAND_TO_FACTORY_IMPL(GetGlonassAlmanacUnhealthyFlagForSVResult);
 
 
     GetGlonassAlmanacUnhealthyFlagForSVResult::GetGlonassAlmanacUnhealthyFlagForSVResult()
-      : CommandResult(CmdName)
+      : CommandResult(CmdName, TargetId)
     {}
 
     GetGlonassAlmanacUnhealthyFlagForSVResult::GetGlonassAlmanacUnhealthyFlagForSVResult(int svId, bool health)
-      : CommandResult(CmdName)
+      : CommandResult(CmdName, TargetId)
     {
 
       setSvId(svId);
@@ -32,7 +37,7 @@ namespace Sdx
     }
 
     GetGlonassAlmanacUnhealthyFlagForSVResult::GetGlonassAlmanacUnhealthyFlagForSVResult(CommandBasePtr relatedCommand, int svId, bool health)
-      : CommandResult(CmdName, relatedCommand)
+      : CommandResult(CmdName, TargetId, relatedCommand)
     {
 
       setSvId(svId);
@@ -66,6 +71,12 @@ namespace Sdx
     }
 
     std::string GetGlonassAlmanacUnhealthyFlagForSVResult::documentation() const { return Documentation; }
+
+    const std::vector<std::string>& GetGlonassAlmanacUnhealthyFlagForSVResult::fieldNames() const 
+    { 
+      static const std::vector<std::string> names {"SvId", "Health"}; 
+      return names; 
+    }
 
 
     int GetGlonassAlmanacUnhealthyFlagForSVResult::svId() const

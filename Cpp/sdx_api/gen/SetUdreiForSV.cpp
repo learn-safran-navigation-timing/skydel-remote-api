@@ -1,8 +1,7 @@
 
-#include "gen/SetUdreiForSV.h"
+#include "SetUdreiForSV.h"
 
 #include "command_factory.h"
-#include "command_result_factory.h"
 #include "parse_json.hpp"
 
 ///
@@ -14,17 +13,25 @@ namespace Sdx
   namespace Cmd
   {
     const char* const SetUdreiForSV::CmdName = "SetUdreiForSV";
-    const char* const SetUdreiForSV::Documentation = "Set the UDREI value transmitted by SBAS for the satellite of the specified constellation.";
+    const char* const SetUdreiForSV::Documentation = "Set the UDREI value transmitted by SBAS for the satellite of the specified constellation.\n"
+      "\n"
+      "Name   Type   Description\n"
+      "------ ------ ---------------------------------------------------------------\n"
+      "System string \"GPS\" or \"SBAS\".\n"
+      "SvId   int    The satellite's SV ID (use 0 to apply modification to all SVs).\n"
+      "Udrei  int    The UDREI value.";
+    const char* const SetUdreiForSV::TargetId = "";
 
-    REGISTER_COMMAND_FACTORY(SetUdreiForSV);
+    REGISTER_COMMAND_TO_FACTORY_DECL(SetUdreiForSV);
+    REGISTER_COMMAND_TO_FACTORY_IMPL(SetUdreiForSV);
 
 
     SetUdreiForSV::SetUdreiForSV()
-      : CommandBase(CmdName)
+      : CommandBase(CmdName, TargetId)
     {}
 
     SetUdreiForSV::SetUdreiForSV(const std::string& system, int svId, int udrei)
-      : CommandBase(CmdName)
+      : CommandBase(CmdName, TargetId)
     {
 
       setSystem(system);
@@ -54,6 +61,12 @@ namespace Sdx
     }
 
     std::string SetUdreiForSV::documentation() const { return Documentation; }
+
+    const std::vector<std::string>& SetUdreiForSV::fieldNames() const 
+    { 
+      static const std::vector<std::string> names {"System", "SvId", "Udrei"}; 
+      return names; 
+    }
 
 
     int SetUdreiForSV::executePermission() const

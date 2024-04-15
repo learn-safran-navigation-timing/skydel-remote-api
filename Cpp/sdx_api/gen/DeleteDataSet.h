@@ -13,8 +13,8 @@ namespace Sdx
     /// Delete data set.
     ///
     /// Name        Type   Description
-    /// ----------- ------ ---------------------------------------------
-    /// System      string "GPS", "Galileo", "BeiDou", "NavIC" or "QZSS"
+    /// ----------- ------ -------------------------------------------------------
+    /// System      string "GPS", "Galileo", "BeiDou", "QZSS", "NavIC" or "PULSAR"
     /// DataSetName string The name of the data set to delete.
     ///
 
@@ -27,6 +27,7 @@ namespace Sdx
     public:
       static const char* const CmdName;
       static const char* const Documentation;
+      static const char* const TargetId;
 
 
       DeleteDataSet();
@@ -37,6 +38,7 @@ namespace Sdx
       static DeleteDataSetPtr dynamicCast(CommandBasePtr ptr);
       virtual bool isValid() const override;
       virtual std::string documentation() const override;
+      virtual const std::vector<std::string>& fieldNames() const override;
 
       virtual int executePermission() const override;
 

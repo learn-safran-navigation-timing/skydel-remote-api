@@ -1,8 +1,7 @@
 
-#include "gen/IsStopMainInstanceWhenWorkerInstanceStop.h"
+#include "IsStopMainInstanceWhenWorkerInstanceStop.h"
 
 #include "command_factory.h"
-#include "command_result_factory.h"
 #include "parse_json.hpp"
 
 ///
@@ -15,12 +14,14 @@ namespace Sdx
   {
     const char* const IsStopMainInstanceWhenWorkerInstanceStop::CmdName = "IsStopMainInstanceWhenWorkerInstanceStop";
     const char* const IsStopMainInstanceWhenWorkerInstanceStop::Documentation = "If enabled, main instance and all the worker instances will stop if a worker instance stops.";
+    const char* const IsStopMainInstanceWhenWorkerInstanceStop::TargetId = "";
 
-    REGISTER_COMMAND_FACTORY(IsStopMainInstanceWhenWorkerInstanceStop);
+    REGISTER_COMMAND_TO_FACTORY_DECL(IsStopMainInstanceWhenWorkerInstanceStop);
+    REGISTER_COMMAND_TO_FACTORY_IMPL(IsStopMainInstanceWhenWorkerInstanceStop);
 
 
     IsStopMainInstanceWhenWorkerInstanceStop::IsStopMainInstanceWhenWorkerInstanceStop()
-      : CommandBase(CmdName)
+      : CommandBase(CmdName, TargetId)
     {
 
     }
@@ -44,6 +45,12 @@ namespace Sdx
     }
 
     std::string IsStopMainInstanceWhenWorkerInstanceStop::documentation() const { return Documentation; }
+
+    const std::vector<std::string>& IsStopMainInstanceWhenWorkerInstanceStop::fieldNames() const 
+    { 
+      static const std::vector<std::string> names {}; 
+      return names; 
+    }
 
 
     int IsStopMainInstanceWhenWorkerInstanceStop::executePermission() const

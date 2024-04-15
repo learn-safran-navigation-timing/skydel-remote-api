@@ -1,8 +1,7 @@
 
-#include "gen/IsRFOutputEnabledForEachSV.h"
+#include "IsRFOutputEnabledForEachSV.h"
 
 #include "command_factory.h"
-#include "command_result_factory.h"
 #include "parse_json.hpp"
 
 ///
@@ -14,17 +13,23 @@ namespace Sdx
   namespace Cmd
   {
     const char* const IsRFOutputEnabledForEachSV::CmdName = "IsRFOutputEnabledForEachSV";
-    const char* const IsRFOutputEnabledForEachSV::Documentation = "Tells if the RF output is enabled or disabled for each satellite.";
+    const char* const IsRFOutputEnabledForEachSV::Documentation = "Tells if the RF output is enabled or disabled for each satellite.\n"
+      "\n"
+      "Name   Type   Description\n"
+      "------ ------ --------------------------------------------------------------------------\n"
+      "System string \"GPS\", \"GLONASS\", \"Galileo\", \"BeiDou\", \"SBAS\", \"QZSS\", \"NavIC\" or \"PULSAR\"";
+    const char* const IsRFOutputEnabledForEachSV::TargetId = "";
 
-    REGISTER_COMMAND_FACTORY(IsRFOutputEnabledForEachSV);
+    REGISTER_COMMAND_TO_FACTORY_DECL(IsRFOutputEnabledForEachSV);
+    REGISTER_COMMAND_TO_FACTORY_IMPL(IsRFOutputEnabledForEachSV);
 
 
     IsRFOutputEnabledForEachSV::IsRFOutputEnabledForEachSV()
-      : CommandBase(CmdName)
+      : CommandBase(CmdName, TargetId)
     {}
 
     IsRFOutputEnabledForEachSV::IsRFOutputEnabledForEachSV(const std::string& system)
-      : CommandBase(CmdName)
+      : CommandBase(CmdName, TargetId)
     {
 
       setSystem(system);
@@ -50,6 +55,12 @@ namespace Sdx
     }
 
     std::string IsRFOutputEnabledForEachSV::documentation() const { return Documentation; }
+
+    const std::vector<std::string>& IsRFOutputEnabledForEachSV::fieldNames() const 
+    { 
+      static const std::vector<std::string> names {"System"}; 
+      return names; 
+    }
 
 
     int IsRFOutputEnabledForEachSV::executePermission() const

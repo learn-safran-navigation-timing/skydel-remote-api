@@ -1,8 +1,7 @@
 
-#include "gen/SetGlonassDoubleParams.h"
+#include "SetGlonassDoubleParams.h"
 
 #include "command_factory.h"
-#include "command_result_factory.h"
 #include "parse_json.hpp"
 
 ///
@@ -14,17 +13,26 @@ namespace Sdx
   namespace Cmd
   {
     const char* const SetGlonassDoubleParams::CmdName = "SetGlonassDoubleParams";
-    const char* const SetGlonassDoubleParams::Documentation = "Please note the command SetGlonassDoubleParams is deprecated since 21.3. You may use SetGlonassEphDoubleParamForEachSV.\n\nSet GLONASS parameter value for all satellites";
+    const char* const SetGlonassDoubleParams::Documentation = "Please note the command SetGlonassDoubleParams is deprecated since 21.3. You may use SetGlonassEphDoubleParamForEachSV.\n"
+      "\n"
+      "Set GLONASS parameter value for all satellites\n"
+      "\n"
+      "Name      Type         Description\n"
+      "--------- ------------ --------------------------------------------------------------------------------------------------\n"
+      "ParamName string       Refer to SetGlonassEphDoubleParamForSV for accepted names\n"
+      "Val       array double Parameter value for each satellite. Zero based index (index 0 => SV ID 1, index 1 => SV ID 2, etc)";
+    const char* const SetGlonassDoubleParams::TargetId = "";
 
-    REGISTER_COMMAND_FACTORY(SetGlonassDoubleParams);
+    REGISTER_COMMAND_TO_FACTORY_DECL(SetGlonassDoubleParams);
+    REGISTER_COMMAND_TO_FACTORY_IMPL(SetGlonassDoubleParams);
 
 
     SetGlonassDoubleParams::SetGlonassDoubleParams()
-      : CommandBase(CmdName)
+      : CommandBase(CmdName, TargetId)
     {}
 
     SetGlonassDoubleParams::SetGlonassDoubleParams(const std::string& paramName, const std::vector<double>& val)
-      : CommandBase(CmdName)
+      : CommandBase(CmdName, TargetId)
     {
 
       setParamName(paramName);
@@ -52,6 +60,12 @@ namespace Sdx
     }
 
     std::string SetGlonassDoubleParams::documentation() const { return Documentation; }
+
+    const std::vector<std::string>& SetGlonassDoubleParams::fieldNames() const 
+    { 
+      static const std::vector<std::string> names {"ParamName", "Val"}; 
+      return names; 
+    }
 
 
     int SetGlonassDoubleParams::executePermission() const

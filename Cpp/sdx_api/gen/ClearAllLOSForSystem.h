@@ -13,8 +13,8 @@ namespace Sdx
     /// Enable Direct Line of Sight (LoS) of all satellites for the specified constellation.
     ///
     /// Name   Type   Description
-    /// ------ ------ ----------------------------------------------------------------
-    /// System string "GPS", "GLONASS", "Galileo", "BeiDou", "SBAS", "QZSS" or "NavIC"
+    /// ------ ------ --------------------------------------------------------------------------
+    /// System string "GPS", "GLONASS", "Galileo", "BeiDou", "SBAS", "QZSS", "NavIC" or "PULSAR"
     ///
 
     class ClearAllLOSForSystem;
@@ -26,6 +26,7 @@ namespace Sdx
     public:
       static const char* const CmdName;
       static const char* const Documentation;
+      static const char* const TargetId;
 
 
       ClearAllLOSForSystem();
@@ -36,6 +37,7 @@ namespace Sdx
       static ClearAllLOSForSystemPtr dynamicCast(CommandBasePtr ptr);
       virtual bool isValid() const override;
       virtual std::string documentation() const override;
+      virtual const std::vector<std::string>& fieldNames() const override;
 
       virtual int executePermission() const override;
 

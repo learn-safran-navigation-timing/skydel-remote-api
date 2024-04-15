@@ -1,8 +1,7 @@
 
-#include "gen/GetEphemerisReferenceTime.h"
+#include "GetEphemerisReferenceTime.h"
 
 #include "command_factory.h"
-#include "command_result_factory.h"
 #include "parse_json.hpp"
 
 ///
@@ -14,17 +13,27 @@ namespace Sdx
   namespace Cmd
   {
     const char* const GetEphemerisReferenceTime::CmdName = "GetEphemerisReferenceTime";
-    const char* const GetEphemerisReferenceTime::Documentation = "Please note the command GetEphemerisReferenceTime is deprecated since 21.3. You may use GetEphemerisReferenceTimeForSV.\n\nGet the ephemeris reference time for the specified constellation.";
+    const char* const GetEphemerisReferenceTime::Documentation = "Please note the command GetEphemerisReferenceTime is deprecated since 21.3. You may use GetEphemerisReferenceTimeForSV.\n"
+      "\n"
+      "Get the ephemeris reference time for the specified constellation.\n"
+      "\n"
+      "Name        Type            Description\n"
+      "----------- --------------- -------------------------------------------------------------------------------------------\n"
+      "System      string          \"GPS\", \"Galileo\", \"BeiDou\", \"QZSS\", \"NavIC\" or \"PULSAR\"\n"
+      "SvId        int             The satellite's SV ID.\n"
+      "DataSetName optional string Optional name of the data set to use. If no value is provided, the active data set is used.";
+    const char* const GetEphemerisReferenceTime::TargetId = "";
 
-    REGISTER_COMMAND_FACTORY(GetEphemerisReferenceTime);
+    REGISTER_COMMAND_TO_FACTORY_DECL(GetEphemerisReferenceTime);
+    REGISTER_COMMAND_TO_FACTORY_IMPL(GetEphemerisReferenceTime);
 
 
     GetEphemerisReferenceTime::GetEphemerisReferenceTime()
-      : CommandBase(CmdName)
+      : CommandBase(CmdName, TargetId)
     {}
 
     GetEphemerisReferenceTime::GetEphemerisReferenceTime(const std::string& system, int svId, const Sdx::optional<std::string>& dataSetName)
-      : CommandBase(CmdName)
+      : CommandBase(CmdName, TargetId)
     {
 
       setSystem(system);
@@ -54,6 +63,12 @@ namespace Sdx
     }
 
     std::string GetEphemerisReferenceTime::documentation() const { return Documentation; }
+
+    const std::vector<std::string>& GetEphemerisReferenceTime::fieldNames() const 
+    { 
+      static const std::vector<std::string> names {"System", "SvId", "DataSetName"}; 
+      return names; 
+    }
 
 
     int GetEphemerisReferenceTime::executePermission() const

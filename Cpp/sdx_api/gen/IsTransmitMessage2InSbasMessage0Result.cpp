@@ -1,8 +1,7 @@
 
-#include "gen/IsTransmitMessage2InSbasMessage0Result.h"
+#include "IsTransmitMessage2InSbasMessage0Result.h"
 
 #include "command_factory.h"
-#include "command_result_factory.h"
 #include "parse_json.hpp"
 
 ///
@@ -14,24 +13,29 @@ namespace Sdx
   namespace Cmd
   {
     const char* const IsTransmitMessage2InSbasMessage0Result::CmdName = "IsTransmitMessage2InSbasMessage0Result";
-    const char* const IsTransmitMessage2InSbasMessage0Result::Documentation = "Result of IsTransmitMessage2InSbasMessage0.";
+    const char* const IsTransmitMessage2InSbasMessage0Result::Documentation = "Result of IsTransmitMessage2InSbasMessage0.\n"
+      "\n"
+      "Name             Type Description\n"
+      "---------------- ---- ---------------------------------------------------------\n"
+      "TransmitMessage2 bool Whether SBAS should transmit message type 2 instead of 0.";
+    const char* const IsTransmitMessage2InSbasMessage0Result::TargetId = "";
 
-    REGISTER_COMMAND_RESULT_TO_FACTORY_IMPL(IsTransmitMessage2InSbasMessage0Result);
+    REGISTER_COMMAND_TO_FACTORY_IMPL(IsTransmitMessage2InSbasMessage0Result);
 
 
     IsTransmitMessage2InSbasMessage0Result::IsTransmitMessage2InSbasMessage0Result()
-      : CommandResult(CmdName)
+      : CommandResult(CmdName, TargetId)
     {}
 
     IsTransmitMessage2InSbasMessage0Result::IsTransmitMessage2InSbasMessage0Result(bool transmitMessage2)
-      : CommandResult(CmdName)
+      : CommandResult(CmdName, TargetId)
     {
 
       setTransmitMessage2(transmitMessage2);
     }
 
     IsTransmitMessage2InSbasMessage0Result::IsTransmitMessage2InSbasMessage0Result(CommandBasePtr relatedCommand, bool transmitMessage2)
-      : CommandResult(CmdName, relatedCommand)
+      : CommandResult(CmdName, TargetId, relatedCommand)
     {
 
       setTransmitMessage2(transmitMessage2);
@@ -63,6 +67,12 @@ namespace Sdx
     }
 
     std::string IsTransmitMessage2InSbasMessage0Result::documentation() const { return Documentation; }
+
+    const std::vector<std::string>& IsTransmitMessage2InSbasMessage0Result::fieldNames() const 
+    { 
+      static const std::vector<std::string> names {"TransmitMessage2"}; 
+      return names; 
+    }
 
 
     bool IsTransmitMessage2InSbasMessage0Result::transmitMessage2() const

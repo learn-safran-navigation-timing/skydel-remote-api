@@ -13,9 +13,9 @@ namespace Sdx
     /// Delete a space vehicle antenna model. The default SV antenna model can't be deleted.
     ///
     /// Name   Type   Description
-    /// ------ ------ ----------------------------------------------------------------
+    /// ------ ------ --------------------------------------------------------------------------
     /// Name   string SV antenna model name
-    /// System string "GPS", "GLONASS", "Galileo", "BeiDou", "SBAS", "QZSS" or "NavIC"
+    /// System string "GPS", "GLONASS", "Galileo", "BeiDou", "SBAS", "QZSS", "NavIC" or "PULSAR"
     ///
 
     class DeleteSVAntennaModel;
@@ -27,6 +27,7 @@ namespace Sdx
     public:
       static const char* const CmdName;
       static const char* const Documentation;
+      static const char* const TargetId;
 
 
       DeleteSVAntennaModel();
@@ -37,6 +38,7 @@ namespace Sdx
       static DeleteSVAntennaModelPtr dynamicCast(CommandBasePtr ptr);
       virtual bool isValid() const override;
       virtual std::string documentation() const override;
+      virtual const std::vector<std::string>& fieldNames() const override;
 
       virtual int executePermission() const override;
 

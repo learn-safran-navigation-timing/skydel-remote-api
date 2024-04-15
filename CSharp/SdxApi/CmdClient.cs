@@ -103,8 +103,9 @@ public class CmdClient
         string msgJson = System.Text.Encoding.ASCII.GetString(msgJsonData);
 
         JObject json = JObject.Parse(msgJson);
+        string cmdNamespace =  json.ContainsKey(CommandBase.CmdTargetIdKey) ? (string)json[CommandBase.CmdTargetIdKey] : "Cmd";
         string cmdResultName = (string)json[CommandBase.CmdNameKey];
-        CommandResult result = (CommandResult)Activator.CreateInstance(Type.GetType("Sdx.Cmd." + cmdResultName), true);
+        CommandResult result = (CommandResult)Activator.CreateInstance(Type.GetType("Sdx." + cmdNamespace + "." + cmdResultName), true);
         result.Parse(json);
         if (result == null)
         {

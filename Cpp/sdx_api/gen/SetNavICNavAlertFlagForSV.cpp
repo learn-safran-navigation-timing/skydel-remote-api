@@ -1,8 +1,7 @@
 
-#include "gen/SetNavICNavAlertFlagForSV.h"
+#include "SetNavICNavAlertFlagForSV.h"
 
 #include "command_factory.h"
-#include "command_result_factory.h"
 #include "parse_json.hpp"
 
 ///
@@ -14,17 +13,25 @@ namespace Sdx
   namespace Cmd
   {
     const char* const SetNavICNavAlertFlagForSV::CmdName = "SetNavICNavAlertFlagForSV";
-    const char* const SetNavICNavAlertFlagForSV::Documentation = "Set NavIC NAV Alert Flag";
+    const char* const SetNavICNavAlertFlagForSV::Documentation = "Set NavIC NAV Alert Flag\n"
+      "\n"
+      "Name        Type            Description\n"
+      "----------- --------------- -------------------------------------------------------------------------------------------\n"
+      "SvId        int             Satellite SV ID 1..14, or use 0 to apply new value to all satellites.\n"
+      "Alert       bool            NavIC NAV Alert Flag, false = No Alert, true = Alert\n"
+      "DataSetName optional string Optional name of the data set to use. If no value is provided, the active data set is used.";
+    const char* const SetNavICNavAlertFlagForSV::TargetId = "";
 
-    REGISTER_COMMAND_FACTORY(SetNavICNavAlertFlagForSV);
+    REGISTER_COMMAND_TO_FACTORY_DECL(SetNavICNavAlertFlagForSV);
+    REGISTER_COMMAND_TO_FACTORY_IMPL(SetNavICNavAlertFlagForSV);
 
 
     SetNavICNavAlertFlagForSV::SetNavICNavAlertFlagForSV()
-      : CommandBase(CmdName)
+      : CommandBase(CmdName, TargetId)
     {}
 
     SetNavICNavAlertFlagForSV::SetNavICNavAlertFlagForSV(int svId, bool alert, const Sdx::optional<std::string>& dataSetName)
-      : CommandBase(CmdName)
+      : CommandBase(CmdName, TargetId)
     {
 
       setSvId(svId);
@@ -54,6 +61,12 @@ namespace Sdx
     }
 
     std::string SetNavICNavAlertFlagForSV::documentation() const { return Documentation; }
+
+    const std::vector<std::string>& SetNavICNavAlertFlagForSV::fieldNames() const 
+    { 
+      static const std::vector<std::string> names {"SvId", "Alert", "DataSetName"}; 
+      return names; 
+    }
 
 
     int SetNavICNavAlertFlagForSV::executePermission() const

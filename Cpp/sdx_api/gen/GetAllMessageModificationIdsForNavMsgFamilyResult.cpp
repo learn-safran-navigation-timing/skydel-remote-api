@@ -1,8 +1,7 @@
 
-#include "gen/GetAllMessageModificationIdsForNavMsgFamilyResult.h"
+#include "GetAllMessageModificationIdsForNavMsgFamilyResult.h"
 
 #include "command_factory.h"
-#include "command_result_factory.h"
 #include "parse_json.hpp"
 
 ///
@@ -14,24 +13,29 @@ namespace Sdx
   namespace Cmd
   {
     const char* const GetAllMessageModificationIdsForNavMsgFamilyResult::CmdName = "GetAllMessageModificationIdsForNavMsgFamilyResult";
-    const char* const GetAllMessageModificationIdsForNavMsgFamilyResult::Documentation = "Result of GetAllMessageModificationIdsForNavMsgFamily.";
+    const char* const GetAllMessageModificationIdsForNavMsgFamilyResult::Documentation = "Result of GetAllMessageModificationIdsForNavMsgFamily.\n"
+      "\n"
+      "Name Type         Description\n"
+      "---- ------------ -------------------------------------------------------------------------\n"
+      "Ids  array string List of event IDs which will modify the navigation message for this SV ID";
+    const char* const GetAllMessageModificationIdsForNavMsgFamilyResult::TargetId = "";
 
-    REGISTER_COMMAND_RESULT_TO_FACTORY_IMPL(GetAllMessageModificationIdsForNavMsgFamilyResult);
+    REGISTER_COMMAND_TO_FACTORY_IMPL(GetAllMessageModificationIdsForNavMsgFamilyResult);
 
 
     GetAllMessageModificationIdsForNavMsgFamilyResult::GetAllMessageModificationIdsForNavMsgFamilyResult()
-      : CommandResult(CmdName)
+      : CommandResult(CmdName, TargetId)
     {}
 
     GetAllMessageModificationIdsForNavMsgFamilyResult::GetAllMessageModificationIdsForNavMsgFamilyResult(const std::vector<std::string>& ids)
-      : CommandResult(CmdName)
+      : CommandResult(CmdName, TargetId)
     {
 
       setIds(ids);
     }
 
     GetAllMessageModificationIdsForNavMsgFamilyResult::GetAllMessageModificationIdsForNavMsgFamilyResult(CommandBasePtr relatedCommand, const std::vector<std::string>& ids)
-      : CommandResult(CmdName, relatedCommand)
+      : CommandResult(CmdName, TargetId, relatedCommand)
     {
 
       setIds(ids);
@@ -63,6 +67,12 @@ namespace Sdx
     }
 
     std::string GetAllMessageModificationIdsForNavMsgFamilyResult::documentation() const { return Documentation; }
+
+    const std::vector<std::string>& GetAllMessageModificationIdsForNavMsgFamilyResult::fieldNames() const 
+    { 
+      static const std::vector<std::string> names {"Ids"}; 
+      return names; 
+    }
 
 
     std::vector<std::string> GetAllMessageModificationIdsForNavMsgFamilyResult::ids() const

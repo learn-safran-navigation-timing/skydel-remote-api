@@ -1,8 +1,7 @@
 
-#include "gen/GetHilPort.h"
+#include "GetHilPort.h"
 
 #include "command_factory.h"
-#include "command_result_factory.h"
 #include "parse_json.hpp"
 
 ///
@@ -15,12 +14,14 @@ namespace Sdx
   {
     const char* const GetHilPort::CmdName = "GetHilPort";
     const char* const GetHilPort::Documentation = "Get Hardware in the loop trajectory server port.";
+    const char* const GetHilPort::TargetId = "";
 
-    REGISTER_COMMAND_FACTORY(GetHilPort);
+    REGISTER_COMMAND_TO_FACTORY_DECL(GetHilPort);
+    REGISTER_COMMAND_TO_FACTORY_IMPL(GetHilPort);
 
 
     GetHilPort::GetHilPort()
-      : CommandBase(CmdName)
+      : CommandBase(CmdName, TargetId)
     {
 
     }
@@ -44,6 +45,12 @@ namespace Sdx
     }
 
     std::string GetHilPort::documentation() const { return Documentation; }
+
+    const std::vector<std::string>& GetHilPort::fieldNames() const 
+    { 
+      static const std::vector<std::string> names {}; 
+      return names; 
+    }
 
 
     int GetHilPort::executePermission() const

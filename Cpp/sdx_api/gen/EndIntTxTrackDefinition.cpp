@@ -1,8 +1,7 @@
 
-#include "gen/EndIntTxTrackDefinition.h"
+#include "EndIntTxTrackDefinition.h"
 
 #include "command_factory.h"
-#include "command_result_factory.h"
 #include "parse_json.hpp"
 
 ///
@@ -14,17 +13,26 @@ namespace Sdx
   namespace Cmd
   {
     const char* const EndIntTxTrackDefinition::CmdName = "EndIntTxTrackDefinition";
-    const char* const EndIntTxTrackDefinition::Documentation = "This command completes the track started with BeginIntTxTrackDefinition command. If\nthe track is accepted, the current track in the configuration is replaced with\nthis new track. If the track is not accepted, the current track in the config\nremains unchanged.";
+    const char* const EndIntTxTrackDefinition::Documentation = "This command completes the track started with BeginIntTxTrackDefinition command. If\n"
+      "the track is accepted, the current track in the configuration is replaced with\n"
+      "this new track. If the track is not accepted, the current track in the config\n"
+      "remains unchanged.\n"
+      "\n"
+      "Name Type   Description\n"
+      "---- ------ ------------------------------\n"
+      "Id   string Transmitter unique identifier.";
+    const char* const EndIntTxTrackDefinition::TargetId = "";
 
-    REGISTER_COMMAND_FACTORY(EndIntTxTrackDefinition);
+    REGISTER_COMMAND_TO_FACTORY_DECL(EndIntTxTrackDefinition);
+    REGISTER_COMMAND_TO_FACTORY_IMPL(EndIntTxTrackDefinition);
 
 
     EndIntTxTrackDefinition::EndIntTxTrackDefinition()
-      : CommandBase(CmdName)
+      : CommandBase(CmdName, TargetId)
     {}
 
     EndIntTxTrackDefinition::EndIntTxTrackDefinition(const std::string& id)
-      : CommandBase(CmdName)
+      : CommandBase(CmdName, TargetId)
     {
 
       setId(id);
@@ -50,6 +58,12 @@ namespace Sdx
     }
 
     std::string EndIntTxTrackDefinition::documentation() const { return Documentation; }
+
+    const std::vector<std::string>& EndIntTxTrackDefinition::fieldNames() const 
+    { 
+      static const std::vector<std::string> names {"Id"}; 
+      return names; 
+    }
 
 
     int EndIntTxTrackDefinition::executePermission() const

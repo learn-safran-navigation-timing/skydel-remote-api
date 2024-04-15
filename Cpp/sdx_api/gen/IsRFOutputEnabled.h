@@ -13,8 +13,8 @@ namespace Sdx
     /// Tells if the RF output is enabled or disabled for the specified satellite.
     ///
     /// Name   Type   Description
-    /// ------ ------ ----------------------------------------------------------------
-    /// System string "GPS", "GLONASS", "Galileo", "BeiDou", "SBAS", "QZSS" or "NavIC"
+    /// ------ ------ --------------------------------------------------------------------------
+    /// System string "GPS", "GLONASS", "Galileo", "BeiDou", "SBAS", "QZSS", "NavIC" or "PULSAR"
     /// SvId   int    The satellite's SV ID
     ///
 
@@ -27,6 +27,7 @@ namespace Sdx
     public:
       static const char* const CmdName;
       static const char* const Documentation;
+      static const char* const TargetId;
 
 
       IsRFOutputEnabled();
@@ -37,6 +38,7 @@ namespace Sdx
       static IsRFOutputEnabledPtr dynamicCast(CommandBasePtr ptr);
       virtual bool isValid() const override;
       virtual std::string documentation() const override;
+      virtual const std::vector<std::string>& fieldNames() const override;
 
       virtual int executePermission() const override;
 

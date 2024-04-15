@@ -1,8 +1,7 @@
 
-#include "gen/GetGpsEphemerisBoolParams.h"
+#include "GetGpsEphemerisBoolParams.h"
 
 #include "command_factory.h"
-#include "command_result_factory.h"
 #include "parse_json.hpp"
 
 ///
@@ -14,19 +13,30 @@ namespace Sdx
   namespace Cmd
   {
     const char* const GetGpsEphemerisBoolParams::CmdName = "GetGpsEphemerisBoolParams";
-    const char* const GetGpsEphemerisBoolParams::Documentation = "Please note the command GetGpsEphemerisBoolParams is deprecated since 21.3. You may use GetGpsEphBoolParamForEachSV.\n\nPlease note the command GetGpsEphBoolParamForEachSV is deprecated since 23.11. You may use GetConstellationParameterForSV.\n\nGet GPS ephemeris boolean parameter value for all satellites";
+    const char* const GetGpsEphemerisBoolParams::Documentation = "Please note the command GetGpsEphemerisBoolParams is deprecated since 21.3. You may use GetGpsEphBoolParamForEachSV.\n"
+      "\n"
+      "Please note the command GetGpsEphBoolParamForEachSV is deprecated since 23.11. You may use GetConstellationParameterForSV.\n"
+      "\n"
+      "Get GPS ephemeris boolean parameter value for all satellites\n"
+      "\n"
+      "Name        Type            Description\n"
+      "----------- --------------- -------------------------------------------------------------------------------------------\n"
+      "ParamName   string          Refer to SetGpsEphBoolParamForSV for accepted names\n"
+      "DataSetName optional string Optional name of the data set to use. If no value is provided, the active data set is used.";
+    const char* const GetGpsEphemerisBoolParams::TargetId = "";
 
     const char* const GetGpsEphemerisBoolParams::Deprecated = "Please note the command GetGpsEphemerisBoolParams is deprecated since 23.11. You may use GetConstellationParameterForSV.";
 
-    REGISTER_COMMAND_FACTORY(GetGpsEphemerisBoolParams);
+    REGISTER_COMMAND_TO_FACTORY_DECL(GetGpsEphemerisBoolParams);
+    REGISTER_COMMAND_TO_FACTORY_IMPL(GetGpsEphemerisBoolParams);
 
 
     GetGpsEphemerisBoolParams::GetGpsEphemerisBoolParams()
-      : CommandBase(CmdName)
+      : CommandBase(CmdName, TargetId)
     {}
 
     GetGpsEphemerisBoolParams::GetGpsEphemerisBoolParams(const std::string& paramName, const Sdx::optional<std::string>& dataSetName)
-      : CommandBase(CmdName)
+      : CommandBase(CmdName, TargetId)
     {
 
       setParamName(paramName);
@@ -54,6 +64,12 @@ namespace Sdx
     }
 
     std::string GetGpsEphemerisBoolParams::documentation() const { return Documentation; }
+
+    const std::vector<std::string>& GetGpsEphemerisBoolParams::fieldNames() const 
+    { 
+      static const std::vector<std::string> names {"ParamName", "DataSetName"}; 
+      return names; 
+    }
 
     Sdx::optional<std::string> GetGpsEphemerisBoolParams::deprecated() const { return Sdx::optional<std::string>{Deprecated}; }
 

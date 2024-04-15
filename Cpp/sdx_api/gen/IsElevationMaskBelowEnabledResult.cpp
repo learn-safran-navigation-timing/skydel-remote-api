@@ -1,8 +1,7 @@
 
-#include "gen/IsElevationMaskBelowEnabledResult.h"
+#include "IsElevationMaskBelowEnabledResult.h"
 
 #include "command_factory.h"
-#include "command_result_factory.h"
 #include "parse_json.hpp"
 
 ///
@@ -14,24 +13,29 @@ namespace Sdx
   namespace Cmd
   {
     const char* const IsElevationMaskBelowEnabledResult::CmdName = "IsElevationMaskBelowEnabledResult";
-    const char* const IsElevationMaskBelowEnabledResult::Documentation = "Result of IsElevationMaskBelowEnabled.";
+    const char* const IsElevationMaskBelowEnabledResult::Documentation = "Result of IsElevationMaskBelowEnabled.\n"
+      "\n"
+      "Name    Type Description\n"
+      "------- ---- ------------------------------------------------------------------\n"
+      "Enabled bool If true, mask satellites with elevation angle below masking angle.";
+    const char* const IsElevationMaskBelowEnabledResult::TargetId = "";
 
-    REGISTER_COMMAND_RESULT_TO_FACTORY_IMPL(IsElevationMaskBelowEnabledResult);
+    REGISTER_COMMAND_TO_FACTORY_IMPL(IsElevationMaskBelowEnabledResult);
 
 
     IsElevationMaskBelowEnabledResult::IsElevationMaskBelowEnabledResult()
-      : CommandResult(CmdName)
+      : CommandResult(CmdName, TargetId)
     {}
 
     IsElevationMaskBelowEnabledResult::IsElevationMaskBelowEnabledResult(bool enabled)
-      : CommandResult(CmdName)
+      : CommandResult(CmdName, TargetId)
     {
 
       setEnabled(enabled);
     }
 
     IsElevationMaskBelowEnabledResult::IsElevationMaskBelowEnabledResult(CommandBasePtr relatedCommand, bool enabled)
-      : CommandResult(CmdName, relatedCommand)
+      : CommandResult(CmdName, TargetId, relatedCommand)
     {
 
       setEnabled(enabled);
@@ -63,6 +67,12 @@ namespace Sdx
     }
 
     std::string IsElevationMaskBelowEnabledResult::documentation() const { return Documentation; }
+
+    const std::vector<std::string>& IsElevationMaskBelowEnabledResult::fieldNames() const 
+    { 
+      static const std::vector<std::string> names {"Enabled"}; 
+      return names; 
+    }
 
 
     bool IsElevationMaskBelowEnabledResult::enabled() const

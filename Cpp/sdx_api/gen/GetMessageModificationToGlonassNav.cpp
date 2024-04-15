@@ -1,8 +1,7 @@
 
-#include "gen/GetMessageModificationToGlonassNav.h"
+#include "GetMessageModificationToGlonassNav.h"
 
 #include "command_factory.h"
-#include "command_result_factory.h"
 #include "parse_json.hpp"
 
 ///
@@ -14,17 +13,23 @@ namespace Sdx
   namespace Cmd
   {
     const char* const GetMessageModificationToGlonassNav::CmdName = "GetMessageModificationToGlonassNav";
-    const char* const GetMessageModificationToGlonassNav::Documentation = "Get infos about the GLONASS NAV message modification with this ID.";
+    const char* const GetMessageModificationToGlonassNav::Documentation = "Get infos about the GLONASS NAV message modification with this ID.\n"
+      "\n"
+      "Name Type   Description\n"
+      "---- ------ ------------------------------\n"
+      "Id   string Unique identifier of the event";
+    const char* const GetMessageModificationToGlonassNav::TargetId = "";
 
-    REGISTER_COMMAND_FACTORY(GetMessageModificationToGlonassNav);
+    REGISTER_COMMAND_TO_FACTORY_DECL(GetMessageModificationToGlonassNav);
+    REGISTER_COMMAND_TO_FACTORY_IMPL(GetMessageModificationToGlonassNav);
 
 
     GetMessageModificationToGlonassNav::GetMessageModificationToGlonassNav()
-      : CommandBase(CmdName)
+      : CommandBase(CmdName, TargetId)
     {}
 
     GetMessageModificationToGlonassNav::GetMessageModificationToGlonassNav(const std::string& id)
-      : CommandBase(CmdName)
+      : CommandBase(CmdName, TargetId)
     {
 
       setId(id);
@@ -50,6 +55,12 @@ namespace Sdx
     }
 
     std::string GetMessageModificationToGlonassNav::documentation() const { return Documentation; }
+
+    const std::vector<std::string>& GetMessageModificationToGlonassNav::fieldNames() const 
+    { 
+      static const std::vector<std::string> names {"Id"}; 
+      return names; 
+    }
 
 
     int GetMessageModificationToGlonassNav::executePermission() const

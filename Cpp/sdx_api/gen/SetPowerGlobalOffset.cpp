@@ -1,8 +1,7 @@
 
-#include "gen/SetPowerGlobalOffset.h"
+#include "SetPowerGlobalOffset.h"
 
 #include "command_factory.h"
-#include "command_result_factory.h"
 #include "parse_json.hpp"
 
 ///
@@ -14,17 +13,25 @@ namespace Sdx
   namespace Cmd
   {
     const char* const SetPowerGlobalOffset::CmdName = "SetPowerGlobalOffset";
-    const char* const SetPowerGlobalOffset::Documentation = "Please note the command SetPowerGlobalOffset is deprecated since 21.7. You may use SetGlobalPowerOffset.\n\nSet global power offset default value for all signals and all systems";
+    const char* const SetPowerGlobalOffset::Documentation = "Please note the command SetPowerGlobalOffset is deprecated since 21.7. You may use SetGlobalPowerOffset.\n"
+      "\n"
+      "Set global power offset default value for all signals and all systems\n"
+      "\n"
+      "Name   Type   Description\n"
+      "------ ------ ---------------------------------------------------\n"
+      "Offset double Offset in dB (negative value will attenuate signal)";
+    const char* const SetPowerGlobalOffset::TargetId = "";
 
-    REGISTER_COMMAND_FACTORY(SetPowerGlobalOffset);
+    REGISTER_COMMAND_TO_FACTORY_DECL(SetPowerGlobalOffset);
+    REGISTER_COMMAND_TO_FACTORY_IMPL(SetPowerGlobalOffset);
 
 
     SetPowerGlobalOffset::SetPowerGlobalOffset()
-      : CommandBase(CmdName)
+      : CommandBase(CmdName, TargetId)
     {}
 
     SetPowerGlobalOffset::SetPowerGlobalOffset(double offset)
-      : CommandBase(CmdName)
+      : CommandBase(CmdName, TargetId)
     {
 
       setOffset(offset);
@@ -50,6 +57,12 @@ namespace Sdx
     }
 
     std::string SetPowerGlobalOffset::documentation() const { return Documentation; }
+
+    const std::vector<std::string>& SetPowerGlobalOffset::fieldNames() const 
+    { 
+      static const std::vector<std::string> names {"Offset"}; 
+      return names; 
+    }
 
 
     int SetPowerGlobalOffset::executePermission() const

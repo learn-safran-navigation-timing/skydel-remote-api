@@ -1,8 +1,7 @@
 
-#include "gen/SetVehicleAntennaOffset.h"
+#include "SetVehicleAntennaOffset.h"
 
 #include "command_factory.h"
-#include "command_result_factory.h"
 #include "parse_json.hpp"
 
 ///
@@ -14,17 +13,35 @@ namespace Sdx
   namespace Cmd
   {
     const char* const SetVehicleAntennaOffset::CmdName = "SetVehicleAntennaOffset";
-    const char* const SetVehicleAntennaOffset::Documentation = "Set antenna offset and orientation relative to body frame.\nThe origin of the body frame follows the vehicle trajectory.\nWhen the body yaw/pitch/roll are zeros, the body X-axis is pointing north\n                         Y-axis is pointing east\n                         Z-axis is pointing down\nThe antenna Yaw is rotating around Z-axis. Pitch is rotating around Y-axis and\nthe Roll is rotating arond the X-axis of the body frame.";
+    const char* const SetVehicleAntennaOffset::Documentation = "Set antenna offset and orientation relative to body frame.\n"
+      "The origin of the body frame follows the vehicle trajectory.\n"
+      "When the body yaw/pitch/roll are zeros, the body X-axis is pointing north\n"
+      "                         Y-axis is pointing east\n"
+      "                         Z-axis is pointing down\n"
+      "The antenna Yaw is rotating around Z-axis. Pitch is rotating around Y-axis and\n"
+      "the Roll is rotating arond the X-axis of the body frame.\n"
+      "\n"
+      "Name  Type            Description\n"
+      "----- --------------- --------------------------------------------\n"
+      "X     double          Antenna X offset in the body frame (meter)\n"
+      "Y     double          Antenna Y offset in the body frame (meter)\n"
+      "Z     double          Antenna Z offset in the body frame (meter)\n"
+      "Yaw   double          Antenna Yaw offset in the body frame (rad)\n"
+      "Pitch double          Antenna Pitch offset in the body frame (rad)\n"
+      "Roll  double          Antenna Roll offset in the body frame (rad)\n"
+      "Name  optional string Unique vehicle antenna name";
+    const char* const SetVehicleAntennaOffset::TargetId = "";
 
-    REGISTER_COMMAND_FACTORY(SetVehicleAntennaOffset);
+    REGISTER_COMMAND_TO_FACTORY_DECL(SetVehicleAntennaOffset);
+    REGISTER_COMMAND_TO_FACTORY_IMPL(SetVehicleAntennaOffset);
 
 
     SetVehicleAntennaOffset::SetVehicleAntennaOffset()
-      : CommandBase(CmdName)
+      : CommandBase(CmdName, TargetId)
     {}
 
     SetVehicleAntennaOffset::SetVehicleAntennaOffset(double x, double y, double z, double yaw, double pitch, double roll, const Sdx::optional<std::string>& name)
-      : CommandBase(CmdName)
+      : CommandBase(CmdName, TargetId)
     {
 
       setX(x);
@@ -62,6 +79,12 @@ namespace Sdx
     }
 
     std::string SetVehicleAntennaOffset::documentation() const { return Documentation; }
+
+    const std::vector<std::string>& SetVehicleAntennaOffset::fieldNames() const 
+    { 
+      static const std::vector<std::string> names {"X", "Y", "Z", "Yaw", "Pitch", "Roll", "Name"}; 
+      return names; 
+    }
 
 
     int SetVehicleAntennaOffset::executePermission() const

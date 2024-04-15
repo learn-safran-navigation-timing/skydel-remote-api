@@ -1,8 +1,7 @@
 
-#include "gen/IsLOSEnabledForEachSVResult.h"
+#include "IsLOSEnabledForEachSVResult.h"
 
 #include "command_factory.h"
-#include "command_result_factory.h"
 #include "parse_json.hpp"
 
 ///
@@ -14,17 +13,23 @@ namespace Sdx
   namespace Cmd
   {
     const char* const IsLOSEnabledForEachSVResult::CmdName = "IsLOSEnabledForEachSVResult";
-    const char* const IsLOSEnabledForEachSVResult::Documentation = "Result of IsLOSEnabledForEachSV.";
+    const char* const IsLOSEnabledForEachSVResult::Documentation = "Result of IsLOSEnabledForEachSV.\n"
+      "\n"
+      "Name    Type       Description\n"
+      "------- ---------- -----------------------------------------------------------------------------------------------------------\n"
+      "System  string     \"GPS\", \"GLONASS\", \"Galileo\", \"BeiDou\", \"SBAS\", \"QZSS\", \"NavIC\" or \"PULSAR\"\n"
+      "Enabled array bool Direct Line of Sight enabled or not. Zero based index (index 0 => SV ID 1, index 1 => second SV ID 2, etc).";
+    const char* const IsLOSEnabledForEachSVResult::TargetId = "";
 
-    REGISTER_COMMAND_RESULT_TO_FACTORY_IMPL(IsLOSEnabledForEachSVResult);
+    REGISTER_COMMAND_TO_FACTORY_IMPL(IsLOSEnabledForEachSVResult);
 
 
     IsLOSEnabledForEachSVResult::IsLOSEnabledForEachSVResult()
-      : CommandResult(CmdName)
+      : CommandResult(CmdName, TargetId)
     {}
 
     IsLOSEnabledForEachSVResult::IsLOSEnabledForEachSVResult(const std::string& system, const std::vector<bool>& enabled)
-      : CommandResult(CmdName)
+      : CommandResult(CmdName, TargetId)
     {
 
       setSystem(system);
@@ -32,7 +37,7 @@ namespace Sdx
     }
 
     IsLOSEnabledForEachSVResult::IsLOSEnabledForEachSVResult(CommandBasePtr relatedCommand, const std::string& system, const std::vector<bool>& enabled)
-      : CommandResult(CmdName, relatedCommand)
+      : CommandResult(CmdName, TargetId, relatedCommand)
     {
 
       setSystem(system);
@@ -66,6 +71,12 @@ namespace Sdx
     }
 
     std::string IsLOSEnabledForEachSVResult::documentation() const { return Documentation; }
+
+    const std::vector<std::string>& IsLOSEnabledForEachSVResult::fieldNames() const 
+    { 
+      static const std::vector<std::string> names {"System", "Enabled"}; 
+      return names; 
+    }
 
 
     std::string IsLOSEnabledForEachSVResult::system() const

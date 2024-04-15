@@ -1,8 +1,7 @@
 
-#include "gen/GetConfigBroadcastOnStartResult.h"
+#include "GetConfigBroadcastOnStartResult.h"
 
 #include "command_factory.h"
-#include "command_result_factory.h"
 #include "parse_json.hpp"
 
 ///
@@ -14,24 +13,29 @@ namespace Sdx
   namespace Cmd
   {
     const char* const GetConfigBroadcastOnStartResult::CmdName = "GetConfigBroadcastOnStartResult";
-    const char* const GetConfigBroadcastOnStartResult::Documentation = "Result of GetConfigBroadcastOnStart.";
+    const char* const GetConfigBroadcastOnStartResult::Documentation = "Result of GetConfigBroadcastOnStart.\n"
+      "\n"
+      "Name             Type Description\n"
+      "---------------- ---- --------------------------------------------------------------\n"
+      "BroadcastOnStart bool True to broadcast the configuration on start, false otherwise.";
+    const char* const GetConfigBroadcastOnStartResult::TargetId = "";
 
-    REGISTER_COMMAND_RESULT_TO_FACTORY_IMPL(GetConfigBroadcastOnStartResult);
+    REGISTER_COMMAND_TO_FACTORY_IMPL(GetConfigBroadcastOnStartResult);
 
 
     GetConfigBroadcastOnStartResult::GetConfigBroadcastOnStartResult()
-      : CommandResult(CmdName)
+      : CommandResult(CmdName, TargetId)
     {}
 
     GetConfigBroadcastOnStartResult::GetConfigBroadcastOnStartResult(bool broadcastOnStart)
-      : CommandResult(CmdName)
+      : CommandResult(CmdName, TargetId)
     {
 
       setBroadcastOnStart(broadcastOnStart);
     }
 
     GetConfigBroadcastOnStartResult::GetConfigBroadcastOnStartResult(CommandBasePtr relatedCommand, bool broadcastOnStart)
-      : CommandResult(CmdName, relatedCommand)
+      : CommandResult(CmdName, TargetId, relatedCommand)
     {
 
       setBroadcastOnStart(broadcastOnStart);
@@ -63,6 +67,12 @@ namespace Sdx
     }
 
     std::string GetConfigBroadcastOnStartResult::documentation() const { return Documentation; }
+
+    const std::vector<std::string>& GetConfigBroadcastOnStartResult::fieldNames() const 
+    { 
+      static const std::vector<std::string> names {"BroadcastOnStart"}; 
+      return names; 
+    }
 
 
     bool GetConfigBroadcastOnStartResult::broadcastOnStart() const

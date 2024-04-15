@@ -1,8 +1,7 @@
 
-#include "gen/ImportIonoGridErrors.h"
+#include "ImportIonoGridErrors.h"
 
 #include "command_factory.h"
-#include "command_result_factory.h"
 #include "parse_json.hpp"
 
 ///
@@ -14,17 +13,24 @@ namespace Sdx
   namespace Cmd
   {
     const char* const ImportIonoGridErrors::CmdName = "ImportIonoGridErrors";
-    const char* const ImportIonoGridErrors::Documentation = "Import ionospheric grid errors.";
+    const char* const ImportIonoGridErrors::Documentation = "Import ionospheric grid errors.\n"
+      "\n"
+      "Name        Type   Description\n"
+      "----------- ------ ------------------------------------\n"
+      "Overwriting bool   Overwrite the previous grid if true.\n"
+      "Path        string Grid file path";
+    const char* const ImportIonoGridErrors::TargetId = "";
 
-    REGISTER_COMMAND_FACTORY(ImportIonoGridErrors);
+    REGISTER_COMMAND_TO_FACTORY_DECL(ImportIonoGridErrors);
+    REGISTER_COMMAND_TO_FACTORY_IMPL(ImportIonoGridErrors);
 
 
     ImportIonoGridErrors::ImportIonoGridErrors()
-      : CommandBase(CmdName)
+      : CommandBase(CmdName, TargetId)
     {}
 
     ImportIonoGridErrors::ImportIonoGridErrors(bool overwriting, const std::string& path)
-      : CommandBase(CmdName)
+      : CommandBase(CmdName, TargetId)
     {
 
       setOverwriting(overwriting);
@@ -52,6 +58,12 @@ namespace Sdx
     }
 
     std::string ImportIonoGridErrors::documentation() const { return Documentation; }
+
+    const std::vector<std::string>& ImportIonoGridErrors::fieldNames() const 
+    { 
+      static const std::vector<std::string> names {"Overwriting", "Path"}; 
+      return names; 
+    }
 
 
     int ImportIonoGridErrors::executePermission() const

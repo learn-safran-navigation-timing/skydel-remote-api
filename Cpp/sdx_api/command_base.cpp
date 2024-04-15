@@ -1,25 +1,25 @@
 #include "command_base.h"
 
-#include <regex>
+#include <guid.h>
+#include <rapidjson/document.h>
+#include <rapidjson/prettywriter.h>
+#include <rapidjson/writer.h>
 
-#include "command_result.h"
-#include "guid.h"
-#include "rapidjson/document.h"
-#include "rapidjson/prettywriter.h"
-#include "rapidjson/writer.h"
+#include "date_time.h"
 
 namespace Sdx
 {
 const std::string CommandBase::CmdNameKey("CmdName");
+const std::string CommandBase::CmdTargetIdKey("CmdTargetId");
 const std::string CommandBase::CmdUuidKey("CmdUuid");
 const std::string CommandBase::CmdTimestampKey("CmdTimestamp");
 const std::string CommandBase::CmdHidden("CmdHidden");
 
-CommandBase::CommandBase(const std::string& cmdName) : m_cmdName(cmdName)
+CommandBase::CommandBase(const std::string& cmdName, const std::string& targetId) : m_cmdName(cmdName)
 {
   m_values.SetObject();
   rapidjson::Value value;
-  value.SetString(cmdName.c_str(), (rapidjson::SizeType)cmdName.size(), m_values.GetAllocator());
+  value.SetString(cmdName.c_str(), static_cast<rapidjson::SizeType>(cmdName.size()), m_values.GetAllocator());
   setValue(CmdNameKey, value);
   generateUuid();
 
@@ -31,6 +31,12 @@ CommandBase::CommandBase(const std::string& cmdName) : m_cmdName(cmdName)
       m_cmdSplittedName += ' ';
     m_cmdSplittedName += letter;
   }
+
+  if (!targetId.empty())
+  {
+    value.SetString(targetId.c_str(), static_cast<rapidjson::SizeType>(targetId.size()), m_values.GetAllocator());
+    setValue(CmdTargetIdKey, value);
+  }
 }
 
 void CommandBase::generateUuid()
@@ -41,7 +47,7 @@ void CommandBase::generateUuid()
   m_cmdUuid = stream.str();
 
   rapidjson::Value value;
-  value.SetString(m_cmdUuid.c_str(), (rapidjson::SizeType)m_cmdUuid.size(), m_values.GetAllocator());
+  value.SetString(m_cmdUuid.c_str(), static_cast<rapidjson::SizeType>(m_cmdUuid.size()), m_values.GetAllocator());
   setValue(CmdUuidKey, value);
 }
 
@@ -93,7 +99,32 @@ bool CommandBase::hasTimestamp() const
 
 double CommandBase::timestamp() const
 {
-  return hasTimestamp() ? value(CmdTimestampKey).GetDouble() : 0;
+  if (hasTimestamp())
+  {
+    const rapidjson::Value& timestamp = value(CmdTimestampKey);
+
+    if (timestamp.IsDouble())
+    {
+      return timestamp.GetDouble();
+    }
+  }
+
+  return 0;
+}
+
+Sdx::DateTime CommandBase::gpsTimestamp() const
+{
+  if (hasTimestamp())
+  {
+    const rapidjson::Value& timestamp = value(CmdTimestampKey);
+
+    if (parse_json<Sdx::DateTime>::is_valid(timestamp))
+    {
+      return parse_json<Sdx::DateTime>::parse(timestamp);
+    }
+  }
+
+  return Sdx::DateTime();
 }
 
 void CommandBase::setTimestamp(double secs)
@@ -102,6 +133,15 @@ void CommandBase::setTimestamp(double secs)
     throw std::runtime_error("Cannot set timestamp to this command");
 
   rapidjson::Value value(secs);
+  setValue(CmdTimestampKey, value);
+}
+
+void CommandBase::setGpsTimestamp(const Sdx::DateTime& gpsTimestamp)
+{
+  if (!hasExecutePermission(EXECUTE_IF_SIMULATING))
+    throw std::runtime_error("Cannot set timestamp to this command");
+
+  rapidjson::Value value(parse_json<Sdx::DateTime>::format(gpsTimestamp, m_values.GetAllocator()));
   setValue(CmdTimestampKey, value);
 }
 

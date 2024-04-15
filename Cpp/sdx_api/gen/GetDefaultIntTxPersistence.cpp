@@ -1,8 +1,7 @@
 
-#include "gen/GetDefaultIntTxPersistence.h"
+#include "GetDefaultIntTxPersistence.h"
 
 #include "command_factory.h"
-#include "command_result_factory.h"
 #include "parse_json.hpp"
 
 ///
@@ -14,13 +13,15 @@ namespace Sdx
   namespace Cmd
   {
     const char* const GetDefaultIntTxPersistence::CmdName = "GetDefaultIntTxPersistence";
-    const char* const GetDefaultIntTxPersistence::Documentation = "Get wether by default transmitters should keep the modification done during simulation.";
+    const char* const GetDefaultIntTxPersistence::Documentation = "Get whether by default transmitters should keep the modification done during simulation.";
+    const char* const GetDefaultIntTxPersistence::TargetId = "";
 
-    REGISTER_COMMAND_FACTORY(GetDefaultIntTxPersistence);
+    REGISTER_COMMAND_TO_FACTORY_DECL(GetDefaultIntTxPersistence);
+    REGISTER_COMMAND_TO_FACTORY_IMPL(GetDefaultIntTxPersistence);
 
 
     GetDefaultIntTxPersistence::GetDefaultIntTxPersistence()
-      : CommandBase(CmdName)
+      : CommandBase(CmdName, TargetId)
     {
 
     }
@@ -44,6 +45,12 @@ namespace Sdx
     }
 
     std::string GetDefaultIntTxPersistence::documentation() const { return Documentation; }
+
+    const std::vector<std::string>& GetDefaultIntTxPersistence::fieldNames() const 
+    { 
+      static const std::vector<std::string> names {}; 
+      return names; 
+    }
 
 
     int GetDefaultIntTxPersistence::executePermission() const

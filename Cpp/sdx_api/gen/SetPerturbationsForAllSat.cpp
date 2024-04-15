@@ -1,8 +1,7 @@
 
-#include "gen/SetPerturbationsForAllSat.h"
+#include "SetPerturbationsForAllSat.h"
 
 #include "command_factory.h"
-#include "command_result_factory.h"
 #include "parse_json.hpp"
 
 ///
@@ -14,17 +13,31 @@ namespace Sdx
   namespace Cmd
   {
     const char* const SetPerturbationsForAllSat::CmdName = "SetPerturbationsForAllSat";
-    const char* const SetPerturbationsForAllSat::Documentation = "Set orbit perturbations (Crs, Crc, Cis, Cic, Cus and Cuc) for all satellites of the specified constellation..\nAll parameters are zero based index (index 0 => SV ID 1, index 1 => SV ID 2, etc)";
+    const char* const SetPerturbationsForAllSat::Documentation = "Set orbit perturbations (Crs, Crc, Cis, Cic, Cus and Cuc) for all satellites of the specified constellation..\n"
+      "All parameters are zero based index (index 0 => SV ID 1, index 1 => SV ID 2, etc)\n"
+      "\n"
+      "Name        Type            Description\n"
+      "----------- --------------- -------------------------------------------------------------------------------------------\n"
+      "System      string          \"GPS\", \"Galileo\", \"BeiDou\", \"QZSS\", \"NavIC\" or \"PULSAR\"\n"
+      "Crs         array double    Crs (meter)\n"
+      "Crc         array double    Crc (meter)\n"
+      "Cis         array double    Cis (rad)\n"
+      "Cic         array double    Cic (rad)\n"
+      "Cus         array double    Cus (rad)\n"
+      "Cuc         array double    Cuc (rad)\n"
+      "DataSetName optional string Optional name of the data set to use. If no value is provided, the active data set is used.";
+    const char* const SetPerturbationsForAllSat::TargetId = "";
 
-    REGISTER_COMMAND_FACTORY(SetPerturbationsForAllSat);
+    REGISTER_COMMAND_TO_FACTORY_DECL(SetPerturbationsForAllSat);
+    REGISTER_COMMAND_TO_FACTORY_IMPL(SetPerturbationsForAllSat);
 
 
     SetPerturbationsForAllSat::SetPerturbationsForAllSat()
-      : CommandBase(CmdName)
+      : CommandBase(CmdName, TargetId)
     {}
 
     SetPerturbationsForAllSat::SetPerturbationsForAllSat(const std::string& system, const std::vector<double>& crs, const std::vector<double>& crc, const std::vector<double>& cis, const std::vector<double>& cic, const std::vector<double>& cus, const std::vector<double>& cuc, const Sdx::optional<std::string>& dataSetName)
-      : CommandBase(CmdName)
+      : CommandBase(CmdName, TargetId)
     {
 
       setSystem(system);
@@ -64,6 +77,12 @@ namespace Sdx
     }
 
     std::string SetPerturbationsForAllSat::documentation() const { return Documentation; }
+
+    const std::vector<std::string>& SetPerturbationsForAllSat::fieldNames() const 
+    { 
+      static const std::vector<std::string> names {"System", "Crs", "Crc", "Cis", "Cic", "Cus", "Cuc", "DataSetName"}; 
+      return names; 
+    }
 
 
     int SetPerturbationsForAllSat::executePermission() const

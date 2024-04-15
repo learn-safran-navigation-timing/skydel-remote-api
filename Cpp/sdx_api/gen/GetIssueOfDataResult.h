@@ -2,7 +2,7 @@
 
 #include <memory>
 #include "command_result.h"
-#include "command_result_factory.h"
+#include "command_factory.h"
 #include "sdx_optional.h"
 
 namespace Sdx
@@ -28,6 +28,7 @@ namespace Sdx
     public:
       static const char* const CmdName;
       static const char* const Documentation;
+      static const char* const TargetId;
 
 
       GetIssueOfDataResult();
@@ -42,6 +43,7 @@ namespace Sdx
       static GetIssueOfDataResultPtr dynamicCast(CommandBasePtr ptr);
       virtual bool isValid() const override;
       virtual std::string documentation() const override;
+      virtual const std::vector<std::string>& fieldNames() const override;
 
 
       // **** clock ****
@@ -58,7 +60,7 @@ namespace Sdx
       Sdx::optional<bool> overrideRinex() const;
       void setOverrideRinex(const Sdx::optional<bool>& overrideRinex);
     };
-    REGISTER_COMMAND_RESULT_TO_FACTORY_DECL(GetIssueOfDataResult);
+    REGISTER_COMMAND_TO_FACTORY_DECL(GetIssueOfDataResult);
   }
 }
 

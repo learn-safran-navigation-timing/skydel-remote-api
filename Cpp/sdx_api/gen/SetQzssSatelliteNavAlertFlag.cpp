@@ -1,8 +1,7 @@
 
-#include "gen/SetQzssSatelliteNavAlertFlag.h"
+#include "SetQzssSatelliteNavAlertFlag.h"
 
 #include "command_factory.h"
-#include "command_result_factory.h"
 #include "parse_json.hpp"
 
 ///
@@ -14,17 +13,27 @@ namespace Sdx
   namespace Cmd
   {
     const char* const SetQzssSatelliteNavAlertFlag::CmdName = "SetQzssSatelliteNavAlertFlag";
-    const char* const SetQzssSatelliteNavAlertFlag::Documentation = "Please note the command SetQzssSatelliteNavAlertFlag is deprecated since 21.3. You may use SetQzssNavAlertFlagForSV.\n\nSet QZSS NAV Alert Flag";
+    const char* const SetQzssSatelliteNavAlertFlag::Documentation = "Please note the command SetQzssSatelliteNavAlertFlag is deprecated since 21.3. You may use SetQzssNavAlertFlagForSV.\n"
+      "\n"
+      "Set QZSS NAV Alert Flag\n"
+      "\n"
+      "Name        Type            Description\n"
+      "----------- --------------- -------------------------------------------------------------------------------------------\n"
+      "SvId        int             Satellite SV ID 1..10, or use 0 to apply new value to all satellites.\n"
+      "Alert       bool            QZSS NAV Alert Flag, false = No Alert, true = Alert\n"
+      "DataSetName optional string Optional name of the data set to use. If no value is provided, the active data set is used.";
+    const char* const SetQzssSatelliteNavAlertFlag::TargetId = "";
 
-    REGISTER_COMMAND_FACTORY(SetQzssSatelliteNavAlertFlag);
+    REGISTER_COMMAND_TO_FACTORY_DECL(SetQzssSatelliteNavAlertFlag);
+    REGISTER_COMMAND_TO_FACTORY_IMPL(SetQzssSatelliteNavAlertFlag);
 
 
     SetQzssSatelliteNavAlertFlag::SetQzssSatelliteNavAlertFlag()
-      : CommandBase(CmdName)
+      : CommandBase(CmdName, TargetId)
     {}
 
     SetQzssSatelliteNavAlertFlag::SetQzssSatelliteNavAlertFlag(int svId, bool alert, const Sdx::optional<std::string>& dataSetName)
-      : CommandBase(CmdName)
+      : CommandBase(CmdName, TargetId)
     {
 
       setSvId(svId);
@@ -54,6 +63,12 @@ namespace Sdx
     }
 
     std::string SetQzssSatelliteNavAlertFlag::documentation() const { return Documentation; }
+
+    const std::vector<std::string>& SetQzssSatelliteNavAlertFlag::fieldNames() const 
+    { 
+      static const std::vector<std::string> names {"SvId", "Alert", "DataSetName"}; 
+      return names; 
+    }
 
 
     int SetQzssSatelliteNavAlertFlag::executePermission() const

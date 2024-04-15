@@ -10,7 +10,7 @@ namespace Sdx
   namespace Cmd
   {
     ///
-    /// Get wether the main instance should send its configuration to every worker instance when simulation start.
+    /// Get whether the main instance should send its configuration to every worker instance when simulation start.
     ///
     /// 
     ///
@@ -24,6 +24,7 @@ namespace Sdx
     public:
       static const char* const CmdName;
       static const char* const Documentation;
+      static const char* const TargetId;
 
 
       GetConfigBroadcastOnStart();
@@ -32,6 +33,7 @@ namespace Sdx
       static GetConfigBroadcastOnStartPtr dynamicCast(CommandBasePtr ptr);
       virtual bool isValid() const override;
       virtual std::string documentation() const override;
+      virtual const std::vector<std::string>& fieldNames() const override;
 
       virtual int executePermission() const override;
     };

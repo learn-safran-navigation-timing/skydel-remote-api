@@ -1,8 +1,7 @@
 
-#include "gen/GetConstellationParameterForEachSVResult.h"
+#include "GetConstellationParameterForEachSVResult.h"
 
 #include "command_factory.h"
-#include "command_result_factory.h"
 #include "parse_json.hpp"
 
 ///
@@ -14,17 +13,25 @@ namespace Sdx
   namespace Cmd
   {
     const char* const GetConstellationParameterForEachSVResult::CmdName = "GetConstellationParameterForEachSVResult";
-    const char* const GetConstellationParameterForEachSVResult::Documentation = "Result of GetConstellationParameterForEachSV.";
+    const char* const GetConstellationParameterForEachSVResult::Documentation = "Result of GetConstellationParameterForEachSV.\n"
+      "\n"
+      "Name        Type                                    Description\n"
+      "----------- --------------------------------------- ----------------------------------------------------------------------------------------------------\n"
+      "System      string                                  \"GPS\", \"Galileo\", \"BeiDou\", \"QZSS\", \"NavIC\" or \"PULSAR\".\n"
+      "ParamName   string                                  Refer to SetConstellationParameterForSV for accepted names.\n"
+      "Val         array double or array int or array bool Parameter value for each satellite. Zero based index (index 0 => SV ID 1, index 1 => SV ID 2, etc.).\n"
+      "DataSetName optional string                         Optional name of the data set to use. If no value is provided, the active data set is used.";
+    const char* const GetConstellationParameterForEachSVResult::TargetId = "";
 
-    REGISTER_COMMAND_RESULT_TO_FACTORY_IMPL(GetConstellationParameterForEachSVResult);
+    REGISTER_COMMAND_TO_FACTORY_IMPL(GetConstellationParameterForEachSVResult);
 
 
     GetConstellationParameterForEachSVResult::GetConstellationParameterForEachSVResult()
-      : CommandResult(CmdName)
+      : CommandResult(CmdName, TargetId)
     {}
 
     GetConstellationParameterForEachSVResult::GetConstellationParameterForEachSVResult(const std::string& system, const std::string& paramName, const std::vector<double>& val, const Sdx::optional<std::string>& dataSetName)
-      : CommandResult(CmdName)
+      : CommandResult(CmdName, TargetId)
     {
 
       setSystem(system);
@@ -34,7 +41,7 @@ namespace Sdx
     }
 
     GetConstellationParameterForEachSVResult::GetConstellationParameterForEachSVResult(CommandBasePtr relatedCommand, const std::string& system, const std::string& paramName, const std::vector<double>& val, const Sdx::optional<std::string>& dataSetName)
-      : CommandResult(CmdName, relatedCommand)
+      : CommandResult(CmdName, TargetId, relatedCommand)
     {
 
       setSystem(system);
@@ -44,7 +51,7 @@ namespace Sdx
     }
 
     GetConstellationParameterForEachSVResult::GetConstellationParameterForEachSVResult(const std::string& system, const std::string& paramName, const std::vector<int>& val, const Sdx::optional<std::string>& dataSetName)
-      : CommandResult(CmdName)
+      : CommandResult(CmdName, TargetId)
     {
 
       setSystem(system);
@@ -54,7 +61,7 @@ namespace Sdx
     }
 
     GetConstellationParameterForEachSVResult::GetConstellationParameterForEachSVResult(CommandBasePtr relatedCommand, const std::string& system, const std::string& paramName, const std::vector<int>& val, const Sdx::optional<std::string>& dataSetName)
-      : CommandResult(CmdName, relatedCommand)
+      : CommandResult(CmdName, TargetId, relatedCommand)
     {
 
       setSystem(system);
@@ -64,7 +71,7 @@ namespace Sdx
     }
 
     GetConstellationParameterForEachSVResult::GetConstellationParameterForEachSVResult(const std::string& system, const std::string& paramName, const std::vector<bool>& val, const Sdx::optional<std::string>& dataSetName)
-      : CommandResult(CmdName)
+      : CommandResult(CmdName, TargetId)
     {
 
       setSystem(system);
@@ -74,7 +81,7 @@ namespace Sdx
     }
 
     GetConstellationParameterForEachSVResult::GetConstellationParameterForEachSVResult(CommandBasePtr relatedCommand, const std::string& system, const std::string& paramName, const std::vector<bool>& val, const Sdx::optional<std::string>& dataSetName)
-      : CommandResult(CmdName, relatedCommand)
+      : CommandResult(CmdName, TargetId, relatedCommand)
     {
 
       setSystem(system);
@@ -134,6 +141,12 @@ namespace Sdx
     }
 
     std::string GetConstellationParameterForEachSVResult::documentation() const { return Documentation; }
+
+    const std::vector<std::string>& GetConstellationParameterForEachSVResult::fieldNames() const 
+    { 
+      static const std::vector<std::string> names {"System", "ParamName", "Val", "DataSetName"}; 
+      return names; 
+    }
 
 
     std::string GetConstellationParameterForEachSVResult::system() const

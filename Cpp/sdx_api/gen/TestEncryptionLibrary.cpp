@@ -1,8 +1,7 @@
 
-#include "gen/TestEncryptionLibrary.h"
+#include "TestEncryptionLibrary.h"
 
 #include "command_factory.h"
-#include "command_result_factory.h"
 #include "parse_json.hpp"
 
 ///
@@ -14,17 +13,23 @@ namespace Sdx
   namespace Cmd
   {
     const char* const TestEncryptionLibrary::CmdName = "TestEncryptionLibrary";
-    const char* const TestEncryptionLibrary::Documentation = "Test the specific encryption signal library.";
+    const char* const TestEncryptionLibrary::Documentation = "Test the specific encryption signal library.\n"
+      "\n"
+      "Name Type                 Description\n"
+      "---- -------------------- -----------------------\n"
+      "Type EncryptionSignalType Encryption signal type.";
+    const char* const TestEncryptionLibrary::TargetId = "";
 
-    REGISTER_COMMAND_FACTORY(TestEncryptionLibrary);
+    REGISTER_COMMAND_TO_FACTORY_DECL(TestEncryptionLibrary);
+    REGISTER_COMMAND_TO_FACTORY_IMPL(TestEncryptionLibrary);
 
 
     TestEncryptionLibrary::TestEncryptionLibrary()
-      : CommandBase(CmdName)
+      : CommandBase(CmdName, TargetId)
     {}
 
     TestEncryptionLibrary::TestEncryptionLibrary(const Sdx::EncryptionSignalType& type)
-      : CommandBase(CmdName)
+      : CommandBase(CmdName, TargetId)
     {
 
       setType(type);
@@ -50,6 +55,12 @@ namespace Sdx
     }
 
     std::string TestEncryptionLibrary::documentation() const { return Documentation; }
+
+    const std::vector<std::string>& TestEncryptionLibrary::fieldNames() const 
+    { 
+      static const std::vector<std::string> names {"Type"}; 
+      return names; 
+    }
 
 
     int TestEncryptionLibrary::executePermission() const

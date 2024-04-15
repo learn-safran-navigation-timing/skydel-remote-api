@@ -1,8 +1,7 @@
 
-#include "gen/GetIssueOfDataBeiDou.h"
+#include "GetIssueOfDataBeiDou.h"
 
 #include "command_factory.h"
-#include "command_result_factory.h"
 #include "parse_json.hpp"
 
 ///
@@ -15,12 +14,14 @@ namespace Sdx
   {
     const char* const GetIssueOfDataBeiDou::CmdName = "GetIssueOfDataBeiDou";
     const char* const GetIssueOfDataBeiDou::Documentation = "Get BeiDou Issue of data, Ephemeris (IODE) and Issue of data, Clock (IODC)";
+    const char* const GetIssueOfDataBeiDou::TargetId = "";
 
-    REGISTER_COMMAND_FACTORY(GetIssueOfDataBeiDou);
+    REGISTER_COMMAND_TO_FACTORY_DECL(GetIssueOfDataBeiDou);
+    REGISTER_COMMAND_TO_FACTORY_IMPL(GetIssueOfDataBeiDou);
 
 
     GetIssueOfDataBeiDou::GetIssueOfDataBeiDou()
-      : CommandBase(CmdName)
+      : CommandBase(CmdName, TargetId)
     {
 
     }
@@ -44,6 +45,12 @@ namespace Sdx
     }
 
     std::string GetIssueOfDataBeiDou::documentation() const { return Documentation; }
+
+    const std::vector<std::string>& GetIssueOfDataBeiDou::fieldNames() const 
+    { 
+      static const std::vector<std::string> names {}; 
+      return names; 
+    }
 
 
     int GetIssueOfDataBeiDou::executePermission() const

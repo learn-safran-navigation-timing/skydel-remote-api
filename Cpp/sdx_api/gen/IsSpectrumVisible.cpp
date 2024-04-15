@@ -1,8 +1,7 @@
 
-#include "gen/IsSpectrumVisible.h"
+#include "IsSpectrumVisible.h"
 
 #include "command_factory.h"
-#include "command_result_factory.h"
 #include "parse_json.hpp"
 
 ///
@@ -15,12 +14,14 @@ namespace Sdx
   {
     const char* const IsSpectrumVisible::CmdName = "IsSpectrumVisible";
     const char* const IsSpectrumVisible::Documentation = "Get if spectrums are show/hide.";
+    const char* const IsSpectrumVisible::TargetId = "";
 
-    REGISTER_COMMAND_FACTORY(IsSpectrumVisible);
+    REGISTER_COMMAND_TO_FACTORY_DECL(IsSpectrumVisible);
+    REGISTER_COMMAND_TO_FACTORY_IMPL(IsSpectrumVisible);
 
 
     IsSpectrumVisible::IsSpectrumVisible()
-      : CommandBase(CmdName)
+      : CommandBase(CmdName, TargetId)
     {
 
     }
@@ -44,6 +45,12 @@ namespace Sdx
     }
 
     std::string IsSpectrumVisible::documentation() const { return Documentation; }
+
+    const std::vector<std::string>& IsSpectrumVisible::fieldNames() const 
+    { 
+      static const std::vector<std::string> names {}; 
+      return names; 
+    }
 
 
     int IsSpectrumVisible::executePermission() const

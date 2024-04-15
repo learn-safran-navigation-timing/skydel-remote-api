@@ -1,8 +1,7 @@
 
-#include "gen/SetEffectiveIonisationLevelCoefficient.h"
+#include "SetEffectiveIonisationLevelCoefficient.h"
 
 #include "command_factory.h"
-#include "command_result_factory.h"
 #include "parse_json.hpp"
 
 ///
@@ -14,17 +13,24 @@ namespace Sdx
   namespace Cmd
   {
     const char* const SetEffectiveIonisationLevelCoefficient::CmdName = "SetEffectiveIonisationLevelCoefficient";
-    const char* const SetEffectiveIonisationLevelCoefficient::Documentation = "Set the effective ionisation level coefficient for the 1st, 2nd or 3rd order, (ai0 , ai1 , ai2).";
+    const char* const SetEffectiveIonisationLevelCoefficient::Documentation = "Set the effective ionisation level coefficient for the 1st, 2nd or 3rd order, (ai0 , ai1 , ai2).\n"
+      "\n"
+      "Name  Type   Description\n"
+      "----- ------ ---------------------------------------------------------------\n"
+      "Index int    Coefficient index, 0, 1 or 2 for ai0, ai1 and ai2 respectively.\n"
+      "Val   double Coefficient value.";
+    const char* const SetEffectiveIonisationLevelCoefficient::TargetId = "";
 
-    REGISTER_COMMAND_FACTORY(SetEffectiveIonisationLevelCoefficient);
+    REGISTER_COMMAND_TO_FACTORY_DECL(SetEffectiveIonisationLevelCoefficient);
+    REGISTER_COMMAND_TO_FACTORY_IMPL(SetEffectiveIonisationLevelCoefficient);
 
 
     SetEffectiveIonisationLevelCoefficient::SetEffectiveIonisationLevelCoefficient()
-      : CommandBase(CmdName)
+      : CommandBase(CmdName, TargetId)
     {}
 
     SetEffectiveIonisationLevelCoefficient::SetEffectiveIonisationLevelCoefficient(int index, double val)
-      : CommandBase(CmdName)
+      : CommandBase(CmdName, TargetId)
     {
 
       setIndex(index);
@@ -52,6 +58,12 @@ namespace Sdx
     }
 
     std::string SetEffectiveIonisationLevelCoefficient::documentation() const { return Documentation; }
+
+    const std::vector<std::string>& SetEffectiveIonisationLevelCoefficient::fieldNames() const 
+    { 
+      static const std::vector<std::string> names {"Index", "Val"}; 
+      return names; 
+    }
 
 
     int SetEffectiveIonisationLevelCoefficient::executePermission() const

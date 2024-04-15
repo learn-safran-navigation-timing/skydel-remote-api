@@ -1,8 +1,7 @@
 
-#include "gen/SetVehicleTrajectoryCircular.h"
+#include "SetVehicleTrajectoryCircular.h"
 
 #include "command_factory.h"
-#include "command_result_factory.h"
 #include "parse_json.hpp"
 
 ///
@@ -14,17 +13,30 @@ namespace Sdx
   namespace Cmd
   {
     const char* const SetVehicleTrajectoryCircular::CmdName = "SetVehicleTrajectoryCircular";
-    const char* const SetVehicleTrajectoryCircular::Documentation = "Set vehicle circular trajectory";
+    const char* const SetVehicleTrajectoryCircular::Documentation = "Set vehicle circular trajectory\n"
+      "\n"
+      "Name        Type            Description\n"
+      "----------- --------------- --------------------------------\n"
+      "Type        string          Trajectory type (\"Circular\")\n"
+      "Lat         double          Center latitude (rad)\n"
+      "Lon         double          Center longitude (rad)\n"
+      "Alt         double          Altitude (m)\n"
+      "Radius      double          Radius (m)\n"
+      "Speed       double          Speed (m/s)\n"
+      "Clockwise   bool            If true, vehicle turns clockwise\n"
+      "OriginAngle optional double Vehicle angle at elapsed time 0.";
+    const char* const SetVehicleTrajectoryCircular::TargetId = "";
 
-    REGISTER_COMMAND_FACTORY(SetVehicleTrajectoryCircular);
+    REGISTER_COMMAND_TO_FACTORY_DECL(SetVehicleTrajectoryCircular);
+    REGISTER_COMMAND_TO_FACTORY_IMPL(SetVehicleTrajectoryCircular);
 
 
     SetVehicleTrajectoryCircular::SetVehicleTrajectoryCircular()
-      : CommandBase(CmdName)
+      : CommandBase(CmdName, TargetId)
     {}
 
     SetVehicleTrajectoryCircular::SetVehicleTrajectoryCircular(const std::string& type, double lat, double lon, double alt, double radius, double speed, bool clockwise, const Sdx::optional<double>& originAngle)
-      : CommandBase(CmdName)
+      : CommandBase(CmdName, TargetId)
     {
 
       setType(type);
@@ -64,6 +76,12 @@ namespace Sdx
     }
 
     std::string SetVehicleTrajectoryCircular::documentation() const { return Documentation; }
+
+    const std::vector<std::string>& SetVehicleTrajectoryCircular::fieldNames() const 
+    { 
+      static const std::vector<std::string> names {"Type", "Lat", "Lon", "Alt", "Radius", "Speed", "Clockwise", "OriginAngle"}; 
+      return names; 
+    }
 
 
     int SetVehicleTrajectoryCircular::executePermission() const

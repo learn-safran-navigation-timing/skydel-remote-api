@@ -1,8 +1,7 @@
 
-#include "gen/GetSpoofTxTrajectoryResult.h"
+#include "GetSpoofTxTrajectoryResult.h"
 
 #include "command_factory.h"
-#include "command_result_factory.h"
 #include "parse_json.hpp"
 
 ///
@@ -14,17 +13,23 @@ namespace Sdx
   namespace Cmd
   {
     const char* const GetSpoofTxTrajectoryResult::CmdName = "GetSpoofTxTrajectoryResult";
-    const char* const GetSpoofTxTrajectoryResult::Documentation = "Result of GetSpoofTxTrajectory.";
+    const char* const GetSpoofTxTrajectoryResult::Documentation = "Result of GetSpoofTxTrajectory.\n"
+      "\n"
+      "Name           Type   Description\n"
+      "-------------- ------ ---------------------------------------------------\n"
+      "TrajectoryType string Type of the trajectory of the spoofer transmitters.\n"
+      "Id             string Transmitter unique identifier.";
+    const char* const GetSpoofTxTrajectoryResult::TargetId = "";
 
-    REGISTER_COMMAND_RESULT_TO_FACTORY_IMPL(GetSpoofTxTrajectoryResult);
+    REGISTER_COMMAND_TO_FACTORY_IMPL(GetSpoofTxTrajectoryResult);
 
 
     GetSpoofTxTrajectoryResult::GetSpoofTxTrajectoryResult()
-      : CommandResult(CmdName)
+      : CommandResult(CmdName, TargetId)
     {}
 
     GetSpoofTxTrajectoryResult::GetSpoofTxTrajectoryResult(const std::string& trajectoryType, const std::string& id)
-      : CommandResult(CmdName)
+      : CommandResult(CmdName, TargetId)
     {
 
       setTrajectoryType(trajectoryType);
@@ -32,7 +37,7 @@ namespace Sdx
     }
 
     GetSpoofTxTrajectoryResult::GetSpoofTxTrajectoryResult(CommandBasePtr relatedCommand, const std::string& trajectoryType, const std::string& id)
-      : CommandResult(CmdName, relatedCommand)
+      : CommandResult(CmdName, TargetId, relatedCommand)
     {
 
       setTrajectoryType(trajectoryType);
@@ -66,6 +71,12 @@ namespace Sdx
     }
 
     std::string GetSpoofTxTrajectoryResult::documentation() const { return Documentation; }
+
+    const std::vector<std::string>& GetSpoofTxTrajectoryResult::fieldNames() const 
+    { 
+      static const std::vector<std::string> names {"TrajectoryType", "Id"}; 
+      return names; 
+    }
 
 
     std::string GetSpoofTxTrajectoryResult::trajectoryType() const

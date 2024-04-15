@@ -1,8 +1,7 @@
 
-#include "gen/GetAlmanacInitialUploadTimeOffsetResult.h"
+#include "GetAlmanacInitialUploadTimeOffsetResult.h"
 
 #include "command_factory.h"
-#include "command_result_factory.h"
 #include "parse_json.hpp"
 
 ///
@@ -14,17 +13,23 @@ namespace Sdx
   namespace Cmd
   {
     const char* const GetAlmanacInitialUploadTimeOffsetResult::CmdName = "GetAlmanacInitialUploadTimeOffsetResult";
-    const char* const GetAlmanacInitialUploadTimeOffsetResult::Documentation = "Result of GetAlmanacInitialUploadTimeOffset.";
+    const char* const GetAlmanacInitialUploadTimeOffsetResult::Documentation = "Result of GetAlmanacInitialUploadTimeOffset.\n"
+      "\n"
+      "Name   Type   Description\n"
+      "------ ------ -------------------------------------------------------------------------------------------\n"
+      "System string Must be \"GPS\"\n"
+      "Offset int    Next upload time in sec (relative to simulation start time). Accepted range is [30..259200]";
+    const char* const GetAlmanacInitialUploadTimeOffsetResult::TargetId = "";
 
-    REGISTER_COMMAND_RESULT_TO_FACTORY_IMPL(GetAlmanacInitialUploadTimeOffsetResult);
+    REGISTER_COMMAND_TO_FACTORY_IMPL(GetAlmanacInitialUploadTimeOffsetResult);
 
 
     GetAlmanacInitialUploadTimeOffsetResult::GetAlmanacInitialUploadTimeOffsetResult()
-      : CommandResult(CmdName)
+      : CommandResult(CmdName, TargetId)
     {}
 
     GetAlmanacInitialUploadTimeOffsetResult::GetAlmanacInitialUploadTimeOffsetResult(const std::string& system, int offset)
-      : CommandResult(CmdName)
+      : CommandResult(CmdName, TargetId)
     {
 
       setSystem(system);
@@ -32,7 +37,7 @@ namespace Sdx
     }
 
     GetAlmanacInitialUploadTimeOffsetResult::GetAlmanacInitialUploadTimeOffsetResult(CommandBasePtr relatedCommand, const std::string& system, int offset)
-      : CommandResult(CmdName, relatedCommand)
+      : CommandResult(CmdName, TargetId, relatedCommand)
     {
 
       setSystem(system);
@@ -66,6 +71,12 @@ namespace Sdx
     }
 
     std::string GetAlmanacInitialUploadTimeOffsetResult::documentation() const { return Documentation; }
+
+    const std::vector<std::string>& GetAlmanacInitialUploadTimeOffsetResult::fieldNames() const 
+    { 
+      static const std::vector<std::string> names {"System", "Offset"}; 
+      return names; 
+    }
 
 
     std::string GetAlmanacInitialUploadTimeOffsetResult::system() const

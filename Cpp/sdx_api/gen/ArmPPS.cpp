@@ -1,8 +1,7 @@
 
-#include "gen/ArmPPS.h"
+#include "ArmPPS.h"
 
 #include "command_factory.h"
-#include "command_result_factory.h"
 #include "parse_json.hpp"
 
 ///
@@ -15,12 +14,14 @@ namespace Sdx
   {
     const char* const ArmPPS::CmdName = "ArmPPS";
     const char* const ArmPPS::Documentation = "Arm the system for further PPS synchronization instructions.";
+    const char* const ArmPPS::TargetId = "";
 
-    REGISTER_COMMAND_FACTORY(ArmPPS);
+    REGISTER_COMMAND_TO_FACTORY_DECL(ArmPPS);
+    REGISTER_COMMAND_TO_FACTORY_IMPL(ArmPPS);
 
 
     ArmPPS::ArmPPS()
-      : CommandBase(CmdName)
+      : CommandBase(CmdName, TargetId)
     {
 
     }
@@ -44,6 +45,12 @@ namespace Sdx
     }
 
     std::string ArmPPS::documentation() const { return Documentation; }
+
+    const std::vector<std::string>& ArmPPS::fieldNames() const 
+    { 
+      static const std::vector<std::string> names {}; 
+      return names; 
+    }
 
 
     int ArmPPS::executePermission() const

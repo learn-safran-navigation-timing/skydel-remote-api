@@ -1,8 +1,7 @@
 
-#include "gen/GetGalileoSignalHealthForSV.h"
+#include "GetGalileoSignalHealthForSV.h"
 
 #include "command_factory.h"
-#include "command_result_factory.h"
 #include "parse_json.hpp"
 
 ///
@@ -14,17 +13,25 @@ namespace Sdx
   namespace Cmd
   {
     const char* const GetGalileoSignalHealthForSV::CmdName = "GetGalileoSignalHealthForSV";
-    const char* const GetGalileoSignalHealthForSV::Documentation = "Get Galileo signal health for I/NAV and F/NAV message";
+    const char* const GetGalileoSignalHealthForSV::Documentation = "Get Galileo signal health for I/NAV and F/NAV message\n"
+      "\n"
+      "Name        Type            Description\n"
+      "----------- --------------- -------------------------------------------------------------------------------------------\n"
+      "SvId        int             The satellite's SV ID 1..36\n"
+      "Component   string          Component is either \"E5a\", \"E5b\", or \"E1B\"\n"
+      "DataSetName optional string Optional name of the data set to use. If no value is provided, the active data set is used.";
+    const char* const GetGalileoSignalHealthForSV::TargetId = "";
 
-    REGISTER_COMMAND_FACTORY(GetGalileoSignalHealthForSV);
+    REGISTER_COMMAND_TO_FACTORY_DECL(GetGalileoSignalHealthForSV);
+    REGISTER_COMMAND_TO_FACTORY_IMPL(GetGalileoSignalHealthForSV);
 
 
     GetGalileoSignalHealthForSV::GetGalileoSignalHealthForSV()
-      : CommandBase(CmdName)
+      : CommandBase(CmdName, TargetId)
     {}
 
     GetGalileoSignalHealthForSV::GetGalileoSignalHealthForSV(int svId, const std::string& component, const Sdx::optional<std::string>& dataSetName)
-      : CommandBase(CmdName)
+      : CommandBase(CmdName, TargetId)
     {
 
       setSvId(svId);
@@ -54,6 +61,12 @@ namespace Sdx
     }
 
     std::string GetGalileoSignalHealthForSV::documentation() const { return Documentation; }
+
+    const std::vector<std::string>& GetGalileoSignalHealthForSV::fieldNames() const 
+    { 
+      static const std::vector<std::string> names {"SvId", "Component", "DataSetName"}; 
+      return names; 
+    }
 
 
     int GetGalileoSignalHealthForSV::executePermission() const

@@ -1,8 +1,7 @@
 
-#include "gen/Start.h"
+#include "Start.h"
 
 #include "command_factory.h"
-#include "command_result_factory.h"
 #include "parse_json.hpp"
 
 ///
@@ -15,12 +14,14 @@ namespace Sdx
   {
     const char* const Start::CmdName = "Start";
     const char* const Start::Documentation = "Start the simulation. Simulation may or may not start depending on the current state of the simulator.";
+    const char* const Start::TargetId = "";
 
-    REGISTER_COMMAND_FACTORY(Start);
+    REGISTER_COMMAND_TO_FACTORY_DECL(Start);
+    REGISTER_COMMAND_TO_FACTORY_IMPL(Start);
 
 
     Start::Start()
-      : CommandBase(CmdName)
+      : CommandBase(CmdName, TargetId)
     {
 
     }
@@ -44,6 +45,12 @@ namespace Sdx
     }
 
     std::string Start::documentation() const { return Documentation; }
+
+    const std::vector<std::string>& Start::fieldNames() const 
+    { 
+      static const std::vector<std::string> names {}; 
+      return names; 
+    }
 
 
     int Start::executePermission() const

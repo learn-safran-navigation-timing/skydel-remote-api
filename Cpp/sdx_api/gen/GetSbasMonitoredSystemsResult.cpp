@@ -1,8 +1,7 @@
 
-#include "gen/GetSbasMonitoredSystemsResult.h"
+#include "GetSbasMonitoredSystemsResult.h"
 
 #include "command_factory.h"
-#include "command_result_factory.h"
 #include "parse_json.hpp"
 
 ///
@@ -14,24 +13,29 @@ namespace Sdx
   namespace Cmd
   {
     const char* const GetSbasMonitoredSystemsResult::CmdName = "GetSbasMonitoredSystemsResult";
-    const char* const GetSbasMonitoredSystemsResult::Documentation = "Result of GetSbasMonitoredSystems.";
+    const char* const GetSbasMonitoredSystemsResult::Documentation = "Result of GetSbasMonitoredSystems.\n"
+      "\n"
+      "Name    Type         Description\n"
+      "------- ------------ ------------------------------------------------------------------------------------\n"
+      "Systems array string A list containing the name of monitored systems, only \"GPS\" and \"SBAS\" are supported";
+    const char* const GetSbasMonitoredSystemsResult::TargetId = "";
 
-    REGISTER_COMMAND_RESULT_TO_FACTORY_IMPL(GetSbasMonitoredSystemsResult);
+    REGISTER_COMMAND_TO_FACTORY_IMPL(GetSbasMonitoredSystemsResult);
 
 
     GetSbasMonitoredSystemsResult::GetSbasMonitoredSystemsResult()
-      : CommandResult(CmdName)
+      : CommandResult(CmdName, TargetId)
     {}
 
     GetSbasMonitoredSystemsResult::GetSbasMonitoredSystemsResult(const std::vector<std::string>& systems)
-      : CommandResult(CmdName)
+      : CommandResult(CmdName, TargetId)
     {
 
       setSystems(systems);
     }
 
     GetSbasMonitoredSystemsResult::GetSbasMonitoredSystemsResult(CommandBasePtr relatedCommand, const std::vector<std::string>& systems)
-      : CommandResult(CmdName, relatedCommand)
+      : CommandResult(CmdName, TargetId, relatedCommand)
     {
 
       setSystems(systems);
@@ -63,6 +67,12 @@ namespace Sdx
     }
 
     std::string GetSbasMonitoredSystemsResult::documentation() const { return Documentation; }
+
+    const std::vector<std::string>& GetSbasMonitoredSystemsResult::fieldNames() const 
+    { 
+      static const std::vector<std::string> names {"Systems"}; 
+      return names; 
+    }
 
 
     std::vector<std::string> GetSbasMonitoredSystemsResult::systems() const

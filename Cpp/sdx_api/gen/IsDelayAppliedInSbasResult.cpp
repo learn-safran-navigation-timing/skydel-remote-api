@@ -1,8 +1,7 @@
 
-#include "gen/IsDelayAppliedInSbasResult.h"
+#include "IsDelayAppliedInSbasResult.h"
 
 #include "command_factory.h"
-#include "command_result_factory.h"
 #include "parse_json.hpp"
 
 ///
@@ -14,24 +13,29 @@ namespace Sdx
   namespace Cmd
   {
     const char* const IsDelayAppliedInSbasResult::CmdName = "IsDelayAppliedInSbasResult";
-    const char* const IsDelayAppliedInSbasResult::Documentation = "Result of IsDelayAppliedInSbas.";
+    const char* const IsDelayAppliedInSbasResult::Documentation = "Result of IsDelayAppliedInSbas.\n"
+      "\n"
+      "Name      Type Description\n"
+      "--------- ---- --------------------------------------------\n"
+      "IsEnabled bool True if offsets are applied in Sbas messages";
+    const char* const IsDelayAppliedInSbasResult::TargetId = "";
 
-    REGISTER_COMMAND_RESULT_TO_FACTORY_IMPL(IsDelayAppliedInSbasResult);
+    REGISTER_COMMAND_TO_FACTORY_IMPL(IsDelayAppliedInSbasResult);
 
 
     IsDelayAppliedInSbasResult::IsDelayAppliedInSbasResult()
-      : CommandResult(CmdName)
+      : CommandResult(CmdName, TargetId)
     {}
 
     IsDelayAppliedInSbasResult::IsDelayAppliedInSbasResult(bool isEnabled)
-      : CommandResult(CmdName)
+      : CommandResult(CmdName, TargetId)
     {
 
       setIsEnabled(isEnabled);
     }
 
     IsDelayAppliedInSbasResult::IsDelayAppliedInSbasResult(CommandBasePtr relatedCommand, bool isEnabled)
-      : CommandResult(CmdName, relatedCommand)
+      : CommandResult(CmdName, TargetId, relatedCommand)
     {
 
       setIsEnabled(isEnabled);
@@ -63,6 +67,12 @@ namespace Sdx
     }
 
     std::string IsDelayAppliedInSbasResult::documentation() const { return Documentation; }
+
+    const std::vector<std::string>& IsDelayAppliedInSbasResult::fieldNames() const 
+    { 
+      static const std::vector<std::string> names {"IsEnabled"}; 
+      return names; 
+    }
 
 
     bool IsDelayAppliedInSbasResult::isEnabled() const

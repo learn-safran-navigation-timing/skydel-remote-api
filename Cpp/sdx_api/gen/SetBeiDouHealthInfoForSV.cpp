@@ -1,8 +1,7 @@
 
-#include "gen/SetBeiDouHealthInfoForSV.h"
+#include "SetBeiDouHealthInfoForSV.h"
 
 #include "command_factory.h"
-#include "command_result_factory.h"
 #include "parse_json.hpp"
 
 ///
@@ -14,17 +13,25 @@ namespace Sdx
   namespace Cmd
   {
     const char* const SetBeiDouHealthInfoForSV::CmdName = "SetBeiDouHealthInfoForSV";
-    const char* const SetBeiDouHealthInfoForSV::Documentation = "Set BeiDou satellite health info";
+    const char* const SetBeiDouHealthInfoForSV::Documentation = "Set BeiDou satellite health info\n"
+      "\n"
+      "Name        Type            Description\n"
+      "----------- --------------- -------------------------------------------------------------------------------------------\n"
+      "SvId        int             Satellite SV ID 1..35, or use 0 to apply new value to all satellites.\n"
+      "Health      int             Health Info, 9-bit integer : 0, 2, 64, 66, 128, 130, 192, 194, 256 or 511\n"
+      "DataSetName optional string Optional name of the data set to use. If no value is provided, the active data set is used.";
+    const char* const SetBeiDouHealthInfoForSV::TargetId = "";
 
-    REGISTER_COMMAND_FACTORY(SetBeiDouHealthInfoForSV);
+    REGISTER_COMMAND_TO_FACTORY_DECL(SetBeiDouHealthInfoForSV);
+    REGISTER_COMMAND_TO_FACTORY_IMPL(SetBeiDouHealthInfoForSV);
 
 
     SetBeiDouHealthInfoForSV::SetBeiDouHealthInfoForSV()
-      : CommandBase(CmdName)
+      : CommandBase(CmdName, TargetId)
     {}
 
     SetBeiDouHealthInfoForSV::SetBeiDouHealthInfoForSV(int svId, int health, const Sdx::optional<std::string>& dataSetName)
-      : CommandBase(CmdName)
+      : CommandBase(CmdName, TargetId)
     {
 
       setSvId(svId);
@@ -54,6 +61,12 @@ namespace Sdx
     }
 
     std::string SetBeiDouHealthInfoForSV::documentation() const { return Documentation; }
+
+    const std::vector<std::string>& SetBeiDouHealthInfoForSV::fieldNames() const 
+    { 
+      static const std::vector<std::string> names {"SvId", "Health", "DataSetName"}; 
+      return names; 
+    }
 
 
     int SetBeiDouHealthInfoForSV::executePermission() const

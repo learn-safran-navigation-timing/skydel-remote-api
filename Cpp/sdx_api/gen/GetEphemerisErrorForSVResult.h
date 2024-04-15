@@ -2,7 +2,7 @@
 
 #include <memory>
 #include "command_result.h"
-#include "command_result_factory.h"
+#include "command_factory.h"
 #include "gen/RIC.h"
 #include <string>
 
@@ -15,7 +15,7 @@ namespace Sdx
     ///
     /// Name     Type   Description
     /// -------- ------ -----------------------------------------------------------------------------------
-    /// System   string "GPS", "Galileo", "GLONASS", "BeiDou", "QZSS" or "NavIC"
+    /// System   string "GPS", "Galileo", "GLONASS", "BeiDou", "QZSS", "NavIC" or "PULSAR"
     /// SvId     int    Satellite SV ID.
     /// Orbit    RIC    The orbit error, in relative orbit frame. In-track error not available for GLONASS.
     /// DeltaAf0 double The clock bias error, in second. DeltaTaun for GLONASS.
@@ -31,6 +31,7 @@ namespace Sdx
     public:
       static const char* const CmdName;
       static const char* const Documentation;
+      static const char* const TargetId;
 
 
       GetEphemerisErrorForSVResult();
@@ -45,6 +46,7 @@ namespace Sdx
       static GetEphemerisErrorForSVResultPtr dynamicCast(CommandBasePtr ptr);
       virtual bool isValid() const override;
       virtual std::string documentation() const override;
+      virtual const std::vector<std::string>& fieldNames() const override;
 
 
       // **** system ****
@@ -71,7 +73,7 @@ namespace Sdx
       double deltaAf1() const;
       void setDeltaAf1(double deltaAf1);
     };
-    REGISTER_COMMAND_RESULT_TO_FACTORY_DECL(GetEphemerisErrorForSVResult);
+    REGISTER_COMMAND_TO_FACTORY_DECL(GetEphemerisErrorForSVResult);
   }
 }
 

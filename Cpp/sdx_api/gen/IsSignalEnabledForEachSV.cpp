@@ -1,8 +1,7 @@
 
-#include "gen/IsSignalEnabledForEachSV.h"
+#include "IsSignalEnabledForEachSV.h"
 
 #include "command_factory.h"
-#include "command_result_factory.h"
 #include "parse_json.hpp"
 
 ///
@@ -14,17 +13,26 @@ namespace Sdx
   namespace Cmd
   {
     const char* const IsSignalEnabledForEachSV::CmdName = "IsSignalEnabledForEachSV";
-    const char* const IsSignalEnabledForEachSV::Documentation = "Tells if the signal is enabled or disabled for each satellite.";
+    const char* const IsSignalEnabledForEachSV::Documentation = "Tells if the signal is enabled or disabled for each satellite.\n"
+      "\n"
+      "Name   Type   Description\n"
+      "------ ------ -------------------------------------------------------------------------------------------------------------\n"
+      "Signal string Accepted signal keys: \"L1CA\", \"L1C\", \"L1P\", \"L1ME\", \"L1MR\", \"L2C\", \"L2P\", \"L2ME\", \"L2MR\", \"L5\",\n"
+      "                                    \"G1\", \"G2\", \"E1\", \"E1PRS\", \"E5a\", \"E5b\", \"E6BC\", \"E6PRS\",\n"
+      "                                    \"B1\", \"B2\", \"B1C\", \"B2a\", \"B3I\", \"SBASL1\", \"SBASL5\", \"QZSSL1CA\",\n"
+      "                                    \"QZSSL1CB\", \"QZSSL1C\", \"QZSSL2C\", \"QZSSL5\", \"QZSSL1S\", \"QZSSL5S\", \"NAVICL5\", \"PULSARXL\"";
+    const char* const IsSignalEnabledForEachSV::TargetId = "";
 
-    REGISTER_COMMAND_FACTORY(IsSignalEnabledForEachSV);
+    REGISTER_COMMAND_TO_FACTORY_DECL(IsSignalEnabledForEachSV);
+    REGISTER_COMMAND_TO_FACTORY_IMPL(IsSignalEnabledForEachSV);
 
 
     IsSignalEnabledForEachSV::IsSignalEnabledForEachSV()
-      : CommandBase(CmdName)
+      : CommandBase(CmdName, TargetId)
     {}
 
     IsSignalEnabledForEachSV::IsSignalEnabledForEachSV(const std::string& signal)
-      : CommandBase(CmdName)
+      : CommandBase(CmdName, TargetId)
     {
 
       setSignal(signal);
@@ -50,6 +58,12 @@ namespace Sdx
     }
 
     std::string IsSignalEnabledForEachSV::documentation() const { return Documentation; }
+
+    const std::vector<std::string>& IsSignalEnabledForEachSV::fieldNames() const 
+    { 
+      static const std::vector<std::string> names {"Signal"}; 
+      return names; 
+    }
 
 
     int IsSignalEnabledForEachSV::executePermission() const

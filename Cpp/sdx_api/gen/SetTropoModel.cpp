@@ -1,8 +1,7 @@
 
-#include "gen/SetTropoModel.h"
+#include "SetTropoModel.h"
 
 #include "command_factory.h"
-#include "command_result_factory.h"
 #include "parse_json.hpp"
 
 ///
@@ -14,17 +13,23 @@ namespace Sdx
   namespace Cmd
   {
     const char* const SetTropoModel::CmdName = "SetTropoModel";
-    const char* const SetTropoModel::Documentation = "Set tropospheric model";
+    const char* const SetTropoModel::Documentation = "Set tropospheric model\n"
+      "\n"
+      "Name  Type   Description\n"
+      "----- ------ -----------------------------------------------------------------\n"
+      "Model string Tropospheric model (\"None\", \"Saastamoinen\", \"Stanag\" or \"DO-229\")";
+    const char* const SetTropoModel::TargetId = "";
 
-    REGISTER_COMMAND_FACTORY(SetTropoModel);
+    REGISTER_COMMAND_TO_FACTORY_DECL(SetTropoModel);
+    REGISTER_COMMAND_TO_FACTORY_IMPL(SetTropoModel);
 
 
     SetTropoModel::SetTropoModel()
-      : CommandBase(CmdName)
+      : CommandBase(CmdName, TargetId)
     {}
 
     SetTropoModel::SetTropoModel(const std::string& model)
-      : CommandBase(CmdName)
+      : CommandBase(CmdName, TargetId)
     {
 
       setModel(model);
@@ -50,6 +55,12 @@ namespace Sdx
     }
 
     std::string SetTropoModel::documentation() const { return Documentation; }
+
+    const std::vector<std::string>& SetTropoModel::fieldNames() const 
+    { 
+      static const std::vector<std::string> names {"Model"}; 
+      return names; 
+    }
 
 
     int SetTropoModel::executePermission() const

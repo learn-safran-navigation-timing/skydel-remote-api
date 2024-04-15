@@ -1,8 +1,7 @@
 
-#include "gen/SetIntTxAWGN.h"
+#include "SetIntTxAWGN.h"
 
 #include "command_factory.h"
-#include "command_result_factory.h"
 #include "parse_json.hpp"
 
 ///
@@ -14,17 +13,30 @@ namespace Sdx
   namespace Cmd
   {
     const char* const SetIntTxAWGN::CmdName = "SetIntTxAWGN";
-    const char* const SetIntTxAWGN::Documentation = "Set AWGN signal interference.";
+    const char* const SetIntTxAWGN::Documentation = "Set AWGN signal interference.\n"
+      "\n"
+      "Name          Type         Description\n"
+      "------------- ------------ ------------------------------------------------------------------------------------------\n"
+      "Enabled       bool         Enable (true) or disable (false) the signal\n"
+      "CentralFreq   double       Central frequency (Hz)\n"
+      "Power         double       Power (dB), relative to transmitter reference power\n"
+      "Bandwidth     double       Bandwidth (Hz)\n"
+      "TransmitterId string       Transmitter unique identifier.\n"
+      "SignalId      string       AWGN unique identifier.\n"
+      "Seed          optional int Seed for the random number generator. Signals with the same seed will have the same shape.\n"
+      "Group         optional int Group, if not using default group.";
+    const char* const SetIntTxAWGN::TargetId = "";
 
-    REGISTER_COMMAND_FACTORY(SetIntTxAWGN);
+    REGISTER_COMMAND_TO_FACTORY_DECL(SetIntTxAWGN);
+    REGISTER_COMMAND_TO_FACTORY_IMPL(SetIntTxAWGN);
 
 
     SetIntTxAWGN::SetIntTxAWGN()
-      : CommandBase(CmdName)
+      : CommandBase(CmdName, TargetId)
     {}
 
     SetIntTxAWGN::SetIntTxAWGN(bool enabled, double centralFreq, double power, double bandwidth, const std::string& transmitterId, const std::string& signalId, const Sdx::optional<int>& seed, const Sdx::optional<int>& group)
-      : CommandBase(CmdName)
+      : CommandBase(CmdName, TargetId)
     {
 
       setEnabled(enabled);
@@ -64,6 +76,12 @@ namespace Sdx
     }
 
     std::string SetIntTxAWGN::documentation() const { return Documentation; }
+
+    const std::vector<std::string>& SetIntTxAWGN::fieldNames() const 
+    { 
+      static const std::vector<std::string> names {"Enabled", "CentralFreq", "Power", "Bandwidth", "TransmitterId", "SignalId", "Seed", "Group"}; 
+      return names; 
+    }
 
 
     int SetIntTxAWGN::executePermission() const
