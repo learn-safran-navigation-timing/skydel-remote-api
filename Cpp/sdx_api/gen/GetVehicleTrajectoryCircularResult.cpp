@@ -34,7 +34,7 @@ namespace Sdx
       : CommandResult(CmdName, TargetId)
     {}
 
-    GetVehicleTrajectoryCircularResult::GetVehicleTrajectoryCircularResult(const std::string& type, double lat, double lon, double alt, double radius, double speed, bool clockwise, const Sdx::optional<double>& originAngle)
+    GetVehicleTrajectoryCircularResult::GetVehicleTrajectoryCircularResult(const std::string& type, double lat, double lon, double alt, double radius, double speed, bool clockwise, const std::optional<double>& originAngle)
       : CommandResult(CmdName, TargetId)
     {
 
@@ -48,7 +48,7 @@ namespace Sdx
       setOriginAngle(originAngle);
     }
 
-    GetVehicleTrajectoryCircularResult::GetVehicleTrajectoryCircularResult(CommandBasePtr relatedCommand, const std::string& type, double lat, double lon, double alt, double radius, double speed, bool clockwise, const Sdx::optional<double>& originAngle)
+    GetVehicleTrajectoryCircularResult::GetVehicleTrajectoryCircularResult(CommandBasePtr relatedCommand, const std::string& type, double lat, double lon, double alt, double radius, double speed, bool clockwise, const std::optional<double>& originAngle)
       : CommandResult(CmdName, TargetId, relatedCommand)
     {
 
@@ -63,12 +63,12 @@ namespace Sdx
     }
 
 
-    GetVehicleTrajectoryCircularResultPtr GetVehicleTrajectoryCircularResult::create(const std::string& type, double lat, double lon, double alt, double radius, double speed, bool clockwise, const Sdx::optional<double>& originAngle)
+    GetVehicleTrajectoryCircularResultPtr GetVehicleTrajectoryCircularResult::create(const std::string& type, double lat, double lon, double alt, double radius, double speed, bool clockwise, const std::optional<double>& originAngle)
     {
       return std::make_shared<GetVehicleTrajectoryCircularResult>(type, lat, lon, alt, radius, speed, clockwise, originAngle);
     }
 
-    GetVehicleTrajectoryCircularResultPtr GetVehicleTrajectoryCircularResult::create(CommandBasePtr relatedCommand, const std::string& type, double lat, double lon, double alt, double radius, double speed, bool clockwise, const Sdx::optional<double>& originAngle)
+    GetVehicleTrajectoryCircularResultPtr GetVehicleTrajectoryCircularResult::create(CommandBasePtr relatedCommand, const std::string& type, double lat, double lon, double alt, double radius, double speed, bool clockwise, const std::optional<double>& originAngle)
     {
       return std::make_shared<GetVehicleTrajectoryCircularResult>(relatedCommand, type, lat, lon, alt, radius, speed, clockwise, originAngle);
     }
@@ -89,7 +89,7 @@ namespace Sdx
           && parse_json<double>::is_valid(m_values["Radius"])
           && parse_json<double>::is_valid(m_values["Speed"])
           && parse_json<bool>::is_valid(m_values["Clockwise"])
-          && parse_json<Sdx::optional<double>>::is_valid(m_values["OriginAngle"])
+          && parse_json<std::optional<double>>::is_valid(m_values["OriginAngle"])
         ;
 
     }
@@ -187,14 +187,14 @@ namespace Sdx
 
 
 
-    Sdx::optional<double> GetVehicleTrajectoryCircularResult::originAngle() const
+    std::optional<double> GetVehicleTrajectoryCircularResult::originAngle() const
     {
-      return parse_json<Sdx::optional<double>>::parse(m_values["OriginAngle"]);
+      return parse_json<std::optional<double>>::parse(m_values["OriginAngle"]);
     }
 
-    void GetVehicleTrajectoryCircularResult::setOriginAngle(const Sdx::optional<double>& originAngle)
+    void GetVehicleTrajectoryCircularResult::setOriginAngle(const std::optional<double>& originAngle)
     {
-      m_values.AddMember("OriginAngle", parse_json<Sdx::optional<double>>::format(originAngle, m_values.GetAllocator()), m_values.GetAllocator());
+      m_values.AddMember("OriginAngle", parse_json<std::optional<double>>::format(originAngle, m_values.GetAllocator()), m_values.GetAllocator());
     }
 
 

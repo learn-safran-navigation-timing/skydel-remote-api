@@ -28,7 +28,7 @@ namespace Sdx
       : CommandResult(CmdName, TargetId)
     {}
 
-    GetGpsConfigurationForEachSVResult::GetGpsConfigurationForEachSVResult(const std::vector<int>& svConfigs, const Sdx::optional<std::string>& dataSetName)
+    GetGpsConfigurationForEachSVResult::GetGpsConfigurationForEachSVResult(const std::vector<int>& svConfigs, const std::optional<std::string>& dataSetName)
       : CommandResult(CmdName, TargetId)
     {
 
@@ -36,7 +36,7 @@ namespace Sdx
       setDataSetName(dataSetName);
     }
 
-    GetGpsConfigurationForEachSVResult::GetGpsConfigurationForEachSVResult(CommandBasePtr relatedCommand, const std::vector<int>& svConfigs, const Sdx::optional<std::string>& dataSetName)
+    GetGpsConfigurationForEachSVResult::GetGpsConfigurationForEachSVResult(CommandBasePtr relatedCommand, const std::vector<int>& svConfigs, const std::optional<std::string>& dataSetName)
       : CommandResult(CmdName, TargetId, relatedCommand)
     {
 
@@ -45,12 +45,12 @@ namespace Sdx
     }
 
 
-    GetGpsConfigurationForEachSVResultPtr GetGpsConfigurationForEachSVResult::create(const std::vector<int>& svConfigs, const Sdx::optional<std::string>& dataSetName)
+    GetGpsConfigurationForEachSVResultPtr GetGpsConfigurationForEachSVResult::create(const std::vector<int>& svConfigs, const std::optional<std::string>& dataSetName)
     {
       return std::make_shared<GetGpsConfigurationForEachSVResult>(svConfigs, dataSetName);
     }
 
-    GetGpsConfigurationForEachSVResultPtr GetGpsConfigurationForEachSVResult::create(CommandBasePtr relatedCommand, const std::vector<int>& svConfigs, const Sdx::optional<std::string>& dataSetName)
+    GetGpsConfigurationForEachSVResultPtr GetGpsConfigurationForEachSVResult::create(CommandBasePtr relatedCommand, const std::vector<int>& svConfigs, const std::optional<std::string>& dataSetName)
     {
       return std::make_shared<GetGpsConfigurationForEachSVResult>(relatedCommand, svConfigs, dataSetName);
     }
@@ -65,7 +65,7 @@ namespace Sdx
       
         return m_values.IsObject()
           && parse_json<std::vector<int>>::is_valid(m_values["SvConfigs"])
-          && parse_json<Sdx::optional<std::string>>::is_valid(m_values["DataSetName"])
+          && parse_json<std::optional<std::string>>::is_valid(m_values["DataSetName"])
         ;
 
     }
@@ -91,14 +91,14 @@ namespace Sdx
 
 
 
-    Sdx::optional<std::string> GetGpsConfigurationForEachSVResult::dataSetName() const
+    std::optional<std::string> GetGpsConfigurationForEachSVResult::dataSetName() const
     {
-      return parse_json<Sdx::optional<std::string>>::parse(m_values["DataSetName"]);
+      return parse_json<std::optional<std::string>>::parse(m_values["DataSetName"]);
     }
 
-    void GetGpsConfigurationForEachSVResult::setDataSetName(const Sdx::optional<std::string>& dataSetName)
+    void GetGpsConfigurationForEachSVResult::setDataSetName(const std::optional<std::string>& dataSetName)
     {
-      m_values.AddMember("DataSetName", parse_json<Sdx::optional<std::string>>::format(dataSetName, m_values.GetAllocator()), m_values.GetAllocator());
+      m_values.AddMember("DataSetName", parse_json<std::optional<std::string>>::format(dataSetName, m_values.GetAllocator()), m_values.GetAllocator());
     }
 
 

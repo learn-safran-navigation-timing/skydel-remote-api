@@ -3,7 +3,7 @@
 #include <memory>
 #include "command_result.h"
 #include "command_factory.h"
-#include "sdx_optional.h"
+#include <optional>
 
 namespace Sdx
 {
@@ -33,13 +33,13 @@ namespace Sdx
 
       IsLogDownlinkEnabledResult();
 
-      IsLogDownlinkEnabledResult(bool enabled, const Sdx::optional<bool>& beforeEncoding = {}, const Sdx::optional<bool>& afterEncoding = {});
+      IsLogDownlinkEnabledResult(bool enabled, const std::optional<bool>& beforeEncoding = {}, const std::optional<bool>& afterEncoding = {});
 
-      IsLogDownlinkEnabledResult(CommandBasePtr relatedCommand, bool enabled, const Sdx::optional<bool>& beforeEncoding = {}, const Sdx::optional<bool>& afterEncoding = {});
+      IsLogDownlinkEnabledResult(CommandBasePtr relatedCommand, bool enabled, const std::optional<bool>& beforeEncoding = {}, const std::optional<bool>& afterEncoding = {});
 
-      static IsLogDownlinkEnabledResultPtr create(bool enabled, const Sdx::optional<bool>& beforeEncoding = {}, const Sdx::optional<bool>& afterEncoding = {});
+      static IsLogDownlinkEnabledResultPtr create(bool enabled, const std::optional<bool>& beforeEncoding = {}, const std::optional<bool>& afterEncoding = {});
 
-      static IsLogDownlinkEnabledResultPtr create(CommandBasePtr relatedCommand, bool enabled, const Sdx::optional<bool>& beforeEncoding = {}, const Sdx::optional<bool>& afterEncoding = {});
+      static IsLogDownlinkEnabledResultPtr create(CommandBasePtr relatedCommand, bool enabled, const std::optional<bool>& beforeEncoding = {}, const std::optional<bool>& afterEncoding = {});
       static IsLogDownlinkEnabledResultPtr dynamicCast(CommandBasePtr ptr);
       virtual bool isValid() const override;
       virtual std::string documentation() const override;
@@ -52,13 +52,13 @@ namespace Sdx
 
 
       // **** beforeEncoding ****
-      Sdx::optional<bool> beforeEncoding() const;
-      void setBeforeEncoding(const Sdx::optional<bool>& beforeEncoding);
+      std::optional<bool> beforeEncoding() const;
+      void setBeforeEncoding(const std::optional<bool>& beforeEncoding);
 
 
       // **** afterEncoding ****
-      Sdx::optional<bool> afterEncoding() const;
-      void setAfterEncoding(const Sdx::optional<bool>& afterEncoding);
+      std::optional<bool> afterEncoding() const;
+      void setAfterEncoding(const std::optional<bool>& afterEncoding);
     };
     REGISTER_COMMAND_TO_FACTORY_DECL(IsLogDownlinkEnabledResult);
   }

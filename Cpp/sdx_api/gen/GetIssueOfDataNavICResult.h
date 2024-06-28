@@ -3,7 +3,7 @@
 #include <memory>
 #include "command_result.h"
 #include "command_factory.h"
-#include "sdx_optional.h"
+#include <optional>
 
 namespace Sdx
 {
@@ -32,13 +32,13 @@ namespace Sdx
 
       GetIssueOfDataNavICResult();
 
-      GetIssueOfDataNavICResult(int ephemerisAndClock, const Sdx::optional<bool>& overrideRinex = {});
+      GetIssueOfDataNavICResult(int ephemerisAndClock, const std::optional<bool>& overrideRinex = {});
 
-      GetIssueOfDataNavICResult(CommandBasePtr relatedCommand, int ephemerisAndClock, const Sdx::optional<bool>& overrideRinex = {});
+      GetIssueOfDataNavICResult(CommandBasePtr relatedCommand, int ephemerisAndClock, const std::optional<bool>& overrideRinex = {});
 
-      static GetIssueOfDataNavICResultPtr create(int ephemerisAndClock, const Sdx::optional<bool>& overrideRinex = {});
+      static GetIssueOfDataNavICResultPtr create(int ephemerisAndClock, const std::optional<bool>& overrideRinex = {});
 
-      static GetIssueOfDataNavICResultPtr create(CommandBasePtr relatedCommand, int ephemerisAndClock, const Sdx::optional<bool>& overrideRinex = {});
+      static GetIssueOfDataNavICResultPtr create(CommandBasePtr relatedCommand, int ephemerisAndClock, const std::optional<bool>& overrideRinex = {});
       static GetIssueOfDataNavICResultPtr dynamicCast(CommandBasePtr ptr);
       virtual bool isValid() const override;
       virtual std::string documentation() const override;
@@ -51,8 +51,8 @@ namespace Sdx
 
 
       // **** overrideRinex ****
-      Sdx::optional<bool> overrideRinex() const;
-      void setOverrideRinex(const Sdx::optional<bool>& overrideRinex);
+      std::optional<bool> overrideRinex() const;
+      void setOverrideRinex(const std::optional<bool>& overrideRinex);
     };
     REGISTER_COMMAND_TO_FACTORY_DECL(GetIssueOfDataNavICResult);
   }

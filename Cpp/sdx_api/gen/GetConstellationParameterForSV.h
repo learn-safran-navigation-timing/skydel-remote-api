@@ -3,7 +3,7 @@
 #include <memory>
 #include "command_base.h"
 
-#include "sdx_optional.h"
+#include <optional>
 #include <string>
 
 namespace Sdx
@@ -61,8 +61,11 @@ namespace Sdx
     /// NavIC:
     /// 
     ///   Unit         Type     ParamName
-    ///   sec          double   "Tgd"
+    ///   sec          double   "Tgd", "IscS", "IscL1P", "IscL1D"
     ///   -            integer  "IODEC", "UraIndex"
+    ///   -            boolean  "IscSAvailable", "IscL1PAvailable", "IscL1DAvailable"
+    /// 
+    /// 
     ///
     /// Name        Type            Description
     /// ----------- --------------- -------------------------------------------------------------------------------------------
@@ -86,9 +89,9 @@ namespace Sdx
 
       GetConstellationParameterForSV();
 
-      GetConstellationParameterForSV(const std::string& system, int svId, const std::string& paramName, const Sdx::optional<std::string>& dataSetName = {});
+      GetConstellationParameterForSV(const std::string& system, int svId, const std::string& paramName, const std::optional<std::string>& dataSetName = {});
 
-      static GetConstellationParameterForSVPtr create(const std::string& system, int svId, const std::string& paramName, const Sdx::optional<std::string>& dataSetName = {});
+      static GetConstellationParameterForSVPtr create(const std::string& system, int svId, const std::string& paramName, const std::optional<std::string>& dataSetName = {});
       static GetConstellationParameterForSVPtr dynamicCast(CommandBasePtr ptr);
       virtual bool isValid() const override;
       virtual std::string documentation() const override;
@@ -113,8 +116,8 @@ namespace Sdx
 
 
       // **** dataSetName ****
-      Sdx::optional<std::string> dataSetName() const;
-      void setDataSetName(const Sdx::optional<std::string>& dataSetName);
+      std::optional<std::string> dataSetName() const;
+      void setDataSetName(const std::optional<std::string>& dataSetName);
     };
     
   }

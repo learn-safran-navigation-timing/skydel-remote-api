@@ -34,7 +34,7 @@ namespace Sdx
       : CommandResult(CmdName, TargetId)
     {}
 
-    GetIntTxAWGNResult::GetIntTxAWGNResult(bool enabled, double centralFreq, double power, double bandwidth, const std::string& transmitterId, const std::string& signalId, const Sdx::optional<int>& seed, const Sdx::optional<int>& group)
+    GetIntTxAWGNResult::GetIntTxAWGNResult(bool enabled, double centralFreq, double power, double bandwidth, const std::string& transmitterId, const std::string& signalId, const std::optional<int>& seed, const std::optional<int>& group)
       : CommandResult(CmdName, TargetId)
     {
 
@@ -48,7 +48,7 @@ namespace Sdx
       setGroup(group);
     }
 
-    GetIntTxAWGNResult::GetIntTxAWGNResult(CommandBasePtr relatedCommand, bool enabled, double centralFreq, double power, double bandwidth, const std::string& transmitterId, const std::string& signalId, const Sdx::optional<int>& seed, const Sdx::optional<int>& group)
+    GetIntTxAWGNResult::GetIntTxAWGNResult(CommandBasePtr relatedCommand, bool enabled, double centralFreq, double power, double bandwidth, const std::string& transmitterId, const std::string& signalId, const std::optional<int>& seed, const std::optional<int>& group)
       : CommandResult(CmdName, TargetId, relatedCommand)
     {
 
@@ -63,12 +63,12 @@ namespace Sdx
     }
 
 
-    GetIntTxAWGNResultPtr GetIntTxAWGNResult::create(bool enabled, double centralFreq, double power, double bandwidth, const std::string& transmitterId, const std::string& signalId, const Sdx::optional<int>& seed, const Sdx::optional<int>& group)
+    GetIntTxAWGNResultPtr GetIntTxAWGNResult::create(bool enabled, double centralFreq, double power, double bandwidth, const std::string& transmitterId, const std::string& signalId, const std::optional<int>& seed, const std::optional<int>& group)
     {
       return std::make_shared<GetIntTxAWGNResult>(enabled, centralFreq, power, bandwidth, transmitterId, signalId, seed, group);
     }
 
-    GetIntTxAWGNResultPtr GetIntTxAWGNResult::create(CommandBasePtr relatedCommand, bool enabled, double centralFreq, double power, double bandwidth, const std::string& transmitterId, const std::string& signalId, const Sdx::optional<int>& seed, const Sdx::optional<int>& group)
+    GetIntTxAWGNResultPtr GetIntTxAWGNResult::create(CommandBasePtr relatedCommand, bool enabled, double centralFreq, double power, double bandwidth, const std::string& transmitterId, const std::string& signalId, const std::optional<int>& seed, const std::optional<int>& group)
     {
       return std::make_shared<GetIntTxAWGNResult>(relatedCommand, enabled, centralFreq, power, bandwidth, transmitterId, signalId, seed, group);
     }
@@ -88,8 +88,8 @@ namespace Sdx
           && parse_json<double>::is_valid(m_values["Bandwidth"])
           && parse_json<std::string>::is_valid(m_values["TransmitterId"])
           && parse_json<std::string>::is_valid(m_values["SignalId"])
-          && parse_json<Sdx::optional<int>>::is_valid(m_values["Seed"])
-          && parse_json<Sdx::optional<int>>::is_valid(m_values["Group"])
+          && parse_json<std::optional<int>>::is_valid(m_values["Seed"])
+          && parse_json<std::optional<int>>::is_valid(m_values["Group"])
         ;
 
     }
@@ -175,26 +175,26 @@ namespace Sdx
 
 
 
-    Sdx::optional<int> GetIntTxAWGNResult::seed() const
+    std::optional<int> GetIntTxAWGNResult::seed() const
     {
-      return parse_json<Sdx::optional<int>>::parse(m_values["Seed"]);
+      return parse_json<std::optional<int>>::parse(m_values["Seed"]);
     }
 
-    void GetIntTxAWGNResult::setSeed(const Sdx::optional<int>& seed)
+    void GetIntTxAWGNResult::setSeed(const std::optional<int>& seed)
     {
-      m_values.AddMember("Seed", parse_json<Sdx::optional<int>>::format(seed, m_values.GetAllocator()), m_values.GetAllocator());
+      m_values.AddMember("Seed", parse_json<std::optional<int>>::format(seed, m_values.GetAllocator()), m_values.GetAllocator());
     }
 
 
 
-    Sdx::optional<int> GetIntTxAWGNResult::group() const
+    std::optional<int> GetIntTxAWGNResult::group() const
     {
-      return parse_json<Sdx::optional<int>>::parse(m_values["Group"]);
+      return parse_json<std::optional<int>>::parse(m_values["Group"]);
     }
 
-    void GetIntTxAWGNResult::setGroup(const Sdx::optional<int>& group)
+    void GetIntTxAWGNResult::setGroup(const std::optional<int>& group)
     {
-      m_values.AddMember("Group", parse_json<Sdx::optional<int>>::format(group, m_values.GetAllocator()), m_values.GetAllocator());
+      m_values.AddMember("Group", parse_json<std::optional<int>>::format(group, m_values.GetAllocator()), m_values.GetAllocator());
     }
 
 

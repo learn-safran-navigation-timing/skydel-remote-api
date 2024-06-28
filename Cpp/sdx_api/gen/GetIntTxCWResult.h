@@ -3,7 +3,7 @@
 #include <memory>
 #include "command_result.h"
 #include "command_factory.h"
-#include "sdx_optional.h"
+#include <optional>
 #include <string>
 
 namespace Sdx
@@ -38,13 +38,13 @@ namespace Sdx
 
       GetIntTxCWResult();
 
-      GetIntTxCWResult(bool enabled, double centralFreq, double power, const std::string& transmitterId, const std::string& signalId, const Sdx::optional<double>& initialPhaseOffset = {}, const Sdx::optional<int>& group = {});
+      GetIntTxCWResult(bool enabled, double centralFreq, double power, const std::string& transmitterId, const std::string& signalId, const std::optional<double>& initialPhaseOffset = {}, const std::optional<int>& group = {});
 
-      GetIntTxCWResult(CommandBasePtr relatedCommand, bool enabled, double centralFreq, double power, const std::string& transmitterId, const std::string& signalId, const Sdx::optional<double>& initialPhaseOffset = {}, const Sdx::optional<int>& group = {});
+      GetIntTxCWResult(CommandBasePtr relatedCommand, bool enabled, double centralFreq, double power, const std::string& transmitterId, const std::string& signalId, const std::optional<double>& initialPhaseOffset = {}, const std::optional<int>& group = {});
 
-      static GetIntTxCWResultPtr create(bool enabled, double centralFreq, double power, const std::string& transmitterId, const std::string& signalId, const Sdx::optional<double>& initialPhaseOffset = {}, const Sdx::optional<int>& group = {});
+      static GetIntTxCWResultPtr create(bool enabled, double centralFreq, double power, const std::string& transmitterId, const std::string& signalId, const std::optional<double>& initialPhaseOffset = {}, const std::optional<int>& group = {});
 
-      static GetIntTxCWResultPtr create(CommandBasePtr relatedCommand, bool enabled, double centralFreq, double power, const std::string& transmitterId, const std::string& signalId, const Sdx::optional<double>& initialPhaseOffset = {}, const Sdx::optional<int>& group = {});
+      static GetIntTxCWResultPtr create(CommandBasePtr relatedCommand, bool enabled, double centralFreq, double power, const std::string& transmitterId, const std::string& signalId, const std::optional<double>& initialPhaseOffset = {}, const std::optional<int>& group = {});
       static GetIntTxCWResultPtr dynamicCast(CommandBasePtr ptr);
       virtual bool isValid() const override;
       virtual std::string documentation() const override;
@@ -77,13 +77,13 @@ namespace Sdx
 
 
       // **** initialPhaseOffset ****
-      Sdx::optional<double> initialPhaseOffset() const;
-      void setInitialPhaseOffset(const Sdx::optional<double>& initialPhaseOffset);
+      std::optional<double> initialPhaseOffset() const;
+      void setInitialPhaseOffset(const std::optional<double>& initialPhaseOffset);
 
 
       // **** group ****
-      Sdx::optional<int> group() const;
-      void setGroup(const Sdx::optional<int>& group);
+      std::optional<int> group() const;
+      void setGroup(const std::optional<int>& group);
     };
     REGISTER_COMMAND_TO_FACTORY_DECL(GetIntTxCWResult);
   }

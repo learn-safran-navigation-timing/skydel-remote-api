@@ -22,8 +22,8 @@ namespace Sdx
     ///                                               "L2ME", "L2MR", "L5", "G1", "G2", "E1", "E1PRS", "E5a",
     ///                                               "E5b", "E6BC", "E6PRS", "B1", "B2", "B1C", "B2a", "B3I",
     ///                                               "SBASL1", "SBASL5", "QZSSL1CA", "QZSSL1CB", "QZSSL1C",
-    ///                                               "QZSSL2C", "QZSSL5", "QZSSL1S", "QZSSL5S", "NAVICL5" and
-    ///                                               "PULSARXL"
+    ///                                               "QZSSL2C", "QZSSL5", "QZSSL1S", "QZSSL5S", "QZSSL6",
+    ///                                               "NAVICL1", "NAVICL5", "NAVICS" and "PULSARXL"
     ///
 
     class GetAllPowerForSV;

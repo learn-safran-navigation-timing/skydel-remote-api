@@ -17,7 +17,7 @@ namespace Sdx
       "\n"
       "Name        Type            Description\n"
       "----------- --------------- ------------------------------------------------------------------------------------\n"
-      "Band        GNSSBand        Offset will be apply to this band. (\"L1\", \"L2\" or \"L5\")\n"
+      "Band        GNSSBand        Offset will be apply to this band. (\"L1\", \"L2\", \"L5\", \"E6\" or \"S\")\n"
       "System      string          \"GPS\", \"GLONASS\", \"Galileo\", \"BeiDou\", \"SBAS\", \"QZSS\", \"NavIC\" or \"PULSAR\"\n"
       "AntennaName optional string Vehicle antenna name. If no name is specified, apply the offset to the Basic Antenna";
     const char* const GetSVGainPatternOffset::TargetId = "";
@@ -30,7 +30,7 @@ namespace Sdx
       : CommandBase(CmdName, TargetId)
     {}
 
-    GetSVGainPatternOffset::GetSVGainPatternOffset(const Sdx::GNSSBand& band, const std::string& system, const Sdx::optional<std::string>& antennaName)
+    GetSVGainPatternOffset::GetSVGainPatternOffset(const Sdx::GNSSBand& band, const std::string& system, const std::optional<std::string>& antennaName)
       : CommandBase(CmdName, TargetId)
     {
 
@@ -39,7 +39,7 @@ namespace Sdx
       setAntennaName(antennaName);
     }
 
-    GetSVGainPatternOffsetPtr GetSVGainPatternOffset::create(const Sdx::GNSSBand& band, const std::string& system, const Sdx::optional<std::string>& antennaName)
+    GetSVGainPatternOffsetPtr GetSVGainPatternOffset::create(const Sdx::GNSSBand& band, const std::string& system, const std::optional<std::string>& antennaName)
     {
       return std::make_shared<GetSVGainPatternOffset>(band, system, antennaName);
     }
@@ -55,7 +55,7 @@ namespace Sdx
         return m_values.IsObject()
           && parse_json<Sdx::GNSSBand>::is_valid(m_values["Band"])
           && parse_json<std::string>::is_valid(m_values["System"])
-          && parse_json<Sdx::optional<std::string>>::is_valid(m_values["AntennaName"])
+          && parse_json<std::optional<std::string>>::is_valid(m_values["AntennaName"])
         ;
 
     }
@@ -99,14 +99,14 @@ namespace Sdx
 
 
 
-    Sdx::optional<std::string> GetSVGainPatternOffset::antennaName() const
+    std::optional<std::string> GetSVGainPatternOffset::antennaName() const
     {
-      return parse_json<Sdx::optional<std::string>>::parse(m_values["AntennaName"]);
+      return parse_json<std::optional<std::string>>::parse(m_values["AntennaName"]);
     }
 
-    void GetSVGainPatternOffset::setAntennaName(const Sdx::optional<std::string>& antennaName)
+    void GetSVGainPatternOffset::setAntennaName(const std::optional<std::string>& antennaName)
     {
-      m_values.AddMember("AntennaName", parse_json<Sdx::optional<std::string>>::format(antennaName, m_values.GetAllocator()), m_values.GetAllocator());
+      m_values.AddMember("AntennaName", parse_json<std::optional<std::string>>::format(antennaName, m_values.GetAllocator()), m_values.GetAllocator());
     }
 
 

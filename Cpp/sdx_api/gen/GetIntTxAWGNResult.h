@@ -3,7 +3,7 @@
 #include <memory>
 #include "command_result.h"
 #include "command_factory.h"
-#include "sdx_optional.h"
+#include <optional>
 #include <string>
 
 namespace Sdx
@@ -39,13 +39,13 @@ namespace Sdx
 
       GetIntTxAWGNResult();
 
-      GetIntTxAWGNResult(bool enabled, double centralFreq, double power, double bandwidth, const std::string& transmitterId, const std::string& signalId, const Sdx::optional<int>& seed = {}, const Sdx::optional<int>& group = {});
+      GetIntTxAWGNResult(bool enabled, double centralFreq, double power, double bandwidth, const std::string& transmitterId, const std::string& signalId, const std::optional<int>& seed = {}, const std::optional<int>& group = {});
 
-      GetIntTxAWGNResult(CommandBasePtr relatedCommand, bool enabled, double centralFreq, double power, double bandwidth, const std::string& transmitterId, const std::string& signalId, const Sdx::optional<int>& seed = {}, const Sdx::optional<int>& group = {});
+      GetIntTxAWGNResult(CommandBasePtr relatedCommand, bool enabled, double centralFreq, double power, double bandwidth, const std::string& transmitterId, const std::string& signalId, const std::optional<int>& seed = {}, const std::optional<int>& group = {});
 
-      static GetIntTxAWGNResultPtr create(bool enabled, double centralFreq, double power, double bandwidth, const std::string& transmitterId, const std::string& signalId, const Sdx::optional<int>& seed = {}, const Sdx::optional<int>& group = {});
+      static GetIntTxAWGNResultPtr create(bool enabled, double centralFreq, double power, double bandwidth, const std::string& transmitterId, const std::string& signalId, const std::optional<int>& seed = {}, const std::optional<int>& group = {});
 
-      static GetIntTxAWGNResultPtr create(CommandBasePtr relatedCommand, bool enabled, double centralFreq, double power, double bandwidth, const std::string& transmitterId, const std::string& signalId, const Sdx::optional<int>& seed = {}, const Sdx::optional<int>& group = {});
+      static GetIntTxAWGNResultPtr create(CommandBasePtr relatedCommand, bool enabled, double centralFreq, double power, double bandwidth, const std::string& transmitterId, const std::string& signalId, const std::optional<int>& seed = {}, const std::optional<int>& group = {});
       static GetIntTxAWGNResultPtr dynamicCast(CommandBasePtr ptr);
       virtual bool isValid() const override;
       virtual std::string documentation() const override;
@@ -83,13 +83,13 @@ namespace Sdx
 
 
       // **** seed ****
-      Sdx::optional<int> seed() const;
-      void setSeed(const Sdx::optional<int>& seed);
+      std::optional<int> seed() const;
+      void setSeed(const std::optional<int>& seed);
 
 
       // **** group ****
-      Sdx::optional<int> group() const;
-      void setGroup(const Sdx::optional<int>& group);
+      std::optional<int> group() const;
+      void setGroup(const std::optional<int>& group);
     };
     REGISTER_COMMAND_TO_FACTORY_DECL(GetIntTxAWGNResult);
   }

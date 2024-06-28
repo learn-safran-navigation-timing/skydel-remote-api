@@ -31,7 +31,7 @@ namespace Sdx
       : CommandBase(CmdName, TargetId)
     {}
 
-    ImportConstellationParameters::ImportConstellationParameters(const std::string& system, const std::string& path, const Sdx::optional<int>& rollover, const Sdx::optional<std::string>& dataSetName)
+    ImportConstellationParameters::ImportConstellationParameters(const std::string& system, const std::string& path, const std::optional<int>& rollover, const std::optional<std::string>& dataSetName)
       : CommandBase(CmdName, TargetId)
     {
 
@@ -41,7 +41,7 @@ namespace Sdx
       setDataSetName(dataSetName);
     }
 
-    ImportConstellationParametersPtr ImportConstellationParameters::create(const std::string& system, const std::string& path, const Sdx::optional<int>& rollover, const Sdx::optional<std::string>& dataSetName)
+    ImportConstellationParametersPtr ImportConstellationParameters::create(const std::string& system, const std::string& path, const std::optional<int>& rollover, const std::optional<std::string>& dataSetName)
     {
       return std::make_shared<ImportConstellationParameters>(system, path, rollover, dataSetName);
     }
@@ -57,8 +57,8 @@ namespace Sdx
         return m_values.IsObject()
           && parse_json<std::string>::is_valid(m_values["System"])
           && parse_json<std::string>::is_valid(m_values["Path"])
-          && parse_json<Sdx::optional<int>>::is_valid(m_values["Rollover"])
-          && parse_json<Sdx::optional<std::string>>::is_valid(m_values["DataSetName"])
+          && parse_json<std::optional<int>>::is_valid(m_values["Rollover"])
+          && parse_json<std::optional<std::string>>::is_valid(m_values["DataSetName"])
         ;
 
     }
@@ -102,26 +102,26 @@ namespace Sdx
 
 
 
-    Sdx::optional<int> ImportConstellationParameters::rollover() const
+    std::optional<int> ImportConstellationParameters::rollover() const
     {
-      return parse_json<Sdx::optional<int>>::parse(m_values["Rollover"]);
+      return parse_json<std::optional<int>>::parse(m_values["Rollover"]);
     }
 
-    void ImportConstellationParameters::setRollover(const Sdx::optional<int>& rollover)
+    void ImportConstellationParameters::setRollover(const std::optional<int>& rollover)
     {
-      m_values.AddMember("Rollover", parse_json<Sdx::optional<int>>::format(rollover, m_values.GetAllocator()), m_values.GetAllocator());
+      m_values.AddMember("Rollover", parse_json<std::optional<int>>::format(rollover, m_values.GetAllocator()), m_values.GetAllocator());
     }
 
 
 
-    Sdx::optional<std::string> ImportConstellationParameters::dataSetName() const
+    std::optional<std::string> ImportConstellationParameters::dataSetName() const
     {
-      return parse_json<Sdx::optional<std::string>>::parse(m_values["DataSetName"]);
+      return parse_json<std::optional<std::string>>::parse(m_values["DataSetName"]);
     }
 
-    void ImportConstellationParameters::setDataSetName(const Sdx::optional<std::string>& dataSetName)
+    void ImportConstellationParameters::setDataSetName(const std::optional<std::string>& dataSetName)
     {
-      m_values.AddMember("DataSetName", parse_json<Sdx::optional<std::string>>::format(dataSetName, m_values.GetAllocator()), m_values.GetAllocator());
+      m_values.AddMember("DataSetName", parse_json<std::optional<std::string>>::format(dataSetName, m_values.GetAllocator()), m_values.GetAllocator());
     }
 
 

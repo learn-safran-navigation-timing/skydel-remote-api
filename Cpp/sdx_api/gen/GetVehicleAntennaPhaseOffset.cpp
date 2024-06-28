@@ -29,7 +29,7 @@ namespace Sdx
       : CommandBase(CmdName, TargetId)
     {}
 
-    GetVehicleAntennaPhaseOffset::GetVehicleAntennaPhaseOffset(const Sdx::GNSSBand& band, const Sdx::optional<std::string>& name)
+    GetVehicleAntennaPhaseOffset::GetVehicleAntennaPhaseOffset(const Sdx::GNSSBand& band, const std::optional<std::string>& name)
       : CommandBase(CmdName, TargetId)
     {
 
@@ -37,7 +37,7 @@ namespace Sdx
       setName(name);
     }
 
-    GetVehicleAntennaPhaseOffsetPtr GetVehicleAntennaPhaseOffset::create(const Sdx::GNSSBand& band, const Sdx::optional<std::string>& name)
+    GetVehicleAntennaPhaseOffsetPtr GetVehicleAntennaPhaseOffset::create(const Sdx::GNSSBand& band, const std::optional<std::string>& name)
     {
       return std::make_shared<GetVehicleAntennaPhaseOffset>(band, name);
     }
@@ -52,7 +52,7 @@ namespace Sdx
       
         return m_values.IsObject()
           && parse_json<Sdx::GNSSBand>::is_valid(m_values["Band"])
-          && parse_json<Sdx::optional<std::string>>::is_valid(m_values["Name"])
+          && parse_json<std::optional<std::string>>::is_valid(m_values["Name"])
         ;
 
     }
@@ -84,14 +84,14 @@ namespace Sdx
 
 
 
-    Sdx::optional<std::string> GetVehicleAntennaPhaseOffset::name() const
+    std::optional<std::string> GetVehicleAntennaPhaseOffset::name() const
     {
-      return parse_json<Sdx::optional<std::string>>::parse(m_values["Name"]);
+      return parse_json<std::optional<std::string>>::parse(m_values["Name"]);
     }
 
-    void GetVehicleAntennaPhaseOffset::setName(const Sdx::optional<std::string>& name)
+    void GetVehicleAntennaPhaseOffset::setName(const std::optional<std::string>& name)
     {
-      m_values.AddMember("Name", parse_json<Sdx::optional<std::string>>::format(name, m_values.GetAllocator()), m_values.GetAllocator());
+      m_values.AddMember("Name", parse_json<std::optional<std::string>>::format(name, m_values.GetAllocator()), m_values.GetAllocator());
     }
 
 

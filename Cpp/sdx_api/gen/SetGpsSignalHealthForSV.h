@@ -3,7 +3,7 @@
 #include <memory>
 #include "command_base.h"
 
-#include "sdx_optional.h"
+#include <optional>
 #include <string>
 
 namespace Sdx
@@ -34,9 +34,9 @@ namespace Sdx
 
       SetGpsSignalHealthForSV();
 
-      SetGpsSignalHealthForSV(int svId, int health, const Sdx::optional<std::string>& dataSetName = {});
+      SetGpsSignalHealthForSV(int svId, int health, const std::optional<std::string>& dataSetName = {});
 
-      static SetGpsSignalHealthForSVPtr create(int svId, int health, const Sdx::optional<std::string>& dataSetName = {});
+      static SetGpsSignalHealthForSVPtr create(int svId, int health, const std::optional<std::string>& dataSetName = {});
       static SetGpsSignalHealthForSVPtr dynamicCast(CommandBasePtr ptr);
       virtual bool isValid() const override;
       virtual std::string documentation() const override;
@@ -56,8 +56,8 @@ namespace Sdx
 
 
       // **** dataSetName ****
-      Sdx::optional<std::string> dataSetName() const;
-      void setDataSetName(const Sdx::optional<std::string>& dataSetName);
+      std::optional<std::string> dataSetName() const;
+      void setDataSetName(const std::optional<std::string>& dataSetName);
     };
     
   }

@@ -35,7 +35,7 @@ namespace Sdx
       : CommandBase(CmdName, TargetId)
     {}
 
-    SetIntTxCircular::SetIntTxCircular(double lat, double lon, double alt, double radius, double speed, bool clockwise, const std::string& id, const Sdx::optional<double>& originAngle)
+    SetIntTxCircular::SetIntTxCircular(double lat, double lon, double alt, double radius, double speed, bool clockwise, const std::string& id, const std::optional<double>& originAngle)
       : CommandBase(CmdName, TargetId)
     {
 
@@ -49,7 +49,7 @@ namespace Sdx
       setOriginAngle(originAngle);
     }
 
-    SetIntTxCircularPtr SetIntTxCircular::create(double lat, double lon, double alt, double radius, double speed, bool clockwise, const std::string& id, const Sdx::optional<double>& originAngle)
+    SetIntTxCircularPtr SetIntTxCircular::create(double lat, double lon, double alt, double radius, double speed, bool clockwise, const std::string& id, const std::optional<double>& originAngle)
     {
       return std::make_shared<SetIntTxCircular>(lat, lon, alt, radius, speed, clockwise, id, originAngle);
     }
@@ -70,7 +70,7 @@ namespace Sdx
           && parse_json<double>::is_valid(m_values["Speed"])
           && parse_json<bool>::is_valid(m_values["Clockwise"])
           && parse_json<std::string>::is_valid(m_values["Id"])
-          && parse_json<Sdx::optional<double>>::is_valid(m_values["OriginAngle"])
+          && parse_json<std::optional<double>>::is_valid(m_values["OriginAngle"])
         ;
 
     }
@@ -174,14 +174,14 @@ namespace Sdx
 
 
 
-    Sdx::optional<double> SetIntTxCircular::originAngle() const
+    std::optional<double> SetIntTxCircular::originAngle() const
     {
-      return parse_json<Sdx::optional<double>>::parse(m_values["OriginAngle"]);
+      return parse_json<std::optional<double>>::parse(m_values["OriginAngle"]);
     }
 
-    void SetIntTxCircular::setOriginAngle(const Sdx::optional<double>& originAngle)
+    void SetIntTxCircular::setOriginAngle(const std::optional<double>& originAngle)
     {
-      m_values.AddMember("OriginAngle", parse_json<Sdx::optional<double>>::format(originAngle, m_values.GetAllocator()), m_values.GetAllocator());
+      m_values.AddMember("OriginAngle", parse_json<std::optional<double>>::format(originAngle, m_values.GetAllocator()), m_values.GetAllocator());
     }
 
 

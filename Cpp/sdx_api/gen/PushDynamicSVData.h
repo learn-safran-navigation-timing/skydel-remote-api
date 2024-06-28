@@ -4,8 +4,8 @@
 #include "command_base.h"
 
 #include "date_time.h"
-#include "sdx_optional.h"
 #include <map>
+#include <optional>
 #include <string>
 #include <vector>
 
@@ -82,9 +82,9 @@ namespace Sdx
 
       PushDynamicSVData();
 
-      PushDynamicSVData(const std::string& system, int svId, const Sdx::DateTime& toc, const std::map<std::string, double>& parametersDict, const Sdx::optional<std::vector<std::string>>& dataSetTypes = {});
+      PushDynamicSVData(const std::string& system, int svId, const Sdx::DateTime& toc, const std::map<std::string, double>& parametersDict, const std::optional<std::vector<std::string>>& dataSetTypes = {});
 
-      static PushDynamicSVDataPtr create(const std::string& system, int svId, const Sdx::DateTime& toc, const std::map<std::string, double>& parametersDict, const Sdx::optional<std::vector<std::string>>& dataSetTypes = {});
+      static PushDynamicSVDataPtr create(const std::string& system, int svId, const Sdx::DateTime& toc, const std::map<std::string, double>& parametersDict, const std::optional<std::vector<std::string>>& dataSetTypes = {});
       static PushDynamicSVDataPtr dynamicCast(CommandBasePtr ptr);
       virtual bool isValid() const override;
       virtual std::string documentation() const override;
@@ -114,8 +114,8 @@ namespace Sdx
 
 
       // **** dataSetTypes ****
-      Sdx::optional<std::vector<std::string>> dataSetTypes() const;
-      void setDataSetTypes(const Sdx::optional<std::vector<std::string>>& dataSetTypes);
+      std::optional<std::vector<std::string>> dataSetTypes() const;
+      void setDataSetTypes(const std::optional<std::vector<std::string>>& dataSetTypes);
     };
     
   }

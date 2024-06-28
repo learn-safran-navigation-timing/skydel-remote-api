@@ -3,7 +3,7 @@
 #include <memory>
 #include "command_result.h"
 #include "command_factory.h"
-#include "sdx_optional.h"
+#include <optional>
 
 namespace Sdx
 {
@@ -32,13 +32,13 @@ namespace Sdx
 
       IsLogNmeaEnabledResult();
 
-      IsLogNmeaEnabledResult(bool enabled, const Sdx::optional<bool>& serialPortEnabled = {});
+      IsLogNmeaEnabledResult(bool enabled, const std::optional<bool>& serialPortEnabled = {});
 
-      IsLogNmeaEnabledResult(CommandBasePtr relatedCommand, bool enabled, const Sdx::optional<bool>& serialPortEnabled = {});
+      IsLogNmeaEnabledResult(CommandBasePtr relatedCommand, bool enabled, const std::optional<bool>& serialPortEnabled = {});
 
-      static IsLogNmeaEnabledResultPtr create(bool enabled, const Sdx::optional<bool>& serialPortEnabled = {});
+      static IsLogNmeaEnabledResultPtr create(bool enabled, const std::optional<bool>& serialPortEnabled = {});
 
-      static IsLogNmeaEnabledResultPtr create(CommandBasePtr relatedCommand, bool enabled, const Sdx::optional<bool>& serialPortEnabled = {});
+      static IsLogNmeaEnabledResultPtr create(CommandBasePtr relatedCommand, bool enabled, const std::optional<bool>& serialPortEnabled = {});
       static IsLogNmeaEnabledResultPtr dynamicCast(CommandBasePtr ptr);
       virtual bool isValid() const override;
       virtual std::string documentation() const override;
@@ -51,8 +51,8 @@ namespace Sdx
 
 
       // **** serialPortEnabled ****
-      Sdx::optional<bool> serialPortEnabled() const;
-      void setSerialPortEnabled(const Sdx::optional<bool>& serialPortEnabled);
+      std::optional<bool> serialPortEnabled() const;
+      void setSerialPortEnabled(const std::optional<bool>& serialPortEnabled);
     };
     REGISTER_COMMAND_TO_FACTORY_DECL(IsLogNmeaEnabledResult);
   }

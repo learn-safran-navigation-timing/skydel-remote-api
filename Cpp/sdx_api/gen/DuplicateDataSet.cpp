@@ -30,7 +30,7 @@ namespace Sdx
       : CommandBase(CmdName, TargetId)
     {}
 
-    DuplicateDataSet::DuplicateDataSet(const std::string& system, const std::string& dataSetName, const Sdx::optional<std::string>& newDataSetName)
+    DuplicateDataSet::DuplicateDataSet(const std::string& system, const std::string& dataSetName, const std::optional<std::string>& newDataSetName)
       : CommandBase(CmdName, TargetId)
     {
 
@@ -39,7 +39,7 @@ namespace Sdx
       setNewDataSetName(newDataSetName);
     }
 
-    DuplicateDataSetPtr DuplicateDataSet::create(const std::string& system, const std::string& dataSetName, const Sdx::optional<std::string>& newDataSetName)
+    DuplicateDataSetPtr DuplicateDataSet::create(const std::string& system, const std::string& dataSetName, const std::optional<std::string>& newDataSetName)
     {
       return std::make_shared<DuplicateDataSet>(system, dataSetName, newDataSetName);
     }
@@ -55,7 +55,7 @@ namespace Sdx
         return m_values.IsObject()
           && parse_json<std::string>::is_valid(m_values["System"])
           && parse_json<std::string>::is_valid(m_values["DataSetName"])
-          && parse_json<Sdx::optional<std::string>>::is_valid(m_values["NewDataSetName"])
+          && parse_json<std::optional<std::string>>::is_valid(m_values["NewDataSetName"])
         ;
 
     }
@@ -99,14 +99,14 @@ namespace Sdx
 
 
 
-    Sdx::optional<std::string> DuplicateDataSet::newDataSetName() const
+    std::optional<std::string> DuplicateDataSet::newDataSetName() const
     {
-      return parse_json<Sdx::optional<std::string>>::parse(m_values["NewDataSetName"]);
+      return parse_json<std::optional<std::string>>::parse(m_values["NewDataSetName"]);
     }
 
-    void DuplicateDataSet::setNewDataSetName(const Sdx::optional<std::string>& newDataSetName)
+    void DuplicateDataSet::setNewDataSetName(const std::optional<std::string>& newDataSetName)
     {
-      m_values.AddMember("NewDataSetName", parse_json<Sdx::optional<std::string>>::format(newDataSetName, m_values.GetAllocator()), m_values.GetAllocator());
+      m_values.AddMember("NewDataSetName", parse_json<std::optional<std::string>>::format(newDataSetName, m_values.GetAllocator()), m_values.GetAllocator());
     }
 
 

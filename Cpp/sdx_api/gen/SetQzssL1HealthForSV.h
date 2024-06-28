@@ -3,7 +3,7 @@
 #include <memory>
 #include "command_base.h"
 
-#include "sdx_optional.h"
+#include <optional>
 #include <string>
 
 namespace Sdx
@@ -34,9 +34,9 @@ namespace Sdx
 
       SetQzssL1HealthForSV();
 
-      SetQzssL1HealthForSV(int svId, bool health, const Sdx::optional<std::string>& dataSetName = {});
+      SetQzssL1HealthForSV(int svId, bool health, const std::optional<std::string>& dataSetName = {});
 
-      static SetQzssL1HealthForSVPtr create(int svId, bool health, const Sdx::optional<std::string>& dataSetName = {});
+      static SetQzssL1HealthForSVPtr create(int svId, bool health, const std::optional<std::string>& dataSetName = {});
       static SetQzssL1HealthForSVPtr dynamicCast(CommandBasePtr ptr);
       virtual bool isValid() const override;
       virtual std::string documentation() const override;
@@ -56,8 +56,8 @@ namespace Sdx
 
 
       // **** dataSetName ****
-      Sdx::optional<std::string> dataSetName() const;
-      void setDataSetName(const Sdx::optional<std::string>& dataSetName);
+      std::optional<std::string> dataSetName() const;
+      void setDataSetName(const std::optional<std::string>& dataSetName);
     };
     
   }

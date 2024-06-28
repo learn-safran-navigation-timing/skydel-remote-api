@@ -32,7 +32,7 @@ namespace Sdx
       : CommandBase(CmdName, TargetId)
     {}
 
-    SetRFOutputOffsets::SetRFOutputOffsets(int outputIdx, double powerOffset, double timeOffset, double phaseOffset, const Sdx::optional<double>& phaseStep)
+    SetRFOutputOffsets::SetRFOutputOffsets(int outputIdx, double powerOffset, double timeOffset, double phaseOffset, const std::optional<double>& phaseStep)
       : CommandBase(CmdName, TargetId)
     {
 
@@ -43,7 +43,7 @@ namespace Sdx
       setPhaseStep(phaseStep);
     }
 
-    SetRFOutputOffsetsPtr SetRFOutputOffsets::create(int outputIdx, double powerOffset, double timeOffset, double phaseOffset, const Sdx::optional<double>& phaseStep)
+    SetRFOutputOffsetsPtr SetRFOutputOffsets::create(int outputIdx, double powerOffset, double timeOffset, double phaseOffset, const std::optional<double>& phaseStep)
     {
       return std::make_shared<SetRFOutputOffsets>(outputIdx, powerOffset, timeOffset, phaseOffset, phaseStep);
     }
@@ -61,7 +61,7 @@ namespace Sdx
           && parse_json<double>::is_valid(m_values["PowerOffset"])
           && parse_json<double>::is_valid(m_values["TimeOffset"])
           && parse_json<double>::is_valid(m_values["PhaseOffset"])
-          && parse_json<Sdx::optional<double>>::is_valid(m_values["PhaseStep"])
+          && parse_json<std::optional<double>>::is_valid(m_values["PhaseStep"])
         ;
 
     }
@@ -129,14 +129,14 @@ namespace Sdx
 
 
 
-    Sdx::optional<double> SetRFOutputOffsets::phaseStep() const
+    std::optional<double> SetRFOutputOffsets::phaseStep() const
     {
-      return parse_json<Sdx::optional<double>>::parse(m_values["PhaseStep"]);
+      return parse_json<std::optional<double>>::parse(m_values["PhaseStep"]);
     }
 
-    void SetRFOutputOffsets::setPhaseStep(const Sdx::optional<double>& phaseStep)
+    void SetRFOutputOffsets::setPhaseStep(const std::optional<double>& phaseStep)
     {
-      m_values.AddMember("PhaseStep", parse_json<Sdx::optional<double>>::format(phaseStep, m_values.GetAllocator()), m_values.GetAllocator());
+      m_values.AddMember("PhaseStep", parse_json<std::optional<double>>::format(phaseStep, m_values.GetAllocator()), m_values.GetAllocator());
     }
 
 

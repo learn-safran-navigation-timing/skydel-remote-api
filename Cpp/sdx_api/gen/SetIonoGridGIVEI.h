@@ -3,7 +3,7 @@
 #include <memory>
 #include "command_base.h"
 
-#include "sdx_optional.h"
+#include <optional>
 #include <string>
 
 namespace Sdx
@@ -35,9 +35,9 @@ namespace Sdx
 
       SetIonoGridGIVEI();
 
-      SetIonoGridGIVEI(int band, int point, int giveI, const Sdx::optional<std::string>& serviceProvider = {});
+      SetIonoGridGIVEI(int band, int point, int giveI, const std::optional<std::string>& serviceProvider = {});
 
-      static SetIonoGridGIVEIPtr create(int band, int point, int giveI, const Sdx::optional<std::string>& serviceProvider = {});
+      static SetIonoGridGIVEIPtr create(int band, int point, int giveI, const std::optional<std::string>& serviceProvider = {});
       static SetIonoGridGIVEIPtr dynamicCast(CommandBasePtr ptr);
       virtual bool isValid() const override;
       virtual std::string documentation() const override;
@@ -62,8 +62,8 @@ namespace Sdx
 
 
       // **** serviceProvider ****
-      Sdx::optional<std::string> serviceProvider() const;
-      void setServiceProvider(const Sdx::optional<std::string>& serviceProvider);
+      std::optional<std::string> serviceProvider() const;
+      void setServiceProvider(const std::optional<std::string>& serviceProvider);
     };
     
   }

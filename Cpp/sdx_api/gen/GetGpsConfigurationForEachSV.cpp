@@ -24,14 +24,14 @@ namespace Sdx
     REGISTER_COMMAND_TO_FACTORY_IMPL(GetGpsConfigurationForEachSV);
 
 
-    GetGpsConfigurationForEachSV::GetGpsConfigurationForEachSV(const Sdx::optional<std::string>& dataSetName)
+    GetGpsConfigurationForEachSV::GetGpsConfigurationForEachSV(const std::optional<std::string>& dataSetName)
       : CommandBase(CmdName, TargetId)
     {
 
       setDataSetName(dataSetName);
     }
 
-    GetGpsConfigurationForEachSVPtr GetGpsConfigurationForEachSV::create(const Sdx::optional<std::string>& dataSetName)
+    GetGpsConfigurationForEachSVPtr GetGpsConfigurationForEachSV::create(const std::optional<std::string>& dataSetName)
     {
       return std::make_shared<GetGpsConfigurationForEachSV>(dataSetName);
     }
@@ -45,7 +45,7 @@ namespace Sdx
     {
       
         return m_values.IsObject()
-          && parse_json<Sdx::optional<std::string>>::is_valid(m_values["DataSetName"])
+          && parse_json<std::optional<std::string>>::is_valid(m_values["DataSetName"])
         ;
 
     }
@@ -65,14 +65,14 @@ namespace Sdx
     }
 
 
-    Sdx::optional<std::string> GetGpsConfigurationForEachSV::dataSetName() const
+    std::optional<std::string> GetGpsConfigurationForEachSV::dataSetName() const
     {
-      return parse_json<Sdx::optional<std::string>>::parse(m_values["DataSetName"]);
+      return parse_json<std::optional<std::string>>::parse(m_values["DataSetName"]);
     }
 
-    void GetGpsConfigurationForEachSV::setDataSetName(const Sdx::optional<std::string>& dataSetName)
+    void GetGpsConfigurationForEachSV::setDataSetName(const std::optional<std::string>& dataSetName)
     {
-      m_values.AddMember("DataSetName", parse_json<Sdx::optional<std::string>>::format(dataSetName, m_values.GetAllocator()), m_values.GetAllocator());
+      m_values.AddMember("DataSetName", parse_json<std::optional<std::string>>::format(dataSetName, m_values.GetAllocator()), m_values.GetAllocator());
     }
 
 

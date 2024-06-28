@@ -22,7 +22,7 @@ namespace Sdx
       "                         Accepted values are: \"L1CA\", \"L1C\", \"L2C\", \"L5\", \"E1\", \"E6BC\", \"B1\", \"B2\",\n"
       "                                              \"B1C\", \"B2a\", \"B3I\", \"SBASL1\", \"SBASL5\", \"QZSSL1CA\",\n"
       "                                              \"QZSSL1CB\", \"QZSSL1C\", \"QZSSL2C\", \"QZSSL5\", \"QZSSL1S\",\n"
-      "                                              \"QZSSL5S\" and \"NAVICL5\"";
+      "                                              \"QZSSL5S\", \"QZSSL6\", \"NAVICL1\", \"NAVICL5\" and \"NAVICS\"";
     const char* const GetTransmittedPrnForSV::TargetId = "";
 
     REGISTER_COMMAND_TO_FACTORY_DECL(GetTransmittedPrnForSV);

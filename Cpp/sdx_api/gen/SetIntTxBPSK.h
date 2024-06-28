@@ -3,7 +3,7 @@
 #include <memory>
 #include "command_base.h"
 
-#include "sdx_optional.h"
+#include <optional>
 #include <string>
 
 namespace Sdx
@@ -40,9 +40,9 @@ namespace Sdx
 
       SetIntTxBPSK();
 
-      SetIntTxBPSK(bool enabled, double centralFreq, double power, int codeRate, int codeLengthMs, const std::string& transmitterId, const std::string& signalId, const Sdx::optional<int>& group = {}, const Sdx::optional<int>& prn = {});
+      SetIntTxBPSK(bool enabled, double centralFreq, double power, int codeRate, int codeLengthMs, const std::string& transmitterId, const std::string& signalId, const std::optional<int>& group = {}, const std::optional<int>& prn = {});
 
-      static SetIntTxBPSKPtr create(bool enabled, double centralFreq, double power, int codeRate, int codeLengthMs, const std::string& transmitterId, const std::string& signalId, const Sdx::optional<int>& group = {}, const Sdx::optional<int>& prn = {});
+      static SetIntTxBPSKPtr create(bool enabled, double centralFreq, double power, int codeRate, int codeLengthMs, const std::string& transmitterId, const std::string& signalId, const std::optional<int>& group = {}, const std::optional<int>& prn = {});
       static SetIntTxBPSKPtr dynamicCast(CommandBasePtr ptr);
       virtual bool isValid() const override;
       virtual std::string documentation() const override;
@@ -87,13 +87,13 @@ namespace Sdx
 
 
       // **** group ****
-      Sdx::optional<int> group() const;
-      void setGroup(const Sdx::optional<int>& group);
+      std::optional<int> group() const;
+      void setGroup(const std::optional<int>& group);
 
 
       // **** prn ****
-      Sdx::optional<int> prn() const;
-      void setPrn(const Sdx::optional<int>& prn);
+      std::optional<int> prn() const;
+      void setPrn(const std::optional<int>& prn);
     };
     
   }

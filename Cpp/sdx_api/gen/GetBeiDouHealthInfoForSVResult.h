@@ -3,7 +3,7 @@
 #include <memory>
 #include "command_result.h"
 #include "command_factory.h"
-#include "sdx_optional.h"
+#include <optional>
 #include <string>
 
 namespace Sdx
@@ -34,13 +34,13 @@ namespace Sdx
 
       GetBeiDouHealthInfoForSVResult();
 
-      GetBeiDouHealthInfoForSVResult(int svId, int health, const Sdx::optional<std::string>& dataSetName = {});
+      GetBeiDouHealthInfoForSVResult(int svId, int health, const std::optional<std::string>& dataSetName = {});
 
-      GetBeiDouHealthInfoForSVResult(CommandBasePtr relatedCommand, int svId, int health, const Sdx::optional<std::string>& dataSetName = {});
+      GetBeiDouHealthInfoForSVResult(CommandBasePtr relatedCommand, int svId, int health, const std::optional<std::string>& dataSetName = {});
 
-      static GetBeiDouHealthInfoForSVResultPtr create(int svId, int health, const Sdx::optional<std::string>& dataSetName = {});
+      static GetBeiDouHealthInfoForSVResultPtr create(int svId, int health, const std::optional<std::string>& dataSetName = {});
 
-      static GetBeiDouHealthInfoForSVResultPtr create(CommandBasePtr relatedCommand, int svId, int health, const Sdx::optional<std::string>& dataSetName = {});
+      static GetBeiDouHealthInfoForSVResultPtr create(CommandBasePtr relatedCommand, int svId, int health, const std::optional<std::string>& dataSetName = {});
       static GetBeiDouHealthInfoForSVResultPtr dynamicCast(CommandBasePtr ptr);
       virtual bool isValid() const override;
       virtual std::string documentation() const override;
@@ -58,8 +58,8 @@ namespace Sdx
 
 
       // **** dataSetName ****
-      Sdx::optional<std::string> dataSetName() const;
-      void setDataSetName(const Sdx::optional<std::string>& dataSetName);
+      std::optional<std::string> dataSetName() const;
+      void setDataSetName(const std::optional<std::string>& dataSetName);
     };
     REGISTER_COMMAND_TO_FACTORY_DECL(GetBeiDouHealthInfoForSVResult);
   }

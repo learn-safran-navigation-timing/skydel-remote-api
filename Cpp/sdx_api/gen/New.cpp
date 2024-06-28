@@ -29,7 +29,7 @@ namespace Sdx
       : CommandBase(CmdName, TargetId)
     {}
 
-    New::New(bool discardCurrentConfig, const Sdx::optional<bool>& loadDefaultConfig)
+    New::New(bool discardCurrentConfig, const std::optional<bool>& loadDefaultConfig)
       : CommandBase(CmdName, TargetId)
     {
 
@@ -37,7 +37,7 @@ namespace Sdx
       setLoadDefaultConfig(loadDefaultConfig);
     }
 
-    NewPtr New::create(bool discardCurrentConfig, const Sdx::optional<bool>& loadDefaultConfig)
+    NewPtr New::create(bool discardCurrentConfig, const std::optional<bool>& loadDefaultConfig)
     {
       return std::make_shared<New>(discardCurrentConfig, loadDefaultConfig);
     }
@@ -52,7 +52,7 @@ namespace Sdx
       
         return m_values.IsObject()
           && parse_json<bool>::is_valid(m_values["DiscardCurrentConfig"])
-          && parse_json<Sdx::optional<bool>>::is_valid(m_values["LoadDefaultConfig"])
+          && parse_json<std::optional<bool>>::is_valid(m_values["LoadDefaultConfig"])
         ;
 
     }
@@ -84,14 +84,14 @@ namespace Sdx
 
 
 
-    Sdx::optional<bool> New::loadDefaultConfig() const
+    std::optional<bool> New::loadDefaultConfig() const
     {
-      return parse_json<Sdx::optional<bool>>::parse(m_values["LoadDefaultConfig"]);
+      return parse_json<std::optional<bool>>::parse(m_values["LoadDefaultConfig"]);
     }
 
-    void New::setLoadDefaultConfig(const Sdx::optional<bool>& loadDefaultConfig)
+    void New::setLoadDefaultConfig(const std::optional<bool>& loadDefaultConfig)
     {
-      m_values.AddMember("LoadDefaultConfig", parse_json<Sdx::optional<bool>>::format(loadDefaultConfig, m_values.GetAllocator()), m_values.GetAllocator());
+      m_values.AddMember("LoadDefaultConfig", parse_json<std::optional<bool>>::format(loadDefaultConfig, m_values.GetAllocator()), m_values.GetAllocator());
     }
 
 

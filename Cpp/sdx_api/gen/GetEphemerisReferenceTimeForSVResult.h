@@ -4,7 +4,7 @@
 #include "command_result.h"
 #include "command_factory.h"
 #include "date_time.h"
-#include "sdx_optional.h"
+#include <optional>
 #include <string>
 
 namespace Sdx
@@ -37,13 +37,13 @@ namespace Sdx
 
       GetEphemerisReferenceTimeForSVResult();
 
-      GetEphemerisReferenceTimeForSVResult(const std::string& system, int svId, const Sdx::DateTime& time, const Sdx::optional<std::string>& dataSetName = {});
+      GetEphemerisReferenceTimeForSVResult(const std::string& system, int svId, const Sdx::DateTime& time, const std::optional<std::string>& dataSetName = {});
 
-      GetEphemerisReferenceTimeForSVResult(CommandBasePtr relatedCommand, const std::string& system, int svId, const Sdx::DateTime& time, const Sdx::optional<std::string>& dataSetName = {});
+      GetEphemerisReferenceTimeForSVResult(CommandBasePtr relatedCommand, const std::string& system, int svId, const Sdx::DateTime& time, const std::optional<std::string>& dataSetName = {});
 
-      static GetEphemerisReferenceTimeForSVResultPtr create(const std::string& system, int svId, const Sdx::DateTime& time, const Sdx::optional<std::string>& dataSetName = {});
+      static GetEphemerisReferenceTimeForSVResultPtr create(const std::string& system, int svId, const Sdx::DateTime& time, const std::optional<std::string>& dataSetName = {});
 
-      static GetEphemerisReferenceTimeForSVResultPtr create(CommandBasePtr relatedCommand, const std::string& system, int svId, const Sdx::DateTime& time, const Sdx::optional<std::string>& dataSetName = {});
+      static GetEphemerisReferenceTimeForSVResultPtr create(CommandBasePtr relatedCommand, const std::string& system, int svId, const Sdx::DateTime& time, const std::optional<std::string>& dataSetName = {});
       static GetEphemerisReferenceTimeForSVResultPtr dynamicCast(CommandBasePtr ptr);
       virtual bool isValid() const override;
       virtual std::string documentation() const override;
@@ -66,8 +66,8 @@ namespace Sdx
 
 
       // **** dataSetName ****
-      Sdx::optional<std::string> dataSetName() const;
-      void setDataSetName(const Sdx::optional<std::string>& dataSetName);
+      std::optional<std::string> dataSetName() const;
+      void setDataSetName(const std::optional<std::string>& dataSetName);
     };
     REGISTER_COMMAND_TO_FACTORY_DECL(GetEphemerisReferenceTimeForSVResult);
   }

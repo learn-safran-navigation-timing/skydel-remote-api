@@ -3,7 +3,7 @@
 #include <memory>
 #include "command_result.h"
 #include "command_factory.h"
-#include "sdx_optional.h"
+#include <optional>
 #include <string>
 
 namespace Sdx
@@ -35,13 +35,13 @@ namespace Sdx
 
       GetBeiDouEphDoubleParamForSVResult();
 
-      GetBeiDouEphDoubleParamForSVResult(int svId, const std::string& paramName, double val, const Sdx::optional<std::string>& dataSetName = {});
+      GetBeiDouEphDoubleParamForSVResult(int svId, const std::string& paramName, double val, const std::optional<std::string>& dataSetName = {});
 
-      GetBeiDouEphDoubleParamForSVResult(CommandBasePtr relatedCommand, int svId, const std::string& paramName, double val, const Sdx::optional<std::string>& dataSetName = {});
+      GetBeiDouEphDoubleParamForSVResult(CommandBasePtr relatedCommand, int svId, const std::string& paramName, double val, const std::optional<std::string>& dataSetName = {});
 
-      static GetBeiDouEphDoubleParamForSVResultPtr create(int svId, const std::string& paramName, double val, const Sdx::optional<std::string>& dataSetName = {});
+      static GetBeiDouEphDoubleParamForSVResultPtr create(int svId, const std::string& paramName, double val, const std::optional<std::string>& dataSetName = {});
 
-      static GetBeiDouEphDoubleParamForSVResultPtr create(CommandBasePtr relatedCommand, int svId, const std::string& paramName, double val, const Sdx::optional<std::string>& dataSetName = {});
+      static GetBeiDouEphDoubleParamForSVResultPtr create(CommandBasePtr relatedCommand, int svId, const std::string& paramName, double val, const std::optional<std::string>& dataSetName = {});
       static GetBeiDouEphDoubleParamForSVResultPtr dynamicCast(CommandBasePtr ptr);
       virtual bool isValid() const override;
       virtual std::string documentation() const override;
@@ -64,8 +64,8 @@ namespace Sdx
 
 
       // **** dataSetName ****
-      Sdx::optional<std::string> dataSetName() const;
-      void setDataSetName(const Sdx::optional<std::string>& dataSetName);
+      std::optional<std::string> dataSetName() const;
+      void setDataSetName(const std::optional<std::string>& dataSetName);
     };
     REGISTER_COMMAND_TO_FACTORY_DECL(GetBeiDouEphDoubleParamForSVResult);
   }

@@ -36,7 +36,7 @@ namespace Sdx
       : CommandBase(CmdName, TargetId)
     {}
 
-    SetPerturbationsForAllSat::SetPerturbationsForAllSat(const std::string& system, const std::vector<double>& crs, const std::vector<double>& crc, const std::vector<double>& cis, const std::vector<double>& cic, const std::vector<double>& cus, const std::vector<double>& cuc, const Sdx::optional<std::string>& dataSetName)
+    SetPerturbationsForAllSat::SetPerturbationsForAllSat(const std::string& system, const std::vector<double>& crs, const std::vector<double>& crc, const std::vector<double>& cis, const std::vector<double>& cic, const std::vector<double>& cus, const std::vector<double>& cuc, const std::optional<std::string>& dataSetName)
       : CommandBase(CmdName, TargetId)
     {
 
@@ -50,7 +50,7 @@ namespace Sdx
       setDataSetName(dataSetName);
     }
 
-    SetPerturbationsForAllSatPtr SetPerturbationsForAllSat::create(const std::string& system, const std::vector<double>& crs, const std::vector<double>& crc, const std::vector<double>& cis, const std::vector<double>& cic, const std::vector<double>& cus, const std::vector<double>& cuc, const Sdx::optional<std::string>& dataSetName)
+    SetPerturbationsForAllSatPtr SetPerturbationsForAllSat::create(const std::string& system, const std::vector<double>& crs, const std::vector<double>& crc, const std::vector<double>& cis, const std::vector<double>& cic, const std::vector<double>& cus, const std::vector<double>& cuc, const std::optional<std::string>& dataSetName)
     {
       return std::make_shared<SetPerturbationsForAllSat>(system, crs, crc, cis, cic, cus, cuc, dataSetName);
     }
@@ -71,7 +71,7 @@ namespace Sdx
           && parse_json<std::vector<double>>::is_valid(m_values["Cic"])
           && parse_json<std::vector<double>>::is_valid(m_values["Cus"])
           && parse_json<std::vector<double>>::is_valid(m_values["Cuc"])
-          && parse_json<Sdx::optional<std::string>>::is_valid(m_values["DataSetName"])
+          && parse_json<std::optional<std::string>>::is_valid(m_values["DataSetName"])
         ;
 
     }
@@ -175,14 +175,14 @@ namespace Sdx
 
 
 
-    Sdx::optional<std::string> SetPerturbationsForAllSat::dataSetName() const
+    std::optional<std::string> SetPerturbationsForAllSat::dataSetName() const
     {
-      return parse_json<Sdx::optional<std::string>>::parse(m_values["DataSetName"]);
+      return parse_json<std::optional<std::string>>::parse(m_values["DataSetName"]);
     }
 
-    void SetPerturbationsForAllSat::setDataSetName(const Sdx::optional<std::string>& dataSetName)
+    void SetPerturbationsForAllSat::setDataSetName(const std::optional<std::string>& dataSetName)
     {
-      m_values.AddMember("DataSetName", parse_json<Sdx::optional<std::string>>::format(dataSetName, m_values.GetAllocator()), m_values.GetAllocator());
+      m_values.AddMember("DataSetName", parse_json<std::optional<std::string>>::format(dataSetName, m_values.GetAllocator()), m_values.GetAllocator());
     }
 
 

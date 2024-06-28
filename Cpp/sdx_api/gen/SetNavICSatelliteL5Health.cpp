@@ -32,7 +32,7 @@ namespace Sdx
       : CommandBase(CmdName, TargetId)
     {}
 
-    SetNavICSatelliteL5Health::SetNavICSatelliteL5Health(int svId, bool health, const Sdx::optional<std::string>& dataSetName)
+    SetNavICSatelliteL5Health::SetNavICSatelliteL5Health(int svId, bool health, const std::optional<std::string>& dataSetName)
       : CommandBase(CmdName, TargetId)
     {
 
@@ -41,7 +41,7 @@ namespace Sdx
       setDataSetName(dataSetName);
     }
 
-    SetNavICSatelliteL5HealthPtr SetNavICSatelliteL5Health::create(int svId, bool health, const Sdx::optional<std::string>& dataSetName)
+    SetNavICSatelliteL5HealthPtr SetNavICSatelliteL5Health::create(int svId, bool health, const std::optional<std::string>& dataSetName)
     {
       return std::make_shared<SetNavICSatelliteL5Health>(svId, health, dataSetName);
     }
@@ -57,7 +57,7 @@ namespace Sdx
         return m_values.IsObject()
           && parse_json<int>::is_valid(m_values["SvId"])
           && parse_json<bool>::is_valid(m_values["Health"])
-          && parse_json<Sdx::optional<std::string>>::is_valid(m_values["DataSetName"])
+          && parse_json<std::optional<std::string>>::is_valid(m_values["DataSetName"])
         ;
 
     }
@@ -101,14 +101,14 @@ namespace Sdx
 
 
 
-    Sdx::optional<std::string> SetNavICSatelliteL5Health::dataSetName() const
+    std::optional<std::string> SetNavICSatelliteL5Health::dataSetName() const
     {
-      return parse_json<Sdx::optional<std::string>>::parse(m_values["DataSetName"]);
+      return parse_json<std::optional<std::string>>::parse(m_values["DataSetName"]);
     }
 
-    void SetNavICSatelliteL5Health::setDataSetName(const Sdx::optional<std::string>& dataSetName)
+    void SetNavICSatelliteL5Health::setDataSetName(const std::optional<std::string>& dataSetName)
     {
-      m_values.AddMember("DataSetName", parse_json<Sdx::optional<std::string>>::format(dataSetName, m_values.GetAllocator()), m_values.GetAllocator());
+      m_values.AddMember("DataSetName", parse_json<std::optional<std::string>>::format(dataSetName, m_values.GetAllocator()), m_values.GetAllocator());
     }
 
 

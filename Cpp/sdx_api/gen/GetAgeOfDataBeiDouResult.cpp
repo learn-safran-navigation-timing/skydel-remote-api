@@ -29,7 +29,7 @@ namespace Sdx
       : CommandResult(CmdName, TargetId)
     {}
 
-    GetAgeOfDataBeiDouResult::GetAgeOfDataBeiDouResult(int clock, int ephemeris, const Sdx::optional<bool>& overrideRinex)
+    GetAgeOfDataBeiDouResult::GetAgeOfDataBeiDouResult(int clock, int ephemeris, const std::optional<bool>& overrideRinex)
       : CommandResult(CmdName, TargetId)
     {
 
@@ -38,7 +38,7 @@ namespace Sdx
       setOverrideRinex(overrideRinex);
     }
 
-    GetAgeOfDataBeiDouResult::GetAgeOfDataBeiDouResult(CommandBasePtr relatedCommand, int clock, int ephemeris, const Sdx::optional<bool>& overrideRinex)
+    GetAgeOfDataBeiDouResult::GetAgeOfDataBeiDouResult(CommandBasePtr relatedCommand, int clock, int ephemeris, const std::optional<bool>& overrideRinex)
       : CommandResult(CmdName, TargetId, relatedCommand)
     {
 
@@ -48,12 +48,12 @@ namespace Sdx
     }
 
 
-    GetAgeOfDataBeiDouResultPtr GetAgeOfDataBeiDouResult::create(int clock, int ephemeris, const Sdx::optional<bool>& overrideRinex)
+    GetAgeOfDataBeiDouResultPtr GetAgeOfDataBeiDouResult::create(int clock, int ephemeris, const std::optional<bool>& overrideRinex)
     {
       return std::make_shared<GetAgeOfDataBeiDouResult>(clock, ephemeris, overrideRinex);
     }
 
-    GetAgeOfDataBeiDouResultPtr GetAgeOfDataBeiDouResult::create(CommandBasePtr relatedCommand, int clock, int ephemeris, const Sdx::optional<bool>& overrideRinex)
+    GetAgeOfDataBeiDouResultPtr GetAgeOfDataBeiDouResult::create(CommandBasePtr relatedCommand, int clock, int ephemeris, const std::optional<bool>& overrideRinex)
     {
       return std::make_shared<GetAgeOfDataBeiDouResult>(relatedCommand, clock, ephemeris, overrideRinex);
     }
@@ -69,7 +69,7 @@ namespace Sdx
         return m_values.IsObject()
           && parse_json<int>::is_valid(m_values["Clock"])
           && parse_json<int>::is_valid(m_values["Ephemeris"])
-          && parse_json<Sdx::optional<bool>>::is_valid(m_values["OverrideRinex"])
+          && parse_json<std::optional<bool>>::is_valid(m_values["OverrideRinex"])
         ;
 
     }
@@ -107,14 +107,14 @@ namespace Sdx
 
 
 
-    Sdx::optional<bool> GetAgeOfDataBeiDouResult::overrideRinex() const
+    std::optional<bool> GetAgeOfDataBeiDouResult::overrideRinex() const
     {
-      return parse_json<Sdx::optional<bool>>::parse(m_values["OverrideRinex"]);
+      return parse_json<std::optional<bool>>::parse(m_values["OverrideRinex"]);
     }
 
-    void GetAgeOfDataBeiDouResult::setOverrideRinex(const Sdx::optional<bool>& overrideRinex)
+    void GetAgeOfDataBeiDouResult::setOverrideRinex(const std::optional<bool>& overrideRinex)
     {
-      m_values.AddMember("OverrideRinex", parse_json<Sdx::optional<bool>>::format(overrideRinex, m_values.GetAllocator()), m_values.GetAllocator());
+      m_values.AddMember("OverrideRinex", parse_json<std::optional<bool>>::format(overrideRinex, m_values.GetAllocator()), m_values.GetAllocator());
     }
 
 

@@ -29,7 +29,7 @@ namespace Sdx
       : CommandResult(CmdName, TargetId)
     {}
 
-    GetGpsAntiSpoofingFlagForSVResult::GetGpsAntiSpoofingFlagForSVResult(int svId, const Sdx::GpsASFlag& antiSpoofing, const Sdx::optional<std::string>& dataSetName)
+    GetGpsAntiSpoofingFlagForSVResult::GetGpsAntiSpoofingFlagForSVResult(int svId, const Sdx::GpsASFlag& antiSpoofing, const std::optional<std::string>& dataSetName)
       : CommandResult(CmdName, TargetId)
     {
 
@@ -38,7 +38,7 @@ namespace Sdx
       setDataSetName(dataSetName);
     }
 
-    GetGpsAntiSpoofingFlagForSVResult::GetGpsAntiSpoofingFlagForSVResult(CommandBasePtr relatedCommand, int svId, const Sdx::GpsASFlag& antiSpoofing, const Sdx::optional<std::string>& dataSetName)
+    GetGpsAntiSpoofingFlagForSVResult::GetGpsAntiSpoofingFlagForSVResult(CommandBasePtr relatedCommand, int svId, const Sdx::GpsASFlag& antiSpoofing, const std::optional<std::string>& dataSetName)
       : CommandResult(CmdName, TargetId, relatedCommand)
     {
 
@@ -48,12 +48,12 @@ namespace Sdx
     }
 
 
-    GetGpsAntiSpoofingFlagForSVResultPtr GetGpsAntiSpoofingFlagForSVResult::create(int svId, const Sdx::GpsASFlag& antiSpoofing, const Sdx::optional<std::string>& dataSetName)
+    GetGpsAntiSpoofingFlagForSVResultPtr GetGpsAntiSpoofingFlagForSVResult::create(int svId, const Sdx::GpsASFlag& antiSpoofing, const std::optional<std::string>& dataSetName)
     {
       return std::make_shared<GetGpsAntiSpoofingFlagForSVResult>(svId, antiSpoofing, dataSetName);
     }
 
-    GetGpsAntiSpoofingFlagForSVResultPtr GetGpsAntiSpoofingFlagForSVResult::create(CommandBasePtr relatedCommand, int svId, const Sdx::GpsASFlag& antiSpoofing, const Sdx::optional<std::string>& dataSetName)
+    GetGpsAntiSpoofingFlagForSVResultPtr GetGpsAntiSpoofingFlagForSVResult::create(CommandBasePtr relatedCommand, int svId, const Sdx::GpsASFlag& antiSpoofing, const std::optional<std::string>& dataSetName)
     {
       return std::make_shared<GetGpsAntiSpoofingFlagForSVResult>(relatedCommand, svId, antiSpoofing, dataSetName);
     }
@@ -69,7 +69,7 @@ namespace Sdx
         return m_values.IsObject()
           && parse_json<int>::is_valid(m_values["SvId"])
           && parse_json<Sdx::GpsASFlag>::is_valid(m_values["AntiSpoofing"])
-          && parse_json<Sdx::optional<std::string>>::is_valid(m_values["DataSetName"])
+          && parse_json<std::optional<std::string>>::is_valid(m_values["DataSetName"])
         ;
 
     }
@@ -107,14 +107,14 @@ namespace Sdx
 
 
 
-    Sdx::optional<std::string> GetGpsAntiSpoofingFlagForSVResult::dataSetName() const
+    std::optional<std::string> GetGpsAntiSpoofingFlagForSVResult::dataSetName() const
     {
-      return parse_json<Sdx::optional<std::string>>::parse(m_values["DataSetName"]);
+      return parse_json<std::optional<std::string>>::parse(m_values["DataSetName"]);
     }
 
-    void GetGpsAntiSpoofingFlagForSVResult::setDataSetName(const Sdx::optional<std::string>& dataSetName)
+    void GetGpsAntiSpoofingFlagForSVResult::setDataSetName(const std::optional<std::string>& dataSetName)
     {
-      m_values.AddMember("DataSetName", parse_json<Sdx::optional<std::string>>::format(dataSetName, m_values.GetAllocator()), m_values.GetAllocator());
+      m_values.AddMember("DataSetName", parse_json<std::optional<std::string>>::format(dataSetName, m_values.GetAllocator()), m_values.GetAllocator());
     }
 
 

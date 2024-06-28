@@ -3,7 +3,7 @@
 #include <memory>
 #include "command_base.h"
 
-#include "sdx_optional.h"
+#include <optional>
 #include <string>
 #include <vector>
 
@@ -62,8 +62,11 @@ namespace Sdx
     /// NavIC:
     /// 
     ///   Unit         Type     ParamName
-    ///   sec          double   "Tgd"
+    ///   sec          double   "Tgd", "IscS", "IscL1P", "IscL1D"
     ///   -            integer  "IODEC", "UraIndex"
+    ///   -            boolean  "IscSAvailable", "IscL1PAvailable", "IscL1DAvailable"
+    /// 
+    /// 
     ///
     /// Name        Type                  Description
     /// ----------- --------------------- -------------------------------------------------------------------------------------------
@@ -88,15 +91,15 @@ namespace Sdx
 
       SetConstellationParameterForSV();
 
-      SetConstellationParameterForSV(const std::string& system, int svId, const std::string& paramName, double val, const Sdx::optional<std::string>& dataSetName = {});
+      SetConstellationParameterForSV(const std::string& system, int svId, const std::string& paramName, double val, const std::optional<std::string>& dataSetName = {});
 
-      SetConstellationParameterForSV(const std::string& system, int svId, const std::string& paramName, int val, const Sdx::optional<std::string>& dataSetName = {});
+      SetConstellationParameterForSV(const std::string& system, int svId, const std::string& paramName, int val, const std::optional<std::string>& dataSetName = {});
 
-      SetConstellationParameterForSV(const std::string& system, int svId, const std::string& paramName, bool val, const Sdx::optional<std::string>& dataSetName = {});
+      SetConstellationParameterForSV(const std::string& system, int svId, const std::string& paramName, bool val, const std::optional<std::string>& dataSetName = {});
 
-      static SetConstellationParameterForSVPtr create(const std::string& system, int svId, const std::string& paramName, double val, const Sdx::optional<std::string>& dataSetName = {});
-      static SetConstellationParameterForSVPtr create(const std::string& system, int svId, const std::string& paramName, int val, const Sdx::optional<std::string>& dataSetName = {});
-      static SetConstellationParameterForSVPtr create(const std::string& system, int svId, const std::string& paramName, bool val, const Sdx::optional<std::string>& dataSetName = {});
+      static SetConstellationParameterForSVPtr create(const std::string& system, int svId, const std::string& paramName, double val, const std::optional<std::string>& dataSetName = {});
+      static SetConstellationParameterForSVPtr create(const std::string& system, int svId, const std::string& paramName, int val, const std::optional<std::string>& dataSetName = {});
+      static SetConstellationParameterForSVPtr create(const std::string& system, int svId, const std::string& paramName, bool val, const std::optional<std::string>& dataSetName = {});
       static SetConstellationParameterForSVPtr dynamicCast(CommandBasePtr ptr);
       virtual bool isValid() const override;
       virtual std::string documentation() const override;
@@ -128,8 +131,8 @@ namespace Sdx
 
 
       // **** dataSetName ****
-      Sdx::optional<std::string> dataSetName() const;
-      void setDataSetName(const Sdx::optional<std::string>& dataSetName);
+      std::optional<std::string> dataSetName() const;
+      void setDataSetName(const std::optional<std::string>& dataSetName);
     };
     
   }

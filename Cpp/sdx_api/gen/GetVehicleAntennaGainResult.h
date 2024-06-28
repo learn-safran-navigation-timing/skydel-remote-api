@@ -5,7 +5,7 @@
 #include "command_factory.h"
 #include "gen/AntennaPatternType.h"
 #include "gen/GNSSBand.h"
-#include "sdx_optional.h"
+#include <optional>
 #include <string>
 #include <vector>
 
@@ -38,13 +38,13 @@ namespace Sdx
 
       GetVehicleAntennaGainResult();
 
-      GetVehicleAntennaGainResult(const std::vector<std::vector<double>>& gain, const Sdx::AntennaPatternType& type, const Sdx::GNSSBand& band, const Sdx::optional<std::string>& name = {});
+      GetVehicleAntennaGainResult(const std::vector<std::vector<double>>& gain, const Sdx::AntennaPatternType& type, const Sdx::GNSSBand& band, const std::optional<std::string>& name = {});
 
-      GetVehicleAntennaGainResult(CommandBasePtr relatedCommand, const std::vector<std::vector<double>>& gain, const Sdx::AntennaPatternType& type, const Sdx::GNSSBand& band, const Sdx::optional<std::string>& name = {});
+      GetVehicleAntennaGainResult(CommandBasePtr relatedCommand, const std::vector<std::vector<double>>& gain, const Sdx::AntennaPatternType& type, const Sdx::GNSSBand& band, const std::optional<std::string>& name = {});
 
-      static GetVehicleAntennaGainResultPtr create(const std::vector<std::vector<double>>& gain, const Sdx::AntennaPatternType& type, const Sdx::GNSSBand& band, const Sdx::optional<std::string>& name = {});
+      static GetVehicleAntennaGainResultPtr create(const std::vector<std::vector<double>>& gain, const Sdx::AntennaPatternType& type, const Sdx::GNSSBand& band, const std::optional<std::string>& name = {});
 
-      static GetVehicleAntennaGainResultPtr create(CommandBasePtr relatedCommand, const std::vector<std::vector<double>>& gain, const Sdx::AntennaPatternType& type, const Sdx::GNSSBand& band, const Sdx::optional<std::string>& name = {});
+      static GetVehicleAntennaGainResultPtr create(CommandBasePtr relatedCommand, const std::vector<std::vector<double>>& gain, const Sdx::AntennaPatternType& type, const Sdx::GNSSBand& band, const std::optional<std::string>& name = {});
       static GetVehicleAntennaGainResultPtr dynamicCast(CommandBasePtr ptr);
       virtual bool isValid() const override;
       virtual std::string documentation() const override;
@@ -67,8 +67,8 @@ namespace Sdx
 
 
       // **** name ****
-      Sdx::optional<std::string> name() const;
-      void setName(const Sdx::optional<std::string>& name);
+      std::optional<std::string> name() const;
+      void setName(const std::optional<std::string>& name);
     };
     REGISTER_COMMAND_TO_FACTORY_DECL(GetVehicleAntennaGainResult);
   }

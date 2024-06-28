@@ -29,7 +29,7 @@ namespace Sdx
       : CommandBase(CmdName, TargetId)
     {}
 
-    GetVehicleGainPatternOffset::GetVehicleGainPatternOffset(const Sdx::GNSSBand& band, const Sdx::optional<std::string>& antennaName)
+    GetVehicleGainPatternOffset::GetVehicleGainPatternOffset(const Sdx::GNSSBand& band, const std::optional<std::string>& antennaName)
       : CommandBase(CmdName, TargetId)
     {
 
@@ -37,7 +37,7 @@ namespace Sdx
       setAntennaName(antennaName);
     }
 
-    GetVehicleGainPatternOffsetPtr GetVehicleGainPatternOffset::create(const Sdx::GNSSBand& band, const Sdx::optional<std::string>& antennaName)
+    GetVehicleGainPatternOffsetPtr GetVehicleGainPatternOffset::create(const Sdx::GNSSBand& band, const std::optional<std::string>& antennaName)
     {
       return std::make_shared<GetVehicleGainPatternOffset>(band, antennaName);
     }
@@ -52,7 +52,7 @@ namespace Sdx
       
         return m_values.IsObject()
           && parse_json<Sdx::GNSSBand>::is_valid(m_values["Band"])
-          && parse_json<Sdx::optional<std::string>>::is_valid(m_values["AntennaName"])
+          && parse_json<std::optional<std::string>>::is_valid(m_values["AntennaName"])
         ;
 
     }
@@ -84,14 +84,14 @@ namespace Sdx
 
 
 
-    Sdx::optional<std::string> GetVehicleGainPatternOffset::antennaName() const
+    std::optional<std::string> GetVehicleGainPatternOffset::antennaName() const
     {
-      return parse_json<Sdx::optional<std::string>>::parse(m_values["AntennaName"]);
+      return parse_json<std::optional<std::string>>::parse(m_values["AntennaName"]);
     }
 
-    void GetVehicleGainPatternOffset::setAntennaName(const Sdx::optional<std::string>& antennaName)
+    void GetVehicleGainPatternOffset::setAntennaName(const std::optional<std::string>& antennaName)
     {
-      m_values.AddMember("AntennaName", parse_json<Sdx::optional<std::string>>::format(antennaName, m_values.GetAllocator()), m_values.GetAllocator());
+      m_values.AddMember("AntennaName", parse_json<std::optional<std::string>>::format(antennaName, m_values.GetAllocator()), m_values.GetAllocator());
     }
 
 

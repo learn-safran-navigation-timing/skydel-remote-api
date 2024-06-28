@@ -29,7 +29,7 @@ namespace Sdx
       : CommandResult(CmdName, TargetId)
     {}
 
-    GetElevationAzimuthForSVResult::GetElevationAzimuthForSVResult(const std::string& system, int svId, const Sdx::optional<Sdx::ElevationAzimuth>& elevationAzimuth)
+    GetElevationAzimuthForSVResult::GetElevationAzimuthForSVResult(const std::string& system, int svId, const std::optional<Sdx::ElevationAzimuth>& elevationAzimuth)
       : CommandResult(CmdName, TargetId)
     {
 
@@ -38,7 +38,7 @@ namespace Sdx
       setElevationAzimuth(elevationAzimuth);
     }
 
-    GetElevationAzimuthForSVResult::GetElevationAzimuthForSVResult(CommandBasePtr relatedCommand, const std::string& system, int svId, const Sdx::optional<Sdx::ElevationAzimuth>& elevationAzimuth)
+    GetElevationAzimuthForSVResult::GetElevationAzimuthForSVResult(CommandBasePtr relatedCommand, const std::string& system, int svId, const std::optional<Sdx::ElevationAzimuth>& elevationAzimuth)
       : CommandResult(CmdName, TargetId, relatedCommand)
     {
 
@@ -48,12 +48,12 @@ namespace Sdx
     }
 
 
-    GetElevationAzimuthForSVResultPtr GetElevationAzimuthForSVResult::create(const std::string& system, int svId, const Sdx::optional<Sdx::ElevationAzimuth>& elevationAzimuth)
+    GetElevationAzimuthForSVResultPtr GetElevationAzimuthForSVResult::create(const std::string& system, int svId, const std::optional<Sdx::ElevationAzimuth>& elevationAzimuth)
     {
       return std::make_shared<GetElevationAzimuthForSVResult>(system, svId, elevationAzimuth);
     }
 
-    GetElevationAzimuthForSVResultPtr GetElevationAzimuthForSVResult::create(CommandBasePtr relatedCommand, const std::string& system, int svId, const Sdx::optional<Sdx::ElevationAzimuth>& elevationAzimuth)
+    GetElevationAzimuthForSVResultPtr GetElevationAzimuthForSVResult::create(CommandBasePtr relatedCommand, const std::string& system, int svId, const std::optional<Sdx::ElevationAzimuth>& elevationAzimuth)
     {
       return std::make_shared<GetElevationAzimuthForSVResult>(relatedCommand, system, svId, elevationAzimuth);
     }
@@ -69,7 +69,7 @@ namespace Sdx
         return m_values.IsObject()
           && parse_json<std::string>::is_valid(m_values["System"])
           && parse_json<int>::is_valid(m_values["SvId"])
-          && parse_json<Sdx::optional<Sdx::ElevationAzimuth>>::is_valid(m_values["ElevationAzimuth"])
+          && parse_json<std::optional<Sdx::ElevationAzimuth>>::is_valid(m_values["ElevationAzimuth"])
         ;
 
     }
@@ -107,14 +107,14 @@ namespace Sdx
 
 
 
-    Sdx::optional<Sdx::ElevationAzimuth> GetElevationAzimuthForSVResult::elevationAzimuth() const
+    std::optional<Sdx::ElevationAzimuth> GetElevationAzimuthForSVResult::elevationAzimuth() const
     {
-      return parse_json<Sdx::optional<Sdx::ElevationAzimuth>>::parse(m_values["ElevationAzimuth"]);
+      return parse_json<std::optional<Sdx::ElevationAzimuth>>::parse(m_values["ElevationAzimuth"]);
     }
 
-    void GetElevationAzimuthForSVResult::setElevationAzimuth(const Sdx::optional<Sdx::ElevationAzimuth>& elevationAzimuth)
+    void GetElevationAzimuthForSVResult::setElevationAzimuth(const std::optional<Sdx::ElevationAzimuth>& elevationAzimuth)
     {
-      m_values.AddMember("ElevationAzimuth", parse_json<Sdx::optional<Sdx::ElevationAzimuth>>::format(elevationAzimuth, m_values.GetAllocator()), m_values.GetAllocator());
+      m_values.AddMember("ElevationAzimuth", parse_json<std::optional<Sdx::ElevationAzimuth>>::format(elevationAzimuth, m_values.GetAllocator()), m_values.GetAllocator());
     }
 
 

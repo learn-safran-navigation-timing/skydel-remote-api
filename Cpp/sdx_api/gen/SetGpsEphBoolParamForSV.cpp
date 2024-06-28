@@ -43,7 +43,7 @@ namespace Sdx
       : CommandBase(CmdName, TargetId)
     {}
 
-    SetGpsEphBoolParamForSV::SetGpsEphBoolParamForSV(int svId, const std::string& paramName, bool val, const Sdx::optional<std::string>& dataSetName)
+    SetGpsEphBoolParamForSV::SetGpsEphBoolParamForSV(int svId, const std::string& paramName, bool val, const std::optional<std::string>& dataSetName)
       : CommandBase(CmdName, TargetId)
     {
 
@@ -53,7 +53,7 @@ namespace Sdx
       setDataSetName(dataSetName);
     }
 
-    SetGpsEphBoolParamForSVPtr SetGpsEphBoolParamForSV::create(int svId, const std::string& paramName, bool val, const Sdx::optional<std::string>& dataSetName)
+    SetGpsEphBoolParamForSVPtr SetGpsEphBoolParamForSV::create(int svId, const std::string& paramName, bool val, const std::optional<std::string>& dataSetName)
     {
       return std::make_shared<SetGpsEphBoolParamForSV>(svId, paramName, val, dataSetName);
     }
@@ -70,7 +70,7 @@ namespace Sdx
           && parse_json<int>::is_valid(m_values["SvId"])
           && parse_json<std::string>::is_valid(m_values["ParamName"])
           && parse_json<bool>::is_valid(m_values["Val"])
-          && parse_json<Sdx::optional<std::string>>::is_valid(m_values["DataSetName"])
+          && parse_json<std::optional<std::string>>::is_valid(m_values["DataSetName"])
         ;
 
     }
@@ -83,7 +83,7 @@ namespace Sdx
       return names; 
     }
 
-    Sdx::optional<std::string> SetGpsEphBoolParamForSV::deprecated() const { return Sdx::optional<std::string>{Deprecated}; }
+    std::optional<std::string> SetGpsEphBoolParamForSV::deprecated() const { return std::optional<std::string>{Deprecated}; }
 
 
     int SetGpsEphBoolParamForSV::executePermission() const
@@ -128,14 +128,14 @@ namespace Sdx
 
 
 
-    Sdx::optional<std::string> SetGpsEphBoolParamForSV::dataSetName() const
+    std::optional<std::string> SetGpsEphBoolParamForSV::dataSetName() const
     {
-      return parse_json<Sdx::optional<std::string>>::parse(m_values["DataSetName"]);
+      return parse_json<std::optional<std::string>>::parse(m_values["DataSetName"]);
     }
 
-    void SetGpsEphBoolParamForSV::setDataSetName(const Sdx::optional<std::string>& dataSetName)
+    void SetGpsEphBoolParamForSV::setDataSetName(const std::optional<std::string>& dataSetName)
     {
-      m_values.AddMember("DataSetName", parse_json<Sdx::optional<std::string>>::format(dataSetName, m_values.GetAllocator()), m_values.GetAllocator());
+      m_values.AddMember("DataSetName", parse_json<std::optional<std::string>>::format(dataSetName, m_values.GetAllocator()), m_values.GetAllocator());
     }
 
 

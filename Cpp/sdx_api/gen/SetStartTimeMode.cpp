@@ -16,8 +16,8 @@ namespace Sdx
     const char* const SetStartTimeMode::Documentation = "Set the simulation start time mode.\n"
       "\n"
       "Name Type   Description\n"
-      "---- ------ --------------------------------------------\n"
-      "Mode string Accepted Modes (\"Custom\", \"Computer\", \"GPS\")";
+      "---- ------ ---------------------------------------------------\n"
+      "Mode string Accepted Modes (\"Custom\", \"Computer\", \"GPS\", \"NTP\")";
     const char* const SetStartTimeMode::TargetId = "";
 
     REGISTER_COMMAND_TO_FACTORY_DECL(SetStartTimeMode);

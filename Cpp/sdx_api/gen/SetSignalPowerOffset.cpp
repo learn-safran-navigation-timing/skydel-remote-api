@@ -16,11 +16,11 @@ namespace Sdx
     const char* const SetSignalPowerOffset::Documentation = "Set power offset default value for the signal given in argument\n"
       "\n"
       "Name   Type   Description\n"
-      "------ ------ -----------------------------------------------------------------------------------------------\n"
+      "------ ------ ----------------------------------------------------------------------------------------------------------\n"
       "Signal string Accepted signal keys: \"L1CA\", \"L1C\", \"L1P\", \"L1ME\", \"L1MR\", \"L2C\", \"L2P\", \"L2ME\", \"L2MR\", \"L5\",\n"
       "                                    \"G1\", \"G2\", \"E1\", \"E1PRS\", \"E5a\", \"E5b\", \"E6BC\", \"E6PRS\",\n"
-      "                                    \"B1\", \"B2\", \"B1C\", \"B2a\", \"B3I\", \"QZSSL1CA\", \"QZSSL1CB\", \"QZSSL1C\",\n"
-      "                                    \"QZSSL2C\", \"QZSSL5\", \"QZSSL1S\", \"QZSSL5S\", \"NAVICL5\", \"PULSARXL\"\n"
+      "                                    \"B1\", \"B2\", \"B1C\", \"B2a\", \"B3I\", \"QZSSL1CA\", \"QZSSL1CB\", \"QZSSL1C\", \"QZSSL2C\",\n"
+      "                                    \"QZSSL5\", \"QZSSL1S\", \"QZSSL5S\", \"QZSSL6\", \"NAVICL1\", \"NAVICL5\", \"NAVICS\", \"PULSARXL\"\n"
       "Offset double Offset in dB (negative value will attenuate signal)";
     const char* const SetSignalPowerOffset::TargetId = "";
 

@@ -17,7 +17,7 @@ namespace Sdx
       "\n"
       "Name        Type            Description\n"
       "----------- --------------- ------------------------------------------------------------------------------------\n"
-      "Band        GNSSBand        Offset will be apply to this band. (\"L1\", \"L2\" or \"L5\")\n"
+      "Band        GNSSBand        Offset will be apply to this band. (\"L1\", \"L2\", \"L5\", \"E6\" or \"S\")\n"
       "Offset      double          Phase offset (in rad)\n"
       "AntennaName optional string Vehicle antenna name. If no name is specified, apply the offset to the Basic Antenna";
     const char* const AddVehiclePhasePatternOffset::TargetId = "";
@@ -30,7 +30,7 @@ namespace Sdx
       : CommandBase(CmdName, TargetId)
     {}
 
-    AddVehiclePhasePatternOffset::AddVehiclePhasePatternOffset(const Sdx::GNSSBand& band, double offset, const Sdx::optional<std::string>& antennaName)
+    AddVehiclePhasePatternOffset::AddVehiclePhasePatternOffset(const Sdx::GNSSBand& band, double offset, const std::optional<std::string>& antennaName)
       : CommandBase(CmdName, TargetId)
     {
 
@@ -39,7 +39,7 @@ namespace Sdx
       setAntennaName(antennaName);
     }
 
-    AddVehiclePhasePatternOffsetPtr AddVehiclePhasePatternOffset::create(const Sdx::GNSSBand& band, double offset, const Sdx::optional<std::string>& antennaName)
+    AddVehiclePhasePatternOffsetPtr AddVehiclePhasePatternOffset::create(const Sdx::GNSSBand& band, double offset, const std::optional<std::string>& antennaName)
     {
       return std::make_shared<AddVehiclePhasePatternOffset>(band, offset, antennaName);
     }
@@ -55,7 +55,7 @@ namespace Sdx
         return m_values.IsObject()
           && parse_json<Sdx::GNSSBand>::is_valid(m_values["Band"])
           && parse_json<double>::is_valid(m_values["Offset"])
-          && parse_json<Sdx::optional<std::string>>::is_valid(m_values["AntennaName"])
+          && parse_json<std::optional<std::string>>::is_valid(m_values["AntennaName"])
         ;
 
     }
@@ -99,14 +99,14 @@ namespace Sdx
 
 
 
-    Sdx::optional<std::string> AddVehiclePhasePatternOffset::antennaName() const
+    std::optional<std::string> AddVehiclePhasePatternOffset::antennaName() const
     {
-      return parse_json<Sdx::optional<std::string>>::parse(m_values["AntennaName"]);
+      return parse_json<std::optional<std::string>>::parse(m_values["AntennaName"]);
     }
 
-    void AddVehiclePhasePatternOffset::setAntennaName(const Sdx::optional<std::string>& antennaName)
+    void AddVehiclePhasePatternOffset::setAntennaName(const std::optional<std::string>& antennaName)
     {
-      m_values.AddMember("AntennaName", parse_json<Sdx::optional<std::string>>::format(antennaName, m_values.GetAllocator()), m_values.GetAllocator());
+      m_values.AddMember("AntennaName", parse_json<std::optional<std::string>>::format(antennaName, m_values.GetAllocator()), m_values.GetAllocator());
     }
 
 

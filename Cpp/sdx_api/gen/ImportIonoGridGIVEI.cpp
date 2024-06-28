@@ -30,7 +30,7 @@ namespace Sdx
       : CommandBase(CmdName, TargetId)
     {}
 
-    ImportIonoGridGIVEI::ImportIonoGridGIVEI(bool overwriting, const std::string& path, const Sdx::optional<std::string>& serviceProvider)
+    ImportIonoGridGIVEI::ImportIonoGridGIVEI(bool overwriting, const std::string& path, const std::optional<std::string>& serviceProvider)
       : CommandBase(CmdName, TargetId)
     {
 
@@ -39,7 +39,7 @@ namespace Sdx
       setServiceProvider(serviceProvider);
     }
 
-    ImportIonoGridGIVEIPtr ImportIonoGridGIVEI::create(bool overwriting, const std::string& path, const Sdx::optional<std::string>& serviceProvider)
+    ImportIonoGridGIVEIPtr ImportIonoGridGIVEI::create(bool overwriting, const std::string& path, const std::optional<std::string>& serviceProvider)
     {
       return std::make_shared<ImportIonoGridGIVEI>(overwriting, path, serviceProvider);
     }
@@ -55,7 +55,7 @@ namespace Sdx
         return m_values.IsObject()
           && parse_json<bool>::is_valid(m_values["Overwriting"])
           && parse_json<std::string>::is_valid(m_values["Path"])
-          && parse_json<Sdx::optional<std::string>>::is_valid(m_values["ServiceProvider"])
+          && parse_json<std::optional<std::string>>::is_valid(m_values["ServiceProvider"])
         ;
 
     }
@@ -99,14 +99,14 @@ namespace Sdx
 
 
 
-    Sdx::optional<std::string> ImportIonoGridGIVEI::serviceProvider() const
+    std::optional<std::string> ImportIonoGridGIVEI::serviceProvider() const
     {
-      return parse_json<Sdx::optional<std::string>>::parse(m_values["ServiceProvider"]);
+      return parse_json<std::optional<std::string>>::parse(m_values["ServiceProvider"]);
     }
 
-    void ImportIonoGridGIVEI::setServiceProvider(const Sdx::optional<std::string>& serviceProvider)
+    void ImportIonoGridGIVEI::setServiceProvider(const std::optional<std::string>& serviceProvider)
     {
-      m_values.AddMember("ServiceProvider", parse_json<Sdx::optional<std::string>>::format(serviceProvider, m_values.GetAllocator()), m_values.GetAllocator());
+      m_values.AddMember("ServiceProvider", parse_json<std::optional<std::string>>::format(serviceProvider, m_values.GetAllocator()), m_values.GetAllocator());
     }
 
 

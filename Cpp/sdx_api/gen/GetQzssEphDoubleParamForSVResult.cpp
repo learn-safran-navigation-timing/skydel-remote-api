@@ -32,7 +32,7 @@ namespace Sdx
       : CommandResult(CmdName, TargetId)
     {}
 
-    GetQzssEphDoubleParamForSVResult::GetQzssEphDoubleParamForSVResult(int svId, const std::string& paramName, double val, const Sdx::optional<std::string>& dataSetName)
+    GetQzssEphDoubleParamForSVResult::GetQzssEphDoubleParamForSVResult(int svId, const std::string& paramName, double val, const std::optional<std::string>& dataSetName)
       : CommandResult(CmdName, TargetId)
     {
 
@@ -42,7 +42,7 @@ namespace Sdx
       setDataSetName(dataSetName);
     }
 
-    GetQzssEphDoubleParamForSVResult::GetQzssEphDoubleParamForSVResult(CommandBasePtr relatedCommand, int svId, const std::string& paramName, double val, const Sdx::optional<std::string>& dataSetName)
+    GetQzssEphDoubleParamForSVResult::GetQzssEphDoubleParamForSVResult(CommandBasePtr relatedCommand, int svId, const std::string& paramName, double val, const std::optional<std::string>& dataSetName)
       : CommandResult(CmdName, TargetId, relatedCommand)
     {
 
@@ -53,12 +53,12 @@ namespace Sdx
     }
 
 
-    GetQzssEphDoubleParamForSVResultPtr GetQzssEphDoubleParamForSVResult::create(int svId, const std::string& paramName, double val, const Sdx::optional<std::string>& dataSetName)
+    GetQzssEphDoubleParamForSVResultPtr GetQzssEphDoubleParamForSVResult::create(int svId, const std::string& paramName, double val, const std::optional<std::string>& dataSetName)
     {
       return std::make_shared<GetQzssEphDoubleParamForSVResult>(svId, paramName, val, dataSetName);
     }
 
-    GetQzssEphDoubleParamForSVResultPtr GetQzssEphDoubleParamForSVResult::create(CommandBasePtr relatedCommand, int svId, const std::string& paramName, double val, const Sdx::optional<std::string>& dataSetName)
+    GetQzssEphDoubleParamForSVResultPtr GetQzssEphDoubleParamForSVResult::create(CommandBasePtr relatedCommand, int svId, const std::string& paramName, double val, const std::optional<std::string>& dataSetName)
     {
       return std::make_shared<GetQzssEphDoubleParamForSVResult>(relatedCommand, svId, paramName, val, dataSetName);
     }
@@ -75,7 +75,7 @@ namespace Sdx
           && parse_json<int>::is_valid(m_values["SvId"])
           && parse_json<std::string>::is_valid(m_values["ParamName"])
           && parse_json<double>::is_valid(m_values["Val"])
-          && parse_json<Sdx::optional<std::string>>::is_valid(m_values["DataSetName"])
+          && parse_json<std::optional<std::string>>::is_valid(m_values["DataSetName"])
         ;
 
     }
@@ -125,14 +125,14 @@ namespace Sdx
 
 
 
-    Sdx::optional<std::string> GetQzssEphDoubleParamForSVResult::dataSetName() const
+    std::optional<std::string> GetQzssEphDoubleParamForSVResult::dataSetName() const
     {
-      return parse_json<Sdx::optional<std::string>>::parse(m_values["DataSetName"]);
+      return parse_json<std::optional<std::string>>::parse(m_values["DataSetName"]);
     }
 
-    void GetQzssEphDoubleParamForSVResult::setDataSetName(const Sdx::optional<std::string>& dataSetName)
+    void GetQzssEphDoubleParamForSVResult::setDataSetName(const std::optional<std::string>& dataSetName)
     {
-      m_values.AddMember("DataSetName", parse_json<Sdx::optional<std::string>>::format(dataSetName, m_values.GetAllocator()), m_values.GetAllocator());
+      m_values.AddMember("DataSetName", parse_json<std::optional<std::string>>::format(dataSetName, m_values.GetAllocator()), m_values.GetAllocator());
     }
 
 

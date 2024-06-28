@@ -31,7 +31,7 @@ namespace Sdx
       : CommandResult(CmdName, TargetId)
     {}
 
-    GetSVAntennaGainResult::GetSVAntennaGainResult(const std::vector<std::vector<double>>& gain, const Sdx::AntennaPatternType& type, const Sdx::GNSSBand& band, const std::string& system, const Sdx::optional<std::string>& name)
+    GetSVAntennaGainResult::GetSVAntennaGainResult(const std::vector<std::vector<double>>& gain, const Sdx::AntennaPatternType& type, const Sdx::GNSSBand& band, const std::string& system, const std::optional<std::string>& name)
       : CommandResult(CmdName, TargetId)
     {
 
@@ -42,7 +42,7 @@ namespace Sdx
       setName(name);
     }
 
-    GetSVAntennaGainResult::GetSVAntennaGainResult(CommandBasePtr relatedCommand, const std::vector<std::vector<double>>& gain, const Sdx::AntennaPatternType& type, const Sdx::GNSSBand& band, const std::string& system, const Sdx::optional<std::string>& name)
+    GetSVAntennaGainResult::GetSVAntennaGainResult(CommandBasePtr relatedCommand, const std::vector<std::vector<double>>& gain, const Sdx::AntennaPatternType& type, const Sdx::GNSSBand& band, const std::string& system, const std::optional<std::string>& name)
       : CommandResult(CmdName, TargetId, relatedCommand)
     {
 
@@ -54,12 +54,12 @@ namespace Sdx
     }
 
 
-    GetSVAntennaGainResultPtr GetSVAntennaGainResult::create(const std::vector<std::vector<double>>& gain, const Sdx::AntennaPatternType& type, const Sdx::GNSSBand& band, const std::string& system, const Sdx::optional<std::string>& name)
+    GetSVAntennaGainResultPtr GetSVAntennaGainResult::create(const std::vector<std::vector<double>>& gain, const Sdx::AntennaPatternType& type, const Sdx::GNSSBand& band, const std::string& system, const std::optional<std::string>& name)
     {
       return std::make_shared<GetSVAntennaGainResult>(gain, type, band, system, name);
     }
 
-    GetSVAntennaGainResultPtr GetSVAntennaGainResult::create(CommandBasePtr relatedCommand, const std::vector<std::vector<double>>& gain, const Sdx::AntennaPatternType& type, const Sdx::GNSSBand& band, const std::string& system, const Sdx::optional<std::string>& name)
+    GetSVAntennaGainResultPtr GetSVAntennaGainResult::create(CommandBasePtr relatedCommand, const std::vector<std::vector<double>>& gain, const Sdx::AntennaPatternType& type, const Sdx::GNSSBand& band, const std::string& system, const std::optional<std::string>& name)
     {
       return std::make_shared<GetSVAntennaGainResult>(relatedCommand, gain, type, band, system, name);
     }
@@ -77,7 +77,7 @@ namespace Sdx
           && parse_json<Sdx::AntennaPatternType>::is_valid(m_values["Type"])
           && parse_json<Sdx::GNSSBand>::is_valid(m_values["Band"])
           && parse_json<std::string>::is_valid(m_values["System"])
-          && parse_json<Sdx::optional<std::string>>::is_valid(m_values["Name"])
+          && parse_json<std::optional<std::string>>::is_valid(m_values["Name"])
         ;
 
     }
@@ -139,14 +139,14 @@ namespace Sdx
 
 
 
-    Sdx::optional<std::string> GetSVAntennaGainResult::name() const
+    std::optional<std::string> GetSVAntennaGainResult::name() const
     {
-      return parse_json<Sdx::optional<std::string>>::parse(m_values["Name"]);
+      return parse_json<std::optional<std::string>>::parse(m_values["Name"]);
     }
 
-    void GetSVAntennaGainResult::setName(const Sdx::optional<std::string>& name)
+    void GetSVAntennaGainResult::setName(const std::optional<std::string>& name)
     {
-      m_values.AddMember("Name", parse_json<Sdx::optional<std::string>>::format(name, m_values.GetAllocator()), m_values.GetAllocator());
+      m_values.AddMember("Name", parse_json<std::optional<std::string>>::format(name, m_values.GetAllocator()), m_values.GetAllocator());
     }
 
 

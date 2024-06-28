@@ -3,7 +3,7 @@
 #include <memory>
 #include "command_base.h"
 
-#include "sdx_optional.h"
+#include <optional>
 
 namespace Sdx
 {
@@ -32,9 +32,9 @@ namespace Sdx
 
       New();
 
-      New(bool discardCurrentConfig, const Sdx::optional<bool>& loadDefaultConfig = {});
+      New(bool discardCurrentConfig, const std::optional<bool>& loadDefaultConfig = {});
 
-      static NewPtr create(bool discardCurrentConfig, const Sdx::optional<bool>& loadDefaultConfig = {});
+      static NewPtr create(bool discardCurrentConfig, const std::optional<bool>& loadDefaultConfig = {});
       static NewPtr dynamicCast(CommandBasePtr ptr);
       virtual bool isValid() const override;
       virtual std::string documentation() const override;
@@ -49,8 +49,8 @@ namespace Sdx
 
 
       // **** loadDefaultConfig ****
-      Sdx::optional<bool> loadDefaultConfig() const;
-      void setLoadDefaultConfig(const Sdx::optional<bool>& loadDefaultConfig);
+      std::optional<bool> loadDefaultConfig() const;
+      void setLoadDefaultConfig(const std::optional<bool>& loadDefaultConfig);
     };
     
   }

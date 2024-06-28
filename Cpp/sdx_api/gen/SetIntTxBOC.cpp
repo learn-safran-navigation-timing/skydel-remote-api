@@ -37,7 +37,7 @@ namespace Sdx
       : CommandBase(CmdName, TargetId)
     {}
 
-    SetIntTxBOC::SetIntTxBOC(bool enabled, double centralFreq, double power, int codeRate, int codeLengthMs, int subCarrierRate, bool cosinePhaseBoc, const std::string& transmitterId, const std::string& signalId, const Sdx::optional<int>& group)
+    SetIntTxBOC::SetIntTxBOC(bool enabled, double centralFreq, double power, int codeRate, int codeLengthMs, int subCarrierRate, bool cosinePhaseBoc, const std::string& transmitterId, const std::string& signalId, const std::optional<int>& group)
       : CommandBase(CmdName, TargetId)
     {
 
@@ -53,7 +53,7 @@ namespace Sdx
       setGroup(group);
     }
 
-    SetIntTxBOCPtr SetIntTxBOC::create(bool enabled, double centralFreq, double power, int codeRate, int codeLengthMs, int subCarrierRate, bool cosinePhaseBoc, const std::string& transmitterId, const std::string& signalId, const Sdx::optional<int>& group)
+    SetIntTxBOCPtr SetIntTxBOC::create(bool enabled, double centralFreq, double power, int codeRate, int codeLengthMs, int subCarrierRate, bool cosinePhaseBoc, const std::string& transmitterId, const std::string& signalId, const std::optional<int>& group)
     {
       return std::make_shared<SetIntTxBOC>(enabled, centralFreq, power, codeRate, codeLengthMs, subCarrierRate, cosinePhaseBoc, transmitterId, signalId, group);
     }
@@ -76,7 +76,7 @@ namespace Sdx
           && parse_json<bool>::is_valid(m_values["CosinePhaseBoc"])
           && parse_json<std::string>::is_valid(m_values["TransmitterId"])
           && parse_json<std::string>::is_valid(m_values["SignalId"])
-          && parse_json<Sdx::optional<int>>::is_valid(m_values["Group"])
+          && parse_json<std::optional<int>>::is_valid(m_values["Group"])
         ;
 
     }
@@ -204,14 +204,14 @@ namespace Sdx
 
 
 
-    Sdx::optional<int> SetIntTxBOC::group() const
+    std::optional<int> SetIntTxBOC::group() const
     {
-      return parse_json<Sdx::optional<int>>::parse(m_values["Group"]);
+      return parse_json<std::optional<int>>::parse(m_values["Group"]);
     }
 
-    void SetIntTxBOC::setGroup(const Sdx::optional<int>& group)
+    void SetIntTxBOC::setGroup(const std::optional<int>& group)
     {
-      m_values.AddMember("Group", parse_json<Sdx::optional<int>>::format(group, m_values.GetAllocator()), m_values.GetAllocator());
+      m_values.AddMember("Group", parse_json<std::optional<int>>::format(group, m_values.GetAllocator()), m_values.GetAllocator());
     }
 
 

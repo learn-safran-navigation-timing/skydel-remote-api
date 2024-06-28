@@ -30,7 +30,7 @@ namespace Sdx
       : CommandBase(CmdName, TargetId)
     {}
 
-    AddVehicleGainPatternOffset::AddVehicleGainPatternOffset(const Sdx::GNSSBand& band, double offset, const Sdx::optional<std::string>& antennaName)
+    AddVehicleGainPatternOffset::AddVehicleGainPatternOffset(const Sdx::GNSSBand& band, double offset, const std::optional<std::string>& antennaName)
       : CommandBase(CmdName, TargetId)
     {
 
@@ -39,7 +39,7 @@ namespace Sdx
       setAntennaName(antennaName);
     }
 
-    AddVehicleGainPatternOffsetPtr AddVehicleGainPatternOffset::create(const Sdx::GNSSBand& band, double offset, const Sdx::optional<std::string>& antennaName)
+    AddVehicleGainPatternOffsetPtr AddVehicleGainPatternOffset::create(const Sdx::GNSSBand& band, double offset, const std::optional<std::string>& antennaName)
     {
       return std::make_shared<AddVehicleGainPatternOffset>(band, offset, antennaName);
     }
@@ -55,7 +55,7 @@ namespace Sdx
         return m_values.IsObject()
           && parse_json<Sdx::GNSSBand>::is_valid(m_values["Band"])
           && parse_json<double>::is_valid(m_values["Offset"])
-          && parse_json<Sdx::optional<std::string>>::is_valid(m_values["AntennaName"])
+          && parse_json<std::optional<std::string>>::is_valid(m_values["AntennaName"])
         ;
 
     }
@@ -99,14 +99,14 @@ namespace Sdx
 
 
 
-    Sdx::optional<std::string> AddVehicleGainPatternOffset::antennaName() const
+    std::optional<std::string> AddVehicleGainPatternOffset::antennaName() const
     {
-      return parse_json<Sdx::optional<std::string>>::parse(m_values["AntennaName"]);
+      return parse_json<std::optional<std::string>>::parse(m_values["AntennaName"]);
     }
 
-    void AddVehicleGainPatternOffset::setAntennaName(const Sdx::optional<std::string>& antennaName)
+    void AddVehicleGainPatternOffset::setAntennaName(const std::optional<std::string>& antennaName)
     {
-      m_values.AddMember("AntennaName", parse_json<Sdx::optional<std::string>>::format(antennaName, m_values.GetAllocator()), m_values.GetAllocator());
+      m_values.AddMember("AntennaName", parse_json<std::optional<std::string>>::format(antennaName, m_values.GetAllocator()), m_values.GetAllocator());
     }
 
 

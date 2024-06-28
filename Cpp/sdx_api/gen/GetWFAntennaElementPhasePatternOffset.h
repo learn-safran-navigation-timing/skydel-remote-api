@@ -43,7 +43,7 @@ namespace Sdx
       virtual std::string documentation() const override;
       virtual const std::vector<std::string>& fieldNames() const override;
 
-      virtual Sdx::optional<std::string> deprecated() const override;
+      virtual std::optional<std::string> deprecated() const override;
 
       virtual int executePermission() const override;
 

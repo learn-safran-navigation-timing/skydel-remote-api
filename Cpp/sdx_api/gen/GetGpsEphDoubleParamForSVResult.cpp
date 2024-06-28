@@ -30,7 +30,7 @@ namespace Sdx
       : CommandResult(CmdName, TargetId)
     {}
 
-    GetGpsEphDoubleParamForSVResult::GetGpsEphDoubleParamForSVResult(int svId, const std::string& paramName, double val, const Sdx::optional<std::string>& dataSetName)
+    GetGpsEphDoubleParamForSVResult::GetGpsEphDoubleParamForSVResult(int svId, const std::string& paramName, double val, const std::optional<std::string>& dataSetName)
       : CommandResult(CmdName, TargetId)
     {
 
@@ -40,7 +40,7 @@ namespace Sdx
       setDataSetName(dataSetName);
     }
 
-    GetGpsEphDoubleParamForSVResult::GetGpsEphDoubleParamForSVResult(CommandBasePtr relatedCommand, int svId, const std::string& paramName, double val, const Sdx::optional<std::string>& dataSetName)
+    GetGpsEphDoubleParamForSVResult::GetGpsEphDoubleParamForSVResult(CommandBasePtr relatedCommand, int svId, const std::string& paramName, double val, const std::optional<std::string>& dataSetName)
       : CommandResult(CmdName, TargetId, relatedCommand)
     {
 
@@ -51,12 +51,12 @@ namespace Sdx
     }
 
 
-    GetGpsEphDoubleParamForSVResultPtr GetGpsEphDoubleParamForSVResult::create(int svId, const std::string& paramName, double val, const Sdx::optional<std::string>& dataSetName)
+    GetGpsEphDoubleParamForSVResultPtr GetGpsEphDoubleParamForSVResult::create(int svId, const std::string& paramName, double val, const std::optional<std::string>& dataSetName)
     {
       return std::make_shared<GetGpsEphDoubleParamForSVResult>(svId, paramName, val, dataSetName);
     }
 
-    GetGpsEphDoubleParamForSVResultPtr GetGpsEphDoubleParamForSVResult::create(CommandBasePtr relatedCommand, int svId, const std::string& paramName, double val, const Sdx::optional<std::string>& dataSetName)
+    GetGpsEphDoubleParamForSVResultPtr GetGpsEphDoubleParamForSVResult::create(CommandBasePtr relatedCommand, int svId, const std::string& paramName, double val, const std::optional<std::string>& dataSetName)
     {
       return std::make_shared<GetGpsEphDoubleParamForSVResult>(relatedCommand, svId, paramName, val, dataSetName);
     }
@@ -73,7 +73,7 @@ namespace Sdx
           && parse_json<int>::is_valid(m_values["SvId"])
           && parse_json<std::string>::is_valid(m_values["ParamName"])
           && parse_json<double>::is_valid(m_values["Val"])
-          && parse_json<Sdx::optional<std::string>>::is_valid(m_values["DataSetName"])
+          && parse_json<std::optional<std::string>>::is_valid(m_values["DataSetName"])
         ;
 
     }
@@ -123,14 +123,14 @@ namespace Sdx
 
 
 
-    Sdx::optional<std::string> GetGpsEphDoubleParamForSVResult::dataSetName() const
+    std::optional<std::string> GetGpsEphDoubleParamForSVResult::dataSetName() const
     {
-      return parse_json<Sdx::optional<std::string>>::parse(m_values["DataSetName"]);
+      return parse_json<std::optional<std::string>>::parse(m_values["DataSetName"]);
     }
 
-    void GetGpsEphDoubleParamForSVResult::setDataSetName(const Sdx::optional<std::string>& dataSetName)
+    void GetGpsEphDoubleParamForSVResult::setDataSetName(const std::optional<std::string>& dataSetName)
     {
-      m_values.AddMember("DataSetName", parse_json<Sdx::optional<std::string>>::format(dataSetName, m_values.GetAllocator()), m_values.GetAllocator());
+      m_values.AddMember("DataSetName", parse_json<std::optional<std::string>>::format(dataSetName, m_values.GetAllocator()), m_values.GetAllocator());
     }
 
 

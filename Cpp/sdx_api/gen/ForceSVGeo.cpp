@@ -32,7 +32,7 @@ namespace Sdx
       : CommandBase(CmdName, TargetId)
     {}
 
-    ForceSVGeo::ForceSVGeo(const std::string& system, int svId, bool isGeo, double longitude, const Sdx::optional<std::string>& dataSetName)
+    ForceSVGeo::ForceSVGeo(const std::string& system, int svId, bool isGeo, double longitude, const std::optional<std::string>& dataSetName)
       : CommandBase(CmdName, TargetId)
     {
 
@@ -43,7 +43,7 @@ namespace Sdx
       setDataSetName(dataSetName);
     }
 
-    ForceSVGeoPtr ForceSVGeo::create(const std::string& system, int svId, bool isGeo, double longitude, const Sdx::optional<std::string>& dataSetName)
+    ForceSVGeoPtr ForceSVGeo::create(const std::string& system, int svId, bool isGeo, double longitude, const std::optional<std::string>& dataSetName)
     {
       return std::make_shared<ForceSVGeo>(system, svId, isGeo, longitude, dataSetName);
     }
@@ -61,7 +61,7 @@ namespace Sdx
           && parse_json<int>::is_valid(m_values["SvId"])
           && parse_json<bool>::is_valid(m_values["IsGeo"])
           && parse_json<double>::is_valid(m_values["Longitude"])
-          && parse_json<Sdx::optional<std::string>>::is_valid(m_values["DataSetName"])
+          && parse_json<std::optional<std::string>>::is_valid(m_values["DataSetName"])
         ;
 
     }
@@ -129,14 +129,14 @@ namespace Sdx
 
 
 
-    Sdx::optional<std::string> ForceSVGeo::dataSetName() const
+    std::optional<std::string> ForceSVGeo::dataSetName() const
     {
-      return parse_json<Sdx::optional<std::string>>::parse(m_values["DataSetName"]);
+      return parse_json<std::optional<std::string>>::parse(m_values["DataSetName"]);
     }
 
-    void ForceSVGeo::setDataSetName(const Sdx::optional<std::string>& dataSetName)
+    void ForceSVGeo::setDataSetName(const std::optional<std::string>& dataSetName)
     {
-      m_values.AddMember("DataSetName", parse_json<Sdx::optional<std::string>>::format(dataSetName, m_values.GetAllocator()), m_values.GetAllocator());
+      m_values.AddMember("DataSetName", parse_json<std::optional<std::string>>::format(dataSetName, m_values.GetAllocator()), m_values.GetAllocator());
     }
 
 

@@ -33,7 +33,7 @@ namespace Sdx
       : CommandResult(CmdName, TargetId)
     {}
 
-    GetIntTxIqFileResult::GetIntTxIqFileResult(bool enabled, double centralFreq, double power, const std::string& path, const std::string& transmitterId, const std::string& signalId, const Sdx::optional<int>& group)
+    GetIntTxIqFileResult::GetIntTxIqFileResult(bool enabled, double centralFreq, double power, const std::string& path, const std::string& transmitterId, const std::string& signalId, const std::optional<int>& group)
       : CommandResult(CmdName, TargetId)
     {
 
@@ -46,7 +46,7 @@ namespace Sdx
       setGroup(group);
     }
 
-    GetIntTxIqFileResult::GetIntTxIqFileResult(CommandBasePtr relatedCommand, bool enabled, double centralFreq, double power, const std::string& path, const std::string& transmitterId, const std::string& signalId, const Sdx::optional<int>& group)
+    GetIntTxIqFileResult::GetIntTxIqFileResult(CommandBasePtr relatedCommand, bool enabled, double centralFreq, double power, const std::string& path, const std::string& transmitterId, const std::string& signalId, const std::optional<int>& group)
       : CommandResult(CmdName, TargetId, relatedCommand)
     {
 
@@ -60,12 +60,12 @@ namespace Sdx
     }
 
 
-    GetIntTxIqFileResultPtr GetIntTxIqFileResult::create(bool enabled, double centralFreq, double power, const std::string& path, const std::string& transmitterId, const std::string& signalId, const Sdx::optional<int>& group)
+    GetIntTxIqFileResultPtr GetIntTxIqFileResult::create(bool enabled, double centralFreq, double power, const std::string& path, const std::string& transmitterId, const std::string& signalId, const std::optional<int>& group)
     {
       return std::make_shared<GetIntTxIqFileResult>(enabled, centralFreq, power, path, transmitterId, signalId, group);
     }
 
-    GetIntTxIqFileResultPtr GetIntTxIqFileResult::create(CommandBasePtr relatedCommand, bool enabled, double centralFreq, double power, const std::string& path, const std::string& transmitterId, const std::string& signalId, const Sdx::optional<int>& group)
+    GetIntTxIqFileResultPtr GetIntTxIqFileResult::create(CommandBasePtr relatedCommand, bool enabled, double centralFreq, double power, const std::string& path, const std::string& transmitterId, const std::string& signalId, const std::optional<int>& group)
     {
       return std::make_shared<GetIntTxIqFileResult>(relatedCommand, enabled, centralFreq, power, path, transmitterId, signalId, group);
     }
@@ -85,7 +85,7 @@ namespace Sdx
           && parse_json<std::string>::is_valid(m_values["Path"])
           && parse_json<std::string>::is_valid(m_values["TransmitterId"])
           && parse_json<std::string>::is_valid(m_values["SignalId"])
-          && parse_json<Sdx::optional<int>>::is_valid(m_values["Group"])
+          && parse_json<std::optional<int>>::is_valid(m_values["Group"])
         ;
 
     }
@@ -171,14 +171,14 @@ namespace Sdx
 
 
 
-    Sdx::optional<int> GetIntTxIqFileResult::group() const
+    std::optional<int> GetIntTxIqFileResult::group() const
     {
-      return parse_json<Sdx::optional<int>>::parse(m_values["Group"]);
+      return parse_json<std::optional<int>>::parse(m_values["Group"]);
     }
 
-    void GetIntTxIqFileResult::setGroup(const Sdx::optional<int>& group)
+    void GetIntTxIqFileResult::setGroup(const std::optional<int>& group)
     {
-      m_values.AddMember("Group", parse_json<Sdx::optional<int>>::format(group, m_values.GetAllocator()), m_values.GetAllocator());
+      m_values.AddMember("Group", parse_json<std::optional<int>>::format(group, m_values.GetAllocator()), m_values.GetAllocator());
     }
 
 

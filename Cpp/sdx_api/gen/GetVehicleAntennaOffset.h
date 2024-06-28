@@ -3,7 +3,7 @@
 #include <memory>
 #include "command_base.h"
 
-#include "sdx_optional.h"
+#include <optional>
 #include <string>
 
 namespace Sdx
@@ -30,9 +30,9 @@ namespace Sdx
       static const char* const TargetId;
 
 
-      GetVehicleAntennaOffset(const Sdx::optional<std::string>& name = {});
+      GetVehicleAntennaOffset(const std::optional<std::string>& name = {});
 
-      static GetVehicleAntennaOffsetPtr create(const Sdx::optional<std::string>& name = {});
+      static GetVehicleAntennaOffsetPtr create(const std::optional<std::string>& name = {});
       static GetVehicleAntennaOffsetPtr dynamicCast(CommandBasePtr ptr);
       virtual bool isValid() const override;
       virtual std::string documentation() const override;
@@ -42,8 +42,8 @@ namespace Sdx
 
 
       // **** name ****
-      Sdx::optional<std::string> name() const;
-      void setName(const Sdx::optional<std::string>& name);
+      std::optional<std::string> name() const;
+      void setName(const std::optional<std::string>& name);
     };
     
   }

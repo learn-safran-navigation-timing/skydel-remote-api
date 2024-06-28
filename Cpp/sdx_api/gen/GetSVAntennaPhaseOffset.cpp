@@ -30,7 +30,7 @@ namespace Sdx
       : CommandBase(CmdName, TargetId)
     {}
 
-    GetSVAntennaPhaseOffset::GetSVAntennaPhaseOffset(const Sdx::GNSSBand& band, const std::string& system, const Sdx::optional<std::string>& name)
+    GetSVAntennaPhaseOffset::GetSVAntennaPhaseOffset(const Sdx::GNSSBand& band, const std::string& system, const std::optional<std::string>& name)
       : CommandBase(CmdName, TargetId)
     {
 
@@ -39,7 +39,7 @@ namespace Sdx
       setName(name);
     }
 
-    GetSVAntennaPhaseOffsetPtr GetSVAntennaPhaseOffset::create(const Sdx::GNSSBand& band, const std::string& system, const Sdx::optional<std::string>& name)
+    GetSVAntennaPhaseOffsetPtr GetSVAntennaPhaseOffset::create(const Sdx::GNSSBand& band, const std::string& system, const std::optional<std::string>& name)
     {
       return std::make_shared<GetSVAntennaPhaseOffset>(band, system, name);
     }
@@ -55,7 +55,7 @@ namespace Sdx
         return m_values.IsObject()
           && parse_json<Sdx::GNSSBand>::is_valid(m_values["Band"])
           && parse_json<std::string>::is_valid(m_values["System"])
-          && parse_json<Sdx::optional<std::string>>::is_valid(m_values["Name"])
+          && parse_json<std::optional<std::string>>::is_valid(m_values["Name"])
         ;
 
     }
@@ -99,14 +99,14 @@ namespace Sdx
 
 
 
-    Sdx::optional<std::string> GetSVAntennaPhaseOffset::name() const
+    std::optional<std::string> GetSVAntennaPhaseOffset::name() const
     {
-      return parse_json<Sdx::optional<std::string>>::parse(m_values["Name"]);
+      return parse_json<std::optional<std::string>>::parse(m_values["Name"]);
     }
 
-    void GetSVAntennaPhaseOffset::setName(const Sdx::optional<std::string>& name)
+    void GetSVAntennaPhaseOffset::setName(const std::optional<std::string>& name)
     {
-      m_values.AddMember("Name", parse_json<Sdx::optional<std::string>>::format(name, m_values.GetAllocator()), m_values.GetAllocator());
+      m_values.AddMember("Name", parse_json<std::optional<std::string>>::format(name, m_values.GetAllocator()), m_values.GetAllocator());
     }
 
 

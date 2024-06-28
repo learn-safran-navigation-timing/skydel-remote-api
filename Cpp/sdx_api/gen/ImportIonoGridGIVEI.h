@@ -3,7 +3,7 @@
 #include <memory>
 #include "command_base.h"
 
-#include "sdx_optional.h"
+#include <optional>
 #include <string>
 
 namespace Sdx
@@ -34,9 +34,9 @@ namespace Sdx
 
       ImportIonoGridGIVEI();
 
-      ImportIonoGridGIVEI(bool overwriting, const std::string& path, const Sdx::optional<std::string>& serviceProvider = {});
+      ImportIonoGridGIVEI(bool overwriting, const std::string& path, const std::optional<std::string>& serviceProvider = {});
 
-      static ImportIonoGridGIVEIPtr create(bool overwriting, const std::string& path, const Sdx::optional<std::string>& serviceProvider = {});
+      static ImportIonoGridGIVEIPtr create(bool overwriting, const std::string& path, const std::optional<std::string>& serviceProvider = {});
       static ImportIonoGridGIVEIPtr dynamicCast(CommandBasePtr ptr);
       virtual bool isValid() const override;
       virtual std::string documentation() const override;
@@ -56,8 +56,8 @@ namespace Sdx
 
 
       // **** serviceProvider ****
-      Sdx::optional<std::string> serviceProvider() const;
-      void setServiceProvider(const Sdx::optional<std::string>& serviceProvider);
+      std::optional<std::string> serviceProvider() const;
+      void setServiceProvider(const std::optional<std::string>& serviceProvider);
     };
     
   }

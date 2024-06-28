@@ -3,7 +3,7 @@
 #include <memory>
 #include "command_base.h"
 
-#include "sdx_optional.h"
+#include <optional>
 #include <string>
 #include <vector>
 
@@ -39,15 +39,15 @@ namespace Sdx
 
       SetQzssEphBoolParamForEachSV();
 
-      SetQzssEphBoolParamForEachSV(const std::string& paramName, const std::vector<bool>& val, const Sdx::optional<std::string>& dataSetName = {});
+      SetQzssEphBoolParamForEachSV(const std::string& paramName, const std::vector<bool>& val, const std::optional<std::string>& dataSetName = {});
 
-      static SetQzssEphBoolParamForEachSVPtr create(const std::string& paramName, const std::vector<bool>& val, const Sdx::optional<std::string>& dataSetName = {});
+      static SetQzssEphBoolParamForEachSVPtr create(const std::string& paramName, const std::vector<bool>& val, const std::optional<std::string>& dataSetName = {});
       static SetQzssEphBoolParamForEachSVPtr dynamicCast(CommandBasePtr ptr);
       virtual bool isValid() const override;
       virtual std::string documentation() const override;
       virtual const std::vector<std::string>& fieldNames() const override;
 
-      virtual Sdx::optional<std::string> deprecated() const override;
+      virtual std::optional<std::string> deprecated() const override;
 
       virtual int executePermission() const override;
 
@@ -63,8 +63,8 @@ namespace Sdx
 
 
       // **** dataSetName ****
-      Sdx::optional<std::string> dataSetName() const;
-      void setDataSetName(const Sdx::optional<std::string>& dataSetName);
+      std::optional<std::string> dataSetName() const;
+      void setDataSetName(const std::optional<std::string>& dataSetName);
     };
     
   }

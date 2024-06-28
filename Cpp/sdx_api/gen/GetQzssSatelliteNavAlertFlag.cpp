@@ -31,7 +31,7 @@ namespace Sdx
       : CommandBase(CmdName, TargetId)
     {}
 
-    GetQzssSatelliteNavAlertFlag::GetQzssSatelliteNavAlertFlag(int svId, const Sdx::optional<std::string>& dataSetName)
+    GetQzssSatelliteNavAlertFlag::GetQzssSatelliteNavAlertFlag(int svId, const std::optional<std::string>& dataSetName)
       : CommandBase(CmdName, TargetId)
     {
 
@@ -39,7 +39,7 @@ namespace Sdx
       setDataSetName(dataSetName);
     }
 
-    GetQzssSatelliteNavAlertFlagPtr GetQzssSatelliteNavAlertFlag::create(int svId, const Sdx::optional<std::string>& dataSetName)
+    GetQzssSatelliteNavAlertFlagPtr GetQzssSatelliteNavAlertFlag::create(int svId, const std::optional<std::string>& dataSetName)
     {
       return std::make_shared<GetQzssSatelliteNavAlertFlag>(svId, dataSetName);
     }
@@ -54,7 +54,7 @@ namespace Sdx
       
         return m_values.IsObject()
           && parse_json<int>::is_valid(m_values["SvId"])
-          && parse_json<Sdx::optional<std::string>>::is_valid(m_values["DataSetName"])
+          && parse_json<std::optional<std::string>>::is_valid(m_values["DataSetName"])
         ;
 
     }
@@ -86,14 +86,14 @@ namespace Sdx
 
 
 
-    Sdx::optional<std::string> GetQzssSatelliteNavAlertFlag::dataSetName() const
+    std::optional<std::string> GetQzssSatelliteNavAlertFlag::dataSetName() const
     {
-      return parse_json<Sdx::optional<std::string>>::parse(m_values["DataSetName"]);
+      return parse_json<std::optional<std::string>>::parse(m_values["DataSetName"]);
     }
 
-    void GetQzssSatelliteNavAlertFlag::setDataSetName(const Sdx::optional<std::string>& dataSetName)
+    void GetQzssSatelliteNavAlertFlag::setDataSetName(const std::optional<std::string>& dataSetName)
     {
-      m_values.AddMember("DataSetName", parse_json<Sdx::optional<std::string>>::format(dataSetName, m_values.GetAllocator()), m_values.GetAllocator());
+      m_values.AddMember("DataSetName", parse_json<std::optional<std::string>>::format(dataSetName, m_values.GetAllocator()), m_values.GetAllocator());
     }
 
 

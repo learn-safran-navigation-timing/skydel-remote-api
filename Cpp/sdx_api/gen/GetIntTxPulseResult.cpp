@@ -34,7 +34,7 @@ namespace Sdx
       : CommandResult(CmdName, TargetId)
     {}
 
-    GetIntTxPulseResult::GetIntTxPulseResult(bool enabled, double centralFreq, double power, double dutyCycle, int pulseRate, const std::string& transmitterId, const std::string& signalId, const Sdx::optional<int>& group)
+    GetIntTxPulseResult::GetIntTxPulseResult(bool enabled, double centralFreq, double power, double dutyCycle, int pulseRate, const std::string& transmitterId, const std::string& signalId, const std::optional<int>& group)
       : CommandResult(CmdName, TargetId)
     {
 
@@ -48,7 +48,7 @@ namespace Sdx
       setGroup(group);
     }
 
-    GetIntTxPulseResult::GetIntTxPulseResult(CommandBasePtr relatedCommand, bool enabled, double centralFreq, double power, double dutyCycle, int pulseRate, const std::string& transmitterId, const std::string& signalId, const Sdx::optional<int>& group)
+    GetIntTxPulseResult::GetIntTxPulseResult(CommandBasePtr relatedCommand, bool enabled, double centralFreq, double power, double dutyCycle, int pulseRate, const std::string& transmitterId, const std::string& signalId, const std::optional<int>& group)
       : CommandResult(CmdName, TargetId, relatedCommand)
     {
 
@@ -63,12 +63,12 @@ namespace Sdx
     }
 
 
-    GetIntTxPulseResultPtr GetIntTxPulseResult::create(bool enabled, double centralFreq, double power, double dutyCycle, int pulseRate, const std::string& transmitterId, const std::string& signalId, const Sdx::optional<int>& group)
+    GetIntTxPulseResultPtr GetIntTxPulseResult::create(bool enabled, double centralFreq, double power, double dutyCycle, int pulseRate, const std::string& transmitterId, const std::string& signalId, const std::optional<int>& group)
     {
       return std::make_shared<GetIntTxPulseResult>(enabled, centralFreq, power, dutyCycle, pulseRate, transmitterId, signalId, group);
     }
 
-    GetIntTxPulseResultPtr GetIntTxPulseResult::create(CommandBasePtr relatedCommand, bool enabled, double centralFreq, double power, double dutyCycle, int pulseRate, const std::string& transmitterId, const std::string& signalId, const Sdx::optional<int>& group)
+    GetIntTxPulseResultPtr GetIntTxPulseResult::create(CommandBasePtr relatedCommand, bool enabled, double centralFreq, double power, double dutyCycle, int pulseRate, const std::string& transmitterId, const std::string& signalId, const std::optional<int>& group)
     {
       return std::make_shared<GetIntTxPulseResult>(relatedCommand, enabled, centralFreq, power, dutyCycle, pulseRate, transmitterId, signalId, group);
     }
@@ -89,7 +89,7 @@ namespace Sdx
           && parse_json<int>::is_valid(m_values["PulseRate"])
           && parse_json<std::string>::is_valid(m_values["TransmitterId"])
           && parse_json<std::string>::is_valid(m_values["SignalId"])
-          && parse_json<Sdx::optional<int>>::is_valid(m_values["Group"])
+          && parse_json<std::optional<int>>::is_valid(m_values["Group"])
         ;
 
     }
@@ -187,14 +187,14 @@ namespace Sdx
 
 
 
-    Sdx::optional<int> GetIntTxPulseResult::group() const
+    std::optional<int> GetIntTxPulseResult::group() const
     {
-      return parse_json<Sdx::optional<int>>::parse(m_values["Group"]);
+      return parse_json<std::optional<int>>::parse(m_values["Group"]);
     }
 
-    void GetIntTxPulseResult::setGroup(const Sdx::optional<int>& group)
+    void GetIntTxPulseResult::setGroup(const std::optional<int>& group)
     {
-      m_values.AddMember("Group", parse_json<Sdx::optional<int>>::format(group, m_values.GetAllocator()), m_values.GetAllocator());
+      m_values.AddMember("Group", parse_json<std::optional<int>>::format(group, m_values.GetAllocator()), m_values.GetAllocator());
     }
 
 

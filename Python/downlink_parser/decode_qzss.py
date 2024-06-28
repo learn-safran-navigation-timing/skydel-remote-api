@@ -5,6 +5,7 @@
 """
 
 import utility
+from qzss_clas_message_reader import getDictQzssCLASDecodedFrame
 
 L1CADictSVClock = [
     {'name':"Preamble",            'range':[0,7]},
@@ -574,3 +575,7 @@ def getDictQZSSL1SNavigationMessageFromBinary(binaryMessage):
 def getDictQZSSL1SDecodedNavigationMessage(message):
     binaryMessage = utility.convertToBinaryNavigationMessage(message, 256)
     return getDictQZSSL1SNavigationMessageFromBinary(binaryMessage)
+
+def getDictQZSSL6DecodedNavigationMessage(message):
+    dict, seq = getDictQzssCLASDecodedFrame(message)
+    return dict

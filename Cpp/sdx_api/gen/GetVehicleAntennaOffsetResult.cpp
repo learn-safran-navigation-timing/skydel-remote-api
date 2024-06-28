@@ -33,7 +33,7 @@ namespace Sdx
       : CommandResult(CmdName, TargetId)
     {}
 
-    GetVehicleAntennaOffsetResult::GetVehicleAntennaOffsetResult(double x, double y, double z, double yaw, double pitch, double roll, const Sdx::optional<std::string>& name)
+    GetVehicleAntennaOffsetResult::GetVehicleAntennaOffsetResult(double x, double y, double z, double yaw, double pitch, double roll, const std::optional<std::string>& name)
       : CommandResult(CmdName, TargetId)
     {
 
@@ -46,7 +46,7 @@ namespace Sdx
       setName(name);
     }
 
-    GetVehicleAntennaOffsetResult::GetVehicleAntennaOffsetResult(CommandBasePtr relatedCommand, double x, double y, double z, double yaw, double pitch, double roll, const Sdx::optional<std::string>& name)
+    GetVehicleAntennaOffsetResult::GetVehicleAntennaOffsetResult(CommandBasePtr relatedCommand, double x, double y, double z, double yaw, double pitch, double roll, const std::optional<std::string>& name)
       : CommandResult(CmdName, TargetId, relatedCommand)
     {
 
@@ -60,12 +60,12 @@ namespace Sdx
     }
 
 
-    GetVehicleAntennaOffsetResultPtr GetVehicleAntennaOffsetResult::create(double x, double y, double z, double yaw, double pitch, double roll, const Sdx::optional<std::string>& name)
+    GetVehicleAntennaOffsetResultPtr GetVehicleAntennaOffsetResult::create(double x, double y, double z, double yaw, double pitch, double roll, const std::optional<std::string>& name)
     {
       return std::make_shared<GetVehicleAntennaOffsetResult>(x, y, z, yaw, pitch, roll, name);
     }
 
-    GetVehicleAntennaOffsetResultPtr GetVehicleAntennaOffsetResult::create(CommandBasePtr relatedCommand, double x, double y, double z, double yaw, double pitch, double roll, const Sdx::optional<std::string>& name)
+    GetVehicleAntennaOffsetResultPtr GetVehicleAntennaOffsetResult::create(CommandBasePtr relatedCommand, double x, double y, double z, double yaw, double pitch, double roll, const std::optional<std::string>& name)
     {
       return std::make_shared<GetVehicleAntennaOffsetResult>(relatedCommand, x, y, z, yaw, pitch, roll, name);
     }
@@ -85,7 +85,7 @@ namespace Sdx
           && parse_json<double>::is_valid(m_values["Yaw"])
           && parse_json<double>::is_valid(m_values["Pitch"])
           && parse_json<double>::is_valid(m_values["Roll"])
-          && parse_json<Sdx::optional<std::string>>::is_valid(m_values["Name"])
+          && parse_json<std::optional<std::string>>::is_valid(m_values["Name"])
         ;
 
     }
@@ -171,14 +171,14 @@ namespace Sdx
 
 
 
-    Sdx::optional<std::string> GetVehicleAntennaOffsetResult::name() const
+    std::optional<std::string> GetVehicleAntennaOffsetResult::name() const
     {
-      return parse_json<Sdx::optional<std::string>>::parse(m_values["Name"]);
+      return parse_json<std::optional<std::string>>::parse(m_values["Name"]);
     }
 
-    void GetVehicleAntennaOffsetResult::setName(const Sdx::optional<std::string>& name)
+    void GetVehicleAntennaOffsetResult::setName(const std::optional<std::string>& name)
     {
-      m_values.AddMember("Name", parse_json<Sdx::optional<std::string>>::format(name, m_values.GetAllocator()), m_values.GetAllocator());
+      m_values.AddMember("Name", parse_json<std::optional<std::string>>::format(name, m_values.GetAllocator()), m_values.GetAllocator());
     }
 
 

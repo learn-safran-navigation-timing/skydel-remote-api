@@ -102,7 +102,7 @@ def parse_line(satellite_system, rinex_line_type, block, line):
         block.add("ClockDriftRate", float(data[9]))
 
     elif rinex_line_type == RinexLineType.BROADCAST_ORBIT_1:
-        block.add("Crc", float(data[1]))
+        block.add("Crs", float(data[1]))
         block.add("DeltaN", float(data[2]))
         block.add("M0", float(data[3]))
 

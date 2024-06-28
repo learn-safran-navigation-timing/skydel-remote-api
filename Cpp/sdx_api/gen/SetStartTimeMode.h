@@ -13,8 +13,8 @@ namespace Sdx
     /// Set the simulation start time mode.
     ///
     /// Name Type   Description
-    /// ---- ------ --------------------------------------------
-    /// Mode string Accepted Modes ("Custom", "Computer", "GPS")
+    /// ---- ------ ---------------------------------------------------
+    /// Mode string Accepted Modes ("Custom", "Computer", "GPS", "NTP")
     ///
 
     class SetStartTimeMode;

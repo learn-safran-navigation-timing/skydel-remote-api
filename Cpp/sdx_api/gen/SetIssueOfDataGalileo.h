@@ -3,7 +3,7 @@
 #include <memory>
 #include "command_base.h"
 
-#include "sdx_optional.h"
+#include <optional>
 
 namespace Sdx
 {
@@ -33,9 +33,9 @@ namespace Sdx
 
       SetIssueOfDataGalileo();
 
-      SetIssueOfDataGalileo(int navigation, int almanac, const Sdx::optional<bool>& overrideRinex = {});
+      SetIssueOfDataGalileo(int navigation, int almanac, const std::optional<bool>& overrideRinex = {});
 
-      static SetIssueOfDataGalileoPtr create(int navigation, int almanac, const Sdx::optional<bool>& overrideRinex = {});
+      static SetIssueOfDataGalileoPtr create(int navigation, int almanac, const std::optional<bool>& overrideRinex = {});
       static SetIssueOfDataGalileoPtr dynamicCast(CommandBasePtr ptr);
       virtual bool isValid() const override;
       virtual std::string documentation() const override;
@@ -55,8 +55,8 @@ namespace Sdx
 
 
       // **** overrideRinex ****
-      Sdx::optional<bool> overrideRinex() const;
-      void setOverrideRinex(const Sdx::optional<bool>& overrideRinex);
+      std::optional<bool> overrideRinex() const;
+      void setOverrideRinex(const std::optional<bool>& overrideRinex);
     };
     
   }

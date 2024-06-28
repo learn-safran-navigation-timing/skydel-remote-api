@@ -3,7 +3,7 @@
 #include <memory>
 #include "command_base.h"
 
-#include "sdx_optional.h"
+#include <optional>
 
 namespace Sdx
 {
@@ -33,9 +33,9 @@ namespace Sdx
 
       EnableLogDownlink();
 
-      EnableLogDownlink(bool enabled, const Sdx::optional<bool>& beforeEncoding = {}, const Sdx::optional<bool>& afterEncoding = {});
+      EnableLogDownlink(bool enabled, const std::optional<bool>& beforeEncoding = {}, const std::optional<bool>& afterEncoding = {});
 
-      static EnableLogDownlinkPtr create(bool enabled, const Sdx::optional<bool>& beforeEncoding = {}, const Sdx::optional<bool>& afterEncoding = {});
+      static EnableLogDownlinkPtr create(bool enabled, const std::optional<bool>& beforeEncoding = {}, const std::optional<bool>& afterEncoding = {});
       static EnableLogDownlinkPtr dynamicCast(CommandBasePtr ptr);
       virtual bool isValid() const override;
       virtual std::string documentation() const override;
@@ -50,13 +50,13 @@ namespace Sdx
 
 
       // **** beforeEncoding ****
-      Sdx::optional<bool> beforeEncoding() const;
-      void setBeforeEncoding(const Sdx::optional<bool>& beforeEncoding);
+      std::optional<bool> beforeEncoding() const;
+      void setBeforeEncoding(const std::optional<bool>& beforeEncoding);
 
 
       // **** afterEncoding ****
-      Sdx::optional<bool> afterEncoding() const;
-      void setAfterEncoding(const Sdx::optional<bool>& afterEncoding);
+      std::optional<bool> afterEncoding() const;
+      void setAfterEncoding(const std::optional<bool>& afterEncoding);
     };
     
   }

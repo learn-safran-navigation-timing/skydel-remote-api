@@ -4,7 +4,7 @@
 #include "command_base.h"
 
 #include "date_time.h"
-#include "sdx_optional.h"
+#include <optional>
 #include <string>
 
 namespace Sdx
@@ -39,9 +39,9 @@ namespace Sdx
 
       SetMerkleTreeParameters();
 
-      SetMerkleTreeParameters(const std::string& id, const std::string& keyType, const std::string& hashFunction, const Sdx::DateTime& beginApplicability, const Sdx::optional<Sdx::DateTime>& endApplicability = {});
+      SetMerkleTreeParameters(const std::string& id, const std::string& keyType, const std::string& hashFunction, const Sdx::DateTime& beginApplicability, const std::optional<Sdx::DateTime>& endApplicability = {});
 
-      static SetMerkleTreeParametersPtr create(const std::string& id, const std::string& keyType, const std::string& hashFunction, const Sdx::DateTime& beginApplicability, const Sdx::optional<Sdx::DateTime>& endApplicability = {});
+      static SetMerkleTreeParametersPtr create(const std::string& id, const std::string& keyType, const std::string& hashFunction, const Sdx::DateTime& beginApplicability, const std::optional<Sdx::DateTime>& endApplicability = {});
       static SetMerkleTreeParametersPtr dynamicCast(CommandBasePtr ptr);
       virtual bool isValid() const override;
       virtual std::string documentation() const override;
@@ -71,8 +71,8 @@ namespace Sdx
 
 
       // **** endApplicability ****
-      Sdx::optional<Sdx::DateTime> endApplicability() const;
-      void setEndApplicability(const Sdx::optional<Sdx::DateTime>& endApplicability);
+      std::optional<Sdx::DateTime> endApplicability() const;
+      void setEndApplicability(const std::optional<Sdx::DateTime>& endApplicability);
     };
     
   }

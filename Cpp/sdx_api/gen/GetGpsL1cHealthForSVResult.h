@@ -3,7 +3,7 @@
 #include <memory>
 #include "command_result.h"
 #include "command_factory.h"
-#include "sdx_optional.h"
+#include <optional>
 #include <string>
 
 namespace Sdx
@@ -34,13 +34,13 @@ namespace Sdx
 
       GetGpsL1cHealthForSVResult();
 
-      GetGpsL1cHealthForSVResult(int svId, bool health, const Sdx::optional<std::string>& dataSetName = {});
+      GetGpsL1cHealthForSVResult(int svId, bool health, const std::optional<std::string>& dataSetName = {});
 
-      GetGpsL1cHealthForSVResult(CommandBasePtr relatedCommand, int svId, bool health, const Sdx::optional<std::string>& dataSetName = {});
+      GetGpsL1cHealthForSVResult(CommandBasePtr relatedCommand, int svId, bool health, const std::optional<std::string>& dataSetName = {});
 
-      static GetGpsL1cHealthForSVResultPtr create(int svId, bool health, const Sdx::optional<std::string>& dataSetName = {});
+      static GetGpsL1cHealthForSVResultPtr create(int svId, bool health, const std::optional<std::string>& dataSetName = {});
 
-      static GetGpsL1cHealthForSVResultPtr create(CommandBasePtr relatedCommand, int svId, bool health, const Sdx::optional<std::string>& dataSetName = {});
+      static GetGpsL1cHealthForSVResultPtr create(CommandBasePtr relatedCommand, int svId, bool health, const std::optional<std::string>& dataSetName = {});
       static GetGpsL1cHealthForSVResultPtr dynamicCast(CommandBasePtr ptr);
       virtual bool isValid() const override;
       virtual std::string documentation() const override;
@@ -58,8 +58,8 @@ namespace Sdx
 
 
       // **** dataSetName ****
-      Sdx::optional<std::string> dataSetName() const;
-      void setDataSetName(const Sdx::optional<std::string>& dataSetName);
+      std::optional<std::string> dataSetName() const;
+      void setDataSetName(const std::optional<std::string>& dataSetName);
     };
     REGISTER_COMMAND_TO_FACTORY_DECL(GetGpsL1cHealthForSVResult);
   }

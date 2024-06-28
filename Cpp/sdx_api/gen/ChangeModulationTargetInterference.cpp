@@ -19,15 +19,15 @@ namespace Sdx
       "but it is possible to set constaints with MinRate and MaxRate.\n"
       "\n"
       "Name        Type            Description\n"
-      "----------- --------------- ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------\n"
+      "----------- --------------- -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------\n"
       "Output      int             Output index (zero based)\n"
       "MinRate     int             Minimum sampling rate (12500000, 25000000, 50000000, 60000000, 100000000)\n"
-      "MaxRate     int             Maximum sampling rate (12500000, 25000000, 50000000. 60000000, 100000000)\n"
+      "MaxRate     int             Maximum sampling rate (12500000, 25000000, 50000000, 60000000, 100000000)\n"
       "Group       int             Interference group number [1..16] or 0 for no group\n"
       "CentralFreq double          Central frequency (Hz). Put 0.0 and complete signal list to let Skydel choose automaticly the central frequency.\n"
       "Gain        int             The gain associated to this output (dB). As of today, accepted values are 0, 20, 40, 60 and 80. Values at 40 and under are not recommended. Use a negative value to use the default value (60).\n"
       "Id          string          Target identifier\n"
-      "Signal      optional string Comma separated signal keys if you want to match central frequency and sampling rate with a particular list of signals. Accepted signal keys: \"L1CA\", \"L1C\", \"L1P\", \"L1ME\", \"L1MR\", \"L2C\", \"L2P\", \"L2ME\", \"L2MR\", \"L5\", \"G1\", \"G2\", \"E1\", \"E5a\", \"E5b\", \"B1\", \"B2\", \"B1C\", \"B2a\", \"B3I\", \"SBASL1\", \"QZSSL1CA\", \"QZSSL1CB\", \"QZSSL1C\", \"QZSSL2C\", \"QZSSL5\", \"QZSSL1S\", \"QZSSL5S\", \"NAVICL5\", \"PULSARXL\"";
+      "Signal      optional string Comma separated signal keys if you want to match central frequency and sampling rate with a particular list of signals. Accepted signal keys: \"L1CA\", \"L1C\", \"L1P\", \"L1ME\", \"L1MR\", \"L2C\", \"L2P\", \"L2ME\", \"L2MR\", \"L5\", \"G1\", \"G2\", \"E1\", \"E5a\", \"E5b\", \"B1\", \"B2\", \"B1C\", \"B2a\", \"B3I\", \"SBASL1\", \"QZSSL1CA\", \"QZSSL1CB\", \"QZSSL1C\", \"QZSSL2C\", \"QZSSL5\", \"QZSSL1S\", \"QZSSL5S\", \"QZSSL6\", \"NAVICL1\", \"NAVICL5\", \"NAVICS\", \"PULSARXL\"";
     const char* const ChangeModulationTargetInterference::TargetId = "";
 
     REGISTER_COMMAND_TO_FACTORY_DECL(ChangeModulationTargetInterference);
@@ -38,7 +38,7 @@ namespace Sdx
       : CommandBase(CmdName, TargetId)
     {}
 
-    ChangeModulationTargetInterference::ChangeModulationTargetInterference(int output, int minRate, int maxRate, int group, double centralFreq, int gain, const std::string& id, const Sdx::optional<std::string>& signal)
+    ChangeModulationTargetInterference::ChangeModulationTargetInterference(int output, int minRate, int maxRate, int group, double centralFreq, int gain, const std::string& id, const std::optional<std::string>& signal)
       : CommandBase(CmdName, TargetId)
     {
 
@@ -52,7 +52,7 @@ namespace Sdx
       setSignal(signal);
     }
 
-    ChangeModulationTargetInterferencePtr ChangeModulationTargetInterference::create(int output, int minRate, int maxRate, int group, double centralFreq, int gain, const std::string& id, const Sdx::optional<std::string>& signal)
+    ChangeModulationTargetInterferencePtr ChangeModulationTargetInterference::create(int output, int minRate, int maxRate, int group, double centralFreq, int gain, const std::string& id, const std::optional<std::string>& signal)
     {
       return std::make_shared<ChangeModulationTargetInterference>(output, minRate, maxRate, group, centralFreq, gain, id, signal);
     }
@@ -73,7 +73,7 @@ namespace Sdx
           && parse_json<double>::is_valid(m_values["CentralFreq"])
           && parse_json<int>::is_valid(m_values["Gain"])
           && parse_json<std::string>::is_valid(m_values["Id"])
-          && parse_json<Sdx::optional<std::string>>::is_valid(m_values["Signal"])
+          && parse_json<std::optional<std::string>>::is_valid(m_values["Signal"])
         ;
 
     }
@@ -177,14 +177,14 @@ namespace Sdx
 
 
 
-    Sdx::optional<std::string> ChangeModulationTargetInterference::signal() const
+    std::optional<std::string> ChangeModulationTargetInterference::signal() const
     {
-      return parse_json<Sdx::optional<std::string>>::parse(m_values["Signal"]);
+      return parse_json<std::optional<std::string>>::parse(m_values["Signal"]);
     }
 
-    void ChangeModulationTargetInterference::setSignal(const Sdx::optional<std::string>& signal)
+    void ChangeModulationTargetInterference::setSignal(const std::optional<std::string>& signal)
     {
-      m_values.AddMember("Signal", parse_json<Sdx::optional<std::string>>::format(signal, m_values.GetAllocator()), m_values.GetAllocator());
+      m_values.AddMember("Signal", parse_json<std::optional<std::string>>::format(signal, m_values.GetAllocator()), m_values.GetAllocator());
     }
 
 

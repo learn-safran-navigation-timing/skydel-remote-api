@@ -16,12 +16,12 @@ namespace Sdx
     const char* const GetModulationTargetSignalsResult::Documentation = "Result of GetModulationTargetSignals.\n"
       "\n"
       "Name             Type            Description\n"
-      "---------------- --------------- -----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------\n"
+      "---------------- --------------- ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------\n"
       "Output           int             Output index (zero based)\n"
       "MinRate          int             Minimum sampling rate (12500000, 25000000, 50000000, 60000000, 100000000)\n"
       "MaxRate          int             Maximum sampling rate (12500000, 25000000, 50000000, 60000000, 100000000)\n"
       "Band             string          Frequency band is \"LowerL\" or \"UpperL\"\n"
-      "Signal           string          Comma separated signal keys, accepted signal keys: \"L1CA\", \"L1C\", \"L1P\", \"L1ME\", \"L1MR\", \"L2C\", \"L2P\", \"L2ME\", \"L2MR\", \"L5\", \"G1\", \"G2\", \"E1\", \"E5a\", \"E5b\", \"B1\", \"B2\", \"B1C\", \"B2a\", \"B3I\", \"SBASL1\", \"QZSSL1CA\", \"QZSSL1CB\", \"QZSSL1C\", \"QZSSL2C\", \"QZSSL5\", \"QZSSL1S\", \"QZSSL5S\", \"NAVICL5\", \"PULSARXL\"\n"
+      "Signal           string          Comma separated signal keys, accepted signal keys: \"L1CA\", \"L1C\", \"L1P\", \"L1ME\", \"L1MR\", \"L2C\", \"L2P\", \"L2ME\", \"L2MR\", \"L5\", \"G1\", \"G2\", \"E1\", \"E5a\", \"E5b\", \"B1\", \"B2\", \"B1C\", \"B2a\", \"B3I\", \"SBASL1\", \"QZSSL1CA\", \"QZSSL1CB\", \"QZSSL1C\", \"QZSSL2C\", \"QZSSL5\", \"QZSSL1S\", \"QZSSL5S\", \"QZSSL6\", \"NAVICL1\", \"NAVICL5\", \"NAVICS\", \"PULSARXL\"\n"
       "Gain             int             The gain associated to this output (dB). This value has to be between the radio minimum value and 115. A negative value means to use the radio default value.\n"
       "GaussianNoise    bool            If true, add Gaussian noise to ensure realistic signal to noise ratio. When combining multiple outputs, only one should have Gaussian noise enabled.\n"
       "Id               string          Target identifier\n"
@@ -35,7 +35,7 @@ namespace Sdx
       : CommandResult(CmdName, TargetId)
     {}
 
-    GetModulationTargetSignalsResult::GetModulationTargetSignalsResult(int output, int minRate, int maxRate, const std::string& band, const std::string& signal, int gain, bool gaussianNoise, const std::string& id, const Sdx::optional<double>& centralFrequency)
+    GetModulationTargetSignalsResult::GetModulationTargetSignalsResult(int output, int minRate, int maxRate, const std::string& band, const std::string& signal, int gain, bool gaussianNoise, const std::string& id, const std::optional<double>& centralFrequency)
       : CommandResult(CmdName, TargetId)
     {
 
@@ -50,7 +50,7 @@ namespace Sdx
       setCentralFrequency(centralFrequency);
     }
 
-    GetModulationTargetSignalsResult::GetModulationTargetSignalsResult(CommandBasePtr relatedCommand, int output, int minRate, int maxRate, const std::string& band, const std::string& signal, int gain, bool gaussianNoise, const std::string& id, const Sdx::optional<double>& centralFrequency)
+    GetModulationTargetSignalsResult::GetModulationTargetSignalsResult(CommandBasePtr relatedCommand, int output, int minRate, int maxRate, const std::string& band, const std::string& signal, int gain, bool gaussianNoise, const std::string& id, const std::optional<double>& centralFrequency)
       : CommandResult(CmdName, TargetId, relatedCommand)
     {
 
@@ -66,12 +66,12 @@ namespace Sdx
     }
 
 
-    GetModulationTargetSignalsResultPtr GetModulationTargetSignalsResult::create(int output, int minRate, int maxRate, const std::string& band, const std::string& signal, int gain, bool gaussianNoise, const std::string& id, const Sdx::optional<double>& centralFrequency)
+    GetModulationTargetSignalsResultPtr GetModulationTargetSignalsResult::create(int output, int minRate, int maxRate, const std::string& band, const std::string& signal, int gain, bool gaussianNoise, const std::string& id, const std::optional<double>& centralFrequency)
     {
       return std::make_shared<GetModulationTargetSignalsResult>(output, minRate, maxRate, band, signal, gain, gaussianNoise, id, centralFrequency);
     }
 
-    GetModulationTargetSignalsResultPtr GetModulationTargetSignalsResult::create(CommandBasePtr relatedCommand, int output, int minRate, int maxRate, const std::string& band, const std::string& signal, int gain, bool gaussianNoise, const std::string& id, const Sdx::optional<double>& centralFrequency)
+    GetModulationTargetSignalsResultPtr GetModulationTargetSignalsResult::create(CommandBasePtr relatedCommand, int output, int minRate, int maxRate, const std::string& band, const std::string& signal, int gain, bool gaussianNoise, const std::string& id, const std::optional<double>& centralFrequency)
     {
       return std::make_shared<GetModulationTargetSignalsResult>(relatedCommand, output, minRate, maxRate, band, signal, gain, gaussianNoise, id, centralFrequency);
     }
@@ -93,7 +93,7 @@ namespace Sdx
           && parse_json<int>::is_valid(m_values["Gain"])
           && parse_json<bool>::is_valid(m_values["GaussianNoise"])
           && parse_json<std::string>::is_valid(m_values["Id"])
-          && parse_json<Sdx::optional<double>>::is_valid(m_values["CentralFrequency"])
+          && parse_json<std::optional<double>>::is_valid(m_values["CentralFrequency"])
         ;
 
     }
@@ -203,14 +203,14 @@ namespace Sdx
 
 
 
-    Sdx::optional<double> GetModulationTargetSignalsResult::centralFrequency() const
+    std::optional<double> GetModulationTargetSignalsResult::centralFrequency() const
     {
-      return parse_json<Sdx::optional<double>>::parse(m_values["CentralFrequency"]);
+      return parse_json<std::optional<double>>::parse(m_values["CentralFrequency"]);
     }
 
-    void GetModulationTargetSignalsResult::setCentralFrequency(const Sdx::optional<double>& centralFrequency)
+    void GetModulationTargetSignalsResult::setCentralFrequency(const std::optional<double>& centralFrequency)
     {
-      m_values.AddMember("CentralFrequency", parse_json<Sdx::optional<double>>::format(centralFrequency, m_values.GetAllocator()), m_values.GetAllocator());
+      m_values.AddMember("CentralFrequency", parse_json<std::optional<double>>::format(centralFrequency, m_values.GetAllocator()), m_values.GetAllocator());
     }
 
 

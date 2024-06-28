@@ -33,7 +33,7 @@ namespace Sdx
       : CommandBase(CmdName, TargetId)
     {}
 
-    SetGpsTimingReceiver::SetGpsTimingReceiver(const std::string& port, const Sdx::optional<int>& baudRate, const Sdx::optional<int>& dataBits, const Sdx::optional<Sdx::SerialPortParity>& parity, const Sdx::optional<int>& stopBits, const Sdx::optional<Sdx::SerialPortFlowControl>& flowControl)
+    SetGpsTimingReceiver::SetGpsTimingReceiver(const std::string& port, const std::optional<int>& baudRate, const std::optional<int>& dataBits, const std::optional<Sdx::SerialPortParity>& parity, const std::optional<int>& stopBits, const std::optional<Sdx::SerialPortFlowControl>& flowControl)
       : CommandBase(CmdName, TargetId)
     {
 
@@ -45,7 +45,7 @@ namespace Sdx
       setFlowControl(flowControl);
     }
 
-    SetGpsTimingReceiverPtr SetGpsTimingReceiver::create(const std::string& port, const Sdx::optional<int>& baudRate, const Sdx::optional<int>& dataBits, const Sdx::optional<Sdx::SerialPortParity>& parity, const Sdx::optional<int>& stopBits, const Sdx::optional<Sdx::SerialPortFlowControl>& flowControl)
+    SetGpsTimingReceiverPtr SetGpsTimingReceiver::create(const std::string& port, const std::optional<int>& baudRate, const std::optional<int>& dataBits, const std::optional<Sdx::SerialPortParity>& parity, const std::optional<int>& stopBits, const std::optional<Sdx::SerialPortFlowControl>& flowControl)
     {
       return std::make_shared<SetGpsTimingReceiver>(port, baudRate, dataBits, parity, stopBits, flowControl);
     }
@@ -60,11 +60,11 @@ namespace Sdx
       
         return m_values.IsObject()
           && parse_json<std::string>::is_valid(m_values["Port"])
-          && parse_json<Sdx::optional<int>>::is_valid(m_values["BaudRate"])
-          && parse_json<Sdx::optional<int>>::is_valid(m_values["DataBits"])
-          && parse_json<Sdx::optional<Sdx::SerialPortParity>>::is_valid(m_values["Parity"])
-          && parse_json<Sdx::optional<int>>::is_valid(m_values["StopBits"])
-          && parse_json<Sdx::optional<Sdx::SerialPortFlowControl>>::is_valid(m_values["FlowControl"])
+          && parse_json<std::optional<int>>::is_valid(m_values["BaudRate"])
+          && parse_json<std::optional<int>>::is_valid(m_values["DataBits"])
+          && parse_json<std::optional<Sdx::SerialPortParity>>::is_valid(m_values["Parity"])
+          && parse_json<std::optional<int>>::is_valid(m_values["StopBits"])
+          && parse_json<std::optional<Sdx::SerialPortFlowControl>>::is_valid(m_values["FlowControl"])
         ;
 
     }
@@ -96,62 +96,62 @@ namespace Sdx
 
 
 
-    Sdx::optional<int> SetGpsTimingReceiver::baudRate() const
+    std::optional<int> SetGpsTimingReceiver::baudRate() const
     {
-      return parse_json<Sdx::optional<int>>::parse(m_values["BaudRate"]);
+      return parse_json<std::optional<int>>::parse(m_values["BaudRate"]);
     }
 
-    void SetGpsTimingReceiver::setBaudRate(const Sdx::optional<int>& baudRate)
+    void SetGpsTimingReceiver::setBaudRate(const std::optional<int>& baudRate)
     {
-      m_values.AddMember("BaudRate", parse_json<Sdx::optional<int>>::format(baudRate, m_values.GetAllocator()), m_values.GetAllocator());
-    }
-
-
-
-    Sdx::optional<int> SetGpsTimingReceiver::dataBits() const
-    {
-      return parse_json<Sdx::optional<int>>::parse(m_values["DataBits"]);
-    }
-
-    void SetGpsTimingReceiver::setDataBits(const Sdx::optional<int>& dataBits)
-    {
-      m_values.AddMember("DataBits", parse_json<Sdx::optional<int>>::format(dataBits, m_values.GetAllocator()), m_values.GetAllocator());
+      m_values.AddMember("BaudRate", parse_json<std::optional<int>>::format(baudRate, m_values.GetAllocator()), m_values.GetAllocator());
     }
 
 
 
-    Sdx::optional<Sdx::SerialPortParity> SetGpsTimingReceiver::parity() const
+    std::optional<int> SetGpsTimingReceiver::dataBits() const
     {
-      return parse_json<Sdx::optional<Sdx::SerialPortParity>>::parse(m_values["Parity"]);
+      return parse_json<std::optional<int>>::parse(m_values["DataBits"]);
     }
 
-    void SetGpsTimingReceiver::setParity(const Sdx::optional<Sdx::SerialPortParity>& parity)
+    void SetGpsTimingReceiver::setDataBits(const std::optional<int>& dataBits)
     {
-      m_values.AddMember("Parity", parse_json<Sdx::optional<Sdx::SerialPortParity>>::format(parity, m_values.GetAllocator()), m_values.GetAllocator());
-    }
-
-
-
-    Sdx::optional<int> SetGpsTimingReceiver::stopBits() const
-    {
-      return parse_json<Sdx::optional<int>>::parse(m_values["StopBits"]);
-    }
-
-    void SetGpsTimingReceiver::setStopBits(const Sdx::optional<int>& stopBits)
-    {
-      m_values.AddMember("StopBits", parse_json<Sdx::optional<int>>::format(stopBits, m_values.GetAllocator()), m_values.GetAllocator());
+      m_values.AddMember("DataBits", parse_json<std::optional<int>>::format(dataBits, m_values.GetAllocator()), m_values.GetAllocator());
     }
 
 
 
-    Sdx::optional<Sdx::SerialPortFlowControl> SetGpsTimingReceiver::flowControl() const
+    std::optional<Sdx::SerialPortParity> SetGpsTimingReceiver::parity() const
     {
-      return parse_json<Sdx::optional<Sdx::SerialPortFlowControl>>::parse(m_values["FlowControl"]);
+      return parse_json<std::optional<Sdx::SerialPortParity>>::parse(m_values["Parity"]);
     }
 
-    void SetGpsTimingReceiver::setFlowControl(const Sdx::optional<Sdx::SerialPortFlowControl>& flowControl)
+    void SetGpsTimingReceiver::setParity(const std::optional<Sdx::SerialPortParity>& parity)
     {
-      m_values.AddMember("FlowControl", parse_json<Sdx::optional<Sdx::SerialPortFlowControl>>::format(flowControl, m_values.GetAllocator()), m_values.GetAllocator());
+      m_values.AddMember("Parity", parse_json<std::optional<Sdx::SerialPortParity>>::format(parity, m_values.GetAllocator()), m_values.GetAllocator());
+    }
+
+
+
+    std::optional<int> SetGpsTimingReceiver::stopBits() const
+    {
+      return parse_json<std::optional<int>>::parse(m_values["StopBits"]);
+    }
+
+    void SetGpsTimingReceiver::setStopBits(const std::optional<int>& stopBits)
+    {
+      m_values.AddMember("StopBits", parse_json<std::optional<int>>::format(stopBits, m_values.GetAllocator()), m_values.GetAllocator());
+    }
+
+
+
+    std::optional<Sdx::SerialPortFlowControl> SetGpsTimingReceiver::flowControl() const
+    {
+      return parse_json<std::optional<Sdx::SerialPortFlowControl>>::parse(m_values["FlowControl"]);
+    }
+
+    void SetGpsTimingReceiver::setFlowControl(const std::optional<Sdx::SerialPortFlowControl>& flowControl)
+    {
+      m_values.AddMember("FlowControl", parse_json<std::optional<Sdx::SerialPortFlowControl>>::format(flowControl, m_values.GetAllocator()), m_values.GetAllocator());
     }
 
 

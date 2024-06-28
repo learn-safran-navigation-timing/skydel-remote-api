@@ -69,7 +69,7 @@ namespace Sdx
       return names; 
     }
 
-    Sdx::optional<std::string> SetWFAntennaElementEnabled::deprecated() const { return Sdx::optional<std::string>{Deprecated}; }
+    std::optional<std::string> SetWFAntennaElementEnabled::deprecated() const { return std::optional<std::string>{Deprecated}; }
 
 
     int SetWFAntennaElementEnabled::executePermission() const

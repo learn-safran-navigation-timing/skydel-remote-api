@@ -3,7 +3,7 @@
 #include <memory>
 #include "command_result.h"
 #include "command_factory.h"
-#include "sdx_optional.h"
+#include <optional>
 #include <string>
 #include <vector>
 
@@ -36,13 +36,13 @@ namespace Sdx
 
       GetGpsEphBoolParamForEachSVResult();
 
-      GetGpsEphBoolParamForEachSVResult(const std::string& paramName, const std::vector<bool>& val, const Sdx::optional<std::string>& dataSetName = {});
+      GetGpsEphBoolParamForEachSVResult(const std::string& paramName, const std::vector<bool>& val, const std::optional<std::string>& dataSetName = {});
 
-      GetGpsEphBoolParamForEachSVResult(CommandBasePtr relatedCommand, const std::string& paramName, const std::vector<bool>& val, const Sdx::optional<std::string>& dataSetName = {});
+      GetGpsEphBoolParamForEachSVResult(CommandBasePtr relatedCommand, const std::string& paramName, const std::vector<bool>& val, const std::optional<std::string>& dataSetName = {});
 
-      static GetGpsEphBoolParamForEachSVResultPtr create(const std::string& paramName, const std::vector<bool>& val, const Sdx::optional<std::string>& dataSetName = {});
+      static GetGpsEphBoolParamForEachSVResultPtr create(const std::string& paramName, const std::vector<bool>& val, const std::optional<std::string>& dataSetName = {});
 
-      static GetGpsEphBoolParamForEachSVResultPtr create(CommandBasePtr relatedCommand, const std::string& paramName, const std::vector<bool>& val, const Sdx::optional<std::string>& dataSetName = {});
+      static GetGpsEphBoolParamForEachSVResultPtr create(CommandBasePtr relatedCommand, const std::string& paramName, const std::vector<bool>& val, const std::optional<std::string>& dataSetName = {});
       static GetGpsEphBoolParamForEachSVResultPtr dynamicCast(CommandBasePtr ptr);
       virtual bool isValid() const override;
       virtual std::string documentation() const override;
@@ -60,8 +60,8 @@ namespace Sdx
 
 
       // **** dataSetName ****
-      Sdx::optional<std::string> dataSetName() const;
-      void setDataSetName(const Sdx::optional<std::string>& dataSetName);
+      std::optional<std::string> dataSetName() const;
+      void setDataSetName(const std::optional<std::string>& dataSetName);
     };
     REGISTER_COMMAND_TO_FACTORY_DECL(GetGpsEphBoolParamForEachSVResult);
   }

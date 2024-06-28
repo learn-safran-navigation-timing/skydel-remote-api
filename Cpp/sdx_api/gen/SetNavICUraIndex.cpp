@@ -32,7 +32,7 @@ namespace Sdx
       : CommandBase(CmdName, TargetId)
     {}
 
-    SetNavICUraIndex::SetNavICUraIndex(int svId, int urai, const Sdx::optional<std::string>& dataSetName)
+    SetNavICUraIndex::SetNavICUraIndex(int svId, int urai, const std::optional<std::string>& dataSetName)
       : CommandBase(CmdName, TargetId)
     {
 
@@ -41,7 +41,7 @@ namespace Sdx
       setDataSetName(dataSetName);
     }
 
-    SetNavICUraIndexPtr SetNavICUraIndex::create(int svId, int urai, const Sdx::optional<std::string>& dataSetName)
+    SetNavICUraIndexPtr SetNavICUraIndex::create(int svId, int urai, const std::optional<std::string>& dataSetName)
     {
       return std::make_shared<SetNavICUraIndex>(svId, urai, dataSetName);
     }
@@ -57,7 +57,7 @@ namespace Sdx
         return m_values.IsObject()
           && parse_json<int>::is_valid(m_values["SvId"])
           && parse_json<int>::is_valid(m_values["Urai"])
-          && parse_json<Sdx::optional<std::string>>::is_valid(m_values["DataSetName"])
+          && parse_json<std::optional<std::string>>::is_valid(m_values["DataSetName"])
         ;
 
     }
@@ -101,14 +101,14 @@ namespace Sdx
 
 
 
-    Sdx::optional<std::string> SetNavICUraIndex::dataSetName() const
+    std::optional<std::string> SetNavICUraIndex::dataSetName() const
     {
-      return parse_json<Sdx::optional<std::string>>::parse(m_values["DataSetName"]);
+      return parse_json<std::optional<std::string>>::parse(m_values["DataSetName"]);
     }
 
-    void SetNavICUraIndex::setDataSetName(const Sdx::optional<std::string>& dataSetName)
+    void SetNavICUraIndex::setDataSetName(const std::optional<std::string>& dataSetName)
     {
-      m_values.AddMember("DataSetName", parse_json<Sdx::optional<std::string>>::format(dataSetName, m_values.GetAllocator()), m_values.GetAllocator());
+      m_values.AddMember("DataSetName", parse_json<std::optional<std::string>>::format(dataSetName, m_values.GetAllocator()), m_values.GetAllocator());
     }
 
 

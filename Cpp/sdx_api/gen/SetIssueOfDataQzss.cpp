@@ -30,7 +30,7 @@ namespace Sdx
       : CommandBase(CmdName, TargetId)
     {}
 
-    SetIssueOfDataQzss::SetIssueOfDataQzss(int clock, int ephemeris, const Sdx::optional<bool>& overrideRinex)
+    SetIssueOfDataQzss::SetIssueOfDataQzss(int clock, int ephemeris, const std::optional<bool>& overrideRinex)
       : CommandBase(CmdName, TargetId)
     {
 
@@ -39,7 +39,7 @@ namespace Sdx
       setOverrideRinex(overrideRinex);
     }
 
-    SetIssueOfDataQzssPtr SetIssueOfDataQzss::create(int clock, int ephemeris, const Sdx::optional<bool>& overrideRinex)
+    SetIssueOfDataQzssPtr SetIssueOfDataQzss::create(int clock, int ephemeris, const std::optional<bool>& overrideRinex)
     {
       return std::make_shared<SetIssueOfDataQzss>(clock, ephemeris, overrideRinex);
     }
@@ -55,7 +55,7 @@ namespace Sdx
         return m_values.IsObject()
           && parse_json<int>::is_valid(m_values["Clock"])
           && parse_json<int>::is_valid(m_values["Ephemeris"])
-          && parse_json<Sdx::optional<bool>>::is_valid(m_values["OverrideRinex"])
+          && parse_json<std::optional<bool>>::is_valid(m_values["OverrideRinex"])
         ;
 
     }
@@ -99,14 +99,14 @@ namespace Sdx
 
 
 
-    Sdx::optional<bool> SetIssueOfDataQzss::overrideRinex() const
+    std::optional<bool> SetIssueOfDataQzss::overrideRinex() const
     {
-      return parse_json<Sdx::optional<bool>>::parse(m_values["OverrideRinex"]);
+      return parse_json<std::optional<bool>>::parse(m_values["OverrideRinex"]);
     }
 
-    void SetIssueOfDataQzss::setOverrideRinex(const Sdx::optional<bool>& overrideRinex)
+    void SetIssueOfDataQzss::setOverrideRinex(const std::optional<bool>& overrideRinex)
     {
-      m_values.AddMember("OverrideRinex", parse_json<Sdx::optional<bool>>::format(overrideRinex, m_values.GetAllocator()), m_values.GetAllocator());
+      m_values.AddMember("OverrideRinex", parse_json<std::optional<bool>>::format(overrideRinex, m_values.GetAllocator()), m_values.GetAllocator());
     }
 
 

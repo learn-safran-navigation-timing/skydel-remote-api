@@ -31,7 +31,7 @@ namespace Sdx
       : CommandBase(CmdName, TargetId)
     {}
 
-    SetGalileoSignalHealthForSV::SetGalileoSignalHealthForSV(int svId, const std::string& component, int health, const Sdx::optional<std::string>& dataSetName)
+    SetGalileoSignalHealthForSV::SetGalileoSignalHealthForSV(int svId, const std::string& component, int health, const std::optional<std::string>& dataSetName)
       : CommandBase(CmdName, TargetId)
     {
 
@@ -41,7 +41,7 @@ namespace Sdx
       setDataSetName(dataSetName);
     }
 
-    SetGalileoSignalHealthForSVPtr SetGalileoSignalHealthForSV::create(int svId, const std::string& component, int health, const Sdx::optional<std::string>& dataSetName)
+    SetGalileoSignalHealthForSVPtr SetGalileoSignalHealthForSV::create(int svId, const std::string& component, int health, const std::optional<std::string>& dataSetName)
     {
       return std::make_shared<SetGalileoSignalHealthForSV>(svId, component, health, dataSetName);
     }
@@ -58,7 +58,7 @@ namespace Sdx
           && parse_json<int>::is_valid(m_values["SvId"])
           && parse_json<std::string>::is_valid(m_values["Component"])
           && parse_json<int>::is_valid(m_values["Health"])
-          && parse_json<Sdx::optional<std::string>>::is_valid(m_values["DataSetName"])
+          && parse_json<std::optional<std::string>>::is_valid(m_values["DataSetName"])
         ;
 
     }
@@ -114,14 +114,14 @@ namespace Sdx
 
 
 
-    Sdx::optional<std::string> SetGalileoSignalHealthForSV::dataSetName() const
+    std::optional<std::string> SetGalileoSignalHealthForSV::dataSetName() const
     {
-      return parse_json<Sdx::optional<std::string>>::parse(m_values["DataSetName"]);
+      return parse_json<std::optional<std::string>>::parse(m_values["DataSetName"]);
     }
 
-    void SetGalileoSignalHealthForSV::setDataSetName(const Sdx::optional<std::string>& dataSetName)
+    void SetGalileoSignalHealthForSV::setDataSetName(const std::optional<std::string>& dataSetName)
     {
-      m_values.AddMember("DataSetName", parse_json<Sdx::optional<std::string>>::format(dataSetName, m_values.GetAllocator()), m_values.GetAllocator());
+      m_values.AddMember("DataSetName", parse_json<std::optional<std::string>>::format(dataSetName, m_values.GetAllocator()), m_values.GetAllocator());
     }
 
 

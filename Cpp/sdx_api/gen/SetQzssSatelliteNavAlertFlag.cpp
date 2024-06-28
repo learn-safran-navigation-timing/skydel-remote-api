@@ -32,7 +32,7 @@ namespace Sdx
       : CommandBase(CmdName, TargetId)
     {}
 
-    SetQzssSatelliteNavAlertFlag::SetQzssSatelliteNavAlertFlag(int svId, bool alert, const Sdx::optional<std::string>& dataSetName)
+    SetQzssSatelliteNavAlertFlag::SetQzssSatelliteNavAlertFlag(int svId, bool alert, const std::optional<std::string>& dataSetName)
       : CommandBase(CmdName, TargetId)
     {
 
@@ -41,7 +41,7 @@ namespace Sdx
       setDataSetName(dataSetName);
     }
 
-    SetQzssSatelliteNavAlertFlagPtr SetQzssSatelliteNavAlertFlag::create(int svId, bool alert, const Sdx::optional<std::string>& dataSetName)
+    SetQzssSatelliteNavAlertFlagPtr SetQzssSatelliteNavAlertFlag::create(int svId, bool alert, const std::optional<std::string>& dataSetName)
     {
       return std::make_shared<SetQzssSatelliteNavAlertFlag>(svId, alert, dataSetName);
     }
@@ -57,7 +57,7 @@ namespace Sdx
         return m_values.IsObject()
           && parse_json<int>::is_valid(m_values["SvId"])
           && parse_json<bool>::is_valid(m_values["Alert"])
-          && parse_json<Sdx::optional<std::string>>::is_valid(m_values["DataSetName"])
+          && parse_json<std::optional<std::string>>::is_valid(m_values["DataSetName"])
         ;
 
     }
@@ -101,14 +101,14 @@ namespace Sdx
 
 
 
-    Sdx::optional<std::string> SetQzssSatelliteNavAlertFlag::dataSetName() const
+    std::optional<std::string> SetQzssSatelliteNavAlertFlag::dataSetName() const
     {
-      return parse_json<Sdx::optional<std::string>>::parse(m_values["DataSetName"]);
+      return parse_json<std::optional<std::string>>::parse(m_values["DataSetName"]);
     }
 
-    void SetQzssSatelliteNavAlertFlag::setDataSetName(const Sdx::optional<std::string>& dataSetName)
+    void SetQzssSatelliteNavAlertFlag::setDataSetName(const std::optional<std::string>& dataSetName)
     {
-      m_values.AddMember("DataSetName", parse_json<Sdx::optional<std::string>>::format(dataSetName, m_values.GetAllocator()), m_values.GetAllocator());
+      m_values.AddMember("DataSetName", parse_json<std::optional<std::string>>::format(dataSetName, m_values.GetAllocator()), m_values.GetAllocator());
     }
 
 

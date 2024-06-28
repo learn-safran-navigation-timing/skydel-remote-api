@@ -30,7 +30,7 @@ namespace Sdx
       : CommandBase(CmdName, TargetId)
     {}
 
-    GetConstellationParameterForEachSV::GetConstellationParameterForEachSV(const std::string& system, const std::string& paramName, const Sdx::optional<std::string>& dataSetName)
+    GetConstellationParameterForEachSV::GetConstellationParameterForEachSV(const std::string& system, const std::string& paramName, const std::optional<std::string>& dataSetName)
       : CommandBase(CmdName, TargetId)
     {
 
@@ -39,7 +39,7 @@ namespace Sdx
       setDataSetName(dataSetName);
     }
 
-    GetConstellationParameterForEachSVPtr GetConstellationParameterForEachSV::create(const std::string& system, const std::string& paramName, const Sdx::optional<std::string>& dataSetName)
+    GetConstellationParameterForEachSVPtr GetConstellationParameterForEachSV::create(const std::string& system, const std::string& paramName, const std::optional<std::string>& dataSetName)
     {
       return std::make_shared<GetConstellationParameterForEachSV>(system, paramName, dataSetName);
     }
@@ -55,7 +55,7 @@ namespace Sdx
         return m_values.IsObject()
           && parse_json<std::string>::is_valid(m_values["System"])
           && parse_json<std::string>::is_valid(m_values["ParamName"])
-          && parse_json<Sdx::optional<std::string>>::is_valid(m_values["DataSetName"])
+          && parse_json<std::optional<std::string>>::is_valid(m_values["DataSetName"])
         ;
 
     }
@@ -99,14 +99,14 @@ namespace Sdx
 
 
 
-    Sdx::optional<std::string> GetConstellationParameterForEachSV::dataSetName() const
+    std::optional<std::string> GetConstellationParameterForEachSV::dataSetName() const
     {
-      return parse_json<Sdx::optional<std::string>>::parse(m_values["DataSetName"]);
+      return parse_json<std::optional<std::string>>::parse(m_values["DataSetName"]);
     }
 
-    void GetConstellationParameterForEachSV::setDataSetName(const Sdx::optional<std::string>& dataSetName)
+    void GetConstellationParameterForEachSV::setDataSetName(const std::optional<std::string>& dataSetName)
     {
-      m_values.AddMember("DataSetName", parse_json<Sdx::optional<std::string>>::format(dataSetName, m_values.GetAllocator()), m_values.GetAllocator());
+      m_values.AddMember("DataSetName", parse_json<std::optional<std::string>>::format(dataSetName, m_values.GetAllocator()), m_values.GetAllocator());
     }
 
 

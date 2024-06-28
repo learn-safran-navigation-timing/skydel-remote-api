@@ -30,7 +30,7 @@ namespace Sdx
       : CommandBase(CmdName, TargetId)
     {}
 
-    EnableLogDownlink::EnableLogDownlink(bool enabled, const Sdx::optional<bool>& beforeEncoding, const Sdx::optional<bool>& afterEncoding)
+    EnableLogDownlink::EnableLogDownlink(bool enabled, const std::optional<bool>& beforeEncoding, const std::optional<bool>& afterEncoding)
       : CommandBase(CmdName, TargetId)
     {
 
@@ -39,7 +39,7 @@ namespace Sdx
       setAfterEncoding(afterEncoding);
     }
 
-    EnableLogDownlinkPtr EnableLogDownlink::create(bool enabled, const Sdx::optional<bool>& beforeEncoding, const Sdx::optional<bool>& afterEncoding)
+    EnableLogDownlinkPtr EnableLogDownlink::create(bool enabled, const std::optional<bool>& beforeEncoding, const std::optional<bool>& afterEncoding)
     {
       return std::make_shared<EnableLogDownlink>(enabled, beforeEncoding, afterEncoding);
     }
@@ -54,8 +54,8 @@ namespace Sdx
       
         return m_values.IsObject()
           && parse_json<bool>::is_valid(m_values["Enabled"])
-          && parse_json<Sdx::optional<bool>>::is_valid(m_values["BeforeEncoding"])
-          && parse_json<Sdx::optional<bool>>::is_valid(m_values["AfterEncoding"])
+          && parse_json<std::optional<bool>>::is_valid(m_values["BeforeEncoding"])
+          && parse_json<std::optional<bool>>::is_valid(m_values["AfterEncoding"])
         ;
 
     }
@@ -87,26 +87,26 @@ namespace Sdx
 
 
 
-    Sdx::optional<bool> EnableLogDownlink::beforeEncoding() const
+    std::optional<bool> EnableLogDownlink::beforeEncoding() const
     {
-      return parse_json<Sdx::optional<bool>>::parse(m_values["BeforeEncoding"]);
+      return parse_json<std::optional<bool>>::parse(m_values["BeforeEncoding"]);
     }
 
-    void EnableLogDownlink::setBeforeEncoding(const Sdx::optional<bool>& beforeEncoding)
+    void EnableLogDownlink::setBeforeEncoding(const std::optional<bool>& beforeEncoding)
     {
-      m_values.AddMember("BeforeEncoding", parse_json<Sdx::optional<bool>>::format(beforeEncoding, m_values.GetAllocator()), m_values.GetAllocator());
+      m_values.AddMember("BeforeEncoding", parse_json<std::optional<bool>>::format(beforeEncoding, m_values.GetAllocator()), m_values.GetAllocator());
     }
 
 
 
-    Sdx::optional<bool> EnableLogDownlink::afterEncoding() const
+    std::optional<bool> EnableLogDownlink::afterEncoding() const
     {
-      return parse_json<Sdx::optional<bool>>::parse(m_values["AfterEncoding"]);
+      return parse_json<std::optional<bool>>::parse(m_values["AfterEncoding"]);
     }
 
-    void EnableLogDownlink::setAfterEncoding(const Sdx::optional<bool>& afterEncoding)
+    void EnableLogDownlink::setAfterEncoding(const std::optional<bool>& afterEncoding)
     {
-      m_values.AddMember("AfterEncoding", parse_json<Sdx::optional<bool>>::format(afterEncoding, m_values.GetAllocator()), m_values.GetAllocator());
+      m_values.AddMember("AfterEncoding", parse_json<std::optional<bool>>::format(afterEncoding, m_values.GetAllocator()), m_values.GetAllocator());
     }
 
 

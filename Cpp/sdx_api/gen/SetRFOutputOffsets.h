@@ -3,7 +3,7 @@
 #include <memory>
 #include "command_base.h"
 
-#include "sdx_optional.h"
+#include <optional>
 
 namespace Sdx
 {
@@ -35,9 +35,9 @@ namespace Sdx
 
       SetRFOutputOffsets();
 
-      SetRFOutputOffsets(int outputIdx, double powerOffset, double timeOffset, double phaseOffset, const Sdx::optional<double>& phaseStep = {});
+      SetRFOutputOffsets(int outputIdx, double powerOffset, double timeOffset, double phaseOffset, const std::optional<double>& phaseStep = {});
 
-      static SetRFOutputOffsetsPtr create(int outputIdx, double powerOffset, double timeOffset, double phaseOffset, const Sdx::optional<double>& phaseStep = {});
+      static SetRFOutputOffsetsPtr create(int outputIdx, double powerOffset, double timeOffset, double phaseOffset, const std::optional<double>& phaseStep = {});
       static SetRFOutputOffsetsPtr dynamicCast(CommandBasePtr ptr);
       virtual bool isValid() const override;
       virtual std::string documentation() const override;
@@ -67,8 +67,8 @@ namespace Sdx
 
 
       // **** phaseStep ****
-      Sdx::optional<double> phaseStep() const;
-      void setPhaseStep(const Sdx::optional<double>& phaseStep);
+      std::optional<double> phaseStep() const;
+      void setPhaseStep(const std::optional<double>& phaseStep);
     };
     
   }

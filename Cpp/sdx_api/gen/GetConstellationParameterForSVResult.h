@@ -3,7 +3,7 @@
 #include <memory>
 #include "command_result.h"
 #include "command_factory.h"
-#include "sdx_optional.h"
+#include <optional>
 #include <string>
 #include <vector>
 
@@ -37,27 +37,27 @@ namespace Sdx
 
       GetConstellationParameterForSVResult();
 
-      GetConstellationParameterForSVResult(const std::string& system, int svId, const std::string& paramName, double val, const Sdx::optional<std::string>& dataSetName = {});
+      GetConstellationParameterForSVResult(const std::string& system, int svId, const std::string& paramName, double val, const std::optional<std::string>& dataSetName = {});
 
-      GetConstellationParameterForSVResult(CommandBasePtr relatedCommand, const std::string& system, int svId, const std::string& paramName, double val, const Sdx::optional<std::string>& dataSetName = {});
+      GetConstellationParameterForSVResult(CommandBasePtr relatedCommand, const std::string& system, int svId, const std::string& paramName, double val, const std::optional<std::string>& dataSetName = {});
 
-      GetConstellationParameterForSVResult(const std::string& system, int svId, const std::string& paramName, int val, const Sdx::optional<std::string>& dataSetName = {});
+      GetConstellationParameterForSVResult(const std::string& system, int svId, const std::string& paramName, int val, const std::optional<std::string>& dataSetName = {});
 
-      GetConstellationParameterForSVResult(CommandBasePtr relatedCommand, const std::string& system, int svId, const std::string& paramName, int val, const Sdx::optional<std::string>& dataSetName = {});
+      GetConstellationParameterForSVResult(CommandBasePtr relatedCommand, const std::string& system, int svId, const std::string& paramName, int val, const std::optional<std::string>& dataSetName = {});
 
-      GetConstellationParameterForSVResult(const std::string& system, int svId, const std::string& paramName, bool val, const Sdx::optional<std::string>& dataSetName = {});
+      GetConstellationParameterForSVResult(const std::string& system, int svId, const std::string& paramName, bool val, const std::optional<std::string>& dataSetName = {});
 
-      GetConstellationParameterForSVResult(CommandBasePtr relatedCommand, const std::string& system, int svId, const std::string& paramName, bool val, const Sdx::optional<std::string>& dataSetName = {});
+      GetConstellationParameterForSVResult(CommandBasePtr relatedCommand, const std::string& system, int svId, const std::string& paramName, bool val, const std::optional<std::string>& dataSetName = {});
 
-      static GetConstellationParameterForSVResultPtr create(const std::string& system, int svId, const std::string& paramName, double val, const Sdx::optional<std::string>& dataSetName = {});
+      static GetConstellationParameterForSVResultPtr create(const std::string& system, int svId, const std::string& paramName, double val, const std::optional<std::string>& dataSetName = {});
 
-      static GetConstellationParameterForSVResultPtr create(CommandBasePtr relatedCommand, const std::string& system, int svId, const std::string& paramName, double val, const Sdx::optional<std::string>& dataSetName = {});
-      static GetConstellationParameterForSVResultPtr create(const std::string& system, int svId, const std::string& paramName, int val, const Sdx::optional<std::string>& dataSetName = {});
+      static GetConstellationParameterForSVResultPtr create(CommandBasePtr relatedCommand, const std::string& system, int svId, const std::string& paramName, double val, const std::optional<std::string>& dataSetName = {});
+      static GetConstellationParameterForSVResultPtr create(const std::string& system, int svId, const std::string& paramName, int val, const std::optional<std::string>& dataSetName = {});
 
-      static GetConstellationParameterForSVResultPtr create(CommandBasePtr relatedCommand, const std::string& system, int svId, const std::string& paramName, int val, const Sdx::optional<std::string>& dataSetName = {});
-      static GetConstellationParameterForSVResultPtr create(const std::string& system, int svId, const std::string& paramName, bool val, const Sdx::optional<std::string>& dataSetName = {});
+      static GetConstellationParameterForSVResultPtr create(CommandBasePtr relatedCommand, const std::string& system, int svId, const std::string& paramName, int val, const std::optional<std::string>& dataSetName = {});
+      static GetConstellationParameterForSVResultPtr create(const std::string& system, int svId, const std::string& paramName, bool val, const std::optional<std::string>& dataSetName = {});
 
-      static GetConstellationParameterForSVResultPtr create(CommandBasePtr relatedCommand, const std::string& system, int svId, const std::string& paramName, bool val, const Sdx::optional<std::string>& dataSetName = {});
+      static GetConstellationParameterForSVResultPtr create(CommandBasePtr relatedCommand, const std::string& system, int svId, const std::string& paramName, bool val, const std::optional<std::string>& dataSetName = {});
       static GetConstellationParameterForSVResultPtr dynamicCast(CommandBasePtr ptr);
       virtual bool isValid() const override;
       virtual std::string documentation() const override;
@@ -87,8 +87,8 @@ namespace Sdx
 
 
       // **** dataSetName ****
-      Sdx::optional<std::string> dataSetName() const;
-      void setDataSetName(const Sdx::optional<std::string>& dataSetName);
+      std::optional<std::string> dataSetName() const;
+      void setDataSetName(const std::optional<std::string>& dataSetName);
     };
     REGISTER_COMMAND_TO_FACTORY_DECL(GetConstellationParameterForSVResult);
   }

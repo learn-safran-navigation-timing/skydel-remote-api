@@ -29,7 +29,7 @@ namespace Sdx
       : CommandBase(CmdName, TargetId)
     {}
 
-    SetIssueOfDataNavIC::SetIssueOfDataNavIC(int ephemerisAndClock, const Sdx::optional<bool>& overrideRinex)
+    SetIssueOfDataNavIC::SetIssueOfDataNavIC(int ephemerisAndClock, const std::optional<bool>& overrideRinex)
       : CommandBase(CmdName, TargetId)
     {
 
@@ -37,7 +37,7 @@ namespace Sdx
       setOverrideRinex(overrideRinex);
     }
 
-    SetIssueOfDataNavICPtr SetIssueOfDataNavIC::create(int ephemerisAndClock, const Sdx::optional<bool>& overrideRinex)
+    SetIssueOfDataNavICPtr SetIssueOfDataNavIC::create(int ephemerisAndClock, const std::optional<bool>& overrideRinex)
     {
       return std::make_shared<SetIssueOfDataNavIC>(ephemerisAndClock, overrideRinex);
     }
@@ -52,7 +52,7 @@ namespace Sdx
       
         return m_values.IsObject()
           && parse_json<int>::is_valid(m_values["EphemerisAndClock"])
-          && parse_json<Sdx::optional<bool>>::is_valid(m_values["OverrideRinex"])
+          && parse_json<std::optional<bool>>::is_valid(m_values["OverrideRinex"])
         ;
 
     }
@@ -84,14 +84,14 @@ namespace Sdx
 
 
 
-    Sdx::optional<bool> SetIssueOfDataNavIC::overrideRinex() const
+    std::optional<bool> SetIssueOfDataNavIC::overrideRinex() const
     {
-      return parse_json<Sdx::optional<bool>>::parse(m_values["OverrideRinex"]);
+      return parse_json<std::optional<bool>>::parse(m_values["OverrideRinex"]);
     }
 
-    void SetIssueOfDataNavIC::setOverrideRinex(const Sdx::optional<bool>& overrideRinex)
+    void SetIssueOfDataNavIC::setOverrideRinex(const std::optional<bool>& overrideRinex)
     {
-      m_values.AddMember("OverrideRinex", parse_json<Sdx::optional<bool>>::format(overrideRinex, m_values.GetAllocator()), m_values.GetAllocator());
+      m_values.AddMember("OverrideRinex", parse_json<std::optional<bool>>::format(overrideRinex, m_values.GetAllocator()), m_values.GetAllocator());
     }
 
 

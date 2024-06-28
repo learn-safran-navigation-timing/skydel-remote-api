@@ -3,7 +3,7 @@
 #include <memory>
 #include "command_base.h"
 
-#include "sdx_optional.h"
+#include <optional>
 #include <string>
 
 namespace Sdx
@@ -39,9 +39,9 @@ namespace Sdx
 
       SetIntTxAWGN();
 
-      SetIntTxAWGN(bool enabled, double centralFreq, double power, double bandwidth, const std::string& transmitterId, const std::string& signalId, const Sdx::optional<int>& seed = {}, const Sdx::optional<int>& group = {});
+      SetIntTxAWGN(bool enabled, double centralFreq, double power, double bandwidth, const std::string& transmitterId, const std::string& signalId, const std::optional<int>& seed = {}, const std::optional<int>& group = {});
 
-      static SetIntTxAWGNPtr create(bool enabled, double centralFreq, double power, double bandwidth, const std::string& transmitterId, const std::string& signalId, const Sdx::optional<int>& seed = {}, const Sdx::optional<int>& group = {});
+      static SetIntTxAWGNPtr create(bool enabled, double centralFreq, double power, double bandwidth, const std::string& transmitterId, const std::string& signalId, const std::optional<int>& seed = {}, const std::optional<int>& group = {});
       static SetIntTxAWGNPtr dynamicCast(CommandBasePtr ptr);
       virtual bool isValid() const override;
       virtual std::string documentation() const override;
@@ -81,13 +81,13 @@ namespace Sdx
 
 
       // **** seed ****
-      Sdx::optional<int> seed() const;
-      void setSeed(const Sdx::optional<int>& seed);
+      std::optional<int> seed() const;
+      void setSeed(const std::optional<int>& seed);
 
 
       // **** group ****
-      Sdx::optional<int> group() const;
-      void setGroup(const Sdx::optional<int>& group);
+      std::optional<int> group() const;
+      void setGroup(const std::optional<int>& group);
     };
     
   }

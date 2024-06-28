@@ -4,10 +4,9 @@
 #include <rapidjson/document.h>
 
 #include <memory>
+#include <optional>
 #include <string>
 #include <vector>
-
-#include "sdx_optional.h"
 
 namespace Sdx
 {
@@ -42,7 +41,7 @@ public:
   virtual int executePermission() const;
   virtual bool hasExecutePermission(int flags) const;
   virtual std::string documentation() const;
-  virtual Sdx::optional<std::string> deprecated() const;
+  virtual std::optional<std::string> deprecated() const;
   inline const std::string& name() const { return m_cmdName; }
   inline const std::string& splittedName() const { return m_cmdSplittedName; }
   inline const std::string& uuid() const { return m_cmdUuid; }

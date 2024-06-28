@@ -31,7 +31,7 @@ namespace Sdx
       : CommandBase(CmdName, TargetId)
     {}
 
-    GetNavICSatelliteNavAlertFlag::GetNavICSatelliteNavAlertFlag(int svId, const Sdx::optional<std::string>& dataSetName)
+    GetNavICSatelliteNavAlertFlag::GetNavICSatelliteNavAlertFlag(int svId, const std::optional<std::string>& dataSetName)
       : CommandBase(CmdName, TargetId)
     {
 
@@ -39,7 +39,7 @@ namespace Sdx
       setDataSetName(dataSetName);
     }
 
-    GetNavICSatelliteNavAlertFlagPtr GetNavICSatelliteNavAlertFlag::create(int svId, const Sdx::optional<std::string>& dataSetName)
+    GetNavICSatelliteNavAlertFlagPtr GetNavICSatelliteNavAlertFlag::create(int svId, const std::optional<std::string>& dataSetName)
     {
       return std::make_shared<GetNavICSatelliteNavAlertFlag>(svId, dataSetName);
     }
@@ -54,7 +54,7 @@ namespace Sdx
       
         return m_values.IsObject()
           && parse_json<int>::is_valid(m_values["SvId"])
-          && parse_json<Sdx::optional<std::string>>::is_valid(m_values["DataSetName"])
+          && parse_json<std::optional<std::string>>::is_valid(m_values["DataSetName"])
         ;
 
     }
@@ -86,14 +86,14 @@ namespace Sdx
 
 
 
-    Sdx::optional<std::string> GetNavICSatelliteNavAlertFlag::dataSetName() const
+    std::optional<std::string> GetNavICSatelliteNavAlertFlag::dataSetName() const
     {
-      return parse_json<Sdx::optional<std::string>>::parse(m_values["DataSetName"]);
+      return parse_json<std::optional<std::string>>::parse(m_values["DataSetName"]);
     }
 
-    void GetNavICSatelliteNavAlertFlag::setDataSetName(const Sdx::optional<std::string>& dataSetName)
+    void GetNavICSatelliteNavAlertFlag::setDataSetName(const std::optional<std::string>& dataSetName)
     {
-      m_values.AddMember("DataSetName", parse_json<Sdx::optional<std::string>>::format(dataSetName, m_values.GetAllocator()), m_values.GetAllocator());
+      m_values.AddMember("DataSetName", parse_json<std::optional<std::string>>::format(dataSetName, m_values.GetAllocator()), m_values.GetAllocator());
     }
 
 

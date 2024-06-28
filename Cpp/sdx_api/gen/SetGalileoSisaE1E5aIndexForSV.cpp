@@ -30,7 +30,7 @@ namespace Sdx
       : CommandBase(CmdName, TargetId)
     {}
 
-    SetGalileoSisaE1E5aIndexForSV::SetGalileoSisaE1E5aIndexForSV(int svId, int sisai, const Sdx::optional<std::string>& dataSetName)
+    SetGalileoSisaE1E5aIndexForSV::SetGalileoSisaE1E5aIndexForSV(int svId, int sisai, const std::optional<std::string>& dataSetName)
       : CommandBase(CmdName, TargetId)
     {
 
@@ -39,7 +39,7 @@ namespace Sdx
       setDataSetName(dataSetName);
     }
 
-    SetGalileoSisaE1E5aIndexForSVPtr SetGalileoSisaE1E5aIndexForSV::create(int svId, int sisai, const Sdx::optional<std::string>& dataSetName)
+    SetGalileoSisaE1E5aIndexForSVPtr SetGalileoSisaE1E5aIndexForSV::create(int svId, int sisai, const std::optional<std::string>& dataSetName)
     {
       return std::make_shared<SetGalileoSisaE1E5aIndexForSV>(svId, sisai, dataSetName);
     }
@@ -55,7 +55,7 @@ namespace Sdx
         return m_values.IsObject()
           && parse_json<int>::is_valid(m_values["SvId"])
           && parse_json<int>::is_valid(m_values["Sisai"])
-          && parse_json<Sdx::optional<std::string>>::is_valid(m_values["DataSetName"])
+          && parse_json<std::optional<std::string>>::is_valid(m_values["DataSetName"])
         ;
 
     }
@@ -99,14 +99,14 @@ namespace Sdx
 
 
 
-    Sdx::optional<std::string> SetGalileoSisaE1E5aIndexForSV::dataSetName() const
+    std::optional<std::string> SetGalileoSisaE1E5aIndexForSV::dataSetName() const
     {
-      return parse_json<Sdx::optional<std::string>>::parse(m_values["DataSetName"]);
+      return parse_json<std::optional<std::string>>::parse(m_values["DataSetName"]);
     }
 
-    void SetGalileoSisaE1E5aIndexForSV::setDataSetName(const Sdx::optional<std::string>& dataSetName)
+    void SetGalileoSisaE1E5aIndexForSV::setDataSetName(const std::optional<std::string>& dataSetName)
     {
-      m_values.AddMember("DataSetName", parse_json<Sdx::optional<std::string>>::format(dataSetName, m_values.GetAllocator()), m_values.GetAllocator());
+      m_values.AddMember("DataSetName", parse_json<std::optional<std::string>>::format(dataSetName, m_values.GetAllocator()), m_values.GetAllocator());
     }
 
 

@@ -1,10 +1,16 @@
 #!/usr/bin/env python3
 """
     Messages supported :
+        NavIC L1
         NavIC L5
+        NavIC S
 """
 
 import utility
+
+"""
+    Structure for NavIC L5
+"""
 
 NavICNAVDictSubframe1 = [
     {'name':"TLM",         'range':[0,7]},
@@ -289,6 +295,426 @@ NavICNAVDictMessage26= [
     {'name':"TAIL",        'range':[286,291]}]
 
 """
+    Structure for NavIC L1
+"""
+
+NavICL1DictPage0 = [
+    {'name':"TOI",            'range':[0,8]},
+
+    
+    {'name':"WN",             'range':[9,21]},
+    {'name':"ITOW",           'range':[22,29]},
+    {'name':"alert",          'range':[30,30]},
+   
+    {'name':"l1SpsHealth",    'range':[31,31]},
+    {'name':"iodec",          'range':[32,35],    'signed':True},
+    {'name':"urai",           'range':[36,40],    'signed':True},
+    {'name':"toec",           'range':[41,51],    'signed':True, 'factor':300},
+    {'name':"deltaA",         'range':[52,77],    'signed':True, 'factor':2**-9},
+    {'name':"aDot",           'range':[78,103],   'signed':True, 'factor':2**-21},
+    {'name':"deltaN0",        'range':[104,122],  'signed':True, 'factor':2**-44},
+    {'name':"deltaNDot",      'range':[123,145],  'signed':True, 'factor':2**-57},
+    {'name':"m0",             'range':[146,178],  'signed':True, 'factor':2**-32},
+    {'name':"e",              'range':[179,211],                 'factor':2**-34},
+    {'name':"omega",          'range':[212,244],  'signed':True, 'factor':2**-32},
+    {'name':"bigOmega0",      'range':[245,277],  'signed':True, 'factor':2**-32},
+    {'name':"bigOmegaDot",    'range':[278,302],  'signed':True, 'factor':2**-44},
+    {'name':"i0",             'range':[303,335],  'signed':True, 'factor':2**-32},
+    {'name':"iDot",           'range':[336,350],  'signed':True, 'factor':2**-44},
+    {'name':"cis",            'range':[351,366],  'signed':True, 'factor':2**-30},
+    {'name':"cic",            'range':[367,382],  'signed':True, 'factor':2**-30},
+    {'name':"crs",            'range':[383,406],  'signed':True, 'factor':2**-8},
+    {'name':"Crc",            'range':[407,430],  'signed':True, 'factor':2**-8},
+    {'name':"cus",            'range':[431,451],  'signed':True, 'factor':2**-30},
+    {'name':"cuc",            'range':[452,472],  'signed':True, 'factor':2**-30},
+    {'name':"af0",            'range':[473,501],  'signed':True, 'factor':2**-35},
+    {'name':"af1",            'range':[502,523],  'signed':True, 'factor':2**-50},
+    {'name':"af2",            'range':[524,538],  'signed':True, 'factor':2**-66},
+    {'name':"tgd",            'range':[539,550],  'signed':True, 'factor':2**-35},
+    {'name':"iscL1POrS",      'range':[551,562],  'signed':True, 'factor':2**-35},
+    {'name':"iscL1D",         'range':[563,574],  'signed':True, 'factor':2**-35},
+    {'name':"rsf",            'range':[575,575]},
+    {'name':"spare",          'range':[576,578]},
+       
+    {'name':"prnID",          'range':[580,584]},
+    {'name':"crc",            'range':[585,608]},
+    
+
+    {'name':"msgID",          'range':[609, 614]},
+    {'name':"invalidDataFlag",'range':[615, 615]},
+
+    {'name':"data",           'range':[616,858]},
+
+    {'name':"crc",            'range':[859,882]}
+    ]
+
+NavICL1DictPage5 = [
+    {'name':"TOI",            'range':[0,8]},
+
+    
+    {'name':"WN",             'range':[9,21]},
+    {'name':"ITOW",           'range':[22,29]},
+    {'name':"alert",          'range':[30,30]},
+   
+    {'name':"l1SpsHealth",    'range':[31,31]},
+    {'name':"iodec",          'range':[32,35],    'signed':True},
+    {'name':"urai",           'range':[36,40],    'signed':True},
+    {'name':"toec",           'range':[41,51],    'signed':True, 'factor':300},
+    {'name':"deltaA",         'range':[52,77],    'signed':True, 'factor':2**-9},
+    {'name':"aDot",           'range':[78,103],   'signed':True, 'factor':2**-21},
+    {'name':"deltaN0",        'range':[104,122],  'signed':True, 'factor':2**-44},
+    {'name':"deltaNDot",      'range':[123,145],  'signed':True, 'factor':2**-57},
+    {'name':"m0",             'range':[146,178],  'signed':True, 'factor':2**-32},
+    {'name':"e",              'range':[179,211],                 'factor':2**-34},
+    {'name':"omega",          'range':[212,244],  'signed':True, 'factor':2**-32},
+    {'name':"bigOmega0",      'range':[245,277],  'signed':True, 'factor':2**-32},
+    {'name':"bigOmegaDot",    'range':[278,302],  'signed':True, 'factor':2**-44},
+    {'name':"i0",             'range':[303,335],  'signed':True, 'factor':2**-32},
+    {'name':"iDot",           'range':[336,350],  'signed':True, 'factor':2**-44},
+    {'name':"cis",            'range':[351,366],  'signed':True, 'factor':2**-30},
+    {'name':"cic",            'range':[367,382],  'signed':True, 'factor':2**-30},
+    {'name':"crs",            'range':[383,406],  'signed':True, 'factor':2**-8},
+    {'name':"Crc",            'range':[407,430],  'signed':True, 'factor':2**-8},
+    {'name':"cus",            'range':[431,451],  'signed':True, 'factor':2**-30},
+    {'name':"cuc",            'range':[452,472],  'signed':True, 'factor':2**-30},
+    {'name':"af0",            'range':[473,501],  'signed':True, 'factor':2**-35},
+    {'name':"af1",            'range':[502,523],  'signed':True, 'factor':2**-50},
+    {'name':"af2",            'range':[524,538],  'signed':True, 'factor':2**-66},
+    {'name':"tgd",            'range':[539,550],  'signed':True, 'factor':2**-35},
+    {'name':"iscL1POrS",      'range':[551,562],  'signed':True, 'factor':2**-35},
+    {'name':"iscL1D",         'range':[563,574],  'signed':True, 'factor':2**-35},
+    {'name':"rsf",            'range':[575,575]},
+    {'name':"spare",          'range':[576,578]},
+       
+    {'name':"prnID",          'range':[580,584]},
+    {'name':"crc",            'range':[585,608]},
+
+
+    {'name':"msgID",          'range':[609, 614]},
+    {'name':"invalidDataFlag",'range':[615, 615]},
+
+    {'name':"regionsMasked",  'range':[616,625]},
+    {'name':"regionID",       'range':[626,629]},
+    {'name':"givei1",         'range':[630,633]},
+    {'name':"givd1",          'range':[634,642],   'factor':0.125},
+    {'name':"givei2",         'range':[643,646]},
+    {'name':"givd2",          'range':[647,655],   'factor':0.125},
+    {'name':"givei3",         'range':[656,659]},
+    {'name':"givd3",          'range':[660,668],   'factor':0.125},
+    {'name':"givei4",         'range':[669,672]},
+    {'name':"givd4",          'range':[673,681],   'factor':0.125},
+    {'name':"givei5",         'range':[682,685]},
+    {'name':"givd5",          'range':[686,694],   'factor':0.125},
+    {'name':"givei6",         'range':[695,698]},
+    {'name':"givd6",          'range':[699,707],   'factor':0.125},
+    {'name':"givei7",         'range':[708,711]},
+    {'name':"givd7",          'range':[712,720], 'factor':0.125},
+    {'name':"givei8",         'range':[721,724]},
+    {'name':"givd8",          'range':[725,733], 'factor':0.125},
+    {'name':"givei9",         'range':[734,737]},
+    {'name':"givd9",          'range':[738,746], 'factor':0.125},
+    {'name':"givei10",        'range':[747,750]},
+    {'name':"givd10",         'range':[751,759], 'factor':0.125},
+    {'name':"givei11",        'range':[760,763]},
+    {'name':"givd11",         'range':[764,772], 'factor':0.125},
+    {'name':"givei12",        'range':[773,776]},
+    {'name':"givd12",         'range':[777,785], 'factor':0.125},
+    {'name':"givei13",        'range':[786,789]},
+    {'name':"givd13",         'range':[790,798], 'factor':0.125},
+    {'name':"givei14",        'range':[799,802]},
+    {'name':"givd14",         'range':[803,811], 'factor':0.125},
+    {'name':"givei15",        'range':[812,815]},
+    {'name':"givd15",         'range':[816,824], 'factor':0.125},
+    {'name':"iodi",           'range':[825,827]},
+    {'name':"spare",          'range':[828,858]},
+
+    {'name':"crc",            'range':[859,882]}
+]
+
+NavICL1DictPage6 = [
+    {'name':"TOI",            'range':[0,8]},
+
+    
+    {'name':"WN",             'range':[9,21]},
+    {'name':"ITOW",           'range':[22,29]},
+    {'name':"alert",          'range':[30,30]},
+   
+    {'name':"l1SpsHealth",    'range':[31,31]},
+    {'name':"iodec",          'range':[32,35],    'signed':True},
+    {'name':"urai",           'range':[36,40],    'signed':True},
+    {'name':"toec",           'range':[41,51],    'signed':True, 'factor':300},
+    {'name':"deltaA",         'range':[52,77],    'signed':True, 'factor':2**-9},
+    {'name':"aDot",           'range':[78,103],   'signed':True, 'factor':2**-21},
+    {'name':"deltaN0",        'range':[104,122],  'signed':True, 'factor':2**-44},
+    {'name':"deltaNDot",      'range':[123,145],  'signed':True, 'factor':2**-57},
+    {'name':"m0",             'range':[146,178],  'signed':True, 'factor':2**-32},
+    {'name':"e",              'range':[179,211],                 'factor':2**-34},
+    {'name':"omega",          'range':[212,244],  'signed':True, 'factor':2**-32},
+    {'name':"bigOmega0",      'range':[245,277],  'signed':True, 'factor':2**-32},
+    {'name':"bigOmegaDot",    'range':[278,302],  'signed':True, 'factor':2**-44},
+    {'name':"i0",             'range':[303,335],  'signed':True, 'factor':2**-32},
+    {'name':"iDot",           'range':[336,350],  'signed':True, 'factor':2**-44},
+    {'name':"cis",            'range':[351,366],  'signed':True, 'factor':2**-30},
+    {'name':"cic",            'range':[367,382],  'signed':True, 'factor':2**-30},
+    {'name':"crs",            'range':[383,406],  'signed':True, 'factor':2**-8},
+    {'name':"Crc",            'range':[407,430],  'signed':True, 'factor':2**-8},
+    {'name':"cus",            'range':[431,451],  'signed':True, 'factor':2**-30},
+    {'name':"cuc",            'range':[452,472],  'signed':True, 'factor':2**-30},
+    {'name':"af0",            'range':[473,501],  'signed':True, 'factor':2**-35},
+    {'name':"af1",            'range':[502,523],  'signed':True, 'factor':2**-50},
+    {'name':"af2",            'range':[524,538],  'signed':True, 'factor':2**-66},
+    {'name':"tgd",            'range':[539,550],  'signed':True, 'factor':2**-35},
+    {'name':"iscL1POrS",      'range':[551,562],  'signed':True, 'factor':2**-35},
+    {'name':"iscL1D",         'range':[563,574],  'signed':True, 'factor':2**-35},
+    {'name':"rsf",            'range':[575,575]},
+    {'name':"spare",          'range':[576,578]},
+       
+    {'name':"prnID",          'range':[580,584]},
+    {'name':"crc",            'range':[585,608]},
+
+
+    {'name':"msgID",          'range':[609, 614]},
+    {'name':"invalidDataFlag",'range':[615, 615]},
+
+    {'name':"wna",            'range':[616, 628]},
+    {'name':"e",              'range':[629, 648],                'factor':2**-21},
+    {'name':"toa",            'range':[649, 664],                'factor':24},
+    {'name':"i0",             'range':[665, 688], 'signed':True, 'factor':2**-23},
+    {'name':"bigOmegaDot",    'range':[689, 707], 'signed':True, 'factor':2**-38},
+    {'name':"sqrtA",          'range':[708, 731],                'factor':2**-11},
+    {'name':"bigOmega0",      'range':[732, 755], 'signed':True, 'factor':2**-23},
+    {'name':"omega",          'range':[756, 779], 'signed':True, 'factor':2**-23},
+    {'name':"m0",             'range':[780, 803], 'signed':True, 'factor':2**-23},
+    {'name':"af0",            'range':[804, 817], 'signed':True, 'factor':2**-20},
+    {'name':"af1",            'range':[818, 828], 'signed':True, 'factor':2**-38},
+    {'name':"prn",            'range':[829, 834]},
+    {'name':"spare",          'range':[835, 858]},
+
+    {'name':"crc",            'range':[859, 882]}
+]
+
+NavICL1DictPage8 = [
+    {'name':"TOI",            'range':[0,8]},
+
+    
+    {'name':"WN",             'range':[9,21]},
+    {'name':"ITOW",           'range':[22,29]},
+    {'name':"alert",          'range':[30,30]},
+   
+    {'name':"l1SpsHealth",    'range':[31,31]},
+    {'name':"iodec",          'range':[32,35],   'signed':True},
+    {'name':"urai",           'range':[36,40],   'signed':True},
+    {'name':"toec",           'range':[41,51],   'signed':True, 'factor':300},
+    {'name':"deltaA",         'range':[52,77],   'signed':True, 'factor':2**-9},
+    {'name':"aDot",           'range':[78,103],  'signed':True, 'factor':2**-21},
+    {'name':"deltaN0",        'range':[104,122], 'signed':True, 'factor':2**-44},
+    {'name':"deltaNDot",      'range':[123,145], 'signed':True, 'factor':2**-57},
+    {'name':"m0",             'range':[146,178], 'signed':True, 'factor':2**-32},
+    {'name':"e",              'range':[179,211],                'factor':2**-34},
+    {'name':"omega",          'range':[212,244], 'signed':True, 'factor':2**-32},
+    {'name':"bigOmega0",      'range':[245,277], 'signed':True, 'factor':2**-32},
+    {'name':"bigOmegaDot",    'range':[278,302], 'signed':True, 'factor':2**-44},
+    {'name':"i0",             'range':[303,335], 'signed':True, 'factor':2**-32},
+    {'name':"iDot",           'range':[336,350], 'signed':True, 'factor':2**-44},
+    {'name':"cis",            'range':[351,366], 'signed':True, 'factor':2**-30},
+    {'name':"cic",            'range':[367,382], 'signed':True, 'factor':2**-30},
+    {'name':"crs",            'range':[383,406], 'signed':True, 'factor':2**-8},
+    {'name':"Crc",            'range':[407,430], 'signed':True, 'factor':2**-8},
+    {'name':"cus",            'range':[431,451], 'signed':True, 'factor':2**-30},
+    {'name':"cuc",            'range':[452,472], 'signed':True, 'factor':2**-30},
+    {'name':"af0",            'range':[473,501], 'signed':True, 'factor':2**-35},
+    {'name':"af1",            'range':[502,523], 'signed':True, 'factor':2**-50},
+    {'name':"af2",            'range':[524,538], 'signed':True, 'factor':2**-66},
+    {'name':"tgd",            'range':[539,550], 'signed':True, 'factor':2**-35},
+    {'name':"iscL1POrS",      'range':[551,562], 'signed':True, 'factor':2**-35},
+    {'name':"iscL1D",         'range':[563,574], 'signed':True, 'factor':2**-35},
+    {'name':"rsf",            'range':[575,575]},
+    {'name':"spare",          'range':[576,578]},
+       
+    {'name':"prnID",          'range':[580,584]},
+    {'name':"crc",            'range':[585,608]},
+
+
+    {'name':"msgID",          'range':[609,614]},
+    {'name':"invalidDataFlag",'range':[615,615]},
+
+    {'name':"modipMax1",      'range':[616,621], 'signed':True, 'factor':5},
+    {'name':"modipMin1",      'range':[622,627], 'signed':True, 'factor':5},
+    {'name':"mLonMax1",       'range':[628,634], 'signed':True, 'factor':5},
+    {'name':"mLonMin1",       'range':[635,641], 'signed':True, 'factor':5},
+    {'name':"a0_1",           'range':[642,652],                'factor':2**-2},
+    {'name':"a1_1",           'range':[653,663], 'signed':True, 'factor':2**-8},
+    {'name':"a2_1",           'range':[664,677], 'signed':True, 'factor':2**-15},
+    {'name':"idf1",           'range':[678,678]},
+    {'name':"modipMax2",      'range':[679,684], 'signed':True, 'factor':5},
+    {'name':"modipMin2",      'range':[685,690], 'signed':True, 'factor':5},
+    {'name':"mLonMax2",       'range':[691,697], 'signed':True, 'factor':5},
+    {'name':"mLonMin2",       'range':[698,704], 'signed':True, 'factor':5},
+    {'name':"a0_2",           'range':[705,715],                'factor':2**-2},
+    {'name':"a1_2",           'range':[716,726], 'signed':True, 'factor':2**-8},
+    {'name':"a2_2",           'range':[727,740], 'signed':True, 'factor':2**-15},
+    {'name':"idf2",           'range':[741,741]},
+    {'name':"modipMax3",      'range':[742,747], 'signed':True, 'factor':5},
+    {'name':"modipMin3",      'range':[748,753], 'signed':True, 'factor':5},
+    {'name':"mLonMax3",       'range':[754,760], 'signed':True, 'factor':5},
+    {'name':"mLonMin3",       'range':[761,767], 'signed':True, 'factor':5},
+    {'name':"a0_3",           'range':[768,778],                'factor':2**-2},
+    {'name':"a1_3",           'range':[779,789], 'signed':True, 'factor':2**-8},
+    {'name':"a2_3",           'range':[790,803], 'signed':True, 'factor':2**-15},
+    {'name':"idf3",           'range':[804,804]},
+    {'name':"iodn",           'range':[805,806]},
+    {'name':"spare",          'range':[807,858]},
+
+    {'name':"crc",            'range':[859,882]}
+]
+
+NavICL1DictPage10 = [
+    {'name':"TOI",            'range':[0,8]},
+
+    
+    {'name':"WN",             'range':[9,21]},
+    {'name':"ITOW",           'range':[22,29]},
+    {'name':"alert",          'range':[30,30]},
+   
+    {'name':"l1SpsHealth",    'range':[31,31]},
+    {'name':"iodec",          'range':[32,35],    'signed':True},
+    {'name':"urai",           'range':[36,40],    'signed':True},
+    {'name':"toec",           'range':[41,51],    'signed':True, 'factor':300},
+    {'name':"deltaA",         'range':[52,77],    'signed':True, 'factor':2**-9},
+    {'name':"aDot",           'range':[78,103],   'signed':True, 'factor':2**-21},
+    {'name':"deltaN0",        'range':[104,122],  'signed':True, 'factor':2**-44},
+    {'name':"deltaNDot",      'range':[123,145],  'signed':True, 'factor':2**-57},
+    {'name':"m0",             'range':[146,178],  'signed':True, 'factor':2**-32},
+    {'name':"e",              'range':[179,211],                 'factor':2**-34},
+    {'name':"omega",          'range':[212,244],  'signed':True, 'factor':2**-32},
+    {'name':"bigOmega0",      'range':[245,277],  'signed':True, 'factor':2**-32},
+    {'name':"bigOmegaDot",    'range':[278,302],  'signed':True, 'factor':2**-44},
+    {'name':"i0",             'range':[303,335],  'signed':True, 'factor':2**-32},
+    {'name':"iDot",           'range':[336,350],  'signed':True, 'factor':2**-44},
+    {'name':"cis",            'range':[351,366],  'signed':True, 'factor':2**-30},
+    {'name':"cic",            'range':[367,382],  'signed':True, 'factor':2**-30},
+    {'name':"crs",            'range':[383,406],  'signed':True, 'factor':2**-8},
+    {'name':"Crc",            'range':[407,430],  'signed':True, 'factor':2**-8},
+    {'name':"cus",            'range':[431,451],  'signed':True, 'factor':2**-30},
+    {'name':"cuc",            'range':[452,472],  'signed':True, 'factor':2**-30},
+    {'name':"af0",            'range':[473,501],  'signed':True, 'factor':2**-35},
+    {'name':"af1",            'range':[502,523],  'signed':True, 'factor':2**-50},
+    {'name':"af2",            'range':[524,538],  'signed':True, 'factor':2**-66},
+    {'name':"tgd",            'range':[539,550],  'signed':True, 'factor':2**-35},
+    {'name':"iscL1POrS",      'range':[551,562],  'signed':True, 'factor':2**-35},
+    {'name':"iscL1D",         'range':[563,574],  'signed':True, 'factor':2**-35},
+    {'name':"rsf",            'range':[575,575]},
+    {'name':"spare",          'range':[576,578]},
+       
+    {'name':"prnID",          'range':[580,584]},
+    {'name':"crc",            'range':[585,608]},
+
+
+    {"name":"msgID",           'range':[609,614]},
+    {"name":"invalidDataFlag", 'range':[615,615]},
+
+    {"name":"teop",            'range':[616,631],                'factor':2**-2},
+    {"name":"PM_X",            'range':[632,652], 'signed':True, 'factor':2**-8},
+    {"name":"PM_XDot",         'range':[653,667], 'signed':True, 'factor':2**-8},
+    {"name":"PM_Y",            'range':[668,688], 'signed':True, 'factor':2**-8},
+    {"name":"PM_YDot",         'range':[689,703], 'signed':True, 'factor':2**-8},
+    {"name":"deltaUT1",        'range':[704,734], 'signed':True, 'factor':2**-8},
+    {"name":"deltaUTDot1",     'range':[735,753], 'signed':True, 'factor':2**-8},
+    {"name":"alpha0",          'range':[754,761], 'signed':True, 'factor':2**-8},
+    {"name":"alpha1",          'range':[762,769], 'signed':True, 'factor':2**-8},
+    {"name":"alpha2",          'range':[770,779], 'signed':True, 'factor':2**-8},
+    {"name":"alpha3",          'range':[780,791], 'signed':True, 'factor':2**-8},
+    {"name":"beta0",           'range':[792,799], 'signed':True, 'factor':2**-8},
+    {"name":"beta1",           'range':[800,807], 'signed':True, 'factor':2**-8},
+    {"name":"beta2",           'range':[808,818], 'signed':True, 'factor':2**-8},
+    {"name":"beta3",           'range':[819,832], 'signed':True, 'factor':2**-8},
+    {"name":"lambdaKMax",      'range':[833,838], 'factor':2**-2},
+    {"name":"lambdaKMin",      'range':[839,844], 'factor':2**-2},
+    {"name":"phiKMax",         'range':[845,849], 'signed':True, 'factor':2**-8},
+    {"name":"phiKMin",         'range':[850,854], 'signed':True, 'factor':2**-8},
+    {"name":"iodk",            'range':[855,856]},
+    {"name":"spare",           'range':[857,858]},
+
+    {"name":"crc",             'range':[859,882]}
+]
+
+NavICL1DictPage17 = [
+    {'name':"TOI",            'range':[0,8]},
+
+    
+    {'name':"WN",             'range':[9,21]},
+    {'name':"ITOW",           'range':[22,29]},
+    {'name':"alert",          'range':[30,30]},
+   
+    {'name':"l1SpsHealth",    'range':[31,31]},
+    {'name':"iodec",          'range':[32,35],   'signed':True},
+    {'name':"urai",           'range':[36,40],   'signed':True},
+    {'name':"toec",           'range':[41,51],   'signed':True, 'factor':300},
+    {'name':"deltaA",         'range':[52,77],   'signed':True, 'factor':2**-9},
+    {'name':"aDot",           'range':[78,103],  'signed':True, 'factor':2**-21},
+    {'name':"deltaN0",        'range':[104,122], 'signed':True, 'factor':2**-44},
+    {'name':"deltaNDot",      'range':[123,145], 'signed':True, 'factor':2**-57},
+    {'name':"m0",             'range':[146,178], 'signed':True, 'factor':2**-32},
+    {'name':"e",              'range':[179,211],                'factor':2**-34},
+    {'name':"omega",          'range':[212,244], 'signed':True, 'factor':2**-32},
+    {'name':"bigOmega0",      'range':[245,277], 'signed':True, 'factor':2**-32},
+    {'name':"bigOmegaDot",    'range':[278,302], 'signed':True, 'factor':2**-44},
+    {'name':"i0",             'range':[303,335], 'signed':True, 'factor':2**-32},
+    {'name':"iDot",           'range':[336,350], 'signed':True, 'factor':2**-44},
+    {'name':"cis",            'range':[351,366], 'signed':True, 'factor':2**-30},
+    {'name':"cic",            'range':[367,382], 'signed':True, 'factor':2**-30},
+    {'name':"crs",            'range':[383,406], 'signed':True, 'factor':2**-8},
+    {'name':"Crc",            'range':[407,430], 'signed':True, 'factor':2**-8},
+    {'name':"cus",            'range':[431,451], 'signed':True, 'factor':2**-30},
+    {'name':"cuc",            'range':[452,472], 'signed':True, 'factor':2**-30},
+    {'name':"af0",            'range':[473,501], 'signed':True, 'factor':2**-35},
+    {'name':"af1",            'range':[502,523], 'signed':True, 'factor':2**-50},
+    {'name':"af2",            'range':[524,538], 'signed':True, 'factor':2**-66},
+    {'name':"tgd",            'range':[539,550], 'signed':True, 'factor':2**-35},
+    {'name':"iscL1POrS",      'range':[551,562], 'signed':True, 'factor':2**-35},
+    {'name':"iscL1D",         'range':[563,574], 'signed':True, 'factor':2**-35},
+    {'name':"rsf",            'range':[575,575]},
+    {'name':"spare",          'range':[576,578]},
+       
+    {'name':"prnID",          'range':[580,584]},
+    {'name':"crc",            'range':[585,608]},
+
+
+    {'name':"msgID",          'range':[609,614]},
+    {'name':"invalidDataFlag",'range':[615,615]},
+
+    {'name':"iodt",           'range':[616,618]},
+    {'name':"tug",            'range':[619,626],                'factor':2**-2},
+    {'name':"wnUg",           'range':[627,639]},
+    {'name':"deltaTls",       'range':[640,647], 'signed':True},
+    {'name':"wnLsf",          'range':[648,660]},
+    {'name':"dn",             'range':[661,664]},
+    {'name':"deltaTlsf",      'range':[665,672], 'signed':True},
+    {'name':"a0utc",          'range':[673,688], 'signed':True, 'factor':2**-2},
+    {'name':"a1utc",          'range':[689,701], 'signed':True, 'factor':2**-2},
+    {'name':"a2utc",          'range':[702,708], 'signed':True, 'factor':2**-2},
+    {'name':"validFlagUtc",   'range':[709,709]},
+    {'name':"a0npli",         'range':[710,725], 'signed':True, 'factor':2**-2},
+    {'name':"a1npli",         'range':[726,738], 'signed':True, 'factor':2**-2},
+    {'name':"a2npli",         'range':[739,745], 'signed':True, 'factor':2**-2},
+    {'name':"gnssID1",        'range':[746,748]},
+    {'name':"validFlagID1",   'range':[749,750]},
+    {'name':"a0gnssID1",      'range':[750,765], 'signed':True, 'factor':2**-2},
+    {"name":"a1gnssID1",      'range':[766,778], 'signed':True, 'factor':2**-2},
+    {"name":"gnssID2",        'range':[779,781]},
+    {"name":"validFlagID2",   'range':[782,782]},
+    {"name":"a0GnssID2",      'range':[783,798], 'signed':True, 'factor':2**-2},
+    {"name":"a1GnssID2",      'range':[799,811], 'signed':True, 'factor':2**-2},
+    {"name":"gnssID3",        'range':[812,814]},
+    {"name":"validFlagID3",   'range':[815,815]},
+    {"name":"a0GnssID3",      'range':[816,831], 'signed':True, 'factor':2**-2},
+    {"name":"a1GnssID3",      'range':[832,844], 'signed':True, 'factor':2**-2},
+    {"name":"spare",          'range':[845,858]},
+
+    {"name":"crc",            'range':[859,882]}
+]
+
+"""
     Main functions for decoding a NavIC downlink navigation message.
 """
 
@@ -322,5 +748,25 @@ def getDictNavICNAVNavigationMessage(message):
             dictToUse = NavICNAVDictMessage0
     else:
         return dictToUse
+
+    return utility.fillDict(binaryMessage, dictToUse)
+
+def getDictNavICL1NavigationMessage(message):
+    dictToUse = {}
+    binaryMessage = utility.convertToBinaryNavigationMessage(message, 896)
+    messageType = int(binaryMessage[609:615], 2)
+   
+    if messageType == 5:
+        dictToUse = NavICL1DictPage5
+    elif messageType == 6:
+        dictToUse = NavICL1DictPage6
+    elif messageType == 8:
+        dictToUse = NavICL1DictPage8
+    elif messageType == 10:
+        dictToUse = NavICL1DictPage10
+    elif messageType == 17:
+        dictToUse = NavICL1DictPage17
+    else:
+        dictToUse = NavICL1DictPage0
 
     return utility.fillDict(binaryMessage, dictToUse)

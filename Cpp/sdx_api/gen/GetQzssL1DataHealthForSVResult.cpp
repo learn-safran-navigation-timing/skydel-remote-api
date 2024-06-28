@@ -29,7 +29,7 @@ namespace Sdx
       : CommandResult(CmdName, TargetId)
     {}
 
-    GetQzssL1DataHealthForSVResult::GetQzssL1DataHealthForSVResult(int svId, int health, const Sdx::optional<std::string>& dataSetName)
+    GetQzssL1DataHealthForSVResult::GetQzssL1DataHealthForSVResult(int svId, int health, const std::optional<std::string>& dataSetName)
       : CommandResult(CmdName, TargetId)
     {
 
@@ -38,7 +38,7 @@ namespace Sdx
       setDataSetName(dataSetName);
     }
 
-    GetQzssL1DataHealthForSVResult::GetQzssL1DataHealthForSVResult(CommandBasePtr relatedCommand, int svId, int health, const Sdx::optional<std::string>& dataSetName)
+    GetQzssL1DataHealthForSVResult::GetQzssL1DataHealthForSVResult(CommandBasePtr relatedCommand, int svId, int health, const std::optional<std::string>& dataSetName)
       : CommandResult(CmdName, TargetId, relatedCommand)
     {
 
@@ -48,12 +48,12 @@ namespace Sdx
     }
 
 
-    GetQzssL1DataHealthForSVResultPtr GetQzssL1DataHealthForSVResult::create(int svId, int health, const Sdx::optional<std::string>& dataSetName)
+    GetQzssL1DataHealthForSVResultPtr GetQzssL1DataHealthForSVResult::create(int svId, int health, const std::optional<std::string>& dataSetName)
     {
       return std::make_shared<GetQzssL1DataHealthForSVResult>(svId, health, dataSetName);
     }
 
-    GetQzssL1DataHealthForSVResultPtr GetQzssL1DataHealthForSVResult::create(CommandBasePtr relatedCommand, int svId, int health, const Sdx::optional<std::string>& dataSetName)
+    GetQzssL1DataHealthForSVResultPtr GetQzssL1DataHealthForSVResult::create(CommandBasePtr relatedCommand, int svId, int health, const std::optional<std::string>& dataSetName)
     {
       return std::make_shared<GetQzssL1DataHealthForSVResult>(relatedCommand, svId, health, dataSetName);
     }
@@ -69,7 +69,7 @@ namespace Sdx
         return m_values.IsObject()
           && parse_json<int>::is_valid(m_values["SvId"])
           && parse_json<int>::is_valid(m_values["Health"])
-          && parse_json<Sdx::optional<std::string>>::is_valid(m_values["DataSetName"])
+          && parse_json<std::optional<std::string>>::is_valid(m_values["DataSetName"])
         ;
 
     }
@@ -107,14 +107,14 @@ namespace Sdx
 
 
 
-    Sdx::optional<std::string> GetQzssL1DataHealthForSVResult::dataSetName() const
+    std::optional<std::string> GetQzssL1DataHealthForSVResult::dataSetName() const
     {
-      return parse_json<Sdx::optional<std::string>>::parse(m_values["DataSetName"]);
+      return parse_json<std::optional<std::string>>::parse(m_values["DataSetName"]);
     }
 
-    void GetQzssL1DataHealthForSVResult::setDataSetName(const Sdx::optional<std::string>& dataSetName)
+    void GetQzssL1DataHealthForSVResult::setDataSetName(const std::optional<std::string>& dataSetName)
     {
-      m_values.AddMember("DataSetName", parse_json<Sdx::optional<std::string>>::format(dataSetName, m_values.GetAllocator()), m_values.GetAllocator());
+      m_values.AddMember("DataSetName", parse_json<std::optional<std::string>>::format(dataSetName, m_values.GetAllocator()), m_values.GetAllocator());
     }
 
 

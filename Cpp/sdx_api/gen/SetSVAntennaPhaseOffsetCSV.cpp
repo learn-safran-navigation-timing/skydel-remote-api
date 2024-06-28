@@ -33,7 +33,7 @@ namespace Sdx
       : CommandBase(CmdName, TargetId)
     {}
 
-    SetSVAntennaPhaseOffsetCSV::SetSVAntennaPhaseOffsetCSV(const std::string& filePath, const Sdx::AntennaPatternFileType& fileFormat, const Sdx::AntennaPatternType& type, const Sdx::GNSSBand& band, const std::string& system, const Sdx::optional<std::string>& name)
+    SetSVAntennaPhaseOffsetCSV::SetSVAntennaPhaseOffsetCSV(const std::string& filePath, const Sdx::AntennaPatternFileType& fileFormat, const Sdx::AntennaPatternType& type, const Sdx::GNSSBand& band, const std::string& system, const std::optional<std::string>& name)
       : CommandBase(CmdName, TargetId)
     {
 
@@ -45,7 +45,7 @@ namespace Sdx
       setName(name);
     }
 
-    SetSVAntennaPhaseOffsetCSVPtr SetSVAntennaPhaseOffsetCSV::create(const std::string& filePath, const Sdx::AntennaPatternFileType& fileFormat, const Sdx::AntennaPatternType& type, const Sdx::GNSSBand& band, const std::string& system, const Sdx::optional<std::string>& name)
+    SetSVAntennaPhaseOffsetCSVPtr SetSVAntennaPhaseOffsetCSV::create(const std::string& filePath, const Sdx::AntennaPatternFileType& fileFormat, const Sdx::AntennaPatternType& type, const Sdx::GNSSBand& band, const std::string& system, const std::optional<std::string>& name)
     {
       return std::make_shared<SetSVAntennaPhaseOffsetCSV>(filePath, fileFormat, type, band, system, name);
     }
@@ -64,7 +64,7 @@ namespace Sdx
           && parse_json<Sdx::AntennaPatternType>::is_valid(m_values["Type"])
           && parse_json<Sdx::GNSSBand>::is_valid(m_values["Band"])
           && parse_json<std::string>::is_valid(m_values["System"])
-          && parse_json<Sdx::optional<std::string>>::is_valid(m_values["Name"])
+          && parse_json<std::optional<std::string>>::is_valid(m_values["Name"])
         ;
 
     }
@@ -144,14 +144,14 @@ namespace Sdx
 
 
 
-    Sdx::optional<std::string> SetSVAntennaPhaseOffsetCSV::name() const
+    std::optional<std::string> SetSVAntennaPhaseOffsetCSV::name() const
     {
-      return parse_json<Sdx::optional<std::string>>::parse(m_values["Name"]);
+      return parse_json<std::optional<std::string>>::parse(m_values["Name"]);
     }
 
-    void SetSVAntennaPhaseOffsetCSV::setName(const Sdx::optional<std::string>& name)
+    void SetSVAntennaPhaseOffsetCSV::setName(const std::optional<std::string>& name)
     {
-      m_values.AddMember("Name", parse_json<Sdx::optional<std::string>>::format(name, m_values.GetAllocator()), m_values.GetAllocator());
+      m_values.AddMember("Name", parse_json<std::optional<std::string>>::format(name, m_values.GetAllocator()), m_values.GetAllocator());
     }
 
 

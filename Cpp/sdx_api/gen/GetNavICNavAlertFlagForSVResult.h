@@ -3,7 +3,7 @@
 #include <memory>
 #include "command_result.h"
 #include "command_factory.h"
-#include "sdx_optional.h"
+#include <optional>
 #include <string>
 
 namespace Sdx
@@ -35,13 +35,13 @@ namespace Sdx
 
       GetNavICNavAlertFlagForSVResult();
 
-      GetNavICNavAlertFlagForSVResult(int svId, bool alert, const Sdx::optional<std::string>& dataSetName = {});
+      GetNavICNavAlertFlagForSVResult(int svId, bool alert, const std::optional<std::string>& dataSetName = {});
 
-      GetNavICNavAlertFlagForSVResult(CommandBasePtr relatedCommand, int svId, bool alert, const Sdx::optional<std::string>& dataSetName = {});
+      GetNavICNavAlertFlagForSVResult(CommandBasePtr relatedCommand, int svId, bool alert, const std::optional<std::string>& dataSetName = {});
 
-      static GetNavICNavAlertFlagForSVResultPtr create(int svId, bool alert, const Sdx::optional<std::string>& dataSetName = {});
+      static GetNavICNavAlertFlagForSVResultPtr create(int svId, bool alert, const std::optional<std::string>& dataSetName = {});
 
-      static GetNavICNavAlertFlagForSVResultPtr create(CommandBasePtr relatedCommand, int svId, bool alert, const Sdx::optional<std::string>& dataSetName = {});
+      static GetNavICNavAlertFlagForSVResultPtr create(CommandBasePtr relatedCommand, int svId, bool alert, const std::optional<std::string>& dataSetName = {});
       static GetNavICNavAlertFlagForSVResultPtr dynamicCast(CommandBasePtr ptr);
       virtual bool isValid() const override;
       virtual std::string documentation() const override;
@@ -59,8 +59,8 @@ namespace Sdx
 
 
       // **** dataSetName ****
-      Sdx::optional<std::string> dataSetName() const;
-      void setDataSetName(const Sdx::optional<std::string>& dataSetName);
+      std::optional<std::string> dataSetName() const;
+      void setDataSetName(const std::optional<std::string>& dataSetName);
     };
     REGISTER_COMMAND_TO_FACTORY_DECL(GetNavICNavAlertFlagForSVResult);
   }

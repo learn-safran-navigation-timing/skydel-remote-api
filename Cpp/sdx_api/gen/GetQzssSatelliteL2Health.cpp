@@ -31,7 +31,7 @@ namespace Sdx
       : CommandBase(CmdName, TargetId)
     {}
 
-    GetQzssSatelliteL2Health::GetQzssSatelliteL2Health(int svId, const Sdx::optional<std::string>& dataSetName)
+    GetQzssSatelliteL2Health::GetQzssSatelliteL2Health(int svId, const std::optional<std::string>& dataSetName)
       : CommandBase(CmdName, TargetId)
     {
 
@@ -39,7 +39,7 @@ namespace Sdx
       setDataSetName(dataSetName);
     }
 
-    GetQzssSatelliteL2HealthPtr GetQzssSatelliteL2Health::create(int svId, const Sdx::optional<std::string>& dataSetName)
+    GetQzssSatelliteL2HealthPtr GetQzssSatelliteL2Health::create(int svId, const std::optional<std::string>& dataSetName)
     {
       return std::make_shared<GetQzssSatelliteL2Health>(svId, dataSetName);
     }
@@ -54,7 +54,7 @@ namespace Sdx
       
         return m_values.IsObject()
           && parse_json<int>::is_valid(m_values["SvId"])
-          && parse_json<Sdx::optional<std::string>>::is_valid(m_values["DataSetName"])
+          && parse_json<std::optional<std::string>>::is_valid(m_values["DataSetName"])
         ;
 
     }
@@ -86,14 +86,14 @@ namespace Sdx
 
 
 
-    Sdx::optional<std::string> GetQzssSatelliteL2Health::dataSetName() const
+    std::optional<std::string> GetQzssSatelliteL2Health::dataSetName() const
     {
-      return parse_json<Sdx::optional<std::string>>::parse(m_values["DataSetName"]);
+      return parse_json<std::optional<std::string>>::parse(m_values["DataSetName"]);
     }
 
-    void GetQzssSatelliteL2Health::setDataSetName(const Sdx::optional<std::string>& dataSetName)
+    void GetQzssSatelliteL2Health::setDataSetName(const std::optional<std::string>& dataSetName)
     {
-      m_values.AddMember("DataSetName", parse_json<Sdx::optional<std::string>>::format(dataSetName, m_values.GetAllocator()), m_values.GetAllocator());
+      m_values.AddMember("DataSetName", parse_json<std::optional<std::string>>::format(dataSetName, m_values.GetAllocator()), m_values.GetAllocator());
     }
 
 

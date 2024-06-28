@@ -56,7 +56,7 @@ namespace Sdx
       return names; 
     }
 
-    Sdx::optional<std::string> GetSlaveStatus::deprecated() const { return Sdx::optional<std::string>{Deprecated}; }
+    std::optional<std::string> GetSlaveStatus::deprecated() const { return std::optional<std::string>{Deprecated}; }
 
 
     int GetSlaveStatus::executePermission() const

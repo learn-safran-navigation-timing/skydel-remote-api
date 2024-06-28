@@ -76,7 +76,7 @@ std::string CommandBase::documentation() const
   return "Documentation not available.";
 }
 
-Sdx::optional<std::string> CommandBase::deprecated() const
+std::optional<std::string> CommandBase::deprecated() const
 {
   return {};
 }

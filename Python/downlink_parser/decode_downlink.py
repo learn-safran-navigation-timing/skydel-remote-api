@@ -40,8 +40,12 @@ def signal_nav_msg_family(signal, is_geo = False):
         return 'QZSS_CNAV'
     if signal in ['QZSSL1C']:
         return 'QZSS_CNAV2'
-    if signal in ['NAVICL5']:
+    if signal in ['QZSSL6']:
+        return 'QZSS_CLAS'
+    if signal in ['NAVICL5', 'NAVICS']:
         return 'NAVIC_NAV'
+    if signal in ['NAVICL1']:
+        return 'NAVIC_L1'
     if signal in ['SBASL1', 'SBASL5']:
         return 'SBAS_NAV'
 
@@ -94,7 +98,9 @@ def get_decoders():
                         'SBAS_NAV': decode_sbas.getDictSBASL1NavigationMessage,
                         'QZSS_LNAV': decode_qzss.getDictQZSSL1CADecodedNavigationMessage,
                         'QZSS_SLAS': decode_qzss.getDictQZSSL1SDecodedNavigationMessage,
-                        'NAVIC_NAV': decode_navic.getDictNavICNAVNavigationMessage}
+                        'QZSS_CLAS': decode_qzss.getDictQZSSL6DecodedNavigationMessage,
+                        'NAVIC_NAV': decode_navic.getDictNavICNAVNavigationMessage,
+                        'NAVIC_L1': decode_navic.getDictNavICL1NavigationMessage}
 
     encoded_decoders = {'GPS_LNAV': decode_gps.getDictGPSL1CAEncodedNavigationMessage,
                         'GPS_CNAV2': decode_gps.getDictGPSL1CEncodedNavigationMessage,

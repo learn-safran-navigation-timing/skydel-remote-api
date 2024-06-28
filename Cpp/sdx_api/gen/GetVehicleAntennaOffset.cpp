@@ -24,14 +24,14 @@ namespace Sdx
     REGISTER_COMMAND_TO_FACTORY_IMPL(GetVehicleAntennaOffset);
 
 
-    GetVehicleAntennaOffset::GetVehicleAntennaOffset(const Sdx::optional<std::string>& name)
+    GetVehicleAntennaOffset::GetVehicleAntennaOffset(const std::optional<std::string>& name)
       : CommandBase(CmdName, TargetId)
     {
 
       setName(name);
     }
 
-    GetVehicleAntennaOffsetPtr GetVehicleAntennaOffset::create(const Sdx::optional<std::string>& name)
+    GetVehicleAntennaOffsetPtr GetVehicleAntennaOffset::create(const std::optional<std::string>& name)
     {
       return std::make_shared<GetVehicleAntennaOffset>(name);
     }
@@ -45,7 +45,7 @@ namespace Sdx
     {
       
         return m_values.IsObject()
-          && parse_json<Sdx::optional<std::string>>::is_valid(m_values["Name"])
+          && parse_json<std::optional<std::string>>::is_valid(m_values["Name"])
         ;
 
     }
@@ -65,14 +65,14 @@ namespace Sdx
     }
 
 
-    Sdx::optional<std::string> GetVehicleAntennaOffset::name() const
+    std::optional<std::string> GetVehicleAntennaOffset::name() const
     {
-      return parse_json<Sdx::optional<std::string>>::parse(m_values["Name"]);
+      return parse_json<std::optional<std::string>>::parse(m_values["Name"]);
     }
 
-    void GetVehicleAntennaOffset::setName(const Sdx::optional<std::string>& name)
+    void GetVehicleAntennaOffset::setName(const std::optional<std::string>& name)
     {
-      m_values.AddMember("Name", parse_json<Sdx::optional<std::string>>::format(name, m_values.GetAllocator()), m_values.GetAllocator());
+      m_values.AddMember("Name", parse_json<std::optional<std::string>>::format(name, m_values.GetAllocator()), m_values.GetAllocator());
     }
 
 

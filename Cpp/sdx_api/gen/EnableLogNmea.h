@@ -3,7 +3,7 @@
 #include <memory>
 #include "command_base.h"
 
-#include "sdx_optional.h"
+#include <optional>
 
 namespace Sdx
 {
@@ -33,9 +33,9 @@ namespace Sdx
 
       EnableLogNmea();
 
-      EnableLogNmea(bool enabled, const Sdx::optional<bool>& serialPortEnabled = {});
+      EnableLogNmea(bool enabled, const std::optional<bool>& serialPortEnabled = {});
 
-      static EnableLogNmeaPtr create(bool enabled, const Sdx::optional<bool>& serialPortEnabled = {});
+      static EnableLogNmeaPtr create(bool enabled, const std::optional<bool>& serialPortEnabled = {});
       static EnableLogNmeaPtr dynamicCast(CommandBasePtr ptr);
       virtual bool isValid() const override;
       virtual std::string documentation() const override;
@@ -50,8 +50,8 @@ namespace Sdx
 
 
       // **** serialPortEnabled ****
-      Sdx::optional<bool> serialPortEnabled() const;
-      void setSerialPortEnabled(const Sdx::optional<bool>& serialPortEnabled);
+      std::optional<bool> serialPortEnabled() const;
+      void setSerialPortEnabled(const std::optional<bool>& serialPortEnabled);
     };
     
   }

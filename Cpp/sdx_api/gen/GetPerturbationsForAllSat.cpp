@@ -30,7 +30,7 @@ namespace Sdx
       : CommandBase(CmdName, TargetId)
     {}
 
-    GetPerturbationsForAllSat::GetPerturbationsForAllSat(const std::string& system, const Sdx::optional<std::string>& dataSetName)
+    GetPerturbationsForAllSat::GetPerturbationsForAllSat(const std::string& system, const std::optional<std::string>& dataSetName)
       : CommandBase(CmdName, TargetId)
     {
 
@@ -38,7 +38,7 @@ namespace Sdx
       setDataSetName(dataSetName);
     }
 
-    GetPerturbationsForAllSatPtr GetPerturbationsForAllSat::create(const std::string& system, const Sdx::optional<std::string>& dataSetName)
+    GetPerturbationsForAllSatPtr GetPerturbationsForAllSat::create(const std::string& system, const std::optional<std::string>& dataSetName)
     {
       return std::make_shared<GetPerturbationsForAllSat>(system, dataSetName);
     }
@@ -53,7 +53,7 @@ namespace Sdx
       
         return m_values.IsObject()
           && parse_json<std::string>::is_valid(m_values["System"])
-          && parse_json<Sdx::optional<std::string>>::is_valid(m_values["DataSetName"])
+          && parse_json<std::optional<std::string>>::is_valid(m_values["DataSetName"])
         ;
 
     }
@@ -85,14 +85,14 @@ namespace Sdx
 
 
 
-    Sdx::optional<std::string> GetPerturbationsForAllSat::dataSetName() const
+    std::optional<std::string> GetPerturbationsForAllSat::dataSetName() const
     {
-      return parse_json<Sdx::optional<std::string>>::parse(m_values["DataSetName"]);
+      return parse_json<std::optional<std::string>>::parse(m_values["DataSetName"]);
     }
 
-    void GetPerturbationsForAllSat::setDataSetName(const Sdx::optional<std::string>& dataSetName)
+    void GetPerturbationsForAllSat::setDataSetName(const std::optional<std::string>& dataSetName)
     {
-      m_values.AddMember("DataSetName", parse_json<Sdx::optional<std::string>>::format(dataSetName, m_values.GetAllocator()), m_values.GetAllocator());
+      m_values.AddMember("DataSetName", parse_json<std::optional<std::string>>::format(dataSetName, m_values.GetAllocator()), m_values.GetAllocator());
     }
 
 

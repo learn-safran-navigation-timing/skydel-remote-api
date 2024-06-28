@@ -4,7 +4,7 @@
 #include "command_result.h"
 #include "command_factory.h"
 #include "date_time.h"
-#include "sdx_optional.h"
+#include <optional>
 #include <string>
 
 namespace Sdx
@@ -38,13 +38,13 @@ namespace Sdx
 
       GetMerkleTreeParametersResult();
 
-      GetMerkleTreeParametersResult(const std::string& id, const std::string& keyType, const std::string& hashFunction, const Sdx::DateTime& beginApplicability, const Sdx::optional<Sdx::DateTime>& endApplicability = {});
+      GetMerkleTreeParametersResult(const std::string& id, const std::string& keyType, const std::string& hashFunction, const Sdx::DateTime& beginApplicability, const std::optional<Sdx::DateTime>& endApplicability = {});
 
-      GetMerkleTreeParametersResult(CommandBasePtr relatedCommand, const std::string& id, const std::string& keyType, const std::string& hashFunction, const Sdx::DateTime& beginApplicability, const Sdx::optional<Sdx::DateTime>& endApplicability = {});
+      GetMerkleTreeParametersResult(CommandBasePtr relatedCommand, const std::string& id, const std::string& keyType, const std::string& hashFunction, const Sdx::DateTime& beginApplicability, const std::optional<Sdx::DateTime>& endApplicability = {});
 
-      static GetMerkleTreeParametersResultPtr create(const std::string& id, const std::string& keyType, const std::string& hashFunction, const Sdx::DateTime& beginApplicability, const Sdx::optional<Sdx::DateTime>& endApplicability = {});
+      static GetMerkleTreeParametersResultPtr create(const std::string& id, const std::string& keyType, const std::string& hashFunction, const Sdx::DateTime& beginApplicability, const std::optional<Sdx::DateTime>& endApplicability = {});
 
-      static GetMerkleTreeParametersResultPtr create(CommandBasePtr relatedCommand, const std::string& id, const std::string& keyType, const std::string& hashFunction, const Sdx::DateTime& beginApplicability, const Sdx::optional<Sdx::DateTime>& endApplicability = {});
+      static GetMerkleTreeParametersResultPtr create(CommandBasePtr relatedCommand, const std::string& id, const std::string& keyType, const std::string& hashFunction, const Sdx::DateTime& beginApplicability, const std::optional<Sdx::DateTime>& endApplicability = {});
       static GetMerkleTreeParametersResultPtr dynamicCast(CommandBasePtr ptr);
       virtual bool isValid() const override;
       virtual std::string documentation() const override;
@@ -72,8 +72,8 @@ namespace Sdx
 
 
       // **** endApplicability ****
-      Sdx::optional<Sdx::DateTime> endApplicability() const;
-      void setEndApplicability(const Sdx::optional<Sdx::DateTime>& endApplicability);
+      std::optional<Sdx::DateTime> endApplicability() const;
+      void setEndApplicability(const std::optional<Sdx::DateTime>& endApplicability);
     };
     REGISTER_COMMAND_TO_FACTORY_DECL(GetMerkleTreeParametersResult);
   }

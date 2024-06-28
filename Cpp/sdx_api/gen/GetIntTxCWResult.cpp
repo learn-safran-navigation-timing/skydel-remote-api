@@ -33,7 +33,7 @@ namespace Sdx
       : CommandResult(CmdName, TargetId)
     {}
 
-    GetIntTxCWResult::GetIntTxCWResult(bool enabled, double centralFreq, double power, const std::string& transmitterId, const std::string& signalId, const Sdx::optional<double>& initialPhaseOffset, const Sdx::optional<int>& group)
+    GetIntTxCWResult::GetIntTxCWResult(bool enabled, double centralFreq, double power, const std::string& transmitterId, const std::string& signalId, const std::optional<double>& initialPhaseOffset, const std::optional<int>& group)
       : CommandResult(CmdName, TargetId)
     {
 
@@ -46,7 +46,7 @@ namespace Sdx
       setGroup(group);
     }
 
-    GetIntTxCWResult::GetIntTxCWResult(CommandBasePtr relatedCommand, bool enabled, double centralFreq, double power, const std::string& transmitterId, const std::string& signalId, const Sdx::optional<double>& initialPhaseOffset, const Sdx::optional<int>& group)
+    GetIntTxCWResult::GetIntTxCWResult(CommandBasePtr relatedCommand, bool enabled, double centralFreq, double power, const std::string& transmitterId, const std::string& signalId, const std::optional<double>& initialPhaseOffset, const std::optional<int>& group)
       : CommandResult(CmdName, TargetId, relatedCommand)
     {
 
@@ -60,12 +60,12 @@ namespace Sdx
     }
 
 
-    GetIntTxCWResultPtr GetIntTxCWResult::create(bool enabled, double centralFreq, double power, const std::string& transmitterId, const std::string& signalId, const Sdx::optional<double>& initialPhaseOffset, const Sdx::optional<int>& group)
+    GetIntTxCWResultPtr GetIntTxCWResult::create(bool enabled, double centralFreq, double power, const std::string& transmitterId, const std::string& signalId, const std::optional<double>& initialPhaseOffset, const std::optional<int>& group)
     {
       return std::make_shared<GetIntTxCWResult>(enabled, centralFreq, power, transmitterId, signalId, initialPhaseOffset, group);
     }
 
-    GetIntTxCWResultPtr GetIntTxCWResult::create(CommandBasePtr relatedCommand, bool enabled, double centralFreq, double power, const std::string& transmitterId, const std::string& signalId, const Sdx::optional<double>& initialPhaseOffset, const Sdx::optional<int>& group)
+    GetIntTxCWResultPtr GetIntTxCWResult::create(CommandBasePtr relatedCommand, bool enabled, double centralFreq, double power, const std::string& transmitterId, const std::string& signalId, const std::optional<double>& initialPhaseOffset, const std::optional<int>& group)
     {
       return std::make_shared<GetIntTxCWResult>(relatedCommand, enabled, centralFreq, power, transmitterId, signalId, initialPhaseOffset, group);
     }
@@ -84,8 +84,8 @@ namespace Sdx
           && parse_json<double>::is_valid(m_values["Power"])
           && parse_json<std::string>::is_valid(m_values["TransmitterId"])
           && parse_json<std::string>::is_valid(m_values["SignalId"])
-          && parse_json<Sdx::optional<double>>::is_valid(m_values["InitialPhaseOffset"])
-          && parse_json<Sdx::optional<int>>::is_valid(m_values["Group"])
+          && parse_json<std::optional<double>>::is_valid(m_values["InitialPhaseOffset"])
+          && parse_json<std::optional<int>>::is_valid(m_values["Group"])
         ;
 
     }
@@ -159,26 +159,26 @@ namespace Sdx
 
 
 
-    Sdx::optional<double> GetIntTxCWResult::initialPhaseOffset() const
+    std::optional<double> GetIntTxCWResult::initialPhaseOffset() const
     {
-      return parse_json<Sdx::optional<double>>::parse(m_values["InitialPhaseOffset"]);
+      return parse_json<std::optional<double>>::parse(m_values["InitialPhaseOffset"]);
     }
 
-    void GetIntTxCWResult::setInitialPhaseOffset(const Sdx::optional<double>& initialPhaseOffset)
+    void GetIntTxCWResult::setInitialPhaseOffset(const std::optional<double>& initialPhaseOffset)
     {
-      m_values.AddMember("InitialPhaseOffset", parse_json<Sdx::optional<double>>::format(initialPhaseOffset, m_values.GetAllocator()), m_values.GetAllocator());
+      m_values.AddMember("InitialPhaseOffset", parse_json<std::optional<double>>::format(initialPhaseOffset, m_values.GetAllocator()), m_values.GetAllocator());
     }
 
 
 
-    Sdx::optional<int> GetIntTxCWResult::group() const
+    std::optional<int> GetIntTxCWResult::group() const
     {
-      return parse_json<Sdx::optional<int>>::parse(m_values["Group"]);
+      return parse_json<std::optional<int>>::parse(m_values["Group"]);
     }
 
-    void GetIntTxCWResult::setGroup(const Sdx::optional<int>& group)
+    void GetIntTxCWResult::setGroup(const std::optional<int>& group)
     {
-      m_values.AddMember("Group", parse_json<Sdx::optional<int>>::format(group, m_values.GetAllocator()), m_values.GetAllocator());
+      m_values.AddMember("Group", parse_json<std::optional<int>>::format(group, m_values.GetAllocator()), m_values.GetAllocator());
     }
 
 

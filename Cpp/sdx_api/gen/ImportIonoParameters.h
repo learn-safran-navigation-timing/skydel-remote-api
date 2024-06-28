@@ -3,7 +3,7 @@
 #include <memory>
 #include "command_base.h"
 
-#include "sdx_optional.h"
+#include <optional>
 #include <string>
 
 namespace Sdx
@@ -33,9 +33,9 @@ namespace Sdx
 
       ImportIonoParameters();
 
-      ImportIonoParameters(const std::string& path, const Sdx::optional<std::string>& type = {});
+      ImportIonoParameters(const std::string& path, const std::optional<std::string>& type = {});
 
-      static ImportIonoParametersPtr create(const std::string& path, const Sdx::optional<std::string>& type = {});
+      static ImportIonoParametersPtr create(const std::string& path, const std::optional<std::string>& type = {});
       static ImportIonoParametersPtr dynamicCast(CommandBasePtr ptr);
       virtual bool isValid() const override;
       virtual std::string documentation() const override;
@@ -50,8 +50,8 @@ namespace Sdx
 
 
       // **** type ****
-      Sdx::optional<std::string> type() const;
-      void setType(const Sdx::optional<std::string>& type);
+      std::optional<std::string> type() const;
+      void setType(const std::optional<std::string>& type);
     };
     
   }

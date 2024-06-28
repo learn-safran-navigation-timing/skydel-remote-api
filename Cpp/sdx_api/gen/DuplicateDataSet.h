@@ -3,7 +3,7 @@
 #include <memory>
 #include "command_base.h"
 
-#include "sdx_optional.h"
+#include <optional>
 #include <string>
 
 namespace Sdx
@@ -34,9 +34,9 @@ namespace Sdx
 
       DuplicateDataSet();
 
-      DuplicateDataSet(const std::string& system, const std::string& dataSetName, const Sdx::optional<std::string>& newDataSetName = {});
+      DuplicateDataSet(const std::string& system, const std::string& dataSetName, const std::optional<std::string>& newDataSetName = {});
 
-      static DuplicateDataSetPtr create(const std::string& system, const std::string& dataSetName, const Sdx::optional<std::string>& newDataSetName = {});
+      static DuplicateDataSetPtr create(const std::string& system, const std::string& dataSetName, const std::optional<std::string>& newDataSetName = {});
       static DuplicateDataSetPtr dynamicCast(CommandBasePtr ptr);
       virtual bool isValid() const override;
       virtual std::string documentation() const override;
@@ -56,8 +56,8 @@ namespace Sdx
 
 
       // **** newDataSetName ****
-      Sdx::optional<std::string> newDataSetName() const;
-      void setNewDataSetName(const Sdx::optional<std::string>& newDataSetName);
+      std::optional<std::string> newDataSetName() const;
+      void setNewDataSetName(const std::optional<std::string>& newDataSetName);
     };
     
   }

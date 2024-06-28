@@ -29,7 +29,7 @@ namespace Sdx
       : CommandResult(CmdName, TargetId)
     {}
 
-    GetGpsCNavAlertFlagToSVResult::GetGpsCNavAlertFlagToSVResult(int svId, bool alert, const Sdx::optional<std::string>& dataSetName)
+    GetGpsCNavAlertFlagToSVResult::GetGpsCNavAlertFlagToSVResult(int svId, bool alert, const std::optional<std::string>& dataSetName)
       : CommandResult(CmdName, TargetId)
     {
 
@@ -38,7 +38,7 @@ namespace Sdx
       setDataSetName(dataSetName);
     }
 
-    GetGpsCNavAlertFlagToSVResult::GetGpsCNavAlertFlagToSVResult(CommandBasePtr relatedCommand, int svId, bool alert, const Sdx::optional<std::string>& dataSetName)
+    GetGpsCNavAlertFlagToSVResult::GetGpsCNavAlertFlagToSVResult(CommandBasePtr relatedCommand, int svId, bool alert, const std::optional<std::string>& dataSetName)
       : CommandResult(CmdName, TargetId, relatedCommand)
     {
 
@@ -48,12 +48,12 @@ namespace Sdx
     }
 
 
-    GetGpsCNavAlertFlagToSVResultPtr GetGpsCNavAlertFlagToSVResult::create(int svId, bool alert, const Sdx::optional<std::string>& dataSetName)
+    GetGpsCNavAlertFlagToSVResultPtr GetGpsCNavAlertFlagToSVResult::create(int svId, bool alert, const std::optional<std::string>& dataSetName)
     {
       return std::make_shared<GetGpsCNavAlertFlagToSVResult>(svId, alert, dataSetName);
     }
 
-    GetGpsCNavAlertFlagToSVResultPtr GetGpsCNavAlertFlagToSVResult::create(CommandBasePtr relatedCommand, int svId, bool alert, const Sdx::optional<std::string>& dataSetName)
+    GetGpsCNavAlertFlagToSVResultPtr GetGpsCNavAlertFlagToSVResult::create(CommandBasePtr relatedCommand, int svId, bool alert, const std::optional<std::string>& dataSetName)
     {
       return std::make_shared<GetGpsCNavAlertFlagToSVResult>(relatedCommand, svId, alert, dataSetName);
     }
@@ -69,7 +69,7 @@ namespace Sdx
         return m_values.IsObject()
           && parse_json<int>::is_valid(m_values["SvId"])
           && parse_json<bool>::is_valid(m_values["Alert"])
-          && parse_json<Sdx::optional<std::string>>::is_valid(m_values["DataSetName"])
+          && parse_json<std::optional<std::string>>::is_valid(m_values["DataSetName"])
         ;
 
     }
@@ -107,14 +107,14 @@ namespace Sdx
 
 
 
-    Sdx::optional<std::string> GetGpsCNavAlertFlagToSVResult::dataSetName() const
+    std::optional<std::string> GetGpsCNavAlertFlagToSVResult::dataSetName() const
     {
-      return parse_json<Sdx::optional<std::string>>::parse(m_values["DataSetName"]);
+      return parse_json<std::optional<std::string>>::parse(m_values["DataSetName"]);
     }
 
-    void GetGpsCNavAlertFlagToSVResult::setDataSetName(const Sdx::optional<std::string>& dataSetName)
+    void GetGpsCNavAlertFlagToSVResult::setDataSetName(const std::optional<std::string>& dataSetName)
     {
-      m_values.AddMember("DataSetName", parse_json<Sdx::optional<std::string>>::format(dataSetName, m_values.GetAllocator()), m_values.GetAllocator());
+      m_values.AddMember("DataSetName", parse_json<std::optional<std::string>>::format(dataSetName, m_values.GetAllocator()), m_values.GetAllocator());
     }
 
 

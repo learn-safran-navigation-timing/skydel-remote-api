@@ -63,8 +63,11 @@ namespace Sdx
       "NavIC:\n"
       "\n"
       "  Unit         Type     ParamName\n"
-      "  sec          double   \"Tgd\"\n"
+      "  sec          double   \"Tgd\", \"IscS\", \"IscL1P\", \"IscL1D\"\n"
       "  -            integer  \"IODEC\", \"UraIndex\"\n"
+      "  -            boolean  \"IscSAvailable\", \"IscL1PAvailable\", \"IscL1DAvailable\"\n"
+      "\n"
+      "\n"
       "\n"
       "Name        Type            Description\n"
       "----------- --------------- -------------------------------------------------------------------------------------------\n"
@@ -82,7 +85,7 @@ namespace Sdx
       : CommandBase(CmdName, TargetId)
     {}
 
-    GetConstellationParameterForSV::GetConstellationParameterForSV(const std::string& system, int svId, const std::string& paramName, const Sdx::optional<std::string>& dataSetName)
+    GetConstellationParameterForSV::GetConstellationParameterForSV(const std::string& system, int svId, const std::string& paramName, const std::optional<std::string>& dataSetName)
       : CommandBase(CmdName, TargetId)
     {
 
@@ -92,7 +95,7 @@ namespace Sdx
       setDataSetName(dataSetName);
     }
 
-    GetConstellationParameterForSVPtr GetConstellationParameterForSV::create(const std::string& system, int svId, const std::string& paramName, const Sdx::optional<std::string>& dataSetName)
+    GetConstellationParameterForSVPtr GetConstellationParameterForSV::create(const std::string& system, int svId, const std::string& paramName, const std::optional<std::string>& dataSetName)
     {
       return std::make_shared<GetConstellationParameterForSV>(system, svId, paramName, dataSetName);
     }
@@ -109,7 +112,7 @@ namespace Sdx
           && parse_json<std::string>::is_valid(m_values["System"])
           && parse_json<int>::is_valid(m_values["SvId"])
           && parse_json<std::string>::is_valid(m_values["ParamName"])
-          && parse_json<Sdx::optional<std::string>>::is_valid(m_values["DataSetName"])
+          && parse_json<std::optional<std::string>>::is_valid(m_values["DataSetName"])
         ;
 
     }
@@ -165,14 +168,14 @@ namespace Sdx
 
 
 
-    Sdx::optional<std::string> GetConstellationParameterForSV::dataSetName() const
+    std::optional<std::string> GetConstellationParameterForSV::dataSetName() const
     {
-      return parse_json<Sdx::optional<std::string>>::parse(m_values["DataSetName"]);
+      return parse_json<std::optional<std::string>>::parse(m_values["DataSetName"]);
     }
 
-    void GetConstellationParameterForSV::setDataSetName(const Sdx::optional<std::string>& dataSetName)
+    void GetConstellationParameterForSV::setDataSetName(const std::optional<std::string>& dataSetName)
     {
-      m_values.AddMember("DataSetName", parse_json<Sdx::optional<std::string>>::format(dataSetName, m_values.GetAllocator()), m_values.GetAllocator());
+      m_values.AddMember("DataSetName", parse_json<std::optional<std::string>>::format(dataSetName, m_values.GetAllocator()), m_values.GetAllocator());
     }
 
 

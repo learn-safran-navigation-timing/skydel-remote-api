@@ -3,7 +3,7 @@
 #include <memory>
 #include "command_base.h"
 
-#include "sdx_optional.h"
+#include <optional>
 #include <string>
 
 namespace Sdx
@@ -43,15 +43,15 @@ namespace Sdx
 
       SetBeiDouEphBoolParamForSV();
 
-      SetBeiDouEphBoolParamForSV(int svId, const std::string& paramName, bool val, const Sdx::optional<std::string>& dataSetName = {});
+      SetBeiDouEphBoolParamForSV(int svId, const std::string& paramName, bool val, const std::optional<std::string>& dataSetName = {});
 
-      static SetBeiDouEphBoolParamForSVPtr create(int svId, const std::string& paramName, bool val, const Sdx::optional<std::string>& dataSetName = {});
+      static SetBeiDouEphBoolParamForSVPtr create(int svId, const std::string& paramName, bool val, const std::optional<std::string>& dataSetName = {});
       static SetBeiDouEphBoolParamForSVPtr dynamicCast(CommandBasePtr ptr);
       virtual bool isValid() const override;
       virtual std::string documentation() const override;
       virtual const std::vector<std::string>& fieldNames() const override;
 
-      virtual Sdx::optional<std::string> deprecated() const override;
+      virtual std::optional<std::string> deprecated() const override;
 
       virtual int executePermission() const override;
 
@@ -72,8 +72,8 @@ namespace Sdx
 
 
       // **** dataSetName ****
-      Sdx::optional<std::string> dataSetName() const;
-      void setDataSetName(const Sdx::optional<std::string>& dataSetName);
+      std::optional<std::string> dataSetName() const;
+      void setDataSetName(const std::optional<std::string>& dataSetName);
     };
     
   }

@@ -3,7 +3,7 @@
 #include <memory>
 #include "command_base.h"
 
-#include "sdx_optional.h"
+#include <optional>
 #include <string>
 
 namespace Sdx
@@ -35,9 +35,9 @@ namespace Sdx
 
       ImportConstellationParameters();
 
-      ImportConstellationParameters(const std::string& system, const std::string& path, const Sdx::optional<int>& rollover = {}, const Sdx::optional<std::string>& dataSetName = {});
+      ImportConstellationParameters(const std::string& system, const std::string& path, const std::optional<int>& rollover = {}, const std::optional<std::string>& dataSetName = {});
 
-      static ImportConstellationParametersPtr create(const std::string& system, const std::string& path, const Sdx::optional<int>& rollover = {}, const Sdx::optional<std::string>& dataSetName = {});
+      static ImportConstellationParametersPtr create(const std::string& system, const std::string& path, const std::optional<int>& rollover = {}, const std::optional<std::string>& dataSetName = {});
       static ImportConstellationParametersPtr dynamicCast(CommandBasePtr ptr);
       virtual bool isValid() const override;
       virtual std::string documentation() const override;
@@ -57,13 +57,13 @@ namespace Sdx
 
 
       // **** rollover ****
-      Sdx::optional<int> rollover() const;
-      void setRollover(const Sdx::optional<int>& rollover);
+      std::optional<int> rollover() const;
+      void setRollover(const std::optional<int>& rollover);
 
 
       // **** dataSetName ****
-      Sdx::optional<std::string> dataSetName() const;
-      void setDataSetName(const Sdx::optional<std::string>& dataSetName);
+      std::optional<std::string> dataSetName() const;
+      void setDataSetName(const std::optional<std::string>& dataSetName);
     };
     
   }

@@ -66,7 +66,7 @@ namespace Sdx
       return names; 
     }
 
-    Sdx::optional<std::string> GetWFAntennaElementPhasePatternOffset::deprecated() const { return Sdx::optional<std::string>{Deprecated}; }
+    std::optional<std::string> GetWFAntennaElementPhasePatternOffset::deprecated() const { return std::optional<std::string>{Deprecated}; }
 
 
     int GetWFAntennaElementPhasePatternOffset::executePermission() const

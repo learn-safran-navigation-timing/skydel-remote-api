@@ -5,7 +5,7 @@
 
 #include "gen/AntennaPatternType.h"
 #include "gen/GNSSBand.h"
-#include "sdx_optional.h"
+#include <optional>
 #include <string>
 #include <vector>
 
@@ -39,9 +39,9 @@ namespace Sdx
 
       SetSVAntennaPhaseOffset();
 
-      SetSVAntennaPhaseOffset(const std::vector<std::vector<double>>& phaseOffset, const Sdx::AntennaPatternType& type, const Sdx::GNSSBand& band, const std::string& system, const Sdx::optional<std::string>& name = {});
+      SetSVAntennaPhaseOffset(const std::vector<std::vector<double>>& phaseOffset, const Sdx::AntennaPatternType& type, const Sdx::GNSSBand& band, const std::string& system, const std::optional<std::string>& name = {});
 
-      static SetSVAntennaPhaseOffsetPtr create(const std::vector<std::vector<double>>& phaseOffset, const Sdx::AntennaPatternType& type, const Sdx::GNSSBand& band, const std::string& system, const Sdx::optional<std::string>& name = {});
+      static SetSVAntennaPhaseOffsetPtr create(const std::vector<std::vector<double>>& phaseOffset, const Sdx::AntennaPatternType& type, const Sdx::GNSSBand& band, const std::string& system, const std::optional<std::string>& name = {});
       static SetSVAntennaPhaseOffsetPtr dynamicCast(CommandBasePtr ptr);
       virtual bool isValid() const override;
       virtual std::string documentation() const override;
@@ -71,8 +71,8 @@ namespace Sdx
 
 
       // **** name ****
-      Sdx::optional<std::string> name() const;
-      void setName(const Sdx::optional<std::string>& name);
+      std::optional<std::string> name() const;
+      void setName(const std::optional<std::string>& name);
     };
     
   }

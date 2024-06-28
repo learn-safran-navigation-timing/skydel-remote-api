@@ -29,7 +29,7 @@ namespace Sdx
       : CommandBase(CmdName, TargetId)
     {}
 
-    SetIonoGridGIVEIAll::SetIonoGridGIVEIAll(const std::vector<std::vector<int>>& grid, const Sdx::optional<std::string>& serviceProvider)
+    SetIonoGridGIVEIAll::SetIonoGridGIVEIAll(const std::vector<std::vector<int>>& grid, const std::optional<std::string>& serviceProvider)
       : CommandBase(CmdName, TargetId)
     {
 
@@ -37,7 +37,7 @@ namespace Sdx
       setServiceProvider(serviceProvider);
     }
 
-    SetIonoGridGIVEIAllPtr SetIonoGridGIVEIAll::create(const std::vector<std::vector<int>>& grid, const Sdx::optional<std::string>& serviceProvider)
+    SetIonoGridGIVEIAllPtr SetIonoGridGIVEIAll::create(const std::vector<std::vector<int>>& grid, const std::optional<std::string>& serviceProvider)
     {
       return std::make_shared<SetIonoGridGIVEIAll>(grid, serviceProvider);
     }
@@ -52,7 +52,7 @@ namespace Sdx
       
         return m_values.IsObject()
           && parse_json<std::vector<std::vector<int>>>::is_valid(m_values["Grid"])
-          && parse_json<Sdx::optional<std::string>>::is_valid(m_values["ServiceProvider"])
+          && parse_json<std::optional<std::string>>::is_valid(m_values["ServiceProvider"])
         ;
 
     }
@@ -84,14 +84,14 @@ namespace Sdx
 
 
 
-    Sdx::optional<std::string> SetIonoGridGIVEIAll::serviceProvider() const
+    std::optional<std::string> SetIonoGridGIVEIAll::serviceProvider() const
     {
-      return parse_json<Sdx::optional<std::string>>::parse(m_values["ServiceProvider"]);
+      return parse_json<std::optional<std::string>>::parse(m_values["ServiceProvider"]);
     }
 
-    void SetIonoGridGIVEIAll::setServiceProvider(const Sdx::optional<std::string>& serviceProvider)
+    void SetIonoGridGIVEIAll::setServiceProvider(const std::optional<std::string>& serviceProvider)
     {
-      m_values.AddMember("ServiceProvider", parse_json<Sdx::optional<std::string>>::format(serviceProvider, m_values.GetAllocator()), m_values.GetAllocator());
+      m_values.AddMember("ServiceProvider", parse_json<std::optional<std::string>>::format(serviceProvider, m_values.GetAllocator()), m_values.GetAllocator());
     }
 
 

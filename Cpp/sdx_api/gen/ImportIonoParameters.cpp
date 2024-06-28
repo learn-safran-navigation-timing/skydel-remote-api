@@ -29,7 +29,7 @@ namespace Sdx
       : CommandBase(CmdName, TargetId)
     {}
 
-    ImportIonoParameters::ImportIonoParameters(const std::string& path, const Sdx::optional<std::string>& type)
+    ImportIonoParameters::ImportIonoParameters(const std::string& path, const std::optional<std::string>& type)
       : CommandBase(CmdName, TargetId)
     {
 
@@ -37,7 +37,7 @@ namespace Sdx
       setType(type);
     }
 
-    ImportIonoParametersPtr ImportIonoParameters::create(const std::string& path, const Sdx::optional<std::string>& type)
+    ImportIonoParametersPtr ImportIonoParameters::create(const std::string& path, const std::optional<std::string>& type)
     {
       return std::make_shared<ImportIonoParameters>(path, type);
     }
@@ -52,7 +52,7 @@ namespace Sdx
       
         return m_values.IsObject()
           && parse_json<std::string>::is_valid(m_values["Path"])
-          && parse_json<Sdx::optional<std::string>>::is_valid(m_values["Type"])
+          && parse_json<std::optional<std::string>>::is_valid(m_values["Type"])
         ;
 
     }
@@ -84,14 +84,14 @@ namespace Sdx
 
 
 
-    Sdx::optional<std::string> ImportIonoParameters::type() const
+    std::optional<std::string> ImportIonoParameters::type() const
     {
-      return parse_json<Sdx::optional<std::string>>::parse(m_values["Type"]);
+      return parse_json<std::optional<std::string>>::parse(m_values["Type"]);
     }
 
-    void ImportIonoParameters::setType(const Sdx::optional<std::string>& type)
+    void ImportIonoParameters::setType(const std::optional<std::string>& type)
     {
-      m_values.AddMember("Type", parse_json<Sdx::optional<std::string>>::format(type, m_values.GetAllocator()), m_values.GetAllocator());
+      m_values.AddMember("Type", parse_json<std::optional<std::string>>::format(type, m_values.GetAllocator()), m_values.GetAllocator());
     }
 
 

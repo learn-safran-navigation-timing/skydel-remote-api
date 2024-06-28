@@ -31,7 +31,7 @@ namespace Sdx
       : CommandBase(CmdName, TargetId)
     {}
 
-    EnableSbasFastCorrectionsFor::EnableSbasFastCorrectionsFor(const std::string& system, bool isEnabled, const Sdx::optional<std::string>& errorType)
+    EnableSbasFastCorrectionsFor::EnableSbasFastCorrectionsFor(const std::string& system, bool isEnabled, const std::optional<std::string>& errorType)
       : CommandBase(CmdName, TargetId)
     {
 
@@ -40,7 +40,7 @@ namespace Sdx
       setErrorType(errorType);
     }
 
-    EnableSbasFastCorrectionsForPtr EnableSbasFastCorrectionsFor::create(const std::string& system, bool isEnabled, const Sdx::optional<std::string>& errorType)
+    EnableSbasFastCorrectionsForPtr EnableSbasFastCorrectionsFor::create(const std::string& system, bool isEnabled, const std::optional<std::string>& errorType)
     {
       return std::make_shared<EnableSbasFastCorrectionsFor>(system, isEnabled, errorType);
     }
@@ -56,7 +56,7 @@ namespace Sdx
         return m_values.IsObject()
           && parse_json<std::string>::is_valid(m_values["System"])
           && parse_json<bool>::is_valid(m_values["IsEnabled"])
-          && parse_json<Sdx::optional<std::string>>::is_valid(m_values["ErrorType"])
+          && parse_json<std::optional<std::string>>::is_valid(m_values["ErrorType"])
         ;
 
     }
@@ -100,14 +100,14 @@ namespace Sdx
 
 
 
-    Sdx::optional<std::string> EnableSbasFastCorrectionsFor::errorType() const
+    std::optional<std::string> EnableSbasFastCorrectionsFor::errorType() const
     {
-      return parse_json<Sdx::optional<std::string>>::parse(m_values["ErrorType"]);
+      return parse_json<std::optional<std::string>>::parse(m_values["ErrorType"]);
     }
 
-    void EnableSbasFastCorrectionsFor::setErrorType(const Sdx::optional<std::string>& errorType)
+    void EnableSbasFastCorrectionsFor::setErrorType(const std::optional<std::string>& errorType)
     {
-      m_values.AddMember("ErrorType", parse_json<Sdx::optional<std::string>>::format(errorType, m_values.GetAllocator()), m_values.GetAllocator());
+      m_values.AddMember("ErrorType", parse_json<std::optional<std::string>>::format(errorType, m_values.GetAllocator()), m_values.GetAllocator());
     }
 
 

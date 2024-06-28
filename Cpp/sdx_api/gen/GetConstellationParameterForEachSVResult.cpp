@@ -30,7 +30,7 @@ namespace Sdx
       : CommandResult(CmdName, TargetId)
     {}
 
-    GetConstellationParameterForEachSVResult::GetConstellationParameterForEachSVResult(const std::string& system, const std::string& paramName, const std::vector<double>& val, const Sdx::optional<std::string>& dataSetName)
+    GetConstellationParameterForEachSVResult::GetConstellationParameterForEachSVResult(const std::string& system, const std::string& paramName, const std::vector<double>& val, const std::optional<std::string>& dataSetName)
       : CommandResult(CmdName, TargetId)
     {
 
@@ -40,7 +40,7 @@ namespace Sdx
       setDataSetName(dataSetName);
     }
 
-    GetConstellationParameterForEachSVResult::GetConstellationParameterForEachSVResult(CommandBasePtr relatedCommand, const std::string& system, const std::string& paramName, const std::vector<double>& val, const Sdx::optional<std::string>& dataSetName)
+    GetConstellationParameterForEachSVResult::GetConstellationParameterForEachSVResult(CommandBasePtr relatedCommand, const std::string& system, const std::string& paramName, const std::vector<double>& val, const std::optional<std::string>& dataSetName)
       : CommandResult(CmdName, TargetId, relatedCommand)
     {
 
@@ -50,7 +50,7 @@ namespace Sdx
       setDataSetName(dataSetName);
     }
 
-    GetConstellationParameterForEachSVResult::GetConstellationParameterForEachSVResult(const std::string& system, const std::string& paramName, const std::vector<int>& val, const Sdx::optional<std::string>& dataSetName)
+    GetConstellationParameterForEachSVResult::GetConstellationParameterForEachSVResult(const std::string& system, const std::string& paramName, const std::vector<int>& val, const std::optional<std::string>& dataSetName)
       : CommandResult(CmdName, TargetId)
     {
 
@@ -60,7 +60,7 @@ namespace Sdx
       setDataSetName(dataSetName);
     }
 
-    GetConstellationParameterForEachSVResult::GetConstellationParameterForEachSVResult(CommandBasePtr relatedCommand, const std::string& system, const std::string& paramName, const std::vector<int>& val, const Sdx::optional<std::string>& dataSetName)
+    GetConstellationParameterForEachSVResult::GetConstellationParameterForEachSVResult(CommandBasePtr relatedCommand, const std::string& system, const std::string& paramName, const std::vector<int>& val, const std::optional<std::string>& dataSetName)
       : CommandResult(CmdName, TargetId, relatedCommand)
     {
 
@@ -70,7 +70,7 @@ namespace Sdx
       setDataSetName(dataSetName);
     }
 
-    GetConstellationParameterForEachSVResult::GetConstellationParameterForEachSVResult(const std::string& system, const std::string& paramName, const std::vector<bool>& val, const Sdx::optional<std::string>& dataSetName)
+    GetConstellationParameterForEachSVResult::GetConstellationParameterForEachSVResult(const std::string& system, const std::string& paramName, const std::vector<bool>& val, const std::optional<std::string>& dataSetName)
       : CommandResult(CmdName, TargetId)
     {
 
@@ -80,7 +80,7 @@ namespace Sdx
       setDataSetName(dataSetName);
     }
 
-    GetConstellationParameterForEachSVResult::GetConstellationParameterForEachSVResult(CommandBasePtr relatedCommand, const std::string& system, const std::string& paramName, const std::vector<bool>& val, const Sdx::optional<std::string>& dataSetName)
+    GetConstellationParameterForEachSVResult::GetConstellationParameterForEachSVResult(CommandBasePtr relatedCommand, const std::string& system, const std::string& paramName, const std::vector<bool>& val, const std::optional<std::string>& dataSetName)
       : CommandResult(CmdName, TargetId, relatedCommand)
     {
 
@@ -91,34 +91,34 @@ namespace Sdx
     }
 
 
-    GetConstellationParameterForEachSVResultPtr GetConstellationParameterForEachSVResult::create(const std::string& system, const std::string& paramName, const std::vector<double>& val, const Sdx::optional<std::string>& dataSetName)
+    GetConstellationParameterForEachSVResultPtr GetConstellationParameterForEachSVResult::create(const std::string& system, const std::string& paramName, const std::vector<double>& val, const std::optional<std::string>& dataSetName)
     {
       return std::make_shared<GetConstellationParameterForEachSVResult>(system, paramName, val, dataSetName);
     }
 
-    GetConstellationParameterForEachSVResultPtr GetConstellationParameterForEachSVResult::create(CommandBasePtr relatedCommand, const std::string& system, const std::string& paramName, const std::vector<double>& val, const Sdx::optional<std::string>& dataSetName)
+    GetConstellationParameterForEachSVResultPtr GetConstellationParameterForEachSVResult::create(CommandBasePtr relatedCommand, const std::string& system, const std::string& paramName, const std::vector<double>& val, const std::optional<std::string>& dataSetName)
     {
       return std::make_shared<GetConstellationParameterForEachSVResult>(relatedCommand, system, paramName, val, dataSetName);
     }
 
 
-    GetConstellationParameterForEachSVResultPtr GetConstellationParameterForEachSVResult::create(const std::string& system, const std::string& paramName, const std::vector<int>& val, const Sdx::optional<std::string>& dataSetName)
+    GetConstellationParameterForEachSVResultPtr GetConstellationParameterForEachSVResult::create(const std::string& system, const std::string& paramName, const std::vector<int>& val, const std::optional<std::string>& dataSetName)
     {
       return std::make_shared<GetConstellationParameterForEachSVResult>(system, paramName, val, dataSetName);
     }
 
-    GetConstellationParameterForEachSVResultPtr GetConstellationParameterForEachSVResult::create(CommandBasePtr relatedCommand, const std::string& system, const std::string& paramName, const std::vector<int>& val, const Sdx::optional<std::string>& dataSetName)
+    GetConstellationParameterForEachSVResultPtr GetConstellationParameterForEachSVResult::create(CommandBasePtr relatedCommand, const std::string& system, const std::string& paramName, const std::vector<int>& val, const std::optional<std::string>& dataSetName)
     {
       return std::make_shared<GetConstellationParameterForEachSVResult>(relatedCommand, system, paramName, val, dataSetName);
     }
 
 
-    GetConstellationParameterForEachSVResultPtr GetConstellationParameterForEachSVResult::create(const std::string& system, const std::string& paramName, const std::vector<bool>& val, const Sdx::optional<std::string>& dataSetName)
+    GetConstellationParameterForEachSVResultPtr GetConstellationParameterForEachSVResult::create(const std::string& system, const std::string& paramName, const std::vector<bool>& val, const std::optional<std::string>& dataSetName)
     {
       return std::make_shared<GetConstellationParameterForEachSVResult>(system, paramName, val, dataSetName);
     }
 
-    GetConstellationParameterForEachSVResultPtr GetConstellationParameterForEachSVResult::create(CommandBasePtr relatedCommand, const std::string& system, const std::string& paramName, const std::vector<bool>& val, const Sdx::optional<std::string>& dataSetName)
+    GetConstellationParameterForEachSVResultPtr GetConstellationParameterForEachSVResult::create(CommandBasePtr relatedCommand, const std::string& system, const std::string& paramName, const std::vector<bool>& val, const std::optional<std::string>& dataSetName)
     {
       return std::make_shared<GetConstellationParameterForEachSVResult>(relatedCommand, system, paramName, val, dataSetName);
     }
@@ -135,7 +135,7 @@ namespace Sdx
           && parse_json<std::string>::is_valid(m_values["System"])
           && parse_json<std::string>::is_valid(m_values["ParamName"])
           && (parse_json<std::vector<double>>::is_valid(m_values["Val"]) || parse_json<std::vector<int>>::is_valid(m_values["Val"]) || parse_json<std::vector<bool>>::is_valid(m_values["Val"]))
-          && parse_json<Sdx::optional<std::string>>::is_valid(m_values["DataSetName"])
+          && parse_json<std::optional<std::string>>::is_valid(m_values["DataSetName"])
         ;
 
     }
@@ -187,14 +187,14 @@ namespace Sdx
 
 
 
-    Sdx::optional<std::string> GetConstellationParameterForEachSVResult::dataSetName() const
+    std::optional<std::string> GetConstellationParameterForEachSVResult::dataSetName() const
     {
-      return parse_json<Sdx::optional<std::string>>::parse(m_values["DataSetName"]);
+      return parse_json<std::optional<std::string>>::parse(m_values["DataSetName"]);
     }
 
-    void GetConstellationParameterForEachSVResult::setDataSetName(const Sdx::optional<std::string>& dataSetName)
+    void GetConstellationParameterForEachSVResult::setDataSetName(const std::optional<std::string>& dataSetName)
     {
-      m_values.AddMember("DataSetName", parse_json<Sdx::optional<std::string>>::format(dataSetName, m_values.GetAllocator()), m_values.GetAllocator());
+      m_values.AddMember("DataSetName", parse_json<std::optional<std::string>>::format(dataSetName, m_values.GetAllocator()), m_values.GetAllocator());
     }
 
 

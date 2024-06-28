@@ -28,7 +28,7 @@ namespace Sdx
       : CommandResult(CmdName, TargetId)
     {}
 
-    GetIssueOfDataNavICResult::GetIssueOfDataNavICResult(int ephemerisAndClock, const Sdx::optional<bool>& overrideRinex)
+    GetIssueOfDataNavICResult::GetIssueOfDataNavICResult(int ephemerisAndClock, const std::optional<bool>& overrideRinex)
       : CommandResult(CmdName, TargetId)
     {
 
@@ -36,7 +36,7 @@ namespace Sdx
       setOverrideRinex(overrideRinex);
     }
 
-    GetIssueOfDataNavICResult::GetIssueOfDataNavICResult(CommandBasePtr relatedCommand, int ephemerisAndClock, const Sdx::optional<bool>& overrideRinex)
+    GetIssueOfDataNavICResult::GetIssueOfDataNavICResult(CommandBasePtr relatedCommand, int ephemerisAndClock, const std::optional<bool>& overrideRinex)
       : CommandResult(CmdName, TargetId, relatedCommand)
     {
 
@@ -45,12 +45,12 @@ namespace Sdx
     }
 
 
-    GetIssueOfDataNavICResultPtr GetIssueOfDataNavICResult::create(int ephemerisAndClock, const Sdx::optional<bool>& overrideRinex)
+    GetIssueOfDataNavICResultPtr GetIssueOfDataNavICResult::create(int ephemerisAndClock, const std::optional<bool>& overrideRinex)
     {
       return std::make_shared<GetIssueOfDataNavICResult>(ephemerisAndClock, overrideRinex);
     }
 
-    GetIssueOfDataNavICResultPtr GetIssueOfDataNavICResult::create(CommandBasePtr relatedCommand, int ephemerisAndClock, const Sdx::optional<bool>& overrideRinex)
+    GetIssueOfDataNavICResultPtr GetIssueOfDataNavICResult::create(CommandBasePtr relatedCommand, int ephemerisAndClock, const std::optional<bool>& overrideRinex)
     {
       return std::make_shared<GetIssueOfDataNavICResult>(relatedCommand, ephemerisAndClock, overrideRinex);
     }
@@ -65,7 +65,7 @@ namespace Sdx
       
         return m_values.IsObject()
           && parse_json<int>::is_valid(m_values["EphemerisAndClock"])
-          && parse_json<Sdx::optional<bool>>::is_valid(m_values["OverrideRinex"])
+          && parse_json<std::optional<bool>>::is_valid(m_values["OverrideRinex"])
         ;
 
     }
@@ -91,14 +91,14 @@ namespace Sdx
 
 
 
-    Sdx::optional<bool> GetIssueOfDataNavICResult::overrideRinex() const
+    std::optional<bool> GetIssueOfDataNavICResult::overrideRinex() const
     {
-      return parse_json<Sdx::optional<bool>>::parse(m_values["OverrideRinex"]);
+      return parse_json<std::optional<bool>>::parse(m_values["OverrideRinex"]);
     }
 
-    void GetIssueOfDataNavICResult::setOverrideRinex(const Sdx::optional<bool>& overrideRinex)
+    void GetIssueOfDataNavICResult::setOverrideRinex(const std::optional<bool>& overrideRinex)
     {
-      m_values.AddMember("OverrideRinex", parse_json<Sdx::optional<bool>>::format(overrideRinex, m_values.GetAllocator()), m_values.GetAllocator());
+      m_values.AddMember("OverrideRinex", parse_json<std::optional<bool>>::format(overrideRinex, m_values.GetAllocator()), m_values.GetAllocator());
     }
 
 

@@ -30,7 +30,7 @@ namespace Sdx
       : CommandBase(CmdName, TargetId)
     {}
 
-    GetIonoGridGIVEI::GetIonoGridGIVEI(int band, int point, const Sdx::optional<std::string>& serviceProvider)
+    GetIonoGridGIVEI::GetIonoGridGIVEI(int band, int point, const std::optional<std::string>& serviceProvider)
       : CommandBase(CmdName, TargetId)
     {
 
@@ -39,7 +39,7 @@ namespace Sdx
       setServiceProvider(serviceProvider);
     }
 
-    GetIonoGridGIVEIPtr GetIonoGridGIVEI::create(int band, int point, const Sdx::optional<std::string>& serviceProvider)
+    GetIonoGridGIVEIPtr GetIonoGridGIVEI::create(int band, int point, const std::optional<std::string>& serviceProvider)
     {
       return std::make_shared<GetIonoGridGIVEI>(band, point, serviceProvider);
     }
@@ -55,7 +55,7 @@ namespace Sdx
         return m_values.IsObject()
           && parse_json<int>::is_valid(m_values["Band"])
           && parse_json<int>::is_valid(m_values["Point"])
-          && parse_json<Sdx::optional<std::string>>::is_valid(m_values["ServiceProvider"])
+          && parse_json<std::optional<std::string>>::is_valid(m_values["ServiceProvider"])
         ;
 
     }
@@ -99,14 +99,14 @@ namespace Sdx
 
 
 
-    Sdx::optional<std::string> GetIonoGridGIVEI::serviceProvider() const
+    std::optional<std::string> GetIonoGridGIVEI::serviceProvider() const
     {
-      return parse_json<Sdx::optional<std::string>>::parse(m_values["ServiceProvider"]);
+      return parse_json<std::optional<std::string>>::parse(m_values["ServiceProvider"]);
     }
 
-    void GetIonoGridGIVEI::setServiceProvider(const Sdx::optional<std::string>& serviceProvider)
+    void GetIonoGridGIVEI::setServiceProvider(const std::optional<std::string>& serviceProvider)
     {
-      m_values.AddMember("ServiceProvider", parse_json<Sdx::optional<std::string>>::format(serviceProvider, m_values.GetAllocator()), m_values.GetAllocator());
+      m_values.AddMember("ServiceProvider", parse_json<std::optional<std::string>>::format(serviceProvider, m_values.GetAllocator()), m_values.GetAllocator());
     }
 
 

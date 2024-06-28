@@ -3,7 +3,7 @@
 #include <memory>
 #include "command_result.h"
 #include "command_factory.h"
-#include "sdx_optional.h"
+#include <optional>
 #include <string>
 #include <vector>
 
@@ -34,13 +34,13 @@ namespace Sdx
 
       GetIonoGridGIVEIAllResult();
 
-      GetIonoGridGIVEIAllResult(const std::vector<std::vector<int>>& grid, const Sdx::optional<std::string>& serviceProvider = {});
+      GetIonoGridGIVEIAllResult(const std::vector<std::vector<int>>& grid, const std::optional<std::string>& serviceProvider = {});
 
-      GetIonoGridGIVEIAllResult(CommandBasePtr relatedCommand, const std::vector<std::vector<int>>& grid, const Sdx::optional<std::string>& serviceProvider = {});
+      GetIonoGridGIVEIAllResult(CommandBasePtr relatedCommand, const std::vector<std::vector<int>>& grid, const std::optional<std::string>& serviceProvider = {});
 
-      static GetIonoGridGIVEIAllResultPtr create(const std::vector<std::vector<int>>& grid, const Sdx::optional<std::string>& serviceProvider = {});
+      static GetIonoGridGIVEIAllResultPtr create(const std::vector<std::vector<int>>& grid, const std::optional<std::string>& serviceProvider = {});
 
-      static GetIonoGridGIVEIAllResultPtr create(CommandBasePtr relatedCommand, const std::vector<std::vector<int>>& grid, const Sdx::optional<std::string>& serviceProvider = {});
+      static GetIonoGridGIVEIAllResultPtr create(CommandBasePtr relatedCommand, const std::vector<std::vector<int>>& grid, const std::optional<std::string>& serviceProvider = {});
       static GetIonoGridGIVEIAllResultPtr dynamicCast(CommandBasePtr ptr);
       virtual bool isValid() const override;
       virtual std::string documentation() const override;
@@ -53,8 +53,8 @@ namespace Sdx
 
 
       // **** serviceProvider ****
-      Sdx::optional<std::string> serviceProvider() const;
-      void setServiceProvider(const Sdx::optional<std::string>& serviceProvider);
+      std::optional<std::string> serviceProvider() const;
+      void setServiceProvider(const std::optional<std::string>& serviceProvider);
     };
     REGISTER_COMMAND_TO_FACTORY_DECL(GetIonoGridGIVEIAllResult);
   }

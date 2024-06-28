@@ -29,7 +29,7 @@ namespace Sdx
       : CommandBase(CmdName, TargetId)
     {}
 
-    GetBeiDouAutonomousHealthForSV::GetBeiDouAutonomousHealthForSV(int svId, const Sdx::optional<std::string>& dataSetName)
+    GetBeiDouAutonomousHealthForSV::GetBeiDouAutonomousHealthForSV(int svId, const std::optional<std::string>& dataSetName)
       : CommandBase(CmdName, TargetId)
     {
 
@@ -37,7 +37,7 @@ namespace Sdx
       setDataSetName(dataSetName);
     }
 
-    GetBeiDouAutonomousHealthForSVPtr GetBeiDouAutonomousHealthForSV::create(int svId, const Sdx::optional<std::string>& dataSetName)
+    GetBeiDouAutonomousHealthForSVPtr GetBeiDouAutonomousHealthForSV::create(int svId, const std::optional<std::string>& dataSetName)
     {
       return std::make_shared<GetBeiDouAutonomousHealthForSV>(svId, dataSetName);
     }
@@ -52,7 +52,7 @@ namespace Sdx
       
         return m_values.IsObject()
           && parse_json<int>::is_valid(m_values["SvId"])
-          && parse_json<Sdx::optional<std::string>>::is_valid(m_values["DataSetName"])
+          && parse_json<std::optional<std::string>>::is_valid(m_values["DataSetName"])
         ;
 
     }
@@ -84,14 +84,14 @@ namespace Sdx
 
 
 
-    Sdx::optional<std::string> GetBeiDouAutonomousHealthForSV::dataSetName() const
+    std::optional<std::string> GetBeiDouAutonomousHealthForSV::dataSetName() const
     {
-      return parse_json<Sdx::optional<std::string>>::parse(m_values["DataSetName"]);
+      return parse_json<std::optional<std::string>>::parse(m_values["DataSetName"]);
     }
 
-    void GetBeiDouAutonomousHealthForSV::setDataSetName(const Sdx::optional<std::string>& dataSetName)
+    void GetBeiDouAutonomousHealthForSV::setDataSetName(const std::optional<std::string>& dataSetName)
     {
-      m_values.AddMember("DataSetName", parse_json<Sdx::optional<std::string>>::format(dataSetName, m_values.GetAllocator()), m_values.GetAllocator());
+      m_values.AddMember("DataSetName", parse_json<std::optional<std::string>>::format(dataSetName, m_values.GetAllocator()), m_values.GetAllocator());
     }
 
 

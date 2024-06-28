@@ -40,7 +40,7 @@ namespace Sdx
       : CommandBase(CmdName, TargetId)
     {}
 
-    SetVehicleAntennaOffset::SetVehicleAntennaOffset(double x, double y, double z, double yaw, double pitch, double roll, const Sdx::optional<std::string>& name)
+    SetVehicleAntennaOffset::SetVehicleAntennaOffset(double x, double y, double z, double yaw, double pitch, double roll, const std::optional<std::string>& name)
       : CommandBase(CmdName, TargetId)
     {
 
@@ -53,7 +53,7 @@ namespace Sdx
       setName(name);
     }
 
-    SetVehicleAntennaOffsetPtr SetVehicleAntennaOffset::create(double x, double y, double z, double yaw, double pitch, double roll, const Sdx::optional<std::string>& name)
+    SetVehicleAntennaOffsetPtr SetVehicleAntennaOffset::create(double x, double y, double z, double yaw, double pitch, double roll, const std::optional<std::string>& name)
     {
       return std::make_shared<SetVehicleAntennaOffset>(x, y, z, yaw, pitch, roll, name);
     }
@@ -73,7 +73,7 @@ namespace Sdx
           && parse_json<double>::is_valid(m_values["Yaw"])
           && parse_json<double>::is_valid(m_values["Pitch"])
           && parse_json<double>::is_valid(m_values["Roll"])
-          && parse_json<Sdx::optional<std::string>>::is_valid(m_values["Name"])
+          && parse_json<std::optional<std::string>>::is_valid(m_values["Name"])
         ;
 
     }
@@ -165,14 +165,14 @@ namespace Sdx
 
 
 
-    Sdx::optional<std::string> SetVehicleAntennaOffset::name() const
+    std::optional<std::string> SetVehicleAntennaOffset::name() const
     {
-      return parse_json<Sdx::optional<std::string>>::parse(m_values["Name"]);
+      return parse_json<std::optional<std::string>>::parse(m_values["Name"]);
     }
 
-    void SetVehicleAntennaOffset::setName(const Sdx::optional<std::string>& name)
+    void SetVehicleAntennaOffset::setName(const std::optional<std::string>& name)
     {
-      m_values.AddMember("Name", parse_json<Sdx::optional<std::string>>::format(name, m_values.GetAllocator()), m_values.GetAllocator());
+      m_values.AddMember("Name", parse_json<std::optional<std::string>>::format(name, m_values.GetAllocator()), m_values.GetAllocator());
     }
 
 

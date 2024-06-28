@@ -34,7 +34,7 @@ namespace Sdx
       : CommandResult(CmdName, TargetId)
     {}
 
-    GetSpoofTxCircularResult::GetSpoofTxCircularResult(double lat, double lon, double alt, double radius, double speed, bool clockwise, const std::string& id, const Sdx::optional<double>& originAngle)
+    GetSpoofTxCircularResult::GetSpoofTxCircularResult(double lat, double lon, double alt, double radius, double speed, bool clockwise, const std::string& id, const std::optional<double>& originAngle)
       : CommandResult(CmdName, TargetId)
     {
 
@@ -48,7 +48,7 @@ namespace Sdx
       setOriginAngle(originAngle);
     }
 
-    GetSpoofTxCircularResult::GetSpoofTxCircularResult(CommandBasePtr relatedCommand, double lat, double lon, double alt, double radius, double speed, bool clockwise, const std::string& id, const Sdx::optional<double>& originAngle)
+    GetSpoofTxCircularResult::GetSpoofTxCircularResult(CommandBasePtr relatedCommand, double lat, double lon, double alt, double radius, double speed, bool clockwise, const std::string& id, const std::optional<double>& originAngle)
       : CommandResult(CmdName, TargetId, relatedCommand)
     {
 
@@ -63,12 +63,12 @@ namespace Sdx
     }
 
 
-    GetSpoofTxCircularResultPtr GetSpoofTxCircularResult::create(double lat, double lon, double alt, double radius, double speed, bool clockwise, const std::string& id, const Sdx::optional<double>& originAngle)
+    GetSpoofTxCircularResultPtr GetSpoofTxCircularResult::create(double lat, double lon, double alt, double radius, double speed, bool clockwise, const std::string& id, const std::optional<double>& originAngle)
     {
       return std::make_shared<GetSpoofTxCircularResult>(lat, lon, alt, radius, speed, clockwise, id, originAngle);
     }
 
-    GetSpoofTxCircularResultPtr GetSpoofTxCircularResult::create(CommandBasePtr relatedCommand, double lat, double lon, double alt, double radius, double speed, bool clockwise, const std::string& id, const Sdx::optional<double>& originAngle)
+    GetSpoofTxCircularResultPtr GetSpoofTxCircularResult::create(CommandBasePtr relatedCommand, double lat, double lon, double alt, double radius, double speed, bool clockwise, const std::string& id, const std::optional<double>& originAngle)
     {
       return std::make_shared<GetSpoofTxCircularResult>(relatedCommand, lat, lon, alt, radius, speed, clockwise, id, originAngle);
     }
@@ -89,7 +89,7 @@ namespace Sdx
           && parse_json<double>::is_valid(m_values["Speed"])
           && parse_json<bool>::is_valid(m_values["Clockwise"])
           && parse_json<std::string>::is_valid(m_values["Id"])
-          && parse_json<Sdx::optional<double>>::is_valid(m_values["OriginAngle"])
+          && parse_json<std::optional<double>>::is_valid(m_values["OriginAngle"])
         ;
 
     }
@@ -187,14 +187,14 @@ namespace Sdx
 
 
 
-    Sdx::optional<double> GetSpoofTxCircularResult::originAngle() const
+    std::optional<double> GetSpoofTxCircularResult::originAngle() const
     {
-      return parse_json<Sdx::optional<double>>::parse(m_values["OriginAngle"]);
+      return parse_json<std::optional<double>>::parse(m_values["OriginAngle"]);
     }
 
-    void GetSpoofTxCircularResult::setOriginAngle(const Sdx::optional<double>& originAngle)
+    void GetSpoofTxCircularResult::setOriginAngle(const std::optional<double>& originAngle)
     {
-      m_values.AddMember("OriginAngle", parse_json<Sdx::optional<double>>::format(originAngle, m_values.GetAllocator()), m_values.GetAllocator());
+      m_values.AddMember("OriginAngle", parse_json<std::optional<double>>::format(originAngle, m_values.GetAllocator()), m_values.GetAllocator());
     }
 
 

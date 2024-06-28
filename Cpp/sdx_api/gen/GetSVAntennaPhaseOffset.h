@@ -4,7 +4,7 @@
 #include "command_base.h"
 
 #include "gen/GNSSBand.h"
-#include "sdx_optional.h"
+#include <optional>
 #include <string>
 
 namespace Sdx
@@ -35,9 +35,9 @@ namespace Sdx
 
       GetSVAntennaPhaseOffset();
 
-      GetSVAntennaPhaseOffset(const Sdx::GNSSBand& band, const std::string& system, const Sdx::optional<std::string>& name = {});
+      GetSVAntennaPhaseOffset(const Sdx::GNSSBand& band, const std::string& system, const std::optional<std::string>& name = {});
 
-      static GetSVAntennaPhaseOffsetPtr create(const Sdx::GNSSBand& band, const std::string& system, const Sdx::optional<std::string>& name = {});
+      static GetSVAntennaPhaseOffsetPtr create(const Sdx::GNSSBand& band, const std::string& system, const std::optional<std::string>& name = {});
       static GetSVAntennaPhaseOffsetPtr dynamicCast(CommandBasePtr ptr);
       virtual bool isValid() const override;
       virtual std::string documentation() const override;
@@ -57,8 +57,8 @@ namespace Sdx
 
 
       // **** name ****
-      Sdx::optional<std::string> name() const;
-      void setName(const Sdx::optional<std::string>& name);
+      std::optional<std::string> name() const;
+      void setName(const std::optional<std::string>& name);
     };
     
   }

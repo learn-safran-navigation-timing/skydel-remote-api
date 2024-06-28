@@ -31,7 +31,7 @@ namespace Sdx
       : CommandBase(CmdName, TargetId)
     {}
 
-    SetIonoGridGIVEI::SetIonoGridGIVEI(int band, int point, int giveI, const Sdx::optional<std::string>& serviceProvider)
+    SetIonoGridGIVEI::SetIonoGridGIVEI(int band, int point, int giveI, const std::optional<std::string>& serviceProvider)
       : CommandBase(CmdName, TargetId)
     {
 
@@ -41,7 +41,7 @@ namespace Sdx
       setServiceProvider(serviceProvider);
     }
 
-    SetIonoGridGIVEIPtr SetIonoGridGIVEI::create(int band, int point, int giveI, const Sdx::optional<std::string>& serviceProvider)
+    SetIonoGridGIVEIPtr SetIonoGridGIVEI::create(int band, int point, int giveI, const std::optional<std::string>& serviceProvider)
     {
       return std::make_shared<SetIonoGridGIVEI>(band, point, giveI, serviceProvider);
     }
@@ -58,7 +58,7 @@ namespace Sdx
           && parse_json<int>::is_valid(m_values["Band"])
           && parse_json<int>::is_valid(m_values["Point"])
           && parse_json<int>::is_valid(m_values["GiveI"])
-          && parse_json<Sdx::optional<std::string>>::is_valid(m_values["ServiceProvider"])
+          && parse_json<std::optional<std::string>>::is_valid(m_values["ServiceProvider"])
         ;
 
     }
@@ -114,14 +114,14 @@ namespace Sdx
 
 
 
-    Sdx::optional<std::string> SetIonoGridGIVEI::serviceProvider() const
+    std::optional<std::string> SetIonoGridGIVEI::serviceProvider() const
     {
-      return parse_json<Sdx::optional<std::string>>::parse(m_values["ServiceProvider"]);
+      return parse_json<std::optional<std::string>>::parse(m_values["ServiceProvider"]);
     }
 
-    void SetIonoGridGIVEI::setServiceProvider(const Sdx::optional<std::string>& serviceProvider)
+    void SetIonoGridGIVEI::setServiceProvider(const std::optional<std::string>& serviceProvider)
     {
-      m_values.AddMember("ServiceProvider", parse_json<Sdx::optional<std::string>>::format(serviceProvider, m_values.GetAllocator()), m_values.GetAllocator());
+      m_values.AddMember("ServiceProvider", parse_json<std::optional<std::string>>::format(serviceProvider, m_values.GetAllocator()), m_values.GetAllocator());
     }
 
 

@@ -3,7 +3,7 @@
 #include <memory>
 #include "command_base.h"
 
-#include "sdx_optional.h"
+#include <optional>
 #include <string>
 
 namespace Sdx
@@ -40,15 +40,15 @@ namespace Sdx
 
       GetQzssEphDoubleParamForSV();
 
-      GetQzssEphDoubleParamForSV(int svId, const std::string& paramName, const Sdx::optional<std::string>& dataSetName = {});
+      GetQzssEphDoubleParamForSV(int svId, const std::string& paramName, const std::optional<std::string>& dataSetName = {});
 
-      static GetQzssEphDoubleParamForSVPtr create(int svId, const std::string& paramName, const Sdx::optional<std::string>& dataSetName = {});
+      static GetQzssEphDoubleParamForSVPtr create(int svId, const std::string& paramName, const std::optional<std::string>& dataSetName = {});
       static GetQzssEphDoubleParamForSVPtr dynamicCast(CommandBasePtr ptr);
       virtual bool isValid() const override;
       virtual std::string documentation() const override;
       virtual const std::vector<std::string>& fieldNames() const override;
 
-      virtual Sdx::optional<std::string> deprecated() const override;
+      virtual std::optional<std::string> deprecated() const override;
 
       virtual int executePermission() const override;
 
@@ -64,8 +64,8 @@ namespace Sdx
 
 
       // **** dataSetName ****
-      Sdx::optional<std::string> dataSetName() const;
-      void setDataSetName(const Sdx::optional<std::string>& dataSetName);
+      std::optional<std::string> dataSetName() const;
+      void setDataSetName(const std::optional<std::string>& dataSetName);
     };
     
   }

@@ -3,7 +3,7 @@
 #include <memory>
 #include "command_base.h"
 
-#include "sdx_optional.h"
+#include <optional>
 #include <string>
 
 namespace Sdx
@@ -39,9 +39,9 @@ namespace Sdx
 
       SetIntTxCircular();
 
-      SetIntTxCircular(double lat, double lon, double alt, double radius, double speed, bool clockwise, const std::string& id, const Sdx::optional<double>& originAngle = {});
+      SetIntTxCircular(double lat, double lon, double alt, double radius, double speed, bool clockwise, const std::string& id, const std::optional<double>& originAngle = {});
 
-      static SetIntTxCircularPtr create(double lat, double lon, double alt, double radius, double speed, bool clockwise, const std::string& id, const Sdx::optional<double>& originAngle = {});
+      static SetIntTxCircularPtr create(double lat, double lon, double alt, double radius, double speed, bool clockwise, const std::string& id, const std::optional<double>& originAngle = {});
       static SetIntTxCircularPtr dynamicCast(CommandBasePtr ptr);
       virtual bool isValid() const override;
       virtual std::string documentation() const override;
@@ -86,8 +86,8 @@ namespace Sdx
 
 
       // **** originAngle ****
-      Sdx::optional<double> originAngle() const;
-      void setOriginAngle(const Sdx::optional<double>& originAngle);
+      std::optional<double> originAngle() const;
+      void setOriginAngle(const std::optional<double>& originAngle);
     };
     
   }

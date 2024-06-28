@@ -30,7 +30,7 @@ namespace Sdx
       : CommandResult(CmdName, TargetId)
     {}
 
-    GetNavICEphDoubleParamForSVResult::GetNavICEphDoubleParamForSVResult(int svId, const std::string& paramName, double val, const Sdx::optional<std::string>& dataSetName)
+    GetNavICEphDoubleParamForSVResult::GetNavICEphDoubleParamForSVResult(int svId, const std::string& paramName, double val, const std::optional<std::string>& dataSetName)
       : CommandResult(CmdName, TargetId)
     {
 
@@ -40,7 +40,7 @@ namespace Sdx
       setDataSetName(dataSetName);
     }
 
-    GetNavICEphDoubleParamForSVResult::GetNavICEphDoubleParamForSVResult(CommandBasePtr relatedCommand, int svId, const std::string& paramName, double val, const Sdx::optional<std::string>& dataSetName)
+    GetNavICEphDoubleParamForSVResult::GetNavICEphDoubleParamForSVResult(CommandBasePtr relatedCommand, int svId, const std::string& paramName, double val, const std::optional<std::string>& dataSetName)
       : CommandResult(CmdName, TargetId, relatedCommand)
     {
 
@@ -51,12 +51,12 @@ namespace Sdx
     }
 
 
-    GetNavICEphDoubleParamForSVResultPtr GetNavICEphDoubleParamForSVResult::create(int svId, const std::string& paramName, double val, const Sdx::optional<std::string>& dataSetName)
+    GetNavICEphDoubleParamForSVResultPtr GetNavICEphDoubleParamForSVResult::create(int svId, const std::string& paramName, double val, const std::optional<std::string>& dataSetName)
     {
       return std::make_shared<GetNavICEphDoubleParamForSVResult>(svId, paramName, val, dataSetName);
     }
 
-    GetNavICEphDoubleParamForSVResultPtr GetNavICEphDoubleParamForSVResult::create(CommandBasePtr relatedCommand, int svId, const std::string& paramName, double val, const Sdx::optional<std::string>& dataSetName)
+    GetNavICEphDoubleParamForSVResultPtr GetNavICEphDoubleParamForSVResult::create(CommandBasePtr relatedCommand, int svId, const std::string& paramName, double val, const std::optional<std::string>& dataSetName)
     {
       return std::make_shared<GetNavICEphDoubleParamForSVResult>(relatedCommand, svId, paramName, val, dataSetName);
     }
@@ -73,7 +73,7 @@ namespace Sdx
           && parse_json<int>::is_valid(m_values["SvId"])
           && parse_json<std::string>::is_valid(m_values["ParamName"])
           && parse_json<double>::is_valid(m_values["Val"])
-          && parse_json<Sdx::optional<std::string>>::is_valid(m_values["DataSetName"])
+          && parse_json<std::optional<std::string>>::is_valid(m_values["DataSetName"])
         ;
 
     }
@@ -123,14 +123,14 @@ namespace Sdx
 
 
 
-    Sdx::optional<std::string> GetNavICEphDoubleParamForSVResult::dataSetName() const
+    std::optional<std::string> GetNavICEphDoubleParamForSVResult::dataSetName() const
     {
-      return parse_json<Sdx::optional<std::string>>::parse(m_values["DataSetName"]);
+      return parse_json<std::optional<std::string>>::parse(m_values["DataSetName"]);
     }
 
-    void GetNavICEphDoubleParamForSVResult::setDataSetName(const Sdx::optional<std::string>& dataSetName)
+    void GetNavICEphDoubleParamForSVResult::setDataSetName(const std::optional<std::string>& dataSetName)
     {
-      m_values.AddMember("DataSetName", parse_json<Sdx::optional<std::string>>::format(dataSetName, m_values.GetAllocator()), m_values.GetAllocator());
+      m_values.AddMember("DataSetName", parse_json<std::optional<std::string>>::format(dataSetName, m_values.GetAllocator()), m_values.GetAllocator());
     }
 
 

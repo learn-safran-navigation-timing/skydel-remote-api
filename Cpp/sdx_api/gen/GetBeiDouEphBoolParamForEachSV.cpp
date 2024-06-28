@@ -33,7 +33,7 @@ namespace Sdx
       : CommandBase(CmdName, TargetId)
     {}
 
-    GetBeiDouEphBoolParamForEachSV::GetBeiDouEphBoolParamForEachSV(const std::string& paramName, const Sdx::optional<std::string>& dataSetName)
+    GetBeiDouEphBoolParamForEachSV::GetBeiDouEphBoolParamForEachSV(const std::string& paramName, const std::optional<std::string>& dataSetName)
       : CommandBase(CmdName, TargetId)
     {
 
@@ -41,7 +41,7 @@ namespace Sdx
       setDataSetName(dataSetName);
     }
 
-    GetBeiDouEphBoolParamForEachSVPtr GetBeiDouEphBoolParamForEachSV::create(const std::string& paramName, const Sdx::optional<std::string>& dataSetName)
+    GetBeiDouEphBoolParamForEachSVPtr GetBeiDouEphBoolParamForEachSV::create(const std::string& paramName, const std::optional<std::string>& dataSetName)
     {
       return std::make_shared<GetBeiDouEphBoolParamForEachSV>(paramName, dataSetName);
     }
@@ -56,7 +56,7 @@ namespace Sdx
       
         return m_values.IsObject()
           && parse_json<std::string>::is_valid(m_values["ParamName"])
-          && parse_json<Sdx::optional<std::string>>::is_valid(m_values["DataSetName"])
+          && parse_json<std::optional<std::string>>::is_valid(m_values["DataSetName"])
         ;
 
     }
@@ -69,7 +69,7 @@ namespace Sdx
       return names; 
     }
 
-    Sdx::optional<std::string> GetBeiDouEphBoolParamForEachSV::deprecated() const { return Sdx::optional<std::string>{Deprecated}; }
+    std::optional<std::string> GetBeiDouEphBoolParamForEachSV::deprecated() const { return std::optional<std::string>{Deprecated}; }
 
 
     int GetBeiDouEphBoolParamForEachSV::executePermission() const
@@ -90,14 +90,14 @@ namespace Sdx
 
 
 
-    Sdx::optional<std::string> GetBeiDouEphBoolParamForEachSV::dataSetName() const
+    std::optional<std::string> GetBeiDouEphBoolParamForEachSV::dataSetName() const
     {
-      return parse_json<Sdx::optional<std::string>>::parse(m_values["DataSetName"]);
+      return parse_json<std::optional<std::string>>::parse(m_values["DataSetName"]);
     }
 
-    void GetBeiDouEphBoolParamForEachSV::setDataSetName(const Sdx::optional<std::string>& dataSetName)
+    void GetBeiDouEphBoolParamForEachSV::setDataSetName(const std::optional<std::string>& dataSetName)
     {
-      m_values.AddMember("DataSetName", parse_json<Sdx::optional<std::string>>::format(dataSetName, m_values.GetAllocator()), m_values.GetAllocator());
+      m_values.AddMember("DataSetName", parse_json<std::optional<std::string>>::format(dataSetName, m_values.GetAllocator()), m_values.GetAllocator());
     }
 
 

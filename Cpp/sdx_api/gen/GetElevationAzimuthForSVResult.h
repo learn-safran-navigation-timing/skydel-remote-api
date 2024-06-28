@@ -4,7 +4,7 @@
 #include "command_result.h"
 #include "command_factory.h"
 #include "gen/ElevationAzimuth.h"
-#include "sdx_optional.h"
+#include <optional>
 #include <string>
 
 namespace Sdx
@@ -35,13 +35,13 @@ namespace Sdx
 
       GetElevationAzimuthForSVResult();
 
-      GetElevationAzimuthForSVResult(const std::string& system, int svId, const Sdx::optional<Sdx::ElevationAzimuth>& elevationAzimuth = {});
+      GetElevationAzimuthForSVResult(const std::string& system, int svId, const std::optional<Sdx::ElevationAzimuth>& elevationAzimuth = {});
 
-      GetElevationAzimuthForSVResult(CommandBasePtr relatedCommand, const std::string& system, int svId, const Sdx::optional<Sdx::ElevationAzimuth>& elevationAzimuth = {});
+      GetElevationAzimuthForSVResult(CommandBasePtr relatedCommand, const std::string& system, int svId, const std::optional<Sdx::ElevationAzimuth>& elevationAzimuth = {});
 
-      static GetElevationAzimuthForSVResultPtr create(const std::string& system, int svId, const Sdx::optional<Sdx::ElevationAzimuth>& elevationAzimuth = {});
+      static GetElevationAzimuthForSVResultPtr create(const std::string& system, int svId, const std::optional<Sdx::ElevationAzimuth>& elevationAzimuth = {});
 
-      static GetElevationAzimuthForSVResultPtr create(CommandBasePtr relatedCommand, const std::string& system, int svId, const Sdx::optional<Sdx::ElevationAzimuth>& elevationAzimuth = {});
+      static GetElevationAzimuthForSVResultPtr create(CommandBasePtr relatedCommand, const std::string& system, int svId, const std::optional<Sdx::ElevationAzimuth>& elevationAzimuth = {});
       static GetElevationAzimuthForSVResultPtr dynamicCast(CommandBasePtr ptr);
       virtual bool isValid() const override;
       virtual std::string documentation() const override;
@@ -59,8 +59,8 @@ namespace Sdx
 
 
       // **** elevationAzimuth ****
-      Sdx::optional<Sdx::ElevationAzimuth> elevationAzimuth() const;
-      void setElevationAzimuth(const Sdx::optional<Sdx::ElevationAzimuth>& elevationAzimuth);
+      std::optional<Sdx::ElevationAzimuth> elevationAzimuth() const;
+      void setElevationAzimuth(const std::optional<Sdx::ElevationAzimuth>& elevationAzimuth);
     };
     REGISTER_COMMAND_TO_FACTORY_DECL(GetElevationAzimuthForSVResult);
   }

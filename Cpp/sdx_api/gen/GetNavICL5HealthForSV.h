@@ -3,7 +3,7 @@
 #include <memory>
 #include "command_base.h"
 
-#include "sdx_optional.h"
+#include <optional>
 #include <string>
 
 namespace Sdx
@@ -33,9 +33,9 @@ namespace Sdx
 
       GetNavICL5HealthForSV();
 
-      GetNavICL5HealthForSV(int svId, const Sdx::optional<std::string>& dataSetName = {});
+      GetNavICL5HealthForSV(int svId, const std::optional<std::string>& dataSetName = {});
 
-      static GetNavICL5HealthForSVPtr create(int svId, const Sdx::optional<std::string>& dataSetName = {});
+      static GetNavICL5HealthForSVPtr create(int svId, const std::optional<std::string>& dataSetName = {});
       static GetNavICL5HealthForSVPtr dynamicCast(CommandBasePtr ptr);
       virtual bool isValid() const override;
       virtual std::string documentation() const override;
@@ -50,8 +50,8 @@ namespace Sdx
 
 
       // **** dataSetName ****
-      Sdx::optional<std::string> dataSetName() const;
-      void setDataSetName(const Sdx::optional<std::string>& dataSetName);
+      std::optional<std::string> dataSetName() const;
+      void setDataSetName(const std::optional<std::string>& dataSetName);
     };
     
   }

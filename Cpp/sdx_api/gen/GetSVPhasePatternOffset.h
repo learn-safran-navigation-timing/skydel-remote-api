@@ -4,7 +4,7 @@
 #include "command_base.h"
 
 #include "gen/GNSSBand.h"
-#include "sdx_optional.h"
+#include <optional>
 #include <string>
 
 namespace Sdx
@@ -16,7 +16,7 @@ namespace Sdx
     ///
     /// Name        Type            Description
     /// ----------- --------------- ------------------------------------------------------------------------------------
-    /// Band        GNSSBand        Offset will be apply to this band. ("L1", "L2" or "L5")
+    /// Band        GNSSBand        Offset will be apply to this band. ("L1", "L2", "L5", "E6" or "S")
     /// System      string          "GPS", "GLONASS", "Galileo", "BeiDou", "SBAS", "QZSS", "NavIC" or "PULSAR"
     /// AntennaName optional string Vehicle antenna name. If no name is specified, apply the offset to the Basic Antenna
     ///
@@ -35,9 +35,9 @@ namespace Sdx
 
       GetSVPhasePatternOffset();
 
-      GetSVPhasePatternOffset(const Sdx::GNSSBand& band, const std::string& system, const Sdx::optional<std::string>& antennaName = {});
+      GetSVPhasePatternOffset(const Sdx::GNSSBand& band, const std::string& system, const std::optional<std::string>& antennaName = {});
 
-      static GetSVPhasePatternOffsetPtr create(const Sdx::GNSSBand& band, const std::string& system, const Sdx::optional<std::string>& antennaName = {});
+      static GetSVPhasePatternOffsetPtr create(const Sdx::GNSSBand& band, const std::string& system, const std::optional<std::string>& antennaName = {});
       static GetSVPhasePatternOffsetPtr dynamicCast(CommandBasePtr ptr);
       virtual bool isValid() const override;
       virtual std::string documentation() const override;
@@ -57,8 +57,8 @@ namespace Sdx
 
 
       // **** antennaName ****
-      Sdx::optional<std::string> antennaName() const;
-      void setAntennaName(const Sdx::optional<std::string>& antennaName);
+      std::optional<std::string> antennaName() const;
+      void setAntennaName(const std::optional<std::string>& antennaName);
     };
     
   }

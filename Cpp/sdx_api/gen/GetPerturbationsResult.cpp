@@ -35,7 +35,7 @@ namespace Sdx
       : CommandResult(CmdName, TargetId)
     {}
 
-    GetPerturbationsResult::GetPerturbationsResult(const std::string& system, int svId, double crs, double crc, double cis, double cic, double cus, double cuc, const Sdx::optional<std::string>& dataSetName)
+    GetPerturbationsResult::GetPerturbationsResult(const std::string& system, int svId, double crs, double crc, double cis, double cic, double cus, double cuc, const std::optional<std::string>& dataSetName)
       : CommandResult(CmdName, TargetId)
     {
 
@@ -50,7 +50,7 @@ namespace Sdx
       setDataSetName(dataSetName);
     }
 
-    GetPerturbationsResult::GetPerturbationsResult(CommandBasePtr relatedCommand, const std::string& system, int svId, double crs, double crc, double cis, double cic, double cus, double cuc, const Sdx::optional<std::string>& dataSetName)
+    GetPerturbationsResult::GetPerturbationsResult(CommandBasePtr relatedCommand, const std::string& system, int svId, double crs, double crc, double cis, double cic, double cus, double cuc, const std::optional<std::string>& dataSetName)
       : CommandResult(CmdName, TargetId, relatedCommand)
     {
 
@@ -66,12 +66,12 @@ namespace Sdx
     }
 
 
-    GetPerturbationsResultPtr GetPerturbationsResult::create(const std::string& system, int svId, double crs, double crc, double cis, double cic, double cus, double cuc, const Sdx::optional<std::string>& dataSetName)
+    GetPerturbationsResultPtr GetPerturbationsResult::create(const std::string& system, int svId, double crs, double crc, double cis, double cic, double cus, double cuc, const std::optional<std::string>& dataSetName)
     {
       return std::make_shared<GetPerturbationsResult>(system, svId, crs, crc, cis, cic, cus, cuc, dataSetName);
     }
 
-    GetPerturbationsResultPtr GetPerturbationsResult::create(CommandBasePtr relatedCommand, const std::string& system, int svId, double crs, double crc, double cis, double cic, double cus, double cuc, const Sdx::optional<std::string>& dataSetName)
+    GetPerturbationsResultPtr GetPerturbationsResult::create(CommandBasePtr relatedCommand, const std::string& system, int svId, double crs, double crc, double cis, double cic, double cus, double cuc, const std::optional<std::string>& dataSetName)
     {
       return std::make_shared<GetPerturbationsResult>(relatedCommand, system, svId, crs, crc, cis, cic, cus, cuc, dataSetName);
     }
@@ -93,7 +93,7 @@ namespace Sdx
           && parse_json<double>::is_valid(m_values["Cic"])
           && parse_json<double>::is_valid(m_values["Cus"])
           && parse_json<double>::is_valid(m_values["Cuc"])
-          && parse_json<Sdx::optional<std::string>>::is_valid(m_values["DataSetName"])
+          && parse_json<std::optional<std::string>>::is_valid(m_values["DataSetName"])
         ;
 
     }
@@ -203,14 +203,14 @@ namespace Sdx
 
 
 
-    Sdx::optional<std::string> GetPerturbationsResult::dataSetName() const
+    std::optional<std::string> GetPerturbationsResult::dataSetName() const
     {
-      return parse_json<Sdx::optional<std::string>>::parse(m_values["DataSetName"]);
+      return parse_json<std::optional<std::string>>::parse(m_values["DataSetName"]);
     }
 
-    void GetPerturbationsResult::setDataSetName(const Sdx::optional<std::string>& dataSetName)
+    void GetPerturbationsResult::setDataSetName(const std::optional<std::string>& dataSetName)
     {
-      m_values.AddMember("DataSetName", parse_json<Sdx::optional<std::string>>::format(dataSetName, m_values.GetAllocator()), m_values.GetAllocator());
+      m_values.AddMember("DataSetName", parse_json<std::optional<std::string>>::format(dataSetName, m_values.GetAllocator()), m_values.GetAllocator());
     }
 
 

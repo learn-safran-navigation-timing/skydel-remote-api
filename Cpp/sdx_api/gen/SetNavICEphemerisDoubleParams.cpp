@@ -36,7 +36,7 @@ namespace Sdx
       : CommandBase(CmdName, TargetId)
     {}
 
-    SetNavICEphemerisDoubleParams::SetNavICEphemerisDoubleParams(const std::string& paramName, const std::vector<double>& val, const Sdx::optional<std::string>& dataSetName)
+    SetNavICEphemerisDoubleParams::SetNavICEphemerisDoubleParams(const std::string& paramName, const std::vector<double>& val, const std::optional<std::string>& dataSetName)
       : CommandBase(CmdName, TargetId)
     {
 
@@ -45,7 +45,7 @@ namespace Sdx
       setDataSetName(dataSetName);
     }
 
-    SetNavICEphemerisDoubleParamsPtr SetNavICEphemerisDoubleParams::create(const std::string& paramName, const std::vector<double>& val, const Sdx::optional<std::string>& dataSetName)
+    SetNavICEphemerisDoubleParamsPtr SetNavICEphemerisDoubleParams::create(const std::string& paramName, const std::vector<double>& val, const std::optional<std::string>& dataSetName)
     {
       return std::make_shared<SetNavICEphemerisDoubleParams>(paramName, val, dataSetName);
     }
@@ -61,7 +61,7 @@ namespace Sdx
         return m_values.IsObject()
           && parse_json<std::string>::is_valid(m_values["ParamName"])
           && parse_json<std::vector<double>>::is_valid(m_values["Val"])
-          && parse_json<Sdx::optional<std::string>>::is_valid(m_values["DataSetName"])
+          && parse_json<std::optional<std::string>>::is_valid(m_values["DataSetName"])
         ;
 
     }
@@ -74,7 +74,7 @@ namespace Sdx
       return names; 
     }
 
-    Sdx::optional<std::string> SetNavICEphemerisDoubleParams::deprecated() const { return Sdx::optional<std::string>{Deprecated}; }
+    std::optional<std::string> SetNavICEphemerisDoubleParams::deprecated() const { return std::optional<std::string>{Deprecated}; }
 
 
     int SetNavICEphemerisDoubleParams::executePermission() const
@@ -107,14 +107,14 @@ namespace Sdx
 
 
 
-    Sdx::optional<std::string> SetNavICEphemerisDoubleParams::dataSetName() const
+    std::optional<std::string> SetNavICEphemerisDoubleParams::dataSetName() const
     {
-      return parse_json<Sdx::optional<std::string>>::parse(m_values["DataSetName"]);
+      return parse_json<std::optional<std::string>>::parse(m_values["DataSetName"]);
     }
 
-    void SetNavICEphemerisDoubleParams::setDataSetName(const Sdx::optional<std::string>& dataSetName)
+    void SetNavICEphemerisDoubleParams::setDataSetName(const std::optional<std::string>& dataSetName)
     {
-      m_values.AddMember("DataSetName", parse_json<Sdx::optional<std::string>>::format(dataSetName, m_values.GetAllocator()), m_values.GetAllocator());
+      m_values.AddMember("DataSetName", parse_json<std::optional<std::string>>::format(dataSetName, m_values.GetAllocator()), m_values.GetAllocator());
     }
 
 

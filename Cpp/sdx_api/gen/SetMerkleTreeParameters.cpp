@@ -34,7 +34,7 @@ namespace Sdx
       : CommandBase(CmdName, TargetId)
     {}
 
-    SetMerkleTreeParameters::SetMerkleTreeParameters(const std::string& id, const std::string& keyType, const std::string& hashFunction, const Sdx::DateTime& beginApplicability, const Sdx::optional<Sdx::DateTime>& endApplicability)
+    SetMerkleTreeParameters::SetMerkleTreeParameters(const std::string& id, const std::string& keyType, const std::string& hashFunction, const Sdx::DateTime& beginApplicability, const std::optional<Sdx::DateTime>& endApplicability)
       : CommandBase(CmdName, TargetId)
     {
 
@@ -45,7 +45,7 @@ namespace Sdx
       setEndApplicability(endApplicability);
     }
 
-    SetMerkleTreeParametersPtr SetMerkleTreeParameters::create(const std::string& id, const std::string& keyType, const std::string& hashFunction, const Sdx::DateTime& beginApplicability, const Sdx::optional<Sdx::DateTime>& endApplicability)
+    SetMerkleTreeParametersPtr SetMerkleTreeParameters::create(const std::string& id, const std::string& keyType, const std::string& hashFunction, const Sdx::DateTime& beginApplicability, const std::optional<Sdx::DateTime>& endApplicability)
     {
       return std::make_shared<SetMerkleTreeParameters>(id, keyType, hashFunction, beginApplicability, endApplicability);
     }
@@ -63,7 +63,7 @@ namespace Sdx
           && parse_json<std::string>::is_valid(m_values["KeyType"])
           && parse_json<std::string>::is_valid(m_values["HashFunction"])
           && parse_json<Sdx::DateTime>::is_valid(m_values["BeginApplicability"])
-          && parse_json<Sdx::optional<Sdx::DateTime>>::is_valid(m_values["EndApplicability"])
+          && parse_json<std::optional<Sdx::DateTime>>::is_valid(m_values["EndApplicability"])
         ;
 
     }
@@ -131,14 +131,14 @@ namespace Sdx
 
 
 
-    Sdx::optional<Sdx::DateTime> SetMerkleTreeParameters::endApplicability() const
+    std::optional<Sdx::DateTime> SetMerkleTreeParameters::endApplicability() const
     {
-      return parse_json<Sdx::optional<Sdx::DateTime>>::parse(m_values["EndApplicability"]);
+      return parse_json<std::optional<Sdx::DateTime>>::parse(m_values["EndApplicability"]);
     }
 
-    void SetMerkleTreeParameters::setEndApplicability(const Sdx::optional<Sdx::DateTime>& endApplicability)
+    void SetMerkleTreeParameters::setEndApplicability(const std::optional<Sdx::DateTime>& endApplicability)
     {
-      m_values.AddMember("EndApplicability", parse_json<Sdx::optional<Sdx::DateTime>>::format(endApplicability, m_values.GetAllocator()), m_values.GetAllocator());
+      m_values.AddMember("EndApplicability", parse_json<std::optional<Sdx::DateTime>>::format(endApplicability, m_values.GetAllocator()), m_values.GetAllocator());
     }
 
 

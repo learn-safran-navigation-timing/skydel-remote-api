@@ -75,7 +75,7 @@ namespace Sdx
       : CommandBase(CmdName, TargetId)
     {}
 
-    PushDynamicSVData::PushDynamicSVData(const std::string& system, int svId, const Sdx::DateTime& toc, const std::map<std::string, double>& parametersDict, const Sdx::optional<std::vector<std::string>>& dataSetTypes)
+    PushDynamicSVData::PushDynamicSVData(const std::string& system, int svId, const Sdx::DateTime& toc, const std::map<std::string, double>& parametersDict, const std::optional<std::vector<std::string>>& dataSetTypes)
       : CommandBase(CmdName, TargetId)
     {
 
@@ -86,7 +86,7 @@ namespace Sdx
       setDataSetTypes(dataSetTypes);
     }
 
-    PushDynamicSVDataPtr PushDynamicSVData::create(const std::string& system, int svId, const Sdx::DateTime& toc, const std::map<std::string, double>& parametersDict, const Sdx::optional<std::vector<std::string>>& dataSetTypes)
+    PushDynamicSVDataPtr PushDynamicSVData::create(const std::string& system, int svId, const Sdx::DateTime& toc, const std::map<std::string, double>& parametersDict, const std::optional<std::vector<std::string>>& dataSetTypes)
     {
       return std::make_shared<PushDynamicSVData>(system, svId, toc, parametersDict, dataSetTypes);
     }
@@ -104,7 +104,7 @@ namespace Sdx
           && parse_json<int>::is_valid(m_values["SvId"])
           && parse_json<Sdx::DateTime>::is_valid(m_values["Toc"])
           && parse_json<std::map<std::string, double>>::is_valid(m_values["ParametersDict"])
-          && parse_json<Sdx::optional<std::vector<std::string>>>::is_valid(m_values["DataSetTypes"])
+          && parse_json<std::optional<std::vector<std::string>>>::is_valid(m_values["DataSetTypes"])
         ;
 
     }
@@ -172,14 +172,14 @@ namespace Sdx
 
 
 
-    Sdx::optional<std::vector<std::string>> PushDynamicSVData::dataSetTypes() const
+    std::optional<std::vector<std::string>> PushDynamicSVData::dataSetTypes() const
     {
-      return parse_json<Sdx::optional<std::vector<std::string>>>::parse(m_values["DataSetTypes"]);
+      return parse_json<std::optional<std::vector<std::string>>>::parse(m_values["DataSetTypes"]);
     }
 
-    void PushDynamicSVData::setDataSetTypes(const Sdx::optional<std::vector<std::string>>& dataSetTypes)
+    void PushDynamicSVData::setDataSetTypes(const std::optional<std::vector<std::string>>& dataSetTypes)
     {
-      m_values.AddMember("DataSetTypes", parse_json<Sdx::optional<std::vector<std::string>>>::format(dataSetTypes, m_values.GetAllocator()), m_values.GetAllocator());
+      m_values.AddMember("DataSetTypes", parse_json<std::optional<std::vector<std::string>>>::format(dataSetTypes, m_values.GetAllocator()), m_values.GetAllocator());
     }
 
 

@@ -30,7 +30,7 @@ namespace Sdx
       : CommandBase(CmdName, TargetId)
     {}
 
-    SetIssueOfDataGalileo::SetIssueOfDataGalileo(int navigation, int almanac, const Sdx::optional<bool>& overrideRinex)
+    SetIssueOfDataGalileo::SetIssueOfDataGalileo(int navigation, int almanac, const std::optional<bool>& overrideRinex)
       : CommandBase(CmdName, TargetId)
     {
 
@@ -39,7 +39,7 @@ namespace Sdx
       setOverrideRinex(overrideRinex);
     }
 
-    SetIssueOfDataGalileoPtr SetIssueOfDataGalileo::create(int navigation, int almanac, const Sdx::optional<bool>& overrideRinex)
+    SetIssueOfDataGalileoPtr SetIssueOfDataGalileo::create(int navigation, int almanac, const std::optional<bool>& overrideRinex)
     {
       return std::make_shared<SetIssueOfDataGalileo>(navigation, almanac, overrideRinex);
     }
@@ -55,7 +55,7 @@ namespace Sdx
         return m_values.IsObject()
           && parse_json<int>::is_valid(m_values["Navigation"])
           && parse_json<int>::is_valid(m_values["Almanac"])
-          && parse_json<Sdx::optional<bool>>::is_valid(m_values["OverrideRinex"])
+          && parse_json<std::optional<bool>>::is_valid(m_values["OverrideRinex"])
         ;
 
     }
@@ -99,14 +99,14 @@ namespace Sdx
 
 
 
-    Sdx::optional<bool> SetIssueOfDataGalileo::overrideRinex() const
+    std::optional<bool> SetIssueOfDataGalileo::overrideRinex() const
     {
-      return parse_json<Sdx::optional<bool>>::parse(m_values["OverrideRinex"]);
+      return parse_json<std::optional<bool>>::parse(m_values["OverrideRinex"]);
     }
 
-    void SetIssueOfDataGalileo::setOverrideRinex(const Sdx::optional<bool>& overrideRinex)
+    void SetIssueOfDataGalileo::setOverrideRinex(const std::optional<bool>& overrideRinex)
     {
-      m_values.AddMember("OverrideRinex", parse_json<Sdx::optional<bool>>::format(overrideRinex, m_values.GetAllocator()), m_values.GetAllocator());
+      m_values.AddMember("OverrideRinex", parse_json<std::optional<bool>>::format(overrideRinex, m_values.GetAllocator()), m_values.GetAllocator());
     }
 
 

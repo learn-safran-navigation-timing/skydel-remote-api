@@ -30,7 +30,7 @@ namespace Sdx
       : CommandBase(CmdName, TargetId)
     {}
 
-    SetGpsDataHealthForSV::SetGpsDataHealthForSV(int svId, int health, const Sdx::optional<std::string>& dataSetName)
+    SetGpsDataHealthForSV::SetGpsDataHealthForSV(int svId, int health, const std::optional<std::string>& dataSetName)
       : CommandBase(CmdName, TargetId)
     {
 
@@ -39,7 +39,7 @@ namespace Sdx
       setDataSetName(dataSetName);
     }
 
-    SetGpsDataHealthForSVPtr SetGpsDataHealthForSV::create(int svId, int health, const Sdx::optional<std::string>& dataSetName)
+    SetGpsDataHealthForSVPtr SetGpsDataHealthForSV::create(int svId, int health, const std::optional<std::string>& dataSetName)
     {
       return std::make_shared<SetGpsDataHealthForSV>(svId, health, dataSetName);
     }
@@ -55,7 +55,7 @@ namespace Sdx
         return m_values.IsObject()
           && parse_json<int>::is_valid(m_values["SvId"])
           && parse_json<int>::is_valid(m_values["Health"])
-          && parse_json<Sdx::optional<std::string>>::is_valid(m_values["DataSetName"])
+          && parse_json<std::optional<std::string>>::is_valid(m_values["DataSetName"])
         ;
 
     }
@@ -99,14 +99,14 @@ namespace Sdx
 
 
 
-    Sdx::optional<std::string> SetGpsDataHealthForSV::dataSetName() const
+    std::optional<std::string> SetGpsDataHealthForSV::dataSetName() const
     {
-      return parse_json<Sdx::optional<std::string>>::parse(m_values["DataSetName"]);
+      return parse_json<std::optional<std::string>>::parse(m_values["DataSetName"]);
     }
 
-    void SetGpsDataHealthForSV::setDataSetName(const Sdx::optional<std::string>& dataSetName)
+    void SetGpsDataHealthForSV::setDataSetName(const std::optional<std::string>& dataSetName)
     {
-      m_values.AddMember("DataSetName", parse_json<Sdx::optional<std::string>>::format(dataSetName, m_values.GetAllocator()), m_values.GetAllocator());
+      m_values.AddMember("DataSetName", parse_json<std::optional<std::string>>::format(dataSetName, m_values.GetAllocator()), m_values.GetAllocator());
     }
 
 

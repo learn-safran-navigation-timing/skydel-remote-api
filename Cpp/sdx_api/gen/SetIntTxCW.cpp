@@ -37,7 +37,7 @@ namespace Sdx
       : CommandBase(CmdName, TargetId)
     {}
 
-    SetIntTxCW::SetIntTxCW(bool enabled, double centralFreq, double power, const std::string& transmitterId, const std::string& signalId, const Sdx::optional<double>& initialPhaseOffset, const Sdx::optional<int>& group)
+    SetIntTxCW::SetIntTxCW(bool enabled, double centralFreq, double power, const std::string& transmitterId, const std::string& signalId, const std::optional<double>& initialPhaseOffset, const std::optional<int>& group)
       : CommandBase(CmdName, TargetId)
     {
 
@@ -50,7 +50,7 @@ namespace Sdx
       setGroup(group);
     }
 
-    SetIntTxCWPtr SetIntTxCW::create(bool enabled, double centralFreq, double power, const std::string& transmitterId, const std::string& signalId, const Sdx::optional<double>& initialPhaseOffset, const Sdx::optional<int>& group)
+    SetIntTxCWPtr SetIntTxCW::create(bool enabled, double centralFreq, double power, const std::string& transmitterId, const std::string& signalId, const std::optional<double>& initialPhaseOffset, const std::optional<int>& group)
     {
       return std::make_shared<SetIntTxCW>(enabled, centralFreq, power, transmitterId, signalId, initialPhaseOffset, group);
     }
@@ -69,8 +69,8 @@ namespace Sdx
           && parse_json<double>::is_valid(m_values["Power"])
           && parse_json<std::string>::is_valid(m_values["TransmitterId"])
           && parse_json<std::string>::is_valid(m_values["SignalId"])
-          && parse_json<Sdx::optional<double>>::is_valid(m_values["InitialPhaseOffset"])
-          && parse_json<Sdx::optional<int>>::is_valid(m_values["Group"])
+          && parse_json<std::optional<double>>::is_valid(m_values["InitialPhaseOffset"])
+          && parse_json<std::optional<int>>::is_valid(m_values["Group"])
         ;
 
     }
@@ -150,26 +150,26 @@ namespace Sdx
 
 
 
-    Sdx::optional<double> SetIntTxCW::initialPhaseOffset() const
+    std::optional<double> SetIntTxCW::initialPhaseOffset() const
     {
-      return parse_json<Sdx::optional<double>>::parse(m_values["InitialPhaseOffset"]);
+      return parse_json<std::optional<double>>::parse(m_values["InitialPhaseOffset"]);
     }
 
-    void SetIntTxCW::setInitialPhaseOffset(const Sdx::optional<double>& initialPhaseOffset)
+    void SetIntTxCW::setInitialPhaseOffset(const std::optional<double>& initialPhaseOffset)
     {
-      m_values.AddMember("InitialPhaseOffset", parse_json<Sdx::optional<double>>::format(initialPhaseOffset, m_values.GetAllocator()), m_values.GetAllocator());
+      m_values.AddMember("InitialPhaseOffset", parse_json<std::optional<double>>::format(initialPhaseOffset, m_values.GetAllocator()), m_values.GetAllocator());
     }
 
 
 
-    Sdx::optional<int> SetIntTxCW::group() const
+    std::optional<int> SetIntTxCW::group() const
     {
-      return parse_json<Sdx::optional<int>>::parse(m_values["Group"]);
+      return parse_json<std::optional<int>>::parse(m_values["Group"]);
     }
 
-    void SetIntTxCW::setGroup(const Sdx::optional<int>& group)
+    void SetIntTxCW::setGroup(const std::optional<int>& group)
     {
-      m_values.AddMember("Group", parse_json<Sdx::optional<int>>::format(group, m_values.GetAllocator()), m_values.GetAllocator());
+      m_values.AddMember("Group", parse_json<std::optional<int>>::format(group, m_values.GetAllocator()), m_values.GetAllocator());
     }
 
 

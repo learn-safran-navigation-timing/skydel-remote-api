@@ -3,7 +3,7 @@
 #include <memory>
 #include "command_base.h"
 
-#include "sdx_optional.h"
+#include <optional>
 #include <string>
 #include <vector>
 
@@ -34,9 +34,9 @@ namespace Sdx
 
       SetIonoGridGIVEIAll();
 
-      SetIonoGridGIVEIAll(const std::vector<std::vector<int>>& grid, const Sdx::optional<std::string>& serviceProvider = {});
+      SetIonoGridGIVEIAll(const std::vector<std::vector<int>>& grid, const std::optional<std::string>& serviceProvider = {});
 
-      static SetIonoGridGIVEIAllPtr create(const std::vector<std::vector<int>>& grid, const Sdx::optional<std::string>& serviceProvider = {});
+      static SetIonoGridGIVEIAllPtr create(const std::vector<std::vector<int>>& grid, const std::optional<std::string>& serviceProvider = {});
       static SetIonoGridGIVEIAllPtr dynamicCast(CommandBasePtr ptr);
       virtual bool isValid() const override;
       virtual std::string documentation() const override;
@@ -51,8 +51,8 @@ namespace Sdx
 
 
       // **** serviceProvider ****
-      Sdx::optional<std::string> serviceProvider() const;
-      void setServiceProvider(const Sdx::optional<std::string>& serviceProvider);
+      std::optional<std::string> serviceProvider() const;
+      void setServiceProvider(const std::optional<std::string>& serviceProvider);
     };
     
   }

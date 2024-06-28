@@ -40,8 +40,8 @@ namespace Sdx
     /// You can add multiple bit modifications using commas. For example: "24:X---10XX,127:100X,231:01"
     ///
     /// Name             Type         Description
-    /// ---------------- ------------ ----------------------------------------------------------------------------------------
-    /// SignalArray      array string Array of signals to apply the message modification to, accepts "NAVICL5" (empty for all)
+    /// ---------------- ------------ --------------------------------------------------------------------------------------------------
+    /// SignalArray      array string Array of signals to apply the message modification to, accepts "NAVICL5", "NAVICS" (empty for all)
     /// SvId             int          The satellite's SV ID 1..14 (use 0 to apply modification to all SVs)
     /// StartTime        int          Elapsed time in seconds since start of simulation
     /// StopTime         int          Elapsed time in seconds since start of simulation (use 0 for no stop time)

@@ -3,10 +3,9 @@
 #include <rapidjson/document.h>
 
 #include <map>
+#include <optional>
 #include <stdexcept>
 #include <vector>
-
-#include "sdx_optional.h"
 
 template<typename T>
 struct parse_json;
@@ -168,18 +167,18 @@ struct parse_json<std::map<std::string, TValue>>
 };
 
 template<typename T>
-struct parse_json<Sdx::optional<T>>
+struct parse_json<std::optional<T>>
 {
   static bool is_valid(const rapidjson::Value& value) { return value.IsNull() || parse_json<T>::is_valid(value); }
 
-  static Sdx::optional<T> parse(const rapidjson::Value& value)
+  static std::optional<T> parse(const rapidjson::Value& value)
   {
     if (value.IsNull())
-      return Sdx::optional<T>();
+      return std::optional<T>();
     return parse_json<T>::parse(value);
   }
 
-  static rapidjson::Value format(const Sdx::optional<T>& value, rapidjson::Value::AllocatorType& alloc)
+  static rapidjson::Value format(const std::optional<T>& value, rapidjson::Value::AllocatorType& alloc)
   {
     rapidjson::Value sent;
 

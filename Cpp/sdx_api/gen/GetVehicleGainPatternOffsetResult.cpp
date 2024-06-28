@@ -29,7 +29,7 @@ namespace Sdx
       : CommandResult(CmdName, TargetId)
     {}
 
-    GetVehicleGainPatternOffsetResult::GetVehicleGainPatternOffsetResult(const Sdx::GNSSBand& band, double offset, const Sdx::optional<std::string>& antennaName)
+    GetVehicleGainPatternOffsetResult::GetVehicleGainPatternOffsetResult(const Sdx::GNSSBand& band, double offset, const std::optional<std::string>& antennaName)
       : CommandResult(CmdName, TargetId)
     {
 
@@ -38,7 +38,7 @@ namespace Sdx
       setAntennaName(antennaName);
     }
 
-    GetVehicleGainPatternOffsetResult::GetVehicleGainPatternOffsetResult(CommandBasePtr relatedCommand, const Sdx::GNSSBand& band, double offset, const Sdx::optional<std::string>& antennaName)
+    GetVehicleGainPatternOffsetResult::GetVehicleGainPatternOffsetResult(CommandBasePtr relatedCommand, const Sdx::GNSSBand& band, double offset, const std::optional<std::string>& antennaName)
       : CommandResult(CmdName, TargetId, relatedCommand)
     {
 
@@ -48,12 +48,12 @@ namespace Sdx
     }
 
 
-    GetVehicleGainPatternOffsetResultPtr GetVehicleGainPatternOffsetResult::create(const Sdx::GNSSBand& band, double offset, const Sdx::optional<std::string>& antennaName)
+    GetVehicleGainPatternOffsetResultPtr GetVehicleGainPatternOffsetResult::create(const Sdx::GNSSBand& band, double offset, const std::optional<std::string>& antennaName)
     {
       return std::make_shared<GetVehicleGainPatternOffsetResult>(band, offset, antennaName);
     }
 
-    GetVehicleGainPatternOffsetResultPtr GetVehicleGainPatternOffsetResult::create(CommandBasePtr relatedCommand, const Sdx::GNSSBand& band, double offset, const Sdx::optional<std::string>& antennaName)
+    GetVehicleGainPatternOffsetResultPtr GetVehicleGainPatternOffsetResult::create(CommandBasePtr relatedCommand, const Sdx::GNSSBand& band, double offset, const std::optional<std::string>& antennaName)
     {
       return std::make_shared<GetVehicleGainPatternOffsetResult>(relatedCommand, band, offset, antennaName);
     }
@@ -69,7 +69,7 @@ namespace Sdx
         return m_values.IsObject()
           && parse_json<Sdx::GNSSBand>::is_valid(m_values["Band"])
           && parse_json<double>::is_valid(m_values["Offset"])
-          && parse_json<Sdx::optional<std::string>>::is_valid(m_values["AntennaName"])
+          && parse_json<std::optional<std::string>>::is_valid(m_values["AntennaName"])
         ;
 
     }
@@ -107,14 +107,14 @@ namespace Sdx
 
 
 
-    Sdx::optional<std::string> GetVehicleGainPatternOffsetResult::antennaName() const
+    std::optional<std::string> GetVehicleGainPatternOffsetResult::antennaName() const
     {
-      return parse_json<Sdx::optional<std::string>>::parse(m_values["AntennaName"]);
+      return parse_json<std::optional<std::string>>::parse(m_values["AntennaName"]);
     }
 
-    void GetVehicleGainPatternOffsetResult::setAntennaName(const Sdx::optional<std::string>& antennaName)
+    void GetVehicleGainPatternOffsetResult::setAntennaName(const std::optional<std::string>& antennaName)
     {
-      m_values.AddMember("AntennaName", parse_json<Sdx::optional<std::string>>::format(antennaName, m_values.GetAllocator()), m_values.GetAllocator());
+      m_values.AddMember("AntennaName", parse_json<std::optional<std::string>>::format(antennaName, m_values.GetAllocator()), m_values.GetAllocator());
     }
 
 

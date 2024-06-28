@@ -28,7 +28,7 @@ namespace Sdx
       : CommandResult(CmdName, TargetId)
     {}
 
-    GetIonoGridGIVEIAllResult::GetIonoGridGIVEIAllResult(const std::vector<std::vector<int>>& grid, const Sdx::optional<std::string>& serviceProvider)
+    GetIonoGridGIVEIAllResult::GetIonoGridGIVEIAllResult(const std::vector<std::vector<int>>& grid, const std::optional<std::string>& serviceProvider)
       : CommandResult(CmdName, TargetId)
     {
 
@@ -36,7 +36,7 @@ namespace Sdx
       setServiceProvider(serviceProvider);
     }
 
-    GetIonoGridGIVEIAllResult::GetIonoGridGIVEIAllResult(CommandBasePtr relatedCommand, const std::vector<std::vector<int>>& grid, const Sdx::optional<std::string>& serviceProvider)
+    GetIonoGridGIVEIAllResult::GetIonoGridGIVEIAllResult(CommandBasePtr relatedCommand, const std::vector<std::vector<int>>& grid, const std::optional<std::string>& serviceProvider)
       : CommandResult(CmdName, TargetId, relatedCommand)
     {
 
@@ -45,12 +45,12 @@ namespace Sdx
     }
 
 
-    GetIonoGridGIVEIAllResultPtr GetIonoGridGIVEIAllResult::create(const std::vector<std::vector<int>>& grid, const Sdx::optional<std::string>& serviceProvider)
+    GetIonoGridGIVEIAllResultPtr GetIonoGridGIVEIAllResult::create(const std::vector<std::vector<int>>& grid, const std::optional<std::string>& serviceProvider)
     {
       return std::make_shared<GetIonoGridGIVEIAllResult>(grid, serviceProvider);
     }
 
-    GetIonoGridGIVEIAllResultPtr GetIonoGridGIVEIAllResult::create(CommandBasePtr relatedCommand, const std::vector<std::vector<int>>& grid, const Sdx::optional<std::string>& serviceProvider)
+    GetIonoGridGIVEIAllResultPtr GetIonoGridGIVEIAllResult::create(CommandBasePtr relatedCommand, const std::vector<std::vector<int>>& grid, const std::optional<std::string>& serviceProvider)
     {
       return std::make_shared<GetIonoGridGIVEIAllResult>(relatedCommand, grid, serviceProvider);
     }
@@ -65,7 +65,7 @@ namespace Sdx
       
         return m_values.IsObject()
           && parse_json<std::vector<std::vector<int>>>::is_valid(m_values["Grid"])
-          && parse_json<Sdx::optional<std::string>>::is_valid(m_values["ServiceProvider"])
+          && parse_json<std::optional<std::string>>::is_valid(m_values["ServiceProvider"])
         ;
 
     }
@@ -91,14 +91,14 @@ namespace Sdx
 
 
 
-    Sdx::optional<std::string> GetIonoGridGIVEIAllResult::serviceProvider() const
+    std::optional<std::string> GetIonoGridGIVEIAllResult::serviceProvider() const
     {
-      return parse_json<Sdx::optional<std::string>>::parse(m_values["ServiceProvider"]);
+      return parse_json<std::optional<std::string>>::parse(m_values["ServiceProvider"]);
     }
 
-    void GetIonoGridGIVEIAllResult::setServiceProvider(const Sdx::optional<std::string>& serviceProvider)
+    void GetIonoGridGIVEIAllResult::setServiceProvider(const std::optional<std::string>& serviceProvider)
     {
-      m_values.AddMember("ServiceProvider", parse_json<Sdx::optional<std::string>>::format(serviceProvider, m_values.GetAllocator()), m_values.GetAllocator());
+      m_values.AddMember("ServiceProvider", parse_json<std::optional<std::string>>::format(serviceProvider, m_values.GetAllocator()), m_values.GetAllocator());
     }
 
 

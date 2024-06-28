@@ -3,7 +3,7 @@
 #include <memory>
 #include "command_base.h"
 
-#include "sdx_optional.h"
+#include <optional>
 #include <string>
 
 namespace Sdx
@@ -35,9 +35,9 @@ namespace Sdx
 
       EnableSbasFastCorrectionsFor();
 
-      EnableSbasFastCorrectionsFor(const std::string& system, bool isEnabled, const Sdx::optional<std::string>& errorType = {});
+      EnableSbasFastCorrectionsFor(const std::string& system, bool isEnabled, const std::optional<std::string>& errorType = {});
 
-      static EnableSbasFastCorrectionsForPtr create(const std::string& system, bool isEnabled, const Sdx::optional<std::string>& errorType = {});
+      static EnableSbasFastCorrectionsForPtr create(const std::string& system, bool isEnabled, const std::optional<std::string>& errorType = {});
       static EnableSbasFastCorrectionsForPtr dynamicCast(CommandBasePtr ptr);
       virtual bool isValid() const override;
       virtual std::string documentation() const override;
@@ -57,8 +57,8 @@ namespace Sdx
 
 
       // **** errorType ****
-      Sdx::optional<std::string> errorType() const;
-      void setErrorType(const Sdx::optional<std::string>& errorType);
+      std::optional<std::string> errorType() const;
+      void setErrorType(const std::optional<std::string>& errorType);
     };
     
   }

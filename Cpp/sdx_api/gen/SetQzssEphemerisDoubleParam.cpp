@@ -39,7 +39,7 @@ namespace Sdx
       : CommandBase(CmdName, TargetId)
     {}
 
-    SetQzssEphemerisDoubleParam::SetQzssEphemerisDoubleParam(int svId, const std::string& paramName, double val, const Sdx::optional<std::string>& dataSetName)
+    SetQzssEphemerisDoubleParam::SetQzssEphemerisDoubleParam(int svId, const std::string& paramName, double val, const std::optional<std::string>& dataSetName)
       : CommandBase(CmdName, TargetId)
     {
 
@@ -49,7 +49,7 @@ namespace Sdx
       setDataSetName(dataSetName);
     }
 
-    SetQzssEphemerisDoubleParamPtr SetQzssEphemerisDoubleParam::create(int svId, const std::string& paramName, double val, const Sdx::optional<std::string>& dataSetName)
+    SetQzssEphemerisDoubleParamPtr SetQzssEphemerisDoubleParam::create(int svId, const std::string& paramName, double val, const std::optional<std::string>& dataSetName)
     {
       return std::make_shared<SetQzssEphemerisDoubleParam>(svId, paramName, val, dataSetName);
     }
@@ -66,7 +66,7 @@ namespace Sdx
           && parse_json<int>::is_valid(m_values["SvId"])
           && parse_json<std::string>::is_valid(m_values["ParamName"])
           && parse_json<double>::is_valid(m_values["Val"])
-          && parse_json<Sdx::optional<std::string>>::is_valid(m_values["DataSetName"])
+          && parse_json<std::optional<std::string>>::is_valid(m_values["DataSetName"])
         ;
 
     }
@@ -79,7 +79,7 @@ namespace Sdx
       return names; 
     }
 
-    Sdx::optional<std::string> SetQzssEphemerisDoubleParam::deprecated() const { return Sdx::optional<std::string>{Deprecated}; }
+    std::optional<std::string> SetQzssEphemerisDoubleParam::deprecated() const { return std::optional<std::string>{Deprecated}; }
 
 
     int SetQzssEphemerisDoubleParam::executePermission() const
@@ -124,14 +124,14 @@ namespace Sdx
 
 
 
-    Sdx::optional<std::string> SetQzssEphemerisDoubleParam::dataSetName() const
+    std::optional<std::string> SetQzssEphemerisDoubleParam::dataSetName() const
     {
-      return parse_json<Sdx::optional<std::string>>::parse(m_values["DataSetName"]);
+      return parse_json<std::optional<std::string>>::parse(m_values["DataSetName"]);
     }
 
-    void SetQzssEphemerisDoubleParam::setDataSetName(const Sdx::optional<std::string>& dataSetName)
+    void SetQzssEphemerisDoubleParam::setDataSetName(const std::optional<std::string>& dataSetName)
     {
-      m_values.AddMember("DataSetName", parse_json<Sdx::optional<std::string>>::format(dataSetName, m_values.GetAllocator()), m_values.GetAllocator());
+      m_values.AddMember("DataSetName", parse_json<std::optional<std::string>>::format(dataSetName, m_values.GetAllocator()), m_values.GetAllocator());
     }
 
 

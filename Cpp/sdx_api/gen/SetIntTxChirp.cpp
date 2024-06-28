@@ -38,7 +38,7 @@ namespace Sdx
       : CommandBase(CmdName, TargetId)
     {}
 
-    SetIntTxChirp::SetIntTxChirp(bool enabled, double centralFreq, double power, double bandwidth, double sweepTime, const std::string& transmitterId, const std::string& signalId, const Sdx::optional<int>& group)
+    SetIntTxChirp::SetIntTxChirp(bool enabled, double centralFreq, double power, double bandwidth, double sweepTime, const std::string& transmitterId, const std::string& signalId, const std::optional<int>& group)
       : CommandBase(CmdName, TargetId)
     {
 
@@ -52,7 +52,7 @@ namespace Sdx
       setGroup(group);
     }
 
-    SetIntTxChirpPtr SetIntTxChirp::create(bool enabled, double centralFreq, double power, double bandwidth, double sweepTime, const std::string& transmitterId, const std::string& signalId, const Sdx::optional<int>& group)
+    SetIntTxChirpPtr SetIntTxChirp::create(bool enabled, double centralFreq, double power, double bandwidth, double sweepTime, const std::string& transmitterId, const std::string& signalId, const std::optional<int>& group)
     {
       return std::make_shared<SetIntTxChirp>(enabled, centralFreq, power, bandwidth, sweepTime, transmitterId, signalId, group);
     }
@@ -73,7 +73,7 @@ namespace Sdx
           && parse_json<double>::is_valid(m_values["SweepTime"])
           && parse_json<std::string>::is_valid(m_values["TransmitterId"])
           && parse_json<std::string>::is_valid(m_values["SignalId"])
-          && parse_json<Sdx::optional<int>>::is_valid(m_values["Group"])
+          && parse_json<std::optional<int>>::is_valid(m_values["Group"])
         ;
 
     }
@@ -177,14 +177,14 @@ namespace Sdx
 
 
 
-    Sdx::optional<int> SetIntTxChirp::group() const
+    std::optional<int> SetIntTxChirp::group() const
     {
-      return parse_json<Sdx::optional<int>>::parse(m_values["Group"]);
+      return parse_json<std::optional<int>>::parse(m_values["Group"]);
     }
 
-    void SetIntTxChirp::setGroup(const Sdx::optional<int>& group)
+    void SetIntTxChirp::setGroup(const std::optional<int>& group)
     {
-      m_values.AddMember("Group", parse_json<Sdx::optional<int>>::format(group, m_values.GetAllocator()), m_values.GetAllocator());
+      m_values.AddMember("Group", parse_json<std::optional<int>>::format(group, m_values.GetAllocator()), m_values.GetAllocator());
     }
 
 

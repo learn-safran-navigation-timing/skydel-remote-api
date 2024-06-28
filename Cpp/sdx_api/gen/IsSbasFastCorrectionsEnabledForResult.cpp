@@ -30,7 +30,7 @@ namespace Sdx
       : CommandResult(CmdName, TargetId)
     {}
 
-    IsSbasFastCorrectionsEnabledForResult::IsSbasFastCorrectionsEnabledForResult(const std::string& system, bool isEnabled, const Sdx::optional<std::string>& errorType)
+    IsSbasFastCorrectionsEnabledForResult::IsSbasFastCorrectionsEnabledForResult(const std::string& system, bool isEnabled, const std::optional<std::string>& errorType)
       : CommandResult(CmdName, TargetId)
     {
 
@@ -39,7 +39,7 @@ namespace Sdx
       setErrorType(errorType);
     }
 
-    IsSbasFastCorrectionsEnabledForResult::IsSbasFastCorrectionsEnabledForResult(CommandBasePtr relatedCommand, const std::string& system, bool isEnabled, const Sdx::optional<std::string>& errorType)
+    IsSbasFastCorrectionsEnabledForResult::IsSbasFastCorrectionsEnabledForResult(CommandBasePtr relatedCommand, const std::string& system, bool isEnabled, const std::optional<std::string>& errorType)
       : CommandResult(CmdName, TargetId, relatedCommand)
     {
 
@@ -49,12 +49,12 @@ namespace Sdx
     }
 
 
-    IsSbasFastCorrectionsEnabledForResultPtr IsSbasFastCorrectionsEnabledForResult::create(const std::string& system, bool isEnabled, const Sdx::optional<std::string>& errorType)
+    IsSbasFastCorrectionsEnabledForResultPtr IsSbasFastCorrectionsEnabledForResult::create(const std::string& system, bool isEnabled, const std::optional<std::string>& errorType)
     {
       return std::make_shared<IsSbasFastCorrectionsEnabledForResult>(system, isEnabled, errorType);
     }
 
-    IsSbasFastCorrectionsEnabledForResultPtr IsSbasFastCorrectionsEnabledForResult::create(CommandBasePtr relatedCommand, const std::string& system, bool isEnabled, const Sdx::optional<std::string>& errorType)
+    IsSbasFastCorrectionsEnabledForResultPtr IsSbasFastCorrectionsEnabledForResult::create(CommandBasePtr relatedCommand, const std::string& system, bool isEnabled, const std::optional<std::string>& errorType)
     {
       return std::make_shared<IsSbasFastCorrectionsEnabledForResult>(relatedCommand, system, isEnabled, errorType);
     }
@@ -70,7 +70,7 @@ namespace Sdx
         return m_values.IsObject()
           && parse_json<std::string>::is_valid(m_values["System"])
           && parse_json<bool>::is_valid(m_values["IsEnabled"])
-          && parse_json<Sdx::optional<std::string>>::is_valid(m_values["ErrorType"])
+          && parse_json<std::optional<std::string>>::is_valid(m_values["ErrorType"])
         ;
 
     }
@@ -108,14 +108,14 @@ namespace Sdx
 
 
 
-    Sdx::optional<std::string> IsSbasFastCorrectionsEnabledForResult::errorType() const
+    std::optional<std::string> IsSbasFastCorrectionsEnabledForResult::errorType() const
     {
-      return parse_json<Sdx::optional<std::string>>::parse(m_values["ErrorType"]);
+      return parse_json<std::optional<std::string>>::parse(m_values["ErrorType"]);
     }
 
-    void IsSbasFastCorrectionsEnabledForResult::setErrorType(const Sdx::optional<std::string>& errorType)
+    void IsSbasFastCorrectionsEnabledForResult::setErrorType(const std::optional<std::string>& errorType)
     {
-      m_values.AddMember("ErrorType", parse_json<Sdx::optional<std::string>>::format(errorType, m_values.GetAllocator()), m_values.GetAllocator());
+      m_values.AddMember("ErrorType", parse_json<std::optional<std::string>>::format(errorType, m_values.GetAllocator()), m_values.GetAllocator());
     }
 
 
