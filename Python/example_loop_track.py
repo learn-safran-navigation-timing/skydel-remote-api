@@ -72,7 +72,7 @@ sim.start()
 iteration = 0
 # This loop can be stop by doing a KeyboardInterrupt (Ctrl+C) or by stopping the simulation on Skydel
 try:
-  while True:
+  while iteration < 100:
     print("Iteration " + str(iteration))
     # We push the next block
     for t, pos in getTrackBlock(iteration * BLOCK_DURATION, BLOCK_DURATION, track, duration):

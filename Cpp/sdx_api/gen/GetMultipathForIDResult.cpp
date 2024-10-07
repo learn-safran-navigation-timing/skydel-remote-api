@@ -25,7 +25,7 @@ namespace Sdx
       "Pseudorange  double Pseudorange offset in meters (value must be positive)\n"
       "Doppler      double Doppler frequency offset in Hz\n"
       "CarrierPhase double Carrier phase offset in radians\n"
-      "Echo         int    Echo number [1..3], or use zero to let Skydel assign an echo number.";
+      "Echo         int    Echo number [1..5], or use zero to let Skydel assign an echo number.";
     const char* const GetMultipathForIDResult::TargetId = "";
 
     REGISTER_COMMAND_TO_FACTORY_IMPL(GetMultipathForIDResult);

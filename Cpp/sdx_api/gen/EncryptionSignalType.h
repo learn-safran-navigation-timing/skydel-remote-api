@@ -8,7 +8,7 @@ namespace Sdx
   /// Encryption signal type.
   ///
   
-  enum class EncryptionSignalType : int { PY_CODE, M_CODE, PRS };
+  enum class EncryptionSignalType : int { PY_CODE, PRS };
 }
 
 template<>

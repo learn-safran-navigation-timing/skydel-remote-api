@@ -3,7 +3,7 @@ from .commandbase import CommandBase
 from .commandresult import CommandResult
 from .commandbase import ExecutePermission
 
-ApiVersion = 45
+ApiVersion = 46
 
 #
 # The GPS AS flag value.
@@ -1485,6 +1485,93 @@ class GetAllPowerForSVResult(CommandResult):
 
   def setSignalPowerDict(self, value):
     return self.set("SignalPowerDict", value)
+
+#
+# Assigns filters to signals by name; accepted filter values are "None" and "Default".
+#
+# Name             Type               Description
+# ---------------- ------------------ --------------------------------------------------------------------------------
+# SignalFilterDict dict string:string A dictionary of signal filter pairs.
+#                                     Accepted keys are: "L1CA", "L1C", "L1P", "L1ME", "L1MR", "L2C", "L2P", "L2ME",
+#                                                        "L2MR", "L5", "G1", "G2", "E1", "E1PRS", "E5a", "E5b",
+#                                                        "E5AltBOC", "E6BC", "E6PRS", "B1", "B2", "B1C", "B2a", "B3I",
+#                                                        "SBASL1", "SBASL5", "QZSSL1CA", "QZSSL1CB", "QZSSL1C",
+#                                                        "QZSSL2C", "QZSSL5", "QZSSL1S", "QZSSL5S", "QZSSL6",
+#                                                        "NAVICL1", "NAVICL5", "NAVICS" and "PULSARXL"
+#
+
+class SetSignalFilterAssignation(CommandBase):
+
+  def __init__(self, signalFilterDict):
+    CommandBase.__init__(self, "SetSignalFilterAssignation")
+    self.setSignalFilterDict(signalFilterDict)
+
+  def executePermission(self):
+    return ExecutePermission.EXECUTE_IF_IDLE
+
+  def signalFilterDict(self):
+    return self.get("SignalFilterDict")
+
+  def setSignalFilterDict(self, value):
+    return self.set("SignalFilterDict", value)
+
+#
+# Returns filter names assigned to requested signals.
+#
+# Name        Type         Description
+# ----------- ------------ --------------------------------------------------------------------------------
+# SignalArray array string An array of signals.
+#                          Accepted values are: "L1CA", "L1C", "L1P", "L1ME", "L1MR", "L2C", "L2P", "L2ME",
+#                                               "L2MR", "L5", "G1", "G2", "E1", "E1PRS", "E5a", "E5b",
+#                                               "E5AltBOC", "E6BC", "E6PRS", "B1", "B2", "B1C", "B2a",
+#                                               "B3I", "SBASL1", "SBASL5", "QZSSL1CA", "QZSSL1CB",
+#                                               "QZSSL1C", "QZSSL2C", "QZSSL5", "QZSSL1S", "QZSSL5S",
+#                                               "QZSSL6", "NAVICL1", "NAVICL5", "NAVICS" and "PULSARXL"
+#
+
+class GetSignalFilterAssignation(CommandBase):
+
+  def __init__(self, signalArray):
+    CommandBase.__init__(self, "GetSignalFilterAssignation")
+    self.setSignalArray(signalArray)
+
+  def executePermission(self):
+    return ExecutePermission.EXECUTE_IF_IDLE
+
+  def signalArray(self):
+    return self.get("SignalArray")
+
+  def setSignalArray(self, value):
+    return self.set("SignalArray", value)
+
+#
+# Result of GetSignalFilterAssignation.
+#
+# Name             Type               Description
+# ---------------- ------------------ --------------------------------------------------------------------------------
+# SignalFilterDict dict string:string A dictionary of signal filter pairs.
+#                                     Accepted keys are: "L1CA", "L1C", "L1P", "L1ME", "L1MR", "L2C", "L2P", "L2ME",
+#                                                        "L2MR", "L5", "G1", "G2", "E1", "E1PRS", "E5a", "E5b",
+#                                                        "E5AltBOC", "E6BC", "E6PRS", "B1", "B2", "B1C", "B2a", "B3I",
+#                                                        "SBASL1", "SBASL5", "QZSSL1CA", "QZSSL1CB", "QZSSL1C",
+#                                                        "QZSSL2C", "QZSSL5", "QZSSL1S", "QZSSL5S", "QZSSL6",
+#                                                        "NAVICL1", "NAVICL5", "NAVICS" and "PULSARXL"
+#
+
+class GetSignalFilterAssignationResult(CommandResult):
+
+  def __init__(self, signalFilterDict):
+    CommandResult.__init__(self, "GetSignalFilterAssignationResult")
+    self.setSignalFilterDict(signalFilterDict)
+
+  def isSuccess(self):
+    return True
+
+  def signalFilterDict(self):
+    return self.get("SignalFilterDict")
+
+  def setSignalFilterDict(self, value):
+    return self.set("SignalFilterDict", value)
 
 #
 # Export the performance graph data into a csv file.
@@ -9125,12 +9212,12 @@ class ChangeModulationTargetName(CommandBase):
 # Output           int             Output index (zero based)
 # MinRate          int             Minimum sampling rate (12500000, 25000000, 50000000, 60000000, 100000000)
 # MaxRate          int             Maximum sampling rate (12500000, 25000000, 50000000, 60000000, 100000000)
-# Band             string          Frequency band is "LowerL" or "UpperL"
+# Band             string          Frequency band is "LowerL", "UpperL" or "S-Band"
 # Signal           string          Comma separated signal keys, accepted signal keys: "L1CA", "L1C", "L1P", "L1ME", "L1MR", "L2C", "L2P", "L2ME", "L2MR", "L5", "G1", "G2", "E1", "E5a", "E5b", "B1", "B2", "B1C", "B2a", "B3I", "SBASL1", "QZSSL1CA", "QZSSL1CB", "QZSSL1C", "QZSSL2C", "QZSSL5", "QZSSL1S", "QZSSL5S", "QZSSL6", "NAVICL1", "NAVICL5", "NAVICS", "PULSARXL"
 # Gain             int             The gain associated to this output (dB). This value has to be between the radio minimum value and 115. A negative value means to use the radio default value.
 # GaussianNoise    bool            If true, add Gaussian noise to ensure realistic signal to noise ratio. When combining multiple outputs, only one should have Gaussian noise enabled.
 # Id               string          Target identifier
-# CentralFrequency optional double Forced central frequency to this value. Central frequency can only be one of this values: 1176450000, 1191795000, 1202000000, 1207140000, 1217370000, 1222000000, 1227000000, 1227600000, 1230000000, 1235000000, 1246000000, 1561098000, 1575420000, 1582000000, 1584000000, 1586000000, 1602000000.
+# CentralFrequency optional double Forced central frequency to this value. Central frequency can only be one of this values: 1176450000, 1191795000, 1202000000, 1207140000, 1217370000, 1222000000, 1227000000, 1227600000, 1230000000, 1235000000, 1246000000, 1561098000, 1575420000, 1582000000, 1584000000, 1586000000, 1602000000, 2492028000.
 #
 
 class ChangeModulationTargetSignals(CommandBase):
@@ -9245,12 +9332,12 @@ class GetModulationTargetSignals(CommandBase):
 # Output           int             Output index (zero based)
 # MinRate          int             Minimum sampling rate (12500000, 25000000, 50000000, 60000000, 100000000)
 # MaxRate          int             Maximum sampling rate (12500000, 25000000, 50000000, 60000000, 100000000)
-# Band             string          Frequency band is "LowerL" or "UpperL"
+# Band             string          Frequency band is "LowerL", "UpperL" or "S-Band"
 # Signal           string          Comma separated signal keys, accepted signal keys: "L1CA", "L1C", "L1P", "L1ME", "L1MR", "L2C", "L2P", "L2ME", "L2MR", "L5", "G1", "G2", "E1", "E5a", "E5b", "B1", "B2", "B1C", "B2a", "B3I", "SBASL1", "QZSSL1CA", "QZSSL1CB", "QZSSL1C", "QZSSL2C", "QZSSL5", "QZSSL1S", "QZSSL5S", "QZSSL6", "NAVICL1", "NAVICL5", "NAVICS", "PULSARXL"
 # Gain             int             The gain associated to this output (dB). This value has to be between the radio minimum value and 115. A negative value means to use the radio default value.
 # GaussianNoise    bool            If true, add Gaussian noise to ensure realistic signal to noise ratio. When combining multiple outputs, only one should have Gaussian noise enabled.
 # Id               string          Target identifier
-# CentralFrequency optional double Forced central frequency to this value. Central frequency can only be one of this values: 1176450000, 1191795000, 1202000000, 1207140000, 1217370000, 1222000000, 1227000000, 1227600000, 1230000000, 1235000000, 1246000000, 1561098000, 1575420000, 1582000000, 1584000000, 1586000000, 1602000000.
+# CentralFrequency optional double Forced central frequency to this value. Central frequency can only be one of this values: 1176450000, 1191795000, 1202000000, 1207140000, 1217370000, 1222000000, 1227000000, 1227600000, 1230000000, 1235000000, 1246000000, 1561098000, 1575420000, 1582000000, 1584000000, 1586000000, 1602000000, 2492028000.
 #
 
 class GetModulationTargetSignalsResult(CommandResult):
@@ -9336,7 +9423,7 @@ class GetModulationTargetSignalsResult(CommandResult):
 # MinRate     int             Minimum sampling rate (12500000, 25000000, 50000000, 60000000, 100000000)
 # MaxRate     int             Maximum sampling rate (12500000, 25000000, 50000000, 60000000, 100000000)
 # Group       int             Interference group number [1..16] or 0 for no group
-# CentralFreq double          Central frequency (Hz). Put 0.0 and complete signal list to let Skydel choose automaticly the central frequency.
+# CentralFreq double          Central frequency (Hz). Put 0.0 and complete signal list to let Skydel choose automatically the central frequency.
 # Gain        int             The gain associated to this output (dB). As of today, accepted values are 0, 20, 40, 60 and 80. Values at 40 and under are not recommended. Use a negative value to use the default value (60).
 # Id          string          Target identifier
 # Signal      optional string Comma separated signal keys if you want to match central frequency and sampling rate with a particular list of signals. Accepted signal keys: "L1CA", "L1C", "L1P", "L1ME", "L1MR", "L2C", "L2P", "L2ME", "L2MR", "L5", "G1", "G2", "E1", "E5a", "E5b", "B1", "B2", "B1C", "B2a", "B3I", "SBASL1", "QZSSL1CA", "QZSSL1CB", "QZSSL1C", "QZSSL2C", "QZSSL5", "QZSSL1S", "QZSSL5S", "QZSSL6", "NAVICL1", "NAVICL5", "NAVICS", "PULSARXL"
@@ -9449,7 +9536,7 @@ class GetModulationTargetInterferences(CommandBase):
 # MinRate     int             Minimum sampling rate (12500000, 25000000, 50000000, 60000000, 100000000)
 # MaxRate     int             Maximum sampling rate (12500000, 25000000, 50000000, 60000000, 100000000)
 # Group       int             Interference group number [1..16] or 0 for no group
-# CentralFreq double          Central frequency (Hz). Put 0.0 and complete signal list to let Skydel choose automaticly the central frequency.
+# CentralFreq double          Central frequency (Hz). Put 0.0 and complete signal list to let Skydel choose automatically the central frequency.
 # Gain        int             The gain associated to this output (dB). As of today, accepted values are 0, 20, 40, 60 and 80. Values at 40 and under are not recommended. Use a negative value to use the default value (60).
 # Id          string          Target identifier
 # Signal      optional string Comma separated signal keys if you want to match central frequency and sampling rate with a particular list of signals. Accepted signal keys: "L1CA", "L1C", "L1P", "L1ME", "L1MR", "L2C", "L2P", "L2ME", "L2MR", "L5", "G1", "G2", "E1", "E5a", "E5b", "B1", "B2", "B1C", "B2a", "B3I", "SBASL1", "QZSSL1CA", "QZSSL1CB", "QZSSL1C", "QZSSL2C", "QZSSL5", "QZSSL1S", "QZSSL5S", "QZSSL6", "NAVICL1", "NAVICL5", "NAVICS", "PULSARXL"
@@ -14798,6 +14885,91 @@ class GetGlonassFrequencyNumberForEachSVResult(CommandResult):
     return self.set("FrequencyNumber", value)
 
 #
+# Set the ephemeris reference time for a SBAS satellite.
+#
+# Name Type     Description
+# ---- -------- ---------------------------------------------------------------
+# SvId int      The satellite's SV ID.
+# Time datetime GPS date and time (it is the GPS time expressed in UTC format).
+#
+
+class SetSbasEphemerisReferenceTimeForSV(CommandBase):
+
+  def __init__(self, svId, time):
+    CommandBase.__init__(self, "SetSbasEphemerisReferenceTimeForSV")
+    self.setSvId(svId)
+    self.setTime(time)
+
+  def executePermission(self):
+    return ExecutePermission.EXECUTE_IF_IDLE
+
+  def svId(self):
+    return self.get("SvId")
+
+  def setSvId(self, value):
+    return self.set("SvId", value)
+
+  def time(self):
+    return self.get("Time")
+
+  def setTime(self, value):
+    return self.set("Time", value)
+
+#
+# Get the ephemeris reference time for a SBAS satellite.
+#
+# Name Type Description
+# ---- ---- ----------------------
+# SvId int  The satellite's SV ID.
+#
+
+class GetSbasEphemerisReferenceTimeForSV(CommandBase):
+
+  def __init__(self, svId):
+    CommandBase.__init__(self, "GetSbasEphemerisReferenceTimeForSV")
+    self.setSvId(svId)
+
+  def executePermission(self):
+    return ExecutePermission.EXECUTE_IF_IDLE
+
+  def svId(self):
+    return self.get("SvId")
+
+  def setSvId(self, value):
+    return self.set("SvId", value)
+
+#
+# Result of GetSbasEphemerisReferenceTimeForSV.
+#
+# Name Type     Description
+# ---- -------- ---------------------------------------------------------------
+# SvId int      The satellite's SV ID.
+# Time datetime GPS date and time (it is the GPS time expressed in UTC format).
+#
+
+class GetSbasEphemerisReferenceTimeForSVResult(CommandResult):
+
+  def __init__(self, svId, time):
+    CommandResult.__init__(self, "GetSbasEphemerisReferenceTimeForSVResult")
+    self.setSvId(svId)
+    self.setTime(time)
+
+  def isSuccess(self):
+    return True
+
+  def svId(self):
+    return self.get("SvId")
+
+  def setSvId(self, value):
+    return self.set("SvId", value)
+
+  def time(self):
+    return self.get("Time")
+
+  def setTime(self, value):
+    return self.set("Time", value)
+
+#
 # Set parameters for a SBAS satellite ephemeris (runtime modification only available for health parameter)
 #
 # Name           Type               Description
@@ -15710,229 +15882,6 @@ class GetMessageModificationToGpsCNavResult(CommandResult):
 
   def setUpdateCRC(self, value):
     return self.set("UpdateCRC", value)
-
-  def bitModifications(self):
-    return self.get("BitModifications")
-
-  def setBitModifications(self, value):
-    return self.set("BitModifications", value)
-
-  def id(self):
-    return self.get("Id")
-
-  def setId(self, value):
-    return self.set("Id", value)
-
-#
-# Set (or Modify) event to change GPS MNAV message bits. If you send this command without setting the ID
-# parameter, or if you set the ID with a value never used before, a new Modification event will be
-# created. If you reuse the same event ID, it will modify the existing event.
-# 
-# Note that start and stop time are automatically extended to beginning and ending of overlapped
-# messages.
-# 
-# The Condition parameter is optional and allows you to add content matching condition before applying
-# bit modifications.
-# 
-# BitModifications can be an empty string. The Modification will have no effect until you modify it with at
-# least one bits mod.
-# 
-# A bits mod is represented with a string using the following format: "I:Bits" where I is a bit
-# index (1 refers to the first transmitted bit) and Bits is a modification mask where each
-# character describes a modification to a single bit. The allowed characters are:
-#    0 : force bit to 0
-#    1 : force bit to 1
-#    - : leave bit unchanged
-#    X : revert bit (0 becomes 1 and 1 becomes 0)
-# 
-# For example: "24:X---10XX" will: revert bits 24, 30 and 31
-#                  set bit 28 to 1
-#                  set bit 29 to 0
-# The other bits are not affected.
-# 
-# You can add multiple bit modifications using commas. For example: "24:X---10XX,127:100X,231:01"
-#
-# Name             Type         Description
-# ---------------- ------------ ------------------------------------------------------------------------------------------------
-# SignalArray      array string Array of signals to apply the message modification to, accepts "L1ME" and "L2ME" (empty for all)
-# SvId             int          The satellite's SV ID 1..32 (use 0 to apply modification to all SVs)
-# StartTime        int          Elapsed time in seconds since start of simulation
-# StopTime         int          Elapsed time in seconds since start of simulation (use 0 for no stop time)
-# MessageType      int          MNAV Message type
-# Occurrence       int          Occurrence number in message sequence (1 based, or use -1 to match any occurrence)
-# Condition        string       Optional condition to match message content, ex: "EQUAL(45, 10, 0x3f)"
-# BitModifications string       Comma separated bit modifications
-# Id               string       Unique identifier automatically set by simulator
-#
-
-class SetMessageModificationToGpsMNav(CommandBase):
-
-  def __init__(self, signalArray, svId, startTime, stopTime, messageType, occurrence, condition, bitModifications, id):
-    CommandBase.__init__(self, "SetMessageModificationToGpsMNav")
-    self.setSignalArray(signalArray)
-    self.setSvId(svId)
-    self.setStartTime(startTime)
-    self.setStopTime(stopTime)
-    self.setMessageType(messageType)
-    self.setOccurrence(occurrence)
-    self.setCondition(condition)
-    self.setBitModifications(bitModifications)
-    self.setId(id)
-
-  def executePermission(self):
-    return ExecutePermission.EXECUTE_IF_SIMULATING | ExecutePermission.EXECUTE_IF_IDLE
-
-  def signalArray(self):
-    return self.get("SignalArray")
-
-  def setSignalArray(self, value):
-    return self.set("SignalArray", value)
-
-  def svId(self):
-    return self.get("SvId")
-
-  def setSvId(self, value):
-    return self.set("SvId", value)
-
-  def startTime(self):
-    return self.get("StartTime")
-
-  def setStartTime(self, value):
-    return self.set("StartTime", value)
-
-  def stopTime(self):
-    return self.get("StopTime")
-
-  def setStopTime(self, value):
-    return self.set("StopTime", value)
-
-  def messageType(self):
-    return self.get("MessageType")
-
-  def setMessageType(self, value):
-    return self.set("MessageType", value)
-
-  def occurrence(self):
-    return self.get("Occurrence")
-
-  def setOccurrence(self, value):
-    return self.set("Occurrence", value)
-
-  def condition(self):
-    return self.get("Condition")
-
-  def setCondition(self, value):
-    return self.set("Condition", value)
-
-  def bitModifications(self):
-    return self.get("BitModifications")
-
-  def setBitModifications(self, value):
-    return self.set("BitModifications", value)
-
-  def id(self):
-    return self.get("Id")
-
-  def setId(self, value):
-    return self.set("Id", value)
-
-#
-# Get infos about the GPS MNAV message modification with this ID.
-#
-# Name Type   Description
-# ---- ------ ------------------------------------------------
-# Id   string Unique identifier automatically set by simulator
-#
-
-class GetMessageModificationToGpsMNav(CommandBase):
-
-  def __init__(self, id):
-    CommandBase.__init__(self, "GetMessageModificationToGpsMNav")
-    self.setId(id)
-
-  def executePermission(self):
-    return ExecutePermission.EXECUTE_IF_IDLE
-
-  def id(self):
-    return self.get("Id")
-
-  def setId(self, value):
-    return self.set("Id", value)
-
-#
-# Result of GetMessageModificationToGpsMNav.
-#
-# Name             Type         Description
-# ---------------- ------------ ------------------------------------------------------------------------------------------------
-# SignalArray      array string Array of signals to apply the message modification to, accepts "L1ME" and "L2ME" (empty for all)
-# SvId             int          The satellite's SV ID 1..32 (use 0 to apply modification to all SVs)
-# StartTime        int          Elapsed time in seconds since start of simulation
-# StopTime         int          Elapsed time in seconds since start of simulation (use 0 for no stop time)
-# MessageType      int          MNAV Message type
-# Occurrence       int          Occurrence number in message sequence (1 based, or use -1 to match any occurrence)
-# Condition        string       Optional condition to match message content, ex: "EQUAL(45, 10, 0x3f)"
-# BitModifications string       Comma separated bit modifications
-# Id               string       Unique identifier automatically set by simulator
-#
-
-class GetMessageModificationToGpsMNavResult(CommandResult):
-
-  def __init__(self, signalArray, svId, startTime, stopTime, messageType, occurrence, condition, bitModifications, id):
-    CommandResult.__init__(self, "GetMessageModificationToGpsMNavResult")
-    self.setSignalArray(signalArray)
-    self.setSvId(svId)
-    self.setStartTime(startTime)
-    self.setStopTime(stopTime)
-    self.setMessageType(messageType)
-    self.setOccurrence(occurrence)
-    self.setCondition(condition)
-    self.setBitModifications(bitModifications)
-    self.setId(id)
-
-  def isSuccess(self):
-    return True
-
-  def signalArray(self):
-    return self.get("SignalArray")
-
-  def setSignalArray(self, value):
-    return self.set("SignalArray", value)
-
-  def svId(self):
-    return self.get("SvId")
-
-  def setSvId(self, value):
-    return self.set("SvId", value)
-
-  def startTime(self):
-    return self.get("StartTime")
-
-  def setStartTime(self, value):
-    return self.set("StartTime", value)
-
-  def stopTime(self):
-    return self.get("StopTime")
-
-  def setStopTime(self, value):
-    return self.set("StopTime", value)
-
-  def messageType(self):
-    return self.get("MessageType")
-
-  def setMessageType(self, value):
-    return self.set("MessageType", value)
-
-  def occurrence(self):
-    return self.get("Occurrence")
-
-  def setOccurrence(self, value):
-    return self.set("Occurrence", value)
-
-  def condition(self):
-    return self.get("Condition")
-
-  def setCondition(self, value):
-    return self.set("Condition", value)
 
   def bitModifications(self):
     return self.get("BitModifications")
@@ -19767,8 +19716,8 @@ class GetMessageModificationToPulsarNavResult(CommandResult):
 # Removes a message modification event for the navigation message family.
 #
 # Name         Type   Description
-# ------------ ------ ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
-# NavMsgFamily string Navigation message family key, accepted values : "GPS_LNAV", "GPS_CNAV", "GPS_CNAV2", "GPS_MNAV", "GLONASS_NAV", "GALILEO_FNAV", "GALILEO_INAV", "BEIDOU_D1_NAV", "BEIDOU_CNAV1", "BEIDOU_CNAV2", "QZSS_LNAV", "QZSS_SLAS", "NAVIC_NAV" and "SBAS_NAV"
+# ------------ ------ ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+# NavMsgFamily string Navigation message family key, accepted values : "GPS_LNAV", "GPS_CNAV", "GPS_CNAV2", "GLONASS_NAV", "GALILEO_FNAV", "GALILEO_INAV", "BEIDOU_D1_NAV", "BEIDOU_CNAV1", "BEIDOU_CNAV2", "QZSS_LNAV", "QZSS_SLAS", "NAVIC_NAV" and "SBAS_NAV"
 # Id           string Unique identifier
 #
 
@@ -19798,8 +19747,8 @@ class RemoveMessageModificationForNavMsgFamily(CommandBase):
 # Clear all message modification events for this navigation message family.
 #
 # Name         Type   Description
-# ------------ ------ ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
-# NavMsgFamily string Navigation message family key, accepted values : "GPS_LNAV", "GPS_CNAV", "GPS_CNAV2", "GPS_MNAV", "GLONASS_NAV", "GALILEO_FNAV", "GALILEO_INAV", "BEIDOU_D1_NAV", "BEIDOU_CNAV1", "BEIDOU_CNAV2", "QZSS_LNAV", "QZSS_SLAS", "NAVIC_NAV" and "SBAS_NAV"
+# ------------ ------ ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+# NavMsgFamily string Navigation message family key, accepted values : "GPS_LNAV", "GPS_CNAV", "GPS_CNAV2", "GLONASS_NAV", "GALILEO_FNAV", "GALILEO_INAV", "BEIDOU_D1_NAV", "BEIDOU_CNAV1", "BEIDOU_CNAV2", "QZSS_LNAV", "QZSS_SLAS", "NAVIC_NAV" and "SBAS_NAV"
 #
 
 class ClearAllMessageModificationsForNavMsgFamily(CommandBase):
@@ -19821,8 +19770,8 @@ class ClearAllMessageModificationsForNavMsgFamily(CommandBase):
 # Get all the message modification event's IDs for this navigation message family and SV ID.
 #
 # Name         Type   Description
-# ------------ ------ ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
-# NavMsgFamily string Navigation message family key, accepted values : "GPS_LNAV", "GPS_CNAV", "GPS_CNAV2", "GPS_MNAV", "GLONASS_NAV", "GALILEO_FNAV", "GALILEO_INAV", "BEIDOU_D1_NAV", "BEIDOU_CNAV1", "BEIDOU_CNAV2", "QZSS_LNAV", "QZSS_SLAS", "NAVIC_NAV" and "SBAS_NAV"
+# ------------ ------ ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+# NavMsgFamily string Navigation message family key, accepted values : "GPS_LNAV", "GPS_CNAV", "GPS_CNAV2", "GLONASS_NAV", "GALILEO_FNAV", "GALILEO_INAV", "BEIDOU_D1_NAV", "BEIDOU_CNAV1", "BEIDOU_CNAV2", "QZSS_LNAV", "QZSS_SLAS", "NAVIC_NAV" and "SBAS_NAV"
 # SvId         int    The satellite's SV ID
 #
 
@@ -20937,7 +20886,7 @@ class GetEphemerisTocOffsetResult(CommandResult):
 # Pseudorange  double Pseudorange offset in meters (value must be positive)
 # Doppler      double Doppler frequency offset in Hz
 # CarrierPhase double Carrier phase offset in radians
-# Echo         int    Echo number [1..4], or use zero to let Skydel assign an echo number.
+# Echo         int    Echo number [1..5], or use zero to let Skydel assign an echo number.
 # Id           string Unique identifier.
 #
 
@@ -21196,7 +21145,7 @@ class GetMultipathForID(CommandBase):
 # Pseudorange  double Pseudorange offset in meters (value must be positive)
 # Doppler      double Doppler frequency offset in Hz
 # CarrierPhase double Carrier phase offset in radians
-# Echo         int    Echo number [1..3], or use zero to let Skydel assign an echo number.
+# Echo         int    Echo number [1..5], or use zero to let Skydel assign an echo number.
 #
 
 class GetMultipathForIDResult(CommandResult):
@@ -35463,8 +35412,7 @@ class IsAlmanacExtrapolationFromEphemerisEnabledResult(CommandResult):
 
 class EncryptionSignalType:
   PY_CODE = 0
-  M_CODE = 1
-  PRS = 2
+  PRS = 1
 
 #
 # Set the specific encryption signal library path.
@@ -35637,6 +35585,106 @@ class ExecuteGpuBenchmarkResult(CommandResult):
 
   def setScore(self, value):
     return self.set("Score", value)
+
+#
+# A signal with an optional component.
+#
+# Name      Type            Description
+# --------- --------------- -----------------------------------------------------------------------------------
+# Signal    string          The signal key.
+# Component optional string Some signals are divided into multiple components, such as E1b ("b") and E1c ("c").
+#
+
+class SignalWithComponent:
+
+  def __init__(self, signal, component = None):
+    self.Signal = signal
+    self.Component = component
+
+#
+# Set the inter-modulation coefficient for this signal component. The default value is 1 for the signal component and 0 for the global inter-modulation coefficient.
+#
+# Name        Type                      Description
+# ----------- ------------------------- -------------------------
+# SignalArray array SignalWithComponent Signals to multiply.
+# Coefficient double                    The coefficient to apply.
+#
+
+class SetInterModulation(CommandBase):
+
+  def __init__(self, signalArray, coefficient):
+    CommandBase.__init__(self, "SetInterModulation")
+    self.setSignalArray(signalArray)
+    self.setCoefficient(coefficient)
+
+  def executePermission(self):
+    return ExecutePermission.EXECUTE_IF_IDLE
+
+  def signalArray(self):
+    return self.get("SignalArray")
+
+  def setSignalArray(self, value):
+    return self.set("SignalArray", value)
+
+  def coefficient(self):
+    return self.get("Coefficient")
+
+  def setCoefficient(self, value):
+    return self.set("Coefficient", value)
+
+#
+# Get the inter-modulation coefficient for this signal component. The default value is 1 for the signal component and 0 for the global inter-modulation coefficient.
+#
+# Name        Type                      Description
+# ----------- ------------------------- --------------------
+# SignalArray array SignalWithComponent Signals to multiply.
+#
+
+class GetInterModulation(CommandBase):
+
+  def __init__(self, signalArray):
+    CommandBase.__init__(self, "GetInterModulation")
+    self.setSignalArray(signalArray)
+
+  def executePermission(self):
+    return ExecutePermission.EXECUTE_IF_IDLE
+
+  def signalArray(self):
+    return self.get("SignalArray")
+
+  def setSignalArray(self, value):
+    return self.set("SignalArray", value)
+
+#
+# Result of GetInterModulation.
+#
+# Name        Type                      Description
+# ----------- ------------------------- -------------------------
+# SignalArray array SignalWithComponent Signals to multiply.
+# Coefficient double                    The coefficient to apply.
+#
+
+class GetInterModulationResult(CommandResult):
+
+  def __init__(self, signalArray, coefficient):
+    CommandResult.__init__(self, "GetInterModulationResult")
+    self.setSignalArray(signalArray)
+    self.setCoefficient(coefficient)
+
+  def isSuccess(self):
+    return True
+
+  def signalArray(self):
+    return self.get("SignalArray")
+
+  def setSignalArray(self, value):
+    return self.set("SignalArray", value)
+
+  def coefficient(self):
+    return self.get("Coefficient")
+
+  def setCoefficient(self, value):
+    return self.set("Coefficient", value)
 
 #
 # Set Wavefront element properties. Properties define if an element is enabled/disabled, and the associated antenna.
@@ -37332,6 +37380,168 @@ class GetOsnmaMacLtIdResult(CommandResult):
 
   def setMacLtId(self, value):
     return self.set("MacLtId", value)
+
+#
+# The type of propagation model
+#
+
+class PropagationModelType:
+  Rural = 0
+  Suburban = 1
+  Urban = 2
+  Manual = 3
+
+#
+# Set the parameters for the propagation model.
+#
+# Name           Type                 Description
+# -------------- -------------------- ------------------------------------------------------------------------
+# Model          PropagationModelType The type of propagation model to edit.
+# ParamValueDict dict string:double   The propagation model parameters. Leave blank to restore default values.
+#
+
+class SetPropagationModelParameters(CommandBase):
+
+  def __init__(self, model, paramValueDict):
+    CommandBase.__init__(self, "SetPropagationModelParameters")
+    self.setModel(model)
+    self.setParamValueDict(paramValueDict)
+
+  def executePermission(self):
+    return ExecutePermission.EXECUTE_IF_IDLE | ExecutePermission.EXECUTE_IF_SIMULATING
+
+  def model(self):
+    return self.get("Model")
+
+  def setModel(self, value):
+    return self.set("Model", value)
+
+  def paramValueDict(self):
+    return self.get("ParamValueDict")
+
+  def setParamValueDict(self, value):
+    return self.set("ParamValueDict", value)
+
+#
+# Get the parameters for the propagation model.
+#
+# Name       Type                 Description
+# ---------- -------------------- ------------------------------------------------------------------------
+# Model      PropagationModelType The type of propagation model to edit.
+# ParamArray array string         The propagation model parameters. Leave blank to restore default values.
+#
+
+class GetPropagationModelParameters(CommandBase):
+
+  def __init__(self, model, paramArray):
+    CommandBase.__init__(self, "GetPropagationModelParameters")
+    self.setModel(model)
+    self.setParamArray(paramArray)
+
+  def executePermission(self):
+    return ExecutePermission.EXECUTE_IF_IDLE | ExecutePermission.EXECUTE_IF_SIMULATING
+
+  def model(self):
+    return self.get("Model")
+
+  def setModel(self, value):
+    return self.set("Model", value)
+
+  def paramArray(self):
+    return self.get("ParamArray")
+
+  def setParamArray(self, value):
+    return self.set("ParamArray", value)
+
+#
+# Result of GetPropagationModelParameters.
+#
+# Name           Type                 Description
+# -------------- -------------------- ------------------------------------------------------------------------
+# Model          PropagationModelType The type of propagation model to edit.
+# ParamValueDict dict string:double   The propagation model parameters. Leave blank to restore default values.
+#
+
+class GetPropagationModelParametersResult(CommandResult):
+
+  def __init__(self, model, paramValueDict):
+    CommandResult.__init__(self, "GetPropagationModelParametersResult")
+    self.setModel(model)
+    self.setParamValueDict(paramValueDict)
+
+  def isSuccess(self):
+    return True
+
+  def model(self):
+    return self.get("Model")
+
+  def setModel(self, value):
+    return self.set("Model", value)
+
+  def paramValueDict(self):
+    return self.get("ParamValueDict")
+
+  def setParamValueDict(self, value):
+    return self.set("ParamValueDict", value)
+
+#
+# Set the current propagation model.
+#
+# Name  Type                 Description
+# ----- -------------------- ---------------------------------------
+# Model PropagationModelType The selected type of propagation model.
+#
+
+class SetCurrentPropagationModel(CommandBase):
+
+  def __init__(self, model):
+    CommandBase.__init__(self, "SetCurrentPropagationModel")
+    self.setModel(model)
+
+  def executePermission(self):
+    return ExecutePermission.EXECUTE_IF_IDLE | ExecutePermission.EXECUTE_IF_SIMULATING
+
+  def model(self):
+    return self.get("Model")
+
+  def setModel(self, value):
+    return self.set("Model", value)
+
+#
+# Get the current propagation model.
+#
+#
+
+class GetCurrentPropagationModel(CommandBase):
+
+  def __init__(self):
+    CommandBase.__init__(self, "GetCurrentPropagationModel")
+
+  def executePermission(self):
+    return ExecutePermission.EXECUTE_IF_IDLE | ExecutePermission.EXECUTE_IF_SIMULATING
+
+#
+# Result of GetCurrentPropagationModel.
+#
+# Name  Type                 Description
+# ----- -------------------- ---------------------------------------
+# Model PropagationModelType The selected type of propagation model.
+#
+
+class GetCurrentPropagationModelResult(CommandResult):
+
+  def __init__(self, model):
+    CommandResult.__init__(self, "GetCurrentPropagationModelResult")
+    self.setModel(model)
+
+  def isSuccess(self):
+    return True
+
+  def model(self):
+    return self.get("Model")
+
+  def setModel(self, value):
+    return self.set("Model", value)
 
 #
 # Please note the command GetMasterStatus is deprecated since 23.11. You may use GetMainInstanceStatus.

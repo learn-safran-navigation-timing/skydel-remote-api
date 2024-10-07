@@ -24,7 +24,7 @@ namespace Sdx
       "Pseudorange  double Pseudorange offset in meters (value must be positive)\n"
       "Doppler      double Doppler frequency offset in Hz\n"
       "CarrierPhase double Carrier phase offset in radians\n"
-      "Echo         int    Echo number [1..4], or use zero to let Skydel assign an echo number.\n"
+      "Echo         int    Echo number [1..5], or use zero to let Skydel assign an echo number.\n"
       "Id           string Unique identifier.";
     const char* const SetMultipathForSV::TargetId = "";
 

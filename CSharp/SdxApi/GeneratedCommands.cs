@@ -6,7 +6,7 @@ namespace Sdx.Cmd
 
   public static class ApiInfo
   {
-    public const int COMMANDS_API_VERSION = 45;
+    public const int COMMANDS_API_VERSION = 46;
   }
 
   ///
@@ -2919,6 +2919,175 @@ namespace Sdx.Cmd
       set
       {
           SetValue("SignalPowerDict", JToken.FromObject(value, CommandBase.Serializer));
+      }
+    }
+  }
+
+
+  ///
+  /// Assigns filters to signals by name; accepted filter values are "None" and "Default".
+  ///
+  /// Name             Type               Description
+  /// ---------------- ------------------ --------------------------------------------------------------------------------
+  /// SignalFilterDict dict string:string A dictionary of signal filter pairs.
+  ///                                     Accepted keys are: "L1CA", "L1C", "L1P", "L1ME", "L1MR", "L2C", "L2P", "L2ME",
+  ///                                                        "L2MR", "L5", "G1", "G2", "E1", "E1PRS", "E5a", "E5b",
+  ///                                                        "E5AltBOC", "E6BC", "E6PRS", "B1", "B2", "B1C", "B2a", "B3I",
+  ///                                                        "SBASL1", "SBASL5", "QZSSL1CA", "QZSSL1CB", "QZSSL1C",
+  ///                                                        "QZSSL2C", "QZSSL5", "QZSSL1S", "QZSSL5S", "QZSSL6",
+  ///                                                        "NAVICL1", "NAVICL5", "NAVICS" and "PULSARXL"
+  ///
+
+  public class SetSignalFilterAssignation : CommandBase
+  {
+    public override string Documentation
+    {
+      get { return "Assigns filters to signals by name; accepted filter values are \"None\" and \"Default\"."; }
+    }
+
+    internal const string CmdName = "SetSignalFilterAssignation";
+    internal const string TargetId = "";
+
+    public SetSignalFilterAssignation()
+      : base(CmdName, TargetId)
+    {}
+
+    public SetSignalFilterAssignation(Dictionary<string, string> signalFilterDict)
+      : base(CmdName, TargetId)
+    {
+      SignalFilterDict = signalFilterDict;
+    }
+      
+    public override bool IsValid
+    {
+      get
+      {
+        return base.IsValid
+        && Contains("SignalFilterDict")
+      ;
+      }
+    }
+
+    public override int ExecutePermission { get { return EXECUTE_IF_IDLE; } }
+
+    public Dictionary<string, string> SignalFilterDict
+    {
+      get { return GetValue("SignalFilterDict").ToObject<Dictionary<string, string>>(CommandBase.Serializer); }
+      set
+      {
+          SetValue("SignalFilterDict", JToken.FromObject(value, CommandBase.Serializer));
+      }
+    }
+  }
+
+
+  ///
+  /// Returns filter names assigned to requested signals.
+  ///
+  /// Name        Type         Description
+  /// ----------- ------------ --------------------------------------------------------------------------------
+  /// SignalArray array string An array of signals.
+  ///                          Accepted values are: "L1CA", "L1C", "L1P", "L1ME", "L1MR", "L2C", "L2P", "L2ME",
+  ///                                               "L2MR", "L5", "G1", "G2", "E1", "E1PRS", "E5a", "E5b",
+  ///                                               "E5AltBOC", "E6BC", "E6PRS", "B1", "B2", "B1C", "B2a",
+  ///                                               "B3I", "SBASL1", "SBASL5", "QZSSL1CA", "QZSSL1CB",
+  ///                                               "QZSSL1C", "QZSSL2C", "QZSSL5", "QZSSL1S", "QZSSL5S",
+  ///                                               "QZSSL6", "NAVICL1", "NAVICL5", "NAVICS" and "PULSARXL"
+  ///
+
+  public class GetSignalFilterAssignation : CommandBase
+  {
+    public override string Documentation
+    {
+      get { return "Returns filter names assigned to requested signals."; }
+    }
+
+    internal const string CmdName = "GetSignalFilterAssignation";
+    internal const string TargetId = "";
+
+    public GetSignalFilterAssignation()
+      : base(CmdName, TargetId)
+    {}
+
+    public GetSignalFilterAssignation(List<string> signalArray)
+      : base(CmdName, TargetId)
+    {
+      SignalArray = signalArray;
+    }
+      
+    public override bool IsValid
+    {
+      get
+      {
+        return base.IsValid
+        && Contains("SignalArray")
+      ;
+      }
+    }
+
+    public override int ExecutePermission { get { return EXECUTE_IF_IDLE; } }
+
+    public List<string> SignalArray
+    {
+      get { return GetValue("SignalArray").ToObject<List<string>>(CommandBase.Serializer); }
+      set
+      {
+          SetValue("SignalArray", JToken.FromObject(value, CommandBase.Serializer));
+      }
+    }
+  }
+
+
+  ///
+  /// Result of GetSignalFilterAssignation.
+  ///
+  /// Name             Type               Description
+  /// ---------------- ------------------ --------------------------------------------------------------------------------
+  /// SignalFilterDict dict string:string A dictionary of signal filter pairs.
+  ///                                     Accepted keys are: "L1CA", "L1C", "L1P", "L1ME", "L1MR", "L2C", "L2P", "L2ME",
+  ///                                                        "L2MR", "L5", "G1", "G2", "E1", "E1PRS", "E5a", "E5b",
+  ///                                                        "E5AltBOC", "E6BC", "E6PRS", "B1", "B2", "B1C", "B2a", "B3I",
+  ///                                                        "SBASL1", "SBASL5", "QZSSL1CA", "QZSSL1CB", "QZSSL1C",
+  ///                                                        "QZSSL2C", "QZSSL5", "QZSSL1S", "QZSSL5S", "QZSSL6",
+  ///                                                        "NAVICL1", "NAVICL5", "NAVICS" and "PULSARXL"
+  ///
+
+  public class GetSignalFilterAssignationResult : CommandResult
+  {
+    public override string Documentation
+    {
+      get { return "Result of GetSignalFilterAssignation."; }
+    }
+
+    internal const string CmdName = "GetSignalFilterAssignationResult";
+    internal const string TargetId = "";
+
+    public GetSignalFilterAssignationResult()
+      : base(CmdName, TargetId)
+    {}
+
+    public GetSignalFilterAssignationResult(CommandBase relatedCommand, Dictionary<string, string> signalFilterDict)
+      : base(CmdName, TargetId, relatedCommand)
+    {
+      SignalFilterDict = signalFilterDict;
+    }
+      
+    public override bool IsValid
+    {
+      get
+      {
+        return base.IsValid
+        && Contains("SignalFilterDict")
+      ;
+      }
+    }
+
+    public Dictionary<string, string> SignalFilterDict
+    {
+      get { return GetValue("SignalFilterDict").ToObject<Dictionary<string, string>>(CommandBase.Serializer); }
+      set
+      {
+          SetValue("SignalFilterDict", JToken.FromObject(value, CommandBase.Serializer));
       }
     }
   }
@@ -18677,12 +18846,12 @@ namespace Sdx.Cmd
   /// Output           int             Output index (zero based)
   /// MinRate          int             Minimum sampling rate (12500000, 25000000, 50000000, 60000000, 100000000)
   /// MaxRate          int             Maximum sampling rate (12500000, 25000000, 50000000, 60000000, 100000000)
-  /// Band             string          Frequency band is "LowerL" or "UpperL"
+  /// Band             string          Frequency band is "LowerL", "UpperL" or "S-Band"
   /// Signal           string          Comma separated signal keys, accepted signal keys: "L1CA", "L1C", "L1P", "L1ME", "L1MR", "L2C", "L2P", "L2ME", "L2MR", "L5", "G1", "G2", "E1", "E5a", "E5b", "B1", "B2", "B1C", "B2a", "B3I", "SBASL1", "QZSSL1CA", "QZSSL1CB", "QZSSL1C", "QZSSL2C", "QZSSL5", "QZSSL1S", "QZSSL5S", "QZSSL6", "NAVICL1", "NAVICL5", "NAVICS", "PULSARXL"
   /// Gain             int             The gain associated to this output (dB). This value has to be between the radio minimum value and 115. A negative value means to use the radio default value.
   /// GaussianNoise    bool            If true, add Gaussian noise to ensure realistic signal to noise ratio. When combining multiple outputs, only one should have Gaussian noise enabled.
   /// Id               string          Target identifier
-  /// CentralFrequency optional double Forced central frequency to this value. Central frequency can only be one of this values: 1176450000, 1191795000, 1202000000, 1207140000, 1217370000, 1222000000, 1227000000, 1227600000, 1230000000, 1235000000, 1246000000, 1561098000, 1575420000, 1582000000, 1584000000, 1586000000, 1602000000.
+  /// CentralFrequency optional double Forced central frequency to this value. Central frequency can only be one of this values: 1176450000, 1191795000, 1202000000, 1207140000, 1217370000, 1222000000, 1227000000, 1227600000, 1230000000, 1235000000, 1246000000, 1561098000, 1575420000, 1582000000, 1584000000, 1586000000, 1602000000, 2492028000.
   ///
 
   public class ChangeModulationTargetSignals : CommandBase
@@ -18891,12 +19060,12 @@ namespace Sdx.Cmd
   /// Output           int             Output index (zero based)
   /// MinRate          int             Minimum sampling rate (12500000, 25000000, 50000000, 60000000, 100000000)
   /// MaxRate          int             Maximum sampling rate (12500000, 25000000, 50000000, 60000000, 100000000)
-  /// Band             string          Frequency band is "LowerL" or "UpperL"
+  /// Band             string          Frequency band is "LowerL", "UpperL" or "S-Band"
   /// Signal           string          Comma separated signal keys, accepted signal keys: "L1CA", "L1C", "L1P", "L1ME", "L1MR", "L2C", "L2P", "L2ME", "L2MR", "L5", "G1", "G2", "E1", "E5a", "E5b", "B1", "B2", "B1C", "B2a", "B3I", "SBASL1", "QZSSL1CA", "QZSSL1CB", "QZSSL1C", "QZSSL2C", "QZSSL5", "QZSSL1S", "QZSSL5S", "QZSSL6", "NAVICL1", "NAVICL5", "NAVICS", "PULSARXL"
   /// Gain             int             The gain associated to this output (dB). This value has to be between the radio minimum value and 115. A negative value means to use the radio default value.
   /// GaussianNoise    bool            If true, add Gaussian noise to ensure realistic signal to noise ratio. When combining multiple outputs, only one should have Gaussian noise enabled.
   /// Id               string          Target identifier
-  /// CentralFrequency optional double Forced central frequency to this value. Central frequency can only be one of this values: 1176450000, 1191795000, 1202000000, 1207140000, 1217370000, 1222000000, 1227000000, 1227600000, 1230000000, 1235000000, 1246000000, 1561098000, 1575420000, 1582000000, 1584000000, 1586000000, 1602000000.
+  /// CentralFrequency optional double Forced central frequency to this value. Central frequency can only be one of this values: 1176450000, 1191795000, 1202000000, 1207140000, 1217370000, 1222000000, 1227000000, 1227600000, 1230000000, 1235000000, 1246000000, 1561098000, 1575420000, 1582000000, 1584000000, 1586000000, 1602000000, 2492028000.
   ///
 
   public class GetModulationTargetSignalsResult : CommandResult
@@ -19042,7 +19211,7 @@ namespace Sdx.Cmd
   /// MinRate     int             Minimum sampling rate (12500000, 25000000, 50000000, 60000000, 100000000)
   /// MaxRate     int             Maximum sampling rate (12500000, 25000000, 50000000, 60000000, 100000000)
   /// Group       int             Interference group number [1..16] or 0 for no group
-  /// CentralFreq double          Central frequency (Hz). Put 0.0 and complete signal list to let Skydel choose automaticly the central frequency.
+  /// CentralFreq double          Central frequency (Hz). Put 0.0 and complete signal list to let Skydel choose automatically the central frequency.
   /// Gain        int             The gain associated to this output (dB). As of today, accepted values are 0, 20, 40, 60 and 80. Values at 40 and under are not recommended. Use a negative value to use the default value (60).
   /// Id          string          Target identifier
   /// Signal      optional string Comma separated signal keys if you want to match central frequency and sampling rate with a particular list of signals. Accepted signal keys: "L1CA", "L1C", "L1P", "L1ME", "L1MR", "L2C", "L2P", "L2ME", "L2MR", "L5", "G1", "G2", "E1", "E5a", "E5b", "B1", "B2", "B1C", "B2a", "B3I", "SBASL1", "QZSSL1CA", "QZSSL1CB", "QZSSL1C", "QZSSL2C", "QZSSL5", "QZSSL1S", "QZSSL5S", "QZSSL6", "NAVICL1", "NAVICL5", "NAVICS", "PULSARXL"
@@ -19245,7 +19414,7 @@ namespace Sdx.Cmd
   /// MinRate     int             Minimum sampling rate (12500000, 25000000, 50000000, 60000000, 100000000)
   /// MaxRate     int             Maximum sampling rate (12500000, 25000000, 50000000, 60000000, 100000000)
   /// Group       int             Interference group number [1..16] or 0 for no group
-  /// CentralFreq double          Central frequency (Hz). Put 0.0 and complete signal list to let Skydel choose automaticly the central frequency.
+  /// CentralFreq double          Central frequency (Hz). Put 0.0 and complete signal list to let Skydel choose automatically the central frequency.
   /// Gain        int             The gain associated to this output (dB). As of today, accepted values are 0, 20, 40, 60 and 80. Values at 40 and under are not recommended. Use a negative value to use the default value (60).
   /// Id          string          Target identifier
   /// Signal      optional string Comma separated signal keys if you want to match central frequency and sampling rate with a particular list of signals. Accepted signal keys: "L1CA", "L1C", "L1P", "L1ME", "L1MR", "L2C", "L2P", "L2ME", "L2MR", "L5", "G1", "G2", "E1", "E5a", "E5b", "B1", "B2", "B1C", "B2a", "B3I", "SBASL1", "QZSSL1CA", "QZSSL1CB", "QZSSL1C", "QZSSL2C", "QZSSL5", "QZSSL1S", "QZSSL5S", "QZSSL6", "NAVICL1", "NAVICL5", "NAVICS", "PULSARXL"
@@ -29552,6 +29721,181 @@ namespace Sdx.Cmd
 
 
   ///
+  /// Set the ephemeris reference time for a SBAS satellite.
+  ///
+  /// Name Type     Description
+  /// ---- -------- ---------------------------------------------------------------
+  /// SvId int      The satellite's SV ID.
+  /// Time datetime GPS date and time (it is the GPS time expressed in UTC format).
+  ///
+
+  public class SetSbasEphemerisReferenceTimeForSV : CommandBase
+  {
+    public override string Documentation
+    {
+      get { return "Set the ephemeris reference time for a SBAS satellite."; }
+    }
+
+    internal const string CmdName = "SetSbasEphemerisReferenceTimeForSV";
+    internal const string TargetId = "";
+
+    public SetSbasEphemerisReferenceTimeForSV()
+      : base(CmdName, TargetId)
+    {}
+
+    public SetSbasEphemerisReferenceTimeForSV(int svId, DateTime time)
+      : base(CmdName, TargetId)
+    {
+      SvId = svId;
+      Time = time;
+    }
+      
+    public override bool IsValid
+    {
+      get
+      {
+        return base.IsValid
+        && Contains("SvId")
+        && Contains("Time")
+      ;
+      }
+    }
+
+    public override int ExecutePermission { get { return EXECUTE_IF_IDLE; } }
+
+    public int SvId
+    {
+      get { return GetValue("SvId").ToObject<int>(CommandBase.Serializer); }
+      set
+      {
+          SetValue("SvId", JToken.FromObject(value, CommandBase.Serializer));
+      }
+    }
+
+    public DateTime Time
+    {
+      get { return GetValue("Time").ToObject<DateTime>(CommandBase.Serializer); }
+      set
+      {
+          SetValue("Time", JToken.FromObject(value, CommandBase.Serializer));
+      }
+    }
+  }
+
+
+  ///
+  /// Get the ephemeris reference time for a SBAS satellite.
+  ///
+  /// Name Type Description
+  /// ---- ---- ----------------------
+  /// SvId int  The satellite's SV ID.
+  ///
+
+  public class GetSbasEphemerisReferenceTimeForSV : CommandBase
+  {
+    public override string Documentation
+    {
+      get { return "Get the ephemeris reference time for a SBAS satellite."; }
+    }
+
+    internal const string CmdName = "GetSbasEphemerisReferenceTimeForSV";
+    internal const string TargetId = "";
+
+    public GetSbasEphemerisReferenceTimeForSV()
+      : base(CmdName, TargetId)
+    {}
+
+    public GetSbasEphemerisReferenceTimeForSV(int svId)
+      : base(CmdName, TargetId)
+    {
+      SvId = svId;
+    }
+      
+    public override bool IsValid
+    {
+      get
+      {
+        return base.IsValid
+        && Contains("SvId")
+      ;
+      }
+    }
+
+    public override int ExecutePermission { get { return EXECUTE_IF_IDLE; } }
+
+    public int SvId
+    {
+      get { return GetValue("SvId").ToObject<int>(CommandBase.Serializer); }
+      set
+      {
+          SetValue("SvId", JToken.FromObject(value, CommandBase.Serializer));
+      }
+    }
+  }
+
+
+  ///
+  /// Result of GetSbasEphemerisReferenceTimeForSV.
+  ///
+  /// Name Type     Description
+  /// ---- -------- ---------------------------------------------------------------
+  /// SvId int      The satellite's SV ID.
+  /// Time datetime GPS date and time (it is the GPS time expressed in UTC format).
+  ///
+
+  public class GetSbasEphemerisReferenceTimeForSVResult : CommandResult
+  {
+    public override string Documentation
+    {
+      get { return "Result of GetSbasEphemerisReferenceTimeForSV."; }
+    }
+
+    internal const string CmdName = "GetSbasEphemerisReferenceTimeForSVResult";
+    internal const string TargetId = "";
+
+    public GetSbasEphemerisReferenceTimeForSVResult()
+      : base(CmdName, TargetId)
+    {}
+
+    public GetSbasEphemerisReferenceTimeForSVResult(CommandBase relatedCommand, int svId, DateTime time)
+      : base(CmdName, TargetId, relatedCommand)
+    {
+      SvId = svId;
+      Time = time;
+    }
+      
+    public override bool IsValid
+    {
+      get
+      {
+        return base.IsValid
+        && Contains("SvId")
+        && Contains("Time")
+      ;
+      }
+    }
+
+    public int SvId
+    {
+      get { return GetValue("SvId").ToObject<int>(CommandBase.Serializer); }
+      set
+      {
+          SetValue("SvId", JToken.FromObject(value, CommandBase.Serializer));
+      }
+    }
+
+    public DateTime Time
+    {
+      get { return GetValue("Time").ToObject<DateTime>(CommandBase.Serializer); }
+      set
+      {
+          SetValue("Time", JToken.FromObject(value, CommandBase.Serializer));
+      }
+    }
+  }
+
+
+  ///
   /// Set parameters for a SBAS satellite ephemeris (runtime modification only available for health parameter)
   ///
   /// Name           Type               Description
@@ -31200,375 +31544,6 @@ namespace Sdx.Cmd
       set
       {
           SetValue("UpdateCRC", JToken.FromObject(value, CommandBase.Serializer));
-      }
-    }
-
-    public string BitModifications
-    {
-      get { return GetValue("BitModifications").ToObject<string>(CommandBase.Serializer); }
-      set
-      {
-          SetValue("BitModifications", JToken.FromObject(value, CommandBase.Serializer));
-      }
-    }
-
-    public string Id
-    {
-      get { return GetValue("Id").ToObject<string>(CommandBase.Serializer); }
-      set
-      {
-          SetValue("Id", JToken.FromObject(value, CommandBase.Serializer));
-      }
-    }
-  }
-
-
-  ///
-  /// Set (or Modify) event to change GPS MNAV message bits. If you send this command without setting the ID
-  /// parameter, or if you set the ID with a value never used before, a new Modification event will be
-  /// created. If you reuse the same event ID, it will modify the existing event.
-  /// 
-  /// Note that start and stop time are automatically extended to beginning and ending of overlapped
-  /// messages.
-  /// 
-  /// The Condition parameter is optional and allows you to add content matching condition before applying
-  /// bit modifications.
-  /// 
-  /// BitModifications can be an empty string. The Modification will have no effect until you modify it with at
-  /// least one bits mod.
-  /// 
-  /// A bits mod is represented with a string using the following format: "I:Bits" where I is a bit
-  /// index (1 refers to the first transmitted bit) and Bits is a modification mask where each
-  /// character describes a modification to a single bit. The allowed characters are:
-  ///    0 : force bit to 0
-  ///    1 : force bit to 1
-  ///    - : leave bit unchanged
-  ///    X : revert bit (0 becomes 1 and 1 becomes 0)
-  /// 
-  /// For example: "24:X---10XX" will: revert bits 24, 30 and 31
-  ///                  set bit 28 to 1
-  ///                  set bit 29 to 0
-  /// The other bits are not affected.
-  /// 
-  /// You can add multiple bit modifications using commas. For example: "24:X---10XX,127:100X,231:01"
-  ///
-  /// Name             Type         Description
-  /// ---------------- ------------ ------------------------------------------------------------------------------------------------
-  /// SignalArray      array string Array of signals to apply the message modification to, accepts "L1ME" and "L2ME" (empty for all)
-  /// SvId             int          The satellite's SV ID 1..32 (use 0 to apply modification to all SVs)
-  /// StartTime        int          Elapsed time in seconds since start of simulation
-  /// StopTime         int          Elapsed time in seconds since start of simulation (use 0 for no stop time)
-  /// MessageType      int          MNAV Message type
-  /// Occurrence       int          Occurrence number in message sequence (1 based, or use -1 to match any occurrence)
-  /// Condition        string       Optional condition to match message content, ex: "EQUAL(45, 10, 0x3f)"
-  /// BitModifications string       Comma separated bit modifications
-  /// Id               string       Unique identifier automatically set by simulator
-  ///
-
-  public class SetMessageModificationToGpsMNav : CommandBase
-  {
-    public override string Documentation
-    {
-      get { return "Set (or Modify) event to change GPS MNAV message bits. If you send this command without setting the ID\nparameter, or if you set the ID with a value never used before, a new Modification event will be\ncreated. If you reuse the same event ID, it will modify the existing event.\n\nNote that start and stop time are automatically extended to beginning and ending of overlapped\nmessages.\n\nThe Condition parameter is optional and allows you to add content matching condition before applying\nbit modifications.\n\nBitModifications can be an empty string. The Modification will have no effect until you modify it with at\nleast one bits mod.\n\nA bits mod is represented with a string using the following format: \"I:Bits\" where I is a bit\nindex (1 refers to the first transmitted bit) and Bits is a modification mask where each\ncharacter describes a modification to a single bit. The allowed characters are:\n   0 : force bit to 0\n   1 : force bit to 1\n   - : leave bit unchanged\n   X : revert bit (0 becomes 1 and 1 becomes 0)\n\nFor example: \"24:X---10XX\" will: revert bits 24, 30 and 31\n                 set bit 28 to 1\n                 set bit 29 to 0\nThe other bits are not affected.\n\nYou can add multiple bit modifications using commas. For example: \"24:X---10XX,127:100X,231:01\""; }
-    }
-
-    internal const string CmdName = "SetMessageModificationToGpsMNav";
-    internal const string TargetId = "";
-
-    public SetMessageModificationToGpsMNav()
-      : base(CmdName, TargetId)
-    {}
-
-    public SetMessageModificationToGpsMNav(List<string> signalArray, int svId, int startTime, int stopTime, int messageType, int occurrence, string condition, string bitModifications, string id)
-      : base(CmdName, TargetId)
-    {
-      SignalArray = signalArray;
-      SvId = svId;
-      StartTime = startTime;
-      StopTime = stopTime;
-      MessageType = messageType;
-      Occurrence = occurrence;
-      Condition = condition;
-      BitModifications = bitModifications;
-      Id = id;
-    }
-      
-    public override bool IsValid
-    {
-      get
-      {
-        return base.IsValid
-        && Contains("SignalArray")
-        && Contains("SvId")
-        && Contains("StartTime")
-        && Contains("StopTime")
-        && Contains("MessageType")
-        && Contains("Occurrence")
-        && Contains("Condition")
-        && Contains("BitModifications")
-        && Contains("Id")
-      ;
-      }
-    }
-
-    public override int ExecutePermission { get { return EXECUTE_IF_SIMULATING | EXECUTE_IF_IDLE; } }
-
-    public List<string> SignalArray
-    {
-      get { return GetValue("SignalArray").ToObject<List<string>>(CommandBase.Serializer); }
-      set
-      {
-          SetValue("SignalArray", JToken.FromObject(value, CommandBase.Serializer));
-      }
-    }
-
-    public int SvId
-    {
-      get { return GetValue("SvId").ToObject<int>(CommandBase.Serializer); }
-      set
-      {
-          SetValue("SvId", JToken.FromObject(value, CommandBase.Serializer));
-      }
-    }
-
-    public int StartTime
-    {
-      get { return GetValue("StartTime").ToObject<int>(CommandBase.Serializer); }
-      set
-      {
-          SetValue("StartTime", JToken.FromObject(value, CommandBase.Serializer));
-      }
-    }
-
-    public int StopTime
-    {
-      get { return GetValue("StopTime").ToObject<int>(CommandBase.Serializer); }
-      set
-      {
-          SetValue("StopTime", JToken.FromObject(value, CommandBase.Serializer));
-      }
-    }
-
-    public int MessageType
-    {
-      get { return GetValue("MessageType").ToObject<int>(CommandBase.Serializer); }
-      set
-      {
-          SetValue("MessageType", JToken.FromObject(value, CommandBase.Serializer));
-      }
-    }
-
-    public int Occurrence
-    {
-      get { return GetValue("Occurrence").ToObject<int>(CommandBase.Serializer); }
-      set
-      {
-          SetValue("Occurrence", JToken.FromObject(value, CommandBase.Serializer));
-      }
-    }
-
-    public string Condition
-    {
-      get { return GetValue("Condition").ToObject<string>(CommandBase.Serializer); }
-      set
-      {
-          SetValue("Condition", JToken.FromObject(value, CommandBase.Serializer));
-      }
-    }
-
-    public string BitModifications
-    {
-      get { return GetValue("BitModifications").ToObject<string>(CommandBase.Serializer); }
-      set
-      {
-          SetValue("BitModifications", JToken.FromObject(value, CommandBase.Serializer));
-      }
-    }
-
-    public string Id
-    {
-      get { return GetValue("Id").ToObject<string>(CommandBase.Serializer); }
-      set
-      {
-          SetValue("Id", JToken.FromObject(value, CommandBase.Serializer));
-      }
-    }
-  }
-
-
-  ///
-  /// Get infos about the GPS MNAV message modification with this ID.
-  ///
-  /// Name Type   Description
-  /// ---- ------ ------------------------------------------------
-  /// Id   string Unique identifier automatically set by simulator
-  ///
-
-  public class GetMessageModificationToGpsMNav : CommandBase
-  {
-    public override string Documentation
-    {
-      get { return "Get infos about the GPS MNAV message modification with this ID."; }
-    }
-
-    internal const string CmdName = "GetMessageModificationToGpsMNav";
-    internal const string TargetId = "";
-
-    public GetMessageModificationToGpsMNav()
-      : base(CmdName, TargetId)
-    {}
-
-    public GetMessageModificationToGpsMNav(string id)
-      : base(CmdName, TargetId)
-    {
-      Id = id;
-    }
-      
-    public override bool IsValid
-    {
-      get
-      {
-        return base.IsValid
-        && Contains("Id")
-      ;
-      }
-    }
-
-    public override int ExecutePermission { get { return EXECUTE_IF_IDLE; } }
-
-    public string Id
-    {
-      get { return GetValue("Id").ToObject<string>(CommandBase.Serializer); }
-      set
-      {
-          SetValue("Id", JToken.FromObject(value, CommandBase.Serializer));
-      }
-    }
-  }
-
-
-  ///
-  /// Result of GetMessageModificationToGpsMNav.
-  ///
-  /// Name             Type         Description
-  /// ---------------- ------------ ------------------------------------------------------------------------------------------------
-  /// SignalArray      array string Array of signals to apply the message modification to, accepts "L1ME" and "L2ME" (empty for all)
-  /// SvId             int          The satellite's SV ID 1..32 (use 0 to apply modification to all SVs)
-  /// StartTime        int          Elapsed time in seconds since start of simulation
-  /// StopTime         int          Elapsed time in seconds since start of simulation (use 0 for no stop time)
-  /// MessageType      int          MNAV Message type
-  /// Occurrence       int          Occurrence number in message sequence (1 based, or use -1 to match any occurrence)
-  /// Condition        string       Optional condition to match message content, ex: "EQUAL(45, 10, 0x3f)"
-  /// BitModifications string       Comma separated bit modifications
-  /// Id               string       Unique identifier automatically set by simulator
-  ///
-
-  public class GetMessageModificationToGpsMNavResult : CommandResult
-  {
-    public override string Documentation
-    {
-      get { return "Result of GetMessageModificationToGpsMNav."; }
-    }
-
-    internal const string CmdName = "GetMessageModificationToGpsMNavResult";
-    internal const string TargetId = "";
-
-    public GetMessageModificationToGpsMNavResult()
-      : base(CmdName, TargetId)
-    {}
-
-    public GetMessageModificationToGpsMNavResult(CommandBase relatedCommand, List<string> signalArray, int svId, int startTime, int stopTime, int messageType, int occurrence, string condition, string bitModifications, string id)
-      : base(CmdName, TargetId, relatedCommand)
-    {
-      SignalArray = signalArray;
-      SvId = svId;
-      StartTime = startTime;
-      StopTime = stopTime;
-      MessageType = messageType;
-      Occurrence = occurrence;
-      Condition = condition;
-      BitModifications = bitModifications;
-      Id = id;
-    }
-      
-    public override bool IsValid
-    {
-      get
-      {
-        return base.IsValid
-        && Contains("SignalArray")
-        && Contains("SvId")
-        && Contains("StartTime")
-        && Contains("StopTime")
-        && Contains("MessageType")
-        && Contains("Occurrence")
-        && Contains("Condition")
-        && Contains("BitModifications")
-        && Contains("Id")
-      ;
-      }
-    }
-
-    public List<string> SignalArray
-    {
-      get { return GetValue("SignalArray").ToObject<List<string>>(CommandBase.Serializer); }
-      set
-      {
-          SetValue("SignalArray", JToken.FromObject(value, CommandBase.Serializer));
-      }
-    }
-
-    public int SvId
-    {
-      get { return GetValue("SvId").ToObject<int>(CommandBase.Serializer); }
-      set
-      {
-          SetValue("SvId", JToken.FromObject(value, CommandBase.Serializer));
-      }
-    }
-
-    public int StartTime
-    {
-      get { return GetValue("StartTime").ToObject<int>(CommandBase.Serializer); }
-      set
-      {
-          SetValue("StartTime", JToken.FromObject(value, CommandBase.Serializer));
-      }
-    }
-
-    public int StopTime
-    {
-      get { return GetValue("StopTime").ToObject<int>(CommandBase.Serializer); }
-      set
-      {
-          SetValue("StopTime", JToken.FromObject(value, CommandBase.Serializer));
-      }
-    }
-
-    public int MessageType
-    {
-      get { return GetValue("MessageType").ToObject<int>(CommandBase.Serializer); }
-      set
-      {
-          SetValue("MessageType", JToken.FromObject(value, CommandBase.Serializer));
-      }
-    }
-
-    public int Occurrence
-    {
-      get { return GetValue("Occurrence").ToObject<int>(CommandBase.Serializer); }
-      set
-      {
-          SetValue("Occurrence", JToken.FromObject(value, CommandBase.Serializer));
-      }
-    }
-
-    public string Condition
-    {
-      get { return GetValue("Condition").ToObject<string>(CommandBase.Serializer); }
-      set
-      {
-          SetValue("Condition", JToken.FromObject(value, CommandBase.Serializer));
       }
     }
 
@@ -37927,8 +37902,8 @@ namespace Sdx.Cmd
   /// Removes a message modification event for the navigation message family.
   ///
   /// Name         Type   Description
-  /// ------------ ------ ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
-  /// NavMsgFamily string Navigation message family key, accepted values : "GPS_LNAV", "GPS_CNAV", "GPS_CNAV2", "GPS_MNAV", "GLONASS_NAV", "GALILEO_FNAV", "GALILEO_INAV", "BEIDOU_D1_NAV", "BEIDOU_CNAV1", "BEIDOU_CNAV2", "QZSS_LNAV", "QZSS_SLAS", "NAVIC_NAV" and "SBAS_NAV"
+  /// ------------ ------ ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+  /// NavMsgFamily string Navigation message family key, accepted values : "GPS_LNAV", "GPS_CNAV", "GPS_CNAV2", "GLONASS_NAV", "GALILEO_FNAV", "GALILEO_INAV", "BEIDOU_D1_NAV", "BEIDOU_CNAV1", "BEIDOU_CNAV2", "QZSS_LNAV", "QZSS_SLAS", "NAVIC_NAV" and "SBAS_NAV"
   /// Id           string Unique identifier
   ///
 
@@ -37990,8 +37965,8 @@ namespace Sdx.Cmd
   /// Clear all message modification events for this navigation message family.
   ///
   /// Name         Type   Description
-  /// ------------ ------ ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
-  /// NavMsgFamily string Navigation message family key, accepted values : "GPS_LNAV", "GPS_CNAV", "GPS_CNAV2", "GPS_MNAV", "GLONASS_NAV", "GALILEO_FNAV", "GALILEO_INAV", "BEIDOU_D1_NAV", "BEIDOU_CNAV1", "BEIDOU_CNAV2", "QZSS_LNAV", "QZSS_SLAS", "NAVIC_NAV" and "SBAS_NAV"
+  /// ------------ ------ ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+  /// NavMsgFamily string Navigation message family key, accepted values : "GPS_LNAV", "GPS_CNAV", "GPS_CNAV2", "GLONASS_NAV", "GALILEO_FNAV", "GALILEO_INAV", "BEIDOU_D1_NAV", "BEIDOU_CNAV1", "BEIDOU_CNAV2", "QZSS_LNAV", "QZSS_SLAS", "NAVIC_NAV" and "SBAS_NAV"
   ///
 
   public class ClearAllMessageModificationsForNavMsgFamily : CommandBase
@@ -38041,8 +38016,8 @@ namespace Sdx.Cmd
   /// Get all the message modification event's IDs for this navigation message family and SV ID.
   ///
   /// Name         Type   Description
-  /// ------------ ------ ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
-  /// NavMsgFamily string Navigation message family key, accepted values : "GPS_LNAV", "GPS_CNAV", "GPS_CNAV2", "GPS_MNAV", "GLONASS_NAV", "GALILEO_FNAV", "GALILEO_INAV", "BEIDOU_D1_NAV", "BEIDOU_CNAV1", "BEIDOU_CNAV2", "QZSS_LNAV", "QZSS_SLAS", "NAVIC_NAV" and "SBAS_NAV"
+  /// ------------ ------ ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+  /// NavMsgFamily string Navigation message family key, accepted values : "GPS_LNAV", "GPS_CNAV", "GPS_CNAV2", "GLONASS_NAV", "GALILEO_FNAV", "GALILEO_INAV", "BEIDOU_D1_NAV", "BEIDOU_CNAV1", "BEIDOU_CNAV2", "QZSS_LNAV", "QZSS_SLAS", "NAVIC_NAV" and "SBAS_NAV"
   /// SvId         int    The satellite's SV ID
   ///
 
@@ -40215,7 +40190,7 @@ namespace Sdx.Cmd
   /// Pseudorange  double Pseudorange offset in meters (value must be positive)
   /// Doppler      double Doppler frequency offset in Hz
   /// CarrierPhase double Carrier phase offset in radians
-  /// Echo         int    Echo number [1..4], or use zero to let Skydel assign an echo number.
+  /// Echo         int    Echo number [1..5], or use zero to let Skydel assign an echo number.
   /// Id           string Unique identifier.
   ///
 
@@ -40718,7 +40693,7 @@ namespace Sdx.Cmd
   /// Pseudorange  double Pseudorange offset in meters (value must be positive)
   /// Doppler      double Doppler frequency offset in Hz
   /// CarrierPhase double Carrier phase offset in radians
-  /// Echo         int    Echo number [1..3], or use zero to let Skydel assign an echo number.
+  /// Echo         int    Echo number [1..5], or use zero to let Skydel assign an echo number.
   ///
 
   public class GetMultipathForIDResult : CommandResult
@@ -68581,7 +68556,7 @@ namespace Sdx.Cmd
   /// Encryption signal type.
   ///
   
-  public enum EncryptionSignalType { PY_CODE, M_CODE, PRS }
+  public enum EncryptionSignalType { PY_CODE, PRS }
 
 
   ///
@@ -68931,6 +68906,197 @@ namespace Sdx.Cmd
       set
       {
           SetValue("Score", JToken.FromObject(value, CommandBase.Serializer));
+      }
+    }
+  }
+
+
+  ///
+  /// A signal with an optional component.
+  ///
+  /// Name      Type            Description
+  /// --------- --------------- -----------------------------------------------------------------------------------
+  /// Signal    string          The signal key.
+  /// Component optional string Some signals are divided into multiple components, such as E1b ("b") and E1c ("c").
+  ///
+
+  public struct SignalWithComponent
+  {
+    public string Signal;
+    public string Component;
+  }
+
+
+  ///
+  /// Set the inter-modulation coefficient for this signal component. The default value is 1 for the signal component and 0 for the global inter-modulation coefficient.
+  ///
+  /// Name        Type                      Description
+  /// ----------- ------------------------- -------------------------
+  /// SignalArray array SignalWithComponent Signals to multiply.
+  /// Coefficient double                    The coefficient to apply.
+  ///
+
+  public class SetInterModulation : CommandBase
+  {
+    public override string Documentation
+    {
+      get { return "Set the inter-modulation coefficient for this signal component. The default value is 1 for the signal component and 0 for the global inter-modulation coefficient."; }
+    }
+
+    internal const string CmdName = "SetInterModulation";
+    internal const string TargetId = "";
+
+    public SetInterModulation()
+      : base(CmdName, TargetId)
+    {}
+
+    public SetInterModulation(List<SignalWithComponent> signalArray, double coefficient)
+      : base(CmdName, TargetId)
+    {
+      SignalArray = signalArray;
+      Coefficient = coefficient;
+    }
+      
+    public override bool IsValid
+    {
+      get
+      {
+        return base.IsValid
+        && Contains("SignalArray")
+        && Contains("Coefficient")
+      ;
+      }
+    }
+
+    public override int ExecutePermission { get { return EXECUTE_IF_IDLE; } }
+
+    public List<SignalWithComponent> SignalArray
+    {
+      get { return GetValue("SignalArray").ToObject<List<SignalWithComponent>>(CommandBase.Serializer); }
+      set
+      {
+          SetValue("SignalArray", JToken.FromObject(value, CommandBase.Serializer));
+      }
+    }
+
+    public double Coefficient
+    {
+      get { return GetValue("Coefficient").ToObject<double>(CommandBase.Serializer); }
+      set
+      {
+          SetValue("Coefficient", JToken.FromObject(value, CommandBase.Serializer));
+      }
+    }
+  }
+
+
+  ///
+  /// Get the inter-modulation coefficient for this signal component. The default value is 1 for the signal component and 0 for the global inter-modulation coefficient.
+  ///
+  /// Name        Type                      Description
+  /// ----------- ------------------------- --------------------
+  /// SignalArray array SignalWithComponent Signals to multiply.
+  ///
+
+  public class GetInterModulation : CommandBase
+  {
+    public override string Documentation
+    {
+      get { return "Get the inter-modulation coefficient for this signal component. The default value is 1 for the signal component and 0 for the global inter-modulation coefficient."; }
+    }
+
+    internal const string CmdName = "GetInterModulation";
+    internal const string TargetId = "";
+
+    public GetInterModulation()
+      : base(CmdName, TargetId)
+    {}
+
+    public GetInterModulation(List<SignalWithComponent> signalArray)
+      : base(CmdName, TargetId)
+    {
+      SignalArray = signalArray;
+    }
+      
+    public override bool IsValid
+    {
+      get
+      {
+        return base.IsValid
+        && Contains("SignalArray")
+      ;
+      }
+    }
+
+    public override int ExecutePermission { get { return EXECUTE_IF_IDLE; } }
+
+    public List<SignalWithComponent> SignalArray
+    {
+      get { return GetValue("SignalArray").ToObject<List<SignalWithComponent>>(CommandBase.Serializer); }
+      set
+      {
+          SetValue("SignalArray", JToken.FromObject(value, CommandBase.Serializer));
+      }
+    }
+  }
+
+
+  ///
+  /// Result of GetInterModulation.
+  ///
+  /// Name        Type                      Description
+  /// ----------- ------------------------- -------------------------
+  /// SignalArray array SignalWithComponent Signals to multiply.
+  /// Coefficient double                    The coefficient to apply.
+  ///
+
+  public class GetInterModulationResult : CommandResult
+  {
+    public override string Documentation
+    {
+      get { return "Result of GetInterModulation."; }
+    }
+
+    internal const string CmdName = "GetInterModulationResult";
+    internal const string TargetId = "";
+
+    public GetInterModulationResult()
+      : base(CmdName, TargetId)
+    {}
+
+    public GetInterModulationResult(CommandBase relatedCommand, List<SignalWithComponent> signalArray, double coefficient)
+      : base(CmdName, TargetId, relatedCommand)
+    {
+      SignalArray = signalArray;
+      Coefficient = coefficient;
+    }
+      
+    public override bool IsValid
+    {
+      get
+      {
+        return base.IsValid
+        && Contains("SignalArray")
+        && Contains("Coefficient")
+      ;
+      }
+    }
+
+    public List<SignalWithComponent> SignalArray
+    {
+      get { return GetValue("SignalArray").ToObject<List<SignalWithComponent>>(CommandBase.Serializer); }
+      set
+      {
+          SetValue("SignalArray", JToken.FromObject(value, CommandBase.Serializer));
+      }
+    }
+
+    public double Coefficient
+    {
+      get { return GetValue("Coefficient").ToObject<double>(CommandBase.Serializer); }
+      set
+      {
+          SetValue("Coefficient", JToken.FromObject(value, CommandBase.Serializer));
       }
     }
   }
@@ -72292,6 +72458,333 @@ namespace Sdx.Cmd
       set
       {
           SetValue("MacLtId", JToken.FromObject(value, CommandBase.Serializer));
+      }
+    }
+  }
+
+
+  ///
+  /// The type of propagation model
+  ///
+  
+  public enum PropagationModelType { Rural, Suburban, Urban, Manual }
+
+
+  ///
+  /// Set the parameters for the propagation model.
+  ///
+  /// Name           Type                 Description
+  /// -------------- -------------------- ------------------------------------------------------------------------
+  /// Model          PropagationModelType The type of propagation model to edit.
+  /// ParamValueDict dict string:double   The propagation model parameters. Leave blank to restore default values.
+  ///
+
+  public class SetPropagationModelParameters : CommandBase
+  {
+    public override string Documentation
+    {
+      get { return "Set the parameters for the propagation model."; }
+    }
+
+    internal const string CmdName = "SetPropagationModelParameters";
+    internal const string TargetId = "";
+
+    public SetPropagationModelParameters()
+      : base(CmdName, TargetId)
+    {}
+
+    public SetPropagationModelParameters(PropagationModelType model, Dictionary<string, double> paramValueDict)
+      : base(CmdName, TargetId)
+    {
+      Model = model;
+      ParamValueDict = paramValueDict;
+    }
+      
+    public override bool IsValid
+    {
+      get
+      {
+        return base.IsValid
+        && Contains("Model")
+        && Contains("ParamValueDict")
+      ;
+      }
+    }
+
+    public override int ExecutePermission { get { return EXECUTE_IF_IDLE | EXECUTE_IF_SIMULATING; } }
+
+    public PropagationModelType Model
+    {
+      get { return GetValue("Model").ToObject<PropagationModelType>(CommandBase.Serializer); }
+      set
+      {
+          SetValue("Model", JToken.FromObject(value, CommandBase.Serializer));
+      }
+    }
+
+    public Dictionary<string, double> ParamValueDict
+    {
+      get { return GetValue("ParamValueDict").ToObject<Dictionary<string, double>>(CommandBase.Serializer); }
+      set
+      {
+          SetValue("ParamValueDict", JToken.FromObject(value, CommandBase.Serializer));
+      }
+    }
+  }
+
+
+  ///
+  /// Get the parameters for the propagation model.
+  ///
+  /// Name       Type                 Description
+  /// ---------- -------------------- ------------------------------------------------------------------------
+  /// Model      PropagationModelType The type of propagation model to edit.
+  /// ParamArray array string         The propagation model parameters. Leave blank to restore default values.
+  ///
+
+  public class GetPropagationModelParameters : CommandBase
+  {
+    public override string Documentation
+    {
+      get { return "Get the parameters for the propagation model."; }
+    }
+
+    internal const string CmdName = "GetPropagationModelParameters";
+    internal const string TargetId = "";
+
+    public GetPropagationModelParameters()
+      : base(CmdName, TargetId)
+    {}
+
+    public GetPropagationModelParameters(PropagationModelType model, List<string> paramArray)
+      : base(CmdName, TargetId)
+    {
+      Model = model;
+      ParamArray = paramArray;
+    }
+      
+    public override bool IsValid
+    {
+      get
+      {
+        return base.IsValid
+        && Contains("Model")
+        && Contains("ParamArray")
+      ;
+      }
+    }
+
+    public override int ExecutePermission { get { return EXECUTE_IF_IDLE | EXECUTE_IF_SIMULATING; } }
+
+    public PropagationModelType Model
+    {
+      get { return GetValue("Model").ToObject<PropagationModelType>(CommandBase.Serializer); }
+      set
+      {
+          SetValue("Model", JToken.FromObject(value, CommandBase.Serializer));
+      }
+    }
+
+    public List<string> ParamArray
+    {
+      get { return GetValue("ParamArray").ToObject<List<string>>(CommandBase.Serializer); }
+      set
+      {
+          SetValue("ParamArray", JToken.FromObject(value, CommandBase.Serializer));
+      }
+    }
+  }
+
+
+  ///
+  /// Result of GetPropagationModelParameters.
+  ///
+  /// Name           Type                 Description
+  /// -------------- -------------------- ------------------------------------------------------------------------
+  /// Model          PropagationModelType The type of propagation model to edit.
+  /// ParamValueDict dict string:double   The propagation model parameters. Leave blank to restore default values.
+  ///
+
+  public class GetPropagationModelParametersResult : CommandResult
+  {
+    public override string Documentation
+    {
+      get { return "Result of GetPropagationModelParameters."; }
+    }
+
+    internal const string CmdName = "GetPropagationModelParametersResult";
+    internal const string TargetId = "";
+
+    public GetPropagationModelParametersResult()
+      : base(CmdName, TargetId)
+    {}
+
+    public GetPropagationModelParametersResult(CommandBase relatedCommand, PropagationModelType model, Dictionary<string, double> paramValueDict)
+      : base(CmdName, TargetId, relatedCommand)
+    {
+      Model = model;
+      ParamValueDict = paramValueDict;
+    }
+      
+    public override bool IsValid
+    {
+      get
+      {
+        return base.IsValid
+        && Contains("Model")
+        && Contains("ParamValueDict")
+      ;
+      }
+    }
+
+    public PropagationModelType Model
+    {
+      get { return GetValue("Model").ToObject<PropagationModelType>(CommandBase.Serializer); }
+      set
+      {
+          SetValue("Model", JToken.FromObject(value, CommandBase.Serializer));
+      }
+    }
+
+    public Dictionary<string, double> ParamValueDict
+    {
+      get { return GetValue("ParamValueDict").ToObject<Dictionary<string, double>>(CommandBase.Serializer); }
+      set
+      {
+          SetValue("ParamValueDict", JToken.FromObject(value, CommandBase.Serializer));
+      }
+    }
+  }
+
+
+  ///
+  /// Set the current propagation model.
+  ///
+  /// Name  Type                 Description
+  /// ----- -------------------- ---------------------------------------
+  /// Model PropagationModelType The selected type of propagation model.
+  ///
+
+  public class SetCurrentPropagationModel : CommandBase
+  {
+    public override string Documentation
+    {
+      get { return "Set the current propagation model."; }
+    }
+
+    internal const string CmdName = "SetCurrentPropagationModel";
+    internal const string TargetId = "";
+
+    public SetCurrentPropagationModel()
+      : base(CmdName, TargetId)
+    {}
+
+    public SetCurrentPropagationModel(PropagationModelType model)
+      : base(CmdName, TargetId)
+    {
+      Model = model;
+    }
+      
+    public override bool IsValid
+    {
+      get
+      {
+        return base.IsValid
+        && Contains("Model")
+      ;
+      }
+    }
+
+    public override int ExecutePermission { get { return EXECUTE_IF_IDLE | EXECUTE_IF_SIMULATING; } }
+
+    public PropagationModelType Model
+    {
+      get { return GetValue("Model").ToObject<PropagationModelType>(CommandBase.Serializer); }
+      set
+      {
+          SetValue("Model", JToken.FromObject(value, CommandBase.Serializer));
+      }
+    }
+  }
+
+
+  ///
+  /// Get the current propagation model.
+  ///
+  /// 
+  ///
+
+  public class GetCurrentPropagationModel : CommandBase
+  {
+    public override string Documentation
+    {
+      get { return "Get the current propagation model."; }
+    }
+
+    internal const string CmdName = "GetCurrentPropagationModel";
+    internal const string TargetId = "";
+
+    public GetCurrentPropagationModel()
+      : base(CmdName, TargetId)
+    {}
+      
+    public override bool IsValid
+    {
+      get
+      {
+        return base.IsValid
+      ;
+      }
+    }
+
+    public override int ExecutePermission { get { return EXECUTE_IF_IDLE | EXECUTE_IF_SIMULATING; } }
+  }
+
+
+  ///
+  /// Result of GetCurrentPropagationModel.
+  ///
+  /// Name  Type                 Description
+  /// ----- -------------------- ---------------------------------------
+  /// Model PropagationModelType The selected type of propagation model.
+  ///
+
+  public class GetCurrentPropagationModelResult : CommandResult
+  {
+    public override string Documentation
+    {
+      get { return "Result of GetCurrentPropagationModel."; }
+    }
+
+    internal const string CmdName = "GetCurrentPropagationModelResult";
+    internal const string TargetId = "";
+
+    public GetCurrentPropagationModelResult()
+      : base(CmdName, TargetId)
+    {}
+
+    public GetCurrentPropagationModelResult(CommandBase relatedCommand, PropagationModelType model)
+      : base(CmdName, TargetId, relatedCommand)
+    {
+      Model = model;
+    }
+      
+    public override bool IsValid
+    {
+      get
+      {
+        return base.IsValid
+        && Contains("Model")
+      ;
+      }
+    }
+
+    public PropagationModelType Model
+    {
+      get { return GetValue("Model").ToObject<PropagationModelType>(CommandBase.Serializer); }
+      set
+      {
+          SetValue("Model", JToken.FromObject(value, CommandBase.Serializer));
       }
     }
   }
