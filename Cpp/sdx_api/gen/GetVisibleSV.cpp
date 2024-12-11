@@ -65,7 +65,7 @@ namespace Sdx
 
     int GetVisibleSV::executePermission() const
     {
-      return EXECUTE_IF_SIMULATING;
+      return EXECUTE_IF_IDLE | EXECUTE_IF_SIMULATING;
     }
 
 

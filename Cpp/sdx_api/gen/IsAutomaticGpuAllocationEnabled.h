@@ -10,16 +10,16 @@ namespace Sdx
   namespace Cmd
   {
     ///
-    /// Removes all the custom signals
+    /// Indicates whether GPUs are automatically allocated to outputs.
     ///
     /// 
     ///
 
-    class RemoveAllCustomSignals;
-    typedef std::shared_ptr<RemoveAllCustomSignals> RemoveAllCustomSignalsPtr;
+    class IsAutomaticGpuAllocationEnabled;
+    typedef std::shared_ptr<IsAutomaticGpuAllocationEnabled> IsAutomaticGpuAllocationEnabledPtr;
     
     
-    class RemoveAllCustomSignals : public CommandBase
+    class IsAutomaticGpuAllocationEnabled : public CommandBase
     {
     public:
       static const char* const CmdName;
@@ -27,10 +27,10 @@ namespace Sdx
       static const char* const TargetId;
 
 
-      RemoveAllCustomSignals();
+      IsAutomaticGpuAllocationEnabled();
 
-      static RemoveAllCustomSignalsPtr create();
-      static RemoveAllCustomSignalsPtr dynamicCast(CommandBasePtr ptr);
+      static IsAutomaticGpuAllocationEnabledPtr create();
+      static IsAutomaticGpuAllocationEnabledPtr dynamicCast(CommandBasePtr ptr);
       virtual bool isValid() const override;
       virtual std::string documentation() const override;
       virtual const std::vector<std::string>& fieldNames() const override;

@@ -46,7 +46,10 @@ struct parse_json<int>
 template<>
 struct parse_json<double>
 {
-  static bool is_valid(const rapidjson::Value& value) { return value.IsDouble() || value.IsInt(); }
+  static bool is_valid(const rapidjson::Value& value)
+  {
+    return value.IsDouble() || value.IsInt64() || value.IsUint64();
+  }
 
   static double parse(const rapidjson::Value& value)
   {

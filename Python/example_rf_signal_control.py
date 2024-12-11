@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
 
-# This Python script illustrates how to turn off/on specific sattelites and signals for Skydel.
+# This Python script illustrates how to turn off/on specific satellites and signals for Skydel.
 
 # Before running this script, make sure Skydel is runnin and the splash screen is closed.
 

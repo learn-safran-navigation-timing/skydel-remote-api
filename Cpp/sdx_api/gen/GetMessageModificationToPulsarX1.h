@@ -10,18 +10,18 @@ namespace Sdx
   namespace Cmd
   {
     ///
-    /// Removes the custom signal with the given ID
+    /// Get infos about the PULSAR X1 message modification with this ID.
     ///
     /// Name Type   Description
-    /// ---- ------ ----------------
-    /// Id   string Custom signal ID
+    /// ---- ------ ------------------------------
+    /// Id   string Unique identifier of the event
     ///
 
-    class RemoveCustomSignal;
-    typedef std::shared_ptr<RemoveCustomSignal> RemoveCustomSignalPtr;
+    class GetMessageModificationToPulsarX1;
+    typedef std::shared_ptr<GetMessageModificationToPulsarX1> GetMessageModificationToPulsarX1Ptr;
     
     
-    class RemoveCustomSignal : public CommandBase
+    class GetMessageModificationToPulsarX1 : public CommandBase
     {
     public:
       static const char* const CmdName;
@@ -29,12 +29,12 @@ namespace Sdx
       static const char* const TargetId;
 
 
-      RemoveCustomSignal();
+      GetMessageModificationToPulsarX1();
 
-      RemoveCustomSignal(const std::string& id);
+      GetMessageModificationToPulsarX1(const std::string& id);
 
-      static RemoveCustomSignalPtr create(const std::string& id);
-      static RemoveCustomSignalPtr dynamicCast(CommandBasePtr ptr);
+      static GetMessageModificationToPulsarX1Ptr create(const std::string& id);
+      static GetMessageModificationToPulsarX1Ptr dynamicCast(CommandBasePtr ptr);
       virtual bool isValid() const override;
       virtual std::string documentation() const override;
       virtual const std::vector<std::string>& fieldNames() const override;

@@ -1,4 +1,4 @@
-Skydel Remote API Version 46
+Skydel Remote API Version 47
 
 Command execution permission flags:
   EXECUTE_IF_NO_CONFIG  : executed even if there is no config
@@ -380,11 +380,12 @@ Permission: EXECUTE_IF_SIMULATING | EXECUTE_IF_IDLE
 Enable (or disable) signal for specified satellite.
 
 Name    Type   Description
-------- ------ ----------------------------------------------------------------------------------------------------------------------
+------- ------ -------------------------------------------------------------------------------------------------------------
 Signal  string Accepted signal keys: "L1CA", "L1C", "L1P", "L1ME", "L1MR", "L2C", "L2P", "L2ME", "L2MR", "L5",
                                      "G1", "G2", "E1", "E1PRS", "E5a", "E5b", "E6BC", "E6PRS",
                                      "B1", "B2", "B1C", "B2a", "B3I", "SBASL1", "SBASL5", "QZSSL1CA", "QZSSL1CB", "QZSSL1C",
-                                      "QZSSL2C", "QZSSL5", "QZSSL1S", "QZSSL5S", "QZSSL6", "NAVICL1", "NAVICL5", "NAVICS", "PULSARXL"
+                                     "QZSSL2C", "QZSSL5", "QZSSL1S", "QZSSL5S", "QZSSL6", "NAVICL1", "NAVICL5", "NAVICS",
+                                     "PULSARXL", "PULSARX1"
 SvId    int    The satellite's SV ID (use 0 for all constellation's satellites)
 Enabled bool   Signal is enabled when value is True
 
@@ -396,11 +397,12 @@ Permission: EXECUTE_IF_IDLE
 Tells if the signal is enabled or disabled.
 
 Name   Type   Description
------- ------ ----------------------------------------------------------------------------------------------------------------------
+------ ------ -------------------------------------------------------------------------------------------------------------
 Signal string Accepted signal keys: "L1CA", "L1C", "L1P", "L1ME", "L1MR", "L2C", "L2P", "L2ME", "L2MR", "L5",
                                     "G1", "G2", "E1", "E1PRS", "E5a", "E5b", "E6BC", "E6PRS",
                                     "B1", "B2", "B1C", "B2a", "B3I", "SBASL1", "SBASL5", "QZSSL1CA", "QZSSL1CB", "QZSSL1C",
-                                     "QZSSL2C", "QZSSL5", "QZSSL1S", "QZSSL5S", "QZSSL6", "NAVICL1", "NAVICL5", "NAVICS", "PULSARXL"
+                                    "QZSSL2C", "QZSSL5", "QZSSL1S", "QZSSL5S", "QZSSL6", "NAVICL1", "NAVICL5", "NAVICS",
+                                    "PULSARXL", "PULSARX1"
 SvId   int    The satellite's SV ID (use 0 for all constellation's satellites)
 
 ***************************************************************************************************************************
@@ -410,11 +412,12 @@ Result IsSignalEnabledForSVResult(signal, svId, enabled)
 Result of IsSignalEnabledForSV.
 
 Name    Type   Description
-------- ------ ----------------------------------------------------------------------------------------------------------------------
+------- ------ -------------------------------------------------------------------------------------------------------------
 Signal  string Accepted signal keys: "L1CA", "L1C", "L1P", "L1ME", "L1MR", "L2C", "L2P", "L2ME", "L2MR", "L5",
                                      "G1", "G2", "E1", "E1PRS", "E5a", "E5b", "E6BC", "E6PRS",
                                      "B1", "B2", "B1C", "B2a", "B3I", "SBASL1", "SBASL5", "QZSSL1CA", "QZSSL1CB", "QZSSL1C",
-                                      "QZSSL2C", "QZSSL5", "QZSSL1S", "QZSSL5S", "QZSSL6", "NAVICL1", "NAVICL5", "NAVICS", "PULSARXL"
+                                     "QZSSL2C", "QZSSL5", "QZSSL1S", "QZSSL5S", "QZSSL6", "NAVICL1", "NAVICL5", "NAVICS",
+                                     "PULSARXL", "PULSARX1"
 SvId    int    The satellite's SV ID (use 0 for all constellation's satellites)
 Enabled bool   Signal is enabled when value is True
 
@@ -450,11 +453,12 @@ Permission: EXECUTE_IF_SIMULATING | EXECUTE_IF_IDLE
 Enable (or disable) signal for each satellite individually.
 
 Name    Type       Description
-------- ---------- ----------------------------------------------------------------------------------------------------------------------
+------- ---------- --------------------------------------------------------------------------------------------------------------
 Signal  string     Accepted signal keys: "L1CA", "L1C", "L1P", "L1ME", "L1MR", "L2C", "L2P", "L2ME", "L2MR", "L5",
                                          "G1", "G2", "E1", "E1PRS", "E5a", "E5b", "E6BC", "E6PRS",
                                          "B1", "B2", "B1C", "B2a", "B3I", "SBASL1", "SBASL5", "QZSSL1CA", "QZSSL1CB", "QZSSL1C",
-                                          "QZSSL2C", "QZSSL5", "QZSSL1S", "QZSSL5S", "QZSSL6", "NAVICL1", "NAVICL5", "NAVICS", "PULSARXL"
+                                         "QZSSL2C", "QZSSL5", "QZSSL1S", "QZSSL5S", "QZSSL6", "NAVICL1", "NAVICL5", "NAVICS",
+                                         "PULSARXL", "PULSARX1"
 Enabled array bool Signal is enabled when value is True. Zero based index (index 0 => first SV ID, index 1 => second SV ID, etc).
 
 ***************************************************************************************************************************
@@ -465,11 +469,12 @@ Permission: EXECUTE_IF_IDLE
 Tells if the signal is enabled or disabled for each satellite.
 
 Name   Type   Description
------- ------ ----------------------------------------------------------------------------------------------------------------------
+------ ------ -------------------------------------------------------------------------------------------------------------
 Signal string Accepted signal keys: "L1CA", "L1C", "L1P", "L1ME", "L1MR", "L2C", "L2P", "L2ME", "L2MR", "L5",
                                     "G1", "G2", "E1", "E1PRS", "E5a", "E5b", "E6BC", "E6PRS",
                                     "B1", "B2", "B1C", "B2a", "B3I", "SBASL1", "SBASL5", "QZSSL1CA", "QZSSL1CB", "QZSSL1C",
-                                     "QZSSL2C", "QZSSL5", "QZSSL1S", "QZSSL5S", "QZSSL6", "NAVICL1", "NAVICL5", "NAVICS", "PULSARXL"
+                                    "QZSSL2C", "QZSSL5", "QZSSL1S", "QZSSL5S", "QZSSL6", "NAVICL1", "NAVICL5", "NAVICS",
+                                    "PULSARXL", "PULSARX1"
 
 ***************************************************************************************************************************
 
@@ -478,11 +483,12 @@ Result IsSignalEnabledForEachSVResult(signal, enabled)
 Result of IsSignalEnabledForEachSV.
 
 Name    Type       Description
-------- ---------- ----------------------------------------------------------------------------------------------------------------------
+------- ---------- --------------------------------------------------------------------------------------------------------------
 Signal  string     Accepted signal keys: "L1CA", "L1C", "L1P", "L1ME", "L1MR", "L2C", "L2P", "L2ME", "L2MR", "L5",
                                          "G1", "G2", "E1", "E1PRS", "E5a", "E5b", "E6BC", "E6PRS",
                                          "B1", "B2", "B1C", "B2a", "B3I", "SBASL1", "SBASL5", "QZSSL1CA", "QZSSL1CB", "QZSSL1C",
-                                          "QZSSL2C", "QZSSL5", "QZSSL1S", "QZSSL5S", "QZSSL6", "NAVICL1", "NAVICL5", "NAVICS", "PULSARXL"
+                                         "QZSSL2C", "QZSSL5", "QZSSL1S", "QZSSL5S", "QZSSL6", "NAVICL1", "NAVICL5", "NAVICS",
+                                         "PULSARXL", "PULSARX1"
 Enabled array bool Signal is enabled when value is True. Zero based index (index 0 => first SV ID, index 1 => second SV ID, etc).
 
 ***************************************************************************************************************************
@@ -573,7 +579,7 @@ SignalPowerOffsetDict dict string:double A dictionary of signal poweroffset pair
                                                             "E5b", "E6BC", "E6PRS", "B1", "B2", "B1C", "B2a", "B3I",
                                                             "SBASL1", "SBASL5", "QZSSL1CA", "QZSSL1CB", "QZSSL1C",
                                                             "QZSSL2C", "QZSSL5", "QZSSL1S", "QZSSL5S", "QZSSL6",
-                                                            "NAVICL1", "NAVICL5", "NAVICS" and "PULSARXL"
+                                                            "NAVICL1", "NAVICL5", "NAVICS", "PULSARXL" and "PULSARX1"
 IsRelativePowerOffset bool               If true, the power offset(s) are added to the current value(s).
 
 ***************************************************************************************************************************
@@ -593,7 +599,7 @@ SignalArray array string An array of signals.
                                               "E5b", "E6BC", "E6PRS", "B1", "B2", "B1C", "B2a", "B3I",
                                               "SBASL1", "SBASL5", "QZSSL1CA", "QZSSL1CB", "QZSSL1C",
                                               "QZSSL2C", "QZSSL5", "QZSSL1S", "QZSSL5S", "QZSSL6",
-                                              "NAVICL1", "NAVICL5", "NAVICS" and "PULSARXL"
+                                              "NAVICL1", "NAVICL5", "NAVICS", "PULSARXL" and "PULSARX1"
 
 ***************************************************************************************************************************
 
@@ -611,7 +617,7 @@ SignalPowerOffsetDict dict string:double A dictionary of signal poweroffset pair
                                                             "E5b", "E6BC", "E6PRS", "B1", "B2", "B1C", "B2a", "B3I",
                                                             "SBASL1", "SBASL5", "QZSSL1CA", "QZSSL1CB", "QZSSL1C",
                                                             "QZSSL2C", "QZSSL5", "QZSSL1S", "QZSSL5S", "QZSSL6",
-                                                            "NAVICL1", "NAVICL5", "NAVICS" and "PULSARXL"
+                                                            "NAVICL1", "NAVICL5", "NAVICS", "PULSARXL" and "PULSARX1"
 
 ***************************************************************************************************************************
 
@@ -668,7 +674,7 @@ SignalArray array string An array of signals.
                                               "E5b", "E6BC", "E6PRS", "B1", "B2", "B1C", "B2a", "B3I",
                                               "SBASL1", "SBASL5", "QZSSL1CA", "QZSSL1CB", "QZSSL1C",
                                               "QZSSL2C", "QZSSL5", "QZSSL1S", "QZSSL5S", "QZSSL6",
-                                              "NAVICL1", "NAVICL5", "NAVICS" and "PULSARXL"
+                                              "NAVICL1", "NAVICL5", "NAVICS", "PULSARXL" and "PULSARX1"
 
 ***************************************************************************************************************************
 
@@ -688,7 +694,7 @@ SignalPowerDict dict string:SignalPower A dictionary of signal power pairs.
                                                            "E5b", "E6BC", "E6PRS", "B1", "B2", "B1C", "B2a", "B3I",
                                                            "SBASL1", "SBASL5", "QZSSL1CA", "QZSSL1CB", "QZSSL1C",
                                                            "QZSSL2C", "QZSSL5", "QZSSL1S", "QZSSL5S", "QZSSL6",
-                                                           "NAVICL1", "NAVICL5", "NAVICS" and "PULSARXL"
+                                                           "NAVICL1", "NAVICL5", "NAVICS", "PULSARXL" and "PULSARX1"
 
 ***************************************************************************************************************************
 
@@ -705,7 +711,7 @@ SignalFilterDict dict string:string A dictionary of signal filter pairs.
                                                        "E5AltBOC", "E6BC", "E6PRS", "B1", "B2", "B1C", "B2a", "B3I",
                                                        "SBASL1", "SBASL5", "QZSSL1CA", "QZSSL1CB", "QZSSL1C",
                                                        "QZSSL2C", "QZSSL5", "QZSSL1S", "QZSSL5S", "QZSSL6",
-                                                       "NAVICL1", "NAVICL5", "NAVICS" and "PULSARXL"
+                                                       "NAVICL1", "NAVICL5", "NAVICS", "PULSARXL" and "PULSARX1"
 
 ***************************************************************************************************************************
 
@@ -722,7 +728,8 @@ SignalArray array string An array of signals.
                                               "E5AltBOC", "E6BC", "E6PRS", "B1", "B2", "B1C", "B2a",
                                               "B3I", "SBASL1", "SBASL5", "QZSSL1CA", "QZSSL1CB",
                                               "QZSSL1C", "QZSSL2C", "QZSSL5", "QZSSL1S", "QZSSL5S",
-                                              "QZSSL6", "NAVICL1", "NAVICL5", "NAVICS" and "PULSARXL"
+                                              "QZSSL6", "NAVICL1", "NAVICL5", "NAVICS", "PULSARXL" and
+                                              "PULSARX1"
 
 ***************************************************************************************************************************
 
@@ -738,7 +745,7 @@ SignalFilterDict dict string:string A dictionary of signal filter pairs.
                                                        "E5AltBOC", "E6BC", "E6PRS", "B1", "B2", "B1C", "B2a", "B3I",
                                                        "SBASL1", "SBASL5", "QZSSL1CA", "QZSSL1CB", "QZSSL1C",
                                                        "QZSSL2C", "QZSSL5", "QZSSL1S", "QZSSL5S", "QZSSL6",
-                                                       "NAVICL1", "NAVICL5", "NAVICS" and "PULSARXL"
+                                                       "NAVICL1", "NAVICL5", "NAVICS", "PULSARXL" and "PULSARX1"
 
 ***************************************************************************************************************************
 
@@ -3401,6 +3408,154 @@ DataSetName optional string Optional name of the data set to use. If no value is
 
 ***************************************************************************************************************************
 
+Command SetPulsarX1HealthForSV(svId, health, dataSetName)
+Permission: EXECUTE_IF_SIMULATING | EXECUTE_IF_IDLE
+
+Set PULSAR X1 health (Health of X1 Signal)
+
+Name        Type            Description
+----------- --------------- -------------------------------------------------------------------------------------------
+SvId        int             Satellite SV ID 1..258, or use 0 to apply new value to all satellites.
+Health      bool            X1 health, false = Signal not operational, true = Signal operational
+DataSetName optional string Optional name of the data set to use. If no value is provided, the active data set is used.
+
+***************************************************************************************************************************
+
+Command GetPulsarX1HealthForSV(svId, dataSetName)
+Permission: EXECUTE_IF_IDLE
+
+Get PULSAR X1 health (Health of X1 Signal)
+
+Name        Type            Description
+----------- --------------- -------------------------------------------------------------------------------------------
+SvId        int             Satellite SV ID 1..258, or use 0 to apply new value to all satellites.
+DataSetName optional string Optional name of the data set to use. If no value is provided, the active data set is used.
+
+***************************************************************************************************************************
+
+Result GetPulsarX1HealthForSVResult(svId, health, dataSetName)
+
+Result of GetPulsarX1HealthForSV.
+
+Name        Type            Description
+----------- --------------- -------------------------------------------------------------------------------------------
+SvId        int             Satellite SV ID 1..258, or use 0 to apply new value to all satellites.
+Health      bool            X1 health, false = Signal not operational, true = Signal operational
+DataSetName optional string Optional name of the data set to use. If no value is provided, the active data set is used.
+
+***************************************************************************************************************************
+
+Command SetPulsarX5HealthForSV(svId, health, dataSetName)
+Permission: EXECUTE_IF_SIMULATING | EXECUTE_IF_IDLE
+
+Set PULSAR X5 health (Health of X5 Signal)
+
+Name        Type            Description
+----------- --------------- -------------------------------------------------------------------------------------------
+SvId        int             Satellite SV ID 1..258, or use 0 to apply new value to all satellites.
+Health      bool            X5 health, false = Signal not operational, true = Signal operational
+DataSetName optional string Optional name of the data set to use. If no value is provided, the active data set is used.
+
+***************************************************************************************************************************
+
+Command GetPulsarX5HealthForSV(svId, dataSetName)
+Permission: EXECUTE_IF_IDLE
+
+Get PULSAR X5 health (Health of X5 Signal)
+
+Name        Type            Description
+----------- --------------- -------------------------------------------------------------------------------------------
+SvId        int             Satellite SV ID 1..258, or use 0 to apply new value to all satellites.
+DataSetName optional string Optional name of the data set to use. If no value is provided, the active data set is used.
+
+***************************************************************************************************************************
+
+Result GetPulsarX5HealthForSVResult(svId, health, dataSetName)
+
+Result of GetPulsarX5HealthForSV.
+
+Name        Type            Description
+----------- --------------- -------------------------------------------------------------------------------------------
+SvId        int             Satellite SV ID 1..258, or use 0 to apply new value to all satellites.
+Health      bool            X5 health, false = Signal not operational, true = Signal operational
+DataSetName optional string Optional name of the data set to use. If no value is provided, the active data set is used.
+
+***************************************************************************************************************************
+
+Command SetPulsarX1AccuracyIntegrityForSV(svId, health, dataSetName)
+Permission: EXECUTE_IF_SIMULATING | EXECUTE_IF_IDLE
+
+Set PULSAR X1 Accuracy Integrity Flag (Accuracy Integrity of X1 Signal)
+
+Name        Type            Description
+----------- --------------- ---------------------------------------------------------------------------------------------------------------------------------
+SvId        int             Satellite SV ID 1..258, or use 0 to apply new value to all satellites.
+Health      bool            X1 accuracy integrity, false = User Range Error exceeds alarm threshold, true = User Range Error does not exceed alarm threshold.
+DataSetName optional string Optional name of the data set to use. If no value is provided, the active data set is used.
+
+***************************************************************************************************************************
+
+Command GetPulsarX1AccuracyIntegrityForSV(svId, dataSetName)
+Permission: EXECUTE_IF_IDLE
+
+Get PULSAR X1 Accuracy Integrity Flag (Accuracy Integrity of X1 Signal)
+
+Name        Type            Description
+----------- --------------- -------------------------------------------------------------------------------------------
+SvId        int             Satellite SV ID 1..258, or use 0 to apply new value to all satellites.
+DataSetName optional string Optional name of the data set to use. If no value is provided, the active data set is used.
+
+***************************************************************************************************************************
+
+Result GetPulsarX1AccuracyIntegrityForSVResult(svId, health, dataSetName)
+
+Result of GetPulsarX1AccuracyIntegrityForSV.
+
+Name        Type            Description
+----------- --------------- ---------------------------------------------------------------------------------------------------------------------------------
+SvId        int             Satellite SV ID 1..258, or use 0 to apply new value to all satellites.
+Health      bool            X1 accuracy integrity, false = User Range Error exceeds alarm threshold, true = User Range Error does not exceed alarm threshold.
+DataSetName optional string Optional name of the data set to use. If no value is provided, the active data set is used.
+
+***************************************************************************************************************************
+
+Command SetPulsarX5AccuracyIntegrityForSV(svId, health, dataSetName)
+Permission: EXECUTE_IF_SIMULATING | EXECUTE_IF_IDLE
+
+Set PULSAR X5 Accuracy Integrity Flag (Accuracy Integrity of X5 Signal)
+
+Name        Type            Description
+----------- --------------- ---------------------------------------------------------------------------------------------------------------------------------
+SvId        int             Satellite SV ID 1..258, or use 0 to apply new value to all satellites.
+Health      bool            X5 accuracy integrity, false = User Range Error exceeds alarm threshold, true = User Range Error does not exceed alarm threshold.
+DataSetName optional string Optional name of the data set to use. If no value is provided, the active data set is used.
+
+***************************************************************************************************************************
+
+Command GetPulsarX5AccuracyIntegrityForSV(svId, dataSetName)
+Permission: EXECUTE_IF_IDLE
+
+Get PULSAR X5 Accuracy Integrity Flag (Accuracy Integrity of X5 Signal)
+
+Name        Type            Description
+----------- --------------- -------------------------------------------------------------------------------------------
+SvId        int             Satellite SV ID 1..258, or use 0 to apply new value to all satellites.
+DataSetName optional string Optional name of the data set to use. If no value is provided, the active data set is used.
+
+***************************************************************************************************************************
+
+Result GetPulsarX5AccuracyIntegrityForSVResult(svId, health, dataSetName)
+
+Result of GetPulsarX5AccuracyIntegrityForSV.
+
+Name        Type            Description
+----------- --------------- ---------------------------------------------------------------------------------------------------------------------------------
+SvId        int             Satellite SV ID 1..258, or use 0 to apply new value to all satellites.
+Health      bool            X5 accuracy integrity, false = User Range Error exceeds alarm threshold, true = User Range Error does not exceed alarm threshold.
+DataSetName optional string Optional name of the data set to use. If no value is provided, the active data set is used.
+
+***************************************************************************************************************************
+
 Command SetGlobalPowerOffset(offset)
 Permission: EXECUTE_IF_SIMULATING | EXECUTE_IF_IDLE
 
@@ -3459,11 +3614,12 @@ Permission: EXECUTE_IF_SIMULATING | EXECUTE_IF_IDLE
 Set power offset default value for the signal given in argument
 
 Name   Type   Description
------- ------ ----------------------------------------------------------------------------------------------------------
+------ ------ ----------------------------------------------------------------------------------------------------
 Signal string Accepted signal keys: "L1CA", "L1C", "L1P", "L1ME", "L1MR", "L2C", "L2P", "L2ME", "L2MR", "L5",
                                     "G1", "G2", "E1", "E1PRS", "E5a", "E5b", "E6BC", "E6PRS",
                                     "B1", "B2", "B1C", "B2a", "B3I", "QZSSL1CA", "QZSSL1CB", "QZSSL1C", "QZSSL2C",
-                                    "QZSSL5", "QZSSL1S", "QZSSL5S", "QZSSL6", "NAVICL1", "NAVICL5", "NAVICS", "PULSARXL"
+                                    "QZSSL5", "QZSSL1S", "QZSSL5S", "QZSSL6", "NAVICL1", "NAVICL5", "NAVICS",
+                                    "PULSARXL", "PULSARX1"
 Offset double Offset in dB (negative value will attenuate signal)
 
 ***************************************************************************************************************************
@@ -3476,11 +3632,12 @@ Please note the command SetPowerOffset is deprecated since 21.7. You may use Set
 Set power offset default value for the signal given in argument
 
 Name   Type   Description
------- ------ ----------------------------------------------------------------------------------------------------------
+------ ------ ----------------------------------------------------------------------------------------------------
 Signal string Accepted signal keys: "L1CA", "L1C", "L1P", "L1ME", "L1MR", "L2C", "L2P", "L2ME", "L2MR", "L5",
                                     "G1", "G2", "E1", "E1PRS", "E5a", "E5b", "E6BC", "E6PRS",
                                     "B1", "B2", "B1C", "B2a", "B3I", "QZSSL1CA", "QZSSL1CB", "QZSSL1C", "QZSSL2C",
-                                    "QZSSL5", "QZSSL1S", "QZSSL5S", "QZSSL6", "NAVICL1", "NAVICL5", "NAVICS", "PULSARXL"
+                                    "QZSSL5", "QZSSL1S", "QZSSL5S", "QZSSL6", "NAVICL1", "NAVICL5", "NAVICS",
+                                    "PULSARXL", "PULSARX1"
 Offset double Offset in dB (negative value will attenuate signal)
 
 ***************************************************************************************************************************
@@ -3491,11 +3648,12 @@ Permission: EXECUTE_IF_IDLE
 Get power offset default value for the signal given in argument
 
 Name   Type   Description
------- ------ ----------------------------------------------------------------------------------------------------------
+------ ------ ----------------------------------------------------------------------------------------------------
 Signal string Accepted signal keys: "L1CA", "L1C", "L1P", "L1ME", "L1MR", "L2C", "L2P", "L2ME", "L2MR", "L5",
                                     "G1", "G2", "E1", "E1PRS", "E5a", "E5b", "E6BC", "E6PRS",
                                     "B1", "B2", "B1C", "B2a", "B3I", "QZSSL1CA", "QZSSL1CB", "QZSSL1C", "QZSSL2C",
-                                    "QZSSL5", "QZSSL1S", "QZSSL5S", "QZSSL6", "NAVICL1", "NAVICL5", "NAVICS", "PULSARXL"
+                                    "QZSSL5", "QZSSL1S", "QZSSL5S", "QZSSL6", "NAVICL1", "NAVICL5", "NAVICS",
+                                    "PULSARXL", "PULSARX1"
 
 ***************************************************************************************************************************
 
@@ -3507,11 +3665,12 @@ Please note the command GetPowerOffset is deprecated since 21.7. You may use Get
 Get power offset default value for the signal given in argument
 
 Name   Type   Description
------- ------ ----------------------------------------------------------------------------------------------------------
+------ ------ ----------------------------------------------------------------------------------------------------
 Signal string Accepted signal keys: "L1CA", "L1C", "L1P", "L1ME", "L1MR", "L2C", "L2P", "L2ME", "L2MR", "L5",
                                     "G1", "G2", "E1", "E1PRS", "E5a", "E5b", "E6BC", "E6PRS",
                                     "B1", "B2", "B1C", "B2a", "B3I", "QZSSL1CA", "QZSSL1CB", "QZSSL1C", "QZSSL2C",
-                                    "QZSSL5", "QZSSL1S", "QZSSL5S", "QZSSL6", "NAVICL1", "NAVICL5", "NAVICS", "PULSARXL"
+                                    "QZSSL5", "QZSSL1S", "QZSSL5S", "QZSSL6", "NAVICL1", "NAVICL5", "NAVICS",
+                                    "PULSARXL", "PULSARX1"
 
 ***************************************************************************************************************************
 
@@ -3520,11 +3679,12 @@ Result GetSignalPowerOffsetResult(signal, offset)
 Result of GetSignalPowerOffset.
 
 Name   Type   Description
------- ------ ----------------------------------------------------------------------------------------------------------
+------ ------ ----------------------------------------------------------------------------------------------------
 Signal string Accepted signal keys: "L1CA", "L1C", "L1P", "L1ME", "L1MR", "L2C", "L2P", "L2ME", "L2MR", "L5",
                                     "G1", "G2", "E1", "E1PRS", "E5a", "E5b", "E6BC", "E6PRS",
                                     "B1", "B2", "B1C", "B2a", "B3I", "QZSSL1CA", "QZSSL1CB", "QZSSL1C", "QZSSL2C",
-                                    "QZSSL5", "QZSSL1S", "QZSSL5S", "QZSSL6", "NAVICL1", "NAVICL5", "NAVICS", "PULSARXL"
+                                    "QZSSL5", "QZSSL1S", "QZSSL5S", "QZSSL6", "NAVICL1", "NAVICL5", "NAVICS",
+                                    "PULSARXL", "PULSARX1"
 Offset double Offset in dB (negative value will attenuate signal)
 
 ***************************************************************************************************************************
@@ -3571,11 +3731,11 @@ If Id is not set, or if new, a new target is added.
 For setter : If the Id is already used, the corresponding target is updated.
 
 Name            Type   Description
---------------- ------ ------------------------------------------------------------------------------------------------------------------------------------
-Type            string Target type can be "DTA-2115B", "File", "N310", "None", "NoneRT", "X300" or "Wavefront Controller".
+--------------- ------ ------------------------------------------------------------------------------------------------------------------------------------------------
+Type            string Target type can be "DTA-2116", "DTA-2115B", "File", "N310", "None", "NoneRT", "X300" or "Wavefront Controller".
 Path            string File path. Optional, use only if type is "File".
 Address         string Optional. IP Address if type is "N310" or "X300".
-ClockIsExternal bool   Indicate 10 MHz reference clock is external (true) or internal (false). Optional, use only if type is "DTA-2115B", "N310" or "X300".
+ClockIsExternal bool   Indicate 10 MHz reference clock is external (true) or internal (false). Optional, use only if type is "DTA-2116", "DTA-2115B", "N310" or "X300".
 Id              string Unique identifier automatically set by simulator
 
 ***************************************************************************************************************************
@@ -3598,11 +3758,11 @@ Result GetModulationTargetResult(type, path, address, clockIsExternal, id)
 Result of GetModulationTarget.
 
 Name            Type   Description
---------------- ------ ------------------------------------------------------------------------------------------------------------------------------------
-Type            string Target type can be "DTA-2115B", "File", "N310", "None", "NoneRT", "X300" or "Wavefront Controller".
+--------------- ------ ------------------------------------------------------------------------------------------------------------------------------------------------
+Type            string Target type can be "DTA-2116", "DTA-2115B", "File", "N310", "None", "NoneRT", "X300" or "Wavefront Controller".
 Path            string File path. Optional, use only if type is "File".
 Address         string Optional. IP Address if type is "N310" or "X300".
-ClockIsExternal bool   Indicate 10 MHz reference clock is external (true) or internal (false). Optional, use only if type is "DTA-2115B", "N310" or "X300".
+ClockIsExternal bool   Indicate 10 MHz reference clock is external (true) or internal (false). Optional, use only if type is "DTA-2116", "DTA-2115B", "N310" or "X300".
 Id              string Unique identifier automatically set by simulator
 
 ***************************************************************************************************************************
@@ -3701,12 +3861,12 @@ Skydel tries to keep the sampling rate as low as possible,
 but it is possible to set constaints with MinRate and MaxRate.
 
 Name             Type            Description
----------------- --------------- ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+---------------- --------------- ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 Output           int             Output index (zero based)
 MinRate          int             Minimum sampling rate (12500000, 25000000, 50000000, 60000000, 100000000)
 MaxRate          int             Maximum sampling rate (12500000, 25000000, 50000000, 60000000, 100000000)
 Band             string          Frequency band is "LowerL", "UpperL" or "S-Band"
-Signal           string          Comma separated signal keys, accepted signal keys: "L1CA", "L1C", "L1P", "L1ME", "L1MR", "L2C", "L2P", "L2ME", "L2MR", "L5", "G1", "G2", "E1", "E5a", "E5b", "B1", "B2", "B1C", "B2a", "B3I", "SBASL1", "QZSSL1CA", "QZSSL1CB", "QZSSL1C", "QZSSL2C", "QZSSL5", "QZSSL1S", "QZSSL5S", "QZSSL6", "NAVICL1", "NAVICL5", "NAVICS", "PULSARXL"
+Signal           string          Comma separated signal keys, accepted signal keys: "L1CA", "L1C", "L1P", "L1ME", "L1MR", "L2C", "L2P", "L2ME", "L2MR", "L5", "G1", "G2", "E1", "E5a", "E5b", "B1", "B2", "B1C", "B2a", "B3I", "SBASL1", "QZSSL1CA", "QZSSL1CB", "QZSSL1C", "QZSSL2C", "QZSSL5", "QZSSL1S", "QZSSL5S", "QZSSL6", "NAVICL1", "NAVICL5", "NAVICS", "PULSARXL", "PULSARX1"
 Gain             int             The gain associated to this output (dB). This value has to be between the radio minimum value and 115. A negative value means to use the radio default value.
 GaussianNoise    bool            If true, add Gaussian noise to ensure realistic signal to noise ratio. When combining multiple outputs, only one should have Gaussian noise enabled.
 Id               string          Target identifier
@@ -3733,12 +3893,12 @@ Result GetModulationTargetSignalsResult(output, minRate, maxRate, band, signal, 
 Result of GetModulationTargetSignals.
 
 Name             Type            Description
----------------- --------------- ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+---------------- --------------- ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 Output           int             Output index (zero based)
 MinRate          int             Minimum sampling rate (12500000, 25000000, 50000000, 60000000, 100000000)
 MaxRate          int             Maximum sampling rate (12500000, 25000000, 50000000, 60000000, 100000000)
 Band             string          Frequency band is "LowerL", "UpperL" or "S-Band"
-Signal           string          Comma separated signal keys, accepted signal keys: "L1CA", "L1C", "L1P", "L1ME", "L1MR", "L2C", "L2P", "L2ME", "L2MR", "L5", "G1", "G2", "E1", "E5a", "E5b", "B1", "B2", "B1C", "B2a", "B3I", "SBASL1", "QZSSL1CA", "QZSSL1CB", "QZSSL1C", "QZSSL2C", "QZSSL5", "QZSSL1S", "QZSSL5S", "QZSSL6", "NAVICL1", "NAVICL5", "NAVICS", "PULSARXL"
+Signal           string          Comma separated signal keys, accepted signal keys: "L1CA", "L1C", "L1P", "L1ME", "L1MR", "L2C", "L2P", "L2ME", "L2MR", "L5", "G1", "G2", "E1", "E5a", "E5b", "B1", "B2", "B1C", "B2a", "B3I", "SBASL1", "QZSSL1CA", "QZSSL1CB", "QZSSL1C", "QZSSL2C", "QZSSL5", "QZSSL1S", "QZSSL5S", "QZSSL6", "NAVICL1", "NAVICL5", "NAVICS", "PULSARXL", "PULSARX1"
 Gain             int             The gain associated to this output (dB). This value has to be between the radio minimum value and 115. A negative value means to use the radio default value.
 GaussianNoise    bool            If true, add Gaussian noise to ensure realistic signal to noise ratio. When combining multiple outputs, only one should have Gaussian noise enabled.
 Id               string          Target identifier
@@ -3755,7 +3915,7 @@ Skydel tries to keep the sampling rate as low as possible,
 but it is possible to set constaints with MinRate and MaxRate.
 
 Name        Type            Description
------------ --------------- -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+----------- --------------- -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 Output      int             Output index (zero based)
 MinRate     int             Minimum sampling rate (12500000, 25000000, 50000000, 60000000, 100000000)
 MaxRate     int             Maximum sampling rate (12500000, 25000000, 50000000, 60000000, 100000000)
@@ -3763,7 +3923,7 @@ Group       int             Interference group number [1..16] or 0 for no group
 CentralFreq double          Central frequency (Hz). Put 0.0 and complete signal list to let Skydel choose automatically the central frequency.
 Gain        int             The gain associated to this output (dB). As of today, accepted values are 0, 20, 40, 60 and 80. Values at 40 and under are not recommended. Use a negative value to use the default value (60).
 Id          string          Target identifier
-Signal      optional string Comma separated signal keys if you want to match central frequency and sampling rate with a particular list of signals. Accepted signal keys: "L1CA", "L1C", "L1P", "L1ME", "L1MR", "L2C", "L2P", "L2ME", "L2MR", "L5", "G1", "G2", "E1", "E5a", "E5b", "B1", "B2", "B1C", "B2a", "B3I", "SBASL1", "QZSSL1CA", "QZSSL1CB", "QZSSL1C", "QZSSL2C", "QZSSL5", "QZSSL1S", "QZSSL5S", "QZSSL6", "NAVICL1", "NAVICL5", "NAVICS", "PULSARXL"
+Signal      optional string Comma separated signal keys if you want to match central frequency and sampling rate with a particular list of signals. Accepted signal keys: "L1CA", "L1C", "L1P", "L1ME", "L1MR", "L2C", "L2P", "L2ME", "L2MR", "L5", "G1", "G2", "E1", "E5a", "E5b", "B1", "B2", "B1C", "B2a", "B3I", "SBASL1", "QZSSL1CA", "QZSSL1CB", "QZSSL1C", "QZSSL2C", "QZSSL5", "QZSSL1S", "QZSSL5S", "QZSSL6", "NAVICL1", "NAVICL5", "NAVICS", "PULSARXL", "PULSARX1"
 
 ***************************************************************************************************************************
 
@@ -3787,7 +3947,7 @@ Result GetModulationTargetInterferencesResult(output, minRate, maxRate, group, c
 Result of GetModulationTargetInterferences.
 
 Name        Type            Description
------------ --------------- -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+----------- --------------- -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 Output      int             Output index (zero based)
 MinRate     int             Minimum sampling rate (12500000, 25000000, 50000000, 60000000, 100000000)
 MaxRate     int             Maximum sampling rate (12500000, 25000000, 50000000, 60000000, 100000000)
@@ -3795,7 +3955,7 @@ Group       int             Interference group number [1..16] or 0 for no group
 CentralFreq double          Central frequency (Hz). Put 0.0 and complete signal list to let Skydel choose automatically the central frequency.
 Gain        int             The gain associated to this output (dB). As of today, accepted values are 0, 20, 40, 60 and 80. Values at 40 and under are not recommended. Use a negative value to use the default value (60).
 Id          string          Target identifier
-Signal      optional string Comma separated signal keys if you want to match central frequency and sampling rate with a particular list of signals. Accepted signal keys: "L1CA", "L1C", "L1P", "L1ME", "L1MR", "L2C", "L2P", "L2ME", "L2MR", "L5", "G1", "G2", "E1", "E5a", "E5b", "B1", "B2", "B1C", "B2a", "B3I", "SBASL1", "QZSSL1CA", "QZSSL1CB", "QZSSL1C", "QZSSL2C", "QZSSL5", "QZSSL1S", "QZSSL5S", "QZSSL6", "NAVICL1", "NAVICL5", "NAVICS", "PULSARXL"
+Signal      optional string Comma separated signal keys if you want to match central frequency and sampling rate with a particular list of signals. Accepted signal keys: "L1CA", "L1C", "L1P", "L1ME", "L1MR", "L2C", "L2P", "L2ME", "L2MR", "L5", "G1", "G2", "E1", "E5a", "E5b", "B1", "B2", "B1C", "B2a", "B3I", "SBASL1", "QZSSL1CA", "QZSSL1CB", "QZSSL1C", "QZSSL2C", "QZSSL5", "QZSSL1S", "QZSSL5S", "QZSSL6", "NAVICL1", "NAVICL5", "NAVICS", "PULSARXL", "PULSARX1"
 
 ***************************************************************************************************************************
 
@@ -4823,7 +4983,8 @@ SignalPrnDict dict string:int A dictionary of signal prn pairs.
                               Accepted keys are: "L1CA", "L1C", "L2C", "L5", "E1", "E6BC", "B1", "B2", "B1C",
                                                  "B2a", "B3I", "SBASL1", "SBASL5", "QZSSL1CA", "QZSSL1CB",
                                                  "QZSSL1C", "QZSSL2C", "QZSSL5", "QZSSL1S", "QZSSL5S",
-                                                 "QZSSL6", "NAVICL1", "NAVICL5" and "NAVICS"
+                                                 "QZSSL6", "NAVICL1", "NAVICL5", "NAVICS", "PULSARXL" and
+                                                 "PULSARX1"
 
 ***************************************************************************************************************************
 
@@ -4839,7 +5000,8 @@ SignalArray array string An array of signals.
                          Accepted values are: "L1CA", "L1C", "L2C", "L5", "E1", "E6BC", "B1", "B2",
                                               "B1C", "B2a", "B3I", "SBASL1", "SBASL5", "QZSSL1CA",
                                               "QZSSL1CB", "QZSSL1C", "QZSSL2C", "QZSSL5", "QZSSL1S",
-                                              "QZSSL5S", "QZSSL6", "NAVICL1", "NAVICL5" and "NAVICS"
+                                              "QZSSL5S", "QZSSL6", "NAVICL1", "NAVICL5", "NAVICS",
+                                              "PULSARXL" and "PULSARX1"
 
 ***************************************************************************************************************************
 
@@ -4854,7 +5016,8 @@ SignalPrnDict dict string:int A dictionary of signal prn pairs.
                               Accepted keys are: "L1CA", "L1C", "L2C", "L5", "E1", "E6BC", "B1", "B2", "B1C",
                                                  "B2a", "B3I", "SBASL1", "SBASL5", "QZSSL1CA", "QZSSL1CB",
                                                  "QZSSL1C", "QZSSL2C", "QZSSL5", "QZSSL1S", "QZSSL5S",
-                                                 "QZSSL6", "NAVICL1", "NAVICL5" and "NAVICS"
+                                                 "QZSSL6", "NAVICL1", "NAVICL5", "NAVICS", "PULSARXL" and
+                                                 "PULSARX1"
 
 ***************************************************************************************************************************
 
@@ -4864,8 +5027,8 @@ Permission: EXECUTE_IF_IDLE
 Set the PRN transmitted by the SV ID for this signal.
 
 Name   Type   Description
------- ------ -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
-Signal string Accepted signal keys: "L1CA", "L1C", "L2C", "L5", "E1", "E6BC", "B1", "B2", "B1C", "B2a", "B3I", "SBASL1", "SBASL5", "QZSSL1CA", "QZSSL1CB", "QZSSL1C", "QZSSL2C", "QZSSL5", "QZSSL1S", "QZSSL5S", "QZSSL6", "NAVICL1", "NAVICL5", "NAVICS", "PULSARXL"
+------ ------ -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+Signal string Accepted signal keys: "L1CA", "L1C", "L2C", "L5", "E1", "E6BC", "B1", "B2", "B1C", "B2a", "B3I", "SBASL1", "SBASL5", "QZSSL1CA", "QZSSL1CB", "QZSSL1C", "QZSSL2C", "QZSSL5", "QZSSL1S", "QZSSL5S", "QZSSL6", "NAVICL1", "NAVICL5", "NAVICS", "PULSARXL", "PULSARX1"
 SvId   int    Satellite SV ID.
 Prn    int    PRN number.
 
@@ -4877,8 +5040,8 @@ Permission: EXECUTE_IF_IDLE
 Get the PRN transmitted by the SV ID for this signal.
 
 Name   Type   Description
------- ------ -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
-Signal string Accepted signal keys: "L1CA", "L1C", "L2C", "L5", "E1", "E6BC", "B1", "B2", "B1C", "B2a", "B3I", "SBASL1", "SBASL5", "QZSSL1CA", "QZSSL1CB", "QZSSL1C", "QZSSL2C", "QZSSL5", "QZSSL1S", "QZSSL5S", "QZSSL6", "NAVICL1", "NAVICL5", "NAVICS", "PULSARXL"
+------ ------ -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+Signal string Accepted signal keys: "L1CA", "L1C", "L2C", "L5", "E1", "E6BC", "B1", "B2", "B1C", "B2a", "B3I", "SBASL1", "SBASL5", "QZSSL1CA", "QZSSL1CB", "QZSSL1C", "QZSSL2C", "QZSSL5", "QZSSL1S", "QZSSL5S", "QZSSL6", "NAVICL1", "NAVICL5", "NAVICS", "PULSARXL", "PULSARX1"
 SvId   int    Satellite SV ID.
 
 ***************************************************************************************************************************
@@ -4888,8 +5051,8 @@ Result GetPrnOfSVIDResult(signal, svId, prn)
 Result of GetPrnOfSVID.
 
 Name   Type   Description
------- ------ -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
-Signal string Accepted signal keys: "L1CA", "L1C", "L2C", "L5", "E1", "E6BC", "B1", "B2", "B1C", "B2a", "B3I", "SBASL1", "SBASL5", "QZSSL1CA", "QZSSL1CB", "QZSSL1C", "QZSSL2C", "QZSSL5", "QZSSL1S", "QZSSL5S", "QZSSL6", "NAVICL1", "NAVICL5", "NAVICS", "PULSARXL"
+------ ------ -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+Signal string Accepted signal keys: "L1CA", "L1C", "L2C", "L5", "E1", "E6BC", "B1", "B2", "B1C", "B2a", "B3I", "SBASL1", "SBASL5", "QZSSL1CA", "QZSSL1CB", "QZSSL1C", "QZSSL2C", "QZSSL5", "QZSSL1S", "QZSSL5S", "QZSSL6", "NAVICL1", "NAVICL5", "NAVICS", "PULSARXL", "PULSARX1"
 SvId   int    Satellite SV ID.
 Prn    int    PRN number.
 
@@ -4901,8 +5064,8 @@ Permission: EXECUTE_IF_IDLE
 Set the PRN for each satellite for specified signals.
 
 Name   Type      Description
------- --------- -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
-Signal string    Accepted signal keys: "L1CA", "L1C", "L2C", "L5", "E1", "E6BC", "B1", "B2", "B1C", "B2a", "B3I", "SBASL1", "SBASL5", "QZSSL1CA", "QZSSL1CB", "QZSSL1C", "QZSSL2C", "QZSSL5", "QZSSL1S", "QZSSL5S", "QZSSL6", "NAVICL1", "NAVICL5", "NAVICS", "PULSARXL"
+------ --------- -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+Signal string    Accepted signal keys: "L1CA", "L1C", "L2C", "L5", "E1", "E6BC", "B1", "B2", "B1C", "B2a", "B3I", "SBASL1", "SBASL5", "QZSSL1CA", "QZSSL1CB", "QZSSL1C", "QZSSL2C", "QZSSL5", "QZSSL1S", "QZSSL5S", "QZSSL6", "NAVICL1", "NAVICL5", "NAVICS", "PULSARXL", "PULSARX1"
 Prn    array int PRN value to set for each satellite. Zero based index (index 0 => PRN for SV ID 1, index 1 => PRN for SV ID 2, etc)
 
 ***************************************************************************************************************************
@@ -4913,8 +5076,8 @@ Permission: EXECUTE_IF_IDLE
 Get the PRN for each satellite for specified signals.
 
 Name   Type   Description
------- ------ -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
-Signal string Accepted signal keys: "L1CA", "L1C", "L2C", "L5", "E1", "E6BC", "B1", "B2", "B1C", "B2a", "B3I", "SBASL1", "SBASL5", "QZSSL1CA", "QZSSL1CB", "QZSSL1C", "QZSSL2C", "QZSSL5", "QZSSL1S", "QZSSL5S", "QZSSL6", "NAVICL1", "NAVICL5", "NAVICS", "PULSARXL"
+------ ------ -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+Signal string Accepted signal keys: "L1CA", "L1C", "L2C", "L5", "E1", "E6BC", "B1", "B2", "B1C", "B2a", "B3I", "SBASL1", "SBASL5", "QZSSL1CA", "QZSSL1CB", "QZSSL1C", "QZSSL2C", "QZSSL5", "QZSSL1S", "QZSSL5S", "QZSSL6", "NAVICL1", "NAVICL5", "NAVICS", "PULSARXL", "PULSARX1"
 
 ***************************************************************************************************************************
 
@@ -4923,8 +5086,8 @@ Result GetPrnForEachSVResult(signal, prn)
 Result of GetPrnForEachSV.
 
 Name   Type      Description
------- --------- -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
-Signal string    Accepted signal keys: "L1CA", "L1C", "L2C", "L5", "E1", "E6BC", "B1", "B2", "B1C", "B2a", "B3I", "SBASL1", "SBASL5", "QZSSL1CA", "QZSSL1CB", "QZSSL1C", "QZSSL2C", "QZSSL5", "QZSSL1S", "QZSSL5S", "QZSSL6", "NAVICL1", "NAVICL5", "NAVICS", "PULSARXL"
+------ --------- -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+Signal string    Accepted signal keys: "L1CA", "L1C", "L2C", "L5", "E1", "E6BC", "B1", "B2", "B1C", "B2a", "B3I", "SBASL1", "SBASL5", "QZSSL1CA", "QZSSL1CB", "QZSSL1C", "QZSSL2C", "QZSSL5", "QZSSL1S", "QZSSL5S", "QZSSL6", "NAVICL1", "NAVICL5", "NAVICS", "PULSARXL", "PULSARX1"
 Prn    array int PRN value to set for each satellite. Zero based index (index 0 => PRN for SV ID 1, index 1 => PRN for SV ID 2, etc)
 
 ***************************************************************************************************************************
@@ -7179,6 +7342,80 @@ Id               string       Unique identifier of the event
 
 ***************************************************************************************************************************
 
+Command SetMessageModificationToPulsarX1(signalArray, svId, startTime, stopTime, messageType, condition, updateCRC, bitModifications, id)
+Permission: EXECUTE_IF_SIMULATING | EXECUTE_IF_IDLE
+
+Set (or Modify) event to change PULSAR X1 message bits. If you send this command without setting the ID
+parameter, or if you set the ID with a value never used before, a new Modification event will be
+created. If you reuse the same event ID, it will modify the existing event.
+
+Note that start and stop time are automatically extended to beginning and ending of overlapped
+messages.
+
+The Condition parameter is optional and allows you to add content matching condition before applying
+bit modifications.
+
+BitModifications can be an empty string. The Modification will have no effect until you modify it with at
+least one bits mod.
+
+A bits mod is represented with a string using the following format: "I:Bits" where I is a bit
+index (1 refers to the first transmitted bit) and Bits is a modification mask where each
+character describes a modification to a single bit. The allowed characters are:
+   0 : force bit to 0
+   1 : force bit to 1
+   - : leave bit unchanged
+   X : revert bit (0 becomes 1 and 1 becomes 0)
+
+For example: "24:X---10XX" will: revert bits 24, 30 and 31
+                 set bit 28 to 1
+                 set bit 29 to 0
+The other bits are not affected.
+
+You can add multiple bit modifications using commas. For example: "24:X---10XX,127:100X,231:01"
+
+Name             Type         Description
+---------------- ------------ -----------------------------------------------------------------------------------------
+SignalArray      array string Array of signals to apply the message modification to, accepts "PULSARX1" (empty for all)
+SvId             int          The satellite's SV ID 1..258 (use 0 to apply modification to all SVs)
+StartTime        int          Elapsed time in seconds since start of simulation
+StopTime         int          Elapsed time in seconds since start of simulation (use 0 for no stop time)
+MessageType      int          Message type (use -1 to apply modification to all message types)
+Condition        string       Optional condition to match message content, ex: "EQUAL(45, 10, 0x3f)"
+UpdateCRC        bool         Recalculate CRC after making modification
+BitModifications string       Comma separated bit modifications
+Id               string       Unique identifier of the event
+
+***************************************************************************************************************************
+
+Command GetMessageModificationToPulsarX1(id)
+Permission: EXECUTE_IF_IDLE
+
+Get infos about the PULSAR X1 message modification with this ID.
+
+Name Type   Description
+---- ------ ------------------------------
+Id   string Unique identifier of the event
+
+***************************************************************************************************************************
+
+Result GetMessageModificationToPulsarX1Result(signalArray, svId, startTime, stopTime, messageType, condition, updateCRC, bitModifications, id)
+
+Result of GetMessageModificationToPulsarX1.
+
+Name             Type         Description
+---------------- ------------ -----------------------------------------------------------------------------------------
+SignalArray      array string Array of signals to apply the message modification to, accepts "PULSARX1" (empty for all)
+SvId             int          The satellite's SV ID 1..258 (use 0 to apply modification to all SVs)
+StartTime        int          Elapsed time in seconds since start of simulation
+StopTime         int          Elapsed time in seconds since start of simulation (use 0 for no stop time)
+MessageType      int          Message type (use -1 to apply modification to all message types)
+Condition        string       Optional condition to match message content, ex: "EQUAL(45, 10, 0x3f)"
+UpdateCRC        bool         Recalculate CRC after making modification
+BitModifications string       Comma separated bit modifications
+Id               string       Unique identifier of the event
+
+***************************************************************************************************************************
+
 Command RemoveMessageModificationForNavMsgFamily(navMsgFamily, id)
 Permission: EXECUTE_IF_IDLE
 
@@ -7230,8 +7467,11 @@ Permission: EXECUTE_IF_IDLE
 Removes the signal for the message modification.
 
 Name   Type   Description
------- ------ ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
-Signal string Signal key, accepted values : "L1CA", "L1C", "L1P", "L1ME", "L1MR", "L2C", "L2P", "L2ME", "L2MR", "L5", "G1", "G2", "E1", "E5a", "E5b", "B1", "B2", "B2a", "B1C", "B3I", "QZSSL1CA", "QZSSL1CB", "QZSSL1S", "NAVICL5", "NAVICS", "SBASL1", "SBASL5" and "PULSARXL"
+------ ------ ---------------------------------------------------------------------------------------------------------
+Signal string Signal key, accepted values : "L1CA", "L1C", "L1P", "L1ME", "L1MR", "L2C", "L2P", "L2ME", "L2MR", "L5",
+                                            "G1", "G2", "E1", "E5a", "E5b", "B1", "B2", "B2a", "B1C", "B3I",
+                                            "QZSSL1CA", "QZSSL1CB", "QZSSL1S", "NAVICL5", "NAVICS", "SBASL1", "SBASL5",
+                                            "PULSARXL" and "PULSARX1"
 Id     string Unique identifier
 
 ***************************************************************************************************************************
@@ -7244,8 +7484,11 @@ Please note the command RemoveMessageModification is deprecated since 21.3. You 
 Removes the signal for the message modification.
 
 Name   Type   Description
------- ------ ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
-Signal string Signal key, accepted values : "L1CA", "L1C", "L1P", "L1ME", "L1MR", "L2C", "L2P", "L2ME", "L2MR", "L5", "G1", "G2", "E1", "E5a", "E5b", "B1", "B2", "B2a", "B1C", "B3I", "QZSSL1CA", "QZSSL1CB", "QZSSL1S", "NAVICL5", "NAVICS", "SBASL1", "SBASL5" and "PULSARXL"
+------ ------ ---------------------------------------------------------------------------------------------------------
+Signal string Signal key, accepted values : "L1CA", "L1C", "L1P", "L1ME", "L1MR", "L2C", "L2P", "L2ME", "L2MR", "L5",
+                                            "G1", "G2", "E1", "E5a", "E5b", "B1", "B2", "B2a", "B1C", "B3I",
+                                            "QZSSL1CA", "QZSSL1CB", "QZSSL1S", "NAVICL5", "NAVICS", "SBASL1", "SBASL5",
+                                            "PULSARXL" and "PULSARX1"
 Id     string Unique identifier
 
 ***************************************************************************************************************************
@@ -7256,8 +7499,11 @@ Permission: EXECUTE_IF_IDLE
 Clear the signal for all message modifications.
 
 Name   Type   Description
------- ------ ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
-Signal string Signal key, accepted values : "L1CA", "L1C", "L1P", "L1ME", "L1MR", "L2C", "L2P", "L2ME", "L2MR", "L5", "G1", "G2", "E1", "E5a", "E5b", "B1", "B2", "B2a", "B1C", "B3I", "QZSSL1CA", "QZSSL1CB", "QZSSL1S", "NAVICL5", "NAVICS", "SBASL1", "SBASL5" and "PULSARXL"
+------ ------ ---------------------------------------------------------------------------------------------------------
+Signal string Signal key, accepted values : "L1CA", "L1C", "L1P", "L1ME", "L1MR", "L2C", "L2P", "L2ME", "L2MR", "L5",
+                                            "G1", "G2", "E1", "E5a", "E5b", "B1", "B2", "B2a", "B1C", "B3I",
+                                            "QZSSL1CA", "QZSSL1CB", "QZSSL1S", "NAVICL5", "NAVICS", "SBASL1", "SBASL5",
+                                            "PULSARXL" and "PULSARX1"
 
 ***************************************************************************************************************************
 
@@ -7269,8 +7515,11 @@ Please note the command ClearAllMessageModifications is deprecated since 21.3. Y
 Clear the signal for all message modifications.
 
 Name   Type   Description
------- ------ ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
-Signal string Signal key, accepted values : "L1CA", "L1C", "L1P", "L1ME", "L1MR", "L2C", "L2P", "L2ME", "L2MR", "L5", "G1", "G2", "E1", "E5a", "E5b", "B1", "B2", "B2a", "B1C", "B3I", "QZSSL1CA", "QZSSL1CB", "QZSSL1S", "NAVICL5", "NAVICS", "SBASL1", "SBASL5" and "PULSARXL"
+------ ------ ---------------------------------------------------------------------------------------------------------
+Signal string Signal key, accepted values : "L1CA", "L1C", "L1P", "L1ME", "L1MR", "L2C", "L2P", "L2ME", "L2MR", "L5",
+                                            "G1", "G2", "E1", "E5a", "E5b", "B1", "B2", "B2a", "B1C", "B3I",
+                                            "QZSSL1CA", "QZSSL1CB", "QZSSL1S", "NAVICL5", "NAVICS", "SBASL1", "SBASL5",
+                                            "PULSARXL" and "PULSARX1"
 
 ***************************************************************************************************************************
 
@@ -7280,8 +7529,11 @@ Permission: EXECUTE_IF_IDLE
 Get all the message modification event's IDs for this signal and SV ID.
 
 Name   Type   Description
------- ------ ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
-Signal string Signal key, accepted values : "L1CA", "L1C", "L1P", "L1ME", "L1MR", "L2C", "L2P", "L2ME", "L2MR", "L5", "G1", "G2", "E1", "E5a", "E5b", "B1", "B2", "B2a", "B1C", "B3I", "QZSSL1CA", "QZSSL1CB", "QZSSL1S", "NAVICL5", "NAVICS", "SBASL1", "SBASL5" and "PULSARXL"
+------ ------ ---------------------------------------------------------------------------------------------------------
+Signal string Signal key, accepted values : "L1CA", "L1C", "L1P", "L1ME", "L1MR", "L2C", "L2P", "L2ME", "L2MR", "L5",
+                                            "G1", "G2", "E1", "E5a", "E5b", "B1", "B2", "B2a", "B1C", "B3I",
+                                            "QZSSL1CA", "QZSSL1CB", "QZSSL1S", "NAVICL5", "NAVICS", "SBASL1", "SBASL5",
+                                            "PULSARXL" and "PULSARX1"
 SvId   int    The satellite's SV ID
 
 ***************************************************************************************************************************
@@ -7633,8 +7885,11 @@ Add or update signal echo (multipath). Offsets (power loss, pseudorange, Doppler
 If Id is not set, or unknown to Skydel, a new echo will be added. Otherwise, existing echo will be updated.
 
 Name         Type   Description
------------- ------ -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
-Signal       string Accepted signal keys: "L1CA", "L1C", "L1P", "L1ME", "L1MR", "L2C", "L2P", "L2ME", "L2MR", "L5", "G1", "G2", "E1", "E5a", "E5b", "B1", "B2", "B1C", "B2a", "B3I", "SBASL1", "QZSSL1CA", "QZSSL1CB", "QZSSL1C", "QZSSL2C", "QZSSL5", "QZSSL1S", "QZSSL5S", "QZSSL6", "NAVICL1", "NAVICL5", "NAVICS", "PULSARXL"
+------------ ------ -------------------------------------------------------------------------------------------------------------
+Signal       string Accepted signal keys: "L1CA", "L1C", "L1P", "L1ME", "L1MR", "L2C", "L2P", "L2ME", "L2MR", "L5",
+                                          "G1", "G2", "E1", "E5a", "E5b", "B1", "B2", "B1C", "B2a", "B3I", "SBASL1",
+                                          "QZSSL1CA", "QZSSL1CB", "QZSSL1C", "QZSSL2C", "QZSSL5", "QZSSL1S", "QZSSL5S", "QZSSL6",
+                                          "NAVICL1", "NAVICL5", "NAVICS", "PULSARXL" and "PULSARX1"
 SvId         int    The satellite's SV ID
 PowerLoss    double Power loss in dB (value must be positive)
 Pseudorange  double Pseudorange offset in meters (value must be positive)
@@ -7674,8 +7929,11 @@ Permission: EXECUTE_IF_IDLE
 Disable all multipath in all satellites but only for the specified signal.
 
 Name   Type   Description
------- ------ -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
-Signal string Accepted signal keys: "L1CA", "L1C", "L1P", "L1ME", "L1MR", "L2C", "L2P", "L2ME", "L2MR", "L5", "G1", "G2", "E1", "E5a", "E5b", "B1", "B2", "B1C", "B2a", "B3I", "SBASL1", "QZSSL1CA", "QZSSL1CB", "QZSSL1C", "QZSSL2C", "QZSSL5", "QZSSL1S", "QZSSL5S", "QZSSL6", "NAVICL1", "NAVICL5", "NAVICS", "PULSARXL"
+------ ------ -------------------------------------------------------------------------------------------------------------
+Signal string Accepted signal keys: "L1CA", "L1C", "L1P", "L1ME", "L1MR", "L2C", "L2P", "L2ME", "L2MR", "L5",
+                                    "G1", "G2", "E1", "E5a", "E5b", "B1", "B2", "B1C", "B2a", "B3I", "SBASL1",
+                                    "QZSSL1CA", "QZSSL1CB", "QZSSL1C", "QZSSL2C", "QZSSL5", "QZSSL1S", "QZSSL5S", "QZSSL6",
+                                    "NAVICL1", "NAVICL5", "NAVICS", "PULSARXL" and "PULSARX1"
 Reset  bool   Reset attributes (PSR offset, power loss, Doppler shift and carrier phase offset are set to zero)
 
 ***************************************************************************************************************************
@@ -7721,10 +7979,13 @@ Result GetMultipathForIDResult(id, system, signal, svId, powerLoss, pseudorange,
 Result of GetMultipathForID.
 
 Name         Type   Description
------------- ------ -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+------------ ------ -------------------------------------------------------------------------------------------------------------
 Id           string A multipath ID
 System       string "GPS", "GLONASS", "Galileo", "BeiDou", "SBAS", "QZSS", "NavIC" or "PULSAR"
-Signal       string Accepted signal keys: "L1CA", "L1C", "L1P", "L1ME", "L1MR", "L2C", "L2P", "L2ME", "L2MR", "L5", "G1", "G2", "E1", "E5a", "E5b", "B1", "B2", "B1C", "B2a", "B3I", "SBASL1", "QZSSL1CA", "QZSSL1CB", "QZSSL1C", "QZSSL2C", "QZSSL5", "QZSSL1S", "QZSSL5S", "QZSSL6", "NAVICL1", "NAVICL5", "NAVICS", "PULSARXL"
+Signal       string Accepted signal keys: "L1CA", "L1C", "L1P", "L1ME", "L1MR", "L2C", "L2P", "L2ME", "L2MR", "L5",
+                                          "G1", "G2", "E1", "E5a", "E5b", "B1", "B2", "B1C", "B2a", "B3I", "SBASL1",
+                                          "QZSSL1CA", "QZSSL1CB", "QZSSL1C", "QZSSL2C", "QZSSL5", "QZSSL1S", "QZSSL5S", "QZSSL6",
+                                          "NAVICL1", "NAVICL5", "NAVICS", "PULSARXL" and "PULSARX1"
 SvId         int    The satellite's SV ID
 PowerLoss    double Power loss in dB (value must be positive)
 Pseudorange  double Pseudorange offset in meters (value must be positive)
@@ -7763,8 +8024,11 @@ Permission: EXECUTE_IF_IDLE
 Get all multipath ID for the specified signal.
 
 Name   Type   Description
------- ------ -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
-Signal string Accepted signal keys: "L1CA", "L1C", "L1P", "L1ME", "L1MR", "L2C", "L2P", "L2ME", "L2MR", "L5", "G1", "G2", "E1", "E5a", "E5b", "B1", "B2", "B1C", "B2a", "B3I", "SBASL1", "QZSSL1CA", "QZSSL1CB", "QZSSL1C", "QZSSL2C", "QZSSL5", "QZSSL1S", "QZSSL5S", "QZSSL6", "NAVICL1", "NAVICL5", "NAVICS", "PULSARXL"
+------ ------ -------------------------------------------------------------------------------------------------------------
+Signal string Accepted signal keys: "L1CA", "L1C", "L1P", "L1ME", "L1MR", "L2C", "L2P", "L2ME", "L2MR", "L5",
+                                    "G1", "G2", "E1", "E5a", "E5b", "B1", "B2", "B1C", "B2a", "B3I", "SBASL1",
+                                    "QZSSL1CA", "QZSSL1CB", "QZSSL1C", "QZSSL2C", "QZSSL5", "QZSSL1S", "QZSSL5S", "QZSSL6",
+                                    "NAVICL1", "NAVICL5", "NAVICS", "PULSARXL" and "PULSARX1"
 
 ***************************************************************************************************************************
 
@@ -9694,9 +9958,12 @@ Permission: EXECUTE_IF_SIMULATING
 Skydel special calibration function, internal use only
 
 Name          Type   Description
-------------- ------ -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
-SvId          int    SV ID for GPS, Galileo, BeiDou, GLONASS, QZSS, NavIC and SBAS.
-Signal        string Accepted signal keys: "L1CA", "L1C", "L1P", "L1ME", "L1MR", "L2C", "L2P", "L2ME", "L2MR", "L5", "G1", "G2", "E1", "E5a", "E5b", "B1", "B2", "B1C", "B2a", "B3I", "SBASL1", "QZSSL1CA", "QZSSL1CB", "QZSSL1C", "QZSSL2C", "QZSSL5", "QZSSL1S", "QZSSL5S", "QZSSL6", "NAVICL1", "NAVICL5", "NAVICS"
+------------- ------ -------------------------------------------------------------------------------------------------------------
+SvId          int    SV ID for GPS, Galileo, BeiDou, GLONASS, QZSS, NavIC, SBAS and PULSAR.
+Signal        string Accepted signal keys: "L1CA", "L1C", "L1P", "L1ME", "L1MR", "L2C", "L2P", "L2ME", "L2MR", "L5",
+                                           "G1", "G2", "E1", "E5a", "E5b", "B1", "B2", "B1C", "B2a", "B3I", "SBASL1",
+                                           "QZSSL1CA", "QZSSL1CB", "QZSSL1C", "QZSSL2C", "QZSSL5", "QZSSL1S", "QZSSL5S", "QZSSL6",
+                                           "NAVICL1", "NAVICL5", "NAVICS", "PULSARXL" and "PULSARX1"
 EnableSV      bool   Enable/Disable multiplication by satellite and Navigation Message
 EnableDoppler bool   Enable/Disable Doppler Frequency and Phase offset
 PhaseOffet    double Carrier Phase Offset applied to Line Of Sight
@@ -9766,7 +10033,7 @@ Commands array command_base The commands to execute
 ***************************************************************************************************************************
 
 Command GetVisibleSV(system)
-Permission: EXECUTE_IF_SIMULATING
+Permission: EXECUTE_IF_IDLE | EXECUTE_IF_SIMULATING
 
 Get a list of visible satellites' SV IDs within a system, returns a GetVisibleSVResult
 
@@ -11453,37 +11720,6 @@ Gain int  The CRPA LNA gain
 
 ***************************************************************************************************************************
 
-Command AddCustomSignal(path, id)
-Permission: EXECUTE_IF_IDLE
-
-Adds a custom signal
-
-Name Type   Description
----- ------ ------------------------------------------------
-Path string Path to the custom signal XML file
-Id   string Unique identifier automatically set by simulator
-
-***************************************************************************************************************************
-
-Command RemoveCustomSignal(id)
-Permission: EXECUTE_IF_IDLE
-
-Removes the custom signal with the given ID
-
-Name Type   Description
----- ------ ----------------
-Id   string Custom signal ID
-
-***************************************************************************************************************************
-
-Command RemoveAllCustomSignals()
-Permission: EXECUTE_IF_IDLE
-
-Removes all the custom signals
-
-
-***************************************************************************************************************************
-
 Command ChangeCustomSignalColor(color, id)
 Permission: EXECUTE_IF_IDLE
 
@@ -12279,7 +12515,7 @@ Path string Path to the sdxpand directory
 Command GetSVIDsOfPrn(signal, prn)
 Permission: EXECUTE_IF_IDLE
 
-Mapping PRN to the corresponding SV ID. Get a list of SV IDs based on a specific signal. Accepted signal keys: "L1CA", "L1C", "L1P", "L1ME", "L1MR", "L2C", "L2P", "L5", "G1", "G2", "E1", "E1PRS", "E5a", "E5b", "E6BC", "E6PRS", "B1", "B2", "B2a", "B1C", "B3I", "SBASL1", "SBASL5", "QZSSL1CA", "QZSSL1CB", "QZSSL1C", "QZSSL2C", "QZSSL5", "QZSSL1S", "QZSSL5S", "QZSSL6", "NAVICL1", "NAVICL5", "NAVICS", and "PULSARXL"
+Mapping PRN to the corresponding SV ID. Get a list of SV IDs based on a specific signal. Accepted signal keys: "L1CA", "L1C", "L1P", "L1ME", "L1MR", "L2C", "L2P", "L5", "G1", "G2", "E1", "E1PRS", "E5a", "E5b", "E6BC", "E6PRS", "B1", "B2", "B2a", "B1C", "B3I", "SBASL1", "SBASL5", "QZSSL1CA", "QZSSL1CB", "QZSSL1C", "QZSSL2C", "QZSSL5", "QZSSL1S", "QZSSL5S", "QZSSL6", "NAVICL1", "NAVICL5", "NAVICS", and "PULSARXL", "PULSARX1"
 
 Name   Type   Description
 ------ ------ ----------------------------------------------------------------------
@@ -13877,6 +14113,64 @@ Result of GetCurrentPropagationModel.
 Name  Type                 Description
 ----- -------------------- ---------------------------------------
 Model PropagationModelType The selected type of propagation model.
+
+***************************************************************************************************************************
+
+Command EnableAutomaticGpuAllocation(enabled)
+Permission: EXECUTE_IF_NO_CONFIG | EXECUTE_IF_IDLE
+
+Enable (or disable) automatic GPU allocation to outputs.
+
+Name    Type Description
+------- ---- ---------------------------------------------------------------------------------------------------------
+Enabled bool If enabled, Skydel will automatically assign available GPUs to each added output to optimize performance.
+
+***************************************************************************************************************************
+
+Command IsAutomaticGpuAllocationEnabled()
+Permission: EXECUTE_IF_NO_CONFIG | EXECUTE_IF_IDLE
+
+Indicates whether GPUs are automatically allocated to outputs.
+
+
+***************************************************************************************************************************
+
+Result IsAutomaticGpuAllocationEnabledResult(enabled)
+
+Result of IsAutomaticGpuAllocationEnabled.
+
+Name    Type Description
+------- ---- ---------------------------------------------------------------------------------------------------------
+Enabled bool If enabled, Skydel will automatically assign available GPUs to each added output to optimize performance.
+
+***************************************************************************************************************************
+
+Command SetDynamicRangeOffset(offset)
+Permission: EXECUTE_IF_IDLE
+
+Set the GNSS dynamic range offset. Changing this value shifts the dynamic power range available for GNSS signals. Increasing this value allows to simulate higher power signals and avoid IQ overflows. The range of the satellite power sliders in the Constellation tab is shifted by this offset.
+
+Name   Type   Description
+------ ------ ----------------------------------------------------------------
+Offset double Dynamic Range Offset (dB). Value must be between -10 and +45 dB.
+
+***************************************************************************************************************************
+
+Command GetDynamicRangeOffset()
+Permission: EXECUTE_IF_IDLE
+
+Get the GNSS dynamic range offset. Changing this value shifts the dynamic power range available for GNSS signals. Increasing this value allows to simulate higher power signals and avoid IQ overflows. The range of the satellite power sliders in the Constellation tab is shifted by this offset.
+
+
+***************************************************************************************************************************
+
+Result GetDynamicRangeOffsetResult(offset)
+
+Result of GetDynamicRangeOffset.
+
+Name   Type   Description
+------ ------ ----------------------------------------------------------------
+Offset double Dynamic Range Offset (dB). Value must be between -10 and +45 dB.
 
 ***************************************************************************************************************************
 

@@ -23,7 +23,7 @@ namespace Sdx
     ///                                                             "E5b", "E6BC", "E6PRS", "B1", "B2", "B1C", "B2a", "B3I",
     ///                                                             "SBASL1", "SBASL5", "QZSSL1CA", "QZSSL1CB", "QZSSL1C",
     ///                                                             "QZSSL2C", "QZSSL5", "QZSSL1S", "QZSSL5S", "QZSSL6",
-    ///                                                             "NAVICL1", "NAVICL5", "NAVICS" and "PULSARXL"
+    ///                                                             "NAVICL1", "NAVICL5", "NAVICS", "PULSARXL" and "PULSARX1"
     ///
 
     class GetManualPowerOffsetForSVResult;

@@ -16,11 +16,11 @@ namespace Sdx
     const char* const GetModulationTargetResult::Documentation = "Result of GetModulationTarget.\n"
       "\n"
       "Name            Type   Description\n"
-      "--------------- ------ ------------------------------------------------------------------------------------------------------------------------------------\n"
-      "Type            string Target type can be \"DTA-2115B\", \"File\", \"N310\", \"None\", \"NoneRT\", \"X300\" or \"Wavefront Controller\".\n"
+      "--------------- ------ ------------------------------------------------------------------------------------------------------------------------------------------------\n"
+      "Type            string Target type can be \"DTA-2116\", \"DTA-2115B\", \"File\", \"N310\", \"None\", \"NoneRT\", \"X300\" or \"Wavefront Controller\".\n"
       "Path            string File path. Optional, use only if type is \"File\".\n"
       "Address         string Optional. IP Address if type is \"N310\" or \"X300\".\n"
-      "ClockIsExternal bool   Indicate 10 MHz reference clock is external (true) or internal (false). Optional, use only if type is \"DTA-2115B\", \"N310\" or \"X300\".\n"
+      "ClockIsExternal bool   Indicate 10 MHz reference clock is external (true) or internal (false). Optional, use only if type is \"DTA-2116\", \"DTA-2115B\", \"N310\" or \"X300\".\n"
       "Id              string Unique identifier automatically set by simulator";
     const char* const GetModulationTargetResult::TargetId = "";
 
