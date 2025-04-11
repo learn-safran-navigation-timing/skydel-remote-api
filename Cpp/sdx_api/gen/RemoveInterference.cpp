@@ -13,12 +13,11 @@ namespace Sdx
   namespace Cmd
   {
     const char* const RemoveInterference::CmdName = "RemoveInterference";
-    const char* const RemoveInterference::Documentation = "Removes an interference. When adding an event, the simulator\n"
-      "sets the Id parameter. Use that Id here to remove the associated interference.\n"
+    const char* const RemoveInterference::Documentation = "Removes a specific interference signal.\n"
       "\n"
       "Name Type   Description\n"
-      "---- ------ ------------------------------------------------\n"
-      "Id   string Unique identifier of the interference to remove.";
+      "---- ------ -------------------------------------------------------\n"
+      "Id   string Unique identifier of the interference signal to remove.";
     const char* const RemoveInterference::TargetId = "";
 
     REGISTER_COMMAND_TO_FACTORY_DECL(RemoveInterference);

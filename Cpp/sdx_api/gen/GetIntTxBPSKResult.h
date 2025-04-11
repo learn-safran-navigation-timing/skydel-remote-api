@@ -14,16 +14,16 @@ namespace Sdx
     /// Result of GetIntTxBPSK.
     ///
     /// Name          Type         Description
-    /// ------------- ------------ -------------------------------------------------------------------------
+    /// ------------- ------------ -------------------------------------------------------------------------------------------------------------
     /// Enabled       bool         Enable (true) or disable (false) the signal
     /// CentralFreq   double       Central frequency (Hz).
     /// Power         double       Power (dB), relative to transmitter reference power.
-    /// CodeRate      int          Code rate (Hz). Must be between 1000 and 60000000 and a multiple of 1KHz.
+    /// CodeRate      int          Code rate (Chips/s). Must be between 1000 and 60000000 and a multiple of 1 kChips/s.
     /// CodeLengthMs  int          Code length (ms). Must be between 1 and 100.
     /// TransmitterId string       Transmitter unique identifier.
     /// SignalId      string       BPSK unique identifier.
     /// Group         optional int Group, if not using default group.
-    /// Prn           optional int Prn code to use. If not specified, a random gode will be generated.
+    /// Prn           optional int PRN code index to use in the BPSK modulation. If zero, a random code will be used. Minimum = 0, Maximum = 32.
     ///
 
     class GetIntTxBPSKResult;

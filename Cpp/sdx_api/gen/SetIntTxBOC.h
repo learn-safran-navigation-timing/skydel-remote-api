@@ -14,13 +14,13 @@ namespace Sdx
     /// Set BOC signal interference.
     ///
     /// Name           Type         Description
-    /// -------------- ------------ -------------------------------------------------------------------------
+    /// -------------- ------------ ------------------------------------------------------------------------------------
     /// Enabled        bool         Enable (true) or disable (false) the signal
     /// CentralFreq    double       Central frequency (Hz)
     /// Power          double       Power (dB), relative to transmitter reference power
-    /// CodeRate       int          Code rate (Hz). Must be between 1000 and 60000000 and a multiple of 1KHz.
+    /// CodeRate       int          Code rate (Chips/s). Must be between 1000 and 60000000 and a multiple of 1 kChips/s.
     /// CodeLengthMs   int          Code length (ms). Must be between 1 and 100.
-    /// SubCarrierRate int          Code rate (Hz). Must be between 1000 and 60000000 and a multiple of 1KHz.
+    /// SubCarrierRate int          Sub-carrier rate (Hz). Must be between 1000 and 60000000 and a multiple of 1KHz.
     /// CosinePhaseBoc bool         Use Cosine-Phase BOC instead of default Sine-Phase BOC.
     /// TransmitterId  string       Transmitter unique identifier.
     /// SignalId       string       BOC unique identifier.

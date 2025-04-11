@@ -31,6 +31,9 @@ namespace Sdx
     /// GainS                array array double Gain matrix (dB). The first dimension will be mapped to elevation [-90, 90] and the second dimension to azimuth [0, 360[.
     /// GainTypeS            AntennaPatternType Pattern type
     /// GainOffsetS          double             Pattern offset
+    /// GainC                array array double Gain matrix (dB). The first dimension will be mapped to elevation [-90, 90] and the second dimension to azimuth [0, 360[.
+    /// GainTypeC            AntennaPatternType Pattern type
+    /// GainOffsetC          double             Pattern offset
     /// PhaseOffsetL1        array array double Phase offset matrix (rad). The first dimension will be mapped to elevation [-90, 90] and the second dimension to azimuth [0, 360[.
     /// PhaseOffsetTypeL1    AntennaPatternType Pattern type
     /// PhasePatternOffsetL1 double             Pattern offset
@@ -46,6 +49,9 @@ namespace Sdx
     /// PhaseOffsetS         array array double Phase offset matrix (rad). The first dimension will be mapped to elevation [-90, 90] and the second dimension to azimuth [0, 360[.
     /// PhaseOffsetTypeS     AntennaPatternType Pattern type
     /// PhasePatternOffsetS  double             Pattern offset
+    /// PhaseOffsetC         array array double Phase offset matrix (rad). The first dimension will be mapped to elevation [-90, 90] and the second dimension to azimuth [0, 360[.
+    /// PhaseOffsetTypeC     AntennaPatternType Pattern type
+    /// PhasePatternOffsetC  double             Pattern offset
     /// X                    double             Antenna X offset in the body frame (meter)
     /// Y                    double             Antenna Y offset in the body frame (meter)
     /// Z                    double             Antenna Z offset in the body frame (meter)
@@ -69,13 +75,13 @@ namespace Sdx
 
       GetVehicleAntennaModelResult();
 
-      GetVehicleAntennaModelResult(const std::vector<std::vector<double>>& gainL1, const Sdx::AntennaPatternType& gainTypeL1, double gainOffsetL1, const std::vector<std::vector<double>>& gainL2, const Sdx::AntennaPatternType& gainTypeL2, double gainOffsetL2, const std::vector<std::vector<double>>& gainL5, const Sdx::AntennaPatternType& gainTypeL5, double gainOffsetL5, const std::vector<std::vector<double>>& gainE6, const Sdx::AntennaPatternType& gainTypeE6, double gainOffsetE6, const std::vector<std::vector<double>>& gainS, const Sdx::AntennaPatternType& gainTypeS, double gainOffsetS, const std::vector<std::vector<double>>& phaseOffsetL1, const Sdx::AntennaPatternType& phaseOffsetTypeL1, double phasePatternOffsetL1, const std::vector<std::vector<double>>& phaseOffsetL2, const Sdx::AntennaPatternType& phaseOffsetTypeL2, double phasePatternOffsetL2, const std::vector<std::vector<double>>& phaseOffsetL5, const Sdx::AntennaPatternType& phaseOffsetTypeL5, double phasePatternOffsetL5, const std::vector<std::vector<double>>& phaseOffsetE6, const Sdx::AntennaPatternType& phaseOffsetTypeE6, double phasePatternOffsetE6, const std::vector<std::vector<double>>& phaseOffsetS, const Sdx::AntennaPatternType& phaseOffsetTypeS, double phasePatternOffsetS, double x, double y, double z, double yaw, double pitch, double roll, const std::string& name);
+      GetVehicleAntennaModelResult(const std::vector<std::vector<double>>& gainL1, const Sdx::AntennaPatternType& gainTypeL1, double gainOffsetL1, const std::vector<std::vector<double>>& gainL2, const Sdx::AntennaPatternType& gainTypeL2, double gainOffsetL2, const std::vector<std::vector<double>>& gainL5, const Sdx::AntennaPatternType& gainTypeL5, double gainOffsetL5, const std::vector<std::vector<double>>& gainE6, const Sdx::AntennaPatternType& gainTypeE6, double gainOffsetE6, const std::vector<std::vector<double>>& gainS, const Sdx::AntennaPatternType& gainTypeS, double gainOffsetS, const std::vector<std::vector<double>>& gainC, const Sdx::AntennaPatternType& gainTypeC, double gainOffsetC, const std::vector<std::vector<double>>& phaseOffsetL1, const Sdx::AntennaPatternType& phaseOffsetTypeL1, double phasePatternOffsetL1, const std::vector<std::vector<double>>& phaseOffsetL2, const Sdx::AntennaPatternType& phaseOffsetTypeL2, double phasePatternOffsetL2, const std::vector<std::vector<double>>& phaseOffsetL5, const Sdx::AntennaPatternType& phaseOffsetTypeL5, double phasePatternOffsetL5, const std::vector<std::vector<double>>& phaseOffsetE6, const Sdx::AntennaPatternType& phaseOffsetTypeE6, double phasePatternOffsetE6, const std::vector<std::vector<double>>& phaseOffsetS, const Sdx::AntennaPatternType& phaseOffsetTypeS, double phasePatternOffsetS, const std::vector<std::vector<double>>& phaseOffsetC, const Sdx::AntennaPatternType& phaseOffsetTypeC, double phasePatternOffsetC, double x, double y, double z, double yaw, double pitch, double roll, const std::string& name);
 
-      GetVehicleAntennaModelResult(CommandBasePtr relatedCommand, const std::vector<std::vector<double>>& gainL1, const Sdx::AntennaPatternType& gainTypeL1, double gainOffsetL1, const std::vector<std::vector<double>>& gainL2, const Sdx::AntennaPatternType& gainTypeL2, double gainOffsetL2, const std::vector<std::vector<double>>& gainL5, const Sdx::AntennaPatternType& gainTypeL5, double gainOffsetL5, const std::vector<std::vector<double>>& gainE6, const Sdx::AntennaPatternType& gainTypeE6, double gainOffsetE6, const std::vector<std::vector<double>>& gainS, const Sdx::AntennaPatternType& gainTypeS, double gainOffsetS, const std::vector<std::vector<double>>& phaseOffsetL1, const Sdx::AntennaPatternType& phaseOffsetTypeL1, double phasePatternOffsetL1, const std::vector<std::vector<double>>& phaseOffsetL2, const Sdx::AntennaPatternType& phaseOffsetTypeL2, double phasePatternOffsetL2, const std::vector<std::vector<double>>& phaseOffsetL5, const Sdx::AntennaPatternType& phaseOffsetTypeL5, double phasePatternOffsetL5, const std::vector<std::vector<double>>& phaseOffsetE6, const Sdx::AntennaPatternType& phaseOffsetTypeE6, double phasePatternOffsetE6, const std::vector<std::vector<double>>& phaseOffsetS, const Sdx::AntennaPatternType& phaseOffsetTypeS, double phasePatternOffsetS, double x, double y, double z, double yaw, double pitch, double roll, const std::string& name);
+      GetVehicleAntennaModelResult(CommandBasePtr relatedCommand, const std::vector<std::vector<double>>& gainL1, const Sdx::AntennaPatternType& gainTypeL1, double gainOffsetL1, const std::vector<std::vector<double>>& gainL2, const Sdx::AntennaPatternType& gainTypeL2, double gainOffsetL2, const std::vector<std::vector<double>>& gainL5, const Sdx::AntennaPatternType& gainTypeL5, double gainOffsetL5, const std::vector<std::vector<double>>& gainE6, const Sdx::AntennaPatternType& gainTypeE6, double gainOffsetE6, const std::vector<std::vector<double>>& gainS, const Sdx::AntennaPatternType& gainTypeS, double gainOffsetS, const std::vector<std::vector<double>>& gainC, const Sdx::AntennaPatternType& gainTypeC, double gainOffsetC, const std::vector<std::vector<double>>& phaseOffsetL1, const Sdx::AntennaPatternType& phaseOffsetTypeL1, double phasePatternOffsetL1, const std::vector<std::vector<double>>& phaseOffsetL2, const Sdx::AntennaPatternType& phaseOffsetTypeL2, double phasePatternOffsetL2, const std::vector<std::vector<double>>& phaseOffsetL5, const Sdx::AntennaPatternType& phaseOffsetTypeL5, double phasePatternOffsetL5, const std::vector<std::vector<double>>& phaseOffsetE6, const Sdx::AntennaPatternType& phaseOffsetTypeE6, double phasePatternOffsetE6, const std::vector<std::vector<double>>& phaseOffsetS, const Sdx::AntennaPatternType& phaseOffsetTypeS, double phasePatternOffsetS, const std::vector<std::vector<double>>& phaseOffsetC, const Sdx::AntennaPatternType& phaseOffsetTypeC, double phasePatternOffsetC, double x, double y, double z, double yaw, double pitch, double roll, const std::string& name);
 
-      static GetVehicleAntennaModelResultPtr create(const std::vector<std::vector<double>>& gainL1, const Sdx::AntennaPatternType& gainTypeL1, double gainOffsetL1, const std::vector<std::vector<double>>& gainL2, const Sdx::AntennaPatternType& gainTypeL2, double gainOffsetL2, const std::vector<std::vector<double>>& gainL5, const Sdx::AntennaPatternType& gainTypeL5, double gainOffsetL5, const std::vector<std::vector<double>>& gainE6, const Sdx::AntennaPatternType& gainTypeE6, double gainOffsetE6, const std::vector<std::vector<double>>& gainS, const Sdx::AntennaPatternType& gainTypeS, double gainOffsetS, const std::vector<std::vector<double>>& phaseOffsetL1, const Sdx::AntennaPatternType& phaseOffsetTypeL1, double phasePatternOffsetL1, const std::vector<std::vector<double>>& phaseOffsetL2, const Sdx::AntennaPatternType& phaseOffsetTypeL2, double phasePatternOffsetL2, const std::vector<std::vector<double>>& phaseOffsetL5, const Sdx::AntennaPatternType& phaseOffsetTypeL5, double phasePatternOffsetL5, const std::vector<std::vector<double>>& phaseOffsetE6, const Sdx::AntennaPatternType& phaseOffsetTypeE6, double phasePatternOffsetE6, const std::vector<std::vector<double>>& phaseOffsetS, const Sdx::AntennaPatternType& phaseOffsetTypeS, double phasePatternOffsetS, double x, double y, double z, double yaw, double pitch, double roll, const std::string& name);
+      static GetVehicleAntennaModelResultPtr create(const std::vector<std::vector<double>>& gainL1, const Sdx::AntennaPatternType& gainTypeL1, double gainOffsetL1, const std::vector<std::vector<double>>& gainL2, const Sdx::AntennaPatternType& gainTypeL2, double gainOffsetL2, const std::vector<std::vector<double>>& gainL5, const Sdx::AntennaPatternType& gainTypeL5, double gainOffsetL5, const std::vector<std::vector<double>>& gainE6, const Sdx::AntennaPatternType& gainTypeE6, double gainOffsetE6, const std::vector<std::vector<double>>& gainS, const Sdx::AntennaPatternType& gainTypeS, double gainOffsetS, const std::vector<std::vector<double>>& gainC, const Sdx::AntennaPatternType& gainTypeC, double gainOffsetC, const std::vector<std::vector<double>>& phaseOffsetL1, const Sdx::AntennaPatternType& phaseOffsetTypeL1, double phasePatternOffsetL1, const std::vector<std::vector<double>>& phaseOffsetL2, const Sdx::AntennaPatternType& phaseOffsetTypeL2, double phasePatternOffsetL2, const std::vector<std::vector<double>>& phaseOffsetL5, const Sdx::AntennaPatternType& phaseOffsetTypeL5, double phasePatternOffsetL5, const std::vector<std::vector<double>>& phaseOffsetE6, const Sdx::AntennaPatternType& phaseOffsetTypeE6, double phasePatternOffsetE6, const std::vector<std::vector<double>>& phaseOffsetS, const Sdx::AntennaPatternType& phaseOffsetTypeS, double phasePatternOffsetS, const std::vector<std::vector<double>>& phaseOffsetC, const Sdx::AntennaPatternType& phaseOffsetTypeC, double phasePatternOffsetC, double x, double y, double z, double yaw, double pitch, double roll, const std::string& name);
 
-      static GetVehicleAntennaModelResultPtr create(CommandBasePtr relatedCommand, const std::vector<std::vector<double>>& gainL1, const Sdx::AntennaPatternType& gainTypeL1, double gainOffsetL1, const std::vector<std::vector<double>>& gainL2, const Sdx::AntennaPatternType& gainTypeL2, double gainOffsetL2, const std::vector<std::vector<double>>& gainL5, const Sdx::AntennaPatternType& gainTypeL5, double gainOffsetL5, const std::vector<std::vector<double>>& gainE6, const Sdx::AntennaPatternType& gainTypeE6, double gainOffsetE6, const std::vector<std::vector<double>>& gainS, const Sdx::AntennaPatternType& gainTypeS, double gainOffsetS, const std::vector<std::vector<double>>& phaseOffsetL1, const Sdx::AntennaPatternType& phaseOffsetTypeL1, double phasePatternOffsetL1, const std::vector<std::vector<double>>& phaseOffsetL2, const Sdx::AntennaPatternType& phaseOffsetTypeL2, double phasePatternOffsetL2, const std::vector<std::vector<double>>& phaseOffsetL5, const Sdx::AntennaPatternType& phaseOffsetTypeL5, double phasePatternOffsetL5, const std::vector<std::vector<double>>& phaseOffsetE6, const Sdx::AntennaPatternType& phaseOffsetTypeE6, double phasePatternOffsetE6, const std::vector<std::vector<double>>& phaseOffsetS, const Sdx::AntennaPatternType& phaseOffsetTypeS, double phasePatternOffsetS, double x, double y, double z, double yaw, double pitch, double roll, const std::string& name);
+      static GetVehicleAntennaModelResultPtr create(CommandBasePtr relatedCommand, const std::vector<std::vector<double>>& gainL1, const Sdx::AntennaPatternType& gainTypeL1, double gainOffsetL1, const std::vector<std::vector<double>>& gainL2, const Sdx::AntennaPatternType& gainTypeL2, double gainOffsetL2, const std::vector<std::vector<double>>& gainL5, const Sdx::AntennaPatternType& gainTypeL5, double gainOffsetL5, const std::vector<std::vector<double>>& gainE6, const Sdx::AntennaPatternType& gainTypeE6, double gainOffsetE6, const std::vector<std::vector<double>>& gainS, const Sdx::AntennaPatternType& gainTypeS, double gainOffsetS, const std::vector<std::vector<double>>& gainC, const Sdx::AntennaPatternType& gainTypeC, double gainOffsetC, const std::vector<std::vector<double>>& phaseOffsetL1, const Sdx::AntennaPatternType& phaseOffsetTypeL1, double phasePatternOffsetL1, const std::vector<std::vector<double>>& phaseOffsetL2, const Sdx::AntennaPatternType& phaseOffsetTypeL2, double phasePatternOffsetL2, const std::vector<std::vector<double>>& phaseOffsetL5, const Sdx::AntennaPatternType& phaseOffsetTypeL5, double phasePatternOffsetL5, const std::vector<std::vector<double>>& phaseOffsetE6, const Sdx::AntennaPatternType& phaseOffsetTypeE6, double phasePatternOffsetE6, const std::vector<std::vector<double>>& phaseOffsetS, const Sdx::AntennaPatternType& phaseOffsetTypeS, double phasePatternOffsetS, const std::vector<std::vector<double>>& phaseOffsetC, const Sdx::AntennaPatternType& phaseOffsetTypeC, double phasePatternOffsetC, double x, double y, double z, double yaw, double pitch, double roll, const std::string& name);
       static GetVehicleAntennaModelResultPtr dynamicCast(CommandBasePtr ptr);
       virtual bool isValid() const override;
       virtual std::string documentation() const override;
@@ -157,6 +163,21 @@ namespace Sdx
       void setGainOffsetS(double gainOffsetS);
 
 
+      // **** gainC ****
+      std::vector<std::vector<double>> gainC() const;
+      void setGainC(const std::vector<std::vector<double>>& gainC);
+
+
+      // **** gainTypeC ****
+      Sdx::AntennaPatternType gainTypeC() const;
+      void setGainTypeC(const Sdx::AntennaPatternType& gainTypeC);
+
+
+      // **** gainOffsetC ****
+      double gainOffsetC() const;
+      void setGainOffsetC(double gainOffsetC);
+
+
       // **** phaseOffsetL1 ****
       std::vector<std::vector<double>> phaseOffsetL1() const;
       void setPhaseOffsetL1(const std::vector<std::vector<double>>& phaseOffsetL1);
@@ -230,6 +251,21 @@ namespace Sdx
       // **** phasePatternOffsetS ****
       double phasePatternOffsetS() const;
       void setPhasePatternOffsetS(double phasePatternOffsetS);
+
+
+      // **** phaseOffsetC ****
+      std::vector<std::vector<double>> phaseOffsetC() const;
+      void setPhaseOffsetC(const std::vector<std::vector<double>>& phaseOffsetC);
+
+
+      // **** phaseOffsetTypeC ****
+      Sdx::AntennaPatternType phaseOffsetTypeC() const;
+      void setPhaseOffsetTypeC(const Sdx::AntennaPatternType& phaseOffsetTypeC);
+
+
+      // **** phasePatternOffsetC ****
+      double phasePatternOffsetC() const;
+      void setPhasePatternOffsetC(double phasePatternOffsetC);
 
 
       // **** x ****

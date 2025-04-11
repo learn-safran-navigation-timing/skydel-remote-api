@@ -17,7 +17,7 @@ namespace Sdx
     /// Signal string Signal key, accepted values : "L1CA", "L1C", "L1P", "L1ME", "L1MR", "L2C", "L2P", "L2ME", "L2MR", "L5",
     ///                                             "G1", "G2", "E1", "E5a", "E5b", "B1", "B2", "B2a", "B1C", "B3I",
     ///                                             "QZSSL1CA", "QZSSL1CB", "QZSSL1S", "NAVICL5", "NAVICS", "SBASL1", "SBASL5",
-    ///                                             "PULSARXL" and "PULSARX1"
+    ///                                             "PULSARXL", "PULSARX1" and "PULSARX5"
     /// SvId   int    The satellite's SV ID
     ///
 

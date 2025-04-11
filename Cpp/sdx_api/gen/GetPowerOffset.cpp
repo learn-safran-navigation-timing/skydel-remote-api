@@ -23,7 +23,7 @@ namespace Sdx
       "                                    \"G1\", \"G2\", \"E1\", \"E1PRS\", \"E5a\", \"E5b\", \"E6BC\", \"E6PRS\",\n"
       "                                    \"B1\", \"B2\", \"B1C\", \"B2a\", \"B3I\", \"QZSSL1CA\", \"QZSSL1CB\", \"QZSSL1C\", \"QZSSL2C\",\n"
       "                                    \"QZSSL5\", \"QZSSL1S\", \"QZSSL5S\", \"QZSSL6\", \"NAVICL1\", \"NAVICL5\", \"NAVICS\",\n"
-      "                                    \"PULSARXL\", \"PULSARX1\"";
+      "                                    \"PULSARXL\", \"PULSARX1\", \"PULSARX5\"";
     const char* const GetPowerOffset::TargetId = "";
 
     REGISTER_COMMAND_TO_FACTORY_DECL(GetPowerOffset);

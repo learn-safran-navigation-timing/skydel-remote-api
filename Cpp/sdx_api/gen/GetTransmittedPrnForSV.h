@@ -21,7 +21,7 @@ namespace Sdx
     ///                                               "B1C", "B2a", "B3I", "SBASL1", "SBASL5", "QZSSL1CA",
     ///                                               "QZSSL1CB", "QZSSL1C", "QZSSL2C", "QZSSL5", "QZSSL1S",
     ///                                               "QZSSL5S", "QZSSL6", "NAVICL1", "NAVICL5", "NAVICS",
-    ///                                               "PULSARXL" and "PULSARX1"
+    ///                                               "PULSARXL", "PULSARX1" and "PULSARX5"
     ///
 
     class GetTransmittedPrnForSV;

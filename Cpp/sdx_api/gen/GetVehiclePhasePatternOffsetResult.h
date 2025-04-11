@@ -16,7 +16,7 @@ namespace Sdx
     ///
     /// Name        Type            Description
     /// ----------- --------------- ------------------------------------------------------------------------------------
-    /// Band        GNSSBand        Offset will be apply to this band. ("L1", "L2", "L5", "E6" or "S")
+    /// Band        GNSSBand        Offset will be apply to this band.
     /// Offset      double          Phase offset (in rad)
     /// AntennaName optional string Vehicle antenna name. If no name is specified, apply the offset to the Basic Antenna
     ///

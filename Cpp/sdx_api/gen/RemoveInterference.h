@@ -10,12 +10,11 @@ namespace Sdx
   namespace Cmd
   {
     ///
-    /// Removes an interference. When adding an event, the simulator
-    /// sets the Id parameter. Use that Id here to remove the associated interference.
+    /// Removes a specific interference signal.
     ///
     /// Name Type   Description
-    /// ---- ------ ------------------------------------------------
-    /// Id   string Unique identifier of the interference to remove.
+    /// ---- ------ -------------------------------------------------------
+    /// Id   string Unique identifier of the interference signal to remove.
     ///
 
     class RemoveInterference;

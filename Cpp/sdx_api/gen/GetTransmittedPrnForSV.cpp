@@ -23,7 +23,7 @@ namespace Sdx
       "                                              \"B1C\", \"B2a\", \"B3I\", \"SBASL1\", \"SBASL5\", \"QZSSL1CA\",\n"
       "                                              \"QZSSL1CB\", \"QZSSL1C\", \"QZSSL2C\", \"QZSSL5\", \"QZSSL1S\",\n"
       "                                              \"QZSSL5S\", \"QZSSL6\", \"NAVICL1\", \"NAVICL5\", \"NAVICS\",\n"
-      "                                              \"PULSARXL\" and \"PULSARX1\"";
+      "                                              \"PULSARXL\", \"PULSARX1\" and \"PULSARX5\"";
     const char* const GetTransmittedPrnForSV::TargetId = "";
 
     REGISTER_COMMAND_TO_FACTORY_DECL(GetTransmittedPrnForSV);

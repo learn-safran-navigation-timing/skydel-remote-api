@@ -10,16 +10,16 @@ namespace Sdx
   namespace Cmd
   {
     ///
-    /// Add or update continuous wave interference.
+    /// Add or update continuous wave interference signal.
     ///
     /// Name        Type   Description
-    /// ----------- ------ -------------------------------------------------
-    /// StartTime   int    Elapsed time in seconds since start of simulation
-    /// StopTime    int    Elapsed time in seconds since start of simulation
-    /// CentralFreq double Central frequency (Hz)
-    /// Power       double Power (dB) relative to nominal power
-    /// Enabled     bool   Interference enable or not
-    /// Id          string Unique identifier automatically set by simulator
+    /// ----------- ------ -------------------------------------------------------------------------------------------------------------------------
+    /// StartTime   int    Elapsed time at which the signal is enabled (s). Minimum = 0 s, Maximum = 86399 s (23 hours, 59 minutes and 59 seconds).
+    /// StopTime    int    Elapsed time at which the signal is disabled (s). Minimum = 0 s, Maximum = 86399 s (23 hours, 59 minutes and 59 seconds).
+    /// CentralFreq double Central frequency (Hz). Minimum = 100000000 Hz (100 MHz), Maximum = 6000000000 Hz (6 GHz).
+    /// Power       double Power (dB) relative to nominal power. Minimum = -40 dB, Maximum = 43 dB.
+    /// Enabled     bool   Enables or disables the interference signal.
+    /// Id          string Interference signal unique identifier.
     ///
 
     class SetInterferenceCW;

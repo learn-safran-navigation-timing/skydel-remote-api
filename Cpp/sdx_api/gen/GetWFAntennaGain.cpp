@@ -13,8 +13,12 @@ namespace Sdx
   namespace Cmd
   {
     const char* const GetWFAntennaGain::CmdName = "GetWFAntennaGain";
-    const char* const GetWFAntennaGain::Documentation = "Get The CRPA LNA gain";
+    const char* const GetWFAntennaGain::Documentation = "Please note the command GetWFAntennaGain is deprecated since 25.4. You may use GetWFElement.\n"
+      "\n"
+      "Get The CRPA LNA gain";
     const char* const GetWFAntennaGain::TargetId = "";
+
+    const char* const GetWFAntennaGain::Deprecated = "Please note the command GetWFAntennaGain is deprecated since 25.4. You may use GetWFElement.";
 
     REGISTER_COMMAND_TO_FACTORY_DECL(GetWFAntennaGain);
     REGISTER_COMMAND_TO_FACTORY_IMPL(GetWFAntennaGain);
@@ -51,6 +55,8 @@ namespace Sdx
       static const std::vector<std::string> names {}; 
       return names; 
     }
+
+    std::optional<std::string> GetWFAntennaGain::deprecated() const { return std::optional<std::string>{Deprecated}; }
 
 
     int GetWFAntennaGain::executePermission() const

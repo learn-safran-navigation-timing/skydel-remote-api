@@ -17,7 +17,7 @@ namespace Sdx
       "\n"
       "Name        Type            Description\n"
       "----------- --------------- ------------------------------------------------------------------------------------\n"
-      "Band        GNSSBand        Offset will be apply to this band. (\"L1\", \"L2\", \"L5\", \"E6\" or \"S\")\n"
+      "Band        GNSSBand        Offset will be apply to this band.\n"
       "AntennaName optional string Vehicle antenna name. If no name is specified, apply the offset to the Basic Antenna";
     const char* const GetVehiclePhasePatternOffset::TargetId = "";
 

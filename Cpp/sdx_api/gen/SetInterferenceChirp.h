@@ -10,18 +10,18 @@ namespace Sdx
   namespace Cmd
   {
     ///
-    /// Add or update chirp signal interference.
+    /// Add or update chirp signal interference signal.
     ///
     /// Name        Type   Description
-    /// ----------- ------ -------------------------------------------------
-    /// StartTime   int    Elapsed time in seconds since start of simulation
-    /// StopTime    int    Elapsed time in seconds since start of simulation
-    /// CentralFreq double Central frequency (Hz)
-    /// Power       double Power (dB) relative to nominal power
-    /// Bandwidth   double Bandwidth (Hz)
-    /// SweepTime   double Sweep Time (us)
-    /// Enabled     bool   Interference enable or not
-    /// Id          string Unique identifier automatically set by simulator
+    /// ----------- ------ -------------------------------------------------------------------------------------------------------------------------
+    /// StartTime   int    Elapsed time at which the signal is enabled (s). Minimum = 0 s, Maximum = 86399 s (23 hours, 59 minutes and 59 seconds).
+    /// StopTime    int    Elapsed time at which the signal is disabled (s). Minimum = 0 s, Maximum = 86399 s (23 hours, 59 minutes and 59 seconds).
+    /// CentralFreq double Central frequency (Hz). Minimum = 100000000 Hz (100 MHz), Maximum = 6000000000 Hz (6 GHz).
+    /// Power       double Power (dB) relative to nominal power. Minimum = -40 dB, Maximum = 43 dB.
+    /// Bandwidth   double Bandwidth (Hz). Minimum = 1000 Hz (1 kHz), Maximum = 40000000 Hz (40 MHz).
+    /// SweepTime   double Sweep time (s). Minimum = 0.000005 s (5 us), Maximum = 0.000500 s (500 us).
+    /// Enabled     bool   Enables or disables the interference signal.
+    /// Id          string Interference signal unique identifier.
     ///
 
     class SetInterferenceChirp;

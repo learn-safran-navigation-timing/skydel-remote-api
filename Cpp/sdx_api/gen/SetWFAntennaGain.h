@@ -10,6 +10,8 @@ namespace Sdx
   namespace Cmd
   {
     ///
+    /// Please note the command SetWFAntennaGain is deprecated since 25.4. You may use SetWFElement.
+    /// 
     /// Set The CRPA LNA gain
     ///
     /// Name Type Description
@@ -28,6 +30,8 @@ namespace Sdx
       static const char* const Documentation;
       static const char* const TargetId;
 
+      static const char* const Deprecated;
+
 
       SetWFAntennaGain();
 
@@ -38,6 +42,8 @@ namespace Sdx
       virtual bool isValid() const override;
       virtual std::string documentation() const override;
       virtual const std::vector<std::string>& fieldNames() const override;
+
+      virtual std::optional<std::string> deprecated() const override;
 
       virtual int executePermission() const override;
 

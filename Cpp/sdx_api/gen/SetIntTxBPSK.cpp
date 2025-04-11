@@ -16,16 +16,16 @@ namespace Sdx
     const char* const SetIntTxBPSK::Documentation = "Set BPSK signal interference.\n"
       "\n"
       "Name          Type         Description\n"
-      "------------- ------------ -------------------------------------------------------------------------\n"
+      "------------- ------------ -------------------------------------------------------------------------------------------------------------\n"
       "Enabled       bool         Enable (true) or disable (false) the signal\n"
       "CentralFreq   double       Central frequency (Hz).\n"
       "Power         double       Power (dB), relative to transmitter reference power.\n"
-      "CodeRate      int          Code rate (Hz). Must be between 1000 and 60000000 and a multiple of 1KHz.\n"
+      "CodeRate      int          Code rate (Chips/s). Must be between 1000 and 60000000 and a multiple of 1 kChips/s.\n"
       "CodeLengthMs  int          Code length (ms). Must be between 1 and 100.\n"
       "TransmitterId string       Transmitter unique identifier.\n"
       "SignalId      string       BPSK unique identifier.\n"
       "Group         optional int Group, if not using default group.\n"
-      "Prn           optional int Prn code to use. If not specified, a random gode will be generated.";
+      "Prn           optional int PRN code index to use in the BPSK modulation. If zero, a random code will be used. Minimum = 0, Maximum = 32.";
     const char* const SetIntTxBPSK::TargetId = "";
 
     REGISTER_COMMAND_TO_FACTORY_DECL(SetIntTxBPSK);

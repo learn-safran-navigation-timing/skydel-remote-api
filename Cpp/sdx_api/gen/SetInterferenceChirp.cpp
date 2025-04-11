@@ -13,18 +13,18 @@ namespace Sdx
   namespace Cmd
   {
     const char* const SetInterferenceChirp::CmdName = "SetInterferenceChirp";
-    const char* const SetInterferenceChirp::Documentation = "Add or update chirp signal interference.\n"
+    const char* const SetInterferenceChirp::Documentation = "Add or update chirp signal interference signal.\n"
       "\n"
       "Name        Type   Description\n"
-      "----------- ------ -------------------------------------------------\n"
-      "StartTime   int    Elapsed time in seconds since start of simulation\n"
-      "StopTime    int    Elapsed time in seconds since start of simulation\n"
-      "CentralFreq double Central frequency (Hz)\n"
-      "Power       double Power (dB) relative to nominal power\n"
-      "Bandwidth   double Bandwidth (Hz)\n"
-      "SweepTime   double Sweep Time (us)\n"
-      "Enabled     bool   Interference enable or not\n"
-      "Id          string Unique identifier automatically set by simulator";
+      "----------- ------ -------------------------------------------------------------------------------------------------------------------------\n"
+      "StartTime   int    Elapsed time at which the signal is enabled (s). Minimum = 0 s, Maximum = 86399 s (23 hours, 59 minutes and 59 seconds).\n"
+      "StopTime    int    Elapsed time at which the signal is disabled (s). Minimum = 0 s, Maximum = 86399 s (23 hours, 59 minutes and 59 seconds).\n"
+      "CentralFreq double Central frequency (Hz). Minimum = 100000000 Hz (100 MHz), Maximum = 6000000000 Hz (6 GHz).\n"
+      "Power       double Power (dB) relative to nominal power. Minimum = -40 dB, Maximum = 43 dB.\n"
+      "Bandwidth   double Bandwidth (Hz). Minimum = 1000 Hz (1 kHz), Maximum = 40000000 Hz (40 MHz).\n"
+      "SweepTime   double Sweep time (s). Minimum = 0.000005 s (5 us), Maximum = 0.000500 s (500 us).\n"
+      "Enabled     bool   Enables or disables the interference signal.\n"
+      "Id          string Interference signal unique identifier.";
     const char* const SetInterferenceChirp::TargetId = "";
 
     REGISTER_COMMAND_TO_FACTORY_DECL(SetInterferenceChirp);

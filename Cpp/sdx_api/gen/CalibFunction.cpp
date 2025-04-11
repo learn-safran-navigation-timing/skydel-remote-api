@@ -21,7 +21,7 @@ namespace Sdx
       "Signal        string Accepted signal keys: \"L1CA\", \"L1C\", \"L1P\", \"L1ME\", \"L1MR\", \"L2C\", \"L2P\", \"L2ME\", \"L2MR\", \"L5\",\n"
       "                                           \"G1\", \"G2\", \"E1\", \"E5a\", \"E5b\", \"B1\", \"B2\", \"B1C\", \"B2a\", \"B3I\", \"SBASL1\",\n"
       "                                           \"QZSSL1CA\", \"QZSSL1CB\", \"QZSSL1C\", \"QZSSL2C\", \"QZSSL5\", \"QZSSL1S\", \"QZSSL5S\", \"QZSSL6\",\n"
-      "                                           \"NAVICL1\", \"NAVICL5\", \"NAVICS\", \"PULSARXL\" and \"PULSARX1\"\n"
+      "                                           \"NAVICL1\", \"NAVICL5\", \"NAVICS\", \"PULSARXL\", \"PULSARX1\" and \"PULSARX5\"\n"
       "EnableSV      bool   Enable/Disable multiplication by satellite and Navigation Message\n"
       "EnableDoppler bool   Enable/Disable Doppler Frequency and Phase offset\n"
       "PhaseOffet    double Carrier Phase Offset applied to Line Of Sight";

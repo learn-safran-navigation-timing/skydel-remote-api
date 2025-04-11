@@ -13,7 +13,7 @@ namespace Sdx
   namespace Cmd
   {
     const char* const RemoveAllInterferences::CmdName = "RemoveAllInterferences";
-    const char* const RemoveAllInterferences::Documentation = "Clear all interferences";
+    const char* const RemoveAllInterferences::Documentation = "Removes all interference signals.";
     const char* const RemoveAllInterferences::TargetId = "";
 
     REGISTER_COMMAND_TO_FACTORY_DECL(RemoveAllInterferences);

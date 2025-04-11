@@ -17,7 +17,7 @@ namespace Sdx
       "\n"
       "Name        Type            Description\n"
       "----------- --------------- ------------------------------------------------------------------------------------\n"
-      "Band        GNSSBand        Offset will be apply to this band. (\"L1\", \"L2\", \"L5\", \"E6\" or \"S\")\n"
+      "Band        GNSSBand        Offset will be apply to this band.\n"
       "System      string          \"GPS\", \"GLONASS\", \"Galileo\", \"BeiDou\", \"SBAS\", \"QZSS\", \"NavIC\" or \"PULSAR\"\n"
       "Offset      double          Power offset\n"
       "AntennaName optional string Vehicle antenna name. If no name is specified, apply the offset to the Basic Antenna";

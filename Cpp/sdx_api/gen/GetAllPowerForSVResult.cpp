@@ -27,7 +27,8 @@ namespace Sdx
       "                                                           \"E5b\", \"E6BC\", \"E6PRS\", \"B1\", \"B2\", \"B1C\", \"B2a\", \"B3I\",\n"
       "                                                           \"SBASL1\", \"SBASL5\", \"QZSSL1CA\", \"QZSSL1CB\", \"QZSSL1C\",\n"
       "                                                           \"QZSSL2C\", \"QZSSL5\", \"QZSSL1S\", \"QZSSL5S\", \"QZSSL6\",\n"
-      "                                                           \"NAVICL1\", \"NAVICL5\", \"NAVICS\", \"PULSARXL\" and \"PULSARX1\"";
+      "                                                           \"NAVICL1\", \"NAVICL5\", \"NAVICS\", \"PULSARXL\", \"PULSARX1\" and\n"
+      "                                                           \"PULSARX5\"";
     const char* const GetAllPowerForSVResult::TargetId = "";
 
     REGISTER_COMMAND_TO_FACTORY_IMPL(GetAllPowerForSVResult);

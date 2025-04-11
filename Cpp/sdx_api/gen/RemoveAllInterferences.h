@@ -10,7 +10,7 @@ namespace Sdx
   namespace Cmd
   {
     ///
-    /// Clear all interferences
+    /// Removes all interference signals.
     ///
     /// 
     ///

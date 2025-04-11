@@ -23,8 +23,8 @@ namespace Sdx
       "                                              \"E5AltBOC\", \"E6BC\", \"E6PRS\", \"B1\", \"B2\", \"B1C\", \"B2a\",\n"
       "                                              \"B3I\", \"SBASL1\", \"SBASL5\", \"QZSSL1CA\", \"QZSSL1CB\",\n"
       "                                              \"QZSSL1C\", \"QZSSL2C\", \"QZSSL5\", \"QZSSL1S\", \"QZSSL5S\",\n"
-      "                                              \"QZSSL6\", \"NAVICL1\", \"NAVICL5\", \"NAVICS\", \"PULSARXL\" and\n"
-      "                                              \"PULSARX1\"";
+      "                                              \"QZSSL6\", \"NAVICL1\", \"NAVICL5\", \"NAVICS\", \"PULSARXL\",\n"
+      "                                              \"PULSARX1\" and \"PULSARX5\"";
     const char* const GetSignalFilterAssignation::TargetId = "";
 
     REGISTER_COMMAND_TO_FACTORY_DECL(GetSignalFilterAssignation);

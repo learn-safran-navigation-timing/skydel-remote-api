@@ -10,7 +10,7 @@ namespace Sdx
   namespace Cmd
   {
     ///
-    /// Get Wavefront element properties. Properties define if an element is enabled/disabled, and the associated antenna.
+    /// Get the Wavefront element properties.
     ///
     /// Name    Type Description
     /// ------- ---- -----------------------------------------------------------------------------------

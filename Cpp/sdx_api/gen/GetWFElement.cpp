@@ -13,7 +13,7 @@ namespace Sdx
   namespace Cmd
   {
     const char* const GetWFElement::CmdName = "GetWFElement";
-    const char* const GetWFElement::Documentation = "Get Wavefront element properties. Properties define if an element is enabled/disabled, and the associated antenna.\n"
+    const char* const GetWFElement::Documentation = "Get the Wavefront element properties.\n"
       "\n"
       "Name    Type Description\n"
       "------- ---- -----------------------------------------------------------------------------------\n"
