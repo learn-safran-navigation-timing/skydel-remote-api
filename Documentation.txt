@@ -1,4 +1,4 @@
-Skydel Remote API Version 48
+Skydel Remote API Version 49
 
 Command execution permission flags:
   EXECUTE_IF_NO_CONFIG  : executed even if there is no config
@@ -3868,7 +3868,7 @@ Skydel tries to keep the sampling rate as low as possible,
 but it is possible to set constaints with MinRate and MaxRate.
 
 Name             Type            Description
----------------- --------------- ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+---------------- --------------- -----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 Output           int             Output index (zero based)
 MinRate          int             Minimum sampling rate (12500000, 25000000, 50000000, 60000000, 100000000)
 MaxRate          int             Maximum sampling rate (12500000, 25000000, 50000000, 60000000, 100000000)
@@ -3877,7 +3877,7 @@ Signal           string          Comma separated signal keys, accepted signal ke
 Gain             int             The gain associated to this output (dB). This value has to be between the radio minimum value and 115. A negative value means to use the radio default value.
 GaussianNoise    bool            If true, add Gaussian noise to ensure realistic signal to noise ratio. When combining multiple outputs, only one should have Gaussian noise enabled.
 Id               string          Target identifier
-CentralFrequency optional double Forced central frequency to this value. Central frequency can only be one of this values: 1176450000, 1191795000, 1202000000, 1207140000, 1217370000, 1222000000, 1227000000, 1227600000, 1230000000, 1235000000, 1246000000, 1561098000, 1575420000, 1582000000, 1584000000, 1586000000, 1602000000, 2492028000.
+CentralFrequency optional double Forced central frequency to this value. Central frequency can only be one of this values: 1176450000, 1190516250, 1191795000, 1197420000, 1202000000, 1207140000, 1217370000, 1222000000, 1227600000, 1230000000, 1235000000, 1246000000, 1260000000, 1268520000, 1278750000, 1561098000, 1575420000, 1582000000, 1586000000, 1593322500, 1602000000, 2492028000, 5020000000, 5035000000.
 
 ***************************************************************************************************************************
 
@@ -3900,7 +3900,7 @@ Result GetModulationTargetSignalsResult(Output, MinRate, MaxRate, Band, Signal, 
 Result of GetModulationTargetSignals.
 
 Name             Type            Description
----------------- --------------- ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+---------------- --------------- -----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 Output           int             Output index (zero based)
 MinRate          int             Minimum sampling rate (12500000, 25000000, 50000000, 60000000, 100000000)
 MaxRate          int             Maximum sampling rate (12500000, 25000000, 50000000, 60000000, 100000000)
@@ -3909,7 +3909,7 @@ Signal           string          Comma separated signal keys, accepted signal ke
 Gain             int             The gain associated to this output (dB). This value has to be between the radio minimum value and 115. A negative value means to use the radio default value.
 GaussianNoise    bool            If true, add Gaussian noise to ensure realistic signal to noise ratio. When combining multiple outputs, only one should have Gaussian noise enabled.
 Id               string          Target identifier
-CentralFrequency optional double Forced central frequency to this value. Central frequency can only be one of this values: 1176450000, 1191795000, 1202000000, 1207140000, 1217370000, 1222000000, 1227000000, 1227600000, 1230000000, 1235000000, 1246000000, 1561098000, 1575420000, 1582000000, 1584000000, 1586000000, 1602000000, 2492028000.
+CentralFrequency optional double Forced central frequency to this value. Central frequency can only be one of this values: 1176450000, 1190516250, 1191795000, 1197420000, 1202000000, 1207140000, 1217370000, 1222000000, 1227600000, 1230000000, 1235000000, 1246000000, 1260000000, 1268520000, 1278750000, 1561098000, 1575420000, 1582000000, 1586000000, 1593322500, 1602000000, 2492028000, 5020000000, 5035000000.
 
 ***************************************************************************************************************************
 
@@ -3978,17 +3978,23 @@ Gain   double RF Gain of the SDR, in dB. Default value is 0. Only supported for 
 
 ***************************************************************************************************************************
 
-Command ImportConstellationParameters(System, Path, Rollover, DataSetName)
+Command ImportConstellationParameters(System, Path, Rollover, DataSetName, NavMsgFamily)
 Permission: EXECUTE_IF_IDLE
 
-Import navigation message file for the specified constellation. This could be Rinex, SEM or YUMA file for GPS. Only Rinex for the others.
+Import navigation message file for the specified constellation. This could be RINEX, SEM or YUMA file for GPS. Only RINEX for the others.
 
-Name        Type            Description
------------ --------------- -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
-System      string          "GPS", "GLONASS", "Galileo", "SBAS", "BeiDou", "QZSS", "NavIC" or "PULSAR"
-Path        string          File path
-Rollover    optional int    Rollover for file types that does not precise it (YUMA, SEM). Default value is the current rollover.
-DataSetName optional string Name of the data set to import. This parameter is optional, the default value will be the name of the imported file. Constellations that support this parameter are  "GPS", "Galileo", "BeiDou", "QZSS" and "NavIC"
+Name         Type            Description
+------------ --------------- ----------------------------------------------------------------------------------------------------------------------
+System       string          "GPS", "GLONASS", "Galileo", "SBAS", "BeiDou", "QZSS", "NavIC" or "PULSAR"
+Path         string          File path
+Rollover     optional int    Rollover for file types that does not precise it (YUMA, SEM). Default value is the current rollover.
+DataSetName  optional string Name of the data set to import. This parameter is optional, the default value will be the name of the imported file.
+                             Constellations that support this parameter are  "GPS", "Galileo", "BeiDou", "QZSS" and "NavIC".
+NavMsgFamily optional string Navigation message family key used to specify which ephemeris navigation message type to import from a RINEX v4+ file.
+                             This parameter is optional and ignored for other file formats. Default values are: "GPS_LNAV" for GPS,
+                             "GALILEO_FNAV" for Galileo, "BEIDOU_D1_NAV" for BeiDou, "QZSS_LNAV" for QZSS and "NAVIC_NAV" for NavIC.
+                             Accepted values are: "GPS_LNAV", "GPS_CNAV", "GALILEO_FNAV", "GALILEO_INAV", "BEIDOU_D1_NAV", "BEIDOU_D2_NAV",
+                             "QZSS_LNAV" and "NAVIC_NAV".
 
 ***************************************************************************************************************************
 
@@ -10397,6 +10403,35 @@ Overwriting bool   Overwrite an existing file if set to true, return an error if
 
 ***************************************************************************************************************************
 
+Command EnableManualSbasMessageSequence(Enabled)
+Permission: EXECUTE_IF_IDLE
+
+Enable (or disable) the use of a manually imported SBAS message sequence instead of the automatically generated one.
+
+Name    Type Description
+------- ---- ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+Enabled bool If enabled (true), Skydel will use a manually imported SBAS message sequence as the source. If disabled (false, default), the SBAS message sequence will be automatically generated by Skydel.
+
+***************************************************************************************************************************
+
+Command IsManualSbasMessageSequence()
+Permission: EXECUTE_IF_IDLE
+
+Indicates whether a manually imported SBAS message sequence is being used.
+
+
+***************************************************************************************************************************
+
+Result IsManualSbasMessageSequenceResult(Enabled)
+
+Result of IsManualSbasMessageSequence.
+
+Name    Type Description
+------- ---- ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+Enabled bool If enabled (true), Skydel will use a manually imported SBAS message sequence as the source. If disabled (false, default), the SBAS message sequence will be automatically generated by Skydel.
+
+***************************************************************************************************************************
+
 Command SetSbasMonitoredSystems(Systems)
 Permission: EXECUTE_IF_IDLE
 
@@ -12739,17 +12774,22 @@ State bool True for the signal to go through the JAM Calibration output, False o
 
 ***************************************************************************************************************************
 
-Command AddDataSet(System, Path, Rollover, DataSetName)
+Command AddDataSet(System, Path, Rollover, DataSetName, NavMsgFamily)
 Permission: EXECUTE_IF_IDLE
 
 Add a new data set for the specified constellation. This could come from a Rinex, SEM or YUMA file for GPS. Only Rinex for the others.
 
-Name        Type            Description
------------ --------------- --------------------------------------------------------------------------------------------------------------------
-System      string          "GPS", "Galileo", "BeiDou", "QZSS", "NavIC" or "PULSAR"
-Path        string          Data set file path
-Rollover    optional int    Rollover for file types that does not precise it (YUMA, SEM). Default value is the current rollover.
-DataSetName optional string Name of the data set to import. This parameter is optional, the default value will be the name of the imported file.
+Name         Type            Description
+------------ --------------- ----------------------------------------------------------------------------------------------------------------------
+System       string          "GPS", "Galileo", "BeiDou", "QZSS", "NavIC" or "PULSAR"
+Path         string          Data set file path
+Rollover     optional int    Rollover for file types that does not precise it (YUMA, SEM). Default value is the current rollover.
+DataSetName  optional string Name of the data set to import. This parameter is optional, the default value will be the name of the imported file.
+NavMsgFamily optional string Navigation message family key used to specify which ephemeris navigation message type to import from a RINEX v4+ file.
+                             This parameter is optional and ignored for other file formats. Default values are: "GPS_LNAV" for GPS,
+                             "GALILEO_FNAV" for Galileo, "BEIDOU_D1_NAV" for BeiDou, "QZSS_LNAV" for QZSS and "NAVIC_NAV" for NavIC.
+                             Accepted values are: "GPS_LNAV", "GPS_CNAV", "GALILEO_FNAV", "GALILEO_INAV", "BEIDOU_D1_NAV", "BEIDOU_D2_NAV",
+                             "QZSS_LNAV" and "NAVIC_NAV".
 
 ***************************************************************************************************************************
 

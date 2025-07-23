@@ -6,7 +6,7 @@ namespace Sdx.Cmd
 
   public static class ApiInfo
   {
-    public const int COMMANDS_API_VERSION = 48;
+    public const int COMMANDS_API_VERSION = 49;
   }
 
   ///
@@ -19730,7 +19730,7 @@ namespace Sdx.Cmd
   /// but it is possible to set constaints with MinRate and MaxRate.
   ///
   /// Name             Type            Description
-  /// ---------------- --------------- ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+  /// ---------------- --------------- -----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
   /// Output           int             Output index (zero based)
   /// MinRate          int             Minimum sampling rate (12500000, 25000000, 50000000, 60000000, 100000000)
   /// MaxRate          int             Maximum sampling rate (12500000, 25000000, 50000000, 60000000, 100000000)
@@ -19739,7 +19739,7 @@ namespace Sdx.Cmd
   /// Gain             int             The gain associated to this output (dB). This value has to be between the radio minimum value and 115. A negative value means to use the radio default value.
   /// GaussianNoise    bool            If true, add Gaussian noise to ensure realistic signal to noise ratio. When combining multiple outputs, only one should have Gaussian noise enabled.
   /// Id               string          Target identifier
-  /// CentralFrequency optional double Forced central frequency to this value. Central frequency can only be one of this values: 1176450000, 1191795000, 1202000000, 1207140000, 1217370000, 1222000000, 1227000000, 1227600000, 1230000000, 1235000000, 1246000000, 1561098000, 1575420000, 1582000000, 1584000000, 1586000000, 1602000000, 2492028000.
+  /// CentralFrequency optional double Forced central frequency to this value. Central frequency can only be one of this values: 1176450000, 1190516250, 1191795000, 1197420000, 1202000000, 1207140000, 1217370000, 1222000000, 1227600000, 1230000000, 1235000000, 1246000000, 1260000000, 1268520000, 1278750000, 1561098000, 1575420000, 1582000000, 1586000000, 1593322500, 1602000000, 2492028000, 5020000000, 5035000000.
   ///
 
   public class ChangeModulationTargetSignals : CommandBase
@@ -19944,7 +19944,7 @@ namespace Sdx.Cmd
   /// Result of GetModulationTargetSignals.
   ///
   /// Name             Type            Description
-  /// ---------------- --------------- ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+  /// ---------------- --------------- -----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
   /// Output           int             Output index (zero based)
   /// MinRate          int             Minimum sampling rate (12500000, 25000000, 50000000, 60000000, 100000000)
   /// MaxRate          int             Maximum sampling rate (12500000, 25000000, 50000000, 60000000, 100000000)
@@ -19953,7 +19953,7 @@ namespace Sdx.Cmd
   /// Gain             int             The gain associated to this output (dB). This value has to be between the radio minimum value and 115. A negative value means to use the radio default value.
   /// GaussianNoise    bool            If true, add Gaussian noise to ensure realistic signal to noise ratio. When combining multiple outputs, only one should have Gaussian noise enabled.
   /// Id               string          Target identifier
-  /// CentralFrequency optional double Forced central frequency to this value. Central frequency can only be one of this values: 1176450000, 1191795000, 1202000000, 1207140000, 1217370000, 1222000000, 1227000000, 1227600000, 1230000000, 1235000000, 1246000000, 1561098000, 1575420000, 1582000000, 1584000000, 1586000000, 1602000000, 2492028000.
+  /// CentralFrequency optional double Forced central frequency to this value. Central frequency can only be one of this values: 1176450000, 1190516250, 1191795000, 1197420000, 1202000000, 1207140000, 1217370000, 1222000000, 1227600000, 1230000000, 1235000000, 1246000000, 1260000000, 1268520000, 1278750000, 1561098000, 1575420000, 1582000000, 1586000000, 1593322500, 1602000000, 2492028000, 5020000000, 5035000000.
   ///
 
   public class GetModulationTargetSignalsResult : CommandResult
@@ -20492,21 +20492,27 @@ namespace Sdx.Cmd
 
 
   ///
-  /// Import navigation message file for the specified constellation. This could be Rinex, SEM or YUMA file for GPS. Only Rinex for the others.
+  /// Import navigation message file for the specified constellation. This could be RINEX, SEM or YUMA file for GPS. Only RINEX for the others.
   ///
-  /// Name        Type            Description
-  /// ----------- --------------- -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
-  /// System      string          "GPS", "GLONASS", "Galileo", "SBAS", "BeiDou", "QZSS", "NavIC" or "PULSAR"
-  /// Path        string          File path
-  /// Rollover    optional int    Rollover for file types that does not precise it (YUMA, SEM). Default value is the current rollover.
-  /// DataSetName optional string Name of the data set to import. This parameter is optional, the default value will be the name of the imported file. Constellations that support this parameter are  "GPS", "Galileo", "BeiDou", "QZSS" and "NavIC"
+  /// Name         Type            Description
+  /// ------------ --------------- ----------------------------------------------------------------------------------------------------------------------
+  /// System       string          "GPS", "GLONASS", "Galileo", "SBAS", "BeiDou", "QZSS", "NavIC" or "PULSAR"
+  /// Path         string          File path
+  /// Rollover     optional int    Rollover for file types that does not precise it (YUMA, SEM). Default value is the current rollover.
+  /// DataSetName  optional string Name of the data set to import. This parameter is optional, the default value will be the name of the imported file.
+  ///                              Constellations that support this parameter are  "GPS", "Galileo", "BeiDou", "QZSS" and "NavIC".
+  /// NavMsgFamily optional string Navigation message family key used to specify which ephemeris navigation message type to import from a RINEX v4+ file.
+  ///                              This parameter is optional and ignored for other file formats. Default values are: "GPS_LNAV" for GPS,
+  ///                              "GALILEO_FNAV" for Galileo, "BEIDOU_D1_NAV" for BeiDou, "QZSS_LNAV" for QZSS and "NAVIC_NAV" for NavIC.
+  ///                              Accepted values are: "GPS_LNAV", "GPS_CNAV", "GALILEO_FNAV", "GALILEO_INAV", "BEIDOU_D1_NAV", "BEIDOU_D2_NAV",
+  ///                              "QZSS_LNAV" and "NAVIC_NAV".
   ///
 
   public class ImportConstellationParameters : CommandBase
   {
     public override string Documentation
     {
-      get { return "Import navigation message file for the specified constellation. This could be Rinex, SEM or YUMA file for GPS. Only Rinex for the others."; }
+      get { return "Import navigation message file for the specified constellation. This could be RINEX, SEM or YUMA file for GPS. Only RINEX for the others."; }
     }
 
     internal const string CmdName = "ImportConstellationParameters";
@@ -20516,13 +20522,14 @@ namespace Sdx.Cmd
       : base(CmdName, TargetId)
     {}
 
-    public ImportConstellationParameters(string system, string path, int? rollover = null, string dataSetName = null)
+    public ImportConstellationParameters(string system, string path, int? rollover = null, string dataSetName = null, string navMsgFamily = null)
       : base(CmdName, TargetId)
     {
       System = system;
       Path = path;
       Rollover = rollover;
       DataSetName = dataSetName;
+      NavMsgFamily = navMsgFamily;
     }
       
     public override bool IsValid
@@ -20577,6 +20584,18 @@ namespace Sdx.Cmd
           RemoveValue("DataSetName");
         else
           SetValue("DataSetName", JToken.FromObject(value, CommandBase.Serializer));
+      }
+    }
+
+    public string NavMsgFamily
+    {
+      get { return GetValue("NavMsgFamily").ToObject<string>(CommandBase.Serializer); }
+      set
+      {
+        if (value == null)
+          RemoveValue("NavMsgFamily");
+        else
+          SetValue("NavMsgFamily", JToken.FromObject(value, CommandBase.Serializer));
       }
     }
   }
@@ -55074,6 +55093,139 @@ namespace Sdx.Cmd
 
 
   ///
+  /// Enable (or disable) the use of a manually imported SBAS message sequence instead of the automatically generated one.
+  ///
+  /// Name    Type Description
+  /// ------- ---- ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+  /// Enabled bool If enabled (true), Skydel will use a manually imported SBAS message sequence as the source. If disabled (false, default), the SBAS message sequence will be automatically generated by Skydel.
+  ///
+
+  public class EnableManualSbasMessageSequence : CommandBase
+  {
+    public override string Documentation
+    {
+      get { return "Enable (or disable) the use of a manually imported SBAS message sequence instead of the automatically generated one."; }
+    }
+
+    internal const string CmdName = "EnableManualSbasMessageSequence";
+    internal const string TargetId = "";
+
+    public EnableManualSbasMessageSequence()
+      : base(CmdName, TargetId)
+    {}
+
+    public EnableManualSbasMessageSequence(bool enabled)
+      : base(CmdName, TargetId)
+    {
+      Enabled = enabled;
+    }
+      
+    public override bool IsValid
+    {
+      get
+      {
+        return base.IsValid
+        && Contains("Enabled")
+      ;
+      }
+    }
+
+    public override int ExecutePermission { get { return EXECUTE_IF_IDLE; } }
+
+    public bool Enabled
+    {
+      get { return GetValue("Enabled").ToObject<bool>(CommandBase.Serializer); }
+      set
+      {
+          SetValue("Enabled", JToken.FromObject(value, CommandBase.Serializer));
+      }
+    }
+  }
+
+
+  ///
+  /// Indicates whether a manually imported SBAS message sequence is being used.
+  ///
+  /// 
+  ///
+
+  public class IsManualSbasMessageSequence : CommandBase
+  {
+    public override string Documentation
+    {
+      get { return "Indicates whether a manually imported SBAS message sequence is being used."; }
+    }
+
+    internal const string CmdName = "IsManualSbasMessageSequence";
+    internal const string TargetId = "";
+
+    public IsManualSbasMessageSequence()
+      : base(CmdName, TargetId)
+    {}
+      
+    public override bool IsValid
+    {
+      get
+      {
+        return base.IsValid
+      ;
+      }
+    }
+
+    public override int ExecutePermission { get { return EXECUTE_IF_IDLE; } }
+  }
+
+
+  ///
+  /// Result of IsManualSbasMessageSequence.
+  ///
+  /// Name    Type Description
+  /// ------- ---- ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+  /// Enabled bool If enabled (true), Skydel will use a manually imported SBAS message sequence as the source. If disabled (false, default), the SBAS message sequence will be automatically generated by Skydel.
+  ///
+
+  public class IsManualSbasMessageSequenceResult : CommandResult
+  {
+    public override string Documentation
+    {
+      get { return "Result of IsManualSbasMessageSequence."; }
+    }
+
+    internal const string CmdName = "IsManualSbasMessageSequenceResult";
+    internal const string TargetId = "";
+
+    public IsManualSbasMessageSequenceResult()
+      : base(CmdName, TargetId)
+    {}
+
+    public IsManualSbasMessageSequenceResult(CommandBase relatedCommand, bool enabled)
+      : base(CmdName, TargetId, relatedCommand)
+    {
+      Enabled = enabled;
+    }
+      
+    public override bool IsValid
+    {
+      get
+      {
+        return base.IsValid
+        && Contains("Enabled")
+      ;
+      }
+    }
+
+    public bool Enabled
+    {
+      get { return GetValue("Enabled").ToObject<bool>(CommandBase.Serializer); }
+      set
+      {
+          SetValue("Enabled", JToken.FromObject(value, CommandBase.Serializer));
+      }
+    }
+  }
+
+
+  ///
   /// Set the systems monitored by SBAS.
   ///
   /// Name    Type         Description
@@ -67876,12 +68028,17 @@ namespace Sdx.Cmd
   ///
   /// Add a new data set for the specified constellation. This could come from a Rinex, SEM or YUMA file for GPS. Only Rinex for the others.
   ///
-  /// Name        Type            Description
-  /// ----------- --------------- --------------------------------------------------------------------------------------------------------------------
-  /// System      string          "GPS", "Galileo", "BeiDou", "QZSS", "NavIC" or "PULSAR"
-  /// Path        string          Data set file path
-  /// Rollover    optional int    Rollover for file types that does not precise it (YUMA, SEM). Default value is the current rollover.
-  /// DataSetName optional string Name of the data set to import. This parameter is optional, the default value will be the name of the imported file.
+  /// Name         Type            Description
+  /// ------------ --------------- ----------------------------------------------------------------------------------------------------------------------
+  /// System       string          "GPS", "Galileo", "BeiDou", "QZSS", "NavIC" or "PULSAR"
+  /// Path         string          Data set file path
+  /// Rollover     optional int    Rollover for file types that does not precise it (YUMA, SEM). Default value is the current rollover.
+  /// DataSetName  optional string Name of the data set to import. This parameter is optional, the default value will be the name of the imported file.
+  /// NavMsgFamily optional string Navigation message family key used to specify which ephemeris navigation message type to import from a RINEX v4+ file.
+  ///                              This parameter is optional and ignored for other file formats. Default values are: "GPS_LNAV" for GPS,
+  ///                              "GALILEO_FNAV" for Galileo, "BEIDOU_D1_NAV" for BeiDou, "QZSS_LNAV" for QZSS and "NAVIC_NAV" for NavIC.
+  ///                              Accepted values are: "GPS_LNAV", "GPS_CNAV", "GALILEO_FNAV", "GALILEO_INAV", "BEIDOU_D1_NAV", "BEIDOU_D2_NAV",
+  ///                              "QZSS_LNAV" and "NAVIC_NAV".
   ///
 
   public class AddDataSet : CommandBase
@@ -67898,13 +68055,14 @@ namespace Sdx.Cmd
       : base(CmdName, TargetId)
     {}
 
-    public AddDataSet(string system, string path, int? rollover = null, string dataSetName = null)
+    public AddDataSet(string system, string path, int? rollover = null, string dataSetName = null, string navMsgFamily = null)
       : base(CmdName, TargetId)
     {
       System = system;
       Path = path;
       Rollover = rollover;
       DataSetName = dataSetName;
+      NavMsgFamily = navMsgFamily;
     }
       
     public override bool IsValid
@@ -67959,6 +68117,18 @@ namespace Sdx.Cmd
           RemoveValue("DataSetName");
         else
           SetValue("DataSetName", JToken.FromObject(value, CommandBase.Serializer));
+      }
+    }
+
+    public string NavMsgFamily
+    {
+      get { return GetValue("NavMsgFamily").ToObject<string>(CommandBase.Serializer); }
+      set
+      {
+        if (value == null)
+          RemoveValue("NavMsgFamily");
+        else
+          SetValue("NavMsgFamily", JToken.FromObject(value, CommandBase.Serializer));
       }
     }
   }

@@ -3,7 +3,7 @@ from .commandbase import CommandBase
 from .commandresult import CommandResult
 from .commandbase import ExecutePermission
 
-ApiVersion = 48
+ApiVersion = 49
 
 #
 # The GPS AS flag value.
@@ -9663,7 +9663,7 @@ class ChangeModulationTargetName(CommandBase):
 # but it is possible to set constaints with MinRate and MaxRate.
 #
 # Name             Type            Description
-# ---------------- --------------- ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+# ---------------- --------------- -----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 # Output           int             Output index (zero based)
 # MinRate          int             Minimum sampling rate (12500000, 25000000, 50000000, 60000000, 100000000)
 # MaxRate          int             Maximum sampling rate (12500000, 25000000, 50000000, 60000000, 100000000)
@@ -9672,7 +9672,7 @@ class ChangeModulationTargetName(CommandBase):
 # Gain             int             The gain associated to this output (dB). This value has to be between the radio minimum value and 115. A negative value means to use the radio default value.
 # GaussianNoise    bool            If true, add Gaussian noise to ensure realistic signal to noise ratio. When combining multiple outputs, only one should have Gaussian noise enabled.
 # Id               string          Target identifier
-# CentralFrequency optional double Forced central frequency to this value. Central frequency can only be one of this values: 1176450000, 1191795000, 1202000000, 1207140000, 1217370000, 1222000000, 1227000000, 1227600000, 1230000000, 1235000000, 1246000000, 1561098000, 1575420000, 1582000000, 1584000000, 1586000000, 1602000000, 2492028000.
+# CentralFrequency optional double Forced central frequency to this value. Central frequency can only be one of this values: 1176450000, 1190516250, 1191795000, 1197420000, 1202000000, 1207140000, 1217370000, 1222000000, 1227600000, 1230000000, 1235000000, 1246000000, 1260000000, 1268520000, 1278750000, 1561098000, 1575420000, 1582000000, 1586000000, 1593322500, 1602000000, 2492028000, 5020000000, 5035000000.
 #
 
 class ChangeModulationTargetSignals(CommandBase):
@@ -9783,7 +9783,7 @@ class GetModulationTargetSignals(CommandBase):
 # Result of GetModulationTargetSignals.
 #
 # Name             Type            Description
-# ---------------- --------------- ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+# ---------------- --------------- -----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 # Output           int             Output index (zero based)
 # MinRate          int             Minimum sampling rate (12500000, 25000000, 50000000, 60000000, 100000000)
 # MaxRate          int             Maximum sampling rate (12500000, 25000000, 50000000, 60000000, 100000000)
@@ -9792,7 +9792,7 @@ class GetModulationTargetSignals(CommandBase):
 # Gain             int             The gain associated to this output (dB). This value has to be between the radio minimum value and 115. A negative value means to use the radio default value.
 # GaussianNoise    bool            If true, add Gaussian noise to ensure realistic signal to noise ratio. When combining multiple outputs, only one should have Gaussian noise enabled.
 # Id               string          Target identifier
-# CentralFrequency optional double Forced central frequency to this value. Central frequency can only be one of this values: 1176450000, 1191795000, 1202000000, 1207140000, 1217370000, 1222000000, 1227000000, 1227600000, 1230000000, 1235000000, 1246000000, 1561098000, 1575420000, 1582000000, 1584000000, 1586000000, 1602000000, 2492028000.
+# CentralFrequency optional double Forced central frequency to this value. Central frequency can only be one of this values: 1176450000, 1190516250, 1191795000, 1197420000, 1202000000, 1207140000, 1217370000, 1222000000, 1227600000, 1230000000, 1235000000, 1246000000, 1260000000, 1268520000, 1278750000, 1561098000, 1575420000, 1582000000, 1586000000, 1593322500, 1602000000, 2492028000, 5020000000, 5035000000.
 #
 
 class GetModulationTargetSignalsResult(CommandResult):
@@ -10093,24 +10093,31 @@ class SetRfGain(CommandBase):
     return self.set("Gain", value)
 
 #
-# Import navigation message file for the specified constellation. This could be Rinex, SEM or YUMA file for GPS. Only Rinex for the others.
+# Import navigation message file for the specified constellation. This could be RINEX, SEM or YUMA file for GPS. Only RINEX for the others.
 #
-# Name        Type            Description
-# ----------- --------------- -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
-# System      string          "GPS", "GLONASS", "Galileo", "SBAS", "BeiDou", "QZSS", "NavIC" or "PULSAR"
-# Path        string          File path
-# Rollover    optional int    Rollover for file types that does not precise it (YUMA, SEM). Default value is the current rollover.
-# DataSetName optional string Name of the data set to import. This parameter is optional, the default value will be the name of the imported file. Constellations that support this parameter are  "GPS", "Galileo", "BeiDou", "QZSS" and "NavIC"
+# Name         Type            Description
+# ------------ --------------- ----------------------------------------------------------------------------------------------------------------------
+# System       string          "GPS", "GLONASS", "Galileo", "SBAS", "BeiDou", "QZSS", "NavIC" or "PULSAR"
+# Path         string          File path
+# Rollover     optional int    Rollover for file types that does not precise it (YUMA, SEM). Default value is the current rollover.
+# DataSetName  optional string Name of the data set to import. This parameter is optional, the default value will be the name of the imported file.
+#                              Constellations that support this parameter are  "GPS", "Galileo", "BeiDou", "QZSS" and "NavIC".
+# NavMsgFamily optional string Navigation message family key used to specify which ephemeris navigation message type to import from a RINEX v4+ file.
+#                              This parameter is optional and ignored for other file formats. Default values are: "GPS_LNAV" for GPS,
+#                              "GALILEO_FNAV" for Galileo, "BEIDOU_D1_NAV" for BeiDou, "QZSS_LNAV" for QZSS and "NAVIC_NAV" for NavIC.
+#                              Accepted values are: "GPS_LNAV", "GPS_CNAV", "GALILEO_FNAV", "GALILEO_INAV", "BEIDOU_D1_NAV", "BEIDOU_D2_NAV",
+#                              "QZSS_LNAV" and "NAVIC_NAV".
 #
 
 class ImportConstellationParameters(CommandBase):
 
-  def __init__(self, system, path, rollover = None, dataSetName = None):
+  def __init__(self, system, path, rollover = None, dataSetName = None, navMsgFamily = None):
     CommandBase.__init__(self, "ImportConstellationParameters")
     self.setSystem(system)
     self.setPath(path)
     self.setRollover(rollover)
     self.setDataSetName(dataSetName)
+    self.setNavMsgFamily(navMsgFamily)
 
   def executePermission(self):
     return ExecutePermission.EXECUTE_IF_IDLE
@@ -10138,6 +10145,12 @@ class ImportConstellationParameters(CommandBase):
 
   def setDataSetName(self, value):
     return self.set("DataSetName", value)
+
+  def navMsgFamily(self):
+    return self.get("NavMsgFamily")
+
+  def setNavMsgFamily(self, value):
+    return self.set("NavMsgFamily", value)
 
 #
 # Import ionospheric parameters from a Rinex file.
@@ -28604,6 +28617,65 @@ class ExportSbasMessageSequence(CommandBase):
     return self.set("Overwriting", value)
 
 #
+# Enable (or disable) the use of a manually imported SBAS message sequence instead of the automatically generated one.
+#
+# Name    Type Description
+# ------- ---- ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+# Enabled bool If enabled (true), Skydel will use a manually imported SBAS message sequence as the source. If disabled (false, default), the SBAS message sequence will be automatically generated by Skydel.
+#
+
+class EnableManualSbasMessageSequence(CommandBase):
+
+  def __init__(self, enabled):
+    CommandBase.__init__(self, "EnableManualSbasMessageSequence")
+    self.setEnabled(enabled)
+
+  def executePermission(self):
+    return ExecutePermission.EXECUTE_IF_IDLE
+
+  def enabled(self):
+    return self.get("Enabled")
+
+  def setEnabled(self, value):
+    return self.set("Enabled", value)
+
+#
+# Indicates whether a manually imported SBAS message sequence is being used.
+#
+#
+
+class IsManualSbasMessageSequence(CommandBase):
+
+  def __init__(self):
+    CommandBase.__init__(self, "IsManualSbasMessageSequence")
+
+  def executePermission(self):
+    return ExecutePermission.EXECUTE_IF_IDLE
+
+#
+# Result of IsManualSbasMessageSequence.
+#
+# Name    Type Description
+# ------- ---- ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+# Enabled bool If enabled (true), Skydel will use a manually imported SBAS message sequence as the source. If disabled (false, default), the SBAS message sequence will be automatically generated by Skydel.
+#
+
+class IsManualSbasMessageSequenceResult(CommandResult):
+
+  def __init__(self, enabled):
+    CommandResult.__init__(self, "IsManualSbasMessageSequenceResult")
+    self.setEnabled(enabled)
+
+  def isSuccess(self):
+    return True
+
+  def enabled(self):
+    return self.get("Enabled")
+
+  def setEnabled(self, value):
+    return self.set("Enabled", value)
+
+#
 # Set the systems monitored by SBAS.
 #
 # Name    Type         Description
@@ -35173,22 +35245,28 @@ class SetWavefrontJamCalibrationState(CommandBase):
 #
 # Add a new data set for the specified constellation. This could come from a Rinex, SEM or YUMA file for GPS. Only Rinex for the others.
 #
-# Name        Type            Description
-# ----------- --------------- --------------------------------------------------------------------------------------------------------------------
-# System      string          "GPS", "Galileo", "BeiDou", "QZSS", "NavIC" or "PULSAR"
-# Path        string          Data set file path
-# Rollover    optional int    Rollover for file types that does not precise it (YUMA, SEM). Default value is the current rollover.
-# DataSetName optional string Name of the data set to import. This parameter is optional, the default value will be the name of the imported file.
+# Name         Type            Description
+# ------------ --------------- ----------------------------------------------------------------------------------------------------------------------
+# System       string          "GPS", "Galileo", "BeiDou", "QZSS", "NavIC" or "PULSAR"
+# Path         string          Data set file path
+# Rollover     optional int    Rollover for file types that does not precise it (YUMA, SEM). Default value is the current rollover.
+# DataSetName  optional string Name of the data set to import. This parameter is optional, the default value will be the name of the imported file.
+# NavMsgFamily optional string Navigation message family key used to specify which ephemeris navigation message type to import from a RINEX v4+ file.
+#                              This parameter is optional and ignored for other file formats. Default values are: "GPS_LNAV" for GPS,
+#                              "GALILEO_FNAV" for Galileo, "BEIDOU_D1_NAV" for BeiDou, "QZSS_LNAV" for QZSS and "NAVIC_NAV" for NavIC.
+#                              Accepted values are: "GPS_LNAV", "GPS_CNAV", "GALILEO_FNAV", "GALILEO_INAV", "BEIDOU_D1_NAV", "BEIDOU_D2_NAV",
+#                              "QZSS_LNAV" and "NAVIC_NAV".
 #
 
 class AddDataSet(CommandBase):
 
-  def __init__(self, system, path, rollover = None, dataSetName = None):
+  def __init__(self, system, path, rollover = None, dataSetName = None, navMsgFamily = None):
     CommandBase.__init__(self, "AddDataSet")
     self.setSystem(system)
     self.setPath(path)
     self.setRollover(rollover)
     self.setDataSetName(dataSetName)
+    self.setNavMsgFamily(navMsgFamily)
 
   def executePermission(self):
     return ExecutePermission.EXECUTE_IF_IDLE
@@ -35216,6 +35294,12 @@ class AddDataSet(CommandBase):
 
   def setDataSetName(self, value):
     return self.set("DataSetName", value)
+
+  def navMsgFamily(self):
+    return self.get("NavMsgFamily")
+
+  def setNavMsgFamily(self, value):
+    return self.set("NavMsgFamily", value)
 
 #
 # Set data set assignation for the specified constellation.
