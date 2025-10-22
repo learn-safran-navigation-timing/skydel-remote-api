@@ -10,7 +10,7 @@ namespace Sdx
   namespace Cmd
   {
     ///
-    /// Get active data set.
+    /// Get the active data set.
     ///
     /// Name   Type   Description
     /// ------ ------ -------------------------------------------------------

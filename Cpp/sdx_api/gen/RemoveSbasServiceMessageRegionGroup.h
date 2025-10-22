@@ -13,8 +13,8 @@ namespace Sdx
     /// Removes a SBAS service message region group for the service provider.
     ///
     /// Name            Type   Description
-    /// --------------- ------ -----------------------------------------------------------------------
-    /// ServiceProvider string Service providers, accepts "WAAS", "EGNOS", "MSAS", "GAGAN" and "SDCM".
+    /// --------------- ------ -----------------------------------------------------------------------------------------
+    /// ServiceProvider string Service providers, accepts "WAAS", "EGNOS", "MSAS", "GAGAN", "SDCM", "BDSBAS" and "KASS".
     /// Id              string Unique identifier of the SBAS service message region group to remove.
     ///
 

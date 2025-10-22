@@ -11,7 +11,7 @@ sudo apt install cmake build-essential uuid-dev
 
 ### Windows
 1. Download latest **Build Tools for Visual Studio 2019** online installer and install **Desktop development with C++**. Make sure to only select latest **MSVCv142** and **Windows 10 SDK**. You can find the online installer [here](https://learn.microsoft.com/en-us/visualstudio/releases/2019/release-notes).
-2. Download and install CMake from [here](https://github.com/Kitware/CMake/releases/download/v3.22.1/cmake-3.22.1-windows-x86_64.msi). Make sure to add CMake to the system PATH.
+2. Download and install CMake from [here](https://github.com/Kitware/CMake/releases/download/v4.0.3/cmake-4.0.3-windows-x86_64.msi). Make sure to add CMake to the system PATH.
 
 ## Compilation and Execution
 1. Start Skydel and close the splash screen once the licence has been verified.

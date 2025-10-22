@@ -11,6 +11,8 @@ namespace Sdx
   {
     ///
     /// Set data set assignation for the specified constellation.
+    /// 
+    /// Note: Data sets imported from SP3 files can only be assigned to Orbits.
     ///
     /// Name        Type   Description
     /// ----------- ------ -------------------------------------------------------

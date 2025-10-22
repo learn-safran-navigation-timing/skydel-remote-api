@@ -13,7 +13,7 @@ namespace Sdx
   namespace Cmd
   {
     const char* const GetActiveDataSet::CmdName = "GetActiveDataSet";
-    const char* const GetActiveDataSet::Documentation = "Get active data set.\n"
+    const char* const GetActiveDataSet::Documentation = "Get the active data set.\n"
       "\n"
       "Name   Type   Description\n"
       "------ ------ -------------------------------------------------------\n"

@@ -13,8 +13,8 @@ namespace Sdx
     /// Get power offset default value for the SBAS Service Provider given in argument
     ///
     /// Name            Type   Description
-    /// --------------- ------ ------------------------------------------------------------------------------
-    /// ServiceProvider string Service Provider key, allowed values: "WAAS", "EGNOS", "MSAS", "GAGAN", "SDCM"
+    /// --------------- ------ ---------------------------------------------------------------------------------------------------
+    /// ServiceProvider string Service Provider key, allowed values: "WAAS", "EGNOS", "MSAS", "GAGAN", "SDCM", "BDSBAS" and "KASS"
     ///
 
     class GetPowerSbasOffset;

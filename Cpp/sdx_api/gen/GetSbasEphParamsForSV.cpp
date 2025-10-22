@@ -21,8 +21,7 @@ namespace Sdx
       "ParamArray array string An array of params.\n"
       "                        Accepted values are: \"ClockBias\", \"RelativeFrequencyBias\", \"X\", \"Y\", \"Z\",\n"
       "                                             \"VelocityX\", \"VelocityY\", \"VelocityZ\", \"AccelerationX\",\n"
-      "                                             \"AccelerationY\", \"AccelerationZ\", \"Health\", \"URA\" and\n"
-      "                                             \"UraIndex\"";
+      "                                             \"AccelerationY\", \"AccelerationZ\", \"URA\" and \"UraIndex\"";
     const char* const GetSbasEphParamsForSV::TargetId = "";
 
     REGISTER_COMMAND_TO_FACTORY_DECL(GetSbasEphParamsForSV);

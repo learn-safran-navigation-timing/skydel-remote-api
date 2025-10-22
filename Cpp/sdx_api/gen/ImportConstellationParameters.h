@@ -11,7 +11,11 @@ namespace Sdx
   namespace Cmd
   {
     ///
-    /// Import navigation message file for the specified constellation. This could be RINEX, SEM or YUMA file for GPS. Only RINEX for the others.
+    /// Import a navigation message file for the specified constellation. Supported navigation message file formats include RINEX, TLE, SEM, and YUMA.
+    /// 
+    /// Note that TLE files are not supported for the SBAS and GLONASS constellations, and that SEM and YUMA are only supported for the GPS constellation.
+    /// 
+    /// Note: This command cannot be used to import SV positions from SP3 files.
     ///
     /// Name         Type            Description
     /// ------------ --------------- ----------------------------------------------------------------------------------------------------------------------

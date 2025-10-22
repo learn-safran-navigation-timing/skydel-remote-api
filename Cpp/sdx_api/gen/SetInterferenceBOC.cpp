@@ -15,18 +15,19 @@ namespace Sdx
     const char* const SetInterferenceBOC::CmdName = "SetInterferenceBOC";
     const char* const SetInterferenceBOC::Documentation = "Add or update a BOC interference signal.\n"
       "\n"
-      "Name           Type   Description\n"
-      "-------------- ------ -------------------------------------------------------------------------------------------------------------------------------------\n"
-      "StartTime      int    Elapsed time at which the signal is enabled (s). Minimum = 0 s, Maximum = 86399 s (23 hours, 59 minutes and 59 seconds).\n"
-      "StopTime       int    Elapsed time at which the signal is disabled (s). Minimum = 0 s, Maximum = 86399 s (23 hours, 59 minutes and 59 seconds).\n"
-      "CentralFreq    double Central frequency (Hz). Minimum = 100000000 Hz (100 MHz), Maximum = 6000000000 Hz (6 GHz).\n"
-      "Power          double Power (dB) relative to nominal power. Minimum = -40 dB, Maximum = 43 dB.\n"
-      "CodeRate       int    Code rate (Chips/s). Must be a multiple of 1 kChips/s. Minimum = 1000 Chips/s (1 kChips/s), Maximum = 60000000 Chips/s (60 MChips/s).\n"
-      "CodeLengthMs   int    Code length (ms). Minimum = 1 ms, Maximum = 100 ms.\n"
-      "SubCarrierRate int    Sub-carrier rate (Hz). Must be a multiple of 1 kHz. Minimum = 1000 Hz (1 kHz), Maximum = 60000000 (60 MHz).\n"
-      "CosinePhaseBoc bool   Use Cosine-Phase BOC instead of default Sine-Phase BOC.\n"
-      "Enabled        bool   Enables or disables the interference signal.\n"
-      "Id             string Interference signal unique identifier.";
+      "Name           Type         Description\n"
+      "-------------- ------------ -------------------------------------------------------------------------------------------------------------------------------------\n"
+      "StartTime      int          Elapsed time at which the signal is enabled (s). Minimum = 0 s, Maximum = 86399 s (23 hours, 59 minutes and 59 seconds).\n"
+      "StopTime       int          Elapsed time at which the signal is disabled (s). Minimum = 0 s, Maximum = 86399 s (23 hours, 59 minutes and 59 seconds).\n"
+      "CentralFreq    double       Central frequency (Hz). Minimum = 100000000 Hz (100 MHz), Maximum = 6000000000 Hz (6 GHz).\n"
+      "Power          double       Power (dB) relative to nominal power. Minimum = -40 dB, Maximum = 43 dB.\n"
+      "CodeRate       int          Code rate (Chips/s). Must be a multiple of 1 kChips/s. Minimum = 1000 Chips/s (1 kChips/s), Maximum = 60000000 Chips/s (60 MChips/s).\n"
+      "CodeLengthMs   int          Code length (ms). Minimum = 1 ms, Maximum = 100 ms.\n"
+      "SubCarrierRate int          Sub-carrier rate (Hz). Must be a multiple of 1 kHz. Minimum = 1000 Hz (1 kHz), Maximum = 60000000 (60 MHz).\n"
+      "CosinePhaseBoc bool         Use Cosine-Phase BOC instead of default Sine-Phase BOC.\n"
+      "Enabled        bool         Enables or disables the interference signal.\n"
+      "Id             string       Interference signal unique identifier.\n"
+      "Prn            optional int PRN code index to use in the BOC modulation. If zero, a random code will be used. Minimum = 0, Maximum = 32.";
     const char* const SetInterferenceBOC::TargetId = "";
 
     REGISTER_COMMAND_TO_FACTORY_DECL(SetInterferenceBOC);
@@ -37,7 +38,7 @@ namespace Sdx
       : CommandBase(CmdName, TargetId)
     {}
 
-    SetInterferenceBOC::SetInterferenceBOC(int startTime, int stopTime, double centralFreq, double power, int codeRate, int codeLengthMs, int subCarrierRate, bool cosinePhaseBoc, bool enabled, const std::string& id)
+    SetInterferenceBOC::SetInterferenceBOC(int startTime, int stopTime, double centralFreq, double power, int codeRate, int codeLengthMs, int subCarrierRate, bool cosinePhaseBoc, bool enabled, const std::string& id, const std::optional<int>& prn)
       : CommandBase(CmdName, TargetId)
     {
 
@@ -51,11 +52,12 @@ namespace Sdx
       setCosinePhaseBoc(cosinePhaseBoc);
       setEnabled(enabled);
       setId(id);
+      setPrn(prn);
     }
 
-    SetInterferenceBOCPtr SetInterferenceBOC::create(int startTime, int stopTime, double centralFreq, double power, int codeRate, int codeLengthMs, int subCarrierRate, bool cosinePhaseBoc, bool enabled, const std::string& id)
+    SetInterferenceBOCPtr SetInterferenceBOC::create(int startTime, int stopTime, double centralFreq, double power, int codeRate, int codeLengthMs, int subCarrierRate, bool cosinePhaseBoc, bool enabled, const std::string& id, const std::optional<int>& prn)
     {
-      return std::make_shared<SetInterferenceBOC>(startTime, stopTime, centralFreq, power, codeRate, codeLengthMs, subCarrierRate, cosinePhaseBoc, enabled, id);
+      return std::make_shared<SetInterferenceBOC>(startTime, stopTime, centralFreq, power, codeRate, codeLengthMs, subCarrierRate, cosinePhaseBoc, enabled, id, prn);
     }
 
     SetInterferenceBOCPtr SetInterferenceBOC::dynamicCast(CommandBasePtr ptr)
@@ -77,6 +79,7 @@ namespace Sdx
           && parse_json<bool>::is_valid(m_values["CosinePhaseBoc"])
           && parse_json<bool>::is_valid(m_values["Enabled"])
           && parse_json<std::string>::is_valid(m_values["Id"])
+          && parse_json<std::optional<int>>::is_valid(m_values["Prn"])
         ;
 
     }
@@ -85,7 +88,7 @@ namespace Sdx
 
     const std::vector<std::string>& SetInterferenceBOC::fieldNames() const 
     { 
-      static const std::vector<std::string> names {"StartTime", "StopTime", "CentralFreq", "Power", "CodeRate", "CodeLengthMs", "SubCarrierRate", "CosinePhaseBoc", "Enabled", "Id"}; 
+      static const std::vector<std::string> names {"StartTime", "StopTime", "CentralFreq", "Power", "CodeRate", "CodeLengthMs", "SubCarrierRate", "CosinePhaseBoc", "Enabled", "Id", "Prn"}; 
       return names; 
     }
 
@@ -212,6 +215,18 @@ namespace Sdx
     void SetInterferenceBOC::setId(const std::string& id)
     {
       m_values.AddMember("Id", parse_json<std::string>::format(id, m_values.GetAllocator()), m_values.GetAllocator());
+    }
+
+
+
+    std::optional<int> SetInterferenceBOC::prn() const
+    {
+      return parse_json<std::optional<int>>::parse(m_values["Prn"]);
+    }
+
+    void SetInterferenceBOC::setPrn(const std::optional<int>& prn)
+    {
+      m_values.AddMember("Prn", parse_json<std::optional<int>>::format(prn, m_values.GetAllocator()), m_values.GetAllocator());
     }
 
 

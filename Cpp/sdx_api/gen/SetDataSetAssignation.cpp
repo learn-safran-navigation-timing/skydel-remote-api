@@ -15,6 +15,8 @@ namespace Sdx
     const char* const SetDataSetAssignation::CmdName = "SetDataSetAssignation";
     const char* const SetDataSetAssignation::Documentation = "Set data set assignation for the specified constellation.\n"
       "\n"
+      "Note: Data sets imported from SP3 files can only be assigned to Orbits.\n"
+      "\n"
       "Name        Type   Description\n"
       "----------- ------ -------------------------------------------------------\n"
       "System      string \"GPS\", \"Galileo\", \"BeiDou\", \"QZSS\", \"NavIC\" or \"PULSAR\"\n"

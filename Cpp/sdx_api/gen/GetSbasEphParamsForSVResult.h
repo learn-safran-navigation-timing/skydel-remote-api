@@ -19,8 +19,7 @@ namespace Sdx
     /// ParamValueDict dict string:double A dictionary of param value pairs.
     ///                                   Accepted keys are: "ClockBias", "RelativeFrequencyBias", "X", "Y", "Z",
     ///                                                      "VelocityX", "VelocityY", "VelocityZ", "AccelerationX",
-    ///                                                      "AccelerationY", "AccelerationZ", "Health", "URA" and
-    ///                                                      "UraIndex"
+    ///                                                      "AccelerationY", "AccelerationZ", "URA" and "UraIndex"
     ///
 
     class GetSbasEphParamsForSVResult;

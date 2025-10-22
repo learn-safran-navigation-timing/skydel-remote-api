@@ -13,13 +13,17 @@ namespace Sdx
   namespace Cmd
   {
     const char* const SetSbasServiceHealthForSV::CmdName = "SetSbasServiceHealthForSV";
-    const char* const SetSbasServiceHealthForSV::Documentation = "Apply service provider for a satellite\n"
+    const char* const SetSbasServiceHealthForSV::Documentation = "Please note the command SetSbasServiceHealthForSV is deprecated since 25.9. You may use SetSbasServiceProviderForSV.\n"
+      "\n"
+      "Apply service provider for a satellite\n"
       "\n"
       "Name   Type Description\n"
       "------ ---- ---------------------\n"
       "SvId   int  The satellite's SV ID\n"
       "Health int  The service provider";
     const char* const SetSbasServiceHealthForSV::TargetId = "";
+
+    const char* const SetSbasServiceHealthForSV::Deprecated = "Please note the command SetSbasServiceHealthForSV is deprecated since 25.9. You may use SetSbasServiceProviderForSV.";
 
     REGISTER_COMMAND_TO_FACTORY_DECL(SetSbasServiceHealthForSV);
     REGISTER_COMMAND_TO_FACTORY_IMPL(SetSbasServiceHealthForSV);
@@ -64,6 +68,8 @@ namespace Sdx
       static const std::vector<std::string> names {"SvId", "Health"}; 
       return names; 
     }
+
+    std::optional<std::string> SetSbasServiceHealthForSV::deprecated() const { return std::optional<std::string>{Deprecated}; }
 
 
     int SetSbasServiceHealthForSV::executePermission() const

@@ -13,7 +13,11 @@ namespace Sdx
   namespace Cmd
   {
     const char* const ImportConstellationParameters::CmdName = "ImportConstellationParameters";
-    const char* const ImportConstellationParameters::Documentation = "Import navigation message file for the specified constellation. This could be RINEX, SEM or YUMA file for GPS. Only RINEX for the others.\n"
+    const char* const ImportConstellationParameters::Documentation = "Import a navigation message file for the specified constellation. Supported navigation message file formats include RINEX, TLE, SEM, and YUMA.\n"
+      "\n"
+      "Note that TLE files are not supported for the SBAS and GLONASS constellations, and that SEM and YUMA are only supported for the GPS constellation.\n"
+      "\n"
+      "Note: This command cannot be used to import SV positions from SP3 files.\n"
       "\n"
       "Name         Type            Description\n"
       "------------ --------------- ----------------------------------------------------------------------------------------------------------------------\n"

@@ -21,8 +21,7 @@ namespace Sdx
       "ParamValueDict dict string:double A dictionary of param value pairs.\n"
       "                                  Accepted keys are: \"ClockBias\", \"RelativeFrequencyBias\", \"X\", \"Y\", \"Z\",\n"
       "                                                     \"VelocityX\", \"VelocityY\", \"VelocityZ\", \"AccelerationX\",\n"
-      "                                                     \"AccelerationY\", \"AccelerationZ\", \"Health\", \"URA\" and\n"
-      "                                                     \"UraIndex\"";
+      "                                                     \"AccelerationY\", \"AccelerationZ\", \"URA\" and \"UraIndex\"";
     const char* const SetSbasEphParamsForSV::TargetId = "";
 
     REGISTER_COMMAND_TO_FACTORY_DECL(SetSbasEphParamsForSV);
@@ -72,7 +71,7 @@ namespace Sdx
 
     int SetSbasEphParamsForSV::executePermission() const
     {
-      return EXECUTE_IF_IDLE | EXECUTE_IF_SIMULATING;
+      return EXECUTE_IF_IDLE;
     }
 
 

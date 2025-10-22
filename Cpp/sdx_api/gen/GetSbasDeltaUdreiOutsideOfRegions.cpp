@@ -16,8 +16,8 @@ namespace Sdx
     const char* const GetSbasDeltaUdreiOutsideOfRegions::Documentation = "Get SBAS delta UDREI outside all the defined regions for this service provider.\n"
       "\n"
       "Name            Type   Description\n"
-      "--------------- ------ -----------------------------------------------------------------------\n"
-      "ServiceProvider string Service providers, accepts \"WAAS\", \"EGNOS\", \"MSAS\", \"GAGAN\" and \"SDCM\".";
+      "--------------- ------ -----------------------------------------------------------------------------------------\n"
+      "ServiceProvider string Service providers, accepts \"WAAS\", \"EGNOS\", \"MSAS\", \"GAGAN\", \"SDCM\", \"BDSBAS\" and \"KASS\".";
     const char* const GetSbasDeltaUdreiOutsideOfRegions::TargetId = "";
 
     REGISTER_COMMAND_TO_FACTORY_DECL(GetSbasDeltaUdreiOutsideOfRegions);

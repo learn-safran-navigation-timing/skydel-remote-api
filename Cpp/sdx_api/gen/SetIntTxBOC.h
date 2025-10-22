@@ -14,7 +14,7 @@ namespace Sdx
     /// Set BOC signal interference.
     ///
     /// Name           Type         Description
-    /// -------------- ------------ ------------------------------------------------------------------------------------
+    /// -------------- ------------ ------------------------------------------------------------------------------------------------------------
     /// Enabled        bool         Enable (true) or disable (false) the signal
     /// CentralFreq    double       Central frequency (Hz)
     /// Power          double       Power (dB), relative to transmitter reference power
@@ -25,6 +25,7 @@ namespace Sdx
     /// TransmitterId  string       Transmitter unique identifier.
     /// SignalId       string       BOC unique identifier.
     /// Group          optional int Group, if not using default group.
+    /// Prn            optional int PRN code index to use in the BOC modulation. If zero, a random code will be used. Minimum = 0, Maximum = 32.
     ///
 
     class SetIntTxBOC;
@@ -41,9 +42,9 @@ namespace Sdx
 
       SetIntTxBOC();
 
-      SetIntTxBOC(bool enabled, double centralFreq, double power, int codeRate, int codeLengthMs, int subCarrierRate, bool cosinePhaseBoc, const std::string& transmitterId, const std::string& signalId, const std::optional<int>& group = {});
+      SetIntTxBOC(bool enabled, double centralFreq, double power, int codeRate, int codeLengthMs, int subCarrierRate, bool cosinePhaseBoc, const std::string& transmitterId, const std::string& signalId, const std::optional<int>& group = {}, const std::optional<int>& prn = {});
 
-      static SetIntTxBOCPtr create(bool enabled, double centralFreq, double power, int codeRate, int codeLengthMs, int subCarrierRate, bool cosinePhaseBoc, const std::string& transmitterId, const std::string& signalId, const std::optional<int>& group = {});
+      static SetIntTxBOCPtr create(bool enabled, double centralFreq, double power, int codeRate, int codeLengthMs, int subCarrierRate, bool cosinePhaseBoc, const std::string& transmitterId, const std::string& signalId, const std::optional<int>& group = {}, const std::optional<int>& prn = {});
       static SetIntTxBOCPtr dynamicCast(CommandBasePtr ptr);
       virtual bool isValid() const override;
       virtual std::string documentation() const override;
@@ -100,6 +101,11 @@ namespace Sdx
       // **** group ****
       std::optional<int> group() const;
       void setGroup(const std::optional<int>& group);
+
+
+      // **** prn ****
+      std::optional<int> prn() const;
+      void setPrn(const std::optional<int>& prn);
     };
     
   }

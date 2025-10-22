@@ -59,7 +59,7 @@ if os.path.exists(plugin_path):
 
 setup(
     name="Skydel SDX",
-    version="49",
+    version="51",
     packages=packages,
     license="Commercial License",
     long_description="Skydel python module for remote commands"

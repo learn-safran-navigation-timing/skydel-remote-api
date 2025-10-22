@@ -13,14 +13,14 @@ from skydelsdx import *
 from skydelsdx.commands import *
 
 # Uitlity function to get the default RINEX files used by Skydel
-def getDefaultRINEXFilePath(system, data_folder):
-    return Path(data_folder, "Templates", system.lower() + "_ephemeris.txt")
+def getDefaultRinexFilePath(system, dataFolder):
+    return Path(dataFolder, "Templates", system.lower() + "_ephemeris.txt")
 
 # Radio type ("NoneRT", "DTA-2115B", "X300", "N310", etc)
 radio = "NoneRT"
 
 # Delay when the blocks are applied from start of the simulation
-post_delay_sec = 2 
+postDelaySec = 2 
 
 # Connect to Skydel
 sim = RemoteSimulator(True)
@@ -28,10 +28,10 @@ sim.connect()
 sim.setVerbose(True)
 
 # Get Data folder where default RINEX files are located
-data_folder = sim.call(GetDataFolder()).folder()
+dataFolder = sim.call(GetDataFolder()).folder()
 
 # Get the GPS satellites data blocks
-blocks = rinex_parser.parse(getDefaultRINEXFilePath("GPS", data_folder))
+blocks = rinex_parser.parse(getDefaultRinexFilePath("GPS", dataFolder))
 
 # Create a new configuration
 sim.call(New(True, False))
@@ -52,8 +52,8 @@ sim.arm()
 # This will only post one block for each SV, you can post other blocks later in the simulation
 for block in blocks:
     # To prevent large spikes in performance, it helps to post on different milliseconds
-    post_timestamp_sec = post_delay_sec + block.sv_id / 1000
-    sim.post(PushDynamicSVData("GPS", block.sv_id, block.toc, block.params), post_timestamp_sec)
+    postTimestampSec = postDelaySec + block.sv_id / 1000
+    sim.post(PushDynamicSVData("GPS", block.sv_id, block.toc, block.params), postTimestampSec)
 
 # Run the simulation
 sim.start()

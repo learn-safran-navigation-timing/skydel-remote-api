@@ -21,8 +21,7 @@ namespace Sdx
       "ParamValueDict dict string:double A dictionary of param value pairs.\n"
       "                                  Accepted keys are: \"ClockBias\", \"RelativeFrequencyBias\", \"X\", \"Y\", \"Z\",\n"
       "                                                     \"VelocityX\", \"VelocityY\", \"VelocityZ\", \"AccelerationX\",\n"
-      "                                                     \"AccelerationY\", \"AccelerationZ\", \"Health\", \"URA\" and\n"
-      "                                                     \"UraIndex\"";
+      "                                                     \"AccelerationY\", \"AccelerationZ\", \"URA\" and \"UraIndex\"";
     const char* const GetSbasEphParamsForSVResult::TargetId = "";
 
     REGISTER_COMMAND_TO_FACTORY_IMPL(GetSbasEphParamsForSVResult);

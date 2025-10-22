@@ -5,6 +5,7 @@
 
 #include "date_time.h"
 #include "gen/AlmanacSVData.h"
+#include <optional>
 #include <string>
 #include <vector>
 
@@ -13,7 +14,7 @@ namespace Sdx
   namespace Cmd
   {
     ///
-    /// Push a block of data defining the orbit, clock, and other parameters for one SV.
+    /// Push a block of data defining the almanac for the constellation. By default, all SVs will use the same almanac data. Use the SvId parameter to push the almanac for a specific SV.
     ///   ParamName           Unit
     ///   "Time of ephemeris" sec (of GPS week)
     ///   "Week Number"       week
@@ -32,10 +33,11 @@ namespace Sdx
     ///   "Idot"              rad/sec
     ///
     /// Name    Type                Description
-    /// ------- ------------------- --------------------------------------------------------
+    /// ------- ------------------- -------------------------------------------------------------------------------------
     /// System  string              "GPS", "Galileo", "BeiDou", "QZSS", "NavIC" or "PULSAR".
     /// Toa     datetime            Time of applicability.
     /// Almanac array AlmanacSVData Array of almanac data for SVs.
+    /// SvId    optional int        The Satellite SV ID to apply the almanac to. Leave empty or use 0 for all satellites.
     ///
 
     class PushDynamicAlmanacData;
@@ -52,9 +54,9 @@ namespace Sdx
 
       PushDynamicAlmanacData();
 
-      PushDynamicAlmanacData(const std::string& system, const Sdx::DateTime& toa, const std::vector<Sdx::AlmanacSVData>& almanac);
+      PushDynamicAlmanacData(const std::string& system, const Sdx::DateTime& toa, const std::vector<Sdx::AlmanacSVData>& almanac, const std::optional<int>& svId = {});
 
-      static PushDynamicAlmanacDataPtr create(const std::string& system, const Sdx::DateTime& toa, const std::vector<Sdx::AlmanacSVData>& almanac);
+      static PushDynamicAlmanacDataPtr create(const std::string& system, const Sdx::DateTime& toa, const std::vector<Sdx::AlmanacSVData>& almanac, const std::optional<int>& svId = {});
       static PushDynamicAlmanacDataPtr dynamicCast(CommandBasePtr ptr);
       virtual bool isValid() const override;
       virtual std::string documentation() const override;
@@ -76,6 +78,11 @@ namespace Sdx
       // **** almanac ****
       std::vector<Sdx::AlmanacSVData> almanac() const;
       void setAlmanac(const std::vector<Sdx::AlmanacSVData>& almanac);
+
+
+      // **** svId ****
+      std::optional<int> svId() const;
+      void setSvId(const std::optional<int>& svId);
     };
     
   }

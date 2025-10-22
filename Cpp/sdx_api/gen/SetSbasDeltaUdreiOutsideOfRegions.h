@@ -13,8 +13,8 @@ namespace Sdx
     /// Set SBAS delta UDREI outside all the defined regions for this service provider.
     ///
     /// Name            Type   Description
-    /// --------------- ------ ----------------------------------------------------------------------------------
-    /// ServiceProvider string Service providers, accepts "WAAS", "EGNOS", "MSAS", "GAGAN" and "SDCM".
+    /// --------------- ------ -----------------------------------------------------------------------------------------
+    /// ServiceProvider string Service providers, accepts "WAAS", "EGNOS", "MSAS", "GAGAN", "SDCM", "BDSBAS" and "KASS".
     /// DeltaUdrei      int    Delta UDREI applicable outside all the defined regions. Accepted range is [0..15].
     ///
 

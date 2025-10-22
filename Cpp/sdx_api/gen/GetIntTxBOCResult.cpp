@@ -16,7 +16,7 @@ namespace Sdx
     const char* const GetIntTxBOCResult::Documentation = "Result of GetIntTxBOC.\n"
       "\n"
       "Name           Type         Description\n"
-      "-------------- ------------ ------------------------------------------------------------------------------------\n"
+      "-------------- ------------ ------------------------------------------------------------------------------------------------------------\n"
       "Enabled        bool         Enable (true) or disable (false) the signal\n"
       "CentralFreq    double       Central frequency (Hz)\n"
       "Power          double       Power (dB), relative to transmitter reference power\n"
@@ -26,7 +26,8 @@ namespace Sdx
       "CosinePhaseBoc bool         Use Cosine-Phase BOC instead of default Sine-Phase BOC.\n"
       "TransmitterId  string       Transmitter unique identifier.\n"
       "SignalId       string       BOC unique identifier.\n"
-      "Group          optional int Group, if not using default group.";
+      "Group          optional int Group, if not using default group.\n"
+      "Prn            optional int PRN code index to use in the BOC modulation. If zero, a random code will be used. Minimum = 0, Maximum = 32.";
     const char* const GetIntTxBOCResult::TargetId = "";
 
     REGISTER_COMMAND_TO_FACTORY_IMPL(GetIntTxBOCResult);
@@ -36,7 +37,7 @@ namespace Sdx
       : CommandResult(CmdName, TargetId)
     {}
 
-    GetIntTxBOCResult::GetIntTxBOCResult(bool enabled, double centralFreq, double power, int codeRate, int codeLengthMs, int subCarrierRate, bool cosinePhaseBoc, const std::string& transmitterId, const std::string& signalId, const std::optional<int>& group)
+    GetIntTxBOCResult::GetIntTxBOCResult(bool enabled, double centralFreq, double power, int codeRate, int codeLengthMs, int subCarrierRate, bool cosinePhaseBoc, const std::string& transmitterId, const std::string& signalId, const std::optional<int>& group, const std::optional<int>& prn)
       : CommandResult(CmdName, TargetId)
     {
 
@@ -50,9 +51,10 @@ namespace Sdx
       setTransmitterId(transmitterId);
       setSignalId(signalId);
       setGroup(group);
+      setPrn(prn);
     }
 
-    GetIntTxBOCResult::GetIntTxBOCResult(CommandBasePtr relatedCommand, bool enabled, double centralFreq, double power, int codeRate, int codeLengthMs, int subCarrierRate, bool cosinePhaseBoc, const std::string& transmitterId, const std::string& signalId, const std::optional<int>& group)
+    GetIntTxBOCResult::GetIntTxBOCResult(CommandBasePtr relatedCommand, bool enabled, double centralFreq, double power, int codeRate, int codeLengthMs, int subCarrierRate, bool cosinePhaseBoc, const std::string& transmitterId, const std::string& signalId, const std::optional<int>& group, const std::optional<int>& prn)
       : CommandResult(CmdName, TargetId, relatedCommand)
     {
 
@@ -66,17 +68,18 @@ namespace Sdx
       setTransmitterId(transmitterId);
       setSignalId(signalId);
       setGroup(group);
+      setPrn(prn);
     }
 
 
-    GetIntTxBOCResultPtr GetIntTxBOCResult::create(bool enabled, double centralFreq, double power, int codeRate, int codeLengthMs, int subCarrierRate, bool cosinePhaseBoc, const std::string& transmitterId, const std::string& signalId, const std::optional<int>& group)
+    GetIntTxBOCResultPtr GetIntTxBOCResult::create(bool enabled, double centralFreq, double power, int codeRate, int codeLengthMs, int subCarrierRate, bool cosinePhaseBoc, const std::string& transmitterId, const std::string& signalId, const std::optional<int>& group, const std::optional<int>& prn)
     {
-      return std::make_shared<GetIntTxBOCResult>(enabled, centralFreq, power, codeRate, codeLengthMs, subCarrierRate, cosinePhaseBoc, transmitterId, signalId, group);
+      return std::make_shared<GetIntTxBOCResult>(enabled, centralFreq, power, codeRate, codeLengthMs, subCarrierRate, cosinePhaseBoc, transmitterId, signalId, group, prn);
     }
 
-    GetIntTxBOCResultPtr GetIntTxBOCResult::create(CommandBasePtr relatedCommand, bool enabled, double centralFreq, double power, int codeRate, int codeLengthMs, int subCarrierRate, bool cosinePhaseBoc, const std::string& transmitterId, const std::string& signalId, const std::optional<int>& group)
+    GetIntTxBOCResultPtr GetIntTxBOCResult::create(CommandBasePtr relatedCommand, bool enabled, double centralFreq, double power, int codeRate, int codeLengthMs, int subCarrierRate, bool cosinePhaseBoc, const std::string& transmitterId, const std::string& signalId, const std::optional<int>& group, const std::optional<int>& prn)
     {
-      return std::make_shared<GetIntTxBOCResult>(relatedCommand, enabled, centralFreq, power, codeRate, codeLengthMs, subCarrierRate, cosinePhaseBoc, transmitterId, signalId, group);
+      return std::make_shared<GetIntTxBOCResult>(relatedCommand, enabled, centralFreq, power, codeRate, codeLengthMs, subCarrierRate, cosinePhaseBoc, transmitterId, signalId, group, prn);
     }
 
     GetIntTxBOCResultPtr GetIntTxBOCResult::dynamicCast(CommandBasePtr ptr)
@@ -98,6 +101,7 @@ namespace Sdx
           && parse_json<std::string>::is_valid(m_values["TransmitterId"])
           && parse_json<std::string>::is_valid(m_values["SignalId"])
           && parse_json<std::optional<int>>::is_valid(m_values["Group"])
+          && parse_json<std::optional<int>>::is_valid(m_values["Prn"])
         ;
 
     }
@@ -106,7 +110,7 @@ namespace Sdx
 
     const std::vector<std::string>& GetIntTxBOCResult::fieldNames() const 
     { 
-      static const std::vector<std::string> names {"Enabled", "CentralFreq", "Power", "CodeRate", "CodeLengthMs", "SubCarrierRate", "CosinePhaseBoc", "TransmitterId", "SignalId", "Group"}; 
+      static const std::vector<std::string> names {"Enabled", "CentralFreq", "Power", "CodeRate", "CodeLengthMs", "SubCarrierRate", "CosinePhaseBoc", "TransmitterId", "SignalId", "Group", "Prn"}; 
       return names; 
     }
 
@@ -227,6 +231,18 @@ namespace Sdx
     void GetIntTxBOCResult::setGroup(const std::optional<int>& group)
     {
       m_values.AddMember("Group", parse_json<std::optional<int>>::format(group, m_values.GetAllocator()), m_values.GetAllocator());
+    }
+
+
+
+    std::optional<int> GetIntTxBOCResult::prn() const
+    {
+      return parse_json<std::optional<int>>::parse(m_values["Prn"]);
+    }
+
+    void GetIntTxBOCResult::setPrn(const std::optional<int>& prn)
+    {
+      m_values.AddMember("Prn", parse_json<std::optional<int>>::format(prn, m_values.GetAllocator()), m_values.GetAllocator());
     }
 
 

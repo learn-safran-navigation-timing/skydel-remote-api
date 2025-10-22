@@ -16,8 +16,8 @@ namespace Sdx
     const char* const RemoveSbasServiceMessageRegionGroup::Documentation = "Removes a SBAS service message region group for the service provider.\n"
       "\n"
       "Name            Type   Description\n"
-      "--------------- ------ -----------------------------------------------------------------------\n"
-      "ServiceProvider string Service providers, accepts \"WAAS\", \"EGNOS\", \"MSAS\", \"GAGAN\" and \"SDCM\".\n"
+      "--------------- ------ -----------------------------------------------------------------------------------------\n"
+      "ServiceProvider string Service providers, accepts \"WAAS\", \"EGNOS\", \"MSAS\", \"GAGAN\", \"SDCM\", \"BDSBAS\" and \"KASS\".\n"
       "Id              string Unique identifier of the SBAS service message region group to remove.";
     const char* const RemoveSbasServiceMessageRegionGroup::TargetId = "";
 

@@ -15,8 +15,8 @@ namespace Sdx
     /// Result of GetSbasServiceMessageRegionGroup.
     ///
     /// Name            Type                           Description
-    /// --------------- ------------------------------ ---------------------------------------------------------------------------------
-    /// ServiceProvider string                         Service providers, accepts "WAAS", "EGNOS", "MSAS", "GAGAN" and "SDCM".
+    /// --------------- ------------------------------ -----------------------------------------------------------------------------------------
+    /// ServiceProvider string                         Service providers, accepts "WAAS", "EGNOS", "MSAS", "GAGAN", "SDCM", "BDSBAS" and "KASS".
     /// DeltaUdrei      int                            Delta UDREI applicable inside the defined regions. Accepted range is [0..15].
     /// PriorityCode    int                            Priority code of the SBAS service message region group. Accepted range is [0..3].
     /// Regions         array SbasServiceMessageRegion Array of SBAS service message regions. Accepted size range is [1..5].

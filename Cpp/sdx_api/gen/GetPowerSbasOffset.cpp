@@ -16,8 +16,8 @@ namespace Sdx
     const char* const GetPowerSbasOffset::Documentation = "Get power offset default value for the SBAS Service Provider given in argument\n"
       "\n"
       "Name            Type   Description\n"
-      "--------------- ------ ------------------------------------------------------------------------------\n"
-      "ServiceProvider string Service Provider key, allowed values: \"WAAS\", \"EGNOS\", \"MSAS\", \"GAGAN\", \"SDCM\"";
+      "--------------- ------ ---------------------------------------------------------------------------------------------------\n"
+      "ServiceProvider string Service Provider key, allowed values: \"WAAS\", \"EGNOS\", \"MSAS\", \"GAGAN\", \"SDCM\", \"BDSBAS\" and \"KASS\"";
     const char* const GetPowerSbasOffset::TargetId = "";
 
     REGISTER_COMMAND_TO_FACTORY_DECL(GetPowerSbasOffset);

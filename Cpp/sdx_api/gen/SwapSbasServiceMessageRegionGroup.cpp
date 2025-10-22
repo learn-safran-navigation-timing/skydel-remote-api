@@ -16,8 +16,8 @@ namespace Sdx
     const char* const SwapSbasServiceMessageRegionGroup::Documentation = "Swaps 2 SBAS service message region group.\n"
       "\n"
       "Name            Type   Description\n"
-      "--------------- ------ ---------------------------------------------------------------------------------\n"
-      "ServiceProvider string Service providers, accepts \"WAAS\", \"EGNOS\", \"MSAS\", \"GAGAN\" and \"SDCM\".\n"
+      "--------------- ------ -----------------------------------------------------------------------------------------\n"
+      "ServiceProvider string Service providers, accepts \"WAAS\", \"EGNOS\", \"MSAS\", \"GAGAN\", \"SDCM\", \"BDSBAS\" and \"KASS\".\n"
       "FirstId         string Unique identifier of the SBAS service message region group to swap with SecondId.\n"
       "SecondId        string Unique identifier of the SBAS service message region group to swap with FirstId.";
     const char* const SwapSbasServiceMessageRegionGroup::TargetId = "";

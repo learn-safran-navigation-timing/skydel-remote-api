@@ -13,7 +13,9 @@ namespace Sdx
   namespace Cmd
   {
     const char* const SetActiveDataSet::CmdName = "SetActiveDataSet";
-    const char* const SetActiveDataSet::Documentation = "Set active data set.\n"
+    const char* const SetActiveDataSet::Documentation = "Set the active data set.\n"
+      "\n"
+      "Note: Data sets imported from SP3 files cannot be set as the active data set.\n"
       "\n"
       "Name        Type   Description\n"
       "----------- ------ -------------------------------------------------------\n"

@@ -16,8 +16,8 @@ namespace Sdx
     const char* const SetPowerSbasOffset::Documentation = "Set power offset default value for the SBAS Service Provider given in argument\n"
       "\n"
       "Name            Type   Description\n"
-      "--------------- ------ ------------------------------------------------------------------------------\n"
-      "ServiceProvider string Service Provider key, allowed values: \"WAAS\", \"EGNOS\", \"MSAS\", \"GAGAN\", \"SDCM\"\n"
+      "--------------- ------ ---------------------------------------------------------------------------------------------------\n"
+      "ServiceProvider string Service Provider key, allowed values: \"WAAS\", \"EGNOS\", \"MSAS\", \"GAGAN\", \"SDCM\", \"BDSBAS\" and \"KASS\"\n"
       "Offset          double Offset in dB (negative value will attenuate signal)";
     const char* const SetPowerSbasOffset::TargetId = "";
 

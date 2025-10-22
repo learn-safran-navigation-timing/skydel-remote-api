@@ -13,12 +13,14 @@ namespace Sdx
   namespace Cmd
   {
     const char* const AddDataSet::CmdName = "AddDataSet";
-    const char* const AddDataSet::Documentation = "Add a new data set for the specified constellation. This could come from a Rinex, SEM or YUMA file for GPS. Only Rinex for the others.\n"
+    const char* const AddDataSet::Documentation = "Add a new data set for the specified constellation. Supported data set file formats include RINEX, TLE, SEM, YUMA and SP3.\n"
+      "\n"
+      "Note that TLE and SP3 files are not supported for the SBAS and GLONASS constellations, and that SEM and YUMA are only supported for the GPS constellation.\n"
       "\n"
       "Name         Type            Description\n"
       "------------ --------------- ----------------------------------------------------------------------------------------------------------------------\n"
       "System       string          \"GPS\", \"Galileo\", \"BeiDou\", \"QZSS\", \"NavIC\" or \"PULSAR\"\n"
-      "Path         string          Data set file path\n"
+      "Path         string          Data set file path.\n"
       "Rollover     optional int    Rollover for file types that does not precise it (YUMA, SEM). Default value is the current rollover.\n"
       "DataSetName  optional string Name of the data set to import. This parameter is optional, the default value will be the name of the imported file.\n"
       "NavMsgFamily optional string Navigation message family key used to specify which ephemeris navigation message type to import from a RINEX v4+ file.\n"

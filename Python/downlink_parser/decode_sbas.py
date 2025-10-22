@@ -13,10 +13,10 @@ SBASL1NavDictType1 = [
     {'name':"Preamble",                         'range':[0,7]},
     {'name':"Type",                             'range':[8,13]},
     {'name':"GPS/GPS Reserved PRN",             'range':[14,50]},
-    {'name':"GLONASS Slot Number plus 37",      'range':[52,74]},
-    {'name':"Future GNSS",                      'range':[76,132]},
-    {'name':"GEO/SBAS PRN",                     'range':[132,151]},
-    {'name':"Future GNSS/GEO/SBAS/Pseudolites", 'range':[153,223]},
+    {'name':"GLONASS Slot Number plus 37",      'range':[51,74]},
+    {'name':"Future GNSS",                      'range':[75,132]},
+    {'name':"GEO/SBAS PRN",                     'range':[133,151]},
+    {'name':"Future GNSS/GEO/SBAS/Pseudolites", 'range':[152,223]},
     {'name':"IODP",                             'range':[224,225]},
     {'name':"Parity",                           'range':[226,249]}]
 

@@ -19,8 +19,7 @@ namespace Sdx
     /// ParamArray array string An array of params.
     ///                         Accepted values are: "ClockBias", "RelativeFrequencyBias", "X", "Y", "Z",
     ///                                              "VelocityX", "VelocityY", "VelocityZ", "AccelerationX",
-    ///                                              "AccelerationY", "AccelerationZ", "Health", "URA" and
-    ///                                              "UraIndex"
+    ///                                              "AccelerationY", "AccelerationZ", "URA" and "UraIndex"
     ///
 
     class GetSbasEphParamsForSV;

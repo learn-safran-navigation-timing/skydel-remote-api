@@ -3,7 +3,7 @@ from .commandbase import CommandBase
 from .commandresult import CommandResult
 from .commandbase import ExecutePermission
 
-ApiVersion = 49
+ApiVersion = 51
 
 #
 # The GPS AS flag value.
@@ -9227,8 +9227,8 @@ class GetSignalPowerOffsetResult(CommandResult):
 # Set power offset default value for the SBAS Service Provider given in argument
 #
 # Name            Type   Description
-# --------------- ------ ------------------------------------------------------------------------------
-# ServiceProvider string Service Provider key, allowed values: "WAAS", "EGNOS", "MSAS", "GAGAN", "SDCM"
+# --------------- ------ ---------------------------------------------------------------------------------------------------
+# ServiceProvider string Service Provider key, allowed values: "WAAS", "EGNOS", "MSAS", "GAGAN", "SDCM", "BDSBAS" and "KASS"
 # Offset          double Offset in dB (negative value will attenuate signal)
 #
 
@@ -9258,8 +9258,8 @@ class SetPowerSbasOffset(CommandBase):
 # Get power offset default value for the SBAS Service Provider given in argument
 #
 # Name            Type   Description
-# --------------- ------ ------------------------------------------------------------------------------
-# ServiceProvider string Service Provider key, allowed values: "WAAS", "EGNOS", "MSAS", "GAGAN", "SDCM"
+# --------------- ------ ---------------------------------------------------------------------------------------------------
+# ServiceProvider string Service Provider key, allowed values: "WAAS", "EGNOS", "MSAS", "GAGAN", "SDCM", "BDSBAS" and "KASS"
 #
 
 class GetPowerSbasOffset(CommandBase):
@@ -9281,8 +9281,8 @@ class GetPowerSbasOffset(CommandBase):
 # Result of GetPowerSbasOffset.
 #
 # Name            Type   Description
-# --------------- ------ ------------------------------------------------------------------------------
-# ServiceProvider string Service Provider key, allowed values: "WAAS", "EGNOS", "MSAS", "GAGAN", "SDCM"
+# --------------- ------ ---------------------------------------------------------------------------------------------------
+# ServiceProvider string Service Provider key, allowed values: "WAAS", "EGNOS", "MSAS", "GAGAN", "SDCM", "BDSBAS" and "KASS"
 # Offset          double Offset in dB (negative value will attenuate signal)
 #
 
@@ -10093,7 +10093,11 @@ class SetRfGain(CommandBase):
     return self.set("Gain", value)
 
 #
-# Import navigation message file for the specified constellation. This could be RINEX, SEM or YUMA file for GPS. Only RINEX for the others.
+# Import a navigation message file for the specified constellation. Supported navigation message file formats include RINEX, TLE, SEM, and YUMA.
+# 
+# Note that TLE files are not supported for the SBAS and GLONASS constellations, and that SEM and YUMA are only supported for the GPS constellation.
+# 
+# Note: This command cannot be used to import SV positions from SP3 files.
 #
 # Name         Type            Description
 # ------------ --------------- ----------------------------------------------------------------------------------------------------------------------
@@ -10996,7 +11000,7 @@ class SetVehicleAntennaOffset(CommandBase):
     self.setName(name)
 
   def executePermission(self):
-    return ExecutePermission.EXECUTE_IF_IDLE
+    return ExecutePermission.EXECUTE_IF_IDLE | ExecutePermission.EXECUTE_IF_SIMULATING
 
   def x(self):
     return self.get("X")
@@ -15497,8 +15501,7 @@ class GetSbasEphemerisReferenceTimeForSVResult(CommandResult):
 # ParamValueDict dict string:double A dictionary of param value pairs.
 #                                   Accepted keys are: "ClockBias", "RelativeFrequencyBias", "X", "Y", "Z",
 #                                                      "VelocityX", "VelocityY", "VelocityZ", "AccelerationX",
-#                                                      "AccelerationY", "AccelerationZ", "Health", "URA" and
-#                                                      "UraIndex"
+#                                                      "AccelerationY", "AccelerationZ", "URA" and "UraIndex"
 #
 
 class SetSbasEphParamsForSV(CommandBase):
@@ -15509,7 +15512,7 @@ class SetSbasEphParamsForSV(CommandBase):
     self.setParamValueDict(paramValueDict)
 
   def executePermission(self):
-    return ExecutePermission.EXECUTE_IF_IDLE | ExecutePermission.EXECUTE_IF_SIMULATING
+    return ExecutePermission.EXECUTE_IF_IDLE
 
   def svId(self):
     return self.get("SvId")
@@ -15532,8 +15535,7 @@ class SetSbasEphParamsForSV(CommandBase):
 # ParamArray array string An array of params.
 #                         Accepted values are: "ClockBias", "RelativeFrequencyBias", "X", "Y", "Z",
 #                                              "VelocityX", "VelocityY", "VelocityZ", "AccelerationX",
-#                                              "AccelerationY", "AccelerationZ", "Health", "URA" and
-#                                              "UraIndex"
+#                                              "AccelerationY", "AccelerationZ", "URA" and "UraIndex"
 #
 
 class GetSbasEphParamsForSV(CommandBase):
@@ -15567,8 +15569,7 @@ class GetSbasEphParamsForSV(CommandBase):
 # ParamValueDict dict string:double A dictionary of param value pairs.
 #                                   Accepted keys are: "ClockBias", "RelativeFrequencyBias", "X", "Y", "Z",
 #                                                      "VelocityX", "VelocityY", "VelocityZ", "AccelerationX",
-#                                                      "AccelerationY", "AccelerationZ", "Health", "URA" and
-#                                                      "UraIndex"
+#                                                      "AccelerationY", "AccelerationZ", "URA" and "UraIndex"
 #
 
 class GetSbasEphParamsForSVResult(CommandResult):
@@ -15718,20 +15719,20 @@ class SetSbasReservedHealthForSV(CommandBase):
     return self.set("Health", value)
 
 #
-# Apply service provider for a satellite
+# Set the service provider of the SBAS satellite.
 #
-# Name   Type Description
-# ------ ---- ---------------------
-# SvId   int  The satellite's SV ID
-# Health int  The service provider
+# Name            Type   Description
+# --------------- ------ ------------------------------------------------------------------------------------
+# SvId            int    The satellite's SV ID.
+# ServiceProvider string Service provider value, accepts "WAAS", "EGNOS", "MSAS", "GAGAN", "SDCM" and "SBAS".
 #
 
-class SetSbasServiceHealthForSV(CommandBase):
+class SetSbasServiceProviderForSV(CommandBase):
 
-  def __init__(self, svId, health):
-    CommandBase.__init__(self, "SetSbasServiceHealthForSV")
+  def __init__(self, svId, serviceProvider):
+    CommandBase.__init__(self, "SetSbasServiceProviderForSV")
     self.setSvId(svId)
-    self.setHealth(health)
+    self.setServiceProvider(serviceProvider)
 
   def executePermission(self):
     return ExecutePermission.EXECUTE_IF_IDLE
@@ -15742,11 +15743,124 @@ class SetSbasServiceHealthForSV(CommandBase):
   def setSvId(self, value):
     return self.set("SvId", value)
 
-  def health(self):
-    return self.get("Health")
+  def serviceProvider(self):
+    return self.get("ServiceProvider")
 
-  def setHealth(self, value):
-    return self.set("Health", value)
+  def setServiceProvider(self, value):
+    return self.set("ServiceProvider", value)
+
+#
+# Get the service provider of the SBAS satellite.
+#
+# Name Type Description
+# ---- ---- ----------------------
+# SvId int  The satellite's SV ID.
+#
+
+class GetSbasServiceProviderForSV(CommandBase):
+
+  def __init__(self, svId):
+    CommandBase.__init__(self, "GetSbasServiceProviderForSV")
+    self.setSvId(svId)
+
+  def executePermission(self):
+    return ExecutePermission.EXECUTE_IF_IDLE
+
+  def svId(self):
+    return self.get("SvId")
+
+  def setSvId(self, value):
+    return self.set("SvId", value)
+
+#
+# Result of GetSbasServiceProviderForSV.
+#
+# Name            Type   Description
+# --------------- ------ ------------------------------------------------------------------------------------
+# SvId            int    The satellite's SV ID.
+# ServiceProvider string Service provider value, accepts "WAAS", "EGNOS", "MSAS", "GAGAN", "SDCM" and "SBAS".
+#
+
+class GetSbasServiceProviderForSVResult(CommandResult):
+
+  def __init__(self, svId, serviceProvider):
+    CommandResult.__init__(self, "GetSbasServiceProviderForSVResult")
+    self.setSvId(svId)
+    self.setServiceProvider(serviceProvider)
+
+  def isSuccess(self):
+    return True
+
+  def svId(self):
+    return self.get("SvId")
+
+  def setSvId(self, value):
+    return self.set("SvId", value)
+
+  def serviceProvider(self):
+    return self.get("ServiceProvider")
+
+  def setServiceProvider(self, value):
+    return self.set("ServiceProvider", value)
+
+#
+# Set the service provider of all the SBAS satellites.
+#
+# Name             Type         Description
+# ---------------- ------------ -----------------------------------------------------------------------------------------------------------------------------------------------------------
+# ServiceProviders array string Service provider value to set for each satellite. Zero based index (index 0 => Service provider for SV ID 1, index 1 => Service provider for SV ID 2, etc).
+#
+
+class SetSbasServiceProviderForEachSV(CommandBase):
+
+  def __init__(self, serviceProviders):
+    CommandBase.__init__(self, "SetSbasServiceProviderForEachSV")
+    self.setServiceProviders(serviceProviders)
+
+  def executePermission(self):
+    return ExecutePermission.EXECUTE_IF_IDLE
+
+  def serviceProviders(self):
+    return self.get("ServiceProviders")
+
+  def setServiceProviders(self, value):
+    return self.set("ServiceProviders", value)
+
+#
+# Get the service provider of all the SBAS satellites.
+#
+#
+
+class GetSbasServiceProviderForEachSV(CommandBase):
+
+  def __init__(self):
+    CommandBase.__init__(self, "GetSbasServiceProviderForEachSV")
+
+  def executePermission(self):
+    return ExecutePermission.EXECUTE_IF_IDLE
+
+#
+# Result of GetSbasServiceProviderForEachSV.
+#
+# Name             Type         Description
+# ---------------- ------------ -----------------------------------------------------------------------------------------------------------------------------------------------------------
+# ServiceProviders array string Service provider value to set for each satellite. Zero based index (index 0 => Service provider for SV ID 1, index 1 => Service provider for SV ID 2, etc).
+#
+
+class GetSbasServiceProviderForEachSVResult(CommandResult):
+
+  def __init__(self, serviceProviders):
+    CommandResult.__init__(self, "GetSbasServiceProviderForEachSVResult")
+    self.setServiceProviders(serviceProviders)
+
+  def isSuccess(self):
+    return True
+
+  def serviceProviders(self):
+    return self.get("ServiceProviders")
+
+  def setServiceProviders(self, value):
+    return self.set("ServiceProviders", value)
 
 #
 # Set orbit perturbations (Crs, Crc, Cis, Cic, Cus and Cuc) to zero for the specified constellation.
@@ -21032,23 +21146,24 @@ class SetInterferenceAWGN(CommandBase):
 #
 # Add or update a BOC interference signal.
 #
-# Name           Type   Description
-# -------------- ------ -------------------------------------------------------------------------------------------------------------------------------------
-# StartTime      int    Elapsed time at which the signal is enabled (s). Minimum = 0 s, Maximum = 86399 s (23 hours, 59 minutes and 59 seconds).
-# StopTime       int    Elapsed time at which the signal is disabled (s). Minimum = 0 s, Maximum = 86399 s (23 hours, 59 minutes and 59 seconds).
-# CentralFreq    double Central frequency (Hz). Minimum = 100000000 Hz (100 MHz), Maximum = 6000000000 Hz (6 GHz).
-# Power          double Power (dB) relative to nominal power. Minimum = -40 dB, Maximum = 43 dB.
-# CodeRate       int    Code rate (Chips/s). Must be a multiple of 1 kChips/s. Minimum = 1000 Chips/s (1 kChips/s), Maximum = 60000000 Chips/s (60 MChips/s).
-# CodeLengthMs   int    Code length (ms). Minimum = 1 ms, Maximum = 100 ms.
-# SubCarrierRate int    Sub-carrier rate (Hz). Must be a multiple of 1 kHz. Minimum = 1000 Hz (1 kHz), Maximum = 60000000 (60 MHz).
-# CosinePhaseBoc bool   Use Cosine-Phase BOC instead of default Sine-Phase BOC.
-# Enabled        bool   Enables or disables the interference signal.
-# Id             string Interference signal unique identifier.
+# Name           Type         Description
+# -------------- ------------ -------------------------------------------------------------------------------------------------------------------------------------
+# StartTime      int          Elapsed time at which the signal is enabled (s). Minimum = 0 s, Maximum = 86399 s (23 hours, 59 minutes and 59 seconds).
+# StopTime       int          Elapsed time at which the signal is disabled (s). Minimum = 0 s, Maximum = 86399 s (23 hours, 59 minutes and 59 seconds).
+# CentralFreq    double       Central frequency (Hz). Minimum = 100000000 Hz (100 MHz), Maximum = 6000000000 Hz (6 GHz).
+# Power          double       Power (dB) relative to nominal power. Minimum = -40 dB, Maximum = 43 dB.
+# CodeRate       int          Code rate (Chips/s). Must be a multiple of 1 kChips/s. Minimum = 1000 Chips/s (1 kChips/s), Maximum = 60000000 Chips/s (60 MChips/s).
+# CodeLengthMs   int          Code length (ms). Minimum = 1 ms, Maximum = 100 ms.
+# SubCarrierRate int          Sub-carrier rate (Hz). Must be a multiple of 1 kHz. Minimum = 1000 Hz (1 kHz), Maximum = 60000000 (60 MHz).
+# CosinePhaseBoc bool         Use Cosine-Phase BOC instead of default Sine-Phase BOC.
+# Enabled        bool         Enables or disables the interference signal.
+# Id             string       Interference signal unique identifier.
+# Prn            optional int PRN code index to use in the BOC modulation. If zero, a random code will be used. Minimum = 0, Maximum = 32.
 #
 
 class SetInterferenceBOC(CommandBase):
 
-  def __init__(self, startTime, stopTime, centralFreq, power, codeRate, codeLengthMs, subCarrierRate, cosinePhaseBoc, enabled, id):
+  def __init__(self, startTime, stopTime, centralFreq, power, codeRate, codeLengthMs, subCarrierRate, cosinePhaseBoc, enabled, id, prn = None):
     CommandBase.__init__(self, "SetInterferenceBOC")
     self.setStartTime(startTime)
     self.setStopTime(stopTime)
@@ -21060,6 +21175,7 @@ class SetInterferenceBOC(CommandBase):
     self.setCosinePhaseBoc(cosinePhaseBoc)
     self.setEnabled(enabled)
     self.setId(id)
+    self.setPrn(prn)
 
   def executePermission(self):
     return ExecutePermission.EXECUTE_IF_SIMULATING | ExecutePermission.EXECUTE_IF_IDLE
@@ -21123,6 +21239,12 @@ class SetInterferenceBOC(CommandBase):
 
   def setId(self, value):
     return self.set("Id", value)
+
+  def prn(self):
+    return self.get("Prn")
+
+  def setPrn(self, value):
+    return self.set("Prn", value)
 
 #
 # Add or update a BPSK interference signal.
@@ -26172,7 +26294,7 @@ class GetIntTxBPSKResult(CommandResult):
 # Set BOC signal interference.
 #
 # Name           Type         Description
-# -------------- ------------ ------------------------------------------------------------------------------------
+# -------------- ------------ ------------------------------------------------------------------------------------------------------------
 # Enabled        bool         Enable (true) or disable (false) the signal
 # CentralFreq    double       Central frequency (Hz)
 # Power          double       Power (dB), relative to transmitter reference power
@@ -26183,11 +26305,12 @@ class GetIntTxBPSKResult(CommandResult):
 # TransmitterId  string       Transmitter unique identifier.
 # SignalId       string       BOC unique identifier.
 # Group          optional int Group, if not using default group.
+# Prn            optional int PRN code index to use in the BOC modulation. If zero, a random code will be used. Minimum = 0, Maximum = 32.
 #
 
 class SetIntTxBOC(CommandBase):
 
-  def __init__(self, enabled, centralFreq, power, codeRate, codeLengthMs, subCarrierRate, cosinePhaseBoc, transmitterId, signalId, group = None):
+  def __init__(self, enabled, centralFreq, power, codeRate, codeLengthMs, subCarrierRate, cosinePhaseBoc, transmitterId, signalId, group = None, prn = None):
     CommandBase.__init__(self, "SetIntTxBOC")
     self.setEnabled(enabled)
     self.setCentralFreq(centralFreq)
@@ -26199,6 +26322,7 @@ class SetIntTxBOC(CommandBase):
     self.setTransmitterId(transmitterId)
     self.setSignalId(signalId)
     self.setGroup(group)
+    self.setPrn(prn)
 
   def executePermission(self):
     return ExecutePermission.EXECUTE_IF_SIMULATING | ExecutePermission.EXECUTE_IF_IDLE
@@ -26263,6 +26387,12 @@ class SetIntTxBOC(CommandBase):
   def setGroup(self, value):
     return self.set("Group", value)
 
+  def prn(self):
+    return self.get("Prn")
+
+  def setPrn(self, value):
+    return self.set("Prn", value)
+
 #
 # Get BOC signal interference.
 #
@@ -26298,7 +26428,7 @@ class GetIntTxBOC(CommandBase):
 # Result of GetIntTxBOC.
 #
 # Name           Type         Description
-# -------------- ------------ ------------------------------------------------------------------------------------
+# -------------- ------------ ------------------------------------------------------------------------------------------------------------
 # Enabled        bool         Enable (true) or disable (false) the signal
 # CentralFreq    double       Central frequency (Hz)
 # Power          double       Power (dB), relative to transmitter reference power
@@ -26309,11 +26439,12 @@ class GetIntTxBOC(CommandBase):
 # TransmitterId  string       Transmitter unique identifier.
 # SignalId       string       BOC unique identifier.
 # Group          optional int Group, if not using default group.
+# Prn            optional int PRN code index to use in the BOC modulation. If zero, a random code will be used. Minimum = 0, Maximum = 32.
 #
 
 class GetIntTxBOCResult(CommandResult):
 
-  def __init__(self, enabled, centralFreq, power, codeRate, codeLengthMs, subCarrierRate, cosinePhaseBoc, transmitterId, signalId, group = None):
+  def __init__(self, enabled, centralFreq, power, codeRate, codeLengthMs, subCarrierRate, cosinePhaseBoc, transmitterId, signalId, group = None, prn = None):
     CommandResult.__init__(self, "GetIntTxBOCResult")
     self.setEnabled(enabled)
     self.setCentralFreq(centralFreq)
@@ -26325,6 +26456,7 @@ class GetIntTxBOCResult(CommandResult):
     self.setTransmitterId(transmitterId)
     self.setSignalId(signalId)
     self.setGroup(group)
+    self.setPrn(prn)
 
   def isSuccess(self):
     return True
@@ -26388,6 +26520,12 @@ class GetIntTxBOCResult(CommandResult):
 
   def setGroup(self, value):
     return self.set("Group", value)
+
+  def prn(self):
+    return self.get("Prn")
+
+  def setPrn(self, value):
+    return self.set("Prn", value)
 
 #
 # Set AWGN signal interference.
@@ -35243,12 +35381,14 @@ class SetWavefrontJamCalibrationState(CommandBase):
     return self.set("State", value)
 
 #
-# Add a new data set for the specified constellation. This could come from a Rinex, SEM or YUMA file for GPS. Only Rinex for the others.
+# Add a new data set for the specified constellation. Supported data set file formats include RINEX, TLE, SEM, YUMA and SP3.
+# 
+# Note that TLE and SP3 files are not supported for the SBAS and GLONASS constellations, and that SEM and YUMA are only supported for the GPS constellation.
 #
 # Name         Type            Description
 # ------------ --------------- ----------------------------------------------------------------------------------------------------------------------
 # System       string          "GPS", "Galileo", "BeiDou", "QZSS", "NavIC" or "PULSAR"
-# Path         string          Data set file path
+# Path         string          Data set file path.
 # Rollover     optional int    Rollover for file types that does not precise it (YUMA, SEM). Default value is the current rollover.
 # DataSetName  optional string Name of the data set to import. This parameter is optional, the default value will be the name of the imported file.
 # NavMsgFamily optional string Navigation message family key used to specify which ephemeris navigation message type to import from a RINEX v4+ file.
@@ -35303,6 +35443,8 @@ class AddDataSet(CommandBase):
 
 #
 # Set data set assignation for the specified constellation.
+# 
+# Note: Data sets imported from SP3 files can only be assigned to Orbits.
 #
 # Name        Type   Description
 # ----------- ------ -------------------------------------------------------
@@ -35342,6 +35484,8 @@ class SetDataSetAssignation(CommandBase):
 
 #
 # Get data set assignation for the specified constellation.
+# 
+# Note: Data sets imported from SP3 files can only be assigned to Orbits.
 #
 # Name        Type   Description
 # ----------- ------ -------------------------------------------------------
@@ -35481,7 +35625,9 @@ class DeleteDataSet(CommandBase):
     return self.set("DataSetName", value)
 
 #
-# Set active data set.
+# Set the active data set.
+# 
+# Note: Data sets imported from SP3 files cannot be set as the active data set.
 #
 # Name        Type   Description
 # ----------- ------ -------------------------------------------------------
@@ -35512,7 +35658,7 @@ class SetActiveDataSet(CommandBase):
     return self.set("DataSetName", value)
 
 #
-# Get active data set.
+# Get the active data set.
 #
 # Name   Type   Description
 # ------ ------ -------------------------------------------------------
@@ -35768,8 +35914,8 @@ class SbasServiceMessageRegion:
 # Set (or Modify) a SBAS service message region group.
 #
 # Name            Type                           Description
-# --------------- ------------------------------ ---------------------------------------------------------------------------------
-# ServiceProvider string                         Service providers, accepts "WAAS", "EGNOS", "MSAS", "GAGAN" and "SDCM".
+# --------------- ------------------------------ -----------------------------------------------------------------------------------------
+# ServiceProvider string                         Service providers, accepts "WAAS", "EGNOS", "MSAS", "GAGAN", "SDCM", "BDSBAS" and "KASS".
 # DeltaUdrei      int                            Delta UDREI applicable inside the defined regions. Accepted range is [0..15].
 # PriorityCode    int                            Priority code of the SBAS service message region group. Accepted range is [0..3].
 # Regions         array SbasServiceMessageRegion Array of SBAS service message regions. Accepted size range is [1..5].
@@ -35823,8 +35969,8 @@ class SetSbasServiceMessageRegionGroup(CommandBase):
 # Get infos about the SBAS service message region group at this index.
 #
 # Name            Type   Description
-# --------------- ------ -----------------------------------------------------------------------
-# ServiceProvider string Service providers, accepts "WAAS", "EGNOS", "MSAS", "GAGAN" and "SDCM".
+# --------------- ------ -----------------------------------------------------------------------------------------
+# ServiceProvider string Service providers, accepts "WAAS", "EGNOS", "MSAS", "GAGAN", "SDCM", "BDSBAS" and "KASS".
 # Id              string Unique identifier of the SBAS service message region group.
 #
 
@@ -35854,8 +36000,8 @@ class GetSbasServiceMessageRegionGroup(CommandBase):
 # Result of GetSbasServiceMessageRegionGroup.
 #
 # Name            Type                           Description
-# --------------- ------------------------------ ---------------------------------------------------------------------------------
-# ServiceProvider string                         Service providers, accepts "WAAS", "EGNOS", "MSAS", "GAGAN" and "SDCM".
+# --------------- ------------------------------ -----------------------------------------------------------------------------------------
+# ServiceProvider string                         Service providers, accepts "WAAS", "EGNOS", "MSAS", "GAGAN", "SDCM", "BDSBAS" and "KASS".
 # DeltaUdrei      int                            Delta UDREI applicable inside the defined regions. Accepted range is [0..15].
 # PriorityCode    int                            Priority code of the SBAS service message region group. Accepted range is [0..3].
 # Regions         array SbasServiceMessageRegion Array of SBAS service message regions. Accepted size range is [1..5].
@@ -35909,8 +36055,8 @@ class GetSbasServiceMessageRegionGroupResult(CommandResult):
 # Set SBAS delta UDREI outside all the defined regions for this service provider.
 #
 # Name            Type   Description
-# --------------- ------ ----------------------------------------------------------------------------------
-# ServiceProvider string Service providers, accepts "WAAS", "EGNOS", "MSAS", "GAGAN" and "SDCM".
+# --------------- ------ -----------------------------------------------------------------------------------------
+# ServiceProvider string Service providers, accepts "WAAS", "EGNOS", "MSAS", "GAGAN", "SDCM", "BDSBAS" and "KASS".
 # DeltaUdrei      int    Delta UDREI applicable outside all the defined regions. Accepted range is [0..15].
 #
 
@@ -35940,8 +36086,8 @@ class SetSbasDeltaUdreiOutsideOfRegions(CommandBase):
 # Get SBAS delta UDREI outside all the defined regions for this service provider.
 #
 # Name            Type   Description
-# --------------- ------ -----------------------------------------------------------------------
-# ServiceProvider string Service providers, accepts "WAAS", "EGNOS", "MSAS", "GAGAN" and "SDCM".
+# --------------- ------ -----------------------------------------------------------------------------------------
+# ServiceProvider string Service providers, accepts "WAAS", "EGNOS", "MSAS", "GAGAN", "SDCM", "BDSBAS" and "KASS".
 #
 
 class GetSbasDeltaUdreiOutsideOfRegions(CommandBase):
@@ -35963,8 +36109,8 @@ class GetSbasDeltaUdreiOutsideOfRegions(CommandBase):
 # Result of GetSbasDeltaUdreiOutsideOfRegions.
 #
 # Name            Type   Description
-# --------------- ------ ----------------------------------------------------------------------------------
-# ServiceProvider string Service providers, accepts "WAAS", "EGNOS", "MSAS", "GAGAN" and "SDCM".
+# --------------- ------ -----------------------------------------------------------------------------------------
+# ServiceProvider string Service providers, accepts "WAAS", "EGNOS", "MSAS", "GAGAN", "SDCM", "BDSBAS" and "KASS".
 # DeltaUdrei      int    Delta UDREI applicable outside all the defined regions. Accepted range is [0..15].
 #
 
@@ -35994,8 +36140,8 @@ class GetSbasDeltaUdreiOutsideOfRegionsResult(CommandResult):
 # Removes a SBAS service message region group for the service provider.
 #
 # Name            Type   Description
-# --------------- ------ -----------------------------------------------------------------------
-# ServiceProvider string Service providers, accepts "WAAS", "EGNOS", "MSAS", "GAGAN" and "SDCM".
+# --------------- ------ -----------------------------------------------------------------------------------------
+# ServiceProvider string Service providers, accepts "WAAS", "EGNOS", "MSAS", "GAGAN", "SDCM", "BDSBAS" and "KASS".
 # Id              string Unique identifier of the SBAS service message region group to remove.
 #
 
@@ -36025,8 +36171,8 @@ class RemoveSbasServiceMessageRegionGroup(CommandBase):
 # Clears all SBAS service message region group for this service provider.
 #
 # Name            Type   Description
-# --------------- ------ -----------------------------------------------------------------------
-# ServiceProvider string Service providers, accepts "WAAS", "EGNOS", "MSAS", "GAGAN" and "SDCM".
+# --------------- ------ -----------------------------------------------------------------------------------------
+# ServiceProvider string Service providers, accepts "WAAS", "EGNOS", "MSAS", "GAGAN", "SDCM", "BDSBAS" and "KASS".
 #
 
 class ClearAllSbasServiceMessageRegionGroup(CommandBase):
@@ -36045,11 +36191,114 @@ class ClearAllSbasServiceMessageRegionGroup(CommandBase):
     return self.set("ServiceProvider", value)
 
 #
+# Set the SBAS degradation parameters for the specified service provider.
+#
+# Name                          Type               Description
+# ----------------------------- ------------------ -----------------------------------------------------------------------------------------
+# ServiceProvider               string             Service providers, accepts "WAAS", "EGNOS", "MSAS", "GAGAN", "SDCM", "BDSBAS" and "KASS".
+# DegradationParameterValueDict dict string:double A dictionary of degradationparameter value pairs.
+#                                                  Accepted keys are: "BRRC", "CLTC_LSB", "CLTC_V1", "ILTC_V1", "CLTC_V0",
+#                                                                     "ILTC_V0", "CGEO_LSB", "CGEO_V", "IGEO", "CER", "CIONO_STEP",
+#                                                                     "IIONO", "CIONO_RAMP", "RSSUDRE", "RSSIONO" and "CCOVARIANCE"
+#
+
+class SetSbasDegradationParameters(CommandBase):
+
+  def __init__(self, serviceProvider, degradationParameterValueDict):
+    CommandBase.__init__(self, "SetSbasDegradationParameters")
+    self.setServiceProvider(serviceProvider)
+    self.setDegradationParameterValueDict(degradationParameterValueDict)
+
+  def executePermission(self):
+    return ExecutePermission.EXECUTE_IF_IDLE
+
+  def serviceProvider(self):
+    return self.get("ServiceProvider")
+
+  def setServiceProvider(self, value):
+    return self.set("ServiceProvider", value)
+
+  def degradationParameterValueDict(self):
+    return self.get("DegradationParameterValueDict")
+
+  def setDegradationParameterValueDict(self, value):
+    return self.set("DegradationParameterValueDict", value)
+
+#
+# Get the SBAS degradation parameters for the specified service provider. By default, all degradation parameters are returned. If specific parameter names are provided, only those parameters are returned.
+#
+# Name                      Type         Description
+# ------------------------- ------------ -----------------------------------------------------------------------------------------
+# ServiceProvider           string       Service providers, accepts "WAAS", "EGNOS", "MSAS", "GAGAN", "SDCM", "BDSBAS" and "KASS".
+# DegradationParameterArray array string An array of degradationparameters.
+#                                        Accepted values are: "BRRC", "CLTC_LSB", "CLTC_V1", "ILTC_V1", "CLTC_V0",
+#                                                             "ILTC_V0", "CGEO_LSB", "CGEO_V", "IGEO", "CER",
+#                                                             "CIONO_STEP", "IIONO", "CIONO_RAMP", "RSSUDRE", "RSSIONO"
+#                                                             and "CCOVARIANCE"
+#
+
+class GetSbasDegradationParameters(CommandBase):
+
+  def __init__(self, serviceProvider, degradationParameterArray):
+    CommandBase.__init__(self, "GetSbasDegradationParameters")
+    self.setServiceProvider(serviceProvider)
+    self.setDegradationParameterArray(degradationParameterArray)
+
+  def executePermission(self):
+    return ExecutePermission.EXECUTE_IF_IDLE
+
+  def serviceProvider(self):
+    return self.get("ServiceProvider")
+
+  def setServiceProvider(self, value):
+    return self.set("ServiceProvider", value)
+
+  def degradationParameterArray(self):
+    return self.get("DegradationParameterArray")
+
+  def setDegradationParameterArray(self, value):
+    return self.set("DegradationParameterArray", value)
+
+#
+# Result of GetSbasDegradationParameters.
+#
+# Name                          Type               Description
+# ----------------------------- ------------------ -----------------------------------------------------------------------------------------
+# ServiceProvider               string             Service providers, accepts "WAAS", "EGNOS", "MSAS", "GAGAN", "SDCM", "BDSBAS" and "KASS".
+# DegradationParameterValueDict dict string:double A dictionary of degradationparameter value pairs.
+#                                                  Accepted keys are: "BRRC", "CLTC_LSB", "CLTC_V1", "ILTC_V1", "CLTC_V0",
+#                                                                     "ILTC_V0", "CGEO_LSB", "CGEO_V", "IGEO", "CER", "CIONO_STEP",
+#                                                                     "IIONO", "CIONO_RAMP", "RSSUDRE", "RSSIONO" and "CCOVARIANCE"
+#
+
+class GetSbasDegradationParametersResult(CommandResult):
+
+  def __init__(self, serviceProvider, degradationParameterValueDict):
+    CommandResult.__init__(self, "GetSbasDegradationParametersResult")
+    self.setServiceProvider(serviceProvider)
+    self.setDegradationParameterValueDict(degradationParameterValueDict)
+
+  def isSuccess(self):
+    return True
+
+  def serviceProvider(self):
+    return self.get("ServiceProvider")
+
+  def setServiceProvider(self, value):
+    return self.set("ServiceProvider", value)
+
+  def degradationParameterValueDict(self):
+    return self.get("DegradationParameterValueDict")
+
+  def setDegradationParameterValueDict(self, value):
+    return self.set("DegradationParameterValueDict", value)
+
+#
 # Swaps 2 SBAS service message region group.
 #
 # Name            Type   Description
-# --------------- ------ ---------------------------------------------------------------------------------
-# ServiceProvider string Service providers, accepts "WAAS", "EGNOS", "MSAS", "GAGAN" and "SDCM".
+# --------------- ------ -----------------------------------------------------------------------------------------
+# ServiceProvider string Service providers, accepts "WAAS", "EGNOS", "MSAS", "GAGAN", "SDCM", "BDSBAS" and "KASS".
 # FirstId         string Unique identifier of the SBAS service message region group to swap with SecondId.
 # SecondId        string Unique identifier of the SBAS service message region group to swap with FirstId.
 #
@@ -36477,7 +36726,7 @@ class AlmanacSVData:
     self.ParametersDict = parametersDict
 
 #
-# Push a block of data defining the orbit, clock, and other parameters for one SV.
+# Push a block of data defining the almanac for the constellation. By default, all SVs will use the same almanac data. Use the SvId parameter to push the almanac for a specific SV.
 #   ParamName           Unit
 #   "Time of ephemeris" sec (of GPS week)
 #   "Week Number"       week
@@ -36496,19 +36745,21 @@ class AlmanacSVData:
 #   "Idot"              rad/sec
 #
 # Name    Type                Description
-# ------- ------------------- --------------------------------------------------------
+# ------- ------------------- -------------------------------------------------------------------------------------
 # System  string              "GPS", "Galileo", "BeiDou", "QZSS", "NavIC" or "PULSAR".
 # Toa     datetime            Time of applicability.
 # Almanac array AlmanacSVData Array of almanac data for SVs.
+# SvId    optional int        The Satellite SV ID to apply the almanac to. Leave empty or use 0 for all satellites.
 #
 
 class PushDynamicAlmanacData(CommandBase):
 
-  def __init__(self, system, toa, almanac):
+  def __init__(self, system, toa, almanac, svId = None):
     CommandBase.__init__(self, "PushDynamicAlmanacData")
     self.setSystem(system)
     self.setToa(toa)
     self.setAlmanac(almanac)
+    self.setSvId(svId)
 
   def executePermission(self):
     return ExecutePermission.EXECUTE_IF_SIMULATING
@@ -36530,6 +36781,12 @@ class PushDynamicAlmanacData(CommandBase):
 
   def setAlmanac(self, value):
     return self.set("Almanac", value)
+
+  def svId(self):
+    return self.get("SvId")
+
+  def setSvId(self, value):
+    return self.set("SvId", value)
 
 #
 # Enable (or disable) extrapolation of the almanac from the ephemeris in Dynamic SV Data mode.
@@ -38836,6 +39093,69 @@ class IsAutomaticGpuAllocationEnabledResult(CommandResult):
     return self.set("Enabled", value)
 
 #
+# Set the device mode of the CDM-7 clock distribution and timing reference module.
+# 
+# Note: All connected CDM-7 modules operate in the same device mode.
+#
+# Name       Type   Description
+# ---------- ------ --------------------------------------------------------------------------------------------------------------
+# DeviceMode string CDM-7 device mode. Supported device modes are: "Internal", "Synchronous External" and "Asynchronous External".
+#
+
+class SetCdm7DeviceMode(CommandBase):
+
+  def __init__(self, deviceMode):
+    CommandBase.__init__(self, "SetCdm7DeviceMode")
+    self.setDeviceMode(deviceMode)
+
+  def executePermission(self):
+    return ExecutePermission.EXECUTE_IF_NO_CONFIG | ExecutePermission.EXECUTE_IF_IDLE
+
+  def deviceMode(self):
+    return self.get("DeviceMode")
+
+  def setDeviceMode(self, value):
+    return self.set("DeviceMode", value)
+
+#
+# Get the device mode of the CDM-7 clock distribution and timing reference module.
+# 
+# Note: All connected CDM-7 modules operate in the same device mode.
+#
+#
+
+class GetCdm7DeviceMode(CommandBase):
+
+  def __init__(self):
+    CommandBase.__init__(self, "GetCdm7DeviceMode")
+
+  def executePermission(self):
+    return ExecutePermission.EXECUTE_IF_NO_CONFIG | ExecutePermission.EXECUTE_IF_IDLE
+
+#
+# Result of GetCdm7DeviceMode.
+#
+# Name       Type   Description
+# ---------- ------ --------------------------------------------------------------------------------------------------------------
+# DeviceMode string CDM-7 device mode. Supported device modes are: "Internal", "Synchronous External" and "Asynchronous External".
+#
+
+class GetCdm7DeviceModeResult(CommandResult):
+
+  def __init__(self, deviceMode):
+    CommandResult.__init__(self, "GetCdm7DeviceModeResult")
+    self.setDeviceMode(deviceMode)
+
+  def isSuccess(self):
+    return True
+
+  def deviceMode(self):
+    return self.get("DeviceMode")
+
+  def setDeviceMode(self, value):
+    return self.set("DeviceMode", value)
+
+#
 # Set the GNSS dynamic range offset. Changing this value shifts the dynamic power range available for GNSS signals. Increasing this value allows to simulate higher power signals and avoid IQ overflows. The range of the satellite power sliders in the Constellation tab is shifted by this offset.
 #
 # Name   Type   Description
@@ -39186,6 +39506,37 @@ class GetModulationTargetIQPlaybackResult(CommandResult):
 
   def setId(self, value):
     return self.set("Id", value)
+
+#
+# Set a time offset in nanoseconds to be applied to a Dektec radio.
+#
+# Name       Type Description
+# ---------- ---- ------------------------------------
+# Output     int  Output index (zero based).
+# TimeOffset int  Time offset to apply in nanoseconds.
+#
+
+class SetDektecTimeOffset(CommandBase):
+
+  def __init__(self, output, timeOffset):
+    CommandBase.__init__(self, "SetDektecTimeOffset")
+    self.setOutput(output)
+    self.setTimeOffset(timeOffset)
+
+  def executePermission(self):
+    return ExecutePermission.EXECUTE_IF_IDLE
+
+  def output(self):
+    return self.get("Output")
+
+  def setOutput(self, value):
+    return self.set("Output", value)
+
+  def timeOffset(self):
+    return self.get("TimeOffset")
+
+  def setTimeOffset(self, value):
+    return self.set("TimeOffset", value)
 
 #
 # Please note the command GetMasterStatus is deprecated since 23.11. You may use GetMainInstanceStatus.
@@ -43302,4 +43653,40 @@ class GetWFAntennaGainResult(CommandResult):
 
   def setGain(self, value):
     return self.set("Gain", value)
+
+#
+# Please note the command SetSbasServiceHealthForSV is deprecated since 25.9. You may use SetSbasServiceProviderForSV.
+# 
+# Apply service provider for a satellite
+#
+# Name   Type Description
+# ------ ---- ---------------------
+# SvId   int  The satellite's SV ID
+# Health int  The service provider
+#
+
+class SetSbasServiceHealthForSV(CommandBase):
+
+  def __init__(self, svId, health):
+    CommandBase.__init__(self, "SetSbasServiceHealthForSV")
+    self.setSvId(svId)
+    self.setHealth(health)
+
+  def executePermission(self):
+    return ExecutePermission.EXECUTE_IF_IDLE
+
+  def svId(self):
+    return self.get("SvId")
+
+  def setSvId(self, value):
+    return self.set("SvId", value)
+
+  def health(self):
+    return self.get("Health")
+
+  def setHealth(self, value):
+    return self.set("Health", value)
+
+  def deprecated(self):
+    return "Please note the command SetSbasServiceHealthForSV is deprecated since 25.9. You may use SetSbasServiceProviderForSV."
 

@@ -6,7 +6,7 @@ namespace Sdx.Cmd
 
   public static class ApiInfo
   {
-    public const int COMMANDS_API_VERSION = 49;
+    public const int COMMANDS_API_VERSION = 51;
   }
 
   ///
@@ -18862,8 +18862,8 @@ namespace Sdx.Cmd
   /// Set power offset default value for the SBAS Service Provider given in argument
   ///
   /// Name            Type   Description
-  /// --------------- ------ ------------------------------------------------------------------------------
-  /// ServiceProvider string Service Provider key, allowed values: "WAAS", "EGNOS", "MSAS", "GAGAN", "SDCM"
+  /// --------------- ------ ---------------------------------------------------------------------------------------------------
+  /// ServiceProvider string Service Provider key, allowed values: "WAAS", "EGNOS", "MSAS", "GAGAN", "SDCM", "BDSBAS" and "KASS"
   /// Offset          double Offset in dB (negative value will attenuate signal)
   ///
 
@@ -18925,8 +18925,8 @@ namespace Sdx.Cmd
   /// Get power offset default value for the SBAS Service Provider given in argument
   ///
   /// Name            Type   Description
-  /// --------------- ------ ------------------------------------------------------------------------------
-  /// ServiceProvider string Service Provider key, allowed values: "WAAS", "EGNOS", "MSAS", "GAGAN", "SDCM"
+  /// --------------- ------ ---------------------------------------------------------------------------------------------------
+  /// ServiceProvider string Service Provider key, allowed values: "WAAS", "EGNOS", "MSAS", "GAGAN", "SDCM", "BDSBAS" and "KASS"
   ///
 
   public class GetPowerSbasOffset : CommandBase
@@ -18976,8 +18976,8 @@ namespace Sdx.Cmd
   /// Result of GetPowerSbasOffset.
   ///
   /// Name            Type   Description
-  /// --------------- ------ ------------------------------------------------------------------------------
-  /// ServiceProvider string Service Provider key, allowed values: "WAAS", "EGNOS", "MSAS", "GAGAN", "SDCM"
+  /// --------------- ------ ---------------------------------------------------------------------------------------------------
+  /// ServiceProvider string Service Provider key, allowed values: "WAAS", "EGNOS", "MSAS", "GAGAN", "SDCM", "BDSBAS" and "KASS"
   /// Offset          double Offset in dB (negative value will attenuate signal)
   ///
 
@@ -20492,7 +20492,11 @@ namespace Sdx.Cmd
 
 
   ///
-  /// Import navigation message file for the specified constellation. This could be RINEX, SEM or YUMA file for GPS. Only RINEX for the others.
+  /// Import a navigation message file for the specified constellation. Supported navigation message file formats include RINEX, TLE, SEM, and YUMA.
+  /// 
+  /// Note that TLE files are not supported for the SBAS and GLONASS constellations, and that SEM and YUMA are only supported for the GPS constellation.
+  /// 
+  /// Note: This command cannot be used to import SV positions from SP3 files.
   ///
   /// Name         Type            Description
   /// ------------ --------------- ----------------------------------------------------------------------------------------------------------------------
@@ -20512,7 +20516,7 @@ namespace Sdx.Cmd
   {
     public override string Documentation
     {
-      get { return "Import navigation message file for the specified constellation. This could be RINEX, SEM or YUMA file for GPS. Only RINEX for the others."; }
+      get { return "Import a navigation message file for the specified constellation. Supported navigation message file formats include RINEX, TLE, SEM, and YUMA.\n\nNote that TLE files are not supported for the SBAS and GLONASS constellations, and that SEM and YUMA are only supported for the GPS constellation.\n\nNote: This command cannot be used to import SV positions from SP3 files."; }
     }
 
     internal const string CmdName = "ImportConstellationParameters";
@@ -22292,7 +22296,7 @@ namespace Sdx.Cmd
       }
     }
 
-    public override int ExecutePermission { get { return EXECUTE_IF_IDLE; } }
+    public override int ExecutePermission { get { return EXECUTE_IF_IDLE | EXECUTE_IF_SIMULATING; } }
 
     public double X
     {
@@ -30886,8 +30890,7 @@ namespace Sdx.Cmd
   /// ParamValueDict dict string:double A dictionary of param value pairs.
   ///                                   Accepted keys are: "ClockBias", "RelativeFrequencyBias", "X", "Y", "Z",
   ///                                                      "VelocityX", "VelocityY", "VelocityZ", "AccelerationX",
-  ///                                                      "AccelerationY", "AccelerationZ", "Health", "URA" and
-  ///                                                      "UraIndex"
+  ///                                                      "AccelerationY", "AccelerationZ", "URA" and "UraIndex"
   ///
 
   public class SetSbasEphParamsForSV : CommandBase
@@ -30922,7 +30925,7 @@ namespace Sdx.Cmd
       }
     }
 
-    public override int ExecutePermission { get { return EXECUTE_IF_IDLE | EXECUTE_IF_SIMULATING; } }
+    public override int ExecutePermission { get { return EXECUTE_IF_IDLE; } }
 
     public int SvId
     {
@@ -30953,8 +30956,7 @@ namespace Sdx.Cmd
   /// ParamArray array string An array of params.
   ///                         Accepted values are: "ClockBias", "RelativeFrequencyBias", "X", "Y", "Z",
   ///                                              "VelocityX", "VelocityY", "VelocityZ", "AccelerationX",
-  ///                                              "AccelerationY", "AccelerationZ", "Health", "URA" and
-  ///                                              "UraIndex"
+  ///                                              "AccelerationY", "AccelerationZ", "URA" and "UraIndex"
   ///
 
   public class GetSbasEphParamsForSV : CommandBase
@@ -31020,8 +31022,7 @@ namespace Sdx.Cmd
   /// ParamValueDict dict string:double A dictionary of param value pairs.
   ///                                   Accepted keys are: "ClockBias", "RelativeFrequencyBias", "X", "Y", "Z",
   ///                                                      "VelocityX", "VelocityY", "VelocityZ", "AccelerationX",
-  ///                                                      "AccelerationY", "AccelerationZ", "Health", "URA" and
-  ///                                                      "UraIndex"
+  ///                                                      "AccelerationY", "AccelerationZ", "URA" and "UraIndex"
   ///
 
   public class GetSbasEphParamsForSVResult : CommandResult
@@ -31329,33 +31330,33 @@ namespace Sdx.Cmd
 
 
   ///
-  /// Apply service provider for a satellite
+  /// Set the service provider of the SBAS satellite.
   ///
-  /// Name   Type Description
-  /// ------ ---- ---------------------
-  /// SvId   int  The satellite's SV ID
-  /// Health int  The service provider
+  /// Name            Type   Description
+  /// --------------- ------ ------------------------------------------------------------------------------------
+  /// SvId            int    The satellite's SV ID.
+  /// ServiceProvider string Service provider value, accepts "WAAS", "EGNOS", "MSAS", "GAGAN", "SDCM" and "SBAS".
   ///
 
-  public class SetSbasServiceHealthForSV : CommandBase
+  public class SetSbasServiceProviderForSV : CommandBase
   {
     public override string Documentation
     {
-      get { return "Apply service provider for a satellite"; }
+      get { return "Set the service provider of the SBAS satellite."; }
     }
 
-    internal const string CmdName = "SetSbasServiceHealthForSV";
+    internal const string CmdName = "SetSbasServiceProviderForSV";
     internal const string TargetId = "";
 
-    public SetSbasServiceHealthForSV()
+    public SetSbasServiceProviderForSV()
       : base(CmdName, TargetId)
     {}
 
-    public SetSbasServiceHealthForSV(int svId, int health)
+    public SetSbasServiceProviderForSV(int svId, string serviceProvider)
       : base(CmdName, TargetId)
     {
       SvId = svId;
-      Health = health;
+      ServiceProvider = serviceProvider;
     }
       
     public override bool IsValid
@@ -31364,7 +31365,7 @@ namespace Sdx.Cmd
       {
         return base.IsValid
         && Contains("SvId")
-        && Contains("Health")
+        && Contains("ServiceProvider")
       ;
       }
     }
@@ -31380,12 +31381,257 @@ namespace Sdx.Cmd
       }
     }
 
-    public int Health
+    public string ServiceProvider
     {
-      get { return GetValue("Health").ToObject<int>(CommandBase.Serializer); }
+      get { return GetValue("ServiceProvider").ToObject<string>(CommandBase.Serializer); }
       set
       {
-          SetValue("Health", JToken.FromObject(value, CommandBase.Serializer));
+          SetValue("ServiceProvider", JToken.FromObject(value, CommandBase.Serializer));
+      }
+    }
+  }
+
+
+  ///
+  /// Get the service provider of the SBAS satellite.
+  ///
+  /// Name Type Description
+  /// ---- ---- ----------------------
+  /// SvId int  The satellite's SV ID.
+  ///
+
+  public class GetSbasServiceProviderForSV : CommandBase
+  {
+    public override string Documentation
+    {
+      get { return "Get the service provider of the SBAS satellite."; }
+    }
+
+    internal const string CmdName = "GetSbasServiceProviderForSV";
+    internal const string TargetId = "";
+
+    public GetSbasServiceProviderForSV()
+      : base(CmdName, TargetId)
+    {}
+
+    public GetSbasServiceProviderForSV(int svId)
+      : base(CmdName, TargetId)
+    {
+      SvId = svId;
+    }
+      
+    public override bool IsValid
+    {
+      get
+      {
+        return base.IsValid
+        && Contains("SvId")
+      ;
+      }
+    }
+
+    public override int ExecutePermission { get { return EXECUTE_IF_IDLE; } }
+
+    public int SvId
+    {
+      get { return GetValue("SvId").ToObject<int>(CommandBase.Serializer); }
+      set
+      {
+          SetValue("SvId", JToken.FromObject(value, CommandBase.Serializer));
+      }
+    }
+  }
+
+
+  ///
+  /// Result of GetSbasServiceProviderForSV.
+  ///
+  /// Name            Type   Description
+  /// --------------- ------ ------------------------------------------------------------------------------------
+  /// SvId            int    The satellite's SV ID.
+  /// ServiceProvider string Service provider value, accepts "WAAS", "EGNOS", "MSAS", "GAGAN", "SDCM" and "SBAS".
+  ///
+
+  public class GetSbasServiceProviderForSVResult : CommandResult
+  {
+    public override string Documentation
+    {
+      get { return "Result of GetSbasServiceProviderForSV."; }
+    }
+
+    internal const string CmdName = "GetSbasServiceProviderForSVResult";
+    internal const string TargetId = "";
+
+    public GetSbasServiceProviderForSVResult()
+      : base(CmdName, TargetId)
+    {}
+
+    public GetSbasServiceProviderForSVResult(CommandBase relatedCommand, int svId, string serviceProvider)
+      : base(CmdName, TargetId, relatedCommand)
+    {
+      SvId = svId;
+      ServiceProvider = serviceProvider;
+    }
+      
+    public override bool IsValid
+    {
+      get
+      {
+        return base.IsValid
+        && Contains("SvId")
+        && Contains("ServiceProvider")
+      ;
+      }
+    }
+
+    public int SvId
+    {
+      get { return GetValue("SvId").ToObject<int>(CommandBase.Serializer); }
+      set
+      {
+          SetValue("SvId", JToken.FromObject(value, CommandBase.Serializer));
+      }
+    }
+
+    public string ServiceProvider
+    {
+      get { return GetValue("ServiceProvider").ToObject<string>(CommandBase.Serializer); }
+      set
+      {
+          SetValue("ServiceProvider", JToken.FromObject(value, CommandBase.Serializer));
+      }
+    }
+  }
+
+
+  ///
+  /// Set the service provider of all the SBAS satellites.
+  ///
+  /// Name             Type         Description
+  /// ---------------- ------------ -----------------------------------------------------------------------------------------------------------------------------------------------------------
+  /// ServiceProviders array string Service provider value to set for each satellite. Zero based index (index 0 => Service provider for SV ID 1, index 1 => Service provider for SV ID 2, etc).
+  ///
+
+  public class SetSbasServiceProviderForEachSV : CommandBase
+  {
+    public override string Documentation
+    {
+      get { return "Set the service provider of all the SBAS satellites."; }
+    }
+
+    internal const string CmdName = "SetSbasServiceProviderForEachSV";
+    internal const string TargetId = "";
+
+    public SetSbasServiceProviderForEachSV()
+      : base(CmdName, TargetId)
+    {}
+
+    public SetSbasServiceProviderForEachSV(List<string> serviceProviders)
+      : base(CmdName, TargetId)
+    {
+      ServiceProviders = serviceProviders;
+    }
+      
+    public override bool IsValid
+    {
+      get
+      {
+        return base.IsValid
+        && Contains("ServiceProviders")
+      ;
+      }
+    }
+
+    public override int ExecutePermission { get { return EXECUTE_IF_IDLE; } }
+
+    public List<string> ServiceProviders
+    {
+      get { return GetValue("ServiceProviders").ToObject<List<string>>(CommandBase.Serializer); }
+      set
+      {
+          SetValue("ServiceProviders", JToken.FromObject(value, CommandBase.Serializer));
+      }
+    }
+  }
+
+
+  ///
+  /// Get the service provider of all the SBAS satellites.
+  ///
+  /// 
+  ///
+
+  public class GetSbasServiceProviderForEachSV : CommandBase
+  {
+    public override string Documentation
+    {
+      get { return "Get the service provider of all the SBAS satellites."; }
+    }
+
+    internal const string CmdName = "GetSbasServiceProviderForEachSV";
+    internal const string TargetId = "";
+
+    public GetSbasServiceProviderForEachSV()
+      : base(CmdName, TargetId)
+    {}
+      
+    public override bool IsValid
+    {
+      get
+      {
+        return base.IsValid
+      ;
+      }
+    }
+
+    public override int ExecutePermission { get { return EXECUTE_IF_IDLE; } }
+  }
+
+
+  ///
+  /// Result of GetSbasServiceProviderForEachSV.
+  ///
+  /// Name             Type         Description
+  /// ---------------- ------------ -----------------------------------------------------------------------------------------------------------------------------------------------------------
+  /// ServiceProviders array string Service provider value to set for each satellite. Zero based index (index 0 => Service provider for SV ID 1, index 1 => Service provider for SV ID 2, etc).
+  ///
+
+  public class GetSbasServiceProviderForEachSVResult : CommandResult
+  {
+    public override string Documentation
+    {
+      get { return "Result of GetSbasServiceProviderForEachSV."; }
+    }
+
+    internal const string CmdName = "GetSbasServiceProviderForEachSVResult";
+    internal const string TargetId = "";
+
+    public GetSbasServiceProviderForEachSVResult()
+      : base(CmdName, TargetId)
+    {}
+
+    public GetSbasServiceProviderForEachSVResult(CommandBase relatedCommand, List<string> serviceProviders)
+      : base(CmdName, TargetId, relatedCommand)
+    {
+      ServiceProviders = serviceProviders;
+    }
+      
+    public override bool IsValid
+    {
+      get
+      {
+        return base.IsValid
+        && Contains("ServiceProviders")
+      ;
+      }
+    }
+
+    public List<string> ServiceProviders
+    {
+      get { return GetValue("ServiceProviders").ToObject<List<string>>(CommandBase.Serializer); }
+      set
+      {
+          SetValue("ServiceProviders", JToken.FromObject(value, CommandBase.Serializer));
       }
     }
   }
@@ -40319,18 +40565,19 @@ namespace Sdx.Cmd
   ///
   /// Add or update a BOC interference signal.
   ///
-  /// Name           Type   Description
-  /// -------------- ------ -------------------------------------------------------------------------------------------------------------------------------------
-  /// StartTime      int    Elapsed time at which the signal is enabled (s). Minimum = 0 s, Maximum = 86399 s (23 hours, 59 minutes and 59 seconds).
-  /// StopTime       int    Elapsed time at which the signal is disabled (s). Minimum = 0 s, Maximum = 86399 s (23 hours, 59 minutes and 59 seconds).
-  /// CentralFreq    double Central frequency (Hz). Minimum = 100000000 Hz (100 MHz), Maximum = 6000000000 Hz (6 GHz).
-  /// Power          double Power (dB) relative to nominal power. Minimum = -40 dB, Maximum = 43 dB.
-  /// CodeRate       int    Code rate (Chips/s). Must be a multiple of 1 kChips/s. Minimum = 1000 Chips/s (1 kChips/s), Maximum = 60000000 Chips/s (60 MChips/s).
-  /// CodeLengthMs   int    Code length (ms). Minimum = 1 ms, Maximum = 100 ms.
-  /// SubCarrierRate int    Sub-carrier rate (Hz). Must be a multiple of 1 kHz. Minimum = 1000 Hz (1 kHz), Maximum = 60000000 (60 MHz).
-  /// CosinePhaseBoc bool   Use Cosine-Phase BOC instead of default Sine-Phase BOC.
-  /// Enabled        bool   Enables or disables the interference signal.
-  /// Id             string Interference signal unique identifier.
+  /// Name           Type         Description
+  /// -------------- ------------ -------------------------------------------------------------------------------------------------------------------------------------
+  /// StartTime      int          Elapsed time at which the signal is enabled (s). Minimum = 0 s, Maximum = 86399 s (23 hours, 59 minutes and 59 seconds).
+  /// StopTime       int          Elapsed time at which the signal is disabled (s). Minimum = 0 s, Maximum = 86399 s (23 hours, 59 minutes and 59 seconds).
+  /// CentralFreq    double       Central frequency (Hz). Minimum = 100000000 Hz (100 MHz), Maximum = 6000000000 Hz (6 GHz).
+  /// Power          double       Power (dB) relative to nominal power. Minimum = -40 dB, Maximum = 43 dB.
+  /// CodeRate       int          Code rate (Chips/s). Must be a multiple of 1 kChips/s. Minimum = 1000 Chips/s (1 kChips/s), Maximum = 60000000 Chips/s (60 MChips/s).
+  /// CodeLengthMs   int          Code length (ms). Minimum = 1 ms, Maximum = 100 ms.
+  /// SubCarrierRate int          Sub-carrier rate (Hz). Must be a multiple of 1 kHz. Minimum = 1000 Hz (1 kHz), Maximum = 60000000 (60 MHz).
+  /// CosinePhaseBoc bool         Use Cosine-Phase BOC instead of default Sine-Phase BOC.
+  /// Enabled        bool         Enables or disables the interference signal.
+  /// Id             string       Interference signal unique identifier.
+  /// Prn            optional int PRN code index to use in the BOC modulation. If zero, a random code will be used. Minimum = 0, Maximum = 32.
   ///
 
   public class SetInterferenceBOC : CommandBase
@@ -40347,7 +40594,7 @@ namespace Sdx.Cmd
       : base(CmdName, TargetId)
     {}
 
-    public SetInterferenceBOC(int startTime, int stopTime, double centralFreq, double power, int codeRate, int codeLengthMs, int subCarrierRate, bool cosinePhaseBoc, bool enabled, string id)
+    public SetInterferenceBOC(int startTime, int stopTime, double centralFreq, double power, int codeRate, int codeLengthMs, int subCarrierRate, bool cosinePhaseBoc, bool enabled, string id, int? prn = null)
       : base(CmdName, TargetId)
     {
       StartTime = startTime;
@@ -40360,6 +40607,7 @@ namespace Sdx.Cmd
       CosinePhaseBoc = cosinePhaseBoc;
       Enabled = enabled;
       Id = id;
+      Prn = prn;
     }
       
     public override bool IsValid
@@ -40470,6 +40718,18 @@ namespace Sdx.Cmd
       set
       {
           SetValue("Id", JToken.FromObject(value, CommandBase.Serializer));
+      }
+    }
+
+    public int? Prn
+    {
+      get { return GetValue("Prn").ToObject<int?>(CommandBase.Serializer); }
+      set
+      {
+        if (value == null)
+          RemoveValue("Prn");
+        else
+          SetValue("Prn", JToken.FromObject(value, CommandBase.Serializer));
       }
     }
   }
@@ -50159,7 +50419,7 @@ namespace Sdx.Cmd
   /// Set BOC signal interference.
   ///
   /// Name           Type         Description
-  /// -------------- ------------ ------------------------------------------------------------------------------------
+  /// -------------- ------------ ------------------------------------------------------------------------------------------------------------
   /// Enabled        bool         Enable (true) or disable (false) the signal
   /// CentralFreq    double       Central frequency (Hz)
   /// Power          double       Power (dB), relative to transmitter reference power
@@ -50170,6 +50430,7 @@ namespace Sdx.Cmd
   /// TransmitterId  string       Transmitter unique identifier.
   /// SignalId       string       BOC unique identifier.
   /// Group          optional int Group, if not using default group.
+  /// Prn            optional int PRN code index to use in the BOC modulation. If zero, a random code will be used. Minimum = 0, Maximum = 32.
   ///
 
   public class SetIntTxBOC : CommandBase
@@ -50186,7 +50447,7 @@ namespace Sdx.Cmd
       : base(CmdName, TargetId)
     {}
 
-    public SetIntTxBOC(bool enabled, double centralFreq, double power, int codeRate, int codeLengthMs, int subCarrierRate, bool cosinePhaseBoc, string transmitterId, string signalId, int? group = null)
+    public SetIntTxBOC(bool enabled, double centralFreq, double power, int codeRate, int codeLengthMs, int subCarrierRate, bool cosinePhaseBoc, string transmitterId, string signalId, int? group = null, int? prn = null)
       : base(CmdName, TargetId)
     {
       Enabled = enabled;
@@ -50199,6 +50460,7 @@ namespace Sdx.Cmd
       TransmitterId = transmitterId;
       SignalId = signalId;
       Group = group;
+      Prn = prn;
     }
       
     public override bool IsValid
@@ -50313,6 +50575,18 @@ namespace Sdx.Cmd
           SetValue("Group", JToken.FromObject(value, CommandBase.Serializer));
       }
     }
+
+    public int? Prn
+    {
+      get { return GetValue("Prn").ToObject<int?>(CommandBase.Serializer); }
+      set
+      {
+        if (value == null)
+          RemoveValue("Prn");
+        else
+          SetValue("Prn", JToken.FromObject(value, CommandBase.Serializer));
+      }
+    }
   }
 
 
@@ -50383,7 +50657,7 @@ namespace Sdx.Cmd
   /// Result of GetIntTxBOC.
   ///
   /// Name           Type         Description
-  /// -------------- ------------ ------------------------------------------------------------------------------------
+  /// -------------- ------------ ------------------------------------------------------------------------------------------------------------
   /// Enabled        bool         Enable (true) or disable (false) the signal
   /// CentralFreq    double       Central frequency (Hz)
   /// Power          double       Power (dB), relative to transmitter reference power
@@ -50394,6 +50668,7 @@ namespace Sdx.Cmd
   /// TransmitterId  string       Transmitter unique identifier.
   /// SignalId       string       BOC unique identifier.
   /// Group          optional int Group, if not using default group.
+  /// Prn            optional int PRN code index to use in the BOC modulation. If zero, a random code will be used. Minimum = 0, Maximum = 32.
   ///
 
   public class GetIntTxBOCResult : CommandResult
@@ -50410,7 +50685,7 @@ namespace Sdx.Cmd
       : base(CmdName, TargetId)
     {}
 
-    public GetIntTxBOCResult(CommandBase relatedCommand, bool enabled, double centralFreq, double power, int codeRate, int codeLengthMs, int subCarrierRate, bool cosinePhaseBoc, string transmitterId, string signalId, int? group = null)
+    public GetIntTxBOCResult(CommandBase relatedCommand, bool enabled, double centralFreq, double power, int codeRate, int codeLengthMs, int subCarrierRate, bool cosinePhaseBoc, string transmitterId, string signalId, int? group = null, int? prn = null)
       : base(CmdName, TargetId, relatedCommand)
     {
       Enabled = enabled;
@@ -50423,6 +50698,7 @@ namespace Sdx.Cmd
       TransmitterId = transmitterId;
       SignalId = signalId;
       Group = group;
+      Prn = prn;
     }
       
     public override bool IsValid
@@ -50533,6 +50809,18 @@ namespace Sdx.Cmd
           RemoveValue("Group");
         else
           SetValue("Group", JToken.FromObject(value, CommandBase.Serializer));
+      }
+    }
+
+    public int? Prn
+    {
+      get { return GetValue("Prn").ToObject<int?>(CommandBase.Serializer); }
+      set
+      {
+        if (value == null)
+          RemoveValue("Prn");
+        else
+          SetValue("Prn", JToken.FromObject(value, CommandBase.Serializer));
       }
     }
   }
@@ -68026,12 +68314,14 @@ namespace Sdx.Cmd
 
 
   ///
-  /// Add a new data set for the specified constellation. This could come from a Rinex, SEM or YUMA file for GPS. Only Rinex for the others.
+  /// Add a new data set for the specified constellation. Supported data set file formats include RINEX, TLE, SEM, YUMA and SP3.
+  /// 
+  /// Note that TLE and SP3 files are not supported for the SBAS and GLONASS constellations, and that SEM and YUMA are only supported for the GPS constellation.
   ///
   /// Name         Type            Description
   /// ------------ --------------- ----------------------------------------------------------------------------------------------------------------------
   /// System       string          "GPS", "Galileo", "BeiDou", "QZSS", "NavIC" or "PULSAR"
-  /// Path         string          Data set file path
+  /// Path         string          Data set file path.
   /// Rollover     optional int    Rollover for file types that does not precise it (YUMA, SEM). Default value is the current rollover.
   /// DataSetName  optional string Name of the data set to import. This parameter is optional, the default value will be the name of the imported file.
   /// NavMsgFamily optional string Navigation message family key used to specify which ephemeris navigation message type to import from a RINEX v4+ file.
@@ -68045,7 +68335,7 @@ namespace Sdx.Cmd
   {
     public override string Documentation
     {
-      get { return "Add a new data set for the specified constellation. This could come from a Rinex, SEM or YUMA file for GPS. Only Rinex for the others."; }
+      get { return "Add a new data set for the specified constellation. Supported data set file formats include RINEX, TLE, SEM, YUMA and SP3.\n\nNote that TLE and SP3 files are not supported for the SBAS and GLONASS constellations, and that SEM and YUMA are only supported for the GPS constellation."; }
     }
 
     internal const string CmdName = "AddDataSet";
@@ -68136,6 +68426,8 @@ namespace Sdx.Cmd
 
   ///
   /// Set data set assignation for the specified constellation.
+  /// 
+  /// Note: Data sets imported from SP3 files can only be assigned to Orbits.
   ///
   /// Name        Type   Description
   /// ----------- ------ -------------------------------------------------------
@@ -68148,7 +68440,7 @@ namespace Sdx.Cmd
   {
     public override string Documentation
     {
-      get { return "Set data set assignation for the specified constellation."; }
+      get { return "Set data set assignation for the specified constellation.\n\nNote: Data sets imported from SP3 files can only be assigned to Orbits."; }
     }
 
     internal const string CmdName = "SetDataSetAssignation";
@@ -68211,6 +68503,8 @@ namespace Sdx.Cmd
 
   ///
   /// Get data set assignation for the specified constellation.
+  /// 
+  /// Note: Data sets imported from SP3 files can only be assigned to Orbits.
   ///
   /// Name        Type   Description
   /// ----------- ------ -------------------------------------------------------
@@ -68222,7 +68516,7 @@ namespace Sdx.Cmd
   {
     public override string Documentation
     {
-      get { return "Get data set assignation for the specified constellation."; }
+      get { return "Get data set assignation for the specified constellation.\n\nNote: Data sets imported from SP3 files can only be assigned to Orbits."; }
     }
 
     internal const string CmdName = "GetDataSetAssignation";
@@ -68484,7 +68778,9 @@ namespace Sdx.Cmd
 
 
   ///
-  /// Set active data set.
+  /// Set the active data set.
+  /// 
+  /// Note: Data sets imported from SP3 files cannot be set as the active data set.
   ///
   /// Name        Type   Description
   /// ----------- ------ -------------------------------------------------------
@@ -68496,7 +68792,7 @@ namespace Sdx.Cmd
   {
     public override string Documentation
     {
-      get { return "Set active data set."; }
+      get { return "Set the active data set.\n\nNote: Data sets imported from SP3 files cannot be set as the active data set."; }
     }
 
     internal const string CmdName = "SetActiveDataSet";
@@ -68547,7 +68843,7 @@ namespace Sdx.Cmd
 
 
   ///
-  /// Get active data set.
+  /// Get the active data set.
   ///
   /// Name   Type   Description
   /// ------ ------ -------------------------------------------------------
@@ -68558,7 +68854,7 @@ namespace Sdx.Cmd
   {
     public override string Documentation
     {
-      get { return "Get active data set."; }
+      get { return "Get the active data set."; }
     }
 
     internal const string CmdName = "GetActiveDataSet";
@@ -69027,8 +69323,8 @@ namespace Sdx.Cmd
   /// Set (or Modify) a SBAS service message region group.
   ///
   /// Name            Type                           Description
-  /// --------------- ------------------------------ ---------------------------------------------------------------------------------
-  /// ServiceProvider string                         Service providers, accepts "WAAS", "EGNOS", "MSAS", "GAGAN" and "SDCM".
+  /// --------------- ------------------------------ -----------------------------------------------------------------------------------------
+  /// ServiceProvider string                         Service providers, accepts "WAAS", "EGNOS", "MSAS", "GAGAN", "SDCM", "BDSBAS" and "KASS".
   /// DeltaUdrei      int                            Delta UDREI applicable inside the defined regions. Accepted range is [0..15].
   /// PriorityCode    int                            Priority code of the SBAS service message region group. Accepted range is [0..3].
   /// Regions         array SbasServiceMessageRegion Array of SBAS service message regions. Accepted size range is [1..5].
@@ -69126,8 +69422,8 @@ namespace Sdx.Cmd
   /// Get infos about the SBAS service message region group at this index.
   ///
   /// Name            Type   Description
-  /// --------------- ------ -----------------------------------------------------------------------
-  /// ServiceProvider string Service providers, accepts "WAAS", "EGNOS", "MSAS", "GAGAN" and "SDCM".
+  /// --------------- ------ -----------------------------------------------------------------------------------------
+  /// ServiceProvider string Service providers, accepts "WAAS", "EGNOS", "MSAS", "GAGAN", "SDCM", "BDSBAS" and "KASS".
   /// Id              string Unique identifier of the SBAS service message region group.
   ///
 
@@ -69189,8 +69485,8 @@ namespace Sdx.Cmd
   /// Result of GetSbasServiceMessageRegionGroup.
   ///
   /// Name            Type                           Description
-  /// --------------- ------------------------------ ---------------------------------------------------------------------------------
-  /// ServiceProvider string                         Service providers, accepts "WAAS", "EGNOS", "MSAS", "GAGAN" and "SDCM".
+  /// --------------- ------------------------------ -----------------------------------------------------------------------------------------
+  /// ServiceProvider string                         Service providers, accepts "WAAS", "EGNOS", "MSAS", "GAGAN", "SDCM", "BDSBAS" and "KASS".
   /// DeltaUdrei      int                            Delta UDREI applicable inside the defined regions. Accepted range is [0..15].
   /// PriorityCode    int                            Priority code of the SBAS service message region group. Accepted range is [0..3].
   /// Regions         array SbasServiceMessageRegion Array of SBAS service message regions. Accepted size range is [1..5].
@@ -69286,8 +69582,8 @@ namespace Sdx.Cmd
   /// Set SBAS delta UDREI outside all the defined regions for this service provider.
   ///
   /// Name            Type   Description
-  /// --------------- ------ ----------------------------------------------------------------------------------
-  /// ServiceProvider string Service providers, accepts "WAAS", "EGNOS", "MSAS", "GAGAN" and "SDCM".
+  /// --------------- ------ -----------------------------------------------------------------------------------------
+  /// ServiceProvider string Service providers, accepts "WAAS", "EGNOS", "MSAS", "GAGAN", "SDCM", "BDSBAS" and "KASS".
   /// DeltaUdrei      int    Delta UDREI applicable outside all the defined regions. Accepted range is [0..15].
   ///
 
@@ -69349,8 +69645,8 @@ namespace Sdx.Cmd
   /// Get SBAS delta UDREI outside all the defined regions for this service provider.
   ///
   /// Name            Type   Description
-  /// --------------- ------ -----------------------------------------------------------------------
-  /// ServiceProvider string Service providers, accepts "WAAS", "EGNOS", "MSAS", "GAGAN" and "SDCM".
+  /// --------------- ------ -----------------------------------------------------------------------------------------
+  /// ServiceProvider string Service providers, accepts "WAAS", "EGNOS", "MSAS", "GAGAN", "SDCM", "BDSBAS" and "KASS".
   ///
 
   public class GetSbasDeltaUdreiOutsideOfRegions : CommandBase
@@ -69400,8 +69696,8 @@ namespace Sdx.Cmd
   /// Result of GetSbasDeltaUdreiOutsideOfRegions.
   ///
   /// Name            Type   Description
-  /// --------------- ------ ----------------------------------------------------------------------------------
-  /// ServiceProvider string Service providers, accepts "WAAS", "EGNOS", "MSAS", "GAGAN" and "SDCM".
+  /// --------------- ------ -----------------------------------------------------------------------------------------
+  /// ServiceProvider string Service providers, accepts "WAAS", "EGNOS", "MSAS", "GAGAN", "SDCM", "BDSBAS" and "KASS".
   /// DeltaUdrei      int    Delta UDREI applicable outside all the defined regions. Accepted range is [0..15].
   ///
 
@@ -69461,8 +69757,8 @@ namespace Sdx.Cmd
   /// Removes a SBAS service message region group for the service provider.
   ///
   /// Name            Type   Description
-  /// --------------- ------ -----------------------------------------------------------------------
-  /// ServiceProvider string Service providers, accepts "WAAS", "EGNOS", "MSAS", "GAGAN" and "SDCM".
+  /// --------------- ------ -----------------------------------------------------------------------------------------
+  /// ServiceProvider string Service providers, accepts "WAAS", "EGNOS", "MSAS", "GAGAN", "SDCM", "BDSBAS" and "KASS".
   /// Id              string Unique identifier of the SBAS service message region group to remove.
   ///
 
@@ -69524,8 +69820,8 @@ namespace Sdx.Cmd
   /// Clears all SBAS service message region group for this service provider.
   ///
   /// Name            Type   Description
-  /// --------------- ------ -----------------------------------------------------------------------
-  /// ServiceProvider string Service providers, accepts "WAAS", "EGNOS", "MSAS", "GAGAN" and "SDCM".
+  /// --------------- ------ -----------------------------------------------------------------------------------------
+  /// ServiceProvider string Service providers, accepts "WAAS", "EGNOS", "MSAS", "GAGAN", "SDCM", "BDSBAS" and "KASS".
   ///
 
   public class ClearAllSbasServiceMessageRegionGroup : CommandBase
@@ -69572,11 +69868,208 @@ namespace Sdx.Cmd
 
 
   ///
+  /// Set the SBAS degradation parameters for the specified service provider.
+  ///
+  /// Name                          Type               Description
+  /// ----------------------------- ------------------ -----------------------------------------------------------------------------------------
+  /// ServiceProvider               string             Service providers, accepts "WAAS", "EGNOS", "MSAS", "GAGAN", "SDCM", "BDSBAS" and "KASS".
+  /// DegradationParameterValueDict dict string:double A dictionary of degradationparameter value pairs.
+  ///                                                  Accepted keys are: "BRRC", "CLTC_LSB", "CLTC_V1", "ILTC_V1", "CLTC_V0",
+  ///                                                                     "ILTC_V0", "CGEO_LSB", "CGEO_V", "IGEO", "CER", "CIONO_STEP",
+  ///                                                                     "IIONO", "CIONO_RAMP", "RSSUDRE", "RSSIONO" and "CCOVARIANCE"
+  ///
+
+  public class SetSbasDegradationParameters : CommandBase
+  {
+    public override string Documentation
+    {
+      get { return "Set the SBAS degradation parameters for the specified service provider."; }
+    }
+
+    internal const string CmdName = "SetSbasDegradationParameters";
+    internal const string TargetId = "";
+
+    public SetSbasDegradationParameters()
+      : base(CmdName, TargetId)
+    {}
+
+    public SetSbasDegradationParameters(string serviceProvider, Dictionary<string, double> degradationParameterValueDict)
+      : base(CmdName, TargetId)
+    {
+      ServiceProvider = serviceProvider;
+      DegradationParameterValueDict = degradationParameterValueDict;
+    }
+      
+    public override bool IsValid
+    {
+      get
+      {
+        return base.IsValid
+        && Contains("ServiceProvider")
+        && Contains("DegradationParameterValueDict")
+      ;
+      }
+    }
+
+    public override int ExecutePermission { get { return EXECUTE_IF_IDLE; } }
+
+    public string ServiceProvider
+    {
+      get { return GetValue("ServiceProvider").ToObject<string>(CommandBase.Serializer); }
+      set
+      {
+          SetValue("ServiceProvider", JToken.FromObject(value, CommandBase.Serializer));
+      }
+    }
+
+    public Dictionary<string, double> DegradationParameterValueDict
+    {
+      get { return GetValue("DegradationParameterValueDict").ToObject<Dictionary<string, double>>(CommandBase.Serializer); }
+      set
+      {
+          SetValue("DegradationParameterValueDict", JToken.FromObject(value, CommandBase.Serializer));
+      }
+    }
+  }
+
+
+  ///
+  /// Get the SBAS degradation parameters for the specified service provider. By default, all degradation parameters are returned. If specific parameter names are provided, only those parameters are returned.
+  ///
+  /// Name                      Type         Description
+  /// ------------------------- ------------ -----------------------------------------------------------------------------------------
+  /// ServiceProvider           string       Service providers, accepts "WAAS", "EGNOS", "MSAS", "GAGAN", "SDCM", "BDSBAS" and "KASS".
+  /// DegradationParameterArray array string An array of degradationparameters.
+  ///                                        Accepted values are: "BRRC", "CLTC_LSB", "CLTC_V1", "ILTC_V1", "CLTC_V0",
+  ///                                                             "ILTC_V0", "CGEO_LSB", "CGEO_V", "IGEO", "CER",
+  ///                                                             "CIONO_STEP", "IIONO", "CIONO_RAMP", "RSSUDRE", "RSSIONO"
+  ///                                                             and "CCOVARIANCE"
+  ///
+
+  public class GetSbasDegradationParameters : CommandBase
+  {
+    public override string Documentation
+    {
+      get { return "Get the SBAS degradation parameters for the specified service provider. By default, all degradation parameters are returned. If specific parameter names are provided, only those parameters are returned."; }
+    }
+
+    internal const string CmdName = "GetSbasDegradationParameters";
+    internal const string TargetId = "";
+
+    public GetSbasDegradationParameters()
+      : base(CmdName, TargetId)
+    {}
+
+    public GetSbasDegradationParameters(string serviceProvider, List<string> degradationParameterArray)
+      : base(CmdName, TargetId)
+    {
+      ServiceProvider = serviceProvider;
+      DegradationParameterArray = degradationParameterArray;
+    }
+      
+    public override bool IsValid
+    {
+      get
+      {
+        return base.IsValid
+        && Contains("ServiceProvider")
+        && Contains("DegradationParameterArray")
+      ;
+      }
+    }
+
+    public override int ExecutePermission { get { return EXECUTE_IF_IDLE; } }
+
+    public string ServiceProvider
+    {
+      get { return GetValue("ServiceProvider").ToObject<string>(CommandBase.Serializer); }
+      set
+      {
+          SetValue("ServiceProvider", JToken.FromObject(value, CommandBase.Serializer));
+      }
+    }
+
+    public List<string> DegradationParameterArray
+    {
+      get { return GetValue("DegradationParameterArray").ToObject<List<string>>(CommandBase.Serializer); }
+      set
+      {
+          SetValue("DegradationParameterArray", JToken.FromObject(value, CommandBase.Serializer));
+      }
+    }
+  }
+
+
+  ///
+  /// Result of GetSbasDegradationParameters.
+  ///
+  /// Name                          Type               Description
+  /// ----------------------------- ------------------ -----------------------------------------------------------------------------------------
+  /// ServiceProvider               string             Service providers, accepts "WAAS", "EGNOS", "MSAS", "GAGAN", "SDCM", "BDSBAS" and "KASS".
+  /// DegradationParameterValueDict dict string:double A dictionary of degradationparameter value pairs.
+  ///                                                  Accepted keys are: "BRRC", "CLTC_LSB", "CLTC_V1", "ILTC_V1", "CLTC_V0",
+  ///                                                                     "ILTC_V0", "CGEO_LSB", "CGEO_V", "IGEO", "CER", "CIONO_STEP",
+  ///                                                                     "IIONO", "CIONO_RAMP", "RSSUDRE", "RSSIONO" and "CCOVARIANCE"
+  ///
+
+  public class GetSbasDegradationParametersResult : CommandResult
+  {
+    public override string Documentation
+    {
+      get { return "Result of GetSbasDegradationParameters."; }
+    }
+
+    internal const string CmdName = "GetSbasDegradationParametersResult";
+    internal const string TargetId = "";
+
+    public GetSbasDegradationParametersResult()
+      : base(CmdName, TargetId)
+    {}
+
+    public GetSbasDegradationParametersResult(CommandBase relatedCommand, string serviceProvider, Dictionary<string, double> degradationParameterValueDict)
+      : base(CmdName, TargetId, relatedCommand)
+    {
+      ServiceProvider = serviceProvider;
+      DegradationParameterValueDict = degradationParameterValueDict;
+    }
+      
+    public override bool IsValid
+    {
+      get
+      {
+        return base.IsValid
+        && Contains("ServiceProvider")
+        && Contains("DegradationParameterValueDict")
+      ;
+      }
+    }
+
+    public string ServiceProvider
+    {
+      get { return GetValue("ServiceProvider").ToObject<string>(CommandBase.Serializer); }
+      set
+      {
+          SetValue("ServiceProvider", JToken.FromObject(value, CommandBase.Serializer));
+      }
+    }
+
+    public Dictionary<string, double> DegradationParameterValueDict
+    {
+      get { return GetValue("DegradationParameterValueDict").ToObject<Dictionary<string, double>>(CommandBase.Serializer); }
+      set
+      {
+          SetValue("DegradationParameterValueDict", JToken.FromObject(value, CommandBase.Serializer));
+      }
+    }
+  }
+
+
+  ///
   /// Swaps 2 SBAS service message region group.
   ///
   /// Name            Type   Description
-  /// --------------- ------ ---------------------------------------------------------------------------------
-  /// ServiceProvider string Service providers, accepts "WAAS", "EGNOS", "MSAS", "GAGAN" and "SDCM".
+  /// --------------- ------ -----------------------------------------------------------------------------------------
+  /// ServiceProvider string Service providers, accepts "WAAS", "EGNOS", "MSAS", "GAGAN", "SDCM", "BDSBAS" and "KASS".
   /// FirstId         string Unique identifier of the SBAS service message region group to swap with SecondId.
   /// SecondId        string Unique identifier of the SBAS service message region group to swap with FirstId.
   ///
@@ -70369,7 +70862,7 @@ namespace Sdx.Cmd
 
 
   ///
-  /// Push a block of data defining the orbit, clock, and other parameters for one SV.
+  /// Push a block of data defining the almanac for the constellation. By default, all SVs will use the same almanac data. Use the SvId parameter to push the almanac for a specific SV.
   ///   ParamName           Unit
   ///   "Time of ephemeris" sec (of GPS week)
   ///   "Week Number"       week
@@ -70388,17 +70881,18 @@ namespace Sdx.Cmd
   ///   "Idot"              rad/sec
   ///
   /// Name    Type                Description
-  /// ------- ------------------- --------------------------------------------------------
+  /// ------- ------------------- -------------------------------------------------------------------------------------
   /// System  string              "GPS", "Galileo", "BeiDou", "QZSS", "NavIC" or "PULSAR".
   /// Toa     datetime            Time of applicability.
   /// Almanac array AlmanacSVData Array of almanac data for SVs.
+  /// SvId    optional int        The Satellite SV ID to apply the almanac to. Leave empty or use 0 for all satellites.
   ///
 
   public class PushDynamicAlmanacData : CommandBase
   {
     public override string Documentation
     {
-      get { return "Push a block of data defining the orbit, clock, and other parameters for one SV.\n  ParamName           Unit\n  \"Time of ephemeris\" sec (of GPS week)\n  \"Week Number\"       week\n  \"Transmission Time\" sec (of GPS week)\n  \"ClockBias\"         sec\n  \"ClockDrift\"        sec/sec\n  \"ClockDriftRate\"    sec/sec^2\n  \"DeltaN\"            rad/sec\n  \"M0\"                rad\n  \"Eccentricity\"      -\n  \"SqrtA\"             sqrt(meter)\n  \"BigOmega\"          rad\n  \"I0\"                rad\n  \"LittleOmega\"       rad\n  \"BigOmegaDot\"       rad/sec\n  \"Idot\"              rad/sec"; }
+      get { return "Push a block of data defining the almanac for the constellation. By default, all SVs will use the same almanac data. Use the SvId parameter to push the almanac for a specific SV.\n  ParamName           Unit\n  \"Time of ephemeris\" sec (of GPS week)\n  \"Week Number\"       week\n  \"Transmission Time\" sec (of GPS week)\n  \"ClockBias\"         sec\n  \"ClockDrift\"        sec/sec\n  \"ClockDriftRate\"    sec/sec^2\n  \"DeltaN\"            rad/sec\n  \"M0\"                rad\n  \"Eccentricity\"      -\n  \"SqrtA\"             sqrt(meter)\n  \"BigOmega\"          rad\n  \"I0\"                rad\n  \"LittleOmega\"       rad\n  \"BigOmegaDot\"       rad/sec\n  \"Idot\"              rad/sec"; }
     }
 
     internal const string CmdName = "PushDynamicAlmanacData";
@@ -70408,12 +70902,13 @@ namespace Sdx.Cmd
       : base(CmdName, TargetId)
     {}
 
-    public PushDynamicAlmanacData(string system, DateTime toa, List<AlmanacSVData> almanac)
+    public PushDynamicAlmanacData(string system, DateTime toa, List<AlmanacSVData> almanac, int? svId = null)
       : base(CmdName, TargetId)
     {
       System = system;
       Toa = toa;
       Almanac = almanac;
+      SvId = svId;
     }
       
     public override bool IsValid
@@ -70454,6 +70949,18 @@ namespace Sdx.Cmd
       set
       {
           SetValue("Almanac", JToken.FromObject(value, CommandBase.Serializer));
+      }
+    }
+
+    public int? SvId
+    {
+      get { return GetValue("SvId").ToObject<int?>(CommandBase.Serializer); }
+      set
+      {
+        if (value == null)
+          RemoveValue("SvId");
+        else
+          SetValue("SvId", JToken.FromObject(value, CommandBase.Serializer));
       }
     }
   }
@@ -75049,6 +75556,143 @@ namespace Sdx.Cmd
 
 
   ///
+  /// Set the device mode of the CDM-7 clock distribution and timing reference module.
+  /// 
+  /// Note: All connected CDM-7 modules operate in the same device mode.
+  ///
+  /// Name       Type   Description
+  /// ---------- ------ --------------------------------------------------------------------------------------------------------------
+  /// DeviceMode string CDM-7 device mode. Supported device modes are: "Internal", "Synchronous External" and "Asynchronous External".
+  ///
+
+  public class SetCdm7DeviceMode : CommandBase
+  {
+    public override string Documentation
+    {
+      get { return "Set the device mode of the CDM-7 clock distribution and timing reference module.\n\nNote: All connected CDM-7 modules operate in the same device mode."; }
+    }
+
+    internal const string CmdName = "SetCdm7DeviceMode";
+    internal const string TargetId = "";
+
+    public SetCdm7DeviceMode()
+      : base(CmdName, TargetId)
+    {}
+
+    public SetCdm7DeviceMode(string deviceMode)
+      : base(CmdName, TargetId)
+    {
+      DeviceMode = deviceMode;
+    }
+      
+    public override bool IsValid
+    {
+      get
+      {
+        return base.IsValid
+        && Contains("DeviceMode")
+      ;
+      }
+    }
+
+    public override int ExecutePermission { get { return EXECUTE_IF_NO_CONFIG | EXECUTE_IF_IDLE; } }
+
+    public string DeviceMode
+    {
+      get { return GetValue("DeviceMode").ToObject<string>(CommandBase.Serializer); }
+      set
+      {
+          SetValue("DeviceMode", JToken.FromObject(value, CommandBase.Serializer));
+      }
+    }
+  }
+
+
+  ///
+  /// Get the device mode of the CDM-7 clock distribution and timing reference module.
+  /// 
+  /// Note: All connected CDM-7 modules operate in the same device mode.
+  ///
+  /// 
+  ///
+
+  public class GetCdm7DeviceMode : CommandBase
+  {
+    public override string Documentation
+    {
+      get { return "Get the device mode of the CDM-7 clock distribution and timing reference module.\n\nNote: All connected CDM-7 modules operate in the same device mode."; }
+    }
+
+    internal const string CmdName = "GetCdm7DeviceMode";
+    internal const string TargetId = "";
+
+    public GetCdm7DeviceMode()
+      : base(CmdName, TargetId)
+    {}
+      
+    public override bool IsValid
+    {
+      get
+      {
+        return base.IsValid
+      ;
+      }
+    }
+
+    public override int ExecutePermission { get { return EXECUTE_IF_NO_CONFIG | EXECUTE_IF_IDLE; } }
+  }
+
+
+  ///
+  /// Result of GetCdm7DeviceMode.
+  ///
+  /// Name       Type   Description
+  /// ---------- ------ --------------------------------------------------------------------------------------------------------------
+  /// DeviceMode string CDM-7 device mode. Supported device modes are: "Internal", "Synchronous External" and "Asynchronous External".
+  ///
+
+  public class GetCdm7DeviceModeResult : CommandResult
+  {
+    public override string Documentation
+    {
+      get { return "Result of GetCdm7DeviceMode."; }
+    }
+
+    internal const string CmdName = "GetCdm7DeviceModeResult";
+    internal const string TargetId = "";
+
+    public GetCdm7DeviceModeResult()
+      : base(CmdName, TargetId)
+    {}
+
+    public GetCdm7DeviceModeResult(CommandBase relatedCommand, string deviceMode)
+      : base(CmdName, TargetId, relatedCommand)
+    {
+      DeviceMode = deviceMode;
+    }
+      
+    public override bool IsValid
+    {
+      get
+      {
+        return base.IsValid
+        && Contains("DeviceMode")
+      ;
+      }
+    }
+
+    public string DeviceMode
+    {
+      get { return GetValue("DeviceMode").ToObject<string>(CommandBase.Serializer); }
+      set
+      {
+          SetValue("DeviceMode", JToken.FromObject(value, CommandBase.Serializer));
+      }
+    }
+  }
+
+
+  ///
   /// Set the GNSS dynamic range offset. Changing this value shifts the dynamic power range available for GNSS signals. Increasing this value allows to simulate higher power signals and avoid IQ overflows. The range of the satellite power sliders in the Constellation tab is shifted by this offset.
   ///
   /// Name   Type   Description
@@ -75755,6 +76399,69 @@ namespace Sdx.Cmd
       set
       {
           SetValue("Id", JToken.FromObject(value, CommandBase.Serializer));
+      }
+    }
+  }
+
+
+  ///
+  /// Set a time offset in nanoseconds to be applied to a Dektec radio.
+  ///
+  /// Name       Type Description
+  /// ---------- ---- ------------------------------------
+  /// Output     int  Output index (zero based).
+  /// TimeOffset int  Time offset to apply in nanoseconds.
+  ///
+
+  public class SetDektecTimeOffset : CommandBase
+  {
+    public override string Documentation
+    {
+      get { return "Set a time offset in nanoseconds to be applied to a Dektec radio."; }
+    }
+
+    internal const string CmdName = "SetDektecTimeOffset";
+    internal const string TargetId = "";
+
+    public SetDektecTimeOffset()
+      : base(CmdName, TargetId)
+    {}
+
+    public SetDektecTimeOffset(int output, int timeOffset)
+      : base(CmdName, TargetId)
+    {
+      Output = output;
+      TimeOffset = timeOffset;
+    }
+      
+    public override bool IsValid
+    {
+      get
+      {
+        return base.IsValid
+        && Contains("Output")
+        && Contains("TimeOffset")
+      ;
+      }
+    }
+
+    public override int ExecutePermission { get { return EXECUTE_IF_IDLE; } }
+
+    public int Output
+    {
+      get { return GetValue("Output").ToObject<int>(CommandBase.Serializer); }
+      set
+      {
+          SetValue("Output", JToken.FromObject(value, CommandBase.Serializer));
+      }
+    }
+
+    public int TimeOffset
+    {
+      get { return GetValue("TimeOffset").ToObject<int>(CommandBase.Serializer); }
+      set
+      {
+          SetValue("TimeOffset", JToken.FromObject(value, CommandBase.Serializer));
       }
     }
   }
@@ -83446,6 +84153,76 @@ namespace Sdx.Cmd
       set
       {
           SetValue("Gain", JToken.FromObject(value, CommandBase.Serializer));
+      }
+    }
+  }
+
+
+  ///
+  /// Please note the command SetSbasServiceHealthForSV is deprecated since 25.9. You may use SetSbasServiceProviderForSV.
+  /// 
+  /// Apply service provider for a satellite
+  ///
+  /// Name   Type Description
+  /// ------ ---- ---------------------
+  /// SvId   int  The satellite's SV ID
+  /// Health int  The service provider
+  ///
+
+  public class SetSbasServiceHealthForSV : CommandBase
+  {
+    public override string Documentation
+    {
+      get { return "Please note the command SetSbasServiceHealthForSV is deprecated since 25.9. You may use SetSbasServiceProviderForSV.\n\nApply service provider for a satellite"; }
+    }
+
+    public override string Deprecated
+    {
+      get { return "Please note the command SetSbasServiceHealthForSV is deprecated since 25.9. You may use SetSbasServiceProviderForSV."; }
+    }
+
+    internal const string CmdName = "SetSbasServiceHealthForSV";
+    internal const string TargetId = "";
+
+    public SetSbasServiceHealthForSV()
+      : base(CmdName, TargetId)
+    {}
+
+    public SetSbasServiceHealthForSV(int svId, int health)
+      : base(CmdName, TargetId)
+    {
+      SvId = svId;
+      Health = health;
+    }
+      
+    public override bool IsValid
+    {
+      get
+      {
+        return base.IsValid
+        && Contains("SvId")
+        && Contains("Health")
+      ;
+      }
+    }
+
+    public override int ExecutePermission { get { return EXECUTE_IF_IDLE; } }
+
+    public int SvId
+    {
+      get { return GetValue("SvId").ToObject<int>(CommandBase.Serializer); }
+      set
+      {
+          SetValue("SvId", JToken.FromObject(value, CommandBase.Serializer));
+      }
+    }
+
+    public int Health
+    {
+      get { return GetValue("Health").ToObject<int>(CommandBase.Serializer); }
+      set
+      {
+          SetValue("Health", JToken.FromObject(value, CommandBase.Serializer));
       }
     }
   }

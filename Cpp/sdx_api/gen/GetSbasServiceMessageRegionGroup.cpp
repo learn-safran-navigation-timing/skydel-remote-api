@@ -16,8 +16,8 @@ namespace Sdx
     const char* const GetSbasServiceMessageRegionGroup::Documentation = "Get infos about the SBAS service message region group at this index.\n"
       "\n"
       "Name            Type   Description\n"
-      "--------------- ------ -----------------------------------------------------------------------\n"
-      "ServiceProvider string Service providers, accepts \"WAAS\", \"EGNOS\", \"MSAS\", \"GAGAN\" and \"SDCM\".\n"
+      "--------------- ------ -----------------------------------------------------------------------------------------\n"
+      "ServiceProvider string Service providers, accepts \"WAAS\", \"EGNOS\", \"MSAS\", \"GAGAN\", \"SDCM\", \"BDSBAS\" and \"KASS\".\n"
       "Id              string Unique identifier of the SBAS service message region group.";
     const char* const GetSbasServiceMessageRegionGroup::TargetId = "";
 

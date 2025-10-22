@@ -10,7 +10,9 @@ namespace Sdx
   namespace Cmd
   {
     ///
-    /// Set active data set.
+    /// Set the active data set.
+    /// 
+    /// Note: Data sets imported from SP3 files cannot be set as the active data set.
     ///
     /// Name        Type   Description
     /// ----------- ------ -------------------------------------------------------
