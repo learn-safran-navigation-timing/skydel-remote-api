@@ -13,11 +13,11 @@ namespace Sdx
   namespace Cmd
   {
     const char* const EnableDektecAdjustedNoise::CmdName = "EnableDektecAdjustedNoise";
-    const char* const EnableDektecAdjustedNoise::Documentation = "Adjusts the Advanced Jammer IQ data amplitude on the Dektec output by adding noise to ensure power level linearity on weak jammer signals. Note that enabling this option will increase the noise observed at the RF output for all jammer signal power levels.\n"
+    const char* const EnableDektecAdjustedNoise::Documentation = "Adjusts the IQ data amplitude on the Dektec output by adding noise to ensure power level linearity on weak jammer signals. Note that enabling this option will increase the noise observed at the RF output when simulating jammers.\n"
       "\n"
       "Name   Type Description\n"
-      "------ ---- ----------------------------------------------------------------\n"
-      "Enable bool True to enable Advance Jammer noise adjustment on Dektec output.";
+      "------ ---- -------------------------------------------------\n"
+      "Enable bool True to enable noise adjustment on Dektec output.";
     const char* const EnableDektecAdjustedNoise::TargetId = "";
 
     REGISTER_COMMAND_TO_FACTORY_DECL(EnableDektecAdjustedNoise);

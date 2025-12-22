@@ -18,7 +18,7 @@ namespace Sdx
       "Name             Type         Description\n"
       "---------------- ------------ ------------------------------------------------------------------------------------\n"
       "SignalArray      array string Array of signals to apply the message modification to, accepts \"B1C\" (empty for all)\n"
-      "SvId             int          The satellite's SV ID 1..35 (use 0 to apply modification to all SVs)\n"
+      "SvId             int          The satellite's SV ID 1..63 (use 0 to apply modification to all SVs)\n"
       "StartTime        int          Elapsed time in seconds since start of simulation\n"
       "StopTime         int          Elapsed time in seconds since start of simulation (use 0 for no stop time)\n"
       "Page             int          CNAV1 page (use 0 to apply modification to all pages)\n"

@@ -984,29 +984,29 @@ BeiDouCNAV1DictType2 = [
     # reduced almanac 1
     {'name':"PRNa1",    'range':[672,677]},
     {'name':"SatType1", 'range':[678,679]},
-    {'name':"deltaA1",  'range':[680,687], 'signed':True, 'factor':2**9, 'unit':utility.METER},
-    {'name':"omega01",  'range':[688,694], 'signed':True, 'factor':2**-6, 'unit':utility.PI},
+    {'name':"deltaA1",  'range':[680,687], 'signed':True, 'factor':2**9,  'unit':utility.METER},
+    {'name':"Omega01",  'range':[688,694], 'signed':True, 'factor':2**-6, 'unit':utility.PI},
     {'name':"phi01",    'range':[695,701], 'signed':True, 'factor':2**-6, 'unit':utility.PI},
     {'name':"Health1",  'range':[702,709]},
     # reduced almanac 2
     {'name':"PRNa2",    'range':[710,715]},
     {'name':"SatType2", 'range':[716,717]},
-    {'name':"deltaA2",  'range':[718,725], 'signed':True, 'factor':2**9, 'unit':utility.METER},
-    {'name':"omega02",  'range':[726,732], 'signed':True, 'factor':2**-6, 'unit':utility.PI},
+    {'name':"deltaA2",  'range':[718,725], 'signed':True, 'factor':2**9,  'unit':utility.METER},
+    {'name':"Omega02",  'range':[726,732], 'signed':True, 'factor':2**-6, 'unit':utility.PI},
     {'name':"phi02",    'range':[733,739], 'signed':True, 'factor':2**-6, 'unit':utility.PI},
     {'name':"Health2",  'range':[740,747]},
     # reduced almanac 3
     {'name':"PRNa3",    'range':[748,753]},
     {'name':"SatType3", 'range':[754,755]},
-    {'name':"deltaA3",  'range':[756,763], 'signed':True, 'factor':2**9, 'unit':utility.METER},
-    {'name':"omega03",  'range':[764,770], 'signed':True, 'factor':2**-6, 'unit':utility.PI},
+    {'name':"deltaA3",  'range':[756,763], 'signed':True, 'factor':2**9,  'unit':utility.METER},
+    {'name':"Omega03",  'range':[764,770], 'signed':True, 'factor':2**-6, 'unit':utility.PI},
     {'name':"phi03",    'range':[771,777], 'signed':True, 'factor':2**-6, 'unit':utility.PI},
     {'name':"Health3",  'range':[778,785]},
     # reduced almanac 4
     {'name':"PRNa4",    'range':[786,791]},
     {'name':"SatType4", 'range':[792,793]},
-    {'name':"deltaA4",  'range':[794,801], 'signed':True, 'factor':2**9, 'unit':utility.METER},
-    {'name':"omega04",  'range':[802,808], 'signed':True, 'factor':2**-6, 'unit':utility.PI},
+    {'name':"deltaA4",  'range':[794,801], 'signed':True, 'factor':2**9,  'unit':utility.METER},
+    {'name':"Omega04",  'range':[802,808], 'signed':True, 'factor':2**-6, 'unit':utility.PI},
     {'name':"phi04",    'range':[809,815], 'signed':True, 'factor':2**-6, 'unit':utility.PI},
     {'name':"Health4",  'range':[816,823]},
 
@@ -1066,7 +1066,7 @@ BeiDouCNAV1DictType3 = [
     {'name':"SISAIoe",     'range':[629,633]},
     # EOP
     {'name':"teop",        'range':[634,649],                  'factor':2**4,   'unit':utility.SECOND},
-    {'name':"PX_X",        'range':[650,670],   'signed':True, 'factor':2**-20, 'unit':utility.ARC_SECOND},
+    {'name':"PM_X",        'range':[650,670],   'signed':True, 'factor':2**-20, 'unit':utility.ARC_SECOND},
     {'name':"PM_Xdot",     'range':[671,685],   'signed':True, 'factor':2**-21, 'unit':utility.ARC_SECOND_PER_DAY},
     {'name':"PM_Y",        'range':[686,706],   'signed':True, 'factor':2**-20, 'unit':utility.ARC_SECOND},
     {'name':"PM_Ydot",     'range':[707,721],  'signed':True, 'factor':2**-21, 'unit':utility.ARC_SECOND_PER_DAY},
@@ -1159,31 +1159,35 @@ BeiDouCNAV1DictType4 = [
 
 BeiDouCNAV1Subframe3Types = {1:BeiDouCNAV1DictType1, 2:BeiDouCNAV1DictType2, 3:BeiDouCNAV1DictType3, 4:BeiDouCNAV1DictType4}
 
+"""
+    Informations for decoding BeiDou CNAV2 navigation messages.
+"""
+
 BeiDouCNAV2DictType10 = [
-    {'name':"PRN",      'range':[0,5]},
-    {'name':"MesType",  'range':[6,11]},
-    {'name':"SOW",      'range':[12,29],                  'factor':3,       'unit':utility.SECOND},
-    {'name':"WN",       'range':[30,42],                                    'unit':utility.WEEK},
-    {'name':"DIF(B2a)", 'range':[43,43]},
-    {'name':"SIF(B2a)", 'range':[44,44]},
-    {'name':"AIF(B2a)", 'range':[45,45]},
-    {'name':"SISMAI",   'range':[46,49]},
-    {'name':"DIF(B1C)", 'range':[50,50]},
-    {'name':"SIF(B1C)", 'range':[51,51]},
-    {'name':"AIF(B1C)", 'range':[52,52]},
-    {'name':"IODE",     'range':[53,60]},
+    {'name':"PRN",       'range':[0,5]},
+    {'name':"MesType",   'range':[6,11]},
+    {'name':"SOW",       'range':[12,29],                  'factor':3,       'unit':utility.SECOND},
+    {'name':"WN",        'range':[30,42],                                    'unit':utility.WEEK},
+    {'name':"DIF(B2a)",  'range':[43,43]},
+    {'name':"SIF(B2a)",  'range':[44,44]},
+    {'name':"AIF(B2a)",  'range':[45,45]},
+    {'name':"SISMAI",    'range':[46,49]},
+    {'name':"DIF(B1C)",  'range':[50,50]},
+    {'name':"SIF(B1C)",  'range':[51,51]},
+    {'name':"AIF(B1C)",  'range':[52,52]},
+    {'name':"IODE",      'range':[53,60]},
     #Start of Ephemeris 1
-    {'name':"toe",      'range':[61,71],                  'factor':300,     'unit':utility.SECOND},
-    {'name':"SatType",  'range':[72,73],},
-    {'name':"DeltaA",   'range':[74,99],   'signed':True, 'factor':2**-9,   'unit':utility.METER},
-    {'name':"ADot",     'range':[100,124], 'signed':True, 'factor':2**-21,  'unit':utility.METER_PER_SECOND},
-    {'name':"Deltan0",  'range':[125,141], 'signed':True, 'factor':2**-44,  'unit':utility.PI_PER_SECOND},
-    {'name':"Deltan0Dot",'range':[142,164],'signed':True, 'factor':2**-57,  'unit':utility.PI_PER_SECOND_SQUARED},
-    {'name':"M0",       'range':[165,197], 'signed':True, 'factor':2**-32,  'unit':utility.PI},
-    {'name':"e",        'range':[198,230],                'factor':2**-34},
-    {'name':"omega",    'range':[231,263], 'signed':True, 'factor':2**-32,  'unit':utility.PI},
+    {'name':"toe",       'range':[61,71],                  'factor':300,     'unit':utility.SECOND},
+    {'name':"SatType",   'range':[72,73],},
+    {'name':"DeltaA",    'range':[74,99],   'signed':True, 'factor':2**-9,   'unit':utility.METER},
+    {'name':"ADot",      'range':[100,124], 'signed':True, 'factor':2**-21,  'unit':utility.METER_PER_SECOND},
+    {'name':"Deltan0",   'range':[125,141], 'signed':True, 'factor':2**-44,  'unit':utility.PI_PER_SECOND},
+    {'name':"Deltan0Dot",'range':[142,164], 'signed':True, 'factor':2**-57,  'unit':utility.PI_PER_SECOND_SQUARED},
+    {'name':"M0",        'range':[165,197], 'signed':True, 'factor':2**-32,  'unit':utility.PI},
+    {'name':"e",         'range':[198,230],                'factor':2**-34},
+    {'name':"omega",     'range':[231,263], 'signed':True, 'factor':2**-32,  'unit':utility.PI},
     #End of Ephemeris 1
-    {'name':"CRC",      'range':[264,287]}]
+    {'name':"CRC",       'range':[264,287]}]
 
 BeiDouCNAV2DictType11 = [
     {'name':"PRN",      'range':[0,5]},
@@ -1248,26 +1252,26 @@ BeiDouCNAV2DictType30 = [
     {'name':"CRC",      'range':[264,287]}]
 
 BeiDouCNAV2DictType31 = [
-    {'name':"PRN",      'range':[0,5]},
-    {'name':"MesType",  'range':[6,11]},
-    {'name':"SOW",      'range':[12,29],                  'factor':3,       'unit':utility.SECOND},
-    {'name':"HS",       'range':[30,31]},
-    {'name':"DIF(B2a)", 'range':[32,32]},
-    {'name':"SIF(B2a)", 'range':[33,33]},
-    {'name':"AIF(B2a)", 'range':[34,34]},
-    {'name':"SISMAI",   'range':[35,38]},
-    {'name':"DIF(B1C)", 'range':[39,39]},
-    {'name':"SIF(B1C)", 'range':[40,40]},
-    {'name':"AIF(B1C)", 'range':[41,41]},
+    {'name':"PRN",       'range':[0,5]},
+    {'name':"MesType",   'range':[6,11]},
+    {'name':"SOW",       'range':[12,29],                  'factor':3,       'unit':utility.SECOND},
+    {'name':"HS",        'range':[30,31]},
+    {'name':"DIF(B2a)",  'range':[32,32]},
+    {'name':"SIF(B2a)",  'range':[33,33]},
+    {'name':"AIF(B2a)",  'range':[34,34]},
+    {'name':"SISMAI",    'range':[35,38]},
+    {'name':"DIF(B1C)",  'range':[39,39]},
+    {'name':"SIF(B1C)",  'range':[40,40]},
+    {'name':"AIF(B1C)",  'range':[41,41]},
     #Start of clock correction params
-    {'name':"toc",      'range':[42,52],                  'factor':300,     'unit':utility.SECOND},
-    {'name':"a0",       'range':[53,77],   'signed':True, 'factor':2**-34,  'unit':utility.SECOND},
-    {'name':"a1",       'range':[78,99],   'signed':True, 'factor':2**-50,  'unit':utility.SECOND_PER_SECOND},
-    {'name':"a2",       'range':[100,110], 'signed':True, 'factor':2**-66,  'unit':utility.SECOND_PER_SECOND_SQUARED},
+    {'name':"toc",       'range':[42,52],                  'factor':300,     'unit':utility.SECOND},
+    {'name':"a0",        'range':[53,77],   'signed':True, 'factor':2**-34,  'unit':utility.SECOND},
+    {'name':"a1",        'range':[78,99],   'signed':True, 'factor':2**-50,  'unit':utility.SECOND_PER_SECOND},
+    {'name':"a2",        'range':[100,110], 'signed':True, 'factor':2**-66,  'unit':utility.SECOND_PER_SECOND_SQUARED},
     #End of clock correction params
-    {'name':"IODC",     'range':[111,120]},
-    {'name':"WNa",      'range':[121,133],                                  'unit':utility.WEEK},
-    {'name':"toa",      'range':[134,141],                'factor':2**12,   'unit':utility.SECOND},
+    {'name':"IODC",      'range':[111,120]},
+    {'name':"WNa",       'range':[121,133],                                  'unit':utility.WEEK},
+    {'name':"toa",       'range':[134,141],                'factor':2**12,   'unit':utility.SECOND},
     #Start of Reduced almanac 1
     {'name':"PRNA1",     'range':[142,147]},
     {'name':"SatType1",  'range':[148,149]},
@@ -1277,54 +1281,54 @@ BeiDouCNAV2DictType31 = [
     {'name':"Health1",   'range':[172,179]},
     #End of Reduced alamnac 1
     #Start of Reduced almanac 2
-    {'name':"PRNA",     'range':[180,185]},
-    {'name':"SatType",  'range':[186,187]},
-    {'name':"deltaA",   'range':[188,195], 'signed':True, 'factor':2**9,    'unit':utility.METER},
-    {'name':"Omega0",   'range':[196,202], 'signed':True, 'factor':2**-6,   'unit':utility.PI},
-    {'name':"Phi0",     'range':[203,209], 'signed':True, 'factor':2**-6,   'unit':utility.PI},
-    {'name':"Health",   'range':[210,217]},
-    #End of Reduced alamnac 2
+    {'name':"PRNA",      'range':[180,185]},
+    {'name':"SatType",   'range':[186,187]},
+    {'name':"deltaA",    'range':[188,195], 'signed':True, 'factor':2**9,    'unit':utility.METER},
+    {'name':"Omega0",    'range':[196,202], 'signed':True, 'factor':2**-6,   'unit':utility.PI},
+    {'name':"Phi0",      'range':[203,209], 'signed':True, 'factor':2**-6,   'unit':utility.PI},
+    {'name':"Health",    'range':[210,217]},
+    #End of Reduced almanac 2
     #Start of Reduced almanac 3
-    {'name':"PRNA",     'range':[218,223]},
-    {'name':"SatType",  'range':[224,225]},
-    {'name':"deltaA",   'range':[226,233], 'signed':True, 'factor':2**9,    'unit':utility.METER},
-    {'name':"Omega0",   'range':[234,240], 'signed':True, 'factor':2**-6,   'unit':utility.PI},
-    {'name':"Phi0",     'range':[241,247], 'signed':True, 'factor':2**-6,   'unit':utility.PI},
-    {'name':"Health",   'range':[248,255]},
+    {'name':"PRNA",      'range':[218,223]},
+    {'name':"SatType",   'range':[224,225]},
+    {'name':"deltaA",    'range':[226,233], 'signed':True, 'factor':2**9,    'unit':utility.METER},
+    {'name':"Omega0",    'range':[234,240], 'signed':True, 'factor':2**-6,   'unit':utility.PI},
+    {'name':"Phi0",      'range':[241,247], 'signed':True, 'factor':2**-6,   'unit':utility.PI},
+    {'name':"Health",    'range':[248,255]},
     #End of Reduced alamnac 3
-    {'name':"Rev",      'range':[256,263]},
-    {'name':"CRC",      'range':[264,287]}]
+    {'name':"Rev",       'range':[256,263]},
+    {'name':"CRC",       'range':[264,287]}]
 
 BeiDouCNAV2DictType32 = [
-    {'name':"PRN",      'range':[0,5]},
-    {'name':"MesType",  'range':[6,11]},
-    {'name':"SOW",      'range':[12,29],                  'factor':3,       'unit':utility.SECOND},
-    {'name':"HS",       'range':[30,31]},
-    {'name':"DIF(B2a)", 'range':[32,32]},
-    {'name':"SIF(B2a)", 'range':[33,33]},
-    {'name':"AIF(B2a)", 'range':[34,34]},
-    {'name':"SISMAI",   'range':[35,38]},
-    {'name':"DIF(B1C)", 'range':[39,39]},
-    {'name':"SIF(B1C)", 'range':[40,40]},
-    {'name':"AIF(B1C)", 'range':[41,41]},
+    {'name':"PRN",         'range':[0,5]},
+    {'name':"MesType",     'range':[6,11]},
+    {'name':"SOW",         'range':[12,29],                  'factor':3,       'unit':utility.SECOND},
+    {'name':"HS",          'range':[30,31]},
+    {'name':"DIF(B2a)",    'range':[32,32]},
+    {'name':"SIF(B2a)",    'range':[33,33]},
+    {'name':"AIF(B2a)",    'range':[34,34]},
+    {'name':"SISMAI",      'range':[35,38]},
+    {'name':"DIF(B1C)",    'range':[39,39]},
+    {'name':"SIF(B1C)",    'range':[40,40]},
+    {'name':"AIF(B1C)",    'range':[41,41]},
     #Start of clock correction params
-    {'name':"toc",      'range':[42,52],                  'factor':300,     'unit':utility.SECOND},
-    {'name':"a0",       'range':[53,77],   'signed':True, 'factor':2**-34,  'unit':utility.SECOND},
-    {'name':"a1",       'range':[78,99],   'signed':True, 'factor':2**-50,  'unit':utility.SECOND_PER_SECOND},
-    {'name':"a2",       'range':[100,110], 'signed':True, 'factor':2**-66,  'unit':utility.SECOND_PER_SECOND_SQUARED},
+    {'name':"toc",         'range':[42,52],                  'factor':300,     'unit':utility.SECOND},
+    {'name':"a0",          'range':[53,77],   'signed':True, 'factor':2**-34,  'unit':utility.SECOND},
+    {'name':"a1",          'range':[78,99],   'signed':True, 'factor':2**-50,  'unit':utility.SECOND_PER_SECOND},
+    {'name':"a2",          'range':[100,110], 'signed':True, 'factor':2**-66,  'unit':utility.SECOND_PER_SECOND_SQUARED},
     #End of clock correction params
-    {'name':"IODC",     'range':[111,120]},
+    {'name':"IODC",        'range':[111,120]},
     #Start of EOP params
-    {'name':"tEOP",     'range':[121,136],                'factor':2**4,    'unit':utility.SECOND},
-    {'name':"PM_X",     'range':[137,157], 'signed':True, 'factor':2**-20,  'unit':utility.ARC_SECOND},
-    {'name':"PM_XDot",  'range':[158,172], 'signed':True, 'factor':2**-21,  'unit':utility.ARC_SECOND_PER_DAY},
-    {'name':"PM_Y",     'range':[173,193], 'signed':True, 'factor':2**-20,  'unit':utility.ARC_SECOND},
-    {'name':"PM_YDot",  'range':[194,208], 'signed':True, 'factor':2**-21,  'unit':utility.ARC_SECOND_PER_DAY},
-    {'name':"DeltaUT1", 'range':[210,239], 'signed':True, 'factor':2**-24,  'unit':utility.SECOND},
-    {'name':"DeltaUT1Dot", 'range':[240,258], 'signed':True, 'factor':2**-25,   'unit':utility.SECOND_PER_DAY},
+    {'name':"tEOP",        'range':[121,136],                'factor':2**4,    'unit':utility.SECOND},
+    {'name':"PM_X",        'range':[137,157], 'signed':True, 'factor':2**-20,  'unit':utility.ARC_SECOND},
+    {'name':"PM_XDot",     'range':[158,172], 'signed':True, 'factor':2**-21,  'unit':utility.ARC_SECOND_PER_DAY},
+    {'name':"PM_Y",        'range':[173,193], 'signed':True, 'factor':2**-20,  'unit':utility.ARC_SECOND},
+    {'name':"PM_YDot",     'range':[194,208], 'signed':True, 'factor':2**-21,  'unit':utility.ARC_SECOND_PER_DAY},
+    {'name':"DeltaUT1",    'range':[210,239], 'signed':True, 'factor':2**-24,  'unit':utility.SECOND},
+    {'name':"DeltaUT1Dot", 'range':[240,258], 'signed':True, 'factor':2**-25,  'unit':utility.SECOND_PER_DAY},
     #End of EOP params
-    {'name':"Rev",      'range':[259,263]},
-    {'name':"CRC",      'range':[264,287]}]
+    {'name':"Rev",         'range':[259,263]},
+    {'name':"CRC",         'range':[264,287]}]
 
 BeiDouCNAV2DictType33 = [
     {'name':"PRN",      'range':[0,5]},
@@ -1429,11 +1433,11 @@ BeiDouCNAV2DictType40 = [
     {'name':"SatType",  'range':[75,76]},
     {'name':"WNa",      'range':[77,89],                                    'unit':utility.WEEK},
     {'name':"toa",      'range':[90,97],                  'factor':2**12,   'unit':utility.SECOND},
-    {'name':"e",        'range':[99,108],                 'factor':2**-16},
+    {'name':"e",        'range':[98,108],                 'factor':2**-16},
     {'name':"deltai",   'range':[109,119], 'signed':True, 'factor':2**-14,  'unit':utility.PI},
     {'name':"sqrtA",    'range':[120,136],                'factor':2**-4,   'unit':utility.METER_SQUARE_ROOT},
     {'name':"Omega0",   'range':[137,152], 'signed':True, 'factor':2**-15,  'unit':utility.PI},
-    {'name':"OmdegaDot",'range':[153,163], 'signed':True, 'factor':2**-33,  'unit':utility.PI_PER_SECOND},
+    {'name':"OmegaDot", 'range':[153,163], 'signed':True, 'factor':2**-33,  'unit':utility.PI_PER_SECOND},
     {'name':"omega",    'range':[164,179], 'signed':True, 'factor':2**-15,  'unit':utility.PI},
     {'name':"M0",       'range':[180,195], 'signed':True, 'factor':2**-15,  'unit':utility.PI},
     {'name':"af0",      'range':[196,206], 'signed':True, 'factor':2**-20,  'unit':utility.SECOND},
@@ -1445,6 +1449,141 @@ BeiDouCNAV2DictType40 = [
 
 BeiDouCNAV2DictTypes = {10:BeiDouCNAV2DictType10, 11:BeiDouCNAV2DictType11, 30:BeiDouCNAV2DictType30, 31:BeiDouCNAV2DictType31, 32:BeiDouCNAV2DictType32, 33:BeiDouCNAV2DictType33, 34:BeiDouCNAV2DictType34, 40:BeiDouCNAV2DictType40}
 
+"""
+    Informations for decoding BeiDou CNAV3 navigation messages.
+"""
+
+BeiDouCNAV3DictType10 = [
+    {'name':"MesType",   'range':[0,5]},
+    {'name':"SOW",       'range':[6,25],                    'factor':3,       'unit':utility.SECOND},
+    {'name':"Rev",       'range':[26,29]},
+    {'name':"toe",       'range':[30,40],                   'factor':300,     'unit':utility.SECOND},
+    {'name':"SatType",   'range':[41,42]},
+    {'name':"DeltaA",    'range':[43,68],   'signed':True,  'factor':2**-9,   'unit':utility.METER},
+    {'name':"ADot",      'range':[69,93],   'signed':True,  'factor':2**-21,  'unit':utility.METER_PER_SECOND},
+    {'name':"Deltan0",   'range':[94,110],  'signed':True,  'factor':2**-44,  'unit':utility.PI_PER_SECOND},
+    {'name':"Deltan0Dot",'range':[111,133], 'signed':True,  'factor':2**-57,  'unit':utility.PI_PER_SECOND_SQUARED},
+    {'name':"M0",        'range':[134,166], 'signed':True,  'factor':2**-32,  'unit':utility.PI},
+    {'name':"e",         'range':[167,199],                 'factor':2**-34},
+    {'name':"omega",     'range':[200,232], 'signed':True,  'factor':2**-32,  'unit':utility.PI},
+    {'name':"Omega0",    'range':[233,265], 'signed':True,  'factor':2**-32,  'unit':utility.PI},
+    {'name':"i0",        'range':[266,298], 'signed':True,  'factor':2**-32,  'unit':utility.PI},
+    {'name':"OmegaDot",  'range':[299,317], 'signed':True,  'factor':2**-44,  'unit':utility.PI_PER_SECOND},
+    {'name':"i0Dot",     'range':[318,332], 'signed':True,  'factor':2**-44,  'unit':utility.PI_PER_SECOND},
+    {'name':"Cis",       'range':[333,348], 'signed':True,  'factor':2**-30,  'unit':utility.RADIAN},
+    {'name':"Cic",       'range':[349,364], 'signed':True,  'factor':2**-30,  'unit':utility.RADIAN},
+    {'name':"Crs",       'range':[365,388], 'signed':True,  'factor':2**-8,   'unit':utility.METER},
+    {'name':"Crc",       'range':[389,412], 'signed':True,  'factor':2**-8,   'unit':utility.METER},
+    {'name':"Cus",       'range':[413,433], 'signed':True,  'factor':2**-30,  'unit':utility.RADIAN},
+    {'name':"Cuc",       'range':[434,454], 'signed':True,  'factor':2**-30,  'unit':utility.RADIAN},
+    {'name':"DIF₁",      'range':[455,455]},
+    {'name':"SIF₁",      'range':[456,456]},
+    {'name':"AIF₁",      'range':[457,457]},
+    {'name':"SISMA",     'range':[458,461]},
+    {'name':"CRC",       'range':[462,485]}]
+
+BeiDouCNAV3DictType30 = [
+    {'name':"MesType",    'range':[0,5]},
+    {'name':"SOW",        'range':[6,25],                   'factor':3,      'unit':utility.SECOND},
+    {'name':"WN",         'range':[26,38]},
+    {'name':"Rev",        'range':[39,42]},
+    {'name':"toc",        'range':[43,53],                  'factor':300,    'unit':utility.SECOND},
+    {'name':"a0",         'range':[54,78],   'signed':True, 'factor':2**-34, 'unit':utility.SECOND},
+    {'name':"a1",         'range':[79,100],  'signed':True, 'factor':2**-50, 'unit':utility.SECOND_PER_SECOND},
+    {'name':"a2",         'range':[101,111], 'signed':True, 'factor':2**-66, 'unit':utility.SECOND_PER_SECOND_SQUARED},
+    {'name':"TGDB2bI",    'range':[112,123], 'signed':True, 'factor':2**-34, 'unit':utility.SECOND},
+    {'name':"alpha1",     'range':[124,133], 'signed':True, 'factor':2**-3,  'unit':utility.TEC_U},
+    {'name':"alpha2",     'range':[134,141], 'signed':True, 'factor':2**-3,  'unit':utility.TEC_U},
+    {'name':"alpha3",     'range':[142,149], 'signed':True, 'factor':2**-3,  'unit':utility.TEC_U},
+    {'name':"alpha4",     'range':[150,157], 'signed':True, 'factor':2**-3,  'unit':utility.TEC_U},
+    {'name':"alpha5",     'range':[158,165], 'signed':True, 'factor':2**-3,  'unit':utility.TEC_U},
+    {'name':"alpha6",     'range':[166,173], 'signed':True, 'factor':2**-3,  'unit':utility.TEC_U},
+    {'name':"alpha7",     'range':[174,181], 'signed':True, 'factor':2**-3,  'unit':utility.TEC_U},
+    {'name':"alpha8",     'range':[182,189], 'signed':True, 'factor':2**-3,  'unit':utility.TEC_U},
+    {'name':"alpha9",     'range':[190,197], 'signed':True, 'factor':2**-3,  'unit':utility.TEC_U},
+    {'name':"A0UTC",      'range':[198,213], 'signed':True, 'factor':2**-35, 'unit':utility.SECOND},
+    {'name':"A1UTC",      'range':[214,226], 'signed':True, 'factor':2**-51, 'unit':utility.SECOND_PER_SECOND},
+    {'name':"A2UTC",      'range':[227,233], 'signed':True, 'factor':2**-68, 'unit':utility.SECOND_PER_SECOND_SQUARED},
+    {'name':"DeltatLS",   'range':[234,241], 'signed':True,                  'unit':utility.SECOND},
+    {'name':"tot",        'range':[242,257],                'factor':2**4,   'unit':utility.SECOND},
+    {'name':"WNot",       'range':[258,270],                                 'unit':utility.WEEK},
+    {'name':"WNLSF",      'range':[271,283],                                 'unit':utility.WEEK},
+    {'name':"DN",         'range':[284,286],                                 'unit':utility.DAY},
+    {'name':"DeltatLSF",  'range':[287,294], 'signed':True,                  'unit':utility.SECOND},
+    {'name':"teop",       'range':[295,310],                'factor':2**4,   'unit':utility.SECOND},
+    {'name':"PM_X",       'range':[311,331], 'signed':True, 'factor':2**-20, 'unit':utility.ARC_SECOND},
+    {'name':"PM_Xdot",    'range':[332,346], 'signed':True, 'factor':2**-21, 'unit':utility.ARC_SECOND_PER_DAY},
+    {'name':"PM_Y",       'range':[347,367], 'signed':True, 'factor':2**-20, 'unit':utility.ARC_SECOND},
+    {'name':"PM_Ydot",    'range':[368,382], 'signed':True, 'factor':2**-21, 'unit':utility.ARC_SECOND_PER_DAY},
+    {'name':"deltaUT1",   'range':[383,413], 'signed':True, 'factor':2**-24, 'unit':utility.SECOND},
+    {'name':"deltaUT1dot",'range':[414,432], 'signed':True, 'factor':2**-25, 'unit':utility.SECOND_PER_DAY},
+    {'name':"top",        'range':[433,443]},
+    {'name':"SISAIocb",   'range':[444,448]},
+    {'name':"SISAIoc1",   'range':[449,451]},
+    {'name':"SISAIoc2",   'range':[452,454]},
+    {'name':"SISAIoe",    'range':[455,459]},
+    {'name':"HS",         'range':[460,461]},
+    {'name':"CRC",        'range':[462,485]}]
+
+BeiDouCNAV3DictType40 = [
+    {'name':"MesType",  'range':[0,5]},
+    {'name':"SOW",      'range':[6,25],                     'factor':3,         'unit':utility.SECOND},
+    {'name':"GNSSID",   'range':[26,28]},
+    {'name':"WN0BGTO",  'range':[29,41],                                        'unit':utility.WEEK},
+    {'name':"t0BGTO",   'range':[42,57],                    'factor':2**4,      'unit':utility.SECOND},
+    {'name':"A0BGTO",   'range':[58,73],    'signed':True,  'factor':2**-35,    'unit':utility.SECOND},
+    {'name':"A1BGTO",   'range':[74,86],    'signed':True,  'factor':2**-51,    'unit':utility.SECOND_PER_SECOND},
+    {'name':"A2BGTO",   'range':[87,93],    'signed':True,  'factor':2**-68,    'unit':utility.SECOND_PER_SECOND_SQUARED},
+    {'name':"PRNa",     'range':[94,99]},
+    {'name':"SatType",  'range':[100,101]},
+    {'name':"WNa",      'range':[102,114],                                      'unit':utility.WEEK},
+    {'name':"toa",      'range':[115,122],                  'factor':2**12,     'unit':utility.SECOND},
+    {'name':"e",        'range':[123,133],                  'factor':2**-16},
+    {'name':"deltai",   'range':[134,144],  'signed':True,  'factor':2**-14,    'unit':utility.PI},
+    {'name':"sqrtA",    'range':[145,161],                  'factor':2**-4,     'unit':utility.METER_SQUARE_ROOT},
+    {'name':"Omega0",   'range':[162,177],  'signed':True,  'factor':2**-15,    'unit':utility.PI},
+    {'name':"OmegaDot", 'range':[178,188],  'signed':True,  'factor':2**-33,    'unit':utility.PI_PER_SECOND},
+    {'name':"omega",    'range':[189,204],  'signed':True,  'factor':2**-15,    'unit':utility.PI},
+    {'name':"M0",       'range':[205,220],  'signed':True,  'factor':2**-15,    'unit':utility.PI},
+    {'name':"af0",      'range':[221,231],  'signed':True,  'factor':2**-20,    'unit':utility.SECOND},
+    {'name':"af1",      'range':[232,241],  'signed':True,  'factor':2**-37,    'unit':utility.SECOND_PER_SECOND},
+    {'name':"Health",   'range':[242,249],                                      'unit':utility.SECOND},
+    {'name':"WNa",      'range':[250,262],                                      'unit':utility.WEEK},
+    {'name':"toa",      'range':[263,270],                  'factor':2**12,     'unit':utility.SECOND},
+    {'name':"PRNa1",    'range':[271,276]},
+    {'name':"SatType1", 'range':[277,278]},
+    {'name':"deltaA1",  'range':[279,286],  'signed':True,  'factor':2**9,      'unit':utility.METER},
+    {'name':"Omega01",  'range':[287,293],  'signed':True,  'factor':2**-6,     'unit':utility.PI},
+    {'name':"phi01",    'range':[294,300],  'signed':True,  'factor':2**-6,     'unit':utility.PI},
+    {'name':"Health1",  'range':[301,308]},
+    {'name':"PRNa2",    'range':[309,314]},
+    {'name':"SatType2", 'range':[315,316]},
+    {'name':"deltaA2",  'range':[317,324],  'signed':True,  'factor':2**9,      'unit':utility.METER},
+    {'name':"Omega02",  'range':[325,331],  'signed':True,  'factor':2**-6,     'unit':utility.PI},
+    {'name':"phi02",    'range':[332,338],  'signed':True,  'factor':2**-6,     'unit':utility.PI},
+    {'name':"Health2",  'range':[339,346]},
+    {'name':"PRNa3",    'range':[347,352]},
+    {'name':"SatType3", 'range':[353,354]},
+    {'name':"deltaA3",  'range':[355,362],  'signed':True,  'factor':2**9,      'unit':utility.METER},
+    {'name':"Omega03",  'range':[363,369],  'signed':True,  'factor':2**-6,     'unit':utility.PI},
+    {'name':"phi03",    'range':[370,376],  'signed':True,  'factor':2**-6,     'unit':utility.PI},
+    {'name':"Health3",  'range':[377,384]},
+    {'name':"PRNa4",    'range':[385,390]},
+    {'name':"SatType4", 'range':[391,392]},
+    {'name':"deltaA4",  'range':[393,400],  'signed':True,  'factor':2**9,      'unit':utility.METER},
+    {'name':"Omega04",  'range':[401,407],  'signed':True,  'factor':2**-6,     'unit':utility.PI},
+    {'name':"phi04",    'range':[408,414],  'signed':True,  'factor':2**-6,     'unit':utility.PI},
+    {'name':"Health4",  'range':[415,422]},
+    {'name':"PRNa5",    'range':[423,428]},
+    {'name':"SatType5", 'range':[429,430]},
+    {'name':"deltaA5",  'range':[431,438],  'signed':True,  'factor':2**9,      'unit':utility.METER},
+    {'name':"Omega05",  'range':[439,445],  'signed':True,  'factor':2**-6,     'unit':utility.PI},
+    {'name':"phi05",    'range':[446,452],  'signed':True,  'factor':2**-6,     'unit':utility.PI},
+    {'name':"Health5",  'range':[453,460]},
+    {'name':"Rev",      'range':[461,461]},
+    {'name':"CRC",      'range':[462,485]}]
+
+BeiDouCNAV3DictTypes = {10:BeiDouCNAV3DictType10, 30:BeiDouCNAV3DictType30, 40:BeiDouCNAV3DictType40}
 
 """
     Main functions for decoding a BeiDou downlink navigation message.
@@ -1494,18 +1633,22 @@ def decodeBeiDouCNAV1NavigationMessageInBinary(message):
     return subframe1 + subframe2[0:600] + subframe3[0:264]
 
 def decodeBeiDouCNAV2NavigationMessageInBinary(message):
-    print("converting to binary")
-    #Septenrio messages are only 576 bits long: they don't include the preamble: probbably will need to change this function for other sources
-    binaryMessage = utility.convertToBinaryNavigationMessage(message, 576)
-    print("Complete binary message: " + str(binaryMessage))
-    # Get preamble
-    #preamble = binaryMessage[8:32]
-    # We don't need the parity bits
-    LDPCmsg = binaryMessage[0:288]
-    LDPCcheck = binaryMessage[288:576]
-    #Do proper decode using check bits here if needed
-    # if hex(int(preamble,2)) == '0xE24DE8':
-    #     return LDPCmsg
+    # message length = 600 bits. We added tailing 0 until the closest multiple of 32: 608 bits.
+    binaryMessage = utility.convertToBinaryNavigationMessage(message, 608)
+    preamble = binaryMessage[0:24]
+    LDPCmsg = binaryMessage[24:312]
+    LDPCcheck = binaryMessage[312:600]
+    return LDPCmsg
+
+def convertToBinaryBeiDouCNAV3EncodedNavigationMessage(message):
+    # message length = 1000 bits. We added tailing 0 until the closest multiple of 32: 1024 bits.
+    binaryMessage = utility.convertToBinaryNavigationMessage(message, 1024)
+    
+    preamble = binaryMessage[0:16]
+    prn = binaryMessage[16:22]
+    rev = binaryMessage[22:28]
+    LDPCmsg = binaryMessage[28:514]
+    LDPCcheck = binaryMessage[514:984]
     return LDPCmsg
 
 def getDictBeiDouB1D1NavigationMessage(binaryMessage):
@@ -1631,6 +1774,15 @@ def getDictBeiDouCNAV2EncodedNavigationMessage(message):
     msg = decodeBeiDouCNAV2NavigationMessageInBinary(message)
     return getDictBeiDouCNAV2NavigationMessage(msg)
 
+def getDictBeiDouCNAV3DecodedNavigationMessage(message):
+    # message length = 486 bits. We added tailing 0 until the closest multiple of 32: 512 bits.
+    msg = utility.convertToBinaryNavigationMessage(message, 512)
+    return getDictBeiDouCNAV3NavigationMessage(msg)
+
+def getDictBeiDouCNAV3EncodedNavigationMessage(message):
+    msg = convertToBinaryBeiDouCNAV3EncodedNavigationMessage(message)
+    return getDictBeiDouCNAV3NavigationMessage(msg)
+
 def getDictBeiDouCNAV1NavigationMessage(message):
     dictToUse = {}
 
@@ -1640,12 +1792,20 @@ def getDictBeiDouCNAV1NavigationMessage(message):
     return utility.fillDict(message, dictToUse)
 
 def getDictBeiDouCNAV2NavigationMessage(message):
-    print("Starting message read")
     dictToUse = {}
 
     MesType = int(message[6:12],2)
 
     if MesType in [10,11,30,31,32,33,34,40]:
-        print("message type recognized: " + str(MesType))
         dictToUse = BeiDouCNAV2DictTypes[MesType]
+    return utility.fillDict(message, dictToUse)
+
+def getDictBeiDouCNAV3NavigationMessage(message):
+    dictToUse = {}
+
+    MesType = int(message[0:6],2)
+
+    if MesType in [10,30,40]:
+        dictToUse = BeiDouCNAV3DictTypes[MesType]
+
     return utility.fillDict(message, dictToUse)

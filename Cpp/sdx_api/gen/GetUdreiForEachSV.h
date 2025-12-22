@@ -13,8 +13,8 @@ namespace Sdx
     /// Get the UDREI value transmitted by SBAS for all satellites of the specified constellation.
     ///
     /// Name   Type   Description
-    /// ------ ------ ----------------
-    /// System string "GPS" or "SBAS".
+    /// ------ ------ -----------
+    /// System string "SBAS".
     ///
 
     class GetUdreiForEachSV;

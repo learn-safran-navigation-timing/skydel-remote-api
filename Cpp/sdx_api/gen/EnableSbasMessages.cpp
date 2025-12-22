@@ -15,9 +15,10 @@ namespace Sdx
     const char* const EnableSbasMessages::CmdName = "EnableSbasMessages";
     const char* const EnableSbasMessages::Documentation = "Set the enabled SBAS messages. Message 63 is always enabled\n"
       "\n"
-      "Name     Type      Description\n"
-      "-------- --------- --------------------\n"
-      "Messages array int The enabled messages";
+      "Name            Type            Description\n"
+      "--------------- --------------- ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------\n"
+      "Messages        array int       The enabled messages\n"
+      "ServiceProvider optional string The service provider. When not specified for a Setter command, the change is applied to all service providers. When not specified for a Getter command, the value for WAAS is returned.";
     const char* const EnableSbasMessages::TargetId = "";
 
     REGISTER_COMMAND_TO_FACTORY_DECL(EnableSbasMessages);
@@ -28,16 +29,17 @@ namespace Sdx
       : CommandBase(CmdName, TargetId)
     {}
 
-    EnableSbasMessages::EnableSbasMessages(const std::vector<int>& messages)
+    EnableSbasMessages::EnableSbasMessages(const std::vector<int>& messages, const std::optional<std::string>& serviceProvider)
       : CommandBase(CmdName, TargetId)
     {
 
       setMessages(messages);
+      setServiceProvider(serviceProvider);
     }
 
-    EnableSbasMessagesPtr EnableSbasMessages::create(const std::vector<int>& messages)
+    EnableSbasMessagesPtr EnableSbasMessages::create(const std::vector<int>& messages, const std::optional<std::string>& serviceProvider)
     {
-      return std::make_shared<EnableSbasMessages>(messages);
+      return std::make_shared<EnableSbasMessages>(messages, serviceProvider);
     }
 
     EnableSbasMessagesPtr EnableSbasMessages::dynamicCast(CommandBasePtr ptr)
@@ -50,6 +52,7 @@ namespace Sdx
       
         return m_values.IsObject()
           && parse_json<std::vector<int>>::is_valid(m_values["Messages"])
+          && parse_json<std::optional<std::string>>::is_valid(m_values["ServiceProvider"])
         ;
 
     }
@@ -58,7 +61,7 @@ namespace Sdx
 
     const std::vector<std::string>& EnableSbasMessages::fieldNames() const 
     { 
-      static const std::vector<std::string> names {"Messages"}; 
+      static const std::vector<std::string> names {"Messages", "ServiceProvider"}; 
       return names; 
     }
 
@@ -77,6 +80,18 @@ namespace Sdx
     void EnableSbasMessages::setMessages(const std::vector<int>& messages)
     {
       m_values.AddMember("Messages", parse_json<std::vector<int>>::format(messages, m_values.GetAllocator()), m_values.GetAllocator());
+    }
+
+
+
+    std::optional<std::string> EnableSbasMessages::serviceProvider() const
+    {
+      return parse_json<std::optional<std::string>>::parse(m_values["ServiceProvider"]);
+    }
+
+    void EnableSbasMessages::setServiceProvider(const std::optional<std::string>& serviceProvider)
+    {
+      m_values.AddMember("ServiceProvider", parse_json<std::optional<std::string>>::format(serviceProvider, m_values.GetAllocator()), m_values.GetAllocator());
     }
 
 

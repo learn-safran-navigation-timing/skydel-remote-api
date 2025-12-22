@@ -13,7 +13,7 @@ namespace Sdx
   namespace Cmd
   {
     const char* const SetSpoofSignalManualPropagationLoss::CmdName = "SetSpoofSignalManualPropagationLoss";
-    const char* const SetSpoofSignalManualPropagationLoss::Documentation = "Set the manual propagation loss for the given spoofer signal. Value is used only if SetSpoofTxUseManualPropagationLoss has been set on the corresponding spoofer. This value is not preserved after simulation end.\n"
+    const char* const SetSpoofSignalManualPropagationLoss::Documentation = "Sets the manual propagation loss for the given spoofer signal. This value is only applied when manual propagation losses are enabled for the transmitter and is discarded once the simulation ends.\n"
       "\n"
       "Name            Type   Description\n"
       "--------------- ------ --------------------------------------------------------------------------------------------------------\n"

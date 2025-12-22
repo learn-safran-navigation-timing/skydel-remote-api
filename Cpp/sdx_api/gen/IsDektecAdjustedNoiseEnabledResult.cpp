@@ -16,8 +16,8 @@ namespace Sdx
     const char* const IsDektecAdjustedNoiseEnabledResult::Documentation = "Result of IsDektecAdjustedNoiseEnabled.\n"
       "\n"
       "Name   Type Description\n"
-      "------ ---- ----------------------------------------------------------------\n"
-      "Enable bool True to enable Advance Jammer noise adjustment on Dektec output.";
+      "------ ---- -------------------------------------------------\n"
+      "Enable bool True to enable noise adjustment on Dektec output.";
     const char* const IsDektecAdjustedNoiseEnabledResult::TargetId = "";
 
     REGISTER_COMMAND_TO_FACTORY_IMPL(IsDektecAdjustedNoiseEnabledResult);

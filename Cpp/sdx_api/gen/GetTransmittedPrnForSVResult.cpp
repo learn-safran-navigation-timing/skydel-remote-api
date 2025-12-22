@@ -20,10 +20,10 @@ namespace Sdx
       "SvId          int             Satellite SV ID.\n"
       "SignalPrnDict dict string:int A dictionary of signal prn pairs.\n"
       "                              Accepted keys are: \"L1CA\", \"L1C\", \"L2C\", \"L5\", \"E1\", \"E6BC\", \"B1\", \"B2\", \"B1C\",\n"
-      "                                                 \"B2a\", \"B3I\", \"SBASL1\", \"SBASL5\", \"QZSSL1CA\", \"QZSSL1CB\",\n"
-      "                                                 \"QZSSL1C\", \"QZSSL2C\", \"QZSSL5\", \"QZSSL1S\", \"QZSSL5S\",\n"
-      "                                                 \"QZSSL6\", \"NAVICL1\", \"NAVICL5\", \"NAVICS\", \"PULSARXL\",\n"
-      "                                                 \"PULSARX1\" and \"PULSARX5\"";
+      "                                                 \"B2a\", \"B2b\", \"B3I\", \"SBASL1\", \"SBASL5\", \"QZSSL1CA\",\n"
+      "                                                 \"QZSSL1CB\", \"QZSSL1C\", \"QZSSL2C\", \"QZSSL5\", \"QZSSL1S\",\n"
+      "                                                 \"QZSSL5S\", \"QZSSL6\", \"NAVICL1\", \"NAVICL5\", \"NAVICS\",\n"
+      "                                                 \"PULSARXL\", \"PULSARX1\" and \"PULSARX5\"";
     const char* const GetTransmittedPrnForSVResult::TargetId = "";
 
     REGISTER_COMMAND_TO_FACTORY_IMPL(GetTransmittedPrnForSVResult);

@@ -16,8 +16,8 @@ namespace Sdx
     const char* const GetUdreiForEachSV::Documentation = "Get the UDREI value transmitted by SBAS for all satellites of the specified constellation.\n"
       "\n"
       "Name   Type   Description\n"
-      "------ ------ ----------------\n"
-      "System string \"GPS\" or \"SBAS\".";
+      "------ ------ -----------\n"
+      "System string \"SBAS\".";
     const char* const GetUdreiForEachSV::TargetId = "";
 
     REGISTER_COMMAND_TO_FACTORY_DECL(GetUdreiForEachSV);

@@ -3,7 +3,8 @@
 #include <memory>
 #include "command_base.h"
 
-
+#include <optional>
+#include <string>
 
 namespace Sdx
 {
@@ -12,10 +13,11 @@ namespace Sdx
     ///
     /// Set the SBAS message update interval.
     ///
-    /// Name           Type Description
-    /// -------------- ---- -----------------------------------------------------------------------------------------------
-    /// Message        int  The message type.
-    /// UpdateInterval int  The message update interval in seconds. Accepted range is [6..300] and must be a multiple of 6.
+    /// Name            Type            Description
+    /// --------------- --------------- ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+    /// Message         int             The message type.
+    /// UpdateInterval  int             The message update interval in seconds. Accepted range is [1..300].
+    /// ServiceProvider optional string The service provider. When not specified for a Setter command, the change is applied to all service providers. When not specified for a Getter command, the value for WAAS is returned.
     ///
 
     class SetSbasMessageUpdateInterval;
@@ -32,9 +34,9 @@ namespace Sdx
 
       SetSbasMessageUpdateInterval();
 
-      SetSbasMessageUpdateInterval(int message, int updateInterval);
+      SetSbasMessageUpdateInterval(int message, int updateInterval, const std::optional<std::string>& serviceProvider = {});
 
-      static SetSbasMessageUpdateIntervalPtr create(int message, int updateInterval);
+      static SetSbasMessageUpdateIntervalPtr create(int message, int updateInterval, const std::optional<std::string>& serviceProvider = {});
       static SetSbasMessageUpdateIntervalPtr dynamicCast(CommandBasePtr ptr);
       virtual bool isValid() const override;
       virtual std::string documentation() const override;
@@ -51,6 +53,11 @@ namespace Sdx
       // **** updateInterval ****
       int updateInterval() const;
       void setUpdateInterval(int updateInterval);
+
+
+      // **** serviceProvider ****
+      std::optional<std::string> serviceProvider() const;
+      void setServiceProvider(const std::optional<std::string>& serviceProvider);
     };
     
   }

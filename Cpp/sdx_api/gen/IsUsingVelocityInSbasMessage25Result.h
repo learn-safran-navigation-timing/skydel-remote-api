@@ -3,7 +3,8 @@
 #include <memory>
 #include "command_result.h"
 #include "command_factory.h"
-
+#include <optional>
+#include <string>
 
 namespace Sdx
 {
@@ -12,9 +13,10 @@ namespace Sdx
     ///
     /// Result of IsUsingVelocityInSbasMessage25.
     ///
-    /// Name        Type Description
-    /// ----------- ---- --------------------------------------------------------
-    /// UseVelocity bool Whether SBAS message 25 should send velocity corrections
+    /// Name            Type            Description
+    /// --------------- --------------- ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+    /// UseVelocity     bool            Whether SBAS message 25 should send velocity corrections
+    /// ServiceProvider optional string The service provider. When not specified for a Setter command, the change is applied to all service providers. When not specified for a Getter command, the value for WAAS is returned.
     ///
 
     class IsUsingVelocityInSbasMessage25Result;
@@ -31,13 +33,13 @@ namespace Sdx
 
       IsUsingVelocityInSbasMessage25Result();
 
-      IsUsingVelocityInSbasMessage25Result(bool useVelocity);
+      IsUsingVelocityInSbasMessage25Result(bool useVelocity, const std::optional<std::string>& serviceProvider = {});
 
-      IsUsingVelocityInSbasMessage25Result(CommandBasePtr relatedCommand, bool useVelocity);
+      IsUsingVelocityInSbasMessage25Result(CommandBasePtr relatedCommand, bool useVelocity, const std::optional<std::string>& serviceProvider = {});
 
-      static IsUsingVelocityInSbasMessage25ResultPtr create(bool useVelocity);
+      static IsUsingVelocityInSbasMessage25ResultPtr create(bool useVelocity, const std::optional<std::string>& serviceProvider = {});
 
-      static IsUsingVelocityInSbasMessage25ResultPtr create(CommandBasePtr relatedCommand, bool useVelocity);
+      static IsUsingVelocityInSbasMessage25ResultPtr create(CommandBasePtr relatedCommand, bool useVelocity, const std::optional<std::string>& serviceProvider = {});
       static IsUsingVelocityInSbasMessage25ResultPtr dynamicCast(CommandBasePtr ptr);
       virtual bool isValid() const override;
       virtual std::string documentation() const override;
@@ -47,6 +49,11 @@ namespace Sdx
       // **** useVelocity ****
       bool useVelocity() const;
       void setUseVelocity(bool useVelocity);
+
+
+      // **** serviceProvider ****
+      std::optional<std::string> serviceProvider() const;
+      void setServiceProvider(const std::optional<std::string>& serviceProvider);
     };
     REGISTER_COMMAND_TO_FACTORY_DECL(IsUsingVelocityInSbasMessage25Result);
   }

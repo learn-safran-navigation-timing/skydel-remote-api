@@ -16,6 +16,8 @@ enum CmdMessageId
   CmdMsgId_ApiVersion = 2
 };
 
+constexpr int32_t DEFAULT_TIMEOUT_SEC = 10;
+
 class CmdClient
 {
 public:
@@ -25,7 +27,7 @@ public:
   bool hasError() const; // returns 0 if there are no errors
   void clearError();
 
-  bool connectToHost(const std::string& ip, int port);
+  bool connectToHost(const std::string& ip, int port, int connectTimeout = DEFAULT_TIMEOUT_SEC);
   bool isConnected() const;
 
   int getServerApiVersion();

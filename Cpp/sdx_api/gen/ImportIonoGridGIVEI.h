@@ -14,10 +14,10 @@ namespace Sdx
     /// Import ionospheric grid GIVEI.
     ///
     /// Name            Type            Description
-    /// --------------- --------------- ------------------------------------
+    /// --------------- --------------- -----------------------------------------------------------------------------------------
     /// Overwriting     bool            Overwrite the previous grid if true.
     /// Path            string          Grid file path
-    /// ServiceProvider optional string The service provider (optional)
+    /// ServiceProvider optional string The service provider. When not specified, the change is applied to all service providers.
     ///
 
     class ImportIonoGridGIVEI;

@@ -40,7 +40,7 @@ void RemoteSimulator::resetTime()
   m_checkRunningTime = -999999999;
 }
 
-bool RemoteSimulator::connect(const std::string& ip, int id, bool failIfApiVersionMismatch)
+bool RemoteSimulator::connect(const std::string& ip, int id, bool failIfApiVersionMismatch, int timeout)
 {
   if (isConnected())
   {
@@ -55,7 +55,7 @@ bool RemoteSimulator::connect(const std::string& ip, int id, bool failIfApiVersi
   delete m_client;
   m_client = new CmdClient(m_exceptionOnError);
   m_client->setVerbose(m_verbose);
-  if (!m_client->connectToHost(ip, port))
+  if (!m_client->connectToHost(ip, port, timeout))
   {
     delete m_client;
     m_client = 0;

@@ -10,7 +10,7 @@ namespace Sdx
   namespace Cmd
   {
     ///
-    /// Indicates if noise level adjustment for Advanced Jammers on Dektec is enabled.
+    /// Indicates if noise level adjustment on Dektec is enabled.
     ///
     /// 
     ///

@@ -6,6 +6,7 @@
 #include <winsock.h>
 #define MSG_WAITALL 0
 #else
+#include <WS2tcpip.h>
 #include <winsock2.h>
 #endif
 #else
@@ -29,6 +30,14 @@
 
 namespace Sdx
 {
+
+namespace
+{
+constexpr auto CONNECTION_TIMEOUT_ERROR_MSG =
+  "Connection to simulator timed out. Please, make sure that the simulator process is running";
+constexpr auto CONNECTION_ERROR_MSG =
+  "Unable to connect to the Simulator. Please, make sure that the simulator process is running";
+} // namespace
 
 struct CmdClient::Pimpl
 {
@@ -92,8 +101,14 @@ void CmdClient::clearError()
   m->error_message.clear();
 }
 
-bool CmdClient::connectToHost(const std::string& ip, int port)
+bool CmdClient::connectToHost(const std::string& ip, int port, int connectTimeout)
 {
+  auto onConnectionError = [this](std::string _errorMsg) {
+    closeSocket();
+    errorMessage(_errorMsg);
+    return false;
+  };
+
   m->s = socket(AF_INET, SOCK_STREAM, 0);
   if (m->s < 0)
   {
@@ -106,27 +121,84 @@ bool CmdClient::connectToHost(const std::string& ip, int port)
   m->server = gethostbyname(ip.c_str());
   if (!m->server)
   {
-    closeSocket();
-    errorMessage("Unable to get host by name");
-    return false;
+    return onConnectionError("Unable to get host by name.");
   }
   memset(&m->serv_addr, 0, sizeof(m->serv_addr));
   m->serv_addr.sin_family = AF_INET;
   memcpy(&m->serv_addr.sin_addr.s_addr, m->server->h_addr, m->server->h_length);
   m->serv_addr.sin_port = htons(static_cast<u_short>(port));
 
+  timeval timeout {connectTimeout, 0};
 #ifndef _WIN32
-  // Add a 10 second timeout to the socket SEND calls
-  timeval timeout {10, 0};
   setsockopt(m->s, SOL_SOCKET, SO_SNDTIMEO, &timeout, sizeof(timeout));
-#endif
 
   if (connect(m->s, reinterpret_cast<sockaddr*>(&m->serv_addr), sizeof(m->serv_addr)) < 0)
   {
-    closeSocket();
-    errorMessage("Unable to connect to the Simulator. Please, make sure that the simulator process is running");
-    return false;
+    return onConnectionError(errno == EINPROGRESS ? CONNECTION_TIMEOUT_ERROR_MSG : CONNECTION_ERROR_MSG);
   }
+
+  // Reset to 10 second timeout for the socket SEND calls
+  timeout.tv_sec = 10;
+  setsockopt(m->s, SOL_SOCKET, SO_SNDTIMEO, &timeout, sizeof(timeout));
+#else
+  u_long mode = 1;
+  if (ioctlsocket(m->s, FIONBIO, &mode) == SOCKET_ERROR)
+  {
+    return onConnectionError("Unable to set socket to non blocking.");
+  }
+
+  if (connect(m->s, reinterpret_cast<sockaddr*>(&m->serv_addr), sizeof(m->serv_addr)) != 0)
+  {
+    if (const auto lastError = WSAGetLastError();
+        lastError != WSAEWOULDBLOCK && lastError != WSAEINPROGRESS && lastError != WSAETIMEDOUT)
+    {
+      return onConnectionError(CONNECTION_ERROR_MSG);
+    }
+
+    fd_set writeSet;
+    FD_ZERO(&writeSet);
+    FD_SET(m->s, &writeSet);
+
+    const auto selectResult = select(0, nullptr, &writeSet, nullptr, &timeout);
+    std::string selectErrorMsg = "";
+    if (selectResult < 0)
+    {
+      selectErrorMsg = CONNECTION_ERROR_MSG;
+    }
+    else if (selectResult == 0)
+    {
+      selectErrorMsg = CONNECTION_TIMEOUT_ERROR_MSG;
+    }
+    else
+    {
+      // Check if there was a socket error
+      int optVal = 0;
+      socklen_t len = sizeof(optVal);
+      getsockopt(m->s, SOL_SOCKET, SO_ERROR, (char*)&optVal, &len);
+
+      if (optVal != 0 && optVal != WSAEISCONN)
+      {
+        selectErrorMsg = CONNECTION_ERROR_MSG;
+      }
+    }
+
+    if (!selectErrorMsg.empty())
+    {
+      return onConnectionError(selectErrorMsg);
+    }
+  }
+
+  mode = 0;
+  if (ioctlsocket(m->s, FIONBIO, &mode) == SOCKET_ERROR)
+  {
+    return onConnectionError("Unable to reset socket to blocking.");
+  }
+
+  // Reset to 10 second timeout for the socket SEND calls
+  auto connectTimeoutMS = 10 * 1000;
+  setsockopt(m->s, SOL_SOCKET, SO_SNDTIMEO, (const char*)&connectTimeoutMS, sizeof(connectTimeoutMS));
+#endif
+
   m->connected = true;
   return true;
 }

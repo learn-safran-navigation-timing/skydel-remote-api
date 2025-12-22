@@ -48,7 +48,7 @@ namespace Sdx
       "BeiDou:\n"
       "\n"
       "  Unit         Type     ParamName\n"
-      "  sec          double   \"Tgd1\", \"Tgd2\", \"TgdB1Cp\", \"TgdB2Ap\"\n"
+      "  sec          double   \"Tgd1\", \"Tgd2\", \"TgdB1Cp\", \"TgdB2Ap\", \"TgdB2bI\"\n"
       "  -            integer  \"IODE\", \"IODC\", \"AODE\", \"AODC\"\n"
       "  -            boolean  \"IscB1CdAvailable\", \"IscB2adAvailable\"\n"
       "\n"

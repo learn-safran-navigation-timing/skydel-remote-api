@@ -15,7 +15,7 @@ namespace Sdx
     ///
     /// Name        Type            Description
     /// ----------- --------------- -------------------------------------------------------------------------------------------
-    /// SvId        int             Satellite SV ID 1..35, or use 0 to apply new value to all satellites.
+    /// SvId        int             Satellite SV ID 1..63, or use 0 to apply new value to all satellites.
     /// DataSetName optional string Optional name of the data set to use. If no value is provided, the active data set is used.
     ///
 

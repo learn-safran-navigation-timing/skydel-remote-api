@@ -158,7 +158,7 @@ SBASL1NavDictType6 = [
     {'name':"IODF2",    'range':[14,15]},
     {'name':"IODF3",    'range':[16,17]},
     {'name':"IODF4",    'range':[18,19]},
-    {'name':"IODF6",    'range':[20,21]},
+    {'name':"IODF5",    'range':[20,21]},
     {'name':"UDREI1",   'range':[22,25]},
     {'name':"UDREI2",   'range':[26,29]},
     {'name':"UDREI3",   'range':[30,33]},
@@ -672,8 +672,14 @@ SBASL1NavDictType28 = [
     {'name':"[2] E_2,4",           'range':[206,215], 'signed':True},
     {'name':"[2] E_3,4",           'range':[216,225], 'signed':True},
     {'name':"Parity",              'range':[226,249]}]
+
+SBASL1NavDictType63 = [
+    {'name':"Preamble",            'range':[0,7]},
+    {'name':"Type",                'range':[8,13]},
+    {'name':"Null",                'range':[14,225]},
+    {'name':"Parity",              'range':[226,249]}]
     
-SBASL1NavDictAll = {1:SBASL1NavDictType1, 2:SBASL1NavDictType2, 3:SBASL1NavDictType3, 4:SBASL1NavDictType4, 5:SBASL1NavDictType5, 6:SBASL1NavDictType6, 7:SBASL1NavDictType7, 9:SBASL1NavDictType9, 10:SBASL1NavDictType10, 17:SBASL1NavDictType17, 18:SBASL1NavDictType18, 26:SBASL1NavDictType26, 27:SBASL1NavDictType27, 28:SBASL1NavDictType28}
+SBASL1NavDictAll = {1:SBASL1NavDictType1, 2:SBASL1NavDictType2, 3:SBASL1NavDictType3, 4:SBASL1NavDictType4, 5:SBASL1NavDictType5, 6:SBASL1NavDictType6, 7:SBASL1NavDictType7, 9:SBASL1NavDictType9, 10:SBASL1NavDictType10, 17:SBASL1NavDictType17, 18:SBASL1NavDictType18, 26:SBASL1NavDictType26, 27:SBASL1NavDictType27, 28:SBASL1NavDictType28, 63:SBASL1NavDictType63}
 SBASL1NavDict24 = {0:SBASL1NavDictType24NoVelocity, 1:SBASL1NavDictType24Velocity}
 SBASL1NavDict25 = {0:SBASL1NavDictType25V1, 1:SBASL1NavDictType25V2, 2:SBASL1NavDictType25V3, 3:SBASL1NavDictType25V4}
 

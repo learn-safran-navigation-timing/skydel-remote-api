@@ -16,10 +16,10 @@ namespace Sdx
     const char* const ImportIonoGridGIVEI::Documentation = "Import ionospheric grid GIVEI.\n"
       "\n"
       "Name            Type            Description\n"
-      "--------------- --------------- ------------------------------------\n"
+      "--------------- --------------- -----------------------------------------------------------------------------------------\n"
       "Overwriting     bool            Overwrite the previous grid if true.\n"
       "Path            string          Grid file path\n"
-      "ServiceProvider optional string The service provider (optional)";
+      "ServiceProvider optional string The service provider. When not specified, the change is applied to all service providers.";
     const char* const ImportIonoGridGIVEI::TargetId = "";
 
     REGISTER_COMMAND_TO_FACTORY_DECL(ImportIonoGridGIVEI);

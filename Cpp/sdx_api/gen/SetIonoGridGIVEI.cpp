@@ -16,11 +16,11 @@ namespace Sdx
     const char* const SetIonoGridGIVEI::Documentation = "Set the GIVEI for a ionospheric grid point\n"
       "\n"
       "Name            Type            Description\n"
-      "--------------- --------------- -------------------------------\n"
+      "--------------- --------------- ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------\n"
       "Band            int             The ionospheric grid band index\n"
       "Point           int             The IGP index\n"
       "GiveI           int             The GIVEI at the IGP\n"
-      "ServiceProvider optional string The service provider (optional)";
+      "ServiceProvider optional string The service provider. When not specified for a Setter command, the change is applied to all service providers. When not specified for a Getter command, the value for WAAS is returned.";
     const char* const SetIonoGridGIVEI::TargetId = "";
 
     REGISTER_COMMAND_TO_FACTORY_DECL(SetIonoGridGIVEI);

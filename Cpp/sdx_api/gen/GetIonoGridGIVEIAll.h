@@ -14,8 +14,8 @@ namespace Sdx
     /// Get GIVEI in the ionospheric grid.  The array is zero based, the index 0 in a band array is for the IGP with an index 1, etc.
     ///
     /// Name            Type            Description
-    /// --------------- --------------- -------------------------------
-    /// ServiceProvider optional string The service provider (optional)
+    /// --------------- --------------- ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+    /// ServiceProvider optional string The service provider. When not specified for a Setter command, the change is applied to all service providers. When not specified for a Getter command, the value for WAAS is returned.
     ///
 
     class GetIonoGridGIVEIAll;

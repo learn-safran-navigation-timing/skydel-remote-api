@@ -13,7 +13,7 @@ namespace Sdx
   namespace Cmd
   {
     const char* const SetSpoofTxUseManualPropagationLoss::CmdName = "SetSpoofTxUseManualPropagationLoss";
-    const char* const SetSpoofTxUseManualPropagationLoss::Documentation = "Set whether a spoofer should only use user-provided propagation loss values. Propagation loss will not update automatically if set. This state is not preserved after simulation end.\n"
+    const char* const SetSpoofTxUseManualPropagationLoss::Documentation = "Sets whether the propagation losses of a spoofer transmitter are provided by the user. When enabled, Skydel does not automatically compute propagation losses. This option is not preserved after the simulation ends.\n"
       "\n"
       "Name   Type   Description\n"
       "------ ------ -------------------------------------------------------------\n"

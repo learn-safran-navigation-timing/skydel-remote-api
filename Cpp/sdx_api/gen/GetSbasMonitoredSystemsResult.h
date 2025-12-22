@@ -3,6 +3,7 @@
 #include <memory>
 #include "command_result.h"
 #include "command_factory.h"
+#include <optional>
 #include <string>
 #include <vector>
 
@@ -13,9 +14,10 @@ namespace Sdx
     ///
     /// Result of GetSbasMonitoredSystems.
     ///
-    /// Name    Type         Description
-    /// ------- ------------ ------------------------------------------------------------------------------------
-    /// Systems array string A list containing the name of monitored systems, only "GPS" and "SBAS" are supported
+    /// Name            Type            Description
+    /// --------------- --------------- ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+    /// Systems         array string    A list containing the name of monitored systems, only "GPS" and "SBAS" are supported
+    /// ServiceProvider optional string The service provider. When not specified for a Setter command, the change is applied to all service providers. When not specified for a Getter command, the value for WAAS is returned.
     ///
 
     class GetSbasMonitoredSystemsResult;
@@ -32,13 +34,13 @@ namespace Sdx
 
       GetSbasMonitoredSystemsResult();
 
-      GetSbasMonitoredSystemsResult(const std::vector<std::string>& systems);
+      GetSbasMonitoredSystemsResult(const std::vector<std::string>& systems, const std::optional<std::string>& serviceProvider = {});
 
-      GetSbasMonitoredSystemsResult(CommandBasePtr relatedCommand, const std::vector<std::string>& systems);
+      GetSbasMonitoredSystemsResult(CommandBasePtr relatedCommand, const std::vector<std::string>& systems, const std::optional<std::string>& serviceProvider = {});
 
-      static GetSbasMonitoredSystemsResultPtr create(const std::vector<std::string>& systems);
+      static GetSbasMonitoredSystemsResultPtr create(const std::vector<std::string>& systems, const std::optional<std::string>& serviceProvider = {});
 
-      static GetSbasMonitoredSystemsResultPtr create(CommandBasePtr relatedCommand, const std::vector<std::string>& systems);
+      static GetSbasMonitoredSystemsResultPtr create(CommandBasePtr relatedCommand, const std::vector<std::string>& systems, const std::optional<std::string>& serviceProvider = {});
       static GetSbasMonitoredSystemsResultPtr dynamicCast(CommandBasePtr ptr);
       virtual bool isValid() const override;
       virtual std::string documentation() const override;
@@ -48,6 +50,11 @@ namespace Sdx
       // **** systems ****
       std::vector<std::string> systems() const;
       void setSystems(const std::vector<std::string>& systems);
+
+
+      // **** serviceProvider ****
+      std::optional<std::string> serviceProvider() const;
+      void setServiceProvider(const std::optional<std::string>& serviceProvider);
     };
     REGISTER_COMMAND_TO_FACTORY_DECL(GetSbasMonitoredSystemsResult);
   }

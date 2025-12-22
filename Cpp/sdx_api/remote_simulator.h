@@ -5,6 +5,7 @@
 
 #include <set>
 
+#include "cmd_client.h"
 #include "command_result.h"
 
 namespace Sdx
@@ -19,13 +20,20 @@ struct VehicleInfo;
 
 int spooferInstance(int id);
 
+constexpr auto DEFAULT_HOST = "localhost";
+constexpr uint32_t DEFAULT_ID = 0;
+constexpr bool DEFAULT_FAIL_IF_API_VERSION_MISMATCH = false;
+
 class RemoteSimulator
 {
 public:
   RemoteSimulator(bool exceptionOnError = true);
   ~RemoteSimulator();
 
-  bool connect(const std::string& ip = "localhost", int id = 0, bool failIfApiVersionMismatch = false);
+  bool connect(const std::string& ip = DEFAULT_HOST,
+               int id = DEFAULT_ID,
+               bool failIfApiVersionMismatch = DEFAULT_FAIL_IF_API_VERSION_MISMATCH,
+               int timeout = DEFAULT_TIMEOUT_SEC);
   void disconnect();
   bool isConnected() const;
 

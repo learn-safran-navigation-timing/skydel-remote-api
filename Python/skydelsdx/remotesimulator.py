@@ -31,14 +31,14 @@ class RemoteSimulator:
     self.deprecatedMessageMode = DeprecatedMessageMode.LATCH
     self.latchDeprecated = set()
  
-  def connect(self, ip = "localhost", id=0, failIfApiVersionMismatch=False):
+  def connect(self, ip = "localhost", id=0, failIfApiVersionMismatch=False, timeout=None):
     if self.isConnected():
       raise Exception("Cannot connect. Already connected. Disconnect first.");
     
     port = 4820 + id
     if self.verbose:
       print('Connecting to %s on port %s...' % (ip, port))
-    self.client = ClientCmd(ip, port)
+    self.client = ClientCmd(ip, port, timeout)
     
     self._serverApiVersion = self.client.getServerApiVersion()
     if ApiVersion != self._serverApiVersion:
@@ -49,7 +49,7 @@ class RemoteSimulator:
         print("Warning: " + msg)
       
     hilPort = self._callCommand(GetHilPort()).port()
-    self.hil = ClientHil(self.client.getAddress(), hilPort)
+    self.hil = ClientHil(self.client.getAddress(), hilPort, timeout)
  
   def disconnect(self):
     self._checkConnect()

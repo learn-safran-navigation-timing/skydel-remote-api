@@ -3,6 +3,7 @@
 #include <memory>
 #include "command_base.h"
 
+#include <optional>
 #include <string>
 
 namespace Sdx
@@ -12,10 +13,11 @@ namespace Sdx
     ///
     /// Export the SBAS message sequence into a csv file.
     ///
-    /// Name        Type   Description
-    /// ----------- ------ -----------------------------------------------------------------------------------------------
-    /// Path        string The full path to the csv file.
-    /// Overwriting bool   Overwrite an existing file if set to true, return an error if set to false and the file exists.
+    /// Name            Type            Description
+    /// --------------- --------------- -----------------------------------------------------------------------------------------------
+    /// Path            string          The full path to the csv file.
+    /// Overwriting     bool            Overwrite an existing file if set to true, return an error if set to false and the file exists.
+    /// ServiceProvider optional string The service provider. When not specified, defaults to WAAS.
     ///
 
     class ExportSbasMessageSequence;
@@ -32,9 +34,9 @@ namespace Sdx
 
       ExportSbasMessageSequence();
 
-      ExportSbasMessageSequence(const std::string& path, bool overwriting);
+      ExportSbasMessageSequence(const std::string& path, bool overwriting, const std::optional<std::string>& serviceProvider = {});
 
-      static ExportSbasMessageSequencePtr create(const std::string& path, bool overwriting);
+      static ExportSbasMessageSequencePtr create(const std::string& path, bool overwriting, const std::optional<std::string>& serviceProvider = {});
       static ExportSbasMessageSequencePtr dynamicCast(CommandBasePtr ptr);
       virtual bool isValid() const override;
       virtual std::string documentation() const override;
@@ -51,6 +53,11 @@ namespace Sdx
       // **** overwriting ****
       bool overwriting() const;
       void setOverwriting(bool overwriting);
+
+
+      // **** serviceProvider ****
+      std::optional<std::string> serviceProvider() const;
+      void setServiceProvider(const std::optional<std::string>& serviceProvider);
     };
     
   }

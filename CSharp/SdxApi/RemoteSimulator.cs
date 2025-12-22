@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using System.Threading;
 using Sdx.Cmd;
 
 namespace Sdx
@@ -97,7 +98,7 @@ namespace Sdx
 
     public static int SpooferInstance(int id) { return 128 + id; }
 
-    public void Connect(string ip = "localhost", int id = 0, bool failIfApiVersionMsmatch = false)
+    public void Connect(string ip = "localhost", int id = 0, bool failIfApiVersionMsmatch = false, int timeout = Timeout.Infinite)
     {
       if (IsConnected)
       {
@@ -108,7 +109,7 @@ namespace Sdx
       PrintLine("Connecting to " + ip + " port on " + port + "...");
 
       m_client = new CmdClient();
-      m_client.Connect(ip, port);
+      m_client.Connect(ip, port, timeout);
 
       m_serverApiVersion = m_client.GetServerApiVersion();
       if (ClientApiVersion != m_serverApiVersion)

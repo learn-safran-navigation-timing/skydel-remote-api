@@ -16,11 +16,11 @@ namespace Sdx
     const char* const GetTransmittedPrnForSV::Documentation = "Get the PRNs transmitted by the SV ID for these signals.\n"
       "\n"
       "Name        Type         Description\n"
-      "----------- ------------ ---------------------------------------------------------------------------\n"
+      "----------- ------------ --------------------------------------------------------------------------------\n"
       "SvId        int          Satellite SV ID.\n"
       "SignalArray array string An array of signals.\n"
       "                         Accepted values are: \"L1CA\", \"L1C\", \"L2C\", \"L5\", \"E1\", \"E6BC\", \"B1\", \"B2\",\n"
-      "                                              \"B1C\", \"B2a\", \"B3I\", \"SBASL1\", \"SBASL5\", \"QZSSL1CA\",\n"
+      "                                              \"B1C\", \"B2a\", \"B2b\", \"B3I\", \"SBASL1\", \"SBASL5\", \"QZSSL1CA\",\n"
       "                                              \"QZSSL1CB\", \"QZSSL1C\", \"QZSSL2C\", \"QZSSL5\", \"QZSSL1S\",\n"
       "                                              \"QZSSL5S\", \"QZSSL6\", \"NAVICL1\", \"NAVICL5\", \"NAVICS\",\n"
       "                                              \"PULSARXL\", \"PULSARX1\" and \"PULSARX5\"";

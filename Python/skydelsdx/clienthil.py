@@ -30,8 +30,8 @@ class VehicleInfo:
     self.odometer = 0
   
 class ClientHil(Client):
-  def __init__(self, address, port):
-    Client.__init__(self, address, port, False)
+  def __init__(self, address, port, timeout=None):
+    Client.__init__(self, address, port, False, timeout)
     self.sock.sendto(struct.pack('<B', MsgId.Hello), self.server_address)
    
   def _sendMessage(self, message):

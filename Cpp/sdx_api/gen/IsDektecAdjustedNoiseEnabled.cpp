@@ -13,7 +13,7 @@ namespace Sdx
   namespace Cmd
   {
     const char* const IsDektecAdjustedNoiseEnabled::CmdName = "IsDektecAdjustedNoiseEnabled";
-    const char* const IsDektecAdjustedNoiseEnabled::Documentation = "Indicates if noise level adjustment for Advanced Jammers on Dektec is enabled.";
+    const char* const IsDektecAdjustedNoiseEnabled::Documentation = "Indicates if noise level adjustment on Dektec is enabled.";
     const char* const IsDektecAdjustedNoiseEnabled::TargetId = "";
 
     REGISTER_COMMAND_TO_FACTORY_DECL(IsDektecAdjustedNoiseEnabled);

@@ -13,8 +13,8 @@ namespace Sdx
     /// Result of IsDektecAdjustedNoiseEnabled.
     ///
     /// Name   Type Description
-    /// ------ ---- ----------------------------------------------------------------
-    /// Enable bool True to enable Advance Jammer noise adjustment on Dektec output.
+    /// ------ ---- -------------------------------------------------
+    /// Enable bool True to enable noise adjustment on Dektec output.
     ///
 
     class IsDektecAdjustedNoiseEnabledResult;

@@ -14,11 +14,11 @@ namespace Sdx
     /// Result of GetIonoGridGIVEI.
     ///
     /// Name            Type            Description
-    /// --------------- --------------- -------------------------------
+    /// --------------- --------------- ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
     /// Band            int             The ionospheric grid band index
     /// Point           int             The IGP index
     /// GiveI           int             The GIVEI at the IGP
-    /// ServiceProvider optional string The service provider (optional)
+    /// ServiceProvider optional string The service provider. When not specified for a Setter command, the change is applied to all service providers. When not specified for a Getter command, the value for WAAS is returned.
     ///
 
     class GetIonoGridGIVEIResult;

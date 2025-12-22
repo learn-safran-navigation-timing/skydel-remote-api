@@ -15,7 +15,7 @@ namespace Sdx
     ///
     /// Name   Type      Description
     /// ------ --------- --------------------------------------------------------------------------------------------------------------------------
-    /// System string    "GPS" or "SBAS".
+    /// System string    "SBAS".
     /// Udreis array int UDREI value to set for each satellite. Zero based index (index 0 => UDREI for SV ID 1, index 1 => UDREI for SV ID 2, etc).
     ///
 

@@ -16,10 +16,10 @@ namespace Sdx
     const char* const ExportIonoGridGIVEI::Documentation = "Export ionospheric grid GIVEI.\n"
       "\n"
       "Name            Type            Description\n"
-      "--------------- --------------- -------------------------------\n"
+      "--------------- --------------- -----------------------------------------------------------\n"
       "Overwriting     bool            Overwrite the old file if true.\n"
       "Path            string          Grid file path\n"
-      "ServiceProvider optional string The service provider (optional)";
+      "ServiceProvider optional string The service provider. When not specified, defaults to WAAS.";
     const char* const ExportIonoGridGIVEI::TargetId = "";
 
     REGISTER_COMMAND_TO_FACTORY_DECL(ExportIonoGridGIVEI);

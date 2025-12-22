@@ -1,0 +1,61 @@
+#pragma once
+
+#include <memory>
+#include "command_result.h"
+#include "command_factory.h"
+#include <optional>
+#include <string>
+
+namespace Sdx
+{
+  namespace Cmd
+  {
+    ///
+    /// Result of IsSbasMixedCorrectionsMessageEnabled.
+    ///
+    /// Name            Type            Description
+    /// --------------- --------------- --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+    /// Enabled         bool            If enabled (true, default), Skydel will attempt to insert message 24 as a replacement for a message 2-5 when applicable. If disabled (false), Skydel will not attempt to include message 24 in the message sequence.
+    /// ServiceProvider optional string The service provider. When not specified for a Setter command, the change is applied to all service providers. When not specified for a Getter command, the value for WAAS is returned.
+    ///
+
+    class IsSbasMixedCorrectionsMessageEnabledResult;
+    typedef std::shared_ptr<IsSbasMixedCorrectionsMessageEnabledResult> IsSbasMixedCorrectionsMessageEnabledResultPtr;
+    
+    
+    class IsSbasMixedCorrectionsMessageEnabledResult : public CommandResult
+    {
+    public:
+      static const char* const CmdName;
+      static const char* const Documentation;
+      static const char* const TargetId;
+
+
+      IsSbasMixedCorrectionsMessageEnabledResult();
+
+      IsSbasMixedCorrectionsMessageEnabledResult(bool enabled, const std::optional<std::string>& serviceProvider = {});
+
+      IsSbasMixedCorrectionsMessageEnabledResult(CommandBasePtr relatedCommand, bool enabled, const std::optional<std::string>& serviceProvider = {});
+
+      static IsSbasMixedCorrectionsMessageEnabledResultPtr create(bool enabled, const std::optional<std::string>& serviceProvider = {});
+
+      static IsSbasMixedCorrectionsMessageEnabledResultPtr create(CommandBasePtr relatedCommand, bool enabled, const std::optional<std::string>& serviceProvider = {});
+      static IsSbasMixedCorrectionsMessageEnabledResultPtr dynamicCast(CommandBasePtr ptr);
+      virtual bool isValid() const override;
+      virtual std::string documentation() const override;
+      virtual const std::vector<std::string>& fieldNames() const override;
+
+
+      // **** enabled ****
+      bool enabled() const;
+      void setEnabled(bool enabled);
+
+
+      // **** serviceProvider ****
+      std::optional<std::string> serviceProvider() const;
+      void setServiceProvider(const std::optional<std::string>& serviceProvider);
+    };
+    REGISTER_COMMAND_TO_FACTORY_DECL(IsSbasMixedCorrectionsMessageEnabledResult);
+  }
+}
+

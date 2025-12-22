@@ -14,10 +14,10 @@ namespace Sdx
     /// Export ionospheric grid GIVEI.
     ///
     /// Name            Type            Description
-    /// --------------- --------------- -------------------------------
+    /// --------------- --------------- -----------------------------------------------------------
     /// Overwriting     bool            Overwrite the old file if true.
     /// Path            string          Grid file path
-    /// ServiceProvider optional string The service provider (optional)
+    /// ServiceProvider optional string The service provider. When not specified, defaults to WAAS.
     ///
 
     class ExportIonoGridGIVEI;

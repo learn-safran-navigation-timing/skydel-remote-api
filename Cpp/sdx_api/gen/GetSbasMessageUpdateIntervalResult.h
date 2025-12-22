@@ -3,7 +3,8 @@
 #include <memory>
 #include "command_result.h"
 #include "command_factory.h"
-
+#include <optional>
+#include <string>
 
 namespace Sdx
 {
@@ -12,10 +13,11 @@ namespace Sdx
     ///
     /// Result of GetSbasMessageUpdateInterval.
     ///
-    /// Name           Type Description
-    /// -------------- ---- -----------------------------------------------------------------------------------------------
-    /// Message        int  The message type.
-    /// UpdateInterval int  The message update interval in seconds. Accepted range is [6..300] and must be a multiple of 6.
+    /// Name            Type            Description
+    /// --------------- --------------- ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+    /// Message         int             The message type.
+    /// UpdateInterval  int             The message update interval in seconds. Accepted range is [1..300].
+    /// ServiceProvider optional string The service provider. When not specified for a Setter command, the change is applied to all service providers. When not specified for a Getter command, the value for WAAS is returned.
     ///
 
     class GetSbasMessageUpdateIntervalResult;
@@ -32,13 +34,13 @@ namespace Sdx
 
       GetSbasMessageUpdateIntervalResult();
 
-      GetSbasMessageUpdateIntervalResult(int message, int updateInterval);
+      GetSbasMessageUpdateIntervalResult(int message, int updateInterval, const std::optional<std::string>& serviceProvider = {});
 
-      GetSbasMessageUpdateIntervalResult(CommandBasePtr relatedCommand, int message, int updateInterval);
+      GetSbasMessageUpdateIntervalResult(CommandBasePtr relatedCommand, int message, int updateInterval, const std::optional<std::string>& serviceProvider = {});
 
-      static GetSbasMessageUpdateIntervalResultPtr create(int message, int updateInterval);
+      static GetSbasMessageUpdateIntervalResultPtr create(int message, int updateInterval, const std::optional<std::string>& serviceProvider = {});
 
-      static GetSbasMessageUpdateIntervalResultPtr create(CommandBasePtr relatedCommand, int message, int updateInterval);
+      static GetSbasMessageUpdateIntervalResultPtr create(CommandBasePtr relatedCommand, int message, int updateInterval, const std::optional<std::string>& serviceProvider = {});
       static GetSbasMessageUpdateIntervalResultPtr dynamicCast(CommandBasePtr ptr);
       virtual bool isValid() const override;
       virtual std::string documentation() const override;
@@ -53,6 +55,11 @@ namespace Sdx
       // **** updateInterval ****
       int updateInterval() const;
       void setUpdateInterval(int updateInterval);
+
+
+      // **** serviceProvider ****
+      std::optional<std::string> serviceProvider() const;
+      void setServiceProvider(const std::optional<std::string>& serviceProvider);
     };
     REGISTER_COMMAND_TO_FACTORY_DECL(GetSbasMessageUpdateIntervalResult);
   }

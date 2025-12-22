@@ -13,8 +13,8 @@ class MsgId:
   ApiVersion = 2
 
 class ClientCmd(Client):
-  def __init__(self, address, port):
-    Client.__init__(self, address, port, True)
+  def __init__(self, address, port, timeout=None):
+    Client.__init__(self, address, port, True, timeout)
 
   def _getPacketSize(self):
     return struct.unpack('<H', self._getPacket(2))[0]

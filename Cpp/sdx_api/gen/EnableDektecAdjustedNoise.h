@@ -10,11 +10,11 @@ namespace Sdx
   namespace Cmd
   {
     ///
-    /// Adjusts the Advanced Jammer IQ data amplitude on the Dektec output by adding noise to ensure power level linearity on weak jammer signals. Note that enabling this option will increase the noise observed at the RF output for all jammer signal power levels.
+    /// Adjusts the IQ data amplitude on the Dektec output by adding noise to ensure power level linearity on weak jammer signals. Note that enabling this option will increase the noise observed at the RF output when simulating jammers.
     ///
     /// Name   Type Description
-    /// ------ ---- ----------------------------------------------------------------
-    /// Enable bool True to enable Advance Jammer noise adjustment on Dektec output.
+    /// ------ ---- -------------------------------------------------
+    /// Enable bool True to enable noise adjustment on Dektec output.
     ///
 
     class EnableDektecAdjustedNoise;

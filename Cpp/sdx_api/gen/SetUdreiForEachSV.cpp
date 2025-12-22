@@ -17,7 +17,7 @@ namespace Sdx
       "\n"
       "Name   Type      Description\n"
       "------ --------- --------------------------------------------------------------------------------------------------------------------------\n"
-      "System string    \"GPS\" or \"SBAS\".\n"
+      "System string    \"SBAS\".\n"
       "Udreis array int UDREI value to set for each satellite. Zero based index (index 0 => UDREI for SV ID 1, index 1 => UDREI for SV ID 2, etc).";
     const char* const SetUdreiForEachSV::TargetId = "";
 

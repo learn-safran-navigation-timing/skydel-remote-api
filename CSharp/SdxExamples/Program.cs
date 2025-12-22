@@ -888,7 +888,7 @@ namespace SdxExamples
     ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
     static void RunExampleGetPower(string host, string target_type, string x300_ip)
     {
-      Console.WriteLine("=== Basic Example ===");
+      Console.WriteLine("=== Get Power Example ===");
 
       Console.WriteLine("==> Connecting to the simulator");
       RemoteSimulator sim = new RemoteSimulator();

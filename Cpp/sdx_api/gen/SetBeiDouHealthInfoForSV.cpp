@@ -17,7 +17,7 @@ namespace Sdx
       "\n"
       "Name        Type            Description\n"
       "----------- --------------- -------------------------------------------------------------------------------------------\n"
-      "SvId        int             Satellite SV ID 1..35, or use 0 to apply new value to all satellites.\n"
+      "SvId        int             Satellite SV ID 1..63, or use 0 to apply new value to all satellites.\n"
       "Health      int             Health Info, 9-bit integer : 0, 2, 64, 66, 128, 130, 192, 194, 256 or 511\n"
       "DataSetName optional string Optional name of the data set to use. If no value is provided, the active data set is used.";
     const char* const SetBeiDouHealthInfoForSV::TargetId = "";

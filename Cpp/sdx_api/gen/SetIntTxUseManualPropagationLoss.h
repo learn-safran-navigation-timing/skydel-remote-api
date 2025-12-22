@@ -10,7 +10,7 @@ namespace Sdx
   namespace Cmd
   {
     ///
-    /// Set whether a dynamic transmitter should only use user-provided propagation loss values. Propagation loss will not update automatically if set. This state is not preserved after simulation end.
+    /// Sets whether the propagation losses of a dynamic interference transmitter are provided by the user. When enabled, Skydel does not automatically compute propagation losses. This option is not preserved after the simulation ends.
     ///
     /// Name   Type   Description
     /// ------ ------ -------------------------------------------------------------

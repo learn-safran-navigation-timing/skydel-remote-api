@@ -6,9 +6,10 @@ import struct
 import time
 
 class Client:
-  def __init__(self, address, port, use_connection):
+  def __init__(self, address, port, use_connection, timeout=None):
     # Create a TCP/IP socket
     self.sock = socket.socket(socket.AF_INET, socket.SOCK_STREAM if use_connection else socket.SOCK_DGRAM)
+    self.sock.settimeout(timeout if timeout else None)
     self.server_address = (address, port)
     self.port = port
     self.address = address

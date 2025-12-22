@@ -15,9 +15,10 @@ namespace Sdx
     const char* const IsTransmitMessage2InSbasMessage0Result::CmdName = "IsTransmitMessage2InSbasMessage0Result";
     const char* const IsTransmitMessage2InSbasMessage0Result::Documentation = "Result of IsTransmitMessage2InSbasMessage0.\n"
       "\n"
-      "Name             Type Description\n"
-      "---------------- ---- ---------------------------------------------------------\n"
-      "TransmitMessage2 bool Whether SBAS should transmit message type 2 instead of 0.";
+      "Name             Type            Description\n"
+      "---------------- --------------- ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------\n"
+      "TransmitMessage2 bool            Whether SBAS should transmit message type 2 instead of 0.\n"
+      "ServiceProvider  optional string The service provider. When not specified for a Setter command, the change is applied to all service providers. When not specified for a Getter command, the value for WAAS is returned.";
     const char* const IsTransmitMessage2InSbasMessage0Result::TargetId = "";
 
     REGISTER_COMMAND_TO_FACTORY_IMPL(IsTransmitMessage2InSbasMessage0Result);
@@ -27,29 +28,31 @@ namespace Sdx
       : CommandResult(CmdName, TargetId)
     {}
 
-    IsTransmitMessage2InSbasMessage0Result::IsTransmitMessage2InSbasMessage0Result(bool transmitMessage2)
+    IsTransmitMessage2InSbasMessage0Result::IsTransmitMessage2InSbasMessage0Result(bool transmitMessage2, const std::optional<std::string>& serviceProvider)
       : CommandResult(CmdName, TargetId)
     {
 
       setTransmitMessage2(transmitMessage2);
+      setServiceProvider(serviceProvider);
     }
 
-    IsTransmitMessage2InSbasMessage0Result::IsTransmitMessage2InSbasMessage0Result(CommandBasePtr relatedCommand, bool transmitMessage2)
+    IsTransmitMessage2InSbasMessage0Result::IsTransmitMessage2InSbasMessage0Result(CommandBasePtr relatedCommand, bool transmitMessage2, const std::optional<std::string>& serviceProvider)
       : CommandResult(CmdName, TargetId, relatedCommand)
     {
 
       setTransmitMessage2(transmitMessage2);
+      setServiceProvider(serviceProvider);
     }
 
 
-    IsTransmitMessage2InSbasMessage0ResultPtr IsTransmitMessage2InSbasMessage0Result::create(bool transmitMessage2)
+    IsTransmitMessage2InSbasMessage0ResultPtr IsTransmitMessage2InSbasMessage0Result::create(bool transmitMessage2, const std::optional<std::string>& serviceProvider)
     {
-      return std::make_shared<IsTransmitMessage2InSbasMessage0Result>(transmitMessage2);
+      return std::make_shared<IsTransmitMessage2InSbasMessage0Result>(transmitMessage2, serviceProvider);
     }
 
-    IsTransmitMessage2InSbasMessage0ResultPtr IsTransmitMessage2InSbasMessage0Result::create(CommandBasePtr relatedCommand, bool transmitMessage2)
+    IsTransmitMessage2InSbasMessage0ResultPtr IsTransmitMessage2InSbasMessage0Result::create(CommandBasePtr relatedCommand, bool transmitMessage2, const std::optional<std::string>& serviceProvider)
     {
-      return std::make_shared<IsTransmitMessage2InSbasMessage0Result>(relatedCommand, transmitMessage2);
+      return std::make_shared<IsTransmitMessage2InSbasMessage0Result>(relatedCommand, transmitMessage2, serviceProvider);
     }
 
     IsTransmitMessage2InSbasMessage0ResultPtr IsTransmitMessage2InSbasMessage0Result::dynamicCast(CommandBasePtr ptr)
@@ -62,6 +65,7 @@ namespace Sdx
       
         return m_values.IsObject()
           && parse_json<bool>::is_valid(m_values["TransmitMessage2"])
+          && parse_json<std::optional<std::string>>::is_valid(m_values["ServiceProvider"])
         ;
 
     }
@@ -70,7 +74,7 @@ namespace Sdx
 
     const std::vector<std::string>& IsTransmitMessage2InSbasMessage0Result::fieldNames() const 
     { 
-      static const std::vector<std::string> names {"TransmitMessage2"}; 
+      static const std::vector<std::string> names {"TransmitMessage2", "ServiceProvider"}; 
       return names; 
     }
 
@@ -83,6 +87,18 @@ namespace Sdx
     void IsTransmitMessage2InSbasMessage0Result::setTransmitMessage2(bool transmitMessage2)
     {
       m_values.AddMember("TransmitMessage2", parse_json<bool>::format(transmitMessage2, m_values.GetAllocator()), m_values.GetAllocator());
+    }
+
+
+
+    std::optional<std::string> IsTransmitMessage2InSbasMessage0Result::serviceProvider() const
+    {
+      return parse_json<std::optional<std::string>>::parse(m_values["ServiceProvider"]);
+    }
+
+    void IsTransmitMessage2InSbasMessage0Result::setServiceProvider(const std::optional<std::string>& serviceProvider)
+    {
+      m_values.AddMember("ServiceProvider", parse_json<std::optional<std::string>>::format(serviceProvider, m_values.GetAllocator()), m_values.GetAllocator());
     }
 
 

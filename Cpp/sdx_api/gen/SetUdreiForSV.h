@@ -14,7 +14,7 @@ namespace Sdx
     ///
     /// Name   Type   Description
     /// ------ ------ ---------------------------------------------------------------
-    /// System string "GPS" or "SBAS".
+    /// System string "SBAS".
     /// SvId   int    The satellite's SV ID (use 0 to apply modification to all SVs).
     /// Udrei  int    The UDREI value.
     ///

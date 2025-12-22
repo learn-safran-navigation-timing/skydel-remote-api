@@ -62,8 +62,8 @@ namespace Sdx
       "                                                        \"Idot\", \"Adot\", \"DeltaN0dot\", \"UraIndex\", \"IODE\", \"IODNAV\",\n"
       "                                                        \"IODEC\", \"IODC\", \"Tgd\", \"IscL1CA\", \"IscL2C\", \"IscL5I5\",\n"
       "                                                        \"IscL5Q5\", \"IscL1CP\", \"IscL1CD\", \"BgdE1E5a\", \"BgdE1E5b\",\n"
-      "                                                        \"Tgd1\", \"Tgd2\", \"TgdB1Cp\", \"TgdB2ap\", \"IscB1Cd\", \"IscB2ad\",\n"
-      "                                                        \"SisaE1E5a\" and \"SisaE1E5b\"\n"
+      "                                                        \"Tgd1\", \"Tgd2\", \"TgdB1Cp\", \"TgdB2ap\", \"TgdB2bI\", \"IscB1Cd\",\n"
+      "                                                        \"IscB2ad\", \"SisaE1E5a\" and \"SisaE1E5b\"\n"
       "DataSetTypes   optional array string Optional data set type array: \"Ephemeris\" or \"Orbit\". If not provided, applies to both.";
     const char* const PushDynamicSVData::TargetId = "";
 

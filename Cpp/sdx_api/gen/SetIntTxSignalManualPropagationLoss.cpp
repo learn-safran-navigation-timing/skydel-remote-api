@@ -13,7 +13,7 @@ namespace Sdx
   namespace Cmd
   {
     const char* const SetIntTxSignalManualPropagationLoss::CmdName = "SetIntTxSignalManualPropagationLoss";
-    const char* const SetIntTxSignalManualPropagationLoss::Documentation = "Set the manual propagation loss for the given interference signal. Value is used only if SetIntTxUseManualPropagationLoss has been set on the corresponding transmitter. This value is not preserved after simulation end.\n"
+    const char* const SetIntTxSignalManualPropagationLoss::Documentation = "Sets the manual propagation loss for the given interference signal. This value is only applied when manual propagation losses are enabled for the transmitter and is discarded once the simulation ends.\n"
       "\n"
       "Name            Type   Description\n"
       "--------------- ------ --------------------------------------------------------------------------------------------------------\n"

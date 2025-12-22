@@ -1,6 +1,7 @@
 using System.Net.Sockets;
 using System.IO;
 using System;
+using System.Threading;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
 using Sdx.Cmd;
@@ -26,9 +27,13 @@ public class CmdClient
     IsConnected = false;
   }
 
-  public void Connect(string ip, int port)
+  public void Connect(string ip, int port, int timeout = Timeout.Infinite)
   {
-    m_tcpClient = new TcpClient(ip, port);
+    m_tcpClient = new TcpClient();
+    if (!m_tcpClient.ConnectAsync(ip, port).Wait(timeout == Timeout.Infinite ? timeout : timeout * 1000))
+    {
+      throw new Exception("CmdClient connection timed out.");
+    }
     IsConnected = true;
   }
 
