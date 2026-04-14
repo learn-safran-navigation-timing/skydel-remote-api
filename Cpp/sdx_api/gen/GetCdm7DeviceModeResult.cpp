@@ -82,7 +82,7 @@ namespace Sdx
 
     void GetCdm7DeviceModeResult::setDeviceMode(const std::string& deviceMode)
     {
-      m_values.AddMember("DeviceMode", parse_json<std::string>::format(deviceMode, m_values.GetAllocator()), m_values.GetAllocator());
+      setValue("DeviceMode", parse_json<std::string>::format(deviceMode, m_values.GetAllocator()));
     }
 
 

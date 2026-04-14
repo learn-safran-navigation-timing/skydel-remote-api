@@ -82,7 +82,7 @@ namespace Sdx
 
     void LogRawRateResult::setRate(int rate)
     {
-      m_values.AddMember("Rate", parse_json<int>::format(rate, m_values.GetAllocator()), m_values.GetAllocator());
+      setValue("Rate", parse_json<int>::format(rate, m_values.GetAllocator()));
     }
 
 

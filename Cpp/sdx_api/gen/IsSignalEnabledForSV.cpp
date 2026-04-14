@@ -18,7 +18,7 @@ namespace Sdx
       "Name   Type   Description\n"
       "------ ------ ------------------------------------------------------------------------------------------------\n"
       "Signal string Accepted signal keys: \"L1CA\", \"L1C\", \"L1P\", \"L1ME\", \"L1MR\", \"L2C\", \"L2P\", \"L2ME\", \"L2MR\", \"L5\",\n"
-      "                                    \"G1\", \"G2\", \"E1\", \"E1PRS\", \"E5a\", \"E5b\", \"E6BC\", \"E6PRS\",\n"
+      "                                    \"G1\", \"G1P\", \"G2\", \"G2P\", \"E1\", \"E1PRS\", \"E5a\", \"E5b\", \"E6BC\", \"E6PRS\",\n"
       "                                    \"B1\", \"B2\", \"B1C\", \"B2a\", \"B2b\", \"B3I\", \"SBASL1\", \"SBASL5\", \"QZSSL1CA\",\n"
       "                                    \"QZSSL1CB\", \"QZSSL1C\",\"QZSSL2C\", \"QZSSL5\", \"QZSSL1S\", \"QZSSL5S\", \"QZSSL6\",\n"
       "                                    \"NAVICL1\", \"NAVICL5\", \"NAVICS\", \"PULSARXL\", \"PULSARX1\", \"PULSARX5\"\n"
@@ -83,7 +83,7 @@ namespace Sdx
 
     void IsSignalEnabledForSV::setSignal(const std::string& signal)
     {
-      m_values.AddMember("Signal", parse_json<std::string>::format(signal, m_values.GetAllocator()), m_values.GetAllocator());
+      setValue("Signal", parse_json<std::string>::format(signal, m_values.GetAllocator()));
     }
 
 
@@ -95,7 +95,7 @@ namespace Sdx
 
     void IsSignalEnabledForSV::setSvId(int svId)
     {
-      m_values.AddMember("SvId", parse_json<int>::format(svId, m_values.GetAllocator()), m_values.GetAllocator());
+      setValue("SvId", parse_json<int>::format(svId, m_values.GetAllocator()));
     }
 
 

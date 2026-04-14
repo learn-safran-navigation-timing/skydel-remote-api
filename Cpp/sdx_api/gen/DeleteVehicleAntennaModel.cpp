@@ -76,7 +76,7 @@ namespace Sdx
 
     void DeleteVehicleAntennaModel::setName(const std::string& name)
     {
-      m_values.AddMember("Name", parse_json<std::string>::format(name, m_values.GetAllocator()), m_values.GetAllocator());
+      setValue("Name", parse_json<std::string>::format(name, m_values.GetAllocator()));
     }
 
 

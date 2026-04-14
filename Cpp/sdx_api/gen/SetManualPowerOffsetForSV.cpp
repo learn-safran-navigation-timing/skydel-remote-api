@@ -16,17 +16,17 @@ namespace Sdx
     const char* const SetManualPowerOffsetForSV::Documentation = "Set the power offsets applied to the signals of a satellite. Use SV ID 0 to set the power offset of all the satellites. Use key \"All\" to set the power offset to all signals.\n"
       "\n"
       "Name                  Type               Description\n"
-      "--------------------- ------------------ --------------------------------------------------------------------------------\n"
+      "--------------------- ------------------ -----------------------------------------------------------------------------\n"
       "System                string             \"GPS\", \"GLONASS\", \"Galileo\", \"BeiDou\", \"SBAS\", \"QZSS\", \"NavIC\" or \"PULSAR\".\n"
       "SvId                  int                The satellite's SV ID.\n"
       "SignalPowerOffsetDict dict string:double A dictionary of signal poweroffset pairs.\n"
       "                                         Accepted keys are: \"All\", \"L1CA\", \"L1C\", \"L1P\", \"L1ME\", \"L1MR\", \"L2C\", \"L2P\",\n"
-      "                                                            \"L2ME\", \"L2MR\", \"L5\", \"G1\", \"G2\", \"E1\", \"E1PRS\", \"E5a\",\n"
-      "                                                            \"E5b\", \"E6BC\", \"E6PRS\", \"B1\", \"B2\", \"B1C\", \"B2a\", \"B2b\",\n"
-      "                                                            \"B3I\", \"SBASL1\", \"SBASL5\", \"QZSSL1CA\", \"QZSSL1CB\", \"QZSSL1C\",\n"
-      "                                                            \"QZSSL2C\", \"QZSSL5\", \"QZSSL1S\", \"QZSSL5S\", \"QZSSL6\",\n"
-      "                                                            \"NAVICL1\", \"NAVICL5\", \"NAVICS\", \"PULSARXL\", \"PULSARX1\" and\n"
-      "                                                            \"PULSARX5\"\n"
+      "                                                            \"L2ME\", \"L2MR\", \"L5\", \"G1\", \"G1P\", \"G2\", \"G2P\", \"E1\",\n"
+      "                                                            \"E1PRS\", \"E5a\", \"E5b\", \"E6BC\", \"E6PRS\", \"B1\", \"B2\", \"B1C\",\n"
+      "                                                            \"B2a\", \"B2b\", \"B3I\", \"SBASL1\", \"SBASL5\", \"QZSSL1CA\",\n"
+      "                                                            \"QZSSL1CB\", \"QZSSL1C\", \"QZSSL2C\", \"QZSSL5\", \"QZSSL1S\",\n"
+      "                                                            \"QZSSL5S\", \"QZSSL6\", \"NAVICL1\", \"NAVICL5\", \"NAVICS\",\n"
+      "                                                            \"PULSARXL\", \"PULSARX1\" and \"PULSARX5\"\n"
       "IsRelativePowerOffset bool               If true, the power offset(s) are added to the current value(s).";
     const char* const SetManualPowerOffsetForSV::TargetId = "";
 
@@ -92,7 +92,7 @@ namespace Sdx
 
     void SetManualPowerOffsetForSV::setSystem(const std::string& system)
     {
-      m_values.AddMember("System", parse_json<std::string>::format(system, m_values.GetAllocator()), m_values.GetAllocator());
+      setValue("System", parse_json<std::string>::format(system, m_values.GetAllocator()));
     }
 
 
@@ -104,7 +104,7 @@ namespace Sdx
 
     void SetManualPowerOffsetForSV::setSvId(int svId)
     {
-      m_values.AddMember("SvId", parse_json<int>::format(svId, m_values.GetAllocator()), m_values.GetAllocator());
+      setValue("SvId", parse_json<int>::format(svId, m_values.GetAllocator()));
     }
 
 
@@ -116,7 +116,7 @@ namespace Sdx
 
     void SetManualPowerOffsetForSV::setSignalPowerOffsetDict(const std::map<std::string, double>& signalPowerOffsetDict)
     {
-      m_values.AddMember("SignalPowerOffsetDict", parse_json<std::map<std::string, double>>::format(signalPowerOffsetDict, m_values.GetAllocator()), m_values.GetAllocator());
+      setValue("SignalPowerOffsetDict", parse_json<std::map<std::string, double>>::format(signalPowerOffsetDict, m_values.GetAllocator()));
     }
 
 
@@ -128,7 +128,7 @@ namespace Sdx
 
     void SetManualPowerOffsetForSV::setIsRelativePowerOffset(bool isRelativePowerOffset)
     {
-      m_values.AddMember("IsRelativePowerOffset", parse_json<bool>::format(isRelativePowerOffset, m_values.GetAllocator()), m_values.GetAllocator());
+      setValue("IsRelativePowerOffset", parse_json<bool>::format(isRelativePowerOffset, m_values.GetAllocator()));
     }
 
 

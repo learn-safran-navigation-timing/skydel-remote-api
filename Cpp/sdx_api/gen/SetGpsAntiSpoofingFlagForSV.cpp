@@ -82,7 +82,7 @@ namespace Sdx
 
     void SetGpsAntiSpoofingFlagForSV::setSvId(int svId)
     {
-      m_values.AddMember("SvId", parse_json<int>::format(svId, m_values.GetAllocator()), m_values.GetAllocator());
+      setValue("SvId", parse_json<int>::format(svId, m_values.GetAllocator()));
     }
 
 
@@ -94,7 +94,7 @@ namespace Sdx
 
     void SetGpsAntiSpoofingFlagForSV::setAntiSpoofing(const Sdx::GpsASFlag& antiSpoofing)
     {
-      m_values.AddMember("AntiSpoofing", parse_json<Sdx::GpsASFlag>::format(antiSpoofing, m_values.GetAllocator()), m_values.GetAllocator());
+      setValue("AntiSpoofing", parse_json<Sdx::GpsASFlag>::format(antiSpoofing, m_values.GetAllocator()));
     }
 
 
@@ -106,7 +106,7 @@ namespace Sdx
 
     void SetGpsAntiSpoofingFlagForSV::setDataSetName(const std::optional<std::string>& dataSetName)
     {
-      m_values.AddMember("DataSetName", parse_json<std::optional<std::string>>::format(dataSetName, m_values.GetAllocator()), m_values.GetAllocator());
+      setValue("DataSetName", parse_json<std::optional<std::string>>::format(dataSetName, m_values.GetAllocator()));
     }
 
 

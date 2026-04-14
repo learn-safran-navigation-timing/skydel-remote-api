@@ -90,7 +90,7 @@ namespace Sdx
 
     void SetModulationTarget::setType(const std::string& type)
     {
-      m_values.AddMember("Type", parse_json<std::string>::format(type, m_values.GetAllocator()), m_values.GetAllocator());
+      setValue("Type", parse_json<std::string>::format(type, m_values.GetAllocator()));
     }
 
 
@@ -102,7 +102,7 @@ namespace Sdx
 
     void SetModulationTarget::setPath(const std::string& path)
     {
-      m_values.AddMember("Path", parse_json<std::string>::format(path, m_values.GetAllocator()), m_values.GetAllocator());
+      setValue("Path", parse_json<std::string>::format(path, m_values.GetAllocator()));
     }
 
 
@@ -114,7 +114,7 @@ namespace Sdx
 
     void SetModulationTarget::setAddress(const std::string& address)
     {
-      m_values.AddMember("Address", parse_json<std::string>::format(address, m_values.GetAllocator()), m_values.GetAllocator());
+      setValue("Address", parse_json<std::string>::format(address, m_values.GetAllocator()));
     }
 
 
@@ -126,7 +126,7 @@ namespace Sdx
 
     void SetModulationTarget::setClockIsExternal(bool clockIsExternal)
     {
-      m_values.AddMember("ClockIsExternal", parse_json<bool>::format(clockIsExternal, m_values.GetAllocator()), m_values.GetAllocator());
+      setValue("ClockIsExternal", parse_json<bool>::format(clockIsExternal, m_values.GetAllocator()));
     }
 
 
@@ -138,7 +138,7 @@ namespace Sdx
 
     void SetModulationTarget::setId(const std::string& id)
     {
-      m_values.AddMember("Id", parse_json<std::string>::format(id, m_values.GetAllocator()), m_values.GetAllocator());
+      setValue("Id", parse_json<std::string>::format(id, m_values.GetAllocator()));
     }
 
 

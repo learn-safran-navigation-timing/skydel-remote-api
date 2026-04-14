@@ -111,7 +111,7 @@ namespace Sdx
 
     void GetPseudorangeRampForSVResult::setSystem(const std::string& system)
     {
-      m_values.AddMember("System", parse_json<std::string>::format(system, m_values.GetAllocator()), m_values.GetAllocator());
+      setValue("System", parse_json<std::string>::format(system, m_values.GetAllocator()));
     }
 
 
@@ -123,7 +123,7 @@ namespace Sdx
 
     void GetPseudorangeRampForSVResult::setSvId(int svId)
     {
-      m_values.AddMember("SvId", parse_json<int>::format(svId, m_values.GetAllocator()), m_values.GetAllocator());
+      setValue("SvId", parse_json<int>::format(svId, m_values.GetAllocator()));
     }
 
 
@@ -135,7 +135,7 @@ namespace Sdx
 
     void GetPseudorangeRampForSVResult::setOffset(double offset)
     {
-      m_values.AddMember("Offset", parse_json<double>::format(offset, m_values.GetAllocator()), m_values.GetAllocator());
+      setValue("Offset", parse_json<double>::format(offset, m_values.GetAllocator()));
     }
 
 
@@ -147,7 +147,7 @@ namespace Sdx
 
     void GetPseudorangeRampForSVResult::setStartTime(int startTime)
     {
-      m_values.AddMember("StartTime", parse_json<int>::format(startTime, m_values.GetAllocator()), m_values.GetAllocator());
+      setValue("StartTime", parse_json<int>::format(startTime, m_values.GetAllocator()));
     }
 
 
@@ -159,7 +159,7 @@ namespace Sdx
 
     void GetPseudorangeRampForSVResult::setHoldStartTime(int holdStartTime)
     {
-      m_values.AddMember("HoldStartTime", parse_json<int>::format(holdStartTime, m_values.GetAllocator()), m_values.GetAllocator());
+      setValue("HoldStartTime", parse_json<int>::format(holdStartTime, m_values.GetAllocator()));
     }
 
 
@@ -171,7 +171,7 @@ namespace Sdx
 
     void GetPseudorangeRampForSVResult::setHoldStopTime(int holdStopTime)
     {
-      m_values.AddMember("HoldStopTime", parse_json<int>::format(holdStopTime, m_values.GetAllocator()), m_values.GetAllocator());
+      setValue("HoldStopTime", parse_json<int>::format(holdStopTime, m_values.GetAllocator()));
     }
 
 
@@ -183,7 +183,7 @@ namespace Sdx
 
     void GetPseudorangeRampForSVResult::setStopTime(int stopTime)
     {
-      m_values.AddMember("StopTime", parse_json<int>::format(stopTime, m_values.GetAllocator()), m_values.GetAllocator());
+      setValue("StopTime", parse_json<int>::format(stopTime, m_values.GetAllocator()));
     }
 
 
@@ -195,7 +195,7 @@ namespace Sdx
 
     void GetPseudorangeRampForSVResult::setId(const std::string& id)
     {
-      m_values.AddMember("Id", parse_json<std::string>::format(id, m_values.GetAllocator()), m_values.GetAllocator());
+      setValue("Id", parse_json<std::string>::format(id, m_values.GetAllocator()));
     }
 
 

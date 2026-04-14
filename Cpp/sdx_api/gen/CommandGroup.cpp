@@ -76,7 +76,7 @@ namespace Sdx
 
     void CommandGroup::setCommands(const std::vector<Sdx::CommandBasePtr>& commands)
     {
-      m_values.AddMember("Commands", parse_json<std::vector<Sdx::CommandBasePtr>>::format(commands, m_values.GetAllocator()), m_values.GetAllocator());
+      setValue("Commands", parse_json<std::vector<Sdx::CommandBasePtr>>::format(commands, m_values.GetAllocator()));
     }
 
 

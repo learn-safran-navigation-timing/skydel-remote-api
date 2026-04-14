@@ -94,7 +94,7 @@ namespace Sdx
 
     void SetPilotPRN::setEnabled(bool enabled)
     {
-      m_values.AddMember("Enabled", parse_json<bool>::format(enabled, m_values.GetAllocator()), m_values.GetAllocator());
+      setValue("Enabled", parse_json<bool>::format(enabled, m_values.GetAllocator()));
     }
 
 
@@ -106,7 +106,7 @@ namespace Sdx
 
     void SetPilotPRN::setOutputIdx(int outputIdx)
     {
-      m_values.AddMember("OutputIdx", parse_json<int>::format(outputIdx, m_values.GetAllocator()), m_values.GetAllocator());
+      setValue("OutputIdx", parse_json<int>::format(outputIdx, m_values.GetAllocator()));
     }
 
 
@@ -118,7 +118,7 @@ namespace Sdx
 
     void SetPilotPRN::setCentralFreqOffset(double centralFreqOffset)
     {
-      m_values.AddMember("CentralFreqOffset", parse_json<double>::format(centralFreqOffset, m_values.GetAllocator()), m_values.GetAllocator());
+      setValue("CentralFreqOffset", parse_json<double>::format(centralFreqOffset, m_values.GetAllocator()));
     }
 
 
@@ -130,7 +130,7 @@ namespace Sdx
 
     void SetPilotPRN::setPower(double power)
     {
-      m_values.AddMember("Power", parse_json<double>::format(power, m_values.GetAllocator()), m_values.GetAllocator());
+      setValue("Power", parse_json<double>::format(power, m_values.GetAllocator()));
     }
 
 
@@ -142,7 +142,7 @@ namespace Sdx
 
     void SetPilotPRN::setPrn(int prn)
     {
-      m_values.AddMember("Prn", parse_json<int>::format(prn, m_values.GetAllocator()), m_values.GetAllocator());
+      setValue("Prn", parse_json<int>::format(prn, m_values.GetAllocator()));
     }
 
 
@@ -154,7 +154,7 @@ namespace Sdx
 
     void SetPilotPRN::setType(const std::string& type)
     {
-      m_values.AddMember("Type", parse_json<std::string>::format(type, m_values.GetAllocator()), m_values.GetAllocator());
+      setValue("Type", parse_json<std::string>::format(type, m_values.GetAllocator()));
     }
 
 
@@ -166,7 +166,7 @@ namespace Sdx
 
     void SetPilotPRN::setPilotId(const std::string& pilotId)
     {
-      m_values.AddMember("PilotId", parse_json<std::string>::format(pilotId, m_values.GetAllocator()), m_values.GetAllocator());
+      setValue("PilotId", parse_json<std::string>::format(pilotId, m_values.GetAllocator()));
     }
 
 

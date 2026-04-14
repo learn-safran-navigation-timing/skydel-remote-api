@@ -10,7 +10,8 @@ namespace Sdx
   namespace Cmd
   {
     ///
-    /// Get the list of satellites that are cross-authenticated by the specified satellite.
+    /// Get the list of satellites that are cross-authenticated by the specified satellite. If the list is empty, the default selection algorithm is used. If non-empty, the list is fixed for the duration of the simulation.
+    /// The default selection algorithm selects the four closest satellites that do not provide OSNMA, ordered from nearest to farthest.
     ///
     /// Name Type Description
     /// ---- ---- -------------------------------------------------------------------

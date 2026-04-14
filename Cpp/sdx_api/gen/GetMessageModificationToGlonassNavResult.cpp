@@ -114,7 +114,7 @@ namespace Sdx
 
     void GetMessageModificationToGlonassNavResult::setSignalArray(const std::vector<std::string>& signalArray)
     {
-      m_values.AddMember("SignalArray", parse_json<std::vector<std::string>>::format(signalArray, m_values.GetAllocator()), m_values.GetAllocator());
+      setValue("SignalArray", parse_json<std::vector<std::string>>::format(signalArray, m_values.GetAllocator()));
     }
 
 
@@ -126,7 +126,7 @@ namespace Sdx
 
     void GetMessageModificationToGlonassNavResult::setSvId(int svId)
     {
-      m_values.AddMember("SvId", parse_json<int>::format(svId, m_values.GetAllocator()), m_values.GetAllocator());
+      setValue("SvId", parse_json<int>::format(svId, m_values.GetAllocator()));
     }
 
 
@@ -138,7 +138,7 @@ namespace Sdx
 
     void GetMessageModificationToGlonassNavResult::setStartTime(int startTime)
     {
-      m_values.AddMember("StartTime", parse_json<int>::format(startTime, m_values.GetAllocator()), m_values.GetAllocator());
+      setValue("StartTime", parse_json<int>::format(startTime, m_values.GetAllocator()));
     }
 
 
@@ -150,7 +150,7 @@ namespace Sdx
 
     void GetMessageModificationToGlonassNavResult::setStopTime(int stopTime)
     {
-      m_values.AddMember("StopTime", parse_json<int>::format(stopTime, m_values.GetAllocator()), m_values.GetAllocator());
+      setValue("StopTime", parse_json<int>::format(stopTime, m_values.GetAllocator()));
     }
 
 
@@ -162,7 +162,7 @@ namespace Sdx
 
     void GetMessageModificationToGlonassNavResult::setFrame(int frame)
     {
-      m_values.AddMember("Frame", parse_json<int>::format(frame, m_values.GetAllocator()), m_values.GetAllocator());
+      setValue("Frame", parse_json<int>::format(frame, m_values.GetAllocator()));
     }
 
 
@@ -174,7 +174,7 @@ namespace Sdx
 
     void GetMessageModificationToGlonassNavResult::setStringNumber(int stringNumber)
     {
-      m_values.AddMember("StringNumber", parse_json<int>::format(stringNumber, m_values.GetAllocator()), m_values.GetAllocator());
+      setValue("StringNumber", parse_json<int>::format(stringNumber, m_values.GetAllocator()));
     }
 
 
@@ -186,7 +186,7 @@ namespace Sdx
 
     void GetMessageModificationToGlonassNavResult::setUpdateHammingCode(bool updateHammingCode)
     {
-      m_values.AddMember("UpdateHammingCode", parse_json<bool>::format(updateHammingCode, m_values.GetAllocator()), m_values.GetAllocator());
+      setValue("UpdateHammingCode", parse_json<bool>::format(updateHammingCode, m_values.GetAllocator()));
     }
 
 
@@ -198,7 +198,7 @@ namespace Sdx
 
     void GetMessageModificationToGlonassNavResult::setStringModification(const std::string& stringModification)
     {
-      m_values.AddMember("StringModification", parse_json<std::string>::format(stringModification, m_values.GetAllocator()), m_values.GetAllocator());
+      setValue("StringModification", parse_json<std::string>::format(stringModification, m_values.GetAllocator()));
     }
 
 
@@ -210,7 +210,7 @@ namespace Sdx
 
     void GetMessageModificationToGlonassNavResult::setId(const std::string& id)
     {
-      m_values.AddMember("Id", parse_json<std::string>::format(id, m_values.GetAllocator()), m_values.GetAllocator());
+      setValue("Id", parse_json<std::string>::format(id, m_values.GetAllocator()));
     }
 
 

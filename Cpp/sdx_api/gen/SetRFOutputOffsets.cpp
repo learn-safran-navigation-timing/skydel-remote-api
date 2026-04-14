@@ -88,7 +88,7 @@ namespace Sdx
 
     void SetRFOutputOffsets::setOutputIdx(int outputIdx)
     {
-      m_values.AddMember("OutputIdx", parse_json<int>::format(outputIdx, m_values.GetAllocator()), m_values.GetAllocator());
+      setValue("OutputIdx", parse_json<int>::format(outputIdx, m_values.GetAllocator()));
     }
 
 
@@ -100,7 +100,7 @@ namespace Sdx
 
     void SetRFOutputOffsets::setPowerOffset(double powerOffset)
     {
-      m_values.AddMember("PowerOffset", parse_json<double>::format(powerOffset, m_values.GetAllocator()), m_values.GetAllocator());
+      setValue("PowerOffset", parse_json<double>::format(powerOffset, m_values.GetAllocator()));
     }
 
 
@@ -112,7 +112,7 @@ namespace Sdx
 
     void SetRFOutputOffsets::setTimeOffset(double timeOffset)
     {
-      m_values.AddMember("TimeOffset", parse_json<double>::format(timeOffset, m_values.GetAllocator()), m_values.GetAllocator());
+      setValue("TimeOffset", parse_json<double>::format(timeOffset, m_values.GetAllocator()));
     }
 
 
@@ -124,7 +124,7 @@ namespace Sdx
 
     void SetRFOutputOffsets::setPhaseOffset(double phaseOffset)
     {
-      m_values.AddMember("PhaseOffset", parse_json<double>::format(phaseOffset, m_values.GetAllocator()), m_values.GetAllocator());
+      setValue("PhaseOffset", parse_json<double>::format(phaseOffset, m_values.GetAllocator()));
     }
 
 
@@ -136,7 +136,7 @@ namespace Sdx
 
     void SetRFOutputOffsets::setPhaseStep(const std::optional<double>& phaseStep)
     {
-      m_values.AddMember("PhaseStep", parse_json<std::optional<double>>::format(phaseStep, m_values.GetAllocator()), m_values.GetAllocator());
+      setValue("PhaseStep", parse_json<std::optional<double>>::format(phaseStep, m_values.GetAllocator()));
     }
 
 

@@ -91,7 +91,7 @@ namespace Sdx
 
     void SetInterferenceCW::setStartTime(int startTime)
     {
-      m_values.AddMember("StartTime", parse_json<int>::format(startTime, m_values.GetAllocator()), m_values.GetAllocator());
+      setValue("StartTime", parse_json<int>::format(startTime, m_values.GetAllocator()));
     }
 
 
@@ -103,7 +103,7 @@ namespace Sdx
 
     void SetInterferenceCW::setStopTime(int stopTime)
     {
-      m_values.AddMember("StopTime", parse_json<int>::format(stopTime, m_values.GetAllocator()), m_values.GetAllocator());
+      setValue("StopTime", parse_json<int>::format(stopTime, m_values.GetAllocator()));
     }
 
 
@@ -115,7 +115,7 @@ namespace Sdx
 
     void SetInterferenceCW::setCentralFreq(double centralFreq)
     {
-      m_values.AddMember("CentralFreq", parse_json<double>::format(centralFreq, m_values.GetAllocator()), m_values.GetAllocator());
+      setValue("CentralFreq", parse_json<double>::format(centralFreq, m_values.GetAllocator()));
     }
 
 
@@ -127,7 +127,7 @@ namespace Sdx
 
     void SetInterferenceCW::setPower(double power)
     {
-      m_values.AddMember("Power", parse_json<double>::format(power, m_values.GetAllocator()), m_values.GetAllocator());
+      setValue("Power", parse_json<double>::format(power, m_values.GetAllocator()));
     }
 
 
@@ -139,7 +139,7 @@ namespace Sdx
 
     void SetInterferenceCW::setEnabled(bool enabled)
     {
-      m_values.AddMember("Enabled", parse_json<bool>::format(enabled, m_values.GetAllocator()), m_values.GetAllocator());
+      setValue("Enabled", parse_json<bool>::format(enabled, m_values.GetAllocator()));
     }
 
 
@@ -151,7 +151,7 @@ namespace Sdx
 
     void SetInterferenceCW::setId(const std::string& id)
     {
-      m_values.AddMember("Id", parse_json<std::string>::format(id, m_values.GetAllocator()), m_values.GetAllocator());
+      setValue("Id", parse_json<std::string>::format(id, m_values.GetAllocator()));
     }
 
 

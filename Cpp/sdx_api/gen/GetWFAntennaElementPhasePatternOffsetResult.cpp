@@ -86,7 +86,7 @@ namespace Sdx
 
     void GetWFAntennaElementPhasePatternOffsetResult::setPhaseOffset(double phaseOffset)
     {
-      m_values.AddMember("PhaseOffset", parse_json<double>::format(phaseOffset, m_values.GetAllocator()), m_values.GetAllocator());
+      setValue("PhaseOffset", parse_json<double>::format(phaseOffset, m_values.GetAllocator()));
     }
 
 
@@ -98,7 +98,7 @@ namespace Sdx
 
     void GetWFAntennaElementPhasePatternOffsetResult::setElement(int element)
     {
-      m_values.AddMember("Element", parse_json<int>::format(element, m_values.GetAllocator()), m_values.GetAllocator());
+      setValue("Element", parse_json<int>::format(element, m_values.GetAllocator()));
     }
 
 

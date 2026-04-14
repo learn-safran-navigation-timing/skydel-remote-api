@@ -86,7 +86,7 @@ namespace Sdx
 
     void GetSpoofTxTrajectoryResult::setTrajectoryType(const std::string& trajectoryType)
     {
-      m_values.AddMember("TrajectoryType", parse_json<std::string>::format(trajectoryType, m_values.GetAllocator()), m_values.GetAllocator());
+      setValue("TrajectoryType", parse_json<std::string>::format(trajectoryType, m_values.GetAllocator()));
     }
 
 
@@ -98,7 +98,7 @@ namespace Sdx
 
     void GetSpoofTxTrajectoryResult::setId(const std::string& id)
     {
-      m_values.AddMember("Id", parse_json<std::string>::format(id, m_values.GetAllocator()), m_values.GetAllocator());
+      setValue("Id", parse_json<std::string>::format(id, m_values.GetAllocator()));
     }
 
 

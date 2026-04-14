@@ -13,9 +13,9 @@ namespace Sdx
     /// Result of GetCrossAuthenticatedSatellitesForSV.
     ///
     /// Name     Type      Description
-    /// -------- --------- -------------------------------------------------------------------
+    /// -------- --------- ------------------------------------------------------------------------------------------------------------------------------------------
     /// SvId     int       The satellite's SV ID (use 0 to apply on all Galileo's satellites).
-    /// SvIdList array int A list of the cross-authenticated satellites' SV IDs.
+    /// SvIdList array int A list of the cross-authenticated satellites' SV IDs. Set empty list to use default selection algorithm of cross-authenticated satellites.
     ///
 
     class GetCrossAuthenticatedSatellitesForSVResult;

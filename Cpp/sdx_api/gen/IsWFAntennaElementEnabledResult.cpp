@@ -86,7 +86,7 @@ namespace Sdx
 
     void IsWFAntennaElementEnabledResult::setElement(int element)
     {
-      m_values.AddMember("Element", parse_json<int>::format(element, m_values.GetAllocator()), m_values.GetAllocator());
+      setValue("Element", parse_json<int>::format(element, m_values.GetAllocator()));
     }
 
 
@@ -98,7 +98,7 @@ namespace Sdx
 
     void IsWFAntennaElementEnabledResult::setEnabled(bool enabled)
     {
-      m_values.AddMember("Enabled", parse_json<bool>::format(enabled, m_values.GetAllocator()), m_values.GetAllocator());
+      setValue("Enabled", parse_json<bool>::format(enabled, m_values.GetAllocator()));
     }
 
 

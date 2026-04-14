@@ -79,7 +79,7 @@ namespace Sdx
 
     void Open::setPath(const std::string& path)
     {
-      m_values.AddMember("Path", parse_json<std::string>::format(path, m_values.GetAllocator()), m_values.GetAllocator());
+      setValue("Path", parse_json<std::string>::format(path, m_values.GetAllocator()));
     }
 
 
@@ -91,7 +91,7 @@ namespace Sdx
 
     void Open::setDiscardCurrentConfig(bool discardCurrentConfig)
     {
-      m_values.AddMember("DiscardCurrentConfig", parse_json<bool>::format(discardCurrentConfig, m_values.GetAllocator()), m_values.GetAllocator());
+      setValue("DiscardCurrentConfig", parse_json<bool>::format(discardCurrentConfig, m_values.GetAllocator()));
     }
 
 

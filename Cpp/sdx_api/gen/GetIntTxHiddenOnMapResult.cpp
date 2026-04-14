@@ -86,7 +86,7 @@ namespace Sdx
 
     void GetIntTxHiddenOnMapResult::setHiddenOnMap(bool hiddenOnMap)
     {
-      m_values.AddMember("HiddenOnMap", parse_json<bool>::format(hiddenOnMap, m_values.GetAllocator()), m_values.GetAllocator());
+      setValue("HiddenOnMap", parse_json<bool>::format(hiddenOnMap, m_values.GetAllocator()));
     }
 
 
@@ -98,7 +98,7 @@ namespace Sdx
 
     void GetIntTxHiddenOnMapResult::setId(const std::string& id)
     {
-      m_values.AddMember("Id", parse_json<std::string>::format(id, m_values.GetAllocator()), m_values.GetAllocator());
+      setValue("Id", parse_json<std::string>::format(id, m_values.GetAllocator()));
     }
 
 

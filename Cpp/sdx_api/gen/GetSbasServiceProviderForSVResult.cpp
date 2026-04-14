@@ -16,9 +16,9 @@ namespace Sdx
     const char* const GetSbasServiceProviderForSVResult::Documentation = "Result of GetSbasServiceProviderForSV.\n"
       "\n"
       "Name            Type   Description\n"
-      "--------------- ------ ------------------------------------------------------------------------------------\n"
+      "--------------- ------ --------------------------------------------------------------------------------------------------------------\n"
       "SvId            int    The satellite's SV ID.\n"
-      "ServiceProvider string Service provider value, accepts \"WAAS\", \"EGNOS\", \"MSAS\", \"GAGAN\", \"SDCM\" and \"SBAS\".";
+      "ServiceProvider string Service provider value, accepts \"WAAS\", \"EGNOS\", \"MSAS\", \"GAGAN\", \"SDCM\", \"BDSBAS\", \"KASS\", \"SPAN\" and \"SBAS\".";
     const char* const GetSbasServiceProviderForSVResult::TargetId = "";
 
     REGISTER_COMMAND_TO_FACTORY_IMPL(GetSbasServiceProviderForSVResult);
@@ -86,7 +86,7 @@ namespace Sdx
 
     void GetSbasServiceProviderForSVResult::setSvId(int svId)
     {
-      m_values.AddMember("SvId", parse_json<int>::format(svId, m_values.GetAllocator()), m_values.GetAllocator());
+      setValue("SvId", parse_json<int>::format(svId, m_values.GetAllocator()));
     }
 
 
@@ -98,7 +98,7 @@ namespace Sdx
 
     void GetSbasServiceProviderForSVResult::setServiceProvider(const std::string& serviceProvider)
     {
-      m_values.AddMember("ServiceProvider", parse_json<std::string>::format(serviceProvider, m_values.GetAllocator()), m_values.GetAllocator());
+      setValue("ServiceProvider", parse_json<std::string>::format(serviceProvider, m_values.GetAllocator()));
     }
 
 

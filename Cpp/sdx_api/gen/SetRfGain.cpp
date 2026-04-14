@@ -79,7 +79,7 @@ namespace Sdx
 
     void SetRfGain::setOutput(int output)
     {
-      m_values.AddMember("Output", parse_json<int>::format(output, m_values.GetAllocator()), m_values.GetAllocator());
+      setValue("Output", parse_json<int>::format(output, m_values.GetAllocator()));
     }
 
 
@@ -91,7 +91,7 @@ namespace Sdx
 
     void SetRfGain::setGain(double gain)
     {
-      m_values.AddMember("Gain", parse_json<double>::format(gain, m_values.GetAllocator()), m_values.GetAllocator());
+      setValue("Gain", parse_json<double>::format(gain, m_values.GetAllocator()));
     }
 
 

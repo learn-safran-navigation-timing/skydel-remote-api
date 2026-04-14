@@ -79,7 +79,7 @@ namespace Sdx
 
     void SetDektecTimeOffset::setOutput(int output)
     {
-      m_values.AddMember("Output", parse_json<int>::format(output, m_values.GetAllocator()), m_values.GetAllocator());
+      setValue("Output", parse_json<int>::format(output, m_values.GetAllocator()));
     }
 
 
@@ -91,7 +91,7 @@ namespace Sdx
 
     void SetDektecTimeOffset::setTimeOffset(int timeOffset)
     {
-      m_values.AddMember("TimeOffset", parse_json<int>::format(timeOffset, m_values.GetAllocator()), m_values.GetAllocator());
+      setValue("TimeOffset", parse_json<int>::format(timeOffset, m_values.GetAllocator()));
     }
 
 

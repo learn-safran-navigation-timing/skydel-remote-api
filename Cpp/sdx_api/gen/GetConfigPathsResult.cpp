@@ -82,7 +82,7 @@ namespace Sdx
 
     void GetConfigPathsResult::setPaths(const std::vector<std::string>& paths)
     {
-      m_values.AddMember("Paths", parse_json<std::vector<std::string>>::format(paths, m_values.GetAllocator()), m_values.GetAllocator());
+      setValue("Paths", parse_json<std::vector<std::string>>::format(paths, m_values.GetAllocator()));
     }
 
 

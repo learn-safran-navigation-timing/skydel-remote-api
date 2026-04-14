@@ -114,7 +114,7 @@ namespace Sdx
 
     void GetGalileoEphDoubleParamForSV::setSvId(int svId)
     {
-      m_values.AddMember("SvId", parse_json<int>::format(svId, m_values.GetAllocator()), m_values.GetAllocator());
+      setValue("SvId", parse_json<int>::format(svId, m_values.GetAllocator()));
     }
 
 
@@ -126,7 +126,7 @@ namespace Sdx
 
     void GetGalileoEphDoubleParamForSV::setParamName(const std::string& paramName)
     {
-      m_values.AddMember("ParamName", parse_json<std::string>::format(paramName, m_values.GetAllocator()), m_values.GetAllocator());
+      setValue("ParamName", parse_json<std::string>::format(paramName, m_values.GetAllocator()));
     }
 
 
@@ -138,7 +138,7 @@ namespace Sdx
 
     void GetGalileoEphDoubleParamForSV::setDataSetName(const std::optional<std::string>& dataSetName)
     {
-      m_values.AddMember("DataSetName", parse_json<std::optional<std::string>>::format(dataSetName, m_values.GetAllocator()), m_values.GetAllocator());
+      setValue("DataSetName", parse_json<std::optional<std::string>>::format(dataSetName, m_values.GetAllocator()));
     }
 
 

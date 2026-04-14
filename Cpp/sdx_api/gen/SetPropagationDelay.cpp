@@ -80,7 +80,7 @@ namespace Sdx
 
     void SetPropagationDelay::setSystem(const std::string& system)
     {
-      m_values.AddMember("System", parse_json<std::string>::format(system, m_values.GetAllocator()), m_values.GetAllocator());
+      setValue("System", parse_json<std::string>::format(system, m_values.GetAllocator()));
     }
 
 
@@ -92,7 +92,7 @@ namespace Sdx
 
     void SetPropagationDelay::setEnabled(bool enabled)
     {
-      m_values.AddMember("Enabled", parse_json<bool>::format(enabled, m_values.GetAllocator()), m_values.GetAllocator());
+      setValue("Enabled", parse_json<bool>::format(enabled, m_values.GetAllocator()));
     }
 
 

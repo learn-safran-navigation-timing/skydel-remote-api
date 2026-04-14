@@ -77,7 +77,7 @@ namespace Sdx
 
     void SetStartTimeOffset::setOffset(int offset)
     {
-      m_values.AddMember("Offset", parse_json<int>::format(offset, m_values.GetAllocator()), m_values.GetAllocator());
+      setValue("Offset", parse_json<int>::format(offset, m_values.GetAllocator()));
     }
 
 

@@ -82,7 +82,7 @@ namespace Sdx
 
     void SimulationElapsedTimeResult::setMilliseconds(int milliseconds)
     {
-      m_values.AddMember("Milliseconds", parse_json<int>::format(milliseconds, m_values.GetAllocator()), m_values.GetAllocator());
+      setValue("Milliseconds", parse_json<int>::format(milliseconds, m_values.GetAllocator()));
     }
 
 

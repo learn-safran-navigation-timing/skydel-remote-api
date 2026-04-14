@@ -63,7 +63,7 @@ CommandBasePtr CommandFactory::createCommand(const std::string& serializedComman
   const auto& factory = m->getFactoryFromJson(doc);
   const std::string cmdName = doc[CommandBase::CmdNameKey.c_str()].GetString();
 
-  if (const auto it = factory.find(cmdName); it != m->factory.end())
+  if (const auto it = factory.find(cmdName); it != factory.end())
   {
     auto cmd = it->second();
     cmd->m_values.CopyFrom(doc, cmd->m_values.GetAllocator());

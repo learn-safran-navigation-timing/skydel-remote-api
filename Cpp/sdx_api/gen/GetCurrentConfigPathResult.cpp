@@ -82,7 +82,7 @@ namespace Sdx
 
     void GetCurrentConfigPathResult::setConfigPath(const std::string& configPath)
     {
-      m_values.AddMember("ConfigPath", parse_json<std::string>::format(configPath, m_values.GetAllocator()), m_values.GetAllocator());
+      setValue("ConfigPath", parse_json<std::string>::format(configPath, m_values.GetAllocator()));
     }
 
 

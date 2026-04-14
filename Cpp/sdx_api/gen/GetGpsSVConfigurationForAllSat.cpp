@@ -74,7 +74,7 @@ namespace Sdx
 
     void GetGpsSVConfigurationForAllSat::setDataSetName(const std::optional<std::string>& dataSetName)
     {
-      m_values.AddMember("DataSetName", parse_json<std::optional<std::string>>::format(dataSetName, m_values.GetAllocator()), m_values.GetAllocator());
+      setValue("DataSetName", parse_json<std::optional<std::string>>::format(dataSetName, m_values.GetAllocator()));
     }
 
 

@@ -82,7 +82,7 @@ namespace Sdx
 
     void GetAllSpoofTxIDResult::setIds(const std::vector<std::string>& ids)
     {
-      m_values.AddMember("Ids", parse_json<std::vector<std::string>>::format(ids, m_values.GetAllocator()), m_values.GetAllocator());
+      setValue("Ids", parse_json<std::vector<std::string>>::format(ids, m_values.GetAllocator()));
     }
 
 

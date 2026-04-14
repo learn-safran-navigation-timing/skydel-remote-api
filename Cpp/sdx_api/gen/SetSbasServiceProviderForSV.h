@@ -13,9 +13,9 @@ namespace Sdx
     /// Set the service provider of the SBAS satellite.
     ///
     /// Name            Type   Description
-    /// --------------- ------ ------------------------------------------------------------------------------------
+    /// --------------- ------ --------------------------------------------------------------------------------------------------------------
     /// SvId            int    The satellite's SV ID.
-    /// ServiceProvider string Service provider value, accepts "WAAS", "EGNOS", "MSAS", "GAGAN", "SDCM" and "SBAS".
+    /// ServiceProvider string Service provider value, accepts "WAAS", "EGNOS", "MSAS", "GAGAN", "SDCM", "BDSBAS", "KASS", "SPAN" and "SBAS".
     ///
 
     class SetSbasServiceProviderForSV;

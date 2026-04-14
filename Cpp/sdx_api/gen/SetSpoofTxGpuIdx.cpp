@@ -82,7 +82,7 @@ namespace Sdx
 
     void SetSpoofTxGpuIdx::setGpuIdx(int gpuIdx)
     {
-      m_values.AddMember("GpuIdx", parse_json<int>::format(gpuIdx, m_values.GetAllocator()), m_values.GetAllocator());
+      setValue("GpuIdx", parse_json<int>::format(gpuIdx, m_values.GetAllocator()));
     }
 
 
@@ -94,7 +94,7 @@ namespace Sdx
 
     void SetSpoofTxGpuIdx::setSignalId(int signalId)
     {
-      m_values.AddMember("SignalId", parse_json<int>::format(signalId, m_values.GetAllocator()), m_values.GetAllocator());
+      setValue("SignalId", parse_json<int>::format(signalId, m_values.GetAllocator()));
     }
 
 
@@ -106,7 +106,7 @@ namespace Sdx
 
     void SetSpoofTxGpuIdx::setId(const std::string& id)
     {
-      m_values.AddMember("Id", parse_json<std::string>::format(id, m_values.GetAllocator()), m_values.GetAllocator());
+      setValue("Id", parse_json<std::string>::format(id, m_values.GetAllocator()));
     }
 
 

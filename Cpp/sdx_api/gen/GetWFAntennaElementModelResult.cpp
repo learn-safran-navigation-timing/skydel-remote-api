@@ -86,7 +86,7 @@ namespace Sdx
 
     void GetWFAntennaElementModelResult::setAntennaModelName(const std::string& antennaModelName)
     {
-      m_values.AddMember("AntennaModelName", parse_json<std::string>::format(antennaModelName, m_values.GetAllocator()), m_values.GetAllocator());
+      setValue("AntennaModelName", parse_json<std::string>::format(antennaModelName, m_values.GetAllocator()));
     }
 
 
@@ -98,7 +98,7 @@ namespace Sdx
 
     void GetWFAntennaElementModelResult::setElement(int element)
     {
-      m_values.AddMember("Element", parse_json<int>::format(element, m_values.GetAllocator()), m_values.GetAllocator());
+      setValue("Element", parse_json<int>::format(element, m_values.GetAllocator()));
     }
 
 

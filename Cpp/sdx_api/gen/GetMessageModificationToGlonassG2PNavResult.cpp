@@ -1,0 +1,170 @@
+
+#include "GetMessageModificationToGlonassG2PNavResult.h"
+
+#include "command_factory.h"
+#include "parse_json.hpp"
+
+///
+/// Definition of GetMessageModificationToGlonassG2PNavResult
+///
+
+namespace Sdx
+{
+  namespace Cmd
+  {
+    const char* const GetMessageModificationToGlonassG2PNavResult::CmdName = "GetMessageModificationToGlonassG2PNavResult";
+    const char* const GetMessageModificationToGlonassG2PNavResult::Documentation = "Result of GetMessageModificationToGlonassG2PNav.\n"
+      "\n"
+      "Name             Type         Description\n"
+      "---------------- ------------ ------------------------------------------------------------------------------------\n"
+      "SignalArray      array string Array of signals to apply the message modification to, accepts \"G2P\" (empty for all)\n"
+      "SvId             int          The satellite's SV ID 1..24 (use 0 to apply modification to all SVs)\n"
+      "StartTime        int          Elapsed time in seconds since start of simulation\n"
+      "StopTime         int          Elapsed time in seconds since start of simulation (use 0 for no stop time)\n"
+      "BitModifications string       Comma separated bit modifications\n"
+      "Id               string       Unique identifier of the event";
+    const char* const GetMessageModificationToGlonassG2PNavResult::TargetId = "";
+
+    REGISTER_COMMAND_TO_FACTORY_IMPL(GetMessageModificationToGlonassG2PNavResult);
+
+
+    GetMessageModificationToGlonassG2PNavResult::GetMessageModificationToGlonassG2PNavResult()
+      : CommandResult(CmdName, TargetId)
+    {}
+
+    GetMessageModificationToGlonassG2PNavResult::GetMessageModificationToGlonassG2PNavResult(const std::vector<std::string>& signalArray, int svId, int startTime, int stopTime, const std::string& bitModifications, const std::string& id)
+      : CommandResult(CmdName, TargetId)
+    {
+
+      setSignalArray(signalArray);
+      setSvId(svId);
+      setStartTime(startTime);
+      setStopTime(stopTime);
+      setBitModifications(bitModifications);
+      setId(id);
+    }
+
+    GetMessageModificationToGlonassG2PNavResult::GetMessageModificationToGlonassG2PNavResult(CommandBasePtr relatedCommand, const std::vector<std::string>& signalArray, int svId, int startTime, int stopTime, const std::string& bitModifications, const std::string& id)
+      : CommandResult(CmdName, TargetId, relatedCommand)
+    {
+
+      setSignalArray(signalArray);
+      setSvId(svId);
+      setStartTime(startTime);
+      setStopTime(stopTime);
+      setBitModifications(bitModifications);
+      setId(id);
+    }
+
+
+    GetMessageModificationToGlonassG2PNavResultPtr GetMessageModificationToGlonassG2PNavResult::create(const std::vector<std::string>& signalArray, int svId, int startTime, int stopTime, const std::string& bitModifications, const std::string& id)
+    {
+      return std::make_shared<GetMessageModificationToGlonassG2PNavResult>(signalArray, svId, startTime, stopTime, bitModifications, id);
+    }
+
+    GetMessageModificationToGlonassG2PNavResultPtr GetMessageModificationToGlonassG2PNavResult::create(CommandBasePtr relatedCommand, const std::vector<std::string>& signalArray, int svId, int startTime, int stopTime, const std::string& bitModifications, const std::string& id)
+    {
+      return std::make_shared<GetMessageModificationToGlonassG2PNavResult>(relatedCommand, signalArray, svId, startTime, stopTime, bitModifications, id);
+    }
+
+    GetMessageModificationToGlonassG2PNavResultPtr GetMessageModificationToGlonassG2PNavResult::dynamicCast(CommandBasePtr ptr)
+    {
+      return std::dynamic_pointer_cast<GetMessageModificationToGlonassG2PNavResult>(ptr);
+    }
+
+    bool GetMessageModificationToGlonassG2PNavResult::isValid() const
+    {
+      
+        return m_values.IsObject()
+          && parse_json<std::vector<std::string>>::is_valid(m_values["SignalArray"])
+          && parse_json<int>::is_valid(m_values["SvId"])
+          && parse_json<int>::is_valid(m_values["StartTime"])
+          && parse_json<int>::is_valid(m_values["StopTime"])
+          && parse_json<std::string>::is_valid(m_values["BitModifications"])
+          && parse_json<std::string>::is_valid(m_values["Id"])
+        ;
+
+    }
+
+    std::string GetMessageModificationToGlonassG2PNavResult::documentation() const { return Documentation; }
+
+    const std::vector<std::string>& GetMessageModificationToGlonassG2PNavResult::fieldNames() const 
+    { 
+      static const std::vector<std::string> names {"SignalArray", "SvId", "StartTime", "StopTime", "BitModifications", "Id"}; 
+      return names; 
+    }
+
+
+    std::vector<std::string> GetMessageModificationToGlonassG2PNavResult::signalArray() const
+    {
+      return parse_json<std::vector<std::string>>::parse(m_values["SignalArray"]);
+    }
+
+    void GetMessageModificationToGlonassG2PNavResult::setSignalArray(const std::vector<std::string>& signalArray)
+    {
+      setValue("SignalArray", parse_json<std::vector<std::string>>::format(signalArray, m_values.GetAllocator()));
+    }
+
+
+
+    int GetMessageModificationToGlonassG2PNavResult::svId() const
+    {
+      return parse_json<int>::parse(m_values["SvId"]);
+    }
+
+    void GetMessageModificationToGlonassG2PNavResult::setSvId(int svId)
+    {
+      setValue("SvId", parse_json<int>::format(svId, m_values.GetAllocator()));
+    }
+
+
+
+    int GetMessageModificationToGlonassG2PNavResult::startTime() const
+    {
+      return parse_json<int>::parse(m_values["StartTime"]);
+    }
+
+    void GetMessageModificationToGlonassG2PNavResult::setStartTime(int startTime)
+    {
+      setValue("StartTime", parse_json<int>::format(startTime, m_values.GetAllocator()));
+    }
+
+
+
+    int GetMessageModificationToGlonassG2PNavResult::stopTime() const
+    {
+      return parse_json<int>::parse(m_values["StopTime"]);
+    }
+
+    void GetMessageModificationToGlonassG2PNavResult::setStopTime(int stopTime)
+    {
+      setValue("StopTime", parse_json<int>::format(stopTime, m_values.GetAllocator()));
+    }
+
+
+
+    std::string GetMessageModificationToGlonassG2PNavResult::bitModifications() const
+    {
+      return parse_json<std::string>::parse(m_values["BitModifications"]);
+    }
+
+    void GetMessageModificationToGlonassG2PNavResult::setBitModifications(const std::string& bitModifications)
+    {
+      setValue("BitModifications", parse_json<std::string>::format(bitModifications, m_values.GetAllocator()));
+    }
+
+
+
+    std::string GetMessageModificationToGlonassG2PNavResult::id() const
+    {
+      return parse_json<std::string>::parse(m_values["Id"]);
+    }
+
+    void GetMessageModificationToGlonassG2PNavResult::setId(const std::string& id)
+    {
+      setValue("Id", parse_json<std::string>::format(id, m_values.GetAllocator()));
+    }
+
+
+  }
+}

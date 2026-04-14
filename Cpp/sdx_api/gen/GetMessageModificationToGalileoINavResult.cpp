@@ -118,7 +118,7 @@ namespace Sdx
 
     void GetMessageModificationToGalileoINavResult::setSignalArray(const std::vector<std::string>& signalArray)
     {
-      m_values.AddMember("SignalArray", parse_json<std::vector<std::string>>::format(signalArray, m_values.GetAllocator()), m_values.GetAllocator());
+      setValue("SignalArray", parse_json<std::vector<std::string>>::format(signalArray, m_values.GetAllocator()));
     }
 
 
@@ -130,7 +130,7 @@ namespace Sdx
 
     void GetMessageModificationToGalileoINavResult::setSvId(int svId)
     {
-      m_values.AddMember("SvId", parse_json<int>::format(svId, m_values.GetAllocator()), m_values.GetAllocator());
+      setValue("SvId", parse_json<int>::format(svId, m_values.GetAllocator()));
     }
 
 
@@ -142,7 +142,7 @@ namespace Sdx
 
     void GetMessageModificationToGalileoINavResult::setStartTime(int startTime)
     {
-      m_values.AddMember("StartTime", parse_json<int>::format(startTime, m_values.GetAllocator()), m_values.GetAllocator());
+      setValue("StartTime", parse_json<int>::format(startTime, m_values.GetAllocator()));
     }
 
 
@@ -154,7 +154,7 @@ namespace Sdx
 
     void GetMessageModificationToGalileoINavResult::setStopTime(int stopTime)
     {
-      m_values.AddMember("StopTime", parse_json<int>::format(stopTime, m_values.GetAllocator()), m_values.GetAllocator());
+      setValue("StopTime", parse_json<int>::format(stopTime, m_values.GetAllocator()));
     }
 
 
@@ -166,7 +166,7 @@ namespace Sdx
 
     void GetMessageModificationToGalileoINavResult::setSubframe(int subframe)
     {
-      m_values.AddMember("Subframe", parse_json<int>::format(subframe, m_values.GetAllocator()), m_values.GetAllocator());
+      setValue("Subframe", parse_json<int>::format(subframe, m_values.GetAllocator()));
     }
 
 
@@ -178,7 +178,7 @@ namespace Sdx
 
     void GetMessageModificationToGalileoINavResult::setPage(int page)
     {
-      m_values.AddMember("Page", parse_json<int>::format(page, m_values.GetAllocator()), m_values.GetAllocator());
+      setValue("Page", parse_json<int>::format(page, m_values.GetAllocator()));
     }
 
 
@@ -190,7 +190,7 @@ namespace Sdx
 
     void GetMessageModificationToGalileoINavResult::setCondition(const std::string& condition)
     {
-      m_values.AddMember("Condition", parse_json<std::string>::format(condition, m_values.GetAllocator()), m_values.GetAllocator());
+      setValue("Condition", parse_json<std::string>::format(condition, m_values.GetAllocator()));
     }
 
 
@@ -202,7 +202,7 @@ namespace Sdx
 
     void GetMessageModificationToGalileoINavResult::setUpdateCRC(bool updateCRC)
     {
-      m_values.AddMember("UpdateCRC", parse_json<bool>::format(updateCRC, m_values.GetAllocator()), m_values.GetAllocator());
+      setValue("UpdateCRC", parse_json<bool>::format(updateCRC, m_values.GetAllocator()));
     }
 
 
@@ -214,7 +214,7 @@ namespace Sdx
 
     void GetMessageModificationToGalileoINavResult::setBitModifications(const std::string& bitModifications)
     {
-      m_values.AddMember("BitModifications", parse_json<std::string>::format(bitModifications, m_values.GetAllocator()), m_values.GetAllocator());
+      setValue("BitModifications", parse_json<std::string>::format(bitModifications, m_values.GetAllocator()));
     }
 
 
@@ -226,7 +226,7 @@ namespace Sdx
 
     void GetMessageModificationToGalileoINavResult::setId(const std::string& id)
     {
-      m_values.AddMember("Id", parse_json<std::string>::format(id, m_values.GetAllocator()), m_values.GetAllocator());
+      setValue("Id", parse_json<std::string>::format(id, m_values.GetAllocator()));
     }
 
 

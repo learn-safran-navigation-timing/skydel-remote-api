@@ -82,7 +82,7 @@ namespace Sdx
 
     void SetSpoofTxAntenna::setGain(const std::vector<std::vector<double>>& gain)
     {
-      m_values.AddMember("Gain", parse_json<std::vector<std::vector<double>>>::format(gain, m_values.GetAllocator()), m_values.GetAllocator());
+      setValue("Gain", parse_json<std::vector<std::vector<double>>>::format(gain, m_values.GetAllocator()));
     }
 
 
@@ -94,7 +94,7 @@ namespace Sdx
 
     void SetSpoofTxAntenna::setType(const Sdx::AntennaPatternType& type)
     {
-      m_values.AddMember("Type", parse_json<Sdx::AntennaPatternType>::format(type, m_values.GetAllocator()), m_values.GetAllocator());
+      setValue("Type", parse_json<Sdx::AntennaPatternType>::format(type, m_values.GetAllocator()));
     }
 
 
@@ -106,7 +106,7 @@ namespace Sdx
 
     void SetSpoofTxAntenna::setId(const std::string& id)
     {
-      m_values.AddMember("Id", parse_json<std::string>::format(id, m_values.GetAllocator()), m_values.GetAllocator());
+      setValue("Id", parse_json<std::string>::format(id, m_values.GetAllocator()));
     }
 
 

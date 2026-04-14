@@ -80,7 +80,7 @@ namespace Sdx
 
     void MessageSequenceImport::setSignal(const std::string& signal)
     {
-      m_values.AddMember("Signal", parse_json<std::string>::format(signal, m_values.GetAllocator()), m_values.GetAllocator());
+      setValue("Signal", parse_json<std::string>::format(signal, m_values.GetAllocator()));
     }
 
 
@@ -92,7 +92,7 @@ namespace Sdx
 
     void MessageSequenceImport::setFilename(const std::string& filename)
     {
-      m_values.AddMember("Filename", parse_json<std::string>::format(filename, m_values.GetAllocator()), m_values.GetAllocator());
+      setValue("Filename", parse_json<std::string>::format(filename, m_values.GetAllocator()));
     }
 
 

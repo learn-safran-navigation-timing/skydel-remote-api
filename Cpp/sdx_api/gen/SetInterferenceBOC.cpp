@@ -106,7 +106,7 @@ namespace Sdx
 
     void SetInterferenceBOC::setStartTime(int startTime)
     {
-      m_values.AddMember("StartTime", parse_json<int>::format(startTime, m_values.GetAllocator()), m_values.GetAllocator());
+      setValue("StartTime", parse_json<int>::format(startTime, m_values.GetAllocator()));
     }
 
 
@@ -118,7 +118,7 @@ namespace Sdx
 
     void SetInterferenceBOC::setStopTime(int stopTime)
     {
-      m_values.AddMember("StopTime", parse_json<int>::format(stopTime, m_values.GetAllocator()), m_values.GetAllocator());
+      setValue("StopTime", parse_json<int>::format(stopTime, m_values.GetAllocator()));
     }
 
 
@@ -130,7 +130,7 @@ namespace Sdx
 
     void SetInterferenceBOC::setCentralFreq(double centralFreq)
     {
-      m_values.AddMember("CentralFreq", parse_json<double>::format(centralFreq, m_values.GetAllocator()), m_values.GetAllocator());
+      setValue("CentralFreq", parse_json<double>::format(centralFreq, m_values.GetAllocator()));
     }
 
 
@@ -142,7 +142,7 @@ namespace Sdx
 
     void SetInterferenceBOC::setPower(double power)
     {
-      m_values.AddMember("Power", parse_json<double>::format(power, m_values.GetAllocator()), m_values.GetAllocator());
+      setValue("Power", parse_json<double>::format(power, m_values.GetAllocator()));
     }
 
 
@@ -154,7 +154,7 @@ namespace Sdx
 
     void SetInterferenceBOC::setCodeRate(int codeRate)
     {
-      m_values.AddMember("CodeRate", parse_json<int>::format(codeRate, m_values.GetAllocator()), m_values.GetAllocator());
+      setValue("CodeRate", parse_json<int>::format(codeRate, m_values.GetAllocator()));
     }
 
 
@@ -166,7 +166,7 @@ namespace Sdx
 
     void SetInterferenceBOC::setCodeLengthMs(int codeLengthMs)
     {
-      m_values.AddMember("CodeLengthMs", parse_json<int>::format(codeLengthMs, m_values.GetAllocator()), m_values.GetAllocator());
+      setValue("CodeLengthMs", parse_json<int>::format(codeLengthMs, m_values.GetAllocator()));
     }
 
 
@@ -178,7 +178,7 @@ namespace Sdx
 
     void SetInterferenceBOC::setSubCarrierRate(int subCarrierRate)
     {
-      m_values.AddMember("SubCarrierRate", parse_json<int>::format(subCarrierRate, m_values.GetAllocator()), m_values.GetAllocator());
+      setValue("SubCarrierRate", parse_json<int>::format(subCarrierRate, m_values.GetAllocator()));
     }
 
 
@@ -190,7 +190,7 @@ namespace Sdx
 
     void SetInterferenceBOC::setCosinePhaseBoc(bool cosinePhaseBoc)
     {
-      m_values.AddMember("CosinePhaseBoc", parse_json<bool>::format(cosinePhaseBoc, m_values.GetAllocator()), m_values.GetAllocator());
+      setValue("CosinePhaseBoc", parse_json<bool>::format(cosinePhaseBoc, m_values.GetAllocator()));
     }
 
 
@@ -202,7 +202,7 @@ namespace Sdx
 
     void SetInterferenceBOC::setEnabled(bool enabled)
     {
-      m_values.AddMember("Enabled", parse_json<bool>::format(enabled, m_values.GetAllocator()), m_values.GetAllocator());
+      setValue("Enabled", parse_json<bool>::format(enabled, m_values.GetAllocator()));
     }
 
 
@@ -214,7 +214,7 @@ namespace Sdx
 
     void SetInterferenceBOC::setId(const std::string& id)
     {
-      m_values.AddMember("Id", parse_json<std::string>::format(id, m_values.GetAllocator()), m_values.GetAllocator());
+      setValue("Id", parse_json<std::string>::format(id, m_values.GetAllocator()));
     }
 
 
@@ -226,7 +226,7 @@ namespace Sdx
 
     void SetInterferenceBOC::setPrn(const std::optional<int>& prn)
     {
-      m_values.AddMember("Prn", parse_json<std::optional<int>>::format(prn, m_values.GetAllocator()), m_values.GetAllocator());
+      setValue("Prn", parse_json<std::optional<int>>::format(prn, m_values.GetAllocator()));
     }
 
 

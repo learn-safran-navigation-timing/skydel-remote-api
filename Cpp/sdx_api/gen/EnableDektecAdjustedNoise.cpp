@@ -76,7 +76,7 @@ namespace Sdx
 
     void EnableDektecAdjustedNoise::setEnable(bool enable)
     {
-      m_values.AddMember("Enable", parse_json<bool>::format(enable, m_values.GetAllocator()), m_values.GetAllocator());
+      setValue("Enable", parse_json<bool>::format(enable, m_values.GetAllocator()));
     }
 
 

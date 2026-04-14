@@ -76,7 +76,7 @@ namespace Sdx
 
     void GetInterModulation::setSignalArray(const std::vector<Sdx::SignalWithComponent>& signalArray)
     {
-      m_values.AddMember("SignalArray", parse_json<std::vector<Sdx::SignalWithComponent>>::format(signalArray, m_values.GetAllocator()), m_values.GetAllocator());
+      setValue("SignalArray", parse_json<std::vector<Sdx::SignalWithComponent>>::format(signalArray, m_values.GetAllocator()));
     }
 
 

@@ -102,7 +102,7 @@ namespace Sdx
 
     void GetPseudorangeNoiseGaussMarkovForEachSVResult::setSystem(const std::string& system)
     {
-      m_values.AddMember("System", parse_json<std::string>::format(system, m_values.GetAllocator()), m_values.GetAllocator());
+      setValue("System", parse_json<std::string>::format(system, m_values.GetAllocator()));
     }
 
 
@@ -114,7 +114,7 @@ namespace Sdx
 
     void GetPseudorangeNoiseGaussMarkovForEachSVResult::setProcess(int process)
     {
-      m_values.AddMember("Process", parse_json<int>::format(process, m_values.GetAllocator()), m_values.GetAllocator());
+      setValue("Process", parse_json<int>::format(process, m_values.GetAllocator()));
     }
 
 
@@ -126,7 +126,7 @@ namespace Sdx
 
     void GetPseudorangeNoiseGaussMarkovForEachSVResult::setEnabled(const std::vector<bool>& enabled)
     {
-      m_values.AddMember("Enabled", parse_json<std::vector<bool>>::format(enabled, m_values.GetAllocator()), m_values.GetAllocator());
+      setValue("Enabled", parse_json<std::vector<bool>>::format(enabled, m_values.GetAllocator()));
     }
 
 
@@ -138,7 +138,7 @@ namespace Sdx
 
     void GetPseudorangeNoiseGaussMarkovForEachSVResult::setSigma(const std::vector<double>& sigma)
     {
-      m_values.AddMember("Sigma", parse_json<std::vector<double>>::format(sigma, m_values.GetAllocator()), m_values.GetAllocator());
+      setValue("Sigma", parse_json<std::vector<double>>::format(sigma, m_values.GetAllocator()));
     }
 
 
@@ -150,7 +150,7 @@ namespace Sdx
 
     void GetPseudorangeNoiseGaussMarkovForEachSVResult::setTime(const std::vector<double>& time)
     {
-      m_values.AddMember("Time", parse_json<std::vector<double>>::format(time, m_values.GetAllocator()), m_values.GetAllocator());
+      setValue("Time", parse_json<std::vector<double>>::format(time, m_values.GetAllocator()));
     }
 
 
@@ -162,7 +162,7 @@ namespace Sdx
 
     void GetPseudorangeNoiseGaussMarkovForEachSVResult::setSeed(const std::vector<int>& seed)
     {
-      m_values.AddMember("Seed", parse_json<std::vector<int>>::format(seed, m_values.GetAllocator()), m_values.GetAllocator());
+      setValue("Seed", parse_json<std::vector<int>>::format(seed, m_values.GetAllocator()));
     }
 
 

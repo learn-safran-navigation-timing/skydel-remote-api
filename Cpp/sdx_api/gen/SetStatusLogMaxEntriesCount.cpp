@@ -76,7 +76,7 @@ namespace Sdx
 
     void SetStatusLogMaxEntriesCount::setMaxCount(int maxCount)
     {
-      m_values.AddMember("MaxCount", parse_json<int>::format(maxCount, m_values.GetAllocator()), m_values.GetAllocator());
+      setValue("MaxCount", parse_json<int>::format(maxCount, m_values.GetAllocator()));
     }
 
 

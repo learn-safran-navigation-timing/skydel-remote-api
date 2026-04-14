@@ -79,7 +79,7 @@ namespace Sdx
 
     void SetGalileoFnavSatelliteK::setPrn(int prn)
     {
-      m_values.AddMember("Prn", parse_json<int>::format(prn, m_values.GetAllocator()), m_values.GetAllocator());
+      setValue("Prn", parse_json<int>::format(prn, m_values.GetAllocator()));
     }
 
 
@@ -91,7 +91,7 @@ namespace Sdx
 
     void SetGalileoFnavSatelliteK::setK(int k)
     {
-      m_values.AddMember("K", parse_json<int>::format(k, m_values.GetAllocator()), m_values.GetAllocator());
+      setValue("K", parse_json<int>::format(k, m_values.GetAllocator()));
     }
 
 

@@ -15,19 +15,19 @@ namespace Sdx
     /// Result of GetAllPowerForSV.
     ///
     /// Name            Type                    Description
-    /// --------------- ----------------------- --------------------------------------------------------------------------------
+    /// --------------- ----------------------- -----------------------------------------------------------------------------
     /// System          string                  "GPS", "GLONASS", "Galileo", "BeiDou", "SBAS", "QZSS", "NavIC" or "PULSAR".
     /// SvId            int                     The Satellite's SV ID.
     /// NominalPower    double                  The nominal power in dBm.
     /// GlobalOffset    double                  The global power offset (dB).
     /// SignalPowerDict dict string:SignalPower A dictionary of signal power pairs.
     ///                                         Accepted keys are: "All", "L1CA", "L1C", "L1P", "L1ME", "L1MR", "L2C", "L2P",
-    ///                                                            "L2ME", "L2MR", "L5", "G1", "G2", "E1", "E1PRS", "E5a",
-    ///                                                            "E5b", "E6BC", "E6PRS", "B1", "B2", "B1C", "B2a", "B2b",
-    ///                                                            "B3I", "SBASL1", "SBASL5", "QZSSL1CA", "QZSSL1CB", "QZSSL1C",
-    ///                                                            "QZSSL2C", "QZSSL5", "QZSSL1S", "QZSSL5S", "QZSSL6",
-    ///                                                            "NAVICL1", "NAVICL5", "NAVICS", "PULSARXL", "PULSARX1" and
-    ///                                                            "PULSARX5"
+    ///                                                            "L2ME", "L2MR", "L5", "G1", "G1P", "G2", "G2P", "E1",
+    ///                                                            "E1PRS", "E5a", "E5b", "E6BC", "E6PRS", "B1", "B2", "B1C",
+    ///                                                            "B2a", "B2b", "B3I", "SBASL1", "SBASL5", "QZSSL1CA",
+    ///                                                            "QZSSL1CB", "QZSSL1C", "QZSSL2C", "QZSSL5", "QZSSL1S",
+    ///                                                            "QZSSL5S", "QZSSL6", "NAVICL1", "NAVICL5", "NAVICS",
+    ///                                                            "PULSARXL", "PULSARX1" and "PULSARX5"
     ///
 
     class GetAllPowerForSVResult;

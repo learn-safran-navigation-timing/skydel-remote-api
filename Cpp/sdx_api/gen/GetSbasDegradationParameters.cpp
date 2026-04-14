@@ -16,8 +16,8 @@ namespace Sdx
     const char* const GetSbasDegradationParameters::Documentation = "Get the SBAS degradation parameters for the specified service provider. By default, all degradation parameters are returned. If specific parameter names are provided, only those parameters are returned.\n"
       "\n"
       "Name                      Type         Description\n"
-      "------------------------- ------------ -----------------------------------------------------------------------------------------\n"
-      "ServiceProvider           string       Service providers, accepts \"WAAS\", \"EGNOS\", \"MSAS\", \"GAGAN\", \"SDCM\", \"BDSBAS\" and \"KASS\".\n"
+      "------------------------- ------------ -------------------------------------------------------------------------------------------------\n"
+      "ServiceProvider           string       Service providers, accepts \"WAAS\", \"EGNOS\", \"MSAS\", \"GAGAN\", \"SDCM\", \"BDSBAS\", \"KASS\" and \"SPAN\".\n"
       "DegradationParameterArray array string An array of degradationparameters.\n"
       "                                       Accepted values are: \"BRRC\", \"CLTC_LSB\", \"CLTC_V1\", \"ILTC_V1\", \"CLTC_V0\",\n"
       "                                                            \"ILTC_V0\", \"CGEO_LSB\", \"CGEO_V\", \"IGEO\", \"CER\",\n"
@@ -83,7 +83,7 @@ namespace Sdx
 
     void GetSbasDegradationParameters::setServiceProvider(const std::string& serviceProvider)
     {
-      m_values.AddMember("ServiceProvider", parse_json<std::string>::format(serviceProvider, m_values.GetAllocator()), m_values.GetAllocator());
+      setValue("ServiceProvider", parse_json<std::string>::format(serviceProvider, m_values.GetAllocator()));
     }
 
 
@@ -95,7 +95,7 @@ namespace Sdx
 
     void GetSbasDegradationParameters::setDegradationParameterArray(const std::vector<std::string>& degradationParameterArray)
     {
-      m_values.AddMember("DegradationParameterArray", parse_json<std::vector<std::string>>::format(degradationParameterArray, m_values.GetAllocator()), m_values.GetAllocator());
+      setValue("DegradationParameterArray", parse_json<std::vector<std::string>>::format(degradationParameterArray, m_values.GetAllocator()));
     }
 
 

@@ -76,7 +76,7 @@ namespace Sdx
 
     void SetOsnmaTagSize::setTagSize(int tagSize)
     {
-      m_values.AddMember("TagSize", parse_json<int>::format(tagSize, m_values.GetAllocator()), m_values.GetAllocator());
+      setValue("TagSize", parse_json<int>::format(tagSize, m_values.GetAllocator()));
     }
 
 

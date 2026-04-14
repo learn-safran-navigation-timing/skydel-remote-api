@@ -110,7 +110,7 @@ namespace Sdx
 
     void SimulatorStateResult::setState(const std::string& state)
     {
-      m_values.AddMember("State", parse_json<std::string>::format(state, m_values.GetAllocator()), m_values.GetAllocator());
+      setValue("State", parse_json<std::string>::format(state, m_values.GetAllocator()));
     }
 
 
@@ -122,7 +122,7 @@ namespace Sdx
 
     void SimulatorStateResult::setError(const std::string& error)
     {
-      m_values.AddMember("Error", parse_json<std::string>::format(error, m_values.GetAllocator()), m_values.GetAllocator());
+      setValue("Error", parse_json<std::string>::format(error, m_values.GetAllocator()));
     }
 
 
@@ -134,7 +134,7 @@ namespace Sdx
 
     void SimulatorStateResult::setStateId(const Sdx::SimulatorState& stateId)
     {
-      m_values.AddMember("StateId", parse_json<Sdx::SimulatorState>::format(stateId, m_values.GetAllocator()), m_values.GetAllocator());
+      setValue("StateId", parse_json<Sdx::SimulatorState>::format(stateId, m_values.GetAllocator()));
     }
 
 
@@ -146,7 +146,7 @@ namespace Sdx
 
     void SimulatorStateResult::setSubStateId(const Sdx::SimulatorSubState& subStateId)
     {
-      m_values.AddMember("SubStateId", parse_json<Sdx::SimulatorSubState>::format(subStateId, m_values.GetAllocator()), m_values.GetAllocator());
+      setValue("SubStateId", parse_json<Sdx::SimulatorSubState>::format(subStateId, m_values.GetAllocator()));
     }
 
 

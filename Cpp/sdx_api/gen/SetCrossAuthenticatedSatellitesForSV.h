@@ -10,12 +10,13 @@ namespace Sdx
   namespace Cmd
   {
     ///
-    /// Set the list of satellites that are cross-authenticated by the specified satellite.
+    /// Set the list of satellites that are cross-authenticated by the specified satellite. If the list is empty, the default selection algorithm is used. If non-empty, the list is fixed for the duration of the simulation.
+    /// The default selection algorithm selects the four closest satellites that do not provide OSNMA, ordered from nearest to farthest.
     ///
     /// Name     Type      Description
-    /// -------- --------- -------------------------------------------------------------------
+    /// -------- --------- ------------------------------------------------------------------------------------------------------------------------------------------
     /// SvId     int       The satellite's SV ID (use 0 to apply on all Galileo's satellites).
-    /// SvIdList array int A list of the cross-authenticated satellites' SV IDs.
+    /// SvIdList array int A list of the cross-authenticated satellites' SV IDs. Set empty list to use default selection algorithm of cross-authenticated satellites.
     ///
 
     class SetCrossAuthenticatedSatellitesForSV;

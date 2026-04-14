@@ -106,7 +106,7 @@ namespace Sdx
 
     void GetIntTxFixResult::setLat(double lat)
     {
-      m_values.AddMember("Lat", parse_json<double>::format(lat, m_values.GetAllocator()), m_values.GetAllocator());
+      setValue("Lat", parse_json<double>::format(lat, m_values.GetAllocator()));
     }
 
 
@@ -118,7 +118,7 @@ namespace Sdx
 
     void GetIntTxFixResult::setLon(double lon)
     {
-      m_values.AddMember("Lon", parse_json<double>::format(lon, m_values.GetAllocator()), m_values.GetAllocator());
+      setValue("Lon", parse_json<double>::format(lon, m_values.GetAllocator()));
     }
 
 
@@ -130,7 +130,7 @@ namespace Sdx
 
     void GetIntTxFixResult::setAlt(double alt)
     {
-      m_values.AddMember("Alt", parse_json<double>::format(alt, m_values.GetAllocator()), m_values.GetAllocator());
+      setValue("Alt", parse_json<double>::format(alt, m_values.GetAllocator()));
     }
 
 
@@ -142,7 +142,7 @@ namespace Sdx
 
     void GetIntTxFixResult::setYaw(double yaw)
     {
-      m_values.AddMember("Yaw", parse_json<double>::format(yaw, m_values.GetAllocator()), m_values.GetAllocator());
+      setValue("Yaw", parse_json<double>::format(yaw, m_values.GetAllocator()));
     }
 
 
@@ -154,7 +154,7 @@ namespace Sdx
 
     void GetIntTxFixResult::setPitch(double pitch)
     {
-      m_values.AddMember("Pitch", parse_json<double>::format(pitch, m_values.GetAllocator()), m_values.GetAllocator());
+      setValue("Pitch", parse_json<double>::format(pitch, m_values.GetAllocator()));
     }
 
 
@@ -166,7 +166,7 @@ namespace Sdx
 
     void GetIntTxFixResult::setRoll(double roll)
     {
-      m_values.AddMember("Roll", parse_json<double>::format(roll, m_values.GetAllocator()), m_values.GetAllocator());
+      setValue("Roll", parse_json<double>::format(roll, m_values.GetAllocator()));
     }
 
 
@@ -178,7 +178,7 @@ namespace Sdx
 
     void GetIntTxFixResult::setId(const std::string& id)
     {
-      m_values.AddMember("Id", parse_json<std::string>::format(id, m_values.GetAllocator()), m_values.GetAllocator());
+      setValue("Id", parse_json<std::string>::format(id, m_values.GetAllocator()));
     }
 
 

@@ -82,7 +82,7 @@ namespace Sdx
 
     void GetLastLeapSecondDateResult::setDate(const Sdx::Date& date)
     {
-      m_values.AddMember("Date", parse_json<Sdx::Date>::format(date, m_values.GetAllocator()), m_values.GetAllocator());
+      setValue("Date", parse_json<Sdx::Date>::format(date, m_values.GetAllocator()));
     }
 
 

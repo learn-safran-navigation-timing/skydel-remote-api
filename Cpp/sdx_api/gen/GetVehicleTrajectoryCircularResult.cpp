@@ -110,7 +110,7 @@ namespace Sdx
 
     void GetVehicleTrajectoryCircularResult::setType(const std::string& type)
     {
-      m_values.AddMember("Type", parse_json<std::string>::format(type, m_values.GetAllocator()), m_values.GetAllocator());
+      setValue("Type", parse_json<std::string>::format(type, m_values.GetAllocator()));
     }
 
 
@@ -122,7 +122,7 @@ namespace Sdx
 
     void GetVehicleTrajectoryCircularResult::setLat(double lat)
     {
-      m_values.AddMember("Lat", parse_json<double>::format(lat, m_values.GetAllocator()), m_values.GetAllocator());
+      setValue("Lat", parse_json<double>::format(lat, m_values.GetAllocator()));
     }
 
 
@@ -134,7 +134,7 @@ namespace Sdx
 
     void GetVehicleTrajectoryCircularResult::setLon(double lon)
     {
-      m_values.AddMember("Lon", parse_json<double>::format(lon, m_values.GetAllocator()), m_values.GetAllocator());
+      setValue("Lon", parse_json<double>::format(lon, m_values.GetAllocator()));
     }
 
 
@@ -146,7 +146,7 @@ namespace Sdx
 
     void GetVehicleTrajectoryCircularResult::setAlt(double alt)
     {
-      m_values.AddMember("Alt", parse_json<double>::format(alt, m_values.GetAllocator()), m_values.GetAllocator());
+      setValue("Alt", parse_json<double>::format(alt, m_values.GetAllocator()));
     }
 
 
@@ -158,7 +158,7 @@ namespace Sdx
 
     void GetVehicleTrajectoryCircularResult::setRadius(double radius)
     {
-      m_values.AddMember("Radius", parse_json<double>::format(radius, m_values.GetAllocator()), m_values.GetAllocator());
+      setValue("Radius", parse_json<double>::format(radius, m_values.GetAllocator()));
     }
 
 
@@ -170,7 +170,7 @@ namespace Sdx
 
     void GetVehicleTrajectoryCircularResult::setSpeed(double speed)
     {
-      m_values.AddMember("Speed", parse_json<double>::format(speed, m_values.GetAllocator()), m_values.GetAllocator());
+      setValue("Speed", parse_json<double>::format(speed, m_values.GetAllocator()));
     }
 
 
@@ -182,7 +182,7 @@ namespace Sdx
 
     void GetVehicleTrajectoryCircularResult::setClockwise(bool clockwise)
     {
-      m_values.AddMember("Clockwise", parse_json<bool>::format(clockwise, m_values.GetAllocator()), m_values.GetAllocator());
+      setValue("Clockwise", parse_json<bool>::format(clockwise, m_values.GetAllocator()));
     }
 
 
@@ -194,7 +194,7 @@ namespace Sdx
 
     void GetVehicleTrajectoryCircularResult::setOriginAngle(const std::optional<double>& originAngle)
     {
-      m_values.AddMember("OriginAngle", parse_json<std::optional<double>>::format(originAngle, m_values.GetAllocator()), m_values.GetAllocator());
+      setValue("OriginAngle", parse_json<std::optional<double>>::format(originAngle, m_values.GetAllocator()));
     }
 
 

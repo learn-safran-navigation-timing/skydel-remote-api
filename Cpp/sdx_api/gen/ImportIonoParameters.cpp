@@ -79,7 +79,7 @@ namespace Sdx
 
     void ImportIonoParameters::setPath(const std::string& path)
     {
-      m_values.AddMember("Path", parse_json<std::string>::format(path, m_values.GetAllocator()), m_values.GetAllocator());
+      setValue("Path", parse_json<std::string>::format(path, m_values.GetAllocator()));
     }
 
 
@@ -91,7 +91,7 @@ namespace Sdx
 
     void ImportIonoParameters::setType(const std::optional<std::string>& type)
     {
-      m_values.AddMember("Type", parse_json<std::optional<std::string>>::format(type, m_values.GetAllocator()), m_values.GetAllocator());
+      setValue("Type", parse_json<std::optional<std::string>>::format(type, m_values.GetAllocator()));
     }
 
 

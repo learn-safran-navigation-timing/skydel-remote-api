@@ -90,7 +90,7 @@ namespace Sdx
 
     void GetMainInstanceStatusResult::setIsMainInstance(bool isMainInstance)
     {
-      m_values.AddMember("IsMainInstance", parse_json<bool>::format(isMainInstance, m_values.GetAllocator()), m_values.GetAllocator());
+      setValue("IsMainInstance", parse_json<bool>::format(isMainInstance, m_values.GetAllocator()));
     }
 
 
@@ -102,7 +102,7 @@ namespace Sdx
 
     void GetMainInstanceStatusResult::setWorkerInstanceConnected(int workerInstanceConnected)
     {
-      m_values.AddMember("WorkerInstanceConnected", parse_json<int>::format(workerInstanceConnected, m_values.GetAllocator()), m_values.GetAllocator());
+      setValue("WorkerInstanceConnected", parse_json<int>::format(workerInstanceConnected, m_values.GetAllocator()));
     }
 
 
@@ -114,7 +114,7 @@ namespace Sdx
 
     void GetMainInstanceStatusResult::setPort(int port)
     {
-      m_values.AddMember("Port", parse_json<int>::format(port, m_values.GetAllocator()), m_values.GetAllocator());
+      setValue("Port", parse_json<int>::format(port, m_values.GetAllocator()));
     }
 
 

@@ -76,7 +76,7 @@ namespace Sdx
 
     void SetPps0GpsTime::setGpsTime(const Sdx::DateTime& gpsTime)
     {
-      m_values.AddMember("GpsTime", parse_json<Sdx::DateTime>::format(gpsTime, m_values.GetAllocator()), m_values.GetAllocator());
+      setValue("GpsTime", parse_json<Sdx::DateTime>::format(gpsTime, m_values.GetAllocator()));
     }
 
 

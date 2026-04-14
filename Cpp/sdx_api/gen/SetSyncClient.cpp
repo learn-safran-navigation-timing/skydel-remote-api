@@ -79,7 +79,7 @@ namespace Sdx
 
     void SetSyncClient::setHost(const std::string& host)
     {
-      m_values.AddMember("Host", parse_json<std::string>::format(host, m_values.GetAllocator()), m_values.GetAllocator());
+      setValue("Host", parse_json<std::string>::format(host, m_values.GetAllocator()));
     }
 
 
@@ -91,7 +91,7 @@ namespace Sdx
 
     void SetSyncClient::setPort(int port)
     {
-      m_values.AddMember("Port", parse_json<int>::format(port, m_values.GetAllocator()), m_values.GetAllocator());
+      setValue("Port", parse_json<int>::format(port, m_values.GetAllocator()));
     }
 
 

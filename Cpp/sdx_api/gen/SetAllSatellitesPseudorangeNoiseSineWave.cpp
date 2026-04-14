@@ -93,7 +93,7 @@ namespace Sdx
 
     void SetAllSatellitesPseudorangeNoiseSineWave::setSystem(const std::string& system)
     {
-      m_values.AddMember("System", parse_json<std::string>::format(system, m_values.GetAllocator()), m_values.GetAllocator());
+      setValue("System", parse_json<std::string>::format(system, m_values.GetAllocator()));
     }
 
 
@@ -105,7 +105,7 @@ namespace Sdx
 
     void SetAllSatellitesPseudorangeNoiseSineWave::setSineWave(int sineWave)
     {
-      m_values.AddMember("SineWave", parse_json<int>::format(sineWave, m_values.GetAllocator()), m_values.GetAllocator());
+      setValue("SineWave", parse_json<int>::format(sineWave, m_values.GetAllocator()));
     }
 
 
@@ -117,7 +117,7 @@ namespace Sdx
 
     void SetAllSatellitesPseudorangeNoiseSineWave::setEnabled(const std::vector<bool>& enabled)
     {
-      m_values.AddMember("Enabled", parse_json<std::vector<bool>>::format(enabled, m_values.GetAllocator()), m_values.GetAllocator());
+      setValue("Enabled", parse_json<std::vector<bool>>::format(enabled, m_values.GetAllocator()));
     }
 
 
@@ -129,7 +129,7 @@ namespace Sdx
 
     void SetAllSatellitesPseudorangeNoiseSineWave::setAmplitude(const std::vector<double>& amplitude)
     {
-      m_values.AddMember("Amplitude", parse_json<std::vector<double>>::format(amplitude, m_values.GetAllocator()), m_values.GetAllocator());
+      setValue("Amplitude", parse_json<std::vector<double>>::format(amplitude, m_values.GetAllocator()));
     }
 
 
@@ -141,7 +141,7 @@ namespace Sdx
 
     void SetAllSatellitesPseudorangeNoiseSineWave::setPeriod(const std::vector<int>& period)
     {
-      m_values.AddMember("Period", parse_json<std::vector<int>>::format(period, m_values.GetAllocator()), m_values.GetAllocator());
+      setValue("Period", parse_json<std::vector<int>>::format(period, m_values.GetAllocator()));
     }
 
 
@@ -153,7 +153,7 @@ namespace Sdx
 
     void SetAllSatellitesPseudorangeNoiseSineWave::setOffset(const std::vector<double>& offset)
     {
-      m_values.AddMember("Offset", parse_json<std::vector<double>>::format(offset, m_values.GetAllocator()), m_values.GetAllocator());
+      setValue("Offset", parse_json<std::vector<double>>::format(offset, m_values.GetAllocator()));
     }
 
 

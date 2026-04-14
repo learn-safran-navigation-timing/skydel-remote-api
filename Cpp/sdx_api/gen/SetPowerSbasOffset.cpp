@@ -16,8 +16,8 @@ namespace Sdx
     const char* const SetPowerSbasOffset::Documentation = "Set power offset default value for the SBAS Service Provider given in argument\n"
       "\n"
       "Name            Type   Description\n"
-      "--------------- ------ ---------------------------------------------------------------------------------------------------\n"
-      "ServiceProvider string Service Provider key, allowed values: \"WAAS\", \"EGNOS\", \"MSAS\", \"GAGAN\", \"SDCM\", \"BDSBAS\" and \"KASS\"\n"
+      "--------------- ------ ------------------------------------------------------------------------------------------------------------\n"
+      "ServiceProvider string Service Provider key, allowed values: \"WAAS\", \"EGNOS\", \"MSAS\", \"GAGAN\", \"SDCM\", \"BDSBAS\", \"KASS\" and \"SPAN\".\n"
       "Offset          double Offset in dB (negative value will attenuate signal)";
     const char* const SetPowerSbasOffset::TargetId = "";
 
@@ -79,7 +79,7 @@ namespace Sdx
 
     void SetPowerSbasOffset::setServiceProvider(const std::string& serviceProvider)
     {
-      m_values.AddMember("ServiceProvider", parse_json<std::string>::format(serviceProvider, m_values.GetAllocator()), m_values.GetAllocator());
+      setValue("ServiceProvider", parse_json<std::string>::format(serviceProvider, m_values.GetAllocator()));
     }
 
 
@@ -91,7 +91,7 @@ namespace Sdx
 
     void SetPowerSbasOffset::setOffset(double offset)
     {
-      m_values.AddMember("Offset", parse_json<double>::format(offset, m_values.GetAllocator()), m_values.GetAllocator());
+      setValue("Offset", parse_json<double>::format(offset, m_values.GetAllocator()));
     }
 
 

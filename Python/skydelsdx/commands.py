@@ -3,7 +3,7 @@ from .commandbase import CommandBase
 from .commandresult import CommandResult
 from .commandbase import ExecutePermission
 
-ApiVersion = 52
+ApiVersion = 53
 
 #
 # The GPS AS flag value.
@@ -698,7 +698,7 @@ class IsRFOutputEnabledForEachSVResult(CommandResult):
 # Name    Type   Description
 # ------- ------ ------------------------------------------------------------------------------------------------
 # Signal  string Accepted signal keys: "L1CA", "L1C", "L1P", "L1ME", "L1MR", "L2C", "L2P", "L2ME", "L2MR", "L5",
-#                                      "G1", "G2", "E1", "E1PRS", "E5a", "E5b", "E6BC", "E6PRS",
+#                                      "G1", "G1P", "G2", "G2P", "E1", "E1PRS", "E5a", "E5b", "E6BC", "E6PRS",
 #                                      "B1", "B2", "B1C", "B2a", "B2b", "B3I", "SBASL1", "SBASL5", "QZSSL1CA",
 #                                      "QZSSL1CB", "QZSSL1C","QZSSL2C", "QZSSL5", "QZSSL1S", "QZSSL5S", "QZSSL6",
 #                                      "NAVICL1", "NAVICL5", "NAVICS", "PULSARXL", "PULSARX1", "PULSARX5"
@@ -741,7 +741,7 @@ class EnableSignalForSV(CommandBase):
 # Name   Type   Description
 # ------ ------ ------------------------------------------------------------------------------------------------
 # Signal string Accepted signal keys: "L1CA", "L1C", "L1P", "L1ME", "L1MR", "L2C", "L2P", "L2ME", "L2MR", "L5",
-#                                     "G1", "G2", "E1", "E1PRS", "E5a", "E5b", "E6BC", "E6PRS",
+#                                     "G1", "G1P", "G2", "G2P", "E1", "E1PRS", "E5a", "E5b", "E6BC", "E6PRS",
 #                                     "B1", "B2", "B1C", "B2a", "B2b", "B3I", "SBASL1", "SBASL5", "QZSSL1CA",
 #                                     "QZSSL1CB", "QZSSL1C","QZSSL2C", "QZSSL5", "QZSSL1S", "QZSSL5S", "QZSSL6",
 #                                     "NAVICL1", "NAVICL5", "NAVICS", "PULSARXL", "PULSARX1", "PULSARX5"
@@ -776,7 +776,7 @@ class IsSignalEnabledForSV(CommandBase):
 # Name    Type   Description
 # ------- ------ ------------------------------------------------------------------------------------------------
 # Signal  string Accepted signal keys: "L1CA", "L1C", "L1P", "L1ME", "L1MR", "L2C", "L2P", "L2ME", "L2MR", "L5",
-#                                      "G1", "G2", "E1", "E1PRS", "E5a", "E5b", "E6BC", "E6PRS",
+#                                      "G1", "G1P", "G2", "G2P", "E1", "E1PRS", "E5a", "E5b", "E6BC", "E6PRS",
 #                                      "B1", "B2", "B1C", "B2a", "B2b", "B3I", "SBASL1", "SBASL5", "QZSSL1CA",
 #                                      "QZSSL1CB", "QZSSL1C","QZSSL2C", "QZSSL5", "QZSSL1S", "QZSSL5S", "QZSSL6",
 #                                      "NAVICL1", "NAVICL5", "NAVICS", "PULSARXL", "PULSARX1", "PULSARX5"
@@ -889,7 +889,7 @@ class GetEnabledSignalsForSVResult(CommandResult):
 # Name    Type       Description
 # ------- ---------- --------------------------------------------------------------------------------------------------------------
 # Signal  string     Accepted signal keys: "L1CA", "L1C", "L1P", "L1ME", "L1MR", "L2C", "L2P", "L2ME", "L2MR", "L5",
-#                                          "G1", "G2", "E1", "E1PRS", "E5a", "E5b", "E6BC", "E6PRS",
+#                                          "G1", "G1P", "G2", "G2P", "E1", "E1PRS", "E5a", "E5b", "E6BC", "E6PRS",
 #                                          "B1", "B2", "B1C", "B2a", "B2b", "B3I", "SBASL1", "SBASL5", "QZSSL1CA",
 #                                          "QZSSL1CB", "QZSSL1C", "QZSSL2C", "QZSSL5", "QZSSL1S", "QZSSL5S", "QZSSL6",
 #                                          "NAVICL1", "NAVICL5", "NAVICS", "PULSARXL", "PULSARX1", "PULSARX5"
@@ -924,7 +924,7 @@ class EnableSignalForEachSV(CommandBase):
 # Name   Type   Description
 # ------ ------ -------------------------------------------------------------------------------------------------
 # Signal string Accepted signal keys: "L1CA", "L1C", "L1P", "L1ME", "L1MR", "L2C", "L2P", "L2ME", "L2MR", "L5",
-#                                     "G1", "G2", "E1", "E1PRS", "E5a", "E5b", "E6BC", "E6PRS",
+#                                     "G1", "G1P", "G2", "G2P", "E1", "E1PRS", "E5a", "E5b", "E6BC", "E6PRS",
 #                                     "B1", "B2", "B1C", "B2a", "B2b", "B3I", "SBASL1", "SBASL5", "QZSSL1CA",
 #                                     "QZSSL1CB", "QZSSL1C", "QZSSL2C", "QZSSL5", "QZSSL1S", "QZSSL5S", "QZSSL6",
 #                                     "NAVICL1", "NAVICL5", "NAVICS", "PULSARXL", "PULSARX1", "PULSARX5"
@@ -951,7 +951,7 @@ class IsSignalEnabledForEachSV(CommandBase):
 # Name    Type       Description
 # ------- ---------- --------------------------------------------------------------------------------------------------------------
 # Signal  string     Accepted signal keys: "L1CA", "L1C", "L1P", "L1ME", "L1MR", "L2C", "L2P", "L2ME", "L2MR", "L5",
-#                                          "G1", "G2", "E1", "E1PRS", "E5a", "E5b", "E6BC", "E6PRS",
+#                                          "G1", "G1P", "G2", "G2P", "E1", "E1PRS", "E5a", "E5b", "E6BC", "E6PRS",
 #                                          "B1", "B2", "B1C", "B2a", "B2b", "B3I", "SBASL1", "SBASL5", "QZSSL1CA",
 #                                          "QZSSL1CB", "QZSSL1C", "QZSSL2C", "QZSSL5", "QZSSL1S", "QZSSL5S", "QZSSL6",
 #                                          "NAVICL1", "NAVICL5", "NAVICS", "PULSARXL", "PULSARX1", "PULSARX5"
@@ -1178,17 +1178,17 @@ class IsPYCodeEnabledForEachSVResult(CommandResult):
 # Set the power offsets applied to the signals of a satellite. Use SV ID 0 to set the power offset of all the satellites. Use key "All" to set the power offset to all signals.
 #
 # Name                  Type               Description
-# --------------------- ------------------ --------------------------------------------------------------------------------
+# --------------------- ------------------ -----------------------------------------------------------------------------
 # System                string             "GPS", "GLONASS", "Galileo", "BeiDou", "SBAS", "QZSS", "NavIC" or "PULSAR".
 # SvId                  int                The satellite's SV ID.
 # SignalPowerOffsetDict dict string:double A dictionary of signal poweroffset pairs.
 #                                          Accepted keys are: "All", "L1CA", "L1C", "L1P", "L1ME", "L1MR", "L2C", "L2P",
-#                                                             "L2ME", "L2MR", "L5", "G1", "G2", "E1", "E1PRS", "E5a",
-#                                                             "E5b", "E6BC", "E6PRS", "B1", "B2", "B1C", "B2a", "B2b",
-#                                                             "B3I", "SBASL1", "SBASL5", "QZSSL1CA", "QZSSL1CB", "QZSSL1C",
-#                                                             "QZSSL2C", "QZSSL5", "QZSSL1S", "QZSSL5S", "QZSSL6",
-#                                                             "NAVICL1", "NAVICL5", "NAVICS", "PULSARXL", "PULSARX1" and
-#                                                             "PULSARX5"
+#                                                             "L2ME", "L2MR", "L5", "G1", "G1P", "G2", "G2P", "E1",
+#                                                             "E1PRS", "E5a", "E5b", "E6BC", "E6PRS", "B1", "B2", "B1C",
+#                                                             "B2a", "B2b", "B3I", "SBASL1", "SBASL5", "QZSSL1CA",
+#                                                             "QZSSL1CB", "QZSSL1C", "QZSSL2C", "QZSSL5", "QZSSL1S",
+#                                                             "QZSSL5S", "QZSSL6", "NAVICL1", "NAVICL5", "NAVICS",
+#                                                             "PULSARXL", "PULSARX1" and "PULSARX5"
 # IsRelativePowerOffset bool               If true, the power offset(s) are added to the current value(s).
 #
 
@@ -1237,12 +1237,12 @@ class SetManualPowerOffsetForSV(CommandBase):
 # SvId        int          The satellite's SV ID.
 # SignalArray array string An array of signals.
 #                          Accepted values are: "All", "L1CA", "L1C", "L1P", "L1ME", "L1MR", "L2C", "L2P",
-#                                               "L2ME", "L2MR", "L5", "G1", "G2", "E1", "E1PRS", "E5a",
-#                                               "E5b", "E6BC", "E6PRS", "B1", "B2", "B1C", "B2a", "B2b",
-#                                               "B3I", "SBASL1", "SBASL5", "QZSSL1CA", "QZSSL1CB",
-#                                               "QZSSL1C", "QZSSL2C", "QZSSL5", "QZSSL1S", "QZSSL5S",
-#                                               "QZSSL6", "NAVICL1", "NAVICL5", "NAVICS", "PULSARXL",
-#                                               "PULSARX1" and "PULSARX5"
+#                                               "L2ME", "L2MR", "L5", "G1", "G1P", "G2", "G2P", "E1",
+#                                               "E1PRS", "E5a", "E5b", "E6BC", "E6PRS", "B1", "B2", "B1C",
+#                                               "B2a", "B2b", "B3I", "SBASL1", "SBASL5", "QZSSL1CA",
+#                                               "QZSSL1CB", "QZSSL1C", "QZSSL2C", "QZSSL5", "QZSSL1S",
+#                                               "QZSSL5S", "QZSSL6", "NAVICL1", "NAVICL5", "NAVICS",
+#                                               "PULSARXL", "PULSARX1" and "PULSARX5"
 #
 
 class GetManualPowerOffsetForSV(CommandBase):
@@ -1278,17 +1278,17 @@ class GetManualPowerOffsetForSV(CommandBase):
 # Result of GetManualPowerOffsetForSV.
 #
 # Name                  Type               Description
-# --------------------- ------------------ --------------------------------------------------------------------------------
+# --------------------- ------------------ -----------------------------------------------------------------------------
 # System                string             "GPS", "GLONASS", "Galileo", "BeiDou", "SBAS", "QZSS", "NavIC" or "PULSAR".
 # SvId                  int                The satellite's SV ID.
 # SignalPowerOffsetDict dict string:double A dictionary of signal poweroffset pairs.
 #                                          Accepted keys are: "All", "L1CA", "L1C", "L1P", "L1ME", "L1MR", "L2C", "L2P",
-#                                                             "L2ME", "L2MR", "L5", "G1", "G2", "E1", "E1PRS", "E5a",
-#                                                             "E5b", "E6BC", "E6PRS", "B1", "B2", "B1C", "B2a", "B2b",
-#                                                             "B3I", "SBASL1", "SBASL5", "QZSSL1CA", "QZSSL1CB", "QZSSL1C",
-#                                                             "QZSSL2C", "QZSSL5", "QZSSL1S", "QZSSL5S", "QZSSL6",
-#                                                             "NAVICL1", "NAVICL5", "NAVICS", "PULSARXL", "PULSARX1" and
-#                                                             "PULSARX5"
+#                                                             "L2ME", "L2MR", "L5", "G1", "G1P", "G2", "G2P", "E1",
+#                                                             "E1PRS", "E5a", "E5b", "E6BC", "E6PRS", "B1", "B2", "B1C",
+#                                                             "B2a", "B2b", "B3I", "SBASL1", "SBASL5", "QZSSL1CA",
+#                                                             "QZSSL1CB", "QZSSL1C", "QZSSL2C", "QZSSL5", "QZSSL1S",
+#                                                             "QZSSL5S", "QZSSL6", "NAVICL1", "NAVICL5", "NAVICS",
+#                                                             "PULSARXL", "PULSARX1" and "PULSARX5"
 #
 
 class GetManualPowerOffsetForSVResult(CommandResult):
@@ -1398,12 +1398,12 @@ class SignalPower:
 # SvId        int          The Satellite's SV ID.
 # SignalArray array string An array of signals.
 #                          Accepted values are: "All", "L1CA", "L1C", "L1P", "L1ME", "L1MR", "L2C", "L2P",
-#                                               "L2ME", "L2MR", "L5", "G1", "G2", "E1", "E1PRS", "E5a",
-#                                               "E5b", "E6BC", "E6PRS", "B1", "B2", "B1C", "B2a", "B2b",
-#                                               "B3I", "SBASL1", "SBASL5", "QZSSL1CA", "QZSSL1CB",
-#                                               "QZSSL1C", "QZSSL2C", "QZSSL5", "QZSSL1S", "QZSSL5S",
-#                                               "QZSSL6", "NAVICL1", "NAVICL5", "NAVICS", "PULSARXL",
-#                                               "PULSARX1" and "PULSARX5"
+#                                               "L2ME", "L2MR", "L5", "G1", "G1P", "G2", "G2P", "E1",
+#                                               "E1PRS", "E5a", "E5b", "E6BC", "E6PRS", "B1", "B2", "B1C",
+#                                               "B2a", "B2b", "B3I", "SBASL1", "SBASL5", "QZSSL1CA",
+#                                               "QZSSL1CB", "QZSSL1C", "QZSSL2C", "QZSSL5", "QZSSL1S",
+#                                               "QZSSL5S", "QZSSL6", "NAVICL1", "NAVICL5", "NAVICS",
+#                                               "PULSARXL", "PULSARX1" and "PULSARX5"
 #
 
 class GetAllPowerForSV(CommandBase):
@@ -1439,19 +1439,19 @@ class GetAllPowerForSV(CommandBase):
 # Result of GetAllPowerForSV.
 #
 # Name            Type                    Description
-# --------------- ----------------------- --------------------------------------------------------------------------------
+# --------------- ----------------------- -----------------------------------------------------------------------------
 # System          string                  "GPS", "GLONASS", "Galileo", "BeiDou", "SBAS", "QZSS", "NavIC" or "PULSAR".
 # SvId            int                     The Satellite's SV ID.
 # NominalPower    double                  The nominal power in dBm.
 # GlobalOffset    double                  The global power offset (dB).
 # SignalPowerDict dict string:SignalPower A dictionary of signal power pairs.
 #                                         Accepted keys are: "All", "L1CA", "L1C", "L1P", "L1ME", "L1MR", "L2C", "L2P",
-#                                                            "L2ME", "L2MR", "L5", "G1", "G2", "E1", "E1PRS", "E5a",
-#                                                            "E5b", "E6BC", "E6PRS", "B1", "B2", "B1C", "B2a", "B2b",
-#                                                            "B3I", "SBASL1", "SBASL5", "QZSSL1CA", "QZSSL1CB", "QZSSL1C",
-#                                                            "QZSSL2C", "QZSSL5", "QZSSL1S", "QZSSL5S", "QZSSL6",
-#                                                            "NAVICL1", "NAVICL5", "NAVICS", "PULSARXL", "PULSARX1" and
-#                                                            "PULSARX5"
+#                                                            "L2ME", "L2MR", "L5", "G1", "G1P", "G2", "G2P", "E1",
+#                                                            "E1PRS", "E5a", "E5b", "E6BC", "E6PRS", "B1", "B2", "B1C",
+#                                                            "B2a", "B2b", "B3I", "SBASL1", "SBASL5", "QZSSL1CA",
+#                                                            "QZSSL1CB", "QZSSL1C", "QZSSL2C", "QZSSL5", "QZSSL1S",
+#                                                            "QZSSL5S", "QZSSL6", "NAVICL1", "NAVICL5", "NAVICS",
+#                                                            "PULSARXL", "PULSARX1" and "PULSARX5"
 #
 
 class GetAllPowerForSVResult(CommandResult):
@@ -1504,12 +1504,12 @@ class GetAllPowerForSVResult(CommandResult):
 # ---------------- ------------------ --------------------------------------------------------------------------------
 # SignalFilterDict dict string:string A dictionary of signal filter pairs.
 #                                     Accepted keys are: "L1CA", "L1C", "L1P", "L1ME", "L1MR", "L2C", "L2P", "L2ME",
-#                                                        "L2MR", "L5", "G1", "G2", "E1", "E1PRS", "E5a", "E5b",
-#                                                        "E5AltBOC", "E6BC", "E6PRS", "B1", "B2", "B1C", "B2a", "B2b",
-#                                                        "B3I", "SBASL1", "SBASL5", "QZSSL1CA", "QZSSL1CB", "QZSSL1C",
-#                                                        "QZSSL2C", "QZSSL5", "QZSSL1S", "QZSSL5S", "QZSSL6",
-#                                                        "NAVICL1", "NAVICL5", "NAVICS", "PULSARXL", "PULSARX1" and
-#                                                        "PULSARX5"
+#                                                        "L2MR", "L5", "G1", "G1P", "G2", "G2P", "E1", "E1PRS", "E5a",
+#                                                        "E5b", "E5AltBOC", "E6BC", "E6PRS", "B1", "B2", "B1C", "B2a",
+#                                                        "B2b", "B3I", "SBASL1", "SBASL5", "QZSSL1CA", "QZSSL1CB",
+#                                                        "QZSSL1C", "QZSSL2C", "QZSSL5", "QZSSL1S", "QZSSL5S",
+#                                                        "QZSSL6", "NAVICL1", "NAVICL5", "NAVICS", "PULSARXL",
+#                                                        "PULSARX1" and "PULSARX5"
 #
 
 class SetSignalFilterAssignation(CommandBase):
@@ -1534,12 +1534,12 @@ class SetSignalFilterAssignation(CommandBase):
 # ----------- ------------ --------------------------------------------------------------------------------
 # SignalArray array string An array of signals.
 #                          Accepted values are: "L1CA", "L1C", "L1P", "L1ME", "L1MR", "L2C", "L2P", "L2ME",
-#                                               "L2MR", "L5", "G1", "G2", "E1", "E1PRS", "E5a", "E5b",
-#                                               "E5AltBOC", "E6BC", "E6PRS", "B1", "B2", "B1C", "B2a",
-#                                               "B2b", "B3I", "SBASL1", "SBASL5", "QZSSL1CA", "QZSSL1CB",
-#                                               "QZSSL1C", "QZSSL2C", "QZSSL5", "QZSSL1S", "QZSSL5S",
-#                                               "QZSSL6", "NAVICL1", "NAVICL5", "NAVICS", "PULSARXL",
-#                                               "PULSARX1" and "PULSARX5"
+#                                               "L2MR", "L5", "G1", "G1P", "G2", "G2P", "E1", "E1PRS",
+#                                               "E5a", "E5b", "E5AltBOC", "E6BC", "E6PRS", "B1", "B2",
+#                                               "B1C", "B2a", "B2b", "B3I", "SBASL1", "SBASL5", "QZSSL1CA",
+#                                               "QZSSL1CB", "QZSSL1C", "QZSSL2C", "QZSSL5", "QZSSL1S",
+#                                               "QZSSL5S", "QZSSL6", "NAVICL1", "NAVICL5", "NAVICS",
+#                                               "PULSARXL", "PULSARX1" and "PULSARX5"
 #
 
 class GetSignalFilterAssignation(CommandBase):
@@ -1564,12 +1564,12 @@ class GetSignalFilterAssignation(CommandBase):
 # ---------------- ------------------ --------------------------------------------------------------------------------
 # SignalFilterDict dict string:string A dictionary of signal filter pairs.
 #                                     Accepted keys are: "L1CA", "L1C", "L1P", "L1ME", "L1MR", "L2C", "L2P", "L2ME",
-#                                                        "L2MR", "L5", "G1", "G2", "E1", "E1PRS", "E5a", "E5b",
-#                                                        "E5AltBOC", "E6BC", "E6PRS", "B1", "B2", "B1C", "B2a", "B2b",
-#                                                        "B3I", "SBASL1", "SBASL5", "QZSSL1CA", "QZSSL1CB", "QZSSL1C",
-#                                                        "QZSSL2C", "QZSSL5", "QZSSL1S", "QZSSL5S", "QZSSL6",
-#                                                        "NAVICL1", "NAVICL5", "NAVICS", "PULSARXL", "PULSARX1" and
-#                                                        "PULSARX5"
+#                                                        "L2MR", "L5", "G1", "G1P", "G2", "G2P", "E1", "E1PRS", "E5a",
+#                                                        "E5b", "E5AltBOC", "E6BC", "E6PRS", "B1", "B2", "B1C", "B2a",
+#                                                        "B2b", "B3I", "SBASL1", "SBASL5", "QZSSL1CA", "QZSSL1CB",
+#                                                        "QZSSL1C", "QZSSL2C", "QZSSL5", "QZSSL1S", "QZSSL5S",
+#                                                        "QZSSL6", "NAVICL1", "NAVICL5", "NAVICS", "PULSARXL",
+#                                                        "PULSARX1" and "PULSARX5"
 #
 
 class GetSignalFilterAssignationResult(CommandResult):
@@ -9066,7 +9066,7 @@ class GetGlobalPowerOffsetResult(CommandResult):
 # Name   Type   Description
 # ------ ------ -----------------------------------------------------------------------------------------------
 # Signal string Accepted signal keys: "L1CA", "L1C", "L1P", "L1ME", "L1MR", "L2C", "L2P", "L2ME", "L2MR", "L5",
-#                                     "G1", "G2", "E1", "E1PRS", "E5a", "E5b", "E6BC", "E6PRS",
+#                                     "G1", "G1P", "G2", "G2P", "E1", "E1PRS", "E5a", "E5b", "E6BC", "E6PRS",
 #                                     "B1", "B2", "B1C", "B2a", "B2b", "B3I", "QZSSL1CA", "QZSSL1CB",
 #                                     "QZSSL1C", "QZSSL2C", "QZSSL5", "QZSSL1S", "QZSSL5S", "QZSSL6",
 #                                     "NAVICL1", "NAVICL5", "NAVICS", "PULSARXL", "PULSARX1", "PULSARX5"
@@ -9103,7 +9103,7 @@ class SetSignalPowerOffset(CommandBase):
 # Name   Type   Description
 # ------ ------ -----------------------------------------------------------------------------------------------
 # Signal string Accepted signal keys: "L1CA", "L1C", "L1P", "L1ME", "L1MR", "L2C", "L2P", "L2ME", "L2MR", "L5",
-#                                     "G1", "G2", "E1", "E1PRS", "E5a", "E5b", "E6BC", "E6PRS",
+#                                     "G1", "G1P", "G2", "G2P", "E1", "E1PRS", "E5a", "E5b", "E6BC", "E6PRS",
 #                                     "B1", "B2", "B1C", "B2a", "B2b", "B3I", "QZSSL1CA", "QZSSL1CB",
 #                                     "QZSSL1C", "QZSSL2C", "QZSSL5", "QZSSL1S", "QZSSL5S", "QZSSL6",
 #                                     "NAVICL1", "NAVICL5", "NAVICS", "PULSARXL", "PULSARX1", "PULSARX5"
@@ -9138,7 +9138,7 @@ class SetPowerOffset(CommandBase):
 # Name   Type   Description
 # ------ ------ -----------------------------------------------------------------------------------------------
 # Signal string Accepted signal keys: "L1CA", "L1C", "L1P", "L1ME", "L1MR", "L2C", "L2P", "L2ME", "L2MR", "L5",
-#                                     "G1", "G2", "E1", "E1PRS", "E5a", "E5b", "E6BC", "E6PRS",
+#                                     "G1", "G1P", "G2", "G2P", "E1", "E1PRS", "E5a", "E5b", "E6BC", "E6PRS",
 #                                     "B1", "B2", "B1C", "B2a", "B2b", "B3I", "QZSSL1CA", "QZSSL1CB",
 #                                     "QZSSL1C", "QZSSL2C", "QZSSL5", "QZSSL1S", "QZSSL5S", "QZSSL6",
 #                                     "NAVICL1", "NAVICL5", "NAVICS", "PULSARXL", "PULSARX1", "PULSARX5"
@@ -9167,7 +9167,7 @@ class GetSignalPowerOffset(CommandBase):
 # Name   Type   Description
 # ------ ------ -----------------------------------------------------------------------------------------------
 # Signal string Accepted signal keys: "L1CA", "L1C", "L1P", "L1ME", "L1MR", "L2C", "L2P", "L2ME", "L2MR", "L5",
-#                                     "G1", "G2", "E1", "E1PRS", "E5a", "E5b", "E6BC", "E6PRS",
+#                                     "G1", "G1P", "G2", "G2P", "E1", "E1PRS", "E5a", "E5b", "E6BC", "E6PRS",
 #                                     "B1", "B2", "B1C", "B2a", "B2b", "B3I", "QZSSL1CA", "QZSSL1CB",
 #                                     "QZSSL1C", "QZSSL2C", "QZSSL5", "QZSSL1S", "QZSSL5S", "QZSSL6",
 #                                     "NAVICL1", "NAVICL5", "NAVICS", "PULSARXL", "PULSARX1", "PULSARX5"
@@ -9194,7 +9194,7 @@ class GetPowerOffset(CommandBase):
 # Name   Type   Description
 # ------ ------ -----------------------------------------------------------------------------------------------
 # Signal string Accepted signal keys: "L1CA", "L1C", "L1P", "L1ME", "L1MR", "L2C", "L2P", "L2ME", "L2MR", "L5",
-#                                     "G1", "G2", "E1", "E1PRS", "E5a", "E5b", "E6BC", "E6PRS",
+#                                     "G1", "G1P", "G2", "G2P", "E1", "E1PRS", "E5a", "E5b", "E6BC", "E6PRS",
 #                                     "B1", "B2", "B1C", "B2a", "B2b", "B3I", "QZSSL1CA", "QZSSL1CB",
 #                                     "QZSSL1C", "QZSSL2C", "QZSSL5", "QZSSL1S", "QZSSL5S", "QZSSL6",
 #                                     "NAVICL1", "NAVICL5", "NAVICS", "PULSARXL", "PULSARX1", "PULSARX5"
@@ -9227,8 +9227,8 @@ class GetSignalPowerOffsetResult(CommandResult):
 # Set power offset default value for the SBAS Service Provider given in argument
 #
 # Name            Type   Description
-# --------------- ------ ---------------------------------------------------------------------------------------------------
-# ServiceProvider string Service Provider key, allowed values: "WAAS", "EGNOS", "MSAS", "GAGAN", "SDCM", "BDSBAS" and "KASS"
+# --------------- ------ ------------------------------------------------------------------------------------------------------------
+# ServiceProvider string Service Provider key, allowed values: "WAAS", "EGNOS", "MSAS", "GAGAN", "SDCM", "BDSBAS", "KASS" and "SPAN".
 # Offset          double Offset in dB (negative value will attenuate signal)
 #
 
@@ -9258,8 +9258,8 @@ class SetPowerSbasOffset(CommandBase):
 # Get power offset default value for the SBAS Service Provider given in argument
 #
 # Name            Type   Description
-# --------------- ------ ---------------------------------------------------------------------------------------------------
-# ServiceProvider string Service Provider key, allowed values: "WAAS", "EGNOS", "MSAS", "GAGAN", "SDCM", "BDSBAS" and "KASS"
+# --------------- ------ ------------------------------------------------------------------------------------------------------------
+# ServiceProvider string Service Provider key, allowed values: "WAAS", "EGNOS", "MSAS", "GAGAN", "SDCM", "BDSBAS", "KASS" and "SPAN".
 #
 
 class GetPowerSbasOffset(CommandBase):
@@ -9281,8 +9281,8 @@ class GetPowerSbasOffset(CommandBase):
 # Result of GetPowerSbasOffset.
 #
 # Name            Type   Description
-# --------------- ------ ---------------------------------------------------------------------------------------------------
-# ServiceProvider string Service Provider key, allowed values: "WAAS", "EGNOS", "MSAS", "GAGAN", "SDCM", "BDSBAS" and "KASS"
+# --------------- ------ ------------------------------------------------------------------------------------------------------------
+# ServiceProvider string Service Provider key, allowed values: "WAAS", "EGNOS", "MSAS", "GAGAN", "SDCM", "BDSBAS", "KASS" and "SPAN".
 # Offset          double Offset in dB (negative value will attenuate signal)
 #
 
@@ -9668,7 +9668,7 @@ class ChangeModulationTargetName(CommandBase):
 # MinRate          int             Minimum sampling rate (12500000, 25000000, 50000000, 60000000, 100000000)
 # MaxRate          int             Maximum sampling rate (12500000, 25000000, 50000000, 60000000, 100000000)
 # Band             string          Frequency band ("LowerL", "UpperL", "S-Band" or "C-Band")
-# Signal           string          Comma separated signal keys, accepted signal keys: "L1CA", "L1C", "L1P", "L1ME", "L1MR", "L2C", "L2P", "L2ME", "L2MR", "L5", "G1", "G2", "E1", "E5a", "E5b", "B1", "B2", "B1C", "B2a", "B2b", "B3I", "SBASL1", "QZSSL1CA", "QZSSL1CB", "QZSSL1C", "QZSSL2C", "QZSSL5", "QZSSL1S", "QZSSL5S", "QZSSL6", "NAVICL1", "NAVICL5", "NAVICS", "PULSARXL", "PULSARX1", "PULSARX5"
+# Signal           string          Comma separated signal keys, accepted signal keys: "L1CA", "L1C", "L1P", "L1ME", "L1MR", "L2C", "L2P", "L2ME", "L2MR", "L5", "G1", "G1P", "G2", "G2P", "E1", "E5a", "E5b", "B1", "B2", "B1C", "B2a", "B2b", "B3I", "SBASL1", "QZSSL1CA", "QZSSL1CB", "QZSSL1C", "QZSSL2C", "QZSSL5", "QZSSL1S", "QZSSL5S", "QZSSL6", "NAVICL1", "NAVICL5", "NAVICS", "PULSARXL", "PULSARX1", "PULSARX5"
 # Gain             int             The gain associated to this output (dB). This value has to be between the radio minimum value and 115. A negative value means to use the radio default value.
 # GaussianNoise    bool            If true, add Gaussian noise to ensure realistic signal to noise ratio. When combining multiple outputs, only one should have Gaussian noise enabled.
 # Id               string          Target identifier
@@ -9788,7 +9788,7 @@ class GetModulationTargetSignals(CommandBase):
 # MinRate          int             Minimum sampling rate (12500000, 25000000, 50000000, 60000000, 100000000)
 # MaxRate          int             Maximum sampling rate (12500000, 25000000, 50000000, 60000000, 100000000)
 # Band             string          Frequency band ("LowerL", "UpperL", "S-Band" or "C-Band")
-# Signal           string          Comma separated signal keys, accepted signal keys: "L1CA", "L1C", "L1P", "L1ME", "L1MR", "L2C", "L2P", "L2ME", "L2MR", "L5", "G1", "G2", "E1", "E5a", "E5b", "B1", "B2", "B1C", "B2a", "B2b", "B3I", "SBASL1", "QZSSL1CA", "QZSSL1CB", "QZSSL1C", "QZSSL2C", "QZSSL5", "QZSSL1S", "QZSSL5S", "QZSSL6", "NAVICL1", "NAVICL5", "NAVICS", "PULSARXL", "PULSARX1", "PULSARX5"
+# Signal           string          Comma separated signal keys, accepted signal keys: "L1CA", "L1C", "L1P", "L1ME", "L1MR", "L2C", "L2P", "L2ME", "L2MR", "L5", "G1", "G1P", "G2", "G2P", "E1", "E5a", "E5b", "B1", "B2", "B1C", "B2a", "B2b", "B3I", "SBASL1", "QZSSL1CA", "QZSSL1CB", "QZSSL1C", "QZSSL2C", "QZSSL5", "QZSSL1S", "QZSSL5S", "QZSSL6", "NAVICL1", "NAVICL5", "NAVICS", "PULSARXL", "PULSARX1", "PULSARX5"
 # Gain             int             The gain associated to this output (dB). This value has to be between the radio minimum value and 115. A negative value means to use the radio default value.
 # GaussianNoise    bool            If true, add Gaussian noise to ensure realistic signal to noise ratio. When combining multiple outputs, only one should have Gaussian noise enabled.
 # Id               string          Target identifier
@@ -9873,7 +9873,7 @@ class GetModulationTargetSignalsResult(CommandResult):
 # but it is possible to set constaints with MinRate and MaxRate.
 #
 # Name        Type            Description
-# ----------- --------------- --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+# ----------- --------------- ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 # Output      int             Output index (zero based)
 # MinRate     int             Minimum sampling rate (12500000, 25000000, 50000000, 60000000, 100000000)
 # MaxRate     int             Maximum sampling rate (12500000, 25000000, 50000000, 60000000, 100000000)
@@ -9881,7 +9881,7 @@ class GetModulationTargetSignalsResult(CommandResult):
 # CentralFreq double          Central frequency (Hz). Put 0.0 and complete signal list to let Skydel choose automatically the central frequency.
 # Gain        int             The gain associated to this output (dB). As of today, accepted values are 0, 20, 40, 60 and 80. Values at 40 and under are not recommended. Use a negative value to use the default value (60).
 # Id          string          Target identifier
-# Signal      optional string Comma separated signal keys if you want to match central frequency and sampling rate with a particular list of signals. Accepted signal keys: "L1CA", "L1C", "L1P", "L1ME", "L1MR", "L2C", "L2P", "L2ME", "L2MR", "L5", "G1", "G2", "E1", "E5a", "E5b", "B1", "B2", "B1C", "B2a", "B2b", "B3I", "SBASL1", "QZSSL1CA", "QZSSL1CB", "QZSSL1C", "QZSSL2C", "QZSSL5", "QZSSL1S", "QZSSL5S", "QZSSL6", "NAVICL1", "NAVICL5", "NAVICS", "PULSARXL", "PULSARX1", "PULSARX5"
+# Signal      optional string Comma separated signal keys if you want to match central frequency and sampling rate with a particular list of signals. Accepted signal keys: "L1CA", "L1C", "L1P", "L1ME", "L1MR", "L2C", "L2P", "L2ME", "L2MR", "L5", "G1", "G1P", "G2", "G2P", "E1", "E5a", "E5b", "B1", "B2", "B1C", "B2a", "B2b", "B3I", "SBASL1", "QZSSL1CA", "QZSSL1CB", "QZSSL1C", "QZSSL2C", "QZSSL5", "QZSSL1S", "QZSSL5S", "QZSSL6", "NAVICL1", "NAVICL5", "NAVICS", "PULSARXL", "PULSARX1", "PULSARX5"
 #
 
 class ChangeModulationTargetInterference(CommandBase):
@@ -9986,7 +9986,7 @@ class GetModulationTargetInterferences(CommandBase):
 # Result of GetModulationTargetInterferences.
 #
 # Name        Type            Description
-# ----------- --------------- --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+# ----------- --------------- ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 # Output      int             Output index (zero based)
 # MinRate     int             Minimum sampling rate (12500000, 25000000, 50000000, 60000000, 100000000)
 # MaxRate     int             Maximum sampling rate (12500000, 25000000, 50000000, 60000000, 100000000)
@@ -9994,7 +9994,7 @@ class GetModulationTargetInterferences(CommandBase):
 # CentralFreq double          Central frequency (Hz). Put 0.0 and complete signal list to let Skydel choose automatically the central frequency.
 # Gain        int             The gain associated to this output (dB). As of today, accepted values are 0, 20, 40, 60 and 80. Values at 40 and under are not recommended. Use a negative value to use the default value (60).
 # Id          string          Target identifier
-# Signal      optional string Comma separated signal keys if you want to match central frequency and sampling rate with a particular list of signals. Accepted signal keys: "L1CA", "L1C", "L1P", "L1ME", "L1MR", "L2C", "L2P", "L2ME", "L2MR", "L5", "G1", "G2", "E1", "E5a", "E5b", "B1", "B2", "B1C", "B2a", "B2b", "B3I", "SBASL1", "QZSSL1CA", "QZSSL1CB", "QZSSL1C", "QZSSL2C", "QZSSL5", "QZSSL1S", "QZSSL5S", "QZSSL6", "NAVICL1", "NAVICL5", "NAVICS", "PULSARXL", "PULSARX1", "PULSARX5"
+# Signal      optional string Comma separated signal keys if you want to match central frequency and sampling rate with a particular list of signals. Accepted signal keys: "L1CA", "L1C", "L1P", "L1ME", "L1MR", "L2C", "L2P", "L2ME", "L2MR", "L5", "G1", "G1P", "G2", "G2P", "E1", "E5a", "E5b", "B1", "B2", "B1C", "B2a", "B2b", "B3I", "SBASL1", "QZSSL1CA", "QZSSL1CB", "QZSSL1C", "QZSSL2C", "QZSSL5", "QZSSL1S", "QZSSL5S", "QZSSL6", "NAVICL1", "NAVICL5", "NAVICS", "PULSARXL", "PULSARX1", "PULSARX5"
 #
 
 class GetModulationTargetInterferencesResult(CommandResult):
@@ -15784,9 +15784,9 @@ class SetSbasReservedHealthForSV(CommandBase):
 # Set the service provider of the SBAS satellite.
 #
 # Name            Type   Description
-# --------------- ------ ------------------------------------------------------------------------------------
+# --------------- ------ --------------------------------------------------------------------------------------------------------------
 # SvId            int    The satellite's SV ID.
-# ServiceProvider string Service provider value, accepts "WAAS", "EGNOS", "MSAS", "GAGAN", "SDCM" and "SBAS".
+# ServiceProvider string Service provider value, accepts "WAAS", "EGNOS", "MSAS", "GAGAN", "SDCM", "BDSBAS", "KASS", "SPAN" and "SBAS".
 #
 
 class SetSbasServiceProviderForSV(CommandBase):
@@ -15838,9 +15838,9 @@ class GetSbasServiceProviderForSV(CommandBase):
 # Result of GetSbasServiceProviderForSV.
 #
 # Name            Type   Description
-# --------------- ------ ------------------------------------------------------------------------------------
+# --------------- ------ --------------------------------------------------------------------------------------------------------------
 # SvId            int    The satellite's SV ID.
-# ServiceProvider string Service provider value, accepts "WAAS", "EGNOS", "MSAS", "GAGAN", "SDCM" and "SBAS".
+# ServiceProvider string Service provider value, accepts "WAAS", "EGNOS", "MSAS", "GAGAN", "SDCM", "BDSBAS", "KASS", "SPAN" and "SBAS".
 #
 
 class GetSbasServiceProviderForSVResult(CommandResult):
@@ -21061,11 +21061,355 @@ class GetMessageModificationToPulsarX5Result(CommandResult):
     return self.set("Id", value)
 
 #
+# Set (or Modify) event to change GLONASS G1 P-Code message bits. If you send this command without setting the ID
+# parameter, or if you set the ID with a value never used before, a new Modification event will be
+# created. If you reuse the same event ID, it will modify the existing event.
+# 
+# Note that start and stop time are automatically extended to beginning and ending of overlapped
+# messages.
+# 
+# BitModifications can be an empty string. The Modification will have no effect until you modify it with at
+# least one bits mod.
+# 
+# A bits mod is represented with a string using the following format: "I:Bits" where I is a bit
+# index (1 refers to the first transmitted bit) and Bits is a modification mask where each
+# character describes a modification to a single bit. The allowed characters are:
+#    0 : force bit to 0
+#    1 : force bit to 1
+#    - : leave bit unchanged
+#    X : revert bit (0 becomes 1 and 1 becomes 0)
+# 
+# For example: "24:X---10XX" will: revert bits 24, 30 and 31
+#                  set bit 28 to 1
+#                  set bit 29 to 0
+# The other bits are not affected.
+# 
+# You can add multiple bit modifications using commas. For example: "24:X---10XX,127:100X,231:01"
+#
+# Name             Type         Description
+# ---------------- ------------ ------------------------------------------------------------------------------------
+# SignalArray      array string Array of signals to apply the message modification to, accepts "G1P" (empty for all)
+# SvId             int          The satellite's SV ID 1..24 (use 0 to apply modification to all SVs)
+# StartTime        int          Elapsed time in seconds since start of simulation
+# StopTime         int          Elapsed time in seconds since start of simulation (use 0 for no stop time)
+# BitModifications string       Comma separated bit modifications
+# Id               string       Unique identifier of the event
+#
+
+class SetMessageModificationToGlonassG1PNav(CommandBase):
+
+  def __init__(self, signalArray, svId, startTime, stopTime, bitModifications, id):
+    CommandBase.__init__(self, "SetMessageModificationToGlonassG1PNav")
+    self.setSignalArray(signalArray)
+    self.setSvId(svId)
+    self.setStartTime(startTime)
+    self.setStopTime(stopTime)
+    self.setBitModifications(bitModifications)
+    self.setId(id)
+
+  def executePermission(self):
+    return ExecutePermission.EXECUTE_IF_SIMULATING | ExecutePermission.EXECUTE_IF_IDLE
+
+  def signalArray(self):
+    return self.get("SignalArray")
+
+  def setSignalArray(self, value):
+    return self.set("SignalArray", value)
+
+  def svId(self):
+    return self.get("SvId")
+
+  def setSvId(self, value):
+    return self.set("SvId", value)
+
+  def startTime(self):
+    return self.get("StartTime")
+
+  def setStartTime(self, value):
+    return self.set("StartTime", value)
+
+  def stopTime(self):
+    return self.get("StopTime")
+
+  def setStopTime(self, value):
+    return self.set("StopTime", value)
+
+  def bitModifications(self):
+    return self.get("BitModifications")
+
+  def setBitModifications(self, value):
+    return self.set("BitModifications", value)
+
+  def id(self):
+    return self.get("Id")
+
+  def setId(self, value):
+    return self.set("Id", value)
+
+#
+# Get infos about the GLONASS G1 P-Code message modification with this ID.
+#
+# Name Type   Description
+# ---- ------ ------------------------------
+# Id   string Unique identifier of the event
+#
+
+class GetMessageModificationToGlonassG1PNav(CommandBase):
+
+  def __init__(self, id):
+    CommandBase.__init__(self, "GetMessageModificationToGlonassG1PNav")
+    self.setId(id)
+
+  def executePermission(self):
+    return ExecutePermission.EXECUTE_IF_IDLE
+
+  def id(self):
+    return self.get("Id")
+
+  def setId(self, value):
+    return self.set("Id", value)
+
+#
+# Result of GetMessageModificationToGlonassG1PNav.
+#
+# Name             Type         Description
+# ---------------- ------------ ------------------------------------------------------------------------------------
+# SignalArray      array string Array of signals to apply the message modification to, accepts "G1P" (empty for all)
+# SvId             int          The satellite's SV ID 1..24 (use 0 to apply modification to all SVs)
+# StartTime        int          Elapsed time in seconds since start of simulation
+# StopTime         int          Elapsed time in seconds since start of simulation (use 0 for no stop time)
+# BitModifications string       Comma separated bit modifications
+# Id               string       Unique identifier of the event
+#
+
+class GetMessageModificationToGlonassG1PNavResult(CommandResult):
+
+  def __init__(self, signalArray, svId, startTime, stopTime, bitModifications, id):
+    CommandResult.__init__(self, "GetMessageModificationToGlonassG1PNavResult")
+    self.setSignalArray(signalArray)
+    self.setSvId(svId)
+    self.setStartTime(startTime)
+    self.setStopTime(stopTime)
+    self.setBitModifications(bitModifications)
+    self.setId(id)
+
+  def isSuccess(self):
+    return True
+
+  def signalArray(self):
+    return self.get("SignalArray")
+
+  def setSignalArray(self, value):
+    return self.set("SignalArray", value)
+
+  def svId(self):
+    return self.get("SvId")
+
+  def setSvId(self, value):
+    return self.set("SvId", value)
+
+  def startTime(self):
+    return self.get("StartTime")
+
+  def setStartTime(self, value):
+    return self.set("StartTime", value)
+
+  def stopTime(self):
+    return self.get("StopTime")
+
+  def setStopTime(self, value):
+    return self.set("StopTime", value)
+
+  def bitModifications(self):
+    return self.get("BitModifications")
+
+  def setBitModifications(self, value):
+    return self.set("BitModifications", value)
+
+  def id(self):
+    return self.get("Id")
+
+  def setId(self, value):
+    return self.set("Id", value)
+
+#
+# Set (or Modify) event to change GLONASS G2 P-Code message bits. If you send this command without setting the ID
+# parameter, or if you set the ID with a value never used before, a new Modification event will be
+# created. If you reuse the same event ID, it will modify the existing event.
+# 
+# Note that start and stop time are automatically extended to beginning and ending of overlapped
+# messages.
+# 
+# BitModifications can be an empty string. The Modification will have no effect until you modify it with at
+# least one bits mod.
+# 
+# A bits mod is represented with a string using the following format: "I:Bits" where I is a bit
+# index (1 refers to the first transmitted bit) and Bits is a modification mask where each
+# character describes a modification to a single bit. The allowed characters are:
+#    0 : force bit to 0
+#    1 : force bit to 1
+#    - : leave bit unchanged
+#    X : revert bit (0 becomes 1 and 1 becomes 0)
+# 
+# For example: "24:X---10XX" will: revert bits 24, 30 and 31
+#                  set bit 28 to 1
+#                  set bit 29 to 0
+# The other bits are not affected.
+# 
+# You can add multiple bit modifications using commas. For example: "24:X---10XX,127:100X,231:01"
+#
+# Name             Type         Description
+# ---------------- ------------ ------------------------------------------------------------------------------------
+# SignalArray      array string Array of signals to apply the message modification to, accepts "G2P" (empty for all)
+# SvId             int          The satellite's SV ID 1..24 (use 0 to apply modification to all SVs)
+# StartTime        int          Elapsed time in seconds since start of simulation
+# StopTime         int          Elapsed time in seconds since start of simulation (use 0 for no stop time)
+# BitModifications string       Comma separated bit modifications
+# Id               string       Unique identifier of the event
+#
+
+class SetMessageModificationToGlonassG2PNav(CommandBase):
+
+  def __init__(self, signalArray, svId, startTime, stopTime, bitModifications, id):
+    CommandBase.__init__(self, "SetMessageModificationToGlonassG2PNav")
+    self.setSignalArray(signalArray)
+    self.setSvId(svId)
+    self.setStartTime(startTime)
+    self.setStopTime(stopTime)
+    self.setBitModifications(bitModifications)
+    self.setId(id)
+
+  def executePermission(self):
+    return ExecutePermission.EXECUTE_IF_SIMULATING | ExecutePermission.EXECUTE_IF_IDLE
+
+  def signalArray(self):
+    return self.get("SignalArray")
+
+  def setSignalArray(self, value):
+    return self.set("SignalArray", value)
+
+  def svId(self):
+    return self.get("SvId")
+
+  def setSvId(self, value):
+    return self.set("SvId", value)
+
+  def startTime(self):
+    return self.get("StartTime")
+
+  def setStartTime(self, value):
+    return self.set("StartTime", value)
+
+  def stopTime(self):
+    return self.get("StopTime")
+
+  def setStopTime(self, value):
+    return self.set("StopTime", value)
+
+  def bitModifications(self):
+    return self.get("BitModifications")
+
+  def setBitModifications(self, value):
+    return self.set("BitModifications", value)
+
+  def id(self):
+    return self.get("Id")
+
+  def setId(self, value):
+    return self.set("Id", value)
+
+#
+# Get infos about the GLONASS G2 P-Code message modification with this ID.
+#
+# Name Type   Description
+# ---- ------ ------------------------------
+# Id   string Unique identifier of the event
+#
+
+class GetMessageModificationToGlonassG2PNav(CommandBase):
+
+  def __init__(self, id):
+    CommandBase.__init__(self, "GetMessageModificationToGlonassG2PNav")
+    self.setId(id)
+
+  def executePermission(self):
+    return ExecutePermission.EXECUTE_IF_IDLE
+
+  def id(self):
+    return self.get("Id")
+
+  def setId(self, value):
+    return self.set("Id", value)
+
+#
+# Result of GetMessageModificationToGlonassG2PNav.
+#
+# Name             Type         Description
+# ---------------- ------------ ------------------------------------------------------------------------------------
+# SignalArray      array string Array of signals to apply the message modification to, accepts "G2P" (empty for all)
+# SvId             int          The satellite's SV ID 1..24 (use 0 to apply modification to all SVs)
+# StartTime        int          Elapsed time in seconds since start of simulation
+# StopTime         int          Elapsed time in seconds since start of simulation (use 0 for no stop time)
+# BitModifications string       Comma separated bit modifications
+# Id               string       Unique identifier of the event
+#
+
+class GetMessageModificationToGlonassG2PNavResult(CommandResult):
+
+  def __init__(self, signalArray, svId, startTime, stopTime, bitModifications, id):
+    CommandResult.__init__(self, "GetMessageModificationToGlonassG2PNavResult")
+    self.setSignalArray(signalArray)
+    self.setSvId(svId)
+    self.setStartTime(startTime)
+    self.setStopTime(stopTime)
+    self.setBitModifications(bitModifications)
+    self.setId(id)
+
+  def isSuccess(self):
+    return True
+
+  def signalArray(self):
+    return self.get("SignalArray")
+
+  def setSignalArray(self, value):
+    return self.set("SignalArray", value)
+
+  def svId(self):
+    return self.get("SvId")
+
+  def setSvId(self, value):
+    return self.set("SvId", value)
+
+  def startTime(self):
+    return self.get("StartTime")
+
+  def setStartTime(self, value):
+    return self.set("StartTime", value)
+
+  def stopTime(self):
+    return self.get("StopTime")
+
+  def setStopTime(self, value):
+    return self.set("StopTime", value)
+
+  def bitModifications(self):
+    return self.get("BitModifications")
+
+  def setBitModifications(self, value):
+    return self.set("BitModifications", value)
+
+  def id(self):
+    return self.get("Id")
+
+  def setId(self, value):
+    return self.set("Id", value)
+
+#
 # Removes a message modification event for the navigation message family.
 #
 # Name         Type   Description
-# ------------ ------ ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
-# NavMsgFamily string Navigation message family key, accepted values : "GPS_LNAV", "GPS_CNAV", "GPS_CNAV2", "GLONASS_NAV", "GALILEO_FNAV", "GALILEO_INAV", "BEIDOU_D1_NAV", "BEIDOU_CNAV1", "BEIDOU_CNAV2", "BEIDOU_CNAV3", "QZSS_LNAV", "QZSS_SLAS", "NAVIC_NAV" and "SBAS_NAV"
+# ------------ ------ ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+# NavMsgFamily string Navigation message family key, accepted values : "GPS_LNAV", "GPS_CNAV", "GPS_CNAV2", "GLONASS_NAV", "GLONASS_G1P_NAV", "GLONASS_G2P_NAV", "GALILEO_FNAV", "GALILEO_INAV", "BEIDOU_D1_NAV", "BEIDOU_CNAV1", "BEIDOU_CNAV2", "BEIDOU_CNAV3", "QZSS_LNAV", "QZSS_SLAS", "NAVIC_NAV" and "SBAS_NAV"
 # Id           string Unique identifier
 #
 
@@ -21095,8 +21439,8 @@ class RemoveMessageModificationForNavMsgFamily(CommandBase):
 # Clear all message modification events for this navigation message family.
 #
 # Name         Type   Description
-# ------------ ------ ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
-# NavMsgFamily string Navigation message family key, accepted values : "GPS_LNAV", "GPS_CNAV", "GPS_CNAV2", "GLONASS_NAV", "GALILEO_FNAV", "GALILEO_INAV", "BEIDOU_D1_NAV", "BEIDOU_CNAV1", "BEIDOU_CNAV2", "BEIDOU_CNAV3", "QZSS_LNAV", "QZSS_SLAS", "NAVIC_NAV" and "SBAS_NAV"
+# ------------ ------ ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+# NavMsgFamily string Navigation message family key, accepted values : "GPS_LNAV", "GPS_CNAV", "GPS_CNAV2", "GLONASS_NAV", "GLONASS_G1P_NAV", "GLONASS_G2P_NAV", "GALILEO_FNAV", "GALILEO_INAV", "BEIDOU_D1_NAV", "BEIDOU_CNAV1", "BEIDOU_CNAV2", "BEIDOU_CNAV3", "QZSS_LNAV", "QZSS_SLAS", "NAVIC_NAV" and "SBAS_NAV"
 #
 
 class ClearAllMessageModificationsForNavMsgFamily(CommandBase):
@@ -21118,8 +21462,8 @@ class ClearAllMessageModificationsForNavMsgFamily(CommandBase):
 # Get all the message modification event's IDs for this navigation message family and SV ID.
 #
 # Name         Type   Description
-# ------------ ------ ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
-# NavMsgFamily string Navigation message family key, accepted values : "GPS_LNAV", "GPS_CNAV", "GPS_CNAV2", "GLONASS_NAV", "GALILEO_FNAV", "GALILEO_INAV", "BEIDOU_D1_NAV", "BEIDOU_CNAV1", "BEIDOU_CNAV2", "BEIDOU_CNAV3", "QZSS_LNAV", "QZSS_SLAS", "NAVIC_NAV" and "SBAS_NAV"
+# ------------ ------ ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+# NavMsgFamily string Navigation message family key, accepted values : "GPS_LNAV", "GPS_CNAV", "GPS_CNAV2", "GLONASS_NAV", "GLONASS_G1P_NAV", "GLONASS_G2P_NAV", "GALILEO_FNAV", "GALILEO_INAV", "BEIDOU_D1_NAV", "BEIDOU_CNAV1", "BEIDOU_CNAV2", "BEIDOU_CNAV3", "QZSS_LNAV", "QZSS_SLAS", "NAVIC_NAV" and "SBAS_NAV"
 # SvId         int    The satellite's SV ID
 #
 
@@ -21172,9 +21516,9 @@ class GetAllMessageModificationIdsForNavMsgFamilyResult(CommandResult):
 # Removes the signal for the message modification.
 #
 # Name   Type   Description
-# ------ ------ ---------------------------------------------------------------------------------------------------------
+# ------ ------ -------------------------------------------------------------------------------------------------------------------
 # Signal string Signal key, accepted values : "L1CA", "L1C", "L1P", "L1ME", "L1MR", "L2C", "L2P", "L2ME", "L2MR", "L5",
-#                                             "G1", "G2", "E1", "E5a", "E5b", "B1", "B2", "B2a", "B2b", "B1C", "B3I",
+#                                             "G1", "G1P", "G2", "G2P", "E1", "E5a", "E5b", "B1", "B2", "B2a", "B2b", "B1C", "B3I",
 #                                             "QZSSL1CA", "QZSSL1CB", "QZSSL1S", "NAVICL5", "NAVICS", "SBASL1", "SBASL5",
 #                                             "PULSARXL", "PULSARX1" and "PULSARX5"
 # Id     string Unique identifier
@@ -21208,9 +21552,9 @@ class RemoveMessageModificationForSignal(CommandBase):
 # Removes the signal for the message modification.
 #
 # Name   Type   Description
-# ------ ------ ---------------------------------------------------------------------------------------------------------
+# ------ ------ -------------------------------------------------------------------------------------------------------------------
 # Signal string Signal key, accepted values : "L1CA", "L1C", "L1P", "L1ME", "L1MR", "L2C", "L2P", "L2ME", "L2MR", "L5",
-#                                             "G1", "G2", "E1", "E5a", "E5b", "B1", "B2", "B2a", "B2b", "B1C", "B3I",
+#                                             "G1", "G1P", "G2", "G2P", "E1", "E5a", "E5b", "B1", "B2", "B2a", "B2b", "B1C", "B3I",
 #                                             "QZSSL1CA", "QZSSL1CB", "QZSSL1S", "NAVICL5", "NAVICS", "SBASL1", "SBASL5",
 #                                             "PULSARXL", "PULSARX1" and "PULSARX5"
 # Id     string Unique identifier
@@ -21242,9 +21586,9 @@ class RemoveMessageModification(CommandBase):
 # Clear the signal for all message modifications.
 #
 # Name   Type   Description
-# ------ ------ ---------------------------------------------------------------------------------------------------------
+# ------ ------ -------------------------------------------------------------------------------------------------------------------
 # Signal string Signal key, accepted values : "L1CA", "L1C", "L1P", "L1ME", "L1MR", "L2C", "L2P", "L2ME", "L2MR", "L5",
-#                                             "G1", "G2", "E1", "E5a", "E5b", "B1", "B2", "B2a", "B2b", "B1C", "B3I",
+#                                             "G1", "G1P", "G2", "G2P", "E1", "E5a", "E5b", "B1", "B2", "B2a", "B2b", "B1C", "B3I",
 #                                             "QZSSL1CA", "QZSSL1CB", "QZSSL1S", "NAVICL5", "NAVICS", "SBASL1", "SBASL5",
 #                                             "PULSARXL", "PULSARX1" and "PULSARX5"
 #
@@ -21270,9 +21614,9 @@ class ClearAllMessageModificationsForSignal(CommandBase):
 # Clear the signal for all message modifications.
 #
 # Name   Type   Description
-# ------ ------ ---------------------------------------------------------------------------------------------------------
+# ------ ------ -------------------------------------------------------------------------------------------------------------------
 # Signal string Signal key, accepted values : "L1CA", "L1C", "L1P", "L1ME", "L1MR", "L2C", "L2P", "L2ME", "L2MR", "L5",
-#                                             "G1", "G2", "E1", "E5a", "E5b", "B1", "B2", "B2a", "B2b", "B1C", "B3I",
+#                                             "G1", "G1P", "G2", "G2P", "E1", "E5a", "E5b", "B1", "B2", "B2a", "B2b", "B1C", "B3I",
 #                                             "QZSSL1CA", "QZSSL1CB", "QZSSL1S", "NAVICL5", "NAVICS", "SBASL1", "SBASL5",
 #                                             "PULSARXL", "PULSARX1" and "PULSARX5"
 #
@@ -21296,9 +21640,9 @@ class ClearAllMessageModifications(CommandBase):
 # Get all the message modification event's IDs for this signal and SV ID.
 #
 # Name   Type   Description
-# ------ ------ ---------------------------------------------------------------------------------------------------------
+# ------ ------ -------------------------------------------------------------------------------------------------------------------
 # Signal string Signal key, accepted values : "L1CA", "L1C", "L1P", "L1ME", "L1MR", "L2C", "L2P", "L2ME", "L2MR", "L5",
-#                                             "G1", "G2", "E1", "E5a", "E5b", "B1", "B2", "B2a", "B2b", "B1C", "B3I",
+#                                             "G1", "G1P", "G2", "G2P", "E1", "E5a", "E5b", "B1", "B2", "B2a", "B2b", "B1C", "B3I",
 #                                             "QZSSL1CA", "QZSSL1CB", "QZSSL1S", "NAVICL5", "NAVICS", "SBASL1", "SBASL5",
 #                                             "PULSARXL", "PULSARX1" and "PULSARX5"
 # SvId   int    The satellite's SV ID
@@ -22510,9 +22854,9 @@ class GetEphemerisTocOffsetResult(CommandResult):
 # If Id is not set, or unknown to Skydel, a new echo will be added. Otherwise, existing echo will be updated.
 #
 # Name         Type   Description
-# ------------ ------ -------------------------------------------------------------------------------------------------------------
+# ------------ ------ ---------------------------------------------------------------------------------------------------------------------
 # Signal       string Accepted signal keys: "L1CA", "L1C", "L1P", "L1ME", "L1MR", "L2C", "L2P", "L2ME", "L2MR", "L5",
-#                                           "G1", "G2", "E1", "E5a", "E5b", "B1", "B2", "B1C", "B2a", "B2b", "B3I", "SBASL1",
+#                                           "G1", "G1P", "G2", "G2P", "E1", "E5a", "E5b", "B1", "B2", "B1C", "B2a", "B2b", "B3I", "SBASL1",
 #                                           "QZSSL1CA", "QZSSL1CB", "QZSSL1C", "QZSSL2C", "QZSSL5", "QZSSL1S", "QZSSL5S", "QZSSL6",
 #                                           "NAVICL1", "NAVICL5", "NAVICS", "PULSARXL", "PULSARX1" and "PULSARX5"
 # SvId         int    The satellite's SV ID
@@ -22646,9 +22990,9 @@ class RemoveMultipath(CommandBase):
 # Disable all multipath in all satellites but only for the specified signal.
 #
 # Name   Type   Description
-# ------ ------ -------------------------------------------------------------------------------------------------------------
+# ------ ------ ---------------------------------------------------------------------------------------------------------------------
 # Signal string Accepted signal keys: "L1CA", "L1C", "L1P", "L1ME", "L1MR", "L2C", "L2P", "L2ME", "L2MR", "L5",
-#                                     "G1", "G2", "E1", "E5a", "E5b", "B1", "B2", "B1C", "B2a", "B2b", "B3I", "SBASL1",
+#                                     "G1", "G1P", "G2", "G2P", "E1", "E5a", "E5b", "B1", "B2", "B1C", "B2a", "B2b", "B3I", "SBASL1",
 #                                     "QZSSL1CA", "QZSSL1CB", "QZSSL1C", "QZSSL2C", "QZSSL5", "QZSSL1S", "QZSSL5S", "QZSSL6",
 #                                     "NAVICL1", "NAVICL5", "NAVICS", "PULSARXL", "PULSARX1" and "PULSARX5"
 # Reset  bool   Reset attributes (PSR offset, power loss, Doppler shift and carrier phase offset are set to zero)
@@ -22773,11 +23117,11 @@ class GetMultipathForID(CommandBase):
 # Result of GetMultipathForID.
 #
 # Name         Type   Description
-# ------------ ------ -------------------------------------------------------------------------------------------------------------
+# ------------ ------ ---------------------------------------------------------------------------------------------------------------------
 # Id           string A multipath ID
 # System       string "GPS", "GLONASS", "Galileo", "BeiDou", "SBAS", "QZSS", "NavIC" or "PULSAR"
 # Signal       string Accepted signal keys: "L1CA", "L1C", "L1P", "L1ME", "L1MR", "L2C", "L2P", "L2ME", "L2MR", "L5",
-#                                           "G1", "G2", "E1", "E5a", "E5b", "B1", "B2", "B1C", "B2a", "B2b", "B3I", "SBASL1",
+#                                           "G1", "G1P", "G2", "G2P", "E1", "E5a", "E5b", "B1", "B2", "B1C", "B2a", "B2b", "B3I", "SBASL1",
 #                                           "QZSSL1CA", "QZSSL1CB", "QZSSL1C", "QZSSL2C", "QZSSL5", "QZSSL1S", "QZSSL5S", "QZSSL6",
 #                                           "NAVICL1", "NAVICL5", "NAVICS", "PULSARXL", "PULSARX1" and "PULSARX5"
 # SvId         int    The satellite's SV ID
@@ -22917,9 +23261,9 @@ class GetAllMultipathForSV(CommandBase):
 # Get all multipath ID for the specified signal.
 #
 # Name   Type   Description
-# ------ ------ -------------------------------------------------------------------------------------------------------------
+# ------ ------ ---------------------------------------------------------------------------------------------------------------------
 # Signal string Accepted signal keys: "L1CA", "L1C", "L1P", "L1ME", "L1MR", "L2C", "L2P", "L2ME", "L2MR", "L5",
-#                                     "G1", "G2", "E1", "E5a", "E5b", "B1", "B2", "B1C", "B2a", "B2b", "B3I", "SBASL1",
+#                                     "G1", "G1P", "G2", "G2P", "E1", "E5a", "E5b", "B1", "B2", "B1C", "B2a", "B2b", "B3I", "SBASL1",
 #                                     "QZSSL1CA", "QZSSL1CB", "QZSSL1C", "QZSSL2C", "QZSSL5", "QZSSL1S", "QZSSL5S", "QZSSL6",
 #                                     "NAVICL1", "NAVICL5", "NAVICS", "PULSARXL", "PULSARX1" and "PULSARX5"
 #
@@ -28476,10 +28820,10 @@ class GetGalileoFnavSatelliteKResult(CommandResult):
 # Skydel special calibration function, internal use only
 #
 # Name          Type   Description
-# ------------- ------ -------------------------------------------------------------------------------------------------------------
+# ------------- ------ ---------------------------------------------------------------------------------------------------------------------
 # SvId          int    SV ID for GPS, Galileo, BeiDou, GLONASS, QZSS, NavIC, SBAS and PULSAR.
 # Signal        string Accepted signal keys: "L1CA", "L1C", "L1P", "L1ME", "L1MR", "L2C", "L2P", "L2ME", "L2MR", "L5",
-#                                            "G1", "G2", "E1", "E5a", "E5b", "B1", "B2", "B1C", "B2a", "B2b", "B3I", "SBASL1",
+#                                            "G1", "G1P", "G2", "G2P", "E1", "E5a", "E5b", "B1", "B2", "B1C", "B2a", "B2b", "B3I", "SBASL1",
 #                                            "QZSSL1CA", "QZSSL1CB", "QZSSL1C", "QZSSL2C", "QZSSL5", "QZSSL1S", "QZSSL5S", "QZSSL6",
 #                                            "NAVICL1", "NAVICL5", "NAVICS", "PULSARXL", "PULSARX1" and "PULSARX5"
 # EnableSV      bool   Enable/Disable multiplication by satellite and Navigation Message
@@ -35881,7 +36225,7 @@ class SetExternalChannelsPath(CommandBase):
     return self.set("Path", value)
 
 #
-# Mapping PRN to the corresponding SV ID. Get a list of SV IDs based on a specific signal. Accepted signal keys: "L1CA", "L1C", "L1P", "L1ME", "L1MR", "L2C", "L2P", "L5", "G1", "G2", "E1", "E1PRS", "E5a", "E5b", "E6BC", "E6PRS", "B1", "B2", "B2a", "B2b", "B1C", "B3I", "SBASL1", "SBASL5", "QZSSL1CA", "QZSSL1CB", "QZSSL1C", "QZSSL2C", "QZSSL5", "QZSSL1S", "QZSSL5S", "QZSSL6", "NAVICL1", "NAVICL5", "NAVICS", "PULSARXL", "PULSARX1" and "PULSARX5"
+# Mapping PRN to the corresponding SV ID. Get a list of SV IDs based on a specific signal. Accepted signal keys: "L1CA", "L1C", "L1P", "L1ME", "L1MR", "L2C", "L2P", "L5", "G1", "G1P", "G2", "G2P", "E1", "E1PRS", "E5a", "E5b", "E6BC", "E6PRS", "B1", "B2", "B2a", "B2b", "B1C", "B3I", "SBASL1", "SBASL5", "QZSSL1CA", "QZSSL1CB", "QZSSL1C", "QZSSL2C", "QZSSL5", "QZSSL1S", "QZSSL5S", "QZSSL6", "NAVICL1", "NAVICL5", "NAVICS", "PULSARXL", "PULSARX1" and "PULSARX5"
 #
 # Name   Type   Description
 # ------ ------ ----------------------------------------------------------------------
@@ -36728,8 +37072,8 @@ class SbasServiceMessageRegion:
 # Set (or Modify) a SBAS service message region group.
 #
 # Name            Type                           Description
-# --------------- ------------------------------ -----------------------------------------------------------------------------------------
-# ServiceProvider string                         Service providers, accepts "WAAS", "EGNOS", "MSAS", "GAGAN", "SDCM", "BDSBAS" and "KASS".
+# --------------- ------------------------------ -------------------------------------------------------------------------------------------------
+# ServiceProvider string                         Service providers, accepts "WAAS", "EGNOS", "MSAS", "GAGAN", "SDCM", "BDSBAS", "KASS" and "SPAN".
 # DeltaUdrei      int                            Delta UDREI applicable inside the defined regions. Accepted range is [0..15].
 # PriorityCode    int                            Priority code of the SBAS service message region group. Accepted range is [0..3].
 # Regions         array SbasServiceMessageRegion Array of SBAS service message regions. Accepted size range is [1..5].
@@ -36783,8 +37127,8 @@ class SetSbasServiceMessageRegionGroup(CommandBase):
 # Get infos about the SBAS service message region group at this index.
 #
 # Name            Type   Description
-# --------------- ------ -----------------------------------------------------------------------------------------
-# ServiceProvider string Service providers, accepts "WAAS", "EGNOS", "MSAS", "GAGAN", "SDCM", "BDSBAS" and "KASS".
+# --------------- ------ -------------------------------------------------------------------------------------------------
+# ServiceProvider string Service providers, accepts "WAAS", "EGNOS", "MSAS", "GAGAN", "SDCM", "BDSBAS", "KASS" and "SPAN".
 # Id              string Unique identifier of the SBAS service message region group.
 #
 
@@ -36814,8 +37158,8 @@ class GetSbasServiceMessageRegionGroup(CommandBase):
 # Result of GetSbasServiceMessageRegionGroup.
 #
 # Name            Type                           Description
-# --------------- ------------------------------ -----------------------------------------------------------------------------------------
-# ServiceProvider string                         Service providers, accepts "WAAS", "EGNOS", "MSAS", "GAGAN", "SDCM", "BDSBAS" and "KASS".
+# --------------- ------------------------------ -------------------------------------------------------------------------------------------------
+# ServiceProvider string                         Service providers, accepts "WAAS", "EGNOS", "MSAS", "GAGAN", "SDCM", "BDSBAS", "KASS" and "SPAN".
 # DeltaUdrei      int                            Delta UDREI applicable inside the defined regions. Accepted range is [0..15].
 # PriorityCode    int                            Priority code of the SBAS service message region group. Accepted range is [0..3].
 # Regions         array SbasServiceMessageRegion Array of SBAS service message regions. Accepted size range is [1..5].
@@ -36869,8 +37213,8 @@ class GetSbasServiceMessageRegionGroupResult(CommandResult):
 # Set SBAS delta UDREI outside all the defined regions for this service provider.
 #
 # Name            Type   Description
-# --------------- ------ -----------------------------------------------------------------------------------------
-# ServiceProvider string Service providers, accepts "WAAS", "EGNOS", "MSAS", "GAGAN", "SDCM", "BDSBAS" and "KASS".
+# --------------- ------ -------------------------------------------------------------------------------------------------
+# ServiceProvider string Service providers, accepts "WAAS", "EGNOS", "MSAS", "GAGAN", "SDCM", "BDSBAS", "KASS" and "SPAN".
 # DeltaUdrei      int    Delta UDREI applicable outside all the defined regions. Accepted range is [0..15].
 #
 
@@ -36900,8 +37244,8 @@ class SetSbasDeltaUdreiOutsideOfRegions(CommandBase):
 # Get SBAS delta UDREI outside all the defined regions for this service provider.
 #
 # Name            Type   Description
-# --------------- ------ -----------------------------------------------------------------------------------------
-# ServiceProvider string Service providers, accepts "WAAS", "EGNOS", "MSAS", "GAGAN", "SDCM", "BDSBAS" and "KASS".
+# --------------- ------ -------------------------------------------------------------------------------------------------
+# ServiceProvider string Service providers, accepts "WAAS", "EGNOS", "MSAS", "GAGAN", "SDCM", "BDSBAS", "KASS" and "SPAN".
 #
 
 class GetSbasDeltaUdreiOutsideOfRegions(CommandBase):
@@ -36923,8 +37267,8 @@ class GetSbasDeltaUdreiOutsideOfRegions(CommandBase):
 # Result of GetSbasDeltaUdreiOutsideOfRegions.
 #
 # Name            Type   Description
-# --------------- ------ -----------------------------------------------------------------------------------------
-# ServiceProvider string Service providers, accepts "WAAS", "EGNOS", "MSAS", "GAGAN", "SDCM", "BDSBAS" and "KASS".
+# --------------- ------ -------------------------------------------------------------------------------------------------
+# ServiceProvider string Service providers, accepts "WAAS", "EGNOS", "MSAS", "GAGAN", "SDCM", "BDSBAS", "KASS" and "SPAN".
 # DeltaUdrei      int    Delta UDREI applicable outside all the defined regions. Accepted range is [0..15].
 #
 
@@ -36954,8 +37298,8 @@ class GetSbasDeltaUdreiOutsideOfRegionsResult(CommandResult):
 # Removes a SBAS service message region group for the service provider.
 #
 # Name            Type   Description
-# --------------- ------ -----------------------------------------------------------------------------------------
-# ServiceProvider string Service providers, accepts "WAAS", "EGNOS", "MSAS", "GAGAN", "SDCM", "BDSBAS" and "KASS".
+# --------------- ------ -------------------------------------------------------------------------------------------------
+# ServiceProvider string Service providers, accepts "WAAS", "EGNOS", "MSAS", "GAGAN", "SDCM", "BDSBAS", "KASS" and "SPAN".
 # Id              string Unique identifier of the SBAS service message region group to remove.
 #
 
@@ -36985,8 +37329,8 @@ class RemoveSbasServiceMessageRegionGroup(CommandBase):
 # Clears all SBAS service message region group for this service provider.
 #
 # Name            Type   Description
-# --------------- ------ -----------------------------------------------------------------------------------------
-# ServiceProvider string Service providers, accepts "WAAS", "EGNOS", "MSAS", "GAGAN", "SDCM", "BDSBAS" and "KASS".
+# --------------- ------ -------------------------------------------------------------------------------------------------
+# ServiceProvider string Service providers, accepts "WAAS", "EGNOS", "MSAS", "GAGAN", "SDCM", "BDSBAS", "KASS" and "SPAN".
 #
 
 class ClearAllSbasServiceMessageRegionGroup(CommandBase):
@@ -37008,8 +37352,8 @@ class ClearAllSbasServiceMessageRegionGroup(CommandBase):
 # Set the SBAS degradation parameters for the specified service provider.
 #
 # Name                          Type               Description
-# ----------------------------- ------------------ -----------------------------------------------------------------------------------------
-# ServiceProvider               string             Service providers, accepts "WAAS", "EGNOS", "MSAS", "GAGAN", "SDCM", "BDSBAS" and "KASS".
+# ----------------------------- ------------------ -------------------------------------------------------------------------------------------------
+# ServiceProvider               string             Service providers, accepts "WAAS", "EGNOS", "MSAS", "GAGAN", "SDCM", "BDSBAS", "KASS" and "SPAN".
 # DegradationParameterValueDict dict string:double A dictionary of degradationparameter value pairs.
 #                                                  Accepted keys are: "BRRC", "CLTC_LSB", "CLTC_V1", "ILTC_V1", "CLTC_V0",
 #                                                                     "ILTC_V0", "CGEO_LSB", "CGEO_V", "IGEO", "CER", "CIONO_STEP",
@@ -37042,8 +37386,8 @@ class SetSbasDegradationParameters(CommandBase):
 # Get the SBAS degradation parameters for the specified service provider. By default, all degradation parameters are returned. If specific parameter names are provided, only those parameters are returned.
 #
 # Name                      Type         Description
-# ------------------------- ------------ -----------------------------------------------------------------------------------------
-# ServiceProvider           string       Service providers, accepts "WAAS", "EGNOS", "MSAS", "GAGAN", "SDCM", "BDSBAS" and "KASS".
+# ------------------------- ------------ -------------------------------------------------------------------------------------------------
+# ServiceProvider           string       Service providers, accepts "WAAS", "EGNOS", "MSAS", "GAGAN", "SDCM", "BDSBAS", "KASS" and "SPAN".
 # DegradationParameterArray array string An array of degradationparameters.
 #                                        Accepted values are: "BRRC", "CLTC_LSB", "CLTC_V1", "ILTC_V1", "CLTC_V0",
 #                                                             "ILTC_V0", "CGEO_LSB", "CGEO_V", "IGEO", "CER",
@@ -37077,8 +37421,8 @@ class GetSbasDegradationParameters(CommandBase):
 # Result of GetSbasDegradationParameters.
 #
 # Name                          Type               Description
-# ----------------------------- ------------------ -----------------------------------------------------------------------------------------
-# ServiceProvider               string             Service providers, accepts "WAAS", "EGNOS", "MSAS", "GAGAN", "SDCM", "BDSBAS" and "KASS".
+# ----------------------------- ------------------ -------------------------------------------------------------------------------------------------
+# ServiceProvider               string             Service providers, accepts "WAAS", "EGNOS", "MSAS", "GAGAN", "SDCM", "BDSBAS", "KASS" and "SPAN".
 # DegradationParameterValueDict dict string:double A dictionary of degradationparameter value pairs.
 #                                                  Accepted keys are: "BRRC", "CLTC_LSB", "CLTC_V1", "ILTC_V1", "CLTC_V0",
 #                                                                     "ILTC_V0", "CGEO_LSB", "CGEO_V", "IGEO", "CER", "CIONO_STEP",
@@ -37111,8 +37455,8 @@ class GetSbasDegradationParametersResult(CommandResult):
 # Swaps 2 SBAS service message region group.
 #
 # Name            Type   Description
-# --------------- ------ -----------------------------------------------------------------------------------------
-# ServiceProvider string Service providers, accepts "WAAS", "EGNOS", "MSAS", "GAGAN", "SDCM", "BDSBAS" and "KASS".
+# --------------- ------ -------------------------------------------------------------------------------------------------
+# ServiceProvider string Service providers, accepts "WAAS", "EGNOS", "MSAS", "GAGAN", "SDCM", "BDSBAS", "KASS" and "SPAN".
 # FirstId         string Unique identifier of the SBAS service message region group to swap with SecondId.
 # SecondId        string Unique identifier of the SBAS service message region group to swap with FirstId.
 #
@@ -37781,22 +38125,24 @@ class TestEncryptionLibrary(CommandBase):
 #
 # Execute the GPU benchmark and get the result score (will block Skydel's user interface).
 #
-# Name              Type            Description
-# ----------------- --------------- ----------------------------------------------------------------------------
-# DurationMs        int             Duration of execution in milliseconds.
-# SystemSvCountDict dict string:int A dictionary of system svcount pairs.
-#                                   Accepted keys are: "GPS", "GLONASS", "Galileo", "BeiDou", "SBAS", "QZSS" and
-#                                                      "NavIC"
-# EchoCount         int             Number of echos per signal.
+# Name                            Type                     Description
+# ------------------------------- ------------------------ ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+# DurationMs                      int                      Duration of execution in milliseconds.
+# SystemSvCountDict               dict string:int          A dictionary of system svcount pairs.
+#                                                          Accepted keys are: "GPS", "GLONASS", "Galileo", "BeiDou", "SBAS", "QZSS" and
+#                                                                             "NavIC"
+# EchoCount                       int                      Number of echos per signal.
+# InterferenceSignalTypeCountDict optional dict string:int Optional dictionary defining the interference signals to benchmark. Keys are interference signal types ("CW", "Chirp", "Pulse", "BPSK", "BOC", "AWGN"), and values specify how many of each type to include.
 #
 
 class ExecuteGpuBenchmark(CommandBase):
 
-  def __init__(self, durationMs, systemSvCountDict, echoCount):
+  def __init__(self, durationMs, systemSvCountDict, echoCount, interferenceSignalTypeCountDict = None):
     CommandBase.__init__(self, "ExecuteGpuBenchmark")
     self.setDurationMs(durationMs)
     self.setSystemSvCountDict(systemSvCountDict)
     self.setEchoCount(echoCount)
+    self.setInterferenceSignalTypeCountDict(interferenceSignalTypeCountDict)
 
   def executePermission(self):
     return ExecutePermission.EXECUTE_IF_IDLE
@@ -37818,6 +38164,12 @@ class ExecuteGpuBenchmark(CommandBase):
 
   def setEchoCount(self, value):
     return self.set("EchoCount", value)
+
+  def interferenceSignalTypeCountDict(self):
+    return self.get("InterferenceSignalTypeCountDict")
+
+  def setInterferenceSignalTypeCountDict(self, value):
+    return self.set("InterferenceSignalTypeCountDict", value)
 
 #
 # Result of the GPU benchmark execution.
@@ -38988,12 +39340,13 @@ class IsOsnmaEnabledForEachSVResult(CommandResult):
     return self.set("Enabled", value)
 
 #
-# Set the list of satellites that are cross-authenticated by the specified satellite.
+# Set the list of satellites that are cross-authenticated by the specified satellite. If the list is empty, the default selection algorithm is used. If non-empty, the list is fixed for the duration of the simulation.
+# The default selection algorithm selects the four closest satellites that do not provide OSNMA, ordered from nearest to farthest.
 #
 # Name     Type      Description
-# -------- --------- -------------------------------------------------------------------
+# -------- --------- ------------------------------------------------------------------------------------------------------------------------------------------
 # SvId     int       The satellite's SV ID (use 0 to apply on all Galileo's satellites).
-# SvIdList array int A list of the cross-authenticated satellites' SV IDs.
+# SvIdList array int A list of the cross-authenticated satellites' SV IDs. Set empty list to use default selection algorithm of cross-authenticated satellites.
 #
 
 class SetCrossAuthenticatedSatellitesForSV(CommandBase):
@@ -39019,7 +39372,8 @@ class SetCrossAuthenticatedSatellitesForSV(CommandBase):
     return self.set("SvIdList", value)
 
 #
-# Get the list of satellites that are cross-authenticated by the specified satellite.
+# Get the list of satellites that are cross-authenticated by the specified satellite. If the list is empty, the default selection algorithm is used. If non-empty, the list is fixed for the duration of the simulation.
+# The default selection algorithm selects the four closest satellites that do not provide OSNMA, ordered from nearest to farthest.
 #
 # Name Type Description
 # ---- ---- -------------------------------------------------------------------
@@ -39045,9 +39399,9 @@ class GetCrossAuthenticatedSatellitesForSV(CommandBase):
 # Result of GetCrossAuthenticatedSatellitesForSV.
 #
 # Name     Type      Description
-# -------- --------- -------------------------------------------------------------------
+# -------- --------- ------------------------------------------------------------------------------------------------------------------------------------------
 # SvId     int       The satellite's SV ID (use 0 to apply on all Galileo's satellites).
-# SvIdList array int A list of the cross-authenticated satellites' SV IDs.
+# SvIdList array int A list of the cross-authenticated satellites' SV IDs. Set empty list to use default selection algorithm of cross-authenticated satellites.
 #
 
 class GetCrossAuthenticatedSatellitesForSVResult(CommandResult):

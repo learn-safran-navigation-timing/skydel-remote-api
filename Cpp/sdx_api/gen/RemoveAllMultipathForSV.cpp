@@ -82,7 +82,7 @@ namespace Sdx
 
     void RemoveAllMultipathForSV::setSystem(const std::string& system)
     {
-      m_values.AddMember("System", parse_json<std::string>::format(system, m_values.GetAllocator()), m_values.GetAllocator());
+      setValue("System", parse_json<std::string>::format(system, m_values.GetAllocator()));
     }
 
 
@@ -94,7 +94,7 @@ namespace Sdx
 
     void RemoveAllMultipathForSV::setSvId(int svId)
     {
-      m_values.AddMember("SvId", parse_json<int>::format(svId, m_values.GetAllocator()), m_values.GetAllocator());
+      setValue("SvId", parse_json<int>::format(svId, m_values.GetAllocator()));
     }
 
 
@@ -106,7 +106,7 @@ namespace Sdx
 
     void RemoveAllMultipathForSV::setReset(bool reset)
     {
-      m_values.AddMember("Reset", parse_json<bool>::format(reset, m_values.GetAllocator()), m_values.GetAllocator());
+      setValue("Reset", parse_json<bool>::format(reset, m_values.GetAllocator()));
     }
 
 

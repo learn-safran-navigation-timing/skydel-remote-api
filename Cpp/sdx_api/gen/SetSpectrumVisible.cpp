@@ -76,7 +76,7 @@ namespace Sdx
 
     void SetSpectrumVisible::setVisible(bool visible)
     {
-      m_values.AddMember("Visible", parse_json<bool>::format(visible, m_values.GetAllocator()), m_values.GetAllocator());
+      setValue("Visible", parse_json<bool>::format(visible, m_values.GetAllocator()));
     }
 
 

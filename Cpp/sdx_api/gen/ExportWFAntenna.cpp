@@ -79,7 +79,7 @@ namespace Sdx
 
     void ExportWFAntenna::setFilePath(const std::string& filePath)
     {
-      m_values.AddMember("FilePath", parse_json<std::string>::format(filePath, m_values.GetAllocator()), m_values.GetAllocator());
+      setValue("FilePath", parse_json<std::string>::format(filePath, m_values.GetAllocator()));
     }
 
 
@@ -91,7 +91,7 @@ namespace Sdx
 
     void ExportWFAntenna::setOverwriteFile(bool overwriteFile)
     {
-      m_values.AddMember("OverwriteFile", parse_json<bool>::format(overwriteFile, m_values.GetAllocator()), m_values.GetAllocator());
+      setValue("OverwriteFile", parse_json<bool>::format(overwriteFile, m_values.GetAllocator()));
     }
 
 

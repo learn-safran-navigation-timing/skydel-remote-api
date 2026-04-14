@@ -82,7 +82,7 @@ namespace Sdx
 
     void EndTrackDefinitionResult::setCount(int count)
     {
-      m_values.AddMember("Count", parse_json<int>::format(count, m_values.GetAllocator()), m_values.GetAllocator());
+      setValue("Count", parse_json<int>::format(count, m_values.GetAllocator()));
     }
 
 

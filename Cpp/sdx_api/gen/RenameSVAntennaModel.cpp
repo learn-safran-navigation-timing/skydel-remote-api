@@ -82,7 +82,7 @@ namespace Sdx
 
     void RenameSVAntennaModel::setName(const std::string& name)
     {
-      m_values.AddMember("Name", parse_json<std::string>::format(name, m_values.GetAllocator()), m_values.GetAllocator());
+      setValue("Name", parse_json<std::string>::format(name, m_values.GetAllocator()));
     }
 
 
@@ -94,7 +94,7 @@ namespace Sdx
 
     void RenameSVAntennaModel::setNewName(const std::string& newName)
     {
-      m_values.AddMember("NewName", parse_json<std::string>::format(newName, m_values.GetAllocator()), m_values.GetAllocator());
+      setValue("NewName", parse_json<std::string>::format(newName, m_values.GetAllocator()));
     }
 
 
@@ -106,7 +106,7 @@ namespace Sdx
 
     void RenameSVAntennaModel::setSystem(const std::string& system)
     {
-      m_values.AddMember("System", parse_json<std::string>::format(system, m_values.GetAllocator()), m_values.GetAllocator());
+      setValue("System", parse_json<std::string>::format(system, m_values.GetAllocator()));
     }
 
 

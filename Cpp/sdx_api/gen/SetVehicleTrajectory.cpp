@@ -76,7 +76,7 @@ namespace Sdx
 
     void SetVehicleTrajectory::setType(const std::string& type)
     {
-      m_values.AddMember("Type", parse_json<std::string>::format(type, m_values.GetAllocator()), m_values.GetAllocator());
+      setValue("Type", parse_json<std::string>::format(type, m_values.GetAllocator()));
     }
 
 

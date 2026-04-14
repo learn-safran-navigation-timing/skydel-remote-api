@@ -90,7 +90,7 @@ namespace Sdx
 
     void GetSbasMessageUpdateIntervalResult::setMessage(int message)
     {
-      m_values.AddMember("Message", parse_json<int>::format(message, m_values.GetAllocator()), m_values.GetAllocator());
+      setValue("Message", parse_json<int>::format(message, m_values.GetAllocator()));
     }
 
 
@@ -102,7 +102,7 @@ namespace Sdx
 
     void GetSbasMessageUpdateIntervalResult::setUpdateInterval(int updateInterval)
     {
-      m_values.AddMember("UpdateInterval", parse_json<int>::format(updateInterval, m_values.GetAllocator()), m_values.GetAllocator());
+      setValue("UpdateInterval", parse_json<int>::format(updateInterval, m_values.GetAllocator()));
     }
 
 
@@ -114,7 +114,7 @@ namespace Sdx
 
     void GetSbasMessageUpdateIntervalResult::setServiceProvider(const std::optional<std::string>& serviceProvider)
     {
-      m_values.AddMember("ServiceProvider", parse_json<std::optional<std::string>>::format(serviceProvider, m_values.GetAllocator()), m_values.GetAllocator());
+      setValue("ServiceProvider", parse_json<std::optional<std::string>>::format(serviceProvider, m_values.GetAllocator()));
     }
 
 

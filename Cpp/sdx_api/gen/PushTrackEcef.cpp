@@ -85,7 +85,7 @@ namespace Sdx
 
     void PushTrackEcef::setTime(int time)
     {
-      m_values.AddMember("Time", parse_json<int>::format(time, m_values.GetAllocator()), m_values.GetAllocator());
+      setValue("Time", parse_json<int>::format(time, m_values.GetAllocator()));
     }
 
 
@@ -97,7 +97,7 @@ namespace Sdx
 
     void PushTrackEcef::setX(double x)
     {
-      m_values.AddMember("X", parse_json<double>::format(x, m_values.GetAllocator()), m_values.GetAllocator());
+      setValue("X", parse_json<double>::format(x, m_values.GetAllocator()));
     }
 
 
@@ -109,7 +109,7 @@ namespace Sdx
 
     void PushTrackEcef::setY(double y)
     {
-      m_values.AddMember("Y", parse_json<double>::format(y, m_values.GetAllocator()), m_values.GetAllocator());
+      setValue("Y", parse_json<double>::format(y, m_values.GetAllocator()));
     }
 
 
@@ -121,7 +121,7 @@ namespace Sdx
 
     void PushTrackEcef::setZ(double z)
     {
-      m_values.AddMember("Z", parse_json<double>::format(z, m_values.GetAllocator()), m_values.GetAllocator());
+      setValue("Z", parse_json<double>::format(z, m_values.GetAllocator()));
     }
 
 

@@ -19,12 +19,12 @@ namespace Sdx
       "----------- ------------ --------------------------------------------------------------------------------\n"
       "SignalArray array string An array of signals.\n"
       "                         Accepted values are: \"L1CA\", \"L1C\", \"L1P\", \"L1ME\", \"L1MR\", \"L2C\", \"L2P\", \"L2ME\",\n"
-      "                                              \"L2MR\", \"L5\", \"G1\", \"G2\", \"E1\", \"E1PRS\", \"E5a\", \"E5b\",\n"
-      "                                              \"E5AltBOC\", \"E6BC\", \"E6PRS\", \"B1\", \"B2\", \"B1C\", \"B2a\",\n"
-      "                                              \"B2b\", \"B3I\", \"SBASL1\", \"SBASL5\", \"QZSSL1CA\", \"QZSSL1CB\",\n"
-      "                                              \"QZSSL1C\", \"QZSSL2C\", \"QZSSL5\", \"QZSSL1S\", \"QZSSL5S\",\n"
-      "                                              \"QZSSL6\", \"NAVICL1\", \"NAVICL5\", \"NAVICS\", \"PULSARXL\",\n"
-      "                                              \"PULSARX1\" and \"PULSARX5\"";
+      "                                              \"L2MR\", \"L5\", \"G1\", \"G1P\", \"G2\", \"G2P\", \"E1\", \"E1PRS\",\n"
+      "                                              \"E5a\", \"E5b\", \"E5AltBOC\", \"E6BC\", \"E6PRS\", \"B1\", \"B2\",\n"
+      "                                              \"B1C\", \"B2a\", \"B2b\", \"B3I\", \"SBASL1\", \"SBASL5\", \"QZSSL1CA\",\n"
+      "                                              \"QZSSL1CB\", \"QZSSL1C\", \"QZSSL2C\", \"QZSSL5\", \"QZSSL1S\",\n"
+      "                                              \"QZSSL5S\", \"QZSSL6\", \"NAVICL1\", \"NAVICL5\", \"NAVICS\",\n"
+      "                                              \"PULSARXL\", \"PULSARX1\" and \"PULSARX5\"";
     const char* const GetSignalFilterAssignation::TargetId = "";
 
     REGISTER_COMMAND_TO_FACTORY_DECL(GetSignalFilterAssignation);
@@ -83,7 +83,7 @@ namespace Sdx
 
     void GetSignalFilterAssignation::setSignalArray(const std::vector<std::string>& signalArray)
     {
-      m_values.AddMember("SignalArray", parse_json<std::vector<std::string>>::format(signalArray, m_values.GetAllocator()), m_values.GetAllocator());
+      setValue("SignalArray", parse_json<std::vector<std::string>>::format(signalArray, m_values.GetAllocator()));
     }
 
 

@@ -13,8 +13,8 @@ namespace Sdx
     /// Swaps 2 SBAS service message region group.
     ///
     /// Name            Type   Description
-    /// --------------- ------ -----------------------------------------------------------------------------------------
-    /// ServiceProvider string Service providers, accepts "WAAS", "EGNOS", "MSAS", "GAGAN", "SDCM", "BDSBAS" and "KASS".
+    /// --------------- ------ -------------------------------------------------------------------------------------------------
+    /// ServiceProvider string Service providers, accepts "WAAS", "EGNOS", "MSAS", "GAGAN", "SDCM", "BDSBAS", "KASS" and "SPAN".
     /// FirstId         string Unique identifier of the SBAS service message region group to swap with SecondId.
     /// SecondId        string Unique identifier of the SBAS service message region group to swap with FirstId.
     ///

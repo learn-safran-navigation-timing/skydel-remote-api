@@ -23,7 +23,7 @@ namespace Sdx
       "MinRate          int             Minimum sampling rate (12500000, 25000000, 50000000, 60000000, 100000000)\n"
       "MaxRate          int             Maximum sampling rate (12500000, 25000000, 50000000, 60000000, 100000000)\n"
       "Band             string          Frequency band (\"LowerL\", \"UpperL\", \"S-Band\" or \"C-Band\")\n"
-      "Signal           string          Comma separated signal keys, accepted signal keys: \"L1CA\", \"L1C\", \"L1P\", \"L1ME\", \"L1MR\", \"L2C\", \"L2P\", \"L2ME\", \"L2MR\", \"L5\", \"G1\", \"G2\", \"E1\", \"E5a\", \"E5b\", \"B1\", \"B2\", \"B1C\", \"B2a\", \"B2b\", \"B3I\", \"SBASL1\", \"QZSSL1CA\", \"QZSSL1CB\", \"QZSSL1C\", \"QZSSL2C\", \"QZSSL5\", \"QZSSL1S\", \"QZSSL5S\", \"QZSSL6\", \"NAVICL1\", \"NAVICL5\", \"NAVICS\", \"PULSARXL\", \"PULSARX1\", \"PULSARX5\"\n"
+      "Signal           string          Comma separated signal keys, accepted signal keys: \"L1CA\", \"L1C\", \"L1P\", \"L1ME\", \"L1MR\", \"L2C\", \"L2P\", \"L2ME\", \"L2MR\", \"L5\", \"G1\", \"G1P\", \"G2\", \"G2P\", \"E1\", \"E5a\", \"E5b\", \"B1\", \"B2\", \"B1C\", \"B2a\", \"B2b\", \"B3I\", \"SBASL1\", \"QZSSL1CA\", \"QZSSL1CB\", \"QZSSL1C\", \"QZSSL2C\", \"QZSSL5\", \"QZSSL1S\", \"QZSSL5S\", \"QZSSL6\", \"NAVICL1\", \"NAVICL5\", \"NAVICS\", \"PULSARXL\", \"PULSARX1\", \"PULSARX5\"\n"
       "Gain             int             The gain associated to this output (dB). This value has to be between the radio minimum value and 115. A negative value means to use the radio default value.\n"
       "GaussianNoise    bool            If true, add Gaussian noise to ensure realistic signal to noise ratio. When combining multiple outputs, only one should have Gaussian noise enabled.\n"
       "Id               string          Target identifier\n"
@@ -102,7 +102,7 @@ namespace Sdx
 
     void ChangeModulationTargetSignals::setOutput(int output)
     {
-      m_values.AddMember("Output", parse_json<int>::format(output, m_values.GetAllocator()), m_values.GetAllocator());
+      setValue("Output", parse_json<int>::format(output, m_values.GetAllocator()));
     }
 
 
@@ -114,7 +114,7 @@ namespace Sdx
 
     void ChangeModulationTargetSignals::setMinRate(int minRate)
     {
-      m_values.AddMember("MinRate", parse_json<int>::format(minRate, m_values.GetAllocator()), m_values.GetAllocator());
+      setValue("MinRate", parse_json<int>::format(minRate, m_values.GetAllocator()));
     }
 
 
@@ -126,7 +126,7 @@ namespace Sdx
 
     void ChangeModulationTargetSignals::setMaxRate(int maxRate)
     {
-      m_values.AddMember("MaxRate", parse_json<int>::format(maxRate, m_values.GetAllocator()), m_values.GetAllocator());
+      setValue("MaxRate", parse_json<int>::format(maxRate, m_values.GetAllocator()));
     }
 
 
@@ -138,7 +138,7 @@ namespace Sdx
 
     void ChangeModulationTargetSignals::setBand(const std::string& band)
     {
-      m_values.AddMember("Band", parse_json<std::string>::format(band, m_values.GetAllocator()), m_values.GetAllocator());
+      setValue("Band", parse_json<std::string>::format(band, m_values.GetAllocator()));
     }
 
 
@@ -150,7 +150,7 @@ namespace Sdx
 
     void ChangeModulationTargetSignals::setSignal(const std::string& signal)
     {
-      m_values.AddMember("Signal", parse_json<std::string>::format(signal, m_values.GetAllocator()), m_values.GetAllocator());
+      setValue("Signal", parse_json<std::string>::format(signal, m_values.GetAllocator()));
     }
 
 
@@ -162,7 +162,7 @@ namespace Sdx
 
     void ChangeModulationTargetSignals::setGain(int gain)
     {
-      m_values.AddMember("Gain", parse_json<int>::format(gain, m_values.GetAllocator()), m_values.GetAllocator());
+      setValue("Gain", parse_json<int>::format(gain, m_values.GetAllocator()));
     }
 
 
@@ -174,7 +174,7 @@ namespace Sdx
 
     void ChangeModulationTargetSignals::setGaussianNoise(bool gaussianNoise)
     {
-      m_values.AddMember("GaussianNoise", parse_json<bool>::format(gaussianNoise, m_values.GetAllocator()), m_values.GetAllocator());
+      setValue("GaussianNoise", parse_json<bool>::format(gaussianNoise, m_values.GetAllocator()));
     }
 
 
@@ -186,7 +186,7 @@ namespace Sdx
 
     void ChangeModulationTargetSignals::setId(const std::string& id)
     {
-      m_values.AddMember("Id", parse_json<std::string>::format(id, m_values.GetAllocator()), m_values.GetAllocator());
+      setValue("Id", parse_json<std::string>::format(id, m_values.GetAllocator()));
     }
 
 
@@ -198,7 +198,7 @@ namespace Sdx
 
     void ChangeModulationTargetSignals::setCentralFrequency(const std::optional<double>& centralFrequency)
     {
-      m_values.AddMember("CentralFrequency", parse_json<std::optional<double>>::format(centralFrequency, m_values.GetAllocator()), m_values.GetAllocator());
+      setValue("CentralFrequency", parse_json<std::optional<double>>::format(centralFrequency, m_values.GetAllocator()));
     }
 
 

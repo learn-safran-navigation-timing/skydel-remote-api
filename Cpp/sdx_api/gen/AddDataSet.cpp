@@ -94,7 +94,7 @@ namespace Sdx
 
     void AddDataSet::setSystem(const std::string& system)
     {
-      m_values.AddMember("System", parse_json<std::string>::format(system, m_values.GetAllocator()), m_values.GetAllocator());
+      setValue("System", parse_json<std::string>::format(system, m_values.GetAllocator()));
     }
 
 
@@ -106,7 +106,7 @@ namespace Sdx
 
     void AddDataSet::setPath(const std::string& path)
     {
-      m_values.AddMember("Path", parse_json<std::string>::format(path, m_values.GetAllocator()), m_values.GetAllocator());
+      setValue("Path", parse_json<std::string>::format(path, m_values.GetAllocator()));
     }
 
 
@@ -118,7 +118,7 @@ namespace Sdx
 
     void AddDataSet::setRollover(const std::optional<int>& rollover)
     {
-      m_values.AddMember("Rollover", parse_json<std::optional<int>>::format(rollover, m_values.GetAllocator()), m_values.GetAllocator());
+      setValue("Rollover", parse_json<std::optional<int>>::format(rollover, m_values.GetAllocator()));
     }
 
 
@@ -130,7 +130,7 @@ namespace Sdx
 
     void AddDataSet::setDataSetName(const std::optional<std::string>& dataSetName)
     {
-      m_values.AddMember("DataSetName", parse_json<std::optional<std::string>>::format(dataSetName, m_values.GetAllocator()), m_values.GetAllocator());
+      setValue("DataSetName", parse_json<std::optional<std::string>>::format(dataSetName, m_values.GetAllocator()));
     }
 
 
@@ -142,7 +142,7 @@ namespace Sdx
 
     void AddDataSet::setNavMsgFamily(const std::optional<std::string>& navMsgFamily)
     {
-      m_values.AddMember("NavMsgFamily", parse_json<std::optional<std::string>>::format(navMsgFamily, m_values.GetAllocator()), m_values.GetAllocator());
+      setValue("NavMsgFamily", parse_json<std::optional<std::string>>::format(navMsgFamily, m_values.GetAllocator()));
     }
 
 

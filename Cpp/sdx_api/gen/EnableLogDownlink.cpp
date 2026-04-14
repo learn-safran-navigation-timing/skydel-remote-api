@@ -82,7 +82,7 @@ namespace Sdx
 
     void EnableLogDownlink::setEnabled(bool enabled)
     {
-      m_values.AddMember("Enabled", parse_json<bool>::format(enabled, m_values.GetAllocator()), m_values.GetAllocator());
+      setValue("Enabled", parse_json<bool>::format(enabled, m_values.GetAllocator()));
     }
 
 
@@ -94,7 +94,7 @@ namespace Sdx
 
     void EnableLogDownlink::setBeforeEncoding(const std::optional<bool>& beforeEncoding)
     {
-      m_values.AddMember("BeforeEncoding", parse_json<std::optional<bool>>::format(beforeEncoding, m_values.GetAllocator()), m_values.GetAllocator());
+      setValue("BeforeEncoding", parse_json<std::optional<bool>>::format(beforeEncoding, m_values.GetAllocator()));
     }
 
 
@@ -106,7 +106,7 @@ namespace Sdx
 
     void EnableLogDownlink::setAfterEncoding(const std::optional<bool>& afterEncoding)
     {
-      m_values.AddMember("AfterEncoding", parse_json<std::optional<bool>>::format(afterEncoding, m_values.GetAllocator()), m_values.GetAllocator());
+      setValue("AfterEncoding", parse_json<std::optional<bool>>::format(afterEncoding, m_values.GetAllocator()));
     }
 
 

@@ -16,8 +16,8 @@ namespace Sdx
     const char* const GetSbasDeltaUdreiOutsideOfRegionsResult::Documentation = "Result of GetSbasDeltaUdreiOutsideOfRegions.\n"
       "\n"
       "Name            Type   Description\n"
-      "--------------- ------ -----------------------------------------------------------------------------------------\n"
-      "ServiceProvider string Service providers, accepts \"WAAS\", \"EGNOS\", \"MSAS\", \"GAGAN\", \"SDCM\", \"BDSBAS\" and \"KASS\".\n"
+      "--------------- ------ -------------------------------------------------------------------------------------------------\n"
+      "ServiceProvider string Service providers, accepts \"WAAS\", \"EGNOS\", \"MSAS\", \"GAGAN\", \"SDCM\", \"BDSBAS\", \"KASS\" and \"SPAN\".\n"
       "DeltaUdrei      int    Delta UDREI applicable outside all the defined regions. Accepted range is [0..15].";
     const char* const GetSbasDeltaUdreiOutsideOfRegionsResult::TargetId = "";
 
@@ -86,7 +86,7 @@ namespace Sdx
 
     void GetSbasDeltaUdreiOutsideOfRegionsResult::setServiceProvider(const std::string& serviceProvider)
     {
-      m_values.AddMember("ServiceProvider", parse_json<std::string>::format(serviceProvider, m_values.GetAllocator()), m_values.GetAllocator());
+      setValue("ServiceProvider", parse_json<std::string>::format(serviceProvider, m_values.GetAllocator()));
     }
 
 
@@ -98,7 +98,7 @@ namespace Sdx
 
     void GetSbasDeltaUdreiOutsideOfRegionsResult::setDeltaUdrei(int deltaUdrei)
     {
-      m_values.AddMember("DeltaUdrei", parse_json<int>::format(deltaUdrei, m_values.GetAllocator()), m_values.GetAllocator());
+      setValue("DeltaUdrei", parse_json<int>::format(deltaUdrei, m_values.GetAllocator()));
     }
 
 

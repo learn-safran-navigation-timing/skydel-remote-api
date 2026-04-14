@@ -79,7 +79,7 @@ namespace Sdx
 
     void CopyVehicleAntennaModel::setName(const std::string& name)
     {
-      m_values.AddMember("Name", parse_json<std::string>::format(name, m_values.GetAllocator()), m_values.GetAllocator());
+      setValue("Name", parse_json<std::string>::format(name, m_values.GetAllocator()));
     }
 
 
@@ -91,7 +91,7 @@ namespace Sdx
 
     void CopyVehicleAntennaModel::setCopyName(const std::string& copyName)
     {
-      m_values.AddMember("CopyName", parse_json<std::string>::format(copyName, m_values.GetAllocator()), m_values.GetAllocator());
+      setValue("CopyName", parse_json<std::string>::format(copyName, m_values.GetAllocator()));
     }
 
 

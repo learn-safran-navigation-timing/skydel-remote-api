@@ -82,7 +82,7 @@ namespace Sdx
 
     void ImportIonoGridMask::setServiceProvider(const std::string& serviceProvider)
     {
-      m_values.AddMember("ServiceProvider", parse_json<std::string>::format(serviceProvider, m_values.GetAllocator()), m_values.GetAllocator());
+      setValue("ServiceProvider", parse_json<std::string>::format(serviceProvider, m_values.GetAllocator()));
     }
 
 
@@ -94,7 +94,7 @@ namespace Sdx
 
     void ImportIonoGridMask::setOverwriting(bool overwriting)
     {
-      m_values.AddMember("Overwriting", parse_json<bool>::format(overwriting, m_values.GetAllocator()), m_values.GetAllocator());
+      setValue("Overwriting", parse_json<bool>::format(overwriting, m_values.GetAllocator()));
     }
 
 
@@ -106,7 +106,7 @@ namespace Sdx
 
     void ImportIonoGridMask::setPath(const std::string& path)
     {
-      m_values.AddMember("Path", parse_json<std::string>::format(path, m_values.GetAllocator()), m_values.GetAllocator());
+      setValue("Path", parse_json<std::string>::format(path, m_values.GetAllocator()));
     }
 
 

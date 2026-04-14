@@ -76,7 +76,7 @@ namespace Sdx
 
     void SetDynamicRangeOffset::setOffset(double offset)
     {
-      m_values.AddMember("Offset", parse_json<double>::format(offset, m_values.GetAllocator()), m_values.GetAllocator());
+      setValue("Offset", parse_json<double>::format(offset, m_values.GetAllocator()));
     }
 
 

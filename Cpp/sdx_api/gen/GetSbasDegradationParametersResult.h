@@ -14,8 +14,8 @@ namespace Sdx
     /// Result of GetSbasDegradationParameters.
     ///
     /// Name                          Type               Description
-    /// ----------------------------- ------------------ -----------------------------------------------------------------------------------------
-    /// ServiceProvider               string             Service providers, accepts "WAAS", "EGNOS", "MSAS", "GAGAN", "SDCM", "BDSBAS" and "KASS".
+    /// ----------------------------- ------------------ -------------------------------------------------------------------------------------------------
+    /// ServiceProvider               string             Service providers, accepts "WAAS", "EGNOS", "MSAS", "GAGAN", "SDCM", "BDSBAS", "KASS" and "SPAN".
     /// DegradationParameterValueDict dict string:double A dictionary of degradationparameter value pairs.
     ///                                                  Accepted keys are: "BRRC", "CLTC_LSB", "CLTC_V1", "ILTC_V1", "CLTC_V0",
     ///                                                                     "ILTC_V0", "CGEO_LSB", "CGEO_V", "IGEO", "CER", "CIONO_STEP",

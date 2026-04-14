@@ -86,7 +86,7 @@ namespace Sdx
 
     void GetHilExtrapolationStateResult::setState(const Sdx::HilExtrapolationState& state)
     {
-      m_values.AddMember("State", parse_json<Sdx::HilExtrapolationState>::format(state, m_values.GetAllocator()), m_values.GetAllocator());
+      setValue("State", parse_json<Sdx::HilExtrapolationState>::format(state, m_values.GetAllocator()));
     }
 
 
@@ -98,7 +98,7 @@ namespace Sdx
 
     void GetHilExtrapolationStateResult::setElapsedTime(int elapsedTime)
     {
-      m_values.AddMember("ElapsedTime", parse_json<int>::format(elapsedTime, m_values.GetAllocator()), m_values.GetAllocator());
+      setValue("ElapsedTime", parse_json<int>::format(elapsedTime, m_values.GetAllocator()));
     }
 
 

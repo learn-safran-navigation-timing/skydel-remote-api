@@ -76,7 +76,7 @@ namespace Sdx
 
     void GetOfficialLeapSecond::setDate(const Sdx::DateTime& date)
     {
-      m_values.AddMember("Date", parse_json<Sdx::DateTime>::format(date, m_values.GetAllocator()), m_values.GetAllocator());
+      setValue("Date", parse_json<Sdx::DateTime>::format(date, m_values.GetAllocator()));
     }
 
 

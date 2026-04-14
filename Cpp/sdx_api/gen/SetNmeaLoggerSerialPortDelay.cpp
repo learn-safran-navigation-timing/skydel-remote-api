@@ -76,7 +76,7 @@ namespace Sdx
 
     void SetNmeaLoggerSerialPortDelay::setDelay(int delay)
     {
-      m_values.AddMember("Delay", parse_json<int>::format(delay, m_values.GetAllocator()), m_values.GetAllocator());
+      setValue("Delay", parse_json<int>::format(delay, m_values.GetAllocator()));
     }
 
 

@@ -16,8 +16,8 @@ namespace Sdx
     const char* const GetSbasServiceMessageRegionGroupResult::Documentation = "Result of GetSbasServiceMessageRegionGroup.\n"
       "\n"
       "Name            Type                           Description\n"
-      "--------------- ------------------------------ -----------------------------------------------------------------------------------------\n"
-      "ServiceProvider string                         Service providers, accepts \"WAAS\", \"EGNOS\", \"MSAS\", \"GAGAN\", \"SDCM\", \"BDSBAS\" and \"KASS\".\n"
+      "--------------- ------------------------------ -------------------------------------------------------------------------------------------------\n"
+      "ServiceProvider string                         Service providers, accepts \"WAAS\", \"EGNOS\", \"MSAS\", \"GAGAN\", \"SDCM\", \"BDSBAS\", \"KASS\" and \"SPAN\".\n"
       "DeltaUdrei      int                            Delta UDREI applicable inside the defined regions. Accepted range is [0..15].\n"
       "PriorityCode    int                            Priority code of the SBAS service message region group. Accepted range is [0..3].\n"
       "Regions         array SbasServiceMessageRegion Array of SBAS service message regions. Accepted size range is [1..5].\n"
@@ -98,7 +98,7 @@ namespace Sdx
 
     void GetSbasServiceMessageRegionGroupResult::setServiceProvider(const std::string& serviceProvider)
     {
-      m_values.AddMember("ServiceProvider", parse_json<std::string>::format(serviceProvider, m_values.GetAllocator()), m_values.GetAllocator());
+      setValue("ServiceProvider", parse_json<std::string>::format(serviceProvider, m_values.GetAllocator()));
     }
 
 
@@ -110,7 +110,7 @@ namespace Sdx
 
     void GetSbasServiceMessageRegionGroupResult::setDeltaUdrei(int deltaUdrei)
     {
-      m_values.AddMember("DeltaUdrei", parse_json<int>::format(deltaUdrei, m_values.GetAllocator()), m_values.GetAllocator());
+      setValue("DeltaUdrei", parse_json<int>::format(deltaUdrei, m_values.GetAllocator()));
     }
 
 
@@ -122,7 +122,7 @@ namespace Sdx
 
     void GetSbasServiceMessageRegionGroupResult::setPriorityCode(int priorityCode)
     {
-      m_values.AddMember("PriorityCode", parse_json<int>::format(priorityCode, m_values.GetAllocator()), m_values.GetAllocator());
+      setValue("PriorityCode", parse_json<int>::format(priorityCode, m_values.GetAllocator()));
     }
 
 
@@ -134,7 +134,7 @@ namespace Sdx
 
     void GetSbasServiceMessageRegionGroupResult::setRegions(const std::vector<Sdx::SbasServiceMessageRegion>& regions)
     {
-      m_values.AddMember("Regions", parse_json<std::vector<Sdx::SbasServiceMessageRegion>>::format(regions, m_values.GetAllocator()), m_values.GetAllocator());
+      setValue("Regions", parse_json<std::vector<Sdx::SbasServiceMessageRegion>>::format(regions, m_values.GetAllocator()));
     }
 
 
@@ -146,7 +146,7 @@ namespace Sdx
 
     void GetSbasServiceMessageRegionGroupResult::setId(const std::string& id)
     {
-      m_values.AddMember("Id", parse_json<std::string>::format(id, m_values.GetAllocator()), m_values.GetAllocator());
+      setValue("Id", parse_json<std::string>::format(id, m_values.GetAllocator()));
     }
 
 

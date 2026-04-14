@@ -79,7 +79,7 @@ namespace Sdx
 
     void GetModulationTargetIQPlayback::setOutput(int output)
     {
-      m_values.AddMember("Output", parse_json<int>::format(output, m_values.GetAllocator()), m_values.GetAllocator());
+      setValue("Output", parse_json<int>::format(output, m_values.GetAllocator()));
     }
 
 
@@ -91,7 +91,7 @@ namespace Sdx
 
     void GetModulationTargetIQPlayback::setId(const std::string& id)
     {
-      m_values.AddMember("Id", parse_json<std::string>::format(id, m_values.GetAllocator()), m_values.GetAllocator());
+      setValue("Id", parse_json<std::string>::format(id, m_values.GetAllocator()));
     }
 
 

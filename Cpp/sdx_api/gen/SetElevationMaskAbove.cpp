@@ -76,7 +76,7 @@ namespace Sdx
 
     void SetElevationMaskAbove::setAngle(double angle)
     {
-      m_values.AddMember("Angle", parse_json<double>::format(angle, m_values.GetAllocator()), m_values.GetAllocator());
+      setValue("Angle", parse_json<double>::format(angle, m_values.GetAllocator()));
     }
 
 

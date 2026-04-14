@@ -86,7 +86,7 @@ namespace Sdx
 
     void GetElevationAzimuthForEachSVResult::setSystem(const std::string& system)
     {
-      m_values.AddMember("System", parse_json<std::string>::format(system, m_values.GetAllocator()), m_values.GetAllocator());
+      setValue("System", parse_json<std::string>::format(system, m_values.GetAllocator()));
     }
 
 
@@ -98,7 +98,7 @@ namespace Sdx
 
     void GetElevationAzimuthForEachSVResult::setElevationAzimuths(const std::vector<std::optional<Sdx::ElevationAzimuth>>& elevationAzimuths)
     {
-      m_values.AddMember("ElevationAzimuths", parse_json<std::vector<std::optional<Sdx::ElevationAzimuth>>>::format(elevationAzimuths, m_values.GetAllocator()), m_values.GetAllocator());
+      setValue("ElevationAzimuths", parse_json<std::vector<std::optional<Sdx::ElevationAzimuth>>>::format(elevationAzimuths, m_values.GetAllocator()));
     }
 
 

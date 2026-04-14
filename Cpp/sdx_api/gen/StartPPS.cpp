@@ -76,7 +76,7 @@ namespace Sdx
 
     void StartPPS::setMsec(int msec)
     {
-      m_values.AddMember("Msec", parse_json<int>::format(msec, m_values.GetAllocator()), m_values.GetAllocator());
+      setValue("Msec", parse_json<int>::format(msec, m_values.GetAllocator()));
     }
 
 

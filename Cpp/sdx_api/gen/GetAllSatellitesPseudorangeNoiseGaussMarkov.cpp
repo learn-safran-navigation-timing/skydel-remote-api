@@ -81,7 +81,7 @@ namespace Sdx
 
     void GetAllSatellitesPseudorangeNoiseGaussMarkov::setSystem(const std::string& system)
     {
-      m_values.AddMember("System", parse_json<std::string>::format(system, m_values.GetAllocator()), m_values.GetAllocator());
+      setValue("System", parse_json<std::string>::format(system, m_values.GetAllocator()));
     }
 
 
@@ -93,7 +93,7 @@ namespace Sdx
 
     void GetAllSatellitesPseudorangeNoiseGaussMarkov::setProcess(int process)
     {
-      m_values.AddMember("Process", parse_json<int>::format(process, m_values.GetAllocator()), m_values.GetAllocator());
+      setValue("Process", parse_json<int>::format(process, m_values.GetAllocator()));
     }
 
 

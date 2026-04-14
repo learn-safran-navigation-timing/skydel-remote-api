@@ -16,8 +16,8 @@ namespace Sdx
     const char* const SwapSbasServiceMessageRegionGroup::Documentation = "Swaps 2 SBAS service message region group.\n"
       "\n"
       "Name            Type   Description\n"
-      "--------------- ------ -----------------------------------------------------------------------------------------\n"
-      "ServiceProvider string Service providers, accepts \"WAAS\", \"EGNOS\", \"MSAS\", \"GAGAN\", \"SDCM\", \"BDSBAS\" and \"KASS\".\n"
+      "--------------- ------ -------------------------------------------------------------------------------------------------\n"
+      "ServiceProvider string Service providers, accepts \"WAAS\", \"EGNOS\", \"MSAS\", \"GAGAN\", \"SDCM\", \"BDSBAS\", \"KASS\" and \"SPAN\".\n"
       "FirstId         string Unique identifier of the SBAS service message region group to swap with SecondId.\n"
       "SecondId        string Unique identifier of the SBAS service message region group to swap with FirstId.";
     const char* const SwapSbasServiceMessageRegionGroup::TargetId = "";
@@ -82,7 +82,7 @@ namespace Sdx
 
     void SwapSbasServiceMessageRegionGroup::setServiceProvider(const std::string& serviceProvider)
     {
-      m_values.AddMember("ServiceProvider", parse_json<std::string>::format(serviceProvider, m_values.GetAllocator()), m_values.GetAllocator());
+      setValue("ServiceProvider", parse_json<std::string>::format(serviceProvider, m_values.GetAllocator()));
     }
 
 
@@ -94,7 +94,7 @@ namespace Sdx
 
     void SwapSbasServiceMessageRegionGroup::setFirstId(const std::string& firstId)
     {
-      m_values.AddMember("FirstId", parse_json<std::string>::format(firstId, m_values.GetAllocator()), m_values.GetAllocator());
+      setValue("FirstId", parse_json<std::string>::format(firstId, m_values.GetAllocator()));
     }
 
 
@@ -106,7 +106,7 @@ namespace Sdx
 
     void SwapSbasServiceMessageRegionGroup::setSecondId(const std::string& secondId)
     {
-      m_values.AddMember("SecondId", parse_json<std::string>::format(secondId, m_values.GetAllocator()), m_values.GetAllocator());
+      setValue("SecondId", parse_json<std::string>::format(secondId, m_values.GetAllocator()));
     }
 
 

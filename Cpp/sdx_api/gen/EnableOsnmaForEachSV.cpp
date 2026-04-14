@@ -76,7 +76,7 @@ namespace Sdx
 
     void EnableOsnmaForEachSV::setEnabled(const std::vector<bool>& enabled)
     {
-      m_values.AddMember("Enabled", parse_json<std::vector<bool>>::format(enabled, m_values.GetAllocator()), m_values.GetAllocator());
+      setValue("Enabled", parse_json<std::vector<bool>>::format(enabled, m_values.GetAllocator()));
     }
 
 

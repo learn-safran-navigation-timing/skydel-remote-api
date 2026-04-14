@@ -101,7 +101,7 @@ namespace Sdx
 
     void PushDynamicAlmanacData::setSystem(const std::string& system)
     {
-      m_values.AddMember("System", parse_json<std::string>::format(system, m_values.GetAllocator()), m_values.GetAllocator());
+      setValue("System", parse_json<std::string>::format(system, m_values.GetAllocator()));
     }
 
 
@@ -113,7 +113,7 @@ namespace Sdx
 
     void PushDynamicAlmanacData::setToa(const Sdx::DateTime& toa)
     {
-      m_values.AddMember("Toa", parse_json<Sdx::DateTime>::format(toa, m_values.GetAllocator()), m_values.GetAllocator());
+      setValue("Toa", parse_json<Sdx::DateTime>::format(toa, m_values.GetAllocator()));
     }
 
 
@@ -125,7 +125,7 @@ namespace Sdx
 
     void PushDynamicAlmanacData::setAlmanac(const std::vector<Sdx::AlmanacSVData>& almanac)
     {
-      m_values.AddMember("Almanac", parse_json<std::vector<Sdx::AlmanacSVData>>::format(almanac, m_values.GetAllocator()), m_values.GetAllocator());
+      setValue("Almanac", parse_json<std::vector<Sdx::AlmanacSVData>>::format(almanac, m_values.GetAllocator()));
     }
 
 
@@ -137,7 +137,7 @@ namespace Sdx
 
     void PushDynamicAlmanacData::setSvId(const std::optional<int>& svId)
     {
-      m_values.AddMember("SvId", parse_json<std::optional<int>>::format(svId, m_values.GetAllocator()), m_values.GetAllocator());
+      setValue("SvId", parse_json<std::optional<int>>::format(svId, m_values.GetAllocator()));
     }
 
 

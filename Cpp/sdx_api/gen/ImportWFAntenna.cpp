@@ -76,7 +76,7 @@ namespace Sdx
 
     void ImportWFAntenna::setFilePath(const std::string& filePath)
     {
-      m_values.AddMember("FilePath", parse_json<std::string>::format(filePath, m_values.GetAllocator()), m_values.GetAllocator());
+      setValue("FilePath", parse_json<std::string>::format(filePath, m_values.GetAllocator()));
     }
 
 

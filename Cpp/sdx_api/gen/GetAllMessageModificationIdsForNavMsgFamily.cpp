@@ -16,8 +16,8 @@ namespace Sdx
     const char* const GetAllMessageModificationIdsForNavMsgFamily::Documentation = "Get all the message modification event's IDs for this navigation message family and SV ID.\n"
       "\n"
       "Name         Type   Description\n"
-      "------------ ------ ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------\n"
-      "NavMsgFamily string Navigation message family key, accepted values : \"GPS_LNAV\", \"GPS_CNAV\", \"GPS_CNAV2\", \"GLONASS_NAV\", \"GALILEO_FNAV\", \"GALILEO_INAV\", \"BEIDOU_D1_NAV\", \"BEIDOU_CNAV1\", \"BEIDOU_CNAV2\", \"BEIDOU_CNAV3\", \"QZSS_LNAV\", \"QZSS_SLAS\", \"NAVIC_NAV\" and \"SBAS_NAV\"\n"
+      "------------ ------ ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------\n"
+      "NavMsgFamily string Navigation message family key, accepted values : \"GPS_LNAV\", \"GPS_CNAV\", \"GPS_CNAV2\", \"GLONASS_NAV\", \"GLONASS_G1P_NAV\", \"GLONASS_G2P_NAV\", \"GALILEO_FNAV\", \"GALILEO_INAV\", \"BEIDOU_D1_NAV\", \"BEIDOU_CNAV1\", \"BEIDOU_CNAV2\", \"BEIDOU_CNAV3\", \"QZSS_LNAV\", \"QZSS_SLAS\", \"NAVIC_NAV\" and \"SBAS_NAV\"\n"
       "SvId         int    The satellite's SV ID";
     const char* const GetAllMessageModificationIdsForNavMsgFamily::TargetId = "";
 
@@ -79,7 +79,7 @@ namespace Sdx
 
     void GetAllMessageModificationIdsForNavMsgFamily::setNavMsgFamily(const std::string& navMsgFamily)
     {
-      m_values.AddMember("NavMsgFamily", parse_json<std::string>::format(navMsgFamily, m_values.GetAllocator()), m_values.GetAllocator());
+      setValue("NavMsgFamily", parse_json<std::string>::format(navMsgFamily, m_values.GetAllocator()));
     }
 
 
@@ -91,7 +91,7 @@ namespace Sdx
 
     void GetAllMessageModificationIdsForNavMsgFamily::setSvId(int svId)
     {
-      m_values.AddMember("SvId", parse_json<int>::format(svId, m_values.GetAllocator()), m_values.GetAllocator());
+      setValue("SvId", parse_json<int>::format(svId, m_values.GetAllocator()));
     }
 
 

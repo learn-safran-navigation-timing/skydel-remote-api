@@ -88,7 +88,7 @@ namespace Sdx
 
     void SetRawDataLoggingInterval::setDays(int days)
     {
-      m_values.AddMember("Days", parse_json<int>::format(days, m_values.GetAllocator()), m_values.GetAllocator());
+      setValue("Days", parse_json<int>::format(days, m_values.GetAllocator()));
     }
 
 
@@ -100,7 +100,7 @@ namespace Sdx
 
     void SetRawDataLoggingInterval::setHours(int hours)
     {
-      m_values.AddMember("Hours", parse_json<int>::format(hours, m_values.GetAllocator()), m_values.GetAllocator());
+      setValue("Hours", parse_json<int>::format(hours, m_values.GetAllocator()));
     }
 
 
@@ -112,7 +112,7 @@ namespace Sdx
 
     void SetRawDataLoggingInterval::setMinutes(int minutes)
     {
-      m_values.AddMember("Minutes", parse_json<int>::format(minutes, m_values.GetAllocator()), m_values.GetAllocator());
+      setValue("Minutes", parse_json<int>::format(minutes, m_values.GetAllocator()));
     }
 
 
@@ -124,7 +124,7 @@ namespace Sdx
 
     void SetRawDataLoggingInterval::setSeconds(int seconds)
     {
-      m_values.AddMember("Seconds", parse_json<int>::format(seconds, m_values.GetAllocator()), m_values.GetAllocator());
+      setValue("Seconds", parse_json<int>::format(seconds, m_values.GetAllocator()));
     }
 
 
@@ -136,7 +136,7 @@ namespace Sdx
 
     void SetRawDataLoggingInterval::setMilliseconds(int milliseconds)
     {
-      m_values.AddMember("Milliseconds", parse_json<int>::format(milliseconds, m_values.GetAllocator()), m_values.GetAllocator());
+      setValue("Milliseconds", parse_json<int>::format(milliseconds, m_values.GetAllocator()));
     }
 
 

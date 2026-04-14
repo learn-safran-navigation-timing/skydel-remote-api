@@ -86,7 +86,7 @@ namespace Sdx
 
     void EndIntTxTrackDefinitionResult::setCount(int count)
     {
-      m_values.AddMember("Count", parse_json<int>::format(count, m_values.GetAllocator()), m_values.GetAllocator());
+      setValue("Count", parse_json<int>::format(count, m_values.GetAllocator()));
     }
 
 
@@ -98,7 +98,7 @@ namespace Sdx
 
     void EndIntTxTrackDefinitionResult::setId(const std::string& id)
     {
-      m_values.AddMember("Id", parse_json<std::string>::format(id, m_values.GetAllocator()), m_values.GetAllocator());
+      setValue("Id", parse_json<std::string>::format(id, m_values.GetAllocator()));
     }
 
 

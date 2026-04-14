@@ -13,7 +13,8 @@ namespace Sdx
   namespace Cmd
   {
     const char* const GetCrossAuthenticatedSatellitesForSV::CmdName = "GetCrossAuthenticatedSatellitesForSV";
-    const char* const GetCrossAuthenticatedSatellitesForSV::Documentation = "Get the list of satellites that are cross-authenticated by the specified satellite.\n"
+    const char* const GetCrossAuthenticatedSatellitesForSV::Documentation = "Get the list of satellites that are cross-authenticated by the specified satellite. If the list is empty, the default selection algorithm is used. If non-empty, the list is fixed for the duration of the simulation.\n"
+      "The default selection algorithm selects the four closest satellites that do not provide OSNMA, ordered from nearest to farthest.\n"
       "\n"
       "Name Type Description\n"
       "---- ---- -------------------------------------------------------------------\n"
@@ -76,7 +77,7 @@ namespace Sdx
 
     void GetCrossAuthenticatedSatellitesForSV::setSvId(int svId)
     {
-      m_values.AddMember("SvId", parse_json<int>::format(svId, m_values.GetAllocator()), m_values.GetAllocator());
+      setValue("SvId", parse_json<int>::format(svId, m_values.GetAllocator()));
     }
 
 

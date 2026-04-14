@@ -86,7 +86,7 @@ namespace Sdx
 
     void IsPYCodeEnabledForEachSVResult::setSignal(const std::string& signal)
     {
-      m_values.AddMember("Signal", parse_json<std::string>::format(signal, m_values.GetAllocator()), m_values.GetAllocator());
+      setValue("Signal", parse_json<std::string>::format(signal, m_values.GetAllocator()));
     }
 
 
@@ -98,7 +98,7 @@ namespace Sdx
 
     void IsPYCodeEnabledForEachSVResult::setEnabled(const std::vector<bool>& enabled)
     {
-      m_values.AddMember("Enabled", parse_json<std::vector<bool>>::format(enabled, m_values.GetAllocator()), m_values.GetAllocator());
+      setValue("Enabled", parse_json<std::vector<bool>>::format(enabled, m_values.GetAllocator()));
     }
 
 

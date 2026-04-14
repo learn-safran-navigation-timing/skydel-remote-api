@@ -86,7 +86,7 @@ namespace Sdx
 
     void IsLogNmeaEnabledResult::setEnabled(bool enabled)
     {
-      m_values.AddMember("Enabled", parse_json<bool>::format(enabled, m_values.GetAllocator()), m_values.GetAllocator());
+      setValue("Enabled", parse_json<bool>::format(enabled, m_values.GetAllocator()));
     }
 
 
@@ -98,7 +98,7 @@ namespace Sdx
 
     void IsLogNmeaEnabledResult::setSerialPortEnabled(const std::optional<bool>& serialPortEnabled)
     {
-      m_values.AddMember("SerialPortEnabled", parse_json<std::optional<bool>>::format(serialPortEnabled, m_values.GetAllocator()), m_values.GetAllocator());
+      setValue("SerialPortEnabled", parse_json<std::optional<bool>>::format(serialPortEnabled, m_values.GetAllocator()));
     }
 
 

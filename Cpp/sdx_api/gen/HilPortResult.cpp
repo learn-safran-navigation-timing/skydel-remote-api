@@ -82,7 +82,7 @@ namespace Sdx
 
     void HilPortResult::setPort(int port)
     {
-      m_values.AddMember("Port", parse_json<int>::format(port, m_values.GetAllocator()), m_values.GetAllocator());
+      setValue("Port", parse_json<int>::format(port, m_values.GetAllocator()));
     }
 
 

@@ -90,7 +90,7 @@ namespace Sdx
 
     void AddSpoofTx::setUsualName(const std::string& usualName)
     {
-      m_values.AddMember("UsualName", parse_json<std::string>::format(usualName, m_values.GetAllocator()), m_values.GetAllocator());
+      setValue("UsualName", parse_json<std::string>::format(usualName, m_values.GetAllocator()));
     }
 
 
@@ -102,7 +102,7 @@ namespace Sdx
 
     void AddSpoofTx::setEnabled(bool enabled)
     {
-      m_values.AddMember("Enabled", parse_json<bool>::format(enabled, m_values.GetAllocator()), m_values.GetAllocator());
+      setValue("Enabled", parse_json<bool>::format(enabled, m_values.GetAllocator()));
     }
 
 
@@ -114,7 +114,7 @@ namespace Sdx
 
     void AddSpoofTx::setAddress(const std::string& address)
     {
-      m_values.AddMember("Address", parse_json<std::string>::format(address, m_values.GetAllocator()), m_values.GetAllocator());
+      setValue("Address", parse_json<std::string>::format(address, m_values.GetAllocator()));
     }
 
 
@@ -126,7 +126,7 @@ namespace Sdx
 
     void AddSpoofTx::setInstanceId(int instanceId)
     {
-      m_values.AddMember("InstanceId", parse_json<int>::format(instanceId, m_values.GetAllocator()), m_values.GetAllocator());
+      setValue("InstanceId", parse_json<int>::format(instanceId, m_values.GetAllocator()));
     }
 
 
@@ -138,7 +138,7 @@ namespace Sdx
 
     void AddSpoofTx::setId(const std::string& id)
     {
-      m_values.AddMember("Id", parse_json<std::string>::format(id, m_values.GetAllocator()), m_values.GetAllocator());
+      setValue("Id", parse_json<std::string>::format(id, m_values.GetAllocator()));
     }
 
 

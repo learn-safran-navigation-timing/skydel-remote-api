@@ -85,7 +85,7 @@ namespace Sdx
 
     void SetPseudorangeNoiseOffsetForSV::setSystem(const std::string& system)
     {
-      m_values.AddMember("System", parse_json<std::string>::format(system, m_values.GetAllocator()), m_values.GetAllocator());
+      setValue("System", parse_json<std::string>::format(system, m_values.GetAllocator()));
     }
 
 
@@ -97,7 +97,7 @@ namespace Sdx
 
     void SetPseudorangeNoiseOffsetForSV::setSvId(int svId)
     {
-      m_values.AddMember("SvId", parse_json<int>::format(svId, m_values.GetAllocator()), m_values.GetAllocator());
+      setValue("SvId", parse_json<int>::format(svId, m_values.GetAllocator()));
     }
 
 
@@ -109,7 +109,7 @@ namespace Sdx
 
     void SetPseudorangeNoiseOffsetForSV::setEnabled(bool enabled)
     {
-      m_values.AddMember("Enabled", parse_json<bool>::format(enabled, m_values.GetAllocator()), m_values.GetAllocator());
+      setValue("Enabled", parse_json<bool>::format(enabled, m_values.GetAllocator()));
     }
 
 
@@ -121,7 +121,7 @@ namespace Sdx
 
     void SetPseudorangeNoiseOffsetForSV::setOffset(double offset)
     {
-      m_values.AddMember("Offset", parse_json<double>::format(offset, m_values.GetAllocator()), m_values.GetAllocator());
+      setValue("Offset", parse_json<double>::format(offset, m_values.GetAllocator()));
     }
 
 

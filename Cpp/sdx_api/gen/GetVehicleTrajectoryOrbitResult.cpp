@@ -110,7 +110,7 @@ namespace Sdx
 
     void GetVehicleTrajectoryOrbitResult::setType(const std::string& type)
     {
-      m_values.AddMember("Type", parse_json<std::string>::format(type, m_values.GetAllocator()), m_values.GetAllocator());
+      setValue("Type", parse_json<std::string>::format(type, m_values.GetAllocator()));
     }
 
 
@@ -122,7 +122,7 @@ namespace Sdx
 
     void GetVehicleTrajectoryOrbitResult::setReference(const Sdx::DateTime& reference)
     {
-      m_values.AddMember("Reference", parse_json<Sdx::DateTime>::format(reference, m_values.GetAllocator()), m_values.GetAllocator());
+      setValue("Reference", parse_json<Sdx::DateTime>::format(reference, m_values.GetAllocator()));
     }
 
 
@@ -134,7 +134,7 @@ namespace Sdx
 
     void GetVehicleTrajectoryOrbitResult::setSemiMajorAxis(double semiMajorAxis)
     {
-      m_values.AddMember("SemiMajorAxis", parse_json<double>::format(semiMajorAxis, m_values.GetAllocator()), m_values.GetAllocator());
+      setValue("SemiMajorAxis", parse_json<double>::format(semiMajorAxis, m_values.GetAllocator()));
     }
 
 
@@ -146,7 +146,7 @@ namespace Sdx
 
     void GetVehicleTrajectoryOrbitResult::setInclination(double inclination)
     {
-      m_values.AddMember("Inclination", parse_json<double>::format(inclination, m_values.GetAllocator()), m_values.GetAllocator());
+      setValue("Inclination", parse_json<double>::format(inclination, m_values.GetAllocator()));
     }
 
 
@@ -158,7 +158,7 @@ namespace Sdx
 
     void GetVehicleTrajectoryOrbitResult::setRightAscension(double rightAscension)
     {
-      m_values.AddMember("RightAscension", parse_json<double>::format(rightAscension, m_values.GetAllocator()), m_values.GetAllocator());
+      setValue("RightAscension", parse_json<double>::format(rightAscension, m_values.GetAllocator()));
     }
 
 
@@ -170,7 +170,7 @@ namespace Sdx
 
     void GetVehicleTrajectoryOrbitResult::setEccentricity(double eccentricity)
     {
-      m_values.AddMember("Eccentricity", parse_json<double>::format(eccentricity, m_values.GetAllocator()), m_values.GetAllocator());
+      setValue("Eccentricity", parse_json<double>::format(eccentricity, m_values.GetAllocator()));
     }
 
 
@@ -182,7 +182,7 @@ namespace Sdx
 
     void GetVehicleTrajectoryOrbitResult::setMeanAnomaly(double meanAnomaly)
     {
-      m_values.AddMember("MeanAnomaly", parse_json<double>::format(meanAnomaly, m_values.GetAllocator()), m_values.GetAllocator());
+      setValue("MeanAnomaly", parse_json<double>::format(meanAnomaly, m_values.GetAllocator()));
     }
 
 
@@ -194,7 +194,7 @@ namespace Sdx
 
     void GetVehicleTrajectoryOrbitResult::setArgumentOfPerigee(double argumentOfPerigee)
     {
-      m_values.AddMember("ArgumentOfPerigee", parse_json<double>::format(argumentOfPerigee, m_values.GetAllocator()), m_values.GetAllocator());
+      setValue("ArgumentOfPerigee", parse_json<double>::format(argumentOfPerigee, m_values.GetAllocator()));
     }
 
 

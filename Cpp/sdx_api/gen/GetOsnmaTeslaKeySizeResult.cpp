@@ -83,7 +83,7 @@ namespace Sdx
 
     void GetOsnmaTeslaKeySizeResult::setKeySize(int keySize)
     {
-      m_values.AddMember("KeySize", parse_json<int>::format(keySize, m_values.GetAllocator()), m_values.GetAllocator());
+      setValue("KeySize", parse_json<int>::format(keySize, m_values.GetAllocator()));
     }
 
 

@@ -82,7 +82,7 @@ namespace Sdx
 
     void GetNmeaLoggerSentencesResult::setSentences(const std::vector<std::string>& sentences)
     {
-      m_values.AddMember("Sentences", parse_json<std::vector<std::string>>::format(sentences, m_values.GetAllocator()), m_values.GetAllocator());
+      setValue("Sentences", parse_json<std::vector<std::string>>::format(sentences, m_values.GetAllocator()));
     }
 
 

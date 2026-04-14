@@ -86,7 +86,7 @@ namespace Sdx
 
     void IsUsingVelocityInSbasMessage25Result::setUseVelocity(bool useVelocity)
     {
-      m_values.AddMember("UseVelocity", parse_json<bool>::format(useVelocity, m_values.GetAllocator()), m_values.GetAllocator());
+      setValue("UseVelocity", parse_json<bool>::format(useVelocity, m_values.GetAllocator()));
     }
 
 
@@ -98,7 +98,7 @@ namespace Sdx
 
     void IsUsingVelocityInSbasMessage25Result::setServiceProvider(const std::optional<std::string>& serviceProvider)
     {
-      m_values.AddMember("ServiceProvider", parse_json<std::optional<std::string>>::format(serviceProvider, m_values.GetAllocator()), m_values.GetAllocator());
+      setValue("ServiceProvider", parse_json<std::optional<std::string>>::format(serviceProvider, m_values.GetAllocator()));
     }
 
 

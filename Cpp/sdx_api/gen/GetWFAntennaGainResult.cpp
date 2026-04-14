@@ -82,7 +82,7 @@ namespace Sdx
 
     void GetWFAntennaGainResult::setGain(int gain)
     {
-      m_values.AddMember("Gain", parse_json<int>::format(gain, m_values.GetAllocator()), m_values.GetAllocator());
+      setValue("Gain", parse_json<int>::format(gain, m_values.GetAllocator()));
     }
 
 

@@ -250,7 +250,7 @@ namespace Sdx
 
     void GetVehicleAntennaModelResult::setGainL1(const std::vector<std::vector<double>>& gainL1)
     {
-      m_values.AddMember("GainL1", parse_json<std::vector<std::vector<double>>>::format(gainL1, m_values.GetAllocator()), m_values.GetAllocator());
+      setValue("GainL1", parse_json<std::vector<std::vector<double>>>::format(gainL1, m_values.GetAllocator()));
     }
 
 
@@ -262,7 +262,7 @@ namespace Sdx
 
     void GetVehicleAntennaModelResult::setGainTypeL1(const Sdx::AntennaPatternType& gainTypeL1)
     {
-      m_values.AddMember("GainTypeL1", parse_json<Sdx::AntennaPatternType>::format(gainTypeL1, m_values.GetAllocator()), m_values.GetAllocator());
+      setValue("GainTypeL1", parse_json<Sdx::AntennaPatternType>::format(gainTypeL1, m_values.GetAllocator()));
     }
 
 
@@ -274,7 +274,7 @@ namespace Sdx
 
     void GetVehicleAntennaModelResult::setGainOffsetL1(double gainOffsetL1)
     {
-      m_values.AddMember("GainOffsetL1", parse_json<double>::format(gainOffsetL1, m_values.GetAllocator()), m_values.GetAllocator());
+      setValue("GainOffsetL1", parse_json<double>::format(gainOffsetL1, m_values.GetAllocator()));
     }
 
 
@@ -286,7 +286,7 @@ namespace Sdx
 
     void GetVehicleAntennaModelResult::setGainL2(const std::vector<std::vector<double>>& gainL2)
     {
-      m_values.AddMember("GainL2", parse_json<std::vector<std::vector<double>>>::format(gainL2, m_values.GetAllocator()), m_values.GetAllocator());
+      setValue("GainL2", parse_json<std::vector<std::vector<double>>>::format(gainL2, m_values.GetAllocator()));
     }
 
 
@@ -298,7 +298,7 @@ namespace Sdx
 
     void GetVehicleAntennaModelResult::setGainTypeL2(const Sdx::AntennaPatternType& gainTypeL2)
     {
-      m_values.AddMember("GainTypeL2", parse_json<Sdx::AntennaPatternType>::format(gainTypeL2, m_values.GetAllocator()), m_values.GetAllocator());
+      setValue("GainTypeL2", parse_json<Sdx::AntennaPatternType>::format(gainTypeL2, m_values.GetAllocator()));
     }
 
 
@@ -310,7 +310,7 @@ namespace Sdx
 
     void GetVehicleAntennaModelResult::setGainOffsetL2(double gainOffsetL2)
     {
-      m_values.AddMember("GainOffsetL2", parse_json<double>::format(gainOffsetL2, m_values.GetAllocator()), m_values.GetAllocator());
+      setValue("GainOffsetL2", parse_json<double>::format(gainOffsetL2, m_values.GetAllocator()));
     }
 
 
@@ -322,7 +322,7 @@ namespace Sdx
 
     void GetVehicleAntennaModelResult::setGainL5(const std::vector<std::vector<double>>& gainL5)
     {
-      m_values.AddMember("GainL5", parse_json<std::vector<std::vector<double>>>::format(gainL5, m_values.GetAllocator()), m_values.GetAllocator());
+      setValue("GainL5", parse_json<std::vector<std::vector<double>>>::format(gainL5, m_values.GetAllocator()));
     }
 
 
@@ -334,7 +334,7 @@ namespace Sdx
 
     void GetVehicleAntennaModelResult::setGainTypeL5(const Sdx::AntennaPatternType& gainTypeL5)
     {
-      m_values.AddMember("GainTypeL5", parse_json<Sdx::AntennaPatternType>::format(gainTypeL5, m_values.GetAllocator()), m_values.GetAllocator());
+      setValue("GainTypeL5", parse_json<Sdx::AntennaPatternType>::format(gainTypeL5, m_values.GetAllocator()));
     }
 
 
@@ -346,7 +346,7 @@ namespace Sdx
 
     void GetVehicleAntennaModelResult::setGainOffsetL5(double gainOffsetL5)
     {
-      m_values.AddMember("GainOffsetL5", parse_json<double>::format(gainOffsetL5, m_values.GetAllocator()), m_values.GetAllocator());
+      setValue("GainOffsetL5", parse_json<double>::format(gainOffsetL5, m_values.GetAllocator()));
     }
 
 
@@ -358,7 +358,7 @@ namespace Sdx
 
     void GetVehicleAntennaModelResult::setGainE6(const std::vector<std::vector<double>>& gainE6)
     {
-      m_values.AddMember("GainE6", parse_json<std::vector<std::vector<double>>>::format(gainE6, m_values.GetAllocator()), m_values.GetAllocator());
+      setValue("GainE6", parse_json<std::vector<std::vector<double>>>::format(gainE6, m_values.GetAllocator()));
     }
 
 
@@ -370,7 +370,7 @@ namespace Sdx
 
     void GetVehicleAntennaModelResult::setGainTypeE6(const Sdx::AntennaPatternType& gainTypeE6)
     {
-      m_values.AddMember("GainTypeE6", parse_json<Sdx::AntennaPatternType>::format(gainTypeE6, m_values.GetAllocator()), m_values.GetAllocator());
+      setValue("GainTypeE6", parse_json<Sdx::AntennaPatternType>::format(gainTypeE6, m_values.GetAllocator()));
     }
 
 
@@ -382,7 +382,7 @@ namespace Sdx
 
     void GetVehicleAntennaModelResult::setGainOffsetE6(double gainOffsetE6)
     {
-      m_values.AddMember("GainOffsetE6", parse_json<double>::format(gainOffsetE6, m_values.GetAllocator()), m_values.GetAllocator());
+      setValue("GainOffsetE6", parse_json<double>::format(gainOffsetE6, m_values.GetAllocator()));
     }
 
 
@@ -394,7 +394,7 @@ namespace Sdx
 
     void GetVehicleAntennaModelResult::setGainS(const std::vector<std::vector<double>>& gainS)
     {
-      m_values.AddMember("GainS", parse_json<std::vector<std::vector<double>>>::format(gainS, m_values.GetAllocator()), m_values.GetAllocator());
+      setValue("GainS", parse_json<std::vector<std::vector<double>>>::format(gainS, m_values.GetAllocator()));
     }
 
 
@@ -406,7 +406,7 @@ namespace Sdx
 
     void GetVehicleAntennaModelResult::setGainTypeS(const Sdx::AntennaPatternType& gainTypeS)
     {
-      m_values.AddMember("GainTypeS", parse_json<Sdx::AntennaPatternType>::format(gainTypeS, m_values.GetAllocator()), m_values.GetAllocator());
+      setValue("GainTypeS", parse_json<Sdx::AntennaPatternType>::format(gainTypeS, m_values.GetAllocator()));
     }
 
 
@@ -418,7 +418,7 @@ namespace Sdx
 
     void GetVehicleAntennaModelResult::setGainOffsetS(double gainOffsetS)
     {
-      m_values.AddMember("GainOffsetS", parse_json<double>::format(gainOffsetS, m_values.GetAllocator()), m_values.GetAllocator());
+      setValue("GainOffsetS", parse_json<double>::format(gainOffsetS, m_values.GetAllocator()));
     }
 
 
@@ -430,7 +430,7 @@ namespace Sdx
 
     void GetVehicleAntennaModelResult::setGainC(const std::vector<std::vector<double>>& gainC)
     {
-      m_values.AddMember("GainC", parse_json<std::vector<std::vector<double>>>::format(gainC, m_values.GetAllocator()), m_values.GetAllocator());
+      setValue("GainC", parse_json<std::vector<std::vector<double>>>::format(gainC, m_values.GetAllocator()));
     }
 
 
@@ -442,7 +442,7 @@ namespace Sdx
 
     void GetVehicleAntennaModelResult::setGainTypeC(const Sdx::AntennaPatternType& gainTypeC)
     {
-      m_values.AddMember("GainTypeC", parse_json<Sdx::AntennaPatternType>::format(gainTypeC, m_values.GetAllocator()), m_values.GetAllocator());
+      setValue("GainTypeC", parse_json<Sdx::AntennaPatternType>::format(gainTypeC, m_values.GetAllocator()));
     }
 
 
@@ -454,7 +454,7 @@ namespace Sdx
 
     void GetVehicleAntennaModelResult::setGainOffsetC(double gainOffsetC)
     {
-      m_values.AddMember("GainOffsetC", parse_json<double>::format(gainOffsetC, m_values.GetAllocator()), m_values.GetAllocator());
+      setValue("GainOffsetC", parse_json<double>::format(gainOffsetC, m_values.GetAllocator()));
     }
 
 
@@ -466,7 +466,7 @@ namespace Sdx
 
     void GetVehicleAntennaModelResult::setPhaseOffsetL1(const std::vector<std::vector<double>>& phaseOffsetL1)
     {
-      m_values.AddMember("PhaseOffsetL1", parse_json<std::vector<std::vector<double>>>::format(phaseOffsetL1, m_values.GetAllocator()), m_values.GetAllocator());
+      setValue("PhaseOffsetL1", parse_json<std::vector<std::vector<double>>>::format(phaseOffsetL1, m_values.GetAllocator()));
     }
 
 
@@ -478,7 +478,7 @@ namespace Sdx
 
     void GetVehicleAntennaModelResult::setPhaseOffsetTypeL1(const Sdx::AntennaPatternType& phaseOffsetTypeL1)
     {
-      m_values.AddMember("PhaseOffsetTypeL1", parse_json<Sdx::AntennaPatternType>::format(phaseOffsetTypeL1, m_values.GetAllocator()), m_values.GetAllocator());
+      setValue("PhaseOffsetTypeL1", parse_json<Sdx::AntennaPatternType>::format(phaseOffsetTypeL1, m_values.GetAllocator()));
     }
 
 
@@ -490,7 +490,7 @@ namespace Sdx
 
     void GetVehicleAntennaModelResult::setPhasePatternOffsetL1(double phasePatternOffsetL1)
     {
-      m_values.AddMember("PhasePatternOffsetL1", parse_json<double>::format(phasePatternOffsetL1, m_values.GetAllocator()), m_values.GetAllocator());
+      setValue("PhasePatternOffsetL1", parse_json<double>::format(phasePatternOffsetL1, m_values.GetAllocator()));
     }
 
 
@@ -502,7 +502,7 @@ namespace Sdx
 
     void GetVehicleAntennaModelResult::setPhaseOffsetL2(const std::vector<std::vector<double>>& phaseOffsetL2)
     {
-      m_values.AddMember("PhaseOffsetL2", parse_json<std::vector<std::vector<double>>>::format(phaseOffsetL2, m_values.GetAllocator()), m_values.GetAllocator());
+      setValue("PhaseOffsetL2", parse_json<std::vector<std::vector<double>>>::format(phaseOffsetL2, m_values.GetAllocator()));
     }
 
 
@@ -514,7 +514,7 @@ namespace Sdx
 
     void GetVehicleAntennaModelResult::setPhaseOffsetTypeL2(const Sdx::AntennaPatternType& phaseOffsetTypeL2)
     {
-      m_values.AddMember("PhaseOffsetTypeL2", parse_json<Sdx::AntennaPatternType>::format(phaseOffsetTypeL2, m_values.GetAllocator()), m_values.GetAllocator());
+      setValue("PhaseOffsetTypeL2", parse_json<Sdx::AntennaPatternType>::format(phaseOffsetTypeL2, m_values.GetAllocator()));
     }
 
 
@@ -526,7 +526,7 @@ namespace Sdx
 
     void GetVehicleAntennaModelResult::setPhasePatternOffsetL2(double phasePatternOffsetL2)
     {
-      m_values.AddMember("PhasePatternOffsetL2", parse_json<double>::format(phasePatternOffsetL2, m_values.GetAllocator()), m_values.GetAllocator());
+      setValue("PhasePatternOffsetL2", parse_json<double>::format(phasePatternOffsetL2, m_values.GetAllocator()));
     }
 
 
@@ -538,7 +538,7 @@ namespace Sdx
 
     void GetVehicleAntennaModelResult::setPhaseOffsetL5(const std::vector<std::vector<double>>& phaseOffsetL5)
     {
-      m_values.AddMember("PhaseOffsetL5", parse_json<std::vector<std::vector<double>>>::format(phaseOffsetL5, m_values.GetAllocator()), m_values.GetAllocator());
+      setValue("PhaseOffsetL5", parse_json<std::vector<std::vector<double>>>::format(phaseOffsetL5, m_values.GetAllocator()));
     }
 
 
@@ -550,7 +550,7 @@ namespace Sdx
 
     void GetVehicleAntennaModelResult::setPhaseOffsetTypeL5(const Sdx::AntennaPatternType& phaseOffsetTypeL5)
     {
-      m_values.AddMember("PhaseOffsetTypeL5", parse_json<Sdx::AntennaPatternType>::format(phaseOffsetTypeL5, m_values.GetAllocator()), m_values.GetAllocator());
+      setValue("PhaseOffsetTypeL5", parse_json<Sdx::AntennaPatternType>::format(phaseOffsetTypeL5, m_values.GetAllocator()));
     }
 
 
@@ -562,7 +562,7 @@ namespace Sdx
 
     void GetVehicleAntennaModelResult::setPhasePatternOffsetL5(double phasePatternOffsetL5)
     {
-      m_values.AddMember("PhasePatternOffsetL5", parse_json<double>::format(phasePatternOffsetL5, m_values.GetAllocator()), m_values.GetAllocator());
+      setValue("PhasePatternOffsetL5", parse_json<double>::format(phasePatternOffsetL5, m_values.GetAllocator()));
     }
 
 
@@ -574,7 +574,7 @@ namespace Sdx
 
     void GetVehicleAntennaModelResult::setPhaseOffsetE6(const std::vector<std::vector<double>>& phaseOffsetE6)
     {
-      m_values.AddMember("PhaseOffsetE6", parse_json<std::vector<std::vector<double>>>::format(phaseOffsetE6, m_values.GetAllocator()), m_values.GetAllocator());
+      setValue("PhaseOffsetE6", parse_json<std::vector<std::vector<double>>>::format(phaseOffsetE6, m_values.GetAllocator()));
     }
 
 
@@ -586,7 +586,7 @@ namespace Sdx
 
     void GetVehicleAntennaModelResult::setPhaseOffsetTypeE6(const Sdx::AntennaPatternType& phaseOffsetTypeE6)
     {
-      m_values.AddMember("PhaseOffsetTypeE6", parse_json<Sdx::AntennaPatternType>::format(phaseOffsetTypeE6, m_values.GetAllocator()), m_values.GetAllocator());
+      setValue("PhaseOffsetTypeE6", parse_json<Sdx::AntennaPatternType>::format(phaseOffsetTypeE6, m_values.GetAllocator()));
     }
 
 
@@ -598,7 +598,7 @@ namespace Sdx
 
     void GetVehicleAntennaModelResult::setPhasePatternOffsetE6(double phasePatternOffsetE6)
     {
-      m_values.AddMember("PhasePatternOffsetE6", parse_json<double>::format(phasePatternOffsetE6, m_values.GetAllocator()), m_values.GetAllocator());
+      setValue("PhasePatternOffsetE6", parse_json<double>::format(phasePatternOffsetE6, m_values.GetAllocator()));
     }
 
 
@@ -610,7 +610,7 @@ namespace Sdx
 
     void GetVehicleAntennaModelResult::setPhaseOffsetS(const std::vector<std::vector<double>>& phaseOffsetS)
     {
-      m_values.AddMember("PhaseOffsetS", parse_json<std::vector<std::vector<double>>>::format(phaseOffsetS, m_values.GetAllocator()), m_values.GetAllocator());
+      setValue("PhaseOffsetS", parse_json<std::vector<std::vector<double>>>::format(phaseOffsetS, m_values.GetAllocator()));
     }
 
 
@@ -622,7 +622,7 @@ namespace Sdx
 
     void GetVehicleAntennaModelResult::setPhaseOffsetTypeS(const Sdx::AntennaPatternType& phaseOffsetTypeS)
     {
-      m_values.AddMember("PhaseOffsetTypeS", parse_json<Sdx::AntennaPatternType>::format(phaseOffsetTypeS, m_values.GetAllocator()), m_values.GetAllocator());
+      setValue("PhaseOffsetTypeS", parse_json<Sdx::AntennaPatternType>::format(phaseOffsetTypeS, m_values.GetAllocator()));
     }
 
 
@@ -634,7 +634,7 @@ namespace Sdx
 
     void GetVehicleAntennaModelResult::setPhasePatternOffsetS(double phasePatternOffsetS)
     {
-      m_values.AddMember("PhasePatternOffsetS", parse_json<double>::format(phasePatternOffsetS, m_values.GetAllocator()), m_values.GetAllocator());
+      setValue("PhasePatternOffsetS", parse_json<double>::format(phasePatternOffsetS, m_values.GetAllocator()));
     }
 
 
@@ -646,7 +646,7 @@ namespace Sdx
 
     void GetVehicleAntennaModelResult::setPhaseOffsetC(const std::vector<std::vector<double>>& phaseOffsetC)
     {
-      m_values.AddMember("PhaseOffsetC", parse_json<std::vector<std::vector<double>>>::format(phaseOffsetC, m_values.GetAllocator()), m_values.GetAllocator());
+      setValue("PhaseOffsetC", parse_json<std::vector<std::vector<double>>>::format(phaseOffsetC, m_values.GetAllocator()));
     }
 
 
@@ -658,7 +658,7 @@ namespace Sdx
 
     void GetVehicleAntennaModelResult::setPhaseOffsetTypeC(const Sdx::AntennaPatternType& phaseOffsetTypeC)
     {
-      m_values.AddMember("PhaseOffsetTypeC", parse_json<Sdx::AntennaPatternType>::format(phaseOffsetTypeC, m_values.GetAllocator()), m_values.GetAllocator());
+      setValue("PhaseOffsetTypeC", parse_json<Sdx::AntennaPatternType>::format(phaseOffsetTypeC, m_values.GetAllocator()));
     }
 
 
@@ -670,7 +670,7 @@ namespace Sdx
 
     void GetVehicleAntennaModelResult::setPhasePatternOffsetC(double phasePatternOffsetC)
     {
-      m_values.AddMember("PhasePatternOffsetC", parse_json<double>::format(phasePatternOffsetC, m_values.GetAllocator()), m_values.GetAllocator());
+      setValue("PhasePatternOffsetC", parse_json<double>::format(phasePatternOffsetC, m_values.GetAllocator()));
     }
 
 
@@ -682,7 +682,7 @@ namespace Sdx
 
     void GetVehicleAntennaModelResult::setX(double x)
     {
-      m_values.AddMember("X", parse_json<double>::format(x, m_values.GetAllocator()), m_values.GetAllocator());
+      setValue("X", parse_json<double>::format(x, m_values.GetAllocator()));
     }
 
 
@@ -694,7 +694,7 @@ namespace Sdx
 
     void GetVehicleAntennaModelResult::setY(double y)
     {
-      m_values.AddMember("Y", parse_json<double>::format(y, m_values.GetAllocator()), m_values.GetAllocator());
+      setValue("Y", parse_json<double>::format(y, m_values.GetAllocator()));
     }
 
 
@@ -706,7 +706,7 @@ namespace Sdx
 
     void GetVehicleAntennaModelResult::setZ(double z)
     {
-      m_values.AddMember("Z", parse_json<double>::format(z, m_values.GetAllocator()), m_values.GetAllocator());
+      setValue("Z", parse_json<double>::format(z, m_values.GetAllocator()));
     }
 
 
@@ -718,7 +718,7 @@ namespace Sdx
 
     void GetVehicleAntennaModelResult::setYaw(double yaw)
     {
-      m_values.AddMember("Yaw", parse_json<double>::format(yaw, m_values.GetAllocator()), m_values.GetAllocator());
+      setValue("Yaw", parse_json<double>::format(yaw, m_values.GetAllocator()));
     }
 
 
@@ -730,7 +730,7 @@ namespace Sdx
 
     void GetVehicleAntennaModelResult::setPitch(double pitch)
     {
-      m_values.AddMember("Pitch", parse_json<double>::format(pitch, m_values.GetAllocator()), m_values.GetAllocator());
+      setValue("Pitch", parse_json<double>::format(pitch, m_values.GetAllocator()));
     }
 
 
@@ -742,7 +742,7 @@ namespace Sdx
 
     void GetVehicleAntennaModelResult::setRoll(double roll)
     {
-      m_values.AddMember("Roll", parse_json<double>::format(roll, m_values.GetAllocator()), m_values.GetAllocator());
+      setValue("Roll", parse_json<double>::format(roll, m_values.GetAllocator()));
     }
 
 
@@ -754,7 +754,7 @@ namespace Sdx
 
     void GetVehicleAntennaModelResult::setName(const std::string& name)
     {
-      m_values.AddMember("Name", parse_json<std::string>::format(name, m_values.GetAllocator()), m_values.GetAllocator());
+      setValue("Name", parse_json<std::string>::format(name, m_values.GetAllocator()));
     }
 
 

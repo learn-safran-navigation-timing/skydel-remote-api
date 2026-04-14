@@ -86,7 +86,7 @@ namespace Sdx
 
     void GetAllSignalsFromIntTxResult::setId(const std::string& id)
     {
-      m_values.AddMember("Id", parse_json<std::string>::format(id, m_values.GetAllocator()), m_values.GetAllocator());
+      setValue("Id", parse_json<std::string>::format(id, m_values.GetAllocator()));
     }
 
 
@@ -98,7 +98,7 @@ namespace Sdx
 
     void GetAllSignalsFromIntTxResult::setIdsSignal(const std::vector<std::string>& idsSignal)
     {
-      m_values.AddMember("IdsSignal", parse_json<std::vector<std::string>>::format(idsSignal, m_values.GetAllocator()), m_values.GetAllocator());
+      setValue("IdsSignal", parse_json<std::vector<std::string>>::format(idsSignal, m_values.GetAllocator()));
     }
 
 

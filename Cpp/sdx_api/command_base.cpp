@@ -204,6 +204,18 @@ void CommandBase::setValue(const std::string& key, rapidjson::Value& value)
     m_values.AddMember(rapidjson::StringRef(key.c_str()), value, m_values.GetAllocator());
 }
 
+void CommandBase::setValue(const std::string& key, rapidjson::Value&& value)
+{
+  if (contains(key))
+    m_values[key.c_str()] = std::move(value);
+  else
+    m_values.AddMember(rapidjson::Value(key.data(),
+                                        static_cast<rapidjson::SizeType>(key.size()),
+                                        m_values.GetAllocator()),
+                       std::move(value),
+                       m_values.GetAllocator());
+}
+
 bool CommandBase::parse(const std::string& serializedCommand, std::string* errorMsg)
 {
   m_values.Parse(serializedCommand.c_str());

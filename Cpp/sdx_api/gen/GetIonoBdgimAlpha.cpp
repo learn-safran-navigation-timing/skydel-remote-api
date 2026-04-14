@@ -76,7 +76,7 @@ namespace Sdx
 
     void GetIonoBdgimAlpha::setIndex(int index)
     {
-      m_values.AddMember("Index", parse_json<int>::format(index, m_values.GetAllocator()), m_values.GetAllocator());
+      setValue("Index", parse_json<int>::format(index, m_values.GetAllocator()));
     }
 
 

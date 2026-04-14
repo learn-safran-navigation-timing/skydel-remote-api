@@ -82,7 +82,7 @@ namespace Sdx
 
     void ExportVehicleAntennaModel::setAntennaName(const std::string& antennaName)
     {
-      m_values.AddMember("AntennaName", parse_json<std::string>::format(antennaName, m_values.GetAllocator()), m_values.GetAllocator());
+      setValue("AntennaName", parse_json<std::string>::format(antennaName, m_values.GetAllocator()));
     }
 
 
@@ -94,7 +94,7 @@ namespace Sdx
 
     void ExportVehicleAntennaModel::setFilePath(const std::string& filePath)
     {
-      m_values.AddMember("FilePath", parse_json<std::string>::format(filePath, m_values.GetAllocator()), m_values.GetAllocator());
+      setValue("FilePath", parse_json<std::string>::format(filePath, m_values.GetAllocator()));
     }
 
 
@@ -106,7 +106,7 @@ namespace Sdx
 
     void ExportVehicleAntennaModel::setOverwriting(bool overwriting)
     {
-      m_values.AddMember("Overwriting", parse_json<bool>::format(overwriting, m_values.GetAllocator()), m_values.GetAllocator());
+      setValue("Overwriting", parse_json<bool>::format(overwriting, m_values.GetAllocator()));
     }
 
 

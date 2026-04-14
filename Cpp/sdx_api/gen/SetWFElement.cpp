@@ -91,7 +91,7 @@ namespace Sdx
 
     void SetWFElement::setElement(int element)
     {
-      m_values.AddMember("Element", parse_json<int>::format(element, m_values.GetAllocator()), m_values.GetAllocator());
+      setValue("Element", parse_json<int>::format(element, m_values.GetAllocator()));
     }
 
 
@@ -103,7 +103,7 @@ namespace Sdx
 
     void SetWFElement::setEnabled(bool enabled)
     {
-      m_values.AddMember("Enabled", parse_json<bool>::format(enabled, m_values.GetAllocator()), m_values.GetAllocator());
+      setValue("Enabled", parse_json<bool>::format(enabled, m_values.GetAllocator()));
     }
 
 
@@ -115,7 +115,7 @@ namespace Sdx
 
     void SetWFElement::setAntennaModelName(const std::string& antennaModelName)
     {
-      m_values.AddMember("AntennaModelName", parse_json<std::string>::format(antennaModelName, m_values.GetAllocator()), m_values.GetAllocator());
+      setValue("AntennaModelName", parse_json<std::string>::format(antennaModelName, m_values.GetAllocator()));
     }
 
 
@@ -127,7 +127,7 @@ namespace Sdx
 
     void SetWFElement::setLnaGain(const std::optional<int>& lnaGain)
     {
-      m_values.AddMember("LnaGain", parse_json<std::optional<int>>::format(lnaGain, m_values.GetAllocator()), m_values.GetAllocator());
+      setValue("LnaGain", parse_json<std::optional<int>>::format(lnaGain, m_values.GetAllocator()));
     }
 
 
@@ -139,7 +139,7 @@ namespace Sdx
 
     void SetWFElement::setIsGaussianNoiseEnabled(const std::optional<bool>& isGaussianNoiseEnabled)
     {
-      m_values.AddMember("IsGaussianNoiseEnabled", parse_json<std::optional<bool>>::format(isGaussianNoiseEnabled, m_values.GetAllocator()), m_values.GetAllocator());
+      setValue("IsGaussianNoiseEnabled", parse_json<std::optional<bool>>::format(isGaussianNoiseEnabled, m_values.GetAllocator()));
     }
 
 
@@ -151,7 +151,7 @@ namespace Sdx
 
     void SetWFElement::setGaussianNoisePowerDensityOffset(const std::optional<double>& gaussianNoisePowerDensityOffset)
     {
-      m_values.AddMember("GaussianNoisePowerDensityOffset", parse_json<std::optional<double>>::format(gaussianNoisePowerDensityOffset, m_values.GetAllocator()), m_values.GetAllocator());
+      setValue("GaussianNoisePowerDensityOffset", parse_json<std::optional<double>>::format(gaussianNoisePowerDensityOffset, m_values.GetAllocator()));
     }
 
 

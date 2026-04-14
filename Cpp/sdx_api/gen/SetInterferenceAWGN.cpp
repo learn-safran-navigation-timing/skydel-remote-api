@@ -97,7 +97,7 @@ namespace Sdx
 
     void SetInterferenceAWGN::setStartTime(int startTime)
     {
-      m_values.AddMember("StartTime", parse_json<int>::format(startTime, m_values.GetAllocator()), m_values.GetAllocator());
+      setValue("StartTime", parse_json<int>::format(startTime, m_values.GetAllocator()));
     }
 
 
@@ -109,7 +109,7 @@ namespace Sdx
 
     void SetInterferenceAWGN::setStopTime(int stopTime)
     {
-      m_values.AddMember("StopTime", parse_json<int>::format(stopTime, m_values.GetAllocator()), m_values.GetAllocator());
+      setValue("StopTime", parse_json<int>::format(stopTime, m_values.GetAllocator()));
     }
 
 
@@ -121,7 +121,7 @@ namespace Sdx
 
     void SetInterferenceAWGN::setCentralFreq(double centralFreq)
     {
-      m_values.AddMember("CentralFreq", parse_json<double>::format(centralFreq, m_values.GetAllocator()), m_values.GetAllocator());
+      setValue("CentralFreq", parse_json<double>::format(centralFreq, m_values.GetAllocator()));
     }
 
 
@@ -133,7 +133,7 @@ namespace Sdx
 
     void SetInterferenceAWGN::setPower(double power)
     {
-      m_values.AddMember("Power", parse_json<double>::format(power, m_values.GetAllocator()), m_values.GetAllocator());
+      setValue("Power", parse_json<double>::format(power, m_values.GetAllocator()));
     }
 
 
@@ -145,7 +145,7 @@ namespace Sdx
 
     void SetInterferenceAWGN::setBandwidth(double bandwidth)
     {
-      m_values.AddMember("Bandwidth", parse_json<double>::format(bandwidth, m_values.GetAllocator()), m_values.GetAllocator());
+      setValue("Bandwidth", parse_json<double>::format(bandwidth, m_values.GetAllocator()));
     }
 
 
@@ -157,7 +157,7 @@ namespace Sdx
 
     void SetInterferenceAWGN::setEnabled(bool enabled)
     {
-      m_values.AddMember("Enabled", parse_json<bool>::format(enabled, m_values.GetAllocator()), m_values.GetAllocator());
+      setValue("Enabled", parse_json<bool>::format(enabled, m_values.GetAllocator()));
     }
 
 
@@ -169,7 +169,7 @@ namespace Sdx
 
     void SetInterferenceAWGN::setId(const std::string& id)
     {
-      m_values.AddMember("Id", parse_json<std::string>::format(id, m_values.GetAllocator()), m_values.GetAllocator());
+      setValue("Id", parse_json<std::string>::format(id, m_values.GetAllocator()));
     }
 
 
@@ -181,7 +181,7 @@ namespace Sdx
 
     void SetInterferenceAWGN::setSeed(const std::optional<int>& seed)
     {
-      m_values.AddMember("Seed", parse_json<std::optional<int>>::format(seed, m_values.GetAllocator()), m_values.GetAllocator());
+      setValue("Seed", parse_json<std::optional<int>>::format(seed, m_values.GetAllocator()));
     }
 
 

@@ -82,7 +82,7 @@ namespace Sdx
 
     void GetSbasEphParamsForSV::setSvId(int svId)
     {
-      m_values.AddMember("SvId", parse_json<int>::format(svId, m_values.GetAllocator()), m_values.GetAllocator());
+      setValue("SvId", parse_json<int>::format(svId, m_values.GetAllocator()));
     }
 
 
@@ -94,7 +94,7 @@ namespace Sdx
 
     void GetSbasEphParamsForSV::setParamArray(const std::vector<std::string>& paramArray)
     {
-      m_values.AddMember("ParamArray", parse_json<std::vector<std::string>>::format(paramArray, m_values.GetAllocator()), m_values.GetAllocator());
+      setValue("ParamArray", parse_json<std::vector<std::string>>::format(paramArray, m_values.GetAllocator()));
     }
 
 

@@ -82,7 +82,7 @@ namespace Sdx
 
     void SetSpoofSignalManualPropagationLoss::setPropagationLoss(double propagationLoss)
     {
-      m_values.AddMember("PropagationLoss", parse_json<double>::format(propagationLoss, m_values.GetAllocator()), m_values.GetAllocator());
+      setValue("PropagationLoss", parse_json<double>::format(propagationLoss, m_values.GetAllocator()));
     }
 
 
@@ -94,7 +94,7 @@ namespace Sdx
 
     void SetSpoofSignalManualPropagationLoss::setTransmitterId(const std::string& transmitterId)
     {
-      m_values.AddMember("TransmitterId", parse_json<std::string>::format(transmitterId, m_values.GetAllocator()), m_values.GetAllocator());
+      setValue("TransmitterId", parse_json<std::string>::format(transmitterId, m_values.GetAllocator()));
     }
 
 
@@ -106,7 +106,7 @@ namespace Sdx
 
     void SetSpoofSignalManualPropagationLoss::setSignalId(const std::string& signalId)
     {
-      m_values.AddMember("SignalId", parse_json<std::string>::format(signalId, m_values.GetAllocator()), m_values.GetAllocator());
+      setValue("SignalId", parse_json<std::string>::format(signalId, m_values.GetAllocator()));
     }
 
 

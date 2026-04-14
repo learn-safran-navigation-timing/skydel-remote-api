@@ -106,7 +106,7 @@ namespace Sdx
 
     void GetIntTxIqFileResult::setEnabled(bool enabled)
     {
-      m_values.AddMember("Enabled", parse_json<bool>::format(enabled, m_values.GetAllocator()), m_values.GetAllocator());
+      setValue("Enabled", parse_json<bool>::format(enabled, m_values.GetAllocator()));
     }
 
 
@@ -118,7 +118,7 @@ namespace Sdx
 
     void GetIntTxIqFileResult::setCentralFreq(double centralFreq)
     {
-      m_values.AddMember("CentralFreq", parse_json<double>::format(centralFreq, m_values.GetAllocator()), m_values.GetAllocator());
+      setValue("CentralFreq", parse_json<double>::format(centralFreq, m_values.GetAllocator()));
     }
 
 
@@ -130,7 +130,7 @@ namespace Sdx
 
     void GetIntTxIqFileResult::setPower(double power)
     {
-      m_values.AddMember("Power", parse_json<double>::format(power, m_values.GetAllocator()), m_values.GetAllocator());
+      setValue("Power", parse_json<double>::format(power, m_values.GetAllocator()));
     }
 
 
@@ -142,7 +142,7 @@ namespace Sdx
 
     void GetIntTxIqFileResult::setPath(const std::string& path)
     {
-      m_values.AddMember("Path", parse_json<std::string>::format(path, m_values.GetAllocator()), m_values.GetAllocator());
+      setValue("Path", parse_json<std::string>::format(path, m_values.GetAllocator()));
     }
 
 
@@ -154,7 +154,7 @@ namespace Sdx
 
     void GetIntTxIqFileResult::setTransmitterId(const std::string& transmitterId)
     {
-      m_values.AddMember("TransmitterId", parse_json<std::string>::format(transmitterId, m_values.GetAllocator()), m_values.GetAllocator());
+      setValue("TransmitterId", parse_json<std::string>::format(transmitterId, m_values.GetAllocator()));
     }
 
 
@@ -166,7 +166,7 @@ namespace Sdx
 
     void GetIntTxIqFileResult::setSignalId(const std::string& signalId)
     {
-      m_values.AddMember("SignalId", parse_json<std::string>::format(signalId, m_values.GetAllocator()), m_values.GetAllocator());
+      setValue("SignalId", parse_json<std::string>::format(signalId, m_values.GetAllocator()));
     }
 
 
@@ -178,7 +178,7 @@ namespace Sdx
 
     void GetIntTxIqFileResult::setGroup(const std::optional<int>& group)
     {
-      m_values.AddMember("Group", parse_json<std::optional<int>>::format(group, m_values.GetAllocator()), m_values.GetAllocator());
+      setValue("Group", parse_json<std::optional<int>>::format(group, m_values.GetAllocator()));
     }
 
 

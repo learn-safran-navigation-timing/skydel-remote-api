@@ -82,7 +82,7 @@ namespace Sdx
 
     void GetOsnmaTeslaHashFunctionResult::setHashFunction(const std::string& hashFunction)
     {
-      m_values.AddMember("HashFunction", parse_json<std::string>::format(hashFunction, m_values.GetAllocator()), m_values.GetAllocator());
+      setValue("HashFunction", parse_json<std::string>::format(hashFunction, m_values.GetAllocator()));
     }
 
 

@@ -79,7 +79,7 @@ namespace Sdx
 
     void SetIssueOfDataNavIC::setEphemerisAndClock(int ephemerisAndClock)
     {
-      m_values.AddMember("EphemerisAndClock", parse_json<int>::format(ephemerisAndClock, m_values.GetAllocator()), m_values.GetAllocator());
+      setValue("EphemerisAndClock", parse_json<int>::format(ephemerisAndClock, m_values.GetAllocator()));
     }
 
 
@@ -91,7 +91,7 @@ namespace Sdx
 
     void SetIssueOfDataNavIC::setOverrideRinex(const std::optional<bool>& overrideRinex)
     {
-      m_values.AddMember("OverrideRinex", parse_json<std::optional<bool>>::format(overrideRinex, m_values.GetAllocator()), m_values.GetAllocator());
+      setValue("OverrideRinex", parse_json<std::optional<bool>>::format(overrideRinex, m_values.GetAllocator()));
     }
 
 

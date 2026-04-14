@@ -82,7 +82,7 @@ namespace Sdx
 
     void GetPluginsResult::setPlugins(const std::vector<std::string>& plugins)
     {
-      m_values.AddMember("Plugins", parse_json<std::vector<std::string>>::format(plugins, m_values.GetAllocator()), m_values.GetAllocator());
+      setValue("Plugins", parse_json<std::vector<std::string>>::format(plugins, m_values.GetAllocator()));
     }
 
 

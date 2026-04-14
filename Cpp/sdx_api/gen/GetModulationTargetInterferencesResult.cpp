@@ -16,7 +16,7 @@ namespace Sdx
     const char* const GetModulationTargetInterferencesResult::Documentation = "Result of GetModulationTargetInterferences.\n"
       "\n"
       "Name        Type            Description\n"
-      "----------- --------------- --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------\n"
+      "----------- --------------- ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------\n"
       "Output      int             Output index (zero based)\n"
       "MinRate     int             Minimum sampling rate (12500000, 25000000, 50000000, 60000000, 100000000)\n"
       "MaxRate     int             Maximum sampling rate (12500000, 25000000, 50000000, 60000000, 100000000)\n"
@@ -24,7 +24,7 @@ namespace Sdx
       "CentralFreq double          Central frequency (Hz). Put 0.0 and complete signal list to let Skydel choose automatically the central frequency.\n"
       "Gain        int             The gain associated to this output (dB). As of today, accepted values are 0, 20, 40, 60 and 80. Values at 40 and under are not recommended. Use a negative value to use the default value (60).\n"
       "Id          string          Target identifier\n"
-      "Signal      optional string Comma separated signal keys if you want to match central frequency and sampling rate with a particular list of signals. Accepted signal keys: \"L1CA\", \"L1C\", \"L1P\", \"L1ME\", \"L1MR\", \"L2C\", \"L2P\", \"L2ME\", \"L2MR\", \"L5\", \"G1\", \"G2\", \"E1\", \"E5a\", \"E5b\", \"B1\", \"B2\", \"B1C\", \"B2a\", \"B2b\", \"B3I\", \"SBASL1\", \"QZSSL1CA\", \"QZSSL1CB\", \"QZSSL1C\", \"QZSSL2C\", \"QZSSL5\", \"QZSSL1S\", \"QZSSL5S\", \"QZSSL6\", \"NAVICL1\", \"NAVICL5\", \"NAVICS\", \"PULSARXL\", \"PULSARX1\", \"PULSARX5\"";
+      "Signal      optional string Comma separated signal keys if you want to match central frequency and sampling rate with a particular list of signals. Accepted signal keys: \"L1CA\", \"L1C\", \"L1P\", \"L1ME\", \"L1MR\", \"L2C\", \"L2P\", \"L2ME\", \"L2MR\", \"L5\", \"G1\", \"G1P\", \"G2\", \"G2P\", \"E1\", \"E5a\", \"E5b\", \"B1\", \"B2\", \"B1C\", \"B2a\", \"B2b\", \"B3I\", \"SBASL1\", \"QZSSL1CA\", \"QZSSL1CB\", \"QZSSL1C\", \"QZSSL2C\", \"QZSSL5\", \"QZSSL1S\", \"QZSSL5S\", \"QZSSL6\", \"NAVICL1\", \"NAVICL5\", \"NAVICS\", \"PULSARXL\", \"PULSARX1\", \"PULSARX5\"";
     const char* const GetModulationTargetInterferencesResult::TargetId = "";
 
     REGISTER_COMMAND_TO_FACTORY_IMPL(GetModulationTargetInterferencesResult);
@@ -110,7 +110,7 @@ namespace Sdx
 
     void GetModulationTargetInterferencesResult::setOutput(int output)
     {
-      m_values.AddMember("Output", parse_json<int>::format(output, m_values.GetAllocator()), m_values.GetAllocator());
+      setValue("Output", parse_json<int>::format(output, m_values.GetAllocator()));
     }
 
 
@@ -122,7 +122,7 @@ namespace Sdx
 
     void GetModulationTargetInterferencesResult::setMinRate(int minRate)
     {
-      m_values.AddMember("MinRate", parse_json<int>::format(minRate, m_values.GetAllocator()), m_values.GetAllocator());
+      setValue("MinRate", parse_json<int>::format(minRate, m_values.GetAllocator()));
     }
 
 
@@ -134,7 +134,7 @@ namespace Sdx
 
     void GetModulationTargetInterferencesResult::setMaxRate(int maxRate)
     {
-      m_values.AddMember("MaxRate", parse_json<int>::format(maxRate, m_values.GetAllocator()), m_values.GetAllocator());
+      setValue("MaxRate", parse_json<int>::format(maxRate, m_values.GetAllocator()));
     }
 
 
@@ -146,7 +146,7 @@ namespace Sdx
 
     void GetModulationTargetInterferencesResult::setGroup(int group)
     {
-      m_values.AddMember("Group", parse_json<int>::format(group, m_values.GetAllocator()), m_values.GetAllocator());
+      setValue("Group", parse_json<int>::format(group, m_values.GetAllocator()));
     }
 
 
@@ -158,7 +158,7 @@ namespace Sdx
 
     void GetModulationTargetInterferencesResult::setCentralFreq(double centralFreq)
     {
-      m_values.AddMember("CentralFreq", parse_json<double>::format(centralFreq, m_values.GetAllocator()), m_values.GetAllocator());
+      setValue("CentralFreq", parse_json<double>::format(centralFreq, m_values.GetAllocator()));
     }
 
 
@@ -170,7 +170,7 @@ namespace Sdx
 
     void GetModulationTargetInterferencesResult::setGain(int gain)
     {
-      m_values.AddMember("Gain", parse_json<int>::format(gain, m_values.GetAllocator()), m_values.GetAllocator());
+      setValue("Gain", parse_json<int>::format(gain, m_values.GetAllocator()));
     }
 
 
@@ -182,7 +182,7 @@ namespace Sdx
 
     void GetModulationTargetInterferencesResult::setId(const std::string& id)
     {
-      m_values.AddMember("Id", parse_json<std::string>::format(id, m_values.GetAllocator()), m_values.GetAllocator());
+      setValue("Id", parse_json<std::string>::format(id, m_values.GetAllocator()));
     }
 
 
@@ -194,7 +194,7 @@ namespace Sdx
 
     void GetModulationTargetInterferencesResult::setSignal(const std::optional<std::string>& signal)
     {
-      m_values.AddMember("Signal", parse_json<std::optional<std::string>>::format(signal, m_values.GetAllocator()), m_values.GetAllocator());
+      setValue("Signal", parse_json<std::optional<std::string>>::format(signal, m_values.GetAllocator()));
     }
 
 

@@ -79,7 +79,7 @@ namespace Sdx
 
     void SetTransmitMessage2InSbasMessage0::setTransmitMessage2(bool transmitMessage2)
     {
-      m_values.AddMember("TransmitMessage2", parse_json<bool>::format(transmitMessage2, m_values.GetAllocator()), m_values.GetAllocator());
+      setValue("TransmitMessage2", parse_json<bool>::format(transmitMessage2, m_values.GetAllocator()));
     }
 
 
@@ -91,7 +91,7 @@ namespace Sdx
 
     void SetTransmitMessage2InSbasMessage0::setServiceProvider(const std::optional<std::string>& serviceProvider)
     {
-      m_values.AddMember("ServiceProvider", parse_json<std::optional<std::string>>::format(serviceProvider, m_values.GetAllocator()), m_values.GetAllocator());
+      setValue("ServiceProvider", parse_json<std::optional<std::string>>::format(serviceProvider, m_values.GetAllocator()));
     }
 
 

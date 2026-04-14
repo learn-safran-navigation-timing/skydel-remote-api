@@ -86,7 +86,7 @@ namespace Sdx
 
     void GetMessageSequenceResult::setSignal(const std::string& signal)
     {
-      m_values.AddMember("Signal", parse_json<std::string>::format(signal, m_values.GetAllocator()), m_values.GetAllocator());
+      setValue("Signal", parse_json<std::string>::format(signal, m_values.GetAllocator()));
     }
 
 
@@ -98,7 +98,7 @@ namespace Sdx
 
     void GetMessageSequenceResult::setSequence(const std::vector<int>& sequence)
     {
-      m_values.AddMember("Sequence", parse_json<std::vector<int>>::format(sequence, m_values.GetAllocator()), m_values.GetAllocator());
+      setValue("Sequence", parse_json<std::vector<int>>::format(sequence, m_values.GetAllocator()));
     }
 
 

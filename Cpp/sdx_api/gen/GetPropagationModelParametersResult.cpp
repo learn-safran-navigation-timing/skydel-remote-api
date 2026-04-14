@@ -86,7 +86,7 @@ namespace Sdx
 
     void GetPropagationModelParametersResult::setModel(const Sdx::PropagationModelType& model)
     {
-      m_values.AddMember("Model", parse_json<Sdx::PropagationModelType>::format(model, m_values.GetAllocator()), m_values.GetAllocator());
+      setValue("Model", parse_json<Sdx::PropagationModelType>::format(model, m_values.GetAllocator()));
     }
 
 
@@ -98,7 +98,7 @@ namespace Sdx
 
     void GetPropagationModelParametersResult::setParamValueDict(const std::map<std::string, double>& paramValueDict)
     {
-      m_values.AddMember("ParamValueDict", parse_json<std::map<std::string, double>>::format(paramValueDict, m_values.GetAllocator()), m_values.GetAllocator());
+      setValue("ParamValueDict", parse_json<std::map<std::string, double>>::format(paramValueDict, m_values.GetAllocator()));
     }
 
 

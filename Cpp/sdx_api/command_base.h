@@ -60,6 +60,7 @@ public:
   const rapidjson::Value& value(const std::string& key) const;
   rapidjson::Value& value(const std::string& key);
   void setValue(const std::string& key, rapidjson::Value& value);
+  void setValue(const std::string& key, rapidjson::Value&& value);
 
   bool parse(const std::string& serializedCommand, std::string* errorMsg = nullptr);
   static bool parse(const std::string& serializedCommand, rapidjson::Document& doc, std::string* errorMsg = nullptr);

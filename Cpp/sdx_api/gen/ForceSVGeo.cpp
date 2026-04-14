@@ -88,7 +88,7 @@ namespace Sdx
 
     void ForceSVGeo::setSystem(const std::string& system)
     {
-      m_values.AddMember("System", parse_json<std::string>::format(system, m_values.GetAllocator()), m_values.GetAllocator());
+      setValue("System", parse_json<std::string>::format(system, m_values.GetAllocator()));
     }
 
 
@@ -100,7 +100,7 @@ namespace Sdx
 
     void ForceSVGeo::setSvId(int svId)
     {
-      m_values.AddMember("SvId", parse_json<int>::format(svId, m_values.GetAllocator()), m_values.GetAllocator());
+      setValue("SvId", parse_json<int>::format(svId, m_values.GetAllocator()));
     }
 
 
@@ -112,7 +112,7 @@ namespace Sdx
 
     void ForceSVGeo::setIsGeo(bool isGeo)
     {
-      m_values.AddMember("IsGeo", parse_json<bool>::format(isGeo, m_values.GetAllocator()), m_values.GetAllocator());
+      setValue("IsGeo", parse_json<bool>::format(isGeo, m_values.GetAllocator()));
     }
 
 
@@ -124,7 +124,7 @@ namespace Sdx
 
     void ForceSVGeo::setLongitude(double longitude)
     {
-      m_values.AddMember("Longitude", parse_json<double>::format(longitude, m_values.GetAllocator()), m_values.GetAllocator());
+      setValue("Longitude", parse_json<double>::format(longitude, m_values.GetAllocator()));
     }
 
 
@@ -136,7 +136,7 @@ namespace Sdx
 
     void ForceSVGeo::setDataSetName(const std::optional<std::string>& dataSetName)
     {
-      m_values.AddMember("DataSetName", parse_json<std::optional<std::string>>::format(dataSetName, m_values.GetAllocator()), m_values.GetAllocator());
+      setValue("DataSetName", parse_json<std::optional<std::string>>::format(dataSetName, m_values.GetAllocator()));
     }
 
 

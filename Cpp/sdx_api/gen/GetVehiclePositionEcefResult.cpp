@@ -94,7 +94,7 @@ namespace Sdx
 
     void GetVehiclePositionEcefResult::setElapsedTime(int elapsedTime)
     {
-      m_values.AddMember("ElapsedTime", parse_json<int>::format(elapsedTime, m_values.GetAllocator()), m_values.GetAllocator());
+      setValue("ElapsedTime", parse_json<int>::format(elapsedTime, m_values.GetAllocator()));
     }
 
 
@@ -106,7 +106,7 @@ namespace Sdx
 
     void GetVehiclePositionEcefResult::setX(double x)
     {
-      m_values.AddMember("X", parse_json<double>::format(x, m_values.GetAllocator()), m_values.GetAllocator());
+      setValue("X", parse_json<double>::format(x, m_values.GetAllocator()));
     }
 
 
@@ -118,7 +118,7 @@ namespace Sdx
 
     void GetVehiclePositionEcefResult::setY(double y)
     {
-      m_values.AddMember("Y", parse_json<double>::format(y, m_values.GetAllocator()), m_values.GetAllocator());
+      setValue("Y", parse_json<double>::format(y, m_values.GetAllocator()));
     }
 
 
@@ -130,7 +130,7 @@ namespace Sdx
 
     void GetVehiclePositionEcefResult::setZ(double z)
     {
-      m_values.AddMember("Z", parse_json<double>::format(z, m_values.GetAllocator()), m_values.GetAllocator());
+      setValue("Z", parse_json<double>::format(z, m_values.GetAllocator()));
     }
 
 

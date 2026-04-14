@@ -76,7 +76,7 @@ namespace Sdx
 
     void ShowMapAnalysis::setShow(bool show)
     {
-      m_values.AddMember("Show", parse_json<bool>::format(show, m_values.GetAllocator()), m_values.GetAllocator());
+      setValue("Show", parse_json<bool>::format(show, m_values.GetAllocator()));
     }
 
 

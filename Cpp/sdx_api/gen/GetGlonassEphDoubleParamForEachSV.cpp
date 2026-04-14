@@ -76,7 +76,7 @@ namespace Sdx
 
     void GetGlonassEphDoubleParamForEachSV::setParamName(const std::string& paramName)
     {
-      m_values.AddMember("ParamName", parse_json<std::string>::format(paramName, m_values.GetAllocator()), m_values.GetAllocator());
+      setValue("ParamName", parse_json<std::string>::format(paramName, m_values.GetAllocator()));
     }
 
 

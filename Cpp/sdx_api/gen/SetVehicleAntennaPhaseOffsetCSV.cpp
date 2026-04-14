@@ -88,7 +88,7 @@ namespace Sdx
 
     void SetVehicleAntennaPhaseOffsetCSV::setFilePath(const std::string& filePath)
     {
-      m_values.AddMember("FilePath", parse_json<std::string>::format(filePath, m_values.GetAllocator()), m_values.GetAllocator());
+      setValue("FilePath", parse_json<std::string>::format(filePath, m_values.GetAllocator()));
     }
 
 
@@ -100,7 +100,7 @@ namespace Sdx
 
     void SetVehicleAntennaPhaseOffsetCSV::setFileFormat(const Sdx::AntennaPatternFileType& fileFormat)
     {
-      m_values.AddMember("FileFormat", parse_json<Sdx::AntennaPatternFileType>::format(fileFormat, m_values.GetAllocator()), m_values.GetAllocator());
+      setValue("FileFormat", parse_json<Sdx::AntennaPatternFileType>::format(fileFormat, m_values.GetAllocator()));
     }
 
 
@@ -112,7 +112,7 @@ namespace Sdx
 
     void SetVehicleAntennaPhaseOffsetCSV::setType(const Sdx::AntennaPatternType& type)
     {
-      m_values.AddMember("Type", parse_json<Sdx::AntennaPatternType>::format(type, m_values.GetAllocator()), m_values.GetAllocator());
+      setValue("Type", parse_json<Sdx::AntennaPatternType>::format(type, m_values.GetAllocator()));
     }
 
 
@@ -124,7 +124,7 @@ namespace Sdx
 
     void SetVehicleAntennaPhaseOffsetCSV::setBand(const Sdx::GNSSBand& band)
     {
-      m_values.AddMember("Band", parse_json<Sdx::GNSSBand>::format(band, m_values.GetAllocator()), m_values.GetAllocator());
+      setValue("Band", parse_json<Sdx::GNSSBand>::format(band, m_values.GetAllocator()));
     }
 
 
@@ -136,7 +136,7 @@ namespace Sdx
 
     void SetVehicleAntennaPhaseOffsetCSV::setName(const std::optional<std::string>& name)
     {
-      m_values.AddMember("Name", parse_json<std::optional<std::string>>::format(name, m_values.GetAllocator()), m_values.GetAllocator());
+      setValue("Name", parse_json<std::optional<std::string>>::format(name, m_values.GetAllocator()));
     }
 
 

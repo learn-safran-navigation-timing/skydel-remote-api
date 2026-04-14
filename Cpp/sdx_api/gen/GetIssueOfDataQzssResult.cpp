@@ -90,7 +90,7 @@ namespace Sdx
 
     void GetIssueOfDataQzssResult::setClock(int clock)
     {
-      m_values.AddMember("Clock", parse_json<int>::format(clock, m_values.GetAllocator()), m_values.GetAllocator());
+      setValue("Clock", parse_json<int>::format(clock, m_values.GetAllocator()));
     }
 
 
@@ -102,7 +102,7 @@ namespace Sdx
 
     void GetIssueOfDataQzssResult::setEphemeris(int ephemeris)
     {
-      m_values.AddMember("Ephemeris", parse_json<int>::format(ephemeris, m_values.GetAllocator()), m_values.GetAllocator());
+      setValue("Ephemeris", parse_json<int>::format(ephemeris, m_values.GetAllocator()));
     }
 
 
@@ -114,7 +114,7 @@ namespace Sdx
 
     void GetIssueOfDataQzssResult::setOverrideRinex(const std::optional<bool>& overrideRinex)
     {
-      m_values.AddMember("OverrideRinex", parse_json<std::optional<bool>>::format(overrideRinex, m_values.GetAllocator()), m_values.GetAllocator());
+      setValue("OverrideRinex", parse_json<std::optional<bool>>::format(overrideRinex, m_values.GetAllocator()));
     }
 
 

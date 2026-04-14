@@ -174,7 +174,7 @@ namespace Sdx
 
     void SetConstellationParameterForSV::setSystem(const std::string& system)
     {
-      m_values.AddMember("System", parse_json<std::string>::format(system, m_values.GetAllocator()), m_values.GetAllocator());
+      setValue("System", parse_json<std::string>::format(system, m_values.GetAllocator()));
     }
 
 
@@ -186,7 +186,7 @@ namespace Sdx
 
     void SetConstellationParameterForSV::setSvId(int svId)
     {
-      m_values.AddMember("SvId", parse_json<int>::format(svId, m_values.GetAllocator()), m_values.GetAllocator());
+      setValue("SvId", parse_json<int>::format(svId, m_values.GetAllocator()));
     }
 
 
@@ -198,7 +198,7 @@ namespace Sdx
 
     void SetConstellationParameterForSV::setParamName(const std::string& paramName)
     {
-      m_values.AddMember("ParamName", parse_json<std::string>::format(paramName, m_values.GetAllocator()), m_values.GetAllocator());
+      setValue("ParamName", parse_json<std::string>::format(paramName, m_values.GetAllocator()));
     }
 
 
@@ -212,7 +212,7 @@ namespace Sdx
     template<typename Type>
     void SetConstellationParameterForSV::setVal(Type val)
     {
-      m_values.AddMember("Val", parse_json<Type>::format(val, m_values.GetAllocator()), m_values.GetAllocator());
+      setValue("Val", parse_json<Type>::format(val, m_values.GetAllocator()));
     }
 
 
@@ -224,7 +224,7 @@ namespace Sdx
 
     void SetConstellationParameterForSV::setDataSetName(const std::optional<std::string>& dataSetName)
     {
-      m_values.AddMember("DataSetName", parse_json<std::optional<std::string>>::format(dataSetName, m_values.GetAllocator()), m_values.GetAllocator());
+      setValue("DataSetName", parse_json<std::optional<std::string>>::format(dataSetName, m_values.GetAllocator()));
     }
 
 

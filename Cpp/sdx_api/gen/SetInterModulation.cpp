@@ -79,7 +79,7 @@ namespace Sdx
 
     void SetInterModulation::setSignalArray(const std::vector<Sdx::SignalWithComponent>& signalArray)
     {
-      m_values.AddMember("SignalArray", parse_json<std::vector<Sdx::SignalWithComponent>>::format(signalArray, m_values.GetAllocator()), m_values.GetAllocator());
+      setValue("SignalArray", parse_json<std::vector<Sdx::SignalWithComponent>>::format(signalArray, m_values.GetAllocator()));
     }
 
 
@@ -91,7 +91,7 @@ namespace Sdx
 
     void SetInterModulation::setCoefficient(double coefficient)
     {
-      m_values.AddMember("Coefficient", parse_json<double>::format(coefficient, m_values.GetAllocator()), m_values.GetAllocator());
+      setValue("Coefficient", parse_json<double>::format(coefficient, m_values.GetAllocator()));
     }
 
 

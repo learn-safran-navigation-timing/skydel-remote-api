@@ -16,19 +16,19 @@ namespace Sdx
     const char* const GetAllPowerForSVResult::Documentation = "Result of GetAllPowerForSV.\n"
       "\n"
       "Name            Type                    Description\n"
-      "--------------- ----------------------- --------------------------------------------------------------------------------\n"
+      "--------------- ----------------------- -----------------------------------------------------------------------------\n"
       "System          string                  \"GPS\", \"GLONASS\", \"Galileo\", \"BeiDou\", \"SBAS\", \"QZSS\", \"NavIC\" or \"PULSAR\".\n"
       "SvId            int                     The Satellite's SV ID.\n"
       "NominalPower    double                  The nominal power in dBm.\n"
       "GlobalOffset    double                  The global power offset (dB).\n"
       "SignalPowerDict dict string:SignalPower A dictionary of signal power pairs.\n"
       "                                        Accepted keys are: \"All\", \"L1CA\", \"L1C\", \"L1P\", \"L1ME\", \"L1MR\", \"L2C\", \"L2P\",\n"
-      "                                                           \"L2ME\", \"L2MR\", \"L5\", \"G1\", \"G2\", \"E1\", \"E1PRS\", \"E5a\",\n"
-      "                                                           \"E5b\", \"E6BC\", \"E6PRS\", \"B1\", \"B2\", \"B1C\", \"B2a\", \"B2b\",\n"
-      "                                                           \"B3I\", \"SBASL1\", \"SBASL5\", \"QZSSL1CA\", \"QZSSL1CB\", \"QZSSL1C\",\n"
-      "                                                           \"QZSSL2C\", \"QZSSL5\", \"QZSSL1S\", \"QZSSL5S\", \"QZSSL6\",\n"
-      "                                                           \"NAVICL1\", \"NAVICL5\", \"NAVICS\", \"PULSARXL\", \"PULSARX1\" and\n"
-      "                                                           \"PULSARX5\"";
+      "                                                           \"L2ME\", \"L2MR\", \"L5\", \"G1\", \"G1P\", \"G2\", \"G2P\", \"E1\",\n"
+      "                                                           \"E1PRS\", \"E5a\", \"E5b\", \"E6BC\", \"E6PRS\", \"B1\", \"B2\", \"B1C\",\n"
+      "                                                           \"B2a\", \"B2b\", \"B3I\", \"SBASL1\", \"SBASL5\", \"QZSSL1CA\",\n"
+      "                                                           \"QZSSL1CB\", \"QZSSL1C\", \"QZSSL2C\", \"QZSSL5\", \"QZSSL1S\",\n"
+      "                                                           \"QZSSL5S\", \"QZSSL6\", \"NAVICL1\", \"NAVICL5\", \"NAVICS\",\n"
+      "                                                           \"PULSARXL\", \"PULSARX1\" and \"PULSARX5\"";
     const char* const GetAllPowerForSVResult::TargetId = "";
 
     REGISTER_COMMAND_TO_FACTORY_IMPL(GetAllPowerForSVResult);
@@ -105,7 +105,7 @@ namespace Sdx
 
     void GetAllPowerForSVResult::setSystem(const std::string& system)
     {
-      m_values.AddMember("System", parse_json<std::string>::format(system, m_values.GetAllocator()), m_values.GetAllocator());
+      setValue("System", parse_json<std::string>::format(system, m_values.GetAllocator()));
     }
 
 
@@ -117,7 +117,7 @@ namespace Sdx
 
     void GetAllPowerForSVResult::setSvId(int svId)
     {
-      m_values.AddMember("SvId", parse_json<int>::format(svId, m_values.GetAllocator()), m_values.GetAllocator());
+      setValue("SvId", parse_json<int>::format(svId, m_values.GetAllocator()));
     }
 
 
@@ -129,7 +129,7 @@ namespace Sdx
 
     void GetAllPowerForSVResult::setNominalPower(double nominalPower)
     {
-      m_values.AddMember("NominalPower", parse_json<double>::format(nominalPower, m_values.GetAllocator()), m_values.GetAllocator());
+      setValue("NominalPower", parse_json<double>::format(nominalPower, m_values.GetAllocator()));
     }
 
 
@@ -141,7 +141,7 @@ namespace Sdx
 
     void GetAllPowerForSVResult::setGlobalOffset(double globalOffset)
     {
-      m_values.AddMember("GlobalOffset", parse_json<double>::format(globalOffset, m_values.GetAllocator()), m_values.GetAllocator());
+      setValue("GlobalOffset", parse_json<double>::format(globalOffset, m_values.GetAllocator()));
     }
 
 
@@ -153,7 +153,7 @@ namespace Sdx
 
     void GetAllPowerForSVResult::setSignalPowerDict(const std::map<std::string, Sdx::SignalPower>& signalPowerDict)
     {
-      m_values.AddMember("SignalPowerDict", parse_json<std::map<std::string, Sdx::SignalPower>>::format(signalPowerDict, m_values.GetAllocator()), m_values.GetAllocator());
+      setValue("SignalPowerDict", parse_json<std::map<std::string, Sdx::SignalPower>>::format(signalPowerDict, m_values.GetAllocator()));
     }
 
 

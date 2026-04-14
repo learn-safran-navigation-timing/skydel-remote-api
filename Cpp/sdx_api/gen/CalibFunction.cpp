@@ -16,10 +16,10 @@ namespace Sdx
     const char* const CalibFunction::Documentation = "Skydel special calibration function, internal use only\n"
       "\n"
       "Name          Type   Description\n"
-      "------------- ------ -------------------------------------------------------------------------------------------------------------\n"
+      "------------- ------ ---------------------------------------------------------------------------------------------------------------------\n"
       "SvId          int    SV ID for GPS, Galileo, BeiDou, GLONASS, QZSS, NavIC, SBAS and PULSAR.\n"
       "Signal        string Accepted signal keys: \"L1CA\", \"L1C\", \"L1P\", \"L1ME\", \"L1MR\", \"L2C\", \"L2P\", \"L2ME\", \"L2MR\", \"L5\",\n"
-      "                                           \"G1\", \"G2\", \"E1\", \"E5a\", \"E5b\", \"B1\", \"B2\", \"B1C\", \"B2a\", \"B2b\", \"B3I\", \"SBASL1\",\n"
+      "                                           \"G1\", \"G1P\", \"G2\", \"G2P\", \"E1\", \"E5a\", \"E5b\", \"B1\", \"B2\", \"B1C\", \"B2a\", \"B2b\", \"B3I\", \"SBASL1\",\n"
       "                                           \"QZSSL1CA\", \"QZSSL1CB\", \"QZSSL1C\", \"QZSSL2C\", \"QZSSL5\", \"QZSSL1S\", \"QZSSL5S\", \"QZSSL6\",\n"
       "                                           \"NAVICL1\", \"NAVICL5\", \"NAVICS\", \"PULSARXL\", \"PULSARX1\" and \"PULSARX5\"\n"
       "EnableSV      bool   Enable/Disable multiplication by satellite and Navigation Message\n"
@@ -91,7 +91,7 @@ namespace Sdx
 
     void CalibFunction::setSvId(int svId)
     {
-      m_values.AddMember("SvId", parse_json<int>::format(svId, m_values.GetAllocator()), m_values.GetAllocator());
+      setValue("SvId", parse_json<int>::format(svId, m_values.GetAllocator()));
     }
 
 
@@ -103,7 +103,7 @@ namespace Sdx
 
     void CalibFunction::setSignal(const std::string& signal)
     {
-      m_values.AddMember("Signal", parse_json<std::string>::format(signal, m_values.GetAllocator()), m_values.GetAllocator());
+      setValue("Signal", parse_json<std::string>::format(signal, m_values.GetAllocator()));
     }
 
 
@@ -115,7 +115,7 @@ namespace Sdx
 
     void CalibFunction::setEnableSV(bool enableSV)
     {
-      m_values.AddMember("EnableSV", parse_json<bool>::format(enableSV, m_values.GetAllocator()), m_values.GetAllocator());
+      setValue("EnableSV", parse_json<bool>::format(enableSV, m_values.GetAllocator()));
     }
 
 
@@ -127,7 +127,7 @@ namespace Sdx
 
     void CalibFunction::setEnableDoppler(bool enableDoppler)
     {
-      m_values.AddMember("EnableDoppler", parse_json<bool>::format(enableDoppler, m_values.GetAllocator()), m_values.GetAllocator());
+      setValue("EnableDoppler", parse_json<bool>::format(enableDoppler, m_values.GetAllocator()));
     }
 
 
@@ -139,7 +139,7 @@ namespace Sdx
 
     void CalibFunction::setPhaseOffet(double phaseOffet)
     {
-      m_values.AddMember("PhaseOffet", parse_json<double>::format(phaseOffet, m_values.GetAllocator()), m_values.GetAllocator());
+      setValue("PhaseOffet", parse_json<double>::format(phaseOffet, m_values.GetAllocator()));
     }
 
 

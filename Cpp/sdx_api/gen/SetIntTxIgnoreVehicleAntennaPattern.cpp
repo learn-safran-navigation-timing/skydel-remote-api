@@ -81,7 +81,7 @@ namespace Sdx
 
     void SetIntTxIgnoreVehicleAntennaPattern::setIgnore(bool ignore)
     {
-      m_values.AddMember("Ignore", parse_json<bool>::format(ignore, m_values.GetAllocator()), m_values.GetAllocator());
+      setValue("Ignore", parse_json<bool>::format(ignore, m_values.GetAllocator()));
     }
 
 
@@ -93,7 +93,7 @@ namespace Sdx
 
     void SetIntTxIgnoreVehicleAntennaPattern::setId(const std::string& id)
     {
-      m_values.AddMember("Id", parse_json<std::string>::format(id, m_values.GetAllocator()), m_values.GetAllocator());
+      setValue("Id", parse_json<std::string>::format(id, m_values.GetAllocator()));
     }
 
 

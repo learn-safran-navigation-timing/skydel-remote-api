@@ -82,7 +82,7 @@ namespace Sdx
 
     void IsIonoOffsetEnabledResult::setIsEnabled(bool isEnabled)
     {
-      m_values.AddMember("IsEnabled", parse_json<bool>::format(isEnabled, m_values.GetAllocator()), m_values.GetAllocator());
+      setValue("IsEnabled", parse_json<bool>::format(isEnabled, m_values.GetAllocator()));
     }
 
 

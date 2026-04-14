@@ -90,7 +90,7 @@ namespace Sdx
 
     void GetGaussianNoisePowerDensityOffsetResult::setId(const std::string& id)
     {
-      m_values.AddMember("Id", parse_json<std::string>::format(id, m_values.GetAllocator()), m_values.GetAllocator());
+      setValue("Id", parse_json<std::string>::format(id, m_values.GetAllocator()));
     }
 
 
@@ -102,7 +102,7 @@ namespace Sdx
 
     void GetGaussianNoisePowerDensityOffsetResult::setOutputIdx(int outputIdx)
     {
-      m_values.AddMember("OutputIdx", parse_json<int>::format(outputIdx, m_values.GetAllocator()), m_values.GetAllocator());
+      setValue("OutputIdx", parse_json<int>::format(outputIdx, m_values.GetAllocator()));
     }
 
 
@@ -114,7 +114,7 @@ namespace Sdx
 
     void GetGaussianNoisePowerDensityOffsetResult::setPowerDensityOffset(double powerDensityOffset)
     {
-      m_values.AddMember("PowerDensityOffset", parse_json<double>::format(powerDensityOffset, m_values.GetAllocator()), m_values.GetAllocator());
+      setValue("PowerDensityOffset", parse_json<double>::format(powerDensityOffset, m_values.GetAllocator()));
     }
 
 

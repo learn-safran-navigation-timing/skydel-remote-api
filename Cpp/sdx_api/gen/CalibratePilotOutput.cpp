@@ -85,7 +85,7 @@ namespace Sdx
 
     void CalibratePilotOutput::setOutputIdx(int outputIdx)
     {
-      m_values.AddMember("OutputIdx", parse_json<int>::format(outputIdx, m_values.GetAllocator()), m_values.GetAllocator());
+      setValue("OutputIdx", parse_json<int>::format(outputIdx, m_values.GetAllocator()));
     }
 
 
@@ -97,7 +97,7 @@ namespace Sdx
 
     void CalibratePilotOutput::setPower(double power)
     {
-      m_values.AddMember("Power", parse_json<double>::format(power, m_values.GetAllocator()), m_values.GetAllocator());
+      setValue("Power", parse_json<double>::format(power, m_values.GetAllocator()));
     }
 
 
@@ -109,7 +109,7 @@ namespace Sdx
 
     void CalibratePilotOutput::setTime(double time)
     {
-      m_values.AddMember("Time", parse_json<double>::format(time, m_values.GetAllocator()), m_values.GetAllocator());
+      setValue("Time", parse_json<double>::format(time, m_values.GetAllocator()));
     }
 
 
@@ -121,7 +121,7 @@ namespace Sdx
 
     void CalibratePilotOutput::setCarrierPhase(double carrierPhase)
     {
-      m_values.AddMember("CarrierPhase", parse_json<double>::format(carrierPhase, m_values.GetAllocator()), m_values.GetAllocator());
+      setValue("CarrierPhase", parse_json<double>::format(carrierPhase, m_values.GetAllocator()));
     }
 
 

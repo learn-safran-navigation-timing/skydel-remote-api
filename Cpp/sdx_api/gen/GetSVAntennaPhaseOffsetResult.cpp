@@ -98,7 +98,7 @@ namespace Sdx
 
     void GetSVAntennaPhaseOffsetResult::setPhaseOffset(const std::vector<std::vector<double>>& phaseOffset)
     {
-      m_values.AddMember("PhaseOffset", parse_json<std::vector<std::vector<double>>>::format(phaseOffset, m_values.GetAllocator()), m_values.GetAllocator());
+      setValue("PhaseOffset", parse_json<std::vector<std::vector<double>>>::format(phaseOffset, m_values.GetAllocator()));
     }
 
 
@@ -110,7 +110,7 @@ namespace Sdx
 
     void GetSVAntennaPhaseOffsetResult::setType(const Sdx::AntennaPatternType& type)
     {
-      m_values.AddMember("Type", parse_json<Sdx::AntennaPatternType>::format(type, m_values.GetAllocator()), m_values.GetAllocator());
+      setValue("Type", parse_json<Sdx::AntennaPatternType>::format(type, m_values.GetAllocator()));
     }
 
 
@@ -122,7 +122,7 @@ namespace Sdx
 
     void GetSVAntennaPhaseOffsetResult::setBand(const Sdx::GNSSBand& band)
     {
-      m_values.AddMember("Band", parse_json<Sdx::GNSSBand>::format(band, m_values.GetAllocator()), m_values.GetAllocator());
+      setValue("Band", parse_json<Sdx::GNSSBand>::format(band, m_values.GetAllocator()));
     }
 
 
@@ -134,7 +134,7 @@ namespace Sdx
 
     void GetSVAntennaPhaseOffsetResult::setSystem(const std::string& system)
     {
-      m_values.AddMember("System", parse_json<std::string>::format(system, m_values.GetAllocator()), m_values.GetAllocator());
+      setValue("System", parse_json<std::string>::format(system, m_values.GetAllocator()));
     }
 
 
@@ -146,7 +146,7 @@ namespace Sdx
 
     void GetSVAntennaPhaseOffsetResult::setName(const std::optional<std::string>& name)
     {
-      m_values.AddMember("Name", parse_json<std::optional<std::string>>::format(name, m_values.GetAllocator()), m_values.GetAllocator());
+      setValue("Name", parse_json<std::optional<std::string>>::format(name, m_values.GetAllocator()));
     }
 
 

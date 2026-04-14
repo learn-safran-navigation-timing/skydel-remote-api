@@ -88,7 +88,7 @@ namespace Sdx
 
     void SetPilotCW::setEnabled(bool enabled)
     {
-      m_values.AddMember("Enabled", parse_json<bool>::format(enabled, m_values.GetAllocator()), m_values.GetAllocator());
+      setValue("Enabled", parse_json<bool>::format(enabled, m_values.GetAllocator()));
     }
 
 
@@ -100,7 +100,7 @@ namespace Sdx
 
     void SetPilotCW::setOutputIdx(int outputIdx)
     {
-      m_values.AddMember("OutputIdx", parse_json<int>::format(outputIdx, m_values.GetAllocator()), m_values.GetAllocator());
+      setValue("OutputIdx", parse_json<int>::format(outputIdx, m_values.GetAllocator()));
     }
 
 
@@ -112,7 +112,7 @@ namespace Sdx
 
     void SetPilotCW::setCentralFreqOffset(double centralFreqOffset)
     {
-      m_values.AddMember("CentralFreqOffset", parse_json<double>::format(centralFreqOffset, m_values.GetAllocator()), m_values.GetAllocator());
+      setValue("CentralFreqOffset", parse_json<double>::format(centralFreqOffset, m_values.GetAllocator()));
     }
 
 
@@ -124,7 +124,7 @@ namespace Sdx
 
     void SetPilotCW::setPower(double power)
     {
-      m_values.AddMember("Power", parse_json<double>::format(power, m_values.GetAllocator()), m_values.GetAllocator());
+      setValue("Power", parse_json<double>::format(power, m_values.GetAllocator()));
     }
 
 
@@ -136,7 +136,7 @@ namespace Sdx
 
     void SetPilotCW::setPilotId(const std::string& pilotId)
     {
-      m_values.AddMember("PilotId", parse_json<std::string>::format(pilotId, m_values.GetAllocator()), m_values.GetAllocator());
+      setValue("PilotId", parse_json<std::string>::format(pilotId, m_values.GetAllocator()));
     }
 
 

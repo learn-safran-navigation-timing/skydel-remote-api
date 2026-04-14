@@ -91,7 +91,7 @@ namespace Sdx
 
     void ConnectSerialPortReceiver::setPort(const std::string& port)
     {
-      m_values.AddMember("Port", parse_json<std::string>::format(port, m_values.GetAllocator()), m_values.GetAllocator());
+      setValue("Port", parse_json<std::string>::format(port, m_values.GetAllocator()));
     }
 
 
@@ -103,7 +103,7 @@ namespace Sdx
 
     void ConnectSerialPortReceiver::setBaudRate(const std::optional<int>& baudRate)
     {
-      m_values.AddMember("BaudRate", parse_json<std::optional<int>>::format(baudRate, m_values.GetAllocator()), m_values.GetAllocator());
+      setValue("BaudRate", parse_json<std::optional<int>>::format(baudRate, m_values.GetAllocator()));
     }
 
 
@@ -115,7 +115,7 @@ namespace Sdx
 
     void ConnectSerialPortReceiver::setDataBits(const std::optional<int>& dataBits)
     {
-      m_values.AddMember("DataBits", parse_json<std::optional<int>>::format(dataBits, m_values.GetAllocator()), m_values.GetAllocator());
+      setValue("DataBits", parse_json<std::optional<int>>::format(dataBits, m_values.GetAllocator()));
     }
 
 
@@ -127,7 +127,7 @@ namespace Sdx
 
     void ConnectSerialPortReceiver::setParity(const std::optional<Sdx::SerialPortParity>& parity)
     {
-      m_values.AddMember("Parity", parse_json<std::optional<Sdx::SerialPortParity>>::format(parity, m_values.GetAllocator()), m_values.GetAllocator());
+      setValue("Parity", parse_json<std::optional<Sdx::SerialPortParity>>::format(parity, m_values.GetAllocator()));
     }
 
 
@@ -139,7 +139,7 @@ namespace Sdx
 
     void ConnectSerialPortReceiver::setStopBits(const std::optional<int>& stopBits)
     {
-      m_values.AddMember("StopBits", parse_json<std::optional<int>>::format(stopBits, m_values.GetAllocator()), m_values.GetAllocator());
+      setValue("StopBits", parse_json<std::optional<int>>::format(stopBits, m_values.GetAllocator()));
     }
 
 
@@ -151,7 +151,7 @@ namespace Sdx
 
     void ConnectSerialPortReceiver::setFlowControl(const std::optional<Sdx::SerialPortFlowControl>& flowControl)
     {
-      m_values.AddMember("FlowControl", parse_json<std::optional<Sdx::SerialPortFlowControl>>::format(flowControl, m_values.GetAllocator()), m_values.GetAllocator());
+      setValue("FlowControl", parse_json<std::optional<Sdx::SerialPortFlowControl>>::format(flowControl, m_values.GetAllocator()));
     }
 
 

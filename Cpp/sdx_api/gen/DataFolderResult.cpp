@@ -82,7 +82,7 @@ namespace Sdx
 
     void DataFolderResult::setFolder(const std::string& folder)
     {
-      m_values.AddMember("Folder", parse_json<std::string>::format(folder, m_values.GetAllocator()), m_values.GetAllocator());
+      setValue("Folder", parse_json<std::string>::format(folder, m_values.GetAllocator()));
     }
 
 

@@ -76,7 +76,7 @@ namespace Sdx
 
     void SetSbasServiceProviderForEachSV::setServiceProviders(const std::vector<std::string>& serviceProviders)
     {
-      m_values.AddMember("ServiceProviders", parse_json<std::vector<std::string>>::format(serviceProviders, m_values.GetAllocator()), m_values.GetAllocator());
+      setValue("ServiceProviders", parse_json<std::vector<std::string>>::format(serviceProviders, m_values.GetAllocator()));
     }
 
 

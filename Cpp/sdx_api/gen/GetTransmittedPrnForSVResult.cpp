@@ -91,7 +91,7 @@ namespace Sdx
 
     void GetTransmittedPrnForSVResult::setSvId(int svId)
     {
-      m_values.AddMember("SvId", parse_json<int>::format(svId, m_values.GetAllocator()), m_values.GetAllocator());
+      setValue("SvId", parse_json<int>::format(svId, m_values.GetAllocator()));
     }
 
 
@@ -103,7 +103,7 @@ namespace Sdx
 
     void GetTransmittedPrnForSVResult::setSignalPrnDict(const std::map<std::string, int>& signalPrnDict)
     {
-      m_values.AddMember("SignalPrnDict", parse_json<std::map<std::string, int>>::format(signalPrnDict, m_values.GetAllocator()), m_values.GetAllocator());
+      setValue("SignalPrnDict", parse_json<std::map<std::string, int>>::format(signalPrnDict, m_values.GetAllocator()));
     }
 
 

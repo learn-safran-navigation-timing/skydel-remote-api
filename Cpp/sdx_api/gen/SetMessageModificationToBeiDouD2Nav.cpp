@@ -122,7 +122,7 @@ namespace Sdx
 
     void SetMessageModificationToBeiDouD2Nav::setSignalArray(const std::vector<std::string>& signalArray)
     {
-      m_values.AddMember("SignalArray", parse_json<std::vector<std::string>>::format(signalArray, m_values.GetAllocator()), m_values.GetAllocator());
+      setValue("SignalArray", parse_json<std::vector<std::string>>::format(signalArray, m_values.GetAllocator()));
     }
 
 
@@ -134,7 +134,7 @@ namespace Sdx
 
     void SetMessageModificationToBeiDouD2Nav::setSvId(int svId)
     {
-      m_values.AddMember("SvId", parse_json<int>::format(svId, m_values.GetAllocator()), m_values.GetAllocator());
+      setValue("SvId", parse_json<int>::format(svId, m_values.GetAllocator()));
     }
 
 
@@ -146,7 +146,7 @@ namespace Sdx
 
     void SetMessageModificationToBeiDouD2Nav::setStartTime(int startTime)
     {
-      m_values.AddMember("StartTime", parse_json<int>::format(startTime, m_values.GetAllocator()), m_values.GetAllocator());
+      setValue("StartTime", parse_json<int>::format(startTime, m_values.GetAllocator()));
     }
 
 
@@ -158,7 +158,7 @@ namespace Sdx
 
     void SetMessageModificationToBeiDouD2Nav::setStopTime(int stopTime)
     {
-      m_values.AddMember("StopTime", parse_json<int>::format(stopTime, m_values.GetAllocator()), m_values.GetAllocator());
+      setValue("StopTime", parse_json<int>::format(stopTime, m_values.GetAllocator()));
     }
 
 
@@ -170,7 +170,7 @@ namespace Sdx
 
     void SetMessageModificationToBeiDouD2Nav::setSubframe(int subframe)
     {
-      m_values.AddMember("Subframe", parse_json<int>::format(subframe, m_values.GetAllocator()), m_values.GetAllocator());
+      setValue("Subframe", parse_json<int>::format(subframe, m_values.GetAllocator()));
     }
 
 
@@ -182,7 +182,7 @@ namespace Sdx
 
     void SetMessageModificationToBeiDouD2Nav::setPage(int page)
     {
-      m_values.AddMember("Page", parse_json<int>::format(page, m_values.GetAllocator()), m_values.GetAllocator());
+      setValue("Page", parse_json<int>::format(page, m_values.GetAllocator()));
     }
 
 
@@ -194,7 +194,7 @@ namespace Sdx
 
     void SetMessageModificationToBeiDouD2Nav::setWord(int word)
     {
-      m_values.AddMember("Word", parse_json<int>::format(word, m_values.GetAllocator()), m_values.GetAllocator());
+      setValue("Word", parse_json<int>::format(word, m_values.GetAllocator()));
     }
 
 
@@ -206,7 +206,7 @@ namespace Sdx
 
     void SetMessageModificationToBeiDouD2Nav::setUpdateParity(bool updateParity)
     {
-      m_values.AddMember("UpdateParity", parse_json<bool>::format(updateParity, m_values.GetAllocator()), m_values.GetAllocator());
+      setValue("UpdateParity", parse_json<bool>::format(updateParity, m_values.GetAllocator()));
     }
 
 
@@ -218,7 +218,7 @@ namespace Sdx
 
     void SetMessageModificationToBeiDouD2Nav::setWordModification(const std::string& wordModification)
     {
-      m_values.AddMember("WordModification", parse_json<std::string>::format(wordModification, m_values.GetAllocator()), m_values.GetAllocator());
+      setValue("WordModification", parse_json<std::string>::format(wordModification, m_values.GetAllocator()));
     }
 
 
@@ -230,7 +230,7 @@ namespace Sdx
 
     void SetMessageModificationToBeiDouD2Nav::setId(const std::string& id)
     {
-      m_values.AddMember("Id", parse_json<std::string>::format(id, m_values.GetAllocator()), m_values.GetAllocator());
+      setValue("Id", parse_json<std::string>::format(id, m_values.GetAllocator()));
     }
 
 

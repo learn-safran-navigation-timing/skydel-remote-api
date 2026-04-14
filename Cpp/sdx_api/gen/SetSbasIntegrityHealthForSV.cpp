@@ -79,7 +79,7 @@ namespace Sdx
 
     void SetSbasIntegrityHealthForSV::setSvId(int svId)
     {
-      m_values.AddMember("SvId", parse_json<int>::format(svId, m_values.GetAllocator()), m_values.GetAllocator());
+      setValue("SvId", parse_json<int>::format(svId, m_values.GetAllocator()));
     }
 
 
@@ -91,7 +91,7 @@ namespace Sdx
 
     void SetSbasIntegrityHealthForSV::setHealth(bool health)
     {
-      m_values.AddMember("Health", parse_json<bool>::format(health, m_values.GetAllocator()), m_values.GetAllocator());
+      setValue("Health", parse_json<bool>::format(health, m_values.GetAllocator()));
     }
 
 

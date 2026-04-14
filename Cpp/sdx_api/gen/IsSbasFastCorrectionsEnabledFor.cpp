@@ -80,7 +80,7 @@ namespace Sdx
 
     void IsSbasFastCorrectionsEnabledFor::setSystem(const std::string& system)
     {
-      m_values.AddMember("System", parse_json<std::string>::format(system, m_values.GetAllocator()), m_values.GetAllocator());
+      setValue("System", parse_json<std::string>::format(system, m_values.GetAllocator()));
     }
 
 
@@ -92,7 +92,7 @@ namespace Sdx
 
     void IsSbasFastCorrectionsEnabledFor::setErrorType(const std::optional<std::string>& errorType)
     {
-      m_values.AddMember("ErrorType", parse_json<std::optional<std::string>>::format(errorType, m_values.GetAllocator()), m_values.GetAllocator());
+      setValue("ErrorType", parse_json<std::optional<std::string>>::format(errorType, m_values.GetAllocator()));
     }
 
 

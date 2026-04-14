@@ -82,7 +82,7 @@ namespace Sdx
 
     void MessageSequenceSwap::setSignal(const std::string& signal)
     {
-      m_values.AddMember("Signal", parse_json<std::string>::format(signal, m_values.GetAllocator()), m_values.GetAllocator());
+      setValue("Signal", parse_json<std::string>::format(signal, m_values.GetAllocator()));
     }
 
 
@@ -94,7 +94,7 @@ namespace Sdx
 
     void MessageSequenceSwap::setIndexI(int indexI)
     {
-      m_values.AddMember("IndexI", parse_json<int>::format(indexI, m_values.GetAllocator()), m_values.GetAllocator());
+      setValue("IndexI", parse_json<int>::format(indexI, m_values.GetAllocator()));
     }
 
 
@@ -106,7 +106,7 @@ namespace Sdx
 
     void MessageSequenceSwap::setIndexJ(int indexJ)
     {
-      m_values.AddMember("IndexJ", parse_json<int>::format(indexJ, m_values.GetAllocator()), m_values.GetAllocator());
+      setValue("IndexJ", parse_json<int>::format(indexJ, m_values.GetAllocator()));
     }
 
 

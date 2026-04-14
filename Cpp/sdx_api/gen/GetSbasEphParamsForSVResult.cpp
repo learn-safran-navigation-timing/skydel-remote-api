@@ -89,7 +89,7 @@ namespace Sdx
 
     void GetSbasEphParamsForSVResult::setSvId(int svId)
     {
-      m_values.AddMember("SvId", parse_json<int>::format(svId, m_values.GetAllocator()), m_values.GetAllocator());
+      setValue("SvId", parse_json<int>::format(svId, m_values.GetAllocator()));
     }
 
 
@@ -101,7 +101,7 @@ namespace Sdx
 
     void GetSbasEphParamsForSVResult::setParamValueDict(const std::map<std::string, double>& paramValueDict)
     {
-      m_values.AddMember("ParamValueDict", parse_json<std::map<std::string, double>>::format(paramValueDict, m_values.GetAllocator()), m_values.GetAllocator());
+      setValue("ParamValueDict", parse_json<std::map<std::string, double>>::format(paramValueDict, m_values.GetAllocator()));
     }
 
 

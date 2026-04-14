@@ -88,7 +88,7 @@ namespace Sdx
 
     void SetEphemerisErrorForSV::setSystem(const std::string& system)
     {
-      m_values.AddMember("System", parse_json<std::string>::format(system, m_values.GetAllocator()), m_values.GetAllocator());
+      setValue("System", parse_json<std::string>::format(system, m_values.GetAllocator()));
     }
 
 
@@ -100,7 +100,7 @@ namespace Sdx
 
     void SetEphemerisErrorForSV::setSvId(int svId)
     {
-      m_values.AddMember("SvId", parse_json<int>::format(svId, m_values.GetAllocator()), m_values.GetAllocator());
+      setValue("SvId", parse_json<int>::format(svId, m_values.GetAllocator()));
     }
 
 
@@ -112,7 +112,7 @@ namespace Sdx
 
     void SetEphemerisErrorForSV::setOrbit(const Sdx::RIC& orbit)
     {
-      m_values.AddMember("Orbit", parse_json<Sdx::RIC>::format(orbit, m_values.GetAllocator()), m_values.GetAllocator());
+      setValue("Orbit", parse_json<Sdx::RIC>::format(orbit, m_values.GetAllocator()));
     }
 
 
@@ -124,7 +124,7 @@ namespace Sdx
 
     void SetEphemerisErrorForSV::setDeltaAf0(double deltaAf0)
     {
-      m_values.AddMember("DeltaAf0", parse_json<double>::format(deltaAf0, m_values.GetAllocator()), m_values.GetAllocator());
+      setValue("DeltaAf0", parse_json<double>::format(deltaAf0, m_values.GetAllocator()));
     }
 
 
@@ -136,7 +136,7 @@ namespace Sdx
 
     void SetEphemerisErrorForSV::setDeltaAf1(double deltaAf1)
     {
-      m_values.AddMember("DeltaAf1", parse_json<double>::format(deltaAf1, m_values.GetAllocator()), m_values.GetAllocator());
+      setValue("DeltaAf1", parse_json<double>::format(deltaAf1, m_values.GetAllocator()));
     }
 
 

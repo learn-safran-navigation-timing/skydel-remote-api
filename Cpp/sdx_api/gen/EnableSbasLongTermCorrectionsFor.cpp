@@ -79,7 +79,7 @@ namespace Sdx
 
     void EnableSbasLongTermCorrectionsFor::setSystem(const std::string& system)
     {
-      m_values.AddMember("System", parse_json<std::string>::format(system, m_values.GetAllocator()), m_values.GetAllocator());
+      setValue("System", parse_json<std::string>::format(system, m_values.GetAllocator()));
     }
 
 
@@ -91,7 +91,7 @@ namespace Sdx
 
     void EnableSbasLongTermCorrectionsFor::setIsEnabled(bool isEnabled)
     {
-      m_values.AddMember("IsEnabled", parse_json<bool>::format(isEnabled, m_values.GetAllocator()), m_values.GetAllocator());
+      setValue("IsEnabled", parse_json<bool>::format(isEnabled, m_values.GetAllocator()));
     }
 
 

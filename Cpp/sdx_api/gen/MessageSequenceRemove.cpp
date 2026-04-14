@@ -79,7 +79,7 @@ namespace Sdx
 
     void MessageSequenceRemove::setSignal(const std::string& signal)
     {
-      m_values.AddMember("Signal", parse_json<std::string>::format(signal, m_values.GetAllocator()), m_values.GetAllocator());
+      setValue("Signal", parse_json<std::string>::format(signal, m_values.GetAllocator()));
     }
 
 
@@ -91,7 +91,7 @@ namespace Sdx
 
     void MessageSequenceRemove::setIndex(int index)
     {
-      m_values.AddMember("Index", parse_json<int>::format(index, m_values.GetAllocator()), m_values.GetAllocator());
+      setValue("Index", parse_json<int>::format(index, m_values.GetAllocator()));
     }
 
 

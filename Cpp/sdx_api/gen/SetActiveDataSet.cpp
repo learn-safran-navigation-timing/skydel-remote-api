@@ -81,7 +81,7 @@ namespace Sdx
 
     void SetActiveDataSet::setSystem(const std::string& system)
     {
-      m_values.AddMember("System", parse_json<std::string>::format(system, m_values.GetAllocator()), m_values.GetAllocator());
+      setValue("System", parse_json<std::string>::format(system, m_values.GetAllocator()));
     }
 
 
@@ -93,7 +93,7 @@ namespace Sdx
 
     void SetActiveDataSet::setDataSetName(const std::string& dataSetName)
     {
-      m_values.AddMember("DataSetName", parse_json<std::string>::format(dataSetName, m_values.GetAllocator()), m_values.GetAllocator());
+      setValue("DataSetName", parse_json<std::string>::format(dataSetName, m_values.GetAllocator()));
     }
 
 

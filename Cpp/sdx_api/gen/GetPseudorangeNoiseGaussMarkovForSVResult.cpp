@@ -106,7 +106,7 @@ namespace Sdx
 
     void GetPseudorangeNoiseGaussMarkovForSVResult::setSystem(const std::string& system)
     {
-      m_values.AddMember("System", parse_json<std::string>::format(system, m_values.GetAllocator()), m_values.GetAllocator());
+      setValue("System", parse_json<std::string>::format(system, m_values.GetAllocator()));
     }
 
 
@@ -118,7 +118,7 @@ namespace Sdx
 
     void GetPseudorangeNoiseGaussMarkovForSVResult::setSvId(int svId)
     {
-      m_values.AddMember("SvId", parse_json<int>::format(svId, m_values.GetAllocator()), m_values.GetAllocator());
+      setValue("SvId", parse_json<int>::format(svId, m_values.GetAllocator()));
     }
 
 
@@ -130,7 +130,7 @@ namespace Sdx
 
     void GetPseudorangeNoiseGaussMarkovForSVResult::setProcess(int process)
     {
-      m_values.AddMember("Process", parse_json<int>::format(process, m_values.GetAllocator()), m_values.GetAllocator());
+      setValue("Process", parse_json<int>::format(process, m_values.GetAllocator()));
     }
 
 
@@ -142,7 +142,7 @@ namespace Sdx
 
     void GetPseudorangeNoiseGaussMarkovForSVResult::setEnabled(bool enabled)
     {
-      m_values.AddMember("Enabled", parse_json<bool>::format(enabled, m_values.GetAllocator()), m_values.GetAllocator());
+      setValue("Enabled", parse_json<bool>::format(enabled, m_values.GetAllocator()));
     }
 
 
@@ -154,7 +154,7 @@ namespace Sdx
 
     void GetPseudorangeNoiseGaussMarkovForSVResult::setSigma(double sigma)
     {
-      m_values.AddMember("Sigma", parse_json<double>::format(sigma, m_values.GetAllocator()), m_values.GetAllocator());
+      setValue("Sigma", parse_json<double>::format(sigma, m_values.GetAllocator()));
     }
 
 
@@ -166,7 +166,7 @@ namespace Sdx
 
     void GetPseudorangeNoiseGaussMarkovForSVResult::setTime(double time)
     {
-      m_values.AddMember("Time", parse_json<double>::format(time, m_values.GetAllocator()), m_values.GetAllocator());
+      setValue("Time", parse_json<double>::format(time, m_values.GetAllocator()));
     }
 
 
@@ -178,7 +178,7 @@ namespace Sdx
 
     void GetPseudorangeNoiseGaussMarkovForSVResult::setSeed(int seed)
     {
-      m_values.AddMember("Seed", parse_json<int>::format(seed, m_values.GetAllocator()), m_values.GetAllocator());
+      setValue("Seed", parse_json<int>::format(seed, m_values.GetAllocator()));
     }
 
 

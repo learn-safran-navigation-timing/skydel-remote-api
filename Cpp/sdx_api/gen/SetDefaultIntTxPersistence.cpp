@@ -76,7 +76,7 @@ namespace Sdx
 
     void SetDefaultIntTxPersistence::setDefaultValue(bool defaultValue)
     {
-      m_values.AddMember("DefaultValue", parse_json<bool>::format(defaultValue, m_values.GetAllocator()), m_values.GetAllocator());
+      setValue("DefaultValue", parse_json<bool>::format(defaultValue, m_values.GetAllocator()));
     }
 
 

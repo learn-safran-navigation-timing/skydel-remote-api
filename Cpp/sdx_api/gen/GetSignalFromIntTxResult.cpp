@@ -90,7 +90,7 @@ namespace Sdx
 
     void GetSignalFromIntTxResult::setIdTransmitter(const std::string& idTransmitter)
     {
-      m_values.AddMember("IdTransmitter", parse_json<std::string>::format(idTransmitter, m_values.GetAllocator()), m_values.GetAllocator());
+      setValue("IdTransmitter", parse_json<std::string>::format(idTransmitter, m_values.GetAllocator()));
     }
 
 
@@ -102,7 +102,7 @@ namespace Sdx
 
     void GetSignalFromIntTxResult::setSignalType(const std::string& signalType)
     {
-      m_values.AddMember("SignalType", parse_json<std::string>::format(signalType, m_values.GetAllocator()), m_values.GetAllocator());
+      setValue("SignalType", parse_json<std::string>::format(signalType, m_values.GetAllocator()));
     }
 
 
@@ -114,7 +114,7 @@ namespace Sdx
 
     void GetSignalFromIntTxResult::setIdsSignal(const std::vector<std::string>& idsSignal)
     {
-      m_values.AddMember("IdsSignal", parse_json<std::vector<std::string>>::format(idsSignal, m_values.GetAllocator()), m_values.GetAllocator());
+      setValue("IdsSignal", parse_json<std::vector<std::string>>::format(idsSignal, m_values.GetAllocator()));
     }
 
 

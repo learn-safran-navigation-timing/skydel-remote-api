@@ -76,7 +76,7 @@ namespace Sdx
 
     void SetHilTjoin::setHilTjoin(int hilTjoin)
     {
-      m_values.AddMember("HilTjoin", parse_json<int>::format(hilTjoin, m_values.GetAllocator()), m_values.GetAllocator());
+      setValue("HilTjoin", parse_json<int>::format(hilTjoin, m_values.GetAllocator()));
     }
 
 

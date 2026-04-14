@@ -106,7 +106,7 @@ namespace Sdx
 
     void SetIntTxBOC::setEnabled(bool enabled)
     {
-      m_values.AddMember("Enabled", parse_json<bool>::format(enabled, m_values.GetAllocator()), m_values.GetAllocator());
+      setValue("Enabled", parse_json<bool>::format(enabled, m_values.GetAllocator()));
     }
 
 
@@ -118,7 +118,7 @@ namespace Sdx
 
     void SetIntTxBOC::setCentralFreq(double centralFreq)
     {
-      m_values.AddMember("CentralFreq", parse_json<double>::format(centralFreq, m_values.GetAllocator()), m_values.GetAllocator());
+      setValue("CentralFreq", parse_json<double>::format(centralFreq, m_values.GetAllocator()));
     }
 
 
@@ -130,7 +130,7 @@ namespace Sdx
 
     void SetIntTxBOC::setPower(double power)
     {
-      m_values.AddMember("Power", parse_json<double>::format(power, m_values.GetAllocator()), m_values.GetAllocator());
+      setValue("Power", parse_json<double>::format(power, m_values.GetAllocator()));
     }
 
 
@@ -142,7 +142,7 @@ namespace Sdx
 
     void SetIntTxBOC::setCodeRate(int codeRate)
     {
-      m_values.AddMember("CodeRate", parse_json<int>::format(codeRate, m_values.GetAllocator()), m_values.GetAllocator());
+      setValue("CodeRate", parse_json<int>::format(codeRate, m_values.GetAllocator()));
     }
 
 
@@ -154,7 +154,7 @@ namespace Sdx
 
     void SetIntTxBOC::setCodeLengthMs(int codeLengthMs)
     {
-      m_values.AddMember("CodeLengthMs", parse_json<int>::format(codeLengthMs, m_values.GetAllocator()), m_values.GetAllocator());
+      setValue("CodeLengthMs", parse_json<int>::format(codeLengthMs, m_values.GetAllocator()));
     }
 
 
@@ -166,7 +166,7 @@ namespace Sdx
 
     void SetIntTxBOC::setSubCarrierRate(int subCarrierRate)
     {
-      m_values.AddMember("SubCarrierRate", parse_json<int>::format(subCarrierRate, m_values.GetAllocator()), m_values.GetAllocator());
+      setValue("SubCarrierRate", parse_json<int>::format(subCarrierRate, m_values.GetAllocator()));
     }
 
 
@@ -178,7 +178,7 @@ namespace Sdx
 
     void SetIntTxBOC::setCosinePhaseBoc(bool cosinePhaseBoc)
     {
-      m_values.AddMember("CosinePhaseBoc", parse_json<bool>::format(cosinePhaseBoc, m_values.GetAllocator()), m_values.GetAllocator());
+      setValue("CosinePhaseBoc", parse_json<bool>::format(cosinePhaseBoc, m_values.GetAllocator()));
     }
 
 
@@ -190,7 +190,7 @@ namespace Sdx
 
     void SetIntTxBOC::setTransmitterId(const std::string& transmitterId)
     {
-      m_values.AddMember("TransmitterId", parse_json<std::string>::format(transmitterId, m_values.GetAllocator()), m_values.GetAllocator());
+      setValue("TransmitterId", parse_json<std::string>::format(transmitterId, m_values.GetAllocator()));
     }
 
 
@@ -202,7 +202,7 @@ namespace Sdx
 
     void SetIntTxBOC::setSignalId(const std::string& signalId)
     {
-      m_values.AddMember("SignalId", parse_json<std::string>::format(signalId, m_values.GetAllocator()), m_values.GetAllocator());
+      setValue("SignalId", parse_json<std::string>::format(signalId, m_values.GetAllocator()));
     }
 
 
@@ -214,7 +214,7 @@ namespace Sdx
 
     void SetIntTxBOC::setGroup(const std::optional<int>& group)
     {
-      m_values.AddMember("Group", parse_json<std::optional<int>>::format(group, m_values.GetAllocator()), m_values.GetAllocator());
+      setValue("Group", parse_json<std::optional<int>>::format(group, m_values.GetAllocator()));
     }
 
 
@@ -226,7 +226,7 @@ namespace Sdx
 
     void SetIntTxBOC::setPrn(const std::optional<int>& prn)
     {
-      m_values.AddMember("Prn", parse_json<std::optional<int>>::format(prn, m_values.GetAllocator()), m_values.GetAllocator());
+      setValue("Prn", parse_json<std::optional<int>>::format(prn, m_values.GetAllocator()));
     }
 
 

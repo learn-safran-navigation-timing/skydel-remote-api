@@ -94,7 +94,7 @@ namespace Sdx
 
     void GetSlaveStatusResult::setIsSlave(bool isSlave)
     {
-      m_values.AddMember("IsSlave", parse_json<bool>::format(isSlave, m_values.GetAllocator()), m_values.GetAllocator());
+      setValue("IsSlave", parse_json<bool>::format(isSlave, m_values.GetAllocator()));
     }
 
 
@@ -106,7 +106,7 @@ namespace Sdx
 
     void GetSlaveStatusResult::setIsConnected(bool isConnected)
     {
-      m_values.AddMember("IsConnected", parse_json<bool>::format(isConnected, m_values.GetAllocator()), m_values.GetAllocator());
+      setValue("IsConnected", parse_json<bool>::format(isConnected, m_values.GetAllocator()));
     }
 
 
@@ -118,7 +118,7 @@ namespace Sdx
 
     void GetSlaveStatusResult::setHostName(const std::string& hostName)
     {
-      m_values.AddMember("HostName", parse_json<std::string>::format(hostName, m_values.GetAllocator()), m_values.GetAllocator());
+      setValue("HostName", parse_json<std::string>::format(hostName, m_values.GetAllocator()));
     }
 
 
@@ -130,7 +130,7 @@ namespace Sdx
 
     void GetSlaveStatusResult::setHostPort(int hostPort)
     {
-      m_values.AddMember("HostPort", parse_json<int>::format(hostPort, m_values.GetAllocator()), m_values.GetAllocator());
+      setValue("HostPort", parse_json<int>::format(hostPort, m_values.GetAllocator()));
     }
 
 

@@ -100,7 +100,7 @@ namespace Sdx
 
     void SetPerturbations::setSystem(const std::string& system)
     {
-      m_values.AddMember("System", parse_json<std::string>::format(system, m_values.GetAllocator()), m_values.GetAllocator());
+      setValue("System", parse_json<std::string>::format(system, m_values.GetAllocator()));
     }
 
 
@@ -112,7 +112,7 @@ namespace Sdx
 
     void SetPerturbations::setSvId(int svId)
     {
-      m_values.AddMember("SvId", parse_json<int>::format(svId, m_values.GetAllocator()), m_values.GetAllocator());
+      setValue("SvId", parse_json<int>::format(svId, m_values.GetAllocator()));
     }
 
 
@@ -124,7 +124,7 @@ namespace Sdx
 
     void SetPerturbations::setCrs(double crs)
     {
-      m_values.AddMember("Crs", parse_json<double>::format(crs, m_values.GetAllocator()), m_values.GetAllocator());
+      setValue("Crs", parse_json<double>::format(crs, m_values.GetAllocator()));
     }
 
 
@@ -136,7 +136,7 @@ namespace Sdx
 
     void SetPerturbations::setCrc(double crc)
     {
-      m_values.AddMember("Crc", parse_json<double>::format(crc, m_values.GetAllocator()), m_values.GetAllocator());
+      setValue("Crc", parse_json<double>::format(crc, m_values.GetAllocator()));
     }
 
 
@@ -148,7 +148,7 @@ namespace Sdx
 
     void SetPerturbations::setCis(double cis)
     {
-      m_values.AddMember("Cis", parse_json<double>::format(cis, m_values.GetAllocator()), m_values.GetAllocator());
+      setValue("Cis", parse_json<double>::format(cis, m_values.GetAllocator()));
     }
 
 
@@ -160,7 +160,7 @@ namespace Sdx
 
     void SetPerturbations::setCic(double cic)
     {
-      m_values.AddMember("Cic", parse_json<double>::format(cic, m_values.GetAllocator()), m_values.GetAllocator());
+      setValue("Cic", parse_json<double>::format(cic, m_values.GetAllocator()));
     }
 
 
@@ -172,7 +172,7 @@ namespace Sdx
 
     void SetPerturbations::setCus(double cus)
     {
-      m_values.AddMember("Cus", parse_json<double>::format(cus, m_values.GetAllocator()), m_values.GetAllocator());
+      setValue("Cus", parse_json<double>::format(cus, m_values.GetAllocator()));
     }
 
 
@@ -184,7 +184,7 @@ namespace Sdx
 
     void SetPerturbations::setCuc(double cuc)
     {
-      m_values.AddMember("Cuc", parse_json<double>::format(cuc, m_values.GetAllocator()), m_values.GetAllocator());
+      setValue("Cuc", parse_json<double>::format(cuc, m_values.GetAllocator()));
     }
 
 
@@ -196,7 +196,7 @@ namespace Sdx
 
     void SetPerturbations::setDataSetName(const std::optional<std::string>& dataSetName)
     {
-      m_values.AddMember("DataSetName", parse_json<std::optional<std::string>>::format(dataSetName, m_values.GetAllocator()), m_values.GetAllocator());
+      setValue("DataSetName", parse_json<std::optional<std::string>>::format(dataSetName, m_values.GetAllocator()));
     }
 
 

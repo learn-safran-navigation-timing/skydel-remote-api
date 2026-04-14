@@ -86,7 +86,7 @@ namespace Sdx
 
     void GetEncryptionLibraryPathResult::setType(const Sdx::EncryptionSignalType& type)
     {
-      m_values.AddMember("Type", parse_json<Sdx::EncryptionSignalType>::format(type, m_values.GetAllocator()), m_values.GetAllocator());
+      setValue("Type", parse_json<Sdx::EncryptionSignalType>::format(type, m_values.GetAllocator()));
     }
 
 
@@ -98,7 +98,7 @@ namespace Sdx
 
     void GetEncryptionLibraryPathResult::setPath(const std::string& path)
     {
-      m_values.AddMember("Path", parse_json<std::string>::format(path, m_values.GetAllocator()), m_values.GetAllocator());
+      setValue("Path", parse_json<std::string>::format(path, m_values.GetAllocator()));
     }
 
 

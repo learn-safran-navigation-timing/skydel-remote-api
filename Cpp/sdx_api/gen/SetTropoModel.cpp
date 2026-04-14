@@ -76,7 +76,7 @@ namespace Sdx
 
     void SetTropoModel::setModel(const std::string& model)
     {
-      m_values.AddMember("Model", parse_json<std::string>::format(model, m_values.GetAllocator()), m_values.GetAllocator());
+      setValue("Model", parse_json<std::string>::format(model, m_values.GetAllocator()));
     }
 
 

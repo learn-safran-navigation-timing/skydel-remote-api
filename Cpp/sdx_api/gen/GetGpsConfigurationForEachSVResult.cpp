@@ -86,7 +86,7 @@ namespace Sdx
 
     void GetGpsConfigurationForEachSVResult::setSvConfigs(const std::vector<int>& svConfigs)
     {
-      m_values.AddMember("SvConfigs", parse_json<std::vector<int>>::format(svConfigs, m_values.GetAllocator()), m_values.GetAllocator());
+      setValue("SvConfigs", parse_json<std::vector<int>>::format(svConfigs, m_values.GetAllocator()));
     }
 
 
@@ -98,7 +98,7 @@ namespace Sdx
 
     void GetGpsConfigurationForEachSVResult::setDataSetName(const std::optional<std::string>& dataSetName)
     {
-      m_values.AddMember("DataSetName", parse_json<std::optional<std::string>>::format(dataSetName, m_values.GetAllocator()), m_values.GetAllocator());
+      setValue("DataSetName", parse_json<std::optional<std::string>>::format(dataSetName, m_values.GetAllocator()));
     }
 
 

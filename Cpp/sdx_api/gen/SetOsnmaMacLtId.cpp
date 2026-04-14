@@ -77,7 +77,7 @@ namespace Sdx
 
     void SetOsnmaMacLtId::setMacLtId(int macLtId)
     {
-      m_values.AddMember("MacLtId", parse_json<int>::format(macLtId, m_values.GetAllocator()), m_values.GetAllocator());
+      setValue("MacLtId", parse_json<int>::format(macLtId, m_values.GetAllocator()));
     }
 
 

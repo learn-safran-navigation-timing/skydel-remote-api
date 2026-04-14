@@ -86,7 +86,7 @@ namespace Sdx
 
     void GetSbasMessagesEnabledResult::setMessages(const std::vector<int>& messages)
     {
-      m_values.AddMember("Messages", parse_json<std::vector<int>>::format(messages, m_values.GetAllocator()), m_values.GetAllocator());
+      setValue("Messages", parse_json<std::vector<int>>::format(messages, m_values.GetAllocator()));
     }
 
 
@@ -98,7 +98,7 @@ namespace Sdx
 
     void GetSbasMessagesEnabledResult::setServiceProvider(const std::optional<std::string>& serviceProvider)
     {
-      m_values.AddMember("ServiceProvider", parse_json<std::optional<std::string>>::format(serviceProvider, m_values.GetAllocator()), m_values.GetAllocator());
+      setValue("ServiceProvider", parse_json<std::optional<std::string>>::format(serviceProvider, m_values.GetAllocator()));
     }
 
 

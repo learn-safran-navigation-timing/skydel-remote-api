@@ -13,8 +13,8 @@ namespace Sdx
     /// Get infos about the SBAS service message region group at this index.
     ///
     /// Name            Type   Description
-    /// --------------- ------ -----------------------------------------------------------------------------------------
-    /// ServiceProvider string Service providers, accepts "WAAS", "EGNOS", "MSAS", "GAGAN", "SDCM", "BDSBAS" and "KASS".
+    /// --------------- ------ -------------------------------------------------------------------------------------------------
+    /// ServiceProvider string Service providers, accepts "WAAS", "EGNOS", "MSAS", "GAGAN", "SDCM", "BDSBAS", "KASS" and "SPAN".
     /// Id              string Unique identifier of the SBAS service message region group.
     ///
 

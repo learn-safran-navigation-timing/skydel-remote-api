@@ -79,7 +79,7 @@ namespace Sdx
 
     void ChangeModulationTargetName::setTargetName(const std::string& targetName)
     {
-      m_values.AddMember("TargetName", parse_json<std::string>::format(targetName, m_values.GetAllocator()), m_values.GetAllocator());
+      setValue("TargetName", parse_json<std::string>::format(targetName, m_values.GetAllocator()));
     }
 
 
@@ -91,7 +91,7 @@ namespace Sdx
 
     void ChangeModulationTargetName::setId(const std::string& id)
     {
-      m_values.AddMember("Id", parse_json<std::string>::format(id, m_values.GetAllocator()), m_values.GetAllocator());
+      setValue("Id", parse_json<std::string>::format(id, m_values.GetAllocator()));
     }
 
 

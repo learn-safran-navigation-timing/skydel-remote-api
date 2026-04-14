@@ -76,7 +76,7 @@ namespace Sdx
 
     void RemoveAllSignalsFromIntTx::setTransmitterId(const std::string& transmitterId)
     {
-      m_values.AddMember("TransmitterId", parse_json<std::string>::format(transmitterId, m_values.GetAllocator()), m_values.GetAllocator());
+      setValue("TransmitterId", parse_json<std::string>::format(transmitterId, m_values.GetAllocator()));
     }
 
 

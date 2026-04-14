@@ -14,8 +14,8 @@ namespace Sdx
     /// Get the SBAS degradation parameters for the specified service provider. By default, all degradation parameters are returned. If specific parameter names are provided, only those parameters are returned.
     ///
     /// Name                      Type         Description
-    /// ------------------------- ------------ -----------------------------------------------------------------------------------------
-    /// ServiceProvider           string       Service providers, accepts "WAAS", "EGNOS", "MSAS", "GAGAN", "SDCM", "BDSBAS" and "KASS".
+    /// ------------------------- ------------ -------------------------------------------------------------------------------------------------
+    /// ServiceProvider           string       Service providers, accepts "WAAS", "EGNOS", "MSAS", "GAGAN", "SDCM", "BDSBAS", "KASS" and "SPAN".
     /// DegradationParameterArray array string An array of degradationparameters.
     ///                                        Accepted values are: "BRRC", "CLTC_LSB", "CLTC_V1", "ILTC_V1", "CLTC_V0",
     ///                                                             "ILTC_V0", "CGEO_LSB", "CGEO_V", "IGEO", "CER",

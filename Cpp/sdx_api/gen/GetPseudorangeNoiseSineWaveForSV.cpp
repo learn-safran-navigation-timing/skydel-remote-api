@@ -82,7 +82,7 @@ namespace Sdx
 
     void GetPseudorangeNoiseSineWaveForSV::setSystem(const std::string& system)
     {
-      m_values.AddMember("System", parse_json<std::string>::format(system, m_values.GetAllocator()), m_values.GetAllocator());
+      setValue("System", parse_json<std::string>::format(system, m_values.GetAllocator()));
     }
 
 
@@ -94,7 +94,7 @@ namespace Sdx
 
     void GetPseudorangeNoiseSineWaveForSV::setSvId(int svId)
     {
-      m_values.AddMember("SvId", parse_json<int>::format(svId, m_values.GetAllocator()), m_values.GetAllocator());
+      setValue("SvId", parse_json<int>::format(svId, m_values.GetAllocator()));
     }
 
 
@@ -106,7 +106,7 @@ namespace Sdx
 
     void GetPseudorangeNoiseSineWaveForSV::setSineWave(int sineWave)
     {
-      m_values.AddMember("SineWave", parse_json<int>::format(sineWave, m_values.GetAllocator()), m_values.GetAllocator());
+      setValue("SineWave", parse_json<int>::format(sineWave, m_values.GetAllocator()));
     }
 
 

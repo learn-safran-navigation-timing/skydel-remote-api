@@ -82,7 +82,7 @@ namespace Sdx
 
     void GetStatusLogResult::setRecords(const std::vector<Sdx::LogRecord>& records)
     {
-      m_values.AddMember("Records", parse_json<std::vector<Sdx::LogRecord>>::format(records, m_values.GetAllocator()), m_values.GetAllocator());
+      setValue("Records", parse_json<std::vector<Sdx::LogRecord>>::format(records, m_values.GetAllocator()));
     }
 
 

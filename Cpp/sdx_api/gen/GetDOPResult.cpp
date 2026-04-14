@@ -94,7 +94,7 @@ namespace Sdx
 
     void GetDOPResult::setHorizontal(double horizontal)
     {
-      m_values.AddMember("Horizontal", parse_json<double>::format(horizontal, m_values.GetAllocator()), m_values.GetAllocator());
+      setValue("Horizontal", parse_json<double>::format(horizontal, m_values.GetAllocator()));
     }
 
 
@@ -106,7 +106,7 @@ namespace Sdx
 
     void GetDOPResult::setVertical(double vertical)
     {
-      m_values.AddMember("Vertical", parse_json<double>::format(vertical, m_values.GetAllocator()), m_values.GetAllocator());
+      setValue("Vertical", parse_json<double>::format(vertical, m_values.GetAllocator()));
     }
 
 
@@ -118,7 +118,7 @@ namespace Sdx
 
     void GetDOPResult::setTime(double time)
     {
-      m_values.AddMember("Time", parse_json<double>::format(time, m_values.GetAllocator()), m_values.GetAllocator());
+      setValue("Time", parse_json<double>::format(time, m_values.GetAllocator()));
     }
 
 
@@ -130,7 +130,7 @@ namespace Sdx
 
     void GetDOPResult::setPosition(double position)
     {
-      m_values.AddMember("Position", parse_json<double>::format(position, m_values.GetAllocator()), m_values.GetAllocator());
+      setValue("Position", parse_json<double>::format(position, m_values.GetAllocator()));
     }
 
 

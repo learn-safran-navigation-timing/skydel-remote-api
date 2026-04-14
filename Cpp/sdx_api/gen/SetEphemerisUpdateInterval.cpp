@@ -79,7 +79,7 @@ namespace Sdx
 
     void SetEphemerisUpdateInterval::setSystem(const std::string& system)
     {
-      m_values.AddMember("System", parse_json<std::string>::format(system, m_values.GetAllocator()), m_values.GetAllocator());
+      setValue("System", parse_json<std::string>::format(system, m_values.GetAllocator()));
     }
 
 
@@ -91,7 +91,7 @@ namespace Sdx
 
     void SetEphemerisUpdateInterval::setInterval(int interval)
     {
-      m_values.AddMember("Interval", parse_json<int>::format(interval, m_values.GetAllocator()), m_values.GetAllocator());
+      setValue("Interval", parse_json<int>::format(interval, m_values.GetAllocator()));
     }
 
 

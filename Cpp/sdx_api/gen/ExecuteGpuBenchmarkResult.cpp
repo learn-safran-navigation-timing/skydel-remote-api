@@ -82,7 +82,7 @@ namespace Sdx
 
     void ExecuteGpuBenchmarkResult::setScore(double score)
     {
-      m_values.AddMember("Score", parse_json<double>::format(score, m_values.GetAllocator()), m_values.GetAllocator());
+      setValue("Score", parse_json<double>::format(score, m_values.GetAllocator()));
     }
 
 

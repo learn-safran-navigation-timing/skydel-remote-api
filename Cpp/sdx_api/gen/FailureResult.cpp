@@ -82,7 +82,7 @@ namespace Sdx
 
     void FailureResult::setErrorMsg(const std::string& errorMsg)
     {
-      m_values.AddMember("ErrorMsg", parse_json<std::string>::format(errorMsg, m_values.GetAllocator()), m_values.GetAllocator());
+      setValue("ErrorMsg", parse_json<std::string>::format(errorMsg, m_values.GetAllocator()));
     }
 
 

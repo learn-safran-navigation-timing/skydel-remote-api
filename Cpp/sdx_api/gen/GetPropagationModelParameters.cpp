@@ -79,7 +79,7 @@ namespace Sdx
 
     void GetPropagationModelParameters::setModel(const Sdx::PropagationModelType& model)
     {
-      m_values.AddMember("Model", parse_json<Sdx::PropagationModelType>::format(model, m_values.GetAllocator()), m_values.GetAllocator());
+      setValue("Model", parse_json<Sdx::PropagationModelType>::format(model, m_values.GetAllocator()));
     }
 
 
@@ -91,7 +91,7 @@ namespace Sdx
 
     void GetPropagationModelParameters::setParamArray(const std::vector<std::string>& paramArray)
     {
-      m_values.AddMember("ParamArray", parse_json<std::vector<std::string>>::format(paramArray, m_values.GetAllocator()), m_values.GetAllocator());
+      setValue("ParamArray", parse_json<std::vector<std::string>>::format(paramArray, m_values.GetAllocator()));
     }
 
 

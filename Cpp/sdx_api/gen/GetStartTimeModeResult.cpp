@@ -82,7 +82,7 @@ namespace Sdx
 
     void GetStartTimeModeResult::setMode(const std::string& mode)
     {
-      m_values.AddMember("Mode", parse_json<std::string>::format(mode, m_values.GetAllocator()), m_values.GetAllocator());
+      setValue("Mode", parse_json<std::string>::format(mode, m_values.GetAllocator()));
     }
 
 

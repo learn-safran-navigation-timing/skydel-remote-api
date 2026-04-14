@@ -95,7 +95,7 @@ namespace Sdx
 
     void WaitSimulatorState::setState(const std::string& state)
     {
-      m_values.AddMember("State", parse_json<std::string>::format(state, m_values.GetAllocator()), m_values.GetAllocator());
+      setValue("State", parse_json<std::string>::format(state, m_values.GetAllocator()));
     }
 
 
@@ -107,7 +107,7 @@ namespace Sdx
 
     void WaitSimulatorState::setFailureState(const std::string& failureState)
     {
-      m_values.AddMember("FailureState", parse_json<std::string>::format(failureState, m_values.GetAllocator()), m_values.GetAllocator());
+      setValue("FailureState", parse_json<std::string>::format(failureState, m_values.GetAllocator()));
     }
 
 

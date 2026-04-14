@@ -86,7 +86,7 @@ namespace Sdx
 
     void GetPrnForEachSVResult::setSignal(const std::string& signal)
     {
-      m_values.AddMember("Signal", parse_json<std::string>::format(signal, m_values.GetAllocator()), m_values.GetAllocator());
+      setValue("Signal", parse_json<std::string>::format(signal, m_values.GetAllocator()));
     }
 
 
@@ -98,7 +98,7 @@ namespace Sdx
 
     void GetPrnForEachSVResult::setPrn(const std::vector<int>& prn)
     {
-      m_values.AddMember("Prn", parse_json<std::vector<int>>::format(prn, m_values.GetAllocator()), m_values.GetAllocator());
+      setValue("Prn", parse_json<std::vector<int>>::format(prn, m_values.GetAllocator()));
     }
 
 

@@ -85,7 +85,7 @@ namespace Sdx
 
     void ChangeModulationTargetIQPlayback::setOutput(int output)
     {
-      m_values.AddMember("Output", parse_json<int>::format(output, m_values.GetAllocator()), m_values.GetAllocator());
+      setValue("Output", parse_json<int>::format(output, m_values.GetAllocator()));
     }
 
 
@@ -97,7 +97,7 @@ namespace Sdx
 
     void ChangeModulationTargetIQPlayback::setFiles(const std::vector<std::string>& files)
     {
-      m_values.AddMember("Files", parse_json<std::vector<std::string>>::format(files, m_values.GetAllocator()), m_values.GetAllocator());
+      setValue("Files", parse_json<std::vector<std::string>>::format(files, m_values.GetAllocator()));
     }
 
 
@@ -109,7 +109,7 @@ namespace Sdx
 
     void ChangeModulationTargetIQPlayback::setGain(int gain)
     {
-      m_values.AddMember("Gain", parse_json<int>::format(gain, m_values.GetAllocator()), m_values.GetAllocator());
+      setValue("Gain", parse_json<int>::format(gain, m_values.GetAllocator()));
     }
 
 
@@ -121,7 +121,7 @@ namespace Sdx
 
     void ChangeModulationTargetIQPlayback::setId(const std::string& id)
     {
-      m_values.AddMember("Id", parse_json<std::string>::format(id, m_values.GetAllocator()), m_values.GetAllocator());
+      setValue("Id", parse_json<std::string>::format(id, m_values.GetAllocator()));
     }
 
 

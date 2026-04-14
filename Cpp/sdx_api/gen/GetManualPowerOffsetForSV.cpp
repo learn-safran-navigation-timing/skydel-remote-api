@@ -21,12 +21,12 @@ namespace Sdx
       "SvId        int          The satellite's SV ID.\n"
       "SignalArray array string An array of signals.\n"
       "                         Accepted values are: \"All\", \"L1CA\", \"L1C\", \"L1P\", \"L1ME\", \"L1MR\", \"L2C\", \"L2P\",\n"
-      "                                              \"L2ME\", \"L2MR\", \"L5\", \"G1\", \"G2\", \"E1\", \"E1PRS\", \"E5a\",\n"
-      "                                              \"E5b\", \"E6BC\", \"E6PRS\", \"B1\", \"B2\", \"B1C\", \"B2a\", \"B2b\",\n"
-      "                                              \"B3I\", \"SBASL1\", \"SBASL5\", \"QZSSL1CA\", \"QZSSL1CB\",\n"
-      "                                              \"QZSSL1C\", \"QZSSL2C\", \"QZSSL5\", \"QZSSL1S\", \"QZSSL5S\",\n"
-      "                                              \"QZSSL6\", \"NAVICL1\", \"NAVICL5\", \"NAVICS\", \"PULSARXL\",\n"
-      "                                              \"PULSARX1\" and \"PULSARX5\"";
+      "                                              \"L2ME\", \"L2MR\", \"L5\", \"G1\", \"G1P\", \"G2\", \"G2P\", \"E1\",\n"
+      "                                              \"E1PRS\", \"E5a\", \"E5b\", \"E6BC\", \"E6PRS\", \"B1\", \"B2\", \"B1C\",\n"
+      "                                              \"B2a\", \"B2b\", \"B3I\", \"SBASL1\", \"SBASL5\", \"QZSSL1CA\",\n"
+      "                                              \"QZSSL1CB\", \"QZSSL1C\", \"QZSSL2C\", \"QZSSL5\", \"QZSSL1S\",\n"
+      "                                              \"QZSSL5S\", \"QZSSL6\", \"NAVICL1\", \"NAVICL5\", \"NAVICS\",\n"
+      "                                              \"PULSARXL\", \"PULSARX1\" and \"PULSARX5\"";
     const char* const GetManualPowerOffsetForSV::TargetId = "";
 
     REGISTER_COMMAND_TO_FACTORY_DECL(GetManualPowerOffsetForSV);
@@ -89,7 +89,7 @@ namespace Sdx
 
     void GetManualPowerOffsetForSV::setSystem(const std::string& system)
     {
-      m_values.AddMember("System", parse_json<std::string>::format(system, m_values.GetAllocator()), m_values.GetAllocator());
+      setValue("System", parse_json<std::string>::format(system, m_values.GetAllocator()));
     }
 
 
@@ -101,7 +101,7 @@ namespace Sdx
 
     void GetManualPowerOffsetForSV::setSvId(int svId)
     {
-      m_values.AddMember("SvId", parse_json<int>::format(svId, m_values.GetAllocator()), m_values.GetAllocator());
+      setValue("SvId", parse_json<int>::format(svId, m_values.GetAllocator()));
     }
 
 
@@ -113,7 +113,7 @@ namespace Sdx
 
     void GetManualPowerOffsetForSV::setSignalArray(const std::vector<std::string>& signalArray)
     {
-      m_values.AddMember("SignalArray", parse_json<std::vector<std::string>>::format(signalArray, m_values.GetAllocator()), m_values.GetAllocator());
+      setValue("SignalArray", parse_json<std::vector<std::string>>::format(signalArray, m_values.GetAllocator()));
     }
 
 

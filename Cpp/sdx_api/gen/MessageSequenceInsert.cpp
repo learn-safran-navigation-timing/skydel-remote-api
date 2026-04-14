@@ -82,7 +82,7 @@ namespace Sdx
 
     void MessageSequenceInsert::setSignal(const std::string& signal)
     {
-      m_values.AddMember("Signal", parse_json<std::string>::format(signal, m_values.GetAllocator()), m_values.GetAllocator());
+      setValue("Signal", parse_json<std::string>::format(signal, m_values.GetAllocator()));
     }
 
 
@@ -94,7 +94,7 @@ namespace Sdx
 
     void MessageSequenceInsert::setIndex(int index)
     {
-      m_values.AddMember("Index", parse_json<int>::format(index, m_values.GetAllocator()), m_values.GetAllocator());
+      setValue("Index", parse_json<int>::format(index, m_values.GetAllocator()));
     }
 
 
@@ -106,7 +106,7 @@ namespace Sdx
 
     void MessageSequenceInsert::setType(int type)
     {
-      m_values.AddMember("Type", parse_json<int>::format(type, m_values.GetAllocator()), m_values.GetAllocator());
+      setValue("Type", parse_json<int>::format(type, m_values.GetAllocator()));
     }
 
 

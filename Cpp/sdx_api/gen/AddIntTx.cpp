@@ -93,7 +93,7 @@ namespace Sdx
 
     void AddIntTx::setUsualName(const std::string& usualName)
     {
-      m_values.AddMember("UsualName", parse_json<std::string>::format(usualName, m_values.GetAllocator()), m_values.GetAllocator());
+      setValue("UsualName", parse_json<std::string>::format(usualName, m_values.GetAllocator()));
     }
 
 
@@ -105,7 +105,7 @@ namespace Sdx
 
     void AddIntTx::setEnabled(bool enabled)
     {
-      m_values.AddMember("Enabled", parse_json<bool>::format(enabled, m_values.GetAllocator()), m_values.GetAllocator());
+      setValue("Enabled", parse_json<bool>::format(enabled, m_values.GetAllocator()));
     }
 
 
@@ -117,7 +117,7 @@ namespace Sdx
 
     void AddIntTx::setGroup(int group)
     {
-      m_values.AddMember("Group", parse_json<int>::format(group, m_values.GetAllocator()), m_values.GetAllocator());
+      setValue("Group", parse_json<int>::format(group, m_values.GetAllocator()));
     }
 
 
@@ -129,7 +129,7 @@ namespace Sdx
 
     void AddIntTx::setDynamic(bool dynamic)
     {
-      m_values.AddMember("Dynamic", parse_json<bool>::format(dynamic, m_values.GetAllocator()), m_values.GetAllocator());
+      setValue("Dynamic", parse_json<bool>::format(dynamic, m_values.GetAllocator()));
     }
 
 
@@ -141,7 +141,7 @@ namespace Sdx
 
     void AddIntTx::setPower(double power)
     {
-      m_values.AddMember("Power", parse_json<double>::format(power, m_values.GetAllocator()), m_values.GetAllocator());
+      setValue("Power", parse_json<double>::format(power, m_values.GetAllocator()));
     }
 
 
@@ -153,7 +153,7 @@ namespace Sdx
 
     void AddIntTx::setId(const std::string& id)
     {
-      m_values.AddMember("Id", parse_json<std::string>::format(id, m_values.GetAllocator()), m_values.GetAllocator());
+      setValue("Id", parse_json<std::string>::format(id, m_values.GetAllocator()));
     }
 
 

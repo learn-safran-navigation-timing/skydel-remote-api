@@ -16,8 +16,8 @@ namespace Sdx
     const char* const ClearAllSbasServiceMessageRegionGroup::Documentation = "Clears all SBAS service message region group for this service provider.\n"
       "\n"
       "Name            Type   Description\n"
-      "--------------- ------ -----------------------------------------------------------------------------------------\n"
-      "ServiceProvider string Service providers, accepts \"WAAS\", \"EGNOS\", \"MSAS\", \"GAGAN\", \"SDCM\", \"BDSBAS\" and \"KASS\".";
+      "--------------- ------ -------------------------------------------------------------------------------------------------\n"
+      "ServiceProvider string Service providers, accepts \"WAAS\", \"EGNOS\", \"MSAS\", \"GAGAN\", \"SDCM\", \"BDSBAS\", \"KASS\" and \"SPAN\".";
     const char* const ClearAllSbasServiceMessageRegionGroup::TargetId = "";
 
     REGISTER_COMMAND_TO_FACTORY_DECL(ClearAllSbasServiceMessageRegionGroup);
@@ -76,7 +76,7 @@ namespace Sdx
 
     void ClearAllSbasServiceMessageRegionGroup::setServiceProvider(const std::string& serviceProvider)
     {
-      m_values.AddMember("ServiceProvider", parse_json<std::string>::format(serviceProvider, m_values.GetAllocator()), m_values.GetAllocator());
+      setValue("ServiceProvider", parse_json<std::string>::format(serviceProvider, m_values.GetAllocator()));
     }
 
 

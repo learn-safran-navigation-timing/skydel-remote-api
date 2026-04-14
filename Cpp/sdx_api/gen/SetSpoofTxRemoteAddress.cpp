@@ -83,7 +83,7 @@ namespace Sdx
 
     void SetSpoofTxRemoteAddress::setAddress(const std::string& address)
     {
-      m_values.AddMember("Address", parse_json<std::string>::format(address, m_values.GetAllocator()), m_values.GetAllocator());
+      setValue("Address", parse_json<std::string>::format(address, m_values.GetAllocator()));
     }
 
 
@@ -95,7 +95,7 @@ namespace Sdx
 
     void SetSpoofTxRemoteAddress::setInstanceId(int instanceId)
     {
-      m_values.AddMember("InstanceId", parse_json<int>::format(instanceId, m_values.GetAllocator()), m_values.GetAllocator());
+      setValue("InstanceId", parse_json<int>::format(instanceId, m_values.GetAllocator()));
     }
 
 
@@ -107,7 +107,7 @@ namespace Sdx
 
     void SetSpoofTxRemoteAddress::setId(const std::string& id)
     {
-      m_values.AddMember("Id", parse_json<std::string>::format(id, m_values.GetAllocator()), m_values.GetAllocator());
+      setValue("Id", parse_json<std::string>::format(id, m_values.GetAllocator()));
     }
 
 

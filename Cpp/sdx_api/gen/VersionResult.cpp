@@ -82,7 +82,7 @@ namespace Sdx
 
     void VersionResult::setVersion(const std::string& version)
     {
-      m_values.AddMember("Version", parse_json<std::string>::format(version, m_values.GetAllocator()), m_values.GetAllocator());
+      setValue("Version", parse_json<std::string>::format(version, m_values.GetAllocator()));
     }
 
 

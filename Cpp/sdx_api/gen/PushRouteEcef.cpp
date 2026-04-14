@@ -85,7 +85,7 @@ namespace Sdx
 
     void PushRouteEcef::setSpeed(double speed)
     {
-      m_values.AddMember("Speed", parse_json<double>::format(speed, m_values.GetAllocator()), m_values.GetAllocator());
+      setValue("Speed", parse_json<double>::format(speed, m_values.GetAllocator()));
     }
 
 
@@ -97,7 +97,7 @@ namespace Sdx
 
     void PushRouteEcef::setX(double x)
     {
-      m_values.AddMember("X", parse_json<double>::format(x, m_values.GetAllocator()), m_values.GetAllocator());
+      setValue("X", parse_json<double>::format(x, m_values.GetAllocator()));
     }
 
 
@@ -109,7 +109,7 @@ namespace Sdx
 
     void PushRouteEcef::setY(double y)
     {
-      m_values.AddMember("Y", parse_json<double>::format(y, m_values.GetAllocator()), m_values.GetAllocator());
+      setValue("Y", parse_json<double>::format(y, m_values.GetAllocator()));
     }
 
 
@@ -121,7 +121,7 @@ namespace Sdx
 
     void PushRouteEcef::setZ(double z)
     {
-      m_values.AddMember("Z", parse_json<double>::format(z, m_values.GetAllocator()), m_values.GetAllocator());
+      setValue("Z", parse_json<double>::format(z, m_values.GetAllocator()));
     }
 
 

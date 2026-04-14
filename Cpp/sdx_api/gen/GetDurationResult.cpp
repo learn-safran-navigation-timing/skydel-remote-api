@@ -82,7 +82,7 @@ namespace Sdx
 
     void GetDurationResult::setSecond(int second)
     {
-      m_values.AddMember("Second", parse_json<int>::format(second, m_values.GetAllocator()), m_values.GetAllocator());
+      setValue("Second", parse_json<int>::format(second, m_values.GetAllocator()));
     }
 
 

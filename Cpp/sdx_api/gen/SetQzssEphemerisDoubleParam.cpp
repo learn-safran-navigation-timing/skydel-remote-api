@@ -95,7 +95,7 @@ namespace Sdx
 
     void SetQzssEphemerisDoubleParam::setSvId(int svId)
     {
-      m_values.AddMember("SvId", parse_json<int>::format(svId, m_values.GetAllocator()), m_values.GetAllocator());
+      setValue("SvId", parse_json<int>::format(svId, m_values.GetAllocator()));
     }
 
 
@@ -107,7 +107,7 @@ namespace Sdx
 
     void SetQzssEphemerisDoubleParam::setParamName(const std::string& paramName)
     {
-      m_values.AddMember("ParamName", parse_json<std::string>::format(paramName, m_values.GetAllocator()), m_values.GetAllocator());
+      setValue("ParamName", parse_json<std::string>::format(paramName, m_values.GetAllocator()));
     }
 
 
@@ -119,7 +119,7 @@ namespace Sdx
 
     void SetQzssEphemerisDoubleParam::setVal(double val)
     {
-      m_values.AddMember("Val", parse_json<double>::format(val, m_values.GetAllocator()), m_values.GetAllocator());
+      setValue("Val", parse_json<double>::format(val, m_values.GetAllocator()));
     }
 
 
@@ -131,7 +131,7 @@ namespace Sdx
 
     void SetQzssEphemerisDoubleParam::setDataSetName(const std::optional<std::string>& dataSetName)
     {
-      m_values.AddMember("DataSetName", parse_json<std::optional<std::string>>::format(dataSetName, m_values.GetAllocator()), m_values.GetAllocator());
+      setValue("DataSetName", parse_json<std::optional<std::string>>::format(dataSetName, m_values.GetAllocator()));
     }
 
 

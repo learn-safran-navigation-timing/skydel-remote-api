@@ -86,7 +86,7 @@ namespace Sdx
 
     void GetUdreiForEachSVResult::setSystem(const std::string& system)
     {
-      m_values.AddMember("System", parse_json<std::string>::format(system, m_values.GetAllocator()), m_values.GetAllocator());
+      setValue("System", parse_json<std::string>::format(system, m_values.GetAllocator()));
     }
 
 
@@ -98,7 +98,7 @@ namespace Sdx
 
     void GetUdreiForEachSVResult::setUdreis(const std::vector<int>& udreis)
     {
-      m_values.AddMember("Udreis", parse_json<std::vector<int>>::format(udreis, m_values.GetAllocator()), m_values.GetAllocator());
+      setValue("Udreis", parse_json<std::vector<int>>::format(udreis, m_values.GetAllocator()));
     }
 
 

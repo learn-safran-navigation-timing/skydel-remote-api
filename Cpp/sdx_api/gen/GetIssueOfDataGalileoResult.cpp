@@ -90,7 +90,7 @@ namespace Sdx
 
     void GetIssueOfDataGalileoResult::setNavigation(int navigation)
     {
-      m_values.AddMember("Navigation", parse_json<int>::format(navigation, m_values.GetAllocator()), m_values.GetAllocator());
+      setValue("Navigation", parse_json<int>::format(navigation, m_values.GetAllocator()));
     }
 
 
@@ -102,7 +102,7 @@ namespace Sdx
 
     void GetIssueOfDataGalileoResult::setAlmanac(int almanac)
     {
-      m_values.AddMember("Almanac", parse_json<int>::format(almanac, m_values.GetAllocator()), m_values.GetAllocator());
+      setValue("Almanac", parse_json<int>::format(almanac, m_values.GetAllocator()));
     }
 
 
@@ -114,7 +114,7 @@ namespace Sdx
 
     void GetIssueOfDataGalileoResult::setOverrideRinex(const std::optional<bool>& overrideRinex)
     {
-      m_values.AddMember("OverrideRinex", parse_json<std::optional<bool>>::format(overrideRinex, m_values.GetAllocator()), m_values.GetAllocator());
+      setValue("OverrideRinex", parse_json<std::optional<bool>>::format(overrideRinex, m_values.GetAllocator()));
     }
 
 

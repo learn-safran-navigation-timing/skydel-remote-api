@@ -110,7 +110,7 @@ namespace Sdx
 
     void GetPerturbationsForAllSatResult::setSystem(const std::string& system)
     {
-      m_values.AddMember("System", parse_json<std::string>::format(system, m_values.GetAllocator()), m_values.GetAllocator());
+      setValue("System", parse_json<std::string>::format(system, m_values.GetAllocator()));
     }
 
 
@@ -122,7 +122,7 @@ namespace Sdx
 
     void GetPerturbationsForAllSatResult::setCrs(const std::vector<double>& crs)
     {
-      m_values.AddMember("Crs", parse_json<std::vector<double>>::format(crs, m_values.GetAllocator()), m_values.GetAllocator());
+      setValue("Crs", parse_json<std::vector<double>>::format(crs, m_values.GetAllocator()));
     }
 
 
@@ -134,7 +134,7 @@ namespace Sdx
 
     void GetPerturbationsForAllSatResult::setCrc(const std::vector<double>& crc)
     {
-      m_values.AddMember("Crc", parse_json<std::vector<double>>::format(crc, m_values.GetAllocator()), m_values.GetAllocator());
+      setValue("Crc", parse_json<std::vector<double>>::format(crc, m_values.GetAllocator()));
     }
 
 
@@ -146,7 +146,7 @@ namespace Sdx
 
     void GetPerturbationsForAllSatResult::setCis(const std::vector<double>& cis)
     {
-      m_values.AddMember("Cis", parse_json<std::vector<double>>::format(cis, m_values.GetAllocator()), m_values.GetAllocator());
+      setValue("Cis", parse_json<std::vector<double>>::format(cis, m_values.GetAllocator()));
     }
 
 
@@ -158,7 +158,7 @@ namespace Sdx
 
     void GetPerturbationsForAllSatResult::setCic(const std::vector<double>& cic)
     {
-      m_values.AddMember("Cic", parse_json<std::vector<double>>::format(cic, m_values.GetAllocator()), m_values.GetAllocator());
+      setValue("Cic", parse_json<std::vector<double>>::format(cic, m_values.GetAllocator()));
     }
 
 
@@ -170,7 +170,7 @@ namespace Sdx
 
     void GetPerturbationsForAllSatResult::setCus(const std::vector<double>& cus)
     {
-      m_values.AddMember("Cus", parse_json<std::vector<double>>::format(cus, m_values.GetAllocator()), m_values.GetAllocator());
+      setValue("Cus", parse_json<std::vector<double>>::format(cus, m_values.GetAllocator()));
     }
 
 
@@ -182,7 +182,7 @@ namespace Sdx
 
     void GetPerturbationsForAllSatResult::setCuc(const std::vector<double>& cuc)
     {
-      m_values.AddMember("Cuc", parse_json<std::vector<double>>::format(cuc, m_values.GetAllocator()), m_values.GetAllocator());
+      setValue("Cuc", parse_json<std::vector<double>>::format(cuc, m_values.GetAllocator()));
     }
 
 
@@ -194,7 +194,7 @@ namespace Sdx
 
     void GetPerturbationsForAllSatResult::setDataSetName(const std::optional<std::string>& dataSetName)
     {
-      m_values.AddMember("DataSetName", parse_json<std::optional<std::string>>::format(dataSetName, m_values.GetAllocator()), m_values.GetAllocator());
+      setValue("DataSetName", parse_json<std::optional<std::string>>::format(dataSetName, m_values.GetAllocator()));
     }
 
 

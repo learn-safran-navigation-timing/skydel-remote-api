@@ -82,7 +82,7 @@ namespace Sdx
 
     void GetEngineLatencyResult::setLatency(int latency)
     {
-      m_values.AddMember("Latency", parse_json<int>::format(latency, m_values.GetAllocator()), m_values.GetAllocator());
+      setValue("Latency", parse_json<int>::format(latency, m_values.GetAllocator()));
     }
 
 

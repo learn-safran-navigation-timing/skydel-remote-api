@@ -79,7 +79,7 @@ namespace Sdx
 
     void RenameVehicleAntennaModel::setName(const std::string& name)
     {
-      m_values.AddMember("Name", parse_json<std::string>::format(name, m_values.GetAllocator()), m_values.GetAllocator());
+      setValue("Name", parse_json<std::string>::format(name, m_values.GetAllocator()));
     }
 
 
@@ -91,7 +91,7 @@ namespace Sdx
 
     void RenameVehicleAntennaModel::setNewName(const std::string& newName)
     {
-      m_values.AddMember("NewName", parse_json<std::string>::format(newName, m_values.GetAllocator()), m_values.GetAllocator());
+      setValue("NewName", parse_json<std::string>::format(newName, m_values.GetAllocator()));
     }
 
 

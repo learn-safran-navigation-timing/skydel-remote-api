@@ -16,9 +16,9 @@ namespace Sdx
     const char* const GetCrossAuthenticatedSatellitesForSVResult::Documentation = "Result of GetCrossAuthenticatedSatellitesForSV.\n"
       "\n"
       "Name     Type      Description\n"
-      "-------- --------- -------------------------------------------------------------------\n"
+      "-------- --------- ------------------------------------------------------------------------------------------------------------------------------------------\n"
       "SvId     int       The satellite's SV ID (use 0 to apply on all Galileo's satellites).\n"
-      "SvIdList array int A list of the cross-authenticated satellites' SV IDs.";
+      "SvIdList array int A list of the cross-authenticated satellites' SV IDs. Set empty list to use default selection algorithm of cross-authenticated satellites.";
     const char* const GetCrossAuthenticatedSatellitesForSVResult::TargetId = "";
 
     REGISTER_COMMAND_TO_FACTORY_IMPL(GetCrossAuthenticatedSatellitesForSVResult);
@@ -86,7 +86,7 @@ namespace Sdx
 
     void GetCrossAuthenticatedSatellitesForSVResult::setSvId(int svId)
     {
-      m_values.AddMember("SvId", parse_json<int>::format(svId, m_values.GetAllocator()), m_values.GetAllocator());
+      setValue("SvId", parse_json<int>::format(svId, m_values.GetAllocator()));
     }
 
 
@@ -98,7 +98,7 @@ namespace Sdx
 
     void GetCrossAuthenticatedSatellitesForSVResult::setSvIdList(const std::vector<int>& svIdList)
     {
-      m_values.AddMember("SvIdList", parse_json<std::vector<int>>::format(svIdList, m_values.GetAllocator()), m_values.GetAllocator());
+      setValue("SvIdList", parse_json<std::vector<int>>::format(svIdList, m_values.GetAllocator()));
     }
 
 

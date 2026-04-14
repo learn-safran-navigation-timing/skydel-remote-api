@@ -76,7 +76,7 @@ namespace Sdx
 
     void SetWavefrontJamCalibrationState::setState(bool state)
     {
-      m_values.AddMember("State", parse_json<bool>::format(state, m_values.GetAllocator()), m_values.GetAllocator());
+      setValue("State", parse_json<bool>::format(state, m_values.GetAllocator()));
     }
 
 

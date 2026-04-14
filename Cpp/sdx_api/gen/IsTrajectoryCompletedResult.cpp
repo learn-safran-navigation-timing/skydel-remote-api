@@ -82,7 +82,7 @@ namespace Sdx
 
     void IsTrajectoryCompletedResult::setIsCompleted(bool isCompleted)
     {
-      m_values.AddMember("IsCompleted", parse_json<bool>::format(isCompleted, m_values.GetAllocator()), m_values.GetAllocator());
+      setValue("IsCompleted", parse_json<bool>::format(isCompleted, m_values.GetAllocator()));
     }
 
 

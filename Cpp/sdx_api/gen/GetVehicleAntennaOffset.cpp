@@ -72,7 +72,7 @@ namespace Sdx
 
     void GetVehicleAntennaOffset::setName(const std::optional<std::string>& name)
     {
-      m_values.AddMember("Name", parse_json<std::optional<std::string>>::format(name, m_values.GetAllocator()), m_values.GetAllocator());
+      setValue("Name", parse_json<std::optional<std::string>>::format(name, m_values.GetAllocator()));
     }
 
 

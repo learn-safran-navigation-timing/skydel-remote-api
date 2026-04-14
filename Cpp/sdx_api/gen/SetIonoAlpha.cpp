@@ -83,7 +83,7 @@ namespace Sdx
 
     void SetIonoAlpha::setIndex(int index)
     {
-      m_values.AddMember("Index", parse_json<int>::format(index, m_values.GetAllocator()), m_values.GetAllocator());
+      setValue("Index", parse_json<int>::format(index, m_values.GetAllocator()));
     }
 
 
@@ -95,7 +95,7 @@ namespace Sdx
 
     void SetIonoAlpha::setVal(double val)
     {
-      m_values.AddMember("Val", parse_json<double>::format(val, m_values.GetAllocator()), m_values.GetAllocator());
+      setValue("Val", parse_json<double>::format(val, m_values.GetAllocator()));
     }
 
 

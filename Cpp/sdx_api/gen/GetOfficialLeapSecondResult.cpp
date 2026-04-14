@@ -82,7 +82,7 @@ namespace Sdx
 
     void GetOfficialLeapSecondResult::setLeapSecond(int leapSecond)
     {
-      m_values.AddMember("LeapSecond", parse_json<int>::format(leapSecond, m_values.GetAllocator()), m_values.GetAllocator());
+      setValue("LeapSecond", parse_json<int>::format(leapSecond, m_values.GetAllocator()));
     }
 
 

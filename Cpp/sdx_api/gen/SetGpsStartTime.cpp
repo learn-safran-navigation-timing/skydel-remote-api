@@ -76,7 +76,7 @@ namespace Sdx
 
     void SetGpsStartTime::setStart(const Sdx::DateTime& start)
     {
-      m_values.AddMember("Start", parse_json<Sdx::DateTime>::format(start, m_values.GetAllocator()), m_values.GetAllocator());
+      setValue("Start", parse_json<Sdx::DateTime>::format(start, m_values.GetAllocator()));
     }
 
 

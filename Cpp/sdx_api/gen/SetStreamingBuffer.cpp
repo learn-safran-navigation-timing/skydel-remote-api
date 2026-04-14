@@ -76,7 +76,7 @@ namespace Sdx
 
     void SetStreamingBuffer::setSize(int size)
     {
-      m_values.AddMember("Size", parse_json<int>::format(size, m_values.GetAllocator()), m_values.GetAllocator());
+      setValue("Size", parse_json<int>::format(size, m_values.GetAllocator()));
     }
 
 

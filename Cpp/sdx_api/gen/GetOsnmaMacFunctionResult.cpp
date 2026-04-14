@@ -83,7 +83,7 @@ namespace Sdx
 
     void GetOsnmaMacFunctionResult::setMacFunction(const std::string& macFunction)
     {
-      m_values.AddMember("MacFunction", parse_json<std::string>::format(macFunction, m_values.GetAllocator()), m_values.GetAllocator());
+      setValue("MacFunction", parse_json<std::string>::format(macFunction, m_values.GetAllocator()));
     }
 
 

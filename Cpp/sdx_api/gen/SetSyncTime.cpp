@@ -77,7 +77,7 @@ namespace Sdx
 
     void SetSyncTime::setTime(double time)
     {
-      m_values.AddMember("Time", parse_json<double>::format(time, m_values.GetAllocator()), m_values.GetAllocator());
+      setValue("Time", parse_json<double>::format(time, m_values.GetAllocator()));
     }
 
 

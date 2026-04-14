@@ -76,7 +76,7 @@ namespace Sdx
 
     void SetCurrentPropagationModel::setModel(const Sdx::PropagationModelType& model)
     {
-      m_values.AddMember("Model", parse_json<Sdx::PropagationModelType>::format(model, m_values.GetAllocator()), m_values.GetAllocator());
+      setValue("Model", parse_json<Sdx::PropagationModelType>::format(model, m_values.GetAllocator()));
     }
 
 

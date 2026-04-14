@@ -131,7 +131,7 @@ namespace Sdx
 
     void PushDynamicSVData::setSystem(const std::string& system)
     {
-      m_values.AddMember("System", parse_json<std::string>::format(system, m_values.GetAllocator()), m_values.GetAllocator());
+      setValue("System", parse_json<std::string>::format(system, m_values.GetAllocator()));
     }
 
 
@@ -143,7 +143,7 @@ namespace Sdx
 
     void PushDynamicSVData::setSvId(int svId)
     {
-      m_values.AddMember("SvId", parse_json<int>::format(svId, m_values.GetAllocator()), m_values.GetAllocator());
+      setValue("SvId", parse_json<int>::format(svId, m_values.GetAllocator()));
     }
 
 
@@ -155,7 +155,7 @@ namespace Sdx
 
     void PushDynamicSVData::setToc(const Sdx::DateTime& toc)
     {
-      m_values.AddMember("Toc", parse_json<Sdx::DateTime>::format(toc, m_values.GetAllocator()), m_values.GetAllocator());
+      setValue("Toc", parse_json<Sdx::DateTime>::format(toc, m_values.GetAllocator()));
     }
 
 
@@ -167,7 +167,7 @@ namespace Sdx
 
     void PushDynamicSVData::setParametersDict(const std::map<std::string, double>& parametersDict)
     {
-      m_values.AddMember("ParametersDict", parse_json<std::map<std::string, double>>::format(parametersDict, m_values.GetAllocator()), m_values.GetAllocator());
+      setValue("ParametersDict", parse_json<std::map<std::string, double>>::format(parametersDict, m_values.GetAllocator()));
     }
 
 
@@ -179,7 +179,7 @@ namespace Sdx
 
     void PushDynamicSVData::setDataSetTypes(const std::optional<std::vector<std::string>>& dataSetTypes)
     {
-      m_values.AddMember("DataSetTypes", parse_json<std::optional<std::vector<std::string>>>::format(dataSetTypes, m_values.GetAllocator()), m_values.GetAllocator());
+      setValue("DataSetTypes", parse_json<std::optional<std::vector<std::string>>>::format(dataSetTypes, m_values.GetAllocator()));
     }
 
 

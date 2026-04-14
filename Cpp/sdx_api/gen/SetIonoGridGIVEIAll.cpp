@@ -79,7 +79,7 @@ namespace Sdx
 
     void SetIonoGridGIVEIAll::setGrid(const std::vector<std::vector<int>>& grid)
     {
-      m_values.AddMember("Grid", parse_json<std::vector<std::vector<int>>>::format(grid, m_values.GetAllocator()), m_values.GetAllocator());
+      setValue("Grid", parse_json<std::vector<std::vector<int>>>::format(grid, m_values.GetAllocator()));
     }
 
 
@@ -91,7 +91,7 @@ namespace Sdx
 
     void SetIonoGridGIVEIAll::setServiceProvider(const std::optional<std::string>& serviceProvider)
     {
-      m_values.AddMember("ServiceProvider", parse_json<std::optional<std::string>>::format(serviceProvider, m_values.GetAllocator()), m_values.GetAllocator());
+      setValue("ServiceProvider", parse_json<std::optional<std::string>>::format(serviceProvider, m_values.GetAllocator()));
     }
 
 

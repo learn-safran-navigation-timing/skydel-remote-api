@@ -85,7 +85,7 @@ namespace Sdx
 
     void SetIonoGridMask::setServiceProvider(const std::string& serviceProvider)
     {
-      m_values.AddMember("ServiceProvider", parse_json<std::string>::format(serviceProvider, m_values.GetAllocator()), m_values.GetAllocator());
+      setValue("ServiceProvider", parse_json<std::string>::format(serviceProvider, m_values.GetAllocator()));
     }
 
 
@@ -97,7 +97,7 @@ namespace Sdx
 
     void SetIonoGridMask::setBand(int band)
     {
-      m_values.AddMember("Band", parse_json<int>::format(band, m_values.GetAllocator()), m_values.GetAllocator());
+      setValue("Band", parse_json<int>::format(band, m_values.GetAllocator()));
     }
 
 
@@ -109,7 +109,7 @@ namespace Sdx
 
     void SetIonoGridMask::setPoint(int point)
     {
-      m_values.AddMember("Point", parse_json<int>::format(point, m_values.GetAllocator()), m_values.GetAllocator());
+      setValue("Point", parse_json<int>::format(point, m_values.GetAllocator()));
     }
 
 
@@ -121,7 +121,7 @@ namespace Sdx
 
     void SetIonoGridMask::setFlag(bool flag)
     {
-      m_values.AddMember("Flag", parse_json<bool>::format(flag, m_values.GetAllocator()), m_values.GetAllocator());
+      setValue("Flag", parse_json<bool>::format(flag, m_values.GetAllocator()));
     }
 
 

@@ -79,7 +79,7 @@ namespace Sdx
 
     void New::setDiscardCurrentConfig(bool discardCurrentConfig)
     {
-      m_values.AddMember("DiscardCurrentConfig", parse_json<bool>::format(discardCurrentConfig, m_values.GetAllocator()), m_values.GetAllocator());
+      setValue("DiscardCurrentConfig", parse_json<bool>::format(discardCurrentConfig, m_values.GetAllocator()));
     }
 
 
@@ -91,7 +91,7 @@ namespace Sdx
 
     void New::setLoadDefaultConfig(const std::optional<bool>& loadDefaultConfig)
     {
-      m_values.AddMember("LoadDefaultConfig", parse_json<std::optional<bool>>::format(loadDefaultConfig, m_values.GetAllocator()), m_values.GetAllocator());
+      setValue("LoadDefaultConfig", parse_json<std::optional<bool>>::format(loadDefaultConfig, m_values.GetAllocator()));
     }
 
 

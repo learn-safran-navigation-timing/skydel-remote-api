@@ -13,12 +13,13 @@ namespace Sdx
   namespace Cmd
   {
     const char* const SetCrossAuthenticatedSatellitesForSV::CmdName = "SetCrossAuthenticatedSatellitesForSV";
-    const char* const SetCrossAuthenticatedSatellitesForSV::Documentation = "Set the list of satellites that are cross-authenticated by the specified satellite.\n"
+    const char* const SetCrossAuthenticatedSatellitesForSV::Documentation = "Set the list of satellites that are cross-authenticated by the specified satellite. If the list is empty, the default selection algorithm is used. If non-empty, the list is fixed for the duration of the simulation.\n"
+      "The default selection algorithm selects the four closest satellites that do not provide OSNMA, ordered from nearest to farthest.\n"
       "\n"
       "Name     Type      Description\n"
-      "-------- --------- -------------------------------------------------------------------\n"
+      "-------- --------- ------------------------------------------------------------------------------------------------------------------------------------------\n"
       "SvId     int       The satellite's SV ID (use 0 to apply on all Galileo's satellites).\n"
-      "SvIdList array int A list of the cross-authenticated satellites' SV IDs.";
+      "SvIdList array int A list of the cross-authenticated satellites' SV IDs. Set empty list to use default selection algorithm of cross-authenticated satellites.";
     const char* const SetCrossAuthenticatedSatellitesForSV::TargetId = "";
 
     REGISTER_COMMAND_TO_FACTORY_DECL(SetCrossAuthenticatedSatellitesForSV);
@@ -79,7 +80,7 @@ namespace Sdx
 
     void SetCrossAuthenticatedSatellitesForSV::setSvId(int svId)
     {
-      m_values.AddMember("SvId", parse_json<int>::format(svId, m_values.GetAllocator()), m_values.GetAllocator());
+      setValue("SvId", parse_json<int>::format(svId, m_values.GetAllocator()));
     }
 
 
@@ -91,7 +92,7 @@ namespace Sdx
 
     void SetCrossAuthenticatedSatellitesForSV::setSvIdList(const std::vector<int>& svIdList)
     {
-      m_values.AddMember("SvIdList", parse_json<std::vector<int>>::format(svIdList, m_values.GetAllocator()), m_values.GetAllocator());
+      setValue("SvIdList", parse_json<std::vector<int>>::format(svIdList, m_values.GetAllocator()));
     }
 
 

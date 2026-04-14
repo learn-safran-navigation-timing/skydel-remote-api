@@ -79,7 +79,7 @@ namespace Sdx
 
     void GetVehiclePhasePatternOffset::setBand(const Sdx::GNSSBand& band)
     {
-      m_values.AddMember("Band", parse_json<Sdx::GNSSBand>::format(band, m_values.GetAllocator()), m_values.GetAllocator());
+      setValue("Band", parse_json<Sdx::GNSSBand>::format(band, m_values.GetAllocator()));
     }
 
 
@@ -91,7 +91,7 @@ namespace Sdx
 
     void GetVehiclePhasePatternOffset::setAntennaName(const std::optional<std::string>& antennaName)
     {
-      m_values.AddMember("AntennaName", parse_json<std::optional<std::string>>::format(antennaName, m_values.GetAllocator()), m_values.GetAllocator());
+      setValue("AntennaName", parse_json<std::optional<std::string>>::format(antennaName, m_values.GetAllocator()));
     }
 
 

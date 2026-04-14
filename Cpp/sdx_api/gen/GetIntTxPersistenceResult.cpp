@@ -86,7 +86,7 @@ namespace Sdx
 
     void GetIntTxPersistenceResult::setPersistence(bool persistence)
     {
-      m_values.AddMember("Persistence", parse_json<bool>::format(persistence, m_values.GetAllocator()), m_values.GetAllocator());
+      setValue("Persistence", parse_json<bool>::format(persistence, m_values.GetAllocator()));
     }
 
 
@@ -98,7 +98,7 @@ namespace Sdx
 
     void GetIntTxPersistenceResult::setId(const std::string& id)
     {
-      m_values.AddMember("Id", parse_json<std::string>::format(id, m_values.GetAllocator()), m_values.GetAllocator());
+      setValue("Id", parse_json<std::string>::format(id, m_values.GetAllocator()));
     }
 
 

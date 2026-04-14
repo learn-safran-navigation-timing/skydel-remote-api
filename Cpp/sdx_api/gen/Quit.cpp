@@ -76,7 +76,7 @@ namespace Sdx
 
     void Quit::setForceQuit(bool forceQuit)
     {
-      m_values.AddMember("ForceQuit", parse_json<bool>::format(forceQuit, m_values.GetAllocator()), m_values.GetAllocator());
+      setValue("ForceQuit", parse_json<bool>::format(forceQuit, m_values.GetAllocator()));
     }
 
 

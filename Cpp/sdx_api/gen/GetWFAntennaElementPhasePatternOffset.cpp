@@ -82,7 +82,7 @@ namespace Sdx
 
     void GetWFAntennaElementPhasePatternOffset::setElement(int element)
     {
-      m_values.AddMember("Element", parse_json<int>::format(element, m_values.GetAllocator()), m_values.GetAllocator());
+      setValue("Element", parse_json<int>::format(element, m_values.GetAllocator()));
     }
 
 

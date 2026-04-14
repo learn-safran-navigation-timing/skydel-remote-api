@@ -79,7 +79,7 @@ namespace Sdx
 
     void SaveAs::setPath(const std::string& path)
     {
-      m_values.AddMember("Path", parse_json<std::string>::format(path, m_values.GetAllocator()), m_values.GetAllocator());
+      setValue("Path", parse_json<std::string>::format(path, m_values.GetAllocator()));
     }
 
 
@@ -91,7 +91,7 @@ namespace Sdx
 
     void SaveAs::setOverwrite(bool overwrite)
     {
-      m_values.AddMember("Overwrite", parse_json<bool>::format(overwrite, m_values.GetAllocator()), m_values.GetAllocator());
+      setValue("Overwrite", parse_json<bool>::format(overwrite, m_values.GetAllocator()));
     }
 
 

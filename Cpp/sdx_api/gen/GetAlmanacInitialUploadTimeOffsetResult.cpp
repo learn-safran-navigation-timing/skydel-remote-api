@@ -86,7 +86,7 @@ namespace Sdx
 
     void GetAlmanacInitialUploadTimeOffsetResult::setSystem(const std::string& system)
     {
-      m_values.AddMember("System", parse_json<std::string>::format(system, m_values.GetAllocator()), m_values.GetAllocator());
+      setValue("System", parse_json<std::string>::format(system, m_values.GetAllocator()));
     }
 
 
@@ -98,7 +98,7 @@ namespace Sdx
 
     void GetAlmanacInitialUploadTimeOffsetResult::setOffset(int offset)
     {
-      m_values.AddMember("Offset", parse_json<int>::format(offset, m_values.GetAllocator()), m_values.GetAllocator());
+      setValue("Offset", parse_json<int>::format(offset, m_values.GetAllocator()));
     }
 
 

@@ -90,7 +90,7 @@ namespace Sdx
 
     void GetLeapSecondFutureResult::setEnabled(bool enabled)
     {
-      m_values.AddMember("Enabled", parse_json<bool>::format(enabled, m_values.GetAllocator()), m_values.GetAllocator());
+      setValue("Enabled", parse_json<bool>::format(enabled, m_values.GetAllocator()));
     }
 
 
@@ -102,7 +102,7 @@ namespace Sdx
 
     void GetLeapSecondFutureResult::setSeconds(int seconds)
     {
-      m_values.AddMember("Seconds", parse_json<int>::format(seconds, m_values.GetAllocator()), m_values.GetAllocator());
+      setValue("Seconds", parse_json<int>::format(seconds, m_values.GetAllocator()));
     }
 
 
@@ -114,7 +114,7 @@ namespace Sdx
 
     void GetLeapSecondFutureResult::setDate(const Sdx::Date& date)
     {
-      m_values.AddMember("Date", parse_json<Sdx::Date>::format(date, m_values.GetAllocator()), m_values.GetAllocator());
+      setValue("Date", parse_json<Sdx::Date>::format(date, m_values.GetAllocator()));
     }
 
 

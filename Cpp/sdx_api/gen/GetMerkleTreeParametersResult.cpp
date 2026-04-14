@@ -99,7 +99,7 @@ namespace Sdx
 
     void GetMerkleTreeParametersResult::setId(const std::string& id)
     {
-      m_values.AddMember("Id", parse_json<std::string>::format(id, m_values.GetAllocator()), m_values.GetAllocator());
+      setValue("Id", parse_json<std::string>::format(id, m_values.GetAllocator()));
     }
 
 
@@ -111,7 +111,7 @@ namespace Sdx
 
     void GetMerkleTreeParametersResult::setKeyType(const std::string& keyType)
     {
-      m_values.AddMember("KeyType", parse_json<std::string>::format(keyType, m_values.GetAllocator()), m_values.GetAllocator());
+      setValue("KeyType", parse_json<std::string>::format(keyType, m_values.GetAllocator()));
     }
 
 
@@ -123,7 +123,7 @@ namespace Sdx
 
     void GetMerkleTreeParametersResult::setHashFunction(const std::string& hashFunction)
     {
-      m_values.AddMember("HashFunction", parse_json<std::string>::format(hashFunction, m_values.GetAllocator()), m_values.GetAllocator());
+      setValue("HashFunction", parse_json<std::string>::format(hashFunction, m_values.GetAllocator()));
     }
 
 
@@ -135,7 +135,7 @@ namespace Sdx
 
     void GetMerkleTreeParametersResult::setBeginApplicability(const Sdx::DateTime& beginApplicability)
     {
-      m_values.AddMember("BeginApplicability", parse_json<Sdx::DateTime>::format(beginApplicability, m_values.GetAllocator()), m_values.GetAllocator());
+      setValue("BeginApplicability", parse_json<Sdx::DateTime>::format(beginApplicability, m_values.GetAllocator()));
     }
 
 
@@ -147,7 +147,7 @@ namespace Sdx
 
     void GetMerkleTreeParametersResult::setEndApplicability(const std::optional<Sdx::DateTime>& endApplicability)
     {
-      m_values.AddMember("EndApplicability", parse_json<std::optional<Sdx::DateTime>>::format(endApplicability, m_values.GetAllocator()), m_values.GetAllocator());
+      setValue("EndApplicability", parse_json<std::optional<Sdx::DateTime>>::format(endApplicability, m_values.GetAllocator()));
     }
 
 

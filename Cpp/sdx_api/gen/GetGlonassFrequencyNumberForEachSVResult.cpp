@@ -82,7 +82,7 @@ namespace Sdx
 
     void GetGlonassFrequencyNumberForEachSVResult::setFrequencyNumber(const std::vector<int>& frequencyNumber)
     {
-      m_values.AddMember("FrequencyNumber", parse_json<std::vector<int>>::format(frequencyNumber, m_values.GetAllocator()), m_values.GetAllocator());
+      setValue("FrequencyNumber", parse_json<std::vector<int>>::format(frequencyNumber, m_values.GetAllocator()));
     }
 
 

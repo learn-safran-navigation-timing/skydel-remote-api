@@ -86,7 +86,7 @@ namespace Sdx
 
     void GetAllSVAntennaNamesResult::setSystem(const std::string& system)
     {
-      m_values.AddMember("System", parse_json<std::string>::format(system, m_values.GetAllocator()), m_values.GetAllocator());
+      setValue("System", parse_json<std::string>::format(system, m_values.GetAllocator()));
     }
 
 
@@ -98,7 +98,7 @@ namespace Sdx
 
     void GetAllSVAntennaNamesResult::setAntennaNames(const std::vector<std::string>& antennaNames)
     {
-      m_values.AddMember("AntennaNames", parse_json<std::vector<std::string>>::format(antennaNames, m_values.GetAllocator()), m_values.GetAllocator());
+      setValue("AntennaNames", parse_json<std::vector<std::string>>::format(antennaNames, m_values.GetAllocator()));
     }
 
 

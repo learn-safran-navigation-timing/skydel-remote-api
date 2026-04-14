@@ -76,7 +76,7 @@ namespace Sdx
 
     void SetConfigBroadcastFilter::setFilter(const std::vector<Sdx::ConfigFilter>& filter)
     {
-      m_values.AddMember("Filter", parse_json<std::vector<Sdx::ConfigFilter>>::format(filter, m_values.GetAllocator()), m_values.GetAllocator());
+      setValue("Filter", parse_json<std::vector<Sdx::ConfigFilter>>::format(filter, m_values.GetAllocator()));
     }
 
 

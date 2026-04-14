@@ -102,7 +102,7 @@ namespace Sdx
 
     void GetQzssL1SAugmentationResult::setSystem(const std::string& system)
     {
-      m_values.AddMember("System", parse_json<std::string>::format(system, m_values.GetAllocator()), m_values.GetAllocator());
+      setValue("System", parse_json<std::string>::format(system, m_values.GetAllocator()));
     }
 
 
@@ -114,7 +114,7 @@ namespace Sdx
 
     void GetQzssL1SAugmentationResult::setPrn(int prn)
     {
-      m_values.AddMember("Prn", parse_json<int>::format(prn, m_values.GetAllocator()), m_values.GetAllocator());
+      setValue("Prn", parse_json<int>::format(prn, m_values.GetAllocator()));
     }
 
 
@@ -126,7 +126,7 @@ namespace Sdx
 
     void GetQzssL1SAugmentationResult::setAugmentIOD(bool augmentIOD)
     {
-      m_values.AddMember("AugmentIOD", parse_json<bool>::format(augmentIOD, m_values.GetAllocator()), m_values.GetAllocator());
+      setValue("AugmentIOD", parse_json<bool>::format(augmentIOD, m_values.GetAllocator()));
     }
 
 
@@ -138,7 +138,7 @@ namespace Sdx
 
     void GetQzssL1SAugmentationResult::setAugmentPRC(bool augmentPRC)
     {
-      m_values.AddMember("AugmentPRC", parse_json<bool>::format(augmentPRC, m_values.GetAllocator()), m_values.GetAllocator());
+      setValue("AugmentPRC", parse_json<bool>::format(augmentPRC, m_values.GetAllocator()));
     }
 
 
@@ -150,7 +150,7 @@ namespace Sdx
 
     void GetQzssL1SAugmentationResult::setPrc(double prc)
     {
-      m_values.AddMember("Prc", parse_json<double>::format(prc, m_values.GetAllocator()), m_values.GetAllocator());
+      setValue("Prc", parse_json<double>::format(prc, m_values.GetAllocator()));
     }
 
 
@@ -162,7 +162,7 @@ namespace Sdx
 
     void GetQzssL1SAugmentationResult::setId(const std::string& id)
     {
-      m_values.AddMember("Id", parse_json<std::string>::format(id, m_values.GetAllocator()), m_values.GetAllocator());
+      setValue("Id", parse_json<std::string>::format(id, m_values.GetAllocator()));
     }
 
 

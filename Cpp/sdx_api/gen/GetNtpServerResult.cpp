@@ -86,7 +86,7 @@ namespace Sdx
 
     void GetNtpServerResult::setAddress(const std::string& address)
     {
-      m_values.AddMember("Address", parse_json<std::string>::format(address, m_values.GetAllocator()), m_values.GetAllocator());
+      setValue("Address", parse_json<std::string>::format(address, m_values.GetAllocator()));
     }
 
 
@@ -98,7 +98,7 @@ namespace Sdx
 
     void GetNtpServerResult::setPort(const std::optional<int>& port)
     {
-      m_values.AddMember("Port", parse_json<std::optional<int>>::format(port, m_values.GetAllocator()), m_values.GetAllocator());
+      setValue("Port", parse_json<std::optional<int>>::format(port, m_values.GetAllocator()));
     }
 
 

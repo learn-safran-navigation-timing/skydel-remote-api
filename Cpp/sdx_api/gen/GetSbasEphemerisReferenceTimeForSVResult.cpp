@@ -86,7 +86,7 @@ namespace Sdx
 
     void GetSbasEphemerisReferenceTimeForSVResult::setSvId(int svId)
     {
-      m_values.AddMember("SvId", parse_json<int>::format(svId, m_values.GetAllocator()), m_values.GetAllocator());
+      setValue("SvId", parse_json<int>::format(svId, m_values.GetAllocator()));
     }
 
 
@@ -98,7 +98,7 @@ namespace Sdx
 
     void GetSbasEphemerisReferenceTimeForSVResult::setTime(const Sdx::DateTime& time)
     {
-      m_values.AddMember("Time", parse_json<Sdx::DateTime>::format(time, m_values.GetAllocator()), m_values.GetAllocator());
+      setValue("Time", parse_json<Sdx::DateTime>::format(time, m_values.GetAllocator()));
     }
 
 

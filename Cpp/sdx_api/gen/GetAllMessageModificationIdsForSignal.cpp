@@ -16,9 +16,9 @@ namespace Sdx
     const char* const GetAllMessageModificationIdsForSignal::Documentation = "Get all the message modification event's IDs for this signal and SV ID.\n"
       "\n"
       "Name   Type   Description\n"
-      "------ ------ ---------------------------------------------------------------------------------------------------------\n"
+      "------ ------ -------------------------------------------------------------------------------------------------------------------\n"
       "Signal string Signal key, accepted values : \"L1CA\", \"L1C\", \"L1P\", \"L1ME\", \"L1MR\", \"L2C\", \"L2P\", \"L2ME\", \"L2MR\", \"L5\",\n"
-      "                                            \"G1\", \"G2\", \"E1\", \"E5a\", \"E5b\", \"B1\", \"B2\", \"B2a\", \"B2b\", \"B1C\", \"B3I\",\n"
+      "                                            \"G1\", \"G1P\", \"G2\", \"G2P\", \"E1\", \"E5a\", \"E5b\", \"B1\", \"B2\", \"B2a\", \"B2b\", \"B1C\", \"B3I\",\n"
       "                                            \"QZSSL1CA\", \"QZSSL1CB\", \"QZSSL1S\", \"NAVICL5\", \"NAVICS\", \"SBASL1\", \"SBASL5\",\n"
       "                                            \"PULSARXL\", \"PULSARX1\" and \"PULSARX5\"\n"
       "SvId   int    The satellite's SV ID";
@@ -82,7 +82,7 @@ namespace Sdx
 
     void GetAllMessageModificationIdsForSignal::setSignal(const std::string& signal)
     {
-      m_values.AddMember("Signal", parse_json<std::string>::format(signal, m_values.GetAllocator()), m_values.GetAllocator());
+      setValue("Signal", parse_json<std::string>::format(signal, m_values.GetAllocator()));
     }
 
 
@@ -94,7 +94,7 @@ namespace Sdx
 
     void GetAllMessageModificationIdsForSignal::setSvId(int svId)
     {
-      m_values.AddMember("SvId", parse_json<int>::format(svId, m_values.GetAllocator()), m_values.GetAllocator());
+      setValue("SvId", parse_json<int>::format(svId, m_values.GetAllocator()));
     }
 
 

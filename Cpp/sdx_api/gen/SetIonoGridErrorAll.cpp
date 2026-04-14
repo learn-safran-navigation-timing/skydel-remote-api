@@ -76,7 +76,7 @@ namespace Sdx
 
     void SetIonoGridErrorAll::setGrid(const std::vector<std::vector<double>>& grid)
     {
-      m_values.AddMember("Grid", parse_json<std::vector<std::vector<double>>>::format(grid, m_values.GetAllocator()), m_values.GetAllocator());
+      setValue("Grid", parse_json<std::vector<std::vector<double>>>::format(grid, m_values.GetAllocator()));
     }
 
 

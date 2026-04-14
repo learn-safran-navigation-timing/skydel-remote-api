@@ -78,7 +78,7 @@ namespace Sdx
 
     void RandomizeSeedsForAllSatellitesPseudorangeNoiseGaussMarkov::setSystem(const std::string& system)
     {
-      m_values.AddMember("System", parse_json<std::string>::format(system, m_values.GetAllocator()), m_values.GetAllocator());
+      setValue("System", parse_json<std::string>::format(system, m_values.GetAllocator()));
     }
 
 

@@ -82,7 +82,7 @@ namespace Sdx
 
     void GetComputerSystemTimeSinceEpochAtPps0Result::setMilliseconds(double milliseconds)
     {
-      m_values.AddMember("Milliseconds", parse_json<double>::format(milliseconds, m_values.GetAllocator()), m_values.GetAllocator());
+      setValue("Milliseconds", parse_json<double>::format(milliseconds, m_values.GetAllocator()));
     }
 
 

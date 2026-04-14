@@ -90,7 +90,7 @@ namespace Sdx
 
     void GetMasterStatusResult::setIsMaster(bool isMaster)
     {
-      m_values.AddMember("IsMaster", parse_json<bool>::format(isMaster, m_values.GetAllocator()), m_values.GetAllocator());
+      setValue("IsMaster", parse_json<bool>::format(isMaster, m_values.GetAllocator()));
     }
 
 
@@ -102,7 +102,7 @@ namespace Sdx
 
     void GetMasterStatusResult::setSlaveConnected(int slaveConnected)
     {
-      m_values.AddMember("SlaveConnected", parse_json<int>::format(slaveConnected, m_values.GetAllocator()), m_values.GetAllocator());
+      setValue("SlaveConnected", parse_json<int>::format(slaveConnected, m_values.GetAllocator()));
     }
 
 
@@ -114,7 +114,7 @@ namespace Sdx
 
     void GetMasterStatusResult::setPort(int port)
     {
-      m_values.AddMember("Port", parse_json<int>::format(port, m_values.GetAllocator()), m_values.GetAllocator());
+      setValue("Port", parse_json<int>::format(port, m_values.GetAllocator()));
     }
 
 

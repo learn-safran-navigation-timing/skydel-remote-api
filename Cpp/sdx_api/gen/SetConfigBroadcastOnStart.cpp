@@ -76,7 +76,7 @@ namespace Sdx
 
     void SetConfigBroadcastOnStart::setBroadcastOnStart(bool broadcastOnStart)
     {
-      m_values.AddMember("BroadcastOnStart", parse_json<bool>::format(broadcastOnStart, m_values.GetAllocator()), m_values.GetAllocator());
+      setValue("BroadcastOnStart", parse_json<bool>::format(broadcastOnStart, m_values.GetAllocator()));
     }
 
 

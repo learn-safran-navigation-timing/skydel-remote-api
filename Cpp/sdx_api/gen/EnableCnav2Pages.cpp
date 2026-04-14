@@ -76,7 +76,7 @@ namespace Sdx
 
     void EnableCnav2Pages::setMessages(const std::vector<int>& messages)
     {
-      m_values.AddMember("Messages", parse_json<std::vector<int>>::format(messages, m_values.GetAllocator()), m_values.GetAllocator());
+      setValue("Messages", parse_json<std::vector<int>>::format(messages, m_values.GetAllocator()));
     }
 
 
