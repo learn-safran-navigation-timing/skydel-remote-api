@@ -31,14 +31,14 @@ class RemoteSimulator:
     self.deprecatedMessageMode = DeprecatedMessageMode.LATCH
     self.latchDeprecated = set()
  
-  def connect(self, ip = "localhost", id=0, failIfApiVersionMismatch=False, timeout=None):
+  def connect(self, ip = "localhost", id=0, failIfApiVersionMismatch=False):
     if self.isConnected():
       raise Exception("Cannot connect. Already connected. Disconnect first.");
     
     port = 4820 + id
     if self.verbose:
       print('Connecting to %s on port %s...' % (ip, port))
-    self.client = ClientCmd(ip, port, timeout)
+    self.client = ClientCmd(ip, port)
     
     self._serverApiVersion = self.client.getServerApiVersion()
     if ApiVersion != self._serverApiVersion:
@@ -49,7 +49,7 @@ class RemoteSimulator:
         print("Warning: " + msg)
       
     hilPort = self._callCommand(GetHilPort()).port()
-    self.hil = ClientHil(self.client.getAddress(), hilPort, timeout)
+    self.hil = ClientHil(self.client.getAddress(), hilPort)
  
   def disconnect(self):
     self._checkConnect()
@@ -230,7 +230,7 @@ class RemoteSimulator:
   #                                                                   the specified jammer's vehicle.
   #
   def pushLla(self, elapsedTime, lla, dest = ""):
-    return self.pushEcef(elapsedTime, lla.toEcef(), dest = dest)
+    return self.pushEcef(elapsedTime, lla.to_ecef(), dest = dest)
 
   # Send Skydel a timed ECEF-referenced position with the associated dynamics.
   #
@@ -283,7 +283,7 @@ class RemoteSimulator:
   #  attitude      Attitude Object   yaw, pitch, roll (rad)           Orientation of the vehicle's body.
   #
   def pushLlaNed(self, elapsedTime, lla, attitude):
-    return self.pushEcefNed(elapsedTime, lla.toEcef(), attitude)
+    return self.pushEcefNed(elapsedTime, lla.to_ecef(), attitude)
   
   def beginRouteDefinition(self):
     self._checkConnect()
@@ -330,13 +330,13 @@ class RemoteSimulator:
     return True
     
   def pushRouteLla(self, speed, lla):
-    return self.pushRouteEcef(speed, lla.toEcef())
+    return self.pushRouteEcef(speed, lla.to_ecef())
     
   def pushTrackLla(self, elapsedTime, lla):
-    return self.pushTrackEcef(elapsedTime, lla.toEcef())
+    return self.pushTrackEcef(elapsedTime, lla.to_ecef())
     
   def pushTrackLlaNed(self, elapsedTime, lla, attitude):
-    return self.pushTrackEcefNed(elapsedTime, lla.toEcef(), attitude)
+    return self.pushTrackEcefNed(elapsedTime, lla.to_ecef(), attitude)
 
   def endRouteDefinition(self):
     self._checkConnect()
@@ -396,10 +396,10 @@ class RemoteSimulator:
     return True
     
   def pushIntTxTrackLla(self, elapsedTime, lla, id):
-    return self.pushIntTxTrackEcef(elapsedTime, lla.toEcef(), id)
+    return self.pushIntTxTrackEcef(elapsedTime, lla.to_ecef(), id)
     
   def pushIntTxTrackLlaNed(self, elapsedTime, lla, attitude, id):
-    return self.pushIntTxTrackEcefNed(elapsedTime, lla.toEcef(), attitude, id)
+    return self.pushIntTxTrackEcefNed(elapsedTime, lla.to_ecef(), attitude, id)
   
   def endIntTxTrackDefinition(self, id):
     self._checkConnect()
