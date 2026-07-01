@@ -1,11 +1,9 @@
 #!/usr/bin/env python3
 
-import importlib
 import json
+import importlib
 from .commandbase import CommandBase, obj_hook
 from .commandresult import CommandResult
-
-ROOT_PACKAGE = __package__.split('.')[0] if __package__ else "skydelsdx"
 
 
 class Empty:
@@ -14,19 +12,19 @@ class Empty:
 
 def classFromName(className):
     try:
-        module = importlib.import_module(f"{ROOT_PACKAGE}.commands")
+        module = importlib.import_module(".commands", package=__package__)
         return getattr(module, className)
     except (ModuleNotFoundError, AttributeError) as e:
-        raise ImportError(f"Failed to load command '{className}' from {ROOT_PACKAGE}.commands") from e
+        raise ImportError(f"Relative command '{className}' could not be found.") from e
 
 
 def targetClassFromName(className, targetId):
+    module_path = f".plugins.{targetId}.commands"
     try:
-        module_name = f"{ROOT_PACKAGE}.plugins.{targetId}.commands"
-        module = importlib.import_module(module_name)
+        module = importlib.import_module(module_path, package=__package__)
         return getattr(module, className)
     except (ModuleNotFoundError, AttributeError) as e:
-        raise ImportError(f"Failed to load command '{className}' from plugin '{targetId}'") from e
+        raise ImportError(f"Plugin command '{className}' could not be found at relative path '{module_path}'.") from e
 
 
 def createCommand(jsonStr):
@@ -37,6 +35,7 @@ def createCommand(jsonStr):
         raise
 
     class_name = values[CommandBase.CmdNameKey]
+
     if CommandBase.CmdTargetId in values:
         MyClass = targetClassFromName(class_name, values[CommandBase.CmdTargetId])
     else:
@@ -48,8 +47,8 @@ def createCommand(jsonStr):
     return command
 
 
-def createCommandResult(jsonStr):
-    commandResult = createCommand(jsonStr.decode("UTF-8"))
+def createCommandResult(jsonBytes):
+    commandResult = createCommand(jsonBytes.decode("UTF-8"))
     relatedCmdJson = commandResult.values[CommandResult.RelatedCommandKey]
     commandResult.setRelatedCommand(createCommand(relatedCmdJson))
     return commandResult
