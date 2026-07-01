@@ -1,148 +1,147 @@
 #!/usr/bin/env python3
 
+from dataclasses import dataclass
 import math
 
-ESMAJ = 6378137.0 # Semi-major axis of Earth, meters
-EFLAT = 0.00335281066474
-ESMIN = ESMAJ * (1.0 - EFLAT)
-EECC_SQUARED = (((ESMAJ*ESMAJ) - (ESMIN*ESMIN)) / (ESMAJ*ESMAJ))
-Pi    = 3.1415926535898 # Pi used in the GPS coordinate
+# WGS84 Constants
+WGS84_A = 6378137.0  # Semi-major axis (meters)
+WGS84_F = 1.0 / 298.257223563  # Flattening
+WGS84_B = WGS84_A * (1.0 - WGS84_F)
+E_SQUARED = ((WGS84_A ** 2) - (WGS84_B ** 2)) / (WGS84_A ** 2)
 
-def toRadian(degree):
-  return degree / 180.0 * Pi
-  
-def toDegree(radian):
-  return radian / Pi * 180.0
 
-class Lla:
-  def __init__(self, lat, lon, alt=0):
-    self.lat = lat # latitude in radians
-    self.lon = lon # longitude in radians
-    self.alt = alt # altitude in meters
-    
-  def addEnu(self, enu):
-    return enu.toLla(self)
-    
-  def toEcef(self):
-    cos_lat = math.cos(self.lat)
-    tmp = (1-EFLAT)*(1-EFLAT)
-    ex2 = (2-EFLAT)*EFLAT/tmp
-    c = ESMAJ*math.sqrt(1+ex2)
-    n = c/math.sqrt(1+ex2*cos_lat*cos_lat)
-    return Ecef((n+self.alt)*cos_lat*math.cos(self.lon),(n+self.alt)*cos_lat*math.sin(self.lon), (tmp*n+self.alt)*math.sin(self.lat))
+@dataclass
+class LLA:
+    lat: float  # Latitude in radians
+    lon: float  # Longitude in radians
+    alt: float = 0.0  # Altitude in meters
 
-  def toEnu(self, origin):
-    return Enu((self.lon - origin.lon) * ESMAJ * math.cos(self.lat),  (self.lat - origin.lat) * ESMAJ, self.alt - origin.alt)
-  
-  def latDeg(self):
-    return toDegree(self.lat)
-    
-  def lonDeg(self):
-    return toDegree(self.lon)
-    
-  def __str__(self):
-   return u"%.7fdeg, %.7fdeg, %.2fm" % (self.latDeg(), self.lonDeg(), self.alt)
-    
-  def __add__(self, other):
-    return Lla(self.lat + other.lat, self.lon + other.lon, self.alt + other.alt)
-  
-  def __eq__(self, other):
-    return self.lat == other.lat and self.lon == other.lon and self.alt == other.alt
-  
-  def __ne__(self, other):
-    return not (self == other)
+    @property
+    def lat_deg(self) -> float:
+        return math.degrees(self.lat)
 
-class Enu:
-  def __init__(self, east, north, up=0):
-    self.east = east   # east deviation in meters
-    self.north = north # north deviation in meters
-    self.up = up       # up deviation in meters
-  
-  def toEcef(self, originLla):
-    originEcef = originLla.toEcef()
-    sinLon = math.sin(originLla.lon)
-    cosLon = math.cos(originLla.lon)
-    sinLat = math.sin(originLla.lat)
-    cosLat = math.cos(originLla.lat)
-    
-    x = -sinLon * self.east - sinLat * cosLon * self.north + cosLat * cosLon * self.up + originEcef.x
-    y = cosLon * self.east - sinLat * sinLon * self.north + cosLat * sinLon * self.up + originEcef.y
-    z = cosLat * self.north + sinLat * self.up + originEcef.z
-    
-    return Ecef(x, y, z)
-    
-  def toLla(self, originLla):
-    return self.toEcef(originLla).toLla()
-    
-  def __str__(self):
-    return "%.2fm East, %.2fm North, %.2fm Up" % (self.east, self.north, self.up)
-  
-  def __add__(self, other):
-    return Enu(self.east + other.east, self.north + other.north, self.up + other.up)
-  
-  def __eq__(self, other):
-    return self.east == other.east and self.north == other.north and self.up == other.up
-    
-  def __ne__(self, other):
-    return not (self == other)
-    
-class Ecef:
-  def __init__(self, x, y, z):
-    self.x = x 
-    self.y = y 
-    self.z = z
-     
-  def toLla(self):
-    dist_to_z = math.sqrt(self.x*self.x + self.y*self.y)
-    lat = math.atan2(self.z, (1 - EECC_SQUARED) * dist_to_z)
-    for i in range(1, 5):
-      sin_lat = math.sin(lat)
-      radius_p = ESMAJ / math.sqrt(1.0 - EECC_SQUARED * sin_lat * sin_lat)
-      lat = math.atan2(self.z + EECC_SQUARED * radius_p * sin_lat, dist_to_z)
-    lon = math.atan2(self.y, self.x)
-    if toDegree(lat) < -85 or toDegree(lat) > 85:
-      L = self.z + EECC_SQUARED * radius_p * math.sin(lat)
-      alt = L / math.sin(lat) - radius_p
-    else:
-      alt = dist_to_z / math.cos(lat) - radius_p
-    return Lla(lat, lon, alt)
-    
-  def __str__(self):
-   return u"%.2fm, %.2fm, %.2fm" % (self.x, self.y, self.z)
-    
-  def __add__(self, other):
-    return Lla(self.x + other.x, self.y + other.y, self.z + other.z)
-  
-  def __eq__(self, other):
-    return self.x == other.x and self.y == other.y and self.z == other.z
-  
-  def __ne__(self, other):
-    return not (self == other)
-    
+    @property
+    def lon_deg(self) -> float:
+        return math.degrees(self.lon)
+
+    def add_enu(self, enu: 'ENU') -> 'LLA':
+        return enu.to_lla(self)
+
+    def to_ecef(self) -> 'ECEF':
+        cos_lat = math.cos(self.lat)
+        sin_lat = math.sin(self.lat)
+
+        tmp = (1 - WGS84_F) ** 2
+        ex2 = (2 - WGS84_F) * WGS84_F / tmp
+        c = WGS84_A * math.sqrt(1 + ex2)
+        n = c / math.sqrt(1 + ex2 * cos_lat ** 2)
+
+        x = (n + self.alt) * cos_lat * math.cos(self.lon)
+        y = (n + self.alt) * cos_lat * math.sin(self.lon)
+        z = (tmp * n + self.alt) * sin_lat
+        return ECEF(x, y, z)
+
+    def to_enu(self, origin: 'LLA') -> 'ENU':
+        self_ecef = self.to_ecef()
+        origin_ecef = origin.to_ecef()
+
+        dx = self_ecef.x - origin_ecef.x
+        dy = self_ecef.y - origin_ecef.y
+        dz = self_ecef.z - origin_ecef.z
+
+        sin_lon, cos_lon = math.sin(origin.lon), math.cos(origin.lon)
+        sin_lat, cos_lat = math.sin(origin.lat), math.cos(origin.lat)
+
+        east = -sin_lon * dx + cos_lon * dy
+        north = -sin_lat * cos_lon * dx - sin_lat * sin_lon * dy + cos_lat * dz
+        up = cos_lat * cos_lon * dx + cos_lat * sin_lon * dy + sin_lat * dz
+        return ENU(east, north, up)
+
+    def __add__(self, other):
+        return LLA(self.lat + other.lat, self.lon + other.lon, self.alt + other.alt)
+
+    def __str__(self) -> str:
+        return f"{self.lat_deg:.7f}deg, {self.lon_deg:.7f}deg, {self.alt:.2f}m"
+
+
+@dataclass
+class ENU:
+    east: float  # East deviation (meters)
+    north: float  # North deviation (meters)
+    up: float = 0.0  # Up deviation (meters)
+
+    def to_ecef(self, origin_lla: LLA) -> 'ECEF':
+        origin_ecef = origin_lla.to_ecef()
+        sin_lon, cos_lon = math.sin(origin_lla.lon), math.cos(origin_lla.lon)
+        sin_lat, cos_lat = math.sin(origin_lla.lat), math.cos(origin_lla.lat)
+
+        x = -sin_lon * self.east - sin_lat * cos_lon * self.north + cos_lat * cos_lon * self.up + origin_ecef.x
+        y = cos_lon * self.east - sin_lat * sin_lon * self.north + cos_lat * sin_lon * self.up + origin_ecef.y
+        z = cos_lat * self.north + sin_lat * self.up + origin_ecef.z
+        return ECEF(x, y, z)
+
+    def to_lla(self, origin_lla: LLA) -> LLA:
+        return self.to_ecef(origin_lla).to_lla()
+
+    def __add__(self, other: 'ENU') -> 'ENU':
+        return ENU(self.east + other.east, self.north + other.north, self.up + other.up)
+
+    def __str__(self) -> str:
+        return f"{self.east:.2f}m East, {self.north:.2f}m North, {self.up:.2f}m Up"
+
+
+@dataclass
+class ECEF:
+    x: float
+    y: float
+    z: float
+
+    def to_lla(self) -> LLA:
+        dist_to_z = math.sqrt(self.x ** 2 + self.y ** 2)
+        lat = math.atan2(self.z, (1 - E_SQUARED) * dist_to_z)
+
+        radius_p = WGS84_A
+        for _ in range(4):
+            sin_lat = math.sin(lat)
+            radius_p = WGS84_A / math.sqrt(1.0 - E_SQUARED * sin_lat ** 2)
+            lat = math.atan2(self.z + E_SQUARED * radius_p * sin_lat, dist_to_z)
+
+        lon = math.atan2(self.y, self.x)
+
+        if -85 < math.degrees(lat) < 85:
+            alt = dist_to_z / math.cos(lat) - radius_p
+        else:
+            alt = (self.z + E_SQUARED * radius_p * math.sin(lat)) / math.sin(lat) - radius_p
+
+        return LLA(lat, lon, alt)
+
+    def __add__(self, other: 'ECEF') -> 'ECEF':
+        return ECEF(self.x + other.x, self.y + other.y, self.z + other.z)
+
+    def __str__(self) -> str:
+        return f"{self.x:.2f}m, {self.y:.2f}m, {self.z:.2f}m"
+
+
+@dataclass
 class Attitude:
-  def __init__(self, yaw, pitch, roll):
-    self.yaw = yaw
-    self.pitch = pitch
-    self.roll = roll
-    
-  def __str__(self):
-    return u"%.2fdeg, %.2fdeg, %.2fdeg" % (self.yawDeg(), self.pitchDeg(), self.rollDeg())
-    
-  def __add__(self, other):
-    return Attitude(self.yaw + other.yaw, self.pitch + other.pitch, self.roll + other.roll)
-  
-  def __eq__(self, other):
-    return self.yaw == other.yaw and self.pitch == other.pitch and self.roll == other.roll
-  
-  def __ne__(self, other):
-    return not (self == other)
-    
-  def yawDeg(self):
-    return toDegree(self.yaw)
-    
-  def pitchDeg(self):
-    return toDegree(self.pitch)
-    
-  def rollDeg(self):
-    return toDegree(self.roll)
-        
+    yaw: float
+    pitch: float
+    roll: float
+
+    @property
+    def yaw_deg(self) -> float:
+        return math.degrees(self.yaw)
+
+    @property
+    def pitch_deg(self) -> float:
+        return math.degrees(self.pitch)
+
+    @property
+    def roll_deg(self) -> float:
+        return math.degrees(self.roll)
+
+    def __str__(self) -> str:
+        return f"{self.yaw_deg:.2f}deg, {self.pitch_deg:.2f}deg, {self.roll_deg:.2f}deg"
+
+    def __add__(self, other):
+        return Attitude(self.yaw + other.yaw, self.pitch + other.pitch, self.roll + other.roll)
