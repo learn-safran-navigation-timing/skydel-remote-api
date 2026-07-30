@@ -6,7 +6,7 @@ namespace Sdx.Cmd
 
   public static class ApiInfo
   {
-    public const int COMMANDS_API_VERSION = 53;
+    public const int COMMANDS_API_VERSION = 54;
   }
 
   ///
@@ -27,7 +27,7 @@ namespace Sdx.Cmd
   /// The simulator sub-state.
   ///
   
-  public enum SimulatorSubState { SubStateNone, Idle_ConfigNotValid, Idle_ConfigValid, Started_InitPlugins, Started_InitHardware, Started_Streaming, Started_SyncInit, Started_WorkerSync, Started_Armed, Started_SyncStartTime, Error, Started_HILSync, Started_SyncPPSReset, Started_SyncStart, Started_WFWorkerInit, Started_WFMainInit, Started_WFSyncPPSReset, Started_WFSyncStart }
+  public enum SimulatorSubState { SubStateNone, Idle_ConfigNotValid, Idle_ConfigValid, Started_InitAIModels, Started_InitTerrain, Started_InitPlugins, Started_InitHardware, Started_Streaming, Started_SyncInit, Started_WorkerSync, Started_Armed, Started_SyncStartTime, Error, Started_HILSync, Started_SyncPPSReset, Started_SyncStart, Started_WFWorkerInit, Started_WFMainInit, Started_WFSyncPPSReset, Started_WFSyncStart }
 
 
   ///
@@ -4340,8 +4340,8 @@ namespace Sdx.Cmd
   /// Set ionospheric model
   ///
   /// Name  Type   Description
-  /// ----- ------ ------------------------------------------------------------------
-  /// Model string Ionospheric model ("None", "Klobuchar", "Spacecraft" or "NeQuick")
+  /// ----- ------ -----------------------------------------------------------------------------------
+  /// Model string Ionospheric model ("None", "Klobuchar", "Spacecraft", "NeQuick" or "NeQuick2-MLF2")
   ///
 
   public class SetIonoModel : CommandBase
@@ -4424,8 +4424,8 @@ namespace Sdx.Cmd
   /// Result of GetIonoModel.
   ///
   /// Name  Type   Description
-  /// ----- ------ ------------------------------------------------------------------
-  /// Model string Ionospheric model ("None", "Klobuchar", "Spacecraft" or "NeQuick")
+  /// ----- ------ -----------------------------------------------------------------------------------
+  /// Model string Ionospheric model ("None", "Klobuchar", "Spacecraft", "NeQuick" or "NeQuick2-MLF2")
   ///
 
   public class GetIonoModelResult : CommandResult
@@ -20609,9 +20609,9 @@ namespace Sdx.Cmd
   /// Import ionospheric parameters from a Rinex file.
   ///
   /// Name Type            Description
-  /// ---- --------------- ------------------------------------------------------------------------------
+  /// ---- --------------- -----------------------------------------------------------------------------------------
   /// Path string          File path
-  /// Type optional string Ionospheric parameters type: "Klobuchar" or "BDGIM". The default is Klobuchar.
+  /// Type optional string Ionospheric parameters type: "Klobuchar", "BDGIM" or "NeQuick". The default is Klobuchar.
   ///
 
   public class ImportIonoParameters : CommandBase
@@ -20673,9 +20673,10 @@ namespace Sdx.Cmd
   ///
   /// Import MODIP data file.
   ///
-  /// Name Type   Description
-  /// ---- ------ -----------
-  /// Path string File path.
+  /// Name      Type            Description
+  /// --------- --------------- --------------------------------------------------------------------------------------------------------------------------------------------------
+  /// Path      string          File path.
+  /// IonoModel optional string Ionospheric model, accepted values are "NeQuick" and "NeQuick2-MLF2". If no value is provided, the modification will be appllied to NeQuick model.
   ///
 
   public class ImportMODIPFile : CommandBase
@@ -20692,10 +20693,11 @@ namespace Sdx.Cmd
       : base(CmdName, TargetId)
     {}
 
-    public ImportMODIPFile(string path)
+    public ImportMODIPFile(string path, string ionoModel = null)
       : base(CmdName, TargetId)
     {
       Path = path;
+      IonoModel = ionoModel;
     }
       
     public override bool IsValid
@@ -20716,6 +20718,18 @@ namespace Sdx.Cmd
       set
       {
           SetValue("Path", JToken.FromObject(value, CommandBase.Serializer));
+      }
+    }
+
+    public string IonoModel
+    {
+      get { return GetValue("IonoModel").ToObject<string>(CommandBase.Serializer); }
+      set
+      {
+        if (value == null)
+          RemoveValue("IonoModel");
+        else
+          SetValue("IonoModel", JToken.FromObject(value, CommandBase.Serializer));
       }
     }
   }
@@ -46328,6 +46342,142 @@ namespace Sdx.Cmd
 
 
   ///
+  /// Gets the propagation loss value computed by Skydel for the specified interference signal.
+  ///
+  /// Name          Type   Description
+  /// ------------- ------ ------------------------------
+  /// TransmitterId string Transmitter unique identifier.
+  /// SignalId      string Signal unique identifier.
+  ///
+
+  public class GetIntTxSignalPropagationLoss : CommandBase
+  {
+    public override string Documentation
+    {
+      get { return "Gets the propagation loss value computed by Skydel for the specified interference signal."; }
+    }
+
+    internal const string CmdName = "GetIntTxSignalPropagationLoss";
+    internal const string TargetId = "";
+
+    public GetIntTxSignalPropagationLoss()
+      : base(CmdName, TargetId)
+    {}
+
+    public GetIntTxSignalPropagationLoss(string transmitterId, string signalId)
+      : base(CmdName, TargetId)
+    {
+      TransmitterId = transmitterId;
+      SignalId = signalId;
+    }
+      
+    public override bool IsValid
+    {
+      get
+      {
+        return base.IsValid
+        && Contains("TransmitterId")
+        && Contains("SignalId")
+      ;
+      }
+    }
+
+    public override int ExecutePermission { get { return EXECUTE_IF_SIMULATING; } }
+
+    public string TransmitterId
+    {
+      get { return GetValue("TransmitterId").ToObject<string>(CommandBase.Serializer); }
+      set
+      {
+          SetValue("TransmitterId", JToken.FromObject(value, CommandBase.Serializer));
+      }
+    }
+
+    public string SignalId
+    {
+      get { return GetValue("SignalId").ToObject<string>(CommandBase.Serializer); }
+      set
+      {
+          SetValue("SignalId", JToken.FromObject(value, CommandBase.Serializer));
+      }
+    }
+  }
+
+
+  ///
+  /// Result of GetIntTxSignalPropagationLoss.
+  ///
+  /// Name            Type   Description
+  /// --------------- ------ ------------------------------------------
+  /// PropagationLoss double The signal's propagation loss value in dB.
+  /// TransmitterId   string Transmitter unique identifier.
+  /// SignalId        string Signal unique identifier.
+  ///
+
+  public class GetIntTxSignalPropagationLossResult : CommandResult
+  {
+    public override string Documentation
+    {
+      get { return "Result of GetIntTxSignalPropagationLoss."; }
+    }
+
+    internal const string CmdName = "GetIntTxSignalPropagationLossResult";
+    internal const string TargetId = "";
+
+    public GetIntTxSignalPropagationLossResult()
+      : base(CmdName, TargetId)
+    {}
+
+    public GetIntTxSignalPropagationLossResult(CommandBase relatedCommand, double propagationLoss, string transmitterId, string signalId)
+      : base(CmdName, TargetId, relatedCommand)
+    {
+      PropagationLoss = propagationLoss;
+      TransmitterId = transmitterId;
+      SignalId = signalId;
+    }
+      
+    public override bool IsValid
+    {
+      get
+      {
+        return base.IsValid
+        && Contains("PropagationLoss")
+        && Contains("TransmitterId")
+        && Contains("SignalId")
+      ;
+      }
+    }
+
+    public double PropagationLoss
+    {
+      get { return GetValue("PropagationLoss").ToObject<double>(CommandBase.Serializer); }
+      set
+      {
+          SetValue("PropagationLoss", JToken.FromObject(value, CommandBase.Serializer));
+      }
+    }
+
+    public string TransmitterId
+    {
+      get { return GetValue("TransmitterId").ToObject<string>(CommandBase.Serializer); }
+      set
+      {
+          SetValue("TransmitterId", JToken.FromObject(value, CommandBase.Serializer));
+      }
+    }
+
+    public string SignalId
+    {
+      get { return GetValue("SignalId").ToObject<string>(CommandBase.Serializer); }
+      set
+      {
+          SetValue("SignalId", JToken.FromObject(value, CommandBase.Serializer));
+      }
+    }
+  }
+
+
+  ///
   /// Sets the manual propagation loss for the given interference signal. This value is only applied when manual propagation losses are enabled for the transmitter and is discarded once the simulation ends.
   ///
   /// Name            Type   Description
@@ -49548,7 +49698,83 @@ namespace Sdx.Cmd
 
 
   ///
+  /// Set interference transmitter gain antenna pattern from a CSV file.
+  ///
+  /// Name     Type               Description
+  /// -------- ------------------ ----------------------------------------------------------------------------------------------------------------------
+  /// FilePath string             File path of the CSV (see user manual for CSV file format details). For Default and None types, leave this field empty
+  /// Type     AntennaPatternType Pattern type
+  /// Id       string             Transmitter unique identifier.
+  ///
+
+  public class SetIntTxAntennaGainCSV : CommandBase
+  {
+    public override string Documentation
+    {
+      get { return "Set interference transmitter gain antenna pattern from a CSV file."; }
+    }
+
+    internal const string CmdName = "SetIntTxAntennaGainCSV";
+    internal const string TargetId = "";
+
+    public SetIntTxAntennaGainCSV()
+      : base(CmdName, TargetId)
+    {}
+
+    public SetIntTxAntennaGainCSV(string filePath, AntennaPatternType type, string id)
+      : base(CmdName, TargetId)
+    {
+      FilePath = filePath;
+      Type = type;
+      Id = id;
+    }
+      
+    public override bool IsValid
+    {
+      get
+      {
+        return base.IsValid
+        && Contains("FilePath")
+        && Contains("Type")
+        && Contains("Id")
+      ;
+      }
+    }
+
+    public override int ExecutePermission { get { return EXECUTE_IF_IDLE; } }
+
+    public string FilePath
+    {
+      get { return GetValue("FilePath").ToObject<string>(CommandBase.Serializer); }
+      set
+      {
+          SetValue("FilePath", JToken.FromObject(value, CommandBase.Serializer));
+      }
+    }
+
+    public AntennaPatternType Type
+    {
+      get { return GetValue("Type").ToObject<AntennaPatternType>(CommandBase.Serializer); }
+      set
+      {
+          SetValue("Type", JToken.FromObject(value, CommandBase.Serializer));
+      }
+    }
+
+    public string Id
+    {
+      get { return GetValue("Id").ToObject<string>(CommandBase.Serializer); }
+      set
+      {
+          SetValue("Id", JToken.FromObject(value, CommandBase.Serializer));
+      }
+    }
+  }
+
+
+  ///
   /// Set transmitter antenna pattern.
+  /// For large arrays, consider using 'SetIntTxAntennaGainCSV' to pass the pattern via a CSV file.
   ///
   /// Name Type               Description
   /// ---- ------------------ -------------------------------------------------------------------------------------------------------------------------
@@ -49561,7 +49787,7 @@ namespace Sdx.Cmd
   {
     public override string Documentation
     {
-      get { return "Set transmitter antenna pattern."; }
+      get { return "Set transmitter antenna pattern.\nFor large arrays, consider using 'SetIntTxAntennaGainCSV' to pass the pattern via a CSV file."; }
     }
 
     internal const string CmdName = "SetIntTxAntenna";
@@ -54376,12 +54602,17 @@ namespace Sdx.Cmd
   /// -None
   /// -Incomplete
   /// -Ready
+  /// -Initializing AI Models
+  /// -Initializing Terrain
+  /// -Initializing Plug-ins
   /// -Initializing
   /// -Armed
   /// -Streaming RF
   /// -Sync Worker Instance
-  /// -WF Init (Worker)
-  /// -WF Init (Main)
+  /// -WF Init (Worker instance)
+  /// -WF Init (Main instance)
+  /// -WF Sync PPS Reset
+  /// -WF Sync Start
   /// -HIL Sync
   /// -Sync Init
   /// -Sync PPS Reset
@@ -54399,7 +54630,7 @@ namespace Sdx.Cmd
   {
     public override string Documentation
     {
-      get { return "Wait until simulator has reached the specified substate unless simulator goes to error state or specified failure substate. Will return a SimulatorStateResult.\nPossible substates are :\n-None\n-Incomplete\n-Ready\n-Initializing\n-Armed\n-Streaming RF\n-Sync Worker Instance\n-WF Init (Worker)\n-WF Init (Main)\n-HIL Sync\n-Sync Init\n-Sync PPS Reset\n-Sync Start Time\n-Sync Start\n-Error"; }
+      get { return "Wait until simulator has reached the specified substate unless simulator goes to error state or specified failure substate. Will return a SimulatorStateResult.\nPossible substates are :\n-None\n-Incomplete\n-Ready\n-Initializing AI Models\n-Initializing Terrain\n-Initializing Plug-ins\n-Initializing\n-Armed\n-Streaming RF\n-Sync Worker Instance\n-WF Init (Worker instance)\n-WF Init (Main instance)\n-WF Sync PPS Reset\n-WF Sync Start\n-HIL Sync\n-Sync Init\n-Sync PPS Reset\n-Sync Start Time\n-Sync Start\n-Error"; }
     }
 
     internal const string CmdName = "WaitSimulatorState";
@@ -54488,12 +54719,17 @@ namespace Sdx.Cmd
   /// -None
   /// -Incomplete
   /// -Ready
+  /// -Initializing AI Models
+  /// -Initializing Terrain
+  /// -Initializing Plug-ins
   /// -Initializing
   /// -Armed
   /// -Streaming RF
   /// -Sync Worker
-  /// -WF Init (Worker)
-  /// -WF Init (Main)
+  /// -WF Init (Worker instance)
+  /// -WF Init (Main instance)
+  /// -WF Sync PPS Reset
+  /// -WF Sync Start
   /// -HIL Sync
   /// -Sync Init
   /// -Sync PPS Reset
@@ -54513,7 +54749,7 @@ namespace Sdx.Cmd
   {
     public override string Documentation
     {
-      get { return "Simulator State Result.\nPossible substates are :\n-None\n-Incomplete\n-Ready\n-Initializing\n-Armed\n-Streaming RF\n-Sync Worker\n-WF Init (Worker)\n-WF Init (Main)\n-HIL Sync\n-Sync Init\n-Sync PPS Reset\n-Sync Start Time\n-Sync Start\n-Error"; }
+      get { return "Simulator State Result.\nPossible substates are :\n-None\n-Incomplete\n-Ready\n-Initializing AI Models\n-Initializing Terrain\n-Initializing Plug-ins\n-Initializing\n-Armed\n-Streaming RF\n-Sync Worker\n-WF Init (Worker instance)\n-WF Init (Main instance)\n-WF Sync PPS Reset\n-WF Sync Start\n-HIL Sync\n-Sync Init\n-Sync PPS Reset\n-Sync Start Time\n-Sync Start\n-Error"; }
     }
 
     internal const string CmdName = "SimulatorStateResult";
@@ -65922,6 +66158,142 @@ namespace Sdx.Cmd
 
 
   ///
+  /// Gets the propagation loss value computed by Skydel for the specified spoofer signal.
+  ///
+  /// Name          Type   Description
+  /// ------------- ------ ------------------------------
+  /// TransmitterId string Transmitter unique identifier.
+  /// SignalId      string Signal unique identifier.
+  ///
+
+  public class GetSpoofSignalPropagationLoss : CommandBase
+  {
+    public override string Documentation
+    {
+      get { return "Gets the propagation loss value computed by Skydel for the specified spoofer signal."; }
+    }
+
+    internal const string CmdName = "GetSpoofSignalPropagationLoss";
+    internal const string TargetId = "";
+
+    public GetSpoofSignalPropagationLoss()
+      : base(CmdName, TargetId)
+    {}
+
+    public GetSpoofSignalPropagationLoss(string transmitterId, string signalId)
+      : base(CmdName, TargetId)
+    {
+      TransmitterId = transmitterId;
+      SignalId = signalId;
+    }
+      
+    public override bool IsValid
+    {
+      get
+      {
+        return base.IsValid
+        && Contains("TransmitterId")
+        && Contains("SignalId")
+      ;
+      }
+    }
+
+    public override int ExecutePermission { get { return EXECUTE_IF_SIMULATING; } }
+
+    public string TransmitterId
+    {
+      get { return GetValue("TransmitterId").ToObject<string>(CommandBase.Serializer); }
+      set
+      {
+          SetValue("TransmitterId", JToken.FromObject(value, CommandBase.Serializer));
+      }
+    }
+
+    public string SignalId
+    {
+      get { return GetValue("SignalId").ToObject<string>(CommandBase.Serializer); }
+      set
+      {
+          SetValue("SignalId", JToken.FromObject(value, CommandBase.Serializer));
+      }
+    }
+  }
+
+
+  ///
+  /// Result of GetSpoofSignalPropagationLoss.
+  ///
+  /// Name            Type   Description
+  /// --------------- ------ ------------------------------------------
+  /// PropagationLoss double The signal's propagation loss value in dB.
+  /// TransmitterId   string Transmitter unique identifier.
+  /// SignalId        string Signal unique identifier.
+  ///
+
+  public class GetSpoofSignalPropagationLossResult : CommandResult
+  {
+    public override string Documentation
+    {
+      get { return "Result of GetSpoofSignalPropagationLoss."; }
+    }
+
+    internal const string CmdName = "GetSpoofSignalPropagationLossResult";
+    internal const string TargetId = "";
+
+    public GetSpoofSignalPropagationLossResult()
+      : base(CmdName, TargetId)
+    {}
+
+    public GetSpoofSignalPropagationLossResult(CommandBase relatedCommand, double propagationLoss, string transmitterId, string signalId)
+      : base(CmdName, TargetId, relatedCommand)
+    {
+      PropagationLoss = propagationLoss;
+      TransmitterId = transmitterId;
+      SignalId = signalId;
+    }
+      
+    public override bool IsValid
+    {
+      get
+      {
+        return base.IsValid
+        && Contains("PropagationLoss")
+        && Contains("TransmitterId")
+        && Contains("SignalId")
+      ;
+      }
+    }
+
+    public double PropagationLoss
+    {
+      get { return GetValue("PropagationLoss").ToObject<double>(CommandBase.Serializer); }
+      set
+      {
+          SetValue("PropagationLoss", JToken.FromObject(value, CommandBase.Serializer));
+      }
+    }
+
+    public string TransmitterId
+    {
+      get { return GetValue("TransmitterId").ToObject<string>(CommandBase.Serializer); }
+      set
+      {
+          SetValue("TransmitterId", JToken.FromObject(value, CommandBase.Serializer));
+      }
+    }
+
+    public string SignalId
+    {
+      get { return GetValue("SignalId").ToObject<string>(CommandBase.Serializer); }
+      set
+      {
+          SetValue("SignalId", JToken.FromObject(value, CommandBase.Serializer));
+      }
+    }
+  }
+
+
+  ///
   /// Sets the manual propagation loss for the given spoofer signal. This value is only applied when manual propagation losses are enabled for the transmitter and is discarded once the simulation ends.
   ///
   /// Name            Type   Description
@@ -68852,6 +69224,7 @@ namespace Sdx.Cmd
 
   ///
   /// Set transmitter antenna pattern.
+  /// For large arrays, consider using 'SetSpoofTxAntennaGainCSV' to pass the pattern via a CSV file.
   ///
   /// Name Type               Description
   /// ---- ------------------ -------------------------------------------------------------------------------------------------------------------------
@@ -68864,7 +69237,7 @@ namespace Sdx.Cmd
   {
     public override string Documentation
     {
-      get { return "Set transmitter antenna pattern."; }
+      get { return "Set transmitter antenna pattern.\nFor large arrays, consider using 'SetSpoofTxAntennaGainCSV' to pass the pattern via a CSV file."; }
     }
 
     internal const string CmdName = "SetSpoofTxAntenna";
@@ -69026,6 +69399,81 @@ namespace Sdx.Cmd
       set
       {
           SetValue("Gain", JToken.FromObject(value, CommandBase.Serializer));
+      }
+    }
+
+    public AntennaPatternType Type
+    {
+      get { return GetValue("Type").ToObject<AntennaPatternType>(CommandBase.Serializer); }
+      set
+      {
+          SetValue("Type", JToken.FromObject(value, CommandBase.Serializer));
+      }
+    }
+
+    public string Id
+    {
+      get { return GetValue("Id").ToObject<string>(CommandBase.Serializer); }
+      set
+      {
+          SetValue("Id", JToken.FromObject(value, CommandBase.Serializer));
+      }
+    }
+  }
+
+
+  ///
+  /// Set spoofer transmitter gain antenna pattern from a CSV file.
+  ///
+  /// Name     Type               Description
+  /// -------- ------------------ ----------------------------------------------------------------------------------------------------------------------
+  /// FilePath string             File path of the CSV (see user manual for CSV file format details). For Default and None types, leave this field empty
+  /// Type     AntennaPatternType Pattern type
+  /// Id       string             Transmitter unique identifier.
+  ///
+
+  public class SetSpoofTxAntennaGainCSV : CommandBase
+  {
+    public override string Documentation
+    {
+      get { return "Set spoofer transmitter gain antenna pattern from a CSV file."; }
+    }
+
+    internal const string CmdName = "SetSpoofTxAntennaGainCSV";
+    internal const string TargetId = "";
+
+    public SetSpoofTxAntennaGainCSV()
+      : base(CmdName, TargetId)
+    {}
+
+    public SetSpoofTxAntennaGainCSV(string filePath, AntennaPatternType type, string id)
+      : base(CmdName, TargetId)
+    {
+      FilePath = filePath;
+      Type = type;
+      Id = id;
+    }
+      
+    public override bool IsValid
+    {
+      get
+      {
+        return base.IsValid
+        && Contains("FilePath")
+        && Contains("Type")
+        && Contains("Id")
+      ;
+      }
+    }
+
+    public override int ExecutePermission { get { return EXECUTE_IF_IDLE; } }
+
+    public string FilePath
+    {
+      get { return GetValue("FilePath").ToObject<string>(CommandBase.Serializer); }
+      set
+      {
+          SetValue("FilePath", JToken.FromObject(value, CommandBase.Serializer));
       }
     }
 
@@ -72844,6 +73292,7 @@ namespace Sdx.Cmd
   ///   "Accuracy"          meter
   ///   "Adot"              meters/sec
   ///   "DeltaN0dot"        rad/sec^2
+  ///   "Fit Interval"      sec
   /// 
   /// After a block is pushed for a SV, no other block can be pushed for that SV until the interpolation period is over.
   ///   Constellation   Interpolation period (sec)
@@ -72864,11 +73313,11 @@ namespace Sdx.Cmd
   ///                                                         "ClockBias", "ClockDrift", "ClockDriftRate", "Crs", "Crc",
   ///                                                         "Cis", "Cic", "Cus", "Cuc", "DeltaN", "M0", "Eccentricity",
   ///                                                         "SqrtA", "BigOmega", "I0", "LittleOmega", "BigOmegaDot",
-  ///                                                         "Idot", "Adot", "DeltaN0dot", "UraIndex", "IODE", "IODNAV",
-  ///                                                         "IODEC", "IODC", "Tgd", "IscL1CA", "IscL2C", "IscL5I5",
-  ///                                                         "IscL5Q5", "IscL1CP", "IscL1CD", "BgdE1E5a", "BgdE1E5b",
-  ///                                                         "Tgd1", "Tgd2", "TgdB1Cp", "TgdB2ap", "TgdB2bI", "IscB1Cd",
-  ///                                                         "IscB2ad", "SisaE1E5a" and "SisaE1E5b"
+  ///                                                         "Idot", "Adot", "DeltaN0dot", "Fit Interval", "UraIndex",
+  ///                                                         "IODE", "IODNAV", "IODEC", "IODC", "Tgd", "IscL1CA",
+  ///                                                         "IscL2C", "IscL5I5", "IscL5Q5", "IscL1CP", "IscL1CD",
+  ///                                                         "BgdE1E5a", "BgdE1E5b", "Tgd1", "Tgd2", "TgdB1Cp", "TgdB2ap",
+  ///                                                         "TgdB2bI", "IscB1Cd", "IscB2ad", "SisaE1E5a" and "SisaE1E5b"
   /// DataSetTypes   optional array string Optional data set type array: "Ephemeris" or "Orbit". If not provided, applies to both.
   ///
 
@@ -72876,7 +73325,7 @@ namespace Sdx.Cmd
   {
     public override string Documentation
     {
-      get { return "Push a block of data defining the orbit, clock, and other parameters for one SV.\n  ParamName           Unit\n  \"Time of ephemeris\" sec (of GPS week)\n  \"Week Number\"       week\n  \"Transmission Time\" sec (of GPS week)\n  \"ClockBias\"         sec\n  \"ClockDrift\"        sec/sec\n  \"ClockDriftRate\"    sec/sec^2\n  \"Crs\"               meter\n  \"Crc\"               meter\n  \"Cis\"               rad\n  \"Cic\"               rad\n  \"Cus\"               rad\n  \"Cuc\"               rad\n  \"DeltaN\"            rad/sec\n  \"M0\"                rad\n  \"Eccentricity\"      -\n  \"SqrtA\"             sqrt(meter)\n  \"BigOmega\"          rad\n  \"I0\"                rad\n  \"LittleOmega\"       rad\n  \"BigOmegaDot\"       rad/sec\n  \"Idot\"              rad/sec\n  \"Accuracy\"          meter\n  \"Adot\"              meters/sec\n  \"DeltaN0dot\"        rad/sec^2\n\nAfter a block is pushed for a SV, no other block can be pushed for that SV until the interpolation period is over.\n  Constellation   Interpolation period (sec)\n  GPS             3600\n  Galileo         300\n  BeiDou          1800\n  QZSS            1800\n  NavIC           2400\n"; }
+      get { return "Push a block of data defining the orbit, clock, and other parameters for one SV.\n  ParamName           Unit\n  \"Time of ephemeris\" sec (of GPS week)\n  \"Week Number\"       week\n  \"Transmission Time\" sec (of GPS week)\n  \"ClockBias\"         sec\n  \"ClockDrift\"        sec/sec\n  \"ClockDriftRate\"    sec/sec^2\n  \"Crs\"               meter\n  \"Crc\"               meter\n  \"Cis\"               rad\n  \"Cic\"               rad\n  \"Cus\"               rad\n  \"Cuc\"               rad\n  \"DeltaN\"            rad/sec\n  \"M0\"                rad\n  \"Eccentricity\"      -\n  \"SqrtA\"             sqrt(meter)\n  \"BigOmega\"          rad\n  \"I0\"                rad\n  \"LittleOmega\"       rad\n  \"BigOmegaDot\"       rad/sec\n  \"Idot\"              rad/sec\n  \"Accuracy\"          meter\n  \"Adot\"              meters/sec\n  \"DeltaN0dot\"        rad/sec^2\n  \"Fit Interval\"      sec\n\nAfter a block is pushed for a SV, no other block can be pushed for that SV until the interpolation period is over.\n  Constellation   Interpolation period (sec)\n  GPS             3600\n  Galileo         300\n  BeiDou          1800\n  QZSS            1800\n  NavIC           2400\n"; }
     }
 
     internal const string CmdName = "PushDynamicSVData";
@@ -78598,6 +79047,1452 @@ namespace Sdx.Cmd
       set
       {
           SetValue("TimeOffset", JToken.FromObject(value, CommandBase.Serializer));
+      }
+    }
+  }
+
+
+  ///
+  /// Enable (or disable) GNSS signals obscuration by terrain.
+  ///
+  /// Name    Type Description
+  /// ------- ---- --------------------------------------------------------------------------------------
+  /// Enabled bool If true, GNSS signals from satellites obscured by terrain will not reach the receiver.
+  ///
+
+  public class EnableGnssSignalTerrainObscuration : CommandBase
+  {
+    public override string Documentation
+    {
+      get { return "Enable (or disable) GNSS signals obscuration by terrain."; }
+    }
+
+    internal const string CmdName = "EnableGnssSignalTerrainObscuration";
+    internal const string TargetId = "";
+
+    public EnableGnssSignalTerrainObscuration()
+      : base(CmdName, TargetId)
+    {}
+
+    public EnableGnssSignalTerrainObscuration(bool enabled)
+      : base(CmdName, TargetId)
+    {
+      Enabled = enabled;
+    }
+      
+    public override bool IsValid
+    {
+      get
+      {
+        return base.IsValid
+        && Contains("Enabled")
+      ;
+      }
+    }
+
+    public override int ExecutePermission { get { return EXECUTE_IF_IDLE; } }
+
+    public bool Enabled
+    {
+      get { return GetValue("Enabled").ToObject<bool>(CommandBase.Serializer); }
+      set
+      {
+          SetValue("Enabled", JToken.FromObject(value, CommandBase.Serializer));
+      }
+    }
+  }
+
+
+  ///
+  /// Tells whether GNSS signals obscuration by terrain is enabled.
+  ///
+  /// 
+  ///
+
+  public class IsGnssSignalTerrainObscurationEnabled : CommandBase
+  {
+    public override string Documentation
+    {
+      get { return "Tells whether GNSS signals obscuration by terrain is enabled."; }
+    }
+
+    internal const string CmdName = "IsGnssSignalTerrainObscurationEnabled";
+    internal const string TargetId = "";
+
+    public IsGnssSignalTerrainObscurationEnabled()
+      : base(CmdName, TargetId)
+    {}
+      
+    public override bool IsValid
+    {
+      get
+      {
+        return base.IsValid
+      ;
+      }
+    }
+
+    public override int ExecutePermission { get { return EXECUTE_IF_IDLE; } }
+  }
+
+
+  ///
+  /// Result of IsGnssSignalTerrainObscurationEnabled.
+  ///
+  /// Name    Type Description
+  /// ------- ---- --------------------------------------------------------------------------------------
+  /// Enabled bool If true, GNSS signals from satellites obscured by terrain will not reach the receiver.
+  ///
+
+  public class IsGnssSignalTerrainObscurationEnabledResult : CommandResult
+  {
+    public override string Documentation
+    {
+      get { return "Result of IsGnssSignalTerrainObscurationEnabled."; }
+    }
+
+    internal const string CmdName = "IsGnssSignalTerrainObscurationEnabledResult";
+    internal const string TargetId = "";
+
+    public IsGnssSignalTerrainObscurationEnabledResult()
+      : base(CmdName, TargetId)
+    {}
+
+    public IsGnssSignalTerrainObscurationEnabledResult(CommandBase relatedCommand, bool enabled)
+      : base(CmdName, TargetId, relatedCommand)
+    {
+      Enabled = enabled;
+    }
+      
+    public override bool IsValid
+    {
+      get
+      {
+        return base.IsValid
+        && Contains("Enabled")
+      ;
+      }
+    }
+
+    public bool Enabled
+    {
+      get { return GetValue("Enabled").ToObject<bool>(CommandBase.Serializer); }
+      set
+      {
+          SetValue("Enabled", JToken.FromObject(value, CommandBase.Serializer));
+      }
+    }
+  }
+
+
+  ///
+  /// Set the rate (in Hz) at which line-of-sight between the receiver and satellites is evaluated for terrain obscuration.
+  ///
+  /// Name Type Description
+  /// ---- ---- -----------------------------------------------------------------------------------------------------------------------------------------------------
+  /// Rate int  Rate at which line-of-sight between the receiver and satellites is evaluated. Accepted values are: 1 Hz, 5 Hz, 10 Hz, 20 Hz, 25 Hz, 40 Hz, and 50 Hz.
+  ///
+
+  public class SetGnssSignalTerrainObscurationRate : CommandBase
+  {
+    public override string Documentation
+    {
+      get { return "Set the rate (in Hz) at which line-of-sight between the receiver and satellites is evaluated for terrain obscuration."; }
+    }
+
+    internal const string CmdName = "SetGnssSignalTerrainObscurationRate";
+    internal const string TargetId = "";
+
+    public SetGnssSignalTerrainObscurationRate()
+      : base(CmdName, TargetId)
+    {}
+
+    public SetGnssSignalTerrainObscurationRate(int rate)
+      : base(CmdName, TargetId)
+    {
+      Rate = rate;
+    }
+      
+    public override bool IsValid
+    {
+      get
+      {
+        return base.IsValid
+        && Contains("Rate")
+      ;
+      }
+    }
+
+    public override int ExecutePermission { get { return EXECUTE_IF_IDLE; } }
+
+    public int Rate
+    {
+      get { return GetValue("Rate").ToObject<int>(CommandBase.Serializer); }
+      set
+      {
+          SetValue("Rate", JToken.FromObject(value, CommandBase.Serializer));
+      }
+    }
+  }
+
+
+  ///
+  /// Get the rate (in Hz) at which line-of-sight between the receiver and satellites is evaluated for terrain obscuration.
+  ///
+  /// 
+  ///
+
+  public class GetGnssSignalTerrainObscurationRate : CommandBase
+  {
+    public override string Documentation
+    {
+      get { return "Get the rate (in Hz) at which line-of-sight between the receiver and satellites is evaluated for terrain obscuration."; }
+    }
+
+    internal const string CmdName = "GetGnssSignalTerrainObscurationRate";
+    internal const string TargetId = "";
+
+    public GetGnssSignalTerrainObscurationRate()
+      : base(CmdName, TargetId)
+    {}
+      
+    public override bool IsValid
+    {
+      get
+      {
+        return base.IsValid
+      ;
+      }
+    }
+
+    public override int ExecutePermission { get { return EXECUTE_IF_IDLE; } }
+  }
+
+
+  ///
+  /// Result of GetGnssSignalTerrainObscurationRate.
+  ///
+  /// Name Type Description
+  /// ---- ---- -----------------------------------------------------------------------------------------------------------------------------------------------------
+  /// Rate int  Rate at which line-of-sight between the receiver and satellites is evaluated. Accepted values are: 1 Hz, 5 Hz, 10 Hz, 20 Hz, 25 Hz, 40 Hz, and 50 Hz.
+  ///
+
+  public class GetGnssSignalTerrainObscurationRateResult : CommandResult
+  {
+    public override string Documentation
+    {
+      get { return "Result of GetGnssSignalTerrainObscurationRate."; }
+    }
+
+    internal const string CmdName = "GetGnssSignalTerrainObscurationRateResult";
+    internal const string TargetId = "";
+
+    public GetGnssSignalTerrainObscurationRateResult()
+      : base(CmdName, TargetId)
+    {}
+
+    public GetGnssSignalTerrainObscurationRateResult(CommandBase relatedCommand, int rate)
+      : base(CmdName, TargetId, relatedCommand)
+    {
+      Rate = rate;
+    }
+      
+    public override bool IsValid
+    {
+      get
+      {
+        return base.IsValid
+        && Contains("Rate")
+      ;
+      }
+    }
+
+    public int Rate
+    {
+      get { return GetValue("Rate").ToObject<int>(CommandBase.Serializer); }
+      set
+      {
+          SetValue("Rate", JToken.FromObject(value, CommandBase.Serializer));
+      }
+    }
+  }
+
+
+  ///
+  /// Enable (or disable) terrain-based attenuation of interference and spoofing signals.
+  ///
+  /// Name    Type Description
+  /// ------- ---- ----------------------------------------------------------------------------------------------------------------------------------------------
+  /// Enabled bool If true, the power of interference and spoofing signals will be reduced based on the terrain profile between the transmitter and the receiver.
+  ///
+
+  public class EnableTxSignalTerrainAttenuation : CommandBase
+  {
+    public override string Documentation
+    {
+      get { return "Enable (or disable) terrain-based attenuation of interference and spoofing signals."; }
+    }
+
+    internal const string CmdName = "EnableTxSignalTerrainAttenuation";
+    internal const string TargetId = "";
+
+    public EnableTxSignalTerrainAttenuation()
+      : base(CmdName, TargetId)
+    {}
+
+    public EnableTxSignalTerrainAttenuation(bool enabled)
+      : base(CmdName, TargetId)
+    {
+      Enabled = enabled;
+    }
+      
+    public override bool IsValid
+    {
+      get
+      {
+        return base.IsValid
+        && Contains("Enabled")
+      ;
+      }
+    }
+
+    public override int ExecutePermission { get { return EXECUTE_IF_IDLE; } }
+
+    public bool Enabled
+    {
+      get { return GetValue("Enabled").ToObject<bool>(CommandBase.Serializer); }
+      set
+      {
+          SetValue("Enabled", JToken.FromObject(value, CommandBase.Serializer));
+      }
+    }
+  }
+
+
+  ///
+  /// Tells whether terrain-based attenuation of interference and spoofing signals is enabled.
+  ///
+  /// 
+  ///
+
+  public class IsTxSignalTerrainAttenuationEnabled : CommandBase
+  {
+    public override string Documentation
+    {
+      get { return "Tells whether terrain-based attenuation of interference and spoofing signals is enabled."; }
+    }
+
+    internal const string CmdName = "IsTxSignalTerrainAttenuationEnabled";
+    internal const string TargetId = "";
+
+    public IsTxSignalTerrainAttenuationEnabled()
+      : base(CmdName, TargetId)
+    {}
+      
+    public override bool IsValid
+    {
+      get
+      {
+        return base.IsValid
+      ;
+      }
+    }
+
+    public override int ExecutePermission { get { return EXECUTE_IF_IDLE; } }
+  }
+
+
+  ///
+  /// Result of IsTxSignalTerrainAttenuationEnabled.
+  ///
+  /// Name    Type Description
+  /// ------- ---- ----------------------------------------------------------------------------------------------------------------------------------------------
+  /// Enabled bool If true, the power of interference and spoofing signals will be reduced based on the terrain profile between the transmitter and the receiver.
+  ///
+
+  public class IsTxSignalTerrainAttenuationEnabledResult : CommandResult
+  {
+    public override string Documentation
+    {
+      get { return "Result of IsTxSignalTerrainAttenuationEnabled."; }
+    }
+
+    internal const string CmdName = "IsTxSignalTerrainAttenuationEnabledResult";
+    internal const string TargetId = "";
+
+    public IsTxSignalTerrainAttenuationEnabledResult()
+      : base(CmdName, TargetId)
+    {}
+
+    public IsTxSignalTerrainAttenuationEnabledResult(CommandBase relatedCommand, bool enabled)
+      : base(CmdName, TargetId, relatedCommand)
+    {
+      Enabled = enabled;
+    }
+      
+    public override bool IsValid
+    {
+      get
+      {
+        return base.IsValid
+        && Contains("Enabled")
+      ;
+      }
+    }
+
+    public bool Enabled
+    {
+      get { return GetValue("Enabled").ToObject<bool>(CommandBase.Serializer); }
+      set
+      {
+          SetValue("Enabled", JToken.FromObject(value, CommandBase.Serializer));
+      }
+    }
+  }
+
+
+  ///
+  /// Set the rate (in Hz) at which terrain-based attenuation of interference and spoofing signals is recalculated.
+  ///
+  /// Name Type Description
+  /// ---- ---- ---------------------------------------------------------------------------------------------------------------------------------------------------------------------
+  /// Rate int  Rate at which terrain-based attenuation of interference and spoofing signals is recalculated. Accepted values are: 1 Hz, 5 Hz, 10 Hz, 20 Hz, 25 Hz, 40 Hz, and 50 Hz.
+  ///
+
+  public class SetTxSignalTerrainAttenuationRate : CommandBase
+  {
+    public override string Documentation
+    {
+      get { return "Set the rate (in Hz) at which terrain-based attenuation of interference and spoofing signals is recalculated."; }
+    }
+
+    internal const string CmdName = "SetTxSignalTerrainAttenuationRate";
+    internal const string TargetId = "";
+
+    public SetTxSignalTerrainAttenuationRate()
+      : base(CmdName, TargetId)
+    {}
+
+    public SetTxSignalTerrainAttenuationRate(int rate)
+      : base(CmdName, TargetId)
+    {
+      Rate = rate;
+    }
+      
+    public override bool IsValid
+    {
+      get
+      {
+        return base.IsValid
+        && Contains("Rate")
+      ;
+      }
+    }
+
+    public override int ExecutePermission { get { return EXECUTE_IF_IDLE; } }
+
+    public int Rate
+    {
+      get { return GetValue("Rate").ToObject<int>(CommandBase.Serializer); }
+      set
+      {
+          SetValue("Rate", JToken.FromObject(value, CommandBase.Serializer));
+      }
+    }
+  }
+
+
+  ///
+  /// Get the rate (in Hz) at which terrain-based attenuation of interference and spoofing signals is recalculated.
+  ///
+  /// 
+  ///
+
+  public class GetTxSignalTerrainAttenuationRate : CommandBase
+  {
+    public override string Documentation
+    {
+      get { return "Get the rate (in Hz) at which terrain-based attenuation of interference and spoofing signals is recalculated."; }
+    }
+
+    internal const string CmdName = "GetTxSignalTerrainAttenuationRate";
+    internal const string TargetId = "";
+
+    public GetTxSignalTerrainAttenuationRate()
+      : base(CmdName, TargetId)
+    {}
+      
+    public override bool IsValid
+    {
+      get
+      {
+        return base.IsValid
+      ;
+      }
+    }
+
+    public override int ExecutePermission { get { return EXECUTE_IF_IDLE; } }
+  }
+
+
+  ///
+  /// Result of GetTxSignalTerrainAttenuationRate.
+  ///
+  /// Name Type Description
+  /// ---- ---- ---------------------------------------------------------------------------------------------------------------------------------------------------------------------
+  /// Rate int  Rate at which terrain-based attenuation of interference and spoofing signals is recalculated. Accepted values are: 1 Hz, 5 Hz, 10 Hz, 20 Hz, 25 Hz, 40 Hz, and 50 Hz.
+  ///
+
+  public class GetTxSignalTerrainAttenuationRateResult : CommandResult
+  {
+    public override string Documentation
+    {
+      get { return "Result of GetTxSignalTerrainAttenuationRate."; }
+    }
+
+    internal const string CmdName = "GetTxSignalTerrainAttenuationRateResult";
+    internal const string TargetId = "";
+
+    public GetTxSignalTerrainAttenuationRateResult()
+      : base(CmdName, TargetId)
+    {}
+
+    public GetTxSignalTerrainAttenuationRateResult(CommandBase relatedCommand, int rate)
+      : base(CmdName, TargetId, relatedCommand)
+    {
+      Rate = rate;
+    }
+      
+    public override bool IsValid
+    {
+      get
+      {
+        return base.IsValid
+        && Contains("Rate")
+      ;
+      }
+    }
+
+    public int Rate
+    {
+      get { return GetValue("Rate").ToObject<int>(CommandBase.Serializer); }
+      set
+      {
+          SetValue("Rate", JToken.FromObject(value, CommandBase.Serializer));
+      }
+    }
+  }
+
+
+  ///
+  /// Enable (or disable) terrain-following behavior for ground vehicles.
+  ///
+  /// Name    Type Description
+  /// ------- ---- -------------------------------------------------------------------------------------------------
+  /// Enabled bool If true, the altitude of ground vehicles is automatically adjusted to follow the terrain surface.
+  ///
+
+  public class EnableGroundVehicleTerrainFollowing : CommandBase
+  {
+    public override string Documentation
+    {
+      get { return "Enable (or disable) terrain-following behavior for ground vehicles."; }
+    }
+
+    internal const string CmdName = "EnableGroundVehicleTerrainFollowing";
+    internal const string TargetId = "";
+
+    public EnableGroundVehicleTerrainFollowing()
+      : base(CmdName, TargetId)
+    {}
+
+    public EnableGroundVehicleTerrainFollowing(bool enabled)
+      : base(CmdName, TargetId)
+    {
+      Enabled = enabled;
+    }
+      
+    public override bool IsValid
+    {
+      get
+      {
+        return base.IsValid
+        && Contains("Enabled")
+      ;
+      }
+    }
+
+    public override int ExecutePermission { get { return EXECUTE_IF_IDLE; } }
+
+    public bool Enabled
+    {
+      get { return GetValue("Enabled").ToObject<bool>(CommandBase.Serializer); }
+      set
+      {
+          SetValue("Enabled", JToken.FromObject(value, CommandBase.Serializer));
+      }
+    }
+  }
+
+
+  ///
+  /// Tells whether ground vehicles follow the terrain surface.
+  ///
+  /// 
+  ///
+
+  public class IsGroundVehicleTerrainFollowingEnabled : CommandBase
+  {
+    public override string Documentation
+    {
+      get { return "Tells whether ground vehicles follow the terrain surface."; }
+    }
+
+    internal const string CmdName = "IsGroundVehicleTerrainFollowingEnabled";
+    internal const string TargetId = "";
+
+    public IsGroundVehicleTerrainFollowingEnabled()
+      : base(CmdName, TargetId)
+    {}
+      
+    public override bool IsValid
+    {
+      get
+      {
+        return base.IsValid
+      ;
+      }
+    }
+
+    public override int ExecutePermission { get { return EXECUTE_IF_IDLE; } }
+  }
+
+
+  ///
+  /// Result of IsGroundVehicleTerrainFollowingEnabled.
+  ///
+  /// Name    Type Description
+  /// ------- ---- -------------------------------------------------------------------------------------------------
+  /// Enabled bool If true, the altitude of ground vehicles is automatically adjusted to follow the terrain surface.
+  ///
+
+  public class IsGroundVehicleTerrainFollowingEnabledResult : CommandResult
+  {
+    public override string Documentation
+    {
+      get { return "Result of IsGroundVehicleTerrainFollowingEnabled."; }
+    }
+
+    internal const string CmdName = "IsGroundVehicleTerrainFollowingEnabledResult";
+    internal const string TargetId = "";
+
+    public IsGroundVehicleTerrainFollowingEnabledResult()
+      : base(CmdName, TargetId)
+    {}
+
+    public IsGroundVehicleTerrainFollowingEnabledResult(CommandBase relatedCommand, bool enabled)
+      : base(CmdName, TargetId, relatedCommand)
+    {
+      Enabled = enabled;
+    }
+      
+    public override bool IsValid
+    {
+      get
+      {
+        return base.IsValid
+        && Contains("Enabled")
+      ;
+      }
+    }
+
+    public bool Enabled
+    {
+      get { return GetValue("Enabled").ToObject<bool>(CommandBase.Serializer); }
+      set
+      {
+          SetValue("Enabled", JToken.FromObject(value, CommandBase.Serializer));
+      }
+    }
+  }
+
+
+  ///
+  /// Set  the Dektec serial number assignation for a Dektec type, indexed by device number.
+  ///
+  /// Name          Type         Description
+  /// ------------- ------------ --------------------------------------------------------
+  /// DektecType    string       Dektec type, valid values are "DTA-2115B" or "DTA-2116".
+  /// SerialNumbers array string Dektec Serial Numbers
+  ///
+
+  public class SetDektecSerialNumberAssignation : CommandBase
+  {
+    public override string Documentation
+    {
+      get { return "Set  the Dektec serial number assignation for a Dektec type, indexed by device number."; }
+    }
+
+    internal const string CmdName = "SetDektecSerialNumberAssignation";
+    internal const string TargetId = "";
+
+    public SetDektecSerialNumberAssignation()
+      : base(CmdName, TargetId)
+    {}
+
+    public SetDektecSerialNumberAssignation(string dektecType, List<string> serialNumbers)
+      : base(CmdName, TargetId)
+    {
+      DektecType = dektecType;
+      SerialNumbers = serialNumbers;
+    }
+      
+    public override bool IsValid
+    {
+      get
+      {
+        return base.IsValid
+        && Contains("DektecType")
+        && Contains("SerialNumbers")
+      ;
+      }
+    }
+
+    public override int ExecutePermission { get { return EXECUTE_IF_IDLE; } }
+
+    public string DektecType
+    {
+      get { return GetValue("DektecType").ToObject<string>(CommandBase.Serializer); }
+      set
+      {
+          SetValue("DektecType", JToken.FromObject(value, CommandBase.Serializer));
+      }
+    }
+
+    public List<string> SerialNumbers
+    {
+      get { return GetValue("SerialNumbers").ToObject<List<string>>(CommandBase.Serializer); }
+      set
+      {
+          SetValue("SerialNumbers", JToken.FromObject(value, CommandBase.Serializer));
+      }
+    }
+  }
+
+
+  ///
+  /// Get  the Dektec serial number assignation for a Dektec type, indexed by device number.
+  ///
+  /// Name       Type   Description
+  /// ---------- ------ --------------------------------------------------------
+  /// DektecType string Dektec type, valid values are "DTA-2115B" or "DTA-2116".
+  ///
+
+  public class GetDektecSerialNumberAssignation : CommandBase
+  {
+    public override string Documentation
+    {
+      get { return "Get  the Dektec serial number assignation for a Dektec type, indexed by device number."; }
+    }
+
+    internal const string CmdName = "GetDektecSerialNumberAssignation";
+    internal const string TargetId = "";
+
+    public GetDektecSerialNumberAssignation()
+      : base(CmdName, TargetId)
+    {}
+
+    public GetDektecSerialNumberAssignation(string dektecType)
+      : base(CmdName, TargetId)
+    {
+      DektecType = dektecType;
+    }
+      
+    public override bool IsValid
+    {
+      get
+      {
+        return base.IsValid
+        && Contains("DektecType")
+      ;
+      }
+    }
+
+    public override int ExecutePermission { get { return EXECUTE_IF_IDLE; } }
+
+    public string DektecType
+    {
+      get { return GetValue("DektecType").ToObject<string>(CommandBase.Serializer); }
+      set
+      {
+          SetValue("DektecType", JToken.FromObject(value, CommandBase.Serializer));
+      }
+    }
+  }
+
+
+  ///
+  /// Result of GetDektecSerialNumberAssignation.
+  ///
+  /// Name          Type         Description
+  /// ------------- ------------ --------------------------------------------------------
+  /// DektecType    string       Dektec type, valid values are "DTA-2115B" or "DTA-2116".
+  /// SerialNumbers array string Dektec Serial Numbers
+  ///
+
+  public class GetDektecSerialNumberAssignationResult : CommandResult
+  {
+    public override string Documentation
+    {
+      get { return "Result of GetDektecSerialNumberAssignation."; }
+    }
+
+    internal const string CmdName = "GetDektecSerialNumberAssignationResult";
+    internal const string TargetId = "";
+
+    public GetDektecSerialNumberAssignationResult()
+      : base(CmdName, TargetId)
+    {}
+
+    public GetDektecSerialNumberAssignationResult(CommandBase relatedCommand, string dektecType, List<string> serialNumbers)
+      : base(CmdName, TargetId, relatedCommand)
+    {
+      DektecType = dektecType;
+      SerialNumbers = serialNumbers;
+    }
+      
+    public override bool IsValid
+    {
+      get
+      {
+        return base.IsValid
+        && Contains("DektecType")
+        && Contains("SerialNumbers")
+      ;
+      }
+    }
+
+    public string DektecType
+    {
+      get { return GetValue("DektecType").ToObject<string>(CommandBase.Serializer); }
+      set
+      {
+          SetValue("DektecType", JToken.FromObject(value, CommandBase.Serializer));
+      }
+    }
+
+    public List<string> SerialNumbers
+    {
+      get { return GetValue("SerialNumbers").ToObject<List<string>>(CommandBase.Serializer); }
+      set
+      {
+          SetValue("SerialNumbers", JToken.FromObject(value, CommandBase.Serializer));
+      }
+    }
+  }
+
+
+  ///
+  /// Set the path to the directory containing the terrain elevation data files.
+  ///
+  /// Name Type   Description
+  /// ---- ------ ---------------------------
+  /// Path string Path to the elevation data.
+  ///
+
+  public class SetElevationDataPath : CommandBase
+  {
+    public override string Documentation
+    {
+      get { return "Set the path to the directory containing the terrain elevation data files."; }
+    }
+
+    internal const string CmdName = "SetElevationDataPath";
+    internal const string TargetId = "";
+
+    public SetElevationDataPath()
+      : base(CmdName, TargetId)
+    {}
+
+    public SetElevationDataPath(string path)
+      : base(CmdName, TargetId)
+    {
+      Path = path;
+    }
+      
+    public override bool IsValid
+    {
+      get
+      {
+        return base.IsValid
+        && Contains("Path")
+      ;
+      }
+    }
+
+    public override int ExecutePermission { get { return EXECUTE_IF_NO_CONFIG | EXECUTE_IF_IDLE; } }
+
+    public string Path
+    {
+      get { return GetValue("Path").ToObject<string>(CommandBase.Serializer); }
+      set
+      {
+          SetValue("Path", JToken.FromObject(value, CommandBase.Serializer));
+      }
+    }
+  }
+
+
+  ///
+  /// Get the path to the directory containing the terrain elevation data files.
+  ///
+  /// 
+  ///
+
+  public class GetElevationDataPath : CommandBase
+  {
+    public override string Documentation
+    {
+      get { return "Get the path to the directory containing the terrain elevation data files."; }
+    }
+
+    internal const string CmdName = "GetElevationDataPath";
+    internal const string TargetId = "";
+
+    public GetElevationDataPath()
+      : base(CmdName, TargetId)
+    {}
+      
+    public override bool IsValid
+    {
+      get
+      {
+        return base.IsValid
+      ;
+      }
+    }
+
+    public override int ExecutePermission { get { return EXECUTE_IF_NO_CONFIG | EXECUTE_IF_IDLE; } }
+  }
+
+
+  ///
+  /// Result of GetElevationDataPath.
+  ///
+  /// Name Type   Description
+  /// ---- ------ ---------------------------
+  /// Path string Path to the elevation data.
+  ///
+
+  public class GetElevationDataPathResult : CommandResult
+  {
+    public override string Documentation
+    {
+      get { return "Result of GetElevationDataPath."; }
+    }
+
+    internal const string CmdName = "GetElevationDataPathResult";
+    internal const string TargetId = "";
+
+    public GetElevationDataPathResult()
+      : base(CmdName, TargetId)
+    {}
+
+    public GetElevationDataPathResult(CommandBase relatedCommand, string path)
+      : base(CmdName, TargetId, relatedCommand)
+    {
+      Path = path;
+    }
+      
+    public override bool IsValid
+    {
+      get
+      {
+        return base.IsValid
+        && Contains("Path")
+      ;
+      }
+    }
+
+    public string Path
+    {
+      get { return GetValue("Path").ToObject<string>(CommandBase.Serializer); }
+      set
+      {
+          SetValue("Path", JToken.FromObject(value, CommandBase.Serializer));
+      }
+    }
+  }
+
+
+  ///
+  /// Set the Geoid file path.
+  ///
+  /// Name Type   Description
+  /// ---- ------ ------------------------------
+  /// Path string Path to the Geoid file to use.
+  ///
+
+  public class SetGeoidFilePath : CommandBase
+  {
+    public override string Documentation
+    {
+      get { return "Set the Geoid file path."; }
+    }
+
+    internal const string CmdName = "SetGeoidFilePath";
+    internal const string TargetId = "";
+
+    public SetGeoidFilePath()
+      : base(CmdName, TargetId)
+    {}
+
+    public SetGeoidFilePath(string path)
+      : base(CmdName, TargetId)
+    {
+      Path = path;
+    }
+      
+    public override bool IsValid
+    {
+      get
+      {
+        return base.IsValid
+        && Contains("Path")
+      ;
+      }
+    }
+
+    public override int ExecutePermission { get { return EXECUTE_IF_NO_CONFIG | EXECUTE_IF_IDLE; } }
+
+    public string Path
+    {
+      get { return GetValue("Path").ToObject<string>(CommandBase.Serializer); }
+      set
+      {
+          SetValue("Path", JToken.FromObject(value, CommandBase.Serializer));
+      }
+    }
+  }
+
+
+  ///
+  /// Get the Geoid file path.
+  ///
+  /// 
+  ///
+
+  public class GetGeoidFilePath : CommandBase
+  {
+    public override string Documentation
+    {
+      get { return "Get the Geoid file path."; }
+    }
+
+    internal const string CmdName = "GetGeoidFilePath";
+    internal const string TargetId = "";
+
+    public GetGeoidFilePath()
+      : base(CmdName, TargetId)
+    {}
+      
+    public override bool IsValid
+    {
+      get
+      {
+        return base.IsValid
+      ;
+      }
+    }
+
+    public override int ExecutePermission { get { return EXECUTE_IF_NO_CONFIG | EXECUTE_IF_IDLE; } }
+  }
+
+
+  ///
+  /// Result of GetGeoidFilePath.
+  ///
+  /// Name Type   Description
+  /// ---- ------ ------------------------------
+  /// Path string Path to the Geoid file to use.
+  ///
+
+  public class GetGeoidFilePathResult : CommandResult
+  {
+    public override string Documentation
+    {
+      get { return "Result of GetGeoidFilePath."; }
+    }
+
+    internal const string CmdName = "GetGeoidFilePathResult";
+    internal const string TargetId = "";
+
+    public GetGeoidFilePathResult()
+      : base(CmdName, TargetId)
+    {}
+
+    public GetGeoidFilePathResult(CommandBase relatedCommand, string path)
+      : base(CmdName, TargetId, relatedCommand)
+    {
+      Path = path;
+    }
+      
+    public override bool IsValid
+    {
+      get
+      {
+        return base.IsValid
+        && Contains("Path")
+      ;
+      }
+    }
+
+    public string Path
+    {
+      get { return GetValue("Path").ToObject<string>(CommandBase.Serializer); }
+      set
+      {
+          SetValue("Path", JToken.FromObject(value, CommandBase.Serializer));
+      }
+    }
+  }
+
+
+  ///
+  /// Set the parameters of the NeQuick2-MLF2 model.
+  ///
+  /// Name               Type   Description
+  /// ------------------ ------ -----------------------------------------------------------------------------------------------
+  /// F10_7              double The Solar Radio Flux Index at 10.7cm Wavelength. Ranges from 0 to 400 s.f.u.
+  /// Ap                 double The daily average of ap, converted to a linear scale. Ranges from 0 to 400.
+  /// Kp                 double A global geomagnetic activity index quantifying disturbances in the horizontal, 
+  ///                           component of Earth's magnetic field. Ranges from 0 to 9.
+  /// Smoothed_365_F10_7 double Solar Radio Flux Index at 10.7cm Wavelength smoothed over 365 days. Ranges from 0 to 400 s.f.u.
+  ///
+
+  public class SetNeQuick2MLF2Parameters : CommandBase
+  {
+    public override string Documentation
+    {
+      get { return "Set the parameters of the NeQuick2-MLF2 model."; }
+    }
+
+    internal const string CmdName = "SetNeQuick2MLF2Parameters";
+    internal const string TargetId = "";
+
+    public SetNeQuick2MLF2Parameters()
+      : base(CmdName, TargetId)
+    {}
+
+    public SetNeQuick2MLF2Parameters(double f10_7, double ap, double kp, double smoothed_365_F10_7)
+      : base(CmdName, TargetId)
+    {
+      F10_7 = f10_7;
+      Ap = ap;
+      Kp = kp;
+      Smoothed_365_F10_7 = smoothed_365_F10_7;
+    }
+      
+    public override bool IsValid
+    {
+      get
+      {
+        return base.IsValid
+        && Contains("F10_7")
+        && Contains("Ap")
+        && Contains("Kp")
+        && Contains("Smoothed_365_F10_7")
+      ;
+      }
+    }
+
+    public override int ExecutePermission { get { return EXECUTE_IF_IDLE; } }
+
+    public double F10_7
+    {
+      get { return GetValue("F10_7").ToObject<double>(CommandBase.Serializer); }
+      set
+      {
+          SetValue("F10_7", JToken.FromObject(value, CommandBase.Serializer));
+      }
+    }
+
+    public double Ap
+    {
+      get { return GetValue("Ap").ToObject<double>(CommandBase.Serializer); }
+      set
+      {
+          SetValue("Ap", JToken.FromObject(value, CommandBase.Serializer));
+      }
+    }
+
+    public double Kp
+    {
+      get { return GetValue("Kp").ToObject<double>(CommandBase.Serializer); }
+      set
+      {
+          SetValue("Kp", JToken.FromObject(value, CommandBase.Serializer));
+      }
+    }
+
+    public double Smoothed_365_F10_7
+    {
+      get { return GetValue("Smoothed_365_F10_7").ToObject<double>(CommandBase.Serializer); }
+      set
+      {
+          SetValue("Smoothed_365_F10_7", JToken.FromObject(value, CommandBase.Serializer));
+      }
+    }
+  }
+
+
+  ///
+  /// Get the parameters of the NeQuick2-MLF2 model.
+  ///
+  /// 
+  ///
+
+  public class GetNeQuick2MLF2Parameters : CommandBase
+  {
+    public override string Documentation
+    {
+      get { return "Get the parameters of the NeQuick2-MLF2 model."; }
+    }
+
+    internal const string CmdName = "GetNeQuick2MLF2Parameters";
+    internal const string TargetId = "";
+
+    public GetNeQuick2MLF2Parameters()
+      : base(CmdName, TargetId)
+    {}
+      
+    public override bool IsValid
+    {
+      get
+      {
+        return base.IsValid
+      ;
+      }
+    }
+
+    public override int ExecutePermission { get { return EXECUTE_IF_IDLE; } }
+  }
+
+
+  ///
+  /// Result of GetNeQuick2MLF2Parameters.
+  ///
+  /// Name               Type   Description
+  /// ------------------ ------ -----------------------------------------------------------------------------------------------
+  /// F10_7              double The Solar Radio Flux Index at 10.7cm Wavelength. Ranges from 0 to 400 s.f.u.
+  /// Ap                 double The daily average of ap, converted to a linear scale. Ranges from 0 to 400.
+  /// Kp                 double A global geomagnetic activity index quantifying disturbances in the horizontal, 
+  ///                           component of Earth's magnetic field. Ranges from 0 to 9.
+  /// Smoothed_365_F10_7 double Solar Radio Flux Index at 10.7cm Wavelength smoothed over 365 days. Ranges from 0 to 400 s.f.u.
+  ///
+
+  public class GetNeQuick2MLF2ParametersResult : CommandResult
+  {
+    public override string Documentation
+    {
+      get { return "Result of GetNeQuick2MLF2Parameters."; }
+    }
+
+    internal const string CmdName = "GetNeQuick2MLF2ParametersResult";
+    internal const string TargetId = "";
+
+    public GetNeQuick2MLF2ParametersResult()
+      : base(CmdName, TargetId)
+    {}
+
+    public GetNeQuick2MLF2ParametersResult(CommandBase relatedCommand, double f10_7, double ap, double kp, double smoothed_365_F10_7)
+      : base(CmdName, TargetId, relatedCommand)
+    {
+      F10_7 = f10_7;
+      Ap = ap;
+      Kp = kp;
+      Smoothed_365_F10_7 = smoothed_365_F10_7;
+    }
+      
+    public override bool IsValid
+    {
+      get
+      {
+        return base.IsValid
+        && Contains("F10_7")
+        && Contains("Ap")
+        && Contains("Kp")
+        && Contains("Smoothed_365_F10_7")
+      ;
+      }
+    }
+
+    public double F10_7
+    {
+      get { return GetValue("F10_7").ToObject<double>(CommandBase.Serializer); }
+      set
+      {
+          SetValue("F10_7", JToken.FromObject(value, CommandBase.Serializer));
+      }
+    }
+
+    public double Ap
+    {
+      get { return GetValue("Ap").ToObject<double>(CommandBase.Serializer); }
+      set
+      {
+          SetValue("Ap", JToken.FromObject(value, CommandBase.Serializer));
+      }
+    }
+
+    public double Kp
+    {
+      get { return GetValue("Kp").ToObject<double>(CommandBase.Serializer); }
+      set
+      {
+          SetValue("Kp", JToken.FromObject(value, CommandBase.Serializer));
+      }
+    }
+
+    public double Smoothed_365_F10_7
+    {
+      get { return GetValue("Smoothed_365_F10_7").ToObject<double>(CommandBase.Serializer); }
+      set
+      {
+          SetValue("Smoothed_365_F10_7", JToken.FromObject(value, CommandBase.Serializer));
+      }
+    }
+  }
+
+
+  ///
+  /// Set the update rate of the NeQuick2-MLF2 model.
+  ///
+  /// Name       Type Description
+  /// ---------- ---- ----------------------------
+  /// UpdateRate int  The update rate, in seconds.
+  ///
+
+  public class SetNeQuick2MLF2UpdateRate : CommandBase
+  {
+    public override string Documentation
+    {
+      get { return "Set the update rate of the NeQuick2-MLF2 model."; }
+    }
+
+    internal const string CmdName = "SetNeQuick2MLF2UpdateRate";
+    internal const string TargetId = "";
+
+    public SetNeQuick2MLF2UpdateRate()
+      : base(CmdName, TargetId)
+    {}
+
+    public SetNeQuick2MLF2UpdateRate(int updateRate)
+      : base(CmdName, TargetId)
+    {
+      UpdateRate = updateRate;
+    }
+      
+    public override bool IsValid
+    {
+      get
+      {
+        return base.IsValid
+        && Contains("UpdateRate")
+      ;
+      }
+    }
+
+    public override int ExecutePermission { get { return EXECUTE_IF_IDLE; } }
+
+    public int UpdateRate
+    {
+      get { return GetValue("UpdateRate").ToObject<int>(CommandBase.Serializer); }
+      set
+      {
+          SetValue("UpdateRate", JToken.FromObject(value, CommandBase.Serializer));
+      }
+    }
+  }
+
+
+  ///
+  /// Get the update rate of the NeQuick2-MLF2 model.
+  ///
+  /// 
+  ///
+
+  public class GetNeQuick2MLF2UpdateRate : CommandBase
+  {
+    public override string Documentation
+    {
+      get { return "Get the update rate of the NeQuick2-MLF2 model."; }
+    }
+
+    internal const string CmdName = "GetNeQuick2MLF2UpdateRate";
+    internal const string TargetId = "";
+
+    public GetNeQuick2MLF2UpdateRate()
+      : base(CmdName, TargetId)
+    {}
+      
+    public override bool IsValid
+    {
+      get
+      {
+        return base.IsValid
+      ;
+      }
+    }
+
+    public override int ExecutePermission { get { return EXECUTE_IF_IDLE; } }
+  }
+
+
+  ///
+  /// Result of GetNeQuick2MLF2UpdateRate.
+  ///
+  /// Name       Type Description
+  /// ---------- ---- ----------------------------
+  /// UpdateRate int  The update rate, in seconds.
+  ///
+
+  public class GetNeQuick2MLF2UpdateRateResult : CommandResult
+  {
+    public override string Documentation
+    {
+      get { return "Result of GetNeQuick2MLF2UpdateRate."; }
+    }
+
+    internal const string CmdName = "GetNeQuick2MLF2UpdateRateResult";
+    internal const string TargetId = "";
+
+    public GetNeQuick2MLF2UpdateRateResult()
+      : base(CmdName, TargetId)
+    {}
+
+    public GetNeQuick2MLF2UpdateRateResult(CommandBase relatedCommand, int updateRate)
+      : base(CmdName, TargetId, relatedCommand)
+    {
+      UpdateRate = updateRate;
+    }
+      
+    public override bool IsValid
+    {
+      get
+      {
+        return base.IsValid
+        && Contains("UpdateRate")
+      ;
+      }
+    }
+
+    public int UpdateRate
+    {
+      get { return GetValue("UpdateRate").ToObject<int>(CommandBase.Serializer); }
+      set
+      {
+          SetValue("UpdateRate", JToken.FromObject(value, CommandBase.Serializer));
       }
     }
   }

@@ -25,7 +25,7 @@ def signal_key_to_nav_msg_family_mapping(is_geo=False):
         'E1': 'GALILEO_INAV',
         'E5b': 'GALILEO_INAV',
         'E5a': 'GALILEO_FNAV',
-        'E6': 'GALILEO_CNAV',
+        'E6BC': 'GALILEO_CNAV',
         'B1': 'BEIDOU_D2_NAV' if is_geo else 'BEIDOU_D1_NAV',
         'B2': 'BEIDOU_D2_NAV' if is_geo else 'BEIDOU_D1_NAV',
         'B1C': 'BEIDOU_CNAV1',

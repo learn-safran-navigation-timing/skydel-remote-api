@@ -14,9 +14,9 @@ namespace Sdx
     /// Import ionospheric parameters from a Rinex file.
     ///
     /// Name Type            Description
-    /// ---- --------------- ------------------------------------------------------------------------------
+    /// ---- --------------- -----------------------------------------------------------------------------------------
     /// Path string          File path
-    /// Type optional string Ionospheric parameters type: "Klobuchar" or "BDGIM". The default is Klobuchar.
+    /// Type optional string Ionospheric parameters type: "Klobuchar", "BDGIM" or "NeQuick". The default is Klobuchar.
     ///
 
     class ImportIonoParameters;

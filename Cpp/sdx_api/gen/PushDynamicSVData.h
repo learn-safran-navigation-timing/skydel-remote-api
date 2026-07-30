@@ -40,6 +40,7 @@ namespace Sdx
     ///   "Accuracy"          meter
     ///   "Adot"              meters/sec
     ///   "DeltaN0dot"        rad/sec^2
+    ///   "Fit Interval"      sec
     /// 
     /// After a block is pushed for a SV, no other block can be pushed for that SV until the interpolation period is over.
     ///   Constellation   Interpolation period (sec)
@@ -60,11 +61,11 @@ namespace Sdx
     ///                                                         "ClockBias", "ClockDrift", "ClockDriftRate", "Crs", "Crc",
     ///                                                         "Cis", "Cic", "Cus", "Cuc", "DeltaN", "M0", "Eccentricity",
     ///                                                         "SqrtA", "BigOmega", "I0", "LittleOmega", "BigOmegaDot",
-    ///                                                         "Idot", "Adot", "DeltaN0dot", "UraIndex", "IODE", "IODNAV",
-    ///                                                         "IODEC", "IODC", "Tgd", "IscL1CA", "IscL2C", "IscL5I5",
-    ///                                                         "IscL5Q5", "IscL1CP", "IscL1CD", "BgdE1E5a", "BgdE1E5b",
-    ///                                                         "Tgd1", "Tgd2", "TgdB1Cp", "TgdB2ap", "TgdB2bI", "IscB1Cd",
-    ///                                                         "IscB2ad", "SisaE1E5a" and "SisaE1E5b"
+    ///                                                         "Idot", "Adot", "DeltaN0dot", "Fit Interval", "UraIndex",
+    ///                                                         "IODE", "IODNAV", "IODEC", "IODC", "Tgd", "IscL1CA",
+    ///                                                         "IscL2C", "IscL5I5", "IscL5Q5", "IscL1CP", "IscL1CD",
+    ///                                                         "BgdE1E5a", "BgdE1E5b", "Tgd1", "Tgd2", "TgdB1Cp", "TgdB2ap",
+    ///                                                         "TgdB2bI", "IscB1Cd", "IscB2ad", "SisaE1E5a" and "SisaE1E5b"
     /// DataSetTypes   optional array string Optional data set type array: "Ephemeris" or "Orbit". If not provided, applies to both.
     ///
 

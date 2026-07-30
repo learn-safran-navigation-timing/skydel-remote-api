@@ -17,12 +17,17 @@ namespace Sdx
     /// -None
     /// -Incomplete
     /// -Ready
+    /// -Initializing AI Models
+    /// -Initializing Terrain
+    /// -Initializing Plug-ins
     /// -Initializing
     /// -Armed
     /// -Streaming RF
     /// -Sync Worker
-    /// -WF Init (Worker)
-    /// -WF Init (Main)
+    /// -WF Init (Worker instance)
+    /// -WF Init (Main instance)
+    /// -WF Sync PPS Reset
+    /// -WF Sync Start
     /// -HIL Sync
     /// -Sync Init
     /// -Sync PPS Reset

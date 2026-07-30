@@ -3,6 +3,7 @@
 #include <memory>
 #include "command_base.h"
 
+#include <optional>
 #include <string>
 
 namespace Sdx
@@ -12,9 +13,10 @@ namespace Sdx
     ///
     /// Import MODIP data file.
     ///
-    /// Name Type   Description
-    /// ---- ------ -----------
-    /// Path string File path.
+    /// Name      Type            Description
+    /// --------- --------------- --------------------------------------------------------------------------------------------------------------------------------------------------
+    /// Path      string          File path.
+    /// IonoModel optional string Ionospheric model, accepted values are "NeQuick" and "NeQuick2-MLF2". If no value is provided, the modification will be appllied to NeQuick model.
     ///
 
     class ImportMODIPFile;
@@ -31,9 +33,9 @@ namespace Sdx
 
       ImportMODIPFile();
 
-      ImportMODIPFile(const std::string& path);
+      ImportMODIPFile(const std::string& path, const std::optional<std::string>& ionoModel = {});
 
-      static ImportMODIPFilePtr create(const std::string& path);
+      static ImportMODIPFilePtr create(const std::string& path, const std::optional<std::string>& ionoModel = {});
       static ImportMODIPFilePtr dynamicCast(CommandBasePtr ptr);
       virtual bool isValid() const override;
       virtual std::string documentation() const override;
@@ -45,6 +47,11 @@ namespace Sdx
       // **** path ****
       std::string path() const;
       void setPath(const std::string& path);
+
+
+      // **** ionoModel ****
+      std::optional<std::string> ionoModel() const;
+      void setIonoModel(const std::optional<std::string>& ionoModel);
     };
     
   }

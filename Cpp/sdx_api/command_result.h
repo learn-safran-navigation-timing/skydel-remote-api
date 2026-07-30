@@ -38,8 +38,9 @@ public:
 
   virtual std::string toReadableCommand(bool includeName = true) const;
 
-  inline virtual std::string errorMsg() const { return ""; }
-  inline virtual bool isSuccess() const { return true; }
+  std::string errorMsg() const;
+  virtual bool isSuccess() const { return true; }
+  virtual std::string resultMsg() const { return "Success"; }
   std::string message() const;
 
   void setRelatedCommand(CommandBasePtr relatedCommand);

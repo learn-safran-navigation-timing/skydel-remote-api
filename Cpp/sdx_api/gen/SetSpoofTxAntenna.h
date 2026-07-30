@@ -13,6 +13,7 @@ namespace Sdx
   {
     ///
     /// Set transmitter antenna pattern.
+    /// For large arrays, consider using 'SetSpoofTxAntennaGainCSV' to pass the pattern via a CSV file.
     ///
     /// Name Type               Description
     /// ---- ------------------ -------------------------------------------------------------------------------------------------------------------------

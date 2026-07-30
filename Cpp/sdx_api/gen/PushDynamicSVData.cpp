@@ -39,6 +39,7 @@ namespace Sdx
       "  \"Accuracy\"          meter\n"
       "  \"Adot\"              meters/sec\n"
       "  \"DeltaN0dot\"        rad/sec^2\n"
+      "  \"Fit Interval\"      sec\n"
       "\n"
       "After a block is pushed for a SV, no other block can be pushed for that SV until the interpolation period is over.\n"
       "  Constellation   Interpolation period (sec)\n"
@@ -59,11 +60,11 @@ namespace Sdx
       "                                                        \"ClockBias\", \"ClockDrift\", \"ClockDriftRate\", \"Crs\", \"Crc\",\n"
       "                                                        \"Cis\", \"Cic\", \"Cus\", \"Cuc\", \"DeltaN\", \"M0\", \"Eccentricity\",\n"
       "                                                        \"SqrtA\", \"BigOmega\", \"I0\", \"LittleOmega\", \"BigOmegaDot\",\n"
-      "                                                        \"Idot\", \"Adot\", \"DeltaN0dot\", \"UraIndex\", \"IODE\", \"IODNAV\",\n"
-      "                                                        \"IODEC\", \"IODC\", \"Tgd\", \"IscL1CA\", \"IscL2C\", \"IscL5I5\",\n"
-      "                                                        \"IscL5Q5\", \"IscL1CP\", \"IscL1CD\", \"BgdE1E5a\", \"BgdE1E5b\",\n"
-      "                                                        \"Tgd1\", \"Tgd2\", \"TgdB1Cp\", \"TgdB2ap\", \"TgdB2bI\", \"IscB1Cd\",\n"
-      "                                                        \"IscB2ad\", \"SisaE1E5a\" and \"SisaE1E5b\"\n"
+      "                                                        \"Idot\", \"Adot\", \"DeltaN0dot\", \"Fit Interval\", \"UraIndex\",\n"
+      "                                                        \"IODE\", \"IODNAV\", \"IODEC\", \"IODC\", \"Tgd\", \"IscL1CA\",\n"
+      "                                                        \"IscL2C\", \"IscL5I5\", \"IscL5Q5\", \"IscL1CP\", \"IscL1CD\",\n"
+      "                                                        \"BgdE1E5a\", \"BgdE1E5b\", \"Tgd1\", \"Tgd2\", \"TgdB1Cp\", \"TgdB2ap\",\n"
+      "                                                        \"TgdB2bI\", \"IscB1Cd\", \"IscB2ad\", \"SisaE1E5a\" and \"SisaE1E5b\"\n"
       "DataSetTypes   optional array string Optional data set type array: \"Ephemeris\" or \"Orbit\". If not provided, applies to both.";
     const char* const PushDynamicSVData::TargetId = "";
 

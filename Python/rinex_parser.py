@@ -153,6 +153,10 @@ def parse_gps_qzss_line(rinex_line_type, block, data):
     elif rinex_line_type == RinexLineType.BROADCAST_ORBIT_6:
         block.add("Tgd", float(data[2]))
         block.add("IODC", float(data[3]))
+    
+    elif rinex_line_type == RinexLineType.BROADCAST_ORBIT_7:
+        if len(data) > 1:
+            block.add("Fit Interval", float(data[1]))
 
 def parse_galileo_line(rinex_line_type, block, data):
     if rinex_line_type == RinexLineType.BROADCAST_ORBIT_1:

@@ -14,6 +14,7 @@ namespace Sdx
   {
     const char* const SetIntTxAntenna::CmdName = "SetIntTxAntenna";
     const char* const SetIntTxAntenna::Documentation = "Set transmitter antenna pattern.\n"
+      "For large arrays, consider using 'SetIntTxAntennaGainCSV' to pass the pattern via a CSV file.\n"
       "\n"
       "Name Type               Description\n"
       "---- ------------------ -------------------------------------------------------------------------------------------------------------------------\n"

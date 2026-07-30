@@ -13,8 +13,8 @@ namespace Sdx
     /// Set ionospheric model
     ///
     /// Name  Type   Description
-    /// ----- ------ ------------------------------------------------------------------
-    /// Model string Ionospheric model ("None", "Klobuchar", "Spacecraft" or "NeQuick")
+    /// ----- ------ -----------------------------------------------------------------------------------
+    /// Model string Ionospheric model ("None", "Klobuchar", "Spacecraft", "NeQuick" or "NeQuick2-MLF2")
     ///
 
     class SetIonoModel;

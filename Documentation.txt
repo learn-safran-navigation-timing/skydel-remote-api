@@ -1,4 +1,4 @@
-Skydel Remote API Version 53
+Skydel Remote API Version 54
 
 Command execution permission flags:
   EXECUTE_IF_NO_CONFIG  : executed even if there is no config
@@ -38,6 +38,8 @@ Possible values:
   SubStateNone
   Idle_ConfigNotValid
   Idle_ConfigValid
+  Started_InitAIModels
+  Started_InitTerrain
   Started_InitPlugins
   Started_InitHardware
   Started_Streaming
@@ -1010,8 +1012,8 @@ Permission: EXECUTE_IF_IDLE
 Set ionospheric model
 
 Name  Type   Description
------ ------ ------------------------------------------------------------------
-Model string Ionospheric model ("None", "Klobuchar", "Spacecraft" or "NeQuick")
+----- ------ -----------------------------------------------------------------------------------
+Model string Ionospheric model ("None", "Klobuchar", "Spacecraft", "NeQuick" or "NeQuick2-MLF2")
 
 ***************************************************************************************************************************
 
@@ -1028,8 +1030,8 @@ Result GetIonoModelResult(Model)
 Result of GetIonoModel.
 
 Name  Type   Description
------ ------ ------------------------------------------------------------------
-Model string Ionospheric model ("None", "Klobuchar", "Spacecraft" or "NeQuick")
+----- ------ -----------------------------------------------------------------------------------
+Model string Ionospheric model ("None", "Klobuchar", "Spacecraft", "NeQuick" or "NeQuick2-MLF2")
 
 ***************************************************************************************************************************
 
@@ -4008,20 +4010,21 @@ Permission: EXECUTE_IF_IDLE
 Import ionospheric parameters from a Rinex file.
 
 Name Type            Description
----- --------------- ------------------------------------------------------------------------------
+---- --------------- -----------------------------------------------------------------------------------------
 Path string          File path
-Type optional string Ionospheric parameters type: "Klobuchar" or "BDGIM". The default is Klobuchar.
+Type optional string Ionospheric parameters type: "Klobuchar", "BDGIM" or "NeQuick". The default is Klobuchar.
 
 ***************************************************************************************************************************
 
-Command ImportMODIPFile(Path)
+Command ImportMODIPFile(Path, IonoModel)
 Permission: EXECUTE_IF_IDLE
 
 Import MODIP data file.
 
-Name Type   Description
----- ------ -----------
-Path string File path.
+Name      Type            Description
+--------- --------------- --------------------------------------------------------------------------------------------------------------------------------------------------
+Path      string          File path.
+IonoModel optional string Ionospheric model, accepted values are "NeQuick" and "NeQuick2-MLF2". If no value is provided, the modification will be appllied to NeQuick model.
 
 ***************************************************************************************************************************
 
@@ -8810,6 +8813,30 @@ Id          string Transmitter unique identifier.
 
 ***************************************************************************************************************************
 
+Command GetIntTxSignalPropagationLoss(TransmitterId, SignalId)
+Permission: EXECUTE_IF_SIMULATING
+
+Gets the propagation loss value computed by Skydel for the specified interference signal.
+
+Name          Type   Description
+------------- ------ ------------------------------
+TransmitterId string Transmitter unique identifier.
+SignalId      string Signal unique identifier.
+
+***************************************************************************************************************************
+
+Result GetIntTxSignalPropagationLossResult(PropagationLoss, TransmitterId, SignalId)
+
+Result of GetIntTxSignalPropagationLoss.
+
+Name            Type   Description
+--------------- ------ ------------------------------------------
+PropagationLoss double The signal's propagation loss value in dB.
+TransmitterId   string Transmitter unique identifier.
+SignalId        string Signal unique identifier.
+
+***************************************************************************************************************************
+
 Command SetIntTxSignalManualPropagationLoss(PropagationLoss, TransmitterId, SignalId)
 Permission: EXECUTE_IF_SIMULATING | EXECUTE_IF_IDLE
 
@@ -9385,10 +9412,24 @@ Id             string Transmitter unique identifier.
 
 ***************************************************************************************************************************
 
+Command SetIntTxAntennaGainCSV(FilePath, Type, Id)
+Permission: EXECUTE_IF_IDLE
+
+Set interference transmitter gain antenna pattern from a CSV file.
+
+Name     Type               Description
+-------- ------------------ ----------------------------------------------------------------------------------------------------------------------
+FilePath string             File path of the CSV (see user manual for CSV file format details). For Default and None types, leave this field empty
+Type     AntennaPatternType Pattern type
+Id       string             Transmitter unique identifier.
+
+***************************************************************************************************************************
+
 Command SetIntTxAntenna(Gain, Type, Id)
 Permission: EXECUTE_IF_SIMULATING | EXECUTE_IF_IDLE
 
 Set transmitter antenna pattern.
+For large arrays, consider using 'SetIntTxAntennaGainCSV' to pass the pattern via a CSV file.
 
 Name Type               Description
 ---- ------------------ -------------------------------------------------------------------------------------------------------------------------
@@ -10233,12 +10274,17 @@ Possible substates are :
 -None
 -Incomplete
 -Ready
+-Initializing AI Models
+-Initializing Terrain
+-Initializing Plug-ins
 -Initializing
 -Armed
 -Streaming RF
 -Sync Worker Instance
--WF Init (Worker)
--WF Init (Main)
+-WF Init (Worker instance)
+-WF Init (Main instance)
+-WF Sync PPS Reset
+-WF Sync Start
 -HIL Sync
 -Sync Init
 -Sync PPS Reset
@@ -10268,12 +10314,17 @@ Possible substates are :
 -None
 -Incomplete
 -Ready
+-Initializing AI Models
+-Initializing Terrain
+-Initializing Plug-ins
 -Initializing
 -Armed
 -Streaming RF
 -Sync Worker
--WF Init (Worker)
--WF Init (Main)
+-WF Init (Worker instance)
+-WF Init (Main instance)
+-WF Sync PPS Reset
+-WF Sync Start
 -HIL Sync
 -Sync Init
 -Sync PPS Reset
@@ -12419,6 +12470,30 @@ Id      string Transmitter unique identifier.
 
 ***************************************************************************************************************************
 
+Command GetSpoofSignalPropagationLoss(TransmitterId, SignalId)
+Permission: EXECUTE_IF_SIMULATING
+
+Gets the propagation loss value computed by Skydel for the specified spoofer signal.
+
+Name          Type   Description
+------------- ------ ------------------------------
+TransmitterId string Transmitter unique identifier.
+SignalId      string Signal unique identifier.
+
+***************************************************************************************************************************
+
+Result GetSpoofSignalPropagationLossResult(PropagationLoss, TransmitterId, SignalId)
+
+Result of GetSpoofSignalPropagationLoss.
+
+Name            Type   Description
+--------------- ------ ------------------------------------------
+PropagationLoss double The signal's propagation loss value in dB.
+TransmitterId   string Transmitter unique identifier.
+SignalId        string Signal unique identifier.
+
+***************************************************************************************************************************
+
 Command SetSpoofSignalManualPropagationLoss(PropagationLoss, TransmitterId, SignalId)
 Permission: EXECUTE_IF_SIMULATING | EXECUTE_IF_IDLE
 
@@ -12939,6 +13014,7 @@ Command SetSpoofTxAntenna(Gain, Type, Id)
 Permission: EXECUTE_IF_IDLE
 
 Set transmitter antenna pattern.
+For large arrays, consider using 'SetSpoofTxAntennaGainCSV' to pass the pattern via a CSV file.
 
 Name Type               Description
 ---- ------------------ -------------------------------------------------------------------------------------------------------------------------
@@ -12968,6 +13044,19 @@ Name Type               Description
 Gain array array double Gain matrix (dB). The first dimension will be mapped to elevation [-90, 90] and the second dimension to azimuth [0, 360[.
 Type AntennaPatternType Pattern type
 Id   string             Transmitter unique identifier.
+
+***************************************************************************************************************************
+
+Command SetSpoofTxAntennaGainCSV(FilePath, Type, Id)
+Permission: EXECUTE_IF_IDLE
+
+Set spoofer transmitter gain antenna pattern from a CSV file.
+
+Name     Type               Description
+-------- ------------------ ----------------------------------------------------------------------------------------------------------------------
+FilePath string             File path of the CSV (see user manual for CSV file format details). For Default and None types, leave this field empty
+Type     AntennaPatternType Pattern type
+Id       string             Transmitter unique identifier.
 
 ***************************************************************************************************************************
 
@@ -13740,6 +13829,7 @@ Push a block of data defining the orbit, clock, and other parameters for one SV.
   "Accuracy"          meter
   "Adot"              meters/sec
   "DeltaN0dot"        rad/sec^2
+  "Fit Interval"      sec
 
 After a block is pushed for a SV, no other block can be pushed for that SV until the interpolation period is over.
   Constellation   Interpolation period (sec)
@@ -13759,11 +13849,11 @@ ParametersDict dict string:double    A dictionary of parameters pairs.
                                                         "ClockBias", "ClockDrift", "ClockDriftRate", "Crs", "Crc",
                                                         "Cis", "Cic", "Cus", "Cuc", "DeltaN", "M0", "Eccentricity",
                                                         "SqrtA", "BigOmega", "I0", "LittleOmega", "BigOmegaDot",
-                                                        "Idot", "Adot", "DeltaN0dot", "UraIndex", "IODE", "IODNAV",
-                                                        "IODEC", "IODC", "Tgd", "IscL1CA", "IscL2C", "IscL5I5",
-                                                        "IscL5Q5", "IscL1CP", "IscL1CD", "BgdE1E5a", "BgdE1E5b",
-                                                        "Tgd1", "Tgd2", "TgdB1Cp", "TgdB2ap", "TgdB2bI", "IscB1Cd",
-                                                        "IscB2ad", "SisaE1E5a" and "SisaE1E5b"
+                                                        "Idot", "Adot", "DeltaN0dot", "Fit Interval", "UraIndex",
+                                                        "IODE", "IODNAV", "IODEC", "IODC", "Tgd", "IscL1CA",
+                                                        "IscL2C", "IscL5I5", "IscL5Q5", "IscL1CP", "IscL1CD",
+                                                        "BgdE1E5a", "BgdE1E5b", "Tgd1", "Tgd2", "TgdB1Cp", "TgdB2ap",
+                                                        "TgdB2bI", "IscB1Cd", "IscB2ad", "SisaE1E5a" and "SisaE1E5b"
 DataSetTypes   optional array string Optional data set type array: "Ephemeris" or "Orbit". If not provided, applies to both.
 
 ***************************************************************************************************************************
@@ -14990,6 +15080,309 @@ Name       Type Description
 ---------- ---- ------------------------------------
 Output     int  Output index (zero based).
 TimeOffset int  Time offset to apply in nanoseconds.
+
+***************************************************************************************************************************
+
+Command EnableGnssSignalTerrainObscuration(Enabled)
+Permission: EXECUTE_IF_IDLE
+
+Enable (or disable) GNSS signals obscuration by terrain.
+
+Name    Type Description
+------- ---- --------------------------------------------------------------------------------------
+Enabled bool If true, GNSS signals from satellites obscured by terrain will not reach the receiver.
+
+***************************************************************************************************************************
+
+Command IsGnssSignalTerrainObscurationEnabled()
+Permission: EXECUTE_IF_IDLE
+
+Tells whether GNSS signals obscuration by terrain is enabled.
+
+
+***************************************************************************************************************************
+
+Result IsGnssSignalTerrainObscurationEnabledResult(Enabled)
+
+Result of IsGnssSignalTerrainObscurationEnabled.
+
+Name    Type Description
+------- ---- --------------------------------------------------------------------------------------
+Enabled bool If true, GNSS signals from satellites obscured by terrain will not reach the receiver.
+
+***************************************************************************************************************************
+
+Command SetGnssSignalTerrainObscurationRate(Rate)
+Permission: EXECUTE_IF_IDLE
+
+Set the rate (in Hz) at which line-of-sight between the receiver and satellites is evaluated for terrain obscuration.
+
+Name Type Description
+---- ---- -----------------------------------------------------------------------------------------------------------------------------------------------------
+Rate int  Rate at which line-of-sight between the receiver and satellites is evaluated. Accepted values are: 1 Hz, 5 Hz, 10 Hz, 20 Hz, 25 Hz, 40 Hz, and 50 Hz.
+
+***************************************************************************************************************************
+
+Command GetGnssSignalTerrainObscurationRate()
+Permission: EXECUTE_IF_IDLE
+
+Get the rate (in Hz) at which line-of-sight between the receiver and satellites is evaluated for terrain obscuration.
+
+
+***************************************************************************************************************************
+
+Result GetGnssSignalTerrainObscurationRateResult(Rate)
+
+Result of GetGnssSignalTerrainObscurationRate.
+
+Name Type Description
+---- ---- -----------------------------------------------------------------------------------------------------------------------------------------------------
+Rate int  Rate at which line-of-sight between the receiver and satellites is evaluated. Accepted values are: 1 Hz, 5 Hz, 10 Hz, 20 Hz, 25 Hz, 40 Hz, and 50 Hz.
+
+***************************************************************************************************************************
+
+Command EnableTxSignalTerrainAttenuation(Enabled)
+Permission: EXECUTE_IF_IDLE
+
+Enable (or disable) terrain-based attenuation of interference and spoofing signals.
+
+Name    Type Description
+------- ---- ----------------------------------------------------------------------------------------------------------------------------------------------
+Enabled bool If true, the power of interference and spoofing signals will be reduced based on the terrain profile between the transmitter and the receiver.
+
+***************************************************************************************************************************
+
+Command IsTxSignalTerrainAttenuationEnabled()
+Permission: EXECUTE_IF_IDLE
+
+Tells whether terrain-based attenuation of interference and spoofing signals is enabled.
+
+
+***************************************************************************************************************************
+
+Result IsTxSignalTerrainAttenuationEnabledResult(Enabled)
+
+Result of IsTxSignalTerrainAttenuationEnabled.
+
+Name    Type Description
+------- ---- ----------------------------------------------------------------------------------------------------------------------------------------------
+Enabled bool If true, the power of interference and spoofing signals will be reduced based on the terrain profile between the transmitter and the receiver.
+
+***************************************************************************************************************************
+
+Command SetTxSignalTerrainAttenuationRate(Rate)
+Permission: EXECUTE_IF_IDLE
+
+Set the rate (in Hz) at which terrain-based attenuation of interference and spoofing signals is recalculated.
+
+Name Type Description
+---- ---- ---------------------------------------------------------------------------------------------------------------------------------------------------------------------
+Rate int  Rate at which terrain-based attenuation of interference and spoofing signals is recalculated. Accepted values are: 1 Hz, 5 Hz, 10 Hz, 20 Hz, 25 Hz, 40 Hz, and 50 Hz.
+
+***************************************************************************************************************************
+
+Command GetTxSignalTerrainAttenuationRate()
+Permission: EXECUTE_IF_IDLE
+
+Get the rate (in Hz) at which terrain-based attenuation of interference and spoofing signals is recalculated.
+
+
+***************************************************************************************************************************
+
+Result GetTxSignalTerrainAttenuationRateResult(Rate)
+
+Result of GetTxSignalTerrainAttenuationRate.
+
+Name Type Description
+---- ---- ---------------------------------------------------------------------------------------------------------------------------------------------------------------------
+Rate int  Rate at which terrain-based attenuation of interference and spoofing signals is recalculated. Accepted values are: 1 Hz, 5 Hz, 10 Hz, 20 Hz, 25 Hz, 40 Hz, and 50 Hz.
+
+***************************************************************************************************************************
+
+Command EnableGroundVehicleTerrainFollowing(Enabled)
+Permission: EXECUTE_IF_IDLE
+
+Enable (or disable) terrain-following behavior for ground vehicles.
+
+Name    Type Description
+------- ---- -------------------------------------------------------------------------------------------------
+Enabled bool If true, the altitude of ground vehicles is automatically adjusted to follow the terrain surface.
+
+***************************************************************************************************************************
+
+Command IsGroundVehicleTerrainFollowingEnabled()
+Permission: EXECUTE_IF_IDLE
+
+Tells whether ground vehicles follow the terrain surface.
+
+
+***************************************************************************************************************************
+
+Result IsGroundVehicleTerrainFollowingEnabledResult(Enabled)
+
+Result of IsGroundVehicleTerrainFollowingEnabled.
+
+Name    Type Description
+------- ---- -------------------------------------------------------------------------------------------------
+Enabled bool If true, the altitude of ground vehicles is automatically adjusted to follow the terrain surface.
+
+***************************************************************************************************************************
+
+Command SetDektecSerialNumberAssignation(DektecType, SerialNumbers)
+Permission: EXECUTE_IF_IDLE
+
+Set  the Dektec serial number assignation for a Dektec type, indexed by device number.
+
+Name          Type         Description
+------------- ------------ --------------------------------------------------------
+DektecType    string       Dektec type, valid values are "DTA-2115B" or "DTA-2116".
+SerialNumbers array string Dektec Serial Numbers
+
+***************************************************************************************************************************
+
+Command GetDektecSerialNumberAssignation(DektecType)
+Permission: EXECUTE_IF_IDLE
+
+Get  the Dektec serial number assignation for a Dektec type, indexed by device number.
+
+Name       Type   Description
+---------- ------ --------------------------------------------------------
+DektecType string Dektec type, valid values are "DTA-2115B" or "DTA-2116".
+
+***************************************************************************************************************************
+
+Result GetDektecSerialNumberAssignationResult(DektecType, SerialNumbers)
+
+Result of GetDektecSerialNumberAssignation.
+
+Name          Type         Description
+------------- ------------ --------------------------------------------------------
+DektecType    string       Dektec type, valid values are "DTA-2115B" or "DTA-2116".
+SerialNumbers array string Dektec Serial Numbers
+
+***************************************************************************************************************************
+
+Command SetElevationDataPath(Path)
+Permission: EXECUTE_IF_NO_CONFIG | EXECUTE_IF_IDLE
+
+Set the path to the directory containing the terrain elevation data files.
+
+Name Type   Description
+---- ------ ---------------------------
+Path string Path to the elevation data.
+
+***************************************************************************************************************************
+
+Command GetElevationDataPath()
+Permission: EXECUTE_IF_NO_CONFIG | EXECUTE_IF_IDLE
+
+Get the path to the directory containing the terrain elevation data files.
+
+
+***************************************************************************************************************************
+
+Result GetElevationDataPathResult(Path)
+
+Result of GetElevationDataPath.
+
+Name Type   Description
+---- ------ ---------------------------
+Path string Path to the elevation data.
+
+***************************************************************************************************************************
+
+Command SetGeoidFilePath(Path)
+Permission: EXECUTE_IF_NO_CONFIG | EXECUTE_IF_IDLE
+
+Set the Geoid file path.
+
+Name Type   Description
+---- ------ ------------------------------
+Path string Path to the Geoid file to use.
+
+***************************************************************************************************************************
+
+Command GetGeoidFilePath()
+Permission: EXECUTE_IF_NO_CONFIG | EXECUTE_IF_IDLE
+
+Get the Geoid file path.
+
+
+***************************************************************************************************************************
+
+Result GetGeoidFilePathResult(Path)
+
+Result of GetGeoidFilePath.
+
+Name Type   Description
+---- ------ ------------------------------
+Path string Path to the Geoid file to use.
+
+***************************************************************************************************************************
+
+Command SetNeQuick2MLF2Parameters(F10_7, Ap, Kp, Smoothed_365_F10_7)
+Permission: EXECUTE_IF_IDLE
+
+Set the parameters of the NeQuick2-MLF2 model.
+
+Name               Type   Description
+------------------ ------ -----------------------------------------------------------------------------------------------
+F10_7              double The Solar Radio Flux Index at 10.7cm Wavelength. Ranges from 0 to 400 s.f.u.
+Ap                 double The daily average of ap, converted to a linear scale. Ranges from 0 to 400.
+Kp                 double A global geomagnetic activity index quantifying disturbances in the horizontal, 
+                          component of Earth's magnetic field. Ranges from 0 to 9.
+Smoothed_365_F10_7 double Solar Radio Flux Index at 10.7cm Wavelength smoothed over 365 days. Ranges from 0 to 400 s.f.u.
+
+***************************************************************************************************************************
+
+Command GetNeQuick2MLF2Parameters()
+Permission: EXECUTE_IF_IDLE
+
+Get the parameters of the NeQuick2-MLF2 model.
+
+
+***************************************************************************************************************************
+
+Result GetNeQuick2MLF2ParametersResult(F10_7, Ap, Kp, Smoothed_365_F10_7)
+
+Result of GetNeQuick2MLF2Parameters.
+
+Name               Type   Description
+------------------ ------ -----------------------------------------------------------------------------------------------
+F10_7              double The Solar Radio Flux Index at 10.7cm Wavelength. Ranges from 0 to 400 s.f.u.
+Ap                 double The daily average of ap, converted to a linear scale. Ranges from 0 to 400.
+Kp                 double A global geomagnetic activity index quantifying disturbances in the horizontal, 
+                          component of Earth's magnetic field. Ranges from 0 to 9.
+Smoothed_365_F10_7 double Solar Radio Flux Index at 10.7cm Wavelength smoothed over 365 days. Ranges from 0 to 400 s.f.u.
+
+***************************************************************************************************************************
+
+Command SetNeQuick2MLF2UpdateRate(UpdateRate)
+Permission: EXECUTE_IF_IDLE
+
+Set the update rate of the NeQuick2-MLF2 model.
+
+Name       Type Description
+---------- ---- ----------------------------
+UpdateRate int  The update rate, in seconds.
+
+***************************************************************************************************************************
+
+Command GetNeQuick2MLF2UpdateRate()
+Permission: EXECUTE_IF_IDLE
+
+Get the update rate of the NeQuick2-MLF2 model.
+
+
+***************************************************************************************************************************
+
+Result GetNeQuick2MLF2UpdateRateResult(UpdateRate)
+
+Result of GetNeQuick2MLF2UpdateRate.
+
+Name       Type Description
+---------- ---- ----------------------------
+UpdateRate int  The update rate, in seconds.
 
 ***************************************************************************************************************************
 

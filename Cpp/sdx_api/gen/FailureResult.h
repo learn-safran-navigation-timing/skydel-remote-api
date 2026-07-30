@@ -43,7 +43,9 @@ namespace Sdx
       virtual std::string documentation() const override;
       virtual const std::vector<std::string>& fieldNames() const override;
 
-      inline virtual bool isSuccess() const override { return false; }
+      virtual bool isSuccess() const override { return false; }
+
+      virtual std::string resultMsg() const override { return errorMsg(); }
 
 
       // **** errorMsg ****

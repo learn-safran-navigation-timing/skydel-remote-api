@@ -16,8 +16,8 @@ namespace Sdx
     const char* const SetIonoModel::Documentation = "Set ionospheric model\n"
       "\n"
       "Name  Type   Description\n"
-      "----- ------ ------------------------------------------------------------------\n"
-      "Model string Ionospheric model (\"None\", \"Klobuchar\", \"Spacecraft\" or \"NeQuick\")";
+      "----- ------ -----------------------------------------------------------------------------------\n"
+      "Model string Ionospheric model (\"None\", \"Klobuchar\", \"Spacecraft\", \"NeQuick\" or \"NeQuick2-MLF2\")";
     const char* const SetIonoModel::TargetId = "";
 
     REGISTER_COMMAND_TO_FACTORY_DECL(SetIonoModel);

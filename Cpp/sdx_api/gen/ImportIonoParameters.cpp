@@ -16,9 +16,9 @@ namespace Sdx
     const char* const ImportIonoParameters::Documentation = "Import ionospheric parameters from a Rinex file.\n"
       "\n"
       "Name Type            Description\n"
-      "---- --------------- ------------------------------------------------------------------------------\n"
+      "---- --------------- -----------------------------------------------------------------------------------------\n"
       "Path string          File path\n"
-      "Type optional string Ionospheric parameters type: \"Klobuchar\" or \"BDGIM\". The default is Klobuchar.";
+      "Type optional string Ionospheric parameters type: \"Klobuchar\", \"BDGIM\" or \"NeQuick\". The default is Klobuchar.";
     const char* const ImportIonoParameters::TargetId = "";
 
     REGISTER_COMMAND_TO_FACTORY_DECL(ImportIonoParameters);

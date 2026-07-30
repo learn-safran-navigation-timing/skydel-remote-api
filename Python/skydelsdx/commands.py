@@ -3,7 +3,7 @@ from .commandbase import CommandBase
 from .commandresult import CommandResult
 from .commandbase import ExecutePermission
 
-ApiVersion = 53
+ApiVersion = 54
 
 #
 # The GPS AS flag value.
@@ -32,21 +32,23 @@ class SimulatorSubState:
   SubStateNone = 0
   Idle_ConfigNotValid = 1
   Idle_ConfigValid = 2
-  Started_InitPlugins = 3
-  Started_InitHardware = 4
-  Started_Streaming = 5
-  Started_SyncInit = 6
-  Started_WorkerSync = 7
-  Started_Armed = 8
-  Started_SyncStartTime = 9
-  Error = 10
-  Started_HILSync = 11
-  Started_SyncPPSReset = 12
-  Started_SyncStart = 13
-  Started_WFWorkerInit = 14
-  Started_WFMainInit = 15
-  Started_WFSyncPPSReset = 16
-  Started_WFSyncStart = 17
+  Started_InitAIModels = 3
+  Started_InitTerrain = 4
+  Started_InitPlugins = 5
+  Started_InitHardware = 6
+  Started_Streaming = 7
+  Started_SyncInit = 8
+  Started_WorkerSync = 9
+  Started_Armed = 10
+  Started_SyncStartTime = 11
+  Error = 12
+  Started_HILSync = 13
+  Started_SyncPPSReset = 14
+  Started_SyncStart = 15
+  Started_WFWorkerInit = 16
+  Started_WFMainInit = 17
+  Started_WFSyncPPSReset = 18
+  Started_WFSyncStart = 19
 
 #
 # The Parity scheme used by a serial port.
@@ -2204,8 +2206,8 @@ class GetEffectiveIonisationLevelCoefficientResult(CommandResult):
 # Set ionospheric model
 #
 # Name  Type   Description
-# ----- ------ ------------------------------------------------------------------
-# Model string Ionospheric model ("None", "Klobuchar", "Spacecraft" or "NeQuick")
+# ----- ------ -----------------------------------------------------------------------------------
+# Model string Ionospheric model ("None", "Klobuchar", "Spacecraft", "NeQuick" or "NeQuick2-MLF2")
 #
 
 class SetIonoModel(CommandBase):
@@ -2240,8 +2242,8 @@ class GetIonoModel(CommandBase):
 # Result of GetIonoModel.
 #
 # Name  Type   Description
-# ----- ------ ------------------------------------------------------------------
-# Model string Ionospheric model ("None", "Klobuchar", "Spacecraft" or "NeQuick")
+# ----- ------ -----------------------------------------------------------------------------------
+# Model string Ionospheric model ("None", "Klobuchar", "Spacecraft", "NeQuick" or "NeQuick2-MLF2")
 #
 
 class GetIonoModelResult(CommandResult):
@@ -10160,9 +10162,9 @@ class ImportConstellationParameters(CommandBase):
 # Import ionospheric parameters from a Rinex file.
 #
 # Name Type            Description
-# ---- --------------- ------------------------------------------------------------------------------
+# ---- --------------- -----------------------------------------------------------------------------------------
 # Path string          File path
-# Type optional string Ionospheric parameters type: "Klobuchar" or "BDGIM". The default is Klobuchar.
+# Type optional string Ionospheric parameters type: "Klobuchar", "BDGIM" or "NeQuick". The default is Klobuchar.
 #
 
 class ImportIonoParameters(CommandBase):
@@ -10190,16 +10192,18 @@ class ImportIonoParameters(CommandBase):
 #
 # Import MODIP data file.
 #
-# Name Type   Description
-# ---- ------ -----------
-# Path string File path.
+# Name      Type            Description
+# --------- --------------- --------------------------------------------------------------------------------------------------------------------------------------------------
+# Path      string          File path.
+# IonoModel optional string Ionospheric model, accepted values are "NeQuick" and "NeQuick2-MLF2". If no value is provided, the modification will be appllied to NeQuick model.
 #
 
 class ImportMODIPFile(CommandBase):
 
-  def __init__(self, path):
+  def __init__(self, path, ionoModel = None):
     CommandBase.__init__(self, "ImportMODIPFile")
     self.setPath(path)
+    self.setIonoModel(ionoModel)
 
   def executePermission(self):
     return ExecutePermission.EXECUTE_IF_IDLE
@@ -10209,6 +10213,12 @@ class ImportMODIPFile(CommandBase):
 
   def setPath(self, value):
     return self.set("Path", value)
+
+  def ionoModel(self):
+    return self.get("IonoModel")
+
+  def setIonoModel(self, value):
+    return self.set("IonoModel", value)
 
 #
 # Import all the CCIR data files from the specified directory.
@@ -24185,6 +24195,76 @@ class GetIntTxPersistenceResult(CommandResult):
     return self.set("Id", value)
 
 #
+# Gets the propagation loss value computed by Skydel for the specified interference signal.
+#
+# Name          Type   Description
+# ------------- ------ ------------------------------
+# TransmitterId string Transmitter unique identifier.
+# SignalId      string Signal unique identifier.
+#
+
+class GetIntTxSignalPropagationLoss(CommandBase):
+
+  def __init__(self, transmitterId, signalId):
+    CommandBase.__init__(self, "GetIntTxSignalPropagationLoss")
+    self.setTransmitterId(transmitterId)
+    self.setSignalId(signalId)
+
+  def executePermission(self):
+    return ExecutePermission.EXECUTE_IF_SIMULATING
+
+  def transmitterId(self):
+    return self.get("TransmitterId")
+
+  def setTransmitterId(self, value):
+    return self.set("TransmitterId", value)
+
+  def signalId(self):
+    return self.get("SignalId")
+
+  def setSignalId(self, value):
+    return self.set("SignalId", value)
+
+#
+# Result of GetIntTxSignalPropagationLoss.
+#
+# Name            Type   Description
+# --------------- ------ ------------------------------------------
+# PropagationLoss double The signal's propagation loss value in dB.
+# TransmitterId   string Transmitter unique identifier.
+# SignalId        string Signal unique identifier.
+#
+
+class GetIntTxSignalPropagationLossResult(CommandResult):
+
+  def __init__(self, propagationLoss, transmitterId, signalId):
+    CommandResult.__init__(self, "GetIntTxSignalPropagationLossResult")
+    self.setPropagationLoss(propagationLoss)
+    self.setTransmitterId(transmitterId)
+    self.setSignalId(signalId)
+
+  def isSuccess(self):
+    return True
+
+  def propagationLoss(self):
+    return self.get("PropagationLoss")
+
+  def setPropagationLoss(self, value):
+    return self.set("PropagationLoss", value)
+
+  def transmitterId(self):
+    return self.get("TransmitterId")
+
+  def setTransmitterId(self, value):
+    return self.set("TransmitterId", value)
+
+  def signalId(self):
+    return self.get("SignalId")
+
+  def setSignalId(self, value):
+    return self.set("SignalId", value)
+
+#
 # Sets the manual propagation loss for the given interference signal. This value is only applied when manual propagation losses are enabled for the transmitter and is discarded once the simulation ends.
 #
 # Name            Type   Description
@@ -25843,7 +25923,47 @@ class GetIntTxTrajectoryResult(CommandResult):
     return self.set("Id", value)
 
 #
+# Set interference transmitter gain antenna pattern from a CSV file.
+#
+# Name     Type               Description
+# -------- ------------------ ----------------------------------------------------------------------------------------------------------------------
+# FilePath string             File path of the CSV (see user manual for CSV file format details). For Default and None types, leave this field empty
+# Type     AntennaPatternType Pattern type
+# Id       string             Transmitter unique identifier.
+#
+
+class SetIntTxAntennaGainCSV(CommandBase):
+
+  def __init__(self, filePath, type, id):
+    CommandBase.__init__(self, "SetIntTxAntennaGainCSV")
+    self.setFilePath(filePath)
+    self.setType(type)
+    self.setId(id)
+
+  def executePermission(self):
+    return ExecutePermission.EXECUTE_IF_IDLE
+
+  def filePath(self):
+    return self.get("FilePath")
+
+  def setFilePath(self, value):
+    return self.set("FilePath", value)
+
+  def type(self):
+    return self.get("Type")
+
+  def setType(self, value):
+    return self.set("Type", value)
+
+  def id(self):
+    return self.get("Id")
+
+  def setId(self, value):
+    return self.set("Id", value)
+
+#
 # Set transmitter antenna pattern.
+# For large arrays, consider using 'SetIntTxAntennaGainCSV' to pass the pattern via a CSV file.
 #
 # Name Type               Description
 # ---- ------------------ -------------------------------------------------------------------------------------------------------------------------
@@ -28353,12 +28473,17 @@ class GetSimulatorState(CommandBase):
 # -None
 # -Incomplete
 # -Ready
+# -Initializing AI Models
+# -Initializing Terrain
+# -Initializing Plug-ins
 # -Initializing
 # -Armed
 # -Streaming RF
 # -Sync Worker Instance
-# -WF Init (Worker)
-# -WF Init (Main)
+# -WF Init (Worker instance)
+# -WF Init (Main instance)
+# -WF Sync PPS Reset
+# -WF Sync Start
 # -HIL Sync
 # -Sync Init
 # -Sync PPS Reset
@@ -28413,12 +28538,17 @@ class AbortWaitSimulatorState(CommandBase):
 # -None
 # -Incomplete
 # -Ready
+# -Initializing AI Models
+# -Initializing Terrain
+# -Initializing Plug-ins
 # -Initializing
 # -Armed
 # -Streaming RF
 # -Sync Worker
-# -WF Init (Worker)
-# -WF Init (Main)
+# -WF Init (Worker instance)
+# -WF Init (Main instance)
+# -WF Sync PPS Reset
+# -WF Sync Start
 # -HIL Sync
 # -Sync Init
 # -Sync PPS Reset
@@ -34203,6 +34333,76 @@ class EnableSpoofTx(CommandBase):
     return self.set("Id", value)
 
 #
+# Gets the propagation loss value computed by Skydel for the specified spoofer signal.
+#
+# Name          Type   Description
+# ------------- ------ ------------------------------
+# TransmitterId string Transmitter unique identifier.
+# SignalId      string Signal unique identifier.
+#
+
+class GetSpoofSignalPropagationLoss(CommandBase):
+
+  def __init__(self, transmitterId, signalId):
+    CommandBase.__init__(self, "GetSpoofSignalPropagationLoss")
+    self.setTransmitterId(transmitterId)
+    self.setSignalId(signalId)
+
+  def executePermission(self):
+    return ExecutePermission.EXECUTE_IF_SIMULATING
+
+  def transmitterId(self):
+    return self.get("TransmitterId")
+
+  def setTransmitterId(self, value):
+    return self.set("TransmitterId", value)
+
+  def signalId(self):
+    return self.get("SignalId")
+
+  def setSignalId(self, value):
+    return self.set("SignalId", value)
+
+#
+# Result of GetSpoofSignalPropagationLoss.
+#
+# Name            Type   Description
+# --------------- ------ ------------------------------------------
+# PropagationLoss double The signal's propagation loss value in dB.
+# TransmitterId   string Transmitter unique identifier.
+# SignalId        string Signal unique identifier.
+#
+
+class GetSpoofSignalPropagationLossResult(CommandResult):
+
+  def __init__(self, propagationLoss, transmitterId, signalId):
+    CommandResult.__init__(self, "GetSpoofSignalPropagationLossResult")
+    self.setPropagationLoss(propagationLoss)
+    self.setTransmitterId(transmitterId)
+    self.setSignalId(signalId)
+
+  def isSuccess(self):
+    return True
+
+  def propagationLoss(self):
+    return self.get("PropagationLoss")
+
+  def setPropagationLoss(self, value):
+    return self.set("PropagationLoss", value)
+
+  def transmitterId(self):
+    return self.get("TransmitterId")
+
+  def setTransmitterId(self, value):
+    return self.set("TransmitterId", value)
+
+  def signalId(self):
+    return self.get("SignalId")
+
+  def setSignalId(self, value):
+    return self.set("SignalId", value)
+
+#
 # Sets the manual propagation loss for the given spoofer signal. This value is only applied when manual propagation losses are enabled for the transmitter and is discarded once the simulation ends.
 #
 # Name            Type   Description
@@ -35721,6 +35921,7 @@ class GetSpoofTxVehicleTypeResult(CommandResult):
 
 #
 # Set transmitter antenna pattern.
+# For large arrays, consider using 'SetSpoofTxAntennaGainCSV' to pass the pattern via a CSV file.
 #
 # Name Type               Description
 # ---- ------------------ -------------------------------------------------------------------------------------------------------------------------
@@ -35807,6 +36008,45 @@ class GetSpoofTxAntennaResult(CommandResult):
 
   def setGain(self, value):
     return self.set("Gain", value)
+
+  def type(self):
+    return self.get("Type")
+
+  def setType(self, value):
+    return self.set("Type", value)
+
+  def id(self):
+    return self.get("Id")
+
+  def setId(self, value):
+    return self.set("Id", value)
+
+#
+# Set spoofer transmitter gain antenna pattern from a CSV file.
+#
+# Name     Type               Description
+# -------- ------------------ ----------------------------------------------------------------------------------------------------------------------
+# FilePath string             File path of the CSV (see user manual for CSV file format details). For Default and None types, leave this field empty
+# Type     AntennaPatternType Pattern type
+# Id       string             Transmitter unique identifier.
+#
+
+class SetSpoofTxAntennaGainCSV(CommandBase):
+
+  def __init__(self, filePath, type, id):
+    CommandBase.__init__(self, "SetSpoofTxAntennaGainCSV")
+    self.setFilePath(filePath)
+    self.setType(type)
+    self.setId(id)
+
+  def executePermission(self):
+    return ExecutePermission.EXECUTE_IF_IDLE
+
+  def filePath(self):
+    return self.get("FilePath")
+
+  def setFilePath(self, value):
+    return self.set("FilePath", value)
 
   def type(self):
     return self.get("Type")
@@ -37794,6 +38034,7 @@ class GetSVDataUpdateModeResult(CommandResult):
 #   "Accuracy"          meter
 #   "Adot"              meters/sec
 #   "DeltaN0dot"        rad/sec^2
+#   "Fit Interval"      sec
 # 
 # After a block is pushed for a SV, no other block can be pushed for that SV until the interpolation period is over.
 #   Constellation   Interpolation period (sec)
@@ -37813,11 +38054,11 @@ class GetSVDataUpdateModeResult(CommandResult):
 #                                                         "ClockBias", "ClockDrift", "ClockDriftRate", "Crs", "Crc",
 #                                                         "Cis", "Cic", "Cus", "Cuc", "DeltaN", "M0", "Eccentricity",
 #                                                         "SqrtA", "BigOmega", "I0", "LittleOmega", "BigOmegaDot",
-#                                                         "Idot", "Adot", "DeltaN0dot", "UraIndex", "IODE", "IODNAV",
-#                                                         "IODEC", "IODC", "Tgd", "IscL1CA", "IscL2C", "IscL5I5",
-#                                                         "IscL5Q5", "IscL1CP", "IscL1CD", "BgdE1E5a", "BgdE1E5b",
-#                                                         "Tgd1", "Tgd2", "TgdB1Cp", "TgdB2ap", "TgdB2bI", "IscB1Cd",
-#                                                         "IscB2ad", "SisaE1E5a" and "SisaE1E5b"
+#                                                         "Idot", "Adot", "DeltaN0dot", "Fit Interval", "UraIndex",
+#                                                         "IODE", "IODNAV", "IODEC", "IODC", "Tgd", "IscL1CA",
+#                                                         "IscL2C", "IscL5I5", "IscL5Q5", "IscL1CP", "IscL1CD",
+#                                                         "BgdE1E5a", "BgdE1E5b", "Tgd1", "Tgd2", "TgdB1Cp", "TgdB2ap",
+#                                                         "TgdB2bI", "IscB1Cd", "IscB2ad", "SisaE1E5a" and "SisaE1E5b"
 # DataSetTypes   optional array string Optional data set type array: "Ephemeris" or "Orbit". If not provided, applies to both.
 #
 
@@ -40705,6 +40946,672 @@ class SetDektecTimeOffset(CommandBase):
 
   def setTimeOffset(self, value):
     return self.set("TimeOffset", value)
+
+#
+# Enable (or disable) GNSS signals obscuration by terrain.
+#
+# Name    Type Description
+# ------- ---- --------------------------------------------------------------------------------------
+# Enabled bool If true, GNSS signals from satellites obscured by terrain will not reach the receiver.
+#
+
+class EnableGnssSignalTerrainObscuration(CommandBase):
+
+  def __init__(self, enabled):
+    CommandBase.__init__(self, "EnableGnssSignalTerrainObscuration")
+    self.setEnabled(enabled)
+
+  def executePermission(self):
+    return ExecutePermission.EXECUTE_IF_IDLE
+
+  def enabled(self):
+    return self.get("Enabled")
+
+  def setEnabled(self, value):
+    return self.set("Enabled", value)
+
+#
+# Tells whether GNSS signals obscuration by terrain is enabled.
+#
+#
+
+class IsGnssSignalTerrainObscurationEnabled(CommandBase):
+
+  def __init__(self):
+    CommandBase.__init__(self, "IsGnssSignalTerrainObscurationEnabled")
+
+  def executePermission(self):
+    return ExecutePermission.EXECUTE_IF_IDLE
+
+#
+# Result of IsGnssSignalTerrainObscurationEnabled.
+#
+# Name    Type Description
+# ------- ---- --------------------------------------------------------------------------------------
+# Enabled bool If true, GNSS signals from satellites obscured by terrain will not reach the receiver.
+#
+
+class IsGnssSignalTerrainObscurationEnabledResult(CommandResult):
+
+  def __init__(self, enabled):
+    CommandResult.__init__(self, "IsGnssSignalTerrainObscurationEnabledResult")
+    self.setEnabled(enabled)
+
+  def isSuccess(self):
+    return True
+
+  def enabled(self):
+    return self.get("Enabled")
+
+  def setEnabled(self, value):
+    return self.set("Enabled", value)
+
+#
+# Set the rate (in Hz) at which line-of-sight between the receiver and satellites is evaluated for terrain obscuration.
+#
+# Name Type Description
+# ---- ---- -----------------------------------------------------------------------------------------------------------------------------------------------------
+# Rate int  Rate at which line-of-sight between the receiver and satellites is evaluated. Accepted values are: 1 Hz, 5 Hz, 10 Hz, 20 Hz, 25 Hz, 40 Hz, and 50 Hz.
+#
+
+class SetGnssSignalTerrainObscurationRate(CommandBase):
+
+  def __init__(self, rate):
+    CommandBase.__init__(self, "SetGnssSignalTerrainObscurationRate")
+    self.setRate(rate)
+
+  def executePermission(self):
+    return ExecutePermission.EXECUTE_IF_IDLE
+
+  def rate(self):
+    return self.get("Rate")
+
+  def setRate(self, value):
+    return self.set("Rate", value)
+
+#
+# Get the rate (in Hz) at which line-of-sight between the receiver and satellites is evaluated for terrain obscuration.
+#
+#
+
+class GetGnssSignalTerrainObscurationRate(CommandBase):
+
+  def __init__(self):
+    CommandBase.__init__(self, "GetGnssSignalTerrainObscurationRate")
+
+  def executePermission(self):
+    return ExecutePermission.EXECUTE_IF_IDLE
+
+#
+# Result of GetGnssSignalTerrainObscurationRate.
+#
+# Name Type Description
+# ---- ---- -----------------------------------------------------------------------------------------------------------------------------------------------------
+# Rate int  Rate at which line-of-sight between the receiver and satellites is evaluated. Accepted values are: 1 Hz, 5 Hz, 10 Hz, 20 Hz, 25 Hz, 40 Hz, and 50 Hz.
+#
+
+class GetGnssSignalTerrainObscurationRateResult(CommandResult):
+
+  def __init__(self, rate):
+    CommandResult.__init__(self, "GetGnssSignalTerrainObscurationRateResult")
+    self.setRate(rate)
+
+  def isSuccess(self):
+    return True
+
+  def rate(self):
+    return self.get("Rate")
+
+  def setRate(self, value):
+    return self.set("Rate", value)
+
+#
+# Enable (or disable) terrain-based attenuation of interference and spoofing signals.
+#
+# Name    Type Description
+# ------- ---- ----------------------------------------------------------------------------------------------------------------------------------------------
+# Enabled bool If true, the power of interference and spoofing signals will be reduced based on the terrain profile between the transmitter and the receiver.
+#
+
+class EnableTxSignalTerrainAttenuation(CommandBase):
+
+  def __init__(self, enabled):
+    CommandBase.__init__(self, "EnableTxSignalTerrainAttenuation")
+    self.setEnabled(enabled)
+
+  def executePermission(self):
+    return ExecutePermission.EXECUTE_IF_IDLE
+
+  def enabled(self):
+    return self.get("Enabled")
+
+  def setEnabled(self, value):
+    return self.set("Enabled", value)
+
+#
+# Tells whether terrain-based attenuation of interference and spoofing signals is enabled.
+#
+#
+
+class IsTxSignalTerrainAttenuationEnabled(CommandBase):
+
+  def __init__(self):
+    CommandBase.__init__(self, "IsTxSignalTerrainAttenuationEnabled")
+
+  def executePermission(self):
+    return ExecutePermission.EXECUTE_IF_IDLE
+
+#
+# Result of IsTxSignalTerrainAttenuationEnabled.
+#
+# Name    Type Description
+# ------- ---- ----------------------------------------------------------------------------------------------------------------------------------------------
+# Enabled bool If true, the power of interference and spoofing signals will be reduced based on the terrain profile between the transmitter and the receiver.
+#
+
+class IsTxSignalTerrainAttenuationEnabledResult(CommandResult):
+
+  def __init__(self, enabled):
+    CommandResult.__init__(self, "IsTxSignalTerrainAttenuationEnabledResult")
+    self.setEnabled(enabled)
+
+  def isSuccess(self):
+    return True
+
+  def enabled(self):
+    return self.get("Enabled")
+
+  def setEnabled(self, value):
+    return self.set("Enabled", value)
+
+#
+# Set the rate (in Hz) at which terrain-based attenuation of interference and spoofing signals is recalculated.
+#
+# Name Type Description
+# ---- ---- ---------------------------------------------------------------------------------------------------------------------------------------------------------------------
+# Rate int  Rate at which terrain-based attenuation of interference and spoofing signals is recalculated. Accepted values are: 1 Hz, 5 Hz, 10 Hz, 20 Hz, 25 Hz, 40 Hz, and 50 Hz.
+#
+
+class SetTxSignalTerrainAttenuationRate(CommandBase):
+
+  def __init__(self, rate):
+    CommandBase.__init__(self, "SetTxSignalTerrainAttenuationRate")
+    self.setRate(rate)
+
+  def executePermission(self):
+    return ExecutePermission.EXECUTE_IF_IDLE
+
+  def rate(self):
+    return self.get("Rate")
+
+  def setRate(self, value):
+    return self.set("Rate", value)
+
+#
+# Get the rate (in Hz) at which terrain-based attenuation of interference and spoofing signals is recalculated.
+#
+#
+
+class GetTxSignalTerrainAttenuationRate(CommandBase):
+
+  def __init__(self):
+    CommandBase.__init__(self, "GetTxSignalTerrainAttenuationRate")
+
+  def executePermission(self):
+    return ExecutePermission.EXECUTE_IF_IDLE
+
+#
+# Result of GetTxSignalTerrainAttenuationRate.
+#
+# Name Type Description
+# ---- ---- ---------------------------------------------------------------------------------------------------------------------------------------------------------------------
+# Rate int  Rate at which terrain-based attenuation of interference and spoofing signals is recalculated. Accepted values are: 1 Hz, 5 Hz, 10 Hz, 20 Hz, 25 Hz, 40 Hz, and 50 Hz.
+#
+
+class GetTxSignalTerrainAttenuationRateResult(CommandResult):
+
+  def __init__(self, rate):
+    CommandResult.__init__(self, "GetTxSignalTerrainAttenuationRateResult")
+    self.setRate(rate)
+
+  def isSuccess(self):
+    return True
+
+  def rate(self):
+    return self.get("Rate")
+
+  def setRate(self, value):
+    return self.set("Rate", value)
+
+#
+# Enable (or disable) terrain-following behavior for ground vehicles.
+#
+# Name    Type Description
+# ------- ---- -------------------------------------------------------------------------------------------------
+# Enabled bool If true, the altitude of ground vehicles is automatically adjusted to follow the terrain surface.
+#
+
+class EnableGroundVehicleTerrainFollowing(CommandBase):
+
+  def __init__(self, enabled):
+    CommandBase.__init__(self, "EnableGroundVehicleTerrainFollowing")
+    self.setEnabled(enabled)
+
+  def executePermission(self):
+    return ExecutePermission.EXECUTE_IF_IDLE
+
+  def enabled(self):
+    return self.get("Enabled")
+
+  def setEnabled(self, value):
+    return self.set("Enabled", value)
+
+#
+# Tells whether ground vehicles follow the terrain surface.
+#
+#
+
+class IsGroundVehicleTerrainFollowingEnabled(CommandBase):
+
+  def __init__(self):
+    CommandBase.__init__(self, "IsGroundVehicleTerrainFollowingEnabled")
+
+  def executePermission(self):
+    return ExecutePermission.EXECUTE_IF_IDLE
+
+#
+# Result of IsGroundVehicleTerrainFollowingEnabled.
+#
+# Name    Type Description
+# ------- ---- -------------------------------------------------------------------------------------------------
+# Enabled bool If true, the altitude of ground vehicles is automatically adjusted to follow the terrain surface.
+#
+
+class IsGroundVehicleTerrainFollowingEnabledResult(CommandResult):
+
+  def __init__(self, enabled):
+    CommandResult.__init__(self, "IsGroundVehicleTerrainFollowingEnabledResult")
+    self.setEnabled(enabled)
+
+  def isSuccess(self):
+    return True
+
+  def enabled(self):
+    return self.get("Enabled")
+
+  def setEnabled(self, value):
+    return self.set("Enabled", value)
+
+#
+# Set  the Dektec serial number assignation for a Dektec type, indexed by device number.
+#
+# Name          Type         Description
+# ------------- ------------ --------------------------------------------------------
+# DektecType    string       Dektec type, valid values are "DTA-2115B" or "DTA-2116".
+# SerialNumbers array string Dektec Serial Numbers
+#
+
+class SetDektecSerialNumberAssignation(CommandBase):
+
+  def __init__(self, dektecType, serialNumbers):
+    CommandBase.__init__(self, "SetDektecSerialNumberAssignation")
+    self.setDektecType(dektecType)
+    self.setSerialNumbers(serialNumbers)
+
+  def executePermission(self):
+    return ExecutePermission.EXECUTE_IF_IDLE
+
+  def dektecType(self):
+    return self.get("DektecType")
+
+  def setDektecType(self, value):
+    return self.set("DektecType", value)
+
+  def serialNumbers(self):
+    return self.get("SerialNumbers")
+
+  def setSerialNumbers(self, value):
+    return self.set("SerialNumbers", value)
+
+#
+# Get  the Dektec serial number assignation for a Dektec type, indexed by device number.
+#
+# Name       Type   Description
+# ---------- ------ --------------------------------------------------------
+# DektecType string Dektec type, valid values are "DTA-2115B" or "DTA-2116".
+#
+
+class GetDektecSerialNumberAssignation(CommandBase):
+
+  def __init__(self, dektecType):
+    CommandBase.__init__(self, "GetDektecSerialNumberAssignation")
+    self.setDektecType(dektecType)
+
+  def executePermission(self):
+    return ExecutePermission.EXECUTE_IF_IDLE
+
+  def dektecType(self):
+    return self.get("DektecType")
+
+  def setDektecType(self, value):
+    return self.set("DektecType", value)
+
+#
+# Result of GetDektecSerialNumberAssignation.
+#
+# Name          Type         Description
+# ------------- ------------ --------------------------------------------------------
+# DektecType    string       Dektec type, valid values are "DTA-2115B" or "DTA-2116".
+# SerialNumbers array string Dektec Serial Numbers
+#
+
+class GetDektecSerialNumberAssignationResult(CommandResult):
+
+  def __init__(self, dektecType, serialNumbers):
+    CommandResult.__init__(self, "GetDektecSerialNumberAssignationResult")
+    self.setDektecType(dektecType)
+    self.setSerialNumbers(serialNumbers)
+
+  def isSuccess(self):
+    return True
+
+  def dektecType(self):
+    return self.get("DektecType")
+
+  def setDektecType(self, value):
+    return self.set("DektecType", value)
+
+  def serialNumbers(self):
+    return self.get("SerialNumbers")
+
+  def setSerialNumbers(self, value):
+    return self.set("SerialNumbers", value)
+
+#
+# Set the path to the directory containing the terrain elevation data files.
+#
+# Name Type   Description
+# ---- ------ ---------------------------
+# Path string Path to the elevation data.
+#
+
+class SetElevationDataPath(CommandBase):
+
+  def __init__(self, path):
+    CommandBase.__init__(self, "SetElevationDataPath")
+    self.setPath(path)
+
+  def executePermission(self):
+    return ExecutePermission.EXECUTE_IF_NO_CONFIG | ExecutePermission.EXECUTE_IF_IDLE
+
+  def path(self):
+    return self.get("Path")
+
+  def setPath(self, value):
+    return self.set("Path", value)
+
+#
+# Get the path to the directory containing the terrain elevation data files.
+#
+#
+
+class GetElevationDataPath(CommandBase):
+
+  def __init__(self):
+    CommandBase.__init__(self, "GetElevationDataPath")
+
+  def executePermission(self):
+    return ExecutePermission.EXECUTE_IF_NO_CONFIG | ExecutePermission.EXECUTE_IF_IDLE
+
+#
+# Result of GetElevationDataPath.
+#
+# Name Type   Description
+# ---- ------ ---------------------------
+# Path string Path to the elevation data.
+#
+
+class GetElevationDataPathResult(CommandResult):
+
+  def __init__(self, path):
+    CommandResult.__init__(self, "GetElevationDataPathResult")
+    self.setPath(path)
+
+  def isSuccess(self):
+    return True
+
+  def path(self):
+    return self.get("Path")
+
+  def setPath(self, value):
+    return self.set("Path", value)
+
+#
+# Set the Geoid file path.
+#
+# Name Type   Description
+# ---- ------ ------------------------------
+# Path string Path to the Geoid file to use.
+#
+
+class SetGeoidFilePath(CommandBase):
+
+  def __init__(self, path):
+    CommandBase.__init__(self, "SetGeoidFilePath")
+    self.setPath(path)
+
+  def executePermission(self):
+    return ExecutePermission.EXECUTE_IF_NO_CONFIG | ExecutePermission.EXECUTE_IF_IDLE
+
+  def path(self):
+    return self.get("Path")
+
+  def setPath(self, value):
+    return self.set("Path", value)
+
+#
+# Get the Geoid file path.
+#
+#
+
+class GetGeoidFilePath(CommandBase):
+
+  def __init__(self):
+    CommandBase.__init__(self, "GetGeoidFilePath")
+
+  def executePermission(self):
+    return ExecutePermission.EXECUTE_IF_NO_CONFIG | ExecutePermission.EXECUTE_IF_IDLE
+
+#
+# Result of GetGeoidFilePath.
+#
+# Name Type   Description
+# ---- ------ ------------------------------
+# Path string Path to the Geoid file to use.
+#
+
+class GetGeoidFilePathResult(CommandResult):
+
+  def __init__(self, path):
+    CommandResult.__init__(self, "GetGeoidFilePathResult")
+    self.setPath(path)
+
+  def isSuccess(self):
+    return True
+
+  def path(self):
+    return self.get("Path")
+
+  def setPath(self, value):
+    return self.set("Path", value)
+
+#
+# Set the parameters of the NeQuick2-MLF2 model.
+#
+# Name               Type   Description
+# ------------------ ------ -----------------------------------------------------------------------------------------------
+# F10_7              double The Solar Radio Flux Index at 10.7cm Wavelength. Ranges from 0 to 400 s.f.u.
+# Ap                 double The daily average of ap, converted to a linear scale. Ranges from 0 to 400.
+# Kp                 double A global geomagnetic activity index quantifying disturbances in the horizontal, 
+#                           component of Earth's magnetic field. Ranges from 0 to 9.
+# Smoothed_365_F10_7 double Solar Radio Flux Index at 10.7cm Wavelength smoothed over 365 days. Ranges from 0 to 400 s.f.u.
+#
+
+class SetNeQuick2MLF2Parameters(CommandBase):
+
+  def __init__(self, f10_7, ap, kp, smoothed_365_F10_7):
+    CommandBase.__init__(self, "SetNeQuick2MLF2Parameters")
+    self.setF10_7(f10_7)
+    self.setAp(ap)
+    self.setKp(kp)
+    self.setSmoothed_365_F10_7(smoothed_365_F10_7)
+
+  def executePermission(self):
+    return ExecutePermission.EXECUTE_IF_IDLE
+
+  def f10_7(self):
+    return self.get("F10_7")
+
+  def setF10_7(self, value):
+    return self.set("F10_7", value)
+
+  def ap(self):
+    return self.get("Ap")
+
+  def setAp(self, value):
+    return self.set("Ap", value)
+
+  def kp(self):
+    return self.get("Kp")
+
+  def setKp(self, value):
+    return self.set("Kp", value)
+
+  def smoothed_365_F10_7(self):
+    return self.get("Smoothed_365_F10_7")
+
+  def setSmoothed_365_F10_7(self, value):
+    return self.set("Smoothed_365_F10_7", value)
+
+#
+# Get the parameters of the NeQuick2-MLF2 model.
+#
+#
+
+class GetNeQuick2MLF2Parameters(CommandBase):
+
+  def __init__(self):
+    CommandBase.__init__(self, "GetNeQuick2MLF2Parameters")
+
+  def executePermission(self):
+    return ExecutePermission.EXECUTE_IF_IDLE
+
+#
+# Result of GetNeQuick2MLF2Parameters.
+#
+# Name               Type   Description
+# ------------------ ------ -----------------------------------------------------------------------------------------------
+# F10_7              double The Solar Radio Flux Index at 10.7cm Wavelength. Ranges from 0 to 400 s.f.u.
+# Ap                 double The daily average of ap, converted to a linear scale. Ranges from 0 to 400.
+# Kp                 double A global geomagnetic activity index quantifying disturbances in the horizontal, 
+#                           component of Earth's magnetic field. Ranges from 0 to 9.
+# Smoothed_365_F10_7 double Solar Radio Flux Index at 10.7cm Wavelength smoothed over 365 days. Ranges from 0 to 400 s.f.u.
+#
+
+class GetNeQuick2MLF2ParametersResult(CommandResult):
+
+  def __init__(self, f10_7, ap, kp, smoothed_365_F10_7):
+    CommandResult.__init__(self, "GetNeQuick2MLF2ParametersResult")
+    self.setF10_7(f10_7)
+    self.setAp(ap)
+    self.setKp(kp)
+    self.setSmoothed_365_F10_7(smoothed_365_F10_7)
+
+  def isSuccess(self):
+    return True
+
+  def f10_7(self):
+    return self.get("F10_7")
+
+  def setF10_7(self, value):
+    return self.set("F10_7", value)
+
+  def ap(self):
+    return self.get("Ap")
+
+  def setAp(self, value):
+    return self.set("Ap", value)
+
+  def kp(self):
+    return self.get("Kp")
+
+  def setKp(self, value):
+    return self.set("Kp", value)
+
+  def smoothed_365_F10_7(self):
+    return self.get("Smoothed_365_F10_7")
+
+  def setSmoothed_365_F10_7(self, value):
+    return self.set("Smoothed_365_F10_7", value)
+
+#
+# Set the update rate of the NeQuick2-MLF2 model.
+#
+# Name       Type Description
+# ---------- ---- ----------------------------
+# UpdateRate int  The update rate, in seconds.
+#
+
+class SetNeQuick2MLF2UpdateRate(CommandBase):
+
+  def __init__(self, updateRate):
+    CommandBase.__init__(self, "SetNeQuick2MLF2UpdateRate")
+    self.setUpdateRate(updateRate)
+
+  def executePermission(self):
+    return ExecutePermission.EXECUTE_IF_IDLE
+
+  def updateRate(self):
+    return self.get("UpdateRate")
+
+  def setUpdateRate(self, value):
+    return self.set("UpdateRate", value)
+
+#
+# Get the update rate of the NeQuick2-MLF2 model.
+#
+#
+
+class GetNeQuick2MLF2UpdateRate(CommandBase):
+
+  def __init__(self):
+    CommandBase.__init__(self, "GetNeQuick2MLF2UpdateRate")
+
+  def executePermission(self):
+    return ExecutePermission.EXECUTE_IF_IDLE
+
+#
+# Result of GetNeQuick2MLF2UpdateRate.
+#
+# Name       Type Description
+# ---------- ---- ----------------------------
+# UpdateRate int  The update rate, in seconds.
+#
+
+class GetNeQuick2MLF2UpdateRateResult(CommandResult):
+
+  def __init__(self, updateRate):
+    CommandResult.__init__(self, "GetNeQuick2MLF2UpdateRateResult")
+    self.setUpdateRate(updateRate)
+
+  def isSuccess(self):
+    return True
+
+  def updateRate(self):
+    return self.get("UpdateRate")
+
+  def setUpdateRate(self, value):
+    return self.set("UpdateRate", value)
 
 #
 # Please note the command GetMasterStatus is deprecated since 23.11. You may use GetMainInstanceStatus.

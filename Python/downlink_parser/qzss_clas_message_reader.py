@@ -84,7 +84,7 @@ class QzssCLASDictGenerator:
         )
 
     def addEndOfSubFrameToDict(self):
-        while self.currentDataPartIndex % 5 != 0:
+        for _ in range(self.currentDataPartIndex % 5, 5):
             self.currentBitIndex += 1695 - ((self.currentBitIndex + 1) % 1695)
             self.currentDataPartIndex = int((self.currentBitIndex + 1) / 1695)
         self.currentBitIndex += 1

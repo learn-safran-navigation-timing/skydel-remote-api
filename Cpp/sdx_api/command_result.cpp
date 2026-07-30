@@ -72,6 +72,11 @@ CommandResultPtr CommandResult::dynamicCast(CommandBasePtr ptr)
   return std::dynamic_pointer_cast<CommandResult>(ptr);
 }
 
+std::string CommandResult::errorMsg() const
+{
+  return isSuccess() ? "" : resultMsg();
+}
+
 std::string CommandResult::message() const
 {
   if (!isSuccess())
