@@ -15,11 +15,12 @@ namespace Sdx
     const char* const MessageSequenceInsert::CmdName = "MessageSequenceInsert";
     const char* const MessageSequenceInsert::Documentation = "Insert message to sequence.\n"
       "\n"
-      "Name   Type   Description\n"
-      "------ ------ -----------------------------------------------------------------------------------------------------------\n"
-      "Signal string Signal Name (\"L2C\" for example)\n"
-      "Index  int    Message index in sequence where to insert. Set to -1 to append the message type at the end of the sequence.\n"
-      "Type   int    Message type to insert";
+      "Name   Type            Description\n"
+      "------ --------------- -----------------------------------------------------------------------------------------------------------\n"
+      "Signal string          Signal Name (\"L2C\" for example)\n"
+      "Index  int             Message index in sequence where to insert. Set to -1 to append the message type at the end of the sequence.\n"
+      "Type   int             Message type to insert\n"
+      "Domain optional string Domain of the message type to insert.";
     const char* const MessageSequenceInsert::TargetId = "";
 
     REGISTER_COMMAND_TO_FACTORY_DECL(MessageSequenceInsert);
@@ -30,18 +31,19 @@ namespace Sdx
       : CommandBase(CmdName, TargetId)
     {}
 
-    MessageSequenceInsert::MessageSequenceInsert(const std::string& signal, int index, int type)
+    MessageSequenceInsert::MessageSequenceInsert(const std::string& signal, int index, int type, const std::optional<std::string>& domain)
       : CommandBase(CmdName, TargetId)
     {
 
       setSignal(signal);
       setIndex(index);
       setType(type);
+      setDomain(domain);
     }
 
-    MessageSequenceInsertPtr MessageSequenceInsert::create(const std::string& signal, int index, int type)
+    MessageSequenceInsertPtr MessageSequenceInsert::create(const std::string& signal, int index, int type, const std::optional<std::string>& domain)
     {
-      return std::make_shared<MessageSequenceInsert>(signal, index, type);
+      return std::make_shared<MessageSequenceInsert>(signal, index, type, domain);
     }
 
     MessageSequenceInsertPtr MessageSequenceInsert::dynamicCast(CommandBasePtr ptr)
@@ -56,6 +58,7 @@ namespace Sdx
           && parse_json<std::string>::is_valid(m_values["Signal"])
           && parse_json<int>::is_valid(m_values["Index"])
           && parse_json<int>::is_valid(m_values["Type"])
+          && parse_json<std::optional<std::string>>::is_valid(m_values["Domain"])
         ;
 
     }
@@ -64,7 +67,7 @@ namespace Sdx
 
     const std::vector<std::string>& MessageSequenceInsert::fieldNames() const 
     { 
-      static const std::vector<std::string> names {"Signal", "Index", "Type"}; 
+      static const std::vector<std::string> names {"Signal", "Index", "Type", "Domain"}; 
       return names; 
     }
 
@@ -107,6 +110,18 @@ namespace Sdx
     void MessageSequenceInsert::setType(int type)
     {
       setValue("Type", parse_json<int>::format(type, m_values.GetAllocator()));
+    }
+
+
+
+    std::optional<std::string> MessageSequenceInsert::domain() const
+    {
+      return parse_json<std::optional<std::string>>::parse(m_values["Domain"]);
+    }
+
+    void MessageSequenceInsert::setDomain(const std::optional<std::string>& domain)
+    {
+      setValue("Domain", parse_json<std::optional<std::string>>::format(domain, m_values.GetAllocator()));
     }
 
 

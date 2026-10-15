@@ -16,8 +16,8 @@ namespace Sdx
     const char* const GetStartTimeOffsetResult::Documentation = "Result of GetStartTimeOffset.\n"
       "\n"
       "Name   Type Description\n"
-      "------ ---- -----------------------------------------------------------------------------------------\n"
-      "Offset int  Time Offset, in seconds, between simulated GPS time and time given by GPS Timing receiver";
+      "------ ---- ------------------------------------------------------------------------------------------------------------------------------\n"
+      "Offset int  Time offset, in seconds, between the simulated GPS time and the time given by the selected real-time synchronized time source.";
     const char* const GetStartTimeOffsetResult::TargetId = "";
 
     REGISTER_COMMAND_TO_FACTORY_IMPL(GetStartTimeOffsetResult);

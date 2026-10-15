@@ -6,19 +6,15 @@ This folder contains the C# module to interface with the Skydel GNSS simulator a
 
 ## Dependencies
 
-1. Download latest **Build Tools for Visual Studio 2019** online installer and install **.NET desktop build tools**. Make sure to only select **.NET Framework 4.6.1 developement tools**. You can find the online installer [here](https://learn.microsoft.com/en-us/visualstudio/releases/2019/release-notes).
-2. Download NuGet from [here](https://dist.nuget.org/win-x86-commandline/latest/nuget.exe).
-3. From this folder open a Windows PowerShell and execute:
-    ```
-    & $HOME\Downloads\nuget.exe sources add -Name "NuGet.org" -Source https://api.nuget.org/v3/index.json
-    & $HOME\Downloads\nuget.exe install Newtonsoft.Json -Version 12.0.3 -OutputDirectory $PWD\packages
-    ```
+1. Download latest **Build Tools for Visual Studio 2022** online installer and install **.NET desktop build tools**. Make sure to only select **.NET Framework 4.8 developement tools**. You can find the online installer [here](https://learn.microsoft.com/en-us/visualstudio/releases/2022/release-history#release-dates-and-build-numbers).
+2. The `Newtonsoft.Json` NuGet package is already included in the `packages` folder in this repository, so no additional NuGet setup is required for examples.
 
 ## Compilation and Execution
+
 1. Start Skydel and close the splash screen once the licence has been verified.
 2. From this folder open a Windows PowerShell and execute:
-    ```
-    & 'C:\Program Files (x86)\Microsoft Visual Studio\2019\BuildTools\MSBuild\Current\Bin\MSBuild.exe' .\SdxExamples.sln
+```
+    & 'C:\Program Files (x86)\Microsoft Visual Studio\2022\BuildTools\MSBuild\Current\Bin\MSBuild.exe' .\SdxExamples.sln
     cd .\SdxExamples\bin\Debug\
     .\SdxExamples.exe
-    ```
+```

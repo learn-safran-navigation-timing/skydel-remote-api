@@ -4,7 +4,7 @@ namespace Sdx
 {
   namespace Cmd
   {
-    constexpr auto COMMANDS_API_VERSION = 54;
+    constexpr auto COMMANDS_API_VERSION = 55;
   }
 }
 

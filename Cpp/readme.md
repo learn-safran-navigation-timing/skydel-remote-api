@@ -10,7 +10,7 @@ sudo apt install cmake build-essential uuid-dev
 ```
 
 ### Windows
-1. Download latest **Build Tools for Visual Studio 2019** online installer and install **Desktop development with C++**. Make sure to only select latest **MSVCv142** and **Windows 10 SDK**. You can find the online installer [here](https://learn.microsoft.com/en-us/visualstudio/releases/2019/release-notes).
+1. Download latest **Build Tools for Visual Studio 2022** online installer and install **Desktop development with C++**. Make sure to only select latest **MSVCv143** and **Windows 11 SDK**. You can find the online installer [here](https://learn.microsoft.com/en-us/visualstudio/releases/2022/release-history#release-dates-and-build-numbers).
 2. Download and install CMake from [here](https://github.com/Kitware/CMake/releases/download/v4.0.3/cmake-4.0.3-windows-x86_64.msi). Make sure to add CMake to the system PATH.
 
 ## Compilation and Execution
@@ -31,7 +31,7 @@ sudo apt install cmake build-essential uuid-dev
     ```
     mkdir build
     cd build
-    call "C:\Program Files (x86)\Microsoft Visual Studio\2019\BuildTools\VC\Auxiliary\Build\vcvars64.bat"
+    call "C:\Program Files (x86)\Microsoft Visual Studio\2022\BuildTools\VC\Auxiliary\Build\vcvars64.bat"
     cmake -G"NMake Makefiles" -DCMAKE_BUILD_TYPE=Release ..
     cmake --build .
     cd sdx_examples

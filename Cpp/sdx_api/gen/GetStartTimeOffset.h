@@ -10,8 +10,8 @@ namespace Sdx
   namespace Cmd
   {
     ///
-    /// Get offset between the simulated GPS time and time given by GPS Timing receiver when using GPS Timing receiver to set the start time of the simulation.
-    /// This value has no effect when GPS start time is "custom" or "computer".
+    /// Get Time offset between the simulated GPS time and the selected real-time synchronized time source (Computer Synchronized, NTP or GPS) at the beginning of the simulation.
+    /// This setting has no effect with the Custom and Computer start time modes.
     ///
     /// 
     ///

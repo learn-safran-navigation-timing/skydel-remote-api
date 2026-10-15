@@ -16,8 +16,8 @@ namespace Sdx
     const char* const GetStartTimeModeResult::Documentation = "Result of GetStartTimeMode.\n"
       "\n"
       "Name Type   Description\n"
-      "---- ------ ---------------------------------------------------\n"
-      "Mode string Accepted Modes (\"Custom\", \"Computer\", \"GPS\", \"NTP\")";
+      "---- ------ ----------------------------------------------------------------------------\n"
+      "Mode string Accepted Modes (\"Custom\", \"Computer\", \"Computer Synchronized\", \"GPS\", \"NTP\")";
     const char* const GetStartTimeModeResult::TargetId = "";
 
     REGISTER_COMMAND_TO_FACTORY_IMPL(GetStartTimeModeResult);

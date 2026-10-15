@@ -3,6 +3,7 @@
 #include <memory>
 #include "command_base.h"
 
+#include <optional>
 #include <string>
 
 namespace Sdx
@@ -12,11 +13,12 @@ namespace Sdx
     ///
     /// Insert message to sequence.
     ///
-    /// Name   Type   Description
-    /// ------ ------ -----------------------------------------------------------------------------------------------------------
-    /// Signal string Signal Name ("L2C" for example)
-    /// Index  int    Message index in sequence where to insert. Set to -1 to append the message type at the end of the sequence.
-    /// Type   int    Message type to insert
+    /// Name   Type            Description
+    /// ------ --------------- -----------------------------------------------------------------------------------------------------------
+    /// Signal string          Signal Name ("L2C" for example)
+    /// Index  int             Message index in sequence where to insert. Set to -1 to append the message type at the end of the sequence.
+    /// Type   int             Message type to insert
+    /// Domain optional string Domain of the message type to insert.
     ///
 
     class MessageSequenceInsert;
@@ -33,9 +35,9 @@ namespace Sdx
 
       MessageSequenceInsert();
 
-      MessageSequenceInsert(const std::string& signal, int index, int type);
+      MessageSequenceInsert(const std::string& signal, int index, int type, const std::optional<std::string>& domain = {});
 
-      static MessageSequenceInsertPtr create(const std::string& signal, int index, int type);
+      static MessageSequenceInsertPtr create(const std::string& signal, int index, int type, const std::optional<std::string>& domain = {});
       static MessageSequenceInsertPtr dynamicCast(CommandBasePtr ptr);
       virtual bool isValid() const override;
       virtual std::string documentation() const override;
@@ -57,6 +59,11 @@ namespace Sdx
       // **** type ****
       int type() const;
       void setType(int type);
+
+
+      // **** domain ****
+      std::optional<std::string> domain() const;
+      void setDomain(const std::optional<std::string>& domain);
     };
     
   }

@@ -13,12 +13,12 @@ namespace Sdx
   namespace Cmd
   {
     const char* const SetStartTimeOffset::CmdName = "SetStartTimeOffset";
-    const char* const SetStartTimeOffset::Documentation = "Set offset between the simulated GPS time and time given by GPS Timing receiver when using GPS Timing receiver to set the start time of the simulation.\n"
-      "This value has no effect when GPS start time is \"custom\" or \"computer\".\n"
+    const char* const SetStartTimeOffset::Documentation = "Set Time offset between the simulated GPS time and the selected real-time synchronized time source (Computer Synchronized, NTP or GPS) at the beginning of the simulation.\n"
+      "This setting has no effect with the Custom and Computer start time modes.\n"
       "\n"
       "Name   Type Description\n"
-      "------ ---- -----------------------------------------------------------------------------------------\n"
-      "Offset int  Time Offset, in seconds, between simulated GPS time and time given by GPS Timing receiver";
+      "------ ---- ------------------------------------------------------------------------------------------------------------------------------\n"
+      "Offset int  Time offset, in seconds, between the simulated GPS time and the time given by the selected real-time synchronized time source.";
     const char* const SetStartTimeOffset::TargetId = "";
 
     REGISTER_COMMAND_TO_FACTORY_DECL(SetStartTimeOffset);

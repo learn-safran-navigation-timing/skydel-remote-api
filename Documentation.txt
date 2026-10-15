@@ -1,4 +1,4 @@
-Skydel Remote API Version 54
+Skydel Remote API Version 55
 
 Command execution permission flags:
   EXECUTE_IF_NO_CONFIG  : executed even if there is no config
@@ -1070,8 +1070,8 @@ Permission: EXECUTE_IF_IDLE
 Set the simulation start time mode.
 
 Name Type   Description
----- ------ ---------------------------------------------------
-Mode string Accepted Modes ("Custom", "Computer", "GPS", "NTP")
+---- ------ ----------------------------------------------------------------------------
+Mode string Accepted Modes ("Custom", "Computer", "Computer Synchronized", "GPS", "NTP")
 
 ***************************************************************************************************************************
 
@@ -1088,8 +1088,8 @@ Result GetStartTimeModeResult(Mode)
 Result of GetStartTimeMode.
 
 Name Type   Description
----- ------ ---------------------------------------------------
-Mode string Accepted Modes ("Custom", "Computer", "GPS", "NTP")
+---- ------ ----------------------------------------------------------------------------
+Mode string Accepted Modes ("Custom", "Computer", "Computer Synchronized", "GPS", "NTP")
 
 ***************************************************************************************************************************
 
@@ -1219,20 +1219,20 @@ Enabled bool If enabled, the NTP client will attempt to connect to the configure
 Command SetStartTimeOffset(Offset)
 Permission: EXECUTE_IF_IDLE
 
-Set offset between the simulated GPS time and time given by GPS Timing receiver when using GPS Timing receiver to set the start time of the simulation.
-This value has no effect when GPS start time is "custom" or "computer".
+Set Time offset between the simulated GPS time and the selected real-time synchronized time source (Computer Synchronized, NTP or GPS) at the beginning of the simulation.
+This setting has no effect with the Custom and Computer start time modes.
 
 Name   Type Description
------- ---- -----------------------------------------------------------------------------------------
-Offset int  Time Offset, in seconds, between simulated GPS time and time given by GPS Timing receiver
+------ ---- ------------------------------------------------------------------------------------------------------------------------------
+Offset int  Time offset, in seconds, between the simulated GPS time and the time given by the selected real-time synchronized time source.
 
 ***************************************************************************************************************************
 
 Command GetStartTimeOffset()
 Permission: EXECUTE_IF_IDLE
 
-Get offset between the simulated GPS time and time given by GPS Timing receiver when using GPS Timing receiver to set the start time of the simulation.
-This value has no effect when GPS start time is "custom" or "computer".
+Get Time offset between the simulated GPS time and the selected real-time synchronized time source (Computer Synchronized, NTP or GPS) at the beginning of the simulation.
+This setting has no effect with the Custom and Computer start time modes.
 
 
 ***************************************************************************************************************************
@@ -1242,8 +1242,8 @@ Result GetStartTimeOffsetResult(Offset)
 Result of GetStartTimeOffset.
 
 Name   Type Description
------- ---- -----------------------------------------------------------------------------------------
-Offset int  Time Offset, in seconds, between simulated GPS time and time given by GPS Timing receiver
+------ ---- ------------------------------------------------------------------------------------------------------------------------------
+Offset int  Time offset, in seconds, between the simulated GPS time and the time given by the selected real-time synchronized time source.
 
 ***************************************************************************************************************************
 
@@ -7921,6 +7921,74 @@ Ids  array string List of event IDs which will modify the navigation message for
 
 ***************************************************************************************************************************
 
+Command SetSkipAuthenticationNavMessage(Signal, SkipMessage)
+Permission: EXECUTE_IF_IDLE
+
+Set Skips all authentication messages in the message sequence of the given signal.
+
+Name        Type   Description
+----------- ------ -------------------------------------------------------------------
+Signal      string Signal key, accepted values : "PULSARX1" and "PULSARX5".
+SkipMessage bool   If True, skips the authentication messages in the message sequence.
+
+***************************************************************************************************************************
+
+Command IsAuthenticationNavMessageSkipped(Signal)
+Permission: EXECUTE_IF_IDLE
+
+Get Skips all authentication messages in the message sequence of the given signal.
+
+Name   Type   Description
+------ ------ --------------------------------------------------------
+Signal string Signal key, accepted values : "PULSARX1" and "PULSARX5".
+
+***************************************************************************************************************************
+
+Result IsAuthenticationNavMessageSkippedResult(Signal, SkipMessage)
+
+Result of IsAuthenticationNavMessageSkipped.
+
+Name        Type   Description
+----------- ------ -------------------------------------------------------------------
+Signal      string Signal key, accepted values : "PULSARX1" and "PULSARX5".
+SkipMessage bool   If True, skips the authentication messages in the message sequence.
+
+***************************************************************************************************************************
+
+Command SetSkipEncryptionNavMessage(Signal, SkipMessage)
+Permission: EXECUTE_IF_IDLE
+
+Set Skips all encryption messages in the message sequence of the given signal.
+
+Name        Type   Description
+----------- ------ ---------------------------------------------------------------
+Signal      string Signal key, accepted values : "PULSARX1" and "PULSARX5".
+SkipMessage bool   If True, skips the encryption messages in the message sequence.
+
+***************************************************************************************************************************
+
+Command IsEncryptionNavMessageSkipped(Signal)
+Permission: EXECUTE_IF_IDLE
+
+Get Skips all encryption messages in the message sequence of the given signal.
+
+Name   Type   Description
+------ ------ --------------------------------------------------------
+Signal string Signal key, accepted values : "PULSARX1" and "PULSARX5".
+
+***************************************************************************************************************************
+
+Result IsEncryptionNavMessageSkippedResult(Signal, SkipMessage)
+
+Result of IsEncryptionNavMessageSkipped.
+
+Name        Type   Description
+----------- ------ ---------------------------------------------------------------
+Signal      string Signal key, accepted values : "PULSARX1" and "PULSARX5".
+SkipMessage bool   If True, skips the encryption messages in the message sequence.
+
+***************************************************************************************************************************
+
 Command SetInterferenceAWGN(StartTime, StopTime, CentralFreq, Power, Bandwidth, Enabled, Id, Seed)
 Permission: EXECUTE_IF_SIMULATING | EXECUTE_IF_IDLE
 
@@ -10358,16 +10426,17 @@ End receiving simulated vehicle informations.
 
 ***************************************************************************************************************************
 
-Command MessageSequenceInsert(Signal, Index, Type)
+Command MessageSequenceInsert(Signal, Index, Type, Domain)
 Permission: EXECUTE_IF_IDLE
 
 Insert message to sequence.
 
-Name   Type   Description
------- ------ -----------------------------------------------------------------------------------------------------------
-Signal string Signal Name ("L2C" for example)
-Index  int    Message index in sequence where to insert. Set to -1 to append the message type at the end of the sequence.
-Type   int    Message type to insert
+Name   Type            Description
+------ --------------- -----------------------------------------------------------------------------------------------------------
+Signal string          Signal Name ("L2C" for example)
+Index  int             Message index in sequence where to insert. Set to -1 to append the message type at the end of the sequence.
+Type   int             Message type to insert
+Domain optional string Domain of the message type to insert.
 
 ***************************************************************************************************************************
 

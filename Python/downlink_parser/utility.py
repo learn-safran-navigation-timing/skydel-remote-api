@@ -8,6 +8,7 @@ import collections
 ARC_PER_SECOND                  = "arc/s"
 ARC_SECOND                      = "arc-s"
 ARC_SECOND_PER_DAY              = "arc-s/day"
+BYTE                            = "byte"
 DAY                             = "day"
 DEGREE                          = "degree"
 FOUR_YEAR_INTERVAL              = "4-year interval"

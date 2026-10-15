@@ -13,8 +13,8 @@ namespace Sdx
     /// Result of GetStartTimeMode.
     ///
     /// Name Type   Description
-    /// ---- ------ ---------------------------------------------------
-    /// Mode string Accepted Modes ("Custom", "Computer", "GPS", "NTP")
+    /// ---- ------ ----------------------------------------------------------------------------
+    /// Mode string Accepted Modes ("Custom", "Computer", "Computer Synchronized", "GPS", "NTP")
     ///
 
     class GetStartTimeModeResult;

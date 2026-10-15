@@ -3,7 +3,7 @@ from .commandbase import CommandBase
 from .commandresult import CommandResult
 from .commandbase import ExecutePermission
 
-ApiVersion = 54
+ApiVersion = 55
 
 #
 # The GPS AS flag value.
@@ -2324,8 +2324,8 @@ class GetTropoModelResult(CommandResult):
 # Set the simulation start time mode.
 #
 # Name Type   Description
-# ---- ------ ---------------------------------------------------
-# Mode string Accepted Modes ("Custom", "Computer", "GPS", "NTP")
+# ---- ------ ----------------------------------------------------------------------------
+# Mode string Accepted Modes ("Custom", "Computer", "Computer Synchronized", "GPS", "NTP")
 #
 
 class SetStartTimeMode(CommandBase):
@@ -2360,8 +2360,8 @@ class GetStartTimeMode(CommandBase):
 # Result of GetStartTimeMode.
 #
 # Name Type   Description
-# ---- ------ ---------------------------------------------------
-# Mode string Accepted Modes ("Custom", "Computer", "GPS", "NTP")
+# ---- ------ ----------------------------------------------------------------------------
+# Mode string Accepted Modes ("Custom", "Computer", "Computer Synchronized", "GPS", "NTP")
 #
 
 class GetStartTimeModeResult(CommandResult):
@@ -2729,12 +2729,12 @@ class IsNtpClientEnabledResult(CommandResult):
     return self.set("Enabled", value)
 
 #
-# Set offset between the simulated GPS time and time given by GPS Timing receiver when using GPS Timing receiver to set the start time of the simulation.
-# This value has no effect when GPS start time is "custom" or "computer".
+# Set Time offset between the simulated GPS time and the selected real-time synchronized time source (Computer Synchronized, NTP or GPS) at the beginning of the simulation.
+# This setting has no effect with the Custom and Computer start time modes.
 #
 # Name   Type Description
-# ------ ---- -----------------------------------------------------------------------------------------
-# Offset int  Time Offset, in seconds, between simulated GPS time and time given by GPS Timing receiver
+# ------ ---- ------------------------------------------------------------------------------------------------------------------------------
+# Offset int  Time offset, in seconds, between the simulated GPS time and the time given by the selected real-time synchronized time source.
 #
 
 class SetStartTimeOffset(CommandBase):
@@ -2753,8 +2753,8 @@ class SetStartTimeOffset(CommandBase):
     return self.set("Offset", value)
 
 #
-# Get offset between the simulated GPS time and time given by GPS Timing receiver when using GPS Timing receiver to set the start time of the simulation.
-# This value has no effect when GPS start time is "custom" or "computer".
+# Get Time offset between the simulated GPS time and the selected real-time synchronized time source (Computer Synchronized, NTP or GPS) at the beginning of the simulation.
+# This setting has no effect with the Custom and Computer start time modes.
 #
 #
 
@@ -2770,8 +2770,8 @@ class GetStartTimeOffset(CommandBase):
 # Result of GetStartTimeOffset.
 #
 # Name   Type Description
-# ------ ---- -----------------------------------------------------------------------------------------
-# Offset int  Time Offset, in seconds, between simulated GPS time and time given by GPS Timing receiver
+# ------ ---- ------------------------------------------------------------------------------------------------------------------------------
+# Offset int  Time offset, in seconds, between the simulated GPS time and the time given by the selected real-time synchronized time source.
 #
 
 class GetStartTimeOffsetResult(CommandResult):
@@ -21704,6 +21704,176 @@ class GetAllMessageModificationIdsForSignalResult(CommandResult):
     return self.set("Ids", value)
 
 #
+# Set Skips all authentication messages in the message sequence of the given signal.
+#
+# Name        Type   Description
+# ----------- ------ -------------------------------------------------------------------
+# Signal      string Signal key, accepted values : "PULSARX1" and "PULSARX5".
+# SkipMessage bool   If True, skips the authentication messages in the message sequence.
+#
+
+class SetSkipAuthenticationNavMessage(CommandBase):
+
+  def __init__(self, signal, skipMessage):
+    CommandBase.__init__(self, "SetSkipAuthenticationNavMessage")
+    self.setSignal(signal)
+    self.setSkipMessage(skipMessage)
+
+  def executePermission(self):
+    return ExecutePermission.EXECUTE_IF_IDLE
+
+  def signal(self):
+    return self.get("Signal")
+
+  def setSignal(self, value):
+    return self.set("Signal", value)
+
+  def skipMessage(self):
+    return self.get("SkipMessage")
+
+  def setSkipMessage(self, value):
+    return self.set("SkipMessage", value)
+
+#
+# Get Skips all authentication messages in the message sequence of the given signal.
+#
+# Name   Type   Description
+# ------ ------ --------------------------------------------------------
+# Signal string Signal key, accepted values : "PULSARX1" and "PULSARX5".
+#
+
+class IsAuthenticationNavMessageSkipped(CommandBase):
+
+  def __init__(self, signal):
+    CommandBase.__init__(self, "IsAuthenticationNavMessageSkipped")
+    self.setSignal(signal)
+
+  def executePermission(self):
+    return ExecutePermission.EXECUTE_IF_IDLE
+
+  def signal(self):
+    return self.get("Signal")
+
+  def setSignal(self, value):
+    return self.set("Signal", value)
+
+#
+# Result of IsAuthenticationNavMessageSkipped.
+#
+# Name        Type   Description
+# ----------- ------ -------------------------------------------------------------------
+# Signal      string Signal key, accepted values : "PULSARX1" and "PULSARX5".
+# SkipMessage bool   If True, skips the authentication messages in the message sequence.
+#
+
+class IsAuthenticationNavMessageSkippedResult(CommandResult):
+
+  def __init__(self, signal, skipMessage):
+    CommandResult.__init__(self, "IsAuthenticationNavMessageSkippedResult")
+    self.setSignal(signal)
+    self.setSkipMessage(skipMessage)
+
+  def isSuccess(self):
+    return True
+
+  def signal(self):
+    return self.get("Signal")
+
+  def setSignal(self, value):
+    return self.set("Signal", value)
+
+  def skipMessage(self):
+    return self.get("SkipMessage")
+
+  def setSkipMessage(self, value):
+    return self.set("SkipMessage", value)
+
+#
+# Set Skips all encryption messages in the message sequence of the given signal.
+#
+# Name        Type   Description
+# ----------- ------ ---------------------------------------------------------------
+# Signal      string Signal key, accepted values : "PULSARX1" and "PULSARX5".
+# SkipMessage bool   If True, skips the encryption messages in the message sequence.
+#
+
+class SetSkipEncryptionNavMessage(CommandBase):
+
+  def __init__(self, signal, skipMessage):
+    CommandBase.__init__(self, "SetSkipEncryptionNavMessage")
+    self.setSignal(signal)
+    self.setSkipMessage(skipMessage)
+
+  def executePermission(self):
+    return ExecutePermission.EXECUTE_IF_IDLE
+
+  def signal(self):
+    return self.get("Signal")
+
+  def setSignal(self, value):
+    return self.set("Signal", value)
+
+  def skipMessage(self):
+    return self.get("SkipMessage")
+
+  def setSkipMessage(self, value):
+    return self.set("SkipMessage", value)
+
+#
+# Get Skips all encryption messages in the message sequence of the given signal.
+#
+# Name   Type   Description
+# ------ ------ --------------------------------------------------------
+# Signal string Signal key, accepted values : "PULSARX1" and "PULSARX5".
+#
+
+class IsEncryptionNavMessageSkipped(CommandBase):
+
+  def __init__(self, signal):
+    CommandBase.__init__(self, "IsEncryptionNavMessageSkipped")
+    self.setSignal(signal)
+
+  def executePermission(self):
+    return ExecutePermission.EXECUTE_IF_IDLE
+
+  def signal(self):
+    return self.get("Signal")
+
+  def setSignal(self, value):
+    return self.set("Signal", value)
+
+#
+# Result of IsEncryptionNavMessageSkipped.
+#
+# Name        Type   Description
+# ----------- ------ ---------------------------------------------------------------
+# Signal      string Signal key, accepted values : "PULSARX1" and "PULSARX5".
+# SkipMessage bool   If True, skips the encryption messages in the message sequence.
+#
+
+class IsEncryptionNavMessageSkippedResult(CommandResult):
+
+  def __init__(self, signal, skipMessage):
+    CommandResult.__init__(self, "IsEncryptionNavMessageSkippedResult")
+    self.setSignal(signal)
+    self.setSkipMessage(skipMessage)
+
+  def isSuccess(self):
+    return True
+
+  def signal(self):
+    return self.get("Signal")
+
+  def setSignal(self, value):
+    return self.set("Signal", value)
+
+  def skipMessage(self):
+    return self.get("SkipMessage")
+
+  def setSkipMessage(self, value):
+    return self.set("SkipMessage", value)
+
+#
 # Add or update an AWGN interference signal.
 #
 # Name        Type         Description
@@ -28630,20 +28800,22 @@ class EndVehicleInfo(CommandBase):
 #
 # Insert message to sequence.
 #
-# Name   Type   Description
-# ------ ------ -----------------------------------------------------------------------------------------------------------
-# Signal string Signal Name ("L2C" for example)
-# Index  int    Message index in sequence where to insert. Set to -1 to append the message type at the end of the sequence.
-# Type   int    Message type to insert
+# Name   Type            Description
+# ------ --------------- -----------------------------------------------------------------------------------------------------------
+# Signal string          Signal Name ("L2C" for example)
+# Index  int             Message index in sequence where to insert. Set to -1 to append the message type at the end of the sequence.
+# Type   int             Message type to insert
+# Domain optional string Domain of the message type to insert.
 #
 
 class MessageSequenceInsert(CommandBase):
 
-  def __init__(self, signal, index, type):
+  def __init__(self, signal, index, type, domain = None):
     CommandBase.__init__(self, "MessageSequenceInsert")
     self.setSignal(signal)
     self.setIndex(index)
     self.setType(type)
+    self.setDomain(domain)
 
   def executePermission(self):
     return ExecutePermission.EXECUTE_IF_IDLE
@@ -28665,6 +28837,12 @@ class MessageSequenceInsert(CommandBase):
 
   def setType(self, value):
     return self.set("Type", value)
+
+  def domain(self):
+    return self.get("Domain")
+
+  def setDomain(self, value):
+    return self.set("Domain", value)
 
 #
 # Remove message from sequence.

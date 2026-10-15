@@ -6,7 +6,7 @@ namespace Sdx.Cmd
 
   public static class ApiInfo
   {
-    public const int COMMANDS_API_VERSION = 54;
+    public const int COMMANDS_API_VERSION = 55;
   }
 
   ///
@@ -4606,8 +4606,8 @@ namespace Sdx.Cmd
   /// Set the simulation start time mode.
   ///
   /// Name Type   Description
-  /// ---- ------ ---------------------------------------------------
-  /// Mode string Accepted Modes ("Custom", "Computer", "GPS", "NTP")
+  /// ---- ------ ----------------------------------------------------------------------------
+  /// Mode string Accepted Modes ("Custom", "Computer", "Computer Synchronized", "GPS", "NTP")
   ///
 
   public class SetStartTimeMode : CommandBase
@@ -4690,8 +4690,8 @@ namespace Sdx.Cmd
   /// Result of GetStartTimeMode.
   ///
   /// Name Type   Description
-  /// ---- ------ ---------------------------------------------------
-  /// Mode string Accepted Modes ("Custom", "Computer", "GPS", "NTP")
+  /// ---- ------ ----------------------------------------------------------------------------
+  /// Mode string Accepted Modes ("Custom", "Computer", "Computer Synchronized", "GPS", "NTP")
   ///
 
   public class GetStartTimeModeResult : CommandResult
@@ -5457,19 +5457,19 @@ namespace Sdx.Cmd
 
 
   ///
-  /// Set offset between the simulated GPS time and time given by GPS Timing receiver when using GPS Timing receiver to set the start time of the simulation.
-  /// This value has no effect when GPS start time is "custom" or "computer".
+  /// Set Time offset between the simulated GPS time and the selected real-time synchronized time source (Computer Synchronized, NTP or GPS) at the beginning of the simulation.
+  /// This setting has no effect with the Custom and Computer start time modes.
   ///
   /// Name   Type Description
-  /// ------ ---- -----------------------------------------------------------------------------------------
-  /// Offset int  Time Offset, in seconds, between simulated GPS time and time given by GPS Timing receiver
+  /// ------ ---- ------------------------------------------------------------------------------------------------------------------------------
+  /// Offset int  Time offset, in seconds, between the simulated GPS time and the time given by the selected real-time synchronized time source.
   ///
 
   public class SetStartTimeOffset : CommandBase
   {
     public override string Documentation
     {
-      get { return "Set offset between the simulated GPS time and time given by GPS Timing receiver when using GPS Timing receiver to set the start time of the simulation.\nThis value has no effect when GPS start time is \"custom\" or \"computer\"."; }
+      get { return "Set Time offset between the simulated GPS time and the selected real-time synchronized time source (Computer Synchronized, NTP or GPS) at the beginning of the simulation.\nThis setting has no effect with the Custom and Computer start time modes."; }
     }
 
     internal const string CmdName = "SetStartTimeOffset";
@@ -5509,8 +5509,8 @@ namespace Sdx.Cmd
 
 
   ///
-  /// Get offset between the simulated GPS time and time given by GPS Timing receiver when using GPS Timing receiver to set the start time of the simulation.
-  /// This value has no effect when GPS start time is "custom" or "computer".
+  /// Get Time offset between the simulated GPS time and the selected real-time synchronized time source (Computer Synchronized, NTP or GPS) at the beginning of the simulation.
+  /// This setting has no effect with the Custom and Computer start time modes.
   ///
   /// 
   ///
@@ -5519,7 +5519,7 @@ namespace Sdx.Cmd
   {
     public override string Documentation
     {
-      get { return "Get offset between the simulated GPS time and time given by GPS Timing receiver when using GPS Timing receiver to set the start time of the simulation.\nThis value has no effect when GPS start time is \"custom\" or \"computer\"."; }
+      get { return "Get Time offset between the simulated GPS time and the selected real-time synchronized time source (Computer Synchronized, NTP or GPS) at the beginning of the simulation.\nThis setting has no effect with the Custom and Computer start time modes."; }
     }
 
     internal const string CmdName = "GetStartTimeOffset";
@@ -5546,8 +5546,8 @@ namespace Sdx.Cmd
   /// Result of GetStartTimeOffset.
   ///
   /// Name   Type Description
-  /// ------ ---- -----------------------------------------------------------------------------------------
-  /// Offset int  Time Offset, in seconds, between simulated GPS time and time given by GPS Timing receiver
+  /// ------ ---- ------------------------------------------------------------------------------------------------------------------------------
+  /// Offset int  Time offset, in seconds, between the simulated GPS time and the time given by the selected real-time synchronized time source.
   ///
 
   public class GetStartTimeOffsetResult : CommandResult
@@ -41517,6 +41517,356 @@ namespace Sdx.Cmd
 
 
   ///
+  /// Set Skips all authentication messages in the message sequence of the given signal.
+  ///
+  /// Name        Type   Description
+  /// ----------- ------ -------------------------------------------------------------------
+  /// Signal      string Signal key, accepted values : "PULSARX1" and "PULSARX5".
+  /// SkipMessage bool   If True, skips the authentication messages in the message sequence.
+  ///
+
+  public class SetSkipAuthenticationNavMessage : CommandBase
+  {
+    public override string Documentation
+    {
+      get { return "Set Skips all authentication messages in the message sequence of the given signal."; }
+    }
+
+    internal const string CmdName = "SetSkipAuthenticationNavMessage";
+    internal const string TargetId = "";
+
+    public SetSkipAuthenticationNavMessage()
+      : base(CmdName, TargetId)
+    {}
+
+    public SetSkipAuthenticationNavMessage(string signal, bool skipMessage)
+      : base(CmdName, TargetId)
+    {
+      Signal = signal;
+      SkipMessage = skipMessage;
+    }
+      
+    public override bool IsValid
+    {
+      get
+      {
+        return base.IsValid
+        && Contains("Signal")
+        && Contains("SkipMessage")
+      ;
+      }
+    }
+
+    public override int ExecutePermission { get { return EXECUTE_IF_IDLE; } }
+
+    public string Signal
+    {
+      get { return GetValue("Signal").ToObject<string>(CommandBase.Serializer); }
+      set
+      {
+          SetValue("Signal", JToken.FromObject(value, CommandBase.Serializer));
+      }
+    }
+
+    public bool SkipMessage
+    {
+      get { return GetValue("SkipMessage").ToObject<bool>(CommandBase.Serializer); }
+      set
+      {
+          SetValue("SkipMessage", JToken.FromObject(value, CommandBase.Serializer));
+      }
+    }
+  }
+
+
+  ///
+  /// Get Skips all authentication messages in the message sequence of the given signal.
+  ///
+  /// Name   Type   Description
+  /// ------ ------ --------------------------------------------------------
+  /// Signal string Signal key, accepted values : "PULSARX1" and "PULSARX5".
+  ///
+
+  public class IsAuthenticationNavMessageSkipped : CommandBase
+  {
+    public override string Documentation
+    {
+      get { return "Get Skips all authentication messages in the message sequence of the given signal."; }
+    }
+
+    internal const string CmdName = "IsAuthenticationNavMessageSkipped";
+    internal const string TargetId = "";
+
+    public IsAuthenticationNavMessageSkipped()
+      : base(CmdName, TargetId)
+    {}
+
+    public IsAuthenticationNavMessageSkipped(string signal)
+      : base(CmdName, TargetId)
+    {
+      Signal = signal;
+    }
+      
+    public override bool IsValid
+    {
+      get
+      {
+        return base.IsValid
+        && Contains("Signal")
+      ;
+      }
+    }
+
+    public override int ExecutePermission { get { return EXECUTE_IF_IDLE; } }
+
+    public string Signal
+    {
+      get { return GetValue("Signal").ToObject<string>(CommandBase.Serializer); }
+      set
+      {
+          SetValue("Signal", JToken.FromObject(value, CommandBase.Serializer));
+      }
+    }
+  }
+
+
+  ///
+  /// Result of IsAuthenticationNavMessageSkipped.
+  ///
+  /// Name        Type   Description
+  /// ----------- ------ -------------------------------------------------------------------
+  /// Signal      string Signal key, accepted values : "PULSARX1" and "PULSARX5".
+  /// SkipMessage bool   If True, skips the authentication messages in the message sequence.
+  ///
+
+  public class IsAuthenticationNavMessageSkippedResult : CommandResult
+  {
+    public override string Documentation
+    {
+      get { return "Result of IsAuthenticationNavMessageSkipped."; }
+    }
+
+    internal const string CmdName = "IsAuthenticationNavMessageSkippedResult";
+    internal const string TargetId = "";
+
+    public IsAuthenticationNavMessageSkippedResult()
+      : base(CmdName, TargetId)
+    {}
+
+    public IsAuthenticationNavMessageSkippedResult(CommandBase relatedCommand, string signal, bool skipMessage)
+      : base(CmdName, TargetId, relatedCommand)
+    {
+      Signal = signal;
+      SkipMessage = skipMessage;
+    }
+      
+    public override bool IsValid
+    {
+      get
+      {
+        return base.IsValid
+        && Contains("Signal")
+        && Contains("SkipMessage")
+      ;
+      }
+    }
+
+    public string Signal
+    {
+      get { return GetValue("Signal").ToObject<string>(CommandBase.Serializer); }
+      set
+      {
+          SetValue("Signal", JToken.FromObject(value, CommandBase.Serializer));
+      }
+    }
+
+    public bool SkipMessage
+    {
+      get { return GetValue("SkipMessage").ToObject<bool>(CommandBase.Serializer); }
+      set
+      {
+          SetValue("SkipMessage", JToken.FromObject(value, CommandBase.Serializer));
+      }
+    }
+  }
+
+
+  ///
+  /// Set Skips all encryption messages in the message sequence of the given signal.
+  ///
+  /// Name        Type   Description
+  /// ----------- ------ ---------------------------------------------------------------
+  /// Signal      string Signal key, accepted values : "PULSARX1" and "PULSARX5".
+  /// SkipMessage bool   If True, skips the encryption messages in the message sequence.
+  ///
+
+  public class SetSkipEncryptionNavMessage : CommandBase
+  {
+    public override string Documentation
+    {
+      get { return "Set Skips all encryption messages in the message sequence of the given signal."; }
+    }
+
+    internal const string CmdName = "SetSkipEncryptionNavMessage";
+    internal const string TargetId = "";
+
+    public SetSkipEncryptionNavMessage()
+      : base(CmdName, TargetId)
+    {}
+
+    public SetSkipEncryptionNavMessage(string signal, bool skipMessage)
+      : base(CmdName, TargetId)
+    {
+      Signal = signal;
+      SkipMessage = skipMessage;
+    }
+      
+    public override bool IsValid
+    {
+      get
+      {
+        return base.IsValid
+        && Contains("Signal")
+        && Contains("SkipMessage")
+      ;
+      }
+    }
+
+    public override int ExecutePermission { get { return EXECUTE_IF_IDLE; } }
+
+    public string Signal
+    {
+      get { return GetValue("Signal").ToObject<string>(CommandBase.Serializer); }
+      set
+      {
+          SetValue("Signal", JToken.FromObject(value, CommandBase.Serializer));
+      }
+    }
+
+    public bool SkipMessage
+    {
+      get { return GetValue("SkipMessage").ToObject<bool>(CommandBase.Serializer); }
+      set
+      {
+          SetValue("SkipMessage", JToken.FromObject(value, CommandBase.Serializer));
+      }
+    }
+  }
+
+
+  ///
+  /// Get Skips all encryption messages in the message sequence of the given signal.
+  ///
+  /// Name   Type   Description
+  /// ------ ------ --------------------------------------------------------
+  /// Signal string Signal key, accepted values : "PULSARX1" and "PULSARX5".
+  ///
+
+  public class IsEncryptionNavMessageSkipped : CommandBase
+  {
+    public override string Documentation
+    {
+      get { return "Get Skips all encryption messages in the message sequence of the given signal."; }
+    }
+
+    internal const string CmdName = "IsEncryptionNavMessageSkipped";
+    internal const string TargetId = "";
+
+    public IsEncryptionNavMessageSkipped()
+      : base(CmdName, TargetId)
+    {}
+
+    public IsEncryptionNavMessageSkipped(string signal)
+      : base(CmdName, TargetId)
+    {
+      Signal = signal;
+    }
+      
+    public override bool IsValid
+    {
+      get
+      {
+        return base.IsValid
+        && Contains("Signal")
+      ;
+      }
+    }
+
+    public override int ExecutePermission { get { return EXECUTE_IF_IDLE; } }
+
+    public string Signal
+    {
+      get { return GetValue("Signal").ToObject<string>(CommandBase.Serializer); }
+      set
+      {
+          SetValue("Signal", JToken.FromObject(value, CommandBase.Serializer));
+      }
+    }
+  }
+
+
+  ///
+  /// Result of IsEncryptionNavMessageSkipped.
+  ///
+  /// Name        Type   Description
+  /// ----------- ------ ---------------------------------------------------------------
+  /// Signal      string Signal key, accepted values : "PULSARX1" and "PULSARX5".
+  /// SkipMessage bool   If True, skips the encryption messages in the message sequence.
+  ///
+
+  public class IsEncryptionNavMessageSkippedResult : CommandResult
+  {
+    public override string Documentation
+    {
+      get { return "Result of IsEncryptionNavMessageSkipped."; }
+    }
+
+    internal const string CmdName = "IsEncryptionNavMessageSkippedResult";
+    internal const string TargetId = "";
+
+    public IsEncryptionNavMessageSkippedResult()
+      : base(CmdName, TargetId)
+    {}
+
+    public IsEncryptionNavMessageSkippedResult(CommandBase relatedCommand, string signal, bool skipMessage)
+      : base(CmdName, TargetId, relatedCommand)
+    {
+      Signal = signal;
+      SkipMessage = skipMessage;
+    }
+      
+    public override bool IsValid
+    {
+      get
+      {
+        return base.IsValid
+        && Contains("Signal")
+        && Contains("SkipMessage")
+      ;
+      }
+    }
+
+    public string Signal
+    {
+      get { return GetValue("Signal").ToObject<string>(CommandBase.Serializer); }
+      set
+      {
+          SetValue("Signal", JToken.FromObject(value, CommandBase.Serializer));
+      }
+    }
+
+    public bool SkipMessage
+    {
+      get { return GetValue("SkipMessage").ToObject<bool>(CommandBase.Serializer); }
+      set
+      {
+          SetValue("SkipMessage", JToken.FromObject(value, CommandBase.Serializer));
+      }
+    }
+  }
+
+
+  ///
   /// Add or update an AWGN interference signal.
   ///
   /// Name        Type         Description
@@ -54889,11 +55239,12 @@ namespace Sdx.Cmd
   ///
   /// Insert message to sequence.
   ///
-  /// Name   Type   Description
-  /// ------ ------ -----------------------------------------------------------------------------------------------------------
-  /// Signal string Signal Name ("L2C" for example)
-  /// Index  int    Message index in sequence where to insert. Set to -1 to append the message type at the end of the sequence.
-  /// Type   int    Message type to insert
+  /// Name   Type            Description
+  /// ------ --------------- -----------------------------------------------------------------------------------------------------------
+  /// Signal string          Signal Name ("L2C" for example)
+  /// Index  int             Message index in sequence where to insert. Set to -1 to append the message type at the end of the sequence.
+  /// Type   int             Message type to insert
+  /// Domain optional string Domain of the message type to insert.
   ///
 
   public class MessageSequenceInsert : CommandBase
@@ -54910,12 +55261,13 @@ namespace Sdx.Cmd
       : base(CmdName, TargetId)
     {}
 
-    public MessageSequenceInsert(string signal, int index, int type)
+    public MessageSequenceInsert(string signal, int index, int type, string domain = null)
       : base(CmdName, TargetId)
     {
       Signal = signal;
       Index = index;
       Type = type;
+      Domain = domain;
     }
       
     public override bool IsValid
@@ -54956,6 +55308,18 @@ namespace Sdx.Cmd
       set
       {
           SetValue("Type", JToken.FromObject(value, CommandBase.Serializer));
+      }
+    }
+
+    public string Domain
+    {
+      get { return GetValue("Domain").ToObject<string>(CommandBase.Serializer); }
+      set
+      {
+        if (value == null)
+          RemoveValue("Domain");
+        else
+          SetValue("Domain", JToken.FromObject(value, CommandBase.Serializer));
       }
     }
   }

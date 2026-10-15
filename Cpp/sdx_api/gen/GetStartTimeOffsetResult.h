@@ -13,8 +13,8 @@ namespace Sdx
     /// Result of GetStartTimeOffset.
     ///
     /// Name   Type Description
-    /// ------ ---- -----------------------------------------------------------------------------------------
-    /// Offset int  Time Offset, in seconds, between simulated GPS time and time given by GPS Timing receiver
+    /// ------ ---- ------------------------------------------------------------------------------------------------------------------------------
+    /// Offset int  Time offset, in seconds, between the simulated GPS time and the time given by the selected real-time synchronized time source.
     ///
 
     class GetStartTimeOffsetResult;
